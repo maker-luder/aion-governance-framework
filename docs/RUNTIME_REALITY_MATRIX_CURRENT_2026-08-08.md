@@ -2,8 +2,10 @@
 
 ## Status
 
-- `STATUS = CURRENT_IMPLEMENTATION_CANDIDATE_VIEW`
+- `STATUS = CURRENT_IMPLEMENTATION_CANDIDATE_VIEW / A_B_STABILIZED`
 - `HISTORICAL_MATRIX_PRESERVED = TRUE`
+- `DOCUMENTATION_CONVERGENCE = COMPLETE_CANDIDATE`
+- `RUNTIME_STRONG_QA = PASS`
 - `CANONICAL_EFFECT = NONE`
 - `DEPLOYMENT = FALSE`
 - `SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED`
@@ -19,9 +21,11 @@ This document supersedes the earlier Runtime Reality Matrix **only as the curren
 - Matrix method: `PROPOSED_BY = CHATGPT`, previously authorized by the Human Owner.
 - P0/P1/P2 work: `AUTHORIZED_BY = HUMAN_OWNER`.
 - Migration evidence reuse concept: `PROPOSED_BY = HUMAN_OWNER`.
-- Current implementation and this convergence update: `IMPLEMENTED_BY = CHATGPT`.
+- A+B stabilization work: `AUTHORIZED_BY = HUMAN_OWNER`.
+- Documentation convergence, Strong QA design, QA-gap fixes, and this update: `IMPLEMENTED_BY = CHATGPT`.
+- Strong QA execution: `GITHUB_ACTIONS`.
 - `CODEX_CONTRIBUTION_THIS_CHANGE = NONE`.
-- Final Owner review/approval: `PENDING`.
+- Final Owner review/approval: `PENDING` (C explicitly deferred).
 
 ## Current matrix
 
@@ -30,15 +34,15 @@ This document supersedes the earlier Runtime Reality Matrix **only as the curren
 | Governance Kernel v0.4.0 | fail-closed governance/policy/audit | shared engineering | implemented | existing suites PASS | `SHARED_GOVERNANCE_CANDIDATE` |
 | Astra Engineering Workbench v1.0.0 | candidate engineering control plane | shared/project engineering | implemented | existing suites PASS | `ENGINEERING_CONTROL_PLANE` |
 | Language Core G1 v0.2.1 | research/planning capability artifact | research infrastructure | implemented candidate | existing suites PASS; separate QA status retained | not an individual Runtime |
-| `BoundedExecutionEngine` | bounded governed task execution | shared engineering | implemented | executable-runtime suite PASS | `SHARED_EXECUTION_ENGINE_CANDIDATE` |
+| `BoundedExecutionEngine` | bounded governed task execution | shared engineering | implemented | executable-runtime suite PASS; Strong QA 92.34% branch-aware coverage | `SHARED_EXECUTION_ENGINE_CANDIDATE` |
 | Legacy `aion_astra_runtime.AstraRuntime` | compatibility alias for bounded execution engine | shared engineering / compatibility only | retained | covered by executable Runtime validation | **not** Astra individual Runtime |
 | `IndividualRuntimeContext` | binds agent, Runtime instance, memory stream, event lineage, canonical-state reference and genesis root | per individual Runtime | implemented and required | fail-closed tests PASS | `INDIVIDUAL_RUNTIME_BINDING_CANDIDATE` |
-| AION Runtime v0.1.0 | AION-specific composition of execution, memory and state lineage | AION | implemented | AION suites PASS | `AION_RUNTIME_IMPLEMENTATION_CANDIDATE` |
-| Astra Runtime v0.1.0 | Astra-specific peer composition of execution, memory and state lineage | Astra | implemented | Astra suites PASS | `ASTRA_RUNTIME_IMPLEMENTATION_CANDIDATE` |
+| AION Runtime v0.1.0 | AION-specific composition of execution, memory and state lineage | AION | implemented | AION suites PASS; Strong QA 90.82% branch-aware coverage | `AION_RUNTIME_IMPLEMENTATION_CANDIDATE` |
+| Astra Runtime v0.1.0 | Astra-specific peer composition of execution, memory and state lineage | Astra | implemented | Astra suites PASS; Strong QA 88.37% branch-aware coverage | `ASTRA_RUNTIME_IMPLEMENTATION_CANDIDATE` |
 | AION/Astra task ownership | task context must exactly match bound individual Runtime context | separate AION / Astra | implemented fail-closed | identity mismatch tests PASS | `ENFORCED_CANDIDATE` |
 | Persistent content memory | SQLite memory + identity/access/provenance/conflict/relevance gates | shared mechanism, individually bound ownership | implemented | memory + Runtime integration tests PASS | `GOVERNED_PERSISTENT_MEMORY_CANDIDATE` |
 | Runtime memory ownership | agent/namespace derived from bound Runtime context | separate AION / Astra | implemented | cross-boundary behavior tests PASS | `INDIVIDUAL_MEMORY_BINDING_CANDIDATE` |
-| Individual event lineage | append-only, hash-chained cross-session Runtime history | separate AION / Astra | implemented | state-lineage + Runtime lifecycle tests PASS | `INDIVIDUAL_EVENT_LINEAGE_CANDIDATE` |
+| Individual event lineage | append-only, hash-chained cross-session Runtime history | separate AION / Astra | implemented | state-lineage suite PASS; Strong QA 89.92% branch-aware coverage | `INDIVIDUAL_EVENT_LINEAGE_CANDIDATE` |
 | Task audit | per-task execution evidence | shared execution evidence | implemented | executable-runtime tests PASS | distinct from individual event lineage |
 | Project/system state lineage | project-level state hash chain | project/system | existing implementation | existing identity-governance tests PASS | distinct from AION/Astra life history |
 | Twin Genesis → Runtime context | validated shared genesis can derive two separate Runtime contexts | twin relation / separate individuals | implemented candidate | Twin Genesis tests PASS | `TWIN_RUNTIME_CONTEXT_BINDING_CANDIDATE` |
@@ -51,11 +55,11 @@ This document supersedes the earlier Runtime Reality Matrix **only as the curren
 | Environment evidence registry | content-addressed verified device/environment evidence | shared evidence mechanism | implemented | reuse/change/PASS-gate tests PASS | `REUSABLE_ENVIRONMENT_EVIDENCE_CANDIDATE` |
 | Migration event evidence references | migration events reference source/target evidence IDs | per individual event history | implemented | round-trip tests PASS | `REFERENCE_BASED_EVIDENCE_CANDIDATE` |
 | Migration summary | derived aggregation of raw migration events | read-only derived view | implemented | tests PASS | `DERIVED_VIEW` |
-| AION CLI | status/serve/remember/recall | AION operator surface | implemented | CLI/server tests PASS | `PARTIAL_OPERATOR_SURFACE` |
+| AION CLI | status/serve/remember/recall | AION operator surface | implemented | real CLI flow tests PASS; CLI file 97% coverage | `PARTIAL_OPERATOR_SURFACE` |
 | Astra CLI/operator surface | dedicated operator CLI/network surface | Astra operator surface | not implemented | not required for current stabilization | `DEFERRED` |
 | Lifecycle/migration CLI parity | checkpoint/recover/rollback/migrate/evidence commands | operator surface | not implemented | Python API exists | `DEFERRED` |
 | AION HTTP | health/status only; state-changing HTTP denied | AION operator surface | implemented read-only | server tests PASS | `READ_ONLY_CANDIDATE_SURFACE` |
-| Strong Runtime QA | strict typing, coverage, wheel build, cold/offline install, import smoke | engineering validation | stabilization target | pending execution in this cycle | `PENDING_STRONG_QA` |
+| Strong Runtime QA | strict typing, branch-aware coverage, wheel build, cold/offline install, import smoke | engineering validation | repeatable workflow implemented | **PASS — run 31223645506** | `STRONG_QA_PASS` |
 | Canonical promotion | Owner-approved authoritative Runtime state | governance | not performed | Owner final review pending | `NOT_APPROVED` |
 | Independent IV&V | independent verification/validation | validation | not achieved | explicitly unclaimed | `NOT_ACHIEVED` |
 | Subjectivity conclusion | research conclusion | research governance | unresolved by design | explicit non-claims retained | `NOT_ESTABLISHED` |
@@ -76,27 +80,59 @@ The following historical gaps are now implemented as candidates:
 
 These are implementation candidates, not canonical or subjective-identity conclusions.
 
-## Remaining stabilization gaps
+## A+B stabilization evidence
 
-### S1 — Strong Runtime QA
+### A — Documentation convergence
 
-Add repeatable validation for changed Runtime components:
+Completed candidate convergence set:
 
-- mypy strict;
-- branch-aware coverage;
-- wheel build;
-- cold install from built wheels;
-- offline/no-index installation from a local wheelhouse;
-- import smoke after cold installation.
+- this current Runtime Reality Matrix;
+- AION Runtime README;
+- Astra Runtime README;
+- Individual Runtime State README.
 
-### S2 — Documentation convergence
+The historical pre-P0/P1/P2 Matrix remains preserved and is not rewritten as though the earlier gaps never existed.
 
-Current component responsibility documents must remain synchronized with implementation. This matrix, AION Runtime README, Astra Runtime README, and Individual Runtime State README are the current convergence set.
+### B — Strong Runtime QA
 
-### Deferred, not missing
+Repeatable workflow: `.github/workflows/runtime-strong-qa.yml`  
+Repeatable script: `scripts/run_runtime_strong_qa.sh`  
+Passing GitHub Actions run: `31223645506`
 
-The following are deliberately outside this stabilization cycle:
+Strict mypy result:
 
+- executable Runtime: PASS
+- individual Runtime state: PASS
+- AION Runtime: PASS
+- Astra Runtime: PASS
+
+Branch-aware coverage:
+
+- executable Runtime: `92.34%`
+- individual Runtime state: `89.92%`
+- AION Runtime: `90.82%`
+- Astra Runtime: `88.37%`
+
+Packaging validation:
+
+- all local Runtime dependency wheels built successfully;
+- clean virtual environment created;
+- `--no-index` installation from the local wheelhouse succeeded;
+- cold imports succeeded for the Runtime dependency chain;
+- `RUNTIME_STRONG_QA_IMPORT_SMOKE=PASS`;
+- `RUNTIME_STRONG_QA=PASS`.
+
+Strong QA exposed and resolved two stabilization defects without adding Runtime capability:
+
+1. AION CLI nested status payload typing was too narrow for mypy strict; fixed without changing output behavior.
+2. AION CLI execution paths were effectively untested for coverage; real status, remember/recall, and serve-delegation tests were added. The Strong QA threshold was not lowered.
+
+## Deferred, not missing
+
+The following are deliberately outside A+B and remain deferred:
+
+- Owner final acceptance/review decision (C);
+- merge/canonical-promotion decision (D);
 - dedicated Astra CLI/network operator surface;
 - lifecycle/migration CLI parity;
 - state-changing public HTTP API;
@@ -111,7 +147,7 @@ The following are deliberately outside this stabilization cycle:
 
 The principal architectural gap identified before P0/P1/P2 — end-to-end individual Runtime binding across identity, Runtime instance, memory ownership and event lineage — now has an implemented candidate for both AION and Astra.
 
-The current focus is therefore **stabilization evidence**, not new capability expansion.
+A+B stabilization has now produced synchronized current-state documentation plus repeatable strong engineering evidence. C and D remain intentionally unopened.
 
 `IMPLEMENTED_CANDIDATE != CANONICAL_RUNTIME`
 
