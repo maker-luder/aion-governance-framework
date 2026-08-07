@@ -1,5 +1,7 @@
 from .store import (
+    EnvironmentEvidence,
     IndividualRuntimeStateStore,
+    MigrationSummary,
     RecoveryState,
     RuntimeCheckpoint,
     RuntimeEvent,
@@ -7,7 +9,9 @@ from .store import (
 )
 
 __all__ = [
+    "EnvironmentEvidence",
     "IndividualRuntimeStateStore",
+    "MigrationSummary",
     "RecoveryState",
     "RuntimeCheckpoint",
     "RuntimeEvent",
