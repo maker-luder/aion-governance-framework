@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-runtime"
+version = "0.1.0"
+description = "Governed AION runtime implementation candidate with persistent cross-session memory"
+requires-python = ">=3.11"
+dependencies = [
+  "aion-astra-executable-runtime==0.1.0",
+  "memory-recall-governance-v0.1.0==0.1.0",
+]
+
+[project.scripts]
+aion-runtime = "aion_runtime.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../memory_recall_governance_v0.1.0/src", "../executable_runtime_v0.1.0/src"]
+addopts = "-ra"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_runtime"]
