@@ -45,6 +45,8 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
 
+The frozen RC block above records the established public baseline. Post-RC implementation work is developed on review-gated branches and does not silently rewrite that historical baseline.
+
 ## Included components
 
 | Area | Public module | Status |
@@ -60,7 +62,7 @@ DEPLOYMENT = FALSE
 | Bounded runtime | `components/executable_runtime_v0.1.0` | source-derived candidate, non-canonical |
 | Bazi example | `examples/bazi-capability_v0.1.1` | deterministic domain example |
 | Language Core G1 | `research-labs/language-core-g1_v0.2.1` | public-safe planning and engineering subset |
-| Twin embodiment | `research-labs/twin-genesis-embodiment_v0.1.0` | deferred design candidate |
+| Twin embodiment | `research-labs/twin-genesis-embodiment_v0.1.0` | governed research candidate |
 
 ## Core governance pipeline
 
@@ -119,7 +121,9 @@ The historical source package reported 232 passing tests across five public comp
 
 ## License status
 
-A final public redistribution license has not been selected by the human Owner. No open-source permission should be inferred merely because the repository is publicly viewable. See [`LICENSE_DECISION_REQUIRED.md`](LICENSE_DECISION_REQUIRED.md).
+The public repository is licensed under the **Apache License, Version 2.0** (`Apache-2.0`). See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`LICENSE_DECISION_REQUIRED.md`](LICENSE_DECISION_REQUIRED.md).
+
+The repository license does not silently relicense third-party dependencies, model weights, datasets, trademarks, or separately licensed materials; those remain subject to their own provenance and license review.
 
 ## Provenance and AI assistance
 
