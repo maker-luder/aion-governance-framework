@@ -33,11 +33,11 @@ jobs:
       - name: Install test runner
         run: python -m pip install --upgrade pip pytest
 
-      - name: Compile public Python sources
-        run: python -m compileall -q components examples research-labs scripts
-
       - name: Scan public tree for prohibited artifacts and obvious secrets
         run: python scripts/scan_public_tree.py
+
+      - name: Compile public Python sources
+        run: python -m compileall -q components examples research-labs scripts
 
       - name: Run component test suites
         run: python scripts/run_component_tests.py
