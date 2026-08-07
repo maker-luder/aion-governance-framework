@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROHIBITED_SUFFIXES = {".zip", ".whl", ".sqlite3", ".db", ".pyc"}
+GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "build", "dist"}
 PATH_PATTERNS = [
     re.compile(r"[A-Za-z]:\\\\Users\\\\[A-Za-z0-9._-]+", re.I),
     re.compile(r"/home/[A-Za-z0-9._-]+/"),
@@ -19,6 +20,8 @@ SECRET_PATTERNS = [
 errors: list[str] = []
 for path in ROOT.rglob("*"):
     if not path.is_file() or ".git" in path.parts:
+        continue
+    if any(part in GENERATED_PARTS for part in path.parts):
         continue
     rel = path.relative_to(ROOT).as_posix()
     if rel == "scripts/scan_public_tree.py":
