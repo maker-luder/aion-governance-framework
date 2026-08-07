@@ -4,13 +4,14 @@
 
 - RESEARCH: ACTIVE
 - GITHUB ENGINEERING: CHECKPOINTED
-- MAIN: STABLE CANDIDATE PENDING FINAL CI
+- MAIN: STABLE
+- LATEST FINAL QUALITY: SUCCESS
 - SUBJECTIVITY CONCLUSION: NOT_ESTABLISHED
 - INDEPENDENT IV&V: NOT_ACHIEVED
 
 ## What this checkpoint means
 
-This repository has reached a reproducible engineering checkpoint. The current Runtime/Memory and Research Convergence lines have been merged into `main` after successful branch-level Quality validation.
+This repository has reached a reproducible engineering checkpoint. The current Runtime/Memory and Research Convergence lines have been merged into `main` after successful branch-level and integrated Quality validation.
 
 The research program itself is not closed. New engineering work should begin only when a later research cycle produces a concrete requirement that warrants changing the repository.
 
