@@ -52,10 +52,27 @@ def test_checkpoint_recovery_and_migration_preserve_astra_lineage(tmp_path):
     assert recovery.checkpoint is not None
     assert recovery.checkpoint.checkpoint_id == "ASTRA-CP-001"
 
+    source = runtime.register_environment_evidence(
+        device_id="DEVICE-A",
+        hardware_profile_hash="hardware-a",
+        runtime_environment_hash="runtime-a",
+        policy_config_hash="policy-v1",
+        verification_reference="qa:a",
+    )
+    target = runtime.register_environment_evidence(
+        device_id="DEVICE-B",
+        hardware_profile_hash="hardware-b",
+        runtime_environment_hash="runtime-b",
+        policy_config_hash="policy-v1",
+        verification_reference="qa:b",
+    )
     migrated = runtime.migrate_runtime(
         context(runtime_instance_id="ASTRA-I-002"),
         owner_approved=True,
+        source_evidence_id=source.evidence_id,
+        target_evidence_id=target.evidence_id,
     )
     assert migrated.context.runtime_instance_id == "ASTRA-I-002"
     assert migrated.context.event_lineage_id == runtime.context.event_lineage_id
     assert migrated.state.verify() is True
+    assert migrated.migration_summary()[0].migration_count == 1
