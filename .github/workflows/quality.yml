@@ -30,8 +30,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install test runner
-        run: python -m pip install --upgrade pip pytest
+      - name: Install test runner and declared external test dependency
+        run: |
+          python -m pip install --upgrade pip pytest
+          python -m pip install -e examples/bazi-capability_v0.1.1
 
       - name: Scan public tree for prohibited artifacts and obvious secrets
         run: python scripts/scan_public_tree.py
