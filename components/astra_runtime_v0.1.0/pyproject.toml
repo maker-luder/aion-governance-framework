@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "astra-runtime"
+version = "0.1.0"
+description = "Governed Astra individual runtime implementation candidate"
+requires-python = ">=3.11"
+dependencies = [
+  "aion-astra-executable-runtime==0.1.0",
+  "memory-recall-governance-v0.1.0==0.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "../memory_recall_governance_v0.1.0/src", "../executable_runtime_v0.1.0/src"]
+addopts = "-ra"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["astra_runtime"]
