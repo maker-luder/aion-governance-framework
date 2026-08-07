@@ -169,15 +169,15 @@ All results remain `NOT_EVALUATED` until the criterion set is frozen and C begin
 | AC-MEM-01 | Individual Runtime memory writes and recall must derive ownership from the bound Runtime context rather than caller-selected AION/Astra ownership fields. | P0 memory-binding requirement | integration tests; implementation reference | BLOCKING | NOT_EVALUATED |
 | AC-EVT-01 | AION and Astra persistent Runtime event lineages must remain separate, append-only, and bound to stable individual ownership fields. | P1 requirement | state-lineage tests; Runtime lifecycle tests; schema/code evidence | BLOCKING | NOT_EVALUATED |
 | AC-EVT-02 | Event-lineage evidence must not be represented as proof of consciousness, phenomenal continuity, or established subjectivity. | Research non-claim/stop line | Current Matrix; READMEs; reports; PR wording | BLOCKING | NOT_EVALUATED |
-| AC-LIFE-01 | Reopen/restart of the same individual Runtime context must continue the existing sequence/hash chain rather than silently create a new history. | P2 requirement | restart/reopen tests | MAJOR | NOT_EVALUATED |
+| AC-LIFE-01 | Reopen/restart of the same individual Runtime context must continue the existing sequence/hash chain rather than silently create a new history. | P2 requirement; recoverability/continuity acceptance calibration | restart/reopen tests; sequence/hash-chain evidence | BLOCKING | NOT_EVALUATED |
 | AC-LIFE-02 | Recovery must verify lineage integrity and fail closed when the event chain is invalid. | P2 recoverability requirement; externally calibrated recoverability/acceptance principle | corruption/verification tests; implementation evidence | BLOCKING | NOT_EVALUATED |
 | AC-LIFE-03 | Rollback must be non-destructive to event history: selecting an older checkpoint must not erase later historical events. | P2 requirement / Owner-reviewed research interpretation | rollback tests; event-history evidence | BLOCKING | NOT_EVALUATED |
 | AC-LIFE-04 | Runtime-instance migration may change only `runtime_instance_id`; stable agent, memory-stream, event-lineage, canonical-state-reference, and genesis-root ownership must remain unchanged. | P2 migration invariant | migration negative/positive tests | BLOCKING | NOT_EVALUATED |
 | AC-LIFE-05 | A migration requires validated source and target environment evidence; evidence reuse is allowed only when the environment fingerprint is unchanged. | Human Owner migration-evidence-reuse proposal | evidence-registry tests; PASS-gate tests; fingerprint-change tests | BLOCKING | NOT_EVALUATED |
-| AC-LIFE-06 | Repeated migration events remain individually recorded even when device/environment evidence is reused; summaries are derived views and do not replace raw history. | Human Owner evidence-reuse proposal | round-trip migration tests; summary tests | MAJOR | NOT_EVALUATED |
+| AC-LIFE-06 | Repeated migration events must remain individually recorded even when device/environment evidence is reused; summaries are derived views and must not replace, deduplicate, truncate, or erase raw migration history. | Human Owner evidence-reuse proposal; append-only history invariant | round-trip migration tests; summary tests; raw-event inspection | BLOCKING | NOT_EVALUATED |
 | AC-QA-01 | Standard repository Quality must pass for Python 3.11 and Python 3.12 on the locked acceptance target. | Existing repository Quality gate | GitHub Actions run tied to locked head | BLOCKING | NOT_EVALUATED |
-| AC-QA-02 | Runtime Strong QA must pass on the locked acceptance target: mypy strict, branch-aware coverage threshold, wheel build, cold `--no-index` local-wheelhouse install, and cold import smoke. | A/B Strong QA gate | Strong QA workflow tied to locked head | BLOCKING | NOT_EVALUATED |
-| AC-QA-03 | Each changed Runtime component covered by the Strong QA gate must satisfy the previously established minimum branch-aware coverage threshold of 80%. | Pre-result Strong QA threshold | coverage report tied to locked head | MAJOR | NOT_EVALUATED |
+| AC-QA-02 | Runtime Strong QA execution on the locked acceptance target must successfully complete strict mypy checks, local dependency wheel builds, clean virtual-environment creation, cold `--no-index` installation from the local wheelhouse, and cold import smoke. Coverage acceptance is evaluated separately by AC-QA-03. | A/B Strong QA gate | Strong QA logs/results tied to locked head | BLOCKING | NOT_EVALUATED |
+| AC-QA-03 | Each changed Runtime component covered by the Strong QA gate must satisfy the previously established minimum branch-aware coverage threshold of `>=80%`. | Pre-result Strong QA threshold | coverage report tied to locked head | BLOCKING | NOT_EVALUATED |
 | AC-QA-04 | A passing test suite must not be the sole evidence for acceptance; requirement-to-criterion-to-test/evidence traceability must exist for blocking and major criteria. | NASA SWE-034 objective-evidence/traceability guidance; ISO 25040 evaluation framing | Acceptance Evidence Index / traceability matrix | BLOCKING | NOT_EVALUATED |
 | AC-DOC-01 | Current Reality Matrix and component READMEs must describe current implementation without overwriting historical gap evidence. | A documentation-convergence requirement | current/historical documents; diff review | MAJOR | NOT_EVALUATED |
 | AC-DOC-02 | Documentation must distinguish Python API capability from deferred operator-surface parity and must not claim deployment/canonical promotion that did not occur. | A convergence boundary; external acceptance documentation principle | README/Matrix/report review | BLOCKING | NOT_EVALUATED |
@@ -186,6 +186,16 @@ All results remain `NOT_EVALUATED` until the criterion set is frozen and C begin
 | AC-GOV-01 | Owner acceptance must not be represented as canonical promotion, deployment approval, or independent IV&V. | Existing governance invariants; ISO evaluator-role distinction | Decision Record wording; Matrix/PR state | BLOCKING | NOT_EVALUATED |
 | AC-GOV-02 | Independent IV&V remains `NOT_ACHIEVED` unless a genuinely independent verification activity is separately established and evidenced. | Existing limitation; ISO/IEC 25041 role distinction | Current Matrix; acceptance record | BLOCKING | NOT_EVALUATED |
 | AC-GOV-03 | Any blocking/major failure discovered during C must remain visible as FAIL/HOLD/CAPA; acceptance criteria may not be weakened solely to obtain an acceptance result. | Anti-hindsight/change-control rule; NASA acceptance principle | C decision log; NCR/CAPA records | BLOCKING | NOT_EVALUATED |
+
+### Criterion-review disposition before freeze
+
+The remaining criterion families were challenged for severity and overlap without considering current PASS results.
+
+- `AC-LIFE-01`: raised from `MAJOR` to `BLOCKING`; silent lineage reset defeats the P1/P2 continuity candidate.
+- `AC-LIFE-06`: raised from `MAJOR` to `BLOCKING`; migration evidence reuse may reduce duplication but must never replace unique append-only migration history.
+- `AC-QA-02` / `AC-QA-03`: overlap removed. QA-02 now covers strict typing/build/cold-install/import execution; QA-03 separately owns the pre-established branch-aware coverage threshold.
+- `AC-QA-03`: raised from `MAJOR` to `BLOCKING` because the threshold was intentionally established as a Strong QA gate before final results were known.
+- MEM, EVT, DOC, PROV, and GOV criteria remain distinct because each asserts a different acceptance proposition even where evidence sources overlap.
 
 ## 7. Candidate C entrance criteria
 
@@ -245,6 +255,7 @@ Final target-head workflow run IDs, freeze approval, and Owner acceptance decisi
 - Human Owner review flag identifying AH-05/AH-07 as requiring special review: `PROPOSED_BY = HUMAN_OWNER`.
 - AC-ID-02 clarification, AC-ID-03A/03B split, and AH-05/AH-07 review revisions: `IMPLEMENTED_BY = CHATGPT`.
 - MOD-01 wording correction and MOD-02/MOD-03 freeze/entrance consistency design: `IMPLEMENTED_BY = CHATGPT`.
+- Remaining-criteria severity/overlap review: `IMPLEMENTED_BY = CHATGPT`.
 - C0 anti-hindsight control design and this draft: `IMPLEMENTED_BY = CHATGPT`.
 - External standards/guidance act as calibration sources, not project authors or approvers.
 - `CODEX_CONTRIBUTION_THIS_CHANGE = NONE`.
