@@ -66,7 +66,7 @@ def main(argv: list[str] | None = None) -> int:
     runtime = AIONRuntime(memory_db=args.memory_db, context=_context(args))
 
     if args.command == "status":
-        payload = runtime.status().to_dict()
+        payload: dict[str, object] = dict(runtime.status().to_dict())
         payload["runtime_context"] = runtime.context.to_dict()
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return 0
