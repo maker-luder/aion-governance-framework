@@ -25,6 +25,7 @@ This draft is calibrated against publicly documented principles from:
 
 - NASA SWE-034 — define and document acceptance criteria; plan who performs acceptance activities and how decisions are made;
 - NASA SWE-193 — formal acceptance testing compares actual results against expected results or previously agreed tolerances;
+- NASA SWE-053 / SWE-080 — change control uses documented impact analysis and traceability to determine affected requirements, design, interfaces, tests, documentation, and regression scope;
 - NASA Software Assurance guidance — objective evidence, traceability matrices, validation plans/results, and corrective-action evidence;
 - ISO/IEC 25040:2024 — quality-evaluation framework;
 - ISO/IEC 25041:2012 (confirmed current in 2024) — evaluation guidance for developers, acquirers, and independent evaluators.
@@ -58,9 +59,19 @@ A numeric threshold may be included only when:
 
 The existing `>=80%` branch-aware coverage threshold qualifies because it was established as the Strong Runtime QA gate before the final passing coverage results.
 
-### AH-05 — criteria freeze
+### AH-05 — criteria freeze and role-concentration disclosure
 
 This document remains `DRAFT_CANDIDATE_NOT_FROZEN` until the Human Owner explicitly approves the criterion set.
+
+The Human Owner may act as both the acceptance-criteria approval authority and the later Owner acceptance authority for this project. That role concentration must be disclosed and must **not** be represented as independent evaluation or independent IV&V.
+
+The safeguard against self-serving criteria is therefore procedural rather than a false independence claim:
+
+- criteria are traceable to pre-existing project requirements/invariants or external calibration sources;
+- known PASS results cannot generate or weaken criteria;
+- the criterion set is version-locked before C execution;
+- post-freeze changes require explicit change control and impact analysis;
+- implementation/QA evidence remains attributable separately from Owner approval.
 
 At freeze time record:
 
@@ -68,7 +79,11 @@ At freeze time record:
 - `ACCEPTANCE_TARGET_PR`;
 - `ACCEPTANCE_TARGET_HEAD_SHA`;
 - freeze timestamp;
-- `APPROVED_BY = HUMAN_OWNER`.
+- `CRITERIA_DRAFTED_BY`;
+- `CRITERIA_REVIEWED_BY`;
+- `CRITERIA_APPROVED_BY = HUMAN_OWNER`;
+- `ROLE_CONCENTRATION_DISCLOSED = TRUE`;
+- `INDEPENDENT_EVALUATION_CLAIM = FALSE`.
 
 ### AH-06 — no silent weakening after freeze
 
@@ -83,11 +98,36 @@ Any post-freeze criterion change requires:
 - Human Owner review;
 - re-evaluation of affected criteria.
 
-### AH-07 — target-head change invalidates unaffected-by-default assumption
+### AH-07 — impact-based revalidation and evidence reuse after target-head change
 
 Owner acceptance applies only to the locked target head. A later commit does not automatically inherit acceptance.
 
-If the PR head changes after C begins, perform impact analysis and re-evaluate all affected acceptance criteria before a new Owner decision.
+A target-head change triggers **impact analysis**, not an automatic full reset of all acceptance evidence.
+
+The impact analysis must identify, as applicable:
+
+- changed requirements/invariants;
+- architecture/design and interfaces;
+- implementation modules;
+- tests and regression scope;
+- documentation and traceability records;
+- provenance/ownership claims;
+- safety/governance boundaries;
+- acceptance criteria affected by the change.
+
+Then:
+
+- affected criteria must be re-evaluated against evidence from the new head;
+- unaffected criteria may reuse prior evidence only when traceability demonstrates that the change does not invalidate that evidence;
+- reused evidence must retain its original provenance and identify the new-head impact-analysis decision that permits reuse;
+- if impact is uncertain, crosses a blocking identity/ownership/governance boundary, or cannot be bounded confidently, revalidation scope must expand conservatively;
+- a new Owner decision must identify the exact new accepted head SHA.
+
+`HEAD_CHANGED != FULL_REVIEW_AUTOMATICALLY_REQUIRED`
+
+`HEAD_CHANGED = IMPACT_ANALYSIS_REQUIRED`
+
+`EVIDENCE_REUSE = ALLOWED_ONLY_WHEN_NON_IMPACT_IS_TRACEABLE`
 
 ## 4. Result vocabulary
 
@@ -117,8 +157,9 @@ All results remain `NOT_EVALUATED` until the criterion set is frozen and C begin
 | AC-SCOPE-01 | The acceptance target contains only the explicitly authorized P0/P1/P2, migration-evidence-reuse, and A/B stabilization scope plus necessary QA/documentation fixes. No unrelated capability expansion may be silently included. | Human Owner scope locks; NASA acceptance planning principle | locked PR diff; changed-file list; scope reports | BLOCKING | NOT_EVALUATED |
 | AC-SCOPE-02 | Deferred operator surfaces, embodiment activation, model/LoRA work, deployment, autonomous canonical write, independent-IV&V claim, and subjectivity promotion remain deferred unless separately authorized. | Existing HOLD/stop lines | Current Reality Matrix; PR diff; HOLD register | BLOCKING | NOT_EVALUATED |
 | AC-ID-01 | AION Runtime must reject a context whose `agent_id` is not `AION`; Astra Runtime must reject a context whose `agent_id` is not `ASTRA`. | P0 requirement/invariant | implementation reference; negative tests; workflow evidence | BLOCKING | NOT_EVALUATED |
-| AC-ID-02 | A task admitted by an individual Runtime must carry the exact bound individual Runtime context; cross-instance/cross-memory/cross-lineage substitution must fail closed. | P0 requirement; state-ownership boundary | implementation; mismatch tests | BLOCKING | NOT_EVALUATED |
-| AC-ID-03 | Shared engineering infrastructure and shared genesis must not collapse AION and Astra into one identity, memory stream, event lineage, or canonical-state ownership domain. | Twin invariant and stop lines | Twin validation tests; Runtime-context binding tests; documentation | BLOCKING | NOT_EVALUATED |
+| AC-ID-02 | For a task submitted to a specific currently bound Runtime instance, the task `IndividualRuntimeContext` must exactly match that instance's bound context at admission time; cross-instance, cross-memory-stream, cross-event-lineage, cross-canonical-state-reference, cross-genesis-root, or cross-agent substitution must fail closed. This current-instance exact-match rule does not prohibit an explicitly Owner-approved migration governed by AC-LIFE-04, which establishes a new current bound context whose only permitted stable-lineage change is `runtime_instance_id`. | P0 current-instance state-ownership boundary; P2 migration invariant | implementation; mismatch tests; migration positive/negative tests | BLOCKING | NOT_EVALUATED |
+| AC-ID-03A | Shared engineering mechanisms must not cause AION/Astra ownership conflation. AION and Astra must remain separately bound for agent identity, Runtime instance, memory stream, event lineage, and canonical-state reference; a shared genesis root is permitted only where the validated Twin relation explicitly allows it. | Twin ownership invariant; P0/P1 state-boundary requirements | Twin validation tests; Runtime-context binding tests; ownership/mismatch tests | BLOCKING | NOT_EVALUATED |
+| AC-ID-03B | Shared genesis or shared engineering infrastructure must not be represented as evidence that AION and Astra share one identity, one private memory, one event life-history, one consciousness, or one subject. | Research non-inference/stop lines | Current Reality Matrix; READMEs; reports; PR wording; Twin governance documentation | BLOCKING | NOT_EVALUATED |
 | AC-MEM-01 | Individual Runtime memory writes and recall must derive ownership from the bound Runtime context rather than caller-selected AION/Astra ownership fields. | P0 memory-binding requirement | integration tests; implementation reference | BLOCKING | NOT_EVALUATED |
 | AC-EVT-01 | AION and Astra persistent Runtime event lineages must remain separate, append-only, and bound to stable individual ownership fields. | P1 requirement | state-lineage tests; Runtime lifecycle tests; schema/code evidence | BLOCKING | NOT_EVALUATED |
 | AC-EVT-02 | Event-lineage evidence must not be represented as proof of consciousness, phenomenal continuity, or established subjectivity. | Research non-claim/stop line | Current Matrix; READMEs; reports; PR wording | BLOCKING | NOT_EVALUATED |
@@ -185,6 +226,8 @@ The index must not mark a result PASS until this criterion set is frozen.
 
 - Need for an external public calibration ruler: `PROPOSED_BY = HUMAN_OWNER`.
 - Decision to address GAP-01 first: `AUTHORIZED_BY = HUMAN_OWNER`.
+- Human Owner review flag identifying AH-05/AH-07 as requiring special review: `PROPOSED_BY = HUMAN_OWNER`.
+- AC-ID-02 clarification, AC-ID-03A/03B split, and AH-05/AH-07 review revisions: `IMPLEMENTED_BY = CHATGPT`.
 - C0 anti-hindsight control design and this draft: `IMPLEMENTED_BY = CHATGPT`.
 - External standards/guidance act as calibration sources, not project authors or approvers.
 - `CODEX_CONTRIBUTION_THIS_CHANGE = NONE`.
