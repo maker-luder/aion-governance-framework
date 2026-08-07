@@ -1,4 +1,5 @@
 from aion_affective_motivation import (
+    ConflictKind,
     MotivationalGovernancePolicy,
     MotivationalSignal,
     MotivationalState,
@@ -25,23 +26,42 @@ def signal(domain: SignalDomain = SignalDomain.GENERAL, **overrides: float) -> M
     )
 
 
-def state(*signals: MotivationalSignal) -> MotivationalState:
+def state(
+    *signals: MotivationalSignal,
+    declared_conflicts: tuple[ConflictKind, ...] = (),
+) -> MotivationalState:
     return MotivationalState(
         state_id="state-1",
         subject_ref="candidate-subject",
         context_ref="context-1",
         signals=tuple(signals),
+        declared_conflicts=declared_conflicts,
     )
 
 
 def test_wanting_and_predicted_liking_are_independent_dimensions() -> None:
     analysis = MotivationalStateEngine().analyze(state(signal()))
     assert analysis.wanting_liking_are_nonidentical is True
+    assert ConflictKind.WANTING_LIKING in analysis.conflicts
 
 
 def test_approach_and_avoidance_can_coexist() -> None:
     analysis = MotivationalStateEngine().analyze(state(signal()))
     assert analysis.approach_avoidance_conflict is True
+    assert analysis.unresolved_conflict is True
+    assert ConflictKind.APPROACH_AVOIDANCE in analysis.conflicts
+
+
+def test_declared_goal_value_conflict_can_remain_unresolved() -> None:
+    current = state(
+        signal(approach=0.0, avoidance=0.0, wanting=0.5, predicted_liking=0.5),
+        declared_conflicts=(ConflictKind.GOAL_VALUE,),
+    )
+    analysis = MotivationalStateEngine().analyze(current)
+    assert analysis.conflicts == (ConflictKind.GOAL_VALUE,)
+    assert analysis.unresolved_conflict is True
+    assert analysis.action_authorized is False
+    assert analysis.canonical_effect == "NONE"
 
 
 def test_motivational_state_never_grants_action_authority() -> None:
