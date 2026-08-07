@@ -36,8 +36,20 @@ jobs:
       - name: Compile public Python sources
         run: python -m compileall -q components examples research-labs scripts
 
-      - name: Verify public-package safety boundary
-        run: python scripts/verify_release.py
+      - name: Scan public tree for prohibited artifacts and obvious secrets
+        run: python scripts/scan_public_tree.py
 
       - name: Run component test suites
         run: python scripts/run_component_tests.py
+
+  frozen-release-verification:
+    name: Frozen release manifest verification
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify frozen public release manifest
+        run: python scripts/verify_release.py
