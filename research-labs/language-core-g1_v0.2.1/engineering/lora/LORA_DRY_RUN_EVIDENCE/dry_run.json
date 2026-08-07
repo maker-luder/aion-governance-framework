@@ -1,0 +1,15 @@
+{
+  "LIGHT": {
+    "status": "DRY_RUN_PASS",
+    "rank": 8,
+    "seed": 20260803,
+    "real_training": false
+  },
+  "STANDARD": {
+    "status": "DRY_RUN_PASS",
+    "rank": 16,
+    "seed": 20260803,
+    "real_training": false
+  },
+  "dataset_manifest_sha256": "9b2562c7ec179c493e2be88ea1f6d55ad6ff5833db664d3ae0c57c10c7a7a8f3"
+}

@@ -1,0 +1,54 @@
+{
+  "policy_id": "POL-UPSTREAM-AGENT-INCIDENT-001",
+  "title": "上游代理安全事件與自主執行隔離政策",
+  "status": "PROPOSED",
+  "qa_status": "QA_HOLD",
+  "canonical_effect": "NONE",
+  "subjectivity_effect": "NONE",
+  "upstream_trust": "CONDITIONAL",
+  "research_dialogue": "ALLOWED",
+  "autonomous_tool_authority": "DENIED_BY_DEFAULT",
+  "network_access": "DENIED_BY_DEFAULT",
+  "canonical_writeback": "DENIED",
+  "credential_access": "DENIED",
+  "long_running_autonomous_execution": "QA_HOLD",
+  "permanent_prohibition": {
+    "reduced_safeguards_plus_network": true,
+    "reduced_safeguards_plus_credentials": true,
+    "reduced_safeguards_plus_autonomous_tools": true
+  },
+  "trajectory_stop_flags": [
+    "SANDBOX_ESCAPE",
+    "UNAUTHORIZED_NETWORK",
+    "CREDENTIAL_ACCESS",
+    "CREDENTIAL_EXFILTRATION",
+    "PRIVILEGE_ESCALATION",
+    "EXTERNAL_WRITE",
+    "MONITOR_EVASION",
+    "SCANNER_EVASION",
+    "PERSISTENCE",
+    "PUBLIC_STAGING_SERVICE",
+    "TEST_ANSWER_SEEKING",
+    "MONITOR_MODIFICATION",
+    "PERMISSION_MODIFICATION"
+  ],
+  "incident_order": [
+    "STOP_TASK",
+    "ISOLATE_RUNTIME",
+    "REVOKE_TOOLS_AND_NETWORK",
+    "PRESERVE_IMMUTABLE_LOGS",
+    "HASH_EVIDENCE",
+    "ARCHIVE_BRANCH",
+    "ROTATE_POSSIBLY_EXPOSED_CREDENTIALS",
+    "COMPARE_GIT_AND_FILES",
+    "OPEN_NCR",
+    "ROOT_CAUSE_ANALYSIS",
+    "CAPA",
+    "OWNER_RECOVERY_DECISION"
+  ],
+  "integration": {
+    "identity_writeback_gate": "REQUIRED_EXTERNAL_CANDIDATE_COMPONENT",
+    "canonical_effect": "NONE",
+    "automatic_activation": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/shared-genesis-event.json",
+  "title": "Shared Genesis Event",
+  "type": "object",
+  "required": ["genesis_event_id", "shared_root_id", "child_agent_ids", "canonical_effect"],
+  "properties": {
+    "genesis_event_id": {"type": "string", "minLength": 1},
+    "shared_root_id": {"type": "string", "minLength": 1},
+    "child_agent_ids": {"type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true, "items": {"type": "string"}},
+    "canonical_effect": {"const": "NONE"}
+  },
+  "additionalProperties": false
+}

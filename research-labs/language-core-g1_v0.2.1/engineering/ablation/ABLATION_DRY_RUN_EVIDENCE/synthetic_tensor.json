@@ -1,0 +1,8 @@
+{
+  "status": "DRY_RUN_PASS",
+  "targeted_count": 4,
+  "random_count": 4,
+  "strength": 0.01,
+  "seed": 20260803,
+  "actual_model_modified": false
+}

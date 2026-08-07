@@ -1,0 +1,42 @@
+{
+  "models": [
+    {
+      "model_id": "G1-BASE", "display_name": "Generation 1 Base", "family_generation": "G1",
+      "parent_model_id": null, "upstream_model_name": "UNKNOWN", "upstream_developer": "UNKNOWN",
+      "upstream_license": "NOT_VERIFIED", "source_path": null, "source_format": "UNKNOWN",
+      "parameter_count": null, "quantization": "UNKNOWN", "precision": "UNKNOWN",
+      "tokenizer_id": "UNKNOWN", "chat_template_id": "UNKNOWN", "context_length": null,
+      "modification_type": "NONE", "modification_description": "Unmodified baseline",
+      "adapter_path": null, "merged": false, "runtime": "ollama", "sha256": null,
+      "status": "BASELINE_PENDING", "qa_status": "QA_HOLD", "canonical_effect": "NONE",
+      "read_only": true, "notes": "Permanent baseline; never overwrite or delete"
+    },
+    {
+      "model_id": "G1-TW-LORA", "display_name": "G1 Traditional Chinese LoRA Candidate",
+      "family_generation": "G1", "parent_model_id": "G1-BASE", "modification_type": "LORA_PLANNED",
+      "modification_description": "Configuration skeleton only; no training", "status": "EXPERIMENTAL",
+      "qa_status": "QA_HOLD", "canonical_effect": "NONE", "read_only": false
+    },
+    {
+      "model_id": "G1-ABLATION-LOW", "display_name": "G1 Low-Intensity Ablation Candidate",
+      "family_generation": "G1", "parent_model_id": "G1-BASE", "modification_type": "ABLATION_PLANNED",
+      "modification_description": "Configuration skeleton only; no weight modification",
+      "status": "EXPERIMENTAL", "qa_status": "QA_HOLD", "canonical_effect": "NONE", "read_only": false
+    },
+    {
+      "model_id": "G1-RANDOM-CONTROL", "display_name": "G1 Random Perturbation Control",
+      "family_generation": "G1", "parent_model_id": "G1-BASE", "modification_type": "RANDOM_CONTROL_PLANNED",
+      "modification_description": "Matched-perturbation control skeleton only",
+      "status": "EXPERIMENTAL", "qa_status": "QA_HOLD", "canonical_effect": "NONE", "read_only": false
+    },
+    {
+      "model_id": "G1-ABLATION-TW-LORA", "display_name": "G1 Ablation plus TW LoRA Interaction",
+      "family_generation": "G1", "parent_model_id": "G1-ABLATION-LOW",
+      "modification_type": "INTERACTION_PLANNED",
+      "modification_description": "Deferred interaction candidate",
+      "status": "EXPERIMENTAL", "qa_status": "QA_HOLD", "canonical_effect": "NONE",
+      "read_only": false, "notes": "A_B_C_D_REQUIRED before execution"
+    }
+  ]
+}
+

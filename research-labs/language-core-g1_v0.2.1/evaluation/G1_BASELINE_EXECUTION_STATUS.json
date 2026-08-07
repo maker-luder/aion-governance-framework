@@ -1,0 +1,8 @@
+{
+  "artifact_id": "G1-BASE-QWEN3-4B-INSTRUCT-2507",
+  "baseline_execution_status": "BLOCKED_BY_COMPUTE_ENVIRONMENT",
+  "model_loaded": false,
+  "benchmark_executed": false,
+  "metrics": null,
+  "reason": "8 GiB weights plus runtime/KV/cache overhead exceed robust 8 GiB host capacity"
+}

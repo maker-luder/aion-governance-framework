@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/embodiment-template.json",
+  "title": "Adult Male Embodiment Template",
+  "type": "object",
+  "required": ["template_id", "adult_status", "anatomical_configuration", "sexual_function_status", "subjectivity_effect"],
+  "properties": {
+    "template_id": {"type": "string"},
+    "adult_status": {"const": true},
+    "anatomical_configuration": {"const": "ADULT_MALE_ANATOMY_CANDIDATE"},
+    "external_reproductive_anatomy": {"type": "array", "items": {"enum": ["penis", "scrotum", "testes"]}},
+    "internal_reproductive_anatomy": {"type": "array", "items": {"enum": ["epididymis", "vas_deferens", "prostate", "seminal_vesicles"]}},
+    "sexual_function_status": {"const": "NOT_IMPLEMENTED"},
+    "gender_identity_effect": {"const": "NONE"},
+    "subjectivity_effect": {"const": "NONE"}
+  },
+  "additionalProperties": false
+}

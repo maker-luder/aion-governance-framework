@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-astra-executable-runtime"
+version = "0.1.0"
+description = "Owner-governed executable AION/Astra runtime candidate"
+requires-python = ">=3.11"
+dependencies = [
+  "aion-governance-kernel==0.4.0",
+  "astra-engineering-workbench==1.0.0",
+  "astra-language-core-research-lab==0.2.1",
+]
+
+[project.scripts]
+aion-astra-runtime = "aion_astra_runtime.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_astra_runtime"]
+exclude = ["^build/", "^src/aion_astra_executable_runtime\\.egg-info/"]
+

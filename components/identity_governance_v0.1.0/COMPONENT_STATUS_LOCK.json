@@ -1,0 +1,17 @@
+{
+  "component": "AION_ASTRA_IDENTITY_LINEAGE_FORK_GOVERNANCE_CANDIDATE",
+  "version": "0.1.0",
+  "package_status": "ENGINEERING_CANDIDATE",
+  "qa_status": "QA_HOLD",
+  "canonical_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "aion_runtime_status": "NOT_FULLY_IMPLEMENTED",
+  "astra_subject_runtime_status": "NOT_IMPLEMENTED",
+  "signature_status": "NOT_IMPLEMENTED",
+  "weight_modification": "NOT_IMPLEMENTED",
+  "lora_training": "NOT_IMPLEMENTED",
+  "ablation": "NOT_IMPLEMENTED",
+  "model_download": "NOT_IMPLEMENTED",
+  "deployment": false,
+  "owner_review_required": true
+}

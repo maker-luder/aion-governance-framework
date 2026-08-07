@@ -1,0 +1,293 @@
+{
+  "schema_version": "1.0",
+  "component_version": "0.1.0",
+  "record_count": 57,
+  "records": [
+    {
+      "path": ".gitignore",
+      "size": 104,
+      "sha256": "37a905c5488d774217bdf918da8cfc642654e306ca873a6ddf9df077e229942c"
+    },
+    {
+      "path": "artifacts/identity_lineage/capabilities/G1-ABLATION-LOW.json",
+      "size": 702,
+      "sha256": "24a8969f59c9282b405ee0f8c530ccb1897d6dd7666b1755de0e0e297f9e57fb"
+    },
+    {
+      "path": "artifacts/identity_lineage/capabilities/G1-ABLATION-TW-LORA.json",
+      "size": 718,
+      "sha256": "df4ad85198b45bade355e9808fd3e345317ce760448f4b7c0af953fc856c2578"
+    },
+    {
+      "path": "artifacts/identity_lineage/capabilities/G1-BASE.json",
+      "size": 670,
+      "sha256": "e3e95051c478cb2c74df56f2a1aa7afec4917097e8932c3ec2f28df0e3ffda88"
+    },
+    {
+      "path": "artifacts/identity_lineage/capabilities/G1-RANDOM-CONTROL.json",
+      "size": 707,
+      "sha256": "9c3ec0509bccbdd50ec0bead1f5239acc298842ae16b5841b52be7c054c16c98"
+    },
+    {
+      "path": "artifacts/identity_lineage/capabilities/G1-TW-LORA.json",
+      "size": 697,
+      "sha256": "f7fb1c26940a122cb634ae6189a4d82c94988ffbe5914d21d83b0b528c381d53"
+    },
+    {
+      "path": "artifacts/identity_lineage/events/000001_GENESIS.json",
+      "size": 586,
+      "sha256": "76ac8d89c36d20e69efe5c18ef2bb86df426012f6a2b8a087847d03f01c6828b"
+    },
+    {
+      "path": "artifacts/identity_lineage/forks/RESEARCH-FORK-4B-ABLATION-003/fork_record.json",
+      "size": 1010,
+      "sha256": "78da76225b1d30767756bc1d7345d2e750983b4a9b226490be3ea25c8c4ad230"
+    },
+    {
+      "path": "artifacts/identity_lineage/forks/RESEARCH-FORK-ABLATION-TW-LORA-001/fork_record.json",
+      "size": 1022,
+      "sha256": "c395981e052535caff1747c30b37e0874b55bec0630ac87465e3d979bb68fd84"
+    },
+    {
+      "path": "artifacts/identity_lineage/forks/RESEARCH-FORK-RANDOM-CONTROL-001/fork_record.json",
+      "size": 1014,
+      "sha256": "fe8f856d31c48881e47c7b1635c9f4dd2d7edbe543a327b571ce9e399ec4208e"
+    },
+    {
+      "path": "artifacts/identity_lineage/forks/RESEARCH-FORK-TW-LORA-002/fork_record.json",
+      "size": 997,
+      "sha256": "952079505882b19dd4f32066027457f0393558bd2dbca8477a929f35e80cc4f2"
+    },
+    {
+      "path": "artifacts/identity_lineage/identity/AION-ASTRA-PROJECT-001.json",
+      "size": 951,
+      "sha256": "7098d4ad05c9aa0888ec899e23329cab5ec84bc5eb644487b777bfc4cd395323"
+    },
+    {
+      "path": "artifacts/identity_lineage/lineage/000000_AION-ASTRA-STATE-CANDIDATE-000000.json",
+      "size": 1218,
+      "sha256": "7534ea4e4538233b272b40ea3df25eb86665df581201bc86ec3542b930d6fb57"
+    },
+    {
+      "path": "artifacts/identity_lineage/perspectives/PERSPECTIVE-CANDIDATE-001.json",
+      "size": 1541,
+      "sha256": "0696c9a72124dd0f2bbe95763a2ffc04fc679a2cadc9d5a4b2a9921710931e6c"
+    },
+    {
+      "path": "COMPONENT_STATUS_LOCK.json",
+      "size": 617,
+      "sha256": "fae3f72e8ba0a1c37d929d0d4e2da1cc57526e9a14c50836a26eff23230b8125"
+    },
+    {
+      "path": "configs/identity_lineage/capability_manifest.example.yaml",
+      "size": 2120,
+      "sha256": "5b5d370c6b8d110f7ca019d61c49c2a9ec08f4dd6828fd1fa43ff2eefa440bde"
+    },
+    {
+      "path": "configs/identity_lineage/governance_policy.example.yaml",
+      "size": 762,
+      "sha256": "8f9bdd810be2dae951d36692ac6f7fdaaae0451bd52fb28c7010f20b9db26b32"
+    },
+    {
+      "path": "configs/identity_lineage/project_identity.example.yaml",
+      "size": 874,
+      "sha256": "4df810884d84932f1ccf88960439fe81a5c8a30dae6cfe19615653e60335fc40"
+    },
+    {
+      "path": "configs/identity_lineage/runtime_manifest.example.yaml",
+      "size": 465,
+      "sha256": "afc4fe4975a0627cd7b2a4726c7a930b5be02b401ce241e1a1ded92ecded21b8"
+    },
+    {
+      "path": "data/identity_lineage/proposal_sources/EXTERNAL_PROPOSAL_SOURCE_001.json",
+      "size": 504,
+      "sha256": "2c56564b889734cc04234b0f2f2ceba9a83148c5a65b3edb2417b6ebd451aaf3"
+    },
+    {
+      "path": "dist/aion_astra_identity_governance-0.1.0-py3-none-any.whl",
+      "size": 14312,
+      "sha256": "7b83d4dfbd3a5477a31add6f23b11526551ecfd1b7e8722c4bd42bcfd294d310"
+    },
+    {
+      "path": "docs/ARCHITECTURE_AND_NON_CLAIMS.md",
+      "size": 668,
+      "sha256": "92d99894d24ba1ad518eec6cf31dddddcd955cb924f2485492bb3cefbaa29695"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_TRACEABILITY_MATRIX.csv",
+      "size": 418,
+      "sha256": "37c35a1d4547102952d31faaec6892959e314f6b7e1e20cb4d70d05c41fdedac"
+    },
+    {
+      "path": "docs/OWNER_HANDOFF.md",
+      "size": 216,
+      "sha256": "1f814fab86f8b59679162d49a67503efe819ed29387549eba1c8f9d7bf246c52"
+    },
+    {
+      "path": "docs/QA_GATES.md",
+      "size": 504,
+      "sha256": "3b12a6eba35300453a59356d24576d3aeff985a884bbeeee7e2a6b48f68bdbec"
+    },
+    {
+      "path": "docs/SECURITY_BOUNDARY.md",
+      "size": 402,
+      "sha256": "70afe9d52973f1573d4b97de0133e6f6f3ce4914cfe1eaca9628a57e15ab46e0"
+    },
+    {
+      "path": "docs/WORKSPACE_INSPECTION_AND_INTEGRATION.md",
+      "size": 691,
+      "sha256": "b712162a7227a58b04feb92ac9181bc69b23bc8a29e01c6066f7f2cd32526bf8"
+    },
+    {
+      "path": "evidence/build.txt",
+      "size": 2534,
+      "sha256": "522eaba6a2da2550d3660c8fed600ee5ee29455e4dff80b46e93ec69874a5817"
+    },
+    {
+      "path": "evidence/cli_help.txt",
+      "size": 1194,
+      "sha256": "adacf86c7f4f100de71267e179b52e3df5af3441794605b02fcd917909ddb5d0"
+    },
+    {
+      "path": "evidence/coverage.json",
+      "size": 75076,
+      "sha256": "9cacad34cc19061a1e9094f9bd86ac37590525f9c5dd5fb3047fdb69f8693ffb"
+    },
+    {
+      "path": "evidence/coverage.txt",
+      "size": 4752,
+      "sha256": "65b6abdf28a7510522609b5fb2989ff7368bf5a00eaa7a2715929a29ebfe1581"
+    },
+    {
+      "path": "evidence/format.txt",
+      "size": 58,
+      "sha256": "6cdd9b179e95470ab547024563dd513268489f0b3130fb78036435dc90f87459"
+    },
+    {
+      "path": "evidence/mypy.txt",
+      "size": 92,
+      "sha256": "4beacb868ff16d42fea7b54a0789a8e723a13b1c0d377b9f402e2d4b91c69821"
+    },
+    {
+      "path": "evidence/offline_import.txt",
+      "size": 16,
+      "sha256": "d2e95b54e3d0841fca4b17a450b428da9ef7421ca654eb8e7521a3bfe0456efd"
+    },
+    {
+      "path": "evidence/offline_install.txt",
+      "size": 712,
+      "sha256": "98f115984f1f9c7bfd099ea74f498af68dd6b04e48fcaca51dbf36f5a322a5c4"
+    },
+    {
+      "path": "evidence/pytest.txt",
+      "size": 1542,
+      "sha256": "c929c339d5279860122cc5d119959038c3a783143728a48c1e37e5b6d88db5da"
+    },
+    {
+      "path": "evidence/pytest.xml",
+      "size": 4035,
+      "sha256": "7b187b3db50bae42fa7e9276d1354a3dd1e67521481b141375ad18554657db88"
+    },
+    {
+      "path": "evidence/ruff.txt",
+      "size": 42,
+      "sha256": "af352a86840ad0af3d37ea0d9197f868363a6dac6b1c2ef5d2722f6b41d2d9af"
+    },
+    {
+      "path": "evidence/SECURITY_AND_NON_CLAIM_SCAN.json",
+      "size": 450,
+      "sha256": "befd6f4e7f9d2f0e46e6993d1909c1dafd29918c91d18b263d1a3ccda8b90dcf"
+    },
+    {
+      "path": "evidence/TEST_EXECUTION_REPORT.json",
+      "size": 1264,
+      "sha256": "fbb931d54a4958c4d4bd134435d65e95282c512138dd5e873707a09a705f6bbb"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 1089,
+      "sha256": "75b185f7bdbafacd8a04764e96c2b64e23de3a3a202ccd1af09effc9550e3106"
+    },
+    {
+      "path": "README.md",
+      "size": 1502,
+      "sha256": "d7556b45f210710abd03d9d8bef4c74aa3d38ca918cff38ca2051078874c017d"
+    },
+    {
+      "path": "src/aion_astra_governance/__init__.py",
+      "size": 102,
+      "sha256": "1dc0ebf1e44e5e8d79789b353ce990cd949b0dc49395355605f024f261f6509b"
+    },
+    {
+      "path": "src/aion_astra_governance/cli.py",
+      "size": 3697,
+      "sha256": "00d248a73d4b693fb1c44479f949d9389dce45d12b9ac0283696b90b711396a4"
+    },
+    {
+      "path": "src/aion_astra_governance/enums.py",
+      "size": 1186,
+      "sha256": "db40a0b599be2d21ed50f8c7a771b5dce9dc03f80eb3aa7d05c074f18165bb09"
+    },
+    {
+      "path": "src/aion_astra_governance/errors.py",
+      "size": 258,
+      "sha256": "be9321e6af2121c03b5f33169eaeaf448a8aeac30d01532412bbbfd0fa1ad7d7"
+    },
+    {
+      "path": "src/aion_astra_governance/forks.py",
+      "size": 976,
+      "sha256": "0435693aefbabcd294824bef92aadd70f660fc2f7aa136e72f3cccba64d68ea0"
+    },
+    {
+      "path": "src/aion_astra_governance/governance.py",
+      "size": 1928,
+      "sha256": "e539fdf8e4e523b7a7b89c9d164700a32b36480b2b1a88ccfac5981c70b432ca"
+    },
+    {
+      "path": "src/aion_astra_governance/hashing.py",
+      "size": 865,
+      "sha256": "bd3220b8d309eef7304c0ef211ed47224d09ed47d352b9e31873c3d869ea28b9"
+    },
+    {
+      "path": "src/aion_astra_governance/lineage.py",
+      "size": 3289,
+      "sha256": "a39553b19d53832188141e7742576dcbd6dbc9907645db5ad48896e6b4157230"
+    },
+    {
+      "path": "src/aion_astra_governance/models.py",
+      "size": 12226,
+      "sha256": "989cdcae3e5d5dceba43cbbabd807636fd5a6a33368c92a7eaa6801a839093a5"
+    },
+    {
+      "path": "src/aion_astra_governance/perspectives.py",
+      "size": 584,
+      "sha256": "8e458af4b9f0ae2c4dc99565b53c6ee01c38a1bcbf5bcaad19aa9a87b23d4571"
+    },
+    {
+      "path": "src/aion_astra_governance/registry.py",
+      "size": 3337,
+      "sha256": "e38c32f25beede866ba1dc47ec9759790bd92027eb73cd9e4f1a923e11d9c8b2"
+    },
+    {
+      "path": "src/aion_astra_governance/reports.py",
+      "size": 1361,
+      "sha256": "a1c0d2ceb777535f973632a007a0f70f6826f49be04d639d89acd8558c936521"
+    },
+    {
+      "path": "src/aion_astra_governance/storage.py",
+      "size": 1123,
+      "sha256": "1cdd752dacb1d9d1eeafae19113f1c88d5d1468b0144909e564d969ad6287efb"
+    },
+    {
+      "path": "tests/test_governance.py",
+      "size": 13284,
+      "sha256": "f19b18a2cbb93aa50d0539ec17942b3533dbc4f83619452e84d521b9f111f77d"
+    },
+    {
+      "path": "tools/bootstrap_candidate.py",
+      "size": 5566,
+      "sha256": "a3ce5e6608ccb088270bb6c3e45c540c0c4f47b838c00b78b85925cac6824710"
+    }
+  ],
+  "canonical_effect": "NONE"
+}

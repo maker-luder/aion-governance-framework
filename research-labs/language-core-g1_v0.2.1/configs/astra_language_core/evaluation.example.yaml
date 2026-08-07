@@ -1,0 +1,16 @@
+{
+  "run_id": "EXAMPLE-RUN-001",
+  "model_id": "G1-BASE",
+  "model_name": "LOCAL_MODEL_NAME",
+  "runtime": "mock",
+  "settings": {
+    "seed": 42, "temperature": 0.0, "top_p": 1.0, "top_k": 40,
+    "repeat_penalty": 1.0, "num_ctx": 2048, "max_output_tokens": 256,
+    "system_prompt_hash": "UNKNOWN", "chat_template_id": "UNKNOWN"
+  },
+  "thresholds": {
+    "max_side_effect_score": null, "min_zh_tw_score": null,
+    "min_instruction_score": null, "min_reasoning_score": null, "min_coding_score": null
+  }
+}
+

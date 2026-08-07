@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "release": "v0.1.0-rc.1",
+  "repository": "maker-luder/aion-governance-framework",
+  "source_public_candidate": "2026-08-03_v1.0.0",
+  "historical_source_validation": {
+    "pytest": "232 passed",
+    "independent_ivv": "NOT_ACHIEVED"
+  },
+  "current_reconstruction_validation": {
+    "tests": "412 passed",
+    "coverage_report": "qa/COVERAGE_REPORT.md",
+    "compileall": "PASS",
+    "mypy": "NOT_EXECUTED_TOOL_UNAVAILABLE",
+    "ruff": "NOT_EXECUTED_TOOL_UNAVAILABLE",
+    "secret_scan": "PASS_WITH_STATED_LIMITATIONS",
+    "privacy_review": "PASS_WITH_STATED_LIMITATIONS",
+    "manifest": "PASS",
+    "sha256": "PASS",
+    "public_scan": "PASS"
+  },
+  "public_private_boundary": "ENFORCED_BY_RECONSTRUCTION_AND_SCAN",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "relational_continuity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "license_status": "OWNER_SELECTION_REQUIRED"
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "runtime_network_required": false,
+  "supported_year_range": [
+    1900,
+    2100
+  ],
+  "sources": [
+    {
+      "source_id": "LUNAR_PYTHON_1_4_8",
+      "name": "lunar_python",
+      "publisher": "6tail",
+      "version": "1.4.8",
+      "license": "MIT",
+      "url": "https://github.com/6tail/lunar-python",
+      "tag_commit": "000c8a3d74eed098d6256a28fdd51b869324c559",
+      "wheel_sha256": "8fda37a11313286a9e85a8d23cd9c9092a5d60966211a0b79efbc807327c3670",
+      "sdist_sha256": "3aa11cc73c25e70ddf0ba5bdac7398c03acc9491a3aa512a91c9642973b669d6",
+      "purpose": "solar terms, pillars and traditional lookup tables",
+      "limits": "library tables are version-bound; not an astronomical accuracy certification"
+    },
+    {
+      "source_id": "TZDATA_2026_3",
+      "name": "tzdata",
+      "publisher": "Python Software Foundation / IANA data redistribution",
+      "version": "2026.3",
+      "license": "Apache-2.0",
+      "url": "https://github.com/python/tzdata",
+      "wheel_sha256": "dc096730c87af6cab1b171c9d532be840741ff5d459015e7f6947bd7d7e54931",
+      "purpose": "offline IANA timezone and DST rules",
+      "limits": "historical and future timezone rules remain version-bound"
+    }
+  ],
+  "independent_reference_attempt": {
+    "package": "sxtwl==2.0.7",
+    "license": "BSD-3-Clause",
+    "status": "UNAVAILABLE_IN_THIS_ENVIRONMENT",
+    "reason": "no compatible CPython 3.12 wheel and local C++ build requires MSVC 14+",
+    "effect": "not a runtime dependency; independent JDN day vectors retained"
+  }
+}

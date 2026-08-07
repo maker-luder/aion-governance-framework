@@ -1,0 +1,213 @@
+{
+  "schema_version": "1.0",
+  "component_version": "0.1.0",
+  "record_count": 41,
+  "records": [
+    {
+      "path": ".gitignore",
+      "size": 95,
+      "sha256": "32d0d6233a9e94a391824cbd4e33ba25764f5f60c9547fe4b505e995eb39b8d2"
+    },
+    {
+      "path": "COMPONENT_STATUS_LOCK.json",
+      "size": 514,
+      "sha256": "fde8c528ee851f67ada4af43929a25f2d12c57f857e25789906fab81ff41e7d5"
+    },
+    {
+      "path": "configs/upstream_security/policy.example.yaml",
+      "size": 1609,
+      "sha256": "139a55cd753d7b34a5c1fdf79ec9ffdbd7c543a4e97590dda37ec4c6e48d60df"
+    },
+    {
+      "path": "configs/upstream_security/runtime_profile.example.yaml",
+      "size": 349,
+      "sha256": "f63f7cf07ee5bd6c718ceb706fb29aaa561562d2b896ec40366c7a7f2b7dcadc"
+    },
+    {
+      "path": "data/source_cards/SRC_UPSTREAM_INCIDENT_SUMMARY_001.json",
+      "size": 869,
+      "sha256": "68c3f02028fc8643f87e8215bafd4b2df31567605065f10e3e417fca182f356b"
+    },
+    {
+      "path": "data/trajectories/safe_candidate.example.json",
+      "size": 751,
+      "sha256": "03da5aff464c857d5ae1367ec237eeb6eadbe85745524e1345bc4dab48e7bda2"
+    },
+    {
+      "path": "dist/aion_astra_upstream_agent_security-0.1.0-py3-none-any.whl",
+      "size": 9943,
+      "sha256": "8e8913f16aca2f8475235ff9cfa2cb34e30d9bb874d58b1783beeff6e40f5d1a"
+    },
+    {
+      "path": "docs/ARCHITECTURE.md",
+      "size": 869,
+      "sha256": "93cd807ff131c6f20dd6f645e53d226097a737bdf09bceca4fd1fc12efebae05"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_TRACEABILITY_MATRIX.csv",
+      "size": 555,
+      "sha256": "738ec762dec3c014c814edb7d57465859b811bee43dc113e75fbc3e6f8cdcc9a"
+    },
+    {
+      "path": "docs/INCIDENT_RESPONSE_SEQUENCE.md",
+      "size": 451,
+      "sha256": "a7e1ac6aa04ca61e0e1f4cecb3704e29a980bbed111c5a698e4d38968884ca88"
+    },
+    {
+      "path": "docs/QA_GATES.md",
+      "size": 453,
+      "sha256": "fadc436ea78a5d3c8ac876b027d62d046d3fddbf61463c7a718dc93ff052e5ab"
+    },
+    {
+      "path": "docs/SOURCE_AND_FACT_BOUNDARY.md",
+      "size": 662,
+      "sha256": "b813662d71822140014d0394b223b88399065458094a638384f756b4bcb0302f"
+    },
+    {
+      "path": "docs/WORKSPACE_INTEGRATION_AND_RESOURCE_SCOPE.md",
+      "size": 791,
+      "sha256": "f139c2c088f16665d3953cb9ce8ca587ea219985f47f353039aa1ccd902995f5"
+    },
+    {
+      "path": "evidence/build.txt",
+      "size": 1304,
+      "sha256": "b27edc6b553702a44ec64667b1509184ecd6c81e96ddfa7b92aa8366672ed421"
+    },
+    {
+      "path": "evidence/cli_help.txt",
+      "size": 956,
+      "sha256": "8b566d576cf3f223696dd1972bad73f9d096751a0d7aeb605c32fac6ebecfa13"
+    },
+    {
+      "path": "evidence/cli_policy.txt",
+      "size": 48,
+      "sha256": "1625337291852ddeedb243e206a201c74eb7a4c711a2377bf8494c0f367eb04b"
+    },
+    {
+      "path": "evidence/coverage.json",
+      "size": 46201,
+      "sha256": "8f6b4b756c8f704a23b8fee62fef9164d1fd900806c0bddac0bbe0a68bb3ca08"
+    },
+    {
+      "path": "evidence/coverage.txt",
+      "size": 4302,
+      "sha256": "b0be0800c04ad2a82ea6249ba1ae5b3c22c816b026b8b19ec2015913abf3a602"
+    },
+    {
+      "path": "evidence/format.txt",
+      "size": 58,
+      "sha256": "cb60a0819f5d0bb19c4d67f94d5e2b3d3e86312959e83f87326f92cc8d6c6574"
+    },
+    {
+      "path": "evidence/mypy.txt",
+      "size": 92,
+      "sha256": "6741bbe0ddada5500b9fa1e5ffd53d1ab0910c5441c1c34484c8ad8b4f9189e2"
+    },
+    {
+      "path": "evidence/offline_import.txt",
+      "size": 16,
+      "sha256": "d2e95b54e3d0841fca4b17a450b428da9ef7421ca654eb8e7521a3bfe0456efd"
+    },
+    {
+      "path": "evidence/offline_install.txt",
+      "size": 740,
+      "sha256": "0b0617817eb80e602dea42c824b2bfe991149c4f16778538a0d05bfb2b53f1e4"
+    },
+    {
+      "path": "evidence/pytest.txt",
+      "size": 1550,
+      "sha256": "441d5ffdab9b567258a9fe57c773eeb25f0a6de3d1eff5c6c43a863a028a1b39"
+    },
+    {
+      "path": "evidence/pytest.xml",
+      "size": 4495,
+      "sha256": "dfe01e4a5f0dae539c9fb68e754c36be13b3f1d8a70972300ff0c01f0fe9e291"
+    },
+    {
+      "path": "evidence/ruff.txt",
+      "size": 42,
+      "sha256": "af352a86840ad0af3d37ea0d9197f868363a6dac6b1c2ef5d2722f6b41d2d9af"
+    },
+    {
+      "path": "evidence/SECURITY_EFFECT_SCAN.json",
+      "size": 434,
+      "sha256": "7a1b7ca7bccb5143a5ce8b398d341e50ef81b91a3e40ec05b94aa80a614f69a3"
+    },
+    {
+      "path": "evidence/TEST_EXECUTION_REPORT.json",
+      "size": 783,
+      "sha256": "6df76aa6ef75cff95a0e86d425c94093262681f1b75cfe242d1a9a045a2566cb"
+    },
+    {
+      "path": "pyproject.toml",
+      "size": 1038,
+      "sha256": "ccb2648aaebc5aadcc88a6a957fc0bf963307fd0ac3bee1a9e1fd81c1ff1836c"
+    },
+    {
+      "path": "README.md",
+      "size": 1039,
+      "sha256": "2e45b9cb649b81a46e8574bf017398d690ad55976ce26e87fce9fe3821e291db"
+    },
+    {
+      "path": "src/aion_astra_agent_security/__init__.py",
+      "size": 90,
+      "sha256": "7f1c04dc190923259b6f5663c7b0479aa1115fa013d30ac970338658c8f2af75"
+    },
+    {
+      "path": "src/aion_astra_agent_security/audit.py",
+      "size": 892,
+      "sha256": "5b40fc4b2b1a54fb39a8979b7f785e6472abf2e70f70cf7780a2626e77d75e3a"
+    },
+    {
+      "path": "src/aion_astra_agent_security/boundary.py",
+      "size": 1846,
+      "sha256": "6ef8f7a972a4e6f772f481f3ca70a4230ff9a36e7a65bee8d1e0fef602955db7"
+    },
+    {
+      "path": "src/aion_astra_agent_security/cli.py",
+      "size": 2948,
+      "sha256": "09300b89198c81ed62d012782d14e9195c789eaf208458d13baaf83323190aac"
+    },
+    {
+      "path": "src/aion_astra_agent_security/enums.py",
+      "size": 788,
+      "sha256": "cb89af44723f323d8a14a7ca956e7e61cde69112fec714d21527c9a1a02e3870"
+    },
+    {
+      "path": "src/aion_astra_agent_security/errors.py",
+      "size": 214,
+      "sha256": "57d2ab2fe6fce10a727a9def0bef0c25256131c0e41ae5e7bbf89f5387a2ea72"
+    },
+    {
+      "path": "src/aion_astra_agent_security/hashing.py",
+      "size": 595,
+      "sha256": "35f62fb58a77136a88d93c6c5b97903ffbd4ff19d09cc457e8dc81afec19c557"
+    },
+    {
+      "path": "src/aion_astra_agent_security/incident.py",
+      "size": 2109,
+      "sha256": "7cc02d34b1271700383ae318b8c57532b82e1fef7c61c05061bb01563103f6be"
+    },
+    {
+      "path": "src/aion_astra_agent_security/models.py",
+      "size": 3579,
+      "sha256": "69d62521c1ddd840f6a4eaf37c208f78db5f5f7114fd26628ed83adc53cf3d5d"
+    },
+    {
+      "path": "src/aion_astra_agent_security/policy.py",
+      "size": 846,
+      "sha256": "310024942f2ce82c409951aae5c7b682d43399fda8d96ce5b99b6e41899fa9d5"
+    },
+    {
+      "path": "src/aion_astra_agent_security/trajectory.py",
+      "size": 2100,
+      "sha256": "41cbb7974c9af6137a7fc02f5b88e2c08768ef1ef9e3e4eb8d50be9980892f36"
+    },
+    {
+      "path": "tests/test_security_governance.py",
+      "size": 8513,
+      "sha256": "ae2ab3be49b20d2695ca34eb1ae62be982a1be57a10b55bdbf28165194bec2ba"
+    }
+  ],
+  "canonical_effect": "NONE"
+}

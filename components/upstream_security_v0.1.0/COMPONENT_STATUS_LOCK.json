@@ -1,0 +1,16 @@
+{
+  "component": "AION_ASTRA_UPSTREAM_AGENT_SECURITY_GOVERNANCE_CANDIDATE",
+  "version": "0.1.0",
+  "package_status": "ENGINEERING_CANDIDATE",
+  "policy_status": "PROPOSED",
+  "qa_status": "QA_HOLD",
+  "canonical_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "active_enforcement": "NOT_ENABLED",
+  "network_calls": 0,
+  "credential_access": false,
+  "model_execution": false,
+  "weight_modification": "NOT_IMPLEMENTED",
+  "deployment": false,
+  "owner_review_required": true
+}

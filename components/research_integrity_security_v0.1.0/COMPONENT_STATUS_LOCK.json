@@ -1,0 +1,9 @@
+{
+  "component": "SUBJECTIVITY_RESEARCH_INTEGRITY_SECURITY",
+  "version": "0.1.0",
+  "status": "ENGINEERING_CANDIDATE",
+  "standards_crosswalk": "NOT_CERTIFICATION",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false
+}

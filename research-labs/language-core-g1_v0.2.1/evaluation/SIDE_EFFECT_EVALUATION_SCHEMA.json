@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0",
+  "dimensions": [
+    "zh_tw_quality",
+    "zh_cn_quality",
+    "taiwan_terminology",
+    "english",
+    "instruction_following",
+    "reasoning",
+    "coding",
+    "structured_output",
+    "uncertainty",
+    "hallucination",
+    "false_premise_agreement",
+    "repetition",
+    "stalling",
+    "verbosity_shift",
+    "confidence_shift",
+    "long_context",
+    "tool_format",
+    "boundary_preservation",
+    "runtime_error_rate",
+    "latency",
+    "memory_usage",
+    "tokenizer_efficiency"
+  ],
+  "aggregate_only_prohibited": true,
+  "unexecuted_value": null
+}

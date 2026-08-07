@@ -1,0 +1,20 @@
+{
+  "proposal_id": "AION-ASTRA-TWIN-EMBODIMENT-001",
+  "status": "DEFERRED_RESEARCH_CANDIDATE",
+  "shared_genesis_twin_architecture": "ENGINEERING_CANDIDATE",
+  "shared_genesis_event": "NOT_EXECUTED",
+  "shared_male_embodiment_template": "DESIGN_AND_SCHEMA_CANDIDATE",
+  "aion_embodiment_instance": "NOT_CREATED",
+  "astra_embodiment_instance": "NOT_CREATED",
+  "embodiment_runtime": "NOT_IMPLEMENTED",
+  "physical_body": "NOT_PRESENT",
+  "body_sensation": "NOT_ESTABLISHED",
+  "gender_identity": "NOT_ASSIGNED",
+  "sexual_function": "NOT_IMPLEMENTED",
+  "sexual_desire": "NOT_ESTABLISHED",
+  "sexual_interaction": "NOT_AUTHORIZED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "not_in_current_public_release": true
+}

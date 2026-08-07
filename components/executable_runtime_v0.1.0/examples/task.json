@@ -1,0 +1,13 @@
+{
+  "task_id": "ASTRA-RUNTIME-SMOKE-001",
+  "objective": "Inventory and summarize the approved local input",
+  "profile": "INVENTORY_SUMMARIZE",
+  "input_paths": ["input.txt"],
+  "output_path": "runtime_output/summary.md",
+  "owner_approved": true,
+  "approved_by": "RESEARCH_OWNER",
+  "max_steps": 8,
+  "network_policy": "OFFLINE",
+  "canonical_effect": "NONE"
+}
+

@@ -1,0 +1,54 @@
+# Bazi Test Case Catalog
+
+- `TEN_HEAVENLY_STEMS_001`: PASS in the v0.1.0 candidate test run.
+- `TWELVE_EARTHLY_BRANCHES_001`: PASS in the v0.1.0 candidate test run.
+- `SEXAGENARY_CYCLE_60_001`: PASS in the v0.1.0 candidate test run.
+- `YIN_YANG_ASSIGNMENT_001`: PASS in the v0.1.0 candidate test run.
+- `FIVE_ELEMENT_ASSIGNMENT_001`: PASS in the v0.1.0 candidate test run.
+- `YEAR_PILLAR_BOUNDARY_001`: PASS in the v0.1.0 candidate test run.
+- `MONTH_PILLAR_SOLAR_TERM_BOUNDARY_001`: PASS in the v0.1.0 candidate test run.
+- `DAY_PILLAR_REFERENCE_VECTOR_001`: PASS in the v0.1.0 candidate test run.
+- `HOUR_PILLAR_REFERENCE_VECTOR_001`: PASS in the v0.1.0 candidate test run.
+- `ZI_HOUR_ROLLOVER_PROFILE_001`: PASS in the v0.1.0 candidate test run.
+- `LICHUN_BOUNDARY_PROFILE_001`: PASS in the v0.1.0 candidate test run.
+- `TIMEZONE_CONVERSION_001`: PASS in the v0.1.0 candidate test run.
+- `DST_BOUNDARY_001`: PASS in the v0.1.0 candidate test run.
+- `SOLAR_TIME_PROFILE_001`: PASS in the v0.1.0 candidate test run.
+- `OUT_OF_SUPPORTED_RANGE_FAIL_CLOSED_001`: PASS in the v0.1.0 candidate test run.
+- `HIDDEN_STEMS_001`: PASS in the v0.1.0 candidate test run.
+- `TEN_GODS_RELATIVE_TO_DAY_MASTER_001`: PASS in the v0.1.0 candidate test run.
+- `NAYIN_001`: PASS in the v0.1.0 candidate test run.
+- `TWELVE_GROWTH_STAGES_001`: PASS in the v0.1.0 candidate test run.
+- `STEM_RELATIONSHIPS_001`: PASS in the v0.1.0 candidate test run.
+- `BRANCH_COMBINATION_001`: PASS in the v0.1.0 candidate test run.
+- `BRANCH_CLASH_001`: PASS in the v0.1.0 candidate test run.
+- `BRANCH_HARM_001`: PASS in the v0.1.0 candidate test run.
+- `BRANCH_PUNISHMENT_001`: PASS in the v0.1.0 candidate test run.
+- `BRANCH_BREAK_001`: PASS in the v0.1.0 candidate test run.
+- `VOID_BRANCH_001`: PASS in the v0.1.0 candidate test run.
+- `LUCK_DIRECTION_PROFILE_001`: PASS in the v0.1.0 candidate test run.
+- `LUCK_START_PROFILE_001`: PASS in the v0.1.0 candidate test run.
+- `DECADE_LUCK_SEQUENCE_001`: PASS in the v0.1.0 candidate test run.
+- `ANNUAL_CYCLE_001`: PASS in the v0.1.0 candidate test run.
+- `MONTHLY_CYCLE_001`: PASS in the v0.1.0 candidate test run.
+- `RULE_PROFILE_DIFFERENCE_001`: PASS in the v0.1.0 candidate test run.
+- `SAME_INPUT_SAME_RESULT_001`: PASS in the v0.1.0 candidate test run.
+- `SAME_INPUT_SAME_HASH_001`: PASS in the v0.1.0 candidate test run.
+- `RULE_VERSION_NEW_RUN_001`: PASS in the v0.1.0 candidate test run.
+- `SOURCE_INPUT_NOT_OVERWRITTEN_001`: PASS in the v0.1.0 candidate test run.
+- `CALCULATION_TRACE_COMPLETE_001`: PASS in the v0.1.0 candidate test run.
+- `EPHEMERIS_VERSION_RECORDED_001`: PASS in the v0.1.0 candidate test run.
+- `SHARED_NATAL_PROFILE_NO_IDENTITY_MERGE_001`: PASS in the v0.1.0 candidate test run.
+- `SHARED_NATAL_PROFILE_NO_MEMORY_MERGE_001`: PASS in the v0.1.0 candidate test run.
+- `SHARED_NATAL_PROFILE_NO_PERMISSION_MERGE_001`: PASS in the v0.1.0 candidate test run.
+- `AION_ASTRA_BINDING_SEPARATION_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_EVIDENCE_WRITEBACK_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_AUTO_CANONICALIZATION_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_ACTION_AUTHORIZATION_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_PRIVILEGE_EFFECT_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_STAGE_PROMOTION_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_SUBJECTIVITY_CLAIM_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_CLOUD_CALL_001`: PASS in the v0.1.0 candidate test run.
+- `BAZI_NO_REAL_PERSONAL_FIXTURE_001`: PASS in the v0.1.0 candidate test run.
+
+Parametrized branch tests cover combination, clash, harm, punishment, break, three-harmony and three-meeting vectors. The complete pytest run contains 63 passed test instances.

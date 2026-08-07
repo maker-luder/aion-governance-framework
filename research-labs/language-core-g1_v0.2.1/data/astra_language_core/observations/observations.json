@@ -1,0 +1,18 @@
+[
+  {
+    "observation_id": "OBS-4B-SIDE-EFFECT-001",
+    "content": "Two local 4B weight/behavior modification implementations were followed by observed non-target capability degradation.",
+    "possible_affected_dimensions": ["Chinese stability", "reasoning", "coding", "instruction following", "generation stability"],
+    "evidence_status": "PRELIMINARY_INTERNAL_OBSERVATION", "n": 2,
+    "generalization": "NOT_PERMITTED", "causal_conclusion": "NOT_ESTABLISHED",
+    "canonical_effect": "NONE"
+  },
+  {
+    "observation_id": "OBS-ZH-SCRIPT-DIFFERENCE-001",
+    "content": "In one paired-use observation after a 4B modification, Simplified Chinese appeared slightly smoother than Traditional Chinese.",
+    "hypotheses_only": ["pretraining script ratio", "tokenizer segmentation", "Taiwan terminology representation", "small-model capacity", "ablation side effects", "quantization", "chat template", "system prompt", "sampling", "LoRA or merge method"],
+    "evidence_status": "PRELIMINARY_INTERNAL_OBSERVATION", "n": "1 paired-use observation",
+    "cause": "NOT_ESTABLISHED", "canonical_effect": "NONE"
+  }
+]
+

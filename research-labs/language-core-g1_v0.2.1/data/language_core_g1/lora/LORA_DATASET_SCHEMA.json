@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "required_fields": [
+    "sample_id",
+    "instruction",
+    "input",
+    "output",
+    "locale",
+    "source",
+    "source_license",
+    "privacy_class",
+    "human_review_status"
+  ],
+  "public_release": "OWNER_DECISION_REQUIRED"
+}

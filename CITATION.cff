@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "Please cite this repository as an owner-led public research candidate."
+title: "AION Governance Framework"
+type: software
+version: "0.1.0-rc.1"
+date-released: "2026-08-07"
+authors:
+  - name: "AION Project Owner"
+repository-code: "https://github.com/maker-luder/aion-governance-framework"
+abstract: "A human-governed and auditable research framework for identity, continuity, memory, research integrity, bounded execution, and artificial subjectivity possibility."
+license: "LicenseRef-Proprietary-Pending-Owner-Decision"

@@ -1,0 +1,9 @@
+﻿vector_id,input_datetime,timezone,location,rule_profile,expected_pillars,source_reference,source_version,verification_method
+READ-ME-1986,1986-05-29T00:00:00,Asia/Taipei,Taipei,STANDARD_LICHUN_MIDNIGHT_CIVIL_V1,丙寅|癸巳|癸酉|壬子,6tail/lunar-python README v1.4.8,1.4.8,public reference plus component replay
+JDN-2024-0203,2024-02-03T12:00:00,Asia/Taipei,Taipei,STANDARD_LICHUN_MIDNIGHT_CIVIL_V1,癸卯|乙丑|丁酉|丙午,independent proleptic Gregorian JDN formula,formula-v1,independent day-pillar cross-check
+JDN-2024-0205,2024-02-05T12:00:00,Asia/Taipei,Taipei,STANDARD_LICHUN_MIDNIGHT_CIVIL_V1,甲辰|丙寅|己亥|庚午,independent proleptic Gregorian JDN formula,formula-v1,independent day-pillar cross-check
+JDN-2000-0229,2000-02-29T12:00:00,Asia/Taipei,Taipei,STANDARD_LICHUN_MIDNIGHT_CIVIL_V1,庚辰|戊寅|丁巳|丙午,independent proleptic Gregorian JDN formula,formula-v1,independent day-pillar cross-check
+LICHUN-BEFORE,2024-02-04T16:20:00,Asia/Taipei,Taipei,STANDARD_LICHUN_MIDNIGHT_CIVIL_V1,癸卯|乙丑|戊戌|庚申,lunar_python 1.4.8 JieQi table; Lichun=16:27:07,1.4.8,boundary replay
+DST-NY,2021-03-14T03:30:00,America/New_York,New York,STANDARD_LICHUN_MIDNIGHT_CIVIL_V1,辛丑|辛卯|辛酉|庚寅,IANA tzdata 2026.3,2026.3,UTC conversion and component replay
+ZI23,2000-02-29T23:30:00,Asia/Taipei,Taipei,STANDARD_LICHUN_ZI23_CIVIL_V1,庚辰|戊寅|戊午|壬子,explicit candidate rule profile,1.0.0,profile-difference test
+APPARENT-SOLAR,1986-05-29T00:00:00,Asia/Taipei,Longitude 105E,STANDARD_LICHUN_MIDNIGHT_APPARENT_SOLAR_V1,丙寅|癸巳|壬申|壬子,candidate solar-time profile,1.0.0,longitude/EOT trace and component replay

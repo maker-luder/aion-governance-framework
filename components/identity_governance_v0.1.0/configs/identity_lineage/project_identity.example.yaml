@@ -1,0 +1,22 @@
+{
+  "project_id": "AION-ASTRA-PROJECT-001",
+  "canonical_name": "AION／Astra",
+  "aliases": [
+    "AION",
+    "Astra"
+  ],
+  "project_type": "SPECIALIZED_AI_SYSTEM_AND_RESEARCH_LINEAGE",
+  "research_lineage_description": "使用者與 ChatGPT 長期共同研究，並經本地候選工程逐步形成。",
+  "governance_root_id": "AION-ASTRA-GOVERNANCE-ROOT-001",
+  "canonical_manifest_id": "UNKNOWN",
+  "status": "QA_HOLD",
+  "subjectivity_status": "NOT_ESTABLISHED",
+  "source_provenance": {
+    "document_type": "EXTERNAL_CONCEPTUAL_ARCHITECTURE_PROPOSAL",
+    "source": "外部 AI 助手依本輪討論產生的架構提案",
+    "canonical_effect": "NONE",
+    "project_identity_effect": "NONE",
+    "engineering_status": "PARTIALLY_ADOPTED_AS_REQUIREMENT_CANDIDATES"
+  },
+  "notes": "Requirement candidate only; no canonical identity effect."
+}

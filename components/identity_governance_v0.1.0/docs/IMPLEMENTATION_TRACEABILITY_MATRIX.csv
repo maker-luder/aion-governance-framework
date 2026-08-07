@@ -1,0 +1,5 @@
+﻿requirement_id,status,implementation,canonical_effect
+REQ-ID-001,IMPLEMENTED_AS_CANDIDATE,Project identity record and writeback policy,NONE
+REQ-LIN-001,IMPLEMENTED_AS_CANDIDATE,Deterministic state hashes and ledger verification,NONE
+REQ-FORK-001,IMPLEMENTED_AS_CANDIDATE,Denied inheritance and isolated fork records,NONE
+REQ-CAP-001,IMPLEMENTED_AS_CANDIDATE,Capability registry plus Language Core adapter,NONE

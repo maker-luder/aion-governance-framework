@@ -1,0 +1,3 @@
+# Independent Verification Guide
+
+This creator-side package is not independent IV&V. An independent reviewer should: verify the ZIP SHA-256 and CRC; verify every Manifest record; re-hash all 12 files in the external G1-BASE model store; compare them with official LFS SHA-256 metadata; recreate an offline environment on stronger hardware; execute the 50-pair baseline and tokenizer suites; run LoRA and controlled/random branches only after dataset/method review; repeat pytest, mypy, coverage, build and cold install; confirm all Runtime write/identity/privilege denials; and independently review license, privacy and public-release decisions.

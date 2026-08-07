@@ -1,0 +1,1162 @@
+[
+  {
+    "path": "AION_ASTRA_PUBLIC_TECHNICAL_OVERVIEW_2026-08-03_v1.0.0_CANDIDATE.docx",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "AION_ASTRA_PUBLIC_TECHNICAL_OVERVIEW_2026-08-03_v1.0.0_CANDIDATE.pdf",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "BUILD_AND_VERIFY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "CHANGELOG.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/.coverage",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/ASTRA_COMPONENT_STATUS_LOCK.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_CANDIDATE_WORKSPACE_SECURITY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_COMMAND_EXECUTION_POLICY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_DATA_DICTIONARY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_ENGINEERING_ARCHITECTURE.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_EXTERNAL_INPUT_PROVENANCE.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_IMPLEMENTATION_TRACEABILITY_MATRIX.csv",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_NON_CLAIMS.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_OWNER_APPROVAL_MODEL.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_REVIEW_PACKET_PROTOCOL.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_ROLLBACK_AND_RECOVERY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_SECURITY_BOUNDARY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_TASK_STATE_MACHINE.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_TEST_CASE_CATALOG.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ASTRA_VALIDATION_AND_EVIDENCE_POLICY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ENGINEERING_RESOURCE_GOVERNANCE_POLICY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ENGINEERING_STOP_CONDITION_POLICY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/EVIDENCE_REUSE_AND_INVALIDATION_SPEC.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/ONE_PASS_CONVERGENCE_WORKFLOW.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/docs/TASK_START_AND_CONTEXT_COST_REPORT.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/pyproject.toml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/approvals.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/audit.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/command_policy.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/command_runner.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/diffs.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/enums.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/episodic_adapter.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/errors.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/evidence.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/evidence_reuse.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/file_index.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/file_operations.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/governance_adapter.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/intake.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/interfaces.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/models.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/packaging.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/patches.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/reasoning_provider.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/redaction.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/review_packet.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/rollback.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/scope.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/state_machine.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/validation_plan.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/validation_runner.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench/workspace.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench.egg-info/dependency_links.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench.egg-info/entry_points.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench.egg-info/PKG-INFO",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench.egg-info/requires.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench.egg-info/SOURCES.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/src/astra_engineering_workbench.egg-info/top_level.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/tests/conftest.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/tests/test_adapters_review_package.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/tests/test_command_validation.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/tests/test_e2e.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/tests/test_task_approval_state.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/astra_workbench_v1.0.0/tests/test_workspace.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/.coverage",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/CHANGELOG.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/LICENSE_STATUS.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/pyproject.toml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/audit/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/audit/db.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/audit/repository.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/audit/service.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/errors.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/hashing.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/models.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/pipeline.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/risk/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/risk/policy.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel/validation.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel.egg-info/dependency_links.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel.egg-info/entry_points.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel.egg-info/PKG-INFO",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel.egg-info/requires.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel.egg-info/SOURCES.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/src/aion_governance_kernel.egg-info/top_level.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/conftest.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/integration/test_pipeline.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/unit/test_audit.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/unit/test_cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/unit/test_hashing.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/unit/test_policy.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/governance_kernel_v0.4.0/tests/unit/test_validation.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/.coverage",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/COMPONENT_STATUS_LOCK.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/configs/identity_lineage/capability_manifest.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/configs/identity_lineage/governance_policy.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/configs/identity_lineage/project_identity.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/configs/identity_lineage/runtime_manifest.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/data/identity_lineage/proposal_sources/EXTERNAL_PROPOSAL_SOURCE_001.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/docs/ARCHITECTURE_AND_NON_CLAIMS.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/docs/IMPLEMENTATION_TRACEABILITY_MATRIX.csv",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/docs/OWNER_HANDOFF.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/docs/QA_GATES.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/docs/SECURITY_BOUNDARY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/docs/WORKSPACE_INSPECTION_AND_INTEGRATION.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/PACKAGE_MANIFEST.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/pyproject.toml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/enums.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/errors.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/forks.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/governance.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/hashing.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/lineage.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/models.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/perspectives.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/registry.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/reports.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_governance/storage.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_identity_governance.egg-info/dependency_links.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_identity_governance.egg-info/entry_points.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_identity_governance.egg-info/PKG-INFO",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_identity_governance.egg-info/requires.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_identity_governance.egg-info/SOURCES.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/src/aion_astra_identity_governance.egg-info/top_level.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/tests/test_governance.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/identity_governance_v0.1.0/tools/bootstrap_candidate.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/.coverage",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/COMPONENT_STATUS_LOCK.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/configs/astra_language_core/evaluation.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/configs/astra_language_core/lab.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/configs/astra_language_core/models.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/data/astra_language_core/prompts/zh_tw_zh_cn_pairs.jsonl",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/docs/ARCHITECTURE_AND_NON_CLAIMS.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/docs/IMPLEMENTATION_TRACEABILITY_MATRIX.csv",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/docs/OWNER_HANDOFF.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/docs/QA_ADMISSION_GATES.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/docs/SECURITY_BOUNDARY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/docs/WORKSPACE_INSPECTION_AND_CHANGE_IMPACT.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/pyproject.toml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/admission.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/config.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/dataset.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/enums.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/errors.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/evaluation.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/hashing.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/json_types.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/lineage.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/metrics.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/models.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/observations.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/registry.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/reports.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core/runtime.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core_research_lab.egg-info/dependency_links.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core_research_lab.egg-info/entry_points.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core_research_lab.egg-info/PKG-INFO",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core_research_lab.egg-info/requires.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core_research_lab.egg-info/SOURCES.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/src/astra_language_core_research_lab.egg-info/top_level.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/conftest.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/helpers.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_admission_observations.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_evaluation_reports.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_hash_dataset.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_lineage_registry.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_models_config.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/language_core_v0.1.0/tests/test_runtime_metrics.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/.coverage",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/COMPONENT_STATUS_LOCK.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/configs/upstream_security/policy.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/configs/upstream_security/runtime_profile.example.yaml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/docs/ARCHITECTURE.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/docs/IMPLEMENTATION_TRACEABILITY_MATRIX.csv",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/docs/INCIDENT_RESPONSE_SEQUENCE.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/docs/QA_GATES.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/docs/SOURCE_AND_FACT_BOUNDARY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/docs/WORKSPACE_INTEGRATION_AND_RESOURCE_SCOPE.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/PACKAGE_MANIFEST.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/pyproject.toml",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/__init__.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/audit.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/boundary.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/cli.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/enums.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/errors.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/hashing.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/incident.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/models.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/policy.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_agent_security/trajectory.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_upstream_agent_security.egg-info/dependency_links.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_upstream_agent_security.egg-info/entry_points.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_upstream_agent_security.egg-info/PKG-INFO",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_upstream_agent_security.egg-info/requires.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_upstream_agent_security.egg-info/SOURCES.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/src/aion_astra_upstream_agent_security.egg-info/top_level.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "components/upstream_security_v0.1.0/tests/test_security_governance.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "CONTRIBUTING.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "DEPENDENCY_LICENSE_REPORT.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "DISCLAIMER.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "LICENSE.txt",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "MODEL_AND_DATA_LICENSE_REPORT.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PRIVACY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_INVENTORY.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_POLICY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_REDACTION_REPORT.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_SECURITY_SCAN.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_SECURITY_SCAN.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_STATUS_LOCK.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_VALIDATION_SUMMARY.json",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "PUBLIC_RELEASE_VALIDATION_SUMMARY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "README.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "SECURITY.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "THIRD_PARTY_NOTICES.md",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  },
+  {
+    "path": "verify_public_package.py",
+    "purpose": "allowlisted public candidate artifact",
+    "source": "closure-generated or allowlisted component"
+  }
+]

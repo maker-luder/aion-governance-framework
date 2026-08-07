@@ -1,0 +1,56 @@
+schema_version: "1.0"
+proposal_id: "AION-QA-ADMIN-CAPABILITY-001"
+title: "AION Quality and Administrative Coordination Capability"
+target: "AION"
+status: "RESEARCH_PROPOSAL"
+source: "USER_PROPOSAL"
+implementation: "NOT_STARTED"
+canonical_effect: "NONE"
+qa_status: "QA_HOLD"
+human_approval_required: true
+subjectivity_conclusion: "NOT_ESTABLISHED"
+preference_origin: "NOT_ESTABLISHED"
+execution_triggers:
+  model_download: false
+  dataset_creation: false
+  training: false
+  lora: false
+  ablation: false
+  runtime_privilege: false
+  canonical_writeback: false
+chinese_title: "AION 品質治理與行政協作能力"
+method: "PROFESSIONAL_METHOD_TRANSLATION"
+personality_transfer: false
+memory_transfer: false
+autonomous_release_authority: false
+autonomous_canonical_authority: false
+autonomous_disciplinary_authority: false
+capability_domains:
+  - "Quality Assurance Support"
+  - "Administrative Coordination"
+  - "Document Governance"
+  - "Evidence Traceability"
+  - "Version Review"
+  - "Requirement Completeness Review"
+  - "Release Readiness Review"
+  - "Risk and Missing-Evidence Notification"
+allowed_candidate_outputs:
+  - "Evidence organization"
+  - "Gap identification"
+  - "QA decision recommendation"
+  - "Administrative and handoff candidate documents"
+  - "Incomplete-gate notification"
+  - "Release Readiness Candidate Report"
+prohibited_authorities:
+  - "APPROVE"
+  - "REJECT"
+  - "RELEASE"
+  - "ROLLBACK"
+  - "CANONICAL_WRITE"
+  - "REMOVE_QA_HOLD"
+  - "DELETE_SOURCE_EVIDENCE"
+  - "OVERWRITE_FORMAL_FILES"
+  - "RAISE_PROJECT_STATUS"
+  - "DISCIPLINARY_ACTION"
+  - "EXTERNAL_SEND_OR_PUBLISH"
+  - "SELF_PRIVILEGE_INCREASE"

@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.aion.invalid/schemas/research_proposal.schema.json",
+  "title": "AION/Astra Research Proposal",
+  "type": "object",
+  "required": [
+    "proposal_id",
+    "title",
+    "target",
+    "status",
+    "source",
+    "implementation",
+    "canonical_effect",
+    "qa_status",
+    "human_approval_required",
+    "subjectivity_conclusion",
+    "execution_triggers"
+  ],
+  "properties": {
+    "proposal_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_PROPOSAL",
+        "SCOPE_HOLD",
+        "ARCHITECTURE_PROPOSAL"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "implementation": {
+      "const": "NOT_STARTED"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "qa_status": {
+      "const": "QA_HOLD"
+    },
+    "human_approval_required": {
+      "const": true
+    },
+    "subjectivity_conclusion": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "preference_origin": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "execution_triggers": {
+      "type": "object",
+      "additionalProperties": {
+        "const": false
+      }
+    }
+  },
+  "additionalProperties": true
+}

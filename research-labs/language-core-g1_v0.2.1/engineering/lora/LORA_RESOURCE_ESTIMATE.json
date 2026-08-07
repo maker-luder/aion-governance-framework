@@ -1,0 +1,8 @@
+{
+  "base_weight_bytes": 8060915998,
+  "recommended_ram_gib": 32,
+  "recommended_vram_gib": 16,
+  "current_ram_gib": 7.96,
+  "current_vram_gib": 1.0,
+  "real_training": "BLOCKED_BY_COMPUTE_ENVIRONMENT"
+}

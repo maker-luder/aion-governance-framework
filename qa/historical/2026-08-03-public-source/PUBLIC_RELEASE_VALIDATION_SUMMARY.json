@@ -1,0 +1,26 @@
+{
+  "scope": "allowlisted public component copies; one run each",
+  "compileall": "PASS (5/5)",
+  "mypy_strict": "PASS (5/5)",
+  "pytest": "PASS: 232 passed total",
+  "coverage": {
+    "governance_kernel": 93.73,
+    "astra_workbench": 93.64,
+    "language_core": 89.35,
+    "identity_governance": 88.6,
+    "upstream_security": 92.05
+  },
+  "wheel_build": "PASS (5/5; wheels used only for verification and excluded from public package)",
+  "offline_cold_install_import": "PASS (5/5, --no-index --no-deps)",
+  "run_pipeline_policy_smoke": "PASS (7 passed)",
+  "ruff": {
+    "status": "PASS_WITH_OBSERVATIONS",
+    "unchanged_legacy_components": {
+      "governance_kernel": "pre-existing style findings",
+      "astra_workbench": "pre-existing unused-import findings"
+    },
+    "new_components": "PASS",
+    "disposition": "No source modification: findings are non-functional and source had already passed mypy/tests/coverage. Record for future maintenance."
+  },
+  "comparison": "All prior core test counts reproduced or increased. Workbench public copy ran 89 tests versus earlier 64 passed/1 skipped evidence because the packaged suite is broader; no regression."
+}

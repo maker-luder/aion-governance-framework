@@ -1,0 +1,1 @@
+{"sample_id":"LORA-SYN-015","instruction":"什麼是隨機控制組？","input":"","output":"隨機控制組以固定 seed 對等量位置施加相同強度擾動，用來比較目標介入是否超出一般隨機變化。","locale":"zh-TW","source":"PROJECT_AUTHORED_SYNTHETIC_CANDIDATE","source_license":"OWNER_DECISION_REQUIRED","privacy_class":"PUBLIC_SYNTHETIC","human_review_status":"PENDING_OWNER_REVIEW"}

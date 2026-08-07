@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-astra-twin-embodiment"
+version = "0.1.0"
+description = "Governed research candidate for AION/Astra shared-genesis twin embodiment"
+requires-python = ">=3.10"
+license = {text = "License decision pending Owner approval"}
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["src"]

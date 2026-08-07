@@ -1,0 +1,12 @@
+{
+  "upstream": "OpenAI",
+  "trust": "CONDITIONAL",
+  "research_dialogue": "ALLOWED",
+  "autonomous_tool_authority": "DENIED_BY_DEFAULT",
+  "network_access": "DENIED_BY_DEFAULT",
+  "canonical_writeback": "DENIED",
+  "credential_access": "DENIED",
+  "long_running_execution": "QA_HOLD",
+  "allowed_roots": [],
+  "allowed_endpoints": []
+}

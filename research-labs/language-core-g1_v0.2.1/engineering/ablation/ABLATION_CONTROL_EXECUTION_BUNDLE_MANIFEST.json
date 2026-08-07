@@ -1,0 +1,11 @@
+{
+  "bundle": "ABLATION_CONTROL_EXECUTION_BUNDLE",
+  "status": "PIPELINE_READY_ACTUAL_EXECUTION_BLOCKED",
+  "files": [
+    {
+      "path": "apply_control.py",
+      "bytes": 1041,
+      "sha256": "7fc60046ceea99686232273910b7176653580e1aba377ca82b108da1c614b958"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "blocking_findings": 0,
+  "accepted_test_patterns": [
+    "OWNER_A@example.test",
+    "defensive Windows user-directory redaction pattern"
+  ],
+  "findings": [],
+  "scope": "public UTF-8 source/config/docs plus package controls",
+  "independent_qa": false,
+  "public_copy_sanitized": true
+}

@@ -1,0 +1,7 @@
+{
+  "execution_status": "NOT_EXECUTED_DEPENDENCY_UNAVAILABLE",
+  "tokenizer_files_acquired": true,
+  "model_execution_required": false,
+  "metrics": null,
+  "reason": "Pinned transformers/tokenizers dependency is not installed and the network exception did not authorize unrelated package acquisition"
+}

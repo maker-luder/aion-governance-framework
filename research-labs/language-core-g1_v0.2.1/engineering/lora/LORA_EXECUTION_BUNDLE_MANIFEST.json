@@ -1,0 +1,26 @@
+{
+  "bundle": "LORA_EXECUTION_BUNDLE",
+  "status": "PIPELINE_READY_REAL_TRAINING_BLOCKED",
+  "files": [
+    {
+      "path": "G1-TW-LORA-LIGHT.json",
+      "bytes": 456,
+      "sha256": "ba82ce66777bae11705ef6fa09e5eeb3fbc1075698f89ed09ed5297ce8de7e26"
+    },
+    {
+      "path": "G1-TW-LORA-STANDARD.json",
+      "bytes": 463,
+      "sha256": "23e01d306c5bcf902433e599717e9815105d5211ca59037b5e2d8884c81bac71"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 115,
+      "sha256": "482799af9de088ca38a3d2ab668e3879ea2a4b6fb288deda9fae37aaebc26614"
+    },
+    {
+      "path": "train_lora.py",
+      "bytes": 1236,
+      "sha256": "2a1c9065ac9462973514d74cdee9fbd9e355f3943711e817020e72e52db7cc1a"
+    }
+  ]
+}

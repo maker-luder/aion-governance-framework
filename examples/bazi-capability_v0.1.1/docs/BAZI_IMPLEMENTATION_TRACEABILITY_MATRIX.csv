@@ -1,0 +1,8 @@
+﻿requirement_id,requirement,implementation,test_evidence,status
+REQ-SOURCE-001,Immutable provenance input,models.py; repository.py; schema.sql,SOURCE_INPUT_NOT_OVERWRITTEN_001,PASS
+REQ-CALENDAR-001,Deterministic four pillars,calendar_engine.py; engine.py,SAME_INPUT_SAME_RESULT_001,PASS
+REQ-PROFILE-001,Versioned explicit rule profile,rule_profiles.py; schema.sql,RULE_PROFILE_DIFFERENCE_001,PASS
+REQ-TRACE-001,Derivation trace and hash,serialization.py; engine.py,CALCULATION_TRACE_COMPLETE_001; SAME_INPUT_SAME_HASH_001,PASS
+REQ-BINDING-001,Owner-gated separated bindings,repository.py; schema.sql,AION_ASTRA_BINDING_SEPARATION_001,PASS
+REQ-NO-EFFECT-001,Zero runtime/governance effect,repository.py::runtime_effects,BAZI_NO_* tests,PASS
+REQ-OFFLINE-001,No runtime cloud call,all source modules,BAZI_NO_CLOUD_CALL_001; prohibited scan,PASS

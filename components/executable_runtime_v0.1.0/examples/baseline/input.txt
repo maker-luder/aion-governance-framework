@@ -1,0 +1,3 @@
+Astra is executing a bounded local candidate workflow.
+This input remains immutable while the runtime writes only to an isolated candidate workspace.
+

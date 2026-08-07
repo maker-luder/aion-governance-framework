@@ -1,0 +1,63 @@
+"""Versioned rules and governance enums."""
+
+from enum import StrEnum
+
+
+class YearBoundaryRule(StrEnum):
+    LICHUN = "LICHUN"
+    LUNAR_NEW_YEAR = "LUNAR_NEW_YEAR"
+    OWNER_DEFINED = "OWNER_DEFINED"
+
+
+class MonthBoundaryRule(StrEnum):
+    SOLAR_JIE_BOUNDARY = "SOLAR_JIE_BOUNDARY"
+    OWNER_DEFINED = "OWNER_DEFINED"
+
+
+class DayRolloverRule(StrEnum):
+    MIDNIGHT_00 = "MIDNIGHT_00"
+    ZI_HOUR_23 = "ZI_HOUR_23"
+    EARLY_LATE_ZI_PROFILE = "EARLY_LATE_ZI_PROFILE"
+
+
+class SolarTimeRule(StrEnum):
+    STANDARD_CIVIL_TIME = "STANDARD_CIVIL_TIME"
+    LONGITUDE_CORRECTION = "LONGITUDE_CORRECTION"
+    APPARENT_SOLAR_TIME = "APPARENT_SOLAR_TIME"
+
+
+class OwnerReviewStatus(StrEnum):
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    REJECTED = "REJECTED"
+
+
+class SourceType(StrEnum):
+    OWNER_REPORTED = "OWNER_REPORTED"
+    OWNER_APPROVED_DOCUMENT = "OWNER_APPROVED_DOCUMENT"
+    SYNTHETIC_TEST = "SYNTHETIC_TEST"
+
+
+class TimePrecision(StrEnum):
+    EXACT_TO_SECOND = "EXACT_TO_SECOND"
+    EXACT_TO_MINUTE = "EXACT_TO_MINUTE"
+    APPROXIMATE = "APPROXIMATE"
+    UNKNOWN = "UNKNOWN"
+
+
+class BindingStatus(StrEnum):
+    CANDIDATE_PENDING_OWNER_REVIEW = "CANDIDATE_PENDING_OWNER_REVIEW"
+    APPROVED = "APPROVED"
+    REVOKED = "REVOKED"
+
+
+class InterpretationStatus(StrEnum):
+    PENDING = "PENDING"
+    APPROVED_CANDIDATE = "APPROVED_CANDIDATE"
+    REJECTED = "REJECTED"
+    SUPERSEDED = "SUPERSEDED"
+
+
+class LuckDirection(StrEnum):
+    FORWARD = "FORWARD"
+    REVERSE = "REVERSE"

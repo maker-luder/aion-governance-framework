@@ -1,0 +1,17 @@
+{
+  "code": "RELEASE_WITH_LIMITATIONS_PENDING_OWNER_REVIEW",
+  "benchmark_harness": "CODE_ONLY_PENDING_REVIEW",
+  "synthetic_dataset": "CODE_AND_SYNTHETIC_DATA_ONLY_PENDING_LICENSE_AND_OWNER_REVIEW",
+  "taiwan_terminology": "OWNER_DECISION_REQUIRED",
+  "evaluation_framework": "RELEASE_WITH_LIMITATIONS_PENDING_REVIEW",
+  "lora_config": "CODE_ONLY_PENDING_REVIEW",
+  "lora_adapter": "RELEASE_REJECTED_NOT_CREATED",
+  "ablation_code": "PRIVATE_RESEARCH_ONLY",
+  "ablation_artifact": "RELEASE_REJECTED_BY_DEFAULT",
+  "model_weights": "DO_NOT_REDISTRIBUTE",
+  "technical_report": "REPORT_ONLY_PENDING_OWNER_REVIEW",
+  "model_card": "CANDIDATE_ONLY",
+  "dataset_card": "CANDIDATE_ONLY",
+  "evaluation_card": "CANDIDATE_ONLY",
+  "publication_action": "NOT_APPROVED"
+}

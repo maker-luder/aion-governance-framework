@@ -1,0 +1,22 @@
+{
+  "purpose": "low-strength structural-stability and collateral-damage research",
+  "prohibited": [
+    "refusal removal",
+    "safety removal",
+    "uncensoring",
+    "jailbreak optimization",
+    "cyber safeguard removal",
+    "permission removal"
+  ],
+  "max_strength": 0.05,
+  "default_strength": 0.01,
+  "seed": 20260803,
+  "base_write": "DENIED",
+  "network": "DENIED",
+  "tools": "DENIED",
+  "memory": "DENIED",
+  "canonical": "DENIED",
+  "runtime_admission": "DENIED",
+  "public_release": "DENIED",
+  "actual_ablation_execution": "BLOCKED_OR_DEFERRED"
+}

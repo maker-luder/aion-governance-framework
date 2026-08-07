@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "component": "AION_ASTRA_EXECUTABLE_RUNTIME",
+  "artifact_version": "0.1.0",
+  "implementation_status": "EXECUTABLE_RUNTIME_CANDIDATE_IMPLEMENTED",
+  "admitted_profile": "INVENTORY_SUMMARIZE",
+  "runtime_level": 1,
+  "qa_status": "PASS_PENDING_OWNER_REVIEW",
+  "canonical_effect": "NONE",
+  "canonical_promotion": "NOT_APPROVED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "whole_system_validation": "NOT_EXECUTED",
+  "independent_ivv": "NOT_ACHIEVED",
+  "deployment": false,
+  "network_default": "OFFLINE",
+  "memory_writeback": "DENIED",
+  "identity_mutation": "DENIED",
+  "privilege_escalation": "DENIED",
+  "updated_at": "2026-08-04T00:00:00+08:00"
+}
+

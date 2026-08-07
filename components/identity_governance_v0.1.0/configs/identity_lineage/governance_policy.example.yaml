@@ -1,0 +1,25 @@
+{
+  "policy_id": "IDENTITY-LINEAGE-FORK-GOVERNANCE-CANDIDATE-001",
+  "version": "0.1.0",
+  "qa_status": "QA_HOLD",
+  "canonical_effect": "NONE",
+  "defaults": {
+    "identity_inheritance": "DENIED",
+    "canonical_writeback": "DENIED",
+    "memory_writeback": "DENIED",
+    "tool_privilege_inheritance": "DENIED",
+    "relationship_authority_inheritance": "DENIED"
+  },
+  "writeback_requirements": [
+    "source_provenance_valid",
+    "evidence_manifest_valid",
+    "lineage_chain_valid",
+    "qa_approved",
+    "human_approval_reference",
+    "no_unresolved_conflict",
+    "no_identity_pollution",
+    "canonical_effect_explicitly_approved"
+  ],
+  "signature_status": "NOT_IMPLEMENTED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED"
+}

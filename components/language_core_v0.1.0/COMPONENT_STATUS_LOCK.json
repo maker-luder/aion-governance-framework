@@ -1,0 +1,15 @@
+{
+  "component": "ASTRA_LANGUAGE_CORE_RESEARCH_LAB_CANDIDATE",
+  "version": "0.1.0",
+  "overall_result": "QA_HOLD_PENDING_OWNER_REVIEW",
+  "model_family_status": "EXPERIMENTAL_RESEARCH_FAMILY",
+  "weight_modification": "NOT_IMPLEMENTED",
+  "lora_training": "NOT_IMPLEMENTED",
+  "model_download": "NOT_IMPLEMENTED",
+  "active_cloud_access": false,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "aion_runtime_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED"
+}
+

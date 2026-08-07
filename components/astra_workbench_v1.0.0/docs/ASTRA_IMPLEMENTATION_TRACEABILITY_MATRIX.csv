@@ -1,0 +1,8 @@
+requirement,implementation,test_evidence,status
+task/state/approval,intake.py;scope.py;state_machine.py;approvals.py,test_task_approval_state.py,PASS
+workspace/files/rollback,workspace.py;file_operations.py;patches.py;rollback.py,test_workspace.py;test_e2e.py,PASS
+commands,command_policy.py;command_runner.py,test_command_validation.py,PASS
+validation/evidence,validation_plan.py;validation_runner.py;evidence.py;evidence_reuse.py,test_command_validation.py,PASS
+governance/provenance,governance_adapter.py;episodic_adapter.py,test_adapters_review_package.py;ACTUAL_ADAPTER_INTEGRATION_REPORT.json,PASS
+review/external,review_packet.py;redaction.py;reasoning_provider.py,test_adapters_review_package.py,PASS
+packaging,packaging.py,test_adapters_review_package.py;test_e2e.py,PASS

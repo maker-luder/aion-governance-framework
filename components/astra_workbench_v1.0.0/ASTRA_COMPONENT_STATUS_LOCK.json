@@ -1,0 +1,14 @@
+{
+  "aion_runtime": "NOT_IMPLEMENTED",
+  "automatic_cloud_access": false,
+  "automatic_external_submission": false,
+  "canonical_effect": "NONE_PENDING_OWNER_REVIEW",
+  "component": "ASTRA_ENGINEERING_WORKBENCH_CANDIDATE",
+  "deployment": false,
+  "independent_ivv": "NOT_ACHIEVED",
+  "live_local_reasoning_validation": "NOT_EXECUTED",
+  "status": "PASS_PENDING_OWNER_REVIEW",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "version": "1.0.0",
+  "whole_system_validation": "NOT_EXECUTED"
+}

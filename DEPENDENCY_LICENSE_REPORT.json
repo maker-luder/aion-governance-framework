@@ -1,0 +1,5 @@
+{
+  "status": "REVIEW_REQUIRED_BEFORE_RELEASE",
+  "vendored_dependencies": [],
+  "note": "No third-party dependency source or wheel is included. Declared dependencies must be resolved by the installer and independently license-reviewed."
+}

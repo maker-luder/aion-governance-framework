@@ -1,0 +1,7 @@
+{
+  "status": "OWNER_DECISION_REQUIRED",
+  "purpose": "future separate Runtime Artifact",
+  "automatic_download": false,
+  "may_replace_g1_base": false,
+  "canonical_effect": "NONE"
+}

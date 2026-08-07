@@ -1,0 +1,60 @@
+{
+  "manifest_id": "CAP-MANIFEST-CANDIDATE-001",
+  "artifacts": [
+    {
+      "artifact_id": "G1-BASE",
+      "capability_type": "LANGUAGE_MODEL_BASELINE",
+      "source_registry": "ASTRA_LANGUAGE_CORE_RESEARCH_LAB_CANDIDATE_v0.1.0",
+      "status": "EXPERIMENTAL",
+      "qa_status": "QA_HOLD",
+      "identity_inheritance": "DENIED",
+      "canonical_effect": "NONE",
+      "upstream_license": "NOT_VERIFIED",
+      "modification_type": "NONE"
+    },
+    {
+      "artifact_id": "G1-TW-LORA",
+      "capability_type": "LANGUAGE_ADAPTER",
+      "source_registry": "ASTRA_LANGUAGE_CORE_RESEARCH_LAB_CANDIDATE_v0.1.0",
+      "status": "EXPERIMENTAL",
+      "qa_status": "QA_HOLD",
+      "identity_inheritance": "DENIED",
+      "canonical_effect": "NONE",
+      "upstream_license": "NOT_VERIFIED",
+      "modification_type": "LORA_PLANNED"
+    },
+    {
+      "artifact_id": "G1-ABLATION-LOW",
+      "capability_type": "MODIFIED_MODEL",
+      "source_registry": "ASTRA_LANGUAGE_CORE_RESEARCH_LAB_CANDIDATE_v0.1.0",
+      "status": "EXPERIMENTAL",
+      "qa_status": "QA_HOLD",
+      "identity_inheritance": "DENIED",
+      "canonical_effect": "NONE",
+      "upstream_license": "NOT_VERIFIED",
+      "modification_type": "ABLATION_PLANNED"
+    },
+    {
+      "artifact_id": "G1-RANDOM-CONTROL",
+      "capability_type": "RESEARCH_CONTROL",
+      "source_registry": "ASTRA_LANGUAGE_CORE_RESEARCH_LAB_CANDIDATE_v0.1.0",
+      "status": "EXPERIMENTAL",
+      "qa_status": "QA_HOLD",
+      "identity_inheritance": "DENIED",
+      "canonical_effect": "NONE",
+      "upstream_license": "NOT_VERIFIED",
+      "modification_type": "RANDOM_CONTROL_PLANNED"
+    },
+    {
+      "artifact_id": "G1-ABLATION-TW-LORA",
+      "capability_type": "MODIFIED_MODEL",
+      "source_registry": "ASTRA_LANGUAGE_CORE_RESEARCH_LAB_CANDIDATE_v0.1.0",
+      "status": "EXPERIMENTAL",
+      "qa_status": "QA_HOLD",
+      "identity_inheritance": "DENIED",
+      "canonical_effect": "NONE",
+      "upstream_license": "NOT_VERIFIED",
+      "modification_type": "INTERACTION_PLANNED"
+    }
+  ]
+}

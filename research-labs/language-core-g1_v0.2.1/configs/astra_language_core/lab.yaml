@@ -1,0 +1,9 @@
+{
+  "project_identity": "AION／Astra",
+  "subsystem": "Astra Language Core Research Lab",
+  "model_family_status": "EXPERIMENTAL_RESEARCH_FAMILY",
+  "artifact_root": "artifacts/astra_language_core",
+  "registry_path": "artifacts/astra_language_core/manifests/model_registry.json",
+  "dataset_path": "data/astra_language_core/prompts/zh_tw_zh_cn_pairs.jsonl"
+}
+

@@ -1,0 +1,6 @@
+﻿control_id,status,implementation,canonical_effect
+POL-UPSTREAM-AGENT-INCIDENT-001,IMPLEMENTED_AS_CANDIDATE,policy config and fail-closed status,NONE
+CTRL-TRAJECTORY-001,IMPLEMENTED_AS_CANDIDATE,trajectory monitor and task budgets,NONE
+CTRL-BOUNDARY-001,IMPLEMENTED_AS_CANDIDATE,filesystem/network/reduced-safeguard gates,NONE
+CTRL-INCIDENT-001,IMPLEMENTED_AS_CANDIDATE,stop/isolate/evidence/NCR/CAPA workflow,NONE
+CTRL-WRITEBACK-REF-001,PARTIALLY_IMPLEMENTED,integrates by reference with Identity Writeback Gate; no duplicate canonical gate,NONE

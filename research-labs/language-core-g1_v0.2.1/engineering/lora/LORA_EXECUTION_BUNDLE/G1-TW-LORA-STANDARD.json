@@ -1,0 +1,22 @@
+{
+  "name": "G1-TW-LORA-STANDARD",
+  "base_model_path": "<OWNER_APPROVED_G1_BASE_PATH>",
+  "output_dir": "<SEPARATE_FORK_ROOT>/G1-TW-LORA-STANDARD",
+  "seed": 20260803,
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "rank": 16,
+  "alpha": 32,
+  "dropout": 0.05,
+  "epochs": 2,
+  "learning_rate": 0.0001,
+  "batch_size": 1,
+  "gradient_accumulation": 16
+}

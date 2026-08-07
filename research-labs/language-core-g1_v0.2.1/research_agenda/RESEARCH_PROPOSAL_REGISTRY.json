@@ -1,0 +1,12 @@
+{
+  "registry_version": "1.0",
+  "implementation_status": "RESEARCH_PROPOSALS_REGISTERED",
+  "canonical_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "proposal_ids": [
+    "AION-LANGUAGE-SPECIALIZATION-JA-001",
+    "ASTRA-ADDITIONAL-LANGUAGE-SPECIALIZATION-HOLD-001",
+    "AION-QA-ADMIN-CAPABILITY-001",
+    "AION-ASTRA-OWNER-ROLE-SEPARATION-001"
+  ]
+}

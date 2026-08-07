@@ -1,0 +1,14 @@
+requirement_id,implementation,evidence,status
+LC-001,Model lineage and immutable G1-BASE,src/astra_language_core/models.py;src/astra_language_core/lineage.py,IMPLEMENTED_TESTED
+LC-002,Portable registry with safe create/register,src/astra_language_core/registry.py,IMPLEMENTED_TESTED
+LC-003,File and deterministic shard SHA-256,src/astra_language_core/hashing.py,IMPLEMENTED_TESTED
+LC-004,Paired zh-TW/zh-CN JSONL schema,data/astra_language_core/prompts/zh_tw_zh_cn_pairs.jsonl,IMPLEMENTED_TESTED
+LC-005,MockRuntime and localhost-only OllamaRuntime,src/astra_language_core/runtime.py,IMPLEMENTED_TESTED
+LC-006,Metrics and side-effect dimension preservation,src/astra_language_core/metrics.py;src/astra_language_core/evaluation.py,IMPLEMENTED_TESTED
+LC-007,JSON and Markdown reports,src/astra_language_core/reports.py,IMPLEMENTED_TESTED
+LC-008,Conservative ten-gate admission,src/astra_language_core/admission.py,IMPLEMENTED_TESTED_QA_HOLD
+LC-009,Restricted internal observations,data/astra_language_core/observations/observations.json,IMPLEMENTED_VALIDATED
+LC-010,CLI safe skeleton,src/astra_language_core/cli.py,IMPLEMENTED_TESTED
+LC-011,Weight modification and training,NOT_PRESENT,DEFERRED_NOT_AUTHORIZED
+LC-012,Cloud model access and model download,NOT_PRESENT,PROHIBITED_NOT_IMPLEMENTED
+

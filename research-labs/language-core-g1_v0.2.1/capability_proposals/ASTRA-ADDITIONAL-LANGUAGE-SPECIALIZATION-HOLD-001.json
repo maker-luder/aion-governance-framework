@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "proposal_id": "ASTRA-ADDITIONAL-LANGUAGE-SPECIALIZATION-HOLD-001",
+  "title": "Astra Additional Language Specialization Hold",
+  "target": "ASTRA",
+  "status": "SCOPE_HOLD",
+  "source": "USER_PLANNING",
+  "implementation": "NOT_STARTED",
+  "canonical_effect": "NONE",
+  "qa_status": "QA_HOLD",
+  "human_approval_required": true,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "preference_origin": "NOT_ESTABLISHED",
+  "execution_triggers": {
+    "model_download": false,
+    "dataset_creation": false,
+    "training": false,
+    "lora": false,
+    "ablation": false,
+    "runtime_privilege": false,
+    "canonical_writeback": false
+  },
+  "additional_language_specialization": "NOT_ASSIGNED",
+  "decision_origin": "OWNER_SCOPE_AND_RESOURCE_DECISION",
+  "reason": "Current engineering scope, maintenance cost and workload control.",
+  "astra_autonomous_refusal": false,
+  "astra_preference": "NOT_ESTABLISHED",
+  "non_claims": [
+    "Astra is not described as tired, unwilling, rejecting a language or experiencing distress.",
+    "Any future language specialization requires a new Research Proposal."
+  ]
+}

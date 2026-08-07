@@ -1,0 +1,15 @@
+{
+  "runtime_id": "OLLAMA-LOCAL-CANDIDATE-001",
+  "runtime_type": "OLLAMA",
+  "runtime_version": "UNKNOWN",
+  "execution_location": "LOCAL",
+  "network_mode": "LOOPBACK_ONLY",
+  "model_reference": "G1-BASE",
+  "allowed_endpoints": ["http://127.0.0.1:11434"],
+  "timeout": 30,
+  "sandbox_status": "NOT_IMPLEMENTED",
+  "tool_permissions": [],
+  "sha256_or_config_hash": "UNKNOWN",
+  "status": "CANDIDATE",
+  "notes": "Manifest only; no live runtime call was made."
+}

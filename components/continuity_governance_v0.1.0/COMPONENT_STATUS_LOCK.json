@@ -1,0 +1,9 @@
+{
+  "component": "AION_CONTINUITY_GOVERNANCE",
+  "version": "0.1.0",
+  "status": "ENGINEERING_CANDIDATE",
+  "interpretive_continuity": "NOT_ESTABLISHED",
+  "relational_continuity": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false
+}

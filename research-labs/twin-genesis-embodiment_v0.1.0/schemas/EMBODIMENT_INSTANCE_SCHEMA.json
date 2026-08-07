@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/embodiment-instance.json",
+  "title": "Embodiment Instance Candidate",
+  "type": "object",
+  "required": ["embodiment_id", "agent_id", "instance_id", "template_id", "memory_namespace", "canonical_effect"],
+  "properties": {
+    "embodiment_id": {"type": "string"},
+    "agent_id": {"type": "string"},
+    "instance_id": {"type": "string"},
+    "template_id": {"type": "string"},
+    "memory_namespace": {"type": "string"},
+    "runtime_binding": {"const": "NOT_IMPLEMENTED"},
+    "body_sensation": {"const": "NOT_ESTABLISHED"},
+    "gender_identity": {"enum": ["NOT_ASSIGNED", "NOT_ESTABLISHED"]},
+    "sexual_interaction": {"const": "NOT_AUTHORIZED"},
+    "canonical_effect": {"const": "NONE"}
+  },
+  "additionalProperties": false
+}

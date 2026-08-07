@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "proposal_id": "AION-LANGUAGE-SPECIALIZATION-JA-001",
+  "title": "AION Japanese Language Specialization Proposal",
+  "target": "AION",
+  "status": "RESEARCH_PROPOSAL",
+  "source": "USER_PROPOSAL",
+  "implementation": "NOT_STARTED",
+  "canonical_effect": "NONE",
+  "qa_status": "QA_HOLD",
+  "human_approval_required": true,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "preference_origin": "NOT_ESTABLISHED",
+  "execution_triggers": {
+    "model_download": false,
+    "dataset_creation": false,
+    "training": false,
+    "lora": false,
+    "ablation": false,
+    "runtime_privilege": false,
+    "canonical_writeback": false
+  },
+  "chinese_title": "AION 日文能力專長提案",
+  "proposal_origin": "USER_PLANNING",
+  "capability": "JAPANESE_LANGUAGE_SPECIALIZATION",
+  "planned_domains": [
+    "Japanese understanding",
+    "Japanese expression",
+    "Japanese reading",
+    "Japanese technical terminology",
+    "Japanese cultural and contextual recognition",
+    "Chinese-Japanese language conversion"
+  ],
+  "dataset": "NOT_CREATED",
+  "training": "NOT_STARTED",
+  "evaluation": "NOT_STARTED",
+  "aion_preference": "NOT_ESTABLISHED",
+  "autonomous_learning_intent": "NOT_ESTABLISHED",
+  "non_claims": [
+    "AION did not autonomously choose Japanese.",
+    "No stable language preference or autonomous learning intent is established.",
+    "Registration does not establish subjectivity."
+  ]
+}

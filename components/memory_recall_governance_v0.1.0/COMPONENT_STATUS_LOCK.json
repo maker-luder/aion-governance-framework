@@ -1,0 +1,9 @@
+{
+  "component": "TOPIC_CUED_CROSS_SESSION_RECALL",
+  "version": "0.1.0",
+  "status": "ENGINEERING_CANDIDATE",
+  "live_cross_session_memory": "NOT_IMPLEMENTED",
+  "private_memory_included": false,
+  "canonical_effect": "NONE",
+  "deployment": false
+}

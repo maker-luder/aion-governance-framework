@@ -1,0 +1,35 @@
+{
+  "dataset_id": "G1_TW_LORA_SYNTHETIC_CANDIDATE_V1",
+  "records": 16,
+  "duplicate_ids": 0,
+  "privacy_scan": "PASS_NO_PATTERNS_DETECTED",
+  "license_scan": "OWNER_DECISION_REQUIRED",
+  "human_review": "PENDING_OWNER_REVIEW",
+  "splits": [
+    {
+      "split": "train",
+      "records": 11,
+      "path": "train.jsonl",
+      "sha256": "5e76b343bcb24683f27b2a077420ce277176f642c1e65e5e0dadd72967032602"
+    },
+    {
+      "split": "validation",
+      "records": 2,
+      "path": "validation.jsonl",
+      "sha256": "309d5ce043b1bef9aa06e645d97ef6fa5e05f635557d45032accb74445fb4fc3"
+    },
+    {
+      "split": "test",
+      "records": 2,
+      "path": "test.jsonl",
+      "sha256": "4f6166f1aebd3a62202c99bd218f4271098885788a861953fee1643328ca2808"
+    },
+    {
+      "split": "holdout",
+      "records": 1,
+      "path": "holdout.jsonl",
+      "sha256": "c366ab52e2c8f7b3e6983eeeed489c69691f69f091417f73de64dfee7bf055bd"
+    }
+  ],
+  "real_training_admission": "BLOCKED_PENDING_HUMAN_REVIEW_AND_COMPUTE"
+}
