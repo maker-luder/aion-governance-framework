@@ -45,11 +45,14 @@ jobs:
         run: python scripts/run_component_tests.py
 
   frozen-release-verification:
-    name: Frozen release manifest verification
+    name: Frozen v0.1.0-rc.1 manifest verification
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout frozen v0.1.0-rc.1 release
+        uses: actions/checkout@v4
+        with:
+          ref: v0.1.0-rc.1
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
