@@ -17,7 +17,9 @@ from aion_astra_runtime.models import IndividualRuntimeContext, RunResult, TaskS
 from aion_memory_recall.models import RecallRequest
 from aion_memory_recall.store import SQLiteMemoryStore, StoredMemory
 from individual_runtime_state import (
+    EnvironmentEvidence,
     IndividualRuntimeStateStore,
+    MigrationSummary,
     RecoveryState,
     RuntimeCheckpoint,
 )
@@ -32,6 +34,7 @@ class RuntimeStatus:
     individual_runtime_binding: str = "ENFORCED_CANDIDATE"
     individual_event_lineage: str = "ENABLED_GOVERNED_CANDIDATE"
     checkpoint_recovery: str = "ENABLED_OWNER_GOVERNED_CANDIDATE"
+    migration_evidence_reuse: str = "ENABLED_CONTENT_ADDRESSED_CANDIDATE"
     automatic_canonical_writeback: str = "DISABLED"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
     independent_ivv: str = "NOT_ACHIEVED"
@@ -46,6 +49,7 @@ class RuntimeStatus:
             "individual_runtime_binding": self.individual_runtime_binding,
             "individual_event_lineage": self.individual_event_lineage,
             "checkpoint_recovery": self.checkpoint_recovery,
+            "migration_evidence_reuse": self.migration_evidence_reuse,
             "automatic_canonical_writeback": self.automatic_canonical_writeback,
             "subjectivity_conclusion": self.subjectivity_conclusion,
             "independent_ivv": self.independent_ivv,
@@ -170,6 +174,28 @@ class AstraRuntime:
         self.state.append_event("memory.recalled", {"result_count": len(records)})
         return records
 
+    def register_environment_evidence(
+        self,
+        *,
+        device_id: str,
+        hardware_profile_hash: str,
+        runtime_environment_hash: str,
+        policy_config_hash: str,
+        verification_reference: str,
+        verification_status: str = "PASS",
+    ) -> EnvironmentEvidence:
+        return self.state.register_environment_evidence(
+            device_id=device_id,
+            hardware_profile_hash=hardware_profile_hash,
+            runtime_environment_hash=runtime_environment_hash,
+            policy_config_hash=policy_config_hash,
+            verification_reference=verification_reference,
+            verification_status=verification_status,
+        )
+
+    def migration_summary(self) -> list[MigrationSummary]:
+        return self.state.migration_summary()
+
     def checkpoint(
         self,
         *,
@@ -201,14 +227,20 @@ class AstraRuntime:
         new_context: IndividualRuntimeContext,
         *,
         owner_approved: bool,
+        source_evidence_id: str,
+        target_evidence_id: str,
     ) -> "AstraRuntime":
         if new_context.agent_id != self.AGENT_ID:
             raise RuntimeIdentityMismatch("Astra migration must remain bound to ASTRA")
-        migrated_state = self.state.migrate_instance(new_context, owner_approved=owner_approved)
-        migrated = AstraRuntime(
+        migrated_state = self.state.migrate_instance(
+            new_context,
+            owner_approved=owner_approved,
+            source_evidence_id=source_evidence_id,
+            target_evidence_id=target_evidence_id,
+        )
+        return AstraRuntime(
             memory_db=self.memory.path,
             context=new_context,
             state_db=migrated_state.path,
             execution=self.execution,
         )
-        return migrated
