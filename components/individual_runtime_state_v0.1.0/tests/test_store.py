@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sqlite3
+
 import pytest
 
 from aion_astra_runtime.models import IndividualRuntimeContext
@@ -81,6 +83,41 @@ def test_checkpoint_and_rollback_require_owner_approval(tmp_path):
         )
 
 
+def test_recovery_denies_tampered_event_lineage(tmp_path):
+    db = tmp_path / "state.sqlite3"
+    store = IndividualRuntimeStateStore(db, context())
+    store.append_event("runtime.started", {"reason": "initial"})
+    with sqlite3.connect(db) as connection:
+        connection.execute(
+            "UPDATE runtime_events SET payload_json = ? WHERE event_lineage_id = ? AND sequence = 1",
+            ('{"reason":"tampered"}', context().event_lineage_id),
+        )
+    assert store.verify() is False
+    with pytest.raises(RuntimeStateError, match="recovery denied"):
+        store.recover()
+
+
+def test_recovery_and_rollback_deny_tampered_checkpoint_reference(tmp_path):
+    db = tmp_path / "state.sqlite3"
+    store = IndividualRuntimeStateStore(db, context())
+    store.append_event("runtime.started")
+    store.checkpoint(
+        checkpoint_id="CP-TAMPER",
+        state_reference="state:trusted",
+        memory_reference="memory:trusted",
+        owner_approved=True,
+    )
+    with sqlite3.connect(db) as connection:
+        connection.execute(
+            "UPDATE runtime_checkpoints SET state_reference = ? WHERE checkpoint_id = ?",
+            ("state:tampered", "CP-TAMPER"),
+        )
+    with pytest.raises(RuntimeStateError, match="checkpoint integrity"):
+        store.recover()
+    with pytest.raises(RuntimeStateError, match="checkpoint integrity"):
+        store.rollback_to_checkpoint("CP-TAMPER", owner_approved=True)
+
+
 def test_environment_evidence_is_reused_by_fingerprint(tmp_path):
     store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
     first = evidence(store, "DEVICE-A", "a")
@@ -132,6 +169,54 @@ def test_migration_changes_only_runtime_instance_and_reuses_evidence(tmp_path):
     ]
     assert migrated.events()[-2].payload["source_evidence_id"] == source.evidence_id
     assert migrated.events()[-2].payload["target_evidence_id"] == target.evidence_id
+
+
+def test_atomic_migration_rolls_back_if_second_transition_write_fails(tmp_path, monkeypatch):
+    db = tmp_path / "state.sqlite3"
+    store = IndividualRuntimeStateStore(db, context())
+    source = evidence(store, "DEVICE-A", "a")
+    target = evidence(store, "DEVICE-B", "b")
+    store.append_event("runtime.started")
+    original = IndividualRuntimeStateStore._append_event_with_connection
+
+    def fail_on_migrated_in(connection, *, context, event_type, payload):
+        if event_type == "runtime.migrated_in":
+            raise sqlite3.DatabaseError("simulated migration interruption")
+        return original(connection, context=context, event_type=event_type, payload=payload)
+
+    monkeypatch.setattr(
+        IndividualRuntimeStateStore,
+        "_append_event_with_connection",
+        staticmethod(fail_on_migrated_in),
+    )
+    before = [(event.sequence, event.event_type, event.event_hash) for event in store.events()]
+    with pytest.raises(RuntimeStateError, match="atomic migration persistence failed"):
+        store.migrate_instance(
+            context(runtime_instance_id="AION-I-002"),
+            owner_approved=True,
+            source_evidence_id=source.evidence_id,
+            target_evidence_id=target.evidence_id,
+        )
+    after = [(event.sequence, event.event_type, event.event_hash) for event in store.events()]
+    assert after == before
+    assert store.verify() is True
+
+
+def test_unpaired_migration_transition_invalidates_lineage(tmp_path):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    store.append_event(
+        "runtime.migrating_out",
+        {
+            "from_runtime_instance_id": "AION-I-001",
+            "to_runtime_instance_id": "AION-I-002",
+            "source_evidence_id": "ENV-A",
+            "target_evidence_id": "ENV-B",
+            "canonical_effect": "NONE",
+        },
+    )
+    assert store.verify() is False
+    with pytest.raises(RuntimeStateError, match="recovery denied"):
+        store.recover()
 
 
 def test_round_trip_migrations_keep_unique_events_but_reuse_two_evidence_records(tmp_path):
