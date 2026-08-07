@@ -1,3 +1,3 @@
-from .runtime import AIONRuntime, RuntimeStatus
+from .runtime import AIONRuntime, RuntimeIdentityMismatch, RuntimeStatus
 
-__all__ = ["AIONRuntime", "RuntimeStatus"]
+__all__ = ["AIONRuntime", "RuntimeIdentityMismatch", "RuntimeStatus"]
