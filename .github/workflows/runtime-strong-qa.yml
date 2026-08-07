@@ -1,0 +1,40 @@
+name: Runtime Strong QA
+
+on:
+  pull_request:
+    paths:
+      - "components/aion_runtime_v0.1.0/**"
+      - "components/astra_runtime_v0.1.0/**"
+      - "components/executable_runtime_v0.1.0/**"
+      - "components/individual_runtime_state_v0.1.0/**"
+      - "components/memory_recall_governance_v0.1.0/**"
+      - "components/governance_kernel_v0.4.0/**"
+      - "components/astra_workbench_v1.0.0/**"
+      - "research-labs/language-core-g1_v0.2.1/**"
+      - "scripts/run_runtime_strong_qa.sh"
+      - ".github/workflows/runtime-strong-qa.yml"
+      - "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime-strong-qa:
+    name: Runtime Strong QA / Python 3.11
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install QA toolchain
+        run: python -m pip install --upgrade pip pytest pytest-cov mypy build setuptools wheel
+
+      - name: Run repeatable Runtime Strong QA
+        run: bash scripts/run_runtime_strong_qa.sh
