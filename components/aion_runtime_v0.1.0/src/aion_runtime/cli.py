@@ -9,6 +9,7 @@ from pathlib import Path
 from aion_memory_recall.models import RecallRequest
 
 from .runtime import AIONRuntime
+from .server import serve
 
 
 def parser() -> argparse.ArgumentParser:
@@ -17,6 +18,15 @@ def parser() -> argparse.ArgumentParser:
     subcommands = result.add_subparsers(dest="command", required=True)
 
     subcommands.add_parser("status")
+
+    serve_cmd = subcommands.add_parser("serve")
+    serve_cmd.add_argument("--host", default="127.0.0.1")
+    serve_cmd.add_argument("--port", type=int, default=8080)
+    serve_cmd.add_argument(
+        "--allow-non-loopback",
+        action="store_true",
+        help="Explicitly allow LAN/public interface binding. HTTP remains read-only.",
+    )
 
     remember = subcommands.add_parser("remember")
     remember.add_argument("--memory-id", required=True)
@@ -48,6 +58,15 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "status":
         print(json.dumps(runtime.status().to_dict(), ensure_ascii=False, indent=2))
+        return 0
+
+    if args.command == "serve":
+        serve(
+            runtime,
+            host=args.host,
+            port=args.port,
+            allow_non_loopback=args.allow_non_loopback,
+        )
         return 0
 
     if args.command == "remember":
