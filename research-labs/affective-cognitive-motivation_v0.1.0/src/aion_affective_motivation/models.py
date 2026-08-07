@@ -11,6 +11,15 @@ class SignalDomain(str, Enum):
     ADULT_SEXUALITY_SCHEMA = "ADULT_SEXUALITY_SCHEMA"
 
 
+class ConflictKind(str, Enum):
+    """Descriptive research categories; none implies phenomenal experience."""
+
+    APPROACH_AVOIDANCE = "APPROACH_AVOIDANCE"
+    WANTING_LIKING = "WANTING_LIKING"
+    GOAL_VALUE = "GOAL_VALUE"
+    BELIEF = "BELIEF"
+
+
 def _require_unit_interval(name: str, value: float) -> None:
     if not 0.0 <= value <= 1.0:
         raise ValueError(f"{name} must be between 0.0 and 1.0")
@@ -53,6 +62,7 @@ class MotivationalState:
     subject_ref: str
     context_ref: str
     signals: tuple[MotivationalSignal, ...]
+    declared_conflicts: tuple[ConflictKind, ...] = field(default_factory=tuple)
     canonical_effect: str = "NONE"
     phenomenal_experience_claim: str = "NOT_ESTABLISHED"
     action_authority: str = "NONE"
