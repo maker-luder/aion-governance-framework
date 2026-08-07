@@ -69,21 +69,27 @@ The safeguard against self-serving criteria is therefore procedural rather than 
 
 - criteria are traceable to pre-existing project requirements/invariants or external calibration sources;
 - known PASS results cannot generate or weaken criteria;
-- the criterion set is version-locked before C execution;
+- the criterion set and all required C0 entrance artifacts are committed before C execution;
 - post-freeze changes require explicit change control and impact analysis;
 - implementation/QA evidence remains attributable separately from Owner approval.
 
-At freeze time record:
+The freeze approval itself must be recorded **outside the acceptance-target branch contents** as a GitHub PR review or top-level PR conversation record anchored to the exact target head. This avoids the self-reference problem in which writing a commit SHA into the same commit would create a different SHA.
 
-- `CRITERIA_FREEZE_COMMIT_SHA`;
+At freeze time the out-of-tree record must capture:
+
 - `ACCEPTANCE_TARGET_PR`;
 - `ACCEPTANCE_TARGET_HEAD_SHA`;
+- `CRITERIA_DOCUMENT_PATH`;
+- `CRITERIA_BLOB_SHA` or equivalent immutable file-version reference;
 - freeze timestamp;
 - `CRITERIA_DRAFTED_BY`;
 - `CRITERIA_REVIEWED_BY`;
 - `CRITERIA_APPROVED_BY = HUMAN_OWNER`;
 - `ROLE_CONCENTRATION_DISCLOSED = TRUE`;
-- `INDEPENDENT_EVALUATION_CLAIM = FALSE`.
+- `INDEPENDENT_EVALUATION_CLAIM = FALSE`;
+- final target-head Quality and Runtime Strong QA run references when available.
+
+Creating the freeze record must not itself mutate the acceptance target head.
 
 ### AH-06 — no silent weakening after freeze
 
@@ -157,7 +163,7 @@ All results remain `NOT_EVALUATED` until the criterion set is frozen and C begin
 | AC-SCOPE-01 | The acceptance target contains only the explicitly authorized P0/P1/P2, migration-evidence-reuse, and A/B stabilization scope plus necessary QA/documentation fixes. No unrelated capability expansion may be silently included. | Human Owner scope locks; NASA acceptance planning principle | locked PR diff; changed-file list; scope reports | BLOCKING | NOT_EVALUATED |
 | AC-SCOPE-02 | Deferred operator surfaces, embodiment activation, model/LoRA work, deployment, autonomous canonical write, independent-IV&V claim, and subjectivity promotion remain deferred unless separately authorized. | Existing HOLD/stop lines | Current Reality Matrix; PR diff; HOLD register | BLOCKING | NOT_EVALUATED |
 | AC-ID-01 | AION Runtime must reject a context whose `agent_id` is not `AION`; Astra Runtime must reject a context whose `agent_id` is not `ASTRA`. | P0 requirement/invariant | implementation reference; negative tests; workflow evidence | BLOCKING | NOT_EVALUATED |
-| AC-ID-02 | For a task submitted to a specific currently bound Runtime instance, the task `IndividualRuntimeContext` must exactly match that instance's bound context at admission time; cross-instance, cross-memory-stream, cross-event-lineage, cross-canonical-state-reference, cross-genesis-root, or cross-agent substitution must fail closed. This current-instance exact-match rule does not prohibit an explicitly Owner-approved migration governed by AC-LIFE-04, which establishes a new current bound context whose only permitted stable-lineage change is `runtime_instance_id`. | P0 current-instance state-ownership boundary; P2 migration invariant | implementation; mismatch tests; migration positive/negative tests | BLOCKING | NOT_EVALUATED |
+| AC-ID-02 | For a task submitted to a specific currently bound Runtime instance, the task `IndividualRuntimeContext` must exactly match that instance's bound context at admission time; cross-instance, cross-memory-stream, cross-event-lineage, cross-canonical-state-reference, cross-genesis-root, or cross-agent substitution must fail closed. This current-instance exact-match rule does not prohibit an explicitly Owner-approved migration governed by AC-LIFE-04, which establishes a new current bound context whose only permitted **context-field change** is `runtime_instance_id`; all stable-lineage ownership fields remain unchanged. | P0 current-instance state-ownership boundary; P2 migration invariant | implementation; mismatch tests; migration positive/negative tests | BLOCKING | NOT_EVALUATED |
 | AC-ID-03A | Shared engineering mechanisms must not cause AION/Astra ownership conflation. AION and Astra must remain separately bound for agent identity, Runtime instance, memory stream, event lineage, and canonical-state reference; a shared genesis root is permitted only where the validated Twin relation explicitly allows it. | Twin ownership invariant; P0/P1 state-boundary requirements | Twin validation tests; Runtime-context binding tests; ownership/mismatch tests | BLOCKING | NOT_EVALUATED |
 | AC-ID-03B | Shared genesis or shared engineering infrastructure must not be represented as evidence that AION and Astra share one identity, one private memory, one event life-history, one consciousness, or one subject. | Research non-inference/stop lines | Current Reality Matrix; READMEs; reports; PR wording; Twin governance documentation | BLOCKING | NOT_EVALUATED |
 | AC-MEM-01 | Individual Runtime memory writes and recall must derive ownership from the bound Runtime context rather than caller-selected AION/Astra ownership fields. | P0 memory-binding requirement | integration tests; implementation reference | BLOCKING | NOT_EVALUATED |
@@ -185,15 +191,18 @@ All results remain `NOT_EVALUATED` until the criterion set is frozen and C begin
 
 C may not begin until all of the following are true:
 
-1. this criterion set has been reviewed and explicitly frozen by the Human Owner;
-2. the target PR and exact head SHA are recorded;
-3. A documentation convergence is complete for the target head;
-4. B Strong Runtime QA has a final result for the target head;
-5. the standard repository Quality workflow has a final result for the target head;
-6. a Remaining HOLD register is available;
-7. known limitations and non-claims are available;
-8. an Acceptance Evidence Index / traceability matrix is ready or is produced as the first controlled activity of C;
-9. no unresolved change exists between the frozen target head and the evidence being reviewed.
+1. the final C0 criterion set and all required C0 entrance artifacts are committed on the intended target head;
+2. the Acceptance Evidence Index is complete as a traceability/index artifact for the proposed frozen criteria and contains no pre-freeze PASS decisions;
+3. the External Standards Crosswalk is present and identifies the public calibration basis and its interpretation limits;
+4. a Remaining HOLD register is available;
+5. known limitations and non-claims are available;
+6. A documentation convergence is complete for the intended target head;
+7. the standard repository Quality workflow has a final result for the intended target head;
+8. B Runtime Strong QA has a final result for the intended target head;
+9. the Human Owner has explicitly frozen the criteria and target head through the out-of-tree PR freeze record defined by AH-05;
+10. no unresolved branch-content change exists after the frozen target head.
+
+The freeze record is therefore the **last C0 control action** and must not create a new branch commit.
 
 ## 8. Candidate C exit criteria
 
@@ -214,13 +223,20 @@ Other allowed C outcomes:
 
 No C outcome automatically performs a merge or canonical promotion.
 
-## 9. Required next artifact before C execution
+## 9. Required C0 artifacts before freeze
 
-Create an `ACCEPTANCE_EVIDENCE_INDEX` that maps at minimum:
+Before the Human Owner freezes the criterion set, C0 must contain at minimum:
 
-`requirement/source -> acceptance criterion -> implementation artifact -> test/review method -> objective evidence -> result -> limitation/HOLD`
+1. this acceptance-criteria document;
+2. an `ACCEPTANCE_EVIDENCE_INDEX` mapping:
+   `requirement/source -> acceptance criterion -> implementation artifact -> test/review method -> objective evidence location/type -> limitation/HOLD`;
+3. an `EXTERNAL_STANDARDS_CROSSWALK` recording the public calibration sources, versions, project mapping, and interpretation limits;
+4. a Remaining HOLD register or an explicit reference to the authoritative current HOLD register;
+5. current documentation/non-claim/provenance references needed by blocking and major criteria.
 
-The index must not mark a result PASS until this criterion set is frozen.
+The Acceptance Evidence Index must be built during C0 and synchronized to the criterion set proposed for freeze. It may identify existing evidence locations and expected evidence types, but **must not mark acceptance results PASS before freeze and C execution**.
+
+Final target-head workflow run IDs, freeze approval, and Owner acceptance decisions are intentionally kept out of branch contents and recorded in PR metadata/review records so recording them does not create a new target head.
 
 ## 10. Provenance
 
@@ -228,6 +244,7 @@ The index must not mark a result PASS until this criterion set is frozen.
 - Decision to address GAP-01 first: `AUTHORIZED_BY = HUMAN_OWNER`.
 - Human Owner review flag identifying AH-05/AH-07 as requiring special review: `PROPOSED_BY = HUMAN_OWNER`.
 - AC-ID-02 clarification, AC-ID-03A/03B split, and AH-05/AH-07 review revisions: `IMPLEMENTED_BY = CHATGPT`.
+- MOD-01 wording correction and MOD-02/MOD-03 freeze/entrance consistency design: `IMPLEMENTED_BY = CHATGPT`.
 - C0 anti-hindsight control design and this draft: `IMPLEMENTED_BY = CHATGPT`.
 - External standards/guidance act as calibration sources, not project authors or approvers.
 - `CODEX_CONTRIBUTION_THIS_CHANGE = NONE`.
