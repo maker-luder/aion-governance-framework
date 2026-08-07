@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import sqlite3
-from dataclasses import asdict, dataclass
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -48,6 +48,28 @@ class RecoveryState:
     lineage_valid: bool
 
 
+@dataclass(frozen=True, slots=True)
+class EnvironmentEvidence:
+    evidence_id: str
+    device_id: str
+    fingerprint: str
+    hardware_profile_hash: str
+    runtime_environment_hash: str
+    policy_config_hash: str
+    verification_reference: str
+    verification_status: str
+    verified_at: str
+
+
+@dataclass(frozen=True, slots=True)
+class MigrationSummary:
+    source_evidence_id: str
+    target_evidence_id: str
+    migration_count: int
+    first_sequence: int
+    last_sequence: int
+
+
 def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -65,7 +87,8 @@ class IndividualRuntimeStateStore:
 
     A lineage may continue across runtime-instance migration, but agent identity,
     memory stream, event lineage, canonical-state reference and genesis root are
-    immutable within that lineage.
+    immutable within that lineage. Device/environment evidence is content-addressed
+    and reusable; migration events remain unique and append-only.
     """
 
     def __init__(self, path: str | Path, context: IndividualRuntimeContext) -> None:
@@ -117,6 +140,21 @@ class IndividualRuntimeStateStore:
                     memory_reference TEXT NOT NULL,
                     created_at TEXT NOT NULL,
                     canonical_effect TEXT NOT NULL CHECK (canonical_effect = 'NONE')
+                )
+                """
+            )
+            connection.execute(
+                """
+                CREATE TABLE IF NOT EXISTS runtime_environment_evidence (
+                    evidence_id TEXT PRIMARY KEY,
+                    device_id TEXT NOT NULL,
+                    fingerprint TEXT NOT NULL UNIQUE,
+                    hardware_profile_hash TEXT NOT NULL,
+                    runtime_environment_hash TEXT NOT NULL,
+                    policy_config_hash TEXT NOT NULL,
+                    verification_reference TEXT NOT NULL,
+                    verification_status TEXT NOT NULL,
+                    verified_at TEXT NOT NULL
                 )
                 """
             )
@@ -249,6 +287,86 @@ class IndividualRuntimeStateStore:
             previous_hash = event.event_hash
         return True
 
+    def register_environment_evidence(
+        self,
+        *,
+        device_id: str,
+        hardware_profile_hash: str,
+        runtime_environment_hash: str,
+        policy_config_hash: str,
+        verification_reference: str,
+        verification_status: str = "PASS",
+    ) -> EnvironmentEvidence:
+        required = {
+            "device_id": device_id,
+            "hardware_profile_hash": hardware_profile_hash,
+            "runtime_environment_hash": runtime_environment_hash,
+            "policy_config_hash": policy_config_hash,
+            "verification_reference": verification_reference,
+            "verification_status": verification_status,
+        }
+        blank = [name for name, value in required.items() if not value.strip()]
+        if blank:
+            raise RuntimeStateError(f"blank environment evidence fields: {', '.join(sorted(blank))}")
+        fingerprint = _hash(
+            {
+                "device_id": device_id,
+                "hardware_profile_hash": hardware_profile_hash,
+                "runtime_environment_hash": runtime_environment_hash,
+                "policy_config_hash": policy_config_hash,
+            }
+        )
+        with self._connect() as connection:
+            existing = connection.execute(
+                "SELECT * FROM runtime_environment_evidence WHERE fingerprint = ?",
+                (fingerprint,),
+            ).fetchone()
+            if existing is not None:
+                return self._decode_environment_evidence(existing)
+            evidence_id = f"ENV-{fingerprint[:24].upper()}"
+            verified_at = _now()
+            connection.execute(
+                """
+                INSERT INTO runtime_environment_evidence (
+                    evidence_id, device_id, fingerprint, hardware_profile_hash,
+                    runtime_environment_hash, policy_config_hash,
+                    verification_reference, verification_status, verified_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    evidence_id,
+                    device_id,
+                    fingerprint,
+                    hardware_profile_hash,
+                    runtime_environment_hash,
+                    policy_config_hash,
+                    verification_reference,
+                    verification_status,
+                    verified_at,
+                ),
+            )
+        return EnvironmentEvidence(
+            evidence_id=evidence_id,
+            device_id=device_id,
+            fingerprint=fingerprint,
+            hardware_profile_hash=hardware_profile_hash,
+            runtime_environment_hash=runtime_environment_hash,
+            policy_config_hash=policy_config_hash,
+            verification_reference=verification_reference,
+            verification_status=verification_status,
+            verified_at=verified_at,
+        )
+
+    def get_environment_evidence(self, evidence_id: str) -> EnvironmentEvidence:
+        with self._connect() as connection:
+            row = connection.execute(
+                "SELECT * FROM runtime_environment_evidence WHERE evidence_id = ?",
+                (evidence_id,),
+            ).fetchone()
+        if row is None:
+            raise KeyError(evidence_id)
+        return self._decode_environment_evidence(row)
+
     def checkpoint(
         self,
         *,
@@ -328,6 +446,8 @@ class IndividualRuntimeStateStore:
         new_context: IndividualRuntimeContext,
         *,
         owner_approved: bool,
+        source_evidence_id: str,
+        target_evidence_id: str,
     ) -> "IndividualRuntimeStateStore":
         if not owner_approved:
             raise RuntimeStateError("explicit Owner approval is required for runtime migration")
@@ -336,24 +456,42 @@ class IndividualRuntimeStateStore:
             raise RuntimeStateError("migration may not change individual lineage ownership")
         if new_context.runtime_instance_id == self.context.runtime_instance_id:
             raise RuntimeStateError("migration requires a new runtime_instance_id")
-        self.append_event(
-            "runtime.migrating_out",
-            {
-                "from_runtime_instance_id": self.context.runtime_instance_id,
-                "to_runtime_instance_id": new_context.runtime_instance_id,
-                "canonical_effect": "NONE",
-            },
-        )
+        source_evidence = self.get_environment_evidence(source_evidence_id)
+        target_evidence = self.get_environment_evidence(target_evidence_id)
+        if source_evidence.verification_status != "PASS" or target_evidence.verification_status != "PASS":
+            raise RuntimeStateError("migration requires PASS environment evidence for source and target")
+        reference_payload = {
+            "from_runtime_instance_id": self.context.runtime_instance_id,
+            "to_runtime_instance_id": new_context.runtime_instance_id,
+            "source_evidence_id": source_evidence.evidence_id,
+            "target_evidence_id": target_evidence.evidence_id,
+            "canonical_effect": "NONE",
+        }
+        self.append_event("runtime.migrating_out", reference_payload)
         migrated = IndividualRuntimeStateStore(self.path, new_context)
-        migrated.append_event(
-            "runtime.migrated_in",
-            {
-                "from_runtime_instance_id": self.context.runtime_instance_id,
-                "to_runtime_instance_id": new_context.runtime_instance_id,
-                "canonical_effect": "NONE",
-            },
-        )
+        migrated.append_event("runtime.migrated_in", reference_payload)
         return migrated
+
+    def migration_summary(self) -> list[MigrationSummary]:
+        grouped: dict[tuple[str, str], list[int]] = {}
+        for event in self.events():
+            if event.event_type != "runtime.migrating_out":
+                continue
+            source = str(event.payload.get("source_evidence_id", ""))
+            target = str(event.payload.get("target_evidence_id", ""))
+            if not source or not target:
+                continue
+            grouped.setdefault((source, target), []).append(event.sequence)
+        return [
+            MigrationSummary(
+                source_evidence_id=source,
+                target_evidence_id=target,
+                migration_count=len(sequences),
+                first_sequence=min(sequences),
+                last_sequence=max(sequences),
+            )
+            for (source, target), sequences in sorted(grouped.items())
+        ]
 
     def get_checkpoint(self, checkpoint_id: str) -> RuntimeCheckpoint:
         with self._connect() as connection:
@@ -383,4 +521,18 @@ class IndividualRuntimeStateStore:
             memory_reference=str(row["memory_reference"]),
             created_at=str(row["created_at"]),
             canonical_effect=str(row["canonical_effect"]),
+        )
+
+    @staticmethod
+    def _decode_environment_evidence(row: sqlite3.Row) -> EnvironmentEvidence:
+        return EnvironmentEvidence(
+            evidence_id=str(row["evidence_id"]),
+            device_id=str(row["device_id"]),
+            fingerprint=str(row["fingerprint"]),
+            hardware_profile_hash=str(row["hardware_profile_hash"]),
+            runtime_environment_hash=str(row["runtime_environment_hash"]),
+            policy_config_hash=str(row["policy_config_hash"]),
+            verification_reference=str(row["verification_reference"]),
+            verification_status=str(row["verification_status"]),
+            verified_at=str(row["verified_at"]),
         )
