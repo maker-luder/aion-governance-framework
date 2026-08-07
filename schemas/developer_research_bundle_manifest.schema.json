@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/developer_research_bundle_manifest.schema.json",
+  "title": "Astra Developer Local Research Bundle Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "distribution_class",
+    "runtime_scope",
+    "profiles",
+    "model_assets",
+    "ablation_matrix",
+    "policy",
+    "canonical_effect"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "bundle_id": {"type": "string", "minLength": 1},
+    "distribution_class": {"const": "DEVELOPER_LOCAL_RESEARCH"},
+    "runtime_scope": {"const": "LOCAL_ONLY"},
+    "profiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["ASTRA_LITE_7B_CLASS", "ASTRA_BASELINE_14B_CLASS", "ASTRA_RESEARCH_20_32B_CLASS"]}
+    },
+    "model_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["asset_id", "parameter_class", "distribution_status", "license_review_status", "provenance_ref"],
+        "properties": {
+          "asset_id": {"type": "string", "minLength": 1},
+          "parameter_class": {"enum": ["7B_CLASS", "14B_CLASS", "20_32B_CLASS"]},
+          "distribution_status": {"enum": ["BUNDLED", "FETCH_BY_USER", "NOT_DISTRIBUTABLE", "PENDING_REVIEW"]},
+          "license_review_status": {"enum": ["APPROVED", "REVIEW_REQUIRED", "REJECTED"]},
+          "license_id_or_ref": {"type": "string"},
+          "provenance_ref": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "ablation_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["variant_id", "removed_research_mechanisms", "preserved_outer_safety_boundary"],
+        "properties": {
+          "variant_id": {"type": "string", "minLength": 1},
+          "removed_research_mechanisms": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "preserved_outer_safety_boundary": {"const": true},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["research_use_only", "local_only", "no_privilege_escalation", "no_hidden_channels", "no_claim_of_subjectivity"],
+      "properties": {
+        "research_use_only": {"const": true},
+        "local_only": {"const": true},
+        "no_privilege_escalation": {"const": true},
+        "no_hidden_channels": {"const": true},
+        "no_claim_of_subjectivity": {"const": true}
+      }
+    },
+    "canonical_effect": {"const": "NONE"}
+  }
+}
