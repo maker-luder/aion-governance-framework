@@ -3,7 +3,7 @@
 This component begins the post-RC implementation of a standard AION Runtime by composing two already-public project lines:
 
 - bounded, Owner-governed task execution from `components/executable_runtime_v0.1.0`;
-- topic-cued recall governance plus a new persistent SQLite store from `components/memory_recall_governance_v0.1.0`.
+- topic-cued recall governance plus a persistent SQLite store from `components/memory_recall_governance_v0.1.0`.
 
 ## Current implemented surface
 
@@ -11,7 +11,7 @@ This component begins the post-RC implementation of a standard AION Runtime by c
 - `AIONRuntime.run_task(...)` delegates to the existing bounded execution engine.
 - `AIONRuntime.remember(...)` persists a cross-session record only when writeback is explicitly approved.
 - `AIONRuntime.recall(...)` applies identity, access-scope, provenance, conflict and relevance gates before returning memory.
-- `aion-runtime` provides operator CLI commands for status, memory write and recall.
+- `aion-runtime` provides operator CLI commands for status, memory write, recall, and a self-host HTTP entry.
 
 ## Deliberate boundaries
 
@@ -34,6 +34,19 @@ aion-runtime --memory-db runtime_sessions/aion_memory.sqlite3 status
 
 An approved memory write must include `--approve-writeback`; omitting it is a hard failure. Recall also requires the matching identity and access scopes.
 
-## Deployment direction
+## Self-host deployment entry
 
-This package is designed to be self-hostable rather than tied to a paid cloud service. A network-facing API is intentionally not opened in this first implementation step; exposing state-changing execution over a public network requires a separate authentication, rate-limit, abuse-control and deployment-security review.
+The initial HTTP surface is deliberately read-only:
+
+```bash
+aion-runtime --memory-db runtime_sessions/aion_memory.sqlite3 serve --host 127.0.0.1 --port 8080
+```
+
+Available endpoints:
+
+- `GET /healthz`
+- `GET /v1/status`
+
+All `POST` requests return `405 state_changing_http_disabled` in v0.1.0. Binding to a non-loopback interface requires the explicit `--allow-non-loopback` flag, but doing so **does not** enable state-changing execution.
+
+This allows self-host deployment and health/status inspection without turning public network access into execution authority. Authentication, rate limiting, abuse controls, TLS termination, and any future state-changing network API remain separate review items.
