@@ -7,7 +7,7 @@ name = "aion-astra-twin-embodiment"
 version = "0.1.0"
 description = "Governed research candidate for AION/Astra shared-genesis twin embodiment"
 requires-python = ">=3.10"
-license = {text = "License decision pending Owner approval"}
+license = {text = "Apache-2.0"}
 
 [tool.setuptools]
 package-dir = {"" = "src"}

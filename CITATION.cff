@@ -8,4 +8,4 @@ authors:
   - name: "AION Project Owner"
 repository-code: "https://github.com/maker-luder/aion-governance-framework"
 abstract: "A human-governed and auditable research framework for identity, continuity, memory, research integrity, bounded execution, and artificial subjectivity possibility."
-license: "LicenseRef-Proprietary-Pending-Owner-Decision"
+license: "Apache-2.0"

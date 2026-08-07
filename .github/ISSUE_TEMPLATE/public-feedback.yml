@@ -1,0 +1,47 @@
+name: Public feedback / 公開留言
+about: Share reproducible feedback, questions, deployment observations, or research notes.
+title: "[Feedback] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reviewing AION/Astra. This is a public feedback channel, not a private support inbox. Do not post secrets, credentials, private conversations, personal identifiers, or restricted research data.
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category / 類別
+      options:
+        - Deployment / 部署
+        - Runtime / 執行時
+        - Memory / 跨會話記憶
+        - Governance / 治理
+        - Documentation / 文件
+        - Research observation / 研究觀察
+        - Other / 其他
+    validations:
+      required: true
+  - type: textarea
+    id: observation
+    attributes:
+      label: Observation / 留言內容
+      description: Describe what you observed, expected, or want the project owner to review.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction or evidence / 重現方式或證據
+      description: Include minimal reproducible steps, version/commit, logs with secrets removed, or public references when applicable.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment / 環境
+      description: OS, Python version, deployment mode, relevant hardware, and component versions when applicable.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public-data confirmation / 公開資料確認
+      options:
+        - label: I confirm that this submission contains no secrets, private conversations, personal identifiers, credentials, or restricted project data.
+          required: true

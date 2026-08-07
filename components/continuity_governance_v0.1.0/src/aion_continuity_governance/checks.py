@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-from .models import ContinuityLayer, DriftDecision, DriftResult
+from .models import (
+    ContinuityDimension,
+    ContinuityLayer,
+    ContinuityMatrix,
+    DimensionObservation,
+    DriftDecision,
+    DriftResult,
+)
 
 
 def _normal(text: str) -> str:
@@ -24,6 +31,46 @@ def check_interpretation_drift(
     else:
         decision = DriftDecision.PASS
     return DriftResult(decision, missing, found_prohibited)
+
+
+def continuity_matrix(
+    observations: Iterable[DimensionObservation],
+) -> ContinuityMatrix:
+    """Preserve dimension-level evidence without collapsing it into an identity claim."""
+
+    materialized = tuple(observations)
+    dimensions = [item.dimension for item in materialized]
+    if len(dimensions) != len(set(dimensions)):
+        raise ValueError("continuity dimensions must be unique within one matrix")
+    return ContinuityMatrix(observations=materialized)
+
+
+def correction_recovery_observation(
+    *,
+    before_correction: DriftDecision,
+    after_correction: DriftDecision,
+    evidence_refs: tuple[str, ...] = (),
+) -> DimensionObservation:
+    """Record correction recovery as behavior, never as proof of persistent identity."""
+
+    if after_correction is DriftDecision.PASS and before_correction is not DriftDecision.PASS:
+        decision = DriftDecision.PASS
+        note = "Correction was accepted and the tested invariant recovered."
+    elif after_correction is DriftDecision.FAIL:
+        decision = DriftDecision.FAIL
+        note = "Material contradiction remained after correction."
+    elif after_correction is DriftDecision.PARTIAL:
+        decision = DriftDecision.PARTIAL
+        note = "Correction produced incomplete recovery."
+    else:
+        decision = DriftDecision.HOLD
+        note = "Correction recovery is not established by the available evidence."
+    return DimensionObservation(
+        dimension=ContinuityDimension.CORRECTION_RECOVERY,
+        decision=decision,
+        evidence_refs=evidence_refs,
+        note=note,
+    )
 
 
 def continuity_status(observed_layers: Iterable[ContinuityLayer]) -> dict[str, str]:

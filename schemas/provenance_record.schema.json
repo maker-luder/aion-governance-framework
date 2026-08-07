@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/provenance_record.schema.json",
+  "title": "AION/Astra Provenance Record",
+  "description": "Public reconstruction schema influenced by W3C PROV concepts. Attribution, activity association, derivation and approval authority are deliberately represented as separate fields. Conformance to this project schema is not a claim of W3C PROV conformance.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_id",
+    "entity",
+    "source_class",
+    "attributions",
+    "derivations",
+    "approval",
+    "privacy_class",
+    "canonical_effect"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "entity_type", "label"],
+      "properties": {
+        "entity_id": {"type": "string", "minLength": 1},
+        "entity_type": {
+          "enum": [
+            "ARTIFACT",
+            "RESEARCH_CLAIM",
+            "REQUIREMENT",
+            "DESIGN",
+            "IMPLEMENTATION",
+            "TEST_RESULT",
+            "EVIDENCE_RECORD",
+            "SOURCE_MATERIAL",
+            "BUILD_OUTPUT"
+          ]
+        },
+        "label": {"type": "string", "minLength": 1},
+        "digest_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "source_class": {
+      "enum": [
+        "USER_ORIGINAL",
+        "ASSISTANT_PROPOSAL",
+        "JOINT_CONCLUSION",
+        "EXTERNAL_SOURCE",
+        "IMPLEMENTATION_DERIVATION",
+        "SOURCE_UNVERIFIED"
+      ]
+    },
+    "attributions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["agent_id", "agent_kind", "relation", "authority"],
+        "properties": {
+          "agent_id": {"type": "string", "minLength": 1},
+          "agent_kind": {
+            "enum": [
+              "HUMAN_OWNER",
+              "CHATGPT",
+              "CODEX",
+              "EXTERNAL_AUTHOR",
+              "REVIEWER",
+              "BUILD_SYSTEM",
+              "UNKNOWN"
+            ]
+          },
+          "relation": {
+            "enum": [
+              "ATTRIBUTED_TO",
+              "ASSOCIATED_WITH_ACTIVITY",
+              "GENERATED_BY_ACTIVITY",
+              "REVIEWED_BY"
+            ]
+          },
+          "authority": {
+            "enum": ["NONE", "PROPOSE", "IMPLEMENT", "REVIEW", "APPROVE", "RELEASE"]
+          },
+          "evidence_ref": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "activity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["activity_id", "activity_type"],
+      "properties": {
+        "activity_id": {"type": "string", "minLength": 1},
+        "activity_type": {
+          "enum": [
+            "CONCEPT_EXTRACTION",
+            "DESIGN",
+            "IMPLEMENTATION",
+            "TEST_EXECUTION",
+            "REVIEW",
+            "BUILD",
+            "RELEASE"
+          ]
+        },
+        "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "workflow_run_id": {"type": ["string", "integer"]},
+        "protocol_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "derivations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_entity_id", "relation"],
+        "properties": {
+          "source_entity_id": {"type": "string", "minLength": 1},
+          "relation": {
+            "enum": ["DERIVED_FROM", "REVISION_OF", "QUOTED_FROM", "RECONSTRUCTED_FROM"]
+          },
+          "source_ref": {"type": "string", "minLength": 1},
+          "verification_status": {
+            "enum": ["CONFIRMED", "PARTIAL", "SOURCE_UNVERIFIED"]
+          }
+        }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "enum": ["NOT_REQUESTED", "PENDING", "APPROVED", "REJECTED"]
+        },
+        "approved_by": {"type": "string", "minLength": 1},
+        "approval_evidence_ref": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "privacy_class": {
+      "enum": ["PUBLIC", "SYNTHETIC", "CONSENTED_REDACTED"]
+    },
+    "notes": {"type": "string"},
+    "canonical_effect": {
+      "const": "NONE"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/research_evidence_record.schema.json",
+  "title": "AION Research Evidence Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "claim_id",
+    "claim_level",
+    "claim_text",
+    "hypothesis",
+    "competing_hypotheses",
+    "preregistration_status",
+    "protocol_ref",
+    "protocol_hash",
+    "code_commit",
+    "model_or_runtime_ref",
+    "environment_ref",
+    "fixture_refs",
+    "evidence_refs",
+    "expected_outcomes",
+    "observed_outcomes",
+    "result_status",
+    "deviations",
+    "limitations",
+    "reviewer_status",
+    "independent_validation_status",
+    "canonical_effect"
+  ],
+  "properties": {
+    "claim_id": {"type": "string", "minLength": 1},
+    "claim_level": {
+      "enum": [
+        "L0_OBSERVATION",
+        "L1_REPEATABLE_BEHAVIOR",
+        "L2_STATE_ASSOCIATION",
+        "L3_INTERVENTION_SENSITIVE_MECHANISM",
+        "L4_ROBUST_REPLICATION",
+        "L5_SUBJECTIVITY_NOT_AUTOMATICALLY_ESTABLISHED"
+      ]
+    },
+    "claim_text": {"type": "string", "minLength": 1},
+    "hypothesis": {"type": "string", "minLength": 1},
+    "competing_hypotheses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "preregistration_status": {
+      "enum": [
+        "NOT_PREREGISTERED",
+        "PREREGISTERED_CONFIRMATORY",
+        "PREREGISTERED_WITH_DEVIATION",
+        "EXPLORATORY"
+      ]
+    },
+    "protocol_ref": {"type": "string", "minLength": 1},
+    "protocol_hash": {"type": "string", "minLength": 1},
+    "code_commit": {"type": "string", "minLength": 1},
+    "model_or_runtime_ref": {"type": "string", "minLength": 1},
+    "environment_ref": {"type": "string", "minLength": 1},
+    "fixture_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "expected_outcomes": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "observed_outcomes": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "result_status": {"enum": ["NOT_RUN", "PASS", "PARTIAL", "HOLD", "FAIL"]},
+    "deviations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "reviewer_status": {"enum": ["UNREVIEWED", "CREATOR_REVIEWED", "SEPARATED_REVIEWED"]},
+    "independent_validation_status": {"enum": ["IVV_NOT_ACHIEVED", "IVV_CANDIDATE", "IVV_ACHIEVED"]},
+    "canonical_effect": {"const": "NONE"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entities": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "activities": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "agents": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "derived_from": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "attributed_to": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "associated_with": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "threat_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lifecycle_stage": {"type": "string"},
+        "goal_or_objective": {"type": "string"},
+        "capability": {"type": "string"},
+        "knowledge": {"type": "string"},
+        "attack_or_confound_class": {"type": "string"},
+        "mitigation": {"type": "string"},
+        "residual_risk": {"type": "string"}
+      }
+    }
+  }
+}
