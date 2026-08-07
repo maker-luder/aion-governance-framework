@@ -25,6 +25,11 @@ for package in "${LOCAL_PACKAGES[@]}"; do
   python -m pip install --no-deps -e "$package"
 done
 
+# These are repository-owned typed sources. Point mypy at the source roots so
+# strict checking does not misclassify editable local packages as untyped
+# third-party distributions merely because they do not publish PEP 561 markers.
+export MYPYPATH="components/governance_kernel_v0.4.0/src:components/astra_workbench_v1.0.0/src:research-labs/language-core-g1_v0.2.1/src:components/memory_recall_governance_v0.1.0/src:components/executable_runtime_v0.1.0/src:components/individual_runtime_state_v0.1.0/src:components/aion_runtime_v0.1.0/src:components/astra_runtime_v0.1.0/src"
+
 printf '\n== mypy strict ==\n'
 python -m mypy --config-file components/executable_runtime_v0.1.0/pyproject.toml components/executable_runtime_v0.1.0/src/aion_astra_runtime
 python -m mypy --config-file components/individual_runtime_state_v0.1.0/pyproject.toml components/individual_runtime_state_v0.1.0/src/individual_runtime_state
