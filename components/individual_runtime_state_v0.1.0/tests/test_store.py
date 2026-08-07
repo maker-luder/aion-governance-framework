@@ -19,6 +19,16 @@ def context(**changes: str) -> IndividualRuntimeContext:
     return IndividualRuntimeContext(**values)
 
 
+def evidence(store: IndividualRuntimeStateStore, device_id: str, suffix: str):
+    return store.register_environment_evidence(
+        device_id=device_id,
+        hardware_profile_hash=f"hardware-{suffix}",
+        runtime_environment_hash=f"runtime-{suffix}",
+        policy_config_hash="policy-v1",
+        verification_reference=f"qa:{suffix}",
+    )
+
+
 def test_event_lineage_persists_across_restart(tmp_path):
     db = tmp_path / "state.sqlite3"
     first = IndividualRuntimeStateStore(db, context())
@@ -71,13 +81,46 @@ def test_checkpoint_and_rollback_require_owner_approval(tmp_path):
         )
 
 
-def test_migration_changes_only_runtime_instance(tmp_path):
+def test_environment_evidence_is_reused_by_fingerprint(tmp_path):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    first = evidence(store, "DEVICE-A", "a")
+    reused = store.register_environment_evidence(
+        device_id="DEVICE-A",
+        hardware_profile_hash="hardware-a",
+        runtime_environment_hash="runtime-a",
+        policy_config_hash="policy-v1",
+        verification_reference="qa:a-new-reference",
+    )
+    assert reused.evidence_id == first.evidence_id
+    assert reused.fingerprint == first.fingerprint
+
+
+def test_changed_environment_requires_new_evidence(tmp_path):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    first = evidence(store, "DEVICE-A", "a")
+    changed = store.register_environment_evidence(
+        device_id="DEVICE-A",
+        hardware_profile_hash="hardware-a",
+        runtime_environment_hash="runtime-a-v2",
+        policy_config_hash="policy-v1",
+        verification_reference="qa:a-v2",
+    )
+    assert changed.evidence_id != first.evidence_id
+    assert changed.fingerprint != first.fingerprint
+
+
+def test_migration_changes_only_runtime_instance_and_reuses_evidence(tmp_path):
     db = tmp_path / "state.sqlite3"
     store = IndividualRuntimeStateStore(db, context())
+    source = evidence(store, "DEVICE-A", "a")
+    target = evidence(store, "DEVICE-B", "b")
     store.append_event("runtime.started")
+
     migrated = store.migrate_instance(
         context(runtime_instance_id="AION-I-002"),
         owner_approved=True,
+        source_evidence_id=source.evidence_id,
+        target_evidence_id=target.evidence_id,
     )
 
     assert migrated.context.runtime_instance_id == "AION-I-002"
@@ -87,14 +130,75 @@ def test_migration_changes_only_runtime_instance(tmp_path):
         "runtime.migrating_out",
         "runtime.migrated_in",
     ]
+    assert migrated.events()[-2].payload["source_evidence_id"] == source.evidence_id
+    assert migrated.events()[-2].payload["target_evidence_id"] == target.evidence_id
+
+
+def test_round_trip_migrations_keep_unique_events_but_reuse_two_evidence_records(tmp_path):
+    db = tmp_path / "state.sqlite3"
+    first = IndividualRuntimeStateStore(db, context())
+    device_a = evidence(first, "DEVICE-A", "a")
+    device_b = evidence(first, "DEVICE-B", "b")
+
+    on_b = first.migrate_instance(
+        context(runtime_instance_id="AION-I-002"),
+        owner_approved=True,
+        source_evidence_id=device_a.evidence_id,
+        target_evidence_id=device_b.evidence_id,
+    )
+    back_on_a = on_b.migrate_instance(
+        context(runtime_instance_id="AION-I-003"),
+        owner_approved=True,
+        source_evidence_id=device_b.evidence_id,
+        target_evidence_id=device_a.evidence_id,
+    )
+
+    migration_events = [
+        event for event in back_on_a.events() if event.event_type == "runtime.migrating_out"
+    ]
+    assert len(migration_events) == 2
+    assert migration_events[0].event_hash != migration_events[1].event_hash
+
+    summaries = back_on_a.migration_summary()
+    assert {(item.source_evidence_id, item.target_evidence_id, item.migration_count) for item in summaries} == {
+        (device_a.evidence_id, device_b.evidence_id, 1),
+        (device_b.evidence_id, device_a.evidence_id, 1),
+    }
+
+    assert back_on_a.get_environment_evidence(device_a.evidence_id).device_id == "DEVICE-A"
+    assert back_on_a.get_environment_evidence(device_b.evidence_id).device_id == "DEVICE-B"
+
+
+def test_migration_requires_pass_environment_evidence(tmp_path):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    source = evidence(store, "DEVICE-A", "a")
+    failed = store.register_environment_evidence(
+        device_id="DEVICE-B",
+        hardware_profile_hash="hardware-b",
+        runtime_environment_hash="runtime-b",
+        policy_config_hash="policy-v1",
+        verification_reference="qa:b",
+        verification_status="FAIL",
+    )
+    with pytest.raises(RuntimeStateError):
+        store.migrate_instance(
+            context(runtime_instance_id="AION-I-002"),
+            owner_approved=True,
+            source_evidence_id=source.evidence_id,
+            target_evidence_id=failed.evidence_id,
+        )
 
 
 def test_migration_cannot_change_individual_ownership(tmp_path):
     store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    source = evidence(store, "DEVICE-A", "a")
+    target = evidence(store, "DEVICE-B", "b")
     with pytest.raises(RuntimeStateError):
         store.migrate_instance(
             context(runtime_instance_id="AION-I-002", memory_stream_id="OTHER"),
             owner_approved=True,
+            source_evidence_id=source.evidence_id,
+            target_evidence_id=target.evidence_id,
         )
 
 
