@@ -1,9 +1,9 @@
-"""Integrated AION individual runtime implementation candidate.
+"""Integrated Astra individual runtime implementation candidate.
 
-The runtime binds shared bounded execution, governed persistent memory, and an
-append-only individual event lineage to one explicit AION runtime instance.
-Persistence and execution do not establish subjectivity, consciousness, or
-phenomenal continuity.
+Astra uses the same bounded execution, governed-memory, and individual-state
+infrastructure as AION, while keeping an independently bound runtime context,
+memory stream, event lineage and runtime instance. This engineering separation
+does not establish subjectivity or phenomenal continuity.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from individual_runtime_state import (
 
 @dataclass(frozen=True, slots=True)
 class RuntimeStatus:
-    runtime: str = "AION_RUNTIME_IMPLEMENTATION_CANDIDATE"
+    runtime: str = "ASTRA_RUNTIME_IMPLEMENTATION_CANDIDATE"
     version: str = "0.1.0"
     bounded_execution: str = "ENABLED"
     live_cross_session_memory: str = "ENABLED_GOVERNED"
@@ -36,8 +36,6 @@ class RuntimeStatus:
     checkpoint_recovery: str = "ENABLED_OWNER_GOVERNED_CANDIDATE"
     migration_evidence_reuse: str = "ENABLED_CONTENT_ADDRESSED_CANDIDATE"
     automatic_canonical_writeback: str = "DISABLED"
-    public_ablation_execution: str = "DISABLED"
-    sexual_or_intimate_runtime: str = "NOT_AUTHORIZED"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
     independent_ivv: str = "NOT_ACHIEVED"
     canonical_promotion: str = "PENDING_OWNER_REVIEW"
@@ -53,8 +51,6 @@ class RuntimeStatus:
             "checkpoint_recovery": self.checkpoint_recovery,
             "migration_evidence_reuse": self.migration_evidence_reuse,
             "automatic_canonical_writeback": self.automatic_canonical_writeback,
-            "public_ablation_execution": self.public_ablation_execution,
-            "sexual_or_intimate_runtime": self.sexual_or_intimate_runtime,
             "subjectivity_conclusion": self.subjectivity_conclusion,
             "independent_ivv": self.independent_ivv,
             "canonical_promotion": self.canonical_promotion,
@@ -62,13 +58,13 @@ class RuntimeStatus:
 
 
 class RuntimeIdentityMismatch(ValueError):
-    """Raised when an operation attempts to cross the bound individual runtime."""
+    """Raised when an operation crosses the bound Astra runtime context."""
 
 
-class AIONRuntime:
-    """AION-specific composition root over shared governed infrastructure."""
+class AstraRuntime:
+    """Astra-specific composition root over shared governed infrastructure."""
 
-    AGENT_ID = "AION"
+    AGENT_ID = "ASTRA"
 
     def __init__(
         self,
@@ -80,7 +76,7 @@ class AIONRuntime:
     ) -> None:
         context.validate()
         if context.agent_id != self.AGENT_ID:
-            raise RuntimeIdentityMismatch("AIONRuntime requires context.agent_id == 'AION'")
+            raise RuntimeIdentityMismatch("AstraRuntime requires context.agent_id == 'ASTRA'")
         self.context = context
         self.memory = SQLiteMemoryStore(memory_db)
         self.state = IndividualRuntimeStateStore(state_db or f"{memory_db}.state.sqlite3", context)
@@ -92,7 +88,7 @@ class AIONRuntime:
 
     def _require_context(self, context: IndividualRuntimeContext) -> None:
         if context != self.context:
-            raise RuntimeIdentityMismatch("task runtime_context does not match the bound AION runtime instance")
+            raise RuntimeIdentityMismatch("task runtime_context does not match the bound Astra runtime instance")
 
     def record_start(self, *, reason: str = "operator_start") -> None:
         self.state.append_event("runtime.started", {"reason": reason, "canonical_effect": "NONE"})
@@ -233,16 +229,16 @@ class AIONRuntime:
         owner_approved: bool,
         source_evidence_id: str,
         target_evidence_id: str,
-    ) -> "AIONRuntime":
+    ) -> "AstraRuntime":
         if new_context.agent_id != self.AGENT_ID:
-            raise RuntimeIdentityMismatch("AION migration must remain bound to AION")
+            raise RuntimeIdentityMismatch("Astra migration must remain bound to ASTRA")
         migrated_state = self.state.migrate_instance(
             new_context,
             owner_approved=owner_approved,
             source_evidence_id=source_evidence_id,
             target_evidence_id=target_evidence_id,
         )
-        return AIONRuntime(
+        return AstraRuntime(
             memory_db=self.memory.path,
             context=new_context,
             state_db=migrated_state.path,

@@ -3,18 +3,15 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aion-runtime"
+name = "astra-runtime"
 version = "0.1.0"
-description = "Governed AION runtime implementation candidate with persistent cross-session memory"
+description = "Governed Astra individual runtime implementation candidate"
 requires-python = ">=3.11"
 dependencies = [
   "aion-astra-executable-runtime==0.1.0",
   "memory-recall-governance-v0.1.0==0.1.0",
   "individual-runtime-state==0.1.0",
 ]
-
-[project.scripts]
-aion-runtime = "aion_runtime.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -27,4 +24,4 @@ addopts = "-ra"
 [tool.mypy]
 python_version = "3.11"
 strict = true
-packages = ["aion_runtime"]
+packages = ["astra_runtime"]

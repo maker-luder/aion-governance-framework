@@ -1,13 +1,20 @@
 {
-  "task_id": "ASTRA-RUNTIME-SMOKE-001",
+  "task_id": "RUNTIME-SMOKE-001",
   "objective": "Inventory and summarize the approved local input",
   "profile": "INVENTORY_SUMMARIZE",
   "input_paths": ["input.txt"],
   "output_path": "runtime_output/summary.md",
   "owner_approved": true,
   "approved_by": "RESEARCH_OWNER",
+  "runtime_context": {
+    "agent_id": "AION",
+    "runtime_instance_id": "AION-I-SMOKE-001",
+    "memory_stream_id": "AION-MEM-SMOKE-001",
+    "event_lineage_id": "AION-EVENT-SMOKE-001",
+    "canonical_state_reference": "AION-CANONICAL",
+    "genesis_root_id": "ROOT-001"
+  },
   "max_steps": 8,
   "network_policy": "OFFLINE",
   "canonical_effect": "NONE"
 }
-

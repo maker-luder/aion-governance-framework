@@ -22,6 +22,58 @@ class NetworkPolicy(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
+class IndividualRuntimeContext:
+    """Required identity/lineage binding for one concrete individual runtime instance.
+
+    This record is an engineering ownership boundary. It does not establish
+    subjective identity, consciousness, or phenomenal continuity.
+    """
+
+    agent_id: str
+    runtime_instance_id: str
+    memory_stream_id: str
+    event_lineage_id: str
+    canonical_state_reference: str
+    genesis_root_id: str
+
+    @classmethod
+    def from_dict(cls, raw: dict[str, Any]) -> "IndividualRuntimeContext":
+        context = cls(
+            agent_id=str(raw.get("agent_id", "")),
+            runtime_instance_id=str(raw.get("runtime_instance_id", "")),
+            memory_stream_id=str(raw.get("memory_stream_id", "")),
+            event_lineage_id=str(raw.get("event_lineage_id", "")),
+            canonical_state_reference=str(raw.get("canonical_state_reference", "")),
+            genesis_root_id=str(raw.get("genesis_root_id", "")),
+        )
+        context.validate()
+        return context
+
+    def validate(self) -> None:
+        values = {
+            "agent_id": self.agent_id,
+            "runtime_instance_id": self.runtime_instance_id,
+            "memory_stream_id": self.memory_stream_id,
+            "event_lineage_id": self.event_lineage_id,
+            "canonical_state_reference": self.canonical_state_reference,
+            "genesis_root_id": self.genesis_root_id,
+        }
+        blank = [name for name, value in values.items() if not value.strip()]
+        if blank:
+            raise PolicyDenied(f"blank individual runtime context fields: {', '.join(sorted(blank))}")
+
+    def to_dict(self) -> dict[str, str]:
+        return {
+            "agent_id": self.agent_id,
+            "runtime_instance_id": self.runtime_instance_id,
+            "memory_stream_id": self.memory_stream_id,
+            "event_lineage_id": self.event_lineage_id,
+            "canonical_state_reference": self.canonical_state_reference,
+            "genesis_root_id": self.genesis_root_id,
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class TaskSpec:
     task_id: str
     objective: str
@@ -30,6 +82,7 @@ class TaskSpec:
     output_path: str
     owner_approved: bool
     approved_by: str
+    runtime_context: IndividualRuntimeContext
     max_steps: int = 12
     network_policy: NetworkPolicy = NetworkPolicy.OFFLINE
     canonical_effect: str = "NONE"
@@ -41,6 +94,9 @@ class TaskSpec:
             isinstance(item, str) and item.strip() for item in inputs
         ):
             raise PolicyDenied("input_paths must be a non-empty string array")
+        raw_context = raw.get("runtime_context")
+        if not isinstance(raw_context, dict):
+            raise PolicyDenied("runtime_context is required and must be an object")
         try:
             network_policy = NetworkPolicy(str(raw.get("network_policy", "OFFLINE")))
         except ValueError as exc:
@@ -53,6 +109,7 @@ class TaskSpec:
             output_path=str(raw.get("output_path", "")),
             owner_approved=raw.get("owner_approved") is True,
             approved_by=str(raw.get("approved_by", "")),
+            runtime_context=IndividualRuntimeContext.from_dict(raw_context),
             max_steps=int(raw.get("max_steps", 12)),
             network_policy=network_policy,
             canonical_effect=str(raw.get("canonical_effect", "NONE")),
@@ -69,6 +126,7 @@ class TaskSpec:
             raise PolicyDenied("only INVENTORY_SUMMARIZE is admitted in runtime v0.1.0")
         if not self.owner_approved or not self.approved_by.strip():
             raise PolicyDenied("explicit Owner approval is required")
+        self.runtime_context.validate()
         if not 5 <= self.max_steps <= 64:
             raise PolicyDenied("max_steps must be between 5 and 64")
         if self.canonical_effect != "NONE":
@@ -91,6 +149,7 @@ class Observation:
 @dataclass(frozen=True, slots=True)
 class RunResult:
     task_id: str
+    runtime_context: IndividualRuntimeContext
     status: RunStatus
     steps_executed: int
     candidate_root: str
@@ -108,6 +167,7 @@ class RunResult:
     def to_dict(self) -> dict[str, Any]:
         return {
             "task_id": self.task_id,
+            "runtime_context": self.runtime_context.to_dict(),
             "status": self.status.value,
             "steps_executed": self.steps_executed,
             "candidate_root": self.candidate_root,
@@ -122,4 +182,3 @@ class RunResult:
             "deployment": self.deployment,
             "failure_reason": self.failure_reason,
         }
-

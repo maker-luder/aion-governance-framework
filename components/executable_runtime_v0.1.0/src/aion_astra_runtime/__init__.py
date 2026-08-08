@@ -1,12 +1,18 @@
-"""Executable, owner-governed AION/Astra runtime candidate.
+"""Bounded owner-governed execution infrastructure for AION/Astra candidates.
 
-This package runs bounded candidate workflows.  It has no canonical write,
+This package provides shared execution mechanics. It has no canonical write,
 deployment, identity-mutation, or subjectivity-establishing capability.
 """
 
-from .engine import AstraRuntime
-from .models import RunResult, RunStatus, TaskSpec
+from .engine import AstraRuntime, BoundedExecutionEngine
+from .models import IndividualRuntimeContext, RunResult, RunStatus, TaskSpec
 
-__all__ = ["AstraRuntime", "RunResult", "RunStatus", "TaskSpec"]
+__all__ = [
+    "AstraRuntime",
+    "BoundedExecutionEngine",
+    "IndividualRuntimeContext",
+    "RunResult",
+    "RunStatus",
+    "TaskSpec",
+]
 __version__ = "0.1.0"
-

@@ -1,4 +1,4 @@
-"""Executable AION/Astra candidate agent loop."""
+"""Bounded governed execution engine for AION/Astra runtime candidates."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from astra_engineering_workbench.enums import ApprovalDecision, KernelDecision, 
 from astra_engineering_workbench.governance_adapter import GovernanceKernelAdapter
 from astra_engineering_workbench.workspace import WorkspaceController, create_candidate_workspace
 
-from .errors import PlannerFailure, PolicyDenied, RuntimeCandidateError
+from .errors import RuntimeCandidateError
 from .models import Observation, RunResult, RunStatus, TaskSpec
 from .planner import DeterministicInventoryPlanner, Planner
 from .policy import validate_task_paths
@@ -24,22 +24,52 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-class AstraRuntime:
+def _context_details(task: TaskSpec) -> dict[str, str]:
+    return task.runtime_context.to_dict()
+
+
+class BoundedExecutionEngine:
+    """Shared bounded execution mechanics; not an AION or Astra individual runtime."""
+
     def __init__(self, planner: Planner | None = None) -> None:
         self.planner = planner or DeterministicInventoryPlanner()
 
-    def run(self, task: TaskSpec, *, baseline_root: Path, sessions_root: Path, kill_switch: Path | None = None) -> RunResult:
+    def run(
+        self,
+        task: TaskSpec,
+        *,
+        baseline_root: Path,
+        sessions_root: Path,
+        kill_switch: Path | None = None,
+    ) -> RunResult:
         validate_task_paths(task)
         baseline = baseline_root.resolve(strict=True)
         sessions = sessions_root.resolve(strict=True)
-        workspace = create_candidate_workspace(task_id=task.task_id, baseline_root=baseline, sessions_root=sessions, created_at=_now())
+        workspace = create_candidate_workspace(
+            task_id=task.task_id,
+            baseline_root=baseline,
+            sessions_root=sessions,
+            created_at=_now(),
+        )
         audit_path = Path(workspace.output_root) / "runtime_audit.jsonl"
         audit = AppendOnlyAudit(audit_path)
         governance_db = str(Path(workspace.output_root) / "governance_audit.sqlite3")
         governance = GovernanceKernelAdapter(run_pipeline, governance_db)
-        evaluation = governance.evaluate(task_id=task.task_id, operation="MODIFY_PROJECT", target=task.output_path, approved=True)
+        evaluation = governance.evaluate(
+            task_id=task.task_id,
+            operation="MODIFY_PROJECT",
+            target=task.output_path,
+            approved=True,
+        )
         if evaluation.decision is not KernelDecision.ALLOW:
-            return self._hold(task, workspace.candidate_root, workspace.output_root, audit, 0, f"governance: {evaluation.decision.value}")
+            return self._hold(
+                task,
+                workspace.candidate_root,
+                workspace.output_root,
+                audit,
+                0,
+                f"governance: {evaluation.decision.value}",
+            )
 
         requested_at = datetime.now(timezone.utc)
         expires_at = requested_at + timedelta(hours=2)
@@ -68,36 +98,153 @@ class AstraRuntime:
         controller = WorkspaceController(workspace, request, grant, requested_at.isoformat())
         tools = RuntimeTools(controller, task)
         observations: list[Observation] = []
-        audit.append(occurred_at=_now(), task_id=task.task_id, action="runtime.started", details={"profile": task.profile, "canonical_effect": "NONE", "network_policy": task.network_policy.value})
+        audit.append(
+            occurred_at=_now(),
+            task_id=task.task_id,
+            action="runtime.started",
+            details={
+                **_context_details(task),
+                "profile": task.profile,
+                "canonical_effect": "NONE",
+                "network_policy": task.network_policy.value,
+            },
+        )
 
         try:
             for step in range(1, task.max_steps + 1):
                 if kill_switch is not None and kill_switch.exists():
-                    return self._hold(task, workspace.candidate_root, workspace.output_root, audit, step - 1, "kill switch active", controller.baseline_unchanged())
+                    return self._hold(
+                        task,
+                        workspace.candidate_root,
+                        workspace.output_root,
+                        audit,
+                        step - 1,
+                        "kill switch active",
+                        controller.baseline_unchanged(),
+                    )
                 action = self.planner.next_action(task, tuple(observations))
-                audit.append(occurred_at=_now(), task_id=task.task_id, action="planner.decision", details={"step": step, "tool": action.tool, "argument_keys": sorted(action.arguments)})
+                audit.append(
+                    occurred_at=_now(),
+                    task_id=task.task_id,
+                    action="planner.decision",
+                    details={
+                        **_context_details(task),
+                        "step": step,
+                        "tool": action.tool,
+                        "argument_keys": sorted(action.arguments),
+                    },
+                )
                 observation = tools.execute(action)
                 observations.append(observation)
-                audit.append(occurred_at=_now(), task_id=task.task_id, action="tool.completed", details={"step": step, "tool": action.tool, "status": observation.status, **tools.audit_payload(observation)})
+                audit.append(
+                    occurred_at=_now(),
+                    task_id=task.task_id,
+                    action="tool.completed",
+                    details={
+                        **_context_details(task),
+                        "step": step,
+                        "tool": action.tool,
+                        "status": observation.status,
+                        **tools.audit_payload(observation),
+                    },
+                )
                 if action.tool == "complete":
-                    digest = next((str(item.payload["sha256"]) for item in reversed(observations) if item.tool == "sha256_candidate"), None)
+                    digest = next(
+                        (
+                            str(item.payload["sha256"])
+                            for item in reversed(observations)
+                            if item.tool == "sha256_candidate"
+                        ),
+                        None,
+                    )
                     baseline_unchanged = controller.baseline_unchanged()
-                    status = RunStatus.PASS_PENDING_OWNER_REVIEW if digest and baseline_unchanged else RunStatus.HOLD
-                    result = RunResult(task.task_id, status, step, workspace.candidate_root, workspace.output_root, task.output_path, digest, str(audit_path), audit.verify(), baseline_unchanged, failure_reason=None if status is RunStatus.PASS_PENDING_OWNER_REVIEW else "acceptance evidence incomplete")
+                    status = (
+                        RunStatus.PASS_PENDING_OWNER_REVIEW
+                        if digest and baseline_unchanged
+                        else RunStatus.HOLD
+                    )
+                    result = RunResult(
+                        task_id=task.task_id,
+                        runtime_context=task.runtime_context,
+                        status=status,
+                        steps_executed=step,
+                        candidate_root=workspace.candidate_root,
+                        output_root=workspace.output_root,
+                        output_relative_path=task.output_path,
+                        output_sha256=digest,
+                        audit_path=str(audit_path),
+                        audit_chain_valid=audit.verify(),
+                        baseline_unchanged=baseline_unchanged,
+                        failure_reason=(
+                            None
+                            if status is RunStatus.PASS_PENDING_OWNER_REVIEW
+                            else "acceptance evidence incomplete"
+                        ),
+                    )
                     self._write_result(result)
                     return result
         except (RuntimeCandidateError, OSError, UnicodeError, KeyError, ValueError) as exc:
-            return self._hold(task, workspace.candidate_root, workspace.output_root, audit, len(observations), f"{type(exc).__name__}: {exc}", controller.baseline_unchanged())
-        return self._hold(task, workspace.candidate_root, workspace.output_root, audit, task.max_steps, "maximum step budget exhausted", controller.baseline_unchanged())
+            return self._hold(
+                task,
+                workspace.candidate_root,
+                workspace.output_root,
+                audit,
+                len(observations),
+                f"{type(exc).__name__}: {exc}",
+                controller.baseline_unchanged(),
+            )
+        return self._hold(
+            task,
+            workspace.candidate_root,
+            workspace.output_root,
+            audit,
+            task.max_steps,
+            "maximum step budget exhausted",
+            controller.baseline_unchanged(),
+        )
 
-    def _hold(self, task: TaskSpec, candidate_root: str, output_root: str, audit: AppendOnlyAudit, steps: int, reason: str, baseline_unchanged: bool = True) -> RunResult:
-        audit.append(occurred_at=_now(), task_id=task.task_id, action="runtime.hold", details={"reason": reason, "steps": steps})
-        result = RunResult(task.task_id, RunStatus.HOLD, steps, candidate_root, output_root, task.output_path, None, str(audit.path), audit.verify(), baseline_unchanged, failure_reason=reason)
+    def _hold(
+        self,
+        task: TaskSpec,
+        candidate_root: str,
+        output_root: str,
+        audit: AppendOnlyAudit,
+        steps: int,
+        reason: str,
+        baseline_unchanged: bool = True,
+    ) -> RunResult:
+        audit.append(
+            occurred_at=_now(),
+            task_id=task.task_id,
+            action="runtime.hold",
+            details={**_context_details(task), "reason": reason, "steps": steps},
+        )
+        result = RunResult(
+            task_id=task.task_id,
+            runtime_context=task.runtime_context,
+            status=RunStatus.HOLD,
+            steps_executed=steps,
+            candidate_root=candidate_root,
+            output_root=output_root,
+            output_relative_path=task.output_path,
+            output_sha256=None,
+            audit_path=str(audit.path),
+            audit_chain_valid=audit.verify(),
+            baseline_unchanged=baseline_unchanged,
+            failure_reason=reason,
+        )
         self._write_result(result)
         return result
 
     @staticmethod
     def _write_result(result: RunResult) -> None:
         path = Path(result.output_root) / "RUN_RESULT.json"
-        path.write_text(json.dumps(result.to_dict(), ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        path.write_text(
+            json.dumps(result.to_dict(), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
 
+
+# Compatibility alias only. New code should use BoundedExecutionEngine.
+# The alias does not imply that the shared engine is Astra's individual runtime.
+AstraRuntime = BoundedExecutionEngine

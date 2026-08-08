@@ -3,22 +3,23 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aion-astra-twin-embodiment"
+name = "individual-runtime-state"
 version = "0.1.0"
-description = "Governed research candidate for AION/Astra shared-genesis twin embodiment"
+description = "Governed individual runtime event lineage and recovery candidate"
 requires-python = ">=3.11"
-license = {text = "Apache-2.0"}
 dependencies = [
   "aion-astra-executable-runtime==0.1.0",
 ]
-
-[tool.setuptools]
-package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
 testpaths = ["tests"]
-pythonpath = ["src", "../../components/executable_runtime_v0.1.0/src"]
+pythonpath = ["src", "../executable_runtime_v0.1.0/src"]
+addopts = "-ra"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["individual_runtime_state"]
