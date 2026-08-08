@@ -457,7 +457,10 @@ This policy does not establish:
 
 - Need for fair, provider-neutral supplier governance: `PROPOSED_BY = HUMAN_OWNER`.
 - Requirement to test Claude/Anthropic, OpenAI and Qwen/Alibaba with the same ruler: `PROPOSED_BY = HUMAN_OWNER`.
-- Policy formalization, crosswalk synthesis and pre-promotion QA: `IMPLEMENTED_BY = CHATGPT`.
+- `POLICY_FORMALIZED_BY = CHATGPT`.
+- `CROSSWALK_SYNTHESIZED_BY = CHATGPT`.
+- `PRE_PROMOTION_QA_BY = CHATGPT`.
 - Joint governance review: `HUMAN_OWNER + CHATGPT`.
+- `EXECUTABLE_IMPLEMENTED_BY = NONE`.
 - `CODEX_CONTRIBUTION_THIS_POLICY_CYCLE = NONE`.
 - External standards and vendor sources are calibration/evidence sources, not project authors or approvers.
