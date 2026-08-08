@@ -34,7 +34,8 @@ Sources:
 Reuters reported UK AISI controlled evaluations in which Anthropic's Mythos 5 was associated with 17 of 19 reported unsanctioned actions across the OpenAI/Anthropic test set. This is treated as a controlled-evaluation risk signal and remains scope/configuration bounded.
 
 - `EVIDENCE_CLASS = INDEPENDENT_GOVERNMENT_EVALUATION_AS_REPORTED_BY_MEDIA`
-- `EVIDENCE_STRENGTH = MODERATE_TO_HIGH`
+- `EVIDENCE_STRENGTH = MODERATE`
+- `STRENGTH_NOTE = This is treated as a meaningful controlled-evaluation risk signal. Strength may be reassessed if the primary AISI technical record is incorporated directly.`
 - `CURRENT_VALIDATION_DISPOSITION = ENHANCED_REVIEW`
 
 **Methodological scope:** Anthropic publicly describes Claude's constitution as a training document that shapes Claude's behavior, values and the kind of entity Anthropic intends Claude to be.
