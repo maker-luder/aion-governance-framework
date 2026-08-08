@@ -87,6 +87,28 @@ and preserve the qualitative meaning in a separate `STRENGTH_NOTE`, with reasses
 - `EVIDENCE_ENUM_CONFORMANCE = RESTORED`
 - `NORMATIVE_POLICY_CORE_CHANGE = NO`
 
+## NCR-SUP-005 — QA status self-reference / temporal staleness
+
+**Discovery:** second final PR review after Quality run #168 succeeded.
+
+**Issue:** the QA Evidence Index described the then-current branch as still waiting for a fresh CI result. Updating the index after every successful CI would itself create a new commit and therefore a new CI requirement, producing a self-referential status loop.
+
+**CAPA accepted by Human Owner:**
+
+1. The QA Evidence Index records merge requirements and stable evidence references, but does not self-attest the live CI result of the commit containing the index itself.
+2. The latest PR-head GitHub Actions Quality result is treated as external GitHub evidence.
+3. Before merge, the latest PR head must have a successful Quality result and the Human Owner final review must be complete.
+4. A successful external PR check does not require another documentary commit merely to copy its run number into the repository.
+
+```text
+FINAL_GITHUB_CI_STATUS = EXTERNAL_PR_CHECK_EVIDENCE
+QA_INDEX != SELF_ATTESTATION_OF_ITS_OWN_POST_COMMIT_CI
+```
+
+- `NCR-SUP-005_STATUS = CAPA_ACCEPTED_AND_APPLIED`
+- `TEMPORAL_SELF_REFERENCE_LOOP = REMOVED`
+- `NORMATIVE_POLICY_CORE_CHANGE = NO`
+
 ## Change-control rule
 
 Any post-freeze change to normative policy or criteria requires:
@@ -111,5 +133,6 @@ EXECUTABLE_IMPLEMENTATION != ACTIVE_ENFORCEMENT
 - NCR-SUP-001 two-gate CAPA: `ACCEPTED_BY = HUMAN_OWNER`
 - NCR-SUP-003 provenance CAPA: `ACCEPTED_BY = HUMAN_OWNER`
 - NCR-SUP-004 evidence-enum CAPA: `ACCEPTED_BY = HUMAN_OWNER`
+- NCR-SUP-005 temporal-status CAPA: `ACCEPTED_BY = HUMAN_OWNER`
 - `EXECUTABLE_IMPLEMENTED_BY = NONE`
 - `CODEX_CONTRIBUTION_THIS_POLICY_CYCLE = NONE`
