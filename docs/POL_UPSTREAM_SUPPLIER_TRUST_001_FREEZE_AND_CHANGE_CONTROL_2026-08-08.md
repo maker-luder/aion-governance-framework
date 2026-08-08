@@ -44,11 +44,48 @@ KNOWN_TEST_PASS != CRITERION_GENERATOR
 **CAPA:**
 
 1. Do not modify the frozen release manifest for this policy-only branch.
-2. Record package-specific SHA-256 values in the policy QA evidence index instead.
+2. Record package-specific integrity references in the policy QA evidence index instead.
 3. Preserve frozen-release evidence independently from later governance documentation.
 
 - `NCR-SUP-002_STATUS = CAPA_APPLIED_IN_BRANCH_CANDIDATE`
 - `FROZEN_RELEASE_MANIFEST_MUTATION = NONE`
+
+## NCR-SUP-003 — Provenance verb ambiguity
+
+**Discovery:** final PR review before merge.
+
+**Issue:** provenance text used `IMPLEMENTED_BY = CHATGPT` for policy-document work while the same policy explicitly states `IMPLEMENTATION = NONE`. This could be misread as executable supplier-trust enforcement having been implemented.
+
+**CAPA accepted by Human Owner:** preserve the full ChatGPT contribution with role-specific attribution:
+
+```text
+POLICY_FORMALIZED_BY = CHATGPT
+CROSSWALK_SYNTHESIZED_BY = CHATGPT
+PRE_PROMOTION_QA_BY = CHATGPT
+EXECUTABLE_IMPLEMENTED_BY = NONE
+```
+
+- `NCR-SUP-003_STATUS = CAPA_ACCEPTED_AND_APPLIED`
+- `SOURCE_ATTRIBUTION_PRESERVED = YES`
+- `NORMATIVE_POLICY_CORE_CHANGE = NO`
+
+## NCR-SUP-004 — Evidence-strength enum drift
+
+**Discovery:** final PR review before merge.
+
+**Issue:** the Anthropic/Mythos validation record used `EVIDENCE_STRENGTH = MODERATE_TO_HIGH`, but the frozen policy enum permits only `UNASSESSED | LOW | MODERATE | HIGH | VERY_HIGH`.
+
+**CAPA accepted by Human Owner:** normalize the formal field to:
+
+```text
+EVIDENCE_STRENGTH = MODERATE
+```
+
+and preserve the qualitative meaning in a separate `STRENGTH_NOTE`, with reassessment permitted if the primary AISI technical record is incorporated directly.
+
+- `NCR-SUP-004_STATUS = CAPA_ACCEPTED_AND_APPLIED`
+- `EVIDENCE_ENUM_CONFORMANCE = RESTORED`
+- `NORMATIVE_POLICY_CORE_CHANGE = NO`
 
 ## Change-control rule
 
@@ -68,6 +105,11 @@ EXECUTABLE_IMPLEMENTATION != ACTIVE_ENFORCEMENT
 ## Provenance
 
 - Fair supplier governance and same-ruler requirement: `PROPOSED_BY = HUMAN_OWNER`
-- Policy formalization and integration QA: `IMPLEMENTED_BY = CHATGPT`
+- `POLICY_FORMALIZED_BY = CHATGPT`
+- `CROSSWALK_SYNTHESIZED_BY = CHATGPT`
+- `PRE_PROMOTION_QA_BY = CHATGPT`
 - NCR-SUP-001 two-gate CAPA: `ACCEPTED_BY = HUMAN_OWNER`
+- NCR-SUP-003 provenance CAPA: `ACCEPTED_BY = HUMAN_OWNER`
+- NCR-SUP-004 evidence-enum CAPA: `ACCEPTED_BY = HUMAN_OWNER`
+- `EXECUTABLE_IMPLEMENTED_BY = NONE`
 - `CODEX_CONTRIBUTION_THIS_POLICY_CYCLE = NONE`
