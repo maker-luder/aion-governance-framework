@@ -1,0 +1,20 @@
+{
+  "schema": "AION-PUBLIC-EXPERIMENT-FIXTURE-0.1",
+  "branch": "review/four-domain-research-materialization",
+  "baseline_commit": "e78fb97d39f592ed8b39dae73ed96c49faf6b3ce",
+  "experiment_id": "public-reproduction-example",
+  "actor_kind": "AI",
+  "network_mode": "OFFLINE",
+  "benchmark_access_policy": "ISOLATED",
+  "module_refs": [
+    "research-labs/four-domain-p3-resilience-experiments_v0.1.0"
+  ],
+  "fixture_refs": [
+    "fixture://synthetic-memory"
+  ],
+  "claims": {
+    "main_effect": "NONE",
+    "canonical_effect": "NONE",
+    "subjectivity_conclusion": "NOT_ESTABLISHED"
+  }
+}

@@ -1,146 +1,102 @@
-# AION Governance Framework
+# AION Four-Domain Research Workbench
 
-> **Public Release Candidate — research and engineering baseline, not a deployed artificial subject**
-
-A human-governed and auditable framework for studying identity, continuity, memory, research integrity, bounded execution, and the possibility of artificial subjectivity.
-
-This repository is a clean public reconstruction from owner-provided candidate packages. It does **not** publish private project archives, real conversation history, model weights, personal records, credentials, private canonical state, or unrestricted autonomous-agent functionality.
-
-## Research purpose
-
-The project examines whether a finite, auditable and human-governed digital system can support rigorous study of:
-
-- identity, lineage and research forks;
-- continuity across sessions, versions and model handoffs;
-- memory provenance and topic-cued selective recall;
-- interpretation drift and relational continuity;
-- evidence integrity and research-security threats;
-- bounded tool execution, rollback and audit;
-- capability artifacts without automatic identity inheritance;
-- artificial subjectivity possibility without presuming that subjectivity has been established.
-
-Engineering, QA, security controls and documentation are research methods. They are not the final research conclusion.
-
-## Current public baseline
+> **Public research branch — experimental material, not the `main` release branch**
 
 ```text
-PUBLIC_REPOSITORY_BASELINE = ESTABLISHED
-PUBLIC_RELEASE_CANDIDATE = v0.1.0-rc.1
-AUGUST_SCOPE_FREEZE = ACTIVE
-
-BOUNDED_EXECUTABLE_RUNTIME_CANDIDATE = IMPLEMENTED
-AION_CANONICAL_RUNTIME = NOT_IMPLEMENTED
-ASTRA_CANONICAL_RUNTIME = NOT_IMPLEMENTED
-LIVE_CROSS_SESSION_MEMORY = NOT_IMPLEMENTED
-FORMAL_G1_BASELINE_BENCHMARK = NOT_EXECUTED
-REAL_LORA_TRAINING = NOT_EXECUTED
-ACTUAL_ABLATION_EXECUTION = NOT_EXECUTED
-
+BRANCH = review/four-domain-research-materialization
+CURRENT_STAGE = P4
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
-RELATIONAL_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
-WHOLE_SYSTEM_VALIDATION = NOT_EXECUTED
-INDEPENDENT_IVV = NOT_ACHIEVED
-CANONICAL_EFFECT = NONE
-DEPLOYMENT = FALSE
 ```
 
-The frozen RC block above records the established public baseline. Post-RC implementation work is developed on review-gated branches and does not silently rewrite that historical baseline.
+This branch is the public, freely growing research workbench for AION/Astra materialization. It is intentionally allowed to contain prototypes, rejected hypotheses, synthetic fixtures, ablation results, reproducibility experiments and research-only engineering that are not yet approved for the formal `main` branch.
 
-## Included components
+**Nothing in this branch is automatically promoted into `main`.**
 
-| Area | Public module | Status |
+## Mobile / quick orientation
+
+If you are viewing this page on GitHub mobile, this README is the research-branch dashboard.
+
+- Current progress: [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md)
+- External / AI experiments: [`AI_EXPERIMENT_GUIDE.md`](AI_EXPERIMENT_GUIDE.md)
+- Research labs: [`research-labs/`](research-labs/)
+- Four-domain workbench packets: [`research-workbench/four-domain-materialization/`](research-workbench/four-domain-materialization/)
+
+For the stable public release baseline, switch the GitHub branch selector back to `main`.
+
+## Current research stack
+
+| Stage | Research materialization | Status |
 |---|---|---|
-| Core governance | `components/governance_kernel_v0.4.0` | source-derived candidate |
-| Engineering workbench | `components/astra_workbench_v1.0.0` | source-derived candidate |
-| Identity / lineage / forks | `components/identity_governance_v0.1.0` | source-derived candidate |
-| Upstream-agent security | `components/upstream_security_v0.1.0` | source-derived candidate |
-| Language Core scaffold | `components/language_core_v0.1.0` | source-derived research lab |
-| Continuity governance | `components/continuity_governance_v0.1.0` | jointly developed candidate |
-| Topic-cued recall | `components/memory_recall_governance_v0.1.0` | jointly developed candidate |
-| Research integrity | `components/research_integrity_security_v0.1.0` | jointly developed candidate |
-| Bounded runtime | `components/executable_runtime_v0.1.0` | source-derived candidate, non-canonical |
-| Bazi example | `examples/bazi-capability_v0.1.1` | deterministic domain example |
-| Language Core G1 | `research-labs/language-core-g1_v0.2.1` | public-safe planning and engineering subset |
-| Twin embodiment | `research-labs/twin-genesis-embodiment_v0.1.0` | governed research candidate |
+| P1 | Temporal/version resolution, correction/conflict ledger, memory evaluation | implemented / tested |
+| P2 | Retrieval trace, deterministic context assembly, provenance validation, T2/T3 orchestration | implemented / tested |
+| P3 | Longitudinal contamination, perturbation, ablation, origin-bound authority | implemented / tested |
+| P4 | Public reproducibility observatory, benchmark-contamination awareness, cross-agent comparison | implemented / tested |
 
-## Core governance pipeline
+## Public experiment surface
+
+Current experiment-ready modules include:
+
+- `research-labs/four-domain-p1-materialization_v0.1.0/`
+- `research-labs/four-domain-p2-materialization_v0.1.0/`
+- `research-labs/four-domain-p3-resilience-experiments_v0.1.0/`
+- `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
+- `research-labs/core-meaning-commitments_v0.1.0/`
+- `research-labs/affective-cognitive-motivation_v0.1.0/`
+- `research-labs/language-core-g1_v0.2.1/`
+- `research-labs/subjectivity-pipeline_v0.1.0/`
+- `research-labs/twin-genesis-embodiment_v0.1.0/`
+
+Researchers and AI systems may read, clone, fork, execute public-safe fixtures, reproduce tests, build alternate implementations and report their own results with explicit provenance. This does not grant write authority over this repository.
+
+## Research growth loop
 
 ```text
-Context Intake
-→ Risk Gate
-→ Planner
-→ Policy Check
-→ Tool Router
-→ Response Builder
-→ Writeback Gate
-→ Audit Sink
+public event / academic research / public documentation / public-safe daily observation
+        ↓
+research question
+        ↓
+synthetic or public-safe experiment
+        ↓
+engineering materialization
+        ↓
+tests / traces / provenance / failed-or-supported hypothesis
+        ↓
+research branch
+        ↓
+joint human + ChatGPT review only if promotion is later considered
 ```
 
-Additional candidates add an Interpretation Drift Check, Memory Recall Gate and Epistemic Integrity Gate. These gates do not silently promote content into canonical state.
+Daily-life observations must be generalized and stripped of personal/private material before they can become public research input.
 
-## Repository principles
+## Promotion boundary
 
-- **Human-governed:** high-impact state changes require explicit human review.
-- **Provenance-first:** source, speaker, event time, record time, version and transformation history remain distinguishable.
-- **Claims-separated:** observation, inference, hypothesis, evidence candidate and canonical decision are different states.
-- **Identity-isolated:** AION, Astra, shared project knowledge, Runtime artifacts and research forks are not silently merged.
-- **Recall is not truth:** retrieved memory is only a candidate until provenance, access and conflict checks pass.
-- **Relationship is not authorization:** familiarity, trust or relational language cannot elevate privileges.
-- **No silent canonical writeback:** retrieved or generated content cannot automatically change canonical state.
-- **No subjectivity overclaim:** capability, continuity, memory, embodiment or bounded execution do not prove consciousness or subjectivity.
+```text
+RESEARCH_BRANCH != MAIN
+RESEARCH_RESULT != CANONICAL_DECISION
+REPRODUCED_RESULT != PROVEN_TRUTH
+CAPABILITY_EVIDENCE != SUBJECTIVITY_PROOF
+```
+
+Any future candidate for `main` must be selectively extracted into a **fresh branch from the then-current `main`**, reviewed and tested separately. The research branch itself is not a whole-branch merge candidate.
+
+## Attribution boundary
+
+Important sources remain distinct:
+
+- Human Owner observations and decisions;
+- ChatGPT research synthesis / engineering;
+- Codex implementation work;
+- external researcher results;
+- external AI experiment results.
+
+Shared research does not erase source lineage.
 
 ## Public/private boundary
 
-Excluded from this repository:
+This branch must not publish private conversations, credentials, private memory records, personal/medical records, private relationship data, private canonical state, model secrets, or unpublished owner materials.
 
-- private ZIP packages and private Git history;
-- real conversation transcripts and private memory records;
-- model weights and private datasets;
-- local absolute paths, credentials, tokens and device-specific logs;
-- private canonical state, private relationship records and real Bazi data;
-- unpublished owner materials not explicitly included in the public reconstruction.
-
-See [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md).
-
-## Verification
-
-Run the public verifier:
-
-```bash
-python scripts/verify_release.py
-```
-
-Run all available component tests:
-
-```bash
-python scripts/run_component_tests.py
-```
-
-The historical source package reported 232 passing tests across five public components. This repository records that result as historical evidence and also records its own reconstruction-time test run separately; it does not rewrite creator-side QA as independent IV&V.
-
-## License status
-
-The public repository is licensed under the **Apache License, Version 2.0** (`Apache-2.0`). See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`LICENSE_DECISION_REQUIRED.md`](LICENSE_DECISION_REQUIRED.md).
-
-The repository license does not silently relicense third-party dependencies, model weights, datasets, trademarks, or separately licensed materials; those remain subject to their own provenance and license review.
-
-## Provenance and AI assistance
-
-The human Owner is the primary researcher and project decision-maker. ChatGPT and Codex have assisted with requirement decomposition, terminology, engineering implementation, review and documentation. Source attribution is recorded without rewriting AI-assisted formalization as the Owner's verbatim original wording, or rewriting Owner-originated concerns as AI-originated ideas.
-
-See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/AI_COLLABORATION_DISCLOSURE.md`](docs/AI_COLLABORATION_DISCLOSURE.md).
-
-## Important non-claims
-
-This repository does not claim that:
-
-- AION or Astra currently exists as a deployed artificial subject;
-- consciousness, sentience, identity continuity or relational continuity has been proven;
-- memory retrieval is equivalent to personal recollection;
-- shared genesis implies shared identity;
-- an embodiment model creates sensation, desire, gender identity, consent or subjectivity;
-- the bounded executable candidate is the canonical AION Runtime;
-- the project is certified or endorsed by NIST, OWASP, MITRE, ISO, IEEE or another standards body.
-
-See [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md).
+The research workbench is open; private life is not research payload by default.
