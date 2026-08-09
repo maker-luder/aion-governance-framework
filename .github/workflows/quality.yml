@@ -39,10 +39,13 @@ jobs:
         run: python scripts/scan_public_tree.py
 
       - name: Compile public Python sources
-        run: python -m compileall -q components examples research-labs scripts
+        run: python -m compileall -q components examples research-labs scripts experiments
 
       - name: Run component test suites
         run: python scripts/run_component_tests.py
+
+      - name: Run minimal Recall Gate contrast experiment
+        run: python experiments/g1-recall-gate-baseline_v0.1.0/run_experiment.py
 
   frozen-release-verification:
     name: Frozen v0.1.0-rc.1 manifest verification
