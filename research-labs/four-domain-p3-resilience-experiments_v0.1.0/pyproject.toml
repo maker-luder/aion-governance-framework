@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-four-domain-p3-resilience-experiments"
+version = "0.1.0"
+description = "Research-only longitudinal memory resilience, perturbation, ablation, and origin-authority experiments"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+  "src",
+  "../four-domain-p2-materialization_v0.1.0/src",
+  "../four-domain-p1-materialization_v0.1.0/src",
+  "../../components/continuity_governance_v0.1.0/src",
+]
+addopts = "-ra"

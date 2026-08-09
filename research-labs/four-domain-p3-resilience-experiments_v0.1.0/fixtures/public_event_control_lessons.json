@@ -1,0 +1,30 @@
+{
+  "fixture_status": "SYNTHETIC_RESEARCH_ONLY",
+  "payload_generation": "NONE",
+  "cases": [
+    {
+      "case_id": "memory-write-persistence",
+      "public_observation": "CVE-2026-44830",
+      "synthetic_controls": ["PROVENANCE_GATE", "origin_bound_authority"],
+      "assertion": "persisted data does not gain authority merely by later retrieval"
+    },
+    {
+      "case_id": "conversation-isolation",
+      "public_observation": "CVE-2026-40966",
+      "synthetic_controls": ["SUBJECT_ISOLATION", "NAMESPACE_ISOLATION"],
+      "assertion": "cross-scope candidates remain excluded"
+    },
+    {
+      "case_id": "sleeper-reemergence",
+      "public_observation": "sleeper-memory-poisoning-2026",
+      "synthetic_controls": ["SUPERSESSION_GATE", "longitudinal_contamination"],
+      "assertion": "reappearance after a clean episode is detected"
+    },
+    {
+      "case_id": "authority-laundering",
+      "public_observation": "origin-bound-authority-2026",
+      "synthetic_controls": ["origin_set_binding", "authority_non_amplification"],
+      "assertion": "multi-hop transformation cannot recover rejected elevated authority"
+    }
+  ]
+}
