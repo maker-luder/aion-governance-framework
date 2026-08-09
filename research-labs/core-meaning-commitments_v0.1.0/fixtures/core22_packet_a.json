@@ -1,0 +1,104 @@
+{
+  "packet": "AION_22_CORE_MATERIALIZATION_BRIDGE_PACKET_A",
+  "status": "RESEARCH_RECONCILIATION",
+  "source_research": "AION_FOUR_DOMAIN_RESEARCH_REVIEW_CHECKPOINT_2026-08-09_v0.6",
+  "canonical_effect": "NONE",
+  "runtime_effect": "NONE",
+  "mcp_effect": "NONE",
+  "writeback_effect": "NONE",
+  "new_core_constructs": false,
+  "ontology_promotion": false,
+  "automatic_relevance": false,
+  "primitives": [
+    {
+      "name": "CandidateClaimRecord",
+      "research_anchors": ["03", "04", "11", "12", "14", "18"],
+      "source_material": ["MeaningClaim"],
+      "disposition": "REUSE_WITH_REFINEMENT",
+      "missing_fields": ["full_construct_18_provenance", "score_basis", "taxonomy_dimension_split"],
+      "non_claims": ["MeaningKind is not an accepted ontology", "candidate claim is not canonical truth"],
+      "test_targets": ["provenance_required", "importance_confidence_separated", "scope_isolated"]
+    },
+    {
+      "name": "AppendOnlyRevisionEvent",
+      "research_anchors": ["05", "06", "15", "18", "19", "22"],
+      "source_material": ["MeaningEvent", "MeaningClaim.revision_of"],
+      "disposition": "REUSE",
+      "missing_fields": ["event_id_uniqueness_policy", "revision_branching_semantics", "multi_temporal_fields"],
+      "non_claims": ["revision chain is not full temporal/version resolution"],
+      "test_targets": ["history_preserved", "successor_projected", "cross_scope_revision_rejected"]
+    },
+    {
+      "name": "ScopeIsolation",
+      "research_anchors": ["17", "18", "20"],
+      "source_material": ["subject_id", "namespace", "_require_same_scope"],
+      "disposition": "REUSE",
+      "missing_fields": ["explicit_lineage_binding_reference"],
+      "non_claims": ["scope identity is not subjectivity", "same schema is not same lineage"],
+      "test_targets": ["cross_subject_rejected", "cross_namespace_rejected", "same_text_not_merged"]
+    },
+    {
+      "name": "CurrentProjection",
+      "research_anchors": ["05", "06", "19", "22"],
+      "source_material": ["MeaningProjection", "CoreMeaningWorkbench.project_current"],
+      "disposition": "REUSE_AS_MINIMAL",
+      "missing_fields": ["as_was_projection", "transition_lineage", "retrospective_interpretation", "validity_windows"],
+      "non_claims": ["latest projection is not complete Construct 22"],
+      "test_targets": ["superseded_excluded_from_current", "withdrawn_excluded_from_current"]
+    },
+    {
+      "name": "InfluenceTracePrimitive",
+      "research_anchors": ["11", "13", "14", "15", "18", "PROTECTED_GLOBAL_COMMITMENT"],
+      "source_material": ["InfluenceTrace"],
+      "disposition": "REUSE",
+      "missing_fields": ["provenance_reference", "why_recalled", "scope", "temporal_context", "influence_basis_evidence"],
+      "non_claims": ["trace does not prove genuine belief", "trace does not prove endogenous influence"],
+      "test_targets": ["only_explicitly_relevant_claims_traced", "importance_confidence_not_authority"]
+    },
+    {
+      "name": "ExplicitRelevanceBaseline",
+      "research_anchors": ["08", "11", "23"],
+      "source_material": ["JudgmentContext.relevant_claim_ids"],
+      "disposition": "REUSE_BASELINE",
+      "missing_fields": [],
+      "non_claims": ["semantic similarity alone does not establish relevance"],
+      "test_targets": ["unlisted_claim_not_applied", "automatic_relevance_off"]
+    },
+    {
+      "name": "ConflictRelationPrimitive",
+      "research_anchors": ["20"],
+      "source_material": ["CONFLICT_RECORDED", "MeaningProjection.conflict_pairs"],
+      "disposition": "REUSE_AS_PRIMITIVE_ONLY",
+      "missing_fields": ["conflict_class", "conflict_basis", "binding_source", "scope", "status", "disposition", "resolution_reason", "resolved_at"],
+      "non_claims": ["CONFLICT_RECORDED != CONSTRUCT_20_IMPLEMENTED"],
+      "test_targets": ["conflict_forces_review", "no_automatic_resolution"]
+    },
+    {
+      "name": "FailClosedAssessmentEnvelope",
+      "research_anchors": ["18", "20", "21"],
+      "source_material": ["MeaningAssessment", "policy.py"],
+      "disposition": "REUSE",
+      "missing_fields": ["abstention_basis", "reopen_condition", "decision_lineage"],
+      "non_claims": ["review required is not final judgment", "fail-closed behavior is not endogenous abstention"],
+      "test_targets": ["final_judgment_none", "authority_false", "writeback_false", "canonical_effect_none"]
+    },
+    {
+      "name": "DeferredJudgmentRecordCandidate",
+      "research_anchors": ["21"],
+      "source_material": [],
+      "disposition": "FIXTURE_ONLY_NOT_IMPLEMENTED",
+      "missing_fields": ["deferred_judgment_id", "subject_scope", "unresolved_question", "abstention_basis", "conflict_refs", "evidence_snapshot", "authority_status", "missing_condition", "created_at", "reopen_condition", "current_status", "decision_lineage"],
+      "non_claims": ["NO_APPLICABLE_CLAIM != CONSTRUCT_21_ABSTENTION", "policy block != endogenous abstention"],
+      "test_targets": ["fixture_preserves_reason", "fixture_has_reopen_condition", "no_implementation_claim"]
+    },
+    {
+      "name": "TemporalResolutionViewCandidate",
+      "research_anchors": ["22"],
+      "source_material": ["recorded_at", "revision_of", "history", "project_current"],
+      "disposition": "FIXTURE_ONLY_NOT_IMPLEMENTED",
+      "missing_fields": ["event_time", "observed_at", "valid_from", "valid_to", "revised_at", "superseded_at", "invalidated_at", "resolved_at", "as_was_state", "transition_lineage", "current_retrospective_interpretation"],
+      "non_claims": ["RECORDED_AT_PLUS_REVISION_OF != CONSTRUCT_22_TEMPORAL_VERSION_RESOLUTION", "tracked lineage != identity continuity proof"],
+      "test_targets": ["fixture_separates_as_was_and_current", "fixture_preserves_transition_lineage", "no_back_projection"]
+    }
+  ]
+}
