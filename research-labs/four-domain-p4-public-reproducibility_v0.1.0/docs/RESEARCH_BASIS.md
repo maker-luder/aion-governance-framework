@@ -39,9 +39,9 @@ P4 materialization:
 - evidence refs;
 - cross-agent comparison without source collapse.
 
-## RO-Crate 1.3 (2026-06-22)
+## RO-Crate 1.2.0 (2025-06-04)
 
-RO-Crate Metadata Specification 1.3, Recommendation.
+RO-Crate Metadata Specification 1.2.0, Recommendation.
 
 Engineering extraction:
 
