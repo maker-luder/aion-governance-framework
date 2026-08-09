@@ -46,7 +46,9 @@ The primary review question is not “does this system look human-like?” but �
 
 ### Researcher
 
-Start with the research questions around identity, continuity, memory recall, interpretation drift, conflict, correction, provenance, and bounded subjectivity hypotheses. Research candidates remain distinct from conclusions.
+Start with the one-page contribution summary: [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md).
+
+Then continue with the research questions around identity, continuity, memory recall, interpretation drift, conflict, correction, provenance, and bounded subjectivity hypotheses. Research candidates remain distinct from conclusions.
 
 Useful entry points include:
 
