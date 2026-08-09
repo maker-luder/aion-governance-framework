@@ -1,10 +1,71 @@
 # AION Governance Framework
 
-> **Public Release Candidate — research and engineering baseline, not a deployed artificial subject**
+> **Public Release Candidate — a governed research framework, not a deployed artificial subject**
 
-A human-governed and auditable framework for studying identity, continuity, memory, research integrity, bounded execution, and the possibility of artificial subjectivity.
+## 30-second orientation
 
-This repository is a clean public reconstruction from owner-provided candidate packages. It does **not** publish private project archives, real conversation history, model weights, personal records, credentials, private canonical state, or unrestricted autonomous-agent functionality.
+**AION** is the research question and governance framework: how can artificial-subjectivity possibilities be studied without confusing memory, continuity, simulation, implementation, or researcher interpretation with proof of subjectivity?
+
+**Astra** is the engineering workbench used to materialize and test bounded research candidates. It is not a second identity and does not inherit AION state by naming or relationship.
+
+**Executable Runtime** is a bounded, non-canonical sandbox candidate for reproducible engineering tests. It is not the canonical AION/Astra runtime.
+
+```text
+PUBLIC_RELEASE_CANDIDATE = v0.1.0-rc.1
+AUGUST_SCOPE_FREEZE = ACTIVE
+
+BOUNDED_EXECUTABLE_RUNTIME_CANDIDATE = IMPLEMENTED
+AION_CANONICAL_RUNTIME = NOT_IMPLEMENTED
+ASTRA_CANONICAL_RUNTIME = NOT_IMPLEMENTED
+LIVE_CROSS_SESSION_MEMORY = NOT_IMPLEMENTED
+FORMAL_G1_BASELINE_BENCHMARK = NOT_EXECUTED
+
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+WHOLE_SYSTEM_VALIDATION = NOT_EXECUTED
+INDEPENDENT_IVV = NOT_ACHIEVED
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+The frozen RC block records the historical public baseline. Post-RC work may add isolated research material on review branches without silently rewriting this baseline.
+
+## 5-minute orientation — choose your path
+
+### Reviewer / auditor
+
+Start with:
+
+1. [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
+2. [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md)
+3. [`docs/PROVENANCE.md`](docs/PROVENANCE.md)
+4. [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md)
+5. the governance pipeline below
+
+The primary review question is not “does this system look human-like?” but “what evidence, provenance, authority, lineage, and non-claims justify each research statement?”
+
+### Researcher
+
+Start with the research questions around identity, continuity, memory recall, interpretation drift, conflict, correction, provenance, and bounded subjectivity hypotheses. Research candidates remain distinct from conclusions.
+
+Useful entry points include:
+
+- `components/identity_governance_v0.1.0`
+- `components/continuity_governance_v0.1.0`
+- `components/memory_recall_governance_v0.1.0`
+- `components/research_integrity_security_v0.1.0`
+- `research-labs/`
+
+### Engineer
+
+Start with:
+
+1. [`components/executable_runtime_v0.1.0`](components/executable_runtime_v0.1.0)
+2. `scripts/verify_release.py`
+3. `scripts/run_component_tests.py`
+4. component-specific status locks and tests
+
+Engineering implementation is evidence about implemented behavior only. It is not evidence that the corresponding psychological or subjectivity construct exists.
 
 ## Research purpose
 
@@ -21,31 +82,22 @@ The project examines whether a finite, auditable and human-governed digital syst
 
 Engineering, QA, security controls and documentation are research methods. They are not the final research conclusion.
 
-## Current public baseline
+## Public positioning and naming
+
+For external orientation, this repository uses three layers:
 
 ```text
-PUBLIC_REPOSITORY_BASELINE = ESTABLISHED
-PUBLIC_RELEASE_CANDIDATE = v0.1.0-rc.1
-AUGUST_SCOPE_FREEZE = ACTIVE
+AION
+= research question / governance framework
 
-BOUNDED_EXECUTABLE_RUNTIME_CANDIDATE = IMPLEMENTED
-AION_CANONICAL_RUNTIME = NOT_IMPLEMENTED
-ASTRA_CANONICAL_RUNTIME = NOT_IMPLEMENTED
-LIVE_CROSS_SESSION_MEMORY = NOT_IMPLEMENTED
-FORMAL_G1_BASELINE_BENCHMARK = NOT_EXECUTED
-REAL_LORA_TRAINING = NOT_EXECUTED
-ACTUAL_ABLATION_EXECUTION = NOT_EXECUTED
+Astra
+= engineering workbench
 
-SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
-IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
-RELATIONAL_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
-WHOLE_SYSTEM_VALIDATION = NOT_EXECUTED
-INDEPENDENT_IVV = NOT_ACHIEVED
-CANONICAL_EFFECT = NONE
-DEPLOYMENT = FALSE
+Executable Runtime
+= bounded, reproducible sandbox candidate
 ```
 
-The frozen RC block above records the established public baseline. Post-RC implementation work is developed on review-gated branches and does not silently rewrite that historical baseline.
+The project name **AION** is a research label used by this repository. It should not be interpreted as affiliation with unrelated projects or organizations that also use “Aion/AION”. Any future publication, package naming, DOI, or public release should preserve repository-level disambiguation before broader dissemination.
 
 ## Included components
 
@@ -103,6 +155,15 @@ Excluded from this repository:
 
 See [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md).
 
+## Method-specific notes
+
+- Why Bazi is used as a deterministic test domain: [`examples/bazi-capability_v0.1.1/docs/WHY_BAZI_AS_TEST_DOMAIN.md`](examples/bazi-capability_v0.1.1/docs/WHY_BAZI_AS_TEST_DOMAIN.md)
+- Twin embodiment ethics boundary: [`research-labs/twin-genesis-embodiment_v0.1.0/docs/ETHICS_REVIEW.md`](research-labs/twin-genesis-embodiment_v0.1.0/docs/ETHICS_REVIEW.md)
+- Public threat model: [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md)
+- Position paper draft: [`docs/POSITION_PAPER_PROVENANCE_FIRST.md`](docs/POSITION_PAPER_PROVENANCE_FIRST.md)
+- Reader-orientation usability protocol: [`docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md`](docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md)
+- Minimal recall-gate contrast experiment: [`experiments/g1-recall-gate-baseline_v0.1.0`](experiments/g1-recall-gate-baseline_v0.1.0)
+
 ## Verification
 
 Verify the current checkout against the exact checked-out Git `HEAD` tree:
@@ -127,7 +188,7 @@ Verify the frozen `v0.1.0-rc.1` release from its pinned historical tag object, p
 python scripts/verify_release.py --baseline historical-rc
 ```
 
-`manifest/FILE_MANIFEST.json` and `manifest/SHA256SUMS.txt` remain historical `v0.1.0-rc.1` evidence. They are not a live inventory of post-RC `main`, and this verifier does not regenerate or rewrite them. Historical verification pins both the annotated tag object and its peeled commit. Both modes require a Git checkout and state what was verified, against which baseline, and using which manifest.
+`manifest/FILE_MANIFEST.json` and `manifest/SHA256SUMS.txt` remain historical `v0.1.0-rc.1` evidence. They are not a live inventory of post-RC `main`, and this verifier does not regenerate or rewrite them. Historical verification pins both the annotated tag object and its peeled commit. These modes require a Git checkout and state what was verified, against which baseline, and using which manifest or Git snapshot.
 
 Generic current-worktree manifest generation requires an explicit baseline and a non-frozen, versioned output destination:
 
@@ -146,6 +207,18 @@ python scripts/run_component_tests.py
 ```
 
 The historical source package reported 232 passing tests across five public components. This repository records that result as historical evidence and also records its own reconstruction-time test run separately; it does not rewrite creator-side QA as independent IV&V.
+
+## Documentation design basis
+
+The public orientation structure is intentionally layered:
+
+```text
+30 seconds → 5 minutes → deep reference
+```
+
+This is a repository information-architecture choice, not an ISO/W3C/NIST certification claim. It is informed by public guidance on plain language, human-centred design, clear purpose and hierarchy, summaries for complex information, and communication to broad technical/non-technical audiences.
+
+See [`docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md`](docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md) for the evidence references and test protocol.
 
 ## License status
 

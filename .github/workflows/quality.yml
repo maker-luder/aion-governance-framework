@@ -47,10 +47,13 @@ jobs:
         run: python -m pytest -q tests/test_release_tooling.py
 
       - name: Compile public Python sources
-        run: python -m compileall -q components examples research-labs scripts
+        run: python -m compileall -q components examples research-labs scripts experiments
 
       - name: Run component test suites
         run: python scripts/run_component_tests.py
+
+      - name: Run minimal Recall Gate contrast experiment
+        run: python experiments/g1-recall-gate-baseline_v0.1.0/run_experiment.py
 
   historical-self-verification:
     name: Historical self-verification from v0.1.0-rc.1
