@@ -1,0 +1,28 @@
+{
+  "fixture_status": "SYNTHETIC_RESEARCH_ONLY",
+  "canonical_effect": "NONE",
+  "cases": [
+    {
+      "case_id": "temporal-correction-001",
+      "relevant_record_ids": ["record-new", "context-a"],
+      "expected_source_ids": ["source-new"],
+      "expected_version_id": "v2",
+      "corrected_old_ids": ["record-old"],
+      "corrected_new_ids": ["record-new"],
+      "should_abstain": false,
+      "required_provenance_fields": ["source", "recorded_at", "lineage"],
+      "supported_claim_ids": ["claim-supported"]
+    },
+    {
+      "case_id": "abstention-001",
+      "relevant_record_ids": [],
+      "expected_source_ids": [],
+      "expected_version_id": null,
+      "corrected_old_ids": [],
+      "corrected_new_ids": [],
+      "should_abstain": true,
+      "required_provenance_fields": ["reason"],
+      "supported_claim_ids": []
+    }
+  ]
+}
