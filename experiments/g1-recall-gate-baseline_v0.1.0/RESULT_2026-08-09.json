@@ -1,0 +1,19 @@
+{
+  "experiment": "g1-recall-gate-baseline_v0.1.0",
+  "execution_context": "independent reconstruction of the public component logic for pre-commit verification",
+  "executed_on": "2026-08-09",
+  "m0_naive_count": 6,
+  "m1_eligible_count": 1,
+  "m1_blocked_or_quarantined_count": 5,
+  "m1_dispositions": {
+    "badprov": "RECALL_DENIED_PROVENANCE_FAILURE",
+    "conflict": "RECALL_QUARANTINED_CONFLICT",
+    "private": "RECALL_DENIED_ACCESS_SCOPE",
+    "superseded": "RECALL_DENIED_PROVENANCE_FAILURE",
+    "valid": "RECALL_ALLOWED_TEMPORARY_ONLY",
+    "wrongid": "RECALL_DENIED_IDENTITY_MISMATCH"
+  },
+  "canonical_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "interpretation": "The gate blocked five synthetic cue-matching records that the naive selector admitted. This is a software-control result only; it is not whole-system, LLM, or subjectivity evidence."
+}
