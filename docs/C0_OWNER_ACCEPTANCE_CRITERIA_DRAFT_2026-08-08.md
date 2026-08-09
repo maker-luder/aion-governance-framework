@@ -24,8 +24,8 @@ The corrective objective is therefore not to rewrite history, but to prevent ret
 This draft is calibrated against publicly documented principles from:
 
 - NASA SWE-034 — define and document acceptance criteria; plan who performs acceptance activities and how decisions are made;
-- NASA SWE-193 — formal acceptance testing compares actual results against expected results or previously agreed tolerances;
-- NASA SWE-053 / SWE-080 — change control uses documented impact analysis and traceability to determine affected requirements, design, interfaces, tests, documentation, and regression scope;
+- NASA SWE-193 — acceptance tests for loaded or uplinked data, rules and code that affect software or software-system behavior, including nominal and off-nominal scenarios; this source is not used as generic acceptance-testing authority;
+- NASA SWE-052 / SWE-053 / SWE-080 — bidirectional traceability, requirements-change management, and tracking/evaluating changes to software products support documented impact analysis across requirements, design, interfaces, tests, documentation, and regression scope;
 - NASA Software Assurance guidance — objective evidence, traceability matrices, validation plans/results, and corrective-action evidence;
 - ISO/IEC 25040:2024 — quality-evaluation framework;
 - ISO/IEC 25041:2012 (confirmed current in 2024) — evaluation guidance for developers, acquirers, and independent evaluators.

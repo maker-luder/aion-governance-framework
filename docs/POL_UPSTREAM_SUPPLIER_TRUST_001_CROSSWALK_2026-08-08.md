@@ -18,7 +18,9 @@
 | NIST AI RMF 1.0 / Playbook | `GOVERN → MAP → MEASURE → MANAGE` | roles/policy；scope/exposure；evidence/security/privacy；disposition/reassessment | No AI RMF certification claim |
 | ISO/IEC 25040 / 25041 project calibration | evaluation planning；evaluator-role transparency | criteria before evaluation；internal review != independent IV&V | No SQuaRE conformity claim |
 | ISO/IEC 25010 project calibration | quality broader than test pass | documentary/governance/provenance/privacy review in addition to automated tests | No full product-quality certification |
-| NASA SWE-034 / SWE-193 / SWE-053 / SWE-080 project calibration | predefined acceptance criteria；evidence vs decision；change control；traceability | anti-hindsight；impact-based revalidation | Method calibration only |
+| NASA SWE-034 project calibration | general software acceptance criteria and acceptance planning | criteria are defined and frozen before evaluation; evidence remains distinct from the Owner decision | Method calibration only |
+| NASA SWE-193 project calibration | acceptance tests for loaded/uplinked data, rules and code that affect software/system behavior, including nominal/off-nominal scenarios | applicable only if such loaded/uplinked behavior-affecting artifacts enter the evaluated scope | Not generic acceptance-testing authority |
+| NASA SWE-052 / SWE-053 / SWE-080 project calibration | bidirectional traceability；requirements-change management；tracking and evaluation of software-product changes | anti-hindsight；impact-based revalidation | Method calibration only |
 | W3C PROV / existing project provenance model | Entity / Activity / Agent lineage | claim/source/transformation/reviewer/authority separation | AION-specific roles remain project extensions |
 
 ## NIST AI RMF mapping

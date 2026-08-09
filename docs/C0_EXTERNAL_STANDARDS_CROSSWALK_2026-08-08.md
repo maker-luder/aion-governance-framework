@@ -106,27 +106,30 @@ Project consequence:
 - criteria are frozen before C evaluation;
 - known PASS results cannot generate or weaken criteria.
 
-### NASA SWE-193 — Acceptance Testing
+### NASA SWE-193 — Acceptance Testing for Affected System and Software Behavior
 
 Public source: NASA Software Engineering Handbook.
 
 Calibration use:
 
-- formal acceptance testing compares actual results with expected results or previously agreed tolerances;
-- verification/acceptance evidence should be recorded.
+- acceptance testing for loaded or uplinked data, rules and code that affect software or software-system behavior;
+- nominal and off-nominal scenarios for those loaded or uplinked artifacts.
 
 Project consequence:
 
-- C must evaluate frozen criteria against objective evidence; passing engineering tests are evidence, not the acceptance decision by themselves.
+- SWE-193 is applicable only where the evaluated scope actually includes loaded or uplinked behavior-affecting data, rules or code;
+- general C acceptance-criteria and acceptance-planning calibration remains under SWE-034;
+- passing engineering tests remain evidence, not the acceptance decision by themselves.
 
-### NASA SWE-053 / SWE-080 — Change Control and Bidirectional Traceability
+### NASA SWE-052 / SWE-053 / SWE-080 — Bidirectional Traceability, Requirements Change Management, and Tracking/Evaluating Software Product Changes
 
 Public source: NASA Software Engineering Handbook.
 
 Calibration use:
 
-- changes require impact analysis;
-- traceability should support identification of affected requirements, design/interfaces, implementation, tests, and documentation;
+- SWE-052: bidirectional traceability should support identification of affected requirements, design/interfaces, implementation, tests and documentation;
+- SWE-053: requirements changes require management and impact analysis;
+- SWE-080: changes to software products require tracking and evaluation;
 - revalidation should be scoped by demonstrated impact, not mechanically reset everything.
 
 Project consequence:
@@ -162,8 +165,8 @@ Interpretation limit:
 | Product quality beyond test pass | ISO/IEC 25010:2023 | functional/identity/lifecycle tests plus packaging evidence exist; no complete product-quality matrix | PARTIAL | C reviews architecture/docs/governance/limitations as well as tests |
 | Recoverability | ISO/IEC 25045:2010 | restart, chain verification, rollback and migration semantics have tests; explicit recoverability acceptance set needs challenge | PARTIAL / GAP | review AC-LIFE severities and failure/recovery conditions before freeze |
 | Predefined acceptance criteria | NASA SWE-034 | formal C criteria were created after implementation | GAP acknowledged | no backdating; anti-hindsight rules; freeze before C |
-| Acceptance evidence vs decision | NASA SWE-193 | engineering evidence exists; Owner decision not yet made | ALIGNED directionally | map evidence to frozen criteria; Owner issues separate decision record |
-| Impact-based revalidation | NASA SWE-053/SWE-080 | AH-07 now requires impact analysis and traceable evidence reuse | ALIGNED candidate | new head requires impact analysis; revalidate affected criteria only where bounded |
+| Loaded/uplinked behavior-affecting data, rules or code | NASA SWE-193 | applicability to the current C scope has not been established | N/A unless the required scope is present | use SWE-193 only when loaded/uplinked artifacts affecting behavior are actually evaluated; include nominal/off-nominal scenarios |
+| Impact-based revalidation | NASA SWE-052/SWE-053/SWE-080 | AH-07 now requires impact analysis and traceable evidence reuse | ALIGNED candidate | new head requires impact analysis; revalidate affected criteria only where bounded |
 | Build/release integrity evidence | NIST SSDF v1.1 | Strong QA builds local wheels and performs cold offline/no-index install/import smoke | ALIGNED candidate | retain as AC-QA evidence; do not treat as complete SSDF conformity |
 | Independent IV&V | ISO/IEC 25041 + project governance | not performed | HOLD / NOT_ACHIEVED | do not promote internal review into independent-IV&V claim |
 | Deployment/canonical promotion | lifecycle/governance boundary | not performed | HOLD | D merge decision and E canonical-promotion decision remain separate future gates |
