@@ -121,7 +121,7 @@ python scripts/verify_release.py --baseline current-index
 
 The current-head and current-index modes evaluate tracked paths only. They do not evaluate untracked files. Run `python scripts/scan_public_tree.py` as the separate public-worktree control for tracked and untracked artifacts. The intended local QA composition is the public-tree scan, the appropriate tracked-snapshot verifier mode, and the relevant tests; no single mode subsumes all three controls.
 
-Verify the frozen `v0.1.0-rc.1` release from its immutable Git tag, manifest and checksum records:
+Verify the frozen `v0.1.0-rc.1` release from its pinned historical tag object, peeled commit, manifest and checksum records:
 
 ```bash
 python scripts/verify_release.py --baseline historical-rc
