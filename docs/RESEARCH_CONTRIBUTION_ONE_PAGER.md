@@ -63,7 +63,7 @@ These are active research boundaries, not missing claims to be filled for presen
 
 ## Provenance of this synthesis
 
-The recommendation to add a one-page research-contribution summary came from an external Meta review on 2026-08-09 and was subsequently approved by the Human Owner for implementation. The content above is a synthesis of existing public repository evidence; it does not reattribute previously recorded research origins.
+The recommendation to add a one-page research-contribution summary came from external feedback provided by the Human Owner and attributed in the research conversation to “Meta 前輩” on 2026-08-09. The Human Owner subsequently approved this documentation task for implementation. This wording does not imply an official review by Meta Platforms, Inc. The content above is a synthesis of existing public repository evidence; it does not reattribute previously recorded research origins.
 
 For detailed attribution and method evidence, see:
 
