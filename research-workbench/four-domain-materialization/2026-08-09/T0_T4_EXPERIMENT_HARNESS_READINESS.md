@@ -139,4 +139,3 @@
 ## 4. Readiness boundary
 
 No T0-T4 condition is a complete, criteria-frozen formal experiment at this baseline. `PARTIALLY_EXECUTABLE` means components can be exercised independently, not that valid research results can be produced. Human Owner + ChatGPT must later freeze definitions, fixtures, criteria and interpretation limits before any result is evaluated.
-

@@ -93,4 +93,3 @@
 ## 6. Source attribution
 
 The Human Owner supplies research direction and authority boundaries. Existing repository code/tests supply the implementation facts. Codex authored this inspection artifact. No Teacher identity or lineage statement is attributed to prior intent.
-

@@ -135,4 +135,3 @@ Eligible records are ranked by relevance. This sequence is a governed candidate 
 - A tombstone is a governance/storage flag, not a cognitive-forgetting equivalence.
 - Correction recovery is an engineering observation, not subjectivity or consciousness evidence.
 - No missing cause, actor or Teacher semantic is inferred.
-

@@ -102,4 +102,3 @@ This crosswalk preserves the required direction: human research construct -> LLM
 - **ChatGPT:** prior formalization/review only where source artifacts record it.
 - **Codex:** repository inspection and this fact-extraction workbench artifact.
 - **JOINT / EXTERNAL_SOURCE:** only where explicit source evidence supports those labels; none is newly asserted here.
-

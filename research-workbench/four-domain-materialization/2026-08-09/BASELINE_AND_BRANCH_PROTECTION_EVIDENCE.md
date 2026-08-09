@@ -114,4 +114,3 @@ ROLLBACK_METHOD = Delete or abandon the isolated workbench branch after owner re
 ```
 
 The local transfer ZIP is produced outside the repository and is not part of this manifest tree.
-

@@ -74,4 +74,3 @@ These are gaps to decide, not frozen schemas:
 ## 6. Stop boundary
 
 No final tool name, wire schema, service facade, transport, server, writeback path or Teacher binding is defined or implemented in this workbench.
-

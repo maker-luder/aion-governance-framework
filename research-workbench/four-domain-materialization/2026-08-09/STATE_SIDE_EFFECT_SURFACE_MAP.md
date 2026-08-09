@@ -105,4 +105,3 @@
 5. Continuity functions return analyses and do not persist continuity state in the inspected implementation.
 6. No inspected operation changes governed memory importance because no such memory field/service exists.
 7. No operation in this task or map authorizes canonical promotion, identity mutation, cross-namespace transfer, or network exposure.
-
