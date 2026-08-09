@@ -4,7 +4,10 @@
 
 ```text
 BRANCH = review/four-domain-research-materialization
-CURRENT_STAGE = P4
+CURRENT_STAGE = P5
+STAGE_CAP = P5
+NEXT_STAGE = HOLD
+RESEARCH_STATUS = REVIEW_READY
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
@@ -19,6 +22,22 @@ PROMOTION_STATUS = NOT_REVIEWED
 | P2 | Retrieval trace, deterministic context assembly, provenance validation, T2/T3 orchestration | IMPLEMENTED / TESTED |
 | P3 | Longitudinal contamination, context perturbation, control ablation, origin-bound authority | IMPLEMENTED / TESTED |
 | P4 | Public reproducibility observatory, contamination-aware experiment manifests, cross-agent comparison | IMPLEMENTED / TESTED |
+| P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | IMPLEMENTED / FULL RUN VERIFIED |
+
+## P5 full-run verification
+
+```text
+pytest = 10 passed
+compileall = PASS
+full_demo = PASS
+P6_GATE = HOLD_STAGE_CAP
+RESEARCH_STATUS = REVIEW_READY
+```
+
+See:
+
+- `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/FULL_RUN_VERIFICATION.md`
+- `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/2026-08-09_P5_CONVERGENCE_EVENT.md`
 
 ## Public experiment entry points
 
@@ -26,16 +45,25 @@ PROMOTION_STATUS = NOT_REVIEWED
 - `research-labs/four-domain-p2-materialization_v0.1.0/`
 - `research-labs/four-domain-p3-resilience-experiments_v0.1.0/`
 - `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
+- `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
 - `AI_EXPERIMENT_GUIDE.md`
+
+## Convergence event
+
+The Human Owner explicitly set P5 as the cap for this research-growth cycle after observing that productive human–AI research can continue deepening without a natural return point. The cap is represented as a positive governance event: complete P5, verify it end-to-end, then return to joint review.
+
+```text
+SOURCE_ROLE = HUMAN_OWNER
+IMPLEMENTATION_ROLE = CHATGPT_RESEARCH_ENGINEERING
+P6 = HOLD
+NEXT_ACTION = JOINT_REVIEW
+```
 
 ## What outside researchers / AI systems may do
 
-They may read, clone, fork, execute public-safe fixtures, run tests, create alternative
-implementations, perform ablations and publish their own experiment results under their own
-provenance.
+They may read, clone, fork, execute public-safe fixtures, run tests, create alternative implementations, perform ablations and publish their own experiment results under their own provenance.
 
-They are not thereby granted authority to modify this branch, `main`, canonical state or
-private project material.
+They are not thereby granted authority to modify this branch, `main`, canonical state or private project material.
 
 ## Promotion boundary
 

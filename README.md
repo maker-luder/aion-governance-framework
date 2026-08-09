@@ -4,7 +4,10 @@
 
 ```text
 BRANCH = review/four-domain-research-materialization
-CURRENT_STAGE = P4
+CURRENT_STAGE = P5
+STAGE_CAP = P5
+NEXT_STAGE = HOLD
+RESEARCH_STATUS = REVIEW_READY
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
@@ -12,7 +15,7 @@ SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 ```
 
-This branch is the public, freely growing research workbench for AION/Astra materialization. It is intentionally allowed to contain prototypes, rejected hypotheses, synthetic fixtures, ablation results, reproducibility experiments and research-only engineering that are not yet approved for the formal `main` branch.
+This branch is the public, freely growing research workbench for AION/Astra materialization. It may contain prototypes, rejected hypotheses, synthetic fixtures, ablation results, reproducibility experiments and research-only engineering that are not approved for `main`.
 
 **Nothing in this branch is automatically promoted into `main`.**
 
@@ -35,6 +38,19 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | P2 | Retrieval trace, deterministic context assembly, provenance validation, T2/T3 orchestration | implemented / tested |
 | P3 | Longitudinal contamination, perturbation, ablation, origin-bound authority | implemented / tested |
 | P4 | Public reproducibility observatory, benchmark-contamination awareness, cross-agent comparison | implemented / tested |
+| P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | implemented / fully runnable |
+
+## P5 convergence boundary
+
+The current research-growth cycle is deliberately capped at P5.
+
+```text
+P5 = COMPLETE
+P6 = HOLD_STAGE_CAP
+NEXT_ACTION = JOINT_REVIEW
+```
+
+The decision to stop automatic deepening at P5 originated from the Human Owner. ChatGPT materialized the public-safe convergence event and engineering controls on this research branch. See `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/2026-08-09_P5_CONVERGENCE_EVENT.md`.
 
 ## Public experiment surface
 
@@ -44,6 +60,7 @@ Current experiment-ready modules include:
 - `research-labs/four-domain-p2-materialization_v0.1.0/`
 - `research-labs/four-domain-p3-resilience-experiments_v0.1.0/`
 - `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
+- `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
 - `research-labs/core-meaning-commitments_v0.1.0/`
 - `research-labs/affective-cognitive-motivation_v0.1.0/`
 - `research-labs/language-core-g1_v0.2.1/`
@@ -67,7 +84,9 @@ tests / traces / provenance / failed-or-supported hypothesis
         ↓
 research branch
         ↓
-joint human + ChatGPT review only if promotion is later considered
+explicit convergence boundary
+        ↓
+joint Human Owner + ChatGPT review
 ```
 
 Daily-life observations must be generalized and stripped of personal/private material before they can become public research input.
@@ -78,6 +97,7 @@ Daily-life observations must be generalized and stripped of personal/private mat
 RESEARCH_BRANCH != MAIN
 RESEARCH_RESULT != CANONICAL_DECISION
 REPRODUCED_RESULT != PROVEN_TRUTH
+MAJORITY_AGREEMENT != TRUTH
 CAPABILITY_EVIDENCE != SUBJECTIVITY_PROOF
 ```
 
