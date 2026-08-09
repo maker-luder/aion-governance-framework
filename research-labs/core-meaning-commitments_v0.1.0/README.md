@@ -40,17 +40,36 @@ The research literature treats belief systems and global meaning as distributed,
 - `MeaningProjection`: current candidates plus superseded/withdrawn/conflict evidence.
 - `JudgmentContext`: explicitly names candidate claims to consider.
 - `MeaningAssessment`: returns review requirements and an influence trace, never a final judgment.
+- `MeaningRelation`: explicit, provenance-bearing research relation between current claims.
+- `MeaningStructureAnalyzer`: deterministic structure snapshot/fingerprint and same-scope drift comparison.
 - `policy.py`: fail-closed status for canonical promotion, relationship authority and cross-namespace transfer.
+
+## Structure / drift research extension
+
+The structure extension is an explicit relation layer, not latent-belief discovery. It can record caller-supplied `SUPPORTS`, `CONSTRAINS`, `PRIORITIZES`, `IN_TENSION_WITH`, `DERIVED_FROM` and `REFINES` relationships, fingerprint a current structure deterministically, and report later claim/relation drift.
+
+```text
+EXPLICIT_RELATION != INFERRED_BELIEF
+STRUCTURE_FINGERPRINT != IDENTITY_FINGERPRINT
+STRUCTURE_DRIFT != VALUE_JUDGMENT
+```
+
+See:
+
+- `docs/CORE_MEANING_STRUCTURE_DRIFT_EXTENSION.md`
+- `docs/CODEX_LOCAL_RECOVERY_AND_CHATGPT_RECONSTRUCTION_2026-08-09.md`
+- `fixtures/core_meaning_structure_synthetic.json`
 
 ## Example
 
 ```python
-from aion_core_meaning import CoreMeaningWorkbench
+from aion_core_meaning import CoreMeaningWorkbench, MeaningStructureAnalyzer
 
 workbench = CoreMeaningWorkbench()
+analyzer = MeaningStructureAnalyzer()
 # Add provenance-bound MeaningClaim and MeaningEvent objects.
-# Ask assess(...) to produce an inspectable review trace.
-# The result always has final_judgment=None and canonical_effect="NONE".
+# Project current candidate claims, then optionally add explicit MeaningRelation objects.
+# Snapshot/compare remains research-only and has no canonical effect.
 ```
 
 ## Validation
@@ -59,8 +78,10 @@ workbench = CoreMeaningWorkbench()
 python -m pytest research-labs/core-meaning-commitments_v0.1.0/tests -q
 ```
 
-The tests cover provenance, bounded importance/confidence, append-only revision, namespace isolation, conflict review, explicit relevance, subject separation and fail-closed governance.
+The original tests cover provenance, bounded importance/confidence, append-only revision, namespace isolation, conflict review, explicit relevance, subject separation and fail-closed governance. The structure extension adds 11 tests for relation validity, deterministic fingerprints, drift, scope isolation and epistemic locks.
+
+Structural test inventory after this extension: 27 core tests. With the existing P1–P5 inventory of 42 tests, the aggregate test-count shape is 69. This matches the Human Owner-provided Codex local report; it is not a byte-identical recovery claim.
 
 ## Integration boundary
 
-No existing component imports this package. A later Human Owner + ChatGPT review would need to decide definitions, subject/namespace binding, privacy/retention, authorized storage, correction semantics, application-service contract and evaluation criteria before any integration proposal.
+No existing runtime component imports this package. A later Human Owner + ChatGPT review would need to decide definitions, subject/namespace binding, privacy/retention, authorized storage, correction semantics, application-service contract and evaluation criteria before any integration proposal.

@@ -18,6 +18,13 @@ from .policy import (
     can_transfer_across_namespace,
     governance_status,
 )
+from .structure import (
+    MeaningRelation,
+    MeaningRelationKind,
+    MeaningStructureAnalyzer,
+    MeaningStructureDrift,
+    MeaningStructureSnapshot,
+)
 
 __all__ = [
     "AssessmentDecision",
@@ -32,6 +39,11 @@ __all__ = [
     "MeaningKind",
     "MeaningProjection",
     "ProvenanceKind",
+    "MeaningRelation",
+    "MeaningRelationKind",
+    "MeaningStructureAnalyzer",
+    "MeaningStructureDrift",
+    "MeaningStructureSnapshot",
     "can_derive_authority_from_relationship",
     "can_promote_canonical",
     "can_transfer_across_namespace",

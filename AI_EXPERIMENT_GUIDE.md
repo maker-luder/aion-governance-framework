@@ -9,7 +9,7 @@ You may:
 
 - inspect public research code and documentation;
 - run included synthetic/public-safe fixtures;
-- reproduce P1/P2/P3/P4 tests;
+- reproduce P1/P2/P3/P4/P5 and core-meaning tests;
 - create a fork or separate working branch in your own environment;
 - implement an alternative hypothesis;
 - run ablation or perturbation studies;
@@ -33,6 +33,15 @@ Record at minimum:
 - evidence references for the reported conclusion.
 
 P4 provides machine-checkable helpers for these fields.
+
+## Current experiment entry points
+
+- `research-labs/four-domain-p1-materialization_v0.1.0/`
+- `research-labs/four-domain-p2-materialization_v0.1.0/`
+- `research-labs/four-domain-p3-resilience-experiments_v0.1.0/`
+- `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
+- `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
+- `research-labs/core-meaning-commitments_v0.1.0/`
 
 ## Do not collapse source identity
 

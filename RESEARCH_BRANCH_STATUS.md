@@ -4,10 +4,10 @@
 
 ```text
 BRANCH = review/four-domain-research-materialization
-CURRENT_STAGE = P5
-STAGE_CAP = P5
-NEXT_STAGE = HOLD
-RESEARCH_STATUS = REVIEW_READY
+CURRENT_STAGE = P5_PLUS_RESEARCH_EXTENSIONS
+STAGE_CAP = RESEARCH_ONLY_OPEN
+NEXT_STAGE = OWNER_DIRECTED_RESEARCH_GROWTH
+RESEARCH_STATUS = ACTIVE
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
@@ -23,6 +23,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | P3 | Longitudinal contamination, context perturbation, control ablation, origin-bound authority | IMPLEMENTED / TESTED |
 | P4 | Public reproducibility observatory, contamination-aware experiment manifests, cross-agent comparison | IMPLEMENTED / TESTED |
 | P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | IMPLEMENTED / FULL RUN VERIFIED |
+| Extension | Core meaning commitment structure, explicit relation graph, drift and fingerprint experiment | IMPLEMENTED / TESTED |
 
 ## P5 full-run verification
 
@@ -46,9 +47,10 @@ See:
 - `research-labs/four-domain-p3-resilience-experiments_v0.1.0/`
 - `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
 - `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
+- `research-labs/core-meaning-commitments_v0.1.0/`
 - `AI_EXPERIMENT_GUIDE.md`
 
-## Convergence event
+## Convergence event and authority update
 
 The Human Owner explicitly set P5 as the cap for this research-growth cycle after observing that productive human–AI research can continue deepening without a natural return point. The cap is represented as a positive governance event: complete P5, verify it end-to-end, then return to joint review.
 
@@ -57,6 +59,16 @@ SOURCE_ROLE = HUMAN_OWNER
 IMPLEMENTATION_ROLE = CHATGPT_RESEARCH_ENGINEERING
 P6 = HOLD
 NEXT_ACTION = JOINT_REVIEW
+```
+
+That block remains the historical P5 event. Later on 2026-08-09, the Human Owner explicitly reopened `review/four-domain-research-materialization` for free research-only engineering and public-source investigation. The reopening does not rename every extension as P6 and does not alter the promotion boundary.
+
+```text
+REOPENING_SOURCE_ROLE = HUMAN_OWNER
+RESEARCH_BRANCH_GROWTH = AUTHORIZED
+CODEX_RESEARCH_IMPLEMENTATION = AUTHORIZED
+MAIN_WRITE = PROHIBITED
+CANONICAL_PROMOTION = NOT_AUTHORIZED
 ```
 
 ## What outside researchers / AI systems may do

@@ -4,10 +4,10 @@
 
 ```text
 BRANCH = review/four-domain-research-materialization
-CURRENT_STAGE = P5
-STAGE_CAP = P5
-NEXT_STAGE = HOLD
-RESEARCH_STATUS = REVIEW_READY
+CURRENT_STAGE = P5_PLUS_RESEARCH_EXTENSIONS
+STAGE_CAP = RESEARCH_ONLY_OPEN
+NEXT_STAGE = OWNER_DIRECTED_RESEARCH_GROWTH
+RESEARCH_STATUS = ACTIVE
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
@@ -40,17 +40,25 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | P4 | Public reproducibility observatory, benchmark-contamination awareness, cross-agent comparison | implemented / tested |
 | P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | implemented / fully runnable |
 
-## P5 convergence boundary
+## P5 convergence event and later research reopening
 
-The current research-growth cycle is deliberately capped at P5.
+P5 remains a completed and preserved convergence event. Later on 2026-08-09,
+the Human Owner explicitly reopened this branch for research-only growth while
+retaining the absolute `main` no-write boundary.
 
 ```text
 P5 = COMPLETE
-P6 = HOLD_STAGE_CAP
-NEXT_ACTION = JOINT_REVIEW
+P5_EVENT = PRESERVED
+RESEARCH_ONLY_GROWTH = AUTHORIZED
+P6_LABEL = NOT_AUTOMATICALLY_ASSIGNED
+MAIN_WRITE = PROHIBITED
 ```
 
-The decision to stop automatic deepening at P5 originated from the Human Owner. ChatGPT materialized the public-safe convergence event and engineering controls on this research branch. See `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/2026-08-09_P5_CONVERGENCE_EVENT.md`.
+The earlier decision to stop automatic deepening at P5 originated from the Human
+Owner. ChatGPT materialized the public-safe convergence event and engineering
+controls. The later reopening also originated from the Human Owner; Codex may
+materialize bounded research extensions on this branch. Neither event authorizes
+promotion to `main`. See `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/2026-08-09_P5_CONVERGENCE_EVENT.md`.
 
 ## Public experiment surface
 

@@ -1,0 +1,56 @@
+{
+  "schema": "AION_CORE_MEANING_STRUCTURE_SYNTHETIC_0.1",
+  "subject_id": "AION_RESEARCH_SUBJECT",
+  "namespace": "research.core-meaning",
+  "canonical_effect": "NONE",
+  "runtime_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "claims": [
+    {
+      "claim_id": "c1",
+      "kind": "ORGANIZING_COMMITMENT",
+      "proposition": "Preserve provenance before interpretation.",
+      "importance": 0.9,
+      "confidence": 0.8
+    },
+    {
+      "claim_id": "c2",
+      "kind": "GLOBAL_GOAL",
+      "proposition": "Keep research changes reversible and inspectable.",
+      "importance": 0.8,
+      "confidence": 0.9
+    },
+    {
+      "claim_id": "c3",
+      "kind": "SITUATIONAL_APPRAISAL",
+      "proposition": "A newly observed result requires review before promotion.",
+      "importance": 0.6,
+      "confidence": 0.7
+    }
+  ],
+  "relations": [
+    {
+      "relation_id": "r1",
+      "source_claim_id": "c1",
+      "target_claim_id": "c2",
+      "kind": "SUPPORTS",
+      "confidence": 0.8,
+      "provenance_refs": ["synthetic:relation:r1"]
+    },
+    {
+      "relation_id": "r2",
+      "source_claim_id": "c2",
+      "target_claim_id": "c3",
+      "kind": "CONSTRAINS",
+      "confidence": 0.7,
+      "provenance_refs": ["synthetic:relation:r2"]
+    }
+  ],
+  "non_claims": [
+    "explicit relation graph is not a discovered latent belief network",
+    "structure fingerprint is not identity proof",
+    "drift detection is not value judgment",
+    "research structure has no canonical authority"
+  ]
+}
