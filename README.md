@@ -111,7 +111,15 @@ Verify the current checkout against the exact checked-out Git `HEAD` tree:
 python scripts/verify_release.py --baseline current-head
 ```
 
-This current-head verification reports the exact commit and Git-tree manifest used. It is distinct from the frozen historical release evidence.
+This current-head verification reports the exact commit and Git-tree manifest used. A PASS means that tracked worktree files match the checked-out `HEAD` and that the verifier's scoped repository-content policy checks pass. It is distinct from the frozen historical release evidence and does not provide an independent manifest or independent release-reproducibility assurance.
+
+For a pre-commit check, verify tracked worktree files against the Git index:
+
+```bash
+python scripts/verify_release.py --baseline current-index
+```
+
+The current-head and current-index modes evaluate tracked paths only. They do not evaluate untracked files. Run `python scripts/scan_public_tree.py` as the separate public-worktree control for tracked and untracked artifacts. The intended local QA composition is the public-tree scan, the appropriate tracked-snapshot verifier mode, and the relevant tests; no single mode subsumes all three controls.
 
 Verify the frozen `v0.1.0-rc.1` release from its immutable Git tag, manifest and checksum records:
 
@@ -119,7 +127,17 @@ Verify the frozen `v0.1.0-rc.1` release from its immutable Git tag, manifest and
 python scripts/verify_release.py --baseline historical-rc
 ```
 
-`manifest/FILE_MANIFEST.json` and `manifest/SHA256SUMS.txt` remain historical `v0.1.0-rc.1` evidence. They are not a live inventory of post-RC `main`, and this verifier does not regenerate or rewrite them. Both modes require a Git checkout and state what was verified, against which baseline, and using which manifest.
+`manifest/FILE_MANIFEST.json` and `manifest/SHA256SUMS.txt` remain historical `v0.1.0-rc.1` evidence. They are not a live inventory of post-RC `main`, and this verifier does not regenerate or rewrite them. Historical verification pins both the annotated tag object and its peeled commit. Both modes require a Git checkout and state what was verified, against which baseline, and using which manifest.
+
+Generic current-worktree manifest generation requires an explicit baseline and a non-frozen, versioned output destination:
+
+```bash
+python scripts/generate_manifest.py --baseline <baseline-or-version> --output-dir <non-frozen-versioned-directory>
+```
+
+The generator rejects the frozen historical manifest destination and does not define a canonical current manifest.
+
+A verifier PASS does **not** mean that the whole project or its research claims have been validated. It is not subjectivity evidence, independent IV&V, release approval, deployment approval, or canonical promotion.
 
 Run all available component tests:
 

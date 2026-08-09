@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -41,14 +43,17 @@ jobs:
       - name: Verify current checkout against exact Git HEAD tree
         run: python scripts/verify_release.py --baseline current-head
 
+      - name: Run release-tooling negative tests
+        run: python -m pytest -q tests/test_release_tooling.py
+
       - name: Compile public Python sources
         run: python -m compileall -q components examples research-labs scripts
 
       - name: Run component test suites
         run: python scripts/run_component_tests.py
 
-  frozen-release-verification:
-    name: Frozen v0.1.0-rc.1 manifest verification
+  historical-self-verification:
+    name: Historical self-verification from v0.1.0-rc.1
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -56,8 +61,25 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: v0.1.0-rc.1
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Verify frozen public release manifest
         run: python scripts/verify_release.py
+
+  current-historical-revalidation:
+    name: Current controls revalidate pinned v0.1.0-rc.1 evidence
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current repository with historical tags
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Revalidate pinned historical evidence with current verifier
+        run: python scripts/verify_release.py --baseline historical-rc

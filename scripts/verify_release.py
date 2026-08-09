@@ -8,13 +8,16 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-HISTORICAL_RC_REF = "v0.1.0-rc.1"
+HISTORICAL_RC_REF = "refs/tags/v0.1.0-rc.1"
+HISTORICAL_RC_NAME = "v0.1.0-rc.1"
+EXPECTED_TAG_OBJECT = "abc2f4f4c08e1e696e576da6d6907d745471c184"
+EXPECTED_PEELED_COMMIT = "7f4647fe365c7c010f6ebd16924dd8990b0dbafe"
 MANIFEST_PATH = "manifest/FILE_MANIFEST.json"
 SUMS_PATH = "manifest/SHA256SUMS.txt"
 
 PROHIBITED_SUFFIXES = {".zip", ".whl", ".sqlite3", ".db", ".pyc"}
 PATH_PATTERNS = [
-    re.compile(r"[A-Za-z]:\\\\Users\\\\[A-Za-z0-9._-]+", re.I),
+    re.compile(r"[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+", re.I),
     re.compile(r"/home/[A-Za-z0-9._-]+/"),
     re.compile("hs" + "upo", re.I),
 ]
@@ -91,11 +94,38 @@ def scan_bytes(path: str, data: bytes, errors: list[str]) -> None:
 
 def verify_historical_rc() -> dict[str, object]:
     errors: list[str] = []
-    commit = git_text("rev-parse", f"{HISTORICAL_RC_REF}^{{commit}}")
-    entries = tree_entries(HISTORICAL_RC_REF)
-    manifest = json.loads(git_bytes("show", f"{HISTORICAL_RC_REF}:{MANIFEST_PATH}"))
+    tag_object = git_text("rev-parse", "--verify", HISTORICAL_RC_REF)
+    commit = git_text("rev-parse", "--verify", f"{HISTORICAL_RC_REF}^{{commit}}")
+    if tag_object != EXPECTED_TAG_OBJECT:
+        errors.append(
+            "historical tag-object mismatch: "
+            f"expected {EXPECTED_TAG_OBJECT}, got {tag_object}"
+        )
+    if commit != EXPECTED_PEELED_COMMIT:
+        errors.append(
+            "historical peeled-commit mismatch: "
+            f"expected {EXPECTED_PEELED_COMMIT}, got {commit}"
+        )
+    if errors:
+        return {
+            "verification_scope": "HISTORICAL_RC_VERIFICATION",
+            "baseline": HISTORICAL_RC_NAME,
+            "expected_tag_object": EXPECTED_TAG_OBJECT,
+            "actual_tag_object": tag_object,
+            "expected_peeled_commit": EXPECTED_PEELED_COMMIT,
+            "actual_peeled_commit": commit,
+            "historical_reference_drift": True,
+            "status": "FAIL",
+            "errors": errors,
+            "files": 0,
+        }
+
+    # Use the pinned commit after validating the ref so a concurrent ref move cannot
+    # change the historical subject between the trust-anchor check and blob reads.
+    entries = tree_entries(EXPECTED_PEELED_COMMIT)
+    manifest = json.loads(git_bytes("show", f"{EXPECTED_PEELED_COMMIT}:{MANIFEST_PATH}"))
     records = manifest["files"]
-    sums_text = git_bytes("show", f"{HISTORICAL_RC_REF}:{SUMS_PATH}").decode("utf-8")
+    sums_text = git_bytes("show", f"{EXPECTED_PEELED_COMMIT}:{SUMS_PATH}").decode("utf-8")
     sums = {
         line.split("  ", 1)[1]: line.split("  ", 1)[0]
         for line in sums_text.splitlines()
@@ -126,10 +156,15 @@ def verify_historical_rc() -> dict[str, object]:
 
     return {
         "verification_scope": "HISTORICAL_RC_VERIFICATION",
-        "baseline": HISTORICAL_RC_REF,
+        "baseline": HISTORICAL_RC_NAME,
         "baseline_commit": commit,
-        "manifest": f"{HISTORICAL_RC_REF}:{MANIFEST_PATH}",
-        "checksums": f"{HISTORICAL_RC_REF}:{SUMS_PATH}",
+        "expected_tag_object": EXPECTED_TAG_OBJECT,
+        "actual_tag_object": tag_object,
+        "expected_peeled_commit": EXPECTED_PEELED_COMMIT,
+        "actual_peeled_commit": commit,
+        "historical_reference_drift": False,
+        "manifest": f"{EXPECTED_PEELED_COMMIT}:{MANIFEST_PATH}",
+        "checksums": f"{EXPECTED_PEELED_COMMIT}:{SUMS_PATH}",
         "status": "PASS" if not errors else "FAIL",
         "errors": errors,
         "files": len(records),
@@ -168,6 +203,10 @@ def verify_current_snapshot(baseline: str) -> dict[str, object]:
         "verification_scope": verification_scope,
         "baseline": baseline_name,
         "manifest": manifest_name,
+        "subject": "tracked worktree files",
+        "expected_reference": "HEAD Git tree" if commit is not None else "Git index",
+        "untracked_files": "NOT_EVALUATED_USE_SCAN_PUBLIC_TREE",
+        "independent_release_reproducibility": False,
         "status": "PASS" if not errors else "FAIL",
         "errors": errors,
         "files": len(entries),
@@ -187,8 +226,9 @@ def main() -> int:
         required=True,
         help=(
             "historical-rc verifies the frozen v0.1.0-rc.1 manifest from Git objects; "
-            "current-head verifies the worktree against HEAD's Git tree; current-index "
-            "verifies staged pre-commit content against the Git index"
+            "current-head verifies tracked worktree files against HEAD's Git tree; "
+            "current-index verifies tracked pre-commit content against the Git index; "
+            "current modes do not evaluate untracked files (run scan_public_tree.py)"
         ),
     )
     args = parser.parse_args()
