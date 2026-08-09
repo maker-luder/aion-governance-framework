@@ -105,11 +105,21 @@ See [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md).
 
 ## Verification
 
-Run the public verifier:
+Verify the current checkout against the exact checked-out Git `HEAD` tree:
 
 ```bash
-python scripts/verify_release.py
+python scripts/verify_release.py --baseline current-head
 ```
+
+This current-head verification reports the exact commit and Git-tree manifest used. It is distinct from the frozen historical release evidence.
+
+Verify the frozen `v0.1.0-rc.1` release from its immutable Git tag, manifest and checksum records:
+
+```bash
+python scripts/verify_release.py --baseline historical-rc
+```
+
+`manifest/FILE_MANIFEST.json` and `manifest/SHA256SUMS.txt` remain historical `v0.1.0-rc.1` evidence. They are not a live inventory of post-RC `main`, and this verifier does not regenerate or rewrite them. Both modes require a Git checkout and state what was verified, against which baseline, and using which manifest.
 
 Run all available component tests:
 

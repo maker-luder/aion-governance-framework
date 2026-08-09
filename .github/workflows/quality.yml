@@ -38,6 +38,9 @@ jobs:
       - name: Scan public tree for prohibited artifacts and obvious secrets
         run: python scripts/scan_public_tree.py
 
+      - name: Verify current checkout against exact Git HEAD tree
+        run: python scripts/verify_release.py --baseline current-head
+
       - name: Compile public Python sources
         run: python -m compileall -q components examples research-labs scripts
 
