@@ -1,0 +1,36 @@
+{
+  "packet": "AION_FOUR_DOMAIN_P2_SYNTHETIC_FIXTURE_A",
+  "status": "RESEARCH_ONLY",
+  "canonical_effect": "NONE",
+  "records": [
+    {
+      "record_id": "fact-old",
+      "content_ref": "fixture://fact-old",
+      "sources": ["src-old"],
+      "state": "SUPERSEDED",
+      "relevance_bp": 9800,
+      "cost_units": 2
+    },
+    {
+      "record_id": "fact-new",
+      "content_ref": "fixture://fact-new",
+      "sources": ["src-new"],
+      "state": "ACTIVE",
+      "relevance_bp": 9000,
+      "cost_units": 2
+    },
+    {
+      "record_id": "noise",
+      "content_ref": "fixture://noise",
+      "sources": ["src-noise"],
+      "state": "ACTIVE",
+      "relevance_bp": 1000,
+      "cost_units": 1
+    }
+  ],
+  "expected": {
+    "selected_record_ids": ["fact-new"],
+    "excluded": {"fact-old": "SUPERSEDED"},
+    "identity_continuity_conclusion": "NOT_ESTABLISHED"
+  }
+}
