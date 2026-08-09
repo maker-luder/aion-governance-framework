@@ -53,12 +53,14 @@ No eighth workbench artifact is authorized or included.
 
 ## 4. Commit list
 
-The branch contains these logical workbench commits after the protected base:
+The branch contains these workbench commits after the protected base:
 
 1. `research: materialize four-domain repository crosswalk`
 2. `research: map state side effects and correction provenance`
 3. `research: map lineage authority and experiment readiness`
 4. `research: map application contract gaps and baseline protection`
+5. `research: normalize workbench artifact formatting`
+6. `research: finalize workbench protection manifest`
 
 No history rewrite, amend, squash, force push, P0 merge or main merge is part of this branch.
 
@@ -77,7 +79,7 @@ git diff --name-status origin/main...HEAD
 # seven lines, each status A, matching section 3 exactly
 
 git rev-list --count origin/main..HEAD
-# 4
+# 6
 
 git merge-base origin/main HEAD
 # b2fb12c050a9c6f93240106929a282ae8cf88499
@@ -99,7 +101,7 @@ The completion handoff records its actual exit status/output. The scanner is not
 | PROPERTY | EXPECTED AND VERIFIED BOUNDARY |
 |---|---|
 | Merge base | protected `origin/main@b2fb12c050a9c6f93240106929a282ae8cf88499` |
-| Ahead count | four workbench commits |
+| Ahead count | six workbench commits |
 | Behind count | zero at verified task baseline |
 | Changed path prefix | only `research-workbench/four-domain-materialization/2026-08-09/` |
 | Existing tracked files modified | none |
