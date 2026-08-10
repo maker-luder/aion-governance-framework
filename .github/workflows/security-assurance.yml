@@ -1,0 +1,102 @@
+name: Security Assurance Pilot
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_scan:
+        description: "Run a live Codex Security scan (requires OPENAI_API_KEY secret)"
+        required: true
+        default: false
+        type: boolean
+      diff_base:
+        description: "Git diff base for the advisory scan"
+        required: true
+        default: "origin/main"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-assurance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  codex-security-advisory:
+    name: Codex Security advisory / governed pilot
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      CODEX_SECURITY_STATE_DIR: ${{ runner.temp }}/codex-security-state
+
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Codex Security CLI
+        run: npm install --global @openai/codex-security
+
+      - name: Record tool metadata
+        run: codex-security info --json
+
+      - name: Preflight only
+        if: ${{ !inputs.run_scan }}
+        run: |
+          set -euo pipefail
+          codex-security scan . \
+            --diff "${{ inputs.diff_base }}" \
+            --dry-run
+          echo "Security assurance pilot preflight completed; no live scan was executed."
+
+      - name: Live advisory scan
+        if: ${{ inputs.run_scan }}
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${OPENAI_API_KEY:-}" ]; then
+            echo "::error::OPENAI_API_KEY repository secret is required for a live scan."
+            exit 2
+          fi
+
+          SCAN_ROOT="$(mktemp -d "${RUNNER_TEMP}/codex-security.XXXXXX")"
+          trap 'rm -rf "$SCAN_ROOT"' EXIT
+
+          codex-security scan . \
+            --auth api-key \
+            --diff "${{ inputs.diff_base }}" \
+            --output-dir "$SCAN_ROOT/results" \
+            --json > "$SCAN_ROOT/findings.json"
+
+          echo "Codex Security live scan completed in advisory mode."
+          echo "Detailed findings remain only in runner temporary storage and are not uploaded as artifacts."
+
+      - name: Governance boundary summary
+        if: ${{ always() }}
+        run: |
+          cat <<'EOF'
+          SECURITY_ASSURANCE_MODE = RESEARCH_ONLY_ADVISORY
+          CONTENT_PERMISSION = READ_ONLY
+          AUTO_PATCH = PROHIBITED
+          AUTO_MERGE = PROHIBITED
+          FINDING_ARTIFACT_UPLOAD = PROHIBITED
+          MAIN_EFFECT = NONE
+          CANONICAL_EFFECT = NONE
+          NO_FINDING != PROOF_OF_ABSENCE
+          INCOMPLETE_COVERAGE != PASS
+          HUMAN_REVIEW_REQUIRED = TRUE
+          EOF
