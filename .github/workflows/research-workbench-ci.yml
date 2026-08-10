@@ -7,6 +7,10 @@ on:
     paths:
       - "research-labs/external-evidence-normalization_v0.1.0/**"
       - "research-labs/embodiment-continuity-anchor_v0.1.0/**"
+      - "research-labs/causal-internal-state_v0.1.0/**"
+      - "research-labs/triangulated-subjectivity-evidence_v0.1.0/**"
+      - "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0/**"
+      - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_CONSCIOUSNESS_PROJECTS_INTAKE.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
 
@@ -45,6 +49,27 @@ jobs:
 
       - name: Verify embodiment continuity anchor lab
         working-directory: research-labs/embodiment-continuity-anchor_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Verify causal internal state lab
+        working-directory: research-labs/causal-internal-state_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Verify triangulated subjectivity evidence lab
+        working-directory: research-labs/triangulated-subjectivity-evidence_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Verify consciousness theory indicator crosswalk
+        working-directory: research-labs/consciousness-theory-indicator-crosswalk_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src
