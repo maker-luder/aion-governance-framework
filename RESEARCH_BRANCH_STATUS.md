@@ -26,50 +26,6 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | Core meaning commitment structure, explicit relation graph, drift and fingerprint experiment | IMPLEMENTED / TESTED |
 | Extension | Finite predictive self-model, matched self-model ablation, presuppositional self-report framing control | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
-| Extension | Codex Security assurance: governed external security evidence, preflight, validation/CAPA mapping | MATERIALIZED / ADVISORY PILOT |
-
-## 2026-08-11 Codex Security assurance pilot
-
-A bounded Codex Security research extension has been materialized without changing the existing `main`, canonical or runtime boundaries.
-
-```text
-SECURITY_ASSURANCE_MODE = RESEARCH_ONLY_ADVISORY
-WORKFLOW = .github/workflows/security-assurance.yml
-PUSH_BEHAVIOR = PREFLIGHT_ONLY
-LIVE_SCAN = EXPLICIT_MANUAL_REQUEST_ONLY
-CONTENT_PERMISSION = READ_ONLY
-AUTO_PATCH = PROHIBITED
-AUTO_MERGE = PROHIBITED
-FINDING_ARTIFACT_UPLOAD = PROHIBITED
-MAIN_EFFECT = NONE
-CANONICAL_EFFECT = NONE
-```
-
-Standing interpretation locks:
-
-```text
-SCAN_FINDING != CONFIRMED_VULNERABILITY
-NO_FINDING != PROOF_OF_ABSENCE
-INCOMPLETE_COVERAGE != PASS
-PATCH_PROPOSAL != APPROVED_PATCH
-VALIDATION_PASS != MAIN_PROMOTION
-SECURITY_EVIDENCE != SUBJECTIVITY_EVIDENCE
-```
-
-The workflow intentionally stores live-scan state and detailed output under the GitHub runner temporary directory rather than in the repository worktree, and does not upload detailed findings from the public-repository pilot.
-
-Read the pilot checkpoint:
-
-- `research-workbench/four-domain-materialization/2026-08-11/CODEX_SECURITY_ASSURANCE_PILOT_2026-08-11.md`
-- `.github/workflows/security-assurance.yml`
-
-Provenance remains explicit:
-
-```text
-TRIGGER_SOURCE = HUMAN_OWNER
-MATERIALIZATION_ROLE = CHATGPT_RESEARCH_ENGINEERING
-EXTERNAL_TECHNICAL_SOURCE = OPENAI_CODEX_SECURITY_PUBLIC_DOCUMENTATION_AND_REPOSITORY
-```
 
 ## P5 full-run verification
 
@@ -96,7 +52,6 @@ See:
 - `research-labs/core-meaning-commitments_v0.1.0/`
 - `research-labs/self-model-functional-ablation_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
-- `research-workbench/four-domain-materialization/2026-08-11/CODEX_SECURITY_ASSURANCE_PILOT_2026-08-11.md`
 - `AI_EXPERIMENT_GUIDE.md`
 
 ## 2026-08-10 IQC / reconstruction checkpoint
