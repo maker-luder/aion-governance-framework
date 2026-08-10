@@ -25,6 +25,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | IMPLEMENTED / FULL RUN VERIFIED |
 | Extension | Core meaning commitment structure, explicit relation graph, drift and fingerprint experiment | IMPLEMENTED / TESTED |
 | Extension | Finite predictive self-model, matched self-model ablation, presuppositional self-report framing control | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
 
 ## P5 full-run verification
 
@@ -52,6 +53,46 @@ See:
 - `research-labs/self-model-functional-ablation_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
 - `AI_EXPERIMENT_GUIDE.md`
+
+## 2026-08-10 IQC / reconstruction checkpoint
+
+The research branch now records the reviewed structure produced by the candidate IQC/reconstruction cycle without wholesale-merging the separate reconstruction branches.
+
+```text
+CODE_CORRECTNESS
+    -> MEASUREMENT_SEMANTICS
+    -> CAUSAL_VALIDITY
+    -> EVIDENCE_VALIDITY
+    -> CLAIM_BOUNDARY
+```
+
+The checkpoint also separates:
+
+```text
+LEVEL_1_REPRESENTATION
+LEVEL_2_FIRST_ORDER_FUNCTION
+LEVEL_3_SECOND_ORDER_COMPUTATION
+```
+
+Current Level-3 status remains an open research gap; the rejected partial external-agent implementation is not promoted into this branch.
+
+Read the checkpoint set:
+
+- `research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`
+- `research-workbench/four-domain-materialization/2026-08-10/RESEARCH_CANDIDATE_DISPOSITION_MATRIX_2026-08-10.md`
+- `research-workbench/four-domain-materialization/2026-08-10/EVIDENCE_ORIENTED_RECONSTRUCTION_METHOD_2026-08-10.md`
+- `research-workbench/four-domain-materialization/2026-08-10/SECOND_ORDER_COMPUTATION_RESEARCH_GAP_2026-08-10.md`
+
+Standing research locks from the checkpoint include:
+
+```text
+CAPABILITY_ESTIMATE != SUCCESS_PROBABILITY
+SUCCESS_RATE != PREDICTION_RELIABILITY
+MISSING_OUTCOME != FAILURE
+OUTCOME_t MUST NOT AFFECT ACTION_t
+TEST_PASS != SEMANTIC_VALIDITY
+TEST_PASS != CAUSAL_VALIDITY
+```
 
 ## Convergence event and authority update
 
