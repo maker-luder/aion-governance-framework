@@ -19,9 +19,57 @@ This branch is the public, freely growing research workbench for AION/Astra mate
 
 **Nothing in this branch is automatically promoted into `main`.**
 
-## Latest research evolution — 2026-08-10
+## Latest research evolution — 2026-08-11
 
-The newest checkpoint materializes the IQC/reconstruction cycle as a research method and disposition map rather than importing rejected or still-isolated candidate code.
+The newest checkpoint returns research growth to the branch's core questions through primary and peer-reviewed literature rather than adding a new engineering tool surface.
+
+Two bounded refinements are now materialized:
+
+```text
+MEMORY / CONTINUITY
+    -> retention alone is insufficient
+    -> selection + correction + provenance + boundary control become explicit research variables
+
+LEVEL_3 / METACOGNITION
+    -> first-order task performance is separated from second-order monitoring quality
+    -> monitoring is separated from control
+    -> a Level-3 functional claim requires a causally tested monitoring-to-control path
+```
+
+New standing locks include:
+
+```text
+MAXIMAL_MEMORY != MAXIMAL_CONTINUITY
+STORED != CURRENT_CONTEXT_ELIGIBLE
+RETRIEVABLE != RELEVANT
+FIRST_ORDER_TASK_SUCCESS != SECOND_ORDER_MONITORING_QUALITY
+MONITORING != CONTROL
+GENERATION_QUALITY != SELF_VERIFICATION_QUALITY
+METACOGNITIVE_FUNCTION != SELF_AWARENESS
+LITERATURE_ALIGNMENT != REPLICATION
+```
+
+### 2026-08-11 literature-grounded set
+
+- **Primary literature intake:** [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
+- **Selective memory / continuity research note:** [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
+- **Level-3 metacognition calibration:** [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
+
+Current execution status remains deliberately conservative:
+
+```text
+SELECTIVE_MEMORY_EXPERIMENT = PROPOSED_NOT_EXECUTED
+EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+External papers remain external evidence and methodological calibration. Their reported findings are not AION results and do not establish identity continuity, subjectivity, self-awareness or consciousness.
+
+## Prior research evolution — 2026-08-10
+
+The previous checkpoint materialized the IQC/reconstruction cycle as a research method and disposition map rather than importing rejected or still-isolated candidate code.
 
 ```text
 CODE_CORRECTNESS
@@ -31,7 +79,7 @@ CODE_CORRECTNESS
     -> CLAIM_BOUNDARY
 ```
 
-The current self-model / metacognition research map is now explicitly separated into three levels:
+The current self-model / metacognition research map is explicitly separated into three levels:
 
 ```text
 LEVEL_1_REPRESENTATION
@@ -45,7 +93,7 @@ LEVEL_3_SECOND_ORDER_COMPUTATION
     = EXECUTABLE CANDIDATE NOT_IMPLEMENTED
 ```
 
-Current research locks include:
+Standing locks from that checkpoint include:
 
 ```text
 CAPABILITY_ESTIMATE != SUCCESS_PROBABILITY
@@ -57,7 +105,7 @@ TEST_PASS != SEMANTIC_VALIDITY
 TEST_PASS != CAUSAL_VALIDITY
 ```
 
-### New checkpoint set
+### 2026-08-10 checkpoint set
 
 - **Research materialization checkpoint:** [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
 - **Candidate disposition matrix:** [`RESEARCH_CANDIDATE_DISPOSITION_MATRIX_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_CANDIDATE_DISPOSITION_MATRIX_2026-08-10.md)
@@ -76,7 +124,10 @@ RESEARCH_LESSON = MATERIALIZED
 
 If you are viewing this page on GitHub mobile, this README is the research-branch dashboard.
 
-- Latest IQC/reconstruction checkpoint: [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
+- Latest primary-literature intake: [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
+- Selective memory / continuity note: [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
+- Level-3 metacognition calibration: [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
+- Prior IQC/reconstruction checkpoint: [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
 - Current progress: [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md)
 - External / AI experiments: [`AI_EXPERIMENT_GUIDE.md`](AI_EXPERIMENT_GUIDE.md)
 - Research labs: [`research-labs/`](research-labs/)
@@ -96,6 +147,7 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | Extension | Core meaning commitments, explicit relation graph, drift/fingerprint experiments | implemented / tested |
 | Extension | Finite predictive self-model + matched self-model ablation + self-report framing control | implemented / tested / CI verified |
 | Extension | IQC/reconstruction checkpoint + evidence-oriented reconstruction method + Level-3 gap | materialized / research-only |
+| Extension | Selective memory control + Level-3 metacognition literature calibration | materialized / literature-grounded / no code |
 
 ## P5 convergence event and later research reopening
 
