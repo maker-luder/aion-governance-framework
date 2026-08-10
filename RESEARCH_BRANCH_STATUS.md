@@ -26,20 +26,41 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | Core meaning commitment structure, explicit relation graph, drift and fingerprint experiment | IMPLEMENTED / TESTED |
 | Extension | Finite predictive self-model, matched self-model ablation, presuppositional self-report framing control | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
-| Extension | Primary-literature calibration: selective memory control + independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
+| Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | Primary-literature calibration: independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
 
-## 2026-08-11 primary-literature calibration
+## 2026-08-11 literature-to-module materialization
 
-The newest research growth is literature-grounded rather than tool-driven. It adds no runtime, CI, canonical state or subjectivity claim.
+The latest research cycle starts from public/peer-reviewed work, preserves external source attribution, and selectively reconstructs one memory mechanism as an AION clean-room research module.
 
 Primary intake:
 
 - `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
 
-Two research refinements were materialized:
+Research refinements:
 
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
+
+Executable clean-room module:
+
+- `research-labs/selective-memory-control_v0.1.0/`
+
+Its v0.1.0 mechanics include:
+
+```text
+ADD / REVISE / DISCARD / RETRIEVE
+WRITE_APPROVAL_REF_REQUIRED
+SOURCE_REF_PRESERVED
+SUPERSEDED_MEMORY_BLOCKED_BY_DEFAULT
+NAMESPACE_GATE
+DOMAIN_GATE
+PURPOSE_GATE
+AUDITABLE_RETRIEVAL_TRACE
+CJK_QUERY_SUPPORT
+```
+
+Local validation and `Research Workbench CI #12` both passed the module test suite and demo.
 
 New standing research locks:
 
@@ -47,18 +68,22 @@ New standing research locks:
 MAXIMAL_MEMORY != MAXIMAL_CONTINUITY
 STORED != CURRENT_CONTEXT_ELIGIBLE
 RETRIEVABLE != RELEVANT
+OLD_MEMORY != CURRENT_MEMORY
+SOURCE_REF != APPROVAL_AUTHORITY
 FIRST_ORDER_TASK_SUCCESS != SECOND_ORDER_MONITORING_QUALITY
 MONITORING != CONTROL
 GENERATION_QUALITY != SELF_VERIFICATION_QUALITY
 METACOGNITIVE_FUNCTION != SELF_AWARENESS
 LITERATURE_ALIGNMENT != REPLICATION
+CLEAN_ROOM_RECONSTRUCTION != EXTERNAL_RESULT_REPLICATION
 ```
 
-The memory line now treats continuity as a multidimensional interaction among retention, correction, relevance, provenance and boundary control rather than raw persistence alone. The Level-3 line now requires independent monitoring measurement plus a causally tested control path before any second-order functional contribution can be claimed.
+The memory line now treats continuity as a multidimensional interaction among retention, correction, relevance, provenance and boundary control rather than raw persistence alone. The Level-3 line still requires independent monitoring measurement plus a causally tested control path before any second-order functional contribution can be claimed.
 
 ```text
+SELECTIVE_MEMORY_CONTROL_MODULE = IMPLEMENTED / CI_VERIFIED
+SELECTIVE_MEMORY_COMPARATIVE_EXPERIMENT = PROPOSED_NOT_EXECUTED
 EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
-SELECTIVE_MEMORY_EXPERIMENT = PROPOSED_NOT_EXECUTED
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 ```
@@ -87,6 +112,7 @@ See:
 - `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
 - `research-labs/core-meaning-commitments_v0.1.0/`
 - `research-labs/self-model-functional-ablation_v0.1.0/`
+- `research-labs/selective-memory-control_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
 - `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
