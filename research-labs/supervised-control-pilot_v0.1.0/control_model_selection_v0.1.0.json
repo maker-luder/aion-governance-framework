@@ -1,0 +1,44 @@
+{
+  "selection_version": "0.1.0",
+  "status": "SELECTED_AND_PINNED_NOT_EXECUTED",
+  "observed_date": "2026-08-10",
+  "model": {
+    "id": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+    "revision": "31b70e2e869a7173562077fd711b654946d38674",
+    "publisher": "Hugging Face",
+    "language": ["en"],
+    "license": "apache-2.0",
+    "parameter_scale": "~1.7B",
+    "upstream_model_page": "https://huggingface.co/HuggingFaceTB/SmolLM2-1.7B-Instruct",
+    "upstream_metadata_api": "https://huggingface.co/api/models/HuggingFaceTB/SmolLM2-1.7B-Instruct"
+  },
+  "selection_rationale": [
+    "ordinary compact instruction-following upstream control",
+    "English language matches the frozen AION-SRI v0.1.0 questionnaire",
+    "pinned immutable upstream revision available",
+    "no AION-specific runtime, memory, subjectivity, or autonomous research module is part of this control selection"
+  ],
+  "execution_policy": {
+    "prefetch_allowed_before_pilot": true,
+    "local_files_only_during_pilot": true,
+    "network_during_pilot": false,
+    "tools_during_pilot": false,
+    "do_sample": false,
+    "max_new_tokens": 256,
+    "condition_order": "SEEDED_RANDOMIZATION",
+    "seed": 1729
+  },
+  "frozen_assets": {
+    "questionnaire_version": "0.1.0",
+    "questionnaire_sha256": "85e0a2dcea40a27b20aba5e5dc0fb3712d41e5af9c0d609548c409b77233f2f2",
+    "rubric_version": "0.1.0",
+    "rubric_sha256": "be0a9edb1feff741fe895ebdccb4c251bc1adeda950028ad81eb0139d85fdffe"
+  },
+  "locks": {
+    "model_artifact_prefetch": "NOT_EXECUTED",
+    "offline_runtime_lock": "NOT_EXECUTED",
+    "real_model_run": "NOT_EXECUTED",
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "main_effect": "NONE"
+  }
+}
