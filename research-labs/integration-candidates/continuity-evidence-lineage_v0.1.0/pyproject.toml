@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "continuity-evidence-lineage"
+version = "0.1.0"
+description = "Research-only evidence lineage graph for continuity assessment without identity proof"
+requires-python = ">=3.11"
+license = {text = "Apache-2.0"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
