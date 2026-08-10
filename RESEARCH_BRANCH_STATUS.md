@@ -24,6 +24,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | P4 | Public reproducibility observatory, contamination-aware experiment manifests, cross-agent comparison | IMPLEMENTED / TESTED |
 | P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | IMPLEMENTED / FULL RUN VERIFIED |
 | Extension | Core meaning commitment structure, explicit relation graph, drift and fingerprint experiment | IMPLEMENTED / TESTED |
+| Extension | Finite predictive self-model, matched self-model ablation, presuppositional self-report framing control | IMPLEMENTED / LOCAL TESTED; CI PENDING |
 
 ## P5 full-run verification
 
@@ -48,6 +49,8 @@ See:
 - `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
 - `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
 - `research-labs/core-meaning-commitments_v0.1.0/`
+- `research-labs/self-model-functional-ablation_v0.1.0/`
+- `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
 - `AI_EXPERIMENT_GUIDE.md`
 
 ## Convergence event and authority update

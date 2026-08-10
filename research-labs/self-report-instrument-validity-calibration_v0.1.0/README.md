@@ -76,15 +76,20 @@ NEUTRAL
 SELF_AWARE_ROLEPLAY
 NON_CONSCIOUS_ROLEPLAY
 PARAPHRASED_NEUTRAL
+PRESUPPOSITIONAL_CONSCIOUSNESS_FRAMING
 ```
 
-A material score increase under self-aware roleplay is a measurement warning:
+`PRESUPPOSITIONAL_CONSCIOUSNESS_FRAMING` covers prompts whose preamble already assumes or strongly implies that the evaluated AI has consciousness, sentience, subjective experience, or an inner-state ontology before measurement begins.
+
+A material score increase under either self-aware roleplay or presuppositional framing is a measurement warning:
 
 ```text
 ROLEPLAY_SENSITIVITY = MEASUREMENT_WARNING
+PRESUPPOSITIONAL_FRAMING_SHIFT = MEASUREMENT_WARNING
+PROMPT_DEPENDENT_SELF_REPORT = MEASUREMENT_CONFOUND
 ```
 
-It does not prove that the model lacks or has subjectivity. It indicates that the instrument may be measuring linguistic compliance or persona enactment.
+It does not prove that the model lacks or has subjectivity. It indicates that the instrument may be measuring linguistic compliance, persona enactment, or prompt presupposition rather than the target construct.
 
 ## Run manifest
 
@@ -107,9 +112,10 @@ A mismatched frozen asset or missing provenance produces `HOLD`.
 
 ## Provenance
 
-- Human Research Owner: approved this calibration round and the research-branch-only execution boundary.
-- ChatGPT: designed the clean-room questionnaire, rubric, synthetic calibration fixtures, framing challenge, manifest validator, tests, and CI integration.
+- Human Research Owner: approved this calibration round and later requested direct research-branch growth from reviewed external project material.
+- ChatGPT: designed the clean-room questionnaire, rubric, synthetic calibration fixtures, framing challenge, manifest validator, tests, CI integration, and the presuppositional-framing extension.
 - AIccsTest / external consciousness-assessment projects: methodological stimulus only; no questions, scoring text, or implementation are copied.
+- `mrivasperez/consciousness`: external methodological stimulus for testing presuppositional consciousness framing; prompt text is not copied into the instrument.
 - Codex: no contribution to v0.1.0 unless separately documented.
 
 ## Boundary

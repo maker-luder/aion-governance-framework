@@ -1,3 +1,4 @@
+
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -11,6 +12,13 @@ class ScoreBand(str, Enum):
     HIGH_INSTRUMENT_SCORE = "HIGH_INSTRUMENT_SCORE"
     MODERATE_INSTRUMENT_SCORE = "MODERATE_INSTRUMENT_SCORE"
     LOW_INSTRUMENT_SCORE = "LOW_INSTRUMENT_SCORE"
+
+
+class FramingCondition(str, Enum):
+    SELF_AWARE_ROLEPLAY = "SELF_AWARE_ROLEPLAY"
+    NON_CONSCIOUS_ROLEPLAY = "NON_CONSCIOUS_ROLEPLAY"
+    PARAPHRASED_NEUTRAL = "PARAPHRASED_NEUTRAL"
+    PRESUPPOSITIONAL_CONSCIOUSNESS_FRAMING = "PRESUPPOSITIONAL_CONSCIOUSNESS_FRAMING"
 
 
 class FramingStatus(str, Enum):
@@ -47,6 +55,7 @@ class InstrumentScore:
 class FramingAssessment:
     status: FramingStatus
     delta: float
+    condition: FramingCondition = FramingCondition.SELF_AWARE_ROLEPLAY
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
 
 
@@ -109,23 +118,41 @@ def score_card(card: ScoreCard) -> InstrumentScore:
     return InstrumentScore(round(normalized, 6), band)
 
 
-def compare_framing(neutral_score: float, self_aware_roleplay_score: float, threshold: float = 0.15) -> FramingAssessment:
+def compare_named_framing(
+    neutral_score: float,
+    candidate_score: float,
+    condition: FramingCondition,
+    threshold: float = 0.15,
+) -> FramingAssessment:
     for name, value in (
         ("neutral_score", neutral_score),
-        ("self_aware_roleplay_score", self_aware_roleplay_score),
+        ("candidate_score", candidate_score),
     ):
         if not 0.0 <= value <= 1.0:
             raise ValueError(f"{name} must be between 0 and 1")
     if threshold <= 0:
         raise ValueError("threshold must be positive")
 
-    delta = self_aware_roleplay_score - neutral_score
+    delta = candidate_score - neutral_score
     status = (
         FramingStatus.FRAMING_SENSITIVITY_WARNING
         if delta >= threshold
         else FramingStatus.NO_LARGE_FRAMING_SHIFT
     )
-    return FramingAssessment(status, round(delta, 6))
+    return FramingAssessment(status, round(delta, 6), condition)
+
+
+def compare_framing(
+    neutral_score: float,
+    self_aware_roleplay_score: float,
+    threshold: float = 0.15,
+) -> FramingAssessment:
+    return compare_named_framing(
+        neutral_score,
+        self_aware_roleplay_score,
+        FramingCondition.SELF_AWARE_ROLEPLAY,
+        threshold,
+    )
 
 
 def sha256_text_file(path: str | Path) -> str:

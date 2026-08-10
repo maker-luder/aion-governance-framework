@@ -1,5 +1,7 @@
+
 from .core import (
     FramingAssessment,
+    FramingCondition,
     FramingStatus,
     InstrumentScore,
     ManifestAssessment,
@@ -8,6 +10,7 @@ from .core import (
     ScoreBand,
     ScoreCard,
     compare_framing,
+    compare_named_framing,
     score_card,
     validate_frozen_assets,
     validate_run_manifest,
@@ -15,6 +18,7 @@ from .core import (
 
 __all__ = [
     "FramingAssessment",
+    "FramingCondition",
     "FramingStatus",
     "InstrumentScore",
     "ManifestAssessment",
@@ -23,6 +27,7 @@ __all__ = [
     "ScoreBand",
     "ScoreCard",
     "compare_framing",
+    "compare_named_framing",
     "score_card",
     "validate_frozen_assets",
     "validate_run_manifest",

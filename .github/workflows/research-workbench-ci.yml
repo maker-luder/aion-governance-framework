@@ -12,6 +12,7 @@ on:
       - "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0/**"
       - "research-labs/self-report-false-positive-challenge_v0.1.0/**"
       - "research-labs/self-report-instrument-validity-calibration_v0.1.0/**"
+      - "research-labs/self-model-functional-ablation_v0.1.0/**"
       - "research-labs/real-model-pilot-protocol_v0.1.0/**"
       - "research-labs/supervised-control-pilot_v0.1.0/**"
       - "research-labs/external-agent-sandbox-protocol_v0.1.0/**"
@@ -94,6 +95,14 @@ jobs:
           python -m pip install -e .
           python -m compileall -q src
           python -m pytest -q
+
+      - name: Verify self-model functional ablation model
+        working-directory: research-labs/self-model-functional-ablation_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+          python scripts/run_demo.py
 
       - name: Verify real-model pilot protocol
         working-directory: research-labs/real-model-pilot-protocol_v0.1.0
