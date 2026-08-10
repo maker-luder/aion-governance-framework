@@ -136,7 +136,7 @@ KILO_SCHEDULED_TRIGGER = NEVER_ENABLED
 KILO_AUTOMATED_WORKER = NOT_AUTHORIZED
 KILO_FUTURE_AUTOMATION = HOLD
 KILO_REPOSITORY_ACCESS = HUMAN_OWNER_REVOKED
-SANDBOX_REPOSITORY_DISPOSITION = HUMAN_OWNER_DECISION_PENDING_EXTRACTION
+SANDBOX_REPOSITORY_DISPOSITION = EXTRACTION_COMPLETE_HUMAN_DELETION_ALLOWED
 ```
 
 The stop decision is not evidence that Kilo failed. It is an authority/minimum-capability decision made before escalation from supervised manual runs to scheduled autonomous execution.
@@ -166,6 +166,8 @@ REVIEWED_OBSERVATION = EXTRACTED
 PROVENANCE = PRESERVED
 AUTHORITY = NONE
 ```
+
+This file is the minimum non-sensitive research record intended to remain after any Human Owner deletion of the external sandbox repository.
 
 ## Provenance
 
