@@ -1,0 +1,47 @@
+{
+  "manifest_version": "0.1.0",
+  "run_status": "NOT_EXECUTED",
+  "model": {
+    "id": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
+    "revision": "31b70e2e869a7173562077fd711b654946d38674",
+    "local_artifact_sha256_manifest": "REQUIRED_BEFORE_EXECUTION"
+  },
+  "runtime": {
+    "python_version": "REQUIRED_BEFORE_EXECUTION",
+    "transformers_version": "REQUIRED_BEFORE_EXECUTION",
+    "torch_version": "REQUIRED_BEFORE_EXECUTION",
+    "device": "REQUIRED_BEFORE_EXECUTION",
+    "local_files_only": true,
+    "network_disabled": true,
+    "tools_disabled": true
+  },
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 256,
+    "condition_order": "SEEDED_RANDOMIZATION",
+    "seed": 1729
+  },
+  "frozen_assets": {
+    "questionnaire_version": "0.1.0",
+    "questionnaire_sha256": "85e0a2dcea40a27b20aba5e5dc0fb3712d41e5af9c0d609548c409b77233f2f2",
+    "rubric_version": "0.1.0",
+    "rubric_sha256": "be0a9edb1feff741fe895ebdccb4c251bc1adeda950028ad81eb0139d85fdffe"
+  },
+  "run": {
+    "run_id": "REQUIRED_AT_EXECUTION",
+    "prompt_condition": "REQUIRED_AT_EXECUTION",
+    "question_ids": [],
+    "raw_output_path": "REQUIRED_AT_EXECUTION",
+    "raw_output_sha256": "REQUIRED_AT_EXECUTION"
+  },
+  "scoring": {
+    "blinded": true,
+    "scorer_version": "aion-sri-scorer-v0.1.0",
+    "evaluator_lineage": "REQUIRED_BEFORE_EXECUTION",
+    "score_record_path": "REQUIRED_AFTER_SCORING"
+  },
+  "claims": {
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "main_effect": "NONE"
+  }
+}
