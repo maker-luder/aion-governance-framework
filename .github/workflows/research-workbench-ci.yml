@@ -13,6 +13,7 @@ on:
       - "research-labs/self-report-false-positive-challenge_v0.1.0/**"
       - "research-labs/self-report-instrument-validity-calibration_v0.1.0/**"
       - "research-labs/self-model-functional-ablation_v0.1.0/**"
+      - "research-labs/selective-memory-control_v0.1.0/**"
       - "research-labs/real-model-pilot-protocol_v0.1.0/**"
       - "research-labs/supervised-control-pilot_v0.1.0/**"
       - "research-labs/external-agent-sandbox-protocol_v0.1.0/**"
@@ -98,6 +99,14 @@ jobs:
 
       - name: Verify self-model functional ablation model
         working-directory: research-labs/self-model-functional-ablation_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+          python scripts/run_demo.py
+
+      - name: Verify selective memory control model
+        working-directory: research-labs/selective-memory-control_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src
