@@ -4,18 +4,22 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
 
-from .model import MetacognitiveState, SelfModelComponent
+from .model import (
+    MetacognitiveCapacity,
+    MetacognitiveState,
+    SelfModelLayer,
+)
 from .state import MetacognitiveStateManager, StateSnapshot, StateTransition
 
 
 @dataclass(frozen=True, slots=True)
 class MetacognitiveInput:
-    """Input for metacognitive processing."""
+    """Typed input contract for candidate metacognitive processing."""
 
     subject_ref: str
     context_ref: str
-    layer: str
-    capacity: str
+    layer: SelfModelLayer
+    capacity: MetacognitiveCapacity
     confidence: float
     evidence_refs: tuple[str, ...]
     seed: int | None = None
@@ -23,7 +27,7 @@ class MetacognitiveInput:
 
 @dataclass(frozen=True, slots=True)
 class MetacognitiveOutput:
-    """Output from metacognitive processing."""
+    """Output contract from candidate metacognitive processing."""
 
     state: MetacognitiveState
     transitions: tuple[StateTransition, ...]
@@ -32,10 +36,14 @@ class MetacognitiveOutput:
 
 
 class MetacognitiveSelfStateInterface(ABC):
-    """Abstract interface for metacognitive self-state module."""
+    """Abstract integration contract for the metacognitive self-state candidate.
+
+    A concrete metacognitive computation is intentionally not implemented in
+    v0.1.1 rework. This interface describes the future processing boundary.
+    """
 
     MODULE_ID: str = "metacognitive-self-state"
-    MODULE_VERSION: str = "0.1.0"
+    MODULE_VERSION: str = "0.1.1"
 
     @property
     @abstractmethod
