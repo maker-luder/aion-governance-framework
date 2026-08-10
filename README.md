@@ -19,10 +19,64 @@ This branch is the public, freely growing research workbench for AION/Astra mate
 
 **Nothing in this branch is automatically promoted into `main`.**
 
+## Latest research evolution — 2026-08-10
+
+The newest checkpoint materializes the IQC/reconstruction cycle as a research method and disposition map rather than importing rejected or still-isolated candidate code.
+
+```text
+CODE_CORRECTNESS
+    -> MEASUREMENT_SEMANTICS
+    -> CAUSAL_VALIDITY
+    -> EVIDENCE_VALIDITY
+    -> CLAIM_BOUNDARY
+```
+
+The current self-model / metacognition research map is now explicitly separated into three levels:
+
+```text
+LEVEL_1_REPRESENTATION
+    = existing engineering-verified representation candidates
+
+LEVEL_2_FIRST_ORDER_FUNCTION
+    = finite predictive self-model + matched functional ablation
+
+LEVEL_3_SECOND_ORDER_COMPUTATION
+    = OPEN RESEARCH GAP
+    = EXECUTABLE CANDIDATE NOT_IMPLEMENTED
+```
+
+Current research locks include:
+
+```text
+CAPABILITY_ESTIMATE != SUCCESS_PROBABILITY
+SUCCESS_RATE != PREDICTION_RELIABILITY
+OBSERVED_SUBSET_RATE != GLOBAL_RATE
+MISSING_OUTCOME != FAILURE
+OUTCOME_t MUST NOT AFFECT ACTION_t
+TEST_PASS != SEMANTIC_VALIDITY
+TEST_PASS != CAUSAL_VALIDITY
+```
+
+### New checkpoint set
+
+- **Research materialization checkpoint:** [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
+- **Candidate disposition matrix:** [`RESEARCH_CANDIDATE_DISPOSITION_MATRIX_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_CANDIDATE_DISPOSITION_MATRIX_2026-08-10.md)
+- **Evidence-oriented reconstruction method:** [`EVIDENCE_ORIENTED_RECONSTRUCTION_METHOD_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/EVIDENCE_ORIENTED_RECONSTRUCTION_METHOD_2026-08-10.md)
+- **Second-order computation research gap:** [`SECOND_ORDER_COMPUTATION_RESEARCH_GAP_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/SECOND_ORDER_COMPUTATION_RESEARCH_GAP_2026-08-10.md)
+
+The rejected partial external-agent Level-3 implementation is **not** promoted into this branch. Its useful lessons were retained only as reviewed research material and IQC constraints.
+
+```text
+FAILED_IMPLEMENTATION != LOST_RESEARCH_VALUE
+REJECTED_CODE != PROMOTED_CODE
+RESEARCH_LESSON = MATERIALIZED
+```
+
 ## Mobile / quick orientation
 
 If you are viewing this page on GitHub mobile, this README is the research-branch dashboard.
 
+- Latest IQC/reconstruction checkpoint: [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
 - Current progress: [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md)
 - External / AI experiments: [`AI_EXPERIMENT_GUIDE.md`](AI_EXPERIMENT_GUIDE.md)
 - Research labs: [`research-labs/`](research-labs/)
@@ -39,6 +93,9 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | P3 | Longitudinal contamination, perturbation, ablation, origin-bound authority | implemented / tested |
 | P4 | Public reproducibility observatory, benchmark-contamination awareness, cross-agent comparison | implemented / tested |
 | P5 | Cross-agent disagreement, replication registry, hypothesis/falsification lifecycle, convergence governor | implemented / fully runnable |
+| Extension | Core meaning commitments, explicit relation graph, drift/fingerprint experiments | implemented / tested |
+| Extension | Finite predictive self-model + matched self-model ablation + self-report framing control | implemented / tested / CI verified |
+| Extension | IQC/reconstruction checkpoint + evidence-oriented reconstruction method + Level-3 gap | materialized / research-only |
 
 ## P5 convergence event and later research reopening
 
@@ -70,6 +127,8 @@ Current experiment-ready modules include:
 - `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
 - `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
 - `research-labs/core-meaning-commitments_v0.1.0/`
+- `research-labs/self-model-functional-ablation_v0.1.0/`
+- `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
 - `research-labs/affective-cognitive-motivation_v0.1.0/`
 - `research-labs/language-core-g1_v0.2.1/`
 - `research-labs/subjectivity-pipeline_v0.1.0/`
