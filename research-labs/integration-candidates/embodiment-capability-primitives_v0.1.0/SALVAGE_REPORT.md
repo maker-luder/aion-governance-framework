@@ -61,6 +61,22 @@ It provides:
 - measurement units, optional frame references, source refs, evidence, and provenance
 - non-claim guards
 
+## INDEPENDENT LOCAL VERIFICATION
+
+The new salvage primitives were reconstructed outside the Nemotron session and executed independently.
+
+```text
+9 passed in 0.04s
+```
+
+Verification scope:
+
+- UNIT_TEST_RESULT: PASS (9/9)
+- GITHUB_CI_RESULT: NOT_EXECUTED
+- MAIN_EFFECT: NONE
+- CANONICAL_EFFECT: NONE
+- RUNTIME_EFFECT: NONE
+
 ## INTEGRATION DIRECTION
 
 These primitives are intended to serve as source material for the separate `embodied-action-regulation_v0.1.0` architecture hypothesis together with the previously salvaged `motivational-signal-primitives_v0.1.0`.
