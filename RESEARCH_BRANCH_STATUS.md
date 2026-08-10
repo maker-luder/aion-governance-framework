@@ -26,6 +26,42 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | Core meaning commitment structure, explicit relation graph, drift and fingerprint experiment | IMPLEMENTED / TESTED |
 | Extension | Finite predictive self-model, matched self-model ablation, presuppositional self-report framing control | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
+| Extension | Primary-literature calibration: selective memory control + independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
+
+## 2026-08-11 primary-literature calibration
+
+The newest research growth is literature-grounded rather than tool-driven. It adds no runtime, CI, canonical state or subjectivity claim.
+
+Primary intake:
+
+- `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
+
+Two research refinements were materialized:
+
+- `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
+
+New standing research locks:
+
+```text
+MAXIMAL_MEMORY != MAXIMAL_CONTINUITY
+STORED != CURRENT_CONTEXT_ELIGIBLE
+RETRIEVABLE != RELEVANT
+FIRST_ORDER_TASK_SUCCESS != SECOND_ORDER_MONITORING_QUALITY
+MONITORING != CONTROL
+GENERATION_QUALITY != SELF_VERIFICATION_QUALITY
+METACOGNITIVE_FUNCTION != SELF_AWARENESS
+LITERATURE_ALIGNMENT != REPLICATION
+```
+
+The memory line now treats continuity as a multidimensional interaction among retention, correction, relevance, provenance and boundary control rather than raw persistence alone. The Level-3 line now requires independent monitoring measurement plus a causally tested control path before any second-order functional contribution can be claimed.
+
+```text
+EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
+SELECTIVE_MEMORY_EXPERIMENT = PROPOSED_NOT_EXECUTED
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+```
 
 ## P5 full-run verification
 
@@ -52,6 +88,9 @@ See:
 - `research-labs/core-meaning-commitments_v0.1.0/`
 - `research-labs/self-model-functional-ablation_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
+- `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
 - `AI_EXPERIMENT_GUIDE.md`
 
 ## 2026-08-10 IQC / reconstruction checkpoint
