@@ -21,14 +21,15 @@ This branch is the public, freely growing research workbench for AION/Astra mate
 
 ## Latest research evolution — 2026-08-11
 
-The newest checkpoint returns research growth to the branch's core questions through primary and peer-reviewed literature rather than adding a new engineering tool surface.
+The newest checkpoint returns research growth to the branch's core questions through primary and peer-reviewed literature, then selectively materializes one bounded clean-room memory mechanism instead of importing a third-party framework wholesale.
 
-Two bounded refinements are now materialized:
+Two research lines are active:
 
 ```text
 MEMORY / CONTINUITY
     -> retention alone is insufficient
     -> selection + correction + provenance + boundary control become explicit research variables
+    -> selective-memory-control_v0.1.0 = clean-room executable research module
 
 LEVEL_3 / METACOGNITION
     -> first-order task performance is separated from second-order monitoring quality
@@ -47,25 +48,29 @@ MONITORING != CONTROL
 GENERATION_QUALITY != SELF_VERIFICATION_QUALITY
 METACOGNITIVE_FUNCTION != SELF_AWARENESS
 LITERATURE_ALIGNMENT != REPLICATION
+EXTERNAL_MODULE != AION_MODULE
+CLEAN_ROOM_RECONSTRUCTION != EXTERNAL_RESULT_REPLICATION
 ```
 
 ### 2026-08-11 literature-grounded set
 
 - **Primary literature intake:** [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
 - **Selective memory / continuity research note:** [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
+- **Executable selective-memory module:** [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - **Level-3 metacognition calibration:** [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
 
-Current execution status remains deliberately conservative:
+Current execution status:
 
 ```text
-SELECTIVE_MEMORY_EXPERIMENT = PROPOSED_NOT_EXECUTED
+SELECTIVE_MEMORY_CONTROL_MODULE = IMPLEMENTED / TESTED / CI_VERIFIED
+SELECTIVE_MEMORY_COMPARATIVE_EXPERIMENT = PROPOSED_NOT_EXECUTED
 EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
 ```
 
-External papers remain external evidence and methodological calibration. Their reported findings are not AION results and do not establish identity continuity, subjectivity, self-awareness or consciousness.
+The selective-memory module is a clean-room AION implementation. Public projects and papers supplied mechanism ideas and comparison points; their source code and benchmark outcomes are not re-authored as AION results. External papers remain external evidence and methodological calibration, and none of these materials establish identity continuity, subjectivity, self-awareness or consciousness.
 
 ## Prior research evolution — 2026-08-10
 
@@ -126,6 +131,7 @@ If you are viewing this page on GitHub mobile, this README is the research-branc
 
 - Latest primary-literature intake: [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
 - Selective memory / continuity note: [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
+- Executable selective-memory module: [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - Level-3 metacognition calibration: [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
 - Prior IQC/reconstruction checkpoint: [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
 - Current progress: [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md)
@@ -147,7 +153,8 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | Extension | Core meaning commitments, explicit relation graph, drift/fingerprint experiments | implemented / tested |
 | Extension | Finite predictive self-model + matched self-model ablation + self-report framing control | implemented / tested / CI verified |
 | Extension | IQC/reconstruction checkpoint + evidence-oriented reconstruction method + Level-3 gap | materialized / research-only |
-| Extension | Selective memory control + Level-3 metacognition literature calibration | materialized / literature-grounded / no code |
+| Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | implemented / tested / CI verified |
+| Extension | Level-3 metacognition literature calibration | materialized / literature-grounded / no code |
 
 ## P5 convergence event and later research reopening
 
@@ -180,6 +187,7 @@ Current experiment-ready modules include:
 - `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
 - `research-labs/core-meaning-commitments_v0.1.0/`
 - `research-labs/self-model-functional-ablation_v0.1.0/`
+- `research-labs/selective-memory-control_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
 - `research-labs/affective-cognitive-motivation_v0.1.0/`
 - `research-labs/language-core-g1_v0.2.1/`
