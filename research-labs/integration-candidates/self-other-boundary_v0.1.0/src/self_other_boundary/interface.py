@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any
 
-from .model import BoundaryConfiguration, BoundaryState
+from .model import BoundaryConfiguration, BoundaryState, OtherModel
 from .state import BoundaryStateManager, StateSnapshot, StateTransition
 
 
@@ -14,7 +14,7 @@ class BoundaryInput:
 
     subject_ref: str
     config: BoundaryConfiguration
-    other_models: tuple[dict[str, Any], ...]  # OtherModel as dict
+    other_models: tuple[OtherModel, ...]
     seed: int | None = None
 
 
@@ -30,10 +30,10 @@ class BoundaryOutput:
 
 
 class SelfOtherBoundaryInterface(ABC):
-    """Abstract interface for self-other boundary module."""
+    """Abstract interface for self-other boundary candidate integration."""
 
     MODULE_ID: str = "self-other-boundary"
-    MODULE_VERSION: str = "0.1.0"
+    MODULE_VERSION: str = "0.1.1"
 
     @property
     @abstractmethod
@@ -53,8 +53,8 @@ class SelfOtherBoundaryInterface(ABC):
         """Create a snapshot of current state."""
 
     @abstractmethod
-    def restore(self, snapshot_id: str) -> BoundaryState:
-        """Restore state from snapshot."""
+    def restore(self, snapshot_id: str, *, allow_subject_switch: bool = False) -> BoundaryState:
+        """Restore state, requiring an explicit opt-in for subject switching."""
 
     @abstractmethod
     def enable(self) -> None:
@@ -66,7 +66,7 @@ class SelfOtherBoundaryInterface(ABC):
 
     @abstractmethod
     def ablate(self, distinction: str | None = None) -> None:
-        """Ablate specific distinction or entire module."""
+        """Ablate a specific distinction or the entire module."""
 
     @abstractmethod
     def get_integration_points(self) -> dict[str, Any]:
