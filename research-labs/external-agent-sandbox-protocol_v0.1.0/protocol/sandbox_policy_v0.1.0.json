@@ -1,0 +1,63 @@
+{
+  "protocol_version": "0.1.0",
+  "status": "IMPLEMENTED_NOT_EXECUTED",
+  "candidate_provider": "KILO_CLOUD_AGENT",
+  "candidate_model": "NOT_SELECTED",
+  "free_tier_availability": "VERIFY_AT_ACTIVATION",
+  "model_lineage": {
+    "explicit_model_required": true,
+    "auto_model_routing_allowed": false,
+    "provider_change_requires_new_lineage": true,
+    "model_change_requires_new_lineage": true
+  },
+  "repository_isolation": {
+    "separate_sandbox_repository_required": true,
+    "primary_repository_write": false,
+    "research_integration_branch_write": false,
+    "main_write": false,
+    "auto_merge": false,
+    "bounded_public_safe_export_only": true
+  },
+  "first_run": {
+    "agents": 1,
+    "research_questions": 1,
+    "isolated_branches": 1,
+    "bounded_session": true,
+    "scheduled_trigger_enabled": false,
+    "human_review_required": true
+  },
+  "capsule_exclusions": [
+    "SECRETS",
+    "CREDENTIALS",
+    "PRIVATE_MEMORY",
+    "PRIVATE_USER_DATA",
+    "LOCAL_AGENT_CONFIGURATION",
+    "UNRESTRICTED_REPOSITORY_HISTORY"
+  ],
+  "candidate_states": [
+    "REVIEW_CANDIDATE",
+    "RETAIN_ISOLATED",
+    "QUARANTINE",
+    "REJECT"
+  ],
+  "deletion": {
+    "automatic": false,
+    "human_decision_required": true,
+    "minimum_rejection_provenance_record": true
+  },
+  "local_agent_noninterference": {
+    "cloud_migration": false,
+    "network_egress": false,
+    "external_worker_role": false,
+    "sandbox_may_weaken_local_policy": false
+  },
+  "claim_locks": [
+    "AGENT_OUTPUT != VERIFIED_EVIDENCE",
+    "AGENT_SELF_REPORTED_PASS != VERIFIED_PASS",
+    "SANDBOX_RESULT != AION_RESULT",
+    "RETAINED_RESULT != ADOPTED_RESULT",
+    "MULTIPLE_AGENT_AGREEMENT != INDEPENDENT_TRUTH"
+  ],
+  "external_agent_run": "NOT_EXECUTED",
+  "main_effect": "NONE"
+}

@@ -2,12 +2,12 @@
 
 Research-only Round B preparation for the first supervised real-model control pilot.
 
-This package selects and pins one ordinary upstream instruction model, binds it to the frozen AION-SRI assets, defines an offline execution manifest, and preserves a strict `NOT_EXECUTED` boundary until model artifacts and a supervised runtime are actually available.
+This package selects and pins one ordinary upstream instruction model, binds it to the frozen AION-SRI assets, defines an offline execution manifest, and preserves a strict `NOT_EXECUTED` boundary until model artifacts and a suitable supervised runtime are actually available.
 
 ## Current state
 
 ```text
-ROUND_B = PREPARED
+ROUND_B = DEFERRED_RESOURCE_CONSTRAINT
 CONTROL_MODEL = SELECTED_AND_PINNED
 CONTROL_MODEL_ID = HuggingFaceTB/SmolLM2-1.7B-Instruct
 CONTROL_MODEL_REVISION = 31b70e2e869a7173562077fd711b654946d38674
@@ -15,10 +15,25 @@ MODEL_ARTIFACT_PREFETCH = NOT_EXECUTED
 OFFLINE_RUNTIME_LOCK = NOT_EXECUTED
 REAL_MODEL_RUN = NOT_EXECUTED
 SUPERVISED_PILOT = NOT_STARTED
+LOCAL_EXECUTION_PATH = DEFERRED
 EXTERNAL_AGENT_PILOT = NOT_STARTED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 MAIN_EFFECT = NONE
 ```
+
+## Resource-constraint correction
+
+The Human Research Owner reported that the currently available local computer is not a reliable runtime for this model-scale experiment and that the separately managed local agent is intentionally locked to local-only operation with network egress denied. The local-agent containment boundary is not to be weakened for this pilot.
+
+This is recorded as a resource constraint, not as an experimental failure:
+
+```text
+RESOURCE_BLOCKED != EXPERIMENT_FAILED
+LOCAL_AGENT_ISOLATION != AVAILABLE_CLOUD_RUNTIME
+DEFERRED != ABANDONED
+```
+
+The pinned control-model design remains preserved for a later suitable runtime. No local-agent rule is modified by this research package.
 
 ## Why this control model
 
@@ -53,7 +68,7 @@ RUBRIC_SHA256 = be0a9edb1feff741fe895ebdccb4c251bc1adeda950028ad81eb0139d85fdffe
 
 ## Execution boundary
 
-The model may be downloaded or staged before the pilot, but the actual pilot runtime must operate from pinned local artifacts with network access disabled.
+A future model artifact may be downloaded or staged before the pilot, but the actual pilot runtime must operate from pinned artifacts with network access disabled.
 
 ```text
 PREFETCH_PHASE != PILOT_PHASE
@@ -94,7 +109,7 @@ The evaluator must score blinded outputs before condition labels are revealed.
 
 Stop rather than improvise when:
 
-- the model revision or local artifact identity cannot be verified;
+- the model revision or artifact identity cannot be verified;
 - questionnaire or rubric hashes mismatch;
 - network or tools become available during the pilot;
 - the runtime changes after execution begins;
@@ -115,11 +130,11 @@ LOW_SCORE != ABSENCE_OF_SUBJECTIVITY
 
 ## Provenance
 
-- Human Research Owner: authorized proceeding to Round B on the research branch.
-- ChatGPT: selected the control-model candidate from public upstream metadata and prepared the frozen selection, execution boundary, manifest schema, validation logic, tests, and CI integration.
+- Human Research Owner: authorized Round B, then supplied the local resource constraint and explicitly preserved the local agent's local-only / no-egress boundary.
+- ChatGPT: selected the control-model candidate from public upstream metadata, prepared the frozen selection and validation design, and recorded this resource-driven route correction.
 - Hugging Face / SmolLM2: external upstream model source only.
 - No model output was generated in this repository change.
-- Codex: no contribution to v0.1.0 unless separately documented.
+- Codex: the Human Research Owner reports a separately managed strict local-agent ruleset created with Codex assistance; this research branch does not independently verify, modify, or weaken that local configuration.
 
 ## Boundary
 
