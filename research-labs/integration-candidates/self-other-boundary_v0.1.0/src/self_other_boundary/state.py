@@ -1,10 +1,25 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from collections.abc import Mapping
+from dataclasses import dataclass, fields, is_dataclass
 from datetime import datetime, timezone
+from enum import Enum
 from typing import Any, Callable
 
 from .model import BoundaryConfiguration, BoundaryState, SelfOtherDistinction
+
+
+def _to_plain(value: Any) -> Any:
+    """Serialize dataclass state without deep-copying read-only mapping proxies."""
+    if is_dataclass(value):
+        return {field.name: _to_plain(getattr(value, field.name)) for field in fields(value)}
+    if isinstance(value, Enum):
+        return value.value
+    if isinstance(value, Mapping):
+        return {_to_plain(key): _to_plain(item) for key, item in value.items()}
+    if isinstance(value, tuple):
+        return tuple(_to_plain(item) for item in value)
+    return value
 
 
 @dataclass(frozen=True, slots=True)
@@ -31,7 +46,10 @@ class StateSnapshot:
     seed: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        result = _to_plain(self)
+        if not isinstance(result, dict):
+            raise TypeError("snapshot serialization must produce a dict")
+        return result
 
 
 class BoundaryStateManager:
