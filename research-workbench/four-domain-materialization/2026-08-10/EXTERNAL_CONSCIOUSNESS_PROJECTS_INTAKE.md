@@ -52,11 +52,11 @@ SELF_MODEL_RANDOMIZED
 SELF_MODEL_STALE
 ```
 
-The local pre-commit benchmark produced a functional-contribution candidate under the built-in synthetic fixture. This remains a repository-local engineering observation until CI and later replication.
+Local pre-commit execution and GitHub Actions `Research Workbench CI #10` both produced a functional-contribution candidate under the built-in synthetic fixture. This is a CI-verified repository engineering observation, not an independent replication.
 
 ```text
 SELF_MODEL_FUNCTIONAL_CONTRIBUTION_CANDIDATE != SUBJECTIVITY
-LOCAL_PRECOMMIT_PASS != INDEPENDENT_REPLICATION
+CI_VERIFIED_ENGINEERING_RESULT != INDEPENDENT_REPLICATION
 ```
 
 ## Locks
