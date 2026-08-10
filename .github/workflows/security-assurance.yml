@@ -33,10 +33,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
-    env:
-      CODEX_SECURITY_STATE_DIR: ${{ runner.temp }}/codex-security-state
-      DIFF_BASE: ${{ inputs.diff_base || 'origin/main' }}
-
     steps:
       - name: Checkout research branch
         uses: actions/checkout@v4
@@ -57,12 +53,18 @@ jobs:
         run: npm install --global @openai/codex-security
 
       - name: Record tool metadata
+        env:
+          CODEX_SECURITY_STATE_DIR: ${{ runner.temp }}/codex-security-state
         run: codex-security info --json
 
       - name: Preflight only
         if: ${{ github.event_name == 'push' || !inputs.run_scan }}
+        env:
+          CODEX_SECURITY_STATE_DIR: ${{ runner.temp }}/codex-security-state
+          REQUESTED_DIFF_BASE: ${{ inputs.diff_base }}
         run: |
           set -euo pipefail
+          DIFF_BASE="${REQUESTED_DIFF_BASE:-origin/main}"
           codex-security scan . \
             --diff "$DIFF_BASE" \
             --dry-run
@@ -72,6 +74,8 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_scan }}
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          CODEX_SECURITY_STATE_DIR: ${{ runner.temp }}/codex-security-state
+          REQUESTED_DIFF_BASE: ${{ inputs.diff_base }}
         run: |
           set -euo pipefail
 
@@ -80,6 +84,7 @@ jobs:
             exit 2
           fi
 
+          DIFF_BASE="${REQUESTED_DIFF_BASE:-origin/main}"
           SCAN_ROOT="$(mktemp -d "${RUNNER_TEMP}/codex-security.XXXXXX")"
           trap 'rm -rf "$SCAN_ROOT"' EXIT
 
