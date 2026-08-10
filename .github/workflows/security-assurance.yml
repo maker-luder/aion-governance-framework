@@ -1,6 +1,12 @@
 name: Security Assurance Pilot
 
 on:
+  push:
+    branches:
+      - review/four-domain-research-materialization
+    paths:
+      - ".github/workflows/security-assurance.yml"
+      - "research-workbench/four-domain-materialization/**/CODEX_SECURITY_ASSURANCE_PILOT_*.md"
   workflow_dispatch:
     inputs:
       run_scan:
@@ -29,6 +35,7 @@ jobs:
 
     env:
       CODEX_SECURITY_STATE_DIR: ${{ runner.temp }}/codex-security-state
+      DIFF_BASE: ${{ inputs.diff_base || 'origin/main' }}
 
     steps:
       - name: Checkout research branch
@@ -53,16 +60,16 @@ jobs:
         run: codex-security info --json
 
       - name: Preflight only
-        if: ${{ !inputs.run_scan }}
+        if: ${{ github.event_name == 'push' || !inputs.run_scan }}
         run: |
           set -euo pipefail
           codex-security scan . \
-            --diff "${{ inputs.diff_base }}" \
+            --diff "$DIFF_BASE" \
             --dry-run
           echo "Security assurance pilot preflight completed; no live scan was executed."
 
       - name: Live advisory scan
-        if: ${{ inputs.run_scan }}
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_scan }}
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
@@ -78,7 +85,7 @@ jobs:
 
           codex-security scan . \
             --auth api-key \
-            --diff "${{ inputs.diff_base }}" \
+            --diff "$DIFF_BASE" \
             --output-dir "$SCAN_ROOT/results" \
             --json > "$SCAN_ROOT/findings.json"
 
