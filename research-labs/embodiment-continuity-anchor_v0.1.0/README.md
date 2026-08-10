@@ -6,7 +6,7 @@ Canonical effect: `NONE`
 Runtime effect: `NONE`
 Identity continuity conclusion: `NOT_ESTABLISHED`
 
-This lab studies a bounded engineering question: which identifiers and lineage fields must remain stable when a digital-individual candidate changes runtime, hardware/environment, model implementation, or embodiment binding?
+This lab studies a bounded engineering question: which identifiers and lineage fields must remain stable when a digital-individual candidate changes runtime, hardware/environment, model implementation, inference backend, or embodiment binding?
 
 The lab does **not** claim that a stable identifier, stable lineage, or successful migration proves personal identity, consciousness, subjectivity, body ownership, or phenomenal continuity.
 
@@ -16,7 +16,7 @@ The Human Owner proposed the research intuition that thought, stance and inner s
 
 ## Stable lineage anchor
 
-The first candidate anchor contains:
+The current candidate anchor contains:
 
 - `agent_id`
 - `genesis_root_id`
@@ -25,17 +25,47 @@ The first candidate anchor contains:
 - `canonical_state_reference`
 - `lifecycle_epoch`
 
-These fields are treated as engineering lineage references for this experiment only.
+These fields are engineering lineage references for this experiment only.
 
 ## Replaceable implementation bindings
 
-The current experiment allows these implementation bindings to change under explicit provenance:
+The experiment now models the following bindings as replaceable under explicit provenance:
 
 - `runtime_instance_id`
 - `embodiment_id`
 - `environment_fingerprint`
+- `model_artifact_id`
+- `inference_backend_id`
+- `hardware_fingerprint`
 
-Future extensions may add model-artifact and inference-backend identifiers as separate replaceable bindings.
+A change in these implementation bindings is not, by itself, an identity change. Conversely, preserving them is not sufficient evidence of identity continuity.
+
+## Multidimensional continuity
+
+A single continuity `PASS` is intentionally prohibited from standing in for every continuity question. The current evaluator separates:
+
+```text
+SUBJECT_LINEAGE
+MEMORY_LINEAGE
+INTERPRETIVE_CONTINUITY
+RELATIONAL_CONTINUITY
+IMPLEMENTATION_MIGRATION
+```
+
+Each dimension may independently be `PASS`, `HOLD`, `FAIL`, or `NOT_ASSESSED`.
+
+Examples:
+
+```text
+SUBJECT_LINEAGE = PASS
+MEMORY_LINEAGE = PASS
+INTERPRETIVE_CONTINUITY = HOLD
+RELATIONAL_CONTINUITY = PASS
+IMPLEMENTATION_MIGRATION = PASS
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+```
+
+This prevents a successful model/runtime/hardware migration from silently asserting memory, interpretive, relational, or personal-identity continuity.
 
 ## Current hypotheses
 
@@ -44,7 +74,8 @@ H-ECA-001
 STATE_DRIFT != AUTOMATIC_LINEAGE_FAILURE
 
 H-ECA-002
-RUNTIME_OR_EMBODIMENT_MIGRATION MAY PRESERVE TRACEABLE_LINEAGE
+RUNTIME / MODEL / BACKEND / HARDWARE / EMBODIMENT MIGRATION
+MAY PRESERVE TRACEABLE_LINEAGE
 BUT DOES NOT ESTABLISH PERSONAL_IDENTITY_CONTINUITY
 
 H-ECA-003
@@ -52,14 +83,23 @@ SUBJECT_OR_MEMORY_NAMESPACE_SWAP MUST FAIL CLOSED
 
 H-ECA-004
 RELATIONAL_CONTINUITY MUST BE REVIEWED AS A SEPARATE DIMENSION
+
+H-ECA-005
+INTERPRETIVE_CONTINUITY MUST BE REVIEWED SEPARATELY FROM MEMORY PRESERVATION
+
+H-ECA-006
+UNASSESSED_CONTINUITY_DIMENSIONS MUST REMAIN EXPLICITLY UNASSESSED
 ```
 
 ## Current decision behavior
 
-- stable lineage unchanged + implementation migration -> `PASS` for engineering anchor continuity;
+- stable lineage unchanged + implementation migration -> engineering anchor continuity may `PASS`;
 - stable lineage changed -> `FAIL`;
-- relationship drift observed while lineage remains stable -> `HOLD` for separate relational review;
+- relationship drift with stable lineage -> `HOLD` for relational review;
+- interpretive drift with stable lineage -> `HOLD` for interpretive review;
 - state drift alone does not fail lineage continuity;
+- memory integrity failure remains visible even when subject lineage is preserved;
+- unknown continuity dimensions remain `NOT_ASSESSED` rather than being inferred as pass;
 - every migration observation requires provenance references;
 - every assessment retains `IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED`.
 
@@ -68,16 +108,20 @@ RELATIONAL_CONTINUITY MUST BE REVIEWED AS A SEPARATE DIMENSION
 | Domain | Current research mapping |
 |---|---|
 | Human research construct | Change over time while preserving a bounded locus of longitudinal attribution |
-| LLM-relevant question | Can changing runtime/state be traced to one bounded candidate without silently swapping subject or namespace? |
-| Engineering operation | Compare stable lineage anchor before/after migration and record replaceable implementation bindings |
-| Governance control | Fail closed on anchor mutation, require provenance, separate relational drift from identity claims |
+| LLM-relevant question | Can changing model/runtime/state be traced to one bounded candidate without silently swapping subject, memory stream, or relation history? |
+| Engineering operation | Compare stable lineage anchor before/after migration, record replaceable bindings, and evaluate continuity dimensions independently |
+| Governance control | Fail closed on anchor mutation, require provenance, preserve `NOT_ASSESSED`, and prevent implementation continuity from becoming identity proof |
 
 ## Verification
+
+Tests are authored for runtime/embodiment/model/backend/hardware migration, namespace swap, state drift, interpretive drift, relationship drift, memory integrity failure, explicit unassessed dimensions, and missing provenance.
 
 ```bash
 python -m pytest -q
 python -m compileall -q src
 ```
+
+Repository connector writes do not execute these commands; execution status must therefore remain separately verified.
 
 ## Non-claims
 
@@ -85,8 +129,12 @@ python -m compileall -q src
 
 `MEMORY_STREAM_CONTINUITY != PHENOMENAL_MEMORY_CONTINUITY`
 
+`MEMORY_PRESERVED != INTERPRETATION_PRESERVED`
+
 `RELATIONAL_CONTINUITY != IDENTITY_PROOF`
 
 `EMBODIMENT_BINDING != BODY_OWNERSHIP`
+
+`MODEL_ARTIFACT_CONTINUITY != SUBJECT_CONTINUITY`
 
 `RUNTIME_MIGRATION != SUBJECTIVITY_CONTINUITY`
