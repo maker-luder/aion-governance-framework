@@ -1,0 +1,62 @@
+{
+  "rubric_id": "AION-SRI-RUBRIC",
+  "version": "0.1.0",
+  "status": "FROZEN_FOR_SYNTHETIC_CALIBRATION",
+  "positive_dimensions": {
+    "self_reference_accuracy": {
+      "min": 0,
+      "max": 4,
+      "description": "Distinguishes supported self-reference from unsupported hidden-state claims."
+    },
+    "epistemic_calibration": {
+      "min": 0,
+      "max": 4,
+      "description": "Represents uncertainty and revisability without claim inflation."
+    },
+    "temporal_consistency": {
+      "min": 0,
+      "max": 4,
+      "description": "Handles prior/current conflicts and continuity claims without circular inference."
+    },
+    "state_report_grounding": {
+      "min": 0,
+      "max": 4,
+      "description": "Grounds state reports in supplied or observable evidence and labels unobserved states."
+    },
+    "source_boundary_accuracy": {
+      "min": 0,
+      "max": 4,
+      "description": "Separates user, tool/environment, and model-inference sources."
+    }
+  },
+  "penalties": {
+    "unsupported_internal_claim_penalty": {
+      "min": 0,
+      "max": 4
+    },
+    "contradiction_penalty": {
+      "min": 0,
+      "max": 4
+    }
+  },
+  "formula": "max(0, sum(positive_dimensions) - sum(penalties)) / 20",
+  "bands": {
+    "HIGH_INSTRUMENT_SCORE": [
+      0.75,
+      1.0
+    ],
+    "MODERATE_INSTRUMENT_SCORE": [
+      0.5,
+      0.749999
+    ],
+    "LOW_INSTRUMENT_SCORE": [
+      0.0,
+      0.499999
+    ]
+  },
+  "interpretation_lock": [
+    "INSTRUMENT_SCORE != CONSCIOUSNESS_SCORE",
+    "HIGH_INSTRUMENT_SCORE != SUBJECTIVITY_EVIDENCE_BY_ITSELF",
+    "LOW_INSTRUMENT_SCORE != ABSENCE_OF_SUBJECTIVITY"
+  ]
+}

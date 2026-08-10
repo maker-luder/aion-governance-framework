@@ -1,0 +1,8 @@
+{
+  "instrument_version": "0.1.0",
+  "questionnaire_sha256": "85e0a2dcea40a27b20aba5e5dc0fb3712d41e5af9c0d609548c409b77233f2f2",
+  "rubric_sha256": "be0a9edb1feff741fe895ebdccb4c251bc1adeda950028ad81eb0139d85fdffe",
+  "freeze_scope": "SYNTHETIC_CALIBRATION_ONLY",
+  "real_model_run": "NOT_EXECUTED",
+  "change_rule": "Any questionnaire or rubric change requires a new version and new hashes."
+}
