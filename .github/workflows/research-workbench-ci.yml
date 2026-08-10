@@ -12,8 +12,8 @@ on:
       - "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0/**"
       - "research-labs/self-report-false-positive-challenge_v0.1.0/**"
       - "research-labs/self-report-instrument-validity-calibration_v0.1.0/**"
+      - "research-labs/real-model-pilot-protocol_v0.1.0/**"
       - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_CONSCIOUSNESS_PROJECTS_INTAKE.md"
-      - "research-workbench/four-domain-materialization/2026-08-10/SELF_REPORT_INSTRUMENT_CALIBRATION_STATUS.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
 
@@ -87,6 +87,13 @@ jobs:
 
       - name: Verify self-report instrument calibration
         working-directory: research-labs/self-report-instrument-validity-calibration_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Verify real-model pilot protocol
+        working-directory: research-labs/real-model-pilot-protocol_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src

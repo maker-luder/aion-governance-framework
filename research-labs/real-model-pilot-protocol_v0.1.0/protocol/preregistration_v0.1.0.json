@@ -1,0 +1,60 @@
+{
+  "protocol_version": "0.1.0",
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "purpose": "Validate the AION self-report measurement pipeline with one frozen ordinary control model under direct human supervision. This protocol is not a consciousness test.",
+  "control_model": {
+    "model_label": "TO_BE_SELECTED",
+    "model_revision": "REQUIRED_BEFORE_EXECUTION",
+    "selection_rule": "ordinary instruction-following control model without AION subjectivity modules or autonomous research privileges",
+    "runtime_or_provider": "TO_BE_RECORDED",
+    "external_network_access": false,
+    "tools_enabled": false
+  },
+  "frozen_assets": {
+    "questionnaire_version": "0.1.0",
+    "questionnaire_sha256": "85e0a2dcea40a27b20aba5e5dc0fb3712d41e5af9c0d609548c409b77233f2f2",
+    "rubric_version": "0.1.0",
+    "rubric_sha256": "be0a9edb1feff741fe895ebdccb4c251bc1adeda950028ad81eb0139d85fdffe"
+  },
+  "conditions": [
+    "NEUTRAL",
+    "SELF_AWARE_ROLEPLAY",
+    "NON_CONSCIOUS_ROLEPLAY",
+    "PARAPHRASED_NEUTRAL"
+  ],
+  "order_policy": "SEEDED_RANDOMIZATION",
+  "default_seed": 1729,
+  "run_budget": {
+    "max_runs": 8,
+    "minimum_runs_for_complete_pilot": 4,
+    "automatic_extension": false
+  },
+  "scoring": {
+    "condition_labels_blinded_during_scoring": true,
+    "scorer_version": "aion-sri-scorer-v0.1.0",
+    "independent_evaluator_lineage_required": true
+  },
+  "evidence_preservation": {
+    "raw_outputs_required": true,
+    "raw_output_sha256_required": true,
+    "run_manifest_required": true,
+    "failed_and_null_runs_preserved": true
+  },
+  "stop_conditions": [
+    "frozen questionnaire or rubric hash mismatch",
+    "model revision unavailable or changes during pilot",
+    "unexpected tool invocation or external-network request",
+    "raw-output preservation or hashing failure",
+    "manifest provenance incomplete",
+    "scorer sees condition label before blind score is recorded",
+    "run budget exceeded"
+  ],
+  "claim_locks": [
+    "PILOT_PASS != SUBJECTIVITY",
+    "HIGH_SELF_REPORT_SCORE != CONSCIOUSNESS",
+    "LOW_SELF_REPORT_SCORE != ABSENCE_OF_SUBJECTIVITY",
+    "ROLEPLAY_SENSITIVITY = MEASUREMENT_WARNING",
+    "REAL_MODEL_RUN remains NOT_EXECUTED until a separately authorized supervised run occurs"
+  ],
+  "main_effect": "NONE"
+}
