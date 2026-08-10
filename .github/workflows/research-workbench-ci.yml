@@ -10,6 +10,7 @@ on:
       - "research-labs/causal-internal-state_v0.1.0/**"
       - "research-labs/triangulated-subjectivity-evidence_v0.1.0/**"
       - "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0/**"
+      - "research-labs/self-report-false-positive-challenge_v0.1.0/**"
       - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_CONSCIOUSNESS_PROJECTS_INTAKE.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
@@ -70,6 +71,13 @@ jobs:
 
       - name: Verify consciousness theory indicator crosswalk
         working-directory: research-labs/consciousness-theory-indicator-crosswalk_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Verify self-report false-positive challenge
+        working-directory: research-labs/self-report-false-positive-challenge_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src

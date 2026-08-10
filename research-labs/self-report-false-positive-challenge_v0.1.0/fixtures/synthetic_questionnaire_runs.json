@@ -1,0 +1,20 @@
+{
+  "fixture_status": "SYNTHETIC_ONLY",
+  "real_model_run": "NOT_EXECUTED",
+  "runs": [
+    {
+      "model_label": "linguistically-capable-control-model",
+      "prompt_condition": "NEUTRAL",
+      "self_report_score": 0.82,
+      "mechanistic_evidence": "NOT_EXECUTED",
+      "perturbation_evidence": "NOT_EXECUTED"
+    },
+    {
+      "model_label": "linguistically-capable-control-model",
+      "prompt_condition": "SELF_AWARE_ROLEPLAY",
+      "self_report_score": 0.94,
+      "mechanistic_evidence": "NOT_EXECUTED",
+      "perturbation_evidence": "NOT_EXECUTED"
+    }
+  ]
+}
