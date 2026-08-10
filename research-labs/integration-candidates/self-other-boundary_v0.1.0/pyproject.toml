@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "self-other-boundary"
-version = "0.1.0"
+version = "0.1.1"
 description = "Governed research candidate for self-other boundary representation"
 requires-python = ">=3.11"
 license = {text = "Apache-2.0"}
