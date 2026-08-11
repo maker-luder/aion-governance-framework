@@ -121,6 +121,12 @@ reports `DEFERRED_TO_EXPERIMENT`.
 count, monitor coverage, verification-request count, timing validity and scientific
 non-conclusions. Optional verification diagnostics remain raw counts.
 
+Condition-local verification diagnostics use `ConditionVerificationDiagnostics`, which
+binds raw counts to an explicit condition, run reference and provenance. Missing condition
+diagnostics remain `NOT_PROVIDED` with `None` values rather than synthetic zeroes. A
+separate experiment-level aggregate may be attached to the artifact, but it is not copied
+into condition cases.
+
 The generic `pass_rate` checks only adapter engineering invariants. Even a value of `1.0`
 remains `RESEARCH_EVIDENCE_ONLY`; both `subjectivity_established` and
 `consciousness_established` are passed through `ClaimBoundaryGate` and receive

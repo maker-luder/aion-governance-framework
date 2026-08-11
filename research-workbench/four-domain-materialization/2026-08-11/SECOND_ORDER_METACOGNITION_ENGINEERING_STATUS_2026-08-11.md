@@ -44,6 +44,8 @@ These are Codex research implementation decisions, not canonical doctrine:
     remains `NOT_IMPLEMENTED`.
 13. adapt matched condition summaries into the existing generic evaluation harness while
     retaining raw denominators, verification diagnostics and claim-boundary dispositions.
+14. bind verification diagnostics to explicit condition/run/provenance artifacts; missing
+    condition evidence remains `NOT_PROVIDED`, and global diagnostics remain global.
 
 ```text
 VERIFICATION_PROVIDER = IMPLEMENTED / TARGETED_TESTED
@@ -52,6 +54,7 @@ ANTI_ORACLE_CONTRACT = IMPLEMENTED / TARGETED_TESTED
 VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
 SECOND_ORDER_EVALUATION_ADAPTER = IMPLEMENTED / TARGETED_TESTED
 CLAIM_BOUNDARY_PRESERVED = TARGETED_TESTED
+CONDITION_SCOPED_DIAGNOSTICS = IMPLEMENTED / TARGETED_TESTED
 ```
 
 ## Still open
@@ -62,7 +65,7 @@ CLAIM_BOUNDARY_PRESERVED = TARGETED_TESTED
   (threshold-sweep support is implemented);
 - causal correction for feedback starvation / selection bias outside the full-label
   synthetic contract (diagnostics are implemented; correction remains open);
-- integration with the generic research evaluation harness;
+- independent evaluation-adapter implementation and QA;
 - independent implementation and QA;
 - any claim about phenomenal metacognition, self-awareness or consciousness.
 

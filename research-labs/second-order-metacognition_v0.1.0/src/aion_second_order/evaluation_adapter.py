@@ -13,6 +13,7 @@ from aion_research_eval import (
 )
 
 from .experiment import MatchedExperimentResult
+from .records import SecondOrderCondition
 from .verification import VerificationDiagnostics
 
 
@@ -52,6 +53,7 @@ class SecondOrderEvaluationArtifact:
     functional_contribution_status: str = "NOT_ESTABLISHED"
     threshold_scientific_result: str = "NOT_ESTABLISHED"
     canonical_effect: str = "NONE"
+    experiment_level_diagnostics: VerificationDiagnostics | None = None
 
     def __post_init__(self) -> None:
         if not self.report.research_only or self.report.canonical_effect != "NONE":
@@ -64,9 +66,26 @@ class SecondOrderEvaluationArtifact:
             raise ValueError("adapter interpretation must remain research evidence only")
 
 
+@dataclass(frozen=True, slots=True)
+class ConditionVerificationDiagnostics:
+    condition: SecondOrderCondition
+    diagnostics: VerificationDiagnostics
+    run_ref: str
+    provenance_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if not self.run_ref.strip():
+            raise ValueError("run_ref must be non-empty")
+        if not self.provenance_refs or any(not item.strip() for item in self.provenance_refs):
+            raise ValueError("condition diagnostics provenance_refs must be non-empty")
+
+
 def _verification_metadata(
-    diagnostics: VerificationDiagnostics | None,
-) -> dict[str, int | None]:
+    condition: SecondOrderCondition,
+    diagnostics_by_condition: Mapping[
+        SecondOrderCondition, ConditionVerificationDiagnostics
+    ] | None,
+) -> dict[str, int | str | tuple[str, ...] | None]:
     names = (
         "verification_attempts",
         "verification_evidence_available",
@@ -76,21 +95,37 @@ def _verification_metadata(
         "verification_scope_rejections",
         "oracle_leakage_rejections",
     )
-    return {
-        name: None if diagnostics is None else getattr(diagnostics, name)
-        for name in names
+    entry = None if diagnostics_by_condition is None else diagnostics_by_condition.get(condition)
+    if entry is not None and entry.condition is not condition:
+        raise ValueError("condition diagnostics key and artifact condition must match")
+    values: dict[str, int | str | tuple[str, ...] | None] = {
+        name: None if entry is None else getattr(entry.diagnostics, name) for name in names
     }
+    values.update(
+        {
+            "verification_diagnostics_status": "NOT_PROVIDED"
+            if entry is None
+            else "PROVIDED",
+            "verification_run_ref": None if entry is None else entry.run_ref,
+            "verification_provenance_refs": None
+            if entry is None
+            else entry.provenance_refs,
+        }
+    )
+    return values
 
 
 def adapt_matched_experiment(
     result: MatchedExperimentResult,
     *,
     verification_threshold: float,
-    verification_diagnostics: VerificationDiagnostics | None = None,
+    verification_diagnostics_by_condition: Mapping[
+        SecondOrderCondition, ConditionVerificationDiagnostics
+    ] | None = None,
+    experiment_level_diagnostics: VerificationDiagnostics | None = None,
 ) -> SecondOrderEvaluationArtifact:
     if not 0.0 <= verification_threshold <= 1.0:
         raise ValueError("verification_threshold must be between 0 and 1")
-    verification = _verification_metadata(verification_diagnostics)
     cases = tuple(
         ResearchCase(
             case_id=f"second-order:{summary.condition.value.lower()}",
@@ -106,7 +141,10 @@ def adapt_matched_experiment(
                 "functional_contribution_status": summary.functional_contribution_status,
                 "subjectivity_conclusion": summary.subjectivity_conclusion,
                 "canonical_effect": "NONE",
-                **verification,
+                **_verification_metadata(
+                    summary.condition,
+                    verification_diagnostics_by_condition,
+                ),
             },
             metadata={
                 "research_only": True,
@@ -132,4 +170,5 @@ def adapt_matched_experiment(
         requested_threshold=verification_threshold,
         subjectivity_claim_disposition=gate.disposition("subjectivity_established"),
         consciousness_claim_disposition=gate.disposition("consciousness_established"),
+        experiment_level_diagnostics=experiment_level_diagnostics,
     )

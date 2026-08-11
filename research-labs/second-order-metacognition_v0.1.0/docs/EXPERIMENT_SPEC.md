@@ -145,6 +145,11 @@ raw trial denominator, observed sample size, missing outcomes, monitor coverage,
 verification requests, anti-lookahead validity and scientific claim status. When supplied,
 verification availability and rejection diagnostics are copied as raw counts.
 
+Condition diagnostics are keyed by `SecondOrderCondition` and retain their own run and
+provenance references even when two conditions happen to have equal numeric counts.
+Missing diagnostics mean `NOT_PROVIDED`, not zero. Experiment-level diagnostics remain a
+separate artifact field and are never re-attributed to individual conditions.
+
 The evaluator assertion means only that timing and declared claim boundaries survived the
 conversion. `pass_rate` is not interpreted as functional contribution, threshold evidence,
 subjectivity or consciousness. `ClaimBoundaryGate` independently denies both requested

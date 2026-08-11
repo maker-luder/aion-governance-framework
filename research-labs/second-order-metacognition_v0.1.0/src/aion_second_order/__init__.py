@@ -9,6 +9,7 @@ from .experiment import (
     summarize,
 )
 from .evaluation_adapter import (
+    ConditionVerificationDiagnostics,
     SecondOrderContractEvaluator,
     SecondOrderEvaluationArtifact,
     adapt_matched_experiment,
@@ -48,6 +49,7 @@ __all__ = [
     "MONITOR_SEMANTICS",
     "ConditionSummary",
     "ControlDisposition",
+    "ConditionVerificationDiagnostics",
     "SecondOrderContractEvaluator",
     "SecondOrderEvaluationArtifact",
     "MatchedExperimentResult",

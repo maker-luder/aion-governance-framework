@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from aion_second_order import (
+    ConditionVerificationDiagnostics,
+    SecondOrderCondition,
     VerificationDiagnostics,
     adapt_matched_experiment,
     run_matched_experiment,
@@ -21,10 +23,19 @@ def diagnostics() -> VerificationDiagnostics:
 
 
 def test_adapter_reuses_generic_experiment_report_and_preserves_raw_fields():
+    scoped = ConditionVerificationDiagnostics(
+        condition=SecondOrderCondition.MONITOR_PLUS_CONTROL,
+        diagnostics=diagnostics(),
+        run_ref="run:monitor-plus-control",
+        provenance_refs=("fixture:adapter-condition",),
+    )
     artifact = adapt_matched_experiment(
         run_matched_experiment(),
         verification_threshold=0.75,
-        verification_diagnostics=diagnostics(),
+        verification_diagnostics_by_condition={
+            SecondOrderCondition.MONITOR_PLUS_CONTROL: scoped,
+        },
+        experiment_level_diagnostics=diagnostics(),
     )
     assert artifact.report.dataset_name == "second-order-matched-threshold-0.75"
     assert artifact.report.research_only is True
@@ -37,9 +48,46 @@ def test_adapter_reuses_generic_experiment_report_and_preserves_raw_fields():
         assert "missing_outcomes" in output
         assert "monitor_coverage" in output
         assert "verification_requests" in output
-        assert output["verification_attempts"] == 4
-        assert output["verification_evidence_rejected"] == 1
-        assert output["verification_scope_rejections"] == 1
+        if output["condition"] == SecondOrderCondition.MONITOR_PLUS_CONTROL.value:
+            assert output["verification_attempts"] == 4
+            assert output["verification_evidence_rejected"] == 1
+            assert output["verification_scope_rejections"] == 1
+            assert output["verification_diagnostics_status"] == "PROVIDED"
+            assert output["verification_run_ref"] == "run:monitor-plus-control"
+        else:
+            assert output["verification_attempts"] is None
+            assert output["verification_evidence_rejected"] is None
+            assert output["verification_scope_rejections"] is None
+            assert output["verification_diagnostics_status"] == "NOT_PROVIDED"
+            assert output["verification_run_ref"] is None
+    assert artifact.experiment_level_diagnostics == diagnostics()
+
+
+def test_equal_values_still_preserve_distinct_condition_provenance():
+    first = ConditionVerificationDiagnostics(
+        SecondOrderCondition.MONITOR_PLUS_CONTROL,
+        diagnostics(),
+        "run:control",
+        ("fixture:control",),
+    )
+    second = ConditionVerificationDiagnostics(
+        SecondOrderCondition.MONITOR_ONLY,
+        diagnostics(),
+        "run:monitor-only",
+        ("fixture:monitor-only",),
+    )
+    artifact = adapt_matched_experiment(
+        run_matched_experiment(),
+        verification_threshold=0.75,
+        verification_diagnostics_by_condition={
+            first.condition: first,
+            second.condition: second,
+        },
+    )
+    by_condition = {case.output["condition"]: case.output for case in artifact.report.cases}
+    assert by_condition[first.condition.value]["verification_run_ref"] == "run:control"
+    assert by_condition[second.condition.value]["verification_run_ref"] == "run:monitor-only"
+    assert by_condition[first.condition.value]["verification_provenance_refs"] != by_condition[second.condition.value]["verification_provenance_refs"]
 
 
 def test_claim_boundary_denies_subjectivity_and_consciousness_promotion():
