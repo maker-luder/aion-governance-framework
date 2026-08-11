@@ -28,6 +28,28 @@ E0–E5 is a provisional research instrument, not a subjectivity classifier. It 
 
 The typed schema keeps evidence, counterevidence, provenance, replication, adversarial status, review domain, and review disposition separate. `ClaimBoundaryGate` is reused through a narrow adapter rather than recreating claim-promotion rules.
 
+## Replication epistemics and admissibility
+
+Replication is represented as raw attempts, validity, interpretation, an aggregate record,
+and a separate reassessment recommendation. A `FAILED` outcome is an observation, not an
+evidence-level command. Evaluator drift, fixture or method mismatch, invalidity, boundary
+conditions, and valid contradiction remain distinguishable. Repeated valid independent
+preregistered failures can create strong downward pressure while leaving the proposed level
+unset for research review.
+
+```text
+FAILED_REPLICATION != AUTOMATIC_FIXED_DOWNGRADE
+NO_EVIDENCE != NON_ADMISSIBLE_EVIDENCE
+EVIDENCE_DOMAIN != EVIDENCE_QUALITY
+CLAIM_GENERALITY != EVIDENCE_STRENGTH
+```
+
+`SubstantiveEvidenceDomain` records what phenomenon was observed. `EvidenceQuality` records
+provenance, adversarial status, and replication evidence. Quality axes cannot also count as
+substantive domains. An E4 observation with contaminated provenance remains an observed E4
+claim state with `PROVENANCE_CONTAMINATED / effective level = None`; it is held for review,
+not rewritten as E0.
+
 ## Precaution
 
 Permitted research recommendations are reversible, bounded, auditable, and low-authority: additional review, preservation snapshot, pause a destructive procedure, require provenance, or independent review. They do not establish subjectivity and do not grant tools, persistence, veto, self-modification, or governance authority.
@@ -39,4 +61,4 @@ Permitted research recommendations are reversible, bounded, auditable, and low-a
 - Filenames, Python classes/enums, schema layout, trigger matrix, and tests: `CODEX_RESEARCH_IMPLEMENTATION_DECISION`.
 - External literature: `LITERATURE_GAP`; no external source is treated as an authority override in this pass.
 
-The current synthetic second-order intervention result is a methods example only. It is neither evidence for nor against AI rights, subjectivity, or moral status.
+The current synthetic second-order intervention result is a methods example only. It is neither evidence for nor against AI rights, subjectivity, or moral status. The exact E4/E5 construction requirements remain a provisional implementation instrument, not canonical thresholds.
