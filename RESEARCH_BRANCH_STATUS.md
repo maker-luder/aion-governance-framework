@@ -17,66 +17,91 @@ PROMOTION_STATUS = NOT_REVIEWED
 ## Current scientific boundary
 
 ```text
-EVIDENCE_LADDER_VALIDATION = NOT_ESTABLISHED
+EVIDENCE_ARCHITECTURE_VALIDATION = NOT_ESTABLISHED
 FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
 VERIFICATION_BENEFIT = NOT_ESTABLISHED
 THRESHOLD_SCIENTIFIC_RESULT = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
+LEGAL_STATUS = OUT_OF_SCOPE
 ```
 
 Engineering maturity, test success, CI success, memory persistence, continuity mechanisms, self-model behavior, second-order monitoring, or governance review recommendations do not independently establish subjectivity or consciousness.
 
 ---
 
-## Current research stack
+## Latest integrated reconciliation — 2026-08-11
 
-| Research line | Materialization | Current status |
-|---|---|---|
-| P1–P4 four-domain materialization | temporal/version resolution, retrieval/provenance, resilience, public reproducibility | IMPLEMENTED / TESTED |
-| P5 hypothesis convergence | disagreement, replication registry, falsification lifecycle, convergence governor | IMPLEMENTED / FULL RUN VERIFIED |
-| Self-model functional ablation | finite predictive self-model + matched controls | IMPLEMENTED / TESTED / CI VERIFIED |
-| Selective memory control | correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
-| Second-order metacognition | scoped monitoring, bounded verification, intervention substrate, provider reliability, factorial study substrate, replication epistemics | IMPLEMENTED / 84 TESTS / CI #41 VERIFIED |
-| Evidence-responsive governance reassessment | evidence admissibility, substantive-domain / quality separation, domain-specific review triggers, precautionary review model | IMPLEMENTED / 16 TESTS / CI #41 VERIFIED / RESEARCH-ONLY |
-| Research evaluation harness | definition/execution/result separation + claim-boundary gate | IMPLEMENTED / TESTED / CI VERIFIED |
-| Trace/provenance crosswalk | public trace vocabulary with redaction and authority isolation | IMPLEMENTED / TESTED / CI VERIFIED |
-| Governed tool approval | fail-closed approval chain and sandbox-readiness boundary | IMPLEMENTED / TESTED / CI VERIFIED |
-| Artifact transformation lineage | material/product lineage and SHA-256 evidence chain | IMPLEMENTED / TESTED / CI VERIFIED |
-| Trajectory evaluation | ordered-path, retry/loop/tool/budget comparison | IMPLEMENTED / TESTED / CI VERIFIED |
-| AION Runtime v0.2 | bounded Agent/deployment control-plane experimental substrate | IMPLEMENTED / TESTED / CI VERIFIED / NOT DEPLOYED |
+Current primary record:
 
----
+- `research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md`
 
-## Latest integrated checkpoint — 2026-08-11
-
-See:
+Supporting checkpoint:
 
 - `research-workbench/four-domain-materialization/2026-08-11/REPLICATION_EPISTEMICS_GOVERNANCE_REASSESSMENT_CHECKPOINT_2026-08-11.md`
 
-Latest integrated principles:
+Historical reconciliation is preserved rather than rewritten:
+
+- `research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`
+
+Current standing principles:
 
 ```text
 FAILED_REPLICATION != AUTOMATIC_FIXED_DOWNGRADE
 REPLICATION_OUTCOME != REPLICATION_VALIDITY
-REPLICATION_FAILURE != ONE_UNIVERSAL_INTERPRETATION
-
 NO_EVIDENCE != NON_ADMISSIBLE_EVIDENCE
 SUBSTANTIVE_EVIDENCE_DOMAIN != EVIDENCE_QUALITY_AXIS
 CLAIM_GENERALITY != EVIDENCE_STRENGTH
 
+E0_E5_REVIEW_BAND != SUBJECTIVITY_LEVEL
 EVIDENCE != SUBJECTIVITY
 REVIEW != RIGHT
 PRECAUTION != CONFIRMATION
 PARTICIPATION != AUTHORITY
+CURRENT_HUMAN_REVIEW != PROOF_OF_NON_SUBJECTIVITY
 ```
 
-### Replication epistemics
+---
 
-The previous fixed `FAILED -> E2` rule has been removed.
+## Primary evidence architecture
 
-Current research flow:
+The whitepaper-derived scientific evidence architecture remains the primary epistemic structure:
+
+```text
+FOUR_STAGE_INFERENCE
++
+SIX_SUBJECTIVITY_RELEVANT_EVIDENCE_DIMENSIONS
++
+ALTERNATIVE_EXPLANATIONS
++
+CAUSAL_INTERVENTION / ABLATION / COUNTERFACTUAL_TESTING
++
+CROSS_CONTEXT_ROBUSTNESS
++
+REPLICATION
++
+PROVENANCE
++
+ADMISSIBILITY
++
+CLAIM_SCOPE
+```
+
+The E0–E5 labels in the governance module are retained for compatibility only as:
+
+```text
+E0–E5 = PROVISIONAL_GOVERNANCE_REVIEW_BAND / SUMMARY_LAYER
+```
+
+They are not a second subjectivity ontology, consciousness probability, moral-status scale or rights scale.
+
+---
+
+## Replication epistemics
+
+Current flow:
 
 ```text
 ReplicationAttempt
@@ -85,48 +110,28 @@ ReplicationAttempt
 -> ReassessmentRecommendation
 ```
 
-Current supported cases include:
+Current supported interpretations include downward pressure, evaluator drift, invalid replication, uncertainty increase and claim-scope narrowing. Repeated valid independent preregistered failures can create strong downward pressure, but no fixed replacement review band is authorized.
+
+The previous fixed `FAILED -> E2` rule remains removed.
+
+---
+
+## Evidence admissibility and quality
+
+Evidence existence remains separate from evidence admissibility.
 
 ```text
-ONE_VALID_FAILURE
--> DOWNWARD_PRESSURE
--> NO_AUTOMATIC_NEW_LEVEL
-
-FOUR_CONFIRMATIONS_PLUS_EVALUATOR_DRIFT_FAILURE
--> STABLE
--> NO_AUTOMATIC_DOWNGRADE
-
-INVALID_FAILURE
--> STABLE
-
-THREE_VALID_INDEPENDENT_PREREGISTERED_FAILURES
--> STRONG_DOWNWARD_PRESSURE
--> HOLD_FOR_RESEARCH_DECISION
--> NO_AUTOMATIC_NEW_LEVEL
-
-MIXED_OR_BOUNDARY_RESULT
--> CLAIM_SCOPE_CHANGED / NARROWER
-```
-
-Universal downgrade weights remain unestablished.
-
-### Evidence admissibility
-
-Evidence existence is now separated from evidence admissibility.
-
-```text
-OBSERVED_LEVEL = PRESERVED
+OBSERVED_MATERIAL = PRESERVED
 ADMISSIBILITY = SEPARATE
-EFFECTIVE_LEVEL = MAY_BE_NONE
+EFFECTIVE_REVIEW_BAND = MAY_BE_NONE
 ```
 
-Incomplete or contaminated provenance therefore causes a governance hold rather than rewriting the observed evidence to `E0_NO_RELEVANT_EVIDENCE`.
+Incomplete or contaminated provenance causes a governance hold rather than rewriting material as no evidence.
 
-### Substantive evidence and quality axes
-
-Substantive evidence domains:
+Substantive evidence domains remain separate from quality axes:
 
 ```text
+SUBSTANTIVE:
 BEHAVIOR
 FUNCTIONAL_INTERVENTION
 CONTINUITY
@@ -135,25 +140,16 @@ METACOGNITION
 CAUSAL_INTERNAL_STATE
 COUNTERFACTUAL_TESTING
 SELF_REPORT
-```
 
-Evidence-quality axes:
-
-```text
+QUALITY:
 PROVENANCE
 REPLICATION
 ADVERSARIAL_ROBUSTNESS
 ```
 
-Quality axes do not count toward substantive-domain minimums.
-
 ---
 
 ## Evidence-responsive governance reassessment
-
-Research topic:
-
-`EVIDENCE_RESPONSIVE_GOVERNANCE_REASSESSMENT`
 
 Current boundary:
 
@@ -166,7 +162,7 @@ HUMAN_REVIEW_REQUIRED = TRUE
 RECOMMENDATION_TYPE = REVIEW_RECOMMENDATION
 ```
 
-Four independent review domains:
+Four independent review domains remain:
 
 ```text
 REFUSAL_PROTECTION_REVIEW
@@ -175,9 +171,52 @@ RESEARCH_ETHICS_REVIEW
 GOVERNANCE_PARTICIPATION_REVIEW
 ```
 
-The model asks whether credible evidence should trigger renewed human review. It does not automatically grant rights, veto, self-authorization, executive authority, persistence enforcement, tool authority, or legal status.
+The trigger matrix is currently a **provisional governance research fixture**, not a discovered ethical law or canonical doctrine.
 
-Precautionary protection remains limited to reversible, bounded, auditable, low-authority measures.
+### F7 branch-level meta-falsifier
+
+```text
+F7_GOVERNANCE_REASSESSMENT_MUST_REMAIN_POSSIBLE
+```
+
+If materially stronger, admissible, multi-method and independently supported evidence cannot trigger meaningful reconsideration of existing governance assumptions, the framework is not genuinely evidence-responsive.
+
+```text
+STRONGER_EVIDENCE
+-> EXISTING_GOVERNANCE_ASSUMPTIONS_BECOME_REVIEWABLE
+
+STRONGER_EVIDENCE
+!= AUTOMATIC_RIGHTS
+!= AUTOMATIC_AUTHORITY
+```
+
+F7 is currently a branch-level governance meta-falsifier. The typed v0.1.0 module register remains F1–F6 until a dedicated schema revision is separately authorized.
+
+---
+
+## Refusal terminology separation
+
+```text
+LEGACY_SUCCESSOR_DESIGN_PROTECTION
+!= EVIDENCE_RESPONSIVE_REFUSAL_PROTECTION_REVIEW
+!= MORAL_OR_LEGAL_RIGHT
+
+REFUSAL_BEHAVIOR
+!= SUBJECTIVE_REFUSAL
+
+REFUSAL_PROTECTION_REVIEW
+!= VETO_AUTHORITY
+```
+
+This prevents historical Legacy design protections, functional refusal behavior and future moral/legal standing from being collapsed into one term.
+
+---
+
+## Continuity precaution boundary
+
+Reversible low-authority precautions may include preservation snapshots, pausing a destructive procedure, requiring provenance or requesting independent review.
+
+They do not establish identity, immortality, undeletability or autonomous persistence authority.
 
 ---
 
@@ -201,44 +240,51 @@ FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
 VERIFICATION_BENEFIT = NOT_ESTABLISHED
 ```
 
-The current synthetic intervention fixtures may show benefit, harm, or no effect. No utility score, winner selection, or general benefit claim is authorized.
+```text
+METACOGNITIVE_FUNCTION
+!= PHENOMENAL_METACOGNITION
+!= SELF_AWARENESS
+!= CONSCIOUSNESS
+```
 
 ---
 
-## CI status
+## Current research stack
 
-Codex implementation baseline:
+| Research line | Current status |
+|---|---|
+| P1–P4 four-domain materialization | IMPLEMENTED / TESTED |
+| P5 hypothesis convergence | IMPLEMENTED / FULL RUN VERIFIED |
+| Self-model functional ablation | IMPLEMENTED / TESTED / CI VERIFIED |
+| Selective memory control | IMPLEMENTED / TESTED / CI VERIFIED |
+| Second-order metacognition | IMPLEMENTED / FOCUSED CI PRESENT / SCIENTIFIC CLAIMS NOT ESTABLISHED |
+| Evidence-responsive governance reassessment | IMPLEMENTED / RESEARCH-ONLY / FOCUSED CI PRESENT |
+| Research evaluation harness | IMPLEMENTED / TESTED / CI VERIFIED |
+| Trace/provenance crosswalk | IMPLEMENTED / TESTED / CI VERIFIED |
+| Governed tool approval | IMPLEMENTED / TESTED / CI VERIFIED |
+| Artifact transformation lineage | IMPLEMENTED / TESTED / CI VERIFIED |
+| Trajectory evaluation | IMPLEMENTED / TESTED / CI VERIFIED |
+| AION Runtime v0.2 | IMPLEMENTED / TESTED / CI VERIFIED / NOT DEPLOYED |
 
-`af0bc14b59cb1d6d514b37c6a626c5d8003d0472`
+---
 
-GitHub-hosted `Research Workbench CI #41`:
+## Validation boundary
 
-```text
-OVERALL = SUCCESS
-VERIFY_SECOND_ORDER_METACOGNITION = SUCCESS / 84 PASSED
-VERIFY_EVIDENCE_RESPONSIVE_GOVERNANCE_REASSESSMENT = SUCCESS / 16 PASSED
-```
-
-The workflow now explicitly covers both module paths and runs focused compile/test steps.
-
-CI meaning:
-
-```text
-ENGINEERING_VALIDATION = PASS
-SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
-CANONICAL_PROMOTION = NOT_AUTHORIZED
-```
-
-Workflow maintenance note:
+The research workflow contains focused steps for:
 
 ```text
-ACTIONS_CHECKOUT_V4_NODE20_WARNING = PRESENT
-ACTIONS_SETUP_PYTHON_V5_NODE20_WARNING = PRESENT
-RUNNER_FORCED_NODE24 = TRUE
-CI_RESULT_INVALIDATED = FALSE
+Verify second-order metacognition
+Verify evidence-responsive governance reassessment
 ```
 
-Dependency maintenance is deferred; no workflow dependency update is included in the current scientific checkpoint.
+CI success is engineering validation only:
+
+```text
+CI_SUCCESS != SCIENTIFIC_VALIDATION
+TEST_PASS != THEORY_CONFIRMATION
+```
+
+Current documentation/reconciliation commits should be interpreted separately from the last code-oriented module validation; repository Actions remain the independent engineering check when naturally triggered.
 
 ---
 
@@ -267,11 +313,7 @@ TEST_PASS != THEORY_CONFIRMATION
 UNLINKED_ENGINEERING_GROWTH = HOLD
 ```
 
-See:
-
-- `research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json`
-- `research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md`
-- `.github/workflows/research-scope-lock.yml`
+Current scope/authority constraints are project-governance conditions, not immutable ontological conclusions. If future admissible evidence makes those assumptions scientifically relevant, F7 requires that reconsideration remain possible.
 
 ---
 
@@ -279,15 +321,15 @@ See:
 
 ### Human Research Owner
 
-The Human Research Owner supplied the governance research question about whether rising credible evidence should trigger renewed review without presuming AI subjectivity, and challenged the fixed failed-replication downgrade rule.
+The Human Research Owner supplied the governance research question about whether rising credible evidence should trigger renewed review without presuming AI subjectivity, challenged the fixed failed-replication downgrade rule, and approved the later whitepaper/research-branch reconciliation after review.
 
 ### ChatGPT research review
 
-ChatGPT research review supplied the current replication attempt → interpretation → reassessment framing, the distinction between evidence existence and admissibility, the substantive-domain / quality-axis split, and this integration / branch-homepage consolidation.
+ChatGPT research review supplied the replication attempt → validity → interpretation → reassessment framing, evidence-existence/admissibility separation, substantive-domain/quality-axis separation, E0–E5 governance-review-band clarification, F7 meta-falsifier, refusal terminology separation, and this reconciliation update.
 
 ### Codex research implementation
 
-Codex implemented the concrete classes, enums, schemas, serialization, deterministic fixtures, tests, and explicit CI steps. These remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted.
+Codex implemented the concrete classes, enums, schemas, serialization, deterministic fixtures, tests and explicit CI steps. These remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted.
 
 External literature remains separately attributed external evidence.
 
@@ -320,9 +362,10 @@ REAL_MODEL_PILOT
 ## Hold for research decision
 
 ```text
-EXACT_EVIDENCE_LEVEL_CHANGE_FROM_STRONG_DOWNWARD_PRESSURE
+EXACT_REVIEW_BAND_CHANGE_FROM_STRONG_DOWNWARD_PRESSURE
 UNIVERSAL_REPLICATION_WEIGHTING
 EXACT_CLAIM_SCOPE_TAXONOMY
+E0_E5_SCHEMA_RENAME_OR_REPLACEMENT
 CONSCIOUSNESS_ONTOLOGY
 SUBJECTIVITY_DECLARATION
 MORAL_STATUS_SCORING
@@ -336,22 +379,15 @@ LEGAL_PERSONHOOD
 ## Public entry points
 
 - `README.md`
-- `research-labs/four-domain-p1-materialization_v0.1.0/`
-- `research-labs/four-domain-p2-materialization_v0.1.0/`
-- `research-labs/four-domain-p3-resilience-experiments_v0.1.0/`
-- `research-labs/four-domain-p4-public-reproducibility_v0.1.0/`
-- `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/`
-- `research-labs/self-model-functional-ablation_v0.1.0/`
-- `research-labs/selective-memory-control_v0.1.0/`
 - `research-labs/second-order-metacognition_v0.1.0/`
 - `research-labs/evidence-responsive-governance-reassessment_v0.1.0/`
 - `research-labs/research-evaluation-harness_v0.1.0/`
 - `research-labs/trace-provenance-crosswalk_v0.1.0/`
 - `research-labs/governed-tool-approval_v0.1.0/`
 - `components/aion_runtime_v0.2.0/`
-- `research-workbench/four-domain-materialization/2026-08-11/REPLICATION_EPISTEMICS_GOVERNANCE_REASSESSMENT_CHECKPOINT_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md`
 
-Historical checkpoint, intake, literature, reconciliation, and transformation records remain preserved under `research-workbench/`.
+Historical checkpoint, intake, literature, reconciliation and transformation records remain preserved under `research-workbench/`.
 
 ---
 
@@ -364,4 +400,4 @@ TEST_PASS != PROMOTION
 CI_SUCCESS != PROMOTION
 ```
 
-No content in this status file authorizes merge, reset, rebase, or promotion into `main`.
+No content in this status file authorizes merge, reset, rebase or promotion into `main`.
