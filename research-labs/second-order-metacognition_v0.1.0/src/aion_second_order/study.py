@@ -55,6 +55,279 @@ class FixtureProvenance:
             "mode": self.mode.value,
         }
 
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "FixtureProvenance":
+        return cls(
+            fixture_author=str(data["fixture_author"]),
+            fixture_version=str(data["fixture_version"]),
+            fixture_hash=str(data["fixture_hash"]),
+            experiment_run=str(data["experiment_run"]),
+            implementation_version=str(data["implementation_version"]),
+            seed=int(data["seed"]),
+            mode=ReplicationMode(data["mode"]),
+        )
+
+
+class ReplicationOutcome(str, Enum):
+    CONFIRMED = "CONFIRMED"
+    FAILED = "FAILED"
+    MIXED = "MIXED"
+    INCONCLUSIVE = "INCONCLUSIVE"
+
+
+class ReplicationValidity(str, Enum):
+    VALID = "VALID"
+    PARTIALLY_VALID = "PARTIALLY_VALID"
+    INVALID = "INVALID"
+    UNRESOLVED = "UNRESOLVED"
+
+
+class ReplicationInterpretation(str, Enum):
+    VALID_CONTRADICTION = "VALID_CONTRADICTION"
+    BOUNDARY_CONDITION_DISCOVERED = "BOUNDARY_CONDITION_DISCOVERED"
+    METHOD_MISMATCH = "METHOD_MISMATCH"
+    IMPLEMENTATION_MISMATCH = "IMPLEMENTATION_MISMATCH"
+    EVALUATOR_DRIFT = "EVALUATOR_DRIFT"
+    FIXTURE_MISMATCH = "FIXTURE_MISMATCH"
+    INSUFFICIENT_POWER_OR_SAMPLE = "INSUFFICIENT_POWER_OR_SAMPLE"
+    PROVENANCE_FAILURE = "PROVENANCE_FAILURE"
+    UNRESOLVED = "UNRESOLVED"
+
+
+def _require_nonempty(name: str, value: str) -> None:
+    if not value.strip():
+        raise ValueError(f"{name} must be non-empty")
+
+
+@dataclass(frozen=True, slots=True)
+class ReplicationAttempt:
+    attempt_id: str
+    claim_ref: str
+    fixture_ref: str
+    fixture: FixtureProvenance
+    protocol_ref: str
+    protocol_version: str
+    implementation_ref: str
+    implementation_version: str
+    evaluator_ref: str
+    evaluator_version: str
+    evaluation_contract_ref: str
+    independent_group_ref: str
+    seed: int
+    outcome: ReplicationOutcome
+    validity: ReplicationValidity
+    provenance_refs: tuple[str, ...]
+    executed_at: str
+    observation_ref: str
+    preregistered: bool = False
+
+    def __post_init__(self) -> None:
+        for name, value in (
+            ("attempt_id", self.attempt_id),
+            ("claim_ref", self.claim_ref),
+            ("fixture_ref", self.fixture_ref),
+            ("protocol_ref", self.protocol_ref),
+            ("protocol_version", self.protocol_version),
+            ("implementation_ref", self.implementation_ref),
+            ("implementation_version", self.implementation_version),
+            ("evaluator_ref", self.evaluator_ref),
+            ("evaluator_version", self.evaluator_version),
+            ("evaluation_contract_ref", self.evaluation_contract_ref),
+            ("independent_group_ref", self.independent_group_ref),
+            ("executed_at", self.executed_at),
+            ("observation_ref", self.observation_ref),
+        ):
+            _require_nonempty(name, value)
+        if self.fixture.implementation_version != self.implementation_version:
+            raise ValueError("attempt implementation_version must match fixture provenance")
+        if self.fixture.seed != self.seed:
+            raise ValueError("attempt seed must match fixture provenance")
+        if not self.provenance_refs or any(not item.strip() for item in self.provenance_refs):
+            raise ValueError("replication attempt provenance_refs must be non-empty")
+
+    @property
+    def fixture_hash(self) -> str:
+        return self.fixture.fixture_hash.lower()
+
+    @property
+    def is_independent_replication(self) -> bool:
+        return self.fixture.mode is ReplicationMode.REPLICATION
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "attempt_id": self.attempt_id,
+            "claim_ref": self.claim_ref,
+            "fixture_ref": self.fixture_ref,
+            "fixture_hash": self.fixture_hash,
+            "fixture": self.fixture.to_dict(),
+            "protocol_ref": self.protocol_ref,
+            "protocol_version": self.protocol_version,
+            "implementation_ref": self.implementation_ref,
+            "implementation_version": self.implementation_version,
+            "evaluator_ref": self.evaluator_ref,
+            "evaluator_version": self.evaluator_version,
+            "evaluation_contract_ref": self.evaluation_contract_ref,
+            "independent_group_ref": self.independent_group_ref,
+            "seed": self.seed,
+            "outcome": self.outcome.value,
+            "validity": self.validity.value,
+            "provenance_refs": list(self.provenance_refs),
+            "executed_at": self.executed_at,
+            "observation_ref": self.observation_ref,
+            "preregistered": self.preregistered,
+        }
+
+    def to_json(self) -> str:
+        return json.dumps(
+            {"schema": "aion.replication-attempt.v1", "attempt": self.to_dict()},
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "ReplicationAttempt":
+        fixture = FixtureProvenance.from_dict(data["fixture"])
+        if str(data["fixture_hash"]).lower() != fixture.fixture_hash.lower():
+            raise ValueError("serialized fixture_hash must match fixture provenance")
+        return cls(
+            attempt_id=str(data["attempt_id"]),
+            claim_ref=str(data["claim_ref"]),
+            fixture_ref=str(data["fixture_ref"]),
+            fixture=fixture,
+            protocol_ref=str(data["protocol_ref"]),
+            protocol_version=str(data["protocol_version"]),
+            implementation_ref=str(data["implementation_ref"]),
+            implementation_version=str(data["implementation_version"]),
+            evaluator_ref=str(data["evaluator_ref"]),
+            evaluator_version=str(data["evaluator_version"]),
+            evaluation_contract_ref=str(data["evaluation_contract_ref"]),
+            independent_group_ref=str(data["independent_group_ref"]),
+            seed=int(data["seed"]),
+            outcome=ReplicationOutcome(data["outcome"]),
+            validity=ReplicationValidity(data["validity"]),
+            provenance_refs=tuple(data["provenance_refs"]),
+            executed_at=str(data["executed_at"]),
+            observation_ref=str(data["observation_ref"]),
+            preregistered=bool(data["preregistered"]),
+        )
+
+    @classmethod
+    def from_json(cls, payload: str) -> "ReplicationAttempt":
+        data = json.loads(payload)
+        if not isinstance(data, dict) or data.get("schema") != "aion.replication-attempt.v1":
+            raise ValueError("unsupported replication attempt schema")
+        return cls.from_dict(data["attempt"])
+
+
+@dataclass(frozen=True, slots=True)
+class ReplicationAssessment:
+    assessment_id: str
+    attempt_ref: str
+    interpretation: ReplicationInterpretation
+    reason: str
+    evaluator_ref: str
+    evaluator_version: str
+    evaluation_contract_ref: str
+    provenance_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        for name, value in (
+            ("assessment_id", self.assessment_id),
+            ("attempt_ref", self.attempt_ref),
+            ("reason", self.reason),
+            ("evaluator_ref", self.evaluator_ref),
+            ("evaluator_version", self.evaluator_version),
+            ("evaluation_contract_ref", self.evaluation_contract_ref),
+        ):
+            _require_nonempty(name, value)
+        if not self.provenance_refs:
+            raise ValueError("replication assessment provenance_refs must be non-empty")
+
+
+@dataclass(frozen=True, slots=True)
+class ReplicationRecord:
+    record_id: str
+    attempt_count: int
+    confirmed_count: int
+    failed_count: int
+    mixed_count: int
+    inconclusive_count: int
+    independent_group_count: int
+    attempt_refs: tuple[str, ...]
+    provenance_refs: tuple[str, ...]
+    automatic_evidence_level_override: str = "NONE"
+
+    @classmethod
+    def from_attempts(
+        cls,
+        record_id: str,
+        attempts: Iterable[ReplicationAttempt],
+        *,
+        provenance_refs: tuple[str, ...],
+    ) -> "ReplicationRecord":
+        items = tuple(attempts)
+        _require_nonempty("record_id", record_id)
+        if not items or not provenance_refs:
+            raise ValueError("replication record requires attempts and provenance")
+        if len({item.attempt_id for item in items}) != len(items):
+            raise ValueError("replication attempt_id must be unique")
+        independent_groups = {
+            item.independent_group_ref for item in items if item.is_independent_replication
+        }
+        return cls(
+            record_id=record_id,
+            attempt_count=len(items),
+            confirmed_count=sum(item.outcome is ReplicationOutcome.CONFIRMED for item in items),
+            failed_count=sum(item.outcome is ReplicationOutcome.FAILED for item in items),
+            mixed_count=sum(item.outcome is ReplicationOutcome.MIXED for item in items),
+            inconclusive_count=sum(
+                item.outcome is ReplicationOutcome.INCONCLUSIVE for item in items
+            ),
+            independent_group_count=len(independent_groups),
+            attempt_refs=tuple(item.attempt_id for item in items),
+            provenance_refs=provenance_refs,
+        )
+
+
+class ReplicationRunner:
+    """Aggregate registered raw attempts without rerunning, filtering, or promotion."""
+
+    def __init__(self) -> None:
+        self._attempts: list[ReplicationAttempt] = []
+
+    @property
+    def attempts(self) -> tuple[ReplicationAttempt, ...]:
+        return tuple(self._attempts)
+
+    def register(self, attempt: ReplicationAttempt) -> None:
+        if any(item.attempt_id == attempt.attempt_id for item in self._attempts):
+            raise ValueError("replication attempt_id must be unique")
+        self._attempts.append(attempt)
+
+    def record(
+        self, record_id: str, *, provenance_refs: tuple[str, ...]
+    ) -> ReplicationRecord:
+        return ReplicationRecord.from_attempts(
+            record_id, self._attempts, provenance_refs=provenance_refs
+        )
+
+
+def evaluator_drift_detected(
+    left: ReplicationAttempt, right: ReplicationAttempt
+) -> bool:
+    comparable_substrate = (
+        left.fixture_hash == right.fixture_hash
+        and left.implementation_ref == right.implementation_ref
+        and left.implementation_version == right.implementation_version
+        and left.evaluation_contract_ref == right.evaluation_contract_ref
+    )
+    evaluator_changed = (
+        left.evaluator_ref != right.evaluator_ref
+        or left.evaluator_version != right.evaluator_version
+    )
+    return comparable_substrate and evaluator_changed and left.outcome is not right.outcome
+
 
 @dataclass(frozen=True, slots=True)
 class FactorialCell:

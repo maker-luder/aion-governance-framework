@@ -173,6 +173,25 @@ Under `COMMIT_ONLY`, outcome-dependent metrics return `None / NOT_IDENTIFIABLE`;
 counterfactuals are not imputed. `prevented_failed_commit` is an operational matched-
 fixture count, not proof of an unobserved real-world counterfactual.
 
+## Replication evidence substrate
+
+`ReplicationAttempt` reuses `FixtureProvenance` and records protocol, implementation,
+evaluator and evaluation-contract versions, independent group, seed, raw outcome,
+validity, observation reference and provenance. `ReplicationAssessment` interprets an
+attempt without mutating it. `ReplicationRecord` retains all outcome counts and independent
+group counts rather than only a latest status. `ReplicationRunner` aggregates registered
+attempts without executing, retrying, filtering or promoting anything.
+
+```text
+REPRODUCTION != INDEPENDENT_REPLICATION
+REPLICATION_OUTCOME != REPLICATION_VALIDITY
+FAILED_REPLICATION != AUTOMATIC_EVIDENCE_LEVEL_OVERRIDE
+```
+
+The deterministic evaluator comparison reports evaluator drift only when a comparable
+fixture/implementation/contract produces disagreement under a changed evaluator. It does
+not select which evaluator is correct.
+
 ## Non-claims
 
 ```text
