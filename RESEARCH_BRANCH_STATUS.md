@@ -397,3 +397,26 @@ main
 ```
 
 No step in this file is an approval to promote a research artifact.
+
+## 2026-08-11 intervention reliability and governance reassessment pass
+
+The second-order workbench now exposes deterministic intervention serialization,
+synthetic provider-reliability profiles, explicit policy families, raw cost counts,
+and a threshold-by-intervention factorial substrate. The preregistration remains a
+draft and the full study has not run. `VERIFICATION_STALE` remains deferred pending
+safe cross-request target identity semantics.
+
+A separate research-only track now models evidence-responsive governance
+reassessment. It maps provisional evidence states to domain-specific human-review
+obligations; it does not grant rights, authority, legal status, or canonical effect.
+
+```text
+FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
+VERIFICATION_BENEFIT = NOT_ESTABLISHED
+THRESHOLD_SCIENTIFIC_RESULT = NOT_ESTABLISHED
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```

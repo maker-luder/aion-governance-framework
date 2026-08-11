@@ -390,6 +390,8 @@ Current experiment-ready modules include:
 - `research-labs/affective-cognitive-motivation_v0.1.0/`
 - `research-labs/language-core-g1_v0.2.1/`
 - `research-labs/subjectivity-pipeline_v0.1.0/`
+- `research-labs/second-order-metacognition_v0.1.0/`
+- `research-labs/evidence-responsive-governance-reassessment_v0.1.0/`
 - `research-labs/twin-genesis-embodiment_v0.1.0/`
 - `components/aion_runtime_v0.2.0/` — experimental substrate only
 
