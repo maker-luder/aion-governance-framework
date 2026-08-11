@@ -138,3 +138,12 @@ Repository connector writes do not execute these commands; execution status must
 `MODEL_ARTIFACT_CONTINUITY != SUBJECT_CONTINUITY`
 
 `RUNTIME_MIGRATION != SUBJECTIVITY_CONTINUITY`
+
+## Research extension: morphology fixture
+
+A research-only clean-room extension now records how embodiment morphology may be described and mutated without redefining morphology as a stable lineage anchor.
+
+- [`EMBODIMENT_GEOMETRY_FIXTURE_RESEARCH_NOTE.md`](./EMBODIMENT_GEOMETRY_FIXTURE_RESEARCH_NOTE.md) records provenance boundaries, external research crosswalk, clean-room constraints, candidate morphology descriptors, and non-claims.
+- [`MORPHOLOGY_MIGRATION_TEST_MATRIX.json`](./MORPHOLOGY_MIGRATION_TEST_MATRIX.json) records synthetic migration and negative-control cases for future implementation.
+
+The legacy/private geometry artifact that triggered this research question is not imported into the repository. Any future implementation must use synthetic or independently public-safe fixtures and must keep geometry outside `LineageAnchor` unless a separate research decision establishes a justified change.
