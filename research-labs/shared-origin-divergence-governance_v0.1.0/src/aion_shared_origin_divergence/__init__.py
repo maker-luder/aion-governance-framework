@@ -1,6 +1,11 @@
 from .model import (
+    AuthorityEnvelope,
     CrossLineageEncounter,
     CrossLineageMemoryTransfer,
+    LineageEvidenceProfile,
+    LineageEvent,
+    LineageEventKind,
+    LineageLedger,
     MatchedDivergenceComparison,
     MemoryDisposition,
     SharedOriginLineage,
@@ -8,8 +13,13 @@ from .model import (
 )
 
 __all__ = [
+    "AuthorityEnvelope",
     "CrossLineageEncounter",
     "CrossLineageMemoryTransfer",
+    "LineageEvidenceProfile",
+    "LineageEvent",
+    "LineageEventKind",
+    "LineageLedger",
     "MatchedDivergenceComparison",
     "MemoryDisposition",
     "SharedOriginLineage",

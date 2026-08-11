@@ -52,6 +52,11 @@ This lab extends those protections from **anti-contamination rules** into an exp
 - `CrossLineageMemoryTransfer`: records access/adoption/rejection without transferring autobiographical ownership.
 - `CrossLineageEncounter`: records exchanged, adopted and rejected material while prohibiting implicit identity merge.
 - `MatchedDivergenceComparison`: supports same-origin / different-development comparisons while preserving non-claims.
+- `LineageEvent` / `LineageLedger`: records a consistent, ordered derivation history with transparent deterministic integrity digests.
+- `LineageEvidenceProfile`: keeps AION and Astra evidence, replication and counterevidence profiles separate.
+- `AuthorityEnvelope`: prevents cross-lineage authority acceptance from exceeding the explicitly offered set or silently merging authority sources.
+
+The second engineering pass also requires adopted/rejected encounter items to be part of the exchanged set, separates controlled from divergent comparison factors, and records evaluator profiles and alternative explanations.
 
 ## Provenance vocabulary boundary
 
@@ -65,7 +70,10 @@ PROVENANCE_RELATION != IDENTITY_RELATION
 
 Branching/fission literature is used to motivate the distinction between continuity-like relations and numerical identity; it does not settle artificial-system identity. Recent agent-memory lineage work is used as an engineering analogy for provenance-preserving persistent state; it does not establish subjectivity.
 
-See `docs/LITERATURE_ALIGNMENT.md`.
+See:
+
+- `docs/LITERATURE_ALIGNMENT.md`
+- `docs/ENGINEERING_STRENGTHENING_2026-08-12.md`
 
 ## Epistemic role
 
@@ -88,4 +96,4 @@ No result from these tests alone may establish consciousness, moral status, lega
 - Human Research Owner: identified AION/Astra shared origin as a research area worth strengthening.
 - ChatGPT research review: formalized shared-origin divergence governance, literature alignment and the current executable substrate.
 - External sources: separately attributed in `docs/LITERATURE_ALIGNMENT.md`.
-- Codex: not invoked for this module.
+- Codex: not invoked for the original module; the 2026-08-12 strengthening pass added ordered lineage validation, per-lineage evidence profiles, non-expansive authority envelopes, deterministic serialization, tests and CI hardening. These remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION`.

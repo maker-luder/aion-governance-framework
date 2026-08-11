@@ -18,6 +18,10 @@ Autonomous cycles are governed by:
 - `research-workbench/four-domain-materialization/2026-08-10/RESEARCH_BRANCH_FREE_GROWTH_CHARTER.md`
 - `research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json`
 - `research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md`
+- `research-workbench/autonomous-growth/AUTONOMOUS_GROWTH_CONTRACT.json`
+- `research-workbench/autonomous-growth/AUTONOMOUS_CYCLE_RECORD_SCHEMA.json`
+
+The machine-checkable contract supplements the human-readable charter. It does not enlarge authorization. Research workflows validate the contract with read-only permissions, disabled checkout credential persistence and full-SHA-pinned first-party Actions.
 
 Preferred autonomous integration pattern:
 

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/maker-luder/aion-governance-framework/research-workbench/autonomous-growth/AUTONOMOUS_CYCLE_RECORD_SCHEMA.json",
+  "title": "AION Autonomous Research Cycle Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cycle_id",
+    "started_at",
+    "starting_research_sha",
+    "research_question",
+    "epistemic_role",
+    "source_refs",
+    "changed_paths",
+    "validation",
+    "result_class",
+    "candidate_branch",
+    "integration_status",
+    "hold_items"
+  ],
+  "properties": {
+    "cycle_id": {"type": "string", "minLength": 1},
+    "started_at": {"type": "string", "format": "date-time"},
+    "starting_research_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "research_question": {"type": "string", "minLength": 1},
+    "epistemic_role": {"enum": ["HYPOTHESIS", "MEASUREMENT", "FALSIFIER", "EXPERIMENTAL_SUBSTRATE", "ENABLING_ONLY"]},
+    "source_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1, "uniqueItems": true},
+    "changed_paths": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commands", "outcomes"],
+      "properties": {
+        "commands": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1},
+        "outcomes": {"type": "array", "items": {"type": "string", "minLength": 1}, "minItems": 1}
+      }
+    },
+    "result_class": {"enum": ["POSITIVE", "NEGATIVE", "NULL", "CONTRADICTORY", "INCONCLUSIVE", "ENABLING_ONLY"]},
+    "candidate_branch": {"type": "string", "pattern": "^autogrow/"},
+    "integration_status": {"enum": ["CANDIDATE_ONLY", "PR_OPEN", "INTEGRATED_RESEARCH_BRANCH", "REJECTED", "REVERTED", "HOLD"]},
+    "hold_items": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true}
+  }
+}

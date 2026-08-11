@@ -28,6 +28,14 @@ Each cycle should record, directly or by linked checkpoint/PR:
 
 No cycle entry is a scientific promotion record.
 
+Machine-checkable cycle requirements are defined by:
+
+- `AUTONOMOUS_GROWTH_CONTRACT.json`
+- `AUTONOMOUS_CYCLE_RECORD_SCHEMA.json`
+- `scripts/check_autonomous_growth_contract.py`
+
+Cycle JSON records belong under `research-workbench/autonomous-growth/cycles/`. The validator checks branch/effect locks, required fields, explicit positive/negative/null/contradictory/inconclusive classification, repository-relative paths, full starting SHAs, pinned read-only Actions dependencies and validation evidence.
+
 ## Initialization — 2026-08-12
 
 ```text

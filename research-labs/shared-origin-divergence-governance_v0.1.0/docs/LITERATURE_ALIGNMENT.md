@@ -60,6 +60,9 @@ PROV_DERIVATION
 References:
 - W3C PROV-O Recommendation: https://www.w3.org/TR/prov-o/
 - W3C PROV-DM: https://www.w3.org/TR/prov-dm/
+- W3C PROV-CONSTRAINTS: https://www.w3.org/TR/prov-constraints/
+
+The strengthening pass uses PROV-CONSTRAINTS as a validation pattern: unique identifiers, event ordering, impossible-state rejection and deterministic normalization. It does not claim full PROV conformance.
 
 ## 4. Agent-memory lineage
 
@@ -124,3 +127,10 @@ This line should be weakened or revised if:
 - the module begins using lineage terminology as a disguised subjectivity or rights claim.
 
 Negative, null and contradictory outcomes remain valid research results.
+
+## 8. Live-source verification — 2026-08-12
+
+Codex re-opened the official W3C specification and the three arXiv records above. The titles and abstracts matched the initial literature note. The repository therefore retains these references with two precision corrections:
+
+1. the W3C alignment now cites PROV-CONSTRAINTS directly for history-consistency validation;
+2. transparent SHA-256 event digests are treated only as inspectable integrity evidence, never as hidden watermarking, identity or authorship proof.

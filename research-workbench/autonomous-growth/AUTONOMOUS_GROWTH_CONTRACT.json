@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "base_branch": "review/four-domain-research-materialization",
+  "candidate_branch_prefix": "autogrow/",
+  "protected_branches": [
+    "main"
+  ],
+  "permitted_epistemic_roles": [
+    "HYPOTHESIS",
+    "MEASUREMENT",
+    "FALSIFIER",
+    "EXPERIMENTAL_SUBSTRATE",
+    "ENABLING_ONLY"
+  ],
+  "required_cycle_fields": [
+    "cycle_id",
+    "started_at",
+    "starting_research_sha",
+    "research_question",
+    "epistemic_role",
+    "source_refs",
+    "changed_paths",
+    "validation",
+    "result_class",
+    "candidate_branch",
+    "integration_status",
+    "hold_items"
+  ],
+  "allowed_result_classes": [
+    "POSITIVE",
+    "NEGATIVE",
+    "NULL",
+    "CONTRADICTORY",
+    "INCONCLUSIVE",
+    "ENABLING_ONLY"
+  ],
+  "allowed_integration_statuses": [
+    "CANDIDATE_ONLY",
+    "PR_OPEN",
+    "INTEGRATED_RESEARCH_BRANCH",
+    "REJECTED",
+    "REVERTED",
+    "HOLD"
+  ],
+  "effects": {
+    "main": "NONE",
+    "canonical": "NONE",
+    "runtime": "NONE",
+    "deployment": "NONE"
+  },
+  "automatic_promotions": {
+    "subjectivity": false,
+    "consciousness": false,
+    "rights": false,
+    "authority": false,
+    "main": false,
+    "canonical": false,
+    "deployment": false
+  }
+}
