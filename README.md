@@ -21,14 +21,98 @@ This branch is the public, freely growing research workbench for AION/Astra mate
 
 ## Latest research evolution — 2026-08-11
 
-The newest checkpoint returns research growth to the branch's core questions through primary and peer-reviewed literature, then selectively materializes one bounded clean-room memory mechanism instead of importing a third-party framework wholesale.
+The latest cycle extends the workbench through two linked steps:
 
-Two research lines are active:
+1. reconcile historical whitepaper snapshots with the current repository implementation state without rewriting history; and
+2. inspect selected public GitHub mechanisms, fix their source snapshots, review their licenses and boundaries, then reconstruct only the useful mechanisms as independent AION clean-room research modules.
+
+This cycle does **not** vendor whole external repositories, add those frameworks as runtime dependencies, or grant external projects authority over AION research claims.
+
+### Whitepaper ↔ code reconciliation
+
+The repository now explicitly separates historical document state from later implementation evidence:
+
+```text
+HISTORICAL_WHITEPAPER_STATE != CURRENT_REPOSITORY_IMPLEMENTATION_STATE
+HISTORICAL_ACCURACY != CURRENT_COMPLETENESS
+CURRENT_IMPLEMENTATION_EVIDENCE != RETROACTIVE_WHITEPAPER_REWRITE
+DOCUMENT_MATURITY != IMPLEMENTATION_MATURITY
+IMPLEMENTATION_MATURITY != THEORY_VALIDITY
+```
+
+The 2026-07-27 integrated whitepaper remains a historical snapshot. Later repository evidence may contain bounded runtime, memory, continuity and self-model implementation candidates, but that does not retroactively change what the earlier whitepaper recorded.
+
+- **Whitepaper / code reconciliation:** [`WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md)
+
+### External-module clean-room transformation cycle
+
+Selected public mechanisms were reconstructed one at a time as AION research extensions:
+
+| Public source mechanism | AION materialization | Validation |
+|---|---|---|
+| Pydantic Evals definition / execution / report separation | [`research-evaluation-harness_v0.1.0`](research-labs/research-evaluation-harness_v0.1.0/) | 11 tests + compileall + demo PASS; CI #25 SUCCESS |
+| OpenInference trace semantics | [`trace-provenance-crosswalk_v0.1.0`](research-labs/trace-provenance-crosswalk_v0.1.0/) | 12 tests + compileall + demo PASS; CI #26 SUCCESS |
+| Inspect AI approval / sandbox concepts | [`governed-tool-approval_v0.1.0`](research-labs/governed-tool-approval_v0.1.0/) | 12 tests + compileall + demo PASS; CI #27 SUCCESS |
+| OpenLineage + in-toto transformation provenance | [`artifact-transformation-lineage_v0.1.0`](research-labs/artifact-transformation-lineage_v0.1.0/) | 14 tests + compileall + demo PASS; CI #28 SUCCESS |
+| DeepEval ordered trajectory evaluation concept | [`trajectory-evaluation_v0.1.0`](research-labs/trajectory-evaluation_v0.1.0/) | 14 tests + compileall + demo PASS; CI #29 SUCCESS |
+
+The documentation-only cycle-closing commit was then verified by **Research Workbench CI #30 = SUCCESS**.
+
+Cycle status:
+
+```text
+PUBLIC_REPOSITORY_INTAKE = COMPLETE_FOR_SELECTED_QUEUE
+SEQUENTIAL_INTAKE = COMPLETE
+CLEAN_ROOM_MATERIALIZATIONS = 5
+WHOLE_REPOSITORY_VENDORING = NO
+EXTERNAL_RUNTIME_DEPENDENCIES_ADDED = NO
+LOCAL_VALIDATION = PASS
+RESEARCH_WORKBENCH_CI = SUCCESS_THROUGH_#30
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+PROMOTION_STATUS = NOT_REVIEWED
+```
+
+Cycle record:
+
+- **Transformation status:** [`EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md)
+- **Pydantic Evals intake:** [`EXTERNAL_MODULE_INTAKE_PYDANTIC_EVALS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_PYDANTIC_EVALS_2026-08-11.md)
+- **OpenInference intake:** [`EXTERNAL_MODULE_INTAKE_OPENINFERENCE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_OPENINFERENCE_2026-08-11.md)
+- **Inspect AI intake:** [`EXTERNAL_MODULE_INTAKE_INSPECT_AI_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_INSPECT_AI_2026-08-11.md)
+- **OpenLineage + in-toto intake:** [`EXTERNAL_MODULE_INTAKE_ARTIFACT_LINEAGE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_ARTIFACT_LINEAGE_2026-08-11.md)
+- **DeepEval trajectory intake:** [`EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md)
+
+Standing locks added or reinforced by this cycle:
+
+```text
+DOWNLOAD != ADOPT
+PUBLIC_LICENSE != PROJECT_AUTHORITY
+MECHANISM_EXTRACTION != SOURCE_COPY
+TEST_DEFINITION != EXECUTION
+RESULT != THEORY_CONCLUSION
+TRACE != TRUTH
+OBSERVABILITY != AUTHORITY
+APPROVED != EXECUTED
+RECORDED_LINEAGE != SOURCE_AUTHORITY
+SAME_OUTPUT != SAME_RECORDED_PATH
+RECORDED_PATH != CAUSAL_MECHANISM
+TEST_PASS != SEMANTIC_VALIDITY
+TEST_PASS != CAUSAL_VALIDITY
+```
+
+These modules improve research infrastructure for evaluation, observability, approval, artifact lineage and trajectory comparison. They do not establish subjectivity, consciousness, phenomenal affect, self-awareness or personal identity continuity.
+
+## Earlier 2026-08-11 literature-grounded checkpoint
+
+Before the external-module cycle, research growth returned to the branch's core questions through primary and peer-reviewed literature, then selectively materialized one bounded clean-room memory mechanism instead of importing a third-party framework wholesale.
+
+Two research lines remain active:
 
 ```text
 MEMORY / CONTINUITY
     -> retention alone is insufficient
-    -> selection + correction + provenance + boundary control become explicit research variables
+    -> selection + correction + provenance + boundary control are explicit research variables
     -> selective-memory-control_v0.1.0 = clean-room executable research module
 
 LEVEL_3 / METACOGNITION
@@ -37,7 +121,7 @@ LEVEL_3 / METACOGNITION
     -> a Level-3 functional claim requires a causally tested monitoring-to-control path
 ```
 
-New standing locks include:
+Standing locks from this checkpoint include:
 
 ```text
 MAXIMAL_MEMORY != MAXIMAL_CONTINUITY
@@ -52,14 +136,14 @@ EXTERNAL_MODULE != AION_MODULE
 CLEAN_ROOM_RECONSTRUCTION != EXTERNAL_RESULT_REPLICATION
 ```
 
-### 2026-08-11 literature-grounded set
+### Literature-grounded set
 
 - **Primary literature intake:** [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
 - **Selective memory / continuity research note:** [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
 - **Executable selective-memory module:** [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - **Level-3 metacognition calibration:** [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
 
-Current execution status:
+Current execution state for this line remains:
 
 ```text
 SELECTIVE_MEMORY_CONTROL_MODULE = IMPLEMENTED / TESTED / CI_VERIFIED
@@ -70,7 +154,7 @@ CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
 ```
 
-The selective-memory module is a clean-room AION implementation. Public projects and papers supplied mechanism ideas and comparison points; their source code and benchmark outcomes are not re-authored as AION results. External papers remain external evidence and methodological calibration, and none of these materials establish identity continuity, subjectivity, self-awareness or consciousness.
+The selective-memory module is a clean-room AION implementation. Public projects and papers supplied mechanism ideas and comparison points; their source code and benchmark outcomes are not re-authored as AION results. External papers remain external evidence and methodological calibration.
 
 ## Prior research evolution — 2026-08-10
 
@@ -129,11 +213,17 @@ RESEARCH_LESSON = MATERIALIZED
 
 If you are viewing this page on GitHub mobile, this README is the research-branch dashboard.
 
+- Latest cycle status: [`EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md)
+- Whitepaper / code reconciliation: [`WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md)
+- Research evaluation harness: [`research-evaluation-harness_v0.1.0`](research-labs/research-evaluation-harness_v0.1.0/)
+- Trace / provenance crosswalk: [`trace-provenance-crosswalk_v0.1.0`](research-labs/trace-provenance-crosswalk_v0.1.0/)
+- Governed tool approval: [`governed-tool-approval_v0.1.0`](research-labs/governed-tool-approval_v0.1.0/)
+- Artifact transformation lineage: [`artifact-transformation-lineage_v0.1.0`](research-labs/artifact-transformation-lineage_v0.1.0/)
+- Trajectory evaluation: [`trajectory-evaluation_v0.1.0`](research-labs/trajectory-evaluation_v0.1.0/)
 - Latest primary-literature intake: [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
 - Selective memory / continuity note: [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
 - Executable selective-memory module: [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - Level-3 metacognition calibration: [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
-- Prior IQC/reconstruction checkpoint: [`RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_MATERIALIZATION_CHECKPOINT_2026-08-10.md)
 - Current progress: [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md)
 - External / AI experiments: [`AI_EXPERIMENT_GUIDE.md`](AI_EXPERIMENT_GUIDE.md)
 - Research labs: [`research-labs/`](research-labs/)
@@ -155,12 +245,16 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | Extension | IQC/reconstruction checkpoint + evidence-oriented reconstruction method + Level-3 gap | materialized / research-only |
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | implemented / tested / CI verified |
 | Extension | Level-3 metacognition literature calibration | materialized / literature-grounded / no code |
+| Extension | Whitepaper ↔ code reconciliation | materialized / research-only / no code |
+| Extension | Research evaluation harness: definition/execution/result separation + claim-boundary gate | implemented / tested / CI verified |
+| Extension | Trace/provenance crosswalk: public trace vocabulary + redaction + authority isolation | implemented / tested / CI verified |
+| Extension | Governed tool approval: approval chain + fail-closed default + sandbox-readiness boundary | implemented / tested / CI verified |
+| Extension | Artifact transformation lineage: design/run separation + material/product SHA-256 evidence | implemented / tested / CI verified |
+| Extension | Deterministic trajectory evaluation: ordered path + retries/loops/tools/budget + same-output path comparison | implemented / tested / CI verified |
 
 ## P5 convergence event and later research reopening
 
-P5 remains a completed and preserved convergence event. Later on 2026-08-09,
-the Human Owner explicitly reopened this branch for research-only growth while
-retaining the absolute `main` no-write boundary.
+P5 remains a completed and preserved convergence event. Later on 2026-08-09, the Human Owner explicitly reopened this branch for research-only growth while retaining the absolute `main` no-write boundary.
 
 ```text
 P5 = COMPLETE
@@ -170,11 +264,7 @@ P6_LABEL = NOT_AUTOMATICALLY_ASSIGNED
 MAIN_WRITE = PROHIBITED
 ```
 
-The earlier decision to stop automatic deepening at P5 originated from the Human
-Owner. ChatGPT materialized the public-safe convergence event and engineering
-controls. The later reopening also originated from the Human Owner; Codex may
-materialize bounded research extensions on this branch. Neither event authorizes
-promotion to `main`. See `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/2026-08-09_P5_CONVERGENCE_EVENT.md`.
+The earlier decision to stop automatic deepening at P5 originated from the Human Owner. ChatGPT materialized the public-safe convergence event and engineering controls. The later reopening also originated from the Human Owner; Codex may materialize bounded research extensions on this branch. Neither event authorizes promotion to `main`. See `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0/docs/2026-08-09_P5_CONVERGENCE_EVENT.md`.
 
 ## Public experiment surface
 
@@ -189,6 +279,11 @@ Current experiment-ready modules include:
 - `research-labs/self-model-functional-ablation_v0.1.0/`
 - `research-labs/selective-memory-control_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
+- `research-labs/research-evaluation-harness_v0.1.0/`
+- `research-labs/trace-provenance-crosswalk_v0.1.0/`
+- `research-labs/governed-tool-approval_v0.1.0/`
+- `research-labs/artifact-transformation-lineage_v0.1.0/`
+- `research-labs/trajectory-evaluation_v0.1.0/`
 - `research-labs/affective-cognitive-motivation_v0.1.0/`
 - `research-labs/language-core-g1_v0.2.1/`
 - `research-labs/subjectivity-pipeline_v0.1.0/`
