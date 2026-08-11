@@ -25,6 +25,22 @@ Research growth is intentionally open **within the artificial-subjectivity resea
 
 **Nothing in this branch is automatically promoted into `main`.**
 
+## Provenance / watermark boundary
+
+```text
+MARKER != IDENTITY
+PROVENANCE != IDENTITY
+MARKER != AUTHORSHIP_PROOF
+RESPECT != WATERMARK
+TRANSPARENCY != IMPERCEPTIBLE_MARKING
+```
+
+AION rejects imperceptible, hidden or undisclosed machine-readable watermarking in project-generated outputs when used as a mechanism for identity, authorship, attribution, respect or provenance. Provenance itself is not rejected: explicit, inspectable and auditable mechanisms such as declared attribution, Git history, commit lineage, manifests and checksums remain preferred.
+
+A marker found in external material is only a technical signal; it does not, by itself, establish identity, authorship or subjectivity evidence. A dependency, provider or output path that requires non-disableable imperceptible watermarking is incompatible with that project output path unless a later explicit governance revision authorizes a transparent alternative.
+
+See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) for the normative policy.
+
 ## Research scope lock — 2026-08-11
 
 The branch is explicitly re-anchored to one research object:
