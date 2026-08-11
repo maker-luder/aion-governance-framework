@@ -7,6 +7,7 @@ from aion_second_order import (
     SignalSource,
     run_condition,
     run_matched_experiment,
+    run_threshold_sweep,
     summarize,
 )
 from aion_self_model_ablation import Action, Task, default_benchmark_tasks
@@ -103,3 +104,32 @@ def test_all_condition_summaries_preserve_claim_boundaries():
     assert all(summary.anti_lookahead_valid for summary in result.summaries)
     assert all(summary.functional_contribution_status == "NOT_ESTABLISHED" for summary in result.summaries)
     assert all(summary.subjectivity_conclusion == "NOT_ESTABLISHED" for summary in result.summaries)
+
+
+def test_threshold_sweep_changes_only_bounded_control_parameter():
+    points = run_threshold_sweep((0.50, 0.75, 0.90))
+    assert tuple(point.verification_threshold for point in points) == (0.50, 0.75, 0.90)
+    assert all(point.experiment_status == "DEFERRED_TO_EXPERIMENT" for point in points)
+    assert all(point.result.same_task_stream for point in points)
+    assert all(point.result.same_first_order_predictions for point in points)
+    plus_control_requests = []
+    for point in points:
+        summary = next(
+            item
+            for item in point.result.summaries
+            if item.condition is SecondOrderCondition.MONITOR_PLUS_CONTROL
+        )
+        plus_control_requests.append(summary.verification_requests)
+        assert summary.functional_contribution_status == "NOT_ESTABLISHED"
+    assert plus_control_requests == sorted(plus_control_requests)
+
+
+def test_threshold_sweep_rejects_ambiguous_or_invalid_grids():
+    import pytest
+
+    with pytest.raises(ValueError, match="non-empty"):
+        run_threshold_sweep(())
+    with pytest.raises(ValueError, match="unique"):
+        run_threshold_sweep((0.75, 0.75))
+    with pytest.raises(ValueError, match="between 0 and 1"):
+        run_threshold_sweep((1.1,))

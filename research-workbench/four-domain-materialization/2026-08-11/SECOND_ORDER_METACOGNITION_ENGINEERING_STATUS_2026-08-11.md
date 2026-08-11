@@ -36,12 +36,15 @@ These are Codex research implementation decisions, not canonical doctrine:
    new analysis doctrine.
 9. expose missingness, effective sample size, evidence growth and action-conditioned
    observation counts without imputing unavailable outcomes.
+10. provide matched threshold-sweep plumbing without selecting or tuning a preferred
+    threshold; scientific execution remains `DEFERRED_TO_EXPERIMENT`.
 
 ## Still open
 
 - independent fixture design and preregistration;
 - whether any cross-condition monitor-evidence pooling is scientifically admissible;
-- threshold sensitivity and adverse-condition experiments;
+- adverse-condition experiments and execution of a preregistered threshold study
+  (threshold-sweep support is implemented);
 - causal correction for feedback starvation / selection bias outside the full-label
   synthetic contract (diagnostics are implemented; correction remains open);
 - integration with the generic research evaluation harness;

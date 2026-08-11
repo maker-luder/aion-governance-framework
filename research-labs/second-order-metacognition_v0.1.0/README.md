@@ -82,7 +82,13 @@ From this directory:
 ```powershell
 python -m pytest -q -p no:cacheprovider
 python scripts/run_demo.py
+python scripts/run_threshold_sweep_demo.py
 ```
+
+`run_threshold_sweep(...)` supports preregistered sensitivity grids without selecting a
+preferred threshold. The bundled six-point grid is a demonstration input, not a constant
+or tuned scientific result. Every point retains its separate raw condition summaries and
+reports `DEFERRED_TO_EXPERIMENT`.
 
 ## Non-claims
 

@@ -105,3 +105,11 @@ RUNTIME_EFFECT = NONE
 
 Independent reruns, alternative fixtures, threshold sensitivity, adverse cases and formal
 analysis remain later QA/research work.
+
+## Threshold sensitivity substrate
+
+`run_threshold_sweep(...)` repeats the complete matched experiment over an explicit,
+unique, bounded threshold grid. It reuses one immutable task tuple for every point and
+does not alter the first-order model, task stream or outcome timing. Results remain
+separate by threshold; no aggregate score, preferred threshold or benefit claim is
+computed. Executing the full preregistered study remains `DEFERRED_TO_EXPERIMENT`.

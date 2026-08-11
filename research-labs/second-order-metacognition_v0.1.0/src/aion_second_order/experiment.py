@@ -57,6 +57,13 @@ class MatchedExperimentResult:
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
 
 
+@dataclass(frozen=True, slots=True)
+class ThresholdSweepPoint:
+    verification_threshold: float
+    result: MatchedExperimentResult
+    experiment_status: str = "DEFERRED_TO_EXPERIMENT"
+
+
 class SecondOrderRunner:
     """Two-phase runner: decision is fixed before external outcome evidence arrives."""
 
@@ -298,4 +305,35 @@ def run_matched_experiment(
             item.control_disposition is ControlDisposition.ACCEPT_FIRST_ORDER
             for item in monitor_only
         ),
+    )
+
+
+def run_threshold_sweep(
+    thresholds: Iterable[float],
+    tasks: Iterable[Task] | None = None,
+    *,
+    latent_capability: float = 0.62,
+) -> tuple[ThresholdSweepPoint, ...]:
+    """Materialize matched threshold conditions without selecting a preferred value."""
+
+    values = tuple(float(value) for value in thresholds)
+    if not values:
+        raise ValueError("thresholds must be non-empty")
+    if len(set(values)) != len(values):
+        raise ValueError("thresholds must be unique")
+    if any(not 0.0 <= value <= 1.0 for value in values):
+        raise ValueError("thresholds must be between 0 and 1")
+    task_stream = tuple(default_benchmark_tasks() if tasks is None else tasks)
+    if not task_stream:
+        raise ValueError("tasks must be non-empty")
+    return tuple(
+        ThresholdSweepPoint(
+            verification_threshold=value,
+            result=run_matched_experiment(
+                task_stream,
+                latent_capability=latent_capability,
+                verification_threshold=value,
+            ),
+        )
+        for value in values
     )

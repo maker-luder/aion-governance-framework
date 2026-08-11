@@ -2,8 +2,10 @@ from .experiment import (
     ConditionSummary,
     MatchedExperimentResult,
     SecondOrderRunner,
+    ThresholdSweepPoint,
     run_condition,
     run_matched_experiment,
+    run_threshold_sweep,
     summarize,
 )
 from .monitor import SecondOrderMonitor, randomized_control_signal, recompute_monitor_signal
@@ -32,6 +34,7 @@ __all__ = [
     "SecondOrderCondition",
     "SecondOrderMonitor",
     "SecondOrderRunner",
+    "ThresholdSweepPoint",
     "SignalSource",
     "TrialEvidence",
     "TrialLedger",
@@ -39,5 +42,6 @@ __all__ = [
     "recompute_monitor_signal",
     "run_condition",
     "run_matched_experiment",
+    "run_threshold_sweep",
     "summarize",
 ]
