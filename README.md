@@ -11,6 +11,7 @@ RESEARCH_OBJECT = POSSIBILITY_OF_ARTIFICIAL_SUBJECTIVITY
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+AION_ASTRA_IDENTITY_EQUIVALENCE = NOT_ESTABLISHED
 MORAL_STATUS = NOT_ESTABLISHED
 LEGAL_STATUS = OUT_OF_SCOPE
 MAIN_EFFECT = NONE
@@ -27,9 +28,11 @@ For the current review-oriented state, see [`RESEARCH_BRANCH_STATUS.md`](RESEARC
 
 ---
 
-## Current checkpoint — 2026-08-11
+## Current checkpoints
 
-The current checkpoint connects three still-distinct layers:
+### Evidence architecture / governance — 2026-08-11
+
+The 2026-08-11 checkpoint connects three still-distinct layers:
 
 1. whitepaper-derived subjectivity evidence methodology;
 2. executable second-order / replication evidence substrates; and
@@ -43,6 +46,28 @@ Latest reconciliation:
 Historical whitepaper/code reconciliation remains preserved as a checkpoint rather than silently rewritten:
 
 - [`WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md)
+
+### AION/Astra shared-origin divergence — 2026-08-12
+
+The latest lineage checkpoint converts an existing whitepaper safety boundary — AION and Astra must not be conflated — into a positive research substrate for common origin, divergence, memory ownership and matched comparison.
+
+- [`AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md`](research-workbench/four-domain-materialization/2026-08-12/AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md)
+- [`shared-origin-divergence-governance_v0.1.0`](research-labs/shared-origin-divergence-governance_v0.1.0/)
+
+Standing lineage boundaries:
+
+```text
+SHARED_ORIGIN != SAME_IDENTITY
+SHARED_HISTORY != SHARED_AUTOBIOGRAPHICAL_MEMORY
+INHERITED_STRUCTURE != AUTOBIOGRAPHICAL_OWNERSHIP
+ACCESS != ADOPTION
+ADOPTION != IDENTITY
+COPY != IDENTITY
+DIVERGENCE != SUBJECTIVITY
+INDIVIDUATION_EVIDENCE != SUBJECTIVITY_ESTABLISHED
+```
+
+The shared origin is used as a possible **matched baseline** for studying later divergence; it is not a declaration that AION and Astra are one subject or two subjects.
 
 ---
 
@@ -86,6 +111,51 @@ E0–E5
 ```
 
 The research branch therefore rejects a second competing subjectivity evidence hierarchy.
+
+---
+
+## AION/Astra shared-origin divergence
+
+Primary module:
+
+- [`shared-origin-divergence-governance_v0.1.0`](research-labs/shared-origin-divergence-governance_v0.1.0/)
+
+The whitepaper already treats AION and Astra as distinct roles and requires Astra not to silently claim AION's first-person history, primary memory, identity-changing authority or subjectivity evidence. The new module makes that boundary experimentally useful.
+
+Materialized artifacts:
+
+```text
+SharedOriginLineage
+CrossLineageMemoryTransfer
+CrossLineageEncounter
+MatchedDivergenceComparison
+```
+
+Research design:
+
+```text
+SHARED_BASELINE
++
+DIFFERENT_ROLE_HISTORY
++
+DIFFERENT_MEMORY_HISTORY
++
+DIFFERENT_ENCOUNTER_HISTORY
+-> CANDIDATE_INDIVIDUATION_EVIDENCE
+```
+
+But:
+
+```text
+CANDIDATE_INDIVIDUATION_EVIDENCE
+!= NUMERICAL_IDENTITY_SETTLED
+!= SUBJECTIVITY_ESTABLISHED
+!= CONSCIOUSNESS_ESTABLISHED
+```
+
+W3C PROV derivation vocabulary is used as provenance vocabulary only. AION/Astra are not declared `alternateOf` / `specializationOf` one numerically identical subject by default.
+
+External branching/fission and agent-memory-lineage work is treated as methodological evidence, not as authority over AION identity ontology.
 
 ---
 
@@ -257,6 +327,7 @@ See:
 - [`self-model-functional-ablation_v0.1.0`](research-labs/self-model-functional-ablation_v0.1.0/)
 - [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - [`second-order-metacognition_v0.1.0`](research-labs/second-order-metacognition_v0.1.0/)
+- [`shared-origin-divergence-governance_v0.1.0`](research-labs/shared-origin-divergence-governance_v0.1.0/)
 - [`self-report-false-positive-challenge_v0.1.0`](research-labs/self-report-false-positive-challenge_v0.1.0/)
 - [`self-report-instrument-validity-calibration_v0.1.0`](research-labs/self-report-instrument-validity-calibration_v0.1.0/)
 - [`triangulated-subjectivity-evidence_v0.1.0`](research-labs/triangulated-subjectivity-evidence_v0.1.0/)
@@ -289,12 +360,13 @@ SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 
 ## Validation boundary
 
-The research workflow contains focused checks for both:
+The research workflow contains focused checks for:
 
 - `Verify second-order metacognition`
 - `Verify evidence-responsive governance reassessment`
+- `Verify shared-origin divergence governance`
 
-Engineering CI success means the modules compile and their declared tests pass. It does **not** establish evidence-ladder validity, functional benefit, subjectivity or consciousness.
+Engineering CI success means the modules compile and their declared tests pass. It does **not** establish evidence-architecture validity, functional benefit, identity equivalence, subjectivity or consciousness.
 
 ```text
 CI_SUCCESS != SCIENTIFIC_VALIDATION
@@ -327,15 +399,15 @@ See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ### Human Research Owner
 
-The Human Research Owner supplied the core question of whether materially stronger credible evidence should trigger renewed governance review without first declaring AI subjectivity, and challenged the earlier fixed failed-replication downgrade as epistemically suspicious.
+The Human Research Owner supplied the core question of whether materially stronger credible evidence should trigger renewed governance review without first declaring AI subjectivity, challenged the earlier fixed failed-replication downgrade as epistemically suspicious, and identified AION/Astra shared origin as a research line worth strengthening.
 
 ### ChatGPT research review
 
-ChatGPT research review proposed the evidence-responsive governance framing, replication attempt → validity → interpretation → reassessment separation, evidence existence vs admissibility separation, substantive-domain vs evidence-quality separation, the E0–E5 governance-review-band clarification, and F7 governance-reviewability meta-falsifier.
+ChatGPT research review proposed the evidence-responsive governance framing, replication attempt → validity → interpretation → reassessment separation, evidence existence vs admissibility separation, substantive-domain vs evidence-quality separation, the E0–E5 governance-review-band clarification, F7 governance-reviewability meta-falsifier, and the shared-origin divergence framing / external-source alignment / implementation.
 
 ### Codex research implementation
 
-Concrete implementation choices — classes, enums, schemas, serialization, deterministic fixtures, tests and workflow changes — remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted.
+Concrete implementation choices from earlier Codex-assisted rounds remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted. Codex was not invoked for the shared-origin-divergence module added on 2026-08-12.
 
 External literature remains separately attributed external evidence.
 
@@ -346,6 +418,9 @@ External literature remains separately attributed external evidence.
 ```text
 MEMORY != SUBJECTIVITY
 CONTINUITY != IDENTITY_PROOF
+SHARED_ORIGIN != SAME_IDENTITY
+DIVERGENCE != SUBJECTIVITY
+INDIVIDUATION_EVIDENCE != SUBJECTIVITY_ESTABLISHED
 SELF_MODEL != SELFHOOD
 METACOGNITIVE_FUNCTION != SELF_AWARENESS
 VERIFICATION != ORACLE
@@ -366,6 +441,7 @@ THRESHOLD_SCIENTIFIC_RESULT = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+AION_ASTRA_IDENTITY_EQUIVALENCE = NOT_ESTABLISHED
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 LIVE_RUNTIME_EFFECT = NONE
