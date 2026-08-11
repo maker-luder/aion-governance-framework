@@ -53,9 +53,10 @@ authority, scope and provenance. Oracle-labelled, future, post-action or mismatc
 payloads are retained as rejected verification traces and do not affect disposition.
 
 The deterministic provider is in-memory, synthetic and explicitly fallible. It supports
-`CORRECT`, `INCORRECT`, `AMBIGUOUS`, `UNAVAILABLE` and `INSUFFICIENT` assessments. In
-v0.1.0 the original first-order decision and `REQUEST_VERIFICATION` disposition remain
-unchanged; verification is trace-only experimental substrate.
+`CORRECT`, `INCORRECT`, `AMBIGUOUS`, `UNAVAILABLE` and `INSUFFICIENT` assessments. The
+original `VerificationTrace` remains trace-only. A separate research intervention artifact
+may derive a post-verification disposition without overwriting the pending first-order
+prediction, action, estimate or control disposition.
 
 Every request now binds its assessment to a typed `FIRST_ORDER_PREDICTION` target containing
 the target reference, trial ID and immutable pre-verification prediction snapshot. Evidence
@@ -119,6 +120,7 @@ python -m pytest -q -p no:cacheprovider
 python scripts/run_demo.py
 python scripts/run_verification_demo.py
 python scripts/run_evaluation_adapter_demo.py
+python scripts/run_intervention_demo.py
 python scripts/run_threshold_sweep_demo.py
 ```
 
@@ -146,6 +148,30 @@ The generic `pass_rate` checks only adapter engineering invariants. Even a value
 remains `RESEARCH_EVIDENCE_ONLY`; both `subjectivity_established` and
 `consciousness_established` are passed through `ClaimBoundaryGate` and receive
 `DENY_PROMOTION`. The adapter neither ranks nor selects thresholds.
+
+## Verification intervention substrate
+
+`VerificationIntervention` forms a fourth, separate layer after the immutable first-order
+decision, second-order control and verification result. Four matched conditions are
+implemented: `VERIFICATION_TRACE_ONLY`, `VERIFICATION_APPLIED`,
+`VERIFICATION_ABLATED`, and seeded `VERIFICATION_RANDOMIZED`.
+
+The experimental applied policy maps accepted `CORRECT` to `ACCEPT_FIRST_ORDER`; every
+other accepted or rejected result maps to `DEFER`. `INCORRECT` never flips the prediction.
+This is a `CODEX_RESEARCH_IMPLEMENTATION_DECISION`, not canonical or runtime policy.
+`VERIFICATION_STALE` remains deferred because stale target/result binding needs a separate
+admissibility design.
+
+Matched runs preserve task stream, first-order model, estimates, predictions, actions,
+outcome timing and threshold. Raw metrics retain intervention opportunities, applied
+interventions, baseline/post commit/defer counts, successful/failed baseline commits,
+`prevented_failed_commit`, `unnecessary_defer`, `retained_successful_commit`, and
+verification rejection/unavailable/ambiguous counts. No utility score is computed.
+
+The causal trade-off counts are identified only for the synthetic full-label contract.
+Under `COMMIT_ONLY`, outcome-dependent metrics return `None / NOT_IDENTIFIABLE`; missing
+counterfactuals are not imputed. `prevented_failed_commit` is an operational matched-
+fixture count, not proof of an unobserved real-world counterfactual.
 
 ## Non-claims
 

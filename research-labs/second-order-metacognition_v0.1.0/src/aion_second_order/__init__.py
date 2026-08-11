@@ -10,11 +10,21 @@ from .experiment import (
 )
 from .evaluation_adapter import (
     ConditionVerificationDiagnostics,
+    InterventionEvaluationArtifact,
     SecondOrderContractEvaluator,
     SecondOrderEvaluationArtifact,
     adapt_matched_experiment,
+    adapt_intervention_experiment,
 )
 from .monitor import SecondOrderMonitor, randomized_control_signal, recompute_monitor_signal
+from .intervention import (
+    InterventionConditionResult,
+    InterventionDiagnostics,
+    MatchedInterventionExperimentResult,
+    run_intervention_condition,
+    run_matched_intervention_experiment,
+    summarize_intervention,
+)
 from .records import (
     MONITOR_SEMANTICS,
     ControlDisposition,
@@ -35,6 +45,9 @@ from .verification import (
     VerificationEvidence,
     VerificationEvidenceType,
     VerificationFixture,
+    VerificationIntervention,
+    VerificationInterventionCondition,
+    VerificationInterventionLedger,
     VerificationLedger,
     VerificationPhase,
     VerificationProvider,
@@ -46,6 +59,7 @@ from .verification import (
     VerificationTarget,
     VerificationTargetKind,
     bind_verification,
+    materialize_intervention,
     summarize_verification,
 )
 
@@ -54,10 +68,14 @@ __all__ = [
     "ConditionSummary",
     "ControlDisposition",
     "ConditionVerificationDiagnostics",
+    "InterventionEvaluationArtifact",
     "SecondOrderContractEvaluator",
     "SecondOrderEvaluationArtifact",
     "MatchedExperimentResult",
     "MonitorSignal",
+    "InterventionConditionResult",
+    "InterventionDiagnostics",
+    "MatchedInterventionExperimentResult",
     "OutcomeContract",
     "OutcomeStatus",
     "PendingDecision",
@@ -75,6 +93,9 @@ __all__ = [
     "VerificationEvidence",
     "VerificationEvidenceType",
     "VerificationFixture",
+    "VerificationIntervention",
+    "VerificationInterventionCondition",
+    "VerificationInterventionLedger",
     "VerificationLedger",
     "VerificationPhase",
     "VerificationProvider",
@@ -86,12 +107,17 @@ __all__ = [
     "VerificationTarget",
     "VerificationTargetKind",
     "bind_verification",
+    "materialize_intervention",
     "adapt_matched_experiment",
+    "adapt_intervention_experiment",
     "randomized_control_signal",
     "recompute_monitor_signal",
     "run_condition",
     "run_matched_experiment",
+    "run_intervention_condition",
+    "run_matched_intervention_experiment",
     "run_threshold_sweep",
     "summarize",
     "summarize_verification",
+    "summarize_intervention",
 ]

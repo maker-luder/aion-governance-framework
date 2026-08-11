@@ -20,11 +20,15 @@ from .records import (
 from .verification import (
     DeterministicVerificationProvider,
     VerificationLedger,
+    VerificationIntervention,
+    VerificationInterventionCondition,
+    VerificationInterventionLedger,
     VerificationProvider,
     VerificationProviderCapabilities,
     VerificationRequest,
     VerificationTrace,
     bind_verification,
+    materialize_intervention,
 )
 
 
@@ -102,6 +106,7 @@ class SecondOrderRunner:
         )
         self.ledger = TrialLedger()
         self.verification_ledger = VerificationLedger()
+        self.intervention_ledger = VerificationInterventionLedger()
         self._pending: PendingDecision | None = None
         self._stale_snapshot: MonitorSignal | None = None
 
@@ -168,6 +173,29 @@ class SecondOrderRunner:
         )
         self.verification_ledger.append(trace)
         return trace
+
+    def intervene_pending(
+        self,
+        condition: VerificationInterventionCondition,
+        *,
+        random_seed: int = 41,
+    ) -> VerificationIntervention:
+        if self._pending is None:
+            raise ValueError("intervention requires an active pending decision")
+        matching = tuple(
+            item
+            for item in self.verification_ledger.traces
+            if item.request.trial_id == self._pending.trial_id
+        )
+        if len(matching) != 1:
+            raise ValueError("intervention requires exactly one verification trace")
+        intervention = materialize_intervention(
+            matching[0],
+            condition,
+            random_seed=random_seed,
+        )
+        self.intervention_ledger.append(intervention)
+        return intervention
 
     def record_outcome(
         self,

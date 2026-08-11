@@ -76,7 +76,7 @@ post-action evidence and scope/request mismatches. Rejection is preserved in the
 VERIFICATION_RESULT != BENCHMARK_OUTCOME
 VERIFICATION_RESULT != PROJECT_AUTHORITY
 FIRST_ORDER_DECISION = PRESERVED
-VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
+VERIFICATION_ACTION_EFFECT = SEPARATE_RESEARCH_INTERVENTION_ARTIFACT
 ```
 
 Raw verification diagnostics retain request/attempt, availability, ambiguity, rejection,
@@ -95,6 +95,34 @@ implementation. Capability declarations from arbitrary providers are not treated
 The verification ledger serializes to schema `aion.verification-ledger.v1` using sorted,
 compact JSON. Accepted, incorrect and rejected traces restore with semantic equality,
 including rejection reason, target, provenance and disposition fields.
+
+## Separate intervention layer
+
+The verification trace remains immutable and trace-only. `VerificationIntervention`
+separately stores condition, request/target, original and post-verification dispositions,
+whether disposition changed, policy provenance, and deterministic randomization metadata.
+It never rewrites the first-order prediction, action or estimate.
+
+```text
+FIRST_ORDER_DECISION
+-> SECOND_ORDER_CONTROL_DISPOSITION
+-> VERIFICATION_RESULT
+-> RESEARCH_POST_VERIFICATION_DISPOSITION
+```
+
+The applied research policy accepts the first-order path only for accepted `CORRECT`;
+every other assessment or rejected evidence defers. It never flips a prediction. Trace-
+only and ablated conditions retain the original disposition. Randomized intervention is
+derived from a fixed seed/run/request digest without assessment or outcome. Stale
+intervention is deferred.
+
+The matched intervention experiment uses the full-label delayed synthetic outcome contract
+by default. Its raw metrics are operational counts, not an aggregate benefit score. For
+`COMMIT_ONLY`, outcome-dependent trade-off counts remain `None / NOT_IDENTIFIABLE`.
+
+The intervention evaluation adapter creates one generic-harness case per intervention
+condition. Each case carries only its own condition summary, verification diagnostics,
+intervention diagnostics, run reference and provenance.
 
 ## Measures
 

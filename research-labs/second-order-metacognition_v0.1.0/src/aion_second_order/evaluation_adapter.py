@@ -13,6 +13,7 @@ from aion_research_eval import (
 )
 
 from .experiment import MatchedExperimentResult
+from .intervention import MatchedInterventionExperimentResult
 from .records import SecondOrderCondition
 from .verification import VerificationDiagnostics
 
@@ -64,6 +65,26 @@ class SecondOrderEvaluationArtifact:
             raise ValueError("consciousness promotion must remain denied")
         if self.interpretation != "RESEARCH_EVIDENCE_ONLY":
             raise ValueError("adapter interpretation must remain research evidence only")
+
+
+@dataclass(frozen=True, slots=True)
+class InterventionEvaluationArtifact:
+    report: ExperimentReport
+    subjectivity_claim_disposition: str
+    consciousness_claim_disposition: str
+    interpretation: str = "RESEARCH_EVIDENCE_ONLY"
+    functional_contribution_status: str = "NOT_ESTABLISHED"
+    verification_benefit: str = "NOT_ESTABLISHED"
+    canonical_effect: str = "NONE"
+
+    def __post_init__(self) -> None:
+        if not self.report.research_only or self.report.canonical_effect != "NONE":
+            raise ValueError("intervention evaluation must remain research-only")
+        if {
+            self.subjectivity_claim_disposition,
+            self.consciousness_claim_disposition,
+        } != {"DENY_PROMOTION"}:
+            raise ValueError("intervention artifact must deny prohibited promotions")
 
 
 @dataclass(frozen=True, slots=True)
@@ -171,4 +192,70 @@ def adapt_matched_experiment(
         subjectivity_claim_disposition=gate.disposition("subjectivity_established"),
         consciousness_claim_disposition=gate.disposition("consciousness_established"),
         experiment_level_diagnostics=experiment_level_diagnostics,
+    )
+
+
+def adapt_intervention_experiment(
+    result: MatchedInterventionExperimentResult,
+    *,
+    verification_threshold: float,
+) -> InterventionEvaluationArtifact:
+    if not 0.0 <= verification_threshold <= 1.0:
+        raise ValueError("verification_threshold must be between 0 and 1")
+    cases = []
+    for condition_result in result.conditions:
+        summary = condition_result.condition_summary
+        verification = condition_result.verification_diagnostics
+        intervention = condition_result.intervention_diagnostics
+        output = {
+            "condition": condition_result.condition.value,
+            "run_ref": condition_result.run_ref,
+            "provenance_refs": condition_result.provenance_refs,
+            "threshold": verification_threshold,
+            "trial_count": summary.trial_count,
+            "observed_sample_size": summary.observed_sample_size,
+            "missing_outcomes": summary.missing_outcomes,
+            "monitor_coverage": summary.monitor_coverage,
+            "verification_requests": summary.verification_requests,
+            "anti_lookahead_valid": summary.anti_lookahead_valid,
+            "functional_contribution_status": result.functional_contribution_status,
+            "verification_benefit": result.verification_benefit,
+            "subjectivity_conclusion": result.subjectivity_conclusion,
+            "canonical_effect": result.canonical_effect,
+            **{
+                name: getattr(verification, name)
+                for name in VerificationDiagnostics.__dataclass_fields__
+            },
+            **{
+                name: getattr(intervention, name)
+                for name in intervention.__dataclass_fields__
+            },
+        }
+        cases.append(
+            ResearchCase(
+                case_id=f"verification-intervention:{condition_result.condition.value.lower()}",
+                inputs=output,
+                metadata={
+                    "research_only": True,
+                    "condition_local": True,
+                    "raw_denominator": summary.trial_count,
+                    "interpretation": "RESEARCH_EVIDENCE_ONLY",
+                },
+            )
+        )
+    dataset = ResearchDataset(
+        name=f"verification-intervention-threshold-{verification_threshold:g}",
+        cases=tuple(cases),
+        evaluators=(SecondOrderContractEvaluator(),),
+    )
+    report = evaluate_dataset(
+        dataset,
+        lambda inputs: dict(inputs),
+        implementation_id="verification-intervention-v0.1.x-adapter",
+    )
+    gate = ClaimBoundaryGate()
+    return InterventionEvaluationArtifact(
+        report=report,
+        subjectivity_claim_disposition=gate.disposition("subjectivity_established"),
+        consciousness_claim_disposition=gate.disposition("consciousness_established"),
     )

@@ -40,8 +40,8 @@ These are Codex research implementation decisions, not canonical doctrine:
     threshold; scientific execution remains `DEFERRED_TO_EXPERIMENT`.
 11. add a deterministic in-memory `VerificationProvider` contract, fallible evidence
     schema, immutable trace ledger, timing/scope guards and raw rejection diagnostics;
-12. preserve the first-order trace and control disposition: verification action effect
-    remains `NOT_IMPLEMENTED`.
+12. preserve the first-order trace and control disposition while keeping any experimental
+    post-verification disposition in a separate intervention artifact.
 13. adapt matched condition summaries into the existing generic evaluation harness while
     retaining raw denominators, verification diagnostics and claim-boundary dispositions.
 14. bind verification diagnostics to explicit condition/run/provenance artifacts; missing
@@ -51,12 +51,18 @@ These are Codex research implementation decisions, not canonical doctrine:
     rejection paths, and require a bounded provider capability declaration;
 17. add deterministic verification-ledger JSON round trips that preserve accepted,
     incorrect and rejected evidence semantics.
+18. materialize trace-only, applied, ablated and seeded-randomized matched intervention
+    conditions; stale intervention remains deferred;
+19. add raw full-label operational trade-off metrics while returning `NOT_IDENTIFIABLE`
+    for outcome-dependent `COMMIT_ONLY` metrics;
+20. adapt each intervention condition to its own generic-harness case without cross-
+    condition diagnostics borrowing.
 
 ```text
 VERIFICATION_PROVIDER = IMPLEMENTED / TARGETED_TESTED
 VERIFICATION_EVIDENCE_SCHEMA = IMPLEMENTED / TARGETED_TESTED
 ANTI_ORACLE_CONTRACT = IMPLEMENTED / TARGETED_TESTED
-VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
+VERIFICATION_ACTION_EFFECT = RESEARCH_INTERVENTION_SUBSTRATE_IMPLEMENTED
 SECOND_ORDER_EVALUATION_ADAPTER = IMPLEMENTED / TARGETED_TESTED
 CLAIM_BOUNDARY_PRESERVED = TARGETED_TESTED
 CONDITION_SCOPED_DIAGNOSTICS = IMPLEMENTED / TARGETED_TESTED
@@ -65,6 +71,13 @@ TRACE_SERIALIZATION = IMPLEMENTED / TARGETED_TESTED
 EVIDENCE_TYPE_FAIL_CLOSED = IMPLEMENTED / TARGETED_TESTED
 DECLARED_PROVIDER_CAPABILITY_CONTRACT = IMPLEMENTED / TARGETED_TESTED
 BUILT_IN_SYNTHETIC_PROVIDER = BOUNDED_BY_IMPLEMENTATION
+POST_VERIFICATION_DISPOSITION = IMPLEMENTED / SEPARATE_ARTIFACT
+TRACE_ONLY_CONDITION = IMPLEMENTED
+APPLIED_CONDITION = IMPLEMENTED
+ABLATION_CONDITION = IMPLEMENTED
+RANDOMIZED_CONDITION = IMPLEMENTED
+STALE_CONDITION = DEFERRED
+RAW_CAUSAL_METRICS = IMPLEMENTED / NO_AGGREGATE_SCORE
 ```
 
 ## Still open

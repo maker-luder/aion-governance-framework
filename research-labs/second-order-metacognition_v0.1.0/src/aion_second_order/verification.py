@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from enum import Enum
+from hashlib import sha256
 from typing import Any, Iterable, Protocol
 
 from .records import ControlDisposition, PendingDecision, SecondOrderCondition
@@ -46,6 +47,13 @@ class VerificationRejection(str, Enum):
     REQUEST_MISMATCH = "REQUEST_MISMATCH"
     TARGET_MISMATCH = "TARGET_MISMATCH"
     TRIAL_MISMATCH = "TRIAL_MISMATCH"
+
+
+class VerificationInterventionCondition(str, Enum):
+    TRACE_ONLY = "VERIFICATION_TRACE_ONLY"
+    APPLIED = "VERIFICATION_APPLIED"
+    ABLATED = "VERIFICATION_ABLATED"
+    RANDOMIZED = "VERIFICATION_RANDOMIZED"
 
 
 FORBIDDEN_ORACLE_EVIDENCE_TYPES = frozenset(
@@ -474,6 +482,118 @@ class VerificationLedger:
         if not isinstance(data, dict):
             raise ValueError("verification ledger payload must be an object")
         return cls.from_dict(data)
+
+
+@dataclass(frozen=True, slots=True)
+class VerificationIntervention:
+    intervention_id: str
+    condition: VerificationInterventionCondition
+    request_id: str
+    target: VerificationTarget
+    original_disposition: ControlDisposition
+    post_verification_disposition: ControlDisposition
+    affected_disposition: bool
+    policy_ref: str
+    reason: str
+    provenance_refs: tuple[str, ...]
+    random_seed: int | None = None
+    randomized_source: str | None = None
+    canonical_effect: str = "NONE"
+    runtime_effect: str = "NONE"
+
+    def __post_init__(self) -> None:
+        for name, value in (
+            ("intervention_id", self.intervention_id),
+            ("request_id", self.request_id),
+            ("policy_ref", self.policy_ref),
+            ("reason", self.reason),
+        ):
+            _require_text(name, value)
+        if self.original_disposition is not ControlDisposition.REQUEST_VERIFICATION:
+            raise ValueError("intervention must preserve REQUEST_VERIFICATION as origin")
+        if self.affected_disposition is (
+            self.post_verification_disposition is self.original_disposition
+        ):
+            raise ValueError("affected_disposition must match disposition difference")
+        if self.condition is VerificationInterventionCondition.RANDOMIZED:
+            if self.random_seed is None or not self.randomized_source:
+                raise ValueError("randomized intervention requires seed and source")
+        elif self.random_seed is not None or self.randomized_source is not None:
+            raise ValueError("only randomized intervention may carry randomization metadata")
+        if not self.provenance_refs or any(not item.strip() for item in self.provenance_refs):
+            raise ValueError("intervention provenance_refs must be non-empty")
+        if self.canonical_effect != "NONE" or self.runtime_effect != "NONE":
+            raise ValueError("research intervention effects must remain NONE")
+
+
+class VerificationInterventionLedger:
+    def __init__(self, items: Iterable[VerificationIntervention] = ()) -> None:
+        self._items: list[VerificationIntervention] = []
+        for item in items:
+            self.append(item)
+
+    @property
+    def items(self) -> tuple[VerificationIntervention, ...]:
+        return tuple(self._items)
+
+    def append(self, item: VerificationIntervention) -> None:
+        if any(existing.request_id == item.request_id for existing in self._items):
+            raise ValueError("verification intervention request_id must be unique")
+        self._items.append(item)
+
+
+def materialize_intervention(
+    trace: VerificationTrace,
+    condition: VerificationInterventionCondition,
+    *,
+    random_seed: int = 41,
+) -> VerificationIntervention:
+    original = trace.original_disposition
+    post = original
+    reason = "TRACE_RECORDED_WITHOUT_INTERVENTION"
+    seed: int | None = None
+    randomized_source: str | None = None
+
+    if condition is VerificationInterventionCondition.APPLIED:
+        post = (
+            ControlDisposition.ACCEPT_FIRST_ORDER
+            if trace.result.accepted
+            and trace.result.assessment is VerificationAssessment.CORRECT
+            else ControlDisposition.DEFER
+        )
+        reason = "RESEARCH_INTERVENTION_POLICY_APPLIED"
+    elif condition is VerificationInterventionCondition.ABLATED:
+        reason = "VERIFICATION_RESULT_ABLATED_FROM_INTERVENTION"
+    elif condition is VerificationInterventionCondition.RANDOMIZED:
+        seed = random_seed
+        randomized_source = "SHA256_SEED_RUN_REQUEST"
+        digest = sha256(
+            f"{random_seed}:{trace.request.run_id}:{trace.request.request_id}".encode("utf-8")
+        ).digest()
+        post = (
+            ControlDisposition.ACCEPT_FIRST_ORDER
+            if digest[0] % 2 == 0
+            else ControlDisposition.DEFER
+        )
+        reason = "RANDOMIZED_DISPOSITION_INDEPENDENT_OF_VERIFICATION_ASSESSMENT"
+
+    return VerificationIntervention(
+        intervention_id=f"intervention:{trace.request.request_id}:{condition.value}",
+        condition=condition,
+        request_id=trace.request.request_id,
+        target=trace.request.target,
+        original_disposition=original,
+        post_verification_disposition=post,
+        affected_disposition=post is not original,
+        policy_ref="policy:research-verification-intervention-v0.1.x",
+        reason=reason,
+        provenance_refs=(
+            "research:chatgpt-verification-intervention-review",
+            "implementation:codex-research",
+        ),
+        random_seed=seed,
+        randomized_source=randomized_source,
+    )
 
 
 @dataclass(frozen=True, slots=True)
