@@ -1,0 +1,46 @@
+name: Research Scope Lock
+
+on:
+  push:
+    branches:
+      - review/four-domain-research-materialization
+    paths:
+      - ".github/workflows/research-scope-lock.yml"
+      - "scripts/check_research_scope_lock.py"
+      - "research-workbench/four-domain-materialization/2026-08-10/RESEARCH_BRANCH_FREE_GROWTH_CHARTER.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json"
+      - "research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md"
+      - "components/aion_runtime_v0.2.0/**"
+      - "research-labs/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/research-scope-lock.yml"
+      - "scripts/check_research_scope_lock.py"
+      - "research-workbench/four-domain-materialization/2026-08-10/RESEARCH_BRANCH_FREE_GROWTH_CHARTER.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json"
+      - "components/aion_runtime_v0.2.0/**"
+      - "research-labs/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  research-scope-lock:
+    name: Artificial-subjectivity research scope lock
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify research scope invariants
+        run: python scripts/check_research_scope_lock.py

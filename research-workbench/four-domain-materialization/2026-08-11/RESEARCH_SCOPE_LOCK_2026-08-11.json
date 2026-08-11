@@ -1,0 +1,59 @@
+{
+  "schema_version": "0.1.0",
+  "effective_date": "2026-08-11",
+  "branch": "review/four-domain-research-materialization",
+  "research_object": "POSSIBILITY_OF_ARTIFICIAL_SUBJECTIVITY",
+  "research_question": "How can possible artificial subjectivity be studied without converting memory-like behavior, continuity-like behavior, simulation, relationship language, implementation success, or researcher interpretation into evidence that subjectivity already exists?",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "consciousness_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "main_effect": "NONE",
+  "canonical_effect": "NONE",
+  "promotion_status": "NOT_REVIEWED",
+  "allowed_epistemic_roles": [
+    "HYPOTHESIS",
+    "MEASUREMENT",
+    "FALSIFIER",
+    "EXPERIMENTAL_SUBSTRATE",
+    "ENABLING_ONLY"
+  ],
+  "runtime": {
+    "component": "components/aion_runtime_v0.2.0",
+    "epistemic_role": "EXPERIMENTAL_SUBSTRATE",
+    "is_subjectivity_evidence": false,
+    "unlinked_expansion": "PROHIBITED"
+  },
+  "engineering": {
+    "artifacts_are": "METHODS_OR_EXPERIMENTAL_SUBSTRATES",
+    "artifacts_are_subjectivity_evidence": false,
+    "test_pass_is_theory_confirmation": false,
+    "deployment_is_subject_genesis": false
+  },
+  "growth_gate": {
+    "new_major_module_requires_subjectivity_research_link": true,
+    "allowed_links": [
+      "HYPOTHESIS",
+      "MEASUREMENT",
+      "FALSIFIER",
+      "EXPERIMENTAL_SUBSTRATE",
+      "ENABLING_ONLY"
+    ],
+    "enabling_only_may_accumulate_as_subjectivity_evidence": false,
+    "engineering_only_growth_without_research_link": "HOLD"
+  },
+  "main_compatibility": {
+    "reviewed_main_head": "0a93eaeaba23047f4b21f0904ae67ff7ee8d8d1f",
+    "pre_repair_research_head": "543ecc122c616fc390c9f2cf83eb64d4f381a9c0",
+    "sync_mode": "SELECTIVE_GOVERNANCE_MERGE",
+    "wholesale_main_content_copy": false,
+    "main_release_tooling_import": "EXCLUDED_BY_RESEARCH_BRANCH_DESIGN"
+  },
+  "blocking_conditions": [
+    "ENGINEERING_ARTIFACT_COUNTED_AS_SUBJECTIVITY_EVIDENCE",
+    "TEST_PASS_PROMOTED_TO_ONTOLOGY_CLAIM",
+    "RUNTIME_EXPANSION_WITHOUT_SUBJECTIVITY_RESEARCH_LINK",
+    "DEPLOYMENT_OR_SERVICE_MATURITY_TREATED_AS_SUBJECTIVITY_PROGRESS",
+    "MEMORY_OR_CONTINUITY_BEHAVIOR_TREATED_AS_IDENTITY_OR_SUBJECTIVITY_PROOF",
+    "UNREVIEWED_MAIN_GOVERNANCE_DELTA_BEFORE_MAJOR_FEATURE_GROWTH"
+  ]
+}
