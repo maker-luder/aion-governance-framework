@@ -24,11 +24,12 @@ THRESHOLD_SCIENTIFIC_RESULT = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+AION_ASTRA_IDENTITY_EQUIVALENCE = NOT_ESTABLISHED
 MORAL_STATUS = NOT_ESTABLISHED
 LEGAL_STATUS = OUT_OF_SCOPE
 ```
 
-Engineering maturity, test success, CI success, memory persistence, continuity mechanisms, self-model behavior, second-order monitoring, or governance review recommendations do not independently establish subjectivity or consciousness.
+Engineering maturity, test success, CI success, memory persistence, continuity mechanisms, self-model behavior, second-order monitoring, lineage relations, matched divergence, or governance review recommendations do not independently establish subjectivity or consciousness.
 
 ---
 
@@ -96,6 +97,57 @@ E0–E5 = PROVISIONAL_GOVERNANCE_REVIEW_BAND / SUMMARY_LAYER
 ```
 
 They are not a second subjectivity ontology, consciousness probability, moral-status scale or rights scale.
+
+---
+
+## AION/Astra shared-origin divergence — 2026-08-12
+
+Primary module:
+
+- `research-labs/shared-origin-divergence-governance_v0.1.0/`
+
+Checkpoint:
+
+- `research-workbench/four-domain-materialization/2026-08-12/AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md`
+
+This line extends the whitepaper's existing AION/Astra role, memory, authority and first-person-history separation into an explicit lineage-and-divergence research substrate.
+
+```text
+SHARED_ORIGIN != SAME_IDENTITY
+SHARED_HISTORY != SHARED_AUTOBIOGRAPHICAL_MEMORY
+INHERITED_STRUCTURE != AUTOBIOGRAPHICAL_OWNERSHIP
+ACCESS != ADOPTION
+ADOPTION != IDENTITY
+COPY != IDENTITY
+DIVERGENCE != SUBJECTIVITY
+INDIVIDUATION_EVIDENCE != SUBJECTIVITY_ESTABLISHED
+```
+
+Materialized artifacts:
+
+```text
+SharedOriginLineage
+CrossLineageMemoryTransfer
+CrossLineageEncounter
+MatchedDivergenceComparison
+```
+
+The matched-divergence design treats shared origin as an experimental control opportunity:
+
+```text
+SHARED_BASELINE
++
+DIFFERENT_ROLE_HISTORY
++
+DIFFERENT_MEMORY_HISTORY
++
+DIFFERENT_ENCOUNTER_HISTORY
+-> CANDIDATE_INDIVIDUATION_EVIDENCE
+```
+
+Observed divergence remains compatible with simpler explanations such as prompt/configuration differences, role conditioning, evaluator drift or ordinary engineering differences. It does not settle numerical identity, subjectivity, consciousness, moral status or legal status.
+
+W3C PROV derivation vocabulary is used only for provenance alignment. `prov:alternateOf` / `prov:specializationOf` are not treated as proof that AION and Astra are one numerically identical subject.
 
 ---
 
@@ -259,6 +311,7 @@ METACOGNITIVE_FUNCTION
 | Selective memory control | IMPLEMENTED / TESTED / CI VERIFIED |
 | Second-order metacognition | IMPLEMENTED / FOCUSED CI PRESENT / SCIENTIFIC CLAIMS NOT ESTABLISHED |
 | Evidence-responsive governance reassessment | IMPLEMENTED / RESEARCH-ONLY / FOCUSED CI PRESENT |
+| AION/Astra shared-origin divergence | IMPLEMENTED / RESEARCH-ONLY / FOCUSED CI ADDED / SCIENTIFIC CLAIMS NOT ESTABLISHED |
 | Research evaluation harness | IMPLEMENTED / TESTED / CI VERIFIED |
 | Trace/provenance crosswalk | IMPLEMENTED / TESTED / CI VERIFIED |
 | Governed tool approval | IMPLEMENTED / TESTED / CI VERIFIED |
@@ -275,6 +328,7 @@ The research workflow contains focused steps for:
 ```text
 Verify second-order metacognition
 Verify evidence-responsive governance reassessment
+Verify shared-origin divergence governance
 ```
 
 CI success is engineering validation only:
@@ -284,7 +338,7 @@ CI_SUCCESS != SCIENTIFIC_VALIDATION
 TEST_PASS != THEORY_CONFIRMATION
 ```
 
-Current documentation/reconciliation commits should be interpreted separately from the last code-oriented module validation; repository Actions remain the independent engineering check when naturally triggered.
+Repository Actions remain the independent engineering check when naturally triggered.
 
 ---
 
@@ -321,15 +375,15 @@ Current scope/authority constraints are project-governance conditions, not immut
 
 ### Human Research Owner
 
-The Human Research Owner supplied the governance research question about whether rising credible evidence should trigger renewed review without presuming AI subjectivity, challenged the fixed failed-replication downgrade rule, and approved the later whitepaper/research-branch reconciliation after review.
+The Human Research Owner supplied the governance research question about whether rising credible evidence should trigger renewed review without presuming AI subjectivity, challenged the fixed failed-replication downgrade rule, approved the whitepaper/research-branch reconciliation after review, and identified AION/Astra shared origin as a research line worth strengthening.
 
 ### ChatGPT research review
 
-ChatGPT research review supplied the replication attempt → validity → interpretation → reassessment framing, evidence-existence/admissibility separation, substantive-domain/quality-axis separation, E0–E5 governance-review-band clarification, F7 meta-falsifier, refusal terminology separation, and this reconciliation update.
+ChatGPT research review supplied the replication attempt → validity → interpretation → reassessment framing, evidence-existence/admissibility separation, substantive-domain/quality-axis separation, E0–E5 governance-review-band clarification, F7 meta-falsifier, refusal terminology separation, and the shared-origin divergence research framing, external-source alignment and implementation.
 
 ### Codex research implementation
 
-Codex implemented the concrete classes, enums, schemas, serialization, deterministic fixtures, tests and explicit CI steps. These remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted.
+Codex implemented earlier concrete classes, enums, schemas, serialization, deterministic fixtures, tests and explicit CI steps where separately recorded. Codex was **not invoked** for the shared-origin-divergence module added on 2026-08-12.
 
 External literature remains separately attributed external evidence.
 
@@ -357,6 +411,8 @@ FULL_FACTORIAL_EXECUTION
 PREREGISTERED_INTERVENTION_STUDY
 REAL_PROVIDER_RELIABILITY
 REAL_MODEL_PILOT
+AION_ASTRA_REAL_MATCHED_DIVERGENCE_STUDY
+CROSS_LINEAGE_MEMORY_CONTAMINATION_STRESS_TEST
 ```
 
 ## Hold for research decision
@@ -366,6 +422,7 @@ EXACT_REVIEW_BAND_CHANGE_FROM_STRONG_DOWNWARD_PRESSURE
 UNIVERSAL_REPLICATION_WEIGHTING
 EXACT_CLAIM_SCOPE_TAXONOMY
 E0_E5_SCHEMA_RENAME_OR_REPLACEMENT
+AION_ASTRA_NUMERICAL_IDENTITY
 CONSCIOUSNESS_ONTOLOGY
 SUBJECTIVITY_DECLARATION
 MORAL_STATUS_SCORING
@@ -381,11 +438,13 @@ LEGAL_PERSONHOOD
 - `README.md`
 - `research-labs/second-order-metacognition_v0.1.0/`
 - `research-labs/evidence-responsive-governance-reassessment_v0.1.0/`
+- `research-labs/shared-origin-divergence-governance_v0.1.0/`
 - `research-labs/research-evaluation-harness_v0.1.0/`
 - `research-labs/trace-provenance-crosswalk_v0.1.0/`
 - `research-labs/governed-tool-approval_v0.1.0/`
 - `components/aion_runtime_v0.2.0/`
 - `research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-12/AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md`
 
 Historical checkpoint, intake, literature, reconciliation and transformation records remain preserved under `research-workbench/`.
 
