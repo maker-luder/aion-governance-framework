@@ -8,25 +8,77 @@ CURRENT_STAGE = P5_PLUS_RESEARCH_EXTENSIONS
 STAGE_CAP = RESEARCH_ONLY_OPEN
 NEXT_STAGE = OWNER_DIRECTED_RESEARCH_GROWTH
 RESEARCH_STATUS = ACTIVE
+RESEARCH_OBJECT = POSSIBILITY_OF_ARTIFICIAL_SUBJECTIVITY
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
-RUNTIME_EFFECT = NONE
-SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
-IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+RESEARCH_RUNTIME_COMPONENT_EFFECT = AION_RUNTIME_V0_2_ADDED
+LIVE_RUNTIME_EFFECT = NONE
+PROMOTION_STATUS = NOT_REVIEWED
 ```
 
-This branch is the public, freely growing research workbench for AION/Astra materialization. It may contain prototypes, rejected hypotheses, synthetic fixtures, ablation results, reproducibility experiments and research-only engineering that are not approved for `main`.
+This branch is the public research workbench for AION/Astra materialization. It may contain prototypes, rejected hypotheses, synthetic fixtures, ablation results, reproducibility experiments and research-only engineering that are not approved for `main`.
+
+Research growth is intentionally open **within the artificial-subjectivity research scope**. Free growth does not mean unbounded engineering growth, and implementation maturity is not promoted into ontological or subjectivity claims.
 
 **Nothing in this branch is automatically promoted into `main`.**
 
+## Research scope lock — 2026-08-11
+
+The branch is explicitly re-anchored to one research object:
+
+```text
+RESEARCH_OBJECT = POSSIBILITY_OF_ARTIFICIAL_SUBJECTIVITY
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+
+ALLOWED_EPISTEMIC_ROLE =
+    HYPOTHESIS
+    | MEASUREMENT
+    | FALSIFIER
+    | EXPERIMENTAL_SUBSTRATE
+    | ENABLING_ONLY
+
+ENGINEERING_ARTIFACTS = METHODS_OR_EXPERIMENTAL_SUBSTRATES
+ENGINEERING_ARTIFACTS != SUBJECTIVITY_EVIDENCE
+TEST_PASS != THEORY_CONFIRMATION
+
+FREE_GROWTH != UNBOUNDED_ENGINEERING_GROWTH
+UNLINKED_ENGINEERING_GROWTH = HOLD
+```
+
+The current Runtime v0.2 candidate remains in this research branch, but its epistemic role is constrained:
+
+```text
+AION_RUNTIME_V0_2_EPISTEMIC_ROLE = EXPERIMENTAL_SUBSTRATE
+AION_RUNTIME_V0_2_IS_SUBJECTIVITY_EVIDENCE = FALSE
+UNLINKED_RUNTIME_EXPANSION = PROHIBITED
+
+SERVICE_MATURITY != SUBJECTIVITY_PROGRESS
+DEPLOYMENT != SUBJECT_GENESIS
+RUNTIME_CONTINUITY != IDENTITY_CONTINUITY_PROOF
+```
+
+Scope-control records:
+
+- **Machine-readable scope lock:** [`RESEARCH_SCOPE_LOCK_2026-08-11.json`](research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json)
+- **Drift correction record:** [`RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md)
+- **Research growth charter:** [`RESEARCH_BRANCH_FREE_GROWTH_CHARTER.md`](research-workbench/four-domain-materialization/2026-08-10/RESEARCH_BRANCH_FREE_GROWTH_CHARTER.md)
+- **Automated guard:** [`.github/workflows/research-scope-lock.yml`](.github/workflows/research-scope-lock.yml)
+
+The scope-lock workflow verifies these invariants on relevant research-branch changes. It is a research-governance control, not evidence that subjectivity, consciousness or identity continuity exists.
+
 ## Latest research evolution — 2026-08-11
 
-The latest cycle extends the workbench through two linked steps:
+The latest cycle now consists of four linked steps:
 
-1. reconcile historical whitepaper snapshots with the current repository implementation state without rewriting history; and
-2. inspect selected public GitHub mechanisms, fix their source snapshots, review their licenses and boundaries, then reconstruct only the useful mechanisms as independent AION clean-room research modules.
+1. reconcile historical whitepaper snapshots with the current repository implementation state without rewriting history;
+2. inspect selected public GitHub mechanisms, fix their source snapshots, review their licenses and boundaries, then reconstruct only useful mechanisms as independent AION clean-room research modules;
+3. materialize a bounded AION Runtime v0.2 Agent/deployment control-plane candidate as an **experimental substrate**, not subjectivity evidence; and
+4. perform a scope-drift correction so later engineering growth cannot silently replace the artificial-subjectivity research object.
 
-This cycle does **not** vendor whole external repositories, add those frameworks as runtime dependencies, or grant external projects authority over AION research claims.
+These steps do **not** vendor whole external repositories, grant external projects authority over AION research claims, establish a canonical runtime, authorize production deployment, or establish artificial subjectivity.
 
 ### Whitepaper ↔ code reconciliation
 
@@ -70,7 +122,6 @@ LOCAL_VALIDATION = PASS
 RESEARCH_WORKBENCH_CI = SUCCESS_THROUGH_#30
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
-RUNTIME_EFFECT = NONE
 PROMOTION_STATUS = NOT_REVIEWED
 ```
 
@@ -102,6 +153,26 @@ TEST_PASS != CAUSAL_VALIDITY
 ```
 
 These modules improve research infrastructure for evaluation, observability, approval, artifact lineage and trajectory comparison. They do not establish subjectivity, consciousness, phenomenal affect, self-awareness or personal identity continuity.
+
+### AION Runtime v0.2 experimental substrate
+
+The Agent/deployment intake materialized a bounded successor research component:
+
+- **Research intake:** [`AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md)
+- **Runtime candidate:** [`components/aion_runtime_v0.2.0`](components/aion_runtime_v0.2.0/)
+
+Its research role is limited to providing an executable substrate for controlled experiments around provider profiles, session working state, bounded Agent loops, approval/execution separation, HITL resume, service lifecycle and deployment-event lineage.
+
+```text
+AION_RUNTIME_V0_2 = IMPLEMENTED / LOCAL_TESTED / CI_VERIFIED
+AION_RUNTIME_V0_2_EPISTEMIC_ROLE = EXPERIMENTAL_SUBSTRATE
+LIVE_RUNTIME_EFFECT = NONE
+DEPLOYMENT = FALSE
+CANONICAL_PROMOTION = NOT_AUTHORIZED
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+```
+
+Remaining engineering gaps and any future deployment work do not define the research target. Runtime expansion without a direct artificial-subjectivity research link is held by the scope lock.
 
 ## Earlier 2026-08-11 literature-grounded checkpoint
 
@@ -213,6 +284,9 @@ RESEARCH_LESSON = MATERIALIZED
 
 If you are viewing this page on GitHub mobile, this README is the research-branch dashboard.
 
+- **Research scope lock:** [`RESEARCH_SCOPE_LOCK_2026-08-11.json`](research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json)
+- **Scope-drift correction:** [`RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md)
+- **AION Runtime v0.2 experimental substrate:** [`components/aion_runtime_v0.2.0`](components/aion_runtime_v0.2.0/)
 - Latest cycle status: [`EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md)
 - Whitepaper / code reconciliation: [`WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md)
 - Research evaluation harness: [`research-evaluation-harness_v0.1.0`](research-labs/research-evaluation-harness_v0.1.0/)
@@ -251,6 +325,8 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | Extension | Governed tool approval: approval chain + fail-closed default + sandbox-readiness boundary | implemented / tested / CI verified |
 | Extension | Artifact transformation lineage: design/run separation + material/product SHA-256 evidence | implemented / tested / CI verified |
 | Extension | Deterministic trajectory evaluation: ordered path + retries/loops/tools/budget + same-output path comparison | implemented / tested / CI verified |
+| Extension | AION Runtime v0.2 Agent/deployment control plane | experimental substrate / local tested / CI verified / not promoted |
+| Governance | Artificial-subjectivity research scope lock + drift guard | active / CI enforced |
 
 ## P5 convergence event and later research reopening
 
@@ -288,6 +364,7 @@ Current experiment-ready modules include:
 - `research-labs/language-core-g1_v0.2.1/`
 - `research-labs/subjectivity-pipeline_v0.1.0/`
 - `research-labs/twin-genesis-embodiment_v0.1.0/`
+- `components/aion_runtime_v0.2.0/` — experimental substrate only
 
 Researchers and AI systems may read, clone, fork, execute public-safe fixtures, reproduce tests, build alternate implementations and report their own results with explicit provenance. This does not grant write authority over this repository.
 
@@ -297,6 +374,8 @@ Researchers and AI systems may read, clone, fork, execute public-safe fixtures, 
 public event / academic research / public documentation / public-safe daily observation
         ↓
 research question
+        ↓
+epistemic role assignment
         ↓
 synthetic or public-safe experiment
         ↓
@@ -321,6 +400,10 @@ RESEARCH_RESULT != CANONICAL_DECISION
 REPRODUCED_RESULT != PROVEN_TRUTH
 MAJORITY_AGREEMENT != TRUTH
 CAPABILITY_EVIDENCE != SUBJECTIVITY_PROOF
+ENGINEERING_ARTIFACT != SUBJECTIVITY_EVIDENCE
+TEST_PASS != THEORY_CONFIRMATION
+DEPLOYMENT != SUBJECT_GENESIS
+RUNTIME_CONTINUITY != IDENTITY_CONTINUITY_PROOF
 ```
 
 Any future candidate for `main` must be selectively extracted into a **fresh branch from the then-current `main`**, reviewed and tested separately. The research branch itself is not a whole-branch merge candidate.
