@@ -28,6 +28,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Primary-literature calibration: independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
+| Extension | Whitepaper ↔ code reconciliation: preserve historical snapshots, map current runtime/memory/continuity/self-model evidence, classify main-only deltas as reference-only | MATERIALIZED / RESEARCH-ONLY / NO CODE |
 
 ## 2026-08-11 literature-to-module materialization
 
@@ -41,6 +42,10 @@ Research refinements:
 
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
+
+Whitepaper / code reconciliation:
+
+- `research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`
 
 Executable clean-room module:
 
@@ -80,10 +85,15 @@ CLEAN_ROOM_RECONSTRUCTION != EXTERNAL_RESULT_REPLICATION
 
 The memory line now treats continuity as a multidimensional interaction among retention, correction, relevance, provenance and boundary control rather than raw persistence alone. The Level-3 line still requires independent monitoring measurement plus a causally tested control path before any second-order functional contribution can be claimed.
 
+The whitepaper/code reconciliation preserves the 2026-07-27 integrated whitepaper as a historical snapshot while recording that later repository implementation evidence now includes an explicit bounded AION Runtime candidate, governed cross-session memory and additional research-only continuity/self-model modules. It does not rewrite the historical whitepaper, modify runtime code or authorize promotion.
+
 ```text
 SELECTIVE_MEMORY_CONTROL_MODULE = IMPLEMENTED / CI_VERIFIED
 SELECTIVE_MEMORY_COMPARATIVE_EXPERIMENT = PROPOSED_NOT_EXECUTED
 EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
+WHITEPAPER_CODE_RECONCILIATION = MATERIALIZED / RESEARCH_ONLY / NO_CODE
+HISTORICAL_WHITEPAPER_REWRITE = NO
+WHOLESALE_MAIN_MERGE = NO
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 ```
@@ -117,6 +127,7 @@ See:
 - `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`
 - `AI_EXPERIMENT_GUIDE.md`
 
 ## 2026-08-10 IQC / reconstruction checkpoint
