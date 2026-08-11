@@ -1,3 +1,5 @@
+import pytest
+
 from aion_runtime_v2.loop import AgentRunner, RunBudget, RunState, RunStatus
 from aion_runtime_v2.provider import EndpointProfile, ModelResponse, ModelResponseKind, ScriptedProviderAdapter, ToolCall, ToolSpec
 from aion_runtime_v2.sandbox import FunctionSandboxExecutor, SandboxPolicy
@@ -41,3 +43,25 @@ def test_turn_budget_exhaustion():
     runner, _ = setup_runner(responses, lambda c: {})
     result = runner.run()
     assert result.status is RunStatus.BUDGET_EXHAUSTED
+
+
+def test_restored_state_must_match_bound_session_and_provider():
+    responses = [ModelResponse(ModelResponseKind.FINAL, text="done")]
+    runner, _ = setup_runner(responses, lambda c: {})
+    bad_session = runner.new_state()
+    bad_session.session_id = "OTHER"
+    with pytest.raises(ValueError):
+        runner.run(bad_session)
+    bad_profile = runner.new_state()
+    bad_profile.profile_id = "other:profile"
+    with pytest.raises(ValueError):
+        runner.run(bad_profile)
+
+
+def test_parallel_tool_calls_fail_closed_until_resume_semantics_exist():
+    responses = [ModelResponse(ModelResponseKind.TOOL_CALLS, tool_calls=(ToolCall("C1", "echo", {"text": "one"}), ToolCall("C2", "echo", {"text": "two"})))]
+    runner, _ = setup_runner(responses, lambda c: {"call_id": c.call_id, "tool_name": c.name, "decision": "approve", "executable": True, "sandbox_ready": True, "effective_arguments": c.arguments})
+    result = runner.run()
+    assert result.status is RunStatus.HOLD
+    assert result.receipts == ()
+    assert "exactly one tool call" in result.reason

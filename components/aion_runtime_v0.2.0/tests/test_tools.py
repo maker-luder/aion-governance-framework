@@ -26,5 +26,16 @@ def test_modified_effective_arguments_are_executed():
 
 def test_required_sandbox_fails_closed():
     bridge = make_bridge(requires_sandbox=True)
-    receipt = bridge.execute(ToolCall("C1", "echo", {"text": "x"}), {"decision": "approve", "executable": True, "sandbox_ready": False})
+    receipt = bridge.execute(ToolCall("C1", "echo", {"text": "x"}), {"call_id": "C1", "tool_name": "echo", "decision": "approve", "executable": True, "sandbox_ready": False})
     assert receipt.result_status == "HOLD"
+
+
+def test_executable_disposition_requires_exact_call_identity():
+    bridge = make_bridge()
+    call = ToolCall("C1", "echo", {"text": "x"})
+    missing = bridge.execute(call, {"decision": "approve", "executable": True, "sandbox_ready": True})
+    forged = bridge.execute(call, {"call_id": "C2", "tool_name": "echo", "decision": "approve", "executable": True, "sandbox_ready": True})
+    assert missing.result_status == "REJECT"
+    assert forged.result_status == "REJECT"
+    assert missing.executed is False
+    assert forged.executed is False

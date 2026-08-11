@@ -61,11 +61,20 @@ class ToolExecutionBridge:
     def execute(self, call: ToolCall, disposition: Mapping[str, Any]) -> ExecutionReceipt:
         definition = self.registry.get(call.name)
         decision = str(disposition.get("decision", "reject"))
-        if disposition.get("call_id") not in {None, "", call.call_id}:
-            return ExecutionReceipt(call.call_id, call.name, decision, False, "REJECT", error="approval disposition call_id mismatch")
-        if str(disposition.get("tool_name", call.name)) != call.name:
-            return ExecutionReceipt(call.call_id, call.name, decision, False, "REJECT", error="approval disposition tool_name mismatch")
-        if not bool(disposition.get("executable", False)):
+        executable_requested = bool(disposition.get("executable", False))
+        disposition_call_id = disposition.get("call_id")
+        disposition_tool_name = disposition.get("tool_name")
+        if executable_requested:
+            if disposition_call_id != call.call_id:
+                return ExecutionReceipt(call.call_id, call.name, decision, False, "REJECT", error="executable approval disposition must bind the exact call_id")
+            if disposition_tool_name != call.name:
+                return ExecutionReceipt(call.call_id, call.name, decision, False, "REJECT", error="executable approval disposition must bind the exact tool_name")
+        else:
+            if disposition_call_id not in {None, "", call.call_id}:
+                return ExecutionReceipt(call.call_id, call.name, decision, False, "REJECT", error="approval disposition call_id mismatch")
+            if disposition_tool_name not in {None, "", call.name}:
+                return ExecutionReceipt(call.call_id, call.name, decision, False, "REJECT", error="approval disposition tool_name mismatch")
+        if not executable_requested:
             return ExecutionReceipt(call.call_id, call.name, decision, False, "NOT_EXECUTED", error=str(disposition.get("reason", "approval did not grant execution")), evidence={"approval_event_only": bool(disposition.get("approval_event_only", True))})
         requires_sandbox = definition.spec.requires_sandbox or definition.execution_class in {"filesystem", "process", "network", "computer"}
         if requires_sandbox and not bool(disposition.get("sandbox_ready", False)):

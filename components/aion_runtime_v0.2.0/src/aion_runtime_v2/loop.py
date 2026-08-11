@@ -93,8 +93,17 @@ class AgentRunner:
     def new_state(self) -> RunState:
         return RunState(run_id=f"RUN-{uuid4()}", session_id=self.session.session_id, profile_id=self.provider.profile.profile_id)
 
+    def _validate_state_binding(self, state: RunState) -> None:
+        if not state.run_id.strip():
+            raise ValueError("RunState run_id must be non-empty")
+        if state.session_id != self.session.session_id:
+            raise ValueError("RunState session_id does not match the bound SessionContextManager")
+        if state.profile_id != self.provider.profile.profile_id:
+            raise ValueError("RunState profile_id does not match the bound provider profile")
+
     def run(self, state: RunState | None = None) -> RunResult:
         state = state or self.new_state()
+        self._validate_state_binding(state)
         if state.complete:
             return RunResult(RunStatus.COMPLETED, state, reason="run already complete")
         if state.pending is not None:
@@ -115,24 +124,27 @@ class AgentRunner:
                 self.session.append(kind="message", role="assistant", content=response.text)
                 state.complete = True
                 return RunResult(RunStatus.COMPLETED, state, final_output=response.text, receipts=tuple(self._receipts), reason="final response")
-            for call in response.tool_calls:
-                state.tool_calls += 1
-                if state.tool_calls > self.budget.max_tool_calls:
-                    return RunResult(RunStatus.BUDGET_EXHAUSTED, state, receipts=tuple(self._receipts), reason="tool-call budget exhausted")
-                disposition = dict(self.approval_resolver(call))
-                if bool(disposition.get("requires_human", False)):
-                    interrupt_id = str(disposition.get("interrupt_id") or f"INT-{uuid4()}")
-                    state.pending = PendingApproval(interrupt_id, call)
-                    self.session.add_interrupt(interrupt_id=interrupt_id, call_id=call.call_id, tool_name=call.name, arguments=call.arguments, reason=str(disposition.get("reason", "human approval required")))
-                    return RunResult(RunStatus.INTERRUPTED, state, receipts=tuple(self._receipts), reason="human approval required")
-                receipt = self.bridge.execute(call, disposition)
-                self._receipts.append(receipt)
-                self.session.append(kind="tool_result", role="tool", content=json.dumps({"call_id": call.call_id, "tool": call.name, "executed": receipt.executed, "status": receipt.result_status, "output": receipt.output, "error": receipt.error}, ensure_ascii=False, sort_keys=True), metadata={"call_id": call.call_id, "tool_name": call.name})
-                if receipt.result_status in {"HOLD", "REJECT"}:
-                    return RunResult(RunStatus.HOLD, state, receipts=tuple(self._receipts), reason=receipt.error or receipt.result_status)
+            if len(response.tool_calls) != 1:
+                return RunResult(RunStatus.HOLD, state, receipts=tuple(self._receipts), reason="v0.2 fail-closed boundary permits exactly one tool call per model turn; parallel tool-call resume semantics are not implemented")
+            call = response.tool_calls[0]
+            state.tool_calls += 1
+            if state.tool_calls > self.budget.max_tool_calls:
+                return RunResult(RunStatus.BUDGET_EXHAUSTED, state, receipts=tuple(self._receipts), reason="tool-call budget exhausted")
+            disposition = dict(self.approval_resolver(call))
+            if bool(disposition.get("requires_human", False)):
+                interrupt_id = str(disposition.get("interrupt_id") or f"INT-{uuid4()}")
+                state.pending = PendingApproval(interrupt_id, call)
+                self.session.add_interrupt(interrupt_id=interrupt_id, call_id=call.call_id, tool_name=call.name, arguments=call.arguments, reason=str(disposition.get("reason", "human approval required")))
+                return RunResult(RunStatus.INTERRUPTED, state, receipts=tuple(self._receipts), reason="human approval required")
+            receipt = self.bridge.execute(call, disposition)
+            self._receipts.append(receipt)
+            self.session.append(kind="tool_result", role="tool", content=json.dumps({"call_id": call.call_id, "tool": call.name, "executed": receipt.executed, "status": receipt.result_status, "output": receipt.output, "error": receipt.error}, ensure_ascii=False, sort_keys=True), metadata={"call_id": call.call_id, "tool_name": call.name})
+            if receipt.result_status in {"HOLD", "REJECT"}:
+                return RunResult(RunStatus.HOLD, state, receipts=tuple(self._receipts), reason=receipt.error or receipt.result_status)
         return RunResult(RunStatus.BUDGET_EXHAUSTED, state, receipts=tuple(self._receipts), reason="max turns exhausted")
 
     def resume(self, state: RunState, disposition: Mapping[str, Any]) -> RunResult:
+        self._validate_state_binding(state)
         if state.pending is None:
             raise ValueError("run has no pending approval")
         pending = state.pending
