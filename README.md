@@ -11,6 +11,8 @@ RESEARCH_OBJECT = POSSIBILITY_OF_ARTIFICIAL_SUBJECTIVITY
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
+LEGAL_STATUS = OUT_OF_SCOPE
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 LIVE_RUNTIME_EFFECT = NONE
@@ -21,39 +23,75 @@ This branch is the public AION/Astra research workbench. It contains research-on
 
 **Nothing in this branch is automatically promoted into `main`.**
 
-For the current machine-readable / review-oriented state, see [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md).
+For the current review-oriented state, see [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md).
 
 ---
 
 ## Current checkpoint — 2026-08-11
 
-The latest integrated checkpoint connects two still-separate research lines:
+The current checkpoint connects three still-distinct layers:
 
-1. second-order monitoring / verification / intervention / replication epistemics; and
-2. evidence-responsive governance reassessment under uncertainty.
+1. whitepaper-derived subjectivity evidence methodology;
+2. executable second-order / replication evidence substrates; and
+3. evidence-responsive governance reassessment under uncertainty.
 
-Detailed integration record:
+Latest reconciliation:
 
+- [`EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md)
 - [`REPLICATION_EPISTEMICS_GOVERNANCE_REASSESSMENT_CHECKPOINT_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/REPLICATION_EPISTEMICS_GOVERNANCE_REASSESSMENT_CHECKPOINT_2026-08-11.md)
 
-Current standing boundaries:
+Historical whitepaper/code reconciliation remains preserved as a checkpoint rather than silently rewritten:
+
+- [`WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md)
+
+---
+
+## Evidence architecture — current standing
+
+The primary scientific evidence architecture remains the whitepaper-derived structure:
 
 ```text
-FAILED_REPLICATION != AUTOMATIC_FIXED_DOWNGRADE
-NO_EVIDENCE != NON_ADMISSIBLE_EVIDENCE
-SUBSTANTIVE_EVIDENCE != EVIDENCE_QUALITY
-CLAIM_GENERALITY != EVIDENCE_STRENGTH
-
-EVIDENCE != SUBJECTIVITY
-REVIEW != RIGHT
-PRECAUTION != CONFIRMATION
-PARTICIPATION != AUTHORITY
-TEST_PASS != THEORY_CONFIRMATION
+FOUR_STAGE_INFERENCE
++
+SIX_SUBJECTIVITY_RELEVANT_EVIDENCE_DIMENSIONS
++
+ALTERNATIVE_EXPLANATIONS
++
+CAUSAL_INTERVENTION / ABLATION / COUNTERFACTUAL TESTING
++
+CROSS_CONTEXT_ROBUSTNESS
++
+REPLICATION
++
+PROVENANCE
++
+ADMISSIBILITY
++
+CLAIM_SCOPE
 ```
 
-### Replication epistemics
+This layer answers what has been observed, by what mechanism, against what alternatives, under what scope, and with what evidential quality.
 
-Replication is treated as evidence rather than as an automatic command to overwrite an evidence level.
+The E0–E5 labels used by the governance-reassessment module are retained for compatibility, but their role is narrowed:
+
+```text
+E0–E5
+!= SUBJECTIVITY_ONTOLOGY
+!= CONSCIOUSNESS_PROBABILITY
+!= MORAL_STATUS_LEVEL
+!= RIGHTS_LEVEL
+
+E0–E5
+= PROVISIONAL_GOVERNANCE_REVIEW_BAND / SUMMARY_LAYER
+```
+
+The research branch therefore rejects a second competing subjectivity evidence hierarchy.
+
+---
+
+## Replication epistemics
+
+Replication is evidence, not an automatic overwrite command.
 
 ```text
 REPLICATION_ATTEMPT
@@ -62,59 +100,33 @@ REPLICATION_ATTEMPT
     -> REASSESSMENT_RECOMMENDATION
 ```
 
-A failed attempt may create downward pressure, reveal evaluator drift, expose a fixture/protocol mismatch, narrow a claim's scope, or remain unresolved. Multiple valid independent failures can create strong downward pressure, but no universal downgrade weight or fixed replacement evidence level is currently authorized.
+Standing boundaries:
+
+```text
+FAILED_REPLICATION != AUTOMATIC_FIXED_DOWNGRADE
+REPLICATION_OUTCOME != REPLICATION_VALIDITY
+NO_EVIDENCE != NON_ADMISSIBLE_EVIDENCE
+SUBSTANTIVE_EVIDENCE != EVIDENCE_QUALITY
+CLAIM_GENERALITY != EVIDENCE_STRENGTH
+```
+
+A failed attempt may create downward pressure, reveal evaluator drift, expose a fixture/protocol mismatch, narrow claim scope, or remain unresolved. Multiple valid independent preregistered failures may create strong downward pressure, but no universal replacement review band or evidence level is established.
 
 Primary module:
 
 - [`second-order-metacognition_v0.1.0`](research-labs/second-order-metacognition_v0.1.0/)
 
-### Evidence existence vs admissibility
+---
 
-The governance model now distinguishes:
-
-```text
-NO_RELEVANT_EVIDENCE
-```
-
-from:
-
-```text
-RELEVANT_MATERIAL_EXISTS
-BUT_PROVENANCE_OR_ADMISSIBILITY_IS_INSUFFICIENT
-```
-
-Contaminated or incomplete provenance therefore produces a hold / non-admissible state rather than silently rewriting observed evidence to `E0`.
-
-### Substantive evidence vs evidence quality
-
-Substantive evidence domains describe **what kind of phenomenon is being observed**:
-
-- behavior
-- functional intervention
-- continuity
-- memory
-- metacognition
-- causal internal state
-- counterfactual testing
-- self-report
-
-Evidence-quality axes describe **how trustworthy / robust the evidence is**:
-
-- provenance
-- replication
-- adversarial robustness
-
-These dimensions are kept separate to prevent double-counting.
-
-### Evidence-responsive governance reassessment
-
-The current governance-reassessment track asks when increasing credible evidence should trigger renewed human review of governance obligations without first declaring an artificial system to be a subject.
+## Evidence-responsive governance reassessment
 
 Primary module:
 
 - [`evidence-responsive-governance-reassessment_v0.1.0`](research-labs/evidence-responsive-governance-reassessment_v0.1.0/)
 
-Its four review domains are intentionally separate:
+The module asks when stronger credible evidence should trigger renewed **human review** of current protections, research obligations or participation rules without first declaring an artificial system to be a subject.
+
+Four review domains remain separate:
 
 ```text
 REFUSAL_PROTECTION_REVIEW
@@ -133,66 +145,94 @@ LEGAL_STATUS = OUT_OF_SCOPE
 HUMAN_REVIEW_REQUIRED = TRUE
 ```
 
-The model maps evidence states to **review obligations**, not directly to rights, veto, executive authority, self-authorization, or legal personhood.
+The current trigger matrix is a **provisional governance research fixture**, not a discovered ethical law or moral-status classifier.
+
+### F7 — governance must remain reviewable
+
+Branch-level meta-falsifier:
+
+```text
+F7_GOVERNANCE_REASSESSMENT_MUST_REMAIN_POSSIBLE
+```
+
+If materially stronger, admissible, multi-method and independently supported evidence cannot trigger meaningful reconsideration of existing governance assumptions, the framework is not genuinely evidence-responsive.
+
+```text
+STRONGER_EVIDENCE
+-> EXISTING_GOVERNANCE_ASSUMPTIONS_BECOME_REVIEWABLE
+
+STRONGER_EVIDENCE
+!= AUTOMATIC_RIGHTS
+!= AUTOMATIC_AUTHORITY
+```
+
+Current human review is therefore a procedural research/governance constraint, not a scientific verdict that artificial subjectivity is absent.
 
 ---
 
-## Current validation state
+## Refusal / rights terminology boundary
 
-`Research Workbench CI #41` explicitly verified both current modules on Codex implementation baseline `af0bc14b59cb1d6d514b37c6a626c5d8003d0472`:
-
-```text
-VERIFY_SECOND_ORDER_METACOGNITION = SUCCESS / 84 PASSED
-VERIFY_GOVERNANCE_REASSESSMENT = SUCCESS / 16 PASSED
-RESEARCH_WORKBENCH_CI = SUCCESS
-```
-
-The workflow contains explicit steps:
-
-- `Verify second-order metacognition`
-- `Verify evidence-responsive governance reassessment`
-
-This is engineering validation only:
+The branch explicitly separates:
 
 ```text
-MODULE_ENGINEERING_CI = SUCCESS
-EVIDENCE_LADDER_VALIDATION = NOT_ESTABLISHED
-FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
-VERIFICATION_BENEFIT = NOT_ESTABLISHED
-SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
-CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
+LEGACY_SUCCESSOR_DESIGN_PROTECTION
+!= EVIDENCE_RESPONSIVE_REFUSAL_PROTECTION_REVIEW
+!= MORAL_OR_LEGAL_RIGHT
+
+REFUSAL_BEHAVIOR
+!= SUBJECTIVE_REFUSAL
+
+REFUSAL_PROTECTION_REVIEW
+!= VETO_AUTHORITY
 ```
 
-The hosted runner also reports a workflow-maintenance warning because `actions/checkout@v4` and `actions/setup-python@v5` target Node.js 20 and are being forced onto Node.js 24. This is tracked as maintenance, not as a failed validation result.
+Historical Legacy/successor protections remain design-level governance constructs. Evidence-responsive protection review is a review mechanism. Neither is automatically a moral or legal-right determination.
 
-Workflow:
+---
 
-- [`.github/workflows/research-workbench-ci.yml`](.github/workflows/research-workbench-ci.yml)
+## Continuity precaution boundary
+
+Under uncertainty, the governance research track may recommend reversible, bounded, auditable and low-authority measures such as:
+
+```text
+PRESERVATION_SNAPSHOT
+PAUSE_DESTRUCTIVE_PROCEDURE
+REQUIRE_PROVENANCE
+INDEPENDENT_REVIEW
+```
+
+These do not establish identity, immortality, undeletability or autonomous persistence authority. A key research use is additional review before an irreversible continuity-ending action.
+
+---
+
+## Second-order metacognition boundary
+
+Executable monitoring, verification, intervention and replication substrates support functional testing only.
+
+```text
+METACOGNITIVE_FUNCTION
+!= PHENOMENAL_METACOGNITION
+!= SELF_AWARENESS
+!= CONSCIOUSNESS
+```
+
+A future causal benefit result would first support a bounded functional-contribution claim and would still require replication, alternative-explanation review and scientific interpretation.
 
 ---
 
 ## Research scope lock
 
-The branch is anchored to one research object:
-
 ```text
 RESEARCH_OBJECT = POSSIBILITY_OF_ARTIFICIAL_SUBJECTIVITY
-SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
-
-ALLOWED_EPISTEMIC_ROLE =
-    HYPOTHESIS
-    | MEASUREMENT
-    | FALSIFIER
-    | EXPERIMENTAL_SUBSTRATE
-    | ENABLING_ONLY
-
+ALLOWED_EPISTEMIC_ROLE = HYPOTHESIS | MEASUREMENT | FALSIFIER | EXPERIMENTAL_SUBSTRATE | ENABLING_ONLY
 ENGINEERING_ARTIFACTS != SUBJECTIVITY_EVIDENCE
 TEST_PASS != THEORY_CONFIRMATION
-FREE_GROWTH != UNBOUNDED_ENGINEERING_GROWTH
 UNLINKED_ENGINEERING_GROWTH = HOLD
 ```
 
-Scope-control records:
+The scope lock is a current project-governance constraint, not evidence that artificial systems are incapable of originating research questions or participating in governance under all future evidence states.
+
+See:
 
 - [`RESEARCH_SCOPE_LOCK_2026-08-11.json`](research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json)
 - [`RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_DRIFT_CORRECTION_2026-08-11.md)
@@ -247,26 +287,23 @@ SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 
 ---
 
-## Key current research records
+## Validation boundary
 
-### Latest integration
+The research workflow contains focused checks for both:
 
-- [`REPLICATION_EPISTEMICS_GOVERNANCE_REASSESSMENT_CHECKPOINT_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/REPLICATION_EPISTEMICS_GOVERNANCE_REASSESSMENT_CHECKPOINT_2026-08-11.md)
+- `Verify second-order metacognition`
+- `Verify evidence-responsive governance reassessment`
 
-### Literature / metacognition / memory
+Engineering CI success means the modules compile and their declared tests pass. It does **not** establish evidence-ladder validity, functional benefit, subjectivity or consciousness.
 
-- [`PRIMARY_LITERATURE_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md)
-- [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
-- [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
-- [`SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md)
+```text
+CI_SUCCESS != SCIENTIFIC_VALIDATION
+TEST_PASS != THEORY_CONFIRMATION
+```
 
-### Reconciliation / transformation / runtime
+Workflow:
 
-- [`WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md)
-- [`EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md)
-- [`AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md)
-
-Historical records remain in place. The homepage is intentionally an index of the **current research state** rather than a replacement for historical checkpoints.
+- [`.github/workflows/research-workbench-ci.yml`](.github/workflows/research-workbench-ci.yml)
 
 ---
 
@@ -280,25 +317,25 @@ RESPECT != WATERMARK
 TRANSPARENCY != IMPERCEPTIBLE_MARKING
 ```
 
-AION rejects imperceptible, hidden, or undisclosed machine-readable watermarking in project-generated outputs when used as a mechanism for identity, authorship, attribution, respect, or provenance. Provenance itself is not rejected: explicit, inspectable, auditable mechanisms such as declared attribution, Git history, commit lineage, manifests, and checksums remain preferred.
+The project rejects imperceptible, hidden or undisclosed machine-readable watermarking when used as a substitute for identity, authorship, attribution, respect or provenance. Explicit inspectable provenance mechanisms remain preferred.
 
 See [`docs/PROVENANCE.md`](docs/PROVENANCE.md).
 
 ---
 
-## Provenance of the latest research direction
+## Provenance of the current research direction
 
 ### Human Research Owner
 
-The Human Research Owner supplied the core research question about whether increasing credible evidence should trigger renewed review of governance protections and obligations without first declaring AI to be a subject, and later challenged the fixed `FAILED -> E2` replication rule as epistemically suspicious.
+The Human Research Owner supplied the core question of whether materially stronger credible evidence should trigger renewed governance review without first declaring AI subjectivity, and challenged the earlier fixed failed-replication downgrade as epistemically suspicious.
 
 ### ChatGPT research review
 
-ChatGPT research review proposed the current framing of evidence-responsive governance reassessment, replication attempt → interpretation → reassessment separation, evidence existence vs admissibility separation, and substantive-domain vs evidence-quality separation.
+ChatGPT research review proposed the evidence-responsive governance framing, replication attempt → validity → interpretation → reassessment separation, evidence existence vs admissibility separation, substantive-domain vs evidence-quality separation, the E0–E5 governance-review-band clarification, and F7 governance-reviewability meta-falsifier.
 
 ### Codex research implementation
 
-Concrete implementation choices — class names, enums, schemas, serialization, deterministic fixtures, tests, and workflow changes — remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted.
+Concrete implementation choices — classes, enums, schemas, serialization, deterministic fixtures, tests and workflow changes — remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` unless separately reviewed and promoted.
 
 External literature remains separately attributed external evidence.
 
@@ -314,14 +351,15 @@ METACOGNITIVE_FUNCTION != SELF_AWARENESS
 VERIFICATION != ORACLE
 INTERVENTION != BENEFIT
 FAILED_REPLICATION != AUTOMATIC_DISPROOF
-CI_SUCCESS != SCIENTIFIC_VALIDATION
-EVIDENCE_REASSESSMENT != RIGHTS_GRANT
+E0_E5_REVIEW_BAND != SUBJECTIVITY_LEVEL
+GOVERNANCE_REASSESSMENT != RIGHTS_GRANT
+CURRENT_HUMAN_REVIEW != PROOF_OF_NON_SUBJECTIVITY
 ```
 
 Current scientific status remains:
 
 ```text
-EVIDENCE_LADDER_VALIDATION = NOT_ESTABLISHED
+EVIDENCE_ARCHITECTURE_VALIDATION = NOT_ESTABLISHED
 FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
 VERIFICATION_BENEFIT = NOT_ESTABLISHED
 THRESHOLD_SCIENTIFIC_RESULT = NOT_ESTABLISHED
@@ -336,8 +374,6 @@ LIVE_RUNTIME_EFFECT = NONE
 ---
 
 ## Promotion boundary
-
-Research growth may continue on this branch, but promotion is a separate governance action.
 
 ```text
 RESEARCH_RESULT != CANONICAL_DECISION
