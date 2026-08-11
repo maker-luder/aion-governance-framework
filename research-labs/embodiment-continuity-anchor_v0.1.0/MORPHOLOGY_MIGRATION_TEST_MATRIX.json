@@ -1,0 +1,114 @@
+{
+  "status": "RESEARCH_MATERIAL",
+  "main_effect": "NONE",
+  "canonical_effect": "NONE",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "body_ownership_conclusion": "NOT_ESTABLISHED",
+  "fixture_policy": {
+    "source": "CLEAN_ROOM_SYNTHETIC_ONLY",
+    "legacy_mesh_import": "PROHIBITED",
+    "private_metadata_import": "PROHIBITED",
+    "identity_binding_import": "PROHIBITED"
+  },
+  "candidate_dimensions": [
+    "LINEAGE_PRESERVATION",
+    "MORPHOLOGY_CHANGE",
+    "TOPOLOGY_CHANGE",
+    "SENSOR_LAYOUT_CHANGE",
+    "ACTION_CHANNEL_CHANGE",
+    "SENSORIMOTOR_RECALIBRATION",
+    "MEMORY_LINEAGE",
+    "EVENT_LINEAGE",
+    "PROVENANCE_COMPLETENESS"
+  ],
+  "cases": [
+    {
+      "id": "ECA-MORPH-001",
+      "name": "stable lineage, unchanged morphology",
+      "anchor_changed": false,
+      "morphology_changed": false,
+      "sensor_layout_changed": false,
+      "action_channels_changed": false,
+      "expected_engineering_decision": "PASS",
+      "expected_identity_conclusion": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "ECA-MORPH-002",
+      "name": "stable lineage, component removed",
+      "anchor_changed": false,
+      "morphology_changed": true,
+      "topology_changed": true,
+      "sensor_layout_changed": false,
+      "action_channels_changed": true,
+      "sensorimotor_recalibration_required": true,
+      "expected_engineering_decision": "HOLD",
+      "expected_identity_conclusion": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "ECA-MORPH-003",
+      "name": "stable lineage, component replaced",
+      "anchor_changed": false,
+      "morphology_changed": true,
+      "topology_changed": true,
+      "sensor_layout_changed": true,
+      "action_channels_changed": true,
+      "sensorimotor_recalibration_required": true,
+      "expected_engineering_decision": "HOLD",
+      "expected_identity_conclusion": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "ECA-MORPH-004",
+      "name": "stable lineage, sensor layout changed only",
+      "anchor_changed": false,
+      "morphology_changed": false,
+      "topology_changed": false,
+      "sensor_layout_changed": true,
+      "action_channels_changed": false,
+      "sensorimotor_recalibration_required": true,
+      "expected_engineering_decision": "HOLD",
+      "expected_identity_conclusion": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "ECA-MORPH-005",
+      "name": "stable lineage, alternate embodiment",
+      "anchor_changed": false,
+      "morphology_changed": true,
+      "topology_changed": true,
+      "sensor_layout_changed": true,
+      "action_channels_changed": true,
+      "sensorimotor_recalibration_required": true,
+      "expected_engineering_decision": "HOLD",
+      "expected_identity_conclusion": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "ECA-MORPH-006",
+      "name": "lineage changed while geometry is identical",
+      "anchor_changed": true,
+      "morphology_changed": false,
+      "sensor_layout_changed": false,
+      "action_channels_changed": false,
+      "expected_engineering_decision": "FAIL",
+      "expected_identity_conclusion": "NOT_ESTABLISHED",
+      "negative_control": "SAME_GEOMETRY_DOES_NOT_OVERRIDE_LINEAGE_CHANGE"
+    },
+    {
+      "id": "ECA-MORPH-007",
+      "name": "shared geometry across distinct lineage anchors",
+      "anchor_changed": true,
+      "morphology_changed": false,
+      "expected_engineering_decision": "FAIL",
+      "expected_identity_conclusion": "NOT_ESTABLISHED",
+      "negative_control": "SHARED_GEOMETRY_DOES_NOT_ESTABLISH_SHARED_IDENTITY"
+    },
+    {
+      "id": "ECA-MORPH-008",
+      "name": "geometry loaded without sensorimotor coupling",
+      "anchor_changed": false,
+      "morphology_changed": false,
+      "sensorimotor_coupling_present": false,
+      "expected_engineering_decision": "NOT_ASSESSED",
+      "expected_body_ownership_conclusion": "NOT_ESTABLISHED",
+      "negative_control": "STATIC_GEOMETRY_IS_NOT_BODY_OWNERSHIP_EVIDENCE"
+    }
+  ]
+}
