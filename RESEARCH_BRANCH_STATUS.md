@@ -10,7 +10,8 @@ NEXT_STAGE = OWNER_DIRECTED_RESEARCH_GROWTH
 RESEARCH_STATUS = ACTIVE
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
-RUNTIME_EFFECT = NONE
+RESEARCH_RUNTIME_COMPONENT_EFFECT = AION_RUNTIME_V0_2_ADDED
+LIVE_RUNTIME_EFFECT = NONE
 PROMOTION_STATUS = NOT_REVIEWED
 ```
 
@@ -34,6 +35,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | Governed tool approval: approval chain, fail-closed default and sandbox-readiness boundary | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Artifact transformation lineage: design/run separation, material/product SHA-256 evidence chain | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Deterministic trajectory evaluation: ordered path, retry/loop/tool/budget evidence and same-output path comparison | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | AION Runtime v0.2 Agent/deployment control plane: provider profiles, session working state, bounded Agent loop, approval→execution bridge, HITL resume, service lifecycle, deployment lineage | IMPLEMENTED / LOCAL TESTED / CI #31 VERIFIED |
 
 ## 2026-08-11 literature-to-module materialization
 
@@ -153,6 +155,100 @@ RUNTIME_EFFECT = NONE
 PROMOTION_STATUS = NOT_REVIEWED
 ```
 
+## 2026-08-11 Agent Runtime & Deployment clean-room intake
+
+The Human Research Owner authorized a second public-source intake focused specifically on the missing Agent Runtime and deployment control plane. Fixed source snapshots were reviewed from Pydantic AI, OpenAI Agents SDK, LangGraph, MCP, vLLM and llama.cpp. No whole external framework was vendored and no external Agent framework was added as a Runtime dependency.
+
+Research record:
+
+- `research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md`
+
+Successor research component:
+
+- `components/aion_runtime_v0.2.0/`
+
+The existing `components/aion_runtime_v0.1.0/` remains intact as the prior candidate baseline. v0.2.0 adds AION-owned model/provider profiles, short-lived session working context, a bounded Agent loop, a separate approval→execution bridge, serializable HITL run-state resume, a service lifecycle/backpressure envelope and hash-chained deployment-event lineage.
+
+Local validation before CI:
+
+```text
+pytest = 18 passed
+compileall = PASS
+demo = PASS
+```
+
+`Research Workbench CI #31` then re-ran the existing focused research stack and the new Runtime v0.2 candidate. Every step completed successfully, including the final `Verify AION Runtime v0.2 research candidate` step.
+
+Contamination routes rejected before adoption:
+
+```text
+WHOLE_EXTERNAL_FRAMEWORK_VENDORING = REJECTED
+EXTERNAL_AGENT_RUNTIME_DEPENDENCY = REJECTED
+EXTERNAL_FRAMEWORK_SESSION_AS_AION_MEMORY = REJECTED
+EXTERNAL_FRAMEWORK_CHECKPOINT_AS_AION_IDENTITY = REJECTED
+EXTERNAL_AUTO_MODEL_ROUTING_AUTHORITY = REJECTED
+AUTOMATIC_REMOTE_MODEL_FALLBACK = REJECTED
+MODEL_SERVER_AGENT_AUTHORITY = REJECTED
+MCP_IDENTITY_OR_WRITE_AUTHORITY = REJECTED
+```
+
+No cleanup deletion was required because these paths were rejected before import.
+
+Deliberate remaining gaps:
+
+```text
+REAL_OS_PROCESS_SANDBOX = NOT_IMPLEMENTED
+REAL_PROVIDER_HTTP_TRANSPORT = NOT_IMPLEMENTED
+STATE_CHANGING_HTTP_API = DISABLED
+AUTHENTICATION = NOT_IMPLEMENTED_FOR_V0_2_NETWORK_SURFACE
+TLS_TERMINATION = NOT_IMPLEMENTED
+RATE_LIMITING = NOT_IMPLEMENTED
+PERSISTENT_SERVICE_SUPERVISOR = NOT_IMPLEMENTED
+WINDOWS_BOOTSTRAP_V0_2 = NOT_IMPLEMENTED
+MODEL_WEIGHT_DEPLOYMENT = NOT_EXECUTED
+LIVE_VLLM_INTEGRATION = NOT_EXECUTED
+LIVE_LLAMA_CPP_INTEGRATION = NOT_EXECUTED
+FORMAL_DEPLOYMENT_RUN = NOT_EXECUTED
+INDEPENDENT_IVV = NOT_ACHIEVED
+```
+
+New standing locks:
+
+```text
+MODEL_SERVER != AGENT
+AGENT_FRAMEWORK != AION
+MCP != AGENT
+SESSION_CONTEXT != LONG_TERM_MEMORY
+PROVIDER_PROFILE != IDENTITY
+TOOL_DISCOVERY != TOOL_AUTHORITY
+APPROVED != EXECUTED
+EXECUTED != SAFE
+SANDBOX_INTERFACE != OS_ISOLATION
+RUNSTATE_RESUME != IDENTITY_CONTINUITY
+CHECKPOINT != SUBJECT
+DEPLOYMENT_EVENT != SUBJECT_GENESIS
+FIRST_INSTANTIATION != SUBJECT_BIRTH
+RESTORE != IDENTITY_PROOF
+MIGRATION != SAME_SUBJECT_PROOF
+CLONE != CONTINUATION
+COMMON_CHECKPOINT != SAME_SUBJECT
+SERVICE_READY != DEPLOYED_PRODUCTION
+TEST_PASS != CANONICAL_PROMOTION
+```
+
+```text
+AION_RUNTIME_V0_2 = IMPLEMENTED / LOCAL_TESTED / CI_#31_VERIFIED
+EXTERNAL_RUNTIME_DEPENDENCIES_ADDED = NO
+WHOLE_REPOSITORY_VENDORING = NO
+RESEARCH_RUNTIME_COMPONENT_EFFECT = AION_RUNTIME_V0_2_ADDED
+LIVE_RUNTIME_EFFECT = NONE
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+PROMOTION_STATUS = NOT_REVIEWED
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+```
+
 ## P5 full-run verification
 
 ```text
@@ -184,11 +280,13 @@ See:
 - `research-labs/governed-tool-approval_v0.1.0/`
 - `research-labs/artifact-transformation-lineage_v0.1.0/`
 - `research-labs/trajectory-evaluation_v0.1.0/`
+- `components/aion_runtime_v0.2.0/`
 - `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md`
 - `AI_EXPERIMENT_GUIDE.md`
 
 ## 2026-08-10 IQC / reconstruction checkpoint
