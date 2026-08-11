@@ -17,6 +17,7 @@ on:
       - "research-labs/selective-memory-control_v0.1.0/**"
       - "research-labs/second-order-metacognition_v0.1.0/**"
       - "research-labs/evidence-responsive-governance-reassessment_v0.1.0/**"
+      - "research-labs/shared-origin-divergence-governance_v0.1.0/**"
       - "research-labs/research-evaluation-harness_v0.1.0/**"
       - "research-labs/trace-provenance-crosswalk_v0.1.0/**"
       - "research-labs/governed-tool-approval_v0.1.0/**"
@@ -34,6 +35,7 @@ on:
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-12/AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md"
       - "RESEARCH_BRANCH_STATUS.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
@@ -199,6 +201,13 @@ jobs:
 
       - name: Verify evidence-responsive governance reassessment
         working-directory: research-labs/evidence-responsive-governance-reassessment_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+
+      - name: Verify shared-origin divergence governance
+        working-directory: research-labs/shared-origin-divergence-governance_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src
