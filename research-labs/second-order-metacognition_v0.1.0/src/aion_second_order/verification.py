@@ -604,6 +604,17 @@ class VerificationIntervention:
             "runtime_effect": self.runtime_effect,
         }
 
+    def to_json(self) -> str:
+        return json.dumps(
+            {
+                "schema": "aion.verification-intervention.v1",
+                "intervention": self.to_dict(),
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "VerificationIntervention":
         return cls(
@@ -627,6 +638,13 @@ class VerificationIntervention:
             canonical_effect=str(data["canonical_effect"]),
             runtime_effect=str(data["runtime_effect"]),
         )
+
+    @classmethod
+    def from_json(cls, payload: str) -> "VerificationIntervention":
+        data = json.loads(payload)
+        if not isinstance(data, dict) or data.get("schema") != "aion.verification-intervention.v1":
+            raise ValueError("unsupported verification intervention schema")
+        return cls.from_dict(data["intervention"])
 
 
 class VerificationInterventionLedger:

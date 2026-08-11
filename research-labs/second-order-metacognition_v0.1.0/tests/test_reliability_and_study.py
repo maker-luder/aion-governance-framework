@@ -89,6 +89,9 @@ def test_intervention_ledgers_and_condition_results_round_trip_canonically():
     assert restored_ledger.items == ledger.items
     assert payload == ledger.to_json()
     assert json.loads(payload)["schema"] == "aion.verification-intervention-ledger.v1"
+    direct_payload = result.interventions[0].to_json()
+    assert type(result.interventions[0]).from_json(direct_payload) == result.interventions[0]
+    assert direct_payload == result.interventions[0].to_json()
 
     condition_payload = result.to_json()
     restored = InterventionConditionResult.from_json(condition_payload)
