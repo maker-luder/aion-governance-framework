@@ -18,6 +18,7 @@ on:
       - "research-labs/trace-provenance-crosswalk_v0.1.0/**"
       - "research-labs/governed-tool-approval_v0.1.0/**"
       - "research-labs/artifact-transformation-lineage_v0.1.0/**"
+      - "research-labs/trajectory-evaluation_v0.1.0/**"
       - "research-labs/real-model-pilot-protocol_v0.1.0/**"
       - "research-labs/supervised-control-pilot_v0.1.0/**"
       - "research-labs/external-agent-sandbox-protocol_v0.1.0/**"
@@ -27,6 +28,7 @@ on:
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_OPENINFERENCE_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_INSPECT_AI_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_ARTIFACT_LINEAGE_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
@@ -148,6 +150,14 @@ jobs:
 
       - name: Verify artifact transformation lineage
         working-directory: research-labs/artifact-transformation-lineage_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+          python scripts/run_demo.py
+
+      - name: Verify trajectory evaluation
+        working-directory: research-labs/trajectory-evaluation_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src
