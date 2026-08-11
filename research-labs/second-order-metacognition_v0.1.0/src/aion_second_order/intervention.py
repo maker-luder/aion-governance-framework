@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Iterable
+import json
+from dataclasses import asdict, dataclass
+from typing import Any, Iterable
 
 from aion_self_model_ablation import Action, Task, default_benchmark_tasks
 
@@ -15,6 +16,9 @@ from .records import (
 )
 from .verification import (
     DeterministicVerificationProvider,
+    InterventionPolicy,
+    InterventionPolicyKind,
+    ProviderReliabilityProfile,
     VerificationAssessment,
     VerificationDiagnostics,
     VerificationFixture,
@@ -40,6 +44,10 @@ class InterventionDiagnostics:
     verification_rejection_count: int
     verification_unavailable_count: int
     verification_ambiguous_count: int
+    verification_cost_units: int
+    intervention_cost_units: int
+    decision_step_count: int
+    synthetic_latency_steps: int
     identifiability_status: str
 
 
@@ -53,7 +61,79 @@ class InterventionConditionResult:
     condition_summary: ConditionSummary
     verification_diagnostics: VerificationDiagnostics
     intervention_diagnostics: InterventionDiagnostics
+    provider_profile_ref: str
+    provider_sampling_seed: int | None
+    policy_ref: str
+    policy_kind: InterventionPolicyKind
     provenance_refs: tuple[str, ...]
+
+    def __post_init__(self) -> None:
+        if not self.run_ref.strip() or not self.provider_profile_ref.strip():
+            raise ValueError("run_ref and provider_profile_ref must be non-empty")
+        if not self.policy_ref.strip() or not self.provenance_refs:
+            raise ValueError("policy and result provenance must be explicit")
+
+    def to_dict(self) -> dict[str, Any]:
+        summary = asdict(self.condition_summary)
+        summary["condition"] = self.condition_summary.condition.value
+        return {
+            "schema": "aion.intervention-condition-result.v1",
+            "condition": self.condition.value,
+            "run_ref": self.run_ref,
+            "records": [item.to_dict() for item in self.records],
+            "verification_traces": [item.to_dict() for item in self.verification_traces],
+            "interventions": [item.to_dict() for item in self.interventions],
+            "condition_summary": summary,
+            "verification_diagnostics": asdict(self.verification_diagnostics),
+            "intervention_diagnostics": asdict(self.intervention_diagnostics),
+            "provider_profile_ref": self.provider_profile_ref,
+            "provider_sampling_seed": self.provider_sampling_seed,
+            "policy_ref": self.policy_ref,
+            "policy_kind": self.policy_kind.value,
+            "provenance_refs": list(self.provenance_refs),
+        }
+
+    def to_json(self) -> str:
+        return json.dumps(
+            self.to_dict(), ensure_ascii=False, sort_keys=True, separators=(",", ":")
+        )
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "InterventionConditionResult":
+        if data.get("schema") != "aion.intervention-condition-result.v1":
+            raise ValueError("unsupported intervention condition result schema")
+        summary_data = dict(data["condition_summary"])
+        summary_data["condition"] = SecondOrderCondition(summary_data["condition"])
+        return cls(
+            condition=VerificationInterventionCondition(data["condition"]),
+            run_ref=str(data["run_ref"]),
+            records=tuple(TrialEvidence.from_dict(item) for item in data["records"]),
+            verification_traces=tuple(
+                VerificationTrace.from_dict(item) for item in data["verification_traces"]
+            ),
+            interventions=tuple(
+                VerificationIntervention.from_dict(item) for item in data["interventions"]
+            ),
+            condition_summary=ConditionSummary(**summary_data),
+            verification_diagnostics=VerificationDiagnostics(
+                **data["verification_diagnostics"]
+            ),
+            intervention_diagnostics=InterventionDiagnostics(
+                **data["intervention_diagnostics"]
+            ),
+            provider_profile_ref=str(data["provider_profile_ref"]),
+            provider_sampling_seed=data["provider_sampling_seed"],
+            policy_ref=str(data["policy_ref"]),
+            policy_kind=InterventionPolicyKind(data["policy_kind"]),
+            provenance_refs=tuple(data["provenance_refs"]),
+        )
+
+    @classmethod
+    def from_json(cls, payload: str) -> "InterventionConditionResult":
+        data = json.loads(payload)
+        if not isinstance(data, dict):
+            raise ValueError("intervention condition result payload must be an object")
+        return cls.from_dict(data)
 
 
 @dataclass(frozen=True, slots=True)
@@ -141,6 +221,17 @@ def summarize_intervention(
         verification_ambiguous_count=sum(
             item.result.assessment is VerificationAssessment.AMBIGUOUS for item in trace_items
         ),
+        verification_cost_units=len(trace_items),
+        intervention_cost_units=sum(
+            item.condition
+            in {
+                VerificationInterventionCondition.APPLIED,
+                VerificationInterventionCondition.RANDOMIZED,
+            }
+            for item in intervention_items
+        ),
+        decision_step_count=len(items) + len(trace_items) + len(intervention_items),
+        synthetic_latency_steps=len(trace_items) + len(intervention_items),
         identifiability_status=identifiability,
     )
 
@@ -167,6 +258,9 @@ def run_intervention_condition(
     verification_threshold: float = 0.75,
     random_seed: int = 41,
     outcome_contract: OutcomeContract = OutcomeContract.EXTERNAL_BENCHMARK_FULL_LABELS,
+    provider_profile: ProviderReliabilityProfile | None = None,
+    provider_sampling_seed: int = 101,
+    policy: InterventionPolicy | None = None,
 ) -> InterventionConditionResult:
     if not 0.0 <= latent_capability <= 1.0:
         raise ValueError("latent_capability must be between 0 and 1")
@@ -179,13 +273,31 @@ def run_intervention_condition(
         run_id=run_ref,
         verification_threshold=verification_threshold,
     )
-    provider = DeterministicVerificationProvider(_fixture_plan(len(task_stream)))
+    if provider_profile is None:
+        provider = DeterministicVerificationProvider(_fixture_plan(len(task_stream)))
+        provider_profile_ref = "fixture:explicit-cyclic-plan:v0.1.x"
+        sampling_seed: int | None = None
+    else:
+        provider = DeterministicVerificationProvider.from_reliability_profile(
+            provider_profile,
+            len(task_stream),
+            seed=provider_sampling_seed,
+        )
+        provider_profile_ref = provider_profile.profile_ref
+        sampling_seed = provider_sampling_seed
+    effective_policy = policy
+    if effective_policy is None:
+        from .verification import default_intervention_policy
+
+        effective_policy = default_intervention_policy()
 
     for task in task_stream:
         pending = runner.decide(task)
         if pending.control_disposition is ControlDisposition.REQUEST_VERIFICATION:
             runner.verify_pending(provider)
-            runner.intervene_pending(condition, random_seed=random_seed)
+            runner.intervene_pending(
+                condition, random_seed=random_seed, policy=effective_policy
+            )
         environment_label = latent_capability >= task.difficulty
         actual_success = (
             environment_label
@@ -224,6 +336,10 @@ def run_intervention_condition(
             interventions,
             outcome_contract=outcome_contract,
         ),
+        provider_profile_ref=provider_profile_ref,
+        provider_sampling_seed=sampling_seed,
+        policy_ref=effective_policy.policy_ref,
+        policy_kind=effective_policy.kind,
         provenance_refs=(
             "research:chatgpt-verification-intervention-review",
             "implementation:codex-research",
@@ -238,6 +354,9 @@ def run_matched_intervention_experiment(
     verification_threshold: float = 0.75,
     random_seed: int = 41,
     outcome_contract: OutcomeContract = OutcomeContract.EXTERNAL_BENCHMARK_FULL_LABELS,
+    provider_profile: ProviderReliabilityProfile | None = None,
+    provider_sampling_seed: int = 101,
+    policy: InterventionPolicy | None = None,
 ) -> MatchedInterventionExperimentResult:
     task_stream = tuple(default_benchmark_tasks() if tasks is None else tasks)
     conditions = tuple(
@@ -248,6 +367,9 @@ def run_matched_intervention_experiment(
             verification_threshold=verification_threshold,
             random_seed=random_seed,
             outcome_contract=outcome_contract,
+            provider_profile=provider_profile,
+            provider_sampling_seed=provider_sampling_seed,
+            policy=policy,
         )
         for condition in VerificationInterventionCondition
     )

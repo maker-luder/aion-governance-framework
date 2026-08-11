@@ -1,0 +1,30 @@
+{
+  "schema": "aion.intervention-preregistration.v1",
+  "status": "DRAFT_PREREGISTRATION",
+  "execution_status": "NOT_EXECUTED",
+  "research_question": "How do synthetic provider reliability, intervention policy, threshold, and outcome contract interact?",
+  "hypotheses": [
+    "Effects may vary across declared experimental factors without a presumed direction.",
+    "Applied intervention may cause measurable harm in raw outcomes."
+  ],
+  "null_hypotheses": {
+    "H0_1": "Applied intervention does not improve prevented-failure outcomes relative to control.",
+    "H0_2": "Applied intervention increases unnecessary defer without reducing failed commits.",
+    "H0_3": "Observed effects are explained by provider reliability rather than second-order control.",
+    "H0_4": "Threshold changes intervention frequency but not functional outcome quality."
+  },
+  "independent_variables": ["threshold", "intervention_condition", "policy_family", "synthetic_provider_profile", "outcome_contract"],
+  "dependent_variables": ["verification_requests", "verification_attempts", "verification_evidence_available", "interventions_applied", "prevented_failed_commit", "unnecessary_defer", "retained_successful_commit", "verification_cost_units", "intervention_cost_units", "decision_step_count", "synthetic_latency_steps"],
+  "threshold_grid": [0.50, 0.60, 0.70, 0.75, 0.80, 0.90],
+  "provider_profiles": "DECLARED_SYNTHETIC_PROFILES_ONLY",
+  "policies": ["CONSERVATIVE_DEFER", "TRACE_ONLY", "ACCEPT_UNLESS_NEGATIVE"],
+  "conditions": ["VERIFICATION_TRACE_ONLY", "VERIFICATION_APPLIED", "VERIFICATION_ABLATED", "VERIFICATION_RANDOMIZED"],
+  "task_stream": "SAME_FIXED_TASK_STREAM_ACROSS_CELLS",
+  "outcome_contracts": ["EXTERNAL_BENCHMARK_FULL_LABELS", "COMMIT_ONLY"],
+  "seeds": {"provider_sampling": "FIX_BEFORE_RUN", "randomized_intervention": "FIX_BEFORE_RUN"},
+  "exclusions": ["MALFORMED_TASK", "INVALID_RATE_PROFILE", "UNBOUND_EVIDENCE", "OUTCOME_CONTRACT_VIOLATION"],
+  "stopping_rule": "FIX_TASK_COUNT_BEFORE_RUN_AND_STOP_AT_COUNT_OR_INTEGRITY_FAILURE",
+  "interpretation_constraints": ["NO_GLOBAL_SCORE", "NO_WINNER", "NO_OPTIMIZATION", "NO_GENERAL_BENEFIT_CLAIM", "NO_GENERAL_HARM_CLAIM"],
+  "canonical_effect": "NONE",
+  "runtime_effect": "NONE"
+}

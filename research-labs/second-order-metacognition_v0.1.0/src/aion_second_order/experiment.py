@@ -23,6 +23,7 @@ from .verification import (
     VerificationIntervention,
     VerificationInterventionCondition,
     VerificationInterventionLedger,
+    InterventionPolicy,
     VerificationProvider,
     VerificationProviderCapabilities,
     VerificationRequest,
@@ -179,6 +180,7 @@ class SecondOrderRunner:
         condition: VerificationInterventionCondition,
         *,
         random_seed: int = 41,
+        policy: InterventionPolicy | None = None,
     ) -> VerificationIntervention:
         if self._pending is None:
             raise ValueError("intervention requires an active pending decision")
@@ -193,6 +195,7 @@ class SecondOrderRunner:
             matching[0],
             condition,
             random_seed=random_seed,
+            policy=policy,
         )
         self.intervention_ledger.append(intervention)
         return intervention
