@@ -46,6 +46,11 @@ These are Codex research implementation decisions, not canonical doctrine:
     retaining raw denominators, verification diagnostics and claim-boundary dispositions.
 14. bind verification diagnostics to explicit condition/run/provenance artifacts; missing
     condition evidence remains `NOT_PROVIDED`, and global diagnostics remain global.
+15. bind every verification assessment to an immutable first-order-prediction target;
+16. replace permissive evidence strings with a typed allowlist plus oracle/unknown
+    rejection paths, and require a bounded provider capability declaration;
+17. add deterministic verification-ledger JSON round trips that preserve accepted,
+    incorrect and rejected evidence semantics.
 
 ```text
 VERIFICATION_PROVIDER = IMPLEMENTED / TARGETED_TESTED
@@ -55,6 +60,11 @@ VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
 SECOND_ORDER_EVALUATION_ADAPTER = IMPLEMENTED / TARGETED_TESTED
 CLAIM_BOUNDARY_PRESERVED = TARGETED_TESTED
 CONDITION_SCOPED_DIAGNOSTICS = IMPLEMENTED / TARGETED_TESTED
+VERIFICATION_TARGET_BINDING = IMPLEMENTED / TARGETED_TESTED
+TRACE_SERIALIZATION = IMPLEMENTED / TARGETED_TESTED
+EVIDENCE_TYPE_FAIL_CLOSED = IMPLEMENTED / TARGETED_TESTED
+DECLARED_PROVIDER_CAPABILITY_CONTRACT = IMPLEMENTED / TARGETED_TESTED
+BUILT_IN_SYNTHETIC_PROVIDER = BOUNDED_BY_IMPLEMENTATION
 ```
 
 ## Still open

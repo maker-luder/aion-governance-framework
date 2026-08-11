@@ -82,6 +82,20 @@ VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
 Raw verification diagnostics retain request/attempt, availability, ambiguity, rejection,
 scope-rejection and oracle-leakage counts without producing an aggregate score.
 
+The v0.1.x verification target vocabulary is intentionally limited to
+`FIRST_ORDER_PREDICTION`. `CORRECT` or `INCORRECT` therefore refers to a named, snapshotted
+first-order prediction rather than untargeted correctness. No outcome or answer appears in
+the target snapshot.
+
+Accepted evidence types are allowlisted typed enum values. Explicit oracle labels receive
+`ORACLE_LEAKAGE`; every other untyped value receives `UNRECOGNIZED_EVIDENCE_TYPE`. The
+built-in provider exposes an all-false capability descriptor and is in-memory/tool-free by
+implementation. Capability declarations from arbitrary providers are not treated as proof.
+
+The verification ledger serializes to schema `aion.verification-ledger.v1` using sorted,
+compact JSON. Accepted, incorrect and rejected traces restore with semantic equality,
+including rejection reason, target, provenance and disposition fields.
+
 ## Measures
 
 - first-order categorical prediction accuracy;

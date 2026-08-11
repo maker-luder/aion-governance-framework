@@ -21,6 +21,7 @@ from .verification import (
     DeterministicVerificationProvider,
     VerificationLedger,
     VerificationProvider,
+    VerificationProviderCapabilities,
     VerificationRequest,
     VerificationTrace,
     bind_verification,
@@ -149,6 +150,11 @@ class SecondOrderRunner:
             for item in self.verification_ledger.traces
         ):
             raise ValueError("pending decision already has a verification trace")
+        capabilities = getattr(provider, "capabilities", None)
+        if not isinstance(capabilities, VerificationProviderCapabilities):
+            raise ValueError("verification provider must declare capabilities")
+        if not capabilities.bounded:
+            raise ValueError("verification provider capabilities must be bounded")
         request = VerificationRequest.from_pending(self._pending)
         evidence = provider.verify(request)
         result = bind_verification(request, evidence)

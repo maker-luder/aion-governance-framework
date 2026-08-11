@@ -9,6 +9,7 @@ from aion_second_order import (
     VerificationAssessment,
     VerificationFixture,
     summarize_verification,
+    VerificationLedger,
 )
 from aion_self_model_ablation import Task
 
@@ -30,6 +31,7 @@ trace = runner.verify_pending(
     )
 )
 diagnostics = summarize_verification(runner.verification_ledger.traces)
+restored = VerificationLedger.from_json(runner.verification_ledger.to_json())
 
 print(
     json.dumps(
@@ -37,6 +39,10 @@ print(
             "request_id": trace.request.request_id,
             "provider_ref": trace.provider_ref,
             "assessment": trace.result.assessment.value if trace.result.assessment else None,
+            "target_kind": trace.request.target.kind.value,
+            "target_snapshot": trace.request.target.target_snapshot,
+            "provider_capabilities_bounded": True,
+            "ledger_round_trip_equal": restored.traces == runner.verification_ledger.traces,
             "accepted": trace.result.accepted,
             "affected_disposition": trace.affected_disposition,
             "verification_attempts": diagnostics.verification_attempts,

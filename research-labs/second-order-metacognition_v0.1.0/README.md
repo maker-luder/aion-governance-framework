@@ -57,6 +57,21 @@ The deterministic provider is in-memory, synthetic and explicitly fallible. It s
 v0.1.0 the original first-order decision and `REQUEST_VERIFICATION` disposition remain
 unchanged; verification is trace-only experimental substrate.
 
+Every request now binds its assessment to a typed `FIRST_ORDER_PREDICTION` target containing
+the target reference, trial ID and immutable pre-verification prediction snapshot. Evidence
+must carry the identical target. Target/trial mismatches fail closed.
+
+Accepted evidence uses the `VerificationEvidenceType` allowlist. Oracle-labelled strings
+remain preserved as rejected research data; other unknown strings receive
+`UNRECOGNIZED_EVIDENCE_TYPE`. The built-in provider declares a capability descriptor with
+outcome, benchmark-answer, expected-output, network, tool, repository-write and external-
+model access all disabled. This is a declared contract and implementation boundary for the
+built-in provider, not proof about arbitrary provider internals.
+
+`VerificationLedger.to_json()` emits deterministic canonical JSON. The round trip preserves
+targets, enums, scopes, timing, authority, assessments, all rejection identities,
+provenance and both dispositions.
+
 `SecondOrderRunner.decide(...)` has no outcome argument. The environment can attach an
 outcome only through `record_outcome(...)` after the pending decision exists.
 
