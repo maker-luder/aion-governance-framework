@@ -29,6 +29,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Primary-literature calibration: independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
+| Extension | Second-order metacognition: immutable evidence, anti-lookahead monitor, bounded verification control and matched conditions | IMPLEMENTED / TARGETED TESTED / CI PENDING |
 | Extension | Whitepaper ↔ code reconciliation: preserve historical snapshots, map current runtime/memory/continuity/self-model evidence, classify main-only deltas as reference-only | MATERIALIZED / RESEARCH-ONLY / NO CODE |
 | Extension | Research evaluation harness: definition/execution/result separation plus claim-boundary gate | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Trace/provenance crosswalk: public trace vocabulary with redaction and AION authority isolation | IMPLEMENTED / TESTED / CI VERIFIED |
@@ -49,6 +50,7 @@ Research refinements:
 
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md`
 
 Whitepaper / code reconciliation:
 
@@ -90,14 +92,15 @@ LITERATURE_ALIGNMENT != REPLICATION
 CLEAN_ROOM_RECONSTRUCTION != EXTERNAL_RESULT_REPLICATION
 ```
 
-The memory line now treats continuity as a multidimensional interaction among retention, correction, relevance, provenance and boundary control rather than raw persistence alone. The Level-3 line still requires independent monitoring measurement plus a causally tested control path before any second-order functional contribution can be claimed.
+The memory line now treats continuity as a multidimensional interaction among retention, correction, relevance, provenance and boundary control rather than raw persistence alone. The Level-3 line now has an executable candidate that separates monitoring from bounded control under anti-lookahead timing; independent experiments are still required before any second-order functional contribution can be claimed.
 
 The whitepaper/code reconciliation preserves the 2026-07-27 integrated whitepaper as a historical snapshot while recording that later repository implementation evidence now includes an explicit bounded AION Runtime candidate, governed cross-session memory and additional research-only continuity/self-model modules. It does not rewrite the historical whitepaper, modify runtime code or authorize promotion.
 
 ```text
 SELECTIVE_MEMORY_CONTROL_MODULE = IMPLEMENTED / CI_VERIFIED
 SELECTIVE_MEMORY_COMPARATIVE_EXPERIMENT = PROPOSED_NOT_EXECUTED
-EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
+EXECUTABLE_LEVEL_3_CANDIDATE = IMPLEMENTED / TARGETED_TESTED / CI_PENDING
+LEVEL_3_FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
 WHITEPAPER_CODE_RECONCILIATION = MATERIALIZED / RESEARCH_ONLY / NO_CODE
 HISTORICAL_WHITEPAPER_REWRITE = NO
 WHOLESALE_MAIN_MERGE = NO
@@ -274,6 +277,7 @@ See:
 - `research-labs/core-meaning-commitments_v0.1.0/`
 - `research-labs/self-model-functional-ablation_v0.1.0/`
 - `research-labs/selective-memory-control_v0.1.0/`
+- `research-labs/second-order-metacognition_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
 - `research-labs/research-evaluation-harness_v0.1.0/`
 - `research-labs/trace-provenance-crosswalk_v0.1.0/`
@@ -284,6 +288,7 @@ See:
 - `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md`
@@ -309,7 +314,9 @@ LEVEL_2_FIRST_ORDER_FUNCTION
 LEVEL_3_SECOND_ORDER_COMPUTATION
 ```
 
-Current Level-3 status remains an open research gap; the rejected partial external-agent implementation is not promoted into this branch.
+The 2026-08-10 checkpoint remains a historical open-gap record and the rejected partial
+external-agent implementation remains excluded. A later clean implementation now provides
+an executable candidate; the scientific contribution and subjectivity questions remain open.
 
 Read the checkpoint set:
 

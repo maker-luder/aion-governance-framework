@@ -229,13 +229,16 @@ CLEAN_ROOM_RECONSTRUCTION != EXTERNAL_RESULT_REPLICATION
 - **Selective memory / continuity research note:** [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
 - **Executable selective-memory module:** [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - **Level-3 metacognition calibration:** [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
+- **Executable Level-3 candidate:** [`second-order-metacognition_v0.1.0`](research-labs/second-order-metacognition_v0.1.0/)
+- **Level-3 engineering status:** [`SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md)
 
 Current execution state for this line remains:
 
 ```text
 SELECTIVE_MEMORY_CONTROL_MODULE = IMPLEMENTED / TESTED / CI_VERIFIED
 SELECTIVE_MEMORY_COMPARATIVE_EXPERIMENT = PROPOSED_NOT_EXECUTED
-EXECUTABLE_LEVEL_3_CANDIDATE = NOT_IMPLEMENTED
+EXECUTABLE_LEVEL_3_CANDIDATE = IMPLEMENTED / TARGETED_TESTED / CI_PENDING
+LEVEL_3_FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 RUNTIME_EFFECT = NONE
@@ -266,8 +269,13 @@ LEVEL_2_FIRST_ORDER_FUNCTION
 
 LEVEL_3_SECOND_ORDER_COMPUTATION
     = OPEN RESEARCH GAP
-    = EXECUTABLE CANDIDATE NOT_IMPLEMENTED
+    = HISTORICAL CHECKPOINT STATUS: EXECUTABLE CANDIDATE NOT_IMPLEMENTED
 ```
+
+The historical checkpoint remains unchanged as a record of the state on 2026-08-10.
+The later executable candidate is recorded separately in
+`research-labs/second-order-metacognition_v0.1.0/`; implementation closes the code gap,
+not the scientific or subjectivity question.
 
 Standing locks from that checkpoint include:
 
@@ -314,6 +322,8 @@ If you are viewing this page on GitHub mobile, this README is the research-branc
 - Selective memory / continuity note: [`MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md)
 - Executable selective-memory module: [`selective-memory-control_v0.1.0`](research-labs/selective-memory-control_v0.1.0/)
 - Level-3 metacognition calibration: [`SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md)
+- Executable Level-3 candidate: [`second-order-metacognition_v0.1.0`](research-labs/second-order-metacognition_v0.1.0/)
+- Level-3 engineering status: [`SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md`](research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_ENGINEERING_STATUS_2026-08-11.md)
 - Current progress: [`RESEARCH_BRANCH_STATUS.md`](RESEARCH_BRANCH_STATUS.md)
 - External / AI experiments: [`AI_EXPERIMENT_GUIDE.md`](AI_EXPERIMENT_GUIDE.md)
 - Research labs: [`research-labs/`](research-labs/)
@@ -335,6 +345,7 @@ For the stable public release baseline, switch the GitHub branch selector back t
 | Extension | IQC/reconstruction checkpoint + evidence-oriented reconstruction method + Level-3 gap | materialized / research-only |
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | implemented / tested / CI verified |
 | Extension | Level-3 metacognition literature calibration | materialized / literature-grounded / no code |
+| Extension | Second-order metacognition: immutable evidence, anti-lookahead monitor, bounded control and matched conditions | implemented / targeted tested / CI pending |
 | Extension | Whitepaper ↔ code reconciliation | materialized / research-only / no code |
 | Extension | Research evaluation harness: definition/execution/result separation + claim-boundary gate | implemented / tested / CI verified |
 | Extension | Trace/provenance crosswalk: public trace vocabulary + redaction + authority isolation | implemented / tested / CI verified |

@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-second-order-metacognition"
+version = "0.1.0"
+description = "Research-only second-order monitoring and bounded control experiment"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+  "src",
+  "../self-model-functional-ablation_v0.1.0/src",
+]
+addopts = "-ra"
