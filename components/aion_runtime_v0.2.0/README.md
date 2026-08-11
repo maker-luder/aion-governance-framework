@@ -1,6 +1,6 @@
 # AION Runtime v0.2.0 — Agent Runtime & Deployment Control-Plane Research Candidate
 
-Status: `IMPLEMENTED_RESEARCH_CANDIDATE / LOCAL_VALIDATION_PENDING_CI`  
+Status: `IMPLEMENTED_RESEARCH_CANDIDATE / CI_VERIFIED`  
 Branch effect: `RESEARCH_ONLY`  
 Main effect: `NONE`  
 Canonical effect: `NONE`  
@@ -57,15 +57,19 @@ Implemented modules:
 
 ```text
 OS_PROCESS_SANDBOX = NOT_IMPLEMENTED
+REAL_PROVIDER_HTTP_TRANSPORT = NOT_IMPLEMENTED
 STATE_CHANGING_HTTP_API = DISABLED
 AUTH_TLS_RATE_LIMIT = NOT_IMPLEMENTED
 AUTOMATIC_REMOTE_MODEL_FALLBACK = DISABLED
 AUTOMATIC_CANONICAL_WRITEBACK = DISABLED
 EXTERNAL_AGENT_FRAMEWORK_RUNTIME_DEPENDENCY = NONE
+LIVE_MODEL_SERVER_INTEGRATION = NOT_EXECUTED
 DEPLOYMENT = FALSE
 ```
 
 The synthetic executor exists only to exercise the full approval→execution→observation loop in tests. It must not be described as production isolation.
+
+The vLLM and llama.cpp entries are provider/profile contracts only. This candidate does not silently start, download, or call a live model server.
 
 ## Standing locks
 
@@ -109,4 +113,4 @@ compileall = PASS
 demo = PASS
 ```
 
-Research Workbench CI must pass before the branch status is upgraded to `CI_VERIFIED`.
+Research Workbench CI #31 re-ran the focused research stack plus this component and completed successfully, including the `Verify AION Runtime v0.2 research candidate` step. The final closure head is required to pass the same workflow again because this README is part of the CI path filter.
