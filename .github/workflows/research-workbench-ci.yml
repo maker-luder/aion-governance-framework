@@ -15,12 +15,15 @@ on:
       - "research-labs/self-model-functional-ablation_v0.1.0/**"
       - "research-labs/selective-memory-control_v0.1.0/**"
       - "research-labs/research-evaluation-harness_v0.1.0/**"
+      - "research-labs/trace-provenance-crosswalk_v0.1.0/**"
       - "research-labs/real-model-pilot-protocol_v0.1.0/**"
       - "research-labs/supervised-control-pilot_v0.1.0/**"
       - "research-labs/external-agent-sandbox-protocol_v0.1.0/**"
       - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_CONSCIOUSNESS_PROJECTS_INTAKE.md"
       - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_AGENT_SANDBOX_PROTOCOL_STATUS.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_PYDANTIC_EVALS_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_OPENINFERENCE_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
 
@@ -117,6 +120,14 @@ jobs:
 
       - name: Verify research evaluation harness
         working-directory: research-labs/research-evaluation-harness_v0.1.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+          python scripts/run_demo.py
+
+      - name: Verify trace provenance crosswalk
+        working-directory: research-labs/trace-provenance-crosswalk_v0.1.0
         run: |
           python -m pip install -e .
           python -m compileall -q src
