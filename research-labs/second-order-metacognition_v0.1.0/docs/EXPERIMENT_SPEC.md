@@ -46,9 +46,9 @@ Each `TrialEvidence` record includes:
 Records are append-only within `TrialLedger`. Every monitor value can be recomputed from
 the records named by `source_trial_ids`.
 
-Standalone recomputation rejects evidence mixed across run, subject, context or model
-identity before it filters observed outcomes. Condition pooling is not authorized by this
-specification and remains a research-design HOLD.
+Standalone recomputation rejects evidence mixed across run, subject, context, model or
+condition before it filters observed outcomes. A separate scientific cross-condition
+analysis remains a research-design HOLD; the ordinary monitor path fails closed.
 
 ## Outcome contracts
 
@@ -68,7 +68,7 @@ These two contracts must not be pooled without an explicit analysis rule.
 - verification-request count;
 - missing-outcome count;
 - observed and missing fractions with raw trial/observed/missing counts;
-- effective sample size, operationalized as the raw observed-outcome count;
+- observed sample size, defined as the raw observed-outcome count;
 - monitor evidence growth, operationalized as the maximum number of prior observed
   records used by an evidence-derived signal;
 - observed-outcome counts and denominators split by first-order `COMMIT` / `DEFER`;
@@ -79,6 +79,7 @@ as calibration error, success probability or global reliability.
 
 These diagnostics expose feedback starvation and action-conditioned missingness. They do
 not impute outcomes or correct selection, survivorship or self-confirming-calibration bias.
+No statistical effective-sample-size estimator is implemented.
 
 ## Causal checks
 

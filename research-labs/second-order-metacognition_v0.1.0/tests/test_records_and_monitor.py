@@ -87,6 +87,18 @@ def test_monitor_rejects_mixed_experimental_scope_even_when_outcome_is_missing(
         recompute_monitor_signal((first, missing))
 
 
+def test_monitor_rejects_mixed_conditions_with_other_scope_fields_matched():
+    first_runner = SecondOrderRunner(SecondOrderCondition.MONITOR_ONLY, run_id="same-run")
+    first = complete(first_runner, Task("t0", 0.50), True)
+    other_runner = SecondOrderRunner(
+        SecondOrderCondition.MONITOR_PLUS_CONTROL,
+        run_id="same-run",
+    )
+    second = complete(other_runner, Task("t1", 0.75), False)
+    with pytest.raises(ValueError, match="condition"):
+        recompute_monitor_signal((first, second))
+
+
 def test_ledger_serialization_round_trip_preserves_evidence():
     runner = SecondOrderRunner(SecondOrderCondition.MONITOR_ONLY, run_id="roundtrip")
     complete(runner, Task("t0", 0.50), True)

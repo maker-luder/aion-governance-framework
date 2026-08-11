@@ -79,7 +79,7 @@ def test_commit_only_contract_keeps_missing_outcomes_distinct_from_failures():
     assert summary.observed_outcomes == 1
     assert summary.observed_fraction == 0.5
     assert summary.missing_fraction == 0.5
-    assert summary.effective_sample_size == 1
+    assert summary.observed_sample_size == 1
     assert (summary.commit_observed_outcomes, summary.commit_trials) == (1, 1)
     assert (summary.defer_observed_outcomes, summary.defer_trials) == (0, 1)
     assert summary.monitor_evidence_growth == 0
@@ -95,7 +95,7 @@ def test_full_label_summary_exposes_monitor_evidence_growth_without_imputation()
     assert summary.observed_outcomes == summary.trial_count
     assert summary.observed_fraction == 1.0
     assert summary.missing_fraction == 0.0
-    assert summary.effective_sample_size == summary.observed_outcomes
+    assert summary.observed_sample_size == summary.observed_outcomes
     assert summary.monitor_evidence_growth > 0
 
 

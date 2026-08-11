@@ -40,15 +40,15 @@ def recompute_monitor_signal(
 def _require_single_evidence_scope(records: tuple[TrialEvidence, ...]) -> None:
     """Reject silent pooling across experimental identity boundaries.
 
-    Condition is deliberately excluded here. Whether cross-condition analysis is a
-    valid operation is a research-design decision; the monitor helper does not create
-    that doctrine. TrialLedger already keeps condition stable inside each run.
+    Scientific admissibility of cross-condition analysis remains a research-design
+    decision. The ordinary monitor helper therefore fails closed rather than silently
+    creating a cross-condition pooling doctrine.
     """
 
     if not records:
         return
     first = records[0]
-    scope_fields = ("run_id", "subject_ref", "context_ref", "model_ref")
+    scope_fields = ("run_id", "subject_ref", "context_ref", "model_ref", "condition")
     mixed = tuple(
         field
         for field in scope_fields

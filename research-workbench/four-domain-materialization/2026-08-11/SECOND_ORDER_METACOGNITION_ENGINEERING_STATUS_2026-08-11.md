@@ -32,10 +32,10 @@ These are Codex research implementation decisions, not canonical doctrine:
 5. preserve full-label and commit-only outcome contracts as separate regimes;
 6. return `NOT_ESTABLISHED` for functional contribution and subjectivity conclusions.
 7. reject silent monitor-evidence pooling across run, subject, context or model identity;
-8. leave cross-condition pooling as `HOLD_FOR_RESEARCH_DECISION` rather than creating a
-   new analysis doctrine.
-9. expose missingness, effective sample size, evidence growth and action-conditioned
-   observation counts without imputing unavailable outcomes.
+8. fail closed on mixed-condition monitor recomputation while leaving the scientific
+   admissibility of a separate cross-condition analysis as `HOLD_FOR_RESEARCH_DECISION`.
+9. expose missingness, raw observed sample size, evidence growth and action-conditioned
+   observation counts without imputing unavailable outcomes or claiming an ESS estimator.
 10. provide matched threshold-sweep plumbing without selecting or tuning a preferred
     threshold; scientific execution remains `DEFERRED_TO_EXPERIMENT`.
 

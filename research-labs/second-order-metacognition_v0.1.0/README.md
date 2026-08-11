@@ -59,9 +59,9 @@ writeback or execution authority.
 `TrialLedger` stores immutable `TrialEvidence` records and supports deterministic JSON
 round trips. The monitor is recomputed from records rather than mutable summary counters.
 Before outcome filtering, the recomputation helper rejects mixed `run_id`, `subject_ref`,
-`context_ref` or `model_ref` inputs so missing outcomes cannot conceal cross-scope pooling.
-Whether evidence may ever be pooled across experimental conditions remains
-`HOLD_FOR_RESEARCH_DECISION`; this implementation does not introduce that doctrine.
+`context_ref`, `model_ref` or `condition` inputs so missing outcomes cannot conceal
+cross-scope pooling. Whether a separate cross-condition scientific analysis can ever be
+admissible remains `HOLD_FOR_RESEARCH_DECISION`; ordinary monitor recomputation fails closed.
 
 The v0.1.0 signal is exactly:
 
@@ -72,8 +72,10 @@ PRIOR_FIRST_ORDER_PREDICTION_ACCURACY
 It is not a success probability, global model reliability, calibrated confidence,
 subjective confidence or internal access claim. `MISSING` remains distinct from failure.
 Condition summaries retain raw trial, observed and missing counts plus explicit
-denominators, effective sample size, monitor-evidence growth and `COMMIT` / `DEFER`
-observation splits. These are starvation/selection-bias diagnostics, not imputation.
+denominators, `observed_sample_size`, monitor-evidence growth and `COMMIT` / `DEFER`
+observation splits. `observed_sample_size` is exactly the raw observed-outcome count;
+no statistical effective-sample-size estimator is implemented. These are
+starvation/selection-bias diagnostics, not imputation.
 
 ## Run targeted validation
 

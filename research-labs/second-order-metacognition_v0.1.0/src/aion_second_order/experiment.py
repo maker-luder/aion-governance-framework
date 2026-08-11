@@ -26,7 +26,7 @@ class ConditionSummary:
     observed_outcomes: int
     observed_fraction: float
     missing_fraction: float
-    effective_sample_size: int
+    observed_sample_size: int
     monitor_coverage: float
     monitor_evidence_growth: int
     first_order_prediction_accuracy: float
@@ -226,7 +226,7 @@ def summarize(
         observed_outcomes=len(observed),
         observed_fraction=round(len(observed) / len(items), 6),
         missing_fraction=round((len(items) - len(observed)) / len(items), 6),
-        effective_sample_size=len(observed),
+        observed_sample_size=len(observed),
         monitor_coverage=round(len(monitored) / len(items), 6),
         monitor_evidence_growth=max(
             (signal.observations for signal in evidence_derived),
