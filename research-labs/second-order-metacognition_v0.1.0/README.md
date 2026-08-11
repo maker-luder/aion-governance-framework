@@ -71,6 +71,9 @@ PRIOR_FIRST_ORDER_PREDICTION_ACCURACY
 
 It is not a success probability, global model reliability, calibrated confidence,
 subjective confidence or internal access claim. `MISSING` remains distinct from failure.
+Condition summaries retain raw trial, observed and missing counts plus explicit
+denominators, effective sample size, monitor-evidence growth and `COMMIT` / `DEFER`
+observation splits. These are starvation/selection-bias diagnostics, not imputation.
 
 ## Run targeted validation
 

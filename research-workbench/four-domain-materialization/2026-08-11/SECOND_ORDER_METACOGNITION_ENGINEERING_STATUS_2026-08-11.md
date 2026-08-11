@@ -34,13 +34,16 @@ These are Codex research implementation decisions, not canonical doctrine:
 7. reject silent monitor-evidence pooling across run, subject, context or model identity;
 8. leave cross-condition pooling as `HOLD_FOR_RESEARCH_DECISION` rather than creating a
    new analysis doctrine.
+9. expose missingness, effective sample size, evidence growth and action-conditioned
+   observation counts without imputing unavailable outcomes.
 
 ## Still open
 
 - independent fixture design and preregistration;
 - whether any cross-condition monitor-evidence pooling is scientifically admissible;
 - threshold sensitivity and adverse-condition experiments;
-- feedback-starvation analysis outside the full-label synthetic contract;
+- causal correction for feedback starvation / selection bias outside the full-label
+  synthetic contract (diagnostics are implemented; correction remains open);
 - integration with the generic research evaluation harness;
 - independent implementation and QA;
 - any claim about phenomenal metacognition, self-awareness or consciousness.

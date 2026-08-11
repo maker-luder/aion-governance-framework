@@ -67,10 +67,18 @@ These two contracts must not be pooled without an explicit analysis rule.
 - monitor classification accuracy at the preregistered verification threshold;
 - verification-request count;
 - missing-outcome count;
+- observed and missing fractions with raw trial/observed/missing counts;
+- effective sample size, operationalized as the raw observed-outcome count;
+- monitor evidence growth, operationalized as the maximum number of prior observed
+  records used by an evidence-derived signal;
+- observed-outcome counts and denominators split by first-order `COMMIT` / `DEFER`;
 - anti-lookahead validity.
 
 The monitor value is a historical categorical-accuracy rate. It is not named or interpreted
 as calibration error, success probability or global reliability.
+
+These diagnostics expose feedback starvation and action-conditioned missingness. They do
+not impute outcomes or correct selection, survivorship or self-confirming-calibration bias.
 
 ## Causal checks
 

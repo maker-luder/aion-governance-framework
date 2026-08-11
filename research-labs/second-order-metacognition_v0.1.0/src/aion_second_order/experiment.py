@@ -24,11 +24,19 @@ class ConditionSummary:
     condition: SecondOrderCondition
     trial_count: int
     observed_outcomes: int
+    observed_fraction: float
+    missing_fraction: float
+    effective_sample_size: int
     monitor_coverage: float
+    monitor_evidence_growth: int
     first_order_prediction_accuracy: float
     monitor_classification_accuracy: float | None
     verification_requests: int
     missing_outcomes: int
+    commit_trials: int
+    commit_observed_outcomes: int
+    defer_trials: int
+    defer_observed_outcomes: int
     anti_lookahead_valid: bool
     monitor_semantics: str = "PRIOR_FIRST_ORDER_PREDICTION_ACCURACY"
     functional_contribution_status: str = "NOT_ESTABLISHED"
@@ -192,6 +200,14 @@ def summarize(
         raise ValueError("records must match the requested condition")
     observed = tuple(item for item in items if item.outcome_status is OutcomeStatus.OBSERVED)
     monitored = tuple(item for item in observed if item.monitor_signal is not None)
+    evidence_derived = tuple(
+        item.monitor_signal
+        for item in items
+        if item.monitor_signal is not None
+        and item.monitor_signal.source is SignalSource.PRIOR_TRIAL_EVIDENCE
+    )
+    commit_trials = tuple(item for item in items if item.first_order_action is Action.COMMIT)
+    defer_trials = tuple(item for item in items if item.first_order_action is Action.DEFER)
     first_order_correct = sum(item.first_order_prediction is item.actual_success for item in observed)
     monitor_correct = sum(
         ((item.monitor_signal.value >= verification_threshold) is (item.first_order_prediction is item.actual_success))
@@ -201,7 +217,14 @@ def summarize(
         condition=condition,
         trial_count=len(items),
         observed_outcomes=len(observed),
+        observed_fraction=round(len(observed) / len(items), 6),
+        missing_fraction=round((len(items) - len(observed)) / len(items), 6),
+        effective_sample_size=len(observed),
         monitor_coverage=round(len(monitored) / len(items), 6),
+        monitor_evidence_growth=max(
+            (signal.observations for signal in evidence_derived),
+            default=0,
+        ),
         first_order_prediction_accuracy=round(first_order_correct / len(observed), 6)
         if observed
         else 0.0,
@@ -212,6 +235,14 @@ def summarize(
             item.control_disposition is ControlDisposition.REQUEST_VERIFICATION for item in items
         ),
         missing_outcomes=len(items) - len(observed),
+        commit_trials=len(commit_trials),
+        commit_observed_outcomes=sum(
+            item.outcome_status is OutcomeStatus.OBSERVED for item in commit_trials
+        ),
+        defer_trials=len(defer_trials),
+        defer_observed_outcomes=sum(
+            item.outcome_status is OutcomeStatus.OBSERVED for item in defer_trials
+        ),
         anti_lookahead_valid=all(
             item.monitor_signal is None
             or item.monitor_signal.source is SignalSource.RANDOMIZED_CONTROL
