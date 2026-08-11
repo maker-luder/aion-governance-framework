@@ -5,6 +5,7 @@ on:
     branches:
       - review/four-domain-research-materialization
     paths:
+      - "components/aion_runtime_v0.2.0/**"
       - "research-labs/external-evidence-normalization_v0.1.0/**"
       - "research-labs/embodiment-continuity-anchor_v0.1.0/**"
       - "research-labs/causal-internal-state_v0.1.0/**"
@@ -30,6 +31,8 @@ on:
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_ARTIFACT_LINEAGE_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md"
       - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md"
+      - "RESEARCH_BRANCH_STATUS.md"
       - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
 
@@ -184,3 +187,11 @@ jobs:
           python -m pip install -e .
           python -m compileall -q src
           python -m pytest -q
+
+      - name: Verify AION Runtime v0.2 research candidate
+        working-directory: components/aion_runtime_v0.2.0
+        run: |
+          python -m pip install -e .
+          python -m compileall -q src
+          python -m pytest -q
+          python scripts/run_demo.py
