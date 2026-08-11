@@ -31,10 +31,14 @@ These are Codex research implementation decisions, not canonical doctrine:
 4. make `REQUEST_VERIFICATION` the only active v0.1.0 control effect;
 5. preserve full-label and commit-only outcome contracts as separate regimes;
 6. return `NOT_ESTABLISHED` for functional contribution and subjectivity conclusions.
+7. reject silent monitor-evidence pooling across run, subject, context or model identity;
+8. leave cross-condition pooling as `HOLD_FOR_RESEARCH_DECISION` rather than creating a
+   new analysis doctrine.
 
 ## Still open
 
 - independent fixture design and preregistration;
+- whether any cross-condition monitor-evidence pooling is scientifically admissible;
 - threshold sensitivity and adverse-condition experiments;
 - feedback-starvation analysis outside the full-label synthetic contract;
 - integration with the generic research evaluation harness;

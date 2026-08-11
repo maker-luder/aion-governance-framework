@@ -54,6 +54,39 @@ def test_monitor_is_recomputed_from_immutable_trial_evidence():
     assert signal.source is SignalSource.PRIOR_TRIAL_EVIDENCE
 
 
+@pytest.mark.parametrize(
+    ("override", "field"),
+    (
+        ({"run_id": "other-run"}, "run_id"),
+        ({"subject_ref": "other-subject"}, "subject_ref"),
+        ({"context_ref": "other-context"}, "context_ref"),
+        ({"model_ref": "other-model"}, "model_ref"),
+    ),
+)
+def test_monitor_rejects_mixed_experimental_scope_even_when_outcome_is_missing(
+    override,
+    field,
+):
+    first_runner = SecondOrderRunner(SecondOrderCondition.MONITOR_ONLY, run_id="scope")
+    first = complete(first_runner, Task("t0", 0.50), True)
+    other_runner = SecondOrderRunner(
+        SecondOrderCondition.MONITOR_ONLY,
+        run_id=override.get("run_id", "scope"),
+        subject_ref=override.get("subject_ref", "synthetic-subject"),
+        context_ref=override.get("context_ref", "level3-matched-benchmark"),
+        model_ref=override.get("model_ref", "finite-predictive-self-model-v0.1.0"),
+    )
+    pending = other_runner.decide(Task("t1", 0.75))
+    missing = other_runner.record_outcome(
+        pending,
+        actual_success=None,
+        evidence_refs=("label:t1",),
+        provenance_refs=("fixture:test",),
+    )
+    with pytest.raises(ValueError, match=field):
+        recompute_monitor_signal((first, missing))
+
+
 def test_ledger_serialization_round_trip_preserves_evidence():
     runner = SecondOrderRunner(SecondOrderCondition.MONITOR_ONLY, run_id="roundtrip")
     complete(runner, Task("t0", 0.50), True)

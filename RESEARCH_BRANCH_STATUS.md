@@ -29,7 +29,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Primary-literature calibration: independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
-| Extension | Second-order metacognition: immutable evidence, anti-lookahead monitor, bounded verification control and matched conditions | IMPLEMENTED / TARGETED TESTED / CI PENDING |
+| Extension | Second-order metacognition: immutable run-scoped evidence, anti-lookahead monitor, bounded verification control and matched conditions | IMPLEMENTED / TARGETED TESTED / CI PENDING |
 | Extension | Whitepaper ↔ code reconciliation: preserve historical snapshots, map current runtime/memory/continuity/self-model evidence, classify main-only deltas as reference-only | MATERIALIZED / RESEARCH-ONLY / NO CODE |
 | Extension | Research evaluation harness: definition/execution/result separation plus claim-boundary gate | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Trace/provenance crosswalk: public trace vocabulary with redaction and AION authority isolation | IMPLEMENTED / TESTED / CI VERIFIED |

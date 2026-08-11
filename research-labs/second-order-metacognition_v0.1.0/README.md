@@ -58,6 +58,10 @@ writeback or execution authority.
 
 `TrialLedger` stores immutable `TrialEvidence` records and supports deterministic JSON
 round trips. The monitor is recomputed from records rather than mutable summary counters.
+Before outcome filtering, the recomputation helper rejects mixed `run_id`, `subject_ref`,
+`context_ref` or `model_ref` inputs so missing outcomes cannot conceal cross-scope pooling.
+Whether evidence may ever be pooled across experimental conditions remains
+`HOLD_FOR_RESEARCH_DECISION`; this implementation does not introduce that doctrine.
 
 The v0.1.0 signal is exactly:
 

@@ -21,7 +21,9 @@ def recompute_monitor_signal(
 ) -> MonitorSignal | None:
     if min_observations <= 0:
         raise ValueError("min_observations must be positive")
-    observed = tuple(item for item in records if item.outcome_status is OutcomeStatus.OBSERVED)
+    items = tuple(records)
+    _require_single_evidence_scope(items)
+    observed = tuple(item for item in items if item.outcome_status is OutcomeStatus.OBSERVED)
     if len(observed) < min_observations:
         return None
     correct = sum(item.first_order_prediction is item.actual_success for item in observed)
@@ -33,6 +35,27 @@ def recompute_monitor_signal(
         semantics=MONITOR_SEMANTICS,
         source=SignalSource.PRIOR_TRIAL_EVIDENCE,
     )
+
+
+def _require_single_evidence_scope(records: tuple[TrialEvidence, ...]) -> None:
+    """Reject silent pooling across experimental identity boundaries.
+
+    Condition is deliberately excluded here. Whether cross-condition analysis is a
+    valid operation is a research-design decision; the monitor helper does not create
+    that doctrine. TrialLedger already keeps condition stable inside each run.
+    """
+
+    if not records:
+        return
+    first = records[0]
+    scope_fields = ("run_id", "subject_ref", "context_ref", "model_ref")
+    mixed = tuple(
+        field
+        for field in scope_fields
+        if any(getattr(item, field) != getattr(first, field) for item in records[1:])
+    )
+    if mixed:
+        raise ValueError(f"monitor evidence scope mismatch: {', '.join(mixed)}")
 
 
 def randomized_control_signal(*, seed: int, run_id: str, trial_id: str) -> MonitorSignal:

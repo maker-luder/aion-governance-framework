@@ -46,6 +46,10 @@ Each `TrialEvidence` record includes:
 Records are append-only within `TrialLedger`. Every monitor value can be recomputed from
 the records named by `source_trial_ids`.
 
+Standalone recomputation rejects evidence mixed across run, subject, context or model
+identity before it filters observed outcomes. Condition pooling is not authorized by this
+specification and remains a research-design HOLD.
+
 ## Outcome contracts
 
 - `EXTERNAL_BENCHMARK_FULL_LABELS`: the synthetic benchmark supplies a delayed label for
