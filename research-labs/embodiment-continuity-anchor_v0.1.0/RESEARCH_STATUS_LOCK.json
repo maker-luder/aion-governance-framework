@@ -1,0 +1,13 @@
+{
+  "status": "RESEARCH_MATERIAL",
+  "main_effect": "NONE",
+  "canonical_effect": "NONE",
+  "runtime_effect": "NONE",
+  "implementation_status": "NOT_STARTED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "body_ownership_conclusion": "NOT_ESTABLISHED",
+  "phenomenal_continuity_conclusion": "NOT_ESTABLISHED",
+  "legacy_artifact_policy": "QUARANTINE_NOT_IMPORTED",
+  "clean_room_fixture_policy": "REQUIRED",
+  "codex_contribution": "NONE_YET"
+}
