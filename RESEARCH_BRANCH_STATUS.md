@@ -29,6 +29,11 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Primary-literature calibration: independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
 | Extension | Whitepaper ↔ code reconciliation: preserve historical snapshots, map current runtime/memory/continuity/self-model evidence, classify main-only deltas as reference-only | MATERIALIZED / RESEARCH-ONLY / NO CODE |
+| Extension | Research evaluation harness: definition/execution/result separation plus claim-boundary gate | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | Trace/provenance crosswalk: public trace vocabulary with redaction and AION authority isolation | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | Governed tool approval: approval chain, fail-closed default and sandbox-readiness boundary | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | Artifact transformation lineage: design/run separation, material/product SHA-256 evidence chain | IMPLEMENTED / TESTED / CI VERIFIED |
+| Extension | Deterministic trajectory evaluation: ordered path, retry/loop/tool/budget evidence and same-output path comparison | IMPLEMENTED / TESTED / CI VERIFIED |
 
 ## 2026-08-11 literature-to-module materialization
 
@@ -98,6 +103,56 @@ MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 ```
 
+## 2026-08-11 external-module clean-room transformation cycle
+
+A sequential public-repository intake was performed after Human Research Owner authorization. Because the execution container could not directly resolve GitHub for `git clone`, source snapshots were fixed and retrieved through the connected GitHub API by repository, commit and reviewed file. No whole external repository was vendored.
+
+Selected external mechanisms were reconstructed one at a time as independent AION research modules:
+
+| Source mechanism | AION materialization | CI |
+|---|---|---|
+| Pydantic Evals definition/execution/report separation | `research-labs/research-evaluation-harness_v0.1.0/` | #25 SUCCESS |
+| OpenInference public trace semantics | `research-labs/trace-provenance-crosswalk_v0.1.0/` | #26 SUCCESS |
+| Inspect AI approval/sandbox concepts | `research-labs/governed-tool-approval_v0.1.0/` | #27 SUCCESS |
+| OpenLineage + in-toto transformation provenance | `research-labs/artifact-transformation-lineage_v0.1.0/` | #28 SUCCESS |
+| DeepEval ordered trajectory evaluation concept | `research-labs/trajectory-evaluation_v0.1.0/` | #29 SUCCESS |
+
+Cycle record:
+
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_PYDANTIC_EVALS_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_OPENINFERENCE_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_INSPECT_AI_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_ARTIFACT_LINEAGE_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md`
+
+Standing locks added by this cycle:
+
+```text
+DOWNLOAD != ADOPT
+PUBLIC_LICENSE != PROJECT_AUTHORITY
+MECHANISM_EXTRACTION != SOURCE_COPY
+TEST_DEFINITION != EXECUTION
+RESULT != THEORY_CONCLUSION
+TRACE != TRUTH
+OBSERVABILITY != AUTHORITY
+APPROVED != EXECUTED
+RECORDED_LINEAGE != SOURCE_AUTHORITY
+SAME_OUTPUT != SAME_RECORDED_PATH
+RECORDED_PATH != CAUSAL_MECHANISM
+```
+
+```text
+EXTERNAL_MODULE_SELECTED_QUEUE = COMPLETE
+CLEAN_ROOM_MATERIALIZATIONS = 5
+EXTERNAL_RUNTIME_DEPENDENCIES_ADDED = NO
+RESEARCH_WORKBENCH_CI = SUCCESS_THROUGH_#29
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+PROMOTION_STATUS = NOT_REVIEWED
+```
+
 ## P5 full-run verification
 
 ```text
@@ -124,10 +179,16 @@ See:
 - `research-labs/self-model-functional-ablation_v0.1.0/`
 - `research-labs/selective-memory-control_v0.1.0/`
 - `research-labs/self-report-instrument-validity-calibration_v0.1.0/`
+- `research-labs/research-evaluation-harness_v0.1.0/`
+- `research-labs/trace-provenance-crosswalk_v0.1.0/`
+- `research-labs/governed-tool-approval_v0.1.0/`
+- `research-labs/artifact-transformation-lineage_v0.1.0/`
+- `research-labs/trajectory-evaluation_v0.1.0/`
 - `research-workbench/four-domain-materialization/2026-08-11/PRIMARY_LITERATURE_INTAKE_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/MEMORY_CONTINUITY_SELECTIVE_CONTROL_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/SECOND_ORDER_METACOGNITION_LITERATURE_CALIBRATION_2026-08-11.md`
 - `research-workbench/four-domain-materialization/2026-08-11/WHITEPAPER_CODE_RECONCILIATION_2026-08-11.md`
+- `research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md`
 - `AI_EXPERIMENT_GUIDE.md`
 
 ## 2026-08-10 IQC / reconstruction checkpoint
