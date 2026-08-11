@@ -8,6 +8,11 @@ from .experiment import (
     run_threshold_sweep,
     summarize,
 )
+from .evaluation_adapter import (
+    SecondOrderContractEvaluator,
+    SecondOrderEvaluationArtifact,
+    adapt_matched_experiment,
+)
 from .monitor import SecondOrderMonitor, randomized_control_signal, recompute_monitor_signal
 from .records import (
     MONITOR_SEMANTICS,
@@ -43,6 +48,8 @@ __all__ = [
     "MONITOR_SEMANTICS",
     "ConditionSummary",
     "ControlDisposition",
+    "SecondOrderContractEvaluator",
+    "SecondOrderEvaluationArtifact",
     "MatchedExperimentResult",
     "MonitorSignal",
     "OutcomeContract",
@@ -69,6 +76,7 @@ __all__ = [
     "VerificationResult",
     "VerificationTrace",
     "bind_verification",
+    "adapt_matched_experiment",
     "randomized_control_signal",
     "recompute_monitor_signal",
     "run_condition",

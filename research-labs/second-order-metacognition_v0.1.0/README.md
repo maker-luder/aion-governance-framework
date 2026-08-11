@@ -103,6 +103,7 @@ From this directory:
 python -m pytest -q -p no:cacheprovider
 python scripts/run_demo.py
 python scripts/run_verification_demo.py
+python scripts/run_evaluation_adapter_demo.py
 python scripts/run_threshold_sweep_demo.py
 ```
 
@@ -110,6 +111,20 @@ python scripts/run_threshold_sweep_demo.py
 preferred threshold. The bundled six-point grid is a demonstration input, not a constant
 or tuned scientific result. Every point retains its separate raw condition summaries and
 reports `DEFERRED_TO_EXPERIMENT`.
+
+## Generic evaluation adapter
+
+`adapt_matched_experiment(...)` reuses the sibling
+`research-evaluation-harness_v0.1.0` abstractions and returns its native
+`ExperimentReport` inside a claim-bounded artifact. Each condition remains a separate
+`ResearchCase` carrying threshold, raw trial denominator, `observed_sample_size`, missing
+count, monitor coverage, verification-request count, timing validity and scientific
+non-conclusions. Optional verification diagnostics remain raw counts.
+
+The generic `pass_rate` checks only adapter engineering invariants. Even a value of `1.0`
+remains `RESEARCH_EVIDENCE_ONLY`; both `subjectivity_established` and
+`consciousness_established` are passed through `ClaimBoundaryGate` and receive
+`DENY_PROMOTION`. The adapter neither ranks nor selects thresholds.
 
 ## Non-claims
 

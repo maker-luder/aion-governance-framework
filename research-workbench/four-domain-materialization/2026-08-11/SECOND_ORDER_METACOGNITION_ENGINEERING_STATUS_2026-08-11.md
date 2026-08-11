@@ -42,12 +42,16 @@ These are Codex research implementation decisions, not canonical doctrine:
     schema, immutable trace ledger, timing/scope guards and raw rejection diagnostics;
 12. preserve the first-order trace and control disposition: verification action effect
     remains `NOT_IMPLEMENTED`.
+13. adapt matched condition summaries into the existing generic evaluation harness while
+    retaining raw denominators, verification diagnostics and claim-boundary dispositions.
 
 ```text
 VERIFICATION_PROVIDER = IMPLEMENTED / TARGETED_TESTED
 VERIFICATION_EVIDENCE_SCHEMA = IMPLEMENTED / TARGETED_TESTED
 ANTI_ORACLE_CONTRACT = IMPLEMENTED / TARGETED_TESTED
 VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
+SECOND_ORDER_EVALUATION_ADAPTER = IMPLEMENTED / TARGETED_TESTED
+CLAIM_BOUNDARY_PRESERVED = TARGETED_TESTED
 ```
 
 ## Still open

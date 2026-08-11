@@ -29,7 +29,7 @@ PROMOTION_STATUS = NOT_REVIEWED
 | Extension | IQC/reconstruction checkpoint: candidate disposition, evidence-oriented reconstruction method, Level-3 second-order computation gap | MATERIALIZED / RESEARCH-ONLY |
 | Extension | Selective memory control: correction precedence, namespace/domain/purpose gates, provenance/approval trace | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Primary-literature calibration: independent Level-3 monitoring/control criteria | MATERIALIZED / LITERATURE-GROUNDED / NO CODE |
-| Extension | Second-order metacognition: run-scoped evidence, anti-lookahead control, starvation diagnostics, matched threshold sweeps | IMPLEMENTED / TARGETED TESTED / CI PENDING |
+| Extension | Second-order metacognition: fail-closed scoped evidence, bounded verification, starvation/threshold diagnostics, generic evaluation adapter | IMPLEMENTED / TARGETED TESTED / CI PENDING |
 | Extension | Whitepaper ↔ code reconciliation: preserve historical snapshots, map current runtime/memory/continuity/self-model evidence, classify main-only deltas as reference-only | MATERIALIZED / RESEARCH-ONLY / NO CODE |
 | Extension | Research evaluation harness: definition/execution/result separation plus claim-boundary gate | IMPLEMENTED / TESTED / CI VERIFIED |
 | Extension | Trace/provenance crosswalk: public trace vocabulary with redaction and AION authority isolation | IMPLEMENTED / TESTED / CI VERIFIED |
@@ -104,6 +104,10 @@ LEVEL_3_RUN_SCOPE_HARDENING = IMPLEMENTED / TARGETED_TESTED
 LEVEL_3_FEEDBACK_STARVATION_DIAGNOSTICS = IMPLEMENTED / TARGETED_TESTED
 LEVEL_3_THRESHOLD_SWEEP_SUPPORT = IMPLEMENTED / TARGETED_TESTED
 LEVEL_3_THRESHOLD_EXPERIMENT = DEFERRED_TO_EXPERIMENT
+LEVEL_3_VERIFICATION_SUBSTRATE = IMPLEMENTED / TARGETED_TESTED
+LEVEL_3_ANTI_ORACLE_CONTRACT = IMPLEMENTED / TARGETED_TESTED
+LEVEL_3_VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
+LEVEL_3_EVALUATION_ADAPTER = IMPLEMENTED / TARGETED_TESTED
 LEVEL_3_FUNCTIONAL_CONTRIBUTION = NOT_ESTABLISHED
 WHITEPAPER_CODE_RECONCILIATION = MATERIALIZED / RESEARCH_ONLY / NO_CODE
 HISTORICAL_WHITEPAPER_REWRITE = NO

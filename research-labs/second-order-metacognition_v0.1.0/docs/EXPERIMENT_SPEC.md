@@ -136,3 +136,16 @@ unique, bounded threshold grid. It reuses one immutable task tuple for every poi
 does not alter the first-order model, task stream or outcome timing. Results remain
 separate by threshold; no aggregate score, preferred threshold or benefit claim is
 computed. Executing the full preregistered study remains `DEFERRED_TO_EXPERIMENT`.
+
+## Evaluation-harness integration
+
+The adapter converts each condition summary into a native generic-harness `ResearchCase`
+and uses `evaluate_dataset(...)` to produce an `ExperimentReport`. It preserves threshold,
+raw trial denominator, observed sample size, missing outcomes, monitor coverage,
+verification requests, anti-lookahead validity and scientific claim status. When supplied,
+verification availability and rejection diagnostics are copied as raw counts.
+
+The evaluator assertion means only that timing and declared claim boundaries survived the
+conversion. `pass_rate` is not interpreted as functional contribution, threshold evidence,
+subjectivity or consciousness. `ClaimBoundaryGate` independently denies both requested
+promotions, and the artifact fixes `canonical_effect` to `NONE`.

@@ -17,5 +17,6 @@ testpaths = ["tests"]
 pythonpath = [
   "src",
   "../self-model-functional-ablation_v0.1.0/src",
+  "../research-evaluation-harness_v0.1.0/src",
 ]
 addopts = "-ra"
