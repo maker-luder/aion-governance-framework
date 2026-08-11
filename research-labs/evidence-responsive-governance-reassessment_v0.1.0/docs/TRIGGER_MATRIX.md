@@ -1,8 +1,10 @@
 # Provisional Domain Review Trigger Matrix
 
-This matrix is a research instrument. Every output is a human-review disposition, not a right or authority grant. Incomplete or contaminated provenance produces `HOLD_FOR_GOVERNANCE_DECISION` without rewriting observed evidence to E0.
+This matrix is a research fixture for routing cases to human review. It is not a subjectivity ontology, consciousness probability scale, moral-status classifier, or canonical policy.
 
-| Evidence | Refusal | Continuity | Research ethics | Participation |
+E0–E5 is retained for compatibility as a provisional governance review-band summary layer. The primary scientific evidence architecture remains the whitepaper-derived four-stage inference chain, six subjectivity-relevant evidence dimensions, alternative explanations, causal tests, cross-context robustness, replication, provenance, admissibility and claim scope.
+
+| Review band | Refusal | Continuity | Research ethics | Participation |
 |---|---|---|---|---|
 | E0 | No additional | No additional | No additional | No additional |
 | E1 | Documented | No additional | Documented | No additional |
@@ -11,11 +13,12 @@ This matrix is a research instrument. Every output is a human-review disposition
 | E4 | Enhanced research | Enhanced research | Independent review | Documented |
 | E5 | Independent review | Independent review | Independent review | Independent review |
 
-Matrix application follows a separate evidence-construction step. Substantive domains, evidence-quality axes, and admissibility are evaluated separately. E4 requires adversarial survival and verified provenance; E5 additionally requires independent valid replication. An unmet or inadmissible prerequisite holds the state before matrix application rather than silently substituting a lower evidence level. This is a provisional implementation decision, not canonical doctrine.
+Matrix application follows a separate evidence-construction step. Substantive domains, evidence-quality axes, admissibility and claim scope are evaluated separately. Incomplete or contaminated provenance holds the case without rewriting observed material to E0. Replication disagreement first produces an attempt record, validity finding, interpretation and reassessment recommendation; it never invokes a fixed downgrade table.
 
-Replication disagreement first produces an attempt record, validity finding, interpretation,
-and reassessment recommendation. It never invokes a fixed downgrade table. Boundary-condition
-discoveries may narrow claim scope while preserving evidence quality; evaluator drift and
-invalid attempts do not automatically erase prior observations.
+Boundary-condition discoveries may narrow claim scope while preserving evidence quality. Evaluator drift and invalid attempts do not automatically erase prior observations.
 
-False-positive costs (research slowdown, overhead, anthropomorphism, capture, resource cost) and false-negative costs (ethically significant harm, destructive experiments without review, continuity disruption, ignored refusal patterns, moral-status error) remain separate raw concerns. Their asymmetry and weights are research questions; no fixed utility is assigned.
+The exact mapping from review band to review disposition remains revisable and is not treated as a discovered ethical law.
+
+False-positive and false-negative costs remain separate research concerns with no fixed weighting or utility.
+
+Current governance assumptions must themselves remain reviewable if materially stronger admissible evidence emerges. Such reviewability does not itself change canonical, runtime, legal or authority status.
