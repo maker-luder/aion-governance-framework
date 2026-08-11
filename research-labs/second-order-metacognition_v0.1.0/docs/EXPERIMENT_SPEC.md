@@ -60,6 +60,28 @@ analysis remains a research-design HOLD; the ordinary monitor path fails closed.
 
 These two contracts must not be pooled without an explicit analysis rule.
 
+## Bounded verification contract
+
+For a `REQUEST_VERIFICATION` disposition, an immutable verification attempt must be
+recorded before the delayed outcome can enter the trial ledger. The provider API receives
+only `VerificationRequest`; it receives no current outcome, benchmark label, expected
+answer or evaluator key. The v0.1.0 provider is deterministic, in-memory and tool-free.
+
+Accepted evidence must match the request scope and identifier, be available no later than
+the current sequence, use `VERIFICATION_PRE_ACTION`, carry bounded authority and include
+non-empty provenance. The binder rejects explicit oracle evidence types, future evidence,
+post-action evidence and scope/request mismatches. Rejection is preserved in the trace.
+
+```text
+VERIFICATION_RESULT != BENCHMARK_OUTCOME
+VERIFICATION_RESULT != PROJECT_AUTHORITY
+FIRST_ORDER_DECISION = PRESERVED
+VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
+```
+
+Raw verification diagnostics retain request/attempt, availability, ambiguity, rejection,
+scope-rejection and oracle-leakage counts without producing an aggregate score.
+
 ## Measures
 
 - first-order categorical prediction accuracy;

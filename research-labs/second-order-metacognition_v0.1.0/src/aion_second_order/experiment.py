@@ -17,6 +17,14 @@ from .records import (
     TrialEvidence,
     TrialLedger,
 )
+from .verification import (
+    DeterministicVerificationProvider,
+    VerificationLedger,
+    VerificationProvider,
+    VerificationRequest,
+    VerificationTrace,
+    bind_verification,
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -92,6 +100,7 @@ class SecondOrderRunner:
             random_seed=random_seed,
         )
         self.ledger = TrialLedger()
+        self.verification_ledger = VerificationLedger()
         self._pending: PendingDecision | None = None
         self._stale_snapshot: MonitorSignal | None = None
 
@@ -132,6 +141,28 @@ class SecondOrderRunner:
         self._pending = pending
         return pending
 
+    def verify_pending(self, provider: VerificationProvider) -> VerificationTrace:
+        if self._pending is None:
+            raise ValueError("verification requires an active pending decision")
+        if any(
+            item.request.trial_id == self._pending.trial_id
+            for item in self.verification_ledger.traces
+        ):
+            raise ValueError("pending decision already has a verification trace")
+        request = VerificationRequest.from_pending(self._pending)
+        evidence = provider.verify(request)
+        result = bind_verification(request, evidence)
+        trace = VerificationTrace(
+            request=request,
+            provider_ref=provider.provider_ref,
+            evidence=evidence,
+            result=result,
+            original_disposition=self._pending.control_disposition,
+            post_verification_disposition=self._pending.control_disposition,
+        )
+        self.verification_ledger.append(trace)
+        return trace
+
     def record_outcome(
         self,
         pending: PendingDecision,
@@ -142,6 +173,14 @@ class SecondOrderRunner:
     ) -> TrialEvidence:
         if self._pending is None or pending != self._pending:
             raise ValueError("outcome must bind to the active pending decision")
+        if (
+            pending.control_disposition is ControlDisposition.REQUEST_VERIFICATION
+            and not any(
+                item.request.trial_id == pending.trial_id
+                for item in self.verification_ledger.traces
+            )
+        ):
+            raise ValueError("verification attempt must precede outcome recording")
         record = TrialEvidence.from_pending(
             pending,
             actual_success=actual_success,
@@ -176,8 +215,11 @@ def run_condition(
         verification_threshold=verification_threshold,
         random_seed=random_seed,
     )
+    verification_provider = DeterministicVerificationProvider()
     for task in tuple(tasks):
         pending = runner.decide(task)
+        if pending.control_disposition is ControlDisposition.REQUEST_VERIFICATION:
+            runner.verify_pending(verification_provider)
         environment_label = latent_capability >= task.difficulty
         actual_success = (
             environment_label

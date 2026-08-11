@@ -38,6 +38,17 @@ These are Codex research implementation decisions, not canonical doctrine:
    observation counts without imputing unavailable outcomes or claiming an ESS estimator.
 10. provide matched threshold-sweep plumbing without selecting or tuning a preferred
     threshold; scientific execution remains `DEFERRED_TO_EXPERIMENT`.
+11. add a deterministic in-memory `VerificationProvider` contract, fallible evidence
+    schema, immutable trace ledger, timing/scope guards and raw rejection diagnostics;
+12. preserve the first-order trace and control disposition: verification action effect
+    remains `NOT_IMPLEMENTED`.
+
+```text
+VERIFICATION_PROVIDER = IMPLEMENTED / TARGETED_TESTED
+VERIFICATION_EVIDENCE_SCHEMA = IMPLEMENTED / TARGETED_TESTED
+ANTI_ORACLE_CONTRACT = IMPLEMENTED / TARGETED_TESTED
+VERIFICATION_ACTION_EFFECT = NOT_IMPLEMENTED
+```
 
 ## Still open
 

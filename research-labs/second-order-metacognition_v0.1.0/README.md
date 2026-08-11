@@ -39,6 +39,24 @@ HISTORY_<t -> MONITOR_t -> CONTROL_t -> ACTION_t -> OUTCOME_t
 OUTCOME_t MUST NOT AFFECT ACTION_t
 ```
 
+With bounded verification:
+
+```text
+HISTORY_<t -> MONITOR_t -> CONTROL_t -> OPTIONAL_VERIFICATION_t
+            -> ACTION_t -> OUTCOME_t
+```
+
+`VerificationProvider.verify(request)` receives one typed request and has no outcome,
+benchmark-label, expected-answer, tool or repository channel. `VerificationEvidence`
+records evidence type, source, sequence availability, pre/post-action phase, bounded
+authority, scope and provenance. Oracle-labelled, future, post-action or mismatched-scope
+payloads are retained as rejected verification traces and do not affect disposition.
+
+The deterministic provider is in-memory, synthetic and explicitly fallible. It supports
+`CORRECT`, `INCORRECT`, `AMBIGUOUS`, `UNAVAILABLE` and `INSUFFICIENT` assessments. In
+v0.1.0 the original first-order decision and `REQUEST_VERIFICATION` disposition remain
+unchanged; verification is trace-only experimental substrate.
+
 `SecondOrderRunner.decide(...)` has no outcome argument. The environment can attach an
 outcome only through `record_outcome(...)` after the pending decision exists.
 
@@ -84,6 +102,7 @@ From this directory:
 ```powershell
 python -m pytest -q -p no:cacheprovider
 python scripts/run_demo.py
+python scripts/run_verification_demo.py
 python scripts/run_threshold_sweep_demo.py
 ```
 
