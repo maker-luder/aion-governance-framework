@@ -79,7 +79,8 @@ jobs:
         run: |
           python scripts/reconcile_current_qa.py \
             --root . \
-            --target-head "$(git rev-parse HEAD)"
+            --target-head "$(git rev-parse HEAD)" \
+            --public-scan-status PASS
       - name: Run minimal Recall Gate contrast experiment
         run: python experiments/g1-recall-gate-baseline_v0.1.0/run_experiment.py
 

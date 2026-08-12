@@ -29,7 +29,7 @@ def _head(root: Path) -> str:
         return "UNSPECIFIED"
 
 
-def reconcile(root: Path, *, target_head: str | None = None) -> dict[str, Any]:
+def reconcile(root: Path, *, target_head: str | None = None, public_scan_status: str | None = None) -> dict[str, Any]:
     results_path = root / RESULTS_RELATIVE
     lock_path = root / LOCK_RELATIVE
     raw_results = json.loads(results_path.read_text(encoding="utf-8")) if results_path.is_file() else None
@@ -58,6 +58,8 @@ def reconcile(root: Path, *, target_head: str | None = None) -> dict[str, Any]:
     lock["scope"] = "FINAL_FORMAL_RESEARCH_TREE"
     lock["target_head"] = resolved_head
     lock["release"] = "FINAL_FORMAL_RESEARCH_TREE_NOT_RELEASE"
+    if public_scan_status is not None:
+        lock["public_scan"] = public_scan_status
     lock["current_tests"] = f"{total} PASSED" if not failed else f"{total} PASSED / {len(failed)} FAILED_TARGETS"
     lock["current_targets"] = len(records)
     lock.setdefault("canonical_effect", "NONE")
@@ -98,8 +100,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Reconcile current component test evidence into QA artifacts")
     parser.add_argument("--root", type=Path, default=Path.cwd())
     parser.add_argument("--target-head", default=None)
+    parser.add_argument("--public-scan-status", choices=("PASS", "FAIL", "PENDING_FINAL_SCAN"), default=None)
     args = parser.parse_args(argv)
-    payload = reconcile(args.root.resolve(), target_head=args.target_head)
+    payload = reconcile(args.root.resolve(), target_head=args.target_head, public_scan_status=args.public_scan_status)
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0 if payload["status"] == "PASS" else 1
 
