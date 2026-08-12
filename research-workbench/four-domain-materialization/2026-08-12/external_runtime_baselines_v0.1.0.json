@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.1.1",
   "status": "RESEARCH_ONLY",
   "review_date": "2026-08-12",
   "branch": "review/four-domain-research-materialization",
@@ -17,6 +17,17 @@
       "release_name": "Hermes Agent v0.20.0 (2026.8.3)",
       "release_date": "2026-08-03",
       "main_sha_at_review": "9da6d455c9e1f2bf74bb9f47766ee9fc52e17bfb",
+      "clone_all_semantics": {
+        "copies_broad_profile_state": true,
+        "copies_memories": true,
+        "copies_skills": true,
+        "copies_cron": true,
+        "copies_plugins": true,
+        "copies_session_history": false,
+        "copies_state_db": false,
+        "copies_checkpoints": false,
+        "full_historical_equivalence_assumed": false
+      },
       "research_surfaces": [
         "persistent_memory",
         "profile_clone_all",
