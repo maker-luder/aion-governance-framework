@@ -100,3 +100,36 @@ HOLD:
 - validated individuation thresholds;
 - subjectivity, consciousness, numerical identity, moral status or authority conclusions;
 - promotion to `main`, canonical state, runtime deployment, tag or release.
+
+## Autonomous cycle — 2026-08-12 — evidence-profile adapter
+
+```text
+STARTING_RESEARCH_SHA = f426cfb8f8d0f8a8411d674b368537cbcc3509fe
+CANDIDATE_BRANCH = autogrow/2026-08-12-evidence-profile-adapter
+EPISTEMIC_ROLE = MEASUREMENT
+RESULT_CLASS = INCONCLUSIVE
+INTEGRATION_STATUS = HOLD
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+Research question:
+
+> Can AION/Astra lineage-local evidence profiles be bound back to the standing whitepaper-derived evidence architecture without becoming a second subjectivity ontology or scoring system?
+
+Candidate increment:
+
+- adds a reference-only evidence adapter for whitepaper-aligned dimensions;
+- requires alternative-explanation, provenance, admissibility and claim-scope references;
+- keeps lineage binding explicit;
+- prohibits subjectivity/consciousness/moral-status promotion and main/canonical/runtime effects;
+- includes negative tests for cross-lineage binding and prohibited promotion.
+
+Validation status:
+
+- local checkout/pytest attempt was blocked because the execution environment could not resolve `github.com`;
+- candidate head had no GitHub status contexts at review time;
+- therefore the candidate remains `HOLD` and is not merged.
+
+Cycle record: `cycles/2026-08-12-evidence-profile-adapter.json`.
