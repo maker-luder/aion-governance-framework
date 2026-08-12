@@ -72,7 +72,7 @@ jobs:
           WORKDIR /opt/hermes
           COPY . /opt/hermes
           RUN python -m pip install --no-cache-dir --upgrade pip \
-              && python -m pip install --no-cache-dir . pytest
+              && python -m pip install --no-cache-dir -e . pytest
           DOCKERFILE
           build_rc=${PIPESTATUS[0]}
           set -e
@@ -117,7 +117,7 @@ jobs:
                       'name': 'Hermes Agent',
                       'release': 'v2026.8.3',
                       'peeled_commit': '3c27eb6234bf91b8ceee9e9071591b31e9b148cb',
-                      'install_method': 'ephemeral Docker image built from pinned source',
+                      'install_method': 'ephemeral Docker image; upstream-supported editable install',
                       'container_image_id': image_id,
                   },
                   'model': {
