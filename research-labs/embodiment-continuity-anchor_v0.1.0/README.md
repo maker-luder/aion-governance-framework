@@ -8,7 +8,7 @@ Identity continuity conclusion: `NOT_ESTABLISHED`
 
 This lab studies a bounded engineering question: which identifiers and lineage fields must remain stable when a digital-individual candidate changes runtime, hardware/environment, model implementation, inference backend, or embodiment binding?
 
-The lab does **not** claim that a stable identifier, stable lineage, or successful migration proves personal identity, consciousness, subjectivity, body ownership, or phenomenal continuity.
+The lab does **not** claim that a stable identifier, stable lineage, successful migration, or sensorimotor assessment proves personal identity, consciousness, subjectivity, body ownership, or phenomenal continuity.
 
 ## Research origin
 
@@ -42,7 +42,7 @@ A change in these implementation bindings is not, by itself, an identity change.
 
 ## Multidimensional continuity
 
-A single continuity `PASS` is intentionally prohibited from standing in for every continuity question. The current evaluator separates:
+A single continuity `PASS` is intentionally prohibited from standing in for every continuity question. The current lineage evaluator separates:
 
 ```text
 SUBJECT_LINEAGE
@@ -67,6 +67,32 @@ IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 
 This prevents a successful model/runtime/hardware migration from silently asserting memory, interpretive, relational, or personal-identity continuity.
 
+## E-axis sensorimotor continuity research slice
+
+The lab now contains an adjacent research-only E-axis evaluator for a different question: whether a selected embodied transition has a traceable body-state -> action -> environment transition -> observation -> body-state update causal chain.
+
+The E-axis intentionally does **not** consume `LineageAnchor`, memory records, identity claims, or relationship state. This prevents lineage or memory preservation from silently satisfying embodied sensorimotor continuity.
+
+```text
+L_AXIS = lineage / implementation migration continuity
+E_AXIS = embodied sensorimotor causal continuity
+
+L_AXIS_PASS !-> E_AXIS_PASS
+E_AXIS_PASS !-> L_AXIS_PASS
+E_AXIS_PASS !-> IDENTITY_CONTINUITY_ESTABLISHED
+```
+
+Current E-axis research artifacts:
+
+- [`SENSORIMOTOR_CONTINUITY_RESEARCH_NOTE.md`](./SENSORIMOTOR_CONTINUITY_RESEARCH_NOTE.md)
+- [`SENSORIMOTOR_CONTINUITY_FIXTURES.md`](./SENSORIMOTOR_CONTINUITY_FIXTURES.md)
+- [`README_E_AXIS.md`](./README_E_AXIS.md)
+- [`VALIDATION_PLAN.md`](./VALIDATION_PLAN.md)
+- `src/aion_embodiment_continuity/sensorimotor.py`
+- `tests/test_sensorimotor_continuity.py`
+
+The first falsifier set covers memory-clone divergence, body reset without a causal bridge, and morphology migration with or without required recalibration evidence.
+
 ## Current hypotheses
 
 ```text
@@ -89,6 +115,12 @@ INTERPRETIVE_CONTINUITY MUST BE REVIEWED SEPARATELY FROM MEMORY PRESERVATION
 
 H-ECA-006
 UNASSESSED_CONTINUITY_DIMENSIONS MUST REMAIN EXPLICITLY UNASSESSED
+
+H-ECA-007
+MEMORY_OR_LINEAGE_CONTINUITY MUST NOT IMPLY EMBODIED_SENSORIMOTOR_CONTINUITY
+
+H-ECA-008
+MORPHOLOGY_CHANGE MUST NOT AUTOMATICALLY IMPLY EMBODIED_DISCONTINUITY
 ```
 
 ## Current decision behavior
@@ -101,6 +133,9 @@ UNASSESSED_CONTINUITY_DIMENSIONS MUST REMAIN EXPLICITLY UNASSESSED
 - memory integrity failure remains visible even when subject lineage is preserved;
 - unknown continuity dimensions remain `NOT_ASSESSED` rather than being inferred as pass;
 - every migration observation requires provenance references;
+- a fully evidenced E-axis causal transition may `PASS` without making any identity claim;
+- a body reset without a causal bridge must not E-axis `PASS`;
+- morphology migration requiring recalibration must `HOLD` when recalibration evidence is missing;
 - every assessment retains `IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED`.
 
 ## Four-domain mapping
@@ -108,20 +143,20 @@ UNASSESSED_CONTINUITY_DIMENSIONS MUST REMAIN EXPLICITLY UNASSESSED
 | Domain | Current research mapping |
 |---|---|
 | Human research construct | Change over time while preserving a bounded locus of longitudinal attribution |
-| LLM-relevant question | Can changing model/runtime/state be traced to one bounded candidate without silently swapping subject, memory stream, or relation history? |
-| Engineering operation | Compare stable lineage anchor before/after migration, record replaceable bindings, and evaluate continuity dimensions independently |
-| Governance control | Fail closed on anchor mutation, require provenance, preserve `NOT_ASSESSED`, and prevent implementation continuity from becoming identity proof |
+| LLM-relevant question | Can changing model/runtime/state be traced to one bounded candidate without silently swapping subject, memory stream, relation history, or embodied causal evidence? |
+| Engineering operation | Compare stable lineage anchor before/after migration; separately assess selected action/environment/observation/body-state transitions |
+| Governance control | Fail closed on anchor mutation, require provenance, preserve `NOT_ASSESSED`, decouple L-axis from E-axis, and prevent either from becoming identity proof |
 
 ## Verification
 
-Tests are authored for runtime/embodiment/model/backend/hardware migration, namespace swap, state drift, interpretive drift, relationship drift, memory integrity failure, explicit unassessed dimensions, and missing provenance.
+Tests cover runtime/embodiment/model/backend/hardware migration, namespace swap, state drift, interpretive drift, relationship drift, memory integrity failure, explicit unassessed dimensions, missing provenance, E-axis closed transitions, reset/no-bridge controls, and recalibration controls.
 
 ```bash
 python -m pytest -q
 python -m compileall -q src
 ```
 
-Repository connector writes do not execute these commands; execution status must therefore remain separately verified.
+The repository `Research Workbench CI` workflow executes the embodiment-continuity lab on Python 3.11 for pushes affecting this lab. CI status remains an execution result and is not promoted into canonical research truth.
 
 ## Non-claims
 
@@ -131,9 +166,17 @@ Repository connector writes do not execute these commands; execution status must
 
 `MEMORY_PRESERVED != INTERPRETATION_PRESERVED`
 
+`MEMORY_CONTINUITY != EMBODIED_SENSORIMOTOR_CONTINUITY`
+
+`LINEAGE_CONTINUITY != EMBODIED_SENSORIMOTOR_CONTINUITY`
+
 `RELATIONAL_CONTINUITY != IDENTITY_PROOF`
 
 `EMBODIMENT_BINDING != BODY_OWNERSHIP`
+
+`SENSORIMOTOR_CONTINUITY != BODY_OWNERSHIP`
+
+`SENSORIMOTOR_CONTINUITY != IDENTITY_CONTINUITY`
 
 `MODEL_ARTIFACT_CONTINUITY != SUBJECT_CONTINUITY`
 
@@ -141,9 +184,9 @@ Repository connector writes do not execute these commands; execution status must
 
 ## Research extension: morphology fixture
 
-A research-only clean-room extension now records how embodiment morphology may be described and mutated without redefining morphology as a stable lineage anchor.
+A research-only clean-room extension records how embodiment morphology may be described and mutated without redefining morphology as a stable lineage anchor.
 
 - [`EMBODIMENT_GEOMETRY_FIXTURE_RESEARCH_NOTE.md`](./EMBODIMENT_GEOMETRY_FIXTURE_RESEARCH_NOTE.md) records provenance boundaries, external research crosswalk, clean-room constraints, candidate morphology descriptors, and non-claims.
-- [`MORPHOLOGY_MIGRATION_TEST_MATRIX.json`](./MORPHOLOGY_MIGRATION_TEST_MATRIX.json) records synthetic migration and negative-control cases for future implementation.
+- [`MORPHOLOGY_MIGRATION_TEST_MATRIX.json`](./MORPHOLOGY_MIGRATION_TEST_MATRIX.json) records synthetic migration and negative-control cases.
 
 The legacy/private geometry artifact that triggered this research question is not imported into the repository. Any future implementation must use synthetic or independently public-safe fixtures and must keep geometry outside `LineageAnchor` unless a separate research decision establishes a justified change.
