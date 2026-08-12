@@ -10,9 +10,7 @@ This is current review-candidate evidence, not a release approval. Historical ma
 | Component tests | **866 passed / 0 failed** | current v2 candidate |
 | Whole-system tests | **21 cases / 11 scenario classes, PASS** | one-to-one registry in `WHOLE_SYSTEM_VALIDATION.json` |
 | Branch coverage | **PASS measured** | 46 targets; report-only policy |
-| Compileall, manifest, privacy, secret scans | **PENDING_FINAL_QA** | updated only after final evidence chain |
-
-The pre-v2 release lock and historical reconstruction wording are stale evidence and are not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.
+| Compileall, manifest, privacy, secret scans | **PASS / PASS / PASS / PASS** | final local gate results |\n\nThe pre-v2 release lock and historical reconstruction wording are stale evidence and are not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.
 
 Subjectivity, identity continuity, deployment, canonical promotion and independent IV&V remain unestablished or false.
 

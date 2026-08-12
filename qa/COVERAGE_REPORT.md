@@ -2,7 +2,7 @@
 
 Coverage was measured with branch coverage enabled for every test-bearing eligible target. The policy is report-only: no unjustified global threshold is imposed across heterogeneous research fixtures. A measured percentage is not whole-system validation, independent IV&V, scientific evidence, or release approval.
 
-Generated at `2026-08-12T17:40:45.128971+00:00`. Scope: `REVIEW_CANDIDATE_V2`; eligible targets: **48**; measured targets: **46**; explicit non-applicability: **2**.
+Generated at `2026-08-12T18:00:19.650474+00:00`. Scope: `REVIEW_CANDIDATE_V2`; eligible targets: **48**; measured targets: **46**; explicit non-applicability: **2**.
 
 | Target | Test status | Passed | Failed | Branch coverage | Coverage disposition |
 |---|---|---:|---:|---:|---|

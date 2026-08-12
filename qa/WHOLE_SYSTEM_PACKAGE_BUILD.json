@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "scope": "REVIEW_CANDIDATE_V2",
+  "command": "python3 -m build --wheel --no-isolation components/whole_system_governed_runtime_v0.1.0",
+  "returncode": 0,
+  "artifact_retained": false,
+  "canonical_effect": "NONE",
+  "deployment": false
+}

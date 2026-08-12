@@ -10,6 +10,8 @@ QA = ROOT / "qa"
 tests = json.loads((QA / "CURRENT_TEST_RESULTS.json").read_text(encoding="utf-8"))
 coverage = json.loads((QA / "CURRENT_COVERAGE_RESULTS.json").read_text(encoding="utf-8"))
 whole = json.loads((QA / "WHOLE_SYSTEM_VALIDATION.json").read_text(encoding="utf-8"))
+gates_path = QA / "FINAL_LOCAL_GATE_RESULTS.json"
+gates = json.loads(gates_path.read_text(encoding="utf-8"))["gates"] if gates_path.exists() else {}
 now = datetime.now(UTC).isoformat()
 
 test_summary = tests["summary"]
@@ -86,10 +88,10 @@ reconciliation = {
     },
     "statuses": {
         "coverage": current_coverage["status"],
-        "manifest": "PENDING_FINAL_MANIFEST",
-        "compileall": "PENDING_FINAL_COMPILEALL",
-        "privacy_scan": "PENDING_FINAL_SCAN",
-        "secret_scan": "PENDING_FINAL_SCAN",
+        "manifest": gates.get("current_manifest_integrity", {}).get("status", "PENDING_FINAL_MANIFEST"),
+        "compileall": gates.get("compileall", {}).get("status", "PENDING_FINAL_COMPILEALL"),
+        "privacy_scan": gates.get("sensitive_material_scan", {}).get("status", "PENDING_FINAL_SCAN"),
+        "secret_scan": gates.get("public_tree_scan", {}).get("status", "PENDING_FINAL_SCAN"),
     },
     "canonical_effect": "NONE",
     "deployment": False,
@@ -109,10 +111,10 @@ reconciliation = {
             "current_tests": f"{test_summary['total_passed']} PASSED / {test_summary['total_failed']} FAILED",
             "whole_system_validation": f"{whole['TEST_CASE_COUNT']} TEST_CASES / {whole['SCENARIO_CLASS_COUNT']} SCENARIO_CLASSES / PASS",
             "coverage": "PASS_BRANCH_MEASURED",
-            "compileall": "PENDING_FINAL_QA",
-            "manifest": "PENDING_FINAL_QA",
-            "privacy_scan": "PENDING_FINAL_QA",
-            "secret_scan": "PENDING_FINAL_QA",
+            "compileall": gates.get("compileall", {}).get("status", "PENDING_FINAL_QA"),
+            "manifest": gates.get("current_manifest_integrity", {}).get("status", "PENDING_FINAL_QA"),
+            "privacy_scan": gates.get("sensitive_material_scan", {}).get("status", "PENDING_FINAL_QA"),
+            "secret_scan": gates.get("public_tree_scan", {}).get("status", "PENDING_FINAL_QA"),
             "independent_ivv": "NOT_ACHIEVED",
             "subjectivity_conclusion": "NOT_ESTABLISHED",
             "identity_continuity_conclusion": "NOT_ESTABLISHED",
@@ -138,8 +140,8 @@ reconciliation = {
     f"| Component tests | **{test_summary['total_passed']} passed / {test_summary['total_failed']} failed** | current v2 candidate |\n"
     f"| Whole-system tests | **{whole['TEST_CASE_COUNT']} cases / {whole['SCENARIO_CLASS_COUNT']} scenario classes, PASS** | one-to-one registry in `WHOLE_SYSTEM_VALIDATION.json` |\n"
     f"| Branch coverage | **PASS measured** | {coverage_summary['measured_target_count']} targets; report-only policy |\n"
-    "| Compileall, manifest, privacy, secret scans | **PENDING_FINAL_QA** | updated only after final evidence chain |\n\n"
-    "The old `412 PASSED / whole_system_validation = NOT_EXECUTED` wording is historical stale evidence and is not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.\n\n"
+    f"| Compileall, manifest, privacy, secret scans | **{gates.get('compileall', {}).get('status', 'PENDING_FINAL_QA')} / {gates.get('current_manifest_integrity', {}).get('status', 'PENDING_FINAL_QA')} / {gates.get('sensitive_material_scan', {}).get('status', 'PENDING_FINAL_QA')} / {gates.get('public_tree_scan', {}).get('status', 'PENDING_FINAL_QA')}** | final local gate results |\\n\\n"
+    "The pre-v2 release lock and historical reconstruction wording are stale evidence and are not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.\n\n"
     "Subjectivity, identity continuity, deployment, canonical promotion and independent IV&V remain unestablished or false.\n\n"
     "```text\nCANONICAL_EFFECT = NONE\nDEPLOYMENT = FALSE\nINDEPENDENT_IVV = NOT_ACHIEVED\n```\n",
     encoding="utf-8",

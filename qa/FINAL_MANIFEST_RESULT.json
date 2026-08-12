@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "scope": "CURRENT_REVIEW_TREE",
+  "manifest_dir": "qa/current_manifest",
+  "files": 962,
+  "verification_command": "python3 scripts/manifest_integrity.py --manifest-dir qa/current_manifest",
+  "frozen_manifest_preserved": true
+}

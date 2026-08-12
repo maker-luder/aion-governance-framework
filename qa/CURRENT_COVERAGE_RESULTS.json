@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "generated_at": "2026-08-12T17:38:13.561416+00:00",
+  "generated_at": "2026-08-12T17:56:00.137116+00:00",
   "scope": "REVIEW_CANDIDATE_V2",
   "summary": {
     "eligible_target_count": 48,
@@ -19,7 +19,7 @@
       "coverage_percent": 90.82125603864735,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__aion_runtime_v0.1.0.json",
-      "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__aion_runtime_v0.1.0.json\n11 passed in 0.70s\n"
+      "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__aion_runtime_v0.1.0.json\n11 passed in 0.68s\n"
     },
     {
       "target": "components/aion_runtime_v0.2.0",
@@ -39,7 +39,7 @@
       "coverage_percent": 88.37209302325581,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__astra_runtime_v0.1.0.json",
-      "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__astra_runtime_v0.1.0.json\n5 passed in 0.13s\n"
+      "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__astra_runtime_v0.1.0.json\n5 passed in 0.12s\n"
     },
     {
       "target": "components/astra_workbench_v1.0.0",
@@ -49,7 +49,7 @@
       "coverage_percent": 93.47826086956522,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__astra_workbench_v1.0.0.json",
-      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__astra_workbench_v1.0.0.json\nRequired test coverage of 85.0% reached. Total coverage: 93.48%\n89 passed in 1.33s\n"
+      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__astra_workbench_v1.0.0.json\nRequired test coverage of 85.0% reached. Total coverage: 93.48%\n89 passed in 1.35s\n"
     },
     {
       "target": "components/continuity_governance_v0.1.0",
@@ -59,7 +59,7 @@
       "coverage_percent": 85.71428571428571,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__continuity_governance_v0.1.0.json",
-      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__continuity_governance_v0.1.0.json\n7 passed in 0.03s\n"
+      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__continuity_governance_v0.1.0.json\n7 passed in 0.04s\n"
     },
     {
       "target": "components/encounter_governance_v0.1.0",
@@ -99,7 +99,7 @@
       "coverage_percent": 88.60028860028861,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__identity_governance_v0.1.0.json",
-      "output": "...................................                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__identity_governance_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 88.60%\n35 passed in 0.16s\n"
+      "output": "...................................                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__identity_governance_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 88.60%\n35 passed in 0.15s\n"
     },
     {
       "target": "components/individual_runtime_state_v0.1.0",
@@ -119,7 +119,7 @@
       "coverage_percent": 89.3491124260355,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__language_core_v0.1.0.json",
-      "output": ".............................                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__language_core_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 89.35%\n29 passed in 0.18s\n"
+      "output": ".............................                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__language_core_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 89.35%\n29 passed in 0.19s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -159,7 +159,7 @@
       "coverage_percent": 84.31105047748977,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/components__whole_system_governed_runtime_v0.1.0.json",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=33662) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__whole_system_governed_runtime_v0.1.0.json\n21 passed, 1 warning in 0.71s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=34745) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__whole_system_governed_runtime_v0.1.0.json\n21 passed, 1 warning in 0.72s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -169,7 +169,7 @@
       "coverage_percent": 86.24401913875599,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/examples__bazi-capability_v0.1.1.json",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/examples__bazi-capability_v0.1.1.json\nRequired test coverage of 85.0% reached. Total coverage: 86.24%\n82 passed in 0.42s\n"
+      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/examples__bazi-capability_v0.1.1.json\nRequired test coverage of 85.0% reached. Total coverage: 86.24%\n82 passed in 0.44s\n"
     },
     {
       "target": "research-labs/affective-cognitive-motivation_v0.1.0",
@@ -297,7 +297,7 @@
       "coverage_percent": 79.8913043478261,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__four-domain-p3-resilience-experiments_v0.1.0.json",
-      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p3-resilience-experiments_v0.1.0.json\n7 passed in 0.09s\n"
+      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p3-resilience-experiments_v0.1.0.json\n7 passed in 0.10s\n"
     },
     {
       "target": "research-labs/four-domain-p4-public-reproducibility_v0.1.0",
@@ -307,7 +307,7 @@
       "coverage_percent": 87.7742946708464,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__four-domain-p4-public-reproducibility_v0.1.0.json",
-      "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p4-public-reproducibility_v0.1.0.json\n8 passed in 0.06s\n"
+      "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p4-public-reproducibility_v0.1.0.json\n8 passed in 0.07s\n"
     },
     {
       "target": "research-labs/four-domain-p5-hypothesis-convergence_v0.1.0",
@@ -317,7 +317,7 @@
       "coverage_percent": 82.11091234347049,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__four-domain-p5-hypothesis-convergence_v0.1.0.json",
-      "output": "..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p5-hypothesis-convergence_v0.1.0.json\n10 passed in 0.09s\n"
+      "output": "..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p5-hypothesis-convergence_v0.1.0.json\n10 passed in 0.12s\n"
     },
     {
       "target": "research-labs/governed-tool-approval_v0.1.0",
@@ -345,7 +345,7 @@
       "coverage_percent": 88.86844526218951,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__language-core-g1_v0.2.1.json",
-      "output": "........................................................                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__language-core-g1_v0.2.1.json\nRequired test coverage of 85.0% reached. Total coverage: 88.87%\n56 passed in 0.23s\n"
+      "output": "........................................................                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__language-core-g1_v0.2.1.json\nRequired test coverage of 85.0% reached. Total coverage: 88.87%\n56 passed in 0.24s\n"
     },
     {
       "target": "research-labs/real-model-pilot-protocol_v0.1.0",
@@ -365,7 +365,7 @@
       "coverage_percent": 93.10344827586206,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__research-evaluation-harness_v0.1.0.json",
-      "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__research-evaluation-harness_v0.1.0.json\n11 passed in 0.05s\n"
+      "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__research-evaluation-harness_v0.1.0.json\n11 passed in 0.06s\n"
     },
     {
       "target": "research-labs/second-order-metacognition_v0.1.0",
@@ -375,7 +375,7 @@
       "coverage_percent": 87.0580808080808,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__second-order-metacognition_v0.1.0.json",
-      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__second-order-metacognition_v0.1.0.json\n84 passed in 0.37s\n"
+      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__second-order-metacognition_v0.1.0.json\n84 passed in 0.43s\n"
     },
     {
       "target": "research-labs/selective-memory-control_v0.1.0",
@@ -395,7 +395,7 @@
       "coverage_percent": 88.62559241706161,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__self-model-functional-ablation_v0.1.0.json",
-      "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-model-functional-ablation_v0.1.0.json\n9 passed in 0.06s\n"
+      "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-model-functional-ablation_v0.1.0.json\n9 passed in 0.07s\n"
     },
     {
       "target": "research-labs/self-report-false-positive-challenge_v0.1.0",
@@ -415,7 +415,7 @@
       "coverage_percent": 87.23404255319149,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__self-report-instrument-validity-calibration_v0.1.0.json",
-      "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-report-instrument-validity-calibration_v0.1.0.json\n13 passed in 0.05s\n"
+      "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-report-instrument-validity-calibration_v0.1.0.json\n13 passed in 0.06s\n"
     },
     {
       "target": "research-labs/shared-origin-divergence-governance_v0.1.0",
@@ -425,7 +425,7 @@
       "coverage_percent": 81.61616161616162,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__shared-origin-divergence-governance_v0.1.0.json",
-      "output": "...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__shared-origin-divergence-governance_v0.1.0.json\n27 passed in 0.08s\n"
+      "output": "...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__shared-origin-divergence-governance_v0.1.0.json\n27 passed in 0.12s\n"
     },
     {
       "target": "research-labs/subjectivity-pipeline_v0.1.0",
@@ -435,7 +435,7 @@
       "coverage_percent": 80.88235294117646,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__subjectivity-pipeline_v0.1.0.json",
-      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__subjectivity-pipeline_v0.1.0.json\n6 passed in 0.03s\n"
+      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__subjectivity-pipeline_v0.1.0.json\n6 passed in 0.04s\n"
     },
     {
       "target": "research-labs/supervised-control-pilot_v0.1.0",
@@ -445,7 +445,7 @@
       "coverage_percent": 79.16666666666667,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__supervised-control-pilot_v0.1.0.json",
-      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__supervised-control-pilot_v0.1.0.json\n6 passed in 0.02s\n"
+      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__supervised-control-pilot_v0.1.0.json\n6 passed in 0.03s\n"
     },
     {
       "target": "research-labs/trace-provenance-crosswalk_v0.1.0",
@@ -455,7 +455,7 @@
       "coverage_percent": 88.88888888888889,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__trace-provenance-crosswalk_v0.1.0.json",
-      "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__trace-provenance-crosswalk_v0.1.0.json\n12 passed in 0.05s\n"
+      "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__trace-provenance-crosswalk_v0.1.0.json\n12 passed in 0.06s\n"
     },
     {
       "target": "research-labs/trajectory-evaluation_v0.1.0",
@@ -465,7 +465,7 @@
       "coverage_percent": 90.9090909090909,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__trajectory-evaluation_v0.1.0.json",
-      "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__trajectory-evaluation_v0.1.0.json\n14 passed in 0.05s\n"
+      "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__trajectory-evaluation_v0.1.0.json\n14 passed in 0.06s\n"
     },
     {
       "target": "research-labs/triangulated-subjectivity-evidence_v0.1.0",
@@ -485,7 +485,7 @@
       "coverage_percent": 86.44859813084112,
       "branch_coverage": true,
       "raw_evidence": "qa/coverage/research-labs__twin-genesis-embodiment_v0.1.0.json",
-      "output": ".................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__twin-genesis-embodiment_v0.1.0.json\n17 passed in 0.11s\n"
+      "output": ".................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__twin-genesis-embodiment_v0.1.0.json\n17 passed in 0.12s\n"
     }
   ]
 }

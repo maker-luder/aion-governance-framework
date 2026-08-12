@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "scope": "REVIEW_CANDIDATE_V2",
+  "command": "python3 -m compileall -q components examples research-labs scripts",
+  "returncode": 0
+}

@@ -38,7 +38,7 @@ for path in sorted(ROOT.rglob("*")):
                 continue
             errors.append(f"{name}: {relative}")
 
-result = {"status": "PASS" if not errors else "FAIL", "scope": str(ROOT), "scanned_files": scanned, "errors": errors}
+result = {"status": "PASS" if not errors else "FAIL", "scope": "CURRENT_AION_REPOSITORY_TREE", "scanned_files": scanned, "errors": errors}
 print(json.dumps(result, ensure_ascii=False, indent=2))
 if errors:
     raise SystemExit(1)

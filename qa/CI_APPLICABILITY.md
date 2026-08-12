@@ -12,6 +12,8 @@
 | Autonomous-growth contract | PASS local | `scripts/check_autonomous_growth_contract.py` returned exit code 0 |
 | Public tree scan | PASS | `scripts/scan_public_tree.py` |
 | Sensitive material scan | PASS | `scripts/scan_sensitive_material.py` and `qa/SENSITIVE_MATERIAL_SCAN.json` |
+| Current manifest integrity | PASS | `scripts/manifest_integrity.py --manifest-dir qa/current_manifest` (versioned current-tree manifest) |
+| Frozen release verifier | EXPECTED NON-APPLICABLE FAIL | `scripts/verify_release.py` is hard-wired to historical release manifest; it reports hash mismatch on this post-RC review tree and is not current v2 validation |
 
 ## GitHub workflow applicability
 
