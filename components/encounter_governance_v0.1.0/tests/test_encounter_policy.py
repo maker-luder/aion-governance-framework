@@ -85,3 +85,22 @@ def test_duplicate_participant_ids_are_rejected() -> None:
         assert "unique" in str(exc)
     else:
         raise AssertionError("duplicate participant IDs must be rejected")
+
+
+def test_decision_schema_accepts_policy_output() -> None:
+    from json import load
+    from pathlib import Path
+
+    from jsonschema import Draft202012Validator
+
+    decision = EncounterPolicy().can_write_namespace(encounter(), "aion", "memory:owner")
+    schema_path = Path(__file__).resolve().parents[1] / "qa" / "encounter_decision.schema.json"
+    with schema_path.open(encoding="utf-8") as handle:
+        schema = load(handle)
+    Draft202012Validator(schema).validate(
+        {
+            "allowed": decision.allowed,
+            "reason": decision.reason,
+            "canonical_effect": decision.canonical_effect,
+        }
+    )
