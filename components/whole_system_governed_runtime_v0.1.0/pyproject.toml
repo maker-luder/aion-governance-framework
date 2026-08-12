@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-whole-system-governed-runtime"
+version = "0.1.0"
+description = "Local governed whole-system integration candidate for AION/Astra review"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+  "src",
+  "../memory_recall_governance_v0.1.0/src",
+]
+addopts = "-ra"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_whole_system"]
