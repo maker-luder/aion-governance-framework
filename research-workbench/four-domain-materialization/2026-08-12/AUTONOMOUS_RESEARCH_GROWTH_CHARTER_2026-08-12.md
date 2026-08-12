@@ -61,7 +61,18 @@ Autonomous work should prefer an isolated candidate branch or pull request targe
 review/four-domain-research-materialization
 ```
 
-If the execution environment can safely verify all required branch-scope and focused CI gates, a bounded research-only candidate may be integrated into the research branch. If any gate is unavailable, ambiguous, failing, or would require changing `main`, the candidate must remain unmerged for later review.
+Candidate integration is fail-closed. The research-specific pre-merge checks must run **before** integration on a pull request targeting the research branch:
+
+```text
+PREMERGE_RESEARCH_GATES = REQUIRED
+REQUIRED_GATE_1 = Research Scope Lock
+REQUIRED_GATE_2 = Research Workbench CI
+QUALITY_WORKFLOW = SUPPLEMENTAL
+```
+
+A generic repository quality check may add useful engineering evidence, but it does not replace either research-specific gate. If a required gate is unavailable, absent, ambiguous or failing, the candidate remains `HOLD` even when generic tests are green.
+
+Only when the execution environment and GitHub checks can verify the declared branch-scope and focused research gates may a bounded research-only candidate be integrated into the research branch.
 
 ```text
 TARGET_BASE = review/four-domain-research-materialization
@@ -73,6 +84,8 @@ RELEASE = PROHIBITED
 TAG = PROHIBITED
 DEPLOYMENT = PROHIBITED
 ```
+
+The pre-merge workflows must use the ordinary `pull_request` event, read-only repository permissions, full-SHA-pinned first-party Actions and disabled checkout credential persistence. `pull_request_target` is not authorized for autonomous candidate validation.
 
 Autonomous changes must remain reversible through ordinary Git history.
 
@@ -153,9 +166,9 @@ No autonomous result becomes historical truth merely because it remained in the 
 
 ## 8. Provenance
 
-- Human Research Owner: explicitly authorized autonomous research-branch growth on 2026-08-12 and asked to review/fix accumulated work later.
-- ChatGPT research review: formalized this bounded autonomous-growth charter and preserved the existing main/canonical/runtime isolation and scientific non-claims.
-- Codex: not invoked for this authorization pass; prior Codex contributions remain attributed to their original commits/artifacts.
+- Human Research Owner: explicitly authorized autonomous research-branch growth on 2026-08-12 and asked to review/fix accumulated work later; later requested a supervised cross-check against the whitepaper lineage, current primary sources and the research branch.
+- ChatGPT research review: formalized this bounded autonomous-growth charter, identified the first-cycle pre-merge gating deadlock, and tightened the contract/workflows while preserving main/canonical/runtime isolation and scientific non-claims.
+- Codex research implementation: previously added the machine-checkable contract, cycle record schema, workflow hardening and contract checker; this later supervised repair preserves that contribution and closes its pre-merge trigger gap.
 - External sources: remain external evidence with separate attribution.
 
 ## 9. Boundary statement
@@ -170,4 +183,4 @@ AUTONOMOUS_AUTHORITY_ESCALATION = NO
 LATER_HUMAN_REVIEW = REQUIRED_FOR_PROMOTION
 ```
 
-The intended operating mode is: let the research workbench grow, preserve what happened, and review the accumulated branch later without pretending unattended growth is already validated science.
+The intended operating mode is: let the research workbench grow, preserve what happened, require research-specific pre-merge validation, and review the accumulated branch later without pretending unattended growth is already validated science.
