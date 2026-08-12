@@ -61,6 +61,21 @@ APPROVAL != CONTAINMENT
 SANDBOX != SUBJECTIVITY_EVIDENCE
 ```
 
+## Hermes clone boundary correction
+
+Current official Hermes documentation states that `--clone-all` copies broad profile state such as config, memories, skills, cron jobs and plugins, but excludes per-profile history including sessions, `state.db`, backups, state snapshots and checkpoints.
+
+Therefore the research module now uses:
+
+```text
+HERMES_CLONE_ALL = SHARED_CONTROLLED_STATE OPPORTUNITY
+HERMES_CLONE_ALL != FULL_HISTORICAL_DUPLICATION
+SESSION_HISTORY_INHERITANCE = FALSE BY CURRENT UPSTREAM DOCUMENTATION
+FULL_HISTORICAL_EQUIVALENCE = NOT_ASSUMED
+```
+
+The initial overbroad wording was corrected before empirical execution. The prior commits remain visible as audit history rather than being rewritten.
+
 ## Whitepaper bridge
 
 This module does not create new subjectivity dimensions. Any future observation must bind back to the standing whitepaper evidence architecture:
@@ -119,7 +134,9 @@ Minimum execution conditions:
 ```text
 STATIC_REVIEW = COMPLETE
 BASELINE_REGISTRY = MATERIALIZED
+BASELINE_REGISTRY_SCHEMA = v0.1.1
 HERMES_DETAILED_CROSSWALK = MATERIALIZED
+HERMES_CLONE_BOUNDARY_CORRECTION = APPLIED
 EXPERIMENT_MATRIX = MATERIALIZED
 EMPIRICAL_RUN_COUNT = 0
 LOCAL_INSTALLATION = NONE
@@ -131,4 +148,4 @@ IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 
 ## Provenance
 
-The Human Research Owner authorized the external-runtime comparison direction and the research-branch update. ChatGPT research review performed the current source comparison and formalization. Upstream projects remain independently attributed. Codex did not implement this module in the current update.
+The Human Research Owner authorized the external-runtime comparison direction and the research-branch update. ChatGPT research review performed the current source comparison and formalization, then corrected the Hermes `--clone-all` boundary after fresh primary-source verification. Upstream projects remain independently attributed. Codex did not implement this module in the current update.
