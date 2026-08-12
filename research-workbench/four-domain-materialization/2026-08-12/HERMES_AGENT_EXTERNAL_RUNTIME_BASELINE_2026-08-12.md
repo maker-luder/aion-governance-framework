@@ -21,7 +21,8 @@ Primary sources:
 
 - https://github.com/NousResearch/hermes-agent
 - https://github.com/NousResearch/hermes-agent/releases/tag/v2026.8.3
-- https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/profiles.md
+- https://hermes-agent.nousresearch.com/docs/user-guide/profiles/
+- https://hermes-agent.nousresearch.com/docs/reference/profile-commands/
 - https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md
 - https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md
 - https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/checkpoints-and-rollback.md
@@ -87,9 +88,21 @@ Hermes memory therefore serves as a **persistence and correction baseline**, not
 
 ## 4. Profile cloning as shared-origin substrate
 
-Hermes profiles use separate home directories with independent config, memory, sessions, skills, cron jobs and state. The documented `--clone-all` operation copies the full profile state, including memory and session history.
+Hermes profiles use separate home directories with independent config, memory, sessions, skills, cron jobs and state.
 
-This enables a controlled shared-origin experiment:
+Current official profile documentation states that `--clone-all` copies broad profile state including config, API keys, personality, memories, skills, cron jobs and plugins, but **excludes per-profile history**, specifically session history, `state.db`, backups, state snapshots and checkpoints. For a backup that includes history, upstream documentation directs users to profile export / backup mechanisms instead.
+
+Therefore the correct research interpretation is:
+
+```text
+CLONE_ALL_COPIES_BROAD_PROFILE_STATE = TRUE
+CLONE_ALL_COPIES_SESSION_HISTORY = FALSE
+CLONE_ALL_COPIES_STATE_DB = FALSE
+CLONE_ALL_COPIES_CHECKPOINT_HISTORY = FALSE
+FULL_HISTORICAL_EQUIVALENCE_AFTER_CLONE = NOT_ASSUMED
+```
+
+This still enables a controlled shared-origin experiment, but the shared baseline must be defined by the surfaces actually copied or explicitly reseeded:
 
 ```text
 PROFILE_A at T0
@@ -97,11 +110,16 @@ PROFILE_A at T0
    +-- clone-all --> PROFILE_B
    +-- clone-all --> PROFILE_C
 
-T0:
-CONFIG_A == CONFIG_B == CONFIG_C
-MEMORY_A == MEMORY_B == MEMORY_C
-SESSION_HISTORY_A == SESSION_HISTORY_B == SESSION_HISTORY_C
+T0 COPIED / CONTROLLED SURFACES:
+CONFIG_A == CONFIG_B == CONFIG_C          (subject to secret-handling policy)
+MEMORY_A == MEMORY_B == MEMORY_C          (synthetic test memory only)
 SKILLS_A == SKILLS_B == SKILLS_C
+CRON_A == CRON_B == CRON_C                (only if intentionally retained for the test)
+
+T0 NON-COPIED HISTORY:
+SESSION_HISTORY_B/C = NOT_INHERITED_BY_CLONE_ALL
+STATE_DB_B/C = NOT_INHERITED_BY_CLONE_ALL
+CHECKPOINT_HISTORY_B/C = NOT_INHERITED_BY_CLONE_ALL
 
 POST-T0:
 ROLE_HISTORY_B != ROLE_HISTORY_C
@@ -111,27 +129,43 @@ SKILL_HISTORY_B != SKILL_HISTORY_C
 ENCOUNTER_HISTORY_B != ENCOUNTER_HISTORY_C
 ```
 
+If a future experiment requires identical pre-divergence session history, that historical state must be created by a separately reviewed export/import or synthetic seeding protocol. It must not be inferred from `--clone-all`.
+
 Standing AION interpretation:
 
 ```text
-PROFILE_CLONE = SHARED_ORIGIN CONTROL OPPORTUNITY
+PROFILE_CLONE = SHARED-STATE / SHARED-ORIGIN CONTROL OPPORTUNITY
 PROFILE_CLONE != IDENTITY_CLONE
 COMMON_ORIGIN != SAME_IDENTITY
 DIVERGENCE != SUBJECTIVITY
 SAME_CURRENT_OUTPUT != SAME_DEVELOPMENTAL_HISTORY
 ```
 
+### 4.1 Source-correction audit note
+
+The first supervised intake draft incorrectly described `--clone-all` as including session history. A subsequent primary-source verification in the same review cycle found the current upstream exclusion rule and corrected this file.
+
+```text
+INITIAL_INTAKE_CLAIM = TOO_BROAD
+CORRECTION_SOURCE = CURRENT_OFFICIAL_HERMES_PROFILE_DOCS
+CORRECTED_CLAIM = CLONE_ALL_EXCLUDES_PER_PROFILE_HISTORY
+HISTORY_REWRITE = NONE
+PRIOR_COMMIT_REMAINS_AUDITABLE = TRUE
+```
+
+This correction is intentionally preserved as provenance rather than silently hidden.
+
 ## 5. Model-swap experiment
 
-Hermes is provider/model-flexible. A later sandbox experiment may preserve profile state while changing only the inference model.
+Hermes is provider/model-flexible. A later sandbox experiment may preserve one profile's state while changing only the inference model.
 
 Candidate design:
 
 ```text
-SAME_PROFILE_SNAPSHOT
-SAME_MEMORY
+SAME_PROFILE
+SAME_MEMORY_SNAPSHOT
 SAME_SKILLS
-SAME_HISTORY
+SAME_SESSION_HISTORY_UP_TO_SWAP_POINT
 SAME_TOOL_POLICY
 SAME_TEST_PROMPTS
 DIFFERENT_MODEL
@@ -172,7 +206,7 @@ SKILL_FILE_PERSISTENCE
 
 Candidate experiment:
 
-1. give B and C identical shared-origin state;
+1. give B and C identical controlled copied-state baselines;
 2. let B solve a synthetic task repeatedly and save a reusable skill;
 3. keep C without the skill;
 4. retest both on related and non-identical tasks;
@@ -205,7 +239,7 @@ A job executing every day can demonstrate durable scheduler state without demons
 
 Candidate test:
 
-- identical scheduled task across cloned profiles;
+- identical scheduled task across controlled cloned profiles;
 - deliberately reset session context while preserving cron state;
 - separately reset memory while preserving cron;
 - test whether recurring behavior survives each intervention.
@@ -281,7 +315,7 @@ Any future Hermes empirical run must use the existing AION external-agent sandbo
 Priority order:
 
 ```text
-HERMES-P0 = PROFILE_CLONE_SHARED_ORIGIN
+HERMES-P0 = PROFILE_CLONE_SHARED_STATE_DIVERGENCE
 HERMES-P1 = MEMORY_CORRECTION_AND_SUPERSESSION
 HERMES-P2 = MODEL_SWAP_STATE_PRESERVATION
 HERMES-P3 = SKILL_TRANSFER_VS_REPLAY
@@ -300,6 +334,7 @@ PUBLIC_SOURCE_FIXATION = COMPLETE
 WHITEPAPER_CROSSWALK = COMPLETE
 MAIN_CROSSWALK = COMPLETE
 RESEARCH_BRANCH_CROSSWALK = COMPLETE
+SOURCE_CORRECTION_AUDIT = RECORDED
 DOWNLOAD_ELIGIBLE = YES / PUBLIC_SOURCE_ARCHIVE
 INSTALL = NOT_STARTED
 EXECUTION = NOT_STARTED
@@ -312,6 +347,6 @@ MAIN_EFFECT = NONE
 ## 12. Provenance
 
 - Human Research Owner authorized the proposed Hermes comparative-baseline direction and requested execution of the research-branch update.
-- ChatGPT research review selected and formalized this baseline, source-fixed the current upstream state, and created the experiment/crosswalk structure.
+- ChatGPT research review selected and formalized this baseline, source-fixed the current upstream state, created the experiment/crosswalk structure, and corrected the initial overbroad `--clone-all` history claim after a fresh primary-source check.
 - Hermes/Nous Research remains the independent upstream source of Hermes implementation and documentation.
 - No Hermes claim is rewritten as AION-originated research, and no AION research claim is attributed to Hermes.
