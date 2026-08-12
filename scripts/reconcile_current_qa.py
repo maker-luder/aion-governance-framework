@@ -32,10 +32,14 @@ def _head(root: Path) -> str:
 def reconcile(root: Path, *, target_head: str | None = None) -> dict[str, Any]:
     results_path = root / RESULTS_RELATIVE
     lock_path = root / LOCK_RELATIVE
-    results = json.loads(results_path.read_text(encoding="utf-8")) if results_path.is_file() else None
+    raw_results = json.loads(results_path.read_text(encoding="utf-8")) if results_path.is_file() else None
     lock = json.loads(lock_path.read_text(encoding="utf-8")) if lock_path.is_file() else {}
+    if isinstance(raw_results, dict):
+        results = raw_results.get("targets")
+    else:
+        results = raw_results
     if not isinstance(results, list) or not isinstance(lock, dict):
-        raise ValueError("current test results and release status lock must both be valid JSON")
+        raise ValueError("current test results and release status lock must both be valid JSON with a target list")
     records: list[dict[str, Any]] = []
     for item in results:
         if not isinstance(item, dict):
@@ -48,6 +52,9 @@ def reconcile(root: Path, *, target_head: str | None = None) -> dict[str, Any]:
     total = sum(record["tests_passed"] for record in records)
     failed = [record["target"] for record in records if record["returncode"] != 0]
     resolved_head = target_head or _head(root)
+    lock["scope"] = "FINAL_FORMAL_RESEARCH_TREE"
+    lock["target_head"] = resolved_head
+    lock["release"] = "FINAL_FORMAL_RESEARCH_TREE_NOT_RELEASE"
     lock["current_tests"] = f"{total} PASSED" if not failed else f"{total} PASSED / {len(failed)} FAILED_TARGETS"
     lock["current_targets"] = len(records)
     lock.setdefault("canonical_effect", "NONE")
