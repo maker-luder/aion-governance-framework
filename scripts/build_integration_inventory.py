@@ -21,7 +21,7 @@ entries = []
 for path in paths:
     relative = str(path.relative_to(ROOT))
     tests = test_by_target[relative]
-    coverage = coverage_by_target[relative]
+    coverage = coverage_by_target.get(relative, {"returncode": None, "totals": {}})
     source_branch = CURRENT_BRANCH
     source_sha = CURRENT_HEAD
     if relative == "components/whole_system_governed_runtime_v0.1.0":
