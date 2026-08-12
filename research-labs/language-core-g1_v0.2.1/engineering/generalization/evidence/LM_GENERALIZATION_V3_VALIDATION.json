@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "all_models_valid": true,
+    "dataset_sha256_matches": true,
+    "dataset_status": true,
+    "no_external_paid_resource": true,
+    "no_private_data": true,
+    "train_only_tokenizer": true,
+    "zero_unknown_validation_and_test": true
+  },
+  "device": "cpu",
+  "experiment_id": "LM_GENERALIZATION_V3",
+  "models": [
+    {
+      "actual_inference": true,
+      "dataset_id_matches": true,
+      "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
+      "finite_parameters": true,
+      "generation_length": true,
+      "parameter_count_matches": true,
+      "parameter_dependent_inference": true,
+      "path": "/home/ubuntu/AION_ASTRA_FINAL_CONSOLIDATION_2026-08-13/research-model-artifacts/lm_generalization_v3/models/lm_generalization_v3_baseline.pt",
+      "sha256_matches": true,
+      "tokenizer_training_scope": "train_only",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "actual_inference": true,
+      "dataset_id_matches": true,
+      "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
+      "finite_parameters": true,
+      "generation_length": true,
+      "parameter_count_matches": true,
+      "parameter_dependent_inference": true,
+      "path": "/home/ubuntu/AION_ASTRA_FINAL_CONSOLIDATION_2026-08-13/research-model-artifacts/lm_generalization_v3/models/lm_generalization_v3_regularized_primary.pt",
+      "sha256_matches": true,
+      "tokenizer_training_scope": "train_only",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    }
+  ],
+  "non_claim": "Clean reload validates an optional local research checkpoint, not mature general-purpose capability or authority.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

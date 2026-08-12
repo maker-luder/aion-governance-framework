@@ -44,6 +44,14 @@ The paired held-out result provides **preliminary support** for the regularizati
 
 This result remains `PARTIALLY_COMPLETE`, not complete. The corpus is synthetic and small, the evaluation is narrow, and the result does not establish robust out-of-distribution generalization, broad language capability or a mature general-purpose AION foundation model. The experiment is recorded as an `OPTIONAL_RESEARCH_MODEL` and is intentionally not added to the formal model registry. Its falsification conditions require that a non-positive paired improvement, split leakage, non-finite training, failed reload or parameter-independent inference would invalidate the claimed result.
 
+## LM_GENERALIZATION_V3 research result
+
+The next-cycle follow-up used a fixed 42-row synthetic governance corpus with 26 train, 8 validation and 8 cross-topic compositional test rows. The tokenizer was built from training rows only; exact normalized duplicate checks passed and validation/test rows contained zero out-of-vocabulary tokens. The experiment compared the prior-style unregularized Embedding-GRU-CausalLM recipe with the same modest AdamW, label-smoothing and gradient-clipping regularization family under paired seeds `2027`, `2028` and `2029`.
+
+The paired compositional held-out result provides **preliminary support** in this setup: the primary test-loss improvement was `0.17763042449951172`, the mean paired improvement was `0.13621012369791666`, and the minimum paired improvement was `0.028661489486694336`. Both primary checkpoints were clean-process reloaded with actual parameter-dependent inference. Full evidence is in `engineering/generalization/evidence/LM_GENERALIZATION_V3_RESULTS.json`, `LM_GENERALIZATION_V3_VALIDATION.json` and `GENERALIZATION_COMPOSITION_V3_DATASET_REGISTRY.json`.
+
+V3 remains `PARTIALLY_COMPLETE`, not complete. The corpus is synthetic, the test set is small, and the evaluation still does not establish robust out-of-distribution generalization, broad language capability or a mature general-purpose AION foundation model. The checkpoints are `OPTIONAL_RESEARCH_MODEL` artifacts, remain outside the formal model registry and remain local-only. The result cannot authorize actions, convert scores into authority, bypass governance gates or establish subjectivity, identity or phenomenal status.
+
 ## Governance locks
 
 ```text

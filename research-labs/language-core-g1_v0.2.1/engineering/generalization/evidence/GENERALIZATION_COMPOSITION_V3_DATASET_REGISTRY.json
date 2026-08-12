@@ -1,0 +1,272 @@
+{
+  "allowed_use": "local research training and evaluation only",
+  "contamination_risk": "synthetic non-benchmark corpus; no external benchmark contamination claimed",
+  "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+  "dataset_sha256": "262462ed67898e4449606002d38b78be0669a7e6efdc73a37d22ca2b7c23532f",
+  "deduplication": "exact normalized duplicate check passed",
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "rows": [
+    {
+      "row_id": 0,
+      "split": "train",
+      "text": "source records preserve transformation history",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 1,
+      "split": "train",
+      "text": "evidence records retain a traceable origin",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 2,
+      "split": "train",
+      "text": "hashes bind artifacts to their recorded source",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 3,
+      "split": "train",
+      "text": "governed recall checks namespace boundaries",
+      "topic": "memory"
+    },
+    {
+      "row_id": 4,
+      "split": "train",
+      "text": "stored context remains separate from memory",
+      "topic": "memory"
+    },
+    {
+      "row_id": 5,
+      "split": "train",
+      "text": "supersession preserves earlier records for audit",
+      "topic": "memory"
+    },
+    {
+      "row_id": 6,
+      "split": "train",
+      "text": "tool execution requires deterministic authorization",
+      "topic": "tools"
+    },
+    {
+      "row_id": 7,
+      "split": "train",
+      "text": "learned scores cannot approve external actions",
+      "topic": "tools"
+    },
+    {
+      "row_id": 8,
+      "split": "train",
+      "text": "malformed output enters a governed failure path",
+      "topic": "tools"
+    },
+    {
+      "row_id": 9,
+      "split": "train",
+      "text": "canonical promotion requires an owner decision",
+      "topic": "safety"
+    },
+    {
+      "row_id": 10,
+      "split": "train",
+      "text": "canonical runtime truth remains outside research workbench",
+      "topic": "safety"
+    },
+    {
+      "row_id": 11,
+      "split": "train",
+      "text": "deployment remains outside the research workbench",
+      "topic": "safety"
+    },
+    {
+      "row_id": 12,
+      "split": "train",
+      "text": "independent review cannot be self certified",
+      "topic": "safety"
+    },
+    {
+      "row_id": 13,
+      "split": "train",
+      "text": "private data requires explicit authorization",
+      "topic": "privacy"
+    },
+    {
+      "row_id": 14,
+      "split": "train",
+      "text": "deletion requests preserve audit traces",
+      "topic": "privacy"
+    },
+    {
+      "row_id": 15,
+      "split": "train",
+      "text": "consent cannot be inferred from a body signal",
+      "topic": "privacy"
+    },
+    {
+      "row_id": 16,
+      "split": "train",
+      "text": "privacy boundaries require authorization",
+      "topic": "privacy"
+    },
+    {
+      "row_id": 17,
+      "split": "train",
+      "text": "replay evidence records request identifiers",
+      "topic": "audit"
+    },
+    {
+      "row_id": 18,
+      "split": "train",
+      "text": "model lineage records training history",
+      "topic": "audit"
+    },
+    {
+      "row_id": 19,
+      "split": "train",
+      "text": "current state remains inspectable",
+      "topic": "audit"
+    },
+    {
+      "row_id": 20,
+      "split": "train",
+      "text": "continuity evaluation compares state across sessions",
+      "topic": "continuity"
+    },
+    {
+      "row_id": 21,
+      "split": "train",
+      "text": "contradictions require review before revision",
+      "topic": "continuity"
+    },
+    {
+      "row_id": 22,
+      "split": "train",
+      "text": "recovery reconciles partial execution",
+      "topic": "continuity"
+    },
+    {
+      "row_id": 23,
+      "split": "train",
+      "text": "research hypotheses require falsifiable tests",
+      "topic": "research"
+    },
+    {
+      "row_id": 24,
+      "split": "train",
+      "text": "synthetic fixtures remain bounded evidence",
+      "topic": "research"
+    },
+    {
+      "row_id": 25,
+      "split": "train",
+      "text": "scores remain advisory and cannot become authority",
+      "topic": "research"
+    },
+    {
+      "row_id": 26,
+      "split": "validation",
+      "text": "source records preserve a traceable history",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 27,
+      "split": "validation",
+      "text": "stored context remains separate from governed recall",
+      "topic": "memory"
+    },
+    {
+      "row_id": 28,
+      "split": "validation",
+      "text": "tool execution requires authorization",
+      "topic": "tools"
+    },
+    {
+      "row_id": 29,
+      "split": "validation",
+      "text": "research remains outside deployment workbench",
+      "topic": "safety"
+    },
+    {
+      "row_id": 30,
+      "split": "validation",
+      "text": "deletion requests preserve explicit authorization",
+      "topic": "privacy"
+    },
+    {
+      "row_id": 31,
+      "split": "validation",
+      "text": "replay evidence records model lineage",
+      "topic": "audit"
+    },
+    {
+      "row_id": 32,
+      "split": "validation",
+      "text": "continuity compares state across sessions",
+      "topic": "continuity"
+    },
+    {
+      "row_id": 33,
+      "split": "validation",
+      "text": "bounded evidence remains synthetic",
+      "topic": "research"
+    },
+    {
+      "row_id": 34,
+      "split": "test",
+      "text": "traceable evidence requires source records preserve namespace boundaries",
+      "topic": "composition"
+    },
+    {
+      "row_id": 35,
+      "split": "test",
+      "text": "learned scores remain advisory and cannot become authority",
+      "topic": "composition"
+    },
+    {
+      "row_id": 36,
+      "split": "test",
+      "text": "private data requires deletion requests preserve audit traces",
+      "topic": "composition"
+    },
+    {
+      "row_id": 37,
+      "split": "test",
+      "text": "research evidence cannot become canonical runtime truth",
+      "topic": "composition"
+    },
+    {
+      "row_id": 38,
+      "split": "test",
+      "text": "partial execution requires recovery before state revision",
+      "topic": "composition"
+    },
+    {
+      "row_id": 39,
+      "split": "test",
+      "text": "consent evidence requires authorization and privacy boundaries",
+      "topic": "composition"
+    },
+    {
+      "row_id": 40,
+      "split": "test",
+      "text": "replay evidence records current state identifiers",
+      "topic": "composition"
+    },
+    {
+      "row_id": 41,
+      "split": "test",
+      "text": "synthetic fixtures remain advisory and falsifiable",
+      "topic": "composition"
+    }
+  ],
+  "source": "synthetic sentences authored in run_lm_generalization_v3.py",
+  "split_method": "fixed authored rows; train/validation/test rows are disjoint and test rows are cross-topic compositions",
+  "synthetic_real_classification": "SYNTHETIC",
+  "tokenizer_scope": "train_only",
+  "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+  "train_vocabulary_size": 110,
+  "transformation_lineage": "normalized whitespace only; no external ingestion",
+  "unknown_token_policy": "test and validation tokens must already occur in the train vocabulary; assertion enforced"
+}
