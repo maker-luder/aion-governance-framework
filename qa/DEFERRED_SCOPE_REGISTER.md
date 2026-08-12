@@ -13,6 +13,7 @@ Each entry has one primary disposition from the permitted vocabulary: `COMPLETE`
 | Canonical AION / Astra Runtime | `OWNER_DECISION_REQUIRED` | Research integration remains non-canonical. `CANONICAL_EFFECT = NONE`; no promotion is made in this task. |
 | Live private cross-session memory | `EXTERNAL_DEPENDENCY` | Requires an approved live service, private-data policy and owner-approved operational boundary; local semantic-memory evidence is governed research evidence only. |
 | Formal G1-Qwen3-4B-Instruct-2507 baseline benchmark | `RESOURCE_BLOCKED` | External baseline weights/runtime were unavailable under the local resource and dependency constraints. Local scratch models were not substituted. |
+| Scratch-LM held-out generalization | `PARTIALLY_COMPLETE` | `LM_GENERALIZATION_V2` paired seeds show a small positive regularization improvement in this fixed synthetic setup; the result does not establish robust generalization or a mature general-purpose model. |
 | Real LoRA training | `COMPLETE` | `LOCAL_TRAINING_EVIDENCE.json` records non-zero trainable parameters, optimizer updates, loss reduction and clean reload inference. The local adapter is not the formal G1-Qwen adapter. |
 | Actual controlled and random ablation | `COMPLETE` | `LOCAL_ABLATION_RESULTS.json` records baseline, controlled component removal and random component removal MSE under the declared experiment. |
 | Production deployment | `OWNER_PROHIBITED` | Explicitly outside this reconciliation. `DEPLOYMENT = FALSE`. |
@@ -27,7 +28,7 @@ Each entry has one primary disposition from the permitted vocabulary: `COMPLETE`
 
 The current evidence supports `REAL_LEARNED_MODEL = TRUE` for the eight validated local research checkpoints, including the trained LoRA adapter. It does not support `REAL_MODEL = MATURE_GENERAL_PURPOSE_MODEL` or `TRAINING_SUCCESS = GENERALIZATION_SUCCESS`.
 
-The scratch language model training loss decreases from approximately `4.491575050354004` to `0.0025797318667173386`, while held-out loss is `8.133516788482666`. This is a material train/held-out gap and remains a generalization warning. The model is therefore a **real learned research model**, not a mature general-purpose AION language model.
+The earlier scratch language model training loss decreases from approximately `4.491575050354004` to `0.0025797318667173386`, while held-out loss is `8.133516788482666`. This remains a material generalization warning. `LM_GENERALIZATION_V2` provides preliminary paired-seed support for modest regularization on a new fixed synthetic split, but the corpus is small and the result remains `PARTIALLY_COMPLETE`. The model family is therefore a **real learned research model**, not a mature general-purpose AION language model.
 
 ## Governance locks
 

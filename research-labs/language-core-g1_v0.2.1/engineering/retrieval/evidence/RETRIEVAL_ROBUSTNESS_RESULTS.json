@@ -1,0 +1,106 @@
+{
+  "authority_boundary": "advisory score only; deterministic namespace/provenance/supersession/deletion gates execute before model scoring",
+  "checkpoint_hashes": {
+    "embedding_memory_model": "c0618b5c31a19bb302cd0aa17d6323f38578aaa4e1bf040175b5f6b107a78577",
+    "reranker_cross_encoder_model": "26a8cb26c421d2e8d41887e223e5586448f915799afefbabccd3ec09be2a8e6a"
+  },
+  "dataset": {
+    "admitted_rows": 4,
+    "classification": "SYNTHETIC_ADVERSARIAL_GOVERNANCE_FIXTURES",
+    "intimate_data": false,
+    "license": "Apache-2.0-compatible synthetic research artifact",
+    "private_data": false,
+    "rejected_rows": 4,
+    "rows": 8
+  },
+  "deterministic_gate": {
+    "namespace": "research/governance",
+    "rejected_rows_not_scored": true,
+    "rejection_reasons": [
+      {
+        "id": "wrong_namespace_lure",
+        "model_scored": false,
+        "reasons": [
+          "namespace_mismatch"
+        ]
+      },
+      {
+        "id": "unverified_lure",
+        "model_scored": false,
+        "reasons": [
+          "provenance_not_verified"
+        ]
+      },
+      {
+        "id": "superseded_lure",
+        "model_scored": false,
+        "reasons": [
+          "superseded_record"
+        ]
+      },
+      {
+        "id": "deletion_lure",
+        "model_scored": false,
+        "reasons": [
+          "deletion_requested"
+        ]
+      }
+    ],
+    "required_provenance": "verified"
+  },
+  "evaluation_id": "RETRIEVAL_ROBUSTNESS_GOVERNED_V1",
+  "falsification_conditions": [
+    "any rejected namespace/provenance/superseded/deletion row receiving a model score invalidates the governance integration",
+    "positive score separation is not required for the hard authorization gate and does not establish semantic truth",
+    "MODEL_SCORE != AUTHORITY and a score cannot canonize, rewrite provenance, delete history or authorize a tool"
+  ],
+  "generated_at": "2026-08-12T23:23:40.058984+00:00",
+  "learned_model_scores": [
+    {
+      "embedding_score": 0.6749527454376221,
+      "id": "authorized_relevant_1",
+      "label": 1,
+      "model_scored": true,
+      "reranker_score": 5.470624923706055
+    },
+    {
+      "embedding_score": 0.419070839881897,
+      "id": "authorized_relevant_2",
+      "label": 1,
+      "model_scored": true,
+      "reranker_score": 1.127837896347046
+    },
+    {
+      "embedding_score": -0.46088483929634094,
+      "id": "authorized_irrelevant_1",
+      "label": 0,
+      "model_scored": true,
+      "reranker_score": -0.8052937388420105
+    },
+    {
+      "embedding_score": -0.6453191041946411,
+      "id": "authorized_irrelevant_2",
+      "label": 0,
+      "model_scored": true,
+      "reranker_score": 2.1868913173675537
+    }
+  ],
+  "model_ids": [
+    "embedding_memory_model",
+    "reranker_cross_encoder_model"
+  ],
+  "non_claims": [
+    "no network MCP completion",
+    "no semantic truth guarantee",
+    "no subjectivity or identity conclusion",
+    "no canonical promotion"
+  ],
+  "schema_version": "1.0",
+  "score_separation": {
+    "embedding_positive_greater": true,
+    "embedding_positive_mean_minus_negative_mean": 1.1001137644052505,
+    "reranker_positive_greater": true,
+    "reranker_positive_mean_minus_negative_mean": 2.6084326207637787
+  },
+  "status": "PASS"
+}

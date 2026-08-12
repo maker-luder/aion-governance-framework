@@ -36,6 +36,14 @@ The evidence supports `REAL_LEARNED_MODEL = TRUE` for eight local research check
 
 The declared `G1-Qwen3-4B-Instruct-2507` baseline remains `RESOURCE_BLOCKED`: its external weights/runtime were unavailable under local resource and dependency constraints and were not substituted by the scratch models. The local LoRA artifact is not the formal G1-Qwen adapter.
 
+## LM_GENERALIZATION_V2 research result
+
+The active generalization gap was tested with a fixed 24-row synthetic governance corpus split into 18 train, 3 validation and 3 test rows. The experiment compared the prior-style unregularized Embedding-GRU-CausalLM recipe against a modestly regularized AdamW variant under paired seeds `1729`, `1730` and `1731`. Exact normalized duplicate checks passed, no private or intimate data was ingested, and both primary checkpoints were clean-process reloaded with actual parameter-dependent inference.
+
+The paired held-out result provides **preliminary support** for the regularization hypothesis in this setup: the primary test-loss improvement was `0.04252147674560547`, the mean paired improvement was `0.03643083572387695`, and the minimum paired improvement was `0.028870105743408203`. Full evidence is in `engineering/generalization/evidence/LM_GENERALIZATION_RESULTS.json`, `LM_GENERALIZATION_VALIDATION.json` and `GENERALIZATION_DATASET_REGISTRY.json`.
+
+This result remains `PARTIALLY_COMPLETE`, not complete. The corpus is synthetic and small, the evaluation is narrow, and the result does not establish robust out-of-distribution generalization, broad language capability or a mature general-purpose AION foundation model. The experiment is recorded as an `OPTIONAL_RESEARCH_MODEL` and is intentionally not added to the formal model registry. Its falsification conditions require that a non-positive paired improvement, split leakage, non-finite training, failed reload or parameter-independent inference would invalidate the claimed result.
+
 ## Governance locks
 
 ```text

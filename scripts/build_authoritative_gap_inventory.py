@@ -49,6 +49,27 @@ resolved_items = [
         ],
         "non_claim": "Original local checkpoints and dataset binaries remain outside Git.",
     },
+    {
+        "id": "RES-005",
+        "title": "LM_GENERALIZATION_V2 paired-seed generalization experiment",
+        "status": "PARTIALLY_COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_DATASET_REGISTRY.json",
+        ],
+        "non_claim": "Preliminary support on a small synthetic corpus does not establish robust out-of-distribution generalization or mature general-purpose capability.",
+    },
+    {
+        "id": "RES-006",
+        "title": "Governed retrieval gate robustness evaluation",
+        "status": "COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/retrieval/evidence/RETRIEVAL_ROBUSTNESS_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/retrieval/RETRIEVAL_ROBUSTNESS_NOTE.md",
+        ],
+        "non_claim": "The result is bounded to synthetic adversarial fixtures and does not establish semantic truth or convert score into authority.",
+    },
 ]
 
 remaining_items = [
@@ -64,10 +85,14 @@ remaining_items = [
     {
         "id": "GAP-002",
         "title": "Scratch language model held-out generalization",
-        "status": "RESEARCH_REQUIRED",
+        "status": "PARTIALLY_COMPLETE",
         "dimensions": ["MODEL_REQUIRED", "RESEARCH_REQUIRED"],
-        "evidence": ["research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_TRAINING_EVIDENCE.json"],
-        "reason": "Training loss reaches 0.0025797318667173386 while held-out loss is 8.133516788482666; the evidence supports learned parameters but not robust generalization.",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_DATASET_REGISTRY.json",
+        ],
+        "reason": "A fixed synthetic split and paired seeds show a small positive regularization improvement in held-out loss for this setup (minimum paired improvement 0.028870105743408203), but the result is preliminary and does not establish robust generalization or mature general-purpose capability.",
         "next_cycle_only": True,
     },
     {

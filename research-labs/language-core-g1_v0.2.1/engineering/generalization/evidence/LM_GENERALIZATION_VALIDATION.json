@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "actual_inference": true,
+    "clean_reload": true,
+    "finite_parameters": true,
+    "generation_length": true,
+    "hashes_match": true,
+    "parameter_dependent_inference": true,
+    "unknown_input_failure_mode": true
+  },
+  "evidence_subject": "LM_GENERALIZATION_V2",
+  "generated_at": "2026-08-12T23:21:59.692588+00:00",
+  "models": [
+    {
+      "actual_inference": true,
+      "all_parameters_finite": true,
+      "checkpoint": "lm_generalization_baseline.pt",
+      "checkpoint_sha256": "71207f6c5e963cfe59332e95d9f8e07a919aa090b4955b7e56997de6ffdfdf38",
+      "clean_reload": true,
+      "dataset_id": "SYNTHETIC_GOVERNANCE_GENERALIZATION_V2",
+      "expected_hash_matches": true,
+      "generated_token_count": 3,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256": "d7039d13cbe46c7419fc7c7756a7901b6e04d389e6cc7aa8190e699802c1e862",
+      "training_status": "TRAINED_FROM_SCRATCH",
+      "unknown_input_failure_mode": true
+    },
+    {
+      "actual_inference": true,
+      "all_parameters_finite": true,
+      "checkpoint": "lm_generalization_regularized_primary.pt",
+      "checkpoint_sha256": "02047fb825361fd704ccc3bcc0128b924474829d878e15643e6d5421cdbdce81",
+      "clean_reload": true,
+      "dataset_id": "SYNTHETIC_GOVERNANCE_GENERALIZATION_V2",
+      "expected_hash_matches": true,
+      "generated_token_count": 3,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256": "d7039d13cbe46c7419fc7c7756a7901b6e04d389e6cc7aa8190e699802c1e862",
+      "training_status": "TRAINED_FROM_SCRATCH",
+      "unknown_input_failure_mode": true
+    }
+  ],
+  "non_claim": "This clean reload validates learned-checkpoint behavior only; it does not establish mature general-purpose language capability.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validation_id": "LM_GENERALIZATION_CLEAN_RELOAD_V1"
+}

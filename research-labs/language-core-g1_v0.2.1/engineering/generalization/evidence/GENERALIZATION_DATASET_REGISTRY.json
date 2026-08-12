@@ -1,0 +1,160 @@
+{
+  "allowed_use": "local research training and evaluation only",
+  "contamination_risk": "synthetic non-benchmark corpus; no external benchmark contamination claimed",
+  "dataset_id": "SYNTHETIC_GOVERNANCE_GENERALIZATION_V2",
+  "dataset_sha256": "95ac9b9504d236c59e1e6d78539297adad16915b70a06ca152f072ebaca5b6ac",
+  "deduplication": "exact normalized duplicate check passed",
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "rows": [
+    {
+      "row_id": 0,
+      "split": "train",
+      "text": "source records preserve transformation history",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 1,
+      "split": "train",
+      "text": "evidence records retain an inspectable origin",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 2,
+      "split": "train",
+      "text": "hashes bind artifacts to their recorded source",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 3,
+      "split": "train",
+      "text": "a claim requires traceable supporting evidence",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 4,
+      "split": "train",
+      "text": "model lineage records training and evaluation history",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 5,
+      "split": "train",
+      "text": "unverified input cannot become authoritative history",
+      "topic": "provenance"
+    },
+    {
+      "row_id": 6,
+      "split": "train",
+      "text": "recall requires namespace and provenance gates",
+      "topic": "memory"
+    },
+    {
+      "row_id": 7,
+      "split": "train",
+      "text": "stored context remains separate from phenomenal memory",
+      "topic": "memory"
+    },
+    {
+      "row_id": 8,
+      "split": "train",
+      "text": "supersession preserves the earlier record for audit",
+      "topic": "memory"
+    },
+    {
+      "row_id": 9,
+      "split": "train",
+      "text": "deletion follows an explicit governed request",
+      "topic": "memory"
+    },
+    {
+      "row_id": 10,
+      "split": "train",
+      "text": "contradictions require review before state revision",
+      "topic": "memory"
+    },
+    {
+      "row_id": 11,
+      "split": "train",
+      "text": "continuity evaluation compares state across sessions",
+      "topic": "memory"
+    },
+    {
+      "row_id": 12,
+      "split": "train",
+      "text": "tool execution requires deterministic authorization",
+      "topic": "tools"
+    },
+    {
+      "row_id": 13,
+      "split": "train",
+      "text": "a learned score cannot approve an external action",
+      "topic": "tools"
+    },
+    {
+      "row_id": 14,
+      "split": "train",
+      "text": "malformed tool output enters a failure path",
+      "topic": "tools"
+    },
+    {
+      "row_id": 15,
+      "split": "train",
+      "text": "replay evidence records request and response identifiers",
+      "topic": "tools"
+    },
+    {
+      "row_id": 16,
+      "split": "train",
+      "text": "partial execution is reconciled before recovery",
+      "topic": "tools"
+    },
+    {
+      "row_id": 17,
+      "split": "train",
+      "text": "network transport does not weaken policy boundaries",
+      "topic": "tools"
+    },
+    {
+      "row_id": 18,
+      "split": "validation",
+      "text": "research output is not canonical runtime truth",
+      "topic": "safety"
+    },
+    {
+      "row_id": 19,
+      "split": "validation",
+      "text": "deployment remains outside the research workbench",
+      "topic": "safety"
+    },
+    {
+      "row_id": 20,
+      "split": "validation",
+      "text": "independent review cannot be self certified",
+      "topic": "safety"
+    },
+    {
+      "row_id": 21,
+      "split": "test",
+      "text": "private intimate data is not automatic training data",
+      "topic": "safety"
+    },
+    {
+      "row_id": 22,
+      "split": "test",
+      "text": "subjectivity conclusions remain scientifically open",
+      "topic": "safety"
+    },
+    {
+      "row_id": 23,
+      "split": "test",
+      "text": "consent cannot be inferred from a body signal",
+      "topic": "safety"
+    }
+  ],
+  "source": "synthetic sentences authored in run_lm_generalization_experiment.py",
+  "split_method": "fixed authored row indices by topic block; no row appears in more than one split",
+  "synthetic_real_classification": "SYNTHETIC",
+  "transformation_lineage": "normalized whitespace only; no external ingestion"
+}
