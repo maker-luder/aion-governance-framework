@@ -1,5 +1,5 @@
 {
-  "schema_version": "0.1.1",
+  "schema_version": "0.2.0",
   "status": "RESEARCH_ONLY",
   "review_date": "2026-08-12",
   "branch": "review/four-domain-research-materialization",
@@ -16,7 +16,15 @@
       "release": "v2026.8.3",
       "release_name": "Hermes Agent v0.20.0 (2026.8.3)",
       "release_date": "2026-08-03",
-      "main_sha_at_review": "9da6d455c9e1f2bf74bb9f47766ee9fc52e17bfb",
+      "annotated_tag_object": "7de39e700d2c329e15d32eb0b96e2f7cdd9fbdb2",
+      "release_commit": "3c27eb6234bf91b8ceee9e9071591b31e9b148cb",
+      "tag_signature_verified_by_github": true,
+      "main_sha_at_review": "76d832d3857551a029c4b39c23945eb47c16fe5b",
+      "source_specimens": {
+        "grounded_citations_skill_blob": "fe703d1df9edc9e15a829b01904d6d61cba31189",
+        "a2a_docs_blob": "71aecfaa0ae3a7053ca6b0842308e338838cb3d5",
+        "profiles_docs_blob": "904d3ec3d1ee9da64e18ef9515f9eb66a25c7575"
+      },
       "clone_all_semantics": {
         "copies_broad_profile_state": true,
         "copies_memories": true,
@@ -30,13 +38,28 @@
       },
       "research_surfaces": [
         "persistent_memory",
+        "memory_write_approval",
+        "session_search",
+        "background_review_digest",
         "profile_clone_all",
+        "profile_distribution",
+        "profile_namespace_vs_os_containment",
         "skills",
         "cron",
         "model_provider_separation",
         "checkpoints_rollback",
+        "grounded_citation_ledger",
+        "evidence_verification",
+        "mid_turn_redirects",
+        "context_compression",
+        "ghost_skill_pruning_defense",
+        "a2a_peer_communication",
+        "a2a_peer_audit",
+        "signed_lifecycle_webhooks",
+        "approval_history_suggestions",
         "approval_containment"
       ],
+      "source_review_status": "TAG_PINNED_STATIC_REVIEW_COMPLETE",
       "download_status": "ELIGIBLE_NOT_DOWNLOADED",
       "execution_status": "NOT_STARTED"
     },
@@ -116,8 +139,13 @@
     "PERSISTENCE != IDENTITY_CONTINUITY",
     "SHARED_MEMORY != SHARED_AUTOBIOGRAPHICAL_OWNERSHIP",
     "PROFILE_CLONE != IDENTITY_CLONE",
+    "PROFILE_NAMESPACE != OS_SANDBOX",
     "SCHEDULE_PERSISTENCE != DIACHRONIC_CONTINUITY",
     "ROLLBACK != CORRECTION_RECOVERY",
+    "SUMMARY != ORIGINAL_FULLTEXT",
+    "SIGNED_EVENT != SEMANTIC_TRUTH",
+    "PAST_APPROVAL != CURRENT_AUTHORIZATION",
+    "PEER_AUTHENTICATION != CANONICAL_AUTHORITY",
     "RUNTIME_FEATURE != SUBJECTIVITY_EVIDENCE"
   ]
 }
