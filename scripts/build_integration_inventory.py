@@ -12,7 +12,8 @@ CURRENT_BRANCH = "review/four-domain-research-materialization"
 TESTS = json.loads((ROOT / "qa/CURRENT_TEST_RESULTS.json").read_text(encoding="utf-8"))
 COVERAGE = json.loads((ROOT / "qa/CURRENT_COVERAGE_RESULTS.json").read_text(encoding="utf-8"))
 test_by_target = {item["target"]: item for item in TESTS["targets"]}
-coverage_by_target = {item["target"]: item for item in COVERAGE["targets"]}
+coverage_records = COVERAGE["targets"] if isinstance(COVERAGE, dict) else COVERAGE
+coverage_by_target = {item["target"]: item for item in coverage_records}
 paths = sorted(
     [path for top in ("components", "examples", "research-labs") for path in (ROOT / top).iterdir() if path.is_dir()]
 )

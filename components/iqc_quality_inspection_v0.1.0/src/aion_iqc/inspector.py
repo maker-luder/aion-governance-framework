@@ -18,8 +18,9 @@ class CheckResult:
 class IQCReport:
     inspection_id:str; target_head:str; generated_at:str; evaluator_role:str; verdict:CheckStatus; checks:tuple[CheckResult,...]; canonical_effect:str='NONE'; independent_ivv_status:str='NOT_ACHIEVED'; mutation_performed:bool=False
     def as_dict(self): return {'schema_version':'0.1.0','inspection_id':self.inspection_id,'target_head':self.target_head,'generated_at':self.generated_at,'evaluator_role':self.evaluator_role,'verdict':self.verdict.value,'checks':[c.as_dict() for c in self.checks],'canonical_effect':self.canonical_effect,'independent_ivv_status':self.independent_ivv_status,'mutation_performed':self.mutation_performed}
-QA={'qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json','qa/TEST_RESULTS.md','qa/CURRENT_QA_RECONCILIATION.json','qa/CURRENT_COVERAGE_RESULTS.json','qa/CURRENT_COVERAGE_EVIDENCE.json','qa/COVERAGE_REPORT.md','qa/CURRENT_EVIDENCE_TRACEABILITY.json','qa/IQC_REPORT.json','qa/WHOLE_SYSTEM_VALIDATION.json','qa/INTEGRATION_CANDIDATE_TEST_RESULTS.json'}
+QA={'qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json','qa/TEST_RESULTS.md','qa/CURRENT_QA_RECONCILIATION.json','qa/CURRENT_COVERAGE_RESULTS.json','qa/CURRENT_COVERAGE_EVIDENCE.json','qa/COVERAGE_REPORT.md','qa/CURRENT_EVIDENCE_TRACEABILITY.json','qa/IQC_REPORT.json','qa/WHOLE_SYSTEM_VALIDATION.json','qa/INTEGRATION_CANDIDATE_TEST_RESULTS.json','qa/AUTHORITATIVE_REMAINING_GAP_INVENTORY.json','qa/FINAL_LOCAL_GATE_RESULTS.json'}
 QA_PREFIXES=('qa/coverage/','qa/current_manifest/','qa/final_current_manifest/')
+DOC_GENERATED_PREFIXES=('docs/INTEGRATION_INVENTORY_CURRENT.md','docs/AUTHORITATIVE_REMAINING_GAP_INVENTORY.md')
 def J(p):
     try:return json.loads(p.read_text(encoding='utf-8'))
     except FileNotFoundError:return None
@@ -98,7 +99,7 @@ def source(root,head):
     if head=='UNSPECIFIED':why.append('target head unspecified')
     elif actual!=head:why.append('head mismatch')
     if staged:why.append('staged changes present')
-    q=sorted(x for x in dirty if x not in QA and not any(x.startswith(prefix) for prefix in QA_PREFIXES))
+    q=sorted(x for x in dirty if x not in QA and not any(x.startswith(prefix) for prefix in QA_PREFIXES) and x not in DOC_GENERATED_PREFIXES)
     if q:why.append('non-QA drift: '+', '.join(q))
     return R('IQC-SRC-001','SOURCE_STATE_BINDING',CheckStatus.HOLD if why else CheckStatus.PASS,'; '.join(why) if why else 'exact Git source state bound',*refs)
 def inspect_repository(root:Path,*,inspection_id='IQC-AION-001',target_head='UNSPECIFIED',policy:InspectionPolicy|None=None,generated_at:str|None=None)->IQCReport:
