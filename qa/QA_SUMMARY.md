@@ -12,7 +12,7 @@ This is current review-candidate evidence, not a release approval. Historical ma
 | Branch coverage | **PASS measured** | 46 targets; report-only policy |
 | Compileall, manifest, privacy, secret scans | **PENDING_FINAL_QA** | updated only after final evidence chain |
 
-The old `412 PASSED / whole_system_validation = NOT_EXECUTED` wording is historical stale evidence and is not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.
+The pre-v2 release lock and historical reconstruction wording are stale evidence and are not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.
 
 Subjectivity, identity continuity, deployment, canonical promotion and independent IV&V remain unestablished or false.
 

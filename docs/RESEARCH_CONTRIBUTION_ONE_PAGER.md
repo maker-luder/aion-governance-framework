@@ -55,11 +55,14 @@ This makes the repository useful not only as a collection of controls, but as an
 ```text
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 FORMAL_G1_BASELINE_BENCHMARK = NOT_EXECUTED
-WHOLE_SYSTEM_VALIDATION = NOT_EXECUTED
+WHOLE_SYSTEM_VALIDATION = PARTIAL_REVIEW_CANDIDATE_V2
+WHOLE_SYSTEM_TEST_CASES = 21_PASS / 11_SCENARIO_CLASSES
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
 INDEPENDENT_IVV = NOT_ACHIEVED
 ```
 
-These are active research boundaries, not missing claims to be filled for presentation purposes.
+The whole-system line is a bounded review-candidate engineering result, not a canonical or scientific conclusion. These are active research boundaries, not missing claims to be filled for presentation purposes.
 
 ## Provenance of this synthesis
 
