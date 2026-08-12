@@ -170,6 +170,8 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/hermes-p0-work/home /tmp/hermes-p0-work/hermes-home
+          chmod 0777 /tmp/hermes-p0-work _results
+          chmod -R a+rwX _results /tmp/hermes-p0-work
           set +e
           docker run --rm \
             --network none \
