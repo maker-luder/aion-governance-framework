@@ -169,6 +169,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          mkdir -p /tmp/hermes-p0-work/home /tmp/hermes-p0-work/hermes-home
+          set +e
           docker run --rm \
             --network none \
             --read-only \
@@ -178,11 +180,19 @@ jobs:
             --cpus 2 \
             --memory 4g \
             --tmpfs /tmp:rw,nosuid,nodev,size=256m \
+            -e HOME=/work/home \
+            -e HERMES_HOME=/work/hermes-home \
+            -e PYTHONPYCACHEPREFIX=/tmp/pycache \
+            -e PYTEST_ADDOPTS=-pno:cacheprovider \
             -v /tmp/hermes-p0-input:/input:ro \
             -v /tmp/hermes-p0-work:/work:rw \
             -v "$GITHUB_WORKSPACE/_results:/results:rw" \
             hermes-p0-eval:2026-08-12 \
-            python /input/p0_mechanism_harness.py | tee _results/harness_stdout.log
+            python /input/p0_mechanism_harness.py 2>&1 | tee _results/harness_stdout_stderr.log
+          run_rc=${PIPESTATUS[0]}
+          set -e
+          echo "runtime_rc=$run_rc" | tee _results/runtime_exit_code.txt
+          exit "$run_rc"
 
       - name: Seal results and record execution environment
         if: always()
