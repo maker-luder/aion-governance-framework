@@ -46,9 +46,12 @@ def reconcile(root: Path, *, target_head: str | None = None) -> dict[str, Any]:
             raise ValueError("current test results contains a non-object record")
         target = str(item.get("target", "")).strip()
         returncode = item.get("returncode")
+        tested = bool(item.get("tested", True))
+        if returncode is None and not tested:
+            returncode = 0
         if not target or not isinstance(returncode, int):
-            raise ValueError("each current test result requires target and integer returncode")
-        records.append({"target": target, "tests_passed": _count_passed(str(item.get("output", ""))), "returncode": returncode})
+            raise ValueError("each current test result requires target and integer returncode, or explicit tested=false")
+        records.append({"target": target, "tests_passed": _count_passed(str(item.get("output", ""))), "returncode": returncode, "tested": tested})
     total = sum(record["tests_passed"] for record in records)
     failed = [record["target"] for record in records if record["returncode"] != 0]
     resolved_head = target_head or _head(root)
