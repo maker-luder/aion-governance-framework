@@ -8,6 +8,7 @@ from .model import (
     BoundaryState,
     OtherModel,
     SelfOtherDistinction,
+    SubjectRelation,
 )
 from .state import BoundaryStateManager, StateSnapshot, StateTransition
 
@@ -20,6 +21,7 @@ __all__ = [
     "OtherModel",
     "SelfOtherBoundaryInterface",
     "SelfOtherDistinction",
+    "SubjectRelation",
     "StateSnapshot",
     "StateTransition",
 ]
