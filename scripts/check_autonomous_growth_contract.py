@@ -59,6 +59,7 @@ def validate_contract(contract: dict) -> None:
         "target_branch": RESEARCH_BRANCH,
         "required_workflows": ["Research Scope Lock", "Research Workbench CI"],
         "require_green_before_integration": True,
+        "all_candidate_paths": True,
         "pull_request_target_event": False,
     }
     if premerge != expected_premerge:
@@ -109,6 +110,18 @@ def validate_cycle(record: dict, contract: dict, path: Path) -> None:
         _fail(f"{path.name} cannot describe main mutation")
 
 
+def _pull_request_block(text: str, path: Path) -> str:
+    marker = "  pull_request:\n"
+    if marker not in text:
+        _fail(f"{path.relative_to(ROOT)} must run for pull requests")
+    block = text.split(marker, 1)[1]
+    for end_marker in ("  workflow_dispatch:\n", "  schedule:\n", "permissions:\n"):
+        if end_marker in block:
+            block = block.split(end_marker, 1)[0]
+            break
+    return block
+
+
 def validate_workflows(contract: dict) -> None:
     pin_pattern = re.compile(r"uses:\s+actions/(checkout|setup-python)@([0-9a-f]{40})")
     floating_pattern = re.compile(r"uses:\s+actions/(checkout|setup-python)@v\d+")
@@ -124,10 +137,11 @@ def validate_workflows(contract: dict) -> None:
 
         if "pull_request_target:" in text:
             _fail(f"{path.relative_to(ROOT)} must not use pull_request_target")
-        if "pull_request:" not in text:
-            _fail(f"{path.relative_to(ROOT)} must run for pull requests")
-        if text.count(RESEARCH_BRANCH) < 2:
-            _fail(f"{path.relative_to(ROOT)} must cover both research-branch push and PR target")
+        pr_block = _pull_request_block(text, path)
+        if RESEARCH_BRANCH not in pr_block:
+            _fail(f"{path.relative_to(ROOT)} must target the research branch on pull_request")
+        if contract["premerge_policy"]["all_candidate_paths"] and "paths:" in pr_block:
+            _fail(f"{path.relative_to(ROOT)} must not path-filter research candidate PR validation")
         if floating_pattern.search(text):
             _fail(f"{path.relative_to(ROOT)} contains a floating first-party action tag")
         kinds = {match.group(1) for match in pin_pattern.finditer(text)}
@@ -185,6 +199,7 @@ def main() -> int:
                 "status": "PASS",
                 "base_branch": contract["base_branch"],
                 "premerge_target": contract["premerge_policy"]["target_branch"],
+                "premerge_all_candidate_paths": contract["premerge_policy"]["all_candidate_paths"],
                 "required_premerge_workflows": contract["premerge_policy"]["required_workflows"],
                 "protected_branches": contract["protected_branches"],
                 "validated_cycle_records": cycle_count,
