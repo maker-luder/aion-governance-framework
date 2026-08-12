@@ -40,8 +40,8 @@ for path in paths:
             "test_status": tests["status"],
             "tests_passed": tests["passed"],
             "tests_failed": tests["failed"],
-            "coverage": coverage.get("coverage_percent"),
-            "coverage_status": coverage["status"],
+            "coverage": coverage.get("coverage_percent", coverage.get("totals", {}).get("percent_branches_covered")),
+            "coverage_status": "PASS" if coverage.get("returncode") == 0 else ("NOT_APPLICABLE" if coverage.get("returncode") is None else "FAIL"),
             "canonical_effect": "NONE",
             "review_disposition": disposition,
         }
