@@ -22,7 +22,7 @@ LOCAL_PACKAGES=(
 
 printf '\n== Editable local dependency chain ==\n'
 for package in "${LOCAL_PACKAGES[@]}"; do
-  python -m pip install --no-deps -e "$package"
+  python -m pip install --no-deps --no-build-isolation -e "$package"
 done
 
 # These are repository-owned typed sources. Point mypy at the source roots so
