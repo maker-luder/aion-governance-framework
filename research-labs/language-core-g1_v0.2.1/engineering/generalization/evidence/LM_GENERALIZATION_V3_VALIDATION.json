@@ -13,26 +13,26 @@
   "models": [
     {
       "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
       "dataset_id_matches": true,
       "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
       "finite_parameters": true,
       "generation_length": true,
       "parameter_count_matches": true,
       "parameter_dependent_inference": true,
-      "path": "/home/ubuntu/AION_ASTRA_FINAL_CONSOLIDATION_2026-08-13/research-model-artifacts/lm_generalization_v3/models/lm_generalization_v3_baseline.pt",
       "sha256_matches": true,
       "tokenizer_training_scope": "train_only",
       "training_status": "TRAINED_FROM_SCRATCH"
     },
     {
       "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
       "dataset_id_matches": true,
       "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
       "finite_parameters": true,
       "generation_length": true,
       "parameter_count_matches": true,
       "parameter_dependent_inference": true,
-      "path": "/home/ubuntu/AION_ASTRA_FINAL_CONSOLIDATION_2026-08-13/research-model-artifacts/lm_generalization_v3/models/lm_generalization_v3_regularized_primary.pt",
       "sha256_matches": true,
       "tokenizer_training_scope": "train_only",
       "training_status": "TRAINED_FROM_SCRATCH"

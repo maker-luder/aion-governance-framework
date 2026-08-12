@@ -48,7 +48,7 @@ def validate_checkpoint(path: Path, expected_sha: str, dataset_id: str, prompt: 
         model.load_state_dict(original)
     finite = all(bool(torch.isfinite(parameter).all()) for parameter in model.parameters())
     return {
-        "path": str(path),
+        "checkpoint": f"LOCAL_ONLY:{path.name}",
         "sha256_matches": sha256_file(path) == expected_sha,
         "dataset_id_matches": payload.get("dataset_id") == dataset_id,
         "training_status": payload.get("training_status"),
