@@ -1,10 +1,10 @@
 {
   "schema_version": "0.1.0",
   "reconciliation_type": "CURRENT_TEST_EVIDENCE_TO_STATUS_LOCK",
-  "target_head": "7f970d5731ae4892c848016d58aa451321e2bd59",
-  "generated_at": "2026-08-12T23:31:10.299805+00:00",
+  "target_head": "3a7a96eaedfc42e093f232ea303ac9a8d7bd71f7",
+  "generated_at": "2026-08-12T23:44:31.667768+00:00",
   "target_count": 50,
-  "test_count": 888,
+  "test_count": 892,
   "failed_targets": [],
   "records": [
     {
@@ -219,7 +219,7 @@
     },
     {
       "target": "research-labs/language-core-g1_v0.2.1",
-      "tests_passed": 63,
+      "tests_passed": 67,
       "returncode": 0,
       "tested": true
     },

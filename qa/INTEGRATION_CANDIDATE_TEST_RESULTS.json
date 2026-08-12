@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "scope": "FINAL_RESEARCH_HEAD_INTEGRATION_CANDIDATES",
-  "target_head": "7f970d5731ae4892c848016d58aa451321e2bd59",
+  "target_head": "3a7a96eaedfc42e093f232ea303ac9a8d7bd71f7",
   "summary": {
     "target_count": 12,
     "failed_target_count": 0,
