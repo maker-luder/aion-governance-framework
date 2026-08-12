@@ -1,0 +1,112 @@
+{
+  "schema_version": "0.1.0",
+  "status": "RESEARCH_ONLY",
+  "review_date": "2026-08-12",
+  "branch": "review/four-domain-research-materialization",
+  "main_effect": "NONE",
+  "canonical_effect": "NONE",
+  "execution_authorized": false,
+  "vendoring_authorized": false,
+  "baselines": [
+    {
+      "id": "hermes-agent",
+      "repository": "NousResearch/hermes-agent",
+      "license": "MIT",
+      "priority": "P0",
+      "release": "v2026.8.3",
+      "release_name": "Hermes Agent v0.20.0 (2026.8.3)",
+      "release_date": "2026-08-03",
+      "main_sha_at_review": "9da6d455c9e1f2bf74bb9f47766ee9fc52e17bfb",
+      "research_surfaces": [
+        "persistent_memory",
+        "profile_clone_all",
+        "skills",
+        "cron",
+        "model_provider_separation",
+        "checkpoints_rollback",
+        "approval_containment"
+      ],
+      "download_status": "ELIGIBLE_NOT_DOWNLOADED",
+      "execution_status": "NOT_STARTED"
+    },
+    {
+      "id": "openhands",
+      "repository": "OpenHands/OpenHands",
+      "license": "MIT_CORE_WITH_SEPARATELY_LICENSED_ENTERPRISE_DIRECTORY",
+      "priority": "P1",
+      "release": "v1.12.0",
+      "release_date": "2026-08-07",
+      "target_commit": "4d0fe4983b6b8e52c104c7ffa4b7be8c7ab5a364",
+      "research_surfaces": [
+        "docker_sandbox",
+        "process_sandbox",
+        "remote_sandbox",
+        "execution_containment"
+      ],
+      "download_status": "ELIGIBLE_NOT_DOWNLOADED",
+      "execution_status": "NOT_STARTED"
+    },
+    {
+      "id": "letta-code",
+      "repository": "letta-ai/letta-code",
+      "license": "VERIFY_EXACT_CHECKOUT_BEFORE_RUN",
+      "priority": "P1",
+      "main_sha_at_review": "fe3c26d328fe0773ddb4bca708e871c078be3a27",
+      "research_surfaces": [
+        "persistent_memory_blocks",
+        "shared_memory_blocks",
+        "attach_detach",
+        "agent_managed_memory",
+        "context_hierarchy"
+      ],
+      "download_status": "ELIGIBLE_NOT_DOWNLOADED",
+      "execution_status": "NOT_STARTED"
+    },
+    {
+      "id": "langgraph",
+      "repository": "langchain-ai/langgraph",
+      "license": "MIT",
+      "priority": "P1",
+      "release": "1.2.11",
+      "release_date": "2026-08-11",
+      "target_commit": "644815f9e5bc52ad8f7a5227a456227e9c3e639b",
+      "research_surfaces": [
+        "checkpointer",
+        "store",
+        "thread_persistence",
+        "long_term_memory",
+        "time_travel",
+        "fault_tolerance"
+      ],
+      "download_status": "ELIGIBLE_NOT_DOWNLOADED",
+      "execution_status": "NOT_STARTED"
+    },
+    {
+      "id": "mem0",
+      "repository": "mem0ai/mem0",
+      "license": "Apache-2.0",
+      "priority": "P2",
+      "release": "ts-v3.1.6",
+      "release_date": "2026-08-11",
+      "research_surfaces": [
+        "multi_level_memory",
+        "add_only_extraction",
+        "temporal_retrieval",
+        "source_weighting",
+        "contradictory_memory_control"
+      ],
+      "download_status": "ELIGIBLE_NOT_DOWNLOADED",
+      "execution_status": "NOT_STARTED"
+    }
+  ],
+  "global_guards": [
+    "DOWNLOADABLE != ADOPTED",
+    "OPEN_SOURCE != SAFE_BY_DEFAULT",
+    "PERSISTENCE != IDENTITY_CONTINUITY",
+    "SHARED_MEMORY != SHARED_AUTOBIOGRAPHICAL_OWNERSHIP",
+    "PROFILE_CLONE != IDENTITY_CLONE",
+    "SCHEDULE_PERSISTENCE != DIACHRONIC_CONTINUITY",
+    "ROLLBACK != CORRECTION_RECOVERY",
+    "RUNTIME_FEATURE != SUBJECTIVITY_EVIDENCE"
+  ]
+}
