@@ -89,6 +89,7 @@ jobs:
             --target-head "$(git rev-parse HEAD)" \
             --require-traceability \
             --require-qa-reconciliation \
+            --require-component-contracts \
             --require-source-state-binding \
             --output qa/IQC_REPORT.json
 
