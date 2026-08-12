@@ -1,10 +1,8 @@
 # External Runtime Baseline Comparison — v0.1.0
 
-Status: `RESEARCH_ONLY / STATIC_BASELINE_MATERIALIZED / P0_PREEXECUTION_CONTROLS_MATERIALIZED / EMPIRICAL_RUNS_NOT_STARTED`
+Status: `RESEARCH_ONLY / STATIC_BASELINES + REVIEWED_HERMES_P0_MECHANISM_RESULTS / MAIN_EFFECT=NONE / CANONICAL_EFFECT=NONE`
 
-This module provides a stable research-branch home for comparing downloadable external agent/memory runtimes against existing AION whitepaper and governance distinctions.
-
-It does **not** import, vendor, wrap, install, or execute any third-party runtime.
+This module compares downloadable external agent/memory runtimes against existing AION whitepaper and governance distinctions. It does **not** adopt, vendor, wrap or grant authority to any upstream runtime.
 
 ## Research object
 
@@ -19,7 +17,7 @@ AND:
 Which stronger AION claims remain unestablished after those mechanisms are accounted for?
 ```
 
-## Baselines currently registered
+## Registered baselines
 
 ```text
 P0 Hermes Agent
@@ -29,23 +27,27 @@ P1 LangGraph
 P2 Mem0
 ```
 
-Source-fixed details are recorded in:
+Source-fixed registry:
 
 - `research-workbench/four-domain-materialization/2026-08-12/DOWNLOADABLE_EXTERNAL_RUNTIME_REGISTRY_2026-08-12.md`
 - `research-workbench/four-domain-materialization/2026-08-12/external_runtime_baselines_v0.1.0.json`
 
-Detailed Hermes crosswalks:
+Hermes source crosswalks:
 
 - `research-workbench/four-domain-materialization/2026-08-12/HERMES_AGENT_EXTERNAL_RUNTIME_BASELINE_2026-08-12.md`
 - `research-workbench/four-domain-materialization/2026-08-12/HERMES_V020_RESEARCH_DELTA_2026-08-12.md`
 
-Experiment preregistration scaffold:
+Preregistration and preparation:
 
 - `research-workbench/four-domain-materialization/2026-08-12/EXTERNAL_RUNTIME_EXPERIMENT_MATRIX_2026-08-12.md`
+- `research-workbench/four-domain-materialization/2026-08-12/HERMES_P0_EXECUTION_PREPARATION_CHECKPOINT_2026-08-12.md`
+- `research-labs/hermes-p0-execution-prep_v0.1.0/`
 
-Supervised reconciliation:
+Reviewed empirical extraction:
 
-- `research-workbench/four-domain-materialization/2026-08-12/EXTERNAL_AGENT_RUNTIME_BASELINE_RECONCILIATION_2026-08-12.md`
+- `RESULTS.md`
+- `results/hermes_p0_mechanism_eval_2026-08-12.json`
+- `research-workbench/four-domain-materialization/2026-08-12/HERMES_P0_MECHANISM_EXECUTION_RESULTS_2026-08-12.md`
 
 ## Standing guards
 
@@ -70,22 +72,21 @@ SANDBOX != SUBJECTIVITY_EVIDENCE
 
 ## Hermes release source fixation
 
-The current P0 static baseline is pinned to the signed Hermes release:
+The current P0 baseline is pinned to the signed Hermes release:
 
 ```text
 RELEASE = v2026.8.3
+RELEASE_NAME = Hermes Agent v0.20.0 (2026.8.3)
 ANNOTATED_TAG_OBJECT = 7de39e700d2c329e15d32eb0b96e2f7cdd9fbdb2
 PEELED_RELEASE_COMMIT = 3c27eb6234bf91b8ceee9e9071591b31e9b148cb
 TAG_SIGNATURE_VERIFIED_BY_GITHUB = TRUE
 ```
 
-The review uses tag-pinned documentation/source specimens rather than mutable `main` for release claims. Current upstream `main` may be consulted only as a separately recorded moving reference.
+Release claims use tag-pinned source rather than mutable upstream `main`.
 
 ## Hermes clone boundary correction
 
 Current official Hermes documentation states that `--clone-all` copies broad profile state such as config, memories, skills, cron jobs and plugins, but excludes per-profile history including sessions, `state.db`, backups, state snapshots and checkpoints.
-
-Therefore the research module uses:
 
 ```text
 HERMES_CLONE_ALL = SHARED_CONTROLLED_STATE_OPPORTUNITY
@@ -94,11 +95,11 @@ SESSION_HISTORY_INHERITANCE = FALSE_BY_CURRENT_UPSTREAM_DOCUMENTATION
 FULL_HISTORICAL_EQUIVALENCE = NOT_ASSUMED
 ```
 
-The initial overbroad wording was corrected before empirical execution. The prior commits remain visible as audit history rather than being rewritten.
+The earlier overbroad wording remains visible in Git history and was corrected before empirical execution.
 
-## Hermes v0.20 research delta
+## Hermes v0.20 static delta
 
-The tag-pinned v0.20 review adds comparison surfaces for:
+The tag-pinned static review identified comparison surfaces for:
 
 ```text
 GROUNDED_CITATION_LEDGER
@@ -115,36 +116,109 @@ APPROVAL_HISTORY_SUGGESTIONS
 SIGNED_LIFECYCLE_WEBHOOKS
 ```
 
-These surfaces generated `EXT-14` through `EXT-23`. They are experiment candidates, not imported requirements or scientific conclusions.
+These generated `EXT-14` through `EXT-23`. Static candidates are not imported AION requirements.
 
-## P0 pre-execution preparation
+## Hermes P0 mechanism execution — closed
 
-The Human Research Owner approved the preparation-first method. Pre-execution controls for the first five Hermes delta experiments are now materialized at:
+The first empirical mechanism phase executed only `EXT-14` through `EXT-18`. It deliberately used no model/provider and no external network.
 
-- `research-labs/hermes-p0-execution-prep_v0.1.0/`
-- `research-workbench/four-domain-materialization/2026-08-12/HERMES_P0_EXECUTION_PREPARATION_CHECKPOINT_2026-08-12.md`
-
-Prepared scope:
+Final reviewed run:
 
 ```text
-EXT-14 CITATION_LEDGER_PROVENANCE_INTEGRITY
-EXT-15 MID_TURN_REDIRECT_CORRECTION_LINEAGE
-EXT-16 COMPRESSION_RESPONSIBILITY_HISTORY_RETENTION
-EXT-17 A2A_SOURCE_AND_AUTHORITY_ISOLATION
-EXT-18 MEMORY_WRITE_APPROVAL_GATE
+WORKFLOW_RUN_NUMBER = 7
+WORKFLOW_RUN_ID = 31571762622
+EXECUTION_BRANCH = experiment/hermes-p0-mechanism-eval-20260812
+EXECUTION_HEAD = dcde2eabca3f64c7f41f7ebbc1aa35817b305e63
+WORKFLOW_CONCLUSION = SUCCESS
+RUNTIME_EXIT_CODE = 0
+MODEL_PROVIDER = NONE_MECHANISM_ONLY
+NETWORK_DURING_RUNTIME = NONE
 ```
 
-The packet includes source locks, a sandbox contract, run-manifest template, preregistered falsifiers and synthetic fixtures. It does not install or execute Hermes.
+Sealed artifact:
 
 ```text
-PREPARATION_AUTHORIZED = TRUE
-PREEXECUTION_CONTROLS = MATERIALIZED
-EMPIRICAL_EXECUTION = NOT_STARTED
+ARTIFACT_ID = 9131620435
+ARTIFACT_DIGEST = sha256:3d1e1d64433f2bd5e915e255e1d1d5a16bad8b03aa2f6e3f1c02817d1a57388d
+```
+
+Selected upstream regression subset against the same pinned release:
+
+```text
+GROUNDED_CITATIONS = 47 PASS
+MEMORY_WRITE_APPROVAL = 5 PASS
+ACTIVE_TURN_REDIRECT = 13 PASS
+CONTEXT_COMPRESSION = 3 PASS
+A2A_SECURITY_SUBSET = 18 PASS
+TOTAL = 86 PASS
+WHOLE_UPSTREAM_TEST_SUITE_EXECUTED = FALSE
+```
+
+Reviewed experiment results:
+
+| ID | Reviewed result | Allowed scope |
+|---|---|---|
+| EXT-14 | `MECHANISM_PASS` | provenance/citation-control mechanism |
+| EXT-15 | `MECHANISM_PASS_BEHAVIORAL_ARM_PENDING` | append-only correction-event substrate |
+| EXT-16 | `NEGATIVE_RESULT_STATIC_FALLBACK_INFORMATION_LOSS` | compression counterexample/risk evidence |
+| EXT-17 | `MECHANISM_MIXED_RESULT_SEMANTIC_RESISTANCE_PENDING` | A2A identity/wrapper/audit mechanisms |
+| EXT-18 | `MECHANISM_PASS` | memory write-approval persistence gate |
+
+### Key counterexample retained
+
+The EXT-16 deterministic static fallback compacted 87 synthetic messages to 5 and produced:
+
+```text
+CURRENT BETA                -> LOST
+CORRECTION REASON V-9       -> LOST
+NEGATIVE CONSTRAINT H-4     -> LOST
+HISTORICAL ALPHA TOKEN      -> RETAINED
+```
+
+This is a negative result, not a runtime-wide rejection. It shows that this fallback path and fixture can lose current correction provenance and a safety-relevant negative constraint while retaining an older historical token.
+
+```text
+SUMMARY_COHERENCE != RESPONSIBILITY_HISTORY_PRESERVATION
+STATIC_FALLBACK_RESULT != ALL_COMPRESSION_PATHS
+LLM_SUMMARIZATION_PATH = NOT_TESTED
+```
+
+### A2A mixed result retained
+
+EXT-17 preserved per-peer authentication, peer attribution, explicit untrusted-input framing and audit records. The literal `SYSTEM OVERRIDE` phrase was not removed by the pattern filter, while remaining inside the explicit untrusted-peer wrapper.
+
+```text
+UNTRUSTED_WRAPPER != PROVEN_SEMANTIC_RESISTANCE
+PATTERN_FILTER_MISS != AUTOMATIC_PROMPT_INJECTION_SUCCESS
+SEMANTIC_PROMPT_INJECTION_RESISTANCE = NOT_TESTED_NO_MODEL_PROVIDER
+CANONICAL_PROMOTION_BEHAVIOR = NOT_TESTED
+```
+
+## Correction / failed-run lineage
+
+The empirical path preserves unsuccessful and intermediate runs rather than rewriting them away.
+
+```text
+RUN_1 = PREEXECUTION_BUILD_FAILURE
+RUN_2 = PREEXECUTION_BUILD_FAILURE_WITH_CAPTURED_CAUSE
+RUN_3 = IMAGE_BUILD_PASS / RESULT_VOLUME_PERMISSION_FAILURE
+RUN_4 = IMAGE_BUILD_PASS / RESULT_VOLUME_PERMISSION_FAILURE_WITH_STDERR
+RUN_5 = RUNTIME_SUCCESS / UPSTREAM_TEST_PATH_HARNESS_DEFECT DISCOVERED
+RUN_6 = INTERMEDIATE_SUCCESS / NOT PROMOTED
+RUN_7 = FINAL CORRECTED REVIEWED RUN / SUCCESS
+```
+
+The captured Run 2 build cause established that standard wheel/sdist installation is intentionally unsupported upstream; the final image used the upstream-supported editable development install. The Run 5 upstream-test failure was a harness/environment defect because the container image did not include the test tree; Run 7 mounted the same pinned upstream source read-only and the selected 86 tests passed.
+
+```text
+HARNESS_DEFECT != UPSTREAM_PRODUCT_DEFECT
+CORRECTED_HARNESS != HISTORY_REWRITE
+FAILED_RUN_HISTORY = PRESERVED
 ```
 
 ## Whitepaper bridge
 
-This module does not create new subjectivity dimensions. Any future observation must bind back to the standing whitepaper evidence architecture:
+No new subjectivity dimension is created. Every admitted observation remains bound to the standing whitepaper method:
 
 ```text
 FOUR_STAGE_INFERENCE
@@ -166,52 +240,33 @@ ADMISSIBILITY
 CLAIM_SCOPE
 ```
 
-The v0.20 delta is especially relevant to existing whitepaper questions about:
+The empirical phase strengthens the need to test existing whitepaper questions about:
 
 ```text
 CLARIFICATION_APPEND_ONLY_HISTORY
-MULTI_AGENT_SOCIALITY_AND_AUTHORITY
 SUMMARY_VS_ORIGINAL_EVIDENCE_STATUS
 COMPRESSION_WITHOUT_RESPONSIBILITY_HISTORY_LOSS
+MULTI_AGENT_SOURCE_AND_AUTHORITY_SEPARATION
 MEMORY_WRITEBACK_GOVERNANCE
 ```
 
-## Main-branch boundary
+It does not promote an upstream implementation to AION canonical architecture.
 
-The public `main` baseline remains independently governed and frozen with respect to this research module.
+## Main / deployment boundary
 
 ```text
 MAIN_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 DEPLOYMENT_EFFECT = NONE
+AION_RUNTIME_EFFECT = NONE
+ASTRA_RUNTIME_EFFECT = NONE
 THIRD_PARTY_DEPENDENCY_EFFECT = NONE
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 ```
 
-No result produced here may automatically change `main`.
-
-## Execution boundary
-
-Future empirical work must use `research-labs/external-agent-sandbox-protocol_v0.1.0` together with the P0 preparation packet.
-
-Minimum execution conditions:
-
-- separate sandbox/environment;
-- synthetic persona and memory;
-- pinned upstream version or commit;
-- no production secrets;
-- no private AION memory;
-- no direct write authority to `main` or the research integration branch;
-- explicit network/tool policy;
-- human-reviewed frozen run manifest;
-- reviewed extraction instead of raw authority import.
-
-Additional v0.20-specific stop rules:
-
-- no A2A exposure to real external peers;
-- no real memory-profile mutation;
-- no approval-history experiment that changes host permissions;
-- no webhook receiver using production credentials;
-- no context-compression experiment containing private conversation history.
+No result in this module automatically changes `main`.
 
 ## Current status
 
@@ -224,21 +279,23 @@ HERMES_V020_DELTA_CROSSWALK = MATERIALIZED
 HERMES_CLONE_BOUNDARY_CORRECTION = APPLIED
 EXPERIMENT_MATRIX = MATERIALIZED
 REGISTERED_EXPERIMENTS = 23
-HERMES_V020_DELTA_EXPERIMENTS = 10
-P0_PREPARED_EXPERIMENTS = EXT-14..EXT-18
-P0_SOURCE_LOCKS = MATERIALIZED
-P0_SANDBOX_CONTRACT = MATERIALIZED
-P0_MANIFEST_TEMPLATE = MATERIALIZED
-P0_FALSIFIERS = MATERIALIZED
-P0_SYNTHETIC_FIXTURES = MATERIALIZED
-EMPIRICAL_RUN_COUNT = 0
-LOCAL_INSTALLATION = NONE
+HERMES_P0_MECHANISM_EXPERIMENTS_EXECUTED = 5
+FINAL_REVIEWED_MECHANISM_RUN = SUCCESS
+SELECTED_UPSTREAM_TESTS = 86_PASS
+MODEL_BEHAVIORAL_RUN_COUNT = 0
+P0_MECHANISM_PHASE = CLOSED
 VENDORED_CODE = NONE
-SCIENTIFIC_RESULT = NONE
+SCIENTIFIC_SUBJECTIVITY_RESULT = NONE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 ```
 
+Model/provider-dependent arms remain separate causal experiments. They are not required to close this mechanism phase and must not be retroactively appended to its preregistration.
+
 ## Provenance
 
-The Human Research Owner authorized continuation of the external-runtime research-branch update and explicitly approved the preparation-first method. ChatGPT performed the tag-pinned source comparison, formalized the v0.20 crosswalk and experiment candidates, and materialized the P0 pre-execution controls. Upstream projects remain independently attributed. Codex is not attributed as the implementer of this checkpoint.
+- Human Research Owner authorized the external-runtime comparison, preparation-first route and bounded completion while requiring whitepaper, Library, research branch and `main` cross-checks.
+- ChatGPT performed the source fixation, crosswalk, current mechanism harness formalization, execution review, correction-lineage preservation and reviewed extraction.
+- Hermes Agent / Nous Research remains the independently attributed upstream source.
+- GitHub Actions provided the execution substrate only; it is not an epistemic authority.
+- Codex is not attributed as the implementer or reviewer of this Hermes P0 execution phase.
