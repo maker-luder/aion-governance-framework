@@ -9,7 +9,7 @@ PROHIBITED_SUFFIXES = {".zip", ".whl", ".sqlite3", ".db", ".pyc"}
 GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "build", "dist"}
 PATH_PATTERNS = [
     re.compile(r"[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+", re.I),
-    re.compile(r"/home/[A-Za-z0-9._-]+(?:/|$)"),
+    re.compile(r"^/home/[A-Za-z0-9._-]+(?:/|$)"),
 ]
 SECRET_PATTERNS = [
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
