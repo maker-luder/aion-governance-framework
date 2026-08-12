@@ -62,8 +62,8 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          rm -rf _upstream/hermes/.git
-          docker build --pull -t hermes-p0-eval:2026-08-12 -f - _upstream/hermes <<'DOCKERFILE'
+          set +e
+          docker build --pull -t hermes-p0-eval:2026-08-12 -f - _upstream/hermes 2>&1 <<'DOCKERFILE' | tee _results/docker_build.log
           FROM python:3.11-slim
           ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
           RUN apt-get update \
@@ -74,6 +74,12 @@ jobs:
           RUN python -m pip install --no-cache-dir --upgrade pip \
               && python -m pip install --no-cache-dir . pytest
           DOCKERFILE
+          build_rc=${PIPESTATUS[0]}
+          set -e
+          if [ "$build_rc" -ne 0 ]; then
+            echo "docker build failed with rc=$build_rc" | tee -a _results/docker_build.log
+            exit "$build_rc"
+          fi
           image_id="$(docker image inspect hermes-p0-eval:2026-08-12 --format '{{.Id}}')"
           echo "$image_id" | tee _results/container_image_id.txt
           docker image inspect hermes-p0-eval:2026-08-12 > _results/container_image_inspect.json
