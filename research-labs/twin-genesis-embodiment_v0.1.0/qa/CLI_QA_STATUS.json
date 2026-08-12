@@ -1,6 +1,8 @@
 {
-  "status": "DEFERRED_RESEARCH_CANDIDATE",
-  "runtime": "NOT_IMPLEMENTED",
+  "status": "IMPLEMENTED_NON_3D_CANDIDATE_PENDING_OWNER_REVIEW",
+  "runtime": "NON_3D_RECORD_RUNTIME_IMPLEMENTED",
+  "live_3d_runtime": "NOT_IMPLEMENTED",
+  "interactive_embodiment": "NOT_AUTHORIZED",
   "canonical_effect": "NONE",
   "subjectivity_conclusion": "NOT_ESTABLISHED"
 }
