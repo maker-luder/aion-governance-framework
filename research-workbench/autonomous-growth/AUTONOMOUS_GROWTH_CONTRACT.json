@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0.0",
+  "schema_version": "1.1.0",
   "base_branch": "review/four-domain-research-materialization",
   "candidate_branch_prefix": "autogrow/",
   "protected_branches": [
@@ -42,6 +42,15 @@
     "REVERTED",
     "HOLD"
   ],
+  "premerge_policy": {
+    "target_branch": "review/four-domain-research-materialization",
+    "required_workflows": [
+      "Research Scope Lock",
+      "Research Workbench CI"
+    ],
+    "require_green_before_integration": true,
+    "pull_request_target_event": false
+  },
   "effects": {
     "main": "NONE",
     "canonical": "NONE",
