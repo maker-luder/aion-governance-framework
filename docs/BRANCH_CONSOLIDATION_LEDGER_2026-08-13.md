@@ -9,7 +9,8 @@ This ledger is the provenance index for the final two-branch consolidation. It i
 | `MAIN_HEAD_BEFORE` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
 | `RESEARCH_HEAD_BEFORE` | `6f39fff07f1b1a79867c270f953c554e18addbc1` |
 | `MAIN_HEAD_AFTER` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
-| `RESEARCH_HEAD_AFTER` | `700545e15bc9a4cd7811dd9cccf1c88b93bd77a8` |
+| `RESEARCH_HEAD_AFTER` | See final handoff receipt (`RESEARCH_HEAD_AFTER`); the final commit SHA is intentionally recorded outside this self-referential ledger |
+| `RESEARCH_HEAD_AT_PRIOR_LEDGER_COMMIT` | `700545e15bc9a4cd7811dd9cccf1c88b93bd77a8` |
 | Permanent branch budget | 2 |
 | Canonical effect | NONE |
 | Deployment | FALSE |
@@ -76,6 +77,7 @@ All selected useful branches were integrated into the local formal-research cons
 ## Final remote cleanup receipt
 
 ```text
+RESEARCH_HEAD_AFTER = SEE_FINAL_HANDOFF_RECEIPT
 BRANCH_COUNT_BEFORE = 28
 BRANCH_COUNT_AFTER = 2
 DELETED_BRANCH_COUNT = 26
