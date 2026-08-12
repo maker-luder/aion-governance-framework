@@ -38,6 +38,43 @@ on:
       - "research-workbench/four-domain-materialization/2026-08-12/AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md"
       - "RESEARCH_BRANCH_STATUS.md"
       - ".github/workflows/research-workbench-ci.yml"
+  pull_request:
+    branches:
+      - review/four-domain-research-materialization
+    paths:
+      - "components/aion_runtime_v0.2.0/**"
+      - "research-labs/external-evidence-normalization_v0.1.0/**"
+      - "research-labs/embodiment-continuity-anchor_v0.1.0/**"
+      - "research-labs/causal-internal-state_v0.1.0/**"
+      - "research-labs/triangulated-subjectivity-evidence_v0.1.0/**"
+      - "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0/**"
+      - "research-labs/self-report-false-positive-challenge_v0.1.0/**"
+      - "research-labs/self-report-instrument-validity-calibration_v0.1.0/**"
+      - "research-labs/self-model-functional-ablation_v0.1.0/**"
+      - "research-labs/selective-memory-control_v0.1.0/**"
+      - "research-labs/second-order-metacognition_v0.1.0/**"
+      - "research-labs/evidence-responsive-governance-reassessment_v0.1.0/**"
+      - "research-labs/shared-origin-divergence-governance_v0.1.0/**"
+      - "research-labs/research-evaluation-harness_v0.1.0/**"
+      - "research-labs/trace-provenance-crosswalk_v0.1.0/**"
+      - "research-labs/governed-tool-approval_v0.1.0/**"
+      - "research-labs/artifact-transformation-lineage_v0.1.0/**"
+      - "research-labs/trajectory-evaluation_v0.1.0/**"
+      - "research-labs/real-model-pilot-protocol_v0.1.0/**"
+      - "research-labs/supervised-control-pilot_v0.1.0/**"
+      - "research-labs/external-agent-sandbox-protocol_v0.1.0/**"
+      - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_CONSCIOUSNESS_PROJECTS_INTAKE.md"
+      - "research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_AGENT_SANDBOX_PROTOCOL_STATUS.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_PYDANTIC_EVALS_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_OPENINFERENCE_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_INSPECT_AI_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_ARTIFACT_LINEAGE_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_INTAKE_DEEPEVAL_TRAJECTORY_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/EXTERNAL_MODULE_TRANSFORMATION_STATUS_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-11/AGENT_RUNTIME_DEPLOYMENT_INTAKE_2026-08-11.md"
+      - "research-workbench/four-domain-materialization/2026-08-12/AION_ASTRA_SHARED_ORIGIN_DIVERGENCE_CHECKPOINT_2026-08-12.md"
+      - "RESEARCH_BRANCH_STATUS.md"
+      - ".github/workflows/research-workbench-ci.yml"
   workflow_dispatch:
 
 permissions:
