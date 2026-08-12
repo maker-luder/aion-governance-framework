@@ -20,17 +20,6 @@ on:
     branches:
       - main
       - review/four-domain-research-materialization
-    paths:
-      - ".github/workflows/research-scope-lock.yml"
-      - "scripts/check_research_scope_lock.py"
-      - "scripts/check_autonomous_growth_contract.py"
-      - "AUTONOMOUS_RESEARCH_GROWTH.md"
-      - "research-workbench/autonomous-growth/**"
-      - "research-workbench/four-domain-materialization/2026-08-12/AUTONOMOUS_RESEARCH_GROWTH_CHARTER_2026-08-12.md"
-      - "research-workbench/four-domain-materialization/2026-08-10/RESEARCH_BRANCH_FREE_GROWTH_CHARTER.md"
-      - "research-workbench/four-domain-materialization/2026-08-11/RESEARCH_SCOPE_LOCK_2026-08-11.json"
-      - "components/aion_runtime_v0.2.0/**"
-      - "research-labs/**"
   workflow_dispatch:
 
 permissions:
