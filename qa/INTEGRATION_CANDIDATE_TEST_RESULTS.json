@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "scope": "FINAL_RESEARCH_HEAD_INTEGRATION_CANDIDATES",
-  "target_head": "3a7a96eaedfc42e093f232ea303ac9a8d7bd71f7",
+  "target_head": "93ecc57c44c4592bd4e5ba496b7a8937c59f846a",
   "summary": {
     "target_count": 12,
     "failed_target_count": 0,
@@ -95,7 +95,7 @@
       "returncode": 0,
       "passed": 28,
       "failed": 0,
-      "output": "............................                                             [100%]\n28 passed in 0.02s\n"
+      "output": "............................                                             [100%]\n28 passed in 0.03s\n"
     },
     {
       "target": "research-labs/integration-candidates/tokenizer-contract_v0.1.0",
