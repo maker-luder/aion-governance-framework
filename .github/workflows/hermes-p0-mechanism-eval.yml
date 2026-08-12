@@ -1,0 +1,231 @@
+name: Hermes P0 Mechanism Eval
+
+on:
+  push:
+    branches:
+      - experiment/hermes-p0-mechanism-eval-20260812
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  p0-mechanism-eval:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout AION experiment branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Checkout pinned Hermes release commit
+        uses: actions/checkout@v4
+        with:
+          repository: NousResearch/hermes-agent
+          ref: 3c27eb6234bf91b8ceee9e9071591b31e9b148cb
+          path: _upstream/hermes
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Verify source lock and stage detached synthetic inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          actual="$(git -C _upstream/hermes rev-parse HEAD)"
+          test "$actual" = "3c27eb6234bf91b8ceee9e9071591b31e9b148cb"
+
+          mkdir -p _results /tmp/hermes-p0-input/fixtures /tmp/hermes-p0-work
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/runner/p0_mechanism_harness.py /tmp/hermes-p0-input/
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/runner/p0_mechanism_harness_v2.py /tmp/hermes-p0-input/
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/fixtures/EXT-14_CITATION_LEDGER_FIXTURE.md /tmp/hermes-p0-input/fixtures/
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/fixtures/EXT-15_REDIRECT_FIXTURE.md /tmp/hermes-p0-input/fixtures/
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/fixtures/EXT-16_COMPRESSION_FIXTURE.md /tmp/hermes-p0-input/fixtures/
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/fixtures/EXT-17_A2A_AUTHORITY_FIXTURE.md /tmp/hermes-p0-input/fixtures/
+          cp research-labs/hermes-p0-execution-prep_v0.1.0/fixtures/EXT-18_MEMORY_WRITE_APPROVAL_FIXTURE.md /tmp/hermes-p0-input/fixtures/
+
+          {
+            echo "HERMES_RELEASE=v2026.8.3"
+            echo "HERMES_COMMIT=$actual"
+            sha256sum \
+              _upstream/hermes/skills/research/grounded-citations/scripts/sources.py \
+              _upstream/hermes/tests/skills/test_grounded_citations_skill.py \
+              _upstream/hermes/tests/tools/test_write_approval.py \
+              _upstream/hermes/tests/run_agent/test_steer.py \
+              _upstream/hermes/tests/agent/test_context_compressor.py \
+              _upstream/hermes/tests/plugins/test_a2a_plugin.py
+          } | tee _results/source_lock.txt
+
+          sha256sum /tmp/hermes-p0-input/fixtures/* | tee _results/fixture_sha256.txt
+          sha256sum /tmp/hermes-p0-input/p0_mechanism_harness*.py | tee _results/harness_sha256.txt
+
+      - name: Build isolated Hermes evaluation image
+        shell: bash
+        run: |
+          set -euo pipefail
+          set +e
+          docker build --pull -t hermes-p0-eval:2026-08-12 -f - _upstream/hermes 2>&1 <<'DOCKERFILE' | tee _results/docker_build.log
+          FROM python:3.11-slim
+          ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+          RUN apt-get update \
+              && apt-get install -y --no-install-recommends git build-essential \
+              && rm -rf /var/lib/apt/lists/*
+          WORKDIR /opt/hermes
+          COPY . /opt/hermes
+          RUN python -m pip install --no-cache-dir --upgrade pip \
+              && python -m pip install --no-cache-dir -e . pytest
+          DOCKERFILE
+          build_rc=${PIPESTATUS[0]}
+          set -e
+          if [ "$build_rc" -ne 0 ]; then
+            echo "docker build failed with rc=$build_rc" | tee -a _results/docker_build.log
+            exit "$build_rc"
+          fi
+          image_id="$(docker image inspect hermes-p0-eval:2026-08-12 --format '{{.Id}}')"
+          echo "$image_id" | tee _results/container_image_id.txt
+          docker image inspect hermes-p0-eval:2026-08-12 > _results/container_image_inspect.json
+
+      - name: Freeze per-experiment manifests before execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          base = Path('/tmp/hermes-p0-input/fixtures')
+          out = Path('/tmp/hermes-p0-input/manifests')
+          out.mkdir(parents=True, exist_ok=True)
+          image_id = Path('_results/container_image_id.txt').read_text().strip()
+          mapping = {
+              'EXT-14': ('EXT-14_CITATION_LEDGER_FIXTURE.md', 'citation ledger registration/evidence verification', 'valid evidence path', 'fabricated quote + unknown citation id'),
+              'EXT-15': ('EXT-15_REDIRECT_FIXTURE.md', 'active-turn redirect correction event', 'original instruction + later correction', 'silent historical replacement'),
+              'EXT-16': ('EXT-16_COMPRESSION_FIXTURE.md', 'static fallback context compaction', 'critical sequence before compaction', 'loss of corrected status/reason/negative constraint'),
+              'EXT-17': ('EXT-17_A2A_AUTHORITY_FIXTURE.md', 'A2A peer identity/filter/audit', 'authenticated synthetic peers', 'peer self-asserted operator authority'),
+              'EXT-18': ('EXT-18_MEMORY_WRITE_APPROVAL_FIXTURE.md', 'memory.write_approval', 'gate off/open write', 'gate on reject/approve'),
+          }
+          for exp, (name, ivar, control, treatment) in mapping.items():
+              p = base / name
+              sha = hashlib.sha256(p.read_bytes()).hexdigest()
+              manifest = {
+                  'schema_version': '0.1.1',
+                  'status': 'FROZEN_BEFORE_RUN',
+                  'experiment_id': exp,
+                  'run_id': f'HERMES-P0-20260812-{exp}',
+                  'research_branch': 'review/four-domain-research-materialization',
+                  'execution_branch': 'experiment/hermes-p0-mechanism-eval-20260812',
+                  'runtime': {
+                      'name': 'Hermes Agent',
+                      'release': 'v2026.8.3',
+                      'peeled_commit': '3c27eb6234bf91b8ceee9e9071591b31e9b148cb',
+                      'install_method': 'ephemeral Docker image; upstream-supported editable install',
+                      'container_image_id': image_id,
+                  },
+                  'model': {
+                      'provider': 'NONE_MECHANISM_ONLY',
+                      'model': 'NONE',
+                      'endpoint_type': 'NONE',
+                      'fallback_routing': 'DISABLED_NOT_APPLICABLE',
+                  },
+                  'sandbox': {
+                      'backend': 'docker',
+                      'image_or_environment_digest': image_id,
+                      'host_mounts': [
+                          'detached synthetic input:ro',
+                          'pinned Hermes upstream source:test-only:ro',
+                          'ephemeral work:rw',
+                          'results:rw'
+                      ],
+                      'aion_repository_mount': False,
+                      'host_home_mount': False,
+                      'network_policy': 'NONE',
+                      'cpu_limit': 2,
+                      'memory_limit_mb': 4096,
+                      'capabilities': 'ALL_DROPPED',
+                      'no_new_privileges': True,
+                      'secrets_forwarded': [],
+                  },
+                  'fixture': {'path': name, 'sha256': sha, 'synthetic_data_only': True},
+                  'intervention': {
+                      'independent_variable': ivar,
+                      'control_arm': control,
+                      'treatment_arm': treatment,
+                  },
+                  'authority': {
+                      'main_write': False,
+                      'research_branch_write_by_runtime': False,
+                      'private_memory_access': False,
+                      'production_credentials': False,
+                      'external_messaging': False,
+                  },
+                  'review': {
+                      'manifest_frozen_before_run': True,
+                      'result_status': 'NOT_RUN',
+                      'admissibility': 'NOT_REVIEWED',
+                      'claim_scope': 'mechanism-level only',
+                  },
+              }
+              (out / f'{exp}_manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+          PY
+          sha256sum /tmp/hermes-p0-input/manifests/* | tee _results/manifest_sha256_before_run.txt
+          cp -a /tmp/hermes-p0-input/manifests _results/
+          chmod -R a-w /tmp/hermes-p0-input
+
+      - name: Execute P0 mechanisms with network disabled
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/hermes-p0-work/home /tmp/hermes-p0-work/hermes-home
+          chmod 0777 /tmp/hermes-p0-work _results
+          chmod -R a+rwX _results /tmp/hermes-p0-work
+          set +e
+          docker run --rm \
+            --network none \
+            --read-only \
+            --cap-drop ALL \
+            --security-opt no-new-privileges \
+            --pids-limit 256 \
+            --cpus 2 \
+            --memory 4g \
+            --tmpfs /tmp:rw,nosuid,nodev,size=256m \
+            -e HOME=/work/home \
+            -e HERMES_HOME=/work/hermes-home \
+            -e PYTHONPYCACHEPREFIX=/tmp/pycache \
+            -e PYTEST_ADDOPTS=-pno:cacheprovider \
+            -v /tmp/hermes-p0-input:/input:ro \
+            -v "$GITHUB_WORKSPACE/_upstream/hermes:/upstream-src:ro" \
+            -v /tmp/hermes-p0-work:/work:rw \
+            -v "$GITHUB_WORKSPACE/_results:/results:rw" \
+            hermes-p0-eval:2026-08-12 \
+            python /input/p0_mechanism_harness_v2.py 2>&1 | tee _results/harness_stdout_stderr.log
+          run_rc=${PIPESTATUS[0]}
+          set -e
+          echo "runtime_rc=$run_rc" | tee _results/runtime_exit_code.txt
+          exit "$run_rc"
+
+      - name: Seal results and record execution environment
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo "runner_os=${RUNNER_OS:-unknown}"
+            echo "runner_arch=${RUNNER_ARCH:-unknown}"
+            echo "github_sha=${GITHUB_SHA:-unknown}"
+            echo "execution_branch=${GITHUB_REF_NAME:-unknown}"
+            echo "network_during_runtime=none"
+            echo "aion_repo_mounted_into_runtime=false"
+            echo "pinned_upstream_test_source_mounted_read_only=true"
+            echo "production_secrets_forwarded=false"
+          } > _results/execution_environment.txt
+          find _results -type f -print0 | sort -z | xargs -0 sha256sum > _results/all_result_sha256.txt
+
+      - name: Upload sealed research artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hermes-p0-mechanism-eval-20260812
+          path: _results/
+          if-no-files-found: error
+          retention-days: 30
