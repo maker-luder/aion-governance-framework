@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
   "inspection_id": "IQC-AION-001",
-  "target_head": "e1a32171d503e50bcf4d00cffb586b01fd0bfb1f",
-  "generated_at": "2026-08-12T23:28:20.575533+00:00",
+  "target_head": "7f970d5731ae4892c848016d58aa451321e2bd59",
+  "generated_at": "2026-08-12T23:31:10.403220+00:00",
   "evaluator_role": "REPOSITORY_IQC_INSPECTION_ONLY",
   "verdict": "PASS",
   "checks": [

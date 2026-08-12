@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `e1a32171d503e50bcf4d00cffb586b01fd0bfb1f`. This report is generated from the current component runner output.
+Target head: `7f970d5731ae4892c848016d58aa451321e2bd59`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
