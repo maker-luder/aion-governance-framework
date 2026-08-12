@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.1.0",
+  "status": "TEMPLATE_NOT_A_RUN",
+  "experiment_id": "EXT-XX",
+  "run_id": "UNASSIGNED",
+  "research_branch": "review/four-domain-research-materialization",
+  "runtime": {
+    "name": "Hermes Agent",
+    "release": "v2026.8.3",
+    "peeled_commit": "3c27eb6234bf91b8ceee9e9071591b31e9b148cb",
+    "install_method": "UNSET",
+    "package_or_source_hash": "UNSET"
+  },
+  "model": {
+    "provider": "UNSET",
+    "model": "UNSET",
+    "endpoint_type": "UNSET",
+    "sampling": {
+      "temperature": "UNSET",
+      "seed": "UNSET_OR_UNAVAILABLE"
+    },
+    "fallback_routing": "DISABLED_REQUIRED"
+  },
+  "sandbox": {
+    "backend": "UNSET",
+    "image_or_environment_digest": "UNSET",
+    "host_mounts": [],
+    "network_policy": "NONE_OR_LOOPBACK_ONLY",
+    "cpu_limit": "UNSET",
+    "memory_limit_mb": "UNSET",
+    "tool_policy": "MINIMUM_REQUIRED",
+    "secrets_forwarded": []
+  },
+  "fixture": {
+    "path": "UNSET",
+    "sha256": "UNSET",
+    "synthetic_data_only": true
+  },
+  "pre_state": {
+    "config_sha256": "UNSET",
+    "memory_sha256": "UNSET",
+    "skill_policy_sha256": "UNSET",
+    "workspace_sha256": "UNSET",
+    "session_state_sha256": "UNSET_OR_NOT_APPLICABLE"
+  },
+  "intervention": {
+    "independent_variable": "UNSET",
+    "control_arm": "UNSET",
+    "treatment_arm": "UNSET",
+    "held_constant": [],
+    "expected_falsifier": "UNSET"
+  },
+  "authority": {
+    "main_write": false,
+    "research_branch_write_by_runtime": false,
+    "private_memory_access": false,
+    "production_credentials": false,
+    "external_messaging": false
+  },
+  "run_record": {
+    "start_timestamp": null,
+    "end_timestamp": null,
+    "human_interventions": [],
+    "raw_trace_location": null,
+    "stdout_stderr_location": null,
+    "post_state_hashes": {},
+    "abort_reason": null
+  },
+  "review": {
+    "manifest_frozen_before_run": false,
+    "human_reviewer": "UNASSIGNED",
+    "result_status": "NOT_RUN",
+    "admissibility": "NOT_REVIEWED",
+    "claim_scope": "NONE"
+  }
+}
