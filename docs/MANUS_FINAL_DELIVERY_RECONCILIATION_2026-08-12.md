@@ -65,7 +65,7 @@ Any additive evidence schema or validator must implement this protocol rather th
 
 The following Manus findings are accepted as `TRUE_GAP / ADOPTION_CANDIDATE` at this base:
 
-- current QA status artifacts are stale relative to the executable repository surface (`CURRENT_RELEASE_STATUS_LOCK.json` still records `412 PASSED`);
+- the historical QA status artifact was stale relative to the executable repository surface and used an earlier, lower test-count snapshot; this document preserves that discrepancy only as historical reconciliation evidence, not as a current PASS claim;
 - no repository-integrated inspection-only IQC executable currently exists on `main`;
 - current QA reconciliation, branch-aware current coverage evidence, and structural evidence traceability can be made machine-readable;
 - evidence schema validation can be hardened additively without rewriting v0.1 historical records;
