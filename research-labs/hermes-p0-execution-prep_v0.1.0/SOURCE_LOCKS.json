@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1.0",
+  "status": "RESEARCH_ONLY_SOURCE_LOCK",
+  "review_date": "2026-08-12",
+  "aion": {
+    "repository": "maker-luder/aion-governance-framework",
+    "research_branch": "review/four-domain-research-materialization",
+    "preparation_parent_before_packet": "37e7123a01d2efae6c22975ead5318298b483b6c",
+    "main_baseline_at_review": "4b36077993fabb22bf04e06162ea83c623bbb7e6",
+    "main_effect": "NONE",
+    "canonical_effect": "NONE"
+  },
+  "hermes": {
+    "repository": "NousResearch/hermes-agent",
+    "release": "v2026.8.3",
+    "release_name": "Hermes Agent v0.20.0 (2026.8.3)",
+    "release_date": "2026-08-03",
+    "annotated_tag_object": "7de39e700d2c329e15d32eb0b96e2f7cdd9fbdb2",
+    "peeled_release_commit": "3c27eb6234bf91b8ceee9e9071591b31e9b148cb",
+    "tag_signature_verified_by_github": true,
+    "reviewed_blobs": {
+      "grounded_citations_skill": "fe703d1df9edc9e15a829b01904d6d61cba31189",
+      "a2a_documentation": "71aecfaa0ae3a7053ca6b0842308e338838cb3d5",
+      "profiles_documentation": "904d3ec3d1ee9da64e18ef9515f9eb66a25c7575",
+      "memory_documentation": "3cfc20fe5c78123b1488616437126dcd27e12e46"
+    },
+    "moving_main_observed_but_not_used_as_release_authority": "76d832d3857551a029c4b39c23945eb47c16fe5b"
+  },
+  "guards": [
+    "MOVING_UPSTREAM_MAIN != PINNED_RELEASE_EVIDENCE",
+    "DOCUMENTED_FEATURE != EMPIRICAL_RESULT",
+    "SIGNED_TAG != SEMANTIC_TRUTH",
+    "UPSTREAM_FEATURE != AION_REQUIREMENT"
+  ]
+}
