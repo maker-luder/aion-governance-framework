@@ -49,6 +49,7 @@
       "Research Workbench CI"
     ],
     "require_green_before_integration": true,
+    "all_candidate_paths": true,
     "pull_request_target_event": false
   },
   "effects": {
