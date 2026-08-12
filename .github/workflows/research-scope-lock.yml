@@ -19,6 +19,7 @@ on:
   pull_request:
     branches:
       - main
+      - review/four-domain-research-materialization
     paths:
       - ".github/workflows/research-scope-lock.yml"
       - "scripts/check_research_scope_lock.py"
