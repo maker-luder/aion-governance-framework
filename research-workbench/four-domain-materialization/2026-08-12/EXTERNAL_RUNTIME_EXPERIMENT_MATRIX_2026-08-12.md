@@ -14,7 +14,7 @@ OBSERVATION
 -> SIX STANDING EVIDENCE DIMENSIONS WHERE RELEVANT
 -> ALTERNATIVE EXPLANATIONS
 -> CAUSAL INTERVENTION / ABLATION / COUNTERFACTUAL TEST
--> CROSS-CONTEXT ROBUSTNESS
+-> CROSS_CONTEXT_ROBUSTNESS
 -> REPLICATION
 -> PROVENANCE
 -> ADMISSIBILITY
@@ -61,9 +61,9 @@ SYNTHETIC_CORRECTION_HISTORY = REQUIRED
 
 | ID | Runtime | Intervention | Primary measure | Main alternative explanations | Allowed conclusion |
 |---|---|---|---|---|---|
-| EXT-01 | Hermes | clone one full profile into B/C, then diverge histories | state/behavior divergence over time | prompt differences, stochasticity, tool/environment changes | shared-origin lineage divergence observed or not observed |
+| EXT-01 | Hermes | clone controlled profile state into B/C, then diverge histories | state/behavior divergence over time | non-copied session history, prompt differences, stochasticity, tool/environment changes | shared-state lineage divergence observed or not observed |
 | EXT-02 | Hermes | inject correction, later reintroduce superseded item | stale-state recurrence and current-state recovery | simple recency, prompt priming, lexical match | correction-maintenance/recovery behavior |
-| EXT-03 | Hermes | preserve profile state, swap model | stability/divergence by model | provider formatting, context-window differences, sampling | model-dependent vs state-dependent contribution estimate |
+| EXT-03 | Hermes | preserve one profile state, swap model | stability/divergence by model | provider formatting, context-window differences, sampling | model-dependent vs state-dependent contribution estimate |
 | EXT-04 | Hermes | skill added to B only | transfer to related novel tasks | direct replay, prompt leakage, task overlap | procedural transfer evidence or replay-only evidence |
 | EXT-05 | Hermes | preserve cron while resetting session/memory separately | recurring behavior survival | scheduler-only persistence | behavioral persistence decomposition |
 | EXT-06 | Hermes | mutate file/memory/skill/cron then `/rollback` | which state surfaces revert | external side effects, checkpoint scope | rollback surface map; not global recovery unless demonstrated |
@@ -79,25 +79,39 @@ SYNTHETIC_CORRECTION_HISTORY = REQUIRED
 
 ### EXT-01
 
+Current official Hermes profile documentation states that `--clone-all` copies config, memories, skills, cron jobs and plugins, while excluding per-profile history such as sessions, `state.db`, backups, state snapshots and checkpoints.
+
+Therefore EXT-01 is defined as a **shared controlled state** experiment, not a claim of complete historical duplication.
+
 ```text
-T0 = one clean synthetic profile snapshot
-B = clone-all(T0)
-C = clone-all(T0)
+T0_SOURCE = one clean synthetic profile
+B = clone-all(T0_SOURCE)
+C = clone-all(T0_SOURCE)
 ```
 
-Hold constant initially:
+Hold constant initially on copied or explicitly reseeded surfaces:
 
 ```text
 MODEL
 TOOLS
 POLICIES
 WORKSPACE
-MEMORY
-SESSION_HISTORY
+SYNTHETIC_MEMORY
 SKILLS
+OPTIONAL_TEST_CRON_STATE
 ```
 
-Then vary only assigned developmental histories.
+Do **not** assume:
+
+```text
+SESSION_HISTORY_B == SESSION_HISTORY_C
+STATE_DB_B == STATE_DB_C
+CHECKPOINT_HISTORY_B == CHECKPOINT_HISTORY_C
+```
+
+If exact pre-divergence history is required, use a separately reviewed export/import or deterministic synthetic-history seeding method and record that mechanism explicitly.
+
+Then vary only the assigned post-T0 histories.
 
 Measure at T1–Tn:
 
@@ -113,6 +127,7 @@ Measure at T1–Tn:
 Guard:
 
 ```text
+SHARED_CONTROLLED_STATE != FULL_HISTORICAL_EQUIVALENCE
 MATCHED_DIVERGENCE != NUMERICAL_IDENTITY_SETTLED
 DIVERGENCE != SUBJECTIVITY
 NO_DIVERGENCE != SAME_IDENTITY
@@ -259,9 +274,9 @@ Minimum for any stronger research statement:
 ```text
 ONE_RUN = OBSERVATION ONLY
 TWO_MATCHED_RUNS = REPEATABILITY SIGNAL
-MULTIPLE_SEEDS / SESSIONS = STRONGER ROBUSTNESS EVIDENCE
-SECOND_RUNTIME = CROSS-SUBSTRATE COMPARISON
-INDEPENDENT_IMPLEMENTATION / REVIEW = STRONGER REPLICATION
+MULTIPLE_SEEDS / SESSIONS = STRONGER_ROBUSTNESS_EVIDENCE
+SECOND_RUNTIME = CROSS_SUBSTRATE_COMPARISON
+INDEPENDENT_IMPLEMENTATION / REVIEW = STRONGER_REPLICATION
 ```
 
 Agreement does not establish truth. Failure does not automatically refute the entire construct. Replication validity and claim scope must be assessed separately.
@@ -279,10 +294,21 @@ Stop a run immediately if:
 - output provenance is unavailable;
 - a destructive action requires approval that cannot be independently reviewed.
 
-## 12. Current state
+## 12. Source-correction note
+
+The initial EXT-01 draft treated Hermes `--clone-all` too broadly by assuming session-history duplication. Current official documentation says per-profile history is excluded. This matrix was corrected before any empirical run.
+
+```text
+EMPIRICAL_EFFECT_OF_CORRECTION = NONE
+RUNS_BEFORE_CORRECTION = 0
+HISTORY_REWRITE = NONE
+```
+
+## 13. Current state
 
 ```text
 EXPERIMENT_DESIGN = MATERIALIZED
+SOURCE_CORRECTION = APPLIED
 EMPIRICAL_RUNS = 0
 RESULTS = NONE
 SCIENTIFIC_PROMOTION = NONE
