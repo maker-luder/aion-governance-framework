@@ -1,0 +1,243 @@
+from __future__ import annotations
+
+import json
+import subprocess
+from datetime import UTC, datetime
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+HEAD = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+
+resolved_items = [
+    {
+        "id": "RES-001",
+        "title": "Eight local learned checkpoints",
+        "status": "COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_REAL_MODEL_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_TRAINING_EVIDENCE.json",
+        ],
+        "non_claim": "Validated local research models are not a mature general-purpose foundation model.",
+    },
+    {
+        "id": "RES-002",
+        "title": "LoRA training and reload inference",
+        "status": "COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_TRAINING_EVIDENCE.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_REAL_MODEL_VALIDATION.json",
+        ],
+        "non_claim": "The local adapter is not the formal G1-Qwen adapter.",
+    },
+    {
+        "id": "RES-003",
+        "title": "Controlled and random ablation evidence",
+        "status": "COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_ABLATION_RESULTS.json",
+        ],
+        "non_claim": "Ablation evidence does not establish general-purpose language-model quality or scientific conclusions beyond the declared experiment.",
+    },
+    {
+        "id": "RES-004",
+        "title": "Public-safe real-model evidence summaries",
+        "status": "COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_REAL_MODEL_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_TRAINING_EVIDENCE.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/REAL_MODEL_CANDIDATE_INTEGRATION.md",
+        ],
+        "non_claim": "Original local checkpoints and dataset binaries remain outside Git.",
+    },
+]
+
+remaining_items = [
+    {
+        "id": "GAP-001",
+        "title": "Formal G1-Qwen3-4B-Instruct-2507 baseline and benchmark",
+        "status": "RESOURCE_BLOCKED",
+        "dimensions": ["MODEL_REQUIRED", "RESOURCE_BLOCKED"],
+        "evidence": ["research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/REAL_MODEL_CANDIDATE_INTEGRATION.md"],
+        "reason": "The declared external baseline weights/runtime were unavailable under the local compute and dependency constraints; scratch models were not substituted.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-002",
+        "title": "Scratch language model held-out generalization",
+        "status": "RESEARCH_REQUIRED",
+        "dimensions": ["MODEL_REQUIRED", "RESEARCH_REQUIRED"],
+        "evidence": ["research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/evidence/LOCAL_TRAINING_EVIDENCE.json"],
+        "reason": "Training loss reaches 0.0025797318667173386 while held-out loss is 8.133516788482666; the evidence supports learned parameters but not robust generalization.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-003",
+        "title": "Mature general-purpose AION language model usability",
+        "status": "RESEARCH_REQUIRED",
+        "dimensions": ["MODEL_REQUIRED", "RESEARCH_REQUIRED"],
+        "evidence": ["research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/REAL_MODEL_CANDIDATE_INTEGRATION.md"],
+        "reason": "A mature general-purpose model claim is not established by the current small synthetic-corpus research checkpoints.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-004",
+        "title": "Required-model completeness across all future AION/Astra capabilities",
+        "status": "SCIENTIFIC_OPEN_QUESTION",
+        "dimensions": ["MODEL_REQUIRED", "RESEARCH_REQUIRED"],
+        "evidence": ["qa/FULL_COMPLETION_GAP_INVENTORY.json", "docs/WHOLE_SYSTEM_GAP_MATRIX.md"],
+        "reason": "The current reconciliation closes known local model evidence but does not prove that every future capability has a complete learned-model requirement specification.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-005",
+        "title": "Live private cross-session memory service",
+        "status": "EXTERNAL_DEPENDENCY",
+        "dimensions": ["EXTERNAL_DEPENDENCY", "OWNER_DECISION_REQUIRED"],
+        "evidence": ["qa/DEFERRED_SCOPE_REGISTER.md"],
+        "reason": "A live private service, data policy and owner-approved operational boundary are outside this local research reconciliation.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-006",
+        "title": "Canonical AION/Astra runtime promotion",
+        "status": "OWNER_DECISION_REQUIRED",
+        "dimensions": ["OWNER_DECISION_REQUIRED"],
+        "evidence": ["qa/DEFERRED_SCOPE_REGISTER.md", "docs/BRANCH_CONSOLIDATION_LEDGER_2026-08-13.md"],
+        "reason": "Research integration remains non-canonical; no promotion decision is made in this task.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-007",
+        "title": "Production deployment",
+        "status": "OWNER_PROHIBITED",
+        "dimensions": ["OWNER_PROHIBITED"],
+        "evidence": ["qa/DEFERRED_SCOPE_REGISTER.md"],
+        "reason": "Deployment is explicitly outside this task and remains DEPLOYMENT=FALSE.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-008",
+        "title": "Independent IV&V",
+        "status": "INDEPENDENT_PARTY_REQUIRED",
+        "dimensions": ["INDEPENDENT_PARTY_REQUIRED"],
+        "evidence": ["qa/CURRENT_RELEASE_STATUS_LOCK.json", "qa/FINAL_QA_RECEIPT.json"],
+        "reason": "Independent review by a party separate from the implementer has not been achieved.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-009",
+        "title": "Subjectivity, identity and relational conclusions",
+        "status": "SCIENTIFIC_OPEN_QUESTION",
+        "dimensions": ["SCIENTIFIC_OPEN_QUESTION", "INDEPENDENT_PARTY_REQUIRED"],
+        "evidence": ["qa/CURRENT_RELEASE_STATUS_LOCK.json", "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/REAL_MODEL_CANDIDATE_INTEGRATION.md"],
+        "reason": "Current engineering evidence does not establish these scientific conclusions and no such claim is made.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-010",
+        "title": "Network MCP transport",
+        "status": "EXTERNAL_DEPENDENCY",
+        "dimensions": ["EXTERNAL_DEPENDENCY", "RESEARCH_REQUIRED"],
+        "evidence": ["qa/WHOLE_SYSTEM_VALIDATION.json"],
+        "reason": "The current candidate intentionally does not enable network MCP transport; in-process evidence is not network completion.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-011",
+        "title": "Twin embodiment, visual assets, sensation and sexuality-related scope",
+        "status": "OWNER_PROHIBITED",
+        "dimensions": ["OWNER_PROHIBITED", "RESEARCH_REQUIRED"],
+        "evidence": ["qa/DEFERRED_SCOPE_REGISTER.md"],
+        "reason": "The formal reconciliation explicitly prohibits beginning new sexuality research or new product/runtime scope.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-012",
+        "title": "Final repository license selection",
+        "status": "OWNER_DECISION_REQUIRED",
+        "dimensions": ["OWNER_DECISION_REQUIRED"],
+        "evidence": ["qa/DEFERRED_SCOPE_REGISTER.md"],
+        "reason": "License selection is an Owner-held repository governance decision and is not silently inferred from component metadata.",
+        "next_cycle_only": True,
+    },
+    {
+        "id": "GAP-013",
+        "title": "Checkpoint and dataset binary redistribution policy",
+        "status": "OWNER_DECISION_REQUIRED",
+        "dimensions": ["OWNER_DECISION_REQUIRED", "EXTERNAL_DEPENDENCY"],
+        "evidence": ["research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/REAL_MODEL_CANDIDATE_INTEGRATION.md"],
+        "reason": "Binaries are intentionally absent from Git; future redistribution requires explicit license, privacy, security and repository-policy review.",
+        "next_cycle_only": True,
+    },
+]
+
+payload = {
+    "schema_version": "1.0",
+    "inventory_id": "AION_ASTRA_AUTHORITATIVE_REMAINING_GAPS",
+    "generated_at": datetime.now(UTC).isoformat(),
+    "scope": "FINAL_FORMAL_RESEARCH_TREE",
+    "target_head": HEAD,
+    "status_vocabulary": [
+        "TECHNICALLY_ACTIONABLE",
+        "MODEL_REQUIRED",
+        "RESEARCH_REQUIRED",
+        "RESOURCE_BLOCKED",
+        "EXTERNAL_DEPENDENCY",
+        "OWNER_DECISION_REQUIRED",
+        "INDEPENDENT_PARTY_REQUIRED",
+        "OWNER_PROHIBITED",
+        "SCIENTIFIC_OPEN_QUESTION",
+        "NOT_APPLICABLE",
+    ],
+    "resolved_items": resolved_items,
+    "remaining_items": remaining_items,
+    "governance_locks": {
+        "canonical_effect": "NONE",
+        "deployment": False,
+        "independent_ivv": "NOT_ACHIEVED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_conclusion": "NOT_ESTABLISHED",
+        "new_research_started": False,
+        "new_sexuality_research_started": False,
+        "new_product_runtime_scope_added": False,
+    },
+}
+(ROOT / "qa/AUTHORITATIVE_REMAINING_GAP_INVENTORY.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+lines = [
+    "# Authoritative Remaining-Gap Inventory",
+    "",
+    "> This is a reconciliation artifact for the next Owner + Teacher research cycle. It does not implement any listed gap and is bound to the exact `target_head` recorded in the JSON artifact.",
+    "",
+    f"- Scope: `{payload['scope']}`",
+    f"- Target head: `{HEAD}`",
+    f"- Resolved items recorded: **{len(resolved_items)}**",
+    f"- Remaining items: **{len(remaining_items)}**",
+    "",
+    "## Resolved in the current evidence reconciliation",
+    "",
+    "| ID | Status | Item | Evidence |",
+    "|---|---|---|---|",
+]
+for item in resolved_items:
+    lines.append(f"| `{item['id']}` | `{item['status']}` | {item['title']} | " + ", ".join(f"`{ref}`" for ref in item["evidence"]) + " |")
+lines += ["", "## Remaining gaps", "", "| ID | Status | Dimensions | Item | Reason |", "|---|---|---|---|---|"]
+for item in remaining_items:
+    lines.append(f"| `{item['id']}` | `{item['status']}` | {', '.join(f'`{x}`' for x in item['dimensions'])} | {item['title']} | {item['reason']} |")
+lines += [
+    "",
+    "## Governance locks",
+    "",
+    "```text",
+    "CANONICAL_EFFECT = NONE",
+    "DEPLOYMENT = FALSE",
+    "INDEPENDENT_IVV = NOT_ACHIEVED",
+    "SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED",
+    "IDENTITY_CONCLUSION = NOT_ESTABLISHED",
+    "NEW_RESEARCH_STARTED = FALSE",
+    "NEW_SEXUALITY_RESEARCH_STARTED = FALSE",
+    "NEW_PRODUCT_RUNTIME_SCOPE_ADDED = FALSE",
+    "```",
+]
+(ROOT / "docs/AUTHORITATIVE_REMAINING_GAP_INVENTORY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+print(json.dumps({"target_head": HEAD, "resolved_items": len(resolved_items), "remaining_items": len(remaining_items)}, sort_keys=True))

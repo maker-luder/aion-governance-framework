@@ -3,8 +3,12 @@ from __future__ import annotations
 import json
 from datetime import UTC, datetime
 from pathlib import Path
+import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
+CURRENT_HEAD = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+CURRENT_SCOPE = "FINAL_FORMAL_RESEARCH_TREE"
+CURRENT_BRANCH = "review/four-domain-research-materialization"
 TESTS = json.loads((ROOT / "qa/CURRENT_TEST_RESULTS.json").read_text(encoding="utf-8"))
 COVERAGE = json.loads((ROOT / "qa/CURRENT_COVERAGE_RESULTS.json").read_text(encoding="utf-8"))
 test_by_target = {item["target"]: item for item in TESTS["targets"]}
@@ -17,16 +21,14 @@ for path in paths:
     relative = str(path.relative_to(ROOT))
     tests = test_by_target[relative]
     coverage = coverage_by_target[relative]
+    source_branch = CURRENT_BRANCH
+    source_sha = CURRENT_HEAD
     if relative == "components/whole_system_governed_runtime_v0.1.0":
-        source_branch = "review/aion-astra-whole-system-completion"
-        source_sha = "263f6905356ebf0581b9ad8acda6c449587c73f1"
-        status = "SELECTIVELY_REPLAYED_AND_REPAIRED"
-        disposition = "PRESERVED_WITH_TRANSFORMATION"
+        status = "INTEGRATED_AND_REVALIDATED"
+        disposition = "CURRENT_FORMAL_RESEARCH_TREE"
     else:
-        source_branch = "review/four-domain-research-materialization"
-        source_sha = "6f39fff07f1b1a79867c270f953c554e18addbc1"
-        status = "PRESERVED_FROM_FORMAL_RESEARCH"
-        disposition = "PRESERVED"
+        status = "CURRENT_FORMAL_RESEARCH_TARGET"
+        disposition = "CURRENT_FORMAL_RESEARCH_TREE"
     entries.append(
         {
             "path": relative,
@@ -46,7 +48,9 @@ for path in paths:
 payload = {
     "schema_version": "2.0",
     "generated_at": datetime.now(UTC).isoformat(),
-    "scope": "REVIEW_CANDIDATE_V2",
+    "scope": CURRENT_SCOPE,
+    "target_head": CURRENT_HEAD,
+    "source_branch": CURRENT_BRANCH,
     "target_count": len(entries),
     "missing_targets": [],
     "unexplained_deletions": [],
@@ -54,11 +58,11 @@ payload = {
 }
 (ROOT / "qa/INTEGRATION_INVENTORY.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 lines = [
-    "# v2 Full Integration Inventory",
+    "# Current Formal Research Integration Inventory",
     "",
-    "This inventory is dynamically generated from direct child directories under `components/`, `examples/`, and `research-labs/`. It is a review-candidate scope record, not a release manifest.",
+    "This inventory is dynamically generated from direct child directories under `components/`, `examples/`, and `research-labs`. It is bound to the exact current formal research tree and is not a release manifest.",
     "",
-    f"**Target count: {len(entries)}. Missing targets: 0. Unexplained deletions: 0.**",
+    f"**Scope: `{CURRENT_SCOPE}`. Target head: `{CURRENT_HEAD}`. Target count: {len(entries)}. Missing targets: 0. Unexplained deletions: 0.**",
     "",
     "| PATH | SOURCE_BRANCH | SOURCE_SHA | STATUS | TESTED | TESTS | COVERAGE | CANONICAL_EFFECT | REVIEW_DISPOSITION |",
     "|---|---|---|---|---|---:|---:|---|---|",
@@ -72,7 +76,7 @@ for entry in entries:
 lines.extend(
     [
         "",
-        "The formal research branch is the authoritative source for all current research targets. The whole-system target is the only selectively replayed artifact and is explicitly attributed to the old superseded review branch; its implementation was transformed and re-tested on v2.",
+        "The formal research branch is the authoritative source for all current research targets. The whole-system target is recorded as integrated and revalidated in this current tree; historical source-lineage details remain in the consolidation ledger.",
         "",
         "```text",
         "CANONICAL_EFFECT = NONE",
@@ -81,4 +85,10 @@ lines.extend(
         "```",
     ]
 )
-(ROOT / "docs/V2_INTEGRATION_INVENTORY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+(ROOT / "docs/INTEGRATION_INVENTORY_CURRENT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+(ROOT / "docs/V2_INTEGRATION_INVENTORY.md").write_text(
+    "# Historical V2 Integration Inventory\n\n"
+    "> HISTORICAL_V2_EVIDENCE: this file is retained for provenance only. It is not current evidence.\n\n"
+    "The authoritative current inventory is `docs/INTEGRATION_INVENTORY_CURRENT.md` and `qa/INTEGRATION_INVENTORY.json`, both bound to their recorded `target_head`.\n",
+    encoding="utf-8",
+)

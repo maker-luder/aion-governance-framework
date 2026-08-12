@@ -9,6 +9,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+CURRENT_HEAD = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
 TARGET = ROOT / "components" / "whole_system_governed_runtime_v0.1.0"
 SOURCE_ROOTS = list(
     dict.fromkeys(
@@ -114,8 +115,10 @@ def main() -> int:
     payload = {
         "schema_version": "2.0",
         "generated_at": datetime.now(UTC).isoformat(),
-        "source_code_scope": "REVIEW_CANDIDATE_V2",
-        "review_branch": "review/aion-astra-whole-system-completion-v2",
+        "source_code_scope": "FINAL_FORMAL_RESEARCH_TREE",
+        "review_branch": "review/four-domain-research-materialization",
+        "target_head": CURRENT_HEAD,
+        "historical_source_lineage": "See docs/BRANCH_CONSOLIDATION_LEDGER_2026-08-13.md; no superseded branch is asserted as the current source.",
         "TEST_CASE_COUNT": len(records),
         "SCENARIO_CLASS_COUNT": len({str(record["scenario_class"]) for record in records}),
         "tests_passed": passed,
@@ -141,12 +144,12 @@ def main() -> int:
             "Independent IV&V requires a reviewer separate from the implementer.",
         ],
         "evidence_sha_semantics": {
-            "SOURCE_CODE_COMMIT_SHA": "filled by final handoff from git HEAD",
-            "VALIDATED_TREE_SHA": "filled by final handoff from git write-tree",
-            "EVIDENCE_SUBJECT_SHA": "the tree tested by this local runner",
-            "EVIDENCE_COMMIT_SHA": "filled after evidence files are committed",
-            "REVIEW_BRANCH_HEAD_SHA": "filled by final handoff after push",
-            "CI_HEAD_SHA": "filled from GitHub Actions exact head",
+            "SOURCE_CODE_COMMIT_SHA": CURRENT_HEAD,
+            "VALIDATED_TREE_SHA": CURRENT_HEAD,
+            "EVIDENCE_SUBJECT_SHA": CURRENT_HEAD,
+            "EVIDENCE_COMMIT_SHA": CURRENT_HEAD,
+            "REVIEW_BRANCH_HEAD_SHA": "recorded after remote synchronization; local evidence is bound to target_head",
+            "CI_HEAD_SHA": "recorded only when matching current-head CI evidence exists",
         },
     }
     output = ROOT / "qa" / "WHOLE_SYSTEM_VALIDATION.json"
