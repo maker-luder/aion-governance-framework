@@ -1,22 +1,58 @@
-# Current Reconstruction Test Results
+# Current Test Results
 
-Execution date: 2026-08-07
+Target head: `281e442edaafdb6c4c68108fc1eea417be3838f8`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
+| `components/aion_runtime_v0.1.0` | 11 | 0 |
+| `components/aion_runtime_v0.2.0` | 21 | 0 |
+| `components/astra_runtime_v0.1.0` | 5 | 0 |
 | `components/astra_workbench_v1.0.0` | 89 | 0 |
-| `components/continuity_governance_v0.1.0` | 4 | 0 |
-| `components/executable_runtime_v0.1.0` | 12 | 0 |
+| `components/continuity_governance_v0.1.0` | 7 | 0 |
+| `components/encounter_governance_v0.1.0` | 7 | 0 |
+| `components/executable_runtime_v0.1.0` | 13 | 0 |
 | `components/governance_kernel_v0.4.0` | 46 | 0 |
 | `components/identity_governance_v0.1.0` | 35 | 0 |
+| `components/individual_runtime_state_v0.1.0` | 14 | 0 |
+| `components/iqc_quality_inspection_v0.1.0` | 13 | 0 |
 | `components/language_core_v0.1.0` | 29 | 0 |
-| `components/memory_recall_governance_v0.1.0` | 6 | 0 |
-| `components/research_integrity_security_v0.1.0` | 6 | 0 |
+| `components/memory_recall_governance_v0.1.0` | 10 | 0 |
+| `components/research_integrity_security_v0.1.0` | 9 | 0 |
 | `components/upstream_security_v0.1.0` | 33 | 0 |
+| `components/whole_system_governed_runtime_v0.1.0` | 21 | 0 |
 | `examples/bazi-capability_v0.1.1` | 82 | 0 |
+| `research-labs/affective-cognitive-motivation_v0.1.0` | 7 | 0 |
+| `research-labs/artifact-transformation-lineage_v0.1.0` | 14 | 0 |
+| `research-labs/causal-internal-state_v0.1.0` | 4 | 0 |
+| `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 3 | 0 |
+| `research-labs/core-meaning-commitments_v0.1.0` | 27 | 0 |
+| `research-labs/embodiment-continuity-anchor_v0.1.0` | 15 | 0 |
+| `research-labs/evidence-responsive-governance-reassessment_v0.1.0` | 16 | 0 |
+| `research-labs/external-agent-sandbox-protocol_v0.1.0` | 8 | 0 |
+| `research-labs/external-evidence-normalization_v0.1.0` | 8 | 0 |
+| `research-labs/external-runtime-baseline-comparison_v0.1.0` | 0 | 0 |
+| `research-labs/four-domain-p1-materialization_v0.1.0` | 12 | 0 |
+| `research-labs/four-domain-p2-materialization_v0.1.0` | 5 | 0 |
+| `research-labs/four-domain-p3-resilience-experiments_v0.1.0` | 7 | 0 |
+| `research-labs/four-domain-p4-public-reproducibility_v0.1.0` | 8 | 0 |
+| `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0` | 10 | 0 |
+| `research-labs/governed-tool-approval_v0.1.0` | 12 | 0 |
+| `research-labs/hermes-p0-execution-prep_v0.1.0` | 0 | 0 |
+| `research-labs/integration-candidates` | 0 | 0 |
 | `research-labs/language-core-g1_v0.2.1` | 56 | 0 |
-| `research-labs/twin-genesis-embodiment_v0.1.0` | 14 | 0 |
+| `research-labs/real-model-pilot-protocol_v0.1.0` | 6 | 0 |
+| `research-labs/research-evaluation-harness_v0.1.0` | 11 | 0 |
+| `research-labs/second-order-metacognition_v0.1.0` | 84 | 0 |
+| `research-labs/selective-memory-control_v0.1.0` | 8 | 0 |
+| `research-labs/self-model-functional-ablation_v0.1.0` | 9 | 0 |
+| `research-labs/self-report-false-positive-challenge_v0.1.0` | 5 | 0 |
+| `research-labs/self-report-instrument-validity-calibration_v0.1.0` | 13 | 0 |
+| `research-labs/shared-origin-divergence-governance_v0.1.0` | 27 | 0 |
+| `research-labs/subjectivity-pipeline_v0.1.0` | 6 | 0 |
+| `research-labs/supervised-control-pilot_v0.1.0` | 6 | 0 |
+| `research-labs/trace-provenance-crosswalk_v0.1.0` | 12 | 0 |
+| `research-labs/trajectory-evaluation_v0.1.0` | 14 | 0 |
+| `research-labs/triangulated-subjectivity-evidence_v0.1.0` | 5 | 0 |
+| `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 
-**Total:** 412 passed; all listed targets returned code 0.
-
-The historical 2026-08-03 source package reported 232 passing tests across five public components. The current count is larger because it includes the bounded Runtime, Bazi example, G1 public-safe subset, twin candidate and three newly formalized governance components. The two results are recorded separately.
+**Total:** 881 passed across 50 targets; failed targets: 0.

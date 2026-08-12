@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0",
+  "scope": "FINAL_RESEARCH_HEAD_INTEGRATION_CANDIDATES",
+  "target_head": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+  "summary": {
+    "target_count": 12,
+    "failed_target_count": 0,
+    "total_passed": 148,
+    "total_failed": 0
+  },
+  "targets": [
+    {
+      "target": "research-labs/integration-candidates/continuity-evidence-lineage_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 17,
+      "failed": 0,
+      "output": ".................                                                        [100%]\n17 passed in 0.02s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/embodiment-capability-primitives_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 9,
+      "failed": 0,
+      "output": ".........                                                                [100%]\n9 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/embodiment-handoff-protocol_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 16,
+      "failed": 0,
+      "output": "................                                                         [100%]\n16 passed in 0.02s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/encounter-evidence-protocol_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 15,
+      "failed": 0,
+      "output": "...............                                                          [100%]\n15 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/iqc-capa-contract_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 4,
+      "failed": 0,
+      "output": "....                                                                     [100%]\n4 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/longitudinal-change-evidence_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 16,
+      "failed": 0,
+      "output": "................                                                         [100%]\n16 passed in 0.02s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/metacognitive-self-state_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 20,
+      "failed": 0,
+      "output": "....................                                                     [100%]\n20 passed in 0.02s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/motivational-signal-primitives_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 9,
+      "failed": 0,
+      "output": ".........                                                                [100%]\n9 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/provenance-interop_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 5,
+      "failed": 0,
+      "output": ".....                                                                    [100%]\n5 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/provider-registry_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 5,
+      "failed": 0,
+      "output": ".....                                                                    [100%]\n5 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/self-other-boundary_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 28,
+      "failed": 0,
+      "output": "............................                                             [100%]\n28 passed in 0.02s\n"
+    },
+    {
+      "target": "research-labs/integration-candidates/tokenizer-contract_v0.1.0",
+      "status": "PASS",
+      "returncode": 0,
+      "passed": 4,
+      "failed": 0,
+      "output": "....                                                                     [100%]\n4 passed in 0.01s\n"
+    }
+  ]
+}

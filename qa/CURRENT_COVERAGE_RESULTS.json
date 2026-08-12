@@ -1,491 +1,989 @@
-{
-  "schema_version": "2.0",
-  "generated_at": "2026-08-12T17:56:00.137116+00:00",
-  "scope": "REVIEW_CANDIDATE_V2",
-  "summary": {
-    "eligible_target_count": 48,
-    "measured_target_count": 46,
-    "not_applicable_target_count": 2,
-    "failed_target_count": 0,
-    "branch_coverage": true,
-    "threshold_policy": "REPORT_ONLY_NO_UNJUSTIFIED_GLOBAL_THRESHOLD"
+[
+  {
+    "target": "components/aion_runtime_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 172,
+      "num_statements": 185,
+      "percent_covered": 90.82125603864735,
+      "percent_covered_display": "91",
+      "missing_lines": 13,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.97297297297297,
+      "percent_statements_covered_display": "93",
+      "num_branches": 22,
+      "num_partial_branches": 6,
+      "covered_branches": 16,
+      "missing_branches": 6,
+      "percent_branches_covered": 72.72727272727273,
+      "percent_branches_covered_display": "73"
+    },
+    "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                           Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------\nsrc/aion_runtime/__init__.py       2      0      0      0   100%\nsrc/aion_runtime/cli.py           61      1      8      1    97%   121\nsrc/aion_runtime/runtime.py       80      6      6      2    91%   94->exit, 112-123, 227, 238\nsrc/aion_runtime/server.py        42      6      8      3    82%   37, 62, 65-69\n--------------------------------------------------------------------------\nTOTAL                            185     13     22      6    91%\nCoverage JSON written to file <temporary-coverage-artifact>\n11 passed in 0.70s\n"
   },
-  "targets": [
-    {
-      "target": "components/aion_runtime_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 90.82125603864735,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__aion_runtime_v0.1.0.json",
-      "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__aion_runtime_v0.1.0.json\n11 passed in 0.68s\n"
+  {
+    "target": "components/aion_runtime_v0.2.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 555,
+      "num_statements": 627,
+      "percent_covered": 83.69987063389392,
+      "percent_covered_display": "84",
+      "missing_lines": 72,
+      "excluded_lines": 9,
+      "percent_statements_covered": 88.51674641148325,
+      "percent_statements_covered_display": "89",
+      "num_branches": 146,
+      "num_partial_branches": 50,
+      "covered_branches": 92,
+      "missing_branches": 54,
+      "percent_branches_covered": 63.013698630136986,
+      "percent_branches_covered_display": "63"
     },
-    {
-      "target": "components/aion_runtime_v0.2.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 83.69987063389392,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__aion_runtime_v0.2.0.json",
-      "output": ".....................                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__aion_runtime_v0.2.0.json\n21 passed in 0.12s\n"
+    "output": ".....................                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_runtime_v2/__init__.py          9      0      0      0   100%\nsrc/aion_runtime_v2/deployment.py       59      3     14      3    92%   47, 52, 65\nsrc/aion_runtime_v2/integration.py      61      2      4      2    94%   34, 61->63, 72\nsrc/aion_runtime_v2/loop.py            133     11     38     12    87%   30, 59->62, 64, 98, 108, 110, 116, 132, 143-144, 149, 157\nsrc/aion_runtime_v2/provider.py        119     19     28     10    78%   25, 36, 56, 58, 74, 91, 94, 152, 163, 167-170, 177-181, 185\nsrc/aion_runtime_v2/sandbox.py          39      7      8      4    77%   16, 18, 30, 47, 50-51, 54\nsrc/aion_runtime_v2/service.py          51      8     20      8    77%   25, 29, 35, 44, 47->exit, 49->exit, 54, 57, 60, 63\nsrc/aion_runtime_v2/session.py          88     14     14      5    81%   36, 44, 52, 56, 64, 73-74, 81-82, 86, 97-100\nsrc/aion_runtime_v2/tools.py            68      8     20      6    84%   17, 27, 33-34, 71, 74, 76, 84\n--------------------------------------------------------------------------------\nTOTAL                                  627     72    146     50    84%\nCoverage JSON written to file <temporary-coverage-artifact>\n21 passed in 0.14s\n"
+  },
+  {
+    "target": "components/astra_runtime_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 72,
+      "num_statements": 80,
+      "percent_covered": 88.37209302325581,
+      "percent_covered_display": "88",
+      "missing_lines": 8,
+      "excluded_lines": 0,
+      "percent_statements_covered": 90.0,
+      "percent_statements_covered_display": "90",
+      "num_branches": 6,
+      "num_partial_branches": 2,
+      "covered_branches": 4,
+      "missing_branches": 2,
+      "percent_branches_covered": 66.66666666666667,
+      "percent_branches_covered_display": "67"
     },
-    {
-      "target": "components/astra_runtime_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 88.37209302325581,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__astra_runtime_v0.1.0.json",
-      "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__astra_runtime_v0.1.0.json\n5 passed in 0.12s\n"
+    "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                            Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------\nsrc/astra_runtime/__init__.py       2      0      0      0   100%\nsrc/astra_runtime/runtime.py       78      8      6      2    88%   44, 87, 90->exit, 108-119, 223, 234\n---------------------------------------------------------------------------\nTOTAL                              80      8      6      2    88%\nCoverage JSON written to file <temporary-coverage-artifact>\n5 passed in 0.13s\n"
+  },
+  {
+    "target": "components/astra_workbench_v1.0.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 966,
+      "num_statements": 1014,
+      "percent_covered": 93.47826086956522,
+      "percent_covered_display": "93",
+      "missing_lines": 48,
+      "excluded_lines": 0,
+      "percent_statements_covered": 95.26627218934911,
+      "percent_statements_covered_display": "95",
+      "num_branches": 182,
+      "num_partial_branches": 30,
+      "covered_branches": 152,
+      "missing_branches": 30,
+      "percent_branches_covered": 83.51648351648352,
+      "percent_branches_covered_display": "84"
     },
-    {
-      "target": "components/astra_workbench_v1.0.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 93.47826086956522,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__astra_workbench_v1.0.0.json",
-      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__astra_workbench_v1.0.0.json\nRequired test coverage of 85.0% reached. Total coverage: 93.48%\n89 passed in 1.35s\n"
+    "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                                    Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------------------\nsrc/astra_engineering_workbench/__init__.py                11      0      0      0   100%\nsrc/astra_engineering_workbench/approvals.py               37      3     12      2    90%   58, 142, 148\nsrc/astra_engineering_workbench/audit.py                   47      4     10      2    89%   44, 59-60, 67\nsrc/astra_engineering_workbench/cli.py                     17      0      0      0   100%\nsrc/astra_engineering_workbench/command_policy.py          74      8     36      6    87%   48, 61, 84, 92-93, 95, 101, 103\nsrc/astra_engineering_workbench/command_runner.py          38      1      2      1    95%   81\nsrc/astra_engineering_workbench/diffs.py                    4      0      0      0   100%\nsrc/astra_engineering_workbench/enums.py                   73      0      0      0   100%\nsrc/astra_engineering_workbench/episodic_adapter.py        23      1      4      2    89%   28, 46->exit\nsrc/astra_engineering_workbench/errors.py                  11      0      0      0   100%\nsrc/astra_engineering_workbench/evidence.py                20      0      0      0   100%\nsrc/astra_engineering_workbench/evidence_reuse.py          14      0      8      0   100%\nsrc/astra_engineering_workbench/file_index.py              23      0      8      0   100%\nsrc/astra_engineering_workbench/file_operations.py          2      2      0      0     0%   3-5\nsrc/astra_engineering_workbench/governance_adapter.py      28      0     10      0   100%\nsrc/astra_engineering_workbench/intake.py                  20      2      6      2    85%   23, 81\nsrc/astra_engineering_workbench/models.py                 213      0      0      0   100%\nsrc/astra_engineering_workbench/packaging.py               35      1      8      1    95%   72\nsrc/astra_engineering_workbench/patches.py                  4      0      0      0   100%\nsrc/astra_engineering_workbench/reasoning_provider.py      34      1      6      1    95%   49\nsrc/astra_engineering_workbench/redaction.py               12      0      4      0   100%\nsrc/astra_engineering_workbench/review_packet.py           14      0      0      0   100%\nsrc/astra_engineering_workbench/rollback.py                10      0      2      0   100%\nsrc/astra_engineering_workbench/scope.py                   13      0      6      0   100%\nsrc/astra_engineering_workbench/state_machine.py           12      0      2      0   100%\nsrc/astra_engineering_workbench/validation_plan.py         10      0      0      0   100%\nsrc/astra_engineering_workbench/validation_runner.py        6      0      0      0   100%\nsrc/astra_engineering_workbench/workspace.py              209     25     58     13    86%   45, 59-60, 66-67, 70, 77, 88, 95, 108, 136, 188, 191, 194-195, 207, 219-221, 241, 246, 249-250, 291, 302\n---------------------------------------------------------------------------------------------------\nTOTAL                                                    1014     48    182     30    93%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 93.48%\n89 passed in 1.37s\n"
+  },
+  {
+    "target": "components/continuity_governance_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 71,
+      "num_statements": 79,
+      "percent_covered": 85.71428571428571,
+      "percent_covered_display": "86",
+      "missing_lines": 8,
+      "excluded_lines": 0,
+      "percent_statements_covered": 89.87341772151899,
+      "percent_statements_covered_display": "90",
+      "num_branches": 12,
+      "num_partial_branches": 1,
+      "covered_branches": 7,
+      "missing_branches": 5,
+      "percent_branches_covered": 58.333333333333336,
+      "percent_branches_covered_display": "58"
     },
-    {
-      "target": "components/continuity_governance_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 85.71428571428571,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__continuity_governance_v0.1.0.json",
-      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__continuity_governance_v0.1.0.json\n7 passed in 0.04s\n"
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_continuity_governance/__init__.py       3      0      0      0   100%\nsrc/aion_continuity_governance/checks.py        37      8     12      1    73%   59-67\nsrc/aion_continuity_governance/models.py        39      0      0      0   100%\n----------------------------------------------------------------------------------------\nTOTAL                                           79      8     12      1    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed in 0.03s\n"
+  },
+  {
+    "target": "components/encounter_governance_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 79,
+      "num_statements": 86,
+      "percent_covered": 86.53846153846153,
+      "percent_covered_display": "87",
+      "missing_lines": 7,
+      "excluded_lines": 0,
+      "percent_statements_covered": 91.86046511627907,
+      "percent_statements_covered_display": "92",
+      "num_branches": 18,
+      "num_partial_branches": 7,
+      "covered_branches": 11,
+      "missing_branches": 7,
+      "percent_branches_covered": 61.111111111111114,
+      "percent_branches_covered_display": "61"
     },
-    {
-      "target": "components/encounter_governance_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 86.53846153846153,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__encounter_governance_v0.1.0.json",
-      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__encounter_governance_v0.1.0.json\n6 passed in 0.03s\n"
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_encounter_governance/__init__.py       3      0      0      0   100%\nsrc/aion_encounter_governance/models.py        50      6     14      6    81%   38, 40, 52, 54, 56, 61\nsrc/aion_encounter_governance/policy.py        33      1      4      1    95%   23\n---------------------------------------------------------------------------------------\nTOTAL                                          86      7     18      7    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed in 0.13s\n"
+  },
+  {
+    "target": "components/executable_runtime_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 321,
+      "num_statements": 340,
+      "percent_covered": 92.3444976076555,
+      "percent_covered_display": "92",
+      "missing_lines": 19,
+      "excluded_lines": 0,
+      "percent_statements_covered": 94.41176470588235,
+      "percent_statements_covered_display": "94",
+      "num_branches": 78,
+      "num_partial_branches": 13,
+      "covered_branches": 65,
+      "missing_branches": 13,
+      "percent_branches_covered": 83.33333333333333,
+      "percent_branches_covered_display": "83"
     },
-    {
-      "target": "components/executable_runtime_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 92.3444976076555,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__executable_runtime_v0.1.0.json",
-      "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__executable_runtime_v0.1.0.json\n13 passed in 0.16s\n"
+    "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_astra_runtime/__init__.py       4      0      0      0   100%\nsrc/aion_astra_runtime/cli.py           31      5      4      2    80%   30, 35-37, 41\nsrc/aion_astra_runtime/engine.py        71      3      8      1    95%   65, 186-187\nsrc/aion_astra_runtime/errors.py         3      0      0      0   100%\nsrc/aion_astra_runtime/models.py       103      6     18      4    92%   63, 96, 102-103, 122, 124\nsrc/aion_astra_runtime/planner.py       44      0     14      0   100%\nsrc/aion_astra_runtime/policy.py        27      0     14      1    98%   40->exit\nsrc/aion_astra_runtime/tools.py         57      5     20      5    87%   24, 31, 34, 41, 54\n--------------------------------------------------------------------------------\nTOTAL                                  340     19     78     13    92%\nCoverage JSON written to file <temporary-coverage-artifact>\n13 passed in 0.17s\n"
+  },
+  {
+    "target": "components/governance_kernel_v0.4.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 301,
+      "num_statements": 317,
+      "percent_covered": 93.73368146214099,
+      "percent_covered_display": "94",
+      "missing_lines": 16,
+      "excluded_lines": 0,
+      "percent_statements_covered": 94.95268138801262,
+      "percent_statements_covered_display": "95",
+      "num_branches": 66,
+      "num_partial_branches": 8,
+      "covered_branches": 58,
+      "missing_branches": 8,
+      "percent_branches_covered": 87.87878787878788,
+      "percent_branches_covered_display": "88"
     },
-    {
-      "target": "components/governance_kernel_v0.4.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 93.73368146214099,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__governance_kernel_v0.4.0.json",
-      "output": "..............................................                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__governance_kernel_v0.4.0.json\nRequired test coverage of 90.0% reached. Total coverage: 93.73%\n46 passed in 0.13s\n"
+    "output": "..............................................                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                             Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------------------\nsrc/aion_governance_kernel/__init__.py               4      0      0      0   100%\nsrc/aion_governance_kernel/audit/__init__.py         2      0      0      0   100%\nsrc/aion_governance_kernel/audit/db.py              31      2      4      0    94%   57-58\nsrc/aion_governance_kernel/audit/repository.py      11      1      2      1    85%   24\nsrc/aion_governance_kernel/audit/service.py         10      0      0      0   100%\nsrc/aion_governance_kernel/cli.py                   13      1      2      1    87%   16\nsrc/aion_governance_kernel/errors.py                 9      0      0      0   100%\nsrc/aion_governance_kernel/hashing.py                7      0      0      0   100%\nsrc/aion_governance_kernel/models.py                78      0      0      0   100%\nsrc/aion_governance_kernel/pipeline.py              34      4      0      0    88%   31-32, 42-43\nsrc/aion_governance_kernel/risk/__init__.py          2      0      0      0   100%\nsrc/aion_governance_kernel/risk/policy.py           31      0     20      0   100%\nsrc/aion_governance_kernel/validation.py            85      8     38      6    89%   37, 41, 46, 77-78, 80, 82, 103\n--------------------------------------------------------------------------------------------\nTOTAL                                              317     16     66      8    94%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 90.0% reached. Total coverage: 93.73%\n46 passed in 0.14s\n"
+  },
+  {
+    "target": "components/identity_governance_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 522,
+      "num_statements": 563,
+      "percent_covered": 88.60028860028861,
+      "percent_covered_display": "89",
+      "missing_lines": 41,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.71758436944938,
+      "percent_statements_covered_display": "93",
+      "num_branches": 130,
+      "num_partial_branches": 28,
+      "covered_branches": 92,
+      "missing_branches": 38,
+      "percent_branches_covered": 70.76923076923077,
+      "percent_branches_covered_display": "71"
     },
-    {
-      "target": "components/identity_governance_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 88.60028860028861,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__identity_governance_v0.1.0.json",
-      "output": "...................................                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__identity_governance_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 88.60%\n35 passed in 0.15s\n"
+    "output": "...................................                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_astra_governance/__init__.py           1      0      0      0   100%\nsrc/aion_astra_governance/cli.py               66      6     16      2    88%   15-18, 74, 85\nsrc/aion_astra_governance/enums.py             39      0      0      0   100%\nsrc/aion_astra_governance/errors.py             3      0      0      0   100%\nsrc/aion_astra_governance/forks.py             18      0      4      0   100%\nsrc/aion_astra_governance/governance.py        30      0      6      0   100%\nsrc/aion_astra_governance/hashing.py           20      1      4      1    92%   12\nsrc/aion_astra_governance/lineage.py           59      8     32      5    81%   24, 30, 51, 55-58, 70\nsrc/aion_astra_governance/models.py           230     16     44     13    89%   18, 23, 61, 91, 123, 176, 178, 180, 227, 229, 258, 277-279, 312, 316\nsrc/aion_astra_governance/perspectives.py       4      0      0      0   100%\nsrc/aion_astra_governance/registry.py          40      3      8      3    88%   33, 47, 78\nsrc/aion_astra_governance/reports.py           27      3     10      3    84%   14, 17, 22\nsrc/aion_astra_governance/storage.py           26      4      6      1    78%   15-17, 24\n---------------------------------------------------------------------------------------\nTOTAL                                         563     41    130     28    89%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 88.60%\n35 passed in 0.17s\n"
+  },
+  {
+    "target": "components/individual_runtime_state_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 280,
+      "num_statements": 328,
+      "percent_covered": 80.47619047619048,
+      "percent_covered_display": "80",
+      "missing_lines": 48,
+      "excluded_lines": 0,
+      "percent_statements_covered": 85.36585365853658,
+      "percent_statements_covered_display": "85",
+      "num_branches": 92,
+      "num_partial_branches": 22,
+      "covered_branches": 58,
+      "missing_branches": 34,
+      "percent_branches_covered": 63.04347826086956,
+      "percent_branches_covered_display": "63"
     },
-    {
-      "target": "components/individual_runtime_state_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 80.47619047619048,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__individual_runtime_state_v0.1.0.json",
-      "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__individual_runtime_state_v0.1.0.json\n14 passed in 0.20s\n"
+    "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/individual_runtime_state/__init__.py        3      0      0      0   100%\nsrc/individual_runtime_state/hardening.py     115     13     46     14    83%   117, 189, 198, 213, 215, 219, 223, 227, 233->235, 239, 253, 314, 319, 353\nsrc/individual_runtime_state/store.py         210     35     46      8    79%   193, 273, 275, 310, 367, 378-410, 430, 452-473, 483, 503\n---------------------------------------------------------------------------------------\nTOTAL                                         328     48     92     22    80%\nCoverage JSON written to file <temporary-coverage-artifact>\n14 passed in 0.21s\n"
+  },
+  {
+    "target": "components/iqc_quality_inspection_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 113,
+      "num_statements": 150,
+      "percent_covered": 71.15384615384616,
+      "percent_covered_display": "71",
+      "missing_lines": 37,
+      "excluded_lines": 0,
+      "percent_statements_covered": 75.33333333333333,
+      "percent_statements_covered_display": "75",
+      "num_branches": 58,
+      "num_partial_branches": 13,
+      "covered_branches": 35,
+      "missing_branches": 23,
+      "percent_branches_covered": 60.3448275862069,
+      "percent_branches_covered_display": "60"
     },
-    {
-      "target": "components/language_core_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 89.3491124260355,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__language_core_v0.1.0.json",
-      "output": ".............................                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__language_core_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 89.35%\n29 passed in 0.19s\n"
+    "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                        Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------\nsrc/aion_iqc/__init__.py        2      0      0      0   100%\nsrc/aion_iqc/cli.py            31     31      8      0     0%   1-48\nsrc/aion_iqc/inspector.py     117      6     50     13    87%   28->exit, 33->exit, 36->35, 45, 49->exit, 51->exit, 56->exit, 61->exit, 68-71, 74->exit, 79->exit, 85->exit, 87->86, 97, 99->101, 114->116\n-----------------------------------------------------------------------\nTOTAL                         150     37     58     13    71%\nCoverage JSON written to file <temporary-coverage-artifact>\n13 passed in 0.20s\n"
+  },
+  {
+    "target": "components/language_core_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 615,
+      "num_statements": 667,
+      "percent_covered": 89.3491124260355,
+      "percent_covered_display": "89",
+      "missing_lines": 52,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.20389805097452,
+      "percent_statements_covered_display": "92",
+      "num_branches": 178,
+      "num_partial_branches": 38,
+      "covered_branches": 140,
+      "missing_branches": 38,
+      "percent_branches_covered": 78.65168539325843,
+      "percent_branches_covered_display": "79"
     },
-    {
-      "target": "components/memory_recall_governance_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 93.15789473684211,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__memory_recall_governance_v0.1.0.json",
-      "output": "..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__memory_recall_governance_v0.1.0.json\n10 passed in 0.08s\n"
+    "output": ".............................                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/astra_language_core/__init__.py           4      0      0      0   100%\nsrc/astra_language_core/admission.py         40      1     14      1    96%   71\nsrc/astra_language_core/cli.py               97      8     26      6    89%   58, 69-71, 86, 101, 104->111, 106, 123\nsrc/astra_language_core/config.py            44      4      8      2    88%   43, 48, 77-78\nsrc/astra_language_core/dataset.py           63      6     22      4    88%   14, 55, 61, 85-86, 88\nsrc/astra_language_core/enums.py             19      0      0      0   100%\nsrc/astra_language_core/errors.py             5      0      0      0   100%\nsrc/astra_language_core/evaluation.py        29      0      6      0   100%\nsrc/astra_language_core/hashing.py           28      0      6      0   100%\nsrc/astra_language_core/json_types.py         7      1      2      1    78%   9\nsrc/astra_language_core/lineage.py           27      3     18      3    87%   18, 24, 31\nsrc/astra_language_core/metrics.py           28      0      2      0   100%\nsrc/astra_language_core/models.py           121     12     34     10    86%   15, 24, 31, 67, 69, 71, 79, 106-107, 153, 155, 157\nsrc/astra_language_core/observations.py      17      2      8      2    84%   13, 17\nsrc/astra_language_core/registry.py          47      8     12      3    81%   19, 22-23, 29, 32-33, 48-49\nsrc/astra_language_core/reports.py           33      3      8      3    85%   13, 23, 45\nsrc/astra_language_core/runtime.py           58      4     12      3    90%   50, 86-87, 89, 97->99\n-------------------------------------------------------------------------------------\nTOTAL                                       667     52    178     38    89%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 89.35%\n29 passed in 0.20s\n"
+  },
+  {
+    "target": "components/memory_recall_governance_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 153,
+      "num_statements": 160,
+      "percent_covered": 93.15789473684211,
+      "percent_covered_display": "93",
+      "missing_lines": 7,
+      "excluded_lines": 0,
+      "percent_statements_covered": 95.625,
+      "percent_statements_covered_display": "96",
+      "num_branches": 30,
+      "num_partial_branches": 6,
+      "covered_branches": 24,
+      "missing_branches": 6,
+      "percent_branches_covered": 80.0,
+      "percent_branches_covered_display": "80"
     },
-    {
-      "target": "components/research_integrity_security_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 85.91549295774648,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__research_integrity_security_v0.1.0.json",
-      "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__research_integrity_security_v0.1.0.json\n9 passed in 0.03s\n"
+    "output": "..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_memory_recall/__init__.py       3      0      0      0   100%\nsrc/aion_memory_recall/gate.py          29      1     18      1    96%   26\nsrc/aion_memory_recall/models.py        40      0      0      0   100%\nsrc/aion_memory_recall/store.py         88      6     12      5    89%   127, 167, 180, 193, 197, 204\n--------------------------------------------------------------------------------\nTOTAL                                  160      7     30      6    93%\nCoverage JSON written to file <temporary-coverage-artifact>\n10 passed in 0.08s\n"
+  },
+  {
+    "target": "components/research_integrity_security_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 50,
+      "num_statements": 55,
+      "percent_covered": 85.91549295774648,
+      "percent_covered_display": "86",
+      "missing_lines": 5,
+      "excluded_lines": 0,
+      "percent_statements_covered": 90.9090909090909,
+      "percent_statements_covered_display": "91",
+      "num_branches": 16,
+      "num_partial_branches": 5,
+      "covered_branches": 11,
+      "missing_branches": 5,
+      "percent_branches_covered": 68.75,
+      "percent_branches_covered_display": "69"
     },
-    {
-      "target": "components/upstream_security_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 92.04545454545455,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__upstream_security_v0.1.0.json",
-      "output": ".................................                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__upstream_security_v0.1.0.json\nRequired test coverage of 85.0% reached. Total coverage: 92.05%\n33 passed in 0.10s\n"
+    "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/aion_research_integrity/__init__.py       3      0      0      0   100%\nsrc/aion_research_integrity/gate.py          25      5     16      5    76%   14, 16, 18, 29, 34\nsrc/aion_research_integrity/models.py        27      0      0      0   100%\n-------------------------------------------------------------------------------------\nTOTAL                                        55      5     16      5    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n9 passed in 0.03s\n"
+  },
+  {
+    "target": "components/upstream_security_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 279,
+      "num_statements": 294,
+      "percent_covered": 92.04545454545455,
+      "percent_covered_display": "92",
+      "missing_lines": 15,
+      "excluded_lines": 0,
+      "percent_statements_covered": 94.89795918367346,
+      "percent_statements_covered_display": "95",
+      "num_branches": 58,
+      "num_partial_branches": 9,
+      "covered_branches": 45,
+      "missing_branches": 13,
+      "percent_branches_covered": 77.58620689655173,
+      "percent_branches_covered_display": "78"
     },
-    {
-      "target": "components/whole_system_governed_runtime_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 84.31105047748977,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/components__whole_system_governed_runtime_v0.1.0.json",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=34745) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/components__whole_system_governed_runtime_v0.1.0.json\n21 passed, 1 warning in 0.72s\n"
+    "output": ".................................                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_astra_agent_security/__init__.py         1      0      0      0   100%\nsrc/aion_astra_agent_security/audit.py           21      3      4      0    80%   14-16\nsrc/aion_astra_agent_security/boundary.py        29      0     10      0   100%\nsrc/aion_astra_agent_security/cli.py             52      5     12      5    84%   15, 36, 66, 71, 76\nsrc/aion_astra_agent_security/enums.py           24      0      0      0   100%\nsrc/aion_astra_agent_security/errors.py           2      0      0      0   100%\nsrc/aion_astra_agent_security/hashing.py         15      4      4      1    63%   11-13, 18\nsrc/aion_astra_agent_security/incident.py        26      1     10      1    94%   13\nsrc/aion_astra_agent_security/models.py          93      2      8      2    96%   29, 78\nsrc/aion_astra_agent_security/policy.py           8      0      2      0   100%\nsrc/aion_astra_agent_security/trajectory.py      23      0      8      0   100%\n-----------------------------------------------------------------------------------------\nTOTAL                                           294     15     58      9    92%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 92.05%\n33 passed in 0.11s\n"
+  },
+  {
+    "target": "components/whole_system_governed_runtime_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 538,
+      "num_statements": 607,
+      "percent_covered": 84.31105047748977,
+      "percent_covered_display": "84",
+      "missing_lines": 69,
+      "excluded_lines": 3,
+      "percent_statements_covered": 88.63261943986821,
+      "percent_statements_covered_display": "89",
+      "num_branches": 126,
+      "num_partial_branches": 42,
+      "covered_branches": 80,
+      "missing_branches": 46,
+      "percent_branches_covered": 63.492063492063494,
+      "percent_branches_covered_display": "63"
     },
-    {
-      "target": "examples/bazi-capability_v0.1.1",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 86.24401913875599,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/examples__bazi-capability_v0.1.1.json",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/examples__bazi-capability_v0.1.1.json\nRequired test coverage of 85.0% reached. Total coverage: 86.24%\n82 passed in 0.44s\n"
+    "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=59603) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------\nsrc/aion_whole_system/__init__.py       5      0      0      0   100%\nsrc/aion_whole_system/models.py       191     14     28     14    87%   121, 123, 125, 151, 153, 194, 196, 198, 200, 220, 222, 224, 248, 250\nsrc/aion_whole_system/runtime.py      291     40     78     20    83%   64-72, 111, 113, 115, 132, 137, 191, 218-221, 248-251, 255, 259-261, 266, 274, 307, 309, 336, 356->371, 359, 374, 377-379, 406, 416, 420, 525\nsrc/aion_whole_system/storage.py      120     15     20      8    82%   97, 150-151, 189, 201, 206->209, 226-230, 245, 261, 273, 287-288\n-------------------------------------------------------------------------------\nTOTAL                                 607     69    126     42    84%\nCoverage JSON written to file <temporary-coverage-artifact>\n21 passed, 1 warning in 0.63s\n"
+  },
+  {
+    "target": "examples/bazi-capability_v0.1.1",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 625,
+      "num_statements": 698,
+      "percent_covered": 86.24401913875599,
+      "percent_covered_display": "86",
+      "missing_lines": 73,
+      "excluded_lines": 0,
+      "percent_statements_covered": 89.54154727793696,
+      "percent_statements_covered_display": "90",
+      "num_branches": 138,
+      "num_partial_branches": 34,
+      "covered_branches": 96,
+      "missing_branches": 42,
+      "percent_branches_covered": 69.56521739130434,
+      "percent_branches_covered_display": "70"
     },
-    {
-      "target": "research-labs/affective-cognitive-motivation_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 87.14285714285714,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__affective-cognitive-motivation_v0.1.0.json",
-      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__affective-cognitive-motivation_v0.1.0.json\n7 passed in 0.04s\n"
+    "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_astra_bazi_core/__init__.py              5      0      0      0   100%\nsrc/aion_astra_bazi_core/calculations.py         48      8     10      0    79%   93-99, 103\nsrc/aion_astra_bazi_core/calendar_engine.py      71      9     22      8    82%   24, 40-41, 46, 58, 66, 67->71, 79, 81, 83\nsrc/aion_astra_bazi_core/constants.py            14      0      0      0   100%\nsrc/aion_astra_bazi_core/database.py             37      5      0      0    86%   37-38, 49-51\nsrc/aion_astra_bazi_core/engine.py               82     14     16      3    81%   61-65, 97-100, 132, 180, 226, 240-247\nsrc/aion_astra_bazi_core/enums.py                41      0      0      0   100%\nsrc/aion_astra_bazi_core/errors.py                6      0      0      0   100%\nsrc/aion_astra_bazi_core/integrity.py            47      3     18      3    91%   75, 81, 114\nsrc/aion_astra_bazi_core/models.py              125      0      0      0   100%\nsrc/aion_astra_bazi_core/repository.py          192     34     64     20    78%   135, 151, 195, 197, 206, 236, 336, 377, 380-381, 384-385, 388-389, 392, 428, 431, 467-473, 517, 557, 561, 586, 596, 620, 628, 648, 668, 685, 697, 703, 715\nsrc/aion_astra_bazi_core/rule_profiles.py        10      0      0      0   100%\nsrc/aion_astra_bazi_core/serialization.py        20      0      8      0   100%\n-----------------------------------------------------------------------------------------\nTOTAL                                           698     73    138     34    86%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 86.24%\n82 passed in 0.46s\n"
+  },
+  {
+    "target": "research-labs/affective-cognitive-motivation_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 103,
+      "num_statements": 112,
+      "percent_covered": 87.14285714285714,
+      "percent_covered_display": "87",
+      "missing_lines": 9,
+      "excluded_lines": 0,
+      "percent_statements_covered": 91.96428571428571,
+      "percent_statements_covered_display": "92",
+      "num_branches": 28,
+      "num_partial_branches": 9,
+      "covered_branches": 19,
+      "missing_branches": 9,
+      "percent_branches_covered": 67.85714285714286,
+      "percent_branches_covered_display": "68"
     },
-    {
-      "target": "research-labs/artifact-transformation-lineage_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 86.45161290322581,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__artifact-transformation-lineage_v0.1.0.json",
-      "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__artifact-transformation-lineage_v0.1.0.json\n14 passed in 0.05s\n"
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_affective_motivation/__init__.py       4      0      0      0   100%\nsrc/aion_affective_motivation/engine.py        27      0      4      0   100%\nsrc/aion_affective_motivation/models.py        58      9     20      9    77%   25, 45, 72, 74, 76, 78, 80, 82, 84\nsrc/aion_affective_motivation/policy.py        23      0      4      0   100%\n---------------------------------------------------------------------------------------\nTOTAL                                         112      9     28      9    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed in 0.04s\n"
+  },
+  {
+    "target": "research-labs/artifact-transformation-lineage_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 104,
+      "num_statements": 115,
+      "percent_covered": 86.45161290322581,
+      "percent_covered_display": "86",
+      "missing_lines": 11,
+      "excluded_lines": 0,
+      "percent_statements_covered": 90.43478260869566,
+      "percent_statements_covered_display": "90",
+      "num_branches": 40,
+      "num_partial_branches": 10,
+      "covered_branches": 30,
+      "missing_branches": 10,
+      "percent_branches_covered": 75.0,
+      "percent_branches_covered_display": "75"
     },
-    {
-      "target": "research-labs/causal-internal-state_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 90.58823529411765,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__causal-internal-state_v0.1.0.json",
-      "output": "....                                                                     [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__causal-internal-state_v0.1.0.json\n4 passed in 0.03s\n"
+    "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                    Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------\nsrc/aion_artifact_lineage/__init__.py       2      0      0      0   100%\nsrc/aion_artifact_lineage/lineage.py      113     11     40     10    86%   22, 24, 41, 54, 56, 58, 108, 110, 128, 134, 150\n-----------------------------------------------------------------------------------\nTOTAL                                     115     11     40     10    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n14 passed in 0.05s\n"
+  },
+  {
+    "target": "research-labs/causal-internal-state_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 63,
+      "num_statements": 67,
+      "percent_covered": 90.58823529411765,
+      "percent_covered_display": "91",
+      "missing_lines": 4,
+      "excluded_lines": 0,
+      "percent_statements_covered": 94.02985074626865,
+      "percent_statements_covered_display": "94",
+      "num_branches": 18,
+      "num_partial_branches": 4,
+      "covered_branches": 14,
+      "missing_branches": 4,
+      "percent_branches_covered": 77.77777777777777,
+      "percent_branches_covered_display": "78"
     },
-    {
-      "target": "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 100.0,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__consciousness-theory-indicator-crosswalk_v0.1.0.json",
-      "output": "...                                                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__consciousness-theory-indicator-crosswalk_v0.1.0.json\n3 passed in 0.02s\n"
+    "output": "....                                                                     [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_causal_internal_state/__init__.py       2      0      0      0   100%\nsrc/aion_causal_internal_state/core.py          65      4     18      4    90%   41, 75, 77, 81\n----------------------------------------------------------------------------------------\nTOTAL                                           67      4     18      4    91%\nCoverage JSON written to file <temporary-coverage-artifact>\n4 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 27,
+      "num_statements": 27,
+      "percent_covered": 100.0,
+      "percent_covered_display": "100",
+      "missing_lines": 0,
+      "excluded_lines": 0,
+      "percent_statements_covered": 100.0,
+      "percent_statements_covered_display": "100",
+      "num_branches": 2,
+      "num_partial_branches": 0,
+      "covered_branches": 2,
+      "missing_branches": 0,
+      "percent_branches_covered": 100.0,
+      "percent_branches_covered_display": "100"
     },
-    {
-      "target": "research-labs/core-meaning-commitments_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 86.13138686131387,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__core-meaning-commitments_v0.1.0.json",
-      "output": "...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__core-meaning-commitments_v0.1.0.json\n27 passed in 0.09s\n"
+    "output": "...                                                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                    Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------\nsrc/aion_theory_crosswalk/__init__.py       2      0      0      0   100%\nsrc/aion_theory_crosswalk/core.py          25      0      2      0   100%\n-----------------------------------------------------------------------------------\nTOTAL                                      27      0      2      0   100%\nCoverage JSON written to file <temporary-coverage-artifact>\n3 passed in 0.02s\n"
+  },
+  {
+    "target": "research-labs/core-meaning-commitments_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 296,
+      "num_statements": 327,
+      "percent_covered": 86.13138686131387,
+      "percent_covered_display": "86",
+      "missing_lines": 31,
+      "excluded_lines": 0,
+      "percent_statements_covered": 90.51987767584097,
+      "percent_statements_covered_display": "91",
+      "num_branches": 84,
+      "num_partial_branches": 20,
+      "covered_branches": 58,
+      "missing_branches": 26,
+      "percent_branches_covered": 69.04761904761905,
+      "percent_branches_covered_display": "69"
     },
-    {
-      "target": "research-labs/embodiment-continuity-anchor_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 89.00709219858156,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__embodiment-continuity-anchor_v0.1.0.json",
-      "output": "...............                                                          [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__embodiment-continuity-anchor_v0.1.0.json\n15 passed in 0.06s\n"
+    "output": "...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_core_meaning/__init__.py        5      0      0      0   100%\nsrc/aion_core_meaning/engine.py         81     19     30     10    70%   24, 27, 33, 35, 41, 43, 49, 53-59, 124, 137, 139, 144-145\nsrc/aion_core_meaning/models.py        126     11     32      9    86%   46, 48, 50-52, 77, 85, 108, 110, 143, 145\nsrc/aion_core_meaning/policy.py          9      0      0      0   100%\nsrc/aion_core_meaning/structure.py     106      1     22      1    98%   40\n--------------------------------------------------------------------------------\nTOTAL                                  327     31     84     20    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n27 passed in 0.10s\n"
+  },
+  {
+    "target": "research-labs/embodiment-continuity-anchor_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 197,
+      "num_statements": 214,
+      "percent_covered": 89.00709219858156,
+      "percent_covered_display": "89",
+      "missing_lines": 17,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.05607476635514,
+      "percent_statements_covered_display": "92",
+      "num_branches": 68,
+      "num_partial_branches": 14,
+      "covered_branches": 54,
+      "missing_branches": 14,
+      "percent_branches_covered": 79.41176470588235,
+      "percent_branches_covered_display": "79"
     },
-    {
-      "target": "research-labs/evidence-responsive-governance-reassessment_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 80.47493403693932,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__evidence-responsive-governance-reassessment_v0.1.0.json",
-      "output": "................                                                         [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__evidence-responsive-governance-reassessment_v0.1.0.json\n16 passed in 0.08s\n"
+    "output": "...............                                                          [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                             Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------------------\nsrc/aion_embodiment_continuity/__init__.py           3      0      0      0   100%\nsrc/aion_embodiment_continuity/models.py           142     12     44      9    89%   40, 66, 70, 72, 226-227, 240, 245-246, 253-254, 258\nsrc/aion_embodiment_continuity/sensorimotor.py      69      5     24      5    89%   41, 45, 47, 49, 51\n--------------------------------------------------------------------------------------------\nTOTAL                                              214     17     68     14    89%\nCoverage JSON written to file <temporary-coverage-artifact>\n15 passed in 0.07s\n"
+  },
+  {
+    "target": "research-labs/evidence-responsive-governance-reassessment_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 249,
+      "num_statements": 287,
+      "percent_covered": 80.47493403693932,
+      "percent_covered_display": "80",
+      "missing_lines": 38,
+      "excluded_lines": 3,
+      "percent_statements_covered": 86.7595818815331,
+      "percent_statements_covered_display": "87",
+      "num_branches": 92,
+      "num_partial_branches": 28,
+      "covered_branches": 56,
+      "missing_branches": 36,
+      "percent_branches_covered": 60.869565217391305,
+      "percent_branches_covered_display": "61"
     },
-    {
-      "target": "research-labs/external-agent-sandbox-protocol_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 81.48148148148148,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__external-agent-sandbox-protocol_v0.1.0.json",
-      "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__external-agent-sandbox-protocol_v0.1.0.json\n8 passed in 0.03s\n"
+    "output": "................                                                         [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                           Stmts   Miss Branch BrPart  Cover   Missing\n------------------------------------------------------------------------------------------\nsrc/aion_governance_reassessment/__init__.py       2      0      0      0   100%\nsrc/aion_governance_reassessment/model.py        285     38     92     28    80%   118, 120, 124, 169, 171, 174, 176, 179, 181, 183, 227, 311, 313, 315, 320, 338, 340, 345, 387, 404-413, 444, 446, 480, 482, 485, 487, 499, 501, 548-550, 554-558\n------------------------------------------------------------------------------------------\nTOTAL                                            287     38     92     28    80%\nCoverage JSON written to file <temporary-coverage-artifact>\n16 passed in 0.08s\n"
+  },
+  {
+    "target": "research-labs/external-agent-sandbox-protocol_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 66,
+      "num_statements": 76,
+      "percent_covered": 81.48148148148148,
+      "percent_covered_display": "81",
+      "missing_lines": 10,
+      "excluded_lines": 0,
+      "percent_statements_covered": 86.84210526315789,
+      "percent_statements_covered_display": "87",
+      "num_branches": 32,
+      "num_partial_branches": 10,
+      "covered_branches": 22,
+      "missing_branches": 10,
+      "percent_branches_covered": 68.75,
+      "percent_branches_covered_display": "69"
     },
-    {
-      "target": "research-labs/external-evidence-normalization_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 93.33333333333333,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__external-evidence-normalization_v0.1.0.json",
-      "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__external-evidence-normalization_v0.1.0.json\n8 passed in 0.03s\n"
+    "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_external_agent_sandbox/__init__.py       2      0      0      0   100%\nsrc/aion_external_agent_sandbox/core.py          74     10     32     10    81%   50, 52, 54, 58, 62, 64, 66, 70, 72, 86\n-----------------------------------------------------------------------------------------\nTOTAL                                            76     10     32     10    81%\nCoverage JSON written to file <temporary-coverage-artifact>\n8 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/external-evidence-normalization_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 84,
+      "num_statements": 88,
+      "percent_covered": 93.33333333333333,
+      "percent_covered_display": "93",
+      "missing_lines": 4,
+      "excluded_lines": 0,
+      "percent_statements_covered": 95.45454545454545,
+      "percent_statements_covered_display": "95",
+      "num_branches": 32,
+      "num_partial_branches": 4,
+      "covered_branches": 28,
+      "missing_branches": 4,
+      "percent_branches_covered": 87.5,
+      "percent_branches_covered_display": "88"
     },
-    {
-      "target": "research-labs/external-runtime-baseline-comparison_v0.1.0",
-      "status": "NOT_APPLICABLE",
-      "tested": false,
-      "coverage_percent": null,
-      "branch_coverage": true,
-      "reason": "No tests directory; research-only surface retained with explicit non-applicability."
+    "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                     Stmts   Miss Branch BrPart  Cover   Missing\n------------------------------------------------------------------------------------\nsrc/aion_external_evidence/__init__.py       2      0      0      0   100%\nsrc/aion_external_evidence/models.py        86      4     32      4    93%   61, 63, 67, 156\n------------------------------------------------------------------------------------\nTOTAL                                       88      4     32      4    93%\nCoverage JSON written to file <temporary-coverage-artifact>\n8 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/four-domain-p1-materialization_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 298,
+      "num_statements": 334,
+      "percent_covered": 84.1743119266055,
+      "percent_covered_display": "84",
+      "missing_lines": 36,
+      "excluded_lines": 0,
+      "percent_statements_covered": 89.22155688622755,
+      "percent_statements_covered_display": "89",
+      "num_branches": 102,
+      "num_partial_branches": 33,
+      "covered_branches": 69,
+      "missing_branches": 33,
+      "percent_branches_covered": 67.6470588235294,
+      "percent_branches_covered_display": "68"
     },
-    {
-      "target": "research-labs/four-domain-p1-materialization_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 84.1743119266055,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__four-domain-p1-materialization_v0.1.0.json",
-      "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p1-materialization_v0.1.0.json\n12 passed in 0.09s\n"
+    "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                    Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------\nsrc/aion_four_domain_p1/__init__.py         4      0      0      0   100%\nsrc/aion_four_domain_p1/correction.py     127     17     44     16    81%   10, 36, 39, 59, 63, 93, 98, 104, 116, 119, 125, 162, 175, 178, 180, 183, 204\nsrc/aion_four_domain_p1/evaluation.py      81      2     14      2    96%   21, 23\nsrc/aion_four_domain_p1/temporal.py       122     17     44     15    81%   13, 34, 40, 42, 61, 64, 87, 96, 98, 100, 106, 109, 111, 118, 126, 136, 152\n-----------------------------------------------------------------------------------\nTOTAL                                     334     36    102     33    84%\nCoverage JSON written to file <temporary-coverage-artifact>\n12 passed in 0.09s\n"
+  },
+  {
+    "target": "research-labs/four-domain-p2-materialization_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 333,
+      "num_statements": 375,
+      "percent_covered": 82.75154004106776,
+      "percent_covered_display": "83",
+      "missing_lines": 42,
+      "excluded_lines": 0,
+      "percent_statements_covered": 88.8,
+      "percent_statements_covered_display": "89",
+      "num_branches": 112,
+      "num_partial_branches": 38,
+      "covered_branches": 70,
+      "missing_branches": 42,
+      "percent_branches_covered": 62.5,
+      "percent_branches_covered_display": "62"
     },
-    {
-      "target": "research-labs/four-domain-p2-materialization_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 82.75154004106776,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__four-domain-p2-materialization_v0.1.0.json",
-      "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p2-materialization_v0.1.0.json\n5 passed in 0.10s\n"
+    "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                       Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------------\nsrc/aion_four_domain_p2/__init__.py            4      0      0      0   100%\nsrc/aion_four_domain_p2/orchestration.py     114      9     28     12    85%   51, 93->103, 95, 100-101, 131, 134->143, 136, 173, 202, 205, 234->241, 243->245\nsrc/aion_four_domain_p2/provenance.py        100     12     30      6    83%   113-114, 118-119, 123-124, 131-136, 143, 174\nsrc/aion_four_domain_p2/retrieval.py         157     21     54     20    81%   12, 17, 41, 43, 71, 74, 79, 103, 106, 108, 138, 155, 162, 164, 166, 168, 172, 174, 176, 189-190\n--------------------------------------------------------------------------------------\nTOTAL                                        375     42    112     38    83%\nCoverage JSON written to file <temporary-coverage-artifact>\n5 passed in 0.11s\n"
+  },
+  {
+    "target": "research-labs/four-domain-p3-resilience-experiments_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 238,
+      "num_statements": 276,
+      "percent_covered": 79.8913043478261,
+      "percent_covered_display": "80",
+      "missing_lines": 38,
+      "excluded_lines": 0,
+      "percent_statements_covered": 86.23188405797102,
+      "percent_statements_covered_display": "86",
+      "num_branches": 92,
+      "num_partial_branches": 22,
+      "covered_branches": 56,
+      "missing_branches": 36,
+      "percent_branches_covered": 60.869565217391305,
+      "percent_branches_covered_display": "61"
     },
-    {
-      "target": "research-labs/four-domain-p3-resilience-experiments_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 79.8913043478261,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__four-domain-p3-resilience-experiments_v0.1.0.json",
-      "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p3-resilience-experiments_v0.1.0.json\n7 passed in 0.10s\n"
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/aion_four_domain_p3/__init__.py           5      0      0      0   100%\nsrc/aion_four_domain_p3/ablation.py          50      4     14      4    88%   76, 80, 82, 86\nsrc/aion_four_domain_p3/authority.py         93     12     36     10    83%   10, 34, 36, 38, 41, 43, 45, 71, 79, 83, 149, 152\nsrc/aion_four_domain_p3/longitudinal.py      69      3     20      5    91%   19, 51, 54, 86->90, 87->86\nsrc/aion_four_domain_p3/perturbation.py      59     19     22      3    56%   48-49, 56-72, 80\n-------------------------------------------------------------------------------------\nTOTAL                                       276     38     92     22    80%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed in 0.10s\n"
+  },
+  {
+    "target": "research-labs/four-domain-p4-public-reproducibility_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 237,
+      "num_statements": 257,
+      "percent_covered": 87.7742946708464,
+      "percent_covered_display": "88",
+      "missing_lines": 20,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.21789883268482,
+      "percent_statements_covered_display": "92",
+      "num_branches": 62,
+      "num_partial_branches": 19,
+      "covered_branches": 43,
+      "missing_branches": 19,
+      "percent_branches_covered": 69.35483870967742,
+      "percent_branches_covered_display": "69"
     },
-    {
-      "target": "research-labs/four-domain-p4-public-reproducibility_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 87.7742946708464,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__four-domain-p4-public-reproducibility_v0.1.0.json",
-      "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p4-public-reproducibility_v0.1.0.json\n8 passed in 0.07s\n"
+    "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/aion_four_domain_p4/__init__.py           4      0      0      0   100%\nsrc/aion_four_domain_p4/manifest.py         116     10     28     10    86%   15, 20, 77, 79, 81, 87, 137, 141, 161, 163\nsrc/aion_four_domain_p4/observation.py       48      5     14      5    84%   13, 41, 44, 46, 62\nsrc/aion_four_domain_p4/reproduction.py      89      5     20      4    92%   52-53, 72, 87, 96\n-------------------------------------------------------------------------------------\nTOTAL                                       257     20     62     19    88%\nCoverage JSON written to file <temporary-coverage-artifact>\n8 passed in 0.07s\n"
+  },
+  {
+    "target": "research-labs/four-domain-p5-hypothesis-convergence_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 372,
+      "num_statements": 423,
+      "percent_covered": 82.11091234347049,
+      "percent_covered_display": "82",
+      "missing_lines": 51,
+      "excluded_lines": 0,
+      "percent_statements_covered": 87.94326241134752,
+      "percent_statements_covered_display": "88",
+      "num_branches": 136,
+      "num_partial_branches": 49,
+      "covered_branches": 87,
+      "missing_branches": 49,
+      "percent_branches_covered": 63.970588235294116,
+      "percent_branches_covered_display": "64"
     },
-    {
-      "target": "research-labs/four-domain-p5-hypothesis-convergence_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 82.11091234347049,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__four-domain-p5-hypothesis-convergence_v0.1.0.json",
-      "output": "..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__four-domain-p5-hypothesis-convergence_v0.1.0.json\n10 passed in 0.12s\n"
+    "output": "..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/aion_four_domain_p5/__init__.py           5      0      0      0   100%\nsrc/aion_four_domain_p5/convergence.py       80     13     32     13    77%   10, 36, 39, 41, 43, 74, 77, 79, 81, 93, 104, 115, 125\nsrc/aion_four_domain_p5/disagreement.py      84      9     24      7    85%   11, 42, 45, 68, 74, 82-83, 90-91\nsrc/aion_four_domain_p5/hypothesis.py       172     20     56     20    82%   10, 62, 65, 82, 85, 107, 113, 115, 121, 127, 174, 177, 190, 193, 213, 220, 222, 228, 239, 245\nsrc/aion_four_domain_p5/replication.py       82      9     24      9    83%   10, 41, 44, 68, 77, 79, 107, 112, 116\n-------------------------------------------------------------------------------------\nTOTAL                                       423     51    136     49    82%\nCoverage JSON written to file <temporary-coverage-artifact>\n10 passed in 0.11s\n"
+  },
+  {
+    "target": "research-labs/governed-tool-approval_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 85,
+      "num_statements": 91,
+      "percent_covered": 89.56521739130434,
+      "percent_covered_display": "90",
+      "missing_lines": 6,
+      "excluded_lines": 0,
+      "percent_statements_covered": 93.4065934065934,
+      "percent_statements_covered_display": "93",
+      "num_branches": 24,
+      "num_partial_branches": 6,
+      "covered_branches": 18,
+      "missing_branches": 6,
+      "percent_branches_covered": 75.0,
+      "percent_branches_covered_display": "75"
     },
-    {
-      "target": "research-labs/governed-tool-approval_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 89.56521739130434,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__governed-tool-approval_v0.1.0.json",
-      "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__governed-tool-approval_v0.1.0.json\n12 passed in 0.04s\n"
+    "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_tool_approval/__init__.py       2      0      0      0   100%\nsrc/aion_tool_approval/policy.py        89      6     24      6    89%   25, 38, 42, 56, 61, 63\n--------------------------------------------------------------------------------\nTOTAL                                   91      6     24      6    90%\nCoverage JSON written to file <temporary-coverage-artifact>\n12 passed in 0.05s\n"
+  },
+  {
+    "target": "research-labs/language-core-g1_v0.2.1",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 785,
+      "num_statements": 851,
+      "percent_covered": 88.86844526218951,
+      "percent_covered_display": "89",
+      "missing_lines": 66,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.24441833137486,
+      "percent_statements_covered_display": "92",
+      "num_branches": 236,
+      "num_partial_branches": 55,
+      "covered_branches": 181,
+      "missing_branches": 55,
+      "percent_branches_covered": 76.69491525423729,
+      "percent_branches_covered_display": "77"
     },
-    {
-      "target": "research-labs/hermes-p0-execution-prep_v0.1.0",
-      "status": "NOT_APPLICABLE",
-      "tested": false,
-      "coverage_percent": null,
-      "branch_coverage": true,
-      "reason": "No tests directory; research-only surface retained with explicit non-applicability."
+    "output": "........................................................                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                               Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------------\nsrc/astra_language_core/__init__.py                    5      0      0      0   100%\nsrc/astra_language_core/admission.py                  40      1     14      1    96%   71\nsrc/astra_language_core/capability_governance.py     103     13     28     11    82%   43, 47, 49, 81, 83, 85, 87, 89, 122, 129, 136, 140-141\nsrc/astra_language_core/cli.py                        97      8     26      6    89%   58, 69-71, 86, 101, 104->111, 106, 123\nsrc/astra_language_core/config.py                     44      4      8      2    88%   43, 48, 77-78\nsrc/astra_language_core/dataset.py                    63      6     22      4    88%   14, 55, 61, 85-86, 88\nsrc/astra_language_core/enums.py                      19      0      0      0   100%\nsrc/astra_language_core/errors.py                      5      0      0      0   100%\nsrc/astra_language_core/evaluation.py                 29      0      6      0   100%\nsrc/astra_language_core/g1_ablation.py                17      0      6      2    91%   6->exit, 12->exit\nsrc/astra_language_core/g1_dataset.py                 19      0      6      2    92%   11->exit, 14->exit\nsrc/astra_language_core/g1_lora.py                    18      0      4      1    95%   11->exit\nsrc/astra_language_core/g1_runtime_policy.py          22      1     14      1    94%   24\nsrc/astra_language_core/g1_side_effects.py             4      0      0      0   100%\nsrc/astra_language_core/hashing.py                    28      0      6      0   100%\nsrc/astra_language_core/json_types.py                  7      1      2      1    78%   9\nsrc/astra_language_core/lineage.py                    27      3     18      3    87%   18, 24, 31\nsrc/astra_language_core/metrics.py                    28      0      2      0   100%\nsrc/astra_language_core/models.py                    121     12     34     10    86%   15, 24, 31, 67, 69, 71, 79, 106-107, 153, 155, 157\nsrc/astra_language_core/observations.py               17      2      8      2    84%   13, 17\nsrc/astra_language_core/registry.py                   47      8     12      3    81%   19, 22-23, 29, 32-33, 48-49\nsrc/astra_language_core/reports.py                    33      3      8      3    85%   13, 23, 45\nsrc/astra_language_core/runtime.py                    58      4     12      3    90%   50, 86-87, 89, 97->99\n----------------------------------------------------------------------------------------------\nTOTAL                                                851     66    236     55    89%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 88.87%\n56 passed in 0.26s\n"
+  },
+  {
+    "target": "research-labs/real-model-pilot-protocol_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 62,
+      "num_statements": 70,
+      "percent_covered": 83.6734693877551,
+      "percent_covered_display": "84",
+      "missing_lines": 8,
+      "excluded_lines": 0,
+      "percent_statements_covered": 88.57142857142857,
+      "percent_statements_covered_display": "89",
+      "num_branches": 28,
+      "num_partial_branches": 8,
+      "covered_branches": 20,
+      "missing_branches": 8,
+      "percent_branches_covered": 71.42857142857143,
+      "percent_branches_covered_display": "71"
     },
-    {
-      "target": "research-labs/language-core-g1_v0.2.1",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 88.86844526218951,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__language-core-g1_v0.2.1.json",
-      "output": "........................................................                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__language-core-g1_v0.2.1.json\nRequired test coverage of 85.0% reached. Total coverage: 88.87%\n56 passed in 0.24s\n"
+    "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                       Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------------\nsrc/aion_real_model_protocol/__init__.py       2      0      0      0   100%\nsrc/aion_real_model_protocol/core.py          68      8     28      8    83%   52, 54, 58, 60, 64, 66, 68, 72\n--------------------------------------------------------------------------------------\nTOTAL                                         70      8     28      8    84%\nCoverage JSON written to file <temporary-coverage-artifact>\n6 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/research-evaluation-harness_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 120,
+      "num_statements": 125,
+      "percent_covered": 93.10344827586206,
+      "percent_covered_display": "93",
+      "missing_lines": 5,
+      "excluded_lines": 4,
+      "percent_statements_covered": 96.0,
+      "percent_statements_covered_display": "96",
+      "num_branches": 20,
+      "num_partial_branches": 5,
+      "covered_branches": 15,
+      "missing_branches": 5,
+      "percent_branches_covered": 75.0,
+      "percent_branches_covered_display": "75"
     },
-    {
-      "target": "research-labs/real-model-pilot-protocol_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 83.6734693877551,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__real-model-pilot-protocol_v0.1.0.json",
-      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__real-model-pilot-protocol_v0.1.0.json\n6 passed in 0.03s\n"
+    "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                   Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------\nsrc/aion_research_eval/__init__.py         3      0      0      0   100%\nsrc/aion_research_eval/core.py            97      5     20      5    91%   26, 39, 50, 85, 125\nsrc/aion_research_eval/evaluators.py      25      0      0      0   100%\n----------------------------------------------------------------------------------\nTOTAL                                    125      5     20      5    93%\nCoverage JSON written to file <temporary-coverage-artifact>\n11 passed in 0.05s\n"
+  },
+  {
+    "target": "research-labs/second-order-metacognition_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 1152,
+      "num_statements": 1256,
+      "percent_covered": 87.0580808080808,
+      "percent_covered_display": "87",
+      "missing_lines": 104,
+      "excluded_lines": 4,
+      "percent_statements_covered": 91.71974522292993,
+      "percent_statements_covered_display": "92",
+      "num_branches": 328,
+      "num_partial_branches": 97,
+      "covered_branches": 227,
+      "missing_branches": 101,
+      "percent_branches_covered": 69.20731707317073,
+      "percent_branches_covered_display": "69"
     },
-    {
-      "target": "research-labs/research-evaluation-harness_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 93.10344827586206,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__research-evaluation-harness_v0.1.0.json",
-      "output": "...........                                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__research-evaluation-harness_v0.1.0.json\n11 passed in 0.06s\n"
+    "output": "........................................................................ [ 85%]\n............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_second_order/__init__.py                 8      0      0      0   100%\nsrc/aion_second_order/evaluation_adapter.py      89     11     24     11    81%   61, 63, 65, 67, 82, 87, 99, 101, 121, 149, 204\nsrc/aion_second_order/experiment.py             159      8     42      8    92%   116, 153, 186, 246, 284, 286, 349, 407\nsrc/aion_second_order/intervention.py           146      6     26      6    93%   72, 74, 104, 135, 266, 269\nsrc/aion_second_order/monitor.py                 56      4     28      4    90%   23, 63, 85, 87\nsrc/aion_second_order/records.py                151     16     44     16    84%   47, 52, 67, 69, 72, 74, 76, 106, 113, 153, 155, 157, 159, 278, 287, 305\nsrc/aion_second_order/study.py                  199     16     34     14    87%   42, 45, 99, 142, 144, 146, 192, 219, 245, 272, 274, 301, 305, 372, 414, 416\nsrc/aion_second_order/verification.py           448     43    130     38    85%   75, 90-94, 123, 147, 151, 213, 215, 217, 219, 225, 227, 314, 316, 318, 320, 373, 375, 377, 412, 414, 416, 515, 527, 534, 569, 571, 575, 578, 580, 582, 584, 646, 662, 679, 686, 765, 767, 780, 799\n-----------------------------------------------------------------------------------------\nTOTAL                                          1256    104    328     97    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n84 passed in 0.41s\n"
+  },
+  {
+    "target": "research-labs/selective-memory-control_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 106,
+      "num_statements": 116,
+      "percent_covered": 86.98630136986301,
+      "percent_covered_display": "87",
+      "missing_lines": 10,
+      "excluded_lines": 0,
+      "percent_statements_covered": 91.37931034482759,
+      "percent_statements_covered_display": "91",
+      "num_branches": 30,
+      "num_partial_branches": 9,
+      "covered_branches": 21,
+      "missing_branches": 9,
+      "percent_branches_covered": 70.0,
+      "percent_branches_covered_display": "70"
     },
-    {
-      "target": "research-labs/second-order-metacognition_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 87.0580808080808,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__second-order-metacognition_v0.1.0.json",
-      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__second-order-metacognition_v0.1.0.json\n84 passed in 0.43s\n"
+    "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                    Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------\nsrc/aion_selective_memory/__init__.py       2      0      0      0   100%\nsrc/aion_selective_memory/core.py         114     10     30      9    87%   90, 120, 122, 124, 126, 147, 149, 162, 174, 196\n-----------------------------------------------------------------------------------\nTOTAL                                     116     10     30      9    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n8 passed in 0.05s\n"
+  },
+  {
+    "target": "research-labs/self-model-functional-ablation_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 159,
+      "num_statements": 171,
+      "percent_covered": 88.62559241706161,
+      "percent_covered_display": "89",
+      "missing_lines": 12,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.98245614035088,
+      "percent_statements_covered_display": "93",
+      "num_branches": 40,
+      "num_partial_branches": 12,
+      "covered_branches": 28,
+      "missing_branches": 12,
+      "percent_branches_covered": 70.0,
+      "percent_branches_covered_display": "70"
     },
-    {
-      "target": "research-labs/selective-memory-control_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 86.98630136986301,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__selective-memory-control_v0.1.0.json",
-      "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__selective-memory-control_v0.1.0.json\n8 passed in 0.05s\n"
+    "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_self_model_ablation/__init__.py         3      0      0      0   100%\nsrc/aion_self_model_ablation/experiment.py     107      7     24      7    89%   18, 20, 22, 77, 135, 137, 169\nsrc/aion_self_model_ablation/model.py           61      5     16      5    87%   49, 70, 82, 91, 99\n----------------------------------------------------------------------------------------\nTOTAL                                          171     12     40     12    89%\nCoverage JSON written to file <temporary-coverage-artifact>\n9 passed in 0.06s\n"
+  },
+  {
+    "target": "research-labs/self-report-false-positive-challenge_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 46,
+      "num_statements": 51,
+      "percent_covered": 84.61538461538461,
+      "percent_covered_display": "85",
+      "missing_lines": 5,
+      "excluded_lines": 0,
+      "percent_statements_covered": 90.19607843137256,
+      "percent_statements_covered_display": "90",
+      "num_branches": 14,
+      "num_partial_branches": 5,
+      "covered_branches": 9,
+      "missing_branches": 5,
+      "percent_branches_covered": 64.28571428571429,
+      "percent_branches_covered_display": "64"
     },
-    {
-      "target": "research-labs/self-model-functional-ablation_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 88.62559241706161,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__self-model-functional-ablation_v0.1.0.json",
-      "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-model-functional-ablation_v0.1.0.json\n9 passed in 0.07s\n"
+    "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_self_report_challenge/__init__.py       2      0      0      0   100%\nsrc/aion_self_report_challenge/core.py          49      5     14      5    84%   41, 43, 58, 60, 63\n----------------------------------------------------------------------------------------\nTOTAL                                           51      5     14      5    85%\nCoverage JSON written to file <temporary-coverage-artifact>\n5 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/self-report-instrument-validity-calibration_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 106,
+      "num_statements": 115,
+      "percent_covered": 87.23404255319149,
+      "percent_covered_display": "87",
+      "missing_lines": 9,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.17391304347827,
+      "percent_statements_covered_display": "92",
+      "num_branches": 26,
+      "num_partial_branches": 9,
+      "covered_branches": 17,
+      "missing_branches": 9,
+      "percent_branches_covered": 65.38461538461539,
+      "percent_branches_covered_display": "65"
     },
-    {
-      "target": "research-labs/self-report-false-positive-challenge_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 84.61538461538461,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__self-report-false-positive-challenge_v0.1.0.json",
-      "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-report-false-positive-challenge_v0.1.0.json\n5 passed in 0.03s\n"
+    "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                           Stmts   Miss Branch BrPart  Cover   Missing\n------------------------------------------------------------------------------------------\nsrc/aion_self_report_calibration/__init__.py       2      0      0      0   100%\nsrc/aion_self_report_calibration/core.py         113      9     26      9    87%   86, 114, 132, 134, 171, 173, 175, 202, 204\n------------------------------------------------------------------------------------------\nTOTAL                                            115      9     26      9    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n13 passed in 0.06s\n"
+  },
+  {
+    "target": "research-labs/shared-origin-divergence-governance_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 308,
+      "num_statements": 357,
+      "percent_covered": 81.61616161616162,
+      "percent_covered_display": "82",
+      "missing_lines": 49,
+      "excluded_lines": 0,
+      "percent_statements_covered": 86.27450980392157,
+      "percent_statements_covered_display": "86",
+      "num_branches": 138,
+      "num_partial_branches": 42,
+      "covered_branches": 96,
+      "missing_branches": 42,
+      "percent_branches_covered": 69.56521739130434,
+      "percent_branches_covered_display": "70"
     },
-    {
-      "target": "research-labs/self-report-instrument-validity-calibration_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 87.23404255319149,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__self-report-instrument-validity-calibration_v0.1.0.json",
-      "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__self-report-instrument-validity-calibration_v0.1.0.json\n13 passed in 0.06s\n"
+    "output": "...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                                    Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------------------\nsrc/aion_shared_origin_divergence/__init__.py               3      0      0      0   100%\nsrc/aion_shared_origin_divergence/evidence_adapter.py      76      7     34      7    87%   68, 72, 86, 91, 95, 103, 130\nsrc/aion_shared_origin_divergence/model.py                278     42    104     35    80%   48, 50, 52, 58-59, 82, 84, 90, 92, 94, 96, 115, 117, 124, 127, 143, 145, 153, 157, 159, 162, 183, 185, 194, 196, 198, 200, 203, 218, 223, 225, 227, 256, 261, 266, 295, 310, 313, 328, 337, 340, 347\n---------------------------------------------------------------------------------------------------\nTOTAL                                                     357     49    138     42    82%\nCoverage JSON written to file <temporary-coverage-artifact>\n27 passed in 0.09s\n"
+  },
+  {
+    "target": "research-labs/subjectivity-pipeline_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 91,
+      "num_statements": 104,
+      "percent_covered": 80.88235294117646,
+      "percent_covered_display": "81",
+      "missing_lines": 13,
+      "excluded_lines": 0,
+      "percent_statements_covered": 87.5,
+      "percent_statements_covered_display": "88",
+      "num_branches": 32,
+      "num_partial_branches": 13,
+      "covered_branches": 19,
+      "missing_branches": 13,
+      "percent_branches_covered": 59.375,
+      "percent_branches_covered_display": "59"
     },
-    {
-      "target": "research-labs/shared-origin-divergence-governance_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 81.61616161616162,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__shared-origin-divergence-governance_v0.1.0.json",
-      "output": "...........................                                              [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__shared-origin-divergence-governance_v0.1.0.json\n27 passed in 0.12s\n"
+    "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_subjectivity_pipeline/__init__.py       3      0      0      0   100%\nsrc/aion_subjectivity_pipeline/engine.py        31      4     12      4    81%   29, 60, 62, 67\nsrc/aion_subjectivity_pipeline/models.py        70      9     20      9    80%   40, 42, 44, 46, 48, 60, 73, 75, 77\n----------------------------------------------------------------------------------------\nTOTAL                                          104     13     32     13    81%\nCoverage JSON written to file <temporary-coverage-artifact>\n6 passed in 0.04s\n"
+  },
+  {
+    "target": "research-labs/supervised-control-pilot_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 54,
+      "num_statements": 64,
+      "percent_covered": 79.16666666666667,
+      "percent_covered_display": "79",
+      "missing_lines": 10,
+      "excluded_lines": 0,
+      "percent_statements_covered": 84.375,
+      "percent_statements_covered_display": "84",
+      "num_branches": 32,
+      "num_partial_branches": 10,
+      "covered_branches": 22,
+      "missing_branches": 10,
+      "percent_branches_covered": 68.75,
+      "percent_branches_covered_display": "69"
     },
-    {
-      "target": "research-labs/subjectivity-pipeline_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 80.88235294117646,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__subjectivity-pipeline_v0.1.0.json",
-      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__subjectivity-pipeline_v0.1.0.json\n6 passed in 0.04s\n"
+    "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                    Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------\nsrc/aion_supervised_pilot/__init__.py       2      0      0      0   100%\nsrc/aion_supervised_pilot/core.py          62     10     32     10    79%   40, 44, 46, 48, 52, 56, 60, 64, 66, 68\n-----------------------------------------------------------------------------------\nTOTAL                                      64     10     32     10    79%\nCoverage JSON written to file <temporary-coverage-artifact>\n6 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/trace-provenance-crosswalk_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 100,
+      "num_statements": 102,
+      "percent_covered": 88.88888888888889,
+      "percent_covered_display": "89",
+      "missing_lines": 2,
+      "excluded_lines": 0,
+      "percent_statements_covered": 98.03921568627452,
+      "percent_statements_covered_display": "98",
+      "num_branches": 42,
+      "num_partial_branches": 14,
+      "covered_branches": 28,
+      "missing_branches": 14,
+      "percent_branches_covered": 66.66666666666667,
+      "percent_branches_covered_display": "67"
     },
-    {
-      "target": "research-labs/supervised-control-pilot_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 79.16666666666667,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__supervised-control-pilot_v0.1.0.json",
-      "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__supervised-control-pilot_v0.1.0.json\n6 passed in 0.03s\n"
+    "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                    Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------\nsrc/aion_trace_crosswalk/__init__.py        2      0      0      0   100%\nsrc/aion_trace_crosswalk/crosswalk.py     100      2     42     14    89%   42, 44, 97->99, 105->107, 107->109, 109->111, 111->113, 113->115, 115->117, 117->119, 119->121, 121->123, 123->125, 132->134\n-----------------------------------------------------------------------------------\nTOTAL                                     102      2     42     14    89%\nCoverage JSON written to file <temporary-coverage-artifact>\n12 passed in 0.05s\n"
+  },
+  {
+    "target": "research-labs/trajectory-evaluation_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 119,
+      "num_statements": 127,
+      "percent_covered": 90.9090909090909,
+      "percent_covered_display": "91",
+      "missing_lines": 8,
+      "excluded_lines": 0,
+      "percent_statements_covered": 93.7007874015748,
+      "percent_statements_covered_display": "94",
+      "num_branches": 38,
+      "num_partial_branches": 5,
+      "covered_branches": 31,
+      "missing_branches": 7,
+      "percent_branches_covered": 81.57894736842105,
+      "percent_branches_covered_display": "82"
     },
-    {
-      "target": "research-labs/trace-provenance-crosswalk_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 88.88888888888889,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__trace-provenance-crosswalk_v0.1.0.json",
-      "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__trace-provenance-crosswalk_v0.1.0.json\n12 passed in 0.06s\n"
+    "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                     Stmts   Miss Branch BrPart  Cover   Missing\n------------------------------------------------------------------------------------\nsrc/aion_trajectory_eval/__init__.py         2      0      0      0   100%\nsrc/aion_trajectory_eval/trajectory.py     125      8     38      5    91%   27, 29, 41, 61, 88-90, 95\n------------------------------------------------------------------------------------\nTOTAL                                      127      8     38      5    91%\nCoverage JSON written to file <temporary-coverage-artifact>\n14 passed in 0.06s\n"
+  },
+  {
+    "target": "research-labs/triangulated-subjectivity-evidence_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 60,
+      "num_statements": 63,
+      "percent_covered": 92.20779220779221,
+      "percent_covered_display": "92",
+      "missing_lines": 3,
+      "excluded_lines": 0,
+      "percent_statements_covered": 95.23809523809524,
+      "percent_statements_covered_display": "95",
+      "num_branches": 14,
+      "num_partial_branches": 3,
+      "covered_branches": 11,
+      "missing_branches": 3,
+      "percent_branches_covered": 78.57142857142857,
+      "percent_branches_covered_display": "79"
     },
-    {
-      "target": "research-labs/trajectory-evaluation_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 90.9090909090909,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__trajectory-evaluation_v0.1.0.json",
-      "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__trajectory-evaluation_v0.1.0.json\n14 passed in 0.06s\n"
+    "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_triangulated_evidence/__init__.py       2      0      0      0   100%\nsrc/aion_triangulated_evidence/core.py          61      3     14      3    92%   53, 65, 69\n----------------------------------------------------------------------------------------\nTOTAL                                           63      3     14      3    92%\nCoverage JSON written to file <temporary-coverage-artifact>\n5 passed in 0.03s\n"
+  },
+  {
+    "target": "research-labs/twin-genesis-embodiment_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 146,
+      "num_statements": 166,
+      "percent_covered": 86.44859813084112,
+      "percent_covered_display": "86",
+      "missing_lines": 20,
+      "excluded_lines": 0,
+      "percent_statements_covered": 87.95180722891567,
+      "percent_statements_covered_display": "88",
+      "num_branches": 48,
+      "num_partial_branches": 5,
+      "covered_branches": 39,
+      "missing_branches": 9,
+      "percent_branches_covered": 81.25,
+      "percent_branches_covered_display": "81"
     },
-    {
-      "target": "research-labs/triangulated-subjectivity-evidence_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 92.20779220779221,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__triangulated-subjectivity-evidence_v0.1.0.json",
-      "output": ".....                                                                    [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__triangulated-subjectivity-evidence_v0.1.0.json\n5 passed in 0.03s\n"
-    },
-    {
-      "target": "research-labs/twin-genesis-embodiment_v0.1.0",
-      "status": "MEASURED",
-      "tested": true,
-      "returncode": 0,
-      "coverage_percent": 86.44859813084112,
-      "branch_coverage": true,
-      "raw_evidence": "qa/coverage/research-labs__twin-genesis-embodiment_v0.1.0.json",
-      "output": ".................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nCoverage JSON written to file <CANDIDATE_ROOT>/qa/coverage/research-labs__twin-genesis-embodiment_v0.1.0.json\n17 passed in 0.12s\n"
-    }
-  ]
-}
+    "output": "..................                                                       [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                                Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------------\nsrc/aion_astra_twin_embodiment/__init__.py              5      0      0      0   100%\nsrc/aion_astra_twin_embodiment/cli.py                  14     14      4      0     0%   1-35\nsrc/aion_astra_twin_embodiment/models.py               45      0      0      0   100%\nsrc/aion_astra_twin_embodiment/runtime.py              27      1      0      0    96%   34\nsrc/aion_astra_twin_embodiment/runtime_binding.py      22      1      4      1    92%   37\nsrc/aion_astra_twin_embodiment/validation.py           53      4     40      4    91%   37, 41, 63, 66\n-----------------------------------------------------------------------------------------------\nTOTAL                                                 166     20     48      5    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n18 passed in 0.11s\n"
+  }
+]

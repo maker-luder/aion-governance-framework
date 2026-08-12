@@ -1,0 +1,316 @@
+{
+  "schema_version": "0.1.0",
+  "reconciliation_type": "CURRENT_TEST_EVIDENCE_TO_STATUS_LOCK",
+  "target_head": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+  "generated_at": "2026-08-12T22:58:50.670699+00:00",
+  "target_count": 50,
+  "test_count": 881,
+  "failed_targets": [],
+  "records": [
+    {
+      "target": "components/aion_runtime_v0.1.0",
+      "tests_passed": 11,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/aion_runtime_v0.2.0",
+      "tests_passed": 21,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/astra_runtime_v0.1.0",
+      "tests_passed": 5,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/astra_workbench_v1.0.0",
+      "tests_passed": 89,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/continuity_governance_v0.1.0",
+      "tests_passed": 7,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/encounter_governance_v0.1.0",
+      "tests_passed": 7,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/executable_runtime_v0.1.0",
+      "tests_passed": 13,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/governance_kernel_v0.4.0",
+      "tests_passed": 46,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/identity_governance_v0.1.0",
+      "tests_passed": 35,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/individual_runtime_state_v0.1.0",
+      "tests_passed": 14,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/iqc_quality_inspection_v0.1.0",
+      "tests_passed": 13,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/language_core_v0.1.0",
+      "tests_passed": 29,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/memory_recall_governance_v0.1.0",
+      "tests_passed": 10,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/research_integrity_security_v0.1.0",
+      "tests_passed": 9,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/upstream_security_v0.1.0",
+      "tests_passed": 33,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "components/whole_system_governed_runtime_v0.1.0",
+      "tests_passed": 21,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "examples/bazi-capability_v0.1.1",
+      "tests_passed": 82,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/affective-cognitive-motivation_v0.1.0",
+      "tests_passed": 7,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/artifact-transformation-lineage_v0.1.0",
+      "tests_passed": 14,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/causal-internal-state_v0.1.0",
+      "tests_passed": 4,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/consciousness-theory-indicator-crosswalk_v0.1.0",
+      "tests_passed": 3,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/core-meaning-commitments_v0.1.0",
+      "tests_passed": 27,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/embodiment-continuity-anchor_v0.1.0",
+      "tests_passed": 15,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/evidence-responsive-governance-reassessment_v0.1.0",
+      "tests_passed": 16,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/external-agent-sandbox-protocol_v0.1.0",
+      "tests_passed": 8,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/external-evidence-normalization_v0.1.0",
+      "tests_passed": 8,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/external-runtime-baseline-comparison_v0.1.0",
+      "tests_passed": 0,
+      "returncode": 0,
+      "tested": false
+    },
+    {
+      "target": "research-labs/four-domain-p1-materialization_v0.1.0",
+      "tests_passed": 12,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/four-domain-p2-materialization_v0.1.0",
+      "tests_passed": 5,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/four-domain-p3-resilience-experiments_v0.1.0",
+      "tests_passed": 7,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/four-domain-p4-public-reproducibility_v0.1.0",
+      "tests_passed": 8,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/four-domain-p5-hypothesis-convergence_v0.1.0",
+      "tests_passed": 10,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/governed-tool-approval_v0.1.0",
+      "tests_passed": 12,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/hermes-p0-execution-prep_v0.1.0",
+      "tests_passed": 0,
+      "returncode": 0,
+      "tested": false
+    },
+    {
+      "target": "research-labs/integration-candidates",
+      "tests_passed": 0,
+      "returncode": 0,
+      "tested": false
+    },
+    {
+      "target": "research-labs/language-core-g1_v0.2.1",
+      "tests_passed": 56,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/real-model-pilot-protocol_v0.1.0",
+      "tests_passed": 6,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/research-evaluation-harness_v0.1.0",
+      "tests_passed": 11,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/second-order-metacognition_v0.1.0",
+      "tests_passed": 84,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/selective-memory-control_v0.1.0",
+      "tests_passed": 8,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/self-model-functional-ablation_v0.1.0",
+      "tests_passed": 9,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/self-report-false-positive-challenge_v0.1.0",
+      "tests_passed": 5,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/self-report-instrument-validity-calibration_v0.1.0",
+      "tests_passed": 13,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/shared-origin-divergence-governance_v0.1.0",
+      "tests_passed": 27,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/subjectivity-pipeline_v0.1.0",
+      "tests_passed": 6,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/supervised-control-pilot_v0.1.0",
+      "tests_passed": 6,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/trace-provenance-crosswalk_v0.1.0",
+      "tests_passed": 12,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/trajectory-evaluation_v0.1.0",
+      "tests_passed": 14,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/triangulated-subjectivity-evidence_v0.1.0",
+      "tests_passed": 5,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/twin-genesis-embodiment_v0.1.0",
+      "tests_passed": 18,
+      "returncode": 0,
+      "tested": true
+    }
+  ],
+  "status": "PASS",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "independent_ivv": "NOT_ACHIEVED",
+  "mutation_scope": "QA_ARTIFACTS_ONLY"
+}

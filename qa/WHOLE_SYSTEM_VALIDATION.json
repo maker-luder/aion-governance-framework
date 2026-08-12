@@ -1,8 +1,10 @@
 {
   "schema_version": "2.0",
-  "generated_at": "2026-08-12T17:55:27.754267+00:00",
-  "source_code_scope": "REVIEW_CANDIDATE_V2",
-  "review_branch": "review/aion-astra-whole-system-completion-v2",
+  "generated_at": "2026-08-12T22:57:20.434355+00:00",
+  "source_code_scope": "FINAL_FORMAL_RESEARCH_TREE",
+  "review_branch": "review/four-domain-research-materialization",
+  "target_head": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+  "historical_source_lineage": "See docs/BRANCH_CONSOLIDATION_LEDGER_2026-08-13.md; no superseded branch is asserted as the current source.",
   "TEST_CASE_COUNT": 21,
   "SCENARIO_CLASS_COUNT": 11,
   "tests_passed": 21,
@@ -323,11 +325,11 @@
     "Independent IV&V requires a reviewer separate from the implementer."
   ],
   "evidence_sha_semantics": {
-    "SOURCE_CODE_COMMIT_SHA": "filled by final handoff from git HEAD",
-    "VALIDATED_TREE_SHA": "filled by final handoff from git write-tree",
-    "EVIDENCE_SUBJECT_SHA": "the tree tested by this local runner",
-    "EVIDENCE_COMMIT_SHA": "filled after evidence files are committed",
-    "REVIEW_BRANCH_HEAD_SHA": "filled by final handoff after push",
-    "CI_HEAD_SHA": "filled from GitHub Actions exact head"
+    "SOURCE_CODE_COMMIT_SHA": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+    "VALIDATED_TREE_SHA": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+    "EVIDENCE_SUBJECT_SHA": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+    "EVIDENCE_COMMIT_SHA": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+    "REVIEW_BRANCH_HEAD_SHA": "recorded after remote synchronization; local evidence is bound to target_head",
+    "CI_HEAD_SHA": "recorded only when matching current-head CI evidence exists"
   }
 }

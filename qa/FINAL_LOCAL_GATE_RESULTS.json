@@ -1,51 +1,127 @@
 {
-  "schema_version": "1.0",
-  "scope": "REVIEW_CANDIDATE_V2",
+  "schema_version": "2.0",
+  "scope": "FINAL_FORMAL_RESEARCH_TREE",
+  "target_head": "281e442edaafdb6c4c68108fc1eea417be3838f8",
   "gates": {
-    "public_tree_scan": {
-      "status": "PASS",
-      "command": "python3 scripts/scan_public_tree.py",
-      "returncode": 0
-    },
     "compileall": {
       "status": "PASS",
-      "command": "python3 -m compileall -q components examples research-labs scripts",
+      "command": "/usr/bin/python3 -m compileall -q components examples research-labs scripts tests",
       "returncode": 0
     },
-    "current_manifest_integrity": {
+    "source_state_binding": {
       "status": "PASS",
-      "command": "python3 scripts/manifest_integrity.py --generate --output-dir qa/current_manifest && python3 scripts/manifest_integrity.py --manifest-dir qa/current_manifest",
-      "returncode": 0,
-      "files": 962,
-      "manifest_scope": "CURRENT_REVIEW_TREE"
+      "command": "/usr/bin/python3 scripts/check_source_state_binding.py --root . --expected-head 281e442edaafdb6c4c68108fc1eea417be3838f8",
+      "returncode": 0
+    },
+    "public_tree_scan": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/scan_public_tree.py",
+      "returncode": 0
     },
     "sensitive_material_scan": {
       "status": "PASS",
-      "command": "python3 scripts/scan_sensitive_material.py",
-      "returncode": 0,
-      "scanned_files": 919,
-      "narrow_redaction_policy_exception": "only explicit regex source pattern with REDACTED_USER marker"
+      "command": "/usr/bin/python3 scripts/scan_sensitive_material.py",
+      "returncode": 0
     },
     "stale_evidence_scan": {
       "status": "PASS",
-      "command": "python3 scripts/scan_stale_evidence.py",
+      "command": "/usr/bin/python3 scripts/scan_stale_evidence.py",
       "returncode": 0
     },
     "research_scope_lock": {
-      "status": "PASS_LOCAL",
-      "command": "python3 scripts/check_research_scope_lock.py && python3 scripts/check_autonomous_growth_contract.py",
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/check_research_scope_lock.py",
+      "returncode": 0
+    },
+    "autonomous_growth_contract": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/check_autonomous_growth_contract.py",
       "returncode": 0
     },
     "runtime_strong_qa": {
-      "status": "PASS_LOCAL",
+      "status": "PASS",
       "command": "bash scripts/run_runtime_strong_qa.sh",
       "returncode": 0
     },
-    "verify_release": {
-      "status": "EXPECTED_NON_APPLICABILITY_FAIL",
-      "command": "python3 scripts/verify_release.py",
-      "returncode": 1,
-      "reason": "historical frozen manifest verifier detects post-RC tree hash mismatches; current v2 uses versioned qa/current_manifest instead"
+    "whole_system_validation": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/run_whole_system_validation.py",
+      "returncode": 0
+    },
+    "component_tests": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/run_component_tests.py",
+      "returncode": 0
+    },
+    "integration_candidate_tests": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/run_integration_candidate_tests.py",
+      "returncode": 0
+    },
+    "root_tests": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 -m pytest -q tests",
+      "returncode": 0
+    },
+    "model_candidate_tests": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 -m pytest -q research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/tests",
+      "returncode": 0
+    },
+    "manifest_generate": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/manifest_integrity.py --generate --output-dir qa/final_current_manifest",
+      "returncode": 0
+    },
+    "manifest_verify": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/manifest_integrity.py --manifest-dir qa/final_current_manifest",
+      "returncode": 0
+    },
+    "branch_coverage": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/run_branch_coverage.py",
+      "returncode": 0
+    },
+    "current_coverage": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/run_current_coverage.py",
+      "returncode": 0
+    },
+    "build_integration_inventory": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/build_integration_inventory.py",
+      "returncode": 0
+    },
+    "build_authoritative_gap_inventory": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/build_authoritative_gap_inventory.py",
+      "returncode": 0
+    },
+    "current_qa_reconciliation": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/reconcile_current_qa.py --root . --target-head 281e442edaafdb6c4c68108fc1eea417be3838f8 --public-scan-status PASS",
+      "returncode": 0
+    },
+    "evidence_traceability": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 scripts/generate_evidence_traceability.py --root . --target-head 281e442edaafdb6c4c68108fc1eea417be3838f8 --output qa/CURRENT_EVIDENCE_TRACEABILITY.json",
+      "returncode": 0
+    },
+    "iqc_r1": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 -m aion_iqc.cli --root . --target-head 281e442edaafdb6c4c68108fc1eea417be3838f8 --require-traceability --require-qa-reconciliation --require-component-contracts --require-source-state-binding --output qa/IQC_REPORT.json",
+      "returncode": 0
+    },
+    "automation_syntax": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 -c import yaml, pathlib; [yaml.safe_load(p.read_text()) for p in pathlib.Path('.github/workflows').glob('*.yml')]; print('yaml=PASS')",
+      "returncode": 0
+    },
+    "iqc_and_evidence_regressions": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 -m pytest -q scripts/test_manifest_integrity.py tests/test_research_evidence_schema_v0_2.py tests/test_research_evidence_validator.py tests/test_release_tooling.py tests/test_source_state_binding.py tests/test_evidence_traceability.py",
+      "returncode": 0
     }
   },
   "canonical_effect": "NONE",
