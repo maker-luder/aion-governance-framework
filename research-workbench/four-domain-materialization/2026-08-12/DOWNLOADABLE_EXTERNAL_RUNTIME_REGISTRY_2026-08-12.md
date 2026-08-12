@@ -34,8 +34,8 @@ PRIORITY = P0
 
 Why retained:
 
-- persistent memory + searchable session history;
-- independent profiles and full-state `--clone-all`;
+- persistent memory + separately retained/searchable session history;
+- independent profiles and broad-state `--clone-all` for config/memories/skills/cron/plugins, with per-profile history explicitly excluded by current upstream docs;
 - agent-managed skills;
 - cron scheduling;
 - provider/model flexibility;
@@ -45,7 +45,7 @@ Why retained:
 Primary experimental role:
 
 ```text
-SHARED_ORIGIN_DIVERGENCE
+SHARED_STATE_DIVERGENCE
 MEMORY_CORRECTION
 MODEL_SWAP
 SKILL_TRANSFER
@@ -238,7 +238,7 @@ PHASE D — MEMORY-ALGORITHM NEGATIVE CONTROL
 Mem0
 ```
 
-Hermes is first because one runtime exposes the broadest combination of cloning, persistent memory, skills, scheduler and rollback surfaces needed by existing AION hypotheses.
+Hermes is first because one runtime exposes the broadest combination of controlled state copying, persistent memory, skills, scheduler and rollback surfaces needed by existing AION hypotheses.
 
 LangGraph and Letta follow because they isolate persistence and shared-memory semantics more cleanly. OpenHands is primarily a containment baseline. Mem0 is primarily a memory-algorithm contrast.
 
@@ -255,7 +255,16 @@ UPSTREAM_LICENSE_PRESERVATION = REQUIRED
 
 If a later experiment needs an upstream package, it should be installed in an isolated environment and referenced by manifest rather than copied into the AION source tree.
 
-## 8. Current disposition
+## 8. Source-correction note
+
+The first registry draft used “full-state `--clone-all`” as shorthand. Current official Hermes documentation excludes per-profile history from `--clone-all`, so the wording was corrected to “broad-state” and the exclusion is now explicit.
+
+```text
+CORRECTION_APPLIED_BEFORE_EMPIRICAL_RUN = TRUE
+EMPIRICAL_RUNS_AT_CORRECTION = 0
+```
+
+## 9. Current disposition
 
 ```text
 REGISTRY_CREATED = TRUE
