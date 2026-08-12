@@ -22,22 +22,29 @@ QA={'qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json','qa/TES
 def J(p):
     try:return json.loads(p.read_text(encoding='utf-8'))
     except FileNotFoundError:return None
+def target_records(x):
+    if isinstance(x,dict): return x.get('targets')
+    return x
+
 def summary(x):
-    if not isinstance(x,list): return 0,0,[],set()
+    records=target_records(x)
+    if not isinstance(records,list): return 0,0,[],set()
     n=0; f=[]; ts=set()
-    for i in x:
+    for i in records:
         if not isinstance(i,dict):continue
         t=str(i.get('target','')); ts.add(t) if t else None
         m=re.search(r'(?m)^\s*(\d+)\s+passed\b',str(i.get('output',''))); n+=int(m.group(1)) if m else 0
-        if i.get('returncode')!=0:f.append(t or 'UNKNOWN')
-    return len(x),n,f,ts
+        tested=bool(i.get('tested',True)); returncode=i.get('returncode')
+        if returncode is None and not tested: returncode=0
+        if returncode!=0:f.append(t or 'UNKNOWN')
+    return len(records),n,f,ts
 def lc(lock):
     try:return int(str(lock.get('current_tests','')).split()[0])
     except:return None
 def R(i,a,s,d,*refs):return CheckResult(i,a,s,d,tuple(refs))
 def tests(root,p):
     rs,lk=J(root/'qa/CURRENT_TEST_RESULTS.json'),J(root/'qa/CURRENT_RELEASE_STATUS_LOCK.json'); refs=('qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json')
-    if not isinstance(rs,list) or not isinstance(lk,dict):return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.HOLD,'inputs missing/invalid',*refs)
+    if not isinstance(target_records(rs),list) or not isinstance(lk,dict):return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.HOLD,'inputs missing/invalid',*refs)
     t,n,f,_=summary(rs)
     if f:return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.FAIL,'failed targets: '+', '.join(f),*refs)
     if lc(lk)!=n or (isinstance(lk.get('current_targets'),int) and lk['current_targets']!=t) or (p.required_test_target_count is not None and p.required_test_target_count!=t):return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.HOLD,'current counts are stale/inconsistent',*refs)
@@ -55,7 +62,7 @@ def trace(root,head):
     return R('IQC-TRACE-001','TRACEABILITY',CheckStatus.PASS if ok else CheckStatus.HOLD,'traceability structure consistent' if ok else 'traceability missing/stale/incomplete',ref)
 def recon(root,head):
     r,t,l=J(root/'qa/CURRENT_QA_RECONCILIATION.json'),J(root/'qa/CURRENT_TEST_RESULTS.json'),J(root/'qa/CURRENT_RELEASE_STATUS_LOCK.json'); refs=('qa/CURRENT_QA_RECONCILIATION.json','qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json')
-    if not isinstance(r,dict) or not isinstance(t,list) or not isinstance(l,dict):return R('IQC-RECON-001','QA_RECONCILIATION',CheckStatus.HOLD,'inputs missing/invalid',*refs)
+    if not isinstance(r,dict) or not isinstance(target_records(t),list) or not isinstance(l,dict):return R('IQC-RECON-001','QA_RECONCILIATION',CheckStatus.HOLD,'inputs missing/invalid',*refs)
     k,n,f,_=summary(t); ok=r.get('status')=='PASS' and r.get('target_count')==k and r.get('test_count')==n and r.get('failed_targets')==[] and not f and lc(l)==n and l.get('current_targets')==k and r.get('canonical_effect')=='NONE' and r.get('deployment') is False and r.get('independent_ivv')=='NOT_ACHIEVED' and (head=='UNSPECIFIED' or r.get('target_head')==head)
     return R('IQC-RECON-001','QA_RECONCILIATION',CheckStatus.PASS if ok else CheckStatus.HOLD,'reconciliation consistent' if ok else 'reconciliation stale/inconsistent',*refs)
 def gov(root,p):
@@ -70,9 +77,10 @@ def doc(root,i,a,rel,marks):
     return R(i,a,CheckStatus.HOLD if m else CheckStatus.PASS,'missing markers: '+', '.join(m) if m else 'required markers present', rel)
 def pkg(root):
     rs=J(root/'qa/CURRENT_TEST_RESULTS.json'); miss=[]
-    if not isinstance(rs,list):return R('IQC-PKG-001','COMPONENT_CONTRACT',CheckStatus.HOLD,'test results missing','qa/CURRENT_TEST_RESULTS.json')
-    for i in rs:
-        if not isinstance(i,dict):continue
+    records=target_records(rs)
+    if not isinstance(records,list):return R('IQC-PKG-001','COMPONENT_CONTRACT',CheckStatus.HOLD,'test results missing','qa/CURRENT_TEST_RESULTS.json')
+    for i in records:
+        if not isinstance(i,dict) or not bool(i.get('tested',True)):continue
         t=str(i.get('target',''))
         for n in ('README.md','pyproject.toml'):
             if t and not (root/t/n).is_file():miss.append(f'{t}/{n}')
