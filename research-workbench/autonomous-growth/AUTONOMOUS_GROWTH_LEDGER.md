@@ -100,3 +100,84 @@ HOLD:
 - validated individuation thresholds;
 - subjectivity, consciousness, numerical identity, moral status or authority conclusions;
 - promotion to `main`, canonical state, runtime deployment, tag or release.
+
+## Autonomous cycle — 2026-08-12 — evidence-profile adapter
+
+```text
+STARTING_RESEARCH_SHA = f426cfb8f8d0f8a8411d674b368537cbcc3509fe
+CANDIDATE_BRANCH = autogrow/2026-08-12-evidence-profile-adapter
+EPISTEMIC_ROLE = MEASUREMENT
+RESULT_CLASS = INCONCLUSIVE
+INTEGRATION_STATUS = HOLD
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+Research question:
+
+> Can AION/Astra lineage-local evidence profiles be bound back to the standing whitepaper-derived evidence architecture without becoming a second subjectivity ontology or scoring system?
+
+Candidate increment:
+
+- adds a reference-only evidence adapter for whitepaper-aligned dimensions;
+- requires alternative-explanation, provenance, admissibility and claim-scope references;
+- keeps lineage binding explicit;
+- prohibits subjectivity/consciousness/moral-status promotion and main/canonical/runtime effects;
+- includes negative tests for cross-lineage binding and prohibited promotion.
+
+Validation status at autonomous decision time:
+
+- local checkout/pytest attempt was blocked because the execution environment could not resolve `github.com`;
+- candidate head had no GitHub status contexts at review time;
+- therefore the autonomous cycle correctly remained `HOLD` and was not merged.
+
+Cycle record: `cycles/2026-08-12-evidence-profile-adapter.json`.
+
+### Supervised whitepaper / web / branch repair
+
+The Human Research Owner later requested a full cross-check against the locally retained whitepaper lineage, current public primary/official sources and the research branch.
+
+ChatGPT research review identified two repair targets:
+
+1. the candidate's five-item local `EvidenceDimension` enum risked becoming a competing scientific evidence taxonomy rather than a reference to the standing whitepaper architecture;
+2. autonomous integration rules required research-specific checks before merge, but the workflows did not yet form a complete all-path pre-merge loop for PRs targeting the research branch.
+
+Supervised repairs:
+
+```text
+LINEAGE_EVIDENCE_PROFILE = LOCAL_INDEX / ISOLATION_LAYER
+STANDING_EVIDENCE_DIMENSIONS = WHITEPAPER_AB_6_REFERENCE_ONLY
+SECOND_EVIDENCE_ONTOLOGY = REJECTED
+PREMERGE_RESEARCH_GATES = REQUIRED
+ALL_CANDIDATE_PATHS = TRUE
+```
+
+The adapter now preserves explicit references for inference stage, alternative explanations, causal intervention, ablation, counterfactual tests, cross-context robustness, replication, provenance, admissibility, claim scope and unresolved gaps. It adds no scoring, E0–E5 mapping, rights logic or authority promotion.
+
+The original `INCONCLUSIVE / HOLD` record remains unchanged as historical audit evidence. It is not retroactively rewritten as a successful autonomous validation.
+
+A supervised candidate head `d7661b121b81cb8f8dab912ec9bc7a3ac930b765` first demonstrated the repaired all-path gate behavior with all three checks green. A later ledger-only head was then deliberately allowed to trigger fresh checks again, confirming that documentation-only candidate changes also receive new research-specific validation.
+
+Latest supervised candidate validation head: `d0b35dcbe41fffe0004eb9dff9d8bfd9c6cfe09b`
+
+```text
+Research Scope Lock #38 = SUCCESS
+Research Workbench CI #59 = SUCCESS
+Quality #196 = SUCCESS
+Verify shared-origin divergence governance = SUCCESS
+```
+
+Supervised disposition:
+
+```text
+AUTONOMOUS_INITIAL_DISPOSITION = HOLD
+SUPERVISED_REPAIR = COMPLETE
+SUPERVISED_PREMERGE_GATES = GREEN
+SCIENTIFIC_PROMOTION = NONE
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+Integration into the research branch may proceed through ordinary reviewed PR history. This does not change the autonomous cycle result class or establish scientific validity.

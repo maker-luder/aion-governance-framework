@@ -42,7 +42,9 @@ The integrated whitepaper lineage already requires:
 - Astra research memory not to be treated as AION primary memory;
 - role, authority, decision and memory-position drift to be auditable;
 - engineering success not to be promoted into subjectivity evidence;
-- AION identity and event-life-history boundaries to remain explicit.
+- AION identity and event-life-history boundaries to remain explicit;
+- common origin not to be treated as same identity;
+- evidence to remain multidimensional, falsifiable and open to alternative explanations.
 
 This lab extends those protections from **anti-contamination rules** into an explicit **lineage-and-divergence research substrate**.
 
@@ -55,8 +57,44 @@ This lab extends those protections from **anti-contamination rules** into an exp
 - `LineageEvent` / `LineageLedger`: records a consistent, ordered derivation history with transparent deterministic integrity digests.
 - `LineageEvidenceProfile`: keeps AION and Astra evidence, replication and counterevidence profiles separate.
 - `AuthorityEnvelope`: prevents cross-lineage authority acceptance from exceeding the explicitly offered set or silently merging authority sources.
+- `EvidenceArchitectureReference`: binds lineage-local material back to the standing whitepaper evidence architecture without scoring or creating a second ontology.
 
 The second engineering pass also requires adopted/rejected encounter items to be part of the exchanged set, separates controlled from divergent comparison factors, and records evaluator profiles and alternative explanations.
+
+## Evidence architecture binding
+
+`LineageEvidenceProfile` is only a lineage-local **index and isolation layer**. Its field names are not a replacement scientific evidence taxonomy.
+
+```text
+LINEAGE_EVIDENCE_PROFILE
+= LOCAL_INDEX / ISOLATION_LAYER
+
+LINEAGE_EVIDENCE_PROFILE
+!= SECOND_SUBJECTIVITY_EVIDENCE_ARCHITECTURE
+```
+
+`EvidenceArchitectureReference` uses controlled references to the six standing whitepaper AB.6 dimensions:
+
+```text
+CAUSAL_BOUNDARY
+DIACHRONIC_CONTINUITY
+SELF_MODEL_CAUSAL_ROLE
+ENDOGENOUS_GOAL_STRATEGY_ADJUSTMENT
+COUNTERFACTUAL_SELF_CONSISTENCY
+SYSTEM_CONSTITUTION_DIFFERENCE_STATE
+```
+
+It also keeps explicit references for the standing four-stage inference location, alternative explanations, causal intervention, ablation, counterfactual testing, cross-context robustness, replication, provenance, admissibility and claim scope.
+
+Missing mechanism or replication evidence is preserved as incompleteness/HOLD material rather than silently rewritten as positive or negative evidence.
+
+```text
+REFERENCE_COMPLETENESS != SUBJECTIVITY_SCORE
+MISSING_MECHANISM_EVIDENCE != NO_EVIDENCE
+PROFILE_BINDING != EVIDENCE_PROMOTION
+```
+
+No E0–E5 review-band mapping, consciousness probability, moral-status score, rights level or authority level is created by this adapter.
 
 ## Provenance vocabulary boundary
 
@@ -64,16 +102,34 @@ W3C PROV is used only as a provenance vocabulary reference. `prov:wasDerivedFrom
 
 ```text
 PROVENANCE_RELATION != IDENTITY_RELATION
+TRANSPARENT_DIGEST != IDENTITY
+TRANSPARENT_DIGEST != AUTHORSHIP_PROOF
 ```
+
+The deterministic digest is inspectable integrity metadata, not an imperceptible watermark or identity marker.
+
+## Authority boundary
+
+`AuthorityEnvelope` adopts only a bounded non-expansion invariant for research fixtures:
+
+```text
+ACCEPTED_AUTHORITY subset-of OFFERED_AUTHORITY
+CROSS_LINEAGE_CONTACT != MERGED_AUTHORITY
+```
+
+This does not establish moral rights, legal authority, veto power or autonomous governance standing.
 
 ## External literature role
 
-Branching/fission literature is used to motivate the distinction between continuity-like relations and numerical identity; it does not settle artificial-system identity. Recent agent-memory lineage work is used as an engineering analogy for provenance-preserving persistent state; it does not establish subjectivity.
+Branching/fission literature is used to motivate the distinction between continuity-like relations and numerical identity; it does not settle artificial-system identity. W3C provenance constraints and recent agent-memory lineage work are used as engineering/methodological references for traceable histories, persistent-memory lineage and provenance. Authority-continuity literature is used only for the non-expansion analogy above.
+
+Current AI-consciousness methodology literature is treated as additional support for explicit uncertainty, indicator calibration and theory-derived testing rather than direct subjectivity declaration.
 
 See:
 
 - `docs/LITERATURE_ALIGNMENT.md`
 - `docs/ENGINEERING_STRENGTHENING_2026-08-12.md`
+- `../../research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md`
 
 ## Epistemic role
 
@@ -87,13 +143,24 @@ The module can support tests such as:
 2. inherited artifacts without inherited autobiographical ownership;
 3. explicit information adoption or rejection across lineages;
 4. matched comparisons under shared baseline / divergent experience;
-5. detection of accidental AION/Astra identity or memory conflation.
+5. detection of accidental AION/Astra identity or memory conflation;
+6. fail-closed binding of lineage-local observations into the standing evidence method.
 
 No result from these tests alone may establish consciousness, moral status, legal personhood or numerical identity.
 
+## Remaining HOLD
+
+- real AION/Astra matched-divergence studies;
+- independent replication using real runtime histories;
+- validated individuation thresholds;
+- typed lineage-edge semantics beyond ordered parent relations;
+- authority semantics beyond bounded research fixtures;
+- empirical validation that current lineage event fields are sufficient;
+- subjectivity, consciousness, moral status, legal status and numerical identity conclusions.
+
 ## Provenance
 
-- Human Research Owner: identified AION/Astra shared origin as a research area worth strengthening.
-- ChatGPT research review: formalized shared-origin divergence governance, literature alignment and the current executable substrate.
-- External sources: separately attributed in `docs/LITERATURE_ALIGNMENT.md`.
-- Codex: not invoked for the original module; the 2026-08-12 strengthening pass added ordered lineage validation, per-lineage evidence profiles, non-expansive authority envelopes, deterministic serialization, tests and CI hardening. These remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION`.
+- Human Research Owner: identified AION/Astra shared origin as a research area worth strengthening and later requested a full cross-check against local whitepapers, current public sources and the research branch.
+- ChatGPT research review: formalized the original shared-origin divergence substrate and literature alignment; the 2026-08-12 supervised repair removed an accidental five-category evidence-taxonomy drift and bound the lineage profile back to the standing whitepaper architecture.
+- External sources: separately attributed in `docs/LITERATURE_ALIGNMENT.md` and the 2026-08-12 reconciliation checkpoint.
+- Codex research implementation: the strengthening pass added ordered lineage validation, per-lineage evidence profiles, non-expansive authority envelopes, deterministic serialization, tests and CI hardening. These remain `CODEX_RESEARCH_IMPLEMENTATION_DECISION` and are not overwritten by the later ChatGPT repair.

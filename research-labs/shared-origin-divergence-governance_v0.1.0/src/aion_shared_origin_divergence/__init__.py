@@ -1,3 +1,8 @@
+from .evidence_adapter import (
+    EvidenceArchitectureReference,
+    StandingEvidenceDimensionRef,
+    bind_profile_reference,
+)
 from .model import (
     AuthorityEnvelope,
     CrossLineageEncounter,
@@ -16,6 +21,7 @@ __all__ = [
     "AuthorityEnvelope",
     "CrossLineageEncounter",
     "CrossLineageMemoryTransfer",
+    "EvidenceArchitectureReference",
     "LineageEvidenceProfile",
     "LineageEvent",
     "LineageEventKind",
@@ -23,5 +29,7 @@ __all__ = [
     "MatchedDivergenceComparison",
     "MemoryDisposition",
     "SharedOriginLineage",
+    "StandingEvidenceDimensionRef",
+    "bind_profile_reference",
     "identity_claim_status",
 ]
