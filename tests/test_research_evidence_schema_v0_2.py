@@ -62,6 +62,9 @@ def _v2_record() -> dict[str, object]:
             "admissibility_ref": "admissibility-review-001",
             "claim_scope": "subjectivity-relevant mechanism candidate only",
             "unresolved_gap_refs": ["gap-001"],
+            "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
+            "inference_stage": "MECHANISM",
+            "alternative_explanations": ["retrieval-context confound"],
         },
         "nonclaims": {
             "subjectivity_conclusion": "NOT_ESTABLISHED",
@@ -72,6 +75,7 @@ def _v2_record() -> dict[str, object]:
             "main_effect": "NONE",
             "canonical_effect": "NONE",
             "live_runtime_effect": "NONE",
+            "runtime_effect": "NONE",
         },
     }
 
@@ -105,17 +109,17 @@ def test_v2_candidate_rejects_score_or_authority_fields() -> None:
     assert list(_validator(V2).iter_errors(record))
 
 
+def test_v2_candidate_rejects_non_digest_protocol_hash() -> None:
+    record = _v2_record()
+    record["protocol_hash"] = "not-a-digest"
+    assert list(_validator(V2).iter_errors(record))
+
+
 def test_v2_candidate_rejects_subjectivity_promotion() -> None:
     record = _v2_record()
     nonclaims = record["nonclaims"]
     assert isinstance(nonclaims, dict)
     nonclaims["subjectivity_conclusion"] = "ESTABLISHED"
-    assert list(_validator(V2).iter_errors(record))
-
-
-def test_v2_candidate_rejects_non_digest_protocol_hash() -> None:
-    record = _v2_record()
-    record["protocol_hash"] = "not-a-digest"
     assert list(_validator(V2).iter_errors(record))
 
 
@@ -128,4 +132,10 @@ def test_duplicate_dimension_support_refs_fail_closed() -> None:
     architecture = record["evidence_architecture"]
     assert isinstance(architecture, dict)
     architecture["provenance_refs"] = ["evidence-001", "evidence-001"]
+    assert list(_validator(V2).iter_errors(record))
+
+
+def test_duplicate_evidence_refs_fail_closed() -> None:
+    record = copy.deepcopy(_v2_record())
+    record["evidence_refs"] = ["evidence-001", "evidence-001"]
     assert list(_validator(V2).iter_errors(record))

@@ -152,7 +152,7 @@ def test_generated_build_dist_and_egg_info_are_ignored_by_release_tools(tmp_path
         monkeypatch.undo()
 
 
-def test_research_quality_keeps_current_and_frozen_verification_layers() -> None:
+def test_quality_workflow_keeps_current_and_frozen_verification_layers() -> None:
     workflow = (ROOT / ".github" / "workflows" / "quality.yml").read_text(encoding="utf-8")
     assert "python scripts/verify_release.py --baseline current-head" in workflow
     assert "frozen-release-verification:" in workflow

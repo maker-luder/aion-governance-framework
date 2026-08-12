@@ -37,6 +37,9 @@ def _architecture(schema: dict[str, object]) -> dict[str, object]:
             "admissibility_ref": "qa/admissibility.json",
             "claim_scope": "mechanism candidate only",
             "unresolved_gap_refs": ["qa/gap.json"],
+            "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
+            "inference_stage": "MECHANISM",
+            "alternative_explanations": ["retrieval-context confound"],
         }
     return {
         "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",

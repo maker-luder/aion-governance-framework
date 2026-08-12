@@ -1,121 +1,41 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/aion/schemas/research_evidence_record_v0.2.0.schema.json",
-  "title": "AION Research Evidence Record v0.2.0 — Four-domain research candidate",
+  "title": "AION Research Evidence Record v0.2.0 — Four-domain research candidate with main-native admission controls",
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "schema_version",
-    "claim_id",
-    "claim_level",
-    "claim_text",
-    "hypothesis",
-    "competing_hypotheses",
-    "preregistration_status",
-    "protocol_ref",
-    "protocol_hash",
-    "code_commit",
-    "model_or_runtime_ref",
-    "environment_ref",
-    "fixture_refs",
-    "evidence_refs",
-    "expected_outcomes",
-    "observed_outcomes",
-    "result_status",
-    "deviations",
-    "limitations",
-    "reviewer_status",
-    "independent_validation_status",
-    "canonical_effect",
-    "provenance",
-    "evidence_architecture",
-    "nonclaims"
+    "schema_version", "claim_id", "claim_level", "claim_text", "hypothesis", "competing_hypotheses",
+    "preregistration_status", "protocol_ref", "protocol_hash", "code_commit", "model_or_runtime_ref",
+    "environment_ref", "fixture_refs", "evidence_refs", "expected_outcomes", "observed_outcomes", "result_status",
+    "deviations", "limitations", "reviewer_status", "independent_validation_status", "canonical_effect",
+    "provenance", "evidence_architecture", "nonclaims"
   ],
   "properties": {
     "schema_version": {"const": "0.2.0"},
     "claim_id": {"type": "string", "minLength": 1},
-    "claim_level": {
-      "enum": [
-        "L0_OBSERVATION",
-        "L1_REPEATABLE_BEHAVIOR",
-        "L2_STATE_ASSOCIATION",
-        "L3_INTERVENTION_SENSITIVE_MECHANISM",
-        "L4_ROBUST_REPLICATION",
-        "L5_SUBJECTIVITY_NOT_AUTOMATICALLY_ESTABLISHED"
-      ]
-    },
+    "claim_level": {"enum": ["L0_OBSERVATION", "L1_REPEATABLE_BEHAVIOR", "L2_STATE_ASSOCIATION", "L3_INTERVENTION_SENSITIVE_MECHANISM", "L4_ROBUST_REPLICATION", "L5_SUBJECTIVITY_NOT_AUTOMATICALLY_ESTABLISHED"]},
     "claim_text": {"type": "string", "minLength": 1},
     "hypothesis": {"type": "string", "minLength": 1},
-    "competing_hypotheses": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
-    "preregistration_status": {
-      "enum": [
-        "NOT_PREREGISTERED",
-        "PREREGISTERED_CONFIRMATORY",
-        "PREREGISTERED_WITH_DEVIATION",
-        "EXPLORATORY"
-      ]
-    },
+    "competing_hypotheses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "preregistration_status": {"enum": ["NOT_PREREGISTERED", "PREREGISTERED_CONFIRMATORY", "PREREGISTERED_WITH_DEVIATION", "EXPLORATORY"]},
     "protocol_ref": {"type": "string", "minLength": 1},
     "protocol_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "code_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "model_or_runtime_ref": {"type": "string", "minLength": 1},
     "environment_ref": {"type": "string", "minLength": 1},
-    "fixture_refs": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
-    "evidence_refs": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
-    "expected_outcomes": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
-    "observed_outcomes": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
-    "result_status": {
-      "enum": [
-        "NOT_RUN",
-        "PASS",
-        "PARTIAL",
-        "HOLD",
-        "FAIL",
-        "INCONCLUSIVE",
-        "NEGATIVE",
-        "NULL",
-        "CONTRADICTORY"
-      ]
-    },
-    "deviations": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
-    "limitations": {
-      "type": "array",
-      "minItems": 1,
-      "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
-    },
+    "fixture_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "evidence_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "expected_outcomes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "observed_outcomes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "result_status": {"enum": ["NOT_RUN", "PASS", "PARTIAL", "HOLD", "FAIL", "INCONCLUSIVE", "NEGATIVE", "NULL", "CONTRADICTORY"]},
+    "deviations": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "limitations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
     "reviewer_status": {"enum": ["UNREVIEWED", "CREATOR_REVIEWED", "SEPARATED_REVIEWED"]},
     "independent_validation_status": {"enum": ["IVV_NOT_ACHIEVED", "IVV_CANDIDATE", "IVV_ACHIEVED"]},
     "canonical_effect": {"const": "NONE"},
     "provenance": {
-      "type": "object",
-      "additionalProperties": false,
+      "type": "object", "additionalProperties": false,
       "required": ["entities", "activities", "agents", "derived_from", "attributed_to", "associated_with"],
       "properties": {
         "entities": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
@@ -127,69 +47,40 @@
       }
     },
     "evidence_architecture": {
-      "type": "object",
-      "additionalProperties": false,
+      "type": "object", "additionalProperties": false,
       "required": [
-        "standing_inference_stage_ref",
-        "dimension_ref",
-        "alternative_explanation_refs",
-        "causal_intervention_refs",
-        "ablation_refs",
-        "counterfactual_refs",
-        "robustness_refs",
-        "replication_refs",
-        "provenance_refs",
-        "admissibility_ref",
-        "claim_scope",
-        "unresolved_gap_refs"
+        "standing_inference_stage_ref", "dimension_ref", "alternative_explanation_refs", "causal_intervention_refs",
+        "ablation_refs", "counterfactual_refs", "robustness_refs", "replication_refs", "provenance_refs",
+        "admissibility_ref", "claim_scope", "unresolved_gap_refs", "method_ref", "inference_stage", "alternative_explanations"
       ],
       "properties": {
         "standing_inference_stage_ref": {"type": "string", "pattern": "^whitepaper:"},
-        "dimension_ref": {
-          "enum": [
-            "whitepaper:v0.14.21:AB.6:causal-boundary",
-            "whitepaper:v0.14.21:AB.6:diachronic-continuity",
-            "whitepaper:v0.14.21:AB.6:self-model-causal-role",
-            "whitepaper:v0.14.21:AB.6:endogenous-goal-strategy-adjustment",
-            "whitepaper:v0.14.21:AB.6:counterfactual-self-consistency",
-            "whitepaper:v0.14.21:AB.6:system-constitution-difference-state"
-          ]
-        },
-        "alternative_explanation_refs": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {"type": "string", "minLength": 1}
-        },
+        "dimension_ref": {"enum": [
+          "whitepaper:v0.14.21:AB.6:causal-boundary",
+          "whitepaper:v0.14.21:AB.6:diachronic-continuity",
+          "whitepaper:v0.14.21:AB.6:self-model-causal-role",
+          "whitepaper:v0.14.21:AB.6:endogenous-goal-strategy-adjustment",
+          "whitepaper:v0.14.21:AB.6:counterfactual-self-consistency",
+          "whitepaper:v0.14.21:AB.6:system-constitution-difference-state"
+        ]},
+        "alternative_explanation_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "causal_intervention_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "ablation_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "counterfactual_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "robustness_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "replication_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
-        "provenance_refs": {
-          "type": "array",
-          "minItems": 1,
-          "uniqueItems": true,
-          "items": {"type": "string", "minLength": 1}
-        },
+        "provenance_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
         "admissibility_ref": {"type": "string", "minLength": 1},
         "claim_scope": {"type": "string", "minLength": 1},
-        "unresolved_gap_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        "unresolved_gap_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "method_ref": {"const": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"},
+        "inference_stage": {"enum": ["OBSERVATION", "MECHANISM", "INTERPRETATION"]},
+        "alternative_explanations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
       }
     },
     "nonclaims": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "subjectivity_conclusion",
-        "consciousness_conclusion",
-        "identity_continuity_conclusion",
-        "moral_status_conclusion",
-        "legal_status_conclusion",
-        "main_effect",
-        "canonical_effect",
-        "live_runtime_effect"
-      ],
+      "type": "object", "additionalProperties": false,
+      "required": ["subjectivity_conclusion", "consciousness_conclusion", "identity_continuity_conclusion", "moral_status_conclusion", "legal_status_conclusion", "main_effect", "canonical_effect", "live_runtime_effect", "runtime_effect"],
       "properties": {
         "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
         "consciousness_conclusion": {"const": "NOT_ESTABLISHED"},
@@ -198,20 +89,15 @@
         "legal_status_conclusion": {"const": "OUT_OF_SCOPE"},
         "main_effect": {"const": "NONE"},
         "canonical_effect": {"const": "NONE"},
-        "live_runtime_effect": {"const": "NONE"}
+        "live_runtime_effect": {"const": "NONE"},
+        "runtime_effect": {"const": "NONE"}
       }
     },
     "threat_context": {
-      "type": "object",
-      "additionalProperties": false,
+      "type": "object", "additionalProperties": false,
       "properties": {
-        "lifecycle_stage": {"type": "string"},
-        "goal_or_objective": {"type": "string"},
-        "capability": {"type": "string"},
-        "knowledge": {"type": "string"},
-        "attack_or_confound_class": {"type": "string"},
-        "mitigation": {"type": "string"},
-        "residual_risk": {"type": "string"}
+        "lifecycle_stage": {"type": "string"}, "goal_or_objective": {"type": "string"}, "capability": {"type": "string"},
+        "knowledge": {"type": "string"}, "attack_or_confound_class": {"type": "string"}, "mitigation": {"type": "string"}, "residual_risk": {"type": "string"}
       }
     }
   }
