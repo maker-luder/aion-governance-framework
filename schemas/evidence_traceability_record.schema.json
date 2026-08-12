@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/evidence_traceability_record.schema.json",
+  "title": "AION Evidence Traceability Inspection Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "inspection_type",
+    "target_head",
+    "generated_at",
+    "source_document",
+    "criterion_count",
+    "records",
+    "status",
+    "acceptance_decision",
+    "future_evidence_preserved",
+    "canonical_effect",
+    "deployment",
+    "independent_ivv",
+    "mutation_performed",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "inspection_type": {"const": "EVIDENCE_TRACEABILITY_STRUCTURE_ONLY"},
+    "target_head": {"type": "string", "minLength": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "source_document": {"const": "docs/C0_ACCEPTANCE_EVIDENCE_INDEX_2026-08-08.md"},
+    "criterion_count": {"type": "integer", "minimum": 0},
+    "records": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/record"}
+    },
+    "status": {"enum": ["PASS", "HOLD"]},
+    "acceptance_decision": {"const": "NOT_EVALUATED"},
+    "future_evidence_preserved": {"type": "boolean"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false},
+    "independent_ivv": {"const": "NOT_ACHIEVED"},
+    "mutation_performed": {"const": false},
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index_exists", "malformed_criteria", "missing_local_refs"],
+      "properties": {
+        "index_exists": {"type": "boolean"},
+        "malformed_criteria": {"type": "array", "items": {"type": "string"}},
+        "missing_local_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "criterion",
+        "requirement_source",
+        "implementation_review_artifact",
+        "test_review_method",
+        "evidence_location_type",
+        "evidence_state",
+        "limitation_note",
+        "local_refs",
+        "missing_local_refs"
+      ],
+      "properties": {
+        "criterion": {"type": "string", "pattern": "^AC-[A-Z0-9-]+$"},
+        "requirement_source": {"type": "string", "minLength": 1},
+        "implementation_review_artifact": {"type": "string", "minLength": 1},
+        "test_review_method": {"type": "string", "minLength": 1},
+        "evidence_location_type": {"type": "string", "minLength": 1},
+        "evidence_state": {"pattern": "^(AVAILABLE|PARTIAL_AVAILABLE|FUTURE_C_EVIDENCE|OUT_OF_TREE_FINAL_EVIDENCE)( \\+ (AVAILABLE|PARTIAL_AVAILABLE|FUTURE_C_EVIDENCE|OUT_OF_TREE_FINAL_EVIDENCE))*$"},
+        "limitation_note": {"type": "string", "minLength": 1},
+        "local_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "missing_local_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      }
+    }
+  }
+}
