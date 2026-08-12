@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "metacognitive-self-state"
-version = "0.1.0"
+version = "0.1.1"
 description = "Governed research candidate for metacognitive self-state representation"
 requires-python = ">=3.11"
 license = {text = "Apache-2.0"}
