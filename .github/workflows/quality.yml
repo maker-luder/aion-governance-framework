@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - feat/**
-      - review/aion-astra-whole-system-completion-v2
+      - review/**
   pull_request:
   workflow_dispatch:
 
@@ -23,21 +23,48 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
-      - name: Install test runner and declared external test dependency
+      - name: Install QA toolchain and declared external test dependency
         run: |
-          python -m pip install --upgrade pip pytest
+          python -m pip install --upgrade pip pytest pytest-cov jsonschema
           python -m pip install -e examples/bazi-capability_v0.1.1
+
+      - name: Test source-state binding control
+        run: python -m pytest -q tests/test_source_state_binding.py
+
+      - name: Verify exact source-state binding before generated QA outputs
+        run: |
+          python scripts/check_source_state_binding.py \
+            --root . \
+            --expected-head "$(git rev-parse HEAD)"
 
       - name: Scan public tree for prohibited artifacts and obvious secrets
         run: python scripts/scan_public_tree.py
+
+      - name: Verify current checkout against exact Git HEAD tree
+        run: python scripts/verify_release.py --baseline current-head
+
+      - name: Run release and M1 evidence-control tests
+        run: |
+          python -m pytest -q \
+            tests/test_release_tooling.py \
+            tests/test_current_qa_reconciliation.py \
+            tests/test_evidence_traceability.py
+
+      - name: Validate additive research evidence schema candidate
+        run: python -m pytest -q tests/test_research_evidence_schema_v0_2.py
+
+      - name: Validate research evidence admission surface
+        run: python -m pytest -q tests/test_research_evidence_validator.py
 
       - name: Compile public Python sources
         run: python -m compileall -q components examples research-labs scripts
@@ -45,17 +72,46 @@ jobs:
       - name: Run component test suites
         run: python scripts/run_component_tests.py
 
+      - name: Reconcile current test evidence into QA status artifacts
+        run: |
+          python scripts/reconcile_current_qa.py \
+            --root . \
+            --target-head "$(git rev-parse HEAD)"
+
+      - name: Generate current branch-aware coverage evidence
+        run: python scripts/run_current_coverage.py
+
+      - name: Generate current evidence traceability artifact
+        run: |
+          python scripts/generate_evidence_traceability.py \
+            --root . \
+            --target-head "$(git rev-parse HEAD)" \
+            --output qa/CURRENT_EVIDENCE_TRACEABILITY.json
+
+      - name: Run strict inspection-only IQC R1 gate
+        run: |
+          PYTHONPATH=components/iqc_quality_inspection_v0.1.0/src \
+          python -m aion_iqc.cli \
+            --root . \
+            --target-head "$(git rev-parse HEAD)" \
+            --require-traceability \
+            --require-qa-reconciliation \
+            --require-component-contracts \
+            --require-source-state-binding \
+            --output qa/IQC_REPORT.json
+
   frozen-release-verification:
     name: Frozen v0.1.0-rc.1 manifest verification
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout frozen v0.1.0-rc.1 release
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: v0.1.0-rc.1
-      - uses: actions/setup-python@v5
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: "3.11"
       - name: Verify frozen public release manifest
-        run: python scripts/verify_release.py
+        run: python scripts/verify_release.py --baseline historical-rc

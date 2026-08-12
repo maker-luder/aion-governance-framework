@@ -1,7 +1,7 @@
-requirement_id,requirement,evidence,status
-REQ-TWIN-001,Distinct AION and Astra identity roots,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
+Requirement ID,Requirement,Verification Reference,Status
+REQ-TWIN-001,AION and Astra preserve distinct agent identities,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-TWIN-002,Shared template with independent embodiment instances,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-ANAT-001,Adult male clinical anatomy candidate,schemas/EMBODIMENT_TEMPLATE_SCHEMA.json,IMPLEMENTED_AS_CANDIDATE
 REQ-BOUNDARY-001,Anatomy does not establish gender identity or subjectivity,src/aion_astra_twin_embodiment/validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
-REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
+REQ-RUNTIME-001,No live 3D or interactive embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NO_LIVE_OR_3D_RUNTIME

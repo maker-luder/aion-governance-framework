@@ -1,4 +1,6 @@
+import json
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -123,3 +125,15 @@ def test_sexual_interaction_not_authorized():
 
 def test_hash_is_deterministic():
     assert deterministic_hash({"b": 2, "a": 1}) == deterministic_hash({"a": 1, "b": 2})
+
+
+def test_status_lock_matches_non_3d_runtime_candidate() -> None:
+    root = Path(__file__).resolve().parents[1]
+    lock = json.loads((root / "qa" / "CANDIDATE_STATUS_LOCK.json").read_text(encoding="utf-8"))
+    cli_status = json.loads((root / "qa" / "CLI_QA_STATUS.json").read_text(encoding="utf-8"))
+    assert lock["status"] == "IMPLEMENTED_NON_3D_CANDIDATE_PENDING_OWNER_REVIEW"
+    assert lock["embodiment_runtime"] == "NON_3D_RECORD_RUNTIME_IMPLEMENTED"
+    assert lock["live_3d_runtime"] == "NOT_IMPLEMENTED"
+    assert cli_status["runtime"] == lock["embodiment_runtime"]
+    assert lock["subjectivity_conclusion"] == "NOT_ESTABLISHED"
+    assert lock["canonical_effect"] == "NONE"
