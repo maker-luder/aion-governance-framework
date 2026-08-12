@@ -157,12 +157,14 @@ The adapter now preserves explicit references for inference stage, alternative e
 
 The original `INCONCLUSIVE / HOLD` record remains unchanged as historical audit evidence. It is not retroactively rewritten as a successful autonomous validation.
 
-Supervised candidate validation on head `d7661b121b81cb8f8dab912ec9bc7a3ac930b765`:
+A supervised candidate head `d7661b121b81cb8f8dab912ec9bc7a3ac930b765` first demonstrated the repaired all-path gate behavior with all three checks green. A later ledger-only head was then deliberately allowed to trigger fresh checks again, confirming that documentation-only candidate changes also receive new research-specific validation.
+
+Latest supervised candidate validation head: `d0b35dcbe41fffe0004eb9dff9d8bfd9c6cfe09b`
 
 ```text
-Research Scope Lock #37 = SUCCESS
-Research Workbench CI #58 = SUCCESS
-Quality #195 = SUCCESS
+Research Scope Lock #38 = SUCCESS
+Research Workbench CI #59 = SUCCESS
+Quality #196 = SUCCESS
 Verify shared-origin divergence governance = SUCCESS
 ```
 
