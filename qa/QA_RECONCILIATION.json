@@ -1,0 +1,37 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-08-12T17:40:45.128971+00:00",
+  "scope": "REVIEW_CANDIDATE_V2",
+  "scope_definitions": {
+    "MAIN_BASELINE": "Remote main at 4b36077993fabb22bf04e06162ea83c623bbb7e6; not modified by this task.",
+    "FORMAL_RESEARCH_BASELINE": "Remote formal research at 6f39fff07f1b1a79867c270f953c554e18addbc1; v2 ancestry source.",
+    "REVIEW_CANDIDATE_V2": "Current v2 worktree and exact review branch head after final commit.",
+    "HISTORICAL_EVIDENCE": "Old orphan review at 263f6905356ebf0581b9ad8acda6c449587c73f1; retained for provenance only."
+  },
+  "target_count_reconciliation": {
+    "eligible_project_surface": 48,
+    "component_registry": 48,
+    "test_results": 48,
+    "coverage_results": 48,
+    "coverage_report": 48,
+    "handoff_scope": 48,
+    "test_bearing_targets": 46,
+    "explicit_non_applicable_targets": 2
+  },
+  "test_reconciliation": {
+    "test_total": 866,
+    "test_failures": 0,
+    "whole_system_test_case_count": 21,
+    "whole_system_scenario_class_count": 11
+  },
+  "statuses": {
+    "coverage": "PASS",
+    "manifest": "PENDING_FINAL_MANIFEST",
+    "compileall": "PENDING_FINAL_COMPILEALL",
+    "privacy_scan": "PENDING_FINAL_SCAN",
+    "secret_scan": "PENDING_FINAL_SCAN"
+  },
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "independent_ivv": "NOT_ACHIEVED"
+}

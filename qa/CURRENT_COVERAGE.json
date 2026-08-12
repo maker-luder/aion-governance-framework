@@ -1,15 +1,13 @@
 {
   "schema_version": "2.0",
-  "generated_at": "2026-08-12T17:38:13.561416+00:00",
+  "generated_at": "2026-08-12T17:40:45.128971+00:00",
   "scope": "REVIEW_CANDIDATE_V2",
-  "summary": {
-    "eligible_target_count": 48,
-    "measured_target_count": 46,
-    "not_applicable_target_count": 2,
-    "failed_target_count": 0,
-    "branch_coverage": true,
-    "threshold_policy": "REPORT_ONLY_NO_UNJUSTIFIED_GLOBAL_THRESHOLD"
-  },
+  "target_count": 48,
+  "tested_target_count": 46,
+  "non_applicable_target_count": 2,
+  "branch_coverage": true,
+  "status": "PASS",
+  "source_results": "qa/CURRENT_COVERAGE_RESULTS.json",
   "targets": [
     {
       "target": "components/aion_runtime_v0.1.0",

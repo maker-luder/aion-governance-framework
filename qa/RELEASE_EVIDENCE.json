@@ -1,29 +1,26 @@
 {
-  "schema_version": "1.0",
-  "release": "v0.1.0-rc.1",
+  "schema_version": "2.0",
+  "scope": "REVIEW_CANDIDATE_V2_NOT_RELEASE",
   "repository": "maker-luder/aion-governance-framework",
-  "source_public_candidate": "2026-08-03_v1.0.0",
-  "historical_source_validation": {
-    "pytest": "232 passed",
-    "independent_ivv": "NOT_ACHIEVED"
-  },
   "current_reconstruction_validation": {
-    "tests": "412 passed",
-    "coverage_report": "qa/COVERAGE_REPORT.md",
-    "compileall": "PASS",
-    "mypy": "NOT_EXECUTED_TOOL_UNAVAILABLE",
-    "ruff": "NOT_EXECUTED_TOOL_UNAVAILABLE",
-    "secret_scan": "PASS_WITH_STATED_LIMITATIONS",
-    "privacy_review": "PASS_WITH_STATED_LIMITATIONS",
-    "manifest": "PASS",
-    "sha256": "PASS",
-    "public_scan": "PASS"
+    "eligible_targets": 48,
+    "test_bearing_targets": 46,
+    "non_applicable_targets": 2,
+    "tests": "866 passed / 0 failed",
+    "whole_system": "21 test cases / 11 scenario classes",
+    "coverage": "PASS_BRANCH_MEASURED",
+    "compileall": "PENDING_FINAL_QA",
+    "manifest": "PENDING_FINAL_QA",
+    "secret_scan": "PENDING_FINAL_QA",
+    "privacy_review": "PENDING_FINAL_QA"
   },
-  "public_private_boundary": "ENFORCED_BY_RECONSTRUCTION_AND_SCAN",
+  "historical_source_evidence": {
+    "old_review_branch": "263f6905356ebf0581b9ad8acda6c449587c73f1",
+    "disposition": "SUPERSEDED_REVIEW_ARTIFACT / NOT_MERGE_CANDIDATE / RETAINED_FOR_PROVENANCE"
+  },
   "subjectivity_conclusion": "NOT_ESTABLISHED",
   "identity_continuity_conclusion": "NOT_ESTABLISHED",
-  "relational_continuity_conclusion": "NOT_ESTABLISHED",
   "canonical_effect": "NONE",
   "deployment": false,
-  "license_status": "OWNER_SELECTION_REQUIRED"
+  "independent_ivv": "NOT_ACHIEVED"
 }

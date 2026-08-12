@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feat/**
+      - review/aion-astra-whole-system-completion-v2
   pull_request:
   workflow_dispatch:
 

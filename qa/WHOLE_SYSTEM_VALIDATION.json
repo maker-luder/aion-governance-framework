@@ -1,0 +1,333 @@
+{
+  "schema_version": "2.0",
+  "generated_at": "2026-08-12T17:34:44.858099+00:00",
+  "source_code_scope": "REVIEW_CANDIDATE_V2",
+  "review_branch": "review/aion-astra-whole-system-completion-v2",
+  "TEST_CASE_COUNT": 21,
+  "SCENARIO_CLASS_COUNT": 11,
+  "tests_passed": 21,
+  "tests_failed": 0,
+  "test_returncode": 0,
+  "scenarios": [
+    {
+      "scenario_id": "semantic_memory_recall:test_semantic_recall_payload_reaches_language_core",
+      "scenario_class": "semantic_memory_recall",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_semantic_recall_payload_reaches_language_core",
+      "requirement_ids": [
+        "WS-MEM-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_semantic_recall_payload_reaches_language_core",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "semantic_memory_recall:test_cross_session_semantic_recall_preserves_content_authority_and_provenance",
+      "scenario_class": "semantic_memory_recall",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_cross_session_semantic_recall_preserves_content_authority_and_provenance",
+      "requirement_ids": [
+        "WS-MEM-002"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_cross_session_semantic_recall_preserves_content_authority_and_provenance",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "namespace_isolation:test_cross_namespace_secret_never_reaches_adapter_input",
+      "scenario_class": "namespace_isolation",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_cross_namespace_secret_never_reaches_adapter_input",
+      "requirement_ids": [
+        "WS-MEM-003"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_cross_namespace_secret_never_reaches_adapter_input",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "memory_state_policy:test_superseded_and_conflicting_memory_are_excluded",
+      "scenario_class": "memory_state_policy",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_superseded_and_conflicting_memory_are_excluded",
+      "requirement_ids": [
+        "WS-MEM-004"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_superseded_and_conflicting_memory_are_excluded",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "provenance_verification:test_claimed_provenance_without_registry_is_denied",
+      "scenario_class": "provenance_verification",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_claimed_provenance_without_registry_is_denied",
+      "requirement_ids": [
+        "WS-PROV-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_claimed_provenance_without_registry_is_denied",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[forged_id]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[forged_id]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[forged_id]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[self_approval]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[self_approval]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[self_approval]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[wrong_tool]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[wrong_tool]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[wrong_tool]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[wrong_namespace]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[wrong_namespace]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[wrong_namespace]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[insufficient_scope]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[insufficient_scope]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[insufficient_scope]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[expired]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[expired]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[expired]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_approval_forgery_and_scope_negative_cases[revoked]",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[revoked]",
+      "requirement_ids": [
+        "WS-AUTH-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_approval_forgery_and_scope_negative_cases[revoked]",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "authorization_trust_boundary:test_trusted_owner_approval_permits_exact_surface_only",
+      "scenario_class": "authorization_trust_boundary",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_trusted_owner_approval_permits_exact_surface_only",
+      "requirement_ids": [
+        "WS-AUTH-002"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_trusted_owner_approval_permits_exact_surface_only",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "hard_timeout:test_hung_provider_returns_within_hard_bounded_tolerance",
+      "scenario_class": "hard_timeout",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_hung_provider_returns_within_hard_bounded_tolerance",
+      "requirement_ids": [
+        "WS-TIME-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_hung_provider_returns_within_hard_bounded_tolerance",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "midflight_cancellation:test_midflight_cancellation_terminates_generation_and_prevents_writeback",
+      "scenario_class": "midflight_cancellation",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback",
+      "requirement_ids": [
+        "WS-CANCEL-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "hard_timeout:test_hung_tool_is_hard_bounded_by_global_deadline",
+      "scenario_class": "hard_timeout",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_hung_tool_is_hard_bounded_by_global_deadline",
+      "requirement_ids": [
+        "WS-TIME-002"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_hung_tool_is_hard_bounded_by_global_deadline",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "writeback_audit_consistency:test_audit_failure_after_writeback_is_not_completed_and_is_recoverable",
+      "scenario_class": "writeback_audit_consistency",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_audit_failure_after_writeback_is_not_completed_and_is_recoverable",
+      "requirement_ids": [
+        "WS-DUR-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_audit_failure_after_writeback_is_not_completed_and_is_recoverable",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "writeback_audit_consistency:test_checkpoint_failure_without_writeback_fails_closed",
+      "scenario_class": "writeback_audit_consistency",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_checkpoint_failure_without_writeback_fails_closed",
+      "requirement_ids": [
+        "WS-DUR-002"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_checkpoint_failure_without_writeback_fails_closed",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "restart_reconciliation:test_restart_reconciliation_resolves_pending_writeback_deterministically",
+      "scenario_class": "restart_reconciliation",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_restart_reconciliation_resolves_pending_writeback_deterministically",
+      "requirement_ids": [
+        "WS-DUR-003"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_restart_reconciliation_resolves_pending_writeback_deterministically",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "identity_namespace_binding:test_identity_namespace_binding_and_initial_cancellation",
+      "scenario_class": "identity_namespace_binding",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_identity_namespace_binding_and_initial_cancellation",
+      "requirement_ids": [
+        "WS-ID-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_identity_namespace_binding_and_initial_cancellation",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    },
+    {
+      "scenario_id": "retry_fallback:test_transient_generation_retries_and_fallback_is_audited",
+      "scenario_class": "retry_fallback",
+      "pytest_node_id": "tests/test_whole_system_runtime.py::test_transient_generation_retries_and_fallback_is_audited",
+      "requirement_ids": [
+        "WS-RES-001"
+      ],
+      "expected_disposition": "PASS",
+      "actual_disposition": "PASS",
+      "pass": true,
+      "evidence_reference": "tests/test_whole_system_runtime.py::test_transient_generation_retries_and_fallback_is_audited",
+      "canonical_effect": "NONE",
+      "pytest_output": ""
+    }
+  ],
+  "implemented_boundaries": {
+    "semantic_memory_context": "IMPLEMENTED_VERIFIED_BY_SENTINEL",
+    "authorization_trust_boundary": "IMPLEMENTED_VERIFIED",
+    "provenance_verification": "IMPLEMENTED_VERIFIED",
+    "hard_timeout": "IMPLEMENTED_PROCESS_TERMINATION",
+    "midflight_cancellation": "IMPLEMENTED_PROCESS_TERMINATION",
+    "writeback_audit_consistency": "IMPLEMENTED_FAIL_CLOSED_WITH_INTENT",
+    "restart_reconciliation": "IMPLEMENTED_DETERMINISTIC",
+    "network_mcp": "NOT_IMPLEMENTED",
+    "canonical_effect": "NONE",
+    "deployment": false,
+    "independent_ivv": "NOT_ACHIEVED"
+  },
+  "remaining_blockers": [
+    "Network MCP transport is intentionally not enabled in this candidate.",
+    "No foundation-model checkpoint or GPU training evidence exists.",
+    "Independent IV&V requires a reviewer separate from the implementer."
+  ],
+  "evidence_sha_semantics": {
+    "SOURCE_CODE_COMMIT_SHA": "filled by final handoff from git HEAD",
+    "VALIDATED_TREE_SHA": "filled by final handoff from git write-tree",
+    "EVIDENCE_SUBJECT_SHA": "the tree tested by this local runner",
+    "EVIDENCE_COMMIT_SHA": "filled after evidence files are committed",
+    "REVIEW_BRANCH_HEAD_SHA": "filled by final handoff after push",
+    "CI_HEAD_SHA": "filled from GitHub Actions exact head"
+  }
+}

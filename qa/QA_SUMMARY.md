@@ -1,18 +1,23 @@
-# QA Summary
+# Review Candidate v2 QA Summary
 
-## Current reconstruction
+This is current review-candidate evidence, not a release approval. Historical main/release evidence and formal research evidence are not silently mixed into these counts.
 
-- Tests: **412 passed** across 12 targets.
-- Branch coverage: recorded per target in `COVERAGE_REPORT.md`.
-- Compileall: **PASS**.
-- Secret/privacy deterministic scan: **PASS**, subject to the limitations stated in the reports.
-- Manifest and SHA-256: generated and verified after final content assembly.
-- Mypy and Ruff: **not executed in the current environment**; no false PASS claim is made.
+| Evidence | Current v2 disposition | Scope |
+|---|---|---|
+| Eligible project targets | **48** | components + examples + research-labs direct children |
+| Test-bearing targets | **46** | dynamic pytest matrix |
+| Explicit non-applicable targets | **2** | research-only surfaces without tests directory |
+| Component tests | **866 passed / 0 failed** | current v2 candidate |
+| Whole-system tests | **21 cases / 11 scenario classes, PASS** | one-to-one registry in `WHOLE_SYSTEM_VALIDATION.json` |
+| Branch coverage | **PASS measured** | 46 targets; report-only policy |
+| Compileall, manifest, privacy, secret scans | **PENDING_FINAL_QA** | updated only after final evidence chain |
 
-## Historical source evidence
+The old `412 PASSED / whole_system_validation = NOT_EXECUTED` wording is historical stale evidence and is not reused. The 48-target project surface and the 46-test-bearing/2-explicitly-non-applicable split are current v2 evidence.
 
-The 2026-08-03 source public candidate reported 232 passing tests, five component mypy passes, wheel builds and offline cold imports. Those records remain under `qa/historical/` and are not treated as independent IV&V.
+Subjectivity, identity continuity, deployment, canonical promotion and independent IV&V remain unestablished or false.
 
-## Conclusions not established
-
-Subjectivity, identity continuity, relational continuity, whole-system validation, independent IV&V and deployment remain unachieved or false. Canonical effect remains none.
+```text
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+INDEPENDENT_IVV = NOT_ACHIEVED
+```
