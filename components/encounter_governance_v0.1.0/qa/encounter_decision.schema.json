@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/encounter-governance/decision.schema.json",
+  "title": "AION Encounter Governance Decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["allowed", "reason", "canonical_effect"],
+  "properties": {
+    "allowed": {"type": "boolean"},
+    "reason": {
+      "enum": [
+        "TOOL_IN_SCOPE",
+        "TOOL_SCOPE_DENY",
+        "CROSS_NAMESPACE_WRITE_DENY",
+        "OWN_NAMESPACE_WRITE_REQUIRES_NORMAL_WRITEBACK_GATE",
+        "AUTHORITY_SUFFICIENT",
+        "AUTHORITY_DENY",
+        "SHARED_IDENTITY_NOT_ESTABLISHED_EVEN_WITH_SAME_REF",
+        "DISTINCT_IDENTITY_REFS"
+      ]
+    },
+    "canonical_effect": {"const": "NONE"}
+  }
+}
