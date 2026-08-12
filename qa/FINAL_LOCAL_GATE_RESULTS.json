@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "281e442edaafdb6c4c68108fc1eea417be3838f8",
+  "target_head": "e1a32171d503e50bcf4d00cffb586b01fd0bfb1f",
   "gates": {
     "compileall": {
       "status": "PASS",
@@ -10,7 +10,7 @@
     },
     "source_state_binding": {
       "status": "PASS",
-      "command": "/usr/bin/python3 scripts/check_source_state_binding.py --root . --expected-head 281e442edaafdb6c4c68108fc1eea417be3838f8",
+      "command": "/usr/bin/python3 scripts/check_source_state_binding.py --root . --expected-head e1a32171d503e50bcf4d00cffb586b01fd0bfb1f",
       "returncode": 0
     },
     "public_tree_scan": {
@@ -68,6 +68,11 @@
       "command": "/usr/bin/python3 -m pytest -q research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/tests",
       "returncode": 0
     },
+    "language_core_tests": {
+      "status": "PASS",
+      "command": "/usr/bin/python3 -m pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "returncode": 0
+    },
     "manifest_generate": {
       "status": "PASS",
       "command": "/usr/bin/python3 scripts/manifest_integrity.py --generate --output-dir qa/final_current_manifest",
@@ -100,17 +105,17 @@
     },
     "current_qa_reconciliation": {
       "status": "PASS",
-      "command": "/usr/bin/python3 scripts/reconcile_current_qa.py --root . --target-head 281e442edaafdb6c4c68108fc1eea417be3838f8 --public-scan-status PASS",
+      "command": "/usr/bin/python3 scripts/reconcile_current_qa.py --root . --target-head e1a32171d503e50bcf4d00cffb586b01fd0bfb1f --public-scan-status PASS",
       "returncode": 0
     },
     "evidence_traceability": {
       "status": "PASS",
-      "command": "/usr/bin/python3 scripts/generate_evidence_traceability.py --root . --target-head 281e442edaafdb6c4c68108fc1eea417be3838f8 --output qa/CURRENT_EVIDENCE_TRACEABILITY.json",
+      "command": "/usr/bin/python3 scripts/generate_evidence_traceability.py --root . --target-head e1a32171d503e50bcf4d00cffb586b01fd0bfb1f --output qa/CURRENT_EVIDENCE_TRACEABILITY.json",
       "returncode": 0
     },
     "iqc_r1": {
       "status": "PASS",
-      "command": "/usr/bin/python3 -m aion_iqc.cli --root . --target-head 281e442edaafdb6c4c68108fc1eea417be3838f8 --require-traceability --require-qa-reconciliation --require-component-contracts --require-source-state-binding --output qa/IQC_REPORT.json",
+      "command": "/usr/bin/python3 -m aion_iqc.cli --root . --target-head e1a32171d503e50bcf4d00cffb586b01fd0bfb1f --require-traceability --require-qa-reconciliation --require-component-contracts --require-source-state-binding --output qa/IQC_REPORT.json",
       "returncode": 0
     },
     "automation_syntax": {

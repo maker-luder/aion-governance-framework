@@ -3,7 +3,7 @@
 > This is a reconciliation artifact for the next Owner + Teacher research cycle. It does not implement any listed gap and is bound to the exact `target_head` recorded in the JSON artifact.
 
 - Scope: `FINAL_FORMAL_RESEARCH_TREE`
-- Target head: `6131a6a304e25962bd7612087934703b22c124c7`
+- Target head: `e1a32171d503e50bcf4d00cffb586b01fd0bfb1f`
 - Resolved items recorded: **6**
 - Remaining items: **13**
 
