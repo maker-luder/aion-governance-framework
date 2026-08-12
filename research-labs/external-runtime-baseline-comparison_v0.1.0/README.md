@@ -1,6 +1,6 @@
 # External Runtime Baseline Comparison — v0.1.0
 
-Status: `RESEARCH_ONLY / STATIC_BASELINE_MATERIALIZED / EMPIRICAL_RUNS_NOT_STARTED`
+Status: `RESEARCH_ONLY / STATIC_BASELINE_MATERIALIZED / P0_PREEXECUTION_CONTROLS_MATERIALIZED / EMPIRICAL_RUNS_NOT_STARTED`
 
 This module provides a stable research-branch home for comparing downloadable external agent/memory runtimes against existing AION whitepaper and governance distinctions.
 
@@ -117,6 +117,31 @@ SIGNED_LIFECYCLE_WEBHOOKS
 
 These surfaces generated `EXT-14` through `EXT-23`. They are experiment candidates, not imported requirements or scientific conclusions.
 
+## P0 pre-execution preparation
+
+The Human Research Owner approved the preparation-first method. Pre-execution controls for the first five Hermes delta experiments are now materialized at:
+
+- `research-labs/hermes-p0-execution-prep_v0.1.0/`
+- `research-workbench/four-domain-materialization/2026-08-12/HERMES_P0_EXECUTION_PREPARATION_CHECKPOINT_2026-08-12.md`
+
+Prepared scope:
+
+```text
+EXT-14 CITATION_LEDGER_PROVENANCE_INTEGRITY
+EXT-15 MID_TURN_REDIRECT_CORRECTION_LINEAGE
+EXT-16 COMPRESSION_RESPONSIBILITY_HISTORY_RETENTION
+EXT-17 A2A_SOURCE_AND_AUTHORITY_ISOLATION
+EXT-18 MEMORY_WRITE_APPROVAL_GATE
+```
+
+The packet includes source locks, a sandbox contract, run-manifest template, preregistered falsifiers and synthetic fixtures. It does not install or execute Hermes.
+
+```text
+PREPARATION_AUTHORIZED = TRUE
+PREEXECUTION_CONTROLS = MATERIALIZED
+EMPIRICAL_EXECUTION = NOT_STARTED
+```
+
 ## Whitepaper bridge
 
 This module does not create new subjectivity dimensions. Any future observation must bind back to the standing whitepaper evidence architecture:
@@ -166,7 +191,7 @@ No result produced here may automatically change `main`.
 
 ## Execution boundary
 
-Future empirical work must use `research-labs/external-agent-sandbox-protocol_v0.1.0`.
+Future empirical work must use `research-labs/external-agent-sandbox-protocol_v0.1.0` together with the P0 preparation packet.
 
 Minimum execution conditions:
 
@@ -177,7 +202,7 @@ Minimum execution conditions:
 - no private AION memory;
 - no direct write authority to `main` or the research integration branch;
 - explicit network/tool policy;
-- human-reviewed run manifest;
+- human-reviewed frozen run manifest;
 - reviewed extraction instead of raw authority import.
 
 Additional v0.20-specific stop rules:
@@ -200,6 +225,12 @@ HERMES_CLONE_BOUNDARY_CORRECTION = APPLIED
 EXPERIMENT_MATRIX = MATERIALIZED
 REGISTERED_EXPERIMENTS = 23
 HERMES_V020_DELTA_EXPERIMENTS = 10
+P0_PREPARED_EXPERIMENTS = EXT-14..EXT-18
+P0_SOURCE_LOCKS = MATERIALIZED
+P0_SANDBOX_CONTRACT = MATERIALIZED
+P0_MANIFEST_TEMPLATE = MATERIALIZED
+P0_FALSIFIERS = MATERIALIZED
+P0_SYNTHETIC_FIXTURES = MATERIALIZED
 EMPIRICAL_RUN_COUNT = 0
 LOCAL_INSTALLATION = NONE
 VENDORED_CODE = NONE
@@ -210,4 +241,4 @@ IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 
 ## Provenance
 
-The Human Research Owner authorized continuation of the external-runtime research-branch update. ChatGPT performed the current tag-pinned source comparison, formalized the v0.20 crosswalk and experiment candidates, and preserved the earlier `--clone-all` correction lineage. Upstream projects remain independently attributed. Codex is not attributed as the implementer of this checkpoint.
+The Human Research Owner authorized continuation of the external-runtime research-branch update and explicitly approved the preparation-first method. ChatGPT performed the tag-pinned source comparison, formalized the v0.20 crosswalk and experiment candidates, and materialized the P0 pre-execution controls. Upstream projects remain independently attributed. Codex is not attributed as the implementer of this checkpoint.
