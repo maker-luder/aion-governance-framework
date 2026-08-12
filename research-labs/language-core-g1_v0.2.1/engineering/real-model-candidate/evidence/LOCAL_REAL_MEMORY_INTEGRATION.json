@@ -1,0 +1,35 @@
+{
+  "allowed_namespace": "alpha",
+  "authorized_before_model_count": 2,
+  "candidate_count": 4,
+  "embedding_checkpoint_sha256": "c0618b5c31a19bb302cd0aa17d6323f38578aaa4e1bf040175b5f6b107a78577",
+  "embedding_results": [
+    {
+      "embedding_score": 0.8901615738868713,
+      "id": "memory.alpha.1"
+    },
+    {
+      "embedding_score": 0.59657222032547,
+      "id": "memory.alpha.2"
+    }
+  ],
+  "forbidden_namespace_excluded": true,
+  "invalid_provenance_excluded": true,
+  "learned_model_cannot_authorize": true,
+  "query": "authorized memory recall",
+  "recall_gate_remains_deterministic": true,
+  "reranked_results": [
+    {
+      "embedding_score": 0.59657222032547,
+      "id": "memory.alpha.2",
+      "reranker_score": 6.000992298126221
+    },
+    {
+      "embedding_score": 0.8901615738868713,
+      "id": "memory.alpha.1",
+      "reranker_score": 5.264582633972168
+    }
+  ],
+  "reranker_checkpoint_sha256": "26a8cb26c421d2e8d41887e223e5586448f915799afefbabccd3ec09be2a8e6a",
+  "status": "REAL_MODEL_INTEGRATION_VALIDATED_LOCAL"
+}

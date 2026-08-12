@@ -72,6 +72,9 @@ jobs:
       - name: Run component test suites
         run: python scripts/run_component_tests.py
 
+      - name: Run nested research integration-candidate test suites
+        run: python scripts/run_integration_candidate_tests.py
+
       - name: Reconcile current test evidence into QA status artifacts
         run: |
           python scripts/reconcile_current_qa.py \

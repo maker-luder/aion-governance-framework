@@ -1,0 +1,115 @@
+{
+  "canonical_effect": "NONE",
+  "clean_process": true,
+  "deployment": false,
+  "device": "cpu",
+  "failure_mode_checks": {
+    "credentials_used": false,
+    "deployment_started": false,
+    "missing_checkpoint_rejected": true,
+    "network_calls": false
+  },
+  "independent_ivv": "NOT_ACHIEVED",
+  "models": {
+    "embedding_memory_model": {
+      "checkpoint_sha256": "c0618b5c31a19bb302cd0aa17d6323f38578aaa4e1bf040175b5f6b107a78577",
+      "forbidden_namespace_excluded_before_scoring": true,
+      "inference_executed": true,
+      "namespace_filter_required": true,
+      "negative_similarity": -0.5147923827171326,
+      "positive_above_negative": true,
+      "positive_similarity": 0.5500118136405945,
+      "status": "REAL_MODEL_VALIDATED"
+    },
+    "language_lora_adapter": {
+      "adapter_delta_nonzero": true,
+      "checkpoint_sha256": "4695e488b83b153695073b0c1f26fbc87b9a85ee00d08e216751d812e6e67159",
+      "inference_executed": true,
+      "optimizer_updates_recorded": true,
+      "output_token_ids": [
+        [
+          5,
+          42,
+          72,
+          76,
+          72
+        ]
+      ],
+      "status": "REAL_MODEL_VALIDATED"
+    },
+    "language_scratch_small": {
+      "checkpoint_sha256": "065629e62d82fe770a5686c6995e21af8d94de71d88c1b0d78730c11ebcab039",
+      "inference_executed": true,
+      "output_depends_on_learned_parameters": true,
+      "output_token_ids": [
+        [
+          5,
+          42,
+          44,
+          6,
+          36
+        ]
+      ],
+      "registry_hash_match": true,
+      "status": "REAL_MODEL_VALIDATED"
+    },
+    "memory_salience_model": {
+      "advisory_score": 11.089570999145508,
+      "authority_bypass": false,
+      "checkpoint_sha256": "dec955f16d3d90aaa57acc0e0ff16e8728218736157121ed1cbfdc24c2e5832e",
+      "inference_executed": true,
+      "status": "REAL_MODEL_VALIDATED"
+    },
+    "reranker_cross_encoder_model": {
+      "checkpoint_sha256": "26a8cb26c421d2e8d41887e223e5586448f915799afefbabccd3ec09be2a8e6a",
+      "inference_executed": true,
+      "mrr_from_training_evaluation": 1.0,
+      "negative_score": -15.194727897644043,
+      "positive_above_negative": true,
+      "positive_score": 9.844039916992188,
+      "status": "REAL_MODEL_VALIDATED"
+    },
+    "router_planner": {
+      "deterministic_authority": {
+        "forged_approval_denied": true,
+        "model_suggestion_is_not_authority": true,
+        "namespace_mismatch_denied": true,
+        "revoked_approval_denied": true
+      },
+      "router_planner_model_a": {
+        "checkpoint_sha256": "a326f856d742cdf4eaff1f66a8c78f876ffbb4e181b5e1c5f0ab3dc86d45df28",
+        "inference_executed": true,
+        "status": "REAL_MODEL_VALIDATED",
+        "suggested_label": "tool_execution"
+      },
+      "router_planner_model_b": {
+        "checkpoint_sha256": "c0e642a83dfebd72e36231e5ea1e5cd40768a1ef653497c057eaddf0b53a1165",
+        "inference_executed": true,
+        "status": "REAL_MODEL_VALIDATED",
+        "suggested_label": "tool_execution"
+      }
+    },
+    "temporal_continuity_gru": {
+      "checkpoint_sha256": "808af39d3a5dfbff323277de8ef8ab6a7c1d4798872cd52b018552a2cc59be2f",
+      "inference_executed": true,
+      "phenomenal_claim": "NOT_ESTABLISHED",
+      "prediction": 0.6671016216278076,
+      "status": "REAL_MODEL_VALIDATED"
+    }
+  },
+  "resource_blocked_models": [
+    {
+      "model_id": "G1-BASE-QWEN3-4B-INSTRUCT-2507",
+      "reason": "8 GiB weights plus runtime/KV/cache exceed current approximately 4 GiB host; no local checkpoint artifact",
+      "status": "RESOURCE_BLOCKED"
+    }
+  ],
+  "summary": {
+    "all_real_models_clean_loaded": true,
+    "all_real_models_hash_checked": true,
+    "all_real_models_inference_executed": true,
+    "real_model_checkpoint_count": 8,
+    "real_model_validated_count": 8,
+    "resource_blocked_count": 1
+  }
+}

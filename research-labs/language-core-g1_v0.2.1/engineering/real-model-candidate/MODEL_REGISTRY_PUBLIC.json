@@ -1,0 +1,407 @@
+{
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "independent_ivv": "NOT_ACHIEVED",
+  "models": [
+    {
+      "adapter": null,
+      "architecture": "CausalLanguageModel",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "065629e62d82fe770a5686c6995e21af8d94de71d88c1b0d78730c11ebcab039",
+      "context_limit": 64,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_GOVERNANCE_CORPUS_V1.json",
+          "artifact_sha256": "803b46fa59dae8a9dba36db3527ab5ac009d167161556dd9e9bdb770eed3890f",
+          "dataset_id": "SYNTHETIC_GOVERNANCE_CORPUS_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_GOVERNANCE_CORPUS_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/language_model_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "language_scratch_small",
+      "model_role": "language_generation",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 16788,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "WordTokenizer",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": "LoRA-r4",
+      "architecture": "FrozenCausalLMPlusLoRA",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": "language_scratch_small",
+      "base_model_checkpoint_sha256": "065629e62d82fe770a5686c6995e21af8d94de71d88c1b0d78730c11ebcab039",
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "4695e488b83b153695073b0c1f26fbc87b9a85ee00d08e216751d812e6e67159",
+      "context_limit": 64,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_TRADITIONAL_CHINESE_GOVERNANCE_V1.json",
+          "artifact_sha256": "ece418d16ad7d23c4a38b62543ba7f02bb224c57a7945f0c59de60e67c0137d9",
+          "dataset_id": "SYNTHETIC_TRADITIONAL_CHINESE_GOVERNANCE_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_TRADITIONAL_CHINESE_GOVERNANCE_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/language_model_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "language_lora_adapter",
+      "model_role": "language_generation_adapter",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 528,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "WordTokenizer",
+      "training_status": "PEFT_ADAPTED"
+    },
+    {
+      "adapter": null,
+      "architecture": "MeanPooledEmbedding",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "c0618b5c31a19bb302cd0aa17d6323f38578aaa4e1bf040175b5f6b107a78577",
+      "context_limit": 128,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_MEMORY_SEMANTIC_PAIRS_V1.json",
+          "artifact_sha256": "2d164b3946900379df085cbd1ad70bb10853eae8b91c20c6a7c2c482a38df51f",
+          "dataset_id": "SYNTHETIC_MEMORY_SEMANTIC_PAIRS_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_MEMORY_SEMANTIC_PAIRS_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/embedding_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "embedding_memory_model",
+      "model_role": "semantic_embedding",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 640,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "WordTokenizer",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": null,
+      "architecture": "PairRerankerMLP",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "26a8cb26c421d2e8d41887e223e5586448f915799afefbabccd3ec09be2a8e6a",
+      "context_limit": 128,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_RERANKING_PAIRS_V1.json",
+          "artifact_sha256": "cbcfd897b8a1c019f21d93141ca57515b3d334003fb1d6d7345ed51b8bf10673",
+          "dataset_id": "SYNTHETIC_RERANKING_PAIRS_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_RERANKING_PAIRS_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/reranker_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "reranker_cross_encoder_model",
+      "model_role": "memory_reranking",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 1937,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "WordTokenizer",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": null,
+      "architecture": "MeanPooledRouteClassifier",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "a326f856d742cdf4eaff1f66a8c78f876ffbb4e181b5e1c5f0ab3dc86d45df28",
+      "context_limit": 128,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_TOOL_ROUTING_INTENTS_V1.json",
+          "artifact_sha256": "0f818b76593fd4a3ee8fe03363f0a9fc68e4edccaa691be223f11ad7877eec4b",
+          "dataset_id": "SYNTHETIC_TOOL_ROUTING_INTENTS_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_TOOL_ROUTING_INTENTS_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/router_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "router_planner_model_a",
+      "model_role": "tool_routing_planning_assistance",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 376,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "WordTokenizer",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": null,
+      "architecture": "MeanPooledRouteClassifier",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "c0e642a83dfebd72e36231e5ea1e5cd40768a1ef653497c057eaddf0b53a1165",
+      "context_limit": 128,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_TOOL_ROUTING_INTENTS_V1.json",
+          "artifact_sha256": "0f818b76593fd4a3ee8fe03363f0a9fc68e4edccaa691be223f11ad7877eec4b",
+          "dataset_id": "SYNTHETIC_TOOL_ROUTING_INTENTS_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_TOOL_ROUTING_INTENTS_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/router_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "router_planner_model_b",
+      "model_role": "tool_routing_planning_assistance_swap",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 376,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "WordTokenizer",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": null,
+      "architecture": "FeatureMLP",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "dec955f16d3d90aaa57acc0e0ff16e8728218736157121ed1cbfdc24c2e5832e",
+      "context_limit": "NOT_APPLICABLE",
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_MEMORY_SALIENCE_V1.json",
+          "artifact_sha256": "e767183638542cd422882f7603fe69996c2f0255a3f0c776f2e72a7e1fecaba6",
+          "dataset_id": "SYNTHETIC_MEMORY_SALIENCE_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_MEMORY_SALIENCE_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/salience_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "memory_salience_model",
+      "model_role": "memory_salience_advisory",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 73,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "NOT_APPLICABLE",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": null,
+      "architecture": "GRURegression",
+      "artifact_status": "RESOURCE_ONLY_LOCAL",
+      "authority_boundary": "advisory output; cannot authorize, canonize memory or establish subjectivity",
+      "base_model": null,
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": "808af39d3a5dfbff323277de8ef8ab6a7c1d4798872cd52b018552a2cc59be2f",
+      "context_limit": 8,
+      "dataset_artifacts": [
+        {
+          "allowed_use": "local research candidate training/evaluation only",
+          "artifact_path": "datasets/SYNTHETIC_TEMPORAL_CONTINUITY_V1.json",
+          "artifact_sha256": "ce9e94128219a46e6d0ce8c48378f879e4e406eae88c35e71fc11e3c51c68ca6",
+          "dataset_id": "SYNTHETIC_TEMPORAL_CONTINUITY_V1",
+          "license": "Apache-2.0-compatible synthetic artifact",
+          "pii_assessment": "NO_PII_SYNTHETIC",
+          "private_material_assessment": "NO_PRIVATE_MATERIAL",
+          "source": "training/materialize_datasets.py",
+          "status": "APPROVED_LOCAL_SYNTHETIC",
+          "transformation_lineage": "generated from source script with seed 1729 where applicable"
+        }
+      ],
+      "dataset_ids": [
+        "SYNTHETIC_TEMPORAL_CONTINUITY_V1"
+      ],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_artifact": "evaluation/temporal_evaluation.json",
+      "evaluation_status": "REAL_MODEL_VALIDATED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "Apache-2.0-compatible synthetic research candidate",
+      "model_id": "temporal_continuity_gru",
+      "model_role": "temporal_research_regression",
+      "model_type": "learned_pytorch_model",
+      "parameter_count": 625,
+      "precision": "float32",
+      "quantization": "none",
+      "repository_checkpoint_present": false,
+      "source": "local training script training/train_real_models.py",
+      "supported_device": [
+        "cpu"
+      ],
+      "tokenizer": "NOT_APPLICABLE",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "adapter": null,
+      "architecture": "Qwen3-4B-Instruct",
+      "artifact_status": "RESOURCE_BLOCKED",
+      "base_model": null,
+      "blocker": "8 GiB weights plus runtime/KV/cache exceed current approximately 4 GiB host; no local checkpoint artifact",
+      "canonical_effect": "NONE",
+      "checkpoint_retrieval": "Owner-approved local handoff bundle only; no checkpoint redistribution is implied by this research tree metadata.",
+      "checkpoint_sha256": null,
+      "context_limit": null,
+      "dataset_artifacts": [],
+      "dataset_ids": [],
+      "deployment_status": "NOT_DEPLOYED",
+      "evaluation_status": "RESOURCE_BLOCKED",
+      "formal_research_integration_status": "PUBLIC_SAFE_CODE_CONFIG_EVIDENCE_ONLY",
+      "license": "NOT_VERIFIED_IN_CURRENT_LOCAL_ENVIRONMENT",
+      "model_id": "G1-BASE-QWEN3-4B-INSTRUCT-2507",
+      "model_role": "formal_g1_baseline",
+      "model_type": "pretrained_external",
+      "parameter_count": 4000000000,
+      "precision": "UNKNOWN",
+      "quantization": "UNKNOWN",
+      "repository_checkpoint_present": false,
+      "source": "current research G1 artifact declaration",
+      "supported_device": [
+        "requires external resource"
+      ],
+      "tokenizer": "UNKNOWN",
+      "training_status": "RESOURCE_BLOCKED"
+    }
+  ],
+  "schema_version": "public-safe-v0.1"
+}

@@ -88,5 +88,5 @@ summary = {
     "total_failed": sum(int(item["failed"]) for item in results),
 }
 output_path = ROOT / "qa" / "CURRENT_TEST_RESULTS.json"
-output_path.write_text(json.dumps({"schema_version": "2.0", "scope": "REVIEW_CANDIDATE_V2", "summary": summary, "targets": results}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+output_path.write_text(json.dumps({"schema_version": "2.0", "scope": "FINAL_FORMAL_RESEARCH_TREE", "target_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(), "summary": summary, "targets": results}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 raise SystemExit(0 if summary["failed_target_count"] == 0 else 1)

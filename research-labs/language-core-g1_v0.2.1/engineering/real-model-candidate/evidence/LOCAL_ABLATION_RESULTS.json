@@ -1,0 +1,15 @@
+{
+  "baseline": {
+    "heldout_mse": 5.154971586307511e-05
+  },
+  "controlled_component_removal": {
+    "mse": 7.461439963662997e-05,
+    "removed_feature": "reset"
+  },
+  "metric_predeclared": "MSE",
+  "random_component_removal": {
+    "mse": 5.154971586307511e-05,
+    "shuffled_feature": "reset"
+  },
+  "seed": 1735
+}

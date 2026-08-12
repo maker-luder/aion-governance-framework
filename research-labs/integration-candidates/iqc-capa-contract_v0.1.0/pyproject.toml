@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-iqc-capa-contract-candidate"
+version = "0.1.0"
+description = "Offline evidence-linked IQC/CAPA lifecycle candidate"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
