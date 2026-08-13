@@ -15,9 +15,7 @@ from .models import CompletionResult, GenerationSettings
 
 
 class Runtime(Protocol):
-    def generate(
-        self, model_name: str, prompt: str, settings: GenerationSettings
-    ) -> CompletionResult:
+    def generate(self, model_name: str, prompt: str, settings: GenerationSettings) -> CompletionResult:
         """Generate one completion without modifying model state."""
 
 
@@ -26,35 +24,25 @@ class MockRuntime:
     responses: dict[str, str]
     default_response: str = "MOCK_RESPONSE"
 
-    def generate(
-        self, model_name: str, prompt: str, settings: GenerationSettings
-    ) -> CompletionResult:
+    def generate(self, model_name: str, prompt: str, settings: GenerationSettings) -> CompletionResult:
         del model_name, settings
         text = self.responses.get(prompt, self.default_response)
-        return CompletionResult(
-            text=text, total_latency_seconds=0.001, eval_tokens=len(text.split())
-        )
+        return CompletionResult(text=text, total_latency_seconds=0.001, eval_tokens=len(text.split()))
 
 
 class OllamaRuntime:
-    def __init__(
-        self, base_url: str = "http://127.0.0.1:11434", timeout_seconds: float = 30.0
-    ) -> None:
+    def __init__(self, base_url: str = "http://127.0.0.1:11434", timeout_seconds: float = 30.0) -> None:
         parsed = urllib.parse.urlparse(base_url)
         if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost", "::1"}:
             raise ValidationError("OllamaRuntime permits only local HTTP loopback URLs")
         if parsed.username or parsed.password or parsed.query or parsed.fragment:
-            raise ValidationError(
-                "Ollama base URL must not contain credentials, query, or fragment"
-            )
+            raise ValidationError("Ollama base URL must not contain credentials, query, or fragment")
         if timeout_seconds <= 0:
             raise ValidationError("timeout_seconds must be positive")
         self.base_url = base_url.rstrip("/")
         self.timeout_seconds = timeout_seconds
 
-    def generate(
-        self, model_name: str, prompt: str, settings: GenerationSettings
-    ) -> CompletionResult:
+    def generate(self, model_name: str, prompt: str, settings: GenerationSettings) -> CompletionResult:
         payload: dict[str, JsonValue] = {
             "model": model_name,
             "prompt": prompt,

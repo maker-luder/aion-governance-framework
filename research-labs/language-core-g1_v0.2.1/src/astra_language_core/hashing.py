@@ -29,9 +29,7 @@ def shard_manifest(root: Path, paths: list[Path]) -> dict[str, JsonValue]:
         if relative in seen or not resolved.is_file():
             raise ValidationError(f"duplicate or missing model shard: {relative}")
         seen.add(relative)
-        records.append(
-            {"path": relative, "size": resolved.stat().st_size, "sha256": sha256_file(resolved)}
-        )
+        records.append({"path": relative, "size": resolved.stat().st_size, "sha256": sha256_file(resolved)})
     canonical = json.dumps(records, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     return {
         "algorithm": "SHA-256",

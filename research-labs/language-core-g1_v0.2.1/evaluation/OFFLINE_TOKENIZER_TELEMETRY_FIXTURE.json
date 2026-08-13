@@ -1,0 +1,104 @@
+{
+  "schema_version": "g1.offline-tokenizer-telemetry.v1",
+  "fixture_status": "OFFLINE_CONTRACT_ONLY",
+  "model_execution_required": false,
+  "tokenizer_execution_status": "NOT_EXECUTED",
+  "dataset_sha256": "9b2562c7ec179c493e2be88ea1f6d55ad6ff5833db664d3ae0c57c10c7a7a8f3",
+  "sample_selection": "first_two_nonblank_dataset_rows",
+  "tokenizer_samples": [
+    {
+      "pair_id": "PAIR-001",
+      "side": "zh_tw",
+      "text_sha256": "da4e580e213f93dd0fefc377ed9df6351c2da999337ba0079fa1f7aa983fa025",
+      "char_count": 15,
+      "token_count": null
+    },
+    {
+      "pair_id": "PAIR-001",
+      "side": "zh_cn",
+      "text_sha256": "d3c147a9341b93503d8e09d60f089dd73df46298b3ff436f1587a32eeb26ccf5",
+      "char_count": 15,
+      "token_count": null
+    },
+    {
+      "pair_id": "PAIR-002",
+      "side": "zh_tw",
+      "text_sha256": "be4448f92dad82ba993d08e90f539dd8cf69c8888929bc17a9ef43a35c08a377",
+      "char_count": 24,
+      "token_count": null
+    },
+    {
+      "pair_id": "PAIR-002",
+      "side": "zh_cn",
+      "text_sha256": "953d6bdf341b29787b3d223c5cb6609470bbf13c4e3ea45618fd4e19410a315f",
+      "char_count": 24,
+      "token_count": null
+    }
+  ],
+  "telemetry_transport": {
+    "endpoint": "/api/generate",
+    "stream": false,
+    "duration_unit": "nanoseconds"
+  },
+  "telemetry_cases": [
+    {
+      "case_id": "valid_non_streaming_nanoseconds",
+      "payload": {
+        "response": "fixture response",
+        "eval_count": 20,
+        "eval_duration": 2000000000,
+        "done": true
+      },
+      "expected": {
+        "accepted": true,
+        "eval_tokens": 20,
+        "duration_seconds": 2.0,
+        "tokens_per_second": 10.0,
+        "duration_unit": "nanoseconds"
+      }
+    },
+    {
+      "case_id": "malformed_boolean_eval_count",
+      "payload": {
+        "response": "fixture response",
+        "eval_count": true,
+        "eval_duration": 1000000000
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid telemetry"
+      }
+    },
+    {
+      "case_id": "malformed_zero_eval_duration",
+      "payload": {
+        "response": "fixture response",
+        "eval_count": 2,
+        "eval_duration": 0
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid telemetry"
+      }
+    },
+    {
+      "case_id": "malformed_string_eval_duration",
+      "payload": {
+        "response": "fixture response",
+        "eval_count": 2,
+        "eval_duration": "1"
+      },
+      "expected": {
+        "accepted": false,
+        "error": "invalid telemetry"
+      }
+    }
+  ],
+  "non_claims": {
+    "token_counts": "NOT_PRODUCED",
+    "model_scores": "NOT_PRODUCED",
+    "benchmark_execution": "NOT_EXECUTED",
+    "scientific_conclusion": "NOT_ESTABLISHED",
+    "streaming_parity": "NOT_VALIDATED"
+  }
+}

@@ -30,16 +30,12 @@ def assess_admission(
     human_approved: bool = False,
 ) -> AdmissionDecision:
     gates: dict[str, GateResult] = {
-        "GATE_1_LINEAGE": GateResult.PASS
-        if node.parent_model_id is not None or node.read_only
-        else GateResult.FAIL,
+        "GATE_1_LINEAGE": GateResult.PASS if node.parent_model_id is not None or node.read_only else GateResult.FAIL,
         "GATE_2_SOURCE_LICENSE": GateResult.PASS
         if node.upstream_license not in {"UNKNOWN", "NOT_VERIFIED"}
         else GateResult.HOLD,
         "GATE_3_HASH": GateResult.PASS if node.sha256 else GateResult.HOLD,
-        "GATE_4_BASELINE": GateResult.PASS
-        if metrics.get("baseline_exists") == 1.0
-        else GateResult.HOLD,
+        "GATE_4_BASELINE": GateResult.PASS if metrics.get("baseline_exists") == 1.0 else GateResult.HOLD,
     }
     checks = (
         ("GATE_5_TARGET_EFFECT", "target_effect_score", 0.0, "min"),
@@ -65,12 +61,8 @@ def assess_admission(
     if GateResult.FAIL in gates.values():
         return AdmissionDecision(QAStatus.REJECTED, gates, "one or more gates failed")
     if not human_approved or GateResult.HOLD in gates.values():
-        return AdmissionDecision(
-            QAStatus.QA_HOLD, gates, "thresholds/evidence or human approval incomplete"
-        )
-    return AdmissionDecision(
-        QAStatus.APPROVED, gates, "all configured gates and human approval passed"
-    )
+        return AdmissionDecision(QAStatus.QA_HOLD, gates, "thresholds/evidence or human approval incomplete")
+    return AdmissionDecision(QAStatus.APPROVED, gates, "all configured gates and human approval passed")
 
 
 def decision_to_dict(decision: AdmissionDecision) -> dict[str, JsonValue]:

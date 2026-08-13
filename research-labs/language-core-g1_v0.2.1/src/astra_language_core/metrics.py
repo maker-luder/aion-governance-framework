@@ -31,9 +31,7 @@ def script_counts(text: str) -> dict[str, int]:
     }
 
 
-def terminology_scores(
-    text: str, expected_tw: tuple[str, ...], forbidden_cn: tuple[str, ...]
-) -> dict[str, float]:
+def terminology_scores(text: str, expected_tw: tuple[str, ...], forbidden_cn: tuple[str, ...]) -> dict[str, float]:
     expected_hits = sum(term in text for term in expected_tw)
     forbidden_hits = sum(term in text for term in forbidden_cn)
     return {

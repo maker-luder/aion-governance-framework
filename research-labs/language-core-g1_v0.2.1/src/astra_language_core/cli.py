@@ -33,9 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     register.add_argument("--registry", type=_path, required=True)
     hashing = sub.add_parser("hash-model", help="Hash one file or a deterministic shard set")
     hashing.add_argument("--path", type=_path, required=True)
-    dataset = sub.add_parser(
-        "validate-dataset", help="Validate paired Traditional/Simplified JSONL"
-    )
+    dataset = sub.add_parser("validate-dataset", help="Validate paired Traditional/Simplified JSONL")
     dataset.add_argument("--path", type=_path, required=True)
     run = sub.add_parser("run-eval", help="Run a local mock or localhost Ollama evaluation")
     run.add_argument("--config", type=_path, required=True)
@@ -103,11 +101,7 @@ def execute(args: argparse.Namespace) -> int:
         print(f"Wrote report: {args.output}")
     elif args.command == "qa-status":
         node = ModelNode.from_dict(load_json_compatible_yaml(args.model))
-        print(
-            json.dumps(
-                decision_to_dict(assess_admission(node, {}, AdmissionThresholds())), indent=2
-            )
-        )
+        print(json.dumps(decision_to_dict(assess_admission(node, {}, AdmissionThresholds())), indent=2))
     return 0
 
 

@@ -9,6 +9,9 @@ description = "Bounded default-deny encounter governance policy candidate"
 requires-python = ">=3.11"
 dependencies = []
 
+[project.optional-dependencies]
+dev = ["pytest>=8", "jsonschema>=4.23"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

@@ -16,9 +16,7 @@ def test_model_round_trip() -> None:
     assert ModelNode.from_dict(original.to_dict()) == original
 
 
-@pytest.mark.parametrize(
-    "field,value", [("unknown", 1), ("parameter_count", "4B"), ("merged", "no")]
-)
+@pytest.mark.parametrize("field,value", [("unknown", 1), ("parameter_count", "4B"), ("merged", "no")])
 def test_model_rejects_unknown_or_wrong_type(field: str, value: object) -> None:
     data = base_node().to_dict()
     data[field] = value  # type: ignore[assignment]

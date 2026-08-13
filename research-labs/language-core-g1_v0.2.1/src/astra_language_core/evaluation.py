@@ -43,9 +43,7 @@ def evaluate(run: EvaluationRun, pairs: list[PromptPair], runtime: Runtime, outp
                 "repeated_trigram_ratio": repeated_ngram_ratio(result.text),
                 "loop_detected": loop_detected(result.text),
                 **script_counts(result.text),
-                **terminology_scores(
-                    result.text, pair.expected_keywords_tw, pair.forbidden_simplified_terms
-                ),
+                **terminology_scores(result.text, pair.expected_keywords_tw, pair.forbidden_simplified_terms),
                 **constraint_scores(result.text, pair.expected_constraints),
             }
             records.append(

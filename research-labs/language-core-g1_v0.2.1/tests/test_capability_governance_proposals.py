@@ -6,16 +6,15 @@ from pathlib import Path
 import pytest
 
 from astra_language_core.capability_governance import (
+    LANGUAGE_CORE_IS_IDENTITY_CORE,
     CapabilityArtifactRecord,
     CapabilityArtifactStatus,
-    LANGUAGE_CORE_IS_IDENTITY_CORE,
     ResearchProposal,
     language_core_definition,
     proposal_from_dict,
 )
 from astra_language_core.errors import ValidationError
 from astra_language_core.json_types import JsonValue
-
 
 ROOT = Path(__file__).resolve().parents[1]
 PROPOSAL_ROOT = ROOT / "capability_proposals"

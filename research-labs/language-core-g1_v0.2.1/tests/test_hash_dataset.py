@@ -50,9 +50,7 @@ def test_dataset_load_and_duplicate(tmp_path: Path) -> None:
     path = tmp_path / "pairs.jsonl"
     path.write_text(json.dumps(_row(), ensure_ascii=False) + "\n", encoding="utf-8")
     assert load_prompt_pairs(path)[0].pair_id == "P1"
-    path.write_text(
-        "\n".join(json.dumps(_row(), ensure_ascii=False) for _ in range(2)), encoding="utf-8"
-    )
+    path.write_text("\n".join(json.dumps(_row(), ensure_ascii=False) for _ in range(2)), encoding="utf-8")
     with pytest.raises(ValidationError, match="duplicate"):
         load_prompt_pairs(path)
 

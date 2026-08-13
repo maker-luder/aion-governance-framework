@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from typing import cast
 
 from .errors import ValidationError
 from .json_types import JsonValue
@@ -12,9 +13,10 @@ def _string_list(data: dict[str, JsonValue], key: str) -> tuple[str, ...]:
     value = data.get(key)
     if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
         raise ValidationError(f"{key} must be an array of strings")
-    if any(not item.strip() for item in value):
+    string_items = cast(list[str], value)
+    if any(not item.strip() for item in string_items):
         raise ValidationError(f"{key} must contain only non-empty strings")
-    return tuple(value)
+    return tuple(string_items)
 
 
 @dataclass(frozen=True, slots=True)

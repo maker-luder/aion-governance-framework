@@ -37,12 +37,8 @@ def test_failed_and_approved_paths() -> None:
 
 def test_observation_registry(tmp_path: Path) -> None:
     path = tmp_path / "obs.json"
-    path.write_text(
-        json.dumps([{"observation_id": "O1", "canonical_effect": "NONE"}]), encoding="utf-8"
-    )
+    path.write_text(json.dumps([{"observation_id": "O1", "canonical_effect": "NONE"}]), encoding="utf-8")
     assert load_observations(path)[0]["observation_id"] == "O1"
-    path.write_text(
-        json.dumps([{"observation_id": "O1", "canonical_effect": "YES"}]), encoding="utf-8"
-    )
+    path.write_text(json.dumps([{"observation_id": "O1", "canonical_effect": "YES"}]), encoding="utf-8")
     with pytest.raises(ValidationError):
         load_observations(path)

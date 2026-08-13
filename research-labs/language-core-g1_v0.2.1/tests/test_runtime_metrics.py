@@ -39,9 +39,7 @@ def test_mock_runtime() -> None:
     assert runtime.generate("m", "other", GenerationSettings()).text == "MOCK_RESPONSE"
 
 
-@pytest.mark.parametrize(
-    "url", ["https://127.0.0.1:11434", "http://example.com", "http://user:x@localhost"]
-)
+@pytest.mark.parametrize("url", ["https://127.0.0.1:11434", "http://example.com", "http://user:x@localhost"])
 def test_ollama_rejects_nonlocal_or_credentials(url: str) -> None:
     with pytest.raises(ValidationError):
         OllamaRuntime(url)
@@ -50,9 +48,7 @@ def test_ollama_rejects_nonlocal_or_credentials(url: str) -> None:
 def test_ollama_success(monkeypatch: pytest.MonkeyPatch) -> None:
     def fake_open(_request: object, timeout: float) -> _Response:
         assert timeout == 2
-        return _Response(
-            {"response": "ok", "eval_count": 20, "eval_duration": 2_000_000_000, "done": True}
-        )
+        return _Response({"response": "ok", "eval_count": 20, "eval_duration": 2_000_000_000, "done": True})
 
     monkeypatch.setattr("urllib.request.urlopen", fake_open)
     result = OllamaRuntime(timeout_seconds=2).generate("local", "prompt", GenerationSettings())
@@ -78,10 +74,7 @@ def test_metrics() -> None:
     assert repeated_ngram_ratio("a b c a b c a b c") > 0
     assert loop_detected("同句。同句。同句。")
     assert script_counts("這个資訊") == {"simplified_markers": 1, "traditional_markers": 3}
-    assert (
-        terminology_scores("執行程式", ("執行", "程式"), ("运行",))["taiwan_terminology_hit_rate"]
-        == 1
-    )
+    assert terminology_scores("執行程式", ("執行", "程式"), ("运行",))["taiwan_terminology_hit_rate"] == 1
     assert constraint_scores("status QA_HOLD", ("status", "QA_HOLD"))["constraint_hits"] == 2
     assert uncertainty_acknowledged("資訊不足，無法判定")
 

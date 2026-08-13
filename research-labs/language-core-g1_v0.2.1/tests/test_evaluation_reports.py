@@ -14,9 +14,7 @@ from astra_language_core.runtime import MockRuntime
 
 
 def pair() -> PromptPair:
-    return PromptPair(
-        "P1", "general", "繁中", "简中", ("答案",), ("程式",), ("程序",), None, None, "test"
-    )
+    return PromptPair("P1", "general", "繁中", "简中", ("答案",), ("程式",), ("程序",), None, None, "test")
 
 
 def test_full_mock_evaluation_and_reports(tmp_path: Path) -> None:

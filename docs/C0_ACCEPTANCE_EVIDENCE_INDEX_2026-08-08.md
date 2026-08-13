@@ -68,7 +68,7 @@ These are evidence-location states only. They are **not** acceptance outcomes.
 
 ## Coverage summary
 
-Current candidate criteria indexed: **26**.
+The base index contains **26** distinct criterion IDs. The recoverability addendum contains **4** rows: one refinement of `AC-LIFE-02` and three additional criteria (`AC-LIFE-02A`, `AC-LIFE-04A`, and `AC-LIFE-04B`). The combined candidate traceability set therefore contains **29 unique criteria**, matching the 29 IDs in the final-candidate criteria document.
 
 Evidence navigation outcome:
 
@@ -77,6 +77,10 @@ Evidence navigation outcome:
 - governance/document criteria point to documentary review artifacts;
 - exact frozen-head workflow results are intentionally deferred to out-of-tree PR records;
 - criteria whose decisive evidence can only exist during C are marked `FUTURE_C_EVIDENCE` rather than pre-judged.
+
+## Non-invasive C0-4 traceability review — 2026-08-14
+
+A repository-local set comparison was performed against `C0_OWNER_ACCEPTANCE_CRITERIA_FINAL_CANDIDATE_2026-08-08.md`, this base index, and `C0_ACCEPTANCE_EVIDENCE_INDEX_RECOVERABILITY_ADDENDUM_2026-08-08.md`. The comparison found **no final-candidate criterion missing from the combined index** and **no index-only criterion outside the final candidate**. This is a navigation and consistency check only; it does not freeze criteria, judge evidence sufficiency, assign `PASS`/`FAIL`/`HOLD`/`N/A`, start C execution, or authorize merge/promotion.
 
 ## Important evidence limitations discovered while indexing
 
