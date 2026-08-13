@@ -238,3 +238,24 @@ The 19 tests and 14 synthetic cases passed. The experiment only materializes dec
 | Main state reference | GitHub read-only fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at reconciliation/checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Used only as a protected reference | Current authoritative main reference for this cycle; stale local checkout `4b360779...` is historical/stale and not current |
 
 No source above establishes authority, identity, subjectivity, consciousness, scientific validity, AION/Astra equivalence, real-world oscillation, governance effect, canonical effect, or deployment.
+
+
+## Artifact-transformation-lineage adversarial extension
+
+Manus added `research-labs/artifact-transformation-lineage-adversarial_v0.1.0` as a clean-room, standard-library-only metadata audit extension. The Human Research Owner authorized the bounded research-only cycle and retains main, canonical, governance, and deployment authority. ChatGPT research review supplied the inherited scope, exclusions, and non-claim boundaries. Codex made no contribution to this unit. No GitHub Actions execution, private data, external agent, live model API, transformation command, deployment, canonical write, or main write was used.
+
+The unit reuses `artifact-transformation-lineage_v0.1.0` and its external-source crosswalk by stable repository reference. The transformation adds event identity/order checks, run/job/provenance drift handling, redacted-environment checks, artifact path/source checks, self-parent rejection, output path-set checks, and byte-level SHA-256 verification. Reused repository evidence is not new evidence; the 15 synthetic cases are not replication evidence.
+
+The unit produced 20 passing tests and 15 synthetic cases after correcting one fixture-construction defect. The first state-order case reused an event identifier, which caused the duplicate-ID branch to fire before the intended state-order branch; this initial observation is retained in `artifact-lineage-adversarial-initial-failure.md`. The corrected fixture uses unique IDs and contiguous indexes. The result remains metadata-only: `MODEL_EXECUTION = FALSE`, `OBSERVED_RESULT = NOT_EVALUATED`, `SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED`, `SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED`, `CANONICAL_EFFECT = NONE`, `GOVERNANCE_EFFECT = NONE`, and `DEPLOYMENT = FALSE`.
+
+### Source attribution matrix
+
+| What | Who | Where | When | Method | Authority | Transformation | Current/stale status |
+|---|---|---|---|---|---|---|---|
+| Artifact and transformation event contract | Manus, reviewed under ChatGPT research scope | Repository path `research-labs/artifact-transformation-lineage_v0.1.0/src/aion_artifact_lineage/lineage.py` | Inherited branch research lineage; exact new state bound by later QA receipt | Read-only source inspection and stable-reference reuse | Repository Evidence; Human Owner retains authority | Adversarial audit projection only; no command execution or promotion | Current within verified research lineage at the unit commit; not an external freshness claim |
+| Artifact-lineage source crosswalk | Manus | `research-labs/artifact-transformation-lineage_v0.1.0/docs/EXTERNAL_SOURCE_CROSSWALK.md` | Inherited prior unit; no independent re-dating in this extension | Methodological context reuse | Repository Evidence / External Literature references already recorded | No source code or dependency imported | Current within branch lineage; external currentness not newly asserted |
+| Synthetic lineage decisions | Manus | `research-labs/artifact-transformation-lineage-adversarial_v0.1.0/fixtures/artifact_lineage_adversarial_result.json` | Generated and validated 2026-08-13 | Standard-library Python fixture execution | Synthetic Fixtures; no authority to change governance | Declared event metadata mapped to VALID/HOLD/INVALID reason codes | Current as fixture content bound to the research commit; not a real-world observation |
+| Initial fixture failure | Manus | `artifact-lineage-adversarial-initial-failure.md` | Observed during first test run 2026-08-13 | Preserved test output and corrected fixture | Tool Output / Repository Evidence | Retained as mechanism-contract defect, not scientific evidence | Historical initial failure; corrected behavior is current at final unit QA |
+| Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
+
+No source above establishes scientific validity, replication, authority, identity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, or deployment.
