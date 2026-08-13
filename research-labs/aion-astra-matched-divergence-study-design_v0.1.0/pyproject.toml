@@ -1,0 +1,9 @@
+[project]
+name = "aion-astra-matched-divergence-study-design"
+version = "0.1.0"
+description = "Research-only source-bound matched-divergence study design for AION/Astra"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

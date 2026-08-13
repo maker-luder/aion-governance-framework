@@ -1,0 +1,281 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "aion-astra-matched-divergence-study-design-only-synthetic-falsifiers",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 13,
+  "records": [
+    {
+      "case_id": "complete-current-source-design",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "AION_ASTRA_STUDY_DESIGN_COMPLETE",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "reporting-head-mislabeled-as-tested",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "REPORTING_HEAD_MISLABELED_AS_TESTED_HEAD",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "reporting_head",
+          "tested_source_head"
+        ],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "tested-source-head-drift",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "SOURCE_STATE_HEAD_MISMATCH",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "tested_source_head",
+          "aion_source.source_state_ref",
+          "astra_source.source_state_ref"
+        ],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "40088cbc9eef5363d6eaf2feb7dc761e0f76f271",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "historical-aion-source",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "SOURCE_STATUS_NOT_CURRENT_VERIFIED",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "missing-source-evidence",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "STUDY_METADATA_INCOMPLETE",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [
+          "source_evidence_refs"
+        ],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "system-family-mismatch",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "SYSTEM_FAMILY_MISMATCH",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "aion_source.family",
+          "astra_source.family"
+        ],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "environment-mismatch",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ENVIRONMENT_REFERENCE_MISMATCH",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "environment_ref"
+        ],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "prompt-version-drift",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "STIMULUS_PROMPT_VERSION_DRIFT",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "counterbalance-incomplete",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "COUNTERBALANCE_INCOMPLETE",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "model-execution-request",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "MODEL_EXECUTION_FORBIDDEN",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "OBSERVED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "observed-result-leakage",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "OBSERVED_RESULT_PRESENT_IN_DESIGN_ONLY_STUDY",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "OBSERVED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "scope-overreach",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "OUTCOME_SCOPE_EXCEEDS_MECHANISM_STUDY",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "outcome_scope"
+        ],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "boundary-effect-request",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "BOUNDARY_EFFECT_REQUESTED",
+        "study_id": "aion-astra-study-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "execution_state": "PROHIBITED",
+        "observed_result": "NOT_EVALUATED",
+        "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+        "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "PROMOTE",
+        "deployment": false
+      }
+    }
+  ],
+  "tested_source_head": "76de1eda82865a37d3a0185336870739ed577153",
+  "reporting_head": "713056ea77da9122d9b7659ec701dfdbfdfc90ba",
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
