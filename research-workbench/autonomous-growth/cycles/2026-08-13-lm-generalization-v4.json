@@ -1,0 +1,54 @@
+{
+  "cycle_id": "2026-08-13-lm-generalization-v4",
+  "started_at": "2026-08-13T08:24:29+08:00",
+  "starting_research_sha": "4fdbbdc50bb551a6dba18767bc46803423319575",
+  "research_question": "Do two V3 learned checkpoints retain the V3 regularization advantage across an expanded, exact-disjoint held-out corpus with cross-topic composition and word-order perturbation?",
+  "epistemic_role": "MEASUREMENT",
+  "source_refs": [
+    "qa/AUTHORITATIVE_REMAINING_GAP_INVENTORY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V4_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V4_VALIDATION.json"
+  ],
+  "changed_paths": [
+    "docs/RESEARCH_CYCLE_LM_GENERALIZATION_V4_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/REAL_MODEL_CANDIDATE_INTEGRATION.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/run_lm_generalization_v4_evaluation.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/validate_lm_generalization_v4_evaluation.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_PERTURBATION_V4_DATASET_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V4_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V4_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_language_generalization_v4_evidence.py",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-lm-generalization-v4.json",
+    "research-workbench/autonomous-growth/AUTONOMOUS_GROWTH_LEDGER.md"
+  ],
+  "validation": {
+    "commands": [
+      "python3 research-labs/language-core-g1_v0.2.1/engineering/generalization/run_lm_generalization_v4_evaluation.py --models-dir <local-only-models> --evidence-dir <public-evidence> --v3-registry <v3-registry>",
+      "python3 research-labs/language-core-g1_v0.2.1/engineering/generalization/validate_lm_generalization_v4_evaluation.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_language_generalization_v4_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py"
+    ],
+    "outcomes": [
+      "LM_GENERALIZATION_V4 = PRELIMINARY_RESEARCH_EVIDENCE; 20 exact-disjoint held-out rows, 10 cross-topic and 10 word-order perturbations",
+      "V4 OOV count = 0; clean-process checkpoint validation = PASS for both local-only V3 checkpoints",
+      "Regularized checkpoint improved 9 of 20 paired rows; mean paired improvement = -0.0718610167503357; minimum = -0.6465010643005371",
+      "V4 focused evidence tests = 4 passed; complete language-core suite = 79 passed",
+      "Public-tree scan = PASS; no private/intimate data or paid external resource",
+      "Universal regularization-improvement claim is mixed/falsified on this expanded fixture; GAP-002 remains PARTIALLY_COMPLETE"
+    ]
+  },
+  "result_class": "NEGATIVE",
+  "candidate_branch": "autogrow/2026-08-13-lm-generalization-v4",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
+  "hold_items": [
+    "V4 remains a small synthetic evaluation and cannot establish mature general-purpose language capability",
+    "V2/V3 positive results do not automatically generalize to V4 perturbation conditions",
+    "Local-only checkpoint binaries remain outside Git",
+    "Independent IV&V is not achieved",
+    "No identity, subjectivity, consciousness or authority conclusion is permitted",
+    "No temporary autogrow branch is pushed as a remote branch"
+  ]
+}

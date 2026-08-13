@@ -256,3 +256,42 @@ HOLD:
 - no non-lexical continuity, semantic continuity, identity, subjectivity or consciousness conclusion is permitted;
 - independent IV&V is not achieved;
 - no temporary `autogrow/*` branch is pushed as a remote branch.
+
+## Autonomous cycle — 2026-08-13 — LM generalization V4 expanded perturbation evaluation
+
+```text
+STARTING_RESEARCH_SHA = 4fdbbdc50bb551a6dba18767bc46803423319575
+CANDIDATE_BRANCH = autogrow/2026-08-13-lm-generalization-v4
+EPISTEMIC_ROLE = MEASUREMENT
+RESULT_CLASS = NEGATIVE
+INTEGRATION_STATUS = INTEGRATED_RESEARCH_BRANCH
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+Research question:
+
+> Do two V3 learned checkpoints retain the V3 regularization advantage across an expanded, exact-disjoint held-out corpus with cross-topic composition and word-order perturbation?
+
+V4 used 20 authored synthetic rows, 10 cross-topic compositions and 10 word-order perturbations. All rows were exact-disjoint from V3 and used the V3 train-only vocabulary with OOV count `0`. The regularized checkpoint improved 9 of 20 paired rows, but mean paired improvement was `-0.0718610167503357` and the minimum was `-0.6465010643005371`. The universal regularization-improvement claim was therefore mixed/falsified in this expanded fixture. This is negative research evidence against overgeneralization, not a claim that the baseline is generally superior.
+
+Validation:
+
+- clean-process V4 checkpoint validation: `PASS`;
+- focused V4 evidence tests: `4 passed`;
+- complete language-core test line after this increment: `79 passed`;
+- full exact-head authoritative QA at source head `ebf9890...`: `26/26 gates PASS`;
+- public-tree scan: `PASS`;
+- no private/intimate data or paid external resource was used.
+
+Cycle record: `cycles/2026-08-13-lm-generalization-v4.json`.
+
+HOLD:
+
+- GAP-002 remains `PARTIALLY_COMPLETE`;
+- mature general-purpose capability is not established;
+- local-only checkpoints remain outside Git;
+- independent IV&V is not achieved;
+- no identity, subjectivity, consciousness, canonical or deployment conclusion is permitted;
+- no temporary `autogrow/*` branch is pushed as a remote branch.
