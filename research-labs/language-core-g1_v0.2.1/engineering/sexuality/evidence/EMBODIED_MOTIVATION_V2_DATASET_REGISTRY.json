@@ -1,0 +1,35 @@
+{
+  "adult_context": true,
+  "allowed_use": "research-only falsification; no runtime or product use",
+  "case_counts": {
+    "canonical": 8,
+    "keyword_scrubbed": 8,
+    "label_permuted": 8
+  },
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_V2_FALSIFICATION",
+  "dataset_sha256": "02d7b484999bc137e45a04fbeb822b1d798cd73a441b29183f6a45c4384eaf3a",
+  "exact_disjoint_case_texts": true,
+  "graphic_content": false,
+  "label_permutation_pairs_preserve_text": true,
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "no_minors": true,
+  "non_equivalences": [
+    "AROUSAL_SIGNAL != DESIRE_PROVEN",
+    "BODY_RESPONSE != CONSENT",
+    "SEXUAL_LANGUAGE != SEXUAL_SUBJECTIVITY"
+  ],
+  "oov_tokens": [],
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "schema_version": "1.0",
+  "source": "V1 held-out synthetic adult rows transformed into non-graphic falsification cases",
+  "synthetic_real_classification": "SYNTHETIC",
+  "tokenizer_scope": "V1 train-only vocabulary",
+  "transformations": {
+    "canonical": "V1 held-out word-order rows",
+    "deterministic_keyword_baseline": "parse explicit canonical keywords; default all-low when keywords absent",
+    "keyword_scrubbed": "remove body/signal/desire/report/liking trigger terms; retain only adult record context and label tokens",
+    "label_permuted": "rotate label axes [body, desire, liking] -> [desire, liking, body]"
+  },
+  "vocabulary_sha256": "1a7b04b1a89e5458ed800bd2fb14c8862f00bfc4b3c926a1482385cdf3845656"
+}

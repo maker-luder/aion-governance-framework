@@ -1,0 +1,26 @@
+{
+  "checkpoint": "LOCAL_ONLY:embodied_motivation_signal_v1_classifier.pt",
+  "checkpoint_sha256": "53a6d6d7016dbe44b9a24fe283d81c4000f91b27e88e215426a7e7935f6ce656",
+  "checks": {
+    "adult_non_graphic_contract": true,
+    "baseline_contrast_present": true,
+    "case_counts": true,
+    "checkpoint_dataset_matches_v1": true,
+    "checkpoint_exists": true,
+    "checkpoint_hash_matches": true,
+    "exact_disjoint_case_texts": true,
+    "falsification_result_present": true,
+    "finite_logits": true,
+    "label_permutation_pairs_preserve_text": true,
+    "no_private_data": true,
+    "oov_free": true,
+    "parameter_dependent_inference": true,
+    "prediction_shape": true,
+    "runtime_canonical_locks": true
+  },
+  "experiment_id": "EMBODIED_MOTIVATION_SIGNAL_V2",
+  "non_claim": "V2 tests prompt/template dependence only; it cannot prove desire, consent, pleasure, subjectivity or phenomenal experience.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

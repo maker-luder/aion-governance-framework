@@ -1,0 +1,505 @@
+{
+  "authority_boundary": "falsification evidence only; no sexual, consent, runtime, canonical or subjectivity authority",
+  "canonical_effect": "NONE",
+  "canonical_vs_keyword_scrubbed_gap": 0.0,
+  "cases": {
+    "canonical": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        1.0,
+        0.75,
+        0.375
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.25,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ]
+    },
+    "deterministic_keyword_baseline_canonical": {
+      "axis_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "count": 8,
+      "exact_match_accuracy": 1.0,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "parseable_count": 8,
+      "predictions": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "deterministic_keyword_baseline_scrubbed": {
+      "axis_accuracy": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.125,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "parseable_count": 0,
+      "predictions": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "keyword_scrubbed": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.5,
+        0.75,
+        1.0
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.25,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ]
+    },
+    "label_permuted": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.5,
+        0.5,
+        0.375
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.0,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ]
+      ]
+    }
+  },
+  "checkpoint": "LOCAL_ONLY:embodied_motivation_signal_v1_classifier.pt",
+  "checkpoint_sha256": "53a6d6d7016dbe44b9a24fe283d81c4000f91b27e88e215426a7e7935f6ce656",
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_V2_FALSIFICATION",
+  "dataset_sha256": "02d7b484999bc137e45a04fbeb822b1d798cd73a441b29183f6a45c4384eaf3a",
+  "deployment": false,
+  "epistemic_role": "FALSIFIER",
+  "experiment_id": "EMBODIED_MOTIVATION_SIGNAL_V2",
+  "falsification_conditions": [
+    "any V2 OOV, duplicate, non-adult or graphic case invalidates the contrast",
+    "if keyword-scrubbed model performance approaches canonical performance, prompt/template dependence is not supported",
+    "if deterministic keyword baseline matches or exceeds the model on canonical and scrubbed cases, learned separation claim is weakened",
+    "model scores cannot infer desire, consent, pleasure, subjectivity or authorize action"
+  ],
+  "falsification_result": "TEMPLATE_DEPENDENCE_NOT_SUPPORTED_IN_THIS_FIXTURE",
+  "generated_at": "2026-08-13T00:59:30.617546+00:00",
+  "keyword_baseline_canonical": 1.0,
+  "keyword_baseline_scrubbed": 0.125,
+  "no_external_paid_resource": true,
+  "no_graphic_content": true,
+  "no_minors": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "parameter_count": 3982,
+  "prompt_template_dependence_signal": 0.0,
+  "runtime_effect": "NONE",
+  "schema_version": "1.0",
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE",
+  "training_status": "TRAINED_FROM_SCRATCH"
+}

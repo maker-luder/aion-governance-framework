@@ -1,0 +1,51 @@
+{
+  "cycle_id": "2026-08-13-embodied-motivation-signal-v2",
+  "started_at": "2026-08-13T09:00:24+08:00",
+  "starting_research_sha": "ea270d3dfb0fcaf9e17e23509f198e4857013872",
+  "research_question": "Is the V1 embodied-motivation signal separation explained by explicit keywords, prompt/template structure or label-axis artifacts?",
+  "epistemic_role": "FALSIFIER",
+  "source_refs": [
+    "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
+    "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V1_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_RESULTS.json"
+  ],
+  "changed_paths": [
+    "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V2_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_embodied_motivation_signal_v2_falsification.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_embodied_motivation_signal_v2.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_V2_DATASET_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_embodied_motivation_signal_v2_evidence.py",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-embodied-motivation-signal-v2.json"
+  ],
+  "validation": {
+    "commands": [
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 run_embodied_motivation_signal_v2_falsification.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 validate_embodied_motivation_signal_v2.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_embodied_motivation_signal_v2_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py"
+    ],
+    "outcomes": [
+      "Same V1 real checkpoint evaluated across canonical, keyword-scrubbed and label-permuted cases",
+      "Learned model exact-match: canonical 0.25; keyword-scrubbed 0.25; label-permuted 0.0",
+      "Deterministic keyword baseline exact-match: canonical 1.0; keyword-scrubbed 0.125",
+      "V2 clean-process validation = 15/15 checks PASS",
+      "Focused V2 evidence tests = 4 passed; complete language-core line = 87 passed",
+      "Prompt/template dependence not supported in this small fixture; absolute model accuracy remains low and residual lexical/template dependence is unresolved"
+    ]
+  },
+  "result_class": "NEGATIVE",
+  "candidate_branch": "autogrow/2026-08-13-embodied-motivation-signal-v2",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
+  "hold_items": [
+    "V2 weakens a simple explicit-keyword explanation but does not establish a genuine embodied-motivation mechanism",
+    "The test set is small and synthetic; stronger paraphrase, novel-vocabulary and prompt-only controls remain needed",
+    "No actual arousal, desire, liking, pleasure, consent or subjectivity inference is allowed",
+    "Adult sexuality research authorization does not authorize runtime, productization, deployment or canonical promotion",
+    "Local-only checkpoint remains outside Git",
+    "Independent IV&V is not achieved",
+    "No temporary autogrow branch is pushed as a remote branch"
+  ]
+}

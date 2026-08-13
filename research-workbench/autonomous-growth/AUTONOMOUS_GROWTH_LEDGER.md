@@ -336,3 +336,42 @@ HOLD:
 - stronger lexical and prompt controls remain required;
 - independent IV&V is not achieved;
 - no temporary `autogrow/*` branch is pushed as a remote branch.
+
+## Autonomous cycle — 2026-08-13 — embodied-motivation V2 prompt/template falsification
+
+```text
+STARTING_RESEARCH_SHA = ea270d3dfb0fcaf9e17e23509f198e4857013872
+CANDIDATE_BRANCH = autogrow/2026-08-13-embodied-motivation-signal-v2
+EPISTEMIC_ROLE = FALSIFIER
+RESULT_CLASS = NEGATIVE
+INTEGRATION_STATUS = INTEGRATED_RESEARCH_BRANCH
+ADULT_SEXUALITY_RESEARCH = AUTHORIZED_RESEARCH_ONLY
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+Research question:
+
+> Is the V1 embodied-motivation signal separation explained by explicit keywords, prompt/template structure or label-axis artifacts?
+
+The same V1 real checkpoint was evaluated on canonical rows, keyword-scrubbed rows and label-permuted paired labels. The learned model exact-match accuracy was `0.25` on both canonical and keyword-scrubbed cases and `0.0` on the label-permuted paired control. The deterministic keyword baseline scored `1.0` on canonical rows but only `0.125` on keyword-scrubbed rows. The simple explicit-keyword explanation was therefore not supported in this small fixture, although the model’s absolute accuracy was low and residual lexical/template dependence remains unresolved.
+
+Validation:
+
+- V2 clean-process validator: `15/15 checks PASS`;
+- focused V2 evidence tests: `4 passed`;
+- complete language-core line after this increment: `87 passed`;
+- no private/intimate data, minors, graphic content or paid resource;
+- local-only checkpoint remains outside Git;
+- no runtime, productization, deployment or canonical scope was added.
+
+Cycle record: `cycles/2026-08-13-embodied-motivation-signal-v2.json`.
+
+HOLD:
+
+- V2 is a negative falsification result against one simple explanation, not proof of a genuine embodied-motivation mechanism;
+- no output may infer desire, pleasure, consent, subjectivity or phenomenal experience;
+- stronger paraphrase, novel-vocabulary and prompt-only controls remain needed;
+- independent IV&V is not achieved;
+- no temporary `autogrow/*` branch is pushed as a remote branch.

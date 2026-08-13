@@ -109,9 +109,12 @@ resolved_items = [
             "research-workbench/autonomous-growth/evidence/SEXUALITY_RESEARCH_SOURCE_FINDINGS_2026-08-13.md",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_DATASET_REGISTRY.json",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json",
-            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_VALIDATION.json"
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_V2_DATASET_REGISTRY.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_VALIDATION.json"
         ],
-        "non_claim": "A synthetic proxy classifier separating body-signal, desire-report and liking-report labels does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience.",
+        "non_claim": "V1/V2 synthetic proxy evidence gives bounded signal-separation observations and a negative test of simple keyword dependence; it does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience.",
     },
 ]
 
@@ -223,7 +226,7 @@ remaining_items = [
             "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json"
         ],
-        "reason": "The first adult, scientific, research-only embodied-motivation signal cycle is complete as bounded evidence; broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
+        "reason": "Two adult, scientific, research-only embodied-motivation cycles are complete as bounded evidence; broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
         "next_cycle_only": True,
     },
     {
