@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
   "inventory_id": "AION_ASTRA_AUTHORITATIVE_REMAINING_GAPS",
-  "generated_at": "2026-08-13T00:27:41.538089+00:00",
+  "generated_at": "2026-08-13T00:53:02.968657+00:00",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "ef040a793fea219b9650ea5325fe68d0cbc47d7d",
+  "target_head": "e67496220eb24ab81258466ef7397393c8f70202",
   "status_vocabulary": [
     "TECHNICALLY_ACTIONABLE",
     "MODEL_REQUIRED",
@@ -107,6 +107,19 @@
         "research-workbench/autonomous-growth/cycles/2026-08-13-temporal-lexical-falsification.json"
       ],
       "non_claim": "A negative result against simple lexical carryover in one synthetic contrast does not establish non-lexical continuity, identity, subjectivity or consciousness."
+    },
+    {
+      "id": "RES-009",
+      "title": "Adult embodied-motivation signal separation research",
+      "status": "PARTIALLY_COMPLETE",
+      "evidence": [
+        "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
+        "research-workbench/autonomous-growth/evidence/SEXUALITY_RESEARCH_SOURCE_FINDINGS_2026-08-13.md",
+        "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_DATASET_REGISTRY.json",
+        "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json",
+        "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_VALIDATION.json"
+      ],
+      "non_claim": "A synthetic proxy classifier separating body-signal, desire-report and liking-report labels does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience."
     }
   ],
   "remaining_items": [
@@ -259,15 +272,17 @@
     {
       "id": "GAP-011",
       "title": "Twin embodiment, visual assets, sensation and sexuality-related scope",
-      "status": "OWNER_PROHIBITED",
+      "status": "PARTIALLY_COMPLETE",
       "dimensions": [
-        "OWNER_PROHIBITED",
-        "RESEARCH_REQUIRED"
+        "RESEARCH_REQUIRED",
+        "OWNER_PROHIBITED"
       ],
       "evidence": [
-        "qa/DEFERRED_SCOPE_REGISTER.md"
+        "qa/DEFERRED_SCOPE_REGISTER.md",
+        "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
+        "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json"
       ],
-      "reason": "The formal reconciliation explicitly prohibits beginning new sexuality research or new product/runtime scope.",
+      "reason": "The first adult, scientific, research-only embodied-motivation signal cycle is complete as bounded evidence; broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
       "next_cycle_only": true
     },
     {
@@ -305,7 +320,7 @@
     "subjectivity_conclusion": "NOT_ESTABLISHED",
     "identity_conclusion": "NOT_ESTABLISHED",
     "new_research_started": true,
-    "new_sexuality_research_started": false,
+    "new_sexuality_research_started": true,
     "new_product_runtime_scope_added": false
   }
 }

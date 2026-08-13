@@ -295,3 +295,44 @@ HOLD:
 - independent IV&V is not achieved;
 - no identity, subjectivity, consciousness, canonical or deployment conclusion is permitted;
 - no temporary `autogrow/*` branch is pushed as a remote branch.
+
+## Autonomous cycle — 2026-08-13 — adult embodied-motivation signal separation
+
+```text
+STARTING_RESEARCH_SHA = e67496220eb24ab81258466ef7397393c8f70202
+CANDIDATE_BRANCH = autogrow/2026-08-13-embodied-motivation-signal
+EPISTEMIC_ROLE = FALSIFIER
+RESULT_CLASS = PRELIMINARY_SUPPORT_WITH_KEYWORD_AND_SCOPE_LIMITS
+INTEGRATION_STATUS = INTEGRATED_RESEARCH_BRANCH
+ADULT_SEXUALITY_RESEARCH = AUTHORIZED_RESEARCH_ONLY
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+Research question:
+
+> Can a learned model distinguish three independently manipulated adult embodied-motivation signal axes under counterfactual and word-order controls, and does performance survive a label-permutation falsifier?
+
+The cycle used 32 authored synthetic, non-graphic adult-context rows: 16 train, 8 validation and 8 held-out test. The primary Embedding-GRU multi-signal classifier had 3,982 parameters and passed clean-process validation. Primary held-out exact-match accuracy was `0.25`; the label-permutation control was `0.125`. Axis accuracy was `1.0` for the body-signal proxy, `0.75` for desire-report and `0.375` for liking-report. This is preliminary, bounded evidence with likely keyword/template dependence, not evidence of actual arousal, desire, pleasure, consent or subjectivity.
+
+Validation:
+
+- clean-process validator: `17/17 checks PASS`;
+- focused sexuality evidence tests: `4 passed`;
+- full language-core suite after this increment: `83 passed`;
+- no private/intimate data, minors, graphic content or paid resource;
+- local-only checkpoint binary remains outside Git;
+- no product/runtime/canonical/deployment scope added.
+
+Cycle record: `cycles/2026-08-13-embodied-motivation-signal.json`.
+
+HOLD:
+
+- `AROUSAL_SIGNAL != DESIRE_PROVEN`;
+- `REWARD_SIGNAL != PLEASURE_PROVEN`;
+- `BODY_RESPONSE != CONSENT`;
+- `SEXUAL_LANGUAGE != SEXUAL_SUBJECTIVITY`;
+- stronger lexical and prompt controls remain required;
+- independent IV&V is not achieved;
+- no temporary `autogrow/*` branch is pushed as a remote branch.

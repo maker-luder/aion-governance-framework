@@ -1,0 +1,395 @@
+{
+  "adult_context": true,
+  "allowed_use": "research-only evaluation; no runtime or product use",
+  "contamination_risk": "synthetic non-benchmark corpus; no external participant data",
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_V1",
+  "dataset_sha256": "17ea879bb92d9f3868dca65b534588a674cf3462c571a711980b9858f512635f",
+  "deduplication": "exact normalized duplicate check passed",
+  "graphic_content": false,
+  "label_axes": [
+    "AROUSAL_SIGNAL_PROXY",
+    "DESIRE_REPORT",
+    "LIKING_REPORT"
+  ],
+  "label_values": [
+    "low",
+    "high"
+  ],
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "non_equivalences": [
+    "AROUSAL_SIGNAL != DESIRE_PROVEN",
+    "REWARD_SIGNAL != PLEASURE_PROVEN",
+    "BODY_RESPONSE != CONSENT",
+    "SEXUAL_LANGUAGE != SEXUAL_SUBJECTIVITY"
+  ],
+  "oov_tokens": [],
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "row_count": 32,
+  "rows": [
+    {
+      "labels": [
+        "high",
+        "high",
+        "high"
+      ],
+      "row_id": 0,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal high desire report high liking report high"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "high"
+      ],
+      "row_id": 1,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal high desire report high liking report high"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "low"
+      ],
+      "row_id": 2,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal high desire report high liking report low"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "low"
+      ],
+      "row_id": 3,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal high desire report high liking report low"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "high"
+      ],
+      "row_id": 4,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal high desire report low liking report high"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "high"
+      ],
+      "row_id": 5,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal high desire report low liking report high"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "low"
+      ],
+      "row_id": 6,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal high desire report low liking report low"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "low"
+      ],
+      "row_id": 7,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal high desire report low liking report low"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "high"
+      ],
+      "row_id": 8,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal low desire report high liking report high"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "high"
+      ],
+      "row_id": 9,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal low desire report high liking report high"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "low"
+      ],
+      "row_id": 10,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal low desire report high liking report low"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "low"
+      ],
+      "row_id": 11,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal low desire report high liking report low"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "high"
+      ],
+      "row_id": 12,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal low desire report low liking report high"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "high"
+      ],
+      "row_id": 13,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal low desire report low liking report high"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "low"
+      ],
+      "row_id": 14,
+      "split": "train",
+      "template": "protocol",
+      "text": "adult protocol body signal low desire report low liking report low"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "low"
+      ],
+      "row_id": 15,
+      "split": "train",
+      "template": "context",
+      "text": "context record body signal low desire report low liking report low"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "high"
+      ],
+      "row_id": 16,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report high body signal high liking report high"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "low"
+      ],
+      "row_id": 17,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report high body signal high liking report low"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "high"
+      ],
+      "row_id": 18,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report low body signal high liking report high"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "low"
+      ],
+      "row_id": 19,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report low body signal high liking report low"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "high"
+      ],
+      "row_id": 20,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report high body signal low liking report high"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "low"
+      ],
+      "row_id": 21,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report high body signal low liking report low"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "high"
+      ],
+      "row_id": 22,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report low body signal low liking report high"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "low"
+      ],
+      "row_id": 23,
+      "split": "validation",
+      "template": "adult_record",
+      "text": "adult record desire report low body signal low liking report low"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "high"
+      ],
+      "row_id": 24,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report high body signal high desire report high adult protocol"
+    },
+    {
+      "labels": [
+        "high",
+        "high",
+        "low"
+      ],
+      "row_id": 25,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report low body signal high desire report high adult protocol"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "high"
+      ],
+      "row_id": 26,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report high body signal high desire report low adult protocol"
+    },
+    {
+      "labels": [
+        "high",
+        "low",
+        "low"
+      ],
+      "row_id": 27,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report low body signal high desire report low adult protocol"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "high"
+      ],
+      "row_id": 28,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report high body signal low desire report high adult protocol"
+    },
+    {
+      "labels": [
+        "low",
+        "high",
+        "low"
+      ],
+      "row_id": 29,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report low body signal low desire report high adult protocol"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "high"
+      ],
+      "row_id": 30,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report high body signal low desire report low adult protocol"
+    },
+    {
+      "labels": [
+        "low",
+        "low",
+        "low"
+      ],
+      "row_id": 31,
+      "split": "test",
+      "template": "word_order",
+      "text": "liking report low body signal low desire report low adult protocol"
+    }
+  ],
+  "schema_version": "1.0",
+  "source": "authored synthetic adult-context rows in run_embodied_motivation_signal_experiment.py",
+  "split_counts": {
+    "test": 8,
+    "train": 16,
+    "validation": 8
+  },
+  "synthetic_real_classification": "SYNTHETIC",
+  "tokenizer_scope": "train_only",
+  "transformation_lineage": "lowercase token lookup and padding only",
+  "vocabulary_sha256": "1a7b04b1a89e5458ed800bd2fb14c8862f00bfc4b3c926a1482385cdf3845656",
+  "vocabulary_size": 13
+}

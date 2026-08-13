@@ -1,0 +1,52 @@
+{
+  "cycle_id": "2026-08-13-embodied-motivation-signal",
+  "started_at": "2026-08-13T08:50:53+08:00",
+  "starting_research_sha": "e67496220eb24ab81258466ef7397393c8f70202",
+  "research_question": "Can a learned model distinguish three independently manipulated adult embodied-motivation signal axes under counterfactual and word-order controls, and does performance survive a label-permutation falsifier?",
+  "epistemic_role": "FALSIFIER",
+  "source_refs": [
+    "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
+    "research-workbench/autonomous-growth/evidence/SEXUALITY_RESEARCH_SOURCE_FINDINGS_2026-08-13.md",
+    "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0102419"
+  ],
+  "changed_paths": [
+    "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V1_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_embodied_motivation_signal_experiment.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_embodied_motivation_signal.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_DATASET_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_embodied_motivation_signal_evidence.py",
+    "research-workbench/autonomous-growth/evidence/SEXUALITY_RESEARCH_SOURCE_FINDINGS_2026-08-13.md",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-embodied-motivation-signal.json"
+  ],
+  "validation": {
+    "commands": [
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 run_embodied_motivation_signal_experiment.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 validate_embodied_motivation_signal.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_embodied_motivation_signal_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py"
+    ],
+    "outcomes": [
+      "Synthetic adult non-graphic dataset: 32 rows, 16 train / 8 validation / 8 held-out test, zero OOV and exact disjointness",
+      "Primary real checkpoint: 3,982 parameters, trained from scratch, clean validation 17/17 checks PASS",
+      "Primary exact-match: train 1.0, validation 0.5, held-out test 0.25",
+      "Label-permutation control held-out exact-match: 0.125; primary is higher but remains low and bounded",
+      "Primary held-out axis accuracy: 1.0 body-signal proxy / 0.75 desire-report / 0.375 liking-report",
+      "Focused evidence tests: 4 passed; no private/intimate data, minors, graphic content or paid resource"
+    ]
+  },
+  "result_class": "POSITIVE",
+  "candidate_branch": "autogrow/2026-08-13-embodied-motivation-signal",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
+  "hold_items": [
+    "Proxy labels do not establish actual arousal, desire, liking, pleasure, consent or phenomenal experience",
+    "The model may exploit lexical/template regularities; stronger prompt and keyword controls remain needed",
+    "The held-out test is small and the liking axis is weak",
+    "Local-only checkpoint binary remains outside Git",
+    "Adult sexuality authorization does not authorize runtime, productization, deployment or canonical promotion",
+    "Independent IV&V is not achieved",
+    "No temporary autogrow branch is pushed as a remote branch"
+  ]
+}

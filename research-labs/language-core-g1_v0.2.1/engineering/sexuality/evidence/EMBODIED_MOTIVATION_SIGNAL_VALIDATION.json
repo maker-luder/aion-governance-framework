@@ -1,0 +1,33 @@
+{
+  "checkpoint": "LOCAL_ONLY:embodied_motivation_signal_v1_classifier.pt",
+  "checkpoint_sha256": "53a6d6d7016dbe44b9a24fe283d81c4000f91b27e88e215426a7e7935f6ce656",
+  "checks": {
+    "adult_context": true,
+    "canonical_effect_none": true,
+    "checkpoint_exists": true,
+    "checkpoint_hash_matches": true,
+    "checkpoint_training_status": true,
+    "dataset_id_matches": true,
+    "exact_disjoint_rows": true,
+    "finite_logits": true,
+    "label_axes": true,
+    "no_graphic_content": true,
+    "no_minors": true,
+    "no_private_data": true,
+    "oov_free": true,
+    "parameter_dependent_inference": true,
+    "row_count_and_splits": true,
+    "runtime_effect_none": true,
+    "test_shape": true
+  },
+  "experiment_id": "EMBODIED_MOTIVATION_SIGNAL_V1",
+  "non_claim": "A learned proxy classifier cannot prove desire, consent, pleasure, subjectivity, identity or phenomenal experience.",
+  "prediction_shape": [
+    8,
+    3,
+    2
+  ],
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

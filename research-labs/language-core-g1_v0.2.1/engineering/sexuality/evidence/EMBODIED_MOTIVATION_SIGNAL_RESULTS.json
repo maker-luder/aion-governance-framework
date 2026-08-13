@@ -1,0 +1,510 @@
+{
+  "authority_boundary": "advisory research classifier only; no consent, action, runtime, canonical or subjectivity authority",
+  "canonical_effect": "NONE",
+  "checkpoint_policy": "local-only checkpoint binary remains outside Git",
+  "conclusion": "PRELIMINARY_SUPPORT_WITH_KEYWORD_AND_SCOPE_LIMITS",
+  "counterfactual_intervention": {
+    "axis_flip_accuracy": [
+      1.0,
+      0.75,
+      0.375
+    ],
+    "interpretation": "Descriptive axis recovery only; not desire, consent, pleasure or subjectivity proof.",
+    "pair_count": 8
+  },
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_V1",
+  "dataset_sha256": "17ea879bb92d9f3868dca65b534588a674cf3462c571a711980b9858f512635f",
+  "deployment": false,
+  "epistemic_role": "FALSIFIER",
+  "experiment_id": "EMBODIED_MOTIVATION_SIGNAL_V1",
+  "falsification_conditions": [
+    "any OOV token, duplicate row or non-adult/graphic row invalidates the dataset contract",
+    "failed clean reload, non-finite logits or parameter-independent inference invalidates primary model evidence",
+    "label-permutation control performing comparably to primary falsifies a meaningful learned signal separation claim",
+    "failure on held-out word-order test prevents claims of robust signal separation",
+    "body-signal prediction cannot be treated as desire, consent, pleasure or subjective experience"
+  ],
+  "generated_at": "2026-08-13T00:49:39.057671+00:00",
+  "models": {
+    "label_permutation_control": {
+      "permutation": [
+        1,
+        2,
+        0
+      ],
+      "test": {
+        "all_logits_finite": true,
+        "axis_accuracy": [
+          0.5,
+          0.375,
+          0.5
+        ],
+        "count": 8,
+        "exact_match_accuracy": 0.125,
+        "labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "predictions": [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "training_status": "TRAINED_FROM_SCRATCH_CONTROL_ONLY"
+    },
+    "primary": {
+      "checkpoint": "LOCAL_ONLY:embodied_motivation_signal_v1_classifier.pt",
+      "checkpoint_sha256": "53a6d6d7016dbe44b9a24fe283d81c4000f91b27e88e215426a7e7935f6ce656",
+      "parameter_count": 3982,
+      "parameter_dependent_inference": true,
+      "test": {
+        "all_logits_finite": true,
+        "axis_accuracy": [
+          1.0,
+          0.75,
+          0.375
+        ],
+        "count": 8,
+        "exact_match_accuracy": 0.25,
+        "labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "predictions": [
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ]
+      },
+      "train": {
+        "all_logits_finite": true,
+        "axis_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "count": 16,
+        "exact_match_accuracy": 1.0,
+        "labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "predictions": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      },
+      "training_status": "TRAINED_FROM_SCRATCH",
+      "validation": {
+        "all_logits_finite": true,
+        "axis_accuracy": [
+          0.75,
+          0.5,
+          1.0
+        ],
+        "count": 8,
+        "exact_match_accuracy": 0.5,
+        "labels": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            1
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "predictions": [
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            1,
+            1
+          ],
+          [
+            1,
+            1,
+            0
+          ],
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  "no_external_paid_resource": true,
+  "no_graphic_content": true,
+  "no_minors": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "research_question": "Can a learned model distinguish three independently manipulated adult embodied-motivation signal axes under counterfactual and word-order controls, and does performance survive a label-permutation falsifier?",
+  "runtime_effect": "NONE",
+  "schema_version": "1.0",
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE"
+}

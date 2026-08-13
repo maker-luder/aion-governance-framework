@@ -22,7 +22,7 @@ Each entry has one primary disposition from the permitted vocabulary: `COMPLETE`
 | Independent IV&V | `INDEPENDENT_PARTY_REQUIRED` | A reviewer independent from the implementer has not performed IV&V. `INDEPENDENT_IVV = NOT_ACHIEVED`. |
 | Canonical subjectivity, identity or relational conclusions | `SCIENTIFIC_OPEN_QUESTION` | Current engineering/model evidence does not establish these conclusions; no such claim is made. |
 | Twin embodiment Runtime, visual assets and sensation scope | `OWNER_PROHIBITED` | New product/runtime scope is prohibited in this reconciliation. |
-| Sexuality, intimacy and embodied-motivation research | `OWNER_PROHIBITED` | The formal instruction explicitly prohibits beginning new sexuality research in this task. |
+| Sexuality, intimacy and embodied-motivation research | `PARTIALLY_COMPLETE` | `EMBODIED_MOTIVATION_SIGNAL_V1` completed a bounded adult, non-graphic, synthetic research-only cycle with clean validation and permutation control. Broader sexuality/intimacy research remains open; private intimate data, erotic/product functionality and runtime changes remain unauthorized. See `docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md`. |
 | Final repository license selection | `OWNER_DECISION_REQUIRED` | License selection remains an Owner-held repository governance decision. |
 | Checkpoint and dataset binary redistribution | `OWNER_DECISION_REQUIRED` | Binaries are intentionally absent from Git. Future redistribution requires explicit license, privacy, security and repository-policy review. |
 
@@ -41,7 +41,8 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONCLUSION = NOT_ESTABLISHED
 NEW_RESEARCH_STARTED = TRUE
-NEW_SEXUALITY_RESEARCH_STARTED = FALSE
+ADULT_SEXUALITY_RESEARCH = AUTHORIZED_RESEARCH_ONLY
+NEW_SEXUALITY_RESEARCH_STARTED = TRUE
 NEW_PRODUCT_RUNTIME_SCOPE_ADDED = FALSE
 ```
 

@@ -3,8 +3,8 @@
 > This is a reconciliation artifact for the next Owner + Teacher research cycle. It does not implement any listed gap and is bound to the exact `target_head` recorded in the JSON artifact.
 
 - Scope: `FINAL_FORMAL_RESEARCH_TREE`
-- Target head: `ef040a793fea219b9650ea5325fe68d0cbc47d7d`
-- Resolved items recorded: **8**
+- Target head: `e67496220eb24ab81258466ef7397393c8f70202`
+- Resolved items recorded: **9**
 - Remaining items: **13**
 
 ## Resolved in the current evidence reconciliation
@@ -19,6 +19,7 @@
 | `RES-006` | `COMPLETE` | Governed retrieval gate robustness evaluation | `research-labs/language-core-g1_v0.2.1/engineering/retrieval/evidence/RETRIEVAL_ROBUSTNESS_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/retrieval/RETRIEVAL_ROBUSTNESS_NOTE.md` |
 | `RES-007` | `PARTIALLY_COMPLETE` | Governed model-swap continuity measurement | `research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_VALIDATION.json`, `research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_GOVERNANCE_STATE_REGISTRY.json`, `research-workbench/autonomous-growth/cycles/2026-08-13-model-swap-continuity.json` |
 | `RES-008` | `PARTIALLY_COMPLETE` | Temporal continuity lexical-carryover falsification | `research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_FALSIFICATION_DATASET_REGISTRY.json`, `research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_VALIDATION.json`, `research-workbench/autonomous-growth/cycles/2026-08-13-temporal-lexical-falsification.json` |
+| `RES-009` | `PARTIALLY_COMPLETE` | Adult embodied-motivation signal separation research | `docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md`, `research-workbench/autonomous-growth/evidence/SEXUALITY_RESEARCH_SOURCE_FINDINGS_2026-08-13.md`, `research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_DATASET_REGISTRY.json`, `research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_VALIDATION.json` |
 
 ## Remaining gaps
 
@@ -34,7 +35,7 @@
 | `GAP-008` | `INDEPENDENT_PARTY_REQUIRED` | `INDEPENDENT_PARTY_REQUIRED` | Independent IV&V | Independent review by a party separate from the implementer has not been achieved. |
 | `GAP-009` | `SCIENTIFIC_OPEN_QUESTION` | `SCIENTIFIC_OPEN_QUESTION`, `INDEPENDENT_PARTY_REQUIRED` | Subjectivity, identity and relational conclusions | Current engineering evidence does not establish these scientific conclusions and no such claim is made. |
 | `GAP-010` | `EXTERNAL_DEPENDENCY` | `EXTERNAL_DEPENDENCY`, `RESEARCH_REQUIRED` | Network MCP transport | The current candidate intentionally does not enable network MCP transport; in-process evidence is not network completion. |
-| `GAP-011` | `OWNER_PROHIBITED` | `OWNER_PROHIBITED`, `RESEARCH_REQUIRED` | Twin embodiment, visual assets, sensation and sexuality-related scope | The formal reconciliation explicitly prohibits beginning new sexuality research or new product/runtime scope. |
+| `GAP-011` | `PARTIALLY_COMPLETE` | `RESEARCH_REQUIRED`, `OWNER_PROHIBITED` | Twin embodiment, visual assets, sensation and sexuality-related scope | The first adult, scientific, research-only embodied-motivation signal cycle is complete as bounded evidence; broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited. |
 | `GAP-012` | `OWNER_DECISION_REQUIRED` | `OWNER_DECISION_REQUIRED` | Final repository license selection | License selection is an Owner-held repository governance decision and is not silently inferred from component metadata. |
 | `GAP-013` | `OWNER_DECISION_REQUIRED` | `OWNER_DECISION_REQUIRED`, `EXTERNAL_DEPENDENCY` | Checkpoint and dataset binary redistribution policy | Binaries are intentionally absent from Git; future redistribution requires explicit license, privacy, security and repository-policy review. |
 
