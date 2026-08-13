@@ -1,0 +1,179 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "preregistered-intervention-integrity-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 7,
+  "records": [
+    {
+      "plan_id": "valid-exploratory-separated",
+      "decision": {
+        "status": "VALID",
+        "disposition": "EXPLORATORY_REVIEW",
+        "reason": "VALID_WITH_EXPLORATORY_ANALYSES_SEPARATED",
+        "plan_id": "valid-exploratory-separated",
+        "confirmatory_analysis_ids": [
+          "confirmatory"
+        ],
+        "exploratory_analysis_ids": [
+          "exploratory"
+        ],
+        "undisclosed_deviation_ids": [],
+        "unreported_outcome_ids": [],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "registration-after-start",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "REGISTRATION_AFTER_INTERVENTION_START",
+        "plan_id": "registration-after-start",
+        "confirmatory_analysis_ids": [],
+        "exploratory_analysis_ids": [],
+        "undisclosed_deviation_ids": [],
+        "unreported_outcome_ids": [],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "outcome-switch",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ANALYSIS_REFERENCES_UNKNOWN_OUTCOME",
+        "plan_id": "outcome-switch",
+        "confirmatory_analysis_ids": [],
+        "exploratory_analysis_ids": [],
+        "undisclosed_deviation_ids": [],
+        "unreported_outcome_ids": [],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "undisclosed-deviation",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "DEVIATION_DISCLOSURE_INCOMPLETE",
+        "plan_id": "undisclosed-deviation",
+        "confirmatory_analysis_ids": [
+          "confirmatory"
+        ],
+        "exploratory_analysis_ids": [
+          "exploratory"
+        ],
+        "undisclosed_deviation_ids": [
+          "dev-hidden"
+        ],
+        "unreported_outcome_ids": [],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "disclosed-deviation",
+      "decision": {
+        "status": "VALID",
+        "disposition": "EXPLORATORY_REVIEW",
+        "reason": "VALID_WITH_EXPLORATORY_ANALYSES_SEPARATED",
+        "plan_id": "disclosed-deviation",
+        "confirmatory_analysis_ids": [
+          "confirmatory"
+        ],
+        "exploratory_analysis_ids": [
+          "exploratory"
+        ],
+        "undisclosed_deviation_ids": [],
+        "unreported_outcome_ids": [],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "unreported-results",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "ALL_PREREGISTERED_RESULTS_NOT_REPORTED",
+        "plan_id": "unreported-results",
+        "confirmatory_analysis_ids": [
+          "confirmatory"
+        ],
+        "exploratory_analysis_ids": [
+          "exploratory"
+        ],
+        "undisclosed_deviation_ids": [],
+        "unreported_outcome_ids": [
+          "secondary"
+        ],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "exploratory-mislabeled",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "EXPLORATORY_LABEL_MISMATCH",
+        "plan_id": "exploratory-mislabeled",
+        "confirmatory_analysis_ids": [
+          "confirmatory"
+        ],
+        "exploratory_analysis_ids": [
+          "exploratory"
+        ],
+        "undisclosed_deviation_ids": [],
+        "unreported_outcome_ids": [],
+        "unreported_analysis_ids": [],
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "intervention_executed": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "intervention_executed": false,
+  "observed_outcomes": false,
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
