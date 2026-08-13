@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `66feed852e89846468d9b9ef2ce3849d72d75336`. This report is generated from the current component runner output.
+Target head: `bb18a82d5f2b12aeab07a53dbb445066aa13aad4`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -46,6 +46,7 @@ Target head: `66feed852e89846468d9b9ef2ce3849d72d75336`. This report is generate
 | `research-labs/independent-replication-design_v0.1.0` | 14 | 0 |
 | `research-labs/integration-candidates` | 0 | 0 |
 | `research-labs/language-core-g1_v0.2.1` | 95 | 0 |
+| `research-labs/power-analysis-uncertainty_v0.1.0` | 12 | 0 |
 | `research-labs/real-model-pilot-protocol_v0.1.0` | 6 | 0 |
 | `research-labs/replication-epistemics-governance_v0.1.0` | 11 | 0 |
 | `research-labs/research-evaluation-harness_v0.1.0` | 11 | 0 |
@@ -63,4 +64,4 @@ Target head: `66feed852e89846468d9b9ef2ce3849d72d75336`. This report is generate
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 | `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 
-**Total:** 1019 passed across 58 targets; failed targets: 0.
+**Total:** 1031 passed across 59 targets; failed targets: 0.
