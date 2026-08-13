@@ -170,3 +170,18 @@ def test_scanner_ignores_symlink_targets_outside_root(tmp_path: Path) -> None:
     (root / "linked.txt").symlink_to(outside)
 
     assert scanner.scan_root(root) == []
+
+
+
+def test_manifest_generator_ignores_symlink_targets_outside_root(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    generator = load_script("generate_manifest")
+    root = tmp_path / "repo"
+    root.mkdir()
+    outside = tmp_path / "outside.txt"
+    outside.write_text("outside\n", encoding="utf-8")
+    (root / "linked.txt").symlink_to(outside)
+    monkeypatch.setattr(generator, "ROOT", root)
+
+    assert generator.build_records(root / "generated") == []
