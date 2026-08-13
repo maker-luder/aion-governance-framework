@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "ebf98908eadc0196a47cd291d6ce8f463e4c4d23",
+  "target_head": "ef040a793fea219b9650ea5325fe68d0cbc47d7d",
   "summary": {
     "eligible_target_count": 50,
     "tested_target_count": 47,
@@ -19,7 +19,7 @@
       "passed": 11,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "...........                                                              [100%]\n11 passed in 0.61s\n"
+      "output": "...........                                                              [100%]\n11 passed in 0.62s\n"
     },
     {
       "target": "components/aion_runtime_v0.2.0",
@@ -69,7 +69,7 @@
       "passed": 7,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".......                                                                  [100%]\n7 passed in 0.07s\n"
+      "output": ".......                                                                  [100%]\n7 passed in 0.06s\n"
     },
     {
       "target": "components/executable_runtime_v0.1.0",
@@ -109,7 +109,7 @@
       "passed": 14,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............                                                           [100%]\n14 passed in 0.10s\n"
+      "output": "..............                                                           [100%]\n14 passed in 0.12s\n"
     },
     {
       "target": "components/iqc_quality_inspection_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=70392) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.53s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=71538) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.53s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -369,7 +369,7 @@
       "passed": 79,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 91%]\n.......                                                                  [100%]\n79 passed in 0.12s\n"
+      "output": "........................................................................ [ 91%]\n.......                                                                  [100%]\n79 passed in 0.13s\n"
     },
     {
       "target": "research-labs/real-model-pilot-protocol_v0.1.0",

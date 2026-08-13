@@ -18,7 +18,7 @@
   "canonical_effect": "NONE",
   "deployment": false,
   "promotion_status": "NOT_REVIEWED",
-  "target_head": "ebf98908eadc0196a47cd291d6ce8f463e4c4d23",
+  "target_head": "ef040a793fea219b9650ea5325fe68d0cbc47d7d",
   "public_scan": "PASS",
   "current_targets": 50
 }
