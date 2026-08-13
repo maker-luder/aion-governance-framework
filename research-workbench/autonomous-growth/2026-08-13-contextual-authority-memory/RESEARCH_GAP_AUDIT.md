@@ -40,3 +40,9 @@ CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 AION_ASTRA_IDENTITY_EQUIVALENCE = NOT_ESTABLISHED
 ```
+
+## Replication epistemics extension
+
+A third deferred gap was then materialized as `research-labs/replication-epistemics-governance_v0.1.0`. The unit separates study kind, validity, outcome, interpretation, and governance effect. Its 11 tests and five synthetic cases passed after correcting a fixture-construction bug in the experiment runner. The resulting cases were: valid consistent independent replication -> `CONSISTENT`; valid failed replication -> `DIVERGENT` with no automatic downgrade; valid null result -> `INDETERMINATE`; same-data replicability label -> `INVALID/HOLD`; and missing uncertainty -> `PARTIAL/INDETERMINATE`.
+
+The initial runner failure was a code-construction defect in the synthetic experiment fixture, not a research result. It was corrected, rerun, and preserved in the external research-workbench log. No automatic governance downgrade, canonical effect, deployment effect, subjectivity conclusion, or identity conclusion was emitted.
