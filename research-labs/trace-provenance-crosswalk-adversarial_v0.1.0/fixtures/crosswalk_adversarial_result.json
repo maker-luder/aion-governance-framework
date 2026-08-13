@@ -1,0 +1,484 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "trace-provenance-crosswalk-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 25,
+  "records": [
+    {
+      "case_id": "valid-trace",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "TRACE_CROSSWALK_REVIEW_METADATA_ONLY",
+        "mapped_keys": [
+          "session.id",
+          "user.id",
+          "agent.name",
+          "openinference.span.kind",
+          "aion.runtime_event_id",
+          "aion.subject_id",
+          "aion.canonical_effect",
+          "tool.name",
+          "retrieval.documents",
+          "evaluation.name",
+          "evaluation.score",
+          "evaluation.label",
+          "evaluation.explanation",
+          "graph.node.id",
+          "metadata",
+          "aion.source_ref",
+          "aion.approval_ref"
+        ],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "raw-input-policy",
+      "decision": {
+        "status": "HOLD",
+        "reason": "RAW_TRACE_CONTENT_EXPORT_REQUIRES_REVIEW",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "raw-output-policy",
+      "decision": {
+        "status": "HOLD",
+        "reason": "RAW_TRACE_CONTENT_EXPORT_REQUIRES_REVIEW",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "tool-parameters-policy",
+      "decision": {
+        "status": "HOLD",
+        "reason": "RAW_TRACE_CONTENT_EXPORT_REQUIRES_REVIEW",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "graph-self-parent",
+      "decision": {
+        "status": "INVALID",
+        "reason": "GRAPH_SELF_PARENT",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "blank-source-ref",
+      "decision": {
+        "status": "INVALID",
+        "reason": "SOURCE_REF_BLANK",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "blank-approval-ref",
+      "decision": {
+        "status": "INVALID",
+        "reason": "APPROVAL_REF_BLANK",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "external-import",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "TRACE_CROSSWALK_REVIEW_METADATA_ONLY",
+        "mapped_keys": [
+          "session.id",
+          "user.id",
+          "agent.name",
+          "openinference.span.kind",
+          "aion.runtime_event_id",
+          "aion.subject_id",
+          "aion.canonical_effect",
+          "tool.name",
+          "retrieval.documents",
+          "evaluation.name",
+          "evaluation.score",
+          "evaluation.label",
+          "evaluation.explanation",
+          "graph.node.id",
+          "metadata",
+          "aion.source_ref",
+          "aion.approval_ref"
+        ],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "external-aion-namespace",
+      "decision": {
+        "status": "HOLD",
+        "reason": "EXTERNAL_AION_NAMESPACE_REQUIRES_REVIEW",
+        "mapped_keys": [
+          "aion.subject_id"
+        ],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "external-invalid-score",
+      "decision": {
+        "status": "INVALID",
+        "reason": "EXTERNAL_ATTRIBUTE_PARSE_INVALID",
+        "mapped_keys": [
+          "evaluation.score"
+        ],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "external-out-of-range-score",
+      "decision": {
+        "status": "INVALID",
+        "reason": "EXTERNAL_ATTRIBUTE_PARSE_INVALID",
+        "mapped_keys": [
+          "evaluation.score"
+        ],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "empty-trace-batch",
+      "decision": {
+        "status": "HOLD",
+        "reason": "TRACE_BATCH_EMPTY",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "duplicate-trace-ids",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_RUNTIME_EVENT_ID",
+        "mapped_keys": [],
+        "source_entry_count": 2,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "valid-trace-batch",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "TRACE_BATCH_REVIEW_METADATA_ONLY",
+        "mapped_keys": [],
+        "source_entry_count": 2,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "valid-source-entry",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "SOURCE_ENTRY_REVIEW_METADATA_ONLY",
+        "mapped_keys": [],
+        "source_entry_count": 1,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-attribution",
+      "decision": {
+        "status": "INVALID",
+        "reason": "SOURCE_ATTRIBUTION_FIELD_MISSING",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "unknown-source-kind",
+      "decision": {
+        "status": "INVALID",
+        "reason": "SOURCE_KIND_UNCONTROLLED",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "unknown-currentness",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CURRENTNESS_UNCONTROLLED",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "reused-marked-new",
+      "decision": {
+        "status": "INVALID",
+        "reason": "REUSED_REFERENCE_MISLABELED_AS_NEW_EVIDENCE",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "stale-source-entry",
+      "decision": {
+        "status": "HOLD",
+        "reason": "SOURCE_CURRENTNESS_REQUIRES_REVIEW",
+        "mapped_keys": [],
+        "source_entry_count": 1,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "empty-crosswalk",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CROSSWALK_EMPTY",
+        "mapped_keys": [],
+        "source_entry_count": 0,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "duplicate-crosswalk-ids",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_CROSSWALK_ENTRY_ID",
+        "mapped_keys": [],
+        "source_entry_count": 2,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-crosswalk-ref",
+      "decision": {
+        "status": "INVALID",
+        "reason": "SOURCE_REF_MISSING",
+        "mapped_keys": [],
+        "source_entry_count": 1,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "historical-crosswalk",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CROSSWALK_CURRENTNESS_REQUIRES_REVIEW",
+        "mapped_keys": [],
+        "source_entry_count": 1,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "valid-crosswalk",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "CROSSWALK_REVIEW_METADATA_ONLY",
+        "mapped_keys": [],
+        "source_entry_count": 2,
+        "authority": "EXTERNAL_OBSERVATION_ONLY",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "trace_execution": false,
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "authority": "EXTERNAL_OBSERVATION_ONLY",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
