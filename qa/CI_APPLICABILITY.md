@@ -24,11 +24,11 @@ This document describes the **current final formal-research tree**. Historical r
 
 The final remote verification is bound to the exact published commit under review. A remote success is recorded only when GitHub reports the workflow name, run ID, head SHA, completed status and success conclusion. The PART 2C final report is the authoritative record for the final published head's remote run IDs.
 
-The final published evidence head is `6685724a47b2c6325f437442b0c68903c8e2ef43`. Its actual run list contained:
+The final published evidence closure head is `06a9376f2d2d9042b734dd7b7a9b8bbe90d5fab4`. Its actual `Quality` run was `31659849898`; the initial attempt failed at branch coverage, then the failed job was rerun without source changes and the same run reached `completed / success`. The actual run list for the closure head contained:
 
 | Workflow | Run ID | Head SHA | Status | Conclusion |
 |---|---:|---|---|---|
-| `Quality` | `31659596250` | `6685724a47b2c6325f437442b0c68903c8e2ef43` | `completed` | `success` |
+| `Quality` | `31659849898` | `06a9376f2d2d9042b734dd7b7a9b8bbe90d5fab4` | `completed` after failed-job rerun | `success` |
 | `Research Scope Lock` | not triggered for this evidence-only path | — | `N/A` | no success inferred |
 | `Research Workbench CI` | not listed for this push | — | `N/A` | no success inferred |
 

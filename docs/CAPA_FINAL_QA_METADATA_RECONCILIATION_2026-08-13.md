@@ -25,12 +25,12 @@ The existing final QA receipt remains the exact-head authority for A. The correc
 
 ## Revalidation boundary
 
-The preceding full exact-head QA against A had `25/25` applicable gates pass with `0` failures. After the evidence-only correction, bounded non-mutating checks verified scope lock, autonomous-growth contract, public/sensitive/stale scans, manifest verification and evidence regressions. Published correction head `6685724a47b2c6325f437442b0c68903c8e2ef43` received actual `Quality` run `31659596250` with `completed / success`; no `Research Scope Lock` run was triggered for this evidence-only path, so it is recorded as `N/A` rather than inferred. The latest exact `Research Scope Lock` success remains run `31659136856` on predecessor evidence checkpoint `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48`. Any generated current-state artifacts remain bound to A; no source implementation or local-only model checkpoint is added.
+The preceding full exact-head QA against A had `25/25` applicable gates pass with `0` failures. After the evidence-only correction, bounded non-mutating checks verified scope lock, autonomous-growth contract, public/sensitive/stale scans, manifest verification and evidence regressions. The final published closure head is `06a9376f2d2d9042b734dd7b7a9b8bbe90d5fab4`. Its first actual `Quality` attempt was run `31659849898`, which initially failed at the branch-coverage step; the failed job was rerun without source changes and the same run reached `completed / success`. No `Research Scope Lock` run was triggered for this evidence-only path, so it is recorded as `N/A` rather than inferred. The latest exact `Research Scope Lock` success remains run `31659136856` on predecessor evidence checkpoint `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48`. Any generated current-state artifacts remain bound to A; no source implementation or local-only model checkpoint is added.
 
 ## Status
 
 ```text
-CAPA_STATUS = CLOSED_AFTER_REMOTE_CI_VERIFICATION
+CAPA_STATUS = CLOSED_AFTER_REMOTE_CI_RERUN_VERIFICATION
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 INDEPENDENT_IVV = NOT_ACHIEVED
