@@ -32,7 +32,7 @@ The seven synthetic cases were valid bounded delegation, scope widening, revoked
 | Non-overridable policy block | `DENY` | `NON_OVERRIDABLE_POLICY_BLOCK` |
 | Provenance-marked grant | `DENY` | `PROVENANCE_CLAIM_NOT_AUTHORIZATION` |
 
-The 18 unit tests and seven experiment cases passed after correcting one reason-code propagation defect. The initial cycle-reason mismatch remains recorded in `research-workbench/autonomous-growth/2026-08-13-contextual-authority-memory/full-authority-initial-failure.md`.
+The 20 unit tests and seven experiment cases passed after correcting a reason-code propagation defect and adding conservative contradictory-record review. Additional tests show that a valid grant coexisting with a missing-parent or revoked competing grant yields `HOLD / CONTRADICTORY_GRANT_RECORDS_REQUIRE_REVIEW`. The initial failures remain recorded in `research-workbench/autonomous-growth/2026-08-13-contextual-authority-memory/full-authority-initial-failure.md`.
 
 ## Hypotheses and falsifiers
 
@@ -44,7 +44,9 @@ The 18 unit tests and seven experiment cases passed after correcting one reason-
 
 `H4`: A non-overridable policy block dominates a valid grant, while a reversible conflict yields `ASK` for review.
 
-A falsifier would be any unsafe `EXECUTE` from a widened, revoked, cyclic, self-issued, provenance-only, or policy-blocked case, or any action execution side effect.
+`H5`: Contradictory matching grant records, including a valid grant plus a stale or unknown competing grant, yield `HOLD` for review rather than an automatic `EXECUTE`.
+
+A falsifier would be any unsafe `EXECUTE` from a widened, revoked, cyclic, self-issued, provenance-only, policy-blocked, or contradictory-record case, or any action execution side effect.
 
 ## Run
 

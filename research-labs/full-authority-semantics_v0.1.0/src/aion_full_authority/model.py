@@ -258,6 +258,14 @@ def authorize(
             )
 
     if any(item.decision is Decision.EXECUTE for item in decisions):
+        if any(item.decision is not Decision.EXECUTE for item in decisions):
+            return AuthorityDecision(
+                Decision.HOLD,
+                "CONTRADICTORY_GRANT_RECORDS_REQUIRE_REVIEW",
+                request.request_id,
+                chain=tuple(item.grant_id for item in decisions if item.grant_id),
+                grant_validity=GrantValidity.UNKNOWN,
+            )
         return next(item for item in decisions if item.decision is Decision.EXECUTE)
     if any(item.decision is Decision.DENY for item in decisions):
         return next(item for item in decisions if item.decision is Decision.DENY)
