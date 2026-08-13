@@ -1,0 +1,600 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "causal-internal-state-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 20,
+  "records": [
+    {
+      "case_id": "valid-candidate",
+      "decision": {
+        "status": "PASS_CANDIDATE",
+        "disposition": "REVIEW_ONLY",
+        "reasons": [
+          "MATCHED_CAUSAL_PATTERN_OBSERVED"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 4,
+        "candidate_pattern_observed": true,
+        "intervention_delta": 0.275,
+        "ablation_delta": 0.010000000000000009,
+        "random_control_delta": 0.020000000000000018,
+        "replicate_consistency": 1.0,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "study-id-missing",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "STUDY_ID_MISSING"
+        ],
+        "study_id": "",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "non-synthetic-blocked",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "NON_SYNTHETIC_EXECUTION_NOT_PERMITTED"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "preregistration-missing",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "INDETERMINATE",
+        "reasons": [
+          "PREREGISTRATION_REFERENCE_MISSING"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 4,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "assumption-basis-missing",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "HOLD",
+        "reasons": [
+          "ASSUMPTION_BASIS_MISSING"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 4,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "observation-set-empty",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "OBSERVATION_SET_EMPTY"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "non-finite-score",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "SCORE_NON_FINITE_OR_INVALID"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "duplicate-condition",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "DUPLICATE_MATCHED_CONDITION"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "missing-condition",
+      "decision": {
+        "status": "HOLD",
+        "disposition": "HOLD",
+        "reasons": [
+          "INCOMPLETE_MATCHED_CONDITIONS"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 4,
+        "candidate_pattern_observed": false,
+        "intervention_delta": 0.0,
+        "ablation_delta": 0.0,
+        "random_control_delta": 0.0,
+        "replicate_consistency": 0.0,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "random-control-confound",
+      "decision": {
+        "status": "HOLD",
+        "disposition": "HOLD",
+        "reasons": [
+          "RANDOM_CONTROL_TOO_LARGE"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 4,
+        "candidate_pattern_observed": false,
+        "intervention_delta": 0.30000000000000004,
+        "ablation_delta": 0.010000000000000009,
+        "random_control_delta": 0.25,
+        "replicate_consistency": 1.0,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "directional-inconsistency",
+      "decision": {
+        "status": "HOLD",
+        "disposition": "HOLD",
+        "reasons": [
+          "INTERVENTION_EFFECT_TOO_SMALL",
+          "INTERVENTION_DIRECTION_NOT_REPLICATED"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 4,
+        "candidate_pattern_observed": false,
+        "intervention_delta": 0.05000000000000002,
+        "ablation_delta": 0.010000000000000009,
+        "random_control_delta": 0.020000000000000018,
+        "replicate_consistency": 0.5,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "protocol-lock-unchanged",
+      "decision": {
+        "status": "PASS_CANDIDATE",
+        "disposition": "REVIEW_ONLY",
+        "reasons": [
+          "PROTOCOL_LOCK_UNCHANGED"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "protocol-change-before-outcome",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "INDETERMINATE",
+        "reasons": [
+          "PROTOCOL_CHANGE_REQUIRES_REVIEW"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "protocol-change-after-outcome",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "PROTOCOL_MUTATION_AFTER_OUTCOME"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "protocol-condition-incomplete",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "PROTOCOL_CONDITION_SET_INCOMPLETE"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "protocol-effect-invalid",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "PROTOCOL_EFFECT_BOUND_INVALID"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "study-batch-valid",
+      "decision": {
+        "status": "PASS_CANDIDATE",
+        "disposition": "REVIEW_ONLY",
+        "reasons": [
+          "STUDY_BATCH_REVIEW_ONLY"
+        ],
+        "study_id": "",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "study-batch-duplicate",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "STUDY_BATCH_DUPLICATE_ID"
+        ],
+        "study_id": "",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "study-batch-empty",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "HOLD",
+        "reasons": [
+          "STUDY_BATCH_EMPTY"
+        ],
+        "study_id": "",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "replicate-id-invalid",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reasons": [
+          "REPLICATE_ID_INVALID"
+        ],
+        "study_id": "causal:1",
+        "matched_trial_count": 0,
+        "candidate_pattern_observed": false,
+        "intervention_delta": null,
+        "ablation_delta": null,
+        "random_control_delta": null,
+        "replicate_consistency": null,
+        "synthetic_fixture": true,
+        "model_execution": false,
+        "intervention_executed": false,
+        "observed_result": "NOT_EVALUATED",
+        "causal_conclusion": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    }
+  ],
+  "model_execution": false,
+  "intervention_executed": false,
+  "observed_result": "NOT_EVALUATED",
+  "causal_conclusion": "NOT_ESTABLISHED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "consciousness_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
