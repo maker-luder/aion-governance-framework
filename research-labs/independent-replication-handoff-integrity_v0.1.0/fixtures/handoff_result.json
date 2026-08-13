@@ -1,0 +1,172 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "independent-replication-handoff-integrity-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 8,
+  "records": [
+    {
+      "handoff_id": "complete-same-artifact",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REPLICATION_REVIEW",
+        "reason": "HANDOFF_MANIFEST_COMPLETE",
+        "handoff_id": "complete-same-artifact",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "complete-independent-recreation",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REPLICATION_REVIEW",
+        "reason": "HANDOFF_MANIFEST_COMPLETE",
+        "handoff_id": "complete-independent-recreation",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "INDEPENDENT_RECREATION",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "missing-dependency",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "HANDOFF_MANIFEST_INCOMPLETE",
+        "handoff_id": "missing-dependency",
+        "missing_fields": [
+          "environment.dependency_lock_ref"
+        ],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "restricted-access",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "HANDOFF_ACCESS_INCOMPLETE",
+        "handoff_id": "restricted-access",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "artifact_accessible",
+          "dependency_accessible"
+        ],
+        "artifact_mode": "SAME_ARTIFACT",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "license-conflict",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "LICENSE_COMPATIBILITY_UNRESOLVED",
+        "handoff_id": "license-conflict",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "same-team",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "INDEPENDENCE_ATTESTATION_CONTRADICTORY",
+        "handoff_id": "same-team",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "receiving_team_id",
+          "source_team_id"
+        ],
+        "artifact_mode": "SAME_ARTIFACT",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "execution-collision",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "INDEPENDENT_EXECUTION_REF_COLLIDES_WITH_SOURCE_ARTIFACT",
+        "handoff_id": "execution-collision",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "independent_execution_ref",
+          "artifact_digest"
+        ],
+        "artifact_mode": "SAME_ARTIFACT",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "handoff_id": "recreation-source-missing",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "INDEPENDENT_RECREATION_SOURCE_REFERENCE_MISSING",
+        "handoff_id": "recreation-source-missing",
+        "missing_fields": [
+          "artifact.source_url"
+        ],
+        "contradiction_fields": [],
+        "artifact_mode": "INDEPENDENT_RECREATION",
+        "replication_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "replication_executed": false,
+  "replication_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
