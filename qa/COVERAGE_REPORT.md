@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `25a3379c0c0b4984f5189c4eda156f47aaf0d454`. Coverage was measured with branch coverage enabled for 52 targets.
+Target head: `73f69676dc209c1b3acdf03bd81b8fac52fd09be`. Coverage was measured with branch coverage enabled for 53 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -25,6 +25,7 @@ Target head: `25a3379c0c0b4984f5189c4eda156f47aaf0d454`. Coverage was measured w
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 86% | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 91% | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 100% | 0 |
+| `research-labs/contextual-authority-adversarial_v0.1.0` | NOT_RECORDED% | 0 |
 | `research-labs/contextual-authority-precedence_v0.1.0` | 84% | 0 |
 | `research-labs/core-meaning-commitments_v0.1.0` | 86% | 0 |
 | `research-labs/cross-lineage-memory-contamination_v0.1.0` | 90% | 0 |

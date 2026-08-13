@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `25a3379c0c0b4984f5189c4eda156f47aaf0d454`. This report is generated from the current component runner output.
+Target head: `73f69676dc209c1b3acdf03bd81b8fac52fd09be`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -25,6 +25,7 @@ Target head: `25a3379c0c0b4984f5189c4eda156f47aaf0d454`. This report is generate
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 14 | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 4 | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 3 | 0 |
+| `research-labs/contextual-authority-adversarial_v0.1.0` | 11 | 0 |
 | `research-labs/contextual-authority-precedence_v0.1.0` | 10 | 0 |
 | `research-labs/core-meaning-commitments_v0.1.0` | 27 | 0 |
 | `research-labs/cross-lineage-memory-contamination_v0.1.0` | 9 | 0 |
@@ -60,4 +61,4 @@ Target head: `25a3379c0c0b4984f5189c4eda156f47aaf0d454`. This report is generate
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 | `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 
-**Total:** 975 passed across 55 targets; failed targets: 0.
+**Total:** 986 passed across 56 targets; failed targets: 0.
