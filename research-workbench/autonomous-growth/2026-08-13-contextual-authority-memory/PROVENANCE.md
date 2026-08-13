@@ -175,3 +175,13 @@ The literature review found substantial prior art rather than a settled distinct
 33. NIST, [AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/).
 34. Carnegie Mellon Software Engineering Institute, [Incident Management and Control (IMC) CERT-RMM Process Area](https://www.sei.cmu.edu/library/incident-management-and-control-imc-cert-rmm-process-area/).
 35. SANS Institute, [Zero-Day Exploit](https://www.sans.org/security-resources/glossary-of-terms/zero-day-exploit).
+
+## AION/Astra matched-divergence study-design extension
+
+Manus added `research-labs/aion-astra-matched-divergence-study-design_v0.1.0` as a standard-library-only, design-only clean-room extension of the existing generic matched-divergence protocol. The transformation reuses the existing NIST randomized-block reference and repository protocol by stable provenance reference; it does not duplicate those evidence items or recount their prior tests as replication. The new unit adds source-family identity, AION/ASTRA component references, shared environment binding, current source status, source-evidence references, tested-source-head/reporting-head separation, preregistration and immutable-plan metadata, outcome scope, and explicit no-execution/no-result controls.
+
+The intended source snapshot is the independently verified remote research head `76de1eda82865a37d3a0185336870739ed577153`; the local reconciliation/reporting head `713056ea77da9122d9b7659ec701dfdbfdfc90ba` is carried only as a distinct reporting-state negative control. The unit produced 22 passing tests and 13 synthetic cases after preserving two initial contract defects. No model ran, no outcome was observed, no external/private data was used, and no canonical/governance/deployment effect was emitted. The result is design metadata only; divergence, agreement, fairness, identity, subjectivity, consciousness, and AION/Astra equivalence remain `NOT_ESTABLISHED`.
+
+29. NIST, [Randomized block designs](https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm), reused through the prior matched-divergence unit; currentness not independently re-dated in this focused unit.
+30. Repository evidence, `research-labs/matched-divergence-protocol-integrity_v0.1.0`, reused by stable path and source-state reference `repo:matched-divergence-protocol-integrity@76de1eda`.
+31. Repository state reconciliation, `research-workbench/autonomous-growth/2026-08-13-contextual-authority-memory/RESEARCH_STATE_RECONCILIATION_2026-08-13.md`, current remote research/main refs verified by read-only fetch at `76de1eda` and `abb6550`, respectively.
