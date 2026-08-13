@@ -68,3 +68,34 @@ def test_task_context_must_match_bound_astra_instance(tmp_path):
     )
     with pytest.raises(RuntimeIdentityMismatch):
         runtime.run_task(task, baseline_root=tmp_path, sessions_root=tmp_path)
+
+
+def test_recall_applies_bound_namespace_before_limit(tmp_path):
+    runtime = AstraRuntime(memory_db=tmp_path / "memory.sqlite3", context=astra_context())
+    common = dict(
+        user_id="u1",
+        content="candidate",
+        provenance_source="owner-input",
+        provenance_verified=True,
+        entities={"Astra"},
+        topics={"runtime"},
+        access_scope={"project"},
+        writeback_approved=True,
+    )
+    runtime.memory.write(
+        memory_id="a-foreign",
+        namespace="AION_PRIVATE_EPISODIC_MEMORY",
+        agent_id="ASTRA",
+        **common,
+    )
+    runtime.remember(memory_id="z-bound", **common)
+
+    recalled = runtime.recall(
+        user_id="u1",
+        requester_scopes={"project"},
+        entity_cues={"Astra"},
+        topic_cues={"runtime"},
+        limit=1,
+    )
+
+    assert [item.memory_id for item in recalled] == ["z-bound"]

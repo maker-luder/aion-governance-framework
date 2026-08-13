@@ -175,10 +175,18 @@ class SQLiteMemoryStore:
             ).fetchall()
         return [self._decode(row) for row in rows]
 
-    def recall(self, request: RecallRequest, *, limit: int = 8) -> list[StoredMemory]:
+    def recall(
+        self,
+        request: RecallRequest,
+        *,
+        limit: int = 8,
+        namespace: str | None = None,
+    ) -> list[StoredMemory]:
         if limit < 1 or limit > 64:
             raise ValueError("limit must be between 1 and 64")
         stored = self.list_for_identity(user_id=request.user_id, agent_id=request.agent_id)
+        if namespace is not None:
+            stored = [item for item in stored if item.namespace == namespace]
         by_id = {item.memory_id: item for item in stored}
         ranked = rank_candidates(request, (item.governance_record() for item in stored))
         return [by_id[item.memory_id] for item in ranked[:limit]]

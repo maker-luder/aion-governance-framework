@@ -86,3 +86,34 @@ def test_task_context_must_match_bound_runtime_instance(tmp_path):
             baseline_root=tmp_path,
             sessions_root=tmp_path,
         )
+
+
+def test_recall_applies_bound_namespace_before_limit(tmp_path):
+    runtime = AIONRuntime(memory_db=tmp_path / "memory.sqlite3", context=aion_context())
+    common = dict(
+        user_id="u1",
+        content="candidate",
+        provenance_source="owner-input",
+        provenance_verified=True,
+        entities={"AION"},
+        topics={"deployment"},
+        access_scope={"project"},
+        writeback_approved=True,
+    )
+    runtime.memory.write(
+        memory_id="a-foreign",
+        namespace="ASTRA_PRIVATE_EPISODIC_MEMORY",
+        agent_id="AION",
+        **common,
+    )
+    runtime.remember(memory_id="z-bound", **common)
+
+    recalled = runtime.recall(
+        user_id="u1",
+        requester_scopes={"project"},
+        entity_cues={"AION"},
+        topic_cues={"deployment"},
+        limit=1,
+    )
+
+    assert [item.memory_id for item in recalled] == ["z-bound"]

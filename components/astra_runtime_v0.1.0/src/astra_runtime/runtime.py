@@ -168,8 +168,11 @@ class AstraRuntime:
         )
         records = [
             record
-            for record in self.memory.recall(request, limit=limit)
-            if record.namespace == self.context.memory_stream_id
+            for record in self.memory.recall(
+                request,
+                limit=limit,
+                namespace=self.context.memory_stream_id,
+            )
         ]
         self.state.append_event("memory.recalled", {"result_count": len(records)})
         return records
