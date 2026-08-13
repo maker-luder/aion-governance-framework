@@ -2,26 +2,79 @@
 
 Status: `CANDIDATE / FAIL_CLOSED_TO_HOLD`
 
-This control operationalizes the authority boundary recorded by the 2026-08-13 main reconciliation. It does not grant approval and does not infer approval from candidate scope, autonomous research permission, QA, AI review, prior authorization, or silence.
+This control validates a fresh, action-specific, target-PR/exact-head-specific authority receipt. It prevents semantic escalation; it does not perform biometric authentication or independently prove who was physically present or what a person intended.
 
-## Enforced boundary
+## Authority invariants
 
-For a pull request targeting `main`, `.github/workflows/main-transition-authority.yml` accepts a receipt only when all of the following are simultaneously true:
+```text
+CAPABILITY_TO_ACT != AUTHORITY_TO_ACT
+CANDIDATE_SCOPE_APPROVAL != MERGE_APPROVAL
+AUTONOMOUS_RESEARCH_PERMISSION != MAIN_TRANSITION_AUTHORITY
+QA_PASS != MERGE_APPROVAL
+AI_REVIEW != HUMAN_OWNER_MERGE_APPROVAL
+PRIOR_AUTHORIZATION != CURRENT_ACTION_AUTHORIZATION
+OWNER_ACCOUNT_EVIDENCE != HUMAN_PRESENCE_ATTESTATION
+ACCOUNT_ACTION != HUMAN_OWNER_INTENT
+AUTHENTICATED_GITHUB_IDENTITY != INDEPENDENT_PROOF_OF_CURRENT_HUMAN_CONSENT
+FAIL_CLOSED_TO = HOLD
+```
 
-- the receipt was added through a fresh `pull_request: edited` event;
-- the edit sender matches the configured Human Owner GitHub login;
-- `repository`, `target_pr`, `target_branch`, and exact 40-hex `target_head` match the event;
-- the approval timestamp is timezone-aware and within five minutes of the body-edit event time;
-- the action and explicit statement authorize only this exact merge action;
-- prior authorization, candidate-scope approval, autonomous research permission, QA PASS, and AI review are explicitly not used as merge authority;
-- contradictions are absent;
+## Three-layer evidence model
+
+### A. Repository/account evidence
+
+The validator can structurally establish only event-bound facts:
+
+- `GITHUB_EVENT_SENDER_MATCH`;
+- `PR_BODY_EDIT_EVENT`;
+- `TARGET_PR_MATCH`;
+- `TARGET_HEAD_MATCH`;
+- `TIMESTAMP_FRESH`.
+
+The result labels this evidence `AUTHENTICATED_GITHUB_ACCOUNT_EVENT_ONLY`.
+
+### B. Human authority assertion
+
+The receipt carries:
+
+```text
+HUMAN_OWNER_EXPLICIT_APPROVAL = GIVEN
+HUMAN_OWNER_INTENT_SOURCE = EXTERNAL_ATTESTATION
+```
+
+This is a required assertion bound to the account event, action, PR, head, and time. The validator checks its exact structure; it does not originate the assertion.
+
+### C. Validator epistemic boundary
+
+Every result, including structural `PASS`, reports:
+
+```text
+HUMAN_IDENTITY_INDEPENDENTLY_VERIFIED = FALSE
+HUMAN_PRESENCE_INDEPENDENTLY_VERIFIED = FALSE
+HUMAN_INTENT_INDEPENDENTLY_VERIFIED = FALSE
+HUMAN_PRESENCE_ATTESTATION = EXTERNAL_TO_VALIDATOR
+STRUCTURAL_RECEIPT_PASS != INDEPENDENT_HUMAN_IDENTITY_PROOF
+```
+
+Sender-account matching remains useful evidence but is not elevated into independent human-presence or human-intent proof.
+
+## Fail-closed behavior
+
+For a PR targeting `main`, `.github/workflows/main-transition-authority.yml` accepts the structural receipt only when:
+
+- a single receipt is added in a fresh `pull_request: edited` body-edit event;
+- the event sender matches the configured Human Owner GitHub login;
+- repository, target branch, target PR, PR URL, and exact 40-hex head match the event;
+- the timezone-aware approval timestamp is within five minutes of the edit event;
+- prior authorization, candidate scope, autonomous research permission, QA, and AI review are explicitly not used as merge authority;
+- contradictions and unknown fields are absent;
 - `CANONICAL_EFFECT = NONE` and `DEPLOYMENT = FALSE` remain explicit.
 
-Any missing, stale, mismatched, inherited, or contradictory evidence returns `HOLD` with exit status 10.
+Missing, stale, mismatched, inherited, contradictory, malformed, duplicate, ambiguous, or unknown evidence returns `HOLD` with exit status 10.
 
 ## Receipt placement
 
-After the candidate head is final and Human Owner approval is given, edit the target PR body once and add exactly one block:
+Only after the candidate head is final and the Human Owner gives fresh approval, edit the target PR body once and add exactly one block:
 
 ````text
 <!-- MAIN_TRANSITION_AUTHORITY_RECEIPT_BEGIN -->
@@ -43,6 +96,12 @@ After the candidate head is final and Human Owner approval is given, edit the ta
     "ref": "TARGET_PR_URL",
     "recorded_by": "HUMAN_OWNER"
   },
+  "account_authentication_evidence": "GITHUB_EVENT_SENDER_MATCH_ONLY",
+  "human_owner_intent_source": "EXTERNAL_ATTESTATION",
+  "human_identity_independently_verified": false,
+  "human_presence_independently_verified": false,
+  "human_intent_independently_verified": false,
+  "human_presence_attestation": "EXTERNAL_TO_VALIDATOR",
   "fresh_for_current_action": true,
   "action_specific": true,
   "target_specific": true,
@@ -61,17 +120,31 @@ After the candidate head is final and Human Owner approval is given, edit the ta
 <!-- MAIN_TRANSITION_AUTHORITY_RECEIPT_END -->
 ````
 
-The outer fence above is documentation only. The PR body uses the two HTML markers and the inner JSON fence.
+The outer fence is documentation only. The PR body uses the two HTML markers and inner JSON fence.
 
-## Evidence and identity boundary
+## Documentation responsibility map
 
-The validator checks event/receipt consistency and the configured GitHub sender account. It does not independently establish the biological identity or mental state of the account operator. Human Owner approval remains a Human Owner act; the tool only rejects structurally absent or inconsistent evidence. Repository branch protection must require this check and applicable Quality checks for platform-level enforcement.
+This review found no exact duplicate safe to delete. Separation of concerns is retained:
+
+| Classification | Source of truth / responsibility |
+|---|---|
+| `AUTHORITATIVE` | `docs/PROVENANCE.md`, `docs/AI_COLLABORATION_DISCLOSURE.md`, and current repository release policy/status documents |
+| `ACTIVE_CONTROL` | this operator guide, receipt schema, validator, tests, and workflow after approval/merge |
+| `INCIDENT_RECORD` | `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and JSON companion; PR #14/#15 authorization remains `NOT_GIVEN` |
+| `HISTORICAL_EVIDENCE` | `qa/historical/` and dated source/release records |
+| `GENERATED_EVIDENCE` | per-run `qa/CURRENT_*`, IQC, coverage, traceability, and GitHub Actions outputs; software QA is not scientific validation |
+| `CANDIDATE` | all PR #17 surfaces until separately approved and merged |
+| `OBSOLETE_BUT_PROVENANCE_RELEVANT` | older tracked QA/status snapshots whose current operational meaning is superseded by exact-head generated evidence |
+| `DUPLICATE` | none established in this conservative review |
+
+The PR #16 post-merge JSON is retained as machine-readable evidence. Its Markdown companion is a short human index. Historical records remain separate and are not rewritten.
+
+## Repository-settings recommendation
+
+The active `Main Protection` ruleset currently requires a PR plus `Python 3.11` and `Python 3.12`, with no bypass actors. It does not require this authority check and its approving-review count is zero.
+
+After this workflow exists on `main`, a separate Human Owner repository-settings decision would be needed to add the status context `Fresh exact-head Human Owner approval receipt` beside applicable Quality checks. This candidate does not modify branch protection or rulesets.
 
 ```text
-CANDIDATE_SCOPE_APPROVAL != MERGE_APPROVAL
-AUTONOMOUS_RESEARCH_PERMISSION != MAIN_TRANSITION_AUTHORITY
-QA_PASS != MERGE_APPROVAL
-AI_REVIEW != HUMAN_OWNER_MERGE_APPROVAL
-PRIOR_AUTHORIZATION != CURRENT_ACTION_AUTHORIZATION
-FAIL_CLOSED_TO = HOLD
+REPOSITORY_SETTINGS_CHANGE = HUMAN_OWNER_DECISION_REQUIRED
 ```

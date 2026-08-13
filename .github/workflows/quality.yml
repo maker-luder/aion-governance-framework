@@ -58,7 +58,8 @@ jobs:
           python -m pytest -q \
             tests/test_release_tooling.py \
             tests/test_current_qa_reconciliation.py \
-            tests/test_evidence_traceability.py
+            tests/test_evidence_traceability.py \
+            tests/test_main_transition_authority.py
 
       - name: Validate additive research evidence schema candidate
         run: python -m pytest -q tests/test_research_evidence_schema_v0_2.py
