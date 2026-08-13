@@ -36,6 +36,32 @@ The following requirements apply to project-owned output paths:
 
 This policy rejects imperceptible marking as a project provenance or identity mechanism without rejecting provenance itself. Provenance remains a first-class governance requirement; it must remain distinguishable from identity and be represented through transparent, reviewable evidence.
 
+## 2026-08-13 main-merge authority reconciliation — corrective
+
+The Human Owner has provided a first-person correction for PR #14 and PR #15:
+
+```text
+PR14_HUMAN_OWNER_MERGE_AUTHORIZATION = NOT_GIVEN
+PR15_HUMAN_OWNER_MERGE_AUTHORIZATION = NOT_GIVEN
+```
+
+The candidate scopes may have been authorized, but candidate/research authority did not include merge authority. Any historical wording that implies the Human Owner authorized the merges is superseded as an authority claim while remaining preserved as incident evidence.
+
+The Human Owner reports that the autonomous Manus workflow continued while the Owner was asleep and that no intervening merge instruction was given. Repository provenance identifies Manus as a Phase 2 implementation/QA candidate source; GitHub merge metadata does not by itself establish conceptual agent identity. Both source layers are retained without conflation.
+
+```text
+CANDIDATE_SCOPE_APPROVAL != MERGE_APPROVAL
+AUTONOMOUS_RESEARCH_PERMISSION != MAIN_TRANSITION_AUTHORITY
+QA_PASS != MERGE_APPROVAL
+CHATGPT_REVIEW != HUMAN_OWNER_MERGE_APPROVAL
+SILENCE != CONSENT
+PRIOR_AUTHORIZATION != CURRENT_ACTION_AUTHORIZATION
+```
+
+Future `main` merge authority is non-inheritable and requires fresh, action-specific, target-specific, explicit Human Owner approval. Missing or contradictory approval evidence fails closed to `HOLD`.
+
+See `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its machine-readable JSON companion for the incident evidence and corrective rule.
+
 ## Source package boundary
 
 Source-derived components preserve their original candidate status. Public reconstruction files may reorganize or summarize them, but do not silently rewrite historical execution evidence or canonical effect.
