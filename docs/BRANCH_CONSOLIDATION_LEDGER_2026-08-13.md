@@ -1,14 +1,17 @@
 # Branch Consolidation Ledger — 2026-08-13
 
+> **HISTORICAL RECORD:** This ledger captures an earlier consolidation state. Its `4b360779…` main values are historical and must not be read as current main. The current authoritative main reference is `abb6550abfacb4fabc53ec04fca783bcc34acfdb`.
+
 This ledger is the provenance index for the final two-branch consolidation. It is generated from the read-only remote branch inventory captured before consolidation. No main write was permitted. The final research commit containing this ledger is reported in the final handoff because a commit cannot self-reference its own hash without changing that hash.
 
 ## State locks
 
 | Field | Value |
 |---|---|
-| `MAIN_HEAD_BEFORE` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
+| `HISTORICAL_MAIN_HEAD_BEFORE` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
 | `RESEARCH_HEAD_BEFORE` | `6f39fff07f1b1a79867c270f953c554e18addbc1` |
-| `MAIN_HEAD_AFTER` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
+| `HISTORICAL_MAIN_HEAD_AFTER` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
+| `CURRENT_MAIN_REFERENCE` | `abb6550abfacb4fabc53ec04fca783bcc34acfdb` |
 | `RESEARCH_HEAD_AFTER` | See final handoff receipt (`RESEARCH_HEAD_AFTER`); the final commit SHA is intentionally recorded outside this self-referential ledger |
 | `RESEARCH_HEAD_AT_PRIOR_LEDGER_COMMIT` | `700545e15bc9a4cd7811dd9cccf1c88b93bd77a8` |
 | Permanent branch budget | 2 |

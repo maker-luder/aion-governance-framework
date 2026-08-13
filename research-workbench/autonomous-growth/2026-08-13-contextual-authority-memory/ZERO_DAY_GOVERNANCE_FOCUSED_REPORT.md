@@ -4,13 +4,17 @@ Date: 2026-08-13
 
 Branch: `review/four-domain-research-materialization`
 
-Local research-branch HEAD at report creation: `6a2afd39dc37c4ec7e0031f15fd7020281729715`
+TESTED_HEAD: `7ccbcc4e948376ed2779a41a5bf062714f53dd96`
+
+REPORTING_HEAD: `40088cbc9eef5363d6eaf2feb7dc761e0f76f271`
 
 Push-reported remote research HEAD: `78dfc33fe31d05b90d39e7a5313af037c06971cf`
 
 Cached remote-tracking reference: `78dfc33fe31d05b90d39e7a5313af037c06971cf`
 
-Main reference: `4b36077993fabb22bf04e06162ea83c623bbb7e6`
+CURRENT_MAIN_REFERENCE: `abb6550abfacb4fabc53ec04fca783bcc34acfdb`
+
+The exact QA execution was bound to `TESTED_HEAD`; the later reporting commits are not represented as tested source state.
 
 ## Executive classification
 

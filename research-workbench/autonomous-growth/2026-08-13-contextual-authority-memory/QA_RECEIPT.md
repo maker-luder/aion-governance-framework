@@ -4,12 +4,13 @@
 
 ```text
 BRANCH = review/four-domain-research-materialization
-TARGET_HEAD = 7ccbcc4e948376ed2779a41a5bf062714f53dd96
+TESTED_HEAD = 7ccbcc4e948376ed2779a41a5bf062714f53dd96
+REPORTING_HEAD = 40088cbc9eef5363d6eaf2feb7dc761e0f76f271
 BASE_RESEARCH_HEAD = dc9b0e85b1604d637325228c82aa96559dc57c69
-MAIN_REFERENCE = 4b36077993fabb22bf04e06162ea83c623bbb7e6
+CURRENT_MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
 ```
 
-The source-state check passed. The candidate worktree was bound to the exact target head; the only post-test mutations were generated QA artifacts under `qa/`.
+The source-state check passed for `TESTED_HEAD`. `REPORTING_HEAD` identifies later provenance/reporting commits and is not presented as the exact execution state. The only post-test mutations in the tested sequence were generated QA artifacts under `qa/`.
 
 ## Final gates
 

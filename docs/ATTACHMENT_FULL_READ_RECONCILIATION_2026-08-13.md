@@ -1,5 +1,7 @@
 # Attachment Full-Read Reconciliation — 2026-08-13
 
+> **HISTORICAL RECORD:** The `4b360779…` main value below reflects the state captured by this historical attachment and is not the current main reference. The current authoritative main reference is `abb6550abfacb4fabc53ec04fca783bcc34acfdb`.
+
 ## Final source status
 
 The original large attachment containing Part 1 was initially transport-truncated at line 825 in the middle of `real-m`. That truncation was explicitly reported and no missing text was inferred.
@@ -26,7 +28,7 @@ The source explains that the repeated line-825 cutoff was transport truncation, 
 
 ## Formal task requirements captured
 
-The program authorizes broad autonomous research and engineering only inside the formal research line. It requires exactly two permanent remote branches, freezes `main` at `4b36077993fabb22bf04e06162ea83c623bbb7e6`, prohibits canonical promotion, production deployment, unauthorized private data, paid resources, unsupported subjectivity/consciousness/identity claims and self-certification of independent IV&V.
+The historical program record authorized broad autonomous research and engineering only inside the formal research line. At that historical checkpoint it recorded `main = 4b36077993fabb22bf04e06162ea83c623bbb7e6`; this is not current main state. Current main reference for reconciliation is `abb6550abfacb4fabc53ec04fca783bcc34acfdb`. The program prohibits canonical promotion, production deployment, unauthorized private data, paid resources, unsupported subjectivity/consciousness/identity claims and self-certification of independent IV&V.
 
 The continuous loop requires current-head fetch, architecture/evidence inspection, dynamic gap discovery and classification, value-filtered selection, falsification design, implementation, testing, attempted breakage, provenance, integration, applicable QA, evidence reconciliation and re-evaluation. The program explicitly prohibits quota gaming, duplicate or ornamental research and turning blocked or owner-controlled statuses into fake completion.
 

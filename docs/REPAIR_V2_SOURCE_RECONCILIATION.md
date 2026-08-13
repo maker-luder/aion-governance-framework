@@ -1,5 +1,7 @@
 # AION/Astra Whole-System Review v2 — Source Reconciliation
 
+> **HISTORICAL RECORD:** The main SHA `4b360779…` in this document is a historical capture/merge reference, not current main. Current authoritative main reference for reconciliation is `abb6550abfacb4fabc53ec04fca783bcc34acfdb`.
+
 ## Evidence status
 
 This document records source-state evidence captured before selective replay and repair. It is a review artifact only. It does not promote canonical state, deploy runtime code, or approve a merge.
@@ -14,7 +16,7 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 
 | Source | Exact SHA | Role |
 |---|---|---|
-| `main` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` | authoritative main baseline |
+| `main` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` | HISTORICAL main baseline at capture; not current main |
 | `review/four-domain-research-materialization` | `6f39fff07f1b1a79867c270f953c554e18addbc1` | formal research source and v2 starting point |
 | `review/aion-astra-whole-system-completion` | `263f6905356ebf0581b9ad8acda6c449587c73f1` | historical orphan review artifact; preserved, not merge candidate |
 
@@ -35,9 +37,10 @@ The v2 branch was created from formal research and received a normal non-fast-fo
 
 ```text
 v2 starting head = 6f39fff07f1b1a79867c270f953c554e18addbc1
-main merge parent = 4b36077993fabb22bf04e06162ea83c623bbb7e6
+HISTORICAL_MAIN_MERGE_PARENT = 4b36077993fabb22bf04e06162ea83c623bbb7e6
 merge commit = bdf4efb474df266f9b7c64d943101f42170c7268
-merge-base(v2, main) = 4b36077993fabb22bf04e06162ea83c623bbb7e6
+HISTORICAL_MERGE_BASE_MAIN = 4b36077993fabb22bf04e06162ea83c623bbb7e6
+CURRENT_MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
 merge-base(v2, formal research) = 6f39fff07f1b1a79867c270f953c554e18addbc1
 ```
 

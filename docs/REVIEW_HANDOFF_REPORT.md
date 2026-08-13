@@ -1,5 +1,7 @@
 # AION/Astra Whole-System Review v2 Handoff
 
+> **HISTORICAL RECORD:** The main and merge-base SHA `4b360779…` below belongs to this earlier v2 handoff and is not current main. Current authoritative main reference is `abb6550abfacb4fabc53ec04fca783bcc34acfdb`.
+
 ## Disposition
 
 This branch is a new lineage-correct review candidate. The old orphan review branch remains preserved and is not a merge candidate.
@@ -16,10 +18,11 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 
 | Field | Value |
 |---|---|
-| `MAIN_HEAD_USED` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
+| `HISTORICAL_MAIN_HEAD_USED` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
+| `CURRENT_MAIN_REFERENCE` | `abb6550abfacb4fabc53ec04fca783bcc34acfdb` |
 | `RESEARCH_HEAD_USED` | `6f39fff07f1b1a79867c270f953c554e18addbc1` |
 | `OLD_REVIEW_HEAD_USED` | `263f6905356ebf0581b9ad8acda6c449587c73f1` |
-| `MERGE_BASE_MAIN` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
+| `HISTORICAL_MERGE_BASE_MAIN` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` |
 | `MERGE_BASE_RESEARCH` | `6f39fff07f1b1a79867c270f953c554e18addbc1` |
 | `LINEAGE_MERGE_COMMIT` | `bdf4efb474df266f9b7c64d943101f42170c7268` |
 | `RUNTIME_REPAIR_COMMIT` | `f339028bfbad086b227797f33c1d616ce059c157` |

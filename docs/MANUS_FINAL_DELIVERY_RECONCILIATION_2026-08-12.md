@@ -1,10 +1,13 @@
 # Manus Final Delivery Reconciliation — Main Candidate — 2026-08-12
 
+> **HISTORICAL RECORD:** This delivery reconciliation used `4b360779…` as its historical target base. It is not current main state. Current authoritative main reference for reconciliation is `abb6550abfacb4fabc53ec04fca783bcc34acfdb`.
+
 Status: `REVIEW_ONLY / CANDIDATE_BRANCH / HUMAN_OWNER_REVIEW_REQUIRED`
 
 ```text
 TARGET_BRANCH = main
-TARGET_BASE = 4b36077993fabb22bf04e06162ea83c623bbb7e6
+HISTORICAL_TARGET_BASE = 4b36077993fabb22bf04e06162ea83c623bbb7e6
+CURRENT_MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
 CANDIDATE_BRANCH = review/manus-iqc-main-reconciliation-20260812
 MAIN_EFFECT = NONE_UNTIL_REVIEWED_MERGE
 CANONICAL_EFFECT = NONE
