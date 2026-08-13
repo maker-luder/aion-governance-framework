@@ -42,3 +42,14 @@ def test_malformed_coverage_json_fails_closed_with_record(tmp_path: Path, monkey
     assert records[0]["returncode"] == 0
     assert records[0]["totals"] == {}
     assert "coverage_error" in records[0]
+
+
+
+def test_empty_coverage_target_set_fails_closed(monkeypatch) -> None:
+    module = load_coverage_module()
+    monkeypatch.setattr(module, "TARGETS", ())
+
+    records, failed = module.collect_current_coverage()
+
+    assert records == []
+    assert failed == 1

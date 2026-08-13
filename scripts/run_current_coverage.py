@@ -39,6 +39,8 @@ def _sanitize_output(output: str) -> str:
 
 
 def collect_current_coverage() -> tuple[list[dict[str, object]], int]:
+    if not TARGETS:
+        return [], 1
     records: list[dict[str, object]] = []
     failed = 0
     for target in TARGETS:
