@@ -99,7 +99,14 @@ def _load_manifest(path: Path) -> tuple[dict[str, object], ...]:
         relative, size, digest = record.get("path"), record.get("size"), record.get("sha256")
         if not isinstance(relative, str) or not relative or Path(relative).is_absolute() or ".." in Path(relative).parts:
             raise ValueError(f"manifest record {index} has unsafe path")
-        if relative in seen or not isinstance(size, int) or size < 0 or not isinstance(digest, str) or SHA256.fullmatch(digest) is None:
+        if (
+            relative in seen
+            or isinstance(size, bool)
+            or not isinstance(size, int)
+            or size < 0
+            or not isinstance(digest, str)
+            or SHA256.fullmatch(digest) is None
+        ):
             raise ValueError(f"manifest record {index} has invalid or duplicate record")
         seen.add(relative)
         normalized.append({"path": relative, "size": size, "sha256": digest})
