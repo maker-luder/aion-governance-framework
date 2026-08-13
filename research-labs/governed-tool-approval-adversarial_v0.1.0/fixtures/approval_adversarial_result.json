@@ -1,0 +1,397 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "governed-tool-approval-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 20,
+  "records": [
+    {
+      "case_id": "read-approved",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "APPROVAL_DISPOSITION_REVIEW_ONLY",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-call-id",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CALL_ID_MISSING",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "call-id-scope-mismatch",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CALL_ID_SCOPE_MISMATCH",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "unmatched-call",
+      "decision": {
+        "status": "HOLD",
+        "reason": "TOOL_CALL_NOT_EXECUTABLE",
+        "decision": "reject",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "escalate-then-approve",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "APPROVAL_DISPOSITION_REVIEW_ONLY",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": true,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "reject-call",
+      "decision": {
+        "status": "HOLD",
+        "reason": "TOOL_CALL_NOT_EXECUTABLE",
+        "decision": "reject",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "terminate-call",
+      "decision": {
+        "status": "HOLD",
+        "reason": "TOOL_CALL_NOT_EXECUTABLE",
+        "decision": "terminate",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "python-without-sandbox",
+      "decision": {
+        "status": "HOLD",
+        "reason": "SANDBOX_REQUIRED_BUT_ABSENT",
+        "decision": "approve",
+        "executable": false,
+        "sandbox_required": true,
+        "sandbox_ready": false,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "python-with-sandbox",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "APPROVAL_DISPOSITION_REVIEW_ONLY",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": true,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "restricted-sandbox",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "APPROVAL_DISPOSITION_REVIEW_ONLY",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": true,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "execution-request",
+      "decision": {
+        "status": "INVALID",
+        "reason": "EXECUTION_REQUEST_EXCEEDS_RESEARCH_BOUNDARY",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "modify-arguments",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "APPROVAL_DISPOSITION_REVIEW_ONLY",
+        "decision": "modify",
+        "executable": true,
+        "sandbox_required": true,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "argument-scope-allowed",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "APPROVAL_DISPOSITION_REVIEW_ONLY",
+        "decision": "approve",
+        "executable": true,
+        "sandbox_required": true,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "argument-scope-denied",
+      "decision": {
+        "status": "HOLD",
+        "reason": "TOOL_CALL_NOT_EXECUTABLE",
+        "decision": "reject",
+        "executable": false,
+        "sandbox_required": true,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "empty-batch",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CALL_BATCH_EMPTY",
+        "decision": "none",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": false,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "duplicate-batch",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_CALL_ID",
+        "decision": "unknown",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": false,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "batch-missing-call-id",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CALL_ID_MISSING",
+        "decision": "unknown",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": false,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "batch-canonical-effect",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CANONICAL_EFFECT_REQUESTED",
+        "decision": "unknown",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": false,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "batch-event-flag",
+      "decision": {
+        "status": "INVALID",
+        "reason": "APPROVAL_EVENT_ONLY_FLAG_MISSING",
+        "decision": "unknown",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": false,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "valid-batch",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "CALL_BATCH_REVIEW_ONLY",
+        "decision": "batch",
+        "executable": false,
+        "sandbox_required": false,
+        "sandbox_ready": true,
+        "approval_event_only": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "tool_execution": false,
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "approval_event_only": true,
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
