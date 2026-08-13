@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `0c8f37d387c0b5ca02e38e659744c577324ce691`. Coverage was measured with branch coverage enabled for 78 targets.
+Target head: `dac99a5f8822b46c82cc433749e626cd10530ff9`. Coverage was measured with branch coverage enabled for 79 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -25,6 +25,7 @@ Target head: `0c8f37d387c0b5ca02e38e659744c577324ce691`. Coverage was measured w
 | `research-labs/aion-astra-matched-divergence-study-design_v0.1.0` | 96% | 0 |
 | `research-labs/artifact-transformation-lineage-adversarial_v0.1.0` | 90% | 0 |
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 86% | 0 |
+| `research-labs/causal-internal-state-adversarial_v0.1.0` | 89% | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 91% | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 100% | 0 |
 | `research-labs/contextual-authority-adversarial_v0.1.0` | NOT_RECORDED% | 0 |

@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "0c8f37d387c0b5ca02e38e659744c577324ce691",
+  "target_head": "dac99a5f8822b46c82cc433749e626cd10530ff9",
   "summary": {
-    "eligible_target_count": 81,
-    "tested_target_count": 78,
+    "eligible_target_count": 82,
+    "tested_target_count": 79,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 1481,
+    "total_passed": 1503,
     "total_failed": 0
   },
   "targets": [
@@ -69,7 +69,7 @@
       "passed": 7,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".......                                                                  [100%]\n7 passed in 0.06s\n"
+      "output": ".......                                                                  [100%]\n7 passed in 0.07s\n"
     },
     {
       "target": "components/executable_runtime_v0.1.0",
@@ -89,7 +89,7 @@
       "passed": 46,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............................................                           [100%]\n46 passed in 0.04s\n"
+      "output": "..............................................                           [100%]\n46 passed in 0.05s\n"
     },
     {
       "target": "components/identity_governance_v0.1.0",
@@ -129,7 +129,7 @@
       "passed": 29,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............................                                            [100%]\n29 passed in 0.04s\n"
+      "output": ".............................                                            [100%]\n29 passed in 0.05s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=69019) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.50s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=70722) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.52s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -179,7 +179,7 @@
       "passed": 82,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.19s\n"
+      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.18s\n"
     },
     {
       "target": "research-labs/affective-cognitive-motivation_v0.1.0",
@@ -220,6 +220,16 @@
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
       "output": "..............                                                           [100%]\n14 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/causal-internal-state-adversarial_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 22,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": "......................                                                   [100%]\n22 passed in 0.01s\n"
     },
     {
       "target": "research-labs/causal-internal-state_v0.1.0",
@@ -529,7 +539,7 @@
       "passed": 95,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 0.07s\n"
+      "output": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 0.08s\n"
     },
     {
       "target": "research-labs/matched-divergence-protocol-integrity_v0.1.0",

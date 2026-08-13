@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
-  "target_head": "0c8f37d387c0b5ca02e38e659744c577324ce691",
-  "generated_at": "2026-08-13T09:38:24.286514+00:00",
-  "target_count": 78,
+  "target_head": "dac99a5f8822b46c82cc433749e626cd10530ff9",
+  "generated_at": "2026-08-13T09:46:55.068918+00:00",
+  "target_count": 79,
   "results_ref": "qa/CURRENT_COVERAGE_RESULTS.json",
   "branch_coverage": true,
   "whole_system_validation": "NOT_ESTABLISHED",

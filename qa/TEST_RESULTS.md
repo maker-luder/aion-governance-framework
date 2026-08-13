@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `0c8f37d387c0b5ca02e38e659744c577324ce691`. This report is generated from the current component runner output.
+Target head: `dac99a5f8822b46c82cc433749e626cd10530ff9`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -25,6 +25,7 @@ Target head: `0c8f37d387c0b5ca02e38e659744c577324ce691`. This report is generate
 | `research-labs/aion-astra-matched-divergence-study-design_v0.1.0` | 22 | 0 |
 | `research-labs/artifact-transformation-lineage-adversarial_v0.1.0` | 20 | 0 |
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 14 | 0 |
+| `research-labs/causal-internal-state-adversarial_v0.1.0` | 22 | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 4 | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 3 | 0 |
 | `research-labs/contextual-authority-adversarial_v0.1.0` | 11 | 0 |
@@ -86,4 +87,4 @@ Target head: `0c8f37d387c0b5ca02e38e659744c577324ce691`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1481 passed across 81 targets; failed targets: 0.
+**Total:** 1503 passed across 82 targets; failed targets: 0.
