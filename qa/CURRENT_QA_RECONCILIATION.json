@@ -1,10 +1,10 @@
 {
   "schema_version": "0.1.0",
   "reconciliation_type": "CURRENT_TEST_EVIDENCE_TO_STATUS_LOCK",
-  "target_head": "b6b4a79b287595a18d2dd50b7ed11b69ad2000ad",
-  "generated_at": "2026-08-13T06:22:25.282608+00:00",
-  "target_count": 62,
-  "test_count": 1075,
+  "target_head": "33fae8fb42865692fb71bfa90fb631c7e1992946",
+  "generated_at": "2026-08-13T06:30:09.974361+00:00",
+  "target_count": 63,
+  "test_count": 1089,
   "failed_targets": [],
   "records": [
     {
@@ -160,6 +160,12 @@
     {
       "target": "research-labs/embodiment-continuity-anchor_v0.1.0",
       "tests_passed": 15,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/evidence-admission-nonpromotion_v0.1.0",
+      "tests_passed": 14,
       "returncode": 0,
       "tested": true
     },

@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `b6b4a79b287595a18d2dd50b7ed11b69ad2000ad`. This report is generated from the current component runner output.
+Target head: `33fae8fb42865692fb71bfa90fb631c7e1992946`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -30,6 +30,7 @@ Target head: `b6b4a79b287595a18d2dd50b7ed11b69ad2000ad`. This report is generate
 | `research-labs/core-meaning-commitments_v0.1.0` | 27 | 0 |
 | `research-labs/cross-lineage-memory-contamination_v0.1.0` | 9 | 0 |
 | `research-labs/embodiment-continuity-anchor_v0.1.0` | 15 | 0 |
+| `research-labs/evidence-admission-nonpromotion_v0.1.0` | 14 | 0 |
 | `research-labs/evidence-responsive-governance-reassessment_v0.1.0` | 16 | 0 |
 | `research-labs/external-agent-sandbox-protocol_v0.1.0` | 8 | 0 |
 | `research-labs/external-evidence-normalization_v0.1.0` | 8 | 0 |
@@ -67,4 +68,4 @@ Target head: `b6b4a79b287595a18d2dd50b7ed11b69ad2000ad`. This report is generate
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 | `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 
-**Total:** 1075 passed across 62 targets; failed targets: 0.
+**Total:** 1089 passed across 63 targets; failed targets: 0.
