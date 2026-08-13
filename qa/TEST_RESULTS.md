@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `1a9cd4e88d274cf5547bf82234a8e87770dc7c6e`. This report is generated from the current component runner output.
+Target head: `5cdb198c8b406e6bd245fd4d60c1f6814e4f8ae7`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -35,6 +35,7 @@ Target head: `1a9cd4e88d274cf5547bf82234a8e87770dc7c6e`. This report is generate
 | `research-labs/evidence-admission-nonpromotion_v0.1.0` | 14 | 0 |
 | `research-labs/evidence-currentness-deduplication_v0.1.0` | 21 | 0 |
 | `research-labs/evidence-responsive-governance-reassessment_v0.1.0` | 16 | 0 |
+| `research-labs/external-agent-sandbox-protocol-adversarial_v0.1.0` | 22 | 0 |
 | `research-labs/external-agent-sandbox-protocol_v0.1.0` | 8 | 0 |
 | `research-labs/external-evidence-normalization-adversarial_v0.1.0` | 16 | 0 |
 | `research-labs/external-evidence-normalization_v0.1.0` | 8 | 0 |
@@ -78,4 +79,4 @@ Target head: `1a9cd4e88d274cf5547bf82234a8e87770dc7c6e`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1286 passed across 73 targets; failed targets: 0.
+**Total:** 1308 passed across 74 targets; failed targets: 0.
