@@ -14,7 +14,7 @@ This is a **bounded repository-state reconciliation checkpoint**, not a broad re
 | `CACHED_REMOTE_REF` | `78dfc33fe31d05b90d39e7a5313af037c06971cf` | Local cached `origin/review/four-domain-research-materialization` at reconciliation start. |
 | `LOCAL_MAIN_REF` | `4b36077993fabb22bf04e06162ea83c623bbb7e6` | Stale local checkout reference; not current main and not modified. |
 | `CURRENT_MAIN_REFERENCE` | `abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Current authoritative main reference supplied by Human Owner. |
-| `RECONCILIATION_HEAD` | `TO_BE_FILLED_AFTER_COMMIT` | Commit containing this receipt and stale-reference corrections. |
+| `RECONCILIATION_HEAD` | `5237aa0d4e05ea5ceb7d7fe39ce15462b683910e` | Commit containing this receipt and stale-reference corrections. |
 
 ## Read-only verification
 
