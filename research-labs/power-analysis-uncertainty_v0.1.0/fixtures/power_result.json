@@ -1,0 +1,175 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "power-analysis-uncertainty-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 6,
+  "records": [
+    {
+      "plan_id": "adequate",
+      "decision": {
+        "planning_status": "ADEQUATE",
+        "disposition": "PLANNING_REVIEW",
+        "required_sample_size": 88,
+        "planned_sample_size": 200,
+        "effect_bound": 0.3,
+        "sensitivity_required_sample_sizes": [
+          [
+            0.15,
+            349
+          ],
+          [
+            0.3,
+            88
+          ],
+          [
+            0.45,
+            39
+          ]
+        ],
+        "reason": "ASSUMPTION_DEPENDENT_PLAN_MEETS_DECLARED_TARGET",
+        "achieved_power": null,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "underpowered",
+      "decision": {
+        "planning_status": "UNDERPOWERED",
+        "disposition": "INDETERMINATE",
+        "required_sample_size": 88,
+        "planned_sample_size": 10,
+        "effect_bound": 0.3,
+        "sensitivity_required_sample_sizes": [
+          [
+            0.15,
+            349
+          ],
+          [
+            0.3,
+            88
+          ],
+          [
+            0.45,
+            39
+          ]
+        ],
+        "reason": "PLANNED_SAMPLE_BELOW_ASSUMPTION_DEPENDENT_REQUIREMENT",
+        "achieved_power": null,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "smaller-effect-sensitivity",
+      "decision": {
+        "planning_status": "UNDERPOWERED",
+        "disposition": "INDETERMINATE",
+        "required_sample_size": 349,
+        "planned_sample_size": 200,
+        "effect_bound": 0.15,
+        "sensitivity_required_sample_sizes": [
+          [
+            0.075,
+            1396
+          ],
+          [
+            0.15,
+            349
+          ],
+          [
+            0.225,
+            156
+          ]
+        ],
+        "reason": "PLANNED_SAMPLE_BELOW_ASSUMPTION_DEPENDENT_REQUIREMENT",
+        "achieved_power": null,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "missing-input",
+      "decision": {
+        "planning_status": "UNKNOWN",
+        "disposition": "HOLD",
+        "required_sample_size": null,
+        "planned_sample_size": 200,
+        "effect_bound": null,
+        "sensitivity_required_sample_sizes": [],
+        "reason": "MISSING_POWER_PLANNING_INPUT",
+        "achieved_power": null,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "invalid-alpha",
+      "decision": {
+        "planning_status": "INVALID",
+        "disposition": "HOLD",
+        "required_sample_size": null,
+        "planned_sample_size": 200,
+        "effect_bound": 0.3,
+        "sensitivity_required_sample_sizes": [],
+        "reason": "ALPHA_OR_TARGET_POWER_OUT_OF_RANGE",
+        "achieved_power": null,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "plan_id": "unregistered",
+      "decision": {
+        "planning_status": "UNKNOWN",
+        "disposition": "INDETERMINATE",
+        "required_sample_size": 88,
+        "planned_sample_size": 200,
+        "effect_bound": 0.3,
+        "sensitivity_required_sample_sizes": [
+          [
+            0.15,
+            349
+          ],
+          [
+            0.3,
+            88
+          ],
+          [
+            0.45,
+            39
+          ]
+        ],
+        "reason": "POWER_PLAN_NOT_PREREGISTERED",
+        "achieved_power": null,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "achieved_power_calculated": false,
+  "effect_observed": false,
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
