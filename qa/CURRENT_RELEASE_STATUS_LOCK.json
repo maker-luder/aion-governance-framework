@@ -5,7 +5,7 @@
   "eligible_target_count": 50,
   "tested_target_count": 47,
   "non_applicable_target_count": 3,
-  "current_tests": "920 PASSED",
+  "current_tests": "939 PASSED",
   "whole_system_validation": "21 TEST_CASES / 11 SCENARIO_CLASSES / PASS",
   "coverage": "PASS_BRANCH_MEASURED",
   "compileall": "PASS",
@@ -18,7 +18,7 @@
   "canonical_effect": "NONE",
   "deployment": false,
   "promotion_status": "NOT_REVIEWED",
-  "target_head": "8dd022f805f4eab9593ee64dc2db93155a55079d",
+  "target_head": "1bcd7c462727f9a850fa980c9284d74ec03d2886",
   "public_scan": "PASS",
-  "current_targets": 50
+  "current_targets": 52
 }

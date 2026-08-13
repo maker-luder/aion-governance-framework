@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `8dd022f805f4eab9593ee64dc2db93155a55079d`. This report is generated from the current component runner output.
+Target head: `1bcd7c462727f9a850fa980c9284d74ec03d2886`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -25,7 +25,9 @@ Target head: `8dd022f805f4eab9593ee64dc2db93155a55079d`. This report is generate
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 14 | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 4 | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 3 | 0 |
+| `research-labs/contextual-authority-precedence_v0.1.0` | 10 | 0 |
 | `research-labs/core-meaning-commitments_v0.1.0` | 27 | 0 |
+| `research-labs/cross-lineage-memory-contamination_v0.1.0` | 9 | 0 |
 | `research-labs/embodiment-continuity-anchor_v0.1.0` | 15 | 0 |
 | `research-labs/evidence-responsive-governance-reassessment_v0.1.0` | 16 | 0 |
 | `research-labs/external-agent-sandbox-protocol_v0.1.0` | 8 | 0 |
@@ -55,4 +57,4 @@ Target head: `8dd022f805f4eab9593ee64dc2db93155a55079d`. This report is generate
 | `research-labs/triangulated-subjectivity-evidence_v0.1.0` | 5 | 0 |
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 
-**Total:** 920 passed across 50 targets; failed targets: 0.
+**Total:** 939 passed across 52 targets; failed targets: 0.
