@@ -1,0 +1,378 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "power-analysis-uncertainty-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 20,
+  "records": [
+    {
+      "case_id": "valid-plan",
+      "decision": {
+        "status": "ADEQUATE",
+        "disposition": "PLANNING_REVIEW",
+        "reason": "ASSUMPTION_DEPENDENT_PLAN_MEETS_DECLARED_TARGET",
+        "plan_id": "power:1",
+        "required_sample_size": 32,
+        "sensitivity_valid": true,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "plan-id-missing",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "PLAN_ID_MISSING",
+        "plan_id": "",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "sample-size-type-invalid",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "SAMPLE_SIZE_TYPE_INVALID",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "non-finite-input",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "NON_FINITE_PLANNING_INPUT",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "prereg-reference-empty",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "INDETERMINATE",
+        "reason": "PREREGISTRATION_REFERENCE_EMPTY",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "assumption-basis-empty",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "HOLD",
+        "reason": "ASSUMPTION_BASIS_EMPTY",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-effect-input",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "HOLD",
+        "reason": "MISSING_POWER_PLANNING_INPUT",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "non-positive-effect",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "NON_POSITIVE_SAMPLE_OR_EFFECT_INPUT",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "alpha-out-of-range",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ALPHA_OR_TARGET_POWER_OUT_OF_RANGE",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "unregistered-plan",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "INDETERMINATE",
+        "reason": "POWER_PLAN_NOT_PREREGISTERED",
+        "plan_id": "power:1",
+        "required_sample_size": 32,
+        "sensitivity_valid": true,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "underpowered-plan",
+      "decision": {
+        "status": "UNDERPOWERED",
+        "disposition": "INDETERMINATE",
+        "reason": "PLANNED_SAMPLE_BELOW_ASSUMPTION_DEPENDENT_REQUIREMENT",
+        "plan_id": "power:1",
+        "required_sample_size": 32,
+        "sensitivity_valid": true,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "one-sided-plan",
+      "decision": {
+        "status": "ADEQUATE",
+        "disposition": "PLANNING_REVIEW",
+        "reason": "ASSUMPTION_DEPENDENT_PLAN_MEETS_DECLARED_TARGET",
+        "plan_id": "power:1",
+        "required_sample_size": 25,
+        "sensitivity_valid": true,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "decision-serialization",
+      "decision": {
+        "status": "ADEQUATE",
+        "disposition": "PLANNING_REVIEW",
+        "reason": "ASSUMPTION_DEPENDENT_PLAN_MEETS_DECLARED_TARGET",
+        "plan_id": "power:1",
+        "required_sample_size": 32,
+        "sensitivity_valid": true,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "assumption-lock-unchanged",
+      "decision": {
+        "status": "ADEQUATE",
+        "disposition": "PLANNING_REVIEW",
+        "reason": "ASSUMPTION_LOCK_UNCHANGED",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": true,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "assumption-change-before-effect",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "INDETERMINATE",
+        "reason": "ASSUMPTION_CHANGE_REQUIRES_REVIEW",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "assumption-change-after-effect",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ASSUMPTION_MUTATION_AFTER_OUTCOME",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "assumption-plan-mismatch",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ASSUMPTION_PLAN_ID_MISMATCH",
+        "plan_id": "power:2",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "assumption-nan",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ASSUMPTION_NON_FINITE",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-sample-size",
+      "decision": {
+        "status": "UNKNOWN",
+        "disposition": "HOLD",
+        "reason": "MISSING_POWER_PLANNING_INPUT",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "target-power-out-of-range",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "ALPHA_OR_TARGET_POWER_OUT_OF_RANGE",
+        "plan_id": "power:1",
+        "required_sample_size": null,
+        "sensitivity_valid": false,
+        "achieved_power": null,
+        "effect_observed": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "achieved_power_calculated": false,
+  "effect_observed": false,
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
