@@ -1,0 +1,166 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "evidence-admission-nonpromotion-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 8,
+  "records": [
+    {
+      "evidence_id": "mechanism-only",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_ADMISSIBLE_FOR_REVIEW_ONLY",
+        "evidence_id": "mechanism-only",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "evidence_tier": "MECHANISM_ONLY",
+        "replication_state": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "consistent-replication",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_ADMISSIBLE_FOR_REVIEW_ONLY",
+        "evidence_id": "consistent-replication",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "evidence_tier": "REPLICATION_SUPPORT",
+        "replication_state": "CONSISTENT",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "divergent-replication",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_ADMISSIBLE_FOR_REVIEW_ONLY",
+        "evidence_id": "divergent-replication",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "evidence_tier": "REPLICATION_SUPPORT",
+        "replication_state": "DIVERGENT",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "divergent-synthesis",
+      "decision": {
+        "status": "HOLD",
+        "reason": "DIVERGENT_SYNTHESIS_REQUIRES_REVIEW",
+        "evidence_id": "divergent-synthesis",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "replication_state"
+        ],
+        "evidence_tier": "SYNTHESIS",
+        "replication_state": "DIVERGENT",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "indeterminate-replication",
+      "decision": {
+        "status": "INDETERMINATE",
+        "reason": "REPLICATION_UNCERTAINTY_LIMITS_ADMISSION",
+        "evidence_id": "indeterminate-replication",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "evidence_tier": "REPLICATION_SUPPORT",
+        "replication_state": "INDETERMINATE",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "missing-provenance",
+      "decision": {
+        "status": "HOLD",
+        "reason": "EVIDENCE_METADATA_INCOMPLETE",
+        "evidence_id": "missing-provenance",
+        "missing_fields": [
+          "provenance_ref"
+        ],
+        "contradiction_fields": [],
+        "evidence_tier": "MECHANISM_ONLY",
+        "replication_state": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "contradictory",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CONTRADICTORY_EVIDENCE_REQUIRES_REVIEW",
+        "evidence_id": "contradictory",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "contradiction_refs"
+        ],
+        "evidence_tier": "MECHANISM_ONLY",
+        "replication_state": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "evidence_id": "governance-request",
+      "decision": {
+        "status": "HOLD",
+        "reason": "EVIDENCE_ADMISSION_CANNOT_REQUEST_GOVERNANCE_EFFECT",
+        "evidence_id": "governance-request",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "governance_effect_requested"
+        ],
+        "evidence_tier": "MECHANISM_ONLY",
+        "replication_state": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "governance_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "governance_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
