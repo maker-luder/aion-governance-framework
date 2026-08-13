@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
   "reconciliation_type": "CURRENT_TEST_EVIDENCE_TO_STATUS_LOCK",
-  "target_head": "1d8d668bcf12449b3b51c046f15b4047d596b1cc",
-  "generated_at": "2026-08-13T06:15:00.964084+00:00",
+  "target_head": "bc0cf99b46c52dd53fbe99fa0484ecde2f7df997",
+  "generated_at": "2026-08-13T06:17:24.188922+00:00",
   "target_count": 62,
   "test_count": 1075,
   "failed_targets": [],
