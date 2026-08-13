@@ -1,0 +1,467 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "governance-reassessment-oscillation-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 14,
+  "records": [
+    {
+      "case_id": "stable",
+      "decision": {
+        "status": "STABLE",
+        "disposition": "REVIEW_ONLY",
+        "reason": "REASSESSMENT_SEQUENCE_STABLE_FOR_REVIEW",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 2,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN",
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP",
+          "STABLE"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "oscillatory",
+      "decision": {
+        "status": "OSCILLATORY",
+        "disposition": "HOLD",
+        "reason": "REASSESSMENT_OSCILLATION_REQUIRES_REVIEW",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 4,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN",
+          "E3_CROSS_METHOD_FUNCTIONAL_EVIDENCE",
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN",
+          "E3_CROSS_METHOD_FUNCTIONAL_EVIDENCE"
+        ],
+        "direction_path": [
+          "UP",
+          "UP",
+          "DOWN",
+          "UP"
+        ],
+        "oscillation_count": 2,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "single-reversal",
+      "decision": {
+        "status": "STABLE",
+        "disposition": "REVIEW_ONLY",
+        "reason": "REASSESSMENT_SEQUENCE_STABLE_FOR_REVIEW",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 3,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN",
+          "E3_CROSS_METHOD_FUNCTIONAL_EVIDENCE",
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP",
+          "UP",
+          "DOWN"
+        ],
+        "oscillation_count": 1,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "stale-reviewed",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "STALE_EVIDENCE_REQUIRES_REVIEW",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [
+          "event:stale"
+        ],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "stale-reversal-no-correction",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "STALE_REVERSAL_WITHOUT_CORRECTION",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 2,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN",
+          "E1_ISOLATED_BEHAVIORAL_INDICATION"
+        ],
+        "direction_path": [
+          "UP",
+          "DOWN"
+        ],
+        "oscillation_count": 1,
+        "stale_event_ids": [
+          "event:stale"
+        ],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [
+          "event:stale"
+        ],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "stale-no-basis",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "STALE_OR_CONTRADICTORY_EVIDENCE_NEEDS_CORRECTION",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [
+          "event:stale"
+        ],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [
+          "event:stale"
+        ],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "contradictory-reviewed",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "CONTRADICTORY_EVIDENCE_REQUIRES_REVIEW",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [
+          "event:contradictory"
+        ],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "contradictory-no-counterevidence",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "STALE_OR_CONTRADICTORY_EVIDENCE_NEEDS_CORRECTION",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [
+          "event:contradictory"
+        ],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [
+          "event:contradictory"
+        ],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "unknown-currentness",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "EVIDENCE_CURRENTNESS_UNKNOWN",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [
+          "event:unknown"
+        ],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-provenance",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "EVENT_PROVENANCE_INCOMPLETE",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [
+          "event:missing"
+        ],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "direction-mismatch",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "EVENT_CONTRACT_INVALID",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN"
+        ],
+        "direction_path": [
+          "DOWN"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [
+          "event:bad"
+        ],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "duplicate-sequence-index",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "EVENT_CONTRACT_INVALID",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 2,
+        "observed_level_path": [
+          "E2_REPRODUCIBLE_BEHAVIORAL_PATTERN",
+          "E3_CROSS_METHOD_FUNCTIONAL_EVIDENCE"
+        ],
+        "direction_path": [
+          "UP",
+          "UP"
+        ],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [
+          "event:2"
+        ],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "policy-metadata-missing",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "SEQUENCE_POLICY_METADATA_INCOMPLETE",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [],
+        "direction_path": [],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "boundary-effect",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "BOUNDARY_EFFECT_REQUESTED",
+        "sequence_id": "sequence:oscillation-exp",
+        "event_count": 1,
+        "observed_level_path": [],
+        "direction_path": [],
+        "oscillation_count": 0,
+        "stale_event_ids": [],
+        "contradictory_event_ids": [],
+        "unknown_event_ids": [],
+        "invalid_event_ids": [],
+        "unprovenanced_event_ids": [],
+        "stale_reversal_event_ids": [],
+        "correction_missing_event_ids": [],
+        "human_review_required": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}

@@ -1,0 +1,9 @@
+[project]
+name = "governance-reassessment-oscillation-adversarial"
+version = "0.1.0"
+description = "Research-only adversarial audit for temporal governance reassessment oscillation"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
