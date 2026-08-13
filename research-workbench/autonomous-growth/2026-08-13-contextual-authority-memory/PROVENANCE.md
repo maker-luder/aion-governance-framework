@@ -161,3 +161,17 @@ The design was informed by the information-theoretic treatment of individuality 
 26. Wilson and Barker, [The Biological Notion of Individual](https://plato.stanford.edu/archives/fall2016/entries/biology-individual/).
 27. Montévil and Mossio, [The Identity of Organisms in Scientific Practice: Integrating Historical and Relational Conceptions](https://pmc.ncbi.nlm.nih.gov/articles/PMC7311753/).
 28. Center for Open Science, [Choosing the Right Preregistration Template](https://www.cos.io/blog/choosing-the-right-preregistration-template-guide-for-researchers).
+
+## Zero-Day Governance focused extension
+
+At the Human Owner's temporary focus override, Manus added `research-labs/zero-day-governance-candidate_v0.1.0` as a clean-room, standard-library-only candidate lifecycle and falsifier contract. The unit models a governance anomaly event, source/provenance references, unknown-state labels, containment, characterization, competing explanations, falsification readiness, control references, regression conversion, time-to-capture metrics, prior-art flags, and comparative framework classification. It does not execute a system, call a model, deploy, modify main, alter canonical state, or make the candidate terminology authoritative.
+
+The literature review found substantial prior art rather than a settled distinct term. CISA and NIST provide incident/vulnerability response lifecycle guidance; NASA provides software assurance, findings, metrics, lifecycle testing, and IV&V; NIST AI RMF provides continuous Govern/Map/Measure/Manage functions with monitoring and incident identification; CMU/SEI CERT-RMM provides Incident Management and Control; and SANS defines cybersecurity zero-day exploit usage. The transformation therefore treats the candidate as a hypothesis requiring redundancy and overengineering tests. The provisional classification is `USEFUL_SYNTHESIS_ONLY`; `NOVELTY_CONCLUSION = NOT_ESTABLISHED`.
+
+29. CISA, [Federal Government Cybersecurity Incident and Vulnerability Response Playbooks](https://www.cisa.gov/resources-tools/resources/federal-government-cybersecurity-incident-and-vulnerability-response-playbooks).
+30. NIST, [Incident Response Preparation Resources](https://csrc.nist.gov/projects/incident-response/preparation-resources).
+31. NASA, [Software Assurance and Software Safety](https://sma.nasa.gov/sma-disciplines/software-assurance-and-software-safety).
+32. NIST, [SP 800-61 Rev. 3](https://csrc.nist.gov/pubs/sp/800/61/r3/final).
+33. NIST, [AI RMF Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/).
+34. Carnegie Mellon Software Engineering Institute, [Incident Management and Control (IMC) CERT-RMM Process Area](https://www.sei.cmu.edu/library/incident-management-and-control-imc-cert-rmm-process-area/).
+35. SANS Institute, [Zero-Day Exploit](https://www.sans.org/security-resources/glossary-of-terms/zero-day-exploit).
