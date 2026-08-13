@@ -91,3 +91,15 @@ Additional external sources:
 ## Full-authority contradictory-record hardening
 
 The full-authority unit was extended with two adversarial tests for mixed-validity grant records. Before the correction, a valid grant plus a missing-parent grant and a valid grant plus a revoked grant each returned `EXECUTE`; these failures are retained in `full-authority-initial-failure.md`. The contract was then hardened to return `HOLD / CONTRADICTORY_GRANT_RECORDS_REQUIRE_REVIEW` whenever matching records contain both an executable and a non-executable grant decision. The final unit suite passed 20 tests; no action was executed and all boundary invariants remained unchanged.
+
+
+## Power-analysis uncertainty extension
+
+Manus added `research-labs/power-analysis-uncertainty_v0.1.0` as a clean-room, standard-library-only planning contract. It computes a one-sample normal-approximation required sample size from explicitly supplied assumptions and emits sensitivity values; it does not calculate achieved power, inspect observed data, fit a model, or execute an experiment. The six synthetic cases use no private data, external agents, model APIs, deployment, canonical writes, or main writes.
+
+The design was informed by the National Academies discussion of effect-size variation, limited-study power, and uncertainty in evidence synthesis, and by University of Michigan educational guidance separating alpha, Type I/II error, effect size, sample size, and power. These sources are methodological only and do not establish any AION/Astra or scientific conclusion.
+
+Additional external sources:
+
+16. National Academies, [Reproducibility and Replicability in Science — Chapter 7: Confidence in Science](https://www.nationalacademies.org/read/25303/chapter/10).
+17. University of Michigan Meera, [Power Analysis, Statistical Significance, and Effect Size](https://meera.seas.umich.edu/power-analysis-statistical-significance-effect-size.html).

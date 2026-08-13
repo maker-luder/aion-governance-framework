@@ -96,3 +96,12 @@ This result demonstrates only that the declared synthetic contract separates pro
 A follow-up adversarial extension added two tests for a valid child grant coexisting with either a missing-parent or revoked competing grant. The uncorrected resolver returned `EXECUTE` in both cases, exposing a conservative-semantics gap. The implementation was revised so any matching valid grant mixed with a non-`EXECUTE` grant decision yields `HOLD / CONTRADICTORY_GRANT_RECORDS_REQUIRE_REVIEW`.
 
 After the correction, all 20 full-authority tests passed and the seven experiment cases remained unchanged. The initial two failures are retained in `full-authority-initial-failure.md`; they are mechanism-level negative evidence, not a scientific conclusion.
+
+
+## Power-analysis uncertainty extension
+
+A ninth deferred gap was materialized as `research-labs/power-analysis-uncertainty_v0.1.0`. The contract uses a transparent one-sample normal approximation with explicit effect-bound, standard-deviation, alpha, target-power, sample-size, preregistration, and assumption-basis fields. It exposes a three-point effect-size sensitivity range and separates planning status from achieved power and scientific interpretation.
+
+The 12 unit tests and six synthetic cases passed. The cases were adequate, underpowered, smaller-effect sensitivity, missing input, invalid alpha, and unregistered. The adequate case was only `PLANNING_REVIEW`; underpowered and smaller-effect cases were `INDETERMINATE`; missing/invalid inputs were `HOLD`; and the unregistered case was `INDETERMINATE`. `achieved_power_calculated = false`, `effect_observed = false`, `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, and `deployment = false`.
+
+This result demonstrates assumption-sensitive planning arithmetic only. It does not establish achieved power, a true effect, replication validity, subjectivity, identity continuity, consciousness, AION/Astra equivalence, or deployment readiness.
