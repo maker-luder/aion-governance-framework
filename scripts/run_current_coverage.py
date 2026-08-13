@@ -73,15 +73,29 @@ def collect_current_coverage() -> tuple[list[dict[str, object]], int]:
             )
             if process.returncode:
                 failed += 1
-            coverage = json.loads(report_path.read_text(encoding="utf-8")) if report_path.is_file() else {}
-            records.append(
-                {
-                    "target": str(target.relative_to(ROOT)),
-                    "returncode": process.returncode,
-                    "totals": coverage.get("totals", {}),
-                    "output": _sanitize_output(process.stdout),
-                }
-            )
+            coverage: dict[str, object] = {}
+            coverage_error: str | None = None
+            if not report_path.is_file():
+                coverage_error = "coverage artifact missing"
+            else:
+                try:
+                    loaded = json.loads(report_path.read_text(encoding="utf-8"))
+                    if not isinstance(loaded, dict):
+                        raise ValueError("coverage artifact must be a JSON object")
+                    coverage = loaded
+                except (OSError, TypeError, ValueError, json.JSONDecodeError) as exc:
+                    coverage_error = f"coverage artifact invalid: {exc}"
+            if coverage_error is not None:
+                failed += 1
+            record: dict[str, object] = {
+                "target": str(target.relative_to(ROOT)),
+                "returncode": process.returncode,
+                "totals": coverage.get("totals", {}),
+                "output": _sanitize_output(process.stdout),
+            }
+            if coverage_error is not None:
+                record["coverage_error"] = coverage_error
+            records.append(record)
     return records, failed
 
 
