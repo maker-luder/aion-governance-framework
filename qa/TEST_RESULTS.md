@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `8cf76fd523ec720f452687cc796339d3c2f01578`. This report is generated from the current component runner output.
+Target head: `30c6220d6b1872c6ffac175b0d55d6fcd6aa3278`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -23,6 +23,7 @@ Target head: `8cf76fd523ec720f452687cc796339d3c2f01578`. This report is generate
 | `examples/bazi-capability_v0.1.1` | 82 | 0 |
 | `research-labs/affective-cognitive-motivation_v0.1.0` | 7 | 0 |
 | `research-labs/aion-astra-matched-divergence-study-design_v0.1.0` | 22 | 0 |
+| `research-labs/artifact-transformation-lineage-adversarial_v0.1.0` | 20 | 0 |
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 14 | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 4 | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 3 | 0 |
@@ -75,4 +76,4 @@ Target head: `8cf76fd523ec720f452687cc796339d3c2f01578`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1229 passed across 70 targets; failed targets: 0.
+**Total:** 1249 passed across 71 targets; failed targets: 0.

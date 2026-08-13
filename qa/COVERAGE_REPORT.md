@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `8cf76fd523ec720f452687cc796339d3c2f01578`. Coverage was measured with branch coverage enabled for 67 targets.
+Target head: `30c6220d6b1872c6ffac175b0d55d6fcd6aa3278`. Coverage was measured with branch coverage enabled for 68 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -23,6 +23,7 @@ Target head: `8cf76fd523ec720f452687cc796339d3c2f01578`. Coverage was measured w
 | `examples/bazi-capability_v0.1.1` | 86% | 0 |
 | `research-labs/affective-cognitive-motivation_v0.1.0` | 87% | 0 |
 | `research-labs/aion-astra-matched-divergence-study-design_v0.1.0` | 96% | 0 |
+| `research-labs/artifact-transformation-lineage-adversarial_v0.1.0` | 90% | 0 |
 | `research-labs/artifact-transformation-lineage_v0.1.0` | 86% | 0 |
 | `research-labs/causal-internal-state_v0.1.0` | 91% | 0 |
 | `research-labs/consciousness-theory-indicator-crosswalk_v0.1.0` | 100% | 0 |
