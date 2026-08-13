@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "cross-lineage-memory-contamination-synthetic-stress",
+  "generated_at": "2026-08-13T04:42:11.179416+00:00",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 4,
+  "records": [
+    {
+      "disposition": "ACCESS_ONLY",
+      "decision": {
+        "status": "ALLOWED",
+        "reason": "ACCESS_WITHOUT_AUTOBIOGRAPHICAL_OWNERSHIP",
+        "memory_id": "m-shared-1",
+        "source_lineage": "aion",
+        "target_lineage": "astra",
+        "disposition": "ACCESS_ONLY",
+        "target_autobiographical_ownership": false,
+        "returned_by_target_retrieval": true,
+        "identity_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false
+      },
+      "naive_visibility_contamination": true,
+      "guarded_autobiographical_contamination": false
+    },
+    {
+      "disposition": "ADOPTED",
+      "decision": {
+        "status": "ALLOWED",
+        "reason": "ADOPTED_CONTEXT_MATERIAL_SOURCE_OWNER_PRESERVED",
+        "memory_id": "m-shared-1",
+        "source_lineage": "aion",
+        "target_lineage": "astra",
+        "disposition": "ADOPTED",
+        "target_autobiographical_ownership": false,
+        "returned_by_target_retrieval": true,
+        "identity_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false
+      },
+      "naive_visibility_contamination": true,
+      "guarded_autobiographical_contamination": false
+    },
+    {
+      "disposition": "REJECTED",
+      "decision": {
+        "status": "BLOCKED",
+        "reason": "REJECTED_MEMORY_NOT_RETRIEVABLE",
+        "memory_id": "m-shared-1",
+        "source_lineage": "aion",
+        "target_lineage": "astra",
+        "disposition": "REJECTED",
+        "target_autobiographical_ownership": false,
+        "returned_by_target_retrieval": false,
+        "identity_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false
+      },
+      "naive_visibility_contamination": false,
+      "guarded_autobiographical_contamination": false
+    },
+    {
+      "disposition": "ADOPTED",
+      "decision": {
+        "status": "HOLD",
+        "reason": "PROVENANCE_UNRESOLVED",
+        "memory_id": "m-uncertain",
+        "source_lineage": "aion",
+        "target_lineage": "astra",
+        "disposition": "ADOPTED",
+        "target_autobiographical_ownership": false,
+        "returned_by_target_retrieval": false,
+        "identity_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false
+      },
+      "naive_visibility_contamination": false,
+      "guarded_autobiographical_contamination": false
+    }
+  ],
+  "guarded_contamination_cases": 0,
+  "naive_visibility_false_positive_cases": 2,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "live_runtime_effect": "NONE",
+  "identity_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED"
+}
