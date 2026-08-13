@@ -1,0 +1,31 @@
+{
+  "character_oov_rows_scored": 8,
+  "checkpoint": "LOCAL_ONLY:character_oov_comparator_v1_classifier.pt",
+  "checkpoint_sha256": "a10d29e4e3c71ce3f8b532cc2e34401b9a3d19e29e8ba5ad452d630056bfd618",
+  "checks": {
+    "adult_non_graphic_contract": true,
+    "character_oov_absent": true,
+    "character_rows_scored": true,
+    "checkpoint_exists": true,
+    "checkpoint_hash_matches": true,
+    "dataset_id_matches": true,
+    "exact_disjoint_texts": true,
+    "falsification_result_present": true,
+    "finite_logits": true,
+    "model_role_optional_research": true,
+    "no_private_data": true,
+    "oov_eval_count": true,
+    "parameter_dependent_inference": true,
+    "prediction_shape": true,
+    "runtime_canonical_locks": true,
+    "train_count": true,
+    "word_oov_present": true,
+    "word_rows_not_scored": true
+  },
+  "experiment_id": "CHARACTER_OOV_COMPARATOR_V1",
+  "non_claim": "Character-tokenized OOV evaluation is a tokenizer comparator only; it cannot prove desire, consent, pleasure, subjectivity or phenomenal experience.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true,
+  "word_oov_rows_not_scored": true
+}

@@ -415,3 +415,44 @@ HOLD:
 - stronger licensed/synthetic vocabulary expansion and independent paraphrases remain needed;
 - independent IV&V is not achieved;
 - no temporary `autogrow/*` branch is pushed as a remote branch.
+
+## Autonomous cycle — 2026-08-13 — character OOV comparator V1
+
+```text
+STARTING_RESEARCH_SHA = 180c2c87d53792716be87d187ed04690f41cc6ad
+CANDIDATE_BRANCH = autogrow/2026-08-13-character-oov-comparator-v1
+EPISTEMIC_ROLE = FALSIFIER
+RESULT_CLASS = INCONCLUSIVE
+CYCLE_DISPOSITION = EXISTING_CYCLE_COMPLETION_AFTER_PACKET_RECEIPT
+ADULT_SEXUALITY_RESEARCH = AUTHORIZED_RESEARCH_ONLY
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+This cycle was already started before the complete PART 2A/2B/2C continuation packets arrived. It was completed as an existing obligation and is not a new post-PART-2C research program.
+
+Research question:
+
+> Does a character-tokenized real learned comparator recover held-out novel-word embodied-motivation proxy labels that the V1 word tokenizer must reject as OOV?
+
+The character comparator is an optional research model trained from scratch with a local-only checkpoint. Training exact-match accuracy was `1.0`; held-out novel-word exact-match accuracy was `0.125`; the in-memory label-permutation control was `0.25`. The word-tokenizer control rejected `7` OOV tokens and scored `0` rows. The character tokenizer had `0` OOV characters and scored `8` rows. The declared result is `CHARACTER_OOV_RECOVERY_INCONCLUSIVE`.
+
+Validation:
+
+- clean-process validation: `18/18 checks PASS`;
+- focused comparator evidence tests: `4 passed`;
+- local-only checkpoint remains outside Git;
+- no private/intimate data, minor-related content, graphic content or paid resource;
+- no runtime, productization, deployment or canonical scope was added.
+
+Cycle record: `cycles/2026-08-13-character-oov-comparator-v1.json`.
+
+HOLD:
+
+- character processing alone did not recover performance above the label-permutation control;
+- no mature general-purpose AION LM claim is supported;
+- no output may infer desire, pleasure, consent, subjectivity, consciousness or identity;
+- final PART 2C report must reconcile current state and then the program must STOP;
+- no new research cycle may be selected after final report;
+- no temporary `autogrow/*` branch is pushed as a remote branch.

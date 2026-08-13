@@ -115,9 +115,13 @@ resolved_items = [
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_VALIDATION.json",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_V3_DATASET_REGISTRY.json",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_RESULTS.json",
-            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_VALIDATION.json"
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_DATASET_REGISTRY.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_VALIDATION.json",
+            "research-workbench/autonomous-growth/cycles/2026-08-13-character-oov-comparator-v1.json"
         ],
-        "non_claim": "V1/V2/V3 synthetic proxy evidence gives bounded signal-separation observations, a negative test of simple keyword dependence and an inconclusive lexical/paraphrase robustness result; it does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience.",
+        "non_claim": "V1/V2/V3 plus character-comparator synthetic proxy evidence gives bounded signal-separation observations, a negative test of simple keyword dependence, inconclusive lexical/paraphrase robustness and inconclusive OOV recovery; it does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience.",
     },
 ]
 
@@ -227,9 +231,11 @@ remaining_items = [
         "evidence": [
             "qa/DEFERRED_SCOPE_REGISTER.md",
             "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
-            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json"
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_VALIDATION.json"
         ],
-        "reason": "Three adult, scientific, research-only embodied-motivation cycles are complete as bounded evidence; V3 found paraphrase robustness inconclusive and broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
+        "reason": "Four adult, scientific, research-only embodied-motivation cycles are complete as bounded evidence; the character comparator did not exceed its label-permutation control and OOV recovery remains inconclusive. Broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
         "next_cycle_only": True,
     },
     {

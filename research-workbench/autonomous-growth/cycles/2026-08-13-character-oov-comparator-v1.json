@@ -1,0 +1,59 @@
+{
+  "cycle_id": "2026-08-13-character-oov-comparator-v1",
+  "started_at": "2026-08-13T09:47:06+08:00",
+  "starting_research_sha": "180c2c87d53792716be87d187ed04690f41cc6ad",
+  "research_question": "Does a character-tokenized real learned comparator recover held-out novel-word embodied-motivation proxy labels that the V1 word tokenizer must reject as OOV?",
+  "epistemic_role": "FALSIFIER",
+  "source_refs": [
+    "docs/ATTACHMENT_FULL_READ_RECONCILIATION_2026-08-13.md",
+    "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
+    "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V3_2026-08-13.md",
+    "docs/RESEARCH_CYCLE_CHARACTER_OOV_COMPARATOR_V1_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_RESULTS.json"
+  ],
+  "changed_paths": [
+    "docs/ATTACHMENT_FULL_READ_RECONCILIATION_2026-08-13.md",
+    "docs/RESEARCH_CYCLE_CHARACTER_OOV_COMPARATOR_V1_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_character_oov_comparator.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_character_oov_comparator.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_DATASET_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_character_oov_comparator_evidence.py",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-character-oov-comparator-v1.json"
+  ],
+  "validation": {
+    "commands": [
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 run_character_oov_comparator.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 validate_character_oov_comparator.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_character_oov_comparator_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py",
+      "python3 scripts/check_autonomous_growth_contract.py"
+    ],
+    "outcomes": [
+      "Character comparator train exact-match accuracy = 1.0",
+      "Character comparator held-out novel-word exact-match accuracy = 0.125",
+      "In-memory label-permutation control held-out exact-match accuracy = 0.25",
+      "Word-tokenizer control found 7 OOV tokens and scored 0 rows",
+      "Character tokenizer found 0 OOV characters and scored 8 rows",
+      "Clean-process validation = 18/18 checks PASS",
+      "Focused evidence tests = 4 passed",
+      "Initial contract check found extra non-schema fields; CAPA removed them before final integration"
+    ]
+  },
+  "result_class": "INCONCLUSIVE",
+  "candidate_branch": "autogrow/2026-08-13-character-oov-comparator-v1",
+  "integration_status": "HOLD",
+  "hold_items": [
+    "Local-only character checkpoint is not committed to Git",
+    "Character model output did not exceed label-permutation control in this small fixture",
+    "Word-tokenizer OOV rows were not scored and cannot be treated as word-model failures",
+    "No mature general-purpose AION LM claim is supported",
+    "No desire, consent, pleasure, subjectivity, consciousness or identity claim is supported",
+    "No runtime, product, deployment or canonical scope was added",
+    "The initial contract failure was a schema-boundary mistake, corrected by removing two extra fields and preserving the information in note/ledger artifacts",
+    "Final report must be produced and the program must STOP after PART 2C requirements are reconciled",
+    "Independent IV&V is not achieved"
+  ]
+}

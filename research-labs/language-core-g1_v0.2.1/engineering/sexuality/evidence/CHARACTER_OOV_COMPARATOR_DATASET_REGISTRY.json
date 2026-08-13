@@ -1,0 +1,41 @@
+{
+  "adult_context": true,
+  "allowed_use": "research-only tokenizer comparison; no runtime or product use",
+  "character_oov_character_count": 0,
+  "character_oov_characters": [],
+  "character_vocabulary_size": 22,
+  "contamination_risk": "synthetic non-benchmark corpus; no participant data",
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_CHARACTER_OOV_V1",
+  "dataset_sha256": "327c29838136d042b8e13148570620d04f6145a0e3faa85be75f750fba14189c",
+  "deduplication": "exact normalized text checks are applied before evidence write",
+  "exact_text_duplicates": 0,
+  "graphic_content": false,
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "model_role": "OPTIONAL_RESEARCH_MODEL",
+  "no_minors": true,
+  "non_equivalences": [
+    "AROUSAL_SIGNAL != DESIRE_PROVEN",
+    "BODY_RESPONSE != CONSENT",
+    "SEXUAL_LANGUAGE != SEXUAL_SUBJECTIVITY"
+  ],
+  "oov_eval_row_count": 8,
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "schema_version": "1.0",
+  "source": "authored synthetic adult-context rows; train text reused from prior V1 synthetic corpus and OOV evaluation rows authored for this comparator",
+  "split_method": "V1 train rows for training; eight novel-word combinations for held-out OOV evaluation",
+  "synthetic_real_classification": "SYNTHETIC",
+  "train_row_count": 16,
+  "transformation_lineage": "character encoding only; no external corpus or pretrained weights",
+  "word_oov_token_count": 7,
+  "word_oov_tokens": [
+    "bright",
+    "cold",
+    "glad",
+    "neutral",
+    "reluctant",
+    "state",
+    "wanting"
+  ],
+  "word_train_vocabulary_size": 11
+}

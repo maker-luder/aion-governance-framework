@@ -1,0 +1,409 @@
+{
+  "authority_boundary": "optional research comparator only; no sexual, consent, runtime, canonical or subjectivity authority",
+  "canonical_effect": "NONE",
+  "character_tokenizer_control": {
+    "gate_before_score": true,
+    "oov_characters_rejected": 0,
+    "rows_scored": 8
+  },
+  "checkpoint": "LOCAL_ONLY:character_oov_comparator_v1_classifier.pt",
+  "checkpoint_sha256": "a10d29e4e3c71ce3f8b532cc2e34401b9a3d19e29e8ba5ad452d630056bfd618",
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_CHARACTER_OOV_V1",
+  "dataset_sha256": "327c29838136d042b8e13148570620d04f6145a0e3faa85be75f750fba14189c",
+  "deployment": false,
+  "epistemic_role": "FALSIFIER",
+  "experiment_id": "CHARACTER_OOV_COMPARATOR_V1",
+  "falsification_conditions": [
+    "any character OOV, duplicate, non-adult or graphic row invalidates the comparator dataset",
+    "word-tokenizer OOV rows must not be scored as word-model evidence",
+    "character comparator performance at or below label-permutation control falsifies a learned OOV recovery interpretation",
+    "small synthetic OOV recovery does not establish robust language understanding or mature AION LM capability",
+    "model outputs cannot infer desire, consent, pleasure, subjectivity or authorize action"
+  ],
+  "falsification_result": "CHARACTER_OOV_RECOVERY_INCONCLUSIVE",
+  "generated_at": "2026-08-13T01:38:55.253340+00:00",
+  "label_permutation_control": {
+    "oov_eval": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.5,
+        0.75,
+        0.75
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.25,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "training_status": "TRAINED_FROM_SCRATCH_CONTROL_ONLY"
+  },
+  "no_external_paid_resource": true,
+  "no_graphic_content": true,
+  "no_minors": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "parameter_count": 4126,
+  "primary": {
+    "oov_eval": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.125,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    "parameter_dependent_inference": true,
+    "train": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "count": 16,
+      "exact_match_accuracy": 1.0,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "research_question": "Does a character-tokenized real learned comparator recover held-out novel-word embodied-motivation proxy labels that the V1 word tokenizer must reject as OOV?",
+  "runtime_effect": "NONE",
+  "schema_version": "1.0",
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE",
+  "training_status": "TRAINED_FROM_SCRATCH",
+  "word_tokenizer_control": {
+    "gate_before_score": true,
+    "oov_tokens_rejected": 7,
+    "rows_scored": 0
+  }
+}
