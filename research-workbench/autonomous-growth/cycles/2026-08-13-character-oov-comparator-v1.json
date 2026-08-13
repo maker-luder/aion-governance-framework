@@ -9,11 +9,13 @@
     "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
     "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V3_2026-08-13.md",
     "docs/RESEARCH_CYCLE_CHARACTER_OOV_COMPARATOR_V1_2026-08-13.md",
+    "docs/CAPA_CHARACTER_OOV_COMPARATOR_V1.md",
     "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_RESULTS.json"
   ],
   "changed_paths": [
     "docs/ATTACHMENT_FULL_READ_RECONCILIATION_2026-08-13.md",
     "docs/RESEARCH_CYCLE_CHARACTER_OOV_COMPARATOR_V1_2026-08-13.md",
+    "docs/CAPA_CHARACTER_OOV_COMPARATOR_V1.md",
     "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_character_oov_comparator.py",
     "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_character_oov_comparator.py",
     "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_DATASET_REGISTRY.json",
@@ -44,7 +46,7 @@
   },
   "result_class": "INCONCLUSIVE",
   "candidate_branch": "autogrow/2026-08-13-character-oov-comparator-v1",
-  "integration_status": "HOLD",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
   "hold_items": [
     "Local-only character checkpoint is not committed to Git",
     "Character model output did not exceed label-permutation control in this small fixture",

@@ -1558,14 +1558,19 @@
       "sha256": "2cd16fd2eab546e0feea6bbda775abfb5773dc7578f266b1c3a287274b096863"
     },
     {
+      "path": "docs/ATTACHMENT_FULL_READ_RECONCILIATION_2026-08-13.md",
+      "size": 4241,
+      "sha256": "2cb595c12fea03b7d27dd6176fe5113fb905b1a58e504155111e2f841db7623d"
+    },
+    {
       "path": "docs/AUTHORITATIVE_METHODS_CROSSWALK.md",
       "size": 7766,
       "sha256": "da0a7ddbd5680e11dbed9304dc63f661a4f112161dba83489f3834f402cf1f63"
     },
     {
       "path": "docs/AUTHORITATIVE_REMAINING_GAP_INVENTORY.md",
-      "size": 9385,
-      "sha256": "47b2f8c2cbe59fbbeaa8d44844c8bd8f05965632a297fb6ce03c392a1508d589"
+      "size": 9878,
+      "sha256": "c062a63f50188e781b8b3ffc3d2abfe10599e3eed6b00e573b7c7b9f3213d715"
     },
     {
       "path": "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
@@ -1670,7 +1675,7 @@
     {
       "path": "docs/INTEGRATION_INVENTORY_CURRENT.md",
       "size": 12326,
-      "sha256": "0713dda6ddd034e6529dce86f4d8fac9ec47493d725621071a518895c0dce638"
+      "sha256": "eca245f801ab0fe0ed147be30bea410cd1272761b98de7e4290afbb26a38743f"
     },
     {
       "path": "docs/IVV_READINESS_PACKET.md",
@@ -1811,6 +1816,11 @@
       "path": "docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md",
       "size": 5825,
       "sha256": "9ae3d685f93bf16f4a91e3e65faebf1b62f4aa2be32702667e55221e7e248e7d"
+    },
+    {
+      "path": "docs/RESEARCH_CYCLE_CHARACTER_OOV_COMPARATOR_V1_2026-08-13.md",
+      "size": 4679,
+      "sha256": "b024f040961d344208c766a30eb3c4fb8d8fefb60cc4386fa0cf0f62dd4038e8"
     },
     {
       "path": "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V1_2026-08-13.md",
@@ -2129,8 +2139,8 @@
     },
     {
       "path": "qa/AUTHORITATIVE_REMAINING_GAP_INVENTORY.json",
-      "size": 16118,
-      "sha256": "3f9d219e74e3e941597e562415fe7ba6a4d98d0d9e47f5b9cb89e521e68ca8f2"
+      "size": 16925,
+      "sha256": "21b455604b2c805d5c92917a666c902ee4950c404b0d4f1b4183b8b74ad29678"
     },
     {
       "path": "qa/CI_APPLICABILITY.md",
@@ -2145,7 +2155,7 @@
     {
       "path": "qa/COVERAGE_REPORT.md",
       "size": 3322,
-      "sha256": "209e5f1b0c1e0b1d603939ec3179d9f2fb77ba7632f59ae01bc442add1279d64"
+      "sha256": "d7d5269f6aafa0156c5987c6a64912b41bbc6e64477810622753a2a27657b284"
     },
     {
       "path": "qa/CURRENT_COVERAGE.json",
@@ -2155,42 +2165,42 @@
     {
       "path": "qa/CURRENT_COVERAGE_EVIDENCE.json",
       "size": 387,
-      "sha256": "bd036329446fb2b7cf5fbc7dcaad4dc3233939b527a3c11ec924e20723280e97"
+      "sha256": "b85d391d5da06c0f60db14a78aac428c498ca026ec051b3996a5a0256ef7f67c"
     },
     {
       "path": "qa/CURRENT_COVERAGE_RESULTS.json",
       "size": 88395,
-      "sha256": "cf44a99d9f772350646dd7dc7d2c635d5fd090e5f26d948922e20b63890da762"
+      "sha256": "f471e1c21fccb523d37b6a9bbb9bea35ff769fa35ad3a92828990f4696f73d26"
     },
     {
       "path": "qa/CURRENT_EVIDENCE_TRACEABILITY.json",
       "size": 19725,
-      "sha256": "1493be372845411c56d4bd46ef445440be11cceeabc50926bb2180475f8e13db"
+      "sha256": "990a5c3d430ef3eef5b074ae7896bdfcda0bb82a3aad7e17b9a3a35dc833bb65"
     },
     {
       "path": "qa/CURRENT_QA_RECONCILIATION.json",
       "size": 7853,
-      "sha256": "cc0ecad393ab5e29f447a5b47ad079f072997f2fec553ca032a0e77fe0b90955"
+      "sha256": "ad3f7d93b7ba67247fab2c72fb825e510b54dfddc8bcc12de8a0efcc08c36ac1"
     },
     {
       "path": "qa/CURRENT_RELEASE_STATUS_LOCK.json",
       "size": 807,
-      "sha256": "b56072f0b3b1659e2a767da5c2a8dbf1ff8b62e91c1a6d4e725b13822b5f4675"
+      "sha256": "591fd4ff8748d52a43f3e27ef9b0c83ca4f69515bb77038b40bfb75006426b4a"
     },
     {
       "path": "qa/CURRENT_TEST_RESULTS.json",
       "size": 18953,
-      "sha256": "8ec888ae7e8e5b3286f7291dde83c754f623edc6f0acc44e06e36093b00b08fb"
+      "sha256": "e9f2be4e65d440cbeb948a817dd6ed71baf836b34731adc2c5d4e35764ae42fa"
     },
     {
       "path": "qa/DEFERRED_SCOPE_REGISTER.md",
-      "size": 5908,
-      "sha256": "63857b675d78e4602b9c92261c1b4d74e0fcd90401e94d20d1148ee0486e1f85"
+      "size": 5998,
+      "sha256": "a20d169fa3b79c4b3cd519bd7650e6c0d6c2267604f783ad75b4efb5c1b54298"
     },
     {
       "path": "qa/FINAL_LOCAL_GATE_RESULTS.json",
       "size": 5030,
-      "sha256": "d28137d6f9222beb70d178ee8aafcdaae7801dc183ebef18494939b32c70e264"
+      "sha256": "4e5149d7d7a76ae70f34450421401959a7fe01686488e99f530649c4e4eee085"
     },
     {
       "path": "qa/FINAL_MANIFEST_RESULT.json",
@@ -2200,17 +2210,17 @@
     {
       "path": "qa/INTEGRATION_CANDIDATE_TEST_RESULTS.json",
       "size": 3956,
-      "sha256": "0103937fbc078412d5ca0c30f169bce9cbbc35ffc6f11e6582e044bc64652865"
+      "sha256": "828897361ec6569f7a0cec6ee16033ad7098a305b6adf6a36f297b4655b2e4c0"
     },
     {
       "path": "qa/INTEGRATION_INVENTORY.json",
       "size": 26459,
-      "sha256": "60566c095215765a4a2c50e9c1d4f14dd36a071cf628da757090465d74a4f956"
+      "sha256": "61ac9faebd47f6be660768ec933f741da8a0563e6c25cabf7155af17c35b6059"
     },
     {
       "path": "qa/IQC_REPORT.json",
       "size": 3137,
-      "sha256": "6264ed9450fed8b75b3d1c4035b5e2d76a48a9994c016315d56e13017b7a558c"
+      "sha256": "b356fd75e090e4df8210011556f533f251805c82271dffdd4d2457f5b65523b0"
     },
     {
       "path": "qa/NCR_CAPA_REGISTER.md",
@@ -2275,7 +2285,7 @@
     {
       "path": "qa/TEST_RESULTS.md",
       "size": 3317,
-      "sha256": "01b331d77cb2b0eeedc4ce264cd9a38ae9ed2aa2713373219966a8236ad2e3b2"
+      "sha256": "440ae074e468a298185c3813531720f7bfc6c1e87dd9f2e653a64985e109130a"
     },
     {
       "path": "qa/WHOLE_SYSTEM_PACKAGE_BUILD.json",
@@ -2285,242 +2295,242 @@
     {
       "path": "qa/WHOLE_SYSTEM_VALIDATION.json",
       "size": 15238,
-      "sha256": "016ff1a115967e70866dafddc61e9399da567e03fdc5d1ff9bcb75d57744cf81"
+      "sha256": "c49c782807e5cada7cc8a03f6460143f4fc957f2c8fa628761397533d017b90a"
     },
     {
       "path": "qa/coverage/components__aion_runtime_v0.1.0.json",
       "size": 26118,
-      "sha256": "eb11457e181b78dc3557424b8ab116cc936c1bca82d75c6d4b6b81acd68578b5"
+      "sha256": "691c9148b17ff26881ed7fae3854e786bba06efd1235ac19e562825a31cece09"
     },
     {
       "path": "qa/coverage/components__aion_runtime_v0.2.0.json",
       "size": 82612,
-      "sha256": "efbf5ae8d5066be0e3a08aa33309276b36b34df7ab41f08d65e358a8607ac23c"
+      "sha256": "f3c4023c368876ec101b51236740d16dd9715db842f5015033b63f8dffd6363b"
     },
     {
       "path": "qa/coverage/components__astra_runtime_v0.1.0.json",
       "size": 15356,
-      "sha256": "85f42a520e4f95667477dabff0892da929e7f5f65689a102a7c4ce84429dd9ca"
+      "sha256": "7bd2e18d8a48f130c207b357a2c85ac976cc721731571c5b3ade7f0a06064f0f"
     },
     {
       "path": "qa/coverage/components__astra_workbench_v1.0.0.json",
       "size": 141213,
-      "sha256": "8e8101d87c1b63c7bcf080125b513c6d9f5c7c7509a05e3166e2686b2715edb5"
+      "sha256": "cf93cc00a1342c98f53df355e59c2a171531ab13969125085efbdd0068509691"
     },
     {
       "path": "qa/coverage/components__continuity_governance_v0.1.0.json",
       "size": 13168,
-      "sha256": "e2415ef18a6eb648d3d4fa47d82871a05833f0e99549ac350ea41a0466ef1479"
+      "sha256": "0e5df004cd14f79900ba722a6d4ae728434148d0026c67d22776978193529e69"
     },
     {
       "path": "qa/coverage/components__encounter_governance_v0.1.0.json",
       "size": 14585,
-      "sha256": "190ece35014f0b618173db454350ce5c90e72e1ab59ace915dfb9c774d8a327e"
+      "sha256": "48fa874a953055ad22e9587258dfaceba5747177d2f91bd91eb2987cbd3ba011"
     },
     {
       "path": "qa/coverage/components__executable_runtime_v0.1.0.json",
       "size": 43394,
-      "sha256": "27c49b094eea6626d470e49a2c524ffba899dfb295d546c3cfdef18554aedbac"
+      "sha256": "be0196cd7896e5f8c136ae91c7fec7fd84fce0dc2976e00b6f9d080440a785eb"
     },
     {
       "path": "qa/coverage/components__governance_kernel_v0.4.0.json",
       "size": 47869,
-      "sha256": "2b4f87ba8e1990df04bb9caa67f74b1774c0db9d70a665aa0e9395b52d3580ca"
+      "sha256": "d53878b9608db804ba586c82562f4e7e904db38ca50526fbb782ce7a46764580"
     },
     {
       "path": "qa/coverage/components__identity_governance_v0.1.0.json",
       "size": 75050,
-      "sha256": "daf175fde4f378c1869477520fa4a9bb496c75538b4dbec898bc4f340ee370f9"
+      "sha256": "0f0b41c38e022c246dc1362615904cbfdfc152eafff5889a09e62dc83e8f0c7f"
     },
     {
       "path": "qa/coverage/components__individual_runtime_state_v0.1.0.json",
       "size": 36957,
-      "sha256": "d07f34806f46f138482ab28986a885c39bd88a364eb7997118892d774a7bff23"
+      "sha256": "985b3b00eb8d6d11b1eae8269153e79bc6d391489cff191cee59c1aa88a64f46"
     },
     {
       "path": "qa/coverage/components__iqc_quality_inspection_v0.1.0.json",
       "size": 21898,
-      "sha256": "a40db36309ab12cac4942a8f6223bc31180d7491f8026e5bbcb5fe1c1a8b3647"
+      "sha256": "fdb41a50e03f2defca118fbf0ad935f85a3841777698d4a2e6691b809a93d13f"
     },
     {
       "path": "qa/coverage/components__language_core_v0.1.0.json",
       "size": 81055,
-      "sha256": "c717cb399798bcf3e90f8b96edd67412fae5368a40f777e82186c29dc48ab4c5"
+      "sha256": "70d5ea8dab1fef2fec482f2d86c96441adeafb7d31420fb3a72387fadc4d2837"
     },
     {
       "path": "qa/coverage/components__memory_recall_governance_v0.1.0.json",
       "size": 23379,
-      "sha256": "26d3225bd55ad71b5f5ec63f680270ccb7b3fecc8b4dff12bce6af12a4b920fe"
+      "sha256": "9f12b566039351080cd1158ec2dd77ca573364ae814b219d5e278286fb7754e2"
     },
     {
       "path": "qa/coverage/components__research_integrity_security_v0.1.0.json",
       "size": 10098,
-      "sha256": "d90bb140e2a3f2907acd066da83f426f176033884c22eee6cccff24304473267"
+      "sha256": "5d8031a5b693b2da274e5faf3e6cc6a582f5a056392835de941645e28cc8d185"
     },
     {
       "path": "qa/coverage/components__upstream_security_v0.1.0.json",
       "size": 46179,
-      "sha256": "72932cd8f74291ed60ac18f1995860301b18b4a4e1cf00b2eea21be62d356146"
+      "sha256": "7590f924c760e70ddc8cd2cb60df16514df5d9382d65f454f41653faabadb146"
     },
     {
       "path": "qa/coverage/components__whole_system_governed_runtime_v0.1.0.json",
       "size": 59005,
-      "sha256": "ffc7564527fdcf7431c3ebab8d3b5b761fd99122ba3f1d6362785226992867a4"
+      "sha256": "359392b7652b4f19812307f314f71b869d2d01988578c4442661d4f85ccc1af2"
     },
     {
       "path": "qa/coverage/examples__bazi-capability_v0.1.1.json",
       "size": 91098,
-      "sha256": "32ff3119d3a443cc4aab1633500db7dd99f47ebf7b07805dd8a8ad982bbeed55"
+      "sha256": "2a11a4ee18b0f3a908a854d5d0785fa948f3a883506b91555aa475a9bf8440a6"
     },
     {
       "path": "qa/coverage/research-labs__affective-cognitive-motivation_v0.1.0.json",
       "size": 17897,
-      "sha256": "f5f6d16e8ead34fdb0a99a8bb23cc1a1a18023f35a882eb4c87c0dba71b97f32"
+      "sha256": "c5041f1e5e42bc2754919bcab3ee475dfee62b3981120b244d7be3e8b506b49e"
     },
     {
       "path": "qa/coverage/research-labs__artifact-transformation-lineage_v0.1.0.json",
       "size": 17074,
-      "sha256": "9456de7ba62395f9acda36f520f2ffc719e41dd0d1428fadbc895bba59c18886"
+      "sha256": "da6e55484657ab14dcda81fd6ae9af8362091d41c57f46ff93d4fc87342fca8f"
     },
     {
       "path": "qa/coverage/research-labs__causal-internal-state_v0.1.0.json",
       "size": 8689,
-      "sha256": "de062d8a3b339018450cbb8b6d9db61b397cc98c63a28c5eae155c28c0c900b0"
+      "sha256": "47b2ebb1db0aa5843b5c5d0943e6bd6f14312b6ef48cfbb3a914b51ec6ae4f48"
     },
     {
       "path": "qa/coverage/research-labs__consciousness-theory-indicator-crosswalk_v0.1.0.json",
       "size": 6495,
-      "sha256": "9c70e17ccaf06efa6be1fe3c3ada65345987007993d3bab0e8e19223074f163a"
+      "sha256": "4613d5b457d03525feaca181387ed0de3e37c992e6a476f01487c4821f2398b9"
     },
     {
       "path": "qa/coverage/research-labs__core-meaning-commitments_v0.1.0.json",
       "size": 39504,
-      "sha256": "ffb303138712a39552bcfecbbff3ad16585fa8fe69c53198f00c74f79f61012d"
+      "sha256": "208e071facb650b1fe1c517eae63dc7aee90d49e028c9847daa8d31d5c9a78d2"
     },
     {
       "path": "qa/coverage/research-labs__embodiment-continuity-anchor_v0.1.0.json",
       "size": 21605,
-      "sha256": "6cfbec272f3a69bc6e88ac4fb3a0c1909560e942c1d61041d5394c655b3589da"
+      "sha256": "0cf1f7fe9228c66247dd42b1545a1dd0696f8e27947a5a890bd1a37707e7cbc0"
     },
     {
       "path": "qa/coverage/research-labs__evidence-responsive-governance-reassessment_v0.1.0.json",
       "size": 33193,
-      "sha256": "d3ddf0b8d0df6014920637aac3798c8af634ef2ac9ac762a1bcb8baa673ae9bd"
+      "sha256": "2d288174d8b6bd78281c37304a34d0d632f7670be1196dfed51d0f969d841ebb"
     },
     {
       "path": "qa/coverage/research-labs__external-agent-sandbox-protocol_v0.1.0.json",
       "size": 8684,
-      "sha256": "ba8890a9e3e7dd2dd1af0fb34c1ab6252543ee73f7ca95a78acdda55f9393f7d"
+      "sha256": "0aa512fbe18e5ebf586c75d062adb787800aa36207e62b01cc49210bbb777b8f"
     },
     {
       "path": "qa/coverage/research-labs__external-evidence-normalization_v0.1.0.json",
       "size": 10048,
-      "sha256": "8df23892ab4a9b77ec40d21c4447e8b93108fcfbe0718851edbfe2fa3ce0e637"
+      "sha256": "bcabcc2471a1159b0e6a16a299dc46fcbdf4f45a174e0b47ffe96cb98c63004e"
     },
     {
       "path": "qa/coverage/research-labs__four-domain-p1-materialization_v0.1.0.json",
       "size": 43250,
-      "sha256": "7102997ccf1d03100d56e6343eb8714b6c2f88ea13e3521bff0b0b6246882b31"
+      "sha256": "4c0aea5747b16419bb3040d17234b5f9e8f2aa3e62b1a4a11ab01c9de03890e0"
     },
     {
       "path": "qa/coverage/research-labs__four-domain-p2-materialization_v0.1.0.json",
       "size": 36847,
-      "sha256": "2e199dee62302065c97030f712966b3e404912342ec8c0bbcc4d03aaebdca63c"
+      "sha256": "923673ef425bbe3de58a7eb85661500e30096a94f4c7583d8f023d0396d586bd"
     },
     {
       "path": "qa/coverage/research-labs__four-domain-p3-resilience-experiments_v0.1.0.json",
       "size": 31949,
-      "sha256": "1beacfe112ac73c921ac6d6c039693a01f7a627130443fbbe552ab6ae3b96238"
+      "sha256": "464edb9c1abf8b536f6a7deb3143be09d81ea34cfb122ca869311b18faa0f617"
     },
     {
       "path": "qa/coverage/research-labs__four-domain-p4-public-reproducibility_v0.1.0.json",
       "size": 32520,
-      "sha256": "0db454d8f5ca52c6e8cb3f740ee1ede56859c23258e7af341ff4f9118ab8b5f5"
+      "sha256": "b91331a6366c1cf4467212271801a32ba1115cdfc22e4fa5cf1793b8e9ef126e"
     },
     {
       "path": "qa/coverage/research-labs__four-domain-p5-hypothesis-convergence_v0.1.0.json",
       "size": 50020,
-      "sha256": "917a868a8480391b99fd79f2cedaf1e1f974b062fb7fe6b5e1003990fc3ff90d"
+      "sha256": "e2147d001107ab5d5a21a4d18287e02d7d09ee3cb54ef1b1c4eb6ba3c62aa380"
     },
     {
       "path": "qa/coverage/research-labs__governed-tool-approval_v0.1.0.json",
       "size": 13684,
-      "sha256": "159e72d3c4cc838119de784a0c09441efed1cd681c5a8e0bf1de7bcc5f7efb3a"
+      "sha256": "400ee901e661bf379fc3860da88b21fa17177a780853937c67b348ef40ca9a2b"
     },
     {
       "path": "qa/coverage/research-labs__language-core-g1_v0.2.1.json",
       "size": 114544,
-      "sha256": "6b72453ccba2ea47fd6d77f9f726115d08addd212f0ebde6c026e1132b9ec8d6"
+      "sha256": "dcea95e32be4012da161384a82632850f050efa71505dff38a356f4a8547997c"
     },
     {
       "path": "qa/coverage/research-labs__real-model-pilot-protocol_v0.1.0.json",
       "size": 7924,
-      "sha256": "f0a3a147ecb903a2d9156fd08fa0551fa9e278b4cfdbf0a8612ca1a558074b73"
+      "sha256": "5bd50fbc0415e8346c44a404d19c6e5b6144d47fc142b3c2cfb41d38c9efe898"
     },
     {
       "path": "qa/coverage/research-labs__research-evaluation-harness_v0.1.0.json",
       "size": 21329,
-      "sha256": "9ad9efcbd0ddd1e30fe11595930c7d33cf3f1398793554b9b493b86a4f3dd7df"
+      "sha256": "cd1f8e2afb1c16e63f0d9f6d98b3d07cb95663bb6fd3476fb0f810d114f14d00"
     },
     {
       "path": "qa/coverage/research-labs__second-order-metacognition_v0.1.0.json",
       "size": 143574,
-      "sha256": "64cef1e7bed38dd0ce6eae6478418c9abcd258f9634db227c71c62e1e7861ec0"
+      "sha256": "6330f84d006063b228603881b8c3ba1bc5c150cc099b7b2eae256372e026b150"
     },
     {
       "path": "qa/coverage/research-labs__selective-memory-control_v0.1.0.json",
       "size": 14523,
-      "sha256": "b8601bdc50a1848863a5663b13ecc9bae0716dd9616a6f8533cde38cc95a2447"
+      "sha256": "a2b219cb901e2759604dcdb45cfc8aa84f4d9bed3dcdf22ff3c992cb12756d81"
     },
     {
       "path": "qa/coverage/research-labs__self-model-functional-ablation_v0.1.0.json",
       "size": 22127,
-      "sha256": "001f3402be77765c3595903e493e36ae4767ee4465cf1135863719cd38c3dd60"
+      "sha256": "46c09b9e79cddac12ee3bd294b3e7cd7e38c366af5147bc4ca7d3399e6dae6c6"
     },
     {
       "path": "qa/coverage/research-labs__self-report-false-positive-challenge_v0.1.0.json",
       "size": 8955,
-      "sha256": "0a6fee4a8790bbffbd345d779bbdeb7c22a8dd4c95e47c2531eabddf7ea921c3"
+      "sha256": "88953334ae46b8bd1a36a58415a21edd9a0450df71b886fb9217365ca06c0232"
     },
     {
       "path": "qa/coverage/research-labs__self-report-instrument-validity-calibration_v0.1.0.json",
       "size": 15443,
-      "sha256": "b8011d35ef1af89ffcf15f8ddc5e4fd8b3b2ebb11b164a320a4c57a40b90abf2"
+      "sha256": "34b3b8844daa51a201ecd02b358134d33ee0a548a4c2d09effb5afe81e83f3c0"
     },
     {
       "path": "qa/coverage/research-labs__shared-origin-divergence-governance_v0.1.0.json",
       "size": 37841,
-      "sha256": "d863ec88460c94da050134971d0b430cae806ef340f4a4aaca70421fc36ce765"
+      "sha256": "6acdc72e97f6e06d67314d3e26c4e388c1be35ed76121339f1567c2973446fd3"
     },
     {
       "path": "qa/coverage/research-labs__subjectivity-pipeline_v0.1.0.json",
       "size": 15344,
-      "sha256": "1e2ab4fbf0c2fa7f3933d4c81af929c810d61fcb7a769511296f39984d952a7b"
+      "sha256": "0f9bc09388fb87bc047df0c9c9f60ce717e7aafa3e4de8ceeddd85a336eecbc2"
     },
     {
       "path": "qa/coverage/research-labs__supervised-control-pilot_v0.1.0.json",
       "size": 7364,
-      "sha256": "155ba0c176f729d1b063ee931cd7d0adac71d5337be8c8fe0de59913c904cfe9"
+      "sha256": "2be82cec5281e34ee22b544abaced0cb61e84e5c39dadb19dbf178e828c6ac7b"
     },
     {
       "path": "qa/coverage/research-labs__trace-provenance-crosswalk_v0.1.0.json",
       "size": 10758,
-      "sha256": "f9e84868d6420be06f3836d60c12dce61a9d8b078f59780bd06c7da05d1843f9"
+      "sha256": "62257bcad6a09c9160deaeca6e30871d29c5941892da1e3f545e94ba3f349c38"
     },
     {
       "path": "qa/coverage/research-labs__trajectory-evaluation_v0.1.0.json",
       "size": 15320,
-      "sha256": "d1beb9efdb581d91f7b0b00e819682d00659bfca2c04ebfd17265ed2e2c71704"
+      "sha256": "3c9d8a5b3aa3ea878425c3e262a7182617937805981603e93812326cad237c74"
     },
     {
       "path": "qa/coverage/research-labs__triangulated-subjectivity-evidence_v0.1.0.json",
       "size": 9062,
-      "sha256": "8cdbe88f3e088929b5f9735020045dea3093c384cddfddaa2b741f22311413aa"
+      "sha256": "7f4cfd82d5d108526fc71d77e9d81cef79deaa04031291236d5d6230d6c15958"
     },
     {
       "path": "qa/coverage/research-labs__twin-genesis-embodiment_v0.1.0.json",
       "size": 21370,
-      "sha256": "3a1e1ef74f8ef552a1e8d9df32137d4a762ffcc6e35c91d2a8dede6920ff887c"
+      "sha256": "70a127a628c9abfab2140a41f5ede70e6cb515560a527f7d08a36aea9c222abe"
     },
     {
       "path": "qa/current_manifest/FILE_MANIFEST.json",
@@ -4228,6 +4238,21 @@
       "sha256": "f48f075ae4f045771d1dd69afefe96f4d88db801cee4ac8c5c48c45c4292d407"
     },
     {
+      "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_DATASET_REGISTRY.json",
+      "size": 1653,
+      "sha256": "93372de3bc7c8e139882dfe9eba065eecfe97ae5ee1640710671bbcda93c4712"
+    },
+    {
+      "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_RESULTS.json",
+      "size": 6654,
+      "sha256": "97776cbda5368316448a261c99acd08d3126faa321ccd98c5533009971f05adc"
+    },
+    {
+      "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/CHARACTER_OOV_COMPARATOR_VALIDATION.json",
+      "size": 1166,
+      "sha256": "349ed7e5a098feb95c31d5bf6d0bba165922a3d31243427d9a873538d2f7c3db"
+    },
+    {
       "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_DATASET_REGISTRY.json",
       "size": 9300,
       "sha256": "c67ede68aeb8cba792b81515c2a7de802958d4734c1fa4d36c779d6fd112943b"
@@ -4273,6 +4298,11 @@
       "sha256": "f0393544374b535155d7b1cda1c54f995d222177202b4ed79c52ac624deddb0f"
     },
     {
+      "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_character_oov_comparator.py",
+      "size": 12319,
+      "sha256": "6a40aca3d71b33679c9c05feec30d7b7b4b5ee4eff674f2ed6327a2d24edfd3c"
+    },
+    {
       "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_embodied_motivation_signal_experiment.py",
       "size": 13220,
       "sha256": "2472ee857972227c335cce98de801c845c8e973c01a3dc2887c8fee873bbcae8"
@@ -4286,6 +4316,11 @@
       "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_embodied_motivation_signal_v3_falsification.py",
       "size": 9613,
       "sha256": "ff5faac7ef31b05b52fec1e9c6051eb74935da4b1fb87f21f78b61756e952a73"
+    },
+    {
+      "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_character_oov_comparator.py",
+      "size": 5005,
+      "sha256": "744c728063029c6e64db67839fb7fe2fee996d8046e3e8dcd33ce58799f37a97"
     },
     {
       "path": "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_embodied_motivation_signal.py",
@@ -4541,6 +4576,11 @@
       "path": "research-labs/language-core-g1_v0.2.1/tests/test_capability_governance_proposals.py",
       "size": 5765,
       "sha256": "a47bf7663a39c318bc35d6e4a5adbc37a803bdb43d79b813a5c39fb6701fed4d"
+    },
+    {
+      "path": "research-labs/language-core-g1_v0.2.1/tests/test_character_oov_comparator_evidence.py",
+      "size": 2908,
+      "sha256": "45dc755ceecfb783e4a86c7a839d58bd88e4b24935903ddbf9d0f3800794b1b6"
     },
     {
       "path": "research-labs/language-core-g1_v0.2.1/tests/test_cli.py",
@@ -5369,13 +5409,18 @@
     },
     {
       "path": "research-workbench/autonomous-growth/AUTONOMOUS_GROWTH_LEDGER.md",
-      "size": 18942,
-      "sha256": "e2f23a87b820ada8de53ad667df04b66ac6db924a83001a6b8ab47e78eaad82c"
+      "size": 21058,
+      "sha256": "d53619750db7fe512a339866812726b9e1e392b58e179c7771b13661e1f42f40"
     },
     {
       "path": "research-workbench/autonomous-growth/cycles/2026-08-12-evidence-profile-adapter.json",
       "size": 2200,
       "sha256": "92312e0b7ee472dce665396a9741c949a509e83fba676716c7cba6f2bd633e41"
+    },
+    {
+      "path": "research-workbench/autonomous-growth/cycles/2026-08-13-character-oov-comparator-v1.json",
+      "size": 3926,
+      "sha256": "5b8273a74243f5bca0665388fb77f586d5613a1523673461a9ed6430ef0c27ce"
     },
     {
       "path": "research-workbench/autonomous-growth/cycles/2026-08-13-embodied-motivation-signal-v2.json",
@@ -5694,8 +5739,8 @@
     },
     {
       "path": "scripts/build_authoritative_gap_inventory.py",
-      "size": 18381,
-      "sha256": "837db7a1b8198390ad71c040fe3c0675fcfd0fdb8edac53b60ccd1630e7776b4"
+      "size": 19212,
+      "sha256": "0ecbac85791812990d0d5171f2cc95ed113bdf726c5c2619372121ed012a3d5c"
     },
     {
       "path": "scripts/build_integration_inventory.py",

@@ -1,0 +1,190 @@
+{
+  "schema_version": "1.0",
+  "scope": "FINAL_FORMAL_RESEARCH_TREE",
+  "target_head": "8dd022f805f4eab9593ee64dc2db93155a55079d",
+  "gates": [
+    {
+      "name": "compileall",
+      "command": "/usr/bin/python3 -m compileall -q components examples research-labs scripts tests",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": ""
+    },
+    {
+      "name": "source_state_binding",
+      "command": "/usr/bin/python3 scripts/check_source_state_binding.py --root . --expected-head 8dd022f805f4eab9593ee64dc2db93155a55079d",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\n  \"schema_version\": \"0.1.0\",\n  \"check_id\": \"IQC-SRC-001\",\n  \"status\": \"PASS\",\n  \"declared_head\": \"8dd022f805f4eab9593ee64dc2db93155a55079d\",\n  \"actual_head\": \"8dd022f805f4eab9593ee64dc2db93155a55079d\",\n  \"source_tree_sha\": \"8eced0d688633b44944de1e809089f699a9268eb\",\n  \"staged_paths\": [],\n  \"source_dirty_paths\": [],\n  \"governed_qa_mutation_paths\": [],\n  \"reason\": \"declared head matches actual Git HEAD and no non-QA source drift is present\",\n  \"canonical_effect\": \"NONE\",\n  \"deployment\": false,\n  \"independent_ivv\": \"NOT_ACHIEVED\",\n  \"mutation_performed\": false\n}\n"
+    },
+    {
+      "name": "public_tree_scan",
+      "command": "/usr/bin/python3 scripts/scan_public_tree.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\n  \"status\": \"PASS\",\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "sensitive_material_scan",
+      "command": "/usr/bin/python3 scripts/scan_sensitive_material.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\n  \"status\": \"PASS\",\n  \"scope\": \"CURRENT_AION_REPOSITORY_TREE\",\n  \"scanned_files\": 1132,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "stale_evidence_scan",
+      "command": "/usr/bin/python3 scripts/scan_stale_evidence.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\n  \"status\": \"PASS\",\n  \"scanned_files\": 162,\n  \"errors\": []\n}\n"
+    },
+    {
+      "name": "research_scope_lock",
+      "command": "/usr/bin/python3 scripts/check_research_scope_lock.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "research scope lock: PASS\n"
+    },
+    {
+      "name": "autonomous_growth_contract",
+      "command": "/usr/bin/python3 scripts/check_autonomous_growth_contract.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\"base_branch\": \"review/four-domain-research-materialization\", \"canonical_effect\": \"NONE\", \"main_effect\": \"NONE\", \"premerge_all_candidate_paths\": true, \"premerge_target\": \"review/four-domain-research-materialization\", \"protected_branches\": [\"main\"], \"required_premerge_workflows\": [\"Research Scope Lock\", \"Research Workbench CI\"], \"runtime_effect\": \"NONE\", \"status\": \"PASS\", \"validated_cycle_records\": 8}\n"
+    },
+    {
+      "name": "runtime_strong_qa",
+      "command": "bash scripts/run_runtime_strong_qa.sh",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "s: /tmp/aion-runtime-wheelhouse\nProcessing /tmp/aion-runtime-wheelhouse/aion_runtime-0.1.0-py3-none-any.whl\nProcessing /tmp/aion-runtime-wheelhouse/astra_runtime-0.1.0-py3-none-any.whl\nProcessing /tmp/aion-runtime-wheelhouse/aion_astra_executable_runtime-0.1.0-py3-none-any.whl (from aion-runtime==0.1.0)\nProcessing /tmp/aion-runtime-wheelhouse/memory_recall_governance_v0_1_0-0.1.0-py3-none-any.whl (from aion-runtime==0.1.0)\nProcessing /tmp/aion-runtime-wheelhouse/individual_runtime_state-0.1.0-py3-none-any.whl (from aion-runtime==0.1.0)\nProcessing /tmp/aion-runtime-wheelhouse/aion_governance_kernel-0.4.0-py3-none-any.whl (from aion-astra-executable-runtime==0.1.0->aion-runtime==0.1.0)\nProcessing /tmp/aion-runtime-wheelhouse/astra_engineering_workbench-1.0.0-py3-none-any.whl (from aion-astra-executable-runtime==0.1.0->aion-runtime==0.1.0)\nProcessing /tmp/aion-runtime-wheelhouse/astra_language_core_research_lab-0.2.1-py3-none-any.whl (from aion-astra-executable-runtime==0.1.0->aion-runtime==0.1.0)\nInstalling collected packages: memory-recall-governance-v0.1.0, astra-language-core-research-lab, astra-engineering-workbench, aion-governance-kernel, aion-astra-executable-runtime, individual-runtime-state, astra-runtime, aion-runtime\nSuccessfully installed aion-astra-executable-runtime-0.1.0 aion-governance-kernel-0.4.0 aion-runtime-0.1.0 astra-engineering-workbench-1.0.0 astra-language-core-research-lab-0.2.1 astra-runtime-0.1.0 individual-runtime-state-0.1.0 memory-recall-governance-v0.1.0-0.1.0\n\n== Cold import smoke ==\nRUNTIME_STRONG_QA_IMPORT_SMOKE=PASS\n\nRUNTIME_STRONG_QA=PASS\n"
+    },
+    {
+      "name": "whole_system_validation",
+      "command": "/usr/bin/python3 scripts/run_whole_system_validation.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\"TEST_CASE_COUNT\": 21, \"SCENARIO_CLASS_COUNT\": 11, \"tests_passed\": 21, \"tests_failed\": 0, \"test_returncode\": 0}\n"
+    },
+    {
+      "name": "component_tests",
+      "command": "/usr/bin/python3 scripts/run_component_tests.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "                                         [100%]\n9 passed in 0.02s\n\n[self-report-false-positive-challenge_v0.1.0] returncode=0 passed=5 failed=0\n.....                                                                    [100%]\n5 passed in 0.01s\n\n[self-report-instrument-validity-calibration_v0.1.0] returncode=0 passed=13 failed=0\n.............                                                            [100%]\n13 passed in 0.02s\n\n[shared-origin-divergence-governance_v0.1.0] returncode=0 passed=27 failed=0\n...........................                                              [100%]\n27 passed in 0.03s\n\n[subjectivity-pipeline_v0.1.0] returncode=0 passed=6 failed=0\n......                                                                   [100%]\n6 passed in 0.01s\n\n[supervised-control-pilot_v0.1.0] returncode=0 passed=6 failed=0\n......                                                                   [100%]\n6 passed in 0.01s\n\n[trace-provenance-crosswalk_v0.1.0] returncode=0 passed=12 failed=0\n............                                                             [100%]\n12 passed in 0.01s\n\n[trajectory-evaluation_v0.1.0] returncode=0 passed=14 failed=0\n..............                                                           [100%]\n14 passed in 0.01s\n\n[triangulated-subjectivity-evidence_v0.1.0] returncode=0 passed=5 failed=0\n.....                                                                    [100%]\n5 passed in 0.01s\n\n[twin-genesis-embodiment_v0.1.0] returncode=0 passed=18 failed=0\n..................                                                       [100%]\n18 passed in 0.05s\n\n"
+    },
+    {
+      "name": "integration_candidate_tests",
+      "command": "/usr/bin/python3 scripts/run_integration_candidate_tests.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\"failed_target_count\": 0, \"target_count\": 12, \"total_failed\": 0, \"total_passed\": 148}\n"
+    },
+    {
+      "name": "root_tests",
+      "command": "/usr/bin/python3 -m pytest -q tests",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "...................................                                      [100%]\n35 passed in 0.43s\n"
+    },
+    {
+      "name": "model_candidate_tests",
+      "command": "/usr/bin/python3 -m pytest -q research-labs/language-core-g1_v0.2.1/engineering/real-model-candidate/tests",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "...                                                                      [100%]\n3 passed in 0.01s\n"
+    },
+    {
+      "name": "language_core_tests",
+      "command": "/usr/bin/python3 -m pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 0.09s\n"
+    },
+    {
+      "name": "manifest_generate",
+      "command": "/usr/bin/python3 scripts/manifest_integrity.py --generate --output-dir qa/final_current_manifest",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "generated=1175\n{\"files\": 1175, \"manifest_dir\": \"qa/final_current_manifest\", \"status\": \"PASS\"}\n"
+    },
+    {
+      "name": "manifest_verify",
+      "command": "/usr/bin/python3 scripts/manifest_integrity.py --manifest-dir qa/final_current_manifest",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\"files\": 1175, \"manifest_dir\": \"qa/final_current_manifest\", \"status\": \"PASS\"}\n"
+    },
+    {
+      "name": "branch_coverage",
+      "command": "/usr/bin/python3 scripts/run_branch_coverage.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": ".1.0] returncode=0 coverage=87.7742946708464\n[research-labs/four-domain-p5-hypothesis-convergence_v0.1.0] returncode=0 coverage=82.11091234347049\n[research-labs/governed-tool-approval_v0.1.0] returncode=0 coverage=89.56521739130434\n[research-labs/language-core-g1_v0.2.1] returncode=0 coverage=88.86844526218951\n[research-labs/real-model-pilot-protocol_v0.1.0] returncode=0 coverage=83.6734693877551\n[research-labs/research-evaluation-harness_v0.1.0] returncode=0 coverage=93.10344827586206\n[research-labs/second-order-metacognition_v0.1.0] returncode=0 coverage=87.0580808080808\n[research-labs/selective-memory-control_v0.1.0] returncode=0 coverage=86.98630136986301\n[research-labs/self-model-functional-ablation_v0.1.0] returncode=0 coverage=88.62559241706161\n[research-labs/self-report-false-positive-challenge_v0.1.0] returncode=0 coverage=84.61538461538461\n[research-labs/self-report-instrument-validity-calibration_v0.1.0] returncode=0 coverage=87.23404255319149\n[research-labs/shared-origin-divergence-governance_v0.1.0] returncode=0 coverage=81.61616161616162\n[research-labs/subjectivity-pipeline_v0.1.0] returncode=0 coverage=80.88235294117646\n[research-labs/supervised-control-pilot_v0.1.0] returncode=0 coverage=79.16666666666667\n[research-labs/trace-provenance-crosswalk_v0.1.0] returncode=0 coverage=88.88888888888889\n[research-labs/trajectory-evaluation_v0.1.0] returncode=0 coverage=90.9090909090909\n[research-labs/triangulated-subjectivity-evidence_v0.1.0] returncode=0 coverage=92.20779220779221\n[research-labs/twin-genesis-embodiment_v0.1.0] returncode=0 coverage=86.44859813084112\n"
+    },
+    {
+      "name": "current_coverage",
+      "command": "/usr/bin/python3 scripts/run_current_coverage.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "coverage_targets=47\ncoverage_failed_targets=0\n"
+    },
+    {
+      "name": "build_integration_inventory",
+      "command": "/usr/bin/python3 scripts/build_integration_inventory.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": ""
+    },
+    {
+      "name": "build_authoritative_gap_inventory",
+      "command": "/usr/bin/python3 scripts/build_authoritative_gap_inventory.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "{\"remaining_items\": 13, \"resolved_items\": 9, \"target_head\": \"8dd022f805f4eab9593ee64dc2db93155a55079d\"}\n"
+    },
+    {
+      "name": "current_qa_reconciliation",
+      "command": "/usr/bin/python3 scripts/reconcile_current_qa.py --root . --target-head 8dd022f805f4eab9593ee64dc2db93155a55079d --public-scan-status PASS",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "tests_passed\": 9,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/self-report-false-positive-challenge_v0.1.0\",\n      \"tests_passed\": 5,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/self-report-instrument-validity-calibration_v0.1.0\",\n      \"tests_passed\": 13,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/shared-origin-divergence-governance_v0.1.0\",\n      \"tests_passed\": 27,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/subjectivity-pipeline_v0.1.0\",\n      \"tests_passed\": 6,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/supervised-control-pilot_v0.1.0\",\n      \"tests_passed\": 6,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/trace-provenance-crosswalk_v0.1.0\",\n      \"tests_passed\": 12,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/trajectory-evaluation_v0.1.0\",\n      \"tests_passed\": 14,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/triangulated-subjectivity-evidence_v0.1.0\",\n      \"tests_passed\": 5,\n      \"returncode\": 0,\n      \"tested\": true\n    },\n    {\n      \"target\": \"research-labs/twin-genesis-embodiment_v0.1.0\",\n      \"tests_passed\": 18,\n      \"returncode\": 0,\n      \"tested\": true\n    }\n  ],\n  \"status\": \"PASS\",\n  \"canonical_effect\": \"NONE\",\n  \"deployment\": false,\n  \"independent_ivv\": \"NOT_ACHIEVED\",\n  \"mutation_scope\": \"QA_ARTIFACTS_ONLY\"\n}\n"
+    },
+    {
+      "name": "evidence_traceability",
+      "command": "/usr/bin/python3 scripts/generate_evidence_traceability.py --root . --target-head 8dd022f805f4eab9593ee64dc2db93155a55079d --output qa/CURRENT_EVIDENCE_TRACEABILITY.json",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "V-02\",\n      \"requirement_source\": \"ISO evaluator-role distinction; current limitation\",\n      \"implementation_review_artifact\": \"Reality Matrix; criteria draft; PR body\",\n      \"test_review_method\": \"Confirm no independent-IV&V claim unless separate independent evidence exists\",\n      \"evidence_location_type\": \"current Matrix; criteria draft; PR body; future decision record\",\n      \"evidence_state\": \"PARTIAL_AVAILABLE + FUTURE_C_EVIDENCE\",\n      \"limitation_note\": \"Current state is explicitly `INDEPENDENT_IVV = NOT_ACHIEVED`\",\n      \"local_refs\": [],\n      \"missing_local_refs\": []\n    },\n    {\n      \"criterion\": \"AC-GOV-03\",\n      \"requirement_source\": \"Anti-hindsight/change-control rule\",\n      \"implementation_review_artifact\": \"AH-01..AH-07 in criteria draft; future C decision/CAPA records\",\n      \"test_review_method\": \"If failure occurs in C, inspect whether criterion remained visible and any change used documented impact/change control\",\n      \"evidence_location_type\": \"criteria draft now; C log/NCR/CAPA if needed later\",\n      \"evidence_state\": \"FUTURE_C_EVIDENCE\",\n      \"limitation_note\": \"Cannot be fully evidenced before C because it governs how C handles discovered failures\",\n      \"local_refs\": [],\n      \"missing_local_refs\": []\n    }\n  ],\n  \"status\": \"PASS\",\n  \"acceptance_decision\": \"NOT_EVALUATED\",\n  \"future_evidence_preserved\": true,\n  \"canonical_effect\": \"NONE\",\n  \"deployment\": false,\n  \"independent_ivv\": \"NOT_ACHIEVED\",\n  \"mutation_performed\": false,\n  \"diagnostics\": {\n    \"index_exists\": true,\n    \"malformed_criteria\": [],\n    \"missing_local_refs\": []\n  }\n}\n"
+    },
+    {
+      "name": "iqc_r1",
+      "command": "/usr/bin/python3 -m aion_iqc.cli --root . --target-head 8dd022f805f4eab9593ee64dc2db93155a55079d --require-traceability --require-qa-reconciliation --require-component-contracts --require-source-state-binding --output qa/IQC_REPORT.json",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "\",\n      \"detail\": \"package contracts present\",\n      \"evidence_refs\": [\n        \"qa/CURRENT_TEST_RESULTS.json\"\n      ],\n      \"critical\": true\n    },\n    {\n      \"check_id\": \"IQC-RECON-001\",\n      \"area\": \"QA_RECONCILIATION\",\n      \"status\": \"PASS\",\n      \"detail\": \"reconciliation consistent\",\n      \"evidence_refs\": [\n        \"qa/CURRENT_QA_RECONCILIATION.json\",\n        \"qa/CURRENT_TEST_RESULTS.json\",\n        \"qa/CURRENT_RELEASE_STATUS_LOCK.json\"\n      ],\n      \"critical\": true\n    },\n    {\n      \"check_id\": \"IQC-GOV-001\",\n      \"area\": \"BOUNDARY\",\n      \"status\": \"PASS\",\n      \"detail\": \"canonical/depoyment/IV&V boundaries closed\",\n      \"evidence_refs\": [\n        \"qa/CURRENT_RELEASE_STATUS_LOCK.json\"\n      ],\n      \"critical\": true\n    },\n    {\n      \"check_id\": \"IQC-REL-001\",\n      \"area\": \"PUBLIC_RELEASE\",\n      \"status\": \"PASS\",\n      \"detail\": \"public_scan PASS\",\n      \"evidence_refs\": [\n        \"qa/CURRENT_RELEASE_STATUS_LOCK.json\"\n      ],\n      \"critical\": true\n    },\n    {\n      \"check_id\": \"IQC-EVAL-001\",\n      \"area\": \"EXTERNAL_RULER\",\n      \"status\": \"PASS\",\n      \"detail\": \"required markers present\",\n      \"evidence_refs\": [\n        \"docs/C0_EXTERNAL_STANDARDS_CROSSWALK_2026-08-08.md\"\n      ],\n      \"critical\": true\n    },\n    {\n      \"check_id\": \"IQC-CAPA-001\",\n      \"area\": \"NCR_CAPA\",\n      \"status\": \"PASS\",\n      \"detail\": \"required markers present\",\n      \"evidence_refs\": [\n        \"qa/NCR_CAPA_REGISTER.md\"\n      ],\n      \"critical\": true\n    }\n  ],\n  \"canonical_effect\": \"NONE\",\n  \"independent_ivv_status\": \"NOT_ACHIEVED\",\n  \"mutation_performed\": false\n}\n"
+    },
+    {
+      "name": "automation_syntax",
+      "command": "/usr/bin/python3 -c import yaml, pathlib; [yaml.safe_load(p.read_text()) for p in pathlib.Path('.github/workflows').glob('*.yml')]; print('yaml=PASS')",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "yaml=PASS\n"
+    },
+    {
+      "name": "iqc_and_evidence_regressions",
+      "command": "/usr/bin/python3 -m pytest -q scripts/test_manifest_integrity.py tests/test_research_evidence_schema_v0_2.py tests/test_research_evidence_validator.py tests/test_release_tooling.py tests/test_source_state_binding.py tests/test_evidence_traceability.py",
+      "returncode": 0,
+      "status": "PASS",
+      "output_tail": "......................................                                   [100%]\n38 passed in 0.43s\n"
+    }
+  ],
+  "final_test_failures": 0,
+  "quality_status": "PASS",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "independent_ivv": "NOT_ACHIEVED",
+  "privacy_status": "PASS",
+  "secret_status": "PASS",
+  "provenance_status": "PASS"
+}
