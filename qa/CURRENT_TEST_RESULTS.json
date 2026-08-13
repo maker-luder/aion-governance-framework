@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "73f69676dc209c1b3acdf03bd81b8fac52fd09be",
+  "target_head": "4532cd89921f95243557f80656bb568da626655b",
   "summary": {
-    "eligible_target_count": 56,
-    "tested_target_count": 53,
+    "eligible_target_count": 57,
+    "tested_target_count": 54,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 986,
+    "total_passed": 999,
     "total_failed": 0
   },
   "targets": [
@@ -19,7 +19,7 @@
       "passed": 11,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "...........                                                              [100%]\n11 passed in 0.62s\n"
+      "output": "...........                                                              [100%]\n11 passed in 0.63s\n"
     },
     {
       "target": "components/aion_runtime_v0.2.0",
@@ -29,7 +29,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n21 passed in 0.03s\n"
+      "output": ".....................                                                    [100%]\n21 passed in 0.02s\n"
     },
     {
       "target": "components/astra_runtime_v0.1.0",
@@ -49,7 +49,7 @@
       "passed": 89,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.13s\n"
+      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.14s\n"
     },
     {
       "target": "components/continuity_governance_v0.1.0",
@@ -89,7 +89,7 @@
       "passed": 46,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............................................                           [100%]\n46 passed in 0.04s\n"
+      "output": "..............................................                           [100%]\n46 passed in 0.05s\n"
     },
     {
       "target": "components/identity_governance_v0.1.0",
@@ -109,7 +109,7 @@
       "passed": 14,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............                                                           [100%]\n14 passed in 0.11s\n"
+      "output": "..............                                                           [100%]\n14 passed in 0.13s\n"
     },
     {
       "target": "components/iqc_quality_inspection_v0.1.0",
@@ -129,7 +129,7 @@
       "passed": 29,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............................                                            [100%]\n29 passed in 0.04s\n"
+      "output": ".............................                                            [100%]\n29 passed in 0.05s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=19627) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.52s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=21091) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.59s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -312,6 +312,16 @@
       "output": "No tests directory is present; retained as an explicit research-only non-applicability disposition."
     },
     {
+      "target": "research-labs/factorial-completeness-contract_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 13,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": ".............                                                            [100%]\n13 passed in 0.01s\n"
+    },
+    {
       "target": "research-labs/four-domain-p1-materialization_v0.1.0",
       "status": "PASS",
       "tested": true,
@@ -319,7 +329,7 @@
       "passed": 12,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "............                                                             [100%]\n12 passed in 0.02s\n"
+      "output": "............                                                             [100%]\n12 passed in 0.01s\n"
     },
     {
       "target": "research-labs/four-domain-p2-materialization_v0.1.0",
@@ -449,7 +459,7 @@
       "passed": 84,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n84 passed in 0.10s\n"
+      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n84 passed in 0.09s\n"
     },
     {
       "target": "research-labs/selective-memory-control_v0.1.0",

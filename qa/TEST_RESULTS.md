@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `73f69676dc209c1b3acdf03bd81b8fac52fd09be`. This report is generated from the current component runner output.
+Target head: `4532cd89921f95243557f80656bb568da626655b`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -34,6 +34,7 @@ Target head: `73f69676dc209c1b3acdf03bd81b8fac52fd09be`. This report is generate
 | `research-labs/external-agent-sandbox-protocol_v0.1.0` | 8 | 0 |
 | `research-labs/external-evidence-normalization_v0.1.0` | 8 | 0 |
 | `research-labs/external-runtime-baseline-comparison_v0.1.0` | 0 | 0 |
+| `research-labs/factorial-completeness-contract_v0.1.0` | 13 | 0 |
 | `research-labs/four-domain-p1-materialization_v0.1.0` | 12 | 0 |
 | `research-labs/four-domain-p2-materialization_v0.1.0` | 5 | 0 |
 | `research-labs/four-domain-p3-resilience-experiments_v0.1.0` | 7 | 0 |
@@ -61,4 +62,4 @@ Target head: `73f69676dc209c1b3acdf03bd81b8fac52fd09be`. This report is generate
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 | `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 
-**Total:** 986 passed across 56 targets; failed targets: 0.
+**Total:** 999 passed across 57 targets; failed targets: 0.
