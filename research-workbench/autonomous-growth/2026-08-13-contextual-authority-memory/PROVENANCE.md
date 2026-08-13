@@ -74,3 +74,15 @@ Additional external sources:
 11. NIST, [Engineering Statistics Handbook — Full factorial example](https://www.itl.nist.gov/div898/handbook/pri/section3/pri3332.htm).
 12. NIST, [Engineering Statistics Handbook — Process Improvement](https://www.itl.nist.gov/div898/handbook/pri/pri.htm).
 13. Costa, Barbosa & Cunha, [A Framework for Supporting the Reproducibility of Computational Experiments in Multiple Scientific Domains](https://arxiv.org/html/2503.07080v3).
+
+
+## Full-authority semantics extension
+
+Manus added `research-labs/full-authority-semantics_v0.1.0` as a clean-room, standard-library-only prototype. It keeps `ProvenanceClaim`, `AuthorityGrant`, `PolicyBlock`, and `AuthorizationRequest` distinct, validates bounded delegation chains, and never executes an action. The seven synthetic cases and 18 tests use no private data, external agents, model APIs, live tools, deployment, canonical write, or main write.
+
+The design was informed by W3C PROV-XML's delegation/responsibility provenance relation and NIST SP 800-162's attribute-evaluation model for authorization. These sources establish methodological distinctions only; they do not validate an AION/Astra authority model. The initial recursive reason-prefix failure is preserved in `full-authority-initial-failure.md` and was corrected before final unit QA.
+
+Additional external sources:
+
+14. W3C, [PROV-XML: The PROV XML Schema](https://www.w3.org/TR/prov-xml/).
+15. NIST, [Guide to Attribute Based Access Control (ABAC) Definition and Considerations](https://www.nist.gov/publications/guide-attribute-based-access-control-abac-definition-and-considerations).

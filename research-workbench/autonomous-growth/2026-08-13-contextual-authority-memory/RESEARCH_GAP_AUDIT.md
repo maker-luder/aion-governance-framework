@@ -80,3 +80,12 @@ A seventh deferred gap was materialized as `research-labs/factorial-completeness
 The 13 unit tests and six synthetic cases passed after correcting one implementation defect in factor-order canonicalization. The cases were complete, missing-cell, duplicate-cell, under-replicated, invalid-cell, and missing-execution-metadata. The complete case was only `ADMISSIBLE_FOR_DESIGN_REVIEW`; incomplete or malformed cases were `INDETERMINATE` or `HOLD`.
 
 The initial factor-order failure remains recorded in `factorial-completeness-initial-failure.md`. The result is an engineering mechanism check, not evidence of main/interaction effects, replication validity, statistical power, scientific confirmation, subjectivity, identity continuity, consciousness, or deployment.
+
+
+## Full-authority semantics extension
+
+An eighth deferred gap was materialized as `research-labs/full-authority-semantics_v0.1.0`. The prototype separates provenance-only delegation claims from authorization grants, validates bounded parent-child delegation, rejects scope/action/expiry widening, handles expiry/revocation/missing parents/cycles/self-issuance, and gives non-overridable policy blocks precedence over grants.
+
+The 18 unit tests and seven synthetic cases passed after correcting one reason-code propagation defect. The cases were valid bounded delegation (`EXECUTE`), scope widening (`DENY`), revoked child (`HOLD`), missing parent (`HOLD`), provenance-only claim (`HOLD`), non-overridable policy block (`DENY`), and provenance-marked grant (`DENY`). `actions_executed = 0` in all cases. The initial cycle-reason mismatch remains recorded in `full-authority-initial-failure.md`.
+
+This result demonstrates only that the declared synthetic contract separates provenance and authorization and enforces its own constraints. It does not establish authority, identity, subjectivity, consciousness, legal status, or AION/Astra equivalence.
