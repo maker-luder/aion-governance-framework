@@ -103,3 +103,15 @@ Additional external sources:
 
 16. National Academies, [Reproducibility and Replicability in Science — Chapter 7: Confidence in Science](https://www.nationalacademies.org/read/25303/chapter/10).
 17. University of Michigan Meera, [Power Analysis, Statistical Significance, and Effect Size](https://meera.seas.umich.edu/power-analysis-statistical-significance-effect-size.html).
+
+
+## Preregistered intervention integrity extension
+
+Manus added `research-labs/preregistered-intervention-integrity_v0.1.0` as a clean-room, standard-library-only design/audit contract. It validates plan metadata, temporal ordering, outcome/analysis references, confirmatory/exploratory labels, deviation disclosure, and all-results reporting. It does not recruit participants, administer an intervention, call an external model, observe outcomes, calculate effects, write canonical state, deploy, or modify main.
+
+The design was informed by Center for Open Science preregistration resources, especially the separation of confirmatory and exploratory analyses and the requirement to report all preregistered analyses while distinguishing additional exploratory work. These sources are methodological only and do not establish any intervention result or AION/Astra claim.
+
+Additional external sources:
+
+18. Center for Open Science, [More About the Preregistration Challenge](https://www.cos.io/initiatives/prereg-more-information).
+19. Center for Open Science, [Preregistration](https://www.cos.io/initiatives/prereg).

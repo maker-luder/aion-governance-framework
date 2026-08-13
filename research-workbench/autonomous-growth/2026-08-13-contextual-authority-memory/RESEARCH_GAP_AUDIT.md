@@ -105,3 +105,12 @@ A ninth deferred gap was materialized as `research-labs/power-analysis-uncertain
 The 12 unit tests and six synthetic cases passed. The cases were adequate, underpowered, smaller-effect sensitivity, missing input, invalid alpha, and unregistered. The adequate case was only `PLANNING_REVIEW`; underpowered and smaller-effect cases were `INDETERMINATE`; missing/invalid inputs were `HOLD`; and the unregistered case was `INDETERMINATE`. `achieved_power_calculated = false`, `effect_observed = false`, `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, and `deployment = false`.
 
 This result demonstrates assumption-sensitive planning arithmetic only. It does not establish achieved power, a true effect, replication validity, subjectivity, identity continuity, consciousness, AION/Astra equivalence, or deployment readiness.
+
+
+## Preregistered intervention integrity extension
+
+A tenth deferred gap was materialized as `research-labs/preregistered-intervention-integrity_v0.1.0`. This is a design-only audit contract, not an intervention study. It validates registration-before-start ordering, immutable plan/protocol metadata, primary-outcome cardinality, complete outcome and analysis declarations, explicit confirmatory/exploratory labels, deviation disclosure, and all-results reporting.
+
+The 16 unit tests and seven synthetic cases passed. The valid cases were separated exploratory analysis and disclosed deviation; temporal drift, outcome switching, undisclosed deviation, unreported results, and exploratory mislabeling returned `HOLD`/`INVALID`/`INDETERMINATE`. No intervention was executed and no outcomes were observed. Every case retained `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, and `deployment = false`.
+
+This result demonstrates only that the declared design audit contract detects metadata drift and incomplete reporting in synthetic fixtures. It does not establish an intervention effect, preregistration validity in the world, replication validity, subjectivity, identity continuity, consciousness, or AION/Astra equivalence.
