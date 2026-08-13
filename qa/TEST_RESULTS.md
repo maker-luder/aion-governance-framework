@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `64e1ea712b892c7535c0778da6492feec0d7f5e7`. This report is generated from the current component runner output.
+Target head: `8cf76fd523ec720f452687cc796339d3c2f01578`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -45,6 +45,7 @@ Target head: `64e1ea712b892c7535c0778da6492feec0d7f5e7`. This report is generate
 | `research-labs/four-domain-p4-public-reproducibility_v0.1.0` | 8 | 0 |
 | `research-labs/four-domain-p5-hypothesis-convergence_v0.1.0` | 10 | 0 |
 | `research-labs/full-authority-semantics_v0.1.0` | 20 | 0 |
+| `research-labs/governance-reassessment-oscillation-adversarial_v0.1.0` | 19 | 0 |
 | `research-labs/governed-tool-approval_v0.1.0` | 12 | 0 |
 | `research-labs/hermes-p0-execution-prep_v0.1.0` | 0 | 0 |
 | `research-labs/independent-replication-design_v0.1.0` | 14 | 0 |
@@ -74,4 +75,4 @@ Target head: `64e1ea712b892c7535c0778da6492feec0d7f5e7`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1210 passed across 69 targets; failed targets: 0.
+**Total:** 1229 passed across 70 targets; failed targets: 0.
