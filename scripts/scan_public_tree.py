@@ -28,7 +28,7 @@ def _is_generated(path: Path) -> bool:
 def scan_root(root: Path = ROOT) -> list[str]:
     errors: list[str] = []
     for path in root.rglob("*"):
-        if not path.is_file() or ".git" in path.parts:
+        if path.is_symlink() or not path.is_file() or ".git" in path.parts:
             continue
         if _is_generated(path):
             continue

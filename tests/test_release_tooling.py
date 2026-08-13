@@ -158,3 +158,15 @@ def test_quality_workflow_keeps_current_and_frozen_verification_layers() -> None
     assert "frozen-release-verification:" in workflow
     assert "ref: v0.1.0-rc.1" in workflow
     assert "python scripts/verify_release.py --baseline historical-rc" in workflow
+
+
+
+def test_scanner_ignores_symlink_targets_outside_root(tmp_path: Path) -> None:
+    scanner = load_script("scan_public_tree")
+    root = tmp_path / "repo"
+    root.mkdir()
+    outside = tmp_path / "outside.txt"
+    outside.write_text("/home/privateuser/secret.txt\n", encoding="utf-8")
+    (root / "linked.txt").symlink_to(outside)
+
+    assert scanner.scan_root(root) == []
