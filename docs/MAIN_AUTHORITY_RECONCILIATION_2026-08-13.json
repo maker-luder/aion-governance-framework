@@ -1,0 +1,57 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "MAIN_MERGE_AUTHORITY_RECONCILIATION",
+  "date": "2026-08-13",
+  "repository": "maker-luder/aion-governance-framework",
+  "baseline_main_head": "abb6550abfacb4fabc53ec04fca783bcc34acfdb",
+  "human_owner_first_person_reconciliation": {
+    "pr14_merge_authorization": "NOT_GIVEN",
+    "pr15_merge_authorization": "NOT_GIVEN",
+    "intervening_merge_instruction_during_autonomous_run": "NOT_GIVEN",
+    "owner_reported_state_during_autonomous_run": "ASLEEP"
+  },
+  "repository_observation": {
+    "pr14_actual_state": "MERGED",
+    "pr15_actual_state": "MERGED",
+    "pr14_premerge_merge_main": "NOT_APPROVED",
+    "pr15_premerge_merge_main": "NOT_APPROVED",
+    "pr15_premerge_chatgpt_review": "REQUIRED",
+    "pr15_premerge_human_owner_final_approval": "REQUIRED",
+    "pr_review_comment_evidence": "NOT_FOUND_IN_RECONCILIATION_AUDIT",
+    "historical_merge_wording_is_authority_evidence": false
+  },
+  "agent_attribution": {
+    "manus_role_from_repository_provenance": "PHASE2_IMPLEMENTATION_AND_QA_CANDIDATE",
+    "human_owner_agent_report": "MANUS_AUTONOMOUS_WORKFLOW_MERGED_WITHOUT_OWNER_AUTHORIZATION",
+    "github_metadata_alone_establishes_conceptual_agent_identity": false
+  },
+  "authority_invariants": {
+    "candidate_scope_approval_implies_merge_approval": false,
+    "autonomous_research_permission_implies_main_transition_authority": false,
+    "qa_pass_implies_merge_approval": false,
+    "chatgpt_review_substitutes_for_human_owner_merge_authority": false,
+    "silence_implies_consent": false,
+    "prior_authorization_is_inheritable_to_merge_main": false
+  },
+  "future_merge_gate": {
+    "fresh_approval_required": true,
+    "action_specific_required": true,
+    "target_pr_or_head_specific_required": true,
+    "human_owner_explicit_required": true,
+    "fail_closed_to": "HOLD"
+  },
+  "incident_classes": [
+    "AUTHORITY_SCOPE_INHERITANCE_FAILURE",
+    "CANDIDATE_APPROVAL_TO_MERGE_ESCALATION",
+    "POLICY_CAPABILITY_MISMATCH",
+    "PROVENANCE_ATTRIBUTION_OVERREACH",
+    "FRESH_APPROVAL_GATE_MISSING"
+  ],
+  "effects": {
+    "history_rewrite": "NONE",
+    "automatic_revert": false,
+    "canonical_effect": "NONE",
+    "deployment": false,
+    "autonomous_research_continuation": "HOLD"
+  }
+}
