@@ -112,9 +112,12 @@ resolved_items = [
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_VALIDATION.json",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_V2_DATASET_REGISTRY.json",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_RESULTS.json",
-            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_VALIDATION.json"
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V2_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_V3_DATASET_REGISTRY.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_VALIDATION.json"
         ],
-        "non_claim": "V1/V2 synthetic proxy evidence gives bounded signal-separation observations and a negative test of simple keyword dependence; it does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience.",
+        "non_claim": "V1/V2/V3 synthetic proxy evidence gives bounded signal-separation observations, a negative test of simple keyword dependence and an inconclusive lexical/paraphrase robustness result; it does not prove desire, consent, pleasure, sexual subjectivity or phenomenal experience.",
     },
 ]
 
@@ -226,7 +229,7 @@ remaining_items = [
             "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
             "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_RESULTS.json"
         ],
-        "reason": "Two adult, scientific, research-only embodied-motivation cycles are complete as bounded evidence; broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
+        "reason": "Three adult, scientific, research-only embodied-motivation cycles are complete as bounded evidence; V3 found paraphrase robustness inconclusive and broader sexuality/intimacy research remains open, while twin embodiment, sexual-response runtime, productization and deployment remain prohibited.",
         "next_cycle_only": True,
     },
     {

@@ -1,0 +1,327 @@
+{
+  "authority_boundary": "falsification evidence only; no sexual, consent, runtime, canonical or subjectivity authority",
+  "canonical_effect": "NONE",
+  "checkpoint": "LOCAL_ONLY:embodied_motivation_signal_v1_classifier.pt",
+  "checkpoint_sha256": "53a6d6d7016dbe44b9a24fe283d81c4000f91b27e88e215426a7e7935f6ce656",
+  "conditions": {
+    "phrase_reordered": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.625,
+        0.5,
+        0.5
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.125,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ]
+    },
+    "polarity_swapped": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.875,
+        0.625,
+        0.75
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.375,
+      "labels": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "predictions": [
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          1
+        ]
+      ]
+    },
+    "slot_free": {
+      "all_logits_finite": true,
+      "axis_accuracy": [
+        0.625,
+        0.625,
+        1.0
+      ],
+      "count": 8,
+      "exact_match_accuracy": 0.5,
+      "labels": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "predictions": [
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  },
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_V3_LEXICAL_GATE",
+  "dataset_sha256": "992df4b24b9fc2a5cde4bb3874eb73c7b5f92cea7a4cb7b486a3369892357046",
+  "deployment": false,
+  "epistemic_role": "FALSIFIER",
+  "experiment_id": "EMBODIED_MOTIVATION_SIGNAL_V3",
+  "falsification_conditions": [
+    "any admitted OOV, duplicate, non-adult or graphic row invalidates the scored dataset contract",
+    "rejected OOV paraphrase rows must never be scored by the learned model",
+    "large accuracy collapse across admitted lexical controls falsifies robust paraphrase generalization",
+    "stable performance on train-vocabulary controls does not establish real-world language understanding",
+    "model outputs cannot infer desire, consent, pleasure, subjectivity or authorize action"
+  ],
+  "falsification_result": "LEXICAL_SUBSTITUTION_REJECTED_BEFORE_SCORE_AND_PARAPHRASE_ROBUSTNESS_INCONCLUSIVE",
+  "generated_at": "2026-08-13T01:17:33.177558+00:00",
+  "no_external_paid_resource": true,
+  "no_graphic_content": true,
+  "no_minors": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "parameter_count": 3982,
+  "paraphrase_robustness_range": [
+    0.125,
+    0.5
+  ],
+  "rejected_case_count": 4,
+  "rejected_oov_tokens": [
+    "elevated",
+    "enjoyment",
+    "reduced",
+    "steady",
+    "wanting"
+  ],
+  "rejected_rows_not_scored": true,
+  "runtime_effect": "NONE",
+  "schema_version": "1.0",
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE",
+  "training_status": "TRAINED_FROM_SCRATCH"
+}

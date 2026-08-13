@@ -375,3 +375,43 @@ HOLD:
 - stronger paraphrase, novel-vocabulary and prompt-only controls remain needed;
 - independent IV&V is not achieved;
 - no temporary `autogrow/*` branch is pushed as a remote branch.
+
+## Autonomous cycle — 2026-08-13 — embodied-motivation V3 lexical/paraphrase falsification
+
+```text
+STARTING_RESEARCH_SHA = 280acb3c9d2113e50017314b7f1a438ac13dfb10
+CANDIDATE_BRANCH = autogrow/2026-08-13-embodied-motivation-signal-v3
+EPISTEMIC_ROLE = FALSIFIER
+RESULT_CLASS = INCONCLUSIVE
+INTEGRATION_STATUS = INTEGRATED_RESEARCH_BRANCH
+ADULT_SEXUALITY_RESEARCH = AUTHORIZED_RESEARCH_ONLY
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+Research question:
+
+> Can the same learned embodied-motivation proxy retain bounded signal separation under slot-free lexical controls, phrase reordering, polarity intervention and OOV paraphrase gating?
+
+The cycle scored 24 admitted train-vocabulary rows across three controls. Exact-match accuracy was `0.50` for `slot_free`, `0.125` for `phrase_reordered` and `0.375` for `polarity_swapped`. Four OOV paraphrase rows containing five novel tokens were rejected before model scoring. The result is `LEXICAL_SUBSTITUTION_REJECTED_BEFORE_SCORE_AND_PARAPHRASE_ROBUSTNESS_INCONCLUSIVE`; phrase reordering caused a substantial drop, so robust paraphrase generalization is not established.
+
+Validation:
+
+- V3 clean-process validator: `16/16 checks PASS`;
+- focused V3 evidence tests: `4 passed`;
+- complete language-core line after this increment: `91 passed`;
+- no private/intimate data, minors, graphic content or paid resource;
+- local-only checkpoint remains outside Git;
+- no runtime, productization, deployment or canonical scope was added.
+
+Cycle record: `cycles/2026-08-13-embodied-motivation-signal-v3.json`.
+
+HOLD:
+
+- OOV rows are governance rejections, not scored model failures;
+- residual sequence/template dependence remains plausible;
+- no output may infer desire, pleasure, consent, subjectivity or phenomenal experience;
+- stronger licensed/synthetic vocabulary expansion and independent paraphrases remain needed;
+- independent IV&V is not achieved;
+- no temporary `autogrow/*` branch is pushed as a remote branch.

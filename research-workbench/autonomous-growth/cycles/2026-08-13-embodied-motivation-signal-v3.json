@@ -1,0 +1,51 @@
+{
+  "cycle_id": "2026-08-13-embodied-motivation-signal-v3",
+  "started_at": "2026-08-13T09:18:12+08:00",
+  "starting_research_sha": "280acb3c9d2113e50017314b7f1a438ac13dfb10",
+  "research_question": "Can the same learned embodied-motivation proxy retain bounded signal separation under slot-free lexical controls, phrase reordering, polarity intervention and OOV paraphrase gating?",
+  "epistemic_role": "FALSIFIER",
+  "source_refs": [
+    "docs/AUTONOMOUS_RESEARCH_SCOPE_AUTHORIZATION_2026-08-13.md",
+    "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V2_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_RESULTS.json"
+  ],
+  "changed_paths": [
+    "docs/RESEARCH_CYCLE_EMBODIED_MOTIVATION_SIGNAL_V3_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/run_embodied_motivation_signal_v3_falsification.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/validate_embodied_motivation_signal_v3.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_V3_DATASET_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/sexuality/evidence/EMBODIED_MOTIVATION_SIGNAL_V3_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_embodied_motivation_signal_v3_evidence.py",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-embodied-motivation-signal-v3.json"
+  ],
+  "validation": {
+    "commands": [
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 run_embodied_motivation_signal_v3_falsification.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "PYTHONPATH=research-labs/language-core-g1_v0.2.1/engineering/sexuality python3 validate_embodied_motivation_signal_v3.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_embodied_motivation_signal_v3_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py"
+    ],
+    "outcomes": [
+      "Three admitted train-vocabulary controls scored 24 rows; four OOV paraphrase rows were rejected before scoring",
+      "Exact-match accuracy: slot-free 0.50; phrase-reordered 0.125; polarity-swapped 0.375",
+      "Rejected OOV token count: 5; rejected rows not scored = true",
+      "Clean-process validation = 16/16 checks PASS",
+      "Focused V3 evidence tests = 4 passed; complete language-core line = 91 passed",
+      "Paraphrase robustness remains inconclusive and sequence/template dependence remains plausible"
+    ]
+  },
+  "result_class": "INCONCLUSIVE",
+  "candidate_branch": "autogrow/2026-08-13-embodied-motivation-signal-v3",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
+  "hold_items": [
+    "OOV paraphrase rows were correctly rejected and cannot be interpreted as model scores",
+    "Phrase reordering caused a substantial accuracy drop; robust paraphrase generalization is not established",
+    "The learned proxy does not infer desire, consent, pleasure, subjectivity or phenomenal experience",
+    "Adult sexuality research authorization does not authorize runtime, productization, deployment or canonical promotion",
+    "Local-only checkpoint remains outside Git",
+    "Independent IV&V is not achieved",
+    "No temporary autogrow branch is pushed as a remote branch"
+  ]
+}

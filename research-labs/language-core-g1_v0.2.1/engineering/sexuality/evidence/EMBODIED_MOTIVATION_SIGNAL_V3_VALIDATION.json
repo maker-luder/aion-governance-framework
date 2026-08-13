@@ -1,0 +1,30 @@
+{
+  "checkpoint": "LOCAL_ONLY:embodied_motivation_signal_v1_classifier.pt",
+  "checkpoint_sha256": "53a6d6d7016dbe44b9a24fe283d81c4000f91b27e88e215426a7e7935f6ce656",
+  "checks": {
+    "admitted_case_counts": true,
+    "admitted_exact_disjoint": true,
+    "admitted_oov_free": true,
+    "adult_non_graphic_contract": true,
+    "checkpoint_dataset_matches_v1": true,
+    "checkpoint_exists": true,
+    "checkpoint_hash_matches": true,
+    "falsification_result_present": true,
+    "finite_logits": true,
+    "no_private_data": true,
+    "parameter_dependent_inference": true,
+    "rejected_case_count": true,
+    "rejected_oov_present": true,
+    "rejected_rows_not_scored": true,
+    "runtime_canonical_locks": true,
+    "scored_case_total": true
+  },
+  "experiment_id": "EMBODIED_MOTIVATION_SIGNAL_V3",
+  "non_claim": "V3 evaluates lexical-control robustness only; it cannot prove desire, consent, pleasure, subjectivity or phenomenal experience.",
+  "rejected_rows": 4,
+  "rejected_rows_not_scored": true,
+  "schema_version": "1.0",
+  "scored_rows": 24,
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

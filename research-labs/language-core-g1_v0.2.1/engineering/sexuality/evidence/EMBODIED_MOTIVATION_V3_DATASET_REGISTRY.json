@@ -1,0 +1,46 @@
+{
+  "admitted_exact_disjoint_texts": true,
+  "admitted_oov_tokens": [],
+  "adult_context": true,
+  "allowed_use": "research-only falsification; no runtime or product use",
+  "dataset_id": "SYNTHETIC_ADULT_EMBODIED_MOTIVATION_V3_LEXICAL_GATE",
+  "dataset_sha256": "992df4b24b9fc2a5cde4bb3874eb73c7b5f92cea7a4cb7b486a3369892357046",
+  "graphic_content": false,
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "no_minors": true,
+  "non_equivalences": [
+    "AROUSAL_SIGNAL != DESIRE_PROVEN",
+    "REWARD_SIGNAL != PLEASURE_PROVEN",
+    "BODY_RESPONSE != CONSENT",
+    "SEXUAL_LANGUAGE != SEXUAL_SUBJECTIVITY"
+  ],
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "rejected_case_count": 4,
+  "rejected_case_reason": "OOV lexical paraphrase; gate-before-score",
+  "rejected_oov_tokens": [
+    "elevated",
+    "enjoyment",
+    "reduced",
+    "steady",
+    "wanting"
+  ],
+  "rejected_rows_not_scored": true,
+  "schema_version": "1.0",
+  "scored_case_counts": {
+    "phrase_reordered": 8,
+    "polarity_swapped": 8,
+    "slot_free": 8
+  },
+  "scored_case_total": 24,
+  "source": "authored synthetic adult-context lexical controls using V1 train-only vocabulary",
+  "synthetic_real_classification": "SYNTHETIC",
+  "tokenizer_scope": "V1 train-only vocabulary",
+  "transformations": {
+    "oov_paraphrase_rejected": "use novel elevated/reduced/steady/wanting/enjoyment terms; reject before model scoring",
+    "phrase_reordered": "reorder train-observed phrase fragments while preserving label values",
+    "polarity_swapped": "swap high/low values in text and labels as a paired intervention",
+    "slot_free": "remove axis keywords while retaining only train-observed adult/context/protocol/record and high/low tokens"
+  },
+  "vocabulary_sha256": "1a7b04b1a89e5458ed800bd2fb14c8862f00bfc4b3c926a1482385cdf3845656"
+}
