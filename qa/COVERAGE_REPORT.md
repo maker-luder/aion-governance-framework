@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `06e674ab5aa3e8566e357dd8084fa1bbef2a79a0`. Coverage was measured with branch coverage enabled for 50 targets.
+Target head: `f648e1f8af516b10ce2380ae1de3d927768807e4`. Coverage was measured with branch coverage enabled for 51 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -54,5 +54,6 @@ Target head: `06e674ab5aa3e8566e357dd8084fa1bbef2a79a0`. Coverage was measured w
 | `research-labs/trajectory-evaluation_v0.1.0` | 91% | 0 |
 | `research-labs/triangulated-subjectivity-evidence_v0.1.0` | 92% | 0 |
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 86% | 0 |
+| `research-labs/typed-lineage-edge-semantics_v0.1.0` | 88% | 0 |
 
 Coverage percentages describe executed public test suites; they are not whole-system validation, independent IV&V, deployment readiness or scientific evidence.

@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `06e674ab5aa3e8566e357dd8084fa1bbef2a79a0`. This report is generated from the current component runner output.
+Target head: `f648e1f8af516b10ce2380ae1de3d927768807e4`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -57,5 +57,6 @@ Target head: `06e674ab5aa3e8566e357dd8084fa1bbef2a79a0`. This report is generate
 | `research-labs/trajectory-evaluation_v0.1.0` | 14 | 0 |
 | `research-labs/triangulated-subjectivity-evidence_v0.1.0` | 5 | 0 |
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
+| `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 
-**Total:** 950 passed across 53 targets; failed targets: 0.
+**Total:** 961 passed across 54 targets; failed targets: 0.
