@@ -5,13 +5,13 @@
 ```text
 BRANCH = review/four-domain-research-materialization
 TESTED_HEAD = 8cf76fd523ec720f452687cc796339d3c2f01578
-RECEIPT_HEAD = TO_BE_BOUND
-REPORTING_HEAD = TO_BE_BOUND
+RECEIPT_HEAD = 7e37d26b2a0246f60cd8cba235ad059193570d93
+REPORTING_HEAD = 7a0f24216d4f9111843e9d28077dd7cd30ae8016
 BASE_RESEARCH_HEAD = e0c946f4e44861968bf8d30ddb0c6def26bb8873
 CURRENT_MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
 ```
 
-The source-state check passed for `TESTED_HEAD`. `RECEIPT_HEAD` and `REPORTING_HEAD` are deliberately left unbound until the QA artifact and receipt commits are complete. They must not be presented as the exact execution state. The exact execution ran against the clean source commit `8cf76fd`; the QA runner then generated the branch-native QA artifacts.
+The source-state check passed for `TESTED_HEAD`. `RECEIPT_HEAD` identifies the later QA artifact/receipt commit and `REPORTING_HEAD` identifies the subsequent provenance/reporting commit; neither is presented as the exact execution state. The exact execution ran against the clean source commit `8cf76fd`; the QA runner then generated the branch-native QA artifacts.
 
 ## Final gates
 
