@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 import sqlite3
+import threading
 
 import pytest
 
@@ -130,6 +132,55 @@ def test_environment_evidence_is_reused_by_fingerprint(tmp_path):
     )
     assert reused.evidence_id == first.evidence_id
     assert reused.fingerprint == first.fingerprint
+
+
+def test_concurrent_registration_reuses_one_evidence_record(tmp_path, monkeypatch):
+    barrier = threading.Barrier(2)
+    select_lock = threading.Lock()
+    select_count = 0
+    original_connect = IndividualRuntimeStateStore._connect
+
+    class BarrierConnection:
+        def __init__(self, connection):
+            self._connection = connection
+
+        def __enter__(self):
+            self._connection.__enter__()
+            return self
+
+        def __exit__(self, *args):
+            return self._connection.__exit__(*args)
+
+        def execute(self, sql, parameters=()):
+            nonlocal select_count
+            should_wait = False
+            if "SELECT * FROM runtime_environment_evidence WHERE fingerprint = ?" in sql:
+                with select_lock:
+                    select_count += 1
+                    should_wait = select_count <= 2
+            if should_wait:
+                barrier.wait(timeout=5)
+            return self._connection.execute(sql, parameters)
+
+        def __getattr__(self, name):
+            return getattr(self._connection, name)
+
+    def connect(self):
+        return BarrierConnection(original_connect(self))
+
+    monkeypatch.setattr(IndividualRuntimeStateStore, "_connect", connect)
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+
+    def register():
+        return evidence(store, "DEVICE-A", "same")
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(lambda _index: register(), range(2)))
+
+    assert {item.evidence_id for item in results} == {results[0].evidence_id}
+    with sqlite3.connect(tmp_path / "state.sqlite3") as connection:
+        count = connection.execute("SELECT COUNT(*) FROM runtime_environment_evidence").fetchone()[0]
+    assert count == 1
 
 
 def test_changed_environment_requires_new_evidence(tmp_path):

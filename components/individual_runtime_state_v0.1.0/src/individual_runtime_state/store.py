@@ -332,6 +332,7 @@ class IndividualRuntimeStateStore:
                     runtime_environment_hash, policy_config_hash,
                     verification_reference, verification_status, verified_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(fingerprint) DO NOTHING
                 """,
                 (
                     evidence_id,
@@ -345,17 +346,13 @@ class IndividualRuntimeStateStore:
                     verified_at,
                 ),
             )
-        return EnvironmentEvidence(
-            evidence_id=evidence_id,
-            device_id=device_id,
-            fingerprint=fingerprint,
-            hardware_profile_hash=hardware_profile_hash,
-            runtime_environment_hash=runtime_environment_hash,
-            policy_config_hash=policy_config_hash,
-            verification_reference=verification_reference,
-            verification_status=verification_status,
-            verified_at=verified_at,
-        )
+            stored = connection.execute(
+                "SELECT * FROM runtime_environment_evidence WHERE fingerprint = ?",
+                (fingerprint,),
+            ).fetchone()
+            if stored is None:
+                raise RuntimeStateError("environment evidence upsert did not produce a stored artifact")
+            return self._decode_environment_evidence(stored)
 
     def get_environment_evidence(self, evidence_id: str) -> EnvironmentEvidence:
         with self._connect() as connection:
