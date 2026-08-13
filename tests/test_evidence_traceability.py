@@ -58,3 +58,19 @@ def test_parse_index_ignores_non_acceptance_tables(tmp_path: Path) -> None:
         "| Header | Other |\n|---|---|\n| not-a-criterion | x |\n", encoding="utf-8"
     )
     assert generator.parse_index(tmp_path) == ()
+
+
+
+def test_traceability_holds_when_acceptance_row_is_malformed(tmp_path: Path) -> None:
+    (tmp_path / "components" / "example").mkdir(parents=True)
+    write_index(tmp_path)
+    index_path = tmp_path / "docs/C0_ACCEPTANCE_EVIDENCE_INDEX_2026-08-08.md"
+    with index_path.open("a", encoding="utf-8") as handle:
+        handle.write("| `AC-SCOPE-02` | malformed | only-three-cells |\n")
+
+    report = generator.build_report(tmp_path, target_head="abc123")
+
+    assert report["status"] == "HOLD"
+    assert report["diagnostics"]["malformed_rows"] == [
+        "line 4: acceptance row has 3 cells; expected 7"
+    ]

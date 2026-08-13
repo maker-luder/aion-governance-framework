@@ -167,6 +167,20 @@ def test_missing_local_reference_fails_closed(tmp_path: Path) -> None:
     assert any("qa/missing.json" in item for item in result.diagnostics)
 
 
+def test_local_reference_symlink_outside_root_fails_closed(tmp_path: Path) -> None:
+    record = valid_record()
+    record["evidence_refs"] = ["qa/external.json"]
+    root, path = make_root(tmp_path, record)
+    outside = tmp_path / "external.json"
+    outside.write_text("{}\n", encoding="utf-8")
+    (root / "qa" / "external.json").symlink_to(outside)
+
+    result = validator.validate_record(root, path, expected_head="a" * 40)
+
+    assert result.status == "FAIL"
+    assert any("qa/external.json" in item for item in result.diagnostics)
+
+
 def test_completed_record_must_bind_to_inspected_head(tmp_path: Path) -> None:
     root, path = make_root(tmp_path, valid_record("a" * 40))
     result = validator.validate_record(root, path, expected_head="c" * 40)

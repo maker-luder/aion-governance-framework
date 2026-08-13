@@ -86,7 +86,14 @@ def _local_ref_exists(root: Path, value: str) -> bool:
     candidate = value.split("#", 1)[0]
     if not candidate.startswith(LOCAL_PREFIXES):
         return True
-    return (root / candidate).exists()
+    root = root.resolve()
+    candidate_path = root / candidate
+    try:
+        resolved = candidate_path.resolve(strict=True)
+        resolved.relative_to(root)
+    except (OSError, ValueError):
+        return False
+    return True
 
 
 def _schema_diagnostics(schema: dict[str, Any], record: dict[str, Any]) -> list[str]:

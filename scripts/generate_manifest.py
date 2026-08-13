@@ -41,7 +41,7 @@ def build_records(output_dir: Path) -> list[dict[str, object]]:
     excluded = {"manifest/FILE_MANIFEST.json", "manifest/SHA256SUMS.txt"}
     files: list[dict[str, object]] = []
     for path in sorted(ROOT.rglob("*")):
-        if not path.is_file() or ".git" in path.parts:
+        if path.is_symlink() or not path.is_file() or ".git" in path.parts:
             continue
         if any(part in GENERATED_PARTS or part.endswith(".egg-info") for part in path.parts):
             continue

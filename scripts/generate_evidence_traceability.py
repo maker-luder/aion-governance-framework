@@ -69,16 +69,22 @@ def _normalise_local_ref(value: str) -> str | None:
     return None
 
 
-def parse_index(root: Path) -> tuple[TraceabilityRecord, ...]:
+def parse_index(
+    root: Path, *, malformed_rows: list[str] | None = None
+) -> tuple[TraceabilityRecord, ...]:
     path = root / INDEX_RELATIVE
     if not path.is_file():
         return ()
     records: list[TraceabilityRecord] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
+    for line_number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
         if not line.startswith("| `AC-"):
             continue
         cells = _split_table_row(line)
         if len(cells) != 7:
+            if malformed_rows is not None:
+                malformed_rows.append(
+                    f"line {line_number}: acceptance row has {len(cells)} cells; expected 7"
+                )
             continue
         refs = tuple(dict.fromkeys(ref for cell in cells[1:5] for ref in (_normalise_local_ref(x) for x in _backtick_refs(cell)) if ref))
         missing = tuple(sorted(ref for ref in refs if not (root / ref).exists()))
@@ -99,7 +105,8 @@ def parse_index(root: Path) -> tuple[TraceabilityRecord, ...]:
 
 
 def build_report(root: Path, *, target_head: str = "UNSPECIFIED") -> dict[str, Any]:
-    records = parse_index(root)
+    malformed_rows: list[str] = []
+    records = parse_index(root, malformed_rows=malformed_rows)
     index_exists = (root / INDEX_RELATIVE).is_file()
     malformed = [
         record.criterion
@@ -107,7 +114,7 @@ def build_report(root: Path, *, target_head: str = "UNSPECIFIED") -> dict[str, A
         if any(part.strip() not in STATE_VALUES for part in record.evidence_state.split("+")) or not record.limitation_note
     ]
     missing = sorted({ref for record in records for ref in record.missing_local_refs})
-    status = "PASS" if index_exists and records and not malformed and not missing else "HOLD"
+    status = "PASS" if index_exists and records and not malformed_rows and not malformed and not missing else "HOLD"
     return {
         "schema_version": "0.1.0",
         "inspection_type": "EVIDENCE_TRACEABILITY_STRUCTURE_ONLY",
@@ -128,6 +135,7 @@ def build_report(root: Path, *, target_head: str = "UNSPECIFIED") -> dict[str, A
         "mutation_performed": False,
         "diagnostics": {
             "index_exists": index_exists,
+            "malformed_rows": malformed_rows,
             "malformed_criteria": malformed,
             "missing_local_refs": missing,
         },

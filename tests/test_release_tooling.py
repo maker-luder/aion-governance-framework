@@ -158,3 +158,77 @@ def test_quality_workflow_keeps_current_and_frozen_verification_layers() -> None
     assert "frozen-release-verification:" in workflow
     assert "ref: v0.1.0-rc.1" in workflow
     assert "python scripts/verify_release.py --baseline historical-rc" in workflow
+
+
+
+def test_scanner_ignores_symlink_targets_outside_root(tmp_path: Path) -> None:
+    scanner = load_script("scan_public_tree")
+    root = tmp_path / "repo"
+    root.mkdir()
+    outside = tmp_path / "outside.txt"
+    slash = "/"
+    private_value = slash + "home" + slash + "privateuser" + slash + "secret.txt"
+    outside.write_text(private_value + "\n", encoding="utf-8")
+    (root / "linked.txt").symlink_to(outside)
+
+    assert scanner.scan_root(root) == []
+
+
+
+def test_manifest_generator_ignores_symlink_targets_outside_root(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    generator = load_script("generate_manifest")
+    root = tmp_path / "repo"
+    root.mkdir()
+    outside = tmp_path / "outside.txt"
+    outside.write_text("outside\n", encoding="utf-8")
+    (root / "linked.txt").symlink_to(outside)
+    monkeypatch.setattr(generator, "ROOT", root)
+
+    assert generator.build_records(root / "generated") == []
+
+
+
+def test_current_snapshot_classifies_dangling_tracked_symlink_before_missing_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    verifier = load_script("verify_release")
+    (tmp_path / "linked.txt").symlink_to(tmp_path / "missing-target.txt")
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    monkeypatch.setattr(verifier, "git_text", lambda *args: "a" * 40)
+    monkeypatch.setattr(
+        verifier,
+        "tree_entries",
+        lambda ref: {"linked.txt": ("120000", "b" * 40)},
+    )
+
+    result = verifier.verify_current_snapshot("current-head")
+
+    assert result["status"] == "FAIL"
+    assert result["errors"] == [
+        "symlink verification unsupported on this platform: linked.txt"
+    ]
+
+
+def test_historical_manifest_non_object_fails_closed(monkeypatch: pytest.MonkeyPatch) -> None:
+    verifier = load_script("verify_release")
+
+    def fake_git_text(*args: str) -> str:
+        if args[-1] == verifier.HISTORICAL_RC_REF:
+            return verifier.EXPECTED_TAG_OBJECT
+        return verifier.EXPECTED_PEELED_COMMIT
+
+    def fake_git_bytes(*args: str) -> bytes:
+        assert args[0] == "show"
+        assert args[1].endswith(f":{verifier.MANIFEST_PATH}")
+        return b"[]"
+
+    monkeypatch.setattr(verifier, "git_text", fake_git_text)
+    monkeypatch.setattr(verifier, "tree_entries", lambda ref: {})
+    monkeypatch.setattr(verifier, "git_bytes", fake_git_bytes)
+
+    result = verifier.verify_historical_rc()
+
+    assert result["status"] == "FAIL"
+    assert result["errors"] == ["historical manifest must be a JSON object"]
