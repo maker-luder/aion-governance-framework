@@ -1,0 +1,273 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "replication-environment-drift-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 13,
+  "records": [
+    {
+      "case_id": "same-artifact-readiness",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "REPLICATION_READINESS_COMPLETE",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "independent-recreation-readiness",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "REPLICATION_READINESS_COMPLETE",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "INDEPENDENT_RECREATION",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "missing-source-evidence",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "REPLICATION_PACKET_INCOMPLETE",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [
+          "source_evidence_refs"
+        ],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "team-independence-collision",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "INDEPENDENCE_TEAM_COLLISION",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "source_team_id",
+          "receiving_team_id"
+        ],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "inaccessible-source-artifact",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "SOURCE_ARTIFACT_INACCESSIBLE",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "independent-digest-collision",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "INDEPENDENT_ARTIFACT_DIGEST_COLLISION",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "artifact_digest",
+          "independent_artifact_digest"
+        ],
+        "artifact_mode": "INDEPENDENT_RECREATION",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "declared-environment-drift",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "REPLICATION_READINESS_COMPLETE",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "DRIFT_DECLARED",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "undeclared-environment-drift",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "UNDECLARED_ENVIRONMENT_DRIFT",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "DRIFT_UNDECLARED",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "unknown-environment",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "ENVIRONMENT_COMPARABILITY_UNKNOWN",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "UNKNOWN",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "exact-environment-contradiction",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "EXACT_ENVIRONMENT_DECLARATION_CONTRADICTED",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "runtime_ref"
+        ],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "NOT_EVALUATED",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "reported-consistent-review-only",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "REPLICATION_RESULT_ADMISSIBLE_FOR_REVIEW",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "CONSISTENT",
+        "interpretation_state": "REVIEW_ONLY",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "reported-divergent-without-interpretation",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "RESULT_REPORTED_WITHOUT_REVIEW_INTERPRETATION",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "DIVERGENT",
+        "interpretation_state": "NOT_ESTABLISHED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "interpretation-overreach",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "INTERPRETATION_OVERREACH",
+        "packet_id": "replication-packet-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "artifact_mode": "SAME_ARTIFACT_REPLAY",
+        "environment_match": "EXACT",
+        "result_state": "CONSISTENT",
+        "interpretation_state": "OVERREACHING",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}

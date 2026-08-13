@@ -1,0 +1,78 @@
+# Independent Replication / Environment Drift — Source Notes
+
+Date: 2026-08-13
+
+## Selection rationale
+
+The next broad-cycle gap is **independent replication readiness under environment, artifact, and interpretation drift**. Existing repository units already cover generic replication epistemics, design validity, handoff completeness, and matched-divergence protocol integrity. The new question is narrower: can a research-only contract distinguish computational reproducibility, independent replication, artifact audit, environment drift, and scientific interpretation without counting reused evidence as a new replication or promoting a result?
+
+## Source record A — National Academies
+
+**What:** The National Academies distinguishes reproducibility as consistent results using the same input data, computational steps, methods, code, and analysis conditions, while replicability uses new data to address the same scientific question. It also emphasizes complete reporting of data, methods, computational environment, dependencies, uncertainty, and limits; and warns that successful replication does not guarantee correctness while a failed replication does not conclusively refute an original claim.
+
+**Who / authority:** National Academies of Sciences, Engineering, and Medicine; authoritative consensus report commissioned through NSF context.
+
+**Where:** <https://www.nationalacademies.org/read/25303/chapter/3>
+
+**When / status:** 2019 publication; retrieved during this cycle and treated as current methodological prior art, not as current repository state.
+
+**Method:** Public full-text extraction; relevant definitions/recommendations were recorded, not reinterpreted as empirical rates for AION/Astra.
+
+**Transformation:** Candidate schema should separate artifact replay from new-data replication, record environment/dependency drift, record uncertainty and interpretation status, and prevent `replication_result` from being collapsed into truth or governance effect.
+
+## Source record B — ACM Artifact Review and Badging
+
+**What:** ACM's artifact review policy defines reviewable artifact properties such as documented, consistent, complete, and exercisable. It distinguishes repeatability, reproducibility, and replicability by team, setup, measurement system, location, and use of author-supplied versus independently developed artifacts. It also separates artifact evaluation/availability/result validation badges and states that results need only agree within an acceptable tolerance for the experiment type.
+
+**Who / authority:** Association for Computing Machinery publication policy; the retrieved page is explicitly labeled Version 1.0 and links to a current version, so this record is `HISTORICAL_POLICY_REFERENCE / CURRENT_VERSION_NOT_YET_RETRIEVED` and must not be treated as the current ACM policy without rechecking.
+
+**Where:** <https://www.acm.org/publications/policies/artifact-review-badging>; linked current-page check: <https://www.acm.org/publications/policies/artifact-review-badging-current> (404 at retrieval).
+
+**When / status:** Version 1.0 revised 2020-08-24; retrieved 2026-08-13; historical policy text. The page's linked `artifact-review-badging-current` URL returned a rendered ACM 404 page during this cycle, so current ACM v1.1 terminology was not admitted as evidence.
+
+**Method:** Public full-text extraction; terminology and badge distinctions were extracted as competing framework evidence.
+
+**Transformation:** Candidate schema should keep artifact-audit status separate from result validation, distinguish author-artifact replay from independent recreation, and require an explicit acceptable-tolerance/interpretation reference before any consistency label.
+
+## Source record C — NIH rigor and reproducibility
+
+**What:** NIH describes rigor as robust and unbiased experimental design, methodology, analysis, interpretation, and reporting, and frames reproducibility as a cornerstone of scientific advancement. It points reviewers to details that may be overlooked, including sample-size calculation, authentication plans, reviewer guidance, and reporting principles.
+
+**Who / authority:** National Institutes of Health official policy/resource page.
+
+**Where:** <https://grants.nih.gov/policy-and-compliance/policy-topics/reproducibility>
+
+**When / status:** Page retrieved 2026-08-13; current public policy resource at retrieval time.
+
+**Method:** Public full-text extraction; used for general rigor/transparency requirements only.
+
+**Transformation:** Candidate schema should retain design/analysis/reporting completeness and uncertainty as separate metadata dimensions; it should not convert an NIH-style rigor field into a certification or AION/Astra conclusion.
+
+## Source record D — NSF-hosted metadata paper
+
+**What:** Search results identified a paper on mainstreaming metadata into research workflows, with the relevant distinction that replication requires complete metadata for creating new data. The direct NSF PDF extraction returned encoded PDF content rather than readable text in this retrieval, so no substantive claim from the paper is used below.
+
+**Who / authority:** External research paper hosted by NSF PAR; authority and exact bibliographic details require a successful text/PDF read before use.
+
+**Where:** <https://par.nsf.gov/servlets/purl/10412652>
+
+**When / status:** Retrieved 2026-08-13 but `PARTIAL / TEXT_EXTRACTION_FAILED`; retained as a retrieval lead, not as evidence for the prototype.
+
+**Transformation:** None until the source is successfully read and bibliographic identity verified. This preserves `RETRIEVED != CURRENT` and `PARTIAL_RETRIEVAL != ADMITTED_EVIDENCE`.
+
+## Evidence reuse boundary
+
+Existing repository units `replication-epistemics-governance_v0.1.0`, `independent-replication-design_v0.1.0`, and `independent-replication-handoff-integrity_v0.1.0` are stable prior evidence. The next unit must not duplicate their evidence count or claim that a repeated fixture is independent replication. It may add a new environment-drift/interpretation contract with explicit source references and new synthetic falsifiers.
+
+## Attribution boundary
+
+```text
+HUMAN_OWNER = task authorization and current repository-state authority
+EXTERNAL_LITERATURE = National Academies, ACM, NIH, NSF-hosted retrieval lead
+REPOSITORY_EVIDENCE = existing replication units and current branch state
+MANUS = clean-room transformation and synthetic implementation
+SYNTHETIC_FIXTURES = mechanism-only negative controls
+SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
