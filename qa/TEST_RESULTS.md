@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `dee8deb83726bb4e619fc6f967e84dcb921c4dbd`. This report is generated from the current component runner output.
+Target head: `7be5e5ad08605708af5bd495bf8cddda5b5aca6d`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -69,6 +69,7 @@ Target head: `dee8deb83726bb4e619fc6f967e84dcb921c4dbd`. This report is generate
 | `research-labs/self-model-functional-ablation_v0.1.0` | 9 | 0 |
 | `research-labs/self-report-false-positive-challenge_v0.1.0` | 5 | 0 |
 | `research-labs/self-report-instrument-validity-calibration_v0.1.0` | 13 | 0 |
+| `research-labs/shared-origin-divergence-governance-adversarial_v0.1.0` | 21 | 0 |
 | `research-labs/shared-origin-divergence-governance_v0.1.0` | 27 | 0 |
 | `research-labs/subjectivity-pipeline_v0.1.0` | 6 | 0 |
 | `research-labs/supervised-control-pilot_v0.1.0` | 6 | 0 |
@@ -81,4 +82,4 @@ Target head: `dee8deb83726bb4e619fc6f967e84dcb921c4dbd`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1355 passed across 76 targets; failed targets: 0.
+**Total:** 1376 passed across 77 targets; failed targets: 0.

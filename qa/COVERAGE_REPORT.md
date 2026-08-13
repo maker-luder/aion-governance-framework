@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `dee8deb83726bb4e619fc6f967e84dcb921c4dbd`. Coverage was measured with branch coverage enabled for 73 targets.
+Target head: `7be5e5ad08605708af5bd495bf8cddda5b5aca6d`. Coverage was measured with branch coverage enabled for 74 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -66,6 +66,7 @@ Target head: `dee8deb83726bb4e619fc6f967e84dcb921c4dbd`. Coverage was measured w
 | `research-labs/self-model-functional-ablation_v0.1.0` | 89% | 0 |
 | `research-labs/self-report-false-positive-challenge_v0.1.0` | 85% | 0 |
 | `research-labs/self-report-instrument-validity-calibration_v0.1.0` | 87% | 0 |
+| `research-labs/shared-origin-divergence-governance-adversarial_v0.1.0` | 83% | 0 |
 | `research-labs/shared-origin-divergence-governance_v0.1.0` | 82% | 0 |
 | `research-labs/subjectivity-pipeline_v0.1.0` | 81% | 0 |
 | `research-labs/supervised-control-pilot_v0.1.0` | 79% | 0 |
