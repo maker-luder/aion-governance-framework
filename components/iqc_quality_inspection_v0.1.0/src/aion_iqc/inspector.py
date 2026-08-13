@@ -40,6 +40,28 @@ def summary(x):
         if returncode is None and not tested: returncode=0
         if returncode!=0:f.append(t or 'UNKNOWN')
     return len(records),n,f,ts
+
+def scoped_counts(x):
+    records=target_records(x)
+    if not isinstance(records,list): return None, ['target list missing']
+    eligible=len(records); tested=sum(1 for i in records if isinstance(i,dict) and bool(i.get('tested',True))); non_applicable=eligible-tested
+    actual={'eligible_target_count':eligible,'tested_target_count':tested,'non_applicable_target_count':non_applicable}
+    issues=[]
+    if isinstance(x,dict) and isinstance(x.get('summary'),dict):
+        declared=x['summary']
+        for key,value in actual.items():
+            if key in declared and declared.get(key)!=value: issues.append(f'results summary {key}={declared.get(key)!r} expected {value}')
+    return actual,issues
+
+def lock_count_issues(lock,counts):
+    issues=[]
+    if not isinstance(lock,dict) or not isinstance(counts,dict): return issues
+    for key,value in counts.items():
+        if key in lock and lock.get(key)!=value: issues.append(f'lock {key}={lock.get(key)!r} expected {value}')
+    if 'current_targets' in lock and lock.get('current_targets')!=counts['eligible_target_count']:
+        issues.append(f"lock current_targets={lock.get('current_targets')!r} expected {counts['eligible_target_count']}")
+    return issues
+
 def lc(lock):
     try:return int(str(lock.get('current_tests','')).split()[0])
     except:return None
@@ -47,10 +69,12 @@ def R(i,a,s,d,*refs):return CheckResult(i,a,s,d,tuple(refs))
 def tests(root,p):
     rs,lk=J(root/'qa/CURRENT_TEST_RESULTS.json'),J(root/'qa/CURRENT_RELEASE_STATUS_LOCK.json'); refs=('qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json')
     if not isinstance(target_records(rs),list) or not isinstance(lk,dict):return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.HOLD,'inputs missing/invalid',*refs)
-    t,n,f,_=summary(rs)
+    t,n,f,_=summary(rs); counts,issues=scoped_counts(rs); issues.extend(lock_count_issues(lk,counts))
     if f:return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.FAIL,'failed targets: '+', '.join(f),*refs)
-    if lc(lk)!=n or (isinstance(lk.get('current_targets'),int) and lk['current_targets']!=t) or (p.required_test_target_count is not None and p.required_test_target_count!=t):return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.HOLD,'current counts are stale/inconsistent',*refs)
-    return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.PASS,f'{n} passed across {t} targets',*refs)
+    if lc(lk)!=n:issues.append(f'lock current_tests={lc(lk)!r} expected {n}')
+    if p.required_test_target_count is not None and p.required_test_target_count!=t:issues.append(f'policy target count={p.required_test_target_count} expected {t}')
+    if issues:return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.HOLD,'current counts are stale/inconsistent: '+'; '.join(issues),*refs)
+    return R('IQC-TEST-001','TEST_EVIDENCE',CheckStatus.PASS,f"{n} passed; eligible={counts['eligible_target_count']}; tested={counts['tested_target_count']}; non_applicable={counts['non_applicable_target_count']}",*refs)
 def coverage(root,head):
     c,e,t=J(root/'qa/CURRENT_COVERAGE_RESULTS.json'),J(root/'qa/CURRENT_COVERAGE_EVIDENCE.json'),J(root/'qa/CURRENT_TEST_RESULTS.json'); refs=('qa/CURRENT_COVERAGE_RESULTS.json','qa/CURRENT_COVERAGE_EVIDENCE.json','qa/CURRENT_TEST_RESULTS.json')
     if not isinstance(c,list) or not isinstance(e,dict):return R('IQC-MEAS-001','MEASUREMENT',CheckStatus.HOLD,'coverage missing/invalid',*refs)
@@ -60,6 +84,13 @@ def coverage(root,head):
     if (ts and ts!=cs) or (head!='UNSPECIFIED' and e.get('target_head')!=head) or e.get('target_count') not in (None,len(c)):return R('IQC-MEAS-001','MEASUREMENT',CheckStatus.HOLD,'coverage evidence is stale/inconsistent',*refs)
     if any(i.get('returncode')!=0 for i in c if isinstance(i,dict)):return R('IQC-MEAS-001','MEASUREMENT',CheckStatus.FAIL,'coverage target failed',*refs)
     return R('IQC-MEAS-001','MEASUREMENT',CheckStatus.PASS,f'coverage covers {len(c)} targets',*refs)
+def whole_system_semantics(root):
+    l,e=J(root/'qa/CURRENT_RELEASE_STATUS_LOCK.json'),J(root/'qa/CURRENT_COVERAGE_EVIDENCE.json'); refs=('qa/CURRENT_RELEASE_STATUS_LOCK.json','qa/CURRENT_COVERAGE_EVIDENCE.json')
+    if not isinstance(l,dict) or not isinstance(e,dict):return R('IQC-SEM-001','SEMANTIC_RECONCILIATION',CheckStatus.HOLD,'whole-system evidence inputs missing/invalid',*refs)
+    lv=l.get('whole_system_validation'); ev=e.get('whole_system_validation')
+    if lv is None or ev is None:return R('IQC-SEM-001','SEMANTIC_RECONCILIATION',CheckStatus.HOLD,'whole_system_validation must be explicit in both evidence surfaces',*refs)
+    if lv!=ev:return R('IQC-SEM-001','SEMANTIC_RECONCILIATION',CheckStatus.HOLD,f'whole_system_validation conflict: lock={lv!r}; coverage={ev!r}',*refs)
+    return R('IQC-SEM-001','SEMANTIC_RECONCILIATION',CheckStatus.PASS,f'whole_system_validation consistently {lv}',*refs)
 def trace(root,head):
     p=J(root/'qa/CURRENT_EVIDENCE_TRACEABILITY.json'); ref='qa/CURRENT_EVIDENCE_TRACEABILITY.json'; d=p.get('diagnostics',{}) if isinstance(p,dict) else {}
     ok=isinstance(p,dict) and p.get('status')=='PASS' and p.get('criterion_count',0)>0 and p.get('acceptance_decision')=='NOT_EVALUATED' and p.get('canonical_effect')=='NONE' and p.get('deployment') is False and p.get('independent_ivv')=='NOT_ACHIEVED' and p.get('mutation_performed') is False and not d.get('malformed_criteria') and not d.get('missing_local_refs') and (head=='UNSPECIFIED' or p.get('target_head')==head)
@@ -67,13 +98,16 @@ def trace(root,head):
 def recon(root,head):
     r,t,l=J(root/'qa/CURRENT_QA_RECONCILIATION.json'),J(root/'qa/CURRENT_TEST_RESULTS.json'),J(root/'qa/CURRENT_RELEASE_STATUS_LOCK.json'); refs=('qa/CURRENT_QA_RECONCILIATION.json','qa/CURRENT_TEST_RESULTS.json','qa/CURRENT_RELEASE_STATUS_LOCK.json')
     if not isinstance(r,dict) or not isinstance(target_records(t),list) or not isinstance(l,dict):return R('IQC-RECON-001','QA_RECONCILIATION',CheckStatus.HOLD,'inputs missing/invalid',*refs)
-    k,n,f,_=summary(t); ok=r.get('status')=='PASS' and r.get('target_count')==k and r.get('test_count')==n and r.get('failed_targets')==[] and not f and lc(l)==n and l.get('current_targets')==k and r.get('canonical_effect')=='NONE' and r.get('deployment') is False and r.get('independent_ivv')=='NOT_ACHIEVED' and (head=='UNSPECIFIED' or r.get('target_head')==head)
-    return R('IQC-RECON-001','QA_RECONCILIATION',CheckStatus.PASS if ok else CheckStatus.HOLD,'reconciliation consistent' if ok else 'reconciliation stale/inconsistent',*refs)
+    k,n,f,_=summary(t); counts,issues=scoped_counts(t); issues.extend(lock_count_issues(l,counts))
+    for key,value in counts.items():
+        if key in r and r.get(key)!=value:issues.append(f'reconciliation {key}={r.get(key)!r} expected {value}')
+    ok=r.get('status')=='PASS' and r.get('target_count')==k and r.get('test_count')==n and r.get('failed_targets')==[] and not f and lc(l)==n and l.get('current_targets')==k and not issues and r.get('canonical_effect')=='NONE' and r.get('deployment') is False and r.get('independent_ivv')=='NOT_ACHIEVED' and (head=='UNSPECIFIED' or r.get('target_head')==head)
+    return R('IQC-RECON-001','QA_RECONCILIATION',CheckStatus.PASS if ok else CheckStatus.HOLD,'reconciliation consistent' if ok else 'reconciliation stale/inconsistent'+(': '+'; '.join(issues) if issues else ''),*refs)
 def gov(root,p):
     l=J(root/'qa/CURRENT_RELEASE_STATUS_LOCK.json'); ref='qa/CURRENT_RELEASE_STATUS_LOCK.json'
     if not isinstance(l,dict):return R('IQC-GOV-001','BOUNDARY',CheckStatus.HOLD,'status lock missing/invalid',ref)
     bad=(p.require_canonical_effect_none and l.get('canonical_effect')!='NONE') or (p.require_deployment_false and l.get('deployment') is not False) or (p.require_independent_ivv_unachieved and l.get('independent_ivv')!='NOT_ACHIEVED')
-    return R('IQC-GOV-001','BOUNDARY',CheckStatus.FAIL if bad else CheckStatus.PASS,'boundary open' if bad else 'canonical/depoyment/IV&V boundaries closed',ref)
+    return R('IQC-GOV-001','BOUNDARY',CheckStatus.FAIL if bad else CheckStatus.PASS,'boundary open' if bad else 'canonical/deployment/IV&V boundaries closed',ref)
 def doc(root,i,a,rel,marks):
     p=root/rel
     if not p.is_file():return R(i,a,CheckStatus.HOLD,'required document missing',rel)
@@ -107,6 +141,7 @@ def inspect_repository(root:Path,*,inspection_id='IQC-AION-001',target_head='UNS
     if p.require_source_state_binding:c.append(source(root,target_head))
     c.append(tests(root,p))
     if p.require_current_coverage_evidence:c.append(coverage(root,target_head))
+    c.append(whole_system_semantics(root))
     if p.require_traceability:c.append(trace(root,target_head))
     if p.require_component_contracts:c.append(pkg(root))
     if p.require_qa_reconciliation:c.append(recon(root,target_head))
