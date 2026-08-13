@@ -260,7 +260,12 @@ def validate_event(
     expected_ref = pull.get("html_url")
     if base.get("ref") != "main":
         return GateResult("HOLD", ("target branch is not main",), base_evidence)
-    if not isinstance(expected_pr, int) or not isinstance(expected_head, str) or not isinstance(expected_ref, str):
+    if (
+        isinstance(expected_pr, bool)
+        or not isinstance(expected_pr, int)
+        or not isinstance(expected_head, str)
+        or not isinstance(expected_ref, str)
+    ):
         return GateResult(
             "HOLD",
             ("event target PR, exact head, or PR URL is missing",),

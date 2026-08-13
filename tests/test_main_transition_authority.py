@@ -226,3 +226,16 @@ def test_human_presence_claim_cannot_be_elevated() -> None:
     result = validate(event_for(record))
     assert result.status == "HOLD"
     assert any("human_presence_independently_verified" in item for item in result.diagnostics)
+
+
+
+def test_boolean_pull_request_number_fails_closed() -> None:
+    record = valid_receipt()
+    record["target_pr"] = True
+    event = event_for(record)
+    event["number"] = True
+
+    result = validate(event)
+
+    assert result.status == "HOLD"
+    assert any("target PR" in item for item in result.diagnostics)
