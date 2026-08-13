@@ -319,3 +319,23 @@ The unit produced 22 passing tests and 19 synthetic cases. A pinned policy was a
 | Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
 
 No source above establishes external-agent safety, provider/model quality, verified pass, scientific validity, identity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, or deployment.
+
+
+## Governed-tool-approval adversarial extension
+
+Manus added `research-labs/governed-tool-approval-adversarial_v0.1.0` as a clean-room, standard-library-only approval/disposition metadata audit extension. The Human Research Owner authorized the bounded research-only cycle and retains main, canonical, governance, and deployment authority. ChatGPT research review supplied the inherited scope, exclusions, and non-claim boundaries. Codex made no contribution to this unit. No GitHub Actions execution, private data, credentials, tool invocation, browser/computer action, external service, deployment, canonical write, or main write was used.
+
+The unit reuses `governed-tool-approval_v0.1.0` through stable repository source-path and crosswalk references. The transformation adds call identity and scope, rule outcome, sandbox readiness, argument mutation, execution-request, batch integrity, approval-event-only, and canonical-effect checks. Existing policy semantics and any historical tool-oriented material are not counted as new evidence; the 20 synthetic cases are not replication evidence.
+
+The unit produced 21 passing tests and 20 synthetic disposition/batch cases. Approval remained separate from execution; rejected/terminated/unmatched calls were held, executable tools without a sandbox were held, execution requests were invalid, and valid approval/batches remained review metadata only. Every output preserved `TOOL_EXECUTION = FALSE`, `MODEL_EXECUTION = FALSE`, `OBSERVED_RESULT = NOT_EVALUATED`, `APPROVAL_EVENT_ONLY = TRUE`, `SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED`, `SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED`, `CANONICAL_EFFECT = NONE`, `GOVERNANCE_EFFECT = NONE`, and `DEPLOYMENT = FALSE`.
+
+### Source attribution matrix
+
+| What | Who | Where | When | Method | Authority | Transformation | Current/stale status |
+|---|---|---|---|---|---|---|---|
+| Approval decisions, calls, rules, sandbox and disposition semantics | Manus, reviewed under ChatGPT research scope | Repository path `research-labs/governed-tool-approval_v0.1.0/src/aion_tool_approval/policy.py` | Inherited branch research lineage; exact new state bound by later QA receipt | Read-only source inspection and clean-room composition | Repository Evidence; Human Owner retains authority | Added approval/disposition adversarial audit; no tool invocation | Current within verified research lineage at the unit commit; not an external freshness claim |
+| Existing README and external-source crosswalk | Manus | `research-labs/governed-tool-approval_v0.1.0/README.md` and `docs/EXTERNAL_SOURCE_CROSSWALK.md` | Existing prior-unit record; no re-dating here | Methodological reuse | Repository Evidence / External Literature references already recorded | Reused approval/execution and sandbox vocabulary only | Current within branch lineage; external currentness not newly asserted |
+| Synthetic disposition decisions | Manus | `research-labs/governed-tool-approval-adversarial_v0.1.0/fixtures/approval_adversarial_result.json` | Generated and validated 2026-08-13 | Standard-library Python policy construction and audit execution | Synthetic Fixtures; no authority to execute tools | Declared call/disposition metadata mapped to ADMITTED/HOLD/INVALID reason codes | Current as fixture content bound to the research commit; not a runtime observation |
+| Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
+
+No source above establishes tool safety, sandbox safety, verified execution, model quality, scientific validity, identity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, or deployment.
