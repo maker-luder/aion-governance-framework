@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "adcdf464d42454230d0cf80c2f9d22c16bee5522",
+  "target_head": "3410bb06e7fc99a5cc19e9cf67134d3d9471f51a",
   "summary": {
-    "eligible_target_count": 67,
-    "tested_target_count": 64,
+    "eligible_target_count": 68,
+    "tested_target_count": 65,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 1171,
+    "total_passed": 1192,
     "total_failed": 0
   },
   "targets": [
@@ -39,7 +39,7 @@
       "passed": 5,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....                                                                    [100%]\n5 passed in 0.08s\n"
+      "output": ".....                                                                    [100%]\n5 passed in 0.06s\n"
     },
     {
       "target": "components/astra_workbench_v1.0.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=46173) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.54s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=47921) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.49s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -290,6 +290,16 @@
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
       "output": "..............                                                           [100%]\n14 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/evidence-currentness-deduplication_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 21,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": ".....................                                                    [100%]\n21 passed in 0.01s\n"
     },
     {
       "target": "research-labs/evidence-responsive-governance-reassessment_v0.1.0",

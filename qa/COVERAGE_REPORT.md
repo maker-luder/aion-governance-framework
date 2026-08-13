@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `adcdf464d42454230d0cf80c2f9d22c16bee5522`. Coverage was measured with branch coverage enabled for 64 targets.
+Target head: `3410bb06e7fc99a5cc19e9cf67134d3d9471f51a`. Coverage was measured with branch coverage enabled for 65 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -32,6 +32,7 @@ Target head: `adcdf464d42454230d0cf80c2f9d22c16bee5522`. Coverage was measured w
 | `research-labs/cross-lineage-memory-contamination_v0.1.0` | 90% | 0 |
 | `research-labs/embodiment-continuity-anchor_v0.1.0` | 89% | 0 |
 | `research-labs/evidence-admission-nonpromotion_v0.1.0` | 99% | 0 |
+| `research-labs/evidence-currentness-deduplication_v0.1.0` | 92% | 0 |
 | `research-labs/evidence-responsive-governance-reassessment_v0.1.0` | 80% | 0 |
 | `research-labs/external-agent-sandbox-protocol_v0.1.0` | 81% | 0 |
 | `research-labs/external-evidence-normalization_v0.1.0` | 93% | 0 |
