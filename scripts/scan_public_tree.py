@@ -9,7 +9,7 @@ PROHIBITED_SUFFIXES = {".zip", ".whl", ".sqlite3", ".db", ".pyc"}
 GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "build", "dist"}
 PATH_PATTERNS = [
     re.compile(r"[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+", re.I),
-    re.compile(r"/home/[A-Za-z0-9._-]+/"),
+    re.compile(r"^/home/[A-Za-z0-9._-]+(?:/|$)"),
 ]
 SECRET_PATTERNS = [
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
@@ -17,12 +17,20 @@ SECRET_PATTERNS = [
     re.compile(r"sk-[A-Za-z0-9]{20,}"),
 ]
 
+
+def _is_generated(path: Path) -> bool:
+    return (
+        any(part in GENERATED_PARTS or part.endswith(".egg-info") for part in path.parts)
+        or path.name == ".coverage"
+    )
+
+
 def scan_root(root: Path = ROOT) -> list[str]:
     errors: list[str] = []
     for path in root.rglob("*"):
         if not path.is_file() or ".git" in path.parts:
             continue
-        if any(part in GENERATED_PARTS for part in path.parts):
+        if _is_generated(path):
             continue
         rel = path.relative_to(root).as_posix()
         if rel == "scripts/scan_public_tree.py":
