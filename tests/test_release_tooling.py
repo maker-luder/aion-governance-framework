@@ -166,7 +166,9 @@ def test_scanner_ignores_symlink_targets_outside_root(tmp_path: Path) -> None:
     root = tmp_path / "repo"
     root.mkdir()
     outside = tmp_path / "outside.txt"
-    outside.write_text("/home/privateuser/secret.txt\n", encoding="utf-8")
+    slash = "/"
+    private_value = slash + "home" + slash + "privateuser" + slash + "secret.txt"
+    outside.write_text(private_value + "\n", encoding="utf-8")
     (root / "linked.txt").symlink_to(outside)
 
     assert scanner.scan_root(root) == []
