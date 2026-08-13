@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "43aeee20ba9c642af55d30405f5b39f1e86129c9",
+  "target_head": "7ccbcc4e948376ed2779a41a5bf062714f53dd96",
   "summary": {
-    "eligible_target_count": 64,
-    "tested_target_count": 61,
+    "eligible_target_count": 65,
+    "tested_target_count": 62,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 1105,
+    "total_passed": 1128,
     "total_failed": 0
   },
   "targets": [
@@ -49,7 +49,7 @@
       "passed": 89,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.12s\n"
+      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.13s\n"
     },
     {
       "target": "components/continuity_governance_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=37902) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.50s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=40817) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.49s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -179,7 +179,7 @@
       "passed": 82,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.17s\n"
+      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.18s\n"
     },
     {
       "target": "research-labs/affective-cognitive-motivation_v0.1.0",
@@ -650,6 +650,16 @@
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
       "output": "................                                                         [100%]\n16 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/zero-day-governance-candidate_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 23,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": ".......................                                                  [100%]\n23 passed in 0.01s\n"
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `43aeee20ba9c642af55d30405f5b39f1e86129c9`. This report is generated from the current component runner output.
+Target head: `7ccbcc4e948376ed2779a41a5bf062714f53dd96`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -68,5 +68,6 @@ Target head: `43aeee20ba9c642af55d30405f5b39f1e86129c9`. This report is generate
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 | `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
+| `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1105 passed across 64 targets; failed targets: 0.
+**Total:** 1128 passed across 65 targets; failed targets: 0.
