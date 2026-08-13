@@ -1,0 +1,569 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "selective-memory-control-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 29,
+  "records": [
+    {
+      "case_id": "valid-record",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "MEMORY_RECORD_REVIEW_METADATA_ONLY",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "missing-field",
+      "decision": {
+        "status": "INVALID",
+        "reason": "MEMORY_FIELD_MISSING",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "timezone-invalid",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CREATED_AT_TIMEZONE_INVALID",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "revision-zero",
+      "decision": {
+        "status": "INVALID",
+        "reason": "REVISION_INVALID",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "initial-supersedes",
+      "decision": {
+        "status": "INVALID",
+        "reason": "INITIAL_RECORD_CANNOT_SUPERSEDE",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "revision-parent-missing",
+      "decision": {
+        "status": "INVALID",
+        "reason": "REVISION_PARENT_MISSING",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "non-active-record",
+      "decision": {
+        "status": "HOLD",
+        "reason": "NON_ACTIVE_MEMORY_NOT_CONTEXT_ELIGIBLE",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "empty-store",
+      "decision": {
+        "status": "HOLD",
+        "reason": "MEMORY_STORE_EMPTY",
+        "record_count": 0,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "duplicate-memory-id",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_MEMORY_ID",
+        "record_count": 2,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "revision-parent-not-found",
+      "decision": {
+        "status": "INVALID",
+        "reason": "REVISION_PARENT_NOT_FOUND",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "revision-scope-drift",
+      "decision": {
+        "status": "INVALID",
+        "reason": "REVISION_SCOPE_DRIFT",
+        "record_count": 2,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "revision-number-drift",
+      "decision": {
+        "status": "INVALID",
+        "reason": "REVISION_NUMBER_DRIFT",
+        "record_count": 2,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "source-reference-reuse",
+      "decision": {
+        "status": "HOLD",
+        "reason": "SOURCE_REF_REUSE_REQUIRES_REVIEW",
+        "record_count": 2,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "discarded-retained",
+      "decision": {
+        "status": "HOLD",
+        "reason": "DISCARDED_MEMORY_RETAINED_OUTSIDE_CONTEXT",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "valid-revision-chain",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "MEMORY_STORE_REVIEW_METADATA_ONLY",
+        "record_count": 2,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "valid-lineage",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "MEMORY_LINEAGE_REVIEW_METADATA_ONLY",
+        "record_count": 2,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "missing-lineage-id",
+      "decision": {
+        "status": "INVALID",
+        "reason": "MEMORY_ID_NOT_FOUND",
+        "record_count": 0,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "valid-retrieval",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "RETRIEVAL_TRACE_REVIEW_METADATA_ONLY",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "retrieval-scope-missing",
+      "decision": {
+        "status": "INVALID",
+        "reason": "RETRIEVAL_SCOPE_MISSING",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "considered-duplicate",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_CONSIDERED_ID",
+        "record_count": 1,
+        "considered_count": 2,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "blocked-duplicate",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_BLOCKED_ID",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "considered-blocked-overlap",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CONSIDERED_BLOCKED_OVERLAP",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 0,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "non-active-hit",
+      "decision": {
+        "status": "INVALID",
+        "reason": "NON_ACTIVE_MEMORY_RETURNED",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "hit-not-considered",
+      "decision": {
+        "status": "INVALID",
+        "reason": "HIT_NOT_CONSIDERED",
+        "record_count": 1,
+        "considered_count": 0,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "hit-scope-mismatch",
+      "decision": {
+        "status": "INVALID",
+        "reason": "HIT_SCOPE_MISMATCH",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "hit-score-invalid",
+      "decision": {
+        "status": "INVALID",
+        "reason": "HIT_SCORE_OR_TERMS_INVALID",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "hit-terms-empty",
+      "decision": {
+        "status": "INVALID",
+        "reason": "HIT_SCORE_OR_TERMS_INVALID",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "hit-order-invalid",
+      "decision": {
+        "status": "INVALID",
+        "reason": "HIT_ORDER_INVALID",
+        "record_count": 2,
+        "considered_count": 2,
+        "hit_count": 2,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "hit-record-not-found",
+      "decision": {
+        "status": "INVALID",
+        "reason": "HIT_RECORD_NOT_FOUND",
+        "record_count": 1,
+        "considered_count": 1,
+        "hit_count": 1,
+        "authority": "REVIEW_METADATA_ONLY",
+        "memory_truth": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    }
+  ],
+  "memory_store_execution": false,
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "memory_truth": "NOT_ESTABLISHED",
+  "identity_continuity": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "authority": "REVIEW_METADATA_ONLY",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
