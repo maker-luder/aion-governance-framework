@@ -123,3 +123,12 @@ An eleventh deferred gap was materialized as `research-labs/independent-replicat
 The 13 unit tests and eight synthetic cases passed. Complete same-artifact and complete independent-recreation manifests were only `ADMISSIBLE_FOR_REPLICATION_REVIEW`. Missing dependency, restricted access, license conflict, same-team independence, source-artifact execution collision, and missing recreation source reference returned `HOLD`/`INDETERMINATE`/`INVALID`. `replication_executed = false`, `replication_result = NOT_EVALUATED`, `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, and `deployment = false`.
 
 This result demonstrates only that the handoff manifest contract detects declared completeness and contradiction patterns. It does not establish reproducibility, replicability, scientific validity, artifact usability in a real receiving environment, subjectivity, identity continuity, consciousness, or AION/Astra equivalence.
+
+
+## Matched-divergence protocol-integrity extension
+
+A twelfth deferred gap was materialized as `research-labs/matched-divergence-protocol-integrity_v0.1.0`. The design-only contract checks paired stimulus/context/prompt metadata, positive and equal exposure budgets, declared order/counterbalance, outcome/evaluator sealing, leakage attestation, distinct system references, predeclared comparison/stopping rules, and explicit execution prohibition.
+
+The 15 unit tests and eight synthetic cases passed after hardening an initial contract gap. The first run accepted prompt-version drift because it checked field presence but not uniformity; the corrected contract returns `INVALID / STIMULUS_PROMPT_VERSION_DRIFT`. It also returns `INDETERMINATE / COUNTERBALANCE_INCOMPLETE` for one-sided paired order. Final cases were complete paired, complete blocked, prompt drift, unequal exposure, unsealed evaluator, observed-result leakage, system collision, and no stimulus pairs. Complete protocols were only `ADMISSIBLE_FOR_MATCHED_COMPARISON_REVIEW`; no model executed and no result was observed.
+
+This is a deterministic metadata mechanism check, not evidence of divergence, agreement, fairness, subjectivity, identity continuity, consciousness, AION/Astra equivalence, or real-model performance.

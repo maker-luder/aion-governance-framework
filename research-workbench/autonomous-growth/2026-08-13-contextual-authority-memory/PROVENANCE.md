@@ -128,3 +128,14 @@ Additional external sources:
 20. The Turing Way, [Definitions](https://book.the-turing-way.org/reproducible-research/overview/overview-definitions/).
 21. GO FAIR, [FAIR Principles](https://www.go-fair.org/fair-principles/).
 22. World Bank, [Reproducibility Package Checklist](https://worldbank.github.io/wb-reproducible-research-repository/reproducibility_package_checklist.html).
+
+
+## Matched-divergence protocol-integrity extension
+
+Manus added `research-labs/matched-divergence-protocol-integrity_v0.1.0` as a clean-room, standard-library-only design-only contract. It checks paired stimulus/context/prompt metadata, exposure parity, counterbalance, evaluator sealing, outcome leakage, distinct system references, comparison/stopping declarations, and execution prohibition. It does not execute real models or systems, access private data, observe outcomes, calculate divergence, write canonical state, deploy, or modify main.
+
+The design was informed by NIST's randomized-block design guidance, especially blocking important nuisance factors and randomizing what cannot be controlled. The source is methodological only; the contract does not estimate nuisance effects or validate a matched-divergence result. The initial prompt-version drift gap is preserved in `matched-divergence-initial-gap.md` and was corrected before the final test/experiment gate.
+
+Additional external source:
+
+23. NIST Engineering Statistics Handbook, [Randomized block designs](https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm).
