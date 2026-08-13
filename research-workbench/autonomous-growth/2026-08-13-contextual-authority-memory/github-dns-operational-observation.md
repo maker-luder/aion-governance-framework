@@ -37,3 +37,8 @@ SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED
 ## Full-authority QA checkpoint
 
 At the next coherent research checkpoint, local `HEAD = 3f7970dd48f70eff47a2a69aac6540ef12d835fa` was verified as a descendant of remote-tracking research `3d315c0f3ec5e6948a5e6daf88a612fd2f6ffc4c`, and local `main = 4b36077993fabb22bf04e06162ea83c623bbb7e6` was verified as an ancestor. No force-push or reconciliation was needed. The push then failed again before any remote write with the same GitHub hostname-resolution error. The research workflow continues locally; no tight-loop retry is being made.
+
+
+## Preregistration-integrity QA checkpoint
+
+At the preregistration-integrity checkpoint, local `HEAD = 76854d541ca0672c71d26c20c150c708d3629917` was verified as a descendant of remote-tracking research `313f89864bd699b3c60765bb929d20ff6a7a2ca9`, and local `main = 4b36077993fabb22bf04e06162ea83c623bbb7e6` was verified as an ancestor. The push failed before any remote write with the same GitHub hostname-resolution error. No tight-loop retry is being made; local commits remain preserved and the next research unit may continue.
