@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `50966ea5d3de36d0bd6f16f297c067eb0653d22d`. This report is generated from the current component runner output.
+Target head: `0c8f37d387c0b5ca02e38e659744c577324ce691`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -57,6 +57,7 @@ Target head: `50966ea5d3de36d0bd6f16f297c067eb0653d22d`. This report is generate
 | `research-labs/integration-candidates` | 0 | 0 |
 | `research-labs/language-core-g1_v0.2.1` | 95 | 0 |
 | `research-labs/matched-divergence-protocol-integrity_v0.1.0` | 15 | 0 |
+| `research-labs/power-analysis-uncertainty-adversarial_v0.1.0` | 20 | 0 |
 | `research-labs/power-analysis-uncertainty_v0.1.0` | 12 | 0 |
 | `research-labs/preregistered-intervention-integrity-adversarial_v0.1.0` | 24 | 0 |
 | `research-labs/preregistered-intervention-integrity_v0.1.0` | 16 | 0 |
@@ -85,4 +86,4 @@ Target head: `50966ea5d3de36d0bd6f16f297c067eb0653d22d`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1461 passed across 80 targets; failed targets: 0.
+**Total:** 1481 passed across 81 targets; failed targets: 0.
