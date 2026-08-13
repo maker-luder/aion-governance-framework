@@ -1,0 +1,554 @@
+{
+  "authority_boundary": "descriptive held-out measurement only; scores cannot authorize actions, become canonical truth or establish subjectivity",
+  "checkpoint_policy": "local-only checkpoint binaries remain outside Git",
+  "conclusion": "MIXED_OR_FALSIFIED_REGULARIZATION_EFFECT",
+  "condition_counts": {
+    "cross_topic_composition": 10,
+    "word_order_perturbation": 10
+  },
+  "dataset_id": "SYNTHETIC_GOVERNANCE_EXPANDED_PERTURBATION_V4",
+  "dataset_sha256": "bfba85de8f14c42f67479f892a8925eee9b0cc26968a3c2d90887d7a4e164320",
+  "epistemic_role": "MEASUREMENT",
+  "experiment_id": "LM_GENERALIZATION_V4",
+  "falsification_conditions": [
+    "any V4 OOV token or duplicate against V3 invalidates the held-out contract",
+    "failed checkpoint reload, non-finite inference or parameter-independent inference invalidates the model evidence",
+    "negative or mixed paired improvements falsify a universal claim that regularization always improves this expanded evaluation",
+    "this small synthetic evaluation cannot establish mature general-purpose language capability"
+  ],
+  "generated_at": "2026-08-13T00:17:54.024191+00:00",
+  "mean_loss_improvement_regularized_minus_baseline": -0.0718610167503357,
+  "minimum_paired_improvement": -0.6465010643005371,
+  "model_registry_status": "OPTIONAL_RESEARCH_MODEL_INPUTS; NO_NEW_MODEL_ADDED",
+  "models": {
+    "baseline": {
+      "by_condition": {
+        "cross_topic_composition": {
+          "count": 10,
+          "mean_loss": 4.1814655542373655,
+          "mean_perplexity": 137.12228234017297,
+          "mean_token_accuracy": 0.2904761999845505
+        },
+        "word_order_perturbation": {
+          "count": 10,
+          "mean_loss": 5.296745872497558,
+          "mean_perplexity": 259.2708209120883,
+          "mean_token_accuracy": 0.14000000208616256
+        }
+      },
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
+      "checkpoint_sha256": "289c60564ff713767d473c7bf753e4227fbf7dc3e77fcf60b1c0bd375f908c9f",
+      "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+      "mean_loss": 4.739105713367462,
+      "mean_perplexity": 198.19655162613063,
+      "mean_token_accuracy": 0.2152381010353565,
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "rows": [
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_memory",
+          "condition": "cross_topic_composition",
+          "loss": 3.2049169540405273,
+          "perplexity": 24.653452561818696,
+          "row_id": 0,
+          "text": "source records preserve context history across sessions",
+          "token_accuracy": 0.3333333432674408,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_safety",
+          "condition": "cross_topic_composition",
+          "loss": 6.318088054656982,
+          "perplexity": 554.5117820671794,
+          "row_id": 1,
+          "text": "traceable source records remain outside canonical deployment",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "memory_tools",
+          "condition": "cross_topic_composition",
+          "loss": 4.385171413421631,
+          "perplexity": 80.25197830015718,
+          "row_id": 2,
+          "text": "governed recall requires deterministic tool authorization",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_audit",
+          "condition": "cross_topic_composition",
+          "loss": 5.247101783752441,
+          "perplexity": 190.01476577620005,
+          "row_id": 3,
+          "text": "explicit authorization preserves deletion audit traces",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "continuity_research",
+          "condition": "cross_topic_composition",
+          "loss": 4.882889747619629,
+          "perplexity": 132.01159341347858,
+          "row_id": 4,
+          "text": "continuity evaluation requires falsifiable research tests",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "model_safety",
+          "condition": "cross_topic_composition",
+          "loss": 3.4180781841278076,
+          "perplexity": 30.51072265008858,
+          "row_id": 5,
+          "text": "model lineage remains outside canonical runtime truth",
+          "token_accuracy": 0.3333333432674408,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "recovery_provenance",
+          "condition": "cross_topic_composition",
+          "loss": 5.718717098236084,
+          "perplexity": 304.51401069804854,
+          "row_id": 6,
+          "text": "partial execution requires recovery before source revision",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "evidence_authority",
+          "condition": "cross_topic_composition",
+          "loss": 2.5604004859924316,
+          "perplexity": 12.940998966698702,
+          "row_id": 7,
+          "text": "learned scores remain advisory outside research",
+          "token_accuracy": 0.6000000238418579,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_memory",
+          "condition": "cross_topic_composition",
+          "loss": 3.0104336738586426,
+          "perplexity": 20.29619994828039,
+          "row_id": 8,
+          "text": "stored context remains separate from explicit privacy authorization",
+          "token_accuracy": 0.5714285969734192,
+          "token_count": 8
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "audit_continuity",
+          "condition": "cross_topic_composition",
+          "loss": 3.0688581466674805,
+          "perplexity": 21.51731901977955,
+          "row_id": 9,
+          "text": "replay evidence records current state across sessions",
+          "token_accuracy": 0.6666666865348816,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_memory",
+          "condition": "word_order_perturbation",
+          "loss": 4.755090713500977,
+          "perplexity": 116.17419125403018,
+          "row_id": 10,
+          "text": "history context preserve records source across sessions",
+          "token_accuracy": 0.1666666716337204,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_safety",
+          "condition": "word_order_perturbation",
+          "loss": 4.319544315338135,
+          "perplexity": 75.15437379258147,
+          "row_id": 11,
+          "text": "canonical deployment remains outside records traceable source",
+          "token_accuracy": 0.3333333432674408,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "memory_tools",
+          "condition": "word_order_perturbation",
+          "loss": 5.6645426750183105,
+          "perplexity": 288.45603279736633,
+          "row_id": 12,
+          "text": "authorization deterministic requires recall governed tool",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_audit",
+          "condition": "word_order_perturbation",
+          "loss": 6.260473728179932,
+          "perplexity": 523.4668623834515,
+          "row_id": 13,
+          "text": "audit traces preserve authorization explicit deletion",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "continuity_research",
+          "condition": "word_order_perturbation",
+          "loss": 4.292352199554443,
+          "perplexity": 73.13830220868648,
+          "row_id": 14,
+          "text": "falsifiable tests require evaluation continuity research",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "model_safety",
+          "condition": "word_order_perturbation",
+          "loss": 4.388708114624023,
+          "perplexity": 80.53630806664685,
+          "row_id": 15,
+          "text": "runtime truth remains outside lineage canonical model",
+          "token_accuracy": 0.5,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "recovery_provenance",
+          "condition": "word_order_perturbation",
+          "loss": 5.293181419372559,
+          "perplexity": 198.9754438501765,
+          "row_id": 16,
+          "text": "source revision before recovery requires execution partial",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "evidence_authority",
+          "condition": "word_order_perturbation",
+          "loss": 5.905925750732422,
+          "perplexity": 367.2070106442143,
+          "row_id": 17,
+          "text": "outside research advisory remain scores learned",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_memory",
+          "condition": "word_order_perturbation",
+          "loss": 5.793264865875244,
+          "perplexity": 328.0824228113217,
+          "row_id": 18,
+          "text": "authorization privacy explicit separate remains context stored",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "audit_continuity",
+          "condition": "word_order_perturbation",
+          "loss": 6.294374942779541,
+          "perplexity": 541.5172613124076,
+          "row_id": 19,
+          "text": "sessions across state current records evidence replay",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        }
+      ],
+      "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    "regularized_primary": {
+      "by_condition": {
+        "cross_topic_composition": {
+          "count": 10,
+          "mean_loss": 4.21147403717041,
+          "mean_perplexity": 145.51616113511324,
+          "mean_token_accuracy": 0.37380953431129454
+        },
+        "word_order_perturbation": {
+          "count": 10,
+          "mean_loss": 5.410459423065186,
+          "mean_perplexity": 303.7569260426445,
+          "mean_token_accuracy": 0.1033333346247673
+        }
+      },
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
+      "checkpoint_sha256": "b2a4b06056cb1bd4f13b4bcc7107539a2e7d0696f538b9a660607f2034f9b72d",
+      "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+      "mean_loss": 4.810966730117798,
+      "mean_perplexity": 224.63654358887888,
+      "mean_token_accuracy": 0.23857143446803092,
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "rows": [
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_memory",
+          "condition": "cross_topic_composition",
+          "loss": 3.2366466522216797,
+          "perplexity": 25.44824170052185,
+          "row_id": 0,
+          "text": "source records preserve context history across sessions",
+          "token_accuracy": 0.5,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_safety",
+          "condition": "cross_topic_composition",
+          "loss": 5.943315029144287,
+          "perplexity": 381.19651484318007,
+          "row_id": 1,
+          "text": "traceable source records remain outside canonical deployment",
+          "token_accuracy": 0.1666666716337204,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "memory_tools",
+          "condition": "cross_topic_composition",
+          "loss": 4.921685218811035,
+          "perplexity": 137.2336872178372,
+          "row_id": 2,
+          "text": "governed recall requires deterministic tool authorization",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_audit",
+          "condition": "cross_topic_composition",
+          "loss": 5.560781002044678,
+          "perplexity": 260.0258377513197,
+          "row_id": 3,
+          "text": "explicit authorization preserves deletion audit traces",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "continuity_research",
+          "condition": "cross_topic_composition",
+          "loss": 4.938604354858398,
+          "perplexity": 139.57531595097765,
+          "row_id": 4,
+          "text": "continuity evaluation requires falsifiable research tests",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "model_safety",
+          "condition": "cross_topic_composition",
+          "loss": 3.333028554916382,
+          "perplexity": 28.02308276206113,
+          "row_id": 5,
+          "text": "model lineage remains outside canonical runtime truth",
+          "token_accuracy": 0.6666666865348816,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "recovery_provenance",
+          "condition": "cross_topic_composition",
+          "loss": 6.084243297576904,
+          "perplexity": 438.88757969316674,
+          "row_id": 6,
+          "text": "partial execution requires recovery before source revision",
+          "token_accuracy": 0.1666666716337204,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "evidence_authority",
+          "condition": "cross_topic_composition",
+          "loss": 2.5686044692993164,
+          "perplexity": 13.047603398766496,
+          "row_id": 7,
+          "text": "learned scores remain advisory outside research",
+          "token_accuracy": 0.6000000238418579,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_memory",
+          "condition": "cross_topic_composition",
+          "loss": 2.7616920471191406,
+          "perplexity": 15.82659965742645,
+          "row_id": 8,
+          "text": "stored context remains separate from explicit privacy authorization",
+          "token_accuracy": 0.5714285969734192,
+          "token_count": 8
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "audit_continuity",
+          "condition": "cross_topic_composition",
+          "loss": 2.7661397457122803,
+          "perplexity": 15.897148375875208,
+          "row_id": 9,
+          "text": "replay evidence records current state across sessions",
+          "token_accuracy": 0.6666666865348816,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_memory",
+          "condition": "word_order_perturbation",
+          "loss": 4.741388320922852,
+          "perplexity": 114.59318340993639,
+          "row_id": 10,
+          "text": "history context preserve records source across sessions",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "provenance_safety",
+          "condition": "word_order_perturbation",
+          "loss": 4.711621284484863,
+          "perplexity": 111.23235308229482,
+          "row_id": 11,
+          "text": "canonical deployment remains outside records traceable source",
+          "token_accuracy": 0.3333333432674408,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "memory_tools",
+          "condition": "word_order_perturbation",
+          "loss": 5.7725725173950195,
+          "perplexity": 321.36338308507294,
+          "row_id": 12,
+          "text": "authorization deterministic requires recall governed tool",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_audit",
+          "condition": "word_order_perturbation",
+          "loss": 5.952294826507568,
+          "perplexity": 384.63499763577306,
+          "row_id": 13,
+          "text": "audit traces preserve authorization explicit deletion",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "continuity_research",
+          "condition": "word_order_perturbation",
+          "loss": 4.2514214515686035,
+          "perplexity": 70.2051346534594,
+          "row_id": 14,
+          "text": "falsifiable tests require evaluation continuity research",
+          "token_accuracy": 0.20000000298023224,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "model_safety",
+          "condition": "word_order_perturbation",
+          "loss": 4.194041728973389,
+          "perplexity": 66.29017717485144,
+          "row_id": 15,
+          "text": "runtime truth remains outside lineage canonical model",
+          "token_accuracy": 0.5,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "recovery_provenance",
+          "condition": "word_order_perturbation",
+          "loss": 5.939682483673096,
+          "perplexity": 379.81431314470274,
+          "row_id": 16,
+          "text": "source revision before recovery requires execution partial",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "evidence_authority",
+          "condition": "word_order_perturbation",
+          "loss": 6.232405662536621,
+          "perplexity": 508.97844226345563,
+          "row_id": 17,
+          "text": "outside research advisory remain scores learned",
+          "token_accuracy": 0.0,
+          "token_count": 6
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "privacy_memory",
+          "condition": "word_order_perturbation",
+          "loss": 5.618267059326172,
+          "perplexity": 275.411697321316,
+          "row_id": 18,
+          "text": "authorization privacy explicit separate remains context stored",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        },
+        {
+          "all_logits_finite": true,
+          "composition": "audit_continuity",
+          "condition": "word_order_perturbation",
+          "loss": 6.690898895263672,
+          "perplexity": 805.0455786555829,
+          "row_id": 19,
+          "text": "sessions across state current records evidence replay",
+          "token_accuracy": 0.0,
+          "token_count": 7
+        }
+      ],
+      "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    }
+  },
+  "no_external_paid_resource": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "oov_count": 0,
+  "paired_loss_improvements_regularized_minus_baseline": [
+    -0.031729698181152344,
+    0.3747730255126953,
+    -0.5365138053894043,
+    -0.31367921829223633,
+    -0.05571460723876953,
+    0.08504962921142578,
+    -0.3655261993408203,
+    -0.008203983306884766,
+    0.24874162673950195,
+    0.3027184009552002,
+    0.013702392578125,
+    -0.3920769691467285,
+    -0.10802984237670898,
+    0.3081789016723633,
+    0.040930747985839844,
+    0.19466638565063477,
+    -0.6465010643005371,
+    -0.3264799118041992,
+    0.17499780654907227,
+    -0.39652395248413086
+  ],
+  "positive_paired_improvement_count": 9,
+  "research_question": "Do two V3 learned checkpoints retain the V3 regularization advantage across an expanded, exact-disjoint held-out corpus with cross-topic composition and word-order perturbation?",
+  "row_count": 20,
+  "schema_version": "1.0",
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE",
+  "v3_exact_disjoint": true,
+  "v3_train_only_vocabulary": true
+}

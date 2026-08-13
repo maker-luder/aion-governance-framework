@@ -52,6 +52,14 @@ The paired compositional held-out result provides **preliminary support** in thi
 
 V3 remains `PARTIALLY_COMPLETE`, not complete. The corpus is synthetic, the test set is small, and the evaluation still does not establish robust out-of-distribution generalization, broad language capability or a mature general-purpose AION foundation model. The checkpoints are `OPTIONAL_RESEARCH_MODEL` artifacts, remain outside the formal model registry and remain local-only. The result cannot authorize actions, convert scores into authority, bypass governance gates or establish subjectivity, identity or phenomenal status.
 
+## LM_GENERALIZATION_V4 research result
+
+The expanded follow-up evaluated 20 new exact-disjoint held-out rows from the V3 train-only vocabulary: 10 cross-topic compositions and 10 word-order perturbations. OOV count was zero, no V3 row was duplicated, and both V3 local checkpoints were clean-process reloaded with finite, parameter-dependent inference.
+
+V4 produced a **mixed/falsified regularization result** rather than repeating the V2/V3 positive pattern. The regularized checkpoint improved loss on 9 of 20 paired rows, while the mean paired improvement was `-0.0718610167503357` and the minimum paired improvement was `-0.6465010643005371`. The evidence therefore falsifies a universal claim that the regularized recipe improves every expanded held-out condition. Full evidence is in `engineering/generalization/evidence/LM_GENERALIZATION_V4_RESULTS.json`, `LM_GENERALIZATION_V4_VALIDATION.json` and `GENERALIZATION_PERTURBATION_V4_DATASET_REGISTRY.json`.
+
+V4 remains `PARTIALLY_COMPLETE` under GAP-002. It strengthens the limitation record: small fixed synthetic V2/V3 support does not automatically generalize to expanded composition and word-order perturbation. The result does not establish robust out-of-distribution generalization, broad language capability, mature general-purpose usability, identity, subjectivity or phenomenal status. The checkpoints remain optional local research inputs and are not added to the formal model registry.
+
 ## Governance locks
 
 ```text

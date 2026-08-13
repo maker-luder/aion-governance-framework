@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "condition_counts_match": true,
+    "exact_disjoint_rows": true,
+    "model_checks_pass": true,
+    "no_external_paid_resource": true,
+    "no_new_model_added": true,
+    "no_private_data": true,
+    "paired_improvement_contract": true,
+    "row_count_matches": true,
+    "v3_train_only_vocabulary": true
+  },
+  "device": "cpu",
+  "experiment_id": "LM_GENERALIZATION_V4",
+  "models": [
+    {
+      "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
+      "checkpoint_exists": true,
+      "dataset_id_matches": true,
+      "finite_parameters": true,
+      "name": "baseline",
+      "parameter_count_matches": true,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256_matches": true
+    },
+    {
+      "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
+      "checkpoint_exists": true,
+      "dataset_id_matches": true,
+      "finite_parameters": true,
+      "name": "regularized_primary",
+      "parameter_count_matches": true,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256_matches": true
+    }
+  ],
+  "non_claim": "V4 held-out evaluation does not establish mature general-purpose language capability, identity, subjectivity or consciousness.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

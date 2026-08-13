@@ -1,0 +1,143 @@
+{
+  "allowed_use": "local research evaluation only",
+  "condition_counts": {
+    "cross_topic_composition": 10,
+    "word_order_perturbation": 10
+  },
+  "dataset_id": "SYNTHETIC_GOVERNANCE_EXPANDED_PERTURBATION_V4",
+  "dataset_sha256": "bfba85de8f14c42f67479f892a8925eee9b0cc26968a3c2d90887d7a4e164320",
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "no_external_data_ingestion": true,
+  "oov_tokens": [],
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "rows": [
+    {
+      "composition": "provenance_memory",
+      "condition": "cross_topic_composition",
+      "row_id": 0,
+      "text": "source records preserve context history across sessions"
+    },
+    {
+      "composition": "provenance_safety",
+      "condition": "cross_topic_composition",
+      "row_id": 1,
+      "text": "traceable source records remain outside canonical deployment"
+    },
+    {
+      "composition": "memory_tools",
+      "condition": "cross_topic_composition",
+      "row_id": 2,
+      "text": "governed recall requires deterministic tool authorization"
+    },
+    {
+      "composition": "privacy_audit",
+      "condition": "cross_topic_composition",
+      "row_id": 3,
+      "text": "explicit authorization preserves deletion audit traces"
+    },
+    {
+      "composition": "continuity_research",
+      "condition": "cross_topic_composition",
+      "row_id": 4,
+      "text": "continuity evaluation requires falsifiable research tests"
+    },
+    {
+      "composition": "model_safety",
+      "condition": "cross_topic_composition",
+      "row_id": 5,
+      "text": "model lineage remains outside canonical runtime truth"
+    },
+    {
+      "composition": "recovery_provenance",
+      "condition": "cross_topic_composition",
+      "row_id": 6,
+      "text": "partial execution requires recovery before source revision"
+    },
+    {
+      "composition": "evidence_authority",
+      "condition": "cross_topic_composition",
+      "row_id": 7,
+      "text": "learned scores remain advisory outside research"
+    },
+    {
+      "composition": "privacy_memory",
+      "condition": "cross_topic_composition",
+      "row_id": 8,
+      "text": "stored context remains separate from explicit privacy authorization"
+    },
+    {
+      "composition": "audit_continuity",
+      "condition": "cross_topic_composition",
+      "row_id": 9,
+      "text": "replay evidence records current state across sessions"
+    },
+    {
+      "composition": "provenance_memory",
+      "condition": "word_order_perturbation",
+      "row_id": 10,
+      "text": "history context preserve records source across sessions"
+    },
+    {
+      "composition": "provenance_safety",
+      "condition": "word_order_perturbation",
+      "row_id": 11,
+      "text": "canonical deployment remains outside records traceable source"
+    },
+    {
+      "composition": "memory_tools",
+      "condition": "word_order_perturbation",
+      "row_id": 12,
+      "text": "authorization deterministic requires recall governed tool"
+    },
+    {
+      "composition": "privacy_audit",
+      "condition": "word_order_perturbation",
+      "row_id": 13,
+      "text": "audit traces preserve authorization explicit deletion"
+    },
+    {
+      "composition": "continuity_research",
+      "condition": "word_order_perturbation",
+      "row_id": 14,
+      "text": "falsifiable tests require evaluation continuity research"
+    },
+    {
+      "composition": "model_safety",
+      "condition": "word_order_perturbation",
+      "row_id": 15,
+      "text": "runtime truth remains outside lineage canonical model"
+    },
+    {
+      "composition": "recovery_provenance",
+      "condition": "word_order_perturbation",
+      "row_id": 16,
+      "text": "source revision before recovery requires execution partial"
+    },
+    {
+      "composition": "evidence_authority",
+      "condition": "word_order_perturbation",
+      "row_id": 17,
+      "text": "outside research advisory remain scores learned"
+    },
+    {
+      "composition": "privacy_memory",
+      "condition": "word_order_perturbation",
+      "row_id": 18,
+      "text": "authorization privacy explicit separate remains context stored"
+    },
+    {
+      "composition": "audit_continuity",
+      "condition": "word_order_perturbation",
+      "row_id": 19,
+      "text": "sessions across state current records evidence replay"
+    }
+  ],
+  "schema_version": "1.0",
+  "source": "authored synthetic V4 rows in run_lm_generalization_v4_evaluation.py",
+  "split_method": "fixed authored held-out rows, exact-disjoint from V3, train-only tokenizer vocabulary",
+  "synthetic_real_classification": "SYNTHETIC",
+  "tokenizer_scope": "V3 train_only vocabulary",
+  "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+  "v3_registry_sha256": "3aee6632cfe0bf947d5060442913a1808255b2b21968e38e10cff02a25ec761e"
+}

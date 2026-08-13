@@ -60,8 +60,11 @@ resolved_items = [
             "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_RESULTS.json",
             "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_VALIDATION.json",
             "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_COMPOSITION_V3_DATASET_REGISTRY.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V4_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V4_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_PERTURBATION_V4_DATASET_REGISTRY.json",
         ],
-        "non_claim": "Preliminary support across two small synthetic experiments does not establish robust out-of-distribution generalization or mature general-purpose capability.",
+        "non_claim": "V2 and V3 show preliminary positive support but V4 is mixed/falsified for a universal regularization effect; the combined small synthetic evidence does not establish robust out-of-distribution generalization or mature general-purpose capability.",
     },
     {
         "id": "RES-006",
