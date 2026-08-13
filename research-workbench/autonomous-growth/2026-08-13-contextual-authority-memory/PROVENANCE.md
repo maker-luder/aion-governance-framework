@@ -150,3 +150,14 @@ The design was informed by the National Academies chapter on standards for synth
 Additional external source:
 
 24. National Academies, [Standards for Synthesizing the Body of Evidence](https://www.nationalacademies.org/read/13059/chapter/6).
+
+## Validated-individuation-thresholds extension
+
+Manus added `research-labs/validated-individuation-thresholds_v0.1.0` as a clean-room, standard-library-only audit contract for declared individuation criterion profiles. The implementation transforms public methodological concepts into explicit metadata checks: prospective locked thresholds, temporal windows, criterion/context matrices, cross-context stability, boundary perturbation plans, contradiction retention, and identity non-promotion. It does not execute AION/Astra, a perturbation, a model, or a real threshold validation.
+
+The design was informed by the information-theoretic treatment of individuality as potentially continuous, nested, and temporally integrative; the Stanford Encyclopedia discussion of plural and non-essentialist biological-individual concepts; the historical/relational identity distinction in scientific practice; and Center for Open Science preregistration guidance. These sources support methodological caution and protocol design only. They do not endorse AION/Astra terminology, establish digital individuality, or establish identity, subjectivity, consciousness, or deployment.
+
+25. Krakauer et al., [The information theory of individuality](https://pmc.ncbi.nlm.nih.gov/articles/PMC7244620/).
+26. Wilson and Barker, [The Biological Notion of Individual](https://plato.stanford.edu/archives/fall2016/entries/biology-individual/).
+27. Montévil and Mossio, [The Identity of Organisms in Scientific Practice: Integrating Historical and Relational Conceptions](https://pmc.ncbi.nlm.nih.gov/articles/PMC7311753/).
+28. Center for Open Science, [Choosing the Right Preregistration Template](https://www.cos.io/blog/choosing-the-right-preregistration-template-guide-for-researchers).

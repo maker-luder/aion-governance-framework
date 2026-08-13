@@ -141,3 +141,11 @@ A thirteenth bounded gap was materialized as `research-labs/evidence-admission-n
 The 14 unit tests and eight synthetic cases passed. Mechanism-only evidence was `ADMISSIBLE_FOR_REVIEW` only; consistent and divergent replication-support records were reviewable without automatic promotion or downgrade; divergent synthesis, indeterminate replication, missing provenance, contradiction references, and governance-effect requests were held or marked indeterminate. Every case retained `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, `deployment = false`, and `governance_effect = NONE`.
 
 This result is an evidence-metadata mechanism check, not a hierarchy-based truth ranking, causal claim, replication certificate, subjectivity conclusion, identity conclusion, consciousness conclusion, or AION/Astra equivalence claim. Contradictory evidence remains referenced rather than silently deleted.
+
+## Validated-individuation-thresholds extension
+
+A fourteenth bounded gap was materialized as `research-labs/validated-individuation-thresholds_v0.1.0`. The contract audits explicit criterion profiles without treating a criterion pass vector as a validated individuation or identity claim. It requires locked, prospectively ordered thresholds; declared observation windows; complete criterion/context/source metadata; cross-context coverage; and non-executed boundary-perturbation metadata.
+
+The 16 unit tests and eight synthetic cases passed after correcting one contract-ordering defect. The valid profile was `ADMISSIBLE_FOR_REVIEW` only. Post-hoc thresholds, registration-after-observation, executed perturbations, contradictory records, and identity requests were `HOLD`; cross-context instability and missing perturbation metadata were `INDETERMINATE`. The first failed test remains recorded in `individuation-thresholds-initial-failure.md`, and the corrected fixture remains reproducible.
+
+The result is a synthetic metadata mechanism check. It does not identify a real system boundary, validate a threshold scientifically, establish identity continuity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, deployment, or any conclusion about real runtime behavior.
