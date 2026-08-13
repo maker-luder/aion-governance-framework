@@ -359,3 +359,23 @@ The unit produced 26 passing tests and 25 synthetic trace/crosswalk cases. Valid
 | Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
 
 No source above establishes trace truth, authority, memory truth, evaluator validity, model generalization, scientific validity, identity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, or deployment.
+
+
+## Shared-origin-divergence governance adversarial extension
+
+Manus added `research-labs/shared-origin-divergence-governance-adversarial_v0.1.0` as a clean-room, standard-library-only lineage/evidence/comparison/authority metadata audit extension. The Human Research Owner authorized the bounded research-only cycle and retains main, canonical, governance, and deployment authority. ChatGPT research review supplied the inherited scope, exclusions, and non-claim boundaries. Codex made no contribution to this unit. No GitHub Actions execution, private data, credentials, runtime, model, memory transfer, authority merge, deployment, canonical write, or main write was used.
+
+The unit reuses `shared-origin-divergence-governance_v0.1.0` through stable repository source-path and test references. The transformation adds event sequence parent/order/cross-lineage checks, evidence-role reuse and counterevidence checks, comparison alternative-explanation checks, and bounded authority-envelope checks. Existing lineage/evidence/comparison records are not counted as new independent evidence; the 20 synthetic cases are not replication evidence.
+
+The unit produced 21 passing tests and 20 synthetic lineage/evidence/comparison/authority cases. Shared origin remained non-identity metadata, cross-lineage parents were held, reused evidence and missing counterevidence were held, under-specified comparisons were held, and authority remained bounded. Constructor boundary violations remained rejected. Every output preserved `MODEL_EXECUTION = FALSE`, `OBSERVED_RESULT = NOT_EVALUATED`, `SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED`, `SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED`, `MAIN_EFFECT = NONE`, `CANONICAL_EFFECT = NONE`, `RUNTIME_EFFECT = NONE`, `GOVERNANCE_EFFECT = NONE`, and `DEPLOYMENT = FALSE`.
+
+### Source attribution matrix
+
+| What | Who | Where | When | Method | Authority | Transformation | Current/stale status |
+|---|---|---|---|---|---|---|---|
+| Shared-origin/divergence lineage and authority contracts | Manus, reviewed under ChatGPT research scope | Repository path `research-labs/shared-origin-divergence-governance_v0.1.0/src/aion_shared_origin_divergence/model.py` | Inherited branch research lineage; exact new state bound by later QA receipt | Read-only source inspection and clean-room composition | Repository Evidence; Human Owner retains authority | Added event/evidence/comparison/authority adversarial audit; no runtime or memory transfer | Current within verified research lineage at the unit commit; not an external freshness claim |
+| Existing shared-origin tests/README | Manus | `research-labs/shared-origin-divergence-governance_v0.1.0/tests/` and `README.md` | Existing prior-unit record; no re-dating here | Methodological reuse | Repository Evidence | Reused non-claim and failure-boundary vocabulary only | Current within branch lineage; inherited records remain attributable to original unit |
+| Synthetic divergence decisions | Manus | `research-labs/shared-origin-divergence-governance-adversarial_v0.1.0/fixtures/divergence_adversarial_result.json` | Generated and validated 2026-08-13 | Standard-library Python fixture construction and audit execution | Synthetic Fixtures; no authority to establish identity or governance | Declared metadata mapped to ADMITTED/HOLD/INVALID reason codes | Current as fixture content bound to the research commit; not a runtime or identity observation |
+| Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
+
+No source above establishes shared-origin identity, identity continuity, subjectivity, consciousness, causal effect, model generalization, independent replication, AION/Astra equivalence, governance effect, canonical effect, or deployment.
