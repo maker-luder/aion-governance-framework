@@ -62,3 +62,9 @@ At the latest matched-divergence QA checkpoint, local `HEAD = 0b30677eac492d3c2c
 ## Matched-divergence latest gate checkpoint
 
 At the latest matched-divergence gate checkpoint, local `HEAD = 04c2e53f043843e9172c0a76aee9e8e6b2842213` was verified as a descendant of remote-tracking research `dc9b0e85b1604d637325228c82aa96559dc57c69`, and local `main = 4b36077993fabb22bf04e06162ea83c623bbb7e6` was verified as an ancestor. The push failed before any remote write because GitHub hostname resolution was unavailable. No tight-loop retry was made; local research commits remain preserved. This is an operational observation only and not evidence of a scientific conclusion.
+
+## Evidence-admission checkpoint — push authentication failure
+
+At the post-QA checkpoint for `evidence-admission-nonpromotion_v0.1.0`, local `HEAD = efa1369708f6731f915472f789b24b70b12f706e` and the cached remote research-branch reference was `dc9b0e85b1604d637325228c82aa96559dc57c69`. `git merge-base --is-ancestor` passed, confirming that local history was a safe descendant of the cached remote reference. A normal, non-force push was attempted and was rejected before remote write with `Invalid username or token. Password authentication is not supported for Git operations.` No force-push, merge, reset, rebase, main modification, or canonical effect occurred. Local commits remain preserved; retry only at a later reasonable checkpoint.
+
+This is an operational connectivity/authentication observation only. It is not evidence for or against any research hypothesis, and it does not establish a general conclusion about over-clarification, rigid formalism, no-idle compliance, or situated-authority inference.
