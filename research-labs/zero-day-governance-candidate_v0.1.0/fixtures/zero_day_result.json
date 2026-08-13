@@ -1,0 +1,334 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "zero-day-governance-candidate-synthetic-lifecycle-and-falsifiers",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 12,
+  "records": [
+    {
+      "case_id": "capture-unknown",
+      "case_type": "event",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "UNKNOWN_STATE_PRESERVED_FOR_REVIEW",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {
+          "time_to_capture_hours": 2.0,
+          "day0_24h_descriptive": 1.0
+        },
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "full-lifecycle-review",
+      "case_type": "event",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "UNKNOWN_STATE_PRESERVED_FOR_REVIEW",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {
+          "time_to_capture_hours": 2.0,
+          "day0_24h_descriptive": 1.0
+        },
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "speed-bias-48h-slo",
+      "case_type": "event",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "UNKNOWN_STATE_PRESERVED_FOR_REVIEW",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {
+          "time_to_capture_hours": 48.0,
+          "day0_target_hours": 24.0,
+          "day0_target_met": 0.0
+        },
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "unknown-collapse-confirmed-without-mechanism",
+      "case_type": "event",
+      "decision": {
+        "status": "INDETERMINATE",
+        "reason": "KNOWLEDGE_STATUS_LACKS_MECHANISM_EVIDENCE",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {},
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "false-zero-day-prior-art",
+      "case_type": "event",
+      "decision": {
+        "status": "HOLD",
+        "reason": "FALSE_ZERO_DAY_REQUIRES_PRIOR_ART_REVIEW",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {},
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "provenance-failure",
+      "case_type": "event",
+      "decision": {
+        "status": "HOLD",
+        "reason": "EVENT_CAPTURE_METADATA_INCOMPLETE",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {},
+        "missing_fields": [
+          "source_refs"
+        ],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "governance-overreaction",
+      "case_type": "event",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BOUNDARY_EFFECT_REQUESTED",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {},
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "regression-overfitting",
+      "case_type": "event",
+      "decision": {
+        "status": "HOLD",
+        "reason": "REGRESSION_CASE_REFERENCE_MISSING",
+        "event_id": "event-exp",
+        "classification": null,
+        "metrics": {},
+        "missing_fields": [],
+        "unknown_state_preserved": true,
+        "unknown_equals_true": false,
+        "unknown_equals_false": false,
+        "hold_equals_fail": false,
+        "not_established_equals_false": false,
+        "needs_confirmation_equals_deny": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "existing-framework-sufficiency",
+      "case_type": "candidate",
+      "decision": {
+        "classification": "REDUNDANT_TERMINOLOGY",
+        "reason": "EXISTING_FRAMEWORKS_COVER_DECLARED_LIFECYCLE",
+        "concept_ref": "zero-day-governance-candidate",
+        "overlap_stages": [
+          "CAPTURED",
+          "CHARACTERIZED",
+          "CONTAINED",
+          "CONTROL_PROPOSED",
+          "FALSIFICATION_READY",
+          "PROVENANCE_FROZEN",
+          "REGRESSION_CONVERTED"
+        ],
+        "incremental_fields": [],
+        "evidence_refs": [
+          "source:cisa",
+          "source:nist",
+          "source:nasa",
+          "source:sei"
+        ],
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "cross-framework-synthesis",
+      "case_type": "candidate",
+      "decision": {
+        "classification": "USEFUL_SYNTHESIS_ONLY",
+        "reason": "CROSS_FRAMEWORK_SYNTHESIS_WITHOUT_DISTINCTNESS_EVIDENCE",
+        "concept_ref": "zero-day-governance-candidate",
+        "overlap_stages": [
+          "CAPTURED",
+          "CHARACTERIZED",
+          "CONTAINED",
+          "CONTROL_PROPOSED",
+          "FALSIFICATION_READY",
+          "PROVENANCE_FROZEN",
+          "REGRESSION_CONVERTED"
+        ],
+        "incremental_fields": [
+          "unknown_state",
+          "provenance_freeze",
+          "regression_link"
+        ],
+        "evidence_refs": [
+          "source:cisa",
+          "source:nist",
+          "source:nasa",
+          "source:sei"
+        ],
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "targeted-existing-extension",
+      "case_type": "candidate",
+      "decision": {
+        "classification": "EXISTING_FRAMEWORK_EXTENSION",
+        "reason": "TARGETED_EXTENSION_REQUIRES_EXISTING_FRAMEWORK_INTEGRATION",
+        "concept_ref": "zero-day-governance-candidate",
+        "overlap_stages": [
+          "CAPTURED",
+          "CHARACTERIZED",
+          "CONTAINED",
+          "CONTROL_PROPOSED",
+          "FALSIFICATION_READY",
+          "PROVENANCE_FROZEN",
+          "REGRESSION_CONVERTED"
+        ],
+        "incremental_fields": [
+          "provenance_freeze",
+          "regression_link"
+        ],
+        "evidence_refs": [
+          "source:cisa",
+          "source:nist",
+          "source:nasa",
+          "source:sei"
+        ],
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "novelty-claim-without-comparison",
+      "case_type": "candidate",
+      "decision": {
+        "classification": "INSUFFICIENT_EVIDENCE",
+        "reason": "DISTINCTNESS_CLAIM_REQUIRES_COMPARATIVE_VALIDATION",
+        "concept_ref": "zero-day-governance-candidate",
+        "overlap_stages": [
+          "CAPTURED",
+          "CHARACTERIZED",
+          "CONTAINED",
+          "CONTROL_PROPOSED",
+          "FALSIFICATION_READY",
+          "PROVENANCE_FROZEN",
+          "REGRESSION_CONVERTED"
+        ],
+        "incremental_fields": [
+          "new_lifecycle"
+        ],
+        "evidence_refs": [
+          "source:cisa",
+          "source:nist",
+          "source:nasa",
+          "source:sei"
+        ],
+        "novelty_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    }
+  ],
+  "recommended_classification": "USEFUL_SYNTHESIS_ONLY",
+  "novelty_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}

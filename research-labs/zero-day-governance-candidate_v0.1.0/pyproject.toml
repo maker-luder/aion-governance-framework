@@ -1,0 +1,9 @@
+[project]
+name = "zero-day-governance-candidate"
+version = "0.1.0"
+description = "Research-only candidate lifecycle and falsifier contract for previously unmodeled governance anomalies"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
