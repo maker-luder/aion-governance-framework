@@ -1,0 +1,37 @@
+name: Main Transition Authority Gate
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
+      - ready_for_review
+
+permissions:
+  contents: read
+
+jobs:
+  authority-receipt:
+    name: Fresh exact-head Human Owner approval receipt
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate controls
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.11"
+
+      - name: Validate fresh action-specific exact-head authority receipt
+        run: |
+          python scripts/validate_main_transition_authority.py \
+            --github-event "$GITHUB_EVENT_PATH" \
+            --expected-repository "$GITHUB_REPOSITORY" \
+            --human-owner-login "$GITHUB_REPOSITORY_OWNER"
