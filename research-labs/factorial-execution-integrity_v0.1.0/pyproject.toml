@@ -1,0 +1,9 @@
+[project]
+name = "factorial-execution-integrity"
+version = "0.1.0"
+description = "Research-only factorial execution trace and attrition integrity contract"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

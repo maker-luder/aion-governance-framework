@@ -1,0 +1,551 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "factorial-execution-integrity-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 14,
+  "records": [
+    {
+      "case_id": "complete-with-mixed-outcomes",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "FACTORIAL_EXECUTION_TRACE_COMPLETE_WITH_OUTCOME_PRESERVATION",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 4,
+        "attempted_cell_count": 4,
+        "completed_cell_count": 4,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [
+          [
+            "run:1",
+            "POSITIVE"
+          ],
+          [
+            "run:2",
+            "NEGATIVE"
+          ],
+          [
+            "run:3",
+            "NULL"
+          ],
+          [
+            "run:4",
+            "INDETERMINATE"
+          ]
+        ],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "negative-and-null-preserved",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "FACTORIAL_EXECUTION_TRACE_COMPLETE_WITH_OUTCOME_PRESERVATION",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 4,
+        "attempted_cell_count": 4,
+        "completed_cell_count": 4,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [
+          [
+            "run:1",
+            "POSITIVE"
+          ],
+          [
+            "run:2",
+            "NEGATIVE"
+          ],
+          [
+            "run:3",
+            "NULL"
+          ],
+          [
+            "run:4",
+            "INDETERMINATE"
+          ]
+        ],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-cell",
+      "decision": {
+        "status": "PARTIAL",
+        "disposition": "HOLD",
+        "reason": "FACTORIAL_EXECUTION_TRACE_NOT_COMPLETE",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 3,
+        "attempted_cell_count": 3,
+        "completed_cell_count": 3,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [
+          [
+            [
+              "dose",
+              "high"
+            ],
+            [
+              "context",
+              "night"
+            ]
+          ]
+        ],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [
+          [
+            "run:1",
+            "POSITIVE"
+          ],
+          [
+            "run:2",
+            "NEGATIVE"
+          ],
+          [
+            "run:3",
+            "NULL"
+          ]
+        ],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "under-replicated",
+      "decision": {
+        "status": "PARTIAL",
+        "disposition": "HOLD",
+        "reason": "FACTORIAL_EXECUTION_TRACE_NOT_COMPLETE",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 4,
+        "attempted_cell_count": 4,
+        "completed_cell_count": 4,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [
+          [
+            "run:1",
+            "POSITIVE"
+          ],
+          [
+            "run:2",
+            "NEGATIVE"
+          ],
+          [
+            "run:3",
+            "NULL"
+          ],
+          [
+            "run:4",
+            "INDETERMINATE"
+          ]
+        ],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "attrition-with-deviation",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "FACTORIAL_EXECUTION_TRACE_COMPLETE_WITH_OUTCOME_PRESERVATION",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 4,
+        "attempted_cell_count": 4,
+        "completed_cell_count": 1,
+        "failed_cell_count": 1,
+        "aborted_cell_count": 1,
+        "excluded_cell_count": 1,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [
+          [
+            "run:failed",
+            "NOT_EVALUATED"
+          ],
+          [
+            "run:aborted",
+            "NOT_EVALUATED"
+          ],
+          [
+            "run:excluded",
+            "NOT_EVALUATED"
+          ],
+          [
+            "run:4",
+            "INDETERMINATE"
+          ]
+        ],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "attrition-without-deviation",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "ATTRITION_WITHOUT_DECLARED_DEVIATION",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [
+          "run:failed"
+        ],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "completed-outcome-missing",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "COMPLETED_CELL_OUTCOME_UNREPORTED",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [
+          "run:missing"
+        ],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "nonterminal-attempted",
+      "decision": {
+        "status": "PARTIAL",
+        "disposition": "HOLD",
+        "reason": "NONTERMINAL_CELL_STATE",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [
+          "run:attempted"
+        ],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "unreported-cell",
+      "decision": {
+        "status": "PARTIAL",
+        "disposition": "HOLD",
+        "reason": "NONTERMINAL_CELL_STATE",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [
+          "run:unreported"
+        ],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "post-outcome-addition",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "POST_OUTCOME_CELL_ADDITION",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [
+          "run:late"
+        ],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "execution-id-collision",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "EXECUTION_ID_COLLISION",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 0,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [
+          "run:1"
+        ],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "out-of-domain-cell",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "OUT_OF_DOMAIN_OR_MALFORMED_CELL",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 4,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [
+          [
+            [
+              "dose",
+              "unexpected"
+            ],
+            [
+              "context",
+              "day"
+            ]
+          ]
+        ],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-randomization-metadata",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "DESIGN_METADATA_INCOMPLETE",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 0,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "boundary-effect-request",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "BOUNDARY_EFFECT_REQUESTED",
+        "ledger_id": "ledger:factorial-execution-exp",
+        "expected_cell_count": 0,
+        "planned_cell_count": 0,
+        "attempted_cell_count": 0,
+        "completed_cell_count": 0,
+        "failed_cell_count": 0,
+        "aborted_cell_count": 0,
+        "excluded_cell_count": 0,
+        "unreported_cell_count": 0,
+        "missing_cells": [],
+        "duplicate_execution_ids": [],
+        "invalid_cells": [],
+        "missing_metadata_ids": [],
+        "deviation_missing_ids": [],
+        "outcome_missing_ids": [],
+        "post_outcome_addition_ids": [],
+        "outcome_states": [],
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}

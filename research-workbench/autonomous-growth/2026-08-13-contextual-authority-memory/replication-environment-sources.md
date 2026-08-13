@@ -134,3 +134,55 @@ PROVENANCE_METADATA != SCIENTIFIC_VALIDITY
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
+
+## Candidate next gap — factorial execution completeness and attrition integrity
+
+A second candidate after evidence-currentness is a **factorial execution completeness/attrition ledger**. The existing `factorial-completeness-contract_v0.1.0` verifies planned Cartesian cells and design metadata but explicitly does not execute or audit an execution trace. The new unit would remain synthetic and metadata-only: it would distinguish planned cells, attempted cells, completed cells, failed/aborted cells, excluded cells, and unreported cells; require predeclared deviation reasons; preserve negative/null/failed cells; and reject post-outcome factor/cell addition or silent attrition.
+
+## Source record H — NIST full factorial design
+
+**What:** NIST's full-factorial example enumerates factor-level combinations, shows replication/randomization considerations, and warns that unrandomized run order can confound a factor with an environmental condition. The example distinguishes the standard factorial cell list from randomized execution order and center-point additions.
+
+**Who / authority:** National Institute of Standards and Technology Engineering Statistics Handbook; official methods reference.
+
+**Where:** <https://www.itl.nist.gov/div898/handbook/pri/section3/pri3332.htm>
+
+**When / status:** Retrieved 2026-08-13; official public methods reference at retrieval.
+
+**Transformation:** A candidate execution ledger should preserve planned cell identity, execution order/randomization metadata, added center points, and cell-level completion/attrition. It must not infer factor effects from the synthetic ledger.
+
+## Source record I — NIH Principles and Guidelines for Reporting Preclinical Research
+
+**What:** NIH-endorsed reporting principles call for transparent methods, reporting how often experiments were performed, whether results were substantiated under a range of conditions, distinguishing independent biological data points from technical replicates, reporting randomization/blinding/sample-size decisions, and disclosing exclusions and omitted results including results that do not support the main findings.
+
+**Who / authority:** National Institutes of Health official policy/resource page, based on a joint workshop with Nature/Science and journal editors.
+
+**Where:** <https://grants.nih.gov/policy-and-compliance/policy-topics/reproducibility/principles-guidelines-reporting-preclinical-research>
+
+**When / status:** Retrieved 2026-08-13; current public resource at retrieval.
+
+**Transformation:** Candidate schema should preserve cell-level attempts, replicate type, deviations/exclusions, omitted results, and conditions. It must not convert completeness into validity or treat a reported run count as an observed scientific result.
+
+## Source record J — CONSORT/EQUATOR reporting guidance
+
+**What:** EQUATOR lists CONSORT 2025 as an updated reporting guideline for randomized trials, including a 30-item checklist and flow documentation. The CONSORT 2025 explanation emphasizes complete, accurate, and transparent reporting of design, conduct, analysis, results, protocol deviations, and participant flow; its general logic supports explicit accounting for exclusions and changes rather than silent omission. This is a competing reporting framework, not a factorial-execution standard for AION/Astra.
+
+**Who / authority:** EQUATOR Network reporting-guideline repository and CONSORT 2025 authors; clinical-trial reporting guidance.
+
+**Where:** <https://www.equator-network.org/reporting-guidelines/consort/> and <https://pmc.ncbi.nlm.nih.gov/articles/PMC11995452/>
+
+**When / status:** CONSORT 2025 materials retrieved 2026-08-13; current public reporting guidance at retrieval.
+
+**Transformation:** Candidate ledger should include flow-like accounting for planned/attempted/completed/excluded/unreported cells and preserve deviation reasons. It must not borrow clinical claims or treat the guidance as a proof of scientific reliability.
+
+## Candidate-unit boundary
+
+```text
+PLANNED_CELL != EXECUTED_CELL
+EXECUTED_CELL != VALID_RESULT
+EXCLUDED_CELL != DELETED_EVIDENCE
+FAILED_CELL != NEGATIVE_SCIENTIFIC_RESULT
+REPORTING_COMPLETENESS != SCIENTIFIC_VALIDITY
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
