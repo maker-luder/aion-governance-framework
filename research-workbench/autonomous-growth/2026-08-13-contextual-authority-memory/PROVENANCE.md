@@ -37,3 +37,18 @@ Additional external sources:
 
 6. W3C, [PROV-O Recommendation](https://www.w3.org/TR/prov-o/).
 7. W3C, [PROV-CONSTRAINTS](https://www.w3.org/TR/prov-constraints/).
+
+
+## Independent replication-design extension
+
+Manus added `research-labs/independent-replication-design_v0.1.0` as a clean-room standard-library prototype. The module stores explicit new-data references, independence attestations, preregistration ordering, estimand and analysis-plan identifiers, uncertainty metadata, synthetic sample-size adequacy metadata, and provenance references. Its runner uses five synthetic cases; no real participants, private data, live agents, external model APIs, or deployment were used.
+
+The design was informed by the National Academies and NCBI Bookshelf discussion of proximity, uncertainty, symmetric replication judgments, and the limits of repeated statistical significance, plus the Center for Open Science preregistration guidance on distinguishing planned/confirmatory from unplanned/exploratory analyses and disclosing transparent changes. These sources are methodological only and do not establish any AION/Astra scientific conclusion.
+
+Additional external sources:
+
+8. National Academies, [Reproducibility and Replicability in Science — Chapter 5: Replicability](https://www.nationalacademies.org/read/25303/chapter/8).
+9. National Library of Medicine, [Replicability — NCBI Bookshelf](https://www.ncbi.nlm.nih.gov/books/NBK547524/).
+10. Center for Open Science, [Preregistration](https://www.cos.io/initiatives/prereg).
+
+The attempted PMC power-analysis source was blocked by a reCAPTCHA page and was not used as evidentiary support. No numerical claim was imported from that inaccessible source.

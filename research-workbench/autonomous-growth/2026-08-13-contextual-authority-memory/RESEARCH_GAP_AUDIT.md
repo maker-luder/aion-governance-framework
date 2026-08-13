@@ -53,3 +53,12 @@ The initial runner failure was a code-construction defect in the synthetic exper
 A fourth deferred gap was materialized as `research-labs/typed-lineage-edge-semantics_v0.1.0`. The prototype distinguishes derivation, artifact inheritance, memory access, memory adoption, encounter, observation, correction, and bounded authority offer. Its 11 tests and five synthetic cases passed. All accepted edge cases retained `identity_effect = NONE`, `authority_effect = BOUNDED_ACCEPTANCE_ONLY`, `canonical_effect = NONE`, and `deployment = false`.
 
 This result shows only that the declared synthetic edge contract can enforce its own boundaries. It does not establish full W3C PROV conformance, identity relations, autobiographical ownership, authority, subjectivity, or consciousness. Typed edge semantics remain an engineering substrate and require empirical lineage-history validation before any stronger interpretation.
+
+
+## Independent replication-design extension
+
+A fifth deferred gap was materialized as `research-labs/independent-replication-design_v0.1.0`. The contract separates design validity, power metadata, declared outcome, and conservative interpretation. It rejects same-data misuse, incomplete or post-outcome preregistration, missing estimand/analysis/provenance, and incomplete independence attestations. It treats underpowered or uncertainty-incomplete designs as `INDETERMINATE`, while a valid divergent outcome remains `DIVERGENT` without an automatic downgrade.
+
+The 14 unit tests and five synthetic experiment cases passed. The cases were adequate-consistent, adequate-divergent, underpowered, missing-preregistration, and same-data. No case emitted a governance effect, canonical effect, deployment effect, subjectivity conclusion, or identity-continuity conclusion.
+
+This demonstrates only that the synthetic contract enforces declared design boundaries. It does not perform a real power analysis, preregister a study, establish statistical validity, certify independent human or agent laboratories, or establish any AION/Astra, identity, subjectivity, or consciousness claim. Power analysis, full factorial execution, real matched-divergence work, and independent external replication remain open.
