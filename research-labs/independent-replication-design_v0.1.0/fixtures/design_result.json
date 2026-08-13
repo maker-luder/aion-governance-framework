@@ -1,0 +1,83 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "independent-replication-design-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 5,
+  "records": [
+    {
+      "design_id": "adequate-consistent",
+      "decision": {
+        "validity": "VALID",
+        "power_status": "ADEQUATE",
+        "interpretation": "CONSISTENT",
+        "reason": "VALID_INDEPENDENT_DESIGN_CONSISTENT_OUTCOME",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "adequate-divergent",
+      "decision": {
+        "validity": "VALID",
+        "power_status": "ADEQUATE",
+        "interpretation": "DIVERGENT",
+        "reason": "VALID_INDEPENDENT_DESIGN_DIVERGENT_OUTCOME_NO_AUTOMATIC_DOWNGRADE",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "underpowered",
+      "decision": {
+        "validity": "PARTIAL",
+        "power_status": "UNDERPOWERED",
+        "interpretation": "INDETERMINATE",
+        "reason": "UNDERPOWERED_DESIGN_CANNOT_SUPPORT_STRONG_REPLICATION_INTERPRETATION",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "missing-preregistration",
+      "decision": {
+        "validity": "INVALID",
+        "power_status": "UNKNOWN",
+        "interpretation": "HOLD",
+        "reason": "INCOMPLETE_PREREGISTERED_DESIGN_CONTRACT",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "same-data",
+      "decision": {
+        "validity": "INVALID",
+        "power_status": "UNKNOWN",
+        "interpretation": "HOLD",
+        "reason": "INDEPENDENT_REPLICATION_REQUIRES_NEW_DATA",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "automatic_governance_downgrades": 0,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
