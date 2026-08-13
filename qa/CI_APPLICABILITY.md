@@ -24,15 +24,15 @@ This document describes the **current final formal-research tree**. Historical r
 
 The final remote verification is bound to the exact published commit under review. A remote success is recorded only when GitHub reports the workflow name, run ID, head SHA, completed status and success conclusion. The PART 2C final report is the authoritative record for the final published head's remote run IDs.
 
-For the preceding published evidence checkpoint `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48`, the actual run list contained:
+The final published evidence head is `6685724a47b2c6325f437442b0c68903c8e2ef43`. Its actual run list contained:
 
 | Workflow | Run ID | Head SHA | Status | Conclusion |
 |---|---:|---|---|---|
-| `Quality` | `31659136893` | `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48` | `completed` | `success` |
-| `Research Scope Lock` | `31659136856` | `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48` | `completed` | `success` |
-| `Research Workbench CI` | not listed for that push | — | `N/A` | no success inferred |
+| `Quality` | `31659596250` | `6685724a47b2c6325f437442b0c68903c8e2ef43` | `completed` | `success` |
+| `Research Scope Lock` | not triggered for this evidence-only path | — | `N/A` | no success inferred |
+| `Research Workbench CI` | not listed for this push | — | `N/A` | no success inferred |
 
-The final report must repeat the actual run IDs for the final published HEAD after any evidence-only correction commit. No workflow result is inferred from local QA, and no untriggered workflow is represented as a pass.
+For provenance, the immediately preceding evidence checkpoint `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48` had actual `Quality` run `31659136893` and `Research Scope Lock` run `31659136856`, both `completed / success` on that predecessor head. No workflow result is inferred from local QA, and no untriggered workflow is represented as a pass.
 
 ## Governance locks
 
