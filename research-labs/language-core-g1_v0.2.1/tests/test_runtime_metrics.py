@@ -84,3 +84,24 @@ def test_metrics() -> None:
     )
     assert constraint_scores("status QA_HOLD", ("status", "QA_HOLD"))["constraint_hits"] == 2
     assert uncertainty_acknowledged("資訊不足，無法判定")
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"response": "ok", "eval_count": True, "eval_duration": 1_000_000_000},
+        {"response": "ok", "eval_count": -1, "eval_duration": 1_000_000_000},
+        {"response": "ok", "eval_count": 2, "eval_duration": False},
+        {"response": "ok", "eval_count": 2, "eval_duration": 0},
+        {"response": "ok", "eval_count": 2, "eval_duration": float("nan")},
+        {"response": "ok", "eval_count": 2, "eval_duration": float("inf")},
+        {"response": "ok", "eval_count": 2, "eval_duration": "1"},
+        {"response": "ok", "eval_count": 10**1000, "eval_duration": 1},
+    ],
+)
+def test_ollama_rejects_malformed_numeric_telemetry(
+    monkeypatch: pytest.MonkeyPatch, payload: dict[str, object]
+) -> None:
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_a, **_k: _Response(payload))
+    with pytest.raises(RuntimeFailure, match="invalid telemetry"):
+        OllamaRuntime().generate("m", "p", GenerationSettings())

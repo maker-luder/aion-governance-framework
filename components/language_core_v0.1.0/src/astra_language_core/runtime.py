@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import time
 import urllib.error
 import urllib.parse
@@ -92,10 +93,29 @@ class OllamaRuntime:
             raise RuntimeFailure("Ollama response missing text")
         eval_count = decoded.get("eval_count")
         eval_duration = decoded.get("eval_duration")
-        tokens = eval_count if isinstance(eval_count, int) else None
+        tokens: int | None = None
+        if eval_count is not None:
+            if isinstance(eval_count, bool) or not isinstance(eval_count, int) or eval_count < 0:
+                raise RuntimeFailure("Ollama response has invalid telemetry")
+            tokens = eval_count
+
         rate: float | None = None
-        if tokens is not None and isinstance(eval_duration, int | float) and eval_duration > 0:
-            rate = tokens / (float(eval_duration) / 1_000_000_000)
+        if eval_duration is not None:
+            if isinstance(eval_duration, bool) or not isinstance(eval_duration, int | float):
+                raise RuntimeFailure("Ollama response has invalid telemetry")
+            try:
+                duration_seconds = float(eval_duration) / 1_000_000_000
+            except (OverflowError, ValueError) as exc:
+                raise RuntimeFailure("Ollama response has invalid telemetry") from exc
+            if not math.isfinite(duration_seconds) or duration_seconds <= 0:
+                raise RuntimeFailure("Ollama response has invalid telemetry")
+            if tokens is not None:
+                try:
+                    rate = tokens / duration_seconds
+                except (OverflowError, ZeroDivisionError) as exc:
+                    raise RuntimeFailure("Ollama response has invalid telemetry") from exc
+                if not math.isfinite(rate):
+                    raise RuntimeFailure("Ollama response has invalid telemetry")
         return CompletionResult(
             text=response_text,
             total_latency_seconds=latency,
