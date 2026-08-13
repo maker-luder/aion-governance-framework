@@ -1,9 +1,9 @@
 {
   "schema_version": "2.0",
-  "generated_at": "2026-08-13T01:02:23.496631+00:00",
+  "generated_at": "2026-08-13T01:20:19.407810+00:00",
   "source_code_scope": "FINAL_FORMAL_RESEARCH_TREE",
   "review_branch": "review/four-domain-research-materialization",
-  "target_head": "13175376b7808ab0f78e838a3ffe028400c3c21e",
+  "target_head": "8f48258fc80af5c2cf5cd7c6ab51dc19522ebdb3",
   "historical_source_lineage": "See docs/BRANCH_CONSOLIDATION_LEDGER_2026-08-13.md; no superseded branch is asserted as the current source.",
   "TEST_CASE_COUNT": 21,
   "SCENARIO_CLASS_COUNT": 11,
@@ -325,10 +325,10 @@
     "Independent IV&V requires a reviewer separate from the implementer."
   ],
   "evidence_sha_semantics": {
-    "SOURCE_CODE_COMMIT_SHA": "13175376b7808ab0f78e838a3ffe028400c3c21e",
-    "VALIDATED_TREE_SHA": "13175376b7808ab0f78e838a3ffe028400c3c21e",
-    "EVIDENCE_SUBJECT_SHA": "13175376b7808ab0f78e838a3ffe028400c3c21e",
-    "EVIDENCE_COMMIT_SHA": "13175376b7808ab0f78e838a3ffe028400c3c21e",
+    "SOURCE_CODE_COMMIT_SHA": "8f48258fc80af5c2cf5cd7c6ab51dc19522ebdb3",
+    "VALIDATED_TREE_SHA": "8f48258fc80af5c2cf5cd7c6ab51dc19522ebdb3",
+    "EVIDENCE_SUBJECT_SHA": "8f48258fc80af5c2cf5cd7c6ab51dc19522ebdb3",
+    "EVIDENCE_COMMIT_SHA": "8f48258fc80af5c2cf5cd7c6ab51dc19522ebdb3",
     "REVIEW_BRANCH_HEAD_SHA": "recorded after remote synchronization; local evidence is bound to target_head",
     "CI_HEAD_SHA": "recorded only when matching current-head CI evidence exists"
   }

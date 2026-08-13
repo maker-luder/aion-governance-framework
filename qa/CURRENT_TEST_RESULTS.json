@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "13175376b7808ab0f78e838a3ffe028400c3c21e",
+  "target_head": "8f48258fc80af5c2cf5cd7c6ab51dc19522ebdb3",
   "summary": {
     "eligible_target_count": 50,
     "tested_target_count": 47,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 912,
+    "total_passed": 916,
     "total_failed": 0
   },
   "targets": [
@@ -109,7 +109,7 @@
       "passed": 14,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............                                                           [100%]\n14 passed in 0.10s\n"
+      "output": "..............                                                           [100%]\n14 passed in 0.12s\n"
     },
     {
       "target": "components/iqc_quality_inspection_v0.1.0",
@@ -129,7 +129,7 @@
       "passed": 29,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............................                                            [100%]\n29 passed in 0.07s\n"
+      "output": ".............................                                            [100%]\n29 passed in 0.06s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=74922) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.49s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=76580) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.52s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -366,10 +366,10 @@
       "status": "PASS",
       "tested": true,
       "returncode": 0,
-      "passed": 87,
+      "passed": 91,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 82%]\n...............                                                          [100%]\n87 passed in 0.14s\n"
+      "output": "........................................................................ [ 79%]\n...................                                                      [100%]\n91 passed in 0.15s\n"
     },
     {
       "target": "research-labs/real-model-pilot-protocol_v0.1.0",
