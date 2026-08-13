@@ -27,3 +27,13 @@ Additional external sources:
 
 4. National Academies, [Reproducibility and Replicability in Science — Summary](https://www.nationalacademies.org/read/25303/chapter/3).
 5. National Library of Medicine, [Replicability](https://www.ncbi.nlm.nih.gov/books/NBK547524/).
+
+
+## Typed lineage-edge semantics extension
+
+Manus added `research-labs/typed-lineage-edge-semantics_v0.1.0` as a clean-room standard-library prototype. The implementation uses the existing branch literature alignment and W3C PROV/PROV-CONSTRAINTS as methodological references only. No external source code or runtime dependency was copied; no identity, authority, canonical, deployment, subjectivity, or consciousness conclusion was produced.
+
+Additional external sources:
+
+6. W3C, [PROV-O Recommendation](https://www.w3.org/TR/prov-o/).
+7. W3C, [PROV-CONSTRAINTS](https://www.w3.org/TR/prov-constraints/).
