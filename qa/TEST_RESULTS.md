@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `9530107079291aec90563290bcade933d7b314d5`. This report is generated from the current component runner output.
+Target head: `adcdf464d42454230d0cf80c2f9d22c16bee5522`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -53,6 +53,7 @@ Target head: `9530107079291aec90563290bcade933d7b314d5`. This report is generate
 | `research-labs/power-analysis-uncertainty_v0.1.0` | 12 | 0 |
 | `research-labs/preregistered-intervention-integrity_v0.1.0` | 16 | 0 |
 | `research-labs/real-model-pilot-protocol_v0.1.0` | 6 | 0 |
+| `research-labs/replication-environment-drift-adversarial_v0.1.0` | 21 | 0 |
 | `research-labs/replication-epistemics-governance_v0.1.0` | 11 | 0 |
 | `research-labs/research-evaluation-harness_v0.1.0` | 11 | 0 |
 | `research-labs/second-order-metacognition_v0.1.0` | 84 | 0 |
@@ -71,4 +72,4 @@ Target head: `9530107079291aec90563290bcade933d7b314d5`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1150 passed across 66 targets; failed targets: 0.
+**Total:** 1171 passed across 67 targets; failed targets: 0.

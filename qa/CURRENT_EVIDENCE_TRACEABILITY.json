@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
   "inspection_type": "EVIDENCE_TRACEABILITY_STRUCTURE_ONLY",
-  "target_head": "9530107079291aec90563290bcade933d7b314d5",
-  "generated_at": "2026-08-13T07:26:16.512150+00:00",
+  "target_head": "adcdf464d42454230d0cf80c2f9d22c16bee5522",
+  "generated_at": "2026-08-13T07:36:16.909524+00:00",
   "source_document": "docs/C0_ACCEPTANCE_EVIDENCE_INDEX_2026-08-08.md",
   "criterion_count": 26,
   "records": [
