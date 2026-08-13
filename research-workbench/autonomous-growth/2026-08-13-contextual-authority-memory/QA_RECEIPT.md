@@ -11,7 +11,7 @@ BASE_RESEARCH_HEAD = 38448090de60e0f031c15147ecdfa93947562ae3
 CURRENT_MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
 ```
 
-The source-state check passed for `TESTED_HEAD`. `REPORTING_HEAD` identifies the unit/provenance reporting state included in the exact execution. `RECEIPT_HEAD` is intentionally left to the subsequent binding commit and must not be represented as the exact execution state. The exact execution ran against the clean source commit `0c8f37d`; the QA runner then generated the branch-native artifacts. `main` remained read-only.
+The source-state check passed for `TESTED_HEAD`. `REPORTING_HEAD` identifies the unit/provenance reporting state included in the exact execution. `RECEIPT_HEAD` identifies the QA artifact commit that contains the generated branch-native receipt inputs; the later binding commit records that reference and is not represented as the exact execution state. The exact execution ran against the clean source commit `0c8f37d`; the QA runner then generated the branch-native artifacts. `main` remained read-only.
 
 ## Final gates
 
