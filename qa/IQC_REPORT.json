@@ -1,8 +1,8 @@
 {
   "schema_version": "0.1.0",
   "inspection_id": "IQC-AION-001",
-  "target_head": "43d13065f5c6f33ec8f11551b0658c5cc84eba8c",
-  "generated_at": "2026-08-13T09:11:33.932461+00:00",
+  "target_head": "114c7def7bef25f5e08af387e4b475051a1caae2",
+  "generated_at": "2026-08-13T09:20:10.130841+00:00",
   "evaluator_role": "REPOSITORY_IQC_INSPECTION_ONLY",
   "verdict": "PASS",
   "checks": [
@@ -22,7 +22,7 @@
       "check_id": "IQC-TEST-001",
       "area": "TEST_EVIDENCE",
       "status": "PASS",
-      "detail": "1406 passed across 78 targets",
+      "detail": "1437 passed across 79 targets",
       "evidence_refs": [
         "qa/CURRENT_TEST_RESULTS.json",
         "qa/CURRENT_RELEASE_STATUS_LOCK.json"
@@ -33,7 +33,7 @@
       "check_id": "IQC-MEAS-001",
       "area": "MEASUREMENT",
       "status": "PASS",
-      "detail": "coverage covers 75 targets",
+      "detail": "coverage covers 76 targets",
       "evidence_refs": [
         "qa/CURRENT_COVERAGE_RESULTS.json",
         "qa/CURRENT_COVERAGE_EVIDENCE.json",

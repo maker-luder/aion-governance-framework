@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `43d13065f5c6f33ec8f11551b0658c5cc84eba8c`. This report is generated from the current component runner output.
+Target head: `114c7def7bef25f5e08af387e4b475051a1caae2`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -64,6 +64,7 @@ Target head: `43d13065f5c6f33ec8f11551b0658c5cc84eba8c`. This report is generate
 | `research-labs/replication-epistemics-governance_v0.1.0` | 11 | 0 |
 | `research-labs/research-evaluation-harness-adversarial_v0.1.0` | 21 | 0 |
 | `research-labs/research-evaluation-harness_v0.1.0` | 11 | 0 |
+| `research-labs/research-integrity-security-adversarial_v0.1.0` | 31 | 0 |
 | `research-labs/second-order-metacognition_v0.1.0` | 84 | 0 |
 | `research-labs/selective-memory-control-adversarial_v0.1.0` | 30 | 0 |
 | `research-labs/selective-memory-control_v0.1.0` | 8 | 0 |
@@ -83,4 +84,4 @@ Target head: `43d13065f5c6f33ec8f11551b0658c5cc84eba8c`. This report is generate
 | `research-labs/validated-individuation-thresholds_v0.1.0` | 16 | 0 |
 | `research-labs/zero-day-governance-candidate_v0.1.0` | 23 | 0 |
 
-**Total:** 1406 passed across 78 targets; failed targets: 0.
+**Total:** 1437 passed across 79 targets; failed targets: 0.
