@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `8b1a1d878992a879c4fc36aeeb99123eb995f832`. Coverage was measured with branch coverage enabled for 69 targets.
+Target head: `1a9cd4e88d274cf5547bf82234a8e87770dc7c6e`. Coverage was measured with branch coverage enabled for 70 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
@@ -57,6 +57,7 @@ Target head: `8b1a1d878992a879c4fc36aeeb99123eb995f832`. Coverage was measured w
 | `research-labs/real-model-pilot-protocol_v0.1.0` | 84% | 0 |
 | `research-labs/replication-environment-drift-adversarial_v0.1.0` | 98% | 0 |
 | `research-labs/replication-epistemics-governance_v0.1.0` | 84% | 0 |
+| `research-labs/research-evaluation-harness-adversarial_v0.1.0` | 96% | 0 |
 | `research-labs/research-evaluation-harness_v0.1.0` | 93% | 0 |
 | `research-labs/second-order-metacognition_v0.1.0` | 87% | 0 |
 | `research-labs/selective-memory-control_v0.1.0` | 87% | 0 |
