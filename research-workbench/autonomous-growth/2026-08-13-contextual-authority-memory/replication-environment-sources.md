@@ -76,3 +76,61 @@ SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
+
+## Candidate next gap — evidence currentness, staleness, and duplicate-vs-replication ledger
+
+The next candidate unit is not another replication result check. It would audit whether an evidence record is current, stale, historical, retrieved-only, or unverified; whether two records share the same underlying evidence; and whether reuse is incorrectly labeled replication. It would remain a metadata-only contract and would not assess subjectivity or scientific truth.
+
+## Source record E — W3C PROV-O
+
+**What:** PROV-O provides an OWL2 representation of the PROV Data Model for representing and interchanging provenance across systems and contexts. It models entities, activities, agents, derivation, attribution, generation, invalidation, revision, specialization, alternate representations, and provenance chains. W3C describes PROV-O as a Recommendation and a stable reference, while noting that later documents may supersede a document and that the technical-reports index should be consulted for the latest revision.
+
+**Who / authority:** W3C Provenance Working Group; W3C Recommendation.
+
+**Where:** <https://www.w3.org/TR/prov-o/>
+
+**When / status:** 2013 Recommendation retrieved 2026-08-13; stable historical normative reference, with current W3C status to be checked through the technical-reports index when needed.
+
+**Method:** Public full-text extraction; only provenance concepts relevant to generation/invalidation/revision/specialization and provenance chain identity are used.
+
+**Transformation:** Candidate currentness contract may use source identity, generated/invalidated time, revision/specialization links, and provenance chains to distinguish same underlying evidence, new derived records, and genuinely new evidence. It must not claim full PROV-O conformance from a small standard-library schema.
+
+## Source record F — FAIR Principles
+
+**What:** FAIR guidance emphasizes globally unique and persistent identifiers, rich metadata, explicit identifier linkage, accessibility of metadata, interoperability, detailed provenance, clear licenses, and reuse. It states that metadata should remain accessible even when data are no longer available.
+
+**Who / authority:** GO FAIR official FAIR Principles resource; explanatory guidance for the FAIR Guiding Principles.
+
+**Where:** <https://www.go-fair.org/fair-principles/>
+
+**When / status:** Retrieved 2026-08-13; current public guidance at retrieval time, not a repository authority.
+
+**Method:** Public full-text extraction.
+
+**Transformation:** Candidate ledger should require stable evidence identifiers, source/record identity separation, explicit status fields, license/access metadata, and provenance links; FAIR-aligned metadata is not equivalent to evidence validity or scientific confirmation.
+
+## Source record G — DataCite
+
+**What:** DataCite describes its infrastructure as connecting research outputs/resources through DOI and metadata records and enabling discovery and reuse, with emphasis on reliability, transparency, trust, and interoperability.
+
+**Who / authority:** DataCite official public organization resource.
+
+**Where:** <https://datacite.org/>
+
+**When / status:** Retrieved 2026-08-13; current public organizational guidance at retrieval time.
+
+**Method:** Public full-text extraction from the official homepage; no DataCite API or DOI record was queried.
+
+**Transformation:** Candidate ledger may treat persistent identifiers and metadata records as identity/provenance anchors, but must not infer that a DOI or metadata record makes evidence current, independent, or true.
+
+## Candidate-unit boundary
+
+```text
+RETRIEVED != CURRENT
+REMEMBERED != AUTHORITATIVE
+REFERENCE != NEW_EVIDENCE
+DUPLICATION != REPLICATION
+PROVENANCE_METADATA != SCIENTIFIC_VALIDITY
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```

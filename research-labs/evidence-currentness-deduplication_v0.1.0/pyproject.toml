@@ -1,0 +1,9 @@
+[project]
+name = "evidence-currentness-deduplication"
+version = "0.1.0"
+description = "Research-only evidence currentness and duplicate-versus-replication ledger"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

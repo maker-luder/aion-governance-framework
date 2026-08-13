@@ -1,0 +1,460 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "evidence-currentness-deduplication-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 15,
+  "records": [
+    {
+      "case_id": "current-unique",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_LEDGER_ADMISSIBLE_WITH_REUSE_DISTINCTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [
+          [
+            "record:1",
+            "UNIQUE_UNDERLYING_EVIDENCE"
+          ]
+        ],
+        "current_record_ids": [
+          "record:1"
+        ],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 1,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "stale-preserved",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_LEDGER_ADMISSIBLE_WITH_REUSE_DISTINCTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [
+          [
+            "record:1",
+            "UNIQUE_UNDERLYING_EVIDENCE"
+          ]
+        ],
+        "current_record_ids": [],
+        "stale_record_ids": [
+          "record:1"
+        ],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 1,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "historical-preserved",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_LEDGER_ADMISSIBLE_WITH_REUSE_DISTINCTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [
+          [
+            "record:1",
+            "UNIQUE_UNDERLYING_EVIDENCE"
+          ]
+        ],
+        "current_record_ids": [],
+        "stale_record_ids": [
+          "record:1"
+        ],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 1,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "retrieved-unverified",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_LEDGER_ADMISSIBLE_WITH_REUSE_DISTINCTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [
+          [
+            "record:1",
+            "UNIQUE_UNDERLYING_EVIDENCE"
+          ]
+        ],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [
+          "record:1"
+        ],
+        "unique_underlying_evidence_count": 1,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "remembered-unverified",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "REMEMBERED_SOURCE_NOT_ADMISSIBLE",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "record:1",
+          "currentness_status"
+        ],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "unknown-currentness",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "CURRENTNESS_UNKNOWN",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "record:1",
+          "currentness_status"
+        ],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "duplicate-reuse",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_LEDGER_ADMISSIBLE_WITH_REUSE_DISTINCTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [
+          [
+            "evidence:1",
+            [
+              "record:1",
+              "record:2"
+            ]
+          ]
+        ],
+        "relations": [
+          [
+            "record:1",
+            "SAME_UNDERLYING_EVIDENCE"
+          ],
+          [
+            "record:2",
+            "SAME_UNDERLYING_EVIDENCE"
+          ]
+        ],
+        "current_record_ids": [
+          "record:1",
+          "record:2"
+        ],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 1,
+        "reused_underlying_evidence_count": 1,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "duplicate-mislabeled-replication",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "DUPLICATION_MISLABELED_AS_REPLICATION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "record:2",
+          "evidence:1"
+        ],
+        "duplicate_groups": [
+          [
+            "evidence:1",
+            [
+              "record:1",
+              "record:2"
+            ]
+          ]
+        ],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "derived-record",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "EVIDENCE_LEDGER_ADMISSIBLE_WITH_REUSE_DISTINCTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [
+          [
+            "record:parent",
+            "UNIQUE_UNDERLYING_EVIDENCE"
+          ],
+          [
+            "record:child",
+            "DERIVED_RECORD"
+          ]
+        ],
+        "current_record_ids": [
+          "record:parent",
+          "record:child"
+        ],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 2,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "same-locator-relation-unknown",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "SAME_LOCATOR_RELATION_UNKNOWN",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "https://example.org/source-1",
+          "underlying_evidence_id"
+        ],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "digest-contradiction",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "UNDERLYING_EVIDENCE_DIGEST_CONTRADICTION",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "evidence:1",
+          "content_digest"
+        ],
+        "duplicate_groups": [
+          [
+            "evidence:1",
+            [
+              "record:1",
+              "record:2"
+            ]
+          ]
+        ],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "published-after-retrieval",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "SOURCE_PUBLISHED_AFTER_RETRIEVAL",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "record:1",
+          "source_published_at",
+          "retrieved_at"
+        ],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "missing-stable-identity",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "EVIDENCE_RECORD_INCOMPLETE",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [
+          "record:1.stable_source_id"
+        ],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "missing-derivation-parent",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "DERIVATION_PARENT_MISSING",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [
+          "record:1.derived_from_record_id"
+        ],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "boundary-effect",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "BOUNDARY_EFFECT_REQUESTED",
+        "ledger_id": "ledger:currentness-exp",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "duplicate_groups": [],
+        "relations": [],
+        "current_record_ids": [],
+        "stale_record_ids": [],
+        "unverified_record_ids": [],
+        "unique_underlying_evidence_count": 0,
+        "reused_underlying_evidence_count": 0,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
