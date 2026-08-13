@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `1bcd7c462727f9a850fa980c9284d74ec03d2886`. This report is generated from the current component runner output.
+Target head: `06e674ab5aa3e8566e357dd8084fa1bbef2a79a0`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -43,6 +43,7 @@ Target head: `1bcd7c462727f9a850fa980c9284d74ec03d2886`. This report is generate
 | `research-labs/integration-candidates` | 0 | 0 |
 | `research-labs/language-core-g1_v0.2.1` | 95 | 0 |
 | `research-labs/real-model-pilot-protocol_v0.1.0` | 6 | 0 |
+| `research-labs/replication-epistemics-governance_v0.1.0` | 11 | 0 |
 | `research-labs/research-evaluation-harness_v0.1.0` | 11 | 0 |
 | `research-labs/second-order-metacognition_v0.1.0` | 84 | 0 |
 | `research-labs/selective-memory-control_v0.1.0` | 8 | 0 |
@@ -57,4 +58,4 @@ Target head: `1bcd7c462727f9a850fa980c9284d74ec03d2886`. This report is generate
 | `research-labs/triangulated-subjectivity-evidence_v0.1.0` | 5 | 0 |
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 
-**Total:** 939 passed across 52 targets; failed targets: 0.
+**Total:** 950 passed across 53 targets; failed targets: 0.
