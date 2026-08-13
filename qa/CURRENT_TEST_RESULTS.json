@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "3410bb06e7fc99a5cc19e9cf67134d3d9471f51a",
+  "target_head": "64e1ea712b892c7535c0778da6492feec0d7f5e7",
   "summary": {
-    "eligible_target_count": 68,
-    "tested_target_count": 65,
+    "eligible_target_count": 69,
+    "tested_target_count": 66,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 1192,
+    "total_passed": 1210,
     "total_failed": 0
   },
   "targets": [
@@ -19,7 +19,7 @@
       "passed": 11,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "...........                                                              [100%]\n11 passed in 0.61s\n"
+      "output": "...........                                                              [100%]\n11 passed in 0.62s\n"
     },
     {
       "target": "components/aion_runtime_v0.2.0",
@@ -39,7 +39,7 @@
       "passed": 5,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....                                                                    [100%]\n5 passed in 0.06s\n"
+      "output": ".....                                                                    [100%]\n5 passed in 0.07s\n"
     },
     {
       "target": "components/astra_workbench_v1.0.0",
@@ -79,7 +79,7 @@
       "passed": 13,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............                                                            [100%]\n13 passed in 0.06s\n"
+      "output": ".............                                                            [100%]\n13 passed in 0.07s\n"
     },
     {
       "target": "components/governance_kernel_v0.4.0",
@@ -89,7 +89,7 @@
       "passed": 46,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............................................                           [100%]\n46 passed in 0.04s\n"
+      "output": "..............................................                           [100%]\n46 passed in 0.05s\n"
     },
     {
       "target": "components/identity_governance_v0.1.0",
@@ -109,7 +109,7 @@
       "passed": 14,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............                                                           [100%]\n14 passed in 0.11s\n"
+      "output": "..............                                                           [100%]\n14 passed in 0.12s\n"
     },
     {
       "target": "components/iqc_quality_inspection_v0.1.0",
@@ -129,7 +129,7 @@
       "passed": 29,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............................                                            [100%]\n29 passed in 0.04s\n"
+      "output": ".............................                                            [100%]\n29 passed in 0.05s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=47921) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.49s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=49642) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.59s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -179,7 +179,7 @@
       "passed": 82,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.18s\n"
+      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.19s\n"
     },
     {
       "target": "research-labs/affective-cognitive-motivation_v0.1.0",
@@ -352,6 +352,16 @@
       "output": ".............                                                            [100%]\n13 passed in 0.01s\n"
     },
     {
+      "target": "research-labs/factorial-execution-integrity_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 18,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": "..................                                                       [100%]\n18 passed in 0.01s\n"
+    },
+    {
       "target": "research-labs/four-domain-p1-materialization_v0.1.0",
       "status": "PASS",
       "tested": true,
@@ -359,7 +369,7 @@
       "passed": 12,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "............                                                             [100%]\n12 passed in 0.01s\n"
+      "output": "............                                                             [100%]\n12 passed in 0.02s\n"
     },
     {
       "target": "research-labs/four-domain-p2-materialization_v0.1.0",
@@ -659,7 +669,7 @@
       "passed": 18,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..................                                                       [100%]\n18 passed in 0.04s\n"
+      "output": "..................                                                       [100%]\n18 passed in 0.05s\n"
     },
     {
       "target": "research-labs/typed-lineage-edge-semantics_v0.1.0",
