@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `e7eb58eab3a578f78d73b321fb92346f06cb0f68`. This report is generated from the current component runner output.
+Target head: `ebf98908eadc0196a47cd291d6ce8f463e4c4d23`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -39,7 +39,7 @@ Target head: `e7eb58eab3a578f78d73b321fb92346f06cb0f68`. This report is generate
 | `research-labs/governed-tool-approval_v0.1.0` | 12 | 0 |
 | `research-labs/hermes-p0-execution-prep_v0.1.0` | 0 | 0 |
 | `research-labs/integration-candidates` | 0 | 0 |
-| `research-labs/language-core-g1_v0.2.1` | 75 | 0 |
+| `research-labs/language-core-g1_v0.2.1` | 79 | 0 |
 | `research-labs/real-model-pilot-protocol_v0.1.0` | 6 | 0 |
 | `research-labs/research-evaluation-harness_v0.1.0` | 11 | 0 |
 | `research-labs/second-order-metacognition_v0.1.0` | 84 | 0 |
@@ -55,4 +55,4 @@ Target head: `e7eb58eab3a578f78d73b321fb92346f06cb0f68`. This report is generate
 | `research-labs/triangulated-subjectivity-evidence_v0.1.0` | 5 | 0 |
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 
-**Total:** 900 passed across 50 targets; failed targets: 0.
+**Total:** 904 passed across 50 targets; failed targets: 0.

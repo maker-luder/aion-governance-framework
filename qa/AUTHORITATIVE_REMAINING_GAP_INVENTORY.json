@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
   "inventory_id": "AION_ASTRA_AUTHORITATIVE_REMAINING_GAPS",
-  "generated_at": "2026-08-13T00:19:16.716444+00:00",
+  "generated_at": "2026-08-13T00:21:41.761997+00:00",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "4fdbbdc50bb551a6dba18767bc46803423319575",
+  "target_head": "ebf98908eadc0196a47cd291d6ce8f463e4c4d23",
   "status_vocabulary": [
     "TECHNICALLY_ACTIONABLE",
     "MODEL_REQUIRED",
