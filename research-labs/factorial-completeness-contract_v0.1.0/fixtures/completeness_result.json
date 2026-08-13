@@ -1,0 +1,221 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "factorial-completeness-contract-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 6,
+  "records": [
+    {
+      "design_id": "complete",
+      "decision": {
+        "matrix_status": "COMPLETE",
+        "execution_status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_DESIGN_REVIEW",
+        "expected_cell_count": 4,
+        "observed_cell_count": 4,
+        "missing_cells": [],
+        "under_replicated_cells": [],
+        "duplicate_cells": [],
+        "invalid_cells": [],
+        "missing_execution_runs": [],
+        "reason": "CARTESIAN_MATRIX_AND_EXECUTION_METADATA_COMPLETE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "missing-cell",
+      "decision": {
+        "matrix_status": "INCOMPLETE",
+        "execution_status": "COMPLETE",
+        "disposition": "INDETERMINATE",
+        "expected_cell_count": 4,
+        "observed_cell_count": 3,
+        "missing_cells": [
+          [
+            [
+              "mode",
+              "guarded"
+            ],
+            [
+              "memory",
+              "on"
+            ]
+          ]
+        ],
+        "under_replicated_cells": [],
+        "duplicate_cells": [],
+        "invalid_cells": [],
+        "missing_execution_runs": [],
+        "reason": "EXPECTED_CARTESIAN_MATRIX_NOT_EXACTLY_COVERED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "duplicate-cell",
+      "decision": {
+        "matrix_status": "INCOMPLETE",
+        "execution_status": "COMPLETE",
+        "disposition": "INDETERMINATE",
+        "expected_cell_count": 4,
+        "observed_cell_count": 4,
+        "missing_cells": [],
+        "under_replicated_cells": [],
+        "duplicate_cells": [
+          [
+            [
+              "mode",
+              "baseline"
+            ],
+            [
+              "memory",
+              "off"
+            ]
+          ]
+        ],
+        "invalid_cells": [],
+        "missing_execution_runs": [],
+        "reason": "EXPECTED_CARTESIAN_MATRIX_NOT_EXACTLY_COVERED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "under-replicated",
+      "decision": {
+        "matrix_status": "INCOMPLETE",
+        "execution_status": "COMPLETE",
+        "disposition": "INDETERMINATE",
+        "expected_cell_count": 4,
+        "observed_cell_count": 4,
+        "missing_cells": [],
+        "under_replicated_cells": [
+          [
+            [
+              "mode",
+              "baseline"
+            ],
+            [
+              "memory",
+              "off"
+            ]
+          ],
+          [
+            [
+              "mode",
+              "baseline"
+            ],
+            [
+              "memory",
+              "on"
+            ]
+          ],
+          [
+            [
+              "mode",
+              "guarded"
+            ],
+            [
+              "memory",
+              "off"
+            ]
+          ],
+          [
+            [
+              "mode",
+              "guarded"
+            ],
+            [
+              "memory",
+              "on"
+            ]
+          ]
+        ],
+        "duplicate_cells": [],
+        "invalid_cells": [],
+        "missing_execution_runs": [],
+        "reason": "EXPECTED_CARTESIAN_MATRIX_NOT_EXACTLY_COVERED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "invalid-cell",
+      "decision": {
+        "matrix_status": "INVALID",
+        "execution_status": "COMPLETE",
+        "disposition": "HOLD",
+        "expected_cell_count": 4,
+        "observed_cell_count": 3,
+        "missing_cells": [
+          [
+            [
+              "mode",
+              "guarded"
+            ],
+            [
+              "memory",
+              "on"
+            ]
+          ]
+        ],
+        "under_replicated_cells": [],
+        "duplicate_cells": [],
+        "invalid_cells": [
+          [
+            [
+              "mode",
+              "unknown"
+            ],
+            [
+              "memory",
+              "on"
+            ]
+          ]
+        ],
+        "missing_execution_runs": [],
+        "reason": "OUT_OF_DOMAIN_OR_MALFORMED_CELL",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "design_id": "missing-execution-metadata",
+      "decision": {
+        "matrix_status": "COMPLETE",
+        "execution_status": "PARTIAL",
+        "disposition": "HOLD",
+        "expected_cell_count": 4,
+        "observed_cell_count": 4,
+        "missing_cells": [],
+        "under_replicated_cells": [],
+        "duplicate_cells": [],
+        "invalid_cells": [],
+        "missing_execution_runs": [
+          "run-4"
+        ],
+        "reason": "MATRIX_COMPLETE_BUT_EXECUTION_METADATA_INCOMPLETE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "effect_estimation_performed": false,
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
