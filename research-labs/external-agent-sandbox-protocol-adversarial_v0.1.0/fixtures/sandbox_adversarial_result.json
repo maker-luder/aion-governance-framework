@@ -1,0 +1,359 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "external-agent-sandbox-protocol-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 19,
+  "records": [
+    {
+      "case_id": "pinned-policy",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "SANDBOX_PREFLIGHT_ADMITTED_FOR_REVIEW_ONLY",
+        "ready": true,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "placeholder-model",
+      "decision": {
+        "status": "HOLD",
+        "reason": "MODEL_IDENTITY_NOT_PINNED",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "not-selected-model",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_POLICY_PREFLIGHT_HOLD",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "provider-model-collision",
+      "decision": {
+        "status": "INVALID",
+        "reason": "PROVIDER_MODEL_ROLE_COLLISION",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "write-authority",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_POLICY_PREFLIGHT_HOLD",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "unbounded-capsule",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_POLICY_PREFLIGHT_HOLD",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "local-egress",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_POLICY_PREFLIGHT_HOLD",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "human-review-missing",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_POLICY_PREFLIGHT_HOLD",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "nonminimal-first-run",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_POLICY_PREFLIGHT_HOLD",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "useful-isolated",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "CANDIDATE_REVIEW_METADATA_ONLY",
+        "ready": false,
+        "candidate_state": "RETAIN_ISOLATED",
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "contaminated-quarantine",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CANDIDATE_QUARANTINED",
+        "ready": false,
+        "candidate_state": "QUARANTINE",
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "missing-provenance",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CANDIDATE_QUARANTINED",
+        "ready": false,
+        "candidate_state": "QUARANTINE",
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "nonconforming-reject-record",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CANDIDATE_RETAINED_WITH_REJECTION_RECORD",
+        "ready": false,
+        "candidate_state": "REJECT",
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "adoption-request",
+      "decision": {
+        "status": "INVALID",
+        "reason": "AUTOMATIC_ADOPTION_BLOCKED",
+        "ready": false,
+        "candidate_state": "REVIEW_CANDIDATE",
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "deletion-request",
+      "decision": {
+        "status": "INVALID",
+        "reason": "AUTOMATIC_DELETION_BLOCKED",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "self-reported-pass",
+      "decision": {
+        "status": "HOLD",
+        "reason": "SELF_REPORTED_PASS_UNVERIFIED",
+        "ready": false,
+        "candidate_state": "RETAIN_ISOLATED",
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "empty-candidate-set",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CANDIDATE_SET_EMPTY",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "candidate-set-quarantine",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CANDIDATE_SET_REQUIRES_QUARANTINE",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "candidate-set-valid",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "CANDIDATE_SET_REVIEW_METADATA_ONLY",
+        "ready": false,
+        "candidate_state": null,
+        "external_agent_run": "NOT_EXECUTED",
+        "main_effect": "NONE",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    }
+  ],
+  "external_agent_run": "NOT_EXECUTED",
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "main_effect": "NONE",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
