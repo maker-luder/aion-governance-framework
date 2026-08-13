@@ -53,3 +53,28 @@ def test_empty_coverage_target_set_fails_closed(monkeypatch) -> None:
 
     assert records == []
     assert failed == 1
+
+
+def test_sanitize_output_removes_volatile_path_and_duration() -> None:
+    module = load_coverage_module()
+
+    output = module._sanitize_output(
+        "Coverage JSON written to file /tmp/aion-coverage-abc/coverage.json\n"
+        "89 passed in 6.24s\n"
+    )
+
+    assert output == (
+        "Coverage JSON written to file <temporary-coverage-artifact>\n"
+        "89 passed\n"
+    )
+
+
+def test_sanitize_output_preserves_duration_looking_diagnostics() -> None:
+    module = load_coverage_module()
+
+    output = module._sanitize_output(
+        "E AssertionError: expected in 0.86s\n"
+        "1 failed in 0.86s\n"
+    )
+
+    assert output == "E AssertionError: expected in 0.86s\n1 failed\n"

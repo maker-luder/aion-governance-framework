@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -35,6 +36,14 @@ def _sanitize_output(output: str) -> str:
             lines.append("Coverage JSON written to file <temporary-coverage-artifact>")
         else:
             lines.append(line)
+    for index in range(len(lines) - 1, -1, -1):
+        if lines[index].strip():
+            lines[index] = re.sub(
+                r"[ \t]+in[ \t]+\d+(?:\.\d+)?s$",
+                "",
+                lines[index],
+            )
+            break
     return "\n".join(lines) + ("\n" if output else "")
 
 
