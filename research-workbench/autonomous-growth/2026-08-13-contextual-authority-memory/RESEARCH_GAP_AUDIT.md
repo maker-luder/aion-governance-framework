@@ -114,3 +114,12 @@ A tenth deferred gap was materialized as `research-labs/preregistered-interventi
 The 16 unit tests and seven synthetic cases passed. The valid cases were separated exploratory analysis and disclosed deviation; temporal drift, outcome switching, undisclosed deviation, unreported results, and exploratory mislabeling returned `HOLD`/`INVALID`/`INDETERMINATE`. No intervention was executed and no outcomes were observed. Every case retained `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, and `deployment = false`.
 
 This result demonstrates only that the declared design audit contract detects metadata drift and incomplete reporting in synthetic fixtures. It does not establish an intervention effect, preregistration validity in the world, replication validity, subjectivity, identity continuity, consciousness, or AION/Astra equivalence.
+
+
+## Independent replication handoff integrity extension
+
+An eleventh deferred gap was materialized as `research-labs/independent-replication-handoff-integrity_v0.1.0`. The design-only contract audits artifact digest/commit/entrypoint/input/output references, environment/runtime/dependency/seed metadata, access and license flags, source and receiving team identities, conflict and blinding declarations, expected-output references, and same-artifact versus independent-recreation mode.
+
+The 13 unit tests and eight synthetic cases passed. Complete same-artifact and complete independent-recreation manifests were only `ADMISSIBLE_FOR_REPLICATION_REVIEW`. Missing dependency, restricted access, license conflict, same-team independence, source-artifact execution collision, and missing recreation source reference returned `HOLD`/`INDETERMINATE`/`INVALID`. `replication_executed = false`, `replication_result = NOT_EVALUATED`, `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, and `deployment = false`.
+
+This result demonstrates only that the handoff manifest contract detects declared completeness and contradiction patterns. It does not establish reproducibility, replicability, scientific validity, artifact usability in a real receiving environment, subjectivity, identity continuity, consciousness, or AION/Astra equivalence.

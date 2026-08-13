@@ -115,3 +115,16 @@ Additional external sources:
 
 18. Center for Open Science, [More About the Preregistration Challenge](https://www.cos.io/initiatives/prereg-more-information).
 19. Center for Open Science, [Preregistration](https://www.cos.io/initiatives/prereg).
+
+
+## Independent replication handoff integrity extension
+
+Manus added `research-labs/independent-replication-handoff-integrity_v0.1.0` as a clean-room, standard-library-only manifest audit contract. It checks artifact, environment, dependency, access, license, independence, blinding, and expected-output metadata, and labels same-artifact versus independent-recreation mode. It does not run code, access private data, perform a replication, observe outcomes, call external agents or models, write canonical state, deploy, or modify main.
+
+The design was informed by The Turing Way's distinction between reproducibility and replicability and by FAIR metadata vocabulary. These sources are methodological only; field completeness is not treated as FAIR certification and admissibility is not treated as replication evidence.
+
+Additional external sources:
+
+20. The Turing Way, [Definitions](https://book.the-turing-way.org/reproducible-research/overview/overview-definitions/).
+21. GO FAIR, [FAIR Principles](https://www.go-fair.org/fair-principles/).
+22. World Bank, [Reproducibility Package Checklist](https://worldbank.github.io/wb-reproducible-research-repository/reproducibility_package_checklist.html).
