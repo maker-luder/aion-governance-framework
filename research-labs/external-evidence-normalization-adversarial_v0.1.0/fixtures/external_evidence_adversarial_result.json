@@ -1,0 +1,223 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "external-evidence-normalization-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 13,
+  "records": [
+    {
+      "case_id": "static-review",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "EXTERNAL_EVIDENCE_ADMITTED_FOR_REVIEW_ONLY",
+        "normalized_decision": "ACCEPT_STATIC_REVIEW",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "logical-reproduction",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "EXTERNAL_EVIDENCE_ADMITTED_FOR_REVIEW_ONLY",
+        "normalized_decision": "ACCEPT_LOGICAL_REPRODUCTION",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "executed-without-observation",
+      "decision": {
+        "status": "HOLD",
+        "reason": "EXECUTED_RESULT_CLAIM_WITHOUT_OBSERVATION",
+        "normalized_decision": "ACCEPT_EXECUTED_REPLICATION",
+        "replication_eligible": true,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "executed-with-observation",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "EXTERNAL_EVIDENCE_ADMITTED_FOR_REVIEW_ONLY",
+        "normalized_decision": "ACCEPT_EXECUTED_REPLICATION",
+        "replication_eligible": true,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "duplicate-report-id",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_REPORT_ID",
+        "normalized_decision": "ACCEPT_STATIC_REVIEW",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "branch-scope-mismatch",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BRANCH_SCOPE_MISMATCH",
+        "normalized_decision": "ACCEPT_STATIC_REVIEW",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "main-branch-blocked",
+      "decision": {
+        "status": "INVALID",
+        "reason": "MAIN_BRANCH_RESEARCH_EVIDENCE_BLOCKED",
+        "normalized_decision": "ACCEPT_STATIC_REVIEW",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "unknown-actor",
+      "decision": {
+        "status": "HOLD",
+        "reason": "ACTOR_IDENTITY_UNRESOLVED",
+        "normalized_decision": "ACCEPT_STATIC_REVIEW",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "unknown-mode-with-digest",
+      "decision": {
+        "status": "HOLD",
+        "reason": "UNKNOWN_MODE_CANNOT_CARRY_EXECUTION_DIGESTS",
+        "normalized_decision": "HOLD_INCOMPLETE_PROVENANCE",
+        "replication_eligible": false,
+        "provenance_complete": false,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "unknown-mode",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BASE_NORMALIZER_REQUIRES_PROVENANCE",
+        "normalized_decision": "HOLD_INCOMPLETE_PROVENANCE",
+        "replication_eligible": false,
+        "provenance_complete": false,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "empty-executed-claim",
+      "decision": {
+        "status": "HOLD",
+        "reason": "EXECUTED_REPLICATION_RESULT_CLAIM_MISSING",
+        "normalized_decision": "ACCEPT_EXECUTED_REPLICATION",
+        "replication_eligible": true,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "static-observation-overreach",
+      "decision": {
+        "status": "INVALID",
+        "reason": "RESULT_OBSERVATION_EXCEEDS_DECLARED_EXECUTION_MODE",
+        "normalized_decision": "ACCEPT_STATIC_REVIEW",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "static-pass-hash-masquerade",
+      "decision": {
+        "status": "INVALID",
+        "reason": "BASE_NORMALIZER_REJECTED_CLAIM",
+        "normalized_decision": "REJECT_INCONSISTENT_CLAIM",
+        "replication_eligible": false,
+        "provenance_complete": true,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "observed_result": "NOT_EVALUATED"
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
