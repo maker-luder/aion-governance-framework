@@ -12,7 +12,9 @@ def _string_list(data: dict[str, JsonValue], key: str) -> tuple[str, ...]:
     value = data.get(key)
     if not isinstance(value, list) or any(not isinstance(item, str) for item in value):
         raise ValidationError(f"{key} must be an array of strings")
-    return tuple(item for item in value if isinstance(item, str))
+    if any(not item.strip() for item in value):
+        raise ValidationError(f"{key} must contain only non-empty strings")
+    return tuple(value)
 
 
 @dataclass(frozen=True, slots=True)

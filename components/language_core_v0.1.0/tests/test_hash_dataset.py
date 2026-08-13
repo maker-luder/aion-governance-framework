@@ -67,3 +67,13 @@ def test_dataset_unknown_and_empty(tmp_path: Path) -> None:
     path.write_text("", encoding="utf-8")
     with pytest.raises(ValidationError, match="empty"):
         load_prompt_pairs(path)
+
+
+def test_dataset_rejects_blank_metric_terms(tmp_path: Path) -> None:
+    path = tmp_path / "pairs.jsonl"
+    for key in ("expected_constraints", "expected_keywords_tw", "forbidden_simplified_terms"):
+        row = _row()
+        row[key] = ["   "]
+        path.write_text(json.dumps(row, ensure_ascii=False), encoding="utf-8")
+        with pytest.raises(ValidationError, match="non-empty"):
+            load_prompt_pairs(path)
