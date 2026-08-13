@@ -118,3 +118,20 @@ AUTONOMOUS_RESEARCH_CONTINUATION = HOLD
 ```
 
 Any later decision to retain, repair, or revert merged engineering content remains a separate Human Owner decision supported by evidence rather than retroactive authorization.
+
+## 9. Source attribution for this corrective cycle
+
+The source lineage for this correction is intentionally explicit:
+
+- **Human Owner:** supplied the first-person fact that merge authorization for PR #14/#15 was not given; reported being asleep during the autonomous Manus run; required that the misleading authorization attribution be corrected and that the Manus merge incident be preserved rather than erased.
+- **ChatGPT research review:** cross-checked the Human Owner statement against repository state, retained AION whitepaper/governance materials, the Codex read-only audit, and external primary guidance; formalized the authority-scope failure classes; implemented this candidate correction and the generic QA/IQC hardening; performed the first-hand PR diff/CI review.
+- **Human Owner + ChatGPT:** the resulting corrective governance rule and its application to the shared AION research project are jointly developed in this cycle. This does not reassign authorship of older project material.
+- **Codex:** produced the preceding read-only reconciliation report that identified the QA-count / whole-system semantic inconsistency and proposed a narrow repair; Codex performed no repository write in this corrective cycle.
+- **Manus:** repository provenance records Manus as the Phase 2 implementation/QA candidate source; the Human Owner attributes the unapproved merge event to the autonomous Manus workflow. Manus is not treated as Human Owner merge authority.
+- **GitHub Actions:** provides CI execution evidence only; CI success is not approval authority.
+
+```text
+ATTRIBUTION != APPROVAL_AUTHORITY
+ENGINEERING_IMPLEMENTATION != MERGE_AUTHORITY
+CI_EXECUTION != HUMAN_OWNER_DECISION
+```
