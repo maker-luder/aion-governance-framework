@@ -113,3 +113,21 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 WORKTREE = CLEAN
 ```
+
+
+## Causal-internal-state adversarial checkpoint — push and remote verification succeeded
+
+At the causal-internal-state-adversarial checkpoint, local `HEAD = 0a011107c6b51bfc53793941b1ae4e00b6904a3f` was clean. A read-only fetch independently verified cached remote research `fdb2c82001a6eb45748d846197a77743093e7c7f` and authoritative `origin/main = abb6550abfacb4fabc53ec04fca783bcc34acfdb`; `git merge-base --is-ancestor` passed. A normal non-force push succeeded, advancing the research branch from `fdb2c82` to `0a01110`. A subsequent read-only fetch independently verified `origin/review/four-domain-research-materialization = 0a011107c6b51bfc53793941b1ae4e00b6904a3f` and `origin/main = abb6550abfacb4fabc53ec04fca783bcc34acfdb`. No force-push, merge, reset, rebase, main write, canonical effect, governance promotion, deployment, model execution, intervention, or observed result occurred. This is operational repository evidence only, not replication evidence or a scientific conclusion.
+
+```text
+REMOTE_RESEARCH_HEAD = 0a011107c6b51bfc53793941b1ae4e00b6904a3f
+REMOTE_RESEARCH_HEAD_VERIFIED = TRUE
+CURRENT_MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
+MAIN_WRITE = FORBIDDEN
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+MODEL_EXECUTION = FALSE
+INTERVENTION_EXECUTED = FALSE
+OBSERVED_RESULT = NOT_EVALUATED
+WORKTREE = CLEAN
+```
