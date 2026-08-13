@@ -99,3 +99,55 @@ def test_identity_and_scope_isolation_remain_enforced(tmp_path):
         writeback_approved=True,
     )
     assert store.recall(request()) == []
+
+
+def _write_kwargs() -> dict[str, object]:
+    return {
+        "memory_id": "m1",
+        "namespace": "private",
+        "user_id": "user-1",
+        "agent_id": "AION",
+        "content": "candidate",
+        "entities": {"Astra"},
+        "topics": {"runtime"},
+        "access_scope": {"project"},
+        "provenance_source": "test",
+        "provenance_verified": True,
+        "writeback_approved": True,
+    }
+
+
+@pytest.mark.parametrize("field", ["memory_id", "namespace", "user_id", "agent_id", "content", "provenance_source"])
+def test_write_rejects_non_string_required_fields(tmp_path, field: str) -> None:
+    store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
+    values = _write_kwargs()
+    values[field] = 1
+    with pytest.raises(MemoryWriteDenied, match="must be a string"):
+        store.write(**values)
+
+
+@pytest.mark.parametrize("field", ["writeback_approved", "provenance_verified"])
+def test_write_rejects_non_boolean_governance_flags(tmp_path, field: str) -> None:
+    store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
+    values = _write_kwargs()
+    values[field] = 1
+    with pytest.raises(MemoryWriteDenied, match="must be a boolean"):
+        store.write(**values)
+
+
+def test_write_rejects_scalar_iterable_and_blank_recorded_at(tmp_path) -> None:
+    store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
+    values = _write_kwargs()
+    values["entities"] = "Astra"
+    with pytest.raises(MemoryWriteDenied, match="entities must be an iterable of strings"):
+        store.write(**values)
+
+    values = _write_kwargs()
+    values["topics"] = ["runtime", 1]
+    with pytest.raises(MemoryWriteDenied, match="topics must be an iterable of strings"):
+        store.write(**values)
+
+    values = _write_kwargs()
+    values["recorded_at"] = "   "
+    with pytest.raises(MemoryWriteDenied, match="recorded_at"):
+        store.write(**values)

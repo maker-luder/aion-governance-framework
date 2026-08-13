@@ -22,6 +22,18 @@ class MemoryWriteDenied(ValueError):
     """Raised when a caller attempts an unapproved or invalid memory write."""
 
 
+def _clean_string_values(name: str, values: Iterable[str]) -> frozenset[str]:
+    if isinstance(values, (str, bytes)):
+        raise MemoryWriteDenied(f"{name} must be an iterable of strings")
+    try:
+        items = tuple(values)
+    except TypeError as exc:
+        raise MemoryWriteDenied(f"{name} must be an iterable of strings") from exc
+    if any(not isinstance(item, str) for item in items):
+        raise MemoryWriteDenied(f"{name} must be an iterable of strings")
+    return frozenset(item.strip() for item in items if item.strip())
+
+
 @dataclass(frozen=True, slots=True)
 class StoredMemory:
     memory_id: str
@@ -112,6 +124,10 @@ class SQLiteMemoryStore:
         writeback_approved: bool,
         recorded_at: str | None = None,
     ) -> StoredMemory:
+        if not isinstance(writeback_approved, bool):
+            raise MemoryWriteDenied("writeback_approved must be a boolean")
+        if not isinstance(provenance_verified, bool):
+            raise MemoryWriteDenied("provenance_verified must be a boolean")
         if not writeback_approved:
             raise MemoryWriteDenied("explicit writeback approval is required")
         required = {
@@ -122,14 +138,19 @@ class SQLiteMemoryStore:
             "content": content,
             "provenance_source": provenance_source,
         }
+        non_string = [name for name, value in required.items() if not isinstance(value, str)]
+        if non_string:
+            raise MemoryWriteDenied(f"required fields must be a string: {', '.join(sorted(non_string))}")
         blank = [name for name, value in required.items() if not value.strip()]
         if blank:
             raise MemoryWriteDenied(f"blank required fields: {', '.join(sorted(blank))}")
+        if recorded_at is not None and (not isinstance(recorded_at, str) or not recorded_at.strip()):
+            raise MemoryWriteDenied("recorded_at must be a non-blank string")
 
         timestamp = recorded_at or datetime.now(timezone.utc).isoformat()
-        entity_values = frozenset(item.strip() for item in entities if item.strip())
-        topic_values = frozenset(item.strip() for item in topics if item.strip())
-        scope_values = frozenset(item.strip() for item in access_scope if item.strip())
+        entity_values = _clean_string_values("entities", entities)
+        topic_values = _clean_string_values("topics", topics)
+        scope_values = _clean_string_values("access_scope", access_scope)
 
         with self._connect() as connection:
             connection.execute(
