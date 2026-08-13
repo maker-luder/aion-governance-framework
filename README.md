@@ -100,6 +100,8 @@ Start with:
 2. `scripts/verify_release.py`
 3. `scripts/run_component_tests.py`
 4. component-specific status locks and tests
+5. [`scripts/check_source_state_binding.py`](scripts/check_source_state_binding.py)
+6. [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md)
 
 Engineering implementation is evidence about implemented behavior only. It is not evidence that the corresponding psychological or subjectivity construct exists.
 

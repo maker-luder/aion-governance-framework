@@ -100,6 +100,8 @@ AION 拒絕在專案產生的輸出中，將不可感知、隱藏或未揭露的
 2. `scripts/verify_release.py`
 3. `scripts/run_component_tests.py`
 4. 各 component 的 status locks 與 tests
+5. [`scripts/check_source_state_binding.py`](scripts/check_source_state_binding.py)
+6. [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md)
 
 工程實作只提供關於已實作行為的證據。它不是相應心理學構念或主體性構念存在的證據。
 
