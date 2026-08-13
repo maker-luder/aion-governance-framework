@@ -131,3 +131,45 @@ def test_reconcile_returns_fail_for_failed_target(tmp_path: Path) -> None:
     payload = reconciler.reconcile(make_root(tmp_path, failed=True), target_head="abc123")
     assert payload["status"] == "FAIL"
     assert payload["failed_targets"] == ["research-labs/b"]
+
+
+@pytest.mark.parametrize("tested_value", ["false", 0, 1, [], {}])
+def test_reconcile_rejects_non_boolean_tested_field(tmp_path: Path, tested_value: object) -> None:
+    root = make_schema_v2_root(tmp_path)
+    results_path = root / "qa/CURRENT_TEST_RESULTS.json"
+    results = json.loads(results_path.read_text(encoding="utf-8"))
+    results["targets"][0]["tested"] = tested_value
+    results_path.write_text(json.dumps(results), encoding="utf-8")
+    with pytest.raises(ValueError, match="tested"):
+        reconciler.reconcile(root, target_head="abc123")
+
+
+def test_reconcile_rejects_boolean_returncode(tmp_path: Path) -> None:
+    root = make_root(tmp_path)
+    results_path = root / "qa/CURRENT_TEST_RESULTS.json"
+    results = json.loads(results_path.read_text(encoding="utf-8"))
+    results[0]["returncode"] = False
+    results_path.write_text(json.dumps(results), encoding="utf-8")
+    with pytest.raises(ValueError, match="returncode"):
+        reconciler.reconcile(root, target_head="abc123")
+
+
+def test_reconcile_rejects_missing_returncode_for_tested_target(tmp_path: Path) -> None:
+    root = make_schema_v2_root(tmp_path)
+    results_path = root / "qa/CURRENT_TEST_RESULTS.json"
+    results = json.loads(results_path.read_text(encoding="utf-8"))
+    results["targets"][0].pop("returncode")
+    results_path.write_text(json.dumps(results), encoding="utf-8")
+    with pytest.raises(ValueError, match="returncode"):
+        reconciler.reconcile(root, target_head="abc123")
+
+
+@pytest.mark.parametrize("target_value", [123, None, [], {}])
+def test_reconcile_rejects_non_string_target_field(tmp_path: Path, target_value: object) -> None:
+    root = make_root(tmp_path)
+    results_path = root / "qa/CURRENT_TEST_RESULTS.json"
+    results = json.loads(results_path.read_text(encoding="utf-8"))
+    results[0]["target"] = target_value
+    results_path.write_text(json.dumps(results), encoding="utf-8")
+    with pytest.raises(ValueError, match="target"):
+        reconciler.reconcile(root, target_head="abc123")

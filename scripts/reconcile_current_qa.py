@@ -99,12 +99,17 @@ def reconcile(root: Path, *, target_head: str | None = None, public_scan_status:
     for item in results:
         if not isinstance(item, dict):
             raise ValueError("current test results contains a non-object record")
-        target = str(item.get("target", "")).strip()
+        raw_target = item.get("target", "")
+        if not isinstance(raw_target, str):
+            raise ValueError("each current test result requires string target")
+        target = raw_target.strip()
         returncode = item.get("returncode")
-        tested = bool(item.get("tested", True))
+        tested = item.get("tested", True)
+        if not isinstance(tested, bool):
+            raise ValueError("each current test result requires boolean tested when present")
         if returncode is None and not tested:
             returncode = 0
-        if not target or not isinstance(returncode, int):
+        if not target or isinstance(returncode, bool) or not isinstance(returncode, int):
             raise ValueError("each current test result requires target and integer returncode, or explicit tested=false")
         records.append(
             {
