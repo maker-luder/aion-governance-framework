@@ -1,10 +1,10 @@
 {
   "schema_version": "0.1.0",
   "reconciliation_type": "CURRENT_TEST_EVIDENCE_TO_STATUS_LOCK",
-  "target_head": "f648e1f8af516b10ce2380ae1de3d927768807e4",
-  "generated_at": "2026-08-13T05:02:15.190230+00:00",
-  "target_count": 54,
-  "test_count": 961,
+  "target_head": "25a3379c0c0b4984f5189c4eda156f47aaf0d454",
+  "generated_at": "2026-08-13T05:13:05.975872+00:00",
+  "target_count": 55,
+  "test_count": 975,
   "failed_targets": [],
   "records": [
     {
@@ -222,6 +222,12 @@
       "tests_passed": 0,
       "returncode": 0,
       "tested": false
+    },
+    {
+      "target": "research-labs/independent-replication-design_v0.1.0",
+      "tests_passed": 14,
+      "returncode": 0,
+      "tested": true
     },
     {
       "target": "research-labs/integration-candidates",
