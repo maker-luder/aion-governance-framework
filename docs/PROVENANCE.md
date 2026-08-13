@@ -62,6 +62,32 @@ Future `main` merge authority is non-inheritable and requires fresh, action-spec
 
 See `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its machine-readable JSON companion for the incident evidence and corrective rule.
 
+## 2026-08-13 autonomous sandbox engineering review — integration provenance
+
+The cleanup branch `cleanup/manus-output-consolidation-20260813` was used as a non-canonical engineering sandbox. The Human Owner authorized autonomous engineering inside that sandbox while keeping `main`, the research branch, repository settings, releases and deployment outside the sandbox authority boundary. Manus produced twelve bounded engineering commits from `5dfafa4ea758841a23f9d081f59d74777573e33b` through `9ee1c27d536d573d29c34f96ca930e6970ea7bc8`; the commit history is retained as the primary implementation lineage and is not rewritten as Human- or ChatGPT-authored work.
+
+Source and review roles for this promotion cycle are:
+
+- **Manus:** implementation source for the twelve sandbox commits and source of the reported local QA/skill-activation observations. Those reports are creator-side engineering evidence, not independent CI, scientific validation or canonical research authority.
+- **Human Owner:** supplied the project white paper and gave fresh external-chat authorization for ChatGPT to perform the integrated review, cross-check the sandbox against `main`, the white paper and the isolated research branch, and complete the approved `main` promotion workflow. That external attestation does not turn GitHub account evidence into independent proof of physical presence or intent.
+- **ChatGPT:** independent GitHub-connector review of the sandbox diff and commit lineage, white-paper/main/research cross-comparison, promotion classification, and merge-gate handling. Review does not reassign authorship of the Manus commits.
+- **AION integrated white paper v0.12:** owner-provided research/governance baseline used for role, authority, provenance, validation-layer and non-promotion constraints. It is a review source, not an implementation author.
+- **Research branch:** comparison source only in this main-promotion cycle. Research-only material remains isolated and receives no scientific or canonical promotion from the sandbox engineering results.
+
+The twelve sandbox commits are classified as generic engineering hardening of QA/evidence/release/authority validation surfaces. Their inclusion in `main`, if and only if the exact-head PR gate and required CI succeed, changes the engineering baseline but does not establish subjectivity, scientific validity, deployment readiness or a research-theory conclusion.
+
+```text
+MANUS_IMPLEMENTATION_LINEAGE = PRESERVED
+CHATGPT_REVIEW != MANUS_AUTHORSHIP
+MAIN_ENGINEERING_BASELINE_EFFECT = PR_GATED
+RESEARCH_CANONICAL_EFFECT = NONE
+SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
+INDEPENDENT_IVV = NOT_ACHIEVED
+DEPLOYMENT = FALSE
+```
+
+The broader repository-wide pytest collection/import-isolation issue discovered during the sandbox run is intentionally not absorbed into this promotion: it requires a separate architecture-level decision and remains outside the bounded twelve-commit engineering set.
+
 ## Source package boundary
 
 Source-derived components preserve their original candidate status. Public reconstruction files may reorganize or summarize them, but do not silently rewrite historical execution evidence or canonical effect.
