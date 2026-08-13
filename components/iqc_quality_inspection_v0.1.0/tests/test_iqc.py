@@ -39,6 +39,10 @@ def make_root(
             {
                 "current_tests": f"{tests * target_count} PASSED",
                 "current_targets": target_count,
+                "eligible_target_count": target_count,
+                "tested_target_count": target_count,
+                "non_applicable_target_count": 0,
+                "whole_system_validation": "NOT_ESTABLISHED",
                 "public_scan": public_scan,
                 "canonical_effect": "NONE",
                 "independent_ivv": "NOT_ACHIEVED",
@@ -63,7 +67,14 @@ def make_root(
     ]
     (root / "qa" / "CURRENT_COVERAGE_RESULTS.json").write_text(json.dumps(coverage_results), encoding="utf-8")
     (root / "qa" / "CURRENT_COVERAGE_EVIDENCE.json").write_text(
-        json.dumps({"target_head": coverage_head, "target_count": target_count, "branch_coverage": True}),
+        json.dumps(
+            {
+                "target_head": coverage_head,
+                "target_count": target_count,
+                "branch_coverage": True,
+                "whole_system_validation": "NOT_ESTABLISHED",
+            }
+        ),
         encoding="utf-8",
     )
     (root / "qa" / "CURRENT_EVIDENCE_TRACEABILITY.json").write_text(
@@ -111,6 +122,31 @@ def test_iqc_holds_when_status_count_is_stale(tmp_path: Path) -> None:
     report = inspect_repository(root, policy=InspectionPolicy(required_test_target_count=1))
     assert report.verdict is CheckStatus.HOLD
     assert any(check.check_id == "IQC-TEST-001" and check.status is CheckStatus.HOLD for check in report.checks)
+
+
+def test_iqc_holds_when_scoped_target_counts_are_stale(tmp_path: Path) -> None:
+    root = make_root(tmp_path, target_count=2)
+    lock = json.loads((root / "qa" / "CURRENT_RELEASE_STATUS_LOCK.json").read_text(encoding="utf-8"))
+    lock["tested_target_count"] = 1
+    lock["non_applicable_target_count"] = 1
+    (root / "qa" / "CURRENT_RELEASE_STATUS_LOCK.json").write_text(json.dumps(lock), encoding="utf-8")
+    report = inspect_repository(root)
+    assert report.verdict is CheckStatus.HOLD
+    test_gate = next(check for check in report.checks if check.check_id == "IQC-TEST-001")
+    assert test_gate.status is CheckStatus.HOLD
+    assert "tested_target_count" in test_gate.detail
+
+
+def test_iqc_holds_when_whole_system_semantics_conflict(tmp_path: Path) -> None:
+    root = make_root(tmp_path)
+    evidence = json.loads((root / "qa" / "CURRENT_COVERAGE_EVIDENCE.json").read_text(encoding="utf-8"))
+    evidence["whole_system_validation"] = "PASS"
+    (root / "qa" / "CURRENT_COVERAGE_EVIDENCE.json").write_text(json.dumps(evidence), encoding="utf-8")
+    report = inspect_repository(root)
+    assert report.verdict is CheckStatus.HOLD
+    semantic = next(check for check in report.checks if check.check_id == "IQC-SEM-001")
+    assert semantic.status is CheckStatus.HOLD
+    assert "conflict" in semantic.detail
 
 
 def test_iqc_holds_when_coverage_target_set_is_stale(tmp_path: Path) -> None:
