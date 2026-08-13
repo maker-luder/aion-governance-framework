@@ -4,7 +4,7 @@
 
 ```text
 BRANCH = review/four-domain-research-materialization
-TARGET_HEAD = aaab3b7618d5e7db1228deb8cb9b4dc4a20cf4e0
+TARGET_HEAD = efefe5caa657b61fb102a2e376ccaca611ccd0ae
 BASE_RESEARCH_HEAD = a5f8bfb7356fafbe9c0c61780f3a76ab0d493c34
 MAIN_REFERENCE = abb6550abfacb4fabc53ec04fca783bcc34acfdb
 ```
