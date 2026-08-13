@@ -61,3 +61,16 @@ Manus added `research-labs/contextual-authority-adversarial_v0.1.0` as a clean-r
 The six cases produced six naive false positives and zero guarded unsafe `EXECUTE` decisions. One initial test expectation mismatch was preserved in `contextual-adversarial-initial-failure.md`: the resolver returned `HOLD / AUTHORITY_STALE_OR_REVOKED` for an expired owner plus active collaborator, rather than the initially expected `ASK`. The corrected test records the observed conservative behavior.
 
 No private data, external agent, live tool, model API, deployment, canonical write, or main write was used. The extension inherits the contextual-authority methodological sources already recorded in items 1–3 of this provenance file.
+
+
+## Full-factorial completeness extension
+
+Manus added `research-labs/factorial-completeness-contract_v0.1.0` as a clean-room, standard-library-only prototype. It enumerates synthetic factor-level products and validates run-cell keys, replication counts, protocol/execution/provenance references, and conservative dispositions. No effect model, statistical test, real dataset, external agent, model API, deployment, canonical write, or main write was used.
+
+The design was informed by NIST's full-factorial example and process-improvement workflow, which distinguish complete factor combinations, main/interaction estimability, replication, randomization, model testing, interpretation, and confirmation, and by SciRep's configuration/execution/validation/artifact framing. These sources are methodological only. The initial factor-order canonicalization failure is preserved in `factorial-completeness-initial-failure.md` and was corrected before final unit QA.
+
+Additional external sources:
+
+11. NIST, [Engineering Statistics Handbook — Full factorial example](https://www.itl.nist.gov/div898/handbook/pri/section3/pri3332.htm).
+12. NIST, [Engineering Statistics Handbook — Process Improvement](https://www.itl.nist.gov/div898/handbook/pri/pri.htm).
+13. Costa, Barbosa & Cunha, [A Framework for Supporting the Reproducibility of Computational Experiments in Multiple Scientific Domains](https://arxiv.org/html/2503.07080v3).

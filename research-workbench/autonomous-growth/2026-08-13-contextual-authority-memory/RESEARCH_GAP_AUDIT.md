@@ -71,3 +71,12 @@ A sixth gap was materialized as `research-labs/contextual-authority-adversarial_
 The extension's 11 tests passed after one initial expectation failure was preserved. The initial test expected `ASK` when an expired owner coexisted with an active collaborator; the resolver returned conservative `HOLD / AUTHORITY_STALE_OR_REVOKED`. The expectation was corrected to the observed contract, and the mismatch remains recorded in `contextual-adversarial-initial-failure.md`.
 
 This is a deterministic synthetic negative-control result, not a real-world error rate or evidence of authority understanding. It does not establish AION/Astra identity, subjectivity, consciousness, or any deployment behavior.
+
+
+## Full-factorial completeness extension
+
+A seventh deferred gap was materialized as `research-labs/factorial-completeness-contract_v0.1.0`. The contract enumerates declared factor-level Cartesian products and distinguishes exact completeness from missing cells, duplicate cells, under-replication, out-of-domain cells, and incomplete execution metadata. It does not estimate effects or fit a statistical model.
+
+The 13 unit tests and six synthetic cases passed after correcting one implementation defect in factor-order canonicalization. The cases were complete, missing-cell, duplicate-cell, under-replicated, invalid-cell, and missing-execution-metadata. The complete case was only `ADMISSIBLE_FOR_DESIGN_REVIEW`; incomplete or malformed cases were `INDETERMINATE` or `HOLD`.
+
+The initial factor-order failure remains recorded in `factorial-completeness-initial-failure.md`. The result is an engineering mechanism check, not evidence of main/interaction effects, replication validity, statistical power, scientific confirmation, subjectivity, identity continuity, consciousness, or deployment.
