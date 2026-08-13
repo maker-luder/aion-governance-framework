@@ -279,3 +279,23 @@ The unit produced 16 passing tests and 13 synthetic cases. Static review and log
 | Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
 
 No source above establishes external identity, source truth, currentness, independent replication, scientific validity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, or deployment.
+
+
+## Research-evaluation-harness adversarial extension
+
+Manus added `research-labs/research-evaluation-harness-adversarial_v0.1.0` as a clean-room, standard-library-only metadata audit extension. The Human Research Owner authorized the bounded research-only cycle and retains main, canonical, governance, and deployment authority. ChatGPT research review supplied the inherited scope, exclusions, and non-claim boundaries. Codex made no contribution to this unit. No GitHub Actions execution, private data, external agent, live model API, model/task execution, deployment, canonical write, or main write was used.
+
+The unit reuses `research-evaluation-harness_v0.1.0` through stable repository source-path references. The transformation adds report dataset/implementation scope, case identity and coverage, evaluator/evidence/provenance completeness, finite timing checks, research-only/canonical boundaries, forbidden claim promotion checks, and comparison dataset/implementation/order controls. Existing evaluator outcomes and prior fixtures are not counted as new evidence; the 18 synthetic cases are not replication evidence.
+
+The unit produced 21 passing tests and 18 synthetic report/comparison cases. The experiment intentionally did not call `evaluate_dataset`; it constructed report objects only. Negative results remained visible with a zero pass rate, incomplete reports were held, and forbidden/canonical/identity-promoting requests were invalid. Every decision preserved `MODEL_EXECUTION = FALSE`, `OBSERVED_RESULT = NOT_EVALUATED`, `SCIENTIFIC_CONCLUSION = NOT_ESTABLISHED`, `SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED`, `CANONICAL_EFFECT = NONE`, `GOVERNANCE_EFFECT = NONE`, and `DEPLOYMENT = FALSE`.
+
+### Source attribution matrix
+
+| What | Who | Where | When | Method | Authority | Transformation | Current/stale status |
+|---|---|---|---|---|---|---|---|
+| Evaluation report/case/comparison structures | Manus, reviewed under ChatGPT research scope | Repository path `research-labs/research-evaluation-harness_v0.1.0/src/aion_research_eval/core.py` | Inherited branch research lineage; exact new state bound by later QA receipt | Read-only source inspection and clean-room composition | Repository Evidence; Human Owner retains authority | Added report/comparison integrity audit; no task/model execution | Current within verified research lineage at the unit commit; not an external freshness claim |
+| Existing harness README/crosswalk | Manus | `research-labs/research-evaluation-harness_v0.1.0/README.md` and `docs/EXTERNAL_SOURCE_CROSSWALK.md` | Inherited prior unit; no independent re-dating here | Methodological reuse | Repository Evidence / External Literature references already recorded | Reused boundary and evaluation vocabulary only | Current within branch lineage; external currentness not newly asserted |
+| Synthetic audit decisions | Manus | `research-labs/research-evaluation-harness-adversarial_v0.1.0/fixtures/evaluation_harness_adversarial_result.json` | Generated and validated 2026-08-13 | Standard-library Python object construction and audit execution | Synthetic Fixtures; no authority to change governance | Declared report/comparison metadata mapped to ADMITTED/HOLD/INVALID reason codes | Current as fixture content bound to the research commit; not a real-world observation |
+| Main state reference | Read-only Git fetch, recorded by Manus | `origin/main@abb6550abfacb4fabc53ec04fca783bcc34acfdb` | Verified at the last successful repository checkpoint | Read-only reference check | Human Owner / Repository state; no main write | Protected state reference only | Current authoritative main reference; stale local checkout remains historical |
+
+No source above establishes evaluator validity, model generalization, scientific validity, external identity, subjectivity, consciousness, AION/Astra equivalence, governance effect, canonical effect, or deployment.
