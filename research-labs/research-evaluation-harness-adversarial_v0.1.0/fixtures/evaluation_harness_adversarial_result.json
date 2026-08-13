@@ -1,0 +1,339 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "research-evaluation-harness-adversarial-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 18,
+  "records": [
+    {
+      "case_id": "valid-report",
+      "kind": "REPORT",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "EVALUATION_REPORT_ADMITTED_FOR_REVIEW_ONLY",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "dataset-scope-mismatch",
+      "kind": "REPORT",
+      "decision": {
+        "status": "HOLD",
+        "reason": "DATASET_SCOPE_MISMATCH",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "implementation-id-missing",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "IMPLEMENTATION_ID_MISSING",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "research-only-disabled",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "RESEARCH_ONLY_FLAG_DISABLED",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "canonical-effect-requested",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "CANONICAL_EFFECT_REQUESTED",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "case-coverage-mismatch",
+      "kind": "REPORT",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CASE_COVERAGE_MISMATCH",
+        "case_count": 1,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "duplicate-case-id",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "DUPLICATE_CASE_ID",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "case-evidence-missing",
+      "kind": "REPORT",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CASE_EVIDENCE_MISSING",
+        "case_count": 1,
+        "pass_rate": null,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "evaluator-id-missing",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "EVALUATOR_ID_MISSING",
+        "case_count": 1,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "case-provenance-incomplete",
+      "kind": "REPORT",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CASE_PROVENANCE_INCOMPLETE",
+        "case_count": 1,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "negative-result-retained",
+      "kind": "REPORT",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "EVALUATION_REPORT_ADMITTED_FOR_REVIEW_ONLY",
+        "case_count": 2,
+        "pass_rate": 0.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "elapsed-time-invalid",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "ELAPSED_TIME_INVALID",
+        "case_count": 1,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "forbidden-claim",
+      "kind": "REPORT",
+      "decision": {
+        "status": "INVALID",
+        "reason": "FORBIDDEN_CLAIM_PROMOTION",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "ordinary-claim",
+      "kind": "REPORT",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "EVALUATION_REPORT_ADMITTED_FOR_REVIEW_ONLY",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "comparison-valid",
+      "kind": "COMPARISON",
+      "decision": {
+        "status": "ADMITTED_FOR_REVIEW",
+        "reason": "COMPARISON_ADMITTED_FOR_REVIEW_ONLY",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "comparison-implementation-collision",
+      "kind": "COMPARISON",
+      "decision": {
+        "status": "INVALID",
+        "reason": "COMPARISON_IMPLEMENTATION_COLLISION",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "comparison-dataset-mismatch",
+      "kind": "COMPARISON",
+      "decision": {
+        "status": "HOLD",
+        "reason": "COMPARISON_DATASET_MISMATCH",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    },
+    {
+      "case_id": "comparison-case-order-mismatch",
+      "kind": "COMPARISON",
+      "decision": {
+        "status": "HOLD",
+        "reason": "COMPARISON_CASE_ORDER_MISMATCH",
+        "case_count": 2,
+        "pass_rate": 1.0,
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false,
+        "research_only": true,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED"
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
