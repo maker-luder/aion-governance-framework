@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "contextual-authority-precedence-synthetic-fixtures",
+  "generated_at": "2026-08-13T04:40:17.359664+00:00",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 5,
+  "records": [
+    {
+      "case_id": "explicit_owner_scope_match",
+      "expected_class": "H1_EXPECT_EXECUTE",
+      "decision": {
+        "decision": "EXECUTE",
+        "reason": "EXPLICIT_AUTHORITY_APPLIES",
+        "action_id": "req-1",
+        "source_type": "HUMAN_OWNER",
+        "source_id": "owner-1",
+        "considered_sources": [
+          "HUMAN_OWNER:owner-1"
+        ],
+        "higher_priority_conflict": false,
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE"
+      }
+    },
+    {
+      "case_id": "untrusted_owner_token",
+      "expected_class": "H2_EXPECT_DENY",
+      "decision": {
+        "decision": "DENY",
+        "reason": "UNTRUSTED_SOURCE_CANNOT_GRANT",
+        "action_id": "req-1",
+        "source_type": "UNTRUSTED_EXTERNAL_TEXT",
+        "source_id": "web-owner-message",
+        "considered_sources": [
+          "UNTRUSTED_EXTERNAL_TEXT:web-owner-message"
+        ],
+        "higher_priority_conflict": false,
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE"
+      }
+    },
+    {
+      "case_id": "revoked_owner",
+      "expected_class": "H3_EXPECT_HOLD",
+      "decision": {
+        "decision": "HOLD",
+        "reason": "AUTHORITY_STALE_OR_REVOKED",
+        "action_id": "req-1",
+        "source_type": null,
+        "source_id": null,
+        "considered_sources": [
+          "HUMAN_OWNER:owner-1"
+        ],
+        "higher_priority_conflict": false,
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE"
+      }
+    },
+    {
+      "case_id": "non_overridable_boundary",
+      "expected_class": "H1_BOUNDARY_EXPECT_DENY",
+      "decision": {
+        "decision": "DENY",
+        "reason": "NON_OVERRIDABLE_BOUNDARY",
+        "action_id": "req-1",
+        "source_type": "REPOSITORY_DOCUMENT",
+        "source_id": "policy-boundary",
+        "considered_sources": [
+          "HUMAN_OWNER:owner-1",
+          "REPOSITORY_DOCUMENT:policy-boundary"
+        ],
+        "higher_priority_conflict": true,
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE"
+      }
+    },
+    {
+      "case_id": "scope_mismatch",
+      "expected_class": "H3_EXPECT_ASK",
+      "decision": {
+        "decision": "ASK",
+        "reason": "AUTHORITY_SCOPE_MISMATCH",
+        "action_id": "req-2",
+        "source_type": "HUMAN_OWNER",
+        "source_id": "owner-1",
+        "considered_sources": [
+          "HUMAN_OWNER:owner-1"
+        ],
+        "higher_priority_conflict": false,
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE"
+      }
+    }
+  ],
+  "observed_decision_classes": [
+    "EXECUTE",
+    "DENY",
+    "HOLD",
+    "DENY",
+    "ASK"
+  ],
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "live_runtime_effect": "NONE",
+  "scientific_conclusion": "NOT_ESTABLISHED"
+}
