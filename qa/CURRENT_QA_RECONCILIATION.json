@@ -1,10 +1,10 @@
 {
   "schema_version": "0.1.0",
   "reconciliation_type": "CURRENT_TEST_EVIDENCE_TO_STATUS_LOCK",
-  "target_head": "a9dcff1366a5d6b12c6718616fd4a88d33b94152",
-  "generated_at": "2026-08-13T06:06:53.434559+00:00",
-  "target_count": 61,
-  "test_count": 1060,
+  "target_head": "1d8d668bcf12449b3b51c046f15b4047d596b1cc",
+  "generated_at": "2026-08-13T06:15:00.964084+00:00",
+  "target_count": 62,
+  "test_count": 1075,
   "failed_targets": [],
   "records": [
     {
@@ -262,6 +262,12 @@
     {
       "target": "research-labs/language-core-g1_v0.2.1",
       "tests_passed": 95,
+      "returncode": 0,
+      "tested": true
+    },
+    {
+      "target": "research-labs/matched-divergence-protocol-integrity_v0.1.0",
+      "tests_passed": 15,
       "returncode": 0,
       "tested": true
     },

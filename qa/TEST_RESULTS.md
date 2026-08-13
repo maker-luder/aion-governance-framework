@@ -1,6 +1,6 @@
 # Current Test Results
 
-Target head: `a9dcff1366a5d6b12c6718616fd4a88d33b94152`. This report is generated from the current component runner output.
+Target head: `1d8d668bcf12449b3b51c046f15b4047d596b1cc`. This report is generated from the current component runner output.
 
 | Target | Tests passed | Return code |
 |---|---:|---:|
@@ -47,6 +47,7 @@ Target head: `a9dcff1366a5d6b12c6718616fd4a88d33b94152`. This report is generate
 | `research-labs/independent-replication-handoff-integrity_v0.1.0` | 13 | 0 |
 | `research-labs/integration-candidates` | 0 | 0 |
 | `research-labs/language-core-g1_v0.2.1` | 95 | 0 |
+| `research-labs/matched-divergence-protocol-integrity_v0.1.0` | 15 | 0 |
 | `research-labs/power-analysis-uncertainty_v0.1.0` | 12 | 0 |
 | `research-labs/preregistered-intervention-integrity_v0.1.0` | 16 | 0 |
 | `research-labs/real-model-pilot-protocol_v0.1.0` | 6 | 0 |
@@ -66,4 +67,4 @@ Target head: `a9dcff1366a5d6b12c6718616fd4a88d33b94152`. This report is generate
 | `research-labs/twin-genesis-embodiment_v0.1.0` | 18 | 0 |
 | `research-labs/typed-lineage-edge-semantics_v0.1.0` | 11 | 0 |
 
-**Total:** 1060 passed across 61 targets; failed targets: 0.
+**Total:** 1075 passed across 62 targets; failed targets: 0.
