@@ -52,3 +52,8 @@ At the final preregistration-integrity QA checkpoint, local `HEAD = fa08ebc5729b
 ## Matched-divergence QA checkpoint
 
 At the matched-divergence checkpoint, local `HEAD = 3984c851cdbdcc1517206dcc3644f64ac0fce5ce` was verified as a descendant of remote-tracking research `dc9b0e85b1604d637325228c82aa96559dc57c69`, and local `main = 4b36077993fabb22bf04e06162ea83c623bbb7e6` was verified as an ancestor. The push reached GitHub but failed authentication with `Invalid username or token`; no remote write was confirmed. No force-push or repeated tight-loop retry was made. Local research commits remain preserved. This is an operational observation only and not evidence of a scientific conclusion.
+
+
+## Matched-divergence latest QA checkpoint
+
+At the latest matched-divergence QA checkpoint, local `HEAD = 0b30677eac492d3c2c47492f736c0f73d079587d` was verified as a descendant of remote-tracking research `dc9b0e85b1604d637325228c82aa96559dc57c69`, and local `main = 4b36077993fabb22bf04e06162ea83c623bbb7e6` was verified as an ancestor. The push again failed authentication with `Invalid username or token`; no remote write was confirmed. No force-push or tight-loop retry was made. Local research commits remain preserved. This is an operational observation only and not evidence of a scientific conclusion.
