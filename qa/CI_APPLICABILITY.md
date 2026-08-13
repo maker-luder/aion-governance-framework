@@ -1,32 +1,46 @@
-# Review v2 CI Applicability and Evidence
+# Final Formal Research CI Applicability and Evidence
 
-## Local checks
+This document describes the **current final formal-research tree**. Historical review-branch applicability notes are retained only as historical provenance and are not current-state claims.
 
-| Check | Result | Evidence |
+## Current local applicability
+
+| Check | Applicability/result | Current evidence |
 |---|---|---|
-| Dynamic component matrix | PASS | `qa/CURRENT_TEST_RESULTS.json`: 48 eligible, 46 tested, 2 explicit non-applicable, 866 passed, 0 failed |
-| Whole-system validation | PASS | `qa/WHOLE_SYSTEM_VALIDATION.json`: 21 test cases, 11 scenario classes, exact node IDs |
-| Branch coverage | PASS measured | `qa/CURRENT_COVERAGE_RESULTS.json` and `qa/coverage/` |
-| Runtime Strong QA | PASS local | `scripts/run_runtime_strong_qa.sh` returned exit code 0 in this sandbox |
-| Research Scope Lock | PASS local | `scripts/check_research_scope_lock.py` returned exit code 0 |
-| Autonomous-growth contract | PASS local | `scripts/check_autonomous_growth_contract.py` returned exit code 0 |
-| Public tree scan | PASS | `scripts/scan_public_tree.py` |
-| Sensitive material scan | PASS | `scripts/scan_sensitive_material.py` and `qa/SENSITIVE_MATERIAL_SCAN.json` |
-| Current manifest integrity | PASS | `scripts/manifest_integrity.py --manifest-dir qa/current_manifest` (versioned current-tree manifest) |
-| Frozen release verifier | EXPECTED NON-APPLICABLE FAIL | `scripts/verify_release.py` is hard-wired to historical release manifest; it reports hash mismatch on this post-RC review tree and is not current v2 validation |
+| Dynamic current-target matrix | `PASS` | `qa/CURRENT_TEST_RESULTS.json`: 50 eligible/current targets, 47 tested, 3 explicit non-applicable, 920 passed, 0 failed |
+| Whole-system validation | `PASS` | `qa/WHOLE_SYSTEM_VALIDATION.json`: 21 test cases, 11 scenario classes |
+| Branch coverage | `PASS` | `qa/CURRENT_COVERAGE_RESULTS.json` and `qa/coverage/` |
+| Runtime Strong QA | `PASS` | `scripts/run_runtime_strong_qa.sh` in final exact-head QA |
+| Research Scope Lock | `PASS` | `scripts/check_research_scope_lock.py` |
+| Autonomous-growth contract | `PASS` | `scripts/check_autonomous_growth_contract.py`; 8 validated cycle records |
+| Public-tree scan | `PASS` | `scripts/scan_public_tree.py` |
+| Sensitive-material scan | `PASS` | `scripts/scan_sensitive_material.py` |
+| Stale-evidence scan | `PASS` | `scripts/scan_stale_evidence.py` |
+| Manifest integrity | `PASS` | `qa/final_current_manifest/` and manifest generate/verify evidence |
+| Current QA reconciliation | `PASS` | `qa/CURRENT_QA_RECONCILIATION.json` bound to `TESTED_SUBJECT_HEAD = 8dd022f805f4eab9593ee64dc2db93155a55079d` |
+| Evidence traceability / IQC | `PASS` | `qa/CURRENT_EVIDENCE_TRACEABILITY.json`, `qa/IQC_REPORT.json` |
+| Workflow syntax | `PASS` | final local gate receipt |
 
-## GitHub workflow applicability
+## Remote workflow applicability
 
-The repository's `Quality` workflow was extended to include `review/aion-astra-whole-system-completion-v2` push events. The final handoff records its exact GitHub Actions run ID and head SHA only after the v2 branch is pushed and the workflow reaches a terminal conclusion.
+The final remote verification is bound to the exact published commit under review. A remote success is recorded only when GitHub reports the workflow name, run ID, head SHA, completed status and success conclusion. The PART 2C final report is the authoritative record for the final published head's remote run IDs.
 
-`Research Workbench CI` is configured to run on pushes to `review/four-domain-research-materialization`, on pull requests targeting that formal research branch, or by manual dispatch. A push to the v2 review branch is therefore **not automatically in scope** for that workflow. The v2 branch locally runs the same relevant research-lab package/test checks where applicable, but no GitHub Research Workbench run is claimed unless an exact run is actually dispatched and completed.
+For the preceding published evidence checkpoint `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48`, the actual run list contained:
 
-`Research Scope Lock` has the same branch-specific push behavior, with PR targets including `main` and the formal research branch. Local checks pass; GitHub run applicability is recorded as exact non-applicability for a standalone v2 branch push unless manually dispatched.
+| Workflow | Run ID | Head SHA | Status | Conclusion |
+|---|---:|---|---|---|
+| `Quality` | `31659136893` | `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48` | `completed` | `success` |
+| `Research Scope Lock` | `31659136856` | `3d8f8a6a2afd88a4ce523cc889390d72a9e81f48` | `completed` | `success` |
+| `Research Workbench CI` | not listed for that push | — | `N/A` | no success inferred |
 
-`Runtime Strong QA` is PR/path-filtered. Its repository driver passed locally. No GitHub run is represented as PASS without an exact run ID and head SHA.
+The final report must repeat the actual run IDs for the final published HEAD after any evidence-only correction commit. No workflow result is inferred from local QA, and no untriggered workflow is represented as a pass.
+
+## Governance locks
 
 ```text
+BASE_BRANCH = review/four-domain-research-materialization
+PROTECTED_BRANCH = main
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
+PRODUCTION_RUNTIME_AUTHORIZED = FALSE
 INDEPENDENT_IVV = NOT_ACHIEVED
 ```
