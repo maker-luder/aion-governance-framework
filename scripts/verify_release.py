@@ -92,6 +92,48 @@ def scan_bytes(path: str, data: bytes, errors: list[str]) -> None:
             errors.append(f"secret pattern: {path}")
 
 
+def _load_historical_manifest_records(
+    raw: bytes,
+) -> tuple[list[dict[str, object]] | None, list[str]]:
+    try:
+        manifest = json.loads(raw)
+    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+        return None, [f"historical manifest is invalid JSON: {exc}"]
+    if not isinstance(manifest, dict):
+        return None, ["historical manifest must be a JSON object"]
+    records = manifest.get("files")
+    if not isinstance(records, list):
+        return None, ["historical manifest files must be an array"]
+
+    validated: list[dict[str, object]] = []
+    errors: list[str] = []
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            errors.append(f"historical manifest files[{index}] must be an object")
+            continue
+        record_errors: list[str] = []
+        path = record.get("path")
+        size = record.get("size")
+        digest = record.get("sha256")
+        if not isinstance(path, str) or not path:
+            record_errors.append(
+                f"historical manifest files[{index}].path must be a non-empty string"
+            )
+        if isinstance(size, bool) or not isinstance(size, int) or size < 0:
+            record_errors.append(
+                f"historical manifest files[{index}].size must be a non-negative integer"
+            )
+        if not isinstance(digest, str) or re.fullmatch(r"[0-9a-f]{64}", digest) is None:
+            record_errors.append(
+                f"historical manifest files[{index}].sha256 must be a 64-character lowercase hex string"
+            )
+        if record_errors:
+            errors.extend(record_errors)
+        else:
+            validated.append(record)
+    return (validated if not errors else None), errors
+
+
 def verify_historical_rc() -> dict[str, object]:
     errors: list[str] = []
     tag_object = git_text("rev-parse", "--verify", HISTORICAL_RC_REF)
@@ -123,8 +165,25 @@ def verify_historical_rc() -> dict[str, object]:
     # Use the pinned commit after validating the ref so a concurrent ref move cannot
     # change the historical subject between the trust-anchor check and blob reads.
     entries = tree_entries(EXPECTED_PEELED_COMMIT)
-    manifest = json.loads(git_bytes("show", f"{EXPECTED_PEELED_COMMIT}:{MANIFEST_PATH}"))
-    records = manifest["files"]
+    records, manifest_errors = _load_historical_manifest_records(
+        git_bytes("show", f"{EXPECTED_PEELED_COMMIT}:{MANIFEST_PATH}")
+    )
+    if manifest_errors:
+        return {
+            "verification_scope": "HISTORICAL_RC_VERIFICATION",
+            "baseline": HISTORICAL_RC_NAME,
+            "baseline_commit": commit,
+            "expected_tag_object": EXPECTED_TAG_OBJECT,
+            "actual_tag_object": tag_object,
+            "expected_peeled_commit": EXPECTED_PEELED_COMMIT,
+            "actual_peeled_commit": commit,
+            "historical_reference_drift": False,
+            "manifest": f"{EXPECTED_PEELED_COMMIT}:{MANIFEST_PATH}",
+            "status": "FAIL",
+            "errors": manifest_errors,
+            "files": 0,
+        }
+    assert records is not None
     sums_text = git_bytes("show", f"{EXPECTED_PEELED_COMMIT}:{SUMS_PATH}").decode("utf-8")
     sums = {
         line.split("  ", 1)[1]: line.split("  ", 1)[0]

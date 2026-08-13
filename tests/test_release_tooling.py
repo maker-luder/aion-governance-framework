@@ -207,3 +207,26 @@ def test_current_snapshot_classifies_dangling_tracked_symlink_before_missing_fil
     assert result["errors"] == [
         "symlink verification unsupported on this platform: linked.txt"
     ]
+
+
+def test_historical_manifest_non_object_fails_closed(monkeypatch: pytest.MonkeyPatch) -> None:
+    verifier = load_script("verify_release")
+
+    def fake_git_text(*args: str) -> str:
+        if args[-1] == verifier.HISTORICAL_RC_REF:
+            return verifier.EXPECTED_TAG_OBJECT
+        return verifier.EXPECTED_PEELED_COMMIT
+
+    def fake_git_bytes(*args: str) -> bytes:
+        assert args[0] == "show"
+        assert args[1].endswith(f":{verifier.MANIFEST_PATH}")
+        return b"[]"
+
+    monkeypatch.setattr(verifier, "git_text", fake_git_text)
+    monkeypatch.setattr(verifier, "tree_entries", lambda ref: {})
+    monkeypatch.setattr(verifier, "git_bytes", fake_git_bytes)
+
+    result = verifier.verify_historical_rc()
+
+    assert result["status"] == "FAIL"
+    assert result["errors"] == ["historical manifest must be a JSON object"]
