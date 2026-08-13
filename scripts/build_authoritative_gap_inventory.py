@@ -73,6 +73,18 @@ resolved_items = [
         ],
         "non_claim": "The result is bounded to synthetic adversarial fixtures and does not establish semantic truth or convert score into authority.",
     },
+    {
+        "id": "RES-007",
+        "title": "Governed model-swap continuity measurement",
+        "status": "PARTIALLY_COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_VALIDATION.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_GOVERNANCE_STATE_REGISTRY.json",
+            "research-workbench/autonomous-growth/cycles/2026-08-13-model-swap-continuity.json",
+        ],
+        "non_claim": "A fixed synthetic-state model swap is descriptive evidence only; it does not establish identity, subjectivity, consciousness, phenomenal continuity or authority.",
+    },
 ]
 
 remaining_items = [
@@ -228,7 +240,7 @@ payload = {
         "independent_ivv": "NOT_ACHIEVED",
         "subjectivity_conclusion": "NOT_ESTABLISHED",
         "identity_conclusion": "NOT_ESTABLISHED",
-        "new_research_started": False,
+        "new_research_started": True,
         "new_sexuality_research_started": False,
         "new_product_runtime_scope_added": False,
     },

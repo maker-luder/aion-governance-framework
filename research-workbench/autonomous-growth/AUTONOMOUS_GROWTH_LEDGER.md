@@ -181,3 +181,41 @@ RUNTIME_EFFECT = NONE
 ```
 
 Integration into the research branch may proceed through ordinary reviewed PR history. This does not change the autonomous cycle result class or establish scientific validity.
+
+## Autonomous cycle — 2026-08-13 — governed model swap continuity
+
+```text
+STARTING_RESEARCH_SHA = 4ed014c34f2594c4bffecb0999450342cad204f7
+CANDIDATE_BRANCH = autogrow/2026-08-13-model-swap-continuity
+EPISTEMIC_ROLE = MEASUREMENT
+RESULT_CLASS = POSITIVE
+INTEGRATION_STATUS = INTEGRATED_RESEARCH_BRANCH
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+Research question:
+
+> With governed state held constant, does swapping two real local learned checkpoints change descriptive language-model behavior without changing state admission or authority?
+
+The experiment held one synthetic governed-state digest constant across two real, locally reloadable V3 checkpoints. Six admitted rows were scored; two rejected rows were not scored. One of six top-token predictions changed after the model swap, and the mean regularized loss was lower on the admitted fixture, but this is a descriptive measurement only. It does not establish identity, subjectivity, consciousness, phenomenal continuity or authority.
+
+Validation:
+
+- clean-process model-swap validation: `PASS`;
+- focused evidence tests: `4 passed`;
+- complete language-core test line after this increment: `71 passed`;
+- public-tree scan: `PASS`;
+- local checkpoint binaries remained outside Git;
+- no private/intimate data or paid external resources were used.
+
+Cycle record: `cycles/2026-08-13-model-swap-continuity.json`.
+
+HOLD:
+
+- the governed state fixture is synthetic and small;
+- local-only checkpoint redistribution remains outside this cycle;
+- independent IV&V is not achieved;
+- no scientific or authority promotion is made;
+- no temporary `autogrow/*` branch is pushed as a remote branch.

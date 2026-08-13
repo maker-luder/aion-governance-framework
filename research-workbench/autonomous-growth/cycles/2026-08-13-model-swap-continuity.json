@@ -1,0 +1,49 @@
+{
+  "cycle_id": "2026-08-13-model-swap-continuity",
+  "started_at": "2026-08-13T08:02:37+08:00",
+  "starting_research_sha": "4ed014c34f2594c4bffecb0999450342cad204f7",
+  "research_question": "With governed state held constant, does swapping two real local learned checkpoints change descriptive language-model behavior without changing state admission or authority?",
+  "epistemic_role": "MEASUREMENT",
+  "source_refs": [
+    "docs/WHOLE_SYSTEM_GAP_MATRIX.md",
+    "docs/MODEL_HANDOFF_AND_RELATIONAL_CONTINUITY.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_VALIDATION.json"
+  ],
+  "changed_paths": [
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/run_model_swap_continuity.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/validate_model_swap_continuity.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_GOVERNANCE_STATE_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_model_swap_continuity_evidence.py",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-model-swap-continuity.json",
+    "research-workbench/autonomous-growth/AUTONOMOUS_GROWTH_LEDGER.md"
+  ],
+  "validation": {
+    "commands": [
+      "python3 research-labs/language-core-g1_v0.2.1/engineering/model_swap/run_model_swap_continuity.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "python3 research-labs/language-core-g1_v0.2.1/engineering/model_swap/validate_model_swap_continuity.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_model_swap_continuity_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py"
+    ],
+    "outcomes": [
+      "MODEL_SWAP_CONTINUITY_V1 = PRELIMINARY_RESEARCH_EVIDENCE; six admitted rows scored, two rejected rows scored zero, one top-token prediction change observed",
+      "Clean-process model-swap validation = PASS for both local-only V3 checkpoints",
+      "Focused model-swap evidence tests = 4 passed; complete language-core suite = 71 passed",
+      "Public-tree scan = PASS; no private or intimate data and no paid external resource",
+      "Behavioral difference is descriptive measurement only and does not establish identity, subjectivity, consciousness or phenomenal continuity"
+    ]
+  },
+  "result_class": "POSITIVE",
+  "candidate_branch": "autogrow/2026-08-13-model-swap-continuity",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
+  "hold_items": [
+    "Synthetic governed-state fixture is small and does not establish generalization beyond this setup",
+    "Local-only checkpoint binaries remain outside Git and require future authorized artifact review for redistribution",
+    "Independent IV&V is not achieved",
+    "No identity, subjectivity, consciousness or phenomenal-continuity conclusion is permitted"
+  ]
+}

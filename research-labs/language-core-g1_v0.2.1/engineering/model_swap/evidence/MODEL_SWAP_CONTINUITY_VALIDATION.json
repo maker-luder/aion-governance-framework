@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "admitted_rows_scored": true,
+    "constant_state_digest": true,
+    "gate_before_score": true,
+    "model_checks_pass": true,
+    "no_external_paid_resource": true,
+    "no_new_model_added": true,
+    "no_private_data": true,
+    "registry_dataset_matches": true,
+    "registry_state_digest_matches": true,
+    "rejected_rows_not_scored": true
+  },
+  "device": "cpu",
+  "experiment_id": "MODEL_SWAP_CONTINUITY_V1",
+  "models": [
+    {
+      "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
+      "checkpoint_exists": true,
+      "dataset_id_matches": true,
+      "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
+      "finite_parameters": true,
+      "generation_length": true,
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256_matches": true,
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    {
+      "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
+      "checkpoint_exists": true,
+      "dataset_id_matches": true,
+      "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
+      "finite_parameters": true,
+      "generation_length": true,
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256_matches": true,
+      "training_status": "TRAINED_FROM_SCRATCH"
+    }
+  ],
+  "non_claim": "A fixed-state model swap measurement does not establish identity, subjectivity, consciousness or phenomenal continuity.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

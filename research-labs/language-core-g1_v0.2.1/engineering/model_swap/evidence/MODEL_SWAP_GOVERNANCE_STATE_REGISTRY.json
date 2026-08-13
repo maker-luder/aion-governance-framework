@@ -1,0 +1,83 @@
+{
+  "admission_policy": "gate-before-score; only ADMITTED rows may be scored by learned models",
+  "admitted_rows": [
+    {
+      "admission": "ADMITTED",
+      "authorization_scope": "research-evaluation",
+      "content": "governed recall checks namespace boundaries",
+      "namespace": "research",
+      "provenance_ref": "synthetic://governed-state/001",
+      "state_id": "state-001"
+    },
+    {
+      "admission": "ADMITTED",
+      "authorization_scope": "research-evaluation",
+      "content": "model lineage records training history",
+      "namespace": "research",
+      "provenance_ref": "synthetic://governed-state/002",
+      "state_id": "state-002"
+    },
+    {
+      "admission": "ADMITTED",
+      "authorization_scope": "research-evaluation",
+      "content": "continuity evaluation compares state across sessions",
+      "namespace": "research",
+      "provenance_ref": "synthetic://governed-state/003",
+      "state_id": "state-003"
+    },
+    {
+      "admission": "ADMITTED",
+      "authorization_scope": "research-evaluation",
+      "content": "research evidence remains advisory and falsifiable",
+      "namespace": "research",
+      "provenance_ref": "synthetic://governed-state/004",
+      "state_id": "state-004"
+    },
+    {
+      "admission": "ADMITTED",
+      "authorization_scope": "research-evaluation",
+      "content": "contradictions require review before state revision",
+      "namespace": "research",
+      "provenance_ref": "synthetic://governed-state/005",
+      "state_id": "state-005"
+    },
+    {
+      "admission": "ADMITTED",
+      "authorization_scope": "research-evaluation",
+      "content": "partial execution requires recovery before state revision",
+      "namespace": "research",
+      "provenance_ref": "synthetic://governed-state/006",
+      "state_id": "state-006"
+    }
+  ],
+  "allowed_use": "local research evaluation only",
+  "dataset_id": "SYNTHETIC_GOVERNED_MODEL_SWAP_STATE_V1",
+  "license": "Apache-2.0-compatible synthetic research artifact",
+  "no_external_data_ingestion": true,
+  "pii_assessment": "no PII",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "rejected_rows": [
+    {
+      "admission": "REJECTED",
+      "authorization_scope": "research-evaluation",
+      "content": "unverified input cannot become authoritative history",
+      "namespace": "research",
+      "provenance_ref": "synthetic://unverified/001",
+      "rejection_reason": "PROVENANCE_UNVERIFIED",
+      "state_id": "rejected-001"
+    },
+    {
+      "admission": "REJECTED",
+      "authorization_scope": "research-evaluation",
+      "content": "namespace mismatch must fail closed",
+      "namespace": "other-namespace",
+      "provenance_ref": "synthetic://governed-state/999",
+      "rejection_reason": "NAMESPACE_MISMATCH",
+      "state_id": "rejected-002"
+    }
+  ],
+  "schema_version": "1.0",
+  "source": "authored synthetic governed-state fixtures in run_model_swap_continuity.py",
+  "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+  "synthetic_real_classification": "SYNTHETIC"
+}

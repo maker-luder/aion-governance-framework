@@ -1,0 +1,199 @@
+{
+  "admitted_rows_scored": 6,
+  "authority_boundary": "descriptive research measurement only; learned outputs cannot authorize actions, rewrite provenance, bypass privacy or establish subjectivity",
+  "conclusion": "BEHAVIORAL_DIFFERENCE_OBSERVED_UNDER_MODEL_SWAP",
+  "dataset_id": "SYNTHETIC_GOVERNED_MODEL_SWAP_STATE_V1",
+  "dataset_sha256": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+  "epistemic_role": "MEASUREMENT",
+  "experiment_id": "MODEL_SWAP_CONTINUITY_V1",
+  "falsification_conditions": [
+    "different state digests across model runs invalidate the held-constant-state comparison",
+    "any rejected row receiving learned-model scores invalidates gate-before-score",
+    "incompatible tokenizer or dataset identity invalidates the model swap",
+    "failed checkpoint reload, non-finite inference or parameter-independent inference invalidates learned-model evidence",
+    "a behavioral difference or agreement in this fixture cannot establish identity, subjectivity, consciousness or phenomenal continuity"
+  ],
+  "gate_before_score": true,
+  "generated_at": "2026-08-13T00:01:52.797420+00:00",
+  "local_checkpoint_policy": "checkpoint binaries remain outside Git under local research-model-artifacts",
+  "mean_baseline_loss": 2.645197480916977,
+  "mean_loss_delta_regularized_minus_baseline": -0.19546521206696843,
+  "mean_regularized_loss": 2.4497322688500085,
+  "model_registry_status": "OPTIONAL_RESEARCH_MODEL_INPUTS; NO_NEW_MODEL_ADDED",
+  "models": {
+    "baseline": {
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
+      "checkpoint_sha256": "289c60564ff713767d473c7bf753e4227fbf7dc3e77fcf60b1c0bd375f908c9f",
+      "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+      "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    "regularized_primary": {
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
+      "checkpoint_sha256": "b2a4b06056cb1bd4f13b4bcc7107539a2e7d0696f538b9a660607f2034f9b72d",
+      "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+      "experiment_role": "OPTIONAL_RESEARCH_MODEL_GENERALIZATION_V3",
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    }
+  },
+  "no_external_paid_resource": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "per_state_results": [
+    {
+      "admission": "ADMITTED",
+      "baseline": {
+        "finite": true,
+        "last_token_prediction": "boundaries",
+        "last_token_prediction_id": 18,
+        "last_token_probability": 0.5666273832321167,
+        "loss": 0.45836305618286133,
+        "token_count": 5
+      },
+      "last_token_prediction_changed": false,
+      "loss_delta_regularized_minus_baseline": -0.3311779499053955,
+      "regularized_primary": {
+        "finite": true,
+        "last_token_prediction": "boundaries",
+        "last_token_prediction_id": 18,
+        "last_token_probability": 0.8964654207229614,
+        "loss": 0.12718510627746582,
+        "token_count": 5
+      },
+      "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+      "state_id": "state-001"
+    },
+    {
+      "admission": "ADMITTED",
+      "baseline": {
+        "finite": true,
+        "last_token_prediction": "history",
+        "last_token_prediction_id": 49,
+        "last_token_probability": 0.84938645362854,
+        "loss": 0.6679553985595703,
+        "token_count": 5
+      },
+      "last_token_prediction_changed": false,
+      "loss_delta_regularized_minus_baseline": -0.5116121917963028,
+      "regularized_primary": {
+        "finite": true,
+        "last_token_prediction": "history",
+        "last_token_prediction_id": 49,
+        "last_token_probability": 0.8996443748474121,
+        "loss": 0.15634320676326752,
+        "token_count": 5
+      },
+      "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+      "state_id": "state-002"
+    },
+    {
+      "admission": "ADMITTED",
+      "baseline": {
+        "finite": true,
+        "last_token_prediction": "sessions",
+        "last_token_prediction_id": 92,
+        "last_token_probability": 0.7259005308151245,
+        "loss": 0.6613460183143616,
+        "token_count": 6
+      },
+      "last_token_prediction_changed": false,
+      "loss_delta_regularized_minus_baseline": -0.5189037472009659,
+      "regularized_primary": {
+        "finite": true,
+        "last_token_prediction": "sessions",
+        "last_token_prediction_id": 92,
+        "last_token_probability": 0.8740765452384949,
+        "loss": 0.1424422711133957,
+        "token_count": 6
+      },
+      "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+      "state_id": "state-003"
+    },
+    {
+      "admission": "ADMITTED",
+      "baseline": {
+        "finite": true,
+        "last_token_prediction": "cannot",
+        "last_token_prediction_id": 20,
+        "last_token_probability": 0.6551042795181274,
+        "loss": 4.86190938949585,
+        "token_count": 6
+      },
+      "last_token_prediction_changed": false,
+      "loss_delta_regularized_minus_baseline": 0.3179502487182617,
+      "regularized_primary": {
+        "finite": true,
+        "last_token_prediction": "cannot",
+        "last_token_prediction_id": 20,
+        "last_token_probability": 0.6788220405578613,
+        "loss": 5.179859638214111,
+        "token_count": 6
+      },
+      "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+      "state_id": "state-004"
+    },
+    {
+      "admission": "ADMITTED",
+      "baseline": {
+        "finite": true,
+        "last_token_prediction": "records",
+        "last_token_prediction_id": 75,
+        "last_token_probability": 0.15192966163158417,
+        "loss": 3.217759609222412,
+        "token_count": 6
+      },
+      "last_token_prediction_changed": false,
+      "loss_delta_regularized_minus_baseline": -0.3285634517669678,
+      "regularized_primary": {
+        "finite": true,
+        "last_token_prediction": "records",
+        "last_token_prediction_id": 75,
+        "last_token_probability": 0.23096372187137604,
+        "loss": 2.8891961574554443,
+        "token_count": 6
+      },
+      "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+      "state_id": "state-005"
+    },
+    {
+      "admission": "ADMITTED",
+      "baseline": {
+        "finite": true,
+        "last_token_prediction": "authorization",
+        "last_token_prediction_id": 12,
+        "last_token_probability": 0.23680883646011353,
+        "loss": 6.003851413726807,
+        "token_count": 7
+      },
+      "last_token_prediction_changed": true,
+      "loss_delta_regularized_minus_baseline": 0.19951581954956055,
+      "regularized_primary": {
+        "finite": true,
+        "last_token_prediction": "records",
+        "last_token_prediction_id": 75,
+        "last_token_probability": 0.4209004044532776,
+        "loss": 6.203367233276367,
+        "token_count": 7
+      },
+      "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+      "state_id": "state-006"
+    }
+  ],
+  "prediction_change_count": 1,
+  "prediction_change_observed": true,
+  "rejected_fixture_count": 2,
+  "rejected_rows_scored": 0,
+  "rejected_score_fields_absent": true,
+  "research_question": "With governed state held constant, does swapping two real local learned checkpoints change descriptive language-model behavior without changing state admission or authority?",
+  "schema_version": "1.0",
+  "state_count": 6,
+  "state_digest": "9a5deac4f07810cd4cbcc19977b00b246766122411a991cfd32e76a9ceda242a",
+  "state_digest_identical_across_model_runs": true,
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE"
+}
