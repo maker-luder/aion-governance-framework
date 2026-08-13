@@ -206,3 +206,14 @@ W3C PROV-O was retrieved as a stable Recommendation reference for provenance ent
 36. W3C, [PROV-O: The PROV Ontology](https://www.w3.org/TR/prov-o/), retrieved 2026-08-13; stable Recommendation reference.
 37. GO FAIR, [FAIR Principles](https://www.go-fair.org/fair-principles/), retrieved 2026-08-13; current public guidance at retrieval.
 38. DataCite, [Connecting Research, Advancing Knowledge](https://datacite.org/), retrieved 2026-08-13; current public organizational guidance at retrieval.
+
+## Factorial-execution-integrity extension
+
+Manus added `research-labs/factorial-execution-integrity_v0.1.0` as a standard-library-only metadata ledger. It reuses the existing factorial completeness contract by stable repository reference and adds cell-level execution state, terminal/nonterminal distinction, deviation references, outcome-state preservation, expected-cell accounting, post-outcome-addition rejection, and boundary normalization. Synthetic fixtures are not external evidence and were not counted as replication evidence.
+
+NIST's official full-factorial example was retrieved 2026-08-13 for factor-cell enumeration, randomization/order confounding, replication, and center-point context. NIH's official preclinical reporting guidance was retrieved 2026-08-13 for transparent methods, replicate distinction, randomization/blinding/sample-size reporting, exclusions, omitted results, and negative-result disclosure. EQUATOR's CONSORT page and CONSORT 2025 explanation were retrieved 2026-08-13 for transparent reporting, flow, and deviation accounting; these remain competing clinical reporting guidance rather than an AION/Astra validity standard. The clean-room transformation is limited to trace metadata and does not infer validity or effect.
+
+39. NIST, [Full factorial example](https://www.itl.nist.gov/div898/handbook/pri/section3/pri3332.htm), retrieved 2026-08-13; official methods reference.
+40. NIH, [Principles and Guidelines for Reporting Preclinical Research](https://grants.nih.gov/policy-and-compliance/policy-topics/reproducibility/principles-guidelines-reporting-preclinical-research), retrieved 2026-08-13; current public policy/resource page.
+41. EQUATOR Network, [CONSORT reporting guidelines](https://www.equator-network.org/reporting-guidelines/consort/), retrieved 2026-08-13; current public reporting-guideline index.
+42. Hopewell et al., [CONSORT 2025 explanation and elaboration](https://pmc.ncbi.nlm.nih.gov/articles/PMC11995452/), retrieved 2026-08-13; 2025 open-access reporting guidance.
