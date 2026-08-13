@@ -1,7 +1,48 @@
 [
   {
+    "target": "components/aion_runtime_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 178,
+      "num_statements": 189,
+      "percent_covered": 92.41706161137441,
+      "percent_covered_display": "92",
+      "missing_lines": 11,
+      "excluded_lines": 0,
+      "percent_statements_covered": 94.17989417989418,
+      "percent_statements_covered_display": "94",
+      "num_branches": 22,
+      "num_partial_branches": 5,
+      "covered_branches": 17,
+      "missing_branches": 5,
+      "percent_branches_covered": 77.27272727272727,
+      "percent_branches_covered_display": "77"
+    },
+    "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                           Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------\nsrc/aion_runtime/__init__.py       2      0      0      0   100%\nsrc/aion_runtime/cli.py           61      1      8      1    97%   121\nsrc/aion_runtime/runtime.py       84      4      6      1    94%   131-135, 242, 253\nsrc/aion_runtime/server.py        42      6      8      3    82%   37, 62, 65-69\n--------------------------------------------------------------------------\nTOTAL                            189     11     22      5    92%\nCoverage JSON written to file <temporary-coverage-artifact>\n13 passed\n"
+  },
+  {
+    "target": "components/astra_runtime_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 78,
+      "num_statements": 84,
+      "percent_covered": 92.22222222222223,
+      "percent_covered_display": "92",
+      "missing_lines": 6,
+      "excluded_lines": 0,
+      "percent_statements_covered": 92.85714285714286,
+      "percent_statements_covered_display": "93",
+      "num_branches": 6,
+      "num_partial_branches": 1,
+      "covered_branches": 5,
+      "missing_branches": 1,
+      "percent_branches_covered": 83.33333333333333,
+      "percent_branches_covered_display": "83"
+    },
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                            Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------\nsrc/astra_runtime/__init__.py       2      0      0      0   100%\nsrc/astra_runtime/runtime.py       82      6      6      1    92%   44, 87, 127-131, 238, 249\n---------------------------------------------------------------------------\nTOTAL                              84      6      6      1    92%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed\n"
+  },
+  {
     "target": "components/astra_workbench_v1.0.0",
-    "package": "astra_engineering_workbench",
     "returncode": 0,
     "totals": {
       "covered_lines": 966,
@@ -19,55 +60,73 @@
       "percent_branches_covered": 83.51648351648352,
       "percent_branches_covered_display": "84"
     },
-    "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                                    Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------------------\nsrc/astra_engineering_workbench/__init__.py                11      0      0      0   100%\nsrc/astra_engineering_workbench/approvals.py               37      3     12      2    90%   58, 142, 148\nsrc/astra_engineering_workbench/audit.py                   47      4     10      2    89%   44, 59-60, 67\nsrc/astra_engineering_workbench/cli.py                     17      0      0      0   100%\nsrc/astra_engineering_workbench/command_policy.py          74      8     36      6    87%   48, 61, 84, 92-93, 95, 101, 103\nsrc/astra_engineering_workbench/command_runner.py          38      1      2      1    95%   81\nsrc/astra_engineering_workbench/diffs.py                    4      0      0      0   100%\nsrc/astra_engineering_workbench/enums.py                   73      0      0      0   100%\nsrc/astra_engineering_workbench/episodic_adapter.py        23      1      4      2    89%   28, 46->exit\nsrc/astra_engineering_workbench/errors.py                  11      0      0      0   100%\nsrc/astra_engineering_workbench/evidence.py                20      0      0      0   100%\nsrc/astra_engineering_workbench/evidence_reuse.py          14      0      8      0   100%\nsrc/astra_engineering_workbench/file_index.py              23      0      8      0   100%\nsrc/astra_engineering_workbench/file_operations.py          2      2      0      0     0%   3-5\nsrc/astra_engineering_workbench/governance_adapter.py      28      0     10      0   100%\nsrc/astra_engineering_workbench/intake.py                  20      2      6      2    85%   23, 81\nsrc/astra_engineering_workbench/models.py                 213      0      0      0   100%\nsrc/astra_engineering_workbench/packaging.py               35      1      8      1    95%   72\nsrc/astra_engineering_workbench/patches.py                  4      0      0      0   100%\nsrc/astra_engineering_workbench/reasoning_provider.py      34      1      6      1    95%   49\nsrc/astra_engineering_workbench/redaction.py               12      0      4      0   100%\nsrc/astra_engineering_workbench/review_packet.py           14      0      0      0   100%\nsrc/astra_engineering_workbench/rollback.py                10      0      2      0   100%\nsrc/astra_engineering_workbench/scope.py                   13      0      6      0   100%\nsrc/astra_engineering_workbench/state_machine.py           12      0      2      0   100%\nsrc/astra_engineering_workbench/validation_plan.py         10      0      0      0   100%\nsrc/astra_engineering_workbench/validation_runner.py        6      0      0      0   100%\nsrc/astra_engineering_workbench/workspace.py              209     25     58     13    86%   45, 59-60, 66-67, 70, 77, 88, 95, 108, 136, 188, 191, 194-195, 207, 219-221, 241, 246, 249-250, 291, 302\n---------------------------------------------------------------------------------------------------\nTOTAL                                                    1014     48    182     30    93%\nCoverage JSON written to file /mnt/data/components_astra_workbench_v1.0.0_coverage.json\nRequired test coverage of 85.0% reached. Total coverage: 93.48%\n89 passed in 6.24s\n"
+    "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                                    Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------------------\nsrc/astra_engineering_workbench/__init__.py                11      0      0      0   100%\nsrc/astra_engineering_workbench/approvals.py               37      3     12      2    90%   58, 142, 148\nsrc/astra_engineering_workbench/audit.py                   47      4     10      2    89%   44, 59-60, 67\nsrc/astra_engineering_workbench/cli.py                     17      0      0      0   100%\nsrc/astra_engineering_workbench/command_policy.py          74      8     36      6    87%   48, 61, 84, 92-93, 95, 101, 103\nsrc/astra_engineering_workbench/command_runner.py          38      1      2      1    95%   81\nsrc/astra_engineering_workbench/diffs.py                    4      0      0      0   100%\nsrc/astra_engineering_workbench/enums.py                   73      0      0      0   100%\nsrc/astra_engineering_workbench/episodic_adapter.py        23      1      4      2    89%   28, 46->exit\nsrc/astra_engineering_workbench/errors.py                  11      0      0      0   100%\nsrc/astra_engineering_workbench/evidence.py                20      0      0      0   100%\nsrc/astra_engineering_workbench/evidence_reuse.py          14      0      8      0   100%\nsrc/astra_engineering_workbench/file_index.py              23      0      8      0   100%\nsrc/astra_engineering_workbench/file_operations.py          2      2      0      0     0%   3-5\nsrc/astra_engineering_workbench/governance_adapter.py      28      0     10      0   100%\nsrc/astra_engineering_workbench/intake.py                  20      2      6      2    85%   23, 81\nsrc/astra_engineering_workbench/models.py                 213      0      0      0   100%\nsrc/astra_engineering_workbench/packaging.py               35      1      8      1    95%   72\nsrc/astra_engineering_workbench/patches.py                  4      0      0      0   100%\nsrc/astra_engineering_workbench/reasoning_provider.py      34      1      6      1    95%   49\nsrc/astra_engineering_workbench/redaction.py               12      0      4      0   100%\nsrc/astra_engineering_workbench/review_packet.py           14      0      0      0   100%\nsrc/astra_engineering_workbench/rollback.py                10      0      2      0   100%\nsrc/astra_engineering_workbench/scope.py                   13      0      6      0   100%\nsrc/astra_engineering_workbench/state_machine.py           12      0      2      0   100%\nsrc/astra_engineering_workbench/validation_plan.py         10      0      0      0   100%\nsrc/astra_engineering_workbench/validation_runner.py        6      0      0      0   100%\nsrc/astra_engineering_workbench/workspace.py              209     25     58     13    86%   45, 59-60, 66-67, 70, 77, 88, 95, 108, 136, 188, 191, 194-195, 207, 219-221, 241, 246, 249-250, 291, 302\n---------------------------------------------------------------------------------------------------\nTOTAL                                                    1014     48    182     30    93%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 93.48%\n89 passed\n"
   },
   {
     "target": "components/continuity_governance_v0.1.0",
-    "package": "aion_continuity_governance",
     "returncode": 0,
     "totals": {
-      "covered_lines": 40,
-      "num_statements": 40,
-      "percent_covered": 100.0,
-      "percent_covered_display": "100",
-      "missing_lines": 0,
+      "covered_lines": 71,
+      "num_statements": 79,
+      "percent_covered": 85.71428571428571,
+      "percent_covered_display": "86",
+      "missing_lines": 8,
       "excluded_lines": 0,
-      "percent_statements_covered": 100.0,
-      "percent_statements_covered_display": "100",
-      "num_branches": 4,
-      "num_partial_branches": 0,
-      "covered_branches": 4,
-      "missing_branches": 0,
-      "percent_branches_covered": 100.0,
-      "percent_branches_covered_display": "100"
+      "percent_statements_covered": 89.87341772151899,
+      "percent_statements_covered_display": "90",
+      "num_branches": 12,
+      "num_partial_branches": 1,
+      "covered_branches": 7,
+      "missing_branches": 5,
+      "percent_branches_covered": 58.333333333333336,
+      "percent_branches_covered_display": "58"
     },
-    "output": "....                                                                     [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover\n------------------------------------------------------------------------------\nsrc/aion_continuity_governance/__init__.py       3      0      0      0   100%\nsrc/aion_continuity_governance/checks.py        18      0      4      0   100%\nsrc/aion_continuity_governance/models.py        19      0      0      0   100%\n------------------------------------------------------------------------------\nTOTAL                                           40      0      4      0   100%\nCoverage JSON written to file /mnt/data/components_continuity_governance_v0.1.0_coverage.json\n4 passed in 0.08s\n"
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_continuity_governance/__init__.py       3      0      0      0   100%\nsrc/aion_continuity_governance/checks.py        37      8     12      1    73%   59-67\nsrc/aion_continuity_governance/models.py        39      0      0      0   100%\n----------------------------------------------------------------------------------------\nTOTAL                                           79      8     12      1    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed\n"
+  },
+  {
+    "target": "components/encounter_governance_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 79,
+      "num_statements": 86,
+      "percent_covered": 86.53846153846153,
+      "percent_covered_display": "87",
+      "missing_lines": 7,
+      "excluded_lines": 0,
+      "percent_statements_covered": 91.86046511627907,
+      "percent_statements_covered_display": "92",
+      "num_branches": 18,
+      "num_partial_branches": 7,
+      "covered_branches": 11,
+      "missing_branches": 7,
+      "percent_branches_covered": 61.111111111111114,
+      "percent_branches_covered_display": "61"
+    },
+    "output": "........                                                                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_encounter_governance/__init__.py       3      0      0      0   100%\nsrc/aion_encounter_governance/models.py        50      6     14      6    81%   38, 40, 52, 54, 56, 61\nsrc/aion_encounter_governance/policy.py        33      1      4      1    95%   23\n---------------------------------------------------------------------------------------\nTOTAL                                          86      7     18      7    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n8 passed\n"
   },
   {
     "target": "components/executable_runtime_v0.1.0",
-    "package": "aion_astra_runtime",
     "returncode": 0,
     "totals": {
-      "covered_lines": 293,
-      "num_statements": 311,
-      "percent_covered": 92.20779220779221,
+      "covered_lines": 321,
+      "num_statements": 340,
+      "percent_covered": 92.3444976076555,
       "percent_covered_display": "92",
-      "missing_lines": 18,
+      "missing_lines": 19,
       "excluded_lines": 0,
-      "percent_statements_covered": 94.21221864951768,
+      "percent_statements_covered": 94.41176470588235,
       "percent_statements_covered_display": "94",
-      "num_branches": 74,
-      "num_partial_branches": 12,
-      "covered_branches": 62,
-      "missing_branches": 12,
-      "percent_branches_covered": 83.78378378378379,
-      "percent_branches_covered_display": "84"
+      "num_branches": 78,
+      "num_partial_branches": 13,
+      "covered_branches": 65,
+      "missing_branches": 13,
+      "percent_branches_covered": 83.33333333333333,
+      "percent_branches_covered_display": "83"
     },
-    "output": "............                                                             [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover\n----------------------------------------------------------------------\nsrc/aion_astra_runtime/__init__.py       4      0      0      0   100%\nsrc/aion_astra_runtime/cli.py           31      5      4      2    80%\nsrc/aion_astra_runtime/engine.py        68      3      8      1    95%\nsrc/aion_astra_runtime/errors.py         3      0      0      0   100%\nsrc/aion_astra_runtime/models.py        77      5     14      3    91%\nsrc/aion_astra_runtime/planner.py       44      0     14      0   100%\nsrc/aion_astra_runtime/policy.py        27      0     14      1    98%\nsrc/aion_astra_runtime/tools.py         57      5     20      5    87%\n----------------------------------------------------------------------\nTOTAL                                  311     18     74     12    92%\nCoverage JSON written to file /mnt/data/components_executable_runtime_v0.1.0_coverage.json\n12 passed in 0.31s\n"
+    "output": ".............                                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_astra_runtime/__init__.py       4      0      0      0   100%\nsrc/aion_astra_runtime/cli.py           31      5      4      2    80%   30, 35-37, 41\nsrc/aion_astra_runtime/engine.py        71      3      8      1    95%   65, 186-187\nsrc/aion_astra_runtime/errors.py         3      0      0      0   100%\nsrc/aion_astra_runtime/models.py       103      6     18      4    92%   63, 96, 102-103, 122, 124\nsrc/aion_astra_runtime/planner.py       44      0     14      0   100%\nsrc/aion_astra_runtime/policy.py        27      0     14      1    98%   40->exit\nsrc/aion_astra_runtime/tools.py         57      5     20      5    87%   24, 31, 34, 41, 54\n--------------------------------------------------------------------------------\nTOTAL                                  340     19     78     13    92%\nCoverage JSON written to file <temporary-coverage-artifact>\n13 passed\n"
   },
   {
     "target": "components/governance_kernel_v0.4.0",
-    "package": "aion_governance_kernel",
     "returncode": 0,
     "totals": {
       "covered_lines": 301,
@@ -85,11 +144,10 @@
       "percent_branches_covered": 87.87878787878788,
       "percent_branches_covered_display": "88"
     },
-    "output": "..............................................                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                             Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------------------\nsrc/aion_governance_kernel/__init__.py               4      0      0      0   100%\nsrc/aion_governance_kernel/audit/__init__.py         2      0      0      0   100%\nsrc/aion_governance_kernel/audit/db.py              31      2      4      0    94%   57-58\nsrc/aion_governance_kernel/audit/repository.py      11      1      2      1    85%   24\nsrc/aion_governance_kernel/audit/service.py         10      0      0      0   100%\nsrc/aion_governance_kernel/cli.py                   13      1      2      1    87%   16\nsrc/aion_governance_kernel/errors.py                 9      0      0      0   100%\nsrc/aion_governance_kernel/hashing.py                7      0      0      0   100%\nsrc/aion_governance_kernel/models.py                78      0      0      0   100%\nsrc/aion_governance_kernel/pipeline.py              34      4      0      0    88%   31-32, 42-43\nsrc/aion_governance_kernel/risk/__init__.py          2      0      0      0   100%\nsrc/aion_governance_kernel/risk/policy.py           31      0     20      0   100%\nsrc/aion_governance_kernel/validation.py            85      8     38      6    89%   37, 41, 46, 77-78, 80, 82, 103\n--------------------------------------------------------------------------------------------\nTOTAL                                              317     16     66      8    94%\nCoverage JSON written to file /mnt/data/components_governance_kernel_v0.4.0_coverage.json\nRequired test coverage of 90.0% reached. Total coverage: 93.73%\n46 passed in 0.28s\n"
+    "output": "..............................................                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                             Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------------------\nsrc/aion_governance_kernel/__init__.py               4      0      0      0   100%\nsrc/aion_governance_kernel/audit/__init__.py         2      0      0      0   100%\nsrc/aion_governance_kernel/audit/db.py              31      2      4      0    94%   57-58\nsrc/aion_governance_kernel/audit/repository.py      11      1      2      1    85%   24\nsrc/aion_governance_kernel/audit/service.py         10      0      0      0   100%\nsrc/aion_governance_kernel/cli.py                   13      1      2      1    87%   16\nsrc/aion_governance_kernel/errors.py                 9      0      0      0   100%\nsrc/aion_governance_kernel/hashing.py                7      0      0      0   100%\nsrc/aion_governance_kernel/models.py                78      0      0      0   100%\nsrc/aion_governance_kernel/pipeline.py              34      4      0      0    88%   31-32, 42-43\nsrc/aion_governance_kernel/risk/__init__.py          2      0      0      0   100%\nsrc/aion_governance_kernel/risk/policy.py           31      0     20      0   100%\nsrc/aion_governance_kernel/validation.py            85      8     38      6    89%   37, 41, 46, 77-78, 80, 82, 103\n--------------------------------------------------------------------------------------------\nTOTAL                                              317     16     66      8    94%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 90.0% reached. Total coverage: 93.73%\n46 passed\n"
   },
   {
     "target": "components/identity_governance_v0.1.0",
-    "package": "aion_astra_governance",
     "returncode": 0,
     "totals": {
       "covered_lines": 522,
@@ -107,55 +165,94 @@
       "percent_branches_covered": 70.76923076923077,
       "percent_branches_covered_display": "71"
     },
-    "output": "...................................                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_astra_governance/__init__.py           1      0      0      0   100%\nsrc/aion_astra_governance/cli.py               66      6     16      2    88%   15-18, 74, 85\nsrc/aion_astra_governance/enums.py             39      0      0      0   100%\nsrc/aion_astra_governance/errors.py             3      0      0      0   100%\nsrc/aion_astra_governance/forks.py             18      0      4      0   100%\nsrc/aion_astra_governance/governance.py        30      0      6      0   100%\nsrc/aion_astra_governance/hashing.py           20      1      4      1    92%   12\nsrc/aion_astra_governance/lineage.py           59      8     32      5    81%   24, 30, 51, 55-58, 70\nsrc/aion_astra_governance/models.py           230     16     44     13    89%   18, 23, 61, 91, 123, 176, 178, 180, 227, 229, 258, 277-279, 312, 316\nsrc/aion_astra_governance/perspectives.py       4      0      0      0   100%\nsrc/aion_astra_governance/registry.py          40      3      8      3    88%   33, 47, 78\nsrc/aion_astra_governance/reports.py           27      3     10      3    84%   14, 17, 22\nsrc/aion_astra_governance/storage.py           26      4      6      1    78%   15-17, 24\n---------------------------------------------------------------------------------------\nTOTAL                                         563     41    130     28    89%\nCoverage JSON written to file /mnt/data/components_identity_governance_v0.1.0_coverage.json\nRequired test coverage of 85.0% reached. Total coverage: 88.60%\n35 passed in 0.29s\n"
+    "output": "...................................                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_astra_governance/__init__.py           1      0      0      0   100%\nsrc/aion_astra_governance/cli.py               66      6     16      2    88%   15-18, 74, 85\nsrc/aion_astra_governance/enums.py             39      0      0      0   100%\nsrc/aion_astra_governance/errors.py             3      0      0      0   100%\nsrc/aion_astra_governance/forks.py             18      0      4      0   100%\nsrc/aion_astra_governance/governance.py        30      0      6      0   100%\nsrc/aion_astra_governance/hashing.py           20      1      4      1    92%   12\nsrc/aion_astra_governance/lineage.py           59      8     32      5    81%   24, 30, 51, 55-58, 70\nsrc/aion_astra_governance/models.py           230     16     44     13    89%   18, 23, 61, 91, 123, 176, 178, 180, 227, 229, 258, 277-279, 312, 316\nsrc/aion_astra_governance/perspectives.py       4      0      0      0   100%\nsrc/aion_astra_governance/registry.py          40      3      8      3    88%   33, 47, 78\nsrc/aion_astra_governance/reports.py           27      3     10      3    84%   14, 17, 22\nsrc/aion_astra_governance/storage.py           26      4      6      1    78%   15-17, 24\n---------------------------------------------------------------------------------------\nTOTAL                                         563     41    130     28    89%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 88.60%\n35 passed\n"
+  },
+  {
+    "target": "components/individual_runtime_state_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 282,
+      "num_statements": 331,
+      "percent_covered": 80.23529411764706,
+      "percent_covered_display": "80",
+      "missing_lines": 49,
+      "excluded_lines": 0,
+      "percent_statements_covered": 85.1963746223565,
+      "percent_statements_covered_display": "85",
+      "num_branches": 94,
+      "num_partial_branches": 23,
+      "covered_branches": 59,
+      "missing_branches": 35,
+      "percent_branches_covered": 62.765957446808514,
+      "percent_branches_covered_display": "63"
+    },
+    "output": "...............                                                          [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/individual_runtime_state/__init__.py        3      0      0      0   100%\nsrc/individual_runtime_state/hardening.py     115     13     46     14    83%   117, 189, 198, 213, 215, 219, 223, 227, 233->235, 239, 253, 314, 319, 353\nsrc/individual_runtime_state/store.py         213     36     48      9    78%   193, 273, 275, 310, 354, 364, 375-407, 427, 449-470, 480, 500\n---------------------------------------------------------------------------------------\nTOTAL                                         331     49     94     23    80%\nCoverage JSON written to file <temporary-coverage-artifact>\n15 passed\n"
+  },
+  {
+    "target": "components/iqc_quality_inspection_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 138,
+      "num_statements": 182,
+      "percent_covered": 70.38461538461539,
+      "percent_covered_display": "70",
+      "missing_lines": 44,
+      "excluded_lines": 0,
+      "percent_statements_covered": 75.82417582417582,
+      "percent_statements_covered_display": "76",
+      "num_branches": 78,
+      "num_partial_branches": 19,
+      "covered_branches": 45,
+      "missing_branches": 33,
+      "percent_branches_covered": 57.69230769230769,
+      "percent_branches_covered_display": "58"
+    },
+    "output": "...............                                                          [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                        Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------\nsrc/aion_iqc/__init__.py        2      0      0      0   100%\nsrc/aion_iqc/cli.py            31     31      8      0     0%   1-48\nsrc/aion_iqc/inspector.py     149     13     70     19    83%   28->exit, 33->exit, 36->35, 46->exit, 51-53, 58->exit, 62, 67, 71->exit, 73->exit, 80->exit, 85->exit, 89->exit, 91->exit, 99-105, 108->exit, 113->exit, 119->exit, 121->120, 131, 133->135, 149->151\n-----------------------------------------------------------------------\nTOTAL                         182     44     78     19    70%\nCoverage JSON written to file <temporary-coverage-artifact>\n15 passed\n"
   },
   {
     "target": "components/language_core_v0.1.0",
-    "package": "astra_language_core",
     "returncode": 0,
     "totals": {
-      "covered_lines": 615,
-      "num_statements": 667,
-      "percent_covered": 89.3491124260355,
+      "covered_lines": 635,
+      "num_statements": 690,
+      "percent_covered": 89.1156462585034,
       "percent_covered_display": "89",
-      "missing_lines": 52,
+      "missing_lines": 55,
       "excluded_lines": 0,
-      "percent_statements_covered": 92.20389805097452,
+      "percent_statements_covered": 92.02898550724638,
       "percent_statements_covered_display": "92",
-      "num_branches": 178,
-      "num_partial_branches": 38,
-      "covered_branches": 140,
-      "missing_branches": 38,
-      "percent_branches_covered": 78.65168539325843,
+      "num_branches": 192,
+      "num_partial_branches": 41,
+      "covered_branches": 151,
+      "missing_branches": 41,
+      "percent_branches_covered": 78.64583333333333,
       "percent_branches_covered_display": "79"
     },
-    "output": ".............................                                            [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/astra_language_core/__init__.py           4      0      0      0   100%\nsrc/astra_language_core/admission.py         40      1     14      1    96%   71\nsrc/astra_language_core/cli.py               97      8     26      6    89%   58, 69-71, 86, 101, 104->111, 106, 123\nsrc/astra_language_core/config.py            44      4      8      2    88%   43, 48, 77-78\nsrc/astra_language_core/dataset.py           63      6     22      4    88%   14, 55, 61, 85-86, 88\nsrc/astra_language_core/enums.py             19      0      0      0   100%\nsrc/astra_language_core/errors.py             5      0      0      0   100%\nsrc/astra_language_core/evaluation.py        29      0      6      0   100%\nsrc/astra_language_core/hashing.py           28      0      6      0   100%\nsrc/astra_language_core/json_types.py         7      1      2      1    78%   9\nsrc/astra_language_core/lineage.py           27      3     18      3    87%   18, 24, 31\nsrc/astra_language_core/metrics.py           28      0      2      0   100%\nsrc/astra_language_core/models.py           121     12     34     10    86%   15, 24, 31, 67, 69, 71, 79, 106-107, 153, 155, 157\nsrc/astra_language_core/observations.py      17      2      8      2    84%   13, 17\nsrc/astra_language_core/registry.py          47      8     12      3    81%   19, 22-23, 29, 32-33, 48-49\nsrc/astra_language_core/reports.py           33      3      8      3    85%   13, 23, 45\nsrc/astra_language_core/runtime.py           58      4     12      3    90%   50, 86-87, 89, 97->99\n-------------------------------------------------------------------------------------\nTOTAL                                       667     52    178     38    89%\nCoverage JSON written to file /mnt/data/components_language_core_v0.1.0_coverage.json\nRequired test coverage of 85.0% reached. Total coverage: 89.35%\n29 passed in 0.31s\n"
+    "output": "......................................                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/astra_language_core/__init__.py           4      0      0      0   100%\nsrc/astra_language_core/admission.py         40      1     14      1    96%   71\nsrc/astra_language_core/cli.py               97      8     26      6    89%   58, 69-71, 86, 101, 104->111, 106, 123\nsrc/astra_language_core/config.py            44      4      8      2    88%   43, 48, 77-78\nsrc/astra_language_core/dataset.py           67      6     24      4    89%   15, 59, 65, 89-90, 92\nsrc/astra_language_core/enums.py             19      0      0      0   100%\nsrc/astra_language_core/errors.py             5      0      0      0   100%\nsrc/astra_language_core/evaluation.py        29      0      6      0   100%\nsrc/astra_language_core/hashing.py           28      0      6      0   100%\nsrc/astra_language_core/json_types.py         7      1      2      1    78%   9\nsrc/astra_language_core/lineage.py           27      3     18      3    87%   18, 24, 31\nsrc/astra_language_core/metrics.py           28      0      2      0   100%\nsrc/astra_language_core/models.py           121     12     34     10    86%   15, 24, 31, 67, 69, 71, 79, 106-107, 153, 155, 157\nsrc/astra_language_core/observations.py      17      2      8      2    84%   13, 17\nsrc/astra_language_core/registry.py          47      8     12      3    81%   19, 22-23, 29, 32-33, 48-49\nsrc/astra_language_core/reports.py           33      3      8      3    85%   13, 23, 45\nsrc/astra_language_core/runtime.py           77      7     24      6    87%   51, 87-88, 90, 97->102, 103->119, 108-109, 112->119, 118\n-------------------------------------------------------------------------------------\nTOTAL                                       690     55    192     41    89%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 89.12%\n38 passed\n"
   },
   {
     "target": "components/memory_recall_governance_v0.1.0",
-    "package": "aion_memory_recall",
     "returncode": 0,
     "totals": {
-      "covered_lines": 69,
-      "num_statements": 72,
-      "percent_covered": 92.22222222222223,
-      "percent_covered_display": "92",
-      "missing_lines": 3,
+      "covered_lines": 172,
+      "num_statements": 181,
+      "percent_covered": 92.88888888888889,
+      "percent_covered_display": "93",
+      "missing_lines": 9,
       "excluded_lines": 0,
-      "percent_statements_covered": 95.83333333333333,
-      "percent_statements_covered_display": "96",
-      "num_branches": 18,
-      "num_partial_branches": 4,
-      "covered_branches": 14,
-      "missing_branches": 4,
-      "percent_branches_covered": 77.77777777777777,
-      "percent_branches_covered_display": "78"
+      "percent_statements_covered": 95.02762430939227,
+      "percent_statements_covered_display": "95",
+      "num_branches": 44,
+      "num_partial_branches": 7,
+      "covered_branches": 37,
+      "missing_branches": 7,
+      "percent_branches_covered": 84.0909090909091,
+      "percent_branches_covered_display": "84"
     },
-    "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover\n----------------------------------------------------------------------\nsrc/aion_memory_recall/__init__.py       3      0      0      0   100%\nsrc/aion_memory_recall/gate.py          29      3     18      4    85%\nsrc/aion_memory_recall/models.py        40      0      0      0   100%\n----------------------------------------------------------------------\nTOTAL                                   72      3     18      4    92%\nCoverage JSON written to file /mnt/data/components_memory_recall_governance_v0.1.0_coverage.json\n6 passed in 0.08s\n"
+    "output": "...................                                                      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                 Stmts   Miss Branch BrPart  Cover   Missing\n--------------------------------------------------------------------------------\nsrc/aion_memory_recall/__init__.py       3      0      0      0   100%\nsrc/aion_memory_recall/gate.py          29      1     18      1    96%   26\nsrc/aion_memory_recall/models.py        40      0      0      0   100%\nsrc/aion_memory_recall/store.py        109      8     26      6    90%   30-31, 146, 188, 207, 210, 226, 233\n--------------------------------------------------------------------------------\nTOTAL                                  181      9     44      7    93%\nCoverage JSON written to file <temporary-coverage-artifact>\n19 passed\n"
   },
   {
     "target": "components/research_integrity_security_v0.1.0",
-    "package": "aion_research_integrity",
     "returncode": 0,
     "totals": {
       "covered_lines": 50,
@@ -173,11 +270,10 @@
       "percent_branches_covered": 68.75,
       "percent_branches_covered_display": "69"
     },
-    "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover\n---------------------------------------------------------------------------\nsrc/aion_research_integrity/__init__.py       3      0      0      0   100%\nsrc/aion_research_integrity/gate.py          25      5     16      5    76%\nsrc/aion_research_integrity/models.py        27      0      0      0   100%\n---------------------------------------------------------------------------\nTOTAL                                        55      5     16      5    86%\nCoverage JSON written to file /mnt/data/components_research_integrity_security_v0.1.0_coverage.json\n6 passed in 0.08s\n"
+    "output": ".........                                                                [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                      Stmts   Miss Branch BrPart  Cover   Missing\n-------------------------------------------------------------------------------------\nsrc/aion_research_integrity/__init__.py       3      0      0      0   100%\nsrc/aion_research_integrity/gate.py          25      5     16      5    76%   14, 16, 18, 29, 34\nsrc/aion_research_integrity/models.py        27      0      0      0   100%\n-------------------------------------------------------------------------------------\nTOTAL                                        55      5     16      5    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n9 passed\n"
   },
   {
     "target": "components/upstream_security_v0.1.0",
-    "package": "aion_astra_agent_security",
     "returncode": 0,
     "totals": {
       "covered_lines": 279,
@@ -195,11 +291,10 @@
       "percent_branches_covered": 77.58620689655173,
       "percent_branches_covered_display": "78"
     },
-    "output": ".................................                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_astra_agent_security/__init__.py         1      0      0      0   100%\nsrc/aion_astra_agent_security/audit.py           21      3      4      0    80%   14-16\nsrc/aion_astra_agent_security/boundary.py        29      0     10      0   100%\nsrc/aion_astra_agent_security/cli.py             52      5     12      5    84%   15, 36, 66, 71, 76\nsrc/aion_astra_agent_security/enums.py           24      0      0      0   100%\nsrc/aion_astra_agent_security/errors.py           2      0      0      0   100%\nsrc/aion_astra_agent_security/hashing.py         15      4      4      1    63%   11-13, 18\nsrc/aion_astra_agent_security/incident.py        26      1     10      1    94%   13\nsrc/aion_astra_agent_security/models.py          93      2      8      2    96%   29, 78\nsrc/aion_astra_agent_security/policy.py           8      0      2      0   100%\nsrc/aion_astra_agent_security/trajectory.py      23      0      8      0   100%\n-----------------------------------------------------------------------------------------\nTOTAL                                           294     15     58      9    92%\nCoverage JSON written to file /mnt/data/components_upstream_security_v0.1.0_coverage.json\nRequired test coverage of 85.0% reached. Total coverage: 92.05%\n33 passed in 0.20s\n"
+    "output": ".................................                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_astra_agent_security/__init__.py         1      0      0      0   100%\nsrc/aion_astra_agent_security/audit.py           21      3      4      0    80%   14-16\nsrc/aion_astra_agent_security/boundary.py        29      0     10      0   100%\nsrc/aion_astra_agent_security/cli.py             52      5     12      5    84%   15, 36, 66, 71, 76\nsrc/aion_astra_agent_security/enums.py           24      0      0      0   100%\nsrc/aion_astra_agent_security/errors.py           2      0      0      0   100%\nsrc/aion_astra_agent_security/hashing.py         15      4      4      1    63%   11-13, 18\nsrc/aion_astra_agent_security/incident.py        26      1     10      1    94%   13\nsrc/aion_astra_agent_security/models.py          93      2      8      2    96%   29, 78\nsrc/aion_astra_agent_security/policy.py           8      0      2      0   100%\nsrc/aion_astra_agent_security/trajectory.py      23      0      8      0   100%\n-----------------------------------------------------------------------------------------\nTOTAL                                           294     15     58      9    92%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 92.05%\n33 passed\n"
   },
   {
     "target": "examples/bazi-capability_v0.1.1",
-    "package": "aion_astra_bazi_core",
     "returncode": 0,
     "totals": {
       "covered_lines": 625,
@@ -217,50 +312,90 @@
       "percent_branches_covered": 69.56521739130434,
       "percent_branches_covered_display": "70"
     },
-    "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_astra_bazi_core/__init__.py              5      0      0      0   100%\nsrc/aion_astra_bazi_core/calculations.py         48      8     10      0    79%   93-99, 103\nsrc/aion_astra_bazi_core/calendar_engine.py      71      9     22      8    82%   24, 40-41, 46, 58, 66, 67->71, 79, 81, 83\nsrc/aion_astra_bazi_core/constants.py            14      0      0      0   100%\nsrc/aion_astra_bazi_core/database.py             37      5      0      0    86%   37-38, 49-51\nsrc/aion_astra_bazi_core/engine.py               82     14     16      3    81%   61-65, 97-100, 132, 180, 226, 240-247\nsrc/aion_astra_bazi_core/enums.py                41      0      0      0   100%\nsrc/aion_astra_bazi_core/errors.py                6      0      0      0   100%\nsrc/aion_astra_bazi_core/integrity.py            47      3     18      3    91%   75, 81, 114\nsrc/aion_astra_bazi_core/models.py              125      0      0      0   100%\nsrc/aion_astra_bazi_core/repository.py          192     34     64     20    78%   135, 151, 195, 197, 206, 236, 336, 377, 380-381, 384-385, 388-389, 392, 428, 431, 467-473, 517, 557, 561, 586, 596, 620, 628, 648, 668, 685, 697, 703, 715\nsrc/aion_astra_bazi_core/rule_profiles.py        10      0      0      0   100%\nsrc/aion_astra_bazi_core/serialization.py        20      0      8      0   100%\n-----------------------------------------------------------------------------------------\nTOTAL                                           698     73    138     34    86%\nCoverage JSON written to file /mnt/data/examples_bazi-capability_v0.1.1_coverage.json\nRequired test coverage of 85.0% reached. Total coverage: 86.24%\n82 passed in 0.72s\n"
+    "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                          Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------\nsrc/aion_astra_bazi_core/__init__.py              5      0      0      0   100%\nsrc/aion_astra_bazi_core/calculations.py         48      8     10      0    79%   93-99, 103\nsrc/aion_astra_bazi_core/calendar_engine.py      71      9     22      8    82%   24, 40-41, 46, 58, 66, 67->71, 79, 81, 83\nsrc/aion_astra_bazi_core/constants.py            14      0      0      0   100%\nsrc/aion_astra_bazi_core/database.py             37      5      0      0    86%   37-38, 49-51\nsrc/aion_astra_bazi_core/engine.py               82     14     16      3    81%   61-65, 97-100, 132, 180, 226, 240-247\nsrc/aion_astra_bazi_core/enums.py                41      0      0      0   100%\nsrc/aion_astra_bazi_core/errors.py                6      0      0      0   100%\nsrc/aion_astra_bazi_core/integrity.py            47      3     18      3    91%   75, 81, 114\nsrc/aion_astra_bazi_core/models.py              125      0      0      0   100%\nsrc/aion_astra_bazi_core/repository.py          192     34     64     20    78%   135, 151, 195, 197, 206, 236, 336, 377, 380-381, 384-385, 388-389, 392, 428, 431, 467-473, 517, 557, 561, 586, 596, 620, 628, 648, 668, 685, 697, 703, 715\nsrc/aion_astra_bazi_core/rule_profiles.py        10      0      0      0   100%\nsrc/aion_astra_bazi_core/serialization.py        20      0      8      0   100%\n-----------------------------------------------------------------------------------------\nTOTAL                                           698     73    138     34    86%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 86.24%\n82 passed\n"
+  },
+  {
+    "target": "research-labs/affective-cognitive-motivation_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 103,
+      "num_statements": 112,
+      "percent_covered": 87.14285714285714,
+      "percent_covered_display": "87",
+      "missing_lines": 9,
+      "excluded_lines": 0,
+      "percent_statements_covered": 91.96428571428571,
+      "percent_statements_covered_display": "92",
+      "num_branches": 28,
+      "num_partial_branches": 9,
+      "covered_branches": 19,
+      "missing_branches": 9,
+      "percent_branches_covered": 67.85714285714286,
+      "percent_branches_covered_display": "68"
+    },
+    "output": ".......                                                                  [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                        Stmts   Miss Branch BrPart  Cover   Missing\n---------------------------------------------------------------------------------------\nsrc/aion_affective_motivation/__init__.py       4      0      0      0   100%\nsrc/aion_affective_motivation/engine.py        27      0      4      0   100%\nsrc/aion_affective_motivation/models.py        58      9     20      9    77%   25, 45, 72, 74, 76, 78, 80, 82, 84\nsrc/aion_affective_motivation/policy.py        23      0      4      0   100%\n---------------------------------------------------------------------------------------\nTOTAL                                         112      9     28      9    87%\nCoverage JSON written to file <temporary-coverage-artifact>\n7 passed\n"
   },
   {
     "target": "research-labs/language-core-g1_v0.2.1",
-    "package": "astra_language_core",
     "returncode": 0,
     "totals": {
-      "covered_lines": 785,
-      "num_statements": 851,
-      "percent_covered": 88.86844526218951,
-      "percent_covered_display": "89",
-      "missing_lines": 66,
+      "covered_lines": 832,
+      "num_statements": 907,
+      "percent_covered": 88.37814397224632,
+      "percent_covered_display": "88",
+      "missing_lines": 75,
       "excluded_lines": 0,
-      "percent_statements_covered": 92.24441833137486,
+      "percent_statements_covered": 91.73098125689084,
       "percent_statements_covered_display": "92",
-      "num_branches": 236,
-      "num_partial_branches": 55,
-      "covered_branches": 181,
-      "missing_branches": 55,
-      "percent_branches_covered": 76.69491525423729,
-      "percent_branches_covered_display": "77"
+      "num_branches": 246,
+      "num_partial_branches": 59,
+      "covered_branches": 187,
+      "missing_branches": 59,
+      "percent_branches_covered": 76.01626016260163,
+      "percent_branches_covered_display": "76"
     },
-    "output": "........................................................                 [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                               Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------------\nsrc/astra_language_core/__init__.py                    5      0      0      0   100%\nsrc/astra_language_core/admission.py                  40      1     14      1    96%   71\nsrc/astra_language_core/capability_governance.py     103     13     28     11    82%   43, 47, 49, 81, 83, 85, 87, 89, 122, 129, 136, 140-141\nsrc/astra_language_core/cli.py                        97      8     26      6    89%   58, 69-71, 86, 101, 104->111, 106, 123\nsrc/astra_language_core/config.py                     44      4      8      2    88%   43, 48, 77-78\nsrc/astra_language_core/dataset.py                    63      6     22      4    88%   14, 55, 61, 85-86, 88\nsrc/astra_language_core/enums.py                      19      0      0      0   100%\nsrc/astra_language_core/errors.py                      5      0      0      0   100%\nsrc/astra_language_core/evaluation.py                 29      0      6      0   100%\nsrc/astra_language_core/g1_ablation.py                17      0      6      2    91%   6->exit, 12->exit\nsrc/astra_language_core/g1_dataset.py                 19      0      6      2    92%   11->exit, 14->exit\nsrc/astra_language_core/g1_lora.py                    18      0      4      1    95%   11->exit\nsrc/astra_language_core/g1_runtime_policy.py          22      1     14      1    94%   24\nsrc/astra_language_core/g1_side_effects.py             4      0      0      0   100%\nsrc/astra_language_core/hashing.py                    28      0      6      0   100%\nsrc/astra_language_core/json_types.py                  7      1      2      1    78%   9\nsrc/astra_language_core/lineage.py                    27      3     18      3    87%   18, 24, 31\nsrc/astra_language_core/metrics.py                    28      0      2      0   100%\nsrc/astra_language_core/models.py                    121     12     34     10    86%   15, 24, 31, 67, 69, 71, 79, 106-107, 153, 155, 157\nsrc/astra_language_core/observations.py               17      2      8      2    84%   13, 17\nsrc/astra_language_core/registry.py                   47      8     12      3    81%   19, 22-23, 29, 32-33, 48-49\nsrc/astra_language_core/reports.py                    33      3      8      3    85%   13, 23, 45\nsrc/astra_language_core/runtime.py                    58      4     12      3    90%   50, 86-87, 89, 97->99\n----------------------------------------------------------------------------------------------\nTOTAL                                                851     66    236     55    89%\nCoverage JSON written to file /mnt/data/research-labs_language-core-g1_v0.2.1_coverage.json\nRequired test coverage of 85.0% reached. Total coverage: 88.87%\n56 passed in 0.44s\n"
+    "output": "...................................................................      [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                               Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------------\nsrc/astra_language_core/__init__.py                    5      0      0      0   100%\nsrc/astra_language_core/admission.py                  40      1     14      1    96%   65\nsrc/astra_language_core/capability_governance.py     103     13     28     11    82%   43, 47, 49, 81, 83, 85, 87, 89, 122, 129, 136, 140-141\nsrc/astra_language_core/cli.py                        97      8     26      6    89%   56, 67-69, 84, 99, 102->105, 104, 117\nsrc/astra_language_core/config.py                     44      4      8      2    88%   43, 48, 77-78\nsrc/astra_language_core/dataset.py                    67      6     24      4    89%   15, 57, 63, 87-88, 90\nsrc/astra_language_core/enums.py                      19      0      0      0   100%\nsrc/astra_language_core/errors.py                      5      0      0      0   100%\nsrc/astra_language_core/evaluation.py                 29      0      6      0   100%\nsrc/astra_language_core/g1_ablation.py                26      2      8      2    88%   12, 21\nsrc/astra_language_core/g1_dataset.py                 24      2      6      2    87%   20, 24\nsrc/astra_language_core/g1_lora.py                    27      2      6      2    88%   21, 23\nsrc/astra_language_core/g1_runtime_policy.py          32      1      6      1    95%   50\nsrc/astra_language_core/g1_side_effects.py             4      0      0      0   100%\nsrc/astra_language_core/hashing.py                    28      0      6      0   100%\nsrc/astra_language_core/json_types.py                  7      1      2      1    78%   9\nsrc/astra_language_core/lineage.py                    27      3     18      3    87%   18, 24, 31\nsrc/astra_language_core/metrics.py                    28      0      2      0   100%\nsrc/astra_language_core/models.py                    121     12     34     10    86%   15, 24, 31, 67, 69, 71, 79, 106-107, 153, 155, 157\nsrc/astra_language_core/observations.py               17      2      8      2    84%   13, 17\nsrc/astra_language_core/registry.py                   47      8     12      3    81%   19, 22-23, 29, 32-33, 48-49\nsrc/astra_language_core/reports.py                    33      3      8      3    85%   13, 23, 45\nsrc/astra_language_core/runtime.py                    77      7     24      6    87%   41, 75-76, 78, 85->90, 91->107, 96-97, 100->107, 106\n----------------------------------------------------------------------------------------------\nTOTAL                                                907     75    246     59    88%\nCoverage JSON written to file <temporary-coverage-artifact>\nRequired test coverage of 85.0% reached. Total coverage: 88.38%\n67 passed\n"
+  },
+  {
+    "target": "research-labs/subjectivity-pipeline_v0.1.0",
+    "returncode": 0,
+    "totals": {
+      "covered_lines": 91,
+      "num_statements": 104,
+      "percent_covered": 80.88235294117646,
+      "percent_covered_display": "81",
+      "missing_lines": 13,
+      "excluded_lines": 0,
+      "percent_statements_covered": 87.5,
+      "percent_statements_covered_display": "88",
+      "num_branches": 32,
+      "num_partial_branches": 13,
+      "covered_branches": 19,
+      "missing_branches": 13,
+      "percent_branches_covered": 59.375,
+      "percent_branches_covered_display": "59"
+    },
+    "output": "......                                                                   [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                         Stmts   Miss Branch BrPart  Cover   Missing\n----------------------------------------------------------------------------------------\nsrc/aion_subjectivity_pipeline/__init__.py       3      0      0      0   100%\nsrc/aion_subjectivity_pipeline/engine.py        31      4     12      4    81%   29, 60, 62, 67\nsrc/aion_subjectivity_pipeline/models.py        70      9     20      9    80%   40, 42, 44, 46, 48, 60, 73, 75, 77\n----------------------------------------------------------------------------------------\nTOTAL                                          104     13     32     13    81%\nCoverage JSON written to file <temporary-coverage-artifact>\n6 passed\n"
   },
   {
     "target": "research-labs/twin-genesis-embodiment_v0.1.0",
-    "package": "aion_astra_twin_embodiment",
     "returncode": 0,
     "totals": {
-      "covered_lines": 97,
-      "num_statements": 115,
-      "percent_covered": 83.64779874213836,
-      "percent_covered_display": "84",
-      "missing_lines": 18,
+      "covered_lines": 146,
+      "num_statements": 166,
+      "percent_covered": 86.44859813084112,
+      "percent_covered_display": "86",
+      "missing_lines": 20,
       "excluded_lines": 0,
-      "percent_statements_covered": 84.34782608695652,
-      "percent_statements_covered_display": "84",
-      "num_branches": 44,
-      "num_partial_branches": 4,
-      "covered_branches": 36,
-      "missing_branches": 8,
-      "percent_branches_covered": 81.81818181818181,
-      "percent_branches_covered_display": "82"
+      "percent_statements_covered": 87.95180722891567,
+      "percent_statements_covered_display": "88",
+      "num_branches": 48,
+      "num_partial_branches": 5,
+      "covered_branches": 39,
+      "missing_branches": 9,
+      "percent_branches_covered": 81.25,
+      "percent_branches_covered_display": "81"
     },
-    "output": "..............                                                           [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.13.5-final-0 ________________\n\nName                                           Stmts   Miss Branch BrPart  Cover\n--------------------------------------------------------------------------------\nsrc/aion_astra_twin_embodiment/__init__.py         3      0      0      0   100%\nsrc/aion_astra_twin_embodiment/cli.py             14     14      4      0     0%\nsrc/aion_astra_twin_embodiment/models.py          45      0      0      0   100%\nsrc/aion_astra_twin_embodiment/validation.py      53      4     40      4    91%\n--------------------------------------------------------------------------------\nTOTAL                                            115     18     44      4    84%\nCoverage JSON written to file /mnt/data/research-labs_twin-genesis-embodiment_v0.1.0_coverage.json\n"
+    "output": ".................                                                        [100%]\n================================ tests coverage ================================\n_______________ coverage: platform linux, python 3.12.3-final-0 ________________\n\nName                                                Stmts   Miss Branch BrPart  Cover   Missing\n-----------------------------------------------------------------------------------------------\nsrc/aion_astra_twin_embodiment/__init__.py              5      0      0      0   100%\nsrc/aion_astra_twin_embodiment/cli.py                  14     14      4      0     0%   1-35\nsrc/aion_astra_twin_embodiment/models.py               45      0      0      0   100%\nsrc/aion_astra_twin_embodiment/runtime.py              27      1      0      0    96%   34\nsrc/aion_astra_twin_embodiment/runtime_binding.py      22      1      4      1    92%   37\nsrc/aion_astra_twin_embodiment/validation.py           53      4     40      4    91%   37, 41, 63, 66\n-----------------------------------------------------------------------------------------------\nTOTAL                                                 166     20     48      5    86%\nCoverage JSON written to file <temporary-coverage-artifact>\n17 passed\n"
   }
 ]
