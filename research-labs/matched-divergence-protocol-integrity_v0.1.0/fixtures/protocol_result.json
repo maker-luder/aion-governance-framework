@@ -1,0 +1,177 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "matched-divergence-protocol-integrity-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 8,
+  "records": [
+    {
+      "protocol_id": "complete-paired",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_MATCHED_COMPARISON_REVIEW",
+        "reason": "MATCHED_DIVERGENCE_PROTOCOL_COMPLETE",
+        "protocol_id": "complete-paired",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "complete-blocked",
+      "decision": {
+        "status": "COMPLETE",
+        "disposition": "ADMISSIBLE_FOR_MATCHED_COMPARISON_REVIEW",
+        "reason": "MATCHED_DIVERGENCE_PROTOCOL_COMPLETE",
+        "protocol_id": "complete-blocked",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "protocol_mode": "BLOCKED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "stimulus-drift-metadata",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "STIMULUS_PROMPT_VERSION_DRIFT",
+        "protocol_id": "stimulus-drift-metadata",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "prompt_version"
+        ],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "unequal-exposure",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "EXPOSURE_BUDGET_UNEQUAL",
+        "protocol_id": "unequal-exposure",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "pair[pair-1].expected_exposure_count",
+          "pair[pair-1].control_exposure_count"
+        ],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "unsealed-evaluator",
+      "decision": {
+        "status": "INDETERMINATE",
+        "disposition": "HOLD",
+        "reason": "EVALUATOR_IDENTITY_NOT_SEALED",
+        "protocol_id": "unsealed-evaluator",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "outcome-leakage",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "OBSERVED_RESULT_PRESENT_IN_DESIGN_ONLY_PROTOCOL",
+        "protocol_id": "outcome-leakage",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "observed_result_ref"
+        ],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "system-collision",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "SYSTEM_REFERENCES_COLLIDE",
+        "protocol_id": "system-collision",
+        "missing_fields": [],
+        "contradiction_fields": [
+          "system_a_ref",
+          "system_b_ref"
+        ],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "protocol_id": "no-pairs",
+      "decision": {
+        "status": "INVALID",
+        "disposition": "HOLD",
+        "reason": "NO_STIMULUS_PAIRS_DECLARED",
+        "protocol_id": "no-pairs",
+        "missing_fields": [],
+        "contradiction_fields": [],
+        "protocol_mode": "PAIRED",
+        "model_execution": false,
+        "observed_result": "NOT_EVALUATED",
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "model_execution": false,
+  "observed_result": "NOT_EVALUATED",
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
