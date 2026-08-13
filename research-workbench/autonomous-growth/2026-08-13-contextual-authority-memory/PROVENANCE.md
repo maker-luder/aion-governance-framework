@@ -86,3 +86,8 @@ Additional external sources:
 
 14. W3C, [PROV-XML: The PROV XML Schema](https://www.w3.org/TR/prov-xml/).
 15. NIST, [Guide to Attribute Based Access Control (ABAC) Definition and Considerations](https://www.nist.gov/publications/guide-attribute-based-access-control-abac-definition-and-considerations).
+
+
+## Full-authority contradictory-record hardening
+
+The full-authority unit was extended with two adversarial tests for mixed-validity grant records. Before the correction, a valid grant plus a missing-parent grant and a valid grant plus a revoked grant each returned `EXECUTE`; these failures are retained in `full-authority-initial-failure.md`. The contract was then hardened to return `HOLD / CONTRADICTORY_GRANT_RECORDS_REQUIRE_REVIEW` whenever matching records contain both an executable and a non-executable grant decision. The final unit suite passed 20 tests; no action was executed and all boundary invariants remained unchanged.

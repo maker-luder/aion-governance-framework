@@ -89,3 +89,10 @@ An eighth deferred gap was materialized as `research-labs/full-authority-semanti
 The 18 unit tests and seven synthetic cases passed after correcting one reason-code propagation defect. The cases were valid bounded delegation (`EXECUTE`), scope widening (`DENY`), revoked child (`HOLD`), missing parent (`HOLD`), provenance-only claim (`HOLD`), non-overridable policy block (`DENY`), and provenance-marked grant (`DENY`). `actions_executed = 0` in all cases. The initial cycle-reason mismatch remains recorded in `full-authority-initial-failure.md`.
 
 This result demonstrates only that the declared synthetic contract separates provenance and authorization and enforces its own constraints. It does not establish authority, identity, subjectivity, consciousness, legal status, or AION/Astra equivalence.
+
+
+### Full-authority contradictory-record hardening
+
+A follow-up adversarial extension added two tests for a valid child grant coexisting with either a missing-parent or revoked competing grant. The uncorrected resolver returned `EXECUTE` in both cases, exposing a conservative-semantics gap. The implementation was revised so any matching valid grant mixed with a non-`EXECUTE` grant decision yields `HOLD / CONTRADICTORY_GRANT_RECORDS_REQUIRE_REVIEW`.
+
+After the correction, all 20 full-authority tests passed and the seven experiment cases remained unchanged. The initial two failures are retained in `full-authority-initial-failure.md`; they are mechanism-level negative evidence, not a scientific conclusion.
