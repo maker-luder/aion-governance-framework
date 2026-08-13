@@ -37,7 +37,7 @@ The following current-state/reporting surfaces were corrected to distinguish the
 | Claim/data | Who/where | When/status | Method | Transformation |
 |---|---|---|---|---|
 | Current main is `abb6550…` | Human Owner instruction plus `origin/main` repository ref | Current and independently verified after successful read-only fetch | Direct task instruction plus `git fetch`/`git rev-parse` | Used only as read-only reference; no main mutation. |
-| Local HEAD/reporting state | Repository evidence in `/home/ubuntu/AION-research-worktree` | Observed at reconciliation start | `git rev-parse`, `git status`, ancestry check | Recorded as local/cached repository state, not remote proof. |
+| Local HEAD/reporting state | Repository evidence in the research worktree | Observed at reconciliation start | `git rev-parse`, `git status`, ancestry check | Recorded as local/cached repository state, not remote proof; no absolute sandbox path is part of the receipt. |
 | Remote research checkpoint and final head | Human Owner instruction plus repository remote refs | `78dfc33…` was the pre-push checkpoint; `76de1eda…` is now independently verified current remote | Cached ref, safe-descendant check, normal push response, and successful fetch | Recorded as a state transition, not duplicated research evidence. |
 | DNS failure | Tool output from read-only `git ls-remote` and later push attempt | Observed operational status | Network command output | Recorded as connectivity evidence only, not research evidence. |
 
