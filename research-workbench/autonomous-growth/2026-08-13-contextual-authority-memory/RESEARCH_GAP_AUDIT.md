@@ -132,3 +132,12 @@ A twelfth deferred gap was materialized as `research-labs/matched-divergence-pro
 The 15 unit tests and eight synthetic cases passed after hardening an initial contract gap. The first run accepted prompt-version drift because it checked field presence but not uniformity; the corrected contract returns `INVALID / STIMULUS_PROMPT_VERSION_DRIFT`. It also returns `INDETERMINATE / COUNTERBALANCE_INCOMPLETE` for one-sided paired order. Final cases were complete paired, complete blocked, prompt drift, unequal exposure, unsealed evaluator, observed-result leakage, system collision, and no stimulus pairs. Complete protocols were only `ADMISSIBLE_FOR_MATCHED_COMPARISON_REVIEW`; no model executed and no result was observed.
 
 This is a deterministic metadata mechanism check, not evidence of divergence, agreement, fairness, subjectivity, identity continuity, consciousness, AION/Astra equivalence, or real-model performance.
+
+
+## Evidence-admission/non-promotion extension
+
+A thirteenth bounded gap was materialized as `research-labs/evidence-admission-nonpromotion_v0.1.0`. The contract separates evidence tier, provenance completeness, method/data/uncertainty references, risk of bias, consistency, precision, directness, reporting bias, replication state, contradictions, observed-effect claims, and requested governance effects.
+
+The 14 unit tests and eight synthetic cases passed. Mechanism-only evidence was `ADMISSIBLE_FOR_REVIEW` only; consistent and divergent replication-support records were reviewable without automatic promotion or downgrade; divergent synthesis, indeterminate replication, missing provenance, contradiction references, and governance-effect requests were held or marked indeterminate. Every case retained `scientific_conclusion = NOT_ESTABLISHED`, `canonical_effect = NONE`, `deployment = false`, and `governance_effect = NONE`.
+
+This result is an evidence-metadata mechanism check, not a hierarchy-based truth ranking, causal claim, replication certificate, subjectivity conclusion, identity conclusion, consciousness conclusion, or AION/Astra equivalence claim. Contradictory evidence remains referenced rather than silently deleted.

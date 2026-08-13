@@ -139,3 +139,14 @@ The design was informed by NIST's randomized-block design guidance, especially b
 Additional external source:
 
 23. NIST Engineering Statistics Handbook, [Randomized block designs](https://www.itl.nist.gov/div898/handbook/pri/section3/pri332.htm).
+
+
+## Evidence-admission/non-promotion extension
+
+Manus added `research-labs/evidence-admission-nonpromotion_v0.1.0` as a clean-room, standard-library-only evidence metadata audit contract. It records evidence tier, provenance, method/data/uncertainty references, evidence dimensions, replication state, contradictions, observed-effect flags, and governance-effect requests. It never promotes a claim, modifies canonical state, deploys, executes a model, or modifies main.
+
+The design was informed by the National Academies chapter on standards for synthesizing the body of evidence, especially separate treatment of risk of bias, consistency, precision, directness, reporting bias, and confounding. The inaccessible CDC ACIP GRADE URL returned Page Not Found and is preserved as a retrieval limitation, not as evidence. The contract does not implement GRADE, rank truth, or certify a claim.
+
+Additional external source:
+
+24. National Academies, [Standards for Synthesizing the Body of Evidence](https://www.nationalacademies.org/read/13059/chapter/6).
