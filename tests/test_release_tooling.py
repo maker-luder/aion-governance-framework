@@ -65,6 +65,27 @@ def test_windows_private_path_patterns_cover_plain_serialized_and_case(script_na
     assert not any(pattern.search(benign) for pattern in module.PATH_PATTERNS)
 
 
+def test_scanner_posix_private_path_patterns_cover_bare_home_and_nested() -> None:
+    scanner = load_script("scan_public_tree")
+    slash = "/"
+    private_root = slash + "home" + slash + "example"
+    nested = private_root + slash + "file.txt"
+    benign = slash + "srv" + slash + "public" + slash + "home" + slash + "example"
+    for value in (private_root, nested):
+        assert any(pattern.search(value) for pattern in scanner.PATH_PATTERNS)
+    assert not any(pattern.search(benign) for pattern in scanner.PATH_PATTERNS)
+
+
+def test_scanner_still_rejects_private_path_in_regular_file(tmp_path: Path) -> None:
+    scanner = load_script("scan_public_tree")
+    slash = "/"
+    private_value = slash + "home" + slash + "example" + slash + "secret.txt"
+    regular = tmp_path / "src" / "bad.txt"
+    regular.parent.mkdir(parents=True, exist_ok=True)
+    regular.write_text(private_value + "\n", encoding="utf-8")
+    assert scanner.scan_root(tmp_path) == ["private path pattern: src/bad.txt"]
+
+
 def test_generic_manifest_invocation_cannot_overwrite_frozen_evidence() -> None:
     generator = load_script("generate_manifest")
     frozen = sorted(generator.FROZEN_OUTPUTS, key=str)
@@ -105,11 +126,35 @@ def test_explicit_non_frozen_manifest_destination(tmp_path: Path) -> None:
     assert '"baseline": "current-head-TEST"' in manifest.read_text(encoding="utf-8")
 
 
-def test_workflow_keeps_both_historical_verification_layers() -> None:
+def test_generated_build_dist_and_egg_info_are_ignored_by_release_tools(tmp_path: Path) -> None:
+    generator = load_script("generate_manifest")
+    scanner = load_script("scan_public_tree")
+    generated = [
+        tmp_path / "build" / "a" / "artifact.txt",
+        tmp_path / "dist" / "artifact.whl",
+        tmp_path / "pkg.egg-info" / "PKG-INFO",
+    ]
+    slash = "/"
+    private_value = slash + "home" + slash + "privateuser"
+    for path in generated:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(private_value + "\n", encoding="utf-8")
+    regular = tmp_path / "src" / "kept.txt"
+    regular.parent.mkdir(parents=True, exist_ok=True)
+    regular.write_text("kept\n", encoding="utf-8")
+    monkeypatch = pytest.MonkeyPatch()
+    try:
+        monkeypatch.setattr(generator, "ROOT", tmp_path)
+        records = generator.build_records(tmp_path / "out")
+        assert [record["path"] for record in records] == ["src/kept.txt"]
+        assert scanner.scan_root(tmp_path) == []
+    finally:
+        monkeypatch.undo()
+
+
+def test_quality_workflow_keeps_current_and_frozen_verification_layers() -> None:
     workflow = (ROOT / ".github" / "workflows" / "quality.yml").read_text(encoding="utf-8")
-    assert "historical-self-verification:" in workflow
+    assert "python scripts/verify_release.py --baseline current-head" in workflow
+    assert "frozen-release-verification:" in workflow
     assert "ref: v0.1.0-rc.1" in workflow
-    assert "current-historical-revalidation:" in workflow
-    assert "fetch-depth: 0" in workflow
-    assert "fetch-tags: true" in workflow
     assert "python scripts/verify_release.py --baseline historical-rc" in workflow

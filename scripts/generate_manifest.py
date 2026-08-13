@@ -11,7 +11,7 @@ FROZEN_OUTPUTS = {
     (FROZEN_MANIFEST_DIR / "FILE_MANIFEST.json").resolve(),
     (FROZEN_MANIFEST_DIR / "SHA256SUMS.txt").resolve(),
 }
-GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache"}
+GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "build", "dist"}
 
 
 def resolve_output_dir(value: str) -> Path:
@@ -43,7 +43,7 @@ def build_records(output_dir: Path) -> list[dict[str, object]]:
     for path in sorted(ROOT.rglob("*")):
         if not path.is_file() or ".git" in path.parts:
             continue
-        if any(part in GENERATED_PARTS for part in path.parts):
+        if any(part in GENERATED_PARTS or part.endswith(".egg-info") for part in path.parts):
             continue
         if path.name == ".coverage" or path.suffix == ".pyc":
             continue

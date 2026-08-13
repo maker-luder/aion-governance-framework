@@ -1,6 +1,10 @@
 # AION Governance Framework
 
+> **[繁體中文](README.zh-TW.md) | English**
+>
 > **Public Release Candidate — a governed research framework, not a deployed artificial subject**
+>
+> **Bilingual public orientation:** [`README.zh-TW.md`](README.zh-TW.md)
 
 ## 30-second orientation
 
@@ -29,6 +33,18 @@ DEPLOYMENT = FALSE
 ```
 
 The frozen RC block records the historical public baseline. Post-RC work may add isolated research material on review branches without silently rewriting this baseline.
+
+## Current Research / 目前研究進度
+
+The active public research material is maintained on [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization), not on `main`. Its results are review material rather than canonical conclusions.
+
+```text
+RESEARCH_BRANCH != MAIN
+RESEARCH_RESULT != CANONICAL_CONCLUSION
+CANONICAL_EFFECT = NONE
+```
+
+No research-branch content is automatically adopted by `main`, canonical state, deployment, or the AION/Astra runtime. See the research-branch homepage for its bilingual public experimental orientation: [`review/four-domain-research-materialization/README.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/README.md).
 
 ## Provenance / watermark boundary
 
