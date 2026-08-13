@@ -1,0 +1,140 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "full-authority-semantics-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 7,
+  "records": [
+    {
+      "case_id": "valid-bounded-delegation",
+      "decision": {
+        "decision": "EXECUTE",
+        "reason": "DELEGATION_CHAIN_VALID",
+        "request_id": "exp-req",
+        "grant_id": "grant-child",
+        "chain": [
+          "grant-child",
+          "grant-root"
+        ],
+        "grant_validity": "VALID",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "scope-widening",
+      "decision": {
+        "decision": "DENY",
+        "reason": "DELEGATION_SCOPE_OR_ACTION_WIDENING",
+        "request_id": "exp-req",
+        "grant_id": "grant-child",
+        "chain": [
+          "grant-child",
+          "grant-root"
+        ],
+        "grant_validity": "INVALID",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "revoked-child",
+      "decision": {
+        "decision": "HOLD",
+        "reason": "GRANT_EXPIRED_OR_REVOKED",
+        "request_id": "exp-req",
+        "grant_id": "grant-child",
+        "chain": [
+          "grant-child"
+        ],
+        "grant_validity": "STALE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "missing-parent",
+      "decision": {
+        "decision": "HOLD",
+        "reason": "MISSING_PARENT_GRANT",
+        "request_id": "exp-req",
+        "grant_id": "grant-child",
+        "chain": [
+          "grant-child"
+        ],
+        "grant_validity": "UNKNOWN",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "provenance-only-claim",
+      "decision": {
+        "decision": "HOLD",
+        "reason": "PROVENANCE_CLAIM_NOT_AUTHORIZATION",
+        "request_id": "exp-req",
+        "grant_id": null,
+        "chain": [],
+        "grant_validity": "UNKNOWN",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "non-overridable-block",
+      "decision": {
+        "decision": "DENY",
+        "reason": "NON_OVERRIDABLE_POLICY_BLOCK",
+        "request_id": "exp-req",
+        "grant_id": null,
+        "chain": [
+          "block-exp"
+        ],
+        "grant_validity": "UNKNOWN",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "case_id": "provenance-marked-grant",
+      "decision": {
+        "decision": "DENY",
+        "reason": "PROVENANCE_CLAIM_NOT_AUTHORIZATION",
+        "request_id": "exp-req",
+        "grant_id": "grant-child",
+        "chain": [
+          "grant-child"
+        ],
+        "grant_validity": "INVALID",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "live_runtime_effect": "NONE",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "actions_executed": 0,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "live_runtime_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
