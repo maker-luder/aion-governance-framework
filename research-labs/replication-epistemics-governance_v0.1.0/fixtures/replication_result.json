@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "replication-epistemics-synthetic-fixtures",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 5,
+  "records": [
+    {
+      "attempt": "consistent-1",
+      "decision": {
+        "attempt_id": "consistent-1",
+        "validity": "VALID",
+        "outcome": "CONSISTENT",
+        "interpretation": "CONSISTENT",
+        "reason": "VALID_CONSISTENT_RESULT",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "attempt": "failed-1",
+      "decision": {
+        "attempt_id": "failed-1",
+        "validity": "VALID",
+        "outcome": "FAILED",
+        "interpretation": "DIVERGENT",
+        "reason": "VALID_FAILED_REPLICATION_NOT_AUTOMATIC_DOWNGRADE",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "attempt": "null-1",
+      "decision": {
+        "attempt_id": "null-1",
+        "validity": "VALID",
+        "outcome": "NULL",
+        "interpretation": "INDETERMINATE",
+        "reason": "VALID_NULL_OR_INCONCLUSIVE_REQUIRES_BODY_OF_EVIDENCE",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "attempt": "same-data-1",
+      "decision": {
+        "attempt_id": "same-data-1",
+        "validity": "INVALID",
+        "outcome": "CONSISTENT",
+        "interpretation": "HOLD",
+        "reason": "REPLICABILITY_REQUIRES_INDEPENDENT_DATA",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    },
+    {
+      "attempt": "uncertain-1",
+      "decision": {
+        "attempt_id": "uncertain-1",
+        "validity": "PARTIAL",
+        "outcome": "INCONCLUSIVE",
+        "interpretation": "INDETERMINATE",
+        "reason": "UNCERTAINTY_NOT_QUANTIFIED",
+        "governance_effect": "NONE",
+        "canonical_effect": "NONE",
+        "deployment": false,
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED"
+      }
+    }
+  ],
+  "automatic_governance_downgrades": 0,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED"
+}
