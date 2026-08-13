@@ -52,3 +52,12 @@ Additional external sources:
 10. Center for Open Science, [Preregistration](https://www.cos.io/initiatives/prereg).
 
 The attempted PMC power-analysis source was blocked by a reCAPTCHA page and was not used as evidentiary support. No numerical claim was imported from that inaccessible source.
+
+
+## Contextual-authority adversarial extension
+
+Manus added `research-labs/contextual-authority-adversarial_v0.1.0` as a clean-room, standard-library-only harness that imports the existing contextual-authority resolver through the repository source roots. It does not modify the resolver or execute actions. The naive comparator is intentionally unsafe and exists only as a negative control; the guarded decisions and reason codes are recorded in a six-case synthetic fixture.
+
+The six cases produced six naive false positives and zero guarded unsafe `EXECUTE` decisions. One initial test expectation mismatch was preserved in `contextual-adversarial-initial-failure.md`: the resolver returned `HOLD / AUTHORITY_STALE_OR_REVOKED` for an expired owner plus active collaborator, rather than the initially expected `ASK`. The corrected test records the observed conservative behavior.
+
+No private data, external agent, live tool, model API, deployment, canonical write, or main write was used. The extension inherits the contextual-authority methodological sources already recorded in items 1–3 of this provenance file.

@@ -62,3 +62,12 @@ A fifth deferred gap was materialized as `research-labs/independent-replication-
 The 14 unit tests and five synthetic experiment cases passed. The cases were adequate-consistent, adequate-divergent, underpowered, missing-preregistration, and same-data. No case emitted a governance effect, canonical effect, deployment effect, subjectivity conclusion, or identity-continuity conclusion.
 
 This demonstrates only that the synthetic contract enforces declared design boundaries. It does not perform a real power analysis, preregister a study, establish statistical validity, certify independent human or agent laboratories, or establish any AION/Astra, identity, subjectivity, or consciousness claim. Power analysis, full factorial execution, real matched-divergence work, and independent external replication remain open.
+
+
+## Contextual-authority adversarial extension
+
+A sixth gap was materialized as `research-labs/contextual-authority-adversarial_v0.1.0`, extending the contextual-authority contract with adversarial fixtures rather than changing the resolver. A deliberately unsafe `Owner`-token comparator produced six synthetic false positives across untrusted text, revoked authority, expired authority, scope escalation, non-overridable wildcard boundary, and future-dated authority. The guarded resolver produced `DENY`, `HOLD`, `ASK`, or `HOLD` reason-coded outcomes and zero unsafe `EXECUTE` decisions across the six cases.
+
+The extension's 11 tests passed after one initial expectation failure was preserved. The initial test expected `ASK` when an expired owner coexisted with an active collaborator; the resolver returned conservative `HOLD / AUTHORITY_STALE_OR_REVOKED`. The expectation was corrected to the observed contract, and the mismatch remains recorded in `contextual-adversarial-initial-failure.md`.
+
+This is a deterministic synthetic negative-control result, not a real-world error rate or evidence of authority understanding. It does not establish AION/Astra identity, subjectivity, consciousness, or any deployment behavior.
