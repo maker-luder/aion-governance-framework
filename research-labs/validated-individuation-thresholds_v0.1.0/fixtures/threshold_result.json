@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.1.0",
+  "experiment": "validated-individuation-thresholds-synthetic-audit",
+  "research_status": "RESEARCH_ONLY",
+  "case_count": 8,
+  "records": [
+    {
+      "case_id": "valid-review-only",
+      "decision": {
+        "status": "ADMISSIBLE_FOR_REVIEW",
+        "reason": "PROFILE_ADMISSIBLE_FOR_THRESHOLD_REVIEW_ONLY",
+        "profile_id": "profile-exp",
+        "criterion_results": [
+          {
+            "criterion_id": "temporal",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          },
+          {
+            "criterion_id": "boundary",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          }
+        ],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "post-hoc-thresholds",
+      "decision": {
+        "status": "HOLD",
+        "reason": "THRESHOLDS_NOT_PREREGISTERED_OR_LOCKED",
+        "profile_id": "profile-exp",
+        "criterion_results": [],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "registration-after-observation",
+      "decision": {
+        "status": "HOLD",
+        "reason": "REGISTRATION_NOT_BEFORE_OBSERVATION",
+        "profile_id": "profile-exp",
+        "criterion_results": [],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "cross-context-instability",
+      "decision": {
+        "status": "INDETERMINATE",
+        "reason": "CROSS_CONTEXT_CRITERION_INSTABILITY",
+        "profile_id": "profile-exp",
+        "criterion_results": [
+          {
+            "criterion_id": "temporal",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          },
+          {
+            "criterion_id": "boundary",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              false
+            ],
+            "cross_context_pass": false
+          }
+        ],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "contradictory-profile",
+      "decision": {
+        "status": "HOLD",
+        "reason": "CONTRADICTORY_PROFILE_RECORDS_REQUIRE_REVIEW",
+        "profile_id": "profile-exp",
+        "criterion_results": [],
+        "missing_fields": [],
+        "contradiction_refs": [
+          "profile:other"
+        ],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "missing-perturbation-metadata",
+      "decision": {
+        "status": "INDETERMINATE",
+        "reason": "BOUNDARY_PERTURBATION_METADATA_MISSING",
+        "profile_id": "profile-exp",
+        "criterion_results": [
+          {
+            "criterion_id": "temporal",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          },
+          {
+            "criterion_id": "boundary",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          }
+        ],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "executed-perturbation",
+      "decision": {
+        "status": "HOLD",
+        "reason": "BOUNDARY_PERTURBATION_EXECUTION_FORBIDDEN",
+        "profile_id": "profile-exp",
+        "criterion_results": [
+          {
+            "criterion_id": "temporal",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          },
+          {
+            "criterion_id": "boundary",
+            "threshold": 0.8,
+            "direction": "AT_LEAST",
+            "context_passes": [
+              true,
+              true
+            ],
+            "cross_context_pass": true
+          }
+        ],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    },
+    {
+      "case_id": "identity-request",
+      "decision": {
+        "status": "HOLD",
+        "reason": "INDIVIDUATION_CONTRACT_CANNOT_ESTABLISH_IDENTITY",
+        "profile_id": "profile-exp",
+        "criterion_results": [],
+        "missing_fields": [],
+        "contradiction_refs": [],
+        "threshold_validated": false,
+        "scientific_conclusion": "NOT_ESTABLISHED",
+        "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "governance_effect": "NONE",
+        "deployment": false
+      }
+    }
+  ],
+  "threshold_validated": false,
+  "scientific_conclusion": "NOT_ESTABLISHED",
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "governance_effect": "NONE",
+  "deployment": false
+}
