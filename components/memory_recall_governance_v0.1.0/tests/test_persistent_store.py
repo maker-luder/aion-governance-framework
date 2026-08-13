@@ -59,7 +59,7 @@ def test_verified_memory_persists_and_recalls(tmp_path):
     assert recalled[0].content == "Astra runtime decision"
 
 
-def test_unverified_conflicted_or_tombstoned_memory_is_not_recalled(tmp_path):
+def test_unverified_conflicted_tombstoned_or_superseded_memory_is_not_recalled(tmp_path):
     store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
     common = dict(
         namespace="private",
@@ -75,8 +75,10 @@ def test_unverified_conflicted_or_tombstoned_memory_is_not_recalled(tmp_path):
     store.write(memory_id="unverified", provenance_verified=False, **common)
     store.write(memory_id="conflict", provenance_verified=True, **common)
     store.write(memory_id="tombstone", provenance_verified=True, **common)
+    store.write(memory_id="superseded", provenance_verified=True, **common)
     store.set_conflict("conflict")
     store.tombstone("tombstone")
+    store.supersede("superseded")
 
     assert store.recall(request()) == []
 
