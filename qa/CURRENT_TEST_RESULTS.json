@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "8715a85112619f1e943dcf5097d98385b28bddf7",
+  "target_head": "e7eb58eab3a578f78d73b321fb92346f06cb0f68",
   "summary": {
     "eligible_target_count": 50,
     "tested_target_count": 47,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 896,
+    "total_passed": 900,
     "total_failed": 0
   },
   "targets": [
@@ -49,7 +49,7 @@
       "passed": 89,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.16s\n"
+      "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.15s\n"
     },
     {
       "target": "components/continuity_governance_v0.1.0",
@@ -69,7 +69,7 @@
       "passed": 7,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".......                                                                  [100%]\n7 passed in 0.07s\n"
+      "output": ".......                                                                  [100%]\n7 passed in 0.06s\n"
     },
     {
       "target": "components/executable_runtime_v0.1.0",
@@ -109,7 +109,7 @@
       "passed": 14,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............                                                           [100%]\n14 passed in 0.11s\n"
+      "output": "..............                                                           [100%]\n14 passed in 0.10s\n"
     },
     {
       "target": "components/iqc_quality_inspection_v0.1.0",
@@ -159,7 +159,7 @@
       "passed": 33,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".................................                                        [100%]\n33 passed in 0.03s\n"
+      "output": ".................................                                        [100%]\n33 passed in 0.04s\n"
     },
     {
       "target": "components/whole_system_governed_runtime_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=67981) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.56s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=69181) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.48s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -179,7 +179,7 @@
       "passed": 82,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.21s\n"
+      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.20s\n"
     },
     {
       "target": "research-labs/affective-cognitive-motivation_v0.1.0",
@@ -299,7 +299,7 @@
       "passed": 5,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....                                                                    [100%]\n5 passed in 0.03s\n"
+      "output": ".....                                                                    [100%]\n5 passed in 0.02s\n"
     },
     {
       "target": "research-labs/four-domain-p3-resilience-experiments_v0.1.0",
@@ -366,10 +366,10 @@
       "status": "PASS",
       "tested": true,
       "returncode": 0,
-      "passed": 71,
+      "passed": 75,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".......................................................................  [100%]\n71 passed in 0.11s\n"
+      "output": "........................................................................ [ 96%]\n...                                                                      [100%]\n75 passed in 0.12s\n"
     },
     {
       "target": "research-labs/real-model-pilot-protocol_v0.1.0",

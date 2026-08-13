@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "8715a85112619f1e943dcf5097d98385b28bddf7",
+  "target_head": "e7eb58eab3a578f78d73b321fb92346f06cb0f68",
   "gates": {
     "compileall": {
       "status": "PASS",
@@ -10,7 +10,7 @@
     },
     "source_state_binding": {
       "status": "PASS",
-      "command": "/usr/bin/python3 scripts/check_source_state_binding.py --root . --expected-head 8715a85112619f1e943dcf5097d98385b28bddf7",
+      "command": "/usr/bin/python3 scripts/check_source_state_binding.py --root . --expected-head e7eb58eab3a578f78d73b321fb92346f06cb0f68",
       "returncode": 0
     },
     "public_tree_scan": {
@@ -105,17 +105,17 @@
     },
     "current_qa_reconciliation": {
       "status": "PASS",
-      "command": "/usr/bin/python3 scripts/reconcile_current_qa.py --root . --target-head 8715a85112619f1e943dcf5097d98385b28bddf7 --public-scan-status PASS",
+      "command": "/usr/bin/python3 scripts/reconcile_current_qa.py --root . --target-head e7eb58eab3a578f78d73b321fb92346f06cb0f68 --public-scan-status PASS",
       "returncode": 0
     },
     "evidence_traceability": {
       "status": "PASS",
-      "command": "/usr/bin/python3 scripts/generate_evidence_traceability.py --root . --target-head 8715a85112619f1e943dcf5097d98385b28bddf7 --output qa/CURRENT_EVIDENCE_TRACEABILITY.json",
+      "command": "/usr/bin/python3 scripts/generate_evidence_traceability.py --root . --target-head e7eb58eab3a578f78d73b321fb92346f06cb0f68 --output qa/CURRENT_EVIDENCE_TRACEABILITY.json",
       "returncode": 0
     },
     "iqc_r1": {
       "status": "PASS",
-      "command": "/usr/bin/python3 -m aion_iqc.cli --root . --target-head 8715a85112619f1e943dcf5097d98385b28bddf7 --require-traceability --require-qa-reconciliation --require-component-contracts --require-source-state-binding --output qa/IQC_REPORT.json",
+      "command": "/usr/bin/python3 -m aion_iqc.cli --root . --target-head e7eb58eab3a578f78d73b321fb92346f06cb0f68 --require-traceability --require-qa-reconciliation --require-component-contracts --require-source-state-binding --output qa/IQC_REPORT.json",
       "returncode": 0
     },
     "automation_syntax": {
