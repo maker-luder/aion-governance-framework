@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-contextual-authority-adversarial"
+version = "0.1.0"
+description = "Research-only adversarial fixtures for contextual authority precedence"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src",
+  "../contextual-authority-precedence_v0.1.0/src",
+]
