@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "efefe5caa657b61fb102a2e376ccaca611ccd0ae",
+  "target_head": "866ce5cd6917cddfca63bd9d33f1fdf1e22a6138",
   "summary": {
     "eligible_target_count": 60,
     "tested_target_count": 57,
@@ -89,7 +89,7 @@
       "passed": 46,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............................................                           [100%]\n46 passed in 0.04s\n"
+      "output": "..............................................                           [100%]\n46 passed in 0.05s\n"
     },
     {
       "target": "components/identity_governance_v0.1.0",
@@ -109,7 +109,7 @@
       "passed": 14,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..............                                                           [100%]\n14 passed in 0.11s\n"
+      "output": "..............                                                           [100%]\n14 passed in 0.12s\n"
     },
     {
       "target": "components/iqc_quality_inspection_v0.1.0",
@@ -139,7 +139,7 @@
       "passed": 10,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..........                                                               [100%]\n10 passed in 0.02s\n"
+      "output": "..........                                                               [100%]\n10 passed in 0.03s\n"
     },
     {
       "target": "components/research_integrity_security_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=27154) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.53s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=28260) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.57s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -219,7 +219,7 @@
       "passed": 3,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "...                                                                      [100%]\n3 passed in 0.00s\n"
+      "output": "...                                                                      [100%]\n3 passed in 0.01s\n"
     },
     {
       "target": "research-labs/contextual-authority-adversarial_v0.1.0",
@@ -489,7 +489,7 @@
       "passed": 84,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n84 passed in 0.09s\n"
+      "output": "........................................................................ [ 85%]\n............                                                             [100%]\n84 passed in 0.08s\n"
     },
     {
       "target": "research-labs/selective-memory-control_v0.1.0",

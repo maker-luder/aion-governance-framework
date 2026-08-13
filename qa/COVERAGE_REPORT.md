@@ -1,6 +1,6 @@
 # Current Reconstruction Coverage Report
 
-Target head: `efefe5caa657b61fb102a2e376ccaca611ccd0ae`. Coverage was measured with branch coverage enabled for 57 targets.
+Target head: `866ce5cd6917cddfca63bd9d33f1fdf1e22a6138`. Coverage was measured with branch coverage enabled for 57 targets.
 
 | Target | Branch coverage | Return code |
 |---|---:|---:|
