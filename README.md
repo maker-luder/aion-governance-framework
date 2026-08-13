@@ -80,6 +80,8 @@ The primary review question is not “does this system look human-like?” but �
 
 Start with the one-page contribution summary: [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md).
 
+For the current main-native evidence admission control, see [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md).
+
 Then continue with the research questions around identity, continuity, memory recall, interpretation drift, conflict, correction, provenance, and bounded subjectivity hypotheses. Research candidates remain distinct from conclusions.
 
 Useful entry points include:
@@ -98,6 +100,8 @@ Start with:
 2. `scripts/verify_release.py`
 3. `scripts/run_component_tests.py`
 4. component-specific status locks and tests
+5. [`scripts/check_source_state_binding.py`](scripts/check_source_state_binding.py)
+6. [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md)
 
 Engineering implementation is evidence about implemented behavior only. It is not evidence that the corresponding psychological or subjectivity construct exists.
 

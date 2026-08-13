@@ -1,3 +1,8 @@
+import json
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+
 from aion_encounter_governance import (
     ApprovalAuthority,
     EncounterContext,
@@ -67,6 +72,30 @@ def test_shared_context_never_establishes_shared_identity() -> None:
     decision = EncounterPolicy().shared_identity_claim_allowed(current, "aion", "owner")
     assert decision.allowed is False
     assert decision.reason == "DISTINCT_IDENTITY_REFS"
+
+
+def test_decision_contract_accepts_bounded_policy_output() -> None:
+    schema_path = Path(__file__).resolve().parents[1] / "qa" / "encounter_decision.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    decision = EncounterPolicy().can_write_namespace(encounter(), "aion", "memory:owner")
+    payload = {
+        "allowed": decision.allowed,
+        "reason": decision.reason,
+        "canonical_effect": decision.canonical_effect,
+    }
+    assert list(Draft202012Validator(schema).iter_errors(payload)) == []
+
+
+def test_decision_contract_rejects_canonical_or_authority_expansion() -> None:
+    schema_path = Path(__file__).resolve().parents[1] / "qa" / "encounter_decision.schema.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    payload = {
+        "allowed": True,
+        "reason": "AUTHORITY_SUFFICIENT",
+        "canonical_effect": "PROMOTED",
+        "authority_granted": True,
+    }
+    assert list(Draft202012Validator(schema).iter_errors(payload))
 
 
 def test_duplicate_participant_ids_are_rejected() -> None:
