@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "7be5e5ad08605708af5bd495bf8cddda5b5aca6d",
+  "target_head": "43d13065f5c6f33ec8f11551b0658c5cc84eba8c",
   "summary": {
-    "eligible_target_count": 77,
-    "tested_target_count": 74,
+    "eligible_target_count": 78,
+    "tested_target_count": 75,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 1376,
+    "total_passed": 1406,
     "total_failed": 0
   },
   "targets": [
@@ -19,7 +19,7 @@
       "passed": 11,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "...........                                                              [100%]\n11 passed in 0.61s\n"
+      "output": "...........                                                              [100%]\n11 passed in 0.64s\n"
     },
     {
       "target": "components/aion_runtime_v0.2.0",
@@ -69,7 +69,7 @@
       "passed": 7,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".......                                                                  [100%]\n7 passed in 0.07s\n"
+      "output": ".......                                                                  [100%]\n7 passed in 0.06s\n"
     },
     {
       "target": "components/executable_runtime_v0.1.0",
@@ -79,7 +79,7 @@
       "passed": 13,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............                                                            [100%]\n13 passed in 0.07s\n"
+      "output": ".............                                                            [100%]\n13 passed in 0.06s\n"
     },
     {
       "target": "components/governance_kernel_v0.4.0",
@@ -119,7 +119,7 @@
       "passed": 13,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............                                                            [100%]\n13 passed in 0.10s\n"
+      "output": ".............                                                            [100%]\n13 passed in 0.11s\n"
     },
     {
       "target": "components/language_core_v0.1.0",
@@ -129,7 +129,7 @@
       "passed": 29,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............................                                            [100%]\n29 passed in 0.05s\n"
+      "output": ".............................                                            [100%]\n29 passed in 0.04s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=62496) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.53s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=64089) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.49s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -620,6 +620,16 @@
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
       "output": "........................................................................ [ 85%]\n............                                                             [100%]\n84 passed in 0.09s\n"
+    },
+    {
+      "target": "research-labs/selective-memory-control-adversarial_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 30,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": "..............................                                           [100%]\n30 passed in 0.01s\n"
     },
     {
       "target": "research-labs/selective-memory-control_v0.1.0",
