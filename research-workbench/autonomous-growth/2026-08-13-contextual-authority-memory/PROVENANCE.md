@@ -196,3 +196,13 @@ The National Academies 2019 reproducibility/replicability report was retrieved a
 33. ACM, [Artifact Review and Badging Version 1.0](https://www.acm.org/publications/policies/artifact-review-badging), retrieved 2026-08-13; historical policy reference; linked current page returned 404.
 34. NIH, [Enhancing Reproducibility through Rigor and Reproducibility](https://grants.nih.gov/policy-and-compliance/policy-topics/reproducibility), retrieved 2026-08-13; current public policy resource at retrieval.
 35. NSF PAR, [metadata/reproducibility retrieval lead](https://par.nsf.gov/servlets/purl/10412652), retrieved 2026-08-13; partial encoded-PDF retrieval, not admitted as evidence.
+
+## Evidence-currentness-deduplication extension
+
+Manus added `research-labs/evidence-currentness-deduplication_v0.1.0` as a standard-library-only metadata ledger. It reuses `external-evidence-normalization_v0.1.0` and prior evidence-reuse/replication records by stable reference; it does not duplicate or count those records as new evidence. The clean-room transformation adds currentness status, source/version identity, evaluation time, underlying-evidence identity, duplicate-group counting, derived-record parent links, same-locator ambiguity handling, date contradiction checks, and replication-mislabel rejection.
+
+W3C PROV-O was retrieved as a stable Recommendation reference for provenance entities, activities, agents, derivation, revision, specialization, alternate representations, generation, and invalidation-style status. GO FAIR's FAIR Principles page was retrieved as current public guidance for persistent identifiers, rich metadata, accessibility, interoperability, licenses, and detailed provenance. DataCite's official page was retrieved as current public organizational context for DOI/metadata connections and research-output reuse. None of these sources makes an evidence record current or scientifically valid; the prototype remains a local metadata contract. The initial boundary-output failure is preserved in `evidence-currentness-initial-failure.md`.
+
+36. W3C, [PROV-O: The PROV Ontology](https://www.w3.org/TR/prov-o/), retrieved 2026-08-13; stable Recommendation reference.
+37. GO FAIR, [FAIR Principles](https://www.go-fair.org/fair-principles/), retrieved 2026-08-13; current public guidance at retrieval.
+38. DataCite, [Connecting Research, Advancing Knowledge](https://datacite.org/), retrieved 2026-08-13; current public organizational guidance at retrieval.
