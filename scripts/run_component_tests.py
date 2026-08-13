@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -29,6 +30,19 @@ TARGETS = discover_targets()
 source_roots = discover_source_roots()
 
 
+def _normalize_test_output(output: str) -> str:
+    lines = output.splitlines(keepends=True)
+    for index in range(len(lines) - 1, -1, -1):
+        if lines[index].strip():
+            lines[index] = re.sub(
+                r"[ \t]+in[ \t]+\d+(?:\.\d+)?s(?=\r?\n?$)",
+                "",
+                lines[index],
+            )
+            break
+    return "".join(lines)
+
+
 def run_component_tests(
     targets: list[Path],
     root: Path = ROOT,
@@ -50,15 +64,16 @@ def run_component_tests(
             stderr=subprocess.STDOUT,
             check=False,
         )
+        output = _normalize_test_output(proc.stdout)
         results.append(
             {
                 "target": str(target.relative_to(root)),
                 "returncode": proc.returncode,
-                "output": proc.stdout,
+                "output": output,
             }
         )
         print(f"[{target.name}] returncode={proc.returncode}")
-        print(proc.stdout)
+        print(output)
     return results
 
 

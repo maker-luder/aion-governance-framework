@@ -42,3 +42,43 @@ def test_component_result_preserves_target_and_returncode(tmp_path: Path, monkey
     results = module.run_component_tests([target], tmp_path, [])
 
     assert results == [{"target": "components/demo", "returncode": 0, "output": "1 passed\n"}]
+
+
+def test_component_result_normalizes_pytest_duration(tmp_path: Path, monkeypatch) -> None:
+    module = load_runner()
+    target = tmp_path / "components" / "demo"
+    (target / "src").mkdir(parents=True)
+    (target / "tests").mkdir()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+
+    class Completed:
+        returncode = 0
+        stdout = "1 passed in 0.86s\n"
+
+    monkeypatch.setattr(module.subprocess, "run", lambda *args, **kwargs: Completed())
+
+    results = module.run_component_tests([target], tmp_path, [])
+
+    assert results == [{"target": "components/demo", "returncode": 0, "output": "1 passed\n"}]
+
+
+def test_component_result_preserves_duration_looking_diagnostics(tmp_path: Path, monkeypatch) -> None:
+    module = load_runner()
+    target = tmp_path / "components" / "demo"
+    (target / "src").mkdir(parents=True)
+    (target / "tests").mkdir()
+    monkeypatch.setattr(module, "ROOT", tmp_path)
+
+    class Completed:
+        returncode = 1
+        stdout = "E AssertionError: expected in 0.86s\n1 failed in 0.86s\n"
+
+    monkeypatch.setattr(module.subprocess, "run", lambda *args, **kwargs: Completed())
+
+    results = module.run_component_tests([target], tmp_path, [])
+
+    assert results == [{
+        "target": "components/demo",
+        "returncode": 1,
+        "output": "E AssertionError: expected in 0.86s\n1 failed\n",
+    }]
