@@ -110,12 +110,24 @@ class AIONRuntime:
     ) -> RunResult:
         self._require_context(task.runtime_context)
         self.state.append_event("task.started", {"task_id": task.task_id})
-        result = self.execution.run(
-            task,
-            baseline_root=baseline_root,
-            sessions_root=sessions_root,
-            kill_switch=kill_switch,
-        )
+        try:
+            result = self.execution.run(
+                task,
+                baseline_root=baseline_root,
+                sessions_root=sessions_root,
+                kill_switch=kill_switch,
+            )
+        except Exception as exc:
+            self.state.append_event(
+                "task.failed",
+                {
+                    "task_id": task.task_id,
+                    "error_type": type(exc).__name__,
+                    "reason": str(exc),
+                    "canonical_effect": "NONE",
+                },
+            )
+            raise
         self.state.append_event(
             "task.completed",
             {"task_id": task.task_id, "status": result.status.value, "canonical_effect": result.canonical_effect},

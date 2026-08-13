@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from unittest.mock import Mock
+
 import pytest
 
 from aion_astra_runtime.models import IndividualRuntimeContext, TaskSpec
@@ -99,3 +101,33 @@ def test_recall_applies_bound_namespace_before_limit(tmp_path):
     )
 
     assert [item.memory_id for item in recalled] == ["z-bound"]
+
+
+def test_task_exception_is_recorded_before_propagation(tmp_path):
+    execution = Mock()
+    execution.run.side_effect = RuntimeError("planner failure")
+    runtime = AstraRuntime(
+        memory_db=tmp_path / "memory.sqlite3",
+        context=astra_context(),
+        execution=execution,
+    )
+    task = TaskSpec.from_dict(
+        {
+            "task_id": "ASTRA-FAIL-001",
+            "objective": "Inventory and summarize",
+            "profile": "INVENTORY_SUMMARIZE",
+            "input_paths": ["input.txt"],
+            "output_path": "out.txt",
+            "owner_approved": True,
+            "approved_by": "OWNER",
+            "runtime_context": astra_context().to_dict(),
+        }
+    )
+
+    with pytest.raises(RuntimeError, match="planner failure"):
+        runtime.run_task(task, baseline_root=tmp_path, sessions_root=tmp_path)
+
+    assert [event.event_type for event in runtime.state.events()] == [
+        "task.started",
+        "task.failed",
+    ]
