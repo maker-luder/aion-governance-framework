@@ -1,0 +1,53 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "POST_MERGE_RECONCILIATION_RECEIPT",
+  "repository": "maker-luder/aion-governance-framework",
+  "baseline": "main@5da933ef33cd8a25c1b288226e2a81d479e605e9",
+  "pull_request": 16,
+  "approved_candidate_head": "ce7fd8f292abffbc4b1bfd9d8f91b11508e02c0d",
+  "final_merge_commit": "5da933ef33cd8a25c1b288226e2a81d479e605e9",
+  "approval": {
+    "human_owner_fresh_explicit_merge_approval": "GIVEN",
+    "action_specific": true,
+    "target_pr_specific": true,
+    "exact_head_specific": true,
+    "source_ref": "https://github.com/maker-luder/aion-governance-framework/pull/16"
+  },
+  "quality": {
+    "run": 328,
+    "run_id": 31691879098,
+    "event": "push",
+    "target_head": "5da933ef33cd8a25c1b288226e2a81d479e605e9",
+    "conclusion": "success",
+    "python_versions": ["3.11", "3.12"],
+    "whole_system_test_suite_status": "PASS",
+    "scoped_target_counts": {
+      "eligible": 19,
+      "tested": 19,
+      "non_applicable": 0
+    },
+    "tests_passed": 492,
+    "whole_system_validation": "NOT_ESTABLISHED",
+    "independent_ivv": "NOT_ACHIEVED"
+  },
+  "iqc": {
+    "verdict": "PASS",
+    "test_detail": "492 passed; eligible=19; tested=19; non_applicable=0",
+    "semantic_detail": "whole_system_validation consistently NOT_ESTABLISHED"
+  },
+  "incident_provenance": {
+    "pr14_human_owner_merge_authorization": "NOT_GIVEN",
+    "pr15_human_owner_merge_authorization": "NOT_GIVEN",
+    "manus_incident_provenance": "PRESERVED",
+    "history_rewrite": "NONE"
+  },
+  "next_transition": {
+    "status": "HOLD",
+    "requires_fresh_action_specific_target_exact_head_human_owner_approval": true,
+    "qa_pass_is_merge_authority": false,
+    "ai_review_is_human_owner_merge_approval": false
+  },
+  "research_branch": "ISOLATED / NO_PROMOTION",
+  "canonical_effect": "NONE",
+  "deployment": false
+}
