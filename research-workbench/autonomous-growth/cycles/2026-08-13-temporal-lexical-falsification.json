@@ -1,0 +1,51 @@
+{
+  "cycle_id": "2026-08-13-temporal-lexical-falsification",
+  "started_at": "2026-08-13T08:10:31+08:00",
+  "starting_research_sha": "09dc43a12b5d5902584e0e928379e3f9270eb4f7",
+  "research_question": "Does a descriptive temporal-continuity similarity signal remain after removing lexical overlap while holding governed state metadata constant?",
+  "epistemic_role": "FALSIFIER",
+  "source_refs": [
+    "docs/WHOLE_SYSTEM_GAP_MATRIX.md",
+    "docs/MODEL_HANDOFF_AND_RELATIONAL_CONTINUITY.md",
+    "docs/RESEARCH_CYCLE_MODEL_SWAP_CONTINUITY_V1_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_VALIDATION.json"
+  ],
+  "changed_paths": [
+    "docs/RESEARCH_CYCLE_TEMPORAL_LEXICAL_FALSIFICATION_V1_2026-08-13.md",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/run_temporal_continuity_falsification.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/validate_temporal_continuity_falsification.py",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_FALSIFICATION_DATASET_REGISTRY.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_RESULTS.json",
+    "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_VALIDATION.json",
+    "research-labs/language-core-g1_v0.2.1/tests/test_temporal_continuity_falsification_evidence.py",
+    "research-workbench/autonomous-growth/cycles/2026-08-13-temporal-lexical-falsification.json",
+    "research-workbench/autonomous-growth/AUTONOMOUS_GROWTH_LEDGER.md"
+  ],
+  "validation": {
+    "commands": [
+      "python3 research-labs/language-core-g1_v0.2.1/engineering/temporal/run_temporal_continuity_falsification.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "python3 research-labs/language-core-g1_v0.2.1/engineering/temporal/validate_temporal_continuity_falsification.py --models-dir <local-only-models> --evidence-dir <public-evidence>",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests/test_temporal_continuity_falsification_evidence.py",
+      "pytest -q research-labs/language-core-g1_v0.2.1/tests",
+      "python3 scripts/scan_public_tree.py"
+    ],
+    "outcomes": [
+      "TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_V1 = PRELIMINARY_RESEARCH_EVIDENCE; lexical replay overlap 0.6, zero-overlap contrast 0.0",
+      "Clean-process temporal validator = PASS for both local-only V3 checkpoints",
+      "Focused temporal evidence tests = 4 passed; complete language-core suite = 75 passed",
+      "Mean lexical-minus-zero-overlap similarity gap = -0.2734062969684601; simple lexical-carryover explanation not supported in this fixture",
+      "Public-tree scan = PASS; no private/intimate data or paid external resource"
+    ]
+  },
+  "result_class": "NEGATIVE",
+  "candidate_branch": "autogrow/2026-08-13-temporal-lexical-falsification",
+  "integration_status": "INTEGRATED_RESEARCH_BRANCH",
+  "hold_items": [
+    "The negative result is bounded to one small synthetic contrast and one final-logit cosine metric",
+    "It does not establish non-lexical continuity, semantic continuity, identity, subjectivity or consciousness",
+    "Local-only checkpoint binaries remain outside Git",
+    "Independent IV&V is not achieved",
+    "No temporary autogrow branch is pushed as a remote branch"
+  ]
+}

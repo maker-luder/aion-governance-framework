@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
   "inventory_id": "AION_ASTRA_AUTHORITATIVE_REMAINING_GAPS",
-  "generated_at": "2026-08-13T00:06:15.618889+00:00",
+  "generated_at": "2026-08-13T00:11:13.378708+00:00",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "8715a85112619f1e943dcf5097d98385b28bddf7",
+  "target_head": "09dc43a12b5d5902584e0e928379e3f9270eb4f7",
   "status_vocabulary": [
     "TECHNICALLY_ACTIONABLE",
     "MODEL_REQUIRED",
@@ -92,6 +92,18 @@
         "research-workbench/autonomous-growth/cycles/2026-08-13-model-swap-continuity.json"
       ],
       "non_claim": "A fixed synthetic-state model swap is descriptive evidence only; it does not establish identity, subjectivity, consciousness, phenomenal continuity or authority."
+    },
+    {
+      "id": "RES-008",
+      "title": "Temporal continuity lexical-carryover falsification",
+      "status": "PARTIALLY_COMPLETE",
+      "evidence": [
+        "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_FALSIFICATION_DATASET_REGISTRY.json",
+        "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_RESULTS.json",
+        "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_VALIDATION.json",
+        "research-workbench/autonomous-growth/cycles/2026-08-13-temporal-lexical-falsification.json"
+      ],
+      "non_claim": "A negative result against simple lexical carryover in one synthetic contrast does not establish non-lexical continuity, identity, subjectivity or consciousness."
     }
   ],
   "remaining_items": [

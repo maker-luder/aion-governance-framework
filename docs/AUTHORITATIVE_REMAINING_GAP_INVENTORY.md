@@ -3,8 +3,8 @@
 > This is a reconciliation artifact for the next Owner + Teacher research cycle. It does not implement any listed gap and is bound to the exact `target_head` recorded in the JSON artifact.
 
 - Scope: `FINAL_FORMAL_RESEARCH_TREE`
-- Target head: `8715a85112619f1e943dcf5097d98385b28bddf7`
-- Resolved items recorded: **7**
+- Target head: `09dc43a12b5d5902584e0e928379e3f9270eb4f7`
+- Resolved items recorded: **8**
 - Remaining items: **13**
 
 ## Resolved in the current evidence reconciliation
@@ -18,6 +18,7 @@
 | `RES-005` | `PARTIALLY_COMPLETE` | LM_GENERALIZATION_V2/V3 paired-seed generalization experiments | `research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_VALIDATION.json`, `research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_DATASET_REGISTRY.json`, `research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/LM_GENERALIZATION_V3_VALIDATION.json`, `research-labs/language-core-g1_v0.2.1/engineering/generalization/evidence/GENERALIZATION_COMPOSITION_V3_DATASET_REGISTRY.json` |
 | `RES-006` | `COMPLETE` | Governed retrieval gate robustness evaluation | `research-labs/language-core-g1_v0.2.1/engineering/retrieval/evidence/RETRIEVAL_ROBUSTNESS_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/retrieval/RETRIEVAL_ROBUSTNESS_NOTE.md` |
 | `RES-007` | `PARTIALLY_COMPLETE` | Governed model-swap continuity measurement | `research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_CONTINUITY_VALIDATION.json`, `research-labs/language-core-g1_v0.2.1/engineering/model_swap/evidence/MODEL_SWAP_GOVERNANCE_STATE_REGISTRY.json`, `research-workbench/autonomous-growth/cycles/2026-08-13-model-swap-continuity.json` |
+| `RES-008` | `PARTIALLY_COMPLETE` | Temporal continuity lexical-carryover falsification | `research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_FALSIFICATION_DATASET_REGISTRY.json`, `research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_RESULTS.json`, `research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_VALIDATION.json`, `research-workbench/autonomous-growth/cycles/2026-08-13-temporal-lexical-falsification.json` |
 
 ## Remaining gaps
 

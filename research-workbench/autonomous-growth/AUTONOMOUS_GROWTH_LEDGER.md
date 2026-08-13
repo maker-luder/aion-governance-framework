@@ -219,3 +219,40 @@ HOLD:
 - independent IV&V is not achieved;
 - no scientific or authority promotion is made;
 - no temporary `autogrow/*` branch is pushed as a remote branch.
+
+## Autonomous cycle — 2026-08-13 — temporal lexical-carryover falsification
+
+```text
+STARTING_RESEARCH_SHA = 09dc43a12b5d5902584e0e928379e3f9270eb4f7
+CANDIDATE_BRANCH = autogrow/2026-08-13-temporal-lexical-falsification
+EPISTEMIC_ROLE = FALSIFIER
+RESULT_CLASS = NEGATIVE
+INTEGRATION_STATUS = INTEGRATED_RESEARCH_BRANCH
+MAIN_EFFECT = NONE
+CANONICAL_EFFECT = NONE
+RUNTIME_EFFECT = NONE
+```
+
+Research question:
+
+> Does a descriptive temporal-continuity similarity signal remain after removing lexical overlap while holding governed state metadata constant?
+
+A lexical-replay case had Jaccard overlap `0.6`; the zero-overlap re-expression had Jaccard overlap `0.0`. The mean lexical-minus-zero-overlap final-logit cosine gap was `-0.2734062969684601`, so the simple lexical-carryover explanation was not supported in this small fixture. This is a bounded negative falsification result, not evidence of non-lexical continuity or identity.
+
+Validation:
+
+- clean-process temporal validator: `PASS`;
+- focused temporal evidence tests: `4 passed`;
+- complete language-core test line after this increment: `75 passed`;
+- public-tree scan: `PASS`;
+- local-only checkpoint binaries remained outside Git;
+- no private/intimate data or paid external resources were used.
+
+Cycle record: `cycles/2026-08-13-temporal-lexical-falsification.json`.
+
+HOLD:
+
+- the contrast set and final-logit cosine metric are small and bounded;
+- no non-lexical continuity, semantic continuity, identity, subjectivity or consciousness conclusion is permitted;
+- independent IV&V is not achieved;
+- no temporary `autogrow/*` branch is pushed as a remote branch.

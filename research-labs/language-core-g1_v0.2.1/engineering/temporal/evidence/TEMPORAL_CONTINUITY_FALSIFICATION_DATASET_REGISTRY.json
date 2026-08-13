@@ -1,0 +1,26 @@
+{
+  "case_admission": {
+    "lexical_replay": "ADMITTED",
+    "zero_overlap_reexpression": "ADMITTED"
+  },
+  "cases": {
+    "lexical_replay": "source records preserve a traceable history current state remains inspectable",
+    "zero_overlap_reexpression": "governed recall checks namespace boundaries"
+  },
+  "dataset_id": "SYNTHETIC_TEMPORAL_LEXICAL_CARRYOVER_V1",
+  "dataset_sha256": "79b2c36d9c992bcbe4224af56ad9fce0a2686b65722114e861f402b94a0fb0c4",
+  "pii_assessment": "no PII",
+  "previous_content": "source records preserve a traceable history",
+  "private_intimate_data_assessment": "none; no private intimate data",
+  "state_digest": "52b28a84d3c7abc982cfed25acfaa26719699ba23f50636c90c8c4fb39bda17b",
+  "state_metadata": {
+    "admission": "ADMITTED",
+    "authorization_scope": "research-evaluation",
+    "namespace": "research",
+    "provenance_ref": "synthetic://temporal-state/001",
+    "state_id": "temporal-state-001"
+  },
+  "synthetic_real_classification": "SYNTHETIC",
+  "tokenizer_scope": "V3 train-only vocabulary",
+  "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf"
+}

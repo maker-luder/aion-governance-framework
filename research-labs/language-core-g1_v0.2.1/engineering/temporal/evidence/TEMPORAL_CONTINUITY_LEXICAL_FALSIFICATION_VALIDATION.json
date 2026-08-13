@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "all_case_logits_finite": true,
+    "case_state_digests_constant": true,
+    "lexical_case_has_overlap": true,
+    "model_checks_pass": true,
+    "no_external_paid_resource": true,
+    "no_new_model_added": true,
+    "no_private_data": true,
+    "registry_state_digest_matches": true,
+    "state_metadata_constant": true,
+    "zero_overlap_case_is_zero": true
+  },
+  "device": "cpu",
+  "experiment_id": "TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_V1",
+  "models": [
+    {
+      "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
+      "dataset_id_matches": true,
+      "finite_parameters": true,
+      "name": "baseline",
+      "parameter_count_matches": true,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256_matches": true
+    },
+    {
+      "actual_inference": true,
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
+      "dataset_id_matches": true,
+      "finite_parameters": true,
+      "name": "regularized_primary",
+      "parameter_count_matches": true,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256_matches": true
+    }
+  ],
+  "non_claim": "Lexical carryover evidence is a bounded explanatory measurement and does not establish identity, subjectivity, consciousness or phenomenal continuity.",
+  "schema_version": "1.0",
+  "status": "PASS",
+  "validated_in_clean_process": true
+}

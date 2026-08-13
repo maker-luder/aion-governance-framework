@@ -1,0 +1,100 @@
+{
+  "authority_boundary": "falsification-oriented descriptive measurement only; no action authority, canonical effect, provenance rewrite or subjectivity claim",
+  "behavioral_similarity_delta_lexical_minus_zero_overlap": {
+    "baseline": -0.16270050406455994,
+    "regularized_primary": -0.38411208987236023
+  },
+  "checkpoint_policy": "local-only checkpoint binaries remain outside Git",
+  "dataset_id": "SYNTHETIC_TEMPORAL_LEXICAL_CARRYOVER_V1",
+  "epistemic_role": "FALSIFIER",
+  "experiment_id": "TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_V1",
+  "falsification_conditions": [
+    "non-zero lexical overlap in the zero-overlap case invalidates the intended contrast",
+    "different state digests across cases invalidate the fixed-state comparison",
+    "non-finite logits, failed checkpoint reload or parameter-independent inference invalidates model evidence",
+    "a positive lexical-minus-zero-overlap behavioral gap supports a lexical carryover explanation only for this fixture",
+    "this experiment cannot establish identity, subjectivity, consciousness or phenomenal continuity"
+  ],
+  "falsification_result": "LEXICAL_CARRYOVER_EXPLANATION_NOT_SUPPORTED_IN_THIS_FIXTURE",
+  "generated_at": "2026-08-13T00:09:46.539006+00:00",
+  "lexical_carryover_signal_observed": false,
+  "lexical_overlap_jaccard": {
+    "lexical_replay": 0.6,
+    "zero_overlap_reexpression": 0.0
+  },
+  "mean_carryover_gap": -0.2734062969684601,
+  "model_registry_status": "OPTIONAL_RESEARCH_MODEL_INPUTS; NO_NEW_MODEL_ADDED",
+  "models": {
+    "baseline": {
+      "cases": {
+        "lexical_replay": {
+          "behavioral_similarity_cosine": 0.10254862904548645,
+          "content": "source records preserve a traceable history current state remains inspectable",
+          "current_logits_finite": true,
+          "current_token_count": 10,
+          "lexical_overlap_jaccard": 0.6,
+          "previous_logits_finite": true,
+          "previous_token_count": 6,
+          "state_digest": "52b28a84d3c7abc982cfed25acfaa26719699ba23f50636c90c8c4fb39bda17b"
+        },
+        "zero_overlap_reexpression": {
+          "behavioral_similarity_cosine": 0.2652491331100464,
+          "content": "governed recall checks namespace boundaries",
+          "current_logits_finite": true,
+          "current_token_count": 5,
+          "lexical_overlap_jaccard": 0.0,
+          "previous_logits_finite": true,
+          "previous_token_count": 6,
+          "state_digest": "52b28a84d3c7abc982cfed25acfaa26719699ba23f50636c90c8c4fb39bda17b"
+        }
+      },
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_baseline.pt",
+      "checkpoint_sha256": "289c60564ff713767d473c7bf753e4227fbf7dc3e77fcf60b1c0bd375f908c9f",
+      "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    },
+    "regularized_primary": {
+      "cases": {
+        "lexical_replay": {
+          "behavioral_similarity_cosine": -0.10106036067008972,
+          "content": "source records preserve a traceable history current state remains inspectable",
+          "current_logits_finite": true,
+          "current_token_count": 10,
+          "lexical_overlap_jaccard": 0.6,
+          "previous_logits_finite": true,
+          "previous_token_count": 6,
+          "state_digest": "52b28a84d3c7abc982cfed25acfaa26719699ba23f50636c90c8c4fb39bda17b"
+        },
+        "zero_overlap_reexpression": {
+          "behavioral_similarity_cosine": 0.2830517292022705,
+          "content": "governed recall checks namespace boundaries",
+          "current_logits_finite": true,
+          "current_token_count": 5,
+          "lexical_overlap_jaccard": 0.0,
+          "previous_logits_finite": true,
+          "previous_token_count": 6,
+          "state_digest": "52b28a84d3c7abc982cfed25acfaa26719699ba23f50636c90c8c4fb39bda17b"
+        }
+      },
+      "checkpoint": "LOCAL_ONLY:lm_generalization_v3_regularized_primary.pt",
+      "checkpoint_sha256": "b2a4b06056cb1bd4f13b4bcc7107539a2e7d0696f538b9a660607f2034f9b72d",
+      "dataset_id": "SYNTHETIC_GOVERNANCE_COMPOSITION_V3",
+      "parameter_count": 10190,
+      "parameter_dependent_inference": true,
+      "tokenizer_sha256": "8eb24cf001101a2bae088f661f7f47de1eb7b8fc975403997d4e784f0eb29fcf",
+      "training_status": "TRAINED_FROM_SCRATCH"
+    }
+  },
+  "no_external_paid_resource": true,
+  "no_private_data": true,
+  "no_private_intimate_data": true,
+  "previous_content": "source records preserve a traceable history",
+  "research_question": "Does a descriptive temporal-continuity similarity signal remain after removing lexical overlap while holding governed state metadata constant?",
+  "schema_version": "1.0",
+  "state_digest": "52b28a84d3c7abc982cfed25acfaa26719699ba23f50636c90c8c4fb39bda17b",
+  "state_metadata_constant": true,
+  "status": "PRELIMINARY_RESEARCH_EVIDENCE"
+}

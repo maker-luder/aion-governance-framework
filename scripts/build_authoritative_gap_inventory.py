@@ -85,6 +85,18 @@ resolved_items = [
         ],
         "non_claim": "A fixed synthetic-state model swap is descriptive evidence only; it does not establish identity, subjectivity, consciousness, phenomenal continuity or authority.",
     },
+    {
+        "id": "RES-008",
+        "title": "Temporal continuity lexical-carryover falsification",
+        "status": "PARTIALLY_COMPLETE",
+        "evidence": [
+            "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_FALSIFICATION_DATASET_REGISTRY.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_RESULTS.json",
+            "research-labs/language-core-g1_v0.2.1/engineering/temporal/evidence/TEMPORAL_CONTINUITY_LEXICAL_FALSIFICATION_VALIDATION.json",
+            "research-workbench/autonomous-growth/cycles/2026-08-13-temporal-lexical-falsification.json",
+        ],
+        "non_claim": "A negative result against simple lexical carryover in one synthetic contrast does not establish non-lexical continuity, identity, subjectivity or consciousness.",
+    },
 ]
 
 remaining_items = [
