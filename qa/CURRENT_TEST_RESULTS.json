@@ -1,13 +1,13 @@
 {
   "schema_version": "2.0",
   "scope": "FINAL_FORMAL_RESEARCH_TREE",
-  "target_head": "30c6220d6b1872c6ffac175b0d55d6fcd6aa3278",
+  "target_head": "8b1a1d878992a879c4fc36aeeb99123eb995f832",
   "summary": {
-    "eligible_target_count": 71,
-    "tested_target_count": 68,
+    "eligible_target_count": 72,
+    "tested_target_count": 69,
     "non_applicable_target_count": 3,
     "failed_target_count": 0,
-    "total_passed": 1249,
+    "total_passed": 1265,
     "total_failed": 0
   },
   "targets": [
@@ -69,7 +69,7 @@
       "passed": 7,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".......                                                                  [100%]\n7 passed in 0.06s\n"
+      "output": ".......                                                                  [100%]\n7 passed in 0.07s\n"
     },
     {
       "target": "components/executable_runtime_v0.1.0",
@@ -119,7 +119,7 @@
       "passed": 13,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............                                                            [100%]\n13 passed in 0.10s\n"
+      "output": ".............                                                            [100%]\n13 passed in 0.11s\n"
     },
     {
       "target": "components/language_core_v0.1.0",
@@ -129,7 +129,7 @@
       "passed": 29,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".............................                                            [100%]\n29 passed in 0.04s\n"
+      "output": ".............................                                            [100%]\n29 passed in 0.05s\n"
     },
     {
       "target": "components/memory_recall_governance_v0.1.0",
@@ -139,7 +139,7 @@
       "passed": 10,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "..........                                                               [100%]\n10 passed in 0.03s\n"
+      "output": "..........                                                               [100%]\n10 passed in 0.02s\n"
     },
     {
       "target": "components/research_integrity_security_v0.1.0",
@@ -169,7 +169,7 @@
       "passed": 21,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=53062) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.52s\n"
+      "output": ".....................                                                    [100%]\n=============================== warnings summary ===============================\ntests/test_whole_system_runtime.py::test_midflight_cancellation_terminates_generation_and_prevents_writeback\n  /usr/lib/python3.12/multiprocessing/popen_fork.py:66: DeprecationWarning: This process (pid=54686) is multi-threaded, use of fork() may lead to deadlocks in the child.\n    self.pid = os.fork()\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n21 passed, 1 warning in 0.55s\n"
     },
     {
       "target": "examples/bazi-capability_v0.1.1",
@@ -179,7 +179,7 @@
       "passed": 82,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.18s\n"
+      "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.17s\n"
     },
     {
       "target": "research-labs/affective-cognitive-motivation_v0.1.0",
@@ -199,7 +199,7 @@
       "passed": 22,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "......................                                                   [100%]\n22 passed in 0.01s\n"
+      "output": "......................                                                   [100%]\n22 passed in 0.02s\n"
     },
     {
       "target": "research-labs/artifact-transformation-lineage-adversarial_v0.1.0",
@@ -330,6 +330,16 @@
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
       "output": "........                                                                 [100%]\n8 passed in 0.01s\n"
+    },
+    {
+      "target": "research-labs/external-evidence-normalization-adversarial_v0.1.0",
+      "status": "PASS",
+      "tested": true,
+      "returncode": 0,
+      "passed": 16,
+      "failed": 0,
+      "coverage": "PENDING_BRANCH_COVERAGE_RUN",
+      "output": "................                                                         [100%]\n16 passed in 0.01s\n"
     },
     {
       "target": "research-labs/external-evidence-normalization_v0.1.0",
@@ -499,7 +509,7 @@
       "passed": 95,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 0.07s\n"
+      "output": "........................................................................ [ 75%]\n.......................                                                  [100%]\n95 passed in 0.08s\n"
     },
     {
       "target": "research-labs/matched-divergence-protocol-integrity_v0.1.0",
@@ -649,7 +659,7 @@
       "passed": 6,
       "failed": 0,
       "coverage": "PENDING_BRANCH_COVERAGE_RUN",
-      "output": "......                                                                   [100%]\n6 passed in 0.01s\n"
+      "output": "......                                                                   [100%]\n6 passed in 0.00s\n"
     },
     {
       "target": "research-labs/trace-provenance-crosswalk_v0.1.0",
