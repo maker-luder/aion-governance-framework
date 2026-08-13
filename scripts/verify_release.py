@@ -189,13 +189,13 @@ def verify_current_snapshot(baseline: str) -> dict[str, object]:
 
     for path, (mode, expected_object_id) in entries.items():
         worktree_path = ROOT / path
+        if mode == "120000":
+            errors.append(f"symlink verification unsupported on this platform: {path}")
+            continue
         if not worktree_path.is_file():
             errors.append(f"missing tracked file: {path}")
             continue
         data = worktree_path.read_bytes()
-        if mode == "120000":
-            errors.append(f"symlink verification unsupported on this platform: {path}")
-            continue
         if git_blob_id(data) != expected_object_id:
             errors.append(f"Git blob mismatch: {path}")
         scan_bytes(path, data, errors)

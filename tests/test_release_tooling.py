@@ -185,3 +185,25 @@ def test_manifest_generator_ignores_symlink_targets_outside_root(
     monkeypatch.setattr(generator, "ROOT", root)
 
     assert generator.build_records(root / "generated") == []
+
+
+
+def test_current_snapshot_classifies_dangling_tracked_symlink_before_missing_file(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    verifier = load_script("verify_release")
+    (tmp_path / "linked.txt").symlink_to(tmp_path / "missing-target.txt")
+    monkeypatch.setattr(verifier, "ROOT", tmp_path)
+    monkeypatch.setattr(verifier, "git_text", lambda *args: "a" * 40)
+    monkeypatch.setattr(
+        verifier,
+        "tree_entries",
+        lambda ref: {"linked.txt": ("120000", "b" * 40)},
+    )
+
+    result = verifier.verify_current_snapshot("current-head")
+
+    assert result["status"] == "FAIL"
+    assert result["errors"] == [
+        "symlink verification unsupported on this platform: linked.txt"
+    ]
