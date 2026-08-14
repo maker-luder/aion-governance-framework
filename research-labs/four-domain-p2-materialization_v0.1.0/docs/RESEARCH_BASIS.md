@@ -34,13 +34,17 @@
   and fail closed in synthetic orchestration.
 - Limit: this lab is not a safety benchmark implementation.
 
-### Memora (2026)
+### Memora benchmark (2026)
 
 - arXiv: `2604.20006`
+- Title: *Benchmarking Long-Term Memory for Personalized Agents*.
 - Relevant observation: long-term memory systems can continue using obsolete/invalidated
   memories; FAMA penalizes such behavior.
 - Translation: P1 `stale_memory_influence` is retained and P2 excludes known superseded or
   withdrawn records while preserving exclusion evidence.
+- Citation correction: the separate Memora representation paper is arXiv: `2602.03315` and is
+  not the source used for this benchmark claim. This P2 packet does not claim either paper was
+  reproduced.
 
 ### W3C PROV-O
 

@@ -1,0 +1,25 @@
+{
+  "schema_version": "0.1.0",
+  "map_id": "AION_SUPERSESSION_MAP_V0.1.0",
+  "canonical_effect": "NONE",
+  "policy": {
+    "historical_records": "PRESERVE",
+    "date_erasure": false,
+    "retroactive_rewrite": false,
+    "supersession_scope": "QUESTION_SCOPED_ONLY"
+  },
+  "relations": [
+    {"id":"SUP-001","earlier":"research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md","later":"research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md","scope":"current standing method and repaired governance alignment","earlier_status":"HISTORICAL","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-002","earlier":"local whitepaper versions before v0.14.23","later":"local whitepaper v0.14.23 stable/frozen integration baseline","scope":"stable integrated baseline","earlier_status":"HISTORICAL","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-003","earlier":"local whitepaper v0.14.23 stable baseline","later":"local whitepaper v0.14.24 internal research candidate","scope":"candidate cumulative development only; no automatic replacement","earlier_status":"CURRENT","later_status":"CURRENT","disposition":"HOLD"},
+    {"id":"SUP-004","earlier":"P2 historical reported 13 passed","later":"P2 current five-test checked-in surface","scope":"present test-count claim","earlier_status":"HISTORICAL","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-005","earlier":"qa/CURRENT_EVIDENCE_TRACEABILITY.json","later":"docs/research-consolidation/RESEARCH_INDEX_V0.1.0.json","scope":"current milestone navigation and traceability","earlier_status":"SUPERSEDED","later_status":"CURRENT","disposition":"PROMOTE"},
+    {"id":"SUP-006","earlier":"docs/REVIEW_HANDOFF_REPORT.md","later":"RESEARCH_BRANCH_STATUS.md and convergence artifacts","scope":"current branch standing","earlier_status":"HISTORICAL","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-007","earlier":"Kimi project summary before source check","later":"docs/research-consolidation/EXTERNAL_LITERATURE_CROSSWALK_V0.1.0.json","scope":"narrow source claims only","earlier_status":"HISTORICAL","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-008","earlier":"P2 RESEARCH_BASIS Memora reference without title disambiguation","later":"crosswalk distinction between arXiv:2604.20006 benchmark and arXiv:2602.03315 representation paper","scope":"citation identity correction","earlier_status":"CURRENT","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-009","earlier":"existing Research Scope Lock alone","later":"Research Scope Lock plus adjacent convergence consistency checker","scope":"adds index/source/dependency checks without replacing scope lock","earlier_status":"CURRENT","later_status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SUP-010","earlier":"isolated P2 Packet C","later":"P2 Packet C plus evidence record/falsifier/readiness linkage","scope":"reviewer-facing consolidation only","earlier_status":"CURRENT","later_status":"CURRENT","disposition":"PROMOTE"}
+  ],
+  "preserved_records": ["P2 historical 13 passed report","2026-08-09 P2/P3/P5 packets","2026-08-11 and 2026-08-12 reconciliation notes","Kimi intake provenance","earlier v2 review handoff","older C0 traceability snapshot"],
+  "forbidden_relations": ["G1!=SUPERSESSION_OF_FOUR_DOMAIN_METHOD","AION_RUNTIME_V0_2!=SUPERSESSION_OF_WHITEPAPER_METHOD","KIMI_REVIEW!=SUPERSESSION_OF_PRIMARY_SOURCES","CI_RUN!=SUPERSESSION_OF_SCIENTIFIC_REPLICATION","V0.14.24_CANDIDATE!=AUTOMATIC_SUPERSESSION_OF_V0.14.23_STABLE"]
+}

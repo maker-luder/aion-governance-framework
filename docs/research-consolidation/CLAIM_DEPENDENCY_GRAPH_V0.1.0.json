@@ -1,0 +1,62 @@
+{
+  "schema_version": "0.1.0",
+  "graph_id": "AION_CLAIM_DEPENDENCY_GRAPH_V0.1.0",
+  "canonical_effect": "NONE",
+  "nodes": [
+    {"id":"WP","kind":"method","status":"CURRENT","ref":"research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md"},
+    {"id":"FD","kind":"method","status":"CURRENT","ref":"research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md"},
+    {"id":"P1","kind":"research_implementation","status":"CURRENT","ref":"research-labs/four-domain-p1-materialization_v0.1.0"},
+    {"id":"P2","kind":"research_implementation","status":"CURRENT","ref":"research-labs/four-domain-p2-materialization_v0.1.0"},
+    {"id":"FX","kind":"fixture","status":"CURRENT","ref":"research-labs/four-domain-p2-materialization_v0.1.0/fixtures/p2_synthetic_fixture_a.json"},
+    {"id":"T2","kind":"test","status":"CURRENT","ref":"research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py"},
+    {"id":"RT","kind":"runtime_substrate","status":"CURRENT","ref":"components/aion_runtime_v0.2.0"},
+    {"id":"G1","kind":"language_substrate","status":"CURRENT","ref":"research-labs/language-core-g1_v0.2.1"},
+    {"id":"P5","kind":"research_governance","status":"CURRENT","ref":"research-labs/four-domain-p5-hypothesis-convergence_v0.1.0"},
+    {"id":"EA","kind":"evidence_admission","status":"CURRENT","ref":"scripts/validate_research_evidence.py"},
+    {"id":"FM","kind":"falsifier","status":"CURRENT","ref":"docs/research-consolidation/P2_PACKET_C_FALSIFIER_MATRIX_V0.1.0.md"},
+    {"id":"DISP","kind":"disposition","status":"CURRENT","ref":"docs/research-consolidation/PROMOTION_READINESS_MATRIX_V0.1.0.md"},
+    {"id":"LIT","kind":"external_literature","status":"CURRENT","ref":"docs/research-consolidation/EXTERNAL_LITERATURE_CROSSWALK_V0.1.0.md"},
+    {"id":"KIMI","kind":"external_discovery","status":"CURRENT","ref":"research-workbench/four-domain-materialization/2026-08-10/EXTERNAL_CONSCIOUSNESS_PROJECTS_INTAKE.md"},
+    {"id":"META","kind":"review_directive","status":"CURRENT","ref":"owner-supplied Meta review directives in convergence baseline"},
+    {"id":"SCOPE","kind":"existing_governance","status":"CURRENT","ref":"scripts/check_research_scope_lock.py"},
+    {"id":"HIST","kind":"historical","status":"HISTORICAL","ref":"qa/CURRENT_EVIDENCE_TRACEABILITY.json and retained dated records"}
+  ],
+  "edges": [
+    {"from":"WP","to":"FD","kind":"METHOD_FOUNDATION"},
+    {"from":"WP","to":"P2","kind":"METHOD_CONSTRAINT"},
+    {"from":"FD","to":"P1","kind":"RESEARCH_DECOMPOSITION"},
+    {"from":"P1","to":"P2","kind":"EXECUTABLE_RESEARCH_DEPENDENCY"},
+    {"from":"P2","to":"FX","kind":"IMPLEMENTATION_TO_FIXTURE"},
+    {"from":"P2","to":"T2","kind":"IMPLEMENTATION_TO_TEST"},
+    {"from":"P2","to":"RT","kind":"EXPLICIT_NON_INTEGRATION_BOUNDARY"},
+    {"from":"P2","to":"G1","kind":"NO_CURRENT_IMPLEMENTATION_EDGE"},
+    {"from":"P5","to":"FM","kind":"HYPOTHESIS_FALSIFIER_GOVERNANCE"},
+    {"from":"P2","to":"EA","kind":"EVIDENCE_ADMISSION_INPUT"},
+    {"from":"FM","to":"DISP","kind":"FALSIFIER_TO_DISPOSITION"},
+    {"from":"EA","to":"DISP","kind":"ADMISSION_TO_DISPOSITION"},
+    {"from":"LIT","to":"FD","kind":"METHODOLOGICAL_TRANSLATION"},
+    {"from":"LIT","to":"P2","kind":"METHODOLOGICAL_TRANSLATION"},
+    {"from":"KIMI","to":"LIT","kind":"DISCOVERY_TO_PRIMARY_VERIFICATION"},
+    {"from":"META","to":"FD","kind":"REVIEW_REQUIREMENT"},
+    {"from":"META","to":"P2","kind":"VERTICAL_SLICE_REQUIREMENT"},
+    {"from":"SCOPE","to":"FD","kind":"GOVERNANCE_CONSTRAINT"},
+    {"from":"SCOPE","to":"P2","kind":"GOVERNANCE_CONSTRAINT"},
+    {"from":"SCOPE","to":"G1","kind":"GOVERNANCE_CONSTRAINT"},
+    {"from":"HIST","to":"DISP","kind":"PRESERVED_PROVENANCE"}
+  ],
+  "forbidden_claim_edges": [
+    {"from":"G1","to":"FD","kind":"SUBJECTIVITY_AUTHORITY"},
+    {"from":"RT","to":"FD","kind":"SUBJECTIVITY_AUTHORITY"},
+    {"from":"KIMI","to":"DISP","kind":"PRIMARY_EVIDENCE_AUTHORITY"}
+  ],
+  "invariants": [
+    "TEST_PASS!=SCIENTIFIC_VALIDATION",
+    "CI_SUCCESS!=THEORY_CONFIRMATION",
+    "RUNTIME_MATURITY!=SUBJECTIVITY_EVIDENCE",
+    "LITERATURE_ALIGNMENT!=REPLICATION",
+    "KIMI_REVIEW!=PRIMARY_SOURCE",
+    "PROVENANCE_RELATION!=IDENTITY_RELATION",
+    "PERSISTENCE!=AUTHORITY",
+    "COMMON_ORIGIN!=SAME_IDENTITY"
+  ]
+}
