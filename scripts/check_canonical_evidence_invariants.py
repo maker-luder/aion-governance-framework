@@ -86,6 +86,12 @@ def main() -> int:
         "PROM-005": "OWNER_REVIEW",
         "PROM-006": "OWNER_REVIEW",
         "PROM-007": "OWNER_REVIEW",
+        "PROM-008": "EXCLUDE",
+        "PROM-009": "EXCLUDE",
+        "PROM-010": "EXCLUDE",
+        "PROM-011": "EXCLUDE",
+        "PROM-012": "EXCLUDE",
+        "PROM-013": "EXCLUDE",
     }
     if decisions != expected_decisions:
         fail(errors, f"promotion decisions drifted: {decisions}")

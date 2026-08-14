@@ -36,9 +36,12 @@ def test_inventory_has_only_four_includes_and_three_owner_reviews():
     inventory = load_json(INVENTORY_PATH)
     decisions = [row["decision"] for row in inventory["inventory"]]
     assert decisions.count("INCLUDE") == 4
+    assert decisions.count("EXCLUDE") == 6
     assert decisions.count("OWNER_REVIEW") == 3
-    assert "EXCLUDE" not in decisions
     assert inventory["promotion_state"]["canonical_effect"] == "PENDING_OWNER_PROMOTION"
+    expected_locks = {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    assert all(item["source_commit_locks"] == expected_locks for item in inventory["inventory"])
+    assert all(set(item["provenance_refs"]) == {"HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"} for item in inventory["inventory"])
 
 
 def test_ci_success_is_not_subjectivity_evidence():

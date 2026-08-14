@@ -129,6 +129,72 @@
       "rationale": "Promotion, release, deployment, Topics and main merge are explicitly outside this candidate implementation.",
       "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
       "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-008",
+      "decision": "EXCLUDE",
+      "promotion_unit": "literature-dossier-and-primary-source-findings",
+      "canonical_surface": "research-only evidence content",
+      "source_research_artifacts": ["PRIMARY_SOURCE_FINDINGS.md"],
+      "reconstruction": "none; source-specific content remains read-only research material",
+      "rationale": "External literature records and access findings are not generic canonical infrastructure.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-009",
+      "decision": "EXCLUDE",
+      "promotion_unit": "research-handoff-and-research-specific-workflow",
+      "canonical_surface": "research operations",
+      "source_research_artifacts": ["CSOMI_FINAL_HANDOFF_V0.1.0.md", "cross-substrate-other-minds-inference.yml"],
+      "reconstruction": "none; no research workflow or handoff is copied",
+      "rationale": "Research operational evidence and handoff semantics are not suitable for canonical infrastructure.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-010",
+      "decision": "EXCLUDE",
+      "promotion_unit": "synthetic-controls-and-reviewer-vertical-slice",
+      "canonical_surface": "research demonstration fixtures",
+      "source_research_artifacts": ["csomi_positive_negative_controls_v0.1.0.json", "REVIEWER_FACING_VERTICAL_SLICE_V0.1.0.md"],
+      "reconstruction": "none; generic guard record is used instead",
+      "rationale": "CSOMI-specific fixtures and walkthroughs would import research scope rather than reusable infrastructure.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-011",
+      "decision": "EXCLUDE",
+      "promotion_unit": "experiments-and-individual-scientific-dispositions",
+      "canonical_surface": "unexecuted or research-specific scientific content",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "CSOMI_STATUS_V0.1.0.md"],
+      "reconstruction": "none; no experiment, literature disposition or subjectivity conclusion is promoted",
+      "rationale": "No unexecuted experiment, individual scientific disposition or subjectivity/consciousness/identity conclusion belongs in this candidate.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-012",
+      "decision": "EXCLUDE",
+      "promotion_unit": "CSOMI-research-packet-and-matrices-as-canonical-data",
+      "canonical_surface": "research-specific claim/evidence data",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "CSOMI_EVIDENCE_MATRIX_V0.1.0.json", "CSOMI_DISANALOGY_MATRIX_V0.1.0.json", "CSOMI_FALSIFIER_MATRIX_V0.1.0.json"],
+      "reconstruction": "none; only generic record structure is reconstructed",
+      "rationale": "The candidate includes schema shape but not CSOMI claim rows, research matrices or individual scientific conclusions.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-013",
+      "decision": "EXCLUDE",
+      "promotion_unit": "runtime-model-deployment-release-topics-main-merge",
+      "canonical_surface": "operational or authority expansion",
+      "source_research_artifacts": ["CSOMI_FINAL_HANDOFF_V0.1.0.md"],
+      "reconstruction": "none; candidate has no runtime, model, deployment, release, Topics or merge operation",
+      "rationale": "Operational and authority expansion is outside selective promotion and remains explicitly prohibited.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
     }
   ],
   "excluded_research_artifacts": [

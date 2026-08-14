@@ -31,6 +31,12 @@ The provenance roles are deliberately separated. **Human Owner** supplies task a
 | PROM-005 | **OWNER_REVIEW** | Canonical path/version/main integration | Do not implement integration in this candidate. | Path placement, versioning, maintainership and any main integration require Owner review. |
 | PROM-006 | **OWNER_REVIEW** | Scientific-conclusion or public-positioning policy | Preserve all conclusions as `NOT_ESTABLISHED`; do not implement a positioning change. | Any subjectivity, consciousness or identity-continuity policy is an authority and evidence decision. |
 | PROM-007 | **OWNER_REVIEW** | Canonical promotion/release/deployment/Topics | Keep all effects disabled. | Promotion, release, deployment, Topics and main merge are outside this candidate. |
+| PROM-008 | **EXCLUDE** | Literature dossier and primary-source findings | No reconstruction. | Source-specific literature content is not generic canonical infrastructure. |
+| PROM-009 | **EXCLUDE** | Research handoff and research-specific workflow | No reconstruction. | Research operational evidence and workflow semantics remain on the read-only research branch. |
+| PROM-010 | **EXCLUDE** | Synthetic controls and reviewer vertical slice | No reconstruction; use only the generic guard record. | CSOMI-specific fixtures and walkthroughs would import research scope. |
+| PROM-011 | **EXCLUDE** | Experiments and individual scientific dispositions | No reconstruction. | No unexecuted experiment, literature disposition or subjectivity/consciousness/identity conclusion is promoted. |
+| PROM-012 | **EXCLUDE** | CSOMI packet and matrices as canonical data | Reconstruct only generic schema shape. | CSOMI claim rows, research matrices and scientific dispositions remain research-only. |
+| PROM-013 | **EXCLUDE** | Runtime, model, deployment, release, Topics and main merge | No reconstruction. | Operational and authority expansion is explicitly prohibited. |
 
 ## Research artifacts explicitly excluded
 
