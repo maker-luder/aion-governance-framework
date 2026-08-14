@@ -220,6 +220,7 @@ class IndividualRuntimeStateStore:
         clean_payload = dict(payload or {})
         occurred_at = _now()
         with self._connect() as connection:
+            connection.execute("BEGIN IMMEDIATE")
             previous = connection.execute(
                 "SELECT sequence, event_hash FROM runtime_events WHERE event_lineage_id = ? ORDER BY sequence DESC LIMIT 1",
                 (self.context.event_lineage_id,),

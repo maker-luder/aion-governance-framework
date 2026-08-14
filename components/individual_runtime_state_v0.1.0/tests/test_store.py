@@ -47,6 +47,23 @@ def test_event_lineage_persists_across_restart(tmp_path):
     assert restarted.verify() is True
 
 
+def test_concurrent_event_appends_are_serialized(tmp_path):
+    db = tmp_path / "state.sqlite3"
+    store = IndividualRuntimeStateStore(db, context())
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        events = list(
+            executor.map(
+                lambda index: store.append_event("runtime.concurrent", {"index": index}),
+                range(16),
+            )
+        )
+
+    assert sorted(event.sequence for event in events) == list(range(1, 17))
+    assert store.verify() is True
+    assert len(store.events()) == 16
+
+
 def test_checkpoint_recovery_and_non_destructive_rollback(tmp_path):
     store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
     store.append_event("runtime.started")
