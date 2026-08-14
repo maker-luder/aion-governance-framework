@@ -55,8 +55,8 @@
   "change_level_provenance": {
     "ref": "docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json",
     "scope": "CURRENT_CONVERGENCE_FINAL_REVIEW_FIXES_ONLY",
-    "proposal_and_authority": {"actor":"HUMAN_OWNER","role":"PROPOSAL_AND_AUTHORITY_BOUNDARY","status":"OWNER_APPROVAL_PENDING","authority_effect":"NONE"},
-    "architecture_and_review": {"actor":"CHATGPT","role":"ARCHITECTURE_REVIEW_AND_TASK_REFINEMENT","status":"REVIEW_INPUT","authority_effect":"NONE"},
+    "proposal_and_authority": {"actor":"HUMAN_OWNER","role":"TASK_AUTHORIZATION_AND_FINAL_AUTHORITY","status":"TASK_AUTHORIZED_OWNER_APPROVAL_PENDING","authority_effect":"NONE"},
+    "architecture_and_review": {"actor":"CHATGPT","role":"FINAL_REVIEW_FINDINGS_AND_ARCHITECTURE_REVIEW","status":"FINAL_REVIEW_FINDINGS_PROPOSED","authority_effect":"NONE"},
     "implementation": {"actor":"MANUS","role":"CONVERGENCE_IMPLEMENTATION_AND_VALIDATION","status":"IMPLEMENTED_ON_CONVERGENCE_BRANCH","authority_effect":"NONE"},
     "approval": {"actor":"HUMAN_OWNER","role":"APPROVAL_GATE","status":"PENDING","authority_effect":"NONE"},
     "historical_p2_provenance_preserved": true

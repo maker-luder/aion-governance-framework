@@ -4,7 +4,7 @@
 
 ## 1. Public positioning rule
 
-The public description should make AION discoverable as a **research-engineering and governance framework for evidence, provenance, memory evaluation and bounded agent systems**. It should not market AION as conscious, sentient, self-aware, identity-bearing, unprecedented, or scientifically proven. The taxonomy therefore favors method, engineering surface and governance terms that are supported by current artifacts.
+The public description should make AION discoverable as a **research-engineering and governance framework for evidence, provenance, memory evaluation and bounded agent systems**. The machine-enforced public-positioning rule is `RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION`: a research topic may be discussed without asserting that AION has the capability, and a capability claim may not be treated as a scientific conclusion. The taxonomy therefore favors method, engineering surface and governance terms that are supported by current artifacts.
 
 ## 2. Recommended candidate Topics
 
@@ -14,7 +14,7 @@ The public description should make AION discoverable as a **research-engineering
 | 2 | `research-engineering` | engineering method | P1–P5 packages, component runner, convergence artifacts | READY_CANDIDATE | Names the actual code/document/test practice |
 | 3 | `research-integrity` | governance method | Research Scope Lock, evidence validator, non-claim boundaries | READY_CANDIDATE | Matches explicit integrity and fail-closed controls |
 | 4 | `evidence-provenance` | evidence method | P2 provenance validator, evidence record schema, source-of-truth map | READY_CANDIDATE | Describes implemented evidence/provenance work |
-| 5 | `provenance-aware-ai` | engineering orientation | P2 provenance-gated retrieval and external PROV-O crosswalk | READY_CANDIDATE | Describes a bounded design orientation, not a guarantee |
+| 5 | `provenance-aware-ai` | engineering orientation | P2 provenance-gated retrieval and external PROV-O crosswalk | OWNER_REVIEW_REQUIRED | Describes a bounded design orientation, not a guarantee; Owner review is required |
 | 6 | `memory-governance` | domain/control | Memory recall governance and P2 stale/superseded controls | READY_CANDIDATE | Supported by repository memory governance surfaces |
 | 7 | `agent-memory` | research domain | P2 memory retrieval/provenance slice and verified MemoryAgentBench/AgeMem crosswalk | READY_CANDIDATE | Names the studied engineering domain without performance claims |
 | 8 | `long-term-memory` | research domain | LongMemEval, MemoryAgentBench, Memora and P2 temporal/stale controls | OWNER_REVIEW_REQUIRED | Accurate but broad; Owner should confirm public scope |
@@ -47,20 +47,25 @@ deterministic-retrieval
 
 This set is intentionally method- and implementation-oriented. `provenance-aware-ai`, `long-term-memory`, `metacognition`, `ai-safety-evaluation` and `governance-kernel` are valid candidates but remain explicitly `OWNER_REVIEW_REQUIRED`; none belongs in `recommended_initial_set`. Their machine-readable `readiness` is `OWNER_REVIEW_REQUIRED` and their `owner_review` field is `REQUIRED`, making the two sets mutually exclusive and semantically aligned.
 
-## 4. Explicitly rejected Topics
+## 4. Explicitly rejected Topics and Owner public-positioning review
 
 The following are not proposed because they are unsupported, misleading or too close to forbidden ontological/novelty claims:
 
 | Rejected Topic | Reason |
 |---|---|
 | `consciousness` | Research question and external taxonomy only; not an established repository result |
-| `artificial-consciousness` | Converts a research subject into a public capability claim |
 | `self-aware-ai` | Label does not establish a self-model mechanism or subjectivity |
 | `sentient-ai` | No evidence or authorized conclusion |
 | `identity-continuity` | P2 explicitly keeps identity continuity `NOT_ESTABLISHED` |
 | `first-of-its-kind` | Unverified novelty claim and invalid Topic style |
 | `agi` | Overbroad positioning not supported by the current source-of-truth map |
 | `production-ai` | Deployment is `FALSE`; research-only status would be contradicted |
+
+The following term is **not permanently rejected**, but it is not a candidate Topic and cannot be used as a capability claim or scientific conclusion without a separate Human Owner decision:
+
+| Public-positioning review item | Status | Boundary |
+|---|---|---|
+| `artificial-consciousness` | `OWNER_PUBLIC_POSITIONING_REVIEW` | Research-topic wording only; it must remain distinct from capability claims and scientific conclusions |
 
 ## 5. Application boundary
 

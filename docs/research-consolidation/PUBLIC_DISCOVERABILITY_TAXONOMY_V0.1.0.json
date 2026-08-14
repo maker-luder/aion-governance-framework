@@ -8,6 +8,12 @@
   "repository_settings_modified": false,
   "canonical_effect": "NONE",
   "deployment": false,
+  "positioning_invariants": {
+    "machine_rule": "RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION",
+    "research_topic_is_not_capability_claim": true,
+    "research_topic_is_not_scientific_conclusion": true,
+    "capability_claim_is_not_scientific_conclusion": true
+  },
   "candidate_topics": [
     {"rank":1,"slug":"ai-research","class":"BROAD_DOMAIN","source_basis":["Four-Domain research tree","G1 research lab","AION Runtime research lab"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"repository purpose without scientific conclusion"},
     {"rank":2,"slug":"research-engineering","class":"ENGINEERING_METHOD","source_basis":["P1-P5 packages","component runner","convergence artifacts"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"actual code/document/test practice"},
@@ -28,9 +34,11 @@
   ],
   "recommended_initial_set": ["ai-research","research-engineering","research-integrity","evidence-provenance","memory-governance","agent-memory","hypothesis-testing","falsification","reproducible-research","language-model-evaluation","deterministic-retrieval"],
   "owner_review_set": ["long-term-memory","metacognition","ai-safety-evaluation","governance-kernel","provenance-aware-ai"],
+  "owner_positioning_review": [
+    {"slug":"artificial-consciousness","status":"OWNER_PUBLIC_POSITIONING_REVIEW","reason":"Human Owner may decide whether the research-topic wording is publicly usable, but it must remain separate from capability claims and scientific conclusions"}
+  ],
   "rejected_topics": [
     {"slug":"consciousness","reason":"research question/taxonomy only; not established repository result"},
-    {"slug":"artificial-consciousness","reason":"converts research subject into capability claim"},
     {"slug":"self-aware-ai","reason":"label does not establish self-model or subjectivity"},
     {"slug":"sentient-ai","reason":"no evidence or authorized conclusion"},
     {"slug":"identity-continuity","reason":"P2 explicitly keeps identity continuity NOT_ESTABLISHED"},

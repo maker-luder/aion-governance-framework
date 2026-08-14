@@ -19,7 +19,7 @@ PROMOTION_EXECUTION = NOT_PERFORMED
 
 ## 2. Current change-level provenance
 
-The current convergence inventory and evidence-admission implementation use a separate change-level provenance record. `HUMAN_OWNER` is the proposal and authority boundary; `CHATGPT` is architecture/review input; `MANUS` is the convergence implementation and validation actor; and `OWNER_APPROVAL` remains `PENDING`. None of these role records grants canonical authority or changes the historical source attribution.
+The current convergence inventory and evidence-admission implementation use a separate change-level provenance record. `HUMAN_OWNER` is task authorization and final authority; `CHATGPT` is the source of the final-review findings and architecture review; `MANUS` is the convergence implementation and validation actor; and `OWNER_APPROVAL` remains `PENDING`. None of these role records grants canonical authority or changes the historical source attribution.
 
 The original P2 provenance and authorship meaning remain preserved. The current change record does not attribute the historical P2 implementation to Manus and does not rewrite the original P2 agents or historical test-count statement.
 
@@ -59,8 +59,9 @@ The original P2 provenance and authorship meaning remain preserved. The current 
 | `IDX-030` | interpretation | Any claim that Four-Domain and G1 are the same scientific source or that G1 establishes subjectivity | REJECT | HOLD | Conflicts with whitepaper-primary architecture and G1 non-claims |
 | `IDX-031` | interpretation | Any first/only/unprecedented claim based only on Kimi or a repository README | REJECT | HOLD | Primary-source and independent-evidence burden not met |
 | `IDX-032` | interpretation | Any test/CI pass treated as subjectivity, consciousness, identity or canonical proof | REJECT | HOLD | Standing locks: `TEST_PASS != THEORY_CONFIRMATION` and `CI_SUCCESS != PROMOTION` |
-| `IDX-033` | change-level provenance | Current final-review provenance record | CURRENT | PROMOTE | Separates Human Owner proposal/authority, ChatGPT architecture/review, Manus implementation and Owner approval PENDING |
+| `IDX-033` | change-level provenance | Current final-review provenance record | CURRENT | PROMOTE | Separates Human Owner task authorization/final authority, ChatGPT final-review findings, Manus implementation and Owner approval PENDING |
 | `IDX-034` | evidence change provenance | P2 evidence-admission change-level provenance block | CURRENT | HOLD | Additive convergence record; historical P2 provenance/authorship remains preserved |
+| `IDX-035` | primary-source verification log | Closure primary-source findings for consciousness indicators, agent provenance and AI-AUTHorship | CURRENT | KEEP_RESEARCH_ONLY | Source verification support only; no AION scientific conclusion or novelty claim |
 
 ## 3. Four-Domain ↔ G1 resolution
 
@@ -111,4 +112,5 @@ NEW_MODEL = NONE
 KIMI_REVIEW = DISCOVERY_ONLY
 TEST_PASS != SCIENTIFIC_VALIDATION
 CI_SUCCESS != CANONICAL_PROMOTION
+RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION
 ```

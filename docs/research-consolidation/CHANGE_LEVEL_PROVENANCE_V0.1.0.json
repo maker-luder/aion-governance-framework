@@ -3,30 +3,30 @@
   "provenance_id": "AION_CHANGE_LEVEL_PROVENANCE_V0.1.0",
   "scope": "CURRENT_CONVERGENCE_FINAL_REVIEW_FIXES_ONLY",
   "branch": "engineering/aion-research-consolidation-literature-grounding-readiness-20260814",
-  "base_head": "88b9a5ab347d475612809fdcd9215116d9862b87",
+  "base_head": "cab09a210709a01ee9ed55b1b2a6494a2628bdfb",
   "canonical_effect": "NONE",
   "deployment": false,
   "roles": {
     "human_owner_proposal_and_authority": {
       "actor": "HUMAN_OWNER",
-      "role": "PROPOSAL_AND_AUTHORITY_BOUNDARY",
-      "status": "OWNER_APPROVAL_PENDING",
+      "role": "TASK_AUTHORIZATION_AND_FINAL_AUTHORITY",
+      "status": "TASK_AUTHORIZED_OWNER_APPROVAL_PENDING",
       "authority_effect": "NONE",
-      "description": "Requested final-review corrections and retains authority to approve any future setting, canonical or promotion action."
+      "description": "Authorized this final review closure and remains the final authority for public positioning, settings, canonical, promotion, merge, release or deployment decisions."
     },
     "chatgpt_architecture_and_review": {
       "actor": "CHATGPT",
-      "role": "ARCHITECTURE_REVIEW_AND_TASK_REFINEMENT",
-      "status": "REVIEW_INPUT",
+      "role": "FINAL_REVIEW_FINDINGS_AND_ARCHITECTURE_REVIEW",
+      "status": "FINAL_REVIEW_FINDINGS_PROPOSED",
       "authority_effect": "NONE",
-      "description": "Provided architecture/review framing and review constraints; did not grant authority or canonical status."
+      "description": "Proposed the final-review findings and architecture-level review constraints for this closure; did not grant authority or canonical status."
     },
     "manus_implementation": {
       "actor": "MANUS",
       "role": "CONVERGENCE_IMPLEMENTATION_AND_VALIDATION",
       "status": "IMPLEMENTED_ON_CONVERGENCE_BRANCH",
       "authority_effect": "NONE",
-      "description": "Implemented only the requested crosswalk, provenance, taxonomy-invariant, schema, checker, test and handoff corrections."
+      "description": "Implemented and validated only the requested crosswalk, provenance, public-positioning, schema, checker, test and handoff corrections."
     },
     "owner_approval": {
       "actor": "HUMAN_OWNER",
@@ -49,7 +49,8 @@
     "docs/research-consolidation/RESEARCH_INDEX_V0.1.0.json",
     "research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json",
     "docs/research-consolidation/PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0.json",
-    "docs/research-consolidation/CROSS_BRANCH_INDEX_V0.1.0.json"
+    "docs/research-consolidation/CROSS_BRANCH_INDEX_V0.1.0.json",
+    "research-workbench/final-review-closure-2026-08-14-primary-source-findings.md"
   ],
   "locks": [
     "CANONICAL_EFFECT=NONE",

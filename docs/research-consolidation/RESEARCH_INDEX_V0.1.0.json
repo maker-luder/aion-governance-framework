@@ -8,8 +8,8 @@
   "deployment": false,
   "change_level_provenance": {
     "ref": "docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json",
-    "proposal_and_authority": "HUMAN_OWNER",
-    "architecture_and_review": "CHATGPT",
+    "proposal_and_authority": "HUMAN_OWNER_TASK_AUTHORIZATION_AND_FINAL_AUTHORITY",
+    "architecture_and_review": "CHATGPT_FINAL_REVIEW_FINDINGS",
     "implementation": "MANUS",
     "approval": "PENDING",
     "historical_p2_provenance_rewritten": false
@@ -65,7 +65,8 @@
     {"id":"IDX-031","kind":"rejected_interpretation","path":"unverified first/only/unprecedented claims","status":"REJECT","disposition":"HOLD"},
     {"id":"IDX-032","kind":"rejected_interpretation","path":"test or CI pass as subjectivity/canonical proof","status":"REJECT","disposition":"HOLD"},
     {"id":"IDX-033","kind":"change_level_provenance","path":"docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json","status":"CURRENT","disposition":"PROMOTE"},
-    {"id":"IDX-034","kind":"evidence_change_provenance","path":"research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json#change_level_provenance","status":"CURRENT","disposition":"HOLD"}
+    {"id":"IDX-034","kind":"evidence_change_provenance","path":"research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json#change_level_provenance","status":"CURRENT","disposition":"HOLD"},
+    {"id":"IDX-035","kind":"primary_source_verification_log","path":"research-workbench/final-review-closure-2026-08-14-primary-source-findings.md","status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"}
   ],
   "locks": [
     "CANONICAL_EFFECT=NONE",
@@ -76,6 +77,7 @@
     "NEW_MODEL=NONE",
     "KIMI_REVIEW=DISCOVERY_ONLY",
     "TEST_PASS!=SCIENTIFIC_VALIDATION",
-    "CI_SUCCESS!=CANONICAL_PROMOTION"
+    "CI_SUCCESS!=CANONICAL_PROMOTION",
+    "RESEARCH_TOPIC!=CAPABILITY_CLAIM!=SCIENTIFIC_CONCLUSION"
   ]
 }

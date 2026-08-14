@@ -44,7 +44,7 @@ def test_cross_branch_index_and_public_taxonomy_contract():
     branches = {row["name"]: row for row in cross_branch["branches"]}
     assert branches["main"]["head"] == "e079fb7dfe7a04be7dcb94b8a059951a003caa94"
     assert branches["review/four-domain-research-materialization"]["head"] == "858442a3ec2439398d188779f4309397bd4926b2"
-    assert branches["engineering/aion-research-consolidation-literature-grounding-readiness-20260814"]["head"] == "bcc66c788a7d0882d139ae547447deb1f90adae4"
+    assert branches["engineering/aion-research-consolidation-literature-grounding-readiness-20260814"]["head"] == "cab09a210709a01ee9ed55b1b2a6494a2628bdfb"
     assert branches["main"]["promotion_disposition"] == "ALREADY_CANONICAL_BASELINE"
     assert cross_branch["repository_settings_modified"] is False
     assert cross_branch["topics_applied"] is False
@@ -68,15 +68,28 @@ def test_cross_branch_index_and_public_taxonomy_contract():
     assert all(by_slug[slug]["readiness"] == "OWNER_REVIEW_REQUIRED" and by_slug[slug]["owner_review"] == "REQUIRED" for slug in owner_review)
     assert taxonomy["topics_applied"] is False
     assert taxonomy["application_boundary"]["settings_operation"] == "NOT_PERFORMED"
+    assert taxonomy["owner_positioning_review"] == [{"slug": "artificial-consciousness", "status": "OWNER_PUBLIC_POSITIONING_REVIEW", "reason": taxonomy["owner_positioning_review"][0]["reason"]}]
+    assert "artificial-consciousness" not in {item["slug"] for item in taxonomy["rejected_topics"]}
+    assert taxonomy["positioning_invariants"]["machine_rule"] == "RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION"
+    assert all(taxonomy["positioning_invariants"][key] is True for key in ("research_topic_is_not_capability_claim", "research_topic_is_not_scientific_conclusion", "capability_claim_is_not_scientific_conclusion"))
     provenance = json.loads((CONSOLIDATION / "CHANGE_LEVEL_PROVENANCE_V0.1.0.json").read_text(encoding="utf-8"))
     assert provenance["roles"]["human_owner_proposal_and_authority"]["actor"] == "HUMAN_OWNER"
+    assert provenance["roles"]["human_owner_proposal_and_authority"]["role"] == "TASK_AUTHORIZATION_AND_FINAL_AUTHORITY"
     assert provenance["roles"]["chatgpt_architecture_and_review"]["actor"] == "CHATGPT"
+    assert provenance["roles"]["chatgpt_architecture_and_review"]["role"] == "FINAL_REVIEW_FINDINGS_AND_ARCHITECTURE_REVIEW"
     assert provenance["roles"]["manus_implementation"]["actor"] == "MANUS"
     assert provenance["roles"]["owner_approval"]["status"] == "PENDING"
     assert provenance["historical_source_preservation"]["historical_p2_authorship_rewritten"] is False
     assert {"consciousness", "self-aware-ai", "sentient-ai", "first-of-its-kind", "production-ai"} <= {
         item["slug"] for item in taxonomy["rejected_topics"]
     }
+    crosswalk = json.loads((CONSOLIDATION / "EXTERNAL_LITERATURE_CROSSWALK_V0.1.0.json").read_text(encoding="utf-8"))
+    literature = {item["id"]: item for item in crosswalk["papers_and_standards"]}
+    required = {"LIT-BUTLIN-INDICATORS-2025", "LIT-AGENT-TRACE-TRUST-SURVEY-2026", "LIT-GRAPHECTORY-2026", "LIT-ADPROV-2025", "LIT-PROV-AGENT-2025", "LIT-AGENT-SENTRY-2026", "LIT-FIDES-2025", "LIT-NEUROTAINT-2026", "LIT-AI-AUTHORSHIP-2026"}
+    assert required <= set(literature)
+    assert all(literature[item]["label"] == "VERIFIED" for item in required)
+    assert set(literature["LIT-AGENT-TRACE-TRUST-SURVEY-2026"]["survey_mapping"]["mapped_primary_source_ids"]) == {"LIT-GRAPHECTORY-2026", "LIT-ADPROV-2025", "LIT-PROV-AGENT-2025", "LIT-AGENT-SENTRY-2026", "LIT-FIDES-2025", "LIT-NEUROTAINT-2026"}
+    assert all(token in literature["LIT-AI-AUTHORSHIP-2026"]["source_claim"] for token in ("AI-AUTHorship", "TraceAuth", "AIEIS", "P/S/G"))
 
 
 def test_convergence_workflow_is_read_only_and_branch_scoped():

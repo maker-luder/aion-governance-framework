@@ -120,8 +120,8 @@
       "required": ["actor", "role", "status", "authority_effect"],
       "properties": {
         "actor": {"const": "HUMAN_OWNER"},
-        "role": {"const": "PROPOSAL_AND_AUTHORITY_BOUNDARY"},
-        "status": {"const": "OWNER_APPROVAL_PENDING"},
+        "role": {"const": "TASK_AUTHORIZATION_AND_FINAL_AUTHORITY"},
+        "status": {"const": "TASK_AUTHORIZED_OWNER_APPROVAL_PENDING"},
         "authority_effect": {"const": "NONE"}
       }
     },
@@ -130,8 +130,8 @@
       "required": ["actor", "role", "status", "authority_effect"],
       "properties": {
         "actor": {"const": "CHATGPT"},
-        "role": {"const": "ARCHITECTURE_REVIEW_AND_TASK_REFINEMENT"},
-        "status": {"const": "REVIEW_INPUT"},
+        "role": {"const": "FINAL_REVIEW_FINDINGS_AND_ARCHITECTURE_REVIEW"},
+        "status": {"const": "FINAL_REVIEW_FINDINGS_PROPOSED"},
         "authority_effect": {"const": "NONE"}
       }
     },

@@ -18,10 +18,10 @@
       "additionalProperties": false,
       "required": ["human_owner_proposal_and_authority", "chatgpt_architecture_and_review", "manus_implementation", "owner_approval"],
       "properties": {
-        "human_owner_proposal_and_authority": {"$ref": "#/$defs/role"},
-        "chatgpt_architecture_and_review": {"$ref": "#/$defs/role"},
-        "manus_implementation": {"$ref": "#/$defs/role"},
-        "owner_approval": {"$ref": "#/$defs/role"}
+        "human_owner_proposal_and_authority": {"$ref": "#/$defs/humanOwnerTaskAuthority"},
+        "chatgpt_architecture_and_review": {"$ref": "#/$defs/chatGPTFinalReview"},
+        "manus_implementation": {"$ref": "#/$defs/manusImplementation"},
+        "owner_approval": {"$ref": "#/$defs/ownerApproval"}
       }
     },
     "historical_source_preservation": {
@@ -40,6 +40,30 @@
     "locks": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}}
   },
   "$defs": {
+    "humanOwnerTaskAuthority": {
+      "allOf": [
+        {"$ref": "#/$defs/role"},
+        {"properties": {"actor": {"const": "HUMAN_OWNER"}, "role": {"const": "TASK_AUTHORIZATION_AND_FINAL_AUTHORITY"}, "status": {"const": "TASK_AUTHORIZED_OWNER_APPROVAL_PENDING"}}}
+      ]
+    },
+    "chatGPTFinalReview": {
+      "allOf": [
+        {"$ref": "#/$defs/role"},
+        {"properties": {"actor": {"const": "CHATGPT"}, "role": {"const": "FINAL_REVIEW_FINDINGS_AND_ARCHITECTURE_REVIEW"}, "status": {"const": "FINAL_REVIEW_FINDINGS_PROPOSED"}}}
+      ]
+    },
+    "manusImplementation": {
+      "allOf": [
+        {"$ref": "#/$defs/role"},
+        {"properties": {"actor": {"const": "MANUS"}, "role": {"const": "CONVERGENCE_IMPLEMENTATION_AND_VALIDATION"}, "status": {"const": "IMPLEMENTED_ON_CONVERGENCE_BRANCH"}}}
+      ]
+    },
+    "ownerApproval": {
+      "allOf": [
+        {"$ref": "#/$defs/role"},
+        {"properties": {"actor": {"const": "HUMAN_OWNER"}, "role": {"const": "APPROVAL_GATE"}, "status": {"const": "PENDING"}}}
+      ]
+    },
     "role": {
       "type": "object",
       "additionalProperties": false,

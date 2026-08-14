@@ -20,7 +20,7 @@ Four-Domain remains the research-method and evidence-question layer. G1 remains 
 
 ## Literature grounding decision
 
-Kimi intake remains discovery provenance only. Primary or official sources were checked for the source set used by the intake and P2 research basis. This final-review correction adds source-scoped rows for Butlin, mPCAB, PROV-AGENT, AI Identity, F(AI)2R and COPE AI-authorship guidance. External claims are labeled `VERIFIED`, `PARTIAL`, `ANALOGY`, `AION_INTERPRETATION`, `NOVELTY_HYPOTHESIS` or `CORRECTION_REQUIRED`. Unverified first/only/unprecedented claims remain `NOT_ESTABLISHED`. The Memora benchmark citation ambiguity was corrected without deleting the original dated record.
+Kimi intake remains discovery provenance only. Primary or official sources were checked for the source set used by the intake and P2 research basis. This closure retains Butlin 2023 as historical foundation, adds `Identifying indicators of consciousness in AI systems`, adds `From Agent Traces to Trust` as the agent-provenance survey main row mapped to Graphectory, AdProv, PROV-AGENT, Agent-Sentry, Fides and NeuroTaint, and adds the AI-AUTHorship primary paper carrying TraceAuth/AIEIS/P-S-G. F(AI)2R and COPE remain separate comparators and do not substitute for that AI-AUTHorship paper. External claims are labeled `VERIFIED`, `PARTIAL`, `ANALOGY`, `AION_INTERPRETATION`, `NOVELTY_HYPOTHESIS` or `CORRECTION_REQUIRED`. Unverified first/only/unprecedented claims remain `NOT_ESTABLISHED`.
 
 ## Vertical slice decision
 
@@ -32,11 +32,11 @@ The first recommended promotion batch contains only reference/governance metadat
 
 ## 5. Change-level provenance decision
 
-The current convergence inventory and P2 evidence-admission implementation now record four separated roles: `HUMAN_OWNER` proposal/authority boundary, `CHATGPT` architecture/review input, `MANUS` convergence implementation/validation, and `OWNER_APPROVAL=PENDING`. The historical P2 provenance and authorship meaning are preserved and are not rewritten or attributed to Manus.
+The current convergence inventory and P2 evidence-admission implementation now record four separated roles: `HUMAN_OWNER` task authorization/final authority, `CHATGPT` final-review findings and architecture review, `MANUS` convergence implementation/validation, and `OWNER_APPROVAL=PENDING`. The historical P2 provenance and authorship meaning are preserved and are not rewritten or attributed to Manus.
 
 ## 6. Public taxonomy and cross-branch correction
 
-The public taxonomy now enforces mutually exclusive `recommended_initial_set` and `owner_review_set` values with readiness consistency. `governance-kernel` remains Owner review only. The cross-branch index labels `main` and its public README as `ALREADY_CANONICAL_BASELINE`; research artifacts retain research-only dispositions. No Topics were applied.
+The public taxonomy now enforces mutually exclusive `recommended_initial_set` and `owner_review_set` values with readiness consistency. `governance-kernel` remains Owner review only. `artificial-consciousness` is no longer a permanent reject; it is `OWNER_PUBLIC_POSITIONING_REVIEW` only, with machine-enforced `RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION`. The cross-branch index labels `main` and its public README as `ALREADY_CANONICAL_BASELINE`; research artifacts retain research-only dispositions. No Topics were applied.
 
 ## 7. Completion boundary
 

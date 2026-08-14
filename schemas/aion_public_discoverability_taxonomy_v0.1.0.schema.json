@@ -4,7 +4,7 @@
   "title": "AION Public Discoverability Taxonomy v0.1.0",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "taxonomy_id", "repository", "repository_public_at_inspection", "existing_topics_at_inspection", "topics_applied", "repository_settings_modified", "canonical_effect", "deployment", "candidate_topics", "recommended_initial_set", "owner_review_set", "rejected_topics", "application_boundary"],
+  "required": ["schema_version", "taxonomy_id", "repository", "repository_public_at_inspection", "existing_topics_at_inspection", "topics_applied", "repository_settings_modified", "canonical_effect", "deployment", "positioning_invariants", "candidate_topics", "recommended_initial_set", "owner_review_set", "owner_positioning_review", "rejected_topics", "application_boundary"],
   "properties": {
     "schema_version": {"const": "0.1.0"},
     "taxonomy_id": {"const": "AION_PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0"},
@@ -15,6 +15,17 @@
     "repository_settings_modified": {"const": false},
     "canonical_effect": {"const": "NONE"},
     "deployment": {"const": false},
+    "positioning_invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["machine_rule", "research_topic_is_not_capability_claim", "research_topic_is_not_scientific_conclusion", "capability_claim_is_not_scientific_conclusion"],
+      "properties": {
+        "machine_rule": {"const": "RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION"},
+        "research_topic_is_not_capability_claim": {"const": true},
+        "research_topic_is_not_scientific_conclusion": {"const": true},
+        "capability_claim_is_not_scientific_conclusion": {"const": true}
+      }
+    },
     "candidate_topics": {
       "type": "array",
       "minItems": 10,
@@ -44,6 +55,21 @@
     },
     "recommended_initial_set": {"type": "array", "minItems": 10, "maxItems": 16, "uniqueItems": true, "not": {"contains": {"enum": ["provenance-aware-ai", "long-term-memory", "metacognition", "ai-safety-evaluation", "governance-kernel"]}}, "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"}},
     "owner_review_set": {"type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true, "contains": {"const": "governance-kernel"}, "items": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"}},
+    "owner_positioning_review": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slug", "status", "reason"],
+        "properties": {
+          "slug": {"const": "artificial-consciousness"},
+          "status": {"const": "OWNER_PUBLIC_POSITIONING_REVIEW"},
+          "reason": {"type": "string", "minLength": 1}
+        }
+      }
+    },
     "rejected_topics": {
       "type": "array",
       "minItems": 4,

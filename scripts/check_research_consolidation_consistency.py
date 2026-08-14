@@ -232,9 +232,17 @@ def main() -> int:
         fail(errors, f"crosswalk row uses undeclared labels {sorted(labels - declared_labels)}")
     required_literature_ids = {
         "LIT-BUTLIN-AI-CONSCIOUSNESS-2023",
+        "LIT-BUTLIN-INDICATORS-2025",
+        "LIT-AGENT-TRACE-TRUST-SURVEY-2026",
+        "LIT-GRAPHECTORY-2026",
+        "LIT-ADPROV-2025",
         "LIT-MPCAB-2025",
         "LIT-PROV-AGENT-2025",
+        "LIT-AGENT-SENTRY-2026",
+        "LIT-FIDES-2025",
+        "LIT-NEUROTAINT-2026",
         "LIT-AI-IDENTITY-2026",
+        "LIT-AI-AUTHORSHIP-2026",
         "LIT-FAI2R-2026",
         "STD-COPE-AI-AUTHORSHIP-2023",
     }
@@ -244,6 +252,18 @@ def main() -> int:
     for literature_id in required_literature_ids:
         if literature_rows.get(literature_id, {}).get("label") != "VERIFIED":
             fail(errors, f"final-review literature row is not VERIFIED: {literature_id}")
+    survey = literature_rows.get("LIT-AGENT-TRACE-TRUST-SURVEY-2026", {})
+    expected_supporting_ids = {"LIT-GRAPHECTORY-2026", "LIT-ADPROV-2025", "LIT-PROV-AGENT-2025", "LIT-AGENT-SENTRY-2026", "LIT-FIDES-2025", "LIT-NEUROTAINT-2026"}
+    mapping = survey.get("survey_mapping", {})
+    if mapping.get("role") != "MAIN_AGENT_PROVENANCE_SURVEY_ROW" or set(mapping.get("mapped_primary_source_ids", [])) != expected_supporting_ids:
+        fail(errors, "agent-provenance survey main row does not map the required six primary sources")
+    for supporting_id in expected_supporting_ids:
+        supporting = literature_rows.get(supporting_id, {})
+        if supporting.get("survey_mapping", {}).get("survey_id") != "LIT-AGENT-TRACE-TRUST-SURVEY-2026":
+            fail(errors, f"supporting provenance row is not mapped to the survey: {supporting_id}")
+    ai_authorship = literature_rows.get("LIT-AI-AUTHORSHIP-2026", {})
+    if not all(token in str(ai_authorship.get("source_claim", "")) for token in ("AI-AUTHorship", "TraceAuth", "AIEIS", "P/S/G")):
+        fail(errors, "AI-AUTHorship primary row is missing AI-AUTHorship/TraceAuth/AIEIS/P-S-G claims")
     for item in crosswalk.get("papers_and_standards", []) + crosswalk.get("external_projects", []):
         text = " ".join(str(item.get(key, "")) for key in ("claim", "aion_engineering", "aion_integration", "novelty" )).lower()
         novelty_patterns = (
@@ -260,7 +280,7 @@ def main() -> int:
     expected_branch_heads = {
         "main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
         "review/four-domain-research-materialization": "858442a3ec2439398d188779f4309397bd4926b2",
-        "engineering/aion-research-consolidation-literature-grounding-readiness-20260814": "bcc66c788a7d0882d139ae547447deb1f90adae4",
+        "engineering/aion-research-consolidation-literature-grounding-readiness-20260814": "cab09a210709a01ee9ed55b1b2a6494a2628bdfb",
         "engineering/aion-native-language-feasibility-20260814": "3dfc21463502e1c32189ae167d92f163ca1a55e8",
         "engineering/aion-language-agnostic-runtime-integration-20260814": "6b81133dc351f5226fa95801254276e421b3e4fe",
         "cleanup/manus-output-consolidation-20260813": "c43430f9b39a86d11093f3286e9503145fcf0d70",
@@ -346,10 +366,23 @@ def main() -> int:
         fail(errors, f"required owner-review Topics missing: {sorted(required_owner_review_topics - owner_review)}")
     if "governance-kernel" in recommended:
         fail(errors, "governance-kernel must remain Owner review only")
-    required_rejected_topics = {"consciousness", "artificial-consciousness", "self-aware-ai", "sentient-ai", "identity-continuity", "first-of-its-kind", "agi", "production-ai"}
+    required_rejected_topics = {"consciousness", "self-aware-ai", "sentient-ai", "identity-continuity", "first-of-its-kind", "agi", "production-ai"}
     rejected_slugs = {item.get("slug") for item in taxonomy.get("rejected_topics", [])}
     if not required_rejected_topics.issubset(rejected_slugs):
         fail(errors, f"taxonomy missing rejected terms: {sorted(required_rejected_topics - rejected_slugs)}")
+    if "artificial-consciousness" in rejected_slugs:
+        fail(errors, "artificial-consciousness must not remain permanently rejected")
+    public_positioning = taxonomy.get("owner_positioning_review", [])
+    if len(public_positioning) != 1 or public_positioning[0].get("slug") != "artificial-consciousness":
+        fail(errors, "artificial-consciousness public positioning review record is malformed")
+    if public_positioning and public_positioning[0].get("status") != "OWNER_PUBLIC_POSITIONING_REVIEW":
+        fail(errors, "artificial-consciousness is not OWNER_PUBLIC_POSITIONING_REVIEW")
+    positioning_invariants = taxonomy.get("positioning_invariants", {})
+    if positioning_invariants.get("machine_rule") != "RESEARCH_TOPIC != CAPABILITY_CLAIM != SCIENTIFIC_CONCLUSION":
+        fail(errors, "taxonomy missing machine-enforced positioning separation rule")
+    for invariant in ("research_topic_is_not_capability_claim", "research_topic_is_not_scientific_conclusion", "capability_claim_is_not_scientific_conclusion"):
+        if positioning_invariants.get(invariant) is not True:
+            fail(errors, f"taxonomy positioning invariant is not true: {invariant}")
     if taxonomy.get("topics_applied") is not False or taxonomy.get("repository_settings_modified") is not False:
         fail(errors, "taxonomy claims that topics/settings were applied")
     if taxonomy.get("application_boundary", {}).get("settings_operation") != "NOT_PERFORMED":
@@ -402,10 +435,10 @@ def main() -> int:
             change_record = record.get("change_level_provenance", {})
             if change_record.get("implementation", {}).get("actor") != "MANUS":
                 fail(errors, "P2 evidence record missing Manus implementation provenance")
-            if change_record.get("proposal_and_authority", {}).get("actor") != "HUMAN_OWNER":
-                fail(errors, "P2 evidence record missing Human Owner proposal/authority provenance")
-            if change_record.get("architecture_and_review", {}).get("actor") != "CHATGPT":
-                fail(errors, "P2 evidence record missing ChatGPT architecture/review provenance")
+            if change_record.get("proposal_and_authority", {}).get("actor") != "HUMAN_OWNER" or change_record.get("proposal_and_authority", {}).get("role") != "TASK_AUTHORIZATION_AND_FINAL_AUTHORITY":
+                fail(errors, "P2 evidence record missing Human Owner task authorization/final authority provenance")
+            if change_record.get("architecture_and_review", {}).get("actor") != "CHATGPT" or change_record.get("architecture_and_review", {}).get("role") != "FINAL_REVIEW_FINDINGS_AND_ARCHITECTURE_REVIEW":
+                fail(errors, "P2 evidence record missing ChatGPT final-review findings provenance")
             if change_record.get("approval", {}).get("status") != "PENDING":
                 fail(errors, "P2 evidence record owner approval must remain PENDING")
             if change_record.get("historical_p2_provenance_preserved") is not True:
