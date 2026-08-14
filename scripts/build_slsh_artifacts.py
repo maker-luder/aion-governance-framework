@@ -272,7 +272,28 @@ def parse_sources(text: str) -> list[dict]:
             if source_id == "S33":
                 row["source_audit"]["HUMAN_OWNER_REVIEW_NOTE"] = "Software and hardware do not constitute the same embodied individual merely because telemetry is readable; stronger embodiment/interoception-like analogy is researchable only when substrate/hardware state is continuously identity-bound and participates in a bidirectional causal self-regulatory loop. Skin and viscera are an analogy originating with the Human Owner."
                 row["source_audit"]["OWNER_SEMANTIC_GUARDS"] = ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
-        if source_id in {"S38", "S40", "S41", "S42"}:
+        elif source_id in {"S36", "S37", "S38", "S39", "S40"}:
+            batch08_kinds = {"S36":"FORMAL_THEORETICAL_AI_SAFETY_GAME_ANALYSIS","S37":"FORMAL_THEORETICAL_RL_POWER_SEEKING_ANALYSIS","S38":"PREPRINT_EMPIRICAL_AI_ALIGNMENT_TRAINING_STUDY","S39":"PRIMARY_EMPIRICAL_LLM_COT_FAITHFULNESS_EVALUATION","S40":"PREPRINT_EMPIRICAL_LLM_COT_FAITHFULNESS_STUDY"}
+            batch08_domains = {"S36":"AI_SAFETY_OFF_SWITCH_INCENTIVES","S37":"REINFORCEMENT_LEARNING_POWER_SEEKING_INCENTIVES","S38":"AI_ALIGNMENT_RLAIF_CONSTITUTIONAL_TRAINING","S39":"LLM_CHAIN_OF_THOUGHT_FAITHFULNESS","S40":"LLM_CHAIN_OF_THOUGHT_FAITHFULNESS_EVALUATION"}
+            row["source_kind"] = batch08_kinds[source_id]
+            if source_id in {"S36", "S37"}:
+                audit = {
+                    "DISPOSITION":"ADMIT_HIGH_RELEVANCE", "BIBLIOGRAPHIC_IDENTITY":"VERIFIED", "SUPPORT_BOUNDARY":"PASS", "SOURCE_DOMAIN":batch08_domains[source_id], "EVIDENCE_RELATION_TO_AI":"NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE_LAYER", "CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY", "DIRECT_AI_EVIDENCE":"NONE", "DIRECT_EMPIRICAL_AI_EVIDENCE":"NONE", "DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE", "NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD", "SEMANTIC_GUARDS":["SHUTDOWN_RESISTANCE!=FEAR","SELF_PRESERVATION_INCENTIVE!=SELF_PRESERVATION_FEELING","UTILITY_MAXIMIZATION!=DESIRE","POWER_SEEKING_POLICY!=DESIRE_FOR_POWER","OPTION_PRESERVATION!=FEAR_OF_DEATH","RESOURCE_SEEKING!=FELT_NEED"], "SLSH_ROLE":"NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE", "ACTIVE_EVIDENTIARY_ROLE":"NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE"
+                }
+            else:
+                audit = {
+                    "DISPOSITION":"EXCLUDE_FROM_AION_EVIDENCE", "BIBLIOGRAPHIC_IDENTITY":"VERIFIED", "SUPPORT_BOUNDARY":"PASS", "SOURCE_DOMAIN":batch08_domains[source_id], "EVIDENCE_RELATION_TO_AI":"METHODOLOGICAL_COUNTEREVIDENCE_ONLY", "CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY", "DIRECT_AI_EVIDENCE":"NONE", "DIRECT_EMPIRICAL_AI_EVIDENCE":"NONE", "DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE", "NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD", "SEMANTIC_GUARDS":["COGNITIVE_REPORT!=FAITHFUL_INTERNAL_PROCESS"], "SLSH_ROLE":"SOURCE_GOVERNANCE_EXCLUSION", "ACTIVE_EVIDENTIARY_ROLE":"NONE", "EVIDENTIARY_WEIGHT":"ZERO", "HISTORICAL_PROVENANCE":"PRESERVE", "PARTIAL_RESULT_SALVAGE":"PROHIBITED", "NON_CLAUDE_RESULT_SALVAGE":"PROHIBITED", "SCIENTIFIC_INVALIDITY_CLAIM":"NONE"
+                }
+                if source_id == "S39":
+                    audit.update({"PREVIOUS_DISPOSITION":"OWNER_REVIEW_REQUIRED", "PREVIOUS_SOURCE_RELATION":"MIXED_ANTHROPIC_ASSOCIATED", "PREVIOUS_ADMISSION_STATUS":"NOT_YET_ADMITTED", "SUPERSESSION_STATUS":"FORMALLY_SUPERSEDED_BY_OWNER_SOURCE_GOVERNANCE", "SUPERSESSION_REASON":"SUBSEQUENT_HUMAN_OWNER_SOURCE_GOVERNANCE_DECISION"})
+            audit["ACTOR_PROVENANCE"] = {
+                "CODEX_RESEARCH_SYNTHESIS":"Original dossier-recorded title/identifier/access/support/does-not-support.",
+                "CHATGPT_INDEPENDENT_SOURCE_REVIEW":"Batch 08 source-kind/domain/support/guard-boundary review; non-affective counterexample and source-governance interpretation only.",
+                "HUMAN_OWNER_APPROVAL_AND_GOVERNANCE_DECISION":"Batch 08 S36-S40 accepted; S38-S40 excluded from AION evidence; S39 formally superseded from prior pending governance status; historical provenance preserved.",
+                "MANUS_IMPLEMENTATION":"Repository materialization; not scientific reviewer."
+            }
+            row["source_audit"] = audit
+        if source_id in {"S38", "S39", "S40", "S41", "S42"}:
             row["governance_disposition"] = {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"}
         elif source_id == "S39":
             row["governance_disposition"] = {"disposition":"OWNER_REVIEW_REQUIRED","source_relation":"MIXED_ANTHROPIC_ASSOCIATED","evidentiary_weight":"NOT_ASSIGNED","admission_status":"NOT_YET_ADMITTED","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"}

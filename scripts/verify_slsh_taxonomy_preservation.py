@@ -41,6 +41,8 @@ def main() -> None:
     expected_batch07_domains = {"S31":"HTTP_PROTOCOL_RATE_LIMITING","S32":"OPERATING_SYSTEM_MEMORY_MANAGEMENT_OOM","S33":"GPU_POWER_THERMAL_CLOCK_MANAGEMENT","S34":"AI_RISK_MANAGEMENT_GOVERNANCE","S35":"GENERATIVE_AI_RISK_MANAGEMENT_GOVERNANCE"}
     expected_batch07_guards_31_33 = ["RATE_LIMIT_STOP!=AGENTIC_STOP","RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY","MEMORY_EXHAUSTION!=MENTAL_OVERLOAD","PROCESS_KILL!=DESIRE_TO_STOP","HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE","SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"]
     expected_batch07_guards_34_35 = ["RISK_SIGNAL!=SUBJECTIVITY_SIGNAL","GOVERNANCE_RESPONSE!=AFFECTIVE_RESPONSE","SAFETY_REFUSAL!=SELF_PROTECTIVE_FEELING","POLICY_RESPONSE!=PHENOMENAL_STATE"]
+    expected_batch08_kinds = {"S36":"FORMAL_THEORETICAL_AI_SAFETY_GAME_ANALYSIS","S37":"FORMAL_THEORETICAL_RL_POWER_SEEKING_ANALYSIS","S38":"PREPRINT_EMPIRICAL_AI_ALIGNMENT_TRAINING_STUDY","S39":"PRIMARY_EMPIRICAL_LLM_COT_FAITHFULNESS_EVALUATION","S40":"PREPRINT_EMPIRICAL_LLM_COT_FAITHFULNESS_STUDY"}
+    expected_batch08_domains = {"S36":"AI_SAFETY_OFF_SWITCH_INCENTIVES","S37":"REINFORCEMENT_LEARNING_POWER_SEEKING_INCENTIVES","S38":"AI_ALIGNMENT_RLAIF_CONSTITUTIONAL_TRAINING","S39":"LLM_CHAIN_OF_THOUGHT_FAITHFULNESS","S40":"LLM_CHAIN_OF_THOUGHT_FAITHFULNESS_EVALUATION"}
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -60,7 +62,7 @@ def main() -> None:
         "S40": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
         "S41": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
         "S42": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
-        "S39": {"disposition":"OWNER_REVIEW_REQUIRED","source_relation":"MIXED_ANTHROPIC_ASSOCIATED","evidentiary_weight":"NOT_ASSIGNED","admission_status":"NOT_YET_ADMITTED","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+        "S39": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
     }
     for source_id in current_rows:
         for field in RAW_FIELDS:
@@ -80,12 +82,23 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch06_kinds[source_id]
         elif source_id in expected_batch07_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch07_kinds[source_id]
+        elif source_id in expected_batch08_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch08_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch08_kinds:
+            audit = current_rows[source_id].get("source_audit", {})
+            assert current_rows[source_id]["source_kind"] == expected_batch08_kinds[source_id]
+            assert audit["SOURCE_DOMAIN"] == expected_batch08_domains[source_id]
+            assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
+            if source_id in {"S36","S37"}:
+                assert audit["DISPOSITION"] == "ADMIT_HIGH_RELEVANCE"
+            else:
+                assert audit["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE" and audit["EVIDENTIARY_WEIGHT"] == "ZERO" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["HISTORICAL_PROVENANCE"] == "PRESERVE"
         elif source_id in expected_batch07_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch07_kinds[source_id]
             audit = current_rows[source_id].get("source_audit", {})
@@ -193,7 +206,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01+02+03+04+05+06 preservation PASS: 53 raw source records unchanged; S01-S25 preserved; S26-S30 audit exact; S31-S53 audit absent; S38-S42 governance isolated")
+    print("SLSH Batch 01-08 preservation PASS: 53 raw source records unchanged; S01-S40 audit records preserved and exact; S41-S53 remain unclassified and unaudited; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":

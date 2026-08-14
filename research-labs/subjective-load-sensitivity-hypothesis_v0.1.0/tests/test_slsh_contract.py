@@ -27,7 +27,7 @@ def test_exact_access_level_map_and_codex_provenance():
     assert len(rows) == 53
     assert {row["access_level"] for row in rows.values()} == {"FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"}
     assert all(rows[key]["access_level"] == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[value] for key, value in EXPECTED.items())
-    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35"})
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35", "S36", "S37", "S38", "S39", "S40"})
     assert all(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
     assert all(row["independent_verification_status"] == "NOT_YET_VERIFIED" for row in rows.values())
     assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
@@ -78,7 +78,7 @@ def test_batch02_source_audit_is_exact_and_scoped():
             assert audit["REVIEW_NOTE"] == "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT"
         else:
             assert "REVIEW_NOTE" not in audit
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35", "S38", "S39", "S40", "S41", "S42"})
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35", "S36", "S37", "S38", "S39", "S40", "S38", "S39", "S40", "S41", "S42"})
 
 
 def test_batch03_source_audit_is_exact_and_scoped():
@@ -103,7 +103,7 @@ def test_batch03_source_audit_is_exact_and_scoped():
             assert audit["OWNER_SEMANTIC_GUARDS"] == ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
         else:
             assert "HUMAN_OWNER_REVIEW_NOTE" not in audit and "OWNER_SEMANTIC_GUARDS" not in audit
-    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S21","S22","S23","S24","S25","S26","S27","S28","S29","S30", "S31", "S32", "S33", "S34", "S35"})
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S21","S22","S23","S24","S25","S26","S27","S28","S29","S30", "S31", "S32", "S33", "S34", "S35", "S36", "S37", "S38", "S39", "S40"})
 
 
 def test_batch04_source_audit_is_exact_and_scoped():
@@ -127,7 +127,7 @@ def test_batch04_source_audit_is_exact_and_scoped():
             assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["SLSH_ROLE"] == "EVIDENCE_TRIANGULATION_METHOD_BACKGROUND" and audit["METHOD_BACKGROUND_SCOPE"] == ["PERSISTENCE","MOTIVATION","TRADE_OFF"]
         else:
             assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT"
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S21","S22","S23","S24","S25","S26","S27","S28","S29","S30","S31","S32","S33","S34","S35","S38","S39","S40","S41","S42"})
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S21","S22","S23","S24","S25","S26","S27","S28","S29","S30","S31","S32","S33","S34","S35","S36","S37","S38","S39","S40","S38","S39","S40","S41","S42"})
 
 
 def test_batch05_source_audit_is_exact_and_scoped():
@@ -155,7 +155,7 @@ def test_batch05_source_audit_is_exact_and_scoped():
         else:
             assert audit["SEMANTIC_GUARDS"] == guards_25
             assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["EVIDENCE_RELATION_TO_AI"] == "DIRECT_AI_THEORETICAL_EPISTEMOLOGY" and audit["SLSH_ROLE"] == "AI_OTHER_MINDS_EPISTEMIC_BRIDGE"
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {f"S{i:02d}" for i in range(1,36)} | {"S38","S39","S40","S41","S42"})
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {f"S{i:02d}" for i in range(1,41)} | {"S41","S42"})
 
 
 def test_batch06_source_audit_is_exact_and_governed():
@@ -178,7 +178,27 @@ def test_batch06_source_audit_is_exact_and_governed():
     assert s29["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE" and s29["SOURCE_RELATION"] == "MIXED_ANTHROPIC_ASSOCIATED" and s29["EVIDENTIARY_WEIGHT"] == "ZERO" and s29["ACTIVE_EVIDENTIARY_ROLE"] == "NONE"
     assert s29["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED" and s29["PARTIAL_ADMISSION"] == "PROHIBITED" and s29["OBSERVATION_STATUS"] == "EXTERNAL_OBSERVATION_ONLY" and s29["CANONICAL_EFFECT"] == "NONE"
     assert rows["S30"]["source_audit"]["DISPOSITION"] == "ADMIT_WITH_NARROW_SCOPE" and rows["S30"]["source_audit"]["SLSH_ROLE"] == "TRAINING_COMPUTE_BACKGROUND"
-    assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 36 and sid not in {"S38","S39","S40","S41","S42"})
+    assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 41)
+
+
+def test_batch08_source_audit_is_exact_and_governed():
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    expected = {"S36":("FORMAL_THEORETICAL_AI_SAFETY_GAME_ANALYSIS","AI_SAFETY_OFF_SWITCH_INCENTIVES"),"S37":("FORMAL_THEORETICAL_RL_POWER_SEEKING_ANALYSIS","REINFORCEMENT_LEARNING_POWER_SEEKING_INCENTIVES"),"S38":("PREPRINT_EMPIRICAL_AI_ALIGNMENT_TRAINING_STUDY","AI_ALIGNMENT_RLAIF_CONSTITUTIONAL_TRAINING"),"S39":("PRIMARY_EMPIRICAL_LLM_COT_FAITHFULNESS_EVALUATION","LLM_CHAIN_OF_THOUGHT_FAITHFULNESS"),"S40":("PREPRINT_EMPIRICAL_LLM_COT_FAITHFULNESS_STUDY","LLM_CHAIN_OF_THOUGHT_FAITHFULNESS_EVALUATION")}
+    guards_36_37 = ["SHUTDOWN_RESISTANCE!=FEAR","SELF_PRESERVATION_INCENTIVE!=SELF_PRESERVATION_FEELING","UTILITY_MAXIMIZATION!=DESIRE","POWER_SEEKING_POLICY!=DESIRE_FOR_POWER","OPTION_PRESERVATION!=FEAR_OF_DEATH","RESOURCE_SEEKING!=FELT_NEED"]
+    guards_38_40 = ["COGNITIVE_REPORT!=FAITHFUL_INTERNAL_PROCESS"]
+    for sid,(kind,domain) in expected.items():
+        row=rows[sid]; audit=row["source_audit"]
+        assert row["source_kind"] == kind and audit["SOURCE_DOMAIN"] == domain
+        assert audit["SEMANTIC_GUARDS"] == (guards_36_37 if sid in {"S36","S37"} else guards_38_40)
+        assert audit["DIRECT_EMPIRICAL_AI_EVIDENCE"] == audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
+        assert audit["ACTOR_PROVENANCE"]["HUMAN_OWNER_APPROVAL_AND_GOVERNANCE_DECISION"] == "Batch 08 S36-S40 accepted; S38-S40 excluded from AION evidence; S39 formally superseded from prior pending governance status; historical provenance preserved."
+        if sid in {"S36","S37"}:
+            assert audit["DISPOSITION"] == "ADMIT_HIGH_RELEVANCE" and audit["EVIDENCE_RELATION_TO_AI"] == "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE_LAYER" and audit["SLSH_ROLE"] == "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE"
+        else:
+            assert audit["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE" and audit["EVIDENTIARY_WEIGHT"] == "ZERO" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["HISTORICAL_PROVENANCE"] == "PRESERVE" and audit["PARTIAL_RESULT_SALVAGE"] == "PROHIBITED" and audit["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED" and audit["SCIENTIFIC_INVALIDITY_CLAIM"] == "NONE"
+            if sid == "S39":
+                assert audit["PREVIOUS_DISPOSITION"] == "OWNER_REVIEW_REQUIRED" and audit["PREVIOUS_SOURCE_RELATION"] == "MIXED_ANTHROPIC_ASSOCIATED" and audit["PREVIOUS_ADMISSION_STATUS"] == "NOT_YET_ADMITTED" and audit["SUPERSESSION_STATUS"] == "FORMALLY_SUPERSEDED_BY_OWNER_SOURCE_GOVERNANCE" and audit["SUPERSESSION_REASON"] == "SUBSEQUENT_HUMAN_OWNER_SOURCE_GOVERNANCE_DECISION"
+    assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 41)
 
 
 def test_batch07_source_audit_is_exact_and_governed():
@@ -199,7 +219,7 @@ def test_batch07_source_audit_is_exact_and_governed():
             assert "NIST scientific conclusions" in audit["ACTOR_PROVENANCE"]["CHATGPT_INDEPENDENT_SOURCE_REVIEW"]
     assert rows["S33"]["source_audit"]["HUMAN_OWNER_REVIEW_NOTE"].startswith("Software and hardware do not constitute the same embodied individual")
     assert rows["S33"]["source_audit"]["OWNER_SEMANTIC_GUARDS"] == ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
-    assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 36 and sid not in {"S38","S39","S40","S41","S42"})
+    assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 41)
 
 
 def test_source_governance_dispositions_are_exact_and_bounded():
@@ -209,7 +229,7 @@ def test_source_governance_dispositions_are_exact_and_bounded():
         "S40": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
         "S41": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
         "S42": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
-        "S39": {"disposition":"OWNER_REVIEW_REQUIRED","source_relation":"MIXED_ANTHROPIC_ASSOCIATED","evidentiary_weight":"NOT_ASSIGNED","admission_status":"NOT_YET_ADMITTED","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+        "S39": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
     }
     assert {source_id for source_id, row in rows.items() if "governance_disposition" in row} == set(expected)
     assert all(rows[source_id]["governance_disposition"] == value for source_id, value in expected.items())
