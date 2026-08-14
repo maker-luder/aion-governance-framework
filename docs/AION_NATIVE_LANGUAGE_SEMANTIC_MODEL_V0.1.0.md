@@ -64,6 +64,10 @@ The candidate source model prohibits a byte-order mark, locale-sensitive parsing
 
 Semantic types may serialize as strings in IR, but they are not semantically substitutable merely because they use the same host representation.
 
+The current `IndividualRuntimeContext` contract also carries `memory_stream_id`, `event_lineage_id`, `canonical_state_reference`, and `genesis_root_id`. The v0.1 native IR intentionally does not turn those fields into source-level declarations because Event / Lineage, canonical-state, and Genesis semantics are not mature enough to freeze. A future adapter may attach an externally governed context reference, but source text must not manufacture or complete that binding.
+
+The lifecycle mapping is deterministic but remains request-only: source `transition: start` maps to the existing request event type `runtime.started`, and source `transition: stop` maps to `runtime.stopped`. The mapping does not emit `from_state`, `to_state`, `event_sequence`, `event_hash`, or successful outcome fields.
+
 ## 4. Candidate declaration families
 
 | Declaration | Purpose | Native source? | Validated IR? | Execution / authority boundary |

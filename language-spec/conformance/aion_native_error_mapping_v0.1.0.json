@@ -1,0 +1,63 @@
+{
+  "mapping_version": "0.1.0",
+  "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+  "canonical_effect": "NONE",
+  "mappings": [
+    {
+      "language_code": "LEXICAL_ERROR",
+      "category": "MALFORMED_INPUT"
+    },
+    {
+      "language_code": "PARSE_ERROR",
+      "category": "MALFORMED_INPUT"
+    },
+    {
+      "language_code": "TYPE_ERROR",
+      "category": "MALFORMED_INPUT"
+    },
+    {
+      "language_code": "UNKNOWN_SYMBOL",
+      "category": "MALFORMED_INPUT"
+    },
+    {
+      "language_code": "DUPLICATE_DECLARATION",
+      "category": "MALFORMED_INPUT"
+    },
+    {
+      "language_code": "UNSUPPORTED_VERSION",
+      "category": "UNSUPPORTED_VERSION"
+    },
+    {
+      "language_code": "IDENTITY_MISMATCH",
+      "category": "IDENTITY_MISMATCH"
+    },
+    {
+      "language_code": "AUTHORITY_REQUIRED",
+      "category": "AUTHORITY_DENIED"
+    },
+    {
+      "language_code": "CAPABILITY_DENIED",
+      "category": "AUTHORITY_DENIED"
+    },
+    {
+      "language_code": "INVALID_EFFECT",
+      "category": "AUTHORITY_DENIED"
+    },
+    {
+      "language_code": "INVALID_TRANSITION",
+      "category": "INVALID_TRANSITION"
+    },
+    {
+      "language_code": "FOUNDATION_CONFLICT",
+      "category": "INTEGRITY_FAILURE"
+    },
+    {
+      "language_code": "PROVISIONAL_SEMANTIC",
+      "category": "MALFORMED_INPUT"
+    },
+    {
+      "language_code": "RESOURCE_LIMIT_EXCEEDED",
+      "category": "MALFORMED_INPUT"
+    }
+  ]
+}

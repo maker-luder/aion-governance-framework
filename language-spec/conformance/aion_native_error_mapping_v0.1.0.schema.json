@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:language-error-mapping:0.1.0",
+  "title": "AION Native Language Error Mapping v0.1.0",
+  "description": "Candidate non-executable mapping from native-language diagnostic codes to the existing Error Envelope categories.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "mapping_version",
+    "interop_profile",
+    "canonical_effect",
+    "mappings"
+  ],
+  "properties": {
+    "mapping_version": {
+      "const": "0.1.0"
+    },
+    "interop_profile": {
+      "const": "AION-JCS-COMPATIBLE-0.1.0"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "mappings": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/mapping"
+      }
+    }
+  },
+  "$defs": {
+    "mapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language_code",
+        "category"
+      ],
+      "properties": {
+        "language_code": {
+          "type": "string",
+          "enum": [
+            "LEXICAL_ERROR",
+            "PARSE_ERROR",
+            "TYPE_ERROR",
+            "UNKNOWN_SYMBOL",
+            "DUPLICATE_DECLARATION",
+            "UNSUPPORTED_VERSION",
+            "IDENTITY_MISMATCH",
+            "AUTHORITY_REQUIRED",
+            "CAPABILITY_DENIED",
+            "INVALID_EFFECT",
+            "INVALID_TRANSITION",
+            "FOUNDATION_CONFLICT",
+            "PROVISIONAL_SEMANTIC",
+            "RESOURCE_LIMIT_EXCEEDED"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "MALFORMED_INPUT",
+            "UNKNOWN_FIELD",
+            "UNSUPPORTED_VERSION",
+            "IDENTITY_MISMATCH",
+            "AUTHORITY_DENIED",
+            "INVALID_TRANSITION",
+            "CONFLICT",
+            "PERSISTENCE_FAILURE",
+            "INTEGRITY_FAILURE"
+          ]
+        }
+      }
+    }
+  }
+}

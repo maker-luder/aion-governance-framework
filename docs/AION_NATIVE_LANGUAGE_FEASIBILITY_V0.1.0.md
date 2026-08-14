@@ -46,6 +46,7 @@ The selected option is not a Python replacement and has no language-count object
 |---|---:|---|---|---|---|---|---|
 | Interop | `ESTABLISHED_CANDIDATE` | `IR_ONLY` | Only document language version | Yes | No | None | Reuse candidate profile; no independent DSL serialization rules |
 | Identity | `ESTABLISHED_CANDIDATE` | `NATIVE_LANGUAGE_CONSTRUCT` | Yes: reference only | Yes | Yes: binding / ownership | Identifier never grants authority | Stable reference semantics; binding remains external |
+| RuntimeContext completion | `ESTABLISHED_CANDIDATE` | `IR_ONLY` | No complete context syntax | External reference only | Yes | Context fields never self-bind authority | `memory_stream_id`, `event_lineage_id`, `canonical_state_reference`, and `genesis_root_id` remain external because their dependent semantics are not frozen |
 | Effects | `PARTIAL` | `NATIVE_LANGUAGE_CONSTRUCT` | Yes: declarative bounds | Yes | Yes: actual result | Only `canonical_effect: none` is representable | Runtime-effect vocabulary remains bounded |
 | Provenance | `ESTABLISHED_CANDIDATE` | `NATIVE_LANGUAGE_CONSTRUCT` | Yes: declaration / reference | Yes | Yes: evidence verification | Attribution is not approval | Stable as source-derived assertion with explicit uncertainty |
 | Events | `PARTIAL` | `BLOCKED_BY_CONTRACT_GAP` | No persisted envelope syntax | No resolved envelope field | Yes | No authority | Exact envelope, ordering, and payload semantics unresolved |
@@ -71,6 +72,8 @@ The following are **IR-only**: explicit interop-profile reference, IR version, n
 The following remain **provisional**: memory record and mutation, governance policy, tool declarations, checkpoint requirement, audit metadata, and abstract event reference. The following are **blocked**: EventEnvelope shape, EventLineage hash framing, genesis predecessor, audit/runtime reconciliation, rehashing, migration behavior, recovery outcome, canonical write authority, and actual capability admission.
 
 The first version explicitly **excludes** functions, variables, algebraic data types, pattern matching, iteration, recursion, modules, generics, concurrency, threads, async tasks, sockets, filesystem access, process spawning, dynamic import, evaluation, reflection, native calls, package download, plugin loading, and unrestricted networking. These are either `NOT_JUSTIFIED`, `CONTRARY_TO_LANGUAGE_PURPOSE`, `SECURITY_RISK`, or `REQUIRES_SEPARATE_PROGRAM`.
+
+The lifecycle bridge is intentionally narrow: source `transition: start` maps to the existing request event type `runtime.started`, and source `transition: stop` maps to `runtime.stopped`. No lifecycle outcome, event sequence, event hash, derived state, or atomicity field enters v0.1 IR.
 
 ## 6. Source, AST, and validated IR boundary
 

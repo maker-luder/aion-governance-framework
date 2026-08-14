@@ -68,6 +68,9 @@ jobs:
       - name: Validate research evidence admission surface
         run: python -m pytest -q tests/test_research_evidence_validator.py
 
+      - name: Validate AION native-language feasibility artifacts
+        run: python -m pytest -q tests/test_aion_native_language_artifacts.py
+
       - name: Compile public Python sources
         run: python -m compileall -q components examples research-labs scripts
 

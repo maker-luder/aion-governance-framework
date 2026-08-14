@@ -1,0 +1,16 @@
+// REJECT: FOUNDATION_CONFLICT
+// Event predecessor and hash framing are intentionally blocked in language v0.1.
+
+language 0.1;
+
+runtime aion_runtime {
+  kind: AION;
+  agent: "aion-agent-001";
+  instance: "aion-runtime-001";
+  canonical_effect: none;
+};
+
+event lineage {
+  predecessor: "GENESIS";
+  hash: "not-authorized-in-v0-1";
+};

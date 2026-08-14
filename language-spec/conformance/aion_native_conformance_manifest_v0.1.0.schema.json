@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:language-conformance-manifest:0.1.0",
+  "title": "AION Native Language Conformance Manifest v0.1.0",
+  "description": "Inventory and expected role of non-executable AION Native Language artifacts. This manifest does not execute source or grant authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version",
+    "language_version",
+    "grammar",
+    "ir_schema",
+    "accepted_source_examples",
+    "rejected_source_examples",
+    "positive_ir_fixtures",
+    "negative_ir_fixture",
+    "negative_ir_schema",
+    "error_mapping",
+    "error_mapping_schema"
+  ],
+  "properties": {
+    "manifest_version": {
+      "const": "0.1.0"
+    },
+    "language_version": {
+      "const": "0.1"
+    },
+    "grammar": {
+      "$ref": "#/$defs/relativePath"
+    },
+    "ir_schema": {
+      "$ref": "#/$defs/relativePath"
+    },
+    "accepted_source_examples": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/relativePath"
+      }
+    },
+    "rejected_source_examples": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/rejectedSourceExample"
+      }
+    },
+    "positive_ir_fixtures": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/relativePath"
+      }
+    },
+    "negative_ir_fixture": {
+      "$ref": "#/$defs/relativePath"
+    },
+    "negative_ir_schema": {
+      "$ref": "#/$defs/relativePath"
+    },
+    "error_mapping": {
+      "$ref": "#/$defs/relativePath"
+    },
+    "error_mapping_schema": {
+      "$ref": "#/$defs/relativePath"
+    }
+  },
+  "$defs": {
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*\\.\\.)[^\\r\\n]+$"
+    },
+    "rejectedSourceExample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "expected_code"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "expected_code": {
+          "type": "string",
+          "enum": [
+            "AUTHORITY_REQUIRED",
+            "CAPABILITY_DENIED",
+            "FOUNDATION_CONFLICT",
+            "IDENTITY_MISMATCH",
+            "INVALID_EFFECT",
+            "PARSE_ERROR",
+            "UNSUPPORTED_VERSION"
+          ]
+        }
+      }
+    }
+  }
+}

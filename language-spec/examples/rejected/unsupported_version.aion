@@ -1,0 +1,11 @@
+// REJECT: UNSUPPORTED_VERSION
+// Incompatible language versions fail closed; there is no silent downgrade.
+
+language 0.2;
+
+runtime aion_runtime {
+  kind: AION;
+  agent: "aion-agent-001";
+  instance: "aion-runtime-001";
+  canonical_effect: none;
+};

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:language-negative-vectors:0.1.0",
+  "title": "AION Native Language Negative Vectors v0.1.0",
+  "description": "Non-executable negative vector envelope. Documents are validated or statically inspected; source is never evaluated.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "fixture_version",
+    "description",
+    "vectors"
+  ],
+  "properties": {
+    "fixture_version": {
+      "const": "0.1.0"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vectors": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/vector"
+      }
+    }
+  },
+  "$defs": {
+    "vector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "stage",
+        "expected_code",
+        "document"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{2,95}$"
+        },
+        "stage": {
+          "type": "string",
+          "enum": [
+            "schema",
+            "semantic"
+          ]
+        },
+        "expected_code": {
+          "type": "string",
+          "enum": [
+            "AUTHORITY_REQUIRED",
+            "CAPABILITY_DENIED",
+            "DUPLICATE_DECLARATION",
+            "FOUNDATION_CONFLICT",
+            "IDENTITY_MISMATCH",
+            "INVALID_EFFECT",
+            "UNKNOWN_SYMBOL",
+            "PARSE_ERROR",
+            "UNSUPPORTED_VERSION"
+          ]
+        },
+        "document": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

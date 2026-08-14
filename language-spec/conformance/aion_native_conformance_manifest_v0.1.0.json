@@ -1,0 +1,42 @@
+{
+  "manifest_version": "0.1.0",
+  "language_version": "0.1",
+  "grammar": "language-spec/aion_native_language_v0.1.0.ebnf",
+  "ir_schema": "language-spec/aion_native_ir_v0.1.0.schema.json",
+  "accepted_source_examples": [
+    "language-spec/examples/accepted/aion_runtime_memory_requirements.aion"
+  ],
+  "rejected_source_examples": [
+    {
+      "path": "language-spec/examples/rejected/self_authenticating_approval.aion",
+      "expected_code": "AUTHORITY_REQUIRED"
+    },
+    {
+      "path": "language-spec/examples/rejected/canonical_effect_escalation.aion",
+      "expected_code": "INVALID_EFFECT"
+    },
+    {
+      "path": "language-spec/examples/rejected/cross_runtime_namespace.aion",
+      "expected_code": "IDENTITY_MISMATCH"
+    },
+    {
+      "path": "language-spec/examples/rejected/self_granted_capability.aion",
+      "expected_code": "CAPABILITY_DENIED"
+    },
+    {
+      "path": "language-spec/examples/rejected/frozen_event_lineage.aion",
+      "expected_code": "FOUNDATION_CONFLICT"
+    },
+    {
+      "path": "language-spec/examples/rejected/unsupported_version.aion",
+      "expected_code": "UNSUPPORTED_VERSION"
+    }
+  ],
+  "positive_ir_fixtures": [
+    "language-spec/conformance/aion_native_ir_v0.1.0.valid.json"
+  ],
+  "negative_ir_fixture": "language-spec/conformance/aion_native_ir_v0.1.0.negative_vectors.json",
+  "negative_ir_schema": "language-spec/conformance/aion_native_negative_vectors_v0.1.0.schema.json",
+  "error_mapping": "language-spec/conformance/aion_native_error_mapping_v0.1.0.json",
+  "error_mapping_schema": "language-spec/conformance/aion_native_error_mapping_v0.1.0.schema.json"
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://aion.example/spec/language/aion_native_ir_v0.1.0.schema.json",
+  "$id": "urn:aion:contract:aion-native-ir:0.1.0",
   "title": "AION Native Language Validated Semantic IR v0.1.0",
   "description": "Non-executable candidate semantic IR. Valid IR is not authority, approval evidence, a capability grant, runtime admission, or a runtime execution request.",
   "type": "object",
@@ -139,6 +139,7 @@
     "requirementSet": {
       "type": "object",
       "additionalProperties": false,
+      "minProperties": 1,
       "properties": {
         "approval_requirements": {
           "type": "array",
@@ -312,7 +313,60 @@
           "$ref": "#/$defs/requirementSet"
         }
       },
-      "description": "A lifecycle requirement. It cannot claim current state, state transition validity, atomicity, successful outcome, or committed event."
+      "allOf": [
+        {
+          "if": {
+            "required": ["requirements"],
+            "properties": {
+              "requirements": {
+                "required": ["approval_requirements"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "APPROVAL_REQUIRED_REQUEST"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["requirements"],
+            "properties": {
+              "requirements": {
+                "required": ["capability_requirements"],
+                "not": {
+                  "required": ["approval_requirements"]
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "CAPABILITY_REQUIRED_REQUEST"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "not": {
+              "required": ["requirements"]
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "RUNTIME_MUTATION_REQUEST"
+              }
+            }
+          }
+        }
+      ],
+      "description": "A lifecycle requirement. It cannot claim current state, state transition validity, atomicity, successful outcome, or committed event. When requirements are present, approval takes precedence over capability for the classification; when none are present, the lifecycle class is RUNTIME_MUTATION_REQUEST."
     },
     "operationRequirementDeclaration": {
       "type": "object",
@@ -355,7 +409,110 @@
           "$ref": "#/$defs/requirementSet"
         }
       },
-      "description": "A request profile only. It cannot invoke tools, evaluate source, issue network calls, mutate runtime state, or return an execution result."
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation_kind": {
+                "const": "provisional_reference"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "PROVISIONAL_UNEXECUTABLE"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["requirements"],
+            "properties": {
+              "operation_kind": {
+                "not": {
+                  "const": "provisional_reference"
+                }
+              },
+              "requirements": {
+                "required": ["approval_requirements"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "APPROVAL_REQUIRED_REQUEST"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["requirements"],
+            "properties": {
+              "operation_kind": {
+                "not": {
+                  "const": "provisional_reference"
+                }
+              },
+              "requirements": {
+                "required": ["capability_requirements"],
+                "not": {
+                  "required": ["approval_requirements"]
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "CAPABILITY_REQUIRED_REQUEST"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_kind": {
+                "enum": ["memory_read", "runtime_read"]
+              }
+            },
+            "not": {
+              "required": ["requirements"]
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "RUNTIME_READ"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "operation_kind": {
+                "enum": ["memory_mutation_request", "runtime_mutation_request"]
+              }
+            },
+            "not": {
+              "required": ["requirements"]
+            }
+          },
+          "then": {
+            "properties": {
+              "effect_class": {
+                "const": "RUNTIME_MUTATION_REQUEST"
+              }
+            }
+          }
+        }
+      ],
+      "description": "A request profile only. It cannot invoke tools, evaluate source, issue network calls, mutate runtime state, or return an execution result. Approval takes precedence over capability for the classification; provisional references are always PROVISIONAL_UNEXECUTABLE."
     },
     "declaration": {
       "oneOf": [
