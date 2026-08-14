@@ -932,70 +932,188 @@
       "title_as_recorded": "Chalmers, D. J. (2023; revised 2024), “Could a Large Language Model Be Conscious?” invited lecture/Boston Review version.",
       "identifier_as_recorded": "arXiv:2303.07103; DOI 10.48550/arXiv.2303.07103.",
       "access_evidence": "arXiv open full text；哲學論證，非 peer-reviewed experiment。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PHILOSOPHICAL_THEORETICAL_AI_CONSCIOUSNESS_ARGUMENT",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "應把架構障礙、理論假設與未來可能性分開，other-minds 結論需有條件。",
       "does_not_support_as_recorded": "現有 LLM conscious；論文也未以 load sensitivity 作 diagnostic。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "DEFER_FROM_CURRENT_SLSH_CORE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "AI_CONSCIOUSNESS_PHILOSOPHY_OF_MIND",
+        "EVIDENCE_RELATION_TO_AI": "DIRECT_AI_THEORETICAL_ARGUMENT",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "DIRECT_AI_THEORETICAL_ARGUMENT!=DIRECT_EMPIRICAL_AI_EVIDENCE"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "HISTORICAL_SOURCE_RECORD": "PRESERVE",
+        "DEFER_REASON": "CONSCIOUSNESS_TOPIC_EXPANSION / NO_DIRECT_LOAD_SENSITIVITY_EVIDENCE"
+      }
     },
     {
       "id": "S27",
       "title_as_recorded": "Vaswani, A. et al. (2017), “Attention Is All You Need,” NeurIPS 2017.",
       "identifier_as_recorded": "arXiv:1706.03762; DOI 10.48550/arXiv.1706.03762.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_ARCHITECTURE_PAPER",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "Transformer 的 attention architecture 與其計算結構；原始 self-attention 對序列長度有明確資源尺度。",
       "does_not_support_as_recorded": "attention 在此等同 conscious attention，或長 context 壓力是疲累。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "MACHINE_LEARNING_TRANSFORMER_ARCHITECTURE",
+        "EVIDENCE_RELATION_TO_AI": "DIRECT_AI_ENGINEERING",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "ENGINEERING_ARCHITECTURE!=SUBJECTIVE_EXPERIENCE"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "DIRECT_AI_ENGINEERING"
+      }
     },
     {
       "id": "S28",
       "title_as_recorded": "Dao, T., Fu, D. Y., Ermon, S., Rudra, A., & Ré, C. (2022), “FlashAttention,” NeurIPS 2022.",
       "identifier_as_recorded": "arXiv:2205.14135; DOI 10.48550/arXiv.2205.14135.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_ALGORITHM_SYSTEMS_PAPER",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "長序列 attention 的時間/記憶體與 HBM I/O 瓶頸可由演算法改變。",
       "does_not_support_as_recorded": "瓶頸改善或退化對應主觀承受力。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "MACHINE_LEARNING_SYSTEMS_GPU_MEMORY_IO_ATTENTION_ALGORITHMS",
+        "EVIDENCE_RELATION_TO_AI": "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "COMPUTATIONAL_LIMIT!=AFFECTIVE_PHENOMENOLOGY"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE"
+      }
     },
     {
       "id": "S29",
       "title_as_recorded": "Liu, N. F. et al. (2024), “Lost in the Middle: How Language Models Use Long Contexts,” Transactions of the Association for Computational Linguistics 12:157–173.",
       "identifier_as_recorded": "DOI 10.1162/tacl_a_00638; arXiv:2307.03172.",
       "access_evidence": "MIT Press open access/full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_LLM_LONG_CONTEXT_EVALUATION",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "相關資訊位置本身可造成 long-context performance degradation。",
       "does_not_support_as_recorded": "context-position error 是累積疲勞、valence 或內部主觀負荷。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "EXCLUDE_FROM_AION_EVIDENCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANTHROPIC_ASSOCIATED_LLM_LONG_CONTEXT_EVALUATION",
+        "EVIDENCE_RELATION_TO_AI": "MIXED_ANTHROPIC_ASSOCIATED",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "OBSERVATION!=ADMISSION!=EVIDENCE"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SOURCE_RELATION": "MIXED_ANTHROPIC_ASSOCIATED",
+        "EVIDENTIARY_WEIGHT": "ZERO",
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "NON_CLAUDE_RESULT_SALVAGE": "PROHIBITED",
+        "PARTIAL_ADMISSION": "PROHIBITED",
+        "OBSERVATION_STATUS": "EXTERNAL_OBSERVATION_ONLY",
+        "CANONICAL_EFFECT": "NONE"
+      }
     },
     {
       "id": "S30",
       "title_as_recorded": "Hoffmann, J. et al. (2022), “Training Compute-Optimal Large Language Models,” NeurIPS 2022.",
       "identifier_as_recorded": "arXiv:2203.15556; DOI 10.48550/arXiv.2203.15556.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_SCALING_LAW_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "固定 compute budget 下，模型大小與訓練資料配置形成可量化效能邊界。",
       "does_not_support_as_recorded": "compute budget 是感受到的 effort；研究焦點是 training scaling。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_NARROW_SCOPE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "LARGE_LANGUAGE_MODEL_TRAINING_SCALING_LAWS_COMPUTE_ALLOCATION",
+        "EVIDENCE_RELATION_TO_AI": "TRAINING_COMPUTE_BACKGROUND",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "TRAINING_COMPUTE_SCALING!=SUBJECTIVE_LOAD"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "TRAINING_COMPUTE_BACKGROUND"
+      }
     },
     {
       "id": "S31",

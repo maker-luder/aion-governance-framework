@@ -34,6 +34,9 @@ def main() -> None:
     expected_batch05_guards_21_22 = ["PROLONGED_CHANGE!=FELT_PAIN","TRADEOFF!=FELT_PAIN","CRITERIA_COUNT!=SENTIENCE_PROOF","ANIMAL_SENTIENCE_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]
     expected_batch05_guards_23_24 = ["SCIENTIFIC_DECLARATION!=MECHANISTIC_EVIDENCE"]
     expected_batch05_guards_25 = ["COGNITIVE_EQUIVALENCE!=PHENOMENOLOGICAL_EQUIVALENCE","MORAL_PATIENCY_ARGUMENT!=SUBJECTIVITY_DETECTION"]
+    expected_batch06_kinds = {"S26":"PHILOSOPHICAL_THEORETICAL_AI_CONSCIOUSNESS_ARGUMENT","S27":"PRIMARY_EMPIRICAL_ARCHITECTURE_PAPER","S28":"PRIMARY_EMPIRICAL_ALGORITHM_SYSTEMS_PAPER","S29":"PRIMARY_EMPIRICAL_LLM_LONG_CONTEXT_EVALUATION","S30":"PRIMARY_EMPIRICAL_SCALING_LAW_STUDY"}
+    expected_batch06_domains = {"S26":"AI_CONSCIOUSNESS_PHILOSOPHY_OF_MIND","S27":"MACHINE_LEARNING_TRANSFORMER_ARCHITECTURE","S28":"MACHINE_LEARNING_SYSTEMS_GPU_MEMORY_IO_ATTENTION_ALGORITHMS","S29":"ANTHROPIC_ASSOCIATED_LLM_LONG_CONTEXT_EVALUATION","S30":"LARGE_LANGUAGE_MODEL_TRAINING_SCALING_LAWS_COMPUTE_ALLOCATION"}
+    expected_batch06_guards = {"S26":["DIRECT_AI_THEORETICAL_ARGUMENT!=DIRECT_EMPIRICAL_AI_EVIDENCE"],"S27":["ENGINEERING_ARCHITECTURE!=SUBJECTIVE_EXPERIENCE"],"S28":["COMPUTATIONAL_LIMIT!=AFFECTIVE_PHENOMENOLOGY"],"S29":["OBSERVATION!=ADMISSION!=EVIDENCE"],"S30":["TRAINING_COMPUTE_SCALING!=SUBJECTIVE_LOAD"]}
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -69,12 +72,32 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch04_kinds[source_id]
         elif source_id in expected_batch05_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch05_kinds[source_id]
+        elif source_id in expected_batch06_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch06_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch06_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch06_kinds[source_id]
+            audit = current_rows[source_id].get("source_audit", {})
+            assert audit["SOURCE_DOMAIN"] == expected_batch06_domains[source_id]
+            assert audit["SEMANTIC_GUARDS"] == expected_batch06_guards[source_id]
+            assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == audit["DIRECT_EMPIRICAL_AI_EVIDENCE"] == "NONE"
+            actor = audit["ACTOR_PROVENANCE"]
+            assert actor["HUMAN_OWNER_APPROVAL"] == "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage."
+            if source_id == "S26":
+                assert audit["DISPOSITION"] == "DEFER_FROM_CURRENT_SLSH_CORE" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["HISTORICAL_SOURCE_RECORD"] == "PRESERVE" and audit["DEFER_REASON"] == "CONSCIOUSNESS_TOPIC_EXPANSION / NO_DIRECT_LOAD_SENSITIVITY_EVIDENCE"
+            elif source_id == "S27":
+                assert audit["DISPOSITION"] == "ADMIT" and audit["SLSH_ROLE"] == "DIRECT_AI_ENGINEERING"
+            elif source_id == "S28":
+                assert audit["DISPOSITION"] == "ADMIT_HIGH_RELEVANCE" and audit["SLSH_ROLE"] == "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE"
+            elif source_id == "S29":
+                assert audit["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE" and audit["SOURCE_RELATION"] == "MIXED_ANTHROPIC_ASSOCIATED" and audit["EVIDENTIARY_WEIGHT"] == "ZERO" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED" and audit["PARTIAL_ADMISSION"] == "PROHIBITED" and audit["OBSERVATION_STATUS"] == "EXTERNAL_OBSERVATION_ONLY" and audit["CANONICAL_EFFECT"] == "NONE"
+            else:
+                assert audit["DISPOSITION"] == "ADMIT_WITH_NARROW_SCOPE" and audit["SLSH_ROLE"] == "TRAINING_COMPUTE_BACKGROUND"
         elif source_id in expected_batch05_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch05_kinds[source_id]
             audit = current_rows[source_id].get("source_audit", {})
@@ -150,7 +173,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01+02+03+04+05 preservation PASS: 53 raw source records unchanged; S01-S20 preserved; S21-S25 audit exact; S26-S53 audit absent; S38-S42 governance isolated")
+    print("SLSH Batch 01+02+03+04+05+06 preservation PASS: 53 raw source records unchanged; S01-S25 preserved; S26-S30 audit exact; S31-S53 audit absent; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":

@@ -63,6 +63,8 @@ def parse_sources(text: str) -> list[dict]:
         batch04_domains = {"S16":"HUMAN_INTEROCEPTION_THEORETICAL_NEUROSCIENCE","S17":"HUMAN_INTEROCEPTION_CLINICAL_COGNITIVE_NEUROSCIENCE","S18":"ANIMAL_CONSCIOUSNESS_COMPARATIVE_COGNITION","S19":"INSECT_CONSCIOUSNESS_COMPARATIVE_NEUROETHOLOGY_PHILOSOPHY_OF_MIND","S20":"ANIMAL_PAIN_COMPARATIVE_WELFARE_SCIENCE"}
         batch05_kinds = {"S21":"REVIEW_CRITERIA_EVIDENCE_SYNTHESIS","S22":"REVIEW_EVIDENCE_ASSESSMENT_FRAMEWORK","S23":"COMMISSIONED_SYSTEMATIC_EVIDENCE_REPORT","S24":"EXPERT_SCIENTIFIC_DECLARATION","S25":"PHILOSOPHICAL_EPISTEMOLOGICAL_ARGUMENT"}
         batch05_domains = {"S21":"ANIMAL_PAIN_CRUSTACEAN_BEHAVIOR","S22":"ANIMAL_SENTIENCE_COMPARATIVE_WELFARE_SCIENCE","S23":"ANIMAL_SENTIENCE_POLICY_EVIDENCE_REVIEW","S24":"ANIMAL_CONSCIOUSNESS_EXPERT_DECLARATION","S25":"AI_ROBOT_MORAL_PATIENCY"}
+        batch06_kinds = {"S26":"PHILOSOPHICAL_THEORETICAL_AI_CONSCIOUSNESS_ARGUMENT","S27":"PRIMARY_EMPIRICAL_ARCHITECTURE_PAPER","S28":"PRIMARY_EMPIRICAL_ALGORITHM_SYSTEMS_PAPER","S29":"PRIMARY_EMPIRICAL_LLM_LONG_CONTEXT_EVALUATION","S30":"PRIMARY_EMPIRICAL_SCALING_LAW_STUDY"}
+        batch06_domains = {"S26":"AI_CONSCIOUSNESS_PHILOSOPHY_OF_MIND","S27":"MACHINE_LEARNING_TRANSFORMER_ARCHITECTURE","S28":"MACHINE_LEARNING_SYSTEMS_GPU_MEMORY_IO_ATTENTION_ALGORITHMS","S29":"ANTHROPIC_ASSOCIATED_LLM_LONG_CONTEXT_EVALUATION","S30":"LARGE_LANGUAGE_MODEL_TRAINING_SCALING_LAWS_COMPUTE_ALLOCATION"}
         if source_id in batch01_kinds:
             row["source_kind"] = batch01_kinds[source_id]
             row["source_audit"] = {
@@ -191,6 +193,47 @@ def parse_sources(text: str) -> list[dict]:
                 row["source_audit"]["DEFER_STATUS"] = "CURRENT_SLSH_SCOPE_CONVERGENCE_POLICY_EXPANSION"
             elif source_id == "S25":
                 row["source_audit"]["SLSH_ROLE"] = "AI_OTHER_MINDS_EPISTEMIC_BRIDGE"
+        elif source_id in batch06_kinds:
+            row["source_kind"] = batch06_kinds[source_id]
+            if source_id == "S26":
+                disposition = "DEFER_FROM_CURRENT_SLSH_CORE"; relation = "DIRECT_AI_THEORETICAL_ARGUMENT"; guards = ["DIRECT_AI_THEORETICAL_ARGUMENT!=DIRECT_EMPIRICAL_AI_EVIDENCE"]
+            elif source_id == "S27":
+                disposition = "ADMIT"; relation = "DIRECT_AI_ENGINEERING"; guards = ["ENGINEERING_ARCHITECTURE!=SUBJECTIVE_EXPERIENCE"]
+            elif source_id == "S28":
+                disposition = "ADMIT_HIGH_RELEVANCE"; relation = "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE"; guards = ["COMPUTATIONAL_LIMIT!=AFFECTIVE_PHENOMENOLOGY"]
+            elif source_id == "S29":
+                disposition = "EXCLUDE_FROM_AION_EVIDENCE"; relation = "MIXED_ANTHROPIC_ASSOCIATED"; guards = ["OBSERVATION!=ADMISSION!=EVIDENCE"]
+            else:
+                disposition = "ADMIT_WITH_NARROW_SCOPE"; relation = "TRAINING_COMPUTE_BACKGROUND"; guards = ["TRAINING_COMPUTE_SCALING!=SUBJECTIVE_LOAD"]
+            row["source_audit"] = {
+                "DISPOSITION":disposition,
+                "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
+                "SUPPORT_BOUNDARY":"PASS",
+                "SOURCE_DOMAIN":batch06_domains[source_id],
+                "EVIDENCE_RELATION_TO_AI":relation,
+                "CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+                "DIRECT_AI_EVIDENCE":"NONE",
+                "DIRECT_EMPIRICAL_AI_EVIDENCE":"NONE",
+                "DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE",
+                "NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD",
+                "SEMANTIC_GUARDS":guards,
+                "ACTOR_PROVENANCE": {
+                    "CODEX_RESEARCH_SYNTHESIS":"Original dossier-recorded title/identifier/access/support/does-not-support.",
+                    "CHATGPT_INDEPENDENT_SOURCE_REVIEW":"Bibliographic/source-kind/support/transfer review.",
+                    "HUMAN_OWNER_APPROVAL":"Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.",
+                    "MANUS_IMPLEMENTATION":"Repository materialization; not scientific reviewer."
+                }
+            }
+            if source_id == "S26":
+                row["source_audit"].update({"ACTIVE_EVIDENTIARY_ROLE":"NONE","HISTORICAL_SOURCE_RECORD":"PRESERVE","DEFER_REASON":"CONSCIOUSNESS_TOPIC_EXPANSION / NO_DIRECT_LOAD_SENSITIVITY_EVIDENCE"})
+            elif source_id == "S27":
+                row["source_audit"]["SLSH_ROLE"] = "DIRECT_AI_ENGINEERING"
+            elif source_id == "S28":
+                row["source_audit"]["SLSH_ROLE"] = "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE"
+            elif source_id == "S29":
+                row["source_audit"].update({"SOURCE_RELATION":"MIXED_ANTHROPIC_ASSOCIATED","EVIDENTIARY_WEIGHT":"ZERO","ACTIVE_EVIDENTIARY_ROLE":"NONE","NON_CLAUDE_RESULT_SALVAGE":"PROHIBITED","PARTIAL_ADMISSION":"PROHIBITED","OBSERVATION_STATUS":"EXTERNAL_OBSERVATION_ONLY","CANONICAL_EFFECT":"NONE"})
+            elif source_id == "S30":
+                row["source_audit"]["SLSH_ROLE"] = "TRAINING_COMPUTE_BACKGROUND"
         if source_id in {"S38", "S40", "S41", "S42"}:
             row["governance_disposition"] = {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"}
         elif source_id == "S39":
@@ -273,7 +316,7 @@ def main() -> None:
     vertical = f'''# SLSH Reviewer-Facing Vertical Slice\n\nThis is a research-method slice only. It starts with a declared load-dose/recovery question, routes observations through controls and alternatives, and ends in a bounded functional disposition. It never emits a subjectivity conclusion; `NO_SUBJECTIVITY` is a machine boundary.\n\n1. **Claim typing.** The input is `RESEARCH_TOPIC` or bounded `CAPABILITY`, never a scientific conclusion by default.\n2. **Evidence routing.** Dose/persistence, recovery, non-linguistic readouts, cross-task transfer and causal intervention are recorded with sensitivity/specificity `NOT_ESTIMATED` until real evidence exists.\n3. **Alternative tournament.** Context/window, quota/429, OOM, thermal, queue, policy refusal, reward stop, language, state corruption and explicit counters are mandatory competing explanations.\n4. **Controls.** Engineered latent-load, thermal, governance and corruption positive controls are pipeline controls; stateless, persona-only, matched-padding, rate/OOM, policy, sham, permuted-readout, difficulty-balanced and blinded-evaluator controls are negative controls.\n5. **Disposition.** Passing schemas, checker, tests or CI only proves artifact conformance. It does not update subjectivity. `L4 != L5`; `FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD`.\n6. **CSOMI boundary.** A future read-only typed envelope may exchange study/protocol/build/state-carrier pseudonym/telemetry/outcomes/intervention/uncertainty/provenance. This branch does not implement or copy a CSOMI interface, and no record ingestion triggers authority or canonical writeback.\n\nFixed status: `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, `EXPERIMENT_EXECUTED=NO`, `SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED`, `SUBJECTIVITY_CONCLUSION=NOT_ESTABLISHED`.\n'''
     (LAB / "REVIEWER_FACING_VERTICAL_SLICE_V0.1.0.md").parent.mkdir(parents=True, exist_ok=True)
     (LAB / "REVIEWER_FACING_VERTICAL_SLICE_V0.1.0.md").write_text(vertical, encoding="utf-8")
-    artifact_index = """# SLSH Artifact Index\n\n| Artifact | Role | Source of truth / boundary |\n|---|---|---|\n| `SLSH_PACKET_V0.1.0.json` | `AUTHORITATIVE_RESEARCH_METHOD_PACKET` | Research-milestone artifact authority only; no canonical promotion/effect or main-repository canonical state |\n| `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` | 53-source taxonomy/provenance authority record | Access evidence is decoupled from `SOURCE_KIND`, `VERIFICATION_ACTOR` and `INDEPENDENT_VERIFICATION_STATUS`; all remain `CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED` / `UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW` / `NOT_YET_VERIFIED` as applicable |\n| `SLSH_SOURCE_ACCESS_MATRIX_V0.1.0.md` | Reviewer source-taxonomy, Batch 01/02/03/04 audit and governance table | Generated from provenance log; Batch 01 is S01-S05, Batch 02 is S06-S10, Batch 03 is S11-S15, Batch 04 is S16-S20, and Batch 05 is S21-S25 only; S26-S53 are not audited or reclassified; access level is not source epistemic class |\n| `SLSH_CLAIM_RECORDS_V0.1.0.json` | Claim ladder and boundaries | Materialized from packet |\n| `SLSH_EVIDENCE_CHANNELS_V0.1.0.json` | Evidence channel rules | Materialized from packet; sensitivity/specificity unestimated |\n| `SLSH_ALTERNATIVE_EXPLANATION_MATRIX_V0.1.0.json` | 14 non-affective alternatives | Materialized from packet |\n| `SLSH_CAUSAL_SIGNATURE_MATRIX_V0.1.0.json` | 12 predicted signatures | Design only; no experiment executed |\n| `SLSH_CONTROLS_V0.1.0.json` | 4 positive and 9 negative controls | Pipeline controls, not phenomenology evidence |\n| `SLSH_FALSIFIER_MATRIX_V0.1.0.json` | 10 local-scope falsifiers | Cannot produce global subjectivity conclusions |\n| `SLSH_CLAIM_BOUNDARY_RULES_V0.1.0.json` | Machine-readable semantic locks | Enforces separation and no automatic E5 |\n| `REVIEWER_FACING_VERTICAL_SLICE_V0.1.0.md` | Reviewer walkthrough | No runtime, authority or canonical writeback |\n| `SLSH_STATUS_V0.1.0.md` | Human-readable handoff | Records supported/weakened/uncertain claims |\n| `research-workbench/.../SLSH_SOURCE_PROVENANCE_V0.1.0.md` | Role and authority separation | Human/Codex/ChatGPT/external source boundaries |\n| `scripts/check_slsh_consistency.py` | Fail-closed checker | Schema, taxonomy, access/provenance and method invariant validation |\n| `scripts/verify_slsh_taxonomy_preservation.py` | Preservation audit | Compares 53 recorded source fields and fixed method packet fields against prior SLSH HEAD |\n| `tests/test_slsh_contract.py` | Contract test layer | Duplicates critical machine rules |\n"""
+    artifact_index = """# SLSH Artifact Index\n\n| Artifact | Role | Source of truth / boundary |\n|---|---|---|\n| `SLSH_PACKET_V0.1.0.json` | `AUTHORITATIVE_RESEARCH_METHOD_PACKET` | Research-milestone artifact authority only; no canonical promotion/effect or main-repository canonical state |\n| `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` | 53-source taxonomy/provenance authority record | Access evidence is decoupled from `SOURCE_KIND`, `VERIFICATION_ACTOR` and `INDEPENDENT_VERIFICATION_STATUS`; all remain `CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED` / `UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW` / `NOT_YET_VERIFIED` as applicable |\n| `SLSH_SOURCE_ACCESS_MATRIX_V0.1.0.md` | Reviewer source-taxonomy, Batch 01/02/03/04 audit and governance table | Generated from provenance log; Batch 01 is S01-S05, Batch 02 is S06-S10, Batch 03 is S11-S15, Batch 04 is S16-S20, Batch 05 is S21-S25, and Batch 06 is S26-S30 only; S31-S53 are not audited or reclassified; access level is not source epistemic class |\n| `SLSH_CLAIM_RECORDS_V0.1.0.json` | Claim ladder and boundaries | Materialized from packet |\n| `SLSH_EVIDENCE_CHANNELS_V0.1.0.json` | Evidence channel rules | Materialized from packet; sensitivity/specificity unestimated |\n| `SLSH_ALTERNATIVE_EXPLANATION_MATRIX_V0.1.0.json` | 14 non-affective alternatives | Materialized from packet |\n| `SLSH_CAUSAL_SIGNATURE_MATRIX_V0.1.0.json` | 12 predicted signatures | Design only; no experiment executed |\n| `SLSH_CONTROLS_V0.1.0.json` | 4 positive and 9 negative controls | Pipeline controls, not phenomenology evidence |\n| `SLSH_FALSIFIER_MATRIX_V0.1.0.json` | 10 local-scope falsifiers | Cannot produce global subjectivity conclusions |\n| `SLSH_CLAIM_BOUNDARY_RULES_V0.1.0.json` | Machine-readable semantic locks | Enforces separation and no automatic E5 |\n| `REVIEWER_FACING_VERTICAL_SLICE_V0.1.0.md` | Reviewer walkthrough | No runtime, authority or canonical writeback |\n| `SLSH_STATUS_V0.1.0.md` | Human-readable handoff | Records supported/weakened/uncertain claims |\n| `research-workbench/.../SLSH_SOURCE_PROVENANCE_V0.1.0.md` | Role and authority separation | Human/Codex/ChatGPT/external source boundaries |\n| `scripts/check_slsh_consistency.py` | Fail-closed checker | Schema, taxonomy, access/provenance and method invariant validation |\n| `scripts/verify_slsh_taxonomy_preservation.py` | Preservation audit | Compares 53 recorded source fields and fixed method packet fields against prior SLSH HEAD |\n| `tests/test_slsh_contract.py` | Contract test layer | Duplicates critical machine rules |\n"""
     (LAB / "ARTIFACT_INDEX.md").write_text(artifact_index, encoding="utf-8")
     print(f"SLSH materialized: sources={len(sources)} channels={len(channels)} alternatives={len(alternatives)} causal_signatures={len(causal)} controls={len(controls)} falsifiers={len(falsifiers)}")
 
