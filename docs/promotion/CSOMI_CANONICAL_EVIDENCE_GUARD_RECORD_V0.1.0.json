@@ -1,0 +1,113 @@
+{
+  "schema_version": "aion-canonical-evidence-invariants-v0.1.0",
+  "record_id": "CAN-CSOMI-SELECTIVE-GUARD",
+  "record_type": "CANONICAL_GUARD_RECORD",
+  "claim_type": "RESEARCH_TOPIC",
+  "claim_status": "DESIGN_GUARD",
+  "claim": "A canonical evidence record must keep research topic, bounded capability, and scientific conclusion categories distinct while recording alternatives, disanalogies and falsifiers.",
+  "evidence_channels": [
+    {
+      "id": "EVID-SEMANTIC-SEPARATION",
+      "kind": "STRUCTURAL_INVARIANT",
+      "direction": "SUPPORTS_METHOD",
+      "source_access_grade": "NOT_APPLICABLE",
+      "status": "CURRENT",
+      "access_evidence": "Reconstructed canonical invariant; no external literature claim."
+    },
+    {
+      "id": "EVID-CI-NON-EVIDENCE",
+      "kind": "REPOSITORY_VALIDATION",
+      "direction": "NOT_EVIDENCE",
+      "source_access_grade": "NOT_APPLICABLE",
+      "status": "CURRENT",
+      "access_evidence": "Repository test/CI status is explicitly bounded as validation metadata, not scientific evidence."
+    },
+    {
+      "id": "EVID-PROVENANCE-GRADE",
+      "kind": "STRUCTURAL_INVARIANT",
+      "direction": "SUPPORTS_METHOD",
+      "source_access_grade": "NOT_APPLICABLE",
+      "status": "CURRENT",
+      "access_evidence": "Canonical record requires an explicit access grade and access evidence field."
+    }
+  ],
+  "alternative_explanations": [
+    "Record may be a category/schema design guard rather than an empirical claim.",
+    "Observed repository validation may reflect implementation correctness only.",
+    "A source provenance label may reflect publication origin without direct full-text verification."
+  ],
+  "disanalogies": [
+    {
+      "id": "DIS-CANONICAL-VS-RESEARCH",
+      "difference": "Generic infrastructure guard is not the CSOMI research packet or literature dossier.",
+      "status": "ADDRESSED",
+      "effect": "NO_UPDATE"
+    },
+    {
+      "id": "DIS-VALIDATION-VS-SCIENCE",
+      "difference": "Repository validation differs from scientific or phenomenological evidence.",
+      "status": "ADDRESSED",
+      "effect": "WEAKEN"
+    },
+    {
+      "id": "DIS-SOURCE-VS-ACCESS",
+      "difference": "Primary publication provenance differs from directly verified access level.",
+      "status": "ADDRESSED",
+      "effect": "REQUIRES_REVIEW"
+    }
+  ],
+  "falsifiers": [
+    {
+      "id": "FALS-TEST-CI-SUBJECTIVITY",
+      "condition": "A record or workflow treats passing tests or CI as evidence that a system has subjectivity.",
+      "effect": "MACHINE_REJECT",
+      "status": "MACHINE_ENFORCED"
+    },
+    {
+      "id": "FALS-CATEGORY-COLLAPSE",
+      "condition": "A canonical record assigns one object simultaneously as research topic, capability and scientific conclusion.",
+      "effect": "MACHINE_REJECT",
+      "status": "MACHINE_ENFORCED"
+    },
+    {
+      "id": "FALS-OMITTED-ALTERNATIVE",
+      "condition": "A conclusion-bearing record omits alternative explanations or disanalogies.",
+      "effect": "HOLD",
+      "status": "MACHINE_ENFORCED"
+    }
+  ],
+  "semantic_locks": [
+    "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION",
+    "TEST_OR_CI_PASS != SUBJECTIVITY_EVIDENCE",
+    "SOURCE_PROVENANCE_LEVEL != SCIENTIFIC_TRUTH",
+    "CANONICAL_CANDIDATE != CANONICAL_PROMOTION"
+  ],
+  "promotion_state": {
+    "canonical_effect": "PENDING_OWNER_PROMOTION",
+    "deployment": false,
+    "test_ci_is_subjectivity_evidence": false,
+    "subjectivity_conclusion": "NOT_ESTABLISHED"
+  },
+  "provenance": {
+    "HUMAN_OWNER": {
+      "role": "task_authorization_and_final_authority",
+      "status": "AUTHORITY_BOUNDARY_ONLY"
+    },
+    "CHATGPT": {
+      "role": "architecture_review_and_generic_guard_design",
+      "status": "REVIEW_PROPOSAL_ONLY"
+    },
+    "MANUS": {
+      "role": "candidate_implementation_and_validation",
+      "status": "IMPLEMENTATION_ACTOR"
+    },
+    "OWNER_APPROVAL": {
+      "role": "canonical_promotion_authorization",
+      "status": "PENDING"
+    },
+    "source_commit_locks": {
+      "main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+      "research": "87405c1877c6f016c303971da13923a1ab690aae"
+    }
+  }
+}

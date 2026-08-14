@@ -1,0 +1,153 @@
+{
+  "schema_version": "aion-selective-promotion-inventory-v0.1.0",
+  "milestone": "CSOMI selective canonical candidate",
+  "candidate_branch": "promotion/csomi-selective-canonical-20260814",
+  "candidate_base": {
+    "ref": "main",
+    "sha": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+    "authority": "HUMAN_OWNER_AUTHORIZED_READ_ONLY_BASELINE"
+  },
+  "research_source": {
+    "ref": "research/cross-substrate-other-minds-inference-20260814",
+    "sha": "87405c1877c6f016c303971da13923a1ab690aae",
+    "authority": "READ_ONLY_RESEARCH_SOURCE",
+    "transfer_mode": "RECONSTRUCTED_NOT_COPIED_OR_CHERRY_PICKED"
+  },
+  "promotion_state": {
+    "canonical_effect": "PENDING_OWNER_PROMOTION",
+    "deployment": false,
+    "topics_applied": false,
+    "main_merge": "PROHIBITED",
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "consciousness_conclusion": "NOT_ESTABLISHED",
+    "identity_continuity_conclusion": "NOT_ESTABLISHED",
+    "review_state": "READY_FOR_CHATGPT_PROMOTION_REVIEW",
+    "owner_approval": "PENDING"
+  },
+  "semantic_locks": [
+    "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION",
+    "TEST_OR_CI_PASS != SUBJECTIVITY_EVIDENCE",
+    "SOURCE_PROVENANCE_LEVEL != SCIENTIFIC_TRUTH",
+    "CANONICAL_CANDIDATE != CANONICAL_PROMOTION"
+  ],
+  "provenance": {
+    "HUMAN_OWNER": {
+      "role": "task_authorization_and_final_authority",
+      "status": "AUTHORITY_BOUNDARY_ONLY"
+    },
+    "CHATGPT": {
+      "role": "architecture_review_and_selective_promotion_design",
+      "status": "REVIEW_PROPOSAL_ONLY"
+    },
+    "MANUS": {
+      "role": "implementation_and_validation",
+      "status": "IMPLEMENTATION_ACTOR"
+    },
+    "OWNER_APPROVAL": {
+      "role": "final_promotion_authorization",
+      "status": "PENDING"
+    }
+  },
+  "inventory": [
+    {
+      "id": "PROM-001",
+      "decision": "INCLUDE",
+      "promotion_unit": "semantic-separation-guard",
+      "canonical_surface": "schema_and_consistency_rule",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "CSOMI_STATUS_V0.1.0.md"],
+      "reconstruction": "generic invariant only; no CSOMI claim rows or literature content",
+      "rationale": "A general boundary prevents a research question, bounded capability, or scientific conclusion from being silently treated as the same object.",
+      "non_claims": ["does_not_establish_subjectivity", "does_not_establish_consciousness", "does_not_grant_runtime_authority"],
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-002",
+      "decision": "INCLUDE",
+      "promotion_unit": "test-ci-non-evidence-guard",
+      "canonical_surface": "machine-checkable consistency rule and unit test",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "CSOMI_FALSIFIER_MATRIX_V0.1.0.json"],
+      "reconstruction": "generic guard rejecting test or CI success as scientific evidence",
+      "rationale": "Repository validation status must not be promoted into a claim about subjectivity or other scientific ontology.",
+      "non_claims": ["does_not_disable_ci", "does_not_assess_consciousness", "does_not_modify_runtime"],
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-003",
+      "decision": "INCLUDE",
+      "promotion_unit": "source-access-provenance-grading",
+      "canonical_surface": "generic provenance schema and validator",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "PRIMARY_SOURCE_FINDINGS.md"],
+      "reconstruction": "generic source-access enum and required access-evidence field; no literature rows or claims",
+      "rationale": "A canonical evidence record needs to distinguish source provenance from the level actually accessed and verified.",
+      "non_claims": ["does_not_promote_primary-source-label_to_full-text-verification", "does_not_establish_truth", "does_not_import_external_literature"],
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-004",
+      "decision": "INCLUDE",
+      "promotion_unit": "claim-evidence-alternative-disanalogy-falsifier-consistency",
+      "canonical_surface": "generic claim/evidence record schema and contract test",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "CSOMI_EVIDENCE_MATRIX_V0.1.0.json", "CSOMI_DISANALOGY_MATRIX_V0.1.0.json", "CSOMI_FALSIFIER_MATRIX_V0.1.0.json"],
+      "reconstruction": "generic structure requiring explicit alternatives, transfer/disanalogy status and falsifier disposition; no CSOMI fixtures or scientific claims",
+      "rationale": "Evidence records are safer when competing explanations and disanalogies cannot be omitted by construction.",
+      "non_claims": ["does_not_infer_subjectivity", "does_not_require_or_run_experiments", "does_not_make_scientific_conclusions"],
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-005",
+      "decision": "OWNER_REVIEW",
+      "promotion_unit": "canonical-path-version-and-main-integration",
+      "canonical_surface": "future repository integration decision",
+      "source_research_artifacts": ["CSOMI_FINAL_HANDOFF_V0.1.0.md"],
+      "reconstruction": "none in this candidate; candidate remains isolated",
+      "rationale": "Naming, version placement, maintainer ownership and integration into main require Human Owner review.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-006",
+      "decision": "OWNER_REVIEW",
+      "promotion_unit": "scientific-conclusion-or-public-positioning-policy",
+      "canonical_surface": "future governance decision",
+      "source_research_artifacts": ["CSOMI_PACKET_V0.1.0.json", "CSOMI_FINAL_HANDOFF_V0.1.0.md"],
+      "reconstruction": "none; candidate preserves NOT_ESTABLISHED",
+      "rationale": "Any policy that changes how subjectivity, consciousness or identity claims are publicly positioned requires explicit authority and evidence review.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    },
+    {
+      "id": "PROM-007",
+      "decision": "OWNER_REVIEW",
+      "promotion_unit": "canonical-promotion-release-deployment-or-topics",
+      "canonical_surface": "future authority gate",
+      "source_research_artifacts": ["CSOMI_FINAL_HANDOFF_V0.1.0.md"],
+      "reconstruction": "none; all effects remain disabled",
+      "rationale": "Promotion, release, deployment, Topics and main merge are explicitly outside this candidate implementation.",
+      "provenance_refs": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "source_commit_locks": {"main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94", "research": "87405c1877c6f016c303971da13923a1ab690aae"}
+    }
+  ],
+  "excluded_research_artifacts": [
+    "literature_dossier_and_primary_source_findings",
+    "CSOMI_FINAL_HANDOFF",
+    "research_specific_workflow",
+    "synthetic_positive_negative_controls",
+    "reviewer_facing_vertical_slice",
+    "unexecuted_experiment_or_preregistration",
+    "individual_literature_scientific_dispositions",
+    "subjectivity_consciousness_identity_continuity_claims",
+    "CSOMI_research_packet_claim_rows",
+    "CSOMI_research_matrices_as_canonical_data",
+    "runtime_or_model_changes",
+    "deployment_release_topics_or_main_merge"
+  ],
+  "review_gate": {
+    "ready_for_chatgpt_promotion_review": true,
+    "owner_decision_required": true,
+    "canonical_effect": "PENDING_OWNER_PROMOTION"
+  }
+}

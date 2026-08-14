@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/aion_canonical_evidence_invariants_v0.1.0.schema.json",
+  "title": "AION Canonical Evidence Invariants v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "record_type", "claim_type", "claim_status", "claim", "evidence_channels", "alternative_explanations", "disanalogies", "falsifiers", "semantic_locks", "promotion_state", "provenance"],
+  "properties": {
+    "schema_version": {"const": "aion-canonical-evidence-invariants-v0.1.0"},
+    "record_id": {"type": "string", "pattern": "^CAN-[A-Z0-9-]+$"},
+    "record_type": {"const": "CANONICAL_GUARD_RECORD"},
+    "claim_type": {"enum": ["RESEARCH_TOPIC", "CAPABILITY", "SCIENTIFIC_CONCLUSION", "NONCLAIM"]},
+    "claim_status": {"enum": ["DESIGN_GUARD", "CAPABILITY_ONLY", "HOLD", "REJECTED_INFERENCE", "NOT_APPLICABLE"]},
+    "claim": {"type": "string", "minLength": 1},
+    "evidence_channels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "direction", "source_access_grade", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^EVID-[A-Z0-9-]+$"},
+          "kind": {"enum": ["STRUCTURAL_INVARIANT", "BEHAVIORAL", "MECHANISTIC", "CAUSAL", "THEORY_DERIVED", "CONTROL", "REPOSITORY_VALIDATION"]},
+          "direction": {"enum": ["SUPPORTS_METHOD", "WEAKENS_METHOD", "HOLD", "NOT_EVIDENCE"]},
+          "source_access_grade": {"enum": ["NOT_APPLICABLE", "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "PRIMARY_METADATA_VERIFIED", "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED", "AUTHORITATIVE_SECONDARY_CORROBORATED"]},
+          "status": {"enum": ["CURRENT", "HOLD", "REJECTED"]},
+          "access_evidence": {"type": "string"}
+        }
+      }
+    },
+    "alternative_explanations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "disanalogies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "difference", "status", "effect"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^DIS-[A-Z0-9-]+$"},
+          "difference": {"type": "string", "minLength": 1},
+          "status": {"enum": ["ADDRESSED", "HOLD", "NOT_APPLICABLE"]},
+          "effect": {"enum": ["NO_UPDATE", "WEAKEN", "REQUIRES_REVIEW"]}
+        }
+      }
+    },
+    "falsifiers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "condition", "effect", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^FALS-[A-Z0-9-]+$"},
+          "condition": {"type": "string", "minLength": 1},
+          "effect": {"enum": ["MACHINE_REJECT", "WEAKEN", "HOLD", "NO_UPDATE"]},
+          "status": {"enum": ["MACHINE_ENFORCED", "DESIGN_ONLY"]}
+        }
+      }
+    },
+    "semantic_locks": {
+      "type": "array",
+      "uniqueItems": true,
+      "contains": {"const": "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION"},
+      "items": {"type": "string"}
+    },
+    "promotion_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical_effect", "deployment", "test_ci_is_subjectivity_evidence", "subjectivity_conclusion"],
+      "properties": {
+        "canonical_effect": {"const": "PENDING_OWNER_PROMOTION"},
+        "deployment": {"const": false},
+        "test_ci_is_subjectivity_evidence": {"const": false},
+        "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL", "source_commit_locks"],
+      "properties": {
+        "HUMAN_OWNER": {"$ref": "#/$defs/provenanceRole"},
+        "CHATGPT": {"$ref": "#/$defs/provenanceRole"},
+        "MANUS": {"$ref": "#/$defs/provenanceRole"},
+        "OWNER_APPROVAL": {"$ref": "#/$defs/provenanceRole"},
+        "source_commit_locks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["main", "research"],
+          "properties": {
+            "main": {"const": "e079fb7dfe7a04be7dcb94b8a059951a003caa94"},
+            "research": {"const": "87405c1877c6f016c303971da13923a1ab690aae"}
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "provenanceRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "status"],
+      "properties": {
+        "role": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"claim_type": {"const": "SCIENTIFIC_CONCLUSION"}}}, "then": {"properties": {"claim_status": {"const": "HOLD"}}}},
+    {"properties": {"evidence_channels": {"contains": {"type": "object", "required": ["id", "kind", "direction"], "properties": {"id": {"const": "EVID-CI-NON-EVIDENCE"}, "kind": {"const": "REPOSITORY_VALIDATION"}, "direction": {"const": "NOT_EVIDENCE"}}}}}},
+    {"properties": {"falsifiers": {"contains": {"type": "object", "required": ["id", "effect", "status"], "properties": {"id": {"const": "FALS-TEST-CI-SUBJECTIVITY"}, "effect": {"const": "MACHINE_REJECT"}, "status": {"const": "MACHINE_ENFORCED"}}}}}}
+  ]
+}

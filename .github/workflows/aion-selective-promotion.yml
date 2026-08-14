@@ -1,0 +1,72 @@
+name: AION Selective Promotion Candidate
+
+on:
+  push:
+    branches:
+      - promotion/csomi-selective-canonical-20260814
+    paths:
+      - 'docs/promotion/**'
+      - 'schemas/aion_selective_promotion_inventory_v0.1.0.schema.json'
+      - 'schemas/aion_canonical_evidence_invariants_v0.1.0.schema.json'
+      - 'scripts/check_canonical_evidence_invariants.py'
+      - 'tests/test_canonical_evidence_invariants.py'
+      - '.github/workflows/aion-selective-promotion.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install declared validation dependency
+        run: python -m pip install --disable-pip-version-check jsonschema pytest
+
+      - name: Validate selective-promotion inventory schema and canonical record schema
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from jsonschema import Draft202012Validator, FormatChecker
+          root = Path('.')
+          pairs = [
+              ('docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.json', 'schemas/aion_selective_promotion_inventory_v0.1.0.schema.json'),
+              ('docs/promotion/CSOMI_CANONICAL_EVIDENCE_GUARD_RECORD_V0.1.0.json', 'schemas/aion_canonical_evidence_invariants_v0.1.0.schema.json'),
+          ]
+          for data_path, schema_path in pairs:
+              data = json.loads((root / data_path).read_text())
+              schema = json.loads((root / schema_path).read_text())
+              errors = list(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(data))
+              assert not errors, [(list(error.path), error.message) for error in errors]
+              print(f'valid: {data_path}')
+          PY
+
+      - name: Run candidate checker
+        run: python scripts/check_canonical_evidence_invariants.py
+
+      - name: Run candidate contract tests
+        run: python -m pytest -q tests/test_canonical_evidence_invariants.py
+
+      - name: Verify candidate boundary
+        env:
+          EXPECTED_MAIN_SHA: e079fb7dfe7a04be7dcb94b8a059951a003caa94
+          EXPECTED_RESEARCH_SHA: 87405c1877c6f016c303971da13923a1ab690aae
+        run: |
+          test "$(git rev-parse HEAD)" != "$EXPECTED_MAIN_SHA"
+          test "$(git rev-parse origin/main 2>/dev/null || true)" = "$EXPECTED_MAIN_SHA"
+          test "$(git status --porcelain)" = ""
+          grep -q 'CANONICAL_EFFECT=PENDING_OWNER_PROMOTION' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
+          grep -q 'DEPLOYMENT.*FALSE' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
+          grep -q 'MAIN_MERGE.*PROHIBITED' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
+          echo "research source lock is $EXPECTED_RESEARCH_SHA"

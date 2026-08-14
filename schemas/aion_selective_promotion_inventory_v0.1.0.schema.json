@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/aion_selective_promotion_inventory_v0.1.0.schema.json",
+  "title": "AION Selective Promotion Inventory v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "milestone", "candidate_branch", "candidate_base", "research_source", "promotion_state", "semantic_locks", "provenance", "inventory", "excluded_research_artifacts", "review_gate"],
+  "properties": {
+    "schema_version": {"const": "aion-selective-promotion-inventory-v0.1.0"},
+    "milestone": {"const": "CSOMI selective canonical candidate"},
+    "candidate_branch": {"const": "promotion/csomi-selective-canonical-20260814"},
+    "candidate_base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "sha", "authority"],
+      "properties": {
+        "ref": {"const": "main"},
+        "sha": {"const": "e079fb7dfe7a04be7dcb94b8a059951a003caa94"},
+        "authority": {"const": "HUMAN_OWNER_AUTHORIZED_READ_ONLY_BASELINE"}
+      }
+    },
+    "research_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ref", "sha", "authority", "transfer_mode"],
+      "properties": {
+        "ref": {"const": "research/cross-substrate-other-minds-inference-20260814"},
+        "sha": {"const": "87405c1877c6f016c303971da13923a1ab690aae"},
+        "authority": {"const": "READ_ONLY_RESEARCH_SOURCE"},
+        "transfer_mode": {"const": "RECONSTRUCTED_NOT_COPIED_OR_CHERRY_PICKED"}
+      }
+    },
+    "promotion_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical_effect", "deployment", "topics_applied", "main_merge", "subjectivity_conclusion", "consciousness_conclusion", "identity_continuity_conclusion", "review_state", "owner_approval"],
+      "properties": {
+        "canonical_effect": {"const": "PENDING_OWNER_PROMOTION"},
+        "deployment": {"const": false},
+        "topics_applied": {"const": false},
+        "main_merge": {"const": "PROHIBITED"},
+        "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+        "consciousness_conclusion": {"const": "NOT_ESTABLISHED"},
+        "identity_continuity_conclusion": {"const": "NOT_ESTABLISHED"},
+        "review_state": {"const": "READY_FOR_CHATGPT_PROMOTION_REVIEW"},
+        "owner_approval": {"const": "PENDING"}
+      }
+    },
+    "semantic_locks": {
+      "type": "array",
+      "uniqueItems": true,
+      "contains": {"const": "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION"},
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"],
+      "properties": {
+        "HUMAN_OWNER": {"$ref": "#/$defs/provenanceRole"},
+        "CHATGPT": {"$ref": "#/$defs/provenanceRole"},
+        "MANUS": {"$ref": "#/$defs/provenanceRole"},
+        "OWNER_APPROVAL": {"$ref": "#/$defs/provenanceRole"}
+      }
+    },
+    "inventory": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "decision", "promotion_unit", "canonical_surface", "source_research_artifacts", "reconstruction", "rationale", "provenance_refs", "source_commit_locks"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^PROM-[0-9]{3}$"},
+          "decision": {"enum": ["INCLUDE", "EXCLUDE", "OWNER_REVIEW"]},
+          "promotion_unit": {"type": "string", "minLength": 1},
+          "canonical_surface": {"type": "string", "minLength": 1},
+          "source_research_artifacts": {"type": "array", "items": {"type": "string"}},
+          "reconstruction": {"type": "string", "minLength": 1},
+          "rationale": {"type": "string", "minLength": 1},
+          "non_claims": {"type": "array", "items": {"type": "string"}},
+          "provenance_refs": {"type": "array", "uniqueItems": true, "contains": {"const": "HUMAN_OWNER"}, "items": {"enum": ["HUMAN_OWNER", "CHATGPT", "MANUS", "OWNER_APPROVAL"]}},
+          "source_commit_locks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["main", "research"],
+            "properties": {
+              "main": {"const": "e079fb7dfe7a04be7dcb94b8a059951a003caa94"},
+              "research": {"const": "87405c1877c6f016c303971da13923a1ab690aae"}
+            }
+          }
+        }
+      }
+    },
+    "excluded_research_artifacts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "review_gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ready_for_chatgpt_promotion_review", "owner_decision_required", "canonical_effect"],
+      "properties": {
+        "ready_for_chatgpt_promotion_review": {"const": true},
+        "owner_decision_required": {"const": true},
+        "canonical_effect": {"const": "PENDING_OWNER_PROMOTION"}
+      }
+    }
+  },
+  "$defs": {
+    "provenanceRole": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "status"],
+      "properties": {
+        "role": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "allOf": [
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-001"}, "decision": {"const": "INCLUDE"}, "promotion_unit": {"const": "semantic-separation-guard"}}}}}},
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-002"}, "decision": {"const": "INCLUDE"}, "promotion_unit": {"const": "test-ci-non-evidence-guard"}}}}}},
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-003"}, "decision": {"const": "INCLUDE"}, "promotion_unit": {"const": "source-access-provenance-grading"}}}}}},
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-004"}, "decision": {"const": "INCLUDE"}, "promotion_unit": {"const": "claim-evidence-alternative-disanalogy-falsifier-consistency"}}}}}},
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-005"}, "decision": {"const": "OWNER_REVIEW"}, "promotion_unit": {"const": "canonical-path-version-and-main-integration"}}}}}},
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-006"}, "decision": {"const": "OWNER_REVIEW"}, "promotion_unit": {"const": "scientific-conclusion-or-public-positioning-policy"}}}}}},
+    {"properties": {"inventory": {"contains": {"type": "object", "required": ["id", "decision", "promotion_unit"], "properties": {"id": {"const": "PROM-007"}, "decision": {"const": "OWNER_REVIEW"}, "promotion_unit": {"const": "canonical-promotion-release-deployment-or-topics"}}}}}}
+  ]
+}
