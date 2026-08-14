@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import sqlite3
+
 import pytest
 
 from aion_memory_recall.models import RecallRequest
-from aion_memory_recall.store import MemoryWriteDenied, SQLiteMemoryStore
+from aion_memory_recall.store import MemoryRecordCorruption, MemoryWriteDenied, SQLiteMemoryStore
 
 
 def request() -> RecallRequest:
@@ -57,6 +59,43 @@ def test_verified_memory_persists_and_recalls(tmp_path):
     recalled = reopened.recall(request())
     assert [item.memory_id for item in recalled] == ["m1"]
     assert recalled[0].content == "Astra runtime decision"
+
+
+@pytest.mark.parametrize(
+    ("column", "value", "message"),
+    [
+        ("entities_json", "not-json", "JSON"),
+        ("provenance_verified", 2, "flag"),
+        ("canonical_effect", "PROMOTED", "canonical_effect"),
+    ],
+)
+def test_malformed_persisted_memory_fails_closed(tmp_path, column, value, message):
+    path = tmp_path / "memory.sqlite3"
+    store = SQLiteMemoryStore(path)
+    store.write(
+        memory_id="m1",
+        namespace="private",
+        user_id="user-1",
+        agent_id="AION",
+        content="candidate",
+        entities={"Astra"},
+        topics={"runtime"},
+        access_scope={"project"},
+        provenance_source="test",
+        provenance_verified=True,
+        writeback_approved=True,
+    )
+    with sqlite3.connect(path) as connection:
+        connection.execute("PRAGMA ignore_check_constraints = ON")
+        connection.execute(
+            f"UPDATE memory_records SET {column} = ? WHERE memory_id = ?",
+            (value, "m1"),
+        )
+
+    with pytest.raises(MemoryRecordCorruption, match=message):
+        store.get("m1")
+    with pytest.raises(MemoryRecordCorruption, match=message):
+        store.recall(request())
 
 
 def test_unverified_conflicted_tombstoned_or_superseded_memory_is_not_recalled(tmp_path):

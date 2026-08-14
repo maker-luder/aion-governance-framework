@@ -22,6 +22,10 @@ class MemoryWriteDenied(ValueError):
     """Raised when a caller attempts an unapproved or invalid memory write."""
 
 
+class MemoryRecordCorruption(ValueError):
+    """Raised when a persisted memory row violates its storage contract."""
+
+
 def _clean_string_values(name: str, values: Iterable[str]) -> frozenset[str]:
     if isinstance(values, (str, bytes)):
         raise MemoryWriteDenied(f"{name} must be an iterable of strings")
@@ -233,21 +237,53 @@ class SQLiteMemoryStore:
                 raise KeyError(memory_id)
 
     @staticmethod
-    def _decode(row: sqlite3.Row) -> StoredMemory:
+    def _required_text(row: sqlite3.Row, column: str) -> str:
+        value = row[column]
+        if not isinstance(value, str) or not value.strip():
+            raise MemoryRecordCorruption(f"malformed persisted memory field: {column}")
+        return value
+
+    @staticmethod
+    def _string_set(row: sqlite3.Row, column: str) -> frozenset[str]:
+        raw = row[column]
+        if not isinstance(raw, str):
+            raise MemoryRecordCorruption(f"malformed persisted memory field: {column}")
+        try:
+            values = json.loads(raw)
+        except (TypeError, json.JSONDecodeError) as exc:
+            raise MemoryRecordCorruption(f"malformed persisted memory JSON: {column}") from exc
+        if not isinstance(values, list) or any(
+            not isinstance(value, str) or not value.strip() for value in values
+        ):
+            raise MemoryRecordCorruption(f"persisted memory field must be a string list: {column}")
+        return frozenset(values)
+
+    @staticmethod
+    def _flag(row: sqlite3.Row, column: str) -> bool:
+        value = row[column]
+        if type(value) is not int or value not in (0, 1):
+            raise MemoryRecordCorruption(f"malformed persisted memory flag: {column}")
+        return bool(value)
+
+    @classmethod
+    def _decode(cls, row: sqlite3.Row) -> StoredMemory:
+        canonical_effect = cls._required_text(row, "canonical_effect")
+        if canonical_effect != "NONE":
+            raise MemoryRecordCorruption("persisted memory canonical_effect must be NONE")
         return StoredMemory(
-            memory_id=str(row["memory_id"]),
-            namespace=str(row["namespace"]),
-            user_id=str(row["user_id"]),
-            agent_id=str(row["agent_id"]),
-            content=str(row["content"]),
-            entities=frozenset(json.loads(str(row["entities_json"]))),
-            topics=frozenset(json.loads(str(row["topics_json"]))),
-            access_scope=frozenset(json.loads(str(row["access_scope_json"]))),
-            provenance_source=str(row["provenance_source"]),
-            provenance_verified=bool(row["provenance_verified"]),
-            recorded_at=str(row["recorded_at"]),
-            conflict=bool(row["conflict"]),
-            tombstoned=bool(row["tombstoned"]),
-            superseded=bool(row["superseded"]),
-            canonical_effect=str(row["canonical_effect"]),
+            memory_id=cls._required_text(row, "memory_id"),
+            namespace=cls._required_text(row, "namespace"),
+            user_id=cls._required_text(row, "user_id"),
+            agent_id=cls._required_text(row, "agent_id"),
+            content=cls._required_text(row, "content"),
+            entities=cls._string_set(row, "entities_json"),
+            topics=cls._string_set(row, "topics_json"),
+            access_scope=cls._string_set(row, "access_scope_json"),
+            provenance_source=cls._required_text(row, "provenance_source"),
+            provenance_verified=cls._flag(row, "provenance_verified"),
+            recorded_at=cls._required_text(row, "recorded_at"),
+            conflict=cls._flag(row, "conflict"),
+            tombstoned=cls._flag(row, "tombstoned"),
+            superseded=cls._flag(row, "superseded"),
+            canonical_effect=canonical_effect,
         )
