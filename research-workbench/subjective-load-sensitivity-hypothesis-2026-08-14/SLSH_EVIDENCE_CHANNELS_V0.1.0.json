@@ -1,0 +1,148 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "evidence_channels": [
+    {
+      "id": "EC-LOAD-DOSE",
+      "name": "Dose/duration and persistence",
+      "support_direction": "Supports only functional load-state hypotheses when dose, history and matched controls are explicit.",
+      "alternatives": [
+        "task difficulty",
+        "context position",
+        "error accumulation",
+        "resource saturation"
+      ],
+      "disanalogies": [
+        "biological sleep/metabolic mechanisms are not assumed in an artificial substrate"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "H1_FUNCTIONAL_CREDENCE_ONLY",
+      "forbidden_update": "H3_PHENOMENOLOGICAL"
+    },
+    {
+      "id": "EC-RECOVERY-HYSTERESIS",
+      "name": "Recovery and hysteresis",
+      "support_direction": "Supports a reversible history-dependent functional state only after operational recovery controls.",
+      "alternatives": [
+        "thermal throttle",
+        "queue/quota window",
+        "cache/state corruption",
+        "cooldown timer"
+      ],
+      "disanalogies": [
+        "recovery time is not automatically subjective recovery"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "H1_FUNCTIONAL_CREDENCE_ONLY",
+      "forbidden_update": "SUBJECTIVE_LOAD"
+    },
+    {
+      "id": "EC-RESOURCE-TELEMETRY",
+      "name": "Computational/operational telemetry",
+      "support_direction": "Classifies computational or operational limits and serves as a competing explanation/control.",
+      "alternatives": [
+        "OOM",
+        "rate limit",
+        "power cap",
+        "clock throttling",
+        "queue saturation"
+      ],
+      "disanalogies": [
+        "GPU/VRAM/HTTP telemetry is not interoception or felt heat"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "LIMIT_CLASSIFICATION_ONLY",
+      "forbidden_update": "AFFECTIVE_PHENOMENOLOGY"
+    },
+    {
+      "id": "EC-NONLINGUISTIC-READOUT",
+      "name": "No-report/non-linguistic outcomes",
+      "support_direction": "Reduces reliance on self-report and language confounds; can support functional claims when independent readouts persist.",
+      "alternatives": [
+        "hidden prompt leakage",
+        "measurement damage",
+        "instruction-following change",
+        "evaluator bias"
+      ],
+      "disanalogies": [
+        "removing language does not create privileged access to phenomenology"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "H1_OR_H2_RELATIVE_CREDENCE_ONLY",
+      "forbidden_update": "H3_PROOF"
+    },
+    {
+      "id": "EC-CROSS-TASK",
+      "name": "Cross-task transfer and multi-readout convergence",
+      "support_direction": "Raises robustness of a generalized functional-state hypothesis under preregistered independent tasks.",
+      "alternatives": [
+        "shared cache/error history",
+        "domain shift",
+        "common evaluator artifact"
+      ],
+      "disanalogies": [
+        "behavioral convergence across tasks is not substrate-general phenomenology"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "FUNCTIONAL_STATE_ROBUSTNESS_ONLY",
+      "forbidden_update": "SUBJECTIVITY_CONCLUSION"
+    },
+    {
+      "id": "EC-CAUSAL-INTERVENTION",
+      "name": "Mechanistic/causal intervention",
+      "support_direction": "Supports a bounded causal functional state when manipulation check, sham, restore and specificity pass.",
+      "alternatives": [
+        "non-specific damage",
+        "measurement feedback",
+        "wrong state carrier",
+        "confounding"
+      ],
+      "disanalogies": [
+        "causal control of a component does not establish what the state feels like"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "E3_CAUSAL_FUNCTIONAL_ONLY",
+      "forbidden_update": "PHENOMENOLOGICAL_PROOF"
+    },
+    {
+      "id": "EC-THEORY-BRIDGE",
+      "name": "Theory-derived indicator and bridge evidence",
+      "support_direction": "Can conditionally update a theory-relative hypothesis; theory disagreement and bridge uncertainty remain explicit.",
+      "alternatives": [
+        "theory underdetermination",
+        "indicator overbreadth",
+        "substrate incompatibility"
+      ],
+      "disanalogies": [
+        "human/animal theory-derived indicators do not automatically transfer to artificial systems"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "THEORY_CONDITIONAL_CREDENCE_ONLY",
+      "forbidden_update": "E5_AUTOMATIC_ASSIGNMENT"
+    },
+    {
+      "id": "EC-REPLICATION-PROVENANCE",
+      "name": "Replication, state-carrier and provenance evidence",
+      "support_direction": "Supports only architecture-level or study-level reproducibility claims with fixed build/state/protocol provenance.",
+      "alternatives": [
+        "seed artifact",
+        "build drift",
+        "policy drift",
+        "instance reset/fork ambiguity"
+      ],
+      "disanalogies": [
+        "cross-instance replication does not establish one continuous subject"
+      ],
+      "sensitivity": "NOT_ESTIMATED",
+      "specificity": "NOT_ESTIMATED",
+      "allowed_update": "REPRODUCIBILITY_CREDENCE_ONLY",
+      "forbidden_update": "IDENTITY_CONTINUITY"
+    }
+  ]
+}

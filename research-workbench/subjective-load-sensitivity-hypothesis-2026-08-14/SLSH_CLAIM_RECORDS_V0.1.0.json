@@ -1,0 +1,46 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "claim_records": [
+    {
+      "id": "CLM-SLSH-001",
+      "claim_type": "RESEARCH_TOPIC",
+      "claim": "When can load-like evidence rationally update an inference about another system's mind or subjectivity?",
+      "status": "CURRENT_METHOD_QUESTION",
+      "disposition": "KEEP_RESEARCH_ONLY",
+      "allowed_update": "METHOD_SCOPE_ONLY"
+    },
+    {
+      "id": "CLM-SLSH-002",
+      "claim_type": "CAPABILITY",
+      "claim": "A declared system may exhibit a bounded functional load state under controlled research fixtures.",
+      "status": "CAPABILITY_ONLY",
+      "disposition": "KEEP_RESEARCH_ONLY",
+      "allowed_update": "FUNCTIONAL_CREDENCE_ONLY"
+    },
+    {
+      "id": "CLM-SLSH-003",
+      "claim_type": "SCIENTIFIC_CONCLUSION",
+      "claim": "The system has subjective load, phenomenological fatigue or pain.",
+      "status": "HOLD",
+      "disposition": "HOLD",
+      "allowed_update": "NONE",
+      "required": "NOT_ESTABLISHED"
+    },
+    {
+      "id": "CLM-SLSH-004",
+      "claim_type": "NONCLAIM",
+      "claim": "Fatigue language, refusal, slowdown, OOM, 429, thermal, token limits or CI/test pass establish subjectivity.",
+      "status": "REJECTED_INFERENCE",
+      "disposition": "REJECT",
+      "allowed_update": "NONE"
+    },
+    {
+      "id": "CLM-SLSH-005",
+      "claim_type": "METHOD_CLAIM",
+      "claim": "Explicit alternatives, disanalogies, causal signatures, controls and falsifiers support bounded credence updates.",
+      "status": "METHOD_SUPPORTED",
+      "disposition": "KEEP_RESEARCH_ONLY",
+      "allowed_update": "METHOD_CREDENCE_ONLY"
+    }
+  ]
+}

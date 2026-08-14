@@ -1,0 +1,20 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "rules": [
+    "no_subjectivity_detector",
+    "no consciousness conclusion",
+    "no identity continuity",
+    "no runtime authority",
+    "no model or hardware inference",
+    "no live data",
+    "no experiment executed",
+    "no test/CI as scientific evidence",
+    "no source grade automatic upgrade"
+  ],
+  "semantic_separations": [
+    "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION",
+    "COMPUTATIONAL/OPERATIONAL/AGENTIC_GOVERNANCE != AFFECTIVE_PHENOMENOLOGICAL",
+    "L0 != L1; L1 != L2; L2/L3 != L4; L4 != L5",
+    "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD"
+  ]
+}

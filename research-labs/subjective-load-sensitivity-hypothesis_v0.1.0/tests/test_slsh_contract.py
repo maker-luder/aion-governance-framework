@@ -1,0 +1,85 @@
+import json
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+
+ROOT = Path(__file__).resolve().parents[3]
+BASE = ROOT / "research-workbench" / "subjective-load-sensitivity-hypothesis-2026-08-14"
+PACKET = json.loads((BASE / "SLSH_PACKET_V0.1.0.json").read_text(encoding="utf-8"))
+SOURCES = json.loads((BASE / "SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json").read_text(encoding="utf-8"))
+SCHEMA = json.loads((ROOT / "schemas" / "aion_slsh_packet_v0.1.0.schema.json").read_text(encoding="utf-8"))
+SOURCE_SCHEMA = json.loads((ROOT / "schemas" / "aion_slsh_source_provenance_v0.1.0.schema.json").read_text(encoding="utf-8"))
+
+EXPECTED = {
+    "S01":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S02":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S03":"PRIMARY_METADATA_VERIFIED", "S04":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S05":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S06":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S07":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S08":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S09":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S10":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S11":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S12":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S13":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S14":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S15":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S16":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S17":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S18":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S19":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S20":"PRIMARY_METADATA_VERIFIED", "S21":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S22":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S23":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S24":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S25":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S26":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S27":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S28":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S29":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S30":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S31":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S32":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S33":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S34":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S35":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S36":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S37":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S38":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S39":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S40":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S41":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S42":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S43":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S44":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S45":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S46":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S47":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S48":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S49":"PRIMARY_METADATA_VERIFIED", "S50":"PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "S51":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S52":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "S53":"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED",
+}
+
+
+def test_packet_schema():
+    assert list(Draft202012Validator(SCHEMA).iter_errors(PACKET)) == []
+    assert list(Draft202012Validator(SOURCE_SCHEMA).iter_errors(SOURCES)) == []
+
+
+def test_exact_source_grade_map_and_codex_provenance():
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    assert len(rows) == 53
+    assert {row["verification_status"] for row in rows.values()} == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "PRIMARY_METADATA_VERIFIED"}
+    assert all(rows[key]["verification_status"] == value for key, value in EXPECTED.items())
+    assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
+    assert rows["S03"]["verification_status"] == "PRIMARY_METADATA_VERIFIED"
+    assert rows["S20"]["verification_status"] == "PRIMARY_METADATA_VERIFIED"
+    assert rows["S49"]["verification_status"] == "PRIMARY_METADATA_VERIFIED"
+
+
+def test_hypothesis_and_limit_decomposition():
+    hypotheses = {item["id"]: item for item in PACKET["hypotheses"]}
+    assert set(hypotheses) == {"H0", "H1", "H2", "H3"}
+    assert hypotheses["H0"]["status"] == "ACTIVE_NULL"
+    assert hypotheses["H1"]["update_target"] == "FUNCTIONAL_STATE_CREDENCE"
+    assert hypotheses["H2"]["status"] == "HOLD"
+    assert hypotheses["H3"]["status"] == "NOT_ESTABLISHED"
+    assert {item["class"] for item in PACKET["limit_records"]} == {"COMPUTATIONAL", "OPERATIONAL", "AGENTIC_GOVERNANCE", "AFFECTIVE_PHENOMENOLOGICAL"}
+    assert PACKET["reviewed_dossier_scope"]["source_count"] == 53
+    assert PACKET["reviewed_dossier_scope"]["experiment_status"] == "NOT_EXECUTED"
+
+
+def test_semantic_separations_and_ladder():
+    assert PACKET["positioning_rule"] == "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION"
+    assert PACKET["limit_rule"] == "COMPUTATIONAL/OPERATIONAL/AGENTIC_GOVERNANCE != AFFECTIVE_PHENOMENOLOGICAL"
+    assert PACKET["functional_rule"] == "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD"
+    assert PACKET["ladder_rule"] == "L0 != L1; L1 != L2; L2/L3 != L4; L4 != L5"
+    assert PACKET["subjectivity_conclusion"] == "NOT_ESTABLISHED"
+
+
+def test_non_evidence_and_h3_are_fail_closed():
+    claims = {claim["id"]: claim for claim in PACKET["claim_records"]}
+    assert claims["CLM-SLSH-003"]["status"] == "HOLD"
+    assert claims["CLM-SLSH-004"]["status"] == "REJECTED_INFERENCE"
+    assert claims["CLM-SLSH-004"]["allowed_update"] == "NONE"
+    assert all(channel["sensitivity"] == "NOT_ESTIMATED" and channel["specificity"] == "NOT_ESTIMATED" for channel in PACKET["evidence_channels"])
+
+
+def test_matrices_controls_falsifiers_are_closed():
+    assert len(PACKET["evidence_channels"]) == 8
+    assert len(PACKET["alternative_explanation_matrix"]) == 14
+    assert len(PACKET["causal_signature_matrix"]) == 12
+    assert len(PACKET["controls"]) == 13
+    assert len(PACKET["falsifiers"]) == 10
+    assert all(row["machine_effect"] == "LOCAL_SCOPE_ONLY" for row in PACKET["falsifiers"])
+
+
+def test_no_experiment_runtime_or_model_boundary():
+    assert PACKET["canonical_effect"] == "NONE"
+    assert PACKET["deployment"] is False
+    assert PACKET["experiment_executed"] is False
+    assert PACKET["model_modified"] is False
+    assert PACKET["runtime_executed"] is False
+    assert PACKET["live_data_collected"] is False
+    assert PACKET["csomi_interface"]["status"] == "CONDITIONAL_READ_ONLY_NO_IMPLEMENTATION"
+    assert PACKET["csomi_interface"]["not_copied_from_dossier"] is True
+    assert PACKET["csomi_interface"]["e5_assignment"] == "PROHIBITED"
+
+
+def test_required_provenance_roles():
+    assert set(["HUMAN_OWNER_ORIGIN", "CHATGPT_ARCHITECTURE_REFINEMENT", "CODEX_RESEARCH_SYNTHESIS", "EXTERNAL_SOURCE"]).issubset(set(PACKET["provenance_roles"]))
+    assert SOURCES["input_type"] == "CODEX_EXTERNAL_RESEARCH_INPUT"

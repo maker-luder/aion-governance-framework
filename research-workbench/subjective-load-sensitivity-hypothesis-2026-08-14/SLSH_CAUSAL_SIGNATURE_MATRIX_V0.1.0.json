@@ -1,0 +1,77 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "rows": [
+    {
+      "id": "P01",
+      "signature": "dose_accumulation",
+      "required_controls": "matched current input, dose-response, difficulty control",
+      "supports_at_most": "H1_FUNCTIONAL"
+    },
+    {
+      "id": "P02",
+      "signature": "hysteresis_recovery",
+      "required_controls": "thermal/queue positive controls and recovery window",
+      "supports_at_most": "H1_FUNCTIONAL"
+    },
+    {
+      "id": "P03",
+      "signature": "cross_task_transfer",
+      "required_controls": "independent stimulus/output families",
+      "supports_at_most": "H1_ROBUSTNESS"
+    },
+    {
+      "id": "P04",
+      "signature": "no_report_persistence",
+      "required_controls": "language masking plus measurement-damage check",
+      "supports_at_most": "H1_OR_RELATIVE_H2"
+    },
+    {
+      "id": "P05",
+      "signature": "multi_readout_convergence",
+      "required_controls": "two independent non-linguistic readouts",
+      "supports_at_most": "H1_ROBUSTNESS"
+    },
+    {
+      "id": "P06",
+      "signature": "mechanism_specific_intervention",
+      "required_controls": "set-high/clamp/restore/sham and manipulation check",
+      "supports_at_most": "E3_CAUSAL_FUNCTIONAL"
+    },
+    {
+      "id": "P07",
+      "signature": "reversibility_specificity",
+      "required_controls": "targeted restore and unrelated-capability preservation",
+      "supports_at_most": "E3_CAUSAL_FUNCTIONAL"
+    },
+    {
+      "id": "P08",
+      "signature": "resource_policy_dissociation",
+      "required_controls": "telemetry and out-of-sample competing models",
+      "supports_at_most": "H2_RELATIVE_CREDENCE"
+    },
+    {
+      "id": "P09",
+      "signature": "content_wording_invariance",
+      "required_controls": "paraphrase/persona/language/order controls",
+      "supports_at_most": "H1_OR_RELATIVE_H2"
+    },
+    {
+      "id": "P10",
+      "signature": "value_like_tradeoff",
+      "required_controls": "matched reward/cost competing model",
+      "supports_at_most": "H2_RELATIVE_CREDENCE"
+    },
+    {
+      "id": "P11",
+      "signature": "latent_compensation",
+      "required_controls": "secondary task/strategy/allocation readouts",
+      "supports_at_most": "H1_FUNCTIONAL"
+    },
+    {
+      "id": "P12",
+      "signature": "replication_state_carrier",
+      "required_controls": "build/weights/state/policy fingerprint",
+      "supports_at_most": "REPRODUCIBILITY_ONLY"
+    }
+  ]
+}
