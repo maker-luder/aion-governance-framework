@@ -93,11 +93,66 @@
         "runtime_effect": {"const": "NONE"}
       }
     },
+    "change_level_provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ref", "scope", "proposal_and_authority", "architecture_and_review", "implementation", "approval", "historical_p2_provenance_preserved"],
+      "properties": {
+        "ref": {"const": "docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json"},
+        "scope": {"const": "CURRENT_CONVERGENCE_FINAL_REVIEW_FIXES_ONLY"},
+        "proposal_and_authority": {"$ref": "#/$defs/changeRoleOwnerProposal"},
+        "architecture_and_review": {"$ref": "#/$defs/changeRoleChatGPT"},
+        "implementation": {"$ref": "#/$defs/changeRoleManus"},
+        "approval": {"$ref": "#/$defs/changeRoleOwnerApproval"},
+        "historical_p2_provenance_preserved": {"const": true}
+      }
+    },
     "threat_context": {
       "type": "object", "additionalProperties": false,
       "properties": {
         "lifecycle_stage": {"type": "string"}, "goal_or_objective": {"type": "string"}, "capability": {"type": "string"},
         "knowledge": {"type": "string"}, "attack_or_confound_class": {"type": "string"}, "mitigation": {"type": "string"}, "residual_risk": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "changeRoleOwnerProposal": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actor", "role", "status", "authority_effect"],
+      "properties": {
+        "actor": {"const": "HUMAN_OWNER"},
+        "role": {"const": "PROPOSAL_AND_AUTHORITY_BOUNDARY"},
+        "status": {"const": "OWNER_APPROVAL_PENDING"},
+        "authority_effect": {"const": "NONE"}
+      }
+    },
+    "changeRoleChatGPT": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actor", "role", "status", "authority_effect"],
+      "properties": {
+        "actor": {"const": "CHATGPT"},
+        "role": {"const": "ARCHITECTURE_REVIEW_AND_TASK_REFINEMENT"},
+        "status": {"const": "REVIEW_INPUT"},
+        "authority_effect": {"const": "NONE"}
+      }
+    },
+    "changeRoleManus": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actor", "role", "status", "authority_effect"],
+      "properties": {
+        "actor": {"const": "MANUS"},
+        "role": {"const": "CONVERGENCE_IMPLEMENTATION_AND_VALIDATION"},
+        "status": {"const": "IMPLEMENTED_ON_CONVERGENCE_BRANCH"},
+        "authority_effect": {"const": "NONE"}
+      }
+    },
+    "changeRoleOwnerApproval": {
+      "type": "object", "additionalProperties": false,
+      "required": ["actor", "role", "status", "authority_effect"],
+      "properties": {
+        "actor": {"const": "HUMAN_OWNER"},
+        "role": {"const": "APPROVAL_GATE"},
+        "status": {"const": "PENDING"},
+        "authority_effect": {"const": "NONE"}
       }
     }
   }

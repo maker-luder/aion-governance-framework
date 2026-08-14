@@ -45,6 +45,7 @@ def test_cross_branch_index_and_public_taxonomy_contract():
     assert branches["main"]["head"] == "e079fb7dfe7a04be7dcb94b8a059951a003caa94"
     assert branches["review/four-domain-research-materialization"]["head"] == "858442a3ec2439398d188779f4309397bd4926b2"
     assert branches["engineering/aion-research-consolidation-literature-grounding-readiness-20260814"]["head"] == "bcc66c788a7d0882d139ae547447deb1f90adae4"
+    assert branches["main"]["promotion_disposition"] == "ALREADY_CANONICAL_BASELINE"
     assert cross_branch["repository_settings_modified"] is False
     assert cross_branch["topics_applied"] is False
     assert cross_branch["main_modified"] is False
@@ -56,9 +57,23 @@ def test_cross_branch_index_and_public_taxonomy_contract():
     slugs = [item["slug"] for item in taxonomy["candidate_topics"]]
     assert 10 <= len(slugs) <= 16
     assert len(slugs) == len(set(slugs))
-    assert set(taxonomy["recommended_initial_set"]).issubset(slugs)
+    recommended = set(taxonomy["recommended_initial_set"])
+    owner_review = set(taxonomy["owner_review_set"])
+    by_slug = {item["slug"]: item for item in taxonomy["candidate_topics"]}
+    assert recommended.issubset(slugs)
+    assert recommended.isdisjoint(owner_review)
+    assert "governance-kernel" in owner_review
+    assert "governance-kernel" not in recommended
+    assert all(by_slug[slug]["readiness"] == "READY_CANDIDATE" and by_slug[slug]["owner_review"] == "REQUIRED_BEFORE_SETTINGS_CHANGE" for slug in recommended)
+    assert all(by_slug[slug]["readiness"] == "OWNER_REVIEW_REQUIRED" and by_slug[slug]["owner_review"] == "REQUIRED" for slug in owner_review)
     assert taxonomy["topics_applied"] is False
     assert taxonomy["application_boundary"]["settings_operation"] == "NOT_PERFORMED"
+    provenance = json.loads((CONSOLIDATION / "CHANGE_LEVEL_PROVENANCE_V0.1.0.json").read_text(encoding="utf-8"))
+    assert provenance["roles"]["human_owner_proposal_and_authority"]["actor"] == "HUMAN_OWNER"
+    assert provenance["roles"]["chatgpt_architecture_and_review"]["actor"] == "CHATGPT"
+    assert provenance["roles"]["manus_implementation"]["actor"] == "MANUS"
+    assert provenance["roles"]["owner_approval"]["status"] == "PENDING"
+    assert provenance["historical_source_preservation"]["historical_p2_authorship_rewritten"] is False
     assert {"consciousness", "self-aware-ai", "sentient-ai", "first-of-its-kind", "production-ai"} <= {
         item["slug"] for item in taxonomy["rejected_topics"]
     }

@@ -12,6 +12,7 @@ on:
       - "schemas/aion_research_consolidation_artifact_v0.1.0.schema.json"
       - "schemas/aion_cross_branch_index_v0.1.0.schema.json"
       - "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json"
+      - "schemas/aion_change_level_provenance_v0.1.0.schema.json"
       - "schemas/research_evidence_record_v0.2.0.schema.json"
       - "scripts/check_research_consolidation_consistency.py"
       - "scripts/validate_research_evidence.py"

@@ -12,8 +12,10 @@ EXPECTED_BRANCH = "engineering/aion-research-consolidation-literature-grounding-
 SCHEMA = ROOT / "schemas/aion_research_consolidation_artifact_v0.1.0.schema.json"
 CROSS_BRANCH_SCHEMA = ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json"
 TAXONOMY_SCHEMA = ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json"
+CHANGE_PROV_SCHEMA = ROOT / "schemas/aion_change_level_provenance_v0.1.0.schema.json"
 CROSS_BRANCH_INDEX = ROOT / "docs/research-consolidation/CROSS_BRANCH_INDEX_V0.1.0.json"
 TAXONOMY = ROOT / "docs/research-consolidation/PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0.json"
+CHANGE_PROV = ROOT / "docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json"
 EVIDENCE_RECORD = ROOT / "research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json"
 P2_PACKET = ROOT / "research-labs/four-domain-p2-materialization_v0.1.0/docs/P2_MATERIALIZATION_PACKET_C.md"
 P2_TEST = ROOT / "research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py"
@@ -96,12 +98,14 @@ def main() -> int:
         ROOT / "docs/research-consolidation/PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0.md",
         ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json",
         ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json",
+        ROOT / "docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.md",
+        ROOT / "schemas/aion_change_level_provenance_v0.1.0.schema.json",
     )
     for path in required_paths:
         if not path.exists():
             fail(errors, f"required inventory path missing: {path.relative_to(ROOT)}")
 
-    for schema_path in (SCHEMA, CROSS_BRANCH_SCHEMA, TAXONOMY_SCHEMA):
+    for schema_path in (SCHEMA, CROSS_BRANCH_SCHEMA, TAXONOMY_SCHEMA, CHANGE_PROV_SCHEMA):
         if not schema_path.is_file():
             fail(errors, f"missing schema: {schema_path.relative_to(ROOT)}")
 
@@ -136,6 +140,7 @@ def main() -> int:
     for name, path, schema_path in (
         ("cross_branch", CROSS_BRANCH_INDEX, CROSS_BRANCH_SCHEMA),
         ("taxonomy", TAXONOMY, TAXONOMY_SCHEMA),
+        ("change_provenance", CHANGE_PROV, CHANGE_PROV_SCHEMA),
     ):
         if not path.is_file():
             fail(errors, f"missing artifact {name}: {path.relative_to(ROOT)}")
@@ -219,9 +224,26 @@ def main() -> int:
             fail(errors, f"supersession missing forbidden relation {required}")
 
     labels = {item.get("label") for item in crosswalk.get("papers_and_standards", []) + crosswalk.get("external_projects", [])}
-    required_labels = {"VERIFIED", "CORRECTION_REQUIRED"}
-    if not required_labels.issubset(labels):
-        fail(errors, f"crosswalk missing labels {sorted(required_labels - labels)}")
+    required_labels = {"VERIFIED", "PARTIAL", "ANALOGY", "AION_INTERPRETATION", "NOVELTY_HYPOTHESIS", "CORRECTION_REQUIRED"}
+    declared_labels = set(crosswalk.get("claim_labels", []))
+    if not required_labels.issubset(declared_labels):
+        fail(errors, f"crosswalk missing declared labels {sorted(required_labels - declared_labels)}")
+    if not labels.issubset(declared_labels):
+        fail(errors, f"crosswalk row uses undeclared labels {sorted(labels - declared_labels)}")
+    required_literature_ids = {
+        "LIT-BUTLIN-AI-CONSCIOUSNESS-2023",
+        "LIT-MPCAB-2025",
+        "LIT-PROV-AGENT-2025",
+        "LIT-AI-IDENTITY-2026",
+        "LIT-FAI2R-2026",
+        "STD-COPE-AI-AUTHORSHIP-2023",
+    }
+    literature_rows = {item.get("id"): item for item in crosswalk.get("papers_and_standards", [])}
+    if not required_literature_ids.issubset(literature_rows):
+        fail(errors, f"crosswalk missing final-review literature rows: {sorted(required_literature_ids - set(literature_rows))}")
+    for literature_id in required_literature_ids:
+        if literature_rows.get(literature_id, {}).get("label") != "VERIFIED":
+            fail(errors, f"final-review literature row is not VERIFIED: {literature_id}")
     for item in crosswalk.get("papers_and_standards", []) + crosswalk.get("external_projects", []):
         text = " ".join(str(item.get(key, "")) for key in ("claim", "aion_engineering", "aion_integration", "novelty" )).lower()
         novelty_patterns = (
@@ -250,6 +272,10 @@ def main() -> int:
             fail(errors, f"cross-branch index missing branch {branch_name}")
         elif row.get("head") != expected_head:
             fail(errors, f"cross-branch head drift for {branch_name}: {row.get('head')}")
+    if branch_rows.get("main", {}).get("promotion_disposition") != "ALREADY_CANONICAL_BASELINE":
+        fail(errors, "main branch disposition must be ALREADY_CANONICAL_BASELINE")
+    if not any(item.get("id") == "CB-001" and item.get("promotion_disposition") == "ALREADY_CANONICAL_BASELINE" for item in cross_branch.get("artifacts", [])):
+        fail(errors, "main README disposition must be ALREADY_CANONICAL_BASELINE")
     if cross_branch.get("repository_settings_modified") is not False:
         fail(errors, "cross-branch index says repository settings were modified")
     if cross_branch.get("topics_applied") is not False:
@@ -265,6 +291,25 @@ def main() -> int:
     if any(item.get("id") == "CB-010" and item.get("convergence") != "ABSENT" for item in cross_branch.get("artifacts", [])):
         fail(errors, "Native Language artifacts are not explicitly absent from convergence branch")
 
+    change_provenance = special_data.get("change_provenance", {})
+    roles = change_provenance.get("roles", {})
+    if roles.get("human_owner_proposal_and_authority", {}).get("actor") != "HUMAN_OWNER":
+        fail(errors, "change provenance missing Human Owner proposal/authority role")
+    if roles.get("chatgpt_architecture_and_review", {}).get("actor") != "CHATGPT":
+        fail(errors, "change provenance missing ChatGPT architecture/review role")
+    if roles.get("manus_implementation", {}).get("actor") != "MANUS":
+        fail(errors, "change provenance missing Manus implementation role")
+    if roles.get("owner_approval", {}).get("status") != "PENDING":
+        fail(errors, "change provenance owner approval is not PENDING")
+    preservation = change_provenance.get("historical_source_preservation", {})
+    if preservation.get("historical_p2_provenance_edited") is not False or preservation.get("historical_p2_authorship_rewritten") is not False:
+        fail(errors, "historical P2 provenance/authorship was marked rewritten")
+    if preservation.get("current_convergence_provenance_is_distinct") is not True:
+        fail(errors, "current convergence provenance is not distinct from historical P2 provenance")
+
+    index_change_provenance = index.get("change_level_provenance", {})
+    if index_change_provenance.get("implementation") != "MANUS" or index_change_provenance.get("approval") != "PENDING":
+        fail(errors, "Research Index change-level provenance is not Manus/PENDING separated")
     taxonomy = special_data.get("taxonomy", {})
     candidates = taxonomy.get("candidate_topics", [])
     slugs = [item.get("slug") for item in candidates]
@@ -281,10 +326,26 @@ def main() -> int:
             fail(errors, f"taxonomy contains forbidden public positioning term: {slug}")
     recommended = set(taxonomy.get("recommended_initial_set", []))
     owner_review = set(taxonomy.get("owner_review_set", []))
+    candidate_by_slug = {item.get("slug"): item for item in candidates}
     if not recommended.issubset(set(slugs)):
         fail(errors, "recommended taxonomy set contains a slug not in candidates")
     if not owner_review.issubset(set(slugs)):
         fail(errors, "owner-review taxonomy set contains a slug not in candidates")
+    if recommended.intersection(owner_review):
+        fail(errors, f"recommended and owner-review taxonomy sets overlap: {sorted(recommended.intersection(owner_review))}")
+    for slug in recommended:
+        row = candidate_by_slug.get(slug, {})
+        if row.get("readiness") != "READY_CANDIDATE" or row.get("owner_review") != "REQUIRED_BEFORE_SETTINGS_CHANGE":
+            fail(errors, f"recommended Topic readiness mismatch: {slug}")
+    for slug in owner_review:
+        row = candidate_by_slug.get(slug, {})
+        if row.get("readiness") != "OWNER_REVIEW_REQUIRED" or row.get("owner_review") != "REQUIRED":
+            fail(errors, f"owner-review Topic readiness mismatch: {slug}")
+    required_owner_review_topics = {"provenance-aware-ai", "long-term-memory", "metacognition", "ai-safety-evaluation", "governance-kernel"}
+    if not required_owner_review_topics.issubset(owner_review):
+        fail(errors, f"required owner-review Topics missing: {sorted(required_owner_review_topics - owner_review)}")
+    if "governance-kernel" in recommended:
+        fail(errors, "governance-kernel must remain Owner review only")
     required_rejected_topics = {"consciousness", "artificial-consciousness", "self-aware-ai", "sentient-ai", "identity-continuity", "first-of-its-kind", "agi", "production-ai"}
     rejected_slugs = {item.get("slug") for item in taxonomy.get("rejected_topics", [])}
     if not required_rejected_topics.issubset(rejected_slugs):
@@ -338,6 +399,17 @@ def main() -> int:
                 fail(errors, "P2 evidence record must remain HOLD")
             if record.get("canonical_effect") != "NONE":
                 fail(errors, "P2 evidence record canonical effect drifted")
+            change_record = record.get("change_level_provenance", {})
+            if change_record.get("implementation", {}).get("actor") != "MANUS":
+                fail(errors, "P2 evidence record missing Manus implementation provenance")
+            if change_record.get("proposal_and_authority", {}).get("actor") != "HUMAN_OWNER":
+                fail(errors, "P2 evidence record missing Human Owner proposal/authority provenance")
+            if change_record.get("architecture_and_review", {}).get("actor") != "CHATGPT":
+                fail(errors, "P2 evidence record missing ChatGPT architecture/review provenance")
+            if change_record.get("approval", {}).get("status") != "PENDING":
+                fail(errors, "P2 evidence record owner approval must remain PENDING")
+            if change_record.get("historical_p2_provenance_preserved") is not True:
+                fail(errors, "P2 evidence record does not preserve historical provenance")
         except Exception as exc:  # pragma: no cover - diagnostic guard
             fail(errors, f"P2 evidence admission check error: {exc}")
 

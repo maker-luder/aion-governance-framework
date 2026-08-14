@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:schemas:change-level-provenance:v0.1.0",
+  "title": "AION Change-Level Provenance v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "provenance_id", "scope", "branch", "base_head", "canonical_effect", "deployment", "roles", "historical_source_preservation", "current_change_surfaces", "locks"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "provenance_id": {"const": "AION_CHANGE_LEVEL_PROVENANCE_V0.1.0"},
+    "scope": {"const": "CURRENT_CONVERGENCE_FINAL_REVIEW_FIXES_ONLY"},
+    "branch": {"const": "engineering/aion-research-consolidation-literature-grounding-readiness-20260814"},
+    "base_head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false},
+    "roles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["human_owner_proposal_and_authority", "chatgpt_architecture_and_review", "manus_implementation", "owner_approval"],
+      "properties": {
+        "human_owner_proposal_and_authority": {"$ref": "#/$defs/role"},
+        "chatgpt_architecture_and_review": {"$ref": "#/$defs/role"},
+        "manus_implementation": {"$ref": "#/$defs/role"},
+        "owner_approval": {"$ref": "#/$defs/role"}
+      }
+    },
+    "historical_source_preservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["historical_p2_provenance_edited", "historical_p2_authorship_rewritten", "original_p2_source_refs_retained", "historical_source_ref", "current_convergence_provenance_is_distinct"],
+      "properties": {
+        "historical_p2_provenance_edited": {"const": false},
+        "historical_p2_authorship_rewritten": {"const": false},
+        "original_p2_source_refs_retained": {"const": true},
+        "historical_source_ref": {"const": "research-labs/four-domain-p2-materialization_v0.1.0"},
+        "current_convergence_provenance_is_distinct": {"const": true}
+      }
+    },
+    "current_change_surfaces": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "locks": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "role": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["actor", "role", "status", "authority_effect", "description"],
+      "properties": {
+        "actor": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "authority_effect": {"const": "NONE"},
+        "description": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

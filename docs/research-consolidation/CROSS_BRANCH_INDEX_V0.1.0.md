@@ -6,7 +6,7 @@
 
 | Branch | Exact HEAD | Role | Status | Canonical state | Supersession relation | Promotion disposition |
 |---|---|---|---|---|---|---|
-| `main` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | Protected public/default baseline | CURRENT | `PROTECTED_PUBLIC_BASELINE` | Not superseded by this branch; convergence metadata does not replace main | KEEP_RESEARCH_ONLY |
+| `main` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | Protected public/default baseline | CURRENT | `PROTECTED_PUBLIC_BASELINE` | Not superseded by this branch; convergence metadata does not replace main | ALREADY_CANONICAL_BASELINE |
 | `review/four-domain-research-materialization` | `858442a3ec2439398d188779f4309397bd4926b2` | Protected Four-Domain research source | CURRENT | `RESEARCH_BRANCH_ONLY` | Remains source of truth for original research material; convergence indexes but does not supersede source content | KEEP_RESEARCH_ONLY |
 | `engineering/aion-research-consolidation-literature-grounding-readiness-20260814` | `bcc66c788a7d0882d139ae547447deb1f90adae4` (index baseline before this artifact set) | Independent consolidation and readiness candidate | CURRENT | `CANDIDATE_CONVERGENCE_ONLY` | Derived from review branch; adds metadata/index/crosswalk and does not supersede main or research source | PROMOTE (metadata only, Owner review required) |
 | `engineering/aion-native-language-feasibility-20260814` | `3dfc21463502e1c32189ae167d92f163ca1a55e8` | Separate Native Language feasibility candidate | CURRENT | `ENGINEERING_RESEARCH_ONLY` | Not part of current research consolidation source; remains separate read-only engineering branch | KEEP_RESEARCH_ONLY |
@@ -19,7 +19,7 @@
 
 | Artifact family | `main` | `review/four-domain-research-materialization` | Current convergence branch | Canonical state | Status | Supersession | Promotion disposition |
 |---|---|---|---|---|---|---|---|
-| Root `README.md` | Present; public baseline navigation | Present; research branch navigation | Present; inherited and branch-local context | Main remains public baseline | CURRENT, branch-scoped | Convergence does not supersede README on main | KEEP_RESEARCH_ONLY |
+| Root `README.md` | Present; public baseline navigation | Present; research branch navigation | Present; inherited and branch-local context | Main remains public baseline | CURRENT, branch-scoped | Convergence does not supersede README on main | ALREADY_CANONICAL_BASELINE |
 | `RESEARCH_BRANCH_STATUS.md` | Absent | Present; research standing authority | Present; inherited standing authority | Research-only | CURRENT | Not present on main; no main replacement | KEEP_RESEARCH_ONLY |
 | Four-Domain repository crosswalk | Absent | Present; original research source | Present; indexed source | Research-only | CURRENT | Consolidation maps it but does not replace it | KEEP_RESEARCH_ONLY |
 | Kimi external-project intake | Absent | Present; discovery provenance | Present; indexed and primary-source crosswalked | Research-only | CURRENT | Primary-source crosswalk narrows claims; intake retained | KEEP_RESEARCH_ONLY |

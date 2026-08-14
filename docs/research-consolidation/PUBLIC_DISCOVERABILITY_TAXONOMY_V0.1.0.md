@@ -43,10 +43,9 @@ falsification
 reproducible-research
 language-model-evaluation
 deterministic-retrieval
-governance-kernel
 ```
 
-This set is intentionally method- and implementation-oriented. `long-term-memory`, `metacognition` and `ai-safety-evaluation` are valid candidates but should receive explicit Owner review because they may shape public expectations beyond the narrowest repository description. `provenance-aware-ai` is safe as a technical orientation but should be reviewed if the Owner wants only noun-based domain Topics.
+This set is intentionally method- and implementation-oriented. `provenance-aware-ai`, `long-term-memory`, `metacognition`, `ai-safety-evaluation` and `governance-kernel` are valid candidates but remain explicitly `OWNER_REVIEW_REQUIRED`; none belongs in `recommended_initial_set`. Their machine-readable `readiness` is `OWNER_REVIEW_REQUIRED` and their `owner_review` field is `REQUIRED`, making the two sets mutually exclusive and semantically aligned.
 
 ## 4. Explicitly rejected Topics
 

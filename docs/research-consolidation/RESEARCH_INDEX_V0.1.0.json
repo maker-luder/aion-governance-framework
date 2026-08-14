@@ -6,6 +6,14 @@
   "base_head": "858442a3ec2439398d188779f4309397bd4926b2",
   "canonical_effect": "NONE",
   "deployment": false,
+  "change_level_provenance": {
+    "ref": "docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json",
+    "proposal_and_authority": "HUMAN_OWNER",
+    "architecture_and_review": "CHATGPT",
+    "implementation": "MANUS",
+    "approval": "PENDING",
+    "historical_p2_provenance_rewritten": false
+  },
   "status_vocabulary": ["CURRENT", "SUPERSEDED", "HISTORICAL", "HOLD", "REJECT"],
   "disposition_vocabulary": ["PROMOTE", "KEEP_RESEARCH_ONLY", "HOLD"],
   "four_domain_g1_relation": {
@@ -55,7 +63,9 @@
     {"id":"IDX-029","kind":"historical_handoff","path":"docs/REVIEW_HANDOFF_REPORT.md","status":"HISTORICAL","disposition":"KEEP_RESEARCH_ONLY"},
     {"id":"IDX-030","kind":"rejected_interpretation","path":"Four-Domain and G1 are one scientific source","status":"REJECT","disposition":"HOLD"},
     {"id":"IDX-031","kind":"rejected_interpretation","path":"unverified first/only/unprecedented claims","status":"REJECT","disposition":"HOLD"},
-    {"id":"IDX-032","kind":"rejected_interpretation","path":"test or CI pass as subjectivity/canonical proof","status":"REJECT","disposition":"HOLD"}
+    {"id":"IDX-032","kind":"rejected_interpretation","path":"test or CI pass as subjectivity/canonical proof","status":"REJECT","disposition":"HOLD"},
+    {"id":"IDX-033","kind":"change_level_provenance","path":"docs/research-consolidation/CHANGE_LEVEL_PROVENANCE_V0.1.0.json","status":"CURRENT","disposition":"PROMOTE"},
+    {"id":"IDX-034","kind":"evidence_change_provenance","path":"research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json#change_level_provenance","status":"CURRENT","disposition":"HOLD"}
   ],
   "locks": [
     "CANONICAL_EFFECT=NONE",
