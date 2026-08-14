@@ -1,6 +1,21 @@
 name: Runtime Strong QA
 
 on:
+  push:
+    branches:
+      - engineering/**
+    paths:
+      - "components/aion_runtime_v0.1.0/**"
+      - "components/astra_runtime_v0.1.0/**"
+      - "components/executable_runtime_v0.1.0/**"
+      - "components/individual_runtime_state_v0.1.0/**"
+      - "components/memory_recall_governance_v0.1.0/**"
+      - "components/governance_kernel_v0.4.0/**"
+      - "components/astra_workbench_v1.0.0/**"
+      - "research-labs/language-core-g1_v0.2.1/**"
+      - "scripts/run_runtime_strong_qa.sh"
+      - ".github/workflows/runtime-strong-qa.yml"
+      - "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
   pull_request:
     paths:
       - "components/aion_runtime_v0.1.0/**"
