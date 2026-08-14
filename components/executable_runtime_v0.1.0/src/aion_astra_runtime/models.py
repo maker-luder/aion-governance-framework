@@ -9,6 +9,16 @@ from typing import Any
 from .errors import PolicyDenied
 
 
+_INDIVIDUAL_RUNTIME_CONTEXT_FIELDS = (
+    "agent_id",
+    "runtime_instance_id",
+    "memory_stream_id",
+    "event_lineage_id",
+    "canonical_state_reference",
+    "genesis_root_id",
+)
+
+
 class RunStatus(StrEnum):
     RECEIVED = "RECEIVED"
     RUNNING = "RUNNING"
@@ -38,14 +48,25 @@ class IndividualRuntimeContext:
 
     @classmethod
     def from_dict(cls, raw: dict[str, Any]) -> "IndividualRuntimeContext":
-        context = cls(
-            agent_id=str(raw.get("agent_id", "")),
-            runtime_instance_id=str(raw.get("runtime_instance_id", "")),
-            memory_stream_id=str(raw.get("memory_stream_id", "")),
-            event_lineage_id=str(raw.get("event_lineage_id", "")),
-            canonical_state_reference=str(raw.get("canonical_state_reference", "")),
-            genesis_root_id=str(raw.get("genesis_root_id", "")),
+        if not isinstance(raw, dict):
+            raise PolicyDenied("runtime_context must be an object")
+        missing = [field for field in _INDIVIDUAL_RUNTIME_CONTEXT_FIELDS if field not in raw]
+        unknown = sorted(
+            (str(field) for field in raw if field not in _INDIVIDUAL_RUNTIME_CONTEXT_FIELDS),
+            key=str,
         )
+        non_strings = [
+            field
+            for field in _INDIVIDUAL_RUNTIME_CONTEXT_FIELDS
+            if field in raw and not isinstance(raw[field], str)
+        ]
+        if missing:
+            raise PolicyDenied(f"runtime_context is missing fields: {', '.join(missing)}")
+        if unknown:
+            raise PolicyDenied(f"runtime_context contains unknown fields: {', '.join(unknown)}")
+        if non_strings:
+            raise PolicyDenied(f"runtime_context fields must be strings: {', '.join(non_strings)}")
+        context = cls(**{field: raw[field] for field in _INDIVIDUAL_RUNTIME_CONTEXT_FIELDS})
         context.validate()
         return context
 

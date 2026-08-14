@@ -124,6 +124,41 @@ class PolicyTests(unittest.TestCase):
         with self.assertRaises(PolicyDenied):
             TaskSpec.from_dict(raw)
 
+    def test_runtime_context_rejects_malformed_cross_language_values(self) -> None:
+        base = {
+            "task_id": "MALFORMED-CONTEXT",
+            "objective": "x",
+            "profile": "INVENTORY_SUMMARIZE",
+            "input_paths": ["a.txt"],
+            "output_path": "out.txt",
+            "owner_approved": True,
+            "approved_by": "OWNER",
+            "runtime_context": runtime_context(),
+        }
+        for field, value in (
+            ("agent_id", 1),
+            ("runtime_instance_id", False),
+            ("memory_stream_id", None),
+            ("event_lineage_id", []),
+            ("canonical_state_reference", {}),
+        ):
+            raw = {**base, "runtime_context": {**runtime_context(), field: value}}
+            with self.assertRaises(PolicyDenied):
+                TaskSpec.from_dict(raw)
+
+        missing = runtime_context()
+        missing.pop("event_lineage_id")
+        with self.assertRaises(PolicyDenied):
+            TaskSpec.from_dict({**base, "runtime_context": missing})
+
+        unknown = {**runtime_context(), "unreviewed_authority": "OWNER"}
+        with self.assertRaises(PolicyDenied):
+            TaskSpec.from_dict({**base, "runtime_context": unknown})
+
+        non_string_key = {**runtime_context(), 1: "unreviewed"}
+        with self.assertRaises(PolicyDenied):
+            TaskSpec.from_dict({**base, "runtime_context": non_string_key})
+
     def test_owner_approval_is_mandatory(self) -> None:
         raw = {
             "task_id": "NO-APPROVAL",
