@@ -24,6 +24,8 @@ def main() -> None:
     expected_batch01_kinds = {"S01":"PRIMARY_EMPIRICAL_MODEL_BUILDING_ARTICLE","S02":"REVIEW_CONCEPTUAL_FRAMEWORK","S03":"REVIEW_WITH_EMBEDDED_EXPERIMENT","S04":"EMPIRICAL_THEORY_ARTICLE","S05":"REVIEW_THEORETICAL_FRAMEWORK"}
     expected_batch02_kinds = {"S06":"PRIMARY_EMPIRICAL_ERP_LABORATORY_STUDY","S07":"PRIMARY_EMPIRICAL_CONTROLLED_LABORATORY_STUDY","S08":"PRIMARY_EMPIRICAL_RANDOMIZED_CROSSOVER_STUDY","S09":"PRIMARY_EMPIRICAL_RANDOMIZED_DOSE_RESPONSE_LABORATORY_STUDY","S10":"REVIEW_CONCEPTUAL_SYNTHESIS"}
     expected_batch02_common = {"DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT","BIBLIOGRAPHIC_IDENTITY":"VERIFIED","SUPPORT_BOUNDARY":"PASS","NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD","SOURCE_DOMAIN":"HUMAN_BIOLOGICAL/HUMAN_COGNITIVE","EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER","DIRECT_AI_EVIDENCE":"NONE","DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE","CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY"}
+    expected_batch03_kinds = {"S11":"REVIEW_CONCEPTUAL_PHYSIOLOGICAL_SYNTHESIS","S12":"REVIEW_CRITICAL_CONCEPTUAL_ANALYSIS","S13":"REVIEW_THEORETICAL_PHYSIOLOGICAL_FRAMEWORK","S14":"OPINION_THEORETICAL_NEUROSCIENCE_SYNTHESIS","S15":"PRIMARY_EMPIRICAL_FMRI_INTEROCEPTION_STUDY"}
+    expected_batch03_common = {"DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT","BIBLIOGRAPHIC_IDENTITY":"VERIFIED","SUPPORT_BOUNDARY":"PASS","NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD","SOURCE_DOMAIN":"HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE","EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER","DIRECT_AI_EVIDENCE":"NONE","DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE","CROSS_SUBSTRATE_USE":"BIOLOGICAL_BACKGROUND","EMBODIMENT_ANALOGY_CRITERIA":["IDENTITY_BINDING","CAUSAL_COUPLING","CLOSED_LOOP_REGULATION","CONTINUITY"],"SEMANTIC_GUARDS":["ALLOSTATIC_LOAD != SOFTWARE_LOAD","NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION","TELEMETRY != INTEROCEPTION","INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"]}
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -53,12 +55,28 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch01_kinds[source_id]
         elif source_id in expected_batch02_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch02_kinds[source_id]
+        elif source_id in expected_batch03_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch03_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch03_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch03_kinds[source_id]
+            audit = current_rows[source_id].get("source_audit", {})
+            assert all(audit.get(key) == value for key, value in expected_batch03_common.items())
+            actor = audit["ACTOR_PROVENANCE"]
+            assert actor["CODEX_RESEARCH_SYNTHESIS"] == "Original dossier-recorded title/identifier/access/support/does-not-support."
+            assert actor["CHATGPT_INDEPENDENT_SOURCE_REVIEW"] == "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria."
+            assert actor["HUMAN_OWNER_APPROVAL"] == "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained."
+            assert actor["MANUS_IMPLEMENTATION"] == "Repository materialization; not scientific reviewer."
+            if source_id == "S14":
+                assert audit["HUMAN_OWNER_REVIEW_NOTE"].startswith("Software and hardware do not constitute the same embodied individual")
+                assert audit["OWNER_SEMANTIC_GUARDS"] == ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
+            else:
+                assert "HUMAN_OWNER_REVIEW_NOTE" not in audit and "OWNER_SEMANTIC_GUARDS" not in audit
         elif source_id in expected_batch02_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch02_kinds[source_id]
             audit = current_rows[source_id].get("source_audit", {})
@@ -86,7 +104,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01+02 preservation PASS: 53 raw source records unchanged; S01-S05 preserved; S06-S10 audit exact; S11-S53 audit absent; S38-S42 governance isolated")
+    print("SLSH Batch 01+02+03 preservation PASS: 53 raw source records unchanged; S01-S10 preserved; S11-S15 audit exact; S16-S53 audit absent; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ def test_exact_access_level_map_and_codex_provenance():
     assert len(rows) == 53
     assert {row["access_level"] for row in rows.values()} == {"FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"}
     assert all(rows[key]["access_level"] == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[value] for key, value in EXPECTED.items())
-    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10"})
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15"})
     assert all(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
     assert all(row["independent_verification_status"] == "NOT_YET_VERIFIED" for row in rows.values())
     assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
@@ -78,7 +78,32 @@ def test_batch02_source_audit_is_exact_and_scoped():
             assert audit["REVIEW_NOTE"] == "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT"
         else:
             assert "REVIEW_NOTE" not in audit
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S38", "S39", "S40", "S41", "S42"})
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S38", "S39", "S40", "S41", "S42"})
+
+
+def test_batch03_source_audit_is_exact_and_scoped():
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    expected_kinds = {"S11":"REVIEW_CONCEPTUAL_PHYSIOLOGICAL_SYNTHESIS","S12":"REVIEW_CRITICAL_CONCEPTUAL_ANALYSIS","S13":"REVIEW_THEORETICAL_PHYSIOLOGICAL_FRAMEWORK","S14":"OPINION_THEORETICAL_NEUROSCIENCE_SYNTHESIS","S15":"PRIMARY_EMPIRICAL_FMRI_INTEROCEPTION_STUDY"}
+    common = {
+        "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT","BIBLIOGRAPHIC_IDENTITY":"VERIFIED","SUPPORT_BOUNDARY":"PASS","NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN":"HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE","EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER","DIRECT_AI_EVIDENCE":"NONE","DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE","CROSS_SUBSTRATE_USE":"BIOLOGICAL_BACKGROUND",
+        "EMBODIMENT_ANALOGY_CRITERIA":["IDENTITY_BINDING","CAUSAL_COUPLING","CLOSED_LOOP_REGULATION","CONTINUITY"],
+        "SEMANTIC_GUARDS":["ALLOSTATIC_LOAD != SOFTWARE_LOAD","NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION","TELEMETRY != INTEROCEPTION","INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"],
+    }
+    for source_id, source_kind in expected_kinds.items():
+        audit = rows[source_id]["source_audit"]
+        assert rows[source_id]["source_kind"] == source_kind
+        assert all(audit[key] == value for key, value in common.items())
+        assert audit["ACTOR_PROVENANCE"]["CODEX_RESEARCH_SYNTHESIS"] == "Original dossier-recorded title/identifier/access/support/does-not-support."
+        assert audit["ACTOR_PROVENANCE"]["CHATGPT_INDEPENDENT_SOURCE_REVIEW"] == "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria."
+        assert audit["ACTOR_PROVENANCE"]["HUMAN_OWNER_APPROVAL"] == "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained."
+        assert audit["ACTOR_PROVENANCE"]["MANUS_IMPLEMENTATION"] == "Repository materialization; not scientific reviewer."
+        if source_id == "S14":
+            assert audit["HUMAN_OWNER_REVIEW_NOTE"].startswith("Software and hardware do not constitute the same embodied individual")
+            assert audit["OWNER_SEMANTIC_GUARDS"] == ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
+        else:
+            assert "HUMAN_OWNER_REVIEW_NOTE" not in audit and "OWNER_SEMANTIC_GUARDS" not in audit
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15"})
 
 
 def test_source_governance_dispositions_are_exact_and_bounded():

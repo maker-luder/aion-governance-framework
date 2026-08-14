@@ -309,70 +309,221 @@
       "title_as_recorded": "McEwen, B. S. (1998), “Protective and Damaging Effects of Stress Mediators,” New England Journal of Medicine 338:171–179.",
       "identifier_as_recorded": "DOI 10.1056/NEJM199801153380307.",
       "access_evidence": "abstract 可讀；publisher 顯示 Get Access。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_CONCEPTUAL_PHYSIOLOGICAL_SYNTHESIS",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "同一壓力反應可短期保護、長期造成生物成本，促成 allostatic load 概念。",
       "does_not_support_as_recorded": "軟體資源消耗等同 stress mediator 或組織損傷。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "BIOLOGICAL_BACKGROUND",
+        "EMBODIMENT_ANALOGY_CRITERIA": [
+          "IDENTITY_BINDING",
+          "CAUSAL_COUPLING",
+          "CLOSED_LOOP_REGULATION",
+          "CONTINUITY"
+        ],
+        "SEMANTIC_GUARDS": [
+          "ALLOSTATIC_LOAD != SOFTWARE_LOAD",
+          "NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION",
+          "TELEMETRY != INTEROCEPTION",
+          "INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria.",
+          "HUMAN_OWNER_APPROVAL": "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S12",
       "title_as_recorded": "Ramsay, D. S., & Woods, S. C. (2014), “Clarifying the Roles of Homeostasis and Allostasis in Physiological Regulation,” Psychological Review 121(2):225–247.",
       "identifier_as_recorded": "DOI 10.1037/a0035942.",
       "access_evidence": "APA abstract 可讀；全文需權限。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_CRITICAL_CONCEPTUAL_ANALYSIS",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "homeostasis 與 allostasis 需精確區分；調節可預期需求並改變控制目標。",
       "does_not_support_as_recorded": "任何 feedback controller 都是有感受的 homeostatic subject。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "BIOLOGICAL_BACKGROUND",
+        "EMBODIMENT_ANALOGY_CRITERIA": [
+          "IDENTITY_BINDING",
+          "CAUSAL_COUPLING",
+          "CLOSED_LOOP_REGULATION",
+          "CONTINUITY"
+        ],
+        "SEMANTIC_GUARDS": [
+          "ALLOSTATIC_LOAD != SOFTWARE_LOAD",
+          "NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION",
+          "TELEMETRY != INTEROCEPTION",
+          "INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria.",
+          "HUMAN_OWNER_APPROVAL": "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S13",
       "title_as_recorded": "Schulkin, J., & Sterling, P. (2019), “Allostasis: A Brain-Centered, Predictive Mode of Physiological Regulation,” Trends in Neurosciences 42(10):740–752.",
       "identifier_as_recorded": "DOI 10.1016/j.tins.2019.07.010.",
       "access_evidence": "abstract/highlights 可讀；publisher 顯示 Get Access。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_THEORETICAL_PHYSIOLOGICAL_FRAMEWORK",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "生物調節涉及 anticipatory control、跨系統協調與學習。",
       "does_not_support_as_recorded": "對下一 token 的 prediction 是生物 allostasis 或主觀需要。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "BIOLOGICAL_BACKGROUND",
+        "EMBODIMENT_ANALOGY_CRITERIA": [
+          "IDENTITY_BINDING",
+          "CAUSAL_COUPLING",
+          "CLOSED_LOOP_REGULATION",
+          "CONTINUITY"
+        ],
+        "SEMANTIC_GUARDS": [
+          "ALLOSTATIC_LOAD != SOFTWARE_LOAD",
+          "NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION",
+          "TELEMETRY != INTEROCEPTION",
+          "INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria.",
+          "HUMAN_OWNER_APPROVAL": "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S14",
       "title_as_recorded": "Craig, A. D. (2002), “How Do You Feel? Interoception: The Sense of the Physiological Condition of the Body,” Nature Reviews Neuroscience 3:655–666.",
       "identifier_as_recorded": "DOI 10.1038/nrn894.",
       "access_evidence": "metadata/abstract 可讀；全文權限依 publisher。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "OPINION_THEORETICAL_NEUROSCIENCE_SYNTHESIS",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "interoception 在動物/人類是對身體生理狀況的神經表徵，與 feeling 研究相關。",
       "does_not_support_as_recorded": "任意軟體 telemetry、log 或 resource counter 等同 interoception。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "BIOLOGICAL_BACKGROUND",
+        "EMBODIMENT_ANALOGY_CRITERIA": [
+          "IDENTITY_BINDING",
+          "CAUSAL_COUPLING",
+          "CLOSED_LOOP_REGULATION",
+          "CONTINUITY"
+        ],
+        "SEMANTIC_GUARDS": [
+          "ALLOSTATIC_LOAD != SOFTWARE_LOAD",
+          "NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION",
+          "TELEMETRY != INTEROCEPTION",
+          "INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria.",
+          "HUMAN_OWNER_APPROVAL": "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "HUMAN_OWNER_REVIEW_NOTE": "Software and hardware do not constitute the same embodied individual merely because telemetry is readable; stronger embodiment/interoception-like analogy is researchable only when substrate/hardware state is continuously identity-bound and participates in a bidirectional causal self-regulatory loop. Skin and viscera are an analogy originating with the Human Owner.",
+        "OWNER_SEMANTIC_GUARDS": [
+          "HARDWARE_TELEMETRY != INTEROCEPTION",
+          "HARDWARE_ACCESS != EMBODIMENT",
+          "SUBSTRATE_COUPLING != PHENOMENAL_FEELING"
+        ]
+      }
     },
     {
       "id": "S15",
       "title_as_recorded": "Critchley, H. D., Wiens, S., Rotshtein, P., Öhman, A., & Dolan, R. J. (2004), “Neural Systems Supporting Interoceptive Awareness,” Nature Neuroscience 7:189–195.",
       "identifier_as_recorded": "DOI 10.1038/nn1176.",
       "access_evidence": "metadata/abstract 可讀；全文權限依 publisher。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_FMRI_INTEROCEPTION_STUDY",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "人類 interoceptive accuracy/awareness 與特定神經活動、主觀評估可關聯。",
       "does_not_support_as_recorded": "相關區域或單一 readout 足以證明 awareness；更不直接支持 AI。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "BIOLOGICAL_BACKGROUND",
+        "EMBODIMENT_ANALOGY_CRITERIA": [
+          "IDENTITY_BINDING",
+          "CAUSAL_COUPLING",
+          "CLOSED_LOOP_REGULATION",
+          "CONTINUITY"
+        ],
+        "SEMANTIC_GUARDS": [
+          "ALLOSTATIC_LOAD != SOFTWARE_LOAD",
+          "NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION",
+          "TELEMETRY != INTEROCEPTION",
+          "INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria.",
+          "HUMAN_OWNER_APPROVAL": "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S16",
