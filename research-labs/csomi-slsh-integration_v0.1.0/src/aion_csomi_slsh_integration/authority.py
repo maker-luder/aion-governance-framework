@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 import hashlib
 import json
-from pathlib import Path
 import subprocess
+from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 
@@ -134,7 +134,8 @@ def assert_authority_semantics(authority: ReadOnlyAuthority) -> None:
     for field, expected_value in expected.items():
         if packet.get(field) != expected_value:
             raise AuthorityInputError(
-                f"{authority.spec.framework} frozen semantic mismatch: {field}={packet.get(field)!r}"
+                f"{authority.spec.framework} frozen semantic mismatch: "
+                f"{field}={packet.get(field)!r}"
             )
     if authority.spec.framework == "SLSH":
         interface = packet.get("csomi_interface", {})

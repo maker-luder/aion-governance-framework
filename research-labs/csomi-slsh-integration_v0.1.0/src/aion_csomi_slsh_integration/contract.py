@@ -3,9 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-from .authority import ReadOnlyAuthority
 from .adapters import build_adapter_inventory
-
+from .authority import ReadOnlyAuthority
 
 COMMON_SHARED_FIELDS = [
     "framework_and_exact_sha",
@@ -65,7 +64,9 @@ def _claim_projection(authorities: tuple[ReadOnlyAuthority, ReadOnlyAuthority]) 
     return {
         "shared_fields": COMMON_SHARED_FIELDS,
         "preserved_fields": CLAIM_PRESERVED_FIELDS,
-        "non_equivalence_guard": "CSOMI_CLAIM_TYPE_AND_SLSH_CLAIM_TYPE_ARE_NOT_SEMANTICALLY_COERCED",
+        "non_equivalence_guard": (
+            "CSOMI_CLAIM_TYPE_AND_SLSH_CLAIM_TYPE_ARE_NOT_SEMANTICALLY_COERCED"
+        ),
         "adapter_output_only": True,
     }
 
@@ -81,7 +82,14 @@ def _evidence_projection() -> dict[str, Any]:
 
 def _control_projection() -> dict[str, Any]:
     return {
-        "shared_fields": ["framework", "control_id", "control_type", "name", "purpose", "diagnostic_role"],
+        "shared_fields": [
+            "framework",
+            "control_id",
+            "control_type",
+            "name",
+            "purpose",
+            "diagnostic_role",
+        ],
         "preserved_fields": CONTROL_PRESERVED_FIELDS,
         "non_equivalence_guard": "CONTROLS_ARE_DIAGNOSTIC_NOT_SUBJECTIVITY_PROOF",
         "adapter_output_only": True,
@@ -99,9 +107,17 @@ def _falsifier_projection() -> dict[str, Any]:
 
 def _lineage_projection(authorities: tuple[ReadOnlyAuthority, ReadOnlyAuthority]) -> dict[str, Any]:
     return {
-        "shared_fields": ["framework", "authority_ref", "authority_sha", "packet_path", "schema_path"],
+        "shared_fields": [
+            "framework",
+            "authority_ref",
+            "authority_sha",
+            "packet_path",
+            "schema_path",
+        ],
         "preserved_fields": LINEAGE_PRESERVED_FIELDS,
-        "non_equivalence_guard": "EXACT_SHA_AND_FRAMEWORK_IDENTITY_REQUIRED_FOR_EVERY_ADAPTER_RECORD",
+        "non_equivalence_guard": (
+            "EXACT_SHA_AND_FRAMEWORK_IDENTITY_REQUIRED_FOR_EVERY_ADAPTER_RECORD"
+        ),
         "adapter_output_only": True,
     }
 
@@ -114,7 +130,11 @@ def build_integration_contract(
     if frameworks != {"CSOMI", "SLSH"}:
         raise ValueError("integration requires exactly one CSOMI and one SLSH authority")
     for authority in authorities:
-        if not authority.spec.authority_sha or not authority.packet_sha256 or not authority.schema_sha256:
+        if (
+            not authority.spec.authority_sha
+            or not authority.packet_sha256
+            or not authority.schema_sha256
+        ):
             raise ValueError("authority lineage is incomplete")
 
     return {
@@ -132,7 +152,9 @@ def build_integration_contract(
                 "schema_path": authority.spec.schema_path,
                 "packet_sha256": authority.packet_sha256,
                 "schema_sha256": authority.schema_sha256,
-                "declared_packet_branch": authority.packet.get("branch", authority.spec.authority_ref),
+                "declared_packet_branch": authority.packet.get(
+                    "branch", authority.spec.authority_ref
+                ),
                 "read_only": True,
                 "mutation_policy": "MUTATION_PROHIBITED",
                 "adapter_mode": "READ_ONLY_GIT_OBJECT_ADAPTER",
@@ -158,12 +180,40 @@ def build_integration_contract(
             "SLSH_FUNCTIONAL_LOAD != SUBJECTIVE_LOAD",
         ],
         "provenance_contract": {
-            "actor_order": [
-                "CODEX_RESEARCH_SYNTHESIS",
-                "CHATGPT_INDEPENDENT_SOURCE_REVIEW",
-                "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION",
-                "MANUS_IMPLEMENTATION",
-            ],
+            "framework_research_origins": {
+                "CSOMI": {
+                    "origin_sequence": [
+                        "HUMAN_OWNER_DIRECTION",
+                        "CHATGPT_ARCHITECTURE_REFINEMENT",
+                    ],
+                    "sequence_semantics": "CSOMI_RESEARCH_ORIGIN_AND_ARCHITECTURE_LINEAGE",
+                    "not_source_audit_workflow": True,
+                },
+                "SLSH": {
+                    "origin_sequence": [
+                        "HUMAN_OWNER_ORIGIN",
+                        "CHATGPT_ARCHITECTURE_REFINEMENT",
+                        "CODEX_RESEARCH_SYNTHESIS",
+                        "EXTERNAL_SOURCE",
+                    ],
+                    "sequence_semantics": "SLSH_RESEARCH_ORIGIN_AND_RESEARCH_INPUT_LINEAGE",
+                    "not_source_audit_workflow": True,
+                },
+            },
+            "source_audit_materialization_workflow": {
+                "workflow_name": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW",
+                "workflow_sequence": [
+                    "CODEX_RESEARCH_SYNTHESIS",
+                    "CHATGPT_INDEPENDENT_SOURCE_REVIEW",
+                    "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION",
+                    "MANUS_IMPLEMENTATION",
+                ],
+                "sequence_semantics": (
+                    "SOURCE_RECORD_REVIEW_ADMISSION_AND_REPOSITORY_MATERIALIZATION_ONLY"
+                ),
+                "not_research_origin": True,
+                "implementation_role": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW",
+            },
             "authority_attribution": "FROZEN_INPUTS_REMAIN_AUTHORITATIVE_FOR_OWN_SEMANTICS",
             "source_attribution": "NO_SOURCE_RECORDS_COPIED_OR_RECLASSIFIED",
             "implementation_attribution": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW",
@@ -211,14 +261,20 @@ def build_integration_contract(
                 "id": "META-001",
                 "status": "PRESERVED_NOT_RECONCILED",
                 "field": "CSOMI.packet_path_vs_SLSH.csomi_interface",
-                "detail": "SLSH retains a conditional read-only CSOMI interface; this module records the exact input hashes without copying or implementing that interface.",
+                "detail": (
+                    "SLSH retains a conditional read-only CSOMI interface; this module "
+                    "records the exact input hashes without copying or implementing that interface."
+                ),
                 "resolution_policy": "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY",
             },
             {
                 "id": "META-002",
                 "status": "PRESERVED_NOT_RECONCILED",
                 "field": "framework_specific_claim_semantics",
-                "detail": "CSOMI mind-like inference claims and SLSH load-state claims remain distinct namespaces and are not joined into a scientific conclusion.",
+                "detail": (
+                    "CSOMI mind-like inference claims and SLSH load-state claims remain "
+                    "distinct namespaces and are not joined into a scientific conclusion."
+                ),
                 "resolution_policy": "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY",
             },
         ],

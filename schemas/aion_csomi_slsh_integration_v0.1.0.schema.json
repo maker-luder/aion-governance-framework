@@ -162,13 +162,44 @@
     "provenanceContract": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["actor_order", "authority_attribution", "source_attribution", "implementation_attribution", "provenance_mutation"],
+      "required": ["framework_research_origins", "source_audit_materialization_workflow", "authority_attribution", "source_attribution", "implementation_attribution", "provenance_mutation"],
       "properties": {
-        "actor_order": {"const": ["CODEX_RESEARCH_SYNTHESIS", "CHATGPT_INDEPENDENT_SOURCE_REVIEW", "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION", "MANUS_IMPLEMENTATION"]},
+        "framework_research_origins": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["CSOMI", "SLSH"],
+          "properties": {
+            "CSOMI": {"$ref": "#/$defs/researchOrigin"},
+            "SLSH": {"$ref": "#/$defs/researchOrigin"}
+          }
+        },
+        "source_audit_materialization_workflow": {"$ref": "#/$defs/sourceAuditWorkflow"},
         "authority_attribution": {"const": "FROZEN_INPUTS_REMAIN_AUTHORITATIVE_FOR_OWN_SEMANTICS"},
         "source_attribution": {"const": "NO_SOURCE_RECORDS_COPIED_OR_RECLASSIFIED"},
         "implementation_attribution": {"const": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW"},
         "provenance_mutation": {"const": "PROHIBITED"}
+      }
+    },
+    "researchOrigin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin_sequence", "sequence_semantics", "not_source_audit_workflow"],
+      "properties": {
+        "origin_sequence": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "sequence_semantics": {"type": "string", "minLength": 1},
+        "not_source_audit_workflow": {"const": true}
+      }
+    },
+    "sourceAuditWorkflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workflow_name", "workflow_sequence", "sequence_semantics", "not_research_origin", "implementation_role"],
+      "properties": {
+        "workflow_name": {"const": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW"},
+        "workflow_sequence": {"const": ["CODEX_RESEARCH_SYNTHESIS", "CHATGPT_INDEPENDENT_SOURCE_REVIEW", "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION", "MANUS_IMPLEMENTATION"]},
+        "sequence_semantics": {"const": "SOURCE_RECORD_REVIEW_ADMISSION_AND_REPOSITORY_MATERIALIZATION_ONLY"},
+        "not_research_origin": {"const": true},
+        "implementation_role": {"const": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW"}
       }
     },
     "evidenceRoleContract": {

@@ -14,6 +14,12 @@ The module enforces the following boundaries:
 
 The integration record is an adapter and consistency artifact only. It does not create a consciousness detector, runtime authority, experiment protocol, model modification, live-data collection path, canonical writeback, deployment, or scientific conclusion. Framework-specific disagreements are recorded as `PRESERVED_NOT_RECONCILED` metadata conditions and remain held for Human Owner or framework-authority review.
 
+## Provenance layers
+
+Research-origin provenance is stored separately for each frozen framework. CSOMI uses `HUMAN_OWNER_DIRECTION → CHATGPT_ARCHITECTURE_REFINEMENT`; SLSH uses `HUMAN_OWNER_ORIGIN → CHATGPT_ARCHITECTURE_REFINEMENT → CODEX_RESEARCH_SYNTHESIS → EXTERNAL_SOURCE`. These sequences describe research origin and architecture/input lineage, not source-audit processing.
+
+The separately named `SOURCE_AUDIT_MATERIALIZATION_WORKFLOW` records source-record review and repository materialization only: `CODEX_RESEARCH_SYNTHESIS → CHATGPT_INDEPENDENT_SOURCE_REVIEW → HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION → MANUS_IMPLEMENTATION`. This workflow must not be interpreted as the research-origin order, and Manus remains implementation-only rather than a scientific reviewer.
+
 ## Deterministic validation
 
 From the repository root, run:
@@ -22,6 +28,8 @@ From the repository root, run:
 python3 scripts/materialize_csomi_slsh_integration.py
 python3 scripts/check_csomi_slsh_integration.py
 python3 -m pytest -q research-labs/csomi-slsh-integration_v0.1.0/tests
+ruff check research-labs/csomi-slsh-integration_v0.1.0/src research-labs/csomi-slsh-integration_v0.1.0/tests scripts/materialize_csomi_slsh_integration.py scripts/check_csomi_slsh_integration.py
+MYPYPATH=research-labs/csomi-slsh-integration_v0.1.0/src mypy --strict research-labs/csomi-slsh-integration_v0.1.0/src scripts/materialize_csomi_slsh_integration.py scripts/check_csomi_slsh_integration.py
 python3 -m compileall -q research-labs/csomi-slsh-integration_v0.1.0/src scripts/materialize_csomi_slsh_integration.py scripts/check_csomi_slsh_integration.py
 python3 -m json.tool schemas/aion_csomi_slsh_integration_v0.1.0.schema.json >/dev/null
 ```

@@ -271,12 +271,38 @@
     "SLSH_FUNCTIONAL_LOAD != SUBJECTIVE_LOAD"
   ],
   "provenance_contract": {
-    "actor_order": [
-      "CODEX_RESEARCH_SYNTHESIS",
-      "CHATGPT_INDEPENDENT_SOURCE_REVIEW",
-      "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION",
-      "MANUS_IMPLEMENTATION"
-    ],
+    "framework_research_origins": {
+      "CSOMI": {
+        "origin_sequence": [
+          "HUMAN_OWNER_DIRECTION",
+          "CHATGPT_ARCHITECTURE_REFINEMENT"
+        ],
+        "sequence_semantics": "CSOMI_RESEARCH_ORIGIN_AND_ARCHITECTURE_LINEAGE",
+        "not_source_audit_workflow": true
+      },
+      "SLSH": {
+        "origin_sequence": [
+          "HUMAN_OWNER_ORIGIN",
+          "CHATGPT_ARCHITECTURE_REFINEMENT",
+          "CODEX_RESEARCH_SYNTHESIS",
+          "EXTERNAL_SOURCE"
+        ],
+        "sequence_semantics": "SLSH_RESEARCH_ORIGIN_AND_RESEARCH_INPUT_LINEAGE",
+        "not_source_audit_workflow": true
+      }
+    },
+    "source_audit_materialization_workflow": {
+      "workflow_name": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW",
+      "workflow_sequence": [
+        "CODEX_RESEARCH_SYNTHESIS",
+        "CHATGPT_INDEPENDENT_SOURCE_REVIEW",
+        "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION",
+        "MANUS_IMPLEMENTATION"
+      ],
+      "sequence_semantics": "SOURCE_RECORD_REVIEW_ADMISSION_AND_REPOSITORY_MATERIALIZATION_ONLY",
+      "not_research_origin": true,
+      "implementation_role": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW"
+    },
     "authority_attribution": "FROZEN_INPUTS_REMAIN_AUTHORITATIVE_FOR_OWN_SEMANTICS",
     "source_attribution": "NO_SOURCE_RECORDS_COPIED_OR_RECLASSIFIED",
     "implementation_attribution": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW",

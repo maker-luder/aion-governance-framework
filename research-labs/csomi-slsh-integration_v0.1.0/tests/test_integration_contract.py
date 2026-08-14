@@ -1,20 +1,24 @@
 from __future__ import annotations
 
-from copy import deepcopy
 import json
+from copy import deepcopy
 from pathlib import Path
 
-from jsonschema import Draft202012Validator
 import pytest
+from jsonschema import Draft202012Validator
 
 from aion_csomi_slsh_integration.authority import load_default_authorities
 from aion_csomi_slsh_integration.contract import build_integration_contract
 from aion_csomi_slsh_integration.validate import IntegrationValidationError, validate_record
 
-
 ROOT = Path(__file__).resolve().parents[3]
 SCHEMA_PATH = ROOT / "schemas" / "aion_csomi_slsh_integration_v0.1.0.schema.json"
-RECORD_PATH = ROOT / "research-workbench" / "csomi-slsh-integration-2026-08-14" / "CSOMI_SLSH_INTEGRATION_RECORD_V0.1.0.json"
+RECORD_PATH = (
+    ROOT
+    / "research-workbench"
+    / "csomi-slsh-integration-2026-08-14"
+    / "CSOMI_SLSH_INTEGRATION_RECORD_V0.1.0.json"
+)
 
 
 def load_schema() -> dict:
@@ -47,6 +51,13 @@ def test_unknown_record_field_fails_closed():
     assert list(Draft202012Validator(load_schema()).iter_errors(mutated))
 
 
+def test_legacy_actor_order_fails_closed():
+    mutated = deepcopy(load_record())
+    mutated["provenance_contract"]["actor_order"] = ["CODEX_RESEARCH_SYNTHESIS"]
+    errors = list(Draft202012Validator(load_schema()).iter_errors(mutated))
+    assert errors
+
+
 def test_unknown_nested_authority_field_fails_closed():
     mutated = deepcopy(load_record())
     mutated["authority_inputs"][0]["unknown_field"] = "must fail"
@@ -57,7 +68,9 @@ def test_unknown_nested_authority_field_fails_closed():
     "mutation",
     [
         lambda record: record["authority_inputs"][0].update({"authority_sha": "0" * 40}),
-        lambda record: record["claim_boundary_rules"].__setitem__(1, "CSOMI_EVIDENCE_CONVERGENCE=SUBJECTIVITY_PROOF"),
+        lambda record: record["claim_boundary_rules"].__setitem__(
+            1, "CSOMI_EVIDENCE_CONVERGENCE=SUBJECTIVITY_PROOF"
+        ),
         lambda record: record.update({"subjectivity_conclusion": "ESTABLISHED"}),
         lambda record: record.update({"experiment_executed": True}),
         lambda record: record["provenance_contract"].update({"provenance_mutation": "ALLOWED"}),
@@ -76,27 +89,71 @@ def test_adapter_inventories_preserve_namespaces_and_lineage():
     assert set(inventories) == {"CSOMI", "SLSH"}
     assert inventories["CSOMI"]["authority_sha"] == "87405c1877c6f016c303971da13923a1ab690aae"
     assert inventories["SLSH"]["authority_sha"] == "893d8dc0c1c9d8f9a4188860520143c8d1d3977b"
-    assert inventories["CSOMI"]["claim_ids"] == ["CLM-001", "CLM-002", "CLM-003", "CLM-004", "CLM-005", "CLM-006"]
-    assert inventories["SLSH"]["claim_ids"] == ["CLM-SLSH-001", "CLM-SLSH-002", "CLM-SLSH-003", "CLM-SLSH-004", "CLM-SLSH-005"]
+    assert inventories["CSOMI"]["claim_ids"] == [
+        "CLM-001",
+        "CLM-002",
+        "CLM-003",
+        "CLM-004",
+        "CLM-005",
+        "CLM-006",
+    ]
+    assert inventories["SLSH"]["claim_ids"] == [
+        "CLM-SLSH-001",
+        "CLM-SLSH-002",
+        "CLM-SLSH-003",
+        "CLM-SLSH-004",
+        "CLM-SLSH-005",
+    ]
     assert inventories["CSOMI"]["auxiliary_artifacts"][0]["role"] == "CONTROL_IDENTIFIER_ONLY"
     assert inventories["SLSH"]["auxiliary_artifacts"] == []
-    assert all(item["semantic_projection"] == "IDENTIFIERS_AND_LINEAGE_ONLY" for item in inventories.values())
-    assert all(item["no_source_claim_projection"] is True and item["read_only"] is True for item in inventories.values())
+    assert all(
+        item["semantic_projection"] == "IDENTIFIERS_AND_LINEAGE_ONLY"
+        for item in inventories.values()
+    )
+    assert all(
+        item["no_source_claim_projection"] is True and item["read_only"] is True
+        for item in inventories.values()
+    )
+
+
+def test_per_framework_research_origins_and_source_audit_workflow_are_separate():
+    record = load_record()
+    provenance = record["provenance_contract"]
+    assert provenance["framework_research_origins"]["CSOMI"] == {
+        "origin_sequence": ["HUMAN_OWNER_DIRECTION", "CHATGPT_ARCHITECTURE_REFINEMENT"],
+        "sequence_semantics": "CSOMI_RESEARCH_ORIGIN_AND_ARCHITECTURE_LINEAGE",
+        "not_source_audit_workflow": True,
+    }
+    assert provenance["framework_research_origins"]["SLSH"] == {
+        "origin_sequence": [
+            "HUMAN_OWNER_ORIGIN",
+            "CHATGPT_ARCHITECTURE_REFINEMENT",
+            "CODEX_RESEARCH_SYNTHESIS",
+            "EXTERNAL_SOURCE",
+        ],
+        "sequence_semantics": "SLSH_RESEARCH_ORIGIN_AND_RESEARCH_INPUT_LINEAGE",
+        "not_source_audit_workflow": True,
+    }
+    workflow = provenance["source_audit_materialization_workflow"]
+    assert workflow["workflow_name"] == "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW"
+    assert workflow["not_research_origin"] is True
+    assert "actor_order" not in provenance
+    assert provenance["provenance_mutation"] == "PROHIBITED"
 
 
 def test_provenance_and_nonmergeable_semantics_are_explicit():
     record = load_record()
-    assert record["provenance_contract"]["actor_order"] == [
-        "CODEX_RESEARCH_SYNTHESIS",
-        "CHATGPT_INDEPENDENT_SOURCE_REVIEW",
-        "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION",
-        "MANUS_IMPLEMENTATION",
-    ]
     assert record["provenance_contract"]["provenance_mutation"] == "PROHIBITED"
     assert "CSOMI.subjectivity_conclusion" in record["known_nonmergeable_fields"]
     assert "SLSH.functional_rule" in record["known_nonmergeable_fields"]
-    assert all(item["status"] == "PRESERVED_NOT_RECONCILED" for item in record["unresolved_metadata_conditions"])
-    assert all(item["resolution_policy"] == "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY" for item in record["unresolved_metadata_conditions"])
+    assert all(
+        item["status"] == "PRESERVED_NOT_RECONCILED"
+        for item in record["unresolved_metadata_conditions"]
+    )
+    assert all(
+        item["resolution_policy"] == "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY"
+        for item in record["unresolved_metadata_conditions"]
+    )
 
 
 def test_no_execution_or_canonical_writeback_state():
@@ -108,4 +165,7 @@ def test_no_execution_or_canonical_writeback_state():
     assert record["model_modified"] is False
     assert record["live_data_collected"] is False
     assert record["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    assert record["control_falsifier_contract"]["cross_framework_execution"] == "NO_EXPERIMENT_NO_RUNTIME_NO_LIVE_DATA"
+    assert (
+        record["control_falsifier_contract"]["cross_framework_execution"]
+        == "NO_EXPERIMENT_NO_RUNTIME_NO_LIVE_DATA"
+    )

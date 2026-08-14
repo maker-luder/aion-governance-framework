@@ -27,9 +27,11 @@ CSOMI mind-like inference and SLSH functional-load analysis remain separate name
 
 The generated JSON record stores packet and schema SHA-256 hashes in addition to the authority commit SHAs. These hashes are lineage evidence, not scientific evidence.
 
-## Provenance
+## Provenance layers
 
-The integration layer preserves the actor order `CODEX_RESEARCH_SYNTHESIS → CHATGPT_INDEPENDENT_SOURCE_REVIEW → HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION → MANUS_IMPLEMENTATION`. Manus is implementation-only and is not a scientific reviewer. The integration layer does not rewrite or collapse either authority's provenance.
+Research-origin provenance is preserved independently by framework. CSOMI records `HUMAN_OWNER_DIRECTION → CHATGPT_ARCHITECTURE_REFINEMENT`. SLSH records `HUMAN_OWNER_ORIGIN → CHATGPT_ARCHITECTURE_REFINEMENT → CODEX_RESEARCH_SYNTHESIS → EXTERNAL_SOURCE`. These are research-origin and architecture/input lineages, not source-audit processing order.
+
+The separate `SOURCE_AUDIT_MATERIALIZATION_WORKFLOW` records `CODEX_RESEARCH_SYNTHESIS → CHATGPT_INDEPENDENT_SOURCE_REVIEW → HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION → MANUS_IMPLEMENTATION` for source-record review, admission and repository materialization only. It is not a research-origin sequence. Manus remains implementation-only and is not a scientific reviewer. The integration layer does not rewrite or collapse either authority's provenance.
 
 ## Fixed execution boundary
 
