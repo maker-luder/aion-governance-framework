@@ -27,7 +27,7 @@ def test_exact_access_level_map_and_codex_provenance():
     assert len(rows) == 53
     assert {row["access_level"] for row in rows.values()} == {"FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"}
     assert all(rows[key]["access_level"] == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[value] for key, value in EXPECTED.items())
-    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05"})
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10"})
     assert all(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
     assert all(row["independent_verification_status"] == "NOT_YET_VERIFIED" for row in rows.values())
     assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
@@ -54,10 +54,31 @@ def test_batch01_source_audit_is_exact_and_scoped():
             "MANUS_IMPLEMENTATION":"Schema/record/checker/tests/docs materialization; not scientific reviewer."
         }
     }
-    assert {row["id"] for row in rows.values() if "source_audit" in row} == set(expected_kinds)
     assert all(rows[source_id]["source_kind"] == source_kind for source_id, source_kind in expected_kinds.items())
     assert all(rows[source_id]["source_audit"] == expected_audit for source_id in expected_kinds)
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in expected_kinds)
+
+
+def test_batch02_source_audit_is_exact_and_scoped():
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    expected_kinds = {"S06":"PRIMARY_EMPIRICAL_ERP_LABORATORY_STUDY","S07":"PRIMARY_EMPIRICAL_CONTROLLED_LABORATORY_STUDY","S08":"PRIMARY_EMPIRICAL_RANDOMIZED_CROSSOVER_STUDY","S09":"PRIMARY_EMPIRICAL_RANDOMIZED_DOSE_RESPONSE_LABORATORY_STUDY","S10":"REVIEW_CONCEPTUAL_SYNTHESIS"}
+    common = {
+        "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT","BIBLIOGRAPHIC_IDENTITY":"VERIFIED","SUPPORT_BOUNDARY":"PASS","NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN":"HUMAN_BIOLOGICAL/HUMAN_COGNITIVE","EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER","DIRECT_AI_EVIDENCE":"NONE","DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE","CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY"
+    }
+    for source_id, source_kind in expected_kinds.items():
+        audit = rows[source_id]["source_audit"]
+        assert rows[source_id]["source_kind"] == source_kind
+        assert all(audit[key] == value for key, value in common.items())
+        assert audit["ACTOR_PROVENANCE"]["CODEX_RESEARCH_SYNTHESIS"] == "Original dossier-recorded title/identifier/access/support/does-not-support."
+        assert audit["ACTOR_PROVENANCE"]["HUMAN_OWNER_APPROVAL"] == "Batch 02 S06-S10 accepted."
+        assert audit["ACTOR_PROVENANCE"]["MANUS_IMPLEMENTATION"] == "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        expected_chatgpt = "Source kind/domain/support boundary and cross-substrate transfer disposition." + (" Review note: OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT." if source_id == "S09" else "")
+        assert audit["ACTOR_PROVENANCE"]["CHATGPT_INDEPENDENT_SOURCE_REVIEW"] == expected_chatgpt
+        if source_id == "S09":
+            assert audit["REVIEW_NOTE"] == "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT"
+        else:
+            assert "REVIEW_NOTE" not in audit
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S38", "S39", "S40", "S41", "S42"})
 
 
 def test_source_governance_dispositions_are_exact_and_bounded():

@@ -61,12 +61,50 @@ def main() -> None:
         row = rows[source_id]
         expected_access = {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[expected]
         fail(row["access_level"] == expected_access, f"{source_id} access level {row['access_level']} != evidence-based {expected_access}")
-        if source_id not in {"S01", "S02", "S03", "S04", "S05"}:
+        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10"}:
             fail(row["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW", f"{source_id} source kind must remain unclassified pending independent review")
         fail(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED", f"{source_id} verification actor drift")
         fail(row["independent_verification_status"] == "NOT_YET_VERIFIED", f"{source_id} independent verification was upgraded")
         fail(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED", f"{source_id} provenance drift")
         fail(row["external_source_claim_boundary"].startswith("Only the source's recorded support"), f"{source_id} source boundary missing")
+    batch02_expected = {
+        "S06":"PRIMARY_EMPIRICAL_ERP_LABORATORY_STUDY",
+        "S07":"PRIMARY_EMPIRICAL_CONTROLLED_LABORATORY_STUDY",
+        "S08":"PRIMARY_EMPIRICAL_RANDOMIZED_CROSSOVER_STUDY",
+        "S09":"PRIMARY_EMPIRICAL_RANDOMIZED_DOSE_RESPONSE_LABORATORY_STUDY",
+        "S10":"REVIEW_CONCEPTUAL_SYNTHESIS",
+    }
+    batch02_audit = {
+        "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
+        "SUPPORT_BOUNDARY":"PASS",
+        "NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN":"HUMAN_BIOLOGICAL/HUMAN_COGNITIVE",
+        "EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE":"NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE",
+        "CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+    }
+    batch02_actor = {
+        "CODEX_RESEARCH_SYNTHESIS":"Original dossier-recorded title/identifier/access/support/does-not-support.",
+        "HUMAN_OWNER_APPROVAL":"Batch 02 S06-S10 accepted.",
+        "MANUS_IMPLEMENTATION":"Schema/record/checker/tests/docs materialization; not scientific reviewer.",
+    }
+    for source_id, expected_kind in batch02_expected.items():
+        fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
+        audit = rows[source_id].get("source_audit", {})
+        for key, value in batch02_audit.items():
+            fail(audit.get(key) == value, f"{source_id} Batch 02 audit {key} drift")
+        actor = audit.get("ACTOR_PROVENANCE", {})
+        for key, value in batch02_actor.items():
+            fail(actor.get(key) == value, f"{source_id} Batch 02 actor provenance {key} drift")
+        expected_chatgpt = "Source kind/domain/support boundary and cross-substrate transfer disposition." + (" Review note: OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT." if source_id == "S09" else "")
+        fail(actor.get("CHATGPT_INDEPENDENT_SOURCE_REVIEW") == expected_chatgpt, f"{source_id} ChatGPT review drift")
+        if source_id == "S09":
+            fail(audit.get("REVIEW_NOTE") == "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT", "S09 review note drift")
+        else:
+            fail("REVIEW_NOTE" not in audit, f"{source_id} received S09-only review note")
+
     batch01_expected = {
         "S01":"PRIMARY_EMPIRICAL_MODEL_BUILDING_ARTICLE",
         "S02":"REVIEW_CONCEPTUAL_FRAMEWORK",
@@ -91,7 +129,7 @@ def main() -> None:
     for source_id, expected_kind in batch01_expected.items():
         fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
         fail(rows[source_id].get("source_audit") == batch01_audit, f"{source_id} source audit drift")
-    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in batch01_expected), "source audit leaked beyond Batch 01")
+    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected)), "source audit leaked beyond Batch 01/02")
 
     governance_expected = {
         "S38": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
@@ -157,7 +195,7 @@ def main() -> None:
     vertical_text = VERTICAL.read_text(encoding="utf-8")
     for forbidden in ("SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED", "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD", "L4 != L5", "NO_SUBJECTIVITY"):
         fail(forbidden in vertical_text, f"vertical slice missing boundary {forbidden}")
-    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
+    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
 
 
 if __name__ == "__main__":

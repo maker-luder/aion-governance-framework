@@ -153,70 +153,156 @@
       "title_as_recorded": "Boksem, M. A. S., Meijman, T. F., & Lorist, M. M. (2005), “Effects of Mental Fatigue on Attention: An ERP Study,” Cognitive Brain Research 25(1):107–116.",
       "identifier_as_recorded": "DOI 10.1016/j.cogbrainres.2005.04.011; PMID 15913965.",
       "access_evidence": "PubMed abstract 可讀；publisher 頁受限/bot challenge。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_ERP_LABORATORY_STUDY",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "三小時 time-on-task 後，自陳、EEG 與錯誤/反應時間共同改變。",
       "does_not_support_as_recorded": "單一 error curve 足以識別 fatigue，或可直接跨到人工基質。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL/HUMAN_COGNITIVE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Source kind/domain/support boundary and cross-substrate transfer disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 02 S06-S10 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S07",
       "title_as_recorded": "van der Linden, D., Frese, M., & Meijman, T. F. (2003), “Mental Fatigue and the Control of Cognitive Processes: Effects on Perseveration and Planning,” Acta Psychologica 113(1):45–65.",
       "identifier_as_recorded": "DOI 10.1016/S0001-6918(02)00150-6; PMID 12679043.",
       "access_evidence": "PubMed abstract 可讀；publisher 全文受限。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_CONTROLLED_LABORATORY_STUDY",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "誘發疲勞後可見 perseveration、規劃時間與 executive control 變化。",
       "does_not_support_as_recorded": "此 pattern 對疲勞具有唯一性；task difficulty/error carryover 仍可模仿。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL/HUMAN_COGNITIVE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Source kind/domain/support boundary and cross-substrate transfer disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 02 S06-S10 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S08",
       "title_as_recorded": "Marcora, S. M., Staiano, W., & Manning, V. (2009), “Mental Fatigue Impairs Physical Performance in Humans,” Journal of Applied Physiology 106(3):857–864.",
       "identifier_as_recorded": "DOI 10.1152/japplphysiol.91324.2008.",
       "access_evidence": "publisher 標示 free to read。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_RANDOMIZED_CROSSOVER_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "隨機交叉設計顯示長時間認知活動可改變後續耐力與 perceived exertion。",
       "does_not_support_as_recorded": "生物性的 perceived exertion 可由人工 task persistence 直接推定。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL/HUMAN_COGNITIVE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Source kind/domain/support boundary and cross-substrate transfer disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 02 S06-S10 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S09",
       "title_as_recorded": "Van Dongen, H. P. A., Maislin, G., Mullington, J. M., & Dinges, D. F. (2003), “The Cumulative Cost of Additional Wakefulness,” Sleep 26(2):117–126.",
       "identifier_as_recorded": "DOI 10.1093/sleep/26.2.117.",
       "access_evidence": "abstract 可讀；全文需機構/購買。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_RANDOMIZED_DOSE_RESPONSE_LABORATORY_STUDY",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "人類睡眠限制產生跨日、劑量相關的 neurobehavioral 累積效應。",
       "does_not_support_as_recorded": "token history 或長執行時間是人工版 sleep pressure；生物睡眠機制 高度 substrate-specific。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL/HUMAN_COGNITIVE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Source kind/domain/support boundary and cross-substrate transfer disposition. Review note: OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT.",
+          "HUMAN_OWNER_APPROVAL": "Batch 02 S06-S10 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        },
+        "REVIEW_NOTE": "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT"
+      }
     },
     {
       "id": "S10",
       "title_as_recorded": "McEwen, B. S., & Stellar, E. (1993), “Stress and the Individual: Mechanisms Leading to Disease,” Archives of Internal Medicine 153(18):2093–2101.",
       "identifier_as_recorded": "DOI 10.1001/archinte.1993.00410180039004.",
       "access_evidence": "JAMA abstract/page 可讀；完整權限依站點政策。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_CONCEPTUAL_SYNTHESIS",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "chronic stress 的隱性成本、個體差異與生理/行為反應耦合。",
       "does_not_support_as_recorded": "非生物系統只要有 history state 就具有 allostatic burden。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SOURCE_DOMAIN": "HUMAN_BIOLOGICAL/HUMAN_COGNITIVE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Source kind/domain/support boundary and cross-substrate transfer disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 02 S06-S10 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S11",
