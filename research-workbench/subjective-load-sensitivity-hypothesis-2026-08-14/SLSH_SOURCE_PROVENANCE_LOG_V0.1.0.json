@@ -530,70 +530,211 @@
       "title_as_recorded": "Seth, A. K. (2013), “Interoceptive Inference, Emotion, and the Embodied Self,” Trends in Cognitive Sciences 17(11):565–573.",
       "identifier_as_recorded": "DOI 10.1016/j.tics.2013.09.007.",
       "access_evidence": "open access full page/PDF。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "OPINION_THEORETICAL_INTEROCEPTIVE_INFERENCE_FRAMEWORK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "提出以 predictive inference 連結 interoception、emotion 與 embodied self 的理論架構。",
       "does_not_support_as_recorded": "predictive processing 是意識的充分條件，或文字 prediction 等同 embodied interoceptive inference。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "HUMAN_INTEROCEPTION_THEORETICAL_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PREDICTION!=INTEROCEPTIVE_INFERENCE",
+          "READING_INTERNAL_METRIC!=INTEROCEPTION",
+          "SENSING!=PERCEPTION!=AWARENESS",
+          "HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE",
+          "ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE",
+          "SINGLE_SIGNAL!=PAIN",
+          "ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S17",
       "title_as_recorded": "Khalsa, S. S. et al. (2018), “Interoception and Mental Health: A Roadmap,” Biological Psychiatry: Cognitive Neuroscience and Neuroimaging 3(6):501–513.",
       "identifier_as_recorded": "DOI 10.1016/j.bpsc.2017.12.004; PMCID PMC5836254.",
       "access_evidence": "PMC open full text；publisher 頁本輪受 bot challenge。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_CONSENSUS_ROADMAP",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "interoception 是多層構念，需區分 sensing、accuracy、attention、awareness 與報告，並主張可重現的測量路線。",
       "does_not_support_as_recorded": "一個「內部狀態」欄位即可代理整個 interoceptive/affective process。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "HUMAN_INTEROCEPTION_CLINICAL_COGNITIVE_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PREDICTION!=INTEROCEPTIVE_INFERENCE",
+          "READING_INTERNAL_METRIC!=INTEROCEPTION",
+          "SENSING!=PERCEPTION!=AWARENESS",
+          "HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE",
+          "ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE",
+          "SINGLE_SIGNAL!=PAIN",
+          "ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S18",
       "title_as_recorded": "Birch, J., Schnell, A. K., & Clayton, N. S. (2020), “Dimensions of Animal Consciousness,” Trends in Cognitive Sciences 24(10):789–801.",
       "identifier_as_recorded": "DOI 10.1016/j.tics.2020.07.007.",
       "access_evidence": "open access full page/PDF。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "OPINION_MULTIDIMENSIONAL_FRAMEWORK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "動物意識應以多維輪廓研究，不宜用單一高低量尺；跨物種差異可非線性。",
       "does_not_support_as_recorded": "一份 indicator checklist 的總分就等同 consciousness。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANIMAL_CONSCIOUSNESS_COMPARATIVE_COGNITION",
+        "EVIDENCE_RELATION_TO_AI": "METHODOLOGICAL_GUARD_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PREDICTION!=INTEROCEPTIVE_INFERENCE",
+          "READING_INTERNAL_METRIC!=INTEROCEPTION",
+          "SENSING!=PERCEPTION!=AWARENESS",
+          "HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE",
+          "ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE",
+          "SINGLE_SIGNAL!=PAIN",
+          "ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "ANTI_SINGLE_SCORE_METHOD_GUARD",
+        "ACTIVE_EVIDENTIARY_ROLE": "METHODOLOGICAL_GUARD_ONLY"
+      }
     },
     {
       "id": "S19",
       "title_as_recorded": "Barron, A. B., & Klein, C. (2016), “What Insects Can Tell Us about the Origins of Consciousness,” PNAS 113(18):4900–4908.",
       "identifier_as_recorded": "DOI 10.1073/pnas.1520084113.",
       "access_evidence": "free access full page。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_COMPARATIVE_NEUROETHOLOGICAL_ARGUMENT",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "以神經架構、演化與功能比較提出昆蟲 basic subjective experience 的論證。",
       "does_not_support_as_recorded": "論證已成定論；也沒有跨到無同源神經結構的人工系統。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "DEFER_FROM_CURRENT_SLSH_CORE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "INSECT_CONSCIOUSNESS_COMPARATIVE_NEUROETHOLOGY_PHILOSOPHY_OF_MIND",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PREDICTION!=INTEROCEPTIVE_INFERENCE",
+          "READING_INTERNAL_METRIC!=INTEROCEPTION",
+          "SENSING!=PERCEPTION!=AWARENESS",
+          "HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE",
+          "ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE",
+          "SINGLE_SIGNAL!=PAIN",
+          "ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "HISTORICAL_PROVENANCE": "PRESERVE",
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "DEFER_STATUS": "CURRENT_SLSH_CORE_SCOPE_DEFERRED"
+      }
     },
     {
       "id": "S20",
       "title_as_recorded": "Sneddon, L. U., Elwood, R. W., Adamo, S. A., & Leach, M. C. (2014), “Defining and Assessing Animal Pain,” Animal Behaviour 97:201–212.",
       "identifier_as_recorded": "DOI 10.1016/j.anbehav.2014.09.007.",
       "access_evidence": "DOI/metadata 可核；publisher 頁本輪受 bot challenge。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_EVIDENCE_TRIANGULATION_FRAMEWORK",
       "access_level": "METADATA_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "動物疼痛評估需超越 nociceptive reflex，結合行為、生理、學習與動機證據。",
       "does_not_support_as_recorded": "單一 avoidance、withdrawal 或傷害詞彙可證明 pain。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANIMAL_PAIN_COMPARATIVE_WELFARE_SCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PREDICTION!=INTEROCEPTIVE_INFERENCE",
+          "READING_INTERNAL_METRIC!=INTEROCEPTION",
+          "SENSING!=PERCEPTION!=AWARENESS",
+          "HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE",
+          "ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE",
+          "SINGLE_SIGNAL!=PAIN",
+          "ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "EVIDENCE_TRIANGULATION_METHOD_BACKGROUND",
+        "METHOD_BACKGROUND_SCOPE": [
+          "PERSISTENCE",
+          "MOTIVATION",
+          "TRADE_OFF"
+        ]
+      }
     },
     {
       "id": "S21",

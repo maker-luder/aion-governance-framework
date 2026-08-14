@@ -61,12 +61,47 @@ def main() -> None:
         row = rows[source_id]
         expected_access = {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[expected]
         fail(row["access_level"] == expected_access, f"{source_id} access level {row['access_level']} != evidence-based {expected_access}")
-        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15"}:
+        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20"}:
             fail(row["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW", f"{source_id} source kind must remain unclassified pending independent review")
         fail(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED", f"{source_id} verification actor drift")
         fail(row["independent_verification_status"] == "NOT_YET_VERIFIED", f"{source_id} independent verification was upgraded")
         fail(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED", f"{source_id} provenance drift")
         fail(row["external_source_claim_boundary"].startswith("Only the source's recorded support"), f"{source_id} source boundary missing")
+    batch04_expected = {
+        "S16":"OPINION_THEORETICAL_INTEROCEPTIVE_INFERENCE_FRAMEWORK",
+        "S17":"REVIEW_CONSENSUS_ROADMAP",
+        "S18":"OPINION_MULTIDIMENSIONAL_FRAMEWORK",
+        "S19":"REVIEW_COMPARATIVE_NEUROETHOLOGICAL_ARGUMENT",
+        "S20":"REVIEW_EVIDENCE_TRIANGULATION_FRAMEWORK",
+    }
+    batch04_domains = {
+        "S16":"HUMAN_INTEROCEPTION_THEORETICAL_NEUROSCIENCE",
+        "S17":"HUMAN_INTEROCEPTION_CLINICAL_COGNITIVE_NEUROSCIENCE",
+        "S18":"ANIMAL_CONSCIOUSNESS_COMPARATIVE_COGNITION",
+        "S19":"INSECT_CONSCIOUSNESS_COMPARATIVE_NEUROETHOLOGY_PHILOSOPHY_OF_MIND",
+        "S20":"ANIMAL_PAIN_COMPARATIVE_WELFARE_SCIENCE",
+    }
+    batch04_guards = ["PREDICTION!=INTEROCEPTIVE_INFERENCE","READING_INTERNAL_METRIC!=INTEROCEPTION","SENSING!=PERCEPTION!=AWARENESS","HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE","ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE","SINGLE_SIGNAL!=PAIN","ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]
+    for source_id, expected_kind in batch04_expected.items():
+        fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
+        audit = rows[source_id].get("source_audit", {})
+        fail(audit.get("SOURCE_DOMAIN") == batch04_domains[source_id], f"{source_id} source domain drift")
+        fail(audit.get("CROSS_SUBSTRATE_USE") == "METHOD_BACKGROUND_DISAMBIGUATION_ONLY", f"{source_id} cross-substrate use drift")
+        fail(audit.get("SEMANTIC_GUARDS") == batch04_guards, f"{source_id} Batch 04 guards drift")
+        fail(audit.get("DIRECT_AI_EVIDENCE") == "NONE" and audit.get("DIRECT_AI_SUBJECTIVITY_EVIDENCE") == "NONE", f"{source_id} direct AI evidence guard drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("CODEX_RESEARCH_SYNTHESIS") == "Original dossier-recorded title/identifier/access/support/does-not-support.", f"{source_id} Codex provenance drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("CHATGPT_INDEPENDENT_SOURCE_REVIEW") == "Bibliographic/source-kind/support/transfer review.", f"{source_id} ChatGPT provenance drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("HUMAN_OWNER_APPROVAL") == "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.", f"{source_id} Owner provenance drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("MANUS_IMPLEMENTATION") == "Repository materialization; not scientific reviewer.", f"{source_id} Manus provenance drift")
+        if source_id == "S18":
+            fail(audit.get("DISPOSITION") == "ADMIT_WITH_SCOPE_LIMIT" and audit.get("SLSH_ROLE") == "ANTI_SINGLE_SCORE_METHOD_GUARD" and audit.get("ACTIVE_EVIDENTIARY_ROLE") == "METHODOLOGICAL_GUARD_ONLY" and audit.get("EVIDENCE_RELATION_TO_AI") == "METHODOLOGICAL_GUARD_ONLY", "S18 role/disposition drift")
+        elif source_id == "S19":
+            fail(audit.get("DISPOSITION") == "DEFER_FROM_CURRENT_SLSH_CORE" and audit.get("ACTIVE_EVIDENTIARY_ROLE") == "NONE" and audit.get("HISTORICAL_PROVENANCE") == "PRESERVE" and audit.get("DEFER_STATUS") == "CURRENT_SLSH_CORE_SCOPE_DEFERRED", "S19 defer drift")
+        elif source_id == "S20":
+            fail(audit.get("DISPOSITION") == "ADMIT_WITH_SCOPE_LIMIT" and audit.get("SLSH_ROLE") == "EVIDENCE_TRIANGULATION_METHOD_BACKGROUND" and audit.get("METHOD_BACKGROUND_SCOPE") == ["PERSISTENCE","MOTIVATION","TRADE_OFF"], "S20 role drift")
+        else:
+            fail(audit.get("DISPOSITION") == "ADMIT_WITH_SCOPE_LIMIT", f"{source_id} disposition drift")
+
     batch03_expected = {
         "S11":"REVIEW_CONCEPTUAL_PHYSIOLOGICAL_SYNTHESIS",
         "S12":"REVIEW_CRITICAL_CONCEPTUAL_ANALYSIS",
@@ -158,7 +193,7 @@ def main() -> None:
     for source_id, expected_kind in batch01_expected.items():
         fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
         fail(rows[source_id].get("source_audit") == batch01_audit, f"{source_id} source audit drift")
-    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected) | set(batch03_expected)), "source audit leaked beyond Batch 01/02/03")
+    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected) | set(batch03_expected) | set(batch04_expected)), "source audit leaked beyond Batch 01/02/03")
 
     governance_expected = {
         "S38": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
@@ -224,7 +259,7 @@ def main() -> None:
     vertical_text = VERTICAL.read_text(encoding="utf-8")
     for forbidden in ("SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED", "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD", "L4 != L5", "NO_SUBJECTIVITY"):
         fail(forbidden in vertical_text, f"vertical slice missing boundary {forbidden}")
-    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 batch03_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
+    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 batch03_audit=5 batch04_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
 
 
 if __name__ == "__main__":

@@ -26,6 +26,9 @@ def main() -> None:
     expected_batch02_common = {"DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT","BIBLIOGRAPHIC_IDENTITY":"VERIFIED","SUPPORT_BOUNDARY":"PASS","NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD","SOURCE_DOMAIN":"HUMAN_BIOLOGICAL/HUMAN_COGNITIVE","EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER","DIRECT_AI_EVIDENCE":"NONE","DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE","CROSS_SUBSTRATE_USE":"METHOD_BACKGROUND_DISAMBIGUATION_ONLY"}
     expected_batch03_kinds = {"S11":"REVIEW_CONCEPTUAL_PHYSIOLOGICAL_SYNTHESIS","S12":"REVIEW_CRITICAL_CONCEPTUAL_ANALYSIS","S13":"REVIEW_THEORETICAL_PHYSIOLOGICAL_FRAMEWORK","S14":"OPINION_THEORETICAL_NEUROSCIENCE_SYNTHESIS","S15":"PRIMARY_EMPIRICAL_FMRI_INTEROCEPTION_STUDY"}
     expected_batch03_common = {"DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT","BIBLIOGRAPHIC_IDENTITY":"VERIFIED","SUPPORT_BOUNDARY":"PASS","NON_SUPPORT_BOUNDARY":"AION_SCOPE_GUARD","SOURCE_DOMAIN":"HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE","EVIDENCE_RELATION_TO_AI":"CROSS_SUBSTRATE_METHOD_TRANSFER","DIRECT_AI_EVIDENCE":"NONE","DIRECT_AI_SUBJECTIVITY_EVIDENCE":"NONE","CROSS_SUBSTRATE_USE":"BIOLOGICAL_BACKGROUND","EMBODIMENT_ANALOGY_CRITERIA":["IDENTITY_BINDING","CAUSAL_COUPLING","CLOSED_LOOP_REGULATION","CONTINUITY"],"SEMANTIC_GUARDS":["ALLOSTATIC_LOAD != SOFTWARE_LOAD","NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION","TELEMETRY != INTEROCEPTION","INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"]}
+    expected_batch04_kinds = {"S16":"OPINION_THEORETICAL_INTEROCEPTIVE_INFERENCE_FRAMEWORK","S17":"REVIEW_CONSENSUS_ROADMAP","S18":"OPINION_MULTIDIMENSIONAL_FRAMEWORK","S19":"REVIEW_COMPARATIVE_NEUROETHOLOGICAL_ARGUMENT","S20":"REVIEW_EVIDENCE_TRIANGULATION_FRAMEWORK"}
+    expected_batch04_domains = {"S16":"HUMAN_INTEROCEPTION_THEORETICAL_NEUROSCIENCE","S17":"HUMAN_INTEROCEPTION_CLINICAL_COGNITIVE_NEUROSCIENCE","S18":"ANIMAL_CONSCIOUSNESS_COMPARATIVE_COGNITION","S19":"INSECT_CONSCIOUSNESS_COMPARATIVE_NEUROETHOLOGY_PHILOSOPHY_OF_MIND","S20":"ANIMAL_PAIN_COMPARATIVE_WELFARE_SCIENCE"}
+    expected_batch04_guards = ["PREDICTION!=INTEROCEPTIVE_INFERENCE","READING_INTERNAL_METRIC!=INTEROCEPTION","SENSING!=PERCEPTION!=AWARENESS","HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE","ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE","SINGLE_SIGNAL!=PAIN","ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -57,12 +60,31 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch02_kinds[source_id]
         elif source_id in expected_batch03_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch03_kinds[source_id]
+        elif source_id in expected_batch04_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch04_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch04_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch04_kinds[source_id]
+            audit = current_rows[source_id].get("source_audit", {})
+            assert audit["SOURCE_DOMAIN"] == expected_batch04_domains[source_id]
+            assert audit["CROSS_SUBSTRATE_USE"] == "METHOD_BACKGROUND_DISAMBIGUATION_ONLY"
+            assert audit["SEMANTIC_GUARDS"] == expected_batch04_guards
+            assert audit["DIRECT_AI_EVIDENCE"] == audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
+            actor = audit["ACTOR_PROVENANCE"]
+            assert actor == {"CODEX_RESEARCH_SYNTHESIS":"Original dossier-recorded title/identifier/access/support/does-not-support.","CHATGPT_INDEPENDENT_SOURCE_REVIEW":"Bibliographic/source-kind/support/transfer review.","HUMAN_OWNER_APPROVAL":"Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.","MANUS_IMPLEMENTATION":"Repository materialization; not scientific reviewer."}
+            if source_id == "S18":
+                assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["SLSH_ROLE"] == "ANTI_SINGLE_SCORE_METHOD_GUARD" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "METHODOLOGICAL_GUARD_ONLY" and audit["EVIDENCE_RELATION_TO_AI"] == "METHODOLOGICAL_GUARD_ONLY"
+            elif source_id == "S19":
+                assert audit["DISPOSITION"] == "DEFER_FROM_CURRENT_SLSH_CORE" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["HISTORICAL_PROVENANCE"] == "PRESERVE" and audit["DEFER_STATUS"] == "CURRENT_SLSH_CORE_SCOPE_DEFERRED"
+            elif source_id == "S20":
+                assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["SLSH_ROLE"] == "EVIDENCE_TRIANGULATION_METHOD_BACKGROUND" and audit["METHOD_BACKGROUND_SCOPE"] == ["PERSISTENCE","MOTIVATION","TRADE_OFF"]
+            else:
+                assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT"
         elif source_id in expected_batch03_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch03_kinds[source_id]
             audit = current_rows[source_id].get("source_audit", {})
@@ -104,7 +126,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01+02+03 preservation PASS: 53 raw source records unchanged; S01-S10 preserved; S11-S15 audit exact; S16-S53 audit absent; S38-S42 governance isolated")
+    print("SLSH Batch 01+02+03+04 preservation PASS: 53 raw source records unchanged; S01-S15 preserved; S16-S20 audit exact; S21-S53 audit absent; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":
