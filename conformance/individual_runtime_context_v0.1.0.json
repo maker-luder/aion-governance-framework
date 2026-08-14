@@ -1,0 +1,98 @@
+{
+  "schema_version": "0.1.0",
+  "contract": "urn:aion:contract:individual-runtime-context:0.1.0",
+  "vectors": [
+    {
+      "id": "valid-aion",
+      "expected": "ACCEPT",
+      "context": {
+        "agent_id": "AION",
+        "runtime_instance_id": "AION-RUNTIME-001",
+        "memory_stream_id": "AION-MEMORY-001",
+        "event_lineage_id": "AION-EVENTS-001",
+        "canonical_state_reference": "AION-CANONICAL",
+        "genesis_root_id": "ROOT-001"
+      }
+    },
+    {
+      "id": "valid-astra",
+      "expected": "ACCEPT",
+      "context": {
+        "agent_id": "ASTRA",
+        "runtime_instance_id": "ASTRA-RUNTIME-001",
+        "memory_stream_id": "ASTRA-MEMORY-001",
+        "event_lineage_id": "ASTRA-EVENTS-001",
+        "canonical_state_reference": "ASTRA-CANONICAL",
+        "genesis_root_id": "ROOT-001"
+      }
+    },
+    {
+      "id": "missing-event-lineage",
+      "expected": "REJECT",
+      "context": {
+        "agent_id": "AION",
+        "runtime_instance_id": "AION-RUNTIME-001",
+        "memory_stream_id": "AION-MEMORY-001",
+        "canonical_state_reference": "AION-CANONICAL",
+        "genesis_root_id": "ROOT-001"
+      }
+    },
+    {
+      "id": "whitespace-runtime-instance",
+      "expected": "REJECT",
+      "context": {
+        "agent_id": "AION",
+        "runtime_instance_id": " ",
+        "memory_stream_id": "AION-MEMORY-001",
+        "event_lineage_id": "AION-EVENTS-001",
+        "canonical_state_reference": "AION-CANONICAL",
+        "genesis_root_id": "ROOT-001"
+      }
+    },
+    {
+      "id": "numeric-agent-id",
+      "expected": "REJECT",
+      "context": {
+        "agent_id": 7,
+        "runtime_instance_id": "AION-RUNTIME-001",
+        "memory_stream_id": "AION-MEMORY-001",
+        "event_lineage_id": "AION-EVENTS-001",
+        "canonical_state_reference": "AION-CANONICAL",
+        "genesis_root_id": "ROOT-001"
+      }
+    },
+    {
+      "id": "null-memory-stream",
+      "expected": "REJECT",
+      "context": {
+        "agent_id": "AION",
+        "runtime_instance_id": "AION-RUNTIME-001",
+        "memory_stream_id": null,
+        "event_lineage_id": "AION-EVENTS-001",
+        "canonical_state_reference": "AION-CANONICAL",
+        "genesis_root_id": "ROOT-001"
+      }
+    },
+    {
+      "id": "unknown-authority-field",
+      "expected": "REJECT",
+      "context": {
+        "agent_id": "AION",
+        "runtime_instance_id": "AION-RUNTIME-001",
+        "memory_stream_id": "AION-MEMORY-001",
+        "event_lineage_id": "AION-EVENTS-001",
+        "canonical_state_reference": "AION-CANONICAL",
+        "genesis_root_id": "ROOT-001",
+        "owner_approved": true
+      }
+    },
+    {
+      "id": "array-context",
+      "expected": "REJECT",
+      "context": [
+        "AION",
+        "AION-RUNTIME-001"
+      ]
+    }
+  ]
+}
