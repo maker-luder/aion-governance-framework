@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "research-workbench" / "subjective-load-sensitivity-hypothesis-2026-08-14"
-PREVIOUS = "aa4fcef2e56e33de08481bb4322584055034a671"
+PREVIOUS = "99f3e68ed57f88977dfd499ce42617e08e4e43c7"
 RAW_FIELDS = ("title_as_recorded", "identifier_as_recorded", "access_evidence", "supports_as_recorded", "does_not_support_as_recorded")
 
 
@@ -45,6 +45,8 @@ def main() -> None:
     expected_batch08_domains = {"S36":"AI_SAFETY_OFF_SWITCH_INCENTIVES","S37":"REINFORCEMENT_LEARNING_POWER_SEEKING_INCENTIVES","S38":"AI_ALIGNMENT_RLAIF_CONSTITUTIONAL_TRAINING","S39":"LLM_CHAIN_OF_THOUGHT_FAITHFULNESS","S40":"LLM_CHAIN_OF_THOUGHT_FAITHFULNESS_EVALUATION"}
     expected_batch09_kinds = {"S41":"PREPRINT_EMPIRICAL_LLM_SYCOPHANCY_STUDY","S42":"PREPRINT_EMPIRICAL_MODEL_WRITTEN_EVALUATION_STUDY","S43":"PEER_REVIEWED_EMPIRICAL_LLM_SAFETY_EVALUATION_BENCHMARK","S44":"CONCEPTUAL_PHILOSOPHICAL_AI_LANGUAGE_ANALYSIS","S45":"METHODOLOGICAL_NEUROIMAGING_REVERSE_INFERENCE_ANALYSIS"}
     expected_batch09_domains = {"S41":"LLM_SYCOPHANCY_RLHF_PREFERENCE_MODELING","S42":"LLM_MODEL_WRITTEN_EVALUATION_BEHAVIOR_DISCOVERY","S43":"LLM_SAFETY_REFUSAL_OVERREFUSAL_EVALUATION","S44":"LLM_ANTHROPOMORPHISM_AND_MENTALISTIC_LANGUAGE","S45":"COGNITIVE_NEUROSCIENCE_REVERSE_INFERENCE"}
+    expected_batch10_kinds = {"S46":"PEER_REVIEWED_EMPIRICAL_CAUSAL_MEDIATION_NLP_INTERPRETABILITY_STUDY","S47":"PEER_REVIEWED_EMPIRICAL_LLM_CAUSAL_TRACING_MODEL_EDITING_STUDY","S48":"PEER_REVIEWED_EMPIRICAL_NEURAL_CAUSAL_ABSTRACTION_STUDY","S49":"FOUNDATIONAL_CAUSAL_INFERENCE_MONOGRAPH","S50":"PEER_REVIEWED_REVIEW_CONSCIOUSNESS_THEORY_COMPARISON"}
+    expected_batch10_domains = {"S46":"NEURAL_NLP_CAUSAL_MEDIATION_GENDER_BIAS","S47":"LLM_FACTUAL_ASSOCIATION_CAUSAL_TRACING_MODEL_EDITING","S48":"NEURAL_NETWORK_CAUSAL_ABSTRACTION_INTERCHANGE_INTERVENTION","S49":"STRUCTURAL_CAUSAL_MODELS_INTERVENTIONS_COUNTERFACTUALS","S50":"CONSCIOUSNESS_THEORY_COMPARATIVE_NEUROSCIENCE"}
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -88,12 +90,24 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch08_kinds[source_id]
         elif source_id in expected_batch09_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch09_kinds[source_id]
+        elif source_id in expected_batch10_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch10_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch10_kinds:
+            audit = current_rows[source_id].get("source_audit", {})
+            assert current_rows[source_id]["source_kind"] == expected_batch10_kinds[source_id]
+            assert audit["SOURCE_DOMAIN"] == expected_batch10_domains[source_id]
+            assert audit["SEMANTIC_GUARDS"] == ["CAUSAL_STATE!=AFFECTIVE_STATE","CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION","LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"]
+            assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
+            assert audit["DISPOSITION"] in {"ADMIT_AFTER_BIBLIOGRAPHIC_NORMALIZATION","ADMIT_HIGH_RELEVANCE_AS_METHOD","ADMIT_HIGH_RELEVANCE_AS_METHOD_FOUNDATION","ADMIT_AS_THEORY_BOUNDARY_GUARD_ONLY"}
+            if source_id == "S46":
+                assert audit["NORMALIZED_PUBLISHED_IDENTITY"].startswith("Vig et al. (2020), Causal Mediation Analysis")
+                assert audit["PROVENANCE_CORRECTION"] == "PREPRINT_TITLE_VENUE_MIXED_WITH_PUBLISHED_VENUE; RAW_CODEX_IDENTITY_PRESERVED; NORMALIZED_NEURIPS_PUBLISHED_IDENTITY_ADDED."
         elif source_id in expected_batch09_kinds:
             audit = current_rows[source_id].get("source_audit", {})
             assert current_rows[source_id]["source_kind"] == expected_batch09_kinds[source_id]
@@ -220,7 +234,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01-09 preservation PASS: 53 raw source records unchanged; S01-S45 audit records preserved and exact; S46-S53 remain unclassified and unaudited; S38-S42 governance isolated")
+    print("SLSH Batch 01-10 preservation PASS: 53 raw source records unchanged; S01-S50 audit records preserved and exact; S51-S53 remain unclassified and unaudited; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":

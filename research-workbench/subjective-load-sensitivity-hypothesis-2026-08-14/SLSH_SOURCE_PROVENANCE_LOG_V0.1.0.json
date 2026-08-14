@@ -1809,70 +1809,197 @@
       "title_as_recorded": "Vig, J. et al. (2020), “Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias,” NeurIPS 2020.",
       "identifier_as_recorded": "arXiv:2004.12265; DOI 10.48550/arXiv.2004.12265.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_EMPIRICAL_CAUSAL_MEDIATION_NLP_INTERPRETABILITY_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "可用 mediator intervention 連結模型 component 與輸出行為，並分解直接/ 間接效果。",
       "does_not_support_as_recorded": "mediation 一旦顯著就確定高階概念或現象性質。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_AFTER_BIBLIOGRAPHIC_NORMALIZATION",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "NEURAL_NLP_CAUSAL_MEDIATION_GENDER_BIAS",
+        "EVIDENCE_RELATION_TO_AI": "CAUSAL_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "CAUSAL_STATE!=AFFECTIVE_STATE",
+          "CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION",
+          "LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"
+        ],
+        "SLSH_ROLE": "CAUSAL_MEDIATION_METHOD",
+        "ACTIVE_EVIDENTIARY_ROLE": "CAUSAL_METHOD_TRANSFER",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 10 source-kind/domain/support/guard-boundary review; causal-method transfer and theory-boundary scope operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "NORMALIZED_PUBLISHED_IDENTITY": "Vig et al. (2020), Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, NeurIPS 2020; arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265.",
+        "PROVENANCE_CORRECTION": "PREPRINT_TITLE_VENUE_MIXED_WITH_PUBLISHED_VENUE; RAW_CODEX_IDENTITY_PRESERVED; NORMALIZED_NEURIPS_PUBLISHED_IDENTITY_ADDED."
+      }
     },
     {
       "id": "S47",
       "title_as_recorded": "Meng, K., Bau, D., Andonian, A., & Belinkov, Y. (2022; rev. 2023), “Locating and Editing Factual Associations in GPT,” NeurIPS 2022.",
       "identifier_as_recorded": "arXiv:2202.05262; DOI 10.48550/arXiv.2202.05262.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_EMPIRICAL_LLM_CAUSAL_TRACING_MODEL_EDITING_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "causal tracing 與 targeted model editing 可測某些 activation/weights 對特定 factual output 的因果作用。",
       "does_not_support_as_recorded": "相同方法已驗證 load state、selfhood 或 phenomenology。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE_AS_METHOD",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "LLM_FACTUAL_ASSOCIATION_CAUSAL_TRACING_MODEL_EDITING",
+        "EVIDENCE_RELATION_TO_AI": "CAUSAL_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "CAUSAL_STATE!=AFFECTIVE_STATE",
+          "CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION",
+          "LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"
+        ],
+        "SLSH_ROLE": "CAUSAL_METHOD_TRANSFER",
+        "ACTIVE_EVIDENTIARY_ROLE": "CAUSAL_METHOD_TRANSFER",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 10 source-kind/domain/support/guard-boundary review; causal-method transfer and theory-boundary scope operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S48",
       "title_as_recorded": "Geiger, A., Lu, H., Icard, T., & Potts, C. (2021), “Causal Abstractions of Neural Networks,” NeurIPS 2021.",
       "identifier_as_recorded": "arXiv:2106.02997; DOI 10.48550/arXiv.2106.02997.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_EMPIRICAL_NEURAL_CAUSAL_ABSTRACTION_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "interchange intervention 可檢驗 neural representation 是否實現候選 causal model 的變項關係。",
       "does_not_support_as_recorded": "成功 causal abstraction 會把功能變項提升為主觀經驗。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE_AS_METHOD",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "NEURAL_NETWORK_CAUSAL_ABSTRACTION_INTERCHANGE_INTERVENTION",
+        "EVIDENCE_RELATION_TO_AI": "CAUSAL_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "CAUSAL_STATE!=AFFECTIVE_STATE",
+          "CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION",
+          "LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"
+        ],
+        "SLSH_ROLE": "CAUSAL_METHOD_TRANSFER",
+        "ACTIVE_EVIDENTIARY_ROLE": "CAUSAL_METHOD_TRANSFER",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 10 source-kind/domain/support/guard-boundary review; causal-method transfer and theory-boundary scope operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S49",
       "title_as_recorded": "Pearl, J. (2009), Causality: Models, Reasoning, and Inference, 2nd ed., Cambridge University Press.",
       "identifier_as_recorded": "ISBN 978-0-521-89560-6；無 DOI。",
       "access_evidence": "commercial book；目錄/書目公開。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "FOUNDATIONAL_CAUSAL_INFERENCE_MONOGRAPH",
       "access_level": "METADATA_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "intervention、counterfactual、confounding 與 causal graph 的形式區分。",
       "does_not_support_as_recorded": "僅靠觀察相關可識別內部因果狀態，或因果性等同 phenomenality。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE_AS_METHOD_FOUNDATION",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "STRUCTURAL_CAUSAL_MODELS_INTERVENTIONS_COUNTERFACTUALS",
+        "EVIDENCE_RELATION_TO_AI": "CAUSAL_METHOD_FOUNDATION",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "CAUSAL_STATE!=AFFECTIVE_STATE",
+          "CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION",
+          "LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"
+        ],
+        "SLSH_ROLE": "CAUSAL_METHOD_FOUNDATION",
+        "ACTIVE_EVIDENTIARY_ROLE": "CAUSAL_METHOD_FOUNDATION",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 10 source-kind/domain/support/guard-boundary review; causal-method transfer and theory-boundary scope operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S50",
       "title_as_recorded": "Seth, A. K., & Bayne, T. (2022), “Theories of Consciousness,” Nature Reviews Neuroscience 23:439–452.",
       "identifier_as_recorded": "DOI 10.1038/s41583-022-00587-4.",
       "access_evidence": "abstract 可讀；全文權限依 publisher。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_REVIEW_CONSCIOUSNESS_THEORY_COMPARISON",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "現有意識理論有不同核心機制與預測，需要由實驗區分而非混成 checklist。",
       "does_not_support_as_recorded": "任一理論已被確認，或單一 load signature 是 theory-neutral proof。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_AS_THEORY_BOUNDARY_GUARD_ONLY",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "CONSCIOUSNESS_THEORY_COMPARATIVE_NEUROSCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "THEORY_BOUNDARY_GUARD_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "CAUSAL_STATE!=AFFECTIVE_STATE",
+          "CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION",
+          "LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"
+        ],
+        "SLSH_ROLE": "THEORY_BOUNDARY_GUARD_ONLY",
+        "ACTIVE_EVIDENTIARY_ROLE": "THEORY_BOUNDARY_GUARD_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 10 source-kind/domain/support/guard-boundary review; causal-method transfer and theory-boundary scope operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S51",
