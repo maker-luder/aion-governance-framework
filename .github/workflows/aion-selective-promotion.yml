@@ -69,7 +69,7 @@ jobs:
           EXPECTED_MAIN_SHA: e079fb7dfe7a04be7dcb94b8a059951a003caa94
           EXPECTED_RESEARCH_SHA: 87405c1877c6f016c303971da13923a1ab690aae
         run: |
-          grep -q 'CANONICAL_EFFECT=PENDING_OWNER_PROMOTION' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
-          grep -q 'DEPLOYMENT.*FALSE' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
-          grep -q 'MAIN_MERGE.*PROHIBITED' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
+          grep -Eq 'CANONICAL_EFFECT[[:space:]]*=[[:space:]]*PENDING_OWNER_PROMOTION' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
+          grep -q '| Deployment | `FALSE` |' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
+          grep -q '| Main merge | `PROHIBITED` |' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
           echo "research source lock is $EXPECTED_RESEARCH_SHA"
