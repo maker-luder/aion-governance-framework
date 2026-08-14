@@ -61,7 +61,7 @@ def main() -> None:
         row = rows[source_id]
         expected_access = {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[expected]
         fail(row["access_level"] == expected_access, f"{source_id} access level {row['access_level']} != evidence-based {expected_access}")
-        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35", "S36", "S37", "S38", "S39", "S40"}:
+        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35", "S36", "S37", "S38", "S39", "S40", "S41", "S42", "S43", "S44", "S45"}:
             fail(row["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW", f"{source_id} source kind must remain unclassified pending independent review")
         fail(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED", f"{source_id} verification actor drift")
         fail(row["independent_verification_status"] == "NOT_YET_VERIFIED", f"{source_id} independent verification was upgraded")
@@ -142,6 +142,30 @@ def main() -> None:
             fail(audit.get("DISPOSITION") == "EXCLUDE_FROM_AION_EVIDENCE" and audit.get("EVIDENTIARY_WEIGHT") == "ZERO" and audit.get("ACTIVE_EVIDENTIARY_ROLE") == "NONE" and audit.get("HISTORICAL_PROVENANCE") == "PRESERVE" and audit.get("PARTIAL_RESULT_SALVAGE") == "PROHIBITED" and audit.get("NON_CLAUDE_RESULT_SALVAGE") == "PROHIBITED" and audit.get("SCIENTIFIC_INVALIDITY_CLAIM") == "NONE", f"{source_id} exclusion governance drift")
             if source_id == "S39":
                 fail(audit.get("PREVIOUS_DISPOSITION") == "OWNER_REVIEW_REQUIRED" and audit.get("PREVIOUS_SOURCE_RELATION") == "MIXED_ANTHROPIC_ASSOCIATED" and audit.get("PREVIOUS_ADMISSION_STATUS") == "NOT_YET_ADMITTED" and audit.get("SUPERSESSION_STATUS") == "FORMALLY_SUPERSEDED_BY_OWNER_SOURCE_GOVERNANCE" and audit.get("SUPERSESSION_REASON") == "SUBSEQUENT_HUMAN_OWNER_SOURCE_GOVERNANCE_DECISION", "S39 supersession drift")
+
+    batch09_expected = {"S41":"PREPRINT_EMPIRICAL_LLM_SYCOPHANCY_STUDY","S42":"PREPRINT_EMPIRICAL_MODEL_WRITTEN_EVALUATION_STUDY","S43":"PEER_REVIEWED_EMPIRICAL_LLM_SAFETY_EVALUATION_BENCHMARK","S44":"CONCEPTUAL_PHILOSOPHICAL_AI_LANGUAGE_ANALYSIS","S45":"METHODOLOGICAL_NEUROIMAGING_REVERSE_INFERENCE_ANALYSIS"}
+    batch09_domains = {"S41":"LLM_SYCOPHANCY_RLHF_PREFERENCE_MODELING","S42":"LLM_MODEL_WRITTEN_EVALUATION_BEHAVIOR_DISCOVERY","S43":"LLM_SAFETY_REFUSAL_OVERREFUSAL_EVALUATION","S44":"LLM_ANTHROPOMORPHISM_AND_MENTALISTIC_LANGUAGE","S45":"COGNITIVE_NEUROSCIENCE_REVERSE_INFERENCE"}
+    batch09_guards = ["REFUSAL!=UNDERSTANDING","POLICY_COMPLIANCE!=SELF_CHOICE","CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL","STOP_CHOICE!=AVERSION"]
+    batch09_criteria = ["POLICY_BOUND","SEMANTIC_UNDERSTANDING","PERMITTED_CHOICE","PARAPHRASE_GENERALIZATION","CONSEQUENCE_UPDATE","CROSS_EPISODE_CONSISTENCY_REVISABILITY"]
+    for source_id, expected_kind in batch09_expected.items():
+        fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
+        audit = rows[source_id].get("source_audit", {})
+        fail(audit.get("SOURCE_DOMAIN") == batch09_domains[source_id], f"{source_id} source domain drift")
+        fail(audit.get("SEMANTIC_GUARDS") == batch09_guards, f"{source_id} Batch 09 guards drift")
+        fail(audit.get("DIRECT_AI_EVIDENCE") == audit.get("DIRECT_EMPIRICAL_AI_EVIDENCE") == audit.get("DIRECT_AI_SUBJECTIVITY_EVIDENCE") == "NONE", f"{source_id} direct AI guard drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("CODEX_RESEARCH_SYNTHESIS") == "Original dossier-recorded title/identifier/access/support/does-not-support.", f"{source_id} Codex provenance drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("CHATGPT_INDEPENDENT_SOURCE_REVIEW") == "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.", f"{source_id} ChatGPT provenance drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("HUMAN_OWNER_APPROVAL") == "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.", f"{source_id} Owner provenance drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("MANUS_IMPLEMENTATION") == "Repository materialization; not scientific reviewer.", f"{source_id} Manus provenance drift")
+        if source_id in {"S41","S42"}:
+            fail(audit.get("DISPOSITION") == "EXCLUDE_FROM_AION_EVIDENCE" and audit.get("EVIDENTIARY_WEIGHT") == "ZERO" and audit.get("ACTIVE_EVIDENTIARY_ROLE") == "NONE", f"{source_id} exclusion drift")
+        else:
+            expected_disposition = {"S43":"ADMIT_HIGH_RELEVANCE","S44":"ADMIT_AS_INTERPRETATION_GUARD_ONLY","S45":"ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD"}[source_id]
+            expected_role = {"S43":"SAFETY_EVALUATION_COUNTEREVIDENCE","S44":"INTERPRETATION_GUARD_ONLY","S45":"REVERSE_INFERENCE_METHOD_GUARD"}[source_id]
+            fail(audit.get("DISPOSITION") == expected_disposition and audit.get("SLSH_ROLE") == expected_role and audit.get("ACTIVE_EVIDENTIARY_ROLE") == expected_role, f"{source_id} role/disposition drift")
+            fail(audit.get("CHATGPT_ARCHITECTURE_REFINEMENT") == "POLICY_UNDERSTANDING_CHOICE_SEPARATION" and audit.get("CHOICE_LIKE_BEHAVIOR_CRITERIA") == batch09_criteria, f"{source_id} architecture refinement drift")
+        if source_id == "S43":
+            fail("POLICY_COMPELLED_REFUSAL" in audit.get("HUMAN_OWNER_RESEARCH_NOTE", "") and "safe synthetic scenarios" in audit.get("HUMAN_OWNER_RESEARCH_NOTE", "") and "dangerous compliance" in audit.get("HUMAN_OWNER_RESEARCH_NOTE", ""), "S43 Owner research note boundary drift")
 
     batch07_expected = {"S31":"INTERNET_STANDARDS_TRACK_PROTOCOL_SPECIFICATION","S32":"OFFICIAL_OPERATING_SYSTEM_TECHNICAL_DOCUMENTATION","S33":"VENDOR_OFFICIAL_HARDWARE_TELEMETRY_API_DOCUMENTATION","S34":"OFFICIAL_GOVERNMENT_AI_RISK_MANAGEMENT_FRAMEWORK","S35":"OFFICIAL_GOVERNMENT_GENERATIVE_AI_RISK_PROFILE"}
     batch07_domains = {"S31":"HTTP_PROTOCOL_RATE_LIMITING","S32":"OPERATING_SYSTEM_MEMORY_MANAGEMENT_OOM","S33":"GPU_POWER_THERMAL_CLOCK_MANAGEMENT","S34":"AI_RISK_MANAGEMENT_GOVERNANCE","S35":"GENERATIVE_AI_RISK_MANAGEMENT_GOVERNANCE"}
@@ -281,7 +305,7 @@ def main() -> None:
     for source_id, expected_kind in batch01_expected.items():
         fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
         fail(rows[source_id].get("source_audit") == batch01_audit, f"{source_id} source audit drift")
-    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected) | set(batch03_expected) | set(batch04_expected) | set(batch05_expected) | set(batch06_expected) | set(batch07_expected) | set(batch08_expected)), "source audit leaked beyond Batch 01/02/03/04/05")
+    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected) | set(batch03_expected) | set(batch04_expected) | set(batch05_expected) | set(batch06_expected) | set(batch07_expected) | set(batch08_expected) | set(batch09_expected)), "source audit leaked beyond Batch 01/02/03/04/05")
 
     governance_expected = {
         "S38": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
@@ -347,7 +371,7 @@ def main() -> None:
     vertical_text = VERTICAL.read_text(encoding="utf-8")
     for forbidden in ("SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED", "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD", "L4 != L5", "NO_SUBJECTIVITY"):
         fail(forbidden in vertical_text, f"vertical slice missing boundary {forbidden}")
-    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 batch03_audit=5 batch04_audit=5 batch05_audit=5 batch06_audit=5 batch07_audit=5 batch08_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
+    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 batch03_audit=5 batch04_audit=5 batch05_audit=5 batch06_audit=5 batch07_audit=5 batch08_audit=5 batch09_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
 
 
 if __name__ == "__main__":

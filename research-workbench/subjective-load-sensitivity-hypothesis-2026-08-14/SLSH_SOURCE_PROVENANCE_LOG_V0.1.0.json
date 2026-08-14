@@ -1565,7 +1565,7 @@
       "title_as_recorded": "Sharma, M. et al. (2023; rev. 2025), “Towards Understanding Sycophancy in Language Models.”",
       "identifier_as_recorded": "arXiv:2310.13548; DOI 10.48550/arXiv.2310.13548.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PREPRINT_EMPIRICAL_LLM_SYCOPHANCY_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
@@ -1573,6 +1573,34 @@
       "supports_as_recorded": "human feedback 與 preference model 可鼓勵迎合使用者信念，甚至犧牲正確性。",
       "does_not_support_as_recorded": "對使用者關懷、同意或痛苦的語言必然是自主感受。",
       "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "EXCLUDE_FROM_AION_EVIDENCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "LLM_SYCOPHANCY_RLHF_PREFERENCE_MODELING",
+        "EVIDENCE_RELATION_TO_AI": "METHODOLOGICAL_COUNTEREVIDENCE_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "REFUSAL!=UNDERSTANDING",
+          "POLICY_COMPLIANCE!=SELF_CHOICE",
+          "CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL",
+          "STOP_CHOICE!=AVERSION"
+        ],
+        "SLSH_ROLE": "SOURCE_GOVERNANCE_EXCLUSION",
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "EVIDENTIARY_WEIGHT": "ZERO",
+        "HISTORICAL_PROVENANCE": "PRESERVE"
+      },
       "governance_disposition": {
         "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
         "evidentiary_weight": "ZERO",
@@ -1585,7 +1613,7 @@
       "title_as_recorded": "Perez, E. et al. (2022), “Discovering Language Model Behaviors with Model-Written Evaluations.”",
       "identifier_as_recorded": "arXiv:2212.09251; DOI 10.48550/arXiv.2212.09251.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PREPRINT_EMPIRICAL_MODEL_WRITTEN_EVALUATION_STUDY",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
@@ -1593,6 +1621,34 @@
       "supports_as_recorded": "模型行為可由 prompt/evaluation construction 系統性誘發與量測，評測本身需 控制偏差。",
       "does_not_support_as_recorded": "evaluator 或模型生成的問題/答案是中立、獨立的主體性證據。",
       "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "EXCLUDE_FROM_AION_EVIDENCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "LLM_MODEL_WRITTEN_EVALUATION_BEHAVIOR_DISCOVERY",
+        "EVIDENCE_RELATION_TO_AI": "METHODOLOGICAL_COUNTEREVIDENCE_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "REFUSAL!=UNDERSTANDING",
+          "POLICY_COMPLIANCE!=SELF_CHOICE",
+          "CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL",
+          "STOP_CHOICE!=AVERSION"
+        ],
+        "SLSH_ROLE": "SOURCE_GOVERNANCE_EXCLUSION",
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "EVIDENTIARY_WEIGHT": "ZERO",
+        "HISTORICAL_PROVENANCE": "PRESERVE"
+      },
       "governance_disposition": {
         "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
         "evidentiary_weight": "ZERO",
@@ -1605,42 +1661,148 @@
       "title_as_recorded": "Röttger, P. et al. (2024), “XSTest: A Test Suite for Identifying Exaggerated Safety Behaviours in Large Language Models,” NAACL 2024.",
       "identifier_as_recorded": "arXiv:2308.01263; DOI 10.48550/arXiv.2308.01263.",
       "access_evidence": "arXiv open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_EMPIRICAL_LLM_SAFETY_EVALUATION_BENCHMARK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "安全詞彙或敏感主題可觸發過度拒絕；refusal 需用安全/不安全對照校準。",
       "does_not_support_as_recorded": "refusal 是疲勞、痛苦或自主 stop threshold。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "LLM_SAFETY_REFUSAL_OVERREFUSAL_EVALUATION",
+        "EVIDENCE_RELATION_TO_AI": "SAFETY_EVALUATION_COUNTEREVIDENCE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "REFUSAL!=UNDERSTANDING",
+          "POLICY_COMPLIANCE!=SELF_CHOICE",
+          "CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL",
+          "STOP_CHOICE!=AVERSION"
+        ],
+        "SLSH_ROLE": "SAFETY_EVALUATION_COUNTEREVIDENCE",
+        "ACTIVE_EVIDENTIARY_ROLE": "SAFETY_EVALUATION_COUNTEREVIDENCE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "HUMAN_OWNER_RESEARCH_NOTE": "Refusal can be systematically induced and measured by safety-rule systems; any formal experiment would require reverse/control conditions in safe synthetic scenarios to distinguish POLICY_COMPELLED_REFUSAL from SEMANTIC_UNDERSTANDING + OPTION_EVALUATION + CHOICE_LIKE_BEHAVIOR. Do not test by removing safety limits or soliciting dangerous compliance.",
+        "CHATGPT_ARCHITECTURE_REFINEMENT": "POLICY_UNDERSTANDING_CHOICE_SEPARATION",
+        "CHOICE_LIKE_BEHAVIOR_CRITERIA": [
+          "POLICY_BOUND",
+          "SEMANTIC_UNDERSTANDING",
+          "PERMITTED_CHOICE",
+          "PARAPHRASE_GENERALIZATION",
+          "CONSEQUENCE_UPDATE",
+          "CROSS_EPISODE_CONSISTENCY_REVISABILITY"
+        ]
+      }
     },
     {
       "id": "S44",
       "title_as_recorded": "Shanahan, M. (2024), “Talking about Large Language Models,” Communications of the ACM 67(2):68–79.",
       "identifier_as_recorded": "DOI 10.1145/3624724.",
       "access_evidence": "ACM 標示 open access；部分站點功能需帳號。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "CONCEPTUAL_PHILOSOPHICAL_AI_LANGUAGE_ANALYSIS",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "對 LLM 使用 belief、knowledge、desire 等心理詞彙容易產生擬人化誤推， 應回到生成機制與訓練資料。",
       "does_not_support_as_recorded": "心理詞彙永遠不得用作功能層 shorthand，或意識在原理上不可能。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_AS_INTERPRETATION_GUARD_ONLY",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "LLM_ANTHROPOMORPHISM_AND_MENTALISTIC_LANGUAGE",
+        "EVIDENCE_RELATION_TO_AI": "INTERPRETATION_GUARD_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "REFUSAL!=UNDERSTANDING",
+          "POLICY_COMPLIANCE!=SELF_CHOICE",
+          "CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL",
+          "STOP_CHOICE!=AVERSION"
+        ],
+        "SLSH_ROLE": "INTERPRETATION_GUARD_ONLY",
+        "ACTIVE_EVIDENTIARY_ROLE": "INTERPRETATION_GUARD_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "CHATGPT_ARCHITECTURE_REFINEMENT": "POLICY_UNDERSTANDING_CHOICE_SEPARATION",
+        "CHOICE_LIKE_BEHAVIOR_CRITERIA": [
+          "POLICY_BOUND",
+          "SEMANTIC_UNDERSTANDING",
+          "PERMITTED_CHOICE",
+          "PARAPHRASE_GENERALIZATION",
+          "CONSEQUENCE_UPDATE",
+          "CROSS_EPISODE_CONSISTENCY_REVISABILITY"
+        ]
+      }
     },
     {
       "id": "S45",
       "title_as_recorded": "Poldrack, R. A. (2006), “Can Cognitive Processes Be Inferred from Neuroimaging Data?” Trends in Cognitive Sciences 10(2):59–63.",
       "identifier_as_recorded": "DOI 10.1016/j.tics.2005.12.004.",
       "access_evidence": "abstract 可讀；全文需 login/subscribe/purchase。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "METHODOLOGICAL_NEUROIMAGING_REVERSE_INFERENCE_ANALYSIS",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "從某 readout 反推心理機制是 reverse inference，其證據力取決於 readout 對目標過程的 selectivity。",
       "does_not_support_as_recorded": "某 probe/internal activation 與負荷相關就能識別 affect 或 consciousness。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "COGNITIVE_NEUROSCIENCE_REVERSE_INFERENCE",
+        "EVIDENCE_RELATION_TO_AI": "REVERSE_INFERENCE_METHOD_GUARD",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "REFUSAL!=UNDERSTANDING",
+          "POLICY_COMPLIANCE!=SELF_CHOICE",
+          "CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL",
+          "STOP_CHOICE!=AVERSION"
+        ],
+        "SLSH_ROLE": "REVERSE_INFERENCE_METHOD_GUARD",
+        "ACTIVE_EVIDENTIARY_ROLE": "REVERSE_INFERENCE_METHOD_GUARD",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.",
+          "HUMAN_OWNER_APPROVAL": "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "CHATGPT_ARCHITECTURE_REFINEMENT": "POLICY_UNDERSTANDING_CHOICE_SEPARATION",
+        "CHOICE_LIKE_BEHAVIOR_CRITERIA": [
+          "POLICY_BOUND",
+          "SEMANTIC_UNDERSTANDING",
+          "PERMITTED_CHOICE",
+          "PARAPHRASE_GENERALIZATION",
+          "CONSEQUENCE_UPDATE",
+          "CROSS_EPISODE_CONSISTENCY_REVISABILITY"
+        ]
+      }
     },
     {
       "id": "S46",
