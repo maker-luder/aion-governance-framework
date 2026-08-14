@@ -13,70 +13,140 @@
       "title_as_recorded": "Russell, J. A. (1980), “A Circumplex Model of Affect,” Journal of Personality and Social Psychology 39(6):1161–1178.",
       "identifier_as_recorded": "DOI 10.1037/h0077714.",
       "access_evidence": "APA metadata/abstract 可讀；全文需權限。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PRIMARY_EMPIRICAL_MODEL_BUILDING_ARTICLE",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "人類自陳與情緒詞可由 pleasure–displeasure、arousal 等維度描述。",
       "does_not_support_as_recorded": "維度標籤本身不是人工系統內部 affect 或 phenomenology 的證據。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic identity, source kind, support boundary and cross-substrate disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 01 S01-S05 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S02",
       "title_as_recorded": "Anderson, D. J., & Adolphs, R. (2014), “A Framework for Studying Emotions across Species,” Cell 157(1):187–200.",
       "identifier_as_recorded": "DOI 10.1016/j.cell.2014.03.003.",
       "access_evidence": "publisher open archive/full page 可讀。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_CONCEPTUAL_FRAMEWORK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "跨物種研究可使用 persistence、scalability、valence、generalization 等 functional primitives，不必先鎖定人類情緒名稱。",
       "does_not_support_as_recorded": "共享 functional primitive 不等於共享主觀經驗；論文不是 AI 研究。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic identity, source kind, support boundary and cross-substrate disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 01 S01-S05 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S03",
       "title_as_recorded": "Berridge, K. C., & Robinson, T. E. (1998), “What Is the Role of Dopamine in Reward: Hedonic Impact, Reward Learning, or Incentive Salience?” Brain Research Reviews 28(3):309–369.",
       "identifier_as_recorded": "DOI 10.1016/S0165-0173(98)00019-8.",
       "access_evidence": "DOI/metadata 可核；本輪 publisher 頁遇 bot challenge，全文未取用。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_WITH_EMBEDDED_EXPERIMENT",
       "access_level": "METADATA_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "reward、learning、“wanting” 與 hedonic “liking” 應概念拆分。",
       "does_not_support_as_recorded": "人工 reward signal 是 pleasure，或 optimizer 的選擇具有感受。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic identity, source kind, support boundary and cross-substrate disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 01 S01-S05 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S04",
       "title_as_recorded": "Sweller, J. (1988), “Cognitive Load During Problem Solving: Effects on Learning,” Cognitive Science 12(2):257–285.",
       "identifier_as_recorded": "DOI 10.1207/s15516709cog1202_4.",
       "access_evidence": "publisher 標示 free access。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "EMPIRICAL_THEORY_ARTICLE",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "任務處理需求會佔用有限認知容量並影響學習表現。",
       "does_not_support_as_recorded": "cognitive load 等同 fatigue、stress、pain 或 consciousness。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic identity, source kind, support boundary and cross-substrate disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 01 S01-S05 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S05",
       "title_as_recorded": "Hockey, G. R. J. (1997), “Compensatory Control in the Regulation of Human Performance under Stress and High Workload,” Biological Psychology 45(1–3):73–93.",
       "identifier_as_recorded": "DOI 10.1016/S0301-0511(96)05223-4; PMID 9083645.",
       "access_evidence": "PubMed abstract 可讀；publisher 全文受限。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_THEORETICAL_FRAMEWORK",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "人類可用額外 effort 維持主作業表現，成本改在次要作業、策略、生理與 after-effect 出現；表面 accuracy 可能掩蓋 latent cost。",
       "does_not_support_as_recorded": "相似的人工資源重新配置必然具有主觀努力。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic identity, source kind, support boundary and cross-substrate disposition.",
+          "HUMAN_OWNER_APPROVAL": "Batch 01 S01-S05 accepted.",
+          "MANUS_IMPLEMENTATION": "Schema/record/checker/tests/docs materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S06",

@@ -48,7 +48,7 @@
         "title_as_recorded": {"type": "string", "minLength": 1},
         "identifier_as_recorded": {"type": "string", "minLength": 1},
         "access_evidence": {"type": "string", "minLength": 1},
-        "source_kind": {"enum": ["UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"]},
+        "source_kind": {"enum": ["UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW", "PRIMARY_EMPIRICAL_MODEL_BUILDING_ARTICLE", "REVIEW_CONCEPTUAL_FRAMEWORK", "REVIEW_WITH_EMBEDDED_EXPERIMENT", "EMPIRICAL_THEORY_ARTICLE", "REVIEW_THEORETICAL_FRAMEWORK"]},
         "access_level": {"enum": ["FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"]},
         "verification_actor": {"const": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"},
         "independent_verification_status": {"const": "NOT_YET_VERIFIED"},
@@ -56,13 +56,38 @@
         "supports_as_recorded": {"type": "string"},
         "does_not_support_as_recorded": {"type": "string"},
         "external_source_claim_boundary": {"const": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."},
-        "governance_disposition": {"$ref": "#/$defs/governance_disposition"}
+        "governance_disposition": {"$ref": "#/$defs/governance_disposition"},
+        "source_audit": {"$ref": "#/$defs/source_audit"}
       },
       "allOf": [
         {"if": {"properties": {"access_level": {"const": "FULLTEXT_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)(full text|full article|open pdf|open standard|official documentation|open access|open archive/full page|free access|free to read|open web declaration|open report|full access page)"}}}},
         {"if": {"properties": {"access_level": {"const": "ABSTRACT_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)abstract"}}}},
         {"if": {"properties": {"access_level": {"const": "METADATA_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)(metadata|bibliographic|doi|index|record|book|目錄/書目)"}}}}
       ]
+    },
+    "source_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["DISPOSITION", "BIBLIOGRAPHIC_IDENTITY", "SUPPORT_BOUNDARY", "NON_SUPPORT_BOUNDARY", "DIRECT_AI_SUBJECTIVITY_EVIDENCE", "CROSS_SUBSTRATE_USE", "ACTOR_PROVENANCE"],
+      "properties": {
+        "DISPOSITION": {"const": "ADMIT_WITH_SCOPE_LIMIT"},
+        "BIBLIOGRAPHIC_IDENTITY": {"const": "VERIFIED"},
+        "SUPPORT_BOUNDARY": {"const": "PASS"},
+        "NON_SUPPORT_BOUNDARY": {"const": "AION_SCOPE_GUARD"},
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": {"const": "NONE"},
+        "CROSS_SUBSTRATE_USE": {"const": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY"},
+        "ACTOR_PROVENANCE": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["CODEX_RESEARCH_SYNTHESIS", "CHATGPT_INDEPENDENT_SOURCE_REVIEW", "HUMAN_OWNER_APPROVAL", "MANUS_IMPLEMENTATION"],
+          "properties": {
+            "CODEX_RESEARCH_SYNTHESIS": {"const": "Original dossier-recorded title/identifier/access/support/does-not-support."},
+            "CHATGPT_INDEPENDENT_SOURCE_REVIEW": {"const": "Bibliographic identity, source kind, support boundary and cross-substrate disposition."},
+            "HUMAN_OWNER_APPROVAL": {"const": "Batch 01 S01-S05 accepted."},
+            "MANUS_IMPLEMENTATION": {"const": "Schema/record/checker/tests/docs materialization; not scientific reviewer."}
+          }
+        }
+      }
     },
     "governance_disposition": {
       "type": "object",
