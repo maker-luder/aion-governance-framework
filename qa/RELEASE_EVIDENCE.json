@@ -25,5 +25,5 @@
   "relational_continuity_conclusion": "NOT_ESTABLISHED",
   "canonical_effect": "NONE",
   "deployment": false,
-  "license_status": "OWNER_SELECTION_REQUIRED"
+  "license_status": "APACHE_2_0_SELECTED"
 }

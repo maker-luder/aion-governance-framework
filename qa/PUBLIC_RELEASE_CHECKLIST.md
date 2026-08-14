@@ -11,4 +11,4 @@
 - [x] Deployment remains false.
 - [x] Deterministic reconstruction tests are recorded.
 - [ ] Independent IV&V completed.
-- [ ] Final public license selected by Owner.
+- [x] Final public license selected by Owner for project-owned repository material; third-party compatibility remains separately reviewed.

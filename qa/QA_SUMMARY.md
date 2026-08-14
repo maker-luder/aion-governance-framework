@@ -14,4 +14,4 @@ The 2026-08-03 source public candidate reported 232 passing tests, five componen
 
 ## Conclusions and gates not established
 
-Subjectivity, identity continuity, relational continuity, whole-system validation, and independent IV&V remain **not established**. Canonical promotion remains unauthorized, deployment remains false, and the final public license selection remains subject to the Owner gate. A local test, lint, type, coverage, build, or fixture pass does not convert a sandbox result into a canonical or research conclusion.
+Subjectivity, identity continuity, relational continuity, whole-system validation, and independent IV&V remain **not established**. The Human Owner's repository license selection is recorded as Apache-2.0 for project-owned material, while third-party compatibility remains separately review-gated. Canonical promotion remains unauthorized and deployment remains false. A local test, lint, type, coverage, build, or fixture pass does not convert a sandbox result into a canonical or research conclusion.

@@ -19,6 +19,6 @@ Owner direction recorded 2026-08-07 separates items that are hardware-blocked fr
 | Affective-cognitive motivational state research | IMPLEMENTATION_ACTIVE | Research appraisal/motivation/reasoning separations as candidate state architecture; no phenomenal-experience claim |
 | Adult sexual motivation representation | SCHEMA_ONLY_NOT_EXECUTABLE | Explicit research representation only; no automatic inference, public runtime activation, or action authority |
 | Sexual-function or intimate-interaction Runtime | NOT_AUTHORIZED | Hold; no implementation or public exposure |
-| License selection | OWNER_SELECTION_REQUIRED | Apache-2.0 is a recorded candidate proposal only; it is not the final Owner selection or release license. Third-party compatibility remains independently review-gated |
+| License selection | RESOLVED_APACHE_2_0 | The Human Owner's repository license resolution is recorded in `LICENSE_DECISION_REQUIRED.md` and commit `1e23700c9cd4dcf4f3c350a3cba53082a4859146`; third-party compatibility remains independently review-gated |
 
 New proposals must record source, rationale, risk and dependencies. Work that changes canonical state, deployment authority, memory writeback, licensing, executable adult-domain behavior, or research authorization still requires explicit Owner review.
