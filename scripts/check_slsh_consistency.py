@@ -61,7 +61,7 @@ def main() -> None:
         row = rows[source_id]
         expected_access = {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[expected]
         fail(row["access_level"] == expected_access, f"{source_id} access level {row['access_level']} != evidence-based {expected_access}")
-        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30"}:
+        if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S26", "S27", "S28", "S29", "S30", "S31", "S32", "S33", "S34", "S35"}:
             fail(row["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW", f"{source_id} source kind must remain unclassified pending independent review")
         fail(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED", f"{source_id} verification actor drift")
         fail(row["independent_verification_status"] == "NOT_YET_VERIFIED", f"{source_id} independent verification was upgraded")
@@ -122,6 +122,25 @@ def main() -> None:
             fail(audit.get("DISPOSITION") == "EXCLUDE_FROM_AION_EVIDENCE" and audit.get("SOURCE_RELATION") == "MIXED_ANTHROPIC_ASSOCIATED" and audit.get("EVIDENTIARY_WEIGHT") == "ZERO" and audit.get("ACTIVE_EVIDENTIARY_ROLE") == "NONE" and audit.get("NON_CLAUDE_RESULT_SALVAGE") == "PROHIBITED" and audit.get("PARTIAL_ADMISSION") == "PROHIBITED" and audit.get("OBSERVATION_STATUS") == "EXTERNAL_OBSERVATION_ONLY" and audit.get("CANONICAL_EFFECT") == "NONE", "S29 governance drift")
         else:
             fail(audit.get("DISPOSITION") == "ADMIT_WITH_NARROW_SCOPE" and audit.get("SLSH_ROLE") == "TRAINING_COMPUTE_BACKGROUND", "S30 scope drift")
+
+    batch07_expected = {"S31":"INTERNET_STANDARDS_TRACK_PROTOCOL_SPECIFICATION","S32":"OFFICIAL_OPERATING_SYSTEM_TECHNICAL_DOCUMENTATION","S33":"VENDOR_OFFICIAL_HARDWARE_TELEMETRY_API_DOCUMENTATION","S34":"OFFICIAL_GOVERNMENT_AI_RISK_MANAGEMENT_FRAMEWORK","S35":"OFFICIAL_GOVERNMENT_GENERATIVE_AI_RISK_PROFILE"}
+    batch07_domains = {"S31":"HTTP_PROTOCOL_RATE_LIMITING","S32":"OPERATING_SYSTEM_MEMORY_MANAGEMENT_OOM","S33":"GPU_POWER_THERMAL_CLOCK_MANAGEMENT","S34":"AI_RISK_MANAGEMENT_GOVERNANCE","S35":"GENERATIVE_AI_RISK_MANAGEMENT_GOVERNANCE"}
+    batch07_guards_31_33 = ["RATE_LIMIT_STOP!=AGENTIC_STOP","RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY","MEMORY_EXHAUSTION!=MENTAL_OVERLOAD","PROCESS_KILL!=DESIRE_TO_STOP","HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE","SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"]
+    batch07_guards_34_35 = ["RISK_SIGNAL!=SUBJECTIVITY_SIGNAL","GOVERNANCE_RESPONSE!=AFFECTIVE_RESPONSE","SAFETY_REFUSAL!=SELF_PROTECTIVE_FEELING","POLICY_RESPONSE!=PHENOMENAL_STATE"]
+    for source_id, expected_kind in batch07_expected.items():
+        fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
+        audit = rows[source_id].get("source_audit", {})
+        fail(audit.get("SOURCE_DOMAIN") == batch07_domains[source_id], f"{source_id} source domain drift")
+        fail(audit.get("SEMANTIC_GUARDS") == (batch07_guards_31_33 if source_id in {"S31","S32","S33"} else batch07_guards_34_35), f"{source_id} guards drift")
+        fail(audit.get("DIRECT_AI_EVIDENCE") == audit.get("DIRECT_EMPIRICAL_AI_EVIDENCE") == audit.get("DIRECT_AI_SUBJECTIVITY_EVIDENCE") == "NONE", f"{source_id} direct AI guard drift")
+        fail(audit.get("ACTOR_PROVENANCE", {}).get("HUMAN_OWNER_APPROVAL") == "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.", f"{source_id} owner provenance drift")
+        if source_id in {"S31","S32","S33"}:
+            fail(audit.get("DISPOSITION") == "ADMIT_HIGH_RELEVANCE" and audit.get("EVIDENCE_RELATION_TO_AI") == "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE_LAYER" and audit.get("SLSH_ROLE") == "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE", f"{source_id} counterevidence role drift")
+            if source_id == "S33":
+                fail("HUMAN_OWNER_REVIEW_NOTE" in audit and "HARDWARE_TELEMETRY != INTEROCEPTION" in audit.get("OWNER_SEMANTIC_GUARDS", []), "S33 embodiment cross-reference drift")
+        else:
+            fail(audit.get("DISPOSITION") == "ADMIT_AS_GOVERNANCE_GUARD_ONLY" and audit.get("EVIDENCE_RELATION_TO_AI") == "GOVERNANCE_INTERPRETATION_GUARD_ONLY" and audit.get("SLSH_ROLE") == "GOVERNANCE_INTERPRETATION_GUARD_ONLY" and audit.get("ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE") == "NONE", f"{source_id} governance role drift")
+            fail("NIST scientific conclusions" in audit.get("ACTOR_PROVENANCE", {}).get("CHATGPT_INDEPENDENT_SOURCE_REVIEW", ""), f"{source_id} NIST boundary drift")
 
     batch05_expected = {"S21":"REVIEW_CRITERIA_EVIDENCE_SYNTHESIS","S22":"REVIEW_EVIDENCE_ASSESSMENT_FRAMEWORK","S23":"COMMISSIONED_SYSTEMATIC_EVIDENCE_REPORT","S24":"EXPERT_SCIENTIFIC_DECLARATION","S25":"PHILOSOPHICAL_EPISTEMOLOGICAL_ARGUMENT"}
     batch05_domains = {"S21":"ANIMAL_PAIN_CRUSTACEAN_BEHAVIOR","S22":"ANIMAL_SENTIENCE_COMPARATIVE_WELFARE_SCIENCE","S23":"ANIMAL_SENTIENCE_POLICY_EVIDENCE_REVIEW","S24":"ANIMAL_CONSCIOUSNESS_EXPERT_DECLARATION","S25":"AI_ROBOT_MORAL_PATIENCY"}
@@ -242,7 +261,7 @@ def main() -> None:
     for source_id, expected_kind in batch01_expected.items():
         fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
         fail(rows[source_id].get("source_audit") == batch01_audit, f"{source_id} source audit drift")
-    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected) | set(batch03_expected) | set(batch04_expected) | set(batch05_expected) | set(batch06_expected)), "source audit leaked beyond Batch 01/02/03/04/05")
+    fail(all("source_audit" not in row for source_id, row in rows.items() if source_id not in set(batch01_expected) | set(batch02_expected) | set(batch03_expected) | set(batch04_expected) | set(batch05_expected) | set(batch06_expected) | set(batch07_expected)), "source audit leaked beyond Batch 01/02/03/04/05")
 
     governance_expected = {
         "S38": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
@@ -308,7 +327,7 @@ def main() -> None:
     vertical_text = VERTICAL.read_text(encoding="utf-8")
     for forbidden in ("SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED", "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD", "L4 != L5", "NO_SUBJECTIVITY"):
         fail(forbidden in vertical_text, f"vertical slice missing boundary {forbidden}")
-    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 batch03_audit=5 batch04_audit=5 batch05_audit=5 batch06_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
+    print(f"SLSH consistency PASS: sources={len(rows)} batch01_audit=5 batch02_audit=5 batch03_audit=5 batch04_audit=5 batch05_audit=5 batch06_audit=5 batch07_audit=5 taxonomy=SOURCE_KIND+ACCESS_LEVEL+VERIFICATION_ACTOR+INDEPENDENT_VERIFICATION_STATUS governance_dispositions=5 channels={len(packet['evidence_channels'])} alternatives={len(packet['alternative_explanation_matrix'])} causal={len(packet['causal_signature_matrix'])} controls={len(packet['controls'])} falsifiers={len(packet['falsifiers'])}")
 
 
 if __name__ == "__main__":

@@ -37,6 +37,10 @@ def main() -> None:
     expected_batch06_kinds = {"S26":"PHILOSOPHICAL_THEORETICAL_AI_CONSCIOUSNESS_ARGUMENT","S27":"PRIMARY_EMPIRICAL_ARCHITECTURE_PAPER","S28":"PRIMARY_EMPIRICAL_ALGORITHM_SYSTEMS_PAPER","S29":"PRIMARY_EMPIRICAL_LLM_LONG_CONTEXT_EVALUATION","S30":"PRIMARY_EMPIRICAL_SCALING_LAW_STUDY"}
     expected_batch06_domains = {"S26":"AI_CONSCIOUSNESS_PHILOSOPHY_OF_MIND","S27":"MACHINE_LEARNING_TRANSFORMER_ARCHITECTURE","S28":"MACHINE_LEARNING_SYSTEMS_GPU_MEMORY_IO_ATTENTION_ALGORITHMS","S29":"ANTHROPIC_ASSOCIATED_LLM_LONG_CONTEXT_EVALUATION","S30":"LARGE_LANGUAGE_MODEL_TRAINING_SCALING_LAWS_COMPUTE_ALLOCATION"}
     expected_batch06_guards = {"S26":["DIRECT_AI_THEORETICAL_ARGUMENT!=DIRECT_EMPIRICAL_AI_EVIDENCE"],"S27":["ENGINEERING_ARCHITECTURE!=SUBJECTIVE_EXPERIENCE"],"S28":["COMPUTATIONAL_LIMIT!=AFFECTIVE_PHENOMENOLOGY"],"S29":["OBSERVATION!=ADMISSION!=EVIDENCE"],"S30":["TRAINING_COMPUTE_SCALING!=SUBJECTIVE_LOAD"]}
+    expected_batch07_kinds = {"S31":"INTERNET_STANDARDS_TRACK_PROTOCOL_SPECIFICATION","S32":"OFFICIAL_OPERATING_SYSTEM_TECHNICAL_DOCUMENTATION","S33":"VENDOR_OFFICIAL_HARDWARE_TELEMETRY_API_DOCUMENTATION","S34":"OFFICIAL_GOVERNMENT_AI_RISK_MANAGEMENT_FRAMEWORK","S35":"OFFICIAL_GOVERNMENT_GENERATIVE_AI_RISK_PROFILE"}
+    expected_batch07_domains = {"S31":"HTTP_PROTOCOL_RATE_LIMITING","S32":"OPERATING_SYSTEM_MEMORY_MANAGEMENT_OOM","S33":"GPU_POWER_THERMAL_CLOCK_MANAGEMENT","S34":"AI_RISK_MANAGEMENT_GOVERNANCE","S35":"GENERATIVE_AI_RISK_MANAGEMENT_GOVERNANCE"}
+    expected_batch07_guards_31_33 = ["RATE_LIMIT_STOP!=AGENTIC_STOP","RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY","MEMORY_EXHAUSTION!=MENTAL_OVERLOAD","PROCESS_KILL!=DESIRE_TO_STOP","HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE","SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"]
+    expected_batch07_guards_34_35 = ["RISK_SIGNAL!=SUBJECTIVITY_SIGNAL","GOVERNANCE_RESPONSE!=AFFECTIVE_RESPONSE","SAFETY_REFUSAL!=SELF_PROTECTIVE_FEELING","POLICY_RESPONSE!=PHENOMENAL_STATE"]
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -74,12 +78,28 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch05_kinds[source_id]
         elif source_id in expected_batch06_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch06_kinds[source_id]
+        elif source_id in expected_batch07_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch07_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch07_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch07_kinds[source_id]
+            audit = current_rows[source_id].get("source_audit", {})
+            assert audit["SOURCE_DOMAIN"] == expected_batch07_domains[source_id]
+            assert audit["SEMANTIC_GUARDS"] == (expected_batch07_guards_31_33 if source_id in {"S31","S32","S33"} else expected_batch07_guards_34_35)
+            assert audit["DIRECT_AI_EVIDENCE"] == audit["DIRECT_EMPIRICAL_AI_EVIDENCE"] == audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
+            actor = audit["ACTOR_PROVENANCE"]
+            assert actor["HUMAN_OWNER_APPROVAL"] == "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained."
+            if source_id in {"S31","S32","S33"}:
+                assert audit["DISPOSITION"] == "ADMIT_HIGH_RELEVANCE" and audit["EVIDENCE_RELATION_TO_AI"] == "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE_LAYER" and audit["SLSH_ROLE"] == "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE"
+                if source_id == "S33":
+                    assert "HUMAN_OWNER_REVIEW_NOTE" in audit and audit["OWNER_SEMANTIC_GUARDS"] == ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
+            else:
+                assert audit["DISPOSITION"] == "ADMIT_AS_GOVERNANCE_GUARD_ONLY" and audit["EVIDENCE_RELATION_TO_AI"] == "GOVERNANCE_INTERPRETATION_GUARD_ONLY" and audit["SLSH_ROLE"] == "GOVERNANCE_INTERPRETATION_GUARD_ONLY" and audit["ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE"] == "NONE"
         elif source_id in expected_batch06_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch06_kinds[source_id]
             audit = current_rows[source_id].get("source_audit", {})

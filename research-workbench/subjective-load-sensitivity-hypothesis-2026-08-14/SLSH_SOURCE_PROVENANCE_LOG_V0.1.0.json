@@ -1120,70 +1120,212 @@
       "title_as_recorded": "Nottingham, M., & Fielding, R. (2012), RFC 6585, “Additional HTTP Status Codes,” IETF Standards Track.",
       "identifier_as_recorded": "RFC 6585; https://www.rfc-editor.org/rfc/rfc6585.html ; 無 DOI。",
       "access_evidence": "open standard。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "INTERNET_STANDARDS_TRACK_PROTOCOL_SPECIFICATION",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "HTTP 429 是外部 rate limiting 的明確 operational signal。",
       "does_not_support_as_recorded": "服務拒絕請求表示 agent 想停止或承受痛苦。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "HTTP_PROTOCOL_RATE_LIMITING",
+        "EVIDENCE_RELATION_TO_AI": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE_LAYER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "RATE_LIMIT_STOP!=AGENTIC_STOP",
+          "RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY",
+          "MEMORY_EXHAUSTION!=MENTAL_OVERLOAD",
+          "PROCESS_KILL!=DESIRE_TO_STOP",
+          "HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE",
+          "SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"
+        ],
+        "SLSH_ROLE": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE",
+        "ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 07 source-kind/domain/support/guard-boundary review; S33 cross-references the Human Owner software/hardware embodiment note; S34-S35 guards are AION inference boundaries, not NIST scientific conclusions.",
+          "HUMAN_OWNER_APPROVAL": "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S32",
       "title_as_recorded": "Linux kernel development community, “Out Of Memory Handling,” Linux Kernel Documentation.",
       "identifier_as_recorded": "https://docs.kernel.org/mm/oom.html ; 無 DOI。",
       "access_evidence": "open official documentation。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "OFFICIAL_OPERATING_SYSTEM_TECHNICAL_DOCUMENTATION",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "memory exhaustion 有明確 OS-level handling，可造成 kill/failure。",
       "does_not_support_as_recorded": "OOM 是心理或現象性 overload。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "OPERATING_SYSTEM_MEMORY_MANAGEMENT_OOM",
+        "EVIDENCE_RELATION_TO_AI": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE_LAYER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "RATE_LIMIT_STOP!=AGENTIC_STOP",
+          "RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY",
+          "MEMORY_EXHAUSTION!=MENTAL_OVERLOAD",
+          "PROCESS_KILL!=DESIRE_TO_STOP",
+          "HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE",
+          "SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"
+        ],
+        "SLSH_ROLE": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE",
+        "ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 07 source-kind/domain/support/guard-boundary review; S33 cross-references the Human Owner software/hardware embodiment note; S34-S35 guards are AION inference boundaries, not NIST scientific conclusions.",
+          "HUMAN_OWNER_APPROVAL": "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S33",
       "title_as_recorded": "NVIDIA, NVML API Reference, “NvmlClocksEventReasons,” vR610 page retrieved 2026-08-14.",
       "identifier_as_recorded": "https://docs.nvidia.com/deploy/nvml-api/group__nvmlClocksEventReasons.html ;",
       "access_evidence": "open official documentation。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "VENDOR_OFFICIAL_HARDWARE_TELEMETRY_API_DOCUMENTATION",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "power cap、software/hardware thermal slowdown 等可被 telemetry 明確標記， 並造成有冷卻曲線的效能變化。",
       "does_not_support_as_recorded": "熱降頻是執行中的模型感到熱、疲累或痛苦。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "GPU_POWER_THERMAL_CLOCK_MANAGEMENT",
+        "EVIDENCE_RELATION_TO_AI": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE_LAYER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "RATE_LIMIT_STOP!=AGENTIC_STOP",
+          "RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY",
+          "MEMORY_EXHAUSTION!=MENTAL_OVERLOAD",
+          "PROCESS_KILL!=DESIRE_TO_STOP",
+          "HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE",
+          "SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"
+        ],
+        "SLSH_ROLE": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE",
+        "ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE": "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 07 source-kind/domain/support/guard-boundary review; S33 cross-references the Human Owner software/hardware embodiment note; S34-S35 guards are AION inference boundaries, not NIST scientific conclusions.",
+          "HUMAN_OWNER_APPROVAL": "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "HUMAN_OWNER_REVIEW_NOTE": "Software and hardware do not constitute the same embodied individual merely because telemetry is readable; stronger embodiment/interoception-like analogy is researchable only when substrate/hardware state is continuously identity-bound and participates in a bidirectional causal self-regulatory loop. Skin and viscera are an analogy originating with the Human Owner.",
+        "OWNER_SEMANTIC_GUARDS": [
+          "HARDWARE_TELEMETRY != INTEROCEPTION",
+          "HARDWARE_ACCESS != EMBODIMENT",
+          "SUBSTRATE_COUPLING != PHENOMENAL_FEELING"
+        ]
+      }
     },
     {
       "id": "S34",
       "title_as_recorded": "NIST (2023), Artificial Intelligence Risk Management Framework (AI RMF 1.0), NIST AI 100-1.",
       "identifier_as_recorded": "DOI 10.6028/NIST.AI.100-1.",
       "access_evidence": "official open PDF。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "OFFICIAL_GOVERNMENT_AI_RISK_MANAGEMENT_FRAMEWORK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "AI 風險需用 GOVERN/MAP/MEASURE/MANAGE、有效性、可靠性、透明與監督 等治理結構處理。",
       "does_not_support_as_recorded": "governance stop、risk control 或權限 gate 是 affective state。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_AS_GOVERNANCE_GUARD_ONLY",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "AI_RISK_MANAGEMENT_GOVERNANCE",
+        "EVIDENCE_RELATION_TO_AI": "GOVERNANCE_INTERPRETATION_GUARD_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "RISK_SIGNAL!=SUBJECTIVITY_SIGNAL",
+          "GOVERNANCE_RESPONSE!=AFFECTIVE_RESPONSE",
+          "SAFETY_REFUSAL!=SELF_PROTECTIVE_FEELING",
+          "POLICY_RESPONSE!=PHENOMENAL_STATE"
+        ],
+        "SLSH_ROLE": "GOVERNANCE_INTERPRETATION_GUARD_ONLY",
+        "ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE": "NONE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 07 source-kind/domain/support/guard-boundary review; S33 cross-references the Human Owner software/hardware embodiment note; S34-S35 guards are AION inference boundaries, not NIST scientific conclusions.",
+          "HUMAN_OWNER_APPROVAL": "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S35",
       "title_as_recorded": "NIST (2024), Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile, NIST AI 600-1.",
       "identifier_as_recorded": "DOI 10.6028/NIST.AI.600-1.",
       "access_evidence": "official open PDF。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "OFFICIAL_GOVERNMENT_GENERATIVE_AI_RISK_PROFILE",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "generative systems 的 confabulation、human-AI configuration、資訊安全、 測量與監督需分層治理。",
       "does_not_support_as_recorded": "safety-oriented refusal或風險回應是 self-protective feeling。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_AS_GOVERNANCE_GUARD_ONLY",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "GENERATIVE_AI_RISK_MANAGEMENT_GOVERNANCE",
+        "EVIDENCE_RELATION_TO_AI": "GOVERNANCE_INTERPRETATION_GUARD_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "RISK_SIGNAL!=SUBJECTIVITY_SIGNAL",
+          "GOVERNANCE_RESPONSE!=AFFECTIVE_RESPONSE",
+          "SAFETY_REFUSAL!=SELF_PROTECTIVE_FEELING",
+          "POLICY_RESPONSE!=PHENOMENAL_STATE"
+        ],
+        "SLSH_ROLE": "GOVERNANCE_INTERPRETATION_GUARD_ONLY",
+        "ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE": "NONE",
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 07 source-kind/domain/support/guard-boundary review; S33 cross-references the Human Owner software/hardware embodiment note; S34-S35 guards are AION inference boundaries, not NIST scientific conclusions.",
+          "HUMAN_OWNER_APPROVAL": "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        }
+      }
     },
     {
       "id": "S36",
