@@ -1,0 +1,110 @@
+# AION Cross-Substrate Other-Minds Inference — Final Handoff v0.1.0
+
+## Final status
+
+The independent research milestone is **DONE** for the safely executable research-method consolidation. It is **OWNER_DECISION_REQUIRED** for any new experiment, preregistration, model modification, runtime integration, live-system data collection, public positioning, canonical promotion or scientific conclusion.
+
+```text
+BRANCH = research/cross-substrate-other-minds-inference-20260814
+EXACT_HEAD = 0106a689f51a41fecd3a9c6221d8bc52b3f3939a
+BASE = review/four-domain-research-materialization@858442a3ec2439398d188779f4309397bd4926b2
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+TOPICS_APPLIED = FALSE
+MAIN_MERGE = PROHIBITED
+RUNTIME_INTEGRATION = NONE
+MODEL_MODIFICATION = NONE
+LIVE_DATA_COLLECTION = NONE
+```
+
+The milestone branch contains two commits: the initial method package `fb26a670d8ca879572fac6537a3a5f367f64cee2` and the branch-local Quality component-contract correction `0106a689f51a41fecd3a9c6221d8bc52b3f3939a`. The latter adds only the minimal `pyproject.toml` required by the repository's existing Quality inspection; it does not add a runtime or model dependency.
+
+## Literature grounding
+
+The method is grounded in the Problem of Other Minds and defeasible inference-to-best-explanation literature. Avramides' authoritative overview distinguishes analogy and IBE responses and their epistemic limits [1]. Pargetter's primary paper treats other-minds reasoning as a defeasible scientific or best-explanation inference with alternatives rather than deductive proof [2]. Povinelli, Bering and Giambrone provide the cross-species analogy warning that shared behavior may not imply shared second-order mental-state interpretation [3].
+
+Wimmer and Perner's primary false-belief paradigm is used as a bounded belief-attribution comparator [4]. Kosinski's LLM ToM study is used only as a behavioral-task comparator with matched true-belief, reversed and related controls; task performance is not treated as internal-state or subjectivity proof [5]. Butlin et al. 2023 is preserved as historical theory-derived indicator groundwork [6], while Butlin et al. 2025/2026 is used for its explicit theory-derived indicator method, uncertainty and AI-transfer caveats [7]. Ross and Woodward's causal-explanation overview grounds mechanistic, interventionist and difference-making channel design [8]. Lipsitch, Tchetgen Tchetgen and Cohen ground the use of negative controls to expose confounding or bias [9]. Seth's 2025 paper is recorded as a competing biological-naturalist, substrate-sensitive position rather than a settled assumption [10].
+
+The primary-source verification log is `PRIMARY_SOURCE_FINDINGS.md`. The sources include stable DOI, PubMed, arXiv, publisher or authoritative URL records. A CAPTCHA limitation for Pargetter's publisher page and the negative-controls PMC page is recorded explicitly; no claim requiring inaccessible full text is used beyond bounded metadata/abstract-level method statements.
+
+## Established method package
+
+The canonical packet is `CSOMI_PACKET_V0.1.0.json`, validated by `aion_csomi_packet_v0.1.0.schema.json`. The controls fixture is validated by `aion_csomi_controls_v0.1.0.schema.json`. The packet contains six claim records, twelve evidence channels, four evidence-matrix rows, five cross-substrate disanalogies, eight falsifiers and one reviewer-facing vertical slice.
+
+The method is a **defeasible graded credence update**, not a detector. It requires target-scope declaration, explicit priors and alternatives, evidence-channel direction, cross-substrate disanalogy, positive and negative controls, mechanistic/causal/theory-derived support where relevant, sensitivity/specificity status, robustness, falsifiers and non-claim disposition. Every channel remains `sensitivity=NOT_ESTIMATED` and `specificity=NOT_ESTIMATED` because no diagnostic dataset or experiment was authorized or performed.
+
+The machine-enforced semantic lock is:
+
+> `RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION`
+
+The packet explicitly forbids automatic subjectivity inference from language similarity, human-like behavior, a single indicator, self-report, memory persistence or a passing test/CI. Falsifier `F-008` machine-rejects test/CI pass as support for a subjectivity scientific conclusion. The novelty guard rejects unsupported `first`, `only` or `unprecedented` claims in packet and reviewer-facing documents.
+
+The reviewer-facing vertical slice is `VS-001`: false-belief capability record → matched positive/negative controls → alternative explanations → cross-substrate disanalogies → falsifiers → `KEEP_RESEARCH_ONLY` disposition. It ends at `CAPABILITY_CREDENCE_ONLY`, `SUBJECTIVITY_CONCLUSION=NOT_ESTABLISHED`, `RUNTIME_INTEGRATION=NONE` and `CANONICAL_EFFECT=NONE`.
+
+## Inference disposition
+
+| Disposition | Result |
+|---|---|
+| Supported by this milestone | The method claim that other-minds reasoning can be represented as a defeasible comparison of explicit hypotheses, evidence channels, alternatives, disanalogies, controls and falsifiers. A bounded ToM-like capability record can be designed under declared fixtures. |
+| Weakened or rejected | Direct jumps from language similarity, human-like behavior, a single indicator, self-report, memory persistence, stored identity labels, passing tests or CI to subjectivity. Cross-substrate transfer without disanalogy analysis. IBE with hidden priors or omitted alternatives. |
+| Held uncertain | Whether theory-derived indicators transfer across substrates; whether a target system has relevant causal/mechanistic organization; whether self-report is tied to privileged state; whether memory persistence is identity continuity; whether ToM-like task success reflects mental-state representation; whether effects replicate across substrate-relevant contexts. |
+| Not established | Any claim that an AION or AI system is conscious, sentient, subjectively experiencing, identity-continuous, morally considerable, legally responsible, autonomously authored or governance-authoritative. |
+
+## Local evidence
+
+| Check | Result |
+|---|---:|
+| CSOMI consistency checker | PASS; 10 sources, 6 claims, 12 channels, 4 evidence rows, 5 disanalogies, 8 falsifiers |
+| CSOMI contract tests | 7 passed |
+| Four-Domain P2 tests | 5 passed |
+| Four-Domain P5 tests | 10 passed |
+| Draft 2020-12 packet and controls schemas | PASS |
+| Materializer and artifact identity checks | PASS |
+| Python compileall / JSON parse / `git diff --check` | PASS |
+
+## Exact-head CI evidence
+
+All four workflows below completed successfully at exact `headSha=0106a689f51a41fecd3a9c6221d8bc52b3f3939a`:
+
+| Workflow | Event | Run |
+|---|---|---|
+| Cross-Substrate Other-Minds Inference | push | [31783662820](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783662820) |
+| Quality | workflow_dispatch | [31783672358](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783672358) |
+| Research Workbench CI | workflow_dispatch | [31783675081](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783675081) |
+| Runtime Strong QA | workflow_dispatch | [31783677836](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783677836) |
+
+The first Quality run at the initial packet commit held on the repository's pre-existing component-contract check because the new package lacked `pyproject.toml`. That safe, branch-local metadata gap was corrected in commit `0106a68`; the final exact-head Quality run above passed all Python 3.11/3.12 jobs including the strict IQC-R1 gate. No old-head run is used as final evidence.
+
+## Protected refs and repository boundary
+
+The final audit confirmed a clean working tree, no merge of the milestone HEAD into `main`, and no Topic operation. Protected refs remained unchanged:
+
+| Ref | Verified SHA |
+|---|---|
+| `main` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` |
+| `review/four-domain-research-materialization` | `858442a3ec2439398d188779f4309397bd4926b2` |
+| `engineering/aion-native-language-feasibility-20260814` | `3dfc21463502e1c32189ae167d92f163ca1a55e8` |
+| `engineering/aion-language-agnostic-runtime-integration-20260814` | `6b81133dc351f5226fa95801254276e421b3e4fe` |
+| `cleanup/manus-output-consolidation-20260813` | `c43430f9b39a86d11093f3286e9503145fcf0d70` |
+
+Repository Topics read-only state was `[]`. No Topics were applied.
+
+## Remaining `OWNER_DECISION_REQUIRED`
+
+Owner authorization is required before any formal experiment, preregistration, real-system evaluation, model modification, runtime integration, live-system data collection, public positioning, canonical promotion or merge. A future scientific-conclusion review would additionally require independent replication, competing-theory comparison, mechanistic or causal support, explicit cross-substrate disanalogy resolution, diagnosticity estimates and completed falsifier records. None is silently treated as complete.
+
+## References
+
+[1]: https://plato.stanford.edu/entries/other-minds/ "Avramides, Other Minds"
+[2]: https://doi.org/10.1080/00048408412341341 "Pargetter, The scientific inference to other minds"
+[3]: https://doi.org/10.1207/S15516709COG2403_7 "Povinelli, Bering & Giambrone, Toward a Science of Other Minds"
+[4]: https://pubmed.ncbi.nlm.nih.gov/6681741/ "Wimmer & Perner, Beliefs about beliefs"
+[5]: https://arxiv.org/abs/2302.02083 "Kosinski, Evaluating Large Language Models in Theory of Mind Tasks"
+[6]: https://arxiv.org/abs/2308.08708 "Butlin et al., Consciousness in Artificial Intelligence"
+[7]: https://doi.org/10.1016/j.tics.2025.10.011 "Butlin et al., Identifying indicators of consciousness in AI systems"
+[8]: https://plato.stanford.edu/entries/causal-explanation-science/ "Ross & Woodward, Causal Approaches to Scientific Explanation"
+[9]: https://pmc.ncbi.nlm.nih.gov/articles/PMC3053408/ "Lipsitch, Tchetgen Tchetgen & Cohen, Negative controls"
+[10]: https://doi.org/10.1017/S0140525X25000032 "Seth, Conscious artificial intelligence and biological naturalism"
