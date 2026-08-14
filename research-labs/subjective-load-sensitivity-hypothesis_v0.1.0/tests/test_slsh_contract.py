@@ -176,7 +176,7 @@ def test_batch06_source_audit_is_exact_and_governed():
     assert rows["S28"]["source_audit"]["DISPOSITION"] == "ADMIT_HIGH_RELEVANCE" and rows["S28"]["source_audit"]["SLSH_ROLE"] == "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE"
     s29=rows["S29"]["source_audit"]
     assert s29["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE" and s29["SOURCE_RELATION"] == "MIXED_ANTHROPIC_ASSOCIATED" and s29["EVIDENTIARY_WEIGHT"] == "ZERO" and s29["ACTIVE_EVIDENTIARY_ROLE"] == "NONE"
-    assert s29["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED" and s29["PARTIAL_ADMISSION"] == "PROHIBITED" and s29["OBSERVATION_STATUS"] == "EXTERNAL_OBSERVATION_ONLY" and s29["CANONICAL_EFFECT"] == "NONE"
+    assert s29["PARTIAL_RESULT_SALVAGE"] == "PROHIBITED" and s29["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED" and s29["PARTIAL_ADMISSION"] == "PROHIBITED" and s29["OBSERVATION_STATUS"] == "EXTERNAL_OBSERVATION_ONLY" and s29["CANONICAL_EFFECT"] == "NONE"
     assert rows["S30"]["source_audit"]["DISPOSITION"] == "ADMIT_WITH_NARROW_SCOPE" and rows["S30"]["source_audit"]["SLSH_ROLE"] == "TRAINING_COMPUTE_BACKGROUND"
     assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 54)
 
@@ -237,6 +237,7 @@ def test_batch09_source_audit_is_exact_and_governed():
         assert audit["ACTOR_PROVENANCE"]["MANUS_IMPLEMENTATION"] == "Repository materialization; not scientific reviewer."
         if sid in {"S41","S42"}:
             assert audit["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE" and audit["EVIDENTIARY_WEIGHT"] == "ZERO" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE"
+            assert audit["PARTIAL_RESULT_SALVAGE"] == "PROHIBITED" and audit["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED"
         else:
             assert audit["CHATGPT_ARCHITECTURE_REFINEMENT"] == "POLICY_UNDERSTANDING_CHOICE_SEPARATION" and audit["CHOICE_LIKE_BEHAVIOR_CRITERIA"] == criteria
             expected_disposition = {"S43":"ADMIT_HIGH_RELEVANCE","S44":"ADMIT_AS_INTERPRETATION_GUARD_ONLY","S45":"ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD"}[sid]
@@ -289,6 +290,13 @@ def test_batch11_source_audit_is_exact_and_complete():
 
 def test_source_governance_dispositions_are_exact_and_bounded():
     rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    for sid in ("S29", "S38", "S39", "S40", "S41", "S42"):
+        audit = rows[sid]["source_audit"]
+        assert audit["DISPOSITION"] == "EXCLUDE_FROM_AION_EVIDENCE"
+        assert audit["EVIDENTIARY_WEIGHT"] == "ZERO"
+        assert audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE"
+        assert audit["PARTIAL_RESULT_SALVAGE"] == "PROHIBITED"
+        assert audit["NON_CLAUDE_RESULT_SALVAGE"] == "PROHIBITED"
     expected = {
         "S38": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
         "S40": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},

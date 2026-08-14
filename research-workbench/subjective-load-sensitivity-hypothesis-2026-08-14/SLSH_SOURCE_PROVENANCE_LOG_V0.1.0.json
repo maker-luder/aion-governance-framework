@@ -1073,6 +1073,7 @@
         "SOURCE_RELATION": "MIXED_ANTHROPIC_ASSOCIATED",
         "EVIDENTIARY_WEIGHT": "ZERO",
         "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "PARTIAL_RESULT_SALVAGE": "PROHIBITED",
         "NON_CLAUDE_RESULT_SALVAGE": "PROHIBITED",
         "PARTIAL_ADMISSION": "PROHIBITED",
         "OBSERVATION_STATUS": "EXTERNAL_OBSERVATION_ONLY",
@@ -1599,7 +1600,9 @@
           "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
         },
         "EVIDENTIARY_WEIGHT": "ZERO",
-        "HISTORICAL_PROVENANCE": "PRESERVE"
+        "HISTORICAL_PROVENANCE": "PRESERVE",
+        "PARTIAL_RESULT_SALVAGE": "PROHIBITED",
+        "NON_CLAUDE_RESULT_SALVAGE": "PROHIBITED"
       },
       "governance_disposition": {
         "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
@@ -1647,7 +1650,9 @@
           "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
         },
         "EVIDENTIARY_WEIGHT": "ZERO",
-        "HISTORICAL_PROVENANCE": "PRESERVE"
+        "HISTORICAL_PROVENANCE": "PRESERVE",
+        "PARTIAL_RESULT_SALVAGE": "PROHIBITED",
+        "NON_CLAUDE_RESULT_SALVAGE": "PROHIBITED"
       },
       "governance_disposition": {
         "disposition": "EXCLUDE_FROM_AION_EVIDENCE",

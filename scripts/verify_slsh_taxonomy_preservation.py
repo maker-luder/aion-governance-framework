@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "research-workbench" / "subjective-load-sensitivity-hypothesis-2026-08-14"
-PREVIOUS = "9c62b220a87d5586bee409e731c8bda8c35baa70"
+PREVIOUS = "e857fa13f02b108038b4d843a0ad7054855767a5"
 RAW_FIELDS = ("title_as_recorded", "identifier_as_recorded", "access_evidence", "supports_as_recorded", "does_not_support_as_recorded")
 
 
@@ -70,6 +70,13 @@ def main() -> None:
         "S42": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
         "S39": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
     }
+    for source_id in ("S29", "S38", "S39", "S40", "S41", "S42"):
+        audit = current_rows[source_id].get("source_audit", {})
+        assert audit.get("DISPOSITION") == "EXCLUDE_FROM_AION_EVIDENCE", source_id
+        assert audit.get("EVIDENTIARY_WEIGHT") == "ZERO", source_id
+        assert audit.get("ACTIVE_EVIDENTIARY_ROLE") == "NONE", source_id
+        assert audit.get("PARTIAL_RESULT_SALVAGE") == "PROHIBITED", source_id
+        assert audit.get("NON_CLAUDE_RESULT_SALVAGE") == "PROHIBITED", source_id
     for source_id in current_rows:
         for field in RAW_FIELDS:
             assert current_rows[source_id][field] == previous_rows[source_id][field], (source_id, field)

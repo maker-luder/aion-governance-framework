@@ -133,7 +133,21 @@
           },
           "allOf": [{"anyOf": [{"required": ["HUMAN_OWNER_APPROVAL"]}, {"required": ["HUMAN_OWNER_APPROVAL_AND_GOVERNANCE_DECISION"]}]}]
         }
-      }
+      },
+      "allOf": [
+          {
+            "if": {"properties": {"DISPOSITION": {"const": "EXCLUDE_FROM_AION_EVIDENCE"}}},
+            "then": {
+              "required": ["EVIDENTIARY_WEIGHT", "ACTIVE_EVIDENTIARY_ROLE", "PARTIAL_RESULT_SALVAGE", "NON_CLAUDE_RESULT_SALVAGE"],
+              "properties": {
+                "EVIDENTIARY_WEIGHT": {"const": "ZERO"},
+                "ACTIVE_EVIDENTIARY_ROLE": {"const": "NONE"},
+                "PARTIAL_RESULT_SALVAGE": {"const": "PROHIBITED"},
+                "NON_CLAUDE_RESULT_SALVAGE": {"const": "PROHIBITED"}
+              }
+            }
+          }
+        ]
     },
     "governance_disposition": {
       "type": "object",

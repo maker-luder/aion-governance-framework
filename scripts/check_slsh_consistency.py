@@ -359,6 +359,14 @@ def main() -> None:
         fail(rows[source_id].get("governance_disposition") == expected_disposition, f"{source_id} governance disposition drift")
     fail(all("governance_disposition" not in row for source_id, row in rows.items() if source_id not in governance_expected), "non-governance source received an unrequested disposition")
 
+    for source_id in ("S29", "S38", "S39", "S40", "S41", "S42"):
+        audit = rows[source_id].get("source_audit", {})
+        fail(audit.get("DISPOSITION") == "EXCLUDE_FROM_AION_EVIDENCE", f"{source_id} exclusion disposition drift")
+        fail(audit.get("EVIDENTIARY_WEIGHT") == "ZERO", f"{source_id} exclusion evidentiary weight drift")
+        fail(audit.get("ACTIVE_EVIDENTIARY_ROLE") == "NONE", f"{source_id} exclusion active role drift")
+        fail(audit.get("PARTIAL_RESULT_SALVAGE") == "PROHIBITED", f"{source_id} partial-result salvage must be prohibited")
+        fail(audit.get("NON_CLAUDE_RESULT_SALVAGE") == "PROHIBITED", f"{source_id} non-Claude salvage must be prohibited")
+
     for source_id in ("S20", "S49"):
         fail(rows[source_id]["access_level"] == "METADATA_AS_RECORDED", f"{source_id} metadata-only access was raised")
     for source_id in ("S01", "S05", "S06", "S07", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S25", "S45", "S50"):
