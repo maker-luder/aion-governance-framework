@@ -352,6 +352,10 @@ class IndividualRuntimeStateStore:
             if _hash(body) != event.event_hash:
                 return False
             previous_hash = event.event_hash
+        try:
+            self.lifecycle_state()
+        except RuntimeStateError:
+            return False
         return True
 
     def register_environment_evidence(

@@ -79,6 +79,23 @@ def test_concurrent_event_appends_are_serialized(tmp_path):
     assert len(store.events()) == 16
 
 
+@pytest.mark.parametrize(
+    "events",
+    [
+        [("runtime.stopped", {})],
+        [("runtime.started", {}), ("runtime.started", {})],
+    ],
+)
+def test_verify_rejects_invalid_lifecycle_history(tmp_path, events):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    for event_type, payload in events:
+        store.append_event(event_type, payload)
+
+    assert store.verify() is False
+    with pytest.raises(RuntimeStateError, match="recovery denied"):
+        store.recover()
+
+
 def test_checkpoint_recovery_and_non_destructive_rollback(tmp_path):
     store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
     store.append_event("runtime.started")
