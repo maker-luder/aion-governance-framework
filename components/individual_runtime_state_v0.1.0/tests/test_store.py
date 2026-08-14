@@ -33,6 +33,21 @@ def evidence(store: IndividualRuntimeStateStore, device_id: str, suffix: str):
     )
 
 
+@pytest.mark.parametrize(
+    "payload",
+    [
+        [("reason", "invalid-list-payload")],
+        {1: "invalid-key"},
+        {"value": object()},
+    ],
+)
+def test_append_rejects_non_json_event_payloads(tmp_path, payload):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    with pytest.raises(RuntimeStateError, match="event payload"):
+        store.append_event("runtime.invalid", payload)
+    assert store.events() == []
+
+
 def test_event_lineage_persists_across_restart(tmp_path):
     db = tmp_path / "state.sqlite3"
     first = IndividualRuntimeStateStore(db, context())

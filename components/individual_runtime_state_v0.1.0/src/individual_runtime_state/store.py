@@ -108,6 +108,20 @@ def _decode_payload(raw: object) -> dict[str, Any]:
     return payload
 
 
+def _clean_payload(payload: object) -> dict[str, Any]:
+    if payload is None:
+        return {}
+    if not isinstance(payload, dict):
+        raise RuntimeStateError("event payload must be a dictionary")
+    if any(not isinstance(key, str) for key in payload):
+        raise RuntimeStateError("event payload keys must be strings")
+    try:
+        _canonical(payload)
+    except (TypeError, ValueError) as exc:
+        raise RuntimeStateError("event payload must be JSON serializable") from exc
+    return dict(payload)
+
+
 class IndividualRuntimeStateStore:
     """Append-only state store bound to one individual runtime context.
 
@@ -217,7 +231,7 @@ class IndividualRuntimeStateStore:
     def append_event(self, event_type: str, payload: dict[str, Any] | None = None) -> RuntimeEvent:
         if not event_type.strip():
             raise RuntimeStateError("event_type must be non-empty")
-        clean_payload = dict(payload or {})
+        clean_payload = _clean_payload(payload)
         occurred_at = _now()
         with self._connect() as connection:
             connection.execute("BEGIN IMMEDIATE")
