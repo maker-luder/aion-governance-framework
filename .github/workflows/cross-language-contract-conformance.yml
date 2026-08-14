@@ -51,12 +51,7 @@ jobs:
 
       - name: Run reusable contract vectors
         env:
-          PYTHONPATH: >-
-            ${{ github.workspace }}/components/executable_runtime_v0.1.0/src:
-            ${{ github.workspace }}/components/governance_kernel_v0.4.0/src:
-            ${{ github.workspace }}/components/language_core_v0.1.0/src:
-            ${{ github.workspace }}/components/memory_recall_governance_v0.1.0/src:
-            ${{ github.workspace }}/components/individual_runtime_state_v0.1.0/src
+          PYTHONPATH: "${{ github.workspace }}/components/executable_runtime_v0.1.0/src:${{ github.workspace }}/components/governance_kernel_v0.4.0/src:${{ github.workspace }}/components/language_core_v0.1.0/src:${{ github.workspace }}/components/memory_recall_governance_v0.1.0/src:${{ github.workspace }}/components/individual_runtime_state_v0.1.0/src"
         run: |
           python -m pytest -q \
             components/executable_runtime_v0.1.0/tests/test_context_conformance.py \
