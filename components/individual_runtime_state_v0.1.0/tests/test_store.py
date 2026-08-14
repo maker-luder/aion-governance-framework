@@ -428,3 +428,63 @@ def test_existing_lineage_rejects_different_agent(tmp_path):
     store.append_event("runtime.started")
     with pytest.raises(RuntimeStateError):
         IndividualRuntimeStateStore(db, context(agent_id="ASTRA"))
+
+
+def test_lifecycle_transition_rolls_back_when_append_fails(tmp_path, monkeypatch):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+
+    def fail_append(*args, **kwargs):
+        raise sqlite3.DatabaseError("simulated lifecycle append failure")
+
+    monkeypatch.setattr(store, "_append_event_with_connection", fail_append)
+    with pytest.raises(RuntimeStateError, match="atomic lifecycle transition persistence failed"):
+        store.transition_lifecycle("runtime.started")
+
+    assert store.events() == []
+    assert store.lifecycle_state() == "INITIALIZED"
+    assert store.verify() is True
+
+
+def test_concurrent_lifecycle_starts_allow_exactly_one_transition(tmp_path):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    barrier = threading.Barrier(2)
+
+    def start():
+        barrier.wait(timeout=5)
+        try:
+            store.transition_lifecycle("runtime.started", {"reason": "concurrent-start"})
+        except RuntimeStateError:
+            return "failed"
+        return "succeeded"
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(lambda _index: start(), range(2)))
+
+    assert results.count("succeeded") == 1
+    assert results.count("failed") == 1
+    assert store.lifecycle_state() == "RUNNING"
+    assert store.verify() is True
+    assert [event.event_type for event in store.events()].count("runtime.started") == 1
+
+
+def test_concurrent_lifecycle_stops_allow_exactly_one_transition(tmp_path):
+    store = IndividualRuntimeStateStore(tmp_path / "state.sqlite3", context())
+    store.transition_lifecycle("runtime.started")
+    barrier = threading.Barrier(2)
+
+    def stop():
+        barrier.wait(timeout=5)
+        try:
+            store.transition_lifecycle("runtime.stopped", {"reason": "concurrent-stop"})
+        except RuntimeStateError:
+            return "failed"
+        return "succeeded"
+
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        results = list(executor.map(lambda _index: stop(), range(2)))
+
+    assert results.count("succeeded") == 1
+    assert results.count("failed") == 1
+    assert store.lifecycle_state() == "STOPPED"
+    assert store.verify() is True
+    assert [event.event_type for event in store.events()].count("runtime.stopped") == 1

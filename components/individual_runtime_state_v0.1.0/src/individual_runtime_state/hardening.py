@@ -20,6 +20,7 @@ from .store import (
     RuntimeEvent,
     RuntimeStateError,
     _canonical,
+    _clean_payload,
     _hash,
     _now,
 )
@@ -301,6 +302,65 @@ class IndividualRuntimeStateStore(_BaseIndividualRuntimeStateStore):
             previous_hash,
             event_hash,
         )
+
+    @staticmethod
+    def _lifecycle_state_with_connection(
+        connection: sqlite3.Connection,
+        *,
+        event_lineage_id: str,
+    ) -> str:
+        state = "INITIALIZED"
+        rows = connection.execute(
+            "SELECT event_type FROM runtime_events WHERE event_lineage_id = ? ORDER BY sequence",
+            (event_lineage_id,),
+        ).fetchall()
+        for row in rows:
+            event_type = row["event_type"]
+            if not isinstance(event_type, str) or not event_type.strip():
+                raise RuntimeStateError("malformed runtime event column: event_type")
+            if event_type == "runtime.started":
+                if state == "RUNNING":
+                    raise RuntimeStateError("runtime lifecycle contains a duplicate start")
+                state = "RUNNING"
+            elif event_type == "runtime.stopped":
+                if state != "RUNNING":
+                    raise RuntimeStateError("runtime lifecycle contains a stop before start")
+                state = "STOPPED"
+        return state
+
+    def transition_lifecycle(
+        self,
+        event_type: str,
+        payload: dict[str, Any] | None = None,
+    ) -> RuntimeEvent:
+        """Validate and append one lifecycle event under the same SQLite write lock."""
+        if event_type not in {"runtime.started", "runtime.stopped"}:
+            raise RuntimeStateError(f"unsupported runtime lifecycle event: {event_type}")
+        clean_payload = _clean_payload(payload)
+        try:
+            with self._connect() as connection:
+                connection.execute("BEGIN IMMEDIATE")
+                # The state read uses this same connection holding the write lock.
+                state = self._lifecycle_state_with_connection(
+                    connection,
+                    event_lineage_id=self.context.event_lineage_id,
+                )
+                if event_type == "runtime.started" and state == "RUNNING":
+                    raise RuntimeStateError("runtime lifecycle transition rejected: runtime is already running")
+                if event_type == "runtime.stopped" and state != "RUNNING":
+                    raise RuntimeStateError(
+                        "runtime lifecycle transition rejected: runtime must be running before it can stop"
+                    )
+                return self._append_event_with_connection(
+                    connection,
+                    context=self.context,
+                    event_type=event_type,
+                    payload=clean_payload,
+                )
+        except RuntimeStateError:
+            raise
+        except sqlite3.DatabaseError as exc:
+            raise RuntimeStateError("atomic lifecycle transition persistence failed") from exc
 
     def migrate_instance(
         self,
