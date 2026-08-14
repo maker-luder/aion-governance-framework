@@ -22,6 +22,7 @@ from individual_runtime_state import (
     MigrationSummary,
     RecoveryState,
     RuntimeCheckpoint,
+    RuntimeStateError,
 )
 
 
@@ -95,9 +96,13 @@ class AIONRuntime:
             raise RuntimeIdentityMismatch("task runtime_context does not match the bound AION runtime instance")
 
     def record_start(self, *, reason: str = "operator_start") -> None:
+        if self.state.lifecycle_state() == "RUNNING":
+            raise RuntimeStateError("AION runtime is already running")
         self.state.append_event("runtime.started", {"reason": reason, "canonical_effect": "NONE"})
 
     def record_stop(self, *, reason: str = "operator_stop") -> None:
+        if self.state.lifecycle_state() != "RUNNING":
+            raise RuntimeStateError("AION runtime must be running before it can stop")
         self.state.append_event("runtime.stopped", {"reason": reason, "canonical_effect": "NONE"})
 
     def run_task(

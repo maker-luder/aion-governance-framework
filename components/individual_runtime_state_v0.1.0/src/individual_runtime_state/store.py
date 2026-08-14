@@ -301,6 +301,19 @@ class IndividualRuntimeStateStore:
                 raise RuntimeStateError("malformed runtime event row") from exc
         return result
 
+    def lifecycle_state(self) -> str:
+        state = "INITIALIZED"
+        for event in self.events():
+            if event.event_type == "runtime.started":
+                if state == "RUNNING":
+                    raise RuntimeStateError("runtime lifecycle contains a duplicate start")
+                state = "RUNNING"
+            elif event.event_type == "runtime.stopped":
+                if state != "RUNNING":
+                    raise RuntimeStateError("runtime lifecycle contains a stop before start")
+                state = "STOPPED"
+        return state
+
     def verify(self) -> bool:
         try:
             events = self.events()

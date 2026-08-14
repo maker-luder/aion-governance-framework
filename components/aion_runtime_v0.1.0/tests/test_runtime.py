@@ -7,6 +7,7 @@ import pytest
 from aion_astra_runtime.models import IndividualRuntimeContext, TaskSpec
 from aion_memory_recall.store import MemoryWriteDenied
 from aion_runtime import AIONRuntime, RuntimeIdentityMismatch
+from individual_runtime_state import RuntimeStateError
 
 
 def aion_context(**changes: str) -> IndividualRuntimeContext:
@@ -37,6 +38,18 @@ def test_status_keeps_held_capabilities_closed(tmp_path):
     assert status.individual_runtime_binding == "ENFORCED_CANDIDATE"
     assert status.automatic_canonical_writeback == "DISABLED"
     assert status.canonical_promotion == "PENDING_OWNER_REVIEW"
+
+
+def test_lifecycle_rejects_invalid_transitions_and_allows_restart(tmp_path):
+    runtime = AIONRuntime(memory_db=tmp_path / "memory.sqlite3", context=aion_context())
+
+    with pytest.raises(RuntimeStateError, match="must be running"):
+        runtime.record_stop()
+    runtime.record_start()
+    with pytest.raises(RuntimeStateError, match="already running"):
+        runtime.record_start()
+    runtime.record_stop()
+    runtime.record_start(reason="restart")
 
 
 def test_runtime_memory_round_trip_is_bound_to_aion_stream(tmp_path):

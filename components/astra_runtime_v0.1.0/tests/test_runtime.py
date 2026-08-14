@@ -6,6 +6,7 @@ import pytest
 
 from aion_astra_runtime.models import IndividualRuntimeContext, TaskSpec
 from astra_runtime import AstraRuntime, RuntimeIdentityMismatch
+from individual_runtime_state import RuntimeStateError
 
 
 def astra_context(**changes: str) -> IndividualRuntimeContext:
@@ -27,6 +28,18 @@ def test_runtime_rejects_non_astra_context(tmp_path):
             memory_db=tmp_path / "memory.sqlite3",
             context=astra_context(agent_id="AION"),
         )
+
+
+def test_lifecycle_rejects_invalid_transitions_and_allows_restart(tmp_path):
+    runtime = AstraRuntime(memory_db=tmp_path / "memory.sqlite3", context=astra_context())
+
+    with pytest.raises(RuntimeStateError, match="must be running"):
+        runtime.record_stop()
+    runtime.record_start()
+    with pytest.raises(RuntimeStateError, match="already running"):
+        runtime.record_start()
+    runtime.record_stop()
+    runtime.record_start(reason="restart")
 
 
 def test_memory_is_bound_to_astra_stream(tmp_path):
