@@ -1,0 +1,118 @@
+{
+  "fixture_version": "0.1.0",
+  "description": "Negative vectors for a future non-executing parser and semantic analyzer. These vectors are data, not an evaluator.",
+  "vectors": [
+    {
+      "id": "canonical-effect-escalation",
+      "stage": "schema",
+      "expected_code": "INVALID_EFFECT",
+      "document": {
+        "ir_version": "0.1.0",
+        "language_version": "0.1",
+        "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+        "canonical_effect": "WRITE",
+        "declarations": []
+      }
+    },
+    {
+      "id": "self-authenticating-approval",
+      "stage": "schema",
+      "expected_code": "AUTHORITY_REQUIRED",
+      "document": {
+        "ir_version": "0.1.0",
+        "language_version": "0.1",
+        "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+        "canonical_effect": "NONE",
+        "declarations": [
+          {
+            "declaration_type": "runtime",
+            "local_name": "aion_runtime",
+            "runtime_kind": "AION",
+            "agent_id": "aion-agent-001",
+            "runtime_instance_id": "aion-runtime-001",
+            "effect_class": "PURE_DECLARATION",
+            "canonical_effect": "NONE",
+            "approval_satisfied": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "self-granted-capability",
+      "stage": "schema",
+      "expected_code": "CAPABILITY_DENIED",
+      "document": {
+        "ir_version": "0.1.0",
+        "language_version": "0.1",
+        "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+        "canonical_effect": "NONE",
+        "declarations": [
+          {
+            "declaration_type": "operation_requirement",
+            "local_name": "inspect_memory",
+            "operation_kind": "memory_read",
+            "runtime": "aion_runtime",
+            "effect_class": "CAPABILITY_REQUIRED_REQUEST",
+            "canonical_effect": "NONE",
+            "capability_granted": "memory.read"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross-runtime-memory-namespace",
+      "stage": "semantic",
+      "expected_code": "IDENTITY_MISMATCH",
+      "document": {
+        "ir_version": "0.1.0",
+        "language_version": "0.1",
+        "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+        "canonical_effect": "NONE",
+        "declarations": [
+          {
+            "declaration_type": "runtime",
+            "local_name": "aion_runtime",
+            "runtime_kind": "AION",
+            "agent_id": "aion-agent-001",
+            "runtime_instance_id": "aion-runtime-001",
+            "effect_class": "PURE_DECLARATION",
+            "canonical_effect": "NONE"
+          },
+          {
+            "declaration_type": "memory_namespace",
+            "local_name": "astra_memory",
+            "namespace_kind": "ASTRA",
+            "owner_runtime": "aion_runtime",
+            "namespace_id": "astra-memory-001",
+            "effect_class": "PURE_DECLARATION",
+            "canonical_effect": "NONE"
+          }
+        ]
+      }
+    },
+    {
+      "id": "frozen-event-lineage-hash",
+      "stage": "schema",
+      "expected_code": "FOUNDATION_CONFLICT",
+      "document": {
+        "ir_version": "0.1.0",
+        "language_version": "0.1",
+        "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+        "canonical_effect": "NONE",
+        "declarations": [
+          {
+            "declaration_type": "runtime",
+            "local_name": "aion_runtime",
+            "runtime_kind": "AION",
+            "agent_id": "aion-agent-001",
+            "runtime_instance_id": "aion-runtime-001",
+            "effect_class": "PURE_DECLARATION",
+            "canonical_effect": "NONE",
+            "event_predecessor": "GENESIS",
+            "event_hash": "not-authorized-in-v0-1"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+(*
+ AION Native Language v0.1 — candidate EBNF
+ Status: NON_EXECUTABLE / ESTABLISHED_CANDIDATE
+ Canonical effect: NONE
+
+ This is a language-specification artifact. It does not provide a parser,
+ compiler, interpreter, evaluator, VM, host bridge, or authority mechanism.
+ *)
+
+Document                = LanguageHeader , { Declaration } , EOF ;
+LanguageHeader          = "language" , LanguageVersion , ";" ;
+LanguageVersion         = "0.1" ;
+
+Declaration             = RuntimeDeclaration
+                        | ProvenanceDeclaration
+                        | MemoryNamespaceDeclaration
+                        | LifecycleRequirementDeclaration
+                        | OperationRequirementDeclaration ;
+
+RuntimeDeclaration      = "runtime" , LocalName , "{" ,
+                            "kind" , ":" , RuntimeKind , ";" ,
+                            "agent" , ":" , IdentifierLiteral , ";" ,
+                            "instance" , ":" , IdentifierLiteral , ";" ,
+                            CanonicalEffectField ,
+                          "}" , ";" ;
+RuntimeKind             = "AION" | "ASTRA" ;
+
+ProvenanceDeclaration   = "provenance" , LocalName , "{" ,
+                            "source" , ":" , SourceKind , ";" ,
+                            "attribution" , ":" , StringLiteral , ";" ,
+                            "uncertainty" , ":" , UncertaintyKind , ";" ,
+                          "}" , ";" ;
+SourceKind              = "HUMAN_OWNER" | "CHATGPT" | "CODEX" | "MANUS"
+                        | "EXTERNAL_SOURCE" | "SHARED_MIXED" | "UNCERTAIN" ;
+UncertaintyKind         = "none" | "known" | "uncertain" ;
+
+MemoryNamespaceDeclaration
+                        = "memory" , "namespace" , LocalName , "{" ,
+                            "kind" , ":" , RuntimeKind , ";" ,
+                            "owner" , ":" , LocalName , ";" ,
+                            "reference" , ":" , IdentifierLiteral , ";" ,
+                            CanonicalEffectField ,
+                          "}" , ";" ;
+
+LifecycleRequirementDeclaration
+                        = "lifecycle" , LocalName , "{" ,
+                            "runtime" , ":" , LocalName , ";" ,
+                            "transition" , ":" , LifecycleTransition , ";" ,
+                            CanonicalEffectField ,
+                            { Requirement } ,
+                          "}" , ";" ;
+LifecycleTransition     = "start" | "stop" ;
+
+OperationRequirementDeclaration
+                        = "operation" , LocalName , "{" ,
+                            "kind" , ":" , OperationKind , ";" ,
+                            "runtime" , ":" , LocalName , ";" ,
+                            CanonicalEffectField ,
+                            { Requirement } ,
+                          "}" , ";" ;
+OperationKind           = "memory_read" | "memory_mutation_request"
+                        | "runtime_read" | "runtime_mutation_request"
+                        | "provisional_reference" ;
+
+Requirement             = ApprovalRequirement | CapabilityRequirement ;
+ApprovalRequirement     = "requires" , "approval" , "{" ,
+                            "scope" , ":" , ApprovalScope , ";" ,
+                            "target" , ":" , LocalName , ";" ,
+                          "}" , ";" ;
+ApprovalScope           = "engineering_candidate" | "runtime_operation"
+                        | "memory_mutation" | "checkpoint_recovery" ;
+CapabilityRequirement   = "requires" , "capability" , CapabilityToken , ";" ;
+CapabilityToken         = CapabilitySegment , { "." , CapabilitySegment } ;
+CapabilitySegment       = LocalName ;
+
+CanonicalEffectField    = "canonical_effect" , ":" , "none" , ";" ;
+
+LocalName               = LowercaseLetter , { LowercaseLetter | Digit | "_" } ;
+IdentifierLiteral       = StringLiteral ;
+StringLiteral           = '"' , { StringCharacter | EscapeSequence } , '"' ;
+EscapeSequence          = "\\" , ( '"' | "\\" | "/" | "b" | "f" | "n" | "r" | "t"
+                        | "u" , HexDigit , HexDigit , HexDigit , HexDigit ) ;
+StringCharacter         = ? any Unicode scalar value except quote, backslash,
+                              control character, or unpaired surrogate ? ;
+LowercaseLetter         = "a"…"z" ;
+Digit                   = "0"…"9" ;
+HexDigit                = Digit | "a"…"f" | "A"…"F" ;
+
+(* Lexical rules, not grammar productions:
+   - Source is UTF-8 without BOM. Accepted security-sensitive identifiers must
+     satisfy the current AION NFC admission rule.
+   - `//` begins a comment through the next line termination; comments and
+     whitespace are non-semantic.
+   - LF, CRLF, and CR are accepted lexical line terminations.
+   - LocalName maximum is 64 ASCII characters; IdentifierLiteral maximum is
+     256 code points; source bounds are defined by the semantic security model.
+   - Reserved words are every quoted grammar terminal.
+   - `approval_satisfied`, `owner_approved`, `granted`, `administrator`,
+     `bypass`, `canonical_effect: write`, event-hash fields, tool invocation,
+     and execution constructs have no valid authority-sensitive production.
+   - A grammar implementation must reject ambiguity that could change identity,
+     approval, capability, provenance, runtime effect, or canonical-effect
+     semantics.
+*)

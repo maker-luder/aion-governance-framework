@@ -1,0 +1,18 @@
+// REJECT: CAPABILITY_DENIED
+// The candidate language can require, but cannot grant, a capability.
+
+language 0.1;
+
+runtime aion_runtime {
+  kind: AION;
+  agent: "aion-agent-001";
+  instance: "aion-runtime-001";
+  canonical_effect: none;
+};
+
+operation inspect_memory {
+  kind: memory_read;
+  runtime: aion_runtime;
+  canonical_effect: none;
+  capability_granted: memory.read;
+};

@@ -1,0 +1,11 @@
+// REJECT: INVALID_EFFECT
+// The only admissible canonical effect is `none`.
+
+language 0.1;
+
+runtime aion_runtime {
+  kind: AION;
+  agent: "aion-agent-001";
+  instance: "aion-runtime-001";
+  canonical_effect: write;
+};

@@ -1,0 +1,46 @@
+// AION Native Language v0.1 positive semantic example.
+// It declares requirements only; it does not start a runtime or read memory.
+
+language 0.1;
+
+provenance owner_intent {
+  source: HUMAN_OWNER;
+  attribution: "AION project-specific language proposal";
+  uncertainty: none;
+};
+
+runtime aion_runtime {
+  kind: AION;
+  agent: "aion-agent-001";
+  instance: "aion-runtime-001";
+  canonical_effect: none;
+};
+
+memory namespace aion_memory {
+  kind: AION;
+  owner: aion_runtime;
+  reference: "aion-memory-001";
+  canonical_effect: none;
+};
+
+lifecycle start_aion {
+  runtime: aion_runtime;
+  transition: start;
+  canonical_effect: none;
+  requires approval {
+    scope: engineering_candidate;
+    target: aion_runtime;
+  };
+  requires capability runtime.lifecycle.start;
+};
+
+operation read_aion_memory {
+  kind: memory_read;
+  runtime: aion_runtime;
+  canonical_effect: none;
+  requires approval {
+    scope: runtime_operation;
+    target: aion_runtime;
+  };
+  requires capability memory.read;
+};

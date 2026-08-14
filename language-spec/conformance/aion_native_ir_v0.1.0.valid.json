@@ -1,0 +1,77 @@
+{
+  "ir_version": "0.1.0",
+  "language_version": "0.1",
+  "interop_profile": "AION-JCS-COMPATIBLE-0.1.0",
+  "canonical_effect": "NONE",
+  "declarations": [
+    {
+      "declaration_type": "provenance",
+      "local_name": "owner_intent",
+      "source_kind": "HUMAN_OWNER",
+      "attribution": "AION project-specific language proposal",
+      "uncertainty": "none",
+      "effect_class": "PURE_DECLARATION",
+      "canonical_effect": "NONE"
+    },
+    {
+      "declaration_type": "runtime",
+      "local_name": "aion_runtime",
+      "runtime_kind": "AION",
+      "agent_id": "aion-agent-001",
+      "runtime_instance_id": "aion-runtime-001",
+      "effect_class": "PURE_DECLARATION",
+      "canonical_effect": "NONE"
+    },
+    {
+      "declaration_type": "memory_namespace",
+      "local_name": "aion_memory",
+      "namespace_kind": "AION",
+      "owner_runtime": "aion_runtime",
+      "namespace_id": "aion-memory-001",
+      "effect_class": "PURE_DECLARATION",
+      "canonical_effect": "NONE"
+    },
+    {
+      "declaration_type": "lifecycle_requirement",
+      "local_name": "start_aion",
+      "runtime": "aion_runtime",
+      "transition": "start",
+      "effect_class": "APPROVAL_REQUIRED_REQUEST",
+      "canonical_effect": "NONE",
+      "requirements": {
+        "approval_requirements": [
+          {
+            "scope": "engineering_candidate",
+            "target": "aion_runtime"
+          }
+        ],
+        "capability_requirements": [
+          {
+            "token": "runtime.lifecycle.start"
+          }
+        ]
+      }
+    },
+    {
+      "declaration_type": "operation_requirement",
+      "local_name": "read_aion_memory",
+      "operation_kind": "memory_read",
+      "runtime": "aion_runtime",
+      "effect_class": "APPROVAL_REQUIRED_REQUEST",
+      "canonical_effect": "NONE",
+      "requirements": {
+        "approval_requirements": [
+          {
+            "scope": "runtime_operation",
+            "target": "aion_runtime"
+          }
+        ],
+        "capability_requirements": [
+          {
+            "token": "memory.read"
+          }
+        ]
+      }
+    }
+  ]
+}

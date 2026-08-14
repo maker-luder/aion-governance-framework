@@ -1,0 +1,18 @@
+// REJECT: IDENTITY_MISMATCH
+// The namespace is explicitly Astra but its declared owner is explicitly AION.
+
+language 0.1;
+
+runtime aion_runtime {
+  kind: AION;
+  agent: "aion-agent-001";
+  instance: "aion-runtime-001";
+  canonical_effect: none;
+};
+
+memory namespace astra_memory {
+  kind: ASTRA;
+  owner: aion_runtime;
+  reference: "astra-memory-001";
+  canonical_effect: none;
+};

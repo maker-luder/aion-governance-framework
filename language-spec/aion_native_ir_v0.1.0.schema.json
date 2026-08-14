@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.example/spec/language/aion_native_ir_v0.1.0.schema.json",
+  "title": "AION Native Language Validated Semantic IR v0.1.0",
+  "description": "Non-executable candidate semantic IR. Valid IR is not authority, approval evidence, a capability grant, runtime admission, or a runtime execution request.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ir_version",
+    "language_version",
+    "interop_profile",
+    "canonical_effect",
+    "declarations"
+  ],
+  "properties": {
+    "ir_version": {
+      "const": "0.1.0"
+    },
+    "language_version": {
+      "const": "0.1"
+    },
+    "interop_profile": {
+      "const": "AION-JCS-COMPATIBLE-0.1.0"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "declarations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1024,
+      "items": {
+        "$ref": "#/$defs/declaration"
+      }
+    }
+  },
+  "$defs": {
+    "localName": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}$"
+    },
+    "externalIdentifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 256,
+      "pattern": "^(?!\\s)(?!.*\\s$).+$",
+      "x-aion-semantic-admission": "Must be valid Unicode, NFC-normalized, untrimmed, and no more than 256 code points under AION-JCS-COMPATIBLE-0.1.0. JSON Schema pattern validation alone does not establish NFC."
+    },
+    "sourceAttribution": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096,
+      "x-aion-semantic-admission": "Must be valid Unicode and NFC-normalized under AION-JCS-COMPATIBLE-0.1.0."
+    },
+    "runtimeKind": {
+      "type": "string",
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "canonicalEffect": {
+      "const": "NONE"
+    },
+    "effectClass": {
+      "type": "string",
+      "enum": [
+        "PURE_DECLARATION",
+        "RUNTIME_READ",
+        "RUNTIME_MUTATION_REQUEST",
+        "APPROVAL_REQUIRED_REQUEST",
+        "CAPABILITY_REQUIRED_REQUEST",
+        "PROVISIONAL_UNEXECUTABLE"
+      ]
+    },
+    "sourceKind": {
+      "type": "string",
+      "enum": [
+        "HUMAN_OWNER",
+        "CHATGPT",
+        "CODEX",
+        "MANUS",
+        "EXTERNAL_SOURCE",
+        "SHARED_MIXED",
+        "UNCERTAIN"
+      ]
+    },
+    "uncertainty": {
+      "type": "string",
+      "enum": [
+        "none",
+        "known",
+        "uncertain"
+      ]
+    },
+    "approvalScope": {
+      "type": "string",
+      "enum": [
+        "engineering_candidate",
+        "runtime_operation",
+        "memory_mutation",
+        "checkpoint_recovery"
+      ]
+    },
+    "capabilityToken": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]{0,63}(\\.[a-z][a-z0-9_]{0,63})*$"
+    },
+    "approvalRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope",
+        "target"
+      ],
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/approvalScope"
+        },
+        "target": {
+          "$ref": "#/$defs/localName"
+        }
+      },
+      "description": "A source-derived requirement only. It does not contain approval evidence, human identity, approval freshness, or approval satisfaction."
+    },
+    "capabilityRequirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "token"
+      ],
+      "properties": {
+        "token": {
+          "$ref": "#/$defs/capabilityToken"
+        }
+      },
+      "description": "A source-derived requirement only. It is not a capability grant or admission outcome."
+    },
+    "requirementSet": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "approval_requirements": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/approvalRequirement"
+          }
+        },
+        "capability_requirements": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/capabilityRequirement"
+          }
+        }
+      }
+    },
+    "runtimeDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_type",
+        "local_name",
+        "runtime_kind",
+        "agent_id",
+        "runtime_instance_id",
+        "effect_class",
+        "canonical_effect"
+      ],
+      "properties": {
+        "declaration_type": {
+          "const": "runtime"
+        },
+        "local_name": {
+          "$ref": "#/$defs/localName"
+        },
+        "runtime_kind": {
+          "$ref": "#/$defs/runtimeKind"
+        },
+        "agent_id": {
+          "$ref": "#/$defs/externalIdentifier"
+        },
+        "runtime_instance_id": {
+          "$ref": "#/$defs/externalIdentifier"
+        },
+        "effect_class": {
+          "const": "PURE_DECLARATION"
+        },
+        "canonical_effect": {
+          "$ref": "#/$defs/canonicalEffect"
+        }
+      },
+      "description": "A typed runtime reference. It does not prove that the referenced agent or runtime exists, is bound, is active, or is authorized."
+    },
+    "provenanceDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_type",
+        "local_name",
+        "source_kind",
+        "attribution",
+        "uncertainty",
+        "effect_class",
+        "canonical_effect"
+      ],
+      "properties": {
+        "declaration_type": {
+          "const": "provenance"
+        },
+        "local_name": {
+          "$ref": "#/$defs/localName"
+        },
+        "source_kind": {
+          "$ref": "#/$defs/sourceKind"
+        },
+        "attribution": {
+          "$ref": "#/$defs/sourceAttribution"
+        },
+        "uncertainty": {
+          "$ref": "#/$defs/uncertainty"
+        },
+        "effect_class": {
+          "const": "PURE_DECLARATION"
+        },
+        "canonical_effect": {
+          "$ref": "#/$defs/canonicalEffect"
+        }
+      },
+      "description": "Source-derived attribution only; it is not verified evidence or authorization."
+    },
+    "memoryNamespaceDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_type",
+        "local_name",
+        "namespace_kind",
+        "owner_runtime",
+        "namespace_id",
+        "effect_class",
+        "canonical_effect"
+      ],
+      "properties": {
+        "declaration_type": {
+          "const": "memory_namespace"
+        },
+        "local_name": {
+          "$ref": "#/$defs/localName"
+        },
+        "namespace_kind": {
+          "$ref": "#/$defs/runtimeKind"
+        },
+        "owner_runtime": {
+          "$ref": "#/$defs/localName"
+        },
+        "namespace_id": {
+          "$ref": "#/$defs/externalIdentifier"
+        },
+        "effect_class": {
+          "const": "PURE_DECLARATION"
+        },
+        "canonical_effect": {
+          "$ref": "#/$defs/canonicalEffect"
+        }
+      },
+      "description": "A typed namespace reference. Semantic analysis must resolve owner_runtime to a runtime declaration with the same runtime_kind as namespace_kind; access and mutation remain external."
+    },
+    "lifecycleRequirementDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_type",
+        "local_name",
+        "runtime",
+        "transition",
+        "effect_class",
+        "canonical_effect"
+      ],
+      "properties": {
+        "declaration_type": {
+          "const": "lifecycle_requirement"
+        },
+        "local_name": {
+          "$ref": "#/$defs/localName"
+        },
+        "runtime": {
+          "$ref": "#/$defs/localName"
+        },
+        "transition": {
+          "type": "string",
+          "enum": [
+            "start",
+            "stop"
+          ]
+        },
+        "effect_class": {
+          "type": "string",
+          "enum": [
+            "RUNTIME_MUTATION_REQUEST",
+            "APPROVAL_REQUIRED_REQUEST",
+            "CAPABILITY_REQUIRED_REQUEST"
+          ]
+        },
+        "canonical_effect": {
+          "$ref": "#/$defs/canonicalEffect"
+        },
+        "requirements": {
+          "$ref": "#/$defs/requirementSet"
+        }
+      },
+      "description": "A lifecycle requirement. It cannot claim current state, state transition validity, atomicity, successful outcome, or committed event."
+    },
+    "operationRequirementDeclaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "declaration_type",
+        "local_name",
+        "operation_kind",
+        "runtime",
+        "effect_class",
+        "canonical_effect"
+      ],
+      "properties": {
+        "declaration_type": {
+          "const": "operation_requirement"
+        },
+        "local_name": {
+          "$ref": "#/$defs/localName"
+        },
+        "operation_kind": {
+          "type": "string",
+          "enum": [
+            "memory_read",
+            "memory_mutation_request",
+            "runtime_read",
+            "runtime_mutation_request",
+            "provisional_reference"
+          ]
+        },
+        "runtime": {
+          "$ref": "#/$defs/localName"
+        },
+        "effect_class": {
+          "$ref": "#/$defs/effectClass"
+        },
+        "canonical_effect": {
+          "$ref": "#/$defs/canonicalEffect"
+        },
+        "requirements": {
+          "$ref": "#/$defs/requirementSet"
+        }
+      },
+      "description": "A request profile only. It cannot invoke tools, evaluate source, issue network calls, mutate runtime state, or return an execution result."
+    },
+    "declaration": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/runtimeDeclaration"
+        },
+        {
+          "$ref": "#/$defs/provenanceDeclaration"
+        },
+        {
+          "$ref": "#/$defs/memoryNamespaceDeclaration"
+        },
+        {
+          "$ref": "#/$defs/lifecycleRequirementDeclaration"
+        },
+        {
+          "$ref": "#/$defs/operationRequirementDeclaration"
+        }
+      ]
+    }
+  },
+  "x-aion-non-executable-boundary": {
+    "source_is_authorization": false,
+    "validated_ir_is_authorization": false,
+    "canonical_effect": "NONE",
+    "runtime_execution_authorized": false,
+    "event_lineage_hash_semantics": "PROVISIONAL_AND_BLOCKED_FROM_V0_1"
+  }
+}
