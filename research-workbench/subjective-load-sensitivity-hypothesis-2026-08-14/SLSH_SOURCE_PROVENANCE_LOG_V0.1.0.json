@@ -1846,8 +1846,9 @@
           "HUMAN_OWNER_APPROVAL": "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.",
           "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
         },
-        "NORMALIZED_PUBLISHED_IDENTITY": "Vig et al. (2020), Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, NeurIPS 2020; arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265.",
-        "PROVENANCE_CORRECTION": "PREPRINT_TITLE_VENUE_MIXED_WITH_PUBLISHED_VENUE; RAW_CODEX_IDENTITY_PRESERVED; NORMALIZED_NEURIPS_PUBLISHED_IDENTITY_ADDED."
+        "NORMALIZED_PUBLISHED_IDENTITY": "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber (2020), Investigating Gender Bias in Language Models Using Causal Mediation Analysis, Advances in Neural Information Processing Systems 33 (NeurIPS 2020).",
+        "RELATED_PREPRINT_IDENTITY": "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber, Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265.",
+        "PROVENANCE_CORRECTION": "RAW_CODEX_PREPRINT_TITLE_AND_ARXIV_IDENTIFIER_PRESERVED; OFFICIAL_NEURIPS_PUBLISHED_IDENTITY_SEPARATED; RELATED_ARXIV_PREPRINT_IDENTITY_RETAINED."
       }
     },
     {
@@ -2112,14 +2113,23 @@
         "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
         "SLSH_ROLE": "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER",
         "ACTIVE_EVIDENTIARY_ROLE": "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER",
-        "SEMANTIC_GUARDS": [],
+        "SEMANTIC_GUARDS": [
+          "PARTIAL_PREDICTION_SUPPORT_AND_CHALLENGE!=GLOBAL_THEORY_VALIDATION_OR_REFUTATION",
+          "HUMAN_NEURAL_PREDICTION!=DIRECT_AI_APPLICABILITY",
+          "ADVERSARIAL_PREREGISTERED_TESTING!=AI_CONSCIOUSNESS_OR_SUBJECTIVITY_EVIDENCE"
+        ],
         "ACTOR_PROVENANCE": {
           "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
           "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 11 source-kind/domain/support/guard-boundary review; theory-mechanism, theory-derived indicator, and adversarial falsification method scopes only.",
           "HUMAN_OWNER_APPROVAL": "Batch 11 S51-S53 accepted; S51 theory-mechanism guard; S52 theory-derived indicator method framework; S53 cross-domain adversarial/falsification method guard.",
           "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
         },
-        "DIRECT_SLSH_LOAD_EVIDENCE": "NONE"
+        "DIRECT_SLSH_LOAD_EVIDENCE": "NONE",
+        "SEMANTIC_GUARD_PROVENANCE": {
+          "CHATGPT_ARCHITECTURE_REFINEMENT": "Conservative machine operationalization of the approved S53 Codex-recorded support/non-support boundary.",
+          "HUMAN_OWNER_RECONFIRMATION": "2026-08-14 authority clarification approved minimal equivalent machine encoding without scientific-claim expansion.",
+          "EXTERNAL_SOURCE_EXACT_WORDING": false
+        }
       }
     }
   ],

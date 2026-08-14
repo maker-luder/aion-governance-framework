@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - research/subjective-load-sensitivity-hypothesis-20260814
+      - remediation/slsh-semantic-reconciliation-20260814
   workflow_dispatch:
 
 permissions:
@@ -24,6 +25,12 @@ jobs:
         run: python -m pip install --disable-pip-version-check jsonschema pytest
       - name: Materialize deterministic artifacts
         run: python scripts/build_slsh_artifacts.py
+      - name: Enforce committed generated SLSH artifacts
+        run: >-
+          git diff --exit-code --
+          research-workbench/subjective-load-sensitivity-hypothesis-2026-08-14
+          research-labs/subjective-load-sensitivity-hypothesis_v0.1.0/ARTIFACT_INDEX.md
+          research-labs/subjective-load-sensitivity-hypothesis_v0.1.0/REVIEWER_FACING_VERTICAL_SLICE_V0.1.0.md
       - name: Validate SLSH consistency
         run: python scripts/check_slsh_consistency.py
       - name: Run SLSH contract tests

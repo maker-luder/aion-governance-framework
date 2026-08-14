@@ -3,7 +3,7 @@
 | Artifact | Role | Source of truth / boundary |
 |---|---|---|
 | `SLSH_PACKET_V0.1.0.json` | `AUTHORITATIVE_RESEARCH_METHOD_PACKET` | Research-milestone artifact authority only; no canonical promotion/effect or main-repository canonical state |
-| `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` | 53-source taxonomy/provenance authority record | Access evidence is decoupled from `SOURCE_KIND`, `VERIFICATION_ACTOR` and `INDEPENDENT_VERIFICATION_STATUS`; all remain `CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED` / `UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW` / `NOT_YET_VERIFIED` as applicable |
+| `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` | 53-source taxonomy/provenance authority record | `OWNER_APPROVED_BATCH_01_11_CLASSIFICATION_COMPLETE`; raw access evidence remains `RAW_ACCESS_EVIDENCE=CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED`; `SECOND_ACTOR_DIRECT_ACCESS_REVERIFICATION=NOT_YET_COMPLETE`; existing `INDEPENDENT_VERIFICATION_STATUS=NOT_YET_VERIFIED` values remain unchanged |
 | `SLSH_SOURCE_ACCESS_MATRIX_V0.1.0.md` | Reviewer source-taxonomy, Batch 01/02/03/04 audit and governance table | Generated from provenance log; Batch 01 is S01-S05, Batch 02 is S06-S10, Batch 03 is S11-S15, Batch 04 is S16-S20, Batch 05 is S21-S25, Batch 06 is S26-S30, Batch 07 is S31-S35, Batch 08 is S36-S40, Batch 09 is S41-S45, and Batch 10 is S46-S50, and Batch 11 is S51-S53; all 53 source records are materialized; no further source batch is opened; access level is not source epistemic class |
 | `SLSH_CLAIM_RECORDS_V0.1.0.json` | Claim ladder and boundaries | Materialized from packet |
 | `SLSH_EVIDENCE_CHANNELS_V0.1.0.json` | Evidence channel rules | Materialized from packet; sensitivity/specificity unestimated |

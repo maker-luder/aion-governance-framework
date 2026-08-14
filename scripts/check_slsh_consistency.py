@@ -19,6 +19,11 @@ ARTIFACT_INDEX = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesi
 PACKAGE_METADATA = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "pyproject.toml"
 WORKFLOW = ROOT / ".github" / "workflows" / "subjective-load-sensitivity-hypothesis.yml"
 README = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "README.md"
+PROVENANCE_DOC = BASE / "SLSH_SOURCE_PROVENANCE_V0.1.0.md"
+
+S46_PUBLISHED_IDENTITY = "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber (2020), Investigating Gender Bias in Language Models Using Causal Mediation Analysis, Advances in Neural Information Processing Systems 33 (NeurIPS 2020)."
+S46_RELATED_PREPRINT = "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber, Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265."
+S53_GUARDS = ["PARTIAL_PREDICTION_SUPPORT_AND_CHALLENGE!=GLOBAL_THEORY_VALIDATION_OR_REFUTATION","HUMAN_NEURAL_PREDICTION!=DIRECT_AI_APPLICABILITY","ADVERSARIAL_PREREGISTERED_TESTING!=AI_CONSCIOUSNESS_OR_SUBJECTIVITY_EVIDENCE"]
 
 # Explicit access-grade map grounded in the dossier's Access lines. It is deliberately
 # conservative: no row is promoted to full text merely because its source_type is primary.
@@ -183,11 +188,11 @@ def main() -> None:
         expected_dispositions = {"S46":"ADMIT_AFTER_BIBLIOGRAPHIC_NORMALIZATION","S47":"ADMIT_HIGH_RELEVANCE_AS_METHOD","S48":"ADMIT_HIGH_RELEVANCE_AS_METHOD","S49":"ADMIT_HIGH_RELEVANCE_AS_METHOD_FOUNDATION","S50":"ADMIT_AS_THEORY_BOUNDARY_GUARD_ONLY"}
         fail(audit.get("DISPOSITION") == expected_dispositions[source_id], f"{source_id} disposition drift")
         if source_id == "S46":
-            fail(audit.get("NORMALIZED_PUBLISHED_IDENTITY") == "Vig et al. (2020), Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, NeurIPS 2020; arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265." and audit.get("PROVENANCE_CORRECTION") == "PREPRINT_TITLE_VENUE_MIXED_WITH_PUBLISHED_VENUE; RAW_CODEX_IDENTITY_PRESERVED; NORMALIZED_NEURIPS_PUBLISHED_IDENTITY_ADDED.", "S46 normalization drift")
+            fail(audit.get("NORMALIZED_PUBLISHED_IDENTITY") == S46_PUBLISHED_IDENTITY and audit.get("RELATED_PREPRINT_IDENTITY") == S46_RELATED_PREPRINT and audit.get("PROVENANCE_CORRECTION") == "RAW_CODEX_PREPRINT_TITLE_AND_ARXIV_IDENTIFIER_PRESERVED; OFFICIAL_NEURIPS_PUBLISHED_IDENTITY_SEPARATED; RELATED_ARXIV_PREPRINT_IDENTITY_RETAINED.", "S46 published/preprint identity separation drift")
 
     batch11_expected = {"S51":"PEER_REVIEWED_REVIEW_MACHINE_CONSCIOUSNESS_COMPUTATIONAL_FRAMEWORK","S52":"MULTIAUTHOR_INTERDISCIPLINARY_AI_CONSCIOUSNESS_RESEARCH_REPORT","S53":"PEER_REVIEWED_PREREGISTERED_ADVERSARIAL_CONSCIOUSNESS_EXPERIMENT"}
     batch11_domains = {"S51":"CONSCIOUSNESS_GLOBAL_BROADCAST_AND_SELF_MONITORING","S52":"AI_CONSCIOUSNESS_THEORY_DERIVED_INDICATOR_ASSESSMENT","S53":"HUMAN_CONSCIOUSNESS_THEORY_ADVERSARIAL_TESTING"}
-    batch11_guards = {"S51":["GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED","SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED","ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"],"S52":["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"],"S53":[]}
+    batch11_guards = {"S51":["GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED","SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED","ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"],"S52":["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"],"S53":S53_GUARDS}
     for source_id, expected_kind in batch11_expected.items():
         fail(rows[source_id]["source_kind"] == expected_kind, f"{source_id} source kind drift")
         audit = rows[source_id].get("source_audit", {})
@@ -206,6 +211,7 @@ def main() -> None:
             fail(audit.get("DIRECT_SLSH_LOAD_EVIDENCE") == "NONE" and audit.get("DIRECT_AI_SUBJECTIVITY_ESTABLISHMENT") == "NONE", "S52 direct evidence boundary drift")
         else:
             fail(audit.get("DIRECT_SLSH_LOAD_EVIDENCE") == "NONE", "S53 direct SLSH evidence boundary drift")
+            fail(audit.get("SEMANTIC_GUARD_PROVENANCE") == {"CHATGPT_ARCHITECTURE_REFINEMENT":"Conservative machine operationalization of the approved S53 Codex-recorded support/non-support boundary.","HUMAN_OWNER_RECONFIRMATION":"2026-08-14 authority clarification approved minimal equivalent machine encoding without scientific-claim expansion.","EXTERNAL_SOURCE_EXACT_WORDING":False}, "S53 semantic-guard authority provenance drift")
     fail(source_log.get("source_materialization_status") == "53_SOURCE_MATERIALIZATION_COMPLETE", "53-source materialization status incomplete")
 
     batch07_expected = {"S31":"INTERNET_STANDARDS_TRACK_PROTOCOL_SPECIFICATION","S32":"OFFICIAL_OPERATING_SYSTEM_TECHNICAL_DOCUMENTATION","S33":"VENDOR_OFFICIAL_HARDWARE_TELEMETRY_API_DOCUMENTATION","S34":"OFFICIAL_GOVERNMENT_AI_RISK_MANAGEMENT_FRAMEWORK","S35":"OFFICIAL_GOVERNMENT_GENERATIVE_AI_RISK_PROFILE"}
@@ -405,18 +411,30 @@ def main() -> None:
     fail(len(packet["controls"]) == 13 and {control["type"] for control in packet["controls"]} >= {"POSITIVE_PIPELINE_CONTROL","NEGATIVE_CONTROL"}, "controls incomplete")
     fail(len(packet["falsifiers"]) == 10 and all(row["machine_effect"] == "LOCAL_SCOPE_ONLY" for row in packet["falsifiers"]), "falsifier scope invalid")
     fail(VERTICAL.exists(), "reviewer vertical slice missing")
-    fail(ACCESS_MATRIX.exists() and sum(1 for line in ACCESS_MATRIX.read_text(encoding="utf-8").splitlines() if re.match(r"^\| S\d{2} \|", line)) == 53, "source access matrix missing or incomplete")
+    matrix_lines = ACCESS_MATRIX.read_text(encoding="utf-8").splitlines() if ACCESS_MATRIX.exists() else []
+    matrix_rows = [line for line in matrix_lines if re.match(r"^\| S\d{2} \|", line)]
+    header = next((line for line in matrix_lines if line.startswith("| ID |")), "")
+    expected_headers = ["ID","Source kind","Access level","Verification actor","Independent verification status","Audit disposition","Support boundary","Source domain","Evidence relation to AI","Direct AI evidence","Direct empirical AI evidence","Direct AI subjectivity evidence","Cross-substrate use","SLSH role","Active evidentiary role","Defer status","Human Owner review note","Governance disposition","Evidentiary weight","Admission status","Access evidence"]
+    split_cells = lambda line: [cell.strip() for cell in line.strip().strip("|").split("|")]
+    fail(len(matrix_rows) == 53 and split_cells(header) == expected_headers and all(len(split_cells(row)) == len(expected_headers) for row in matrix_rows), "source access matrix header/row shape or field mapping drift")
     fail(ARTIFACT_INDEX.exists(), "artifact index missing")
     fail(PACKAGE_METADATA.exists() and "name = \"aion-slsh-research-method\"" in PACKAGE_METADATA.read_text(encoding="utf-8"), "package metadata missing")
     workflow_text = WORKFLOW.read_text(encoding="utf-8")
     fail("actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow_text, "checkout action is not authoritative pinned SHA")
     fail("actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow_text, "setup-python action is not authoritative pinned SHA")
     fail("persist-credentials: false" in workflow_text and "permissions:\n  contents: read" in workflow_text, "workflow supply-chain permissions boundary missing")
+    fail("remediation/slsh-semantic-reconciliation-20260814" in workflow_text and "git diff --exit-code --" in workflow_text, "dedicated remediation trigger or generated-artifact clean-diff gate missing")
     artifact_index_text = ARTIFACT_INDEX.read_text(encoding="utf-8")
     fail("AUTHORITATIVE_RESEARCH_METHOD_PACKET" in artifact_index_text and "no canonical promotion/effect" in artifact_index_text, "research-scoped authority wording missing")
     fail("CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" in artifact_index_text, "artifact index Codex provenance wording missing")
+    fail("OWNER_APPROVED_BATCH_01_11_CLASSIFICATION_COMPLETE" in artifact_index_text and "SECOND_ACTOR_DIRECT_ACCESS_REVERIFICATION=NOT_YET_COMPLETE" in artifact_index_text and "53 sources all remain unclassified" not in artifact_index_text, "artifact index taxonomy wording stale")
     readme_text = README.read_text(encoding="utf-8")
     fail("AUTHORITATIVE_RESEARCH_METHOD_PACKET" in readme_text and "not" in readme_text.lower() and "canonical promotion" in readme_text, "README research-scoped authority wording missing")
+    fail("OWNER_APPROVED_BATCH_01_11_CLASSIFICATION_COMPLETE" in readme_text and "SECOND_ACTOR_DIRECT_ACCESS_REVERIFICATION=NOT_YET_COMPLETE" in readme_text and "53 筆均為 `SOURCE_KIND=UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW`" not in readme_text, "README taxonomy wording stale")
+    provenance_text = PROVENANCE_DOC.read_text(encoding="utf-8")
+    for required in ("MANUS_IMPLEMENTATION", "CURRENT_S39_DISPOSITION=EXCLUDE_FROM_AION_EVIDENCE", "S39_PREVIOUS_DISPOSITION=OWNER_REVIEW_REQUIRED", "Batch 08", "Batch 09", "Batch 10", "Batch 11"):
+        fail(required in provenance_text, f"human-readable provenance missing current semantic marker {required}")
+    fail("S39 remains `OWNER_REVIEW_REQUIRED`" not in provenance_text, "human-readable provenance retains superseded S39 as current")
     vertical_text = VERTICAL.read_text(encoding="utf-8")
     for forbidden in ("SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED", "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD", "L4 != L5", "NO_SUBJECTIVITY"):
         fail(forbidden in vertical_text, f"vertical slice missing boundary {forbidden}")

@@ -264,15 +264,16 @@ def test_batch10_source_audit_is_exact_and_governed():
         assert audit["ACTOR_PROVENANCE"]["MANUS_IMPLEMENTATION"] == "Repository materialization; not scientific reviewer."
     assert rows["S46"]["title_as_recorded"].startswith("Vig, J. et al. (2020)")
     assert rows["S46"]["identifier_as_recorded"] == "arXiv:2004.12265; DOI 10.48550/arXiv.2004.12265."
-    assert rows["S46"]["source_audit"]["NORMALIZED_PUBLISHED_IDENTITY"].startswith("Vig et al. (2020), Causal Mediation Analysis")
-    assert rows["S46"]["source_audit"]["PROVENANCE_CORRECTION"] == "PREPRINT_TITLE_VENUE_MIXED_WITH_PUBLISHED_VENUE; RAW_CODEX_IDENTITY_PRESERVED; NORMALIZED_NEURIPS_PUBLISHED_IDENTITY_ADDED."
+    assert rows["S46"]["source_audit"]["NORMALIZED_PUBLISHED_IDENTITY"] == "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber (2020), Investigating Gender Bias in Language Models Using Causal Mediation Analysis, Advances in Neural Information Processing Systems 33 (NeurIPS 2020)."
+    assert rows["S46"]["source_audit"]["RELATED_PREPRINT_IDENTITY"] == "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber, Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265."
+    assert rows["S46"]["source_audit"]["PROVENANCE_CORRECTION"] == "RAW_CODEX_PREPRINT_TITLE_AND_ARXIV_IDENTIFIER_PRESERVED; OFFICIAL_NEURIPS_PUBLISHED_IDENTITY_SEPARATED; RELATED_ARXIV_PREPRINT_IDENTITY_RETAINED."
     assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 54)
 
 
 def test_batch11_source_audit_is_exact_and_complete():
     rows = {row["id"]: row for row in SOURCES["source_rows"]}
     expected = {"S51":("PEER_REVIEWED_REVIEW_MACHINE_CONSCIOUSNESS_COMPUTATIONAL_FRAMEWORK","CONSCIOUSNESS_GLOBAL_BROADCAST_AND_SELF_MONITORING"),"S52":("MULTIAUTHOR_INTERDISCIPLINARY_AI_CONSCIOUSNESS_RESEARCH_REPORT","AI_CONSCIOUSNESS_THEORY_DERIVED_INDICATOR_ASSESSMENT"),"S53":("PEER_REVIEWED_PREREGISTERED_ADVERSARIAL_CONSCIOUSNESS_EXPERIMENT","HUMAN_CONSCIOUSNESS_THEORY_ADVERSARIAL_TESTING")}
-    guards = {"S51":["GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED","SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED","ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"],"S52":["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"],"S53":[]}
+    guards = {"S51":["GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED","SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED","ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"],"S52":["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"],"S53":["PARTIAL_PREDICTION_SUPPORT_AND_CHALLENGE!=GLOBAL_THEORY_VALIDATION_OR_REFUTATION","HUMAN_NEURAL_PREDICTION!=DIRECT_AI_APPLICABILITY","ADVERSARIAL_PREREGISTERED_TESTING!=AI_CONSCIOUSNESS_OR_SUBJECTIVITY_EVIDENCE"]}
     dispositions = {"S51":"ADMIT_AS_THEORY_MECHANISM_GUARD","S52":"ADMIT_HIGH_RELEVANCE_AS_METHOD_FRAMEWORK","S53":"ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD"}
     for sid,(kind,domain) in expected.items():
         row=rows[sid]; audit=row["source_audit"]
@@ -283,6 +284,7 @@ def test_batch11_source_audit_is_exact_and_complete():
     assert rows["S51"]["source_audit"]["ACTIVE_SLSH_LOAD_MECHANISM_EVIDENTIARY_ROLE"] == "NONE"
     assert rows["S52"]["source_audit"]["DIRECT_SLSH_LOAD_EVIDENCE"] == rows["S52"]["source_audit"]["DIRECT_AI_SUBJECTIVITY_ESTABLISHMENT"] == "NONE"
     assert rows["S53"]["source_audit"]["DIRECT_AI_EVIDENCE"] == rows["S53"]["source_audit"]["DIRECT_SLSH_LOAD_EVIDENCE"] == "NONE"
+    assert rows["S53"]["source_audit"]["SEMANTIC_GUARD_PROVENANCE"] == {"CHATGPT_ARCHITECTURE_REFINEMENT":"Conservative machine operationalization of the approved S53 Codex-recorded support/non-support boundary.","HUMAN_OWNER_RECONFIRMATION":"2026-08-14 authority clarification approved minimal equivalent machine encoding without scientific-claim expansion.","EXTERNAL_SOURCE_EXACT_WORDING":False}
     assert SOURCES["source_materialization_status"] == "53_SOURCE_MATERIALIZATION_COMPLETE"
     assert all("source_audit" not in rows[sid] for sid in rows if int(sid[1:]) >= 54)
     assert all("H1.5" not in json.dumps(row) and "integrity deviation" not in json.dumps(row) and "self-relevant regulatory significance" not in json.dumps(row) for row in rows.values())
@@ -372,16 +374,36 @@ def test_micro_closure_supply_chain_and_research_scoped_authority():
     assert "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
     assert "persist-credentials: false" in workflow
     assert "permissions:\n  contents: read" in workflow
+    assert "remediation/slsh-semantic-reconciliation-20260814" in workflow
+    assert "git diff --exit-code --" in workflow
     index = (ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "ARTIFACT_INDEX.md").read_text(encoding="utf-8")
     readme = (ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "README.md").read_text(encoding="utf-8")
     assert "AUTHORITATIVE_RESEARCH_METHOD_PACKET" in index
     assert "no canonical promotion/effect" in index
     assert "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" in index
+    assert "OWNER_APPROVED_BATCH_01_11_CLASSIFICATION_COMPLETE" in index
+    assert "SECOND_ACTOR_DIRECT_ACCESS_REVERIFICATION=NOT_YET_COMPLETE" in index
     assert "AUTHORITATIVE_RESEARCH_METHOD_PACKET" in readme
     assert "canonical promotion" in readme
+    assert "OWNER_APPROVED_BATCH_01_11_CLASSIFICATION_COMPLETE" in readme
+    assert "SECOND_ACTOR_DIRECT_ACCESS_REVERIFICATION=NOT_YET_COMPLETE" in readme
     assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in SOURCES["source_rows"])
 
 
 def test_required_provenance_roles():
     assert set(["HUMAN_OWNER_ORIGIN", "CHATGPT_ARCHITECTURE_REFINEMENT", "CODEX_RESEARCH_SYNTHESIS", "EXTERNAL_SOURCE"]).issubset(set(PACKET["provenance_roles"]))
     assert SOURCES["input_type"] == "CODEX_EXTERNAL_RESEARCH_INPUT"
+
+
+def test_human_provenance_and_access_matrix_are_semantically_aligned():
+    provenance = (BASE / "SLSH_SOURCE_PROVENANCE_V0.1.0.md").read_text(encoding="utf-8")
+    for required in ("MANUS_IMPLEMENTATION", "CURRENT_S39_DISPOSITION=EXCLUDE_FROM_AION_EVIDENCE", "S39_PREVIOUS_DISPOSITION=OWNER_REVIEW_REQUIRED", "Batch 08", "Batch 09", "Batch 10", "Batch 11"):
+        assert required in provenance
+    assert "S39 remains `OWNER_REVIEW_REQUIRED`" not in provenance
+    matrix = (BASE / "SLSH_SOURCE_ACCESS_MATRIX_V0.1.0.md").read_text(encoding="utf-8").splitlines()
+    header = next(line for line in matrix if line.startswith("| ID |"))
+    rows = [line for line in matrix if line.startswith("| S")]
+    split_cells = lambda line: [cell.strip() for cell in line.strip().strip("|").split("|")]
+    expected_headers = ["ID","Source kind","Access level","Verification actor","Independent verification status","Audit disposition","Support boundary","Source domain","Evidence relation to AI","Direct AI evidence","Direct empirical AI evidence","Direct AI subjectivity evidence","Cross-substrate use","SLSH role","Active evidentiary role","Defer status","Human Owner review note","Governance disposition","Evidentiary weight","Admission status","Access evidence"]
+    assert split_cells(header) == expected_headers
+    assert len(rows) == 53 and all(len(split_cells(row)) == len(expected_headers) for row in rows)

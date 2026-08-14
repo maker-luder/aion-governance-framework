@@ -122,7 +122,8 @@ def main() -> None:
                 assert audit["SEMANTIC_GUARDS"] == ["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"]
                 assert audit["DIRECT_SLSH_LOAD_EVIDENCE"] == "NONE" and audit["DIRECT_AI_SUBJECTIVITY_ESTABLISHMENT"] == "NONE"
             else:
-                assert audit["SEMANTIC_GUARDS"] == [] and audit["DIRECT_SLSH_LOAD_EVIDENCE"] == "NONE"
+                assert audit["SEMANTIC_GUARDS"] == ["PARTIAL_PREDICTION_SUPPORT_AND_CHALLENGE!=GLOBAL_THEORY_VALIDATION_OR_REFUTATION","HUMAN_NEURAL_PREDICTION!=DIRECT_AI_APPLICABILITY","ADVERSARIAL_PREREGISTERED_TESTING!=AI_CONSCIOUSNESS_OR_SUBJECTIVITY_EVIDENCE"] and audit["DIRECT_SLSH_LOAD_EVIDENCE"] == "NONE"
+                assert audit["SEMANTIC_GUARD_PROVENANCE"] == {"CHATGPT_ARCHITECTURE_REFINEMENT":"Conservative machine operationalization of the approved S53 Codex-recorded support/non-support boundary.","HUMAN_OWNER_RECONFIRMATION":"2026-08-14 authority clarification approved minimal equivalent machine encoding without scientific-claim expansion.","EXTERNAL_SOURCE_EXACT_WORDING":False}
         elif source_id in expected_batch10_kinds:
             audit = current_rows[source_id].get("source_audit", {})
             assert current_rows[source_id]["source_kind"] == expected_batch10_kinds[source_id]
@@ -131,8 +132,9 @@ def main() -> None:
             assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
             assert audit["DISPOSITION"] in {"ADMIT_AFTER_BIBLIOGRAPHIC_NORMALIZATION","ADMIT_HIGH_RELEVANCE_AS_METHOD","ADMIT_HIGH_RELEVANCE_AS_METHOD_FOUNDATION","ADMIT_AS_THEORY_BOUNDARY_GUARD_ONLY"}
             if source_id == "S46":
-                assert audit["NORMALIZED_PUBLISHED_IDENTITY"].startswith("Vig et al. (2020), Causal Mediation Analysis")
-                assert audit["PROVENANCE_CORRECTION"] == "PREPRINT_TITLE_VENUE_MIXED_WITH_PUBLISHED_VENUE; RAW_CODEX_IDENTITY_PRESERVED; NORMALIZED_NEURIPS_PUBLISHED_IDENTITY_ADDED."
+                assert audit["NORMALIZED_PUBLISHED_IDENTITY"] == "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber (2020), Investigating Gender Bias in Language Models Using Causal Mediation Analysis, Advances in Neural Information Processing Systems 33 (NeurIPS 2020)."
+                assert audit["RELATED_PREPRINT_IDENTITY"] == "Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber, Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265."
+                assert audit["PROVENANCE_CORRECTION"] == "RAW_CODEX_PREPRINT_TITLE_AND_ARXIV_IDENTIFIER_PRESERVED; OFFICIAL_NEURIPS_PUBLISHED_IDENTITY_SEPARATED; RELATED_ARXIV_PREPRINT_IDENTITY_RETAINED."
         elif source_id in expected_batch09_kinds:
             audit = current_rows[source_id].get("source_audit", {})
             assert current_rows[source_id]["source_kind"] == expected_batch09_kinds[source_id]
