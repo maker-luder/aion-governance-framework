@@ -33,6 +33,12 @@ jobs:
       - name: Install declared validation dependency
         run: python -m pip install --disable-pip-version-check jsonschema pytest
 
+      - name: Verify pristine candidate source tree before validation
+        run: |
+          test "$(git rev-parse HEAD)" != "e079fb7dfe7a04be7dcb94b8a059951a003caa94"
+          test "$(git rev-parse origin/main 2>/dev/null || true)" = "e079fb7dfe7a04be7dcb94b8a059951a003caa94"
+          test "$(git status --porcelain --untracked-files=no)" = ""
+
       - name: Validate selective-promotion inventory schema and canonical record schema
         run: |
           python - <<'PY'
@@ -63,9 +69,6 @@ jobs:
           EXPECTED_MAIN_SHA: e079fb7dfe7a04be7dcb94b8a059951a003caa94
           EXPECTED_RESEARCH_SHA: 87405c1877c6f016c303971da13923a1ab690aae
         run: |
-          test "$(git rev-parse HEAD)" != "$EXPECTED_MAIN_SHA"
-          test "$(git rev-parse origin/main 2>/dev/null || true)" = "$EXPECTED_MAIN_SHA"
-          test "$(git status --porcelain)" = ""
           grep -q 'CANONICAL_EFFECT=PENDING_OWNER_PROMOTION' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
           grep -q 'DEPLOYMENT.*FALSE' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
           grep -q 'MAIN_MERGE.*PROHIBITED' docs/promotion/CSOMI_SELECTIVE_PROMOTION_INVENTORY_V0.1.0.md
