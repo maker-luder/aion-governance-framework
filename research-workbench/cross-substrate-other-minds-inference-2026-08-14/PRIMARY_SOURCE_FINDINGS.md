@@ -79,3 +79,23 @@ Source: Pargetter, R. **The scientific inference to other minds**, *Australasian
 Method implication for AION: the retained method lead motivates representing IBE as a comparison among explicit hypotheses, while the framework must record alternatives, disanalogies and what would falsify or lower each explanation. A preferred explanation is not a direct measurement of the target's subjectivity and cannot become a binary detector output.
 
 Access limitation: Taylor & Francis presented a CAPTCHA/limited page in the browser and its PDF extraction returned no substantive text. No abstract or primary-full-text content claim is used from that inaccessible page.
+
+
+## Access-based verification grade matrix
+
+The following labels are assigned from the access evidence recorded above; `PRIMARY source` describes publication provenance and does not imply direct primary full-text verification.
+
+| Source | Verification grade | Access basis | Current boundary |
+|---|---|---|---|
+| Avramides, *Other Minds* | `AUTHORITATIVE_SECONDARY_CORROBORATED` | Stanford Encyclopedia entry directly accessible | Authoritative method overview; not primary evidence |
+| Povinelli, Bering & Giambrone | `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED` | Wiley title/DOI/metadata/abstract accessible; further access blocked by CAPTCHA | Abstract-bounded claim only; no full-text claim |
+| Pargetter | `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` plus `AUTHORITATIVE_SECONDARY_CORROBORATED` | DOI/metadata and indexed method description retained; Taylor & Francis CAPTCHA and empty PDF extraction | IBE method lead only; no abstract or full-text attribution |
+| Wimmer & Perner | `PRIMARY_METADATA_VERIFIED` | PubMed primary record and bibliographic metadata accessible | Paradigm metadata-level grounding; no direct full-text claim in this access record |
+| Kosinski | `PRIMARY_METADATA_VERIFIED` | arXiv abstract record accessible | Abstract-record/task-comparator grounding; no direct full-text claim |
+| Butlin et al. 2023 | `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED` | arXiv primary record and abstract accessible | Abstract-bounded historical indicator grounding |
+| Butlin et al. 2025/2026 | `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED` | ScienceDirect primary publication record and abstract-level material accessible | Abstract-bounded theory-derived indicator grounding |
+| Seth 2025 | `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED` | Cambridge primary publication/accepted-manuscript page accessible at abstract or metadata level | Abstract/metadata-bounded competing theory grounding |
+| Ross & Woodward | `AUTHORITATIVE_SECONDARY_CORROBORATED` | Stanford Encyclopedia entry directly accessible | Authoritative causal-explanation overview |
+| Lipsitch, Tchetgen Tchetgen & Cohen | `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED` | Accessible record available; PMC page presented reCAPTCHA | Abstract/record-bounded negative-control method grounding; no full-text claim |
+
+No current source is graded `PRIMARY_FULLTEXT_DIRECTLY_VERIFIED`. This is an evidence-quality result, not a research gap to be silently filled by relabeling. The machine packet, schema, checker and contract tests must preserve this conservative state.

@@ -68,15 +68,33 @@ def main() -> int:
     sources = {row.get("id"): row for row in packet.get("sources", [])}
     if required_sources - set(sources):
         fail(errors, f"required source rows missing: {sorted(required_sources - set(sources))}")
-    fulltext_verified_sources = required_sources - {"SRC-SEP-OTHER-MINDS", "SRC-PARGETTER-1984", "SRC-CAUSAL-EXPLANATION-SEP"}
-    for source_id in fulltext_verified_sources:
+    expected_primary_grades = {
+        "SRC-POVINELLI-2000": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-PARGETTER-1984": "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED",
+        "SRC-WIMMER-PERNER-1983": "PRIMARY_METADATA_VERIFIED",
+        "SRC-KOSINSKI-2024": "PRIMARY_METADATA_VERIFIED",
+        "SRC-BUTLIN-2023": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-BUTLIN-2025": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-SETH-2025": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-LIPSITCH-2010": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+    }
+    for source_id, expected_grade in expected_primary_grades.items():
         source = sources.get(source_id, {})
-        if source.get("source_type") != "PRIMARY_VERIFIED" or source.get("verification_status") != "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":
-            fail(errors, f"source is not marked primary full-text directly verified: {source_id}")
+        if source.get("source_type") not in {"PRIMARY_VERIFIED", "PRIMARY_METADATA_VERIFIED"}:
+            fail(errors, f"source is not identified as a primary source: {source_id}")
+        if source.get("verification_status") != expected_grade:
+            fail(errors, f"source verification grade mismatch for {source_id}: expected {expected_grade}")
+        if not source.get("access_evidence"):
+            fail(errors, f"source access evidence missing: {source_id}")
     for source_id in {"SRC-SEP-OTHER-MINDS", "SRC-CAUSAL-EXPLANATION-SEP"}:
         source = sources.get(source_id, {})
         if source.get("source_type") != "AUTHORITATIVE_SECONDARY" or source.get("verification_status") != "AUTHORITATIVE_SECONDARY_CORROBORATED":
             fail(errors, f"authoritative secondary provenance missing: {source_id}")
+        if not source.get("access_evidence"):
+            fail(errors, f"authoritative secondary access evidence missing: {source_id}")
+    for source_id, source in sources.items():
+        if source.get("source_type") in {"PRIMARY_VERIFIED", "PRIMARY_METADATA_VERIFIED"} and source.get("verification_status") == "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":
+            fail(errors, f"no source is currently supported as PRIMARY_FULLTEXT_DIRECTLY_VERIFIED: {source_id}")
     pargetter = sources.get("SRC-PARGETTER-1984", {})
     if pargetter.get("source_type") != "PRIMARY_METADATA_VERIFIED":
         fail(errors, "Pargetter must remain PRIMARY_METADATA_VERIFIED")

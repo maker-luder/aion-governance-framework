@@ -36,12 +36,21 @@ def test_primary_source_and_claim_coverage():
         "SRC-BUTLIN-2023", "SRC-BUTLIN-2025", "SRC-SETH-2025", "SRC-LIPSITCH-2010",
     }
     assert required <= set(sources)
-    fulltext_verified = required - {"SRC-PARGETTER-1984"}
-    assert all(sources[source_id]["source_type"] == "PRIMARY_VERIFIED" for source_id in fulltext_verified)
-    assert all(sources[source_id]["verification_status"] == "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED" for source_id in fulltext_verified)
+    expected_grades = {
+        "SRC-POVINELLI-2000": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-PARGETTER-1984": "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED",
+        "SRC-WIMMER-PERNER-1983": "PRIMARY_METADATA_VERIFIED",
+        "SRC-KOSINSKI-2024": "PRIMARY_METADATA_VERIFIED",
+        "SRC-BUTLIN-2023": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-BUTLIN-2025": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-SETH-2025": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+        "SRC-LIPSITCH-2010": "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED",
+    }
+    assert {source_id: sources[source_id]["verification_status"] for source_id in expected_grades} == expected_grades
+    assert all(sources[source_id].get("access_evidence") for source_id in expected_grades)
     assert sources["SRC-PARGETTER-1984"]["source_type"] == "PRIMARY_METADATA_VERIFIED"
-    assert sources["SRC-PARGETTER-1984"]["verification_status"] == "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED"
     assert sources["SRC-PARGETTER-1984"]["secondary_corroboration"] == "AUTHORITATIVE_SECONDARY_CORROBORATED"
+    assert all(source["verification_status"] != "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED" for source in sources.values())
     pargetter_text = f'{sources["SRC-PARGETTER-1984"]["verified_claim"]} {sources["SRC-PARGETTER-1984"]["aion_use"]}'.lower()
     assert "abstract" not in pargetter_text
     assert "no full-text content claim" in pargetter_text

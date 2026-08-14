@@ -61,15 +61,16 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "authors", "year", "source_type", "verification_status", "secondary_corroboration", "url", "verified_claim", "aion_use"],
+      "required": ["id", "title", "authors", "year", "source_type", "verification_status", "secondary_corroboration", "access_evidence", "url", "verified_claim", "aion_use"],
       "properties": {
         "id": {"type": "string", "pattern": "^SRC-[A-Z0-9-]+$"},
         "title": {"type": "string", "minLength": 1},
         "authors": {"type": "string", "minLength": 1},
         "year": {"type": "integer", "minimum": 1900},
         "source_type": {"enum": ["PRIMARY_VERIFIED", "PRIMARY_METADATA_VERIFIED", "AUTHORITATIVE_SECONDARY"]},
-        "verification_status": {"enum": ["PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED", "AUTHORITATIVE_SECONDARY_CORROBORATED"]},
+        "verification_status": {"enum": ["PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "PRIMARY_METADATA_VERIFIED", "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED", "AUTHORITATIVE_SECONDARY_CORROBORATED"]},
         "secondary_corroboration": {"enum": ["NOT_REQUIRED", "AUTHORITATIVE_SECONDARY_CORROBORATED", "NOT_APPLICABLE"]},
+        "access_evidence": {"type": "string", "minLength": 1},
         "url": {"type": "string", "format": "uri"},
         "verified_claim": {"type": "string", "minLength": 1},
         "aion_use": {"type": "string", "minLength": 1}

@@ -33,7 +33,7 @@ The method is grounded in the Problem of Other Minds and defeasible inference-to
 
 Wimmer and Perner's primary false-belief paradigm is used as a bounded belief-attribution comparator [4]. Kosinski's LLM ToM study is used only as a behavioral-task comparator with matched true-belief, reversed and related controls; task performance is not treated as internal-state or subjectivity proof [5]. Butlin et al. 2023 is preserved as historical theory-derived indicator groundwork [6], while Butlin et al. 2025/2026 is used for its explicit theory-derived indicator method, uncertainty and AI-transfer caveats [7]. Ross and Woodward's causal-explanation overview grounds mechanistic, interventionist and difference-making channel design [8]. Lipsitch, Tchetgen Tchetgen and Cohen ground the use of negative controls to expose confounding or bias [9]. Seth's 2025 paper is recorded as a competing biological-naturalist, substrate-sensitive position rather than a settled assumption [10].
 
-The primary-source verification log is `PRIMARY_SOURCE_FINDINGS.md`. Each source row now carries a verification status. Pargetter is `PRIMARY_METADATA_VERIFIED` with `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` and `AUTHORITATIVE_SECONDARY_CORROBORATED`; the DOI and metadata are retained for method provenance, but no abstract or primary-full-text claim is asserted. Access limitations for Pargetter's publisher page and the negative-controls PMC page are recorded explicitly.
+The primary-source verification log is `PRIMARY_SOURCE_FINDINGS.md`. Each source row now carries an access-based verification status. Povinelli and Lipsitch are `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED` because their records exposed abstract-level material but full access was blocked; Wimmer and Kosinski are `PRIMARY_METADATA_VERIFIED`; Butlin 2023/2025 and Seth are also abstract-level, not full-text-directly verified. Pargetter is `PRIMARY_METADATA_VERIFIED` with `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` and `AUTHORITATIVE_SECONDARY_CORROBORATED`; the DOI and metadata are retained for method provenance, but no abstract or primary-full-text claim is asserted. No current source is graded `PRIMARY_FULLTEXT_DIRECTLY_VERIFIED`.
 
 ## Established method package
 
@@ -63,7 +63,7 @@ The reviewer-facing vertical slice is `VS-001`: false-belief capability record â
 | Check | Result |
 |---|---:|
 | CSOMI consistency checker | PASS; 10 sources, 6 claims, 12 channels, 4 evidence rows, 5 disanalogies, 8 falsifiers |
-| CSOMI contract tests | 7 passed |
+| CSOMI contract tests | 8 passed |
 | Four-Domain P2 tests | 5 passed |
 | Four-Domain P5 tests | 10 passed |
 | Draft 2020-12 packet and controls schemas | PASS |

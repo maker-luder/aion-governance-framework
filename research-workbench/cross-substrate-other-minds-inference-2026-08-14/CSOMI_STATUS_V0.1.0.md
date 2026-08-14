@@ -36,7 +36,7 @@ The Four-Domain research ref is the read-only conceptual and evidence-architectu
 | Mechanistic/causal evidence | Interventions, counterfactuals and mechanistic organization can support difference-making explanations when independently mapped [8] | Required channel for future scientific-conclusion review; no current result |
 | Controls | Positive controls test measurement responsiveness; negative controls expose surface cues, confounding or alternative explanations [9] | Synthetic design only |
 
-Pargetter's row is `PRIMARY_METADATA_VERIFIED`, `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` and `AUTHORITATIVE_SECONDARY_CORROBORATED`. Its DOI/metadata and indexed method description remain an IBE method lead; no abstract or inaccessible primary-full-text claim is treated as directly verified.
+Access-based provenance is conservative across the packet: Povinelli and Lipsitch are `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED`; Wimmer and Kosinski are `PRIMARY_METADATA_VERIFIED`; Butlin 2023/2025 and Seth are abstract-level; Pargetter is `PRIMARY_METADATA_VERIFIED` with `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` and `AUTHORITATIVE_SECONDARY_CORROBORATED`. No current source is `PRIMARY_FULLTEXT_DIRECTLY_VERIFIED`. The DOI/metadata and indexed method description for Pargetter remain an IBE method lead; no abstract or inaccessible primary-full-text claim is treated as directly verified.
 
 ## Claims supported by this milestone
 
