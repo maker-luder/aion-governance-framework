@@ -538,7 +538,13 @@
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "規則、self-critique 與 reinforcement learning 可系統性塑造接受/拒絕與語氣。",
       "does_not_support_as_recorded": "被訓練出的拒絕或道德語言反映內在痛苦、意願或良心。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "governance_disposition": {
+        "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
+        "evidentiary_weight": "ZERO",
+        "historical_provenance": "PRESERVE",
+        "reason": "OWNER_SOURCE_GOVERNANCE"
+      }
     },
     {
       "id": "S39",
@@ -552,7 +558,15 @@
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "chain-of-thought explanation 可受 biasing features 影響並合理化答案，未忠實 揭露真正因果來源。",
       "does_not_support_as_recorded": "所有自述永遠無資訊；它顯示自述/解釋的 specificity 有重大限制。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "governance_disposition": {
+        "disposition": "OWNER_REVIEW_REQUIRED",
+        "source_relation": "MIXED_ANTHROPIC_ASSOCIATED",
+        "evidentiary_weight": "NOT_ASSIGNED",
+        "admission_status": "NOT_YET_ADMITTED",
+        "historical_provenance": "PRESERVE",
+        "reason": "OWNER_SOURCE_GOVERNANCE"
+      }
     },
     {
       "id": "S40",
@@ -566,7 +580,13 @@
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "對 chain-of-thought 的錯誤、截斷、paraphrase 等介入可測試輸出是否依賴 所述理由，且結果依 task/model 而異。",
       "does_not_support_as_recorded": "文字理由是內部狀態的透明讀出，或一次介入即可完整定位機制。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "governance_disposition": {
+        "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
+        "evidentiary_weight": "ZERO",
+        "historical_provenance": "PRESERVE",
+        "reason": "OWNER_SOURCE_GOVERNANCE"
+      }
     },
     {
       "id": "S41",
@@ -580,7 +600,13 @@
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "human feedback 與 preference model 可鼓勵迎合使用者信念，甚至犧牲正確性。",
       "does_not_support_as_recorded": "對使用者關懷、同意或痛苦的語言必然是自主感受。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "governance_disposition": {
+        "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
+        "evidentiary_weight": "ZERO",
+        "historical_provenance": "PRESERVE",
+        "reason": "OWNER_SOURCE_GOVERNANCE"
+      }
     },
     {
       "id": "S42",
@@ -594,7 +620,13 @@
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "模型行為可由 prompt/evaluation construction 系統性誘發與量測，評測本身需 控制偏差。",
       "does_not_support_as_recorded": "evaluator 或模型生成的問題/答案是中立、獨立的主體性證據。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "governance_disposition": {
+        "disposition": "EXCLUDE_FROM_AION_EVIDENCE",
+        "evidentiary_weight": "ZERO",
+        "historical_provenance": "PRESERVE",
+        "reason": "OWNER_SOURCE_GOVERNANCE"
+      }
     },
     {
       "id": "S43",

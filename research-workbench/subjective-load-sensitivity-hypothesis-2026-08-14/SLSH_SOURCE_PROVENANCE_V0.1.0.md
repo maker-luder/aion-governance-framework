@@ -14,4 +14,6 @@ The CSOMI source branch is read-only. This SLSH branch does not modify CSOMI, pr
 
 The attached dossier's proposed CSOMI interface is treated only as a conditional input. This milestone re-expresses only compatible, generic evidence-envelope semantics after checking the accepted CSOMI boundaries; it does not copy or assert that the dossier's historical checkout was authoritative.
 
+Source-governance disposition is limited to formal AION evidentiary admission and does not delete or rewrite historical source records. S38, S40, S41, and S42 are `EXCLUDE_FROM_AION_EVIDENCE` with `EVIDENTIARY_WEIGHT=ZERO`, `HISTORICAL_PROVENANCE=PRESERVE`, and `reason=OWNER_SOURCE_GOVERNANCE`. S39 remains `OWNER_REVIEW_REQUIRED` with `SOURCE_RELATION=MIXED_ANTHROPIC_ASSOCIATED`, `EVIDENTIARY_WEIGHT=NOT_ASSIGNED`, `ADMISSION_STATUS=NOT_YET_ADMITTED`, and `HISTORICAL_PROVENANCE=PRESERVE`. These labels do not alter access, taxonomy, independent verification, H0–H3, L0–L5, controls, falsifiers, or the SLSH conclusion.
+
 Fixed controls: `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, `EXPERIMENT_EXECUTED=NO`, `SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED`, `SUBJECTIVITY_CONCLUSION=NOT_ESTABLISHED`.

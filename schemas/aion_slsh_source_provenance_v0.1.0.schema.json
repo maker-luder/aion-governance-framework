@@ -55,12 +55,30 @@
         "access_evidence_provenance": {"const": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"},
         "supports_as_recorded": {"type": "string"},
         "does_not_support_as_recorded": {"type": "string"},
-        "external_source_claim_boundary": {"const": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."}
+        "external_source_claim_boundary": {"const": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."},
+        "governance_disposition": {"$ref": "#/$defs/governance_disposition"}
       },
       "allOf": [
         {"if": {"properties": {"access_level": {"const": "FULLTEXT_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)(full text|full article|open pdf|open standard|official documentation|open access|open archive/full page|free access|free to read|open web declaration|open report|full access page)"}}}},
         {"if": {"properties": {"access_level": {"const": "ABSTRACT_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)abstract"}}}},
         {"if": {"properties": {"access_level": {"const": "METADATA_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)(metadata|bibliographic|doi|index|record|book|目錄/書目)"}}}}
+      ]
+    },
+    "governance_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "evidentiary_weight", "historical_provenance", "reason"],
+      "properties": {
+        "disposition": {"enum": ["EXCLUDE_FROM_AION_EVIDENCE", "OWNER_REVIEW_REQUIRED"]},
+        "evidentiary_weight": {"enum": ["ZERO", "NOT_ASSIGNED"]},
+        "historical_provenance": {"const": "PRESERVE"},
+        "reason": {"const": "OWNER_SOURCE_GOVERNANCE"},
+        "source_relation": {"const": "MIXED_ANTHROPIC_ASSOCIATED"},
+        "admission_status": {"const": "NOT_YET_ADMITTED"}
+      },
+      "allOf": [
+        {"if": {"properties": {"disposition": {"const": "EXCLUDE_FROM_AION_EVIDENCE"}}}, "then": {"required": ["disposition", "evidentiary_weight", "historical_provenance", "reason"], "properties": {"evidentiary_weight": {"const": "ZERO"}, "source_relation": false, "admission_status": false}}},
+        {"if": {"properties": {"disposition": {"const": "OWNER_REVIEW_REQUIRED"}}}, "then": {"required": ["disposition", "evidentiary_weight", "historical_provenance", "reason", "source_relation", "admission_status"], "properties": {"evidentiary_weight": {"const": "NOT_ASSIGNED"}}}}
       ]
     }
   }

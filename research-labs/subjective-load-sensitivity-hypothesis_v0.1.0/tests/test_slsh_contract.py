@@ -37,6 +37,20 @@ def test_exact_access_level_map_and_codex_provenance():
     assert rows["S49"]["access_level"] == "METADATA_AS_RECORDED"
 
 
+def test_source_governance_dispositions_are_exact_and_bounded():
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    expected = {
+        "S38": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+        "S40": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+        "S41": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+        "S42": {"disposition":"EXCLUDE_FROM_AION_EVIDENCE","evidentiary_weight":"ZERO","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+        "S39": {"disposition":"OWNER_REVIEW_REQUIRED","source_relation":"MIXED_ANTHROPIC_ASSOCIATED","evidentiary_weight":"NOT_ASSIGNED","admission_status":"NOT_YET_ADMITTED","historical_provenance":"PRESERVE","reason":"OWNER_SOURCE_GOVERNANCE"},
+    }
+    assert {source_id for source_id, row in rows.items() if "governance_disposition" in row} == set(expected)
+    assert all(rows[source_id]["governance_disposition"] == value for source_id, value in expected.items())
+    assert all("governance_disposition" not in rows[source_id] for source_id in rows if source_id not in expected)
+
+
 def test_recorded_source_fields_are_preserved_from_dossier():
     parsed = {row["id"]: row for row in parse_sources(DOSSIER.read_text(encoding="utf-8"))}
     rows = {row["id"]: row for row in SOURCES["source_rows"]}
