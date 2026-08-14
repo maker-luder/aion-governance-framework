@@ -10,6 +10,10 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_BRANCH = "engineering/aion-research-consolidation-literature-grounding-readiness-20260814"
 SCHEMA = ROOT / "schemas/aion_research_consolidation_artifact_v0.1.0.schema.json"
+CROSS_BRANCH_SCHEMA = ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json"
+TAXONOMY_SCHEMA = ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json"
+CROSS_BRANCH_INDEX = ROOT / "docs/research-consolidation/CROSS_BRANCH_INDEX_V0.1.0.json"
+TAXONOMY = ROOT / "docs/research-consolidation/PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0.json"
 EVIDENCE_RECORD = ROOT / "research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json"
 P2_PACKET = ROOT / "research-labs/four-domain-p2-materialization_v0.1.0/docs/P2_MATERIALIZATION_PACKET_C.md"
 P2_TEST = ROOT / "research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py"
@@ -38,14 +42,16 @@ def fail(errors: list[str], message: str) -> None:
     errors.append(message)
 
 
-def validate_json_schema(errors: list[str], value: dict[str, Any], path: Path) -> None:
+def validate_json_schema(
+    errors: list[str], value: dict[str, Any], path: Path, schema_path: Path = SCHEMA
+) -> None:
     try:
         from jsonschema import Draft202012Validator
     except ImportError as exc:
         fail(errors, f"jsonschema unavailable: {exc}")
         return
     try:
-        schema = load(SCHEMA)
+        schema = load(schema_path)
         Draft202012Validator.check_schema(schema)
         validator = Draft202012Validator(schema)
         for error in sorted(validator.iter_errors(value), key=lambda item: list(item.absolute_path)):
@@ -86,13 +92,18 @@ def main() -> int:
         ROOT / "scripts/validate_research_evidence.py",
         ROOT / "schemas/research_evidence_record_v0.2.0.schema.json",
         ROOT / ".github/workflows/research-convergence-consistency.yml",
+        ROOT / "docs/research-consolidation/CROSS_BRANCH_INDEX_V0.1.0.md",
+        ROOT / "docs/research-consolidation/PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0.md",
+        ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json",
+        ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json",
     )
     for path in required_paths:
         if not path.exists():
             fail(errors, f"required inventory path missing: {path.relative_to(ROOT)}")
 
-    if not SCHEMA.is_file():
-        fail(errors, f"missing schema: {SCHEMA.relative_to(ROOT)}")
+    for schema_path in (SCHEMA, CROSS_BRANCH_SCHEMA, TAXONOMY_SCHEMA):
+        if not schema_path.is_file():
+            fail(errors, f"missing schema: {schema_path.relative_to(ROOT)}")
 
     for path in (ROOT / "README.md", ROOT / "RESEARCH_BRANCH_STATUS.md"):
         if path.is_file():
@@ -120,6 +131,27 @@ def main() -> int:
             fail(errors, f"{name} canonical_effect is not NONE")
         if value.get("deployment") is True:
             fail(errors, f"{name} deployment is true")
+
+    special_data: dict[str, Any] = {}
+    for name, path, schema_path in (
+        ("cross_branch", CROSS_BRANCH_INDEX, CROSS_BRANCH_SCHEMA),
+        ("taxonomy", TAXONOMY, TAXONOMY_SCHEMA),
+    ):
+        if not path.is_file():
+            fail(errors, f"missing artifact {name}: {path.relative_to(ROOT)}")
+            continue
+        try:
+            value = load(path)
+        except Exception as exc:
+            fail(errors, f"invalid JSON {path.relative_to(ROOT)}: {exc}")
+            continue
+        if not isinstance(value, dict):
+            fail(errors, f"artifact {name} is not an object")
+            continue
+        special_data[name] = value
+        validate_json_schema(errors, value, path, schema_path)
+        if value.get("canonical_effect") != "NONE":
+            fail(errors, f"{name} canonical_effect is not NONE")
 
     index = data.get("index", {})
     graph = data.get("graph", {})
@@ -201,6 +233,66 @@ def main() -> int:
     for item in crosswalk.get("external_projects", []):
         if item.get("id") in {"EXT-AISYSTESTING", "EXT-AIWARE", "EXT-MRIVAS", "EXT-ATOM"} and item.get("disposition") != "HOLD":
             fail(errors, f"unverified external project not HOLD: {item.get('id')}")
+
+    cross_branch = special_data.get("cross_branch", {})
+    expected_branch_heads = {
+        "main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+        "review/four-domain-research-materialization": "858442a3ec2439398d188779f4309397bd4926b2",
+        "engineering/aion-research-consolidation-literature-grounding-readiness-20260814": "bcc66c788a7d0882d139ae547447deb1f90adae4",
+        "engineering/aion-native-language-feasibility-20260814": "3dfc21463502e1c32189ae167d92f163ca1a55e8",
+        "engineering/aion-language-agnostic-runtime-integration-20260814": "6b81133dc351f5226fa95801254276e421b3e4fe",
+        "cleanup/manus-output-consolidation-20260813": "c43430f9b39a86d11093f3286e9503145fcf0d70",
+    }
+    branch_rows = {row.get("name"): row for row in cross_branch.get("branches", [])}
+    for branch_name, expected_head in expected_branch_heads.items():
+        row = branch_rows.get(branch_name)
+        if row is None:
+            fail(errors, f"cross-branch index missing branch {branch_name}")
+        elif row.get("head") != expected_head:
+            fail(errors, f"cross-branch head drift for {branch_name}: {row.get('head')}")
+    if cross_branch.get("repository_settings_modified") is not False:
+        fail(errors, "cross-branch index says repository settings were modified")
+    if cross_branch.get("topics_applied") is not False:
+        fail(errors, "cross-branch index says topics were applied")
+    if cross_branch.get("main_modified") is not False or cross_branch.get("research_source_modified") is not False:
+        fail(errors, "cross-branch index reports protected source modification")
+    required_cross_branch_artifacts = {"CB-001", "CB-002", "CB-003", "CB-004", "CB-005", "CB-006", "CB-007", "CB-008", "CB-009", "CB-010", "CB-011", "CB-012"}
+    actual_cross_branch_artifacts = {item.get("id") for item in cross_branch.get("artifacts", [])}
+    if not required_cross_branch_artifacts.issubset(actual_cross_branch_artifacts):
+        fail(errors, f"cross-branch index missing artifact IDs: {sorted(required_cross_branch_artifacts - actual_cross_branch_artifacts)}")
+    if not any(item.get("id") == "CB-009" and item.get("convergence") == "PRESENT" for item in cross_branch.get("artifacts", [])):
+        fail(errors, "cross-branch index does not mark consolidation artifacts present")
+    if any(item.get("id") == "CB-010" and item.get("convergence") != "ABSENT" for item in cross_branch.get("artifacts", [])):
+        fail(errors, "Native Language artifacts are not explicitly absent from convergence branch")
+
+    taxonomy = special_data.get("taxonomy", {})
+    candidates = taxonomy.get("candidate_topics", [])
+    slugs = [item.get("slug") for item in candidates]
+    ranks = [item.get("rank") for item in candidates]
+    if len(candidates) < 10 or len(candidates) > 16:
+        fail(errors, f"taxonomy candidate count outside 10-16: {len(candidates)}")
+    if len(slugs) != len(set(slugs)):
+        fail(errors, "taxonomy candidate slugs are not unique")
+    if ranks != list(range(1, len(candidates) + 1)):
+        fail(errors, "taxonomy ranks are not contiguous from 1")
+    forbidden_topic_fragments = ("conscious", "sentient", "self-aware", "identity", "first", "only", "unprecedented", "agi", "production")
+    for slug in slugs:
+        if any(fragment in str(slug) for fragment in forbidden_topic_fragments):
+            fail(errors, f"taxonomy contains forbidden public positioning term: {slug}")
+    recommended = set(taxonomy.get("recommended_initial_set", []))
+    owner_review = set(taxonomy.get("owner_review_set", []))
+    if not recommended.issubset(set(slugs)):
+        fail(errors, "recommended taxonomy set contains a slug not in candidates")
+    if not owner_review.issubset(set(slugs)):
+        fail(errors, "owner-review taxonomy set contains a slug not in candidates")
+    required_rejected_topics = {"consciousness", "artificial-consciousness", "self-aware-ai", "sentient-ai", "identity-continuity", "first-of-its-kind", "agi", "production-ai"}
+    rejected_slugs = {item.get("slug") for item in taxonomy.get("rejected_topics", [])}
+    if not required_rejected_topics.issubset(rejected_slugs):
+        fail(errors, f"taxonomy missing rejected terms: {sorted(required_rejected_topics - rejected_slugs)}")
+    if taxonomy.get("topics_applied") is not False or taxonomy.get("repository_settings_modified") is not False:
+        fail(errors, "taxonomy claims that topics/settings were applied")
+    if taxonomy.get("application_boundary", {}).get("settings_operation") != "NOT_PERFORMED":
+        fail(errors, "taxonomy application boundary is not NOT_PERFORMED")
 
     first_batch = set(matrix.get("recommended_first_batch", []))
     if not first_batch:

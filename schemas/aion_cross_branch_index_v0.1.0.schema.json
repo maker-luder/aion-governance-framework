@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:schemas:cross-branch-index:v0.1.0",
+  "title": "AION Cross-Branch Index v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "index_id", "canonical_effect", "repository_settings_modified", "topics_applied", "main_modified", "research_source_modified", "branches", "artifacts", "drift_controls"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "index_id": {"const": "AION_CROSS_BRANCH_INDEX_V0.1.0"},
+    "canonical_effect": {"const": "NONE"},
+    "repository_settings_modified": {"const": false},
+    "topics_applied": {"const": false},
+    "main_modified": {"const": false},
+    "research_source_modified": {"const": false},
+    "branches": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "head", "role", "status", "canonical_state", "supersession", "promotion_disposition"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "head": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "head_binding": {"type": "string", "minLength": 1},
+          "role": {"type": "string", "minLength": 1},
+          "status": {"enum": ["CURRENT", "SUPERSEDED", "HISTORICAL", "HOLD", "REJECT"]},
+          "canonical_state": {"type": "string", "minLength": 1},
+          "supersession": {"type": "string", "minLength": 1},
+          "promotion_disposition": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "family", "path", "main", "research", "convergence", "status", "canonical_state", "supersession", "promotion_disposition"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "family": {"type": "string", "minLength": 1},
+          "path": {"type": "string", "minLength": 1},
+          "main": {"type": "string", "minLength": 1},
+          "research": {"type": "string", "minLength": 1},
+          "convergence": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "minLength": 1},
+          "canonical_state": {"type": "string", "minLength": 1},
+          "supersession": {"type": "string", "minLength": 1},
+          "promotion_disposition": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "drift_controls": {"type": "array", "minItems": 4, "items": {"type": "string", "minLength": 1}}
+  }
+}

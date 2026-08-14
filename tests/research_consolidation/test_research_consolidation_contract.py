@@ -37,6 +37,33 @@ def test_first_batch_excludes_runtime_and_unverified_claims():
     assert not first_batch.intersection({"PR-014", "PR-015", "PR-017", "PR-020", "PR-025", "PR-026", "PR-027"})
 
 
+def test_cross_branch_index_and_public_taxonomy_contract():
+    cross_branch = json.loads(
+        (CONSOLIDATION / "CROSS_BRANCH_INDEX_V0.1.0.json").read_text(encoding="utf-8")
+    )
+    branches = {row["name"]: row for row in cross_branch["branches"]}
+    assert branches["main"]["head"] == "e079fb7dfe7a04be7dcb94b8a059951a003caa94"
+    assert branches["review/four-domain-research-materialization"]["head"] == "858442a3ec2439398d188779f4309397bd4926b2"
+    assert branches["engineering/aion-research-consolidation-literature-grounding-readiness-20260814"]["head"] == "bcc66c788a7d0882d139ae547447deb1f90adae4"
+    assert cross_branch["repository_settings_modified"] is False
+    assert cross_branch["topics_applied"] is False
+    assert cross_branch["main_modified"] is False
+    assert cross_branch["research_source_modified"] is False
+
+    taxonomy = json.loads(
+        (CONSOLIDATION / "PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0.json").read_text(encoding="utf-8")
+    )
+    slugs = [item["slug"] for item in taxonomy["candidate_topics"]]
+    assert 10 <= len(slugs) <= 16
+    assert len(slugs) == len(set(slugs))
+    assert set(taxonomy["recommended_initial_set"]).issubset(slugs)
+    assert taxonomy["topics_applied"] is False
+    assert taxonomy["application_boundary"]["settings_operation"] == "NOT_PERFORMED"
+    assert {"consciousness", "self-aware-ai", "sentient-ai", "first-of-its-kind", "production-ai"} <= {
+        item["slug"] for item in taxonomy["rejected_topics"]
+    }
+
+
 def test_convergence_workflow_is_read_only_and_branch_scoped():
     workflow = (ROOT / ".github/workflows/research-convergence-consistency.yml").read_text(
         encoding="utf-8"

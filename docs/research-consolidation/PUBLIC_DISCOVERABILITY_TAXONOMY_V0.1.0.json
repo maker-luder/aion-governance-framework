@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.1.0",
+  "taxonomy_id": "AION_PUBLIC_DISCOVERABILITY_TAXONOMY_V0.1.0",
+  "repository": "maker-luder/aion-governance-framework",
+  "repository_public_at_inspection": true,
+  "existing_topics_at_inspection": [],
+  "topics_applied": false,
+  "repository_settings_modified": false,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "candidate_topics": [
+    {"rank":1,"slug":"ai-research","class":"BROAD_DOMAIN","source_basis":["Four-Domain research tree","G1 research lab","AION Runtime research lab"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"repository purpose without scientific conclusion"},
+    {"rank":2,"slug":"research-engineering","class":"ENGINEERING_METHOD","source_basis":["P1-P5 packages","component runner","convergence artifacts"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"actual code/document/test practice"},
+    {"rank":3,"slug":"research-integrity","class":"GOVERNANCE_METHOD","source_basis":["Research Scope Lock","evidence validator","non-claim boundaries"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"explicit integrity and fail-closed controls"},
+    {"rank":4,"slug":"evidence-provenance","class":"EVIDENCE_METHOD","source_basis":["P2 provenance validator","research evidence schema","source-of-truth map"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"implemented evidence/provenance surface"},
+    {"rank":5,"slug":"provenance-aware-ai","class":"ENGINEERING_ORIENTATION","source_basis":["P2 provenance-gated retrieval","PROV-O crosswalk"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"bounded design orientation, not guarantee"},
+    {"rank":6,"slug":"memory-governance","class":"DOMAIN_CONTROL","source_basis":["memory recall governance","P2 stale/superseded controls"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"repository memory governance surfaces"},
+    {"rank":7,"slug":"agent-memory","class":"RESEARCH_DOMAIN","source_basis":["P2 memory retrieval/provenance","MemoryAgentBench/AgeMem crosswalk"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"studied domain without performance claim"},
+    {"rank":8,"slug":"long-term-memory","class":"RESEARCH_DOMAIN","source_basis":["LongMemEval","MemoryAgentBench","Memora","P2 temporal/stale controls"],"readiness":"OWNER_REVIEW_REQUIRED","owner_review":"REQUIRED","safe_reason":"accurate but broad public scope"},
+    {"rank":9,"slug":"metacognition","class":"RESEARCH_DOMAIN","source_basis":["verified metacognition literature crosswalk","Four-Domain research questions"],"readiness":"OWNER_REVIEW_REQUIRED","owner_review":"REQUIRED","safe_reason":"external term must not imply AION capability"},
+    {"rank":10,"slug":"hypothesis-testing","class":"RESEARCH_METHOD","source_basis":["P1-P5 hypotheses","fixtures","evidence records"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"method rather than result"},
+    {"rank":11,"slug":"falsification","class":"RESEARCH_METHOD","source_basis":["P5 falsifier lifecycle","P2 falsifier matrix"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"explicit challenge/failure handling"},
+    {"rank":12,"slug":"reproducible-research","class":"RESEARCH_METHOD","source_basis":["deterministic fixtures","manifest hashes","component runner","exact-head CI"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"engineering replay, not universal scientific replication"},
+    {"rank":13,"slug":"ai-safety-evaluation","class":"GOVERNANCE_EVALUATION","source_basis":["safety gates","adversarial research labs","P2/P3 falsifiers","verified safety literature"],"readiness":"OWNER_REVIEW_REQUIRED","owner_review":"REQUIRED","safe_reason":"accurate but shapes public expectations"},
+    {"rank":14,"slug":"language-model-evaluation","class":"EVALUATION_DOMAIN","source_basis":["G1 QA gates","Four-Domain LLM questions","research evaluation harnesses"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"evaluation scope without superiority claim"},
+    {"rank":15,"slug":"deterministic-retrieval","class":"IMPLEMENTATION_SURFACE","source_basis":["P2 deterministic context assembler","explicit exclusion reasons","manifest hashes"],"readiness":"READY_CANDIDATE","owner_review":"REQUIRED_BEFORE_SETTINGS_CHANGE","safe_reason":"directly implemented and reviewer-verifiable"},
+    {"rank":16,"slug":"governance-kernel","class":"IMPLEMENTATION_SURFACE","source_basis":["components/governance_kernel_v0.4.0","governance artifacts"],"readiness":"OWNER_REVIEW_REQUIRED","owner_review":"REQUIRED","safe_reason":"accurate component term; public scope/branding review"}
+  ],
+  "recommended_initial_set": ["ai-research","research-engineering","research-integrity","evidence-provenance","memory-governance","agent-memory","hypothesis-testing","falsification","reproducible-research","language-model-evaluation","deterministic-retrieval","governance-kernel"],
+  "owner_review_set": ["long-term-memory","metacognition","ai-safety-evaluation","governance-kernel","provenance-aware-ai"],
+  "rejected_topics": [
+    {"slug":"consciousness","reason":"research question/taxonomy only; not established repository result"},
+    {"slug":"artificial-consciousness","reason":"converts research subject into capability claim"},
+    {"slug":"self-aware-ai","reason":"label does not establish self-model or subjectivity"},
+    {"slug":"sentient-ai","reason":"no evidence or authorized conclusion"},
+    {"slug":"identity-continuity","reason":"P2 explicitly keeps identity continuity NOT_ESTABLISHED"},
+    {"slug":"first-of-its-kind","reason":"unverified novelty claim"},
+    {"slug":"agi","reason":"overbroad unsupported positioning"},
+    {"slug":"production-ai","reason":"deployment is FALSE"}
+  ],
+  "application_boundary": {
+    "settings_operation": "NOT_PERFORMED",
+    "owner_decision_required": true,
+    "canonical_effect": "NONE",
+    "deployment": false
+  }
+}
