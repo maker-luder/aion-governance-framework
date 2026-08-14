@@ -1,4 +1,5 @@
 from .hardening import IndividualRuntimeStateStore
+from .lifecycle import LifecycleTransitionOutcome, LifecycleTransitionRequest
 from .store import (
     EnvironmentEvidence,
     MigrationSummary,
@@ -11,6 +12,8 @@ from .store import (
 __all__ = [
     "EnvironmentEvidence",
     "IndividualRuntimeStateStore",
+    "LifecycleTransitionOutcome",
+    "LifecycleTransitionRequest",
     "MigrationSummary",
     "RecoveryState",
     "RuntimeCheckpoint",

@@ -92,14 +92,14 @@ class AstraRuntime:
             raise RuntimeIdentityMismatch("task runtime_context does not match the bound Astra runtime instance")
 
     def record_start(self, *, reason: str = "operator_start") -> None:
-        self.state.transition_lifecycle(
-            "runtime.started",
+        self.state.transition_lifecycle_request(
+            {"event_type": "runtime.started", "canonical_effect": "NONE"},
             {"reason": reason, "canonical_effect": "NONE"},
         )
 
     def record_stop(self, *, reason: str = "operator_stop") -> None:
-        self.state.transition_lifecycle(
-            "runtime.stopped",
+        self.state.transition_lifecycle_request(
+            {"event_type": "runtime.stopped", "canonical_effect": "NONE"},
             {"reason": reason, "canonical_effect": "NONE"},
         )
 

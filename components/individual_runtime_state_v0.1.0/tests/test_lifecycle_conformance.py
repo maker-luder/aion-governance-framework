@@ -9,8 +9,8 @@ from individual_runtime_state import IndividualRuntimeStateStore, RuntimeStateEr
 
 
 ROOT = Path(__file__).resolve().parents[3]
-SCHEMA_PATH = ROOT / "schemas" / "individual_runtime_lifecycle_transition_v0.1.0.schema.json"
-FIXTURE_PATH = ROOT / "conformance" / "individual_runtime_lifecycle_transition_v0.1.0.json"
+SCHEMA_PATH = ROOT / "schemas" / "individual_runtime_lifecycle_transition_request_v0.1.0.schema.json"
+FIXTURE_PATH = ROOT / "conformance" / "individual_runtime_lifecycle_transition_request_v0.1.0.json"
 
 
 def _context() -> IndividualRuntimeContext:
@@ -38,44 +38,53 @@ def _seed(store: IndividualRuntimeStateStore, initial_events: list[str]) -> None
         store.transition_lifecycle(event_type)
 
 
-def test_lifecycle_vectors_match_schema_and_atomic_state_behavior(tmp_path) -> None:
+def test_lifecycle_requests_match_schema_and_admission_behavior(tmp_path) -> None:
     schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
     validator = Draft202012Validator(schema)
 
     for vector in _vectors():
         vector_id = vector["id"]
-        transition = vector["transition"]
-        expected = vector["expected"]
-        assert isinstance(transition, dict)
-        schema_valid = not list(validator.iter_errors(transition))
+        request = vector["request"]
+        expected_result = vector["expected_result"]
+        expected_final_state = vector["expected_final_state"]
+        assert isinstance(request, (dict, list))
+        schema_valid = not list(validator.iter_errors(request))
+        assert schema_valid is (vector["request_schema"] == "VALID"), vector_id
+
         store = IndividualRuntimeStateStore(tmp_path / f"{vector_id}.sqlite3", _context())
         initial_events = vector["initial_events"]
         assert isinstance(initial_events, list)
         _seed(store, initial_events)
         before = [(event.sequence, event.event_type, event.event_hash) for event in store.events()]
 
-        if expected == "ACCEPT":
+        if expected_result == "ACCEPT":
             assert schema_valid, vector_id
-            event = store.transition_lifecycle(str(transition["event_type"]))
-            assert event.event_type == transition["event_type"]
-            assert store.lifecycle_state() == transition["to_state"]
+            outcome = store.transition_lifecycle_request(request)
+            assert outcome.from_state == vector["initial_state"], vector_id
+            assert outcome.to_state == expected_final_state, vector_id
+            assert outcome.event.event_type == request["event_type"]
+            assert outcome.request.to_dict() == request
+            assert store.lifecycle_state() == expected_final_state
             assert store.verify() is True
             assert len(store.events()) == len(before) + 1
         else:
-            assert not schema_valid, vector_id
-            lifecycle_rejected = (
-                transition["event_type"] == "runtime.started" and transition["from_state"] == "RUNNING"
-            ) or (
-                transition["event_type"] == "runtime.stopped"
-                and transition["from_state"] in {"INITIALIZED", "STOPPED"}
-            )
-            if lifecycle_rejected:
-                with pytest.raises(RuntimeStateError):
-                    store.transition_lifecycle(str(transition["event_type"]))
-            assert [(event.sequence, event.event_type, event.event_hash) for event in store.events()] == before
-            assert store.lifecycle_state() == transition["from_state"]
+            assert not (schema_valid and expected_result == "ACCEPT"), vector_id
+            with pytest.raises(RuntimeStateError):
+                store.transition_lifecycle_request(request)
+            after = [(event.sequence, event.event_type, event.event_hash) for event in store.events()]
+            assert after == before, vector_id
+            assert store.lifecycle_state() == vector["expected_final_state"], vector_id
             assert store.verify() is True
 
 
-def test_lifecycle_fixture_contains_both_accepted_and_rejected_vectors() -> None:
-    assert {vector["expected"] for vector in _vectors()} == {"ACCEPT", "REJECT"}
+def test_lifecycle_request_excludes_derived_state_and_implementation_claims() -> None:
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    assert schema["required"] == ["event_type", "canonical_effect"]
+    assert schema["additionalProperties"] is False
+    assert set(schema["properties"]) == {"event_type", "canonical_effect"}
+
+
+def test_lifecycle_fixture_contains_accepts_and_fail_closed_rejections() -> None:
+    vectors = _vectors()
+    assert {vector["expected_result"] for vector in vectors} == {"ACCEPT", "REJECT"}
+    assert {vector["request_schema"] for vector in vectors} == {"VALID", "INVALID"}

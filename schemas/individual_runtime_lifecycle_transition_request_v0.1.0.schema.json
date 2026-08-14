@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:contract:individual-runtime-lifecycle-transition-request:0.1.0",
+  "title": "AION Individual Runtime Lifecycle Transition Request",
+  "description": "Language-neutral request contract for one lifecycle action. Persisted state and the resulting state are implementation-derived; atomicity is an implementation invariant and is not a caller claim.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_type",
+    "canonical_effect"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "enum": ["runtime.started", "runtime.stopped"]
+    },
+    "canonical_effect": {
+      "const": "NONE",
+      "description": "The request cannot request or claim canonical writeback."
+    }
+  }
+}

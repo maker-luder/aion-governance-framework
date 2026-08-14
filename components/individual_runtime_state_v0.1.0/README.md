@@ -35,6 +35,10 @@ Event lineage records **that an operation occurred**. It must not silently dupli
 
 `EVENT_LINEAGE_CONTINUITY != SUBJECTIVE_CONTINUITY`
 
+## Lifecycle request admission
+
+The language-neutral lifecycle request contains only `event_type` and `canonical_effect`. Persisted `from_state` and derived `to_state` are not caller-controlled fields, and `atomic` is an implementation invariant rather than a request claim. Unknown fields and non-`NONE` canonical effects fail closed. The request schema is [`schemas/individual_runtime_lifecycle_transition_request_v0.1.0.schema.json`](../../schemas/individual_runtime_lifecycle_transition_request_v0.1.0.schema.json); the Python/SQLite mechanism is documented in [`docs/INDIVIDUAL_RUNTIME_LIFECYCLE_PYTHON_SQLITE_IMPLEMENTATION_NOTE_V0.1.0.md`](../../docs/INDIVIDUAL_RUNTIME_LIFECYCLE_PYTHON_SQLITE_IMPLEMENTATION_NOTE_V0.1.0.md).
+
 ## Lifecycle semantics
 
 ### Restart / reopen

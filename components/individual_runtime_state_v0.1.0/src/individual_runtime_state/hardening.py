@@ -24,6 +24,7 @@ from .store import (
     _hash,
     _now,
 )
+from .lifecycle import LifecycleTransitionOutcome, LifecycleTransitionRequest
 
 
 class IndividualRuntimeStateStore(_BaseIndividualRuntimeStateStore):
@@ -328,39 +329,65 @@ class IndividualRuntimeStateStore(_BaseIndividualRuntimeStateStore):
                 state = "STOPPED"
         return state
 
+    def transition_lifecycle_request(
+        self,
+        request: LifecycleTransitionRequest | object,
+        payload: dict[str, Any] | None = None,
+    ) -> LifecycleTransitionOutcome:
+        """Admit a strict request and return state derived by the state machine.
+
+        The request contains no caller-supplied state or atomicity claim. The
+        Python/SQLite implementation uses one immediate write transaction for
+        the state read, validation, and event append.
+        """
+        parsed = (
+            request
+            if isinstance(request, LifecycleTransitionRequest)
+            else LifecycleTransitionRequest.from_dict(request)
+        )
+        clean_payload = _clean_payload(payload)
+        try:
+            with self._connect() as connection:
+                connection.execute("BEGIN IMMEDIATE")
+                # The persisted state is derived from this same locked connection.
+                state = self._lifecycle_state_with_connection(
+                    connection,
+                    event_lineage_id=self.context.event_lineage_id,
+                )
+                if parsed.event_type == "runtime.started":
+                    if state == "RUNNING":
+                        raise RuntimeStateError(
+                            "runtime lifecycle transition rejected: runtime is already running"
+                        )
+                    next_state = "RUNNING"
+                else:
+                    if state != "RUNNING":
+                        raise RuntimeStateError(
+                            "runtime lifecycle transition rejected: runtime must be running before it can stop"
+                        )
+                    next_state = "STOPPED"
+                event = self._append_event_with_connection(
+                    connection,
+                    context=self.context,
+                    event_type=parsed.event_type,
+                    payload=clean_payload,
+                )
+                return LifecycleTransitionOutcome(parsed, state, next_state, event)
+        except RuntimeStateError:
+            raise
+        except sqlite3.DatabaseError as exc:
+            raise RuntimeStateError("atomic lifecycle transition persistence failed") from exc
+
     def transition_lifecycle(
         self,
         event_type: str,
         payload: dict[str, Any] | None = None,
     ) -> RuntimeEvent:
-        """Validate and append one lifecycle event under the same SQLite write lock."""
-        if event_type not in {"runtime.started", "runtime.stopped"}:
-            raise RuntimeStateError(f"unsupported runtime lifecycle event: {event_type}")
-        clean_payload = _clean_payload(payload)
-        try:
-            with self._connect() as connection:
-                connection.execute("BEGIN IMMEDIATE")
-                # The state read uses this same connection holding the write lock.
-                state = self._lifecycle_state_with_connection(
-                    connection,
-                    event_lineage_id=self.context.event_lineage_id,
-                )
-                if event_type == "runtime.started" and state == "RUNNING":
-                    raise RuntimeStateError("runtime lifecycle transition rejected: runtime is already running")
-                if event_type == "runtime.stopped" and state != "RUNNING":
-                    raise RuntimeStateError(
-                        "runtime lifecycle transition rejected: runtime must be running before it can stop"
-                    )
-                return self._append_event_with_connection(
-                    connection,
-                    context=self.context,
-                    event_type=event_type,
-                    payload=clean_payload,
-                )
-        except RuntimeStateError:
-            raise
-        except sqlite3.DatabaseError as exc:
-            raise RuntimeStateError("atomic lifecycle transition persistence failed") from exc
+        """Compatibility adapter over strict request admission."""
+        request = LifecycleTransitionRequest.from_dict(
+            {"event_type": event_type, "canonical_effect": "NONE"}
+        )
+        return self.transition_lifecycle_request(request, payload=payload).event
 
     def migrate_instance(
         self,

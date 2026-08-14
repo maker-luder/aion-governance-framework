@@ -1,0 +1,177 @@
+{
+  "schema_version": "0.1.0",
+  "contract": "urn:aion:contract:individual-runtime-lifecycle-transition-request:0.1.0",
+  "vectors": [
+    {
+      "id": "initialized-start",
+      "request_schema": "VALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "ACCEPT",
+      "expected_final_state": "RUNNING"
+    },
+    {
+      "id": "stopped-restart",
+      "request_schema": "VALID",
+      "initial_state": "STOPPED",
+      "initial_events": ["runtime.started", "runtime.stopped"],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "ACCEPT",
+      "expected_final_state": "RUNNING"
+    },
+    {
+      "id": "running-stop",
+      "request_schema": "VALID",
+      "initial_state": "RUNNING",
+      "initial_events": ["runtime.started"],
+      "request": {
+        "event_type": "runtime.stopped",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "ACCEPT",
+      "expected_final_state": "STOPPED"
+    },
+    {
+      "id": "duplicate-start",
+      "request_schema": "VALID",
+      "initial_state": "RUNNING",
+      "initial_events": ["runtime.started"],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "RUNNING"
+    },
+    {
+      "id": "stop-before-start",
+      "request_schema": "VALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.stopped",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "duplicate-stop",
+      "request_schema": "VALID",
+      "initial_state": "STOPPED",
+      "initial_events": ["runtime.started", "runtime.stopped"],
+      "request": {
+        "event_type": "runtime.stopped",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "STOPPED"
+    },
+    {
+      "id": "unknown-field",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "NONE",
+        "owner_approved": true
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "canonical-effect-write",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "WRITE"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "invalid-event-type",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.recovered",
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "malformed-event-type",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": 1,
+        "canonical_effect": "NONE"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "malformed-canonical-effect",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": false
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "missing-canonical-effect",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "caller-state-injection",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "NONE",
+        "from_state": "STOPPED",
+        "to_state": "RUNNING"
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    },
+    {
+      "id": "caller-atomicity-claim",
+      "request_schema": "INVALID",
+      "initial_state": "INITIALIZED",
+      "initial_events": [],
+      "request": {
+        "event_type": "runtime.started",
+        "canonical_effect": "NONE",
+        "atomic": true
+      },
+      "expected_result": "REJECT",
+      "expected_final_state": "INITIALIZED"
+    }
+  ]
+}
