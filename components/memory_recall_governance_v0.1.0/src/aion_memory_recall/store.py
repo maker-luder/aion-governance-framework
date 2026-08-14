@@ -228,6 +228,10 @@ class SQLiteMemoryStore:
     def _set_flag(self, memory_id: str, column: str, value: bool) -> None:
         if column not in {"conflict", "tombstoned", "superseded"}:
             raise ValueError("unsupported memory flag")
+        if not isinstance(memory_id, str) or not memory_id.strip():
+            raise MemoryWriteDenied("memory_id must be a non-blank string")
+        if type(value) is not bool:
+            raise MemoryWriteDenied(f"{column} must be a boolean")
         with self._connect() as connection:
             cursor = connection.execute(
                 f"UPDATE memory_records SET {column} = ? WHERE memory_id = ?",

@@ -174,6 +174,25 @@ def test_write_rejects_non_boolean_governance_flags(tmp_path, field: str) -> Non
         store.write(**values)
 
 
+@pytest.mark.parametrize("method", ["set_conflict", "tombstone", "supersede"])
+def test_flag_mutation_rejects_invalid_memory_ids(tmp_path, method):
+    store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
+    with pytest.raises(MemoryWriteDenied, match="memory_id"):
+        if method == "set_conflict":
+            store.set_conflict("", conflict=True)
+        elif method == "tombstone":
+            store.tombstone("")
+        else:
+            store.supersede("")
+
+
+def test_set_conflict_rejects_non_boolean_flag(tmp_path):
+    store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
+    store.write(**_write_kwargs())
+    with pytest.raises(MemoryWriteDenied, match="conflict must be a boolean"):
+        store.set_conflict("m1", conflict=1)
+
+
 def test_write_rejects_scalar_iterable_and_blank_recorded_at(tmp_path) -> None:
     store = SQLiteMemoryStore(tmp_path / "memory.sqlite3")
     values = _write_kwargs()
