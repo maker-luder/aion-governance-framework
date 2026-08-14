@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:contract:individual-runtime-context:0.1.0",
+  "title": "AION Individual Runtime Context",
+  "description": "Language-neutral identity and lineage contract for one individual runtime instance. This contract records ownership references; it does not establish subjectivity, consciousness, identity continuity, phenomenal continuity, canonical authority, or deployment authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agent_id",
+    "runtime_instance_id",
+    "memory_stream_id",
+    "event_lineage_id",
+    "canonical_state_reference",
+    "genesis_root_id"
+  ],
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Non-empty identity owner reference. The AION or Astra composition boundary, not this generic schema, must bind the value to its authorized identity."
+    },
+    "runtime_instance_id": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Non-empty identifier for the concrete runtime instance producing or consuming the record."
+    },
+    "memory_stream_id": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Non-empty governed memory stream or namespace reference associated with the runtime instance."
+    },
+    "event_lineage_id": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Non-empty persistent event-lineage reference for the runtime instance."
+    },
+    "canonical_state_reference": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Non-empty reference to the separately governed canonical-state domain; its presence does not grant canonical effect."
+    },
+    "genesis_root_id": {
+      "type": "string",
+      "pattern": "\\S",
+      "description": "Non-empty shared or individually governed genesis-root reference, subject to higher-level authorization."
+    }
+  }
+}
