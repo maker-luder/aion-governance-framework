@@ -28,8 +28,10 @@ jobs:
         run: python scripts/check_slsh_consistency.py
       - name: Run SLSH contract tests
         run: python -m pytest -q research-labs/subjective-load-sensitivity-hypothesis_v0.1.0/tests/test_slsh_contract.py
+      - name: Verify source taxonomy preservation
+        run: python scripts/verify_slsh_taxonomy_preservation.py
       - name: Compile validation scripts
-        run: python -m compileall -q scripts/check_slsh_consistency.py scripts/build_slsh_artifacts.py
+        run: python -m compileall -q scripts/check_slsh_consistency.py scripts/build_slsh_artifacts.py scripts/verify_slsh_taxonomy_preservation.py
       - name: Enforce no execution and no promotion boundary
         run: |
           python - <<'PY'

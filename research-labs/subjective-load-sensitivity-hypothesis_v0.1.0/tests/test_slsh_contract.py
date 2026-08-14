@@ -3,6 +3,8 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
+from scripts.build_slsh_artifacts import DOSSIER, parse_sources
+
 ROOT = Path(__file__).resolve().parents[3]
 BASE = ROOT / "research-workbench" / "subjective-load-sensitivity-hypothesis-2026-08-14"
 PACKET = json.loads((BASE / "SLSH_PACKET_V0.1.0.json").read_text(encoding="utf-8"))
@@ -20,15 +22,27 @@ def test_packet_schema():
     assert list(Draft202012Validator(SOURCE_SCHEMA).iter_errors(SOURCES)) == []
 
 
-def test_exact_source_grade_map_and_codex_provenance():
+def test_exact_access_level_map_and_codex_provenance():
     rows = {row["id"]: row for row in SOURCES["source_rows"]}
     assert len(rows) == 53
-    assert {row["verification_status"] for row in rows.values()} == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "PRIMARY_ABSTRACT_DIRECTLY_VERIFIED", "PRIMARY_METADATA_VERIFIED"}
-    assert all(rows[key]["verification_status"] == value for key, value in EXPECTED.items())
+    assert {row["access_level"] for row in rows.values()} == {"FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"}
+    assert all(rows[key]["access_level"] == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[value] for key, value in EXPECTED.items())
+    assert all(row["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for row in rows.values())
+    assert all(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
+    assert all(row["independent_verification_status"] == "NOT_YET_VERIFIED" for row in rows.values())
     assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
-    assert rows["S03"]["verification_status"] == "PRIMARY_METADATA_VERIFIED"
-    assert rows["S20"]["verification_status"] == "PRIMARY_METADATA_VERIFIED"
-    assert rows["S49"]["verification_status"] == "PRIMARY_METADATA_VERIFIED"
+    assert all("verification_status" not in row for row in rows.values())
+    assert rows["S03"]["access_level"] == "METADATA_AS_RECORDED"
+    assert rows["S20"]["access_level"] == "METADATA_AS_RECORDED"
+    assert rows["S49"]["access_level"] == "METADATA_AS_RECORDED"
+
+
+def test_recorded_source_fields_are_preserved_from_dossier():
+    parsed = {row["id"]: row for row in parse_sources(DOSSIER.read_text(encoding="utf-8"))}
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    for source_id, row in rows.items():
+        for field in ("title_as_recorded", "identifier_as_recorded", "access_evidence", "supports_as_recorded", "does_not_support_as_recorded"):
+            assert row[field] == parsed[source_id][field]
 
 
 def test_hypothesis_and_limit_decomposition():

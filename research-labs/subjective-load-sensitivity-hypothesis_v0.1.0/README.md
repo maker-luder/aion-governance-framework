@@ -1,6 +1,6 @@
 # AION Subjective Load Sensitivity Hypothesis
 
-本研究方法 milestone 以 Human Owner 的研究方向為起點，經 ChatGPT architecture refinement，並把使用者提供的 dossier 明確標記為 `CODEX_EXTERNAL_RESEARCH_INPUT`。Codex 的綜合判斷、H0–H3 分解與 proposed interface 不是外部文獻原始結論；外部來源只能依 `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` 中的實際 access evidence 使用。
+本研究方法 milestone 以 Human Owner 的研究方向為起點，經 ChatGPT architecture refinement，並把使用者提供的 dossier 明確標記為 `CODEX_EXTERNAL_RESEARCH_INPUT`。Codex 的綜合判斷、H0–H3 分解與 proposed interface 不是外部文獻原始結論；外部來源只能依 `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` 中以 `CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED` 記錄的原始 title、identifier、access、support 與 does-not-support 使用；access level 不自動提升 source epistemic class。
 
 ## Scope and authority
 
@@ -14,7 +14,7 @@
 
 ## Dossier review coverage
 
-本 branch 已審核 53 個 source records、H0–H3、L0–L5、四類 LIMIT、14 個 non-affective alternatives、12 個 predicted causal signatures、self-report suppression、cross-substrate disanalogies、4 個 positive controls、9 個 negative controls、10 個 falsifiers、conditional CSOMI envelope 與 bounded conclusion。Access distribution 為 36 `PRIMARY_FULLTEXT_DIRECTLY_VERIFIED`、14 `PRIMARY_ABSTRACT_DIRECTLY_VERIFIED`、3 `PRIMARY_METADATA_VERIFIED`；每一項都只代表 `CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED` 中的實際 access evidence，不表示 Manus 或 ChatGPT 已重新直接驗證 53 篇來源，也不是主觀性證據等級。
+本 branch 已審核 53 個 source records、H0–H3、L0–L5、四類 LIMIT、14 個 non-affective alternatives、12 個 predicted causal signatures、self-report suppression、cross-substrate disanalogies、4 個 positive controls、9 個 negative controls、10 個 falsifiers、conditional CSOMI envelope 與 bounded conclusion。Source taxonomy 現在獨立記錄 `SOURCE_KIND`、`ACCESS_LEVEL`、`VERIFICATION_ACTOR` 與 `INDEPENDENT_VERIFICATION_STATUS`：53 筆均為 `SOURCE_KIND=UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW`、`VERIFICATION_ACTOR=CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED`、`INDEPENDENT_VERIFICATION_STATUS=NOT_YET_VERIFIED`。Access level 僅表示 dossier 中的 `FULLTEXT_AS_RECORDED`、`ABSTRACT_AS_RECORDED` 或 `METADATA_AS_RECORDED` evidence，不表示 source 是 primary empirical evidence，也不表示 Manus 或 ChatGPT 已重新逐筆直接核驗。
 
 ## Research-only outputs
 
