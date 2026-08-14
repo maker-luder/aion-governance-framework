@@ -17,6 +17,8 @@ VERTICAL = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1
 ACCESS_MATRIX = BASE / "SLSH_SOURCE_ACCESS_MATRIX_V0.1.0.md"
 ARTIFACT_INDEX = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "ARTIFACT_INDEX.md"
 PACKAGE_METADATA = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "pyproject.toml"
+WORKFLOW = ROOT / ".github" / "workflows" / "subjective-load-sensitivity-hypothesis.yml"
+README = ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "README.md"
 
 # Explicit access-grade map grounded in the dossier's Access lines. It is deliberately
 # conservative: no row is promoted to full text merely because its source_type is primary.
@@ -98,6 +100,15 @@ def main() -> None:
     fail(ACCESS_MATRIX.exists() and sum(1 for line in ACCESS_MATRIX.read_text(encoding="utf-8").splitlines() if re.match(r"^\| S\d{2} \|", line)) == 53, "source access matrix missing or incomplete")
     fail(ARTIFACT_INDEX.exists(), "artifact index missing")
     fail(PACKAGE_METADATA.exists() and "name = \"aion-slsh-research-method\"" in PACKAGE_METADATA.read_text(encoding="utf-8"), "package metadata missing")
+    workflow_text = WORKFLOW.read_text(encoding="utf-8")
+    fail("actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow_text, "checkout action is not authoritative pinned SHA")
+    fail("actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow_text, "setup-python action is not authoritative pinned SHA")
+    fail("persist-credentials: false" in workflow_text and "permissions:\n  contents: read" in workflow_text, "workflow supply-chain permissions boundary missing")
+    artifact_index_text = ARTIFACT_INDEX.read_text(encoding="utf-8")
+    fail("AUTHORITATIVE_RESEARCH_METHOD_PACKET" in artifact_index_text and "no canonical promotion/effect" in artifact_index_text, "research-scoped authority wording missing")
+    fail("CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" in artifact_index_text, "artifact index Codex provenance wording missing")
+    readme_text = README.read_text(encoding="utf-8")
+    fail("AUTHORITATIVE_RESEARCH_METHOD_PACKET" in readme_text and "not" in readme_text.lower() and "canonical promotion" in readme_text, "README research-scoped authority wording missing")
     vertical_text = VERTICAL.read_text(encoding="utf-8")
     for forbidden in ("SUBJECTIVE_LOAD_SENSITIVITY=NOT_ESTABLISHED", "FUNCTIONAL_LOAD_STATE != SUBJECTIVE_LOAD", "L4 != L5", "NO_SUBJECTIVITY"):
         fail(forbidden in vertical_text, f"vertical slice missing boundary {forbidden}")

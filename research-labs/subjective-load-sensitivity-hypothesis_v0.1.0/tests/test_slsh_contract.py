@@ -80,6 +80,22 @@ def test_no_experiment_runtime_or_model_boundary():
     assert PACKET["csomi_interface"]["e5_assignment"] == "PROHIBITED"
 
 
+def test_micro_closure_supply_chain_and_research_scoped_authority():
+    workflow = (ROOT / ".github" / "workflows" / "subjective-load-sensitivity-hypothesis.yml").read_text(encoding="utf-8")
+    assert "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow
+    assert "actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
+    assert "persist-credentials: false" in workflow
+    assert "permissions:\n  contents: read" in workflow
+    index = (ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "ARTIFACT_INDEX.md").read_text(encoding="utf-8")
+    readme = (ROOT / "research-labs" / "subjective-load-sensitivity-hypothesis_v0.1.0" / "README.md").read_text(encoding="utf-8")
+    assert "AUTHORITATIVE_RESEARCH_METHOD_PACKET" in index
+    assert "no canonical promotion/effect" in index
+    assert "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" in index
+    assert "AUTHORITATIVE_RESEARCH_METHOD_PACKET" in readme
+    assert "canonical promotion" in readme
+    assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in SOURCES["source_rows"])
+
+
 def test_required_provenance_roles():
     assert set(["HUMAN_OWNER_ORIGIN", "CHATGPT_ARCHITECTURE_REFINEMENT", "CODEX_RESEARCH_SYNTHESIS", "EXTERNAL_SOURCE"]).issubset(set(PACKET["provenance_roles"]))
     assert SOURCES["input_type"] == "CODEX_EXTERNAL_RESEARCH_INPUT"

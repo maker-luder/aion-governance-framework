@@ -2,8 +2,8 @@
 
 | Artifact | Role | Source of truth / boundary |
 |---|---|---|
-| `SLSH_PACKET_V0.1.0.json` | Canonical method packet | Machine-readable SLSH source of truth; research-only |
-| `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` | 53-source access/provenance log | CODEX input attribution; no automatic grade upgrade |
+| `SLSH_PACKET_V0.1.0.json` | `AUTHORITATIVE_RESEARCH_METHOD_PACKET` | Research-milestone artifact authority only; no canonical promotion/effect or main-repository canonical state |
+| `SLSH_SOURCE_PROVENANCE_LOG_V0.1.0.json` | 53-source access/provenance authority record | `CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED`; no Manus/ChatGPT re-verification claim and no automatic grade upgrade |
 | `SLSH_SOURCE_ACCESS_MATRIX_V0.1.0.md` | Reviewer access table | Generated from provenance log |
 | `SLSH_CLAIM_RECORDS_V0.1.0.json` | Claim ladder and boundaries | Materialized from packet |
 | `SLSH_EVIDENCE_CHANNELS_V0.1.0.json` | Evidence channel rules | Materialized from packet; sensitivity/specificity unestimated |
