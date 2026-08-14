@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:contract:individual-runtime-lifecycle-transition:0.1.0",
+  "title": "AION Individual Runtime Lifecycle Transition",
+  "description": "Language-neutral contract for the currently implemented individual-runtime lifecycle transitions. It does not add lifecycle states or grant canonical/deployment authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "from_state",
+    "event_type",
+    "to_state",
+    "atomic",
+    "canonical_effect"
+  ],
+  "properties": {
+    "from_state": {
+      "type": "string",
+      "enum": ["INITIALIZED", "STOPPED", "RUNNING"]
+    },
+    "event_type": {
+      "type": "string",
+      "enum": ["runtime.started", "runtime.stopped"]
+    },
+    "to_state": {
+      "type": "string",
+      "enum": ["RUNNING", "STOPPED"]
+    },
+    "atomic": {
+      "const": true,
+      "description": "Validation and event append occur inside one write transaction holding the SQLite write lock."
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "from_state": {
+          "enum": ["INITIALIZED", "STOPPED"]
+        },
+        "event_type": {
+          "const": "runtime.started"
+        },
+        "to_state": {
+          "const": "RUNNING"
+        }
+      }
+    },
+    {
+      "properties": {
+        "from_state": {
+          "const": "RUNNING"
+        },
+        "event_type": {
+          "const": "runtime.stopped"
+        },
+        "to_state": {
+          "const": "STOPPED"
+        }
+      }
+    }
+  ]
+}

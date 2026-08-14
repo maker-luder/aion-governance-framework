@@ -1,0 +1,115 @@
+{
+  "schema_version": "0.1.0",
+  "contract": "urn:aion:contract:individual-runtime-lifecycle-transition:0.1.0",
+  "vectors": [
+    {
+      "id": "initialized-start",
+      "expected": "ACCEPT",
+      "initial_events": [],
+      "transition": {
+        "from_state": "INITIALIZED",
+        "event_type": "runtime.started",
+        "to_state": "RUNNING",
+        "atomic": true,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "stopped-restart",
+      "expected": "ACCEPT",
+      "initial_events": ["runtime.started", "runtime.stopped"],
+      "transition": {
+        "from_state": "STOPPED",
+        "event_type": "runtime.started",
+        "to_state": "RUNNING",
+        "atomic": true,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "running-stop",
+      "expected": "ACCEPT",
+      "initial_events": ["runtime.started"],
+      "transition": {
+        "from_state": "RUNNING",
+        "event_type": "runtime.stopped",
+        "to_state": "STOPPED",
+        "atomic": true,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "running-duplicate-start",
+      "expected": "REJECT",
+      "initial_events": ["runtime.started"],
+      "transition": {
+        "from_state": "RUNNING",
+        "event_type": "runtime.started",
+        "to_state": "RUNNING",
+        "atomic": true,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "initialized-stop",
+      "expected": "REJECT",
+      "initial_events": [],
+      "transition": {
+        "from_state": "INITIALIZED",
+        "event_type": "runtime.stopped",
+        "to_state": "STOPPED",
+        "atomic": true,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "stopped-duplicate-stop",
+      "expected": "REJECT",
+      "initial_events": ["runtime.started", "runtime.stopped"],
+      "transition": {
+        "from_state": "STOPPED",
+        "event_type": "runtime.stopped",
+        "to_state": "STOPPED",
+        "atomic": true,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "non-atomic-transition",
+      "expected": "REJECT",
+      "initial_events": [],
+      "transition": {
+        "from_state": "INITIALIZED",
+        "event_type": "runtime.started",
+        "to_state": "RUNNING",
+        "atomic": false,
+        "canonical_effect": "NONE"
+      }
+    },
+    {
+      "id": "canonical-transition",
+      "expected": "REJECT",
+      "initial_events": [],
+      "transition": {
+        "from_state": "INITIALIZED",
+        "event_type": "runtime.started",
+        "to_state": "RUNNING",
+        "atomic": true,
+        "canonical_effect": "WRITE"
+      }
+    },
+    {
+      "id": "unknown-transition-field",
+      "expected": "REJECT",
+      "initial_events": [],
+      "transition": {
+        "from_state": "INITIALIZED",
+        "event_type": "runtime.started",
+        "to_state": "RUNNING",
+        "atomic": true,
+        "canonical_effect": "NONE",
+        "owner_approved": true
+      }
+    }
+  ]
+}
