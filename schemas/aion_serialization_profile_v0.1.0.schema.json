@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/aion_serialization_profile_v0.1.0.schema.json",
+  "title": "AION Interoperability Serialization Profile v0.1.0",
+  "description": "Candidate language-neutral serialization profile. It is not a deployment or canonical-promotion authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "schema_version",
+    "encoding",
+    "unicode_policy",
+    "timestamp_profile",
+    "object_member_order",
+    "array_order",
+    "whitespace",
+    "numbers",
+    "duplicate_keys",
+    "non_finite_numbers",
+    "hash_algorithm",
+    "canonical_effect"
+  ],
+  "properties": {
+    "profile_id": {"const": "AION-JCS-COMPATIBLE-0.1.0"},
+    "schema_version": {"const": "0.1.0"},
+    "encoding": {"const": "UTF-8"},
+    "unicode_policy": {"const": "NFC_INPUT_PRESERVED"},
+    "timestamp_profile": {"const": "RFC3339_UTC_MICROS_Z"},
+    "object_member_order": {"const": "UTF16_CODE_UNIT_LEXICOGRAPHIC"},
+    "array_order": {"const": "PRESERVE"},
+    "whitespace": {"const": "NONE"},
+    "numbers": {"const": "SAFE_INTEGERS_ONLY"},
+    "duplicate_keys": {"const": "REJECT"},
+    "non_finite_numbers": {"const": "REJECT"},
+    "hash_algorithm": {"const": "SHA-256"},
+    "canonical_effect": {"const": "NONE"}
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "schema_version": "0.1.0",
+  "profile_id": "AION-JCS-COMPATIBLE-0.1.0",
+  "vectors": [
+    {
+      "vector_id": "canon.object.nested-nfc",
+      "contract": "SerializationProfile",
+      "version": "0.1.0",
+      "input": {
+        "z": [2, 1],
+        "text": "é",
+        "a": {"b": 2, "a": 1}
+      },
+      "expected_acceptance": true,
+      "expected_output": "{\"a\":{\"a\":1,\"b\":2},\"text\":\"é\",\"z\":[2,1]}",
+      "expected_error_code": null,
+      "expected_state": null,
+      "expected_canonical_serialization": "{\"a\":{\"a\":1,\"b\":2},\"text\":\"é\",\"z\":[2,1]}",
+      "expected_hash": "84c04e5622ab242d7077755b9825dc1af657a5706afb993c0af1d518357bdf96",
+      "notes": "Nested objects sort recursively; array order is preserved; accepted NFC text is emitted as UTF-8."
+    },
+    {
+      "vector_id": "parse.reject.duplicate-key",
+      "contract": "SerializationProfile",
+      "version": "0.1.0",
+      "input": "{\"x\":1,\"x\":2}",
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "MALFORMED_INPUT",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "Raw-text admission rejects duplicate object members."
+    },
+    {
+      "vector_id": "parse.reject.non-finite",
+      "contract": "SerializationProfile",
+      "version": "0.1.0",
+      "input": "{\"value\":NaN}",
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "MALFORMED_INPUT",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "NaN is not admitted by the profile."
+    },
+    {
+      "vector_id": "parse.reject.unsafe-integer",
+      "contract": "SerializationProfile",
+      "version": "0.1.0",
+      "input": {"value": 9007199254740992},
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "MALFORMED_INPUT",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "Integers outside the safe profile range are rejected."
+    },
+    {
+      "vector_id": "parse.reject.unpaired-surrogate",
+      "contract": "SerializationProfile",
+      "version": "0.1.0",
+      "input": "{\"value\":\"\\ud800\"}",
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "MALFORMED_INPUT",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "Unpaired Unicode surrogates are rejected before serialization."
+    },
+    {
+      "vector_id": "timestamp.accept.utc-micros",
+      "contract": "Timestamp",
+      "version": "0.1.0",
+      "input": "2026-08-14T12:34:56.123456Z",
+      "expected_acceptance": true,
+      "expected_output": "2026-08-14T12:34:56.123456Z",
+      "expected_error_code": null,
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "Strict UTC timestamp with six fractional digits."
+    },
+    {
+      "vector_id": "timestamp.reject.local-offset",
+      "contract": "Timestamp",
+      "version": "0.1.0",
+      "input": "2026-08-14T20:34:56.123456+08:00",
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "MALFORMED_INPUT",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "The candidate profile requires UTC Z form."
+    },
+    {
+      "vector_id": "version.reject.unknown",
+      "contract": "Version",
+      "version": "0.2.0",
+      "input": "0.2.0",
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "UNSUPPORTED_VERSION",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "An incompatible version must not be silently reinterpreted."
+    },
+    {
+      "vector_id": "error-envelope.accept.authority-denied",
+      "contract": "ErrorEnvelope",
+      "version": "0.1.0",
+      "input": {
+        "schema_version": "0.1.0",
+        "error_code": "AUTHORITY_DENIED",
+        "category": "AUTHORITY_DENIED",
+        "retryable": false,
+        "state_mutated": false,
+        "canonical_effect": "NONE",
+        "message": "canonical effect is not admitted",
+        "details": {"requested": "WRITE"}
+      },
+      "expected_acceptance": true,
+      "expected_output": {
+        "schema_version": "0.1.0",
+        "error_code": "AUTHORITY_DENIED",
+        "category": "AUTHORITY_DENIED",
+        "retryable": false,
+        "state_mutated": false,
+        "canonical_effect": "NONE",
+        "message": "canonical effect is not admitted",
+        "details": {"requested": "WRITE"}
+      },
+      "expected_error_code": null,
+      "expected_state": null,
+      "expected_canonical_serialization": "{\"canonical_effect\":\"NONE\",\"category\":\"AUTHORITY_DENIED\",\"details\":{\"requested\":\"WRITE\"},\"error_code\":\"AUTHORITY_DENIED\",\"message\":\"canonical effect is not admitted\",\"retryable\":false,\"schema_version\":\"0.1.0\",\"state_mutated\":false}",
+      "expected_hash": "95a07426b845402ededaecdb8834be541187fab70d1c32f1c2a6fdb25c4e2667",
+      "notes": "Human-readable message may vary across implementations; code and semantic outcome must not."
+    },
+    {
+      "vector_id": "error-envelope.reject.unknown-field",
+      "contract": "ErrorEnvelope",
+      "version": "0.1.0",
+      "input": {
+        "schema_version": "0.1.0",
+        "error_code": "MALFORMED_INPUT",
+        "category": "MALFORMED_INPUT",
+        "retryable": false,
+        "state_mutated": false,
+        "canonical_effect": "NONE",
+        "message": "bad input",
+        "details": {},
+        "authority": "OWNER"
+      },
+      "expected_acceptance": false,
+      "expected_output": null,
+      "expected_error_code": "UNKNOWN_FIELD",
+      "expected_state": null,
+      "expected_canonical_serialization": null,
+      "expected_hash": null,
+      "notes": "Unknown authority fields fail closed and do not grant authorization."
+    }
+  ]
+}

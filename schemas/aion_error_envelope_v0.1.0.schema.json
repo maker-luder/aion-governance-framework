@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/aion_error_envelope_v0.1.0.schema.json",
+  "title": "AION Error Envelope v0.1.0",
+  "description": "Language-neutral admission error semantics. Native exception and result types remain implementation details.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "error_code",
+    "category",
+    "retryable",
+    "state_mutated",
+    "canonical_effect",
+    "message",
+    "details"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "error_code": {"type": "string", "minLength": 1, "maxLength": 128},
+    "category": {
+      "enum": [
+        "MALFORMED_INPUT",
+        "UNKNOWN_FIELD",
+        "UNSUPPORTED_VERSION",
+        "IDENTITY_MISMATCH",
+        "AUTHORITY_DENIED",
+        "INVALID_TRANSITION",
+        "CONFLICT",
+        "PERSISTENCE_FAILURE",
+        "INTEGRITY_FAILURE"
+      ]
+    },
+    "retryable": {"type": "boolean"},
+    "state_mutated": {"type": "boolean"},
+    "canonical_effect": {"const": "NONE"},
+    "message": {"type": "string", "minLength": 1},
+    "details": {"type": "object"}
+  }
+}
