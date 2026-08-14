@@ -2006,42 +2006,116 @@
       "title_as_recorded": "Dehaene, S., Lau, H., & Kouider, S. (2017), “What Is Consciousness, and Could Machines Have It?” Science 358(6362):486–492.",
       "identifier_as_recorded": "DOI 10.1126/science.aan8871.",
       "access_evidence": "publisher 顯示 full access page。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_REVIEW_MACHINE_CONSCIOUSNESS_COMPUTATIONAL_FRAMEWORK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "區分 global availability/report（C1）與 self-monitoring/metacognition（C2）， 並提出 machine comparison 需機制層分析。",
       "does_not_support_as_recorded": "C1/C2 是所有 consciousness 理論的充分條件，或現有 AI 已通過。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_AS_THEORY_MECHANISM_GUARD",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "CONSCIOUSNESS_GLOBAL_BROADCAST_AND_SELF_MONITORING",
+        "EVIDENCE_RELATION_TO_AI": "THEORY_MECHANISM_GUARD_ONLY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SLSH_ROLE": "THEORY_MECHANISM_GUARD",
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "SEMANTIC_GUARDS": [
+          "GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED",
+          "SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED",
+          "ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 11 source-kind/domain/support/guard-boundary review; theory-mechanism, theory-derived indicator, and adversarial falsification method scopes only.",
+          "HUMAN_OWNER_APPROVAL": "Batch 11 S51-S53 accepted; S51 theory-mechanism guard; S52 theory-derived indicator method framework; S53 cross-domain adversarial/falsification method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "ACTIVE_SLSH_LOAD_MECHANISM_EVIDENTIARY_ROLE": "NONE"
+      }
     },
     {
       "id": "S52",
       "title_as_recorded": "Butlin, P. et al. (2023), “Consciousness in Artificial Intelligence: Insights from the Science of Consciousness.”",
       "identifier_as_recorded": "arXiv:2308.08708; DOI 10.48550/arXiv.2308.08708.",
       "access_evidence": "arXiv open report；非單一 primary experiment。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "MULTIAUTHOR_INTERDISCIPLINARY_AI_CONSCIOUSNESS_RESEARCH_REPORT",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "從多種 neuroscientific theories 導出 computational indicator properties， 採 theory-heavy、非單一分數的 AI 評估；報告對當時系統不作 positive conclusion。",
       "does_not_support_as_recorded": "indicator 命中就是 consciousness；也未建立 load sensitivity 指標。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE_AS_METHOD_FRAMEWORK",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "AI_CONSCIOUSNESS_THEORY_DERIVED_INDICATOR_ASSESSMENT",
+        "EVIDENCE_RELATION_TO_AI": "THEORY_DERIVED_INDICATOR_METHOD_FRAMEWORK",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SLSH_ROLE": "INDICATOR_ASSESSMENT_METHOD_FRAMEWORK",
+        "ACTIVE_EVIDENTIARY_ROLE": "INDICATOR_ASSESSMENT_METHOD_FRAMEWORK",
+        "SEMANTIC_GUARDS": [
+          "INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED",
+          "CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 11 source-kind/domain/support/guard-boundary review; theory-mechanism, theory-derived indicator, and adversarial falsification method scopes only.",
+          "HUMAN_OWNER_APPROVAL": "Batch 11 S51-S53 accepted; S51 theory-mechanism guard; S52 theory-derived indicator method framework; S53 cross-domain adversarial/falsification method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "DIRECT_SLSH_LOAD_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_ESTABLISHMENT": "NONE"
+      }
     },
     {
       "id": "S53",
       "title_as_recorded": "Cogitate Consortium, Ferrante, O. et al. (2025), “Adversarial Testing of Global Neuronal Workspace and Integrated Information Theories of Consciousness,” Nature 642:133–142.",
       "identifier_as_recorded": "DOI 10.1038/s41586-025-08888-1.",
       "access_evidence": "open access full article；preregistered adversarial collaboration。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PEER_REVIEWED_PREREGISTERED_ADVERSARIAL_CONSCIOUSNESS_EXPERIMENT",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "直接對比理論預測能同時支持部分結果並挑戰兩理論的關鍵主張；意識科學 需要量化、對抗式、預註冊測試。",
       "does_not_support_as_recorded": "GNWT/IIT 任一已被總體否定，或其人類神經預測可直接套入 AI。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "HUMAN_CONSCIOUSNESS_THEORY_ADVERSARIAL_TESTING",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SLSH_ROLE": "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER",
+        "ACTIVE_EVIDENTIARY_ROLE": "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER",
+        "SEMANTIC_GUARDS": [],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Batch 11 source-kind/domain/support/guard-boundary review; theory-mechanism, theory-derived indicator, and adversarial falsification method scopes only.",
+          "HUMAN_OWNER_APPROVAL": "Batch 11 S51-S53 accepted; S51 theory-mechanism guard; S52 theory-derived indicator method framework; S53 cross-domain adversarial/falsification method guard.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "DIRECT_SLSH_LOAD_EVIDENCE": "NONE"
+      }
     }
   ],
   "access_level_policy": {
@@ -2055,5 +2129,6 @@
     "independent_verification_status": "All 53 records remain NOT_YET_VERIFIED until independent item-by-item review occurs."
   },
   "no_automatic_upgrade": true,
-  "no_subjectivity_conclusion": true
+  "no_subjectivity_conclusion": true,
+  "source_materialization_status": "53_SOURCE_MATERIALIZATION_COMPLETE"
 }

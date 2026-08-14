@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "research-workbench" / "subjective-load-sensitivity-hypothesis-2026-08-14"
-PREVIOUS = "99f3e68ed57f88977dfd499ce42617e08e4e43c7"
+PREVIOUS = "9c62b220a87d5586bee409e731c8bda8c35baa70"
 RAW_FIELDS = ("title_as_recorded", "identifier_as_recorded", "access_evidence", "supports_as_recorded", "does_not_support_as_recorded")
 
 
@@ -47,6 +47,8 @@ def main() -> None:
     expected_batch09_domains = {"S41":"LLM_SYCOPHANCY_RLHF_PREFERENCE_MODELING","S42":"LLM_MODEL_WRITTEN_EVALUATION_BEHAVIOR_DISCOVERY","S43":"LLM_SAFETY_REFUSAL_OVERREFUSAL_EVALUATION","S44":"LLM_ANTHROPOMORPHISM_AND_MENTALISTIC_LANGUAGE","S45":"COGNITIVE_NEUROSCIENCE_REVERSE_INFERENCE"}
     expected_batch10_kinds = {"S46":"PEER_REVIEWED_EMPIRICAL_CAUSAL_MEDIATION_NLP_INTERPRETABILITY_STUDY","S47":"PEER_REVIEWED_EMPIRICAL_LLM_CAUSAL_TRACING_MODEL_EDITING_STUDY","S48":"PEER_REVIEWED_EMPIRICAL_NEURAL_CAUSAL_ABSTRACTION_STUDY","S49":"FOUNDATIONAL_CAUSAL_INFERENCE_MONOGRAPH","S50":"PEER_REVIEWED_REVIEW_CONSCIOUSNESS_THEORY_COMPARISON"}
     expected_batch10_domains = {"S46":"NEURAL_NLP_CAUSAL_MEDIATION_GENDER_BIAS","S47":"LLM_FACTUAL_ASSOCIATION_CAUSAL_TRACING_MODEL_EDITING","S48":"NEURAL_NETWORK_CAUSAL_ABSTRACTION_INTERCHANGE_INTERVENTION","S49":"STRUCTURAL_CAUSAL_MODELS_INTERVENTIONS_COUNTERFACTUALS","S50":"CONSCIOUSNESS_THEORY_COMPARATIVE_NEUROSCIENCE"}
+    expected_batch11_kinds = {"S51":"PEER_REVIEWED_REVIEW_MACHINE_CONSCIOUSNESS_COMPUTATIONAL_FRAMEWORK","S52":"MULTIAUTHOR_INTERDISCIPLINARY_AI_CONSCIOUSNESS_RESEARCH_REPORT","S53":"PEER_REVIEWED_PREREGISTERED_ADVERSARIAL_CONSCIOUSNESS_EXPERIMENT"}
+    expected_batch11_domains = {"S51":"CONSCIOUSNESS_GLOBAL_BROADCAST_AND_SELF_MONITORING","S52":"AI_CONSCIOUSNESS_THEORY_DERIVED_INDICATOR_ASSESSMENT","S53":"HUMAN_CONSCIOUSNESS_THEORY_ADVERSARIAL_TESTING"}
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -92,12 +94,28 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch09_kinds[source_id]
         elif source_id in expected_batch10_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch10_kinds[source_id]
+        elif source_id in expected_batch11_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch11_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch11_kinds:
+            audit = current_rows[source_id].get("source_audit", {})
+            assert current_rows[source_id]["source_kind"] == expected_batch11_kinds[source_id]
+            assert audit["SOURCE_DOMAIN"] == expected_batch11_domains[source_id]
+            assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == "NONE"
+            assert audit["DISPOSITION"] in {"ADMIT_AS_THEORY_MECHANISM_GUARD","ADMIT_HIGH_RELEVANCE_AS_METHOD_FRAMEWORK","ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD"}
+            if source_id == "S51":
+                assert audit["SEMANTIC_GUARDS"] == ["GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED","SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED","ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"]
+                assert audit["ACTIVE_SLSH_LOAD_MECHANISM_EVIDENTIARY_ROLE"] == "NONE"
+            elif source_id == "S52":
+                assert audit["SEMANTIC_GUARDS"] == ["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"]
+                assert audit["DIRECT_SLSH_LOAD_EVIDENCE"] == "NONE" and audit["DIRECT_AI_SUBJECTIVITY_ESTABLISHMENT"] == "NONE"
+            else:
+                assert audit["SEMANTIC_GUARDS"] == [] and audit["DIRECT_SLSH_LOAD_EVIDENCE"] == "NONE"
         elif source_id in expected_batch10_kinds:
             audit = current_rows[source_id].get("source_audit", {})
             assert current_rows[source_id]["source_kind"] == expected_batch10_kinds[source_id]
@@ -234,7 +252,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01-10 preservation PASS: 53 raw source records unchanged; S01-S50 audit records preserved and exact; S51-S53 remain unclassified and unaudited; S38-S42 governance isolated")
+    print("SLSH Batch 01-11 preservation PASS: 53 raw source records unchanged; S01-S53 audit records preserved and exact; 53_SOURCE_MATERIALIZATION_COMPLETE; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":
