@@ -99,6 +99,41 @@ def test_recovery_denies_tampered_event_lineage(tmp_path):
         store.recover()
 
 
+@pytest.mark.parametrize("payload_json", ["not-json", "[]"])
+def test_malformed_event_payload_fails_closed(tmp_path, payload_json):
+    db = tmp_path / "state.sqlite3"
+    store = IndividualRuntimeStateStore(db, context())
+    store.append_event("runtime.started", {"reason": "initial"})
+    with sqlite3.connect(db) as connection:
+        connection.execute(
+            "UPDATE runtime_events SET payload_json = ? WHERE event_lineage_id = ? AND sequence = 1",
+            (payload_json, context().event_lineage_id),
+        )
+
+    with pytest.raises(RuntimeStateError, match="runtime event payload"):
+        store.events()
+    assert store.verify() is False
+    with pytest.raises(RuntimeStateError, match="recovery denied"):
+        store.recover()
+
+
+def test_malformed_event_text_column_fails_closed(tmp_path):
+    db = tmp_path / "state.sqlite3"
+    store = IndividualRuntimeStateStore(db, context())
+    store.append_event("runtime.started")
+    with sqlite3.connect(db) as connection:
+        connection.execute(
+            "UPDATE runtime_events SET event_hash = '' WHERE event_lineage_id = ? AND sequence = 1",
+            (context().event_lineage_id,),
+        )
+
+    with pytest.raises(RuntimeStateError, match="event column: event_hash"):
+        store.events()
+    assert store.verify() is False
+    with pytest.raises(RuntimeStateError, match="recovery denied"):
+        store.recover()
+
+
 def test_recovery_and_rollback_deny_tampered_checkpoint_reference(tmp_path):
     db = tmp_path / "state.sqlite3"
     store = IndividualRuntimeStateStore(db, context())

@@ -82,6 +82,32 @@ def _hash(value: Any) -> str:
     return hashlib.sha256(_canonical(value).encode("utf-8")).hexdigest()
 
 
+def _row_text(row: sqlite3.Row, column: str) -> str:
+    value = row[column]
+    if not isinstance(value, str) or not value.strip():
+        raise RuntimeStateError(f"malformed runtime event column: {column}")
+    return value
+
+
+def _row_int(row: sqlite3.Row, column: str) -> int:
+    value = row[column]
+    if type(value) is not int or value < 0:
+        raise RuntimeStateError(f"malformed runtime event column: {column}")
+    return value
+
+
+def _decode_payload(raw: object) -> dict[str, Any]:
+    if not isinstance(raw, str):
+        raise RuntimeStateError("malformed runtime event payload encoding")
+    try:
+        payload = json.loads(raw)
+    except (TypeError, json.JSONDecodeError) as exc:
+        raise RuntimeStateError("malformed runtime event payload JSON") from exc
+    if not isinstance(payload, dict):
+        raise RuntimeStateError("runtime event payload must be a JSON object")
+    return payload
+
+
 class IndividualRuntimeStateStore:
     """Append-only state store bound to one individual runtime context.
 
@@ -244,31 +270,44 @@ class IndividualRuntimeStateStore:
             ).fetchall()
         result: list[RuntimeEvent] = []
         for row in rows:
-            context = IndividualRuntimeContext(
-                agent_id=str(row["agent_id"]),
-                runtime_instance_id=str(row["runtime_instance_id"]),
-                memory_stream_id=str(row["memory_stream_id"]),
-                event_lineage_id=str(row["event_lineage_id"]),
-                canonical_state_reference=str(row["canonical_state_reference"]),
-                genesis_root_id=str(row["genesis_root_id"]),
-            )
-            result.append(
-                RuntimeEvent(
-                    sequence=int(row["sequence"]),
-                    event_type=str(row["event_type"]),
-                    occurred_at=str(row["occurred_at"]),
-                    context=context,
-                    payload=json.loads(str(row["payload_json"])),
-                    previous_hash=str(row["previous_hash"]),
-                    event_hash=str(row["event_hash"]),
+            try:
+                context = IndividualRuntimeContext(
+                    agent_id=_row_text(row, "agent_id"),
+                    runtime_instance_id=_row_text(row, "runtime_instance_id"),
+                    memory_stream_id=_row_text(row, "memory_stream_id"),
+                    event_lineage_id=_row_text(row, "event_lineage_id"),
+                    canonical_state_reference=_row_text(row, "canonical_state_reference"),
+                    genesis_root_id=_row_text(row, "genesis_root_id"),
                 )
-            )
+                context.validate()
+                event_lineage_id = _row_text(row, "event_lineage_id")
+                if event_lineage_id != self.context.event_lineage_id:
+                    raise RuntimeStateError("runtime event lineage does not match the bound context")
+                result.append(
+                    RuntimeEvent(
+                        sequence=_row_int(row, "sequence"),
+                        event_type=_row_text(row, "event_type"),
+                        occurred_at=_row_text(row, "occurred_at"),
+                        context=context,
+                        payload=_decode_payload(row["payload_json"]),
+                        previous_hash=_row_text(row, "previous_hash"),
+                        event_hash=_row_text(row, "event_hash"),
+                    )
+                )
+            except RuntimeStateError:
+                raise
+            except (KeyError, TypeError, ValueError) as exc:
+                raise RuntimeStateError("malformed runtime event row") from exc
         return result
 
     def verify(self) -> bool:
+        try:
+            events = self.events()
+        except RuntimeStateError:
+            return False
         previous_hash = "GENESIS"
         stable = self._stable_identity(self.context)
-        for expected_sequence, event in enumerate(self.events(), start=1):
+        for expected_sequence, event in enumerate(events, start=1):
             if event.sequence != expected_sequence or event.previous_hash != previous_hash:
                 return False
             if self._stable_identity(event.context) != stable:
