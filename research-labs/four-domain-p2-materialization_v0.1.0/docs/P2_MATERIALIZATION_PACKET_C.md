@@ -78,14 +78,22 @@ External sources provide research concepts only. They do not authorize architect
 
 ## 5. Validation
 
-Local isolated validation before publication:
+The original packet record reported the following historical validation at materialization time:
 
 ```text
-13 passed
-python compileall = PASS
+HISTORICAL_REPORTED_TEST_COUNT = 13 passed
+HISTORICAL_COMPILEALL = PASS
 ```
 
-The tests include deterministic replay, fail-closed provenance, stale/conflict exclusion, budget behavior, P1 integration and T3 continuity-boundary checks.
+The current checked-in test surface is smaller and is the source of truth for present replay:
+
+```text
+CURRENT_TEST_FUNCTION_COUNT = 5
+CURRENT_EXPECTED_RESULT = 5 passed
+CURRENT_COMPILEALL = PASS
+```
+
+The five current tests cover deterministic replay, stale/superseded exclusion, fail-closed provenance, explicit budget behavior, P1 correction/temporal/evaluation integration and T3 continuity-boundary checks. The historical count is retained as provenance and is not silently rewritten.
 
 ## 6. Attribution
 

@@ -1,0 +1,130 @@
+{
+  "schema_version": "0.2.0",
+  "claim_id": "AION-P2-PACKET-C-BOUND-001",
+  "claim_level": "L1_REPEATABLE_BEHAVIOR",
+  "claim_text": "Under the declared synthetic fixture and bounded P1/P2 research primitives, the P2 assembler is designed to select eligible current records, exclude superseded or provenance-failed records, and emit deterministic trace evidence without runtime or canonical side effects.",
+  "hypothesis": "Explicit subject/namespace, temporal, correction, provenance and budget gates will produce a replayable bounded context manifest under the P2 synthetic fixture.",
+  "competing_hypotheses": [
+    "The observed selection is an artifact of a simple synthetic fixture and does not generalize.",
+    "Superseded exclusion is a fixture flag rather than a general correction mechanism.",
+    "The evaluation metrics are properties of the synthetic evaluator rather than the underlying research question.",
+    "Continuity observations are ordinary interpretation-drift checks and do not measure identity continuity."
+  ],
+  "preregistration_status": "NOT_PREREGISTERED",
+  "protocol_ref": "research-labs/four-domain-p2-materialization_v0.1.0/docs/P2_MATERIALIZATION_PACKET_C.md",
+  "protocol_hash": "d39b197d99e51a45a9e7647ee3c5ee65e2050252f835d8dc65a3f93f191e0ede",
+  "code_commit": "858442a3ec2439398d188779f4309397bd4926b2",
+  "model_or_runtime_ref": "MODEL_CALLS=NONE; AION_RUNTIME_V0_2=EXPLICIT_NON_INTEGRATION_BOUNDARY",
+  "environment_ref": "research-labs/four-domain-p2-materialization_v0.1.0/pyproject.toml",
+  "fixture_refs": [
+    "research-labs/four-domain-p2-materialization_v0.1.0/fixtures/p2_synthetic_fixture_a.json",
+    "research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py"
+  ],
+  "evidence_refs": [
+    "docs/research-consolidation/REVIEWER_FACING_VERTICAL_SLICE_P2_PACKET_C_V0.1.0.md",
+    "docs/research-consolidation/P2_PACKET_C_FALSIFIER_MATRIX_V0.1.0.md",
+    "scripts/validate_research_evidence.py"
+  ],
+  "expected_outcomes": [
+    "Identical fixture replay yields identical manifest hash and selected record order.",
+    "Superseded records are excluded with an explicit SUPERSEDED reason.",
+    "Missing provenance fails closed and missing required relations remain HOLD.",
+    "P1 correction and temporal projections feed the P2 evaluation observation.",
+    "T3 continuity output preserves IDENTITY_CONTINUITY=NOT_ESTABLISHED."
+  ],
+  "observed_outcomes": [
+    "Packet C historical materialization reported 13 passed and compileall PASS.",
+    "The current checked-in test surface contains five test functions and requires fresh exact-head replay.",
+    "No formal T2/T3 experiment, real runtime history, independent replication or IVV is present."
+  ],
+  "result_status": "HOLD",
+  "deviations": [
+    "Historical reported test count differs from current five-function test surface; the historical statement is retained and not used as current evidence."
+  ],
+  "limitations": [
+    "Synthetic fixture only; no external benchmark parity.",
+    "No model calls, real provider, persistent memory store or runtime integration.",
+    "No formal T2/T3 experiment or preregistration.",
+    "No independent replication or IVV.",
+    "Namespace mismatch and real runtime-history stress remain HOLD.",
+    "Engineering metrics do not establish identity continuity, subjectivity or consciousness."
+  ],
+  "reviewer_status": "UNREVIEWED",
+  "independent_validation_status": "IVV_NOT_ACHIEVED",
+  "canonical_effect": "NONE",
+  "provenance": {
+    "entities": [
+      "P2 Packet C protocol",
+      "P2 synthetic fixture A",
+      "P1 temporal/correction/evaluation primitives",
+      "P2 retrieval/provenance/orchestration source"
+    ],
+    "activities": [
+      "P2 materialization",
+      "synthetic test replay",
+      "convergence inventory and evidence admission"
+    ],
+    "agents": ["HUMAN_RESEARCH_OWNER", "CHATGPT_RESEARCH_ENGINEERING"],
+    "derived_from": [
+      "research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md",
+      "research-labs/four-domain-p1-materialization_v0.1.0",
+      "research-labs/four-domain-p2-materialization_v0.1.0"
+    ],
+    "attributed_to": ["AION_RESEARCH_BRANCH"],
+    "associated_with": ["review/four-domain-research-materialization@858442a3ec2439398d188779f4309397bd4926b2"]
+  },
+  "evidence_architecture": {
+    "standing_inference_stage_ref": "whitepaper:v0.14.21:AB.6:observation",
+    "dimension_ref": "whitepaper:v0.14.21:AB.6:diachronic-continuity",
+    "alternative_explanation_refs": [
+      "synthetic-fixture-artifact",
+      "hard-coded-exclusion-flag",
+      "synthetic-evaluator-artifact",
+      "interpretation-drift-not-identity"
+    ],
+    "causal_intervention_refs": ["none:synthetic-non-interventional-slice"],
+    "ablation_refs": ["none:synthetic-non-ablation-slice"],
+    "counterfactual_refs": ["docs/research-consolidation/P2_PACKET_C_FALSIFIER_MATRIX_V0.1.0.md#F-P2-001"],
+    "robustness_refs": ["research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py"],
+    "replication_refs": ["none:independent-replication-not-achieved"],
+    "provenance_refs": ["research-labs/four-domain-p2-materialization_v0.1.0/src/aion_four_domain_p2/provenance.py"],
+    "admissibility_ref": "schemas/research_evidence_record_v0.2.0.schema.json",
+    "claim_scope": "Bounded synthetic P2 engineering behavior only; no formal experiment, runtime integration or ontological claim.",
+    "unresolved_gap_refs": [
+      "formal T2/T3 experiment",
+      "real runtime history",
+      "independent replication",
+      "independent IVV",
+      "dedicated namespace stress replay",
+      "full authority semantics"
+    ],
+    "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
+    "inference_stage": "OBSERVATION",
+    "alternative_explanations": [
+      "Synthetic fixture simplicity may explain the observed bounded behavior.",
+      "The correction flag may not generalize beyond the fixture.",
+      "The evaluator may determine the reported metrics.",
+      "Continuity output is an interpretation-boundary observation, not identity evidence."
+    ]
+  },
+  "nonclaims": {
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "consciousness_conclusion": "NOT_ESTABLISHED",
+    "identity_continuity_conclusion": "NOT_ESTABLISHED",
+    "moral_status_conclusion": "NOT_ESTABLISHED",
+    "legal_status_conclusion": "OUT_OF_SCOPE",
+    "main_effect": "NONE",
+    "canonical_effect": "NONE",
+    "live_runtime_effect": "NONE",
+    "runtime_effect": "NONE"
+  },
+  "threat_context": {
+    "lifecycle_stage": "RESEARCH_ONLY / CONSOLIDATION",
+    "goal_or_objective": "Make one existing Packet C slice traceable without promoting it.",
+    "capability": "Deterministic synthetic retrieval/provenance/T2/T3 orchestration.",
+    "knowledge": "External literature is methodological input; Kimi is discovery-only.",
+    "attack_or_confound_class": "stale evidence, hidden authority, fixture overfitting, historical count drift",
+    "mitigation": "fail-closed gates, explicit falsifiers, evidence HOLD, source-of-truth map, exact-head CI",
+    "residual_risk": "No formal experiment, independent replication or IVV."
+  }
+}

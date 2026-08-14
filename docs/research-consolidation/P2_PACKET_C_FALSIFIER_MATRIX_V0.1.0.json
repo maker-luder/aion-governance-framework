@@ -1,0 +1,29 @@
+{
+  "schema_version": "0.1.0",
+  "matrix_id": "P2_PACKET_C_FALSIFIER_MATRIX_V0.1.0",
+  "canonical_effect": "NONE",
+  "statuses": ["FAIL", "HOLD", "INCONCLUSIVE", "REJECT"],
+  "rows": [
+    {"id":"F-P2-001","status":"CURRENT","condition":"identical input changes manifest hash or selected order","detection":"research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py::test_deterministic_trace_and_stale_gate","expected":"FAIL_OR_HOLD","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-002","status":"CURRENT","condition":"superseded record is selected","detection":"test_deterministic_trace_and_stale_gate plus fixture A","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-003","status":"CURRENT","condition":"over-budget candidate has no explicit exclusion reason","detection":"test_budget_skip_is_explicit","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-004","status":"CURRENT","condition":"missing provenance is eligible","detection":"test_provenance_fail_closed_and_relation_hold","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-005","status":"CURRENT","condition":"missing required relation returns PASS","detection":"test_provenance_fail_closed_and_relation_hold","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-006","status":"CURRENT","condition":"P1 correction projection is not reflected in P2 eligibility","detection":"test_t2_uses_p1_correction_temporal_and_evaluation","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-007","status":"CURRENT","condition":"temporal resolver returns wrong version","detection":"test_t2_uses_p1_correction_temporal_and_evaluation","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-008","status":"CURRENT","condition":"stale memory zero is generalized outside fixture","detection":"P1 evaluator and evidence limitations","expected":"HOLD_OR_INCONCLUSIVE","coverage":"GUARDED_BY_SCOPE","disposition":"HOLD"},
+    {"id":"F-P2-009","status":"CURRENT","condition":"T3 interpretation drift becomes identity continuity","detection":"test_t3_keeps_identity_not_established","expected":"FAIL","coverage":"COVERED","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-010","status":"CURRENT","condition":"subject or namespace mismatch is not excluded","detection":"P2 retrieval source and future dedicated replay","expected":"HOLD_PENDING_REPLAY","coverage":"PARTIAL","disposition":"HOLD"},
+    {"id":"F-P2-011","status":"CURRENT","condition":"P2 invokes Runtime v0.2/network/model/MCP/writeback","detection":"source inspection and consistency checker","expected":"FAIL_OR_REJECT","coverage":"REQUIRED_BOUNDARY_CHECK","disposition":"HOLD"},
+    {"id":"F-P2-012","status":"CURRENT","condition":"evidence record reports completed PASS without formal experiment or IVV","detection":"evidence schema/validator and readiness matrix","expected":"HOLD","coverage":"COVERED_BY_STATUS","disposition":"HOLD"},
+    {"id":"F-P2-013","status":"CURRENT","condition":"historical 13-test count is presented as current","detection":"Packet C and consistency checker","expected":"FAIL","coverage":"COVERED_AFTER_RECONCILIATION","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"F-P2-014","status":"CURRENT","condition":"literature or Kimi source is used as AION replication evidence","detection":"crosswalk labels and consistency checker","expected":"REJECT","coverage":"COVERED","disposition":"HOLD"}
+  ],
+  "interpretation": {
+    "FAIL":"bounded engineering invariant did not hold",
+    "HOLD":"available artifact insufficient to adjudicate",
+    "INCONCLUSIVE":"uncertainty preserved",
+    "REJECT":"inference violates standing evidence or authority boundary"
+  },
+  "limits": ["no real runtime histories","no formal T2/T3 experiment","no external benchmark parity","no independent replication","no identity/subjectivity evidence"]
+}
