@@ -1,0 +1,32 @@
+{
+  "schema_version": "0.1.0",
+  "packet_id": "AION_CSOMI_PACKET_V0.1.0",
+  "milestone": "Cross-Substrate Other-Minds Inference",
+  "branch": "research/cross-substrate-other-minds-inference-20260814",
+  "base_head": "858442a3ec2439398d188779f4309397bd4926b2",
+  "vertical_slice": {
+    "id": "VS-001",
+    "title": "False-belief capability record -> controls -> disanalogy -> falsifier -> nonclaim disposition",
+    "claim_id": "CLM-002",
+    "input_fixture": "fixtures/csomi_positive_negative_controls_v0.1.0.json",
+    "evidence_rows": [
+      "EM-001",
+      "EM-003"
+    ],
+    "disanalogy_rows": [
+      "DA-002",
+      "DA-003"
+    ],
+    "falsifier_rows": [
+      "F-001",
+      "F-002",
+      "F-003",
+      "F-008"
+    ],
+    "expected_disposition": "KEEP_RESEARCH_ONLY",
+    "expected_subjectivity_conclusion": "NOT_ESTABLISHED",
+    "runtime_integration": "NONE",
+    "canonical_effect": "NONE",
+    "review_status": "REVIEWER_FACING_DESIGN_ONLY"
+  }
+}

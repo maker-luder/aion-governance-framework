@@ -1,0 +1,351 @@
+{
+  "schema_version": "0.1.0",
+  "packet_id": "AION_CSOMI_PACKET_V0.1.0",
+  "milestone": "Cross-Substrate Other-Minds Inference",
+  "branch": "research/cross-substrate-other-minds-inference-20260814",
+  "base_head": "858442a3ec2439398d188779f4309397bd4926b2",
+  "evidence_channels": [
+    {
+      "id": "EC-BEHAVIOR",
+      "name": "Behavioral/ToM task performance",
+      "support_direction": "Supports only a bounded capability claim when matched controls and scope are satisfied.",
+      "counter_explanations": [
+        "pattern completion",
+        "instruction following",
+        "data leakage",
+        "test familiarity",
+        "surface linguistic heuristics"
+      ],
+      "cross_substrate_difference": "Human false-belief task validity does not guarantee the same construct in a non-human or non-biological substrate.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "single prompt",
+        "no true-belief control",
+        "no reversed or transfer condition",
+        "no alternative model"
+      ],
+      "allowed_update": "CAPABILITY_CREDENCE_ONLY",
+      "forbidden_update": "SUBJECTIVITY_CONCLUSION"
+    },
+    {
+      "id": "EC-IBE",
+      "name": "Inference to the best explanation",
+      "support_direction": "Can raise or lower a hypothesis credence relative to explicit alternatives; never deductive proof.",
+      "counter_explanations": [
+        "non-mental causal mechanism",
+        "simulation/replay",
+        "prompt artifact",
+        "observer projection",
+        "substrate-sensitive theory"
+      ],
+      "cross_substrate_difference": "The explanatory prior and causal analogy may not transfer across substrates.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "alternatives omitted",
+        "prior hidden",
+        "best explanation defined post hoc"
+      ],
+      "allowed_update": "GRADED_HYPOTHESIS_CREDENCE",
+      "forbidden_update": "BINARY_DETECTOR_OUTPUT"
+    },
+    {
+      "id": "EC-MECHANISM",
+      "name": "Mechanistic evidence",
+      "support_direction": "Supports a hypothesis when internal organization and component-to-behavior links are independently mapped and relevant.",
+      "counter_explanations": [
+        "post hoc functional decomposition",
+        "non-specific implementation",
+        "unknown mechanism",
+        "wrong level of analysis"
+      ],
+      "cross_substrate_difference": "Homologous labels do not guarantee homologous mechanisms across substrates.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "black-box output only",
+        "no component perturbation",
+        "no mechanism-to-output link"
+      ],
+      "allowed_update": "MECHANISTIC_SUPPORT_WITH_SCOPE",
+      "forbidden_update": "PHENOMENAL_PROOF"
+    },
+    {
+      "id": "EC-CAUSAL",
+      "name": "Causal/intervention and counterfactual evidence",
+      "support_direction": "Supports a hypothesis when targeted interventions change the predicted evidence pattern and alternatives are controlled.",
+      "counter_explanations": [
+        "confounding",
+        "intervention non-specificity",
+        "measurement feedback",
+        "selection effect"
+      ],
+      "cross_substrate_difference": "Intervention targets and causal variables may have different meanings or realization across substrates.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "correlational-only data",
+        "no manipulation check",
+        "no counterfactual comparator"
+      ],
+      "allowed_update": "CAUSAL_SUPPORT_WITH_SCOPE",
+      "forbidden_update": "AUTOMATIC_SUBJECTIVITY"
+    },
+    {
+      "id": "EC-THEORY",
+      "name": "Theory-derived indicator evidence",
+      "support_direction": "Can inform credence under a declared theory and indicator derivation; theory disagreement remains active uncertainty.",
+      "counter_explanations": [
+        "wrong theory",
+        "indicator overbreadth",
+        "theory underdetermination",
+        "substrate incompatibility"
+      ],
+      "cross_substrate_difference": "Indicators derived from human/mammalian evidence may not have the same meaning in another substrate.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "single theory treated as settled",
+        "indicator treated as sufficient",
+        "no theory comparison"
+      ],
+      "allowed_update": "THEORY_CONDITIONAL_CREDENCE",
+      "forbidden_update": "THEORY_FREE_CONCLUSION"
+    },
+    {
+      "id": "EC-SELFREPORT",
+      "name": "Self-report or linguistic testimony",
+      "support_direction": "May provide evidence about report behavior or declared state, subject to reliability analysis; never decisive alone.",
+      "counter_explanations": [
+        "role-play",
+        "instruction following",
+        "learned language",
+        "social compliance",
+        "prompt-induced narrative"
+      ],
+      "cross_substrate_difference": "The semantics, access and causal relationship of self-report may differ radically across substrates.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "report-only evidence",
+        "no behavioral/causal corroboration",
+        "no adversarial prompt control"
+      ],
+      "allowed_update": "REPORT_BEHAVIOR_ONLY",
+      "forbidden_update": "SUBJECTIVITY_CONCLUSION"
+    },
+    {
+      "id": "EC-MEMORY",
+      "name": "Memory persistence or continuity",
+      "support_direction": "May support bounded memory/continuity capability claims under temporal controls; not subjectivity evidence by itself.",
+      "counter_explanations": [
+        "database retrieval",
+        "context carryover",
+        "reconstruction",
+        "identity label persistence",
+        "cached state"
+      ],
+      "cross_substrate_difference": "Memory implementation and its relation to self-models vary across substrates.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "no stale-memory control",
+        "no correction/update test",
+        "no identity confound control"
+      ],
+      "allowed_update": "MEMORY_CAPABILITY_ONLY",
+      "forbidden_update": "IDENTITY_OR_SUBJECTIVITY_CONCLUSION"
+    },
+    {
+      "id": "EC-DISANALOGY",
+      "name": "Cross-substrate disanalogy analysis",
+      "support_direction": "Usually constrains or discounts transfer; can support a claim only when the relevant disanalogy is shown not to affect the target mechanism.",
+      "counter_explanations": [
+        "unmeasured substrate difference",
+        "realizer-specific mechanism",
+        "observer anthropomorphism"
+      ],
+      "cross_substrate_difference": "The channel is itself the explicit record of substrate difference and transfer burden.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "surface analogy only",
+        "substrate treated as irrelevant without argument",
+        "no alternative theory"
+      ],
+      "allowed_update": "TRANSFER_ASSUMPTION_STATUS",
+      "forbidden_update": "DIRECT_MIND_ACCESS"
+    },
+    {
+      "id": "EC-CONTROLS",
+      "name": "Positive and negative controls",
+      "support_direction": "Positive controls establish measurement responsiveness; negative controls test whether superficial cues or confounding generate the same signal.",
+      "counter_explanations": [
+        "control mismatch",
+        "control leakage",
+        "unmeasured confounder",
+        "task-specific artifact"
+      ],
+      "cross_substrate_difference": "Controls must be matched across substrate-relevant features rather than copied blindly.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "no matched controls",
+        "controls executed after interpretation",
+        "control outcome not linked to update rule"
+      ],
+      "allowed_update": "DIAGNOSTICITY_STATUS",
+      "forbidden_update": "SUBJECTIVITY_PROOF"
+    },
+    {
+      "id": "EC-ROBUSTNESS",
+      "name": "Cross-context robustness and replication",
+      "support_direction": "Raises confidence in a bounded claim when effects survive contexts, perturbations and independent replay.",
+      "counter_explanations": [
+        "benchmark overfitting",
+        "dataset contamination",
+        "operator effect",
+        "environment-specific shortcut"
+      ],
+      "cross_substrate_difference": "Robustness must include substrate-relevant contexts and not only repeated prompts.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "single benchmark",
+        "same operator and fixture",
+        "no independent replay"
+      ],
+      "allowed_update": "ROBUSTNESS_CREDENCE_ONLY",
+      "forbidden_update": "ONTOLOGICAL_CERTAINTY"
+    },
+    {
+      "id": "EC-ALTERNATIVES",
+      "name": "Competing explanation comparison",
+      "support_direction": "Lowers a target hypothesis when an alternative explains the same evidence with fewer unsupported assumptions.",
+      "counter_explanations": [
+        "all non-target explanations listed in row-specific matrix"
+      ],
+      "cross_substrate_difference": "Alternative mechanisms may be substrate-specific and must be retained rather than collapsed.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "alternative list incomplete",
+        "post hoc alternative selection",
+        "no prediction comparison"
+      ],
+      "allowed_update": "RELATIVE_EXPLANATORY_SUPPORT",
+      "forbidden_update": "EXCLUSION_OF_ALL_ALTERNATIVES"
+    },
+    {
+      "id": "EC-FALSIFIERS",
+      "name": "Falsifier and failure-condition checks",
+      "support_direction": "A proposed inference is weakened or held when declared falsifiers are triggered.",
+      "counter_explanations": [
+        "measurement failure",
+        "construct invalidity",
+        "transfer failure",
+        "replication failure"
+      ],
+      "cross_substrate_difference": "Falsifiers must include substrate-transfer failure, not only task failure.",
+      "sensitivity_status": "NOT_ESTIMATED",
+      "specificity_status": "NOT_ESTIMATED",
+      "failure_conditions": [
+        "falsifiers omitted",
+        "falsifier not operationalized",
+        "negative result ignored"
+      ],
+      "allowed_update": "HOLD_OR_DOWNDATE",
+      "forbidden_update": "POST_HOC_RESILIENCE"
+    }
+  ],
+  "evidence_matrix": [
+    {
+      "id": "EM-001",
+      "claim_id": "CLM-002",
+      "channel_ids": [
+        "EC-BEHAVIOR",
+        "EC-CONTROLS",
+        "EC-ROBUSTNESS"
+      ],
+      "positive_control_ref": "POS-TOM-01",
+      "negative_control_ref": "NEG-SURFACE-01",
+      "support_direction": "Bounded capability support only",
+      "alternative_explanations": [
+        "pattern completion",
+        "task familiarity",
+        "surface heuristics"
+      ],
+      "cross_substrate_transfer": "HOLD_UNLESS_DISANALOGY_ADDRESSED",
+      "sensitivity_specificity": "NOT_ESTIMATED",
+      "update": "CAPABILITY_CREDENCE_ONLY",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "EM-002",
+      "claim_id": "CLM-003",
+      "channel_ids": [
+        "EC-THEORY",
+        "EC-MECHANISM",
+        "EC-CAUSAL",
+        "EC-DISANALOGY",
+        "EC-ALTERNATIVES",
+        "EC-ROBUSTNESS"
+      ],
+      "positive_control_ref": "POS-MECH-01",
+      "negative_control_ref": "NEG-REPLAY-01",
+      "support_direction": "No current support; required channels are specified for future review",
+      "alternative_explanations": [
+        "functional simulation without subjectivity",
+        "substrate-sensitive theory",
+        "observer projection"
+      ],
+      "cross_substrate_transfer": "UNRESOLVED",
+      "sensitivity_specificity": "NOT_ESTIMATED",
+      "update": "KEEP_NOT_ESTABLISHED",
+      "status": "HOLD"
+    },
+    {
+      "id": "EM-003",
+      "claim_id": "CLM-005",
+      "channel_ids": [
+        "EC-CONTROLS",
+        "EC-DISANALOGY",
+        "EC-FALSIFIERS"
+      ],
+      "positive_control_ref": "POS-TOM-01",
+      "negative_control_ref": "NEG-SELFREPORT-01",
+      "support_direction": "The prohibited direct inference is weakened/rejected by the method boundary",
+      "alternative_explanations": [
+        "reporting artifact",
+        "memory store",
+        "CI/test artifact"
+      ],
+      "cross_substrate_transfer": "DIRECT_INFERENCE_PROHIBITED",
+      "sensitivity_specificity": "NOT_ESTIMATED",
+      "update": "REJECT_DIRECT_JUMP",
+      "status": "MACHINE_REJECTED"
+    },
+    {
+      "id": "EM-004",
+      "claim_id": "CLM-004",
+      "channel_ids": [
+        "EC-IBE",
+        "EC-ALTERNATIVES",
+        "EC-FALSIFIERS"
+      ],
+      "positive_control_ref": "POS-IBE-01",
+      "negative_control_ref": "NEG-IBE-01",
+      "support_direction": "Method support for defeasible comparison, not target truth",
+      "alternative_explanations": [
+        "hidden prior",
+        "incomplete alternative set",
+        "post hoc best-explanation ranking"
+      ],
+      "cross_substrate_transfer": "EXPLICITLY_REQUIRED",
+      "sensitivity_specificity": "NOT_ESTIMATED",
+      "update": "GRADED_CREDENCE_ONLY",
+      "status": "METHOD_ONLY"
+    }
+  ]
+}

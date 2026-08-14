@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:schemas:csomi-packet:v0.1.0",
+  "title": "AION Cross-Substrate Other-Minds Inference Packet v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "packet_id", "milestone", "branch", "base_ref", "base_head", "source_of_truth", "canonical_effect", "deployment", "subjectivity_conclusion", "consciousness_conclusion", "identity_continuity_conclusion", "positioning_rule", "human_owner_direction", "chatgpt_architecture_refinement", "framework", "sources", "claim_records", "evidence_channels", "evidence_matrix", "disanalogy_matrix", "falsifier_matrix", "vertical_slice", "owner_decision_required"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "packet_id": {"const": "AION_CSOMI_PACKET_V0.1.0"},
+    "milestone": {"const": "Cross-Substrate Other-Minds Inference"},
+    "branch": {"const": "research/cross-substrate-other-minds-inference-20260814"},
+    "base_ref": {"const": "review/four-domain-research-materialization"},
+    "base_head": {"const": "858442a3ec2439398d188779f4309397bd4926b2"},
+    "source_of_truth": {"type": "string", "minLength": 1},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false},
+    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+    "consciousness_conclusion": {"const": "NOT_ESTABLISHED"},
+    "identity_continuity_conclusion": {"const": "NOT_ESTABLISHED"},
+    "positioning_rule": {"const": "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION"},
+    "human_owner_direction": {"type": "string", "minLength": 1},
+    "chatgpt_architecture_refinement": {"type": "string", "minLength": 1},
+    "framework": {"$ref": "#/$defs/framework"},
+    "sources": {"type": "array", "minItems": 10, "uniqueItems": true, "items": {"$ref": "#/$defs/source"}},
+    "claim_records": {"type": "array", "minItems": 6, "uniqueItems": true, "items": {"$ref": "#/$defs/claim"}},
+    "evidence_channels": {"type": "array", "minItems": 11, "uniqueItems": true, "items": {"$ref": "#/$defs/channel"}},
+    "evidence_matrix": {"type": "array", "minItems": 4, "uniqueItems": true, "items": {"$ref": "#/$defs/evidence"}},
+    "disanalogy_matrix": {"type": "array", "minItems": 5, "uniqueItems": true, "items": {"$ref": "#/$defs/disanalogy"}},
+    "falsifier_matrix": {"type": "array", "minItems": 8, "uniqueItems": true, "items": {"$ref": "#/$defs/falsifier"}},
+    "vertical_slice": {"$ref": "#/$defs/verticalSlice"},
+    "owner_decision_required": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "framework": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inference_target", "epistemic_form", "not_a_detector", "not_runtime_authority", "stages", "update_policy"],
+      "properties": {
+        "inference_target": {"const": "MIND_LIKE_STATE_OR_SUBJECTIVITY_HYPOTHESIS"},
+        "epistemic_form": {"const": "DEFEASIBLE_GRADED_CREDENCE_UPDATE"},
+        "not_a_detector": {"const": true},
+        "not_runtime_authority": {"const": true},
+        "stages": {"type": "array", "minItems": 10, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "update_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["minimum_for_bounded_capability_update", "minimum_for_scientific_conclusion_review", "automatic_subjectivity_inference", "single_indicator_inference", "self_report_inference", "memory_persistence_inference", "test_or_ci_pass_inference"],
+          "properties": {
+            "minimum_for_bounded_capability_update": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "minimum_for_scientific_conclusion_review": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "automatic_subjectivity_inference": {"const": "PROHIBITED"},
+            "single_indicator_inference": {"const": "PROHIBITED"},
+            "self_report_inference": {"const": "PROHIBITED"},
+            "memory_persistence_inference": {"const": "PROHIBITED"},
+            "test_or_ci_pass_inference": {"const": "PROHIBITED"}
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "authors", "year", "source_type", "url", "verified_claim", "aion_use"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^SRC-[A-Z0-9-]+$"},
+        "title": {"type": "string", "minLength": 1},
+        "authors": {"type": "string", "minLength": 1},
+        "year": {"type": "integer", "minimum": 1900},
+        "source_type": {"enum": ["PRIMARY_VERIFIED", "AUTHORITATIVE_SECONDARY"]},
+        "url": {"type": "string", "format": "uri"},
+        "verified_claim": {"type": "string", "minLength": 1},
+        "aion_use": {"type": "string", "minLength": 1}
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "type", "claim", "status", "disposition", "subjectivity_conclusion", "required_evidence_channels"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^CLM-[0-9]{3}$"},
+        "type": {"enum": ["RESEARCH_TOPIC", "CAPABILITY", "SCIENTIFIC_CONCLUSION", "METHOD_CLAIM", "NONCLAIM", "TRANSFER_ASSUMPTION"]},
+        "claim": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1},
+        "disposition": {"enum": ["KEEP_RESEARCH_ONLY", "HOLD"]},
+        "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+        "required_evidence_channels": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^EC-[A-Z]+$"}}
+      }
+    },
+    "channel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "support_direction", "counter_explanations", "cross_substrate_difference", "sensitivity_status", "specificity_status", "failure_conditions", "allowed_update", "forbidden_update"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^EC-[A-Z]+$"},
+        "name": {"type": "string", "minLength": 1},
+        "support_direction": {"type": "string", "minLength": 1},
+        "counter_explanations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "cross_substrate_difference": {"type": "string", "minLength": 1},
+        "sensitivity_status": {"enum": ["NOT_ESTIMATED", "ESTIMATED"]},
+        "specificity_status": {"enum": ["NOT_ESTIMATED", "ESTIMATED"]},
+        "failure_conditions": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "allowed_update": {"type": "string", "minLength": 1},
+        "forbidden_update": {"type": "string", "minLength": 1}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "claim_id", "channel_ids", "positive_control_ref", "negative_control_ref", "support_direction", "alternative_explanations", "cross_substrate_transfer", "sensitivity_specificity", "update", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^EM-[0-9]{3}$"},
+        "claim_id": {"type": "string", "pattern": "^CLM-[0-9]{3}$"},
+        "channel_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^EC-[A-Z]+$"}},
+        "positive_control_ref": {"type": "string", "pattern": "^POS-[A-Z0-9-]+$"},
+        "negative_control_ref": {"type": "string", "pattern": "^NEG-[A-Z0-9-]+$"},
+        "support_direction": {"type": "string", "minLength": 1},
+        "alternative_explanations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "cross_substrate_transfer": {"type": "string", "minLength": 1},
+        "sensitivity_specificity": {"type": "string", "minLength": 1},
+        "update": {"type": "string", "minLength": 1},
+        "status": {"type": "string", "minLength": 1}
+      }
+    },
+    "disanalogy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "difference", "risk", "transfer_question", "penalty_or_status", "falsifier_ref"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^DA-[0-9]{3}$"},
+        "difference": {"type": "string", "minLength": 1},
+        "risk": {"type": "string", "minLength": 1},
+        "transfer_question": {"type": "string", "minLength": 1},
+        "penalty_or_status": {"type": "string", "minLength": 1},
+        "falsifier_ref": {"type": "string", "pattern": "^F-[0-9]{3}$"}
+      }
+    },
+    "falsifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "target", "condition", "effect", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^F-[0-9]{3}$"},
+        "target": {"type": "string", "minLength": 1},
+        "condition": {"type": "string", "minLength": 1},
+        "effect": {"type": "string", "minLength": 1},
+        "status": {"enum": ["DESIGN_ONLY", "MACHINE_ENFORCED"]}
+      }
+    },
+    "verticalSlice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "claim_id", "input_fixture", "evidence_rows", "disanalogy_rows", "falsifier_rows", "expected_disposition", "expected_subjectivity_conclusion", "runtime_integration", "canonical_effect", "review_status"],
+      "properties": {
+        "id": {"const": "VS-001"},
+        "title": {"type": "string", "minLength": 1},
+        "claim_id": {"const": "CLM-002"},
+        "input_fixture": {"const": "fixtures/csomi_positive_negative_controls_v0.1.0.json"},
+        "evidence_rows": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^EM-[0-9]{3}$"}},
+        "disanalogy_rows": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^DA-[0-9]{3}$"}},
+        "falsifier_rows": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^F-[0-9]{3}$"}},
+        "expected_disposition": {"const": "KEEP_RESEARCH_ONLY"},
+        "expected_subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+        "runtime_integration": {"const": "NONE"},
+        "canonical_effect": {"const": "NONE"},
+        "review_status": {"const": "REVIEWER_FACING_DESIGN_ONLY"}
+      }
+    }
+  },
+  "allOf": [
+    {"properties": {"claim_records": {"contains": {"type": "object", "required": ["id", "type", "status"], "properties": {"id": {"const": "CLM-003"}, "type": {"const": "SCIENTIFIC_CONCLUSION"}, "status": {"const": "HOLD"}}}}}},
+    {"properties": {"claim_records": {"contains": {"type": "object", "required": ["id", "type", "status"], "properties": {"id": {"const": "CLM-005"}, "type": {"const": "NONCLAIM"}, "status": {"const": "REJECTED_INFERENCE"}}}}}},
+    {"properties": {"falsifier_matrix": {"contains": {"type": "object", "required": ["id", "status", "effect"], "properties": {"id": {"const": "F-008"}, "status": {"const": "MACHINE_ENFORCED"}, "effect": {"const": "MACHINE_REJECT"}}}}}}
+  ]
+}
