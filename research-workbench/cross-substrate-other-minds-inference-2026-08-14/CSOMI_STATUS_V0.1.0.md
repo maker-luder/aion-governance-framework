@@ -15,7 +15,11 @@ IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 RUNTIME_INTEGRATION = NONE
 MODEL_MODIFICATION = NONE
 LIVE_DATA_COLLECTION = NONE
+IMPLEMENTATION_HEAD_SEMANTICS = PARENT_PROVENANCE_ONLY
+FINAL_EXACT_HEAD_EVIDENCE = EXTERNAL_CI_BOUND
 ```
+
+The final branch SHA, final commit count and final workflow run IDs are external review evidence. They are not copied into this committed status document, so updating the handoff does not create a self-referential `SHA -> rewrite -> new SHA` loop.
 
 ## Source and role separation
 
@@ -31,6 +35,8 @@ The Four-Domain research ref is the read-only conceptual and evidence-architectu
 | Theory-derived consciousness indicators | Indicators can inform credences under declared theories, while theory disagreement and AI extension remain uncertain [6] [7] | Theory-conditional evidence channel only |
 | Mechanistic/causal evidence | Interventions, counterfactuals and mechanistic organization can support difference-making explanations when independently mapped [8] | Required channel for future scientific-conclusion review; no current result |
 | Controls | Positive controls test measurement responsiveness; negative controls expose surface cues, confounding or alternative explanations [9] | Synthetic design only |
+
+Pargetter's row is `PRIMARY_METADATA_VERIFIED`, `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` and `AUTHORITATIVE_SECONDARY_CORROBORATED`. Its DOI/metadata and indexed method description remain an IBE method lead; no abstract or inaccessible primary-full-text claim is treated as directly verified.
 
 ## Claims supported by this milestone
 

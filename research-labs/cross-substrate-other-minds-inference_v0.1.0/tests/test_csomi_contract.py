@@ -36,7 +36,15 @@ def test_primary_source_and_claim_coverage():
         "SRC-BUTLIN-2023", "SRC-BUTLIN-2025", "SRC-SETH-2025", "SRC-LIPSITCH-2010",
     }
     assert required <= set(sources)
-    assert all(sources[source_id]["source_type"] == "PRIMARY_VERIFIED" for source_id in required)
+    fulltext_verified = required - {"SRC-PARGETTER-1984"}
+    assert all(sources[source_id]["source_type"] == "PRIMARY_VERIFIED" for source_id in fulltext_verified)
+    assert all(sources[source_id]["verification_status"] == "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED" for source_id in fulltext_verified)
+    assert sources["SRC-PARGETTER-1984"]["source_type"] == "PRIMARY_METADATA_VERIFIED"
+    assert sources["SRC-PARGETTER-1984"]["verification_status"] == "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED"
+    assert sources["SRC-PARGETTER-1984"]["secondary_corroboration"] == "AUTHORITATIVE_SECONDARY_CORROBORATED"
+    pargetter_text = f'{sources["SRC-PARGETTER-1984"]["verified_claim"]} {sources["SRC-PARGETTER-1984"]["aion_use"]}'.lower()
+    assert "abstract" not in pargetter_text
+    assert "no full-text content claim" in pargetter_text
     claims = {row["id"]: row for row in packet["claim_records"]}
     assert claims["CLM-001"]["type"] == "RESEARCH_TOPIC"
     assert claims["CLM-002"]["type"] == "CAPABILITY"
@@ -89,6 +97,17 @@ def test_materialized_artifacts_track_canonical_packet():
         materialized = load(artifacts / filename)
         assert materialized["packet_id"] == packet["packet_id"]
         assert materialized[key] == packet[key]
+
+
+def test_handoff_is_not_self_referential():
+    handoff = (ROOT / "research-workbench/cross-substrate-other-minds-inference-2026-08-14/CSOMI_FINAL_HANDOFF_V0.1.0.md").read_text(encoding="utf-8")
+    assert re.search(r"(?m)^IMPLEMENTATION_HEAD = [0-9a-f]{40}$", handoff)
+    assert re.search(r"(?m)^HANDOFF_INPUT_HEAD = [0-9a-f]{40}$", handoff)
+    assert not re.search(r"(?m)^EXACT_HEAD\s*=", handoff)
+    assert "FINAL_EXACT_HEAD_EVIDENCE = EXTERNAL_CI_BOUND" in handoff
+    assert "FINAL_EXACT_HEAD_SOURCE = GitHub Actions run metadata" in handoff
+    assert not re.search(r"(?m)^.*headSha=", handoff, re.IGNORECASE)
+    assert not re.search(r"\b\d{11}\b", handoff)
 
 
 def test_reviewer_artifacts_make_no_unsupported_novelty_claim():

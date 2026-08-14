@@ -61,13 +61,15 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "title", "authors", "year", "source_type", "url", "verified_claim", "aion_use"],
+      "required": ["id", "title", "authors", "year", "source_type", "verification_status", "secondary_corroboration", "url", "verified_claim", "aion_use"],
       "properties": {
         "id": {"type": "string", "pattern": "^SRC-[A-Z0-9-]+$"},
         "title": {"type": "string", "minLength": 1},
         "authors": {"type": "string", "minLength": 1},
         "year": {"type": "integer", "minimum": 1900},
-        "source_type": {"enum": ["PRIMARY_VERIFIED", "AUTHORITATIVE_SECONDARY"]},
+        "source_type": {"enum": ["PRIMARY_VERIFIED", "PRIMARY_METADATA_VERIFIED", "AUTHORITATIVE_SECONDARY"]},
+        "verification_status": {"enum": ["PRIMARY_FULLTEXT_DIRECTLY_VERIFIED", "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED", "AUTHORITATIVE_SECONDARY_CORROBORATED"]},
+        "secondary_corroboration": {"enum": ["NOT_REQUIRED", "AUTHORITATIVE_SECONDARY_CORROBORATED", "NOT_APPLICABLE"]},
         "url": {"type": "string", "format": "uri"},
         "verified_claim": {"type": "string", "minLength": 1},
         "aion_use": {"type": "string", "minLength": 1}
@@ -168,6 +170,7 @@
     }
   },
   "allOf": [
+    {"properties": {"sources": {"contains": {"type": "object", "required": ["id", "source_type", "verification_status", "secondary_corroboration"], "properties": {"id": {"const": "SRC-PARGETTER-1984"}, "source_type": {"const": "PRIMARY_METADATA_VERIFIED"}, "verification_status": {"const": "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED"}, "secondary_corroboration": {"const": "AUTHORITATIVE_SECONDARY_CORROBORATED"}}}}}},
     {"properties": {"claim_records": {"contains": {"type": "object", "required": ["id", "type", "status"], "properties": {"id": {"const": "CLM-003"}, "type": {"const": "SCIENTIFIC_CONCLUSION"}, "status": {"const": "HOLD"}}}}}},
     {"properties": {"claim_records": {"contains": {"type": "object", "required": ["id", "type", "status"], "properties": {"id": {"const": "CLM-005"}, "type": {"const": "NONCLAIM"}, "status": {"const": "REJECTED_INFERENCE"}}}}}},
     {"properties": {"falsifier_matrix": {"contains": {"type": "object", "required": ["id", "status", "effect"], "properties": {"id": {"const": "F-008"}, "status": {"const": "MACHINE_ENFORCED"}, "effect": {"const": "MACHINE_REJECT"}}}}}}

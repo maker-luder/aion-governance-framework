@@ -37,7 +37,7 @@ The reviewer must compare the target mental-state explanation with at least the 
 | Retrieval or state reconstruction | Stored text or state produces the response | State-ablation, stale-memory and causal intervention controls |
 | Observer projection | Human reviewer interprets human-like language as mental-state evidence | Blinded coding, alternative hypotheses and negative controls |
 
-Under Pargetter's IBE framing, the target explanation may be preferred only relative to explicit alternatives and only with defeasible credence. It is not direct access to the target's mind [2].
+Under the Pargetter DOI/metadata method lead, corroborated by authoritative-secondary context but with the primary full text not directly verified, the target explanation may be preferred only relative to explicit alternatives and only with defeasible credence. This retained provenance does not provide direct access to the target's mind and no inaccessible abstract/full-text claim is used [2].
 
 ## 4. Cross-substrate disanalogy check
 

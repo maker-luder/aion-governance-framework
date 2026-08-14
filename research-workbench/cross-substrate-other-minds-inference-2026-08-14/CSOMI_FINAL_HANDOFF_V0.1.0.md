@@ -6,7 +6,12 @@ The independent research milestone is **DONE** for the safely executable researc
 
 ```text
 BRANCH = research/cross-substrate-other-minds-inference-20260814
-EXACT_HEAD = 0106a689f51a41fecd3a9c6221d8bc52b3f3939a
+IMPLEMENTATION_HEAD = 0e77d66b661d1580b6e288781b04e6969ee77c91
+HANDOFF_INPUT_HEAD = 0e77d66b661d1580b6e288781b04e6969ee77c91
+FINAL_EXACT_HEAD_EVIDENCE = EXTERNAL_CI_BOUND
+FINAL_EXACT_HEAD_SOURCE = GitHub Actions run metadata and external review evidence, not this committed handoff
+IMPLEMENTATION_COMMIT_COUNT_AT_HANDOFF_INPUT = 3
+FINAL_COMMIT_COUNT_EVIDENCE = EXTERNAL_REVIEW_BOUND
 BASE = review/four-domain-research-materialization@858442a3ec2439398d188779f4309397bd4926b2
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
@@ -20,15 +25,15 @@ MODEL_MODIFICATION = NONE
 LIVE_DATA_COLLECTION = NONE
 ```
 
-The milestone branch contains two commits: the initial method package `fb26a670d8ca879572fac6537a3a5f367f64cee2` and the branch-local Quality component-contract correction `0106a689f51a41fecd3a9c6221d8bc52b3f3939a`. The latter adds only the minimal `pyproject.toml` required by the repository's existing Quality inspection; it does not add a runtime or model dependency.
+The two named heads are **implementation provenance**, not a claim about the final current branch head. `IMPLEMENTATION_HEAD` and `HANDOFF_INPUT_HEAD` identify the parent implementation state from which this handoff was prepared. The final branch SHA, final commit count and final workflow run IDs must be read from external GitHub review evidence after the handoff commit; they are deliberately not copied into this handoff, preventing a self-referential `change SHA → rewrite handoff → new SHA` loop. The handoff input comprised three commits: the initial method package, the Quality component-contract correction and the prior final handoff. No runtime or model dependency is introduced by the metadata correction.
 
 ## Literature grounding
 
-The method is grounded in the Problem of Other Minds and defeasible inference-to-best-explanation literature. Avramides' authoritative overview distinguishes analogy and IBE responses and their epistemic limits [1]. Pargetter's primary paper treats other-minds reasoning as a defeasible scientific or best-explanation inference with alternatives rather than deductive proof [2]. Povinelli, Bering and Giambrone provide the cross-species analogy warning that shared behavior may not imply shared second-order mental-state interpretation [3].
+The method is grounded in the Problem of Other Minds and defeasible inference-to-best-explanation literature. Avramides' authoritative overview distinguishes analogy and IBE responses and their epistemic limits [1]. Pargetter's DOI/metadata record and indexed method description are retained as an IBE method lead; the primary full text was not directly verified in this review, so no full-text content is promoted as directly verified [2]. Povinelli, Bering and Giambrone provide the cross-species analogy warning that shared behavior may not imply shared second-order mental-state interpretation [3].
 
 Wimmer and Perner's primary false-belief paradigm is used as a bounded belief-attribution comparator [4]. Kosinski's LLM ToM study is used only as a behavioral-task comparator with matched true-belief, reversed and related controls; task performance is not treated as internal-state or subjectivity proof [5]. Butlin et al. 2023 is preserved as historical theory-derived indicator groundwork [6], while Butlin et al. 2025/2026 is used for its explicit theory-derived indicator method, uncertainty and AI-transfer caveats [7]. Ross and Woodward's causal-explanation overview grounds mechanistic, interventionist and difference-making channel design [8]. Lipsitch, Tchetgen Tchetgen and Cohen ground the use of negative controls to expose confounding or bias [9]. Seth's 2025 paper is recorded as a competing biological-naturalist, substrate-sensitive position rather than a settled assumption [10].
 
-The primary-source verification log is `PRIMARY_SOURCE_FINDINGS.md`. The sources include stable DOI, PubMed, arXiv, publisher or authoritative URL records. A CAPTCHA limitation for Pargetter's publisher page and the negative-controls PMC page is recorded explicitly; no claim requiring inaccessible full text is used beyond bounded metadata/abstract-level method statements.
+The primary-source verification log is `PRIMARY_SOURCE_FINDINGS.md`. Each source row now carries a verification status. Pargetter is `PRIMARY_METADATA_VERIFIED` with `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED` and `AUTHORITATIVE_SECONDARY_CORROBORATED`; the DOI and metadata are retained for method provenance, but no abstract or primary-full-text claim is asserted. Access limitations for Pargetter's publisher page and the negative-controls PMC page are recorded explicitly.
 
 ## Established method package
 
@@ -67,16 +72,16 @@ The reviewer-facing vertical slice is `VS-001`: false-belief capability record �
 
 ## Exact-head CI evidence
 
-All four workflows below completed successfully at exact `headSha=0106a689f51a41fecd3a9c6221d8bc52b3f3939a`:
+Final exact-head CI is deliberately an **external evidence binding**. The committed handoff records workflow identity and evidence semantics, but does not copy a current branch SHA or run IDs into itself. This prevents the handoff document from becoming stale or causing an infinite self-referential commit loop.
 
-| Workflow | Event | Run |
+| Workflow | Event | Evidence binding |
 |---|---|---|
-| Cross-Substrate Other-Minds Inference | push | [31783662820](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783662820) |
-| Quality | workflow_dispatch | [31783672358](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783672358) |
-| Research Workbench CI | workflow_dispatch | [31783675081](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783675081) |
-| Runtime Strong QA | workflow_dispatch | [31783677836](https://github.com/maker-luder/aion-governance-framework/actions/runs/31783677836) |
+| Cross-Substrate Other-Minds Inference | push | `FINAL_EXACT_HEAD_EVIDENCE=EXTERNAL_CI_BOUND` |
+| Quality | workflow_dispatch | `FINAL_EXACT_HEAD_EVIDENCE=EXTERNAL_CI_BOUND` |
+| Research Workbench CI | workflow_dispatch | `FINAL_EXACT_HEAD_EVIDENCE=EXTERNAL_CI_BOUND` |
+| Runtime Strong QA | workflow_dispatch | `FINAL_EXACT_HEAD_EVIDENCE=EXTERNAL_CI_BOUND` |
 
-The first Quality run at the initial packet commit held on the repository's pre-existing component-contract check because the new package lacked `pyproject.toml`. That safe, branch-local metadata gap was corrected in commit `0106a68`; the final exact-head Quality run above passed all Python 3.11/3.12 jobs including the strict IQC-R1 gate. No old-head run is used as final evidence.
+The final exact SHA, run IDs, statuses and commit count are reportable only from external GitHub Actions metadata after the final handoff commit. Historical CI runs may be discussed as antecedent evidence, but cannot be labeled current exact-head evidence inside this file.
 
 ## Protected refs and repository boundary
 

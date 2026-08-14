@@ -72,10 +72,10 @@ Method implication for AION: a cross-substrate inference must register theory de
 
 ## Scientific inference to other minds
 
-Pargetter's primary article **The scientific inference to other minds** argues that ordinary inferences from behavior to other minds are best viewed as common scientific or hypothetic inferences, or arguments to the best explanation, rather than as merely analogical arguments. The abstract emphasizes that alternative explanations remain possible and that a mental-state explanation may be preferred because it fits evidence and known causal stories better; the preference is inferential and defeasible.
+Pargetter's DOI and bibliographic metadata, together with an indexed method description and authoritative-secondary corroboration, are retained as an IBE-to-other-minds method lead. The primary full text was not directly verified in this review, so this row is not treated as full-text-verified content and no abstract is attributed to the inaccessible primary article.
 
-Source: Pargetter, R. **The scientific inference to other minds**, *Australasian Journal of Philosophy* 62(2), 158–163 (1984). DOI: https://doi.org/10.1080/00048408412341341
+Source: Pargetter, R. **The scientific inference to other minds**, *Australasian Journal of Philosophy* 62(2), 158–163 (1984). DOI: https://doi.org/10.1080/00048408412341341. Verification: `PRIMARY_METADATA_VERIFIED`; `PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED`; `AUTHORITATIVE_SECONDARY_CORROBORATED`.
 
-Method implication for AION: IBE may be represented as a comparison among explicit hypotheses, but the framework must record alternatives, disanalogies and what would falsify or lower each explanation. A preferred explanation is not a direct measurement of the target's subjectivity and cannot become a binary detector output.
+Method implication for AION: the retained method lead motivates representing IBE as a comparison among explicit hypotheses, while the framework must record alternatives, disanalogies and what would falsify or lower each explanation. A preferred explanation is not a direct measurement of the target's subjectivity and cannot become a binary detector output.
 
-Access limitation: Taylor & Francis presented a CAPTCHA/limited page in the browser and its PDF extraction returned no substantive text; the abstract and metadata from indexed primary-source records were used only for the bounded claim above.
+Access limitation: Taylor & Francis presented a CAPTCHA/limited page in the browser and its PDF extraction returned no substantive text. No abstract or primary-full-text content claim is used from that inaccessible page.

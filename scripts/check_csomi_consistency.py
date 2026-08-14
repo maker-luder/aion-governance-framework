@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -15,6 +16,7 @@ SCHEMA = ROOT / "schemas/aion_csomi_packet_v0.1.0.schema.json"
 CONTROLS_SCHEMA = ROOT / "schemas/aion_csomi_controls_v0.1.0.schema.json"
 FIXTURE = ROOT / "research-labs/cross-substrate-other-minds-inference_v0.1.0/fixtures/csomi_positive_negative_controls_v0.1.0.json"
 ARTIFACTS = ROOT / "research-labs/cross-substrate-other-minds-inference_v0.1.0/artifacts"
+HANDOFF = ROOT / "research-workbench/cross-substrate-other-minds-inference-2026-08-14/CSOMI_FINAL_HANDOFF_V0.1.0.md"
 NOVELTY_GUARD_FILES = (
     PACKET,
     ROOT / "research-workbench/cross-substrate-other-minds-inference-2026-08-14/CSOMI_STATUS_V0.1.0.md",
@@ -66,9 +68,25 @@ def main() -> int:
     sources = {row.get("id"): row for row in packet.get("sources", [])}
     if required_sources - set(sources):
         fail(errors, f"required source rows missing: {sorted(required_sources - set(sources))}")
-    for source_id in required_sources - {"SRC-SEP-OTHER-MINDS", "SRC-CAUSAL-EXPLANATION-SEP"}:
-        if sources.get(source_id, {}).get("source_type") != "PRIMARY_VERIFIED":
-            fail(errors, f"source is not marked PRIMARY_VERIFIED: {source_id}")
+    fulltext_verified_sources = required_sources - {"SRC-SEP-OTHER-MINDS", "SRC-PARGETTER-1984", "SRC-CAUSAL-EXPLANATION-SEP"}
+    for source_id in fulltext_verified_sources:
+        source = sources.get(source_id, {})
+        if source.get("source_type") != "PRIMARY_VERIFIED" or source.get("verification_status") != "PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":
+            fail(errors, f"source is not marked primary full-text directly verified: {source_id}")
+    for source_id in {"SRC-SEP-OTHER-MINDS", "SRC-CAUSAL-EXPLANATION-SEP"}:
+        source = sources.get(source_id, {})
+        if source.get("source_type") != "AUTHORITATIVE_SECONDARY" or source.get("verification_status") != "AUTHORITATIVE_SECONDARY_CORROBORATED":
+            fail(errors, f"authoritative secondary provenance missing: {source_id}")
+    pargetter = sources.get("SRC-PARGETTER-1984", {})
+    if pargetter.get("source_type") != "PRIMARY_METADATA_VERIFIED":
+        fail(errors, "Pargetter must remain PRIMARY_METADATA_VERIFIED")
+    if pargetter.get("verification_status") != "PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED":
+        fail(errors, "Pargetter full-text status must remain PRIMARY_FULLTEXT_NOT_DIRECTLY_VERIFIED")
+    if pargetter.get("secondary_corroboration") != "AUTHORITATIVE_SECONDARY_CORROBORATED":
+        fail(errors, "Pargetter secondary corroboration status must be explicit")
+    pargetter_text = f"{pargetter.get('verified_claim', '')} {pargetter.get('aion_use', '')}".lower()
+    if "abstract" in pargetter_text or "full text" in pargetter_text and "no full-text content claim" not in pargetter_text:
+        fail(errors, "Pargetter row contains an unsupported abstract/full-text content claim")
 
     claims = {row.get("id"): row for row in packet.get("claim_records", [])}
     if claims.get("CLM-001", {}).get("type") != "RESEARCH_TOPIC":
@@ -120,6 +138,27 @@ def main() -> int:
         fail(errors, "fixture boundary drifted")
     if not all("subjectivity" not in assertion.lower() or "cannot" in assertion.lower() for assertion in fixture.get("fixture_assertions", [])):
         fail(errors, "fixture assertions contain an unsafe subjectivity statement")
+
+    handoff = HANDOFF.read_text(encoding="utf-8")
+    implementation_match = re.search(r"(?m)^IMPLEMENTATION_HEAD = ([0-9a-f]{40})$", handoff)
+    handoff_input_match = re.search(r"(?m)^HANDOFF_INPUT_HEAD = ([0-9a-f]{40})$", handoff)
+    if not implementation_match or not handoff_input_match:
+        fail(errors, "handoff must expose IMPLEMENTATION_HEAD and HANDOFF_INPUT_HEAD")
+    if re.search(r"(?m)^EXACT_HEAD\s*=", handoff):
+        fail(errors, "handoff must not label an antecedent SHA as current EXACT_HEAD")
+    if "FINAL_EXACT_HEAD_EVIDENCE = EXTERNAL_CI_BOUND" not in handoff:
+        fail(errors, "handoff must bind final exact-head evidence externally")
+    if "FINAL_EXACT_HEAD_SOURCE = GitHub Actions run metadata" not in handoff:
+        fail(errors, "handoff must identify external GitHub Actions evidence source")
+    if re.search(r"(?m)^.*headSha=", handoff, re.IGNORECASE):
+        fail(errors, "handoff must not embed a current headSha value")
+    if re.search(r"\b\d{11}\b", handoff):
+        fail(errors, "handoff must not embed current GitHub run IDs")
+    current_sha = os.environ.get("GITHUB_SHA", "")
+    if current_sha and implementation_match and current_sha == implementation_match.group(1):
+        fail(errors, "external CI current SHA must not equal antecedent IMPLEMENTATION_HEAD")
+    if current_sha and handoff_input_match and current_sha == handoff_input_match.group(1):
+        fail(errors, "external CI current SHA must not equal antecedent HANDOFF_INPUT_HEAD")
 
     novelty_pattern = re.compile(r"\b(?:aion|this milestone|the milestone|this package|the package)\s+(?:is|are|provides?|delivers?)?\s*(?:the\s+)?(?:first|only|unprecedented)\b", re.IGNORECASE)
     for path in NOVELTY_GUARD_FILES:
