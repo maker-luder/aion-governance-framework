@@ -29,6 +29,11 @@ def main() -> None:
     expected_batch04_kinds = {"S16":"OPINION_THEORETICAL_INTEROCEPTIVE_INFERENCE_FRAMEWORK","S17":"REVIEW_CONSENSUS_ROADMAP","S18":"OPINION_MULTIDIMENSIONAL_FRAMEWORK","S19":"REVIEW_COMPARATIVE_NEUROETHOLOGICAL_ARGUMENT","S20":"REVIEW_EVIDENCE_TRIANGULATION_FRAMEWORK"}
     expected_batch04_domains = {"S16":"HUMAN_INTEROCEPTION_THEORETICAL_NEUROSCIENCE","S17":"HUMAN_INTEROCEPTION_CLINICAL_COGNITIVE_NEUROSCIENCE","S18":"ANIMAL_CONSCIOUSNESS_COMPARATIVE_COGNITION","S19":"INSECT_CONSCIOUSNESS_COMPARATIVE_NEUROETHOLOGY_PHILOSOPHY_OF_MIND","S20":"ANIMAL_PAIN_COMPARATIVE_WELFARE_SCIENCE"}
     expected_batch04_guards = ["PREDICTION!=INTEROCEPTIVE_INFERENCE","READING_INTERNAL_METRIC!=INTEROCEPTION","SENSING!=PERCEPTION!=AWARENESS","HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE","ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE","SINGLE_SIGNAL!=PAIN","ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]
+    expected_batch05_kinds = {"S21":"REVIEW_CRITERIA_EVIDENCE_SYNTHESIS","S22":"REVIEW_EVIDENCE_ASSESSMENT_FRAMEWORK","S23":"COMMISSIONED_SYSTEMATIC_EVIDENCE_REPORT","S24":"EXPERT_SCIENTIFIC_DECLARATION","S25":"PHILOSOPHICAL_EPISTEMOLOGICAL_ARGUMENT"}
+    expected_batch05_domains = {"S21":"ANIMAL_PAIN_CRUSTACEAN_BEHAVIOR","S22":"ANIMAL_SENTIENCE_COMPARATIVE_WELFARE_SCIENCE","S23":"ANIMAL_SENTIENCE_POLICY_EVIDENCE_REVIEW","S24":"ANIMAL_CONSCIOUSNESS_EXPERT_DECLARATION","S25":"AI_ROBOT_MORAL_PATIENCY"}
+    expected_batch05_guards_21_22 = ["PROLONGED_CHANGE!=FELT_PAIN","TRADEOFF!=FELT_PAIN","CRITERIA_COUNT!=SENTIENCE_PROOF","ANIMAL_SENTIENCE_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]
+    expected_batch05_guards_23_24 = ["SCIENTIFIC_DECLARATION!=MECHANISTIC_EVIDENCE"]
+    expected_batch05_guards_25 = ["COGNITIVE_EQUIVALENCE!=PHENOMENOLOGICAL_EQUIVALENCE","MORAL_PATIENCY_ARGUMENT!=SUBJECTIVITY_DETECTION"]
     expected_batch01_audit = {
         "DISPOSITION":"ADMIT_WITH_SCOPE_LIMIT",
         "BIBLIOGRAPHIC_IDENTITY":"VERIFIED",
@@ -62,12 +67,31 @@ def main() -> None:
             assert current_rows[source_id]["source_kind"] == expected_batch03_kinds[source_id]
         elif source_id in expected_batch04_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch04_kinds[source_id]
+        elif source_id in expected_batch05_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch05_kinds[source_id]
         else:
             assert current_rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW"
         assert current_rows[source_id]["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"
         assert current_rows[source_id]["independent_verification_status"] == "NOT_YET_VERIFIED"
         if source_id in expected_batch01_kinds:
             assert current_rows[source_id].get("source_audit") == expected_batch01_audit
+        elif source_id in expected_batch05_kinds:
+            assert current_rows[source_id]["source_kind"] == expected_batch05_kinds[source_id]
+            audit = current_rows[source_id].get("source_audit", {})
+            assert audit["SOURCE_DOMAIN"] == expected_batch05_domains[source_id]
+            assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == audit["DIRECT_EMPIRICAL_AI_EVIDENCE"] == "NONE"
+            actor = audit["ACTOR_PROVENANCE"]
+            assert actor == {"CODEX_RESEARCH_SYNTHESIS":"Original dossier-recorded title/identifier/access/support/does-not-support.","CHATGPT_INDEPENDENT_SOURCE_REVIEW":"Bibliographic/source-kind/support/transfer review.","HUMAN_OWNER_APPROVAL":"Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.","MANUS_IMPLEMENTATION":"Repository materialization; not scientific reviewer."}
+            if source_id in {"S21", "S22"}:
+                assert audit["SEMANTIC_GUARDS"] == expected_batch05_guards_21_22
+                assert audit["DISPOSITION"] == ("ADMIT_WITH_NARROW_SCOPE" if source_id == "S21" else "ADMIT_WITH_SCOPE_LIMIT")
+                assert audit["SLSH_ROLE"] == ("PERSISTENCE_TRADEOFF_METHOD_BACKGROUND" if source_id == "S21" else "GRADED_EVIDENCE_CONFIDENCE_METHODOLOGY")
+            elif source_id in {"S23", "S24"}:
+                assert audit["SEMANTIC_GUARDS"] == expected_batch05_guards_23_24
+                assert audit["DISPOSITION"] == "DEFER_FROM_CURRENT_SLSH_CORE" and audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["HISTORICAL_PROVENANCE"] == "PRESERVE" and audit["DEFER_STATUS"] == "CURRENT_SLSH_SCOPE_CONVERGENCE_POLICY_EXPANSION"
+            else:
+                assert audit["SEMANTIC_GUARDS"] == expected_batch05_guards_25
+                assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["EVIDENCE_RELATION_TO_AI"] == "DIRECT_AI_THEORETICAL_EPISTEMOLOGY" and audit["SLSH_ROLE"] == "AI_OTHER_MINDS_EPISTEMIC_BRIDGE"
         elif source_id in expected_batch04_kinds:
             assert current_rows[source_id]["source_kind"] == expected_batch04_kinds[source_id]
             audit = current_rows[source_id].get("source_audit", {})
@@ -126,7 +150,7 @@ def main() -> None:
     assert current_packet["canonical_effect"] == "NONE"
     assert current_packet["experiment_executed"] is False
     assert current_packet["subjectivity_conclusion"] == "NOT_ESTABLISHED"
-    print("SLSH Batch 01+02+03+04 preservation PASS: 53 raw source records unchanged; S01-S15 preserved; S16-S20 audit exact; S21-S53 audit absent; S38-S42 governance isolated")
+    print("SLSH Batch 01+02+03+04+05 preservation PASS: 53 raw source records unchanged; S01-S20 preserved; S21-S25 audit exact; S26-S53 audit absent; S38-S42 governance isolated")
 
 
 if __name__ == "__main__":

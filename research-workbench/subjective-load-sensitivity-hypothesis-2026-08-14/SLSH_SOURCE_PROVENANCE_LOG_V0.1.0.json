@@ -741,70 +741,191 @@
       "title_as_recorded": "Elwood, R. W. (2019), “Discrimination between Nociceptive Reflexes and More Complex Responses Consistent with Pain in Crustaceans,” Philosophical Transactions of the Royal Society B 374(1785):20190368.",
       "identifier_as_recorded": "DOI 10.1098/rstb.2019.0368; PMID 31544604; PMCID PMC6790375.",
       "access_evidence": "PMC open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_CRITERIA_EVIDENCE_SYNTHESIS",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "長期動機改變、特定部位照護、代價權衡等，比快速反射更符合 pain-like 解釋。",
       "does_not_support_as_recorded": "這些 criterion 個別具有專一性，或人工 optimizer 的 trade-off 是 pain。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_NARROW_SCOPE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANIMAL_PAIN_CRUSTACEAN_BEHAVIOR",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PROLONGED_CHANGE!=FELT_PAIN",
+          "TRADEOFF!=FELT_PAIN",
+          "CRITERIA_COUNT!=SENTIENCE_PROOF",
+          "ANIMAL_SENTIENCE_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "PERSISTENCE_TRADEOFF_METHOD_BACKGROUND"
+      }
     },
     {
       "id": "S22",
       "title_as_recorded": "Crump, A. et al. (2022), “Sentience in Decapod Crustaceans: A General Framework and Review of the Evidence,” Animal Sentience 7(32).",
       "identifier_as_recorded": "DOI 10.51291/2377-7478.1691.",
       "access_evidence": "WBI repository/ePrints open full text。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "REVIEW_EVIDENCE_ASSESSMENT_FRAMEWORK",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "以多項 criteria、證據強度與不確定性評估遠緣物種 sentience。",
       "does_not_support_as_recorded": "criteria 可無修改地套用 AI，或滿足若干項即是數學證明。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANIMAL_SENTIENCE_COMPARATIVE_WELFARE_SCIENCE",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "PROLONGED_CHANGE!=FELT_PAIN",
+          "TRADEOFF!=FELT_PAIN",
+          "CRITERIA_COUNT!=SENTIENCE_PROOF",
+          "ANIMAL_SENTIENCE_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "GRADED_EVIDENCE_CONFIDENCE_METHODOLOGY"
+      }
     },
     {
       "id": "S23",
       "title_as_recorded": "Birch, J. et al. (2021), Review of the Evidence of Sentience in Cephalopod Molluscs and Decapod Crustaceans, LSE Consulting report for Defra, 108 pp.",
       "identifier_as_recorded": "官方 LSE report；無 DOI。",
       "access_evidence": "LSE open PDF。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "COMMISSIONED_SYSTEMATIC_EVIDENCE_REPORT",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "政策相關的動物 sentience 判斷可用神經、行為、學習、權衡與風險原則 綜合，而非依賴語言自述。",
       "does_not_support_as_recorded": "報告結論適用於人工系統；它是 commissioned review，不是單一實驗。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "DEFER_FROM_CURRENT_SLSH_CORE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANIMAL_SENTIENCE_POLICY_EVIDENCE_REVIEW",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "SCIENTIFIC_DECLARATION!=MECHANISTIC_EVIDENCE"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "HISTORICAL_PROVENANCE": "PRESERVE",
+        "DEFER_STATUS": "CURRENT_SLSH_SCOPE_CONVERGENCE_POLICY_EXPANSION"
+      }
     },
     {
       "id": "S24",
       "title_as_recorded": "Andrews, K., Birch, J., Sebo, J., & Chalmers, D. (2024), The New York Declaration on Animal Consciousness, launched 19 Apr 2024 at New York University.",
       "identifier_as_recorded": "https://sites.google.com/nyu.edu/nydeclaration/declaration ; 無 DOI。",
       "access_evidence": "open web declaration。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "EXPERT_SCIENTIFIC_DECLARATION",
       "access_level": "FULLTEXT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "專家宣言承認某些類群有強證據、另一些有 realistic possibility，並保留 不確定性。",
       "does_not_support_as_recorded": "這是 primary experiment 或 AI consciousness 結論；簽署共識不是 機制證明。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "DEFER_FROM_CURRENT_SLSH_CORE",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "ANIMAL_CONSCIOUSNESS_EXPERT_DECLARATION",
+        "EVIDENCE_RELATION_TO_AI": "CROSS_SUBSTRATE_METHOD_TRANSFER",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "SCIENTIFIC_DECLARATION!=MECHANISTIC_EVIDENCE"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "ACTIVE_EVIDENTIARY_ROLE": "NONE",
+        "HISTORICAL_PROVENANCE": "PRESERVE",
+        "DEFER_STATUS": "CURRENT_SLSH_SCOPE_CONVERGENCE_POLICY_EXPANSION"
+      }
     },
     {
       "id": "S25",
       "title_as_recorded": "Shevlin, H. (2021), “How Could We Know When a Robot Was a Moral Patient?” Cambridge Quarterly of Healthcare Ethics 30(3):459–471.",
       "identifier_as_recorded": "DOI 10.1017/S0963180120001012; PubMed indexed.",
       "access_evidence": "PubMed metadata/abstract 可讀；Cambridge 全文權限依 publisher。",
-      "source_kind": "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW",
+      "source_kind": "PHILOSOPHICAL_EPISTEMOLOGICAL_ARGUMENT",
       "access_level": "ABSTRACT_AS_RECORDED",
       "verification_actor": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "independent_verification_status": "NOT_YET_VERIFIED",
       "access_evidence_provenance": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED",
       "supports_as_recorded": "人工 moral-patient/other-minds 推斷需要多種行為與認知 capacity，而非單一 外觀；明確面對替代解釋與不確定性。",
       "does_not_support_as_recorded": "現有 robot/AI 已具 moral patiency 或 phenomenology。",
-      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."
+      "external_source_claim_boundary": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred.",
+      "source_audit": {
+        "DISPOSITION": "ADMIT_WITH_SCOPE_LIMIT",
+        "BIBLIOGRAPHIC_IDENTITY": "VERIFIED",
+        "SUPPORT_BOUNDARY": "PASS",
+        "SOURCE_DOMAIN": "AI_ROBOT_MORAL_PATIENCY",
+        "EVIDENCE_RELATION_TO_AI": "DIRECT_AI_THEORETICAL_EPISTEMOLOGY",
+        "CROSS_SUBSTRATE_USE": "METHOD_BACKGROUND_DISAMBIGUATION_ONLY",
+        "DIRECT_AI_EVIDENCE": "NONE",
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": "NONE",
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": "NONE",
+        "NON_SUPPORT_BOUNDARY": "AION_SCOPE_GUARD",
+        "SEMANTIC_GUARDS": [
+          "COGNITIVE_EQUIVALENCE!=PHENOMENOLOGICAL_EQUIVALENCE",
+          "MORAL_PATIENCY_ARGUMENT!=SUBJECTIVITY_DETECTION"
+        ],
+        "ACTOR_PROVENANCE": {
+          "CODEX_RESEARCH_SYNTHESIS": "Original dossier-recorded title/identifier/access/support/does-not-support.",
+          "CHATGPT_INDEPENDENT_SOURCE_REVIEW": "Bibliographic/source-kind/support/transfer review.",
+          "HUMAN_OWNER_APPROVAL": "Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.",
+          "MANUS_IMPLEMENTATION": "Repository materialization; not scientific reviewer."
+        },
+        "SLSH_ROLE": "AI_OTHER_MINDS_EPISTEMIC_BRIDGE"
+      }
     },
     {
       "id": "S26",

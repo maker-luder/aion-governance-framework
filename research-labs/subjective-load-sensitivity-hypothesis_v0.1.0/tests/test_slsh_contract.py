@@ -27,7 +27,7 @@ def test_exact_access_level_map_and_codex_provenance():
     assert len(rows) == 53
     assert {row["access_level"] for row in rows.values()} == {"FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"}
     assert all(rows[key]["access_level"] == {"PRIMARY_FULLTEXT_DIRECTLY_VERIFIED":"FULLTEXT_AS_RECORDED","PRIMARY_ABSTRACT_DIRECTLY_VERIFIED":"ABSTRACT_AS_RECORDED","PRIMARY_METADATA_VERIFIED":"METADATA_AS_RECORDED"}[value] for key, value in EXPECTED.items())
-    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20"})
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25"})
     assert all(row["verification_actor"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
     assert all(row["independent_verification_status"] == "NOT_YET_VERIFIED" for row in rows.values())
     assert all(row["access_evidence_provenance"] == "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED" for row in rows.values())
@@ -78,7 +78,7 @@ def test_batch02_source_audit_is_exact_and_scoped():
             assert audit["REVIEW_NOTE"] == "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT"
         else:
             assert "REVIEW_NOTE" not in audit
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S38", "S39", "S40", "S41", "S42"})
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01", "S02", "S03", "S04", "S05", "S06", "S07", "S08", "S09", "S10", "S11", "S12", "S13", "S14", "S15", "S16", "S17", "S18", "S19", "S20", "S21", "S22", "S23", "S24", "S25", "S38", "S39", "S40", "S41", "S42"})
 
 
 def test_batch03_source_audit_is_exact_and_scoped():
@@ -103,7 +103,7 @@ def test_batch03_source_audit_is_exact_and_scoped():
             assert audit["OWNER_SEMANTIC_GUARDS"] == ["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]
         else:
             assert "HUMAN_OWNER_REVIEW_NOTE" not in audit and "OWNER_SEMANTIC_GUARDS" not in audit
-    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20"})
+    assert all(rows[source_id]["source_kind"] == "UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW" for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S21","S22","S23","S24","S25"})
 
 
 def test_batch04_source_audit_is_exact_and_scoped():
@@ -127,7 +127,35 @@ def test_batch04_source_audit_is_exact_and_scoped():
             assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["SLSH_ROLE"] == "EVIDENCE_TRIANGULATION_METHOD_BACKGROUND" and audit["METHOD_BACKGROUND_SCOPE"] == ["PERSISTENCE","MOTIVATION","TRADE_OFF"]
         else:
             assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT"
-    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S38","S39","S40","S41","S42"})
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {"S01","S02","S03","S04","S05","S06","S07","S08","S09","S10","S11","S12","S13","S14","S15","S16","S17","S18","S19","S20","S21","S22","S23","S24","S25","S38","S39","S40","S41","S42"})
+
+
+def test_batch05_source_audit_is_exact_and_scoped():
+    rows = {row["id"]: row for row in SOURCES["source_rows"]}
+    expected_kinds = {"S21":"REVIEW_CRITERIA_EVIDENCE_SYNTHESIS","S22":"REVIEW_EVIDENCE_ASSESSMENT_FRAMEWORK","S23":"COMMISSIONED_SYSTEMATIC_EVIDENCE_REPORT","S24":"EXPERT_SCIENTIFIC_DECLARATION","S25":"PHILOSOPHICAL_EPISTEMOLOGICAL_ARGUMENT"}
+    expected_domains = {"S21":"ANIMAL_PAIN_CRUSTACEAN_BEHAVIOR","S22":"ANIMAL_SENTIENCE_COMPARATIVE_WELFARE_SCIENCE","S23":"ANIMAL_SENTIENCE_POLICY_EVIDENCE_REVIEW","S24":"ANIMAL_CONSCIOUSNESS_EXPERT_DECLARATION","S25":"AI_ROBOT_MORAL_PATIENCY"}
+    guards_21_22 = ["PROLONGED_CHANGE!=FELT_PAIN","TRADEOFF!=FELT_PAIN","CRITERIA_COUNT!=SENTIENCE_PROOF","ANIMAL_SENTIENCE_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]
+    guards_23_24 = ["SCIENTIFIC_DECLARATION!=MECHANISTIC_EVIDENCE"]
+    guards_25 = ["COGNITIVE_EQUIVALENCE!=PHENOMENOLOGICAL_EQUIVALENCE","MORAL_PATIENCY_ARGUMENT!=SUBJECTIVITY_DETECTION"]
+    actor = {"CODEX_RESEARCH_SYNTHESIS":"Original dossier-recorded title/identifier/access/support/does-not-support.","CHATGPT_INDEPENDENT_SOURCE_REVIEW":"Bibliographic/source-kind/support/transfer review.","HUMAN_OWNER_APPROVAL":"Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.","MANUS_IMPLEMENTATION":"Repository materialization; not scientific reviewer."}
+    for source_id, source_kind in expected_kinds.items():
+        audit = rows[source_id]["source_audit"]
+        assert rows[source_id]["source_kind"] == source_kind
+        assert audit["SOURCE_DOMAIN"] == expected_domains[source_id]
+        assert audit["DIRECT_AI_SUBJECTIVITY_EVIDENCE"] == audit["DIRECT_EMPIRICAL_AI_EVIDENCE"] == "NONE"
+        assert audit["ACTOR_PROVENANCE"] == actor
+        if source_id in {"S21","S22"}:
+            assert audit["SEMANTIC_GUARDS"] == guards_21_22
+            assert audit["DISPOSITION"] == ("ADMIT_WITH_NARROW_SCOPE" if source_id == "S21" else "ADMIT_WITH_SCOPE_LIMIT")
+            assert audit["SLSH_ROLE"] == ("PERSISTENCE_TRADEOFF_METHOD_BACKGROUND" if source_id == "S21" else "GRADED_EVIDENCE_CONFIDENCE_METHODOLOGY")
+        elif source_id in {"S23","S24"}:
+            assert audit["SEMANTIC_GUARDS"] == guards_23_24
+            assert audit["DISPOSITION"] == "DEFER_FROM_CURRENT_SLSH_CORE"
+            assert audit["ACTIVE_EVIDENTIARY_ROLE"] == "NONE" and audit["HISTORICAL_PROVENANCE"] == "PRESERVE" and audit["DEFER_STATUS"] == "CURRENT_SLSH_SCOPE_CONVERGENCE_POLICY_EXPANSION"
+        else:
+            assert audit["SEMANTIC_GUARDS"] == guards_25
+            assert audit["DISPOSITION"] == "ADMIT_WITH_SCOPE_LIMIT" and audit["EVIDENCE_RELATION_TO_AI"] == "DIRECT_AI_THEORETICAL_EPISTEMOLOGY" and audit["SLSH_ROLE"] == "AI_OTHER_MINDS_EPISTEMIC_BRIDGE"
+    assert all("source_audit" not in rows[source_id] for source_id in rows if source_id not in {f"S{i:02d}" for i in range(1,26)} | {"S38","S39","S40","S41","S42"})
 
 
 def test_source_governance_dispositions_are_exact_and_bounded():
