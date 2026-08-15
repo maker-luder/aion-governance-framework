@@ -1,8 +1,7 @@
 # PR #23 Governance Control Closure Record
 
 **Artifact status:** `CONTROL_CLOSURE = CLOSED`  
-**Closure candidate:** `CONTROL_CLOSURE_CANDIDATE = CLOSED`  
-**Record publication:** `PENDING_FINAL_SEAL_PR_MERGE`
+**Closure candidate:** `CONTROL_CLOSURE_CANDIDATE = CLOSED`
 
 **Remediation PR:** [#27](https://github.com/maker-luder/aion-governance-framework/pull/27)  
 **PR #27 merge commit:** `92e9d0e250dc43f55c24a0223a53e301139cfe4e`  
@@ -27,7 +26,7 @@
 | `INCIDENT_TYPE` | `MERGED_WITHOUT_AUTHORITY_GATE_PASS` |
 | `HISTORICAL_AUTHORITY_GATE` | `HOLD` |
 | `HISTORICAL_QUALITY` | `PASS` |
-| `ROOT_CAUSE` | The active Main Protection ruleset required Python 3.11 and Python 3.12 but did not require the Authority Gate. |
+| `ROOT_CAUSE` | The active GitHub Main Protection ruleset required Python 3.11 and Python 3.12 but did not require the Authority Gate. |
 | `CORRECTIVE_ACTION` | Added `Fresh exact-head Human Owner approval receipt` to the active Main Protection required checks. |
 | `PREVENTIVE_ACTION` | Platform enforcement now blocks default-branch merges when that required Authority Gate fails. |
 
@@ -66,7 +65,7 @@ On `main@92e9d0e250dc43f55c24a0223a53e301139cfe4e`, Quality run `31892599349` co
 
 ## Final closure disposition
 
-The recurrence-prevention control is now factually closed because all required conditions have occurred and were verified:
+The recurrence-prevention control is now factually closed because all required conditions occurred and were verified:
 
 - root cause verified;
 - platform remediation applied;
@@ -92,14 +91,13 @@ NEW_RESEARCH = NONE
 RESEARCH_BRANCH_MODIFIED = FALSE
 ```
 
-This final-seal change only publishes the already-established closure state into the repository record. Until the final-seal PR itself is merged, `main` still contains the prior `OPEN` wording even though the underlying operational closure conditions have been satisfied.
-
 ## Exact evidence
 
 | Evidence | Exact reference |
 |---|---|
 | Historical PR #23 head | `dd2af70d93792e7bb1e84e853d99df1a3c9d1f6e` |
 | Historical PR #23 merge | `3819f2eae763fd4de6b6d3c63f9beba3db014705` |
+| Initial audit main | `d7de6a52585b5d9ee7bcdc3d0b748b75d512f6e0` |
 | PR #27 reviewed head | `2b46ee5a2f0017de7709c14541b5071b38f00606` |
 | ChatGPT review | `4944113614` |
 | Human Owner approval | `fd4edff4-7e20-44a4-9b08-501d52b1dfc8` |
@@ -108,6 +106,10 @@ This final-seal change only publishes the already-established closure state into
 | PR #27 merge commit | `92e9d0e250dc43f55c24a0223a53e301139cfe4e` |
 | Post-merge Quality PASS | `31892599349` |
 | Main Protection ruleset | `20545803` |
+
+## Authority boundary
+
+The final closure seal records facts that have already occurred. It does not grant authority to any future main transition. Any PR that publishes or later modifies this record remains subject to its own fresh exact-head ChatGPT review, separate Human Owner authorization, and required GitHub checks.
 
 ## References
 
