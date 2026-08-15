@@ -4,7 +4,7 @@
 >
 > This ledger records the PR #20 freeze-preparation inventory. After that checkpoint, a separately reviewed research-lineage closure absorbed the research support lineage, converted five remaining support branches to non-release `archive/*` tags, and reduced the live branch model to `main` plus `review/four-domain-research-materialization`.
 >
-> Current branch standing is documented in [`../../../README.md`](../../../README.md), [`../../README.md`](../../README.md), and [`../../RELEASE_STATUS.md`](../../RELEASE_STATUS.md). The table below is intentionally preserved as event-time provenance.
+> Current branch standing is documented in [`README.md`](../../../README.md), [`docs/README.md`](../../README.md), and [`RELEASE_STATUS.md`](../../RELEASE_STATUS.md). The table below is intentionally preserved as event-time provenance.
 
 ## Scope and provenance
 

@@ -4,7 +4,7 @@
 >
 > This record captures the PR #20 freeze-preparation state. A later research-only closure converted five remaining support branches into non-release `archive/*` tags and reduced the live branch model to `main` plus `review/four-domain-research-materialization`.
 >
-> For current repository standing, use [`../../../README.md`](../../../README.md), [`../../README.md`](../../README.md), and [`../../RELEASE_STATUS.md`](../../RELEASE_STATUS.md). The body below is preserved for event provenance and should be read in its original temporal context.
+> For current repository standing, use [`README.md`](../../../README.md), [`docs/README.md`](../../README.md), and [`RELEASE_STATUS.md`](../../RELEASE_STATUS.md). The body below is preserved for event provenance and should be read in its original temporal context.
 
 ## Freeze declaration
 
