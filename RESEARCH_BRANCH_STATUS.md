@@ -36,6 +36,25 @@ The following research lineages are contained in the branch history:
 
 `bad722c6c8ef75a233020453b0e3b436c56f87ca` is the lineage-closure snapshot before branch-facing freeze documentation and final branch retirement. The current/future exact research head is GitHub transition evidence and is intentionally not self-embedded as a permanent final-head claim.
 
+## Historical QA / process-deviation record
+
+PR #21 and PR #22 were merged into the research-only closure branch before their generic `Quality` workflows had completed. Their historical red checks are valid and are intentionally preserved.
+
+- PR #21 merged at `2026-08-15T13:02:39Z`; Quality run #377 completed afterward with Python 3.11 and Python 3.12 failing at `Run component test suites`.
+- PR #22 merged at `2026-08-15T13:03:11Z`; Quality run #378 completed afterward with Python 3.11 and Python 3.12 failing at `Run component test suites`.
+- The defect was subsequently remediated on the surviving research branch by aligning the unified component-test execution environment with repository-root imports and aligning coverage execution to the same environment.
+- The frozen research head `24de00c1fc8eaf09cdcef393f651f1cf3685bb57` later passed Quality run #390.
+
+The later PASS establishes only that the surviving research branch no longer carries the QA defect exposed by PR #21/#22. It does **not** retroactively make those historical PR checks green or erase the fact that they were merged before generic Quality completion.
+
+```text
+PR21_PROCESS_DEVIATION = MERGED_BEFORE_QUALITY_COMPLETION
+PR22_PROCESS_DEVIATION = MERGED_BEFORE_QUALITY_COMPLETION
+HISTORICAL_RED_CHECKS = PRESERVED
+CURRENT_RESEARCH_QUALITY = PASS_AT_24de00c1fc8eaf09cdcef393f651f1cf3685bb57
+RETROACTIVE_GREENWASH = FORBIDDEN
+```
+
 ## Final branch retirement and archive conversion
 
 The final five support branches were retired only after exact-head verification and creation of non-release archive tags. The tags preserve the exact candidate/authority commits without keeping them as active branches.
