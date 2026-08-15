@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:schemas:csomi-slsh-integration:v0.1.0",
+  "title": "AION CSOMI x SLSH Read-Only Integration Module v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_id",
+    "integration_id",
+    "integration_branch",
+    "integration_scope",
+    "authority_inputs",
+    "adapter_inventories",
+    "shared_interface",
+    "claim_boundary_rules",
+    "provenance_contract",
+    "evidence_role_contract",
+    "control_falsifier_contract",
+    "known_nonmergeable_fields",
+    "unresolved_metadata_conditions",
+    "canonical_effect",
+    "deployment",
+    "experiment_executed",
+    "runtime_executed",
+    "model_modified",
+    "live_data_collected",
+    "subjectivity_conclusion",
+    "admission_status"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_id": {"const": "AION_CSOMI_SLSH_INTEGRATION_RECORD_V0.1.0"},
+    "integration_id": {"const": "CSOMI_SLSH_READ_ONLY_INTERFACE_RECONCILIATION_V0.1.0"},
+    "integration_branch": {"const": "integration/csomi-slsh-semantic-reconciliation-20260814"},
+    "integration_scope": {"const": "READ_ONLY_INTERFACE_BOUNDARY_PROVENANCE_AND_CONSISTENCY_ONLY"},
+    "authority_inputs": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/authorityInput"}
+    },
+    "adapter_inventories": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/adapterInventory"}
+    },
+    "shared_interface": {"$ref": "#/$defs/sharedInterface"},
+    "claim_boundary_rules": {
+      "type": "array",
+      "uniqueItems": true,
+      "const": [
+        "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION",
+        "CSOMI_EVIDENCE_CONVERGENCE != SUBJECTIVITY_PROOF",
+        "SLSH_FUNCTIONAL_LOAD != SUBJECTIVE_LOAD"
+      ]
+    },
+    "provenance_contract": {"$ref": "#/$defs/provenanceContract"},
+    "evidence_role_contract": {"$ref": "#/$defs/evidenceRoleContract"},
+    "control_falsifier_contract": {"$ref": "#/$defs/controlFalsifierContract"},
+    "known_nonmergeable_fields": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "unresolved_metadata_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/metadataCondition"}
+    },
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false},
+    "experiment_executed": {"const": false},
+    "runtime_executed": {"const": false},
+    "model_modified": {"const": false},
+    "live_data_collected": {"const": false},
+    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+    "admission_status": {"const": "INTEGRATION_MODULE_COMPLETE_PENDING_CHATGPT_OWNER_REVIEW"}
+  },
+  "$defs": {
+    "authorityInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework", "authority_ref", "authority_sha", "packet_path", "schema_path", "packet_sha256", "schema_sha256", "declared_packet_branch", "read_only", "mutation_policy", "adapter_mode", "source_semantics_not_copied"],
+      "properties": {
+        "framework": {"enum": ["CSOMI", "SLSH"]},
+        "authority_ref": {"type": "string", "minLength": 1},
+        "authority_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "packet_path": {"type": "string", "minLength": 1},
+        "schema_path": {"type": "string", "minLength": 1},
+        "packet_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "schema_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "declared_packet_branch": {"type": "string", "minLength": 1},
+        "read_only": {"const": true},
+        "mutation_policy": {"const": "MUTATION_PROHIBITED"},
+        "adapter_mode": {"const": "READ_ONLY_GIT_OBJECT_ADAPTER"},
+        "source_semantics_not_copied": {"const": true}
+      },
+      "allOf": [
+        {"if": {"properties": {"framework": {"const": "CSOMI"}}}, "then": {"properties": {"authority_ref": {"const": "research/cross-substrate-other-minds-inference-20260814"}, "authority_sha": {"const": "87405c1877c6f016c303971da13923a1ab690aae"}, "packet_path": {"const": "research-workbench/cross-substrate-other-minds-inference-2026-08-14/CSOMI_PACKET_V0.1.0.json"}, "schema_path": {"const": "schemas/aion_csomi_packet_v0.1.0.schema.json"}}}},
+        {"if": {"properties": {"framework": {"const": "SLSH"}}}, "then": {"properties": {"authority_ref": {"const": "frozen/slsh-semantic-reconciliation-20260814"}, "authority_sha": {"const": "893d8dc0c1c9d8f9a4188860520143c8d1d3977b"}, "packet_path": {"const": "research-workbench/subjective-load-sensitivity-hypothesis-2026-08-14/SLSH_PACKET_V0.1.0.json"}, "schema_path": {"const": "schemas/aion_slsh_packet_v0.1.0.schema.json"}}}}
+      ]
+    },
+    "adapterInventory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework", "authority_sha", "packet_id", "claim_ids", "evidence_channel_ids", "disanalogy_ids", "control_ids", "falsifier_ids", "auxiliary_artifacts", "semantic_projection", "no_source_claim_projection", "read_only"],
+      "properties": {
+        "framework": {"enum": ["CSOMI", "SLSH"]},
+        "authority_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "packet_id": {"type": "string", "minLength": 1},
+        "claim_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "evidence_channel_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "disanalogy_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "control_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "falsifier_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "auxiliary_artifacts": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/auxiliaryArtifact"}},
+        "semantic_projection": {"const": "IDENTIFIERS_AND_LINEAGE_ONLY"},
+        "no_source_claim_projection": {"const": true},
+        "read_only": {"const": true}
+      }
+    },
+    "auxiliaryArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "role"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "role": {"const": "CONTROL_IDENTIFIER_ONLY"}
+      }
+    },
+    "sharedInterface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_identity", "claim_projection", "evidence_projection", "control_projection", "falsifier_projection", "lineage_projection"],
+      "properties": {
+        "authority_identity": {"const": "FRAMEWORK_AND_EXACT_SHA_REQUIRED; NO_SEMANTIC_MERGE"},
+        "claim_projection": {"$ref": "#/$defs/projection"},
+        "evidence_projection": {"$ref": "#/$defs/projection"},
+        "control_projection": {"$ref": "#/$defs/projection"},
+        "falsifier_projection": {"$ref": "#/$defs/projection"},
+        "lineage_projection": {"$ref": "#/$defs/projection"}
+      }
+    },
+    "projection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shared_fields", "preserved_fields", "non_equivalence_guard", "adapter_output_only"],
+      "properties": {
+        "shared_fields": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "preserved_fields": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "non_equivalence_guard": {"type": "string", "minLength": 1},
+        "adapter_output_only": {"const": true}
+      }
+    },
+    "provenanceContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["framework_research_origins", "source_audit_materialization_workflow", "authority_attribution", "source_attribution", "implementation_attribution", "provenance_mutation"],
+      "properties": {
+        "framework_research_origins": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["CSOMI", "SLSH"],
+          "properties": {
+            "CSOMI": {"$ref": "#/$defs/researchOrigin"},
+            "SLSH": {"$ref": "#/$defs/researchOrigin"}
+          }
+        },
+        "source_audit_materialization_workflow": {"$ref": "#/$defs/sourceAuditWorkflow"},
+        "authority_attribution": {"const": "FROZEN_INPUTS_REMAIN_AUTHORITATIVE_FOR_OWN_SEMANTICS"},
+        "source_attribution": {"const": "NO_SOURCE_RECORDS_COPIED_OR_RECLASSIFIED"},
+        "implementation_attribution": {"const": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW"},
+        "provenance_mutation": {"const": "PROHIBITED"}
+      }
+    },
+    "researchOrigin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin_sequence", "sequence_semantics", "not_source_audit_workflow"],
+      "properties": {
+        "origin_sequence": {"type": "array", "minItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "sequence_semantics": {"type": "string", "minLength": 1},
+        "not_source_audit_workflow": {"const": true}
+      }
+    },
+    "sourceAuditWorkflow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workflow_name", "applicability_scope", "workflow_sequence", "sequence_semantics", "not_research_origin", "implementation_role"],
+      "properties": {
+        "workflow_name": {"const": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW"},
+        "applicability_scope": {"const": "SLSH_SOURCE_RECORDS_ONLY"},
+        "workflow_sequence": {"const": ["CODEX_RESEARCH_SYNTHESIS", "CHATGPT_INDEPENDENT_SOURCE_REVIEW", "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION", "MANUS_IMPLEMENTATION"]},
+        "sequence_semantics": {"const": "SOURCE_RECORD_REVIEW_ADMISSION_AND_REPOSITORY_MATERIALIZATION_ONLY"},
+        "not_research_origin": {"const": true},
+        "implementation_role": {"const": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW"}
+      }
+    },
+    "evidenceRoleContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["csomi_roles", "slsh_roles", "convergence_boundary", "subjectivity_proof"],
+      "properties": {
+        "csomi_roles": {"const": ["BOUNDED_CAPABILITY", "GRADED_HYPOTHESIS_CREDENCE", "MECHANISTIC_OR_CAUSAL_SUPPORT", "THEORY_CONDITIONAL_SUPPORT", "DISANALOGY_DISCOUNT", "ALTERNATIVE_COMPARISON", "ROBUSTNESS_STATUS"]},
+        "slsh_roles": {"const": ["FUNCTIONAL_LOAD_STATE", "NON_AFFECTIVE_ALTERNATIVE", "CAUSAL_SIGNATURE", "CONTROL_DIAGNOSTIC", "FALSIFIER", "CLAIM_BOUNDARY"]},
+        "convergence_boundary": {"const": "CSOMI_EVIDENCE_CONVERGENCE!=SUBJECTIVITY_PROOF"},
+        "subjectivity_proof": {"const": "PROHIBITED"}
+      }
+    },
+    "controlFalsifierContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namespacing", "control_semantics", "falsifier_semantics", "cross_framework_execution"],
+      "properties": {
+        "namespacing": {"const": "FRAMEWORK_FIELD_REQUIRED_RAW_AUTHORITY_IDS_PRESERVED_NO_ID_COERCION"},
+        "control_semantics": {"const": "CONTROLS_ARE_DIAGNOSTIC_NOT_SUBJECTIVITY_PROOF"},
+        "falsifier_semantics": {"const": "FALSIFIERS_DOWNDATE_OR_HOLD_LOCAL_SCOPE_ONLY"},
+        "cross_framework_execution": {"const": "NO_EXPERIMENT_NO_RUNTIME_NO_LIVE_DATA"}
+      }
+    },
+    "metadataCondition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "status", "field", "detail", "resolution_policy"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^META-[0-9]{3}$"},
+        "status": {"const": "PRESERVED_NOT_RECONCILED"},
+        "field": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1},
+        "resolution_policy": {"const": "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY"}
+      }
+    }
+  }
+}
