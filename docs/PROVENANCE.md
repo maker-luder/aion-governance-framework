@@ -1,10 +1,16 @@
 # Provenance
 
+> **How to read this file:** the opening sections define current provenance/attribution rules. Dated sections below preserve event-specific history and corrective records. A historical event section may describe a past branch, PR or workflow state without being the current repository status. For current repository/document standing, use [`docs/README.md`](README.md) and [`RELEASE_STATUS.md`](RELEASE_STATUS.md).
+
 ## Roles
 
 - **Human Owner:** research direction, project decisions, source provision, approval and public-scope authority.
 - **ChatGPT:** requirement decomposition, terminology, governance structuring, review, documentation and public reconstruction assistance.
 - **Codex:** engineering implementation, test execution and package construction in source candidate work where recorded.
+- **Manus:** bounded engineering/convergence implementation and creator-side QA reporting where explicitly recorded; Manus completion does not create Human Owner or ChatGPT review authority.
+- **External sources/reviewers:** evidence or feedback sources only where explicitly attributed; mention does not imply institutional endorsement.
+
+Role summaries do not overwrite file-level or event-level provenance. When authorship or source is uncertain, retain `SOURCE_UNVERIFIED` rather than inferring ownership from style, repetition or later adoption.
 
 ## Confirmed attribution examples
 
@@ -36,7 +42,11 @@ The following requirements apply to project-owned output paths:
 
 This policy rejects imperceptible marking as a project provenance or identity mechanism without rejecting provenance itself. Provenance remains a first-class governance requirement; it must remain distinguishable from identity and be represented through transparent, reviewable evidence.
 
-## 2026-08-13 main-merge authority reconciliation — corrective
+## Historical event provenance
+
+The remaining dated sections are preserved event records. They do not supersede the current repository status by themselves.
+
+### 2026-08-13 main-merge authority reconciliation — corrective
 
 The Human Owner has provided a first-person correction for PR #14 and PR #15:
 
@@ -62,7 +72,7 @@ Future `main` merge authority is non-inheritable and requires fresh, action-spec
 
 See `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its machine-readable JSON companion for the incident evidence and corrective rule.
 
-## 2026-08-13 autonomous sandbox engineering review — integration provenance
+### 2026-08-13 autonomous sandbox engineering review — integration provenance
 
 The cleanup branch `cleanup/manus-output-consolidation-20260813` was used as a non-canonical engineering sandbox. The Human Owner authorized autonomous engineering inside that sandbox while keeping `main`, the research branch, repository settings, releases and deployment outside the sandbox authority boundary. Manus produced twelve bounded engineering commits from `5dfafa4ea758841a23f9d081f59d74777573e33b` through `9ee1c27d536d573d29c34f96ca930e6970ea7bc8`; the commit history is retained as the primary implementation lineage and is not rewritten as Human- or ChatGPT-authored work.
 
