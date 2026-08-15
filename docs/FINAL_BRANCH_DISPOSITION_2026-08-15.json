@@ -1,27 +1,31 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "repository": "maker-luder/aion-governance-framework",
   "inventory_date": "2026-08-15",
   "main_ref": "main",
-  "main_exact_head_sha": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+  "main_base_sha_before_freeze_merge": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+  "self_reference_policy": "The convergence branch cannot embed its own final exact HEAD because committing this ledger changes that HEAD. Its embedded SHA is a snapshot; the final exact PR head and merge commit are out-of-tree GitHub transition evidence.",
   "provenance_note": "Manus is the convergence implementation and inventory author; this ledger does not reassign historical research or engineering authorship.",
+  "remote_branch_count": 14,
   "branches": [
     {
       "branch_name": "convergence/final-repository-freeze-20260815",
-      "exact_head_sha": "ef4da46ea19f9db389706ba98f846addc58222b2",
+      "head_evidence_type": "SELF_REFERENTIAL_SNAPSHOT_PLUS_OUT_OF_TREE_FINAL_PR_HEAD",
+      "snapshot_head_sha": "ef4da46ea19f9db389706ba98f846addc58222b2",
+      "final_exact_head_evidence": "GITHUB_PR_20",
       "merge_base_with_main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
-      "ahead_by": 3,
-      "behind_by": 0,
-      "unique_commit_count": 3,
-      "open_pr": "#20 (OPEN_READY_FOR_DUAL_REVIEW)",
+      "ahead_by_at_snapshot": 3,
+      "behind_by_at_snapshot": 0,
+      "unique_commit_count_at_snapshot": 3,
+      "open_pr": "#20 transition PR",
       "historical_role": "final repository freeze convergence branch",
       "provenance_role": "Manus convergence implementation and inventory provenance",
-      "authority_role": "review-only until Human Owner and independent ChatGPT approvals",
+      "authority_role": "transition requires Human Owner and independent ChatGPT approvals recorded out-of-tree",
       "main_equivalent": false,
       "disposition": "PRESERVE_AS_FROZEN_AUTHORITY",
-      "reason": "Single working branch for documentation convergence and freeze records; PR #20 is open for dual review and the branch is not main authority.",
+      "reason": "Single convergence branch. Its moving HEAD cannot be embedded as its own final exact SHA without creating another HEAD.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -39,7 +43,7 @@
       "disposition": "PRESERVE_AS_ENGINEERING_HISTORY",
       "reason": "The branch contains unique engineering commits after the historical PR #18 head and must not be deleted merely because earlier work merged.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -57,7 +61,7 @@
       "disposition": "PRESERVE_AS_ENGINEERING_HISTORY",
       "reason": "Unique engineering history is preserved; no new runtime work or architecture expansion is authorized by the freeze.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -75,7 +79,7 @@
       "disposition": "DEFERRED_NOT_PROMOTED",
       "reason": "The branch has unique feasibility history and is explicitly not promoted under the no-new-runtime-work freeze boundary.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -93,7 +97,7 @@
       "disposition": "PRESERVE_AS_RESEARCH_HISTORY",
       "reason": "Wholesale merge is prohibited; the branch preserves substantial unique research history and provenance.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -111,7 +115,7 @@
       "disposition": "PRESERVE_AS_FROZEN_AUTHORITY",
       "reason": "The freeze specification explicitly protects this ref and PR #19 uses its exact SHA as the SLSH authority.",
       "safe_to_delete": false,
-      "tag_required_before_delete": false,
+      "tag_required_before_future_delete": false,
       "canonical_effect": "NONE"
     },
     {
@@ -127,27 +131,29 @@
       "authority_role": "source exact HEAD for PR #19; not itself promoted",
       "main_equivalent": false,
       "disposition": "DEFERRED_NOT_PROMOTED",
-      "reason": "PR #19 selectively references existing blobs from this source; its research ancestry is not wholesale merged and the source ref is retained.",
+      "reason": "PR #19 selectively referenced existing blobs from this source; its research ancestry was not wholesale merged and the source ref is retained.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
       "branch_name": "main",
-      "exact_head_sha": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+      "head_evidence_type": "PRE_FREEZE_MERGE_BASE",
+      "exact_head_sha_at_inventory": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+      "final_merge_commit_evidence": "OUT_OF_TREE_GITHUB_PR_20_IF_MERGED",
       "merge_base_with_main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
       "ahead_by": 0,
       "behind_by": 0,
       "unique_commit_count": 0,
       "open_pr": null,
-      "historical_role": "protected current repository baseline",
-      "provenance_role": "current public repository lineage",
+      "historical_role": "protected current repository baseline before freeze merge",
+      "provenance_role": "public repository lineage",
       "authority_role": "protected default branch; no direct mutation performed",
       "main_equivalent": true,
       "disposition": "PRESERVE_AS_FROZEN_AUTHORITY",
-      "reason": "Main remains protected and unchanged while the final convergence PR awaits dual review.",
+      "reason": "Main is the protected base for the convergence PR; any final merge commit is recorded by GitHub as out-of-tree transition evidence.",
       "safe_to_delete": false,
-      "tag_required_before_delete": false,
+      "tag_required_before_future_delete": false,
       "canonical_effect": "NONE"
     },
     {
@@ -165,7 +171,7 @@
       "disposition": "DEFERRED_NOT_PROMOTED",
       "reason": "Unique promotion history is retained without merge because the repository is frozen and canonical promotion is not authorized.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -175,15 +181,15 @@
       "ahead_by": 2,
       "behind_by": 0,
       "unique_commit_count": 2,
-      "open_pr": "#19 (closed as DEFERRED_BY_REPOSITORY_FREEZE)",
+      "open_pr": "#19 CLOSED_AS_DEFERRED_BY_REPOSITORY_FREEZE",
       "historical_role": "PR #19 selective promotion candidate",
       "provenance_role": "selected artifact and CI promotion provenance",
-      "authority_role": "Authority Gate HOLD; no merge authority; ChatGPT review not supplied",
+      "authority_role": "Authority Gate HOLD; no merge authority; no ChatGPT review was inferred",
       "main_equivalent": false,
       "disposition": "DEFERRED_NOT_PROMOTED",
-      "reason": "Exact head, changed files, source authorities and Quality PASS are recorded, but the latest Authority Gate failed freshness and the PR is not automatically merged.",
+      "reason": "Exact head, changed files, source authorities and Quality PASS are recorded, but the Authority Gate failed freshness and the PR was closed without merge.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -201,7 +207,7 @@
       "disposition": "PRESERVE_AS_FROZEN_AUTHORITY",
       "reason": "It resolves to the same exact SHA as the protected frozen SLSH authority branch; retaining the named remediation ref avoids provenance ambiguity.",
       "safe_to_delete": false,
-      "tag_required_before_delete": false,
+      "tag_required_before_future_delete": false,
       "canonical_effect": "NONE"
     },
     {
@@ -219,7 +225,7 @@
       "disposition": "PRESERVE_AS_RESEARCH_HISTORY",
       "reason": "The freeze specification explicitly protects this research ref and PR #19 pins its exact SHA.",
       "safe_to_delete": false,
-      "tag_required_before_delete": false,
+      "tag_required_before_future_delete": false,
       "canonical_effect": "NONE"
     },
     {
@@ -237,7 +243,7 @@
       "disposition": "PRESERVE_AS_RESEARCH_HISTORY",
       "reason": "The branch contains unique research history and is explicitly protected from deletion or wholesale promotion.",
       "safe_to_delete": false,
-      "tag_required_before_delete": true,
+      "tag_required_before_future_delete": true,
       "canonical_effect": "NONE"
     },
     {
@@ -255,11 +261,12 @@
       "disposition": "PRESERVE_AS_RESEARCH_HISTORY",
       "reason": "The freeze specification explicitly protects this branch; research history remains research history and is not wholesale merged into main.",
       "safe_to_delete": false,
-      "tag_required_before_delete": false,
+      "tag_required_before_future_delete": false,
       "canonical_effect": "NONE"
     }
   ],
   "deleted_redundant_branch_count": 0,
-  "tag_creation": "HOLD_FOR_OWNER",
-  "global_disposition": "NO_REMOTE_BRANCH_DELETED; ALL UNIQUE OR AUTHORITY-BEARING REFS PRESERVED"
+  "new_freeze_tag_required": false,
+  "future_branch_deletion_tag_rule": "PRESERVED_WHERE_LEDGER_REQUIRES_TAG_FIRST",
+  "global_disposition": "NO_REMOTE_BRANCH_DELETED; ALL UNIQUE OR AUTHORITY-BEARING REFS PRESERVED; WHOLESALE_RESEARCH_MERGE_NOT_PERFORMED; CANONICAL_EFFECT_NONE"
 }
