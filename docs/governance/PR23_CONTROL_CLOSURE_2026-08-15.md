@@ -7,7 +7,10 @@
 
 **Artifact origin commit:** `580aba11611c261e7d5a03c56d64ff41c213f505`  
 **Current/final artifact head:** resolve from PR #27 rather than embedding a self-referential SHA in this file.  
-**Prepared by:** Manus AI as implementation and evidence-producing agent; subsequently updated with independently verified positive-test evidence  
+**Initial investigation and artifact:** Manus AI  
+**Positive-test Human Owner action:** Human Owner personally performed the PR #26 body edit for the disposable eligibility test; that action is not inherited by PR #27.  
+**Positive evidence and provenance update:** ChatGPT independently verified the GitHub evidence and updated these PR #27 closure artifacts through the connected GitHub operation after the Human Owner requested continuation.  
+**Transport authorship note:** GitHub records these connected writes under the `maker-luder` account context; that transport authorship does not change the source attribution stated above.  
 **Repository:** `maker-luder/aion-governance-framework`  
 **Audit date:** 2026-08-15
 
