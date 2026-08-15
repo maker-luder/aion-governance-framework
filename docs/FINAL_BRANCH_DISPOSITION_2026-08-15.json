@@ -7,6 +7,24 @@
   "provenance_note": "Manus is the convergence implementation and inventory author; this ledger does not reassign historical research or engineering authorship.",
   "branches": [
     {
+      "branch_name": "convergence/final-repository-freeze-20260815",
+      "exact_head_sha": "750a386938a48e45d8a0ad5ec5106cc48db4d876",
+      "merge_base_with_main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",
+      "ahead_by": 1,
+      "behind_by": 0,
+      "unique_commit_count": 1,
+      "open_pr": "final convergence PR (to be created)",
+      "historical_role": "final repository freeze convergence branch",
+      "provenance_role": "Manus convergence implementation and inventory provenance",
+      "authority_role": "review-only until Human Owner and independent ChatGPT approvals",
+      "main_equivalent": false,
+      "disposition": "PRESERVE_AS_FROZEN_AUTHORITY",
+      "reason": "Single working branch for documentation convergence and freeze records; it must remain reviewable and is not main authority.",
+      "safe_to_delete": false,
+      "tag_required_before_delete": true,
+      "canonical_effect": "NONE"
+    },
+    {
       "branch_name": "cleanup/manus-output-consolidation-20260813",
       "exact_head_sha": "c43430f9b39a86d11093f3286e9503145fcf0d70",
       "merge_base_with_main": "e079fb7dfe7a04be7dcb94b8a059951a003caa94",

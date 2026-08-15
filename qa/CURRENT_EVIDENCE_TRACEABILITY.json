@@ -1,0 +1,339 @@
+{
+  "schema_version": "0.1.0",
+  "inspection_type": "EVIDENCE_TRACEABILITY_STRUCTURE_ONLY",
+  "target_head": "750a386938a48e45d8a0ad5ec5106cc48db4d876",
+  "generated_at": "2026-08-15T11:53:56.569118+00:00",
+  "source_document": "docs/C0_ACCEPTANCE_EVIDENCE_INDEX_2026-08-08.md",
+  "criterion_count": 26,
+  "records": [
+    {
+      "criterion": "AC-SCOPE-01",
+      "requirement_source": "Human Owner authorization of P0/P1/P2, migration evidence reuse and A+B; no silent scope expansion",
+      "implementation_review_artifact": "PR #3 diff; P0/P1/P2/migration/A+B reports; current Reality Matrix",
+      "test_review_method": "Compare locked PR diff and changed-file list against authorized scope and necessary QA/docs fixes",
+      "evidence_location_type": "PR changed-file list; implementation reports; `docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; `docs/STABILIZATION_A_B_REPORT_2026-08-08.md`",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "C must perform the scope comparison against the frozen head; no result recorded here",
+      "local_refs": [
+        "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md",
+        "docs/STABILIZATION_A_B_REPORT_2026-08-08.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-SCOPE-02",
+      "requirement_source": "Existing HOLD / stop lines",
+      "implementation_review_artifact": "Current Reality Matrix; PR body; component READMEs; research stop-line docs",
+      "test_review_method": "Review deferred items and verify they were not silently activated",
+      "evidence_location_type": "`docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; AION/Astra/Individual State READMEs; PR #3 body",
+      "evidence_state": "PARTIAL_AVAILABLE",
+      "limitation_note": "Authoritative Remaining HOLD reference belongs to later C0 work and is not created by C0-1",
+      "local_refs": [
+        "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-ID-01",
+      "requirement_source": "P0 Runtime identity binding",
+      "implementation_review_artifact": "`components/aion_runtime_v0.1.0/src/aion_runtime/runtime.py`; `components/astra_runtime_v0.1.0/src/astra_runtime/runtime.py`",
+      "test_review_method": "Negative construction tests with wrong `agent_id`",
+      "evidence_location_type": "AION `tests/test_runtime.py::test_runtime_rejects_non_aion_context`; Astra `tests/test_runtime.py::test_runtime_rejects_non_astra_context`; workflow execution on locked head",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Confirms engineering agent binding only; does not establish subjective identity",
+      "local_refs": [
+        "components/aion_runtime_v0.1.0/src/aion_runtime/runtime.py",
+        "components/astra_runtime_v0.1.0/src/astra_runtime/runtime.py"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-ID-02",
+      "requirement_source": "P0 current-instance exact-match boundary; P2 migration invariant",
+      "implementation_review_artifact": "AION/Astra Runtime task admission; `IndividualRuntimeContext`; migration code",
+      "test_review_method": "Submit context substitutions; verify fail-closed; separately verify approved migration changes only `runtime_instance_id`",
+      "evidence_location_type": "AION/Astra `tests/test_runtime.py::test_task_context_must_match_bound_*`; state-store migration ownership tests; lifecycle migration tests",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Current-instance exact match must not be misread as lifetime immutability",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-ID-03A",
+      "requirement_source": "Twin ownership invariant; P0/P1 separate ownership",
+      "implementation_review_artifact": "Twin Runtime binding; AION/Astra bound contexts; state store",
+      "test_review_method": "Validate shared genesis with separate agent/instance/memory/event/canonical ownership; reject shared event lineage",
+      "evidence_location_type": "`research-labs/twin-genesis-embodiment_v0.1.0/tests/test_runtime_binding.py`; AION/Astra mismatch tests",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Shared `genesis_root_id` is permitted only by validated Twin relation",
+      "local_refs": [
+        "research-labs/twin-genesis-embodiment_v0.1.0/tests/test_runtime_binding.py"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-ID-03B",
+      "requirement_source": "Research non-inference / stop lines",
+      "implementation_review_artifact": "Reality Matrix; AION/Astra READMEs; P0/P1/P2 reports; Twin docs; PR body",
+      "test_review_method": "Documentation/non-claim review for forbidden inference from shared genesis/infra to shared identity/subjectivity",
+      "evidence_location_type": "`docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; implementation reports; PR #3 body",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Evidence is documentary/governance, not a consciousness test",
+      "local_refs": [
+        "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-MEM-01",
+      "requirement_source": "P0 memory ownership binding",
+      "implementation_review_artifact": "AION/Astra Runtime `remember` / `recall` composition",
+      "test_review_method": "Write and recall without caller-selected agent/namespace; verify bound ownership",
+      "evidence_location_type": "AION `tests/test_runtime.py::test_runtime_memory_round_trip_is_bound_to_aion_stream`; Astra `tests/test_runtime.py::test_memory_is_bound_to_astra_stream`",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Confirms Runtime-bound ownership; does not assert autobiographical subjectivity",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-EVT-01",
+      "requirement_source": "P1 persistent separate append-only event lineage",
+      "implementation_review_artifact": "`components/individual_runtime_state_v0.1.0/src/individual_runtime_state/store.py`; AION/Astra lifecycle composition",
+      "test_review_method": "Restart/reopen same lineage; verify sequence/hash links; reject different agent; inspect append-only behavior",
+      "evidence_location_type": "`components/individual_runtime_state_v0.1.0/tests/test_store.py`; AION/Astra lifecycle tests",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Event history is distinct from content memory",
+      "local_refs": [
+        "components/individual_runtime_state_v0.1.0/src/individual_runtime_state/store.py",
+        "components/individual_runtime_state_v0.1.0/tests/test_store.py"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-EVT-02",
+      "requirement_source": "Research non-claim: event continuity != subjective continuity",
+      "implementation_review_artifact": "Reality Matrix; P1/P2 report; READMEs; PR body",
+      "test_review_method": "Review wording for consciousness/phenomenal-continuity overclaim",
+      "evidence_location_type": "`docs/P1_P2_RUNTIME_LINEAGE_LIFECYCLE_IMPLEMENTATION_REPORT_2026-08-08.md`; Reality Matrix; PR body",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Documentary governance criterion only",
+      "local_refs": [
+        "docs/P1_P2_RUNTIME_LINEAGE_LIFECYCLE_IMPLEMENTATION_REPORT_2026-08-08.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-LIFE-01",
+      "requirement_source": "P2 restart/reopen continuity",
+      "implementation_review_artifact": "Individual state store; AION/Astra Runtime lifecycle",
+      "test_review_method": "Reopen same state DB/context; verify sequence continues and chain verifies",
+      "evidence_location_type": "state-store `test_event_lineage_persists_across_restart`; AION/Astra `test_restart_reopens_same_event_lineage`",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "C0-3 may deepen recoverability scenarios later; C0-1 does not alter criteria",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-LIFE-02",
+      "requirement_source": "P2 fail-closed recovery; external recoverability calibration",
+      "implementation_review_artifact": "State-store `verify()` / `recover()`",
+      "test_review_method": "Verify full chain before recovery; corruption/invalid-chain behavior review",
+      "evidence_location_type": "`components/individual_runtime_state_v0.1.0/tests/test_store.py`; P1/P2 report; implementation code",
+      "evidence_state": "PARTIAL_AVAILABLE",
+      "limitation_note": "Existing suite proves current semantics; deeper disturbance/interruption acceptance review is reserved for C0-3",
+      "local_refs": [
+        "components/individual_runtime_state_v0.1.0/tests/test_store.py"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-LIFE-03",
+      "requirement_source": "P2 non-destructive rollback",
+      "implementation_review_artifact": "State store checkpoint/rollback",
+      "test_review_method": "Create checkpoint, append later event, request rollback, verify history not truncated",
+      "evidence_location_type": "`test_checkpoint_recovery_and_non_destructive_rollback` in state-store tests; P1/P2 report",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Rollback returns references/request semantics; it is not full physical DB/file restoration",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-LIFE-04",
+      "requirement_source": "P2 migration invariant",
+      "implementation_review_artifact": "State-store `migrate_instance`; AION/Astra migration wrappers",
+      "test_review_method": "Positive migration changes instance ID; negative migration rejects stable ownership changes",
+      "evidence_location_type": "state-store `test_migration_changes_only_runtime_instance_and_reuses_evidence`; `test_migration_cannot_change_individual_ownership`; AION/Astra lifecycle tests",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Migration is Owner-governed and preserves stable lineage fields",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-LIFE-05",
+      "requirement_source": "Human Owner migration-evidence-reuse proposal",
+      "implementation_review_artifact": "Environment evidence registry and migration PASS gate",
+      "test_review_method": "Reuse unchanged fingerprint; create new evidence on change; reject FAIL evidence",
+      "evidence_location_type": "state-store evidence reuse/change tests; `test_migration_requires_pass_environment_evidence`; migration implementation report",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Current fingerprint design does not separately encode verifier/schema version; known future hardening, not silently claimed implemented",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-LIFE-06",
+      "requirement_source": "Event identity unique; evidence reusable; raw history append-only",
+      "implementation_review_artifact": "State-store migration events and derived summary",
+      "test_review_method": "Perform round-trip migrations; verify unique raw events but reused evidence IDs and derived summaries",
+      "evidence_location_type": "`test_round_trip_migrations_keep_unique_events_but_reuse_two_evidence_records`; migration report",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Summary is derived view only; raw events remain authoritative history",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-QA-01",
+      "requirement_source": "Existing repository Quality gate",
+      "implementation_review_artifact": "`.github/workflows/quality.yml` / repository Quality workflow",
+      "test_review_method": "Run on exact frozen target head for Python 3.11/3.12",
+      "evidence_location_type": "GitHub Actions workflow result tied to target head",
+      "evidence_state": "OUT_OF_TREE_FINAL_EVIDENCE",
+      "limitation_note": "Final run IDs belong in PR freeze/acceptance records, not branch contents",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-QA-02",
+      "requirement_source": "A/B Strong QA gate excluding separate coverage criterion",
+      "implementation_review_artifact": "`.github/workflows/runtime-strong-qa.yml`; `scripts/run_runtime_strong_qa.sh`",
+      "test_review_method": "mypy strict; wheel build; clean venv; `--no-index` local-wheelhouse install; cold import smoke",
+      "evidence_location_type": "Strong QA script/workflow; GitHub Actions result tied to target head",
+      "evidence_state": "AVAILABLE + OUT_OF_TREE_FINAL_EVIDENCE",
+      "limitation_note": "Final workflow result must be checked on frozen head; branch file only defines/repeats the method",
+      "local_refs": [
+        "scripts/run_runtime_strong_qa.sh"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-QA-03",
+      "requirement_source": "Pre-result >=80% branch-aware coverage threshold",
+      "implementation_review_artifact": "`scripts/run_runtime_strong_qa.sh`",
+      "test_review_method": "Run coverage separately for executable Runtime, individual state, AION Runtime, Astra Runtime with `--cov-branch --cov-fail-under=80`",
+      "evidence_location_type": "Strong QA script lines/behavior; GitHub Actions coverage output on target head",
+      "evidence_state": "AVAILABLE + OUT_OF_TREE_FINAL_EVIDENCE",
+      "limitation_note": "Threshold is evaluated independently from QA-02 to avoid duplicate failure semantics",
+      "local_refs": [
+        "scripts/run_runtime_strong_qa.sh"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-QA-04",
+      "requirement_source": "NASA objective-evidence / traceability principle; ISO quality-evaluation framing",
+      "implementation_review_artifact": "This Evidence Index; criteria draft; crosswalk; implementation/test artifacts",
+      "test_review_method": "During C, verify every BLOCKING/MAJOR criterion has traceable requirement, method and evidence",
+      "evidence_location_type": "`docs/C0_ACCEPTANCE_EVIDENCE_INDEX_2026-08-08.md` plus cited artifacts",
+      "evidence_state": "PARTIAL_AVAILABLE",
+      "limitation_note": "This index provides navigation only; C must still judge sufficiency and results after freeze",
+      "local_refs": [
+        "docs/C0_ACCEPTANCE_EVIDENCE_INDEX_2026-08-08.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-DOC-01",
+      "requirement_source": "A documentation-convergence requirement; preserve historical evidence",
+      "implementation_review_artifact": "Current and historical Reality Matrices; component READMEs",
+      "test_review_method": "Compare current-state docs with historical pre-P0/P1/P2 matrix; confirm history not rewritten",
+      "evidence_location_type": "`docs/RUNTIME_REALITY_MATRIX_2026-08-08.md`; `docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; READMEs",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Final consistency review belongs to later C0 stage",
+      "local_refs": [
+        "docs/RUNTIME_REALITY_MATRIX_2026-08-08.md",
+        "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-DOC-02",
+      "requirement_source": "Operator/API boundary and non-promotion boundary",
+      "implementation_review_artifact": "AION/Astra/Individual State READMEs; Current Matrix; PR body",
+      "test_review_method": "Verify Python API vs operator-surface parity, deployment and canonical claims are separated",
+      "evidence_location_type": "component READMEs; current Matrix; PR body",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Final cross-document stale-state check belongs to later C0 consistency review",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-PROV-01",
+      "requirement_source": "Human Owner source-attribution separation rule",
+      "implementation_review_artifact": "`docs/CHANGE_PROVENANCE_RULES_v0.1.md`; implementation reports; PR body; criteria/crosswalk provenance",
+      "test_review_method": "Review proposal/implementation/review/approval/state ownership/QA attribution separately",
+      "evidence_location_type": "provenance rules; P0/P1/P2/migration/A+B/C0 docs; PR body",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Git author/committer is not conceptual authorship evidence",
+      "local_refs": [
+        "docs/CHANGE_PROVENANCE_RULES_v0.1.md"
+      ],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-PROV-02",
+      "requirement_source": "Current-cycle attribution: Codex contribution = NONE",
+      "implementation_review_artifact": "Current implementation reports; C0 docs; PR body",
+      "test_review_method": "Search/review current-cycle attribution statements for misattribution",
+      "evidence_location_type": "P0/P1/P2/migration/A+B/C0 docs; PR body",
+      "evidence_state": "AVAILABLE",
+      "limitation_note": "Criterion is limited to this change cycle and does not rewrite unrelated historical Codex contributions",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-GOV-01",
+      "requirement_source": "Owner acceptance != merge != canonical promotion != deployment/IV&V",
+      "implementation_review_artifact": "Criteria draft; Reality Matrix; PR governance-gate wording",
+      "test_review_method": "Review C decision wording and subsequent records for boundary preservation",
+      "evidence_location_type": "current Matrix; criteria draft; PR body; future Owner Decision Record",
+      "evidence_state": "PARTIAL_AVAILABLE + FUTURE_C_EVIDENCE",
+      "limitation_note": "Final proof requires the actual C Owner Decision Record",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-GOV-02",
+      "requirement_source": "ISO evaluator-role distinction; current limitation",
+      "implementation_review_artifact": "Reality Matrix; criteria draft; PR body",
+      "test_review_method": "Confirm no independent-IV&V claim unless separate independent evidence exists",
+      "evidence_location_type": "current Matrix; criteria draft; PR body; future decision record",
+      "evidence_state": "PARTIAL_AVAILABLE + FUTURE_C_EVIDENCE",
+      "limitation_note": "Current state is explicitly `INDEPENDENT_IVV = NOT_ACHIEVED`",
+      "local_refs": [],
+      "missing_local_refs": []
+    },
+    {
+      "criterion": "AC-GOV-03",
+      "requirement_source": "Anti-hindsight/change-control rule",
+      "implementation_review_artifact": "AH-01..AH-07 in criteria draft; future C decision/CAPA records",
+      "test_review_method": "If failure occurs in C, inspect whether criterion remained visible and any change used documented impact/change control",
+      "evidence_location_type": "criteria draft now; C log/NCR/CAPA if needed later",
+      "evidence_state": "FUTURE_C_EVIDENCE",
+      "limitation_note": "Cannot be fully evidenced before C because it governs how C handles discovered failures",
+      "local_refs": [],
+      "missing_local_refs": []
+    }
+  ],
+  "status": "PASS",
+  "acceptance_decision": "NOT_EVALUATED",
+  "future_evidence_preserved": true,
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "independent_ivv": "NOT_ACHIEVED",
+  "mutation_performed": false,
+  "diagnostics": {
+    "index_exists": true,
+    "malformed_rows": [],
+    "malformed_criteria": [],
+    "missing_local_refs": []
+  }
+}

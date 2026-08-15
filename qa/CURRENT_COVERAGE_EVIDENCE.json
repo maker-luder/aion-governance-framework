@@ -1,0 +1,13 @@
+{
+  "schema_version": "0.1.0",
+  "target_head": "750a386938a48e45d8a0ad5ec5106cc48db4d876",
+  "generated_at": "2026-08-15T11:53:56.496400+00:00",
+  "target_count": 19,
+  "results_ref": "qa/CURRENT_COVERAGE_RESULTS.json",
+  "branch_coverage": true,
+  "scope": "MAIN_MATURATION_PHASE1",
+  "whole_system_validation": "NOT_ESTABLISHED",
+  "independent_ivv": "NOT_ACHIEVED",
+  "canonical_effect": "NONE",
+  "deployment": false
+}

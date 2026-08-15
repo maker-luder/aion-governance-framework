@@ -1,62 +1,97 @@
 [
   {
+    "target": "components/aion_runtime_v0.1.0",
+    "returncode": 0,
+    "output": "...........                                                              [100%]\n11 passed in 0.76s\n"
+  },
+  {
+    "target": "components/astra_runtime_v0.1.0",
+    "returncode": 0,
+    "output": ".....                                                                    [100%]\n5 passed in 0.15s\n"
+  },
+  {
     "target": "components/astra_workbench_v1.0.0",
     "returncode": 0,
-    "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 6.05s\n"
+    "output": "........................................................................ [ 80%]\n.................                                                        [100%]\n89 passed in 1.34s\n"
   },
   {
     "target": "components/continuity_governance_v0.1.0",
     "returncode": 0,
-    "output": "....                                                                     [100%]\n4 passed in 0.03s\n"
+    "output": ".......                                                                  [100%]\n7 passed in 0.02s\n"
+  },
+  {
+    "target": "components/encounter_governance_v0.1.0",
+    "returncode": 0,
+    "output": "........                                                                 [100%]\n8 passed in 0.14s\n"
   },
   {
     "target": "components/executable_runtime_v0.1.0",
     "returncode": 0,
-    "output": "............                                                             [100%]\n12 passed in 0.17s\n"
+    "output": ".............                                                            [100%]\n13 passed in 0.13s\n"
   },
   {
     "target": "components/governance_kernel_v0.4.0",
     "returncode": 0,
-    "output": "..............................................                           [100%]\n46 passed in 0.18s\n"
+    "output": "..............................................                           [100%]\n46 passed in 0.12s\n"
   },
   {
     "target": "components/identity_governance_v0.1.0",
     "returncode": 0,
-    "output": "...................................                                      [100%]\n35 passed in 0.13s\n"
+    "output": "...................................                                      [100%]\n35 passed in 0.11s\n"
+  },
+  {
+    "target": "components/individual_runtime_state_v0.1.0",
+    "returncode": 0,
+    "output": "..............                                                           [100%]\n14 passed in 0.23s\n"
+  },
+  {
+    "target": "components/iqc_quality_inspection_v0.1.0",
+    "returncode": 0,
+    "output": "...............                                                          [100%]\n15 passed in 0.26s\n"
   },
   {
     "target": "components/language_core_v0.1.0",
     "returncode": 0,
-    "output": ".............................                                            [100%]\n29 passed in 0.12s\n"
+    "output": ".............................                                            [100%]\n29 passed in 0.15s\n"
   },
   {
     "target": "components/memory_recall_governance_v0.1.0",
     "returncode": 0,
-    "output": "......                                                                   [100%]\n6 passed in 0.04s\n"
+    "output": "..........                                                               [100%]\n10 passed in 0.05s\n"
   },
   {
     "target": "components/research_integrity_security_v0.1.0",
     "returncode": 0,
-    "output": "......                                                                   [100%]\n6 passed in 0.04s\n"
+    "output": ".........                                                                [100%]\n9 passed in 0.02s\n"
   },
   {
     "target": "components/upstream_security_v0.1.0",
     "returncode": 0,
-    "output": ".................................                                        [100%]\n33 passed in 0.09s\n"
+    "output": ".................................                                        [100%]\n33 passed in 0.08s\n"
   },
   {
     "target": "examples/bazi-capability_v0.1.1",
     "returncode": 0,
-    "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.36s\n"
+    "output": "........................................................................ [ 87%]\n..........                                                               [100%]\n82 passed in 0.51s\n"
+  },
+  {
+    "target": "research-labs/affective-cognitive-motivation_v0.1.0",
+    "returncode": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 0.03s\n"
   },
   {
     "target": "research-labs/language-core-g1_v0.2.1",
     "returncode": 0,
-    "output": "........................................................                 [100%]\n56 passed in 0.17s\n"
+    "output": "........................................................                 [100%]\n56 passed in 0.22s\n"
+  },
+  {
+    "target": "research-labs/subjectivity-pipeline_v0.1.0",
+    "returncode": 0,
+    "output": "......                                                                   [100%]\n6 passed in 0.02s\n"
   },
   {
     "target": "research-labs/twin-genesis-embodiment_v0.1.0",
     "returncode": 0,
-    "output": "..............                                                           [100%]\n14 passed in 0.04s\n"
+    "output": ".................                                                        [100%]\n17 passed in 0.11s\n"
   }
 ]

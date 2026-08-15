@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "scope": "FINAL_REPOSITORY_FREEZE",
-  "target_head": "PENDING_FINAL_CONVERGENCE_HEAD",
+  "scope": "MAIN_MATURATION_PHASE1",
+  "target_head": "750a386938a48e45d8a0ad5ec5106cc48db4d876",
   "release": "MAIN_CANDIDATE_NOT_RELEASE",
   "historical_release_baseline": "v0.1.0-rc.1",
   "historical_post_rc_checkpoint": "v0.2.0-rc.1",
@@ -10,13 +10,13 @@
   "august_scope_freeze": "FROZEN",
   "final_freeze_date": "2026-08-15",
   "final_freeze_status": "READY_FOR_DUAL_REVIEW",
-  "current_tests": "412 PASSED",
+  "current_tests": "492 PASSED",
   "compileall": "PASS",
   "mypy_current": "NOT_EXECUTED_TOOL_UNAVAILABLE",
   "ruff_current": "NOT_EXECUTED_TOOL_UNAVAILABLE",
   "manifest": "PASS",
   "sha256": "PASS",
-  "public_scan": "PENDING_FINAL_SCAN",
+  "public_scan": "PASS",
   "bounded_executable_runtime_candidate": "IMPLEMENTED",
   "aion_canonical_runtime": "NOT_ESTABLISHED",
   "astra_canonical_runtime": "NOT_ESTABLISHED",
@@ -33,5 +33,9 @@
   "deployment": false,
   "license_status": "RESOLVED_APACHE_2_0",
   "active_engineering": "NO",
-  "active_repository_research": "PAUSED"
+  "active_repository_research": "PAUSED",
+  "current_targets": 19,
+  "eligible_target_count": 19,
+  "tested_target_count": 19,
+  "non_applicable_target_count": 0
 }
