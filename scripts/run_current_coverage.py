@@ -23,7 +23,7 @@ SOURCE_ROOTS = [
 
 def _target_environment(target_src: Path) -> dict[str, str]:
     env = os.environ.copy()
-    ordered = [target_src] + [path for path in SOURCE_ROOTS if path != target_src and path.is_dir()]
+    ordered = [target_src, ROOT] + [path for path in SOURCE_ROOTS if path != target_src and path.is_dir()]
     env["PYTHONPATH"] = os.pathsep.join(str(path) for path in ordered)
     return env
 
