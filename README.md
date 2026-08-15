@@ -36,13 +36,16 @@ The frozen RC block records the historical public baseline and is not rewritten 
 
 ## Current repository state / 目前 repository 狀態
 
-This branch records the 2026-08-15 final repository freeze checkpoint proposal. The protected `main` remains unchanged at `e079fb7dfe7a04be7dcb94b8a059951a003caa94` until the final convergence PR receives both required independent approvals. This checkpoint is documentation and state reconciliation only; it is not a canonical promotion, deployment, or new release.
+The repository is in its **2026-08-15 final freeze checkpoint**. The convergence payload was prepared from protected `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94`; that SHA is the pre-freeze merge base, not a self-embedded final merge SHA. Exact PR-head approvals, checks and the merge event are maintained as out-of-tree GitHub transition evidence so this README does not become stale immediately after the transition.
+
+This checkpoint is documentation and state reconciliation only. It is not a canonical promotion, deployment, subjectivity conclusion, or new semantic release, and no additional freeze tag is required.
 
 ```text
 CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
-CURRENT_MAIN_SHA_BEFORE_FREEZE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
+MAIN_BASE_BEFORE_FREEZE_MERGE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
 FINAL_FREEZE_DATE = 2026-08-15
-FINAL_FREEZE_STATUS = READY_FOR_DUAL_REVIEW
+FREEZE_PAYLOAD = COMPLETE
+TRANSITION_EVIDENCE = GITHUB_PR_20_OUT_OF_TREE
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
 NEW_FEATURE_DEVELOPMENT = NO
@@ -51,6 +54,8 @@ CANONICAL_RUNTIME = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
 LICENSE_SELECTION = RESOLVED_APACHE_2_0
+NEW_FREEZE_TAG_REQUIRED = NO
+POST_FREEZE_FOLLOWUP_PR_REQUIRED = NO
 ```
 
 ## Current Research / 目前研究進度
