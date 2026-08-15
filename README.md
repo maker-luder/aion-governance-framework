@@ -2,7 +2,7 @@
 
 > **[繁體中文](README.zh-TW.md) | English**
 >
-> **Public Release Candidate — a governed research framework, not a deployed artificial subject**
+> **Historical Public Release Candidate baseline — a governed research framework, not a deployed artificial subject**
 >
 > **Bilingual public orientation:** [`README.zh-TW.md`](README.zh-TW.md)
 
@@ -32,19 +32,39 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
 
-The frozen RC block records the historical public baseline. Post-RC work may add isolated research material on review branches without silently rewriting this baseline.
+The frozen RC block records the historical public baseline and is not rewritten by this checkpoint.
+
+## Current repository state / 目前 repository 狀態
+
+This branch records the 2026-08-15 final repository freeze checkpoint proposal. The protected `main` remains unchanged at `e079fb7dfe7a04be7dcb94b8a059951a003caa94` until the final convergence PR receives both required independent approvals. This checkpoint is documentation and state reconciliation only; it is not a canonical promotion, deployment, or new release.
+
+```text
+CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
+CURRENT_MAIN_SHA_BEFORE_FREEZE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
+FINAL_FREEZE_DATE = 2026-08-15
+FINAL_FREEZE_STATUS = READY_FOR_DUAL_REVIEW
+ACTIVE_ENGINEERING = NO
+ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
+NEW_FEATURE_DEVELOPMENT = NO
+DEPLOYMENT = FALSE
+CANONICAL_RUNTIME = NOT_ESTABLISHED
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+INDEPENDENT_IVV = NOT_ACHIEVED
+LICENSE_SELECTION = RESOLVED_APACHE_2_0
+```
 
 ## Current Research / 目前研究進度
 
-The active public research material is maintained on [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization), not on `main`. Its results are review material rather than canonical conclusions.
+The preserved research material remains on [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization) as historical provenance, not active development on `main`. Its results remain review material rather than canonical conclusions, and new research materialization is paused by the repository freeze.
 
 ```text
 RESEARCH_BRANCH != MAIN
 RESEARCH_RESULT != CANONICAL_CONCLUSION
+ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
 CANONICAL_EFFECT = NONE
 ```
 
-No research-branch content is automatically adopted by `main`, canonical state, deployment, or the AION/Astra runtime. See the research-branch homepage for its bilingual public experimental orientation: [`review/four-domain-research-materialization/README.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/README.md).
+No research-branch content is automatically adopted by `main`, canonical state, deployment, or the AION/Astra runtime. See the preserved research-branch homepage for its bilingual public orientation: [`review/four-domain-research-materialization/README.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/README.md).
 
 ## Provenance / watermark boundary
 
