@@ -1,5 +1,8 @@
 name: Subjective Load Sensitivity Hypothesis
 
+# RETIRED_BRANCH_PROVENANCE_ONLY: remediation/slsh-semantic-reconciliation-20260814
+# The branch ref was retired after archive/lineage convergence; this identifier is historical provenance, not a trigger or dependency.
+
 on:
   workflow_dispatch:
 
