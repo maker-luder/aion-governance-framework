@@ -61,7 +61,7 @@ The full unscoped `pytest` collection is **not** represented as green. It return
 
 PR #19, `research: selectively promote reviewed CSOMI/SLSH integration artifacts`, was verified at exact head `ce0fa4899a9498d7795d4da9b5f96ba3570c3ead`. Its Quality run passed, while its latest Main Transition Authority Gate returned `HOLD` because its approval receipt failed the freshness rule (`508s` delta). It was therefore closed as `DEFERRED_BY_REPOSITORY_FREEZE` without merge.
 
-Its branch, exact head, source authority refs and historical provenance remain preserved. See [`../incidents/PR19_FINAL_DISPOSITION_2026-08-15.md`](../incidents/PR19_FINAL_DISPOSITION_2026-08-15.md).
+Its branch, exact head, source authority refs and historical provenance remain preserved. See [`PR19_FINAL_DISPOSITION_2026-08-15.md`](../incidents/PR19_FINAL_DISPOSITION_2026-08-15.md).
 
 PR #20 is the single convergence transition vehicle. Its exact head, Human Owner authority event, independent ChatGPT review event, required checks and eventual merge result are GitHub transition evidence. They are intentionally not hard-coded here as a supposedly immutable current PR state.
 
