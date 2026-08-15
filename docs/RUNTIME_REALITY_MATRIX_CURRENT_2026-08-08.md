@@ -101,7 +101,7 @@ Final frozen-target Quality/Strong-QA run references are intentionally recorded 
 
 C0 currently contains:
 
-- `docs/C0_OWNER_ACCEPTANCE_CRITERIA_DRAFT_2026-08-08.md`;
+- `docs/history/c0/C0_OWNER_ACCEPTANCE_CRITERIA_DRAFT_2026-08-08.md`;
 - `docs/C0_EXTERNAL_STANDARDS_CROSSWALK_2026-08-08.md`.
 
 Key C0 corrections already made:

@@ -2,9 +2,9 @@
 
 > **Current documentation map for the public repository.**
 >
-> This page answers one question: **what should a reader treat as current, core, supporting evidence, or historical record?**
+> This page answers one question: **what should a reader treat as current, core, supporting evidence, research reference material, or historical record?**
 >
-> Dated incident, convergence, QA and branch-disposition files are preserved for provenance. They are not automatically current just because they remain in the repository.
+> Dated incident, convergence, QA, branch-disposition, and research-candidate files are preserved for provenance. They are not automatically current just because they remain in the repository.
 
 ## Start here
 
@@ -18,7 +18,7 @@ If you are new to AION, read in this order:
 6. [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — what is intentionally excluded from the public repository.
 7. [`THREAT_MODEL.md`](THREAT_MODEL.md) — major research-integrity and system threats.
 
-That sequence is the **core reader path**. Everything else is supporting detail, implementation evidence, or historical record.
+That sequence is the **core reader path**. Everything else is supporting detail, implementation evidence, research reference material, or historical record.
 
 ## Current repository standing
 
@@ -49,37 +49,44 @@ For release/freeze standing, use [`RELEASE_STATUS.md`](RELEASE_STATUS.md). For r
 ### Research meaning
 
 - [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — concise research contribution.
-- [`NON_CLAIMS.md`](NON_CLAIMS.md) — epistemic and presentation limits.
 - [`POSITION_PAPER_PROVENANCE_FIRST.md`](POSITION_PAPER_PROVENANCE_FIRST.md) — longer-form position-paper treatment.
+- [`NON_CLAIMS.md`](NON_CLAIMS.md) — epistemic and presentation limits.
+- [`PROJECT_PURPOSE_ANCHOR.md`](PROJECT_PURPOSE_ANCHOR.md) — purpose-preserving anchor.
 
 ### Governance and architecture
 
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) — architecture overview.
 - [`PROVENANCE.md`](PROVENANCE.md) — attribution, lineage and authority rules.
 - [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — public/private separation.
-- [`THREAT_MODEL.md`](THREAT_MODEL.md) — threat model.
+- [`THREAT_MODEL.md`](THREAT_MODEL.md) — public threat model.
 - [`RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md) — evidence-admission boundary.
 
 ### Current operational standing
 
 - [`RELEASE_STATUS.md`](RELEASE_STATUS.md) — current public repository/release standing.
+- [`QUALITY_ASSURANCE.md`](QUALITY_ASSURANCE.md) — current QA and evidence interpretation.
+- [`RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`](RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md) — stable current runtime candidate view used by QA.
 - [`../BUILD_AND_VERIFY.md`](../BUILD_AND_VERIFY.md) — verification entry point.
 - [`../SECURITY.md`](../SECURITY.md) — security reporting.
 - [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution boundary.
 
-## Repository layout
+## Physical document tree
 
-| Area | Meaning |
-|---|---|
-| `components/` | bounded implementation candidates and governance modules |
-| `research-labs/` | research candidates and experiments; not canonical conclusions |
-| `experiments/` | bounded experiment material and reproducibility evidence |
-| `qa/` | current/historical QA evidence and machine-readable status artifacts |
-| `docs/` | research, governance, status and preserved historical documentation |
-| `manifest/` | frozen historical release evidence; not a live file inventory |
-| `archive/*` tags | Git refs preserving retired branch checkpoints; not releases or approvals |
+| Area | Meaning | Entry point |
+|---|---|---|
+| `governance/` | Current governance, authority, provenance, risk, and policy documents | [`governance/README.md`](governance/README.md) |
+| `evidence/` | Supporting standards, verification, and engineering evidence | [`evidence/README.md`](evidence/README.md) |
+| `research/` | Public research-reference material outside the core reader path | [`research/README.md`](research/README.md) |
+| `history/` | Dated and event-specific records preserved for provenance | [`history/README.md`](history/README.md) |
+| stable root exceptions | Current entry points and exact-path control dependencies | [`DOCUMENT_PATH_MIGRATION.md`](DOCUMENT_PATH_MIGRATION.md) |
 
-## How to interpret the large document set
+`docs/` root intentionally retains only core/current entry points and a small number of stable control dependencies. The stable exceptions are documented; they are not accidental failures to classify.
+
+## Stable path exceptions
+
+Some supporting or research documents remain at exact root paths because current workflows, validators, tests, or IQC use them as executable contracts. These include the C0 acceptance index, C0 external-standards crosswalk, subjectivity evidence protocol, current runtime reality matrix, and current QA policy. Their rationale is recorded in [`DOCUMENT_PATH_MIGRATION.md`](DOCUMENT_PATH_MIGRATION.md).
+
+## How to interpret the document set
 
 The repository intentionally preserves dated evidence because provenance matters. The presence of many files therefore does **not** mean every file is equally authoritative.
 
@@ -90,30 +97,32 @@ CURRENT
   README.md
   docs/README.md
   docs/RELEASE_STATUS.md
+  current stable QA/control path exceptions
   research branch: RESEARCH_BRANCH_STATUS.md
 
 CORE
   research contribution
   architecture
+  purpose anchor
   non-claims
   provenance
   public/private boundary
   threat model
 
+GOVERNANCE
+  docs/governance/
+
 SUPPORTING EVIDENCE
-  component docs
-  QA reports
-  release verification
-  standards crosswalks
-  research protocols
+  docs/evidence/
+  stable C0/QA/control dependencies
+  component docs and QA reports
+
+RESEARCH REFERENCE
+  docs/research/
 
 HISTORICAL / EVENT RECORDS
-  dated C0_* files
-  *_RECONCILIATION_2026-*.md
-  *_CHECKLIST_2026-*.md
-  FINAL_*_2026-08-15.md event snapshots
-  PR-specific disposition records
-  earlier branch/status snapshots
+  docs/history/
+  dated C0, PR, branch, freeze, reconciliation, and checkpoint records
 ```
 
 A historical file may accurately describe what was true at its event time while no longer describing the repository's current branch count, current workflow state, or current authority standing.

@@ -11,12 +11,12 @@
       "requirement_source": "Human Owner authorization of P0/P1/P2, migration evidence reuse and A+B; no silent scope expansion",
       "implementation_review_artifact": "PR #3 diff; P0/P1/P2/migration/A+B reports; current Reality Matrix",
       "test_review_method": "Compare locked PR diff and changed-file list against authorized scope and necessary QA/docs fixes",
-      "evidence_location_type": "PR changed-file list; implementation reports; `docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; `docs/STABILIZATION_A_B_REPORT_2026-08-08.md`",
+      "evidence_location_type": "PR changed-file list; implementation reports; `docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; `docs/history/reconciliation/STABILIZATION_A_B_REPORT_2026-08-08.md`",
       "evidence_state": "AVAILABLE",
       "limitation_note": "C must perform the scope comparison against the frozen head; no result recorded here",
       "local_refs": [
         "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md",
-        "docs/STABILIZATION_A_B_REPORT_2026-08-08.md"
+        "docs/history/reconciliation/STABILIZATION_A_B_REPORT_2026-08-08.md"
       ],
       "missing_local_refs": []
     },
@@ -114,11 +114,11 @@
       "requirement_source": "Research non-claim: event continuity != subjective continuity",
       "implementation_review_artifact": "Reality Matrix; P1/P2 report; READMEs; PR body",
       "test_review_method": "Review wording for consciousness/phenomenal-continuity overclaim",
-      "evidence_location_type": "`docs/P1_P2_RUNTIME_LINEAGE_LIFECYCLE_IMPLEMENTATION_REPORT_2026-08-08.md`; Reality Matrix; PR body",
+      "evidence_location_type": "`docs/history/reconciliation/P1_P2_RUNTIME_LINEAGE_LIFECYCLE_IMPLEMENTATION_REPORT_2026-08-08.md`; Reality Matrix; PR body",
       "evidence_state": "AVAILABLE",
       "limitation_note": "Documentary governance criterion only",
       "local_refs": [
-        "docs/P1_P2_RUNTIME_LINEAGE_LIFECYCLE_IMPLEMENTATION_REPORT_2026-08-08.md"
+        "docs/history/reconciliation/P1_P2_RUNTIME_LINEAGE_LIFECYCLE_IMPLEMENTATION_REPORT_2026-08-08.md"
       ],
       "missing_local_refs": []
     },
@@ -245,11 +245,11 @@
       "requirement_source": "A documentation-convergence requirement; preserve historical evidence",
       "implementation_review_artifact": "Current and historical Reality Matrices; component READMEs",
       "test_review_method": "Compare current-state docs with historical pre-P0/P1/P2 matrix; confirm history not rewritten",
-      "evidence_location_type": "`docs/RUNTIME_REALITY_MATRIX_2026-08-08.md`; `docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; READMEs",
+      "evidence_location_type": "`docs/history/reconciliation/RUNTIME_REALITY_MATRIX_2026-08-08.md`; `docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`; READMEs",
       "evidence_state": "AVAILABLE",
       "limitation_note": "Final consistency review belongs to later C0 stage",
       "local_refs": [
-        "docs/RUNTIME_REALITY_MATRIX_2026-08-08.md",
+        "docs/history/reconciliation/RUNTIME_REALITY_MATRIX_2026-08-08.md",
         "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
       ],
       "missing_local_refs": []
@@ -268,13 +268,13 @@
     {
       "criterion": "AC-PROV-01",
       "requirement_source": "Human Owner source-attribution separation rule",
-      "implementation_review_artifact": "`docs/CHANGE_PROVENANCE_RULES_v0.1.md`; implementation reports; PR body; criteria/crosswalk provenance",
+      "implementation_review_artifact": "`docs/governance/CHANGE_PROVENANCE_RULES_v0.1.md`; implementation reports; PR body; criteria/crosswalk provenance",
       "test_review_method": "Review proposal/implementation/review/approval/state ownership/QA attribution separately",
       "evidence_location_type": "provenance rules; P0/P1/P2/migration/A+B/C0 docs; PR body",
       "evidence_state": "AVAILABLE",
       "limitation_note": "Git author/committer is not conceptual authorship evidence",
       "local_refs": [
-        "docs/CHANGE_PROVENANCE_RULES_v0.1.md"
+        "docs/governance/CHANGE_PROVENANCE_RULES_v0.1.md"
       ],
       "missing_local_refs": []
     },

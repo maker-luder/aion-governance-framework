@@ -158,7 +158,7 @@ Verification / CI PASS 不等於科學驗證、主體性證據、deployment appr
 
 引用資料：[`CITATION.cff`](CITATION.cff)。
 
-Human Owner、ChatGPT、Codex、Manus 與外部來源的角色與來源歸屬必須保持可區分。詳見 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/AI_COLLABORATION_DISCLOSURE.md`](docs/AI_COLLABORATION_DISCLOSURE.md)。
+Human Owner、ChatGPT、Codex、Manus 與外部來源的角色與來源歸屬必須保持可區分。詳見 [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/AI_COLLABORATION_DISCLOSURE.md`](docs/governance/AI_COLLABORATION_DISCLOSURE.md)。
 
 ## 歷史文件
 

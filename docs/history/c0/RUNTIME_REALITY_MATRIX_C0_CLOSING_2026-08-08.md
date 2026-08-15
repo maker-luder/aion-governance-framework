@@ -61,7 +61,7 @@ They do not establish autonomous self-healing, arbitrary physical DB/file restor
 
 ## Deferred / unauthorized boundaries remain unchanged
 
-Authoritative detail is in `docs/C0_REMAINING_HOLD_REGISTER_2026-08-08.md`.
+Authoritative detail is in `docs/history/c0/C0_REMAINING_HOLD_REGISTER_2026-08-08.md`.
 
 Key boundaries remain:
 

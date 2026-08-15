@@ -40,7 +40,7 @@ The current-state documentation now consists of:
 - `components/astra_runtime_v0.1.0/README.md`
 - `components/individual_runtime_state_v0.1.0/README.md`
 
-The original `docs/RUNTIME_REALITY_MATRIX_2026-08-08.md` is preserved as historical pre-P0/P1/P2 gap evidence rather than overwritten.
+The original `docs/history/reconciliation/RUNTIME_REALITY_MATRIX_2026-08-08.md` is preserved as historical pre-P0/P1/P2 gap evidence rather than overwritten.
 
 The converged documents distinguish:
 

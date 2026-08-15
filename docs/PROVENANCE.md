@@ -70,7 +70,7 @@ PRIOR_AUTHORIZATION != CURRENT_ACTION_AUTHORIZATION
 
 Future `main` merge authority is non-inheritable and requires fresh, action-specific, target-specific, explicit Human Owner approval. Missing or contradictory approval evidence fails closed to `HOLD`.
 
-See `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its machine-readable JSON companion for the incident evidence and corrective rule.
+See `docs/history/incidents/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its machine-readable JSON companion for the incident evidence and corrective rule.
 
 ### 2026-08-13 autonomous sandbox engineering review — integration provenance
 

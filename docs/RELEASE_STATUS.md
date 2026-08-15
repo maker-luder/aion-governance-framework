@@ -75,7 +75,7 @@ For reader orientation and document hierarchy, use [`README.md`](../README.md) a
 
 Dated convergence, branch-disposition, incident, acceptance and QA files preserve what was recorded at their event time. They are historical evidence unless a current entry point explicitly says otherwise.
 
-In particular, [`FINAL_REPOSITORY_FREEZE_2026-08-15.md`](FINAL_REPOSITORY_FREEZE_2026-08-15.md) and [`FINAL_BRANCH_DISPOSITION_2026-08-15.md`](FINAL_BRANCH_DISPOSITION_2026-08-15.md) preserve the earlier PR #20 freeze-preparation snapshot; their original branch inventory predates the later support-branch archive conversion and two-branch closure.
+In particular, [`FINAL_REPOSITORY_FREEZE_2026-08-15.md`](history/branch-and-release/FINAL_REPOSITORY_FREEZE_2026-08-15.md) and [`FINAL_BRANCH_DISPOSITION_2026-08-15.md`](history/branch-and-release/FINAL_BRANCH_DISPOSITION_2026-08-15.md) preserve the earlier PR #20 freeze-preparation snapshot; their original branch inventory predates the later support-branch archive conversion and two-branch closure.
 
 ## Boundary
 

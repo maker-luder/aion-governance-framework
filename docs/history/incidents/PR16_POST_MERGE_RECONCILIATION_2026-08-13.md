@@ -2,7 +2,7 @@
 
 Classification: `HISTORICAL_EVIDENCE / HUMAN-READABLE INDEX`
 
-The machine-readable source of truth is `docs/PR16_POST_MERGE_RECONCILIATION_2026-08-13.json`. Incident chronology and the PR #14/#15 authority correction remain in `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its JSON companion. Those records and Manus attribution are preserved unchanged.
+The machine-readable source of truth is `docs/history/incidents/PR16_POST_MERGE_RECONCILIATION_2026-08-13.json`. Incident chronology and the PR #14/#15 authority correction remain in `docs/history/incidents/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and its JSON companion. Those records and Manus attribution are preserved unchanged.
 
 ## Verified facts
 
