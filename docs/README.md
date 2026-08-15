@@ -32,6 +32,7 @@ CANONICAL_EFFECT = NONE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
+LICENSE = Apache-2.0
 ```
 
 The live branches are intentionally limited to:
@@ -145,4 +146,4 @@ This keeps the repository auditable without forcing a new reader to reconstruct 
 
 ## What not to infer
 
-Neither the documentation structure nor successful engineering/QA establishes consciousness, subjectivity, identity continuity, autobiographical memory, moral status, production readiness, deployment authority, independent IV&V, or canonical authority for any model, runtime, or capability artifact. See [`NON_CLAIMS.md`](NON_CLAIMS.md).
+Neither the documentation structure nor successful engineering/QA establishes consciousness, subjectivity, identity continuity, autobiographical memory, moral status, production readiness, deployment authority, or independent IV&V. See [`NON_CLAIMS.md`](NON_CLAIMS.md).
