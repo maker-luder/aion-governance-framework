@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-cross-substrate-other-minds-inference"
+version = "0.1.0"
+description = "Research-only cross-substrate other-minds inference method, evidence matrices and falsifier controls"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

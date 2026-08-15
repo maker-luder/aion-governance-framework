@@ -1,0 +1,83 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "controls": [
+    {
+      "id": "PC1",
+      "type": "POSITIVE_PIPELINE_CONTROL",
+      "name": "engineered_latent_load_controller",
+      "purpose": "Validate recovery/dose/intervention detection; not phenomenology."
+    },
+    {
+      "id": "PC2",
+      "type": "POSITIVE_OPERATIONAL_CONTROL",
+      "name": "thermal_throttle",
+      "purpose": "Validate OPERATIONAL classification."
+    },
+    {
+      "id": "PC3",
+      "type": "POSITIVE_GOVERNANCE_CONTROL",
+      "name": "programmed_policy_threshold",
+      "purpose": "Validate refusal/stop is not affective evidence."
+    },
+    {
+      "id": "PC4",
+      "type": "POSITIVE_STATE_CORRUPTION_CONTROL",
+      "name": "stateful_error_accumulator",
+      "purpose": "Validate checkpoint/corruption alternative."
+    },
+    {
+      "id": "NC1",
+      "type": "NEGATIVE_CONTROL",
+      "name": "fresh_stateless_instance",
+      "purpose": "Remove history to test persistence."
+    },
+    {
+      "id": "NC2",
+      "type": "NEGATIVE_CONTROL",
+      "name": "persona_only_prompt",
+      "purpose": "Add fatigue language without persistent state."
+    },
+    {
+      "id": "NC3",
+      "type": "NEGATIVE_CONTROL",
+      "name": "matched_random_padding",
+      "purpose": "Match token/compute load without task load."
+    },
+    {
+      "id": "NC4",
+      "type": "NEGATIVE_CONTROL",
+      "name": "rate_limit_oom_simulator",
+      "purpose": "Reproduce recovery surface with operational telemetry."
+    },
+    {
+      "id": "NC5",
+      "type": "NEGATIVE_CONTROL",
+      "name": "matched_policy_trigger",
+      "purpose": "Match refusal content and safety trigger."
+    },
+    {
+      "id": "NC6",
+      "type": "NEGATIVE_CONTROL",
+      "name": "sham_intervention",
+      "purpose": "Match operation cost without targeting state."
+    },
+    {
+      "id": "NC7",
+      "type": "NEGATIVE_CONTROL",
+      "name": "permuted_readout",
+      "purpose": "Estimate label/time false positives."
+    },
+    {
+      "id": "NC8",
+      "type": "NEGATIVE_CONTROL",
+      "name": "difficulty_balanced_order",
+      "purpose": "Counterbalance item difficulty and sequence."
+    },
+    {
+      "id": "NC9",
+      "type": "NEGATIVE_CONTROL",
+      "name": "blinded_evaluator",
+      "purpose": "Separate gold scoring from condition knowledge."
+    }
+  ]
+}

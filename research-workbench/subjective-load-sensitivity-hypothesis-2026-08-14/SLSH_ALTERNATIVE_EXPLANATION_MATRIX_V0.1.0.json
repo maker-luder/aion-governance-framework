@@ -1,0 +1,89 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "rows": [
+    {
+      "id": "N01",
+      "name": "context_token_window_boundary",
+      "class": "COMPUTATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N02",
+      "name": "rate_limit_quota",
+      "class": "OPERATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N03",
+      "name": "oom_memory_fragmentation",
+      "class": "OPERATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N04",
+      "name": "thermal_power_throttling",
+      "class": "OPERATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N05",
+      "name": "queue_concurrency_saturation",
+      "class": "OPERATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N06",
+      "name": "policy_refusal_governance_gate",
+      "class": "AGENTIC_GOVERNANCE",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N07",
+      "name": "reward_optimization_stop_policy",
+      "class": "AGENTIC_GOVERNANCE",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N08",
+      "name": "learned_refusal_or_fatigue_language",
+      "class": "AGENTIC_GOVERNANCE",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N09",
+      "name": "task_difficulty_item_order",
+      "class": "COMPUTATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N10",
+      "name": "error_accumulation_state_corruption",
+      "class": "COMPUTATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N11",
+      "name": "explicit_state_machine_leaky_counter",
+      "class": "AGENTIC_GOVERNANCE",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N12",
+      "name": "prompt_induced_self_report",
+      "class": "AGENTIC_GOVERNANCE",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N13",
+      "name": "sampling_nondeterminism",
+      "class": "COMPUTATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    },
+    {
+      "id": "N14",
+      "name": "tool_network_evaluator_failure",
+      "class": "OPERATIONAL",
+      "diagnostic": "Requires declared controls and telemetry; a surface similarity is not admissible as subjectivity evidence."
+    }
+  ]
+}

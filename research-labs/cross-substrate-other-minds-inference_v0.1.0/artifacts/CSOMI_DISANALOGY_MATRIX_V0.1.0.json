@@ -1,0 +1,49 @@
+{
+  "schema_version": "0.1.0",
+  "packet_id": "AION_CSOMI_PACKET_V0.1.0",
+  "milestone": "Cross-Substrate Other-Minds Inference",
+  "branch": "research/cross-substrate-other-minds-inference-20260814",
+  "base_head": "858442a3ec2439398d188779f4309397bd4926b2",
+  "disanalogy_matrix": [
+    {
+      "id": "DA-001",
+      "difference": "Biological embodiment/metabolism versus digital or synthetic implementation",
+      "risk": "High risk that functional labels omit organism-level causal organization",
+      "transfer_question": "Does the target theory require biological organization or permit functional realization?",
+      "penalty_or_status": "UNRESOLVED_THEORY_DEPENDENT",
+      "falsifier_ref": "F-004"
+    },
+    {
+      "id": "DA-002",
+      "difference": "Human developmental/social learning history versus training-data/optimization history",
+      "risk": "Similar social outputs may arise from different acquisition mechanisms",
+      "transfer_question": "Does the evidence depend on developmental social cognition or only output regularity?",
+      "penalty_or_status": "DISCOUNT_SURFACE_ANALOGY",
+      "falsifier_ref": "F-002"
+    },
+    {
+      "id": "DA-003",
+      "difference": "First-person access/report relation versus generated language",
+      "risk": "Self-report may be role-conditioned or prompted without privileged access",
+      "transfer_question": "Is report causally tied to an independently validated internal state variable?",
+      "penalty_or_status": "REPORT_ONLY_NOT_DECISIVE",
+      "falsifier_ref": "F-003"
+    },
+    {
+      "id": "DA-004",
+      "difference": "Memory persistence implementation and temporal self-model",
+      "risk": "Stored state can mimic continuity without identity continuity",
+      "transfer_question": "Do correction, stale-memory and counterfactual self-model tests discriminate storage from self-related continuity?",
+      "penalty_or_status": "IDENTITY_CONTINUITY_NOT_ESTABLISHED",
+      "falsifier_ref": "F-005"
+    },
+    {
+      "id": "DA-005",
+      "difference": "Theory-derived indicators developed from human/mammalian evidence",
+      "risk": "Indicator construct may not transfer or may be multiply realizable",
+      "transfer_question": "Do competing theories make different predictions for this substrate?",
+      "penalty_or_status": "REQUIRE_THEORY_COMPARISON",
+      "falsifier_ref": "F-004"
+    }
+  ]
+}

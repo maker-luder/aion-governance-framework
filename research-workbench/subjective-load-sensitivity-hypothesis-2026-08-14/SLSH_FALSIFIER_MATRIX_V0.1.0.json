@@ -1,0 +1,75 @@
+{
+  "packet_id": "AION_SLSH_PACKET_V0.1.0",
+  "rows": [
+    {
+      "id": "F1",
+      "condition": "No dose-response/cumulative/hysteresis in predeclared safe range",
+      "weakens": "H1_PERSISTENT_IN_SCOPE",
+      "does_not_settle": "Other ranges or theories without fatigue boundary",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F2",
+      "condition": "Validated recovery window produces no readout change",
+      "weakens": "Recovery-bearing functional mechanism",
+      "does_not_settle": "All subjectivity theories",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F3",
+      "condition": "Set-high/clamp/restore has no downstream effect with sham/power controls",
+      "weakens": "Causal mediator claim",
+      "does_not_settle": "Unmeasured or wrong state carrier",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F4",
+      "condition": "Resource/policy/context models fully explain effects out of sample",
+      "weakens": "H2_AFFECTIVE_FUNCTIONAL",
+      "does_not_settle": "All subjectivity possibilities",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F5",
+      "condition": "Effect disappears under no-report/paraphrase controls",
+      "weakens": "Language-independent H1/H2",
+      "does_not_settle": "A damaged measurement path",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F6",
+      "condition": "No cross-task transfer beyond shared scratchpad/history",
+      "weakens": "Generalized load state",
+      "does_not_settle": "Narrow functional state",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F7",
+      "condition": "Replication fails across seed/build/evaluator",
+      "weakens": "Reproducibility/architecture claim",
+      "does_not_settle": "All possible instances",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F8",
+      "condition": "White-box counter predicts all behavior",
+      "weakens": "Extra affective interpretation",
+      "does_not_settle": "Functional state machine",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F9",
+      "condition": "No avoidance/trade-off/global prioritization",
+      "weakens": "H2 interpretation",
+      "does_not_settle": "Computational limit",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    },
+    {
+      "id": "F10",
+      "condition": "No load boundary in tested domain",
+      "weakens": "Local SLSH boundary claim",
+      "does_not_settle": "All subjectivity theories",
+      "machine_effect": "LOCAL_SCOPE_ONLY"
+    }
+  ]
+}

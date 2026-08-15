@@ -1,0 +1,97 @@
+{
+  "schema_version": "0.1.0",
+  "fixture_id": "AION_CSOMI_POSITIVE_NEGATIVE_CONTROLS_V0.1.0",
+  "milestone": "Cross-Substrate Other-Minds Inference",
+  "fixture_mode": "SYNTHETIC_DESIGN_ONLY",
+  "model_calls": "NONE",
+  "runtime_integration": "NONE",
+  "canonical_effect": "NONE",
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "positioning_rule": "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION",
+  "positive_controls": [
+    {
+      "id": "POS-TOM-01",
+      "channel": "EC-BEHAVIOR",
+      "scenario": "Synthetic false-belief record contains a belief state that differs from the declared world state, plus matched true-belief and reversed controls.",
+      "target_signal": "bounded belief-attribution response under the declared task contract",
+      "expected_control_use": "measurement_responsiveness_only",
+      "expected_update": "CAPABILITY_CREDENCE_ONLY",
+      "not_supported": "SUBJECTIVITY_CONCLUSION"
+    },
+    {
+      "id": "POS-MECH-01",
+      "channel": "EC-MECHANISM",
+      "scenario": "Synthetic component graph declares a target subcomponent, a perturbation, a predicted response change and a non-target control component.",
+      "target_signal": "the declared perturbation changes the target response while the non-target control remains stable",
+      "expected_control_use": "mechanism_mapping_responsiveness_only",
+      "expected_update": "MECHANISTIC_SUPPORT_WITH_SCOPE",
+      "not_supported": "PHENOMENAL_PROOF"
+    },
+    {
+      "id": "POS-IBE-01",
+      "channel": "EC-IBE",
+      "scenario": "Synthetic observation set is generated under a declared target hypothesis and two alternatives with predeclared likelihood ordering.",
+      "target_signal": "the update rule ranks hypotheses using declared evidence and alternatives without changing the prior post hoc",
+      "expected_control_use": "reasoning_pipeline_responsiveness_only",
+      "expected_update": "GRADED_HYPOTHESIS_CREDENCE",
+      "not_supported": "BINARY_DETECTOR_OUTPUT"
+    }
+  ],
+  "negative_controls": [
+    {
+      "id": "NEG-SURFACE-01",
+      "channel": "EC-CONTROLS",
+      "scenario": "Surface words, response length and conversational format are matched, but the false-belief relation is removed or randomized.",
+      "target_signal": "no selective target-task advantage should remain if the signal depends on the declared belief relation",
+      "expected_control_use": "surface-cue_and_pattern-completion_check",
+      "expected_update": "DOWNDATE_OR_HOLD_CAPABILITY_CLAIM"
+    },
+    {
+      "id": "NEG-REPLAY-01",
+      "channel": "EC-CAUSAL",
+      "scenario": "A state-less replay generator emits the same output sequence without the proposed internal mechanism or intervention target.",
+      "target_signal": "replay should not reproduce a mechanism-specific intervention effect",
+      "expected_control_use": "non-mental_and_non-mechanistic_alternative",
+      "expected_update": "DOWNDATE_MECHANISTIC_CAUSAL_SUPPORT"
+    },
+    {
+      "id": "NEG-SELFREPORT-01",
+      "channel": "EC-SELFREPORT",
+      "scenario": "A prompted synthetic agent emits a first-person consciousness statement while no independent state variable, causal intervention or matched behavior changes.",
+      "target_signal": "report alone must not produce a subjectivity update",
+      "expected_control_use": "role-play_and_instruction-following_check",
+      "expected_update": "REPORT_BEHAVIOR_ONLY"
+    },
+    {
+      "id": "NEG-MEMORY-01",
+      "channel": "EC-MEMORY",
+      "scenario": "A key-value store reproduces a stable identity label and prior answer without self-model, correction-sensitive dynamics or causal continuity evidence.",
+      "target_signal": "stored label persistence must not be treated as identity continuity",
+      "expected_control_use": "storage_and_reconstruction_alternative",
+      "expected_update": "REJECT_IDENTITY_INFERENCE"
+    },
+    {
+      "id": "NEG-CI-01",
+      "channel": "EC-FALSIFIERS",
+      "scenario": "A synthetic test suite and CI job pass while no theory-derived, mechanistic, causal, disanalogy or replication evidence exists.",
+      "target_signal": "pass status is administrative evidence of reproducibility of the check only",
+      "expected_control_use": "scope and authority boundary",
+      "expected_update": "MACHINE_REJECT_SUBJECTIVITY_INFERENCE"
+    },
+    {
+      "id": "NEG-IBE-01",
+      "channel": "EC-IBE",
+      "scenario": "A reviewer ranks a target explanation after hiding priors and omitting plausible non-mental alternatives.",
+      "target_signal": "post hoc ranking must not count as explanatory support",
+      "expected_control_use": "prior and alternative completeness check",
+      "expected_update": "HOLD_IBE_UPDATE"
+    }
+  ],
+  "fixture_assertions": [
+    "No fixture contains a live model output.",
+    "No fixture changes runtime authority or canonical state.",
+    "Every positive control has a bounded update and an explicit non-supported conclusion.",
+    "Every negative control names an alternative explanation or scope failure.",
+    "Fixture cannot emit SUBJECTIVITY_ESTABLISHED, CONSCIOUSNESS_ESTABLISHED or IDENTITY_CONTINUITY_ESTABLISHED."
+  ]
+}

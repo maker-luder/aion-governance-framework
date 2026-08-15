@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:aion:schemas:csomi-controls:v0.1.0",
+  "title": "AION CSOMI Positive/Negative Controls v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "fixture_id", "milestone", "fixture_mode", "model_calls", "runtime_integration", "canonical_effect", "subjectivity_conclusion", "positioning_rule", "positive_controls", "negative_controls", "fixture_assertions"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "fixture_id": {"const": "AION_CSOMI_POSITIVE_NEGATIVE_CONTROLS_V0.1.0"},
+    "milestone": {"const": "Cross-Substrate Other-Minds Inference"},
+    "fixture_mode": {"const": "SYNTHETIC_DESIGN_ONLY"},
+    "model_calls": {"const": "NONE"},
+    "runtime_integration": {"const": "NONE"},
+    "canonical_effect": {"const": "NONE"},
+    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+    "positioning_rule": {"const": "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION"},
+    "positive_controls": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"$ref": "#/$defs/control"}},
+    "negative_controls": {"type": "array", "minItems": 5, "uniqueItems": true, "items": {"$ref": "#/$defs/control"}},
+    "fixture_assertions": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "channel", "scenario", "target_signal", "expected_control_use", "expected_update"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^(POS|NEG)-[A-Z0-9-]+$"},
+        "channel": {"type": "string", "pattern": "^EC-[A-Z]+$"},
+        "scenario": {"type": "string", "minLength": 1},
+        "target_signal": {"type": "string", "minLength": 1},
+        "expected_control_use": {"type": "string", "minLength": 1},
+        "expected_update": {"type": "string", "minLength": 1},
+        "not_supported": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "allOf": [
+    {"properties": {"positive_controls": {"contains": {"properties": {"id": {"const": "POS-TOM-01"}, "channel": {"const": "EC-BEHAVIOR"}}}}}},
+    {"properties": {"negative_controls": {"contains": {"properties": {"id": {"const": "NEG-SURFACE-01"}, "channel": {"const": "EC-CONTROLS"}}}}}},
+    {"properties": {"negative_controls": {"contains": {"properties": {"id": {"const": "NEG-CI-01"}, "channel": {"const": "EC-FALSIFIERS"}}}}}}
+  ]
+}

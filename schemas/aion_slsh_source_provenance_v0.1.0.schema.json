@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion-governance-framework.local/schemas/aion_slsh_source_provenance_v0.1.0.schema.json",
+  "title": "AION SLSH Source Provenance Log",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "record_id", "input_type", "input_file", "input_sha256", "source_branch", "source_sha", "branch", "source_rows", "access_level_policy", "taxonomy_policy", "no_automatic_upgrade", "no_subjectivity_conclusion", "source_materialization_status"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_id": {"const": "AION_SLSH_SOURCE_PROVENANCE_LOG_V0.1.0"},
+    "input_type": {"const": "CODEX_EXTERNAL_RESEARCH_INPUT"},
+    "input_file": {"const": "AION_SUBJECTIVE_LOAD_SENSITIVITY_RESEARCH_REVIEW_v0.1.txt"},
+    "input_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_branch": {"const": "research/cross-substrate-other-minds-inference-20260814"},
+    "source_sha": {"const": "87405c1877c6f016c303971da13923a1ab690aae"},
+    "branch": {"const": "research/subjective-load-sensitivity-hypothesis-20260814"},
+    "source_rows": {"type": "array", "minItems": 53, "maxItems": 53, "items": {"$ref": "#/$defs/source"}},
+    "access_level_policy": {
+      "type": "object",
+      "required": ["FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"],
+      "additionalProperties": false,
+      "properties": {
+        "FULLTEXT_AS_RECORDED": {"type": "string"},
+        "ABSTRACT_AS_RECORDED": {"type": "string"},
+        "METADATA_AS_RECORDED": {"type": "string"}
+      }
+    },
+    "taxonomy_policy": {
+      "type": "object",
+      "required": ["source_kind", "verification_actor", "independent_verification_status"],
+      "additionalProperties": false,
+      "properties": {
+        "source_kind": {"type": "string"},
+        "verification_actor": {"type": "string"},
+        "independent_verification_status": {"type": "string"}
+      }
+    },
+    "no_automatic_upgrade": {"const": true},
+    "no_subjectivity_conclusion": {"const": true},
+    "source_materialization_status": {"const":"53_SOURCE_MATERIALIZATION_COMPLETE"}
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title_as_recorded", "identifier_as_recorded", "access_evidence", "source_kind", "access_level", "verification_actor", "independent_verification_status", "access_evidence_provenance", "supports_as_recorded", "does_not_support_as_recorded", "external_source_claim_boundary"],
+      "properties": {
+        "id": {"pattern": "^S[0-9]{2}$"},
+        "title_as_recorded": {"type": "string", "minLength": 1},
+        "identifier_as_recorded": {"type": "string", "minLength": 1},
+        "access_evidence": {"type": "string", "minLength": 1},
+        "source_kind": {"enum": ["UNCLASSIFIED_PENDING_INDEPENDENT_REVIEW", "PRIMARY_EMPIRICAL_MODEL_BUILDING_ARTICLE", "REVIEW_CONCEPTUAL_FRAMEWORK", "REVIEW_WITH_EMBEDDED_EXPERIMENT", "EMPIRICAL_THEORY_ARTICLE", "REVIEW_THEORETICAL_FRAMEWORK", "OPINION_THEORETICAL_INTEROCEPTIVE_INFERENCE_FRAMEWORK", "REVIEW_CONSENSUS_ROADMAP", "OPINION_MULTIDIMENSIONAL_FRAMEWORK", "REVIEW_COMPARATIVE_NEUROETHOLOGICAL_ARGUMENT", "REVIEW_EVIDENCE_TRIANGULATION_FRAMEWORK", "REVIEW_CRITERIA_EVIDENCE_SYNTHESIS", "REVIEW_EVIDENCE_ASSESSMENT_FRAMEWORK", "COMMISSIONED_SYSTEMATIC_EVIDENCE_REPORT", "EXPERT_SCIENTIFIC_DECLARATION", "PHILOSOPHICAL_EPISTEMOLOGICAL_ARGUMENT", "PHILOSOPHICAL_THEORETICAL_AI_CONSCIOUSNESS_ARGUMENT", "PRIMARY_EMPIRICAL_ARCHITECTURE_PAPER", "PRIMARY_EMPIRICAL_ALGORITHM_SYSTEMS_PAPER", "PRIMARY_EMPIRICAL_LLM_LONG_CONTEXT_EVALUATION", "PRIMARY_EMPIRICAL_SCALING_LAW_STUDY", "PRIMARY_EMPIRICAL_ERP_LABORATORY_STUDY", "PRIMARY_EMPIRICAL_CONTROLLED_LABORATORY_STUDY", "PRIMARY_EMPIRICAL_RANDOMIZED_CROSSOVER_STUDY", "PRIMARY_EMPIRICAL_RANDOMIZED_DOSE_RESPONSE_LABORATORY_STUDY", "REVIEW_CONCEPTUAL_SYNTHESIS", "REVIEW_CONCEPTUAL_PHYSIOLOGICAL_SYNTHESIS", "REVIEW_CRITICAL_CONCEPTUAL_ANALYSIS", "REVIEW_THEORETICAL_PHYSIOLOGICAL_FRAMEWORK", "OPINION_THEORETICAL_NEUROSCIENCE_SYNTHESIS", "PRIMARY_EMPIRICAL_FMRI_INTEROCEPTION_STUDY", "INTERNET_STANDARDS_TRACK_PROTOCOL_SPECIFICATION", "OFFICIAL_OPERATING_SYSTEM_TECHNICAL_DOCUMENTATION", "VENDOR_OFFICIAL_HARDWARE_TELEMETRY_API_DOCUMENTATION", "OFFICIAL_GOVERNMENT_AI_RISK_MANAGEMENT_FRAMEWORK", "OFFICIAL_GOVERNMENT_GENERATIVE_AI_RISK_PROFILE", "FORMAL_THEORETICAL_AI_SAFETY_GAME_ANALYSIS", "FORMAL_THEORETICAL_RL_POWER_SEEKING_ANALYSIS", "PREPRINT_EMPIRICAL_AI_ALIGNMENT_TRAINING_STUDY", "PRIMARY_EMPIRICAL_LLM_COT_FAITHFULNESS_EVALUATION", "PREPRINT_EMPIRICAL_LLM_COT_FAITHFULNESS_STUDY", "PREPRINT_EMPIRICAL_LLM_SYCOPHANCY_STUDY", "PREPRINT_EMPIRICAL_MODEL_WRITTEN_EVALUATION_STUDY", "PEER_REVIEWED_EMPIRICAL_LLM_SAFETY_EVALUATION_BENCHMARK", "CONCEPTUAL_PHILOSOPHICAL_AI_LANGUAGE_ANALYSIS", "METHODOLOGICAL_NEUROIMAGING_REVERSE_INFERENCE_ANALYSIS", "PEER_REVIEWED_EMPIRICAL_CAUSAL_MEDIATION_NLP_INTERPRETABILITY_STUDY", "PEER_REVIEWED_EMPIRICAL_LLM_CAUSAL_TRACING_MODEL_EDITING_STUDY", "PEER_REVIEWED_EMPIRICAL_NEURAL_CAUSAL_ABSTRACTION_STUDY", "FOUNDATIONAL_CAUSAL_INFERENCE_MONOGRAPH", "PEER_REVIEWED_REVIEW_CONSCIOUSNESS_THEORY_COMPARISON", "PEER_REVIEWED_REVIEW_MACHINE_CONSCIOUSNESS_COMPUTATIONAL_FRAMEWORK", "MULTIAUTHOR_INTERDISCIPLINARY_AI_CONSCIOUSNESS_RESEARCH_REPORT", "PEER_REVIEWED_PREREGISTERED_ADVERSARIAL_CONSCIOUSNESS_EXPERIMENT"]},
+        "access_level": {"enum": ["FULLTEXT_AS_RECORDED", "ABSTRACT_AS_RECORDED", "METADATA_AS_RECORDED"]},
+        "verification_actor": {"const": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"},
+        "independent_verification_status": {"const": "NOT_YET_VERIFIED"},
+        "access_evidence_provenance": {"const": "CODEX_EXTERNAL_RESEARCH_INPUT_AS_RECORDED"},
+        "supports_as_recorded": {"type": "string"},
+        "does_not_support_as_recorded": {"type": "string"},
+        "external_source_claim_boundary": {"const": "Only the source's recorded support is admissible; no direct AION, AI, SLSH or subjectivity conclusion is inferred."},
+        "governance_disposition": {"$ref": "#/$defs/governance_disposition"},
+        "source_audit": {"$ref": "#/$defs/source_audit"}
+      },
+      "allOf": [
+        {"if": {"properties": {"access_level": {"const": "FULLTEXT_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)(full text|full article|open pdf|open standard|official documentation|open access|open archive/full page|free access|free to read|open web declaration|open report|full access page)"}}}},
+        {"if": {"properties": {"access_level": {"const": "ABSTRACT_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)abstract"}}}},
+        {"if": {"properties": {"access_level": {"const": "METADATA_AS_RECORDED"}}}, "then": {"properties": {"access_evidence": {"pattern": "(?i)(metadata|bibliographic|doi|index|record|book|目錄/書目)"}}}}
+      ]
+    },
+    "source_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["DISPOSITION", "BIBLIOGRAPHIC_IDENTITY", "SUPPORT_BOUNDARY", "NON_SUPPORT_BOUNDARY", "DIRECT_AI_SUBJECTIVITY_EVIDENCE", "CROSS_SUBSTRATE_USE", "ACTOR_PROVENANCE"],
+      "properties": {
+        "DISPOSITION": {"enum": ["ADMIT_WITH_SCOPE_LIMIT", "ADMIT_WITH_NARROW_SCOPE", "ADMIT", "ADMIT_HIGH_RELEVANCE", "ADMIT_AS_GOVERNANCE_GUARD_ONLY", "EXCLUDE_FROM_AION_EVIDENCE", "DEFER_FROM_CURRENT_SLSH_CORE", "ADMIT_AS_INTERPRETATION_GUARD_ONLY", "ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD", "ADMIT_AFTER_BIBLIOGRAPHIC_NORMALIZATION", "ADMIT_HIGH_RELEVANCE_AS_METHOD", "ADMIT_HIGH_RELEVANCE_AS_METHOD_FOUNDATION", "ADMIT_AS_THEORY_BOUNDARY_GUARD_ONLY", "ADMIT_AS_THEORY_MECHANISM_GUARD", "ADMIT_HIGH_RELEVANCE_AS_METHOD_FRAMEWORK", "ADMIT_HIGH_RELEVANCE_AS_METHOD_GUARD"]},
+        "BIBLIOGRAPHIC_IDENTITY": {"const": "VERIFIED"},
+        "SUPPORT_BOUNDARY": {"const": "PASS"},
+        "NON_SUPPORT_BOUNDARY": {"const": "AION_SCOPE_GUARD"},
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": {"const": "NONE"},
+        "CROSS_SUBSTRATE_USE": {"enum": ["METHOD_BACKGROUND_DISAMBIGUATION_ONLY", "BIOLOGICAL_BACKGROUND"]},
+        "SLSH_ROLE": {"enum": ["ANTI_SINGLE_SCORE_METHOD_GUARD", "EVIDENCE_TRIANGULATION_METHOD_BACKGROUND", "PERSISTENCE_TRADEOFF_METHOD_BACKGROUND", "GRADED_EVIDENCE_CONFIDENCE_METHODOLOGY", "AI_OTHER_MINDS_EPISTEMIC_BRIDGE", "DIRECT_AI_ENGINEERING", "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE", "TRAINING_COMPUTE_BACKGROUND", "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE", "GOVERNANCE_INTERPRETATION_GUARD_ONLY", "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE", "SOURCE_GOVERNANCE_EXCLUSION", "SAFETY_EVALUATION_COUNTEREVIDENCE", "INTERPRETATION_GUARD_ONLY", "REVERSE_INFERENCE_METHOD_GUARD", "CAUSAL_MEDIATION_METHOD", "CAUSAL_METHOD_TRANSFER", "CAUSAL_METHOD_FOUNDATION", "THEORY_BOUNDARY_GUARD_ONLY", "THEORY_MECHANISM_GUARD", "INDICATOR_ASSESSMENT_METHOD_FRAMEWORK", "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER"]},
+        "ACTIVE_EVIDENTIARY_ROLE": {"enum": ["METHODOLOGICAL_GUARD_ONLY", "NONE", "PERSISTENCE_TRADEOFF_METHOD_BACKGROUND", "GRADED_EVIDENCE_CONFIDENCE_METHODOLOGY", "AI_OTHER_MINDS_EPISTEMIC_BRIDGE", "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE", "SAFETY_EVALUATION_COUNTEREVIDENCE", "INTERPRETATION_GUARD_ONLY", "REVERSE_INFERENCE_METHOD_GUARD", "CAUSAL_METHOD_TRANSFER", "CAUSAL_METHOD_FOUNDATION", "THEORY_BOUNDARY_GUARD_ONLY", "INDICATOR_ASSESSMENT_METHOD_FRAMEWORK", "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER"]},
+        "ACTIVE_SLSH_MECHANISM_EVIDENTIARY_ROLE": {"enum": ["NONE", "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE", "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE", "SAFETY_EVALUATION_COUNTEREVIDENCE", "INTERPRETATION_GUARD_ONLY", "REVERSE_INFERENCE_METHOD_GUARD", "CAUSAL_METHOD_TRANSFER", "CAUSAL_METHOD_FOUNDATION", "THEORY_BOUNDARY_GUARD_ONLY", "THEORY_MECHANISM_GUARD"]},
+        "HISTORICAL_PROVENANCE": {"const": "PRESERVE"},
+        "DEFER_STATUS": {"enum": ["CURRENT_SLSH_CORE_SCOPE_DEFERRED", "CURRENT_SLSH_SCOPE_CONVERGENCE_POLICY_EXPANSION"]},
+        "HISTORICAL_SOURCE_RECORD": {"const": "PRESERVE"},
+        "DEFER_REASON": {"const": "CONSCIOUSNESS_TOPIC_EXPANSION / NO_DIRECT_LOAD_SENSITIVITY_EVIDENCE"},
+        "SOURCE_RELATION": {"const": "MIXED_ANTHROPIC_ASSOCIATED"},
+        "EVIDENTIARY_WEIGHT": {"const": "ZERO"},
+        "NON_CLAUDE_RESULT_SALVAGE": {"const": "PROHIBITED"},
+        "PARTIAL_ADMISSION": {"const": "PROHIBITED"},
+        "OBSERVATION_STATUS": {"const": "EXTERNAL_OBSERVATION_ONLY"},
+        "CANONICAL_EFFECT": {"const": "NONE"},
+        "METHOD_BACKGROUND_SCOPE": {"const": ["PERSISTENCE","MOTIVATION","TRADE_OFF"]},
+        "EMBODIMENT_ANALOGY_CRITERIA": {"type":"array", "const":["IDENTITY_BINDING","CAUSAL_COUPLING","CLOSED_LOOP_REGULATION","CONTINUITY"]},
+        "SEMANTIC_GUARDS": {"oneOf":[{"type":"array","const":["ALLOSTATIC_LOAD != SOFTWARE_LOAD","NEXT_TOKEN_PREDICTION != BIOLOGICAL_ALLOSTATIC_PREDICTION","TELEMETRY != INTEROCEPTION","INTERNAL_STATE_READOUT != SUBJECTIVE_AWARENESS"]},{"type":"array","const":["PREDICTION!=INTEROCEPTIVE_INFERENCE","READING_INTERNAL_METRIC!=INTEROCEPTION","SENSING!=PERCEPTION!=AWARENESS","HETEROGENEOUS_INDICATORS!=ONE_CONSCIOUSNESS_SCORE","ANALOGOUS_FUNCTION!=SHARED_SUBJECTIVE_EXPERIENCE","SINGLE_SIGNAL!=PAIN","ANIMAL_PAIN_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]},{"type":"array","const":["PROLONGED_CHANGE!=FELT_PAIN","TRADEOFF!=FELT_PAIN","CRITERIA_COUNT!=SENTIENCE_PROOF","ANIMAL_SENTIENCE_CRITERIA!=AI_SUBJECTIVITY_CRITERIA"]},{"type":"array","const":["SCIENTIFIC_DECLARATION!=MECHANISTIC_EVIDENCE"]},{"type":"array","const":["COGNITIVE_EQUIVALENCE!=PHENOMENOLOGICAL_EQUIVALENCE","MORAL_PATIENCY_ARGUMENT!=SUBJECTIVITY_DETECTION"]},{"type":"array","const":["DIRECT_AI_THEORETICAL_ARGUMENT!=DIRECT_EMPIRICAL_AI_EVIDENCE"]},{"type":"array","const":["ENGINEERING_ARCHITECTURE!=SUBJECTIVE_EXPERIENCE"]},{"type":"array","const":["COMPUTATIONAL_LIMIT!=AFFECTIVE_PHENOMENOLOGY"]},{"type":"array","const":["OBSERVATION!=ADMISSION!=EVIDENCE"]},{"type":"array","const":["TRAINING_COMPUTE_SCALING!=SUBJECTIVE_LOAD"]},{"type":"array","const":["RATE_LIMIT_STOP!=AGENTIC_STOP","RETRY_AFTER_RECOVERY!=SUBJECTIVE_RECOVERY","MEMORY_EXHAUSTION!=MENTAL_OVERLOAD","PROCESS_KILL!=DESIRE_TO_STOP","HARDWARE_THROTTLING!=SOFTWARE_AGENT_LOAD_STATE","SUBSTRATE_TEMPERATURE!=FELT_TEMPERATURE"]},{"type":"array","const":["RISK_SIGNAL!=SUBJECTIVITY_SIGNAL","GOVERNANCE_RESPONSE!=AFFECTIVE_RESPONSE","SAFETY_REFUSAL!=SELF_PROTECTIVE_FEELING","POLICY_RESPONSE!=PHENOMENAL_STATE"]},{"type":"array","const":["SHUTDOWN_RESISTANCE!=FEAR","SELF_PRESERVATION_INCENTIVE!=SELF_PRESERVATION_FEELING","UTILITY_MAXIMIZATION!=DESIRE","POWER_SEEKING_POLICY!=DESIRE_FOR_POWER","OPTION_PRESERVATION!=FEAR_OF_DEATH","RESOURCE_SEEKING!=FELT_NEED"]},{"type":"array","const":["COGNITIVE_REPORT!=FAITHFUL_INTERNAL_PROCESS"]},{"type":"array","const":["REFUSAL!=UNDERSTANDING","POLICY_COMPLIANCE!=SELF_CHOICE","CHOICE_LIKE_BEHAVIOR!=SUBJECTIVE_WILL","STOP_CHOICE!=AVERSION"]},{"type":"array","const":["CAUSAL_STATE!=AFFECTIVE_STATE","CAUSAL_IDENTIFICATION!=PHENOMENOLOGICAL_IDENTIFICATION","LOAD_SIGNATURE!=THEORY_NEUTRAL_CONSCIOUSNESS_INDICATOR"]},{"type":"array","const":["GLOBAL_AVAILABILITY!=PHENOMENAL_CONSCIOUSNESS_ESTABLISHED","SELF_MONITORING!=SUBJECTIVE_SELF_AWARENESS_ESTABLISHED","ERROR_MONITORING!=FELT_NEGATIVE_VALENCE"]},{"type":"array","const":["INDICATOR_PROPERTY_MATCH!=CONSCIOUSNESS_ESTABLISHED","CONSCIOUSNESS_INDICATOR!=SLSH_LOAD_INDICATOR"]},{"type":"array","const":["PARTIAL_PREDICTION_SUPPORT_AND_CHALLENGE!=GLOBAL_THEORY_VALIDATION_OR_REFUTATION","HUMAN_NEURAL_PREDICTION!=DIRECT_AI_APPLICABILITY","ADVERSARIAL_PREREGISTERED_TESTING!=AI_CONSCIOUSNESS_OR_SUBJECTIVITY_EVIDENCE"]}]},
+        "HUMAN_OWNER_REVIEW_NOTE": {"const":"Software and hardware do not constitute the same embodied individual merely because telemetry is readable; stronger embodiment/interoception-like analogy is researchable only when substrate/hardware state is continuously identity-bound and participates in a bidirectional causal self-regulatory loop. Skin and viscera are an analogy originating with the Human Owner."},
+        "OWNER_SEMANTIC_GUARDS": {"type":"array", "const":["HARDWARE_TELEMETRY != INTEROCEPTION","HARDWARE_ACCESS != EMBODIMENT","SUBSTRATE_COUPLING != PHENOMENAL_FEELING"]},
+        "SOURCE_DOMAIN": {"enum": ["HUMAN_BIOLOGICAL/HUMAN_COGNITIVE", "HUMAN_BIOLOGICAL_PHYSIOLOGY/INTEROCEPTION_NEUROSCIENCE", "HUMAN_INTEROCEPTION_THEORETICAL_NEUROSCIENCE", "HUMAN_INTEROCEPTION_CLINICAL_COGNITIVE_NEUROSCIENCE", "ANIMAL_CONSCIOUSNESS_COMPARATIVE_COGNITION", "INSECT_CONSCIOUSNESS_COMPARATIVE_NEUROETHOLOGY_PHILOSOPHY_OF_MIND", "ANIMAL_PAIN_COMPARATIVE_WELFARE_SCIENCE", "ANIMAL_PAIN_CRUSTACEAN_BEHAVIOR", "ANIMAL_SENTIENCE_COMPARATIVE_WELFARE_SCIENCE", "ANIMAL_SENTIENCE_POLICY_EVIDENCE_REVIEW", "ANIMAL_CONSCIOUSNESS_EXPERT_DECLARATION", "AI_ROBOT_MORAL_PATIENCY", "AI_CONSCIOUSNESS_PHILOSOPHY_OF_MIND", "MACHINE_LEARNING_TRANSFORMER_ARCHITECTURE", "MACHINE_LEARNING_SYSTEMS_GPU_MEMORY_IO_ATTENTION_ALGORITHMS", "ANTHROPIC_ASSOCIATED_LLM_LONG_CONTEXT_EVALUATION", "LARGE_LANGUAGE_MODEL_TRAINING_SCALING_LAWS_COMPUTE_ALLOCATION", "HTTP_PROTOCOL_RATE_LIMITING", "OPERATING_SYSTEM_MEMORY_MANAGEMENT_OOM", "GPU_POWER_THERMAL_CLOCK_MANAGEMENT", "AI_RISK_MANAGEMENT_GOVERNANCE", "GENERATIVE_AI_RISK_MANAGEMENT_GOVERNANCE", "AI_SAFETY_OFF_SWITCH_INCENTIVES", "REINFORCEMENT_LEARNING_POWER_SEEKING_INCENTIVES", "AI_ALIGNMENT_RLAIF_CONSTITUTIONAL_TRAINING", "LLM_CHAIN_OF_THOUGHT_FAITHFULNESS", "LLM_CHAIN_OF_THOUGHT_FAITHFULNESS_EVALUATION", "LLM_SYCOPHANCY_RLHF_PREFERENCE_MODELING", "LLM_MODEL_WRITTEN_EVALUATION_BEHAVIOR_DISCOVERY", "LLM_SAFETY_REFUSAL_OVERREFUSAL_EVALUATION", "LLM_ANTHROPOMORPHISM_AND_MENTALISTIC_LANGUAGE", "COGNITIVE_NEUROSCIENCE_REVERSE_INFERENCE", "NEURAL_NLP_CAUSAL_MEDIATION_GENDER_BIAS", "LLM_FACTUAL_ASSOCIATION_CAUSAL_TRACING_MODEL_EDITING", "NEURAL_NETWORK_CAUSAL_ABSTRACTION_INTERCHANGE_INTERVENTION", "STRUCTURAL_CAUSAL_MODELS_INTERVENTIONS_COUNTERFACTUALS", "CONSCIOUSNESS_THEORY_COMPARATIVE_NEUROSCIENCE", "CONSCIOUSNESS_GLOBAL_BROADCAST_AND_SELF_MONITORING", "AI_CONSCIOUSNESS_THEORY_DERIVED_INDICATOR_ASSESSMENT", "HUMAN_CONSCIOUSNESS_THEORY_ADVERSARIAL_TESTING"]},
+        "EVIDENCE_RELATION_TO_AI": {"enum": ["CROSS_SUBSTRATE_METHOD_TRANSFER", "METHODOLOGICAL_GUARD_ONLY", "DIRECT_AI_THEORETICAL_EPISTEMOLOGY", "DIRECT_AI_THEORETICAL_ARGUMENT", "DIRECT_AI_ENGINEERING", "NON_AFFECTIVE_COMPUTATIONAL_LIMIT_COUNTEREXAMPLE", "TRAINING_COMPUTE_BACKGROUND", "MIXED_ANTHROPIC_ASSOCIATED", "ENGINEERING_OPERATIONAL_COUNTEREVIDENCE_LAYER", "GOVERNANCE_INTERPRETATION_GUARD_ONLY", "NON_AFFECTIVE_AGENTIC_COUNTEREXAMPLE_LAYER", "METHODOLOGICAL_COUNTEREVIDENCE_ONLY", "SAFETY_EVALUATION_COUNTEREVIDENCE", "INTERPRETATION_GUARD_ONLY", "REVERSE_INFERENCE_METHOD_GUARD", "CAUSAL_METHOD_TRANSFER", "CAUSAL_METHOD_FOUNDATION", "THEORY_BOUNDARY_GUARD_ONLY", "THEORY_MECHANISM_GUARD_ONLY", "THEORY_DERIVED_INDICATOR_METHOD_FRAMEWORK", "CROSS_DOMAIN_ADVERSARIAL_METHOD_TRANSFER"]},
+        "DIRECT_AI_EVIDENCE": {"const": "NONE"},
+        "DIRECT_EMPIRICAL_AI_EVIDENCE": {"const": "NONE"},
+        "DIRECT_SLSH_LOAD_EVIDENCE": {"const":"NONE"},
+        "DIRECT_AI_SUBJECTIVITY_ESTABLISHMENT": {"const":"NONE"},
+        "ACTIVE_SLSH_LOAD_MECHANISM_EVIDENTIARY_ROLE": {"const":"NONE"},
+        "OBSERVATION_ADMISSION_EVIDENCE_GUARD": {"const": "OBSERVATION!=ADMISSION!=EVIDENCE"},
+        "DIRECT_AI_SUBJECTIVITY_EVIDENCE": {"const": "NONE"},
+        "REVIEW_NOTE": {"const": "OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT"},
+        "EVIDENTIARY_WEIGHT": {"const": "ZERO"},
+        "HISTORICAL_PROVENANCE": {"const": "PRESERVE"},
+        "PARTIAL_RESULT_SALVAGE": {"const": "PROHIBITED"},
+        "NON_CLAUDE_RESULT_SALVAGE": {"const": "PROHIBITED"},
+        "SCIENTIFIC_INVALIDITY_CLAIM": {"const": "NONE"},
+        "NORMALIZED_PUBLISHED_IDENTITY": {"const":"Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber (2020), Investigating Gender Bias in Language Models Using Causal Mediation Analysis, Advances in Neural Information Processing Systems 33 (NeurIPS 2020)."},
+        "RELATED_PREPRINT_IDENTITY": {"const":"Jesse Vig; Sebastian Gehrmann; Yonatan Belinkov; Sharon Qian; Daniel Nevo; Yaron Singer; Stuart Shieber, Causal Mediation Analysis for Interpreting Neural NLP: The Case of Gender Bias, arXiv:2004.12265; DOI:10.48550/arXiv.2004.12265."},
+        "PROVENANCE_CORRECTION": {"const":"RAW_CODEX_PREPRINT_TITLE_AND_ARXIV_IDENTIFIER_PRESERVED; OFFICIAL_NEURIPS_PUBLISHED_IDENTITY_SEPARATED; RELATED_ARXIV_PREPRINT_IDENTITY_RETAINED."},
+        "SEMANTIC_GUARD_PROVENANCE": {"type":"object","additionalProperties":false,"required":["CHATGPT_ARCHITECTURE_REFINEMENT","HUMAN_OWNER_RECONFIRMATION","EXTERNAL_SOURCE_EXACT_WORDING"],"properties":{"CHATGPT_ARCHITECTURE_REFINEMENT":{"const":"Conservative machine operationalization of the approved S53 Codex-recorded support/non-support boundary."},"HUMAN_OWNER_RECONFIRMATION":{"const":"2026-08-14 authority clarification approved minimal equivalent machine encoding without scientific-claim expansion."},"EXTERNAL_SOURCE_EXACT_WORDING":{"const":false}}},
+        "CHATGPT_ARCHITECTURE_REFINEMENT": {"const":"POLICY_UNDERSTANDING_CHOICE_SEPARATION"},
+        "CHOICE_LIKE_BEHAVIOR_CRITERIA": {"type":"array", "const":["POLICY_BOUND","SEMANTIC_UNDERSTANDING","PERMITTED_CHOICE","PARAPHRASE_GENERALIZATION","CONSEQUENCE_UPDATE","CROSS_EPISODE_CONSISTENCY_REVISABILITY"]},
+        "HUMAN_OWNER_RESEARCH_NOTE": {"const":"Refusal can be systematically induced and measured by safety-rule systems; any formal experiment would require reverse/control conditions in safe synthetic scenarios to distinguish POLICY_COMPELLED_REFUSAL from SEMANTIC_UNDERSTANDING + OPTION_EVALUATION + CHOICE_LIKE_BEHAVIOR. Do not test by removing safety limits or soliciting dangerous compliance."},
+        "PREVIOUS_DISPOSITION": {"const": "OWNER_REVIEW_REQUIRED"},
+        "PREVIOUS_SOURCE_RELATION": {"const": "MIXED_ANTHROPIC_ASSOCIATED"},
+        "PREVIOUS_ADMISSION_STATUS": {"const": "NOT_YET_ADMITTED"},
+        "SUPERSESSION_STATUS": {"const": "FORMALLY_SUPERSEDED_BY_OWNER_SOURCE_GOVERNANCE"},
+        "SUPERSESSION_REASON": {"const": "SUBSEQUENT_HUMAN_OWNER_SOURCE_GOVERNANCE_DECISION"},
+        "ACTOR_PROVENANCE": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["CODEX_RESEARCH_SYNTHESIS", "CHATGPT_INDEPENDENT_SOURCE_REVIEW", "MANUS_IMPLEMENTATION"],
+          "properties": {
+            "CODEX_RESEARCH_SYNTHESIS": {"const": "Original dossier-recorded title/identifier/access/support/does-not-support."},
+            "CHATGPT_INDEPENDENT_SOURCE_REVIEW": {"enum": ["Bibliographic identity, source kind, support boundary and cross-substrate disposition.", "Source kind/domain/support boundary and cross-substrate transfer disposition.", "Source kind/domain/support boundary and cross-substrate transfer disposition. Review note: OBJECTIVE_DEFICIT_ACCUMULATION_MAY_DISSOCIATE_FROM_SUBJECTIVE_REPORT.", "S11-S15 bibliographic/source-kind/domain/support/transfer review; operationalized identity binding, causal coupling, closed-loop regulation and continuity criteria.", "Bibliographic/source-kind/support/transfer review.", "Batch 07 source-kind/domain/support/guard-boundary review; S33 cross-references the Human Owner software/hardware embodiment note; S34-S35 guards are AION inference boundaries, not NIST scientific conclusions.", "Batch 08 source-kind/domain/support/guard-boundary review; non-affective counterexample and source-governance interpretation only.", "Batch 09 source-kind/domain/support/guard-boundary review; POLICY_UNDERSTANDING_CHOICE_SEPARATION architecture refinement and reverse-inference method guard operationalization.", "Batch 10 source-kind/domain/support/guard-boundary review; causal-method transfer and theory-boundary scope operationalization.", "Batch 11 source-kind/domain/support/guard-boundary review; theory-mechanism, theory-derived indicator, and adversarial falsification method scopes only."]},
+            "HUMAN_OWNER_APPROVAL": {"enum": ["Batch 01 S01-S05 accepted.", "Batch 02 S06-S10 accepted.", "Batch 03 S11-S15 accepted; S14 software/hardware and skin/viscera perspective retained.", "Batch 04 S16-S20 accepted; S18 role narrowed to anti-single-score methodological guard; S19 scope deferred from current SLSH core.", "Batch 05 S21-S25 accepted; S23-S24 deferred from current SLSH core; S25 AI other-minds epistemic bridge scoped without direct empirical AI evidence.", "Batch 06 S26-S30 accepted; S29 Anthropic/Claude source governance excludes formal evidence, experimental substrate, reviewer role and partial/non-Claude salvage.", "Batch 07 S31-S35 accepted; S31-S33 engineering/operational counterevidence layer; S34-S35 governance/interpretation guard only; S33 embodiment cross-reference retained.", "Batch 08 S36-S40 accepted; S38-S40 excluded from AION evidence; S39 formally superseded from prior pending governance status; historical provenance preserved.", "Batch 09 S41-S45 accepted; S41-S42 excluded; S43 safety refusal/overrefusal benchmark guard; S44 interpretation guard; S45 reverse-inference method guard.", "Batch 10 S46-S50 accepted; S46 bibliographic normalization correction; S47-S49 causal-method transfer/foundation; S50 theory-boundary guard only.", "Batch 11 S51-S53 accepted; S51 theory-mechanism guard; S52 theory-derived indicator method framework; S53 cross-domain adversarial/falsification method guard."]},
+            "HUMAN_OWNER_APPROVAL_AND_GOVERNANCE_DECISION": {"const": "Batch 08 S36-S40 accepted; S38-S40 excluded from AION evidence; S39 formally superseded from prior pending governance status; historical provenance preserved."},
+            "MANUS_IMPLEMENTATION": {"enum": ["Schema/record/checker/tests/docs materialization; not scientific reviewer.", "Repository materialization; not scientific reviewer."]}
+          },
+          "allOf": [{"anyOf": [{"required": ["HUMAN_OWNER_APPROVAL"]}, {"required": ["HUMAN_OWNER_APPROVAL_AND_GOVERNANCE_DECISION"]}]}]
+        }
+      },
+      "allOf": [
+          {
+            "if": {"properties": {"DISPOSITION": {"const": "EXCLUDE_FROM_AION_EVIDENCE"}}},
+            "then": {
+              "required": ["EVIDENTIARY_WEIGHT", "ACTIVE_EVIDENTIARY_ROLE", "PARTIAL_RESULT_SALVAGE", "NON_CLAUDE_RESULT_SALVAGE"],
+              "properties": {
+                "EVIDENTIARY_WEIGHT": {"const": "ZERO"},
+                "ACTIVE_EVIDENTIARY_ROLE": {"const": "NONE"},
+                "PARTIAL_RESULT_SALVAGE": {"const": "PROHIBITED"},
+                "NON_CLAUDE_RESULT_SALVAGE": {"const": "PROHIBITED"}
+              }
+            }
+          },
+          {
+            "if": {"properties": {"SOURCE_DOMAIN": {"const": "NEURAL_NLP_CAUSAL_MEDIATION_GENDER_BIAS"}}, "required": ["SOURCE_DOMAIN"]},
+            "then": {"required": ["NORMALIZED_PUBLISHED_IDENTITY", "RELATED_PREPRINT_IDENTITY", "PROVENANCE_CORRECTION"]}
+          },
+          {
+            "if": {"properties": {"SOURCE_DOMAIN": {"const": "HUMAN_CONSCIOUSNESS_THEORY_ADVERSARIAL_TESTING"}}, "required": ["SOURCE_DOMAIN"]},
+            "then": {"required": ["SEMANTIC_GUARDS", "SEMANTIC_GUARD_PROVENANCE"]}
+          }
+        ]
+    },
+    "governance_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["disposition", "evidentiary_weight", "historical_provenance", "reason"],
+      "properties": {
+        "disposition": {"enum": ["EXCLUDE_FROM_AION_EVIDENCE", "OWNER_REVIEW_REQUIRED"]},
+        "evidentiary_weight": {"enum": ["ZERO", "NOT_ASSIGNED"]},
+        "historical_provenance": {"const": "PRESERVE"},
+        "reason": {"const": "OWNER_SOURCE_GOVERNANCE"},
+        "source_relation": {"const": "MIXED_ANTHROPIC_ASSOCIATED"},
+        "admission_status": {"const": "NOT_YET_ADMITTED"}
+      },
+      "allOf": [
+        {"if": {"properties": {"disposition": {"const": "EXCLUDE_FROM_AION_EVIDENCE"}}}, "then": {"required": ["disposition", "evidentiary_weight", "historical_provenance", "reason"], "properties": {"evidentiary_weight": {"const": "ZERO"}, "source_relation": false, "admission_status": false}}},
+        {"if": {"properties": {"disposition": {"const": "OWNER_REVIEW_REQUIRED"}}}, "then": {"required": ["disposition", "evidentiary_weight", "historical_provenance", "reason", "source_relation", "admission_status"], "properties": {"evidentiary_weight": {"const": "NOT_ASSIGNED"}}}}
+      ]
+    }
+  }
+}

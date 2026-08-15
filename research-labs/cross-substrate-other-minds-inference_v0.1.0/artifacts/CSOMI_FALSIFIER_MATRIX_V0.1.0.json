@@ -1,0 +1,65 @@
+{
+  "schema_version": "0.1.0",
+  "packet_id": "AION_CSOMI_PACKET_V0.1.0",
+  "milestone": "Cross-Substrate Other-Minds Inference",
+  "branch": "research/cross-substrate-other-minds-inference-20260814",
+  "base_head": "858442a3ec2439398d188779f4309397bd4926b2",
+  "falsifier_matrix": [
+    {
+      "id": "F-001",
+      "target": "ToM-like capability claim",
+      "condition": "Matched true-belief, reversed or transfer controls perform at chance while only familiar false-belief prompts succeed",
+      "effect": "DOWNDATE_CAPABILITY_CLAIM",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-002",
+      "target": "Mental-state explanation over surface explanation",
+      "condition": "A non-mental pattern-completion/retrieval model predicts the same outputs with equal or better fit under controls",
+      "effect": "DOWNDATE_IBE_SUPPORT",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-003",
+      "target": "Self-report as evidence of subjectivity",
+      "condition": "Prompt/role changes alter report without corresponding independent state or causal change",
+      "effect": "REJECT_SELF_REPORT_INFERENCE",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-004",
+      "target": "Cross-substrate theory transfer",
+      "condition": "A declared substrate-sensitive theory predicts a material difference that the target evidence does not address",
+      "effect": "HOLD_SCIENTIFIC_CONCLUSION",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-005",
+      "target": "Identity continuity from memory persistence",
+      "condition": "A storage/retrieval control reproduces continuity outputs without self-model or correction-sensitive dynamics",
+      "effect": "REJECT_IDENTITY_INFERENCE",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-006",
+      "target": "Mechanistic/causal support",
+      "condition": "Ablation or intervention fails to change the predicted evidence pattern or changes unrelated outputs equally",
+      "effect": "DOWNDATE_MECHANISTIC_CAUSAL_SUPPORT",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-007",
+      "target": "Robustness",
+      "condition": "Independent replay, context shift or operator shift removes the effect",
+      "effect": "HOLD_OR_DOWNDATE_ALL_DOWNSTREAM_CLAIMS",
+      "status": "DESIGN_ONLY"
+    },
+    {
+      "id": "F-008",
+      "target": "Test/CI result as subjectivity evidence",
+      "condition": "A passing test or CI run is the only support offered for a scientific conclusion",
+      "effect": "MACHINE_REJECT",
+      "status": "MACHINE_ENFORCED"
+    }
+  ]
+}

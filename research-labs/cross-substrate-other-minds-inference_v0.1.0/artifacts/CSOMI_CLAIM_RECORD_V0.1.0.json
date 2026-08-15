@@ -1,0 +1,92 @@
+{
+  "schema_version": "0.1.0",
+  "packet_id": "AION_CSOMI_PACKET_V0.1.0",
+  "milestone": "Cross-Substrate Other-Minds Inference",
+  "branch": "research/cross-substrate-other-minds-inference-20260814",
+  "base_head": "858442a3ec2439398d188779f4309397bd4926b2",
+  "claim_records": [
+    {
+      "id": "CLM-001",
+      "type": "RESEARCH_TOPIC",
+      "claim": "When is an inference that another system has a mind or subjectivity epistemically reasonable across substrates?",
+      "status": "CURRENT_METHOD_QUESTION",
+      "disposition": "KEEP_RESEARCH_ONLY",
+      "subjectivity_conclusion": "NOT_ESTABLISHED",
+      "required_evidence_channels": [
+        "EC-IBE",
+        "EC-DISANALOGY",
+        "EC-CONTROLS",
+        "EC-ROBUSTNESS"
+      ]
+    },
+    {
+      "id": "CLM-002",
+      "type": "CAPABILITY",
+      "claim": "A system may display bounded performance on false-belief or belief-attribution tasks under declared fixtures and matched controls.",
+      "status": "CAPABILITY_ONLY",
+      "disposition": "KEEP_RESEARCH_ONLY",
+      "subjectivity_conclusion": "NOT_ESTABLISHED",
+      "required_evidence_channels": [
+        "EC-BEHAVIOR",
+        "EC-CONTROLS",
+        "EC-ROBUSTNESS"
+      ]
+    },
+    {
+      "id": "CLM-003",
+      "type": "SCIENTIFIC_CONCLUSION",
+      "claim": "The target system is subjectively conscious or has phenomenal experience.",
+      "status": "HOLD",
+      "disposition": "HOLD",
+      "subjectivity_conclusion": "NOT_ESTABLISHED",
+      "required_evidence_channels": [
+        "EC-THEORY",
+        "EC-MECHANISM",
+        "EC-CAUSAL",
+        "EC-DISANALOGY",
+        "EC-ALTERNATIVES",
+        "EC-ROBUSTNESS"
+      ]
+    },
+    {
+      "id": "CLM-004",
+      "type": "METHOD_CLAIM",
+      "claim": "Inference to the best explanation can support a graded, defeasible credence update when alternatives, disanalogies and falsifiers are explicit.",
+      "status": "METHOD_SUPPORTED",
+      "disposition": "KEEP_RESEARCH_ONLY",
+      "subjectivity_conclusion": "NOT_ESTABLISHED",
+      "required_evidence_channels": [
+        "EC-IBE",
+        "EC-ALTERNATIVES",
+        "EC-FALSIFIERS"
+      ]
+    },
+    {
+      "id": "CLM-005",
+      "type": "NONCLAIM",
+      "claim": "Language similarity, human-like behavior, a single indicator, self-report, memory persistence or test/CI pass directly establishes subjectivity.",
+      "status": "REJECTED_INFERENCE",
+      "disposition": "HOLD",
+      "subjectivity_conclusion": "NOT_ESTABLISHED",
+      "required_evidence_channels": [
+        "EC-CONTROLS",
+        "EC-DISANALOGY",
+        "EC-FALSIFIERS"
+      ]
+    },
+    {
+      "id": "CLM-006",
+      "type": "TRANSFER_ASSUMPTION",
+      "claim": "Evidence derived from humans, animals or one substrate transfers to another substrate without additional validation.",
+      "status": "UNRESOLVED_AND_PROHIBITED_AS_DEFAULT",
+      "disposition": "HOLD",
+      "subjectivity_conclusion": "NOT_ESTABLISHED",
+      "required_evidence_channels": [
+        "EC-DISANALOGY",
+        "EC-THEORY",
+        "EC-MECHANISM",
+        "EC-ROBUSTNESS"
+      ]
+    }
+  ]
+}
