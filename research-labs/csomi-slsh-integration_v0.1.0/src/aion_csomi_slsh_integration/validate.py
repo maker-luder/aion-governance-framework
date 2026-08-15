@@ -103,10 +103,11 @@ def validate_record(
         if origin["origin_sequence"] != sequence or origin["not_source_audit_workflow"] is not True:
             raise IntegrationValidationError(f"{framework} research-origin provenance drift")
     workflow = provenance["source_audit_materialization_workflow"]
-    if (
-        workflow["workflow_name"] != "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW"
-        or workflow["not_research_origin"] is not True
-    ):
+    if workflow["workflow_name"] != "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW":
+        raise IntegrationValidationError("source-audit workflow name drift")
+    if workflow["applicability_scope"] != "SLSH_SOURCE_RECORDS_ONLY":
+        raise IntegrationValidationError("source-audit workflow applicability scope drift")
+    if workflow["not_research_origin"] is not True:
         raise IntegrationValidationError(
             "source-audit workflow is not separated from research-origin provenance"
         )

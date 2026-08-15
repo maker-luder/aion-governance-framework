@@ -18,7 +18,7 @@ The integration record is an adapter and consistency artifact only. It does not 
 
 Research-origin provenance is stored separately for each frozen framework. CSOMI uses `HUMAN_OWNER_DIRECTION → CHATGPT_ARCHITECTURE_REFINEMENT`; SLSH uses `HUMAN_OWNER_ORIGIN → CHATGPT_ARCHITECTURE_REFINEMENT → CODEX_RESEARCH_SYNTHESIS → EXTERNAL_SOURCE`. These sequences describe research origin and architecture/input lineage, not source-audit processing.
 
-The separately named `SOURCE_AUDIT_MATERIALIZATION_WORKFLOW` records source-record review and repository materialization only: `CODEX_RESEARCH_SYNTHESIS → CHATGPT_INDEPENDENT_SOURCE_REVIEW → HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION → MANUS_IMPLEMENTATION`. This workflow must not be interpreted as the research-origin order, and Manus remains implementation-only rather than a scientific reviewer.
+The separately named `SOURCE_AUDIT_MATERIALIZATION_WORKFLOW` is applicable to `SLSH_SOURCE_RECORDS_ONLY`, because the current evidence establishes that source-audit/materialization lineage for SLSH records and does not establish a corresponding CSOMI workflow. Its sequence is `CODEX_RESEARCH_SYNTHESIS → CHATGPT_INDEPENDENT_SOURCE_REVIEW → HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION → MANUS_IMPLEMENTATION`. This workflow must not be interpreted as the research-origin order, and Manus remains implementation-only rather than a scientific reviewer.
 
 ## Deterministic validation
 

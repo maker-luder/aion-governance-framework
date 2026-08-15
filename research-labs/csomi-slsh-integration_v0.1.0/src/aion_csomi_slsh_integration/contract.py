@@ -202,6 +202,7 @@ def build_integration_contract(
             },
             "source_audit_materialization_workflow": {
                 "workflow_name": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW",
+                "applicability_scope": "SLSH_SOURCE_RECORDS_ONLY",
                 "workflow_sequence": [
                     "CODEX_RESEARCH_SYNTHESIS",
                     "CHATGPT_INDEPENDENT_SOURCE_REVIEW",

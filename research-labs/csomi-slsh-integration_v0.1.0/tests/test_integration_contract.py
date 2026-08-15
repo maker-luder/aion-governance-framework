@@ -136,9 +136,26 @@ def test_per_framework_research_origins_and_source_audit_workflow_are_separate()
     }
     workflow = provenance["source_audit_materialization_workflow"]
     assert workflow["workflow_name"] == "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW"
+    assert workflow["applicability_scope"] == "SLSH_SOURCE_RECORDS_ONLY"
     assert workflow["not_research_origin"] is True
     assert "actor_order" not in provenance
     assert provenance["provenance_mutation"] == "PROHIBITED"
+
+
+def test_missing_source_audit_scope_fails_closed():
+    mutated = deepcopy(load_record())
+    del mutated["provenance_contract"]["source_audit_materialization_workflow"][
+        "applicability_scope"
+    ]
+    assert list(Draft202012Validator(load_schema()).iter_errors(mutated))
+
+
+def test_wrong_source_audit_scope_fails_closed():
+    mutated = deepcopy(load_record())
+    mutated["provenance_contract"]["source_audit_materialization_workflow"][
+        "applicability_scope"
+    ] = "CSOMI_AND_SLSH_SOURCE_RECORDS"
+    assert list(Draft202012Validator(load_schema()).iter_errors(mutated))
 
 
 def test_provenance_and_nonmergeable_semantics_are_explicit():

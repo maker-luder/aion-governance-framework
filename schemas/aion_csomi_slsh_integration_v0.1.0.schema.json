@@ -193,9 +193,10 @@
     "sourceAuditWorkflow": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["workflow_name", "workflow_sequence", "sequence_semantics", "not_research_origin", "implementation_role"],
+      "required": ["workflow_name", "applicability_scope", "workflow_sequence", "sequence_semantics", "not_research_origin", "implementation_role"],
       "properties": {
         "workflow_name": {"const": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW"},
+        "applicability_scope": {"const": "SLSH_SOURCE_RECORDS_ONLY"},
         "workflow_sequence": {"const": ["CODEX_RESEARCH_SYNTHESIS", "CHATGPT_INDEPENDENT_SOURCE_REVIEW", "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION", "MANUS_IMPLEMENTATION"]},
         "sequence_semantics": {"const": "SOURCE_RECORD_REVIEW_ADMISSION_AND_REPOSITORY_MATERIALIZATION_ONLY"},
         "not_research_origin": {"const": true},
