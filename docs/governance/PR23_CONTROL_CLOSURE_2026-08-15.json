@@ -2,6 +2,8 @@
   "artifact": "PR23_CONTROL_CLOSURE_2026-08-15",
   "repository": "maker-luder/aion-governance-framework",
   "audit_date": "2026-08-15",
+  "remediation_pr": 27,
+  "artifact_commit": "580aba11611c261e7d5a03c56d64ff41c213f505",
   "incident": "PR23",
   "incident_type": "MERGED_WITHOUT_AUTHORITY_GATE_PASS",
   "historical_authority_gate": "HOLD",

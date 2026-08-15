@@ -1,6 +1,10 @@
 # PR #23 Governance Control Closure Record
 
-**Artifact status:** `CONTROL_CLOSURE = OPEN`  
+**Artifact status:** `CONTROL_CLOSURE = OPEN`
+
+**Remediation PR:** [#27](https://github.com/maker-luder/aion-governance-framework/pull/27)
+
+**Artifact commit:** `580aba11611c261e7d5a03c56d64ff41c213f505`
 **Prepared by:** Manus AI as implementation and evidence-producing agent  
 **Repository:** `maker-luder/aion-governance-framework`  
 **Audit date:** 2026-08-15
