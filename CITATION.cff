@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite this repository as an owner-led public research candidate."
+message: "Please cite the historical v0.1.0-rc.1 public baseline; the current repository is a 2026-08-15 freeze checkpoint."
 title: "AION Governance Framework"
 type: software
 version: "0.1.0-rc.1"
@@ -7,5 +7,5 @@ date-released: "2026-08-07"
 authors:
   - name: "AION Project Owner"
 repository-code: "https://github.com/maker-luder/aion-governance-framework"
-abstract: "A human-governed and auditable research framework for identity, continuity, memory, research integrity, bounded execution, and artificial subjectivity possibility."
+abstract: "A human-governed and auditable research framework for identity, continuity, memory, research integrity, bounded execution, and artificial subjectivity possibility. The citation metadata describes the historical release baseline, not a canonical runtime or deployment."
 license: "Apache-2.0"

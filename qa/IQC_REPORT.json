@@ -1,0 +1,131 @@
+{
+  "schema_version": "0.1.0",
+  "inspection_id": "IQC-AION-001",
+  "target_head": "750a386938a48e45d8a0ad5ec5106cc48db4d876",
+  "generated_at": "2026-08-15T11:53:56.658280+00:00",
+  "evaluator_role": "REPOSITORY_IQC_INSPECTION_ONLY",
+  "verdict": "PASS",
+  "checks": [
+    {
+      "check_id": "IQC-SRC-001",
+      "area": "SOURCE_STATE_BINDING",
+      "status": "PASS",
+      "detail": "exact Git source state bound",
+      "evidence_refs": [
+        "git:HEAD",
+        "git:HEAD^{tree}",
+        "git:working-tree"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-TEST-001",
+      "area": "TEST_EVIDENCE",
+      "status": "PASS",
+      "detail": "492 passed; eligible=19; tested=19; non_applicable=0",
+      "evidence_refs": [
+        "qa/CURRENT_TEST_RESULTS.json",
+        "qa/CURRENT_RELEASE_STATUS_LOCK.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-MEAS-001",
+      "area": "MEASUREMENT",
+      "status": "PASS",
+      "detail": "coverage covers 19 targets",
+      "evidence_refs": [
+        "qa/CURRENT_COVERAGE_RESULTS.json",
+        "qa/CURRENT_COVERAGE_EVIDENCE.json",
+        "qa/CURRENT_TEST_RESULTS.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-SEM-001",
+      "area": "SEMANTIC_RECONCILIATION",
+      "status": "PASS",
+      "detail": "whole_system_validation consistently NOT_ESTABLISHED",
+      "evidence_refs": [
+        "qa/CURRENT_RELEASE_STATUS_LOCK.json",
+        "qa/CURRENT_COVERAGE_EVIDENCE.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-TRACE-001",
+      "area": "TRACEABILITY",
+      "status": "PASS",
+      "detail": "traceability structure consistent",
+      "evidence_refs": [
+        "qa/CURRENT_EVIDENCE_TRACEABILITY.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-PKG-001",
+      "area": "COMPONENT_CONTRACT",
+      "status": "PASS",
+      "detail": "package contracts present",
+      "evidence_refs": [
+        "qa/CURRENT_TEST_RESULTS.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-RECON-001",
+      "area": "QA_RECONCILIATION",
+      "status": "PASS",
+      "detail": "reconciliation consistent",
+      "evidence_refs": [
+        "qa/CURRENT_QA_RECONCILIATION.json",
+        "qa/CURRENT_TEST_RESULTS.json",
+        "qa/CURRENT_RELEASE_STATUS_LOCK.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-GOV-001",
+      "area": "BOUNDARY",
+      "status": "PASS",
+      "detail": "canonical/deployment/IV&V boundaries closed",
+      "evidence_refs": [
+        "qa/CURRENT_RELEASE_STATUS_LOCK.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-REL-001",
+      "area": "PUBLIC_RELEASE",
+      "status": "PASS",
+      "detail": "public_scan PASS",
+      "evidence_refs": [
+        "qa/CURRENT_RELEASE_STATUS_LOCK.json"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-EVAL-001",
+      "area": "EXTERNAL_RULER",
+      "status": "PASS",
+      "detail": "required markers present",
+      "evidence_refs": [
+        "docs/C0_EXTERNAL_STANDARDS_CROSSWALK_2026-08-08.md"
+      ],
+      "critical": true
+    },
+    {
+      "check_id": "IQC-CAPA-001",
+      "area": "NCR_CAPA",
+      "status": "PASS",
+      "detail": "required markers present",
+      "evidence_refs": [
+        "qa/NCR_CAPA_REGISTER.md"
+      ],
+      "critical": true
+    }
+  ],
+  "canonical_effect": "NONE",
+  "independent_ivv_status": "NOT_ACHIEVED",
+  "mutation_performed": false
+}

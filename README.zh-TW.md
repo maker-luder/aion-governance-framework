@@ -2,7 +2,7 @@
 
 > **[繁體中文](README.zh-TW.md) | [English](README.md)**
 >
-> **公開發行候選版（Public Release Candidate）——受治理的研究框架，不是已部署的人工主體**
+> **歷史性公開發行候選版基線（Historical Public Release Candidate baseline）——受治理的研究框架，不是已部署的人工主體**
 >
 > **雙語公共導覽（Bilingual public orientation）：** [`README.md`](README.md)
 
@@ -32,19 +32,44 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
 
-凍結的 RC 區塊記錄歷史性的公共基線。RC 之後的工作可以在 review branches 上加入隔離的研究材料，但不得暗中改寫這個基線。
+凍結的 RC 區塊記錄歷史性的公共基線；本 checkpoint 不會改寫它。
+
+## Current repository state / 目前 repository 狀態
+
+Repository 現在處於 **2026-08-15 final freeze checkpoint**。本次 convergence payload 是由受保護的 `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94` 準備；這個 SHA 是 freeze merge 之前的 main base，不是被寫進文件後就永遠不變的 final merge SHA。PR exact-head approval、required checks 與 merge event 均保留為 GitHub 上的 out-of-tree transition evidence，避免 README 在 transition 完成後立刻變成過期狀態。
+
+本 checkpoint 只做文件與狀態收斂；它不是 canonical promotion、deployment、subjectivity conclusion 或新的 semantic release，也不需要額外建立 freeze tag。
+
+```text
+CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
+MAIN_BASE_BEFORE_FREEZE_MERGE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
+FINAL_FREEZE_DATE = 2026-08-15
+FREEZE_PAYLOAD = COMPLETE
+TRANSITION_EVIDENCE = GITHUB_PR_20_OUT_OF_TREE
+ACTIVE_ENGINEERING = NO
+ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
+NEW_FEATURE_DEVELOPMENT = NO
+DEPLOYMENT = FALSE
+CANONICAL_RUNTIME = NOT_ESTABLISHED
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+INDEPENDENT_IVV = NOT_ACHIEVED
+LICENSE_SELECTION = RESOLVED_APACHE_2_0
+NEW_FREEZE_TAG_REQUIRED = NO
+POST_FREEZE_FOLLOWUP_PR_REQUIRED = NO
+```
 
 ## Current Research / 目前研究進度
 
-目前的公共研究材料維護於 [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization)，而不是 `main`。其中的結果是 review material，不是 canonical conclusions。
+保留的研究材料仍位於 [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization)，作為歷史 provenance，而不是 `main` 上的 active development。其結果仍是 review material，不是 canonical conclusions；新的 research materialization 已由 repository freeze 暫停。
 
 ```text
 RESEARCH_BRANCH != MAIN
 RESEARCH_RESULT != CANONICAL_CONCLUSION
+ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
 CANONICAL_EFFECT = NONE
 ```
 
-研究分支的內容不會自動被採納至 `main`、canonical state、deployment 或 AION/Astra runtime。研究分支首頁提供其雙語公共實驗導覽：[`review/four-domain-research-materialization/README.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/README.md)。
+研究分支內容不會自動被採納至 `main`、canonical state、deployment 或 AION/Astra runtime。請見保留的研究分支首頁雙語導覽：[`review/four-domain-research-materialization/README.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/README.md)。
 
 ## Provenance / watermark boundary
 
