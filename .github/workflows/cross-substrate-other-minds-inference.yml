@@ -1,20 +1,6 @@
 name: Cross-Substrate Other-Minds Inference
 
 on:
-  push:
-    branches:
-      - research/cross-substrate-other-minds-inference-20260814
-    paths:
-      - "research-workbench/cross-substrate-other-minds-inference-2026-08-14/**"
-      - "research-labs/cross-substrate-other-minds-inference_v0.1.0/**"
-      - "schemas/aion_csomi_packet_v0.1.0.schema.json"
-      - "schemas/aion_csomi_controls_v0.1.0.schema.json"
-      - "scripts/check_csomi_consistency.py"
-      - "scripts/build_csomi_artifacts.py"
-      - ".github/workflows/cross-substrate-other-minds-inference.yml"
-  pull_request:
-    branches:
-      - research/cross-substrate-other-minds-inference-20260814
   workflow_dispatch:
 
 permissions:
