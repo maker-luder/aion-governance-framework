@@ -48,7 +48,7 @@ for target in ELIGIBLE_TARGETS:
         )
         print(f"[{target.name}] status=NO_TEST_DIRECTORY (explicit non-applicability)")
         continue
-    ordered = [target / "src"] + [path for path in SOURCE_ROOTS if path != target / "src" and path.is_dir()]
+    ordered = [target / "src", ROOT] + [path for path in SOURCE_ROOTS if path != target / "src" and path.is_dir()]
     env = os.environ.copy()
     env["PYTHONPATH"] = os.pathsep.join(str(path) for path in ordered)
     proc = subprocess.run(
