@@ -10,7 +10,7 @@ No branch is deleted in this checkpoint. Every non-main branch has unique commit
 
 | Branch | Exact head SHA | Merge base | Ahead / behind | Unique commits | Open PR | Disposition | Safe to delete | Reason |
 |---|---|---|---:|---:|---|---|---|---|
-| `convergence/final-repository-freeze-20260815` | `750a386938a48e45d8a0ad5ec5106cc48db4d876` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | 1 / 0 | 1 | final PR to be created | `PRESERVE_AS_FROZEN_AUTHORITY` | No; tag first | Single review-only convergence branch; no main authority until dual review. |
+| `convergence/final-repository-freeze-20260815` | `ef4da46ea19f9db389706ba98f846addc58222b2` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | 3 / 0 | 3 | #20, open | `PRESERVE_AS_FROZEN_AUTHORITY` | No; tag first | Single review-only convergence branch; PR #20 is open for dual review and is not main authority. |
 | `cleanup/manus-output-consolidation-20260813` | `c43430f9b39a86d11093f3286e9503145fcf0d70` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | 21 / 0 | 21 | — | `PRESERVE_AS_ENGINEERING_HISTORY` | No; tag first | Unique Manus engineering lineage remains historical provenance. |
 | `engineering/aion-language-agnostic-runtime-integration-20260814` | `6b81133dc351f5226fa95801254276e421b3e4fe` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | 33 / 0 | 33 | — | `PRESERVE_AS_ENGINEERING_HISTORY` | No; tag first | Unique engineering candidate history; no runtime expansion authorized. |
 | `engineering/aion-native-language-feasibility-20260814` | `3dfc21463502e1c32189ae167d92f163ca1a55e8` | `e079fb7dfe7a04be7dcb94b8a059951a003caa94` | 37 / 0 | 37 | — | `DEFERRED_NOT_PROMOTED` | No; tag first | Unique feasibility lineage is deferred and not promoted. |
