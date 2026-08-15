@@ -1,22 +1,25 @@
 # PR #23 Governance Control Closure Record
 
-**Artifact status:** `CONTROL_CLOSURE = OPEN`  
-**Closure candidate:** `CONTROL_CLOSURE_CANDIDATE = CLOSED`
+**Artifact status:** `CONTROL_CLOSURE = CLOSED`  
+**Closure candidate:** `CONTROL_CLOSURE_CANDIDATE = CLOSED`  
+**Record publication:** `PENDING_FINAL_SEAL_PR_MERGE`
 
-**Remediation PR:** [#27](https://github.com/maker-luder/aion-governance-framework/pull/27)
-
+**Remediation PR:** [#27](https://github.com/maker-luder/aion-governance-framework/pull/27)  
+**PR #27 merge commit:** `92e9d0e250dc43f55c24a0223a53e301139cfe4e`  
 **Artifact origin commit:** `580aba11611c261e7d5a03c56d64ff41c213f505`  
-**Current/final artifact head:** resolve from PR #27 rather than embedding a self-referential SHA in this file.  
-**Initial investigation and artifact:** Manus AI  
-**Positive-test Human Owner action:** Human Owner personally performed the PR #26 body edit for the disposable eligibility test; that action is not inherited by PR #27.  
-**Positive evidence and provenance update:** ChatGPT independently verified the GitHub evidence and updated these PR #27 closure artifacts through the connected GitHub operation after the Human Owner requested continuation.  
-**Transport authorship note:** GitHub records these connected writes under the `maker-luder` account context; that transport authorship does not change the source attribution stated above.  
 **Repository:** `maker-luder/aion-governance-framework`  
-**Audit date:** 2026-08-15
+**Audit / closure date:** 2026-08-15
 
-> This record preserves the historical deviation. It does not rewrite PR #23, retroactively approve its merge, or claim that a post-merge check was a merge-time gate.
+> This record preserves the historical PR #23 deviation. It does not rewrite PR #23, retroactively approve its merge, or reinterpret a post-merge check as a merge-time gate.
 
-## Machine-readable control state
+## Source attribution
+
+- **Manus AI:** initial investigation and first closure artifact.
+- **Human Owner:** personally performed the disposable PR #26 positive-test body edit; later explicitly approved merging PR #27 exact head `2b46ee5a2f0017de7709c14541b5071b38f00606` into `main` in external chat.
+- **ChatGPT:** independently verified the positive-test evidence, updated the PR #27 artifacts, independently reviewed exact PR #27 head and recorded `PASS` as review `4944113614`, recorded the Human Owner external attestation into the structural PR receipt, executed the authorized merge, and performed post-merge verification.
+- **GitHub account transport:** connected writes appear under the authenticated `maker-luder` account context; that transport authorship does not change the source attribution above.
+
+## Historical incident
 
 | Field | Value |
 |---|---|
@@ -24,79 +27,87 @@
 | `INCIDENT_TYPE` | `MERGED_WITHOUT_AUTHORITY_GATE_PASS` |
 | `HISTORICAL_AUTHORITY_GATE` | `HOLD` |
 | `HISTORICAL_QUALITY` | `PASS` |
-| `ROOT_CAUSE` | The active GitHub Main Protection ruleset required only `Python 3.11` and `Python 3.12`; it did not require the Authority Gate check. |
-| `CORRECTIVE_ACTION` | Added `Fresh exact-head Human Owner approval receipt` to active ruleset `Main Protection` (`20545803`) as a required status check. |
-| `PREVENTIVE_ACTION` | Platform enforcement now binds Authority Gate failure to merge rejection for the default branch; repository workflow and validator remain fail-closed to `HOLD`. |
-| `PLATFORM_ENFORCEMENT` | `VERIFIED` by live ruleset readback, negative rejection on PR #25, and positive eligibility on PR #26. |
-| `NEGATIVE_TEST` | `PASS` |
-| `NEGATIVE_TEST_MEANING` | `GATE_FAIL_CANNOT_MERGE` |
-| `POSITIVE_TEST` | `PASS` |
-| `POSITIVE_TEST_MEANING` | `ALL_REQUIRED_GATES_PASS_ENABLE_ELIGIBILITY` |
-| `ADMIN_BYPASS_STATUS` | Ruleset returned no bypass actors; `current_user_can_bypass = never`; no bypass was used in either control test. |
-| `OWNER_BYPASS_STATUS` | Ruleset returned no bypass actors; `current_user_can_bypass = never`; the Human Owner receipt was exercised only for the disposable positive eligibility test. |
-| `CONTROL_CLOSURE` | `OPEN` |
-| `CONTROL_CLOSURE_CANDIDATE` | `CLOSED` |
-| `CANONICAL_EFFECT` | `NONE` |
-| `DEPLOYMENT` | `FALSE` |
-| `NEW_RESEARCH` | `NONE` |
+| `ROOT_CAUSE` | The active Main Protection ruleset required Python 3.11 and Python 3.12 but did not require the Authority Gate. |
+| `CORRECTIVE_ACTION` | Added `Fresh exact-head Human Owner approval receipt` to the active Main Protection required checks. |
+| `PREVENTIVE_ACTION` | Platform enforcement now blocks default-branch merges when that required Authority Gate fails. |
 
-## Root cause and corrective action
+PR #23 remains historically unchanged: head `dd2af70d93792e7bb1e84e853d99df1a3c9d1f6e`, merge commit `3819f2eae763fd4de6b6d3c63f9beba3db014705`, with merge-time Authority Gate failure and Quality pass.
 
-PR #23 targeted `main` at exact head `dd2af70d93792e7bb1e84e853d99df1a3c9d1f6e` and merged at `2026-08-15T14:02:12Z` into merge commit `3819f2eae763fd4de6b6d3c63f9beba3db014705`. Its `Main Transition Authority Gate` check failed because the Human Owner receipt timestamp was not fresh for the PR-body edit event. The two checks that GitHub actually required at that time, `Python 3.11` and `Python 3.12`, passed. Consequently, workflow execution and workflow failure were not connected to platform merge enforcement.
-
-The minimal corrective action was applied at the GitHub platform layer rather than by modifying research or historical content. Active ruleset `Main Protection` (`20545803`) now requires the existing Authority Gate job context `Fresh exact-head Human Owner approval receipt` in addition to the two existing Python checks. The ruleset targets `~DEFAULT_BRANCH`, remains active with strict required-status-check policy, retains pull-request, deletion, and non-fast-forward protections, returns no bypass actors, and reports `current_user_can_bypass = never`.
-
-## Verification evidence
+## Control verification
 
 ### Negative control — PASS
 
-The disposable negative control was PR [#25](https://github.com/maker-luder/aion-governance-framework/pull/25), head `26de721573a0f4210a1aab8e92dc86dc82be1b9c`. Its Quality checks passed while the Authority Gate failed. GitHub reported `mergeStateStatus = BLOCKED`, and an API merge attempt was rejected with HTTP 405 because the required Authority check was failing. PR #25 was closed without merge.
-
-Result: **`GATE_FAIL_CANNOT_MERGE = VERIFIED`.**
+PR #25 demonstrated `GATE_FAIL -> MERGE_BLOCKED`: Quality passed, Authority Gate failed, GitHub reported the merge state blocked, and an API merge attempt was rejected with HTTP 405. The PR was closed without merge.
 
 ### Positive control — PASS
 
-The disposable positive control was PR [#26](https://github.com/maker-luder/aion-governance-framework/pull/26), exact head `bedcf6a6a56fa6f5c79e3806384f6519817b492a`. The Human Owner personally edited the PR body with a fresh exact-head structural receipt for the disposable eligibility test. The resulting `Main Transition Authority Gate` run #41 (`31892191140`) completed with `success`; Quality run #401 (`31892037854`) also completed with `success`. Before the test PR was closed, GitHub reported `mergeable_state = clean`.
+PR #26 exact head `bedcf6a6a56fa6f5c79e3806384f6519817b492a` received a fresh Human Owner receipt for the disposable eligibility test. Authority run #41 (`31892191140`) and Quality run #401 (`31892037854`) both succeeded, GitHub reached clean merge eligibility, and the PR was then closed without merge.
 
-The positive-control operation established eligibility only. PR #26 was intentionally closed without merge, and no disposable test content entered `main`.
+## PR #27 final transition — PASS
 
-Result: **`ALL_REQUIRED_GATES_PASS_ENABLE_ELIGIBILITY = VERIFIED`.**
+The final remediation transition used exact head `2b46ee5a2f0017de7709c14541b5071b38f00606`.
 
-## Closure disposition
+- ChatGPT independent review: `PASS`, GitHub review ID `4944113614`.
+- Human Owner fresh exact-head merge authorization: `GIVEN`, approval ID `fd4edff4-7e20-44a4-9b08-501d52b1dfc8`.
+- Main Transition Authority Gate run #47 (`31892578320`): `SUCCESS`.
+- Pre-merge Quality run #405 (`31892430815`): `SUCCESS`.
+- Authorized merge commit: `92e9d0e250dc43f55c24a0223a53e301139cfe4e`.
 
-The remediation now satisfies the technical recurrence-prevention criteria:
+The PR #26 authorization was not inherited. ChatGPT review did not substitute for Human Owner approval, and Human Owner approval did not substitute for ChatGPT review.
+
+## Post-merge verification — PASS
+
+On `main@92e9d0e250dc43f55c24a0223a53e301139cfe4e`, Quality run `31892599349` completed successfully with all four current checks green:
+
+- `Python 3.11` — success;
+- `Python 3.12` — success;
+- `Frozen v0.1.0-rc.1 manifest verification` — success;
+- `Current controls revalidate pinned v0.1.0-rc.1 evidence` — success.
+
+## Final closure disposition
+
+The recurrence-prevention control is now factually closed because all required conditions have occurred and were verified:
 
 - root cause verified;
 - platform remediation applied;
 - historical PR #23 truth preserved;
 - negative fail-closed test passed;
 - positive eligibility test passed;
-- active ruleset has no bypass actors and reports the current authenticated user cannot bypass;
-- research/canonical/deployment side effects remain absent.
+- ruleset bypass actors are empty and `current_user_can_bypass = never`;
+- PR #27 received independent ChatGPT `PASS`;
+- PR #27 received separate fresh Human Owner exact-head approval;
+- PR #27 Authority Gate passed;
+- PR #27 merged to `main` at the authorized head;
+- post-merge `main` Quality verification passed;
+- no research, canonical, runtime, or deployment effect was introduced.
 
-Accordingly, this record may state **`CONTROL_CLOSURE_CANDIDATE = CLOSED`**, but the factual `CONTROL_CLOSURE` remains **`OPEN`** until PR #27 itself completes the remaining governance transition: a fresh final exact-head ChatGPT review, a separate fresh Human Owner exact-head merge authorization, successful required checks, authorized merge, and post-merge verification on `main`.
+Therefore:
 
-A final `CLOSED` seal must be recorded only after that transition actually occurs. This avoids pre-authorizing or predicting a future merge inside the artifact that is supposed to document it.
+```text
+CONTROL_CLOSURE = CLOSED
+CONTROL_CLOSURE_CANDIDATE = CLOSED
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+NEW_RESEARCH = NONE
+RESEARCH_BRANCH_MODIFIED = FALSE
+```
 
-## Exact provenance
+This final-seal change only publishes the already-established closure state into the repository record. Until the final-seal PR itself is merged, `main` still contains the prior `OPEN` wording even though the underlying operational closure conditions have been satisfied.
+
+## Exact evidence
 
 | Evidence | Exact reference |
 |---|---|
 | Historical PR #23 head | `dd2af70d93792e7bb1e84e853d99df1a3c9d1f6e` |
 | Historical PR #23 merge | `3819f2eae763fd4de6b6d3c63f9beba3db014705` |
-| Current main at initial audit | `d7de6a52585b5d9ee7bcdc3d0b748b75d512f6e0` |
-| Artifact origin commit | `580aba11611c261e7d5a03c56d64ff41c213f505` |
-| Active ruleset | [Ruleset API resource](https://api.github.com/repos/maker-luder/aion-governance-framework/rulesets/20545803), updated `2026-08-15T14:52:13.759Z` |
-| PR #23 failing Authority runs | [Run #31](https://github.com/maker-luder/aion-governance-framework/actions/runs/31888661555), [Run #32](https://github.com/maker-luder/aion-governance-framework/actions/runs/31888805797), [Run #33](https://github.com/maker-luder/aion-governance-framework/actions/runs/31888907477) |
-| PR #23 Quality run | [Quality #392](https://github.com/maker-luder/aion-governance-framework/actions/runs/31888661603) |
-| Negative test | [PR #25](https://github.com/maker-luder/aion-governance-framework/pull/25) |
-| Positive test | [PR #26](https://github.com/maker-luder/aion-governance-framework/pull/26) |
-| Positive Authority PASS | [Authority #41](https://github.com/maker-luder/aion-governance-framework/actions/runs/31892191140) |
-| Positive Quality PASS | [Quality #401](https://github.com/maker-luder/aion-governance-framework/actions/runs/31892037854) |
-
-## Authority boundary
-
-Manus did not merge PR #25 or PR #26, did not alter PR #23 history, did not modify the research branch, and did not declare Human Owner approval, ChatGPT approval, canonical promotion, deployment, or governance closure. The Human Owner later performed the specifically requested disposable positive-test body edit; that test action is not inherited as authorization for PR #27. ChatGPT review and Human Owner authority remain independent and must both be fresh for the final PR #27 head.
+| PR #27 reviewed head | `2b46ee5a2f0017de7709c14541b5071b38f00606` |
+| ChatGPT review | `4944113614` |
+| Human Owner approval | `fd4edff4-7e20-44a4-9b08-501d52b1dfc8` |
+| PR #27 Authority PASS | Run #47 / `31892578320` |
+| PR #27 pre-merge Quality PASS | Run #405 / `31892430815` |
+| PR #27 merge commit | `92e9d0e250dc43f55c24a0223a53e301139cfe4e` |
+| Post-merge Quality PASS | `31892599349` |
+| Main Protection ruleset | `20545803` |
 
 ## References
 
