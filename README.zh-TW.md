@@ -36,13 +36,16 @@ DEPLOYMENT = FALSE
 
 ## Current repository state / 目前 repository 狀態
 
-本 branch 記錄 2026-08-15 final repository freeze checkpoint proposal。在 final convergence PR 取得兩方必要的獨立 approval 前，受保護的 `main` 維持 `e079fb7dfe7a04be7dcb94b8a059951a003caa94` 不變。本 checkpoint 只進行文件與狀態收斂，不是 canonical promotion、deployment 或新 release。
+Repository 現在處於 **2026-08-15 final freeze checkpoint**。本次 convergence payload 是由受保護的 `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94` 準備；這個 SHA 是 freeze merge 之前的 main base，不是被寫進文件後就永遠不變的 final merge SHA。PR exact-head approval、required checks 與 merge event 均保留為 GitHub 上的 out-of-tree transition evidence，避免 README 在 transition 完成後立刻變成過期狀態。
+
+本 checkpoint 只做文件與狀態收斂；它不是 canonical promotion、deployment、subjectivity conclusion 或新的 semantic release，也不需要額外建立 freeze tag。
 
 ```text
 CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
-CURRENT_MAIN_SHA_BEFORE_FREEZE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
+MAIN_BASE_BEFORE_FREEZE_MERGE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
 FINAL_FREEZE_DATE = 2026-08-15
-FINAL_FREEZE_STATUS = READY_FOR_DUAL_REVIEW
+FREEZE_PAYLOAD = COMPLETE
+TRANSITION_EVIDENCE = GITHUB_PR_20_OUT_OF_TREE
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
 NEW_FEATURE_DEVELOPMENT = NO
@@ -51,6 +54,8 @@ CANONICAL_RUNTIME = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
 LICENSE_SELECTION = RESOLVED_APACHE_2_0
+NEW_FREEZE_TAG_REQUIRED = NO
+POST_FREEZE_FOLLOWUP_PR_REQUIRED = NO
 ```
 
 ## Current Research / 目前研究進度
