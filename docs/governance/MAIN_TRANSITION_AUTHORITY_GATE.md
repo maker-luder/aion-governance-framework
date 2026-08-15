@@ -128,9 +128,9 @@ This review found no exact duplicate safe to delete. Separation of concerns is r
 
 | Classification | Source of truth / responsibility |
 |---|---|
-| `AUTHORITATIVE` | `docs/PROVENANCE.md`, `docs/AI_COLLABORATION_DISCLOSURE.md`, and current repository release policy/status documents |
+| `AUTHORITATIVE` | `docs/PROVENANCE.md`, `docs/governance/AI_COLLABORATION_DISCLOSURE.md`, and current repository release policy/status documents |
 | `ACTIVE_CONTROL` | this operator guide, receipt schema, validator, tests, and workflow after approval/merge |
-| `INCIDENT_RECORD` | `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and JSON companion; PR #14/#15 authorization remains `NOT_GIVEN` |
+| `INCIDENT_RECORD` | `docs/history/incidents/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md` and JSON companion; PR #14/#15 authorization remains `NOT_GIVEN` |
 | `HISTORICAL_EVIDENCE` | `qa/historical/` and dated source/release records |
 | `GENERATED_EVIDENCE` | per-run `qa/CURRENT_*`, IQC, coverage, traceability, and GitHub Actions outputs; software QA is not scientific validation |
 | `CANDIDATE` | all PR #17 surfaces until separately approved and merged |

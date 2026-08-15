@@ -158,7 +158,7 @@ The public repository is licensed under **Apache-2.0**. See [`LICENSE`](LICENSE)
 
 Citation metadata: [`CITATION.cff`](CITATION.cff).
 
-Human/AI collaboration and source attribution are recorded without collapsing Human Owner, ChatGPT, Codex, Manus or external-source roles. See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/AI_COLLABORATION_DISCLOSURE.md`](docs/AI_COLLABORATION_DISCLOSURE.md).
+Human/AI collaboration and source attribution are recorded without collapsing Human Owner, ChatGPT, Codex, Manus or external-source roles. See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/governance/AI_COLLABORATION_DISCLOSURE.md`](docs/governance/AI_COLLABORATION_DISCLOSURE.md).
 
 ## Historical records
 

@@ -26,4 +26,4 @@ SILENCE != CONSENT
 
 A `main` merge requires fresh, action-specific, target-specific, explicit Human Owner approval. Missing or contradictory approval evidence fails closed to `HOLD`.
 
-The 2026-08-13 PR #14/#15 authority reconciliation is recorded in `docs/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md`.
+The 2026-08-13 PR #14/#15 authority reconciliation is recorded in `docs/history/incidents/MAIN_AUTHORITY_RECONCILIATION_2026-08-13.md`.

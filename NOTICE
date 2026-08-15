@@ -3,6 +3,6 @@ Copyright 2026 AION Project Owner
 
 Licensed under the Apache License, Version 2.0.
 
-This repository contains AI-assisted research and engineering work. Attribution and provenance details are documented in docs/PROVENANCE.md and docs/AI_COLLABORATION_DISCLOSURE.md.
+This repository contains AI-assisted research and engineering work. Attribution and provenance details are documented in docs/PROVENANCE.md and docs/governance/AI_COLLABORATION_DISCLOSURE.md.
 
 Third-party dependencies, model integrations, datasets, and separately licensed materials are not relicensed by this NOTICE. See THIRD_PARTY_NOTICES.md, DEPENDENCY_LICENSE_REPORT.json, and MODEL_AND_DATA_LICENSE_REPORT.md for their independent review requirements.

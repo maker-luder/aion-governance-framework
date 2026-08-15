@@ -51,7 +51,7 @@ Existing AION governance material already required a stricter boundary than the 
 - `AION_Public_Interpretability_External_Review_Implementation_Handoff_2026-08-08_v0.3.0.txt` requires Human Owner final review before merge, a review-gated candidate branch rather than direct protected-baseline mutation, Human Owner review of the exact diff, and merge only after Owner authorization plus applicable CI PASS. It also states that deployment/canonical promotion does not follow automatically.
 - `AION_Astra_Developer_Distribution_Design_HOLD_2026-08-08_v0.2.x.txt` distinguishes `DESIGN_CANDIDATE != IMPLEMENTATION_AUTHORIZATION` and treats the decision register as the authority gate; open-ended research prose must not be promoted into an implementation requirement without an authorizing decision.
 - `POL-UPSTREAM-SUPPLIER-TRUST-001_v0.1.0_FINAL_CANDIDATE.txt` preserves Human Owner decision authority while explicitly rejecting evidence rewrite (`OWNER_AUTHORITY != EVIDENCE_REWRITE`).
-- Main `docs/AI_COLLABORATION_DISCLOSURE.md` states that AI assistance does not make an AI system a project owner or canonical authority.
+- Main `docs/governance/AI_COLLABORATION_DISCLOSURE.md` states that AI assistance does not make an AI system a project owner or canonical authority.
 
 The 2026-08-13 incident is therefore classified as a failure to preserve an already-existing authority boundary, not as evidence that the project intended autonomous main-merge authority.
 

@@ -46,8 +46,8 @@
     "CONTROLLED_AND_RANDOM_ABLATION",
     "3D_EMBODIMENT_ASSETS"
   ],
-  "branch_disposition_ledger": "docs/FINAL_BRANCH_DISPOSITION_2026-08-15.md",
-  "branch_disposition_ledger_json": "docs/FINAL_BRANCH_DISPOSITION_2026-08-15.json",
+  "branch_disposition_ledger": "docs/history/branch-and-release/FINAL_BRANCH_DISPOSITION_2026-08-15.md",
+  "branch_disposition_ledger_json": "docs/history/branch-and-release/FINAL_BRANCH_DISPOSITION_2026-08-15.json",
   "pr19_disposition": "CLOSED_AS_DEFERRED_BY_REPOSITORY_FREEZE_NOT_MERGED",
   "pr20_role": "SINGLE_FINAL_CONVERGENCE_TRANSITION_VEHICLE",
   "authority_boundary": "HUMAN_OWNER_AND_INDEPENDENT_CHATGPT_APPROVAL_ARE_OUT_OF_TREE_EXACT_HEAD_TRANSITION_EVENTS_AND_ARE_NOT_SELF_ATTESTED_BY_THIS_FILE",
