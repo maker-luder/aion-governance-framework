@@ -1,10 +1,6 @@
 name: Subjective Load Sensitivity Hypothesis
 
 on:
-  push:
-    branches:
-      - research/subjective-load-sensitivity-hypothesis-20260814
-      - remediation/slsh-semantic-reconciliation-20260814
   workflow_dispatch:
 
 permissions:
