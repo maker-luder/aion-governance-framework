@@ -70,6 +70,15 @@ jobs:
       - name: Compile public Python sources
         run: python -m compileall -q components examples research-labs scripts
 
+      - name: Fetch pinned read-only authorities for CSOMI/SLSH integration tests
+        if: ${{ hashFiles('research-labs/csomi-slsh-integration_v0.1.0/**') != '' }}
+        run: |
+          git fetch --no-tags origin \
+            refs/heads/research/cross-substrate-other-minds-inference-20260814:refs/remotes/origin/research/cross-substrate-other-minds-inference-20260814 \
+            refs/heads/frozen/slsh-semantic-reconciliation-20260814:refs/remotes/origin/frozen/slsh-semantic-reconciliation-20260814
+          test "$(git rev-parse refs/remotes/origin/research/cross-substrate-other-minds-inference-20260814^{commit})" = "87405c1877c6f016c303971da13923a1ab690aae"
+          test "$(git rev-parse refs/remotes/origin/frozen/slsh-semantic-reconciliation-20260814^{commit})" = "893d8dc0c1c9d8f9a4188860520143c8d1d3977b"
+
       - name: Run component test suites
         run: python scripts/run_component_tests.py
 
