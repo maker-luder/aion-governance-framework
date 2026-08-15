@@ -1,19 +1,6 @@
 name: CSOMI SLSH Read-Only Integration
 
 on:
-  push:
-    branches:
-      - integration/csomi-slsh-semantic-reconciliation-20260814
-    paths:
-      - "schemas/aion_csomi_slsh_integration_v0.1.0.schema.json"
-      - "research-labs/csomi-slsh-integration_v0.1.0/**"
-      - "research-workbench/csomi-slsh-integration-2026-08-14/**"
-      - "scripts/materialize_csomi_slsh_integration.py"
-      - "scripts/check_csomi_slsh_integration.py"
-      - ".github/workflows/csomi-slsh-integration.yml"
-  pull_request:
-    branches:
-      - integration/csomi-slsh-semantic-reconciliation-20260814
   workflow_dispatch:
 
 permissions:
@@ -50,18 +37,18 @@ jobs:
             "mypy==2.3.0" \
             "ruff==0.12.9"
 
-      - name: Fetch frozen SLSH authority as read-only remote-tracking object
+      - name: Fetch archived authority checkpoints as read-only tags
         run: |
-          git fetch --no-tags origin refs/heads/frozen/slsh-semantic-reconciliation-20260814:refs/remotes/origin/frozen/slsh-semantic-reconciliation-20260814
-          test "$(git rev-parse refs/remotes/origin/frozen/slsh-semantic-reconciliation-20260814^{commit})" = "893d8dc0c1c9d8f9a4188860520143c8d1d3977b"
-          test "$(git cat-file -t 87405c1877c6f016c303971da13923a1ab690aae)" = commit
+          git fetch --no-tags origin \
+            refs/tags/archive/research-csomi-source-20260814:refs/tags/archive/research-csomi-source-20260814 \
+            refs/tags/archive/research-slsh-terminal-20260814:refs/tags/archive/research-slsh-terminal-20260814 \
+            refs/tags/archive/promotion-csomi-selective-canonical-deferred-20260814:refs/tags/archive/promotion-csomi-selective-canonical-deferred-20260814
 
-      - name: Verify protected and frozen refs remain pinned
+      - name: Verify archived authority tags remain pinned
         run: |
-          test "$(git ls-remote origin refs/heads/main | cut -f1)" = "e079fb7dfe7a04be7dcb94b8a059951a003caa94"
-          test "$(git ls-remote origin refs/heads/research/cross-substrate-other-minds-inference-20260814 | cut -f1)" = "87405c1877c6f016c303971da13923a1ab690aae"
-          test "$(git ls-remote origin refs/heads/frozen/slsh-semantic-reconciliation-20260814 | cut -f1)" = "893d8dc0c1c9d8f9a4188860520143c8d1d3977b"
-          test "$(git ls-remote origin refs/heads/promotion/csomi-selective-canonical-20260814 | cut -f1)" = "7c48c0de87514088c3fd1410218ae92231be0887"
+          test "$(git rev-parse refs/tags/archive/research-csomi-source-20260814^{commit})" = "87405c1877c6f016c303971da13923a1ab690aae"
+          test "$(git rev-parse refs/tags/archive/research-slsh-terminal-20260814^{commit})" = "893d8dc0c1c9d8f9a4188860520143c8d1d3977b"
+          test "$(git rev-parse refs/tags/archive/promotion-csomi-selective-canonical-deferred-20260814^{commit})" = "7c48c0de87514088c3fd1410218ae92231be0887"
 
       - name: Materialize deterministic integration record
         run: python scripts/materialize_csomi_slsh_integration.py
