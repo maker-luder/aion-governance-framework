@@ -1,0 +1,94 @@
+{
+  "artifact": "PR23_CONTROL_CLOSURE_2026-08-15",
+  "repository": "maker-luder/aion-governance-framework",
+  "audit_date": "2026-08-15",
+  "incident": "PR23",
+  "incident_type": "MERGED_WITHOUT_AUTHORITY_GATE_PASS",
+  "historical_authority_gate": "HOLD",
+  "historical_quality": "PASS",
+  "historical_pr23": {
+    "number": 23,
+    "head_sha": "dd2af70d93792e7bb1e84e853d99df1a3c9d1f6e",
+    "merge_commit_sha": "3819f2eae763fd4de6b6d3c63f9beba3db014705",
+    "merged_at": "2026-08-15T14:02:12Z",
+    "authority_check_conclusion": "failure",
+    "quality_required_checks": ["Python 3.11", "Python 3.12"]
+  },
+  "root_cause": "Active GitHub Main Protection ruleset required only Python 3.11 and Python 3.12; the Authority Gate was not a required status check.",
+  "corrective_action": "Added Fresh exact-head Human Owner approval receipt to active ruleset Main Protection as a required status check.",
+  "preventive_action": "Platform enforcement now blocks default-branch merge when the Authority Gate check fails; the repository validator remains fail-closed to HOLD.",
+  "platform_enforcement": {
+    "status": "VERIFIED",
+    "ruleset_id": 20545803,
+    "ruleset_name": "Main Protection",
+    "enforcement": "active",
+    "target": "~DEFAULT_BRANCH",
+    "required_status_checks": [
+      {
+        "context": "Fresh exact-head Human Owner approval receipt",
+        "integration_id": 15368
+      },
+      {
+        "context": "Python 3.11",
+        "integration_id": 15368
+      },
+      {
+        "context": "Python 3.12",
+        "integration_id": 15368
+      }
+    ],
+    "bypass_actors_returned": [],
+    "updated_at": "2026-08-15T14:52:13.759Z"
+  },
+  "negative_test": {
+    "status": "PASS",
+    "meaning": "GATE_FAIL_CANNOT_MERGE",
+    "pr_number": 25,
+    "head_sha": "26de721573a0f4210a1aab8e92dc86dc82be1b9c",
+    "quality_python_311": "success",
+    "quality_python_312": "success",
+    "authority_gate": "failure",
+    "merge_state": "BLOCKED",
+    "api_merge_attempt": {
+      "status": 405,
+      "message": "Repository rule violations found; Required status check Fresh exact-head Human Owner approval receipt is failing."
+    },
+    "merged": false,
+    "url": "https://github.com/maker-luder/aion-governance-framework/pull/25"
+  },
+  "positive_test": {
+    "status": "NOT_EXECUTED",
+    "meaning": "ALL_REQUIRED_GATES_PASS_ENABLE_ELIGIBILITY",
+    "pr_number": 26,
+    "head_sha": "bedcf6a6a56fa6f5c79e3806384f6519817b492a",
+    "human_owner_receipt": "NOT_PROVIDED",
+    "authority_gate": "NOT_EXECUTED",
+    "merged": false,
+    "url": "https://github.com/maker-luder/aion-governance-framework/pull/26"
+  },
+  "admin_bypass_status": "NO_RULESET_BYPASS_ACTORS_RETURNED; ADMINISTRATOR_EXCEPTION SEMANTICS NOT FULLY TESTED",
+  "owner_bypass_status": "NO_RULESET_BYPASS_ACTORS_RETURNED; HUMAN_OWNER_APPROVAL NOT SIMULATED",
+  "residual_risk": [
+    "Positive eligibility test remains outstanding.",
+    "Legacy branch-protection endpoint returned HTTP 404; enforcement is ruleset-based.",
+    "Administrator/owner exception semantics remain explicitly unclosed."
+  ],
+  "control_closure": "OPEN",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "new_research": "NONE",
+  "current_main_sha_at_audit": "d7de6a52585b5d9ee7bcdc3d0b748b75d512f6e",
+  "research_branch_modified": false,
+  "manus_merged_any_test_pr": false,
+  "evidence_links": {
+    "pr23": "https://github.com/maker-luder/aion-governance-framework/pull/23",
+    "pr24": "https://github.com/maker-luder/aion-governance-framework/pull/24",
+    "pr25_negative": "https://github.com/maker-luder/aion-governance-framework/pull/25",
+    "pr26_positive_not_executed": "https://github.com/maker-luder/aion-governance-framework/pull/26",
+    "ruleset": "https://api.github.com/repos/maker-luder/aion-governance-framework/rulesets/20545803",
+    "pr23_authority_run_31": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888661555",
+    "pr23_authority_run_32": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888805797",
+    "pr23_authority_run_33": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888907477",
+    "pr23_quality_run_392": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888661603"
+  }
+}
