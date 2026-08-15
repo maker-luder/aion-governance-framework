@@ -48,7 +48,7 @@ PR #19, `research: selectively promote reviewed CSOMI/SLSH integration artifacts
 
 Accordingly, PR #19 was formally closed as `DEFERRED_BY_REPOSITORY_FREEZE` without merge. Its branch and all source authority refs remain preserved. The detailed record is [`PR19_FINAL_DISPOSITION_2026-08-15.md`](PR19_FINAL_DISPOSITION_2026-08-15.md).
 
-At the time this freeze record was generated, there were zero open PRs. The only permitted open PR after this record is the single final convergence PR created for dual review. No other open, draft, stale or promotion PR is left unresolved.
+At the time this freeze record was generated, there were zero open PRs. The single permitted open PR is now [final convergence PR #20](https://github.com/maker-luder/aion-governance-framework/pull/20), created for dual review. No other open, draft, stale or promotion PR is left unresolved.
 
 ## Branch disposition
 
