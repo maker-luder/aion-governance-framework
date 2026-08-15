@@ -32,6 +32,28 @@ Five retired support branches were converted to non-release `archive/*` tags aft
 
 The exact current branch heads, workflow runs and merge/approval events are GitHub transition evidence and are intentionally not embedded here as self-referential permanent status fields.
 
+## Governance process-deviation record
+
+PR #23 (`docs: converge public documentation around a clear reader path`) was merged into `main` while the Main Transition Authority Gate for that PR still held `HOLD` because the Human Owner approval receipt timestamp was not fresh for the PR-body edit event. The merge therefore did **not** satisfy the repository's intended gate-before-merge procedure.
+
+The content itself had passed the PR Quality workflow, and the resulting merged `main` later passed post-merge Quality run #393. Those later PASS results establish current implementation/documentation quality only; they do **not** retroactively convert the historical Authority Gate failure into a PASS.
+
+```text
+PR23_CONTENT_REVIEW = ACCEPTED
+PR23_PR_QUALITY = PASS
+PR23_AUTHORITY_GATE_AT_MERGE = HOLD
+PR23_PROCESS_DEVIATION = MERGED_WITHOUT_GATE_PASS
+POST_MERGE_MAIN_QUALITY = PASS
+RETROACTIVE_GATE_GREENWASH = FORBIDDEN
+REVERT_REQUIRED_BY_THIS_RECORD = NO
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+PR #19 is a contrasting fail-closed case: its promotion candidate was closed without merge after its authority gate remained unresolved. PR #21 and PR #22 concern research-only lineage convergence and are documented in the research branch's `RESEARCH_BRANCH_STATUS.md` with their own QA process-deviation record.
+
+This section is an audit record, not a new authorization. It preserves the difference between current repository health and historical process compliance.
+
 ## Historical release tags
 
 The existing semantic release tags remain:
