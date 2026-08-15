@@ -2,184 +2,91 @@
 
 > **[繁體中文](README.zh-TW.md) | English**
 >
-> **Historical Public Release Candidate baseline — a governed research framework, not a deployed artificial subject**
->
-> **Bilingual public orientation:** [`README.zh-TW.md`](README.zh-TW.md)
+> A human-governed, provenance-first research framework for studying identity, continuity, memory, research integrity, and the **possibility** of artificial subjectivity without treating implementation behavior as proof of subjectivity.
 
-## 30-second orientation
+## What is AION?
 
-**AION** is the research question and governance framework: how can artificial-subjectivity possibilities be studied without confusing memory, continuity, simulation, implementation, or researcher interpretation with proof of subjectivity?
+**AION** is the research question and governance framework.
 
-**Astra** is the engineering workbench used to materialize and test bounded research candidates. It is not a second identity and does not inherit AION state by naming or relationship.
+**Astra** is the bounded engineering workbench used to materialize and test research candidates.
 
-**Executable Runtime** is a bounded, non-canonical sandbox candidate for reproducible engineering tests. It is not the canonical AION/Astra runtime.
+They are not interchangeable identities, and neither name establishes continuity, consciousness, sentience, or subjectivity.
 
-```text
-PUBLIC_RELEASE_CANDIDATE = v0.1.0-rc.1
-AUGUST_SCOPE_FREEZE = ACTIVE
+The central research problem is:
 
-BOUNDED_EXECUTABLE_RUNTIME_CANDIDATE = IMPLEMENTED
-AION_CANONICAL_RUNTIME = NOT_IMPLEMENTED
-ASTRA_CANONICAL_RUNTIME = NOT_IMPLEMENTED
-LIVE_CROSS_SESSION_MEMORY = NOT_IMPLEMENTED
-FORMAL_G1_BASELINE_BENCHMARK = NOT_EXECUTED
+> How can long-horizon AI research preserve source, attribution, lineage, authority and uncertainty well enough that plausible interpretation does not silently become memory truth, identity fact, project history, or canonical conclusion?
 
-SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
-IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
-WHOLE_SYSTEM_VALIDATION = NOT_EXECUTED
-INDEPENDENT_IVV = NOT_ACHIEVED
-CANONICAL_EFFECT = NONE
-DEPLOYMENT = FALSE
-```
+## Current repository state
 
-The frozen RC block records the historical public baseline and is not rewritten by this checkpoint.
-
-## Current repository state / 目前 repository 狀態
-
-The repository is in its **2026-08-15 final freeze checkpoint**. The convergence payload was prepared from protected `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94`; that SHA is the pre-freeze merge base, not a self-embedded final merge SHA. Exact PR-head approvals, checks and the merge event are maintained as out-of-tree GitHub transition evidence so this README does not become stale immediately after the transition.
-
-This checkpoint is documentation and state reconciliation only. It is not a canonical promotion, deployment, subjectivity conclusion, or new semantic release, and no additional freeze tag is required.
+This repository is intentionally frozen as a public research checkpoint.
 
 ```text
-CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
-MAIN_BASE_BEFORE_FREEZE_MERGE = e079fb7dfe7a04be7dcb94b8a059951a003caa94
-FINAL_FREEZE_DATE = 2026-08-15
-FREEZE_PAYLOAD = COMPLETE
-TRANSITION_EVIDENCE = GITHUB_PR_20_OUT_OF_TREE
+REPOSITORY_STATE = FROZEN_CHECKPOINT
+LIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
 ACTIVE_ENGINEERING = NO
-ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
+ACTIVE_RESEARCH_MATERIALIZATION = NO
 NEW_FEATURE_DEVELOPMENT = NO
 DEPLOYMENT = FALSE
 CANONICAL_RUNTIME = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
-LICENSE_SELECTION = RESOLVED_APACHE_2_0
-NEW_FREEZE_TAG_REQUIRED = NO
-POST_FREEZE_FOLLOWUP_PR_REQUIRED = NO
+LICENSE = Apache-2.0
 ```
 
-## Current Research / 目前研究進度
+The only live branches are:
 
-The preserved research material remains on [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization) as historical provenance, not active development on `main`. Its results remain review material rather than canonical conclusions, and new research materialization is paused by the repository freeze.
+- `main` — protected public baseline;
+- [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization) — preserved frozen research checkpoint.
 
-```text
-RESEARCH_BRANCH != MAIN
-RESEARCH_RESULT != CANONICAL_CONCLUSION
-ACTIVE_RESEARCH_MATERIALIZATION = PAUSED
-CANONICAL_EFFECT = NONE
-```
+Retired engineering, research-authority and deferred-promotion branches are preserved by non-release `archive/*` tags instead of remaining active branches. Existing semantic release tags remain `v0.1.0-rc.1` and `v0.2.0-rc.1`.
 
-No research-branch content is automatically adopted by `main`, canonical state, deployment, or the AION/Astra runtime. See the preserved research-branch homepage for its bilingual public orientation: [`review/four-domain-research-materialization/README.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/README.md).
+For the current documentation map and the distinction between current, core and historical files, start with **[`docs/README.md`](docs/README.md)**.
 
-## Provenance / watermark boundary
+## Start here
 
-```text
-MARKER != IDENTITY
-PROVENANCE != IDENTITY
-MARKER != AUTHORSHIP_PROOF
-RESPECT != WATERMARK
-TRANSPARENCY != IMPERCEPTIBLE_MARKING
-```
+### New reader
 
-AION rejects imperceptible, hidden or undisclosed machine-readable watermarking in project-generated outputs when used as a mechanism for identity, authorship, attribution, respect or provenance. Provenance itself is not rejected: explicit, inspectable and auditable mechanisms such as declared attribution, Git history, commit lineage, manifests and checksums remain preferred.
-
-A marker found in external material is only a technical signal; it does not, by itself, establish identity, authorship or subjectivity evidence. A dependency, provider or output path that requires non-disableable imperceptible watermarking is incompatible with that project output path unless a later explicit governance revision authorizes a transparent alternative.
-
-See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) for the normative policy.
-
-## 5-minute orientation — choose your path
+1. [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md) — what the project contributes.
+2. [`docs/README.md`](docs/README.md) — which documents are current and which are historical.
+3. [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md) — what the project does not claim.
 
 ### Reviewer / auditor
 
-Start with:
-
-1. [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
+1. [`docs/PROVENANCE.md`](docs/PROVENANCE.md)
 2. [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md)
-3. [`docs/PROVENANCE.md`](docs/PROVENANCE.md)
-4. [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md)
-5. the governance pipeline below
-
-The primary review question is not “does this system look human-like?” but “what evidence, provenance, authority, lineage, and non-claims justify each research statement?”
-
-### Researcher
-
-Start with the one-page contribution summary: [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md).
-
-For the current main-native evidence admission control, see [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md).
-
-Then continue with the research questions around identity, continuity, memory recall, interpretation drift, conflict, correction, provenance, and bounded subjectivity hypotheses. Research candidates remain distinct from conclusions.
-
-Useful entry points include:
-
-- `components/identity_governance_v0.1.0`
-- `components/continuity_governance_v0.1.0`
-- `components/memory_recall_governance_v0.1.0`
-- `components/research_integrity_security_v0.1.0`
-- `research-labs/`
+3. [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md)
+4. [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md)
 
 ### Engineer
 
-Start with:
+1. [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+2. [`BUILD_AND_VERIFY.md`](BUILD_AND_VERIFY.md)
+3. `components/`
+4. `scripts/verify_release.py`
+5. `scripts/run_component_tests.py`
 
-1. [`components/executable_runtime_v0.1.0`](components/executable_runtime_v0.1.0)
-2. `scripts/verify_release.py`
-3. `scripts/run_component_tests.py`
-4. component-specific status locks and tests
-5. [`scripts/check_source_state_binding.py`](scripts/check_source_state_binding.py)
-6. [`docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md)
+Engineering success is evidence about implemented behavior only. It is not evidence that a corresponding psychological or subjectivity construct exists.
 
-Engineering implementation is evidence about implemented behavior only. It is not evidence that the corresponding psychological or subjectivity construct exists.
+## Core research contribution
 
-## Research purpose
+AION treats the **research process itself as an auditable object**.
 
-The project examines whether a finite, auditable and human-governed digital system can support rigorous study of:
+The framework keeps the following distinctions explicit:
 
-- identity, lineage and research forks;
-- continuity across sessions, versions and model handoffs;
-- memory provenance and topic-cued selective recall;
-- interpretation drift and relational continuity;
-- evidence integrity and research-security threats;
-- bounded tool execution, rollback and audit;
-- capability artifacts without automatic identity inheritance;
-- artificial subjectivity possibility without presuming that subjectivity has been established.
+- source vs interpretation;
+- observation vs inference vs hypothesis vs approved state;
+- retrieved memory candidate vs truth;
+- shared origin vs identity;
+- relationship vs authorization;
+- implementation evidence vs scientific conclusion;
+- research branch vs canonical `main` state.
 
-Engineering, QA, security controls and documentation are research methods. They are not the final research conclusion.
+Important records are expected to preserve source, speaker, event time, record time, transformation lineage, authority status and revision history.
 
-## Public positioning and naming
+The concise research statement is in [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md).
 
-For external orientation, this repository uses three layers:
-
-```text
-AION
-= research question / governance framework
-
-Astra
-= engineering workbench
-
-Executable Runtime
-= bounded, reproducible sandbox candidate
-```
-
-The project name **AION** is a research label used by this repository. It should not be interpreted as affiliation with unrelated projects or organizations that also use “Aion/AION”. Any future publication, package naming, DOI, or public release should preserve repository-level disambiguation before broader dissemination.
-
-## Included components
-
-| Area | Public module | Status |
-|---|---|---|
-| Core governance | `components/governance_kernel_v0.4.0` | source-derived candidate |
-| Engineering workbench | `components/astra_workbench_v1.0.0` | source-derived candidate |
-| Identity / lineage / forks | `components/identity_governance_v0.1.0` | source-derived candidate |
-| Upstream-agent security | `components/upstream_security_v0.1.0` | source-derived candidate |
-| Language Core scaffold | `components/language_core_v0.1.0` | source-derived research lab |
-| Continuity governance | `components/continuity_governance_v0.1.0` | jointly developed candidate |
-| Topic-cued recall | `components/memory_recall_governance_v0.1.0` | jointly developed candidate |
-| Research integrity | `components/research_integrity_security_v0.1.0` | jointly developed candidate |
-| Bounded runtime | `components/executable_runtime_v0.1.0` | source-derived candidate, non-canonical |
-| Bazi example | `examples/bazi-capability_v0.1.1` | deterministic domain example |
-| Language Core G1 | `research-labs/language-core-g1_v0.2.1` | public-safe planning and engineering subset |
-| Twin embodiment | `research-labs/twin-genesis-embodiment_v0.1.0` | governed research candidate |
-
-## Core governance pipeline
+## Governance pipeline
 
 ```text
 Context Intake
@@ -192,119 +99,69 @@ Context Intake
 → Audit Sink
 ```
 
-Additional candidates add an Interpretation Drift Check, Memory Recall Gate and Epistemic Integrity Gate. These gates do not silently promote content into canonical state.
+Additional research candidates may add interpretation-drift, recall or epistemic-integrity checks. These checks do not silently promote generated or retrieved content into canonical state.
 
-## Repository principles
+## Repository layout
 
-- **Human-governed:** high-impact state changes require explicit human review.
-- **Provenance-first:** source, speaker, event time, record time, version and transformation history remain distinguishable.
-- **Claims-separated:** observation, inference, hypothesis, evidence candidate and canonical decision are different states.
-- **Identity-isolated:** AION, Astra, shared project knowledge, Runtime artifacts and research forks are not silently merged.
-- **Recall is not truth:** retrieved memory is only a candidate until provenance, access and conflict checks pass.
-- **Relationship is not authorization:** familiarity, trust or relational language cannot elevate privileges.
-- **No silent canonical writeback:** retrieved or generated content cannot automatically change canonical state.
-- **No subjectivity overclaim:** capability, continuity, memory, embodiment or bounded execution do not prove consciousness or subjectivity.
+| Path | Purpose |
+|---|---|
+| `components/` | bounded governance and runtime candidates |
+| `research-labs/` | research candidates; not canonical conclusions |
+| `experiments/` | bounded experiments and reproducibility material |
+| `docs/` | current guidance, core research documents and preserved historical evidence |
+| `qa/` | QA and machine-readable evidence |
+| `manifest/` | frozen historical release evidence; not a live inventory |
 
-## Public/private boundary
+The repository contains many dated files because provenance and event history are intentionally preserved. **File count is not authority.** Use [`docs/README.md`](docs/README.md) to determine what is current.
 
-Excluded from this repository:
+## Non-claims
 
-- private ZIP packages and private Git history;
-- real conversation transcripts and private memory records;
-- model weights and private datasets;
-- local absolute paths, credentials, tokens and device-specific logs;
-- private canonical state, private relationship records and real Bazi data;
-- unpublished owner materials not explicitly included in the public reconstruction.
+This repository does **not** establish:
+
+- consciousness, sentience or subjectivity;
+- AION/Astra identity continuity;
+- autobiographical memory or relationship experience;
+- production readiness or deployment authority;
+- canonical authority for a model or runtime candidate;
+- independent IV&V or whole-system validation;
+- certification or endorsement by standards bodies.
+
+See [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md).
+
+## Public / private boundary
+
+The public repository excludes private conversation transcripts, private memory records, credentials, private datasets, model weights, device-specific logs and private canonical/relationship state unless explicitly approved for publication.
 
 See [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md).
 
-## Method-specific notes
-
-- Why Bazi is used as a deterministic test domain: [`examples/bazi-capability_v0.1.1/docs/WHY_BAZI_AS_TEST_DOMAIN.md`](examples/bazi-capability_v0.1.1/docs/WHY_BAZI_AS_TEST_DOMAIN.md)
-- Twin embodiment ethics boundary: [`research-labs/twin-genesis-embodiment_v0.1.0/docs/ETHICS_REVIEW.md`](research-labs/twin-genesis-embodiment_v0.1.0/docs/ETHICS_REVIEW.md)
-- Public threat model: [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md)
-- Position paper draft: [`docs/POSITION_PAPER_PROVENANCE_FIRST.md`](docs/POSITION_PAPER_PROVENANCE_FIRST.md)
-- Reader-orientation usability protocol: [`docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md`](docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md)
-- Minimal recall-gate contrast experiment: [`experiments/g1-recall-gate-baseline_v0.1.0`](experiments/g1-recall-gate-baseline_v0.1.0)
-
 ## Verification
 
-Verify the current checkout against the exact checked-out Git `HEAD` tree:
+Current checkout:
 
 ```bash
+python scripts/scan_public_tree.py
 python scripts/verify_release.py --baseline current-head
+python scripts/run_component_tests.py
 ```
 
-This current-head verification reports the exact commit and Git-tree manifest used. A PASS means that tracked worktree files match the checked-out `HEAD` and that the verifier's scoped repository-content policy checks pass. It is distinct from the frozen historical release evidence and does not provide an independent manifest or independent release-reproducibility assurance.
-
-For a pre-commit check, verify tracked worktree files against the Git index:
-
-```bash
-python scripts/verify_release.py --baseline current-index
-```
-
-The current-head and current-index modes evaluate tracked paths only. They do not evaluate untracked files. Run `python scripts/scan_public_tree.py` as the separate public-worktree control for tracked and untracked artifacts. The intended local QA composition is the public-tree scan, the appropriate tracked-snapshot verifier mode, and the relevant tests; no single mode subsumes all three controls.
-
-Verify the frozen `v0.1.0-rc.1` release from its pinned historical tag object, peeled commit, manifest and checksum records:
+Historical `v0.1.0-rc.1` release evidence:
 
 ```bash
 python scripts/verify_release.py --baseline historical-rc
 ```
 
-`manifest/FILE_MANIFEST.json` and `manifest/SHA256SUMS.txt` remain historical `v0.1.0-rc.1` evidence. They are not a live inventory of post-RC `main`, and this verifier does not regenerate or rewrite them. Historical verification pins both the annotated tag object and its peeled commit. These modes require a Git checkout and state what was verified, against which baseline, and using which manifest or Git snapshot.
+A verification or CI PASS does not imply scientific validation, subjectivity evidence, deployment approval, independent IV&V or canonical promotion.
 
-Generic current-worktree manifest generation requires an explicit baseline and a non-frozen, versioned output destination:
+## License, citation and provenance
 
-```bash
-python scripts/generate_manifest.py --baseline <baseline-or-version> --output-dir <non-frozen-versioned-directory>
-```
+The public repository is licensed under **Apache-2.0**. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE). Third-party dependencies, datasets, model artifacts, trademarks and separately licensed material remain subject to their own terms.
 
-The generator rejects the frozen historical manifest destination and does not define a canonical current manifest.
+Citation metadata: [`CITATION.cff`](CITATION.cff).
 
-A verifier PASS does **not** mean that the whole project or its research claims have been validated. It is not subjectivity evidence, independent IV&V, release approval, deployment approval, or canonical promotion.
+Human/AI collaboration and source attribution are recorded without collapsing Human Owner, ChatGPT, Codex, Manus or external-source roles. See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/AI_COLLABORATION_DISCLOSURE.md`](docs/AI_COLLABORATION_DISCLOSURE.md).
 
-Run all available component tests:
+## Historical records
 
-```bash
-python scripts/run_component_tests.py
-```
+Dated convergence, acceptance, authority, QA and incident files remain in the repository as evidence of what was recorded at their event time. They are **not automatically current repository status**.
 
-The historical source package reported 232 passing tests across five public components. This repository records that result as historical evidence and also records its own reconstruction-time test run separately; it does not rewrite creator-side QA as independent IV&V.
-
-## Documentation design basis
-
-The public orientation structure is intentionally layered:
-
-```text
-30 seconds → 5 minutes → deep reference
-```
-
-This is a repository information-architecture choice, not an ISO/W3C/NIST certification claim. It is informed by public guidance on plain language, human-centred design, clear purpose and hierarchy, summaries for complex information, and communication to broad technical/non-technical audiences.
-
-See [`docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md`](docs/PUBLIC_ORIENTATION_USABILITY_PROTOCOL.md) for the evidence references and test protocol.
-
-## License status
-
-The public repository is licensed under the **Apache License, Version 2.0** (`Apache-2.0`). See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`LICENSE_DECISION_REQUIRED.md`](LICENSE_DECISION_REQUIRED.md).
-
-The repository license does not silently relicense third-party dependencies, model weights, datasets, trademarks, or separately licensed materials; those remain subject to their own provenance and license review.
-
-## Provenance and AI assistance
-
-The human Owner is the primary researcher and project decision-maker. ChatGPT and Codex have assisted with requirement decomposition, terminology, engineering implementation, review and documentation. Source attribution is recorded without rewriting AI-assisted formalization as the Owner's verbatim original wording, or rewriting Owner-originated concerns as AI-originated ideas.
-
-See [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/AI_COLLABORATION_DISCLOSURE.md`](docs/AI_COLLABORATION_DISCLOSURE.md).
-
-## Important non-claims
-
-This repository does not claim that:
-
-- AION or Astra currently exists as a deployed artificial subject;
-- consciousness, sentience, identity continuity or relational continuity has been proven;
-- memory retrieval is equivalent to personal recollection;
-- shared genesis implies shared identity;
-- an embodiment model creates sensation, desire, gender identity, consent or subjectivity;
-- the bounded executable candidate is the canonical AION Runtime;
-- the project is certified or endorsed by NIST, OWASP, MITRE, ISO, IEEE or another standards body.
-
-See [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md).
+For the authoritative reader map, use [`docs/README.md`](docs/README.md).

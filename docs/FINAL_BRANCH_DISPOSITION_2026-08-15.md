@@ -1,5 +1,11 @@
 # Final Branch Disposition — 2026-08-15
 
+> **HISTORICAL INVENTORY SNAPSHOT — NOT THE CURRENT BRANCH LIST.**
+>
+> This ledger records the PR #20 freeze-preparation inventory. After that checkpoint, a separately reviewed research-lineage closure absorbed the research support lineage, converted five remaining support branches to non-release `archive/*` tags, and reduced the live branch model to `main` plus `review/four-domain-research-materialization`.
+>
+> Current branch standing is documented in [`README.md`](../README.md), [`docs/README.md`](README.md), and [`RELEASE_STATUS.md`](RELEASE_STATUS.md). The table below is intentionally preserved as event-time provenance.
+
 ## Scope and provenance
 
 This ledger is the final branch inventory and disposition record for `maker-luder/aion-governance-framework`. It was prepared on the convergence branch from `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94`. **Manus is the convergence implementation / inventory author**, not the automatic author of historical research, not the Human Owner, not the ChatGPT independent reviewer, and not canonical authority.
