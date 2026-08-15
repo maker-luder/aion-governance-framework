@@ -5,6 +5,12 @@
   "remediation_pr": 27,
   "artifact_origin_commit": "580aba11611c261e7d5a03c56d64ff41c213f505",
   "artifact_head_resolution": "Resolve the current/final artifact head from remediation PR #27; an exact self-referential head is intentionally not embedded in this file because editing it would change that head.",
+  "provenance": {
+    "initial_investigation_and_artifact": "Manus AI",
+    "positive_test_human_owner_action": "Human Owner personally performed the PR #26 body edit; this action was scoped to the disposable eligibility test and is not inherited by PR #27.",
+    "positive_evidence_and_provenance_update": "ChatGPT independently verified GitHub evidence and updated the PR #27 closure artifacts through the connected GitHub operation after the Human Owner requested continuation.",
+    "github_commit_account_context": "Repository writes are recorded by GitHub under the connected maker-luder account; that transport authorship must not be used to invert the content-source attribution above."
+  },
   "incident": "PR23",
   "incident_type": "MERGED_WITHOUT_AUTHORITY_GATE_PASS",
   "historical_authority_gate": "HOLD",
@@ -104,7 +110,7 @@
   "canonical_effect": "NONE",
   "deployment": false,
   "new_research": "NONE",
-  "current_main_sha_at_audit": "d7de6a52585b5d9ee7bcdc3d0b748b75d512f6e0",
+  "current_main_sha_at_audit": "d7de6a52585b5d9ee7bcdc3d0b748b75d512f6e",
   "research_branch_modified": false,
   "manus_merged_any_test_pr": false,
   "evidence_links": {
