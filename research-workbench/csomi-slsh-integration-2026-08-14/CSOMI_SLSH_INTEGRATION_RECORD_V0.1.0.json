@@ -1,0 +1,373 @@
+{
+  "schema_version": "0.1.0",
+  "record_id": "AION_CSOMI_SLSH_INTEGRATION_RECORD_V0.1.0",
+  "integration_id": "CSOMI_SLSH_READ_ONLY_INTERFACE_RECONCILIATION_V0.1.0",
+  "integration_branch": "integration/csomi-slsh-semantic-reconciliation-20260814",
+  "integration_scope": "READ_ONLY_INTERFACE_BOUNDARY_PROVENANCE_AND_CONSISTENCY_ONLY",
+  "authority_inputs": [
+    {
+      "framework": "CSOMI",
+      "authority_ref": "research/cross-substrate-other-minds-inference-20260814",
+      "authority_sha": "87405c1877c6f016c303971da13923a1ab690aae",
+      "packet_path": "research-workbench/cross-substrate-other-minds-inference-2026-08-14/CSOMI_PACKET_V0.1.0.json",
+      "schema_path": "schemas/aion_csomi_packet_v0.1.0.schema.json",
+      "packet_sha256": "4e206817a84e145fd2974c4de5e24b5db48611b642185ed7ecd85840130911a0",
+      "schema_sha256": "3253e354e9759b3fefe8eee205e360cc3294dcd2376c7c7d94b999bac0c2d66f",
+      "declared_packet_branch": "research/cross-substrate-other-minds-inference-20260814",
+      "read_only": true,
+      "mutation_policy": "MUTATION_PROHIBITED",
+      "adapter_mode": "READ_ONLY_GIT_OBJECT_ADAPTER",
+      "source_semantics_not_copied": true
+    },
+    {
+      "framework": "SLSH",
+      "authority_ref": "frozen/slsh-semantic-reconciliation-20260814",
+      "authority_sha": "893d8dc0c1c9d8f9a4188860520143c8d1d3977b",
+      "packet_path": "research-workbench/subjective-load-sensitivity-hypothesis-2026-08-14/SLSH_PACKET_V0.1.0.json",
+      "schema_path": "schemas/aion_slsh_packet_v0.1.0.schema.json",
+      "packet_sha256": "6a9d5e568698d305b8d179853e5ea5d5a39ad849dcdcf1714ef0a9911e097d71",
+      "schema_sha256": "c283ee94e24bf46835210f36392ad442182549401133a633970b35150d29086b",
+      "declared_packet_branch": "research/subjective-load-sensitivity-hypothesis-20260814",
+      "read_only": true,
+      "mutation_policy": "MUTATION_PROHIBITED",
+      "adapter_mode": "READ_ONLY_GIT_OBJECT_ADAPTER",
+      "source_semantics_not_copied": true
+    }
+  ],
+  "adapter_inventories": [
+    {
+      "framework": "CSOMI",
+      "authority_sha": "87405c1877c6f016c303971da13923a1ab690aae",
+      "packet_id": "AION_CSOMI_PACKET_V0.1.0",
+      "claim_ids": [
+        "CLM-001",
+        "CLM-002",
+        "CLM-003",
+        "CLM-004",
+        "CLM-005",
+        "CLM-006"
+      ],
+      "evidence_channel_ids": [
+        "EC-ALTERNATIVES",
+        "EC-BEHAVIOR",
+        "EC-CAUSAL",
+        "EC-CONTROLS",
+        "EC-DISANALOGY",
+        "EC-FALSIFIERS",
+        "EC-IBE",
+        "EC-MECHANISM",
+        "EC-MEMORY",
+        "EC-ROBUSTNESS",
+        "EC-SELFREPORT",
+        "EC-THEORY"
+      ],
+      "disanalogy_ids": [
+        "DA-001",
+        "DA-002",
+        "DA-003",
+        "DA-004",
+        "DA-005"
+      ],
+      "control_ids": [
+        "NEG-CI-01",
+        "NEG-IBE-01",
+        "NEG-MEMORY-01",
+        "NEG-REPLAY-01",
+        "NEG-SELFREPORT-01",
+        "NEG-SURFACE-01",
+        "POS-IBE-01",
+        "POS-MECH-01",
+        "POS-TOM-01"
+      ],
+      "falsifier_ids": [
+        "F-001",
+        "F-002",
+        "F-003",
+        "F-004",
+        "F-005",
+        "F-006",
+        "F-007",
+        "F-008"
+      ],
+      "auxiliary_artifacts": [
+        {
+          "path": "research-labs/cross-substrate-other-minds-inference_v0.1.0/fixtures/csomi_positive_negative_controls_v0.1.0.json",
+          "sha256": "dcafa8f05c973531311a063b547f54423b514ceb24874214d8adb4d1caf1c7ad",
+          "role": "CONTROL_IDENTIFIER_ONLY"
+        }
+      ],
+      "semantic_projection": "IDENTIFIERS_AND_LINEAGE_ONLY",
+      "no_source_claim_projection": true,
+      "read_only": true
+    },
+    {
+      "framework": "SLSH",
+      "authority_sha": "893d8dc0c1c9d8f9a4188860520143c8d1d3977b",
+      "packet_id": "AION_SLSH_PACKET_V0.1.0",
+      "claim_ids": [
+        "CLM-SLSH-001",
+        "CLM-SLSH-002",
+        "CLM-SLSH-003",
+        "CLM-SLSH-004",
+        "CLM-SLSH-005"
+      ],
+      "evidence_channel_ids": [
+        "EC-CAUSAL-INTERVENTION",
+        "EC-CROSS-TASK",
+        "EC-LOAD-DOSE",
+        "EC-NONLINGUISTIC-READOUT",
+        "EC-RECOVERY-HYSTERESIS",
+        "EC-REPLICATION-PROVENANCE",
+        "EC-RESOURCE-TELEMETRY",
+        "EC-THEORY-BRIDGE"
+      ],
+      "disanalogy_ids": [],
+      "control_ids": [
+        "NC1",
+        "NC2",
+        "NC3",
+        "NC4",
+        "NC5",
+        "NC6",
+        "NC7",
+        "NC8",
+        "NC9",
+        "PC1",
+        "PC2",
+        "PC3",
+        "PC4"
+      ],
+      "falsifier_ids": [
+        "F1",
+        "F10",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9"
+      ],
+      "auxiliary_artifacts": [],
+      "semantic_projection": "IDENTIFIERS_AND_LINEAGE_ONLY",
+      "no_source_claim_projection": true,
+      "read_only": true
+    }
+  ],
+  "shared_interface": {
+    "authority_identity": "FRAMEWORK_AND_EXACT_SHA_REQUIRED; NO_SEMANTIC_MERGE",
+    "claim_projection": {
+      "shared_fields": [
+        "framework_and_exact_sha",
+        "packet_id",
+        "claim_id_or_type",
+        "status",
+        "disposition",
+        "evidence_role",
+        "allowed_update",
+        "forbidden_update"
+      ],
+      "preserved_fields": [
+        "framework",
+        "claim_id",
+        "claim_type",
+        "claim_text",
+        "status",
+        "disposition",
+        "subjectivity_conclusion"
+      ],
+      "non_equivalence_guard": "CSOMI_CLAIM_TYPE_AND_SLSH_CLAIM_TYPE_ARE_NOT_SEMANTICALLY_COERCED",
+      "adapter_output_only": true
+    },
+    "evidence_projection": {
+      "shared_fields": [
+        "framework_and_exact_sha",
+        "packet_id",
+        "claim_id_or_type",
+        "status",
+        "disposition",
+        "evidence_role",
+        "allowed_update",
+        "forbidden_update"
+      ],
+      "preserved_fields": [
+        "framework",
+        "evidence_id",
+        "claim_id",
+        "channel_ids",
+        "support_direction",
+        "alternative_explanations",
+        "cross_substrate_transfer",
+        "update",
+        "status"
+      ],
+      "non_equivalence_guard": "CSOMI_EVIDENCE_CONVERGENCE!=SUBJECTIVITY_PROOF",
+      "adapter_output_only": true
+    },
+    "control_projection": {
+      "shared_fields": [
+        "framework",
+        "control_id",
+        "control_type",
+        "name",
+        "purpose",
+        "diagnostic_role"
+      ],
+      "preserved_fields": [
+        "framework",
+        "control_id",
+        "control_type",
+        "name",
+        "purpose"
+      ],
+      "non_equivalence_guard": "CONTROLS_ARE_DIAGNOSTIC_NOT_SUBJECTIVITY_PROOF",
+      "adapter_output_only": true
+    },
+    "falsifier_projection": {
+      "shared_fields": [
+        "framework",
+        "falsifier_id",
+        "condition",
+        "effect",
+        "status"
+      ],
+      "preserved_fields": [
+        "framework",
+        "falsifier_id",
+        "condition",
+        "effect_or_weakens",
+        "status_or_machine_effect"
+      ],
+      "non_equivalence_guard": "FALSIFIER_TRIGGER_DOWNDATES_OR_HOLDS_LOCAL_SCOPE_ONLY",
+      "adapter_output_only": true
+    },
+    "lineage_projection": {
+      "shared_fields": [
+        "framework",
+        "authority_ref",
+        "authority_sha",
+        "packet_path",
+        "schema_path"
+      ],
+      "preserved_fields": [
+        "framework",
+        "authority_ref",
+        "authority_sha",
+        "packet_path",
+        "schema_path",
+        "packet_sha256",
+        "schema_sha256",
+        "read_only",
+        "mutation_policy"
+      ],
+      "non_equivalence_guard": "EXACT_SHA_AND_FRAMEWORK_IDENTITY_REQUIRED_FOR_EVERY_ADAPTER_RECORD",
+      "adapter_output_only": true
+    }
+  },
+  "claim_boundary_rules": [
+    "RESEARCH_TOPIC != CAPABILITY != SCIENTIFIC_CONCLUSION",
+    "CSOMI_EVIDENCE_CONVERGENCE != SUBJECTIVITY_PROOF",
+    "SLSH_FUNCTIONAL_LOAD != SUBJECTIVE_LOAD"
+  ],
+  "provenance_contract": {
+    "framework_research_origins": {
+      "CSOMI": {
+        "origin_sequence": [
+          "HUMAN_OWNER_DIRECTION",
+          "CHATGPT_ARCHITECTURE_REFINEMENT"
+        ],
+        "sequence_semantics": "CSOMI_RESEARCH_ORIGIN_AND_ARCHITECTURE_LINEAGE",
+        "not_source_audit_workflow": true
+      },
+      "SLSH": {
+        "origin_sequence": [
+          "HUMAN_OWNER_ORIGIN",
+          "CHATGPT_ARCHITECTURE_REFINEMENT",
+          "CODEX_RESEARCH_SYNTHESIS",
+          "EXTERNAL_SOURCE"
+        ],
+        "sequence_semantics": "SLSH_RESEARCH_ORIGIN_AND_RESEARCH_INPUT_LINEAGE",
+        "not_source_audit_workflow": true
+      }
+    },
+    "source_audit_materialization_workflow": {
+      "workflow_name": "SOURCE_AUDIT_MATERIALIZATION_WORKFLOW",
+      "applicability_scope": "SLSH_SOURCE_RECORDS_ONLY",
+      "workflow_sequence": [
+        "CODEX_RESEARCH_SYNTHESIS",
+        "CHATGPT_INDEPENDENT_SOURCE_REVIEW",
+        "HUMAN_OWNER_APPROVAL_OR_GOVERNANCE_DECISION",
+        "MANUS_IMPLEMENTATION"
+      ],
+      "sequence_semantics": "SOURCE_RECORD_REVIEW_ADMISSION_AND_REPOSITORY_MATERIALIZATION_ONLY",
+      "not_research_origin": true,
+      "implementation_role": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW"
+    },
+    "authority_attribution": "FROZEN_INPUTS_REMAIN_AUTHORITATIVE_FOR_OWN_SEMANTICS",
+    "source_attribution": "NO_SOURCE_RECORDS_COPIED_OR_RECLASSIFIED",
+    "implementation_attribution": "MANUS_IMPLEMENTATION_ONLY_NOT_SCIENTIFIC_REVIEW",
+    "provenance_mutation": "PROHIBITED"
+  },
+  "evidence_role_contract": {
+    "csomi_roles": [
+      "BOUNDED_CAPABILITY",
+      "GRADED_HYPOTHESIS_CREDENCE",
+      "MECHANISTIC_OR_CAUSAL_SUPPORT",
+      "THEORY_CONDITIONAL_SUPPORT",
+      "DISANALOGY_DISCOUNT",
+      "ALTERNATIVE_COMPARISON",
+      "ROBUSTNESS_STATUS"
+    ],
+    "slsh_roles": [
+      "FUNCTIONAL_LOAD_STATE",
+      "NON_AFFECTIVE_ALTERNATIVE",
+      "CAUSAL_SIGNATURE",
+      "CONTROL_DIAGNOSTIC",
+      "FALSIFIER",
+      "CLAIM_BOUNDARY"
+    ],
+    "convergence_boundary": "CSOMI_EVIDENCE_CONVERGENCE!=SUBJECTIVITY_PROOF",
+    "subjectivity_proof": "PROHIBITED"
+  },
+  "control_falsifier_contract": {
+    "namespacing": "FRAMEWORK_FIELD_REQUIRED_RAW_AUTHORITY_IDS_PRESERVED_NO_ID_COERCION",
+    "control_semantics": "CONTROLS_ARE_DIAGNOSTIC_NOT_SUBJECTIVITY_PROOF",
+    "falsifier_semantics": "FALSIFIERS_DOWNDATE_OR_HOLD_LOCAL_SCOPE_ONLY",
+    "cross_framework_execution": "NO_EXPERIMENT_NO_RUNTIME_NO_LIVE_DATA"
+  },
+  "known_nonmergeable_fields": [
+    "CSOMI.subjectivity_conclusion",
+    "CSOMI.consciousness_conclusion",
+    "CSOMI.identity_continuity_conclusion",
+    "SLSH.subjective_load_sensitivity",
+    "SLSH.subjectivity_conclusion",
+    "SLSH.functional_rule",
+    "framework_specific_claim_type",
+    "framework_specific_evidence_status"
+  ],
+  "unresolved_metadata_conditions": [
+    {
+      "id": "META-001",
+      "status": "PRESERVED_NOT_RECONCILED",
+      "field": "CSOMI.packet_path_vs_SLSH.csomi_interface",
+      "detail": "SLSH retains a conditional read-only CSOMI interface; this module records the exact input hashes without copying or implementing that interface.",
+      "resolution_policy": "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY"
+    },
+    {
+      "id": "META-002",
+      "status": "PRESERVED_NOT_RECONCILED",
+      "field": "framework_specific_claim_semantics",
+      "detail": "CSOMI mind-like inference claims and SLSH load-state claims remain distinct namespaces and are not joined into a scientific conclusion.",
+      "resolution_policy": "HOLD_FOR_OWNER_OR_FRAMEWORK_AUTHORITY"
+    }
+  ],
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "experiment_executed": false,
+  "runtime_executed": false,
+  "model_modified": false,
+  "live_data_collected": false,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "admission_status": "INTEGRATION_MODULE_COMPLETE_PENDING_CHATGPT_OWNER_REVIEW"
+}
