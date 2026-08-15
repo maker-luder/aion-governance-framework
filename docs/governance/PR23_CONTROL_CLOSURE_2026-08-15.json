@@ -54,7 +54,8 @@
     "merge_state": "BLOCKED",
     "api_merge_attempt": {"status": 405, "message": "Repository rule violations found; Required status check Fresh exact-head Human Owner approval receipt is failing."},
     "merged": false,
-    "closed_without_merge": true
+    "closed_without_merge": true,
+    "url": "https://github.com/maker-luder/aion-governance-framework/pull/25"
   },
   "positive_test": {
     "status": "PASS",
@@ -71,7 +72,9 @@
     "quality_run_id": 31892037854,
     "merge_state_before_close": "clean",
     "merged": false,
-    "closed_without_merge": true
+    "closed_without_merge": true,
+    "operational_scope": "Eligibility test only; the disposable PR was intentionally not merged.",
+    "url": "https://github.com/maker-luder/aion-governance-framework/pull/26"
   },
   "pr27_final_transition": {
     "chatgpt_review": "PASS",
@@ -98,7 +101,7 @@
     "result": "PASS"
   },
   "admin_bypass_status": "RULESET_BYPASS_ACTORS_EMPTY; CURRENT_USER_CAN_BYPASS=never; NO_BYPASS_USED_IN_CONTROL_TESTS_OR_PR27_TRANSITION",
-  "owner_bypass_status": "RULESET_BYPASS_ACTORS_EMPTY; CURRENT_USER_CAN_BYPASS=never; HUMAN_OWNER AUTHORITY WAS EXERCISED THROUGH THE REQUIRED EXACT-HEAD RECEIPT",
+  "owner_bypass_status": "RULESET_BYPASS_ACTORS_EMPTY; CURRENT_USER_CAN_BYPASS=never; HUMAN_OWNER_AUTHORITY_WAS_EXERCISED_THROUGH_THE_REQUIRED_EXACT_HEAD_RECEIPT",
   "residual_risk": [],
   "control_closure": "CLOSED",
   "control_closure_candidate": "CLOSED",
@@ -115,10 +118,11 @@
     "POST_MERGE_MAIN_QUALITY_PASS",
     "HISTORICAL_TRUTH_PRESERVED"
   ],
-  "closure_record_publication_state": "PENDING_FINAL_SEAL_PR_MERGE",
   "canonical_effect": "NONE",
   "deployment": false,
   "new_research": "NONE",
+  "current_main_sha_at_initial_audit": "d7de6a52585b5d9ee7bcdc3d0b748b75d512f6e0",
+  "current_main_sha_at_closure": "92e9d0e250dc43f55c24a0223a53e301139cfe4e",
   "research_branch_modified": false,
   "manus_merged_any_test_pr": false,
   "evidence_links": {
@@ -128,6 +132,12 @@
     "pr26_positive": "https://github.com/maker-luder/aion-governance-framework/pull/26",
     "pr27_remediation": "https://github.com/maker-luder/aion-governance-framework/pull/27",
     "ruleset": "https://api.github.com/repos/maker-luder/aion-governance-framework/rulesets/20545803",
+    "pr23_authority_run_31": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888661555",
+    "pr23_authority_run_32": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888805797",
+    "pr23_authority_run_33": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888907477",
+    "pr23_quality_run_392": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31888661603",
+    "pr26_authority_run_41": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31892191140",
+    "pr26_quality_run_401": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31892037854",
     "pr27_authority_run_47": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31892578320",
     "pr27_premerge_quality_run_405": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31892430815",
     "pr27_postmerge_quality": "https://github.com/maker-luder/aion-governance-framework/actions/runs/31892599349"
