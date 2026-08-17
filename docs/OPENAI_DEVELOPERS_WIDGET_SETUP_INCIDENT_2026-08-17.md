@@ -4,7 +4,7 @@
 >
 > - **Incident ID:** `AION-INC-2026-08-17-OPENAI-WIDGET-001`
 > - **Branch:** `review/four-domain-research-materialization`
-> - **Status:** `OPEN / UNDER_DIAGNOSIS`
+> - **Status:** `OPEN / SURFACE_DIVERGENCE_OBSERVED`
 > - **Canonical effect:** `NONE`
 > - **Scope:** ChatGPT OpenAI Developers / OpenAI Platform secure API-key setup path used during Launch Desk setup
 > - **Main branch impact:** `NONE`
@@ -12,11 +12,16 @@
 
 ## Incident summary
 
-During Launch Desk credential setup, the Human Owner observed that the interactive secure API-key setup interface did not appear as expected. The same general symptom was observed on both mobile and desktop surfaces: the surrounding workflow could continue, but the expected interactive key-setup UI was absent.
+During Launch Desk credential setup, the Human Owner observed that the interactive secure API-key setup interface did not appear as expected. A controlled A/B test was then performed across two ChatGPT surfaces.
 
-The investigation initially suspected a ChatGPT Plugin/App registration mismatch because a permission-registry lookup using the display name `OpenAI Developers` returned `not_installed`. Subsequent evidence showed that this interpretation was too strong and had to be revised: the OpenAI Developers bundle was visibly present, its OpenAI Platform application was connected, the local-confirmation MCP component was present, and all five visible OpenAI Developers skills were enabled.
+The result was divergent:
 
-The current unresolved question is therefore narrower: whether the failure is in surface-specific interactive widget rendering, client compatibility, or another transient handoff/rendering condition after the backend setup action is accepted.
+- **A — current ChatGPT / Atlas surface:** backend secure-setup invocation was accepted, but the Human Owner reported that no interactive API-key widget became visible.
+- **B — standard ChatGPT Web full-page new conversation:** the OpenAI Developers secure API-key setup card visibly rendered. A separate `Too many requests` access-limit dialog then appeared over the page.
+
+This A/B result narrows the incident substantially. The evidence now supports a surface-dependent rendering difference more strongly than a missing Plugin/App installation, missing local download, general OpenAI Platform authentication failure, or missing organization/project target.
+
+The evidence does **not** yet establish a confirmed Atlas product defect. Session state, transient feature delivery, access throttling, and other client-specific conditions remain possible confounders.
 
 ## Source attribution
 
@@ -25,7 +30,7 @@ The current unresolved question is therefore narrower: whether the failure is in
 The Human Owner reported and visually demonstrated the following:
 
 1. The expected secure API-key setup interface had failed to appear during the Launch Desk setup path.
-2. The symptom was not limited to a single device class; a comparable failure had been observed on both mobile and desktop.
+2. A comparable absence had previously been observed on both mobile and desktop workflows, motivating a controlled surface test rather than assuming a device-only failure.
 3. The OpenAI Developers bundle UI showed:
    - `OpenAI Platform` application — connected;
    - `Openai-api-key-local-confirmation` MCP server — present;
@@ -34,14 +39,21 @@ The Human Owner reported and visually demonstrated the following:
    - `ChatGPT App Submission` — enabled;
    - `OpenAI API Troubleshooting` — enabled;
    - `OpenAI API Key Setup` — enabled.
+4. During controlled test A on the current ChatGPT / Atlas surface, no secure API-key setup widget was visible after the backend setup action was invoked.
+5. During controlled test B on standard ChatGPT Web, the secure API-key setup card visibly appeared.
+6. During test B, a separate dialog appeared stating that too many requests had been made and that conversation access was temporarily limited, with a request to retry after several minutes.
 
-The screenshot used for this observation was supplied in the ChatGPT conversation and is not embedded in this repository record.
+The screenshots used for these observations were supplied in the ChatGPT conversation and are not embedded in this repository record.
+
+The Human Owner suggested that the access-limit dialog may have been related to the high volume of preceding diagnostic attempts. That causal interpretation is recorded only as a hypothesis; the screenshot itself establishes the rate-limit/access-limit event, not its exact cause.
 
 ### ChatGPT diagnostic interpretation
 
 ChatGPT first ranked Plugin/App registration as the leading suspect because `OpenAI Developers` returned `not_installed` when queried through the app-permission registry. After inspecting the actual bundle/component state, ChatGPT revised that interpretation: the `not_installed` response must not be treated as proof that the OpenAI Developers bundle itself is absent.
 
-The revised diagnosis separates the bundle/display name from the underlying `OpenAI Platform` application registration and treats surface/widget rendering as the current primary unresolved area.
+After the controlled A/B test, ChatGPT further revised the diagnosis. The standard ChatGPT Web surface successfully rendered the secure setup UI while the current ChatGPT / Atlas surface did not. The current leading interpretation is therefore a surface- or client-dependent rendering/handoff difference, with transient session/feature state still retained as an alternative explanation.
+
+The `Too many requests` condition observed during B is treated as a secondary event because the secure setup card had already rendered behind the dialog. It therefore does not explain the original A-side failure to render.
 
 ### Connector/tool observations
 
@@ -53,15 +65,15 @@ The diagnostic tools returned the following operational evidence during the same
 4. `OpenAI Platform` target discovery successfully returned:
    - organization: `Personal`;
    - project: `Default project`.
-5. The secure setup action `start_api_key_setup` was accepted by the OpenAI Platform connector without a connector error.
+5. The secure setup action `start_api_key_setup` was accepted by the OpenAI Platform connector without a connector error during diagnostic invocation.
 
-These observations establish that Platform target discovery and the backend setup invocation path were operational during the diagnostic session. They do **not** by themselves prove that the user-visible widget rendered correctly.
+These observations establish that Platform target discovery and the backend setup invocation path were operational during the diagnostic session. They do **not** by themselves prove client-side rendering; that question was resolved separately through Human Owner visual observation in the A/B test.
 
 ## Diagnostic chronology
 
 ### Stage 1 — Original symptom
 
-The expected interactive API-key setup UI did not appear during Launch Desk setup. Because the symptom appeared on more than one device surface, a device-only explanation became less likely.
+The expected interactive API-key setup UI did not appear during Launch Desk setup. Because similar behavior had been seen across more than one device workflow, a device-only explanation became less likely.
 
 ### Stage 2 — Initial registration hypothesis
 
@@ -79,7 +91,51 @@ Direct Platform target discovery succeeded and returned the expected Personal or
 
 ### Stage 5 — Secure setup invocation
 
-The secure API-key setup action was invoked diagnostically and the connector accepted the request without an error. No conclusion was made from this alone about user-visible rendering.
+The secure API-key setup action was invoked diagnostically and the connector accepted the request without an error. No API key was intentionally created as part of this rendering test.
+
+### Stage 6 — Controlled A test: current ChatGPT / Atlas surface
+
+The same secure setup path was invoked on the current ChatGPT / Atlas conversation surface.
+
+Observed result:
+
+- backend invocation accepted: `PASS`;
+- connector error: none observed;
+- Human Owner visible widget result: `FAIL` — no interactive secure API-key setup card was visible.
+
+This establishes a backend-pass / client-visible-render-fail observation for surface A.
+
+### Stage 7 — Controlled B test: standard ChatGPT Web
+
+The Human Owner opened a standard ChatGPT Web full-page new conversation and requested the same secure API-key setup flow without creating a key.
+
+Observed result:
+
+- OpenAI Developers secure API-key setup card: `VISIBLE / PASS`;
+- an overlaid `Too many requests` dialog then appeared;
+- no intentional API-key creation was completed as part of the test.
+
+Because the secure setup card was already visible behind the dialog, the rate-limit/access-limit event is classified as a secondary condition rather than a rendering failure.
+
+## A/B result
+
+| Test | Surface | Backend setup accepted | Widget visible to Human Owner | Secondary condition | Result |
+|---|---|---:|---:|---|---|
+| A | Current ChatGPT / Atlas | `PASS` | `NO` | none needed to explain result | `RENDER FAIL` |
+| B | Standard ChatGPT Web full-page new conversation | setup flow visibly opened | `YES` | `Too many requests` access-limit dialog | `RENDER PASS` |
+
+### Bounded interpretation
+
+The A/B divergence is consistent with a surface/client-specific rendering or handoff difference.
+
+It is **not yet sufficient** to assert any of the following as fact:
+
+- Atlas contains a confirmed product defect;
+- the behavior is permanent;
+- every Atlas session will reproduce it;
+- every standard ChatGPT Web session will render successfully;
+- the `Too many requests` event caused or was caused by the widget incident;
+- Launch Desk itself is defective.
 
 ## Current diagnostic matrix
 
@@ -91,41 +147,37 @@ The secure API-key setup action was invoked diagnostically and the connector acc
 | Local confirmation MCP component | `PRESENT` | `Openai-api-key-local-confirmation` visible |
 | Platform authentication / target discovery | `PASS` | Personal org and Default project returned |
 | Secure setup backend invocation | `PASS` | `start_api_key_setup` accepted without connector error |
-| Interactive widget rendering | `UNRESOLVED` | Backend acceptance does not prove client rendering |
-| Surface/client compatibility | `PRIMARY_SUSPECT` | Cross-surface behavior requires controlled A/B test |
-| API-key creation | `NOT_TESTED` | No need to create another key for rendering diagnosis |
+| Widget rendering — Atlas/current surface | `FAIL_OBSERVED` | Backend accepted; Human Owner saw no widget |
+| Widget rendering — standard ChatGPT Web | `PASS_OBSERVED` | Secure setup card visibly rendered |
+| Surface/client compatibility hypothesis | `SUPPORTED_BY_A_B` | Controlled divergence observed; defect status not yet proven |
+| Rate/access limit during B | `SECONDARY_OBSERVED` | Dialog appeared after widget was already visible |
+| API-key creation | `NOT_COMPLETED_IN_TEST` | Rendering test did not require intentional key creation |
 | Launch Desk OpenAI API call | `NOT_PERFORMED` | No evidence of model invocation in this diagnostic |
 | API model cost from this diagnostic | `NONE_OBSERVED` | No model API call was performed as part of this test |
 
 ## Revised hypothesis ranking
 
-1. **Surface-specific widget rendering / client compatibility** — current leading unresolved hypothesis.
-2. **Interactive widget ↔ client handoff after backend acceptance** — closely related and still unresolved.
-3. **Transient account/session/feature-state mismatch** — possible, but not yet isolated.
-4. **OpenAI Platform authentication failure** — substantially reduced by successful target discovery.
-5. **Organization/project target failure** — substantially reduced by successful resolution.
-6. **Missing local download / executable / SDK** — no supporting evidence from the current component inventory.
-7. **Missing OpenAI Developers bundle** — contradicted by the visible installed bundle/component state.
+1. **Surface-specific widget rendering / client compatibility** — now directly supported by the controlled A/B divergence.
+2. **Transient surface session / feature-delivery state** — remains plausible and should be distinguished from a persistent renderer defect.
+3. **Interactive widget ↔ client handoff condition specific to Atlas/current surface** — plausible mechanism class, not yet isolated.
+4. **Temporary access throttling / request limiting** — observed during B, but currently secondary because B rendered successfully before/behind the dialog.
+5. **OpenAI Platform authentication failure** — strongly reduced by successful target discovery.
+6. **Organization/project target failure** — strongly reduced by successful resolution.
+7. **Missing local download / executable / SDK** — no supporting evidence from the component inventory.
+8. **Missing OpenAI Developers bundle** — contradicted by the visible installed bundle/component state.
 
-## Required next experiment
+## Next experiment
 
-Perform a controlled A/B rendering test without creating additional API keys unless creation becomes necessary later.
+Do **not** immediately repeat the same calls while the standard ChatGPT Web surface is showing an access-limit condition.
 
-### A — Current ChatGPT / Atlas surface
+After the temporary access limitation clears, perform at most one low-frequency reproduction check per surface if further evidence is needed:
 
-Invoke the same OpenAI API Key Setup path and record whether the secure interactive widget becomes visible.
+1. Re-run A once on the current ChatGPT / Atlas surface.
+2. Re-run B once on standard ChatGPT Web.
+3. Record whether the A/B divergence persists.
+4. Do not create additional API keys merely to test rendering.
 
-### B — Standard ChatGPT Web full-page new conversation
-
-Invoke the same OpenAI API Key Setup path under otherwise equivalent account/plugin conditions and record whether the same widget becomes visible.
-
-### Interpretation
-
-- **B renders, A does not:** strongly supports a surface/client renderer issue.
-- **Neither renders while backend setup invocation succeeds:** supports a broader widget/handoff, account-feature, or session-state issue rather than Launch Desk itself.
-- **Both render:** treat the original failure as potentially transient until reproduced again.
-
-For each run, record surface, account state, plugin/app connection state, whether backend setup invocation was accepted, whether the widget became visible, and whether any user action was actually completed.
+If A repeatedly fails while B repeatedly succeeds under comparable session conditions, confidence in a persistent surface-specific compatibility problem increases. If A later renders successfully, classify the incident as transient or session-dependent unless further evidence supports a stable defect.
 
 ## Safety and resource controls
 
@@ -134,12 +186,13 @@ For each run, record surface, account state, plugin/app connection state, whethe
 3. Do not download third-party executables, browser extensions, SDK bundles, or unofficial OpenAI key tools without independent need and provenance review.
 4. Reuse existing diagnostic evidence where possible instead of repeating equivalent calls.
 5. Mark contradictory states explicitly rather than forcing premature convergence.
+6. When rate/access limits appear, stop repeated probing and allow the service to recover before any further controlled reproduction attempt.
 
 ## Governance disposition
 
 This document records an observed integration incident and its current evidence state. It is **not** a canonical claim that ChatGPT, OpenAI Platform, Atlas, the OpenAI Developers plugin, or Launch Desk contains a confirmed product defect.
 
-The current evidence supports a bounded statement only: the expected secure setup UI was observed missing during the reported workflow, while several backend/component checks succeeded.
+The current evidence supports a bounded statement: the secure setup backend path was operational, the expected widget was not visible on the tested current ChatGPT / Atlas surface, and the same class of secure setup UI did render on the tested standard ChatGPT Web surface. A separate temporary access-limit event occurred during the successful Web rendering test.
 
 Any future promotion of this incident into a canonical architecture conclusion, product-defect claim, governance rule, or permanent compatibility statement requires fresh evidence review. Under the AION dual-review rule, Human Owner approval and ChatGPT architecture/evidence/provenance review remain independent; neither one substitutes for the other.
 
@@ -147,9 +200,9 @@ Any future promotion of this incident into a canonical architecture conclusion, 
 
 Update this incident record when one of the following occurs:
 
-- the A/B surface test is completed;
-- the widget failure is reproduced under controlled conditions;
-- the widget renders successfully on one surface but not another;
+- the A/B surface test is repeated after the access-limit condition clears;
+- the Atlas/current-surface rendering failure is reproduced under controlled conditions;
+- Atlas/current surface renders successfully in a later controlled test;
 - an official OpenAI source identifies a relevant known limitation or incident;
 - a successful API-key creation test becomes necessary and is explicitly authorized;
 - Launch Desk performs its first intentional OpenAI API request and the result can be separated from the widget incident.
