@@ -39,11 +39,21 @@ Initial connected-repository checks on `main@e7d407639c32ad27a0d9c1b4a1c1ab4f46a
 - `openai`
 - `gpt-`
 
-The GitHub repository reports code-search indexing as available. Because search is not treated as sufficient proof by itself, this branch also adds `scripts/audit_openai_assistants_sunset.py` and wires it into Quality CI to scan executable/configuration surfaces for deprecated Assistants / legacy Threads patterns.
+The GitHub repository reports code-search indexing as available. Because search is not treated as sufficient proof by itself, this branch adds `scripts/audit_openai_assistants_sunset.py` and wires it into Quality CI to scan executable/configuration surfaces for deprecated Assistants / legacy Threads patterns.
+
+The exact PR head before this reconciliation (`17134197033682913fc92c9b8be6d7f6d85c5d13`) completed:
+
+- `Quality = SUCCESS`
+- `CodeQL Security Scan = SUCCESS`
+- `Main Transition Authority Gate = EXPECTED HOLD / FAIL-CLOSED`
 
 Current classification:
 
-`DIRECT_ASSISTANTS_API_DEPENDENCY = NOT_FOUND_PENDING_CI_GUARD`
+`DIRECT_ASSISTANTS_API_DEPENDENCY = NOT_FOUND`
+
+`ASSISTANTS_API_REGRESSION_GUARD = IMPLEMENTED_CANDIDATE`
+
+This means no migration workload was found in the current repository state, while future executable/configuration reintroduction of deprecated Assistants / legacy Threads integration is intended to fail CI.
 
 ### AION event impact
 
@@ -67,17 +77,19 @@ Shared upstream transport/API compatibility may be governed jointly, but shared 
 
 `SHARED_API_INFRASTRUCTURE != SHARED_IDENTITY`
 
-## Event OAI-UPSTREAM-2026-08-17-002 — Scheduled Tasks model retirement
+## Event OAI-UPSTREAM-2026-08-17-002 — Codex model retirement / Scheduled Tasks applicability
 
-Official source: OpenAI Scheduled Tasks documentation.  
+Official source: OpenAI ChatGPT & Codex changelog.  
 Deadline: `2026-08-31`.
 
-Applicability is conditional:
+OpenAI states that on 2026-08-31, `gpt-5.4` and `gpt-5.4-mini` will no longer be available in Codex for users signed in with ChatGPT. The models remain available through the OpenAI API and Codex sessions authenticated with an API key.
 
-- if a Scheduled Task uses ChatGPT sign-in and is pinned to `gpt-5.4`, replace it with `gpt-5.6-terra`;
-- if a Scheduled Task uses ChatGPT sign-in and is pinned to `gpt-5.4-mini`, replace it with `gpt-5.6-luna`.
+Official recommended replacements for the affected ChatGPT-sign-in Codex condition:
 
-The same official page states that Scheduled Tasks may instead use default model / reasoning settings.
+- `gpt-5.4` -> `gpt-5.6-terra`
+- `gpt-5.4-mini` -> `gpt-5.6-luna`
+
+Scheduled Tasks are included in the project impact inventory because unattended/scheduled Codex work may inherit or pin an affected model configuration. Applicability must be checked against the actual task/session configuration rather than inferred from twin identity.
 
 ### Upstream model-directive rule
 
@@ -105,7 +117,7 @@ Therefore:
 
 `CLAIMED_MIGRATION_TO_TERRA_OR_LUNA = NO`
 
-The monitor has been updated to track this deadline and report exact model directives conditionally.
+The monitor is configured to track this deadline and report exact model directives conditionally.
 
 ### AION event impact
 
@@ -116,19 +128,19 @@ The monitor has been updated to track this deadline and report exact model direc
 ### Astra event impact
 
 - Same event-report obligation and same evidence weight as AION.
-- If Astra later operates a Scheduled Task surface, the exact model directive follows the task's actual antecedent (`gpt-5.4` vs `gpt-5.4-mini`), not twin identity.
+- If Astra later operates an affected Codex / Scheduled Task surface, the exact replacement follows the actual previous model (`gpt-5.4` vs `gpt-5.4-mini`), not twin identity.
 
 ### Shared Genesis impact
 
-Both peer lineages observe the same upstream lifecycle event while preserving separate event/state ownership where individual Runtime records are involved.
+Both peer lineages may observe the same upstream lifecycle event while preserving separate event/state ownership where individual Runtime records are involved.
 
 `SHARED_UPSTREAM_EVENT != SHARED_EVENT_LINEAGE`
 
 ## Provenance
 
-- Human Owner: prioritized immediate Assistants API handling; required Scheduled Tasks deadline to be treated as an event reportable to both AION and Astra; stated that explicit upstream model assignments should be followed while warning that urgent instructions can be confused.
-- ChatGPT / Teacher: formalized the conditional `UPSTREAM_MODEL_DIRECTIVE` rule, performed the repository dependency inventory, added the Assistants sunset CI guard, and separated upstream lifecycle events from subjectivity / identity claims.
-- OpenAI upstream: authoritative source only for OpenAI lifecycle dates, migration mappings, supported replacements, and Scheduled Tasks model replacement conditions.
+- Human Owner: prioritized immediate Assistants API handling; required the 2026-08-31 model deadline to be treated as an event reportable to both AION and Astra; stated that explicit upstream model assignments should be followed while warning that urgent instructions can be confused.
+- ChatGPT / Teacher: formalized the conditional `UPSTREAM_MODEL_DIRECTIVE` rule, performed the repository dependency inventory, added the Assistants sunset CI guard, reconciled exact-head CI evidence, and separated upstream lifecycle events from subjectivity / identity claims.
+- OpenAI upstream: authoritative source only for OpenAI lifecycle dates, migration mappings, supported replacements, and Codex model replacement conditions.
 
 ## HOLD / non-authority
 
