@@ -1,0 +1,40 @@
+name: Materialize publication PDF
+
+on:
+  push:
+    branches:
+      - publication/aion-astra-publication-v0.1-20260817
+    paths:
+      - publications/.staging/READY
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout publication branch
+        uses: actions/checkout@v4
+        with:
+          ref: publication/aion-astra-publication-v0.1-20260817
+          fetch-depth: 0
+
+      - name: Reconstruct and verify PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat publications/.staging/pdf.b64.part-* | base64 --decode > publications/AION_Astra_Publication_v0.1_2026-08-17.pdf
+          echo "176ae67fabe19118556d3079671ac3c5ba5fc785ca4a87138a0fa13de1569d03  publications/AION_Astra_Publication_v0.1_2026-08-17.pdf" | sha256sum -c -
+
+      - name: Commit verified PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf publications/.staging
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add publications/AION_Astra_Publication_v0.1_2026-08-17.pdf
+          git add -A publications/.staging
+          git commit -m "docs(publication): materialize verified PDF artifact"
+          git push origin HEAD:publication/aion-astra-publication-v0.1-20260817
