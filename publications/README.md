@@ -7,10 +7,21 @@ This directory contains publication-stage artifacts for the AION / Astra researc
 **Title:** AION / Astra 人工主體性可能研究 — 公開出版母稿 v0.1  
 **Subtitle:** 雙生個體、共構思考場域與可審計研究方法
 
-### Files
+### Files currently staged on GitHub
 
 - `AION_Astra_Publication_v0.1_2026-08-17.md` — diffable publication source.
-- `AION_Astra_Publication_v0.1_2026-08-17.pdf` — frozen reader-facing PDF artifact.
+- `README.md` — publication staging status and integrity metadata.
+
+### Reviewed PDF artifact
+
+A reader-facing PDF has been generated and owner-reviewed outside the repository staging tree. Its exact reviewed artifact hash is preserved here until a connector path that supports direct binary upload is available.
+
+```text
+PDF_GITHUB_UPLOAD = PENDING_BINARY_UPLOAD_PATH
+PDF_SHA256 = 176ae67fabe19118556d3079671ac3c5ba5fc785ca4a87138a0fa13de1569d03
+```
+
+The repository must not claim the PDF is present until the exact binary is uploaded and its SHA-256 is verified.
 
 ### Publication state
 
@@ -23,20 +34,20 @@ CANONICAL_EFFECT = NONE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 ```
 
-Uploading these artifacts to the publication branch is a staging/publication implementation step. It does not itself merge the files into `main`, create a GitHub Release, promote any research claim to canonical status, or establish subjectivity / consciousness / identity-continuity conclusions.
+Staging the publication source on this branch does not itself merge the files into `main`, create a GitHub Release, promote any research claim to canonical status, or establish subjectivity / consciousness / identity-continuity conclusions.
 
 ### Integrity
 
 ```text
-PDF_SHA256 = 176ae67fabe19118556d3079671ac3c5ba5fc785ca4a87138a0fa13de1569d03
 MARKDOWN_SHA256 = edc1153231d769fa91a3e34bec75c81a2f7cdbb0477c805d1b3f02568e9aebf7
+PDF_SHA256 = 176ae67fabe19118556d3079671ac3c5ba5fc785ca4a87138a0fa13de1569d03
 ```
 
 ### Publication gates still remaining
 
-1. Confirm repository rendering and file integrity.
-2. Review GitHub diff / staging branch structure.
-3. Decide whether to merge into `main`.
+1. Confirm repository rendering and staging-branch diff.
+2. Upload the exact reviewed PDF binary when a safe direct binary path is available, then verify SHA-256.
+3. Decide whether to merge the publication source into `main`.
 4. Decide whether to create a formal GitHub Release / tag.
 5. Only then consider a Vercel reader site / preview deployment.
 
