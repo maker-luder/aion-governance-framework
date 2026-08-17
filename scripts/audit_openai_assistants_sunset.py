@@ -51,12 +51,12 @@ TEXT_SUFFIXES = {
 }
 
 PATTERNS: tuple[tuple[str, re.Pattern[str]], ...] = (
-    ("assistants_endpoint", re.compile(r"/v1/assistants(?:/|\\b)", re.IGNORECASE)),
-    ("assistants_sdk", re.compile(r"(?:client\\.)?beta\\.assistants\\b", re.IGNORECASE)),
-    ("assistants_create", re.compile(r"\\bassistants\\.create\\s*\\(", re.IGNORECASE)),
-    ("assistants_beta_header", re.compile(r"assistants\\s*=\\s*v2", re.IGNORECASE)),
-    ("legacy_threads_sdk", re.compile(r"(?:client\\.)?beta\\.threads\\b", re.IGNORECASE)),
-    ("legacy_threads_endpoint", re.compile(r"/v1/threads(?:/|\\b)", re.IGNORECASE)),
+    ("assistants_endpoint", re.compile(r"/v1/assistants(?:/|\b)", re.IGNORECASE)),
+    ("assistants_sdk", re.compile(r"(?:client\.)?beta\.assistants\b", re.IGNORECASE)),
+    ("assistants_create", re.compile(r"\bassistants\.create\s*\(", re.IGNORECASE)),
+    ("assistants_beta_header", re.compile(r"assistants\s*=\s*v2", re.IGNORECASE)),
+    ("legacy_threads_sdk", re.compile(r"(?:client\.)?beta\.threads\b", re.IGNORECASE)),
+    ("legacy_threads_endpoint", re.compile(r"/v1/threads(?:/|\b)", re.IGNORECASE)),
 )
 
 SELF = Path(__file__).resolve()
