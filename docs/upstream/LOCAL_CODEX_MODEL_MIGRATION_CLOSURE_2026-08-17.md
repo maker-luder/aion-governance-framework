@@ -17,18 +17,18 @@ Source type: `HUMAN OWNER / LOCAL POWERSHELL READ-ONLY AUDIT`.
 
 The Human Owner executed read-only PowerShell inspection on the owned Windows host. The commands reported `NO FILES MODIFIED` and were used only to inspect Codex configuration/model surfaces.
 
-No secret, API key, token, or credential value was requested or recorded.
+No secret, API key, token, credential value, or public-host personal filesystem path is recorded here.
 
 ## User-level Codex configuration
 
-Observed user Codex root:
+Observed user Codex root, normalized for public evidence:
 
-`C:\Users\hsupo\.codex`
+`%USERPROFILE%\.codex`
 
 Observed files:
 
-- `C:\Users\hsupo\.codex\config.toml`
-- `C:\Users\hsupo\.codex\local.config.toml`
+- `%USERPROFILE%\.codex\config.toml`
+- `%USERPROFILE%\.codex\local.config.toml`
 
 Observed model-related values:
 
@@ -57,15 +57,11 @@ Classification:
 
 ## Authoritative local AION repository
 
-Verified local repository path:
+The Human Owner verified that the inspected local Git checkout resolves to the public repository:
 
-`C:\Users\hsupo\Documents\Codex\Projects\aion-governance-framework`
+`https://github.com/maker-luder/aion-governance-framework.git`
 
-Git verification reported:
-
-- toplevel: `C:/Users/hsupo/Documents/Codex/Projects/aion-governance-framework`
-- origin fetch/push: `https://github.com/maker-luder/aion-governance-framework.git`
-- current local branch: `review/four-domain-research-materialization`
+The exact personal filesystem path is intentionally omitted from this public closure record. The local branch observed during the read-only audit was `review/four-domain-research-materialization`.
 
 The local repository was used only for read-only configuration inspection in this audit. No research-branch modification was authorized or performed by this closure record.
 
@@ -82,13 +78,9 @@ Classification:
 
 ## Other local Codex workspace configuration
 
-A recursive read-only scan under:
+A recursive read-only scan under the owner's local Codex documents workspace found a workspace-level `.codex/config.toml`.
 
-`C:\Users\hsupo\Documents\Codex`
-
-found:
-
-`C:\Users\hsupo\Documents\Codex\.codex\config.toml`
+The exact personal filesystem path is intentionally omitted from public evidence.
 
 The audit found no matching model-setting or retiring-model pattern in this file:
 
@@ -135,7 +127,7 @@ The upstream retirement remains an environment/platform lifecycle event reportab
 ## Provenance
 
 - Human Owner: executed the Windows PowerShell read-only audit and supplied its outputs; verified the authoritative local Git repository and local model/config surfaces.
-- ChatGPT / Teacher: provided the read-only audit procedure, interpreted configuration results, separated user/project/workspace surfaces, and materialized this closure candidate.
+- ChatGPT / Teacher: provided the read-only audit procedure, interpreted configuration results, separated user/project/workspace surfaces, normalized private local paths for public evidence, and materialized this closure candidate.
 - OpenAI upstream: authoritative only for the lifecycle deadline and replacement guidance recorded in the parent upstream event register.
 
 ## Non-authority / HOLD
