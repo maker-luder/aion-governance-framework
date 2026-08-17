@@ -14,7 +14,7 @@ SPEC.loader.exec_module(MODULE)
 def test_guard_rejects_deprecated_assistants_sdk(tmp_path: Path) -> None:
     component = tmp_path / "components" / "sample"
     component.mkdir(parents=True)
-    deprecated_sdk = "client.beta." + "assistants.create(model='legacy')\n"
+    deprecated_sdk = "client.beta." + "assistants." + "create(model='legacy')\n"
     (component / "client.py").write_text(deprecated_sdk, encoding="utf-8")
 
     report = MODULE.audit(tmp_path)
