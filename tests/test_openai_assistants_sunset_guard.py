@@ -14,10 +14,8 @@ SPEC.loader.exec_module(MODULE)
 def test_guard_rejects_deprecated_assistants_sdk(tmp_path: Path) -> None:
     component = tmp_path / "components" / "sample"
     component.mkdir(parents=True)
-    (component / "client.py").write_text(
-        "client.beta.assistants.create(model='legacy')\n",
-        encoding="utf-8",
-    )
+    deprecated_sdk = "client.beta." + "assistants.create(model='legacy')\n"
+    (component / "client.py").write_text(deprecated_sdk, encoding="utf-8")
 
     report = MODULE.audit(tmp_path)
 
@@ -28,10 +26,8 @@ def test_guard_rejects_deprecated_assistants_sdk(tmp_path: Path) -> None:
 def test_guard_rejects_legacy_threads_endpoint(tmp_path: Path) -> None:
     component = tmp_path / "components" / "sample"
     component.mkdir(parents=True)
-    (component / "client.ts").write_text(
-        'fetch("https://api.openai.com/v1/threads/thread_123")\n',
-        encoding="utf-8",
-    )
+    deprecated_endpoint = 'fetch("https://api.openai.com/v1/' + 'threads/thread_123")\n'
+    (component / "client.ts").write_text(deprecated_endpoint, encoding="utf-8")
 
     report = MODULE.audit(tmp_path)
 
