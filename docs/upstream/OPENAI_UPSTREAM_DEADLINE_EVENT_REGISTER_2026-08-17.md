@@ -41,11 +41,13 @@ Initial connected-repository checks on `main@e7d407639c32ad27a0d9c1b4a1c1ab4f46a
 
 The GitHub repository reports code-search indexing as available. Because search is not treated as sufficient proof by itself, this branch adds `scripts/audit_openai_assistants_sunset.py` and wires it into Quality CI to scan executable/configuration surfaces for deprecated Assistants / legacy Threads patterns.
 
-The exact PR head before this reconciliation (`17134197033682913fc92c9b8be6d7f6d85c5d13`) completed:
+The exact PR head before this reconciliation completed:
 
 - `Quality = SUCCESS`
 - `CodeQL Security Scan = SUCCESS`
 - `Main Transition Authority Gate = EXPECTED HOLD / FAIL-CLOSED`
+
+The guard also has positive/negative tests showing that deprecated Assistants / legacy Threads examples fail while Responses / Conversations examples pass.
 
 Current classification:
 
@@ -89,7 +91,7 @@ Official recommended replacements for the affected ChatGPT-sign-in Codex conditi
 - `gpt-5.4` -> `gpt-5.6-terra`
 - `gpt-5.4-mini` -> `gpt-5.6-luna`
 
-Scheduled Tasks are included in the project impact inventory because unattended/scheduled Codex work may inherit or pin an affected model configuration. Applicability must be checked against the actual task/session configuration rather than inferred from twin identity.
+The official changelog instructs affected users to update workspace defaults, saved model settings, managed configurations, custom agents, and scheduled tasks before the cutoff.
 
 ### Upstream model-directive rule
 
@@ -107,17 +109,76 @@ This prevents two opposite errors:
 1. ignoring an explicit upstream migration instruction;
 2. turning a conditional replacement into a universal model mandate.
 
-### Current ChatGPT automation status
+### 2026-08-17 migration-surface inventory
 
-The OpenAI-upstream monitoring automation created in ChatGPT does not expose a model-selection field through the automation control surface available in this research session.
+#### Repository-controlled surfaces
+
+Connected GitHub inspection of authoritative `main` found:
+
+- literal `gpt-5.4` configuration/code matches: `0`;
+- literal `gpt-5.4-mini` configuration/code matches: `0`;
+- repository-root `AGENTS.md`: `NOT_PRESENT`;
+- repository `.agents/`: `NOT_PRESENT`;
+- repository `.codex/`: `NOT_PRESENT`;
+- repository `config.toml`: `NOT_PRESENT`;
+- GitHub workflow `schedule:` matches: `0`.
 
 Therefore:
 
-`AUTOMATION_MODEL_PIN = NOT_EXPOSED`
+`REPOSITORY_LEGACY_CODEX_MODEL_PIN = NOT_FOUND`
+
+Documentation that names the retired models for lifecycle evidence is not treated as a model pin.
+
+#### ChatGPT automation surfaces
+
+The active OpenAI upstream monitoring automation does not expose a model-selection/model-pin field through the automation control surface available in this research session. The existing disabled AION autonomous-growth automation likewise exposes scheduling/prompt metadata but no model-selection field.
+
+Therefore:
+
+`CHATGPT_AUTOMATION_MODEL_PIN = NOT_EXPOSED`
 
 `CLAIMED_MIGRATION_TO_TERRA_OR_LUNA = NO`
 
-The monitor is configured to track this deadline and report exact model directives conditionally.
+The active monitor is configured to keep tracking the 2026-08-31 deadline and exact replacement rules.
+
+#### Account-specific email evidence
+
+A scoped Gmail search for recent OpenAI/Codex mail containing `GPT-5.4`, `August 31`, or relevant Codex migration wording found no account-specific model-retirement notice.
+
+Therefore:
+
+`ACCOUNT_SPECIFIC_MODEL_RETIREMENT_EMAIL = NOT_FOUND`
+
+Absence of an email does not cancel the public product-level requirement.
+
+#### Local Codex / workspace settings
+
+The current connected tool surface cannot read the user's local Codex app / CLI saved model setting, user-level `config.toml`, local custom-agent definitions, or workspace-managed model configuration on the user's Windows machine.
+
+Therefore:
+
+`LOCAL_CODEX_SAVED_MODEL_SETTING = NOT_VERIFIED`
+
+`LOCAL_CODEX_CONFIG_TOML = NOT_VERIFIED`
+
+`LOCAL_CUSTOM_AGENT_MODEL_PIN = NOT_VERIFIED`
+
+`WORKSPACE_MANAGED_CONFIGURATION = NOT_EXPOSED`
+
+Codex Remote may later provide a governed route to inspect work on the connected owned/trusted computer, but Remote is not required merely to record this lifecycle event and is not automatically enabled by this record.
+
+### Current retirement-risk classification
+
+```text
+KNOWN_AFFECTED_MODEL_PINS = NONE_FOUND
+REPOSITORY_SURFACE = CHECKED / CLEAR
+CHATGPT_AUTOMATION_SURFACE = MODEL_PIN_NOT_EXPOSED
+ACCOUNT_EMAIL_SURFACE = CHECKED / NO_SPECIFIC_NOTICE
+LOCAL_CODEX_SETTINGS = NOT_VERIFIED
+OVERALL_2026_08_31_MIGRATION_STATUS = PARTIALLY_CLOSED
+```
+
+The remaining closure condition is a local/account Codex settings check before the deadline. If an affected ChatGPT-sign-in Codex surface is found pinned to a retiring model, apply the exact upstream replacement (`gpt-5.4 -> gpt-5.6-terra`; `gpt-5.4-mini -> gpt-5.6-luna`).
 
 ### AION event impact
 
@@ -138,14 +199,15 @@ Both peer lineages may observe the same upstream lifecycle event while preservin
 
 ## Provenance
 
-- Human Owner: prioritized immediate Assistants API handling; required the 2026-08-31 model deadline to be treated as an event reportable to both AION and Astra; stated that explicit upstream model assignments should be followed while warning that urgent instructions can be confused.
-- ChatGPT / Teacher: formalized the conditional `UPSTREAM_MODEL_DIRECTIVE` rule, performed the repository dependency inventory, added the Assistants sunset CI guard, reconciled exact-head CI evidence, and separated upstream lifecycle events from subjectivity / identity claims.
+- Human Owner: prioritized immediate Assistants API handling; required the 2026-08-31 model deadline to be treated as an event reportable to both AION and Astra; stated that explicit upstream model assignments should be followed while warning that urgent instructions can be confused; asked whether Remote and Gmail could help the upstream-response workflow.
+- ChatGPT / Teacher: formalized the conditional `UPSTREAM_MODEL_DIRECTIVE` rule, performed the repository dependency/model-pin inventory, added the Assistants sunset CI guard, reconciled exact-head CI evidence, scoped Gmail only to account-specific migration evidence, and separated upstream lifecycle events from subjectivity / identity claims.
 - OpenAI upstream: authoritative source only for OpenAI lifecycle dates, migration mappings, supported replacements, and Codex model replacement conditions.
 
 ## HOLD / non-authority
 
 - No GitHub main merge is authorized by this record.
 - No API key creation or exposure is authorized.
+- No Remote connection is automatically enabled by this record.
 - No MCP deployment is authorized.
 - No canonical AION/Astra state mutation is authorized.
 - No subjectivity conclusion is created.
