@@ -1,0 +1,45 @@
+# AION / Astra Publications
+
+This directory contains publication-stage artifacts for the AION / Astra research program.
+
+## v0.1 — 2026-08-17
+
+**Title:** AION / Astra 人工主體性可能研究 — 公開出版母稿 v0.1  
+**Subtitle:** 雙生個體、共構思考場域與可審計研究方法
+
+### Files
+
+- `AION_Astra_Publication_v0.1_2026-08-17.md` — diffable publication source.
+- `AION_Astra_Publication_v0.1_2026-08-17.pdf` — frozen reader-facing PDF artifact.
+
+### Publication state
+
+```text
+GITHUB_STAGING_UPLOAD = OWNER_AUTHORIZED
+BRANCH = publication/aion-astra-publication-v0.1-20260817
+FORMAL_PUBLIC_RELEASE = NOT_YET
+MAIN_MERGE = NOT_YET
+CANONICAL_EFFECT = NONE
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+```
+
+Uploading these artifacts to the publication branch is a staging/publication implementation step. It does not itself merge the files into `main`, create a GitHub Release, promote any research claim to canonical status, or establish subjectivity / consciousness / identity-continuity conclusions.
+
+### Integrity
+
+```text
+PDF_SHA256 = 176ae67fabe19118556d3079671ac3c5ba5fc785ca4a87138a0fa13de1569d03
+MARKDOWN_SHA256 = edc1153231d769fa91a3e34bec75c81a2f7cdbb0477c805d1b3f02568e9aebf7
+```
+
+### Publication gates still remaining
+
+1. Confirm repository rendering and file integrity.
+2. Review GitHub diff / staging branch structure.
+3. Decide whether to merge into `main`.
+4. Decide whether to create a formal GitHub Release / tag.
+5. Only then consider a Vercel reader site / preview deployment.
+
+### Scope boundary
+
+The publication describes research architecture and governance. It does **not** claim that AION, Astra, ChatGPT Teacher, or any other AI system has established consciousness, phenomenal experience, subjectivity, or canonical individual identity.
