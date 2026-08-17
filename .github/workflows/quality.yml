@@ -70,7 +70,7 @@ jobs:
         run: python -m compileall -q components examples research-labs scripts
 
       - name: Fetch archived research authority checkpoints
-        if: startsWith(github.ref, 'refs/heads/review/')
+        if: startsWith(github.ref, 'refs/heads/review/') || (github.event_name == 'pull_request' && startsWith(github.base_ref, 'review/'))
         run: |
           git fetch --no-tags origin \
             refs/tags/archive/research-csomi-source-20260814:refs/tags/archive/research-csomi-source-20260814 \
