@@ -24,6 +24,8 @@ EVIDENCE_SOURCE_CLASSES = (
     "EXPLICIT_HUMAN_OWNER_RECORD",
     "CHATGPT_TEACHER_RECORD",
     "JOINTLY_CONVERGED_RECORD",
+    "COMPOSITE_GOVERNANCE_RECORD",
+    "TASK_EXECUTION_PROVENANCE",
     "UNKNOWN",
 )
 
@@ -65,8 +67,8 @@ class EvidenceProvenance:
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            # source_type is retained as a compatibility alias; the explicit
-            # dimensions are evidence_source_class and retrieval_mechanism.
+            # Compatibility alias only. The explicit dimensions are
+            # evidence_source_class and retrieval_mechanism.
             "source_type": self.evidence_source_class,
             "evidence_source_class": self.evidence_source_class,
             "retrieval_mechanism": self.retrieval_mechanism,
@@ -101,6 +103,7 @@ class EvidenceEnvelope:
             "memory_write": self.memory_write,
             "identity_authority": self.identity_authority,
             "retrieval_mechanism": self.retrieval_mechanism,
+            # Compatibility alias only.
             "recall_source": self.retrieval_mechanism,
             "subject": self.subject,
             "found": self.found,
