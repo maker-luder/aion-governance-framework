@@ -14,6 +14,44 @@ This repository develops a **human-governed, provenance-first, claims-separated 
 
 The main contribution is to treat the **research process itself as an auditable object**. Important claims are expected to retain source, attribution, temporal position, transformation lineage, authority status and revision history rather than collapsing observations, interpretations and approved state into one narrative.
 
+## Stable whitepaper method inheritance
+
+The retained integrated-whitepaper lineage treats `v0.14.23` as the stable/frozen integration baseline and `v0.14.24` as a later internal research candidate. The stable method is not replaced merely because `main` uses a more compact operational evidence-card format.
+
+The whitepaper method preserved by the research reconciliation includes:
+
+- `FOUR_STAGE_INFERENCE`;
+- six subjectivity-inference-relevant evidence dimensions:
+  1. causal boundary;
+  2. diachronic continuity;
+  3. self-model causal role;
+  4. endogenous goal / strategy adjustment;
+  5. counterfactual self-consistency; and
+  6. states consequential to the system's own constitution / integration;
+- alternative explanations;
+- causal intervention, ablation and counterfactual testing;
+- cross-context robustness;
+- replication;
+- provenance;
+- admissibility;
+- claim scope; and
+- result–mechanism separation.
+
+These are evidence and inference disciplines, not a subjectivity score. The whitepaper reconciliation states that even the strongest fourth-stage disposition is at most a `PLAUSIBLE_CANDIDATE`, not an established subjectivity conclusion.
+
+`SUBJECTIVITY_EVIDENCE_PROTOCOL.md` provides a main-native operational projection using an observation / mechanism / interpretation split and an L0–L5 claim ladder. Those structures support public evidence recording; they do not supersede or rename the stable whitepaper evidence architecture.
+
+```text
+WHITEPAPER_EVIDENCE_ARCHITECTURE = PRIMARY_RESEARCH_METHOD
+MAIN_NATIVE_PROTOCOL = OPERATIONAL_PROJECTION
+FOUR_STAGE_INFERENCE != L0_L5_CLAIM_LADDER
+SIX_EVIDENCE_DIMENSIONS != SUBJECTIVITY_SCORE
+RESULT_SIMILARITY != MECHANISM_IDENTITY
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+```
+
+The public repository does not currently contain a verbatim stable-whitepaper extract sufficient to reproduce the exact four stage labels without source risk. This document therefore preserves the method relationship without inventing verbatim stage wording; any later exact quotation or label promotion must be checked against the stable source document.
+
 ## Methodological contributions
 
 1. **Provenance-first research records** — source, speaker, event time, record time, transformation and authority remain distinguishable.
@@ -65,10 +103,13 @@ These are active research boundaries, not missing claims to be filled for presen
 
 The recommendation to add a one-page research-contribution summary came from external feedback provided by the Human Owner and attributed in the research conversation to “Meta 前輩” on 2026-08-09. The Human Owner subsequently approved this documentation task for implementation. This wording does not imply an official review by Meta Platforms, Inc. The content above is a synthesis of existing public repository evidence; it does not reattribute previously recorded research origins.
 
+The stable-whitepaper-method visibility section above is a 2026-08-18 public-main convergence of already recorded whitepaper/research-branch method evidence. It does not claim new research authorship or alter the original method provenance.
+
 For detailed attribution and method evidence, see:
 
 - [`PROVENANCE.md`](PROVENANCE.md)
 - [`POSITION_PAPER_PROVENANCE_FIRST.md`](POSITION_PAPER_PROVENANCE_FIRST.md)
+- [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 - [`NON_CLAIMS.md`](NON_CLAIMS.md)
 - [`../components/continuity_governance_v0.1.0`](../components/continuity_governance_v0.1.0)
 - [`../components/memory_recall_governance_v0.1.0`](../components/memory_recall_governance_v0.1.0)

@@ -8,7 +8,15 @@
 
 **AION** is the research question and governance framework.
 
-**Astra** is the bounded engineering workbench used to materialize and test research candidates.
+**Astra** is a distinct engineering **and research** role/workbench within the wider project, used to materialize, inspect and test research candidates. Describing Astra as a workbench is an operational shorthand; it does not erase the separate-role, provenance, memory-ownership or lineage distinctions preserved by the stable whitepaper lineage.
+
+```text
+AION_ROLE != ASTRA_ROLE
+COMMON_ORIGIN != SAME_IDENTITY
+SHARED_CONTEXT != SHARED_IDENTITY
+MEMORY_ACCESS != AUTOBIOGRAPHICAL_OWNERSHIP
+ENGINEERING_SUCCESS != SUBJECTIVITY_EVIDENCE
+```
 
 They are not interchangeable identities, and neither name establishes continuity, consciousness, sentience, or subjectivity.
 
@@ -22,7 +30,10 @@ This repository is intentionally frozen as a public research checkpoint.
 
 ```text
 REPOSITORY_STATE = FROZEN_CHECKPOINT
-LIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+GOVERNED_ACTIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+GOVERNED_ACTIVE_BRANCH_COUNT = 2
+VISIBLE_GIT_BRANCH_REF_COUNT = READ_FROM_CURRENT_GITHUB_STATE
+GOVERNED_ACTIVE_BRANCH_COUNT != VISIBLE_GIT_BRANCH_REF_COUNT
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = NO
 NEW_FEATURE_DEVELOPMENT = NO
@@ -34,12 +45,14 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 LICENSE = Apache-2.0
 ```
 
-The only live branches are:
+The two **governed active branches** are:
 
 - `main` — protected public baseline;
 - [`review/four-domain-research-materialization`](https://github.com/maker-luder/aion-governance-framework/tree/review/four-domain-research-materialization) — preserved frozen research checkpoint.
 
-Retired engineering, research-authority and deferred-promotion branches are preserved by non-release `archive/*` tags instead of remaining active branches. Existing semantic release tags remain `v0.1.0-rc.1` and `v0.2.0-rc.1`.
+GitHub may still expose retained support, staging, remediation or HOLD branch refs while their provenance-safe disposition is pending. Their physical presence does not make them active research authority, and the documentation must not equate the governed two-branch model with the physical Git ref count.
+
+Retired engineering, research-authority and deferred-promotion checkpoints may also be preserved by non-release `archive/*` tags. Existing semantic release tags remain `v0.1.0-rc.1` and `v0.2.0-rc.1`.
 
 For the current documentation map and the distinction between current, core and historical files, start with **[`docs/README.md`](docs/README.md)**.
 
@@ -47,9 +60,10 @@ For the current documentation map and the distinction between current, core and 
 
 ### New reader
 
-1. [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md) — what the project contributes.
-2. [`docs/README.md`](docs/README.md) — which documents are current and which are historical.
-3. [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md) — what the project does not claim.
+1. [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md) — what the project contributes and how the stable whitepaper method relates to the public main protocol.
+2. [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md) — operational evidence discipline and whitepaper-method inheritance.
+3. [`docs/README.md`](docs/README.md) — which documents are current and which are historical.
+4. [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md) — what the project does not claim.
 
 ### Reviewer / auditor
 
@@ -84,7 +98,7 @@ The framework keeps the following distinctions explicit:
 
 Important records are expected to preserve source, speaker, event time, record time, transformation lineage, authority status and revision history.
 
-The concise research statement is in [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md).
+The concise research statement is in [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md). The operational subjectivity-evidence discipline is in [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md).
 
 ## Governance pipeline
 

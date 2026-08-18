@@ -11,12 +11,13 @@
 If you are new to AION, read in this order:
 
 1. [`../README.md`](../README.md) — project orientation and current repository boundary.
-2. [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — the research question and contribution in one page.
-3. [`ARCHITECTURE.md`](ARCHITECTURE.md) — the bounded governance architecture.
-4. [`NON_CLAIMS.md`](NON_CLAIMS.md) — what the repository does **not** establish.
-5. [`PROVENANCE.md`](PROVENANCE.md) — source, attribution and authority rules.
-6. [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — what is intentionally excluded from the public repository.
-7. [`THREAT_MODEL.md`](THREAT_MODEL.md) — major research-integrity and system threats.
+2. [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — the research question, contribution and stable-whitepaper method inheritance in one page.
+3. [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) — operational evidence discipline and its relationship to the stable whitepaper method.
+4. [`ARCHITECTURE.md`](ARCHITECTURE.md) — the bounded governance architecture.
+5. [`NON_CLAIMS.md`](NON_CLAIMS.md) — what the repository does **not** establish.
+6. [`PROVENANCE.md`](PROVENANCE.md) — source, attribution and authority rules.
+7. [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — what is intentionally excluded from the public repository.
+8. [`THREAT_MODEL.md`](THREAT_MODEL.md) — major research-integrity and system threats.
 
 That sequence is the **core reader path**. Everything else is supporting detail, implementation evidence, research reference material, or historical record.
 
@@ -24,7 +25,10 @@ That sequence is the **core reader path**. Everything else is supporting detail,
 
 ```text
 REPOSITORY_STATE = FROZEN_CHECKPOINT
-LIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+GOVERNED_ACTIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+GOVERNED_ACTIVE_BRANCH_COUNT = 2
+VISIBLE_GIT_BRANCH_REF_COUNT = READ_FROM_CURRENT_GITHUB_STATE
+GOVERNED_ACTIVE_BRANCH_COUNT != VISIBLE_GIT_BRANCH_REF_COUNT
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = NO
 DEPLOYMENT = FALSE
@@ -35,12 +39,19 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 LICENSE = Apache-2.0
 ```
 
-The live branches are intentionally limited to:
+The governed active branches are intentionally limited to:
 
 - `main` — protected public baseline;
 - `review/four-domain-research-materialization` — preserved frozen research checkpoint.
 
-Five retired support branches were converted to non-release `archive/*` tags so their exact commits and provenance remain addressable without remaining active branches. The two semantic release tags, `v0.1.0-rc.1` and `v0.2.0-rc.1`, remain historical release checkpoints.
+This two-branch statement is a **governance/authority model**, not a claim that GitHub physically exposes only two branch refs. Retained staging, remediation, support or HOLD refs may remain visible while their provenance-safe disposition is pending.
+
+```text
+GOVERNED_ACTIVE_BRANCH != ANY_VISIBLE_GIT_BRANCH_REF
+VISIBLE_BRANCH_REF != CURRENT_RESEARCH_AUTHORITY
+```
+
+Archive tags may preserve retired checkpoints without turning them into releases, approvals or canonical promotions. The two semantic release tags, `v0.1.0-rc.1` and `v0.2.0-rc.1`, remain historical release checkpoints.
 
 For release/freeze standing, use [`RELEASE_STATUS.md`](RELEASE_STATUS.md). For research-branch standing, use [`RESEARCH_BRANCH_STATUS.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/RESEARCH_BRANCH_STATUS.md).
 
@@ -48,7 +59,8 @@ For release/freeze standing, use [`RELEASE_STATUS.md`](RELEASE_STATUS.md). For r
 
 ### Research meaning
 
-- [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — concise research contribution.
+- [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — concise research contribution and stable-whitepaper method inheritance.
+- [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) — public operational evidence protocol; not a subjectivity detector and not a replacement for the stable whitepaper method.
 - [`POSITION_PAPER_PROVENANCE_FIRST.md`](POSITION_PAPER_PROVENANCE_FIRST.md) — longer-form position-paper treatment.
 - [`NON_CLAIMS.md`](NON_CLAIMS.md) — epistemic and presentation limits.
 - [`PROJECT_PURPOSE_ANCHOR.md`](PROJECT_PURPOSE_ANCHOR.md) — purpose-preserving anchor.
@@ -59,7 +71,7 @@ For release/freeze standing, use [`RELEASE_STATUS.md`](RELEASE_STATUS.md). For r
 - [`PROVENANCE.md`](PROVENANCE.md) — attribution, lineage and authority rules.
 - [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — public/private separation.
 - [`THREAT_MODEL.md`](THREAT_MODEL.md) — public threat model.
-- [`RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md) — evidence-admission boundary.
+- [`RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md) — evidence-admission boundary and main-native record-contract semantics.
 
 ### Current operational standing
 
@@ -102,6 +114,7 @@ CURRENT
 
 CORE
   research contribution
+  subjectivity evidence protocol / whitepaper-method bridge
   architecture
   purpose anchor
   non-claims

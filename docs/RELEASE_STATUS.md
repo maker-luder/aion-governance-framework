@@ -4,12 +4,14 @@
 
 ## Current repository freeze checkpoint
 
-The public repository is in a frozen checkpoint after repository and research-lineage convergence on 2026-08-15.
+The public repository is in a frozen checkpoint after repository and research-lineage convergence on 2026-08-15, with later bounded upstream/documentation maintenance performed under the same non-promotion research boundary.
 
 ```text
 CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
-LIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
-LIVE_BRANCH_COUNT = 2
+GOVERNED_ACTIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+GOVERNED_ACTIVE_BRANCH_COUNT = 2
+VISIBLE_GIT_BRANCH_REF_COUNT = READ_FROM_CURRENT_GITHUB_STATE
+GOVERNED_ACTIVE_BRANCH_COUNT != VISIBLE_GIT_BRANCH_REF_COUNT
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = NO
 NEW_FEATURE_DEVELOPMENT = NO
@@ -23,14 +25,16 @@ RELATIONAL_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
 ```
 
-The two live branches are:
+The two governed active branches are:
 
 - `main` — protected public baseline;
 - `review/four-domain-research-materialization` — frozen preserved research checkpoint.
 
-Five retired support branches were converted to non-release `archive/*` tags after exact-head verification. These archive tags preserve engineering/research/deferred-promotion checkpoints without keeping those refs as active branches. An archive tag is not a release, approval, canonical promotion or deployment authority.
+This is an **authority/governance model**, not a claim that GitHub physically exposes only two branch refs. Retained support, staging, remediation or HOLD refs may remain visible while their provenance-safe archival/deletion disposition is pending. A visible branch ref does not become current research authority merely by existing.
 
-The exact current branch heads, workflow runs and merge/approval events are GitHub transition evidence and are intentionally not embedded here as self-referential permanent status fields.
+Retired support branches may also be converted to non-release `archive/*` tags after exact-head verification. These archive tags preserve engineering/research/deferred-promotion checkpoints without keeping those refs as active branches. An archive tag is not a release, approval, canonical promotion or deployment authority.
+
+The exact current branch heads, visible-ref count, workflow runs and merge/approval events are GitHub transition evidence and are intentionally not embedded here as self-referential permanent status fields.
 
 ## Governance process-deviation record
 
@@ -75,7 +79,7 @@ For reader orientation and document hierarchy, use [`README.md`](../README.md) a
 
 Dated convergence, branch-disposition, incident, acceptance and QA files preserve what was recorded at their event time. They are historical evidence unless a current entry point explicitly says otherwise.
 
-In particular, [`FINAL_REPOSITORY_FREEZE_2026-08-15.md`](history/branch-and-release/FINAL_REPOSITORY_FREEZE_2026-08-15.md) and [`FINAL_BRANCH_DISPOSITION_2026-08-15.md`](history/branch-and-release/FINAL_BRANCH_DISPOSITION_2026-08-15.md) preserve the earlier PR #20 freeze-preparation snapshot; their original branch inventory predates the later support-branch archive conversion and two-branch closure.
+In particular, [`FINAL_REPOSITORY_FREEZE_2026-08-15.md`](history/branch-and-release/FINAL_REPOSITORY_FREEZE_2026-08-15.md) and [`FINAL_BRANCH_DISPOSITION_2026-08-15.md`](history/branch-and-release/FINAL_BRANCH_DISPOSITION_2026-08-15.md) preserve the earlier PR #20 freeze-preparation snapshot; their original branch inventory predates later support-branch retention/archive decisions and must not be mechanically read as the current physical Git ref inventory.
 
 ## Boundary
 
@@ -87,4 +91,5 @@ ARCHIVE_TAG != RELEASE
 ARCHIVE_TAG != APPROVAL
 RESEARCH_BRANCH != MAIN
 RESEARCH_CONVERGENCE != CANONICAL_PROMOTION
+VISIBLE_BRANCH_REF != ACTIVE_RESEARCH_AUTHORITY
 ```
