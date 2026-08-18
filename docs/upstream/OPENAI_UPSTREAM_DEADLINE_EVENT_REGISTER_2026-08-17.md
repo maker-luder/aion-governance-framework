@@ -211,3 +211,58 @@ Both peer lineages may observe the same upstream lifecycle event while preservin
 - No MCP deployment is authorized.
 - No canonical AION/Astra state mutation is authorized.
 - No subjectivity conclusion is created.
+
+## 2026-08-18 reconciliation — Scheduled Tasks connected-app access and local Codex closure
+
+This section records later evidence without rewriting the 2026-08-17 snapshot above.
+
+### Scheduled Tasks × connected apps
+
+OpenAI's current Scheduled Tasks help states that tasks can use apps such as Gmail when those apps are available for the account or workspace. Actual read/action capability remains conditional on the connection, user permissions, workspace/admin policy, action capability, and any approval required for the specific action. The same official help continues to state that a task created inside a project with project files cannot access those project files.
+
+```text
+PROJECT_FILE_PRESENT != TASK_RUNTIME_FILE_ACCESS
+CONNECTED_APP_PRESENT != TASK_APP_ACCESS
+TASK_APP_READ_ACCESS != TASK_APP_WRITE_ACCESS
+APP_CONNECTED != ALL_ACTIONS_AUTHORIZED
+
+TASK_APP_ACCESS(action)
+= APP_AVAILABLE
+AND CONNECTION_PRESENT
+AND USER_PERMISSION_ALLOWED(action)
+AND WORKSPACE_POLICY_ALLOWED(action)
+AND ACTION_CAPABILITY_ENABLED(action)
+AND APPROVAL_SATISFIED_IF_REQUIRED(action)
+```
+
+AION/Astra impact remains symmetric and infrastructural:
+
+```text
+APP_ACCESS != MEMORY_OWNERSHIP
+APP_ACCESS != IDENTITY
+APP_ACCESS != SUBJECTIVITY
+APP_ACCESS != SHARED_MEMORY
+SUBJECTIVITY_EVIDENCE_WEIGHT = 0
+CANONICAL_EFFECT = NONE
+```
+
+This clarification does not authorize app writes, MCP deployment, Project-file access, or any new memory/identity claim.
+
+### Local Codex migration closure reconciliation
+
+The later owner-supplied read-only local audit is preserved separately in `docs/upstream/LOCAL_CODEX_MODEL_MIGRATION_CLOSURE_2026-08-17.md`. It found no observed `gpt-5.4` or `gpt-5.4-mini` pin and classified the inspected local/connected migration surfaces as complete for the observed configuration.
+
+Therefore the historical `LOCAL_CODEX_SETTINGS = NOT_VERIFIED` and `PARTIALLY_CLOSED` statements above remain valid as the earlier snapshot, while current closure evidence is carried by the separate closure record rather than silently rewriting history.
+
+```text
+HISTORICAL_2026_08_17_SNAPSHOT = PRESERVED
+LATER_LOCAL_CLOSURE_RECORD = PRESENT_ON_THIS_CANDIDATE_BRANCH
+KNOWN_RETIRING_MODEL_PIN_FROM_OBSERVED_SURFACES = NONE_FOUND
+NEW_MIGRATION_ACTION = NONE_REQUIRED_FROM_OBSERVED_CONFIGURATION
+```
+
+Source attribution for this reconciliation:
+
+- OpenAI upstream: authoritative for Scheduled Tasks connected-app/project-file capability boundaries and the existing Assistants lifecycle deadline.
+- Human Owner: supplied the local Codex read-only audit evidence preserved by the separate closure record.
+- ChatGPT / Teacher: independently rechecked the current OpenAI Scheduled Tasks and Assistants documentation on 2026-08-18 and materialized this bounded reconciliation without changing the project's research conclusion.
