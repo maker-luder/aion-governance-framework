@@ -12,6 +12,13 @@ def test_machine_consistency_checker_passes():
     assert consistency.main() == 0
 
 
+def test_machine_consistency_checker_uses_pull_request_base_context(monkeypatch):
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "pull_request")
+    monkeypatch.setenv("GITHUB_BASE_REF", "review/four-domain-research-materialization")
+    monkeypatch.setenv("GITHUB_REF_NAME", "42/merge")
+    assert consistency.main() == 0
+
+
 def test_named_artifacts_have_markdown_and_json_companions():
     pairs = (
         "RESEARCH_INDEX_V0.1.0",
@@ -96,13 +103,13 @@ def test_convergence_workflow_is_read_only_and_branch_scoped():
     workflow = (ROOT / ".github/workflows/research-convergence-consistency.yml").read_text(
         encoding="utf-8"
     )
-    assert "engineering/aion-research-consolidation-literature-grounding-readiness-20260814" in workflow
+    assert "review/four-domain-research-materialization" in workflow
     assert "pull_request_target" not in workflow
     assert "contents: read" in workflow
     assert "persist-credentials: false" in workflow
     assert "uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow
     assert "uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
-    assert "review/four-domain-research-materialization" not in workflow
+    assert "engineering/aion-research-consolidation-literature-grounding-readiness-20260814" not in workflow
     assert "python -m pip install -e ." in workflow
 
 

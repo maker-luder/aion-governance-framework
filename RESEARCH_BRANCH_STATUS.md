@@ -18,7 +18,11 @@ CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 AION_ASTRA_IDENTITY_EQUIVALENCE = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
-LIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+FINAL_BRANCH_MODEL_TARGET = MAIN_PLUS_RESEARCH_ONLY
+PHASE0_VISIBLE_BRANCH_REF_COUNT = 16
+PR42_PREMERGE_VISIBLE_BRANCH_REF_COUNT = 17_AT_PR42_R1_R5_FRESH_INVENTORY
+PR42_PREMERGE_SUPPORT_BRANCH_RETIREMENT = PENDING_OWNER_EXACT_TARGET_CONFIRMATION
+PR42_PREMERGE_CONVERGENCE_STATE = IN_PROGRESS_PHASE_0_5
 ```
 
 ## 2026-08-15 lineage convergence
@@ -51,7 +55,7 @@ The later PASS establishes only that the surviving research branch no longer car
 PR21_PROCESS_DEVIATION = MERGED_BEFORE_QUALITY_COMPLETION
 PR22_PROCESS_DEVIATION = MERGED_BEFORE_QUALITY_COMPLETION
 HISTORICAL_RED_CHECKS = PRESERVED
-CURRENT_RESEARCH_QUALITY = PASS_AT_24de00c1fc8eaf09cdcef393f651f1cf3685bb57
+HISTORICAL_RESEARCH_QUALITY_SNAPSHOT = PASS_AT_24de00c1fc8eaf09cdcef393f651f1cf3685bb57
 RETROACTIVE_GREENWASH = FORBIDDEN
 ```
 
@@ -69,12 +73,14 @@ The final five support branches were retired only after exact-head verification 
 
 Archive tags are provenance/checkpoint refs. They are **not releases**, do not create canonical effect, do not reactivate the candidate, and do not imply that a deferred promotion was approved.
 
-After this retirement, the repository's live branch model is intentionally limited to:
+The final branch model target after separately authorized exact-head retirement is intentionally limited to:
 
 ```text
 main
 review/four-domain-research-materialization
 ```
+
+This is a target/end-state, not a claim that all transitional refs have already been deleted. During the current PHASE 0–5 convergence cycle, fresh GitHub inventory remains the authority for observed refs; branch deletion is not performed in this phase and requires Human Owner exact-target confirmation.
 
 ## Workflow standing after freeze
 
@@ -128,13 +134,15 @@ The two deferred promotion histories are now preserved by archive tags and their
 
 ## Stop condition
 
-The branch is intentionally left as a preserved research workbench checkpoint rather than an active development queue.
+The branch is intentionally left as a preserved research workbench checkpoint rather than an active development queue. Every `PR42_PREMERGE_*` field below is a bounded pre-merge snapshot, not a permanent current fact; after any merge or retirement transition, fresh GitHub inventory must replace the snapshot before current status is stated.
 
 ```text
-RESEARCH_LINEAGE_CONVERGENCE = COMPLETE
-SUPPORT_BRANCH_RETIREMENT = COMPLETE
-LIVE_BRANCH_COUNT = 2
+PR42_PREMERGE_RESEARCH_LINEAGE_CONVERGENCE = TARGETED / PHASE_0_5_IN_PROGRESS
+PR42_PREMERGE_SUPPORT_BRANCH_RETIREMENT = PENDING_OWNER_EXACT_TARGET_CONFIRMATION
+PHASE0_VISIBLE_BRANCH_REF_COUNT = 16
+PR42_PREMERGE_VISIBLE_BRANCH_REF_COUNT_SOURCE = FRESH_GITHUB_INVENTORY_ONLY
+FINAL_BRANCH_COUNT_TARGET = 2
 HISTORICAL_PROVENANCE = PRESERVED
-CURRENT_BRANCH_STANDING = FROZEN_CHECKPOINT
-FUTURE_WORK = SEPARATELY_AUTHORIZED_ONLY
+PR42_PREMERGE_BRANCH_STANDING = FROZEN_CHECKPOINT / CONVERGENCE_IN_PROGRESS
+PR42_PREMERGE_FUTURE_WORK = PHASE_0_5_ONLY_UNDER_CURRENT_DIRECTIVE
 ```

@@ -3,7 +3,7 @@ name: Research Consolidation Consistency
 on:
   push:
     branches:
-      - engineering/aion-research-consolidation-literature-grounding-readiness-20260814
+      - review/four-domain-research-materialization
     paths:
       - "docs/research-consolidation/**"
       - "research-workbench/four-domain-materialization/2026-08-14/**"
@@ -20,7 +20,7 @@ on:
       - ".github/workflows/research-convergence-consistency.yml"
   pull_request:
     branches:
-      - engineering/aion-research-consolidation-literature-grounding-readiness-20260814
+      - review/four-domain-research-materialization
   workflow_dispatch:
 
 permissions:

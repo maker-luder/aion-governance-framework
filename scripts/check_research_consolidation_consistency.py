@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import re
 import subprocess
 import sys
@@ -8,7 +9,8 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_BRANCH = "engineering/aion-research-consolidation-literature-grounding-readiness-20260814"
+EXPECTED_BASE_BRANCH = "review/four-domain-research-materialization"
+LOCAL_EXPECTED_BRANCH_ENV = "AION_EXPECTED_LOCAL_BRANCH"
 SCHEMA = ROOT / "schemas/aion_research_consolidation_artifact_v0.1.0.schema.json"
 CROSS_BRANCH_SCHEMA = ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json"
 TAXONOMY_SCHEMA = ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json"
@@ -44,6 +46,39 @@ def fail(errors: list[str], message: str) -> None:
     errors.append(message)
 
 
+def validate_execution_context(errors: list[str]) -> None:
+    event_name = os.environ.get("GITHUB_EVENT_NAME", "").strip()
+    if event_name == "pull_request":
+        base_ref = os.environ.get("GITHUB_BASE_REF", "").strip()
+        if base_ref != EXPECTED_BASE_BRANCH:
+            fail(
+                errors,
+                f"unexpected pull_request base {base_ref!r}; expected {EXPECTED_BASE_BRANCH!r}",
+            )
+        return
+    if event_name == "push":
+        ref_name = os.environ.get("GITHUB_REF_NAME", "").strip()
+        if ref_name != EXPECTED_BASE_BRANCH:
+            fail(
+                errors,
+                f"unexpected push ref {ref_name!r}; expected {EXPECTED_BASE_BRANCH!r}",
+            )
+        return
+
+    branch = git("branch", "--show-current")
+    expected_local_branch = os.environ.get(LOCAL_EXPECTED_BRANCH_ENV, "").strip()
+    if not branch:
+        fail(
+            errors,
+            "local execution has no branch; set AION_EXPECTED_LOCAL_BRANCH only when an explicit local branch is required",
+        )
+    elif expected_local_branch and branch != expected_local_branch:
+        fail(
+            errors,
+            f"unexpected local branch {branch!r}; expected explicit {expected_local_branch!r}",
+        )
+
+
 def validate_json_schema(
     errors: list[str], value: dict[str, Any], path: Path, schema_path: Path = SCHEMA
 ) -> None:
@@ -66,11 +101,9 @@ def main() -> int:
     errors: list[str] = []
 
     try:
-        branch = git("branch", "--show-current")
-        if branch != EXPECTED_BRANCH:
-            fail(errors, f"unexpected branch {branch!r}; expected {EXPECTED_BRANCH!r}")
+        validate_execution_context(errors)
     except subprocess.CalledProcessError as exc:
-        fail(errors, f"cannot read current git branch: {exc}")
+        fail(errors, f"cannot read execution branch context: {exc}")
 
     required_paths = (
         ROOT / "docs/research-consolidation/RESEARCH_INDEX_V0.1.0.md",

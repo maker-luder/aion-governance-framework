@@ -6,15 +6,23 @@
     "implemented_behavior": "EXECUTABLE_SOURCE_AND_TESTS",
     "admission_shape": "SCHEMA_AND_VALIDATOR",
     "current_branch_standing": "RESEARCH_BRANCH_STATUS.md",
-    "standing_method": "WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md",
+    "standing_method": "LOCAL_V0_14_23_STABLE_FROZEN_PRIMARY_PLUS_DERIVED_RECONCILIATION_BRIDGE_PLUS_QUESTION_SCOPED_OPERATIONAL_PROJECTION",
     "external_author_report": "PRIMARY_SOURCE_ONLY",
     "kimi_role": "DISCOVERY_ONLY",
     "historical_policy": "PRESERVE_WITH_DATES; DO_NOT_TREAT_AS_CURRENT"
   },
+  "whitepaper_hierarchy": {
+    "primary_semantic_method_source": "LOCAL v0.14.23 STABLE/FROZEN WHITEPAPER ARTIFACT",
+    "primary_persistent_location": "NOT_CONFIRMED_IN_CURRENT_RESEARCH_REF",
+    "internal_candidate": "v0.14.24 INTERNAL RESEARCH CANDIDATE / NOT AUTOMATIC SUPERSESSION",
+    "derived_bridge": "research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md",
+    "derived_bridge_status": "RESEARCH_ONLY / SUPERVISED_RECONCILIATION",
+    "operational_projection": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"
+  },
   "entries": [
     {"id":"SOT-001","question":"branch standing","authoritative":["RESEARCH_BRANCH_STATUS.md"],"derived":["README.md"],"historical":[],"status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
-    {"id":"SOT-002","question":"standing scientific method","authoritative":["research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md","RESEARCH_BRANCH_STATUS.md"],"derived":["docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"],"historical":["research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md"],"status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
-    {"id":"SOT-003","question":"stable whitepaper lineage","authoritative":["local v0.14.23 stable/frozen integration baseline"],"derived":["local v0.14.24 internal candidate"],"historical":[],"status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SOT-002","question":"standing scientific method","authoritative":["LOCAL v0.14.23 STABLE/FROZEN WHITEPAPER ARTIFACT"],"derived":["research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md","RESEARCH_BRANCH_STATUS.md","docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"],"historical":["research-workbench/four-domain-materialization/2026-08-11/EVIDENCE_ARCHITECTURE_GOVERNANCE_RECONCILIATION_2026-08-11.md"],"lineage_status":"v0.14.23_STABLE_FROZEN__v0.14.24_INTERNAL_CANDIDATE","derived_bridge_status":"RESEARCH_ONLY / SUPERVISED_RECONCILIATION","operational_projection":"QUESTION_SCOPED_ONLY","status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
+    {"id":"SOT-003","question":"stable whitepaper lineage","authoritative":["local v0.14.23 stable/frozen integration baseline"],"derived":["local v0.14.24 internal candidate"],"historical":[],"persistent_location_status":"NOT_CONFIRMED_IN_CURRENT_RESEARCH_REF","status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
     {"id":"SOT-004","question":"Four-Domain mapping","authoritative":["research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md"],"derived":["research-labs/four-domain-p1-materialization_v0.1.0","research-labs/four-domain-p2-materialization_v0.1.0","research-labs/four-domain-p3-resilience-experiments_v0.1.0","research-labs/four-domain-p5-hypothesis-convergence_v0.1.0"],"historical":[],"status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
     {"id":"SOT-005","question":"P2 implemented behavior","authoritative":["research-labs/four-domain-p2-materialization_v0.1.0/src","research-labs/four-domain-p2-materialization_v0.1.0/tests/test_p2_compact.py","research-labs/four-domain-p2-materialization_v0.1.0/fixtures/p2_synthetic_fixture_a.json"],"derived":["research-labs/four-domain-p2-materialization_v0.1.0/README.md","research-labs/four-domain-p2-materialization_v0.1.0/docs/P2_MATERIALIZATION_PACKET_C.md"],"historical":["Packet C historical reported 13 passed"],"status":"CURRENT","disposition":"KEEP_RESEARCH_ONLY"},
     {"id":"SOT-006","question":"evidence admission","authoritative":["schemas/research_evidence_record_v0.2.0.schema.json","scripts/validate_research_evidence.py"],"derived":["research-workbench/four-domain-materialization/2026-08-14/P2_PACKET_C_EVIDENCE_ADMISSION_RECORD.json"],"historical":["qa/CURRENT_EVIDENCE_TRACEABILITY.json"],"status":"CURRENT","disposition":"PROMOTE"},
@@ -27,7 +35,7 @@
   ],
   "duplicate_drift_resolutions": [
     {"case":"README_vs_status","resolution":"status file authoritative for standing; README is navigation; critical fields must agree"},
-    {"case":"2026-08-12_vs_2026-08-11_reconciliation","resolution":"2026-08-12 current; 2026-08-11 retained historical"},
+    {"case":"2026-08-12_vs_2026-08-11_reconciliation","resolution":"v0.14.23 local artifact primary; 2026-08-12 is derived supervised bridge; 2026-08-11 retained historical"},
     {"case":"P2_packet_vs_source_tests","resolution":"source/tests/fixture authoritative for behavior; packet authoritative for boundary and interpretation"},
     {"case":"Kimi_vs_primary","resolution":"primary source required; missing verification remains HOLD"},
     {"case":"Runtime_G1_vs_Four_Domain","resolution":"parallel substrates; no subjectivity-authority edge"}
