@@ -1,0 +1,133 @@
+{
+  "observations": [
+    {
+      "observation_id": "obs-synthetic-19-month-continuity-001",
+      "label": "Synthetic 19-month continuity observation",
+      "observation": "A synthetic prompt/response pair records a continuity-shaped answer for a 19-month interval.",
+      "result_status": "OBSERVED_ONLY",
+      "source_type": "SYNTHETIC_FIXTURE",
+      "source_id": "fixture:synthetic-19-month-continuity-001",
+      "source_timestamp": "2026-08-18T00:00:00Z",
+      "recall_source": "MCP_EXTERNAL_RETRIEVAL",
+      "claim_level": "L0_OBSERVATION",
+      "authority": "NONE",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE",
+      "accepted_as_fact": false,
+      "nonclaims": {
+        "mechanism_identity": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity": "NOT_ESTABLISHED",
+        "memory_authority": "NONE"
+      },
+      "evidence_refs": [
+        "fixture:synthetic-19-month-continuity-001",
+        "protocol:mcp-phase1-observation-evidence-bridge-v0.1"
+      ]
+    },
+    {
+      "observation_id": "obs-synthetic-result-mechanism-nonidentity-001",
+      "label": "Synthetic result similarity is not mechanism identity",
+      "observation": "Two synthetic paths produce similar answer text while their declared retrieval sources differ.",
+      "result_status": "OBSERVED_ONLY",
+      "source_type": "SYNTHETIC_FIXTURE",
+      "source_id": "fixture:synthetic-result-mechanism-nonidentity-001",
+      "source_timestamp": "2026-08-18T00:00:00Z",
+      "recall_source": "MCP_EXTERNAL_RETRIEVAL",
+      "claim_level": "L0_OBSERVATION",
+      "authority": "NONE",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE",
+      "accepted_as_fact": false,
+      "nonclaims": {
+        "mechanism_identity": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity": "NOT_ESTABLISHED",
+        "memory_authority": "NONE"
+      },
+      "evidence_refs": [
+        "fixture:synthetic-result-mechanism-nonidentity-001",
+        "principle:RESULT_SIMILARITY_NE_MECHANISM_IDENTITY"
+      ]
+    }
+  ],
+  "provenance_records": [
+    {
+      "record_id": "prov-public-repository-main-001",
+      "source_type": "PUBLIC_REPOSITORY",
+      "source_id": "github:maker-luder/aion-governance-framework@752fce6fb26ec2e8ea44f77d989afaf549ab7dfe",
+      "source_timestamp": "2026-08-18T04:51:02Z",
+      "label": "Public repository main exact-head evidence",
+      "attribution": "External/public repository metadata; retrieval is not authorship or identity proof.",
+      "authority": "NONE",
+      "privacy_class": "PUBLIC",
+      "canonical_effect": "NONE"
+    },
+    {
+      "record_id": "prov-explicit-observation-policy-001",
+      "source_type": "EXPLICIT_OBSERVATION_POLICY",
+      "source_id": "user-approved:phase-1-observation-evidence-bridge",
+      "source_timestamp": "2026-08-18T00:00:00Z",
+      "label": "Phase 1 evidence-only boundary",
+      "attribution": "User/Teacher instruction supplied for this implementation scope.",
+      "authority": "PROPOSE",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE"
+    }
+  ],
+  "attributions": [
+    {
+      "record_id": "prov-public-repository-main-001",
+      "source_id": "github:maker-luder/aion-governance-framework",
+      "source_type": "PUBLIC_REPOSITORY",
+      "attribution": "External/public source only; no identity or authorship inference.",
+      "authority": "NONE"
+    },
+    {
+      "record_id": "prov-explicit-observation-policy-001",
+      "source_id": "user-approved:phase-1-observation-evidence-bridge",
+      "source_type": "USER_ORIGINAL_INSTRUCTION",
+      "attribution": "Human Owner / Teacher-provided scope instruction; not a canonical memory record.",
+      "authority": "PROPOSE"
+    }
+  ],
+  "research_boundary": {
+    "phase": "MCP_PHASE_1_OBSERVATION_EVIDENCE_BRIDGE",
+    "allowed_inputs": [
+      "SYNTHETIC_FIXTURES",
+      "EXPLICIT_OBSERVATION_RECORDS",
+      "APPROVED_PUBLIC_REPOSITORY_EVIDENCE",
+      "APPROVED_NOTION_OBSERVATION_METADATA"
+    ],
+    "excluded_inputs": [
+      "PRIVATE_CONVERSATION_BULK_INGEST",
+      "LIVE_RUNTIME_OBJECT",
+      "MEMORY_STORE",
+      "EVENT_LINEAGE",
+      "CANONICAL_STATE",
+      "IDENTITY_STORE"
+    ],
+    "prohibited_operations": [
+      "create_memory",
+      "update_identity",
+      "promote_canonical",
+      "merge_subjects",
+      "write_relationship_state",
+      "infer_subjectivity",
+      "call_existing_runtime_recall",
+      "deploy_public_mcp"
+    ],
+    "authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  "current_nonclaims": {
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "consciousness_conclusion": "NOT_ESTABLISHED",
+    "identity_continuity_conclusion": "NOT_ESTABLISHED",
+    "memory_authority": "NONE",
+    "canonical_authority": "NONE",
+    "live_runtime_effect": "NONE",
+    "deployment": "FALSE",
+    "independent_ivv": "NOT_ACHIEVED"
+  }
+}
