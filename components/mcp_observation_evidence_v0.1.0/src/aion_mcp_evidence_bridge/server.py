@@ -86,7 +86,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             found=True,
             evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
-            source_timestamp="2026-08-18T00:00:00Z",
+            source_timestamp="UNKNOWN",
         )
 
     @server.tool(
@@ -104,7 +104,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             found=record is not None,
             evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
-            source_timestamp="2026-08-18T00:00:00Z",
+            source_timestamp="UNKNOWN",
         )
 
     @server.tool(
@@ -122,7 +122,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             found=bool(records),
             evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
-            source_timestamp="2026-08-18T00:00:00Z",
+            source_timestamp="UNKNOWN",
         )
 
     @server.tool(
@@ -140,7 +140,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             found=record is not None,
             evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
-            source_timestamp="2026-08-18T00:00:00Z",
+            source_timestamp="UNKNOWN",
         )
 
     @server.tool(
@@ -156,9 +156,9 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject="RESEARCH_BOUNDARY",
             data=boundary,
             found=True,
-            evidence_source_class="EXPLICIT_HUMAN_OWNER_RECORD",
-            source_id="fixture:observation_records.json",
-            source_timestamp="2026-08-18T00:00:00Z",
+            evidence_source_class=str(boundary.get("evidence_source_class", "COMPOSITE_GOVERNANCE_RECORD")),
+            source_id="fixture:observation_records.json#research_boundary",
+            source_timestamp=str(boundary.get("source_timestamp", "UNKNOWN")),
         )
 
     @server.tool(
@@ -174,9 +174,9 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject="CURRENT_NONCLAIMS",
             data=nonclaims,
             found=True,
-            evidence_source_class="EXPLICIT_HUMAN_OWNER_RECORD",
-            source_id="fixture:observation_records.json",
-            source_timestamp="2026-08-18T00:00:00Z",
+            evidence_source_class=str(nonclaims.get("evidence_source_class", "COMPOSITE_GOVERNANCE_RECORD")),
+            source_id="fixture:observation_records.json#current_nonclaims",
+            source_timestamp=str(nonclaims.get("source_timestamp", "UNKNOWN")),
         )
 
     return server
