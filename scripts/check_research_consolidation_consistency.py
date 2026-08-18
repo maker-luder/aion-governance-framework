@@ -10,10 +10,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_BASE_BRANCH = "review/four-domain-research-materialization"
-LOCAL_EXECUTION_BRANCHES = {
-    EXPECTED_BASE_BRANCH,
-    "convergence/two-branch-finalization-20260818",
-}
+LOCAL_EXPECTED_BRANCH_ENV = "AION_EXPECTED_LOCAL_BRANCH"
 SCHEMA = ROOT / "schemas/aion_research_consolidation_artifact_v0.1.0.schema.json"
 CROSS_BRANCH_SCHEMA = ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json"
 TAXONOMY_SCHEMA = ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json"
@@ -69,10 +66,16 @@ def validate_execution_context(errors: list[str]) -> None:
         return
 
     branch = git("branch", "--show-current")
-    if branch not in LOCAL_EXECUTION_BRANCHES:
+    expected_local_branch = os.environ.get(LOCAL_EXPECTED_BRANCH_ENV, "").strip()
+    if not branch:
         fail(
             errors,
-            f"unexpected local branch {branch!r}; expected one of {sorted(LOCAL_EXECUTION_BRANCHES)!r}",
+            "local execution has no branch; set AION_EXPECTED_LOCAL_BRANCH only when an explicit local branch is required",
+        )
+    elif expected_local_branch and branch != expected_local_branch:
+        fail(
+            errors,
+            f"unexpected local branch {branch!r}; expected explicit {expected_local_branch!r}",
         )
 
 
