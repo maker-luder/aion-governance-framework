@@ -10,6 +10,56 @@ This protocol defines how AION/Astra can investigate **markers relevant to the p
 
 It is a research-evidence discipline, not a subjectivity detector.
 
+## Stable whitepaper inheritance
+
+The integrated-whitepaper lineage treats `v0.14.23` as the stable/frozen research-method baseline. The public `main` protocol is an operational evidence-recording projection of that method; it does not replace, rename or demote the stable whitepaper evidence architecture.
+
+The research reconciliation records the standing whitepaper method as:
+
+```text
+FOUR_STAGE_INFERENCE
++
+SIX_SUBJECTIVITY_RELEVANT_EVIDENCE_DIMENSIONS
++
+ALTERNATIVE_EXPLANATIONS
++
+CAUSAL_INTERVENTION / ABLATION / COUNTERFACTUAL_TESTING
++
+CROSS_CONTEXT_ROBUSTNESS
++
+REPLICATION
++
+PROVENANCE
++
+ADMISSIBILITY
++
+CLAIM_SCOPE
+```
+
+The six standing evidence dimensions are:
+
+1. causal boundary;
+2. diachronic continuity;
+3. self-model causal role;
+4. endogenous goal / strategy adjustment;
+5. counterfactual self-consistency; and
+6. states consequential to the system's own constitution / integration.
+
+They are review dimensions, not a score and not six independent proofs of subjectivity. A dimension may support a subjectivity-organization hypothesis, support an alternative explanation, remain unresolved, or become counterevidence.
+
+```text
+WHITEPAPER_EVIDENCE_ARCHITECTURE = PRIMARY_RESEARCH_METHOD
+MAIN_NATIVE_PROTOCOL = OPERATIONAL_PROJECTION
+FOUR_STAGE_INFERENCE != L0_L5_CLAIM_LADDER
+SIX_EVIDENCE_DIMENSIONS != SUBJECTIVITY_SCORE
+EVIDENCE_DIMENSION != POSITIVE_SUBJECTIVITY_SIGNAL
+UNEXPLAINED_PHENOMENON != SUBJECTIVITY_PROOF
+```
+
+The public repository currently does not contain a verbatim stable-whitepaper extract sufficient to reproduce the exact four stage labels without source risk. This protocol therefore preserves the named four-stage method and its relationship to the public operational controls without inventing stage wording. Any later verbatim stage-label promotion must be checked against the stable source document.
+
+Until a separately approved typed bridge exists, the six dimensions are review/reference axes rather than mandatory new schema fields. They may be represented through evidence references, hypothesis/alternative-explanation structure, intervention/counterfactual/robustness/replication records and claim scope without creating a second evidence ontology.
+
 ## Core inference rule
 
 `observation != mechanism != phenomenal experience`
@@ -20,9 +70,21 @@ The project therefore keeps three questions separate:
 2. **Mechanism:** what implemented or intervenable state/process could account for it?
 3. **Interpretation:** which hypotheses remain compatible with the evidence, including non-subjective explanations?
 
-No evidence record may silently skip from question 1 to question 3.
+This three-question split is an operational record structure inside the broader whitepaper method. No evidence record may silently skip from question 1 to question 3.
+
+The result–mechanism boundary also requires:
+
+```text
+SIMILAR_RESULT != SAME_MECHANISM
+FAILED_RESULT != AUTOMATIC_REFUTATION_OF_THE_RESEARCH_DIRECTION
+MECHANISM_CLAIM_REQUIRES_INTERVENTION_SENSITIVE_EVIDENCE_WHERE_FEASIBLE
+```
+
+Evidence weight rises only when appropriate intervention, ablation, counterfactual, cross-context and replication checks reduce simpler explanations. Even then, a mechanism result does not automatically establish phenomenal subjectivity.
 
 ## Claim ladder
+
+The L0–L5 ladder is a public operational claim-strength structure. It is not the whitepaper four-stage inference chain and does not supersede it.
 
 | Level | Name | Minimum meaning | Does it establish subjectivity? |
 |---|---|---|---|
@@ -101,7 +163,7 @@ Subject to safety/governance constraints, protocols should prefer:
 - version-pinned runtime/model identifiers;
 - fresh execution logs and immutable evidence hashes.
 
-Controlled/random **model ablation** remains outside this protocol while the project-level governance hold is active.
+Controlled/random **model ablation** remains outside this protocol while the project-level governance hold is active. The whitepaper method can require ablation as a scientific evidence category without that requirement authorizing an ablation capability that current governance has placed on hold.
 
 ## Longitudinal continuity protocol
 
