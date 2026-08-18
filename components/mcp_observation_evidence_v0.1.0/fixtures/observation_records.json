@@ -8,7 +8,7 @@
       "evidence_source_class": "SYNTHETIC_FIXTURE",
       "source_type": "SYNTHETIC_FIXTURE",
       "source_id": "fixture:synthetic-19-month-continuity-001",
-      "source_timestamp": "2026-08-18T00:00:00Z",
+      "source_timestamp": "UNKNOWN",
       "retrieval_mechanism": "MCP_EXTERNAL_RETRIEVAL",
       "recall_source": "MCP_EXTERNAL_RETRIEVAL",
       "claim_level": "L0_OBSERVATION",
@@ -35,7 +35,7 @@
       "evidence_source_class": "SYNTHETIC_FIXTURE",
       "source_type": "SYNTHETIC_FIXTURE",
       "source_id": "fixture:synthetic-result-mechanism-nonidentity-001",
-      "source_timestamp": "2026-08-18T00:00:00Z",
+      "source_timestamp": "UNKNOWN",
       "retrieval_mechanism": "MCP_EXTERNAL_RETRIEVAL",
       "recall_source": "MCP_EXTERNAL_RETRIEVAL",
       "claim_level": "L0_OBSERVATION",
@@ -73,7 +73,7 @@
       "evidence_source_class": "EXPLICIT_HUMAN_OWNER_RECORD",
       "source_type": "HUMAN_OWNER_AUTHORIZATION",
       "source_id": "user-approved:phase-1-observation-evidence-bridge",
-      "source_timestamp": "2026-08-18T00:00:00Z",
+      "source_timestamp": "UNKNOWN",
       "label": "Human Owner authorization for bounded Phase 1 work",
       "attribution": "Human Owner authorized bounded Manus work on MCP Phase 1 and requested preservation of privacy, provenance and research boundaries.",
       "authority": "APPROVE_SCOPE",
@@ -85,7 +85,7 @@
       "evidence_source_class": "CHATGPT_TEACHER_RECORD",
       "source_type": "CHATGPT_TEACHER_FORMALIZATION",
       "source_id": "teacher-review:phase-1-observation-evidence-bridge",
-      "source_timestamp": "2026-08-18T00:00:00Z",
+      "source_timestamp": "UNKNOWN",
       "label": "ChatGPT / Teacher Phase 1 formalization",
       "attribution": "ChatGPT / Teacher formalized the Phase 1 Evidence Bridge architecture, pure-read requirement, six-tool bounded surface, runtime-recall exclusion, privacy minimization, contamination controls and non-authority rules.",
       "authority": "PROPOSE_REVIEW",
@@ -94,10 +94,10 @@
     },
     {
       "record_id": "prov-manus-implementation-executor-unknown-001",
-      "evidence_source_class": "JOINTLY_CONVERGED_RECORD",
+      "evidence_source_class": "TASK_EXECUTION_PROVENANCE",
       "source_type": "IMPLEMENTATION_EXECUTOR_PROVENANCE",
       "source_id": "task-provenance:pr41-phase1",
-      "source_timestamp": "2026-08-18T00:00:00Z",
+      "source_timestamp": "UNKNOWN",
       "label": "Implementation executor attribution",
       "attribution": "Orchestrator is Manus. Available evidence does not establish whether implementation was performed by Manus alone or through a Codex sub-execution; executor remains UNKNOWN.",
       "authority": "REVIEW",
@@ -136,7 +136,7 @@
     {
       "record_id": "prov-manus-implementation-executor-unknown-001",
       "source_id": "task-provenance:pr41-phase1",
-      "evidence_source_class": "JOINTLY_CONVERGED_RECORD",
+      "evidence_source_class": "TASK_EXECUTION_PROVENANCE",
       "source_type": "IMPLEMENTATION_EXECUTOR_PROVENANCE",
       "attribution": "Manus orchestrated the available task execution; implementation executor is UNKNOWN rather than inferred from the codex branch prefix or commit author.",
       "authority": "REVIEW"
@@ -144,6 +144,8 @@
   ],
   "research_boundary": {
     "phase": "MCP_PHASE_1_OBSERVATION_EVIDENCE_BRIDGE",
+    "evidence_source_class": "COMPOSITE_GOVERNANCE_RECORD",
+    "source_timestamp": "UNKNOWN",
     "allowed_inputs": [
       "SYNTHETIC_FIXTURES",
       "EXPLICIT_OBSERVATION_RECORDS",
@@ -193,6 +195,8 @@
     "canonical_effect": "NONE"
   },
   "current_nonclaims": {
+    "evidence_source_class": "COMPOSITE_GOVERNANCE_RECORD",
+    "source_timestamp": "UNKNOWN",
     "subjectivity_conclusion": "NOT_ESTABLISHED",
     "consciousness_conclusion": "NOT_ESTABLISHED",
     "identity_continuity_conclusion": "NOT_ESTABLISHED",
