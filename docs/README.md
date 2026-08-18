@@ -1,162 +1,79 @@
 # AION Documentation Guide
 
-> **Current documentation map for the public repository.**
->
-> This page answers one question: **what should a reader treat as current, core, supporting evidence, research reference material, or historical record?**
->
-> Dated incident, convergence, QA, branch-disposition, and research-candidate files are preserved for provenance. They are not automatically current just because they remain in the repository.
+> **Current documentation map after the 2026-08-18 indefinite repository freeze.**
 
-## Start here
+The repository remains public as a preserved research checkpoint, but active GitHub publication and repository growth have stopped.
 
-If you are new to AION, read in this order:
+## Current authority order
 
-1. [`../README.md`](../README.md) — project orientation and current repository boundary.
-2. [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — the research question, contribution and stable-whitepaper method inheritance in one page.
-3. [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) — operational evidence discipline and its relationship to the stable whitepaper method.
-4. [`ARCHITECTURE.md`](ARCHITECTURE.md) — the bounded governance architecture.
-5. [`NON_CLAIMS.md`](NON_CLAIMS.md) — what the repository does **not** establish.
-6. [`PROVENANCE.md`](PROVENANCE.md) — source, attribution and authority rules.
-7. [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — what is intentionally excluded from the public repository.
-8. [`THREAT_MODEL.md`](THREAT_MODEL.md) — major research-integrity and system threats.
+For present repository standing, read in this order:
 
-That sequence is the **core reader path**. Everything else is supporting detail, implementation evidence, research reference material, or historical record.
+1. [`REPOSITORY_FREEZE_NOTICE_2026-08-18.md`](REPOSITORY_FREEZE_NOTICE_2026-08-18.md) — authoritative freeze decision and restart rule.
+2. [`../README.md`](../README.md) — public project orientation.
+3. [`RELEASE_STATUS.md`](RELEASE_STATUS.md) — release and repository standing.
+4. Research branch: [`RESEARCH_BRANCH_STATUS.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/RESEARCH_BRANCH_STATUS.md).
 
-## Current repository standing
+At the freeze snapshot:
 
 ```text
-REPOSITORY_STATE = FROZEN_CHECKPOINT
-GOVERNED_ACTIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
-GOVERNED_ACTIVE_BRANCH_COUNT = 2
-VISIBLE_GIT_BRANCH_REF_COUNT = READ_FROM_CURRENT_GITHUB_STATE
-GOVERNED_ACTIVE_BRANCH_COUNT != VISIBLE_GIT_BRANCH_REF_COUNT
+FREEZE_EFFECTIVE_DATE = 2026-08-18
+REPOSITORY_STATE = INDEFINITE_FREEZE
+VISIBLE_BRANCH_COUNT = 2
+VISIBLE_BRANCHES = main + review/four-domain-research-materialization
+OPEN_PULL_REQUESTS = 0
+OPEN_ISSUES = 0
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = NO
+NEW_PUBLIC_RELEASES = NOT_AUTHORIZED
+CANONICAL_PROMOTION = NOT_AUTHORIZED
 DEPLOYMENT = FALSE
-CANONICAL_EFFECT = NONE
-SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
-IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
-INDEPENDENT_IVV = NOT_ACHIEVED
-LICENSE = Apache-2.0
 ```
 
-The governed active branches are intentionally limited to:
+## Core reader path
 
-- `main` — protected public baseline;
-- `review/four-domain-research-materialization` — preserved frozen research checkpoint.
+1. [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md)
+2. [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
+3. [`ARCHITECTURE.md`](ARCHITECTURE.md)
+4. [`NON_CLAIMS.md`](NON_CLAIMS.md)
+5. [`PROVENANCE.md`](PROVENANCE.md)
+6. [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md)
+7. [`THREAT_MODEL.md`](THREAT_MODEL.md)
 
-This two-branch statement is a **governance/authority model**, not a claim that GitHub physically exposes only two branch refs. Retained staging, remediation, support or HOLD refs may remain visible while their provenance-safe disposition is pending.
+## Document classes
 
-```text
-GOVERNED_ACTIVE_BRANCH != ANY_VISIBLE_GIT_BRANCH_REF
-VISIBLE_BRANCH_REF != CURRENT_RESEARCH_AUTHORITY
-```
+| Area | Meaning |
+|---|---|
+| `governance/` | Governance, authority, provenance, risk, and policy documents |
+| `evidence/` | Supporting standards, verification, and engineering evidence |
+| `research/` | Public research-reference material outside the core reader path |
+| `history/` | Dated/event-specific records preserved for provenance |
+| root current files | Current entry points and stable control dependencies |
 
-Archive tags may preserve retired checkpoints without turning them into releases, approvals or canonical promotions. The two semantic release tags, `v0.1.0-rc.1` and `v0.2.0-rc.1`, remain historical release checkpoints.
-
-For release/freeze standing, use [`RELEASE_STATUS.md`](RELEASE_STATUS.md). For research-branch standing, use [`RESEARCH_BRANCH_STATUS.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/RESEARCH_BRANCH_STATUS.md).
-
-## Core documents
-
-### Research meaning
-
-- [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) — concise research contribution and stable-whitepaper method inheritance.
-- [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) — public operational evidence protocol; not a subjectivity detector and not a replacement for the stable whitepaper method.
-- [`POSITION_PAPER_PROVENANCE_FIRST.md`](POSITION_PAPER_PROVENANCE_FIRST.md) — longer-form position-paper treatment.
-- [`NON_CLAIMS.md`](NON_CLAIMS.md) — epistemic and presentation limits.
-- [`PROJECT_PURPOSE_ANCHOR.md`](PROJECT_PURPOSE_ANCHOR.md) — purpose-preserving anchor.
-
-### Governance and architecture
-
-- [`ARCHITECTURE.md`](ARCHITECTURE.md) — architecture overview.
-- [`PROVENANCE.md`](PROVENANCE.md) — attribution, lineage and authority rules.
-- [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md) — public/private separation.
-- [`THREAT_MODEL.md`](THREAT_MODEL.md) — public threat model.
-- [`RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md`](RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md) — evidence-admission boundary and main-native record-contract semantics.
-
-### Current operational standing
-
-- [`RELEASE_STATUS.md`](RELEASE_STATUS.md) — current public repository/release standing.
-- [`QUALITY_ASSURANCE.md`](QUALITY_ASSURANCE.md) — current QA and evidence interpretation.
-- [`RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md`](RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md) — stable current runtime candidate view used by QA.
-- [`../BUILD_AND_VERIFY.md`](../BUILD_AND_VERIFY.md) — verification entry point.
-- [`../SECURITY.md`](../SECURITY.md) — security reporting.
-- [`../CONTRIBUTING.md`](../CONTRIBUTING.md) — contribution boundary.
-
-## Physical document tree
-
-| Area | Meaning | Entry point |
-|---|---|---|
-| `governance/` | Current governance, authority, provenance, risk, and policy documents | [`governance/README.md`](governance/README.md) |
-| `evidence/` | Supporting standards, verification, and engineering evidence | [`evidence/README.md`](evidence/README.md) |
-| `research/` | Public research-reference material outside the core reader path | [`research/README.md`](research/README.md) |
-| `history/` | Dated and event-specific records preserved for provenance | [`history/README.md`](history/README.md) |
-| stable root exceptions | Current entry points and exact-path control dependencies | [`DOCUMENT_PATH_MIGRATION.md`](DOCUMENT_PATH_MIGRATION.md) |
-
-`docs/` root intentionally retains only core/current entry points and a small number of stable control dependencies. The stable exceptions are documented; they are not accidental failures to classify.
-
-## Stable path exceptions
-
-Some supporting or research documents remain at exact root paths because current workflows, validators, tests, or IQC use them as executable contracts. These include the C0 acceptance index, C0 external-standards crosswalk, subjectivity evidence protocol, current runtime reality matrix, and current QA policy. Their rationale is recorded in [`DOCUMENT_PATH_MIGRATION.md`](DOCUMENT_PATH_MIGRATION.md).
-
-## How to interpret the document set
-
-The repository intentionally preserves dated evidence because provenance matters. The presence of many files therefore does **not** mean every file is equally authoritative.
-
-Use this hierarchy:
-
-```text
-CURRENT
-  README.md
-  docs/README.md
-  docs/RELEASE_STATUS.md
-  current stable QA/control path exceptions
-  research branch: RESEARCH_BRANCH_STATUS.md
-
-CORE
-  research contribution
-  subjectivity evidence protocol / whitepaper-method bridge
-  architecture
-  purpose anchor
-  non-claims
-  provenance
-  public/private boundary
-  threat model
-
-GOVERNANCE
-  docs/governance/
-
-SUPPORTING EVIDENCE
-  docs/evidence/
-  stable C0/QA/control dependencies
-  component docs and QA reports
-
-RESEARCH REFERENCE
-  docs/research/
-
-HISTORICAL / EVENT RECORDS
-  docs/history/
-  dated C0, PR, branch, freeze, reconciliation, and checkpoint records
-```
-
-A historical file may accurately describe what was true at its event time while no longer describing the repository's current branch count, current workflow state, or current authority standing.
+The repository intentionally preserves dated evidence. File count does not establish authority.
 
 ## Historical evidence rule
 
-Do not mechanically rewrite dated evidence to make it look current. Instead:
+Do not mechanically rewrite dated records to make them look current.
 
 ```text
 HISTORICAL_RECORD = PRESERVE_EVENT_MEANING
 CURRENT_STATUS = READ_FROM_CURRENT_ENTRY_POINTS
+FILE_PRESENCE != CURRENT_AUTHORITY
 NEWER_CANDIDATE != AUTOMATIC_SUPERSESSION
 CI_PASS != SCIENTIFIC_VALIDATION
 TEST_PASS != THEORY_CONFIRMATION
 ARCHIVE_TAG != RELEASE
-ARCHIVE_TAG != APPROVAL
 RESEARCH_BRANCH != MAIN
 ```
 
-This keeps the repository auditable without forcing a new reader to reconstruct current state from old incidents and convergence packets.
+Transitional snapshots that mentioned pending support branches, PR pre-merge counts, or convergence-in-progress remain historical evidence only. The observed final branch inventory on 2026-08-18 is two branches.
+
+## Freeze boundary
+
+No new documentation cycle, engineering cycle, research-materialization cycle, public release, branch expansion, deployment promotion, or canonical promotion is authorized by default.
+
+The freeze does **not** claim the research question is finished. A future restart requires a new explicit Human Owner authorization and a fresh independent ChatGPT architecture/evidence/provenance review.
 
 ## What not to infer
 
-Neither the documentation structure nor successful engineering/QA establishes consciousness, subjectivity, identity continuity, autobiographical memory, moral status, production readiness, deployment authority, or independent IV&V. See [`NON_CLAIMS.md`](NON_CLAIMS.md).
+Neither repository preservation nor successful historical QA establishes consciousness, subjectivity, identity continuity, autobiographical memory, moral status, production readiness, deployment authority, or independent IV&V.
