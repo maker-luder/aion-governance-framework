@@ -37,10 +37,11 @@ All tools are annotated as read-only, non-destructive, idempotent and closed-wor
 
 ## Returned provenance
 
-Every response contains:
+The canonical dimensions are:
 
 ```text
-source_type
+evidence_source_class
+retrieval_mechanism
 source_id
 source_timestamp
 retrieval_timestamp
@@ -48,13 +49,21 @@ tool_name
 tool_call_id
 authority
 canonical_effect
-recall_source
 accepted_as_fact
 memory_write
 identity_authority
 ```
 
-`recall_source` is explicit and is not inferred from text:
+Compatibility aliases remain for older callers only:
+
+```text
+source_type = evidence_source_class
+recall_source = retrieval_mechanism
+```
+
+Do not treat either alias as a separate provenance dimension.
+
+`retrieval_mechanism` vocabulary includes:
 
 ```text
 INTERNAL_CONTEXT
@@ -66,6 +75,16 @@ UNKNOWN
 ```
 
 MCP retrieval is therefore distinguishable from a model's natural/internal continuity behavior. Similar output does not imply identical mechanism.
+
+Source classes distinguish what kind of evidence is being represented. `COMPOSITE_GOVERNANCE_RECORD` is used when the returned governance material contains multiple known provenance contributions and must not be collapsed into Human Owner-only or Teacher-only authorship. `TASK_EXECUTION_PROVENANCE` is used for execution-chain evidence and must not be mislabeled as a jointly authored research record.
+
+When a source time is not independently supported, Phase 1 records use:
+
+```text
+source_timestamp = UNKNOWN
+```
+
+rather than inventing midnight or another false-precision timestamp.
 
 ## Inputs
 
@@ -90,7 +109,7 @@ python -m pip install -e '.[dev]'
 python -m pytest -q
 ```
 
-The tests check the exact tool inventory, read-only annotations, provenance fields, source flags, fail-closed lookup, immutable store behavior, absence of runtime imports, absence of write tools, and fixed nonclaims.
+The tests check the exact tool inventory, read-only annotations, provenance fields, retrieval/source separation, fail-closed lookup, immutable store behavior, absence of runtime imports, absence of write tools, fixed nonclaims and source-attribution boundaries.
 
 ## Authority
 
