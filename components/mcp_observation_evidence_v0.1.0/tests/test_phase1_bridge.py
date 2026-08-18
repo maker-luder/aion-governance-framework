@@ -110,7 +110,7 @@ def test_list_and_get_return_provenance_source_flags_and_nonclaims() -> None:
             assert listed["memory_write"] == "NONE"
             assert listed["identity_authority"] == "NONE"
             assert listed["retrieval_mechanism"] == "MCP_EXTERNAL_RETRIEVAL"
-            assert listed["recall_source"] == "MCP_EXTERNAL_RETRIEVAL"
+            assert listed["recall_source"] == listed["retrieval_mechanism"]
             provenance = listed["provenance"]
             assert isinstance(provenance, dict)
             for field in (
@@ -126,6 +126,8 @@ def test_list_and_get_return_provenance_source_flags_and_nonclaims() -> None:
                 "canonical_effect",
             ):
                 assert provenance.get(field)
+            assert provenance["source_type"] == provenance["evidence_source_class"]
+            assert provenance["source_timestamp"] == "UNKNOWN"
             observations = listed["data"]["records"]
             assert len(observations) == 2
 
@@ -181,11 +183,15 @@ def test_queries_fail_closed_and_boundary_tools_are_non_mutating() -> None:
             assert "call_existing_runtime_recall" in boundary["data"]["prohibited_operations"]
             assert "PRIVATE_CONVERSATION_BULK_INGEST" in boundary["data"]["excluded_inputs"]
             assert boundary["data"]["canonical_effect"] == "NONE"
+            assert boundary["provenance"]["evidence_source_class"] == "COMPOSITE_GOVERNANCE_RECORD"
+            assert boundary["provenance"]["source_timestamp"] == "UNKNOWN"
 
             nonclaims = _json(await client.call_tool("get_current_nonclaims", {}))
             assert nonclaims["data"]["subjectivity_conclusion"] == "NOT_ESTABLISHED"
             assert nonclaims["data"]["identity_continuity_conclusion"] == "NOT_ESTABLISHED"
             assert nonclaims["data"]["live_runtime_effect"] == "NONE"
+            assert nonclaims["provenance"]["evidence_source_class"] == "COMPOSITE_GOVERNANCE_RECORD"
+            assert nonclaims["provenance"]["source_timestamp"] == "UNKNOWN"
 
         assert store.list_continuity_observations() == before
 
@@ -202,11 +208,15 @@ def test_provenance_authority_and_executor_are_separated() -> None:
 
     assert owner["source_type"] == "HUMAN_OWNER_AUTHORIZATION"
     assert owner["authority"] == "APPROVE_SCOPE"
+    assert owner["source_timestamp"] == "UNKNOWN"
     assert teacher["source_type"] == "CHATGPT_TEACHER_FORMALIZATION"
     assert teacher["authority"] == "PROPOSE_REVIEW"
+    assert teacher["source_timestamp"] == "UNKNOWN"
     assert owner["source_type"] != teacher["source_type"]
+    assert executor["evidence_source_class"] == "TASK_EXECUTION_PROVENANCE"
     assert executor["orchestrator"] == "MANUS"
     assert executor["implementation_executor"] == "UNKNOWN"
+    assert executor["source_timestamp"] == "UNKNOWN"
 
 
 def test_retrieval_mechanism_and_evidence_source_class_are_distinct() -> None:
