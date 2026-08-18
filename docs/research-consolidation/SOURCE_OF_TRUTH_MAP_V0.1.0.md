@@ -4,7 +4,7 @@
 
 ## 1. Authority rules
 
-The source of truth is selected by **question type**. Executable source and tests are authoritative for implemented behavior. Schemas and validators are authoritative for record shape and admission rules. Current status documents are authoritative for branch standing. Whitepaper reconciliation is authoritative for the standing scientific method and supersession interpretation. Primary external sources are authoritative only for what their authors report. Kimi intake and derived crosswalks are discovery/translation layers, never primary evidence.
+The source of truth is selected by **question type**. Executable source and tests are authoritative for implemented behavior. Schemas and validators are authoritative for record shape and admission rules. Current status documents are authoritative for branch standing. The locally retained v0.14.23 stable/frozen whitepaper artifact is the primary semantic/method source; the v0.14.24 material is an internal candidate and is not automatic supersession. The 2026-08-12 web-branch reconciliation is a repository-side supervised reconciliation/derived bridge, not the original whitepaper artifact. `docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md` is the current question-scoped operational projection. Primary external sources are authoritative only for what their authors report. Kimi intake and derived crosswalks are discovery/translation layers, never primary evidence.
 
 A later artifact may supersede a current-state view without deleting the earlier record. Dates remain part of provenance. No document is allowed to promote a test pass, runtime maturity, literature alignment, or repository label into a subjectivity, identity, consciousness, moral-status, canonical or deployment conclusion.
 
@@ -14,8 +14,8 @@ A later artifact may supersede a current-state view without deleting the earlier
 |---|---|---|---|---|---|
 | What is the research branch standing? | `RESEARCH_BRANCH_STATUS.md` | Root `README.md` navigation and summary | Earlier branch handoffs | CURRENT | KEEP_RESEARCH_ONLY |
 | What is the public reviewer orientation? | `README.md` plus status file parity checks | This consolidation index | Historical homepages | CURRENT | KEEP_RESEARCH_ONLY |
-| What is the primary scientific evidence method? | Preserved integrated-whitepaper lineage: `research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md` plus `RESEARCH_BRANCH_STATUS.md` standing interpretation | `docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md` as the current question-scoped operational projection | 2026-08-11 reconciliation remains historical context; `v0.14.23` is stable/frozen and `v0.14.24` is an internal candidate | CURRENT | KEEP_RESEARCH_ONLY |
-| Which whitepaper is stable? | Local lineage reconciliation: `v0.14.23` stable/frozen baseline | `v0.14.24` candidate notes | `v0.14.24` is not automatic supersession | CURRENT | KEEP_RESEARCH_ONLY |
+| What is the primary scientific evidence method? | Local v0.14.23 stable/frozen whitepaper artifact (persistent path not confirmed in the current research ref) | `docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md` as the current question-scoped operational projection; `research-workbench/four-domain-materialization/2026-08-12/WHITEPAPER_WEB_BRANCH_RECONCILIATION_2026-08-12.md` as a repository-side supervised reconciliation/derived bridge | `v0.14.24` is an internal candidate and not automatic supersession; reconciliation documents remain derived historical/bridge evidence | CURRENT | KEEP_RESEARCH_ONLY |
+| Which whitepaper is stable? | Local v0.14.23 stable/frozen whitepaper artifact (persistent path not confirmed in the current research ref) | v0.14.24 internal research candidate notes | The 2026-08-12 reconciliation is a derived supervised bridge, not the original whitepaper; v0.14.24 is not automatic supersession | CURRENT | KEEP_RESEARCH_ONLY |
 | What is Four-Domain construct mapping? | `FOUR_DOMAIN_REPOSITORY_CROSSWALK.md` | P1–P5 packet documents | Earlier gap maps | CURRENT | KEEP_RESEARCH_ONLY |
 | What does P2 actually implement? | P2 Python source under `research-labs/four-domain-p2-materialization_v0.1.0/src/` | P2 README and Packet C | Original Packet C count is historical | CURRENT | KEEP_RESEARCH_ONLY |
 | What behavior does P2 promise? | `tests/test_p2_compact.py` and `fixtures/p2_synthetic_fixture_a.json` | P2 Packet C and README | Old reported test count | CURRENT | KEEP_RESEARCH_ONLY |
@@ -41,7 +41,7 @@ A later artifact may supersede a current-state view without deleting the earlier
 
 ### 3.2 Whitepaper reconciliation versus older governance addenda
 
-The 2026-08-12 supervised reconciliation is the current source for the standing architecture, stable-vs-candidate lineage and repair dispositions. The 2026-08-11 addenda are preserved as dated historical evidence and may explain how the current position developed. They are not deleted and are not allowed to override later current standing.
+The locally retained v0.14.23 stable/frozen whitepaper artifact is the primary semantic/method source. The 2026-08-12 document is a repository-side supervised reconciliation that cross-checks separate evidence surfaces, including the local integrated-whitepaper lineage; it is a derived bridge and not the original whitepaper artifact. The v0.14.24 material remains an internal candidate and does not automatically supersede v0.14.23. The 2026-08-11 addenda are preserved as dated historical evidence and may explain how the current position developed. They are not deleted and are not allowed to override later current standing.
 
 ### 3.3 P2 packet prose versus implementation/test reality
 
@@ -61,7 +61,9 @@ Runtime v0.2 and G1 are implementation substrates, not the scientific method and
 EXECUTABLE_SOURCE + TESTS = IMPLEMENTED_BEHAVIOR
 SCHEMA + VALIDATOR = ADMISSION_SHAPE
 RESEARCH_BRANCH_STATUS = CURRENT_BRANCH_STANDING
-WHITEPAPER_RECONCILIATION = CURRENT_STANDING_METHOD
+WHITEPAPER_PRIMARY = LOCAL_V0.14.23_STABLE_FROZEN_ARTIFACT
+WHITEPAPER_RECONCILIATION = DERIVED_SUPERVISED_BRIDGE
+OPERATIONAL_PROJECTION = docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md
 PRIMARY_SOURCE = EXTERNAL_AUTHOR_REPORT
 KIMI_INTAKE = DISCOVERY_ONLY
 HISTORICAL_RECORD = PRESERVED_NOT_CURRENT

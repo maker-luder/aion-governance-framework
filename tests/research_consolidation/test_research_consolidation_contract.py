@@ -12,6 +12,13 @@ def test_machine_consistency_checker_passes():
     assert consistency.main() == 0
 
 
+def test_machine_consistency_checker_uses_pull_request_base_context(monkeypatch):
+    monkeypatch.setenv("GITHUB_EVENT_NAME", "pull_request")
+    monkeypatch.setenv("GITHUB_BASE_REF", "review/four-domain-research-materialization")
+    monkeypatch.setenv("GITHUB_REF_NAME", "42/merge")
+    assert consistency.main() == 0
+
+
 def test_named_artifacts_have_markdown_and_json_companions():
     pairs = (
         "RESEARCH_INDEX_V0.1.0",

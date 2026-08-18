@@ -1,0 +1,1063 @@
+[1mdiff --git a/.github/workflows/mcp-strong-qa.yml b/.github/workflows/mcp-strong-qa.yml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a142700[m
+[1m--- /dev/null[m
+[1m+++ b/.github/workflows/mcp-strong-qa.yml[m
+[36m@@ -0,0 +1,46 @@[m
+[32m+[m[32mname: MCP Strong QA[m
+[32m+[m
+[32m+[m[32mon:[m
+[32m+[m[32m  push:[m
+[32m+[m[32m    branches:[m
+[32m+[m[32m      - main[m
+[32m+[m[32m      - "feat/mcp-*"[m
+[32m+[m[32m    paths:[m
+[32m+[m[32m      - "components/mcp_interface_v0.1.0/**"[m
+[32m+[m[32m      - "scripts/run_mcp_strong_qa.sh"[m
+[32m+[m[32m      - ".github/workflows/mcp-strong-qa.yml"[m
+[32m+[m[32m      - "DEPENDENCY_LICENSE_REPORT.json"[m
+[32m+[m[32m      - "THIRD_PARTY_NOTICES.md"[m
+[32m+[m[32m  pull_request:[m
+[32m+[m[32m    paths:[m
+[32m+[m[32m      - "components/mcp_interface_v0.1.0/**"[m
+[32m+[m[32m      - "scripts/run_mcp_strong_qa.sh"[m
+[32m+[m[32m      - ".github/workflows/mcp-strong-qa.yml"[m
+[32m+[m[32m      - "DEPENDENCY_LICENSE_REPORT.json"[m
+[32m+[m[32m      - "THIRD_PARTY_NOTICES.md"[m
+[32m+[m[32m  workflow_dispatch:[m
+[32m+[m
+[32m+[m[32mpermissions:[m
+[32m+[m[32m  contents: read[m
+[32m+[m
+[32m+[m[32mjobs:[m
+[32m+[m[32m  mcp-strong-qa:[m
+[32m+[m[32m    name: MCP Strong QA / Python 3.11[m
+[32m+[m[32m    runs-on: ubuntu-latest[m
+[32m+[m[32m    steps:[m
+[32m+[m[32m      - name: Checkout[m
+[32m+[m[32m        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1[m
+[32m+[m[32m        with:[m
+[32m+[m[32m          persist-credentials: false[m
+[32m+[m
+[32m+[m[32m      - name: Set up Python[m
+[32m+[m[32m        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7[m
+[32m+[m[32m        with:[m
+[32m+[m[32m          python-version: "3.11"[m
+[32m+[m[32m          cache: pip[m
+[32m+[m
+[32m+[m[32m      - name: Install MCP QA toolchain[m
+[32m+[m[32m        run: python -m pip install --upgrade pip pytest pytest-cov mypy build setuptools wheel[m
+[32m+[m
+[32m+[m[32m      - name: Run bounded MCP Strong QA[m
+[32m+[m[32m        run: bash scripts/run_mcp_strong_qa.sh[m
+[1mdiff --git a/.github/workflows/quality.yml b/.github/workflows/quality.yml[m
+[1mindex a76aa8b..d5f48a1 100644[m
+[1m--- a/.github/workflows/quality.yml[m
+[1m+++ b/.github/workflows/quality.yml[m
+[36m@@ -37,6 +37,7 @@[m [mjobs:[m
+         run: |[m
+           python -m pip install --upgrade pip pytest pytest-cov jsonschema[m
+           python -m pip install -e examples/bazi-capability_v0.1.1[m
+[32m+[m[32m          python -m pip install -e components/mcp_interface_v0.1.0[m
+ [m
+       - name: Test source-state binding control[m
+         run: python -m pytest -q tests/test_source_state_binding.py[m
+[1mdiff --git a/DEPENDENCY_LICENSE_REPORT.json b/DEPENDENCY_LICENSE_REPORT.json[m
+[1mindex 7527cd5..703c1a6 100644[m
+[1m--- a/DEPENDENCY_LICENSE_REPORT.json[m
+[1m+++ b/DEPENDENCY_LICENSE_REPORT.json[m
+[36m@@ -1,5 +1,18 @@[m
+ {[m
+   "status": "REVIEW_REQUIRED_BEFORE_RELEASE",[m
+   "vendored_dependencies": [],[m
+[31m-  "note": "No third-party dependency source or wheel is included. Declared dependencies must be resolved by the installer and independently license-reviewed."[m
+[32m+[m[32m  "declared_dependencies": [[m
+[32m+[m[32m    {[m
+[32m+[m[32m      "component": "components/mcp_interface_v0.1.0",[m
+[32m+[m[32m      "package": "mcp",[m
+[32m+[m[32m      "version": "2.0.0",[m
+[32m+[m[32m      "source_repository": "modelcontextprotocol/python-sdk",[m
+[32m+[m[32m      "license_observed": "MIT",[m
+[32m+[m[32m      "license_file_copyright_observed": "Copyright (c) 2024 Anthropic, PBC",[m
+[32m+[m[32m      "protocol_governance_observed": "Model Context Protocol is established as a Series of LF Projects, LLC",[m
+[32m+[m[32m      "observation_date": "2026-08-17",[m
+[32m+[m[32m      "review_status": "SOURCE_AND_LICENSE_METADATA_RECORDED / INDEPENDENT_REVIEW_PENDING"[m
+[32m+[m[32m    }[m
+[32m+[m[32m  ],[m
+[32m+[m[32m  "note": "No third-party dependency source or wheel is committed or vendored. The MCP SDK is installer-resolved and exactly version-pinned for this candidate. Source/license metadata is recorded for provenance; independent dependency-license review remains required before release."[m
+ }[m
+[1mdiff --git a/THIRD_PARTY_NOTICES.md b/THIRD_PARTY_NOTICES.md[m
+[1mindex 22969e5..d83e1f6 100644[m
+[1m--- a/THIRD_PARTY_NOTICES.md[m
+[1m+++ b/THIRD_PARTY_NOTICES.md[m
+[36m@@ -1,3 +1,18 @@[m
+ # Third-Party Notices[m
+ [m
+[31m-This consolidation did not vendor third-party dependency code or model weights. Python package metadata may declare development dependencies. Before publication, an independent reviewer must verify dependency licenses and the owner must choose a project license. OpenAI, ChatGPT and Codex names are referenced only to disclose collaboration context; no affiliation or endorsement is claimed.[m
+[32m+[m[32mThis repository does not vendor third-party dependency source, wheels, or model weights. Python package metadata may declare installer-resolved dependencies. Before publication, dependency licenses remain subject to independent review.[m
+[32m+[m
+[32m+[m[32m## MCP interface candidate dependency[m
+[32m+[m
+[32m+[m[32m`components/mcp_interface_v0.1.0` declares `mcp==2.0.0` from `modelcontextprotocol/python-sdk`.[m
+[32m+[m
+[32m+[m[32mObserved provenance for the pinned candidate on 2026-08-17:[m
+[32m+[m
+[32m+[m[32m- SDK license: MIT.[m
+[32m+[m[32m- The SDK `v2.0.0` license file retains the historical copyright line `Copyright (c) 2024 Anthropic, PBC`.[m
+[32m+[m[32m- The Model Context Protocol project is currently established as a Series of LF Projects, LLC; current protocol governance is therefore distinct from the historical SDK copyright attribution.[m
+[32m+[m[32m- This dependency supplies protocol implementation software only. It does not establish a model-provider dependency, affiliation, endorsement, research authority, or canonical project authority.[m
+[32m+[m
+[32m+[m[32mThis notice records source and license metadata for provenance. It is not legal advice or independent license certification.[m
+[32m+[m
+[32m+[m[32mOpenAI, ChatGPT and Codex names elsewhere in the repository are referenced only to disclose collaboration context; no affiliation or endorsement is claimed.[m
+[1mdiff --git a/components/mcp_interface_v0.1.0/README.md b/components/mcp_interface_v0.1.0/README.md[m
+[1mnew file mode 100644[m
+[1mindex 0000000..19584bf[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/README.md[m
+[36m@@ -0,0 +1,111 @@[m
+[32m+[m[32m# AION / Astra MCP Read-Only Interface Candidate v0.1.0[m
+[32m+[m
+[32m+[m[32mStatus: `IMPLEMENTED_CANDIDATE / READ_ONLY_INTERFACE`[m[41m  [m
+[32m+[m[32mCanonical effect: `NONE`[m[41m  [m
+[32m+[m[32mDeployment: `FALSE`[m[41m  [m
+[32m+[m[32mNetwork exposure: `NONE`[m[41m  [m
+[32m+[m[32mIndependent IV&V: `NOT_ACHIEVED`[m
+[32m+[m
+[32m+[m[32mThis component is a deliberately small Model Context Protocol (MCP) gateway candidate for AION/Astra. It materializes the external-capability boundary without making MCP part of identity, memory truth, canonical state, or research authority.[m
+[32m+[m
+[32m+[m[32m## Scope[m
+[32m+[m
+[32m+[m[32mThe first candidate is intentionally **tool-only and read-only**. It uses the stable MCP Python SDK `v2.0.0` and exposes only local stdio transport.[m
+[32m+[m
+[32m+[m[32mRegistered tools:[m
+[32m+[m
+[32m+[m[32m- `aion_get_status`[m
+[32m+[m[32m- `astra_get_status`[m
+[32m+[m[32m- `memory_get_candidate`[m
+[32m+[m[32m- `provenance_get_record`[m
+[32m+[m[32m- `evidence_get_artifact`[m
+[32m+[m
+[32m+[m[32mEvery tool is annotated as read-only, non-destructive, idempotent, and closed-world. No tool can write memory, mutate identity, alter canonical state, migrate a Runtime, execute shell commands, merge repository state, deploy, or perform unrestricted filesystem/network access.[m
+[32m+[m
+[32m+[m[32m## Boundary model[m
+[32m+[m
+[32m+[m[32m```text[m
+[32m+[m[32mMCP_RETRIEVED != VERIFIED[m
+[32m+[m[32mMCP_RESOURCE_OR_TOOL_OUTPUT != CANONICAL_STATE[m
+[32m+[m[32mMCP_ACCESS != AUTHORITY[m
+[32m+[m[32mMCP_SERVER_IDENTITY != AION_OR_ASTRA_IDENTITY[m
+[32m+[m[32mMCP_RUNTIME_VIEW != RUNTIME_HANDLE[m
+[32m+[m[32mMCP_RUNTIME_FINGERPRINT != RAW_LINEAGE_LOCATOR[m
+[32m+[m[32mMEMORY_CANDIDATE_READ != ACCEPTED_FACT[m
+[32m+[m[32mPROVENANCE_RECORD_READ != CLAIM_VERIFIED[m
+[32m+[m[32mEVIDENCE_ARTIFACT_READ != CURRENT_SCOPE_VALIDATION[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mAll returned payloads are wrapped in a `GatewayResult` envelope with:[m
+[32m+[m
+[32m+[m[32m- `canonical_effect = NONE`[m
+[32m+[m[32m- `accepted_as_fact = false`[m
+[32m+[m[32m- explicit subject and found/not-found state[m
+[32m+[m
+[32m+[m[32mThe MCP layer therefore transports candidate information; existing recall, provenance, epistemic-integrity, writeback, and Human Owner authority gates remain responsible for acceptance or mutation decisions.[m
+[32m+[m
+[32m+[m[32m## Provider boundary[m
+[32m+[m
+[32m+[m[32m`SnapshotProvider` is the only source adapter contract in this candidate. The default `EmptySnapshotProvider` exposes no private state and returns an explicit `UNBOUND_PROVIDER` observation.[m
+[32m+[m
+[32m+[m[32mThe optional `MaterializedRuntimeSnapshotProvider` can observe a **real AION Runtime and/or Astra Runtime at materialization time**, but it does not retain the Runtime object. It copies only an explicit allowlist of public Runtime status fields.[m
+[32m+[m
+[32m+[m[32mIndividual-runtime binding identifiers are not exposed raw. Each snapshot generates an ephemeral random 256-bit key, computes field-separated `HMAC-SHA256` fingerprints, and discards the key after materialization. The visible fingerprints are therefore intentionally **not stable across rematerialization** and are not intended as durable cross-session identifiers.[m
+[32m+[m
+[32m+[m[32mThe materialized view deliberately excludes:[m
+[32m+[m
+[32m+[m[32m- Runtime object references;[m
+[32m+[m[32m- `SQLiteMemoryStore` handles or database paths;[m
+[32m+[m[32m- `IndividualRuntimeStateStore` handles;[m
+[32m+[m[32m- execution-engine handles;[m
+[32m+[m[32m- raw `runtime_instance_id`, `memory_stream_id`, `event_lineage_id`, `canonical_state_reference`, and `genesis_root_id` values;[m
+[32m+[m[32m- fingerprint keys;[m
+[32m+[m[32m- `run_task`, `remember`, checkpoint, recovery, rollback, or migration capabilities.[m
+[32m+[m
+[32m+[m[32mThe snapshot is point-in-time and must be explicitly rematerialized to observe later Runtime state. A boundary drift such as `automatic_canonical_writeback != DISABLED`, `subjectivity_conclusion != NOT_ESTABLISHED`, or `independent_ivv != NOT_ACHIEVED` fails closed instead of being surfaced automatically.[m
+[32m+[m
+[32m+[m[32mThis design lets MCP distinguish the bound engineering Runtime within one materialized view without receiving a live capability handle, a raw lineage locator, or a durable cross-materialization tracking identifier. It does **not** independently verify identity or continuity.[m
+[32m+[m
+[32m+[m[32mMemory, provenance, GitHub, and local-environment adapters remain unbound in this Runtime-snapshot provider.[m
+[32m+[m
+[32m+[m[32m## Transport[m
+[32m+[m
+[32m+[m[32mThe executable entry point is:[m
+[32m+[m
+[32m+[m[32m```bash[m
+[32m+[m[32maion-astra-mcp-readonly[m
+[32m+[m[32m```[m
+[32m+[m
+[32m+[m[32mIt starts an **unbound** stdio MCP server only. Binding a materialized Runtime snapshot remains an explicit host-side construction step. HTTP/SSE hosting, authentication, TLS, remote deployment, Apps SDK widget UI, and mutating tools are outside this candidate.[m
+[32m+[m
+[32m+[m[32m## Validation target[m
+[32m+[m
+[32m+[m[32mThe component tests use the MCP SDK's in-memory `Client` against the actual `MCPServer` object to verify:[m
+[32m+[m
+[32m+[m[32m- exact tool inventory;[m
+[32m+[m[32m- safety annotations;[m
+[32m+[m[32m- no MCP resources in the first candidate;[m
+[32m+[m[32m- structured read-only result envelopes;[m
+[32m+[m[32m- missing candidates fail closed without becoming facts;[m
+[32m+[m[32m- actual `AIONRuntime` and `AstraRuntime` objects can be materialized into safe MCP projections;[m
+[32m+[m[32m- raw lineage identifiers and local database paths are absent from the MCP-visible projection;[m
+[32m+[m[32m- the provider retains no Runtime/store/state/execution handles;[m
+[32m+[m[32m- Runtime fingerprints change across independent rematerializations;[m
+[32m+[m[32m- unsafe Runtime boundary drift is rejected before exposure.[m
+[32m+[m
+[32m+[m[32m## Provenance[m
+[32m+[m
+[32m+[m[32m- MCP priority and authorization to continue into safe Runtime visibility for this cycle: `HUMAN_OWNER`.[m
+[32m+[m[32m- Read-only/tool-only architecture, one-way Runtime snapshot design, and implementation: `CHATGPT`.[m
+[32m+[m[32m- Existing AION/Astra Runtime binding and status contracts: repository pre-existing engineering artifacts.[m
+[32m+[m[32m- Upstream MCP implementation contract: OpenAI Developers `build-chatgpt-app` installed skill plus the official Model Context Protocol Python SDK `v2.0.0` API.[m
+[32m+[m[32m- `CODEX_CONTRIBUTION_THIS_CHANGE = NONE`.[m
+[32m+[m
+[32m+[m[32m## Non-claims[m
+[32m+[m
+[32m+[m[32m- no canonical AION/Astra Runtime is established;[m
+[32m+[m[32m- no identity continuity, subjectivity, consciousness, or autobiographical-memory conclusion is established;[m
+[32m+[m[32m- no deployment authority is granted;[m
+[32m+[m[32m- no private memory is published or bound;[m
+[32m+[m[32m- no MCP host/client connection is evidence of relationship, identity, ownership, or authorization;[m
+[32m+[m[32m- an ephemeral lineage fingerprint is only an opaque per-materialization engineering comparison value; it is not independent identity verification.[m
+[1mdiff --git a/components/mcp_interface_v0.1.0/pyproject.toml b/components/mcp_interface_v0.1.0/pyproject.toml[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8ee5061[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/pyproject.toml[m
+[36m@@ -0,0 +1,33 @@[m
+[32m+[m[32m[build-system][m
+[32m+[m[32mrequires = ["setuptools>=68"][m
+[32m+[m[32mbuild-backend = "setuptools.build_meta"[m
+[32m+[m
+[32m+[m[32m[project][m
+[32m+[m[32mname = "aion-astra-mcp-readonly-interface"[m
+[32m+[m[32mversion = "0.1.0"[m
+[32m+[m[32mdescription = "Read-only MCP interface candidate for bounded AION/Astra external capability access"[m
+[32m+[m[32mrequires-python = ">=3.11"[m
+[32m+[m[32mdependencies = [[m
+[32m+[m[32m  "mcp==2.0.0",[m
+[32m+[m[32m][m
+[32m+[m
+[32m+[m[32m[project.scripts][m
+[32m+[m[32maion-astra-mcp-readonly = "aion_mcp_interface.server:main"[m
+[32m+[m
+[32m+[m[32m[project.optional-dependencies][m
+[32m+[m[32mdev = ["pytest>=8", "pytest-cov>=5"][m
+[32m+[m
+[32m+[m[32m[tool.setuptools.packages.find][m
+[32m+[m[32mwhere = ["src"][m
+[32m+[m
+[32m+[m[32m[tool.pytest.ini_options][m
+[32m+[m[32mtestpaths = ["tests"][m
+[32m+[m[32mpythonpath = ["src"][m
+[32m+[m[32maddopts = "-ra"[m
+[32m+[m
+[32m+[m[32m[tool.mypy][m
+[32m+[m[32mpython_version = "3.11"[m
+[32m+[m[32mstrict = true[m
+[32m+[m[32mwarn_unreachable = true[m
+[32m+[m[32mshow_error_codes = true[m
+[32m+[m[32mpackages = ["aion_mcp_interface"][m
+[1mdiff --git a/components/mcp_interface_v0.1.0/src/aion_mcp_interface/__init__.py b/components/mcp_interface_v0.1.0/src/aion_mcp_interface/__init__.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7ee05e1[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/src/aion_mcp_interface/__init__.py[m
+[36m@@ -0,0 +1,18 @@[m
+[32m+[m[32m"""Bounded read-only MCP interface candidate for AION/Astra."""[m
+[32m+[m
+[32m+[m[32mfrom .runtime_snapshot import ([m
+[32m+[m[32m    MaterializedRuntimeSnapshotProvider,[m
+[32m+[m[32m    RuntimeReadSnapshot,[m
+[32m+[m[32m    RuntimeSnapshotRejected,[m
+[32m+[m[32m)[m
+[32m+[m[32mfrom .server import EmptySnapshotProvider, GatewayResult, SnapshotProvider, build_server[m
+[32m+[m
+[32m+[m[32m__all__ = [[m
+[32m+[m[32m    "EmptySnapshotProvider",[m
+[32m+[m[32m    "GatewayResult",[m
+[32m+[m[32m    "MaterializedRuntimeSnapshotProvider",[m
+[32m+[m[32m    "RuntimeReadSnapshot",[m
+[32m+[m[32m    "RuntimeSnapshotRejected",[m
+[32m+[m[32m    "SnapshotProvider",[m
+[32m+[m[32m    "build_server",[m
+[32m+[m[32m][m
+[1mdiff --git a/components/mcp_interface_v0.1.0/src/aion_mcp_interface/runtime_snapshot.py b/components/mcp_interface_v0.1.0/src/aion_mcp_interface/runtime_snapshot.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..9379ce8[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/src/aion_mcp_interface/runtime_snapshot.py[m
+[36m@@ -0,0 +1,217 @@[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mimport hmac[m
+[32m+[m[32mfrom collections.abc import Mapping[m
+[32m+[m[32mfrom dataclasses import dataclass[m
+[32m+[m[32mfrom hashlib import sha256[m
+[32m+[m[32mfrom secrets import token_bytes[m
+[32m+[m[32mfrom typing import Protocol[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass RuntimeSnapshotRejected(ValueError):[m
+[32m+[m[32m    """Raised when a Runtime cannot be safely projected into the MCP read view."""[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass RuntimeContextView(Protocol):[m
+[32m+[m[32m    agent_id: str[m
+[32m+[m[32m    runtime_instance_id: str[m
+[32m+[m[32m    memory_stream_id: str[m
+[32m+[m[32m    event_lineage_id: str[m
+[32m+[m[32m    canonical_state_reference: str[m
+[32m+[m[32m    genesis_root_id: str[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass RuntimeStatusView(Protocol):[m
+[32m+[m[32m    def to_dict(self) -> dict[str, str]: ...[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass RuntimeReadView(Protocol):[m
+[32m+[m[32m    context: RuntimeContextView[m
+[32m+[m
+[32m+[m[32m    def status(self) -> RuntimeStatusView: ...[m
+[32m+[m
+[32m+[m
+[32m+[m[32m_ALLOWED_STATUS_FIELDS = ([m
+[32m+[m[32m    "runtime",[m
+[32m+[m[32m    "version",[m
+[32m+[m[32m    "bounded_execution",[m
+[32m+[m[32m    "live_cross_session_memory",[m
+[32m+[m[32m    "individual_runtime_binding",[m
+[32m+[m[32m    "individual_event_lineage",[m
+[32m+[m[32m    "checkpoint_recovery",[m
+[32m+[m[32m    "migration_evidence_reuse",[m
+[32m+[m[32m    "automatic_canonical_writeback",[m
+[32m+[m[32m    "public_ablation_execution",[m
+[32m+[m[32m    "sexual_or_intimate_runtime",[m
+[32m+[m[32m    "subjectivity_conclusion",[m
+[32m+[m[32m    "independent_ivv",[m
+[32m+[m[32m    "canonical_promotion",[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m[32m_REQUIRED_BOUNDARIES = {[m
+[32m+[m[32m    "automatic_canonical_writeback": "DISABLED",[m
+[32m+[m[32m    "subjectivity_conclusion": "NOT_ESTABLISHED",[m
+[32m+[m[32m    "independent_ivv": "NOT_ACHIEVED",[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _require_nonblank(label: str, value: object) -> str:[m
+[32m+[m[32m    if not isinstance(value, str) or not value.strip():[m
+[32m+[m[32m        raise RuntimeSnapshotRejected(f"{label} must be a non-blank string")[m
+[32m+[m[32m    return value[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _fingerprint(label: str, value: object, *, key: bytes) -> str:[m
+[32m+[m[32m    raw = _require_nonblank(label, value)[m
+[32m+[m[32m    if len(key) < 32:[m
+[32m+[m[32m        raise RuntimeSnapshotRejected("fingerprint key must contain at least 256 bits")[m
+[32m+[m[32m    message = f"{label}\0{raw}".encode("utf-8")[m
+[32m+[m[32m    return hmac.new(key, message, sha256).hexdigest()[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _project_status(status: RuntimeStatusView, *, expected_agent_id: str) -> tuple[tuple[str, str], ...]:[m
+[32m+[m[32m    raw = status.to_dict()[m
+[32m+[m[32m    if not isinstance(raw, Mapping):[m
+[32m+[m[32m        raise RuntimeSnapshotRejected("Runtime status must serialize to a mapping")[m
+[32m+[m
+[32m+[m[32m    projected: dict[str, str] = {}[m
+[32m+[m[32m    for key in _ALLOWED_STATUS_FIELDS:[m
+[32m+[m[32m        if key not in raw:[m
+[32m+[m[32m            continue[m
+[32m+[m[32m        value = raw[key][m
+[32m+[m[32m        if not isinstance(value, str):[m
+[32m+[m[32m            raise RuntimeSnapshotRejected(f"status field {key} must be a string")[m
+[32m+[m[32m        projected[key] = value[m
+[32m+[m
+[32m+[m[32m    expected_runtime = f"{expected_agent_id}_RUNTIME_IMPLEMENTATION_CANDIDATE"[m
+[32m+[m[32m    if projected.get("runtime") != expected_runtime:[m
+[32m+[m[32m        raise RuntimeSnapshotRejected([m
+[32m+[m[32m            f"runtime status binding mismatch: expected {expected_runtime!r}, got {projected.get('runtime')!r}"[m
+[32m+[m[32m        )[m
+[32m+[m
+[32m+[m[32m    for key, expected in _REQUIRED_BOUNDARIES.items():[m
+[32m+[m[32m        if projected.get(key) != expected:[m
+[32m+[m[32m            raise RuntimeSnapshotRejected([m
+[32m+[m[32m                f"unsafe Runtime boundary for {key}: expected {expected!r}, got {projected.get(key)!r}"[m
+[32m+[m[32m            )[m
+[32m+[m
+[32m+[m[32m    return tuple((key, projected[key]) for key in _ALLOWED_STATUS_FIELDS if key in projected)[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@dataclass(frozen=True, slots=True)[m
+[32m+[m[32mclass RuntimeReadSnapshot:[m
+[32m+[m[32m    """Point-in-time safe projection that retains no Runtime/store/engine handle."""[m
+[32m+[m
+[32m+[m[32m    agent_id: str[m
+[32m+[m[32m    runtime_instance_fingerprint: str[m
+[32m+[m[32m    memory_stream_fingerprint: str[m
+[32m+[m[32m    event_lineage_fingerprint: str[m
+[32m+[m[32m    canonical_state_fingerprint: str[m
+[32m+[m[32m    genesis_root_fingerprint: str[m
+[32m+[m[32m    status_items: tuple[tuple[str, str], ...][m
+[32m+[m
+[32m+[m[32m    @classmethod[m
+[32m+[m[32m    def materialize([m
+[32m+[m[32m        cls,[m
+[32m+[m[32m        runtime: RuntimeReadView,[m
+[32m+[m[32m        *,[m
+[32m+[m[32m        expected_agent_id: str,[m
+[32m+[m[32m    ) -> "RuntimeReadSnapshot":[m
+[32m+[m[32m        context = runtime.context[m
+[32m+[m[32m        agent_id = _require_nonblank("agent_id", context.agent_id)[m
+[32m+[m[32m        if agent_id != expected_agent_id:[m
+[32m+[m[32m            raise RuntimeSnapshotRejected([m
+[32m+[m[32m                f"Runtime context agent_id mismatch: expected {expected_agent_id!r}, got {agent_id!r}"[m
+[32m+[m[32m            )[m
+[32m+[m
+[32m+[m[32m        # The key is generated internally for every materialization and is never[m
+[32m+[m[32m        # stored in the resulting snapshot. Callers cannot supply a reusable key.[m
+[32m+[m[32m        ephemeral_key = token_bytes(32)[m
+[32m+[m
+[32m+[m[32m        return cls([m
+[32m+[m[32m            agent_id=agent_id,[m
+[32m+[m[32m            runtime_instance_fingerprint=_fingerprint([m
+[32m+[m[32m                "runtime_instance_id", context.runtime_instance_id, key=ephemeral_key[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            memory_stream_fingerprint=_fingerprint([m
+[32m+[m[32m                "memory_stream_id", context.memory_stream_id, key=ephemeral_key[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            event_lineage_fingerprint=_fingerprint([m
+[32m+[m[32m                "event_lineage_id", context.event_lineage_id, key=ephemeral_key[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            canonical_state_fingerprint=_fingerprint([m
+[32m+[m[32m                "canonical_state_reference", context.canonical_state_reference, key=ephemeral_key[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            genesis_root_fingerprint=_fingerprint([m
+[32m+[m[32m                "genesis_root_id", context.genesis_root_id, key=ephemeral_key[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            status_items=_project_status(runtime.status(), expected_agent_id=expected_agent_id),[m
+[32m+[m[32m        )[m
+[32m+[m
+[32m+[m[32m    def to_dict(self) -> dict[str, object]:[m
+[32m+[m[32m        return {[m
+[32m+[m[32m            "state": "BOUND_RUNTIME_SNAPSHOT",[m
+[32m+[m[32m            "snapshot_kind": "MATERIALIZED_RUNTIME_READ_VIEW",[m
+[32m+[m[32m            "freshness": "POINT_IN_TIME_REQUIRES_REMATERIALIZATION",[m
+[32m+[m[32m            "runtime_object_retained": False,[m
+[32m+[m[32m            "raw_binding_ids_exposed": False,[m
+[32m+[m[32m            "mutation_authority": "NONE",[m
+[32m+[m[32m            "fingerprint_scheme": "HMAC_SHA256_EPHEMERAL_256_BIT_KEY",[m
+[32m+[m[32m            "fingerprints_stable_across_rematerialization": False,[m
+[32m+[m[32m            "binding": {[m
+[32m+[m[32m                "agent_id": self.agent_id,[m
+[32m+[m[32m                "runtime_instance_fingerprint": self.runtime_instance_fingerprint,[m
+[32m+[m[32m                "memory_stream_fingerprint": self.memory_stream_fingerprint,[m
+[32m+[m[32m                "event_lineage_fingerprint": self.event_lineage_fingerprint,[m
+[32m+[m[32m                "canonical_state_fingerprint": self.canonical_state_fingerprint,[m
+[32m+[m[32m                "genesis_root_fingerprint": self.genesis_root_fingerprint,[m
+[32m+[m[32m            },[m
+[32m+[m[32m            "status": dict(self.status_items),[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m@dataclass(frozen=True, slots=True)[m
+[32m+[m[32mclass MaterializedRuntimeSnapshotProvider:[m
+[32m+[m[32m    """MCP provider that stores only safe point-in-time Runtime projections."""[m
+[32m+[m
+[32m+[m[32m    aion_snapshot: RuntimeReadSnapshot | None = None[m
+[32m+[m[32m    astra_snapshot: RuntimeReadSnapshot | None = None[m
+[32m+[m
+[32m+[m[32m    @classmethod[m
+[32m+[m[32m    def from_runtimes([m
+[32m+[m[32m        cls,[m
+[32m+[m[32m        *,[m
+[32m+[m[32m        aion: RuntimeReadView | None = None,[m
+[32m+[m[32m        astra: RuntimeReadView | None = None,[m
+[32m+[m[32m    ) -> "MaterializedRuntimeSnapshotProvider":[m
+[32m+[m[32m        return cls([m
+[32m+[m[32m            aion_snapshot=None if aion is None else RuntimeReadSnapshot.materialize(aion, expected_agent_id="AION"),[m
+[32m+[m[32m            astra_snapshot=None if astra is None else RuntimeReadSnapshot.materialize(astra, expected_agent_id="ASTRA"),[m
+[32m+[m[32m        )[m
+[32m+[m
+[32m+[m[32m    @staticmethod[m
+[32m+[m[32m    def _unbound(subject: str) -> dict[str, object]:[m
+[32m+[m[32m        return {[m
+[32m+[m[32m            "state": "UNBOUND_RUNTIME_SNAPSHOT",[m
+[32m+[m[32m            "subject": subject,[m
+[32m+[m[32m            "reason": "No safe materialized Runtime snapshot is bound for this subject.",[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m    def get_aion_status(self) -> Mapping[str, object]:[m
+[32m+[m[32m        if self.aion_snapshot is None:[m
+[32m+[m[32m            return self._unbound("AION")[m
+[32m+[m[32m        return self.aion_snapshot.to_dict()[m
+[32m+[m
+[32m+[m[32m    def get_astra_status(self) -> Mapping[str, object]:[m
+[32m+[m[32m        if self.astra_snapshot is None:[m
+[32m+[m[32m            return self._unbound("ASTRA")[m
+[32m+[m[32m        return self.astra_snapshot.to_dict()[m
+[32m+[m
+[32m+[m[32m    def get_memory_candidate(self, candidate_id: str) -> Mapping[str, object] | None:[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    def get_provenance_record(self, record_id: str) -> Mapping[str, object] | None:[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    def get_evidence_artifact(self, artifact_id: str) -> Mapping[str, object] | None:[m
+[32m+[m[32m        return None[m
+[1mdiff --git a/components/mcp_interface_v0.1.0/src/aion_mcp_interface/server.py b/components/mcp_interface_v0.1.0/src/aion_mcp_interface/server.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..cfbaf57[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/src/aion_mcp_interface/server.py[m
+[36m@@ -0,0 +1,155 @@[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mfrom collections.abc import Mapping[m
+[32m+[m[32mfrom typing import Any, Literal, Protocol[m
+[32m+[m
+[32m+[m[32mfrom mcp.server.mcpserver import MCPServer[m
+[32m+[m[32mfrom mcp.types import ToolAnnotations[m
+[32m+[m[32mfrom pydantic import BaseModel, Field[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass SnapshotProvider(Protocol):[m
+[32m+[m[32m    """Read-only adapter boundary for externally supplied candidate state."""[m
+[32m+[m
+[32m+[m[32m    def get_aion_status(self) -> Mapping[str, Any]: ...[m
+[32m+[m
+[32m+[m[32m    def get_astra_status(self) -> Mapping[str, Any]: ...[m
+[32m+[m
+[32m+[m[32m    def get_memory_candidate(self, candidate_id: str) -> Mapping[str, Any] | None: ...[m
+[32m+[m
+[32m+[m[32m    def get_provenance_record(self, record_id: str) -> Mapping[str, Any] | None: ...[m
+[32m+[m
+[32m+[m[32m    def get_evidence_artifact(self, artifact_id: str) -> Mapping[str, Any] | None: ...[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass EmptySnapshotProvider:[m
+[32m+[m[32m    """Default provider that deliberately binds no Runtime, memory, or repository data."""[m
+[32m+[m
+[32m+[m[32m    _UNBOUND = {[m
+[32m+[m[32m        "state": "UNBOUND_PROVIDER",[m
+[32m+[m[32m        "reason": "No external state provider is configured for this MCP candidate.",[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    def get_aion_status(self) -> Mapping[str, Any]:[m
+[32m+[m[32m        return self._UNBOUND[m
+[32m+[m
+[32m+[m[32m    def get_astra_status(self) -> Mapping[str, Any]:[m
+[32m+[m[32m        return self._UNBOUND[m
+[32m+[m
+[32m+[m[32m    def get_memory_candidate(self, candidate_id: str) -> Mapping[str, Any] | None:[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    def get_provenance_record(self, record_id: str) -> Mapping[str, Any] | None:[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    def get_evidence_artifact(self, artifact_id: str) -> Mapping[str, Any] | None:[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass GatewayResult(BaseModel):[m
+[32m+[m[32m    """Envelope that prevents retrieval from being represented as canonical acceptance."""[m
+[32m+[m
+[32m+[m[32m    mcp_role: Literal["READ_ONLY_VIEW"] = "READ_ONLY_VIEW"[m
+[32m+[m[32m    canonical_effect: Literal["NONE"] = "NONE"[m
+[32m+[m[32m    accepted_as_fact: Literal[False] = False[m
+[32m+[m[32m    subject: str[m
+[32m+[m[32m    found: bool[m
+[32m+[m[32m    data: dict[str, Any] = Field(default_factory=dict)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mREAD_ONLY_ANNOTATIONS = ToolAnnotations([m
+[32m+[m[32m    read_only_hint=True,[m
+[32m+[m[32m    destructive_hint=False,[m
+[32m+[m[32m    idempotent_hint=True,[m
+[32m+[m[32m    open_world_hint=False,[m
+[32m+[m[32m)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _status(subject: str, payload: Mapping[str, Any]) -> GatewayResult:[m
+[32m+[m[32m    return GatewayResult(subject=subject, found=True, data=dict(payload))[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _lookup(subject: str, payload: Mapping[str, Any] | None) -> GatewayResult:[m
+[32m+[m[32m    return GatewayResult(subject=subject, found=payload is not None, data={} if payload is None else dict(payload))[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef build_server(provider: SnapshotProvider | None = None) -> MCPServer:[m
+[32m+[m[32m    """Build the v0.1.0 tool-only, read-only MCP server."""[m
+[32m+[m
+[32m+[m[32m    source = provider if provider is not None else EmptySnapshotProvider()[m
+[32m+[m[32m    server = MCPServer([m
+[32m+[m[32m        name="aion-astra-readonly-gateway",[m
+[32m+[m[32m        title="AION / Astra Read-Only MCP Gateway",[m
+[32m+[m[32m        description="Bounded read-only MCP interface candidate for AION/Astra state and evidence views.",[m
+[32m+[m[32m        instructions=([m
+[32m+[m[32m            "All outputs are candidate observations only. Retrieval does not establish truth, identity, "[m
+[32m+[m[32m            "memory ownership, canonical state, or authority. This server provides no mutation tools."[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        version="0.1.0",[m
+[32m+[m[32m    )[m
+[32m+[m
+[32m+[m[32m    @server.tool([m
+[32m+[m[32m        name="aion_get_status",[m
+[32m+[m[32m        title="Read AION status candidate",[m
+[32m+[m[32m        description="Use this when a caller needs the provider's current read-only AION status candidate.",[m
+[32m+[m[32m        annotations=READ_ONLY_ANNOTATIONS,[m
+[32m+[m[32m    )[m
+[32m+[m[32m    def aion_get_status() -> GatewayResult:[m
+[32m+[m[32m        return _status("AION_STATUS", source.get_aion_status())[m
+[32m+[m
+[32m+[m[32m    @server.tool([m
+[32m+[m[32m        name="astra_get_status",[m
+[32m+[m[32m        title="Read Astra status candidate",[m
+[32m+[m[32m        description="Use this when a caller needs the provider's current read-only Astra status candidate.",[m
+[32m+[m[32m        annotations=READ_ONLY_ANNOTATIONS,[m
+[32m+[m[32m    )[m
+[32m+[m[32m    def astra_get_status() -> GatewayResult:[m
+[32m+[m[32m        return _status("ASTRA_STATUS", source.get_astra_status())[m
+[32m+[m
+[32m+[m[32m    @server.tool([m
+[32m+[m[32m        name="memory_get_candidate",[m
+[32m+[m[32m        title="Read memory candidate",[m
+[32m+[m[32m        description=([m
+[32m+[m[32m            "Use this when a caller needs one memory candidate for later Recall Gate evaluation; "[m
+[32m+[m[32m            "the result is never accepted as fact by this tool."[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        annotations=READ_ONLY_ANNOTATIONS,[m
+[32m+[m[32m    )[m
+[32m+[m[32m    def memory_get_candidate(candidate_id: str) -> GatewayResult:[m
+[32m+[m[32m        return _lookup(f"MEMORY_CANDIDATE:{candidate_id}", source.get_memory_candidate(candidate_id))[m
+[32m+[m
+[32m+[m[32m    @server.tool([m
+[32m+[m[32m        name="provenance_get_record",[m
+[32m+[m[32m        title="Read provenance record",[m
+[32m+[m[32m        description=([m
+[32m+[m[32m            "Use this when a caller needs one provenance record as read-only evidence; "[m
+[32m+[m[32m            "retrieval does not verify the associated claim."[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        annotations=READ_ONLY_ANNOTATIONS,[m
+[32m+[m[32m    )[m
+[32m+[m[32m    def provenance_get_record(record_id: str) -> GatewayResult:[m
+[32m+[m[32m        return _lookup(f"PROVENANCE_RECORD:{record_id}", source.get_provenance_record(record_id))[m
+[32m+[m
+[32m+[m[32m    @server.tool([m
+[32m+[m[32m        name="evidence_get_artifact",[m
+[32m+[m[32m        title="Read evidence artifact",[m
+[32m+[m[32m        description=([m
+[32m+[m[32m            "Use this when a caller needs one evidence artifact for later scope/freshness validation; "[m
+[32m+[m[32m            "retrieval alone does not prove current validity."[m
+[32m+[m[32m        ),[m
+[32m+[m[32m        annotations=READ_ONLY_ANNOTATIONS,[m
+[32m+[m[32m    )[m
+[32m+[m[32m    def evidence_get_artifact(artifact_id: str) -> GatewayResult:[m
+[32m+[m[32m        return _lookup(f"EVIDENCE_ARTIFACT:{artifact_id}", source.get_evidence_artifact(artifact_id))[m
+[32m+[m
+[32m+[m[32m    return server[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef main() -> None:[m
+[32m+[m[32m    """Run the unbound candidate over local stdio only."""[m
+[32m+[m
+[32m+[m[32m    build_server().run(transport="stdio")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mif __name__ == "__main__":  # pragma: no cover[m
+[32m+[m[32m    main()[m
+[1mdiff --git a/components/mcp_interface_v0.1.0/tests/test_mcp_interface.py b/components/mcp_interface_v0.1.0/tests/test_mcp_interface.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..7d35154[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/tests/test_mcp_interface.py[m
+[36m@@ -0,0 +1,236 @@[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mimport json[m
+[32m+[m[32mfrom collections.abc import Mapping[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m[32mfrom typing import Any[m
+[32m+[m
+[32m+[m[32mimport anyio[m
+[32m+[m[32mimport pytest[m
+[32m+[m[32mfrom mcp.client import Client[m
+[32m+[m
+[32m+[m[32mfrom aion_astra_runtime.models import IndividualRuntimeContext[m
+[32m+[m[32mfrom aion_mcp_interface import ([m
+[32m+[m[32m    EmptySnapshotProvider,[m
+[32m+[m[32m    MaterializedRuntimeSnapshotProvider,[m
+[32m+[m[32m    RuntimeReadSnapshot,[m
+[32m+[m[32m    RuntimeSnapshotRejected,[m
+[32m+[m[32m    build_server,[m
+[32m+[m[32m)[m
+[32m+[m[32mfrom aion_runtime import AIONRuntime[m
+[32m+[m[32mfrom astra_runtime import AstraRuntime[m
+[32m+[m
+[32m+[m
+[32m+[m[32mclass FakeProvider:[m
+[32m+[m[32m    def get_aion_status(self) -> Mapping[str, Any]:[m
+[32m+[m[32m        return {"runtime": "CANDIDATE", "deployment": False}[m
+[32m+[m
+[32m+[m[32m    def get_astra_status(self) -> Mapping[str, Any]:[m
+[32m+[m[32m        return {"workbench": "IMPLEMENTED_CANDIDATE", "deployment": False}[m
+[32m+[m
+[32m+[m[32m    def get_memory_candidate(self, candidate_id: str) -> Mapping[str, Any] | None:[m
+[32m+[m[32m        if candidate_id == "mem-1":[m
+[32m+[m[32m            return {"candidate_id": candidate_id, "content": "example"}[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    def get_provenance_record(self, record_id: str) -> Mapping[str, Any] | None:[m
+[32m+[m[32m        if record_id == "prov-1":[m
+[32m+[m[32m            return {"record_id": record_id, "source": "fixture"}[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m[32m    def get_evidence_artifact(self, artifact_id: str) -> Mapping[str, Any] | None:[m
+[32m+[m[32m        if artifact_id == "evidence-1":[m
+[32m+[m[32m            return {"artifact_id": artifact_id, "freshness": "UNVALIDATED"}[m
+[32m+[m[32m        return None[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _context(agent_id: str, prefix: str) -> IndividualRuntimeContext:[m
+[32m+[m[32m    return IndividualRuntimeContext([m
+[32m+[m[32m        agent_id=agent_id,[m
+[32m+[m[32m        runtime_instance_id=f"{prefix}-runtime-instance-secret",[m
+[32m+[m[32m        memory_stream_id=f"{prefix}-memory-stream-secret",[m
+[32m+[m[32m        event_lineage_id=f"{prefix}-event-lineage-secret",[m
+[32m+[m[32m        canonical_state_reference=f"{prefix}-canonical-reference-secret",[m
+[32m+[m[32m        genesis_root_id=f"{prefix}-genesis-root-secret",[m
+[32m+[m[32m    )[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_empty_provider_binds_no_external_state() -> None:[m
+[32m+[m[32m    provider = EmptySnapshotProvider()[m
+[32m+[m[32m    assert provider.get_aion_status()["state"] == "UNBOUND_PROVIDER"[m
+[32m+[m[32m    assert provider.get_astra_status()["state"] == "UNBOUND_PROVIDER"[m
+[32m+[m[32m    assert provider.get_memory_candidate("anything") is None[m
+[32m+[m[32m    assert provider.get_provenance_record("anything") is None[m
+[32m+[m[32m    assert provider.get_evidence_artifact("anything") is None[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_tool_catalog_is_exactly_read_only_and_closed_world() -> None:[m
+[32m+[m[32m    async def scenario() -> None:[m
+[32m+[m[32m        async with Client(build_server(FakeProvider())) as client:[m
+[32m+[m[32m            listed = await client.list_tools()[m
+[32m+[m[32m            by_name = {tool.name: tool for tool in listed.tools}[m
+[32m+[m[32m            assert set(by_name) == {[m
+[32m+[m[32m                "aion_get_status",[m
+[32m+[m[32m                "astra_get_status",[m
+[32m+[m[32m                "memory_get_candidate",[m
+[32m+[m[32m                "provenance_get_record",[m
+[32m+[m[32m                "evidence_get_artifact",[m
+[32m+[m[32m            }[m
+[32m+[m[32m            for tool in by_name.values():[m
+[32m+[m[32m                annotations = tool.annotations[m
+[32m+[m[32m                assert annotations is not None[m
+[32m+[m[32m                assert annotations.read_only_hint is True[m
+[32m+[m[32m                assert annotations.destructive_hint is False[m
+[32m+[m[32m                assert annotations.idempotent_hint is True[m
+[32m+[m[32m                assert annotations.open_world_hint is False[m
+[32m+[m
+[32m+[m[32m            resources = await client.list_resources()[m
+[32m+[m[32m            assert resources.resources == [][m
+[32m+[m
+[32m+[m[32m    anyio.run(scenario)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_retrieval_envelope_never_promotes_to_fact_or_canonical_state() -> None:[m
+[32m+[m[32m    async def scenario() -> None:[m
+[32m+[m[32m        async with Client(build_server(FakeProvider())) as client:[m
+[32m+[m[32m            status = await client.call_tool("aion_get_status", {})[m
+[32m+[m[32m            assert status.is_error is False[m
+[32m+[m[32m            assert status.structured_content is not None[m
+[32m+[m[32m            assert status.structured_content["canonical_effect"] == "NONE"[m
+[32m+[m[32m            assert status.structured_content["accepted_as_fact"] is False[m
+[32m+[m[32m            assert status.structured_content["data"]["runtime"] == "CANDIDATE"[m
+[32m+[m
+[32m+[m[32m            memory = await client.call_tool("memory_get_candidate", {"candidate_id": "mem-1"})[m
+[32m+[m[32m            assert memory.is_error is False[m
+[32m+[m[32m            assert memory.structured_content is not None[m
+[32m+[m[32m            assert memory.structured_content["found"] is True[m
+[32m+[m[32m            assert memory.structured_content["accepted_as_fact"] is False[m
+[32m+[m
+[32m+[m[32m            missing = await client.call_tool("memory_get_candidate", {"candidate_id": "missing"})[m
+[32m+[m[32m            assert missing.is_error is False[m
+[32m+[m[32m            assert missing.structured_content is not None[m
+[32m+[m[32m            assert missing.structured_content["found"] is False[m
+[32m+[m[32m            assert missing.structured_content["data"] == {}[m
+[32m+[m[32m            assert missing.structured_content["canonical_effect"] == "NONE"[m
+[32m+[m
+[32m+[m[32m    anyio.run(scenario)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_real_runtime_is_materialized_without_retaining_runtime_handles(tmp_path: Path) -> None:[m
+[32m+[m[32m    aion = AIONRuntime(memory_db=tmp_path / "aion.sqlite3", context=_context("AION", "aion"))[m
+[32m+[m[32m    astra = AstraRuntime(memory_db=tmp_path / "astra.sqlite3", context=_context("ASTRA", "astra"))[m
+[32m+[m
+[32m+[m[32m    provider = MaterializedRuntimeSnapshotProvider.from_runtimes(aion=aion, astra=astra)[m
+[32m+[m[32m    aion_view = provider.get_aion_status()[m
+[32m+[m[32m    astra_view = provider.get_astra_status()[m
+[32m+[m
+[32m+[m[32m    assert aion_view["state"] == "BOUND_RUNTIME_SNAPSHOT"[m
+[32m+[m[32m    assert astra_view["state"] == "BOUND_RUNTIME_SNAPSHOT"[m
+[32m+[m[32m    assert aion_view["runtime_object_retained"] is False[m
+[32m+[m[32m    assert aion_view["raw_binding_ids_exposed"] is False[m
+[32m+[m[32m    assert aion_view["mutation_authority"] == "NONE"[m
+[32m+[m[32m    assert aion_view["fingerprint_scheme"] == "HMAC_SHA256_EPHEMERAL_256_BIT_KEY"[m
+[32m+[m[32m    assert aion_view["fingerprints_stable_across_rematerialization"] is False[m
+[32m+[m
+[32m+[m[32m    aion_binding = aion_view["binding"][m
+[32m+[m[32m    astra_binding = astra_view["binding"][m
+[32m+[m[32m    assert isinstance(aion_binding, dict)[m
+[32m+[m[32m    assert isinstance(astra_binding, dict)[m
+[32m+[m[32m    assert aion_binding["agent_id"] == "AION"[m
+[32m+[m[32m    assert astra_binding["agent_id"] == "ASTRA"[m
+[32m+[m[32m    assert len(aion_binding["runtime_instance_fingerprint"]) == 64[m
+[32m+[m[32m    assert len(astra_binding["runtime_instance_fingerprint"]) == 64[m
+[32m+[m
+[32m+[m[32m    serialized = json.dumps({"aion": aion_view, "astra": astra_view}, sort_keys=True)[m
+[32m+[m[32m    for forbidden in ([m
+[32m+[m[32m        "aion-runtime-instance-secret",[m
+[32m+[m[32m        "aion-memory-stream-secret",[m
+[32m+[m[32m        "aion-event-lineage-secret",[m
+[32m+[m[32m        "aion-canonical-reference-secret",[m
+[32m+[m[32m        "aion-genesis-root-secret",[m
+[32m+[m[32m        "astra-runtime-instance-secret",[m
+[32m+[m[32m        "astra-memory-stream-secret",[m
+[32m+[m[32m        "astra-event-lineage-secret",[m
+[32m+[m[32m        "astra-canonical-reference-secret",[m
+[32m+[m[32m        "astra-genesis-root-secret",[m
+[32m+[m[32m        str(tmp_path),[m
+[32m+[m[32m    ):[m
+[32m+[m[32m        assert forbidden not in serialized[m
+[32m+[m
+[32m+[m[32m    assert provider.get_memory_candidate("anything") is None[m
+[32m+[m[32m    assert provider.get_provenance_record("anything") is None[m
+[32m+[m[32m    assert provider.get_evidence_artifact("anything") is None[m
+[32m+[m[32m    assert not hasattr(provider, "memory")[m
+[32m+[m[32m    assert not hasattr(provider, "state")[m
+[32m+[m[32m    assert not hasattr(provider, "execution")[m
+[32m+[m[32m    assert not hasattr(provider, "run_task")[m
+[32m+[m[32m    assert not hasattr(provider, "remember")[m
+[32m+[m[32m    assert not hasattr(provider, "migrate_runtime")[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_runtime_fingerprints_are_unlinkable_across_rematerialization(tmp_path: Path) -> None:[m
+[32m+[m[32m    aion = AIONRuntime(memory_db=tmp_path / "aion.sqlite3", context=_context("AION", "aion"))[m
+[32m+[m[32m    first = RuntimeReadSnapshot.materialize(aion, expected_agent_id="AION")[m
+[32m+[m[32m    second = RuntimeReadSnapshot.materialize(aion, expected_agent_id="AION")[m
+[32m+[m
+[32m+[m[32m    assert first.runtime_instance_fingerprint != second.runtime_instance_fingerprint[m
+[32m+[m[32m    assert first.memory_stream_fingerprint != second.memory_stream_fingerprint[m
+[32m+[m[32m    assert first.event_lineage_fingerprint != second.event_lineage_fingerprint[m
+[32m+[m[32m    assert first.canonical_state_fingerprint != second.canonical_state_fingerprint[m
+[32m+[m[32m    assert first.genesis_root_fingerprint != second.genesis_root_fingerprint[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_mcp_reads_materialized_real_runtime_snapshot_only(tmp_path: Path) -> None:[m
+[32m+[m[32m    aion = AIONRuntime(memory_db=tmp_path / "aion.sqlite3", context=_context("AION", "aion"))[m
+[32m+[m[32m    astra = AstraRuntime(memory_db=tmp_path / "astra.sqlite3", context=_context("ASTRA", "astra"))[m
+[32m+[m[32m    provider = MaterializedRuntimeSnapshotProvider.from_runtimes(aion=aion, astra=astra)[m
+[32m+[m
+[32m+[m[32m    async def scenario() -> None:[m
+[32m+[m[32m        async with Client(build_server(provider)) as client:[m
+[32m+[m[32m            aion_result = await client.call_tool("aion_get_status", {})[m
+[32m+[m[32m            astra_result = await client.call_tool("astra_get_status", {})[m
+[32m+[m[32m            assert aion_result.is_error is False[m
+[32m+[m[32m            assert astra_result.is_error is False[m
+[32m+[m[32m            assert aion_result.structured_content is not None[m
+[32m+[m[32m            assert astra_result.structured_content is not None[m
+[32m+[m
+[32m+[m[32m            aion_data = aion_result.structured_content["data"][m
+[32m+[m[32m            astra_data = astra_result.structured_content["data"][m
+[32m+[m[32m            assert aion_data["binding"]["agent_id"] == "AION"[m
+[32m+[m[32m            assert astra_data["binding"]["agent_id"] == "ASTRA"[m
+[32m+[m[32m            assert aion_data["status"]["runtime"] == "AION_RUNTIME_IMPLEMENTATION_CANDIDATE"[m
+[32m+[m[32m            assert astra_data["status"]["runtime"] == "ASTRA_RUNTIME_IMPLEMENTATION_CANDIDATE"[m
+[32m+[m[32m            assert aion_data["status"]["automatic_canonical_writeback"] == "DISABLED"[m
+[32m+[m[32m            assert astra_data["status"]["automatic_canonical_writeback"] == "DISABLED"[m
+[32m+[m[32m            assert aion_result.structured_content["accepted_as_fact"] is False[m
+[32m+[m[32m            assert astra_result.structured_content["accepted_as_fact"] is False[m
+[32m+[m[32m            assert aion_result.structured_content["canonical_effect"] == "NONE"[m
+[32m+[m[32m            assert astra_result.structured_content["canonical_effect"] == "NONE"[m
+[32m+[m
+[32m+[m[32m            memory = await client.call_tool("memory_get_candidate", {"candidate_id": "not-bound"})[m
+[32m+[m[32m            assert memory.structured_content is not None[m
+[32m+[m[32m            assert memory.structured_content["found"] is False[m
+[32m+[m
+[32m+[m[32m    anyio.run(scenario)[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_runtime_snapshot_fails_closed_on_boundary_drift() -> None:[m
+[32m+[m[32m    class UnsafeStatus:[m
+[32m+[m[32m        def to_dict(self) -> dict[str, str]:[m
+[32m+[m[32m            return {[m
+[32m+[m[32m                "runtime": "AION_RUNTIME_IMPLEMENTATION_CANDIDATE",[m
+[32m+[m[32m                "version": "0.1.0",[m
+[32m+[m[32m                "automatic_canonical_writeback": "ENABLED",[m
+[32m+[m[32m                "subjectivity_conclusion": "NOT_ESTABLISHED",[m
+[32m+[m[32m                "independent_ivv": "NOT_ACHIEVED",[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m    class UnsafeRuntime:[m
+[32m+[m[32m        context = _context("AION", "unsafe")[m
+[32m+[m
+[32m+[m[32m        @staticmethod[m
+[32m+[m[32m        def status() -> UnsafeStatus:[m
+[32m+[m[32m            return UnsafeStatus()[m
+[32m+[m
+[32m+[m[32m    with pytest.raises(RuntimeSnapshotRejected, match="automatic_canonical_writeback"):[m
+[32m+[m[32m        RuntimeReadSnapshot.materialize(UnsafeRuntime(), expected_agent_id="AION")[m
+[1mdiff --git a/components/mcp_interface_v0.1.0/tests/test_runtime_snapshot_security.py b/components/mcp_interface_v0.1.0/tests/test_runtime_snapshot_security.py[m
+[1mnew file mode 100644[m
+[1mindex 0000000..acbac33[m
+[1m--- /dev/null[m
+[1m+++ b/components/mcp_interface_v0.1.0/tests/test_runtime_snapshot_security.py[m
+[36m@@ -0,0 +1,39 @@[m
+[32m+[m[32mfrom __future__ import annotations[m
+[32m+[m
+[32m+[m[32mimport inspect[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m
+[32m+[m[32mfrom aion_astra_runtime.models import IndividualRuntimeContext[m
+[32m+[m[32mfrom aion_mcp_interface import RuntimeReadSnapshot[m
+[32m+[m[32mfrom aion_runtime import AIONRuntime[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef _runtime(tmp_path: Path) -> AIONRuntime:[m
+[32m+[m[32m    return AIONRuntime([m
+[32m+[m[32m        memory_db=tmp_path / "aion.sqlite3",[m
+[32m+[m[32m        context=IndividualRuntimeContext([m
+[32m+[m[32m            agent_id="AION",[m
+[32m+[m[32m            runtime_instance_id="runtime-instance-low-entropy-example",[m
+[32m+[m[32m            memory_stream_id="memory-stream-low-entropy-example",[m
+[32m+[m[32m            event_lineage_id="event-lineage-low-entropy-example",[m
+[32m+[m[32m            canonical_state_reference="canonical-reference-low-entropy-example",[m
+[32m+[m[32m            genesis_root_id="genesis-root-low-entropy-example",[m
+[32m+[m[32m        ),[m
+[32m+[m[32m    )[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_materialize_exposes_no_caller_controlled_fingerprint_key() -> None:[m
+[32m+[m[32m    parameters = inspect.signature(RuntimeReadSnapshot.materialize).parameters[m
+[32m+[m[32m    assert "fingerprint_key" not in parameters[m
+[32m+[m
+[32m+[m
+[32m+[m[32mdef test_fingerprint_materialization_is_fresh_for_same_runtime(tmp_path: Path) -> None:[m
+[32m+[m[32m    runtime = _runtime(tmp_path)[m
+[32m+[m[32m    first = RuntimeReadSnapshot.materialize(runtime, expected_agent_id="AION")[m
+[32m+[m[32m    second = RuntimeReadSnapshot.materialize(runtime, expected_agent_id="AION")[m
+[32m+[m
+[32m+[m[32m    assert first.runtime_instance_fingerprint != second.runtime_instance_fingerprint[m
+[32m+[m[32m    assert first.memory_stream_fingerprint != second.memory_stream_fingerprint[m
+[32m+[m[32m    assert first.event_lineage_fingerprint != second.event_lineage_fingerprint[m
+[32m+[m[32m    assert first.canonical_state_fingerprint != second.canonical_state_fingerprint[m
+[32m+[m[32m    assert first.genesis_root_fingerprint != second.genesis_root_fingerprint[m
+[1mdiff --git a/scripts/run_mcp_strong_qa.sh b/scripts/run_mcp_strong_qa.sh[m
+[1mnew file mode 100755[m
+[1mindex 0000000..8d361a9[m
+[1m--- /dev/null[m
+[1m+++ b/scripts/run_mcp_strong_qa.sh[m
+[36m@@ -0,0 +1,94 @@[m
+[32m+[m[32m#!/usr/bin/env bash[m
+[32m+[m[32mset -euo pipefail[m
+[32m+[m
+[32m+[m[32mROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"[m
+[32m+[m[32mcd "$ROOT"[m
+[32m+[m
+[32m+[m[32mTARGET="components/mcp_interface_v0.1.0"[m
+[32m+[m[32mWHEELHOUSE="${RUNNER_TEMP:-/tmp}/aion-mcp-wheelhouse"[m
+[32m+[m[32mCOLD_VENV="${RUNNER_TEMP:-/tmp}/aion-mcp-cold-venv"[m
+[32m+[m[32mrm -rf "$WHEELHOUSE" "$COLD_VENV"[m
+[32m+[m[32mmkdir -p "$WHEELHOUSE"[m
+[32m+[m
+[32m+[m[32mSOURCE_ROOTS=()[m
+[32m+[m[32mfor source in components/*/src examples/*/src research-labs/*/src; do[m
+[32m+[m[32m  if [[ -d "$source" ]]; then[m
+[32m+[m[32m    SOURCE_ROOTS+=("$ROOT/$source")[m
+[32m+[m[32m  fi[m
+[32m+[m[32mdone[m
+[32m+[m[32mexport PYTHONPATH="$(IFS=:; echo "${SOURCE_ROOTS[*]}")"[m
+[32m+[m
+[32m+[m[32mprintf '\n== Exact declared MCP dependency ==\n'[m
+[32m+[m[32mpython - <<'PY'[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m
+[32m+[m[32mtext = Path("components/mcp_interface_v0.1.0/pyproject.toml").read_text(encoding="utf-8")[m
+[32m+[m[32massert '"mcp==2.0.0"' in text, "MCP dependency must remain exactly pinned to mcp==2.0.0"[m
+[32m+[m[32mprint("MCP_DEPENDENCY_PIN=PASS")[m
+[32m+[m[32mPY[m
+[32m+[m
+[32m+[m[32mprintf '\n== Editable candidate install ==\n'[m
+[32m+[m[32mpython -m pip install -e "$TARGET"[m
+[32m+[m[32mpython -m pip check[m
+[32m+[m
+[32m+[m[32mprintf '\n== mypy strict ==\n'[m
+[32m+[m[32mpython -m mypy --config-file "$TARGET/pyproject.toml" "$TARGET/src/aion_mcp_interface"[m
+[32m+[m
+[32m+[m[32mprintf '\n== Candidate tests ==\n'[m
+[32m+[m[32mpython -m pytest -q "$TARGET/tests"[m
+[32m+[m
+[32m+[m[32mprintf '\n== Wheel build ==\n'[m
+[32m+[m[32mpython -m build --wheel --no-isolation --outdir "$WHEELHOUSE" "$TARGET"[m
+[32m+[m
+[32m+[m[32mprintf '\n== Resolve exact external dependency wheelhouse ==\n'[m
+[32m+[m[32mpython -m pip wheel --wheel-dir "$WHEELHOUSE" "mcp==2.0.0"[m
+[32m+[m[32mls -1 "$WHEELHOUSE"[m
+[32m+[m
+[32m+[m[32mprintf '\n== Cold offline installation from captured wheelhouse ==\n'[m
+[32m+[m[32mpython -m venv "$COLD_VENV"[m
+[32m+[m[32menv -u PYTHONPATH "$COLD_VENV/bin/python" -m pip install \[m
+[32m+[m[32m  --no-index \[m
+[32m+[m[32m  --find-links "$WHEELHOUSE" \[m
+[32m+[m[32m  --force-reinstall \[m
+[32m+[m[32m  "aion-astra-mcp-readonly-interface==0.1.0"[m
+[32m+[m[32menv -u PYTHONPATH "$COLD_VENV/bin/python" -m pip check[m
+[32m+[m
+[32m+[m[32mprintf '\n== Cold MCP protocol smoke ==\n'[m
+[32m+[m[32menv -u PYTHONPATH "$COLD_VENV/bin/python" - <<'PY'[m
+[32m+[m[32mfrom pathlib import Path[m
+[32m+[m
+[32m+[m[32mimport anyio[m
+[32m+[m[32mimport aion_mcp_interface[m
+[32m+[m[32mfrom mcp.client import Client[m
+[32m+[m[32mfrom aion_mcp_interface import build_server[m
+[32m+[m
+[32m+[m[32mEXPECTED = {[m
+[32m+[m[32m    "aion_get_status",[m
+[32m+[m[32m    "astra_get_status",[m
+[32m+[m[32m    "memory_get_candidate",[m
+[32m+[m[32m    "provenance_get_record",[m
+[32m+[m[32m    "evidence_get_artifact",[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mmodule_path = Path(aion_mcp_interface.__file__).resolve()[m
+[32m+[m[32massert "site-packages" in module_path.parts, module_path[m
+[32m+[m
+[32m+[m[32masync def smoke() -> None:[m
+[32m+[m[32m    async with Client(build_server()) as client:[m
+[32m+[m[32m        tools = await client.list_tools()[m
+[32m+[m[32m        names = {tool.name for tool in tools.tools}[m
+[32m+[m[32m        assert names == EXPECTED, names[m
+[32m+[m[32m        for tool in tools.tools:[m
+[32m+[m[32m            annotations = tool.annotations[m
+[32m+[m[32m            assert annotations is not None[m
+[32m+[m[32m            assert annotations.read_only_hint is True[m
+[32m+[m[32m            assert annotations.destructive_hint is False[m
+[32m+[m[32m            assert annotations.idempotent_hint is True[m
+[32m+[m[32m            assert annotations.open_world_hint is False[m
+[32m+[m
+[32m+[m[32manyio.run(smoke)[m
+[32m+[m[32mprint(f"MCP_COLD_IMPORT_PATH={module_path}")[m
+[32m+[m[32mprint("MCP_COLD_PROTOCOL_SMOKE=PASS")[m
+[32m+[m[32mPY[m
+[32m+[m
+[32m+[m[32mprintf '\nMCP_STRONG_QA=PASS\n'[m
