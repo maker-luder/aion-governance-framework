@@ -14,7 +14,19 @@ OBSERVATION
 != INTERPRETATION
 ```
 
-The v0.2 schema therefore records `observation`, `mechanism`, and `interpretation` under the protocol evidence architecture. It does not import the research branch’s AB.6-native evidence vocabulary.
+The v0.2 schema therefore records `observation`, `mechanism`, and `interpretation` under the protocol evidence architecture.
+
+The schema does **not** encode the research branch's AB.6 / six whitepaper evidence dimensions as a second typed vocabulary. This is a schema-shape decision, not a methodological demotion or replacement of the stable whitepaper method. The public main protocol now makes the relationship explicit:
+
+```text
+WHITEPAPER_EVIDENCE_ARCHITECTURE = PRIMARY_RESEARCH_METHOD
+MAIN_NATIVE_EVIDENCE_SCHEMA = OPERATIONAL_RECORD_CONTRACT
+SCHEMA_FIELD_SET != COMPLETE_RESEARCH_ONTOLOGY
+FOUR_STAGE_INFERENCE != L0_L5_CLAIM_LADDER
+SIX_EVIDENCE_DIMENSIONS != SUBJECTIVITY_SCORE
+```
+
+Until a separately approved typed bridge exists, whitepaper-method coverage is represented through existing evidence-architecture references, competing hypotheses, intervention/ablation/counterfactual references, robustness/replication references, provenance, admissibility and claim scope rather than by introducing another scientific taxonomy into the schema.
 
 ## Authority direction
 
