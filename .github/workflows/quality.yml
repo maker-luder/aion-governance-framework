@@ -50,6 +50,9 @@ jobs:
       - name: Scan public tree for prohibited artifacts and obvious secrets
         run: python scripts/scan_public_tree.py
 
+      - name: Block deprecated OpenAI Assistants API integration
+        run: python scripts/audit_openai_assistants_sunset.py .
+
       - name: Verify current checkout against exact Git HEAD tree
         run: python scripts/verify_release.py --baseline current-head
 
