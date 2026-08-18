@@ -1,95 +1,87 @@
 # Release Status
 
-> **Current public repository standing.** Historical source-package and release-tag states are preserved below, but this file's current-status block is authoritative for the present repository freeze.
+> **Authoritative current release standing after the 2026-08-18 repository freeze.**
 
-## Current repository freeze checkpoint
-
-The public repository is in a frozen checkpoint after repository and research-lineage convergence on 2026-08-15, with later bounded upstream/documentation maintenance performed under the same non-promotion research boundary.
+## Current state
 
 ```text
-CURRENT_REPOSITORY_STATE = FROZEN_CHECKPOINT
-GOVERNED_ACTIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
-GOVERNED_ACTIVE_BRANCH_COUNT = 2
-VISIBLE_GIT_BRANCH_REF_COUNT = READ_FROM_CURRENT_GITHUB_STATE
-GOVERNED_ACTIVE_BRANCH_COUNT != VISIBLE_GIT_BRANCH_REF_COUNT
+FREEZE_EFFECTIVE_DATE = 2026-08-18
+CURRENT_REPOSITORY_STATE = INDEFINITE_FREEZE
+VISIBLE_BRANCH_COUNT_AT_FREEZE = 2
+GOVERNED_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+OPEN_PULL_REQUESTS_AT_FREEZE = 0
+OPEN_ISSUES_AT_FREEZE = 0
 ACTIVE_ENGINEERING = NO
 ACTIVE_RESEARCH_MATERIALIZATION = NO
 NEW_FEATURE_DEVELOPMENT = NO
+NEW_PUBLIC_RELEASE = NOT_AUTHORIZED
+RELEASE_PIPELINE = STOPPED
+NEW_BRANCH_EXPANSION = NOT_AUTHORIZED
 DEPLOYMENT = FALSE
 CANONICAL_PROMOTION = NOT_AUTHORIZED
 CANONICAL_EFFECT = NONE
-LICENSE_SELECTION = RESOLVED_APACHE_2_0
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 RELATIONAL_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
+LICENSE_SELECTION = RESOLVED_APACHE_2_0
 ```
 
-The two governed active branches are:
+The preserved branches are:
 
-- `main` — protected public baseline;
-- `review/four-domain-research-materialization` — frozen preserved research checkpoint.
+- `main` — frozen public baseline;
+- `review/four-domain-research-materialization` — frozen research checkpoint.
 
-This is an **authority/governance model**, not a claim that GitHub physically exposes only two branch refs. Retained support, staging, remediation or HOLD refs may remain visible while their provenance-safe archival/deletion disposition is pending. A visible branch ref does not become current research authority merely by existing.
+No further semantic release is authorized under the current freeze. Existing release tags/checkpoints remain immutable historical evidence. The 2026-08-18 freeze itself does not create a new release.
 
-Retired support branches may also be converted to non-release `archive/*` tags after exact-head verification. These archive tags preserve engineering/research/deferred-promotion checkpoints without keeping those refs as active branches. An archive tag is not a release, approval, canonical promotion or deployment authority.
+## Governance standing
 
-The exact current branch heads, visible-ref count, workflow runs and merge/approval events are GitHub transition evidence and are intentionally not embedded here as self-referential permanent status fields.
+The Human Owner explicitly authorized the repository freeze and closure of further GitHub publication on 2026-08-18.
 
-## Governance process-deviation record
-
-PR #23 (`docs: converge public documentation around a clear reader path`) was merged into `main` while the Main Transition Authority Gate for that PR still held `HOLD` because the Human Owner approval receipt timestamp was not fresh for the PR-body edit event. The merge therefore did **not** satisfy the repository's intended gate-before-merge procedure.
-
-The content itself had passed the PR Quality workflow, and the resulting merged `main` later passed post-merge Quality run #393. Those later PASS results establish current implementation/documentation quality only; they do **not** retroactively convert the historical Authority Gate failure into a PASS.
+The freeze preserves the AION dual-review rule:
 
 ```text
-PR23_CONTENT_REVIEW = ACCEPTED
-PR23_PR_QUALITY = PASS
-PR23_AUTHORITY_GATE_AT_MERGE = HOLD
-PR23_PROCESS_DEVIATION = MERGED_WITHOUT_GATE_PASS
-POST_MERGE_MAIN_QUALITY = PASS
-RETROACTIVE_GATE_GREENWASH = FORBIDDEN
-REVERT_REQUIRED_BY_THIS_RECORD = NO
-CANONICAL_EFFECT = NONE
-DEPLOYMENT = FALSE
+HUMAN_OWNER_FREEZE_AUTHORIZATION = GRANTED_2026-08-18
+CHATGPT_ARCHITECTURE_EVIDENCE_PROVENANCE_REVIEW = PASS
+AUTOMATIC_RESTART = FORBIDDEN
 ```
 
-PR #19 is a contrasting fail-closed case: its promotion candidate was closed without merge after its authority gate remained unresolved. PR #21 and PR #22 concern research-only lineage convergence and are documented in the research branch's `RESEARCH_BRANCH_STATUS.md` with their own QA process-deviation record.
+This is a repository-state decision, not a scientific conclusion and not a canonical subjectivity/identity promotion.
 
-This section is an audit record, not a new authorization. It preserves the difference between current repository health and historical process compliance.
+## Historical process evidence
 
-## Historical release tags
+Earlier QA, authority-gate, PR, branch-retirement, convergence, and release-status records remain historical evidence. A later PASS does not retroactively erase a historical HOLD/FAIL, and a final freeze does not rewrite the event meaning of earlier records.
 
-The existing semantic release tags remain:
+In particular, previously recorded process deviations around PR #23 on `main` and PR #21/#22 on the research lineage remain provenance-bearing historical facts. Their detailed prior status text remains available in Git history and dated repository records.
 
-- `v0.1.0-rc.1`
-- `v0.2.0-rc.1`
-
-They are immutable historical release checkpoints. The 2026-08-15 convergence did not create a new semantic release and did not require a new freeze release tag.
-
-## Historical source candidate
-
-The 2026-08-03 public source package was previously marked `PUBLIC_RELEASE_CANDIDATE_NOT_RELEASED`, `QA_HOLD`, `OWNER_SELECTION_REQUIRED` for license, and `CANONICAL_EFFECT=NONE`.
-
-That paragraph describes the historical source package only. It does **not** describe current repository standing. The current public repository license is Apache-2.0.
+```text
+RETROACTIVE_GREENWASH = FORBIDDEN
+HISTORICAL_RED_OR_HOLD = PRESERVED_AS_HISTORICAL_FACT
+CURRENT_FREEZE != RETROACTIVE_PROCESS_APPROVAL
+```
 
 ## Documentation authority
 
-For reader orientation and document hierarchy, use [`README.md`](../README.md) and [`docs/README.md`](README.md).
+Current repository standing is defined by:
 
-Dated convergence, branch-disposition, incident, acceptance and QA files preserve what was recorded at their event time. They are historical evidence unless a current entry point explicitly says otherwise.
+1. [`REPOSITORY_FREEZE_NOTICE_2026-08-18.md`](REPOSITORY_FREEZE_NOTICE_2026-08-18.md)
+2. [`../README.md`](../README.md)
+3. this file;
+4. the research branch's current `RESEARCH_BRANCH_STATUS.md`.
 
-In particular, [`FINAL_REPOSITORY_FREEZE_2026-08-15.md`](history/branch-and-release/FINAL_REPOSITORY_FREEZE_2026-08-15.md) and [`FINAL_BRANCH_DISPOSITION_2026-08-15.md`](history/branch-and-release/FINAL_BRANCH_DISPOSITION_2026-08-15.md) preserve the earlier PR #20 freeze-preparation snapshot; their original branch inventory predates later support-branch retention/archive decisions and must not be mechanically read as the current physical Git ref inventory.
+Dated records may accurately describe earlier states without describing the present one.
 
-## Boundary
+## Restart rule
 
-A successful QA run, branch cleanup, archive-tag creation, documentation convergence or implementation completion does not establish subjectivity, identity continuity, scientific validity, independent IV&V, canonical runtime authority or deployment authority.
+The repository has no scheduled thaw. A future restart requires a new Human Owner authorization, fresh repository inventory, and a new independent ChatGPT architecture/evidence/provenance review.
+
+Until then:
 
 ```text
-CI_PASS != SCIENTIFIC_VALIDATION
-ARCHIVE_TAG != RELEASE
-ARCHIVE_TAG != APPROVAL
-RESEARCH_BRANCH != MAIN
-RESEARCH_CONVERGENCE != CANONICAL_PROMOTION
-VISIBLE_BRANCH_REF != ACTIVE_RESEARCH_AUTHORITY
+NEW_RELEASE = NO
+NEW_BRANCH = NO
+NEW_RESEARCH_MATERIALIZATION = NO
+NEW_ENGINEERING = NO
+CANONICAL_PROMOTION = NO
+DEPLOYMENT_PROMOTION = NO
 ```
