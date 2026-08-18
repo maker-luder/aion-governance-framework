@@ -79,3 +79,31 @@ class EvidenceStore:
 
     def get_current_nonclaims(self) -> dict[str, Any]:
         return _thaw(self._nonclaims)
+
+
+_REQUIRED_ADMISSION_FIELDS = (
+    "existing_question",
+    "provenance",
+    "source_scope",
+    "evidence_role",
+)
+
+
+def validate_external_source_admission(candidate: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate admission metadata without ingesting, storing, or fetching a source."""
+
+    missing = [field for field in _REQUIRED_ADMISSION_FIELDS if not str(candidate.get(field, "")).strip()]
+    bulk_ingest = bool(candidate.get("bulk_ingest", False))
+    automatic_memory_generation = bool(candidate.get("automatic_memory_generation", False))
+    automatic_canonical_promotion = bool(candidate.get("automatic_canonical_promotion", False))
+    admitted = not missing and not bulk_ingest and not automatic_memory_generation and not automatic_canonical_promotion
+    return {
+        "admission": "ADMIT_CANDIDATE" if admitted else "HOLD_OR_DROP",
+        "missing_fields": missing,
+        "bulk_ingest": bulk_ingest,
+        "automatic_memory_generation": automatic_memory_generation,
+        "automatic_canonical_promotion": automatic_canonical_promotion,
+        "canonical_effect": "NONE",
+        "subjectivity_evidence_weight": 0,
+        "ingested": False,
+    }

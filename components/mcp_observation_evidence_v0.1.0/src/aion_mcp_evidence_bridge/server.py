@@ -22,9 +22,9 @@ def _fixture_path() -> Path:
     return Path(__file__).resolve().parents[2] / "fixtures" / "observation_records.json"
 
 
-def _provenance(tool_name: str, source_type: str, source_id: str, source_timestamp: str) -> EvidenceProvenance:
+def _provenance(tool_name: str, evidence_source_class: str, source_id: str, source_timestamp: str) -> EvidenceProvenance:
     return EvidenceProvenance(
-        source_type=source_type,
+        evidence_source_class=evidence_source_class,
         source_id=source_id,
         source_timestamp=source_timestamp,
         retrieval_timestamp=utc_now(),
@@ -40,7 +40,7 @@ def _envelope(
     subject: str,
     data: Mapping[str, Any],
     found: bool,
-    source_type: str,
+    evidence_source_class: str,
     source_id: str,
     source_timestamp: str,
 ) -> dict[str, Any]:
@@ -48,7 +48,7 @@ def _envelope(
         subject=subject,
         found=found,
         data=dict(data),
-        provenance=_provenance(tool_name, source_type, source_id, source_timestamp),
+        provenance=_provenance(tool_name, evidence_source_class, source_id, source_timestamp),
     ).to_dict()
 
 
@@ -84,7 +84,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject="CONTINUITY_OBSERVATIONS",
             data={"records": records, "count": len(records)},
             found=True,
-            source_type="FIXTURE_CORPUS",
+            evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
             source_timestamp="2026-08-18T00:00:00Z",
         )
@@ -102,7 +102,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject=f"CONTINUITY_OBSERVATION:{observation_id}",
             data={} if record is None else {"record": record},
             found=record is not None,
-            source_type="FIXTURE_CORPUS",
+            evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
             source_timestamp="2026-08-18T00:00:00Z",
         )
@@ -120,7 +120,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject="PROVENANCE_RECORDS",
             data={"query": query, "records": records, "count": len(records)},
             found=bool(records),
-            source_type="FIXTURE_CORPUS",
+            evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
             source_timestamp="2026-08-18T00:00:00Z",
         )
@@ -138,7 +138,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject=f"SOURCE_ATTRIBUTION:{record_id}",
             data={} if record is None else {"record": record},
             found=record is not None,
-            source_type="FIXTURE_CORPUS",
+            evidence_source_class="SYNTHETIC_FIXTURE",
             source_id="fixture:observation_records.json",
             source_timestamp="2026-08-18T00:00:00Z",
         )
@@ -156,7 +156,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject="RESEARCH_BOUNDARY",
             data=boundary,
             found=True,
-            source_type="EXPLICIT_POLICY_FIXTURE",
+            evidence_source_class="EXPLICIT_HUMAN_OWNER_RECORD",
             source_id="fixture:observation_records.json",
             source_timestamp="2026-08-18T00:00:00Z",
         )
@@ -174,7 +174,7 @@ def build_server(store: EvidenceStore | None = None) -> MCPServer:
             subject="CURRENT_NONCLAIMS",
             data=nonclaims,
             found=True,
-            source_type="EXPLICIT_POLICY_FIXTURE",
+            evidence_source_class="EXPLICIT_HUMAN_OWNER_RECORD",
             source_id="fixture:observation_records.json",
             source_timestamp="2026-08-18T00:00:00Z",
         )

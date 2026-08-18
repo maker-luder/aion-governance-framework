@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from typing import Any, Literal
 from uuid import uuid4
 
-RECALL_SOURCES = (
+RETRIEVAL_MECHANISMS = (
     "INTERNAL_CONTEXT",
     "CHAT_HISTORY_REFERENCE",
     "SAVED_MEMORY",
@@ -13,8 +13,38 @@ RECALL_SOURCES = (
     "USER_PROMPT",
     "UNKNOWN",
 )
+# Backward-compatible name for existing callers; semantics are retrieval mechanisms.
+RECALL_SOURCES = RETRIEVAL_MECHANISMS
 
-Authority = Literal["NONE", "PROPOSE", "IMPLEMENT", "REVIEW", "APPROVE", "RELEASE"]
+EVIDENCE_SOURCE_CLASSES = (
+    "SYNTHETIC_FIXTURE",
+    "PUBLIC_REPOSITORY",
+    "APPROVED_NOTION_OBSERVATION_METADATA",
+    "OFFICIAL_EXTERNAL_DOCUMENTATION",
+    "EXPLICIT_HUMAN_OWNER_RECORD",
+    "CHATGPT_TEACHER_RECORD",
+    "JOINTLY_CONVERGED_RECORD",
+    "UNKNOWN",
+)
+
+Authority = Literal[
+    "NONE",
+    "PROPOSE",
+    "PROPOSE_REVIEW",
+    "IMPLEMENT",
+    "REVIEW",
+    "APPROVE",
+    "APPROVE_SCOPE",
+    "RELEASE",
+]
+RetrievalMechanism = Literal[
+    "INTERNAL_CONTEXT",
+    "CHAT_HISTORY_REFERENCE",
+    "SAVED_MEMORY",
+    "MCP_EXTERNAL_RETRIEVAL",
+    "USER_PROMPT",
+    "UNKNOWN",
+]
 
 
 def utc_now() -> str:
@@ -23,18 +53,23 @@ def utc_now() -> str:
 
 @dataclass(frozen=True, slots=True)
 class EvidenceProvenance:
-    source_type: str
+    evidence_source_class: str
     source_id: str
     source_timestamp: str
     retrieval_timestamp: str
     tool_name: str
     tool_call_id: str
     authority: Authority
+    retrieval_mechanism: RetrievalMechanism = "MCP_EXTERNAL_RETRIEVAL"
     canonical_effect: Literal["NONE"] = "NONE"
 
     def to_dict(self) -> dict[str, Any]:
         return {
-            "source_type": self.source_type,
+            # source_type is retained as a compatibility alias; the explicit
+            # dimensions are evidence_source_class and retrieval_mechanism.
+            "source_type": self.evidence_source_class,
+            "evidence_source_class": self.evidence_source_class,
+            "retrieval_mechanism": self.retrieval_mechanism,
             "source_id": self.source_id,
             "source_timestamp": self.source_timestamp,
             "retrieval_timestamp": self.retrieval_timestamp,
@@ -56,14 +91,7 @@ class EvidenceEnvelope:
     canonical_effect: Literal["NONE"] = "NONE"
     memory_write: Literal["NONE"] = "NONE"
     identity_authority: Literal["NONE"] = "NONE"
-    recall_source: Literal[
-        "INTERNAL_CONTEXT",
-        "CHAT_HISTORY_REFERENCE",
-        "SAVED_MEMORY",
-        "MCP_EXTERNAL_RETRIEVAL",
-        "USER_PROMPT",
-        "UNKNOWN",
-    ] = "MCP_EXTERNAL_RETRIEVAL"
+    retrieval_mechanism: RetrievalMechanism = "MCP_EXTERNAL_RETRIEVAL"
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -72,7 +100,8 @@ class EvidenceEnvelope:
             "canonical_effect": self.canonical_effect,
             "memory_write": self.memory_write,
             "identity_authority": self.identity_authority,
-            "recall_source": self.recall_source,
+            "retrieval_mechanism": self.retrieval_mechanism,
+            "recall_source": self.retrieval_mechanism,
             "subject": self.subject,
             "found": self.found,
             "data": self.data,

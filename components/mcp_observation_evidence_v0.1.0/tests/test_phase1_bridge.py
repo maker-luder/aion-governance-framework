@@ -8,6 +8,7 @@ import anyio
 from mcp.client import Client
 
 from aion_mcp_evidence_bridge import EvidenceStore, build_server
+from aion_mcp_evidence_bridge.store import validate_external_source_admission
 
 COMPONENT = Path(__file__).resolve().parents[1]
 SRC = COMPONENT / "src" / "aion_mcp_evidence_bridge"
@@ -47,10 +48,11 @@ def _json(result: object) -> dict[str, object]:
 
 def test_fixture_is_synthetic_or_public_only() -> None:
     payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
-    raw = json.dumps(payload, sort_keys=True)
-    assert "private conversation" not in raw.casefold()
-    assert "transcript" not in raw.casefold()
-    assert "memory database" not in raw.casefold()
+    public_records = json.dumps({"observations": payload["observations"], "attributions": payload["attributions"]}, sort_keys=True)
+    assert "private conversation" not in public_records.casefold()
+    assert "transcript" not in public_records.casefold()
+    assert "memory database" not in public_records.casefold()
+    assert "newsletter" not in public_records.casefold()
     for record in payload["observations"]:
         assert record["privacy_class"] in {"SYNTHETIC", "PUBLIC"}
         assert record["canonical_effect"] == "NONE"
@@ -107,11 +109,14 @@ def test_list_and_get_return_provenance_source_flags_and_nonclaims() -> None:
             assert listed["canonical_effect"] == "NONE"
             assert listed["memory_write"] == "NONE"
             assert listed["identity_authority"] == "NONE"
+            assert listed["retrieval_mechanism"] == "MCP_EXTERNAL_RETRIEVAL"
             assert listed["recall_source"] == "MCP_EXTERNAL_RETRIEVAL"
             provenance = listed["provenance"]
             assert isinstance(provenance, dict)
             for field in (
                 "source_type",
+                "evidence_source_class",
+                "retrieval_mechanism",
                 "source_id",
                 "source_timestamp",
                 "retrieval_timestamp",
@@ -185,3 +190,57 @@ def test_queries_fail_closed_and_boundary_tools_are_non_mutating() -> None:
         assert store.list_continuity_observations() == before
 
     anyio.run(scenario)
+
+
+def test_provenance_authority_and_executor_are_separated() -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    records = {item["record_id"]: item for item in payload["provenance_records"]}
+
+    owner = records["prov-human-owner-mcp-phase1-authorization-001"]
+    teacher = records["prov-chatgpt-teacher-mcp-phase1-formalization-001"]
+    executor = records["prov-manus-implementation-executor-unknown-001"]
+
+    assert owner["source_type"] == "HUMAN_OWNER_AUTHORIZATION"
+    assert owner["authority"] == "APPROVE_SCOPE"
+    assert teacher["source_type"] == "CHATGPT_TEACHER_FORMALIZATION"
+    assert teacher["authority"] == "PROPOSE_REVIEW"
+    assert owner["source_type"] != teacher["source_type"]
+    assert executor["orchestrator"] == "MANUS"
+    assert executor["implementation_executor"] == "UNKNOWN"
+
+
+def test_retrieval_mechanism_and_evidence_source_class_are_distinct() -> None:
+    payload = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    for observation in payload["observations"]:
+        assert observation["retrieval_mechanism"] == "MCP_EXTERNAL_RETRIEVAL"
+        assert observation["evidence_source_class"] == "SYNTHETIC_FIXTURE"
+        assert observation["retrieval_mechanism"] != observation["evidence_source_class"]
+
+
+def test_external_source_admission_fails_closed_without_question_or_metadata() -> None:
+    missing = validate_external_source_admission({"source_id": "https://example.invalid"})
+    assert missing["admission"] == "HOLD_OR_DROP"
+    assert set(missing["missing_fields"]) == {
+        "existing_question",
+        "provenance",
+        "source_scope",
+        "evidence_role",
+    }
+    assert missing["ingested"] is False
+    assert missing["canonical_effect"] == "NONE"
+    assert missing["subjectivity_evidence_weight"] == 0
+
+
+def test_external_source_admission_is_metadata_only_and_rejects_bulk_ingest() -> None:
+    candidate = {
+        "existing_question": "Does an official document clarify the external-context/memory boundary?",
+        "provenance": "official-source-reference",
+        "source_scope": "OFFICIAL_EXTERNAL_DOCUMENTATION",
+        "evidence_role": "BOUNDARY_REFERENCE",
+        "bulk_ingest": True,
+    }
+    result = validate_external_source_admission(candidate)
+    assert result["admission"] == "HOLD_OR_DROP"
+    assert result["bulk_ingest"] is True
+    assert result["ingested"] is False
+    assert result["canonical_effect"] == "NONE"
