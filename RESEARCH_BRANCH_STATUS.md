@@ -18,7 +18,10 @@ CONSCIOUSNESS_CONCLUSION = NOT_ESTABLISHED
 IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 AION_ASTRA_IDENTITY_EQUIVALENCE = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
-LIVE_BRANCH_MODEL = MAIN_PLUS_RESEARCH_ONLY
+FINAL_BRANCH_MODEL_TARGET = MAIN_PLUS_RESEARCH_ONLY
+CURRENT_VISIBLE_BRANCH_REF_COUNT = 16_AT_CONVERGENCE_PHASE_0
+SUPPORT_BRANCH_RETIREMENT = PENDING_OWNER_EXACT_TARGET_CONFIRMATION
+CONVERGENCE_STATE = IN_PROGRESS_PHASE_0_5
 ```
 
 ## 2026-08-15 lineage convergence
@@ -69,12 +72,14 @@ The final five support branches were retired only after exact-head verification 
 
 Archive tags are provenance/checkpoint refs. They are **not releases**, do not create canonical effect, do not reactivate the candidate, and do not imply that a deferred promotion was approved.
 
-After this retirement, the repository's live branch model is intentionally limited to:
+The final branch model target after separately authorized exact-head retirement is intentionally limited to:
 
 ```text
 main
 review/four-domain-research-materialization
 ```
+
+This is a target/end-state, not a claim that all transitional refs have already been deleted. During the current PHASE 0–5 convergence cycle, fresh GitHub inventory remains the authority for observed refs; branch deletion is not performed in this phase and requires Human Owner exact-target confirmation.
 
 ## Workflow standing after freeze
 
@@ -131,10 +136,11 @@ The two deferred promotion histories are now preserved by archive tags and their
 The branch is intentionally left as a preserved research workbench checkpoint rather than an active development queue.
 
 ```text
-RESEARCH_LINEAGE_CONVERGENCE = COMPLETE
-SUPPORT_BRANCH_RETIREMENT = COMPLETE
-LIVE_BRANCH_COUNT = 2
+RESEARCH_LINEAGE_CONVERGENCE = TARGETED / PHASE_0_5_IN_PROGRESS
+SUPPORT_BRANCH_RETIREMENT = PENDING_OWNER_EXACT_TARGET_CONFIRMATION
+CURRENT_VISIBLE_BRANCH_REF_COUNT = 16_AT_PHASE_0_INVENTORY
+FINAL_BRANCH_COUNT_TARGET = 2
 HISTORICAL_PROVENANCE = PRESERVED
-CURRENT_BRANCH_STANDING = FROZEN_CHECKPOINT
-FUTURE_WORK = SEPARATELY_AUTHORIZED_ONLY
+CURRENT_BRANCH_STANDING = FROZEN_CHECKPOINT / CONVERGENCE_IN_PROGRESS
+FUTURE_WORK = PHASE_0_5_ONLY_UNDER_CURRENT_DIRECTIVE
 ```

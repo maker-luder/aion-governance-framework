@@ -37,6 +37,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip pytest pytest-cov jsonschema
           python -m pip install -e examples/bazi-capability_v0.1.1
+          python -m pip install -e components/mcp_observation_evidence_v0.1.0
 
       - name: Test source-state binding control
         run: python -m pytest -q tests/test_source_state_binding.py

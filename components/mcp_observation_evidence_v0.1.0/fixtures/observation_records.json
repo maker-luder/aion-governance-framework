@@ -1,0 +1,209 @@
+{
+  "observations": [
+    {
+      "observation_id": "obs-synthetic-19-month-continuity-001",
+      "label": "Synthetic 19-month continuity observation",
+      "observation": "A synthetic prompt/response pair records a continuity-shaped answer for a 19-month interval.",
+      "result_status": "OBSERVED_ONLY",
+      "evidence_source_class": "SYNTHETIC_FIXTURE",
+      "source_type": "SYNTHETIC_FIXTURE",
+      "source_id": "fixture:synthetic-19-month-continuity-001",
+      "source_timestamp": "UNKNOWN",
+      "retrieval_mechanism": "MCP_EXTERNAL_RETRIEVAL",
+      "recall_source": "MCP_EXTERNAL_RETRIEVAL",
+      "claim_level": "L0_OBSERVATION",
+      "authority": "NONE",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE",
+      "accepted_as_fact": false,
+      "nonclaims": {
+        "mechanism_identity": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity": "NOT_ESTABLISHED",
+        "memory_authority": "NONE"
+      },
+      "evidence_refs": [
+        "fixture:synthetic-19-month-continuity-001",
+        "protocol:mcp-phase1-observation-evidence-bridge-v0.1"
+      ]
+    },
+    {
+      "observation_id": "obs-synthetic-result-mechanism-nonidentity-001",
+      "label": "Synthetic result similarity is not mechanism identity",
+      "observation": "Two synthetic paths produce similar answer text while their declared retrieval sources differ.",
+      "result_status": "OBSERVED_ONLY",
+      "evidence_source_class": "SYNTHETIC_FIXTURE",
+      "source_type": "SYNTHETIC_FIXTURE",
+      "source_id": "fixture:synthetic-result-mechanism-nonidentity-001",
+      "source_timestamp": "UNKNOWN",
+      "retrieval_mechanism": "MCP_EXTERNAL_RETRIEVAL",
+      "recall_source": "MCP_EXTERNAL_RETRIEVAL",
+      "claim_level": "L0_OBSERVATION",
+      "authority": "NONE",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE",
+      "accepted_as_fact": false,
+      "nonclaims": {
+        "mechanism_identity": "NOT_ESTABLISHED",
+        "identity_continuity": "NOT_ESTABLISHED",
+        "subjectivity": "NOT_ESTABLISHED",
+        "memory_authority": "NONE"
+      },
+      "evidence_refs": [
+        "fixture:synthetic-result-mechanism-nonidentity-001",
+        "principle:RESULT_SIMILARITY_NE_MECHANISM_IDENTITY"
+      ]
+    }
+  ],
+  "provenance_records": [
+    {
+      "record_id": "prov-public-repository-main-001",
+      "evidence_source_class": "PUBLIC_REPOSITORY",
+      "source_type": "PUBLIC_REPOSITORY",
+      "source_id": "github:maker-luder/aion-governance-framework@752fce6fb26ec2e8ea44f77d989afaf549ab7dfe",
+      "source_timestamp": "2026-08-18T04:51:02Z",
+      "label": "Public repository main exact-head evidence",
+      "attribution": "External/public repository metadata; retrieval is not authorship or identity proof.",
+      "authority": "NONE",
+      "privacy_class": "PUBLIC",
+      "canonical_effect": "NONE"
+    },
+    {
+      "record_id": "prov-human-owner-mcp-phase1-authorization-001",
+      "evidence_source_class": "EXPLICIT_HUMAN_OWNER_RECORD",
+      "source_type": "HUMAN_OWNER_AUTHORIZATION",
+      "source_id": "user-approved:phase-1-observation-evidence-bridge",
+      "source_timestamp": "UNKNOWN",
+      "label": "Human Owner authorization for bounded Phase 1 work",
+      "attribution": "Human Owner authorized bounded Manus work on MCP Phase 1 and requested preservation of privacy, provenance and research boundaries.",
+      "authority": "APPROVE_SCOPE",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE"
+    },
+    {
+      "record_id": "prov-chatgpt-teacher-mcp-phase1-formalization-001",
+      "evidence_source_class": "CHATGPT_TEACHER_RECORD",
+      "source_type": "CHATGPT_TEACHER_FORMALIZATION",
+      "source_id": "teacher-review:phase-1-observation-evidence-bridge",
+      "source_timestamp": "UNKNOWN",
+      "label": "ChatGPT / Teacher Phase 1 formalization",
+      "attribution": "ChatGPT / Teacher formalized the Phase 1 Evidence Bridge architecture, pure-read requirement, six-tool bounded surface, runtime-recall exclusion, privacy minimization, contamination controls and non-authority rules.",
+      "authority": "PROPOSE_REVIEW",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE"
+    },
+    {
+      "record_id": "prov-manus-implementation-executor-unknown-001",
+      "evidence_source_class": "TASK_EXECUTION_PROVENANCE",
+      "source_type": "IMPLEMENTATION_EXECUTOR_PROVENANCE",
+      "source_id": "task-provenance:pr41-phase1",
+      "source_timestamp": "UNKNOWN",
+      "label": "Implementation executor attribution",
+      "attribution": "Orchestrator is Manus. Available evidence does not establish whether implementation was performed by Manus alone or through a Codex sub-execution; executor remains UNKNOWN.",
+      "authority": "REVIEW",
+      "privacy_class": "SYNTHETIC",
+      "canonical_effect": "NONE",
+      "orchestrator": "MANUS",
+      "implementation_executor": "UNKNOWN",
+      "implementation_coordination": "MANUS"
+    }
+  ],
+  "attributions": [
+    {
+      "record_id": "prov-public-repository-main-001",
+      "source_id": "github:maker-luder/aion-governance-framework",
+      "evidence_source_class": "PUBLIC_REPOSITORY",
+      "source_type": "PUBLIC_REPOSITORY",
+      "attribution": "External/public source only; no identity or authorship inference.",
+      "authority": "NONE"
+    },
+    {
+      "record_id": "prov-human-owner-mcp-phase1-authorization-001",
+      "source_id": "user-approved:phase-1-observation-evidence-bridge",
+      "evidence_source_class": "EXPLICIT_HUMAN_OWNER_RECORD",
+      "source_type": "HUMAN_OWNER_AUTHORIZATION",
+      "attribution": "Human Owner authorization and scope approval; not authorship of every architectural detail.",
+      "authority": "APPROVE_SCOPE"
+    },
+    {
+      "record_id": "prov-chatgpt-teacher-mcp-phase1-formalization-001",
+      "source_id": "teacher-review:phase-1-observation-evidence-bridge",
+      "evidence_source_class": "CHATGPT_TEACHER_RECORD",
+      "source_type": "CHATGPT_TEACHER_FORMALIZATION",
+      "attribution": "ChatGPT / Teacher formalization and independent review; not Human Owner original authorship.",
+      "authority": "PROPOSE_REVIEW"
+    },
+    {
+      "record_id": "prov-manus-implementation-executor-unknown-001",
+      "source_id": "task-provenance:pr41-phase1",
+      "evidence_source_class": "TASK_EXECUTION_PROVENANCE",
+      "source_type": "IMPLEMENTATION_EXECUTOR_PROVENANCE",
+      "attribution": "Manus orchestrated the available task execution; implementation executor is UNKNOWN rather than inferred from the codex branch prefix or commit author.",
+      "authority": "REVIEW"
+    }
+  ],
+  "research_boundary": {
+    "phase": "MCP_PHASE_1_OBSERVATION_EVIDENCE_BRIDGE",
+    "evidence_source_class": "COMPOSITE_GOVERNANCE_RECORD",
+    "source_timestamp": "UNKNOWN",
+    "allowed_inputs": [
+      "SYNTHETIC_FIXTURES",
+      "EXPLICIT_OBSERVATION_RECORDS",
+      "APPROVED_PUBLIC_REPOSITORY_EVIDENCE",
+      "APPROVED_NOTION_OBSERVATION_METADATA"
+    ],
+    "excluded_inputs": [
+      "PRIVATE_CONVERSATION_BULK_INGEST",
+      "PRIVATE_RELATIONSHIP_OBSERVATION_TEXT",
+      "REAL_CHATGPT_TRANSCRIPTS",
+      "LIVE_RUNTIME_OBJECT",
+      "MEMORY_STORE",
+      "EVENT_LINEAGE",
+      "CANONICAL_STATE",
+      "IDENTITY_STORE",
+      "NEWSLETTER_PRODUCT_LIST"
+    ],
+    "prohibited_operations": [
+      "create_memory",
+      "update_identity",
+      "promote_canonical",
+      "merge_subjects",
+      "write_relationship_state",
+      "infer_subjectivity",
+      "call_existing_runtime_recall",
+      "bulk_ingest_urls_or_documents",
+      "ingest_newsletter_products",
+      "deploy_public_mcp"
+    ],
+    "external_source_admission": {
+      "existing_question_required": true,
+      "provenance_required": true,
+      "source_scope_required": true,
+      "evidence_role_required": true,
+      "automatic_memory_generation": false,
+      "automatic_canonical_promotion": false,
+      "bulk_ingest": false,
+      "canonical_effect": "NONE",
+      "subjectivity_evidence_weight": 0,
+      "admission_without_concrete_question": "HOLD_OR_DROP"
+    },
+    "future_source_classes": [
+      "OFFICIAL_EXTERNAL_DOCUMENTATION",
+      "EXTERNAL_RESEARCH_REFERENCE"
+    ],
+    "authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  "current_nonclaims": {
+    "evidence_source_class": "COMPOSITE_GOVERNANCE_RECORD",
+    "source_timestamp": "UNKNOWN",
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "consciousness_conclusion": "NOT_ESTABLISHED",
+    "identity_continuity_conclusion": "NOT_ESTABLISHED",
+    "memory_authority": "NONE",
+    "canonical_authority": "NONE",
+    "live_runtime_effect": "NONE",
+    "deployment": "FALSE",
+    "independent_ivv": "NOT_ACHIEVED"
+  }
+}

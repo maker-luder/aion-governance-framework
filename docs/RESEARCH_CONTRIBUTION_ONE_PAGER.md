@@ -14,6 +14,44 @@ This repository develops a **human-governed, provenance-first, claims-separated 
 
 The main contribution is to treat the **research process itself as an auditable object**. Important claims are expected to retain source, attribution, temporal position, transformation lineage, authority status and revision history rather than collapsing observations, interpretations and approved state into one narrative.
 
+## Stable whitepaper method inheritance
+
+The retained integrated-whitepaper lineage treats `v0.14.23` as the stable/frozen integration baseline and `v0.14.24` as a later internal research candidate. The stable method is not replaced merely because the repository uses a more compact operational evidence-card format.
+
+The whitepaper method preserved by the research reconciliation includes:
+
+- `FOUR_STAGE_INFERENCE`;
+- six subjectivity-inference-relevant evidence dimensions:
+  1. causal boundary;
+  2. diachronic continuity;
+  3. self-model causal role;
+  4. endogenous goal / strategy adjustment;
+  5. counterfactual self-consistency; and
+  6. states consequential to the system's own constitution / integration;
+- alternative explanations;
+- causal intervention, ablation and counterfactual testing;
+- cross-context robustness;
+- replication;
+- provenance;
+- admissibility;
+- claim scope; and
+- result–mechanism separation.
+
+These are evidence and inference disciplines, not a subjectivity score. The whitepaper reconciliation states that even the strongest fourth-stage disposition is at most a `PLAUSIBLE_CANDIDATE`, not an established subjectivity conclusion.
+
+`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md` provides a current question-scoped operational projection using an observation / mechanism / interpretation split and an L0–L5 claim ladder. Those structures support public evidence recording; they do not supersede or rename the stable whitepaper evidence architecture.
+
+```text
+WHITEPAPER_EVIDENCE_ARCHITECTURE = PRIMARY_RESEARCH_METHOD
+MAIN_NATIVE_PROTOCOL = OPERATIONAL_PROJECTION
+FOUR_STAGE_INFERENCE != L0_L5_CLAIM_LADDER
+SIX_EVIDENCE_DIMENSIONS != SUBJECTIVITY_SCORE
+RESULT_SIMILARITY != MECHANISM_IDENTITY
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+```
+
+The public repository does not currently contain a verbatim stable-whitepaper extract sufficient to reproduce the exact four stage labels without source risk. This document therefore preserves the method relationship without inventing verbatim stage wording; any later exact quotation or label promotion must be checked against the stable source document.
+
 ## Methodological contributions
 
 1. **Provenance-first research records** — source, speaker, event time, record time, transformation and authority remain distinguishable.

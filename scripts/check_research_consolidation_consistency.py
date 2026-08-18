@@ -8,7 +8,10 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_BRANCH = "engineering/aion-research-consolidation-literature-grounding-readiness-20260814"
+EXPECTED_BRANCHES = {
+    "review/four-domain-research-materialization",
+    "convergence/two-branch-finalization-20260818",
+}
 SCHEMA = ROOT / "schemas/aion_research_consolidation_artifact_v0.1.0.schema.json"
 CROSS_BRANCH_SCHEMA = ROOT / "schemas/aion_cross_branch_index_v0.1.0.schema.json"
 TAXONOMY_SCHEMA = ROOT / "schemas/aion_public_discoverability_taxonomy_v0.1.0.schema.json"
@@ -67,8 +70,8 @@ def main() -> int:
 
     try:
         branch = git("branch", "--show-current")
-        if branch != EXPECTED_BRANCH:
-            fail(errors, f"unexpected branch {branch!r}; expected {EXPECTED_BRANCH!r}")
+        if branch not in EXPECTED_BRANCHES:
+            fail(errors, f"unexpected branch {branch!r}; expected one of {sorted(EXPECTED_BRANCHES)!r}")
     except subprocess.CalledProcessError as exc:
         fail(errors, f"cannot read current git branch: {exc}")
 

@@ -96,13 +96,13 @@ def test_convergence_workflow_is_read_only_and_branch_scoped():
     workflow = (ROOT / ".github/workflows/research-convergence-consistency.yml").read_text(
         encoding="utf-8"
     )
-    assert "engineering/aion-research-consolidation-literature-grounding-readiness-20260814" in workflow
+    assert "review/four-domain-research-materialization" in workflow
     assert "pull_request_target" not in workflow
     assert "contents: read" in workflow
     assert "persist-credentials: false" in workflow
     assert "uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow
     assert "uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
-    assert "review/four-domain-research-materialization" not in workflow
+    assert "engineering/aion-research-consolidation-literature-grounding-readiness-20260814" not in workflow
     assert "python -m pip install -e ." in workflow
 
 
