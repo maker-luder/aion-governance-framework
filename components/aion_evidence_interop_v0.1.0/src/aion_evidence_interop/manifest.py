@@ -19,6 +19,16 @@ from .scorecard_export import export_scorecard_crosswalk
 
 
 PROFILE_VERSION = "0.1.0"
+OUTPUT_PATHS = (
+    "attestation.intoto.json",
+    "inspect/dataset.jsonl",
+    "inspect/task-manifest.json",
+    "interop-manifest.json",
+    "opa/input.json",
+    "openssf/scorecard-crosswalk.json",
+    "prov.jsonld",
+    "ro-crate/ro-crate-metadata.json",
+)
 
 
 def _artifact_digest(value: Any) -> str:
@@ -93,6 +103,11 @@ def build_bundle(
         source_ref=validation.record_ref,
         source_sha256=validation.record_sha256,
         artifact_digests=primary_digests,
+        represented_artifacts=[
+            name
+            for name in OUTPUT_PATHS
+            if name != "ro-crate/ro-crate-metadata.json"
+        ],
     )
     primary_digests["ro-crate/ro-crate-metadata.json"] = _artifact_digest(rocrate)
 
@@ -111,9 +126,12 @@ def build_bundle(
     allow, reasons = evaluate_boundaries(opa_input)
     if not allow:
         raise InteropError(
-            "interop policy boundary failed closed: " + ", ".join(reasons)
+            "interop policy boundary failed closed: " + ", ".join(reasons),
+            category="policy_boundary_failure",
         )
     opa_input["decision"] = {"allow": True, "deny_reasons": []}
+    artifact_digests["opa/input.json"] = _artifact_digest(opa_input)
+    manifest["artifact_digests"] = dict(sorted(artifact_digests.items()))
     manifest["policy"] = {
         "python_mirror_allow": True,
         "opa_policy_ref": "policies/aion_interop.rego",
@@ -133,11 +151,36 @@ def build_bundle(
 
 
 def write_bundle(output: Path, bundle: dict[str, bytes]) -> None:
-    output = output.resolve()
-    for relative, data in sorted(bundle.items()):
-        target = output / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_bytes(data)
+    try:
+        if output.is_symlink():
+            raise InteropError(
+                "output path must not be a symbolic link",
+                category="write_failure",
+            )
+        output = output.absolute()
+        if output.exists() and (not output.is_dir() or any(output.iterdir())):
+            raise InteropError(
+                "output path must be absent or an empty directory",
+                category="write_failure",
+            )
+        output.mkdir(parents=True, exist_ok=True)
+        for relative, data in sorted(bundle.items()):
+            relative_path = Path(relative)
+            if relative_path.is_absolute() or ".." in relative_path.parts:
+                raise InteropError(
+                    "bundle contains a non-confined output path",
+                    category="write_failure",
+                )
+            target = output / relative_path
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+    except InteropError:
+        raise
+    except OSError as exc:
+        raise InteropError(
+            "interoperability bundle could not be written",
+            category="write_failure",
+        ) from exc
 
 
 def bundle_hashes(bundle: dict[str, bytes]) -> dict[str, str]:

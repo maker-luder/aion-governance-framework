@@ -16,6 +16,7 @@ def test_rocrate_is_metadata_only_and_noncanonical() -> None:
         source_ref="components/aion_evidence_interop_v0.1.0/fixtures/valid_minimal.json",
         source_sha256="a" * 64,
         artifact_digests={"prov.jsonld": "b" * 64},
+        represented_artifacts=["prov.jsonld", "attestation.intoto.json", "opa/input.json"],
     )
     assert result["@context"] == "https://w3id.org/ro/crate/1.2/context"
     root = next(item for item in result["@graph"] if item["@id"] == "./")
@@ -26,4 +27,12 @@ def test_rocrate_is_metadata_only_and_noncanonical() -> None:
         if item["@id"] == f"urn:aion:source:sha256:{'a' * 64}"
     )
     assert source["identifier"] == f"sha256:{'a' * 64}"
+    assert source["sha256"] == "a" * 64
     assert source["contentUrl"].endswith("valid_minimal.json")
+    graph = {item["@id"]: item for item in result["@graph"]}
+    assert graph["../prov.jsonld"]["sha256"] == "b" * 64
+    assert "sha256" not in graph["../attestation.intoto.json"]
+    assert "../opa/input.json" in graph
+    assert [item["@id"] for item in result["@graph"]] == sorted(graph)
+    metadata = graph["ro-crate-metadata.json"]
+    assert metadata["conformsTo"]["@id"] == "https://w3id.org/ro/crate/1.2"

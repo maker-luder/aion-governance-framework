@@ -26,3 +26,12 @@ def test_prov_export_preserves_nonclaims_without_identity_inference() -> None:
     assert source["aion:subjectivityConclusion"] == "NOT_ESTABLISHED"
     assert source["aion:identityContinuityConclusion"] == "NOT_ESTABLISHED"
     assert "aion:declaredAssociatedWith" in source
+    graph_ids = {item["@id"] for item in result["@graph"]}
+    for relation in ("prov:wasDerivedFrom", "prov:wasAttributedTo"):
+        assert all(item["@id"] in graph_ids for item in source[relation])
+    assert "prov:wasAssociatedWith" not in source
+    assert result["aion:nonclaims"] == [
+        "PROV_AGENT != IDENTITY_PROOF",
+        "PROVENANCE != SUBJECTIVITY",
+        "PROVENANCE != MECHANISM_PROOF",
+    ]

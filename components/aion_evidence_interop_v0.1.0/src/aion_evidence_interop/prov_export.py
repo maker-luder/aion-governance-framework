@@ -8,6 +8,8 @@ PROV_CONTEXT = {
     "prov": "http://www.w3.org/ns/prov#",
     "aion": "https://example.invalid/aion/interop#",
     "label": "http://www.w3.org/2000/01/rdf-schema#label",
+    "prov:wasDerivedFrom": {"@type": "@id"},
+    "prov:wasAttributedTo": {"@type": "@id"},
 }
 
 
@@ -22,9 +24,15 @@ def _refs(kind: str, values: list[str]) -> list[dict[str, str]]:
 
 def export_prov(record: dict[str, Any], source_ref: str) -> dict[str, Any]:
     provenance = record.get("provenance", {})
-    entities = [source_ref] + list(provenance.get("entities", []))
+    entities = (
+        [source_ref]
+        + list(provenance.get("entities", []))
+        + list(provenance.get("derived_from", []))
+    )
     activities = list(provenance.get("activities", []))
-    agents = list(provenance.get("agents", []))
+    agents = list(provenance.get("agents", [])) + list(
+        provenance.get("attributed_to", [])
+    )
 
     graph: list[dict[str, Any]] = []
     for value in sorted(set(str(item) for item in entities)):
@@ -79,4 +87,9 @@ def export_prov(record: dict[str, Any], source_ref: str) -> dict[str, Any]:
         "aion:profileVersion": "0.1.0",
         "aion:canonicalEffect": "NONE",
         "aion:deployment": False,
+        "aion:nonclaims": [
+            "PROV_AGENT != IDENTITY_PROOF",
+            "PROVENANCE != SUBJECTIVITY",
+            "PROVENANCE != MECHANISM_PROOF",
+        ],
     }

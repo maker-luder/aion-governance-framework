@@ -16,8 +16,9 @@ def _git_head(root: Path) -> str:
             cwd=root,
             text=True,
             stderr=subprocess.STDOUT,
+            timeout=10,
         ).strip()
-    except (OSError, subprocess.CalledProcessError):
+    except (OSError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
         return ""
 
 
@@ -43,6 +44,7 @@ def main(argv: list[str] | None = None) -> int:
             json.dumps(
                 {
                     "status": "HOLD",
+                    "error_category": exc.category,
                     "diagnostics": [str(exc)],
                     "mutation_performed": False,
                     "canonical_effect": "NONE",
@@ -54,13 +56,13 @@ def main(argv: list[str] | None = None) -> int:
                 indent=2,
             )
         )
-        return 10
+        return 12 if exc.category == "write_failure" else 10
 
     print(
         json.dumps(
             {
                 "status": "PASS",
-                "output": str(args.output),
+                "output": "WRITTEN",
                 "artifacts": bundle_hashes(bundle),
                 "mutation_performed": False,
                 "canonical_effect": "NONE",

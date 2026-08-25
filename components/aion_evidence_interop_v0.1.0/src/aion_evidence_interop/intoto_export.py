@@ -18,9 +18,10 @@ def export_intoto(
         "_type": "https://in-toto.io/Statement/v1",
         "subject": [
             {
-                "name": source_ref,
-                "digest": {"sha256": source_sha256},
+                "name": name,
+                "digest": {"sha256": digest},
             }
+            for name, digest in sorted(artifact_digests.items())
         ],
         "predicateType": PREDICATE_TYPE,
         "predicate": {
@@ -33,6 +34,16 @@ def export_intoto(
                 "claimId": str(record.get("claim_id", "")),
                 "resultStatus": str(record.get("result_status", "")),
             },
+            "materials": [
+                {
+                    "uri": source_ref,
+                    "digest": {"sha256": source_sha256},
+                },
+                {
+                    "uri": "git+repository:aion-governance-framework",
+                    "digest": {"sha1": expected_head},
+                },
+            ],
             "derivedArtifacts": [
                 {"name": name, "digest": {"sha256": digest}}
                 for name, digest in sorted(artifact_digests.items())
@@ -44,5 +55,6 @@ def export_intoto(
             "deployment": False,
             "researchExecution": False,
             "modelExecution": False,
+            "networkAccess": False,
         },
     }

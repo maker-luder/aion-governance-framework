@@ -22,5 +22,8 @@ def test_inspect_export_matches_sample_shape_without_execution() -> None:
         "sandbox_setup": False,
         "solver_defined": False,
         "scorer_defined": False,
+        "inspect_eval_executed": False,
     }
     assert task["nonclaims"]["subjectivity_conclusion"] == "NOT_ESTABLISHED"
+    assert set(sample) == {"id", "input", "target", "metadata"}
+    assert not set(task["prohibited_runtime_fields"]) & set(sample)

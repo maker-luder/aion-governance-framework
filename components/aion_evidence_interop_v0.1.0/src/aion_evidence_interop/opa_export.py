@@ -36,11 +36,19 @@ def evaluate_boundaries(value: dict[str, Any]) -> tuple[bool, tuple[str, ...]]:
         reasons.append("IDENTITY_PROMOTION_DETECTED")
     if boundaries.get("independent_ivv") != "NOT_ACHIEVED":
         reasons.append("IVV_PROMOTION_DETECTED")
+    if boundaries.get("human_identity_inferred") is not False:
+        reasons.append("HUMAN_IDENTITY_INFERENCE_DETECTED")
+    if boundaries.get("human_presence_inferred") is not False:
+        reasons.append("HUMAN_PRESENCE_INFERENCE_DETECTED")
+    if boundaries.get("merge_authority_inferred") is not False:
+        reasons.append("MERGE_AUTHORITY_INFERENCE_DETECTED")
     required = {
+        "attestation.intoto.json",
         "prov.jsonld",
         "ro-crate/ro-crate-metadata.json",
         "inspect/task-manifest.json",
         "inspect/dataset.jsonl",
+        "openssf/scorecard-crosswalk.json",
     }
     if not required.issubset(set(digests)):
         reasons.append("MISSING_DERIVATION_HASH")

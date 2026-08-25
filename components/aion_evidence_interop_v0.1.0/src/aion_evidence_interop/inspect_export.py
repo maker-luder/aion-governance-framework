@@ -40,11 +40,25 @@ def export_inspect(record: dict[str, Any], source_ref: str) -> tuple[dict[str, A
             "sandbox_setup": False,
             "solver_defined": False,
             "scorer_defined": False,
+            "inspect_eval_executed": False,
         },
         "nonclaims": {
             "subjectivity_conclusion": "NOT_ESTABLISHED",
             "identity_continuity_conclusion": "NOT_ESTABLISHED",
             "scientific_validation": "NOT_ESTABLISHED",
         },
+        "compatibility_nonclaims": [
+            "INSPECT_EXPORT != INSPECT_EVAL",
+            "DATASET_COMPATIBILITY != MODEL_EXECUTION",
+        ],
+        "prohibited_runtime_fields": [
+            "files",
+            "generate",
+            "model",
+            "sandbox",
+            "scorer",
+            "setup",
+            "solver",
+        ],
     }
     return task_manifest, sample

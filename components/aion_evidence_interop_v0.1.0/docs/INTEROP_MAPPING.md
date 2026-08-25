@@ -22,9 +22,21 @@ The interoperability views are not a replacement schema. Fields such as `observa
 
 The Scorecard crosswalk is additionally repository-scoped rather than research-record-scoped. Its inclusion in the bundle records the local engineering context at the exact inspected head; it does not change the scientific status of the source evidence record.
 
+## Hash construction order
+
+| Layer | Hash-bound content | Deliberate exclusions |
+| --- | --- | --- |
+| RO-Crate | source record plus PROV, Inspect task/dataset, and OpenSSF crosswalk digests | its own metadata, later attestation, later OPA input, and later manifest |
+| in-toto | source SHA-256, exact Git SHA-1, primary outputs, and RO-Crate metadata | its own unsigned Statement, later OPA input, and later manifest |
+| OPA input | the pre-OPA derivation digest set it evaluates | its own digest |
+| manifest | every generated output except the manifest | manifest self-hash only |
+
+RO-Crate still represents every non-metadata bundle artifact in `hasPart`; files unavailable for non-circular hashing at that stage have no fabricated digest. `openssf/scorecard-crosswalk.json` is included in RO-Crate, in-toto, and final manifest binding.
+
 ```text
 EXPORT_PROJECTION != SOURCE_REPLACEMENT
 FORMAT_COMPATIBILITY != SEMANTIC_EQUIVALENCE
 SCORECARD_CROSSWALK != SECURITY_CERTIFICATION
 OBSERVATION != MECHANISM != INTERPRETATION
+OBSERVATION != MECHANISM != PHENOMENAL_EXPERIENCE
 ```
