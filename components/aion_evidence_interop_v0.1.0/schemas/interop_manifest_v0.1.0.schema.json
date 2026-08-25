@@ -58,7 +58,7 @@
       "required": ["w3c_prov", "ro_crate", "in_toto", "opa", "inspect_task", "inspect_dataset", "openssf_scorecard_crosswalk"],
       "properties": {
         "w3c_prov": {"const": "prov.jsonld"},
-        "ro_crate": {"const": "ro-crate/ro-crate-metadata.json"},
+        "ro_crate": {"const": "ro-crate-metadata.json"},
         "in_toto": {"const": "attestation.intoto.json"},
         "opa": {"const": "opa/input.json"},
         "inspect_task": {"const": "inspect/task-manifest.json"},
@@ -71,7 +71,7 @@
       "additionalProperties": false,
       "required": [
         "attestation.intoto.json", "inspect/dataset.jsonl", "inspect/task-manifest.json", "opa/input.json",
-        "openssf/scorecard-crosswalk.json", "prov.jsonld", "ro-crate/ro-crate-metadata.json"
+        "openssf/scorecard-crosswalk.json", "prov.jsonld", "ro-crate-metadata.json"
       ],
       "properties": {
         "attestation.intoto.json": {"$ref": "#/$defs/sha256"},
@@ -80,7 +80,7 @@
         "opa/input.json": {"$ref": "#/$defs/sha256"},
         "openssf/scorecard-crosswalk.json": {"$ref": "#/$defs/sha256"},
         "prov.jsonld": {"$ref": "#/$defs/sha256"},
-        "ro-crate/ro-crate-metadata.json": {"$ref": "#/$defs/sha256"}
+        "ro-crate-metadata.json": {"$ref": "#/$defs/sha256"}
       }
     },
     "policy": {

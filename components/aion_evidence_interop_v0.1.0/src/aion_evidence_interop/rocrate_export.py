@@ -16,12 +16,8 @@ def export_rocrate(
 ) -> dict[str, Any]:
     source_id = f"urn:aion:source:sha256:{source_sha256}"
     artifact_names = sorted(set(represented_artifacts or artifact_digests))
-    artifact_ids = {
-        name: f"../{name}" if not name.startswith("ro-crate/") else name.removeprefix("ro-crate/")
-        for name in artifact_names
-    }
     parts = [{"@id": source_id}] + [
-        {"@id": artifact_ids[name]} for name in artifact_names
+        {"@id": name} for name in artifact_names
     ]
     graph: list[dict[str, Any]] = [
         {
@@ -44,16 +40,19 @@ def export_rocrate(
         {
             "@id": source_id,
             "@type": "File",
-            "name": "AION source research evidence record",
+            "name": source_ref,
             "identifier": f"sha256:{source_sha256}",
             "sha256": source_sha256,
             "encodingFormat": "application/json",
-            "contentUrl": source_ref,
+            "description": (
+                "Hash-bound repository source evidence record. It is referenced as an "
+                "external source entity and is not copied into this RO-Crate payload."
+            ),
         },
     ]
     for name in artifact_names:
         item = {
-            "@id": artifact_ids[name],
+            "@id": name,
             "@type": "File",
             "name": name,
         }

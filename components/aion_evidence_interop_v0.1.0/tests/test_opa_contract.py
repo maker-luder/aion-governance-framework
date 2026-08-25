@@ -10,6 +10,10 @@ from aion_evidence_interop.opa_export import evaluate_boundaries
 COMPONENT = Path(__file__).resolve().parents[1]
 
 
+def _digest(character: str) -> str:
+    return character * 64
+
+
 def _input() -> dict[str, object]:
     return {
         "source": {"validation_status": "PASS"},
@@ -27,12 +31,12 @@ def _input() -> dict[str, object]:
             "merge_authority_inferred": False,
         },
         "artifact_digests": {
-            "attestation.intoto.json": "a",
-            "prov.jsonld": "a",
-            "ro-crate/ro-crate-metadata.json": "b",
-            "inspect/task-manifest.json": "c",
-            "inspect/dataset.jsonl": "d",
-            "openssf/scorecard-crosswalk.json": "e",
+            "attestation.intoto.json": _digest("a"),
+            "prov.jsonld": _digest("b"),
+            "ro-crate-metadata.json": _digest("c"),
+            "inspect/task-manifest.json": _digest("d"),
+            "inspect/dataset.jsonl": _digest("e"),
+            "openssf/scorecard-crosswalk.json": _digest("f"),
         },
     }
 
@@ -77,9 +81,19 @@ def test_python_policy_mirror_denies_every_critical_boundary(
     assert reason in reasons
 
 
+@pytest.mark.parametrize("invalid", ["", "a" * 63, "A" * 64, "g" * 64, 123])
+def test_python_policy_mirror_denies_missing_or_malformed_digest(invalid: object) -> None:
+    value = _input()
+    value["artifact_digests"]["prov.jsonld"] = invalid  # type: ignore[index]
+    allow, reasons = evaluate_boundaries(value)
+    assert allow is False
+    assert "MISSING_DERIVATION_HASH" in reasons
+
+
 def test_rego_policy_is_fail_closed_and_checks_execution_boundaries() -> None:
     policy = (COMPONENT / "policies" / "aion_interop.rego").read_text()
     assert "default allow := false" in policy
     assert "MODEL_EXECUTION_REQUESTED" in policy
     assert "NETWORK_ACCESS_REQUESTED" in policy
     assert "SUBJECTIVITY_PROMOTION_DETECTED" in policy
+    assert "^[0-9a-f]{64}$" in policy

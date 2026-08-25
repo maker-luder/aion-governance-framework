@@ -45,13 +45,13 @@ The input record must be repository-local. This prevents the interoperability CL
 
 ## Outputs
 
-A successful run writes:
+A successful run writes one bundle whose root is also the RO-Crate root:
 
 ```text
 interop-manifest.json
 prov.jsonld
 attestation.intoto.json
-ro-crate/ro-crate-metadata.json
+ro-crate-metadata.json
 opa/input.json
 inspect/task-manifest.json
 inspect/dataset.jsonl
@@ -71,7 +71,9 @@ PROVENANCE != SUBJECTIVITY
 
 ### RO-Crate view
 
-The RO-Crate metadata describes the source record and generated interoperability artifacts as a research-object package view. It does not copy remote content or fetch references.
+The complete interoperability output directory is the RO-Crate root, and `ro-crate-metadata.json` is written at that root. Generated bundle artifacts therefore use crate-relative identifiers such as `prov.jsonld` and `opa/input.json`; no payload identifier escapes the crate via `../`.
+
+The source evidence record is hash-bound as an external source entity using an absolute `urn:aion:source:sha256:...` identifier. It is not copied into the crate and is not represented as crate-local payload. The metadata does not fetch remote content or create network behavior.
 
 ### in-toto view
 
@@ -89,7 +91,7 @@ The Statement v1 `subject` contains the deterministically ordered derived primar
 
 ### OPA/Rego view
 
-`policies/aion_interop.rego` expresses the closed boundaries as policy-as-code. A small Python mirror enforces the same critical conditions during bundle generation so OPA is not a runtime dependency.
+`policies/aion_interop.rego` expresses the closed boundaries as policy-as-code. A small Python mirror enforces the same critical conditions during bundle generation so OPA is not a runtime dependency. Both policy surfaces require every critical derivation digest to be a lowercase 64-character SHA-256 value; missing, empty, uppercase, short, or malformed digests fail closed.
 
 ```text
 OPA_ALLOW != EVIDENCE_TRUE
@@ -168,6 +170,7 @@ Optional ecosystem tools such as `prov`, `rocrate`, OPA, `inspect_ai`, or the Op
 DESIGN_SOURCE = ChatGPT
 IMPLEMENTATION_SOURCE = ChatGPT
 HARDENING_IMPLEMENTATION_SOURCE = CODEX
+REVIEW_FIX_IMPLEMENTATION_SOURCE = ChatGPT
 CURRENT_IMPLEMENTATION_REQUEST = USER_GIVEN
 MAIN_MERGE_AUTHORITY = NOT_GRANTED_BY_THIS_COMPONENT
 CANONICAL_EFFECT = NONE

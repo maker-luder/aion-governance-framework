@@ -53,7 +53,7 @@ deny contains "MERGE_AUTHORITY_INFERENCE_DETECTED" if {
 required_artifacts := {
   "attestation.intoto.json",
   "prov.jsonld",
-  "ro-crate/ro-crate-metadata.json",
+  "ro-crate-metadata.json",
   "inspect/task-manifest.json",
   "inspect/dataset.jsonl",
   "openssf/scorecard-crosswalk.json",
@@ -61,7 +61,15 @@ required_artifacts := {
 
 deny contains "MISSING_DERIVATION_HASH" if {
   some name in required_artifacts
-  not object.get(object.get(input, "artifact_digests", {}), name, "")
+  digest := object.get(object.get(input, "artifact_digests", {}), name, "")
+  not is_string(digest)
+}
+
+deny contains "MISSING_DERIVATION_HASH" if {
+  some name in required_artifacts
+  digest := object.get(object.get(input, "artifact_digests", {}), name, "")
+  is_string(digest)
+  not regex.match("^[0-9a-f]{64}$", digest)
 }
 
 allow if {

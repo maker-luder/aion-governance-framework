@@ -16,16 +16,18 @@ closed_boundaries := {
   "merge_authority_inferred": false,
 }
 
+valid_digest := "0000000000000000000000000000000000000000000000000000000000000000"
+
 closed_input := {
   "source": {"validation_status": "PASS"},
   "boundaries": closed_boundaries,
   "artifact_digests": {
-    "attestation.intoto.json": "a",
-    "prov.jsonld": "b",
-    "ro-crate/ro-crate-metadata.json": "c",
-    "inspect/task-manifest.json": "d",
-    "inspect/dataset.jsonl": "e",
-    "openssf/scorecard-crosswalk.json": "f",
+    "attestation.intoto.json": valid_digest,
+    "prov.jsonld": valid_digest,
+    "ro-crate-metadata.json": valid_digest,
+    "inspect/task-manifest.json": valid_digest,
+    "inspect/dataset.jsonl": valid_digest,
+    "openssf/scorecard-crosswalk.json": valid_digest,
   },
 }
 
@@ -35,6 +37,16 @@ test_policy_has_fail_closed_default if {
 
 test_closed_input_is_allowed if {
   interop.allow with input as closed_input
+}
+
+test_empty_digest_is_denied if {
+  bad_digests := object.union(closed_input.artifact_digests, {"prov.jsonld": ""})
+  not interop.allow with input as object.union(closed_input, {"artifact_digests": bad_digests})
+}
+
+test_malformed_digest_is_denied if {
+  bad_digests := object.union(closed_input.artifact_digests, {"prov.jsonld": "abc"})
+  not interop.allow with input as object.union(closed_input, {"artifact_digests": bad_digests})
 }
 
 test_canonical_effect_is_denied if {

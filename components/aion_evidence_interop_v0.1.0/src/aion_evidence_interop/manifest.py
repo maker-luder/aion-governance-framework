@@ -27,7 +27,7 @@ OUTPUT_PATHS = (
     "opa/input.json",
     "openssf/scorecard-crosswalk.json",
     "prov.jsonld",
-    "ro-crate/ro-crate-metadata.json",
+    "ro-crate-metadata.json",
 )
 
 
@@ -64,7 +64,7 @@ def _base_manifest(validation: SourceValidation) -> dict[str, Any]:
         },
         "exports": {
             "w3c_prov": "prov.jsonld",
-            "ro_crate": "ro-crate/ro-crate-metadata.json",
+            "ro_crate": "ro-crate-metadata.json",
             "in_toto": "attestation.intoto.json",
             "opa": "opa/input.json",
             "inspect_task": "inspect/task-manifest.json",
@@ -106,10 +106,10 @@ def build_bundle(
         represented_artifacts=[
             name
             for name in OUTPUT_PATHS
-            if name != "ro-crate/ro-crate-metadata.json"
+            if name != "ro-crate-metadata.json"
         ],
     )
-    primary_digests["ro-crate/ro-crate-metadata.json"] = _artifact_digest(rocrate)
+    primary_digests["ro-crate-metadata.json"] = _artifact_digest(rocrate)
 
     intoto = export_intoto(
         record,
@@ -142,7 +142,7 @@ def build_bundle(
         "interop-manifest.json": canonical_json_bytes(manifest),
         "prov.jsonld": canonical_json_bytes(prov),
         "attestation.intoto.json": canonical_json_bytes(intoto),
-        "ro-crate/ro-crate-metadata.json": canonical_json_bytes(rocrate),
+        "ro-crate-metadata.json": canonical_json_bytes(rocrate),
         "opa/input.json": canonical_json_bytes(opa_input),
         "inspect/task-manifest.json": canonical_json_bytes(inspect_task),
         "inspect/dataset.jsonl": _jsonl_bytes(inspect_sample),

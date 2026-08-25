@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+import re
 from typing import Any
+
+
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 
 def policy_input(manifest: dict[str, Any]) -> dict[str, Any]:
@@ -45,12 +49,16 @@ def evaluate_boundaries(value: dict[str, Any]) -> tuple[bool, tuple[str, ...]]:
     required = {
         "attestation.intoto.json",
         "prov.jsonld",
-        "ro-crate/ro-crate-metadata.json",
+        "ro-crate-metadata.json",
         "inspect/task-manifest.json",
         "inspect/dataset.jsonl",
         "openssf/scorecard-crosswalk.json",
     }
-    if not required.issubset(set(digests)):
+    if not isinstance(digests, dict) or any(
+        not isinstance(digests.get(name), str)
+        or _SHA256_RE.fullmatch(digests[name]) is None
+        for name in required
+    ):
         reasons.append("MISSING_DERIVATION_HASH")
 
     return not reasons, tuple(sorted(reasons))

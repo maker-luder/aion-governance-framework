@@ -10,7 +10,7 @@ This document records intentionally narrow mappings. The adapters must not infer
 | `provenance.derived_from` | `prov:wasDerivedFrom` on source record | preserves declared derivation only |
 | `provenance.attributed_to` | `prov:wasAttributedTo` on source record | attribution is not independent authorship proof |
 | `provenance.associated_with` | opaque `aion:declaredAssociatedWith` | no pairwise association is invented |
-| evidence record + artifacts | RO-Crate metadata graph | package view only |
+| evidence record + artifacts | RO-Crate metadata graph rooted at bundle root | external source remains hash-bound; generated payload stays inside crate root |
 | source SHA + source commit + output digests | in-toto Statement | unsigned derivation record only |
 | interop manifest boundaries | OPA input / Rego | policy decision is not truth or authority |
 | claim + expected outcomes + evidence metadata | Inspect `Sample` JSONL | static dataset export only |
@@ -21,6 +21,12 @@ This document records intentionally narrow mappings. The adapters must not infer
 The interoperability views are not a replacement schema. Fields such as `observation`, `mechanism`, `interpretation`, competing hypotheses, limitations, claim ladder, preregistration, and nonclaims remain authoritative in the original AION evidence record even when only a subset is projected into a particular external format.
 
 The Scorecard crosswalk is additionally repository-scoped rather than research-record-scoped. Its inclusion in the bundle records the local engineering context at the exact inspected head; it does not change the scientific status of the source evidence record.
+
+## RO-Crate root rule
+
+The complete generated interoperability output directory is the RO-Crate root. `ro-crate-metadata.json` therefore sits beside top-level payload such as `prov.jsonld`, while nested payload such as `opa/input.json`, `inspect/dataset.jsonl`, and `openssf/scorecard-crosswalk.json` remains inside that same root. No generated payload uses a `../` identifier to escape the crate root.
+
+The authoritative AION source evidence record is not copied into the crate. It is represented by an absolute hash-derived URN and remains an external source entity. This preserves provenance without implying that the source file is crate-local payload.
 
 ## Hash construction order
 
