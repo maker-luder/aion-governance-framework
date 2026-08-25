@@ -39,7 +39,7 @@ def test_bundle_is_deterministic_and_bounded() -> None:
         "interop-manifest.json",
         "prov.jsonld",
         "attestation.intoto.json",
-        "ro-crate/ro-crate-metadata.json",
+        "ro-crate-metadata.json",
         "opa/input.json",
         "inspect/task-manifest.json",
         "inspect/dataset.jsonl",
