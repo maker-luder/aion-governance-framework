@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/four_domain_bridge_descriptor_v0.1.0.schema.json",
+  "title": "AION Four-Domain Bridge Descriptor v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_repository",
+    "source_branch",
+    "source_head",
+    "source_state",
+    "source_artifact",
+    "claim_id",
+    "construct",
+    "implementation_status",
+    "claim_text",
+    "hypothesis",
+    "competing_hypotheses",
+    "observation",
+    "mechanism",
+    "interpretation",
+    "limitations",
+    "alternative_explanations",
+    "unresolved_gaps"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "source_repository": {"const": "maker-luder/aion-governance-framework"},
+    "source_branch": {"const": "review/four-domain-research-materialization"},
+    "source_head": {"const": "f654b5032ebc45058a64e81d409149ee7ea4bfbe"},
+    "source_state": {"const": "INDEFINITE_FROZEN_CHECKPOINT"},
+    "source_artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "git_blob_sha1"],
+      "properties": {
+        "path": {"const": "research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md"},
+        "git_blob_sha1": {"const": "7e55741b85b27d383b4b721b834b1744c6c03fb9"}
+      }
+    },
+    "claim_id": {"type": "string", "minLength": 1},
+    "construct": {"type": "string", "minLength": 1},
+    "implementation_status": {
+      "enum": [
+        "MIXED_BOUNDED_STATUS",
+        "REUSABLE_EXISTING_SERVICE",
+        "REUSABLE_WITH_ADAPTER",
+        "ALREADY_IMPLEMENTED",
+        "PARTIAL_OVERLAP",
+        "DESIGN_GAP",
+        "RESEARCH_DEFINITION_REQUIRED"
+      ]
+    },
+    "claim_text": {"type": "string", "minLength": 1},
+    "hypothesis": {"type": "string", "minLength": 1},
+    "competing_hypotheses": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "observation": {"type": "string", "minLength": 1},
+    "mechanism": {"type": "string", "minLength": 1},
+    "interpretation": {"type": "string", "minLength": 1},
+    "limitations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "alternative_explanations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "unresolved_gaps": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  }
+}

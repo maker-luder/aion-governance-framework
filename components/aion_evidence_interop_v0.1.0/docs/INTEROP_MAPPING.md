@@ -16,6 +16,39 @@ This document records intentionally narrow mappings. The adapters must not infer
 | claim + expected outcomes + evidence metadata | Inspect `Sample` JSONL | static dataset export only |
 | repository-local security/CI evidence | OpenSSF Scorecard-aligned crosswalk | crosswalk is not a Scorecard run, score, certification, or hosted-state proof |
 
+## Four-Domain bridge
+
+The optional Four-Domain bridge is an upstream materialization step, not a seventh interoperability format. It converts one exact preserved Four-Domain crosswalk snapshot into a schema-valid AION `research_evidence_record_v0.2.0`, which then enters the unchanged interoperability pipeline.
+
+```text
+review/four-domain-research-materialization
+@ f654b5032ebc45058a64e81d409149ee7ea4bfbe
+        |
+        | exact artifact + Git blob identity
+        v
+Four-Domain bridge descriptor
+        |
+        v
+AION research evidence record (result_status = HOLD)
+        |
+        v
+existing AION validator
+        |
+        v
+PROV / RO-Crate / in-toto / OPA / Inspect / OpenSSF
+```
+
+v0.1.0 is pinned to `FOUR_DOMAIN_REPOSITORY_CROSSWALK.md` at Git blob `7e55741b85b27d383b4b721b834b1744c6c03fb9`. The bridge does not resolve the live research branch tip and does not fetch the source artifact over the network. The exact source commit and blob identity remain inside the hash-bound AION source evidence record.
+
+The bridge deliberately emits `result_status = HOLD`: it records a historical repository mapping and does not present that mapping as a newly executed experiment or completed scientific result.
+
+```text
+FOUR_DOMAIN_SOURCE != MAIN_CANONICAL_STATE
+DERIVATION != MERGE
+REFERENCE != PROMOTION
+INTEROP_EXPORT != RESEARCH_RESTART
+```
+
 ## Non-lossy AION fields
 
 The interoperability views are not a replacement schema. Fields such as `observation`, `mechanism`, `interpretation`, competing hypotheses, limitations, claim ladder, preregistration, and nonclaims remain authoritative in the original AION evidence record even when only a subset is projected into a particular external format.

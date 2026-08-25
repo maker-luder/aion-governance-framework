@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1.0",
+  "source_repository": "maker-luder/aion-governance-framework",
+  "source_branch": "review/four-domain-research-materialization",
+  "source_head": "f654b5032ebc45058a64e81d409149ee7ea4bfbe",
+  "source_state": "INDEFINITE_FROZEN_CHECKPOINT",
+  "source_artifact": {
+    "path": "research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md",
+    "git_blob_sha1": "7e55741b85b27d383b4b721b834b1744c6c03fb9"
+  },
+  "claim_id": "four-domain.snapshot.crosswalk.f654b503",
+  "construct": "FOUR_DOMAIN_REPOSITORY_CROSSWALK",
+  "implementation_status": "MIXED_BOUNDED_STATUS",
+  "claim_text": "At frozen source head f654b5032ebc45058a64e81d409149ee7ea4bfbe, the Four-Domain Repository Crosswalk records bounded mappings from research constructs to LLM questions, engineering operations, governance controls, implementation evidence, limitations, and pending decisions.",
+  "hypothesis": "The frozen Four-Domain crosswalk can be materialized as an AION evidence record without promoting engineering analogues into scientific, identity, or subjectivity claims.",
+  "competing_hypotheses": [
+    "The projection may omit row-level detail, so the frozen crosswalk remains authoritative for complete semantics.",
+    "Engineering mappings may be mistaken for cognitive or phenomenal equivalence if nonclaims are not preserved."
+  ],
+  "observation": "The source crosswalk declares CANONICAL_EFFECT = NONE and NOT_ESTABLISHED locks for subjectivity, consciousness, phenomenal affect, and identity continuity while mapping research constructs across four domains.",
+  "mechanism": "No causal or phenomenal mechanism is established; the bridge performs deterministic metadata materialization from a pinned historical source reference.",
+  "interpretation": "The materialized record is an interoperability envelope for a historical research mapping, not evidence that the mapped constructs are biologically, cognitively, or phenomenally equivalent.",
+  "limitations": [
+    "The bridge represents the crosswalk as one evidence unit and does not reproduce every row as an independent evidence record.",
+    "The pinned source identity is recorded from the preserved Git commit and blob; v0.1.0 is not an independent archive or hosted-state verification service."
+  ],
+  "alternative_explanations": [
+    "Repository implementation evidence can reflect engineering analogues without supporting the corresponding human cognitive mechanism.",
+    "The source crosswalk contains partial overlaps, design gaps, or research-definition requirements that remain unresolved."
+  ],
+  "unresolved_gaps": [
+    "Row-level Four-Domain evidence cards are not materialized in bridge v0.1.0.",
+    "External independent IV&V is not achieved."
+  ]
+}
