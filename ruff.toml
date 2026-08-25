@@ -1,0 +1,16 @@
+target-version = "py311"
+line-length = 120
+extend-exclude = [
+  ".venv",
+  "qa/historical",
+]
+
+[lint]
+# Begin with correctness findings that can mask defects while leaving the
+# frozen branch's historical formatting untouched.
+select = ["E9", "F"]
+
+[lint.per-file-ignores]
+# The transferred training bundle imports optional heavyweight packages only
+# to verify environment readiness before its explicit execution stop gate.
+"research-labs/language-core-g1_v0.2.1/engineering/lora/LORA_EXECUTION_BUNDLE/train_lora.py" = ["F401"]

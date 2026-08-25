@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from math import isfinite
-from typing import Iterable, Mapping
+from typing import Iterable
 
 from aion_research_eval import CaseResult, ClaimBoundaryGate, ExperimentReport
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import Any, Mapping
 from .audit.db import init_schema, open_database
 from .audit.service import AuditService
-from .errors import AuditDatabaseError, InputValidationError, RiskEvaluationError, SchemaVersionError
+from .errors import AuditDatabaseError, InputValidationError, SchemaVersionError
 from .hashing import canonical_request_hash
 from .models import Decision, PipelineResponse, RiskLevel
 from .risk.policy import evaluate_risk

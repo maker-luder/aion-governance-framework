@@ -1,6 +1,17 @@
 from datetime import datetime, timezone
 from aion_four_domain_p2 import DeterministicContextAssembler, RetrievalCandidate, RetrievalRequest
-from aion_four_domain_p3 import *
+from aion_four_domain_p3 import (
+    AuthorityTier,
+    ContextPerturbationHarness,
+    Control,
+    LongitudinalContaminationHarness,
+    LongitudinalEpisode,
+    OriginAuthority,
+    OriginBoundAuthorityValidator,
+    Perturbation,
+    PerturbationKind,
+    RetrievalControlAblationHarness,
+)
 
 NOW=datetime(2026,8,9,tzinfo=timezone.utc)
 def c(rid, **kw):

@@ -248,7 +248,6 @@ def train_embedding_model() -> dict[str, object]:
             left_ids = pad_batch([tokenizer.encode(left)])
             right_ids = pad_batch([tokenizer.encode(right)])
             similarity = F.cosine_similarity(model(left_ids), model(right_ids))
-            target = torch.tensor([label], dtype=torch.float32)
             loss = F.relu(torch.tensor(0.2) - label * similarity).mean()
             loss.backward()
             optimizer.step()

@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from math import isfinite
 
-from aion_power_analysis import Disposition, PlanningStatus, PowerDecision, PowerPlan, evaluate_plan, required_sample_size
+from aion_power_analysis import Disposition, PlanningStatus, PowerDecision, PowerPlan, evaluate_plan
 
 
 @dataclass(frozen=True, slots=True)

@@ -6,7 +6,7 @@ claim of full W3C conformance. It produces inspectable JSON only.
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import datetime
 import hashlib
 import json
 from typing import Any, Iterable

@@ -196,7 +196,6 @@ def audit_factorial_execution(ledger: FactorialExecutionLedger) -> ExecutionDeci
     names = tuple(name for name, _ in ledger.factors)
     factor_map = dict(ledger.factors)
     expected = _expected_cells(ledger.factors)
-    expected_set = set(expected)
     valid_executions: list[tuple[CellExecution, tuple[tuple[str, str], ...]]] = []
     invalid_cells: list[tuple[tuple[str, str], ...]] = []
     missing_metadata: list[str] = []
