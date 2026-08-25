@@ -12,6 +12,7 @@ on:
       - "components/astra_workbench_v1.0.0/**"
       - "research-labs/language-core-g1_v0.2.1/**"
       - "scripts/run_runtime_strong_qa.sh"
+      - ".github/ci/runtime-strong-qa-toolchain.txt"
       - ".github/workflows/runtime-strong-qa.yml"
       - "docs/RUNTIME_REALITY_MATRIX_CURRENT_2026-08-08.md"
   workflow_dispatch:
@@ -35,10 +36,10 @@ jobs:
           python-version: "3.11"
           cache: pip
 
-      - name: Install QA toolchain
+      - name: Install pinned QA toolchain
         run: |
-          python -m pip install --upgrade \
-            pip pytest pytest-cov mypy build setuptools wheel
+          python -m pip install --upgrade pip==26.2.1
+          python -m pip install --requirement .github/ci/runtime-strong-qa-toolchain.txt
 
       - name: Run repeatable Runtime Strong QA
         run: bash scripts/run_runtime_strong_qa.sh
