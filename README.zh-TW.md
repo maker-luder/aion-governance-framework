@@ -126,7 +126,7 @@ Human Owner、ChatGPT Teacher、Codex、Manus、joint work 與未確認來源必
 ```text
 FUTURE_WORK_QUEUE = NONE
 AUTOMATIC_RESTART = NO
-NEW_RESEARCH_OPPORTUNITY = DO_NOT_PURSUUE
+NEW_RESEARCH_OPPORTUNITY = DO_NOT_PURSUE
 ```
 
 本倉庫是可閱讀的歷史端點，不是 active project queue。

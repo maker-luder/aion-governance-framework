@@ -1,7 +1,6 @@
 from pathlib import Path
-import json
 import pytest
-from astra_language_core.g1_ablation import controlled_low_strength, random_control_indices, synthetic_control_dry_run
+from astra_language_core.g1_ablation import controlled_low_strength, synthetic_control_dry_run
 from astra_language_core.g1_dataset import deterministic_split, load_pairs, privacy_hits
 from astra_language_core.g1_lora import LoRAConfig, synthetic_dry_run
 from astra_language_core.g1_runtime_policy import RuntimePolicy, safe_child

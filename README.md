@@ -126,7 +126,7 @@ Human Owner, ChatGPT Teacher, Codex, Manus, joint work, and unconfirmed sources 
 ```text
 FUTURE_WORK_QUEUE = NONE
 AUTOMATIC_RESTART = NO
-NEW_RESEARCH_OPPORTUNITY = DO_NOT_PURSUUE
+NEW_RESEARCH_OPPORTUNITY = DO_NOT_PURSUE
 ```
 
 This repository is a readable historical endpoint, not an active project queue.

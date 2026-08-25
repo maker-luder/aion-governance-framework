@@ -1,6 +1,5 @@
 
 from __future__ import annotations
-from . import __name__ as _package_name
 from ..models import ActionType, AuthorizationState, Decision, Environment, OperationRequest, RiskDecision, RiskLevel
 
 POLICY_VERSION = "AION-RISK-POLICY-0.4.0"
