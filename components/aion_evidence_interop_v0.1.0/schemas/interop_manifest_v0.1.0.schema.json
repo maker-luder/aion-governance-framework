@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/interop_manifest_v0.1.0.schema.json",
+  "title": "AION Evidence Interop Manifest v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_version",
+    "source",
+    "boundaries",
+    "exports",
+    "artifact_digests",
+    "policy"
+  ],
+  "properties": {
+    "profile_version": {
+      "const": "0.1.0"
+    },
+    "source": {
+      "type": "object"
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "canonical_effect",
+        "deployment",
+        "research_execution",
+        "model_execution",
+        "network_access",
+        "subjectivity_conclusion",
+        "identity_continuity_conclusion",
+        "independent_ivv"
+      ],
+      "properties": {
+        "canonical_effect": {
+          "const": "NONE"
+        },
+        "deployment": {
+          "const": false
+        },
+        "research_execution": {
+          "const": false
+        },
+        "model_execution": {
+          "const": false
+        },
+        "network_access": {
+          "const": false
+        },
+        "subjectivity_conclusion": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "identity_continuity_conclusion": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "independent_ivv": {
+          "const": "NOT_ACHIEVED"
+        }
+      }
+    },
+    "exports": {
+      "type": "object"
+    },
+    "artifact_digests": {
+      "type": "object"
+    },
+    "policy": {
+      "type": "object"
+    }
+  }
+}
