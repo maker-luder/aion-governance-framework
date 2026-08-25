@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/interop_manifest_v0.1.0.schema.json",
+  "title": "AION Evidence Interop Manifest v0.1.0",
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativeJsonPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.json$"
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["profile_version", "source", "boundaries", "exports", "artifact_digests", "policy"],
+  "properties": {
+    "profile_version": {"const": "0.1.0"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["record_ref", "record_sha256", "code_commit", "validation_status", "result_status"],
+      "properties": {
+        "record_ref": {"$ref": "#/$defs/relativeJsonPath"},
+        "record_sha256": {"$ref": "#/$defs/sha256"},
+        "code_commit": {"$ref": "#/$defs/sha1"},
+        "validation_status": {"const": "PASS"},
+        "result_status": {
+          "enum": ["NOT_RUN", "PASS", "PARTIAL", "HOLD", "FAIL", "INCONCLUSIVE", "NEGATIVE", "NULL", "CONTRADICTORY"]
+        }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_effect", "deployment", "research_execution", "model_execution", "network_access",
+        "subjectivity_conclusion", "identity_continuity_conclusion", "independent_ivv",
+        "human_identity_inferred", "human_presence_inferred", "merge_authority_inferred"
+      ],
+      "properties": {
+        "canonical_effect": {"const": "NONE"},
+        "deployment": {"const": false},
+        "research_execution": {"const": false},
+        "model_execution": {"const": false},
+        "network_access": {"const": false},
+        "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+        "identity_continuity_conclusion": {"const": "NOT_ESTABLISHED"},
+        "independent_ivv": {"const": "NOT_ACHIEVED"},
+        "human_identity_inferred": {"const": false},
+        "human_presence_inferred": {"const": false},
+        "merge_authority_inferred": {"const": false}
+      }
+    },
+    "exports": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["w3c_prov", "ro_crate", "in_toto", "opa", "inspect_task", "inspect_dataset", "openssf_scorecard_crosswalk"],
+      "properties": {
+        "w3c_prov": {"const": "prov.jsonld"},
+        "ro_crate": {"const": "ro-crate-metadata.json"},
+        "in_toto": {"const": "attestation.intoto.json"},
+        "opa": {"const": "opa/input.json"},
+        "inspect_task": {"const": "inspect/task-manifest.json"},
+        "inspect_dataset": {"const": "inspect/dataset.jsonl"},
+        "openssf_scorecard_crosswalk": {"const": "openssf/scorecard-crosswalk.json"}
+      }
+    },
+    "artifact_digests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attestation.intoto.json", "inspect/dataset.jsonl", "inspect/task-manifest.json", "opa/input.json",
+        "openssf/scorecard-crosswalk.json", "prov.jsonld", "ro-crate-metadata.json"
+      ],
+      "properties": {
+        "attestation.intoto.json": {"$ref": "#/$defs/sha256"},
+        "inspect/dataset.jsonl": {"$ref": "#/$defs/sha256"},
+        "inspect/task-manifest.json": {"$ref": "#/$defs/sha256"},
+        "opa/input.json": {"$ref": "#/$defs/sha256"},
+        "openssf/scorecard-crosswalk.json": {"$ref": "#/$defs/sha256"},
+        "prov.jsonld": {"$ref": "#/$defs/sha256"},
+        "ro-crate-metadata.json": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python_mirror_allow", "opa_policy_ref", "deny_reasons"],
+      "properties": {
+        "python_mirror_allow": {"const": true},
+        "opa_policy_ref": {"const": "policies/aion_interop.rego"},
+        "deny_reasons": {"type": "array", "maxItems": 0}
+      }
+    }
+  }
+}
