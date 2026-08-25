@@ -1,0 +1,7 @@
+# Direct CI QA tool pins validated by GitHub Actions on 2026-08-25.
+# This is intentionally a direct-tool pin set, not a claim of a fully locked
+# transitive Python environment.
+pytest==9.1.1
+pytest-cov==7.1.0
+jsonschema==4.26.0
+ruff==0.16.4
