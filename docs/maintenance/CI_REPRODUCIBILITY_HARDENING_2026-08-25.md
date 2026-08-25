@@ -1,4 +1,4 @@
-# CI reproducibility hardening — 2026-08-25
+# CI reproducibility and execution-surface hardening — 2026-08-25
 
 ```text
 CHANGE_CLASS = EXTERNAL_MAINTENANCE_HARDENING
@@ -11,7 +11,7 @@ HISTORICAL_REWRITE = NO
 
 ## Purpose
 
-Reduce avoidable future CI drift in the preserved research checkpoint without changing scientific claims, runtime behavior, historical event meaning, or deployment authority.
+Reduce avoidable future CI drift and prevent accidental post-termination research execution in the preserved research checkpoint without changing scientific claims, historical event meaning, or deployment authority.
 
 ## Changes
 
@@ -21,7 +21,14 @@ Reduce avoidable future CI drift in the preserved research checkpoint without ch
 - make changes to the Runtime Strong QA toolchain file trigger Runtime Strong QA;
 - preserve package/component dependency declarations in their own package metadata;
 - document that these pins reduce drift but do not create a hermetic environment or independent reproducibility proof;
-- mirror the frozen-repository PR template and security-reporting boundary needed to keep later maintenance fail-closed and privacy-safe.
+- mirror the frozen-repository PR template and security-reporting boundary needed to keep later maintenance fail-closed and privacy-safe;
+- make four historical research execution/materialization workflows job-level execution-inert after the 2026-08-20 project termination while preserving their source text and historical trigger definitions:
+  - `cross-substrate-other-minds-inference.yml`;
+  - `csomi-slsh-integration.yml`;
+  - `hermes-p0-mechanism-eval.yml`;
+  - `subjective-load-sensitivity-hypothesis.yml`.
+
+The historical workflows are not retroactively rewritten into a modern environment. In particular, the Hermes workflow retains its historical action/image/tool references inside the now-skipped job rather than falsely presenting a 2026-08-25 dependency refresh as the environment of the 2026-08-12 experiment.
 
 ## Validated source environment
 
@@ -29,4 +36,4 @@ The preceding successful runs resolved the Quality matrix selectors to CPython 3
 
 ## Explicit non-actions
 
-No dependency-update bot, external model call, new research task, new feature, deployment workflow, canonical promotion, or automatic restart mechanism is introduced.
+No dependency-update bot, external model call, new research task, new feature, deployment workflow, canonical promotion, automatic restart mechanism, or re-execution of the historical experiment workflows is introduced.
