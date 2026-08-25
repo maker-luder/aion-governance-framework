@@ -12,6 +12,9 @@ concurrency:
 
 jobs:
   integration-module:
+    # Historical research workflow preserved for provenance only. The project
+    # work loop was terminated on 2026-08-20, so execution is fail-closed.
+    if: ${{ false }}
     name: Read-only CSOMI x SLSH integration
     runs-on: ubuntu-latest
     timeout-minutes: 10

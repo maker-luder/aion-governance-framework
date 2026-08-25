@@ -11,6 +11,9 @@ permissions:
 
 jobs:
   slsh-research-method:
+    # Historical research workflow preserved for provenance only. The project
+    # work loop was terminated on 2026-08-20, so execution is fail-closed.
+    if: ${{ false }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

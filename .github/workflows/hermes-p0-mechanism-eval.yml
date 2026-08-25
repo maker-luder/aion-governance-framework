@@ -11,6 +11,10 @@ permissions:
 
 jobs:
   p0-mechanism-eval:
+    # Historical research execution workflow preserved for provenance only.
+    # The project work loop was terminated on 2026-08-20, so this job is
+    # deliberately execution-inert rather than being retroactively rebuilt.
+    if: ${{ false }}
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
