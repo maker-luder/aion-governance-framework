@@ -21,11 +21,11 @@ Reduce avoidable future CI drift in the preserved research checkpoint without ch
 - make changes to the Runtime Strong QA toolchain file trigger Runtime Strong QA;
 - preserve package/component dependency declarations in their own package metadata;
 - document that these pins reduce drift but do not create a hermetic environment or independent reproducibility proof;
-- preserve the frozen-repository contribution, provenance, non-claim, and deployment boundaries.
+- mirror the frozen-repository PR template and security-reporting boundary needed to keep later maintenance fail-closed and privacy-safe.
 
 ## Validated source environment
 
-The preceding successful runs resolved the Quality matrix selectors to CPython 3.11.16 and 3.12.14. The direct QA tool versions recorded here are therefore bounded evidence for the 2026-08-25 maintenance environment, not claims about future runner inventory.
+The preceding successful runs resolved the Quality matrix selectors to CPython 3.11.16 and 3.12.14. The direct QA tool versions recorded here are bounded evidence for the 2026-08-25 maintenance environment, not claims about future runner inventory.
 
 ## Explicit non-actions
 
