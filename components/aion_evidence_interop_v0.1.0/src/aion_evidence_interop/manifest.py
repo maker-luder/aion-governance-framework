@@ -15,6 +15,7 @@ from .intoto_export import export_intoto
 from .opa_export import evaluate_boundaries, policy_input
 from .prov_export import export_prov
 from .rocrate_export import export_rocrate
+from .scorecard_export import export_scorecard_crosswalk
 
 
 PROFILE_VERSION = "0.1.0"
@@ -58,6 +59,7 @@ def _base_manifest(validation: SourceValidation) -> dict[str, Any]:
             "opa": "opa/input.json",
             "inspect_task": "inspect/task-manifest.json",
             "inspect_dataset": "inspect/dataset.jsonl",
+            "openssf_scorecard_crosswalk": "openssf/scorecard-crosswalk.json",
         },
     }
 
@@ -77,11 +79,13 @@ def build_bundle(
 
     prov = export_prov(record, validation.record_ref)
     inspect_task, inspect_sample = export_inspect(record, validation.record_ref)
+    scorecard_crosswalk = export_scorecard_crosswalk(root, expected_head)
 
     primary_digests = {
         "prov.jsonld": _artifact_digest(prov),
         "inspect/task-manifest.json": _artifact_digest(inspect_task),
         "inspect/dataset.jsonl": sha256_bytes(_jsonl_bytes(inspect_sample)),
+        "openssf/scorecard-crosswalk.json": _artifact_digest(scorecard_crosswalk),
     }
 
     rocrate = export_rocrate(
@@ -124,6 +128,7 @@ def build_bundle(
         "opa/input.json": canonical_json_bytes(opa_input),
         "inspect/task-manifest.json": canonical_json_bytes(inspect_task),
         "inspect/dataset.jsonl": _jsonl_bytes(inspect_sample),
+        "openssf/scorecard-crosswalk.json": canonical_json_bytes(scorecard_crosswalk),
     }
 
 

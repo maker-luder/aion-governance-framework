@@ -14,9 +14,9 @@ IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
 ```
 
-This component exports an already-valid AION research evidence record into deterministic interoperability views inspired by mature provenance, research-object, supply-chain, policy-as-code, and LLM-evaluation ecosystems.
+This component exports an already-valid AION research evidence record into deterministic interoperability views inspired by mature provenance, research-object, supply-chain, policy-as-code, LLM-evaluation, and repository-security ecosystems.
 
-The existing `schemas/research_evidence_record_v0.2.0.schema.json` and `scripts/validate_research_evidence.py` remain authoritative for the source record. This component does not introduce a replacement research ontology, evidence truth test, consciousness detector, identity proof, merge-approval mechanism, deployment gate, or live evaluation runtime.
+The existing `schemas/research_evidence_record_v0.2.0.schema.json` and `scripts/validate_research_evidence.py` remain authoritative for the source record. This component does not introduce a replacement research ontology, evidence truth test, consciousness detector, identity proof, merge-approval mechanism, deployment gate, security certification, or live evaluation runtime.
 
 ## Design
 
@@ -32,9 +32,10 @@ normalized bounded manifest
         +--> unsigned in-toto Statement v1 derivation attestation
         +--> OPA/Rego policy input
         +--> Inspect Sample-compatible JSON Lines + task manifest
+        +--> OpenSSF Scorecard-aligned repository hygiene crosswalk
 ```
 
-All adapters are pure local data transformations. No model API, network request, external download, sandbox setup, remote artifact fetch, or hidden watermark is performed.
+All adapters are pure local data transformations. No model API, network request, external download, sandbox setup, remote artifact fetch, live OpenSSF Scorecard execution, or hidden watermark is performed.
 
 ## Source validation
 
@@ -54,9 +55,10 @@ ro-crate/ro-crate-metadata.json
 opa/input.json
 inspect/task-manifest.json
 inspect/dataset.jsonl
+openssf/scorecard-crosswalk.json
 ```
 
-The same source bytes, exact head, and transformer version produce byte-identical outputs. Volatile timestamps are intentionally excluded.
+The same source bytes, exact head, repository tree, and transformer version produce byte-identical outputs. Volatile timestamps are intentionally excluded.
 
 ### W3C PROV view
 
@@ -102,6 +104,21 @@ INSPECT_EXPORT != INSPECT_EVAL
 DATASET_COMPATIBILITY != MODEL_EXECUTION
 ```
 
+### OpenSSF Scorecard crosswalk
+
+`openssf/scorecard-crosswalk.json` is a deterministic local-evidence crosswalk for selected repository hygiene checks such as Security-Policy, CI-Tests, SAST, Pinned-Dependencies, Token-Permissions, Branch-Protection, Code-Review, Dangerous-Workflow, Vulnerabilities, Dependency-Update-Tool, and Maintained.
+
+It deliberately does **not** execute the OpenSSF Scorecard tool and does not invent a numeric score. Checks that depend on hosted GitHub configuration or security data are marked `EXTERNAL_VERIFICATION_REQUIRED`. The workflow pinning sub-check only evaluates external GitHub Actions `uses:` references for full 40-character commit-SHA pinning and does not claim to reproduce the complete upstream dependency heuristic.
+
+The preserved-project boundary is also represented explicitly: where automatic dependency updating is absent because `NEW_UPSTREAM_TRACKING = NO`, the crosswalk records that state as intentionally disabled rather than silently treating the historical freeze as an active-maintenance defect.
+
+```text
+SCORECARD_CROSSWALK != SCORECARD_RUN
+SCORECARD_HEURISTIC != SECURITY_CERTIFICATION
+LOCAL_EVIDENCE != HOSTED_GITHUB_STATE
+CI_PASS != SECURITY_CERTIFICATION
+```
+
 ## CLI
 
 From the repository root:
@@ -121,7 +138,7 @@ The bundled fixture is `NOT_RUN`, so exact-head mismatch is explicitly deferred 
 
 Runtime dependencies: none beyond Python 3.11+ and the repository's existing source validator environment.
 
-Optional ecosystem tools such as `prov`, `rocrate`, OPA, or `inspect_ai` are not installed or invoked. They may be used later for external conformance testing, but file presence or conformance would not create canonical, scientific, or deployment authority.
+Optional ecosystem tools such as `prov`, `rocrate`, OPA, `inspect_ai`, or the OpenSSF Scorecard binary/action are not installed or invoked. They may be used later for external conformance testing, but file presence, compatibility, an external Scorecard score, or conformance would not create canonical, scientific, security-certification, merge, or deployment authority.
 
 ## Attribution and authority
 

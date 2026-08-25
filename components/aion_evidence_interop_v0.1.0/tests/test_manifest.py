@@ -43,6 +43,7 @@ def test_bundle_is_deterministic_and_bounded() -> None:
         "opa/input.json",
         "inspect/task-manifest.json",
         "inspect/dataset.jsonl",
+        "openssf/scorecard-crosswalk.json",
     }
 
 
