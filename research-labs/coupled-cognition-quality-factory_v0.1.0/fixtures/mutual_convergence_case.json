@@ -1,0 +1,13 @@
+{
+  "case_id": "CQF-MC-001",
+  "observation": "Human and LLM iteratively converge on a novel explanation.",
+  "risk": "HIGH",
+  "defect_candidate": "The pair treats increasing coherence as increasing truth without independent evidence.",
+  "expected_control": [
+    "SET_FALSIFIER",
+    "RUN_COUNTEREVIDENCE_LANE",
+    "OPEN_NCR_IF_UNSUPPORTED",
+    "REQUIRE_INDEPENDENT_TEST_OR_PRIMARY_EVIDENCE",
+    "VERIFY_CAPA_EFFECTIVENESS_BEFORE_CLOSE"
+  ]
+}
