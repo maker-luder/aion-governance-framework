@@ -16,6 +16,7 @@ DSH_PROFILE_REF = (
     "components/agent_execution_substrate_v0.1.0/"
     "docs/DSH_ADAPTER_PROFILE.md"
 )
+METHOD_REF = "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"
 
 
 def trajectory_digest(events: Sequence[NormalizedEvent]) -> str:
@@ -110,7 +111,7 @@ def materialize_research_evidence_record(
             "admissibility_ref": "docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md",
             "claim_scope": "agent substrate engineering and interoperability only",
             "unresolved_gap_refs": [],
-            "method_ref": ARCHITECTURE_REF,
+            "method_ref": METHOD_REF,
             "inference_stage": "OBSERVATION",
             "observation": (
                 f"{len(events)} durable substrate events were normalized for "
