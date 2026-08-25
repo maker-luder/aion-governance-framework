@@ -1,0 +1,101 @@
+{
+  "schema_version": "0.2.0",
+  "claim_id": "four-domain.snapshot.crosswalk.f654b503",
+  "claim_level": "L0_OBSERVATION",
+  "claim_text": "At frozen source head f654b5032ebc45058a64e81d409149ee7ea4bfbe, the Four-Domain Repository Crosswalk records bounded mappings from research constructs to LLM questions, engineering operations, governance controls, implementation evidence, limitations, and pending decisions.",
+  "hypothesis": "The frozen Four-Domain crosswalk can be materialized as an AION evidence record without promoting engineering analogues into scientific, identity, or subjectivity claims.",
+  "competing_hypotheses": [
+    "The projection may omit row-level detail, so the frozen crosswalk remains authoritative for complete semantics.",
+    "Engineering mappings may be mistaken for cognitive or phenomenal equivalence if nonclaims are not preserved."
+  ],
+  "preregistration_status": "EXPLORATORY",
+  "protocol_ref": "components/aion_evidence_interop_v0.1.0/docs/FOUR_DOMAIN_BRIDGE.md",
+  "protocol_hash": "928bcf0fb66683fcd842a8a42cab3400408dd0da21eacb875c3f4f085d58bb71",
+  "code_commit": "f654b5032ebc45058a64e81d409149ee7ea4bfbe",
+  "model_or_runtime_ref": "FOUR_DOMAIN_HISTORICAL_WORKBENCH_INSPECTION_ONLY",
+  "environment_ref": "components/aion_evidence_interop_v0.1.0/README.md",
+  "fixture_refs": [
+    "components/aion_evidence_interop_v0.1.0/fixtures/four_domain_snapshot_descriptor.json"
+  ],
+  "evidence_refs": [
+    "https://github.com/maker-luder/aion-governance-framework/blob/f654b5032ebc45058a64e81d409149ee7ea4bfbe/research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md"
+  ],
+  "expected_outcomes": [
+    "Pinned Four-Domain source metadata remains externally traceable without canonical, deployment, identity, consciousness, or subjectivity promotion."
+  ],
+  "observed_outcomes": [],
+  "result_status": "HOLD",
+  "deviations": [],
+  "limitations": [
+    "The bridge represents the crosswalk as one evidence unit and does not reproduce every row as an independent evidence record.",
+    "The pinned source identity is recorded from the preserved Git commit and blob; v0.1.0 is not an independent archive or hosted-state verification service.",
+    "This bridge does not fetch, execute, or re-run the frozen Four-Domain research branch at runtime."
+  ],
+  "reviewer_status": "UNREVIEWED",
+  "independent_validation_status": "IVV_NOT_ACHIEVED",
+  "canonical_effect": "NONE",
+  "provenance": {
+    "entities": [
+      "https://github.com/maker-luder/aion-governance-framework/blob/f654b5032ebc45058a64e81d409149ee7ea4bfbe/research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md",
+      "urn:git:blob:sha1:7e55741b85b27d383b4b721b834b1744c6c03fb9"
+    ],
+    "activities": [
+      "FOUR_DOMAIN_REPOSITORY_FACT_EXTRACTION",
+      "AION_FOUR_DOMAIN_READ_ONLY_BRIDGE"
+    ],
+    "agents": [
+      "CODEX_SOURCE_CROSSWALK_DECLARED_ATTRIBUTION",
+      "CHATGPT_BRIDGE_DESIGN_AND_IMPLEMENTATION"
+    ],
+    "derived_from": [
+      "https://github.com/maker-luder/aion-governance-framework/blob/f654b5032ebc45058a64e81d409149ee7ea4bfbe/research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md"
+    ],
+    "attributed_to": [
+      "CODEX_SOURCE_CROSSWALK_DECLARED_ATTRIBUTION",
+      "CHATGPT_BRIDGE_DESIGN_AND_IMPLEMENTATION"
+    ],
+    "associated_with": [
+      "review/four-domain-research-materialization@f654b5032ebc45058a64e81d409149ee7ea4bfbe"
+    ]
+  },
+  "evidence_architecture": {
+    "alternative_explanation_refs": [
+      "https://github.com/maker-luder/aion-governance-framework/blob/f654b5032ebc45058a64e81d409149ee7ea4bfbe/research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md"
+    ],
+    "causal_intervention_refs": [],
+    "ablation_refs": [],
+    "counterfactual_refs": [],
+    "robustness_refs": [],
+    "replication_refs": [],
+    "provenance_refs": [
+      "https://github.com/maker-luder/aion-governance-framework/blob/f654b5032ebc45058a64e81d409149ee7ea4bfbe/research-workbench/four-domain-materialization/2026-08-09/FOUR_DOMAIN_REPOSITORY_CROSSWALK.md",
+      "components/aion_evidence_interop_v0.1.0/docs/FOUR_DOMAIN_BRIDGE.md"
+    ],
+    "admissibility_ref": "components/aion_evidence_interop_v0.1.0/docs/FOUR_DOMAIN_BRIDGE.md",
+    "claim_scope": "Historical Four-Domain repository mapping materialization only; no research execution, scientific promotion, canonical effect, or deployment.",
+    "unresolved_gap_refs": [
+      "urn:aion:four-domain:unresolved:1bbcfeb6c1ca50cd",
+      "urn:aion:four-domain:unresolved:2af86b0072f10bbb"
+    ],
+    "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
+    "inference_stage": "OBSERVATION",
+    "observation": "The source crosswalk declares CANONICAL_EFFECT = NONE and NOT_ESTABLISHED locks for subjectivity, consciousness, phenomenal affect, and identity continuity while mapping research constructs across four domains.",
+    "mechanism": "No causal or phenomenal mechanism is established; the bridge performs deterministic metadata materialization from a pinned historical source reference.",
+    "interpretation": "The materialized record is an interoperability envelope for a historical research mapping, not evidence that the mapped constructs are biologically, cognitively, or phenomenally equivalent.",
+    "alternative_explanations": [
+      "Repository implementation evidence can reflect engineering analogues without supporting the corresponding human cognitive mechanism.",
+      "The source crosswalk contains partial overlaps, design gaps, or research-definition requirements that remain unresolved."
+    ]
+  },
+  "nonclaims": {
+    "subjectivity_conclusion": "NOT_ESTABLISHED",
+    "consciousness_conclusion": "NOT_ESTABLISHED",
+    "identity_continuity_conclusion": "NOT_ESTABLISHED",
+    "moral_status_conclusion": "NOT_ESTABLISHED",
+    "legal_status_conclusion": "OUT_OF_SCOPE",
+    "main_effect": "NONE",
+    "canonical_effect": "NONE",
+    "live_runtime_effect": "NONE",
+    "runtime_effect": "NONE"
+  }
+}
