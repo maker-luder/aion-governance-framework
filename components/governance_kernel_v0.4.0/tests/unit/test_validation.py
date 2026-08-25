@@ -1,6 +1,5 @@
 
 import pytest
-from types import MappingProxyType
 from aion_governance_kernel.errors import InputValidationError
 from aion_governance_kernel.models import ActionType, AuthorizationState, Environment, SourceType
 from aion_governance_kernel.validation import validate_operation_request

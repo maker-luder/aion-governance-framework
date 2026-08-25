@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from datetime import datetime,timezone
 from enum import StrEnum
 from pathlib import Path
-from typing import Any
 
 class CheckStatus(StrEnum): PASS='PASS'; HOLD='HOLD'; FAIL='FAIL'
 @dataclass(frozen=True,slots=True)

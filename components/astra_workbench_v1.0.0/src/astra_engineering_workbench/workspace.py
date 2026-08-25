@@ -11,7 +11,7 @@ from pathlib import Path, PurePath, PureWindowsPath
 from .approvals import validate_grant
 from .diffs import unified_text_diff
 from .enums import PermissionLevel
-from .errors import ApprovalError, PatchError, WorkspaceBoundaryError
+from .errors import PatchError, WorkspaceBoundaryError
 from .file_index import index_workspace, sha256_file, workspace_hash
 from .models import (
     ApprovalGrant,
