@@ -5,6 +5,7 @@ on:
     paths:
       - "components/aion_runtime_v0.1.0/**"
       - "components/astra_runtime_v0.1.0/**"
+      - "components/agent_execution_substrate_v0.1.0/**"
       - "components/executable_runtime_v0.1.0/**"
       - "components/individual_runtime_state_v0.1.0/**"
       - "components/memory_recall_governance_v0.1.0/**"

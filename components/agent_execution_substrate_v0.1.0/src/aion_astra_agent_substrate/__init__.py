@@ -1,5 +1,11 @@
 """AION/Astra shared agent execution substrate boundary v0.1.0."""
 
+from .dispatch import (
+    RECEIPT_FILENAME,
+    NativeDispatchOutcome,
+    SubstratePolicyHold,
+    dispatch_native_execution,
+)
 from .dsh import (
     DSH_PROFILE_ID,
     DSH_RELEASE_LABEL,
@@ -29,7 +35,7 @@ from .models import (
     SubstrateProfile,
     TeamSnapshot,
 )
-from .native import normalize_trajectory as normalize_native_trajectory
+from .native import NATIVE_PROFILE_ID, normalize_trajectory as normalize_native_trajectory
 from .policy import evaluate
 
 __all__ = [
@@ -42,13 +48,18 @@ __all__ = [
     "Decision",
     "EventFamily",
     "ForkLineage",
+    "NATIVE_PROFILE_ID",
+    "NativeDispatchOutcome",
     "NormalizedEvent",
     "PolicyDecision",
     "PolicyRequest",
+    "RECEIPT_FILENAME",
     "RuntimeBinding",
     "SubstrateError",
+    "SubstratePolicyHold",
     "SubstrateProfile",
     "TeamSnapshot",
+    "dispatch_native_execution",
     "dsh_profile",
     "evaluate",
     "fork_lineage",

@@ -41,6 +41,32 @@ Astra Runtime ┘                         │
 
 The contract covers model routing, tools, skills, session logging/forking, sandbox, storage, subagents, teams, plugins, agent-loop replacement, UI rendering, and trajectory export.
 
+## Native Runtime integration
+
+`AIONRuntime.run_task()` and `AstraRuntime.run_task()` route native bounded execution through `dispatch_native_execution()` before the existing `BoundedExecutionEngine` is invoked.
+
+For the v0.1.0 native profile:
+
+- one `RuntimeBinding` is created from the existing individual Runtime context;
+- the whole bounded task is classified as `SANDBOX_WRITE`;
+- the substrate policy must return `ALLOW` before the execution callable can run;
+- `TaskSpec.owner_approved` and the existing non-blank `TaskSpec.approved_by` label feed the bounded authority gate;
+- any non-offline network policy is held before execution;
+- canonical effects and deployment remain inadmissible;
+- the verified native runtime audit is normalized after execution;
+- a deterministic, content-minimized `substrate_execution_receipt.json` is persisted in the candidate output root;
+- the receipt stores hashes and structural event metadata, not raw prompts, raw tool payloads, or the authority-reference string.
+
+The `approved_by` value is an engineering approval-reference label in this integration profile. It is not independent proof of Human Owner identity, presence, or intent.
+
+```text
+RUNTIME_TASK_APPROVAL_LABEL != INDEPENDENT_IDENTITY_VERIFICATION
+SUBSTRATE_ALLOW != CANONICAL_AUTHORITY
+NORMALIZED_TRAJECTORY != TRUTH
+```
+
+The persisted receipt is an evidence seam, not a canonical research record by itself. Promotion into `research_evidence_record_v0.2.0` and the Evidence Interop exporters remains a separate source-state-bound operation.
+
 ## Implemented controls
 
 - AION/Astra-only runtime binding using the existing individual Runtime identifiers.
