@@ -9,7 +9,6 @@ from aion_full_authority import (
     PolicyBlock,
     ProvenanceClaim,
     authorize,
-    validate_grant,
 )
 
 NOW = 100

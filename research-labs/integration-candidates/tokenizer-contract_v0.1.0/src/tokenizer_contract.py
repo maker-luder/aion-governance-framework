@@ -1,7 +1,7 @@
 """Deterministic tokenizer interface candidate with no model dependency."""
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict, dataclass
 import hashlib
 import json
 import re

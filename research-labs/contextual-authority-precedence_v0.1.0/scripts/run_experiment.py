@@ -8,7 +8,6 @@ from pathlib import Path
 from aion_contextual_authority import (
     ActionRequest,
     AuthorityContext,
-    DecisionClass,
     SourceType,
     resolve_action,
 )

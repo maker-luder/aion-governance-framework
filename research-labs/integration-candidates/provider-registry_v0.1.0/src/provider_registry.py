@@ -1,7 +1,7 @@
 """Offline model-provider metadata and deterministic selection contract."""
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import re
 from typing import Iterable
 

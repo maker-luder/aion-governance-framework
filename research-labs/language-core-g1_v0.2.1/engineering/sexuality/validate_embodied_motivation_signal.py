@@ -36,7 +36,6 @@ def main() -> None:
     ids, labels = batch(test_rows, payload["vocabulary"])
     with torch.no_grad():
         logits = model(ids)
-        predictions = logits.argmax(dim=-1)
         original = {key: value.detach().clone() for key, value in model.state_dict().items()}
         learned = model(ids).clone()
         for parameter in model.parameters():

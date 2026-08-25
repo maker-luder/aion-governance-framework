@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from aion_selective_memory import MemoryRecord, MemoryStatus, RetrievalHit, RetrievalTrace, SelectiveMemoryStore
+from aion_selective_memory import MemoryRecord, MemoryStatus, RetrievalHit, RetrievalTrace
 from aion_selective_memory_adversarial import audit_memory_lineage, audit_record, audit_records, audit_retrieval
 
 STAMP = "2026-08-13T00:00:00+00:00"

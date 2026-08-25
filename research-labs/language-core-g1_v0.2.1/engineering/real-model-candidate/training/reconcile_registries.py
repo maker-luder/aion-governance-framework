@@ -44,7 +44,6 @@ def main() -> None:
     registry_path.write_text(json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     dataset_rows = []
     for dataset_id, row in dataset_registry.items():
-        artifact = ROOT / row["artifact_path"]
         dataset_rows.append({
             "dataset_id": dataset_id,
             "source": row["source"],

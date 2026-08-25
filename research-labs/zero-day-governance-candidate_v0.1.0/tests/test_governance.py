@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from dataclasses import replace
 
 from aion_zero_day_governance import (
     AnomalyKind,

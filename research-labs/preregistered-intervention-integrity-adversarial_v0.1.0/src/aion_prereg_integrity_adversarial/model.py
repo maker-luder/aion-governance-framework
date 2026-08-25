@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from aion_prereg_integrity import AnalysisClass, AuditStatus, Disposition, InterventionPlan, audit_plan
+from aion_prereg_integrity import AuditStatus, Disposition, InterventionPlan, audit_plan
 
 
 @dataclass(frozen=True, slots=True)

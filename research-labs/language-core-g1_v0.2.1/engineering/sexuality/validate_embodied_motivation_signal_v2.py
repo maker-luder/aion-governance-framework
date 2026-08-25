@@ -5,7 +5,7 @@ from pathlib import Path
 
 import torch
 
-from run_embodied_motivation_signal_experiment import SignalClassifier, batch
+from run_embodied_motivation_signal_experiment import SignalClassifier
 from run_embodied_motivation_signal_v2_falsification import make_cases
 
 DEVICE = torch.device("cpu")

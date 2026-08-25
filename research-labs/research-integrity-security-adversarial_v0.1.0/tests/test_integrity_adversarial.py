@@ -1,4 +1,3 @@
-import pytest
 
 from aion_research_integrity import EvidenceRecord, EvidenceState
 

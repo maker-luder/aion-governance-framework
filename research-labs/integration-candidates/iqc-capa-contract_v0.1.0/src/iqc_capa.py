@@ -1,7 +1,7 @@
 """Offline evidence-linked IQC/NCR/CAPA lifecycle contract."""
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field, replace
+from dataclasses import asdict, dataclass, replace
 from enum import StrEnum
 from datetime import datetime
 import hashlib
