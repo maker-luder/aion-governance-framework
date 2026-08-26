@@ -10,7 +10,6 @@ from pathlib import Path
 from typing import Any, Generic, TypeVar
 
 from .durable import (
-    EXECUTION_EVIDENCE_FILENAME,
     DurableLogSummary,
     persist_execution_event_log,
     persist_execution_evidence,
