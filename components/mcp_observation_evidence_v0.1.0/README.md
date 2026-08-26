@@ -1,6 +1,6 @@
 # AION / Astra MCP Phase 1 Observation Evidence Bridge
 
-Status: `IMPLEMENTATION_CANDIDATE / PHASE_1_OBSERVATION_EVIDENCE_BRIDGE`
+Status: `IMPLEMENTATION_CANDIDATE / PHASE_1_OBSERVATION_EVIDENCE_BRIDGE / RESEARCH_BRANCH_ADMITTED`
 
 ```text
 RUNTIME_MEMORY_ACCESS = NO
@@ -15,6 +15,29 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 ```
 
 This component is a deliberately narrow, fixture-backed MCP bridge for **observation, provenance, research boundary and nonclaims evidence**. It does not implement long-term memory, identity continuity, canonical state, relationship state, subjectivity inference or writeback.
+
+## Lineage and current standing
+
+The implementation originated in PR #41 at exact head `7986381dd48bbf702f2fc015078c8d072523adb2`. PR #41 received a ChatGPT / Teacher exact-head `PASS` for its bounded implementation and provenance corrections, but was intentionally closed without merge after its content was selectively materialized through PR #42.
+
+PR #42 then admitted the bounded MCP Phase 1 content into `review/four-domain-research-materialization` after its own exact-head Teacher review, Human Owner merge approval, and research-branch CI gate were satisfied. PR #41's main-target authority-gate failure remains historical evidence and is not rewritten as a pass.
+
+PR #47 later added a pinned Ruff correctness gate to the preserved research branch and reduced the active Ruff correctness baseline to zero findings. That later hardening resolves the earlier PR #41 Ruff-tool-availability gap for the active research tree. A component-specific mypy/type-check acceptance claim is still not established here.
+
+```text
+PR41_TEACHER_EXACT_HEAD_REVIEW = PASS
+PR41_MAIN_MERGE = NO
+PR41 = SUPERSEDED_BY_PR42
+PR42_RESEARCH_BRANCH_ADMISSION = MERGED
+PR42_DUAL_REVIEW_GATE = SATISFIED
+PR41_RUFF_GAP = HISTORICAL / RESOLVED_BY_PR47
+MYPY_COMPONENT_ACCEPTANCE = NOT_ESTABLISHED
+MAIN_MERGE = NO
+CANONICAL_EFFECT = NONE
+PUBLIC_DEPLOYMENT = NO
+```
+
+Historical PR text and failed gates are preserved as provenance. This status section records current lineage; it does not retroactively alter the historical PR states.
 
 ## Why this is not a Runtime recall wrapper
 
@@ -113,4 +136,11 @@ The tests check the exact tool inventory, read-only annotations, provenance fiel
 
 ## Authority
 
-This is a non-canonical candidate. Teacher review and Human Owner approval are pending. A PASS in these bounded tests would establish only implementation behavior for this bridge; it would not establish subjectivity, identity continuity, memory ownership, canonical authority, scientific validity, independent IV&V, release or deployment readiness.
+This remains a non-canonical research implementation candidate. Its admission into the preserved research branch does not establish main-branch authority, deployment readiness, subjectivity, identity continuity, memory ownership, scientific validity, independent IV&V, or release readiness.
+
+```text
+RESEARCH_BRANCH_ADMISSION != MAIN_MERGE
+RESEARCH_BRANCH_ADMISSION != CANONICAL_PROMOTION
+CI_PASS != SCIENTIFIC_VALIDATION
+IMPLEMENTATION_BEHAVIOR != SUBJECTIVITY_EVIDENCE
+```
