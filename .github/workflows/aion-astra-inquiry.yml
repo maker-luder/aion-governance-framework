@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    paths:
+      - ".github/workflows/aion-astra-inquiry.yml"
+      - "components/aion_astra_inquiry_v0.1.0/**"
   workflow_dispatch:
     inputs:
       question:
