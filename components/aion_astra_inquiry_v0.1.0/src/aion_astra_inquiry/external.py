@@ -93,7 +93,11 @@ class UrllibHttpTransport:
     ) -> HttpResponse:
         validate_external_url(url)
         _assert_public_resolution(urlparse(url).hostname or "")
-        safe_headers = {key: value for key, value in headers.items() if key.lower() not in {"authorization", "cookie", "proxy-authorization"}}
+        safe_headers = {
+            key: value
+            for key, value in headers.items()
+            if key.lower() not in {"authorization", "cookie", "proxy-authorization"}
+        }
         request = Request(url, headers=safe_headers, method="GET")
         opener = build_opener(_ValidatedRedirectHandler(max_redirects))
         with opener.open(request, timeout=timeout_seconds) as response:
@@ -145,6 +149,7 @@ class ExternalWebEvidenceSource:
 
         items: list[EvidenceItem] = []
         seen: set[str] = set()
+        retrieval_agent = requester.value if requester else "UNSPECIFIED"
         for raw_url in links:
             if len(items) >= result_limit:
                 break
@@ -166,14 +171,14 @@ class ExternalWebEvidenceSource:
             excerpt = UNTRUSTED_PREFIX + _clip(text, 1_200)
             items.append(
                 EvidenceItem(
-                    ref=f"external:{final_url}",
+                    ref=f"external:{retrieval_agent}:{final_url}",
                     excerpt=excerpt,
                     content_sha256=sha256(page.body).hexdigest(),
                     source_class="EXTERNAL_WEB",
                     source_url=final_url,
                     publisher=publisher,
                     retrieved_at=datetime.now(timezone.utc).isoformat(),
-                    retrieval_agent=requester.value if requester else "UNSPECIFIED",
+                    retrieval_agent=retrieval_agent,
                     trust="UNTRUSTED_EXTERNAL",
                 )
             )
