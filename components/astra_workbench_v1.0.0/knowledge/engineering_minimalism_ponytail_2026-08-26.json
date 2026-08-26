@@ -1,0 +1,166 @@
+{
+  "artifact_type": "ASTRA_ENGINEERING_KNOWLEDGE_MATERIALIZATION",
+  "artifact_version": "0.1.0",
+  "materialized_at": "2026-08-26",
+  "intended_consumer": "Astra Engineering Workbench Candidate v1.0.0",
+  "status": "REFERENCE_ONLY_CANDIDATE",
+  "source": {
+    "repository": "DietrichGebert/ponytail",
+    "commit": "2ed6c52c9d7e5e56942508591085fd45dea277d3",
+    "license": "MIT",
+    "source_surfaces": [
+      "AGENTS.md",
+      "skills/ponytail/SKILL.md",
+      "skills/ponytail-review/SKILL.md",
+      "benchmarks/results/2026-06-18-agentic.md"
+    ]
+  },
+  "derivation": {
+    "method": "bounded conceptual translation",
+    "copied_runtime": false,
+    "copied_plugin_hooks": false,
+    "copied_prompt_text": false,
+    "external_dependency_added": false,
+    "summary": "Translate reusable engineering and evaluation lessons into Astra-native reference data without importing Ponytail runtime behavior."
+  },
+  "principles": [
+    {
+      "id": "minimum_correct_change",
+      "statement": "Prefer the smallest change that is correct at the real causal location, not merely the smallest textual diff.",
+      "checks": [
+        "understand the affected flow before editing",
+        "identify the shared causal point before patching callers",
+        "avoid unrelated edits"
+      ]
+    },
+    {
+      "id": "necessity_before_construction",
+      "statement": "Before building a new mechanism, determine whether the requested capability needs new code at all.",
+      "checks": [
+        "is the requested behavior already available",
+        "is the requirement speculative rather than current",
+        "can the task be satisfied without creating a new abstraction"
+      ]
+    },
+    {
+      "id": "reuse_before_rewrite",
+      "statement": "Prefer an existing local helper, type, pattern, or shared function over a duplicate implementation.",
+      "checks": [
+        "search the local codebase first",
+        "reuse the established path when semantics match",
+        "do not add a parallel implementation without evidence that reuse is insufficient"
+      ]
+    },
+    {
+      "id": "stdlib_and_native_first",
+      "statement": "Prefer standard-library and native platform capabilities before adding custom code or a new dependency.",
+      "checks": [
+        "standard library capability",
+        "native platform capability",
+        "already-installed dependency",
+        "new dependency only when the prior options are insufficient"
+      ]
+    },
+    {
+      "id": "root_cause_before_symptom_patch",
+      "statement": "For defects, trace callers and shared paths so the correction is applied once at the causal convergence point when appropriate.",
+      "checks": [
+        "trace relevant callers",
+        "separate reported symptom from causal defect",
+        "prefer one shared correction over repeated caller-specific guards when semantics permit"
+      ]
+    },
+    {
+      "id": "deletion_over_speculation",
+      "statement": "Prefer removing dead or speculative complexity over adding scaffolding for hypothetical future needs.",
+      "checks": [
+        "no abstraction with no demonstrated variation",
+        "no configuration that has no present consumer",
+        "no boilerplate solely for possible future expansion"
+      ]
+    },
+    {
+      "id": "safety_is_not_optional_minimization",
+      "statement": "Minimization must not remove trust-boundary validation, data-loss prevention, security controls, accessibility basics, or explicitly required behavior.",
+      "checks": [
+        "trust-boundary validation remains present",
+        "error handling that prevents data loss remains present",
+        "security controls remain present",
+        "accessibility basics remain present",
+        "explicit task requirements remain present"
+      ]
+    },
+    {
+      "id": "smallest_runnable_check",
+      "statement": "Non-trivial logic should retain the smallest runnable check that would fail if the changed behavior regresses.",
+      "checks": [
+        "the check executes rather than merely documents",
+        "the check targets the changed logic",
+        "test scaffolding is not expanded beyond what the risk requires"
+      ]
+    }
+  ],
+  "decision_order": [
+    "need_new_behavior",
+    "reuse_local_capability",
+    "use_standard_library",
+    "use_native_platform",
+    "use_existing_dependency",
+    "use_minimal_inline_solution",
+    "write_minimum_new_implementation"
+  ],
+  "evaluation_lessons": [
+    {
+      "id": "measure_real_artifacts",
+      "lesson": "Evaluate coding-agent effects on the resulting repository artifact or diff rather than conversational verbosity alone."
+    },
+    {
+      "id": "control_for_agent_context",
+      "lesson": "Isolate benchmark arms so global plugins, hooks, prompts, or shared state cannot contaminate the baseline."
+    },
+    {
+      "id": "include_adversarial_checks",
+      "lesson": "A minimization policy should be tested against cases where fewer lines could incorrectly remove a safety guard."
+    },
+    {
+      "id": "show_convergence_when_no_bloat_exists",
+      "lesson": "A credible benchmark should permit minimal and baseline approaches to converge when the task is already irreducible."
+    },
+    {
+      "id": "revise_claims_after_better_tests",
+      "lesson": "When a stronger benchmark weakens an earlier claim, retain the stronger method and narrow the claim instead of protecting the earlier number."
+    }
+  ],
+  "astra_application_hypotheses": [
+    {
+      "id": "planning",
+      "hypothesis": "Astra candidate planning may use the decision order to rank lower-complexity implementation paths before proposing new code."
+    },
+    {
+      "id": "review",
+      "hypothesis": "Astra candidate review may separately inspect unnecessary complexity while leaving correctness, security, and governance review as independent concerns."
+    },
+    {
+      "id": "benchmarking",
+      "hypothesis": "Any future activation should be evaluated with matched tasks, isolated contexts, repository-level diffs, runtime checks, and explicit safety cases."
+    }
+  ],
+  "nonclaims": [
+    "KNOWLEDGE_MATERIALIZED != RUNTIME_BEHAVIOR_CHANGED",
+    "REFERENCE != PROMOTION",
+    "DERIVATION != MERGE",
+    "MINIMAL_CODE != SAFE_BY_DEFAULT",
+    "BENCHMARK_SUCCESS != GENERAL_SECURITY_PROOF",
+    "ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE"
+  ],
+  "governance": {
+    "runtime_wiring": false,
+    "automatic_activation": false,
+    "canonical_effect": "NONE",
+    "deployment": false,
+    "project_restart": false,
+    "research_restart": false,
+    "historical_termination_changed": false,
+    "requires_separate_owner_authorization_for_runtime_adoption": true
+  }
+}
