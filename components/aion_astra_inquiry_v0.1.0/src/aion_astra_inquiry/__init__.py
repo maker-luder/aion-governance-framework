@@ -23,6 +23,16 @@ from .core import (
     StopReason,
     verify_transcript_chain,
 )
+from .external import (
+    ExternalWebEvidenceSource,
+    ExternalWebPolicy,
+    FederatedEvidenceSource,
+    HttpResponse,
+    HttpTransport,
+    UNTRUSTED_PREFIX,
+    UrllibHttpTransport,
+    validate_external_url,
+)
 from .reasoning import (
     EvidenceDrivenReasoningProvider,
     ProviderBackedPeer,
@@ -38,6 +48,11 @@ __all__ = [
     "EvidenceDrivenReasoningProvider",
     "EvidenceItem",
     "EvidenceSource",
+    "ExternalWebEvidenceSource",
+    "ExternalWebPolicy",
+    "FederatedEvidenceSource",
+    "HttpResponse",
+    "HttpTransport",
     "InquiryCampaignReport",
     "InquiryContext",
     "InquiryPeer",
@@ -52,8 +67,11 @@ __all__ = [
     "RepositoryQuestionGenerator",
     "RepositoryTextEvidenceSource",
     "StopReason",
+    "UNTRUSTED_PREFIX",
+    "UrllibHttpTransport",
     "campaign_to_dict",
     "campaign_to_markdown",
+    "validate_external_url",
     "verify_transcript_chain",
     "write_campaign_report",
 ]
