@@ -26,6 +26,9 @@ The Four-Domain crosswalk follows the exact source already pinned by the merged 
 | self-model-functional-ablation | history-dependent self-estimate channel | conceptual adapter |
 | second-order-metacognition | monitoring/control channel and timing discipline | conceptual adapter |
 | core-meaning-commitments | candidate organizing-commitment channel | conceptual adapter |
+| Four-Domain P1 | temporal / correction / evaluation controls | control and evaluation seam |
+| Four-Domain P2 | provenance + deterministic matched context assembly | provenance and context seam |
+| Four-Domain P3 | perturbation / ablation / resilience controls | adversarial control seam |
 | Four-Domain P4 | reproducibility / manifest seam | future evidence seam only |
 | Four-Domain P5 | hypothesis / replication / falsification seam | future evidence seam only |
 | subjectivity-pipeline | downstream scientific evidence architecture | candidate seam only; pipeline unchanged |
@@ -69,6 +72,21 @@ CORE_MEANING_CHANNEL
   commit = 1892f1341059f313087a94aef74f22c086000f2a
   path   = research-labs/core-meaning-commitments_v0.1.0/README.md
   blob   = 743d2e4683793967f1bca94e646e655730ba9fc1
+
+P1_TEMPORAL_CORRECTION_EVALUATION
+  commit = 1892f1341059f313087a94aef74f22c086000f2a
+  path   = research-labs/four-domain-p1-materialization_v0.1.0/README.md
+  blob   = 58169c3719d768e26069cdd3bd1d24066bc10f69
+
+P2_PROVENANCE_CONTEXT_ASSEMBLY
+  commit = 1892f1341059f313087a94aef74f22c086000f2a
+  path   = research-labs/four-domain-p2-materialization_v0.1.0/README.md
+  blob   = a98ac0f0e493ebc18fd820447e24f58fd98e7e6d
+
+P3_RESILIENCE_ABLATION
+  commit = 1892f1341059f313087a94aef74f22c086000f2a
+  path   = research-labs/four-domain-p3-resilience-experiments_v0.1.0/README.md
+  blob   = 75f1913c9f4e5030534d059968ea56f8645b1013
 
 SUBJECTIVITY_EVIDENCE_SEAM
   commit = 1892f1341059f313087a94aef74f22c086000f2a

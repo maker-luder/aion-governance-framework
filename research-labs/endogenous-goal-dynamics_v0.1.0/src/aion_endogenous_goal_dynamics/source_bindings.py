@@ -66,6 +66,27 @@ PINNED_RESEARCH_SOURCES: tuple[ResearchSourceBinding, ...] = (
         disposition="CONCEPTUAL_ADAPTER",
     ),
     ResearchSourceBinding(
+        role="P1_TEMPORAL_CORRECTION_EVALUATION",
+        source_ref=FROZEN_RESEARCH_HEAD,
+        artifact_path="research-labs/four-domain-p1-materialization_v0.1.0/README.md",
+        artifact_sha1="58169c3719d768e26069cdd3bd1d24066bc10f69",
+        disposition="CONTROL_AND_EVALUATION_SEAM",
+    ),
+    ResearchSourceBinding(
+        role="P2_PROVENANCE_CONTEXT_ASSEMBLY",
+        source_ref=FROZEN_RESEARCH_HEAD,
+        artifact_path="research-labs/four-domain-p2-materialization_v0.1.0/README.md",
+        artifact_sha1="a98ac0f0e493ebc18fd820447e24f58fd98e7e6d",
+        disposition="PROVENANCE_AND_MATCHED_CONTEXT_SEAM",
+    ),
+    ResearchSourceBinding(
+        role="P3_RESILIENCE_ABLATION",
+        source_ref=FROZEN_RESEARCH_HEAD,
+        artifact_path="research-labs/four-domain-p3-resilience-experiments_v0.1.0/README.md",
+        artifact_sha1="75f1913c9f4e5030534d059968ea56f8645b1013",
+        disposition="PERTURBATION_AND_ABLATION_SEAM",
+    ),
+    ResearchSourceBinding(
         role="SUBJECTIVITY_EVIDENCE_SEAM",
         source_ref=FROZEN_RESEARCH_HEAD,
         artifact_path="research-labs/subjectivity-pipeline_v0.1.0/README.md",
