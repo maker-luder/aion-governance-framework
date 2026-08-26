@@ -12,6 +12,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
 
+from aion_astra_agent_substrate import SubstratePolicyHold, dispatch_native_execution
 from aion_astra_runtime.engine import BoundedExecutionEngine
 from aion_astra_runtime.models import IndividualRuntimeContext, RunResult, TaskSpec
 from aion_memory_recall.models import RecallRequest
@@ -30,6 +31,8 @@ class RuntimeStatus:
     runtime: str = "ASTRA_RUNTIME_IMPLEMENTATION_CANDIDATE"
     version: str = "0.1.0"
     bounded_execution: str = "ENABLED"
+    shared_execution_substrate: str = "ENABLED_NATIVE_BOUNDED"
+    substrate_policy_gate: str = "ENFORCED"
     live_cross_session_memory: str = "ENABLED_GOVERNED"
     individual_runtime_binding: str = "ENFORCED_CANDIDATE"
     individual_event_lineage: str = "ENABLED_GOVERNED_CANDIDATE"
@@ -45,6 +48,8 @@ class RuntimeStatus:
             "runtime": self.runtime,
             "version": self.version,
             "bounded_execution": self.bounded_execution,
+            "shared_execution_substrate": self.shared_execution_substrate,
+            "substrate_policy_gate": self.substrate_policy_gate,
             "live_cross_session_memory": self.live_cross_session_memory,
             "individual_runtime_binding": self.individual_runtime_binding,
             "individual_event_lineage": self.individual_event_lineage,
@@ -106,11 +111,43 @@ class AstraRuntime:
     ) -> RunResult:
         self._require_context(task.runtime_context)
         self.state.append_event("task.started", {"task_id": task.task_id})
-        result = self.execution.run(
-            task,
-            baseline_root=baseline_root,
-            sessions_root=sessions_root,
-            kill_switch=kill_switch,
+        try:
+            outcome = dispatch_native_execution(
+                context=task.runtime_context,
+                task_id=task.task_id,
+                owner_approved=task.owner_approved,
+                authority_reference=task.approved_by,
+                network_access=task.network_policy.value != "OFFLINE",
+                canonical_effect=task.canonical_effect,
+                execute=lambda: self.execution.run(
+                    task,
+                    baseline_root=baseline_root,
+                    sessions_root=sessions_root,
+                    kill_switch=kill_switch,
+                ),
+            )
+        except SubstratePolicyHold as exc:
+            self.state.append_event(
+                "substrate.execution.hold",
+                {
+                    "task_id": task.task_id,
+                    "capability": exc.decision.capability.value,
+                    "reasons": list(exc.decision.reasons),
+                    "canonical_effect": "NONE",
+                },
+            )
+            raise
+
+        result = outcome.result
+        self.state.append_event(
+            "substrate.execution.completed",
+            {
+                "task_id": task.task_id,
+                "substrate_id": outcome.binding.substrate_id,
+                "session_id": outcome.binding.session_id,
+                "receipt_sha256": outcome.receipt_sha256,
+                "canonical_effect": "NONE",
+            },
         )
         self.state.append_event(
             "task.completed",

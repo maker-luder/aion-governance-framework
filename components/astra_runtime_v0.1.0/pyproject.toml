@@ -9,6 +9,7 @@ description = "Governed Astra individual runtime implementation candidate"
 requires-python = ">=3.11"
 dependencies = [
   "aion-astra-executable-runtime==0.1.0",
+  "aion-astra-agent-execution-substrate-v0.1.0==0.1.0",
   "memory-recall-governance-v0.1.0==0.1.0",
   "individual-runtime-state==0.1.0",
 ]
@@ -18,7 +19,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src", "../memory_recall_governance_v0.1.0/src", "../executable_runtime_v0.1.0/src", "../individual_runtime_state_v0.1.0/src"]
+pythonpath = ["src", "../memory_recall_governance_v0.1.0/src", "../executable_runtime_v0.1.0/src", "../individual_runtime_state_v0.1.0/src", "../agent_execution_substrate_v0.1.0/src"]
 addopts = "-ra"
 
 [tool.mypy]
