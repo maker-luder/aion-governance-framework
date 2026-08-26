@@ -1,6 +1,9 @@
 # Endogenous Goal Dynamics × Four-Domain Integration v0.1.0
 
 Status: `BOUNDED RESEARCH MATERIALIZATION / EXPERIMENTAL`
+Main integration: `COMPLETE VIA PR #56`
+PR #56 candidate head: `67a901b16188e441040c8927806f41dd90e04b66`
+PR #56 merge commit: `35840d4d5629872e830ee669a15b67b183091692`
 Canonical effect: `NONE`
 Deployment: `FALSE`
 Network access default: `FALSE`
@@ -349,11 +352,16 @@ The `fixtures/` directory contains public-safe synthetic fixture descriptors for
 
 No private conversation data is included.
 
-## Historical and current-main boundaries
+## Historical source and integration boundaries
 
 Preserved source checkpoint: `review/four-domain-research-materialization@1892f1341059f313087a94aef74f22c086000f2a`.
 Four-Domain bridge pin: `f654b5032ebc45058a64e81d409149ee7ea4bfbe`.
-Current-main base: `3ae33dbefa26d7d343ba041deec5b8505dc0b8e7`.
+Integration-cycle main base: `3ae33dbefa26d7d343ba041deec5b8505dc0b8e7`.
+PR #56 candidate head: `67a901b16188e441040c8927806f41dd90e04b66`.
+PR #56 merge commit: `35840d4d5629872e830ee669a15b67b183091692`.
+Main integration status: `COMPLETE`.
+
+The `3ae33db...` value is the main state from which this bounded cycle began. It is an integration base, not a moving claim about the current tip of `main`.
 
 Historical material selectively used:
 
@@ -363,7 +371,7 @@ Historical material selectively used:
 - P1–P5 interface semantics;
 - downstream subjectivity-pipeline seam.
 
-Current-main modules reused:
+Integration-base main modules reused:
 
 - Evidence Interop PROV, RO-Crate, in-toto, and Inspect exporters;
 - research-evidence v0.2.0 schema and validator semantics;
@@ -393,7 +401,7 @@ Repository-wide validation is controlled by the root Quality workflow and `scrip
 The branch pattern does not receive push CI under the current workflow; pull-request CI is the supported
 path. This lab does not alter workflow policy.
 
-## Attribution
+## Attribution and merge authority
 
 ```text
 RESEARCH_DIRECTION = USER_GIVEN
@@ -401,8 +409,12 @@ INTEGRATION_ARCHITECTURE = GPT_PROPOSED
 INITIAL_V0_1_IMPLEMENTATION = GPT_PRODUCED_UNDER_USER_AUTHORIZATION
 CURRENT_HARDENING_IMPLEMENTATION = CODEX
 HISTORICAL_SOURCE_ATTRIBUTION = PRESERVED
-MAIN_MERGE_AUTHORITY = NOT_GRANTED_BY_IMPLEMENTATION_TASK
+IMPLEMENTATION_TASK_MERGE_AUTHORITY = NOT_GRANTED
+PR56_EXACT_HEAD_HUMAN_OWNER_MERGE_AUTHORITY = GRANTED_SEPARATELY
+MAIN_INTEGRATION = COMPLETE
 ```
+
+The implementation task itself did not grant merge authority. PR #56 was merged only after a separate fresh exact-head Human Owner authorization and successful repository gates.
 
 ## Scientific non-claims
 

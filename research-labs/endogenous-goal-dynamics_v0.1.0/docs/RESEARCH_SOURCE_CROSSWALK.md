@@ -1,6 +1,6 @@
 # Endogenous Goal Dynamics — Research Source Crosswalk v0.1.0
 
-This document records the bounded relationship between the new integration lab and preserved AION research artifacts. It is a source/provenance map, not a claim that the historical research branch was merged into `main`.
+This document records the bounded relationship between the integration lab and preserved AION research artifacts. It is a source/provenance map, not a claim that the historical research branch was merged into `main`.
 
 ## Source-state rule
 
@@ -8,12 +8,16 @@ This document records the bounded relationship between the new integration lab a
 PRESERVED_RESEARCH_BRANCH = review/four-domain-research-materialization
 PRESERVED_RESEARCH_CHECKPOINT = 1892f1341059f313087a94aef74f22c086000f2a
 FOUR_DOMAIN_BRIDGE_PIN = f654b5032ebc45058a64e81d409149ee7ea4bfbe
+INTEGRATION_CYCLE_MAIN_BASE = 3ae33dbefa26d7d343ba041deec5b8505dc0b8e7
+PR56_CANDIDATE_HEAD = 67a901b16188e441040c8927806f41dd90e04b66
+PR56_MERGE_COMMIT = 35840d4d5629872e830ee669a15b67b183091692
+MAIN_INTEGRATION = COMPLETE
 DERIVATION != MERGE
 REFERENCE != PROMOTION
 CANONICAL_EFFECT = NONE
 ```
 
-The Four-Domain crosswalk follows the exact source already pinned by the merged Four-Domain Evidence Bridge. Other research artifacts are bound to exact Git blob identities observed at the preserved research checkpoint.
+The Four-Domain crosswalk follows the exact source already pinned by the merged Four-Domain Evidence Bridge. Other research artifacts are bound to exact Git blob identities observed at the preserved research checkpoint. The integration-cycle main base is a fixed historical input to the materialization cycle, not a moving assertion about the current tip of `main`.
 
 ## Integration roles
 
@@ -157,9 +161,11 @@ current research candidate to preserved branch-only packages, increase the inter
 weaken causal attribution. The local adapters keep exact provenance while exposing only the fields used
 by this hypothesis.
 
-## Current-main bindings reused directly
+## Integration-base main bindings reused directly
 
-Current-main base: `3ae33dbefa26d7d343ba041deec5b8505dc0b8e7`.
+Integration-cycle main base: `3ae33dbefa26d7d343ba041deec5b8505dc0b8e7`.
+
+The following blob identities describe the current-main modules that were inspected and reused when the cycle began. They remain fixed provenance bindings; they are not intended to follow future edits to `main`.
 
 ```text
 EVIDENCE_INTEROP_PROV
@@ -183,8 +189,21 @@ SUBJECTIVITY_PIPELINE_MODELS (inspected, unchanged)
   blob = ddeea0e599105e3c2113419f03470d8004f3d14f
 ```
 
-`verify_source_bindings(repository)` checks every historical and current-main entry directly against
+`verify_source_bindings(repository)` checks every historical and integration-base main entry directly against
 local Git objects. Missing refs and blob drift are reported as failures.
+
+## Integration disposition
+
+```text
+PR56_CANDIDATE_HEAD = 67a901b16188e441040c8927806f41dd90e04b66
+PR56_MERGE_COMMIT = 35840d4d5629872e830ee669a15b67b183091692
+MAIN_INTEGRATION = COMPLETE
+SUBJECTIVITY_EVIDENCE_ADMISSION = NOT_AUTOMATIC
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+The merge disposition does not alter any pinned historical source identity and does not convert a candidate mechanism into a scientific conclusion.
 
 ## Attribution preserved for this cycle
 
@@ -194,4 +213,6 @@ INTEGRATION_ARCHITECTURE = GPT_PROPOSED
 INITIAL_V0_1_IMPLEMENTATION = GPT_PRODUCED_UNDER_USER_AUTHORIZATION
 CURRENT_HARDENING_IMPLEMENTATION = CODEX
 HISTORICAL_SOURCE_ATTRIBUTION = PRESERVE_EXISTING_RECORDS
+IMPLEMENTATION_TASK_MERGE_AUTHORITY = NOT_GRANTED
+PR56_EXACT_HEAD_HUMAN_OWNER_MERGE_AUTHORITY = GRANTED_SEPARATELY
 ```
