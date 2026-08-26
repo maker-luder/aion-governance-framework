@@ -103,13 +103,16 @@ class RepositoryQuestionGenerator:
                 lowered = normalized.lower()
                 source_ref = f"{relative.as_posix()}#L{line_index}"
 
-                if "research question" in lowered or "open question" in lowered:
+                is_question_marker = "research question" in lowered or "open question" in lowered
+                if is_question_marker:
                     nearby = _nearby_question(lines, line_index - 1)
                     if nearby:
                         priority = path_bias - 3
                         candidate = QuestionCandidate(question=nearby, source_ref=source_ref, priority=priority)
                         ranked.append((priority, relative.as_posix(), line_index, candidate))
-                        continue
+                    # A bare research/open-question heading is structural metadata, not itself a question.
+                    # Never fall through and synthesize "... unresolved point: Research question?" from it.
+                    continue
 
                 if path.suffix.lower() in {".md", ".txt"} and _looks_like_natural_question(normalized):
                     question = _clean_question(normalized)
@@ -129,7 +132,7 @@ class RepositoryQuestionGenerator:
                     "What bounded repository evidence would most directly resolve or falsify this unresolved point: "
                     f"{snippet}?"
                 )
-                priority = path_bias + (0 if marker in {"research question", "open question"} else 2)
+                priority = path_bias + 2
                 candidate = QuestionCandidate(question=question, source_ref=source_ref, priority=priority)
                 ranked.append((priority, relative.as_posix(), line_index, candidate))
 
@@ -431,18 +434,35 @@ def _path_priority(relative: Path) -> int:
 
 def _nearby_question(lines: list[str], marker_index: int) -> str:
     marker = _clean_question(lines[marker_index])
-    if marker and _looks_like_natural_question(marker):
+    if marker:
         return marker
-    for offset in range(1, 5):
+
+    collected: list[str] = []
+    for offset in range(1, 9):
         candidate_index = marker_index + offset
         if candidate_index >= len(lines):
             break
-        normalized = " ".join(lines[candidate_index].strip().split())
+        raw = lines[candidate_index].strip()
+        if not raw:
+            if collected:
+                continue
+            continue
+        if raw.startswith("```"):
+            break
+        if raw.startswith("#") and collected:
+            break
+
+        normalized = _strip_markup(raw)
         if not normalized:
             continue
-        if _looks_like_natural_question(normalized):
-            return _clean_question(normalized)
-        if len(normalized) > 260:
+        collected.append(normalized)
+        combined = " ".join(collected)
+        if len(combined) > 600:
+            break
+        if "?" in combined or "？" in combined:
+            question = _clean_question(combined)
+            if question:
+                return question
             break
     return ""
 
@@ -483,7 +503,7 @@ def _clean_question(line: str) -> str:
     cleaned = cleaned.strip(" \"'“”‘’-#*>`\t")
     if len(cleaned) < 18 or not _looks_like_natural_question(cleaned):
         return ""
-    return _clip(cleaned, 300)
+    return _clip(cleaned, 420)
 
 
 def _strip_markup(text: str) -> str:
