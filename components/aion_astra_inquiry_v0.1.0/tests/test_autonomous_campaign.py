@@ -49,6 +49,23 @@ def test_question_generator_discovers_repository_question_without_git_leak(tmp_p
     assert all(not item.source_ref.startswith(".git/") for item in questions)
 
 
+def test_question_generator_reconstructs_multiline_question_after_heading(tmp_path: Path) -> None:
+    root = _research_repo(tmp_path)
+    path = root / "research-labs" / "multiline"
+    path.mkdir()
+    (path / "README.md").write_text(
+        """# Multiline\n\n## Research question\n\n> Under the same model, prompt, tools, and retrieved-memory manifest,\n> does changing only a persistent internal state\n> change goal selection reproducibly and predictably under intervention?\n""",
+        encoding="utf-8",
+    )
+
+    questions = RepositoryQuestionGenerator(root).discover(limit=6)
+
+    matching = [item for item in questions if "under the same model" in item.question.lower()]
+    assert matching
+    assert "change goal selection reproducibly" in matching[0].question.lower()
+    assert all("unresolved point: Research question" not in item.question for item in questions)
+
+
 def test_question_generator_ignores_code_syntax_and_its_own_examples(tmp_path: Path) -> None:
     root = _research_repo(tmp_path)
     (root / "scripts").mkdir()
