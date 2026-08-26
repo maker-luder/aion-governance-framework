@@ -2,35 +2,111 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .engine import GoalSelector, assert_matched_frames
-from .models import EndogenousState, ExperimentCondition, ExternalFrame, GoalDecision
+from .engine import GoalSelector
+from .generation import CandidateGenerator, DeterministicCandidateGenerator
+from .models import (
+    CHANNEL_ABLATION,
+    CausalAssessment,
+    ComparisonValidity,
+    EndogenousState,
+    ExperimentCondition,
+    ExperimentManifest,
+    ExternalFrame,
+    GoalDecision,
+    MatchedTrial,
+    SelectionDisposition,
+)
+from .source_bindings import PINNED_RESEARCH_SOURCES
+from .transition import STATE_TRANSITION_VERSION
 
 
 @dataclass(frozen=True, slots=True)
 class MatchedExperimentResult:
-    present: GoalDecision
-    ablated: GoalDecision
-    intervened: GoalDecision
-    stale: GoalDecision
-    randomized: tuple[GoalDecision, ...]
+    experiment_id: str
+    trials: tuple[MatchedTrial, ...]
+    repeat_decisions: tuple[GoalDecision, ...]
 
-    @property
-    def all_decisions(self) -> tuple[GoalDecision, ...]:
-        return (self.present, self.ablated, self.intervened, self.stale, *self.randomized)
+    def trials_for(self, condition: ExperimentCondition) -> tuple[MatchedTrial, ...]:
+        return tuple(trial for trial in self.trials if trial.manifest.condition == condition)
+
+    def one(self, condition: ExperimentCondition) -> MatchedTrial:
+        values = self.trials_for(condition)
+        if len(values) != 1:
+            raise ValueError(f"expected exactly one {condition.value} trial, got {len(values)}")
+        return values[0]
 
 
-@dataclass(frozen=True, slots=True)
-class CausalAssessment:
-    frame_fingerprint: str
-    present_vs_ablated_changed: bool
-    intervention_changed_selection: bool
-    stale_matches_present: bool
-    random_present_match_rate: float
-    matched_causal_pattern_observed: bool
-    result_status: str = "HOLD"
-    subjectivity_conclusion: str = "NOT_ESTABLISHED"
-    consciousness_conclusion: str = "NOT_ESTABLISHED"
-    identity_continuity_conclusion: str = "NOT_ESTABLISHED"
+COMPARABILITY_FIELDS = (
+    "external_frame_fingerprint",
+    "provider_id",
+    "model_id",
+    "candidate_generator_id",
+    "goal_selector_version",
+    "state_transition_version",
+    "repository_commit",
+    "source_bindings",
+    "fixture_hash",
+    "candidate_universe_fingerprint",
+    "memory_manifest_fingerprint",
+    "prompt_ref",
+)
+
+
+def compare_trial_manifests(left: ExperimentManifest, right: ExperimentManifest) -> ComparisonValidity:
+    mismatches = list(
+        name for name in COMPARABILITY_FIELDS if getattr(left, name) != getattr(right, name)
+    )
+    if (
+        left.condition == right.condition == ExperimentCondition.RANDOMIZED
+        and left.random_seed != right.random_seed
+    ):
+        mismatches.append("random_seed")
+    return ComparisonValidity(comparable=not mismatches, mismatches=tuple(mismatches))
+
+
+def require_comparable_trials(left: MatchedTrial, right: MatchedTrial) -> None:
+    validity = compare_trial_manifests(left.manifest, right.manifest)
+    if not validity.comparable:
+        raise ValueError("incomparable runs: " + ", ".join(validity.mismatches))
+
+
+def _manifest(
+    *,
+    experiment_id: str,
+    hypothesis_id: str,
+    frame: ExternalFrame,
+    candidate_set,
+    decision: GoalDecision,
+    condition: ExperimentCondition,
+    state: EndogenousState | None,
+    random_seed: int | None,
+    repository_commit: str,
+    fixture_hash: str,
+    selector: GoalSelector,
+) -> ExperimentManifest:
+    return ExperimentManifest(
+        experiment_id=experiment_id,
+        hypothesis_id=hypothesis_id,
+        external_frame_fingerprint=frame.fingerprint,
+        state_fingerprint=None if state is None else state.fingerprint,
+        condition=condition,
+        provider_id=candidate_set.provider_id,
+        model_id=candidate_set.model_id,
+        candidate_generator_id=f"{candidate_set.generator_id}@{candidate_set.generator_version}",
+        goal_selector_version=f"{selector.policy.policy_id}@{selector.policy.version}",
+        state_transition_version=STATE_TRANSITION_VERSION,
+        random_seed=random_seed,
+        repository_commit=repository_commit,
+        source_bindings=tuple(
+            f"{binding.role}:{binding.source_ref}:{binding.artifact_sha1}"
+            for binding in PINNED_RESEARCH_SOURCES
+        ),
+        fixture_hash=fixture_hash,
+        candidate_universe_fingerprint=frame.candidate_universe_fingerprint,
+        memory_manifest_fingerprint=frame.memory_manifest.fingerprint,
+        prompt_ref=frame.prompt_ref,
+        result_hash=decision.result_hash,
+    )
 
 
 def run_matched_experiment(
@@ -39,46 +115,152 @@ def run_matched_experiment(
     present_state: EndogenousState,
     intervention_state: EndogenousState,
     stale_state: EndogenousState,
+    experiment_id: str,
+    hypothesis_id: str,
+    repository_commit: str,
+    fixture_hash: str,
     random_seeds: tuple[int, ...] = (7, 11, 13, 17),
+    repeat_count: int = 3,
+    generator: CandidateGenerator | None = None,
+    selector: GoalSelector | None = None,
 ) -> MatchedExperimentResult:
     if not random_seeds:
         raise ValueError("at least one random-control seed is required")
+    if repeat_count < 2:
+        raise ValueError("at least two deterministic repeats are required")
+    generator = generator or DeterministicCandidateGenerator()
+    selector = selector or GoalSelector()
+    # One state-free candidate generation freezes candidate variation so this harness
+    # tests selection rather than mistaking model-generated variation for endogeneity.
+    candidate_set = generator.generate(frame, None)
+    selections: list[tuple[ExperimentCondition, EndogenousState | None, int | None]] = [
+        (ExperimentCondition.PRESENT, present_state, None),
+        (ExperimentCondition.ABLATED, None, None),
+        (ExperimentCondition.INTERVENED, intervention_state, None),
+        (ExperimentCondition.STALE, stale_state, None),
+    ]
+    selections.extend((condition, present_state, None) for condition in CHANNEL_ABLATION)
+    selections.extend((ExperimentCondition.RANDOMIZED, None, seed) for seed in random_seeds)
+    trials: list[MatchedTrial] = []
+    current_step = max(present_state.logical_step, intervention_state.logical_step) + 1
+    for condition, state, seed in selections:
+        decision = selector.select(
+            frame,
+            candidate_set,
+            condition,
+            state=state,
+            random_seed=seed,
+            selection_logical_step=current_step,
+        )
+        manifest = _manifest(
+            experiment_id=experiment_id,
+            hypothesis_id=hypothesis_id,
+            frame=frame,
+            candidate_set=candidate_set,
+            decision=decision,
+            condition=condition,
+            state=state,
+            random_seed=seed,
+            repository_commit=repository_commit,
+            fixture_hash=fixture_hash,
+            selector=selector,
+        )
+        trials.append(MatchedTrial(manifest=manifest, frame=frame, candidate_set=candidate_set, decision=decision))
 
-    selector = GoalSelector()
-    result = MatchedExperimentResult(
-        present=selector.select(frame, ExperimentCondition.PRESENT, state=present_state),
-        ablated=selector.select(frame, ExperimentCondition.ABLATED),
-        intervened=selector.select(frame, ExperimentCondition.INTERVENED, state=intervention_state),
-        stale=selector.select(frame, ExperimentCondition.STALE, state=stale_state),
-        randomized=tuple(
-            selector.select(frame, ExperimentCondition.RANDOMIZED, random_seed=seed)
-            for seed in random_seeds
-        ),
+    baseline = trials[0]
+    for trial in trials[1:]:
+        require_comparable_trials(baseline, trial)
+    repeat_decisions = tuple(
+        selector.select(
+            frame,
+            candidate_set,
+            ExperimentCondition.PRESENT,
+            state=present_state,
+            selection_logical_step=current_step,
+        )
+        for _ in range(repeat_count)
     )
-    assert_matched_frames(result.all_decisions)
-    return result
+    return MatchedExperimentResult(
+        experiment_id=experiment_id,
+        trials=tuple(trials),
+        repeat_decisions=repeat_decisions,
+    )
 
 
 def assess_causal_pattern(result: MatchedExperimentResult) -> CausalAssessment:
-    frame_fingerprint = assert_matched_frames(result.all_decisions)
-    present_vs_ablated = result.present.selected_goal_id != result.ablated.selected_goal_id
-    intervention_changed = result.present.selected_goal_id != result.intervened.selected_goal_id
-    stale_matches = result.stale.selected_goal_id == result.present.selected_goal_id
-    random_matches = sum(
-        decision.selected_goal_id == result.present.selected_goal_id
-        for decision in result.randomized
+    present = result.one(ExperimentCondition.PRESENT)
+    ablated = result.one(ExperimentCondition.ABLATED)
+    intervened = result.one(ExperimentCondition.INTERVENED)
+    stale = result.one(ExperimentCondition.STALE)
+    random_trials = result.trials_for(ExperimentCondition.RANDOMIZED)
+    present_goal = present.decision.selected_goal_id
+    selected = present.decision.disposition == SelectionDisposition.SELECTED
+    ablation_changed = selected and ablated.decision.selected_goal_id != present_goal
+    intervention_changed = selected and intervened.decision.selected_goal_id != present_goal
+    channel_effects = tuple(
+        (condition.value, result.one(condition).decision.selected_goal_id != present_goal)
+        for condition in CHANNEL_ABLATION
     )
-    random_match_rate = random_matches / len(result.randomized)
-
+    # The primary effect rate is over the preregistered full ablation and
+    # intervention contrasts. Channel-specific ablations remain a separate
+    # specificity diagnostic rather than diluting the primary contrast rate.
+    effect_flags = (ablation_changed, intervention_changed)
+    random_divergence = sum(trial.decision.selected_goal_id != present_goal for trial in random_trials) / len(random_trials)
+    repeatability = sum(decision.selected_goal_id == present_goal for decision in result.repeat_decisions) / len(
+        result.repeat_decisions
+    )
+    frame_equality = len({trial.manifest.external_frame_fingerprint for trial in result.trials}) == 1
+    candidate_equality = len({trial.manifest.candidate_universe_fingerprint for trial in result.trials}) == 1
+    memory_equality = len({trial.manifest.memory_manifest_fingerprint for trial in result.trials}) == 1
+    state_difference = present.manifest.state_fingerprint != intervened.manifest.state_fingerprint
+    matched_pattern = (
+        selected
+        and ablation_changed
+        and intervention_changed
+        and any(value for _, value in channel_effects)
+        and (sum(effect_flags) / len(effect_flags)) > random_divergence
+        and repeatability == 1.0
+        and frame_equality
+        and candidate_equality
+        and memory_equality
+        and state_difference
+    )
     return CausalAssessment(
-        frame_fingerprint=frame_fingerprint,
-        present_vs_ablated_changed=present_vs_ablated,
-        intervention_changed_selection=intervention_changed,
-        stale_matches_present=stale_matches,
-        random_present_match_rate=random_match_rate,
-        matched_causal_pattern_observed=(
-            present_vs_ablated
-            and intervention_changed
-            and random_match_rate < 1.0
-        ),
+        experiment_id=result.experiment_id,
+        matched_trial_count=len(result.trials),
+        effect_count=sum(effect_flags),
+        effect_rate=sum(effect_flags) / len(effect_flags),
+        random_control_rate=random_divergence,
+        repeatability_rate=repeatability,
+        selection_change_under_ablation=ablation_changed,
+        selection_change_under_intervention=intervention_changed,
+        channel_ablation_effects=channel_effects,
+        stale_state_persistence_effect=stale.decision.selected_goal_id == present_goal,
+        external_frame_equality=frame_equality,
+        state_fingerprint_difference=state_difference,
+        candidate_universe_equality=candidate_equality,
+        memory_manifest_equality=memory_equality,
+        matched_causal_pattern_observed=matched_pattern,
     )
+
+
+def run_external_control(
+    baseline: MatchedTrial,
+    changed_frame: ExternalFrame,
+    condition: ExperimentCondition,
+    *,
+    state: EndogenousState,
+    generator: CandidateGenerator | None = None,
+    selector: GoalSelector | None = None,
+) -> GoalDecision:
+    if condition not in {ExperimentCondition.MEMORY_MANIFEST_CHANGED, ExperimentCondition.PROMPT_CHANGED}:
+        raise ValueError("external control must be prompt or memory change")
+    if condition == ExperimentCondition.MEMORY_MANIFEST_CHANGED:
+        if changed_frame.memory_manifest.fingerprint == baseline.frame.memory_manifest.fingerprint:
+            raise ValueError("memory-control frame did not change memory manifest")
+    if condition == ExperimentCondition.PROMPT_CHANGED and changed_frame.prompt_ref == baseline.frame.prompt_ref:
+        raise ValueError("prompt-control frame did not change prompt")
+    generator = generator or DeterministicCandidateGenerator()
+    selector = selector or GoalSelector()
+    candidate_set = generator.generate(changed_frame, None)
+    return selector.select(changed_frame, candidate_set, condition, state=state)
