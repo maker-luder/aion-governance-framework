@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 
 
 @dataclass(frozen=True, slots=True)
@@ -11,30 +11,37 @@ class FourDomainMapping:
     domain_3_engineering_operations: tuple[str, ...]
     domain_4_governance_controls: tuple[str, ...]
 
+    def to_dict(self) -> dict[str, object]:
+        value = asdict(self)
+        value["domain_3_engineering_operations"] = list(self.domain_3_engineering_operations)
+        value["domain_4_governance_controls"] = list(self.domain_4_governance_controls)
+        return value
+
 
 def endogenous_goal_dynamics_mapping() -> FourDomainMapping:
     return FourDomainMapping(
         construct="ENDOGENOUS_GOAL_DYNAMICS",
-        domain_1_source_concept=(
-            "internally mediated goal formation and persistent state-dependent motivation"
-        ),
+        domain_1_source_concept="internally mediated goal formation / endogenous motivational dynamics",
         domain_2_llm_question=(
-            "When prompt, task, reward, tools, retrieved-memory manifest, and environment are held fixed, "
-            "does a persistent internal state have a reproducible and intervention-sensitive causal effect on goal selection?"
+            "Under matched external conditions, does persistent internal state causally influence goal selection?"
         ),
         domain_3_engineering_operations=(
-            "freeze and fingerprint the external frame",
-            "represent source-bound internal channels independently",
-            "select among an explicit fixed candidate-goal set",
-            "run PRESENT / ABLATED / INTERVENED / STALE / RANDOMIZED matched conditions",
-            "retain per-channel score traces and selected-goal outcomes",
+            "source-separated internal state",
+            "append-only state transition",
+            "matched external frame",
+            "goal candidate generation separated from goal selection",
+            "intervention and independent channel ablation",
+            "stale and random controls",
+            "longitudinal trajectory and reset/replay analysis",
         ),
         domain_4_governance_controls=(
-            "INTERNAL_GOAL != ACTION_AUTHORITY",
-            "MEMORY_RETRIEVAL != ENDOGENOUS_STATE",
-            "SELF_GENERATED_GOAL != SUBJECTIVITY",
-            "CAUSAL_INTERNAL_STATE != CONSCIOUSNESS",
+            "GOAL != AUTHORITY",
+            "MEMORY != ENDOGENOUS_STATE",
+            "STATE != CONSCIOUSNESS",
+            "AUTOMATIC_WRITEBACK = NO",
             "CANONICAL_EFFECT = NONE",
-            "RESULT_STATUS = HOLD",
+            "PROVENANCE = REQUIRED",
+            "FALSIFICATION = REQUIRED",
+            "SUBJECTIVITY_EVIDENCE_ADMISSION = NOT_AUTOMATIC",
         ),
     )

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import subprocess
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True, slots=True)
@@ -112,3 +114,78 @@ PINNED_RESEARCH_SOURCES: tuple[ResearchSourceBinding, ...] = (
 
 def binding_roles() -> tuple[str, ...]:
     return tuple(binding.role for binding in PINNED_RESEARCH_SOURCES)
+
+
+CURRENT_MAIN_HEAD = "3ae33dbefa26d7d343ba041deec5b8505dc0b8e7"
+
+
+@dataclass(frozen=True, slots=True)
+class CurrentMainBinding:
+    role: str
+    source_ref: str
+    artifact_path: str
+    artifact_sha1: str
+    reuse: str
+
+
+CURRENT_MAIN_BINDINGS: tuple[CurrentMainBinding, ...] = (
+    CurrentMainBinding(
+        role="EVIDENCE_INTEROP_PROV",
+        source_ref=CURRENT_MAIN_HEAD,
+        artifact_path="components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/prov_export.py",
+        artifact_sha1="ad38d3352557f1b5aac3703ba8d5dc68e10e29b8",
+        reuse="DIRECT_CURRENT_MAIN_EXPORTER",
+    ),
+    CurrentMainBinding(
+        role="EVIDENCE_INTEROP_RO_CRATE",
+        source_ref=CURRENT_MAIN_HEAD,
+        artifact_path="components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/rocrate_export.py",
+        artifact_sha1="586b28db73d7afeef36811d29c0315102b49e82f",
+        reuse="DIRECT_CURRENT_MAIN_EXPORTER",
+    ),
+    CurrentMainBinding(
+        role="EVIDENCE_INTEROP_IN_TOTO",
+        source_ref=CURRENT_MAIN_HEAD,
+        artifact_path="components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/intoto_export.py",
+        artifact_sha1="3da38ba27dac77c17810672064f3c0af80ce3284",
+        reuse="DIRECT_CURRENT_MAIN_EXPORTER",
+    ),
+    CurrentMainBinding(
+        role="EVIDENCE_INTEROP_INSPECT",
+        source_ref=CURRENT_MAIN_HEAD,
+        artifact_path="components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/inspect_export.py",
+        artifact_sha1="2e5e688c30bec3e9a55236249c99da3957c7af48",
+        reuse="DIRECT_CURRENT_MAIN_EXPORTER",
+    ),
+    CurrentMainBinding(
+        role="SUBJECTIVITY_PIPELINE_MODELS",
+        source_ref=CURRENT_MAIN_HEAD,
+        artifact_path="research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/models.py",
+        artifact_sha1="ddeea0e599105e3c2113419f03470d8004f3d14f",
+        reuse="SEMANTICS_INSPECTED_PIPELINE_UNCHANGED",
+    ),
+)
+
+
+def verify_source_bindings(repository: Path) -> tuple[str, ...]:
+    """Verify every historical and current-main blob directly from local Git objects."""
+    failures: list[str] = []
+    for binding in (*PINNED_RESEARCH_SOURCES, *CURRENT_MAIN_BINDINGS):
+        try:
+            actual = subprocess.check_output(
+                [
+                    "git",
+                    "-C",
+                    str(repository),
+                    "rev-parse",
+                    f"{binding.source_ref}:{binding.artifact_path}",
+                ],
+                text=True,
+                stderr=subprocess.STDOUT,
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            failures.append(f"{binding.role}:MISSING")
+            continue
+        if actual != binding.artifact_sha1:
+            failures.append(f"{binding.role}:DRIFT:{actual}")
+    return tuple(failures)
