@@ -41,9 +41,7 @@ def _research_repo(tmp_path: Path) -> Path:
 
 def test_question_generator_discovers_repository_question_without_git_leak(tmp_path: Path) -> None:
     root = _research_repo(tmp_path)
-
     questions = RepositoryQuestionGenerator(root).discover(limit=4)
-
     assert questions
     assert any("persistent internal state" in item.question.lower() for item in questions)
     assert all(not item.source_ref.startswith(".git/") for item in questions)
@@ -64,6 +62,7 @@ def test_question_generator_reconstructs_multiline_question_after_heading(tmp_pa
     assert matching
     assert "change goal selection reproducibly" in matching[0].question.lower()
     assert all("unresolved point: Research question" not in item.question for item in questions)
+    assert all(item.question.lower() != "change goal selection reproducibly and predictably under intervention?" for item in questions)
 
 
 def test_question_generator_ignores_code_syntax_and_its_own_examples(tmp_path: Path) -> None:
@@ -97,9 +96,7 @@ def test_independent_reasoning_peers_run_without_scripted_contributions(tmp_path
         evidence_limit=4,
         repository_ref="TEST_HEAD",
     )
-
     report = campaign.run(("Does persistent internal state alter bounded goal selection?",))
-
     assert len(report.reports) == 1
     inquiry = report.reports[0]
     assert [event.speaker for event in inquiry.transcript] == [
@@ -118,9 +115,7 @@ def test_independent_reasoning_peers_run_without_scripted_contributions(tmp_path
 def test_campaign_can_derive_follow_up_question_with_hard_budget(tmp_path: Path) -> None:
     root = _research_repo(tmp_path)
     campaign = AutonomousInquiryCampaign(root, max_questions=2, max_rounds=1, repository_ref="TEST_HEAD")
-
     report = campaign.run(("What evidence constrains the demo mechanism?",))
-
     assert 1 <= len(report.reports) <= 2
     assert len(report.reports) == len(report.questions_considered)
     assert report.scientific_disposition == "HOLD"
@@ -137,10 +132,8 @@ def test_campaign_serialization_preserves_authority_boundary(tmp_path: Path) -> 
     campaign = AutonomousInquiryCampaign(root, max_questions=1, max_rounds=1, repository_ref="TEST_HEAD").run(
         ("What evidence constrains the demo mechanism?",)
     )
-
     payload = campaign_to_dict(campaign)
     markdown = campaign_to_markdown(campaign)
-
     assert payload["canonical_effect"] == "NONE"
     assert payload["repository_mutation"] is False
     assert payload["network_access"] is False
@@ -157,9 +150,7 @@ def test_report_writer_is_explicit_and_can_target_non_repository_scratch(tmp_pat
     campaign = AutonomousInquiryCampaign(root, max_questions=1, max_rounds=1).run(
         ("What evidence constrains the demo mechanism?",)
     )
-
     json_path, markdown_path = write_campaign_report(campaign, output)
-
     assert json_path.is_file()
     assert markdown_path.is_file()
     assert root not in json_path.parents
@@ -167,7 +158,6 @@ def test_report_writer_is_explicit_and_can_target_non_repository_scratch(tmp_pat
 
 def test_cli_output_path_rejects_repository_writeback(tmp_path: Path) -> None:
     root = _research_repo(tmp_path)
-
     with pytest.raises(ValueError, match="outside the repository"):
         _resolve_output(root, str(root / "generated"))
 
@@ -182,6 +172,5 @@ def test_provider_binding_rejects_cross_agent_use() -> None:
         transcript=(),
         evidence=(),
     )
-
     with pytest.raises(ValueError, match="wrong inquiry speaker"):
         peer.contribute(context)
