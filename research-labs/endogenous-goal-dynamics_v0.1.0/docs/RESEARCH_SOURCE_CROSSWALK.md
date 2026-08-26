@@ -131,3 +131,67 @@ PERSISTENCE != IDENTITY_CONTINUITY
 REPLICATION != SCIENTIFIC_TRUTH
 TEST_PASS != THEORY_CONFIRMATION
 ```
+
+## Hardening-cycle selective materialization record
+
+This cycle inspected the exact source artifacts and their implementation surfaces at the preserved
+checkpoint. It did not import those packages into the candidate runtime.
+
+| Role | Exact implementation surface inspected | Reused | Reconstructed locally | Intentionally omitted |
+|---|---|---|---|---|
+| Causal internal state | `aion_causal_internal_state.core` (`Condition`, `TrialObservation`, `CausalAssessment`) | matched intervention/ablation discipline | typed matched manifests and explicit comparison validity | historical package/runtime dependency |
+| Affective motivation | `models`, `engine`, `policy` | finite represented signal boundary | neutral `AFFECT_MOTIVATION` channel | phenomenal/biological interpretation and runtime policy |
+| Selective memory | `aion_selective_memory.core` (`MemoryRecord`, `RetrievalTrace`, store) | retrieval trace/confound separation | immutable retrieved-memory manifest and fingerprint | historical store implementation and automatic memory writes |
+| Self-model ablation | `model`, `experiment` | independent finite self-estimate ablation | `SELF_MODEL` signal channel | full benchmark/action model |
+| Second-order metacognition | monitor, records, intervention, verification, study adapters | monitoring/control and verification discipline | `METACOGNITION` channel and fail-closed timing checks | provider verification workbench and unrelated studies |
+| Core meaning | models, engine, structure, policy | organizing-commitment boundary | `CORE_MEANING` channel | namespace transfer, canonical promotion, relational authority |
+| P1 | temporal, correction, evaluation | version/predecessor/correction/evaluation shape | `P1TemporalCorrectionAdapter` | historical ledgers/harness runtime |
+| P2 | retrieval, provenance, orchestration | deterministic frame and provenance completeness | `P2ContextProvenanceAdapter` | historical retrieval/orchestrator runtime |
+| P3 | ablation, perturbation, longitudinal, authority | perturbation/contamination/authority controls | `P3PerturbationAdapter` | historical authority tiers and unrelated experiment families |
+| P4 | manifest, observation, reproduction | manifest/replay/contamination semantics | `P4ReproducibilityAdapter` | public observation/reproduction registry runtime |
+| P5 | hypothesis, replication, disagreement, convergence | falsifier lifecycle/replication/HOLD semantics | `P5HypothesisAdapter` plus F1–F12 evaluator | autonomous convergence or promotion |
+| Subjectivity pipeline | current/preserved models and engine | stage ordering and non-claim boundary | candidate-only bridge artifact | modification of pipeline code or automatic admission |
+
+The selective reconstruction is narrower than direct historical imports. Direct imports would bind a
+current research candidate to preserved branch-only packages, increase the intervention surface, and
+weaken causal attribution. The local adapters keep exact provenance while exposing only the fields used
+by this hypothesis.
+
+## Current-main bindings reused directly
+
+Current-main base: `3ae33dbefa26d7d343ba041deec5b8505dc0b8e7`.
+
+```text
+EVIDENCE_INTEROP_PROV
+  path = components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/prov_export.py
+  blob = ad38d3352557f1b5aac3703ba8d5dc68e10e29b8
+
+EVIDENCE_INTEROP_RO_CRATE
+  path = components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/rocrate_export.py
+  blob = 586b28db73d7afeef36811d29c0315102b49e82f
+
+EVIDENCE_INTEROP_IN_TOTO
+  path = components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/intoto_export.py
+  blob = 3da38ba27dac77c17810672064f3c0af80ce3284
+
+EVIDENCE_INTEROP_INSPECT
+  path = components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/inspect_export.py
+  blob = 2e5e688c30bec3e9a55236249c99da3957c7af48
+
+SUBJECTIVITY_PIPELINE_MODELS (inspected, unchanged)
+  path = research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/models.py
+  blob = ddeea0e599105e3c2113419f03470d8004f3d14f
+```
+
+`verify_source_bindings(repository)` checks every historical and current-main entry directly against
+local Git objects. Missing refs and blob drift are reported as failures.
+
+## Attribution preserved for this cycle
+
+```text
+RESEARCH_DIRECTION = USER_GIVEN
+INTEGRATION_ARCHITECTURE = GPT_PROPOSED
+INITIAL_V0_1_IMPLEMENTATION = GPT_PRODUCED_UNDER_USER_AUTHORIZATION
+CURRENT_HARDENING_IMPLEMENTATION = CODEX
+HISTORICAL_SOURCE_ATTRIBUTION = PRESERVE_EXISTING_RECORDS
+```
