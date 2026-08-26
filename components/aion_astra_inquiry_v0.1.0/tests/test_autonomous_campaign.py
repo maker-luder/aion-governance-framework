@@ -49,6 +49,28 @@ def test_question_generator_discovers_repository_question_without_git_leak(tmp_p
     assert all(not item.source_ref.startswith(".git/") for item in questions)
 
 
+def test_question_generator_ignores_code_syntax_and_its_own_examples(tmp_path: Path) -> None:
+    root = _research_repo(tmp_path)
+    (root / "scripts").mkdir()
+    (root / "scripts" / "helper.py").write_text(
+        'cleaned = cleaned[: cleaned.find("?") + 1]\n',
+        encoding="utf-8",
+    )
+    own = root / "components" / "aion_astra_inquiry_v0.1.0"
+    own.mkdir(parents=True)
+    (own / "README.md").write_text(
+        '--question "Which current evidence most strongly challenges the working mechanism?"\n',
+        encoding="utf-8",
+    )
+
+    questions = RepositoryQuestionGenerator(root).discover(limit=4)
+
+    assert questions[0].source_ref.startswith("research-labs/demo/")
+    assert all("aion_astra_inquiry_v0.1.0" not in item.source_ref for item in questions)
+    assert all("scripts/helper.py" not in item.source_ref for item in questions)
+    assert all("cleaned.find" not in item.question for item in questions)
+
+
 def test_independent_reasoning_peers_run_without_scripted_contributions(tmp_path: Path) -> None:
     root = _research_repo(tmp_path)
     campaign = AutonomousInquiryCampaign(
