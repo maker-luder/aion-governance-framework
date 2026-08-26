@@ -36,8 +36,9 @@ class InquiryCampaignReport:
 class RepositoryQuestionGenerator:
     """Discover bounded research questions from unresolved repository surfaces."""
 
-    _ALLOWED_SUFFIXES = {".json", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
+    _ALLOWED_SUFFIXES = {".json", ".md", ".txt", ".yaml", ".yml"}
     _EXCLUDED_PARTS = {".git", ".mypy_cache", ".pytest_cache", ".venv", "__pycache__", "node_modules"}
+    _EXCLUDED_TOP_LEVEL = {".github", "manifest", "qa", "scripts", "tests"}
     _MARKERS = (
         "research question",
         "open question",
@@ -80,6 +81,8 @@ class RepositoryQuestionGenerator:
                 relative = path.resolve().relative_to(self._root)
             except ValueError:
                 continue
+            if not _eligible_question_path(relative):
+                continue
             if any(part in self._EXCLUDED_PARTS for part in relative.parts):
                 continue
             if path.suffix.lower() not in self._ALLOWED_SUFFIXES:
@@ -92,20 +95,32 @@ class RepositoryQuestionGenerator:
                 continue
             scanned += 1
             lines = text.splitlines()
+            path_bias = _path_priority(relative)
             for line_index, line in enumerate(lines, start=1):
                 normalized = " ".join(line.strip().split())
-                if not 18 <= len(normalized) <= 260:
+                if not 8 <= len(normalized) <= 300:
                     continue
                 lowered = normalized.lower()
                 source_ref = f"{relative.as_posix()}#L{line_index}"
-                if "?" in normalized or "？" in normalized:
+
+                if "research question" in lowered or "open question" in lowered:
+                    nearby = _nearby_question(lines, line_index - 1)
+                    if nearby:
+                        priority = path_bias - 3
+                        candidate = QuestionCandidate(question=nearby, source_ref=source_ref, priority=priority)
+                        ranked.append((priority, relative.as_posix(), line_index, candidate))
+                        continue
+
+                if path.suffix.lower() in {".md", ".txt"} and _looks_like_natural_question(normalized):
                     question = _clean_question(normalized)
                     if question:
-                        candidate = QuestionCandidate(question=question, source_ref=source_ref, priority=0)
-                        ranked.append((0, relative.as_posix(), line_index, candidate))
+                        priority = path_bias - 2
+                        candidate = QuestionCandidate(question=question, source_ref=source_ref, priority=priority)
+                        ranked.append((priority, relative.as_posix(), line_index, candidate))
                         continue
+
                 marker = next((item for item in self._MARKERS if item in lowered), None)
-                if marker is None:
+                if marker is None or len(normalized) < 18:
                     continue
                 snippet = _clip(_strip_markup(normalized), 180)
                 if not snippet:
@@ -114,7 +129,7 @@ class RepositoryQuestionGenerator:
                     "What bounded repository evidence would most directly resolve or falsify this unresolved point: "
                     f"{snippet}?"
                 )
-                priority = 1 if "research question" in lowered or "open question" in lowered else 2
+                priority = path_bias + (0 if marker in {"research question", "open question"} else 2)
                 candidate = QuestionCandidate(question=question, source_ref=source_ref, priority=priority)
                 ranked.append((priority, relative.as_posix(), line_index, candidate))
 
@@ -392,21 +407,88 @@ def _campaign_hash(reports: tuple[InquiryReport, ...], repository_ref: str) -> s
     return sha256(encoded).hexdigest()
 
 
+def _eligible_question_path(relative: Path) -> bool:
+    if not relative.parts:
+        return False
+    if relative.parts[0] in RepositoryQuestionGenerator._EXCLUDED_TOP_LEVEL:
+        return False
+    if len(relative.parts) >= 2 and relative.parts[:2] == ("components", "aion_astra_inquiry_v0.1.0"):
+        return False
+    return True
+
+
+def _path_priority(relative: Path) -> int:
+    if not relative.parts:
+        return 5
+    if relative.parts[0] == "research-labs":
+        return -4
+    if relative.parts[0] == "components":
+        return -1
+    if relative.parts[0] == "docs":
+        return 3 if "history" in relative.parts else 0
+    return 4
+
+
+def _nearby_question(lines: list[str], marker_index: int) -> str:
+    marker = _clean_question(lines[marker_index])
+    if marker and _looks_like_natural_question(marker):
+        return marker
+    for offset in range(1, 5):
+        candidate_index = marker_index + offset
+        if candidate_index >= len(lines):
+            break
+        normalized = " ".join(lines[candidate_index].strip().split())
+        if not normalized:
+            continue
+        if _looks_like_natural_question(normalized):
+            return _clean_question(normalized)
+        if len(normalized) > 260:
+            break
+    return ""
+
+
+def _looks_like_natural_question(text: str) -> bool:
+    normalized = " ".join(text.strip().split())
+    if not normalized or ("?" not in normalized and "？" not in normalized):
+        return False
+    lowered = normalized.lower()
+    code_markers = (
+        "--question",
+        "def ",
+        "return ",
+        "lambda ",
+        "cleaned.find",
+        "re.sub",
+        "python -m",
+        "curl ",
+        "http://",
+        "https://",
+        " == ",
+        " = ",
+    )
+    if any(marker in lowered for marker in code_markers):
+        return False
+    if normalized.count("(") + normalized.count(")") >= 4:
+        return False
+    return normalized.rstrip().endswith(("?", "？", "?\"", "？\"", "?'", "？'")) or "question" in lowered
+
+
 def _clean_question(line: str) -> str:
-    cleaned = _strip_markup(line)
+    cleaned = _strip_markup(line).strip(" \"'“”‘’-#*>`\t")
+    cleaned = re.sub(r"^(?:research|open)\s+question\s*:\s*", "", cleaned, flags=re.IGNORECASE)
     if "?" in cleaned:
         cleaned = cleaned[: cleaned.find("?") + 1]
     elif "？" in cleaned:
         cleaned = cleaned[: cleaned.find("？") + 1]
-    cleaned = cleaned.strip(" -#*>`\t")
-    if len(cleaned) < 18:
+    cleaned = cleaned.strip(" \"'“”‘’-#*>`\t")
+    if len(cleaned) < 18 or not _looks_like_natural_question(cleaned):
         return ""
     return _clip(cleaned, 300)
 
 
 def _strip_markup(text: str) -> str:
-    value = re.sub(r"[`*_#>|]", " ", text)
-    value = re.sub(r"\[[^\]]+\]\([^\)]+\)", " ", value)
+    value = re.sub(r"\[[^\]]+\]\([^\)]+\)", " ", text)
+    value = re.sub(r"[`*_#>|]", " ", value)
     return " ".join(value.split()).strip()
 
 
