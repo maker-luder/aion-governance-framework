@@ -1,3 +1,12 @@
+from .automation import (
+    AutonomousInquiryCampaign,
+    InquiryCampaignReport,
+    QuestionCandidate,
+    RepositoryQuestionGenerator,
+    campaign_to_dict,
+    campaign_to_markdown,
+    write_campaign_report,
+)
 from .core import (
     AgentId,
     BoundedInquiryLoop,
@@ -14,20 +23,37 @@ from .core import (
     StopReason,
     verify_transcript_chain,
 )
+from .reasoning import (
+    EvidenceDrivenReasoningProvider,
+    ProviderBackedPeer,
+    ReasoningDecision,
+    ReasoningProvider,
+)
 
 __all__ = [
     "AgentId",
+    "AutonomousInquiryCampaign",
     "BoundedInquiryLoop",
     "DialogueEvent",
+    "EvidenceDrivenReasoningProvider",
     "EvidenceItem",
     "EvidenceSource",
+    "InquiryCampaignReport",
     "InquiryContext",
     "InquiryPeer",
     "InquiryReport",
     "PeerContribution",
     "Probe",
     "ProbeKind",
+    "ProviderBackedPeer",
+    "QuestionCandidate",
+    "ReasoningDecision",
+    "ReasoningProvider",
+    "RepositoryQuestionGenerator",
     "RepositoryTextEvidenceSource",
     "StopReason",
+    "campaign_to_dict",
+    "campaign_to_markdown",
     "verify_transcript_chain",
+    "write_campaign_report",
 ]
