@@ -10,3 +10,9 @@ as an Owner decision.
 
 Status: `IMPLEMENTED_CANDIDATE / PASS_PENDING_OWNER_REVIEW`.
 Canonical effect: `NONE_PENDING_OWNER_REVIEW`.
+
+## Reference knowledge materializations
+
+- [Engineering minimalism knowledge](docs/ASTRA_ENGINEERING_MINIMALISM_KNOWLEDGE.md) translates reusable engineering and benchmark-design lessons from the pinned `DietrichGebert/ponytail` source into Astra-native machine-readable reference data at `knowledge/engineering_minimalism_ponytail_2026-08-26.json`.
+
+The record is not runtime wiring or automatic activation: `KNOWLEDGE_MATERIALIZED != RUNTIME_BEHAVIOR_CHANGED`.
