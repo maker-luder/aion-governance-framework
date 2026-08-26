@@ -8,7 +8,11 @@ Read [`../README.md`](../README.md), [`../PROVENANCE.md`](../PROVENANCE.md), [`.
 
 ## Documents in this directory
 
-The current governance set includes the AI collaboration disclosure, governance model, main-transition authority gate, change-level provenance rules, risk model, upstream supplier-trust policy, supply-chain attestation plan, and other current policy/control candidates. A document's presence here indicates its semantic role; it does not imply that a candidate policy is active or canonically accepted.
+The current governance set includes the AI collaboration disclosure, governance model, main-transition authority gate, change-level provenance rules, risk model, upstream supplier-trust policy, supply-chain attestation plan, and other current policy/control candidates.
+
+The candidate [`CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md`](CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md) records a bounded OpenAI ChatGPT research-steward role: candidate contribution is permitted, main-merge execution is permitted only when deliberative progress, subjectivity-core preservation, provenance, and all active main-transition controls are satisfied. It explicitly preserves AI subjectivity as an open research possibility rather than a precommitted conclusion.
+
+A document's presence here indicates its semantic role; it does not imply that a candidate policy is active or canonically accepted.
 
 ## Authority boundary
 
