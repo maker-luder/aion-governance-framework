@@ -6,7 +6,8 @@ import json
 from pathlib import Path
 import re
 
-from .core import AgentId, BoundedInquiryLoop, InquiryReport, RepositoryTextEvidenceSource
+from .core import AgentId, BoundedInquiryLoop, EvidenceSource, InquiryReport, RepositoryTextEvidenceSource
+from .external import ExternalWebEvidenceSource, ExternalWebPolicy, FederatedEvidenceSource
 from .reasoning import EvidenceDrivenReasoningProvider, ProviderBackedPeer
 
 
@@ -29,6 +30,7 @@ class InquiryCampaignReport:
     canonical_effect: str = "NONE"
     repository_mutation: bool = False
     network_access: bool = False
+    external_network_mode: str = "DISABLED"
     deployment: bool = False
     autonomous_merge: bool = False
 
@@ -127,7 +129,7 @@ class RepositoryQuestionGenerator:
                 if not snippet:
                     continue
                 question = (
-                    "What bounded repository evidence would most directly resolve or falsify this unresolved point: "
+                    "What bounded evidence would most directly resolve or falsify this unresolved point: "
                     f"{snippet}?"
                 )
                 priority = path_bias + 2
@@ -152,8 +154,8 @@ class RepositoryQuestionGenerator:
         return (
             QuestionCandidate(
                 question=(
-                    "Which current repository claim has the strongest unresolved evidence gap, and what bounded "
-                    "read-only check would reduce that uncertainty?"
+                    "Which current claim has the strongest unresolved evidence gap, and what bounded read-only "
+                    "check would reduce that uncertainty?"
                 ),
                 source_ref="REPOSITORY_FALLBACK",
                 priority=9,
@@ -162,7 +164,7 @@ class RepositoryQuestionGenerator:
 
 
 class AutonomousInquiryCampaign:
-    """Run a bounded AION/Astra research campaign over read-only repository evidence."""
+    """Run a bounded AION/Astra campaign over repository and optional governed web evidence."""
 
     def __init__(
         self,
@@ -172,6 +174,9 @@ class AutonomousInquiryCampaign:
         max_rounds: int = 3,
         evidence_limit: int = 4,
         repository_ref: str = "UNSPECIFIED",
+        external_web: bool = False,
+        external_policy: ExternalWebPolicy | None = None,
+        external_evidence_source: EvidenceSource | None = None,
     ) -> None:
         resolved = root.resolve()
         if not resolved.is_dir():
@@ -183,7 +188,18 @@ class AutonomousInquiryCampaign:
         self._max_rounds = max_rounds
         self._evidence_limit = evidence_limit
         self._repository_ref = repository_ref.strip() or "UNSPECIFIED"
-        self._evidence_source = RepositoryTextEvidenceSource(resolved)
+        repository_source = RepositoryTextEvidenceSource(resolved)
+        if external_evidence_source is not None:
+            external_source = external_evidence_source
+        elif external_web:
+            external_source = ExternalWebEvidenceSource(policy=external_policy)
+        else:
+            external_source = None
+        self._external_enabled = external_source is not None
+        self._evidence_source: EvidenceSource = FederatedEvidenceSource(
+            repository_source,
+            external_source,
+        )
         self._question_generator = RepositoryQuestionGenerator(resolved)
         self._aion = ProviderBackedPeer(EvidenceDrivenReasoningProvider(AgentId.AION))
         self._astra = ProviderBackedPeer(EvidenceDrivenReasoningProvider(AgentId.ASTRA))
@@ -247,6 +263,9 @@ class AutonomousInquiryCampaign:
             questions_considered=tuple(considered),
             reports=tuple(reports),
             campaign_hash=campaign_hash,
+            run_mode="FEDERATED_READ_ONLY" if self._external_enabled else "LOCAL_EVIDENCE_DRIVEN",
+            network_access=self._external_enabled,
+            external_network_mode="GOVERNED_READ_ONLY" if self._external_enabled else "DISABLED",
         )
 
 
@@ -259,6 +278,7 @@ def campaign_to_dict(campaign: InquiryCampaignReport) -> dict[str, object]:
         "canonical_effect": campaign.canonical_effect,
         "repository_mutation": campaign.repository_mutation,
         "network_access": campaign.network_access,
+        "external_network_mode": campaign.external_network_mode,
         "deployment": campaign.deployment,
         "autonomous_merge": campaign.autonomous_merge,
         "campaign_hash": campaign.campaign_hash,
@@ -276,6 +296,7 @@ def campaign_to_markdown(campaign: InquiryCampaignReport) -> str:
         "",
         f"- repository ref: `{campaign.repository_ref}`",
         f"- mode: `{campaign.run_mode}`",
+        f"- external network mode: `{campaign.external_network_mode}`",
         f"- scientific disposition: `{campaign.scientific_disposition}`",
         f"- canonical effect: `{campaign.canonical_effect}`",
         f"- campaign hash: `{campaign.campaign_hash}`",
@@ -303,7 +324,10 @@ def campaign_to_markdown(campaign: InquiryCampaignReport) -> str:
         lines.extend(["", "Evidence refs:"])
         if report.evidence:
             for item in report.evidence:
-                lines.append(f"- `{item.ref}` (`{item.content_sha256[:12]}…`)")
+                agent = item.retrieval_agent or "UNSPECIFIED"
+                lines.append(
+                    f"- [{item.source_class}/{item.trust}/{agent}] `{item.ref}` (`{item.content_sha256[:12]}…`)"
+                )
         else:
             lines.append("- none retrieved")
         lines.extend(["", f"Dialogue chain: `{report.final_chain_hash}`", ""])
@@ -313,9 +337,13 @@ def campaign_to_markdown(campaign: InquiryCampaignReport) -> str:
             "",
             "`AUTONOMOUS_INQUIRY = BOUNDED`",
             "",
-            "`AUTONOMOUS_REPOSITORY_MUTATION = NO`",
+            f"`AUTONOMOUS_EXTERNAL_WEB_READ = {'GOVERNED' if campaign.network_access else 'NO'}`",
             "",
-            "`AUTONOMOUS_NETWORK_ACCESS = NO`",
+            "`EXTERNAL_TEXT != AUTHORITY`",
+            "",
+            "`RETRIEVED_CONTENT != EXECUTION_PERMISSION`",
+            "",
+            "`AUTONOMOUS_REPOSITORY_MUTATION = NO`",
             "",
             "`AUTONOMOUS_MERGE = NO`",
             "",
@@ -348,7 +376,17 @@ def _report_to_dict(report: InquiryReport) -> dict[str, object]:
         "deployment": report.deployment,
         "autonomous_merge": report.autonomous_merge,
         "evidence": [
-            {"ref": item.ref, "excerpt": item.excerpt, "content_sha256": item.content_sha256}
+            {
+                "ref": item.ref,
+                "excerpt": item.excerpt,
+                "content_sha256": item.content_sha256,
+                "source_class": item.source_class,
+                "source_url": item.source_url,
+                "publisher": item.publisher,
+                "retrieved_at": item.retrieved_at,
+                "retrieval_agent": item.retrieval_agent,
+                "trust": item.trust,
+            }
             for item in report.evidence
         ],
         "transcript": [
@@ -375,12 +413,13 @@ def _derive_follow_up(report: InquiryReport) -> str:
     challenge = next((event.challenge for event in reversed(report.transcript) if event.challenge.strip()), "")
     if challenge:
         return _clip(
-            "Which repository evidence or bounded counterexample most directly resolves this peer challenge: " + challenge,
+            "Which repository or external evidence, or bounded counterexample, most directly resolves this peer challenge: "
+            + challenge,
             360,
         )
     if not report.evidence:
         return _clip(
-            "Which repository artifact can directly support or falsify the unresolved question: " + report.question,
+            "Which evidence source can directly support or falsify the unresolved question: " + report.question,
             360,
         )
     return ""
@@ -393,7 +432,10 @@ def _campaign_hash(reports: tuple[InquiryReport, ...], repository_ref: str) -> s
             {
                 "question": report.question,
                 "final_chain_hash": report.final_chain_hash,
-                "evidence": [(item.ref, item.content_sha256) for item in report.evidence],
+                "evidence": [
+                    (item.source_class, item.ref, item.content_sha256, item.retrieval_agent)
+                    for item in report.evidence
+                ],
             }
             for report in reports
         ],
