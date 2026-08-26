@@ -1,8 +1,8 @@
-# Release and Project Status
+# Release and Repository Status
 
-> **Authoritative current standing after the 2026-08-20 project work-loop termination.**
+> Historical release closure and current repository standing are recorded separately so later bounded maintenance does not rewrite the 2026-08-20 termination event.
 
-## Final state
+## Historical closure state — 2026-08-20
 
 ```text
 FREEZE_EFFECTIVE_DATE = 2026-08-18
@@ -46,34 +46,85 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 LICENSE_SELECTION = RESOLVED_APACHE_2_0
 ```
 
-No further semantic release, release candidate, deployment, canonical promotion, branch expansion, or automatic restart is authorized by this closure. Existing tags, releases, QA records, and dated checkpoints remain historical evidence; the termination commit is a documentation closure, not a new semantic release.
+This block preserves the closure meaning at its event time. It must not be retroactively rewritten to pretend later maintenance had already occurred.
+
+## Current repository standing after bounded maintenance
+
+After termination, later repository changes were separately scoped, technically checked, and explicitly authorized through protected-main transitions. They are maintenance events, not a project/research restart and not a new semantic release program.
+
+Recorded bounded maintenance now present in `main` includes:
+
+- PR #49 — AION Evidence Interop Profile v0.1.0;
+- PR #50 — Four-Domain Evidence Bridge v0.1.0;
+- PR #51 — shared AION / Astra Agent Execution Substrate v0.1.0;
+- PR #52 — AION / Astra runtime-to-substrate integration;
+- PR #53 — adapter registry and durable execution-evidence loop.
+
+Current interpretation:
+
+```text
+PROJECT_WORK_LOOP = TERMINATED
+POST_TERMINATION_BOUNDED_MAINTENANCE = PRESENT_IN_MAIN
+PROJECT_RESTART = NO
+RESEARCH_RESTART = NO
+ACTIVE_RESEARCH_PROGRAM = NO
+
+NEW_PUBLIC_RELEASE = NO
+RELEASE_PIPELINE = STOPPED
+DEPLOYMENT = NO
+CANONICAL_PROMOTION = NO
+CANONICAL_EFFECT = NONE
+AUTOMATIC_RESTART = NO
+
+BOUNDED_MAINTENANCE_REQUIRES_EXPLICIT_AUTHORIZATION = TRUE
+BOUNDED_MAINTENANCE != PROJECT_RESTART
+ENGINEERING_MAINTENANCE != RESEARCH_MATERIALIZATION
+```
+
+The presence of post-termination engineering work therefore does not invalidate the termination record; it shows that later, individually authorized maintenance occurred after it.
+
+## Central research question and engineering role
+
+The central research question remains the **possibility of artificial subjectivity** and how such a possibility can be investigated without turning implementation behavior, memory-like behavior, continuity-like behavior, self-description, or researcher interpretation into ontological conclusions.
+
+The recent execution-substrate, interoperability, provenance, and durable-evidence work should be read as research instrumentation:
+
+```text
+AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
+AGENT_SUBSTRATE = RESEARCH_INSTRUMENTATION
+SUBSTRATE_COMPLEXITY != SUBJECTIVITY_EVIDENCE
+EXECUTION_EVIDENCE != RESEARCH_EVIDENCE_ADMISSION
+ENGINEERING_SUCCESS != SUBJECTIVITY_PROOF
+CI_PASS != SCIENTIFIC_VALIDATION
+```
+
+Engineering infrastructure can make experiments more inspectable, reproducible, attributable, and falsifiable. It does not increase subjectivity claim strength merely by existing or passing QA.
 
 ## Historical order and authority
 
-The 2026-08-18 indefinite repository freeze and the 2026-08-20 project termination are separate events.
+The events must be read in order:
+
+1. 2026-08-18 — indefinite repository freeze;
+2. 2026-08-20 — project work-loop termination;
+3. later — explicitly authorized bounded maintenance increments.
 
 ```text
 FREEZE != TERMINATION
+TERMINATION != LATER_BOUNDED_MAINTENANCE
 HISTORICAL_RECORD = PRESERVE_EVENT_TIME_MEANING
 RETROACTIVE_REWRITE = FORBIDDEN
 RETROACTIVE_GREENWASH = FORBIDDEN
 ```
 
-The Human Owner authorized termination and public content closure on 2026-08-20. Independent ChatGPT review classified the architecture, evidence, provenance, and privacy conditions as resolved by this bounded final documentation operation.
+## Preserved research branch disposition
+
+`review/four-domain-research-materialization` remains a preserved historical research checkpoint and was not merged wholesale into `main`. The later Four-Domain Evidence Bridge derives one bounded evidence unit from a pinned source state; derivation/reference does not promote the branch itself.
 
 ```text
-MANUS_COMPLETION = ACCEPTED_AS_CLOSURE_CANDIDATE
-CHATGPT_REVIEW = PASS_WITH_CONDITIONS_RESOLVED
-HUMAN_OWNER_APPROVAL = APPROVED
-CODEX_FINAL_CLOSURE = COMPLETED
-IRREVERSIBLE_EXTERNAL_DELETION_ACTIONS = NOT_PERFORMED_BY_CODEX
+DERIVATION != MERGE
+REFERENCE != PROMOTION
+RESEARCH_BRANCH != MAIN
 ```
-
-## Preserved branch disposition
-
-- `main` is the final public historical endpoint.
-- `review/four-domain-research-materialization` remains a preserved historical research checkpoint.
-- The research branch was not merged wholesale, deleted, or promoted by this closure.
 
 ## Whitepaper lineage
 
@@ -84,25 +135,46 @@ FILE_PRESENCE != CANONICAL_AUTHORITY
 LATER_FILENAME != AUTHORITATIVE_VERSION
 ```
 
+Later maintenance artifacts, bridge outputs, interoperability projections, execution receipts, and runtime evidence do not supersede the stable research-method baseline.
+
 ## Research non-claims
 
 ```text
 PROJECT_TERMINATION != THEORY_REJECTION
 PROJECT_TERMINATION != THEORY_CONFIRMATION
 ENGINEERING_SUCCESS != SUBJECTIVITY_PROOF
+SUBSTRATE_COMPLEXITY != SUBJECTIVITY_EVIDENCE
+EXECUTION_EVIDENCE != RESEARCH_EVIDENCE_ADMISSION
 MEMORY != IDENTITY
 RECALL != TRUTH
 CONTINUITY_LIKE_BEHAVIOR != PHENOMENAL_CONTINUITY
 RELATIONSHIP_LANGUAGE != AUTHORIZATION
+HASH_BINDING != SEMANTIC_VALIDATION
+DURABLE_EVENT_LOG != TRUTH
+```
+
+Current scientific boundaries remain:
+
+```text
+RESEARCH_QUESTION = NOT_DECLARED_PROVEN_OR_DISPROVEN
+SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
+IDENTITY_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+PHENOMENAL_CONTINUITY_CONCLUSION = NOT_ESTABLISHED
+INDEPENDENT_IVV = NOT_ACHIEVED
 ```
 
 ## Documentation authority
 
-Current standing is defined by:
+Historical event meaning remains anchored by:
 
 1. [`PROJECT_TERMINATION_NOTICE_2026-08-20.md`](PROJECT_TERMINATION_NOTICE_2026-08-20.md)
 2. [`history/FINAL_RESEARCH_MEMORY_2026-08-20.md`](history/FINAL_RESEARCH_MEMORY_2026-08-20.md)
-3. [`../README.md`](../README.md)
-4. this file.
+3. [`REPOSITORY_FREEZE_NOTICE_2026-08-18.md`](REPOSITORY_FREEZE_NOTICE_2026-08-18.md)
 
-The earlier [`REPOSITORY_FREEZE_NOTICE_2026-08-18.md`](REPOSITORY_FREEZE_NOTICE_2026-08-18.md) remains authoritative for the freeze event at its event time. Other dated records remain valid for their own event times and do not supersede the final termination standing by file presence alone.
+Current public-facing repository standing is summarized by:
+
+1. [`../README.md`](../README.md)
+2. [`../README.zh-TW.md`](../README.zh-TW.md)
+3. this file.
+
+The research-method boundary remains anchored by [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) and the stable whitepaper lineage recorded by the repository.
