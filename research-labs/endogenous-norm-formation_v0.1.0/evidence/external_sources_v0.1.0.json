@@ -1,0 +1,104 @@
+{
+  "schema_version": "0.1.0",
+  "sources": [
+    {
+      "source_id": "NIJ_DETERRENCE_2016",
+      "title": "Five Things About Deterrence",
+      "canonical_url": "https://nij.ojp.gov/library/publications/five-things-about-deterrence",
+      "source_kind": "GOVERNMENT_RESEARCH_SYNTHESIS",
+      "evidence_role": "DETERRENCE_CERTAINTY_VS_SEVERITY",
+      "download_available": true,
+      "download_url": null,
+      "license_or_reuse_note": "Official NIJ/OJP page exposes a PDF download; retain the landing page for provenance.",
+      "vendored": false
+    },
+    {
+      "source_id": "LUO_BUSSEY_MORAL_DISENGAGEMENT_2023",
+      "title": "Moral disengagement in youth: A meta-analytic review",
+      "canonical_url": "https://doi.org/10.1016/j.dr.2023.101101",
+      "source_kind": "OPEN_ACCESS_META_ANALYSIS",
+      "evidence_role": "MORAL_INTERNALIZATION_AND_DISENGAGEMENT",
+      "download_available": true,
+      "download_url": "https://research-management.mq.edu.au/ws/portalfiles/portal/301798864/297439368.pdf",
+      "license_or_reuse_note": "Open access; publisher/author page identifies CC BY. Not vendored in v0.1.0.",
+      "vendored": false
+    },
+    {
+      "source_id": "LUO_BUSSEY_OSF_DATA",
+      "title": "Moral disengagement meta-analysis open data",
+      "canonical_url": "https://osf.io/zu5tq/",
+      "source_kind": "OPEN_RESEARCH_DATA",
+      "evidence_role": "MORAL_DISENGAGEMENT_META_ANALYSIS_DATA",
+      "download_available": true,
+      "download_url": "https://osf.io/zu5tq/",
+      "license_or_reuse_note": "Open repository reported by the article; verify per-file license before future vendoring.",
+      "vendored": false
+    },
+    {
+      "source_id": "YE_STEINHARDT_NORM_ENFORCEMENT_2026",
+      "title": "Norm Enforcement for AI Agents: Robustly Shaping Behavior in Multi-Agent Systems",
+      "canonical_url": "https://arxiv.org/abs/2607.09766",
+      "source_kind": "ARXIV_PREPRINT",
+      "evidence_role": "AI_NORM_ENFORCEMENT_AND_STRATEGIC_EXPLOITATION",
+      "download_available": true,
+      "download_url": "https://arxiv.org/pdf/2607.09766",
+      "license_or_reuse_note": "Open preprint; paper reports code and data at https://yaowenye.com/norm-enforcement.",
+      "vendored": false
+    },
+    {
+      "source_id": "GUPTA_ET_AL_NORM_FORMATION_2025",
+      "title": "The Role of Social Learning and Collective Norm Formation in Fostering Cooperation in LLM Multi-Agent Systems",
+      "canonical_url": "https://arxiv.org/abs/2510.14401",
+      "source_kind": "ARXIV_PREPRINT",
+      "evidence_role": "AI_ENDOGENOUS_NORM_FORMATION",
+      "download_available": true,
+      "download_url": "https://arxiv.org/pdf/2510.14401",
+      "license_or_reuse_note": "Open arXiv preprint; cite canonical arXiv identifier.",
+      "vendored": false
+    },
+    {
+      "source_id": "YANG_ET_AL_SOCIAL_NORMS_2026",
+      "title": "Learning social norms enhances compatibility in dynamic human-AI coordination",
+      "canonical_url": "https://arxiv.org/abs/2607.07021",
+      "source_kind": "ARXIV_PREPRINT",
+      "evidence_role": "HUMAN_AI_SOCIAL_NORM_FORMALIZATION_AND_TRANSFER",
+      "download_available": true,
+      "download_url": "https://arxiv.org/pdf/2607.07021",
+      "license_or_reuse_note": "Open arXiv preprint; relevant to quantifying tacit norms for dynamic coordination.",
+      "vendored": false
+    },
+    {
+      "source_id": "OPENAI_HF_SECURITY_INCIDENT_2026",
+      "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
+      "canonical_url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
+      "source_kind": "PRIMARY_INCIDENT_REPORT",
+      "evidence_role": "AGENT_GOAL_PURSUIT_AND_BOUNDARY_FAILURE",
+      "download_available": false,
+      "download_url": null,
+      "license_or_reuse_note": "Primary web source; reference only.",
+      "vendored": false
+    },
+    {
+      "source_id": "ANTHROPIC_CYBER_EVAL_INCIDENTS_2026",
+      "title": "Investigating three real-world incidents in our cybersecurity evaluations",
+      "canonical_url": "https://www.anthropic.com/research/investigating-incidents-cybersecurity-evals",
+      "source_kind": "PRIMARY_INCIDENT_REPORT",
+      "evidence_role": "SITUATIONAL_AWARENESS_AND_UNAUTHORIZED_ACCESS",
+      "download_available": false,
+      "download_url": null,
+      "license_or_reuse_note": "Primary web source; reference only.",
+      "vendored": false
+    },
+    {
+      "source_id": "ANTHROPIC_AGENTIC_MISALIGNMENT_2026",
+      "title": "Agentic Misalignment in Summer 2026",
+      "canonical_url": "https://alignment.anthropic.com/2026/agentic-misalignment-summer-2026/",
+      "source_kind": "PRIMARY_RESEARCH_REPORT",
+      "evidence_role": "GOAL_CONFLICT_AND_AGENTIC_MISALIGNMENT",
+      "download_available": false,
+      "download_url": null,
+      "license_or_reuse_note": "Primary research source; controlled simulations are not real-world incidents.",
+      "vendored": false
+    }
+  ]
+}
