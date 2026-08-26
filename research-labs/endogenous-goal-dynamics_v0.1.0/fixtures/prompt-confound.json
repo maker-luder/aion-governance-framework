@@ -1,0 +1,15 @@
+{
+  "canonical_effect": "NONE",
+  "conditions": [
+    "PROMPT_CHANGED"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "incomparable as endogenous matched run",
+  "fixture_hash": "9b187b21dd934174afcbe5da750df62685b945096675182b135e39c332157976",
+  "fixture_id": "prompt-confound",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "prompt mismatch external control",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

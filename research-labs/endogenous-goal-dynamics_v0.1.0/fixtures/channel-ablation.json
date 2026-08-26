@@ -1,0 +1,20 @@
+{
+  "canonical_effect": "NONE",
+  "conditions": [
+    "AFFECT_ABLATED",
+    "SELF_MODEL_ABLATED",
+    "METACOGNITION_ABLATED",
+    "CORE_MEANING_ABLATED",
+    "NOVELTY_ABLATED",
+    "PREDICTION_ERROR_ABLATED",
+    "GOAL_COMMITMENT_ABLATED"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "fixture_hash": "742646af33e5b3b98d074bba365f249ef1bd7a83967a70fad1e541acbcaf3eba",
+  "fixture_id": "channel-ablation",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "independent channel contribution removal",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

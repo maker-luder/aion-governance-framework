@@ -1,0 +1,16 @@
+{
+  "canonical_effect": "NONE",
+  "conditions": [
+    "PRESENT",
+    "INTERVENED"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "predictable selection reversal",
+  "fixture_hash": "78e13ddbb2e08b7577ac5219fde936fb2734d53552bbf78ea18d2265000816a1",
+  "fixture_id": "intervention",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "predictable internal-state intervention",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

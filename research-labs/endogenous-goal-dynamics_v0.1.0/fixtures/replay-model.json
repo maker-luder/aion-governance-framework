@@ -1,0 +1,13 @@
+{
+  "canonical_effect": "NONE",
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "fixture_hash": "7f9fc2433b26f296daffe65171ab2bc592b1f1462cf1ceb9e1c85e682dc484da",
+  "fixture_id": "replay-model",
+  "model_id": "recorded-model-v1",
+  "network_access": false,
+  "private_conversation_data": false,
+  "provider_id": "REPLAY_PROVIDER",
+  "purpose": "provider-neutral recorded candidate generation",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

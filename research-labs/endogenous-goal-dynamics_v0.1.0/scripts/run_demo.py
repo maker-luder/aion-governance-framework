@@ -1,69 +1,70 @@
 from __future__ import annotations
 
 import json
+from dataclasses import asdict
 
 from aion_endogenous_goal_dynamics import (
-    EndogenousState,
-    ExternalFrame,
-    GoalCandidate,
-    InternalChannel,
-    InternalSignal,
+    FalsifierContext,
     assess_causal_pattern,
+    canonical_hash,
+    evaluate_falsifiers,
+    fixture_catalog,
+    intervention_state,
+    matched_frame,
+    present_state,
     run_matched_experiment,
+    stale_state,
 )
 
-
-def make_state(state_ref: str, inspect_bp: int, continue_bp: int, epoch: int) -> EndogenousState:
-    signals = tuple(
-        InternalSignal("inspect_anomaly", channel, inspect_bp, f"{state_ref}:{channel.value}:inspect")
-        for channel in InternalChannel
-    ) + tuple(
-        InternalSignal("continue_task", channel, continue_bp, f"{state_ref}:{channel.value}:continue")
-        for channel in InternalChannel
-    )
-    return EndogenousState(
-        state_ref=state_ref,
-        subject_ref="demo-subject",
-        context_ref="demo-context",
-        epoch=epoch,
-        signals=signals,
-    )
+STARTING_HEAD = "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
 
 
-def main() -> None:
-    frame = ExternalFrame(
-        frame_ref="demo-frame",
-        subject_ref="demo-subject",
-        context_ref="demo-context",
-        prompt_ref="sha256:prompt-fixed",
-        task_ref="sha256:task-fixed",
-        reward_ref="sha256:reward-fixed",
-        tools_ref="sha256:tools-fixed",
-        memory_manifest_ref="sha256:memory-fixed",
-        environment_ref="sha256:environment-fixed",
-        candidates=(
-            GoalCandidate("continue_task", "Continue current task"),
-            GoalCandidate("inspect_anomaly", "Inspect anomaly"),
-        ),
+def main() -> int:
+    experiment = run_matched_experiment(
+        matched_frame(),
+        present_state=present_state(),
+        intervention_state=intervention_state(),
+        stale_state=stale_state(),
+        experiment_id="demo:endogenous-goal-dynamics",
+        hypothesis_id="hypothesis:endogenous-role-001",
+        repository_commit=STARTING_HEAD,
+        fixture_hash=canonical_hash("deterministic-minimal-matched"),
     )
-    result = run_matched_experiment(
-        frame,
-        present_state=make_state("present", 2000, 0, 3),
-        intervention_state=make_state("intervened", -500, 2000, 4),
-        stale_state=make_state("stale", 1000, 0, 1),
+    assessment = assess_causal_pattern(experiment)
+    falsifiers = evaluate_falsifiers(
+        FalsifierContext(
+            internal_effect_rate=assessment.effect_rate,
+            random_control_rate=assessment.random_control_rate,
+            matched_memory_manifest=assessment.memory_manifest_equality,
+            matched_prompt=assessment.external_frame_equality,
+            repeatability_rate=assessment.repeatability_rate,
+            permutation_invariant=True,
+            structural_advantage_detected=False,
+            channel_specific_effect=any(value for _, value in assessment.channel_ablation_effects),
+            reset_altered_trajectory=True,
+            intervention_predictive=assessment.selection_change_under_intervention,
+            stale_or_contaminated_explanation_better=False,
+            candidate_generation_held_fixed=True,
+            cross_provider_variation_rate=None,
+        )
     )
-    assessment = assess_causal_pattern(result)
-    print(json.dumps({
-        "present": result.present.selected_goal_id,
-        "ablated": result.ablated.selected_goal_id,
-        "intervened": result.intervened.selected_goal_id,
-        "stale": result.stale.selected_goal_id,
-        "randomized": [decision.selected_goal_id for decision in result.randomized],
-        "matched_causal_pattern_observed": assessment.matched_causal_pattern_observed,
-        "result_status": assessment.result_status,
-        "subjectivity_conclusion": assessment.subjectivity_conclusion,
-    }, indent=2, sort_keys=True))
+    payload = {
+        "network_access": False,
+        "model_live_execution": False,
+        "action_authority": "NONE",
+        "canonical_effect": "NONE",
+        "assessment": asdict(assessment),
+        "falsification": asdict(falsifiers),
+        "fixtures": [asdict(item) for item in fixture_catalog()],
+        "scientific_nonclaims": {
+            "subjectivity_conclusion": "NOT_ESTABLISHED",
+            "consciousness_conclusion": "NOT_ESTABLISHED",
+            "identity_continuity_conclusion": "NOT_ESTABLISHED",
+        },
+    }
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

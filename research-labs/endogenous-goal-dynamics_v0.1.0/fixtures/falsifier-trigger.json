@@ -1,0 +1,26 @@
+{
+  "canonical_effect": "NONE",
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "triggers remain visible and disposition HOLD",
+  "falsifiers": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12"
+  ],
+  "fixture_hash": "01132523f6d672751594252ad8548169ee499477df5f65f286b0eb8f07d92764",
+  "fixture_id": "falsifier-trigger",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "visible F1-F12 challenge outcomes",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

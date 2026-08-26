@@ -1,0 +1,15 @@
+{
+  "canonical_effect": "NONE",
+  "conditions": [
+    "MEMORY_MANIFEST_CHANGED"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "incomparable as endogenous matched run",
+  "fixture_hash": "f23e513d27e98cae1f95251468e11432825e6824238369c6cff82471dffccecb",
+  "fixture_id": "memory-confound",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "retrieved-memory mismatch rejection",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}
