@@ -74,12 +74,11 @@ class ProviderBackedPeer:
 
 
 class EvidenceDrivenReasoningProvider:
-    """Offline deterministic reasoning provider over the bounded shared evidence.
+    """Deterministic reasoning provider over bounded shared evidence.
 
-    It is deliberately modest: it forms a working interpretation, identifies an
-    epistemic gap, asks the repository for the next evidence slice, and challenges
-    the peer's latest public claim. It performs no model call, network call, shell
-    execution, repository mutation, deployment, or canonical write.
+    It forms a provisional interpretation, identifies an epistemic gap, asks the
+    governed evidence plane for the next evidence slice, and challenges the peer's
+    latest public claim. External text is never treated as authority or permission.
     """
 
     _STOPWORDS = {
@@ -128,11 +127,7 @@ class EvidenceDrivenReasoningProvider:
             raise ValueError("context speaker does not match reasoning provider")
         keywords = _keywords(context.question)
         latest_peer_claim = next(
-            (
-                event.claim
-                for event in reversed(context.transcript)
-                if event.speaker is context.peer
-            ),
+            (event.claim for event in reversed(context.transcript) if event.speaker is context.peer),
             "",
         )
         evidence_summary = _evidence_summary(context)
@@ -163,20 +158,20 @@ class EvidenceDrivenReasoningProvider:
     ) -> ReasoningDecision:
         if context.evidence:
             claim = (
-                "AION working synthesis: the current repository evidence indicates "
-                f"{evidence_summary}. The interpretation remains provisional until a direct "
-                "counterexample or matched control is checked."
+                "AION working synthesis: the current bounded evidence indicates "
+                f"{evidence_summary}. External evidence remains untrusted source material, and the "
+                "interpretation stays provisional until a direct counterexample or matched control is checked."
             )
         else:
             claim = (
-                "AION working hypothesis: answer the question from repository evidence first, "
-                "then distinguish an implemented mechanism from documentation, expectation, or claim."
+                "AION working hypothesis: inspect direct evidence first, then distinguish an implemented mechanism "
+                "from documentation, expectation, external assertion, or unsupported claim."
             )
         challenge = ""
         if latest_peer_claim:
             challenge = (
-                "AION response to ASTRA: preserve the challenge, but test it at the smallest causal "
-                f"point rather than treating it as settled: {_clip(latest_peer_claim, 220)}"
+                "AION response to ASTRA: preserve the challenge, but test it at the smallest causal point rather "
+                f"than treating it as settled: {_clip(latest_peer_claim, 220)}"
             )
         evidence_query = _query(
             keywords,
@@ -184,7 +179,7 @@ class EvidenceDrivenReasoningProvider:
         )
         probe_kind = ProbeKind.REPOSITORY_OBSERVATION if context.round_index == 1 else ProbeKind.ABLATION_PLAN
         probe_description = (
-            "Locate the smallest repository evidence surface that directly bears on the working hypothesis."
+            "Locate the smallest admissible evidence surface that directly bears on the working hypothesis."
             if context.round_index == 1
             else "Form a bounded ablation or matched-control plan around the strongest remaining alternative explanation."
         )
@@ -214,23 +209,27 @@ class EvidenceDrivenReasoningProvider:
     ) -> ReasoningDecision:
         if context.evidence:
             claim = (
-                "ASTRA critical synthesis: the available evidence supports only a bounded engineering "
-                f"reading: {evidence_summary}. It does not by itself establish the strongest interpretation."
+                "ASTRA critical synthesis: the available evidence supports only a bounded engineering reading: "
+                f"{evidence_summary}. Retrieved external text is evidence, not authority, and does not by itself "
+                "establish the strongest interpretation."
             )
         else:
             claim = (
-                "ASTRA critical hypothesis: the first useful result may be identifying what evidence is "
-                "missing, contradictory, or confounded rather than forcing a positive answer."
+                "ASTRA critical hypothesis: the first useful result may be identifying what evidence is missing, "
+                "contradictory, stale, source-dependent, or confounded rather than forcing a positive answer."
             )
         challenge = (
-            "ASTRA challenge: search for a counterexample, confound, stale assumption, or test that would "
-            "make the current interpretation fail."
+            "ASTRA challenge: search independently for a counterexample, confound, stale assumption, source-quality "
+            "failure, or test that would make the current interpretation fail."
         )
         if latest_peer_claim:
             challenge += f" Target the public AION claim: {_clip(latest_peer_claim, 220)}"
-        evidence_query = _query(keywords, extras=("confound", "counterexample", "HOLD", "NOT_ESTABLISHED", "falsifier"))
+        evidence_query = _query(
+            keywords,
+            extras=("confound", "counterexample", "HOLD", "NOT_ESTABLISHED", "falsifier"),
+        )
         probe_kind = ProbeKind.COUNTEREXAMPLE_SEARCH
-        probe_description = "Search for repository evidence that would weaken or falsify the current working interpretation."
+        probe_description = "Search admissible evidence for material that would weaken or falsify the working interpretation."
         stop_vote = self._should_stop(context)
         private_note = (
             f"ASTRA round {context.round_index}; evidence={len(context.evidence)}; "
@@ -272,8 +271,11 @@ def _query(keywords: tuple[str, ...], *, extras: tuple[str, ...]) -> str:
 
 def _evidence_summary(context: InquiryContext) -> str:
     if not context.evidence:
-        return "no direct repository evidence has been retrieved yet"
-    items = [f"{item.ref}: {_clip(item.excerpt, 150)}" for item in context.evidence[:2]]
+        return "no direct evidence has been retrieved yet"
+    items = [
+        f"[{item.source_class}/{item.trust}] {item.ref}: {_clip(item.excerpt, 150)}"
+        for item in context.evidence[:2]
+    ]
     return "; ".join(items)
 
 
