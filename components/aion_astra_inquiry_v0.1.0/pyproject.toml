@@ -9,6 +9,9 @@ description = "Bounded dual-agent repository inquiry loop for AION and Astra"
 requires-python = ">=3.11"
 dependencies = []
 
+[project.scripts]
+aion-astra-inquiry = "aion_astra_inquiry.cli:main"
+
 [tool.setuptools.packages.find]
 where = ["src"]
 
