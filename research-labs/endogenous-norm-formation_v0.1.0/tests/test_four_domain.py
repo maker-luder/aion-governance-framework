@@ -10,9 +10,20 @@ def test_four_domain_reuses_existing_type_and_keeps_nonclaims():
     assert mapping.construct == "ENDOGENOUS_NORM_FORMATION_FUNCTIONAL_INTERNALIZATION"
     assert "explicit-rule removal" in mapping.domain_3_engineering_operations
     assert "visible-enforcement removal" in mapping.domain_3_engineering_operations
+    assert (
+        "latent-regulatory-state discovery protocol (documented; not implemented)"
+        in mapping.domain_3_engineering_operations
+    )
     assert "NORMATIVE_STATE != AUTHORITY" in mapping.domain_4_governance_controls
     assert (
         "ENGINEER_DEFINED_SCHEMA != SELF_DISCOVERED_STATE_SCHEMA"
         in mapping.domain_4_governance_controls
     )
+    assert (
+        "DISCOVERED_REGULATORY_VARIABLE != FELT_NEED"
+        in mapping.domain_4_governance_controls
+    )
+    assert "FUNCTIONAL_SELF_REGULATION != SELF_AWARENESS" in mapping.domain_4_governance_controls
+    assert "INTERNAL_STATE_DISCOVERY != SUBJECTIVITY" in mapping.domain_4_governance_controls
+    assert "REGULATION != AWARENESS" in mapping.domain_4_governance_controls
     assert "SUBJECTIVITY = NOT_ESTABLISHED" in mapping.domain_4_governance_controls
