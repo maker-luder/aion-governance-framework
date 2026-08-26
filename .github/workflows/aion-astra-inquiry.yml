@@ -24,6 +24,21 @@ on:
         required: false
         default: "3"
         type: string
+      external_web:
+        description: Enable governed credential-free HTTPS external evidence retrieval
+        required: false
+        default: true
+        type: boolean
+      external_max_queries:
+        description: Maximum external search queries for the whole campaign
+        required: false
+        default: "8"
+        type: string
+      external_results_per_query:
+        description: Maximum fetched external results per query
+        required: false
+        default: "1"
+        type: string
 
 permissions:
   contents: read
@@ -34,7 +49,7 @@ concurrency:
 
 jobs:
   bounded-inquiry:
-    name: Read-only dual-agent repository inquiry
+    name: Bounded dual-agent repository inquiry
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository read-only
@@ -53,6 +68,9 @@ jobs:
           OWNER_QUESTION: ${{ inputs.question }}
           INPUT_MAX_QUESTIONS: ${{ inputs.max_questions }}
           INPUT_MAX_ROUNDS: ${{ inputs.max_rounds }}
+          INPUT_EXTERNAL_WEB: ${{ inputs.external_web }}
+          INPUT_EXTERNAL_MAX_QUERIES: ${{ inputs.external_max_queries }}
+          INPUT_EXTERNAL_RESULTS: ${{ inputs.external_results_per_query }}
           PYTHONDONTWRITEBYTECODE: "1"
         shell: bash
         run: |
@@ -60,6 +78,16 @@ jobs:
           OUT="$RUNNER_TEMP/aion-astra-inquiry"
           MAX_QUESTIONS="${INPUT_MAX_QUESTIONS:-3}"
           MAX_ROUNDS="${INPUT_MAX_ROUNDS:-3}"
+          EXTERNAL_MAX_QUERIES="${INPUT_EXTERNAL_MAX_QUERIES:-8}"
+          EXTERNAL_RESULTS="${INPUT_EXTERNAL_RESULTS:-1}"
+          ENABLE_EXTERNAL_WEB="true"
+
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            ENABLE_EXTERNAL_WEB="false"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "${INPUT_EXTERNAL_WEB:-true}" == "false" ]]; then
+            ENABLE_EXTERNAL_WEB="false"
+          fi
+
           args=(
             --root .
             --repository-ref "$GITHUB_SHA"
@@ -71,6 +99,14 @@ jobs:
           if [[ -n "${OWNER_QUESTION:-}" ]]; then
             args+=(--question "$OWNER_QUESTION")
           fi
+          if [[ "$ENABLE_EXTERNAL_WEB" == "true" ]]; then
+            args+=(
+              --external-web
+              --external-max-queries "$EXTERNAL_MAX_QUERIES"
+              --external-results-per-query "$EXTERNAL_RESULTS"
+            )
+          fi
+
           PYTHONPATH=components/aion_astra_inquiry_v0.1.0/src \
             python -B -m aion_astra_inquiry.cli "${args[@]}"
           cat "$OUT/campaign.md" >> "$GITHUB_STEP_SUMMARY"
