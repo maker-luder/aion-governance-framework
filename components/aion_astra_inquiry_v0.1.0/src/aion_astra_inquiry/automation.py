@@ -110,8 +110,6 @@ class RepositoryQuestionGenerator:
                         priority = path_bias - 3
                         candidate = QuestionCandidate(question=nearby, source_ref=source_ref, priority=priority)
                         ranked.append((priority, relative.as_posix(), line_index, candidate))
-                    # A bare research/open-question heading is structural metadata, not itself a question.
-                    # Never fall through and synthesize "... unresolved point: Research question?" from it.
                     continue
 
                 if path.suffix.lower() in {".md", ".txt"} and _looks_like_natural_question(normalized):
@@ -142,6 +140,8 @@ class RepositoryQuestionGenerator:
         for _, _, _, candidate in ranked:
             key = _question_key(candidate.question)
             if not key or key in seen:
+                continue
+            if any(_is_question_fragment(key, existing) for existing in seen):
                 continue
             seen.add(key)
             unique.append(candidate)
@@ -263,11 +263,7 @@ def campaign_to_dict(campaign: InquiryCampaignReport) -> dict[str, object]:
         "autonomous_merge": campaign.autonomous_merge,
         "campaign_hash": campaign.campaign_hash,
         "questions_considered": [
-            {
-                "question": item.question,
-                "source_ref": item.source_ref,
-                "priority": item.priority,
-            }
+            {"question": item.question, "source_ref": item.source_ref, "priority": item.priority}
             for item in campaign.questions_considered
         ],
         "reports": [_report_to_dict(report) for report in campaign.reports],
@@ -352,11 +348,7 @@ def _report_to_dict(report: InquiryReport) -> dict[str, object]:
         "deployment": report.deployment,
         "autonomous_merge": report.autonomous_merge,
         "evidence": [
-            {
-                "ref": item.ref,
-                "excerpt": item.excerpt,
-                "content_sha256": item.content_sha256,
-            }
+            {"ref": item.ref, "excerpt": item.excerpt, "content_sha256": item.content_sha256}
             for item in report.evidence
         ],
         "transcript": [
@@ -436,7 +428,6 @@ def _nearby_question(lines: list[str], marker_index: int) -> str:
     marker = _clean_question(lines[marker_index])
     if marker:
         return marker
-
     collected: list[str] = []
     for offset in range(1, 9):
         candidate_index = marker_index + offset
@@ -444,14 +435,11 @@ def _nearby_question(lines: list[str], marker_index: int) -> str:
             break
         raw = lines[candidate_index].strip()
         if not raw:
-            if collected:
-                continue
             continue
         if raw.startswith("```"):
             break
         if raw.startswith("#") and collected:
             break
-
         normalized = _strip_markup(raw)
         if not normalized:
             continue
@@ -514,6 +502,14 @@ def _strip_markup(text: str) -> str:
 
 def _question_key(question: str) -> str:
     return re.sub(r"\W+", " ", question.lower(), flags=re.UNICODE).strip()
+
+
+def _is_question_fragment(candidate_key: str, existing_key: str) -> bool:
+    if len(candidate_key) >= len(existing_key):
+        return False
+    if len(candidate_key) < 24:
+        return False
+    return candidate_key in existing_key
 
 
 def _clip(text: str, limit: int) -> str:
