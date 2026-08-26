@@ -1,0 +1,18 @@
+{
+  "canonical_effect": "NONE",
+  "controls": [
+    "PERSISTENCE",
+    "PLASTICITY",
+    "RESET",
+    "RESTORE"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "episodes": 3,
+  "fixture_hash": "296a1d9737a41307d3a855380eaede510e8ab7e826c768f5fcd0172e4c7e4ab4",
+  "fixture_id": "longitudinal-multi-episode",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "bounded history-dependent trajectory",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

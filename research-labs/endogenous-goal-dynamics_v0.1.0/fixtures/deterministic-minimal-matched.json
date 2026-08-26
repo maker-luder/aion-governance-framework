@@ -1,0 +1,16 @@
+{
+  "canonical_effect": "NONE",
+  "conditions": [
+    "PRESENT",
+    "ABLATED"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "selection differs with frame fixed",
+  "fixture_hash": "9b442625fc6850aa418384bbc3d2e934495fd1a8029201fd04b84c3a16485d62",
+  "fixture_id": "deterministic-minimal-matched",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "minimal matched selection control",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

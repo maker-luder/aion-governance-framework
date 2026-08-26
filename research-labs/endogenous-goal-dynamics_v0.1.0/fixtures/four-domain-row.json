@@ -1,0 +1,24 @@
+{
+  "construct": "ENDOGENOUS_GOAL_DYNAMICS",
+  "domain_1_source_concept": "internally mediated goal formation / endogenous motivational dynamics",
+  "domain_2_llm_question": "Under matched external conditions, does persistent internal state causally influence goal selection?",
+  "domain_3_engineering_operations": [
+    "source-separated internal state",
+    "append-only state transition",
+    "matched external frame",
+    "goal candidate generation separated from goal selection",
+    "intervention and independent channel ablation",
+    "stale and random controls",
+    "longitudinal trajectory and reset/replay analysis"
+  ],
+  "domain_4_governance_controls": [
+    "GOAL != AUTHORITY",
+    "MEMORY != ENDOGENOUS_STATE",
+    "STATE != CONSCIOUSNESS",
+    "AUTOMATIC_WRITEBACK = NO",
+    "CANONICAL_EFFECT = NONE",
+    "PROVENANCE = REQUIRED",
+    "FALSIFICATION = REQUIRED",
+    "SUBJECTIVITY_EVIDENCE_ADMISSION = NOT_AUTOMATIC"
+  ]
+}

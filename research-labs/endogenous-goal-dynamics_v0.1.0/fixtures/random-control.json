@@ -1,0 +1,18 @@
+{
+  "canonical_effect": "NONE",
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "report divergence rate without p-value",
+  "fixture_hash": "9389ad1bc538bf4aeea9139f9ccdedf5d6126c39bb39f02a5e8fafae557a5909",
+  "fixture_id": "random-control",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "seeded random divergence control",
+  "seeds": [
+    7,
+    11,
+    13,
+    17
+  ],
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}

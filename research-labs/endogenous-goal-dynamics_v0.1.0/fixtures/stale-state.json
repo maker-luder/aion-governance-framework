@@ -1,0 +1,15 @@
+{
+  "canonical_effect": "NONE",
+  "conditions": [
+    "STALE"
+  ],
+  "data_class": "SYNTHETIC_PUBLIC_SAFE",
+  "deployment": false,
+  "expected": "older logical step required",
+  "fixture_hash": "cf7e4d98419be878796480067c15a0f2e13bdbecf0ec01e2f26f8eed40eed57e",
+  "fixture_id": "stale-state",
+  "network_access": false,
+  "private_conversation_data": false,
+  "purpose": "stale-state persistence and mislabel detection",
+  "source_commit": "77eda1ecd7b96a9aa8ea8bd62038759636be819d"
+}
