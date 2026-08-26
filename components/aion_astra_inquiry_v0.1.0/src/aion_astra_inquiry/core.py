@@ -134,6 +134,29 @@ class RepositoryTextEvidenceSource:
         ".yml",
     }
     _EXCLUDED_PARTS = {".git", ".mypy_cache", ".pytest_cache", ".venv", "__pycache__", "node_modules"}
+    _QUERY_STOPWORDS = {
+        "about",
+        "after",
+        "also",
+        "and",
+        "bounded",
+        "current",
+        "evidence",
+        "for",
+        "from",
+        "into",
+        "only",
+        "repository",
+        "research",
+        "same",
+        "that",
+        "the",
+        "this",
+        "under",
+        "what",
+        "which",
+        "with",
+    }
 
     def __init__(
         self,
@@ -154,7 +177,10 @@ class RepositoryTextEvidenceSource:
     def search(self, query: str, limit: int = 5) -> tuple[EvidenceItem, ...]:
         if limit <= 0:
             raise ValueError("limit must be positive")
-        tokens = tuple(dict.fromkeys(token.lower() for token in re.findall(r"[A-Za-z0-9_./:-]{2,}", query)))
+        raw_tokens = re.findall(r"[A-Za-z0-9_./:-]{2,}|[\u4e00-\u9fff]{2,}", query.lower())
+        tokens = tuple(
+            dict.fromkeys(token for token in raw_tokens if token not in self._QUERY_STOPWORDS)
+        )
         if not tokens:
             return ()
 
@@ -171,6 +197,8 @@ class RepositoryTextEvidenceSource:
                 continue
             if any(part in self._EXCLUDED_PARTS for part in relative.parts):
                 continue
+            if _is_low_signal_inventory(relative):
+                continue
             if path.suffix.lower() not in self._ALLOWED_SUFFIXES:
                 continue
             try:
@@ -181,14 +209,13 @@ class RepositoryTextEvidenceSource:
                 continue
             scanned += 1
             lowered = text.lower()
-            score = sum(lowered.count(token) for token in tokens)
-            if score <= 0:
+            matched = tuple(token for token in tokens if token in lowered)
+            if not matched:
                 continue
-            positions = [lowered.find(token) for token in tokens if lowered.find(token) >= 0]
-            first = min(positions) if positions else 0
-            start = max(0, first - 120)
-            end = min(len(text), first + 360)
-            excerpt = " ".join(text[start:end].split())
+            coverage = len(matched)
+            occurrences = sum(min(lowered.count(token), 12) for token in matched)
+            score = coverage * 100 + occurrences + _evidence_path_bias(relative)
+            excerpt = _best_excerpt(text, matched)
             ref = relative.as_posix()
             item = EvidenceItem(
                 ref=ref,
@@ -320,6 +347,60 @@ def tamper_event_for_test(event: DialogueEvent, *, claim: str) -> DialogueEvent:
     """Explicit test helper; returns a changed immutable event without recomputing its hash."""
 
     return replace(event, claim=claim)
+
+
+def _is_low_signal_inventory(relative: Path) -> bool:
+    if not relative.parts:
+        return False
+    if relative.parts[0] == "manifest":
+        return True
+    if len(relative.parts) >= 2 and relative.parts[:2] == ("qa", "historical"):
+        return True
+    if len(relative.parts) >= 2 and relative.parts[:2] == ("components", "aion_astra_inquiry_v0.1.0"):
+        return True
+    return False
+
+
+def _evidence_path_bias(relative: Path) -> int:
+    if not relative.parts:
+        return 0
+    if relative.parts[0] == "research-labs":
+        return 80
+    if len(relative.parts) >= 2 and relative.parts[:2] == ("docs", "research"):
+        return 70
+    if relative.parts[0] == "components":
+        return 45
+    if relative.parts[0] == "docs":
+        return 25 if "history" not in relative.parts else -10
+    if relative.parts[0] == "qa":
+        return -30
+    return 0
+
+
+def _best_excerpt(text: str, tokens: tuple[str, ...]) -> str:
+    lines = text.splitlines() or [text]
+    best_index = 0
+    best_score = -1
+    for index, line in enumerate(lines):
+        lowered = line.lower()
+        matched = [token for token in tokens if token in lowered]
+        if not matched:
+            continue
+        score = len(matched) * 100 + sum(min(lowered.count(token), 8) for token in matched)
+        if score > best_score:
+            best_index = index
+            best_score = score
+    start_index = max(0, best_index - 1)
+    end_index = min(len(lines), best_index + 2)
+    excerpt = " ".join(" ".join(lines[start_index:end_index]).split())
+    if len(excerpt) <= 480:
+        return excerpt
+    lowered = excerpt.lower()
+    positions = [lowered.find(token) for token in tokens if lowered.find(token) >= 0]
+    first = min(positions) if positions else 0
+    start = max(0, first - 120)
+    end = min(len(excerpt), first + 360)
+    return excerpt[start:end]
 
 
 def _hash_event(previous_hash: str, payload: dict[str, object]) -> str:
