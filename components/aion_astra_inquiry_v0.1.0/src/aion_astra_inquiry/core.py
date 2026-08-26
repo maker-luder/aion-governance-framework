@@ -40,7 +40,7 @@ class Probe:
         if not self.description.strip():
             raise ValueError("probe description must not be empty")
         if self.network_access:
-            raise ValueError("network access is not permitted in v0.1.0")
+            raise ValueError("probe-level network authority is not permitted in v0.1.0")
         if self.repository_mutation:
             raise ValueError("repository mutation is not permitted in v0.1.0")
         if self.deployment:
@@ -54,6 +54,12 @@ class EvidenceItem:
     ref: str
     excerpt: str
     content_sha256: str
+    source_class: str = "REPOSITORY"
+    source_url: str = ""
+    publisher: str = ""
+    retrieved_at: str = ""
+    retrieval_agent: str = ""
+    trust: str = "TRUSTED_REPOSITORY"
 
 
 @dataclass(frozen=True)
@@ -115,7 +121,12 @@ class InquiryPeer(Protocol):
 
 
 class EvidenceSource(Protocol):
-    def search(self, query: str, limit: int = 5) -> tuple[EvidenceItem, ...]:
+    def search(
+        self,
+        query: str,
+        limit: int = 5,
+        requester: AgentId | None = None,
+    ) -> tuple[EvidenceItem, ...]:
         ...
 
 
@@ -174,13 +185,16 @@ class RepositoryTextEvidenceSource:
         self._max_file_bytes = max_file_bytes
         self._max_files_scanned = max_files_scanned
 
-    def search(self, query: str, limit: int = 5) -> tuple[EvidenceItem, ...]:
+    def search(
+        self,
+        query: str,
+        limit: int = 5,
+        requester: AgentId | None = None,
+    ) -> tuple[EvidenceItem, ...]:
         if limit <= 0:
             raise ValueError("limit must be positive")
         raw_tokens = re.findall(r"[A-Za-z0-9_./:-]{2,}|[\u4e00-\u9fff]{2,}", query.lower())
-        tokens = tuple(
-            dict.fromkeys(token for token in raw_tokens if token not in self._QUERY_STOPWORDS)
-        )
+        tokens = tuple(dict.fromkeys(token for token in raw_tokens if token not in self._QUERY_STOPWORDS))
         if not tokens:
             return ()
 
@@ -221,6 +235,7 @@ class RepositoryTextEvidenceSource:
                 ref=ref,
                 excerpt=excerpt,
                 content_sha256=sha256(text.encode("utf-8")).hexdigest(),
+                retrieval_agent=requester.value if requester else "",
             )
             ranked.append((score, ref, item))
 
@@ -267,7 +282,11 @@ class BoundedInquiryLoop:
                     raise TypeError("peer must return PeerContribution")
 
                 found = (
-                    self._evidence_source.search(contribution.evidence_query, limit=self._evidence_limit)
+                    self._evidence_source.search(
+                        contribution.evidence_query,
+                        limit=self._evidence_limit,
+                        requester=speaker,
+                    )
                     if contribution.evidence_query.strip()
                     else ()
                 )
@@ -288,7 +307,7 @@ class BoundedInquiryLoop:
                 }
                 event_hash = _hash_event(previous_hash, event_payload)
                 event = DialogueEvent(
-                    sequence=event_payload["sequence"],
+                    sequence=event_payload["sequence"],  # type: ignore[arg-type]
                     round_index=round_index,
                     speaker=speaker,
                     claim=contribution.claim,
