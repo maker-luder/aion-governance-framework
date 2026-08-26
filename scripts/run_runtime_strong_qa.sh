@@ -16,6 +16,7 @@ LOCAL_PACKAGES=(
   "components/executable_runtime_v0.1.0"
   "components/memory_recall_governance_v0.1.0"
   "components/individual_runtime_state_v0.1.0"
+  "components/aion_evidence_interop_v0.1.0"
   "components/agent_execution_substrate_v0.1.0"
   "components/aion_runtime_v0.1.0"
   "components/astra_runtime_v0.1.0"
@@ -29,7 +30,7 @@ done
 # These are repository-owned typed sources. Point mypy at the source roots so
 # strict checking does not misclassify editable local packages as untyped
 # third-party distributions merely because they do not publish PEP 561 markers.
-export MYPYPATH="components/governance_kernel_v0.4.0/src:components/astra_workbench_v1.0.0/src:research-labs/language-core-g1_v0.2.1/src:components/memory_recall_governance_v0.1.0/src:components/executable_runtime_v0.1.0/src:components/individual_runtime_state_v0.1.0/src:components/agent_execution_substrate_v0.1.0/src:components/aion_runtime_v0.1.0/src:components/astra_runtime_v0.1.0/src"
+export MYPYPATH="components/governance_kernel_v0.4.0/src:components/astra_workbench_v1.0.0/src:research-labs/language-core-g1_v0.2.1/src:components/memory_recall_governance_v0.1.0/src:components/executable_runtime_v0.1.0/src:components/individual_runtime_state_v0.1.0/src:components/aion_evidence_interop_v0.1.0/src:components/agent_execution_substrate_v0.1.0/src:components/aion_runtime_v0.1.0/src:components/astra_runtime_v0.1.0/src"
 
 printf '\n== mypy strict ==\n'
 python -m mypy --config-file components/executable_runtime_v0.1.0/pyproject.toml components/executable_runtime_v0.1.0/src/aion_astra_runtime
