@@ -87,13 +87,15 @@ The presence of post-termination engineering work therefore does not invalidate 
 
 The central research question remains the **possibility of artificial subjectivity** and how such a possibility can be investigated without turning implementation behavior, memory-like behavior, continuity-like behavior, self-description, or researcher interpretation into ontological conclusions.
 
-The recent execution-substrate, interoperability, provenance, and durable-evidence work should be read as research instrumentation:
+The recent execution-substrate, interoperability, provenance, and durable-evidence work should be read as a research instrument and engineering-evidence layer:
 
 ```text
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
-AGENT_SUBSTRATE = RESEARCH_INSTRUMENTATION
-SUBSTRATE_COMPLEXITY != SUBJECTIVITY_EVIDENCE
+AGENT_SUBSTRATE = RESEARCH_INSTRUMENT
+EXECUTION_EVIDENCE = ENGINEERING_EVIDENCE
+ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 EXECUTION_EVIDENCE != RESEARCH_EVIDENCE_ADMISSION
+SUBSTRATE_COMPLEXITY != SUBJECTIVITY_EVIDENCE
 ENGINEERING_SUCCESS != SUBJECTIVITY_PROOF
 CI_PASS != SCIENTIFIC_VALIDATION
 ```
@@ -142,6 +144,7 @@ Later maintenance artifacts, bridge outputs, interoperability projections, execu
 ```text
 PROJECT_TERMINATION != THEORY_REJECTION
 PROJECT_TERMINATION != THEORY_CONFIRMATION
+ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 ENGINEERING_SUCCESS != SUBJECTIVITY_PROOF
 SUBSTRATE_COMPLEXITY != SUBJECTIVITY_EVIDENCE
 EXECUTION_EVIDENCE != RESEARCH_EVIDENCE_ADMISSION
