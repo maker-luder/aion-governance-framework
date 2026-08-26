@@ -68,6 +68,50 @@
       "vendored": false
     },
     {
+      "source_id": "LEE_ET_AL_INTEROCEPTIVE_AI_2026",
+      "title": "Life-inspired interoceptive artificial intelligence for autonomous and adaptive agents",
+      "canonical_url": "https://doi.org/10.1038/s42256-026-01296-8",
+      "source_kind": "PEER_REVIEWED_PERSPECTIVE",
+      "evidence_role": "AI_INTERNAL_STATE_FACTORIZATION_AND_INTEROCEPTIVE_REGULATION",
+      "download_available": true,
+      "download_url": "https://arxiv.org/pdf/2309.05999",
+      "license_or_reuse_note": "Version of record is publisher-controlled; a public arXiv precursor is downloadable. Do not vendor without confirming the selected version's license.",
+      "vendored": false
+    },
+    {
+      "source_id": "CANDIA_RIVERA_INTEROCEPTIVE_MACHINE_2026",
+      "title": "Interoceptive machine framework: Toward interoception-inspired regulatory architectures in artificial intelligence",
+      "canonical_url": "https://doi.org/10.1016/j.plrev.2026.06.003",
+      "source_kind": "OPEN_ACCESS_REVIEW",
+      "evidence_role": "AI_HOMEOSTATIC_ALLOSTATIC_ENACTIVE_REGULATION",
+      "download_available": true,
+      "download_url": "https://arxiv.org/pdf/2604.24527",
+      "license_or_reuse_note": "Publisher article is open access and an arXiv version is downloadable; verify the exact reuse license before any future vendoring.",
+      "vendored": false
+    },
+    {
+      "source_id": "STEVENSON_PHYSIOLOGICAL_STABILITY_2024",
+      "title": "Defining the brain control of physiological stability",
+      "canonical_url": "https://doi.org/10.1016/j.yhbeh.2024.105607",
+      "source_kind": "OPEN_ACCESS_REVIEW",
+      "evidence_role": "HOMEOSTASIS_RHEOSTASIS_ALLOSTASIS_HIERARCHY",
+      "download_available": true,
+      "download_url": null,
+      "license_or_reuse_note": "Open-access review; retain the DOI as canonical provenance and verify publisher reuse terms before vendoring.",
+      "vendored": false
+    },
+    {
+      "source_id": "PLANT_INTERCELLULAR_REGULATION_2010",
+      "title": "Information processing without brains – the power of intercellular regulators in plants",
+      "canonical_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC2847462/",
+      "source_kind": "OPEN_ACCESS_REVIEW",
+      "evidence_role": "REGULATION_WITHOUT_NERVOUS_SYSTEM",
+      "download_available": true,
+      "download_url": null,
+      "license_or_reuse_note": "PMC exposes the full text and downloadable article; use only as a source concept for non-neural regulation, not as evidence of cognition or consciousness.",
+      "vendored": false
+    },
+    {
       "source_id": "OPENAI_HF_SECURITY_INCIDENT_2026",
       "title": "OpenAI and Hugging Face partner to address security incident during model evaluation",
       "canonical_url": "https://openai.com/index/hugging-face-model-evaluation-security-incident/",
