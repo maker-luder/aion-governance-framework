@@ -49,6 +49,7 @@ jobs:
           OWNER_QUESTION: ${{ inputs.question }}
           INPUT_MAX_QUESTIONS: ${{ inputs.max_questions }}
           INPUT_MAX_ROUNDS: ${{ inputs.max_rounds }}
+          PYTHONDONTWRITEBYTECODE: "1"
         shell: bash
         run: |
           set -euo pipefail
@@ -67,7 +68,7 @@ jobs:
             args+=(--question "$OWNER_QUESTION")
           fi
           PYTHONPATH=components/aion_astra_inquiry_v0.1.0/src \
-            python -m aion_astra_inquiry.cli "${args[@]}"
+            python -B -m aion_astra_inquiry.cli "${args[@]}"
           cat "$OUT/campaign.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Assert no repository writeback occurred
