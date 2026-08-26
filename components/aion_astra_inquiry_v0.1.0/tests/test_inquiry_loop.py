@@ -149,3 +149,34 @@ def test_repository_search_is_bounded_and_read_only(tmp_path: Path) -> None:
     assert source.search("", limit=1) == ()
     with pytest.raises(ValueError):
         source.search("memory", limit=0)
+
+
+def test_repository_search_prefers_direct_research_content_over_generated_inventory(tmp_path: Path) -> None:
+    (tmp_path / "manifest").mkdir()
+    (tmp_path / "research-labs" / "demo").mkdir(parents=True)
+    (tmp_path / "manifest" / "FILE_MANIFEST.json").write_text(
+        '{"paths": ["persistent_internal_state_goal_selection"]}' * 50,
+        encoding="utf-8",
+    )
+    (tmp_path / "research-labs" / "demo" / "README.md").write_text(
+        "Persistent internal state is tested against goal selection using matched intervention and ablation controls.",
+        encoding="utf-8",
+    )
+    source = RepositoryTextEvidenceSource(tmp_path)
+
+    results = source.search("persistent internal state goal selection intervention", limit=1)
+
+    assert len(results) == 1
+    assert results[0].ref == "research-labs/demo/README.md"
+    assert "matched intervention" in results[0].excerpt.lower()
+
+
+def test_repository_search_accepts_cjk_query_terms(tmp_path: Path) -> None:
+    (tmp_path / "docs").mkdir()
+    (tmp_path / "docs" / "zh.md").write_text("記憶混淆必須保持為外部控制，不能當成內生狀態。", encoding="utf-8")
+    source = RepositoryTextEvidenceSource(tmp_path)
+
+    results = source.search("記憶混淆 外部控制", limit=1)
+
+    assert len(results) == 1
+    assert results[0].ref == "docs/zh.md"
