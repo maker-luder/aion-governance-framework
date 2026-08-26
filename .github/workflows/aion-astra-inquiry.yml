@@ -1,0 +1,81 @@
+name: AION Astra Bounded Inquiry
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      question:
+        description: Optional seed research question; leave empty for repository agenda discovery
+        required: false
+        type: string
+      max_questions:
+        description: Maximum research questions in this bounded campaign
+        required: false
+        default: "3"
+        type: string
+      max_rounds:
+        description: Maximum AION/Astra dialogue rounds per question
+        required: false
+        default: "3"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aion-astra-bounded-inquiry-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bounded-inquiry:
+    name: Read-only dual-agent repository inquiry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository read-only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.11"
+
+      - name: Run bounded AION and Astra inquiry
+        env:
+          OWNER_QUESTION: ${{ inputs.question }}
+          INPUT_MAX_QUESTIONS: ${{ inputs.max_questions }}
+          INPUT_MAX_ROUNDS: ${{ inputs.max_rounds }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          OUT="$RUNNER_TEMP/aion-astra-inquiry"
+          MAX_QUESTIONS="${INPUT_MAX_QUESTIONS:-3}"
+          MAX_ROUNDS="${INPUT_MAX_ROUNDS:-3}"
+          args=(
+            --root .
+            --repository-ref "$GITHUB_SHA"
+            --max-questions "$MAX_QUESTIONS"
+            --max-rounds "$MAX_ROUNDS"
+            --evidence-limit 4
+            --output "$OUT"
+          )
+          if [[ -n "${OWNER_QUESTION:-}" ]]; then
+            args+=(--question "$OWNER_QUESTION")
+          fi
+          PYTHONPATH=components/aion_astra_inquiry_v0.1.0/src \
+            python -m aion_astra_inquiry.cli "${args[@]}"
+          cat "$OUT/campaign.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Assert no repository writeback occurred
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
+            echo "Inquiry workflow changed the repository working tree." >&2
+            git status --short
+            exit 1
+          fi
