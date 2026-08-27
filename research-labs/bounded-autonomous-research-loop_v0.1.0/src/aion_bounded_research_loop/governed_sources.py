@@ -195,6 +195,7 @@ def _approximate_context_tokens(items: tuple[EvidenceItem, ...]) -> int:
 class AgentSourceExposure:
     agent: str
     source_fingerprints: tuple[str, ...]
+    source_lineage_refs: tuple[str, ...] = field(default_factory=tuple)
     prompt_policy_refs: tuple[str, ...] = field(default_factory=tuple)
     direct_peer_communication: bool = False
 
@@ -203,6 +204,8 @@ class AgentSourceExposure:
             raise ValueError("agent is required")
         if any(not item.strip() for item in self.source_fingerprints):
             raise ValueError("source fingerprints must be non-empty")
+        if any(not item.strip() for item in self.source_lineage_refs):
+            raise ValueError("source lineage refs must be non-empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -226,14 +229,17 @@ def assess_independence(
     *,
     reconciliation_after_independent_phase: bool,
 ) -> IndependenceAssessment:
-    aion_sources = set(aion.source_fingerprints)
-    astra_sources = set(astra.source_fingerprints)
-    shared_sources = aion_sources & astra_sources
+    aion_content = set(aion.source_fingerprints)
+    astra_content = set(astra.source_fingerprints)
+    shared_content = aion_content & astra_content
+    aion_lineage = set(aion.source_lineage_refs)
+    astra_lineage = set(astra.source_lineage_refs)
+    shared_lineage = aion_lineage & astra_lineage
 
-    if not aion_sources or not astra_sources:
-        source_independence = IndependenceStatus.UNKNOWN
-    elif shared_sources:
+    if shared_content or shared_lineage:
         source_independence = IndependenceStatus.NOT_INDEPENDENT
+    elif not aion_lineage or not astra_lineage:
+        source_independence = IndependenceStatus.UNKNOWN
     else:
         source_independence = IndependenceStatus.INDEPENDENT
 
@@ -244,9 +250,11 @@ def assess_independence(
 
     reasons: list[str] = []
     if source_independence is IndependenceStatus.UNKNOWN:
-        reasons.append("source_exposure_unknown_or_empty")
-    if source_independence is IndependenceStatus.NOT_INDEPENDENT:
-        reasons.append("shared_source_exposure")
+        reasons.append("source_lineage_unknown_or_empty")
+    if shared_content:
+        reasons.append("shared_content_exposure")
+    if shared_lineage:
+        reasons.append("shared_source_lineage")
     if communication_independence is IndependenceStatus.NOT_INDEPENDENT:
         reasons.append("direct_peer_communication")
     if not reconciliation_after_independent_phase:
