@@ -19,11 +19,29 @@ from aion_bounded_research_loop import (
 class DistinctEvidence:
     def search(self, query: str, limit: int = 5, requester: AgentId | None = None):
         assert requester is not None
+        host = "aion.example" if requester is AgentId.AION else "astra.example"
+        publisher = "aion-source" if requester is AgentId.AION else "astra-source"
         return (
             EvidenceItem(
                 ref=f"fixture:{requester.value}",
                 excerpt=f"evidence for {requester.value}",
                 content_sha256=sha256(requester.value.encode()).hexdigest(),
+                source_class="WEB",
+                source_url=f"https://{host}/evidence",
+                publisher=publisher,
+                retrieval_agent=requester.value,
+            ),
+        )
+
+
+class ContentDistinctRepositoryEvidence:
+    def search(self, query: str, limit: int = 5, requester: AgentId | None = None):
+        assert requester is not None
+        return (
+            EvidenceItem(
+                ref=f"fixture:{requester.value}",
+                excerpt=f"different repository evidence for {requester.value}",
+                content_sha256=sha256(f"repo:{requester.value}".encode()).hexdigest(),
                 retrieval_agent=requester.value,
             ),
         )
@@ -37,6 +55,9 @@ class SharedEvidence:
                 ref=f"fixture:shared:{requester.value}",
                 excerpt="same underlying evidence",
                 content_sha256=sha256(b"same underlying evidence").hexdigest(),
+                source_class="WEB",
+                source_url="https://shared.example/evidence",
+                publisher="shared-source",
                 retrieval_agent=requester.value,
             ),
         )
@@ -93,6 +114,7 @@ def test_runner_forms_isolated_first_pass_before_reconciliation() -> None:
     assert phase.phase_integrity_pass is True
     assert len(phase.fingerprint) == 64
     assert {item.agent for item in phase.analyses} == {AgentId.AION, AgentId.ASTRA}
+    assert all(item.source_lineage_refs for item in phase.analyses)
     assert phase.independence_assessment.communication_independence is IndependenceStatus.INDEPENDENT
     assert phase.independence_assessment.source_independence is IndependenceStatus.INDEPENDENT
     assert phase.independence_assessment.replication_claim == "ADMISSIBLE_CANDIDATE"
@@ -103,6 +125,22 @@ def test_runner_forms_isolated_first_pass_before_reconciliation() -> None:
     assert "Begin reconciliation only now" not in astra.calls[0][0]
     assert "Begin reconciliation only now" in aion.calls[1][0]
     assert "Begin reconciliation only now" in astra.calls[1][0]
+
+
+def test_content_nonoverlap_inside_same_repository_is_not_source_independence() -> None:
+    runner = AionAstraInquiryRunner(
+        ContentDistinctRepositoryEvidence(),
+        RecordingCriticalPeer(),
+        RecordingCriticalPeer(),
+        max_rounds=2,
+    )
+    runner.run("Can distinct files from one repository be mistaken for independent sources?")
+    phase = runner.last_independent_phase
+
+    assert phase is not None
+    assert phase.independence_assessment.source_independence is IndependenceStatus.NOT_INDEPENDENT
+    assert phase.independence_assessment.replication_claim == "HOLD"
+    assert "shared_source_lineage" in phase.independence_assessment.reasons
 
 
 def test_isolated_analysis_does_not_imply_source_independent_replication() -> None:
@@ -119,6 +157,8 @@ def test_isolated_analysis_does_not_imply_source_independent_replication() -> No
     assert phase.independence_assessment.communication_independence is IndependenceStatus.INDEPENDENT
     assert phase.independence_assessment.source_independence is IndependenceStatus.NOT_INDEPENDENT
     assert phase.independence_assessment.replication_claim == "HOLD"
+    assert "shared_content_exposure" in phase.independence_assessment.reasons
+    assert "shared_source_lineage" in phase.independence_assessment.reasons
 
 
 def test_full_loop_fails_closed_when_isolated_first_pass_is_disabled() -> None:
