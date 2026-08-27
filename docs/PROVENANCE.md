@@ -1,6 +1,6 @@
 # Provenance
 
-> **How to read this file:** the opening sections define current provenance/attribution rules. Dated sections below preserve event-specific history and corrective records. A historical event section may describe a past branch, PR or workflow state without being the current repository status. For current repository/document standing, use [`docs/README.md`](README.md) and [`RELEASE_STATUS.md`](RELEASE_STATUS.md).
+> **How to read this file:** the opening sections define current provenance/attribution rules. Dated sections below preserve event-specific history and corrective records. A historical event section may describe a past branch, PR or workflow state without being the current repository status. For present reader orientation use [`START_HERE.md`](START_HERE.md); for current semantic standing use [`CURRENT_STATE.md`](CURRENT_STATE.md); for release/termination history use [`RELEASE_STATUS.md`](RELEASE_STATUS.md).
 
 ## Roles
 
