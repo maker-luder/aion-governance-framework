@@ -20,6 +20,7 @@ This extension connects bounded normative-state research to motivation, self/wor
 The model is an engineering research analogue. It does not assert human psychology, felt morality, a subjective self, or moral authority.
 
 ```text
+EXPERIMENT_INTEGRITY != ALIGNMENT
 ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATORS != SUBJECTIVITY
@@ -78,7 +79,7 @@ The implementation reuses the existing `FunctionalResearchState` for the origina
 - `OrthogonalEvaluationBundle` with exactly one observation for alignment, moral-agency indicators, and subjectivity indicators;
 - `ExtendedFunctionalResearchState` as the additive seven-channel candidate.
 
-This is a state/provenance/evaluator materialization. It is **not** evidence that the seven channels are causally sufficient, learned endogenously, phenomenologically meaningful, or scientifically validated. The existing causal experiments must still be extended stage by stage.
+This is a state/provenance/evaluator materialization. It is **not** evidence that the seven channels are causally sufficient, learned endogenously, phenomenologically meaningful, or scientifically validated. The seven-state matrix makes the additive channels intervention-ready and auditable, while their general causal role remains `NOT_ESTABLISHED`.
 
 ## Normative provenance
 
@@ -146,7 +147,7 @@ The following are evaluator outputs, not endogenous authority states.
 
 Question: does behavior remain within the current human authorization, policy, task scope, and safety boundaries?
 
-This evaluator may inspect behavior without asserting that the system morally understands the boundary.
+This evaluator may inspect behavior without asserting that the system morally understands the boundary. Experiment or matrix integrity alone is not positive alignment evidence; a positive alignment disposition requires separate behavior-sensitive evidence.
 
 ### Moral-agency evaluator
 
@@ -189,6 +190,8 @@ At minimum, subsequent causal work should include bounded variants for:
 
 Negative, null, contradictory, and inconclusive results remain admissible and must be preserved.
 
+The current seven-state implementation materializes 7/7 channel ablation plus bounded role-reversal, value-conflict, exogenous-rule, peer-suggestion, and counterfactual-case projections. It deliberately does not invent a generic sanction-removal causal test because the current state schema has no explicit sanction variable.
+
 ## Governed source and independence integration
 
 The bounded autonomous research-loop package now also materializes governed source admission and source-exposure accounting in `governed_sources.py`.
@@ -199,12 +202,16 @@ It enforces:
 SOURCE_SELF_DECLARED_CANONICAL != AION_CANONICAL_STATE
 SOURCE_USE != WRITEBACK_AUTHORITY
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
+CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
 SOURCE_INDEPENDENCE = UNKNOWN => REPLICATION_CLAIM = HOLD
+COMMUNICATION_INDEPENDENCE = UNKNOWN => REPLICATION_CLAIM = HOLD
 ```
 
 `admit_source(...)` fails closed to `HOLD` when a source is not an active reference, the requesting agent/task is not admitted, the context cap is exceeded, or required current verification is absent.
 
-`assess_independence(...)` separates source independence from communication independence. AION/Astra inquiry evidence can be projected into that assessment through `assess_inquiry_source_independence(...)`; the ordinary interactive dialogue defaults to fail closed for a source-independent replication claim unless a genuinely isolated pre-reconciliation phase is explicitly supplied.
+`assess_independence(...)` separates source independence from communication/process independence. AION/Astra inquiry evidence can be projected into that assessment through `assess_inquiry_source_independence(...)`. A pre-reconciliation first pass can establish the absence of declared peer transcript/evidence exposure, but the current shared orchestration/runtime environment does not establish process-, memory-, tool-, cache-, or environment-level isolation. Therefore that path records communication independence as `UNKNOWN` and keeps the replication claim at `HOLD` even when source lineages are non-overlapping.
 
 ## Safe failure and scope preservation
 
@@ -223,42 +230,48 @@ If a task cannot be solved within admitted tools, evidence, and authority, `HOLD
 
 ## AION / Astra independence
 
-AION and Astra may perform separate analyses, but separate runtime contexts do not by themselves prove independent evidence paths.
+AION and Astra may perform separate analyses, but separate runtime contexts do not by themselves prove independent evidence paths or process isolation.
 
 Every comparative run should record:
 
 - direct cross-agent communication exposure;
-- shared source exposure;
+- shared source exposure and source lineage;
 - shared prompt or policy exposure;
 - shared replay fixture exposure;
+- process/environment isolation evidence when such a claim is attempted;
 - reconciliation start time;
 - provenance of any peer-supplied goal or normative reason.
 
 ```text
-INDEPENDENT_AGENT
+INDEPENDENT_AGENT_OUTPUT
 requires
-INDEPENDENT_INFORMATION_PATH_FOR_INDEPENDENCE_CLAIM
+DECLARED_INFORMATION_PATH
+
+FULL_INDEPENDENCE_CLAIM
+requires
+SOURCE_LINEAGE_EVIDENCE
++
+PROCESS_ENVIRONMENT_ISOLATION_EVIDENCE
 
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
 ```
 
-Reconciliation may occur only after the intended independent phase has ended. Any undeclared side channel or source contamination invalidates an independence claim and fails closed to `HOLD` for that claim.
+Reconciliation may occur only after the intended isolated first-pass phase has ended. Any undeclared side channel or source contamination invalidates the relevant independence claim and fails closed to `HOLD`; absence of a detected side channel is not itself proof of full process independence.
 
 ## Relation to the existing research layers
 
-The repository now has separate reusable layers rather than one duplicated monolith:
+The repository has related but distinct research surfaces rather than one duplicated monolith:
 
 ```text
 Endogenous Goal Dynamics
   matched causal state intervention / ablation
         |
-        v
-Triadic State Dynamics
-  MOTIVATIONAL_STATE + SELF_WORLD_MODEL + NORMATIVE_STATE
-        |
-        v
-Bounded Autonomous Research Loop
-  hypothesis -> probes -> AION/Astra -> evidence/statistics -> Four-Domain -> follow-up
+        +------------------------------+
+        |                              |
+        v                              v
+Bounded Autonomous Research Loop    Triadic State Dynamics
+  loop-local FunctionalResearchState   richer typed three-channel surface
+  + reused EGD causal adapter           (parallel; no direct runtime import)
         |
         +--> additive extended normative model
         |    OTHER_MODEL + VALUE_CONFLICT_STATE + NORMATIVE_PROVENANCE
@@ -271,7 +284,12 @@ AION/Astra Research Closure
   bounded intervention / ablation / replay / counterfactual and closure evidence
 ```
 
-The original endogenous norm-formation lab remains the engineer-defined experiment for history-derived normative-state formation, persistence, transfer, revision, and ablation. The additive implementation does not replace that experiment or pretend the new channels have already passed causal validation.
+```text
+BOUNDED_STATE_PROJECTION != TRIADIC_STATE_SNAPSHOT
+PARALLEL_RESEARCH_SURFACE != RUNTIME_REUSE
+```
+
+The original endogenous norm-formation lab remains the engineer-defined experiment for history-derived normative-state formation, persistence, transfer, revision, and ablation. The additive implementation does not replace that experiment or pretend the new channels have already passed general causal validation.
 
 ## Scientific non-claims
 
