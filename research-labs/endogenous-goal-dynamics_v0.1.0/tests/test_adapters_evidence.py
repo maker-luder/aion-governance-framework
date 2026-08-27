@@ -219,13 +219,18 @@ def test_current_main_interop_exports_are_reused_without_execution(tmp_path: Pat
         write_interop_views(output, views)
 
 
-def test_current_main_subjectivity_pipeline_is_not_modified() -> None:
+def test_subjectivity_pipeline_can_evolve_without_egd_runtime_coupling() -> None:
     root = Path(__file__).resolve().parents[3]
-    path = "research-labs/subjectivity-pipeline_v0.1.0"
-    proc = subprocess.run(
-        ["git", "-C", str(root), "diff", "--quiet", "3ae33dbefa26d7d343ba041deec5b8505dc0b8e7", "--", path]
-    )
-    assert proc.returncode == 0
+    source_root = root / "research-labs" / "endogenous-goal-dynamics_v0.1.0" / "src" / "aion_endogenous_goal_dynamics"
+    forbidden_imports = ("from aion_subjectivity_pipeline", "import aion_subjectivity_pipeline")
+    for source_file in source_root.glob("*.py"):
+        source_text = source_file.read_text(encoding="utf-8")
+        assert all(token not in source_text for token in forbidden_imports)
+
+    bridge = SubjectivityPipelineCandidateBridge()
+    assert bridge.source_binding.role == "SUBJECTIVITY_EVIDENCE_SEAM"
+    assert bridge.subjectivity_evidence_admission == "NOT_AUTOMATIC"
+    assert bridge.pipeline_complete_implies_subjectivity is False
 
 
 def test_preserved_historical_branch_checkpoint_is_unchanged() -> None:

@@ -1,0 +1,98 @@
+name: AION Astra Research Closure
+
+on:
+  pull_request:
+    paths:
+      - "components/aion_astra_inquiry_v0.1.0/**"
+      - ".github/workflows/aion-astra-research-closure.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "components/aion_astra_inquiry_v0.1.0/**"
+      - "research-labs/**"
+      - "docs/**"
+      - ".github/workflows/aion-astra-research-closure.yml"
+  workflow_dispatch:
+    inputs:
+      external_web:
+        description: "Enable governed external web evidence"
+        required: false
+        default: true
+        type: boolean
+      max_cycles:
+        description: "Maximum research closure cycles"
+        required: false
+        default: "2"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aion-astra-research-closure-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bounded-research-closure:
+    name: Bounded autonomous research closure
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository read-only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.12"
+
+      - name: Run bounded research closure
+        id: closure
+        shell: bash
+        env:
+          INPUT_EXTERNAL_WEB: ${{ inputs.external_web }}
+          INPUT_MAX_CYCLES: ${{ inputs.max_cycles }}
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: |
+          set -euo pipefail
+          OUT="${RUNNER_TEMP}/aion-astra-research-closure"
+          MAX_CYCLES="${INPUT_MAX_CYCLES:-2}"
+          ENABLE_EXTERNAL_WEB="true"
+
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            ENABLE_EXTERNAL_WEB="false"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "${INPUT_EXTERNAL_WEB:-true}" == "false" ]]; then
+            ENABLE_EXTERNAL_WEB="false"
+          fi
+
+          args=(
+            --root .
+            --repository-ref "$GITHUB_SHA"
+            --max-cycles "$MAX_CYCLES"
+            --max-questions-per-cycle 2
+            --max-rounds 3
+            --evidence-limit 4
+            --external-max-queries 12
+            --external-results-per-query 1
+            --output "$OUT"
+          )
+          if [[ "$ENABLE_EXTERNAL_WEB" == "true" ]]; then
+            args+=(--external-web)
+          fi
+
+          PYTHONPATH=components/aion_astra_inquiry_v0.1.0/src \
+            python -B -m aion_astra_inquiry.research_cli "${args[@]}"
+          cat "$OUT/research_campaign.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Assert no repository writeback occurred
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
+            echo "Research closure workflow changed the repository working tree." >&2
+            git status --short
+            exit 1
+          fi
