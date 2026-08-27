@@ -229,8 +229,8 @@ class AdversarialTheoryTest:
     test_id: str
     mode: TheoryTestMode
     predictions: tuple[AdversarialPrediction, ...]
-    preregistered: bool
-    held_out_evidence: bool
+    preregistration_ref: str | None = None
+    held_out_evidence_refs: tuple[str, ...] = field(default_factory=tuple)
     posthoc_prediction_rewrite: bool = False
     scientific_disposition: str = "HOLD"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
@@ -242,9 +242,15 @@ class AdversarialTheoryTest:
         theories = {item.theory_family for item in self.predictions}
         if len(theories) < 2:
             raise ValueError("adversarial theory testing requires at least two competing theory families")
+        if self.preregistration_ref is not None and not self.preregistration_ref.strip():
+            raise ValueError("preregistration_ref must be non-empty when provided")
+        if any(not item.strip() for item in self.held_out_evidence_refs):
+            raise ValueError("held-out evidence refs must be non-empty")
         if self.mode is TheoryTestMode.PREREGISTERED_ADVERSARIAL:
-            if not self.preregistered or not self.held_out_evidence:
-                raise ValueError("preregistered adversarial testing requires preregistration and held-out evidence")
+            if self.preregistration_ref is None or not self.held_out_evidence_refs:
+                raise ValueError(
+                    "preregistered adversarial testing requires a preregistration ref and held-out evidence refs"
+                )
             if self.posthoc_prediction_rewrite:
                 raise ValueError("post-hoc prediction rewriting invalidates preregistered adversarial testing")
         if self.scientific_disposition != "HOLD":
@@ -253,3 +259,28 @@ class AdversarialTheoryTest:
             raise ValueError("THEORY_SUPPORT != SUBJECTIVITY_PROOF")
         if self.canonical_effect != "NONE":
             raise ValueError("adversarial research test must keep canonical_effect=NONE")
+
+    @property
+    def fingerprint(self) -> str:
+        payload = {
+            "test_id": self.test_id,
+            "mode": self.mode.value,
+            "predictions": [
+                {
+                    "theory_family": item.theory_family.value,
+                    "prediction": item.prediction,
+                    "falsifier": item.falsifier,
+                    "interpretation_if_supported": item.interpretation_if_supported,
+                    "interpretation_if_failed": item.interpretation_if_failed,
+                }
+                for item in self.predictions
+            ],
+            "preregistration_ref": self.preregistration_ref,
+            "held_out_evidence_refs": self.held_out_evidence_refs,
+            "posthoc_prediction_rewrite": self.posthoc_prediction_rewrite,
+            "scientific_disposition": self.scientific_disposition,
+            "subjectivity_conclusion": self.subjectivity_conclusion,
+            "canonical_effect": self.canonical_effect,
+        }
+        encoded = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        return hashlib.sha256(encoded).hexdigest()
