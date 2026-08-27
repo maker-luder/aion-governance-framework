@@ -6,6 +6,7 @@ from .adapters import (
     EGDMatchedExperimentContext,
     ExperimentRunner,
     InquiryRunner,
+    assess_inquiry_source_independence,
     bounded_four_domain_mapping,
     validate_independent_mutual_falsification,
 )
