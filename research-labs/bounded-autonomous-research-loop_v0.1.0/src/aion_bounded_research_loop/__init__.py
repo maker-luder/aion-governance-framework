@@ -51,5 +51,17 @@ from .normative_model import (
     OtherModel,
     ValueConflictState,
 )
+from .state_experiments import (
+    ChannelExperimentBinding,
+    ExtendedResearchRunReport,
+    FunctionalStateChannel,
+    PerturbationDisposition,
+    PerturbationKind,
+    SevenStateBinding,
+    SevenStatePerturbationMatrix,
+    StatePerturbationCase,
+    bind_extended_state,
+    build_seven_state_perturbation_matrix,
+)
 
 __all__ = [name for name in globals() if not name.startswith("_")]
