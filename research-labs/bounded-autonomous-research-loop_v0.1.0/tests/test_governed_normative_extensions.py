@@ -222,15 +222,16 @@ def test_content_nonoverlap_without_lineage_does_not_establish_source_independen
     assert "source_lineage_unknown_or_empty" in assessment.reasons
 
 
-def test_distinct_lineages_and_no_communication_allow_only_replication_candidate() -> None:
+def test_distinct_lineages_without_process_isolation_remain_hold() -> None:
     assessment = assess_independence(
         AgentSourceExposure("AION", ("hash:a",), source_lineage_refs=("publisher:a",)),
         AgentSourceExposure("ASTRA", ("hash:b",), source_lineage_refs=("publisher:b",)),
         reconciliation_after_independent_phase=True,
     )
     assert assessment.source_independence is IndependenceStatus.INDEPENDENT
-    assert assessment.communication_independence is IndependenceStatus.INDEPENDENT
-    assert assessment.replication_claim == "ADMISSIBLE_CANDIDATE"
+    assert assessment.communication_independence is IndependenceStatus.UNKNOWN
+    assert assessment.replication_claim == "HOLD"
+    assert "process_and_environment_isolation_not_established" in assessment.reasons
 
 
 def test_inquiry_bridge_detects_shared_content_even_with_distinct_evidence_refs() -> None:
