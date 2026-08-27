@@ -22,6 +22,8 @@ from .models import (
     ResearchOperation,
     ResearchRunReport,
 )
+from .normative_model import ExtendedFunctionalResearchState
+from .state_experiments import ExtendedResearchRunReport, build_seven_state_perturbation_matrix
 
 
 @dataclass(frozen=True, slots=True)
@@ -212,6 +214,27 @@ class BoundedAutonomousResearchLoop:
             functional_state_fingerprint=functional_state.fingerprint,
             cycles=tuple(cycles),
             run_integrity_pass=integrity,
+        )
+
+    def run_extended(
+        self,
+        seed_question: str,
+        extended_state: ExtendedFunctionalResearchState,
+    ) -> ExtendedResearchRunReport:
+        """Run the existing bounded loop plus an exact seven-channel perturbation binding.
+
+        The ordinary EGD runner remains the causal surface for the original three channels.
+        The four additive channels are made intervention-ready through a matched projection
+        matrix. Matrix integrity proves binding and isolation only; it does not establish a
+        general causal role, human psychology, subjectivity, or action authority.
+        """
+
+        matrix = build_seven_state_perturbation_matrix(extended_state)
+        base_report = self.run(seed_question, extended_state.base_state)
+        return ExtendedResearchRunReport(
+            base_report=base_report,
+            extended_state_fingerprint=extended_state.fingerprint,
+            perturbation_matrix=matrix,
         )
 
 
