@@ -85,9 +85,10 @@ This is deliberately stricter than saying that a state is present or correlated 
 STATE_PRESENT != CAUSAL_ROLE
 STATE_ASSOCIATION != INTERVENTION_SENSITIVE_MECHANISM
 MECHANISM_EVIDENCE != PHENOMENAL_EXPERIENCE
+EXPERIMENT_INTEGRITY != TARGET_PROPERTY_EVIDENCE
 ```
 
-The existing seven-state bounded-research work can supply candidate perturbation evidence for some of these questions, but binding sensitivity and matched perturbation integrity must remain distinct from a demonstrated general causal role.
+The existing seven-state bounded-research work can supply candidate perturbation evidence for some of these questions, but binding sensitivity and matched perturbation integrity must remain distinct from a demonstrated general causal role. The fact that a perturbation matrix is complete and internally valid is evidence about the experimental apparatus, not evidence by itself that alignment, moral agency, or subjectivity-related organization is present.
 
 ## Adversarial theory tests
 
@@ -96,16 +97,20 @@ The existing seven-state bounded-research work can supply candidate perturbation
 - `EXPLORATORY`
 - `PREREGISTERED_ADVERSARIAL`
 
-A preregistered adversarial test must include at least two competing theory families, record explicit predictions and falsifiers, use held-out evidence, and prohibit post-hoc prediction rewriting.
+A preregistered adversarial test must include at least two competing theory families, record explicit predictions and falsifiers, bind an inspectable `preregistration_ref`, bind one or more `held_out_evidence_refs`, and prohibit post-hoc prediction rewriting. A self-declared boolean that preregistration or held-out evidence exists is insufficient.
 
 The goal is not to choose a winner by rhetoric. The goal is to make disagreement produce discriminating evidence.
 
 ```text
+PREREGISTRATION_FLAG != PREREGISTRATION_EVIDENCE
+HELD_OUT_FLAG != HELD_OUT_EVIDENCE
 PREREGISTRATION != GUARANTEED_TRUTH
 HELD_OUT_EVIDENCE != INDEPENDENT_IVV
 ADVERSARIAL_TEST_PASS != SUBJECTIVITY
 ADVERSARIAL_TEST_FAIL != RESEARCH_DIRECTION_REFUTED
 ```
+
+The typed adversarial test has a deterministic fingerprint that includes its predictions, falsifiers, preregistration reference, held-out evidence references, and non-claim fields. This supports later evidence binding without treating the fingerprint as validation of the referenced artifacts.
 
 ## Binding to the longitudinal subjectivity pipeline
 
