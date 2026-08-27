@@ -83,6 +83,7 @@ class PipelineAssessment:
     bounded_individuality_candidate: bool
     stages_present: tuple[PipelineStage, ...]
     missing_stages: tuple[PipelineStage, ...]
+    subjectivity_evidence_matrix_fingerprint: str | None = None
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
     phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
     canonical_effect: str = "NONE"
