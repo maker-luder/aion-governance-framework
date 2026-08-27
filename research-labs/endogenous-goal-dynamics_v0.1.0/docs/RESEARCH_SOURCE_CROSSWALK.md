@@ -35,7 +35,7 @@ The Four-Domain crosswalk follows the exact source already pinned by the merged 
 | Four-Domain P3 | perturbation / ablation / resilience controls | adversarial control seam |
 | Four-Domain P4 | reproducibility / manifest seam | future evidence seam only |
 | Four-Domain P5 | hypothesis / replication / falsification seam | future evidence seam only |
-| subjectivity-pipeline | downstream scientific evidence architecture | candidate seam only; pipeline unchanged |
+| subjectivity-pipeline | downstream scientific evidence architecture | candidate seam only; EGD has no runtime import of subjectivity-pipeline internals |
 
 ## Exact artifact bindings
 
@@ -108,6 +108,8 @@ HYPOTHESIS_FALSIFICATION_LAYER
   blob   = 41fe368cc7c33fd99ac901338f6877f0f387763b
 ```
 
+These bindings are provenance snapshots for the EGD integration cycle. They do not impose an indefinite immutability requirement on a separately governed downstream research lab. Later subjectivity-pipeline evolution must remain explicit, reviewable, and uncoupled from EGD runtime internals unless a separately reviewed adapter is introduced.
+
 ## Research-family coverage versus wholesale integration
 
 The preserved workbench contains additional adversarial, authority, contamination, cross-substrate, theory-indicator, trajectory, evidence-normalization and matched-divergence experiments. v0.1.0 does not import all of their code into one agent. Instead, it integrates the research **families** needed to test endogenous goal dynamics while preserving module-level ablation and future falsification.
@@ -154,7 +156,7 @@ checkpoint. It did not import those packages into the candidate runtime.
 | P3 | ablation, perturbation, longitudinal, authority | perturbation/contamination/authority controls | `P3PerturbationAdapter` | historical authority tiers and unrelated experiment families |
 | P4 | manifest, observation, reproduction | manifest/replay/contamination semantics | `P4ReproducibilityAdapter` | public observation/reproduction registry runtime |
 | P5 | hypothesis, replication, disagreement, convergence | falsifier lifecycle/replication/HOLD semantics | `P5HypothesisAdapter` plus F1–F12 evaluator | autonomous convergence or promotion |
-| Subjectivity pipeline | current/preserved models and engine | stage ordering and non-claim boundary | candidate-only bridge artifact | modification of pipeline code or automatic admission |
+| Subjectivity pipeline | integration-base/preserved models and engine | stage ordering and non-claim boundary | candidate-only bridge artifact | direct runtime coupling or automatic admission |
 
 The selective reconstruction is narrower than direct historical imports. Direct imports would bind a
 current research candidate to preserved branch-only packages, increase the intervention surface, and
@@ -184,13 +186,13 @@ EVIDENCE_INTEROP_INSPECT
   path = components/aion_evidence_interop_v0.1.0/src/aion_evidence_interop/inspect_export.py
   blob = 2e5e688c30bec3e9a55236249c99da3957c7af48
 
-SUBJECTIVITY_PIPELINE_MODELS (inspected, unchanged)
+SUBJECTIVITY_PIPELINE_MODELS (integration-base snapshot; downstream lab may evolve separately)
   path = research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/models.py
   blob = ddeea0e599105e3c2113419f03470d8004f3d14f
 ```
 
 `verify_source_bindings(repository)` checks every historical and integration-base main entry directly against
-local Git objects. Missing refs and blob drift are reported as failures.
+local Git objects. Missing refs and blob drift are reported as failures. This verification checks the pinned historical snapshots themselves; it is not a ban on later separately governed source evolution.
 
 ## Integration disposition
 
