@@ -140,6 +140,10 @@ class EvidenceStatistics:
     operation_coverage: tuple[ResearchOperation, ...]
     run_integrity_pass: bool
     scientific_truth: bool = False
+    isolated_analysis: bool = False
+    source_independence: str = "UNKNOWN"
+    communication_independence: str = "UNKNOWN"
+    replication_claim: str = "HOLD"
 
     def __post_init__(self) -> None:
         values = (
@@ -152,6 +156,15 @@ class EvidenceStatistics:
             raise ValueError("statistics counts must be non-negative")
         if self.scientific_truth:
             raise ValueError("RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH")
+        allowed_independence = {"INDEPENDENT", "NOT_INDEPENDENT", "UNKNOWN"}
+        if self.source_independence not in allowed_independence:
+            raise ValueError("invalid source_independence")
+        if self.communication_independence not in allowed_independence:
+            raise ValueError("invalid communication_independence")
+        if self.replication_claim not in {"ADMISSIBLE_CANDIDATE", "HOLD"}:
+            raise ValueError("replication claim must remain bounded")
+        if self.replication_claim == "ADMISSIBLE_CANDIDATE" and not self.isolated_analysis:
+            raise ValueError("replication candidate requires isolated analysis before reconciliation")
 
 
 @dataclass(frozen=True, slots=True)
@@ -165,6 +178,7 @@ class ResearchCycle:
     statistics: EvidenceStatistics
     four_domain_mapping: object
     follow_up_question: str | None
+    independent_phase: object | None = None
 
     def __post_init__(self) -> None:
         if self.cycle_index <= 0 or not self.question.strip():
@@ -173,6 +187,8 @@ class ResearchCycle:
             raise ValueError("cycle requires hypotheses")
         if not self.probe_plans:
             raise ValueError("cycle requires probe plans")
+        if self.statistics.isolated_analysis and self.independent_phase is None:
+            raise ValueError("isolated analysis statistics require independent-phase provenance")
 
 
 @dataclass(frozen=True, slots=True)
