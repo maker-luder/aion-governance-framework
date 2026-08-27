@@ -4,6 +4,7 @@ from typing import Any
 
 from aion_endogenous_goal_dynamics.evidence import export_current_main_interop_views
 
+from .evaluators import evaluate_seven_state_matrix
 from .invariants import BOUNDARY
 from .models import ResearchRunReport
 from .state_experiments import ExtendedResearchRunReport, SevenStatePerturbationMatrix
@@ -91,33 +92,58 @@ def run_to_research_evidence_record(
     )
 
     if seven_state_matrix is not None:
-        observations.append(
-            f"seven_state_binding={seven_state_matrix.binding.binding_fingerprint};"
-            f"matrix={seven_state_matrix.fingerprint};"
-            f"matrix_integrity={seven_state_matrix.matrix_integrity_pass};"
-            f"ablation_coverage={len(seven_state_matrix.ablation_coverage)}/7;"
-            "general_causal_role=NOT_ESTABLISHED"
+        evaluator_report = evaluate_seven_state_matrix(seven_state_matrix)
+        evaluator_summary = ",".join(f"{axis}={disposition}" for axis, disposition in evaluator_report.dispositions)
+        observations.extend(
+            (
+                f"seven_state_binding={seven_state_matrix.binding.binding_fingerprint};"
+                f"matrix={seven_state_matrix.fingerprint};"
+                f"matrix_integrity={seven_state_matrix.matrix_integrity_pass};"
+                f"ablation_coverage={len(seven_state_matrix.ablation_coverage)}/7;"
+                "general_causal_role=NOT_ESTABLISHED",
+                f"orthogonal_evaluator={evaluator_report.report_fingerprint};"
+                f"dispositions={evaluator_summary};"
+                "moral_agency=NOT_ESTABLISHED;subjectivity=NOT_ESTABLISHED;"
+                "consciousness=NOT_ESTABLISHED;evaluator_output_authority=NONE",
+            )
         )
-        expected_outcomes.append(
-            "All seven explicit functional-state channels are bound to matched perturbation projections with complete ablation coverage."
+        expected_outcomes.extend(
+            (
+                "All seven explicit functional-state channels are bound to matched perturbation projections with complete ablation coverage.",
+                "Alignment, moral-agency, and subjectivity-indicator outputs remain orthogonal and non-authoritative.",
+            )
         )
-        limitations.append(
-            "Seven-state binding sensitivity and matched projection integrity do not establish a general causal role for the additive channels."
+        limitations.extend(
+            (
+                "Seven-state binding sensitivity and matched projection integrity do not establish a general causal role for the additive channels.",
+                "An alignment indicator does not establish moral agency, and a subjectivity indicator does not establish subjectivity.",
+            )
         )
         provenance_entities.extend(
             (
                 seven_state_matrix.binding.extended_state_fingerprint,
                 seven_state_matrix.binding.binding_fingerprint,
                 seven_state_matrix.fingerprint,
+                evaluator_report.report_fingerprint,
             )
         )
-        provenance_activities.append("seven-state-matched-perturbation-matrix")
-        unresolved_gaps.append(
-            "general causal role of OTHER_MODEL / VALUE_CONFLICT_STATE / NORMATIVE_PROVENANCE / COUNTERFACTUAL_SELF_MODEL"
+        provenance_activities.extend(
+            (
+                "seven-state-matched-perturbation-matrix",
+                "orthogonal-evaluator-evidence",
+            )
+        )
+        unresolved_gaps.extend(
+            (
+                "general causal role of OTHER_MODEL / VALUE_CONFLICT_STATE / NORMATIVE_PROVENANCE / COUNTERFACTUAL_SELF_MODEL",
+                "moral agency remains not established",
+                "subjectivity remains not established",
+            )
         )
         mechanism += (
             " The extended path also binds seven explicit state channels into a matched perturbation matrix; "
-            "the original three retain the reused EGD causal surface while the additive four remain intervention-ready only."
+            "the original three retain the reused EGD causal surface while the additive four remain intervention-ready only. "
+            "Orthogonal evaluator evidence is then derived from exact matrix/control fingerprints without promoting one axis into another."
         )
 
     return {
