@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import pytest
 
+from aion_astra_inquiry.core import EvidenceItem, InquiryReport, StopReason
 from aion_bounded_research_loop import (
     AgentSourceExposure,
     CounterfactualCase,
@@ -22,6 +23,7 @@ from aion_bounded_research_loop import (
     VerificationPolicy,
     admit_source,
     assess_independence,
+    assess_inquiry_source_independence,
 )
 
 
@@ -217,3 +219,25 @@ def test_distinct_sources_and_no_communication_allow_only_replication_candidate(
     assert assessment.source_independence is IndependenceStatus.INDEPENDENT
     assert assessment.communication_independence is IndependenceStatus.INDEPENDENT
     assert assessment.replication_claim == "ADMISSIBLE_CANDIDATE"
+
+
+def test_inquiry_bridge_detects_shared_content_even_with_distinct_evidence_refs() -> None:
+    shared_hash = "b" * 64
+    report = InquiryReport(
+        question="Are the evidence paths source-independent?",
+        transcript=(),
+        evidence=(
+            EvidenceItem("ev:a", "AION view", shared_hash, retrieval_agent="AION"),
+            EvidenceItem("ev:b", "ASTRA view", shared_hash, retrieval_agent="ASTRA"),
+        ),
+        stop_reason=StopReason.MAX_ROUNDS,
+        candidate_findings=(),
+        final_chain_hash="GENESIS",
+    )
+    assessment = assess_inquiry_source_independence(
+        report,
+        direct_peer_communication=False,
+        reconciliation_after_independent_phase=True,
+    )
+    assert assessment.source_independence is IndependenceStatus.NOT_INDEPENDENT
+    assert assessment.replication_claim == "HOLD"
