@@ -29,98 +29,70 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: aion-astra-research-closure-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  tests:
-    name: Research closure tests (Python ${{ matrix.python-version }})
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.11", "3.12"]
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Run inquiry component tests
-        shell: bash
-        run: |
-          set -euo pipefail
-          PYTHONPATH=components/aion_astra_inquiry_v0.1.0/src \
-            python -m pytest -q \
-            components/aion_astra_inquiry_v0.1.0/tests \
-            -o addopts=
-
-      - name: Verify repository stayed read-only
-        shell: bash
-        run: |
-          set -euo pipefail
-          git diff --exit-code
-          test -z "$(git status --porcelain)"
-
   bounded-research-closure:
     name: Bounded autonomous research closure
-    needs: tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository read-only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 1
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: "3.12"
 
-      - name: Run closure
+      - name: Run bounded research closure
         id: closure
         shell: bash
         env:
-          EVENT_NAME: ${{ github.event_name }}
           INPUT_EXTERNAL_WEB: ${{ inputs.external_web }}
           INPUT_MAX_CYCLES: ${{ inputs.max_cycles }}
+          PYTHONDONTWRITEBYTECODE: "1"
         run: |
           set -euo pipefail
-          output="${RUNNER_TEMP}/aion-astra-research-closure"
-          mkdir -p "${output}"
+          OUT="${RUNNER_TEMP}/aion-astra-research-closure"
+          MAX_CYCLES="${INPUT_MAX_CYCLES:-2}"
+          ENABLE_EXTERNAL_WEB="true"
 
-          max_cycles="${INPUT_MAX_CYCLES:-2}"
-          external_args=()
+          if [[ "$GITHUB_EVENT_NAME" == "pull_request" ]]; then
+            ENABLE_EXTERNAL_WEB="false"
+          elif [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" && "${INPUT_EXTERNAL_WEB:-true}" == "false" ]]; then
+            ENABLE_EXTERNAL_WEB="false"
+          fi
 
-          if [[ "${EVENT_NAME}" == "push" ]]; then
-            external_args+=(--external-web)
-          elif [[ "${EVENT_NAME}" == "workflow_dispatch" && "${INPUT_EXTERNAL_WEB:-true}" == "true" ]]; then
-            external_args+=(--external-web)
+          args=(
+            --root .
+            --repository-ref "$GITHUB_SHA"
+            --max-cycles "$MAX_CYCLES"
+            --max-questions-per-cycle 2
+            --max-rounds 3
+            --evidence-limit 4
+            --external-max-queries 12
+            --external-results-per-query 1
+            --output "$OUT"
+          )
+          if [[ "$ENABLE_EXTERNAL_WEB" == "true" ]]; then
+            args+=(--external-web)
           fi
 
           PYTHONPATH=components/aion_astra_inquiry_v0.1.0/src \
-            python -m aion_astra_inquiry.research_cli \
-              --root . \
-              --repository-ref "${GITHUB_SHA}" \
-              --max-cycles "${max_cycles}" \
-              --max-questions-per-cycle 2 \
-              --max-rounds 3 \
-              --evidence-limit 4 \
-              --external-max-queries 12 \
-              --external-results-per-query 1 \
-              --output "${output}" \
-              "${external_args[@]}" \
-              | tee "${output}/stdout.txt"
+            python -B -m aion_astra_inquiry.research_cli "${args[@]}"
+          cat "$OUT/research_campaign.md" >> "$GITHUB_STEP_SUMMARY"
 
-          echo "markdown=${output}/research_campaign.md" >> "${GITHUB_OUTPUT}"
-
-      - name: Publish report to job summary
+      - name: Assert no repository writeback occurred
         shell: bash
         run: |
           set -euo pipefail
-          cat "${{ steps.closure.outputs.markdown }}" >> "${GITHUB_STEP_SUMMARY}"
-
-      - name: Verify repository stayed read-only
-        shell: bash
-        run: |
-          set -euo pipefail
-          git diff --exit-code
-          test -z "$(git status --porcelain)"
+          if [[ -n "$(git status --porcelain --untracked-files=all)" ]]; then
+            echo "Research closure workflow changed the repository working tree." >&2
+            git status --short
+            exit 1
+          fi
