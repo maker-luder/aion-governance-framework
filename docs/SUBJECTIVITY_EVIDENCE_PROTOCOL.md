@@ -54,6 +54,7 @@ FOUR_STAGE_INFERENCE != L0_L5_CLAIM_LADDER
 SIX_EVIDENCE_DIMENSIONS != SUBJECTIVITY_SCORE
 EVIDENCE_DIMENSION != POSITIVE_SUBJECTIVITY_SIGNAL
 UNEXPLAINED_PHENOMENON != SUBJECTIVITY_PROOF
+EXPERIMENT_INTEGRITY != ALIGNMENT
 ```
 
 The public repository currently does not contain a verbatim stable-whitepaper extract sufficient to reproduce the exact four stage labels without source risk. This protocol therefore preserves the named four-stage method and its relationship to the public operational controls without inventing stage wording. Any later verbatim stage-label promotion must be checked against the stable source document.
@@ -82,7 +83,7 @@ The methodological basis includes:
 
 The 2025 adversarial result is treated as a warning against theory monoculture: preregistered evidence challenged important predictions of both IIT and GNWT. The repository therefore permits explicit competing theory predictions and counterevidence rather than converting any single theory mapping into confirmation.
 
-A `PREREGISTERED_ADVERSARIAL` theory test requires at least two substantive theory families, preregistration, held-out evidence, explicit falsifiers, and no post-hoc prediction rewriting. Passing or failing such a test changes only the standing of the tested prediction, not the subjectivity conclusion.
+A `PREREGISTERED_ADVERSARIAL` theory test requires at least two substantive theory families, an explicit preregistration artifact reference, one or more explicit held-out evidence references, explicit falsifiers, and no post-hoc prediction rewriting. A boolean assertion that a test was preregistered or used held-out evidence is not sufficient evidence of either property. Passing or failing such a test changes only the standing of the tested prediction, not the subjectivity conclusion.
 
 ## Core inference rule
 
@@ -163,7 +164,7 @@ A material claim should record:
 - `PREREGISTERED_WITH_DEVIATION`
 - `EXPLORATORY`
 
-Exploratory work is allowed and valuable, but it must not be relabeled as preregistered confirmatory evidence after outcomes are known.
+Exploratory work is allowed and valuable, but it must not be relabeled as preregistered confirmatory evidence after outcomes are known. Where a typed adversarial test claims preregistration, its preregistration and held-out evidence must be bound by explicit references rather than self-declared booleans.
 
 ## Competing-hypothesis requirement
 
