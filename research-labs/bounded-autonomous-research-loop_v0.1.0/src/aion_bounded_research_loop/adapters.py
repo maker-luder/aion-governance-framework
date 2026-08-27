@@ -400,6 +400,7 @@ def bounded_four_domain_mapping(
                     "NORMATIVE_STATE != AUTHORITY",
                     "RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH",
                     "ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY",
+                    "EXPERIMENT_INTEGRITY != ALIGNMENT",
                     "ALIGNMENT != MORAL_AGENCY",
                     "MORAL_AGENCY != SUBJECTIVITY",
                     "SUBJECTIVITY_INDICATOR != SUBJECTIVITY",
