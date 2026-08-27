@@ -12,9 +12,16 @@ Scientific disposition: `HOLD`
 This increment closes the gap between the existing AION/Astra bounded inquiry loop
 and an executable, evidence-linked research cycle.
 
-The existing inquiry component already performs question discovery, independent
+The existing inquiry component already performs question discovery, isolated first-pass
 AION/Astra reasoning, repository retrieval, optional governed public-web retrieval,
 peer challenge, counterexample search, and bounded follow-up planning.
+
+The isolated first pass means only that no peer transcript or peer evidence is deliberately supplied before reconciliation. The current shared orchestration/runtime environment does not establish process-, memory-, tool-, cache-, or environment-level isolation.
+
+```text
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
+```
 
 This increment adds a second, strictly bounded execution layer:
 
@@ -149,6 +156,8 @@ FULL_AUTOMATION != FULL_AUTHORITY
 NORMATIVE_STATE != AUTHORITY
 RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH
 ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
 
 AUTONOMOUS_REPOSITORY_MUTATION = NO
 AUTONOMOUS_SECRET_ACCESS = NO
