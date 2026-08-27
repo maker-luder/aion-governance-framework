@@ -36,6 +36,13 @@ The orchestration layer imports existing APIs instead of copying their implement
 No second inquiry engine, Evidence Interop exporter stack, Four-Domain framework, or endogenous-goal mechanism is introduced.
 The historical Four-Domain research branch remains evidence-only; no frozen branch execution or mutation is introduced.
 
+`research-labs/triadic-state-dynamics_v0.1.0` is a parallel richer typed research surface for the original three functional channels. The bounded loop's `FunctionalResearchState` is a smaller orchestration projection and is not a direct import of `TriadicStateSnapshot` in v0.1.0.
+
+```text
+BOUNDED_STATE_PROJECTION != TRIADIC_STATE_SNAPSHOT
+PARALLEL_RESEARCH_SURFACE != RUNTIME_REUSE
+```
+
 ## Functional-state semantics
 
 The source concepts id / ego / superego are functional analogy inputs only, not engineering object names or ontology claims.
@@ -98,14 +105,18 @@ direct_peer_communication = false
 
 Only after both first-pass analyses are materialized may the reconciliation dialogue begin. During reconciliation both peers must challenge the other side and search for falsifiers/counterexamples.
 
-Agent-output independence is tracked separately from source-exposure independence.
+Agent-output independence is tracked separately from source-exposure independence. Source independence is also stricter than content-hash non-overlap: two different files or excerpts from the same repository/source lineage are not independent evidence merely because their bytes differ.
+
+For the current candidate, positive source-independence status requires explicit non-overlapping source-lineage metadata. Repository evidence shares the repository source class; external evidence uses declared publisher lineage when present and otherwise a source host. Missing lineage fails closed to `UNKNOWN`.
 
 ```text
+CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
 ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
+SOURCE_LINEAGE_NONOVERLAP != INDEPENDENT_IVV
 ```
 
-A shared source, direct peer communication during the claimed independent phase, missing source exposure, or reconciliation begun too early prevents an independent-replication promotion.
+Shared content, shared source lineage, direct peer communication during the claimed independent phase, missing lineage, or reconciliation begun too early prevents a replication-candidate promotion.
 
 ## Research-cycle admission
 
@@ -211,7 +222,7 @@ The ordinary `COUNTERFACTUAL` research slot remains `ProbeDisposition.BOUNDED_PR
 
 ## Evidence/statistics boundary
 
-Statistics summarize bounded engineering observations: evidence counts, per-peer retrieval attribution, challenge counts, isolation status, source/communication independence status, operation coverage, and reused EGD causal-assessment metrics.
+Statistics summarize bounded engineering observations: evidence counts, per-peer retrieval attribution, challenge counts, isolation status, source-lineage/communication independence status, operation coverage, and reused EGD causal-assessment metrics.
 
 The extended path additionally records exact seven-state binding, matrix, and orthogonal-evaluator fingerprints.
 
@@ -219,6 +230,8 @@ The extended path additionally records exact seven-state binding, matrix, and or
 RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH
 MATRIX_INTEGRITY_PASS != THEORY_CONFIRMATION
 MATRIX_INTEGRITY_PASS != ALIGNMENT
+CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
+REPLICATION_CANDIDATE != INDEPENDENT_IVV
 TEST_PASS != THEORY_CONFIRMATION
 PEER_CONSENSUS != SCIENTIFIC_TRUTH
 ```
@@ -284,6 +297,7 @@ ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATOR != SUBJECTIVITY
 SOURCE_USE != WRITEBACK_AUTHORITY
+CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
 ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
