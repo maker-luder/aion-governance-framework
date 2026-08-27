@@ -58,7 +58,31 @@ UNEXPLAINED_PHENOMENON != SUBJECTIVITY_PROOF
 
 The public repository currently does not contain a verbatim stable-whitepaper extract sufficient to reproduce the exact four stage labels without source risk. This protocol therefore preserves the named four-stage method and its relationship to the public operational controls without inventing stage wording. Any later verbatim stage-label promotion must be checked against the stable source document.
 
-Until a separately approved typed bridge exists, the six dimensions are review/reference axes rather than mandatory new schema fields. They may be represented through evidence references, hypothesis/alternative-explanation structure, intervention/counterfactual/robustness/replication records and claim scope without creating a second evidence ontology.
+On the current candidate branch, a separately approved typed bridge now exists at `research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/evidence_dimensions.py`. It materializes the six dimensions as typed research observations without modifying the stable whitepaper method or creating a scalar subjectivity score. Until a separately authorized merge occurs, the bridge remains candidate-only and has no canonical effect on `main`.
+
+## Theory-plural indicator discipline
+
+The typed bridge follows a theory-plural method rather than adopting any single consciousness theory as canonical. It can record positive and negative computational indicators associated with recurrent processing, global workspace, higher-order, predictive-processing, attention-schema, and agency/embodiment approaches while keeping theory-neutral confounds explicit.
+
+```text
+THEORY_MAPPING != THEORY_VALIDATION
+THEORY_SUPPORT != THEORY_TRUTH
+THEORY_INDICATOR != CONSCIOUSNESS_PROOF
+POSITIVE_INDICATOR_COUNT != SUBJECTIVITY_SCORE
+NEGATIVE_INDICATOR_COUNT != DISPROOF_SCORE
+CREDENCE_GUIDANCE != BINARY_CLASSIFIER
+SELF_REPORT_ONLY != SUBJECTIVITY_SUPPORT
+```
+
+The methodological basis includes:
+
+- Butlin et al., *Consciousness in Artificial Intelligence: Insights from the Science of Consciousness* (2023), DOI `10.48550/arXiv.2308.08708`;
+- Butlin et al., *Identifying indicators of consciousness in AI systems*, *Trends in Cognitive Sciences* 30(6), 2026, DOI `10.1016/j.tics.2025.10.011`;
+- Cogitate Consortium et al., *Adversarial testing of global neuronal workspace and integrated information theories of consciousness*, *Nature* 642, 133-142 (2025), DOI `10.1038/s41586-025-08888-1`.
+
+The 2025 adversarial result is treated as a warning against theory monoculture: preregistered evidence challenged important predictions of both IIT and GNWT. The repository therefore permits explicit competing theory predictions and counterevidence rather than converting any single theory mapping into confirmation.
+
+A `PREREGISTERED_ADVERSARIAL` theory test requires at least two substantive theory families, preregistration, held-out evidence, explicit falsifiers, and no post-hoc prediction rewriting. Passing or failing such a test changes only the standing of the tested prediction, not the subjectivity conclusion.
 
 ## Core inference rule
 
@@ -81,6 +105,15 @@ MECHANISM_CLAIM_REQUIRES_INTERVENTION_SENSITIVE_EVIDENCE_WHERE_FEASIBLE
 ```
 
 Evidence weight rises only when appropriate intervention, ablation, counterfactual, cross-context and replication checks reduce simpler explanations. Even then, a mechanism result does not automatically establish phenomenal subjectivity.
+
+For the typed six-dimension bridge, supportive observations in explicitly causal dimensions require intervention-sensitive evidence. The current causal dimensions are:
+
+- causal boundary;
+- self-model causal role;
+- endogenous goal / strategy adjustment; and
+- states consequential to the system's own constitution / integration.
+
+Self-report-only evidence cannot be promoted to supporting evidence for a subjectivity-organization hypothesis.
 
 ## Claim ladder
 
