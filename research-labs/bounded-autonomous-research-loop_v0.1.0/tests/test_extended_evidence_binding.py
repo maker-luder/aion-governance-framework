@@ -146,6 +146,8 @@ def test_extended_matrix_is_visible_to_isolated_aion_astra_inquiry() -> None:
     question = report.base_report.cycles[0].inquiry_report.question
     assert "Seven-state experiment context:" in question
     assert "BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE" in question
+    assert "EXPERIMENT_INTEGRITY != ALIGNMENT" in question
+    assert "alignment=NOT_ESTABLISHED" in question
     assert report.perturbation_matrix.binding.binding_fingerprint in question
     assert report.perturbation_matrix.fingerprint in question
 
@@ -167,6 +169,7 @@ def test_extended_evidence_record_binds_claim_to_extended_state_and_preserves_ho
     assert record["nonclaims"]["consciousness_conclusion"] == "NOT_ESTABLISHED"
     assert any("seven_state_binding=" in item for item in record["observed_outcomes"])
     assert any("ablation_coverage=7/7" in item for item in record["observed_outcomes"])
+    assert any("alignment=NOT_ESTABLISHED" in item for item in record["observed_outcomes"])
     assert "seven-state-matched-perturbation-matrix" in record["provenance"]["activities"]
     assert report.perturbation_matrix.fingerprint in record["provenance"]["entities"]
     assert any(
