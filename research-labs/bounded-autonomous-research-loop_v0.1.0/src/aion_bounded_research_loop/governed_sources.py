@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from enum import Enum
 
+from aion_astra_inquiry.core import AgentId, EvidenceItem, EvidenceSource
+
 from .models import canonical_hash
 
 
@@ -119,6 +121,74 @@ def admit_source(record: GovernedSourceRecord, *, agent: str, task: str, request
         reasons=tuple(reasons),
         source_fingerprint=record.fingerprint,
     )
+
+
+@dataclass(slots=True)
+class GovernedEvidenceSource:
+    """Pre-admit a source before retrieval and fail closed before context injection.
+
+    A registry record governs one underlying evidence source. The wrapper records
+    every admission decision and never converts source availability into authority.
+    """
+
+    source: EvidenceSource
+    record: GovernedSourceRecord
+    task: str
+    context_budget_tokens: int
+    admission_log: list[SourceAdmissionDecision] = field(init=False, default_factory=list)
+
+    def __post_init__(self) -> None:
+        if not self.task.strip():
+            raise ValueError("governed evidence source requires a task")
+        if self.context_budget_tokens <= 0:
+            raise ValueError("context_budget_tokens must be positive")
+
+    @property
+    def last_decision(self) -> SourceAdmissionDecision | None:
+        return self.admission_log[-1] if self.admission_log else None
+
+    def search(
+        self,
+        query: str,
+        limit: int = 5,
+        requester: AgentId | None = None,
+    ) -> tuple[EvidenceItem, ...]:
+        agent = requester.value if requester is not None else "UNATTRIBUTED"
+        preflight = admit_source(
+            self.record,
+            agent=agent,
+            task=self.task,
+            requested_tokens=self.context_budget_tokens,
+        )
+        self.admission_log.append(preflight)
+        if not preflight.admitted:
+            return ()
+
+        found = tuple(self.source.search(query, limit=limit, requester=requester))
+        actual_tokens = _approximate_context_tokens(found)
+        if actual_tokens > self.context_budget_tokens or actual_tokens > self.record.context_token_cap:
+            hold = SourceAdmissionDecision(
+                source_id=self.record.source_id,
+                agent=agent,
+                task=self.task,
+                requested_tokens=actual_tokens,
+                admitted=False,
+                disposition="HOLD",
+                reasons=("returned_context_token_cap_exceeded",),
+                source_fingerprint=self.record.fingerprint,
+            )
+            self.admission_log.append(hold)
+            return ()
+        return found
+
+
+def _approximate_context_tokens(items: tuple[EvidenceItem, ...]) -> int:
+    if not items:
+        return 1
+    # Deliberately conservative, deterministic approximation used only for the
+    # hard context-injection gate. It is not a provider billing/tokenizer claim.
+    characters = sum(len(item.excerpt) + len(item.ref) for item in items)
+    return max(1, (characters + 2) // 3)
 
 
 @dataclass(frozen=True, slots=True)
