@@ -44,7 +44,13 @@ class HarnessRegistration:
         if not self.harness_id.strip():
             raise ValueError("harness_id must not be empty")
         for value in (self.lab_path, self.entrypoint, self.python_source):
-            if not value.strip() or Path(value).is_absolute() or ".." in Path(value).parts:
+            path = Path(value)
+            if (
+                not value.strip()
+                or path.is_absolute()
+                or ".." in path.parts
+                or "\\" in value
+            ):
                 raise ValueError("harness paths must be normalized repository-relative paths")
         if not self.lab_path.startswith("research-labs/"):
             raise ValueError("harness lab_path must remain under research-labs")
@@ -150,7 +156,7 @@ class BoundedHarnessOrchestrator:
     """Execute exact allowlisted research-lab harnesses under a fail-closed process guard.
 
     This is deliberately not a general shell executor. AION/Astra inquiry output can
-    cause the campaign to *select* a registered harness, but selection never grants
+    cause the campaign to select a registered harness, but selection never grants
     execution authority beyond the immutable registry and policy below.
 
     The process guard removes inherited secrets, blocks Python-level network access and
@@ -515,6 +521,7 @@ def _write_mode(mode: str) -> bool:
 _real_open = builtins.open
 _real_io_open = io.open
 _real_os_open = os.open
+_real_socket = socket.socket
 
 
 def _guarded_open(file, mode="r", *args, **kwargs):
@@ -544,12 +551,20 @@ def _deny_child_process(*args, **kwargs):
     raise PermissionError("research harness child-process execution denied")
 
 
+class _DeniedSocket(_real_socket):
+    def connect(self, *args, **kwargs):
+        return _deny_network(*args, **kwargs)
+
+    def connect_ex(self, *args, **kwargs):
+        return _deny_network(*args, **kwargs)
+
+
 builtins.open = _guarded_open
 io.open = _guarded_io_open
 os.open = _guarded_os_open
+socket.socket = _DeniedSocket
 socket.create_connection = _deny_network
 socket.getaddrinfo = _deny_network
-socket.socket.connect = _deny_network
 subprocess.Popen = _deny_child_process
 os.system = _deny_child_process
 os.popen = _deny_child_process
