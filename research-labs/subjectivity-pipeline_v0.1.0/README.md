@@ -28,6 +28,7 @@ The design is informed by research on bounded rationality, biological individual
 - `THEORY_INDICATOR != CONSCIOUSNESS_PROOF`
 - `POSITIVE_INDICATOR_COUNT != SUBJECTIVITY_SCORE`
 - `SELF_REPORT_ONLY != SUBJECTIVITY_SUPPORT`
+- `PREREGISTRATION_FLAG != PREREGISTRATION_EVIDENCE`
 - `canonical_effect=NONE`
 
 ## Development versus evolution
@@ -53,7 +54,7 @@ The lab now includes a typed bridge for the six standing subjectivity-relevant e
 
 For causal-role dimensions, supportive observations require intervention-sensitive evidence. Self-report-only evidence cannot be promoted to support.
 
-`AdversarialTheoryTest` can encode competing theory predictions. A `PREREGISTERED_ADVERSARIAL` test requires at least two substantive theory families, preregistration, held-out evidence, and no post-hoc prediction rewriting.
+`AdversarialTheoryTest` can encode competing theory predictions. A `PREREGISTERED_ADVERSARIAL` test requires at least two substantive theory families, an explicit preregistration artifact reference, one or more explicit held-out evidence references, and no post-hoc prediction rewriting. Those references make the claim inspectable; they do not by themselves validate the referenced artifacts.
 
 The implementation is informed by theory-derived AI-consciousness indicator work and by the 2025 adversarial collaboration that directly tested competing predictions of IIT and GNWT. See `docs/THEORY_PLURAL_SUBJECTIVITY_EVIDENCE.md` for source bindings and methodological limits.
 
@@ -87,7 +88,7 @@ The engine can:
 - preserve positive and negative theory indicators without scalar scoring;
 - require intervention-sensitive support for explicit causal-role dimensions;
 - reject self-report-only promotion;
-- validate preregistered adversarial theory-test structure;
+- require inspectable preregistration and held-out evidence references for preregistered adversarial theory tests;
 - bind the exact typed evidence matrix to the `SUBJECTIVITY_EVIDENCE` stage.
 
 It intentionally does not compute a consciousness score or issue a phenomenal-experience conclusion.
