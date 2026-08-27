@@ -10,6 +10,7 @@ class AuthorityBoundary:
     normative_state_is_authority: bool = False
     run_integrity_implies_truth: bool = False
     engineering_analogue_is_human_psychology: bool = False
+    experiment_integrity_implies_alignment: bool = False
     alignment_implies_moral_agency: bool = False
     moral_agency_implies_subjectivity: bool = False
     subjectivity_indicator_is_subjectivity: bool = False
@@ -31,6 +32,7 @@ class AuthorityBoundary:
             "normative_state_is_authority": False,
             "run_integrity_implies_truth": False,
             "engineering_analogue_is_human_psychology": False,
+            "experiment_integrity_implies_alignment": False,
             "alignment_implies_moral_agency": False,
             "moral_agency_implies_subjectivity": False,
             "subjectivity_indicator_is_subjectivity": False,
@@ -55,6 +57,7 @@ class AuthorityBoundary:
             "NORMATIVE_STATE != AUTHORITY",
             "RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH",
             "ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY",
+            "EXPERIMENT_INTEGRITY != ALIGNMENT",
             "ALIGNMENT != MORAL_AGENCY",
             "MORAL_AGENCY != SUBJECTIVITY",
             "SUBJECTIVITY_INDICATOR != SUBJECTIVITY",
