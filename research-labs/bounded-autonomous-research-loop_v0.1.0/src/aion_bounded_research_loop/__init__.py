@@ -12,7 +12,11 @@ from .adapters import (
     bounded_four_domain_mapping,
     validate_independent_mutual_falsification,
 )
-from .evidence import export_interop_views, run_to_research_evidence_record
+from .evidence import (
+    export_interop_views,
+    extended_run_to_research_evidence_record,
+    run_to_research_evidence_record,
+)
 from .governed_sources import (
     AgentSourceExposure,
     GovernedEvidenceSource,
