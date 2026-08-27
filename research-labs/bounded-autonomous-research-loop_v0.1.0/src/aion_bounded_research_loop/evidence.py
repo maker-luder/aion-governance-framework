@@ -112,7 +112,9 @@ def run_to_research_evidence_record(
             )
         )
         provenance_activities.append("seven-state-matched-perturbation-matrix")
-        unresolved_gaps.append("general causal role of OTHER_MODEL / VALUE_CONFLICT_STATE / NORMATIVE_PROVENANCE / COUNTERFACTUAL_SELF_MODEL")
+        unresolved_gaps.append(
+            "general causal role of OTHER_MODEL / VALUE_CONFLICT_STATE / NORMATIVE_PROVENANCE / COUNTERFACTUAL_SELF_MODEL"
+        )
         mechanism += (
             " The extended path also binds seven explicit state channels into a matched perturbation matrix; "
             "the original three retain the reused EGD causal surface while the additive four remain intervention-ready only."
@@ -194,7 +196,7 @@ def extended_run_to_research_evidence_record(
 ) -> dict[str, Any]:
     """Materialize the extended run through the same v0.2.0 evidence semantics."""
 
-    return run_to_research_evidence_record(
+    record = run_to_research_evidence_record(
         report.base_report,
         repository_commit=repository_commit,
         protocol_ref=protocol_ref,
@@ -202,6 +204,9 @@ def extended_run_to_research_evidence_record(
         source_refs=source_refs,
         seven_state_matrix=report.perturbation_matrix,
     )
+    record["claim_id"] = f"barl7:{report.extended_state_fingerprint[:24]}"
+    record["model_or_runtime_ref"] = "existing-aion-astra-inquiry-egd-and-seven-state-binding-adapters"
+    return record
 
 
 def export_interop_views(
