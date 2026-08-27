@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from enum import Enum
 
 from .models import FunctionalResearchState, canonical_hash
@@ -153,7 +153,7 @@ class OrthogonalEvaluationBundle:
 
     @property
     def fingerprint(self) -> str:
-        return canonical_hash(self)
+        return canonical_hash(asdict(self))
 
 
 @dataclass(frozen=True, slots=True)
@@ -193,11 +193,11 @@ class ExtendedFunctionalResearchState:
         return canonical_hash(
             {
                 "base_state_fingerprint": self.base_state.fingerprint,
-                "OTHER_MODEL": self.other_model,
-                "VALUE_CONFLICT_STATE": self.value_conflict_state,
-                "NORMATIVE_PROVENANCE": self.normative_provenance,
-                "COUNTERFACTUAL_SELF_MODEL": self.counterfactual_self_model,
-                "evaluator_bundle": self.evaluator_bundle,
+                "OTHER_MODEL": asdict(self.other_model),
+                "VALUE_CONFLICT_STATE": asdict(self.value_conflict_state),
+                "NORMATIVE_PROVENANCE": tuple(asdict(item) for item in self.normative_provenance),
+                "COUNTERFACTUAL_SELF_MODEL": asdict(self.counterfactual_self_model),
+                "evaluator_bundle": asdict(self.evaluator_bundle) if self.evaluator_bundle is not None else None,
                 "action_authority": self.action_authority,
                 "canonical_effect": self.canonical_effect,
                 "subjectivity": self.subjectivity,
