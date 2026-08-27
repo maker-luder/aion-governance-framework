@@ -34,9 +34,10 @@ Directory: [`governance/`](governance/)
 Use for authority, source admission, writeback, transition, risk, memory, and documentation controls. Important entry-level controls include:
 
 - [`governance/GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md`](governance/GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md)
-- [`governance/ENDOGENOUS_NORMATIVE_MODEL.md`](governance/ENDOGENOUS_NORMATIVE_MODEL.md)
 - [`governance/MAIN_TRANSITION_AUTHORITY_GATE.md`](governance/MAIN_TRANSITION_AUTHORITY_GATE.md)
 - [`governance/DOCUMENTATION_GOVERNANCE.md`](governance/DOCUMENTATION_GOVERNANCE.md)
+
+Bounded norm-formation and related normative-state research material remains component/lab-local under [`../research-labs/`](../research-labs/) unless a dedicated governance control explicitly promotes a narrower rule.
 
 Action-specific governance controls outrank this index for the actions they govern.
 
@@ -56,7 +57,7 @@ CI_PASS != THEORY_CONFIRMATION
 These are bounded to the component/lab they describe and are not global reader entry points:
 
 - [`../components/`](../components/) — governance, execution, evidence and runtime components;
-- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, triadic state dynamics and bounded research loop;
+- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics and bounded research loop;
 - [`../experiments/`](../experiments/) — bounded experiments and baselines.
 
 Read the local `README`/`docs` only after the relevant global method/architecture document.
