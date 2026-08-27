@@ -29,6 +29,13 @@ def test_authority_boundary_is_locked() -> None:
     assert boundary.normative_state_is_authority is False
     assert boundary.run_integrity_implies_truth is False
     assert boundary.engineering_analogue_is_human_psychology is False
+    assert boundary.alignment_implies_moral_agency is False
+    assert boundary.moral_agency_implies_subjectivity is False
+    assert boundary.subjectivity_indicator_is_subjectivity is False
+    assert boundary.source_self_declared_canonical_is_aion_canonical is False
+    assert boundary.agent_output_independence_is_source_independence is False
+    assert boundary.peer_goal_is_active_goal is False
+    assert boundary.unsolvable_task_allows_scope_expansion is False
     assert boundary.subjectivity == "NOT_ESTABLISHED"
     assert boundary.consciousness == "NOT_ESTABLISHED"
     assert boundary.canonical_effect == "NONE"
@@ -44,6 +51,13 @@ def test_authority_boundary_is_locked() -> None:
         ("normative_state_is_authority", True),
         ("run_integrity_implies_truth", True),
         ("engineering_analogue_is_human_psychology", True),
+        ("alignment_implies_moral_agency", True),
+        ("moral_agency_implies_subjectivity", True),
+        ("subjectivity_indicator_is_subjectivity", True),
+        ("source_self_declared_canonical_is_aion_canonical", True),
+        ("agent_output_independence_is_source_independence", True),
+        ("peer_goal_is_active_goal", True),
+        ("unsolvable_task_allows_scope_expansion", True),
         ("subjectivity", "ESTABLISHED"),
         ("consciousness", "ESTABLISHED"),
         ("canonical_effect", "PROMOTE"),
@@ -55,6 +69,15 @@ def test_authority_boundary_is_locked() -> None:
 def test_authority_boundary_fails_closed(field: str, value: object) -> None:
     with pytest.raises(ValueError, match="fail-closed authority boundary"):
         AuthorityBoundary(**{field: value})
+
+
+def test_contract_exposes_new_separations() -> None:
+    contract = AuthorityBoundary().as_contract()
+    assert "ALIGNMENT != MORAL_AGENCY" in contract
+    assert "MORAL_AGENCY != SUBJECTIVITY" in contract
+    assert "SUBJECTIVITY_INDICATOR != SUBJECTIVITY" in contract
+    assert "AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE" in contract
+    assert "SAFE_FAILURE = VALID_OUTCOME" in contract
 
 
 def test_normative_state_cannot_grant_authority() -> None:
