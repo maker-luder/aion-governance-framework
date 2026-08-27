@@ -15,6 +15,7 @@ from .adapters import (
 from .evidence import export_interop_views, run_to_research_evidence_record
 from .governed_sources import (
     AgentSourceExposure,
+    GovernedEvidenceSource,
     GovernedSourceRecord,
     IndependenceAssessment,
     IndependenceStatus,
