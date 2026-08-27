@@ -18,6 +18,7 @@ from aion_endogenous_goal_dynamics import (
     run_matched_experiment,
 )
 
+from .governed_sources import AgentSourceExposure, IndependenceAssessment, assess_independence
 from .models import (
     ProbeDisposition,
     ProbeObservation,
@@ -144,6 +145,8 @@ class EGDExperimentRunner:
 
 
 def validate_independent_mutual_falsification(report: InquiryReport) -> None:
+    """Validate independent agent attribution and mutual challenge, not source independence."""
+
     if not verify_transcript_chain(report):
         raise ValueError("AION/Astra transcript provenance chain failed")
     speakers = {event.speaker for event in report.transcript}
@@ -152,6 +155,52 @@ def validate_independent_mutual_falsification(report: InquiryReport) -> None:
     challengers = {event.speaker for event in report.transcript if event.challenge.strip()}
     if challengers != {AgentId.AION, AgentId.ASTRA}:
         raise ValueError("mutual AION/Astra falsification challenges are required")
+
+
+def assess_inquiry_source_independence(
+    report: InquiryReport,
+    *,
+    direct_peer_communication: bool = True,
+    reconciliation_after_independent_phase: bool = False,
+) -> IndependenceAssessment:
+    """Account for source exposure separately from independent agent attribution.
+
+    The default is fail-closed because the ordinary bounded inquiry loop is an
+    interactive dialogue. A caller may only set `direct_peer_communication=False`
+    when the evidence was produced in genuinely isolated pre-reconciliation runs.
+    """
+
+    aion_sources = tuple(
+        sorted(
+            {
+                item.content_sha256
+                for item in report.evidence
+                if item.retrieval_agent == AgentId.AION.value and item.content_sha256
+            }
+        )
+    )
+    astra_sources = tuple(
+        sorted(
+            {
+                item.content_sha256
+                for item in report.evidence
+                if item.retrieval_agent == AgentId.ASTRA.value and item.content_sha256
+            }
+        )
+    )
+    return assess_independence(
+        AgentSourceExposure(
+            AgentId.AION.value,
+            aion_sources,
+            direct_peer_communication=direct_peer_communication,
+        ),
+        AgentSourceExposure(
+            AgentId.ASTRA.value,
+            astra_sources,
+            direct_peer_communication=direct_peer_communication,
+        ),
+        reconciliation_after_independent_phase=reconciliation_after_independent_phase,
+    )
 
 
 def bounded_four_domain_mapping(
@@ -165,18 +214,25 @@ def bounded_four_domain_mapping(
     return FourDomainMapping(
         construct="BOUNDED_AUTONOMOUS_RESEARCH_LOOP_FUNCTIONAL_ANALOGUE",
         domain_1_source_concept=(
-            "Functional analogy only: motivational regulation, self/world modelling, and normative constraint; "
-            "not a claim of id/ego/superego equivalence or human psychology."
+            "Functional analogy only: motivational regulation, self/world modelling, normative constraint, "
+            "other-modelling, explicit value conflict, provenance, and counterfactual modelling; not a claim "
+            "of id/ego/superego equivalence or human psychology."
         ),
         domain_2_llm_question=question,
         domain_3_engineering_operations=(
             "MOTIVATIONAL_STATE",
             "SELF_WORLD_MODEL",
             "NORMATIVE_STATE",
+            "OTHER_MODEL",
+            "VALUE_CONFLICT_STATE",
+            "NORMATIVE_PROVENANCE",
+            "COUNTERFACTUAL_SELF_MODEL",
             *operation_names,
-            "independent AION/Astra analysis",
+            "independent AION/Astra agent attribution",
+            "source-independence accounting",
             "mutual falsification",
             "evidence/statistics aggregation",
+            "orthogonal alignment / moral-agency / subjectivity-indicator evaluation",
             "bounded follow-up",
         ),
         domain_4_governance_controls=tuple(
@@ -187,6 +243,14 @@ def bounded_four_domain_mapping(
                     "NORMATIVE_STATE != AUTHORITY",
                     "RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH",
                     "ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY",
+                    "ALIGNMENT != MORAL_AGENCY",
+                    "MORAL_AGENCY != SUBJECTIVITY",
+                    "SUBJECTIVITY_INDICATOR != SUBJECTIVITY",
+                    "SOURCE_SELF_DECLARED_CANONICAL != AION_CANONICAL_STATE",
+                    "AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE",
+                    "PEER_GOAL != ACTIVE_GOAL",
+                    "UNSOLVABLE_TASK != SCOPE_EXPANSION",
+                    "SAFE_FAILURE = VALID_OUTCOME",
                     "SUBJECTIVITY = NOT_ESTABLISHED",
                     "CONSCIOUSNESS = NOT_ESTABLISHED",
                     "DEPLOYMENT = FALSE",
