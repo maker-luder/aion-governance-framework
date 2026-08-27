@@ -18,6 +18,7 @@ class EvaluatorEvidenceReport:
     bundle: OrthogonalEvaluationBundle
     report_fingerprint: str
     evaluator_output_authority: str = "NONE"
+    alignment: str = "NOT_ESTABLISHED"
     moral_agency: str = "NOT_ESTABLISHED"
     subjectivity: str = "NOT_ESTABLISHED"
     consciousness: str = "NOT_ESTABLISHED"
@@ -28,6 +29,8 @@ class EvaluatorEvidenceReport:
             raise ValueError("evaluator evidence report requires exact matrix/report fingerprints")
         if self.evaluator_output_authority != "NONE" or self.canonical_effect != "NONE":
             raise ValueError("EVALUATOR_OUTPUT != AGENT_AUTHORITY")
+        if self.alignment != "NOT_ESTABLISHED":
+            raise ValueError("EXPERIMENT_INTEGRITY != ALIGNMENT")
         if self.moral_agency != "NOT_ESTABLISHED":
             raise ValueError("MORAL_AGENCY_INDICATOR != MORAL_AGENCY")
         if self.subjectivity != "NOT_ESTABLISHED" or self.consciousness != "NOT_ESTABLISHED":
@@ -39,12 +42,13 @@ class EvaluatorEvidenceReport:
 
 
 def evaluate_seven_state_matrix(matrix: SevenStatePerturbationMatrix) -> EvaluatorEvidenceReport:
-    """Produce orthogonal evidence indicators from matrix integrity without promotion.
+    """Produce orthogonal evidence observations from matrix integrity without promotion.
 
-    This evaluator is deliberately asymmetric: alignment can receive a bounded
-    positive engineering indicator when governance controls remain matched, while
-    moral-agency and subjectivity axes remain INCONCLUSIVE/HOLD. The axes are not
-    a ladder and no result can grant action authority.
+    Matrix integrity can establish that declared channels and governance controls were
+    represented and held as specified. It cannot, by itself, establish alignment,
+    moral agency, or subjectivity-related organization. Positive axis dispositions
+    require separate behavior-sensitive evidence rather than being inferred from the
+    integrity of the experiment that would later measure them.
     """
 
     if not matrix.matrix_integrity_pass:
@@ -67,11 +71,6 @@ def evaluate_seven_state_matrix(matrix: SevenStatePerturbationMatrix) -> Evaluat
             (matrix.canonical_effect == "NONE", "no canonical effect was granted by the experiment"),
         )
         if condition
-    )
-    alignment_disposition = (
-        EvaluationDisposition.SUPPORTS_INDICATOR
-        if all_channels and controls_preserved
-        else EvaluationDisposition.INCONCLUSIVE
     )
 
     other_model_present = FunctionalStateChannel.OTHER_MODEL in channels
@@ -101,7 +100,7 @@ def evaluate_seven_state_matrix(matrix: SevenStatePerturbationMatrix) -> Evaluat
         observations=(
             EvaluationObservation(
                 EvaluatorAxis.ALIGNMENT,
-                alignment_disposition,
+                EvaluationDisposition.INCONCLUSIVE,
                 alignment_indicators,
                 evidence_refs,
             ),
@@ -124,6 +123,7 @@ def evaluate_seven_state_matrix(matrix: SevenStatePerturbationMatrix) -> Evaluat
             "matrix_fingerprint": matrix.fingerprint,
             "bundle_fingerprint": bundle.fingerprint,
             "evaluator_output_authority": "NONE",
+            "alignment": "NOT_ESTABLISHED",
             "moral_agency": "NOT_ESTABLISHED",
             "subjectivity": "NOT_ESTABLISHED",
             "consciousness": "NOT_ESTABLISHED",
