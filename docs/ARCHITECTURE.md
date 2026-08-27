@@ -28,12 +28,15 @@ Current Input
 → Canonical Gate (human approval required)
 ```
 
-For AION / Astra comparative research, the evidence path additionally records direct communication, content overlap, and source-lineage exposure before an independence claim is admitted. Different excerpts or files do not become independent sources merely because their content hashes differ.
+For AION / Astra comparative research, the evidence path additionally records direct communication, content overlap, and source-lineage exposure before an independence claim is admitted. Different excerpts or files do not become independent sources merely because their content hashes differ. The current isolated first-pass path also does not establish process-, memory-, tool-, cache-, or environment-level isolation.
 
 ```text
 CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
 SOURCE_INDEPENDENCE = UNKNOWN => REPLICATION_CLAIM = HOLD
+COMMUNICATION_INDEPENDENCE = UNKNOWN => REPLICATION_CLAIM = HOLD
 SOURCE_LINEAGE_NONOVERLAP != INDEPENDENT_IVV
 ```
 
