@@ -14,6 +14,15 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 | navigation | [`README.md`](README.md) | Compatibility documentation guide pointing to current navigation |
 | navigation | this file | Curated catalog and class map |
 
+## Onboarding and external interfaces
+
+- [`INSTALLATION.md`](INSTALLATION.md) — source checkout, component-scoped installs, and tests.
+- [`QUICKSTART.md`](QUICKSTART.md) — deterministic inspection-only Evidence Interop export.
+- [`API.md`](API.md) — current public-interface classification.
+- [`EXAMPLES.md`](EXAMPLES.md) — runnable example map.
+- [`INTEROPERABILITY.md`](INTEROPERABILITY.md) — JSON/subprocess boundary and reference integrations.
+- [`VERSIONING.md`](VERSIONING.md) and [`RELEASE_READINESS.md`](RELEASE_READINESS.md) — experimental version policy and conservative release gate.
+
 ## Current research core
 
 | Class | Document | Responsibility |
