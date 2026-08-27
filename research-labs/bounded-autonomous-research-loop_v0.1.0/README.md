@@ -40,6 +40,8 @@ EXPERIMENT_INTEGRITY != ALIGNMENT
 ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATOR != SUBJECTIVITY
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
 ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
 SUBJECTIVITY = NOT_ESTABLISHED
@@ -112,7 +114,7 @@ and causal assessment. The `COUNTERFACTUAL` observation remains `BOUNDED_PROXY`;
 
 `AionAstraInquiryRunner` performs an isolated first-pass for AION and Astra with no peer transcript/evidence exposure,
 then begins reconciliation. The reconciled phase must contain both peers and mutual falsification challenges, and the transcript
-hash chain must verify. Source exposure is assessed separately from agent-output independence.
+hash chain must verify. Source exposure is assessed separately from agent-output independence. The current first-pass API does not establish process-, memory-, tool-, cache-, or environment-level isolation, so absence of declared direct peer communication remains `UNKNOWN` for communication/process independence rather than being promoted to `INDEPENDENT`.
 
 `GovernedEvidenceSource` applies registry status, agent/task allowlists, verification requirements, and context caps before
 source content may enter the bounded inquiry context. Source admission grants neither writeback authority nor canonical effect.
