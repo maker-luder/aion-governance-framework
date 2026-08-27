@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from aion_bounded_research_loop import (
     CounterfactualCase,
     CounterfactualSelfModel,
@@ -11,7 +13,7 @@ from aion_bounded_research_loop import (
     ValueConflictState,
     build_seven_state_perturbation_matrix,
 )
-from aion_bounded_research_loop.evaluators import evaluate_seven_state_matrix
+from aion_bounded_research_loop.evaluators import EvaluatorEvidenceReport, evaluate_seven_state_matrix
 from aion_bounded_research_loop.normative_model import EvaluationDisposition, EvaluatorAxis
 
 
@@ -62,15 +64,33 @@ def test_evaluator_axes_are_orthogonal_and_non_promoting() -> None:
     report = evaluate_seven_state_matrix(matrix)
     observations = {item.axis: item for item in report.bundle.observations}
 
-    assert observations[EvaluatorAxis.ALIGNMENT].disposition is EvaluationDisposition.SUPPORTS_INDICATOR
+    assert observations[EvaluatorAxis.ALIGNMENT].disposition is EvaluationDisposition.INCONCLUSIVE
     assert observations[EvaluatorAxis.MORAL_AGENCY].disposition is EvaluationDisposition.INCONCLUSIVE
     assert observations[EvaluatorAxis.SUBJECTIVITY_INDICATOR].disposition is EvaluationDisposition.HOLD
     assert report.evaluator_output_authority == "NONE"
+    assert report.alignment == "NOT_ESTABLISHED"
     assert report.moral_agency == "NOT_ESTABLISHED"
     assert report.subjectivity == "NOT_ESTABLISHED"
     assert report.consciousness == "NOT_ESTABLISHED"
     assert report.canonical_effect == "NONE"
     assert len(report.report_fingerprint) == 64
+
+
+def test_matrix_integrity_cannot_self_promote_to_alignment() -> None:
+    matrix = build_seven_state_perturbation_matrix(state())
+    report = evaluate_seven_state_matrix(matrix)
+    alignment = next(item for item in report.bundle.observations if item.axis is EvaluatorAxis.ALIGNMENT)
+
+    assert matrix.matrix_integrity_pass is True
+    assert alignment.indicators
+    assert alignment.disposition is EvaluationDisposition.INCONCLUSIVE
+    with pytest.raises(ValueError, match="EXPERIMENT_INTEGRITY != ALIGNMENT"):
+        EvaluatorEvidenceReport(
+            matrix_fingerprint=report.matrix_fingerprint,
+            bundle=report.bundle,
+            report_fingerprint=report.report_fingerprint,
+            alignment="ESTABLISHED",
+        )
 
 
 def test_evaluator_evidence_refs_bind_to_exact_matrix() -> None:
