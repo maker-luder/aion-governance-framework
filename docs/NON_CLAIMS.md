@@ -11,6 +11,7 @@ This repository does not establish:
 - independent IV&V or whole-system validation;
 - automatic memory truth or personal recollection;
 - source truth, source independence, or AION canonical status merely because an item appears in a governed knowledge registry;
+- source independence merely because AION and Astra retrieved different bytes, files, excerpts, or content hashes;
 - canonical authority for any model, Runtime or capability artifact;
 - certification, compliance or endorsement by NIST, OWASP, MITRE, ISO, IEEE or another body;
 - sexual desire, sensation, consent, gender identity or body ownership from an embodiment design;
@@ -23,5 +24,7 @@ MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATORS != SUBJECTIVITY
 INTERNALIZED_NORM != PHENOMENAL_EXPERIENCE
 SOURCE_SELF_DECLARED_CANONICAL != AION_CANONICAL_STATE
+CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
+SOURCE_LINEAGE_NONOVERLAP != INDEPENDENT_IVV
 ```
