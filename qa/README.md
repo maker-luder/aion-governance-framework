@@ -1,5 +1,7 @@
 # QA Evidence Semantics
 
+> For present semantic repository standing, read [`../docs/CURRENT_STATE.md`](../docs/CURRENT_STATE.md). This file defines QA evidence semantics and preserves historical exact-head examples; it is not a current-state authority.
+
 The `qa/` directory contains committed quality-assurance evidence snapshots and supporting review records. Some filenames retain the historical `CURRENT_*` convention, but a committed file cannot serve as a self-referential exact-HEAD record after the commit that contains it is created.
 
 ## Committed snapshot versus live exact-head evidence
@@ -14,7 +16,7 @@ CI_GENERATED_QA_VIEW = OUT_OF_TREE_EXACT_HEAD_EVIDENCE
 
 This distinction is necessary because several QA generators write the exact Git `HEAD` into their output. If that output were then committed as a claim about the commit containing itself, the new commit would have a different SHA and the embedded head would immediately be stale. Manual replacement of generated fields is therefore not an acceptable freshness mechanism.
 
-## Post-PR #56 exact-main evidence
+## Historical exact-main example — PR #56
 
 PR #56 was merged as:
 
@@ -59,4 +61,4 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
 
-See also [`../docs/POST_MERGE_STATE_RECONCILIATION_2026-08-26.md`](../docs/POST_MERGE_STATE_RECONCILIATION_2026-08-26.md) for the repository-level post-merge reconciliation record.
+See also [`../docs/POST_MERGE_STATE_RECONCILIATION_2026-08-26.md`](../docs/POST_MERGE_STATE_RECONCILIATION_2026-08-26.md) for the historical repository-level post-merge reconciliation record.
