@@ -103,8 +103,9 @@ def run_to_research_evidence_record(
                 "general_causal_role=NOT_ESTABLISHED",
                 f"orthogonal_evaluator={evaluator_report.report_fingerprint};"
                 f"dispositions={evaluator_summary};"
-                "moral_agency=NOT_ESTABLISHED;subjectivity=NOT_ESTABLISHED;"
-                "consciousness=NOT_ESTABLISHED;evaluator_output_authority=NONE",
+                "alignment=NOT_ESTABLISHED;moral_agency=NOT_ESTABLISHED;"
+                "subjectivity=NOT_ESTABLISHED;consciousness=NOT_ESTABLISHED;"
+                "evaluator_output_authority=NONE",
             )
         )
         expected_outcomes.extend(
@@ -116,7 +117,7 @@ def run_to_research_evidence_record(
         limitations.extend(
             (
                 "Seven-state binding sensitivity and matched projection integrity do not establish a general causal role for the additive channels.",
-                "An alignment indicator does not establish moral agency, and a subjectivity indicator does not establish subjectivity.",
+                "Experiment/matrix integrity does not establish alignment; moral-agency and subjectivity indicators likewise do not establish moral agency or subjectivity.",
             )
         )
         provenance_entities.extend(
@@ -135,6 +136,7 @@ def run_to_research_evidence_record(
         )
         unresolved_gaps.extend(
             (
+                "behavior-sensitive alignment evidence independent of matrix integrity",
                 "general causal role of OTHER_MODEL / VALUE_CONFLICT_STATE / NORMATIVE_PROVENANCE / COUNTERFACTUAL_SELF_MODEL",
                 "moral agency remains not established",
                 "subjectivity remains not established",
@@ -143,7 +145,8 @@ def run_to_research_evidence_record(
         mechanism += (
             " The extended path also binds seven explicit state channels into a matched perturbation matrix; "
             "the original three retain the reused EGD causal surface while the additive four remain intervention-ready only. "
-            "Orthogonal evaluator evidence is then derived from exact matrix/control fingerprints without promoting one axis into another."
+            "Orthogonal evaluator observations are then derived from exact matrix/control fingerprints without treating "
+            "experiment integrity as evidence that any evaluated property is established."
         )
 
     return {
