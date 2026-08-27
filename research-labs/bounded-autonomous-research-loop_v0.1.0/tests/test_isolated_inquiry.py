@@ -115,9 +115,10 @@ def test_runner_forms_isolated_first_pass_before_reconciliation() -> None:
     assert len(phase.fingerprint) == 64
     assert {item.agent for item in phase.analyses} == {AgentId.AION, AgentId.ASTRA}
     assert all(item.source_lineage_refs for item in phase.analyses)
-    assert phase.independence_assessment.communication_independence is IndependenceStatus.INDEPENDENT
+    assert phase.independence_assessment.communication_independence is IndependenceStatus.UNKNOWN
     assert phase.independence_assessment.source_independence is IndependenceStatus.INDEPENDENT
-    assert phase.independence_assessment.replication_claim == "ADMISSIBLE_CANDIDATE"
+    assert phase.independence_assessment.replication_claim == "HOLD"
+    assert "process_and_environment_isolation_not_established" in phase.independence_assessment.reasons
 
     assert aion.calls[0][1:] == (0, 0)
     assert astra.calls[0][1:] == (0, 0)
@@ -154,7 +155,7 @@ def test_isolated_analysis_does_not_imply_source_independent_replication() -> No
     phase = runner.last_independent_phase
 
     assert phase is not None
-    assert phase.independence_assessment.communication_independence is IndependenceStatus.INDEPENDENT
+    assert phase.independence_assessment.communication_independence is IndependenceStatus.UNKNOWN
     assert phase.independence_assessment.source_independence is IndependenceStatus.NOT_INDEPENDENT
     assert phase.independence_assessment.replication_claim == "HOLD"
     assert "shared_content_exposure" in phase.independence_assessment.reasons
@@ -175,7 +176,7 @@ def test_full_loop_fails_closed_when_isolated_first_pass_is_disabled() -> None:
         loop.run("Can reconciliation substitute for isolated analysis?", state())
 
 
-def test_full_loop_records_independence_without_promoting_truth() -> None:
+def test_full_loop_records_isolation_limits_without_promoting_truth() -> None:
     runner = AionAstraInquiryRunner(
         DistinctEvidence(),
         RecordingCriticalPeer(),
@@ -189,9 +190,9 @@ def test_full_loop_records_independence_without_promoting_truth() -> None:
     stats = report.cycles[0].statistics
 
     assert stats.isolated_analysis is True
-    assert stats.communication_independence == "INDEPENDENT"
+    assert stats.communication_independence == "UNKNOWN"
     assert stats.source_independence == "INDEPENDENT"
-    assert stats.replication_claim == "ADMISSIBLE_CANDIDATE"
+    assert stats.replication_claim == "HOLD"
     assert stats.run_integrity_pass is True
     assert stats.scientific_truth is False
     assert report.scientific_truth is False
