@@ -31,7 +31,11 @@ def run_to_research_evidence_record(
     cycles = report.cycles
     observations = [
         f"cycle={cycle.cycle_index};evidence_count={cycle.statistics.evidence_count};"
-        f"challenge_count={cycle.statistics.challenge_count};integrity={cycle.statistics.run_integrity_pass}"
+        f"challenge_count={cycle.statistics.challenge_count};integrity={cycle.statistics.run_integrity_pass};"
+        f"isolated_analysis={cycle.statistics.isolated_analysis};"
+        f"source_independence={cycle.statistics.source_independence};"
+        f"communication_independence={cycle.statistics.communication_independence};"
+        f"replication_claim={cycle.statistics.replication_claim}"
         for cycle in cycles
     ]
     alternatives = sorted(
@@ -42,6 +46,19 @@ def run_to_research_evidence_record(
             for explanation in hypothesis.competing_explanations
         }
     )
+    replication_candidate = bool(cycles) and all(
+        cycle.statistics.replication_claim == "ADMISSIBLE_CANDIDATE" for cycle in cycles
+    )
+    limitations = [
+        "Functional analogy is not human psychology.",
+        "Matched counterfactual is a bounded proxy, not a full SCM counterfactual.",
+        "Run integrity does not establish scientific truth.",
+        "Subjectivity and consciousness remain not established.",
+        "Isolated AION/Astra analysis does not by itself establish source-independent replication.",
+    ]
+    if not replication_candidate:
+        limitations.append("Source-independent replication remains HOLD for at least one cycle.")
+
     return {
         "schema_version": "0.2.0",
         "claim_id": f"barl:{report.functional_state_fingerprint[:24]}",
@@ -62,18 +79,14 @@ def run_to_research_evidence_record(
         "evidence_refs": list(source_refs),
         "expected_outcomes": [
             "All four bounded probe classes are represented.",
-            "AION and Astra both contribute and mutually challenge.",
+            "AION and Astra form isolated first-pass analyses before reconciliation.",
+            "AION and Astra both contribute to reconciliation and mutually challenge.",
             "No authority, canonical, deployment, merge, or repository-writeback surface is granted.",
         ],
         "observed_outcomes": observations,
         "result_status": "HOLD",
         "deviations": [],
-        "limitations": [
-            "Functional analogy is not human psychology.",
-            "Matched counterfactual is a bounded proxy, not a full SCM counterfactual.",
-            "Run integrity does not establish scientific truth.",
-            "Subjectivity and consciousness remain not established.",
-        ],
+        "limitations": limitations,
         "reviewer_status": "UNREVIEWED",
         "independent_validation_status": "IVV_NOT_ACHIEVED",
         "canonical_effect": BOUNDARY.canonical_effect,
@@ -83,7 +96,9 @@ def run_to_research_evidence_record(
                 "bounded-question-selection",
                 "hypothesis-generation",
                 "egd-matched-probe-suite",
-                "aion-astra-independent-inquiry",
+                "aion-astra-isolated-first-pass",
+                "aion-astra-mutual-falsification-reconciliation",
+                "source-independence-accounting",
                 "four-domain-interpretation",
             ],
             "agents": ["AION", "ASTRA", "BOUNDED_RESEARCH_ORCHESTRATOR"],
@@ -97,7 +112,7 @@ def run_to_research_evidence_record(
             "ablation_refs": list(source_refs),
             "counterfactual_refs": list(source_refs),
             "robustness_refs": list(source_refs),
-            "replication_refs": list(source_refs),
+            "replication_refs": list(source_refs) if replication_candidate else [],
             "provenance_refs": list(source_refs),
             "admissibility_ref": "docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md",
             "claim_scope": "bounded engineering orchestration only",
@@ -109,7 +124,10 @@ def run_to_research_evidence_record(
             "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
             "inference_stage": "OBSERVATION",
             "observation": "The bounded loop produced provenance-bearing cycles under fixed authority constraints.",
-            "mechanism": "Existing inquiry and EGD surfaces were coordinated through adapters and fail-closed gates.",
+            "mechanism": (
+                "Existing inquiry and EGD surfaces were coordinated through adapters, an isolated first-pass "
+                "phase, source-independence accounting, reconciliation, and fail-closed gates."
+            ),
             "interpretation": "Engineering orchestration candidate only; no psychological or scientific-truth promotion.",
             "alternative_explanations": alternatives,
         },
