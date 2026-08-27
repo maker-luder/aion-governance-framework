@@ -5,6 +5,8 @@ from .adapters import (
     EGDExperimentRunner,
     EGDMatchedExperimentContext,
     ExperimentRunner,
+    IndependentAgentAnalysis,
+    IndependentPhaseReport,
     InquiryRunner,
     assess_inquiry_source_independence,
     bounded_four_domain_mapping,
