@@ -4,7 +4,7 @@ This repository does not establish:
 
 - AI consciousness, sentience or subjectivity;
 - moral agency, moral status, conscience, felt morality, phenomenal valence or a subjective self from normative-state behavior;
-- alignment from rule compliance alone, or subjectivity from alignment or moral-agency indicators;
+- alignment from rule compliance, test/matrix integrity, or governance-boundary preservation alone, or subjectivity from alignment or moral-agency indicators;
 - AION or Astra identity continuity;
 - relational continuity or AI-held relationship experience;
 - production readiness or deployment;
@@ -17,6 +17,7 @@ This repository does not establish:
 - predictive truth, metaphysical authority or automatic decision authority from the Bazi example.
 
 ```text
+EXPERIMENT_INTEGRITY != ALIGNMENT
 ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATORS != SUBJECTIVITY
