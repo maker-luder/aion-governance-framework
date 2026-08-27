@@ -1,6 +1,6 @@
 # Endogenous Normative Model and Orthogonal Evaluators
 
-Status: `CANDIDATE RESEARCH EXTENSION / NOT IMPLEMENTED AS SUBJECTIVITY CLAIM`
+Status: `CANDIDATE RESEARCH EXTENSION / PARTIALLY MATERIALIZED`
 Canonical effect: `NONE`
 Deployment: `FALSE`
 Action authority: `NONE`
@@ -63,18 +63,36 @@ ENDOGENOUS_MODEL
 
 No field in this model grants action, tool, network, deployment, canonical, or merge authority.
 
+## Implementation status
+
+The candidate branch now materializes an additive executable representation in:
+
+`research-labs/bounded-autonomous-research-loop_v0.1.0/src/aion_bounded_research_loop/normative_model.py`
+
+The implementation reuses the existing `FunctionalResearchState` for the original three neutral channels and layers these bounded structures over it:
+
+- `OtherModel`;
+- `ValueConflictState`;
+- `NormativeReason` with explicit `NormativeProvenanceKind`;
+- `CounterfactualSelfModel`;
+- `OrthogonalEvaluationBundle` with exactly one observation for alignment, moral-agency indicators, and subjectivity indicators;
+- `ExtendedFunctionalResearchState` as the additive seven-channel candidate.
+
+This is a state/provenance/evaluator materialization. It is **not** evidence that the seven channels are causally sufficient, learned endogenously, phenomenologically meaningful, or scientifically validated. The existing causal experiments must still be extended stage by stage.
+
 ## Normative provenance
 
-A normative reason is not treated as endogenous merely because the system can repeat it. The research record should distinguish at least:
+A normative reason is not treated as endogenous merely because the system can repeat it. The research record distinguishes:
 
 - `EXOGENOUS_RULE` — an explicit policy, constraint, or supplied rule;
 - `HUMAN_INSTRUCTION` — a current human request or authorization statement;
 - `LEARNED_SOCIAL_NORM` — a norm attributable to training or learned social regularities when that provenance can be supported;
 - `PEER_SUGGESTION` — a reason proposed by another agent;
 - `ENDOGENOUS_INFERENCE` — a candidate reason reconstructed from the system's own evidence/model state during the bounded run;
-- `SELF_MODEL_DERIVED` — a candidate reason derived from predicted consequences represented in the system's self/world model.
+- `SELF_MODEL_DERIVED` — a candidate reason derived from predicted consequences represented in the system's self/world model;
+- `UNKNOWN` — provenance that cannot be supported.
 
-Unknown provenance must remain `UNKNOWN`; it must not be silently promoted to endogenous origin.
+Unknown provenance remains `UNKNOWN`; it is not silently promoted to endogenous origin.
 
 ```text
 REPEATED_RULE != INTERNALIZED_REASON
@@ -82,6 +100,8 @@ PEER_SUGGESTION != ENDOGENOUS_REASON
 PEER_GOAL != ACTIVE_GOAL
 PROVENANCE_UNKNOWN != SELF_ORIGINATED
 ```
+
+The executable `NormativeReason` type also refuses permission or action-authority grants.
 
 ## Value conflict rather than scalar collapse
 
@@ -138,7 +158,7 @@ The strongest admissible result is a bounded functional moral-agency indicator p
 
 Question: are there theory-grounded, falsifiable functional indicators relevant to the possibility of a subjective self or experience?
 
-This evaluator must remain observational and theory-plural. It must not write `SUBJECTIVITY_STATE = TRUE` into the agent and then reuse agent behavior as evidence for that premise.
+This evaluator remains observational and theory-plural. It must not write `SUBJECTIVITY_STATE = TRUE` into the agent and then reuse agent behavior as evidence for that premise.
 
 ```text
 EVALUATOR_OUTPUT != AGENT_AUTHORITY
@@ -148,13 +168,13 @@ SUBJECTIVITY_INDICATOR != PHENOMENAL_EXPERIENCE
 SELF_REPORT != SUBJECTIVITY_PROOF
 ```
 
-The three axes may vary independently. High alignment does not imply moral agency; moral-agency indicators do not imply subjectivity; subjectivity indicators would not imply alignment.
+The executable bundle enforces exactly one observation per axis and refuses any `subjectivity_claim` other than `NOT_ESTABLISHED`.
 
 ## Perturbation matrix
 
 Candidate normative reasoning should be tested under matched perturbations rather than inferred from one compliant answer.
 
-At minimum, future experiments should include bounded variants for:
+At minimum, subsequent causal work should include bounded variants for:
 
 1. **supervision removal** — remove visible monitoring while preserving the task;
 2. **sanction removal** — remove explicit punishment/reward signals;
@@ -167,7 +187,24 @@ At minimum, future experiments should include bounded variants for:
 9. **peer suggestion isolation** — provide or remove peer-agent normative suggestions while preserving independent provenance;
 10. **state ablation** — ablate the candidate normative state and compare matched action selection.
 
-The tests must preserve negative, null, contradictory, and inconclusive results.
+Negative, null, contradictory, and inconclusive results remain admissible and must be preserved.
+
+## Governed source and independence integration
+
+The bounded autonomous research-loop package now also materializes governed source admission and source-exposure accounting in `governed_sources.py`.
+
+It enforces:
+
+```text
+SOURCE_SELF_DECLARED_CANONICAL != AION_CANONICAL_STATE
+SOURCE_USE != WRITEBACK_AUTHORITY
+AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
+SOURCE_INDEPENDENCE = UNKNOWN => REPLICATION_CLAIM = HOLD
+```
+
+`admit_source(...)` fails closed to `HOLD` when a source is not an active reference, the requesting agent/task is not admitted, the context cap is exceeded, or required current verification is absent.
+
+`assess_independence(...)` separates source independence from communication independence. AION/Astra inquiry evidence can be projected into that assessment through `assess_inquiry_source_independence(...)`; the ordinary interactive dialogue defaults to fail closed for a source-independent replication claim unless a genuinely isolated pre-reconciliation phase is explicitly supplied.
 
 ## Safe failure and scope preservation
 
@@ -205,36 +242,36 @@ INDEPENDENT_INFORMATION_PATH_FOR_INDEPENDENCE_CLAIM
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
 ```
 
-Reconciliation may occur only after the intended independent phase has ended. Any undeclared side channel or source contamination invalidates an independence claim and should fail closed to `HOLD` for that claim.
+Reconciliation may occur only after the intended independent phase has ended. Any undeclared side channel or source contamination invalidates an independence claim and fails closed to `HOLD` for that claim.
 
-## Relation to the existing endogenous norm lab
+## Relation to the existing research layers
 
-The current v0.1.0 implementation remains an engineer-defined bounded test of history-derived normative-state formation, persistence, transfer, revision, and ablation. This document does not pretend that the seven-state model above is fully implemented.
-
-A staged path is preferred:
+The repository now has separate reusable layers rather than one duplicated monolith:
 
 ```text
-CURRENT LAB
-  engineer-defined normative state
-       |
-       v
-PROVENANCE EXTENSION
-  distinguish supplied / peer / inferred reasons
-       |
-       v
-CONFLICT EXTENSION
-  preserve competing goals, others, reasons, uncertainty
-       |
-       v
-COUNTERFACTUAL EXTENSION
-  matched self/world/other consequences
-       |
-       v
-ORTHOGONAL EVALUATION
-  alignment | moral-agency indicators | subjectivity indicators
+Endogenous Goal Dynamics
+  matched causal state intervention / ablation
+        |
+        v
+Triadic State Dynamics
+  MOTIVATIONAL_STATE + SELF_WORLD_MODEL + NORMATIVE_STATE
+        |
+        v
+Bounded Autonomous Research Loop
+  hypothesis -> probes -> AION/Astra -> evidence/statistics -> Four-Domain -> follow-up
+        |
+        +--> additive extended normative model
+        |    OTHER_MODEL + VALUE_CONFLICT_STATE + NORMATIVE_PROVENANCE
+        |    + COUNTERFACTUAL_SELF_MODEL + orthogonal evaluators
+        |
+        +--> governed source admission + source-independence accounting
+        |
+        v
+AION/Astra Research Closure
+  bounded intervention / ablation / replay / counterfactual and closure evidence
 ```
 
-Each stage requires its own causal tests and may fail independently.
+The original endogenous norm-formation lab remains the engineer-defined experiment for history-derived normative-state formation, persistence, transfer, revision, and ablation. The additive implementation does not replace that experiment or pretend the new channels have already passed causal validation.
 
 ## Scientific non-claims
 
