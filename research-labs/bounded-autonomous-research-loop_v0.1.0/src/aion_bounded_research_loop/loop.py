@@ -7,9 +7,11 @@ from aion_astra_inquiry.core import AgentId, InquiryReport
 from .adapters import (
     ExperimentRunner,
     InquiryRunner,
+    assess_inquiry_source_independence,
     bounded_four_domain_mapping,
     validate_independent_mutual_falsification,
 )
+from .governed_sources import IndependenceAssessment
 from .invariants import BOUNDARY
 from .models import (
     EvidenceStatistics,
@@ -123,6 +125,7 @@ class BoundedAutonomousResearchLoop:
     max_cycles: int = 2
     hypothesis_generator: BoundedHypothesisGenerator = BoundedHypothesisGenerator()
     probe_planner: BoundedProbePlanner = BoundedProbePlanner()
+    require_isolated_first_pass: bool = True
 
     def __post_init__(self) -> None:
         if not 1 <= self.max_cycles <= 4:
@@ -152,8 +155,23 @@ class BoundedAutonomousResearchLoop:
 
             inquiry_question = _inquiry_prompt(question, hypotheses, observations)
             inquiry_report = self.inquiry_runner.run(inquiry_question)
+            independent_phase = getattr(self.inquiry_runner, "last_independent_phase", None)
+            if self.require_isolated_first_pass and independent_phase is None:
+                raise ValueError("isolated AION/Astra first-pass analysis is required before reconciliation")
+            if independent_phase is not None and not independent_phase.phase_integrity_pass:
+                raise ValueError("isolated AION/Astra first-pass integrity failed closed")
+
             validate_independent_mutual_falsification(inquiry_report)
-            statistics = _statistics(inquiry_report, observations)
+            independence = getattr(self.inquiry_runner, "last_independence_assessment", None)
+            if independence is None:
+                independence = assess_inquiry_source_independence(inquiry_report)
+            statistics = _statistics(
+                inquiry_report,
+                observations,
+                independence=independence,
+                isolated_analysis=independent_phase is not None,
+                isolation_required=self.require_isolated_first_pass,
+            )
             if not statistics.run_integrity_pass:
                 raise ValueError("bounded research loop integrity failed closed")
 
@@ -178,6 +196,7 @@ class BoundedAutonomousResearchLoop:
                     statistics=statistics,
                     four_domain_mapping=mapping,
                     follow_up_question=follow_up,
+                    independent_phase=independent_phase,
                 )
             )
             if not follow_up:
@@ -205,14 +224,19 @@ def _inquiry_prompt(question: str, hypotheses, observations) -> str:
         f"Research question: {question}\n"
         f"Competing hypotheses: {hypothesis_text}\n"
         f"Bounded probe observations: {observation_text}\n"
-        "AION and Astra must independently analyze the admitted evidence, challenge each other, "
-        "search for falsifiers/counterexamples, and preserve HOLD rather than self-certifying truth."
+        "AION and Astra must first form isolated analyses without peer transcript/evidence exposure, then enter "
+        "reconciliation, challenge each other, search for falsifiers/counterexamples, and preserve HOLD rather "
+        "than self-certifying truth."
     )
 
 
 def _statistics(
     report: InquiryReport,
     observations,
+    *,
+    independence: IndependenceAssessment,
+    isolated_analysis: bool,
+    isolation_required: bool,
 ) -> EvidenceStatistics:
     evidence = report.evidence
     aion_evidence = sum(item.retrieval_agent == AgentId.AION.value for item in evidence)
@@ -222,6 +246,7 @@ def _statistics(
     coverage = tuple(sorted({item.operation for item in observations}, key=lambda item: item.value))
     all_operations = set(coverage) == set(ResearchOperation)
     mutual = challengers == {AgentId.AION, AgentId.ASTRA}
+    isolation_ok = isolated_analysis or not isolation_required
     return EvidenceStatistics(
         evidence_count=len(evidence),
         aion_evidence_count=aion_evidence,
@@ -229,7 +254,11 @@ def _statistics(
         challenge_count=len(challenges),
         mutual_falsification=mutual,
         operation_coverage=coverage,
-        run_integrity_pass=mutual and all_operations,
+        run_integrity_pass=mutual and all_operations and isolation_ok,
+        isolated_analysis=isolated_analysis,
+        source_independence=independence.source_independence.value,
+        communication_independence=independence.communication_independence.value,
+        replication_claim=independence.replication_claim,
     )
 
 
