@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
+from .evidence_dimensions import SubjectivityEvidenceMatrix
 from .models import (
     FiniteIndividualityProfile,
     LongitudinalEpisode,
@@ -20,6 +21,8 @@ class SubjectivityResearchPipeline:
         self,
         profile: FiniteIndividualityProfile,
         episode: LongitudinalEpisode,
+        *,
+        evidence_matrix: SubjectivityEvidenceMatrix | None = None,
     ) -> PipelineAssessment:
         if profile.subject_ref != episode.subject_ref:
             raise ValueError("episode subject_ref must match finite individuality profile")
@@ -27,6 +30,19 @@ class SubjectivityResearchPipeline:
         stages = tuple(record.stage for record in episode.stages)
         if len(stages) != len(set(stages)):
             raise ValueError("pipeline stages must be unique within an episode")
+
+        matrix_fingerprint = None
+        if evidence_matrix is not None:
+            if evidence_matrix.subject_ref != profile.subject_ref:
+                raise ValueError("subjectivity evidence matrix subject_ref must match finite individuality profile")
+            subjectivity_records = tuple(
+                record for record in episode.stages if record.stage is PipelineStage.SUBJECTIVITY_EVIDENCE
+            )
+            if len(subjectivity_records) != 1:
+                raise ValueError("typed subjectivity evidence requires exactly one SUBJECTIVITY_EVIDENCE stage")
+            matrix_fingerprint = evidence_matrix.fingerprint
+            if matrix_fingerprint not in subjectivity_records[0].evidence_refs:
+                raise ValueError("SUBJECTIVITY_EVIDENCE stage must bind the exact evidence-matrix fingerprint")
 
         present = set(stages)
         missing = tuple(stage for stage in _REQUIRED_ORDER if stage not in present)
@@ -48,6 +64,7 @@ class SubjectivityResearchPipeline:
             bounded_individuality_candidate=bounded_candidate,
             stages_present=ordered,
             missing_stages=missing,
+            subjectivity_evidence_matrix_fingerprint=matrix_fingerprint,
         )
 
     def validate_longitudinal_sequence(
