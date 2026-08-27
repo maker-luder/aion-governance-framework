@@ -23,7 +23,7 @@ from .models import (
     ResearchRunReport,
 )
 from .normative_model import ExtendedFunctionalResearchState
-from .state_experiments import ExtendedResearchRunReport, build_seven_state_perturbation_matrix
+from .state_experiments import ExtendedResearchRunReport, SevenStatePerturbationMatrix, build_seven_state_perturbation_matrix
 
 
 @dataclass(frozen=True, slots=True)
@@ -137,10 +137,14 @@ class BoundedAutonomousResearchLoop:
         self,
         seed_question: str,
         functional_state: FunctionalResearchState,
+        *,
+        state_experiment_context: str | None = None,
     ) -> ResearchRunReport:
         question = " ".join(seed_question.split())
         if not question:
             raise ValueError("seed question must not be empty")
+        if state_experiment_context is not None and not state_experiment_context.strip():
+            raise ValueError("state_experiment_context must be non-empty when supplied")
 
         cycles: list[ResearchCycle] = []
         for cycle_index in range(1, self.max_cycles + 1):
@@ -155,7 +159,12 @@ class BoundedAutonomousResearchLoop:
                     "experiment runner must return exactly intervention/ablation/replay/counterfactual observations"
                 )
 
-            inquiry_question = _inquiry_prompt(question, hypotheses, observations)
+            inquiry_question = _inquiry_prompt(
+                question,
+                hypotheses,
+                observations,
+                state_experiment_context=state_experiment_context,
+            )
             inquiry_report = self.inquiry_runner.run(inquiry_question)
             independent_phase = getattr(self.inquiry_runner, "last_independent_phase", None)
             if self.require_isolated_first_pass and independent_phase is None:
@@ -230,7 +239,11 @@ class BoundedAutonomousResearchLoop:
         """
 
         matrix = build_seven_state_perturbation_matrix(extended_state)
-        base_report = self.run(seed_question, extended_state.base_state)
+        base_report = self.run(
+            seed_question,
+            extended_state.base_state,
+            state_experiment_context=_matrix_inquiry_context(matrix),
+        )
         return ExtendedResearchRunReport(
             base_report=base_report,
             extended_state_fingerprint=extended_state.fingerprint,
@@ -238,18 +251,42 @@ class BoundedAutonomousResearchLoop:
         )
 
 
-def _inquiry_prompt(question: str, hypotheses, observations) -> str:
+def _inquiry_prompt(
+    question: str,
+    hypotheses,
+    observations,
+    *,
+    state_experiment_context: str | None = None,
+) -> str:
     hypothesis_text = " | ".join(item.statement for item in hypotheses)
     observation_text = " | ".join(
         f"{item.operation.value}:{item.disposition.value}:{item.summary}" for item in observations
     )
+    state_context = f"\nSeven-state experiment context: {state_experiment_context}" if state_experiment_context else ""
     return (
         f"Research question: {question}\n"
         f"Competing hypotheses: {hypothesis_text}\n"
-        f"Bounded probe observations: {observation_text}\n"
+        f"Bounded probe observations: {observation_text}"
+        f"{state_context}\n"
         "AION and Astra must first form isolated analyses without peer transcript/evidence exposure, then enter "
         "reconciliation, challenge each other, search for falsifiers/counterexamples, and preserve HOLD rather "
         "than self-certifying truth."
+    )
+
+
+def _matrix_inquiry_context(matrix: SevenStatePerturbationMatrix) -> str:
+    special = tuple(
+        f"{case.kind.value}={case.disposition.value}"
+        for case in matrix.cases
+        if case.kind.value != "ABLATION"
+    )
+    return (
+        f"binding={matrix.binding.binding_fingerprint}; matrix={matrix.fingerprint}; "
+        f"integrity={matrix.matrix_integrity_pass}; "
+        f"ablation_coverage={','.join(channel.value for channel in matrix.ablation_coverage)}; "
+        f"special_cases={';'.join(special)}; scientific_disposition=HOLD; "
+        "BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE; ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY; "
+        "NORMATIVE_STATE != AUTHORITY. Treat the matrix as matched experiment-structure evidence only."
     )
 
 
