@@ -10,6 +10,17 @@ from .adapters import (
     validate_independent_mutual_falsification,
 )
 from .evidence import export_interop_views, run_to_research_evidence_record
+from .governed_sources import (
+    AgentSourceExposure,
+    GovernedSourceRecord,
+    IndependenceAssessment,
+    IndependenceStatus,
+    RegistryStatus,
+    SourceAdmissionDecision,
+    VerificationPolicy,
+    admit_source,
+    assess_independence,
+)
 from .invariants import AuthorityBoundary, BOUNDARY
 from .loop import BoundedAutonomousResearchLoop, BoundedHypothesisGenerator, BoundedProbePlanner
 from .models import (
@@ -22,6 +33,19 @@ from .models import (
     ResearchHypothesis,
     ResearchOperation,
     ResearchRunReport,
+)
+from .normative_model import (
+    CounterfactualCase,
+    CounterfactualSelfModel,
+    EvaluationDisposition,
+    EvaluationObservation,
+    EvaluatorAxis,
+    ExtendedFunctionalResearchState,
+    NormativeProvenanceKind,
+    NormativeReason,
+    OrthogonalEvaluationBundle,
+    OtherModel,
+    ValueConflictState,
 )
 
 __all__ = [name for name in globals() if not name.startswith("_")]
