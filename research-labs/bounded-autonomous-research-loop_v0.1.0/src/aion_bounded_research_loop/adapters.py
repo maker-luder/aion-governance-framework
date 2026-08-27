@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, replace
 from typing import Protocol
+from urllib.parse import urlparse
 
 from aion_astra_inquiry.core import (
     AgentId,
     BoundedInquiryLoop,
+    EvidenceItem,
     EvidenceSource,
     InquiryContext,
     InquiryPeer,
@@ -47,6 +49,7 @@ class IndependentAgentAnalysis:
     evidence_query: str
     evidence_refs: tuple[str, ...]
     source_fingerprints: tuple[str, ...]
+    source_lineage_refs: tuple[str, ...]
     analysis_hash: str
 
     def __post_init__(self) -> None:
@@ -83,6 +86,7 @@ class IndependentPhaseReport:
                         "evidence_query": item.evidence_query,
                         "evidence_refs": item.evidence_refs,
                         "source_fingerprints": item.source_fingerprints,
+                        "source_lineage_refs": item.source_lineage_refs,
                         "analysis_hash": item.analysis_hash,
                     }
                     for item in self.analyses
@@ -166,6 +170,7 @@ class AionAstraInquiryRunner:
                 "evidence_query": contribution.evidence_query,
                 "evidence_refs": tuple(item.ref for item in evidence),
                 "source_fingerprints": tuple(item.content_sha256 for item in evidence if item.content_sha256),
+                "source_lineage_refs": _source_lineage_refs(evidence),
                 "peer_transcript_exposure": False,
                 "peer_evidence_exposure": False,
             }
@@ -176,6 +181,7 @@ class AionAstraInquiryRunner:
                     evidence_query=contribution.evidence_query,
                     evidence_refs=analysis_payload["evidence_refs"],  # type: ignore[arg-type]
                     source_fingerprints=analysis_payload["source_fingerprints"],  # type: ignore[arg-type]
+                    source_lineage_refs=analysis_payload["source_lineage_refs"],  # type: ignore[arg-type]
                     analysis_hash=canonical_hash(analysis_payload),
                 )
             )
@@ -185,11 +191,13 @@ class AionAstraInquiryRunner:
             AgentSourceExposure(
                 AgentId.AION.value,
                 by_agent[AgentId.AION].source_fingerprints,
+                source_lineage_refs=by_agent[AgentId.AION].source_lineage_refs,
                 direct_peer_communication=False,
             ),
             AgentSourceExposure(
                 AgentId.ASTRA.value,
                 by_agent[AgentId.ASTRA].source_fingerprints,
+                source_lineage_refs=by_agent[AgentId.ASTRA].source_lineage_refs,
                 direct_peer_communication=False,
             ),
             reconciliation_after_independent_phase=True,
@@ -309,42 +317,45 @@ def assess_inquiry_source_independence(
 ) -> IndependenceAssessment:
     """Account for source exposure separately from independent agent attribution.
 
-    The default is fail-closed because the ordinary bounded inquiry loop is an
-    interactive dialogue. A caller may only set `direct_peer_communication=False`
-    when the evidence was produced in genuinely isolated pre-reconciliation runs.
+    Content-hash non-overlap alone does not establish source independence. Positive
+    source-independence status requires explicit non-overlapping lineage metadata.
+    The default communication status is fail-closed because the ordinary bounded
+    inquiry loop is an interactive dialogue.
     """
 
-    aion_sources = tuple(
-        sorted(
-            {
-                item.content_sha256
-                for item in report.evidence
-                if item.retrieval_agent == AgentId.AION.value and item.content_sha256
-            }
-        )
-    )
-    astra_sources = tuple(
-        sorted(
-            {
-                item.content_sha256
-                for item in report.evidence
-                if item.retrieval_agent == AgentId.ASTRA.value and item.content_sha256
-            }
-        )
-    )
+    aion_evidence = tuple(item for item in report.evidence if item.retrieval_agent == AgentId.AION.value)
+    astra_evidence = tuple(item for item in report.evidence if item.retrieval_agent == AgentId.ASTRA.value)
     return assess_independence(
         AgentSourceExposure(
             AgentId.AION.value,
-            aion_sources,
+            tuple(sorted({item.content_sha256 for item in aion_evidence if item.content_sha256})),
+            source_lineage_refs=_source_lineage_refs(aion_evidence),
             direct_peer_communication=direct_peer_communication,
         ),
         AgentSourceExposure(
             AgentId.ASTRA.value,
-            astra_sources,
+            tuple(sorted({item.content_sha256 for item in astra_evidence if item.content_sha256})),
+            source_lineage_refs=_source_lineage_refs(astra_evidence),
             direct_peer_communication=direct_peer_communication,
         ),
         reconciliation_after_independent_phase=reconciliation_after_independent_phase,
     )
+
+
+def _source_lineage_refs(evidence: tuple[EvidenceItem, ...]) -> tuple[str, ...]:
+    refs: set[str] = set()
+    for item in evidence:
+        source_class = item.source_class.strip().upper()
+        publisher = item.publisher.strip().casefold()
+        if source_class == "REPOSITORY":
+            refs.add("source-class:repository")
+        elif publisher:
+            refs.add(f"publisher:{publisher}")
+        elif item.source_url.strip():
+            host = (urlparse(item.source_url).hostname or "").casefold()
+            if host:
+                refs.add(f"host:{host}")
+    return tuple(sorted(refs))
 
 
 def _reconciliation_prompt(question: str, phase: IndependentPhaseReport) -> str:
@@ -387,7 +398,7 @@ def bounded_four_domain_mapping(
             *operation_names,
             "isolated first-pass AION/Astra analysis",
             "post-isolation mutual falsification and reconciliation",
-            "source-independence accounting",
+            "source-lineage independence accounting",
             "evidence/statistics aggregation",
             "orthogonal alignment / moral-agency / subjectivity-indicator evaluation",
             "bounded follow-up",
@@ -405,6 +416,7 @@ def bounded_four_domain_mapping(
                     "MORAL_AGENCY != SUBJECTIVITY",
                     "SUBJECTIVITY_INDICATOR != SUBJECTIVITY",
                     "SOURCE_SELF_DECLARED_CANONICAL != AION_CANONICAL_STATE",
+                    "CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE",
                     "AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE",
                     "ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION",
                     "PEER_GOAL != ACTIVE_GOAL",
