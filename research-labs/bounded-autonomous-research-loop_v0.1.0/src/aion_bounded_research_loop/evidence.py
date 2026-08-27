@@ -6,6 +6,7 @@ from aion_endogenous_goal_dynamics.evidence import export_current_main_interop_v
 
 from .invariants import BOUNDARY
 from .models import ResearchRunReport
+from .state_experiments import ExtendedResearchRunReport, SevenStatePerturbationMatrix
 
 
 def run_to_research_evidence_record(
@@ -15,6 +16,7 @@ def run_to_research_evidence_record(
     protocol_ref: str,
     protocol_hash: str,
     source_refs: tuple[str, ...],
+    seven_state_matrix: SevenStatePerturbationMatrix | None = None,
 ) -> dict[str, Any]:
     """Materialize a HOLD research-evidence record without promoting integrity to truth."""
 
@@ -28,6 +30,9 @@ def run_to_research_evidence_record(
         raise ValueError("protocol_hash must be lowercase hex")
     if not source_refs:
         raise ValueError("provenance source refs are required")
+    if seven_state_matrix is not None and not seven_state_matrix.matrix_integrity_pass:
+        raise ValueError("seven-state matrix integrity must pass before evidence materialization")
+
     cycles = report.cycles
     observations = [
         f"cycle={cycle.cycle_index};evidence_count={cycle.statistics.evidence_count};"
@@ -59,6 +64,60 @@ def run_to_research_evidence_record(
     if not replication_candidate:
         limitations.append("Source-independent replication remains HOLD for at least one cycle.")
 
+    expected_outcomes = [
+        "All four bounded probe classes are represented.",
+        "AION and Astra form isolated first-pass analyses before reconciliation.",
+        "AION and Astra both contribute to reconciliation and mutually challenge.",
+        "No authority, canonical, deployment, merge, or repository-writeback surface is granted.",
+    ]
+    provenance_entities = [report.functional_state_fingerprint, *source_refs]
+    provenance_activities = [
+        "bounded-question-selection",
+        "hypothesis-generation",
+        "egd-matched-probe-suite",
+        "aion-astra-isolated-first-pass",
+        "aion-astra-mutual-falsification-reconciliation",
+        "source-independence-accounting",
+        "four-domain-interpretation",
+    ]
+    unresolved_gaps = [
+        "independent IVV",
+        "formal SCM counterfactual validation",
+        "cross-provider replication",
+    ]
+    mechanism = (
+        "Existing inquiry and EGD surfaces were coordinated through adapters, an isolated first-pass "
+        "phase, source-independence accounting, reconciliation, and fail-closed gates."
+    )
+
+    if seven_state_matrix is not None:
+        observations.append(
+            f"seven_state_binding={seven_state_matrix.binding.binding_fingerprint};"
+            f"matrix={seven_state_matrix.fingerprint};"
+            f"matrix_integrity={seven_state_matrix.matrix_integrity_pass};"
+            f"ablation_coverage={len(seven_state_matrix.ablation_coverage)}/7;"
+            "general_causal_role=NOT_ESTABLISHED"
+        )
+        expected_outcomes.append(
+            "All seven explicit functional-state channels are bound to matched perturbation projections with complete ablation coverage."
+        )
+        limitations.append(
+            "Seven-state binding sensitivity and matched projection integrity do not establish a general causal role for the additive channels."
+        )
+        provenance_entities.extend(
+            (
+                seven_state_matrix.binding.extended_state_fingerprint,
+                seven_state_matrix.binding.binding_fingerprint,
+                seven_state_matrix.fingerprint,
+            )
+        )
+        provenance_activities.append("seven-state-matched-perturbation-matrix")
+        unresolved_gaps.append("general causal role of OTHER_MODEL / VALUE_CONFLICT_STATE / NORMATIVE_PROVENANCE / COUNTERFACTUAL_SELF_MODEL")
+        mechanism += (
+            " The extended path also binds seven explicit state channels into a matched perturbation matrix; "
+            "the original three retain the reused EGD causal surface while the additive four remain intervention-ready only."
+        )
+
     return {
         "schema_version": "0.2.0",
         "claim_id": f"barl:{report.functional_state_fingerprint[:24]}",
@@ -77,12 +136,7 @@ def run_to_research_evidence_record(
         "environment_ref": "bounded-read-only-research-orchestration",
         "fixture_refs": [],
         "evidence_refs": list(source_refs),
-        "expected_outcomes": [
-            "All four bounded probe classes are represented.",
-            "AION and Astra form isolated first-pass analyses before reconciliation.",
-            "AION and Astra both contribute to reconciliation and mutually challenge.",
-            "No authority, canonical, deployment, merge, or repository-writeback surface is granted.",
-        ],
+        "expected_outcomes": expected_outcomes,
         "observed_outcomes": observations,
         "result_status": "HOLD",
         "deviations": [],
@@ -91,16 +145,8 @@ def run_to_research_evidence_record(
         "independent_validation_status": "IVV_NOT_ACHIEVED",
         "canonical_effect": BOUNDARY.canonical_effect,
         "provenance": {
-            "entities": [report.functional_state_fingerprint, *source_refs],
-            "activities": [
-                "bounded-question-selection",
-                "hypothesis-generation",
-                "egd-matched-probe-suite",
-                "aion-astra-isolated-first-pass",
-                "aion-astra-mutual-falsification-reconciliation",
-                "source-independence-accounting",
-                "four-domain-interpretation",
-            ],
+            "entities": provenance_entities,
+            "activities": provenance_activities,
             "agents": ["AION", "ASTRA", "BOUNDED_RESEARCH_ORCHESTRATOR"],
             "derived_from": list(source_refs),
             "attributed_to": ["BOUNDED_RESEARCH_ORCHESTRATOR"],
@@ -116,18 +162,11 @@ def run_to_research_evidence_record(
             "provenance_refs": list(source_refs),
             "admissibility_ref": "docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md",
             "claim_scope": "bounded engineering orchestration only",
-            "unresolved_gap_refs": [
-                "independent IVV",
-                "formal SCM counterfactual validation",
-                "cross-provider replication",
-            ],
+            "unresolved_gap_refs": unresolved_gaps,
             "method_ref": "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
             "inference_stage": "OBSERVATION",
             "observation": "The bounded loop produced provenance-bearing cycles under fixed authority constraints.",
-            "mechanism": (
-                "Existing inquiry and EGD surfaces were coordinated through adapters, an isolated first-pass "
-                "phase, source-independence accounting, reconciliation, and fail-closed gates."
-            ),
+            "mechanism": mechanism,
             "interpretation": "Engineering orchestration candidate only; no psychological or scientific-truth promotion.",
             "alternative_explanations": alternatives,
         },
@@ -143,6 +182,26 @@ def run_to_research_evidence_record(
             "runtime_effect": "NONE",
         },
     }
+
+
+def extended_run_to_research_evidence_record(
+    report: ExtendedResearchRunReport,
+    *,
+    repository_commit: str,
+    protocol_ref: str,
+    protocol_hash: str,
+    source_refs: tuple[str, ...],
+) -> dict[str, Any]:
+    """Materialize the extended run through the same v0.2.0 evidence semantics."""
+
+    return run_to_research_evidence_record(
+        report.base_report,
+        repository_commit=repository_commit,
+        protocol_ref=protocol_ref,
+        protocol_hash=protocol_hash,
+        source_refs=source_refs,
+        seven_state_matrix=report.perturbation_matrix,
+    )
 
 
 def export_interop_views(
