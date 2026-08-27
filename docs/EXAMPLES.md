@@ -1,9 +1,13 @@
 # Examples
 
-The repository's primary runnable example is the Evidence Interop quickstart because it uses committed input, a real public CLI, deterministic JSON artifacts, and explicit non-claim boundaries.
+The repository's primary runnable example is the standalone [`../examples/evidence_interop_export.py`](../examples/evidence_interop_export.py). It imports the real `aion_evidence_interop.build_bundle` surface, binds the exact Git head, decodes the returned bytes, and prints the deterministic `interop-manifest.json` content.
 
-- [`QUICKSTART.md`](QUICKSTART.md): create and inspect an Evidence Interop bundle.
-- `components/aion_evidence_interop_v0.1.0/tests`: executable examples of accepted and rejected evidence inputs.
-- `examples/bazi-capability_v0.1.1`: a separately packaged bounded domain example; read its local README and non-claims before use.
+```powershell
+python .\examples\evidence_interop_export.py --root .
+```
+
+- [`QUICKSTART.md`](QUICKSTART.md): install, run the output-writing CLI, and inspect its separate stdout and manifest-boundary contracts.
+- `components/aion_evidence_interop_v0.1.0/tests`: executable accepted/rejected evidence-input examples.
+- `examples/bazi-capability_v0.1.1`: a separately packaged bounded domain example; read its local README and non-claims first.
 
 Examples are not scientific demonstrations. They preserve `CANONICAL_EFFECT = NONE` and `DEPLOYMENT = FALSE` unless an independently governed action says otherwise.

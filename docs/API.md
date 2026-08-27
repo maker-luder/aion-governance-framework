@@ -2,28 +2,25 @@
 
 This repository has no repository-wide stable Python API. The interfaces below are explicitly classified to avoid promoting internal implementation details to stable contracts.
 
-| Interface | Status | Purpose | Side effects and boundaries |
+| Interface | Status | Purpose | Inputs / outputs and boundaries |
 |---|---|---|---|
-| `aion_evidence_interop.build_bundle(root, record, expected_head=...)` | `SUPPORTED_PUBLIC` | Build deterministic inspection-only JSON interoperability views from an existing evidence record. | Writes only when its caller invokes `write_bundle`; no network/model execution; canonical effect `NONE`. |
-| `aion_evidence_interop.validate_source_record(record, expected_head=...)` | `SUPPORTED_PUBLIC` | Validate source evidence before export. | Validation only; rejects incompatible records. |
-| `aion-evidence-interop` / `python -m aion_evidence_interop.cli` | `SUPPORTED_PUBLIC` | CLI export path described in [`QUICKSTART.md`](QUICKSTART.md). | JSON result on stdout; output path is explicit; inspection-only. |
-| `aion_astra_inquiry.AutonomousInquiryCampaign` and `aion-astra-inquiry` | `EXPERIMENTAL` | Run a bounded repository inquiry campaign. | Writes reports only outside the repository root; network stays off unless `--external-web` is explicitly supplied; no canonical or deployment authority. |
-| Component-local `__init__.py` exports outside these two surfaces | `INTERNAL` or `EXPERIMENTAL` | Research and governed-runtime implementation. | Consult the component-local README and tests; no stability promise from importability. |
+| `aion_evidence_interop.build_bundle(root, record_path, *, expected_head)` | `SUPPORTED_PUBLIC` | Build deterministic inspection-only interoperability views from an existing evidence record. | Inputs: repository `Path`, repository-local record `Path`, exact 40-hex head. Returns `dict[str, bytes]`: artifact paths mapped to UTF-8 JSON/JSONL bytes. It does not write by itself; `write_bundle` is the explicit writer. No network/model execution; canonical effect `NONE`. |
+| `aion_evidence_interop.validate_source_record(root, record_path, *, expected_head)` | `SUPPORTED_PUBLIC` | Validate source evidence before export. | Returns `tuple[dict[str, Any], SourceValidation]`: parsed record plus validation metadata. Validation only; incompatible records fail closed. |
+| `aion-evidence-interop` / `python -m aion_evidence_interop.cli` | `SUPPORTED_PUBLIC` | CLI export path described in [`QUICKSTART.md`](QUICKSTART.md). | JSON status on stdout; explicit output path; inspection-only. |
+| `aion_astra_inquiry.AutonomousInquiryCampaign` and `aion-astra-inquiry` | `EXPERIMENTAL` | Run a bounded repository inquiry campaign. | Writes reports only outside repository root; network stays off unless `--external-web` is explicitly supplied; no canonical or deployment authority. |
+| Component-local `__init__.py` exports outside these two surfaces | `INTERNAL` or `EXPERIMENTAL` | Research and governed-runtime implementation. | Consult component-local README/tests; importability does not create a stability promise. |
 
 ## Minimal export example
 
+[`../examples/evidence_interop_export.py`](../examples/evidence_interop_export.py) is a directly executable example using the exact interface above. The essential call is:
+
 ```python
-from pathlib import Path
-from aion_evidence_interop import build_bundle
-
 bundle = build_bundle(
-    Path('.'),
-    Path('components/aion_evidence_interop_v0.1.0/fixtures/valid_minimal.json'),
-    expected_head='YOUR_EXACT_GIT_HEAD',
+    root,
+    record_path,
+    expected_head=exact_head,
 )
-assert bundle['interop-manifest.json']
+manifest = bundle["interop-manifest.json"].decode("utf-8")
 ```
-
-`build_bundle` returns `dict[str, str]`: artifact names mapped to deterministic JSON/JSONL text. Use `aion_evidence_interop.manifest.write_bundle(output, bundle)` only with an intended external output directory.
 
 `SUPPORTED_PUBLIC` means a currently documented compatibility surface, not a release-stability guarantee. `PUBLIC_API != STABILITY_GUARANTEE`.
