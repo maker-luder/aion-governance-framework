@@ -12,6 +12,8 @@ The current governance set includes the AI collaboration disclosure, governance 
 
 The candidate [`CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md`](CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md) records a bounded OpenAI ChatGPT research-steward role: candidate contribution is permitted, main-merge execution is permitted only when deliberative progress, subjectivity-core preservation, provenance, and all active main-transition controls are satisfied. It explicitly preserves AI subjectivity as an open research possibility rather than a precommitted conclusion.
 
+The candidate [`GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md`](GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md) defines bounded, provenance-bearing source admission and retrieval for AION / Astra. It separates source-declared status from AION canonical authority, requires hard context caps, records shared-source exposure for independence claims, and treats the Human Owner's 2026-08-27 11-source map as metadata-only until the underlying materials are supplied and verified.
+
 A document's presence here indicates its semantic role; it does not imply that a candidate policy is active or canonically accepted.
 
 ## Authority boundary
