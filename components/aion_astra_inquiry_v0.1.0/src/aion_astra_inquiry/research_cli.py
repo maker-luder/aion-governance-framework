@@ -28,6 +28,12 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-questions-per-cycle", type=int, default=2)
     parser.add_argument("--max-rounds", type=int, default=3)
     parser.add_argument("--evidence-limit", type=int, default=4)
+    parser.add_argument("--max-harness-runs-per-cycle", type=int, default=2)
+    parser.add_argument(
+        "--no-harness-execution",
+        action="store_true",
+        help="disable allowlisted state-level research-lab harness execution",
+    )
     parser.add_argument(
         "--repository-ref",
         default=os.environ.get("GITHUB_SHA", "UNSPECIFIED"),
@@ -70,6 +76,8 @@ def main(argv: list[str] | None = None) -> int:
         repository_ref=args.repository_ref,
         external_web=args.external_web,
         external_policy=external_policy,
+        harness_execution=not args.no_harness_execution,
+        max_harness_runs_per_cycle=args.max_harness_runs_per_cycle,
     ).run(tuple(args.question))
     json_path, markdown_path = write_research_campaign_report(campaign, output)
     print(research_campaign_to_markdown(campaign))
