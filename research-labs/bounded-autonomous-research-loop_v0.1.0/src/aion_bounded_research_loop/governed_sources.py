@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from enum import Enum
 
 from .models import canonical_hash
@@ -63,7 +63,7 @@ class GovernedSourceRecord:
 
     @property
     def fingerprint(self) -> str:
-        return canonical_hash(self)
+        return canonical_hash(asdict(self))
 
 
 @dataclass(frozen=True, slots=True)
@@ -147,7 +147,7 @@ class IndependenceAssessment:
 
     @property
     def fingerprint(self) -> str:
-        return canonical_hash(self)
+        return canonical_hash(asdict(self))
 
 
 def assess_independence(
