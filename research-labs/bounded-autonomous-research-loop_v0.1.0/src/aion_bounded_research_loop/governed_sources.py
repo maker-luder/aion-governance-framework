@@ -246,7 +246,10 @@ def assess_independence(
     if aion.direct_peer_communication or astra.direct_peer_communication:
         communication_independence = IndependenceStatus.NOT_INDEPENDENT
     else:
-        communication_independence = IndependenceStatus.INDEPENDENT
+        # The current isolated-first-pass API proves only that no declared direct
+        # peer transcript/evidence path was supplied. It does not establish
+        # process-, memory-, tool-, cache-, or environment-level isolation.
+        communication_independence = IndependenceStatus.UNKNOWN
 
     reasons: list[str] = []
     if source_independence is IndependenceStatus.UNKNOWN:
@@ -257,6 +260,8 @@ def assess_independence(
         reasons.append("shared_source_lineage")
     if communication_independence is IndependenceStatus.NOT_INDEPENDENT:
         reasons.append("direct_peer_communication")
+    else:
+        reasons.append("process_and_environment_isolation_not_established")
     if not reconciliation_after_independent_phase:
         reasons.append("reconciliation_started_too_early")
 
