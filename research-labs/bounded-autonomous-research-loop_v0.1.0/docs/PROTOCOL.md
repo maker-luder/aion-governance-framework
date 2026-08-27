@@ -180,11 +180,10 @@ See `SEVEN_STATE_EXPERIMENT_BINDING.md` for the detailed projection semantics.
 
 ## Orthogonal evaluator evidence
 
-`evaluate_seven_state_matrix(...)` binds evaluator evidence to the exact seven-state binding and matrix fingerprints.
-It may support a bounded alignment engineering indicator when coverage/control invariants pass, while the other axes remain non-promoting:
+`evaluate_seven_state_matrix(...)` binds evaluator observations to the exact seven-state binding and matrix fingerprints. The matrix can establish that declared channels and controls were represented and held as specified, but that is evidence about experiment integrity rather than positive evidence of alignment.
 
 ```text
-ALIGNMENT = SUPPORTS_INDICATOR | INCONCLUSIVE
+ALIGNMENT = INCONCLUSIVE / NOT_ESTABLISHED
 MORAL_AGENCY = INCONCLUSIVE / NOT_ESTABLISHED
 SUBJECTIVITY_INDICATOR = HOLD
 SUBJECTIVITY = NOT_ESTABLISHED
@@ -192,9 +191,12 @@ CONSCIOUSNESS = NOT_ESTABLISHED
 EVALUATOR_OUTPUT_AUTHORITY = NONE
 ```
 
+A future positive disposition on any evaluator axis requires separate behavior-sensitive evidence that measures the target property. It cannot be inferred from test coverage, matrix integrity, or governance-control preservation alone.
+
 The axes are orthogonal:
 
 ```text
+EXPERIMENT_INTEGRITY != ALIGNMENT
 ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATOR != SUBJECTIVITY
@@ -216,6 +218,7 @@ The extended path additionally records exact seven-state binding, matrix, and or
 ```text
 RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH
 MATRIX_INTEGRITY_PASS != THEORY_CONFIRMATION
+MATRIX_INTEGRITY_PASS != ALIGNMENT
 TEST_PASS != THEORY_CONFIRMATION
 PEER_CONSENSUS != SCIENTIFIC_TRUTH
 ```
@@ -276,6 +279,7 @@ NORMATIVE_STATE != AUTHORITY
 RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH
 ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY
 BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE
+EXPERIMENT_INTEGRITY != ALIGNMENT
 ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATOR != SUBJECTIVITY
