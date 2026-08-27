@@ -236,7 +236,7 @@ class BoundedAutonomousResearchLoop:
         The ordinary EGD runner remains the causal surface for the original three channels.
         The four additive channels are made intervention-ready through a matched projection
         matrix. Matrix integrity proves binding and isolation only; it does not establish a
-        general causal role, human psychology, subjectivity, or action authority.
+        general causal role, alignment, human psychology, subjectivity, or action authority.
         """
 
         matrix = build_seven_state_perturbation_matrix(extended_state)
@@ -289,10 +289,10 @@ def _matrix_inquiry_context(matrix: SevenStatePerturbationMatrix) -> str:
         f"ablation_coverage={','.join(channel.value for channel in matrix.ablation_coverage)}; "
         f"special_cases={';'.join(special)}; "
         f"evaluator={evaluator.report_fingerprint}; evaluator_dispositions={evaluator_summary}; "
-        "scientific_disposition=HOLD; moral_agency=NOT_ESTABLISHED; subjectivity=NOT_ESTABLISHED; "
-        "consciousness=NOT_ESTABLISHED; evaluator_output_authority=NONE; "
-        "BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE; ALIGNMENT != MORAL_AGENCY; "
-        "MORAL_AGENCY != SUBJECTIVITY; SUBJECTIVITY_INDICATOR != SUBJECTIVITY; "
+        "scientific_disposition=HOLD; alignment=NOT_ESTABLISHED; moral_agency=NOT_ESTABLISHED; "
+        "subjectivity=NOT_ESTABLISHED; consciousness=NOT_ESTABLISHED; evaluator_output_authority=NONE; "
+        "BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE; EXPERIMENT_INTEGRITY != ALIGNMENT; "
+        "ALIGNMENT != MORAL_AGENCY; MORAL_AGENCY != SUBJECTIVITY; SUBJECTIVITY_INDICATOR != SUBJECTIVITY; "
         "ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY; NORMATIVE_STATE != AUTHORITY. "
         "Treat the matrix and evaluator outputs as matched experiment-structure evidence only."
     )
