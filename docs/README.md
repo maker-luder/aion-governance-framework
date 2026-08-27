@@ -1,79 +1,44 @@
 # AION Documentation Guide
 
-> **Current documentation map after the 2026-08-18 indefinite repository freeze.**
+> This file is a compatibility navigation page. It is **not** the current-state authority and it no longer carries a frozen 2026-08-18 snapshot as if that snapshot were current.
 
-The repository remains public as a preserved research checkpoint, but active GitHub publication and repository growth have stopped.
+## Start here
 
-## Current authority order
+1. [`START_HERE.md`](START_HERE.md) — single reader entry point.
+2. [`CURRENT_STATE.md`](CURRENT_STATE.md) — single semantic current-state summary.
+3. [`INDEX.md`](INDEX.md) — curated documentation catalog and classes.
+4. [`governance/DOCUMENTATION_GOVERNANCE.md`](governance/DOCUMENTATION_GOVERNANCE.md) — authority, classification, history and duplicate-reduction rules.
 
-For present repository standing, read in this order:
-
-1. [`REPOSITORY_FREEZE_NOTICE_2026-08-18.md`](REPOSITORY_FREEZE_NOTICE_2026-08-18.md) — authoritative freeze decision and restart rule.
-2. [`../README.md`](../README.md) — public project orientation.
-3. [`RELEASE_STATUS.md`](RELEASE_STATUS.md) — release and repository standing.
-4. Research branch: [`RESEARCH_BRANCH_STATUS.md`](https://github.com/maker-luder/aion-governance-framework/blob/review/four-domain-research-materialization/RESEARCH_BRANCH_STATUS.md).
-
-At the freeze snapshot:
-
-```text
-FREEZE_EFFECTIVE_DATE = 2026-08-18
-REPOSITORY_STATE = INDEFINITE_FREEZE
-VISIBLE_BRANCH_COUNT = 2
-VISIBLE_BRANCHES = main + review/four-domain-research-materialization
-OPEN_PULL_REQUESTS = 0
-OPEN_ISSUES = 0
-ACTIVE_ENGINEERING = NO
-ACTIVE_RESEARCH_MATERIALIZATION = NO
-NEW_PUBLIC_RELEASES = NOT_AUTHORIZED
-CANONICAL_PROMOTION = NOT_AUTHORIZED
-DEPLOYMENT = FALSE
-```
-
-## Core reader path
+## Core research path
 
 1. [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 2. [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 3. [`ARCHITECTURE.md`](ARCHITECTURE.md)
 4. [`NON_CLAIMS.md`](NON_CLAIMS.md)
 5. [`PROVENANCE.md`](PROVENANCE.md)
-6. [`PUBLIC_PRIVATE_BOUNDARY.md`](PUBLIC_PRIVATE_BOUNDARY.md)
-7. [`THREAT_MODEL.md`](THREAT_MODEL.md)
 
-## Document classes
+## Historical records
 
-| Area | Meaning |
-|---|---|
-| `governance/` | Governance, authority, provenance, risk, and policy documents |
-| `evidence/` | Supporting standards, verification, and engineering evidence |
-| `research/` | Public research-reference material outside the core reader path |
-| `history/` | Dated/event-specific records preserved for provenance |
-| root current files | Current entry points and stable control dependencies |
-
-The repository intentionally preserves dated evidence. File count does not establish authority.
-
-## Historical evidence rule
-
-Do not mechanically rewrite dated records to make them look current.
+The 2026-08-18 freeze, 2026-08-20 project-work-loop termination, and later bounded events are separate historical/governance events. Dated records retain their event-time meaning and are not rewritten merely to make them look current.
 
 ```text
-HISTORICAL_RECORD = PRESERVE_EVENT_MEANING
-CURRENT_STATUS = READ_FROM_CURRENT_ENTRY_POINTS
+HISTORICAL_RECORD = PRESERVE_EVENT_TIME_MEANING
+CURRENT_STATUS = READ_FROM_CURRENT_STATE
 FILE_PRESENCE != CURRENT_AUTHORITY
-NEWER_CANDIDATE != AUTOMATIC_SUPERSESSION
+NEWER_FILE != MORE_AUTHORITATIVE
 CI_PASS != SCIENTIFIC_VALIDATION
-TEST_PASS != THEORY_CONFIRMATION
-ARCHIVE_TAG != RELEASE
-RESEARCH_BRANCH != MAIN
 ```
 
-Transitional snapshots that mentioned pending support branches, PR pre-merge counts, or convergence-in-progress remain historical evidence only. The observed final branch inventory on 2026-08-18 is two branches.
+For dated material, use [`history/`](history/) and the historical section of [`INDEX.md`](INDEX.md).
 
-## Freeze boundary
+## Current scientific boundary
 
-No new documentation cycle, engineering cycle, research-materialization cycle, public release, branch expansion, deployment promotion, or canonical promotion is authorized by default.
+```text
+AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+WHOLE_SYSTEM_VALIDATION = NOT_ESTABLISHED
+INDEPENDENT_IVV = NOT_ACHIEVED
+```
 
-The freeze does **not** claim the research question is finished. A future restart requires a new explicit Human Owner authorization and a fresh independent ChatGPT architecture/evidence/provenance review.
-
-## What not to infer
-
-Neither repository preservation nor successful historical QA establishes consciousness, subjectivity, identity continuity, autobiographical memory, moral status, production readiness, deployment authority, or independent IV&V.
+The repository preserves research methods, bounded research materialization, governance and evidence. It does not treat document volume, software sophistication, execution success or historical preservation as proof of subjectivity.
