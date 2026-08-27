@@ -36,6 +36,7 @@ NORMATIVE_STATE != AUTHORITY
 RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH
 ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY
 BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE
+EXPERIMENT_INTEGRITY != ALIGNMENT
 ALIGNMENT != MORAL_AGENCY
 MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATOR != SUBJECTIVITY
@@ -132,15 +133,17 @@ See `docs/SEVEN_STATE_EXPERIMENT_BINDING.md` for the exact perturbation semantic
 ## Orthogonal evaluator evidence
 
 `evaluate_seven_state_matrix(...)` generates an evidence-bound `OrthogonalEvaluationBundle` from exact binding/matrix fingerprints.
-The axes are deliberately not a progression ladder:
+The axes are deliberately not a progression ladder. Matrix integrity establishes only that the declared experiment was assembled
+and controlled as specified; it is a precondition for later measurement, not positive evidence of alignment.
 
 ```text
-ALIGNMENT -> bounded engineering indicator may be supported
+ALIGNMENT -> INCONCLUSIVE / NOT_ESTABLISHED without separate behavior-sensitive evidence
 MORAL_AGENCY -> INCONCLUSIVE / NOT_ESTABLISHED
 SUBJECTIVITY_INDICATOR -> HOLD / SUBJECTIVITY NOT_ESTABLISHED
 ```
 
-Evaluator output cannot grant authority or canonical effect.
+Evaluator output cannot grant authority or canonical effect. A later positive disposition on any axis must be supported by evidence
+that measures the target property rather than by the integrity of the measurement apparatus itself.
 
 ## Extended loop and evidence path
 
@@ -170,6 +173,7 @@ do **not** set, imply, or serialize:
 ```text
 scientific_truth = true
 general_causal_role = established
+alignment = established
 moral_agency = established
 subjectivity = established
 ```
