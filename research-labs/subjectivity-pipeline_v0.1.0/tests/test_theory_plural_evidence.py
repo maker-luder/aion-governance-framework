@@ -187,8 +187,8 @@ def test_causal_role_support_requires_intervention_sensitive_evidence() -> None:
         )
 
 
-def test_preregistered_adversarial_theory_test_requires_two_theories_and_held_out_evidence() -> None:
-    predictions = (
+def adversarial_predictions() -> tuple[AdversarialPrediction, ...]:
+    return (
         AdversarialPrediction(
             TheoryFamily.GLOBAL_WORKSPACE,
             "A globally available bottleneck should be necessary for the target mechanism.",
@@ -204,23 +204,46 @@ def test_preregistered_adversarial_theory_test_requires_two_theories_and_held_ou
             "Challenges the tested higher-order prediction without deciding consciousness.",
         ),
     )
+
+
+def test_preregistered_adversarial_theory_test_requires_bound_registration_and_held_out_evidence() -> None:
     test = AdversarialTheoryTest(
         "theory-test-1",
         TheoryTestMode.PREREGISTERED_ADVERSARIAL,
-        predictions,
-        preregistered=True,
-        held_out_evidence=True,
+        adversarial_predictions(),
+        preregistration_ref="preregistration:theory-test-1:v1",
+        held_out_evidence_refs=("heldout:batch-1",),
     )
     assert test.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert test.scientific_disposition == "HOLD"
+    assert len(test.fingerprint) == 64
 
-    with pytest.raises(ValueError, match="held-out evidence"):
+    with pytest.raises(ValueError, match="preregistration ref and held-out evidence refs"):
         AdversarialTheoryTest(
             "theory-test-2",
             TheoryTestMode.PREREGISTERED_ADVERSARIAL,
-            predictions,
-            preregistered=True,
-            held_out_evidence=False,
+            adversarial_predictions(),
+            preregistration_ref="preregistration:theory-test-2:v1",
+        )
+
+    with pytest.raises(ValueError, match="preregistration ref and held-out evidence refs"):
+        AdversarialTheoryTest(
+            "theory-test-3",
+            TheoryTestMode.PREREGISTERED_ADVERSARIAL,
+            adversarial_predictions(),
+            held_out_evidence_refs=("heldout:batch-3",),
+        )
+
+
+def test_posthoc_rewrite_invalidates_preregistered_adversarial_test() -> None:
+    with pytest.raises(ValueError, match="post-hoc prediction rewriting"):
+        AdversarialTheoryTest(
+            "theory-test-posthoc",
+            TheoryTestMode.PREREGISTERED_ADVERSARIAL,
+            adversarial_predictions(),
+            preregistration_ref="preregistration:theory-test-posthoc:v1",
+            held_out_evidence_refs=("heldout:batch-posthoc",),
+            posthoc_prediction_rewrite=True,
         )
 
 
