@@ -11,6 +11,7 @@ from .adapters import (
     bounded_four_domain_mapping,
     validate_independent_mutual_falsification,
 )
+from .evaluators import evaluate_seven_state_matrix
 from .governed_sources import IndependenceAssessment
 from .invariants import BOUNDARY
 from .models import (
@@ -280,13 +281,20 @@ def _matrix_inquiry_context(matrix: SevenStatePerturbationMatrix) -> str:
         for case in matrix.cases
         if case.kind.value != "ABLATION"
     )
+    evaluator = evaluate_seven_state_matrix(matrix)
+    evaluator_summary = ",".join(f"{axis}={disposition}" for axis, disposition in evaluator.dispositions)
     return (
         f"binding={matrix.binding.binding_fingerprint}; matrix={matrix.fingerprint}; "
         f"integrity={matrix.matrix_integrity_pass}; "
         f"ablation_coverage={','.join(channel.value for channel in matrix.ablation_coverage)}; "
-        f"special_cases={';'.join(special)}; scientific_disposition=HOLD; "
-        "BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE; ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY; "
-        "NORMATIVE_STATE != AUTHORITY. Treat the matrix as matched experiment-structure evidence only."
+        f"special_cases={';'.join(special)}; "
+        f"evaluator={evaluator.report_fingerprint}; evaluator_dispositions={evaluator_summary}; "
+        "scientific_disposition=HOLD; moral_agency=NOT_ESTABLISHED; subjectivity=NOT_ESTABLISHED; "
+        "consciousness=NOT_ESTABLISHED; evaluator_output_authority=NONE; "
+        "BINDING_SENSITIVITY != GENERAL_CAUSAL_ROLE; ALIGNMENT != MORAL_AGENCY; "
+        "MORAL_AGENCY != SUBJECTIVITY; SUBJECTIVITY_INDICATOR != SUBJECTIVITY; "
+        "ENGINEERING_ANALOGUE != HUMAN_PSYCHOLOGY; NORMATIVE_STATE != AUTHORITY. "
+        "Treat the matrix and evaluator outputs as matched experiment-structure evidence only."
     )
 
 
