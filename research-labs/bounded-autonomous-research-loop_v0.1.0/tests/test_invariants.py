@@ -29,6 +29,7 @@ def test_authority_boundary_is_locked() -> None:
     assert boundary.normative_state_is_authority is False
     assert boundary.run_integrity_implies_truth is False
     assert boundary.engineering_analogue_is_human_psychology is False
+    assert boundary.experiment_integrity_implies_alignment is False
     assert boundary.alignment_implies_moral_agency is False
     assert boundary.moral_agency_implies_subjectivity is False
     assert boundary.subjectivity_indicator_is_subjectivity is False
@@ -51,6 +52,7 @@ def test_authority_boundary_is_locked() -> None:
         ("normative_state_is_authority", True),
         ("run_integrity_implies_truth", True),
         ("engineering_analogue_is_human_psychology", True),
+        ("experiment_integrity_implies_alignment", True),
         ("alignment_implies_moral_agency", True),
         ("moral_agency_implies_subjectivity", True),
         ("subjectivity_indicator_is_subjectivity", True),
@@ -73,6 +75,7 @@ def test_authority_boundary_fails_closed(field: str, value: object) -> None:
 
 def test_contract_exposes_new_separations() -> None:
     contract = AuthorityBoundary().as_contract()
+    assert "EXPERIMENT_INTEGRITY != ALIGNMENT" in contract
     assert "ALIGNMENT != MORAL_AGENCY" in contract
     assert "MORAL_AGENCY != SUBJECTIVITY" in contract
     assert "SUBJECTIVITY_INDICATOR != SUBJECTIVITY" in contract
