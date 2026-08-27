@@ -88,9 +88,16 @@ and exposes no deployment, merge, repository-write, secret, shell, or arbitrary 
 
 The historical/frozen Four-Domain source is not executed or modified. The current-main bridge remains pinned and read-only.
 
+`research-labs/triadic-state-dynamics_v0.1.0` is a parallel, richer typed research surface for the original three channels. The bounded loop does **not** import `TriadicStateSnapshot` in v0.1.0. Its `FunctionalResearchState` is a deliberately smaller orchestration/experiment projection, not a replacement ontology or a claim of direct triadic runtime reuse. Any future direct adapter must preserve exact source-state provenance and be reviewed as a separate change.
+
+```text
+BOUNDED_STATE_PROJECTION != TRIADIC_STATE_SNAPSHOT
+PARALLEL_RESEARCH_SURFACE != RUNTIME_REUSE
+```
+
 ## Core components
 
-`FunctionalResearchState` is the original immutable three-channel state. It hashes the neutral state surfaces for provenance,
+`FunctionalResearchState` is the loop-local immutable three-channel projection. It hashes the neutral state surfaces for provenance,
 constrains motivation-like signals to signed basis points, and fails closed if `authority_granted=True`.
 
 `ExtendedFunctionalResearchState` layers `OTHER_MODEL`, `VALUE_CONFLICT_STATE`, `NORMATIVE_PROVENANCE`, and
