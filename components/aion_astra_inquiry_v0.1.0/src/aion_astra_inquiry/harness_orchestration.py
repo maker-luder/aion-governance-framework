@@ -6,6 +6,7 @@ from hashlib import sha256
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -77,6 +78,7 @@ class HarnessExecutionReceipt:
     repository_ref: str
     entrypoint_ref: str
     entrypoint_sha256: str
+    source_tree_sha256: str
     registration_sha256: str
     result_sha256: str
     receipt_sha256: str
@@ -159,10 +161,11 @@ class BoundedHarnessOrchestrator:
     cause the campaign to select a registered harness, but selection never grants
     execution authority beyond the immutable registry and policy below.
 
-    The process guard removes inherited secrets, blocks Python-level network access and
-    child-process creation, moves the working directory to scratch, and denies writes
-    under the repository root. It is defense-in-depth for already-inspected pure-Python
-    harnesses, not an OS/container sandbox.
+    Before execution, the exact registered entrypoint and source tree are checked for
+    symlinks, hashed, and copied into an ephemeral scratch directory. The child Python
+    process executes only those scratch copies. Its environment contains no inherited
+    secrets; Python-level network access, child-process creation, and repository writes
+    are blocked as defense-in-depth. This is not an OS/container sandbox.
     """
 
     def __init__(
@@ -213,18 +216,36 @@ class BoundedHarnessOrchestrator:
         lab_root = self._confined_path(registration.lab_path, require_dir=True)
         if lab_root not in entrypoint.parents or lab_root not in python_source.parents:
             raise PermissionError("harness path escaped the registered research lab")
+        if entrypoint.is_symlink():
+            raise PermissionError("registered harness entrypoint must not be a symlink")
+        _assert_no_symlinks(python_source)
 
         entrypoint_sha = sha256(entrypoint.read_bytes()).hexdigest()
+        source_tree_sha = _tree_hash(python_source)
         registration_sha = _canonical_hash(_registration_payload(registration))
 
         try:
             with tempfile.TemporaryDirectory(prefix="aion-harness-") as scratch_raw:
                 scratch = Path(scratch_raw).resolve()
-                (scratch / "sitecustomize.py").write_text(
+                guard_dir = scratch / "guard"
+                guard_dir.mkdir()
+                (guard_dir / "sitecustomize.py").write_text(
                     _sitecustomize_source(), encoding="utf-8"
                 )
+                copied_source = scratch / "source"
+                shutil.copytree(python_source, copied_source, symlinks=False)
+                run_dir = scratch / "run"
+                run_dir.mkdir()
+                copied_entrypoint = run_dir / entrypoint.name
+                shutil.copy2(entrypoint, copied_entrypoint, follow_symlinks=False)
+
+                if _tree_hash(copied_source) != source_tree_sha:
+                    raise RuntimeError("scratch source copy does not match registered source tree")
+                if sha256(copied_entrypoint.read_bytes()).hexdigest() != entrypoint_sha:
+                    raise RuntimeError("scratch entrypoint copy does not match registered entrypoint")
+
                 env = {
-                    "PYTHONPATH": os.pathsep.join((str(scratch), str(python_source))),
+                    "PYTHONPATH": os.pathsep.join((str(guard_dir), str(copied_source))),
                     "PYTHONDONTWRITEBYTECODE": "1",
                     "PYTHONHASHSEED": "0",
                     "AION_HARNESS_REPOSITORY_ROOT": str(self._root),
@@ -235,8 +256,8 @@ class BoundedHarnessOrchestrator:
                     "LC_ALL": "C.UTF-8",
                 }
                 completed = subprocess.run(
-                    [sys.executable, str(entrypoint)],
-                    cwd=scratch,
+                    [sys.executable, str(copied_entrypoint)],
+                    cwd=run_dir,
                     env=env,
                     stdin=subprocess.DEVNULL,
                     stdout=subprocess.PIPE,
@@ -276,6 +297,7 @@ class BoundedHarnessOrchestrator:
             "repository_ref": self._repository_ref,
             "entrypoint_ref": registration.entrypoint,
             "entrypoint_sha256": entrypoint_sha,
+            "source_tree_sha256": source_tree_sha,
             "registration_sha256": registration_sha,
             "result_sha256": result_sha,
             "state_intervention_observed": state_observed,
@@ -297,6 +319,7 @@ class BoundedHarnessOrchestrator:
             repository_ref=self._repository_ref,
             entrypoint_ref=registration.entrypoint,
             entrypoint_sha256=entrypoint_sha,
+            source_tree_sha256=source_tree_sha,
             registration_sha256=registration_sha,
             result_sha256=result_sha,
             receipt_sha256=receipt_sha,
@@ -379,6 +402,7 @@ def verify_harness_receipt(receipt: HarnessExecutionReceipt) -> bool:
         "repository_ref": receipt.repository_ref,
         "entrypoint_ref": receipt.entrypoint_ref,
         "entrypoint_sha256": receipt.entrypoint_sha256,
+        "source_tree_sha256": receipt.source_tree_sha256,
         "registration_sha256": receipt.registration_sha256,
         "result_sha256": receipt.result_sha256,
         "state_intervention_observed": receipt.state_intervention_observed,
@@ -419,6 +443,27 @@ def _canonical_hash(value: object) -> str:
         ensure_ascii=False,
     ).encode("utf-8")
     return sha256(encoded).hexdigest()
+
+
+def _assert_no_symlinks(root: Path) -> None:
+    for path in sorted(root.rglob("*")):
+        if path.is_symlink():
+            raise PermissionError("registered harness source tree must not contain symlinks")
+
+
+def _tree_hash(root: Path) -> str:
+    digest = sha256()
+    files = [path for path in sorted(root.rglob("*")) if path.is_file()]
+    for path in files:
+        if path.is_symlink():
+            raise PermissionError("research harness tree hash refuses symlinks")
+        relative = path.relative_to(root).as_posix().encode("utf-8")
+        content = path.read_bytes()
+        digest.update(len(relative).to_bytes(8, "big"))
+        digest.update(relative)
+        digest.update(len(content).to_bytes(8, "big"))
+        digest.update(content)
+    return digest.hexdigest()
 
 
 def _state_intervention_observed(payload: dict[str, object]) -> bool:
