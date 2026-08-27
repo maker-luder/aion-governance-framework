@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/maker-luder/aion-governance-framework/schemas/governed_knowledge_source_v0.1.0.schema.json",
+  "title": "Governed knowledge source record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "record_type",
+    "source_id",
+    "source_title",
+    "source_version",
+    "domain",
+    "source_class",
+    "source_declared_status",
+    "registry_status",
+    "epistemic_role",
+    "provenance",
+    "content_hash",
+    "verification_policy",
+    "freshness_policy",
+    "allowed_agents",
+    "allowed_tasks",
+    "context_policy",
+    "context_token_cap",
+    "authority_level",
+    "writeback_authority",
+    "canonical_effect"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "record_type": {"const": "GOVERNED_KNOWLEDGE_SOURCE"},
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,127}$"
+    },
+    "source_title": {"type": "string", "minLength": 1, "maxLength": 240},
+    "source_version": {"type": ["string", "null"], "maxLength": 80},
+    "domain": {
+      "type": "string",
+      "enum": ["GOVERNANCE", "ENGINEERING", "IMAGE_PROMPT", "REAL_ESTATE_TW", "OTHER_DECLARED"]
+    },
+    "source_class": {
+      "type": "string",
+      "enum": [
+        "MASTER_REFERENCE",
+        "GOVERNANCE_REFERENCE",
+        "ENGINEERING_REFERENCE",
+        "RESEARCH_REFERENCE",
+        "ROADMAP",
+        "PROPOSED_SPECIFICATION",
+        "OPERATIONAL_RULE",
+        "DOMAIN_REFERENCE",
+        "PROMPT_METHOD_REFERENCE",
+        "OTHER_REFERENCE"
+      ]
+    },
+    "source_declared_status": {"type": ["string", "null"], "maxLength": 160},
+    "registry_status": {
+      "type": "string",
+      "enum": ["DECLARED_METADATA_ONLY", "CANDIDATE", "ACTIVE_REFERENCE", "HOLD", "RETIRED"]
+    },
+    "epistemic_role": {
+      "type": "string",
+      "enum": ["METHOD", "REFERENCE", "EVIDENCE_INPUT", "OPERATIONAL_GUIDANCE", "RESEARCH_INDEX", "ROADMAP_ONLY"]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "locator"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["HUMAN_DECLARED_METADATA", "REPOSITORY_FILE", "PUBLIC_URL", "EXTERNAL_ARTIFACT", "UNKNOWN"]
+        },
+        "locator": {"type": ["string", "null"], "maxLength": 2048}
+      }
+    },
+    "content_hash": {
+      "type": ["string", "null"],
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "verification_policy": {
+      "type": "string",
+      "enum": ["SOURCE_GROUNDED", "OFFICIAL_CURRENT_REQUIRED", "MANUAL_REVIEW_REQUIRED", "METADATA_ONLY"]
+    },
+    "freshness_policy": {
+      "type": "string",
+      "enum": ["VERSION_BOUND", "CURRENT_AT_USE", "NO_FRESHNESS_CLAIM", "METADATA_ONLY"]
+    },
+    "allowed_agents": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {"type": "string", "enum": ["AION", "ASTRA"]}
+    },
+    "allowed_tasks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1, "maxLength": 96}
+    },
+    "context_policy": {"const": "ON_DEMAND"},
+    "context_token_cap": {"type": "integer", "minimum": 1, "maximum": 10000},
+    "authority_level": {
+      "type": "string",
+      "enum": ["REFERENCE_ONLY", "GOVERNANCE_INPUT_ONLY", "OPERATIONAL_INPUT_ONLY"]
+    },
+    "writeback_authority": {"const": "NONE"},
+    "canonical_effect": {"const": "NONE"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"registry_status": {"const": "DECLARED_METADATA_ONLY"}},
+        "required": ["registry_status"]
+      },
+      "then": {
+        "properties": {
+          "verification_policy": {"const": "METADATA_ONLY"},
+          "freshness_policy": {"const": "METADATA_ONLY"},
+          "content_hash": {"const": null}
+        }
+      }
+    }
+  ]
+}
