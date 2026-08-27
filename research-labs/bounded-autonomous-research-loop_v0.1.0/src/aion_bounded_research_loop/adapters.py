@@ -6,7 +6,6 @@ from typing import Protocol
 from aion_astra_inquiry.core import (
     AgentId,
     BoundedInquiryLoop,
-    EvidenceItem,
     EvidenceSource,
     InquiryContext,
     InquiryPeer,
