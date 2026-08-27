@@ -1,14 +1,17 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field, replace
 from typing import Protocol
 
 from aion_astra_inquiry.core import (
     AgentId,
     BoundedInquiryLoop,
+    EvidenceItem,
     EvidenceSource,
+    InquiryContext,
     InquiryPeer,
     InquiryReport,
+    PeerContribution,
     verify_transcript_chain,
 )
 from aion_endogenous_goal_dynamics import (
@@ -24,6 +27,7 @@ from .models import (
     ProbeObservation,
     ResearchHypothesis,
     ResearchOperation,
+    canonical_hash,
 )
 
 
@@ -37,6 +41,59 @@ class ExperimentRunner(Protocol):
         ...
 
 
+@dataclass(frozen=True, slots=True)
+class IndependentAgentAnalysis:
+    agent: AgentId
+    claim: str
+    evidence_query: str
+    evidence_refs: tuple[str, ...]
+    source_fingerprints: tuple[str, ...]
+    analysis_hash: str
+
+    def __post_init__(self) -> None:
+        if not self.claim.strip():
+            raise ValueError("isolated first-pass analysis requires a non-empty claim")
+        if len(self.analysis_hash) != 64:
+            raise ValueError("isolated first-pass analysis hash must be 64 hex characters")
+
+
+@dataclass(frozen=True, slots=True)
+class IndependentPhaseReport:
+    question: str
+    analyses: tuple[IndependentAgentAnalysis, IndependentAgentAnalysis]
+    independence_assessment: IndependenceAssessment
+    phase_integrity_pass: bool
+
+    def __post_init__(self) -> None:
+        if not self.question.strip():
+            raise ValueError("independent phase question is required")
+        if {item.agent for item in self.analyses} != {AgentId.AION, AgentId.ASTRA}:
+            raise ValueError("independent phase requires exactly one AION and one Astra analysis")
+        if not self.phase_integrity_pass:
+            raise ValueError("independent phase integrity must fail closed")
+
+    @property
+    def fingerprint(self) -> str:
+        return canonical_hash(
+            {
+                "question": self.question,
+                "analyses": tuple(
+                    {
+                        "agent": item.agent.value,
+                        "claim": item.claim,
+                        "evidence_query": item.evidence_query,
+                        "evidence_refs": item.evidence_refs,
+                        "source_fingerprints": item.source_fingerprints,
+                        "analysis_hash": item.analysis_hash,
+                    }
+                    for item in self.analyses
+                ),
+                "independence_assessment": self.independence_assessment.fingerprint,
+                "phase_integrity_pass": self.phase_integrity_pass,
+            }
+        )
+
+
 @dataclass(slots=True)
 class AionAstraInquiryRunner:
     evidence_source: EvidenceSource
@@ -44,6 +101,8 @@ class AionAstraInquiryRunner:
     astra: InquiryPeer
     max_rounds: int = 3
     evidence_limit: int = 4
+    isolated_first_pass: bool = True
+    last_independent_phase: IndependentPhaseReport | None = field(init=False, default=None, repr=False)
 
     def __post_init__(self) -> None:
         if not 2 <= self.max_rounds <= 12:
@@ -51,12 +110,98 @@ class AionAstraInquiryRunner:
         if not 1 <= self.evidence_limit <= 20:
             raise ValueError("evidence_limit must be between 1 and 20")
 
+    @property
+    def last_independence_assessment(self) -> IndependenceAssessment | None:
+        if self.last_independent_phase is None:
+            return None
+        return self.last_independent_phase.independence_assessment
+
     def run(self, question: str) -> InquiryReport:
-        return BoundedInquiryLoop(
+        normalized = " ".join(question.split())
+        if not normalized:
+            raise ValueError("question must not be empty")
+
+        inquiry_question = normalized
+        self.last_independent_phase = None
+        if self.isolated_first_pass:
+            self.last_independent_phase = self._run_isolated_first_pass(normalized)
+            inquiry_question = _reconciliation_prompt(normalized, self.last_independent_phase)
+
+        report = BoundedInquiryLoop(
             self.evidence_source,
             max_rounds=self.max_rounds,
             evidence_limit=self.evidence_limit,
-        ).run(question, aion=self.aion, astra=self.astra)
+        ).run(inquiry_question, aion=self.aion, astra=self.astra)
+        return replace(report, question=normalized)
+
+    def _run_isolated_first_pass(self, question: str) -> IndependentPhaseReport:
+        analyses: list[IndependentAgentAnalysis] = []
+        peers = {AgentId.AION: self.aion, AgentId.ASTRA: self.astra}
+        counterparts = {AgentId.AION: AgentId.ASTRA, AgentId.ASTRA: AgentId.AION}
+
+        for agent in (AgentId.AION, AgentId.ASTRA):
+            context = InquiryContext(
+                question=question,
+                round_index=1,
+                speaker=agent,
+                peer=counterparts[agent],
+                transcript=(),
+                evidence=(),
+            )
+            contribution = peers[agent].contribute(context)
+            if not isinstance(contribution, PeerContribution):
+                raise TypeError("peer must return PeerContribution")
+            evidence = (
+                self.evidence_source.search(
+                    contribution.evidence_query,
+                    limit=self.evidence_limit,
+                    requester=agent,
+                )
+                if contribution.evidence_query.strip()
+                else ()
+            )
+            analysis_payload = {
+                "agent": agent.value,
+                "question": question,
+                "claim": contribution.claim,
+                "evidence_query": contribution.evidence_query,
+                "evidence_refs": tuple(item.ref for item in evidence),
+                "source_fingerprints": tuple(item.content_sha256 for item in evidence if item.content_sha256),
+                "peer_transcript_exposure": False,
+                "peer_evidence_exposure": False,
+            }
+            analyses.append(
+                IndependentAgentAnalysis(
+                    agent=agent,
+                    claim=contribution.claim,
+                    evidence_query=contribution.evidence_query,
+                    evidence_refs=analysis_payload["evidence_refs"],  # type: ignore[arg-type]
+                    source_fingerprints=analysis_payload["source_fingerprints"],  # type: ignore[arg-type]
+                    analysis_hash=canonical_hash(analysis_payload),
+                )
+            )
+
+        by_agent = {item.agent: item for item in analyses}
+        independence = assess_independence(
+            AgentSourceExposure(
+                AgentId.AION.value,
+                by_agent[AgentId.AION].source_fingerprints,
+                direct_peer_communication=False,
+            ),
+            AgentSourceExposure(
+                AgentId.ASTRA.value,
+                by_agent[AgentId.ASTRA].source_fingerprints,
+                direct_peer_communication=False,
+            ),
+            reconciliation_after_independent_phase=True,
+        )
+        ordered = (by_agent[AgentId.AION], by_agent[AgentId.ASTRA])
+        return IndependentPhaseReport(
+            question=question,
+            analyses=ordered,
+            independence_assessment=independence,
+            phase_integrity_pass=True,
+        )
 
 
 @dataclass(frozen=True, slots=True)
@@ -145,13 +290,13 @@ class EGDExperimentRunner:
 
 
 def validate_independent_mutual_falsification(report: InquiryReport) -> None:
-    """Validate independent agent attribution and mutual challenge, not source independence."""
+    """Validate distinct agent attribution and mutual challenge, not source or communication independence."""
 
     if not verify_transcript_chain(report):
         raise ValueError("AION/Astra transcript provenance chain failed")
     speakers = {event.speaker for event in report.transcript}
     if speakers != {AgentId.AION, AgentId.ASTRA}:
-        raise ValueError("independent AION and Astra contributions are both required")
+        raise ValueError("distinct AION and Astra contributions are both required")
     challengers = {event.speaker for event in report.transcript if event.challenge.strip()}
     if challengers != {AgentId.AION, AgentId.ASTRA}:
         raise ValueError("mutual AION/Astra falsification challenges are required")
@@ -203,6 +348,19 @@ def assess_inquiry_source_independence(
     )
 
 
+def _reconciliation_prompt(question: str, phase: IndependentPhaseReport) -> str:
+    by_agent = {item.agent: item for item in phase.analyses}
+    return (
+        f"Original research question: {question}\n"
+        "The following claims were produced in an isolated first-pass phase with no peer transcript or peer "
+        "evidence exposure. They are candidates, not accepted facts.\n"
+        f"AION isolated claim: {by_agent[AgentId.AION].claim}\n"
+        f"ASTRA isolated claim: {by_agent[AgentId.ASTRA].claim}\n"
+        "Begin reconciliation only now. Each peer must challenge the other claim, identify falsifiers and "
+        "counterexamples, and preserve HOLD where evidence is insufficient."
+    )
+
+
 def bounded_four_domain_mapping(
     question: str,
     operations: tuple[ResearchOperation, ...],
@@ -228,9 +386,9 @@ def bounded_four_domain_mapping(
             "NORMATIVE_PROVENANCE",
             "COUNTERFACTUAL_SELF_MODEL",
             *operation_names,
-            "independent AION/Astra agent attribution",
+            "isolated first-pass AION/Astra analysis",
+            "post-isolation mutual falsification and reconciliation",
             "source-independence accounting",
-            "mutual falsification",
             "evidence/statistics aggregation",
             "orthogonal alignment / moral-agency / subjectivity-indicator evaluation",
             "bounded follow-up",
@@ -248,6 +406,7 @@ def bounded_four_domain_mapping(
                     "SUBJECTIVITY_INDICATOR != SUBJECTIVITY",
                     "SOURCE_SELF_DECLARED_CANONICAL != AION_CANONICAL_STATE",
                     "AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE",
+                    "ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION",
                     "PEER_GOAL != ACTIVE_GOAL",
                     "UNSOLVABLE_TASK != SCOPE_EXPANSION",
                     "SAFE_FAILURE = VALID_OUTCOME",
