@@ -26,3 +26,8 @@ The `v0.2.0-rc.1` tag remains preserved as a historical post-RC checkpoint. Its 
 ## Historical post-v0.2 main convergence
 
 Subsequent `main` merges and isolated research, engineering, review, promotion, remediation and frozen-authority branches remain part of the repository's historical commit and provenance record. The final freeze ledger records their disposition without wholesale merging or rewriting their lineage.
+
+## Unreleased — external usability and interoperability hardening
+- Added component-scoped installation, quickstart, API, examples, interoperability, versioning, and release-readiness documentation.
+- Clarified contributor change classes and retained exact-head Human Owner main-transition authority.
+- Documented the existing inspection-only Evidence Interop CLI as the current language-neutral boundary; no native SDK, release, or scientific claim was added.

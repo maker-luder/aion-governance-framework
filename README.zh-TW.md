@@ -30,6 +30,10 @@ CI_PASS != SCIENTIFIC_VALIDATION
 ## 依目的閱讀
 
 - **第一次進來：** [`docs/START_HERE.md`](docs/START_HERE.md)
+- **安裝並執行 bounded export：** [`docs/INSTALLATION.md`](docs/INSTALLATION.md) -> [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
+- **目前程式介面：** [`docs/API.md`](docs/API.md)
+- **語言中立整合：** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
+- **release 狀態：** [`docs/RELEASE_READINESS.md`](docs/RELEASE_READINESS.md)
 - **研究貢獻摘要：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 - **主體性 evidence method：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 - **架構：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
