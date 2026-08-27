@@ -109,14 +109,18 @@ Agent-output independence is tracked separately from source-exposure independenc
 
 For the current candidate, positive source-independence status requires explicit non-overlapping source-lineage metadata. Repository evidence shares the repository source class; external evidence uses declared publisher lineage when present and otherwise a source host. Missing lineage fails closed to `UNKNOWN`.
 
+The isolated first-pass API proves only that declared peer transcript/evidence channels were not supplied before reconciliation. It does not prove process-, memory-, tool-, cache-, or environment-level isolation. Accordingly, absence of declared direct peer communication is recorded as `communication_independence = UNKNOWN`, and the current ordinary isolated path keeps `replication_claim = HOLD` even when source lineages do not overlap.
+
 ```text
 CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
 ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION
 AGENT_OUTPUT_INDEPENDENCE != EVIDENCE_SOURCE_INDEPENDENCE
 SOURCE_LINEAGE_NONOVERLAP != INDEPENDENT_IVV
 ```
 
-Shared content, shared source lineage, direct peer communication during the claimed independent phase, missing lineage, or reconciliation begun too early prevents a replication-candidate promotion.
+Shared content, shared source lineage, direct peer communication, missing lineage, premature reconciliation, or unresolved process/environment isolation prevents a replication-candidate promotion.
 
 ## Research-cycle admission
 
@@ -298,6 +302,8 @@ MORAL_AGENCY != SUBJECTIVITY
 SUBJECTIVITY_INDICATOR != SUBJECTIVITY
 SOURCE_USE != WRITEBACK_AUTHORITY
 CONTENT_NONOVERLAP != SOURCE_INDEPENDENCE
+ISOLATED_FIRST_PASS != PROCESS_ISOLATION
+NO_DIRECT_PEER_TRANSCRIPT != COMMUNICATION_INDEPENDENCE
 ISOLATED_ANALYSIS != SOURCE_INDEPENDENT_REPLICATION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
