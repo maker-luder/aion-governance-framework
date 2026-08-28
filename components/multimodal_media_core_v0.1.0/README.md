@@ -1,62 +1,95 @@
 # AION Multimodal Media Core v0.1.0
 
-This component provides a governed, provider-neutral path for image, video, and 3D media to become bounded research evidence.
+This component provides a governed image, video, and 3D media substrate for bounded research evidence.
+
+The preferred architecture is now **local-first**:
 
 ```text
 AION Multimodal Media Core
         ↓
-Image Provider Adapter / Video Provider Adapter / 3D Provider Adapter
+Local generation runtime (preferred)
+        ↓
+MediaAsset + exact content hash
         ↓
 Multimodal Research Bridge
         ↓
 Seven-state / AION-Astra / Subjectivity Pipeline
 ```
 
-The core separates four concerns:
+External provider adapters remain compatibility/reference surfaces, but they are no longer the preferred generation path.
 
-1. `GenerationRequest` is a canonical, credential-free research request.
-2. Provider adapters translate that request into documented provider API shapes through an injected transport.
-3. `MediaAsset` admits only completed, content-hashed media with explicit generated/observed/imported origin, media type, and provenance status.
-4. `MultimodalResearchBridge` creates a W3C Web Annotation-shaped evidence view and binds exact seven-state matrix, AION/Astra chain, and bounded subject references.
+```text
+LOCAL_GENERATION_FIRST = TRUE
+LOCAL_RUNTIME_NETWORK_ACCESS = FALSE
+EXTERNAL_PROVIDER_EXECUTION = OPTIONAL / NOT_REQUIRED
+MEDIA_GENERATION != RESEARCH_RESULT
+GENERATED_MEDIA != SUBJECTIVITY
+CANONICAL_EFFECT = NONE
+```
 
-No adapter contains an API key. `credential_env` names the runtime secret slot; the injected transport owns credential resolution. Tests use a recording transport and never make provider calls.
+## Local executable reference path
 
-## Supported adapter profiles
+`InternalProceduralGenerator` is a real, deterministic, repository-local generation path for all three media kinds:
 
-| Adapter | Submission contract | Execution form |
-|---|---|---|
-| `OpenAIImageAdapter` | `POST /v1/images/generations` | synchronous JSON result |
-| `OpenAIVideoAdapter` | `POST /v1/videos`, then `GET /v1/videos/{id}` | asynchronous multipart job |
-| `Tripo3DAdapter` | `POST /v2/openapi/task` with `type=text_to_model` | asynchronous JSON task |
-| `Meshy3DAdapter` | `POST /openapi/v2/text-to-3d` with `mode=preview` | asynchronous two-stage-compatible task |
+- `IMAGE` -> tiny binary PPM (`image/x-portable-pixmap`);
+- `VIDEO` -> tiny YUV4MPEG2 sequence (`video/x-yuv4mpeg`);
+- `MODEL_3D` -> glTF 2.0 JSON containing deterministic triangle geometry (`model/gltf+json`).
 
-Adapter request construction is intentionally narrow. Provider response bytes and time-limited URLs do not become evidence until a caller downloads the output, verifies it, computes `content_sha256`, and creates a `MediaAsset`.
+It uses no API key, network call, model download, GPU, subprocess, or hidden remote dependency. Every output is byte-hashed before it becomes `MediaAsset`, is marked `MediaOrigin.LOCAL_GENERATED`, and retains the existing synthetic-media provenance boundary.
+
+This reference generator is intentionally **not photorealistic**. Its job is to prove the offline execution/provenance contract before large model runtimes are attached.
+
+## Multi-language runtime contract
+
+`LocalRuntimeSpec` is language-neutral. The governance/control plane may remain Python while model execution can be implemented in another local runtime, for example C++, Rust, or a separately isolated Python ML process.
+
+The preferred next native paths are documented in [`docs/LOCAL_GENERATION_ARCHITECTURE.md`](docs/LOCAL_GENERATION_ARCHITECTURE.md). The current research decision is:
+
+- C/C++ is the leading image/video native inference candidate because `stable-diffusion.cpp` can run multiple diffusion image families and local video models without a remote provider;
+- Rust/Candle is a credible image-inference alternative and a useful typed local runtime surface;
+- 3D remains split between the built-in deterministic glTF path and separately reviewed local reconstruction/generation runtimes.
+
+A local model runtime does not become trusted merely because it is local. Model weights, license, exact model version, runtime version, hardware path, generation seed, and output hash remain evidence/provenance inputs.
+
+## Existing external compatibility adapters
+
+The first candidate also contains narrow adapters for OpenAI image/video and Tripo/Meshy 3D contracts. They remain available for compatibility testing and contract comparison only. Tests use injected recording transports and perform no live provider calls.
+
+External output URLs or provider responses do not become evidence until the bytes are obtained under an authorized execution path, hashed, and admitted as `MediaAsset`.
 
 ## Research bindings
 
-- Seven-state binding requires both the exact matrix fingerprint and its underlying binding fingerprint, plus `matrix_integrity_pass=True`.
-- AION/Astra binding requires the exact `final_chain_hash` and preserves `scientific_disposition=HOLD`.
-- Subjectivity binding reuses the existing research-integrity admission gate and emits the existing `SUBJECTIVITY_EVIDENCE` stage type only after exact hash binding plus explicit human review. Provider-generated media remains a stimulus/output and cannot directly become subjectivity evidence. The bridge record remains `NOT_ESTABLISHED` for subjectivity and phenomenal experience.
-- C2PA is represented as a validation result and manifest reference. A mere URL or provider claim is never promoted into `c2pa_validated=True`.
+- Seven-state binding requires the existing exact matrix and binding fingerprints; multimodal media does not create an eighth canonical state.
+- AION/Astra binding preserves `scientific_disposition=HOLD`.
+- Subjectivity binding reuses the existing research-integrity admission gate. Generated media may be a stimulus, control, counterfactual artifact, or research output; generation alone cannot establish subjectivity.
+- C2PA references remain distinct from actual validation.
 
 ## Locked boundaries
 
 ```text
-MEDIA_GENERATION != RESEARCH_RESULT
+MULTIMODAL_MEDIA != EIGHTH_STATE
+LOCAL_MODEL_EXECUTION != SUBJECTIVITY_EVIDENCE
+PHOTOREALISTIC_OUTPUT != REAL_WORLD_OBSERVATION
+VIDEO_TEMPORALITY != IDENTITY_CONTINUITY
+VIRTUAL_3D_SCENE != PHYSICAL_EMBODIMENT
 MEDIA_BINDING != SCIENTIFIC_TRUTH
 GENERATED_MEDIA != SUBJECTIVITY
-PROVIDER_OUTPUT != CANONICAL_EFFECT
 C2PA_REFERENCE != C2PA_VALIDATION
 FULL_AUTOMATION != FULL_AUTHORITY
-PROVIDER_AVAILABILITY != EVIDENCE_VALIDITY
 EVIDENCE_ADMISSION != CLAIM_ACCEPTANCE
 ```
 
-See [`docs/PROVIDER_AND_STANDARDS_CROSSWALK.md`](docs/PROVIDER_AND_STANDARDS_CROSSWALK.md) for the externally checked contract sources and limitations.
+See:
+
+- [`docs/LOCAL_GENERATION_ARCHITECTURE.md`](docs/LOCAL_GENERATION_ARCHITECTURE.md) for the local-first runtime decision;
+- [`docs/PROVIDER_AND_STANDARDS_CROSSWALK.md`](docs/PROVIDER_AND_STANDARDS_CROSSWALK.md) for external contract/reference surfaces.
 
 ## Test
 
+Use the repository component runner so all research dependencies receive the same source-root environment:
+
 ```bash
-PYTHONPATH=src:../../research-labs/subjectivity-pipeline_v0.1.0/src \
-  python -m pytest -q -o addopts=
+python scripts/run_component_tests.py
 ```
+
+For component-local iteration, the component test `conftest.py` adds this component's `src`; tests that exercise the research bridge still require the repository-wide multi-component environment.
