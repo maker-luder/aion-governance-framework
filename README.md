@@ -25,6 +25,8 @@ The 2026-08-18 repository freeze and 2026-08-20 project-work-loop termination re
 
 Those capabilities improve testability, falsifiability, provenance and evidence discipline. They do **not** establish subjectivity, consciousness, phenomenal experience, moral agency, identity continuity, independent replication, whole-system validation or independent IV&V.
 
+The `components/multimodal_media_core_v0.1.0/` candidate adds a governed, provider-neutral image/video/3D evidence path. It separates provider execution from immutable media admission, then binds exact media fingerprints to the existing seven-state, AION/Astra, and subjectivity research surfaces without promoting generated content into a scientific or subjectivity conclusion.
+
 For the semantic current state, read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md). For exact-commit engineering status, use live GitHub/CI evidence rather than static prose.
 
 ## Read by purpose
