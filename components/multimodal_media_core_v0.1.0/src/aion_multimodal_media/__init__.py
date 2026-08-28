@@ -9,6 +9,14 @@ from .adapters import (
     Transport,
 )
 from .bridge import MultimodalResearchBridge, ResearchMediaBridgeRecord
+from .local_runtime import (
+    INTERNAL_PROCEDURAL_MODEL,
+    LOCAL_PROVIDER,
+    InternalProceduralGenerator,
+    LocalGenerationResult,
+    LocalMediaExecutionPolicy,
+    LocalRuntimeSpec,
+)
 from .models import (
     AssetStatus,
     ExecutionGrant,
@@ -28,6 +36,12 @@ __all__ = [
     "GenerationRequest",
     "HTTPRequest",
     "HTTPResponse",
+    "INTERNAL_PROCEDURAL_MODEL",
+    "InternalProceduralGenerator",
+    "LOCAL_PROVIDER",
+    "LocalGenerationResult",
+    "LocalMediaExecutionPolicy",
+    "LocalRuntimeSpec",
     "MediaAsset",
     "MediaExecutionPolicy",
     "MediaKind",

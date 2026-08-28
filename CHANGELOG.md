@@ -31,3 +31,5 @@ Subsequent `main` merges and isolated research, engineering, review, promotion, 
 - Added component-scoped installation, quickstart, API, examples, interoperability, versioning, and release-readiness documentation.
 - Clarified contributor change classes and retained exact-head Human Owner main-transition authority.
 - Documented the existing inspection-only Evidence Interop CLI as the current language-neutral boundary; no native SDK, release, or scientific claim was added.
+- Added a local-first multimodal generation reference path for deterministic image, video, and glTF 3D artifacts with exact content hashing and no network/provider requirement.
+- Documented a language-neutral local runtime strategy: C/C++ and Rust are allowed generation backends while the Python layer remains a governance/research control plane rather than a mandatory inference language.

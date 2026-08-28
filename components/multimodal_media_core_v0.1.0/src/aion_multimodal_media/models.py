@@ -22,6 +22,7 @@ class AssetStatus(str, Enum):
 
 class MediaOrigin(str, Enum):
     PROVIDER_GENERATED = "PROVIDER_GENERATED"
+    LOCAL_GENERATED = "LOCAL_GENERATED"
     SENSOR_OBSERVED = "SENSOR_OBSERVED"
     IMPORTED = "IMPORTED"
 
@@ -175,8 +176,8 @@ class MediaAsset:
         if self.subjectivity_conclusion != "NOT_ESTABLISHED":
             raise ValueError("GENERATED_MEDIA != SUBJECTIVITY_EVIDENCE_CONCLUSION")
         synthetic_source = self.source_type_uri.endswith("/trainedAlgorithmicMedia")
-        if self.origin is MediaOrigin.PROVIDER_GENERATED and not synthetic_source:
-            raise ValueError("provider-generated media requires an explicit synthetic source type")
+        if self.origin in {MediaOrigin.PROVIDER_GENERATED, MediaOrigin.LOCAL_GENERATED} and not synthetic_source:
+            raise ValueError("generated media requires an explicit synthetic source type")
         if self.origin is MediaOrigin.SENSOR_OBSERVED and synthetic_source:
             raise ValueError("sensor-observed media cannot declare a generated source type")
 
