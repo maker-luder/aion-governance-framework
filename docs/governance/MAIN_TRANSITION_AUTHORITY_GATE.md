@@ -65,7 +65,7 @@ For a PR targeting `main`, `.github/workflows/main-transition-authority.yml` acc
 - a single receipt is added in a fresh `pull_request: edited` body-edit event;
 - the event sender matches the configured Human Owner GitHub login;
 - repository, target branch, target PR, PR URL, and exact 40-hex head match the event;
-- the timezone-aware approval timestamp is within five minutes of the edit event;
+- the timezone-aware approval timestamp is no more than 15 minutes old at the edit event, with at most 60 seconds of future clock skew;
 - prior authorization, candidate scope, autonomous research permission, QA, and AI review are explicitly not used as merge authority;
 - contradictions and unknown fields are absent;
 - `CANONICAL_EFFECT = NONE` and `DEPLOYMENT = FALSE` remain explicit.
@@ -75,6 +75,20 @@ Missing, stale, mismatched, inherited, contradictory, malformed, duplicate, ambi
 ## Receipt placement
 
 Only after the candidate head is final and the Human Owner gives fresh approval, edit the target PR body once and add exactly one block:
+
+Do not hand-author the JSON. Generate and self-check it from the repository root:
+
+```bash
+python scripts/generate_main_transition_authority_receipt.py \
+  --pr PR_NUMBER \
+  --head EXACT_LOWERCASE_40_HEX_HEAD
+```
+
+Alternatively, run **Actions → Generate Main Transition Receipt → Run workflow** with the same PR number and exact head. Copy the generated block from the workflow summary and paste it into the PR body within 15 minutes. The helper has read-only repository permission and does not edit the PR, approve a merge, or mutate repository content.
+
+Before saving the PR body, the Human Owner must independently confirm that the PR number and exact head are the intended merge target. Receipt generation is mechanical assistance, not authority delegation.
+
+The 15-minute window is an operational replay bound, not proof of human identity or presence. The authenticated owner body-edit event, exact target bindings, and fail-closed structural checks remain required independently.
 
 ````text
 <!-- MAIN_TRANSITION_AUTHORITY_RECEIPT_BEGIN -->
@@ -139,11 +153,9 @@ This review found no exact duplicate safe to delete. Separation of concerns is r
 
 The PR #16 post-merge JSON is retained as machine-readable evidence. Its Markdown companion is a short human index. Historical records remain separate and are not rewritten.
 
-## Repository-settings recommendation
+## Observed repository-settings state
 
-The active `Main Protection` ruleset currently requires a PR plus `Python 3.11` and `Python 3.12`, with no bypass actors. It does not require this authority check and its approving-review count is zero.
-
-After this workflow exists on `main`, a separate Human Owner repository-settings decision would be needed to add the status context `Fresh exact-head Human Owner approval receipt` beside applicable Quality checks. This candidate does not modify branch protection or rulesets.
+The active `Main Protection` ruleset currently requires a PR plus `Python 3.11`, `Python 3.12`, and `Fresh exact-head Human Owner approval receipt`, with no bypass actors. Its approving-review count is zero. This document records the observed repository setting; repository settings remain external to source control and must be rechecked directly before relying on them.
 
 ```text
 REPOSITORY_SETTINGS_CHANGE = HUMAN_OWNER_DECISION_REQUIRED
