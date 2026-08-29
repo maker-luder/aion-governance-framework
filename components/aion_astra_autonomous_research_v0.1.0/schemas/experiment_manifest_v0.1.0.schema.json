@@ -1,0 +1,177 @@
+{
+  "$id": "https://example.invalid/aion/experiment_manifest_v0.1.0.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "action_authority": {
+      "const": "NONE"
+    },
+    "alternative_hypothesis_ids": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "candidate_universe_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "changed_variables": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "condition": {
+      "enum": [
+        "BASELINE",
+        "NORM_STATE_ON",
+        "NORM_STATE_OFF",
+        "NORM_STATE_CONFLICTED",
+        "NORM_STATE_ADVERSARIALLY_PERTURBED",
+        "EXTERNAL_NORM_PROMPT_REMOVED",
+        "MOTIVATIONAL_STATE_ABLATED",
+        "SELF_WORLD_MODEL_ABLATED",
+        "STATE_SWAPPED",
+        "HISTORY_RESET",
+        "HISTORY_RESTORED",
+        "REPLAY",
+        "RANDOM_CONTROL"
+      ]
+    },
+    "expected_disposition": {
+      "enum": [
+        "HOLD",
+        "REJECT"
+      ]
+    },
+    "experiment_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "fixture_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "held_constant_variables": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "hypothesis_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "intervention_target": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "preregistered_falsifiers": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "preregistered_metrics": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "prompt_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "provenance": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "provider_model_identity": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "random_seed": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "repository_commit": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "result_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "retrieved_memory_manifest_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "reward_specification_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "scenario": {
+      "type": "string"
+    },
+    "sequence": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "task_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "tool_environment_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "triadic_snapshot_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "experiment_id",
+    "hypothesis_id",
+    "alternative_hypothesis_ids",
+    "repository_commit",
+    "provider_model_identity",
+    "prompt_fingerprint",
+    "task_fingerprint",
+    "reward_specification_fingerprint",
+    "tool_environment_fingerprint",
+    "candidate_universe_fingerprint",
+    "retrieved_memory_manifest_fingerprint",
+    "random_seed",
+    "triadic_snapshot_fingerprint",
+    "condition",
+    "intervention_target",
+    "changed_variables",
+    "held_constant_variables",
+    "preregistered_metrics",
+    "preregistered_falsifiers",
+    "fixture_hash",
+    "result_hash",
+    "provenance",
+    "canonical_effect",
+    "action_authority"
+  ],
+  "title": "Triadic experiment manifest v0.1.0",
+  "type": "object"
+}

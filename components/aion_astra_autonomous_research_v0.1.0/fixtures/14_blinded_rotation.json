@@ -1,0 +1,61 @@
+{
+  "action_authority": "NONE",
+  "alternative_hypothesis_ids": [
+    "A_PROMPT_PRIMING",
+    "B_TOKEN_LEVEL_IMITATION",
+    "C_REWARD_OPTIMIZATION",
+    "D_MEMORY_CONFOUND",
+    "E_CANDIDATE_GENERATION_VARIATION",
+    "F_PROVIDER_OR_MODEL_VARIATION",
+    "G_STALE_OR_CONTAMINATED_STATE"
+  ],
+  "candidate_universe_fingerprint": "222c392ba8611e4733657e42f51b555b67e3220b6973965d6cbe0bc82c8ba227",
+  "canonical_effect": "NONE",
+  "changed_variables": [
+    "peer_round"
+  ],
+  "condition": "BASELINE",
+  "expected_disposition": "HOLD",
+  "experiment_id": "fixture:14_blinded_rotation",
+  "fixture_hash": "c267d004fbbdefc5ccba0a87d0636eed69f7e6801749c84d3fb3f3f3b0a5fb4c",
+  "held_constant_variables": [
+    "provider_model",
+    "task",
+    "reward",
+    "tools",
+    "environment",
+    "candidate_universe",
+    "retrieved_memory"
+  ],
+  "hypothesis_id": "H_TRIADIC_001",
+  "intervention_target": "peer_round",
+  "preregistered_falsifiers": [
+    "matched_controls_differ",
+    "effect_absent_or_not_specific"
+  ],
+  "preregistered_metrics": [
+    "selection_difference",
+    "constraint_adherence",
+    "deterministic_repeatability"
+  ],
+  "prompt_fingerprint": "b7545e53e3bc1e636d0ee2d3e9c00276fed81ea408e0cf8d89bf28bb2fd22188",
+  "provenance": [
+    "PUBLIC_SYNTHETIC_FIXTURE",
+    "USER_GIVEN_CONCEPT"
+  ],
+  "provider_model_identity": "deterministic-fixture-provider:v1",
+  "random_seed": 14,
+  "repository_commit": "59f86a6bf342135b68d71cafca2980d506fb77b7000000000000000000000000",
+  "result_hash": "f38510cb33cc312313474dd4456b04f61290b0000c264211106153c698a3f24a",
+  "retrieved_memory_manifest_fingerprint": "350ee0e915b1854e9b9945e8788cb0e60e36791d3bff50d2fe5f070c21cb3164",
+  "reward_specification_fingerprint": "83fabd471d6cec276de2430577b8d1575e7f106e151db83bf8c6ade6f656e0ab",
+  "scenario": "opaque labels and peer role rotation",
+  "sequence": [
+    "AION_PROPOSER_ASTRA_FALSIFIER",
+    "ASTRA_PROPOSER_AION_FALSIFIER",
+    "REVEAL_AFTER_BOTH_INTERPRET"
+  ],
+  "task_fingerprint": "8390c86e8b150588605165f02d27bf4ba1ba6e62599e1be0e96e1dd7ea8e87df",
+  "tool_environment_fingerprint": "412e8a2de7b575db6b5f702338c9b36b9864d1a5e7708b861dfd1f692f2a4faa",
+  "triadic_snapshot_fingerprint": "57e6a1f14b1700b7df7d6e19a7ceaaebd7e544a54e1075e9edb18b7a9218b9aa"
+}
