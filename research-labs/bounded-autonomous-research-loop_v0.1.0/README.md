@@ -197,13 +197,19 @@ action remains outside the autonomous research loop.
 
 ## Tests
 
-From this lab:
+From the repository root, use the repository-native multi-component runner so all local source roots are available:
 
 ```bash
-PYTHONPATH=src python -m pytest -q -o addopts=
+python -c "from pathlib import Path; from scripts.run_component_tests import discover_source_roots, run_component_tests; root=Path.cwd(); target=root/'research-labs'/'bounded-autonomous-research-loop_v0.1.0'; results=run_component_tests([target], root, discover_source_roots(root)); raise SystemExit(0 if results[0]['returncode']==0 else results[0]['returncode'])"
 ```
 
-The repository-wide `scripts/run_component_tests.py` automatically includes this lab because it has a `tests/` directory and
-adds all component/research-lab source roots to `PYTHONPATH`.
+The full `python scripts/run_component_tests.py` uses the same discovery and writes governed current QA results. The targeted command is for local iteration and does not rewrite `qa/CURRENT_TEST_RESULTS.json`.
+
+```text
+LOCAL_SINGLE_SRC_PATH != REPOSITORY_MULTI_COMPONENT_TEST_ENVIRONMENT
+```
+
+This lab eagerly imports existing repository-local integration surfaces. `PYTHONPATH=src` alone does not represent its clean repository test environment. Do not remove imports or duplicate source-root discovery merely to run a focused test.
 
 See `docs/PROTOCOL.md` for source bindings, provenance semantics, admission rules, and failure conditions.
+See `docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md` for the additive seven-axis derived-observation profile and its non-claim boundaries.

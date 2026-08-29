@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased — Diachronic and Collective Dynamics derived-observation profile
+- Added seven mechanism-sensitive derived axes over the existing seven canonical functional-state channels; no eighth state or scalar subjectivity score was introduced.
+- Added deterministic synthetic intervention, ablation, replay, and bounded counterfactual-proxy fixtures plus adapters into the existing subjectivity matrix, Four-Domain type, AION/Astra inquiry context, and evidence path.
+- Corrected the bounded-loop README to use the repository-native multi-component source-root discovery for focused testing.
+
 ## 2026-08-15 — Final repository convergence and freeze checkpoint
 
 This checkpoint was prepared on `convergence/final-repository-freeze-20260815` from protected `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94`. It records documentation convergence, current-state reconciliation, explicit PR and branch disposition, and preserved provenance. It adds no feature, research result, architecture, runtime, model, or deployment work.

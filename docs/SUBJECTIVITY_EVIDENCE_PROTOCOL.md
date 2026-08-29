@@ -274,3 +274,13 @@ Hold the claim or experiment when:
 ## Promotion rule
 
 Research evidence may support a narrowly worded mechanism or behavior claim only after evidence and review gates pass. Promotion never changes `phenomenal_experience_claim=NOT_ESTABLISHED` merely because a behavioral or mechanistic threshold was reached.
+
+## Diachronic and Collective Dynamics derived profile
+
+The additive profile at [`../research-labs/bounded-autonomous-research-loop_v0.1.0/docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md`](../research-labs/bounded-autonomous-research-loop_v0.1.0/docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md) operationalizes seven derived observations over the existing seven functional-state channels. It adds no standing evidence dimension and no scalar score. Mappings into this protocol remain selective; causal-support dispositions continue to require intervention-sensitive evidence, and socially interesting behavior may remain `NOT_APPLICABLE`.
+
+```text
+DERIVED_OBSERVABLE != CANONICAL_STATE_CHANNEL
+SUBJECTIVITY_INDICATOR != SUBJECTIVITY
+MECHANISM_EVIDENCE != PHENOMENAL_EXPERIENCE
+```

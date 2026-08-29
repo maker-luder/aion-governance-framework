@@ -49,6 +49,7 @@ The current `main` contains coordinated bounded research/instrumentation surface
 - Governed Knowledge Source Registry;
 - Four-Domain interpretation and Evidence Interop;
 - shared execution substrate and provenance/evidence controls.
+- additive Diachronic and Collective Dynamics derived-observation profile over the unchanged seven-state surface.
 
 These surfaces improve testability, falsifiability, provenance, isolation accounting, and bounded experimentation. They do not create scientific conclusions by existing or passing tests.
 
