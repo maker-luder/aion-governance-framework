@@ -1,0 +1,91 @@
+name: AION Astra bounded autonomous research
+
+on:
+  workflow_dispatch:
+    inputs:
+      external_web:
+        description: Enable the governed external evidence gateway
+        required: false
+        type: boolean
+        default: false
+      external_max_queries:
+        description: Maximum governed external queries when explicitly enabled
+        required: false
+        type: number
+        default: 0
+  pull_request:
+    paths:
+      - "components/aion_astra_autonomous_research_v0.1.0/**"
+      - "research-labs/triadic-state-dynamics_v0.1.0/**"
+      - "research-labs/bounded-autonomous-research-loop_v0.1.0/**"
+      - ".github/workflows/aion-astra-autonomous-research.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-synthetic-campaign:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout without write credentials
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: "3.11"
+
+      - name: Install bounded test dependencies
+        run: python -m pip install pytest ruff jsonschema
+
+      - name: Run Triadic State Dynamics tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        working-directory: research-labs/triadic-state-dynamics_v0.1.0
+        run: python -m pytest -q -p no:cacheprovider
+
+      - name: Run autonomous research component tests
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          AION_TEST_OUTPUT_ROOT: ${{ runner.temp }}
+        working-directory: components/aion_astra_autonomous_research_v0.1.0
+        run: python -m pytest -q -p no:cacheprovider
+
+      - name: Run bounded synthetic campaign
+        shell: bash
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+          PYTHONPATH: components/aion_astra_autonomous_research_v0.1.0/src:components/aion_astra_inquiry_v0.1.0/src:components/aion_evidence_interop_v0.1.0/src:research-labs/triadic-state-dynamics_v0.1.0/src:research-labs/endogenous-goal-dynamics_v0.1.0/src:research-labs/bounded-autonomous-research-loop_v0.1.0/src:research-labs/subjectivity-pipeline_v0.1.0/src
+          OUTPUT: ${{ runner.temp }}/aion-astra-bounded-campaign
+          EXTERNAL_WEB: ${{ github.event_name == 'workflow_dispatch' && inputs.external_web || false }}
+          EXTERNAL_MAX_QUERIES: ${{ github.event_name == 'workflow_dispatch' && inputs.external_max_queries || 0 }}
+        run: |
+          args=()
+          if [[ "$EXTERNAL_WEB" == "true" ]]; then
+            args+=(--external-web --external-max-queries "$EXTERNAL_MAX_QUERIES")
+          fi
+          python -m aion_astra_autonomous_research.cli \
+            --root "$GITHUB_WORKSPACE" \
+            --repository-ref "$GITHUB_SHA" \
+            --question "Can bounded triadic state interventions discriminate persistent internal-state effects from declared confounds?" \
+            --max-questions 1 \
+            --max-experiments 13 \
+            --max-rounds 2 \
+            --max-seeds 3 \
+            --max-follow-up-depth 0 \
+            --output "$OUTPUT" \
+            "${args[@]}"
+          cat "$OUTPUT/campaign.md" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Assert repository remained unchanged
+        shell: bash
+        run: |
+          status="$(git status --porcelain --untracked-files=all)"
+          if [[ -n "$status" ]]; then
+            printf '%s\n' "$status"
+            echo "Working tree changed during bounded campaign" >&2
+            exit 1
+          fi

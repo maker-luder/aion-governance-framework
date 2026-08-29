@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-08-29 — Human Owner-authorized single-main convergence
+
+- Preserved `AI_SUBJECTIVITY_POSSIBILITY` as the non-drifting central research question.
+- Converged the diachronic/collective derived-observation profile, local-first governed multimodal media, main-transition receipt usability, and bounded autonomous Triadic campaign onto the current `main` baseline.
+- Updated the English and Traditional Chinese public homepages, semantic current state and documentation index for the converged surfaces and single durable `main` branch topology.
+- Preserved candidate lineage in merge commits and pull-request records while retiring parallel remote branches after protected-main validation and merge.
+- Retained `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, `ACTION_AUTHORITY=NONE`, and all subjectivity/consciousness/identity non-claims.
+
+## Unreleased — Diachronic and Collective Dynamics derived-observation profile
+- Added seven mechanism-sensitive derived axes over the existing seven canonical functional-state channels; no eighth state or scalar subjectivity score was introduced.
+- Added deterministic synthetic intervention, ablation, replay, and bounded counterfactual-proxy fixtures plus adapters into the existing subjectivity matrix, Four-Domain type, AION/Astra inquiry context, and evidence path.
+- Corrected the bounded-loop README to use the repository-native multi-component source-root discovery for focused testing.
+
 ## 2026-08-15 — Final repository convergence and freeze checkpoint
 
 This checkpoint was prepared on `convergence/final-repository-freeze-20260815` from protected `main@e079fb7dfe7a04be7dcb94b8a059951a003caa94`. It records documentation convergence, current-state reconciliation, explicit PR and branch disposition, and preserved provenance. It adds no feature, research result, architecture, runtime, model, or deployment work.
@@ -31,3 +44,5 @@ Subsequent `main` merges and isolated research, engineering, review, promotion, 
 - Added component-scoped installation, quickstart, API, examples, interoperability, versioning, and release-readiness documentation.
 - Clarified contributor change classes and retained exact-head Human Owner main-transition authority.
 - Documented the existing inspection-only Evidence Interop CLI as the current language-neutral boundary; no native SDK, release, or scientific claim was added.
+- Added a local-first multimodal generation reference path for deterministic image, video, and glTF 3D artifacts with exact content hashing and no network/provider requirement.
+- Documented a language-neutral local runtime strategy: C/C++ and Rust are allowed generation backends while the Python layer remains a governance/research control plane rather than a mandatory inference language.

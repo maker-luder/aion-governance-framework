@@ -12,6 +12,22 @@ from .adapters import (
     bounded_four_domain_mapping,
     validate_independent_mutual_falsification,
 )
+from .diachronic_collective import (
+    DiachronicCollectiveObservationMatrix,
+    DerivedAxisDisposition,
+    DerivedAxisObservation,
+    DerivedResearchAxis,
+    SyntheticCondition,
+    SyntheticExperimentCase,
+    attach_to_research_evidence_record,
+    build_observation_matrix,
+    build_synthetic_fixture,
+    observe_axis,
+    to_evidence_extension,
+    to_four_domain_mapping,
+    to_inquiry_context_bundle,
+    to_subjectivity_evidence_matrix,
+)
 from .evidence import (
     export_interop_views,
     extended_run_to_research_evidence_record,

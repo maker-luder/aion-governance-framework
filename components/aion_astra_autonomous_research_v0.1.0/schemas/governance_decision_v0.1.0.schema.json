@@ -1,0 +1,47 @@
+{
+  "$id": "https://example.invalid/aion/governance_decision_v0.1.0.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "mechanism_status": {
+      "enum": [
+        "SUPPORTED",
+        "CHALLENGED",
+        "INCONCLUSIVE",
+        "NOT_EVALUATED"
+      ]
+    },
+    "reasons": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "run_integrity": {
+      "enum": [
+        "PASS",
+        "HOLD",
+        "REJECT"
+      ]
+    },
+    "scientific_disposition": {
+      "enum": [
+        "HOLD",
+        "REJECT"
+      ]
+    }
+  },
+  "required": [
+    "run_integrity",
+    "mechanism_status",
+    "scientific_disposition",
+    "reasons",
+    "canonical_effect"
+  ],
+  "title": "Governance decision v0.1.0",
+  "type": "object"
+}

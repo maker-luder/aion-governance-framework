@@ -16,6 +16,8 @@ STATEMENT = (
     "I explicitly approve merging the specified target PR at the specified exact "
     "head into main for this action."
 )
+DEFAULT_FRESHNESS_SECONDS = 900
+MAX_FUTURE_SKEW_SECONDS = 60
 
 
 @dataclass(frozen=True, slots=True)
@@ -121,7 +123,8 @@ def validate_record(
     body_was_edited: bool,
     event_sender: str,
     human_owner_login: str,
-    freshness_seconds: int = 300,
+    freshness_seconds: int = DEFAULT_FRESHNESS_SECONDS,
+    max_future_skew_seconds: int = MAX_FUTURE_SKEW_SECONDS,
 ) -> GateResult:
     diagnostics: list[str] = []
     sender_match = event_sender == human_owner_login
@@ -210,11 +213,17 @@ def validate_record(
     approval_time = _parse_time(record.get("approval_time"), "approval_time", diagnostics)
     timestamp_fresh = False
     if approval_time is not None:
-        delta = abs((approval_event_time - approval_time).total_seconds())
-        timestamp_fresh = delta <= freshness_seconds
-        if not timestamp_fresh:
+        age_seconds = (approval_event_time - approval_time).total_seconds()
+        timestamp_fresh = -max_future_skew_seconds <= age_seconds <= freshness_seconds
+        if age_seconds < -max_future_skew_seconds:
             diagnostics.append(
-                f"approval_time is not fresh for the receipt edit event ({delta:.0f}s delta)"
+                "approval_time is later than the receipt edit event beyond allowed clock skew "
+                f"({-age_seconds:.0f}s future)"
+            )
+        elif age_seconds > freshness_seconds:
+            diagnostics.append(
+                "approval_time is not fresh for the receipt edit event "
+                f"({age_seconds:.0f}s old; maximum {freshness_seconds}s)"
             )
 
     account_evidence = AccountEvidence(

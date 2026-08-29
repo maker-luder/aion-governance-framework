@@ -1,0 +1,51 @@
+{
+  "$id": "https://example.invalid/aion/research_iteration_report_v0.1.0.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "blinded_mapping_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "competing_explanations": {
+      "minItems": 7,
+      "type": "array"
+    },
+    "falsifier_results": {
+      "type": "array"
+    },
+    "four_domain": {
+      "type": "object"
+    },
+    "governance": {
+      "$ref": "governance_decision_v0.1.0.schema.json"
+    },
+    "interpretations": {
+      "minItems": 2,
+      "type": "array"
+    },
+    "iteration_id": {
+      "type": "string"
+    },
+    "question": {
+      "type": "object"
+    },
+    "role_assignments": {
+      "minItems": 2,
+      "type": "array"
+    }
+  },
+  "required": [
+    "iteration_id",
+    "question",
+    "role_assignments",
+    "blinded_mapping_hash",
+    "interpretations",
+    "competing_explanations",
+    "falsifier_results",
+    "four_domain",
+    "governance"
+  ],
+  "title": "Research iteration report v0.1.0",
+  "type": "object"
+}

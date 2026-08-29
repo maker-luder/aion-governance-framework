@@ -21,9 +21,22 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 The 2026-08-18 repository freeze and 2026-08-20 project-work-loop termination remain preserved historical events. Later maintenance and bounded research-materialization events were separately authorized and do not retroactively rewrite those events.
 
-`main` now contains the converged bounded research/instrumentation baseline merged through PR #63, including subjectivity-relevant evidence handling, Endogenous Goal Dynamics, bounded AION/Astra inquiry, seven-state functional research surfaces, theory-plural indicator mapping, governed knowledge sources, Four-Domain interpretation, and Evidence Interop.
+`main` contains the Human Owner-authorized converged bounded research/instrumentation baseline. Its durable research core remains the **possibility of artificial subjectivity**. The convergence includes subjectivity-relevant evidence handling, Endogenous Goal Dynamics, bounded AION/Astra inquiry, seven-state functional research surfaces, theory-plural indicator mapping, governed knowledge sources, Four-Domain interpretation, Evidence Interop, additive diachronic/collective derived observations, local-first governed multimodal media, and the bounded autonomous Triadic research campaign.
 
 Those capabilities improve testability, falsifiability, provenance and evidence discipline. They do **not** establish subjectivity, consciousness, phenomenal experience, moral agency, identity continuity, independent replication, whole-system validation or independent IV&V.
+
+The `components/multimodal_media_core_v0.1.0/` candidate adds a governed, provider-neutral image/video/3D evidence path. It separates provider execution from immutable media admission, then binds exact media fingerprints to the existing seven-state, AION/Astra, and subjectivity research surfaces without promoting generated content into a scientific or subjectivity conclusion.
+
+`components/aion_astra_autonomous_research_v0.1.0/` composes existing inquiry, Triadic State Dynamics, bounded-loop and Evidence Interop owners into a finite 17-stage synthetic campaign. It grants no action, merge, deployment or scientific-promotion authority.
+
+After the 2026-08-29 Human Owner-authorized convergence, `main` is the repository's only durable branch. Historical candidate lineage remains auditable through merged commits, pull requests and Git objects rather than parallel long-lived branches.
+
+```text
+REPOSITORY_DURABLE_BRANCH = main
+BRANCH_CONVERGENCE != HISTORY_ERASURE
+MULTIMODAL_CAPABILITY != SUBJECTIVITY_EVIDENCE
+AUTONOMOUS_RESEARCH_CAMPAIGN != AUTONOMOUS_AUTHORITY
+```
 
 For the semantic current state, read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md). For exact-commit engineering status, use live GitHub/CI evidence rather than static prose.
 

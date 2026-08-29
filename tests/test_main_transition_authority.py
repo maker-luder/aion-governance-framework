@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import json
 import sys
+from datetime import datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -179,6 +180,38 @@ def test_stale_approval_time_fails_closed() -> None:
     result = validate(event_for(record))
     assert result.status == "HOLD"
     assert result.account_evidence.timestamp_fresh is False
+
+
+def test_fifteen_minute_freshness_boundary_passes() -> None:
+    record = valid_receipt()
+    event_time = datetime.fromisoformat(EVENT_TIME.replace("Z", "+00:00"))
+    record["approval_time"] = (event_time - timedelta(seconds=900)).isoformat()
+    assert validate(event_for(record)).status == "PASS"
+
+
+def test_receipt_older_than_fifteen_minutes_fails_closed() -> None:
+    record = valid_receipt()
+    event_time = datetime.fromisoformat(EVENT_TIME.replace("Z", "+00:00"))
+    record["approval_time"] = (event_time - timedelta(seconds=901)).isoformat()
+    result = validate(event_for(record))
+    assert result.status == "HOLD"
+    assert any("maximum 900s" in item for item in result.diagnostics)
+
+
+def test_excessively_future_approval_time_fails_closed() -> None:
+    record = valid_receipt()
+    event_time = datetime.fromisoformat(EVENT_TIME.replace("Z", "+00:00"))
+    record["approval_time"] = (event_time + timedelta(seconds=61)).isoformat()
+    result = validate(event_for(record))
+    assert result.status == "HOLD"
+    assert any("beyond allowed clock skew" in item for item in result.diagnostics)
+
+
+def test_small_future_clock_skew_is_tolerated() -> None:
+    record = valid_receipt()
+    event_time = datetime.fromisoformat(EVENT_TIME.replace("Z", "+00:00"))
+    record["approval_time"] = (event_time + timedelta(seconds=60)).isoformat()
+    assert validate(event_for(record)).status == "PASS"
 
 
 def test_non_body_edit_event_fails_closed() -> None:
