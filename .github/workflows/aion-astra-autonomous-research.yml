@@ -58,7 +58,7 @@ jobs:
         shell: bash
         env:
           PYTHONDONTWRITEBYTECODE: "1"
-          PYTHONPATH: components/aion_astra_autonomous_research_v0.1.0/src:components/aion_astra_inquiry_v0.1.0/src:components/aion_evidence_interop_v0.1.0/src:research-labs/triadic-state-dynamics_v0.1.0/src:research-labs/endogenous-goal-dynamics_v0.1.0/src:research-labs/bounded-autonomous-research-loop_v0.1.0/src
+          PYTHONPATH: components/aion_astra_autonomous_research_v0.1.0/src:components/aion_astra_inquiry_v0.1.0/src:components/aion_evidence_interop_v0.1.0/src:research-labs/triadic-state-dynamics_v0.1.0/src:research-labs/endogenous-goal-dynamics_v0.1.0/src:research-labs/bounded-autonomous-research-loop_v0.1.0/src:research-labs/subjectivity-pipeline_v0.1.0/src
           OUTPUT: ${{ runner.temp }}/aion-astra-bounded-campaign
           EXTERNAL_WEB: ${{ github.event_name == 'workflow_dispatch' && inputs.external_web || false }}
           EXTERNAL_MAX_QUERIES: ${{ github.event_name == 'workflow_dispatch' && inputs.external_max_queries || 0 }}

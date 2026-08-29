@@ -74,4 +74,6 @@ def test_workflow_is_manual_or_relevant_pr_only_and_fail_closed() -> None:
     assert "uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
     pythonpath = next(line.strip().removeprefix("PYTHONPATH: ") for line in workflow.splitlines() if line.strip().startswith("PYTHONPATH: "))
     assert " " not in pythonpath
-    assert len(pythonpath.split(":")) == 6
+    source_roots = pythonpath.split(":")
+    assert len(source_roots) == 7
+    assert "research-labs/subjectivity-pipeline_v0.1.0/src" in source_roots

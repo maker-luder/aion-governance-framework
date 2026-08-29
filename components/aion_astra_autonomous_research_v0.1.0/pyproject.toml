@@ -23,6 +23,7 @@ pythonpath = [
   "../aion_evidence_interop_v0.1.0/src",
   "../../research-labs/triadic-state-dynamics_v0.1.0/src",
   "../../research-labs/endogenous-goal-dynamics_v0.1.0/src",
-  "../../research-labs/bounded-autonomous-research-loop_v0.1.0/src"
+  "../../research-labs/bounded-autonomous-research-loop_v0.1.0/src",
+  "../../research-labs/subjectivity-pipeline_v0.1.0/src"
 ]
 addopts = "-ra"
