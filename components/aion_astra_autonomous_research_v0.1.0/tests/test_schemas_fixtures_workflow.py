@@ -72,3 +72,6 @@ def test_workflow_is_manual_or_relevant_pr_only_and_fail_closed() -> None:
     assert "Working tree changed during bounded campaign" in workflow
     assert "uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1" in workflow
     assert "uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97" in workflow
+    pythonpath = next(line.strip().removeprefix("PYTHONPATH: ") for line in workflow.splitlines() if line.strip().startswith("PYTHONPATH: "))
+    assert " " not in pythonpath
+    assert len(pythonpath.split(":")) == 6
