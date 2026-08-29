@@ -25,6 +25,8 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 這些能力強化可測試性、可反證性、provenance 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、道德能動性、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
 
+`components/multimodal_media_core_v0.1.0/` 候選元件新增受治理、provider-neutral 的影像／影片／3D 證據路徑。它把 provider 執行與不可變媒體納管分開，再將精確媒體指紋綁定至既有七狀態、AION/Astra 與主體性研究表面，不把生成內容升格為科學或主體性結論。
+
 要看「現在到底是什麼狀態」，請讀 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)。若要確認某一顆 exact commit 的工程狀態，請看即時 GitHub / CI evidence，而不是靜態文件。
 
 ## 依目的閱讀
