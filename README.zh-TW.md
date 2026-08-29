@@ -21,11 +21,22 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 2026-08-18 的倉庫 freeze 與 2026-08-20 的 project-work-loop termination 仍是被保存的歷史事件。之後的 maintenance 與 bounded research-materialization 都是另外逐次授權，不會回溯改寫那些歷史事件。
 
-目前 `main` 已包含經 PR #63 收斂後的 bounded research / instrumentation baseline，包括主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation 與 Evidence Interop。
+目前 `main` 包含經 Human Owner 明確批准後收斂的 bounded research / instrumentation baseline，其不可偏移的持久研究核心仍是**人工主體性的可能性**。收斂內容包括主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation、Evidence Interop、加成式 diachronic／collective derived observations、local-first governed multimodal media，以及 bounded autonomous Triadic research campaign。
 
 這些能力強化可測試性、可反證性、provenance 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、道德能動性、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
 
 `components/multimodal_media_core_v0.1.0/` 候選元件新增受治理、provider-neutral 的影像／影片／3D 證據路徑。它把 provider 執行與不可變媒體納管分開，再將精確媒體指紋綁定至既有七狀態、AION/Astra 與主體性研究表面，不把生成內容升格為科學或主體性結論。
+
+`components/aion_astra_autonomous_research_v0.1.0/` 將既有 inquiry、Triadic State Dynamics、bounded loop 與 Evidence Interop owner surfaces 組合成有限的 17-stage synthetic campaign；它不取得 action、merge、deployment 或 scientific-promotion authority。
+
+2026-08-29 經 Human Owner 批准完成收斂後，`main` 是本倉庫唯一的持久支線。歷史候選 lineage 仍由 merge commits、pull requests 與 Git objects 保持可稽核，而不是繼續維持多條長期平行支線。
+
+```text
+REPOSITORY_DURABLE_BRANCH = main
+BRANCH_CONVERGENCE != HISTORY_ERASURE
+MULTIMODAL_CAPABILITY != SUBJECTIVITY_EVIDENCE
+AUTONOMOUS_RESEARCH_CAMPAIGN != AUTONOMOUS_AUTHORITY
+```
 
 要看「現在到底是什麼狀態」，請讀 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)。若要確認某一顆 exact commit 的工程狀態，請看即時 GitHub / CI evidence，而不是靜態文件。
 

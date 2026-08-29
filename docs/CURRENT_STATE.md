@@ -15,8 +15,14 @@ ACTIVE_RESEARCH_PROGRAM = NO
 POST_TERMINATION_BOUNDED_MAINTENANCE = PRESENT_IN_MAIN
 POST_TERMINATION_BOUNDED_RESEARCH_MATERIALIZATION = PRESENT_IN_MAIN
 
-LATEST_CONVERGED_RESEARCH_BASELINE = PR_63
+PRE_CONVERGENCE_RESEARCH_BASELINE = PR_63
 PR_63_MERGE_COMMIT = 2d37aa92c2bc454abcea41b2174e3415d98865b1
+LATEST_CONVERGENCE_EVENT = HUMAN_OWNER_AUTHORIZED_2026_08_29_SINGLE_MAIN
+
+HUMAN_OWNER_CONVERGENCE_APPROVAL_2026_08_29 = GIVEN
+CENTRAL_RESEARCH_CORE_DRIFT = PROHIBITED
+REPOSITORY_DURABLE_BRANCH = main
+PARALLEL_LONG_LIVED_BRANCHES_AFTER_CONVERGENCE = NONE
 
 AUTOMATIC_RESTART = NO
 AUTOMATIC_RESEARCH_QUEUE = NONE
@@ -50,8 +56,20 @@ The current `main` contains coordinated bounded research/instrumentation surface
 - Four-Domain interpretation and Evidence Interop;
 - shared execution substrate and provenance/evidence controls.
 - additive Diachronic and Collective Dynamics derived-observation profile over the unchanged seven-state surface.
+- governed local-first IMAGE / VIDEO / MODEL_3D evidence generation with exact media fingerprints;
+- a finite 17-stage autonomous Triadic research campaign with bounded synthetic probes, blinded interpretation, falsifiers and explicit HOLD disposition;
+- a self-validating main-transition receipt generator that preserves separate Human Owner authority.
 
 These surfaces improve testability, falsifiability, provenance, isolation accounting, and bounded experimentation. They do not create scientific conclusions by existing or passing tests.
+
+The 2026-08-29 convergence collapses repository branch topology, not research distinctions or historical provenance. Candidate lineage remains available in merged commit ancestry and pull-request records.
+
+```text
+BRANCH_CONVERGENCE != HISTORY_ERASURE
+BRANCH_CONVERGENCE != SCIENTIFIC_CONVERGENCE
+MULTIMODAL_CAPABILITY != SUBJECTIVITY_EVIDENCE
+AUTONOMOUS_RESEARCH_CAMPAIGN != AUTONOMOUS_AUTHORITY
+```
 
 ## Scientific disposition / 科學結論狀態
 

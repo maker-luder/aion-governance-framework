@@ -68,6 +68,8 @@ These are bounded to the component/lab they describe and are not global reader e
 - [`../components/`](../components/) — governance, execution, evidence and runtime components;
 - [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics and bounded research loop;
   - [`Diachronic and Collective Dynamics profile`](../research-labs/bounded-autonomous-research-loop_v0.1.0/docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md) — component-local derived observations over the unchanged seven-state surface;
+- [`../components/multimodal_media_core_v0.1.0/`](../components/multimodal_media_core_v0.1.0/) — governed local-first image, video and 3D evidence generation with provider-neutral admission controls;
+- [`../components/aion_astra_autonomous_research_v0.1.0/`](../components/aion_astra_autonomous_research_v0.1.0/) — finite 17-stage synthetic Triadic research campaign using existing inquiry, bounded-loop and Evidence Interop owners;
 - [`../experiments/`](../experiments/) — bounded experiments and baselines.
 
 Read the local `README`/`docs` only after the relevant global method/architecture document.

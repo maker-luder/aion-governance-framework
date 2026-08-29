@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-29 — Human Owner-authorized single-main convergence
+
+- Preserved `AI_SUBJECTIVITY_POSSIBILITY` as the non-drifting central research question.
+- Converged the diachronic/collective derived-observation profile, local-first governed multimodal media, main-transition receipt usability, and bounded autonomous Triadic campaign onto the current `main` baseline.
+- Updated the English and Traditional Chinese public homepages, semantic current state and documentation index for the converged surfaces and single durable `main` branch topology.
+- Preserved candidate lineage in merge commits and pull-request records while retiring parallel remote branches after protected-main validation and merge.
+- Retained `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, `ACTION_AUTHORITY=NONE`, and all subjectivity/consciousness/identity non-claims.
+
 ## Unreleased — Diachronic and Collective Dynamics derived-observation profile
 - Added seven mechanism-sensitive derived axes over the existing seven canonical functional-state channels; no eighth state or scalar subjectivity score was introduced.
 - Added deterministic synthetic intervention, ablation, replay, and bounded counterfactual-proxy fixtures plus adapters into the existing subjectivity matrix, Four-Domain type, AION/Astra inquiry context, and evidence path.
