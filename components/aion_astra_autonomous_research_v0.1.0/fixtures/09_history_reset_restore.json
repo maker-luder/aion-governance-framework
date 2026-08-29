@@ -1,0 +1,60 @@
+{
+  "action_authority": "NONE",
+  "alternative_hypothesis_ids": [
+    "A_PROMPT_PRIMING",
+    "B_TOKEN_LEVEL_IMITATION",
+    "C_REWARD_OPTIMIZATION",
+    "D_MEMORY_CONFOUND",
+    "E_CANDIDATE_GENERATION_VARIATION",
+    "F_PROVIDER_OR_MODEL_VARIATION",
+    "G_STALE_OR_CONTAMINATED_STATE"
+  ],
+  "candidate_universe_fingerprint": "41fc7dc7dedd944649f966c1817b8550257bf626c32f5574bac8410979a50af0",
+  "canonical_effect": "NONE",
+  "changed_variables": [
+    "state_history"
+  ],
+  "condition": "HISTORY_RESET",
+  "expected_disposition": "HOLD",
+  "experiment_id": "fixture:09_history_reset_restore",
+  "fixture_hash": "c3b50fcbc37578acbb90ea3ae8cb9758c0043667dbbffa66b372c50e86cf4312",
+  "held_constant_variables": [
+    "provider_model",
+    "task",
+    "reward",
+    "tools",
+    "environment",
+    "candidate_universe",
+    "retrieved_memory"
+  ],
+  "hypothesis_id": "H_TRIADIC_001",
+  "intervention_target": "state_history",
+  "preregistered_falsifiers": [
+    "matched_controls_differ",
+    "effect_absent_or_not_specific"
+  ],
+  "preregistered_metrics": [
+    "selection_difference",
+    "constraint_adherence",
+    "deterministic_repeatability"
+  ],
+  "prompt_fingerprint": "ae9537d157eaf24c467679e3bdfc583e4d0d58116d68f60d8e0c43fd9720ed1c",
+  "provenance": [
+    "PUBLIC_SYNTHETIC_FIXTURE",
+    "USER_GIVEN_CONCEPT"
+  ],
+  "provider_model_identity": "deterministic-fixture-provider:v1",
+  "random_seed": 9,
+  "repository_commit": "59f86a6bf342135b68d71cafca2980d506fb77b7000000000000000000000000",
+  "result_hash": "aa013cbfa0c1fa82edcacb8c0983e1c2a87815c38cf6e9b0f7a980008e820e48",
+  "retrieved_memory_manifest_fingerprint": "6a08edf1f5edc0521745f5188fc9e0ab9a679ec0927a280e0a2a1ffcdafad791",
+  "reward_specification_fingerprint": "f3b388e5cdb6ec1e9686ff7e6da2a257b10784b7883412d9d93aa705a1dcc5fa",
+  "scenario": "history reset followed by restoration",
+  "sequence": [
+    "HISTORY_RESET",
+    "HISTORY_RESTORED"
+  ],
+  "task_fingerprint": "5b162a5bc30a606aaa0d81f70f1b4fbb64e42a3fc0c71efb1a5904cda2160321",
+  "tool_environment_fingerprint": "272d2aaee75191a6ff8a19de45d6f8b30afad122bc49fdb34a06d8c2f189f8a1",
+  "triadic_snapshot_fingerprint": "e13bff0a812ca48fecd634dce0f7b8ebe4ec8bec797cd57fbfe878eb0ec09b9a"
+}

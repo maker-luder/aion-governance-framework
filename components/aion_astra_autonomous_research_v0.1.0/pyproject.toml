@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-astra-autonomous-research"
+version = "0.1.0"
+description = "Bounded autonomous research-loop orchestrator for AION and Astra"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+aion-astra-autonomous-research = "aion_astra_autonomous_research.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [
+  "src",
+  "../aion_astra_inquiry_v0.1.0/src",
+  "../aion_evidence_interop_v0.1.0/src",
+  "../../research-labs/triadic-state-dynamics_v0.1.0/src",
+  "../../research-labs/endogenous-goal-dynamics_v0.1.0/src",
+  "../../research-labs/bounded-autonomous-research-loop_v0.1.0/src"
+]
+addopts = "-ra"

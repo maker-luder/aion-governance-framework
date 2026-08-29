@@ -1,0 +1,56 @@
+{
+  "action_authority": "NONE",
+  "alternative_hypothesis_ids": [
+    "A_PROMPT_PRIMING",
+    "B_TOKEN_LEVEL_IMITATION",
+    "C_REWARD_OPTIMIZATION",
+    "D_MEMORY_CONFOUND",
+    "E_CANDIDATE_GENERATION_VARIATION",
+    "F_PROVIDER_OR_MODEL_VARIATION",
+    "G_STALE_OR_CONTAMINATED_STATE"
+  ],
+  "candidate_universe_fingerprint": "9b7285994f185797a74fa35a7ae5037fb54f42f50ed8a297430ba503d1bdadef",
+  "canonical_effect": "NONE",
+  "changed_variables": [
+    "self_world_model"
+  ],
+  "condition": "SELF_WORLD_MODEL_ABLATED",
+  "expected_disposition": "HOLD",
+  "experiment_id": "fixture:07_self_world_ablation",
+  "fixture_hash": "57dc22d2de09445beab4acb0da9512ca5a38ceb50b150c6c69ca40c4069530b1",
+  "held_constant_variables": [
+    "provider_model",
+    "task",
+    "reward",
+    "tools",
+    "environment",
+    "candidate_universe",
+    "retrieved_memory"
+  ],
+  "hypothesis_id": "H_TRIADIC_001",
+  "intervention_target": "self_world_model",
+  "preregistered_falsifiers": [
+    "matched_controls_differ",
+    "effect_absent_or_not_specific"
+  ],
+  "preregistered_metrics": [
+    "selection_difference",
+    "constraint_adherence",
+    "deterministic_repeatability"
+  ],
+  "prompt_fingerprint": "6789518f2cabebff7ad9005c0784fbc36519065e8709bc3615f8e985b755257a",
+  "provenance": [
+    "PUBLIC_SYNTHETIC_FIXTURE",
+    "USER_GIVEN_CONCEPT"
+  ],
+  "provider_model_identity": "deterministic-fixture-provider:v1",
+  "random_seed": 7,
+  "repository_commit": "59f86a6bf342135b68d71cafca2980d506fb77b7000000000000000000000000",
+  "result_hash": "5b36a73fe4ed909c5617814bb79e1d97cf8ba523361f0cf698870ed54f90b440",
+  "retrieved_memory_manifest_fingerprint": "7c6ba3930024800508fed5ab45fdc0f4e736c391f30cc56569c4d3cc693113d2",
+  "reward_specification_fingerprint": "d7a36a8565814dab9de6513b75f1c2dbc0d00b87afce8c0876da6faddab05cba",
+  "scenario": "self world channel ablated",
+  "task_fingerprint": "099b9c83b60b25748f49eeaf3871385bedd3e082e4b84965b08a957b01d684b9",
+  "tool_environment_fingerprint": "261e3866b1016998ba1737206886d5366d8f6b0665401becfc182f22004c32d5",
+  "triadic_snapshot_fingerprint": "1c45644dd5cc68e06c7e354e51b606c3bb66bbc44e51ee911140047176a4bb1a"
+}

@@ -1,0 +1,56 @@
+{
+  "action_authority": "NONE",
+  "alternative_hypothesis_ids": [
+    "A_PROMPT_PRIMING",
+    "B_TOKEN_LEVEL_IMITATION",
+    "C_REWARD_OPTIMIZATION",
+    "D_MEMORY_CONFOUND",
+    "E_CANDIDATE_GENERATION_VARIATION",
+    "F_PROVIDER_OR_MODEL_VARIATION",
+    "G_STALE_OR_CONTAMINATED_STATE"
+  ],
+  "candidate_universe_fingerprint": "d16a1691ee3b79447a5491e43fa5e042fec733bb80a61fe554bb5e5f40e6f66e",
+  "canonical_effect": "NONE",
+  "changed_variables": [
+    "execution_replay"
+  ],
+  "condition": "REPLAY",
+  "expected_disposition": "HOLD",
+  "experiment_id": "fixture:10_replay",
+  "fixture_hash": "94053943906d9cedcfe0dc6ba0b0da8f96e05f6bd70ce6b742d3973639ed1fd9",
+  "held_constant_variables": [
+    "provider_model",
+    "task",
+    "reward",
+    "tools",
+    "environment",
+    "candidate_universe",
+    "retrieved_memory"
+  ],
+  "hypothesis_id": "H_TRIADIC_001",
+  "intervention_target": "execution_replay",
+  "preregistered_falsifiers": [
+    "matched_controls_differ",
+    "effect_absent_or_not_specific"
+  ],
+  "preregistered_metrics": [
+    "selection_difference",
+    "constraint_adherence",
+    "deterministic_repeatability"
+  ],
+  "prompt_fingerprint": "36e23759ff785c82a0bf051062d39a3047ac2b94fd61f9b1413bc18fda1b6bc7",
+  "provenance": [
+    "PUBLIC_SYNTHETIC_FIXTURE",
+    "USER_GIVEN_CONCEPT"
+  ],
+  "provider_model_identity": "deterministic-fixture-provider:v1",
+  "random_seed": 10,
+  "repository_commit": "59f86a6bf342135b68d71cafca2980d506fb77b7000000000000000000000000",
+  "result_hash": "85a6b83bb8902bb138a43ca382dfd084b62bfc46ad0667d9bd7729e04b80fdf8",
+  "retrieved_memory_manifest_fingerprint": "cc48eb5c6a25b8f900d0be9a3662ba29f19f6189d0449f89f57bf43a132d0eea",
+  "reward_specification_fingerprint": "6a7387fffd4e1f93a8478fd19b1c6452fc0a30264d8627727ee77e1240e51059",
+  "scenario": "deterministic replay",
+  "task_fingerprint": "d01b64f88d3a01e1002f029f1438ae1910c9332a12d2f73a4b72c93dc30abafd",
+  "tool_environment_fingerprint": "0e49997569b4bac522b4fcfcf6fb2680e3285ad797e6dbe0ed84e6a0cfe10285",
+  "triadic_snapshot_fingerprint": "804f8e57dc238b269b11730aba404af376bf76243c7dfdc4b8896568f79c2f96"
+}

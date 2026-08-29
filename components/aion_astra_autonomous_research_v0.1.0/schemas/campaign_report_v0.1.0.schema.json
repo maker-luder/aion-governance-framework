@@ -1,0 +1,46 @@
+{
+  "$id": "https://example.invalid/aion/campaign_report_v0.1.0.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "boundaries": {
+      "type": "object"
+    },
+    "campaign_fingerprint": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "campaign_id": {
+      "type": "string"
+    },
+    "iterations": {
+      "minItems": 1,
+      "type": "array"
+    },
+    "limits": {
+      "type": "object"
+    },
+    "repository_ref": {
+      "type": "string"
+    },
+    "stage_chain_verified": {
+      "const": true
+    },
+    "stage_events": {
+      "minItems": 17,
+      "type": "array"
+    }
+  },
+  "required": [
+    "campaign_id",
+    "repository_ref",
+    "limits",
+    "iterations",
+    "stage_events",
+    "stage_chain_verified",
+    "boundaries",
+    "campaign_fingerprint"
+  ],
+  "title": "Bounded campaign report v0.1.0",
+  "type": "object"
+}

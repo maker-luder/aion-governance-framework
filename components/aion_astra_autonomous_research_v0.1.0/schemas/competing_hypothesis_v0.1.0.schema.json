@@ -1,0 +1,67 @@
+{
+  "$id": "https://example.invalid/aion/competing_hypothesis_v0.1.0.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "competing_explanations": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "discriminating_evidence": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "hypothesis_id": {
+      "type": "string"
+    },
+    "next_bounded_test": {
+      "type": "string"
+    },
+    "not_established": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "observed": {
+      "type": "string"
+    },
+    "predictions": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "proposed_mechanism": {
+      "type": "string"
+    },
+    "unresolved_alternatives": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array"
+    }
+  },
+  "required": [
+    "hypothesis_id",
+    "observed",
+    "proposed_mechanism",
+    "predictions",
+    "competing_explanations",
+    "discriminating_evidence",
+    "unresolved_alternatives",
+    "not_established",
+    "next_bounded_test"
+  ],
+  "title": "Competing hypothesis v0.1.0",
+  "type": "object"
+}
