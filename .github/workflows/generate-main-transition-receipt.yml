@@ -1,0 +1,50 @@
+name: Generate Main Transition Receipt
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_pr:
+        description: Target pull request number
+        required: true
+        type: string
+      target_head:
+        description: Exact lowercase 40-hex pull request head SHA
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    name: Generate non-authoritative receipt template
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout default-branch helper
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Generate and self-check receipt block
+        env:
+          TARGET_PR: ${{ inputs.target_pr }}
+          TARGET_HEAD: ${{ inputs.target_head }}
+        run: |
+          python scripts/generate_main_transition_authority_receipt.py \
+            --repository "$GITHUB_REPOSITORY" \
+            --pr "$TARGET_PR" \
+            --head "$TARGET_HEAD" \
+            --output "$RUNNER_TEMP/main-transition-receipt.md"
+
+      - name: Publish copy-ready operator instructions
+        run: |
+          {
+            echo '## Copy-ready Main Transition Authority receipt'
+            echo
+            echo '> Generation does not grant authority. The configured Human Owner must verify the PR and exact head, then paste this block into that PR body within 15 minutes.'
+            echo
+            echo '````text'
+            cat "$RUNNER_TEMP/main-transition-receipt.md"
+            echo '````'
+          } >> "$GITHUB_STEP_SUMMARY"
