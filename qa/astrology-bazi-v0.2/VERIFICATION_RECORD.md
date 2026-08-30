@@ -115,3 +115,14 @@ non-`main` branch and creates a `git revert` of the exact core commit.
 & .\scripts\rollback_astrology_bazi_v0_2.ps1 -Apply
 ```
 
+The `-Apply` path was also executed in a disposable named worktree branch and
+that worktree/branch was removed after verification. Literal output:
+
+```text
+ROLLBACK_VERIFY=PASS base=5eae99d67f7d5cc763c4e3361e072d8b7a18688c core=fe309c5dea63d6d3e60c7103dd5f26abcfe54ab2
+ROLLBACK_APPLY=PASS reverted=fe309c5dea63d6d3e60c7103dd5f26abcfe54ab2 branch=verify/astrology-bazi-rollback-20260830
+26 passed in 0.14s
+82 passed in 1.01s
+ROLLBACK_APPLY_EXIT=0
+ROLLBACK_BASELINE_WESTERN_EXIT=0 ROLLBACK_BASELINE_BAZI_EXIT=0
+```
