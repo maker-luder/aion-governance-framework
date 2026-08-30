@@ -1,5 +1,25 @@
 # Changelog
 
+## Unreleased — Western astrology fusion and Bazi completeness hardening
+
+- Preserved the classical Western profile and added an additive modern overlay:
+  Uranus/Neptune/Pluto, dual traditional/modern rulers, sign elements/modalities/
+  polarities, six minor aspects, motion status, and speed-dependent aspect phase.
+- Extended the Bazi package with explicit traditional luck direction/start
+  transforms, an independent JDN day oracle, the 24 fixed-qi longitude invariant,
+  and non-interpretive element/ten-god distributions.
+- Added a repeatable exact-URL acquisition script, public-domain/MIT snapshots,
+  hash-only records for non-vendored references, and verified the lunar-python
+  1.4.8 sdist against its published SHA-256.
+- Retained `INTERPRETATION_STATUS=NOT_PERFORMED`, `CANONICAL_EFFECT=NONE`,
+  `DEPLOYMENT=FALSE`, and `ACTION_AUTHORITY=NONE`.
+
+## Earlier Unreleased — Classical Western astrology capability example
+
+- Added a synthetic-only classical Western astrology fact-derivation example centered on the traditional seven planets, tropical zodiac, whole-sign houses, the five classical aspects, sect, and major sign-based dignities.
+- Kept versioned ephemeris input separate from local rule derivation and preserved deterministic provenance with a canonical SHA-256 receipt.
+- Preserved `INTERPRETATION_STATUS=NOT_PERFORMED`, `PREDICTIVE_VALIDITY=NOT_ESTABLISHED`, `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, and `ACTION_AUTHORITY=NONE`.
+
 ## 2026-08-29 — Human Owner-authorized single-main convergence
 
 - Preserved `AI_SUBJECTIVITY_POSSIBILITY` as the non-drifting central research question.

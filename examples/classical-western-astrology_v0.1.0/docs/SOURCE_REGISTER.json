@@ -1,0 +1,76 @@
+{
+  "register_version": "0.2.0",
+  "accessed_on": "2026-08-30",
+  "scope": "Historical rule-family provenance only; not empirical validation",
+  "sources": [
+    {
+      "source_id": "PTOLEMY_TETRABIBLOS_BOOK_I",
+      "author": "Claudius Ptolemy",
+      "work": "Tetrabiblos, Book I",
+      "digital_witness": "LacusCurtius transcription of the F. E. Robbins translation",
+      "url": "https://www.gutenberg.org/ebooks/70850",
+      "used_for": [
+        "planetary houses or domiciles",
+        "exaltations and depressions",
+        "classical sign aspects"
+      ]
+    },
+    {
+      "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM",
+      "author": "Dorotheus of Sidon",
+      "work": "Carmen Astrologicum",
+      "digital_witness": "Attalus translation-link register",
+      "url": "https://www.attalus.org/info/dorotheus.html",
+      "used_for": [
+        "Hellenistic source-family scope",
+        "deferred triplicity-ruler provenance"
+      ]
+    },
+    {
+      "source_id": "VALENS_ANTHOLOGY",
+      "author": "Vettius Valens",
+      "work": "Anthologies",
+      "digital_witness": "University of Pennsylvania Online Books Page record for the Kroll edition",
+      "url": "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius+Valens",
+      "used_for": [
+        "Hellenistic source-family scope",
+        "place and timing techniques deferred from v0.1.0"
+      ]
+    },
+    {
+      "source_id": "SEPHARIAL_ASTROLOGY_1920_PUBLIC_DOMAIN",
+      "author": "Sepharial",
+      "work": "Astrology: How to Make and Read Your Own Horoscope",
+      "digital_witness": "Project Gutenberg ebook 46963",
+      "url": "https://www.gutenberg.org/ebooks/46963",
+      "used_for": [
+        "historical modern inclusion of Uranus and Neptune",
+        "retrograde motion and ephemeris practice",
+        "modern-overlay provenance rather than universal consensus"
+      ]
+    },
+    {
+      "source_id": "ASTRODIENST_MODERN_RULERS_AND_ASPECTS",
+      "author": "Astrodienst AstroWiki",
+      "work": "Rulers and Aspect reference pages",
+      "digital_witness": "Link-and-hash only; payload not retained",
+      "url": "https://www.astro.com/astrowiki/en/Rulers",
+      "used_for": [
+        "modern rulers kept separate from traditional rulers",
+        "named minor-aspect angles"
+      ]
+    },
+    {
+      "source_id": "EPHEMERIS_PROVIDER_REFERENCES",
+      "author": "JPL and Astrodienst",
+      "work": "JPL Horizons manual and Swiss Ephemeris programmer documentation",
+      "digital_witness": "Link-and-hash only; no provider dependency added",
+      "url": "https://ssd.jpl.nasa.gov/horizons/manual.html",
+      "used_for": [
+        "upstream ephemeris provider contract",
+        "coordinate/time/version provenance",
+        "license decision gate for Swiss Ephemeris"
+      ]
+    }
+  ]
+}

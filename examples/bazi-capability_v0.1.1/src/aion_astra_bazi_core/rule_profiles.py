@@ -16,7 +16,7 @@ def standard_lichun_profile(
     return BaziRuleProfile(
         rule_profile_id=profile_id,
         profile_name="Standard Lichun / solar-jie / midnight / civil time",
-        version="1.0.0",
+        version="1.1.0",
         year_boundary_rule=YearBoundaryRule.LICHUN,
         month_boundary_rule=MonthBoundaryRule.SOLAR_JIE_BOUNDARY,
         day_rollover_rule=DayRolloverRule.MIDNIGHT_00,
@@ -25,8 +25,8 @@ def standard_lichun_profile(
         dst_rule="IANA_TZDB",
         solar_time_rule=SolarTimeRule.STANDARD_CIVIL_TIME,
         solar_term_rule="LUNAR_PYTHON_1.4.8_JIE_QI_TABLE",
-        luck_direction_rule="OWNER_EXPLICIT_DIRECTION",
-        luck_start_rule="OWNER_EXPLICIT_START_AGE",
+        luck_direction_rule="OWNER_EXPLICIT_OR_YANG_MALE_YIN_FEMALE_FORWARD_V1",
+        luck_start_rule="OWNER_EXPLICIT_OR_THREE_DAYS_EQUAL_ONE_YEAR_V1",
         hidden_stem_rule="LUNAR_PYTHON_1.4.8_TRADITIONAL_TABLE",
         hidden_stem_weight_rule="NO_WEIGHTS_IN_DETERMINISTIC_FACT",
         ten_god_rule="DAY_MASTER_RELATIVE_STANDARD",
@@ -39,6 +39,8 @@ def standard_lichun_profile(
         source_references=(
             "https://github.com/6tail/lunar-python",
             "lunar_python==1.4.8",
+            "HKO_24_SOLAR_TERMS_FIXED_QI",
+            "TAIWAN_CWA_ASTRONOMY3_24_SOLAR_TERMS",
         ),
         owner_review_status=OwnerReviewStatus.PENDING,
     )

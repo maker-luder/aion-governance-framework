@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "generated_on": "2026-08-30",
+  "component": "western",
+  "network_required_at_runtime": false,
+  "source_count": 6,
+  "sources": [
+    {
+      "source_id": "PTOLEMY_TETRABIBLOS_GUTENBERG_70850",
+      "url": "https://www.gutenberg.org/cache/epub/70850/pg70850.txt",
+      "license_or_terms": "PUBLIC_DOMAIN_US",
+      "retention_policy": "VENDOR",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 552667,
+      "sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1",
+      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt"
+    },
+    {
+      "source_id": "SEPHARIAL_ASTROLOGY_GUTENBERG_46963",
+      "url": "https://www.gutenberg.org/cache/epub/46963/pg46963.txt",
+      "license_or_terms": "PUBLIC_DOMAIN_US",
+      "retention_policy": "VENDOR",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 235778,
+      "sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6",
+      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt"
+    },
+    {
+      "source_id": "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10",
+      "url": "https://www.astro.com/swisseph-download/doc/swisseph.pdf",
+      "license_or_terms": "AGPL_OR_PROFESSIONAL_DUAL_LICENSE",
+      "retention_policy": "HASH_ONLY",
+      "note": "Provider candidate only; no code/data vendored and no dependency added.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 1997085,
+      "sha256": "62bbe7693383629e4223afc868141261281b38ebaedd661ae37d0458a17ce9e6",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "JPL_HORIZONS_MANUAL",
+      "url": "https://ssd.jpl.nasa.gov/horizons/manual.html",
+      "license_or_terms": "US_GOVERNMENT_SITE_TERMS",
+      "retention_policy": "HASH_ONLY",
+      "note": "Independent astronomical provider reference.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 229798,
+      "sha256": "5c5100b08abeb10f4a6074e02102e4fe5d915203eed360bb4dd839a77210ddcc",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "ASTRODIENST_MODERN_RULERS",
+      "url": "https://www.astro.com/astrowiki/en/Rulers",
+      "license_or_terms": "COPYRIGHTED_REFERENCE",
+      "retention_policy": "HASH_ONLY",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 1959,
+      "sha256": "a4c0d93853b2b67c1653485079ad70512a85c69aa453afbc880fe6fde7786484",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "ASTRODIENST_ASPECTS",
+      "url": "https://www.astro.com/astrowiki/en/Aspect",
+      "license_or_terms": "COPYRIGHTED_REFERENCE",
+      "retention_policy": "HASH_ONLY",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 1959,
+      "sha256": "2d793fdc55efe85a5124cabf48f10a113cb502a8fe4d77b7c78255b6aa29ce2f",
+      "repository_path": null,
+      "discarded_after_hash": true
+    }
+  ]
+}

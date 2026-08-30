@@ -10,6 +10,20 @@ The implemented candidate profiles are:
 3. `STANDARD_LICHUN_MIDNIGHT_APPARENT_SOLAR_V1`: candidate apparent-solar
    adjustment using longitude correction and an equation-of-time estimate.
 
-School-specific strength, structure, useful-element, transformation and luck
-start rules are not frozen. They remain versioned interpretation candidates
-or explicit owner inputs. Unsupported or owner-defined rules fail closed.
+The v1.1 calculation surface adds two selectable, explicit traditional rules:
+
+- `YANG_MALE_YIN_FEMALE_FORWARD_V1`: forward for Yang-year male or Yin-year
+  female inputs and reverse for the other two combinations;
+- `THREE_DAYS_EQUAL_ONE_YEAR_V1`: divides a caller-supplied, already-derived
+  Jie-boundary interval by three to obtain the start age in years.
+
+Neither rule is silently selected by the calendar engine. School-specific
+strength, structure, useful-element, transformation, hidden-stem weighting and
+boundary-selection rules are not frozen. They remain versioned interpretation
+candidates or explicit owner inputs. Unsupported or owner-defined rules fail
+closed.
+
+The component also includes a proleptic-Gregorian JDN day-pillar oracle and a
+24-point fixed-qi invariant (0 through 345 degrees in 15-degree steps). These
+are narrow independent checks, not a replacement for the pending compatible
+second-library calendar cross-validation.

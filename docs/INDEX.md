@@ -20,6 +20,7 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 - [`QUICKSTART.md`](QUICKSTART.md) — deterministic inspection-only Evidence Interop export.
 - [`API.md`](API.md) — current public-interface classification.
 - [`EXAMPLES.md`](EXAMPLES.md) — runnable example map.
+- [`../examples/classical-western-astrology_v0.1.0/README.md`](../examples/classical-western-astrology_v0.1.0/README.md) — synthetic-only classical-primary/modern-overlay Western astrology facts and non-claims.
 - [`INTEROPERABILITY.md`](INTEROPERABILITY.md) — JSON/subprocess boundary and reference integrations.
 - [`VERSIONING.md`](VERSIONING.md) and [`RELEASE_READINESS.md`](RELEASE_READINESS.md) — experimental version policy and conservative release gate.
 

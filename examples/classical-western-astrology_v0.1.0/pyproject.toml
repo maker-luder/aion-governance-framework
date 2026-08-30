@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-astra-classical-astrology"
+version = "0.2.0"
+description = "Offline deterministic classical-primary Western astrology with a labelled modern overlay"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
+
+[tool.coverage.run]
+source = ["aion_astra_classical_astrology"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90
