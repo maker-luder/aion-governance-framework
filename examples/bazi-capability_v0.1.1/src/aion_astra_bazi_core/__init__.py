@@ -15,6 +15,18 @@ from .integrity import (
     canonical_materialized_json,
     materialized_facts_hash,
 )
+from .traditional_extensions import (
+    BirthSexMarker,
+    DistributionFact,
+    LuckStartFact,
+    SOLAR_TERM_LONGITUDES,
+    element_distribution_fact,
+    independent_gregorian_day_pillar,
+    luck_start_from_boundary_interval,
+    ten_god_distribution_fact,
+    traditional_luck_direction,
+    validate_solar_term_sequence,
+)
 
 __all__ = [
     "BaziCore",
@@ -28,4 +40,14 @@ __all__ = [
     "SERIALIZATION_SCHEMA_VERSION",
     "canonical_materialized_json",
     "materialized_facts_hash",
+    "BirthSexMarker",
+    "DistributionFact",
+    "LuckStartFact",
+    "SOLAR_TERM_LONGITUDES",
+    "element_distribution_fact",
+    "independent_gregorian_day_pillar",
+    "luck_start_from_boundary_interval",
+    "ten_god_distribution_fact",
+    "traditional_luck_direction",
+    "validate_solar_term_sequence",
 ]

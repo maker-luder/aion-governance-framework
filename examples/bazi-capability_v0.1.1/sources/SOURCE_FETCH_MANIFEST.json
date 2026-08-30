@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "generated_on": "2026-08-30",
+  "component": "bazi",
+  "network_required_at_runtime": false,
+  "source_count": 8,
+  "sources": [
+    {
+      "source_id": "LUNAR_PYTHON_LICENSE_1_4_8",
+      "url": "https://raw.githubusercontent.com/6tail/lunar-python/000c8a3d74eed098d6256a28fdd51b869324c559/LICENSE",
+      "license_or_terms": "MIT",
+      "retention_policy": "VENDOR",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 1061,
+      "sha256": "a9d04f47f0615c0ce48bdbe2ff58d5c174279d9f20f044ef29249632302a4ab3",
+      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-LICENSE.txt"
+    },
+    {
+      "source_id": "LUNAR_PYTHON_README_1_4_8",
+      "url": "https://raw.githubusercontent.com/6tail/lunar-python/000c8a3d74eed098d6256a28fdd51b869324c559/README_EN.md",
+      "license_or_terms": "MIT_REPOSITORY_DOCUMENT",
+      "retention_policy": "VENDOR",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 1385,
+      "sha256": "5896cd5a835a5b148c78bc5b688b5ee5bcfbea9562bbdf2ac9b215125a130746",
+      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-README_EN.md"
+    },
+    {
+      "source_id": "LUNAR_PYTHON_SDIST_1_4_8",
+      "url": "https://files.pythonhosted.org/packages/source/l/lunar_python/lunar_python-1.4.8.tar.gz",
+      "license_or_terms": "MIT",
+      "retention_policy": "HASH_ONLY",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 105862,
+      "sha256": "3aa11cc73c25e70ddf0ba5bdac7398c03acc9491a3aa512a91c9642973b669d6",
+      "expected_sha256": "3aa11cc73c25e70ddf0ba5bdac7398c03acc9491a3aa512a91c9642973b669d6",
+      "expected_sha256_match": true,
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "WIKISOURCE_DI_TIAN_SUI",
+      "url": "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&action=raw",
+      "license_or_terms": "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER",
+      "retention_policy": "VENDOR",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 2444,
+      "sha256": "09e1b16a0c18d3e141c5d915dfeeb7f528992d78959f9342147543cfe506c3b8",
+      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-di-tian-sui.txt"
+    },
+    {
+      "source_id": "WIKISOURCE_YUAN_HAI_ZI_PING",
+      "url": "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&action=raw",
+      "license_or_terms": "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER",
+      "retention_policy": "VENDOR",
+      "note": "Source page itself reports completeness/provenance concerns; use as comparison evidence only.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 173237,
+      "sha256": "a4447be5d95eb073857cb8cba8f0e58a500de1c283016c76cfdedb0d1b2bb133",
+      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-yuan-hai-zi-ping.txt"
+    },
+    {
+      "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
+      "url": "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&action=raw",
+      "license_or_terms": "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER",
+      "retention_policy": "VENDOR",
+      "note": "Index/provenance snapshot; edition variation must remain explicit.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 2492,
+      "sha256": "4c9923df0ab644fe7b675796f41195746cc2a07273826116ab8d02ed442bb650",
+      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-index.txt"
+    },
+    {
+      "source_id": "HKO_24_SOLAR_TERMS",
+      "url": "https://www.hko.gov.hk/en/gts/time/24solarterms.htm",
+      "license_or_terms": "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED",
+      "retention_policy": "HASH_ONLY",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 12695,
+      "sha256": "2bf78b365fd8e53ae52c36560fc7d46114fe4a6403861824ecd1ef54b234e62f",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "TAIWAN_CWA_24_SOLAR_TERMS_PDF",
+      "url": "https://www.cwa.gov.tw/Data/knowledge/announce/astronomy3.pdf",
+      "license_or_terms": "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED",
+      "retention_policy": "HASH_ONLY",
+      "note": "",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 9770349,
+      "sha256": "93e79e68a4f55f6c622cf1ced23502793fad84f3c28583ad43d244bb994f0dca",
+      "repository_path": null,
+      "discarded_after_hash": true
+    }
+  ]
+}

@@ -6,5 +6,7 @@
 - UI and external APIs.
 - AION Runtime, Phase C, deployment and whole-system validation.
 - Independent second-library calendar cross-validation in a compatible build
-  environment.
+  environment remains pending. A library-independent proleptic-Gregorian JDN
+  day-pillar oracle and an official fixed-qi 24-term invariant are now included;
+  these narrow checks do not substitute for a second ephemeris/calendar engine.
 - Any relationship, trust, access, permission or stage effect.

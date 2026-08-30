@@ -10,7 +10,7 @@ from .models import (
     PlanetFact,
     PlanetPosition,
 )
-from .profiles import hellenistic_medieval_profile
+from .profiles import hellenistic_medieval_profile, integrated_classical_modern_profile
 
 __all__ = [
     "AspectFact",
@@ -23,5 +23,6 @@ __all__ = [
     "derive_aspects",
     "derive_planet_facts",
     "hellenistic_medieval_profile",
+    "integrated_classical_modern_profile",
     "synthetic_reference_input",
 ]

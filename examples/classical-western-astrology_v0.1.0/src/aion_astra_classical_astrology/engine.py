@@ -8,7 +8,14 @@ from .constants import (
     ASPECT_ANGLES,
     DOMICILE_RULERS,
     EXALTATION_SIGNS,
+    INTEGRATED_ASPECT_ANGLES,
+    INTEGRATED_PLANETS,
+    MODERN_OUTER_PLANETS,
+    MODERN_RULERS,
     OPPOSITE_SIGN,
+    SIGN_ELEMENTS,
+    SIGN_MODALITIES,
+    SIGN_POLARITIES,
     SIGNS,
     TRADITIONAL_PLANETS,
 )
@@ -19,10 +26,11 @@ from .models import (
     ClassicalChart,
     ClassicalRuleProfile,
     PlanetFact,
+    PlanetPosition,
 )
 from .serialization import derivation_hash
 
-ALGORITHM_VERSION = "classical-western-fact-derivation-0.1.0"
+ALGORITHM_VERSION = "classical-primary-modern-overlay-fact-derivation-0.2.0"
 
 
 def normalize_longitude(value: float) -> float:
@@ -51,11 +59,19 @@ def _validate(source: ChartInput, profile: ClassicalRuleProfile) -> None:
     if source.coordinate_frame != "GEOCENTRIC_TROPICAL_ECLIPTIC_OF_DATE":
         raise ValidationError("unsupported coordinate frame")
     if profile.zodiac != "TROPICAL" or profile.house_system != "WHOLE_SIGN":
-        raise ValidationError("v0.1.0 requires tropical zodiac and whole-sign houses")
-    if profile.planet_set != TRADITIONAL_PLANETS:
+        raise ValidationError("supported profiles require tropical zodiac and whole-sign houses")
+    is_classical = profile.profile_id == "CLASSICAL_HELLENISTIC_MEDIEVAL_COMMON_V1"
+    is_integrated = profile.profile_id == "CLASSICAL_PRIMARY_MODERN_OVERLAY_V2"
+    if not (is_classical or is_integrated):
+        raise ValidationError("unsupported rule profile")
+    if is_classical and profile.planet_set != TRADITIONAL_PLANETS:
         raise ValidationError("v0.1.0 requires exactly the traditional seven planets")
-    if dict(profile.aspect_angles) != ASPECT_ANGLES:
+    if is_integrated and profile.planet_set != INTEGRATED_PLANETS:
+        raise ValidationError("v0.2.0 integrated profile requires traditional seven plus three modern outer planets")
+    if is_classical and dict(profile.aspect_angles) != ASPECT_ANGLES:
         raise ValidationError("v0.1.0 requires exactly the five classical aspects")
+    if is_integrated and dict(profile.aspect_angles) != INTEGRATED_ASPECT_ANGLES:
+        raise ValidationError("v0.2.0 integrated profile requires the versioned classical and modern aspect set")
     if profile.dignity_scheme != "TRADITIONAL_SIGN_BASED_DOMICILE_EXALTATION_DETRIMENT_FALL":
         raise ValidationError("unsupported dignity scheme")
     if not source.ephemeris_source or not source.ephemeris_version:
@@ -71,9 +87,13 @@ def _validate(source: ChartInput, profile: ClassicalRuleProfile) -> None:
         raise ValidationError("positions must contain exactly the profile planet set")
     for position in source.positions:
         normalize_longitude(position.longitude)
+        if position.speed_longitude is not None and not isinstance(position.speed_longitude, (int, float)):
+            raise ValidationError("speed_longitude must be numeric or null")
 
 
 def _dignities(planet: str, sign: str) -> tuple[str, ...]:
+    if planet in MODERN_OUTER_PLANETS:
+        return ("NOT_APPLICABLE_TO_CLASSICAL_DIGNITY",)
     dignities: list[str] = []
     domicile_signs = {name for name, ruler in DOMICILE_RULERS.items() if ruler == planet}
     if sign in domicile_signs:
@@ -88,6 +108,8 @@ def _dignities(planet: str, sign: str) -> tuple[str, ...]:
 
 
 def _sect_status(planet: str, is_day_chart: bool) -> str:
+    if planet in MODERN_OUTER_PLANETS:
+        return "NOT_APPLICABLE_TO_CLASSICAL_SECT"
     if planet == "MERCURY":
         return "VARIABLE_NOT_DERIVED_WITHOUT_SOLAR_PHASE"
     diurnal = {"SUN", "JUPITER", "SATURN"}
@@ -95,6 +117,16 @@ def _sect_status(planet: str, is_day_chart: bool) -> str:
     if (is_day_chart and planet in diurnal) or (not is_day_chart and planet in nocturnal):
         return "OF_SECT"
     return "CONTRARY_TO_SECT"
+
+
+def _motion_status(speed_longitude: float | None) -> str:
+    if speed_longitude is None:
+        return "NOT_DERIVED_WITHOUT_SPEED_VECTOR"
+    if speed_longitude < 0:
+        return "RETROGRADE"
+    if speed_longitude > 0:
+        return "DIRECT"
+    return "STATIONARY"
 
 
 def derive_planet_facts(
@@ -115,6 +147,11 @@ def derive_planet_facts(
                 domicile_ruler=DOMICILE_RULERS[sign],
                 essential_dignities=_dignities(position.planet, sign),
                 sect_status=_sect_status(position.planet, source.is_day_chart),
+                modern_ruler=MODERN_RULERS[sign],
+                element=SIGN_ELEMENTS[sign],
+                modality=SIGN_MODALITIES[sign],
+                polarity=SIGN_POLARITIES[sign],
+                motion_status=_motion_status(position.speed_longitude),
             )
         )
     return tuple(facts)
@@ -123,6 +160,21 @@ def derive_planet_facts(
 def _separation(first: float, second: float) -> float:
     raw = abs(first - second) % 360.0
     return min(raw, 360.0 - raw)
+
+
+def _aspect_phase(first: PlanetPosition, second: PlanetPosition, exact_angle: float) -> str:
+    if first.speed_longitude is None or second.speed_longitude is None:
+        return "NOT_DERIVED_WITHOUT_SPEED_VECTORS"
+    current = abs(_separation(first.longitude, second.longitude) - exact_angle)
+    epsilon_days = 1e-4
+    future_first = (first.longitude + first.speed_longitude * epsilon_days) % 360.0
+    future_second = (second.longitude + second.speed_longitude * epsilon_days) % 360.0
+    future = abs(_separation(future_first, future_second) - exact_angle)
+    if future < current - 1e-10:
+        return "APPLYING"
+    if future > current + 1e-10:
+        return "SEPARATING"
+    return "STATIONARY_OR_INDETERMINATE"
 
 
 def derive_aspects(source: ChartInput, profile: ClassicalRuleProfile) -> tuple[AspectFact, ...]:
@@ -150,7 +202,7 @@ def derive_aspects(source: ChartInput, profile: ClassicalRuleProfile) -> tuple[A
                     exact_angle=exact,
                     separation=round(separation, 8),
                     orb=round(orb, 8),
-                    phase="NOT_DERIVED_WITHOUT_SPEED_VECTORS",
+                    phase=_aspect_phase(first, second, exact),
                 )
             )
     return tuple(aspects)
@@ -171,8 +223,9 @@ def build_chart(
         {"step": 2, "operation": "MAP_TROPICAL_SIGNS", "result": len(planets)},
         {"step": 3, "operation": "ASSIGN_WHOLE_SIGN_HOUSES", "result": sign_for_longitude(source.ascendant_longitude)},
         {"step": 4, "operation": "DERIVE_MAJOR_SIGN_DIGNITIES", "result": profile.dignity_scheme},
-        {"step": 5, "operation": "DERIVE_PTOLEMAIC_ASPECTS", "result": len(aspects)},
-        {"step": 6, "operation": "PRESERVE_INTERPRETATION_BOUNDARY", "result": "NOT_PERFORMED"},
+        {"step": 5, "operation": "DERIVE_VERSIONED_ASPECT_SET", "result": len(aspects)},
+        {"step": 6, "operation": "DERIVE_SEPARATE_MODERN_OVERLAY", "result": profile.tradition_scope},
+        {"step": 7, "operation": "PRESERVE_INTERPRETATION_BOUNDARY", "result": "NOT_PERFORMED"},
     )
     payload = {
         "source": source,

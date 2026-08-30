@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aion-astra-classical-astrology"
-version = "0.1.0"
-description = "Offline deterministic classical Western astrology fact-derivation example"
+version = "0.2.0"
+description = "Offline deterministic classical-primary Western astrology with a labelled modern overlay"
 requires-python = ">=3.11"
 dependencies = []
 

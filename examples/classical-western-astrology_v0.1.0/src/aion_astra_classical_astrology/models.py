@@ -9,6 +9,7 @@ from dataclasses import dataclass
 class PlanetPosition:
     planet: str
     longitude: float
+    speed_longitude: float | None = None
 
 
 @dataclass(frozen=True)
@@ -53,6 +54,11 @@ class PlanetFact:
     domicile_ruler: str
     essential_dignities: tuple[str, ...]
     sect_status: str
+    modern_ruler: str = "NOT_APPLICABLE"
+    element: str = "NOT_DERIVED"
+    modality: str = "NOT_DERIVED"
+    polarity: str = "NOT_DERIVED"
+    motion_status: str = "NOT_DERIVED_WITHOUT_SPEED_VECTOR"
 
 
 @dataclass(frozen=True)

@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import asdict, is_dataclass
+from dataclasses import fields, is_dataclass
 from typing import Any
 
 
 def _normalize(value: Any) -> Any:
-    if is_dataclass(value):
-        return _normalize(asdict(value))
+    if is_dataclass(value) and not isinstance(value, type):
+        return _normalize({field.name: getattr(value, field.name) for field in fields(value)})
     if isinstance(value, dict):
         return {str(key): _normalize(item) for key, item in sorted(value.items())}
     if isinstance(value, (tuple, list)):
