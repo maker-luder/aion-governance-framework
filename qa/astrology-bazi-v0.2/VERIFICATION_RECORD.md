@@ -103,9 +103,9 @@ the parallel remote branch was not recreated.
 
 ## Patch and rollback
 
-- Patch archive: `qa/astrology-bazi-v0.2/ASTROLOGY_BAZI_V0_2.patch.gz`
-- Patch SHA-256: `f148bbffd18096bc3a88c9e691b904917efb7d6fa88dd32bbf46d10cdbde96ac`
-- Uncompressed patch bytes: `1048409`
+- Patch: `qa/astrology-bazi-v0.2/ASTROLOGY_BAZI_V0_2.patch`
+- Patch SHA-256: `364bc6f40abab7d1a7708709a09f11814b4ccf90c8637892d3de6ed270fa5bb9`
+- Patch bytes: `1048409`
 - Rollback: `scripts/rollback_astrology_bazi_v0_2.ps1`
 
 Default invocation is verification-only. `-Apply` requires a clean, named,
