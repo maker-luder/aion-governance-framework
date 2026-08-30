@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased — Classical Western astrology capability example
+
+- Added a synthetic-only classical Western astrology fact-derivation example centered on the traditional seven planets, tropical zodiac, whole-sign houses, the five classical aspects, sect, and major sign-based dignities.
+- Kept versioned ephemeris input separate from local rule derivation and preserved deterministic provenance with a canonical SHA-256 receipt.
+- Preserved `INTERPRETATION_STATUS=NOT_PERFORMED`, `PREDICTIVE_VALIDITY=NOT_ESTABLISHED`, `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, and `ACTION_AUTHORITY=NONE`.
+
 ## 2026-08-29 — Human Owner-authorized single-main convergence
 
 - Preserved `AI_SUBJECTIVITY_POSSIBILITY` as the non-drifting central research question.

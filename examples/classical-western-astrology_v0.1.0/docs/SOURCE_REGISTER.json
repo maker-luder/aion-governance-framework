@@ -1,0 +1,41 @@
+{
+  "register_version": "0.1.0",
+  "accessed_on": "2026-08-30",
+  "scope": "Historical rule-family provenance only; not empirical validation",
+  "sources": [
+    {
+      "source_id": "PTOLEMY_TETRABIBLOS_BOOK_I",
+      "author": "Claudius Ptolemy",
+      "work": "Tetrabiblos, Book I",
+      "digital_witness": "LacusCurtius transcription of the F. E. Robbins translation",
+      "url": "https://penelope.uchicago.edu/Thayer/E/Roman/Texts/Ptolemy/Tetrabiblos/1B*.html",
+      "used_for": [
+        "planetary houses or domiciles",
+        "exaltations and depressions",
+        "classical sign aspects"
+      ]
+    },
+    {
+      "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM",
+      "author": "Dorotheus of Sidon",
+      "work": "Carmen Astrologicum",
+      "digital_witness": "Attalus translation-link register",
+      "url": "https://www.attalus.org/info/dorotheus.html",
+      "used_for": [
+        "Hellenistic source-family scope",
+        "deferred triplicity-ruler provenance"
+      ]
+    },
+    {
+      "source_id": "VALENS_ANTHOLOGY",
+      "author": "Vettius Valens",
+      "work": "Anthologies",
+      "digital_witness": "University of Pennsylvania Online Books Page record for the Kroll edition",
+      "url": "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius+Valens",
+      "used_for": [
+        "Hellenistic source-family scope",
+        "place and timing techniques deferred from v0.1.0"
+      ]
+    }
+  ]
+}
