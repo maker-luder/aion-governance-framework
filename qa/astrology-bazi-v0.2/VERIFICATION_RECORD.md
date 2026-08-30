@@ -97,8 +97,9 @@ residuals rather than weakening their tests:
    branch ref is absent (the frozen commit object itself remains available).
 
 Linux CI remains the authoritative exact-head check for the CRLF and symlink
-cases. The retired-branch-ref assertion may remain a CI residual and is not
-repaired by recreating a parallel remote branch.
+cases. After explicit Human Owner merge authorization, the retired-branch test
+was corrected in a follow-up commit to verify the frozen commit object directly;
+the parallel remote branch was not recreated.
 
 ## Patch and rollback
 

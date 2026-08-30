@@ -233,10 +233,11 @@ def test_subjectivity_pipeline_can_evolve_without_egd_runtime_coupling() -> None
     assert bridge.pipeline_complete_implies_subjectivity is False
 
 
-def test_preserved_historical_branch_checkpoint_is_unchanged() -> None:
+def test_preserved_historical_commit_checkpoint_is_unchanged() -> None:
     root = Path(__file__).resolve().parents[3]
+    expected = "1892f1341059f313087a94aef74f22c086000f2a"
     actual = subprocess.check_output(
-        ["git", "-C", str(root), "rev-parse", "origin/review/four-domain-research-materialization^{commit}"],
+        ["git", "-C", str(root), "rev-parse", f"{expected}^{{commit}}"],
         text=True,
     ).strip()
-    assert actual == "1892f1341059f313087a94aef74f22c086000f2a"
+    assert actual == expected
