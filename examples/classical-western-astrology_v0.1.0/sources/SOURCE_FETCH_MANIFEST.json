@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "generated_on": "2026-08-30",
+  "generated_on": "2026-09-01",
   "component": "western",
   "network_required_at_runtime": false,
-  "source_count": 6,
+  "source_count": 12,
   "sources": [
     {
       "source_id": "PTOLEMY_TETRABIBLOS_GUTENBERG_70850",
@@ -15,7 +15,9 @@
       "transport": "PYTHON_URLLIB_SYSTEM_TLS",
       "bytes": 552667,
       "sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1",
-      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt"
+      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt",
+      "repository_sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1",
+      "repository_bytes": 552667
     },
     {
       "source_id": "SEPHARIAL_ASTROLOGY_GUTENBERG_46963",
@@ -27,7 +29,89 @@
       "transport": "PYTHON_URLLIB_SYSTEM_TLS",
       "bytes": 235778,
       "sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6",
-      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt"
+      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt",
+      "repository_sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6",
+      "repository_bytes": 235778
+    },
+    {
+      "source_id": "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE",
+      "url": "https://en.wikisource.org/w/index.php?title=Christian_Astrology&oldid=15666418&action=raw",
+      "license_or_terms": "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER",
+      "retention_policy": "VENDOR",
+      "note": "Pinned OCR/transcription witness with known errors; retained for table and terminology cross-checks, not as a sole authority.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 72519,
+      "sha256": "7344d1b1a531cf93875c6e20ca9440c680d8fbdab077c9bc052f87b9515e5e18",
+      "repository_normalization": "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1",
+      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt",
+      "repository_sha256": "7a451d3ce48bb0a5b15de31393316bf053e88cf0655230af109a47e59d3c6d2d",
+      "repository_bytes": 72508
+    },
+    {
+      "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER",
+      "url": "https://www.attalus.org/info/dorotheus.html",
+      "license_or_terms": "COPYRIGHTED_TRANSLATION_LINK_REGISTER",
+      "retention_policy": "HASH_ONLY",
+      "note": "Source-family and translation-link register for day/night/participating triplicity provenance; no copyrighted translation is vendored.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 1787,
+      "sha256": "9f5f785277384a5e11a2ac02d9afc0ddc8ad79e48cc4089a31fb2058e276031b",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "VALENS_ANTHOLOGIES_REGISTER",
+      "url": "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius%20Valens",
+      "license_or_terms": "BIBLIOGRAPHIC_LINK_REGISTER",
+      "retention_policy": "HASH_ONLY",
+      "note": "Bibliographic/download register for the Hellenistic source family; no translation is vendored.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 5262,
+      "sha256": "644dd0ecc45403f514ab994b9a27e88e0cedf4b97e8ca67b9943a675712bdcc7",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1",
+      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0001_1-141_t24-C-R0072.pdf",
+      "license_or_terms": "PUBLIC_DOMAIN_MARK_1_0",
+      "retention_policy": "HASH_ONLY",
+      "note": "Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 31236193,
+      "sha256": "f217505040acc00e87c5bdd3a4cb0fa65eedc73258c714eee96632b6c1701d2b",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2",
+      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0002_142-278_t24-C-R0072.pdf",
+      "license_or_terms": "PUBLIC_DOMAIN_MARK_1_0",
+      "retention_policy": "HASH_ONLY",
+      "note": "Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 31098987,
+      "sha256": "a694733bfd6d7a7d8b87d578cd87d18857eb2b1c9c3fb9f1fcf74cef520fb4e6",
+      "repository_path": null,
+      "discarded_after_hash": true
+    },
+    {
+      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3",
+      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0003_279-368_t24-C-R0072.pdf",
+      "license_or_terms": "PUBLIC_DOMAIN_MARK_1_0",
+      "retention_policy": "HASH_ONLY",
+      "note": "Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored.",
+      "download_status": "PASS",
+      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
+      "bytes": 24371979,
+      "sha256": "9d1498356a67843d23b1324684da2bf4728337066108cd8a4e50bcb6f4df6d34",
+      "repository_path": null,
+      "discarded_after_hash": true
     },
     {
       "source_id": "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10",

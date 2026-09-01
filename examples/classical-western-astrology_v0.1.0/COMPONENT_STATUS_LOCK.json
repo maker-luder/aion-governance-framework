@@ -1,0 +1,18 @@
+{
+  "component": "AION_ASTRA_CLASSICAL_WESTERN_ASTROLOGY_EXAMPLE",
+  "version": "0.3.0",
+  "overall_result": "PASS_PENDING_EXACT_HEAD_CI",
+  "classical_primary": true,
+  "modern_overlay_replaces_classical": false,
+  "extended_classical_tables": "PASS",
+  "modern_point_layer": "PASS_TYPED_AS_POINTS",
+  "source_acquisition": "PASS_12_OF_12",
+  "human_owner_completion_scope": "APPROVED_IN_CURRENT_INTERACTION",
+  "interpretation_status": "NOT_PERFORMED",
+  "predictive_validity": "NOT_ESTABLISHED",
+  "subjectivity": "NOT_ESTABLISHED",
+  "consciousness": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "action_authority": "NONE"
+}

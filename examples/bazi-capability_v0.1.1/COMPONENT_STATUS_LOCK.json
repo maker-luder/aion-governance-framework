@@ -1,7 +1,7 @@
 {
   "component": "AION_ASTRA_BAZI_CORE_CANDIDATE",
-  "version": "0.2.0",
-  "overall_result": "PASS_PENDING_OWNER_REVIEW",
+  "version": "0.3.0",
+  "overall_result": "PASS_PENDING_EXACT_HEAD_CI",
   "materialized_facts_immutability": "PASS",
   "derivation_identity_verification": "PASS",
   "storage_integrity_verification": "PASS",
@@ -13,5 +13,10 @@
   "bazi_runtime_effect": "NONE",
   "agent_bazi_binding": "NOT_CREATED",
   "owner_school_profile": "PENDING_OWNER_RULE_FREEZE",
-  "canonical_effect": "NONE_PENDING_OWNER_REVIEW"
+  "canonical_effect": "NONE",
+  "school_evidence_tests": "PASS",
+  "seasonal_evidence_layer": "PASS_NO_STRENGTH_CONCLUSION",
+  "transformation_candidate_layer": "PASS_CONDITIONS_NOT_EVALUATED",
+  "source_acquisition": "PASS_11_OF_11",
+  "human_owner_completion_scope": "APPROVED_IN_CURRENT_INTERACTION"
 }

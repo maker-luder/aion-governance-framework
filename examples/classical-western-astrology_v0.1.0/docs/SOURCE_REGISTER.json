@@ -1,6 +1,6 @@
 {
-  "register_version": "0.2.0",
-  "accessed_on": "2026-08-30",
+  "register_version": "0.3.0",
+  "accessed_on": "2026-09-01",
   "scope": "Historical rule-family provenance only; not empirical validation",
   "sources": [
     {
@@ -12,7 +12,8 @@
       "used_for": [
         "planetary houses or domiciles",
         "exaltations and depressions",
-        "classical sign aspects"
+        "classical sign aspects",
+        "triplicity and terms source-family comparison"
       ]
     },
     {
@@ -23,7 +24,7 @@
       "url": "https://www.attalus.org/info/dorotheus.html",
       "used_for": [
         "Hellenistic source-family scope",
-        "deferred triplicity-ruler provenance"
+        "day/night/participating triplicity profile provenance"
       ]
     },
     {
@@ -34,7 +35,7 @@
       "url": "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius+Valens",
       "used_for": [
         "Hellenistic source-family scope",
-        "place and timing techniques deferred from v0.1.0"
+        "cross-school provenance boundary"
       ]
     },
     {
@@ -70,6 +71,29 @@
         "upstream ephemeris provider contract",
         "coordinate/time/version provenance",
         "license decision gate for Swiss Ephemeris"
+      ]
+    },
+    {
+      "source_id": "LILLY_CHRISTIAN_ASTROLOGY_1659",
+      "author": "William Lilly",
+      "work": "Christian Astrology, second edition",
+      "digital_witness": "Wikisource OCR/transcription pinned at revision 15666418; known OCR errors",
+      "url": "https://en.wikisource.org/w/index.php?title=Christian_Astrology&oldid=15666418",
+      "used_for": [
+        "triplicity/terms/faces table cross-check",
+        "planetary joys",
+        "traditional terminology"
+      ]
+    },
+    {
+      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910",
+      "author": "Alan Leo",
+      "work": "Astrology for All, fourth edition",
+      "digital_witness": "Casa Fernando Pessoa three-part scan; Public Domain Mark 1.0; hash-only",
+      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91",
+      "used_for": [
+        "early modern character-oriented astrology provenance",
+        "classical-versus-modern interpretive boundary"
       ]
     }
   ]

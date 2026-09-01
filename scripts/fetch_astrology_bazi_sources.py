@@ -19,7 +19,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-USER_AGENT = "aion-governance-source-audit/0.2 (+https://github.com/maker-luder/aion-governance-framework)"
+USER_AGENT = "aion-governance-source-audit/0.3 (+https://github.com/maker-luder/aion-governance-framework)"
 
 
 @dataclass(frozen=True)
@@ -32,11 +32,18 @@ class Source:
     local_name: str | None = None
     expected_sha256: str | None = None
     note: str = ""
+    normalize_utf8_text: bool = False
 
 
 SOURCES = (
     Source("western", "PTOLEMY_TETRABIBLOS_GUTENBERG_70850", "https://www.gutenberg.org/cache/epub/70850/pg70850.txt", "PUBLIC_DOMAIN_US", "VENDOR", "ptolemy-tetrabiblos-pg70850.txt"),
     Source("western", "SEPHARIAL_ASTROLOGY_GUTENBERG_46963", "https://www.gutenberg.org/cache/epub/46963/pg46963.txt", "PUBLIC_DOMAIN_US", "VENDOR", "sepharial-astrology-pg46963.txt"),
+    Source("western", "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE", "https://en.wikisource.org/w/index.php?title=Christian_Astrology&oldid=15666418&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-christian-astrology.txt", note="Pinned OCR/transcription witness with known errors; retained for table and terminology cross-checks, not as a sole authority.", normalize_utf8_text=True),
+    Source("western", "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER", "https://www.attalus.org/info/dorotheus.html", "COPYRIGHTED_TRANSLATION_LINK_REGISTER", "HASH_ONLY", note="Source-family and translation-link register for day/night/participating triplicity provenance; no copyrighted translation is vendored."),
+    Source("western", "VALENS_ANTHOLOGIES_REGISTER", "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius%20Valens", "BIBLIOGRAPHIC_LINK_REGISTER", "HASH_ONLY", note="Bibliographic/download register for the Hellenistic source family; no translation is vendored."),
+    Source("western", "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1", "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0001_1-141_t24-C-R0072.pdf", "PUBLIC_DOMAIN_MARK_1_0", "HASH_ONLY", note="Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored."),
+    Source("western", "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2", "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0002_142-278_t24-C-R0072.pdf", "PUBLIC_DOMAIN_MARK_1_0", "HASH_ONLY", note="Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored."),
+    Source("western", "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3", "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0003_279-368_t24-C-R0072.pdf", "PUBLIC_DOMAIN_MARK_1_0", "HASH_ONLY", note="Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored."),
     Source("western", "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10", "https://www.astro.com/swisseph-download/doc/swisseph.pdf", "AGPL_OR_PROFESSIONAL_DUAL_LICENSE", "HASH_ONLY", note="Provider candidate only; no code/data vendored and no dependency added."),
     Source("western", "JPL_HORIZONS_MANUAL", "https://ssd.jpl.nasa.gov/horizons/manual.html", "US_GOVERNMENT_SITE_TERMS", "HASH_ONLY", note="Independent astronomical provider reference."),
     Source("western", "ASTRODIENST_MODERN_RULERS", "https://www.astro.com/astrowiki/en/Rulers", "COPYRIGHTED_REFERENCE", "HASH_ONLY"),
@@ -44,10 +51,13 @@ SOURCES = (
     Source("bazi", "LUNAR_PYTHON_LICENSE_1_4_8", "https://raw.githubusercontent.com/6tail/lunar-python/000c8a3d74eed098d6256a28fdd51b869324c559/LICENSE", "MIT", "VENDOR", "lunar-python-1.4.8-LICENSE.txt"),
     Source("bazi", "LUNAR_PYTHON_README_1_4_8", "https://raw.githubusercontent.com/6tail/lunar-python/000c8a3d74eed098d6256a28fdd51b869324c559/README_EN.md", "MIT_REPOSITORY_DOCUMENT", "VENDOR", "lunar-python-1.4.8-README_EN.md"),
     Source("bazi", "LUNAR_PYTHON_SDIST_1_4_8", "https://files.pythonhosted.org/packages/source/l/lunar_python/lunar_python-1.4.8.tar.gz", "MIT", "HASH_ONLY", expected_sha256="3aa11cc73c25e70ddf0ba5bdac7398c03acc9491a3aa512a91c9642973b669d6"),
-    Source("bazi", "WIKISOURCE_DI_TIAN_SUI", "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-di-tian-sui.txt"),
-    Source("bazi", "WIKISOURCE_YUAN_HAI_ZI_PING", "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-yuan-hai-zi-ping.txt", note="Source page itself reports completeness/provenance concerns; use as comparison evidence only."),
-    Source("bazi", "WIKISOURCE_SAN_MING_TONG_HUI_INDEX", "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-san-ming-tong-hui-index.txt", note="Index/provenance snapshot; edition variation must remain explicit."),
+    Source("bazi", "WIKISOURCE_DI_TIAN_SUI", "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&oldid=844410&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-di-tian-sui.txt"),
+    Source("bazi", "WIKISOURCE_YUAN_HAI_ZI_PING", "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&oldid=2593607&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-yuan-hai-zi-ping.txt", note="Pinned source page itself reports completeness/provenance concerns; use as comparison evidence only."),
+    Source("bazi", "WIKISOURCE_SAN_MING_TONG_HUI_INDEX", "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&oldid=657391&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-san-ming-tong-hui-index.txt", note="Pinned index/provenance snapshot; edition variation must remain explicit."),
+    Source("bazi", "WIKISOURCE_QIONG_TONG_BAO_JIAN", "https://zh.wikisource.org/w/index.php?title=%E7%A9%B7%E9%80%9A%E5%AE%9D%E9%89%B4&oldid=2294674&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-qiong-tong-bao-jian.txt", note="Pinned traditional seasonal-balancing witness; interpretive prescriptions remain school-labelled and are not converted into automatic conclusions.", normalize_utf8_text=True),
+    Source("bazi", "CTEXT_SAN_MING_TONG_HUI_VOLUME_7", "https://ctext.org/wiki.pl?chapter=548506&if=en", "COPYRIGHTED_SITE_TRANSCRIPTION_REFERENCE", "HASH_ONLY", note="Historical school-variation and day-master-centred method witness; downloaded and hashed only because redistribution terms were not established."),
     Source("bazi", "HKO_24_SOLAR_TERMS", "https://www.hko.gov.hk/en/gts/time/24solarterms.htm", "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED", "HASH_ONLY"),
+    Source("bazi", "HKO_SOLAR_TERM_TIMES", "https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm", "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED", "HASH_ONLY", note="Official timing reference; page states the astronomical data lineage to HM Nautical Almanac Office and US Naval Observatory."),
     Source("bazi", "TAIWAN_CWA_24_SOLAR_TERMS_PDF", "https://www.cwa.gov.tw/Data/knowledge/announce/astronomy3.pdf", "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED", "HASH_ONLY"),
 )
 
@@ -113,8 +123,17 @@ def main() -> int:
                 )
                 component_dir.mkdir(parents=True, exist_ok=True)
                 target = component_dir / str(source.local_name)
-                target.write_bytes(payload)
+                repository_payload = payload
+                if source.normalize_utf8_text:
+                    text = payload.decode("utf-8")
+                    repository_payload = (
+                        "\n".join(line.rstrip(" \t") for line in text.splitlines()) + "\n"
+                    ).encode("utf-8")
+                    record["repository_normalization"] = "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1"
+                target.write_bytes(repository_payload)
                 record["repository_path"] = target.relative_to(ROOT).as_posix()
+                record["repository_sha256"] = hashlib.sha256(repository_payload).hexdigest()
+                record["repository_bytes"] = len(repository_payload)
             else:
                 record["repository_path"] = None
                 record["discarded_after_hash"] = True

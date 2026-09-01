@@ -1,8 +1,8 @@
-# Bazi Capability Example v0.2.0 (stable path: `bazi-capability_v0.1.1`)
+# Bazi Capability Example v0.3.0 (stable path: `bazi-capability_v0.1.1`)
 
 An offline deterministic domain-capability example derived from the existing
 Bazi Core candidate. The directory name remains stable for CI compatibility;
-the package version is v0.2.0. It retains v0.1.1 storage-integrity protections
+the package version is v0.3.0. It retains v0.1.1 storage-integrity protections
 and adds bounded, inspectable traditional-calculation extensions:
 
 - an explicit Yang-male/Yin-female-forward luck-direction profile;
@@ -14,6 +14,18 @@ and adds bounded, inspectable traditional-calculation extensions:
   interpretation conclusion;
 - downloaded, hashed source witnesses and an exact lunar-python 1.4.8 sdist
   supply-chain check.
+
+The v0.3.0 school-evidence layer additionally exposes:
+
+- day-master and month-branch seasonal evidence;
+- separate visible-stem and hidden-stem element counts;
+- raw peer/resource/output/wealth/officer relationship counts;
+- stem-combination, three-harmony, and three-meeting transformation targets;
+- explicit `CONDITIONS_NOT_EVALUATED` status for every transformation candidate;
+- `NOT_DERIVED` fields for strength, structure, and useful-element conclusions;
+  and
+- composed no-effect evidence with subjectivity and consciousness still
+  `NOT_ESTABLISHED`.
 
 The existing four pillars, hidden stems, ten gods, NaYin, twelve stages,
 relationship facts, annual/monthly/decade cycles, provenance, immutable storage,
@@ -34,7 +46,10 @@ profile and provide its explicit input marker. The luck-start function consumes
 an already-derived interval; it does not silently select a Jie or conceal a
 school convention. Strength, structure, useful element, transformation, and
 free-form interpretation remain candidate-only or unresolved until the relevant
-profile is frozen.
+profile is frozen. v0.3.0 makes the evidence needed for comparing such profiles
+inspectable, but does not conceal a school choice inside an automatic score.
+
+See [`docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md`](docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md).
 
 ## Sources
 
