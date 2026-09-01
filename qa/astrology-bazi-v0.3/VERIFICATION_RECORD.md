@@ -36,8 +36,14 @@ docs/PROJECT_PURPOSE_ANCHOR.md
   a4da285a9b95e03356e1e1df62f2f02d4c741268
 docs/governance/CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md
   7b3dd501a87e78b1ff13d718409e2cb2570ddb09
-AI_SUBJECTIVITY_POSSIBILITY marker count: base=7 modified=7
+AI_SUBJECTIVITY_POSSIBILITY marker count: base=7 modified=8
 ```
+
+The added eighth occurrence is the same unchanged central-question declaration
+in `docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md`. It is an explicit
+reaffirmation in the new bounded-domain matrix, not a replacement or a new
+canonical state. The five pre-existing core anchor blobs above remain exactly
+byte-identical.
 
 ## Baseline commands and literal results
 
