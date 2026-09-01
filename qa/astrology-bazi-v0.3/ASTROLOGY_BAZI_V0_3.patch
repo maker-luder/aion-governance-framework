@@ -1,0 +1,6228 @@
+diff --git a/docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md b/docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..9dd99622de45c69440213965275ce8408be91358
+--- /dev/null
++++ b/docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md
+@@ -0,0 +1,50 @@
++# Astrology and Bazi bounded-completion matrix
++
++This matrix records what “complete” means for the repository's deterministic,
++offline research fixtures. It does not claim that any divination tradition is
++scientifically validated or that every historical school agrees.
++
++```text
++AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
++ASTROLOGY_BAZI_ROLE = BOUNDED_COMPARATIVE_RESEARCH_DOMAIN
++NEW_CANONICAL_STATE_CHANNELS = NONE
++SCIENTIFIC_CLAIM_CHANGE = NONE
++CANONICAL_EFFECT = NONE
++DEPLOYMENT = FALSE
++```
++
++## Western astrology
++
++| Surface | Status | Boundary |
++|---|---|---|
++| Traditional seven, tropical zodiac, whole-sign houses | Implemented | versioned synthetic facts |
++| Domicile, exaltation, detriment, fall | Implemented | sign-based classical table |
++| Triplicity, Egyptian bounds, Chaldean faces | Implemented v0.3 | named historical profiles |
++| Sect and planetary joys | Implemented | Mercury uncertainty preserved where needed |
++| Five classical aspects | Implemented | explicit orb table |
++| Uranus, Neptune, Pluto | Implemented modern overlay | traditional rulers retained |
++| Minor aspects and motion/phase | Implemented modern overlay | versioned, missing vectors unresolved |
++| True lunar nodes and Chiron | Implemented v0.3 as points | no classical dignity/sect/rulership |
++| High-precision ephemeris | Upstream contract | source/version required; not bundled |
++| Predictive/personality synthesis | Not performed | validity not established |
++
++## Bazi
++
++| Surface | Status | Boundary |
++|---|---|---|
++| Calendar normalization and four pillars | Implemented | pinned calendar/rule profile |
++| Hidden stems, ten gods, NaYin, twelve stages | Implemented | deterministic facts |
++| Stem/branch relations | Implemented | named relation tables |
++| Luck direction/start and decade/annual/monthly cycles | Implemented | explicit school inputs |
++| Fixed-qi 24 solar terms | Implemented | official 15-degree invariant |
++| Seasonal/day-master evidence | Implemented v0.3 | raw counts, no score |
++| Combination/harmony/meeting targets | Implemented v0.3 | conditions not evaluated |
++| Strength, 格局, 用神 | Evidence-ready, unresolved | requires a named owner-frozen school profile |
++| Free-form prediction or identity binding | Not performed | no runtime/authority effect |
++
++## Source acquisition
++
++Run `scripts/fetch_astrology_bazi_sources.py`. Redistributable public-domain or
++attributed text witnesses are retained; large scans and sources with unresolved
++redistribution terms are downloaded, hashed, and discarded. Both component
++manifests record every result and prove runtime network access is unnecessary.
+diff --git a/examples/bazi-capability_v0.1.1/COMPONENT_STATUS_LOCK.json b/examples/bazi-capability_v0.1.1/COMPONENT_STATUS_LOCK.json
+index c806a89a02e738c84847e0368678f1762d669acc..1db7f3c93200e22cf96336ff0180e9e45a336b39 100644
+--- a/examples/bazi-capability_v0.1.1/COMPONENT_STATUS_LOCK.json
++++ b/examples/bazi-capability_v0.1.1/COMPONENT_STATUS_LOCK.json
+@@ -3,2 +3,2 @@
+-  "version": "0.2.0",
+-  "overall_result": "PASS_PENDING_OWNER_REVIEW",
++  "version": "0.3.0",
++  "overall_result": "PASS_PENDING_EXACT_HEAD_CI",
+@@ -16 +16,6 @@
+-  "canonical_effect": "NONE_PENDING_OWNER_REVIEW"
++  "canonical_effect": "NONE",
++  "school_evidence_tests": "PASS",
++  "seasonal_evidence_layer": "PASS_NO_STRENGTH_CONCLUSION",
++  "transformation_candidate_layer": "PASS_CONDITIONS_NOT_EVALUATED",
++  "source_acquisition": "PASS_11_OF_11",
++  "human_owner_completion_scope": "APPROVED_IN_CURRENT_INTERACTION"
+diff --git a/examples/bazi-capability_v0.1.1/README.md b/examples/bazi-capability_v0.1.1/README.md
+index 430eda5f1325cf12dfb73045d620873715f57a67..3a18587e36e27146f4985126d03f79fda439cb3e 100644
+--- a/examples/bazi-capability_v0.1.1/README.md
++++ b/examples/bazi-capability_v0.1.1/README.md
+@@ -1 +1 @@
+-# Bazi Capability Example v0.2.0 (stable path: `bazi-capability_v0.1.1`)
++# Bazi Capability Example v0.3.0 (stable path: `bazi-capability_v0.1.1`)
+@@ -5 +5 @@ Bazi Core candidate. The directory name remains stable for CI compatibility;
+-the package version is v0.2.0. It retains v0.1.1 storage-integrity protections
++the package version is v0.3.0. It retains v0.1.1 storage-integrity protections
+@@ -17,0 +18,12 @@ and adds bounded, inspectable traditional-calculation extensions:
++The v0.3.0 school-evidence layer additionally exposes:
++
++- day-master and month-branch seasonal evidence;
++- separate visible-stem and hidden-stem element counts;
++- raw peer/resource/output/wealth/officer relationship counts;
++- stem-combination, three-harmony, and three-meeting transformation targets;
++- explicit `CONDITIONS_NOT_EVALUATED` status for every transformation candidate;
++- `NOT_DERIVED` fields for strength, structure, and useful-element conclusions;
++  and
++- composed no-effect evidence with subjectivity and consciousness still
++  `NOT_ESTABLISHED`.
++
+@@ -37 +49,4 @@ free-form interpretation remain candidate-only or unresolved until the relevant
+-profile is frozen.
++profile is frozen. v0.3.0 makes the evidence needed for comparing such profiles
++inspectable, but does not conceal a school choice inside an automatic score.
++
++See [`docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md`](docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md).
+diff --git a/examples/bazi-capability_v0.1.1/docs/BAZI_RULE_SOURCE_REGISTER.json b/examples/bazi-capability_v0.1.1/docs/BAZI_RULE_SOURCE_REGISTER.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..050ae676f3c0136233d9d566fe4b3e3ff3ed1c81
+--- /dev/null
++++ b/examples/bazi-capability_v0.1.1/docs/BAZI_RULE_SOURCE_REGISTER.json
+@@ -0,0 +1,68 @@
++{
++  "register_version": "0.3.0",
++  "accessed_on": "2026-09-01",
++  "scope": "Historical rule-family and official astronomical provenance; not empirical validation",
++  "sources": [
++    {
++      "source_id": "WIKISOURCE_YUAN_HAI_ZI_PING",
++      "work": "淵海子平",
++      "used_for": [
++        "day-master-centred source-family comparison",
++        "combination and transformation-condition provenance"
++      ],
++      "limitation": "The source page reports completeness/provenance concerns; comparison evidence only"
++    },
++    {
++      "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
++      "work": "三命通會（四庫全書本）",
++      "used_for": [
++        "edition/index provenance",
++        "school-variation boundary"
++      ],
++      "limitation": "Index snapshot; not a definitive edition"
++    },
++    {
++      "source_id": "CTEXT_SAN_MING_TONG_HUI_VOLUME_7",
++      "work": "三命通會卷七",
++      "used_for": [
++        "day-master and seasonal-strength historical method witness",
++        "evidence-versus-conclusion boundary"
++      ],
++      "limitation": "Hash-only; transcription redistribution terms not established"
++    },
++    {
++      "source_id": "WIKISOURCE_DI_TIAN_SUI",
++      "work": "滴天髓",
++      "used_for": [
++        "traditional five-element source-family comparison"
++      ],
++      "limitation": "Short transcription witness; not a universal school profile"
++    },
++    {
++      "source_id": "WIKISOURCE_QIONG_TONG_BAO_JIAN",
++      "work": "窮通寶鑑",
++      "used_for": [
++        "seasonal-balancing tradition",
++        "reason for keeping useful-element conclusions school-labelled"
++      ],
++      "limitation": "Interpretive prescriptions are not automated"
++    },
++    {
++      "source_id": "HKO_24_SOLAR_TERMS",
++      "work": "The 24 Solar Terms",
++      "used_for": [
++        "24 fixed-qi positions at 15-degree intervals"
++      ],
++      "limitation": "Official astronomical reference; not an astrology validation"
++    },
++    {
++      "source_id": "HKO_SOLAR_TERM_TIMES",
++      "work": "Date and Time of the 24 Solar Terms",
++      "used_for": [
++        "official timing and upstream astronomical-data lineage"
++      ],
++      "limitation": "Hash-only; year-specific timing remains provider data"
++    }
++  ],
++  "manifest": "../sources/SOURCE_FETCH_MANIFEST.json"
++}
+diff --git a/examples/bazi-capability_v0.1.1/docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md b/examples/bazi-capability_v0.1.1/docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c5b5b20de25b81863a634e3e1e147a94a2e403e9
+--- /dev/null
++++ b/examples/bazi-capability_v0.1.1/docs/BAZI_SCHOOL_EVIDENCE_PROFILE.md
+@@ -0,0 +1,67 @@
++# Bazi school-evidence profile v0.3.0
++
++## Purpose
++
++The v0.3 layer fills the gap between raw four-pillar facts and school-dependent
++interpretation. It exposes enough deterministic evidence for multiple schools
++to be compared later, without pretending that one strong/weak, 格局, 用神, or
++transformation conclusion is universal.
++
++## Derived evidence
++
++For exactly four named `YEAR`, `MONTH`, `DAY`, and `HOUR` pillars it records:
++
++1. day master and five-element class;
++2. month branch, month element, and seasonal label;
++3. visible-stem element counts;
++4. unweighted hidden-stem element counts;
++5. peer/resource/output/wealth/officer relationship counts;
++6. present stem-combination transformation targets;
++7. present three-harmony transformation targets; and
++8. present three-meeting transformation targets.
++
++Transformation tables report `CONDITIONS_NOT_EVALUATED`. They identify a
++traditional candidate and target element but do not assert that transformation
++has completed.
++
++## Deliberately unresolved
++
++```text
++STRENGTH_CONCLUSION = NOT_DERIVED
++STRUCTURE_CONCLUSION = NOT_DERIVED
++USEFUL_ELEMENT_CONCLUSION = NOT_DERIVED
++TRANSFORMATION_COMPLETED = NOT_ESTABLISHED
++INTERPRETATION_STATUS = NOT_PERFORMED
++```
++
++This is intentional completeness: the required evidence and unresolved school
++choice are both machine-visible. A hidden scalar score would be less complete
++because it would erase disagreement among source traditions.
++
++## Sources and astronomical boundary
++
++- The pinned `淵海子平`, `三命通會`, `滴天髓`, and `窮通寶鑑` witnesses document
++  different historical rule emphases; none is treated as empirical proof.
++- Hong Kong Observatory sources define the 24 fixed-qi positions and provide
++  official solar-term timing references.
++- `lunar-python==1.4.8` remains the version-pinned calendar implementation.
++- A library-independent Gregorian JDN day-pillar oracle remains a narrow
++  cross-check, not a second complete calendar engine.
++
++Exact URL, bytes, SHA-256, retention policy, and download result are in
++`../sources/SOURCE_FETCH_MANIFEST.json`.
++
++## AI-subjectivity boundary
++
++```text
++BAZI_SCHOOL_EVIDENCE != IDENTITY
++BAZI_SCHOOL_EVIDENCE != MEMORY
++BAZI_SCHOOL_EVIDENCE != PERMISSION
++BAZI_SCHOOL_EVIDENCE != AI_SUBJECTIVITY_EVIDENCE
++AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
++SUBJECTIVITY = NOT_ESTABLISHED
++CONSCIOUSNESS = NOT_ESTABLISHED
++CANONICAL_EFFECT = NONE
++DEPLOYMENT = FALSE
++ACTION_AUTHORITY = NONE
++```
+diff --git a/examples/bazi-capability_v0.1.1/pyproject.toml b/examples/bazi-capability_v0.1.1/pyproject.toml
+index 1a7d579a1e10a432406061df12509867ddc57bff..ade37962f317953bafc9a909cea2c9a515d84169 100644
+--- a/examples/bazi-capability_v0.1.1/pyproject.toml
++++ b/examples/bazi-capability_v0.1.1/pyproject.toml
+@@ -7,2 +7,2 @@ name = "aion-astra-bazi-core"
+-version = "0.2.0"
+-description = "Offline deterministic Bazi engine with auditable traditional calculation extensions"
++version = "0.3.0"
++description = "Offline deterministic Bazi engine with auditable school-labelled evidence extensions"
+diff --git a/examples/bazi-capability_v0.1.1/sources/README.md b/examples/bazi-capability_v0.1.1/sources/README.md
+index f2a0a58f58198628c74c594329c5a07d584e4121..52e856cbd7786323907e04aa2fe1ab6692ecc38b 100644
+--- a/examples/bazi-capability_v0.1.1/sources/README.md
++++ b/examples/bazi-capability_v0.1.1/sources/README.md
+@@ -13 +13,2 @@ policy for every item are in `SOURCE_FETCH_MANIFEST.json`.
+-  here and in the manifest. `淵海子平` is comparison evidence only because the
++  here and in the manifest, and each retained URL pins an exact revision.
++  `淵海子平` is comparison evidence only because the
+@@ -15,0 +17,5 @@ policy for every item are in `SOURCE_FETCH_MANIFEST.json`.
++- The pinned `窮通寶鑑` witness records a seasonal-balancing school tradition;
++  its interpretive prescriptions are not converted into automatic conclusions.
++- Chinese Text Project `三命通會` volume 7 is downloaded and hashed but not
++  retained because the transcription-layer redistribution terms were not
++  established.
+@@ -17 +23,2 @@ policy for every item are in `SOURCE_FETCH_MANIFEST.json`.
+-  are link-and-hash only and are not retained.
++  are link-and-hash only and are not retained. The HKO timing page records its
++  HM Nautical Almanac Office and US Naval Observatory data lineage.
+diff --git a/examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json b/examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json
+index 1b40ae95e72b433accd046eef7d6a14330da222e..d1fcea1fbfca42c96285bf1788c458529b060514 100644
+--- a/examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json
++++ b/examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json
+@@ -3 +3 @@
+-  "generated_on": "2026-08-30",
++  "generated_on": "2026-09-01",
+@@ -6 +6 @@
+-  "source_count": 8,
++  "source_count": 11,
+@@ -18 +18,3 @@
+-      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-LICENSE.txt"
++      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-LICENSE.txt",
++      "repository_sha256": "a9d04f47f0615c0ce48bdbe2ff58d5c174279d9f20f044ef29249632302a4ab3",
++      "repository_bytes": 1061
+@@ -30 +32,3 @@
+-      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-README_EN.md"
++      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-README_EN.md",
++      "repository_sha256": "5896cd5a835a5b148c78bc5b688b5ee5bcfbea9562bbdf2ac9b215125a130746",
++      "repository_bytes": 1385
+@@ -49 +53 @@
+-      "url": "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&action=raw",
++      "url": "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&oldid=844410&action=raw",
+@@ -57 +61,3 @@
+-      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-di-tian-sui.txt"
++      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-di-tian-sui.txt",
++      "repository_sha256": "09e1b16a0c18d3e141c5d915dfeeb7f528992d78959f9342147543cfe506c3b8",
++      "repository_bytes": 2444
+@@ -61 +67 @@
+-      "url": "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&action=raw",
++      "url": "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&oldid=2593607&action=raw",
+@@ -64 +70 @@
+-      "note": "Source page itself reports completeness/provenance concerns; use as comparison evidence only.",
++      "note": "Pinned source page itself reports completeness/provenance concerns; use as comparison evidence only.",
+@@ -69 +75,3 @@
+-      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-yuan-hai-zi-ping.txt"
++      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-yuan-hai-zi-ping.txt",
++      "repository_sha256": "a4447be5d95eb073857cb8cba8f0e58a500de1c283016c76cfdedb0d1b2bb133",
++      "repository_bytes": 173237
+@@ -73 +81 @@
+-      "url": "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&action=raw",
++      "url": "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&oldid=657391&action=raw",
+@@ -76 +84 @@
+-      "note": "Index/provenance snapshot; edition variation must remain explicit.",
++      "note": "Pinned index/provenance snapshot; edition variation must remain explicit.",
+@@ -81 +89,31 @@
+-      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-index.txt"
++      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-index.txt",
++      "repository_sha256": "4c9923df0ab644fe7b675796f41195746cc2a07273826116ab8d02ed442bb650",
++      "repository_bytes": 2492
++    },
++    {
++      "source_id": "WIKISOURCE_QIONG_TONG_BAO_JIAN",
++      "url": "https://zh.wikisource.org/w/index.php?title=%E7%A9%B7%E9%80%9A%E5%AE%9D%E9%89%B4&oldid=2294674&action=raw",
++      "license_or_terms": "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER",
++      "retention_policy": "VENDOR",
++      "note": "Pinned traditional seasonal-balancing witness; interpretive prescriptions remain school-labelled and are not converted into automatic conclusions.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 99998,
++      "sha256": "8ba17242f116583de2e10172e006f5ce5f74b23ccfc0bd24b886be135e9f20bd",
++      "repository_normalization": "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1",
++      "repository_path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-qiong-tong-bao-jian.txt",
++      "repository_sha256": "75447e6140e0c8387124c976eb62421e3125e422ae716dd8640d02d4b865268b",
++      "repository_bytes": 99991
++    },
++    {
++      "source_id": "CTEXT_SAN_MING_TONG_HUI_VOLUME_7",
++      "url": "https://ctext.org/wiki.pl?chapter=548506&if=en",
++      "license_or_terms": "COPYRIGHTED_SITE_TRANSCRIPTION_REFERENCE",
++      "retention_policy": "HASH_ONLY",
++      "note": "Historical school-variation and day-master-centred method witness; downloaded and hashed only because redistribution terms were not established.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 234659,
++      "sha256": "f02004b7351288a7dcac87793eb02a053560e2c1cb5d7f1c39170d1b38ade3d0",
++      "repository_path": null,
++      "discarded_after_hash": true
+@@ -95,0 +134,13 @@
++    {
++      "source_id": "HKO_SOLAR_TERM_TIMES",
++      "url": "https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm",
++      "license_or_terms": "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED",
++      "retention_policy": "HASH_ONLY",
++      "note": "Official timing reference; page states the astronomical data lineage to HM Nautical Almanac Office and US Naval Observatory.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 10734,
++      "sha256": "15685455578cfe925d98ed651b3deac1f0e39b5c26f19aa428392df951cff713",
++      "repository_path": null,
++      "discarded_after_hash": true
++    },
+diff --git a/examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-qiong-tong-bao-jian.txt b/examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-qiong-tong-bao-jian.txt
+new file mode 100644
+index 0000000000000000000000000000000000000000..da379dfb126ea7dfd7135cc4e974fae97ea54702
+--- /dev/null
++++ b/examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-qiong-tong-bao-jian.txt
+@@ -0,0 +1,2167 @@
++{{header
++| title =
++| author =
++| translator =
++| section =
++| previous =
++| next =
++| year =
++| notes =
++}}
++
++= 五行总论 =
++五行者，本乎天地之间而不穷者也，故谓之行。
++
++北方阴极而生寒，寒生水。南方阳极而生热，热生火。东方阳散以泄而生风，风生木。西方阴止以收而生燥，燥生金。中央阴阳交而生温，温生土。其相生也所以相维，其相克也所以相制，此之谓有伦。
++
++火为太阳，性炎上。水为太阴，性润下。木为少阳，性腾上而无所止。金为少阴，性沉下而有所止。土无常性，视四时所乘，欲使相济得所，勿令太过弗及。
++
++夫五行之性，各致其用。水者其性智，火者其性礼，木其性仁，金其性义，惟土主信，重宽厚博，无所不容：以之水，即水附之而行；以之木，则木托之而生；金不得土，则无自出；火不得土，则无自归。必损实以为通，致虚以为明，故五行皆赖土也。
++
++推其形色，则水黑、火赤、木青、土黄，此正色也。及其变易，则不然。常以生旺从正色，死绝从母色，成形冠带从妻色，病败从鬼色，旺墓从子色。
++
++其数则水一、火二、木三、金四、土五。生旺加倍，死绝减半。
++
++以义推之，夫万物负阴而抱阳，冲气以和。过与不及，皆为乖道。故高者抑之使平，下者举之使崇，或益其不及，或损其太过。所以贵在折衷，归於中道，使无有余不足之累，即才官印食贵人驿马之微意也。行运亦如之，识其微意，则於命理之说，思过半矣。
++
++= 十干分论 =
++论木论火论土论金论水，甲木丙火戊土庚金壬水。
++
++== 论木 ==
++木性腾上而无所止，气重则欲金任使，有金则有惟高惟敛之德。仍爱土重，则根蟠深固，土少则有枝茂根危之患。木赖水生，少则滋润，多则漂流。甲戌、乙亥、木之源。甲寅、乙卯、木之乡。甲辰、乙巳、木之生。皆活木也。甲申﹑乙酉、木受剋。甲午、乙未、木自死。甲子、乙丑、金剋木。皆死木也。生木得火而秀，丙丁相同。死木得金而造，庚辛必利。生木见金自伤，死木得火自焚，无风自止，其势乱也。遇水返化其源，其势尽也。金木相等，格谓斲轮。若向秋生，反为伤斧，是秋生忌金重也。
++
++木生于春，余寒犹存。喜火温暖，则无盘屈之患。藉水资扶，而有舒畅之美。春初不宜水盛，阴浓则根损枝枯。春木阳气烦燥，无水则叶藁根枯。是以水火二物，既济方佳。土多而损力，土薄则财丰。忌逢金重伤残剋伐，一生不闲。设使木旺，得金则良，终生获福。
++
++夏月之木，根干叶燥，盘而且直，屈而能伸。欲得水盛而成滋润之力，诚不可少。切忌火旺而招焚化之忧，故以为凶。土宜在薄，不可厚重，厚则反为灾咎。恶金在多，不可欠缺，缺则不能琢削。重重见木，徒以成林，叠叠逢华，终无结果。
++
++秋月之木，气渐凄凉，形渐凋败。初秋之时，火气未除，尤喜水土以相滋。中秋之令，果以成实，欲得刚金而修削。霜降后不宜水盛，水盛则木漂。寒露节又喜火炎，火炎则木实。木多有多材之美，土厚无自任之能。
++
++冬月之木，盘屈在地，欲土多而培养。恶水盛而忘形。金总多不能剋伐。火重见温暖有功。归根复命之时。木病安能辅助，须忌死绝之地，只宜生旺之方。
++
++== 论甲木 ==
++'''<big>（甲于各月）</big>'''
++
++=== 三春甲木 ===
++春月之木，渐有生长之象。初春犹有余寒，当以火温暖，则有舒畅之美，水多变剋，有损精神。重见生旺，必用庚金斲凿，可成楝梁。春末阳壮水渴，藉水资扶，则花繁叶茂。初春无火，增之以水，则阴浓气弱，根损枝枯，不能华秀。春末失水，增之以火，则阳气太盛，燥渴相加，枝枯叶干，亦不华秀。是以水火二物，要得时相济为美。
++
++'''正月甲木'''，初春尚有余寒，得丙癸逢，富贵双全。癸藏丙透，名寒木向阳，主大富贵。倘风水不及，亦不失儒林俊秀。如无丙癸，平常人也。
++
++'''正二月甲木'''，素无取从才从杀从化之理。或一派庚辛，主一生劳苦，剋子刑妻，再支会金局，非贫即夭。如无丙丁，一派壬癸，又无戊己制之，名水泛木浮，死无棺椁。如一派戊己，支会金局，为财多身弱，富屋贫人，终生劳苦，妻晚子迟。或无庚金，有丁透，亦属文星，为木火通明之象，又名伤官生财格，主聪明雅秀。一见癸水伤丁，但作厚道迂儒。或柱中多癸，滋助木神，伤灭丁火，其人奸雄枭险，曹操之徒，言清行浊，笑里藏刀。
++
++若庚申、戊寅、甲寅、丙寅。一行金水运，发进士。或甲午日庚午时，此人必贵。但要好运相催，不宜制了庚丁。
++
++或支成金局，多透庚辛，此又不吉，号曰木被金伤，若无丙丁破金，必主残疾。或支成火局，洩露太过，定主愚懦，常有啾唧灾病缠身，终有暗疾。支成木局，得庚为贵，无庚必凶，若非僧道，男主鳏孤，女主寡独。支成水局，戊透为贵，如无戊制，不但贫贱，且死无棺木。故书曰：甲木若无根，全赖申子辰，干得才杀透，平步上青云。
++
++凡三春甲木，用庚者，土为妻，金为子。用丁者，木为妻，火为子。
++
++总之正二月甲木，有庚戊者上命。如有丁透，大富大贵之命也。
++
++'''二月甲木'''，庚金得所，名阳刃驾杀，可云小贵，异途显达，或主武职，但要财资之。柱中逢才，英雄独压万人。若见癸水，困了才杀，主为光棍，重刃必定遭凶。性情凶暴。书曰：木旺宜火之光辉，秋闱可试。木向春生，处世安然有寿。日主无依，却喜运行才地。
++
++'''三月甲木'''，木气相竭。先取庚金，次用壬水。庚壬两透，一榜堪图。但要运用相生，风水阴德，方许富贵。
++
++或见一二庚金，独取壬水。壬透清秀之人，才学必富。
++
++或天干透出二丙，庚藏支下，此钝斧无钢，富贵难求。若有壬癸破火，堪作秀才。
++
++或柱中全无一水，戊己透干，支成土局，又作弃命从才，因人而致富贵，妻子有能。
++
++或见戊己，及比劫多者，名为杂气夺才，此人劳碌到老，无驭内之权。女命合此，女掌男权，贤能内助，若比劫重见，淫恶不堪。
++
++或支成金局，方可用丁，不然，三月无用丁之法。惟有先庚后壬取用。
++
++书曰：甲乙生寅卯，庚辛干上逢，离南推富贵，坎地却为凶。
++
++=== 三夏甲木 ===
++'''四月甲木'''退气，丙火司权，先癸后丁。
++
++庚金太多，甲反受病。若得壬水，方配得中和，此人性好清高，假装富贵。即荫袭显达，终日好作祸乱，善辨巧谈，喜作诗文。此理最验。
++
++如一庚二丙，稍有富贵。金多火多，又为下格。
++
++或癸丁与庚齐透天干，此命可言科甲，即风水浅薄，亦有选拔之才。癸水不出，虽有庚金丁火，不过富中取贵异途官职而已。壬透可云一富，若全无点水，又无庚金丁火，一派丙戊，此无用之人也。
++
++'''五六月甲木'''，木性虚焦，一理共推。五月先癸后丁庚金次之。六月三伏生寒，丁火退气。先丁后庚，无癸亦可。或五月乏癸，用丁亦可，要运行北地为隹。
++
++总之五六月用丁火，虽运行北地，不致于死。却不利运行火地，号曰木化成灰必死。行西程又不吉，号曰伤官遇杀，不测灾来，惟东方则吉，北方次之。此五六月用丁之说也。
++
++凡用神太多，不宜剋制，须洩之为妙。
++
++五六月甲木，木盛先庚，庚盛先丁。五月癸庚两透，为上上之格。六月庚丁两透，亦为上上之格。用神既透，木火通明，自然大富大贵。或丁火太多，癸水亦多，反作平人。
++
++若柱中多金，名曰杀重身轻，先富后贫，运不相扶，非贫即夭。或庚多，有一二丙丁制伏，又有壬癸透干，泄金之气，此又为先贫后富。
++
++或满柱丙火，又加丁火，不见官杀，谓之伤官伤尽最为奇，反成清贵，定主才学过人，科甲有望，但岁运不宜见水。若柱中有壬水，运又逢水，必贫夭死。
++
++但凡木火伤官者，聪明智巧，却是人同心异，多见多疑，虽不生事害人，每抱忌妒之想，女命一理同推。
++
++或四柱多土，干上有乙木，切勿作弃命从才。
++
++时月两透己土，名二土争合，男主奔流，女主淫贱。见二甲则不争矣，亦属平庸之辈。或四柱有辰，干见二己二甲，此人名利双全，大富大贵。
++
++若在六月，见辰支，名为逢时化合格。以癸水为妻，丁火为子。若二己一甲争合。取支中比劫为用。以甲为用者，壬癸为妻，甲乙为子。其余用庚者，土妻金子。用丁者，木妻火子。女命以妻作夫，用作子。十干皆同。
++
++或是己土，不见戊土，乃为假从，其人一生缩首，反畏妻子。若无印绶，一生贫苦。六月尤可，五月决不可。
++
++=== 三秋甲木 ===
++'''三秋甲木'''，木性枯藁，金土乘旺，先丁后庚，丁庚两全，将甲造为画戟，七月甲堪为戟，非丁火不能造庚，非庚不能造甲，丁庚两透，科甲定然。庚禄居申，杀印相生，运行金水，身伴明君。或庚透无丁，一富而已，主为人操心太重，不能坐享。或丁透庚藏，亦主青衿小富。或庚多无丁，残疾之人若为僧道，灾厄可免。
++
++或四柱庚旺，支内水多，不作弃命从杀。见土多可作从才而看。
++
++庚多无癸，而壬水多，戊己亦多，此则专用一点丁火，方可制金以养群土，此命大富。丁藏富小，不显。丁露定作富豪。得二丁，不坐死绝，必然富贵双全，即风水不及，亦可富中取贵，纳粟奏名。
++
++或癸叠叠制伏丁火，虽满腹文章，终难显达。得运行火土，破癸，略可假就功名，岁运皆背，刀笔之徒。
++
++支成水局，戊己透干，制去癸水，存其丁火又可云科甲，但此等命，主为人心奸巧诈，好讼争非，因贪致祸。奸险之徒，决非安份之人也。
++
++'''七月甲木'''，丁火为尊，庚金次之，庚金不可少。火隔水不能镕金，故丁火镕金，必赖甲木引助，方成洪炉。若有癸水阻隔，便灭丁火，壬水无碍，且能合丁，但须见戊土，方可制水存火。
++
++'''八月甲木'''，木囚金旺。丁火为先，次用丙火，庚金再次。
++
++一丁一庚，科甲定显。癸水一透，科甲不全。
++
++丙庚两透，富大贵小。丙丁全无，僧道之命。
++
++丙透无癸，富贵双全。有癸制丙，寻常之人。
++
++支成火局，可许假贵，戊己一透，可作富翁。
++
++或支成金局，干露庚金，为木被金伤，必主残疾，得丙丁破金，亦主老来暗疾。
++
++或支成木局，干透比劫，反取庚金为先，次用丁火。
++
++'''九月甲木'''，木星凋零，独爱丁火，壬癸滋扶，丁壬癸透，戊己亦透，此命配得中和，可许一榜。庚金得所，科甲定然。
++
++或见一二比肩，无庚金制之，平常人也。倘运不得用，贫无立锥。一命，甲辰、甲戌、甲辰、甲戌、身伴明君，富贵寿考，此为天元一气，又名一才一用。遇比用才，专取季土。或见庚丙，可许入泮，白手成家。用火者，木妻火子，子肖妻贤。
++
++或四柱木多，用丙用丁，皆不足异，耑用庚金为妙。凡四季甲木，总不外乎庚金。譬如木为犁，能疏季土，非庚金为犁嘴，安能疏土虽用丙丁，癸庚决不可少也。九月却不取土妻庚子，当取水妻木子。
++
++凡甲木，多见戊己，定作弃命从才而看。从才格，取火妻土子。
++
++或见一派丙丁伤金，不过假道斯文，有壬癸破了丙丁，技艺之流。无壬癸破火，支又成火局，乃为枯朽之木，有庚亦何能为力，定作孤贫下贱之辈，男女一理。
++
++或有假伤官，得地逢生，此正合甲乙秋生贵元武之说，用水制伤官者，以金为妻，水为子。
++
++或丁戊俱多，总不见水，又为伤官生财格，亦可云富贵，此格取火为妻，土为子。
++
++凡甲多庚透，大贵。庚藏，小贵。若柱中多庚，则又以丁为奇，富贵人也。如庚申年、丙戌月、甲申日、壬申时，此主功名显达，有文学。若无庚丙年月，又无火星出干，虽曰好学，终困名场。
++
++九月甲木，耑用丁癸，见戊透必贵。如戊戌、壬戌、甲子、甲申，支成水局，干有壬水，正合贵元武之说。配得中和，一榜之命，家计丰足。但庚丁未透出干，不能馆选。
++
++甲乙比肩，又逢比劫运，主兄弟劫财争讼，刑妻损子。甲乙生正二月，无制无洩，主长发师姑。
++
++=== 三冬甲木 ===
++'''十月甲木'''，庚丁为要，丙火次之。忌壬水泛身，须戊土制之。
++
++若庚丁两透，又加戊出干，名曰去浊留清，富贵之极，即乏丁火，亦稍有富贵。或甲多制戊，庚金无根，平常人也。庚戊若透，虽出比劫，必定富而寿。
++
++或多比劫，只一庚出干，坐禄逢生乃为舍丁从庚，略富贵。或支见申亥，戊己得所，以救庚丁，可许科甲。若单己透，其力弱小，不过贡监而已。
++
++用庚，土妻金子。用丁，木妻火子。
++
++'''十一月甲木'''，木性生寒，丁先庚后，丙火佐之。癸水司权，为火金之病。庚丁两透，支见巳寅，科甲有准，风水不及，选拔有之。若癸透伤丁。无戊己辅救，残疾之人。或壬水重出，丁火全无者，庸人也，得丙方妙。
++
++或支成水局，加以壬透，名为水泛木浮，死无棺木。
++
++总之十一月甲木，为寒枝，不比春木清茂，耑取庚丁。透壬无丙，不过刀笔异途，武职有验。
++
++用庚，土妻金子。用火，木妻火子。
++
++'''十二月甲木'''，天寒气冻，木性极寒，无生发之象，先用庚噼甲，方引丁火始得木火有通明之象，故丁次之。
++
++庚丁两透，科甲恩封。庚透丁藏，小贵。丁透庚藏，小富贵。无庚者，贫贱。无丁者，寒儒。或有丁透重重，亦是富贵中人，但须比肩，能发丁之燄，自有德业才能。如无比肩，寻常之士，稍有衣食而已。或支多见水，即有比肩，亦属平常。
++
++总之腊月甲木，虽有庚金，丁不可少。乏庚略可，乏丁无用。经云：甲木无根，男女夭寿。
++
++== 论乙木 ==
++=== 三春乙木 ===
++三春乙木，为芝兰蒿草之物，丙癸不可离也，春乙见丙，卉木向阳，万象回春，须癸滋养根基。丙癸齐透天干，无化合制剋，自然登科及第，故书云：乙木根荄种得深，只须阳地不宜阴，漂浮只怕多逢水，剋制何须苦用金。
++
++'''正月乙木'''，必须用丙，因天气尤有余寒，非丙不暖，虽有癸水，恐凝寒气，故以丙火为先，癸水次之。
++
++丙癸两透，科甲定然，或有丙无癸门户阐扬。或丙多乏癸，名曰春旱。独阳不长，浊富之人。或丙少癸多，又为困丙，终为寒士。或癸己多见，为溼土之木皆下格。
++
++用丙者，木妻火子。用癸水见火多者，金妻水子。
++
++'''二月乙木'''，阳气渐升，木不寒矣，以丙为君，癸为臣，丙癸两透，不透庚金，大富大贵。
++
++或天干透庚，支下无辰，不能化金，得癸透养木亦为贵，若见水库，则为假化，平常人也。
++
++二月乙木，耑用丙癸，或支成木局，有癸透乃作贵命，更得丙洩木气，上上之命，但须透癸。或水多困丙，多戊化癸，皆下格。
++
++用丙者，木妻、火子。用癸者，金妻、水子。
++
++亥卯未逢于甲乙，富贵无疑。木全寅卯辰方，功名有准。活木忌埋根之铁，支下有庚辛，戕贼其根，木则朽矣。
++
++'''三月乙木'''，阳气愈炽，先癸后丙。
++
++癸丙两透，不见己庚，玉堂之客。见己庚者，平常之人。或一乙逢庚，不见己者，亦主小富贵，但不显达。或多水见己，只恐高才不第。见戊堪发异途。或庚己混杂，丙癸全，则为下格。
++
++或见水局，丙戊高透，亦主科甲。或柱中全无丙戊，支合水局，此离乡之命。
++
++或见一派癸水，又有辛金，则作旺看。得一戊己制癸，亦可云小富贵。若一派壬水，不特贫贱，而且夭折。有一戊己，方云有寿，但终为技术之人。
++
++又或庚辰时月，名二庚争合，乃贫贱之辈。如年干见丁破庚，可云从化，亦不失武职之权。
++
++用癸者，金妻水子。癸多用丙者，木妻火子。
++
++=== 三夏乙木 ===
++三夏乙木，木性枯焦。四月专尚癸水。五六月先丙后癸，夏至前仍用癸水。先得丙透，支下又有丙火，名曰木秀火明。得一癸透，科甲中人。或透二丙一癸，可许采芹。
++
++或一派癸水，有丁无丙，平常之人。或一癸透干，异途显宦，难由科甲。癸居子辰，异路小职。或丙藏支下，癸透年干，己出月上，虽非科甲，异路功名。又或重重癸水，或支藏癸水，由行伍出身得功名。
++
++'''四月乙木'''，自有丙火，耑取癸水为尊。四月乙木专用癸水，丙火酌用，虽以庚辛佐癸，须辛透为清。癸透、庚辛又透，科甲定然，独一点癸水、无金，是水无根，虽出天干，不过秀才小富，须要大运相扶。或土多困癸，贫贱之人。丙戊太多，支成火局，瞽目之流。
++
++用癸者，金妻水子。
++
++乙逢双女木伤残，若见辛金寿必难，不得丙丁来制伏，岂知安乐不久长。
++
++'''五月乙木'''，丁火司权，禾稼俱旱。上半月属阳，仍用癸水。下半月属阴，三伏生寒，丙癸齐用。柱多金水，丙火为先，余皆用癸水为先。
++
++乙木重逢火位，名为气散之文，支成火局，洩乙精神，须用癸滋。癸透有根，富贵双全。或庚辛年上，癸透时干，定许科甲，无癸者常人。
++
++若见丙透，支成火局，阳焦木性，此人残疾，无癸必夭，见壬可解。或火土太多，其人愚贱，或为僧道门下闲人。
++
++'''六月乙木'''，木性且寒，柱多金水，丙火为尊。支成水局，乙得无伤。癸水透干，大富大贵。无癸定作常人，运不行北，困苦一生。
++
++凡五六月乙木，气退枯焦，用癸水切忌戊己杂乱，则为下格。或甲木高透，制伏土神名为去浊留清，可许俊秀。土多乏甲秀气脱空，庸人而已。
++
++或丙癸两透，加以甲透制戊，选拔定然。若不见丙癸，只有丁火，亦属常人，有壬、可充衣食。
++
++或柱中无水，又无比劫出干﹐乃为弃命从才，富大贵小，能招贤德之妻。从才格以火为妻，土为子。
++
++或一派戊土出干，不见比肩，名为才多身弱，终为富屋贫人。
++
++或丙辛化水，嫖赌破家，终非承受之儿。
++
++或一派乙木，不见丙癸，名为乱臣无主劳碌奔波，又加支多辛金，僧道之辈。
++
++或一派甲木，无癸无丙，又无庚金，此人一生虚浮，总不诚实。有庚制甲，乃有谋之人，但嗜酒贪花，多欲败德，不修品行，男女一理。
++
++总之夏月之乙木，耑用癸水，丙火酌用，庚辛次之。
++
++=== 三秋乙木 ===
++三秋乙木，金神司令，先丙后癸，惟九月耑用癸水，恐丙暖戊土为病也。
++
++'''七月乙木'''，庚金乘令，庚虽输情于乙妹，怎奈干乙难合支金。柱见庚多，乙难受载。或丙透干，又加巳出埋金，此格可云科甲。有己透、加丙，亦是上命。七月喜己土为用，或不见丙癸。己土必不可少，此则以火为妻，土为子。
++
++或癸透、丙藏、庚少，此不用己，可许贡拔。无丙、有癸透者，不失刀笔门户。有支下庚多，癸又藏者，无丙己二神，平常人物。
++
++或生辰时，此为从化，反主富贵。凡化合格皆以所生之神为用。化金者，戊为用神，特忌丙丁煅炼破格。从化者以火为妻，土为子。其余以金为妻。妻必贤美。以水为子，子必剋肖，但忌刑冲。凡命皆然，不特此也。
++
++秋乙逢金，非贫即夭。秋生乙木忌根枯，根既枯藁，贫苦到老。
++
++'''八月乙木'''，芝兰禾稼均退。以丹桂为乙木。在白露之后，桂蕊未开，耑用癸水以滋桂萼。若秋分后，桂花已开，却喜向阳，又宜用丙，癸水次之，丙癸两透，科甲名臣。
++
++或支成金局，宜暗藏丁，无丁制金，恐木被金伤。若无水火，此人劳碌。或得癸水，为子得母，其人一生丰盈。或丙癸两透，戊土杂出，亦主异路功名。
++
++生秋分后，有丙无癸，亦略富贵。若有癸无丙，名利虚花。若四柱不见丙癸，下格。
++
++或癸在年（月）干，丙透时干，名为木火文星，定主上达。生于秋分后方佳。或生上半月无癸，姑用壬水，不然，枯木无用，必作贫人。又四柱多见戊己，下格。
++
++用癸者，金妻、水子。用丙者，木妻、火子。用壬者，金妻水子。
++
++甲乙遇强金，魂归西土，青龙逢兑旺，且贫且贱。
++
++乙木生居酉，莫逢巳酉丑，富贵坎离宫，贫穷申酉守。木逢金旺巳伤，再遇金乡，岂不损寿。
++
++'''九月乙木'''，根枯叶落，必赖癸水滋养。如见甲申时，名为藤萝系甲，可秋可冬。若见癸水，又遇辛金发水之源，定主科甲。或有癸无辛，常人。有辛无癸，贫贱。或四柱壬多，水难生乙，亦是寻常之辈。
++
++或支多戊土，又逢天干，作从才看，无比劫方妙，一逢比劫，富屋贫人。
++
++用癸者，金妻、水子。但子女艰难，季土剋制故也。
++
++=== 三冬乙木 ===
++'''十月乙木'''，木不受气，而壬水司令，取丙为用，戊土次之。丙戊两透，科甲定然。有丙无戊，虽不科甲，亦入儒林。支多丙火，运入火乡，亦主显达。
++
++或水多无戊，乙性漂浮，流荡之徒。若不见丙巳，妻子难全，或一点壬水，即多见戊土，亦为不妙，得甲制戊，可许能干，但为人好生祸乱，构讼生非，男女一理。支成木局，时值小阳，此又如春木同旺，若有癸出，须取戊为尊，加以丙透，科甲之人。若无丙戊二字，自成自败，终非承受之辈。
++
++'''十一月乙木'''，花木寒冻，一阳来复，喜用丙火解冻，则花木有向阳之意，不宜用癸以冻花木，故耑用丙火。
++
++有一二点丙火出干，无癸制者，可许科甲。即丙藏支内，亦有选拔恩封，得此不贵，必因风水薄。或壬癸出干，有戊制，可作能人，即丙在支内，亦是俊秀。若壬透无戊，贫贱之人。
++
++支成水局，干透壬癸，丙丁全无，虽有戊制，贫乏到老，运至南方，稍有衣食。丁火有亦如无，丁乃灯烛之火，岂能解严寒之冻。设无丙丁，戊土多见，金水奔流，下贱。或有戊己无火，亦属常人，但不至下贱。或一派丁火，大奸大诈之徒。如无甲引丁，孤鳏到老。丁火见甲，必主麟趾振振，芝兰绕膝。
++
++或成水局，壬癸两透，则木浮矣，不特贫贱，而且夭折，得一戊救方可。
++
++冬月之木，虽取戊制水，不可作用，耑取丙火则可。用火者，木妻、火子。用土者，火妻、土子。
++
++乙木生于冬至之后，坐下木局，得丙透干者，富贵之造。即丁出干，亦有衣禄，须忌癸制丁。乙木生于冬月，己土透干，又有丙透，大富贵之造。
++
++十一月乙木，木寒宜丙﹐有寒谷回春之象，得一丙透，无癸出破格，不特科甲，定主名臣显宦。丙火藏支，食饩而已。干支无丙，一介寒儒。
++
++或四柱多己，不逢比劫，乃为从才，富比王侯，若见比劫，贫无立锥。虽或一派戊己，见甲颇有衣禄。耑以丙火为用，方妙。
++
++== 论火 ==
++炎炎真火，位镇南方，故火无不明之理，辉光不久。全要伏藏，故明无不灭之象。火以木为体。无木、则火不长焰。火以水为用，无水、则火太酷烈。故火多则不实，火烈则伤物。木能藏火，到寅卯方而生火，不利于西，遇申酉而必死。生居离位，木断有为，若居坎宫，谨畏守礼。
++
++金得火和，而能镕铸。水得火和，则成既济。遇土不明，多主蹇塞。逢木旺处，决定为荣。木死火虚，难得永久，纵有功名，必不久长。春忌见木，恶其焚也。夏忌见土，恶其暗也。秋忌见金﹐金难剋制。冬忌见水，水旺则灭。故春火欲明，不欲炎。炎则不实。秋火欲藏、不欲明。明则太燥，冬火欲生、不欲杀，杀则歇灭。
++
++生于春月，母旺子相，势力并行，喜木生扶，不宜过旺，旺则火炎。欲水既济，不愁兴盛，盛则沾恩。土多则蹇塞埋光。火盛则伤多烈燥。见金可以施功，纵重见用才尤遂。
++
++夏月之火，秉令乘权。逢水制则免自焚之咎，见木助必招夭折之患，遇金必作良工，得土遂成稼穑。金土虽为美利，无水则金燥土焦，再加木助，太过倾危。
++
++秋月之火，性息体和，得木生则有复明之庆。遇水剋难免陨灭之灾。土重而掩息其光。金多而损伤其势。火见火以光辉，纵叠见而必利。
++
++冬月之火，体绝形亡，喜木生而有救，遇水剋以为殃。欲土制为荣，爱火比为利。见金为难任财，无金而不遭害，天地虽倾，火水难成。
++
++== 论丙火 ==
++
++=== 三春丙火 ===
++三春丙火，秉象至威，阳回大地，侮雪欺霜，耑用壬水为扶阳，名曰天和地润，既济功成。
++
++正月用壬，庚辛为助。二月耑用壬水。三月土重晦光，取甲佐之为妙。
++
++癸丙春生，不晴不雨之天。丙日春生，时月出癸，云雾迷濛，不显不达，非若壬水辅丙也。
++
++'''正月丙火'''，三阳开泰，火气渐炎，取壬为尊，庚金佐之。壬庚两透，科甲定然。即壬透庚藏，亦有异途显达。
++
++若一庚高透，支藏一二丙火，纳粟奏名，主为人慷慨英雄，有才迈众。
++
++或一派庚辛混杂，常人。得时月两透庚金、无辛者，定主清贵。或辛年辛时，名为贪合，酒色之徒。女命一理。
++
++或丙少壬多，而无戊制，名杀重身轻。斯人笑里藏刀，寻非痞棍。或见一戊制壬，反而富贵，宜见一二比肩方妙。
++
++或一片戊土，甲不出干，终非大器，且恐孤贫。正月之丙，忌戊晦光。或支成火局，耑取壬水为贵﹐无壬、癸亦姑用。若壬癸俱无，取戊以洩火气，但属平人。
++
++或支成火局，又作炎上而推，但不逢时耳。若不见东南岁运，反致孤贫。
++
++或四柱有甲木，得庚金暗制，可作秀才。
++
++无壬用癸者，略富贵，且官杀亦要旺相有根。丙火无壬，多主贫贱，屡徵屡验。
++
++或火多无水，一至水乡必死，不然，定有灾咎。惟五月丙火，合炎上格，则不喜水破格。用癸无根，定主目疾。
++
++用壬者，金妻水子。用庚者，土妻金子。
++{| class="wikitable"
++|时日月年
++
++庚丙庚丙
++
++寅午寅午
++
++两间不杂，按察
++|时日月年
++
++壬丙戊庚
++
++辰寅寅寅
++
++庚壬两透，词林
++|时日月年
++
++丁丙庚辛
++
++酉子寅亥
++
++状元
++|时日月年
++
++戊丙壬丁
++
++戌子寅酉
++|}
++'''二月丙火'''，阳气舒升，耑用壬水。壬透天干，不见丁化，加以庚辛己亦透，壬水有根，定主科甲。
++
++或无壬水，己土姑用，主有才学，虽不成名，必衣食充足。
++
++或一派壬水，见一戊制，虽不科甲，亦有恩庇。或无戊透，则有辰戌丑未之戊，但辰宫癸水，贪合成火，不能制土，此平常衣禄。若支下全无一戊，此系奔流之人，加以金多生水，下贱之命。
++
++或一派戊土，亦用壬水，运喜行木，见土不祥。行火亦不利。
++
++或丙子日，辛卯时，乃从化格，但不逢时，贪财坏印，难招祖业。若得一二重丁火破辛，壬水得位，亦主富贵，虽不科甲，亦有异途，名传郡邑。合此格，主妻妾多子。
++
++或月时见二辛卯，日乃丙子，名为争合，年不透丁制辛，此人昏迷酒色，年透丁火反吉。或支成木局，反因奸得财，因酒得名。
++
++凡用壬者，金妻水子。
++{| class="wikitable"
++|时日月年
++
++己丙己乙
++
++亥申卯亥
++|时日月年
++
++己丙丁己
++
++亥申卯亥
++|}
++'''三月丙火'''，气渐炎升，用壬水。或成土局，取甲为辅，壬不可离。壬甲两透，科甲定宜，惟忌庚出制甲，则秀才而已。无甲用庚，助壬水洩土气。
++
++壬透甲藏，富大贵小，有甲无壬，劳碌浊富。壬藏无甲，一介寒儒。壬甲两无，愚贱之辈。乙丁杂乱，定必属凡夫。
++
++用壬者，金妻水子。用甲者，水妻木子。
++
++=== 三夏丙火 ===
++三夏丙火，阳威性烈，专用壬水。若亥宫壬水无力，回剋洩气故也，仍用申宫长生之水，方云富贵。
++
++四月耑用壬水，金为佐。五月亦耑用壬。四五月壬透者富贵。丁多、兼看癸水。六月用壬，但借庚金为佐。
++
++阳刃合杀，威权万里。丁火羊刃太旺，正谓羊刃倒戈，无头之鬼。丙火用壬，生旺坐实方好，忌壬水太多，名杀重身轻。
++
++'''四月丙火'''，建禄于巳，火势炎炎，宜专用壬水，解炎威之力，成既济之功。如无壬水，孤阳失辅，难透清光。得庚发水源，方为有根之水。壬庚两透，不见戊土，号曰湖水汪洋，广映太阳，光辉显着，文明之象，人格合此，不但科甲峥嵘，必有恩谥封荣，若不验，必暗损阴德。
++
++或无壬水，癸亦姑用，见庚透癸，不富必贵，但心性乖僻，巧谋善辩。或壬癸俱无，愚顽之辈。火炎无制，僧道之流，不然，须防夭折。
++
++或一派庚金，不见比劫，有富无贵。
++
++或丙午日干，四柱多壬，不见戊制，名曰阴刑杀重，光棍之流。或支水局，加之重重壬透，一无制伏，盗贼之命，如见己土，下贱鄙夫。
++
++用壬者，金妻水子。
++{| class="wikitable"
++|时日月年
++
++戊丙乙丁
++
++子子巳巳
++
++庚运夺魁
++|时日月年
++
++甲丙辛乙
++
++午午巳未
++|时日月年
++
++丙丙辛庚
++
++申寅巳子
++|}
++'''五月丙火'''，得壬高透，方为上命。或一壬无庚，亦主贡监，犹防戊己出干，丁壬化合，则为平人。即不透庚壬，或有申宫长生之水，济之坐禄之金，至妙，必入词林。又怕戊己杂乱，则为异路。
++
++或成火局，不见滴水者，乃僧道鳏独之命。即有.
++
++一二癸水，多遇火土，用之无力，瞽目之人。得戊己透洩火气，亦主刑剋孤寡，行北运多凶，何也？所谓燥烈水激反凶！
++
++或成炎上格，柱运不见庚辛，多见甲乙者，反主大富贵，然亦不可见水运。
++
++或有庚癸透者，衣禄充足。支火轻，无目疾。支见水者，异途。或成土局，又为洩太过，得壬滋甲出干，土被制而火得生扶，此必富贵寿考之格也。
++{| class="wikitable"
++|时日月年
++
++己丙壬庚
++
++亥戌午寅
++|时日月年
++
++己丙戊戊
++
++丑午午戌
++|时日月年
++
++甲丙戊戊
++
++午辰午申
++|}
++'''六月丙火'''退气，三伏生寒，壬水为用，取庚辅佐。
++
++庚壬两透，贴身相生，可云科甲名宦。若无庚有壬，不见戊出，小富小贵。见戊制壬，则为乡贤而已。
++
++或己土出干混杂，此必庸夫俗子。或壬水浅，己土出干，其人贫困。无壬下格，贱而且顽，男女一理。
++
++或天干一派丙火，阳极生阴，干支两见庚壬，登科及第。
++
++总之六月丙火用壬，不同余月用壬，喜运行西北，六月用壬，喜运行西南。
++{| class="wikitable"
++|时日月年
++
++壬丙丁壬
++
++辰申未寅
++|时日月年
++
++己丙己戊
++
++亥戌未午
++|时日月年
++
++戊丙丁壬
++
++戌申未寅
++|}
++
++=== 三秋丙火 ===
++'''七月丙火'''，太阳转西，阳气衰矣。日近西山，见土皆晦，惟日照湖海，暮夜光天，故仍用壬水，辅映光辉。
++
++如壬多，取戊制方妙。有壬透干，又见戊土出干，可云科甲。如戊藏支内，不过生员。多壬无戊，平常人也。或戊多壬少，亦属常人。或多壬，一戊出制，所谓众杀猖狂，一仁可化，必主显达，有权职。
++
++一派辛金，又为弃命从才，奇特之造，虽不科甲，亦得恩荣，但多依亲戚而为进身之阶。从才者以水妻木子。
++{| class="wikitable"
++|时日月年
++
++壬丙戊壬
++
++辰申申戌
++|时日月年
++
++庚丙甲乙
++
++寅申申未
++|}
++'''八月丙火'''，日近黄昏，丙火之余光，存于光湖，仍用壬水辅映。
++
++四柱多丙，一壬高透为奇，定主登科及第。富贵双全。一壬藏支，亦主秀才。或戊多困水则假作斯文。若无壬水，癸亦可用，但功名不久。
++
++或见辛透，不能从化，贫苦到老。或见一丁制辛，为人奸诈，不识高低。女命合此，长舌淫贱。
++
++或成金局，无辛出干，此非从才，乃朱门饿莩。如辛出干，不见比劫，此从才格，反主富贵，亲戚提拔，妻贤内助。
++
++用水者，金妻水子。从才者，水妻木子。
++{| class="wikitable"
++|时日月年
++
++丁丙丁丙
++
++酉午酉子
++|时日月年
++
++丁丙丁丙
++
++酉辰酉寅
++|时日月年
++
++戊丙癸己
++
++子子酉卯
++|}
++'''九月丙火'''，火气愈退，所忌土晦光火，必须先用甲木，次取壬水。甲壬两透，富贵非凡。若无壬水，得癸透干，亦可，虽不科甲，异路功名。壬癸藏支，贡监而已。甲藏壬透，无庚破甲，可许秀才。或庚戊困了水木，定是庸才。无甲壬癸者，下格。
++
++或一派火土，虽不太旺，亦自燥矣。如不离乡过继，亦主奔流，加以无庚辛壬癸出干，必为夭命。
++
++或支成火局，炎上失时，若运入南方，一贫彻骨。
++
++用甲者，水妻木子。用壬者，金妻水子。
++{| class="wikitable"
++|时日月年
++
++戊丙甲己
++
++子子戌亥
++|时日月年
++
++戊丙戊丙
++
++戌午戌申
++|时日月年
++
++壬丙壬戊
++
++辰寅戌戌
++|}
++
++=== 三冬丙火 ===
++'''十月丙火'''，太阳失令，得见甲戊庚出干，可云科甲，主为人性好清高，斯文领袖。如辛透见辰，名化合逢时，主大贵。
++
++或壬多无甲，乃作弃命从杀，即不科甲，亦是宦僚。或壬多有甲无戊，却非从杀，宜用己土混壬。
++
++总之十月丙火，木旺宜庚，水旺宜戊，火旺用壬，随宜酌用可也。
++{| class="wikitable"
++|时日月年
++
++庚丙乙甲
++
++寅戌亥申
++|时日月年
++
++戊丙辛壬
++
++子戌亥辰
++|时日月年
++
++壬丙己辛
++
++辰子亥巳
++|}
++'''十一月丙火'''，冬至一阳生，弱中复强，壬水为最，戊土佐之。
++
++壬戊两透，科甲可许，无戊见己，异路功名。或无壬水，有癸出干得金滋无伤，又有丙透以解冻，可许衣衿。
++
++或一派壬，则耑用戊土，此人虽不成名，文章迈众，但名利虚浮。何也？因戊晦光，又须甲木为药也。或无壬水，癸亦可用，但不甚显。
++
++或四柱多壬无甲，乃作弃命从杀，亦有云路。
++
++或水多、有甲、无戊，却非从杀，宜用己土浊壬，十一月丙火，与十月颇同。
++{| class="wikitable"
++|时日月年
++
++庚丙庚辛
++
++寅寅子亥
++|时日月年
++
++癸丙庚辛
++
++巳子子丑
++|时日月年
++
++戊丙庚辛
++
++子戌子酉
++|}
++'''十二月丙火'''，气进二阳，侮雪欺霜，喜壬为用。己土司令，土多又不可少甲。壬甲两透，科甲堪宜，甲藏则秀才而已。或无甲得一壬透，富中取贵。
++
++如见一派己土，不见甲乙，名为假伤官，聪明性傲，名利虚浮。
++
++或一派癸水，得己出干，必自主创业。若制伏太过，又取辛金作用。得见癸透。此人即不成名，必清雅文墨士。
++{| class="wikitable"
++|时日月年
++
++癸丙己乙
++
++巳申丑巳
++|时日月年
++
++庚丙己乙
++
++寅午丑丑
++|}
++{| class="wikitable"
++|时日月年
++
++壬丙乙癸
++
++辰午丑卯
++|时日月年
++
++庚丙丁己
++
++寅寅丑丑
++|时日月年
++
++乙丙己乙
++
++丑寅丑酉
++|}
++
++== 论丁火 ==
++
++=== 三春丁火 ===
++'''正月丁火'''，甲木当权，乃为母旺，非庚不能噼甲，何以引丁，姑用庚金。
++
++或一派甲木，无庚制之，非贫即夭。或只一甲木，多见乙木者，必离乡之客，焉问妻儿。或见甲乙，生庚子时，又主妻早子早，且可采芹。
++
++得壬化木，弱极复生，合此必主大贵，但此化合，反以不见庚破格为妙。
++
++或有庚金壬癸，得己土出干制之，此命不由科甲，亦有异途。
++
++或一派壬癸，不得寅时，又无庚金，必主穷困。
++
++或丁年、壬月、丁日、壬时，男主大贵；女则不宜。此格以土为妻、金为子。但子女艰难。女命合此，淫贱，刑夫剋子。
++
++或支火局，无滴水解，僧道之命。见甲出略可。总不可无水。水多亦不宜。
++{| class="wikitable"
++|时日月年
++
++壬丁戊庚
++
++寅未寅辰
++|时日月年
++
++癸丁庚辛
++
++卯酉寅卯
++|}
++'''二月丁火'''，溼乙伤丁，先庚后甲，非庚不能去乙，非甲不能引丁。庚甲两透，科甲定然。庚透甲藏，亦有生贡。甲透庚藏，异路功名。
++
++或庚乙俱透，庚必输情于乙，未免贪合，运行金水，一贫彻骨。或庚透乙藏，则不能贪合，乙反引丁，即用乙亦无害，运入木火之乡，自然富贵。用乙者，水妻木子。若尽是乙木，不见一甲，此人富贵不久，因贪致祸﹐弄巧反拙。且不能承受先人之业。
++
++或支成木局，有庚透、主清贵。不见庚者、常人。二月乙木司权，必须有庚，有乙无庚，主贫苦无依。用庚者、土妻金子。
++
++得印旺杀高，大富大贵。或一派水，无一戊制，主贫苦无依。或乙少癸多，有戊出制，反吉。用土者、火妻土子。
++{| class="wikitable"
++|时日月年
++
++丁丁乙戊
++
++未巳卯子
++|时日月年
++
++庚丁癸丁
++
++子卯卯卯
++|时日月年
++
++甲丁己庚
++
++辰丑卯辰
++|}
++'''三月丁火'''，戊土司令，洩弱丁气，先用甲木引丁制土，次看庚金。庚甲两透，定主科甲。或一藏一透，终非白丁。
++
++或支成木局，取庚为先。得庚透，丁癸不透，亦有异路功名。
++
++或支成水局，加以壬透，名杀重身轻，必夭折天年。或遭凶死。或戊己两透，廊庙之客。若一甲破，定是常人。
++
++用甲者，水妻木子。用金者，土妻金子。
++
++=== 三夏丁火 ===
++'''四月丁火'''乘旺，虽取甲引丁，必用庚噼甲。伐甲、方云木火通明。甲多、又取庚为先。但四柱忌见癸水。癸水一见，洩金、溼甲、伤丁，故以癸为病。或癸水藏支，壬水出干制丙，不夺丁光，自是雁塔题名，玉堂清贵。
++
++或有庚无甲，戊透天干，此为伤官生才，又取戊为用，必主富贵。戊土出干，不见甲乙，又不见水，是伤官伤尽。子平批八字清高，但不大贵，亦不大富。见水多木多，定是常人。
++
++或四柱多丙，不见壬癸，夺了丁光，此人贫苦。或丁年、巳月、丁巳日、丙午时，一丙不夺二丁，即不显达，亦名播四邻。故书曰：丁火阴柔一烛灯，太阳相见夺光明；柱中若见甲木透，定许身安福自临。
++{| class="wikitable"
++|时日月年
++
++乙丁己甲
++
++巳丑巳午
++|时日月年
++
++乙丁癸辛
++
++巳巳巳酉
++|}
++'''五月丁火'''，时归建禄，不宜乱用甲木。
++
++遇年透隔位之壬，不贪丁合者，忠而且厚。或支成火局，干见火出，得庚壬两透者，科甲定然。土透制壬，常人。即壬藏支中，亦非白丁，但要运行西北，方可发达。得一癸透，名独杀当权，出人头地。
++
++若见寅辰亥卯字，化木生火，平常人物，丰衣足食，中年富，但刑{{PUA|}}子息，劳而无功。或丙午月、丁未日、辛亥时，亥中有壬制丙，不致贫苦。若丙午时，则滴水难救炎火，必主僧道。若年支见子，虽不科甲，亦有衣衿。
++
++若干支无火局，有水透干，须用甲木，又要庚噼甲方明。木火通明，主大富贵。或木少火多，焚其木性，不能光透九霄，荣华不久。
++
++或生月是禄，支皆生旺合局，加以火出，无滴水解炎，乃身旺无依，孤贫之格。女必为尼。即运北地，反主凶危。
++
++用壬者，金妻水子。用甲者，水妻木子。
++{| class="wikitable"
++|时日月年
++
++戊丁壬庚
++
++申亥午午
++|时日月年
++
++甲丁甲辛
++
++辰未午巳
++|}
++{| class="wikitable"
++|时日月年
++
++甲丁戊癸
++
++辰丑午卯
++|时日月年
++
++乙丁甲丙
++
++巳丑午寅
++|时日月年
++
++癸丁甲丙
++
++卯酉午子
++|}
++'''六月之丁'''，阴柔退气，但值三伏生寒，丁弱极矣，专取甲木，壬水次之。
++
++若得甲出天干，支成木局，见亥中之壬，为木神有根，接引丁火，必然科甲。即不见木局，支见壬水，虽不大贵，亦有凌云之气，无庚不妙。
++
++或支成水局，见水透干，则溼木性，不能引丁，必为平人，有甲透、亦有才干。有庚透、方无刑伤。若无甲木，假名假利，虽能生财，固执懦夫。
++
++或年月日时，皆一派丁未之类，此为纯阴，终无大用。
++
++用甲者，水妻木子。
++{| class="wikitable"
++|时日月年
++
++丙丁丁丁
++
++午未未卯
++|时日月年
++
++丁丁丁壬
++
++未巳未子
++|}
++
++=== 三秋丁火 ===
++三秋丁火，退气柔弱，耑用甲木，金虽乘旺司权，无伤丁之理，仍取庚噼甲，为引火之物，或借丙暖金晒木，不虑丙夺丁火。凡两丙夹丁者，夏月忌之，余月不忌淤。但此格少年困苦刑剋，中年富贵，必要地支见水制丙、方妙。
++
++三秋甲庚丙并用，仍分优劣，何也？七月甲丙，申中有庚，八月甲丙庚皆用，七八月或无甲木，乙亦可用，为枯草引灯，却不离丙晒也。九月耑用甲庚。大扺甲不离庚，乙不离丙，其理极明。或见甲庚丙皆透，必主科甲。无甲用乙者，富贵皆小，且富而不贵者多。
++
++或一重壬水，又多见癸水，必以戊土为制，自然富贵光辉。
++
++或一派庚金，名财多身弱，主富屋贫人，妻多主事。或壬多洩庚，丁壬化杀，反成富贵。若庚多无壬，奔流下贱。
++{| class="wikitable"
++|时日月年
++
++戊丁丙辛
++
++申丑申亥
++|时日月年
++
++戊丁丙辛
++
++申卯申亥
++|时日月年
++
++丙丁丙辛
++
++午酉申卯
++|时日月年
++
++丙丁甲庚
++
++午未申辰
++|}
++'''七月'''丁火，退气柔弱，端用甲木，金虽乘旺司权，无伤丁之理，仍取庚劈甲，为引火之物，或借丙暖金晒甲，不虑丙夺丁光，凡两丙夹丁者，夏月忌之，余月不忌，但此格少年困苦刑克中年富贵，必要地支见水制丙，方妙。
++
++或'''八月'''一派辛金，不见庚金，又无比劫，此弃命从财，富而且贵，虽不科甲，亦有异途。从财者水为妻。不剋。有偏正。木为子。不刑。
++
++或'''九月'''一派戊土，洩丁火之气，不见甲木，为伤官伤尽，非寻常可比。或甲木透出，为文书清贵，秋闱可夺。用甲者，庚不可少。水妻木子。
++{| class="wikitable"
++|时日月年
++
++庚丁己壬
++
++戌亥酉午
++|时日月年
++
++辛丁己丁
++
++亥丑酉未
++|时日月年
++
++壬丁丙庚
++
++寅未戌午
++|时日月年
++
++丙丁甲己
++
++午卯戌亥
++|}
++
++=== 三冬丁火 ===
++三冬丁火微寒，耑用庚甲。甲乃庚之良友。凡用甲木，庚不可少，无庚无甲，何能引丁？难云木火通明，冬丁有甲，不怕水多金多。可称上格。甲庚两透，科甲分明。见己则否。己多合甲，则为常人。
++
++或一丙夺丁，必赖支内水救。若有支金发水之源，官拜乌台有准。全无癸水制丙，无用之徒。或有金无水，贫寒之士。有水无金，又主清高。
++
++或时月二壬争合，取戊破之。有戊稍有富贵。无戊常人。设戊藏得所，不失衣衿。
++
++或二丙夺丁，得年干有癸，支下带合，金水得所，亦必显达，纳粟奏名，必验。
++{| class="wikitable"
++|时日月年
++
++辛丁癸癸
++
++亥亥亥亥
++|时日月年
++
++庚丁丁乙
++
++戌未亥卯
++|时日月年
++
++丁丁癸癸
++
++未丑亥丑
++|时日月年
++
++癸丁丁庚
++
++卯卯亥戌
++|}
++'''十一月丁火'''，或仲冬水多癸旺，全无比印，此作弃命从杀，亦有异途功名。见丁比出干，难合格局，常人，且主骨肉浮云，六亲流水。戊出破癸，颇有兄弟妻儿。此格用戊，火妻土子。用甲、水妻木子。
++
++三冬丁火，甲木为尊，庚金佐之，癸戊权宜酌用可也。
++{| class="wikitable"
++|时日月年
++
++甲丁己庚
++
++辰酉丑午
++|时日月年
++
++甲丁己戊
++
++辰未丑子
++|时日月年
++
++乙丁癸壬
++
++巳巳丑辰
++|时日月年
++
++甲丁辛辛
++
++辰卯丑卯
++|}
++
++== 论土 ==
++五行之土，散冠四维，故金木水火，依而成象，是四时皆有用有忌者。火、死酉也。水、旺子也。盖土赖火运，火死则土囚。土喜水才，水旺则土虚。土得金火，方成大器。土高无贵，空惹灰尘。土聚则滞，土散则轻。
++
++辰戌丑未，壹心正也。分阴分阳，主则不同。辰有伏水；未有匿木，滋养万物，春夏为功；戌有藏火；丑有隐金。秋火冬金，肃杀万物。
++
++土聚辰未为贵，聚丑戌不为贵。是土爱辰未、而不爱丑戌也明矣。若更五行有气，人命逢之，田产无比。晚年富贵悠悠。
++
++若土太实无水，燥则不和；无木则不疏通；土见火则焦，女命多不生长。
++
++土旺四季，惟戌土困弱。戌多为人好{{PUA|}}，多瞌睡。辰未人好食，丑人清省。丑为艮土，有癸水能润而膏，人命遇此，主能卓立。
++
++生于春月，其势虚浮，喜火生扶，恶木太过，忌水泛滥。喜土比助，得金而制木为祥。金太多仍盗土气。
++
++夏月之土，其势燥烈，得盛水滋润成功，忌旺火煅炼焦坼。木助火炎，水{{PUA|}}无{{PUA|}}。金生水泛，妻才有益，见比肩蹇滞不通。如太过又宜木{{PUA|}}。
++
++秋月之土，子旺母衰，金多而秏盗其气，木盛须制伏纯良，火重重而不厌，水泛泛而不祥，得比肩则能助力，至霜降不比无妨。
++
++冬月之土，外寒内温，水旺才丰，金多子秀，火盛有荣，木多无咎，再加比肩扶助为隹，更喜身主康强足寿。
++
++'''论四季月之土：'''辰戌丑未，四土之神。惟未土为极旺，何也？辰土带木气{{PUA|}}之，戌丑之土，带金气洩之，此三土虽旺而不旺，故土临此三位，金多作稼穑格，不失中和。若未月土则带火气也，带火气以生之，所以为极旺也。若土临此旺未月，见四柱土重，多作火炎土燥，不可作稼穑看。但临此月之土，见金结局者，不贵即富也。书曰：土逢季月见金多，终为贵论，而在未月尤甚。
++
++== 论戊土 ==
++
++=== 三春戊土 ===
++三春戊土，无丙照暖，戊土不生，无甲疏噼，戊土不灵，无癸滋润，万物不长。正二月先丙后甲，癸又次之。三月先甲后丙，癸又次之，因戊土司权故也。有甲、丙、癸，三者齐透，必主一品当朝，或二透一藏，亦登金榜，二藏一透，也可异途。
++
++正二月即有甲癸，若无丙除寒，如万物生而不长，故无丙者，富贵艰辛。或有丙无甲癸者，名曰春旱，如万物生而多厄。无甲癸者，一生勤苦，劳而无功。或一派丙火，有甲欠癸，先泰后否。或支成火局，不见壬癸，僧道孤贫。癸透者贵。壬透者富。
++
++用水者，要审水之多少。或一派甲木，无丙者，常人。得一庚透方妙。或支成水局，甲又出干，又有庚透，富贵双全。
++
++或无庚金，又无比印，难作从杀，定主遭凶，不然，必为盗贼。若日下坐午，不得善终。
++
++或一派乙木，为官杀会党，即有庚透，却难制乙，此人内奸外直，口是心非。加一甲在内，无庚，必懒惰自甘，好食无厌。或丙多甲多，宜以癸庚参用。
++
++三月戊土司令，不见丙甲癸者，愚而且贱。甲癸透者，科甲。丙癸透者、生员。甲癸俱藏者，只可云富，有癸异途。
++
++若丙多无癸，旱田无水，不能种苗，旧谷已没，新谷未登，此先富后贫之造。或火多有壬透者，先贫后富。癸透先贱后荣。壬藏不过食足，癸藏不过名传，即此亦须运美。或支成火局，得癸透者，富贵天然。壬透富贵辛苦，何也？癸乃天上甘霖，壬乃江河波浪，所以有劳逸之殊。
++
++支成木局，又甲乙出干，此名官杀会党，官杀无去留之义，得一庚透，扫除官杀，亦主富贵。无庚乃浅薄之人，宜用火洩木气。有一命、丁未、癸卯、戊寅、乙卯。癸丁透干，加以戊癸化火，将甲木暗焚，反得武科探花。
++
++或有比印，耑看癸透，取癸而成贵格。无癸、无火、无金，名为土木自战，主腹中疾病，忧愁艰苦。
++
++用甲者，水妻、木子。用丙者，木妻、火子。
++{| class="wikitable"
++|时日月年
++
++丙戊乙癸
++
++辰寅卯未
++|时日月年
++
++壬戊乙癸
++
++子寅卯未
++|时日月年
++
++壬戊癸辛
++
++子寅卯卯
++|时日月年
++
++甲戊戊己
++
++寅寅辰未
++|}
++
++=== 三夏戊土 ===
++'''四月戊土'''，阳气发升，寒气内藏，外实内虚，不畏火炎，无阳气相催，万物不长，故先用甲疏噼，次取丙癸为佐。
++
++丙透甲出，廊庙之才，丙癸俱透，科甲之士，即透一位，支藏得所，终非白丁。
++
++若一派丙火，为火炎土燥，僧道之流，得一癸透壬藏，功名有准。或支藏癸水衣食充足，但骨肉多刑。
++
++化合成局无破，富贵非轻。
++
++此用癸水，金妻水子。
++{| class="wikitable"
++|时日月年
++
++丙戊癸辛
++
++辰午巳亥
++|时日月年
++
++丁戊丁癸
++
++巳午巳丑
++|}
++'''五月戊土'''，仲夏火炎，先看壬水，次取甲木，丙火酌用，用癸力微。
++
++壬甲两透，名君臣庆会，自然桃浪先声，权高位显，又得辛透年干，官居一品。一命、辛未、甲午、戊寅、壬子，壬甲两透。印旺杀高，出将入相，名播四夷。
++
++若支成火局，即透癸水，不能大济，是一杯水难济薪火也。人命合此，即好学不倦，亦不能成名，且主目疾。若得壬水出干，则非此比。
++
++又或土木重重，全无滴水，僧道孤贫之辈。
++
++用壬者、金妻水子。
++
++'''六月戊土'''，遇夏干枯，先看癸水，次用丙火甲木。癸丙两透，科甲中人。或有癸无丙，见甲可许秀才。无甲略富。或有丙无癸，假道斯文，衣食颇足。
++
++或癸透辛出，以刀笔之才，可谋异路。
++
++无癸丙者，常人。若又无甲，下贱之辈。
++
++或土多得一甲出，不见庚辛，为人作事轩昂，性情谨慎，即不显扬，亦文章惊世。
++
++用癸者，金妻、水子。用丙者，木妻、火子。用甲者，水妻、木子。
++{| class="wikitable"
++|时日月年
++
++癸戊己戊
++
++丑辰未戍
++|时日月年
++
++辛戊己戊
++
++酉午未申
++|时日月年
++
++丁戊癸庚
++
++巳子未子
++|}
++
++=== 三秋戊土 ===
++七月戊土，阳气渐入，寒气渐出，先丙后癸，甲木次之。丙癸甲透者，富贵极品。癸藏丙透，不仅秀才。丙甲两透，癸水会局藏辰，亦不失富贵。无丙得癸甲透，此人清雅，家富千金。无癸甲者、常人。有丙火、妻贤子肖。若丙甲癸三者俱无，下流之命。
++
++或支成水局，休作弃命从才，宜取甲洩之。甲透者、稍有富贵。用神妻子仝前。
++{| class="wikitable"
++|时日月年
++
++壬戊戊壬
++
++午辰申寅
++|时日月年
++
++癸戊甲庚
++
++丑寅申寅
++|时日月年
++
++丙戊丙辛
++
++辰子申酉
++|}
++'''八月戊土'''，金洩身寒，赖丙照暖，喜水滋润，先丙后癸，不必木疏。丙癸两透，科甲中人。丙透癸藏，可许入泮。癸透丙藏，纳资得官。若丙藏又无癸，即多不透，此皆常人。丙癸全无，奔流之客。
++
++或四柱皆辛，无丙丁，此名伤官格，为人清秀，即不能拾芥，亦可武庠。一见癸水，富而且贵。
++
++或支成水局，壬癸出干，此名才多身弱，愚懦无能。若天干有比劫，分散才神，颇言衣食。
++
++用神妻子仝前，秋土生金极弱，须丙火丁火出干方妙。
++
++'''九月戊土'''当权，不可专用丙，先看甲木，次取癸水，却忌化合。见金先用癸水，后取丙火，配合支干，方成有生之土，定发云程。
++
++或无丙有癸，不见甲透者，衣衿小富。无癸丙、有甲者。衣食而已。若癸甲全无，虽有丙火，亦属平常，或为僧道。或支成水局，壬癸透干，用戊止流，有比透反主富。
++
++支成火局，名土燥，不发。
++
++得金水两透，此人清高，略可富贵。无水、一生困苦。妻子同前。
++{| class="wikitable"
++|时日月年
++
++丙戊甲己
++
++辰辰戌酉
++|时日月年
++
++癸戊庚丁
++
++亥戌戌亥
++|}
++{| class="wikitable"
++|时日月年
++
++壬戊戊丙
++
++子寅戌戌
++|时日月年
++
++乙戊庚丁
++
++卯寅戌酉
++|时日月年
++
++己戊戊丙
++
++未辰戌子
++|}
++
++=== 三冬戊土 ===
++'''十月戊土'''，时值小阳，阳气略出，先用甲木，次取丙火。非甲、土不灵。非丙、土不暖，安能生发万物。甲丙两出，富贵中人。或甲得长生，遇支藏得地之水，一丙高透，亦主身贵扬名。
++
++支见庚金，入泮而已。若不见庚金，甲木藏支，丙火高透，科甲有之。若有庚，丁出制，必异路功名。或为典吏。即庚丁不透，甲丙藏支，亦云富贵。
++
++壬透得戊救丙，主富贵取贵。丙甲俱无，必为僧道。
++{| class="wikitable"
++|时日月年
++
++戊戊癸癸
++
++午辰亥卯
++|时日月年
++
++庚戊辛壬
++
++甲寅亥申
++|时日月年
++
++丙戊丁乙
++
++辰戌亥卯
++|}
++'''十一二月'''严寒冰冻，丙火为专，甲木为佐。丙甲两透，桃浪之人，丙出甲藏，采芹食饩。丙藏甲出，佐杂前程。有丙无甲者，豪富。有甲无丙者，清贫。丙甲全无，下流之造。
++
++或一派丙火，加以丙透，运值火土，弱中复强，又一壬透，主清高荣禄。乏壬、僧道孤寒。
++
++或一派壬水，不见比劫，可作从才而论。即有比劫，得甲出干，又主富贵，若寒土无丙，虽有甲木，亦是内虚外实之人。
++
++或二癸透月时，名为争合，终属劳碌之人。得一己出干制癸，反为忠义之士，舍己从人而论。
++
++年月透辛金者，又属土金伤官，异路功名可许。以金为妻、水为子。
++{| class="wikitable"
++|时日月年
++
++壬戊壬壬
++
++子子子子
++|时日月年
++
++癸戊乙癸
++
++丑申丑卯
++|时日月年
++
++戊戊甲戊
++
++午辰子寅
++|}
++
++== 论己土 ==
++
++=== 三春己土 ===
++'''正月己土'''，田园犹冻，盖因腊气未除，余寒未退，故丙为尊。得丙照暖，万物自生，忌见壬水，反为己病，何也？壬乃江湖之水，湖水一发，则田园洗荡，变为沙土，而根苗尽没矣。须戊作堤，以保园圃。壬多要见戊制。有戊出干者，定主玉堂金马。若乏戊制，必属平常。
++
++或一派甲木，有庚出干，加以癸丙齐透，配得中和，亦名利双全。即丙生寅月，庚透天干，亦有俊秀。若甲多无庚，残疾废人，宜用丁洩。
++
++或一派火，即不见水无剋，何也？正月己土寒滋，必丙暖，反主厚禄。加一癸透，科甲自然。戊透、反作常人。或一派戊土，有甲出制，又主荣显。如见乙出，虽多不能疏土，且乙多者，奸诈小人。
++
++用丙者，木妻、火子。
++
++'''二月己土'''，阳气渐升，虽禾稼未成，万物出土，田园未展，先取甲木疏之，忌合。次取癸水润之。甲癸出干，定主科甲，加以一丙出透，势压百僚。一见壬水，微末官职。
++
++或见庚制甲，壬水出干，比劫重重，此必俗子。丙透犹有小富，丙藏衣禄无亏。
++
++或支成木局，庚透富贵，若柱多乙木，乙又屈庚，庚必输情于乙，不能扫邪于正，此必狡诈之徒，运入东南，恐有不测。当用丁洩之。有丁者、小人而已，不致无良。
++
++无比印、从杀者贵。
++
++若柱中无甲丙癸者，皆下格。
++
++妻子用神同前。
++{| class="wikitable"
++|时日月年
++
++庚己乙癸
++
++午巳卯卯
++|时日月年
++
++乙己乙癸
++
++丑巳卯卯
++|}
++'''三月己土'''，正栽培禾稼之时，先丙后癸，土暖而润，随用甲疏，三者俱透天干，必官居黄阁。或三者透一，科甲定然，但要得地。却以庚金为病。
++
++或有甲无癸，亦可致富，但不贵显。或有癸而无甲丙，亦有衣衿。或有丙癸无甲，亦系人才。丙癸全无，流俗之辈。
++
++或一派乙木，无金制伏，贫而且夭也。
++
++妻子同前。
++{| class="wikitable"
++|时日月年
++
++丙己甲壬
++
++寅卯辰子
++|时日月年
++
++甲己壬辛
++
++子巳辰未
++|时日月年
++
++壬己甲壬
++
++申卯辰子
++|}
++
++=== 三夏己土 ===
++三夏己土，杂气才官，禾稼在田，最喜甘沛，取癸为要，次用丙火。夏无太阳，禾稼不长，故无癸曰旱田，无丙曰孤阴。
++
++或丙癸两透，又加辛金生癸，此富贵之格，名水火既济，鼎甲之人。却忌戊癸化合。
++
++或有丙无癸，有壬亦可，但不大发。
++
++或一派丙火烈土，加以丁火制辛，癸水无根，如七八月之间旱，则苗藁矣，此命孤苦零丁。或有甲木，又见丙火重重，无滴水解炎，亦孤贫到老。
++
++如有壬水，又见庚辛，此又不作孤看，但恐目疾，心肾肝脏之灾。若壬水有根，辛金得地，又非此而论。或壬癸并出，破火润土，此人聪{{PUA|}}特达，富中取贵，又转祸为福也。
++
++用癸者、金妻水子。用丙者，木妻火子。
++{| class="wikitable"
++|时日月年
++
++戊己己己
++
++辰巳巳巳
++|时日月年
++
++辛己辛乙
++
++未巳巳巳
++|时日月年
++
++庚己辛乙
++
++午巳巳丑
++|时日月年
++
++乙己癸丙
++
++亥亥巳申
++|}
++
++=== 三秋己土 ===
++三秋己土，万物收藏之际，外虚内实，寒气渐升，须丙火温之，癸水润之，不特此也，且癸能洩金，丙能制金，补土精神，则秋生之物咸茂矣。癸先丙后。
++
++丙癸两透，雁塔题名。或无癸，有两丙透者，异途显达。或武职权高。或有丙火，不见壬癸，为假道斯文，终无诚实。或有壬癸无丙者，衣食充足，才能而已。
++
++或支成金局，癸透有根，此人家畜万缗，富中取贵。
++
++或支四库，甲透者富。乏甲者孤贫。或甲出无癸乏金，积德可全科甲。或会火局，无水救，乃大奸大恶之徒。
++
++或丙透癸藏，遇金颇有选援，加一壬辅，富贵慷慨，有贤声。见戊透者，主遭凶厄且贫。
++
++八月支成金局，无丙丁出救，此人零丁孤苦。如得丙透丁藏，生己元神，此人名魁天下，五福完人。
++
++总之，三秋己土，先癸后丙，取辛辅癸。九月土盛，宜甲木疏之，余皆酌用。
++{| class="wikitable"
++|时日月年
++
++壬己癸甲
++
++申未酉寅
++|时日月年
++
++壬己甲己
++
++申丑戌巳
++|}
++勾陈全备润下，劳碌奔波之客。土凝水竭，离乡背井之流。
++
++勾陈得位会才官，无剋无破必然端，甲子北方寅卯木，管教环拱戴金冠。戊己喜亥卯未为官，申子辰为才，忌刑剋杀害。
++
++=== 三冬己土 ===
++三冬己土，溼泥寒冻，非丙暖不生，取丙为尊，甲木参酌。戊土癸水不用。惟初冬壬旺，取戊制之。余皆用丙丁，但丁不能解冻除寒，不能大济。
++
++或干透一丙，支藏一丙，加以甲透，科甲有准。即藏丙无制，亦主衣衿。
++
++或多壬水，得戊透制之，此命安然，富中取贵。不见戊土，富屋贫人。
++
++凡三冬己土，见壬水出干，为水浸湖田，此人孤苦。若见火不孤，见土不贫。
++
++或一派癸，不见比劫，此为从才，反主富贵，虽不科甲，恩诰有之。若见比争，平常人物，妻子主事。从才者，木妻、火子。
++
++或一派戊己，取甲制之，甲透者，富贵。
++
++或一派辛庚，须用丙火，还须丁火为助。丙藏、富贵奇特之命。
++{| class="wikitable"
++|时日月年
++
++甲己癸壬
++
++戌丑丑申
++|时日月年
++
++己己癸壬
++
++巳卯丑子
++|}
++金以至阴为体，中含至阳之精，乃能坚刚，独异众物，若独阴而不坚，冰雪是也，遇火则消矣。故金无火炼，不能成器，金重火轻，执事繁难。金轻火重，煅炼消亡。金极火盛，为格最精。金火全、名曰铸印。犯丑字、即为损模。金火多名为乘轩，遇死衰、反为不利。
++
++木火炼金，成名锐而退速。纯金遇水，逢富显以赢余。
++
++金能生水，水旺则金沉；土能生金，金多则土贱。金无水干枯；水重、则沉沦无用。金无土则死绝；土重、则埋没不显。两金两火、最上。两金两木、才足。一金生三水，力弱难胜；一金得三木，顽钝自损。金成则火灭，故金未成器，欲得见火；金已成器，不欲见火。金到申酉巳丑，亦可谓之成也，运喜西北，不利东南。
++
++生于春月，余寒未尽，贵乎火气为荣；性柔体弱，欲得厚土为助；水盛增寒，难施锋锐之势；木旺损力，有挫钝之危，金来比助，扶持最妙。比而无火，失类非良。
++
++夏月之金，尤为柔弱，形质未备，尤嫌死绝。火多而却为不厌；水盛而滋润呈祥；见木而助鬼伤身；遇金而扶持精壮；土薄而最为有用；土厚而埋没无光。
++
++秋月之金，当权得令，火来煅炼，遂成钟鼎之材。土多培养，反惹顽浊之气。见水则精神越秀；逢木则琢削施威；金助愈刚，刚过则决。气重愈旺，旺极则衰。
++
++冬月之金，形寒性冷；木多则难施琢削之功；水盛未免沉潜之患。土能制水，金体不寒，火来助土，子母成功，喜比肩聚气相扶，欲官印温养为利。
++
++== 论庚金 ==
++
++=== 三春庚金 ===
++'''正月庚金'''，木旺之际，有土皆死，不能生金，且金之寒气未除，先用丙暖庚性，又虑土厚埋金，须甲疏洩。丙甲两透，科甲显荣。二者透一，亦有生监。丙藏甲透，异路功名。
++
++或柱中土多，甲透者贵；甲藏者富，庚出则否。
++
++或丁火出干，加以戊己而无水者，又主富贵，名官星有气，才旺生扶，故以富贵推之。
++
++如火多则用土。用土者，火妻土子。
++
++或支成火局，壬透、有根者，大富贵。无根者、小富贵。乏水者、残疾之人。
++
++或木被金伤，无丙丁出制，支无丁火﹐此系平人。或丙遭癸困，无戊制者亦然。
++
++总之，正月庚金，丙甲为上，丁火次之。春金多火，不夭则贫。阳金最喜火炼，煅炼太过，反主奔流。
++{| class="wikitable"
++|时日月年
++
++庚庚壬壬
++
++辰申寅子
++|时日月年
++
++丙庚庚辛
++
++戌戌寅巳
++|}
++'''二月庚金'''，柱中自然有乙，当令之乙，见庚必输情于乙，此金有暗强之势，如秋金一理，故二月庚金，专用丁火，借甲引丁，借庚噼甲。无丁用丙者，富贵多出于勉强。
++
++或丁在干，甲透引丁，支下再见一庚制甲，配得中和，必然大贵。如不见庚合者，虽丁甲两透，亦属平人。
++
++春丁不旺不衰，故用甲为佐丁之物，甲若无庚噼，则不能引丁，乙木虽多，又忌溼乙伤丁，难为丁母，故有丁甲无庚者，常人。有丁庚、甲不出干者、常人。或丁透无庚甲者，可许贡监。无丁有丙者，异路功名。
++
++或一片甲乙，忌庚出干破才，乃从才格，反主富贵。若见一比，又主孤贫。
++
++从才者，火妻土子。用丁者，取甲为妻、若有庚制，难许同偕。
++
++死金嫌盖顶之泥，重见戊土，如人压伏之象，须甲透为妙。
++{| class="wikitable"
++|时日月年
++
++丁庚己庚
++
++丑寅卯申
++|时日月年
++
++甲庚己庚
++
++申子卯午
++|时日月年
++
++丁庚辛辛
++
++亥寅卯酉
++|时日月年
++
++丁庚辛丙
++
++亥辰卯申
++|}
++'''三月庚金'''，戊土司令，无生金之理，有埋金之忧，故先甲后丁，不用庚噼甲。三月之庚，土旺金顽，顽金宜丁，旺土须甲，乏甲不能立业，乏丁焉能成名。二者少一，富贵不真。
++
++庚金无火，非夭则贫。身弱才多，富贵不久。
++
++得丁甲两透，不见比肩，科甲之命，但要好运相催。甲透丁藏，采芹拾芥。甲藏丁透，异路功名。丁甲俱藏，不受庚制，富中取贵，刀笔起家。有甲无丁，平常之辈。有丁无甲，迂儒腐儒。丁甲两无，下贱之流。
++
++或一甲、无丁、有丙，由行伍而得官职，须不见壬癸为妙。
++
++或支成土局，无木，贫贱僧道；见乙、奸诈小人。
++
++或支成火局，癸水透，富贵。有丙丁出干，见壬制之、方吉。无制、残疾之人。
++
++用甲者，水妻、木子。用丁者，木妻、火子。
++{| class="wikitable"
++|时日月年
++
++壬庚庚庚
++
++午申辰子
++|}
++
++=== 三夏庚金 ===
++'''四月庚金'''，长生于巳，巳内有戊。丙不镕金，故不畏火炎，丙亦可作用，但先壬水，方得中和，故曰群金生夏，喜用勾陈。次取戊土，丙火佐之。三者皆全，登科及第，即透一二，亦非白丁。
++
++或一派丙火，名曰假杀为权，须不见壬制者，此人假作清高，并无仁义，刑妻剋子。有壬制者，又主荣华。壬藏支者，有富贵之名，而无其实。
++
++或支成金局，变弱为强，用丙无力，用丁方妙，故丁透者吉。无丁、无用之人。或丁出三四，煅制太过，其人奔波。
++
++四月庚金，须用壬丙戊，但非拘执先后，宜分病用药。妻子仝前。
++
++剑戟成功，入火乡而反害。金逢火已损，再见火必伤。庚辛火旺怕南方，逢辰巳之乡，又为荣断。
++
++'''五月庚金'''，丁火旺烈，庚金败地，专用壬水，癸又次之。壬透癸藏，支见庚辛，必然科甲，切忌戊己透干制水、则否。戊藏支内，不失儒林。或壬在支，有金生助，又得金神出干，明经之贵。或癸出带辛，异路之荣。
++
++或支成火局，乏水者，奔波之客。有壬癸制者，捐纳之人。又见戊己透者则吉。无壬癸制火者，又宜戊己出干补金洩火，庶不夭折孤贫。
++
++总之，仲夏无水，必非上格，或一派木火，无伤、印、比劫，又作从杀而论。
++
++'''六月庚金'''，三伏生寒，顽钝极矣，先用丁火，次取甲木。丁甲两透名显身荣，忌癸伤丁。有甲无丁、庸俗。有丁无甲、生员。丁甲全无，下贱之人。木虽有，丁不透，支又见水，执鞭之士。丁火无伤，贸易之流。
++
++支会土局，甲先丁后。甲透者，文章显达。丁透者，刀笔扬名。或柱多金，有二丁出制，异路功名。
++{| class="wikitable"
++|时日月年
++
++丁庚丁丙
++
++亥申未辰
++|时日月年
++
++壬庚乙丙
++
++午寅未午
++|时日月年
++
++甲庚己癸
++
++申子未巳
++|时日月年
++
++癸庚乙丙
++
++未辰未辰
++|}
++
++=== 三秋庚金 ===
++'''七月庚金'''，刚锐极矣。专用丁火煅炼，次取甲木引丁，故曰：秋金锐锐最为奇，壬癸相逢总不宜，如逢木火来成局，试看福寿与天齐。
++
++如得丁甲两透，定步青云。若有丁无甲为俊秀。有甲无丁是平人。丁甲两无无用物，只堪门下作闲人。
++
++或支成水局，乏丁用丙，柱中即有丙火，不见甲木者，必主愚懦。何也？当时金水两旺，金生水以制火，何能发达。或见甲出引丁，可云生监。甲弱者、衣食充盈。
++
++或支成土局，先甲后丁。支成火局，富贵中人。金刚木明，行商坐贾之人。金备申酉戌之地，富贵无疑。金神入火乡，逢羊刃，富贵荣华。
++
++'''八月庚金'''，刚锐未退，用丁用甲，丙不可少。若丁甲透，又见一丙，功名显赫，且见羊刃，无刑剋，丙杀藏支，名为羊刃驾杀，主出将入相，直介忠臣。
++
++或丙火重重，一丁高透，亦主科甲。丙出丁藏，异路功名。
++
++或甲藏支，火透而水不透者，亦主清高，衣衿可望。
++
++或丁藏支内，重见丙火者，此名假杀重重，虽羊刃帖身，却难从杀也。即一丙透，秀而不富。或支见重重甲乙，无用之人。
++
++总之，旺金木衰，非火莫制，不见丙丁，艺术之辈。
++{| class="wikitable"
++|时日月年
++
++丙庚丁丙
++
++子子酉子
++|时日月年
++
++丁庚乙乙
++
++亥午酉巳
++|时日月年
++
++戊庚癸己
++
++寅申酉亥
++|}
++'''九月庚金'''，戊土司令，最怕土厚埋金，宜先用甲疏，后用壬洗，则金自出矣。忌见己土浊壬。
++
++壬甲两透，科甲相宜。或甲透壬藏，乡魁可望。甲藏壬透，廪贡堪谋。有甲无壬，犹有学问。有壬无甲，莫问衣衿。壬甲两无，则为下格。
++
++或支成水局，丙透救之，此人才高迈众，名重乡闾，不见癸水，一榜可许。
++
++或四柱戊多金旺，全无甲壬者，即有衣禄，亦不能久。或庚戊多而无壬甲者，愚顽之辈。
++{| class="wikitable"
++|时日月年
++
++甲庚戊辛
++
++申申戌酉
++|时日月年
++
++辛庚丙庚
++
++巳戌戌寅
++|时日月年
++
++辛庚戊辛
++
++巳申戌酉
++|}
++
++=== 三冬庚金 ===
++'''十月庚金'''，水冷性寒，非丁莫造，非丙不暖。丁甲两透，支无水局，一榜有之。支藏丙火，桃浪之仙。支见亥子，得己出制，亦有功名。
++
++若见丙透无丁者，决无显达。丁藏甲透，武职之人。以上不合者，庸俗。
++
++如金水混杂，全无丙丁者，鄙夫。支成金局，无火者，僧道之命也。书曰：水冷金寒爱丙丁。
++{| class="wikitable"
++|时日月年
++
++壬庚辛丁
++
++午子亥亥
++|时日月年
++
++丙庚辛壬
++
++子辰亥辰
++|}
++'''十一月庚金'''，天气严寒，仍取丁甲，次取丙火照暖。或丁甲两透，丙在支中，必主科甲。即无丙火，亦有衣衿。有丁无甲，亦可富中取贵。有甲无丁，只作常人。或丙透丁藏，异途名望。丁藏有甲，武学可许。
++
++或重重丙火，可许一富，但不清高。丙戊生寅，或丙坐支寅，有一二者，富真贵假。若见癸透。一介寒儒。
++
++或支成水局，二见丙丁者，此乃伤官格，为人清雅，衣禄常盈，但子息艰难耳。
++
++或丙丁太多，名官杀混杂最无良。又怕身轻有损伤。如遇东南二运地，焉能挨得过时光。过于清冷，似有凄凉。柱中一派金水，不入火土之乡，主一生孤贫浪荡，难望有成也。
++{| class="wikitable"
++|时日月年
++
++庚庚壬壬
++
++辰申子子
++|时日月年
++
++癸庚庚辛
++
++未辰子亥
++|时日月年
++
++戊庚戊乙
++
++寅寅子卯
++|}
++'''十二月庚金'''，寒气太重，且多湿泥，愈寒愈冻，先取丙火解冻，次取丁火炼金，甲亦不可少。
++
++丙丁甲透者，即不科甲，亦有思荣。有丙无丁甲者，富中取贵。有丁甲无丙者，特达才人。有丙丁无甲者，白手成家，刀笔亨通，乏金更美。或支成金局无火，僧道之流。
++{| class="wikitable"
++|时日月年
++
++癸庚己庚
++
++未戌丑辰
++
++女命
++|时日月年
++
++甲庚丁己
++
++申子丑巳
++|}
++
++== 论辛金 ==
++
++=== 三春辛金 ===
++'''正月辛金'''，阳气舒而寒气未除，不知正月建寅，中有长生之丙，解去寒气，忌甲木司权，辛金失令，取己土为生身之本，欲得辛金发现，全赖壬水之功，己壬两透，支见庚制甲，科甲定然。或己土透干，支中有甲，异路恩荣。或己土不全，号曰君臣失势，富贵难全。或有丙火出干，亦主武学。或见壬、无己庚者，贫贱之徒。
++
++或支成火局，即壬水出干，不剋己土，亦寻常之人。或庚壬两透，破局制火，必为显达之人。
++
++或支成水局，不见丙火，名为金弱沉寒，平常之士，书曰：金水性寒寒到底，凄凉难免少年忧。得丙照暖，反主富贵。
++
++故正月辛金，先己后壬。己为君，庚为佐。如用丙火须参看。用己，火妻土子。用壬，金妻水子。
++
++辛金珠玉，最怕红炉，辛逢卯日子时，名曰朝阳。
++{| class="wikitable"
++|时日月年
++
++己辛庚丙
++
++丑酉寅辰
++|}
++'''二月辛金'''，阳和之际，壬水为尊，见戊己为病。得甲制伏，则辛金不致埋没，壬水不致混浊，合此者必身入玉堂。故二月辛金，有壬甲透者贵显。否则，乡绅。或壬坐亥支，不见土出，可能入芥，家亦小康。得申中之壬者，异途名望。无壬者常人。其生剋之理，与正月辛金皆同。
++
++或壬戊透，甲不出干，此为病不遇药，平常之人。得乙破戊，颇有衣衿。但假名假利，刻薄乖张。
++
++或一派壬水汪洋，名金水淘洗太过，不得中和，略有衣食，全无作为。如壬水重重，得戊反吉。或支成木局，洩尽壬水，有庚富贵，无庚平人。
++
++或支成火局，名官印相争，金水两伤，下流之格。得二壬出制，富贵反奇。
++
++辛金生于春季，一派壬水，而无丙火，即能显达，家无宿舂。得壬丙齐透，方许大富大贵。
++{| class="wikitable"
++|时日月年
++
++甲辛己乙
++
++午酉卯卯
++|时日月年
++
++丙辛己乙
++
++申卯卯酉
++|}
++{| class="wikitable"
++|时日月年
++
++己辛丁己
++
++亥巳卯未
++|时日月年
++
++己辛丁甲
++
++亥未卯午
++|时日月年
++
++壬辛癸壬
++
++辰卯卯子
++|}
++'''三月辛金'''，戊土司令，辛承正气，母旺子相，先壬后甲。壬甲两透，富贵必然。壬透甲藏，廪贡不失。甲透壬藏，富则可云。壬甲皆无，平常之格。
++
++所忌者丙贪合也，如月时皆丙，名为争合，主慷慨风流，交游四海。若癸出干制丙，可许采芹。或支坐亥子之乡，支又见申，即非玉堂，亦必高增禄位。若戊出干制水，不见甲乙，清闲之人。
++
++又或支见四库，名土厚金埋，不见甲制，愚顽之辈。或四柱火多，无水制伏，名火土杂乱，主作缁衣，见癸可解。
++
++或比劫重重，壬癸浅弱，主夭。有甲出干，则贵，然无庚制方妙。
++
++=== 三夏辛金 ===
++'''四月辛金'''，时逢首夏，忌丙火之燥烈，喜壬水之洗淘。支成金局，水透出干，有木制戊，名一清澈底，科甲功名。癸透壬藏，富真贵假。若壬癸皆藏，戊己亦藏，略富。若壬癸俱无，反见火出，必主鳏独。
++
++或支成火局，有制者吉，无制者凶。凡火旺无水，取土洩之。
++
++若壬水藏亥，戊不出干，亦主上达。有戊常人。有一甲透，衣禄可求。若有甲无壬癸者，富贵虚浮。所谓羊质虎皮是也。壬、癸、甲、三者全无，又不合格，斯为下品。
++{| class="wikitable"
++|时日月年
++
++乙辛辛乙
++
++未亥巳未
++|}
++'''五月辛金'''，丁火司权，辛金失令，阴柔之极，不宜煅炼，须己壬兼用，何也？己为泥沙，壬为湖海，己无壬不湿，辛无己不生，故壬己并用。无壬、癸亦可用。但癸力小。或支成火局，即重见癸出亦不济，得壬透破火方可，必主生员。若无壬，癸见戊，虽有午宫己土，燥泥成灰，金必毁镕，反遭埋没，必为僧道。有一二重比肩，不致孤独。
++
++五月辛金，壬、癸、己、三者皆用。或壬己两透，支见癸水，不剋，定主显达。即己藏支，亦有廪贡。或无壬有己，须得异途。或癸出有庚，必主衣锦，叨受恩荣。若水土多见，见甲方妙。
++
++庚辛生于夏月，要壬癸得地，若木多火多，不见金水，逢金水运必败。
++{| class="wikitable"
++|时日月年
++
++壬辛甲丙
++
++辰亥午子
++|}
++'''六月辛金'''，己土当权，辅助太多，恐掩金光，先用壬水，取庚佐之。壬庚两透，科甲功名，即不出干，藏支得所，亦有荣华。但忌戊出，得甲制之，方吉。甲须隔位，恐贪己合，反掩金光，又塞壬水之流，下贱之格。又忌庚出制甲。或只有未中一己，见了壬水，又为湿泥。不可见甲，甲出，反作平人。总以一壬一己，见庚无甲，方妙﹐与五月用己壬同。
++
++或丁乙出干，又有庚壬者，显贵。无壬者、否。或支成木局，得壬透，又有庚金发水之源，可云富贵。
++{| class="wikitable"
++|时日月年
++
++甲辛丁壬
++
++午丑未辰
++|时日月年
++
++丁辛辛甲
++
++酉未未寅
++|}
++
++=== 三秋辛金 ===
++'''七月辛金'''，值庚司令，不旺自旺，且壬水居申，四柱不见戊土，胎元戊藏申内，为壬堤岸，人命得此，为官清正，但不富耳。
++
++或有土无甲，为有病无药，常人。有甲者，衣衿可望。或四柱金多，宜水洩之。若一派金水，得一戊土，反为辛用，又宜甲制，自然富贵。或干支水多，重见戊土，逢生得位，福寿之造。
++
++七月辛金，壬不在多，故书云：水浅金多，号曰体全之象，壬水为尊，甲戊酌用可也，癸水不可为用。
++{| class="wikitable"
++|时日月年
++
++癸辛壬甲
++
++巳卯申午
++|}
++'''八月辛金'''，当权得令，旺之极矣，专用壬水淘洗火，故云：金见水以流通。如见戊己，则生扶太过，故以土为病，见甲制土、方妙。无戊、不宜用甲。
++
++或四柱一点壬水，甲多洩水，此为用神无力，奸诈之徒。得庚制者，反主仁义。或三点辛金，一重壬水，多见甲木，有庚透者，主大富贵。不见丁为美，若见一丁，此人风雅清高，衣食饶裕而已。
++
++或一二比肩，壬甲皆一，无庚出干，亦有恩荣。若二三比肩，一点壬水，戊土多见，此为土厚埋金，此人愚懦，见一甲出，必为创立之人。
++
++或一派辛金，一位壬水，无庚杂乱，又主富中取贵。或一派壬水洩金，无戊出制，为沙水同流，主奔波劳苦。若得支见一戊止流，其人颇有才略，艺术过人。
++
++或支成金局，干见比肩，无壬淘洗，此宜用丁，无丁必主凶顽无赖。若得一壬高透，以洩群金，又名一清到底，定有治国之材。
++
++或支成金局，戊己透干，壬透无火，名曰虎格，运行西北，富贵大显，子息艰难。或透丙火，虽有壬出，亦属平庸。
++
++或一二辛金，一派己土，定为僧道。或干透己土，支见庚甲，一生安闲。或一派乙木，不见庚干，为才多身弱，一见庚制，富贵可期。
++
++金生秋月土重，贫无寸铁。六辛日逢戊子时，运喜西方，阴若朝阳，切忌丙丁离位。庚辛局全巳酉丑，位高权重。
++{| class="wikitable"
++|时日月年
++
++己辛癸己
++
++亥未酉酉
++|时日月年
++
++丙辛己丁
++
++申酉酉酉
++|时日月年
++
++壬辛己丁
++
++辰亥酉卯
++|}
++'''九月辛金'''，戊土司令，母旺子相，须甲疏土，壬洩旺金，先壬后甲。壬甲两透，桃洞之仙。或壬透甲藏，又见戊者，平人。甲透、壬藏，戊在支内，异途之仕。
++
++或辛日甲月，壬水在支，有庚自能去浊留清，秋闱一榜。若戊戌月，即有甲在支，亦否。
++
++总之土太多，甲不出干，莫问功名，得一壬出，洗土助甲，虽不发达，富而可求。
++
++或土多无壬甲，时月多透丙辛者，略贵。加以辰字在支，则荣显莫及。
++
++或木多土厚，无水者常人。或干上重见癸水，虽无淘洗之功，颇有清明之用。此命主贵、辛苦。
++
++或己透无壬有癸，亦能滋生金力，衣衿之贵，但恐己多，不免浊富。
++
++九月辛金，火土为病，水木为药。
++{| class="wikitable"
++|时日月年
++
++壬辛戊丙
++
++辰未戌戌
++|时日月年
++
++戊辛壬戊
++
++子酉戌戌
++|时日月年
++
++丁辛戊丙
++
++酉未戌戌
++|}
++
++=== 三冬辛金 ===
++'''十月辛金'''，时值小阳，阳气渐升，寒气将降，先用壬水，次取丙火，壬丙两透，金榜题名，何也？盖辛金有壬水丙火，名金白水清，又在亥月故发。丙透壬藏，采芹之造。丙藏壬透，富有千金。壬丙在支，聪明之士。
++
++戊壬在柱，积富之人。或壬多无戊，名辛水汪洋，反成贫贱。戊多壬少，又主成名。或甲多戊少，因艺术而蓄金。
++
++若己多有戊，壬水被困，金被埋，不过诚实之人。或壬癸多无戊丙者，劳碌辛苦。十月辛金，先壬后丙，余皆参用。
++
++'''十一月辛金'''，癸水司令，为寒冬雨露，切忌癸出冻金，而困丙火，壬丙两透，不见戊癸，衣锦腰金。即壬藏丙透，一榜堪图。
++
++或壬多有戊，丙甲出干者，青云之客。若壬多无戊丙者，洩金太过，定主寒儒。或壬多、甲乙重重，无丙火者，贫寒。
++
++或支成水局，癸水出干，有二戊制者，富贵恩荣，无戊者常人。或支见亥子丑，干出比劫，无丙、名润下格，富贵双全，运喜西北。若无庚辛，又出甲乙，无戊丙者，必主僧道。
++
++或支成木局，有丁出干，又见成者，功名特达。冬月辛金，须丙温暖方妙。
++
++'''十二月辛金'''，寒冻之极，先丙后壬，无丙不能解冻，无壬不能洗淘。丙壬两透，金马玉堂之客。壬丙俱藏，游庠食饩之人。有丙无壬富真贵假。有壬乏丙，贱而且贫。或丙多、无壬、有癸，市中贸易之流。
++
++或水多、有戊己出干，又有丙丁，必主衣食充盈，一生安乐。
++
++十二月辛金，丙先壬后，戊己次之。
++{| class="wikitable"
++|时日月年
++
++戊辛己乙
++
++子丑丑丑
++|时日月年
++
++戊辛癸丁
++
++子卯丑丑
++|时日月年
++
++丁辛己乙
++
++酉未丑卯
++|时日月年
++
++己辛丁甲
++
++亥卯丑申
++|}
++
++== 论水 ==
++天倾西北，亥为出水之方，地陷东南，辰为纳水之库，逆流到申而作声，故水不西流。水性润下，顺则有容，顺行十二神，顺也，主有度量，有吉神扶助，乃贵格。逆则有声，逆行十二神，逆也。入格者，主清贵，有声誉。忌刑剋，则横流，爱自死自绝则吉。
++
++水不绝源，仗金生而流远，水流泛滥，赖土剋以堤防。水火均，则合既济之美。水土混，则有浊源之凶。四时皆忌火多，则水受渴。忌见土重，则水不流。忌见金死，金死则水困。忌见木旺，木旺则水死。沈芝云：水命动摇，多主浊滥，女人尤忌之。口诀云︰阳水身弱、穷，阴水身弱、主贵。
++
++生于春月，性滥滔淫，再逢水助，必有崩堤之势。若加土盛，则无泛涨之忧。喜金生扶，不宜金盛，欲火既济，不要火多，见木而可施功，无土仍愁散漫。
++
++夏月之水，执性归源，时当涸际，欲得比肩，喜金生而助体。忌火旺而焙干。木盛则盗其气。土旺则制其流。
++
++秋月之水，母旺子相，表里晶莹，得金助则澄清。逢土旺而混浊。火多而财盛，木重而子荣，重重见水，增其泛滥之忧。叠叠逢土，始得清平之意。
++
++冬月之水，司令当权，遇火、则增暖除寒，见土、则形藏归化。金多、反曰无义。木盛、是谓有情。土太过、势成涸辙。水泛滥、喜土堤防。
++
++== 论壬水 ==
++
++=== 三春壬水 ===
++'''正月壬水'''，汪洋之象，能并百川之流，然水性柔弱，宜用庚金之源，庶不致汪洋无度。有庚丙戊三者齐透，科甲功名。或庚戊藏支，丙坐寅支者，亦有恩诰，即一庚透，贡监有之。
++
++凡壬日无比肩羊刃者，不必用戊，专用庚金，以丙为佐。
++
++或见比劫，又有庚辛，此弱极复旺，又宜制伏。戊透、可云科甲。戊藏、则是秀才。然必丙透不合、为妙。
++
++或支见多戊，又有甲出，名一将当关，群邪自伏，主光明磊落，名重百僚。或支成火局，惜不逢时，主名利皆虚，文章骇俗。
++
++用庚者，土妻庚子。用丙者，木妻火子。用戊者，火妻土子。
++{| class="wikitable"
++|时日月年
++
++庚壬丙己
++
++子辰寅巳
++|}
++'''二月壬水'''，寒气初除，有并流之象，不用丙暖，专取戊土辛金。二月壬水，先戊后辛，庚金次之。
++
++戊辛两透，雁塔题名。戊透辛藏，亦有恩诰。或戊辛不透，有庚出干者、主富。或支成木局，有庚透者，金榜题名。庚在支者，异途之仕。
++
++或木出火多，名木盛火炎，须比肩羊刃，尤宜水透，富贵恩荣。乏水者则否。
++
++或比肩重重，又须戊土，书曰：土止流水福寿全。若戊不见，名水泛木浮。一生辛苦，再行水运，落水而亡。
++
++或甲乙重重无比肩者，此依人度日，全无作为。若见庚辛，饥寒可免。
++
++'''三月壬水'''，戊土司权，恐有推山填海之患，先用甲疏季土，次取庚金。甲庚俱透，科甲定然。甲透庚藏，修齐品格。甲藏有根，可云俊秀。有癸滋甲，必主干城。独甲藏支，必富。独庚在柱，常人。无甲、刚暴之徒。乏庚、愚顽之辈。
++
++或时干透丁者，此为化合，助火而不助水。见丁未一理。或支成四库，乏甲者，名杀重身轻，终身有损。
++
++凡水旺多见庚金者，乃无用之人，须丙制之方妙。
++{| class="wikitable"
++|时日月年
++
++甲壬甲壬
++
++辰辰辰申
++|}
++
++=== 三夏壬水 ===
++'''四月壬水'''，丙火司权，水弱极矣，专取壬水比肩为助，次取辛金发源，且暗合丙火，庚金为佐。壬辛两透，金榜有名，或癸辛两出，加以甲透，亦主异路之荣。无甲者、富贵门下之客。
++
++如无壬，木少火多者，又作弃命从才格，因妻致富。癸透者残疾。
++
++或四柱多金得地，则极弱复强，须用巳中戊土，亦主名利双全。或异途之贵。若见一甲藏寅，与巳相刑，主有暗疾，名利皆虚，不能创立。
++
++或多甲乙，有庚出干者、贵。无庚者，否。
++
++或支成水局、大贵。
++{| class="wikitable"
++|时日月年
++
++乙壬乙壬
++
++巳午巳寅
++|时日月年
++
++乙壬乙壬
++
++巳申巳午
++|时日月年
++
++壬壬癸丙
++
++寅辰巳辰
++|}
++'''五月壬水'''，丁旺壬弱，取癸为用，取庚为佐。无庚不能发水，无癸不能伤丁。五月壬水，辛癸亦可参用，其理与四月皆同。
++
++庚癸两透，科甲必然，庚壬两透，官居极品。有庚无壬癸者、常人。
++
++或支成火局，全无金水，名才多身弱，富屋贫人。若又甲乙多者，僧道之命。
++{| class="wikitable"
++|时日月年
++
++辛壬壬庚
++
++亥寅午午
++|时日月年
++
++甲壬丙丁
++
++辰寅午酉
++|}
++'''六月壬水'''，己土当权，丁火退气，先用辛金癸水，次用甲木噼土。六月壬水，先辛后甲，次取癸水。辛甲两透，富贵清高。甲藏辛透，贡监生员。辛藏甲透，异途武职。甲壬两透，无伤，有治国之贵。即甲藏壬出无破，是拾芥之才。或支多土火，又只清贫。
++
++或一派己土，此假从杀格，为人奸诈，且主孤贫，得甲乙出制可救。凡土居生旺之地，须用木制方妙。或支成木局，洩水太过，当用金水为贵，以金为妻、水为子。
++
++=== 三秋壬水 ===
++'''七月壬水'''，庚金司令，壬得申之长生，源流自远，转弱为强，专用戊土，次取丁火佐戊制庚。但用辰戌之戊，不用申中受病之戊。戊丁俱透，科甲生员。戊透天干，丁藏午戌，恩封可待，特忌戊癸化合。即支见寅戌，年出丁火，可许衣衿。或丁戊两藏，富中取贵。
++
++或四柱多壬，戊又透干，名假杀化权，阆苑之仙。支中见甲，亦不忌也。但太多者、常人。有庚居申，颇有衣禄。
++
++或戊多而透，得一甲制，略富贵，无甲常人。或一派甲木，又见火多，无庚出者，别祖离乡，随缘度日。盖申中之庚，不能救也。
++
++七月壬水，专用戊土。丁火为佐。
++{| class="wikitable"
++|时日月年
++
++壬壬庚戊
++
++寅辰申寅
++|时日月年
++
++丙壬戊丁
++
++午辰申亥
++|时日月年
++
++辛壬庚癸
++
++亥辰申酉
++|}
++'''八月壬水'''，辛金司权，正金白水清，忌戊土为病，专用甲木。甲木一透制戊，壬水澈底澄清，名高翰苑。若甲出时干，功名显达，设见庚破，又属常人。即甲藏支、无庚，秀才可许。
++
++或天干有壬，支见申亥，此非用甲，戊土作用。亥虽有甲，又有申中之金制甲，秀才一定，且富足多才。
++
++或无戊、多金水者，主人清才浊，困苦寒儒。
++
++无甲用金，发水之源，名独水三犯庚辛，号曰体全之象。
++
++八月壬水，专用甲木，庚金次之。用甲者，水妻、木子。
++{| class="wikitable"
++|时日月年
++
++壬壬丁辛
++
++寅辰酉酉
++|时日月年
++
++庚壬己壬
++
++戌子酉子
++|时日月年
++
++己壬丁丙
++
++酉子酉子
++|时日月年
++
++甲壬乙庚
++
++辰子酉午
++|}
++'''九月壬水'''进气，其性特厚，若一派壬水，见一甲、制戌中之戊，戊又出干，斯用丙火。此格清贵极矣，正合一将当关，群邪自伏，或不见丙戊，亦不为妙。
++
++或一派戊土，无一己庚杂乱，得一甲透时干。玉堂清贵，即甲透月上，亦主科甲。若支藏己土，一榜可图。或庚透乏丁，贫贱之人。或丁透见甲，略贵。或水多乏丙者，又用戊土，常人。
++
++九月壬水，专用甲木，次用丙火。用土者，火妻土子。
++{| class="wikitable"
++|时日月年
++
++辛壬戊两
++
++丑戌戌寅
++|时日月年
++
++甲壬戊辛
++
++辰戌戌丑
++|}
++
++=== 三冬壬水 ===
++'''十月壬水'''司权，至旺之极，取戊为用，若生辰日干，又见辰时，必须戊透，又须庚制甲，不伤戊土，戊庚两全，定主豋科乃第，位显权高。或甲出制戊，不见庚救者，断之贫穷。戊藏无制，可许生员。或戊庚两透无甲者，亦主荣显。
++
++或支成木局，有甲乙出干，得庚透者，富贵。无庚者、平常。或支成水局，不见戊己，名润下格，运行西北，大富贵，行东南者、必危。
++
++或丙戊两透，行火土运，名利双全。或有丙无戊，可云衣禄。有戊无丙，难许推盈。十月壬水、专用戊丙，次取庚金。
++{| class="wikitable"
++|时日月年
++
++庚壬丁庚
++
++戌戌亥子
++|时日月年
++
++辛壬辛壬
++
++亥子亥申
++|}
++'''十一月壬水'''，阳刃帮身，较前更旺，先取戊土，次用丙火，丙戊两透，富贵荣华。有戊无丙，略可言富。有丙无戊，好谋无成。
++
++或支成水局，丙不出干，即有戊土，亦是庸人。或丙透得所。即戊藏支，亦可显达，须运得用方妙。或支成火局，一富而已。
++
++或比见月时，年见丁火，平常之辈。支成四库，富贵中人。
++
++或丁出时干，名为争合，主名利难成。或壬子日、丁未时，虽不能科甲，亦有恩荣，何也？盖用子中癸水为官，号曰用神得地，亦主荣华。
++
++十一月壬水，丙戊并用。
++{| class="wikitable"
++|时日月年
++
++壬壬壬壬
++
++寅寅子寅
++|时日月年
++
++甲壬壬壬
++
++辰子子子
++|}
++'''十二月壬水'''，旺极复衰，何也？上半月癸辛主事，故旺，专用丙火。下半月己土主事，故衰。亦用丙火，甲木佐之。
++
++有丙解冻，名利双全。丙透甲出，科甲之贵，然四柱无壬方妙。无丙、单寒之士。或四柱多壬，戊透制之，衣衿可望。
++
++或丁出时干，化合成木，月干又见丁火，无癸破格，亦主富贵。或支成金局，名金寒水冻，一世孤贫，见火略可。即丙透遇辛，亦不为妙，见丁颇吉。
++
++腊月壬水，先取丙火，丁甲为佐，故水冷金寒爱丙丁。用火者，木妻火子。
++
++水旺居垣须有智，水土混杂必愚顽。壬癸路经南域、主健、富贵堪图。又云：惟有水木伤官格，才官相见始为欢。
++
++== 论癸水 ==
++
++=== 三春癸水 ===
++'''正月癸水'''，值三阳之候，雨露之精，其性至柔，先用辛金，生癸水之源，次用丙火照暖，名阴阳和合，万物发生。辛丙两透，金榜有名。
++
++或支成火局，辛金受伤，有壬出救者、富贵。无壬者、贫穷。或丙出天干，辛在酉丑，亦有衣衿。若辛丙皆无，贫寒下格。或辛透丙藏，恩荣之造。丙辛在柱，以富得官。
++
++或戊透月上、坐辰时，不见比劫，丙丁出干，此为化合，定主腰金，见刑{{PUA|}}、则否。或支成水局，宜有丙透，无壬者，衣禄不少。若见丙火重重，又作贵推。
++
++正月癸水，辛金为主，庚金次之，丙亦不可少。若无庚辛，虽有丙火，无用之人。或火多土多，残疾不免。
++
++用辛者，土妻、金子。
++
++'''二月癸水'''，不刚不柔，乙木司令，洩弱元神，专以庚金为用，辛金次之。庚辛俱透，无丁出干者，贵由科甲。无庚辛者常人。或庚透辛藏，荣封有准。庚藏辛透，亦有衣衿。庚辛两藏，富中取贵，或刀笔扬名。或庚辛重见，有己丁出干者亦贵。
++
++或支成木局，月时又见木者，为洩水太过，定主贫困多灾。即运入西方，亦属无用。
++{| class="wikitable"
++|时日月年
++
++癸癸癸丁
++
++丑亥卯未
++|时日月年
++
++癸癸癸丁
++
++丑卯卯亥
++|时日月年
++
++庚癸己庚
++
++申酉卯子
++|}
++'''三月癸水'''，要分清明谷雨。清明后、火气未炽，专用丙火，为阴阳合谐。谷雨后，虽用丙火，尚宜辛甲佐之。如辛卯、壬辰、癸未、丙辰，生上半月，用丙火、显达。生下半月，必无伤辛金癸水、方妙。然丙亦不可少。用丙、木妻、火子。
++
++三月癸水，从化者多，得化者荣禄。不化者平常。或支成水局，又见己土、无木，乃假杀格，有甲出者、常人。或支坐四库，又得甲透，可谓显达名扬。无甲者僧道孤苦。或支成木局，名伤官生财格，主聪明博学，衣禄充饶。
++
++三月癸水，辛甲皆酌用。下半月，土妻金子。
++{| class="wikitable"
++|时日月年
++
++辛癸甲丁
++
++酉亥辰酉
++|时日月年
++
++甲癸壬丙
++
++寅巳辰寅
++|时日月年
++
++辛癸丙戊
++
++酉丑辰午
++|时日月年
++
++丙癸壬丙
++
++辰丑辰寅
++|}
++
++=== 三夏癸水 ===
++'''四月癸水'''，喜辛金为用，无辛用庚。若辛高透，不见丁火，加以壬透，主科名荣贵，声播四夷。若有丁破格，贫无立锥，有壬可免。辛藏无丁，贡监衣衿。
++
++或一派火土乏辛，即有己庚，亦不能生水。又无比肩羊刃，必至熬干癸水，损目无疑。若庚壬两透，洩制火土，名劫印化晋，极贵之造。有丁见干者则否。如有庚无壬。亦无丁破庚者，堪入儒林。有庚无辛者，异路功名。总之四月癸水，专用辛金方妙。
++
++'''五月癸水'''，至弱无根，必须庚辛为生身之本，但丁火司权，金难敌火，安能滋养癸水，宜见比劫，方得辛金之用。五月癸水，庚辛壬参酌并用可也。
++
++如庚辛透干，又见壬癸者，定主钟鼎名家。或有金透，支见申子辰者，亦主金榜挂名。或无水出干，支只一水，虽有庚辛，一富之造。故曰：水源会夏，富重贵轻。又曰：金水会夏天，富贵永无边，运行火土地，快乐似神仙。
++
++或支成火局，无壬出干，定主僧道。或二壬一庚同透，衣锦腰金。或一派己土，无甲出制，此作从杀而论，又主大贵。凡从杀者，切不可破格方吉。
++
++'''六月癸水'''，有上下月之分。下半月庚辛有气，上半月庚辛休囚。凡六癸日、多不验者，何也？俗士不知此理。因未中有乙己同宫，破而不破，故癸水不能从杀，所以专用庚辛。如上半月金神衰弱，火气炎烈，宜比劫助身，可云富贵。与五月一理。下半月庚辛有气，即无比劫亦可，又忌丁透，即丁在支亦不吉。其生剋制化，与五月略同。
++{| class="wikitable"
++|时日月年
++
++庚癸癸乙
++
++申未未酉
++|时日月年
++
++丙癸辛己
++
++辰未未未
++|}
++
++=== 三秋癸水 ===
++'''七月癸水'''，正母旺子相之时，癸虽死申，殊不知申中有庚生之，名死处逢生，弱中复强，即运行西北，亦不死也。但庚司令刚锐极矣，必取丁火为用。或丁透有甲，名有燄之火，必主科甲。或丁透无甲，又无壬癸，即有一二庚金，亦有生监。有二丁更妙。或金多乏丁制者，贫困之人。
++
++或一丁坐午，名独才格，主金玉满堂，富中取贵。若在未戌，则是常人。或柱见二戌二未，又得丙丁藏支，干见甲出、无水，亦作富贵而推。
++{| class="wikitable"
++|时日月年
++
++甲癸戊丁
++
++寅卯申酉
++|时日月年
++
++乙癸庚戊
++
++卯未申午
++|时日月年
++
++辛癸丙辛
++
++酉酉申酉
++|}
++'''八月癸水'''，辛金虚灵，非顽金可比，正金白水清，故取辛金为用，丙火佐之。名水暖金温。如丙与辛隔位同透，主科甲功名。或丙透辛藏，一榜之士。或土多{{PUA|}}水，生意中人。
++
++八月癸水，丙辛皆用。
++{| class="wikitable"
++|时日月年
++
++丙癸乙庚
++
++辰亥酉寅
++|时日月年
++
++癸癸丁辛
++
++亥巳酉酉
++|}
++'''九月癸水'''，失令无根，戊土司权，剋制太过，专用辛金发水之源，要比肩滋甲制戊方妙。或辛甲两透，支见子癸，定主平步青云，或癸甲两透，富贵成名。或有甲辛无癸者，亦有恩封。或有甲癸无辛者，富大贵小。有甲无癸辛者，常人。二者俱无，贫贱之格。或有甲见壬者，颇许衣衿。
++
++九月癸水，辛甲并用。
++{| class="wikitable"
++|时日月年
++
++甲癸丙癸
++
++寅卯戌亥
++|时日月年
++
++癸癸庚壬
++
++亥丑戌辰
++|}
++
++=== 三冬癸水 ===
++'''十月癸水'''，旺中有弱，何也？因亥摇木，洩散元神，宜用庚辛为妙。得庚辛两透，不见丁伤者，功名有准。
++
++或支成木局，有丁出干，为木旺火相，制住庚辛不生水，必主清寒。或成木局，干见丙丁，异路之荣。或一派壬水，不见戊制，名冬水汪洋，奔波到老。若得戊透，清贵堪夸。
++
++或一派庚辛，得丁出制，主名利双全。若不见丁，又主贫薄。或四柱火多，名才多身弱，富屋贫人。
++{| class="wikitable"
++|时日月年
++
++癸癸癸癸
++
++亥丑亥卯
++|时日月年
++
++壬癸辛壬
++
++子亥亥申
++|}
++'''十一月癸水'''，值冰冻之时，金水无交欢之象，专用丙火解冻，庶不致成冰，又要辛金滋扶，无丙有辛，不妙。凡冬季癸水，有丙透解冻，则金温水暖，两两相生，要不见壬癸，自然豋科及第，紫诰金章。
++
++或一派壬水，无丙出干，寒困之士。一派癸水，孤贱之流。或支成水局，得丙火重出干者，又主蟒袍玉带之荣。
++
++或支成金局，丙火无剋者，芒鞋革履之流。如辛年丙月癸日。有火者、主恩荣宠锡，绕膝芝兰。无火者，捐资得贵，位重当朝。
++
++或一派戊己，名杀重身轻，非贫即夭。
++
++用火者，木妻、火子。用辛者，土妻、金子。
++
++'''十二月癸水'''，寒极成冰，万物不能舒泰，宜丙火解冻。或丙透年时，加以壬透，支中多戊，名水辅阳光，主显达名臣，无戊者，异途之职。若有丙无壬，黉门之客。有壬无丙，戊又出干者，皂隶之流。
++
++或支见子丑，比肩出干，即有丙透，不能解冻，此属平常。或无癸水，有辛与合，亦不为美。有丁出、颇吉。
++
++或一片癸己会党，年透丁火，名雪后灯光，夜生者贵，日生者否。若无丁火，又主孤贫。或支成水局，无丙者，四海为家，一生劳苦。
++
++或支成火局，有庚辛透者，衣食充足。无金出、孤苦零仃。或支成金局，丙透得地，名金温水暖，彼此相生，定许光大门闾，声驰翰苑。乏丙者，即文章骇世，总为孙山。
++
++或支成木局，洩水太过，主残病呻吟，得金出干辅救，技艺之流。
++
++凡冬月用丙，须丙火得地方妙、不然，即重重丙火出干，安能轻许富贵哉。
+diff --git a/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/__init__.py b/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/__init__.py
+index cd5964290d3524e0781d89287da94c4c5d1a1b19..71b2fbc6e2b8955a1d074d4abc15fe3466baa1e9 100644
+--- a/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/__init__.py
++++ b/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/__init__.py
+@@ -29,0 +30,9 @@ from .traditional_extensions import (
++from .school_evidence import (
++    BaziSchoolEvidence,
++    SeasonalEvidenceFact,
++    TransformationCandidateFact,
++    build_bazi_school_evidence,
++    derive_seasonal_evidence,
++    derive_transformation_candidates,
++    validate_school_evidence_tables,
++)
+@@ -52,0 +62,7 @@ __all__ = [
++    "BaziSchoolEvidence",
++    "SeasonalEvidenceFact",
++    "TransformationCandidateFact",
++    "build_bazi_school_evidence",
++    "derive_seasonal_evidence",
++    "derive_transformation_candidates",
++    "validate_school_evidence_tables",
+diff --git a/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/school_evidence.py b/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/school_evidence.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..c0705c2730de04d2ae30da6e06dd909398149fbe
+--- /dev/null
++++ b/examples/bazi-capability_v0.1.1/src/aion_astra_bazi_core/school_evidence.py
+@@ -0,0 +1,167 @@
++"""School-labelled Bazi evidence layers without automatic interpretation.
++
++This module fills calculation-surface gaps with auditable raw evidence.  It
++deliberately stops before strong/weak, structure (格局), useful-element (用神),
++transformation-completed, personality, fate, or subjectivity conclusions.
++"""
++
++from __future__ import annotations
++
++from collections import Counter
++from dataclasses import dataclass
++
++from .constants import BRANCH_ELEMENTS, STEM_ELEMENTS
++from .errors import ValidationError
++from .models import Pillar
++
++
++ALGORITHM_VERSION = "bazi-school-evidence-0.3.0"
++ELEMENTS = ("WOOD", "FIRE", "EARTH", "METAL", "WATER")
++GENERATES = {"WOOD": "FIRE", "FIRE": "EARTH", "EARTH": "METAL", "METAL": "WATER", "WATER": "WOOD"}
++CONTROLS = {"WOOD": "EARTH", "EARTH": "WATER", "WATER": "FIRE", "FIRE": "METAL", "METAL": "WOOD"}
++
++MONTH_SEASONS = {
++    "寅": "SPRING", "卯": "SPRING", "辰": "SPRING_TRANSITION",
++    "巳": "SUMMER", "午": "SUMMER", "未": "SUMMER_TRANSITION",
++    "申": "AUTUMN", "酉": "AUTUMN", "戌": "AUTUMN_TRANSITION",
++    "亥": "WINTER", "子": "WINTER", "丑": "WINTER_TRANSITION",
++}
++
++STEM_TRANSFORMATION_TARGETS = {
++    frozenset(("甲", "己")): "EARTH", frozenset(("乙", "庚")): "METAL",
++    frozenset(("丙", "辛")): "WATER", frozenset(("丁", "壬")): "WOOD",
++    frozenset(("戊", "癸")): "FIRE",
++}
++THREE_HARMONY_TARGETS = {
++    frozenset(("申", "子", "辰")): "WATER", frozenset(("亥", "卯", "未")): "WOOD",
++    frozenset(("寅", "午", "戌")): "FIRE", frozenset(("巳", "酉", "丑")): "METAL",
++}
++THREE_MEETING_TARGETS = {
++    frozenset(("寅", "卯", "辰")): "WOOD", frozenset(("巳", "午", "未")): "FIRE",
++    frozenset(("申", "酉", "戌")): "METAL", frozenset(("亥", "子", "丑")): "WATER",
++}
++
++
++@dataclass(frozen=True)
++class SeasonalEvidenceFact:
++    day_master: str
++    day_master_element: str
++    month_branch: str
++    month_branch_element: str
++    season: str
++    visible_stem_counts: tuple[tuple[str, int], ...]
++    hidden_stem_counts: tuple[tuple[str, int], ...]
++    relationship_counts: tuple[tuple[str, int], ...]
++    counting_rule: str = "UNWEIGHTED_VISIBLE_AND_HIDDEN_COUNTS_V1"
++    strength_conclusion: str = "NOT_DERIVED"
++    structure_conclusion: str = "NOT_DERIVED"
++    useful_element_conclusion: str = "NOT_DERIVED"
++    interpretation_status: str = "NOT_PERFORMED"
++
++
++@dataclass(frozen=True)
++class TransformationCandidateFact:
++    candidate_type: str
++    members: tuple[str, ...]
++    target_element: str
++    occurrence_count: int
++    transformation_status: str = "CONDITIONS_NOT_EVALUATED"
++    school_profile: str = "CLASSICAL_TABLE_CANDIDATES_V1"
++    interpretation_status: str = "NOT_PERFORMED"
++
++
++@dataclass(frozen=True)
++class BaziSchoolEvidence:
++    seasonal: SeasonalEvidenceFact
++    transformation_candidates: tuple[TransformationCandidateFact, ...]
++    algorithm_version: str = ALGORITHM_VERSION
++    subjectivity_conclusion: str = "NOT_ESTABLISHED"
++    consciousness_conclusion: str = "NOT_ESTABLISHED"
++    canonical_effect: str = "NONE"
++    deployment: bool = False
++    action_authority: str = "NONE"
++
++
++def _element_relation(day_master_element: str, other: str) -> str:
++    if other == day_master_element:
++        return "PEER"
++    if GENERATES[other] == day_master_element:
++        return "RESOURCE"
++    if GENERATES[day_master_element] == other:
++        return "OUTPUT"
++    if CONTROLS[day_master_element] == other:
++        return "WEALTH"
++    if CONTROLS[other] == day_master_element:
++        return "OFFICER"
++    raise AssertionError("complete five-element relation expected")
++
++
++def derive_seasonal_evidence(pillars: tuple[Pillar, ...]) -> SeasonalEvidenceFact:
++    """Count visible/hidden evidence relative to the day master, without scoring."""
++
++    by_name = {pillar.name: pillar for pillar in pillars}
++    if set(by_name) != {"YEAR", "MONTH", "DAY", "HOUR"}:
++        raise ValidationError("seasonal evidence requires exactly YEAR, MONTH, DAY, HOUR pillars")
++    day_master = by_name["DAY"].stem
++    day_element = STEM_ELEMENTS[day_master]
++    month_branch = by_name["MONTH"].branch
++    visible = Counter(STEM_ELEMENTS[pillar.stem] for pillar in pillars)
++    hidden = Counter(STEM_ELEMENTS[stem] for pillar in pillars for stem in pillar.hidden_stems)
++    relations = Counter()
++    for element, count in visible.items():
++        relations[_element_relation(day_element, element)] += count
++    for element, count in hidden.items():
++        relations[_element_relation(day_element, element)] += count
++    return SeasonalEvidenceFact(
++        day_master=day_master,
++        day_master_element=day_element,
++        month_branch=month_branch,
++        month_branch_element=BRANCH_ELEMENTS[month_branch],
++        season=MONTH_SEASONS[month_branch],
++        visible_stem_counts=tuple((element, visible[element]) for element in ELEMENTS),
++        hidden_stem_counts=tuple((element, hidden[element]) for element in ELEMENTS),
++        relationship_counts=tuple((name, relations[name]) for name in ("PEER", "RESOURCE", "OUTPUT", "WEALTH", "OFFICER")),
++    )
++
++
++def _candidate_facts(
++    values: tuple[str, ...],
++    candidate_type: str,
++    table: dict[frozenset[str], str],
++) -> list[TransformationCandidateFact]:
++    counts = Counter(values)
++    facts: list[TransformationCandidateFact] = []
++    for group, target in table.items():
++        if group.issubset(counts):
++            occurrence = min(counts[value] for value in group)
++            facts.append(TransformationCandidateFact(candidate_type, tuple(sorted(group)), target, occurrence))
++    return facts
++
++
++def derive_transformation_candidates(pillars: tuple[Pillar, ...]) -> tuple[TransformationCandidateFact, ...]:
++    """Expose combination targets while refusing to infer completed transformation."""
++
++    if len(pillars) != 4:
++        raise ValidationError("transformation candidates require four pillars")
++    stems = tuple(pillar.stem for pillar in pillars)
++    branches = tuple(pillar.branch for pillar in pillars)
++    facts = _candidate_facts(stems, "STEM_COMBINATION", STEM_TRANSFORMATION_TARGETS)
++    facts += _candidate_facts(branches, "THREE_HARMONY", THREE_HARMONY_TARGETS)
++    facts += _candidate_facts(branches, "THREE_MEETING", THREE_MEETING_TARGETS)
++    return tuple(sorted(facts, key=lambda fact: (fact.candidate_type, fact.members)))
++
++
++def build_bazi_school_evidence(pillars: tuple[Pillar, ...]) -> BaziSchoolEvidence:
++    return BaziSchoolEvidence(derive_seasonal_evidence(pillars), derive_transformation_candidates(pillars))
++
++
++def validate_school_evidence_tables() -> bool:
++    """Verify the bounded tables are total, disjoint where expected, and typed."""
++
++    if set(MONTH_SEASONS) != set(BRANCH_ELEMENTS):
++        return False
++    if set(GENERATES) != set(ELEMENTS) or set(GENERATES.values()) != set(ELEMENTS):
++        return False
++    if set(CONTROLS) != set(ELEMENTS) or set(CONTROLS.values()) != set(ELEMENTS):
++        return False
++    return all(target in ELEMENTS for table in (STEM_TRANSFORMATION_TARGETS, THREE_HARMONY_TARGETS, THREE_MEETING_TARGETS) for target in table.values())
+diff --git a/examples/bazi-capability_v0.1.1/tests/test_school_evidence.py b/examples/bazi-capability_v0.1.1/tests/test_school_evidence.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..65c8c4ba8eeeb824ae3c437b45132d52c7f20770
+--- /dev/null
++++ b/examples/bazi-capability_v0.1.1/tests/test_school_evidence.py
+@@ -0,0 +1,102 @@
++from __future__ import annotations
++
++import pytest
++
++from aion_astra_bazi_core.constants import BRANCH_ELEMENTS, HIDDEN_STEMS, STEM_ELEMENTS, YIN_YANG
++from aion_astra_bazi_core.errors import ValidationError
++from aion_astra_bazi_core.models import Pillar
++from aion_astra_bazi_core.school_evidence import (
++    build_bazi_school_evidence,
++    derive_seasonal_evidence,
++    derive_transformation_candidates,
++    validate_school_evidence_tables,
++)
++
++
++def pillar(name: str, stem: str, branch: str) -> Pillar:
++    hidden = HIDDEN_STEMS[branch]
++    return Pillar(
++        name=name,
++        stem=stem,
++        branch=branch,
++        yin_yang=YIN_YANG[stem],
++        stem_element=STEM_ELEMENTS[stem],
++        branch_element=BRANCH_ELEMENTS[branch],
++        hidden_stems=hidden,
++        ten_gods=tuple("UNSPECIFIED" for _ in hidden),
++        nayin="TEST_ONLY",
++        twelve_stage="TEST_ONLY",
++        void_branches=(),
++    )
++
++
++def synthetic_pillars() -> tuple[Pillar, ...]:
++    return (
++        pillar("YEAR", "甲", "申"),
++        pillar("MONTH", "己", "子"),
++        pillar("DAY", "丙", "辰"),
++        pillar("HOUR", "辛", "酉"),
++    )
++
++
++def test_school_evidence_tables_are_total() -> None:
++    assert validate_school_evidence_tables()
++
++
++def test_seasonal_evidence_exposes_month_and_day_master_without_strength_label() -> None:
++    fact = derive_seasonal_evidence(synthetic_pillars())
++    assert fact.day_master == "丙"
++    assert fact.day_master_element == "FIRE"
++    assert fact.month_branch == "子"
++    assert fact.month_branch_element == "WATER"
++    assert fact.season == "WINTER"
++    assert fact.strength_conclusion == "NOT_DERIVED"
++    assert fact.structure_conclusion == "NOT_DERIVED"
++    assert fact.useful_element_conclusion == "NOT_DERIVED"
++    assert fact.interpretation_status == "NOT_PERFORMED"
++
++
++def test_seasonal_counts_are_complete_raw_evidence() -> None:
++    fact = derive_seasonal_evidence(synthetic_pillars())
++    assert sum(value for _, value in fact.visible_stem_counts) == 4
++    assert sum(value for _, value in fact.hidden_stem_counts) == sum(len(p.hidden_stems) for p in synthetic_pillars())
++    assert sum(value for _, value in fact.relationship_counts) == 4 + sum(len(p.hidden_stems) for p in synthetic_pillars())
++
++
++def test_transformation_candidates_name_target_but_do_not_assert_completion() -> None:
++    facts = derive_transformation_candidates(synthetic_pillars())
++    keyed = {(fact.candidate_type, frozenset(fact.members)): fact for fact in facts}
++    stem = keyed[("STEM_COMBINATION", frozenset(("甲", "己")))]
++    harmony = keyed[("THREE_HARMONY", frozenset(("申", "子", "辰")))]
++    assert stem.target_element == "EARTH"
++    assert harmony.target_element == "WATER"
++    assert all(fact.transformation_status == "CONDITIONS_NOT_EVALUATED" for fact in facts)
++    assert all(fact.interpretation_status == "NOT_PERFORMED" for fact in facts)
++
++
++def test_duplicate_member_does_not_invent_multiple_group_transformations() -> None:
++    pillars = (
++        pillar("YEAR", "甲", "申"), pillar("MONTH", "己", "子"),
++        pillar("DAY", "甲", "辰"), pillar("HOUR", "己", "子"),
++    )
++    facts = derive_transformation_candidates(pillars)
++    stem = next(fact for fact in facts if fact.candidate_type == "STEM_COMBINATION")
++    assert stem.occurrence_count == 2
++    harmony = next(fact for fact in facts if fact.candidate_type == "THREE_HARMONY")
++    assert harmony.occurrence_count == 1
++
++
++def test_invalid_pillar_shapes_fail_closed() -> None:
++    with pytest.raises(ValidationError, match="exactly"):
++        derive_seasonal_evidence(synthetic_pillars()[:3])
++    with pytest.raises(ValidationError, match="four pillars"):
++        derive_transformation_candidates(synthetic_pillars()[:3])
++
++
++def test_composed_school_evidence_preserves_subjectivity_core_boundary() -> None:
++    evidence = build_bazi_school_evidence(synthetic_pillars())
++    assert evidence.subjectivity_conclusion == "NOT_ESTABLISHED"
++    assert evidence.consciousness_conclusion == "NOT_ESTABLISHED"
++    assert evidence.canonical_effect == "NONE"
++    assert evidence.deployment is False
++    assert evidence.action_authority == "NONE"
+diff --git a/examples/classical-western-astrology_v0.1.0/COMPONENT_STATUS_LOCK.json b/examples/classical-western-astrology_v0.1.0/COMPONENT_STATUS_LOCK.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..da967e3adf086155c3c8c52426e2e8601dd0f25d
+--- /dev/null
++++ b/examples/classical-western-astrology_v0.1.0/COMPONENT_STATUS_LOCK.json
+@@ -0,0 +1,18 @@
++{
++  "component": "AION_ASTRA_CLASSICAL_WESTERN_ASTROLOGY_EXAMPLE",
++  "version": "0.3.0",
++  "overall_result": "PASS_PENDING_EXACT_HEAD_CI",
++  "classical_primary": true,
++  "modern_overlay_replaces_classical": false,
++  "extended_classical_tables": "PASS",
++  "modern_point_layer": "PASS_TYPED_AS_POINTS",
++  "source_acquisition": "PASS_12_OF_12",
++  "human_owner_completion_scope": "APPROVED_IN_CURRENT_INTERACTION",
++  "interpretation_status": "NOT_PERFORMED",
++  "predictive_validity": "NOT_ESTABLISHED",
++  "subjectivity": "NOT_ESTABLISHED",
++  "consciousness": "NOT_ESTABLISHED",
++  "canonical_effect": "NONE",
++  "deployment": false,
++  "action_authority": "NONE"
++}
+diff --git a/examples/classical-western-astrology_v0.1.0/README.md b/examples/classical-western-astrology_v0.1.0/README.md
+index f509d6295fb9a1a31934dab829e0bbef15b83d89..730742b3df2572963cfda19ca6f64f7b91946ef5 100644
+--- a/examples/classical-western-astrology_v0.1.0/README.md
++++ b/examples/classical-western-astrology_v0.1.0/README.md
+@@ -1 +1 @@
+-# Classical-primary / Modern-overlay Western Astrology Example v0.2.0
++# Classical-complete / Modern-overlay Western Astrology Example v0.3.0
+@@ -5 +5 @@ classical Hellenistic/medieval common-core profile remains intact and primary;
+-v0.2.0 adds a separately labelled modern overlay rather than silently replacing
++v0.2.0 added a separately labelled modern overlay rather than silently replacing
+@@ -26,0 +27,13 @@ The integrated v0.2.0 profile additionally exposes:
++The v0.3.0 completion layer adds, without rewriting the v0.2 chart:
++
++- day/night/participating triplicity rulers under a named Dorothean profile;
++- all twelve complete Egyptian-bound tables with half-open degree intervals;
++- all thirty-six Chaldean faces/decans;
++- the seven traditional planetary joys as whole-sign-house facts;
++- true north/south lunar nodes and Chiron as modern **points**, never silently
++  promoted to planets, classical dignities, sect members, or sign rulers;
++- point-to-body and point-to-point aspects under the existing versioned orb
++  profile; and
++- one composed `build_integrated_completion(...)` result with deterministic
++  provenance and explicit non-claim fields.
++
+@@ -78,0 +92 @@ permissions, or governance authority. See
++[`docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md`](docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md),
+diff --git a/examples/classical-western-astrology_v0.1.0/docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md b/examples/classical-western-astrology_v0.1.0/docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md
+new file mode 100644
+index 0000000000000000000000000000000000000000..c34b80504d38d4841e5ccba222d0b9eb70f34889
+--- /dev/null
++++ b/examples/classical-western-astrology_v0.1.0/docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md
+@@ -0,0 +1,75 @@
++# Classical-complete / modern-overlay profile v0.3.0
++
++## Composition rule
++
++```text
++V0_2_CLASSICAL_PRIMARY_CHART
+++ V0_3_EXTENDED_CLASSICAL_FACTS
+++ V0_3_LABELLED_MODERN_POINTS
++= V0_3_INTEGRATED_COMPLETION
++```
++
++The classical layer stays primary. The modern overlay never replaces the
++traditional seven, traditional domicile rulers, sect, or classical dignity
++tables.
++
++## Completed classical fact surface
++
++| Layer | Named rule profile | Derived result |
++|---|---|---|
++| Triplicity | Dorothean day/night/participating | sect ruler, participating ruler, ruler match |
++| Bounds/terms | Egyptian bounds | one ruler from a gap-free half-open degree interval |
++| Faces/decans | Chaldean faces | one ruler for each ten-degree segment |
++| Planetary joys | traditional seven-house table | joy house and present-house match |
++
++These facts extend, rather than replace, domicile, exaltation, detriment, fall,
++sect, whole-sign houses, and Ptolemaic aspects already present in v0.2.
++
++`EGYPTIAN_BOUNDS != PTOLEMAIC_TERMS`. The implementation names the selected
++table and does not imply that historical schools used one interchangeable table.
++
++## Modern overlay completion
++
++The v0.3 point set is exactly:
++
++```text
++TRUE_NORTH_NODE
++CHIRON
++```
++
++`TRUE_SOUTH_NODE` is derived as the exact opposite of the supplied true north
++node. All three are typed as modern points. They receive:
++
++- tropical sign and degree;
++- whole-sign house;
++- motion status when a speed vector exists; and
++- aspects under the versioned integrated aspect/orb table.
++
++They do not receive classical dignity, classical sect, or sign rulership. The
++source ephemeris remains upstream input with exact provider/version provenance.
++
++## Interpretation and research boundary
++
++```text
++RULE_TABLE_FACT != EMPIRICAL_VALIDATION
++SYMBOLIC_POINT != PLANET
++MODERN_OVERLAY != CLASSICAL_REPLACEMENT
++ASTROLOGY_OUTPUT != AI_SUBJECTIVITY_EVIDENCE
++SUBJECTIVITY = NOT_ESTABLISHED
++CONSCIOUSNESS = NOT_ESTABLISHED
++CANONICAL_EFFECT = NONE
++DEPLOYMENT = FALSE
++ACTION_AUTHORITY = NONE
++```
++
++Personality synthesis, prediction, medical/financial decision support,
++compatibility judgments, progressions, returns, directions, and transits remain
++outside this deterministic completion profile.
++
++## Sources
++
++The pinned William Lilly transcription is the directly retained traditional
++cross-check for terms/faces/planetary joys. Project Gutenberg Ptolemy, the
++Dorotheus and Valens link registers, Sepharial, Alan Leo, Swiss Ephemeris, and
++JPL Horizons are all recorded with URL, byte count, SHA-256, retention policy,
++and acquisition status in `../sources/SOURCE_FETCH_MANIFEST.json`.
+diff --git a/examples/classical-western-astrology_v0.1.0/docs/SOURCE_REGISTER.json b/examples/classical-western-astrology_v0.1.0/docs/SOURCE_REGISTER.json
+index 14bffca74eccb032ba115f8a3eb8fdad1543e7ba..342630c8fddd39267d13522e3e65a73cc0dbaec4 100644
+--- a/examples/classical-western-astrology_v0.1.0/docs/SOURCE_REGISTER.json
++++ b/examples/classical-western-astrology_v0.1.0/docs/SOURCE_REGISTER.json
+@@ -2,2 +2,2 @@
+-  "register_version": "0.2.0",
+-  "accessed_on": "2026-08-30",
++  "register_version": "0.3.0",
++  "accessed_on": "2026-09-01",
+@@ -15 +15,2 @@
+-        "classical sign aspects"
++        "classical sign aspects",
++        "triplicity and terms source-family comparison"
+@@ -26 +27 @@
+-        "deferred triplicity-ruler provenance"
++        "day/night/participating triplicity profile provenance"
+@@ -37 +38 @@
+-        "place and timing techniques deferred from v0.1.0"
++        "cross-school provenance boundary"
+@@ -73,0 +75,23 @@
++    },
++    {
++      "source_id": "LILLY_CHRISTIAN_ASTROLOGY_1659",
++      "author": "William Lilly",
++      "work": "Christian Astrology, second edition",
++      "digital_witness": "Wikisource OCR/transcription pinned at revision 15666418; known OCR errors",
++      "url": "https://en.wikisource.org/w/index.php?title=Christian_Astrology&oldid=15666418",
++      "used_for": [
++        "triplicity/terms/faces table cross-check",
++        "planetary joys",
++        "traditional terminology"
++      ]
++    },
++    {
++      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910",
++      "author": "Alan Leo",
++      "work": "Astrology for All, fourth edition",
++      "digital_witness": "Casa Fernando Pessoa three-part scan; Public Domain Mark 1.0; hash-only",
++      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91",
++      "used_for": [
++        "early modern character-oriented astrology provenance",
++        "classical-versus-modern interpretive boundary"
++      ]
+diff --git a/examples/classical-western-astrology_v0.1.0/pyproject.toml b/examples/classical-western-astrology_v0.1.0/pyproject.toml
+index 1f6f56f6942974a2c2cb7ee2d627d9ed8e34050c..469bfc66880b32be7937d99f100d6cae85418baf 100644
+--- a/examples/classical-western-astrology_v0.1.0/pyproject.toml
++++ b/examples/classical-western-astrology_v0.1.0/pyproject.toml
+@@ -7,2 +7,2 @@ name = "aion-astra-classical-astrology"
+-version = "0.2.0"
+-description = "Offline deterministic classical-primary Western astrology with a labelled modern overlay"
++version = "0.3.0"
++description = "Offline deterministic classical-complete Western astrology with a labelled modern overlay"
+diff --git a/examples/classical-western-astrology_v0.1.0/sources/README.md b/examples/classical-western-astrology_v0.1.0/sources/README.md
+index d925c569761a2b9e588af859ee0ea312a366123d..52566d48803cdb44e10f8f384bde1c1205deb18f 100644
+--- a/examples/classical-western-astrology_v0.1.0/sources/README.md
++++ b/examples/classical-western-astrology_v0.1.0/sources/README.md
+@@ -6,0 +7,4 @@
++- `public-domain/wikisource-christian-astrology.txt` is the pinned revision
++  `15666418` of William Lilly's public-domain work with Wikisource's CC BY-SA
++  transcription layer. Its known OCR errors are explicit; it is a table and
++  terminology cross-check rather than a sole authority.
+@@ -10,4 +14,8 @@
+-Swiss Ephemeris documentation, JPL Horizons documentation, and Astrodienst
+-reference pages are link-and-hash records only. Their payloads are deliberately
+-not retained in this repository. No Swiss Ephemeris code/data dependency was
+-introduced.
++Dorotheus and Valens bibliographic/translation-link registers, Swiss Ephemeris
++documentation, JPL Horizons documentation, and Astrodienst reference pages are
++link-and-hash records only. No copyrighted Dorotheus/Valens translation and no
++Swiss Ephemeris code/data dependency was introduced.
++
++The three Alan Leo 1910 scan parts are identified by the source library with a
++Public Domain Mark 1.0. Each is downloaded and hashed, then discarded so that
++roughly 87 MB of scans are not added to the repository.
+diff --git a/examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json b/examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json
+index 201c72a7d557071aaa1f27889c849df1716ae6a2..1aca4d4852553238e4e4f712259e9b327e26bda5 100644
+--- a/examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json
++++ b/examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json
+@@ -3 +3 @@
+-  "generated_on": "2026-08-30",
++  "generated_on": "2026-09-01",
+@@ -6 +6 @@
+-  "source_count": 6,
++  "source_count": 12,
+@@ -18 +18,3 @@
+-      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt"
++      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt",
++      "repository_sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1",
++      "repository_bytes": 552667
+@@ -30 +32,83 @@
+-      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt"
++      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt",
++      "repository_sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6",
++      "repository_bytes": 235778
++    },
++    {
++      "source_id": "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE",
++      "url": "https://en.wikisource.org/w/index.php?title=Christian_Astrology&oldid=15666418&action=raw",
++      "license_or_terms": "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER",
++      "retention_policy": "VENDOR",
++      "note": "Pinned OCR/transcription witness with known errors; retained for table and terminology cross-checks, not as a sole authority.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 72519,
++      "sha256": "7344d1b1a531cf93875c6e20ca9440c680d8fbdab077c9bc052f87b9515e5e18",
++      "repository_normalization": "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1",
++      "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt",
++      "repository_sha256": "7a451d3ce48bb0a5b15de31393316bf053e88cf0655230af109a47e59d3c6d2d",
++      "repository_bytes": 72508
++    },
++    {
++      "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER",
++      "url": "https://www.attalus.org/info/dorotheus.html",
++      "license_or_terms": "COPYRIGHTED_TRANSLATION_LINK_REGISTER",
++      "retention_policy": "HASH_ONLY",
++      "note": "Source-family and translation-link register for day/night/participating triplicity provenance; no copyrighted translation is vendored.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 1787,
++      "sha256": "9f5f785277384a5e11a2ac02d9afc0ddc8ad79e48cc4089a31fb2058e276031b",
++      "repository_path": null,
++      "discarded_after_hash": true
++    },
++    {
++      "source_id": "VALENS_ANTHOLOGIES_REGISTER",
++      "url": "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius%20Valens",
++      "license_or_terms": "BIBLIOGRAPHIC_LINK_REGISTER",
++      "retention_policy": "HASH_ONLY",
++      "note": "Bibliographic/download register for the Hellenistic source family; no translation is vendored.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 5262,
++      "sha256": "644dd0ecc45403f514ab994b9a27e88e0cedf4b97e8ca67b9943a675712bdcc7",
++      "repository_path": null,
++      "discarded_after_hash": true
++    },
++    {
++      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1",
++      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0001_1-141_t24-C-R0072.pdf",
++      "license_or_terms": "PUBLIC_DOMAIN_MARK_1_0",
++      "retention_policy": "HASH_ONLY",
++      "note": "Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 31236193,
++      "sha256": "f217505040acc00e87c5bdd3a4cb0fa65eedc73258c714eee96632b6c1701d2b",
++      "repository_path": null,
++      "discarded_after_hash": true
++    },
++    {
++      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2",
++      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0002_142-278_t24-C-R0072.pdf",
++      "license_or_terms": "PUBLIC_DOMAIN_MARK_1_0",
++      "retention_policy": "HASH_ONLY",
++      "note": "Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 31098987,
++      "sha256": "a694733bfd6d7a7d8b87d578cd87d18857eb2b1c9c3fb9f1fcf74cef520fb4e6",
++      "repository_path": null,
++      "discarded_after_hash": true
++    },
++    {
++      "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3",
++      "url": "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0003_279-368_t24-C-R0072.pdf",
++      "license_or_terms": "PUBLIC_DOMAIN_MARK_1_0",
++      "retention_policy": "HASH_ONLY",
++      "note": "Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored.",
++      "download_status": "PASS",
++      "transport": "PYTHON_URLLIB_SYSTEM_TLS",
++      "bytes": 24371979,
++      "sha256": "9d1498356a67843d23b1324684da2bf4728337066108cd8a4e50bcb6f4df6d34",
++      "repository_path": null,
++      "discarded_after_hash": true
+diff --git a/examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt b/examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt
+new file mode 100644
+index 0000000000000000000000000000000000000000..949cd8c14677537580649bd8594c415cc6987e1d
+--- /dev/null
++++ b/examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt
+@@ -0,0 +1,2611 @@
++{{header
++  | title = Christian Astrology, vol. 1 and 2
++  | author = William Lilly (1602-1681)
++  | section =
++  | previous =
++  | next =
++  | notes = First published in London, 1659
++}}
++
++{{OCR-errors}}
++{{migrate to djvu|[[Index:Christian Astrology (Lilly, 1659).djvu]]}}
++__TOC__
++<pages index="Christian Astrology (Lilly, 1659).djvu" from=2 to=2/>
++{{page break|label=}}
++
++
++To The Student In ASTROLOGY
++
++My friend, whoever thou art, that with so much ease shalt receive the benefit of my hard studies, and doth intend to proceed in this heavenly knowledge of the stars, wherein the great and admirable works of the invisible and alglorious God are so manifestly apparent. In the first place, consider and admire thy Creator, and be thankful unto him, be thou humble, and let no natural knowledge, how profound and transcendent soever it be, elate thy minde to neglect that divine Providence, by whose all-seeing order and appointment, all things heavenly and earthly, have their constant motion, but the more thy knowledge is enlarged, the more do thou magnifie the power and wisdom of Almighty God, and strive to preserve thy self in his favour; being confident, the more holy thou art; and more neer to God, the purer Judgment thou shalt give. Beware of pride and self-conceit, and remember how that long ago, no irrational Creature obey him, so long as he was Master of his own Reason and Passions, or until he subjected his Will to the unreasonable part. But alas! when iniquity abounded, and man gave the reins to his own affection, and deserted reason, then every Beast, Creature and outward harmful thing, became rebellious and unserviceable to his command. Stand fast, oh man! to thy God, and assured Principles, then consider thy own nobleness, how all created things, both present and to come, were for thy sake created; nay, for thy sake God became Man: thou art that Creature, who being conversant with Christ, liveth and reignest above the heavens, and sits above all power and authority. How many Pre-eminences, Priviledges, Advantages hath God bestowed on thee? thou rangest above the heavens by Contemplation, conceivest the motion and magnitude of the stars; thou talkest with Angels, yea with God himself; thou has all Creatures within thy Dominion, and keepest the Devils in subjection: Do not then, for shame, deface thy Nature, or make thy self unworthy of such Gifts, or deprive thy self of that great Power, Glory and Blessedness God hath alotted thee, by casting from thee his fear, for possession of a few imperfect pleasures. Having considered thy God, and what thy self art, during they being Gods servant; now receive instruction how in thy practice I would have thee carry thy self. As thou daily conversest with the heavens, so instruct and form thy minde according to the image of Divinity; learn all the ornaments of Vertue, be sufficiently instructed therein; be humane, curteous, familiar to all, easie of access, afflict not the Miserable with terror of a harsh Judgment; in such cases, let them know their hard fate by degrees; direct them to call on God to divert his Judgments impending over them; be modest, conversant with the Learned, Civil, Sober man, covet not an cilate; give freely to the poor, both money and judgment: let no worldly wealth procure an Erroneous Judgment from thee, or such as may dishonour the Art, or this divine Science: Love good men, cherish those honest men that cordially Study this Art: Be sparing in delivering Judgment against the Common-wealth thou livest in. Give not judgment of the death of thy Prince; yet I know experimentally, that Reges Subjucent Legibus Stellarum marry a wife of thy own; rejoyce in the number of they friends, avoid law and controversie: in they Study, be Totus in Illis that thou maist be Singulus in Art; be not extravagant or desrious to learn every Science, be not Aliquid in Omnibus; be faithful, tenacious, betray on ones secrets, no no I charge thee never divulge either friend or enemies trust committed to thy faith. Instruct all men to Live well, be a good example thy self, avoid the fashion of the times, love thy own Native Country: exprobate no man, no not an enemy: be not dismayed, if ill spoken of, Conscientia Mille Testes; God suffers no sin unpunished, no lye unrevenged.
++
++B WILLIAM LILLY.
++
++To The Reader
++
++I have oft in my former Works hinted the many fears I had of that danger I was  naturally like to be in the year 1647, as any may read, either in my Epistle  before the Conjunction of Saturn and Jupiter, printed 1644. Or in page therof 108 as in the Epistle of Aglicus 1645, where you shall finde these words: I have run over more days then sixteen thousand five hundred fifty and nine, before I am sixteen thousand four hundred twenty two days old, I shall be in great hazard of my life, but that year which afflicts me will stagger a Monarch and Kingdom, &c.. What concerns my self, hath almost in full measure proved true, in 1647.  Having in this untoward year been molested with palpitation of the Heart, with Hypoconary melancholy, a disaffected Spleen, the Scurvy, etc. and now at this present viz. August 1647, when I had almost concluded this Treatise, I am shut up of the Plague, having the 4th of August buried one Servant thereof, and on the 28. Of the same moneth another, my self and remainder of my Family enforces to leave my present seat, and betake myself to change of ayre; so that if either my present Epistles, or the latter part of the Book it felt be anything defective, as well they may, being written when my family and self were in such abundent sorrow and perplexity; I desire the Reader to be civill, as to pass over those slight imperfections (if any be) with a candid censure.
++
++I thank Almighty God, who hath prolonged my life this present, and hath, been so gracious unto me as to spare me a long whereby have been enabled now at length to perfect my introduction so oft by me promised, so earnestly desired by many well-wishers unto this learning.
++
++The latter part of my predictions concerning Monarchy,is now upon the stage and the eyes of millions attending what shall become of it: let me leave the event hereof unto God, who is hastening to require a strict account of some people entrusted in the Kingdomes affairs; fiat Justicia; vivat Rex; floreat Parlimentum.
++
++The Citizens of London make small reckoning of Astrology; there are in one of those Epistles of mine, words significant, and of which time will make them sensible (that they were not wrote in vain but now too late, actum est. To the work in hand,viz.. the book ensuing, which is divided into three Treatises, the first whereof doth with much facility, and after a new method, instruct the Student how to begin his work, viz., viz, it teacheth him the use of an Ephemeris, of the Table of Houses, &c. it aquaints him how to erect a figure of heaven, how therein to place the Planets, how to rectifie their motions to the hour of his Figure; it unfolds the nature of the Houses, of the Planets, of the Signs of the Zodiack, their division, and subdivision, their severall properties, terms of Art, and whatever else is fit for Learner to know before he enter upon judgment; unto whom and everyone that will be studious this way, I give these cautions.
++
++First, that he be very exact in knowing the use of his Ephemeris, and in setting a Scheam of Heaven for all the house of the day or night, and in reducing the motions of the Planets to the hour thereof when need requireth, and to know their characters distinctly and readily.
++
++Secondly, I would have the Student very perfect in knowing the nature of the Houses, that he may the better discover from what house to require judgment upon the question propounded, left for want of true understanding he mistake one thing for another.
++
++Thirdly, I would have him ready in, and well to understand the Debilities and Fortitudes of every Planet, both Essentiall and Accidentall.
++
++Fourthly, he must be well versed in discovering the Nature of the Significator, what he signifies naturally, what accidentally, and how to vary signification, as necessity shall require.  Fifthly, let him well understand the nature of the Signs, their properties and qualities, and what form, shape and conclusions they give of themselves naturally, and what by the personall existence of a Planet in any of them.
++
++Sixthly, that he be ready in the, shape and description which every Planet designes, and how to vary their shape as they are posited in Sign and house, or aspected of the MOON or any other Planet.
++
++Seventhly, he must of t read the termes of Art, and have them fresh in his memory, and especially the twentieth and one and twentieth Chapters of the first Book.  If God Almighty shall preserve my life, I may therefore adde many things, and much light unto this Art, and therefore I desire the Students herein, that If they meet with any extraordinary casualty in their practice, they would communicate it unto me.  I have with all uprightness and sincerity of heart, plainly and honestly delivered the Art, and have omitted nothing willingly, which I esteemed convenient or fit, or what might any thing assist the young Students herein; I have refused the Methods of all former Authors, and framed this DE NOVO, which I have ever found so easie and successful, that as yet I never undertook the instruction of any, whom I have not abundantly satisfied, and made very capable of the Art, in less time than any could expect; for although I am not yet six and forty years of age compleat, and have studied this Science but since 1632. and have lived six years since that in the Country, yet I know I have made more Schollers in this Profession, than all that professe this Art in England. It remalnes, that I give every Author his due, and deale plainly, unto which of them I am engaged for such matter as they have assisted me with in the Introductory part: verily the Method is my own, it’s no translation; yet I have conferred my own notes with Darion, Bonatus, Ptolomey, Haly, Etzler, Dietericus, Naibod, Hasfurtus, Zael, Tanstettor, Agrippa, Ferriers, Duret, Maginius, Origanus, Argol.
++
++The second part of this Treatise judging of horary Questions, is very large, and far
++
++beyond my first intentions, hath exceeded its just proportion: In building this Work I advised
++
++with Bonatus, Haly, Dariot, Leupoldus, Pontarius, Avenezra,
++
++Zael: I examined the Manuscripts of Ancient and Reverend Professors in this Art, who
++
++lived more remote from these corrupt Times, (for unto the vulgar Professors now residing in
++
++this City, am I noways engaged;) and though it was not small trouble unto me, to see the
++
++discrepency of judgment amongst
++
++them and the more ancient printed Authors, yet I have with some trouble reconciled their disagreements, and reformed and corrected what might have led the Reader into an errour: for indeed the Writings of our Fore—fathers in the Language they did deliver their minds in, was sound and solid, but the simplicity of such as undertook their translations was much and did beget mistakes, whilest they endeavouring to translate the Authors into Latin, or any other Language they thought fit; did not understand the Art or the Termes thereof; so that of those their Labours; they rendered an ill accompt unto Posterity, as any may see in the translation of that we call the ‘Judicium’ in Novem Judiclis.,&c. and In other pieces of Alkindus, one whereof lately a learned Gentleman gave me, guilty of the same deficiency In the translation.  In this second Book I have omitted nothing which I could devise to be helpful, and if my own may of judicature please any, it being somewhat different from that of the Ancients, he may in many Chapters make use of it. I have illustrated every house with one or more figures, and therein shewed the method of judgment, which I held very convenient for Learners, it being my whole intention to advance this Art, and make even a slender wit capable hereof.  You may in the third Book behold the entire Art of Nativities, I have made it plain and significant: part of the Method, and much of the matter I had from Leovitius, who was the first that methodized the Art of Nativities, before his time extremealy defective in that point; where he was not copious, I supplyed my self, or enlarged from Origanus; Junctine, Pezelius, Naibod, Cardan, Garceus, Schonerus, Albubatur, Montulmo, Judeus, Ptolomey, Lindhold: Perhaps some will accuse me for dissenting from Ptolomey; I confesse I have done so, and that I am not the first, or shall I have done so, be the last; for I an more led by reason and experience, then by the single authority of any one man, &c. I have inserted many judgments of my own, I could have added many more: but who am I? being all errour, that I could have contradict the sayings of so many wise men, whose learnings and pains I so much esteem and reverence.  Little did I think this Work of Nativities would have swollen to so great a bulk; I assure you it exceeds my first intentions: the pains however hath been mine, and notwithstanding the importunities of some, and they not a few, who desired I should not deliver the Art in so plain and easie a method; yet I professe, their words rather invited me to discover all I knew, then to conceale one sillable material.
++
++Had I respected my own private lucre, I need not have wrote at all; who could have compelled me? my own fortune is competent: but this thing we call the publick good, was ever, and shall be my maxime to guide me in such like actions: how shall I myself expect truth in any Author, if I myself, being an Author, play the knave in the same kind: Quod non vis tibi, ne facias alteri.
++
++This Art of Astrology hath many more parts in it then at this present time I have handled, or indeed as yet have liesure to do; yet I know l.t will be expected I should have wrote of Elections, of the Effects of the greater and lesser Conjunctions of the Planets, of Eclipses, Comets, prodigious Apparitions, the variation and inclination of the Weather, Degeneralibus Accidentibus Mundi, and by the ingresse of the Sun into Aries, of every years particular Fate, of Monethly Observations, &c. Verily such things as these may justly be required at my hands; for unto God be the glory, they are all in a large measure known unto me, and I can perform them all, blessed be his name therefore: But as for Elections, me thinks he can be no ingenious Astrologian, that having studied or well entred into this my book shall not be able (ad libitum) to frame his own Figure of Elections, let the quere be what It will.
++
++He that shall read my Discourse upon the Conjunctions of Saturn and Jupiter, may make himself capable to write of the Major and Minor Conjunctions; I had no president for that, but wrought it out of the fire, at what time I had great leasure. I do write Annually of Eclipses, as they happen in the year, of prodigious Appearances twice I have Astrologically wrote, both times to good purpose, so did never any before that I read of.
++
++Of Commets I have had no occasion as yet, but somewhat I began in that Tract of the
++
++Conjunction of Saturn and Jupiter, wherein I a little treated of the Commet in 1618. Posterity
++
++may know by that little, what Method I hold fittest to be followed, in that kind of judgment. Of
++
++Weather, the knowledge thereof is so vulgar, yet withall the true Key so different, it requires a
++
++longtime of experience; and besides, Master Booker
++
++hath promised to undertake that burthen; and indeed, he is onely able of all the English Nation I know to perform it: I have great hopes of Master Vincent Wing, but he is yet more Mathematicall then Astrologicall; there may be many private men of great judgment therein, but its my unhappinesse I know them not.
++
++Annuall and Monthly Judgments I have not yet digested into a Method, I hope to live
++
++and perform it; I am the first of men that ever adventured upon Monthely Observations in such
++
++plain language, yet it is my harty desire to communicate hereafter what ever I know unto
++
++Posterity. Having been of late traduced by some halfwitted fools, I deliver myself to Posterity
++
++who I am, and of what profession; I was born at Diseworth in Leicestershire May 1602. in an
++
++obscure Village, and bred a Grammer Scholler at Ashby, and intended for Cambridge, &c. 1618
++
++and 1619: my Father decayed his Estate so much, that he was not capable of sending me thither;
++
++those two years I lived in some penury and discontent; in 1620. an Atturney sent me up unto
++
++London to wait on a Gentleman, one Gilbert Wright, who lived and dyed In the House I now live
++
++In; he never was of any profession, but had sometimes attended the Lord Chancellour Egerton,
++
++and then lived privately. 1624, his wife dyed of a Cancer In her left brest, 1625. I lived in London
++
++where I now do, during all that great sicknesse, God be praised I had it not. February 1626, my
++
++Master married again, he dyed May 22, 1627, having before settled twenty pounds per annum of
++
++me during my life, which to this day I thank God I enjoy; nor did I ever live so freely as when I
++
++was his servant. Ere the year 1627, was quite run out, my Mistris was pleased to accept of me for
++
++her husband. During some years of her life I passed my time privately and with much obscurity,
++
++yet we lived exceeding loving together; but In 1632, I was strangely affected to Astrology, and
++
++desirous to Study it, onely to see if there were any verity in it, there being at that time some
++
++Impostors, that set out Bils publiquely what they could do. I met with a Master I confesse, but
++
++such a one, as of all was the verriest Knave: This gave me small encouragement; after six
++
++weeks I cast him off, nor to this day do we converse together. I was then forced to study hard, for
++
++rather then to intangle
++
++myself with another coxcombe, I was resolved to lay all aside; but by diligence and hard study, and many times conference with some as ignorant as myself, I at last became capable of knowing truth from falshood, and perceived the vulgar Astrologer that meerly lived of the Art, was a Knave.
++
++In September 1633, my wife dyed, not knowing anyone in the world that had affinity unto her; she left me a competent fortune; and this I shall aquaint Posterity with, that having some Lands to dispose of, rather then she would suffer me to be at twenty Nobles charges to convey It unto me, she gave me the whole money, and sold it for 200 pounds.
++
++In November 1634, I married again. In 1635, I was oppressed with the
++
++Hypocondryack Melancholly so sorely, that I was enforced to leave London, and removed into Surrey 1636, where until September 1641, I lived amongst such whom I may name the most rurall of all men living. I then came for London, staggering In my judgment in point of Churchgovernment; and knowing that it Is necessary, I ever loved Monarchy, but still thought without a Parliment preserved in their just rights, it would vanish to nothing. I was nothing known then, or taken notice of by any; time produced me acquaintance, and amongst these a good Lady in 1643, about February, desired I would give judgment upon a most noble Gentlemans Urine a Councellor at Law, who then was not well; I consented, the Urine was brought, my judgment returned; I visited him, whom I no sooner beheld, but I knew there was aboundance of gallantry in the man; for indeed he is all Gentleman and a friend in very great earnest; my visit of him was the happiest day I ever saw in my whole life; for by his alone generosity and countenance, I am what I am, and Astrology is in despight of her enemies restored, and must call him her Restaurator.
++
++Being by his goodness admitted to visit him, I presented him with a small Manuscript of my Astrologicall Judgment of the yeer 1644, wherein I was free in delivering my opinion modestly of that yeers affaires: it pleased him to communicate it, copies were obtained and dispersed; so that by his alone commendation of that poor Manuscript unto his private friends, this noble Art at first had respect amongst our Worthies in the Parliment; since which time, the Judicious of the whole Kingdom had it in a better esteem; therefore let his name live unto Posterity In an honorable esteem, that upon so slender acquaintance with the Author, with the Art, hath been so advantagious unto both.
++
++The Errataes perhaps are many, I desire the Student to correct them before he enter upon the Discourse; I wish they were lesse; but in a work of this nature, it’s Impossible.  All the Curtesies which either the Authors precedent to this Age, or at present living, have afforded me, I verily believe I have mentioned: I am heartily sorry if I have committed any errours, or ommitted any corrections.
++
++Corner house over against
++
++Strand—bridge, August
++
++
++
++21, 1647.
++
++WILLIAM LILLY.
++
++
++
++To his honored Friend the AUTHOR.
++
++What ! Persian, Caldee, Arabick, the Greek,
++
++Latin Astrologers, all taught to speak
++
++In English ! Trismegiscus, Hercules,
++
++Pythagoras, Thales, Archimedes,
++
++Great Ptolomy, and Julius Firmicus,
++
++Albumazar, and Albategnius,
++
++Hali, Bonatus, our own Eschuidus,
++
++And Iohn de Regiomonte, Ganivetus,
++
++Risse, Leovitius, Michael Nostradame,
++
++Cardan, and Nabod, Ticho, men of fame;
++
++All these, and more, are dead, all learned Men;
++
++Were they alive, they might come learn again.
++
++But are they dead? Behold Astrology,
++
++Now Pha’nix like, reviv’d again in thee I
++
++Questions resolv’d, Nativities, Directions,
++
++Transites, with Revolutions and Protections;
++
++Saturn must lay his sullen prankes aside,
++
++And Mars his madness, lest he be decride;
++
++Venus her lusts; his thefts must Mercury;
++
++Sol his ambition; Love his jollity:
++
++Luna her fickle and unconstant motion,
++
++Is now notorious to each vulgar notion.
++
++Aske what you will, Would you resolved be?
++
++Observe your time, learn your Nativity:
++
++Were Picus, Chambers, Perkins, Melton, Geree,
++
++Vicars, to write again, all men would jeer yee.
++
++You durst not let us know when you were born,
++
++Your ignorance Is brought to publick scorn:
++
++Our Latin Lilly is for Boyes are young;
++
++Our English Lilly is for Men more strong.
++
++The Sybils Books were burnt, they are all gone;
++
++I will preserve my choyce, This is that one:
++
++Be you for or against, or will ye, nill ye;
++
++I’m for the Art, and th’ Author William Lilly.
++
++John Booker.
++
++
++
++UPON THE LEARNED WORK OF THE AUTHOR.
++
++Behold Urania with a Lilly deckt,
++
++Presents her self to Englands gracious view.
++
++Let Envies square, or opposite aspect
++
++Not dare at her a frowning look to shew;
++
++Let it be said, for such ungratefull scornes,
++
++A Lilly late hath sprung among the thornes.
++
++
++
++WILL. ROE.
++
++-----------------------------------------------------------------------------------------------
++
++
++
++TO THE READER OF CHRISTIAN ASTROLOGY.
++
++W onder you may ! the volumes of the Skye
++
++I n our own Characters you here decry.
++
++L una and Hermes, Venus and the great
++
++L ight of the World, and Mars in English treat
++
++I ove and old Saturn; they their influence send;
++
++A nd their Conjunctions in our Tongue are penn’d
++
++M ay not Apollo then, the sacred Bayes
++
++L et fall upon his head, who casts their Rayes
++
++I nto the language of our Albion quill?
++
++L oe! he hath taught great Ptolom’s secret skill.
++
++L earning, that once in brazen piles did stand,
++
++Y ou now may see is Printed in our Land.
++
++R. L. in Med. Studens & Philo—Mathemat.
++
++ON THIS UNPARALELL’D PEECE OF ART.
++
++Not to commend the Author, ‘tis the least
++
++Of all my thoughts, this Work will do it best;
++
++Nor yet to vex the prying Readers fence
++
++With bumbast words instead of Eloquence,
++
++Do I crowd in these rude unpolisht lines:
++
++But rather to inform the giddy times
++
++How much they are his Debtors; what they owe
++
++To him, whose Labours freely doth bestow
++
++On them his Art, his paines, his poercing sight,
++
++His lampe of life, to give their darknese light.
++
++‘Tis now a crime, and quite grown out of fashion,
++
++T’incourage Art amongst the English Nation.
++
++Tell them of it, or Natures mysteries,
++
++Tush, cry they: Ignorance they idolize.
++
++The glorious Stars, they think God doth not use them
++
++To do his will: Lord ! how do men abuse them?
++
++Nor will allow the Planets to fulfill
++
++(As instruments) Gods high decree or will.
++
++Nay, some there are, though letter wise, they can
++
++Not yet beleeve that all was made for Man.
++
++Barke black—mouth’d Envy; carpe at what’s well done,
++
++This Book shall be my choyce companion.
++
++W.W.
++
++UPON THIS WORK.
++
++The Author’s God, Composer and the Setter
++
++Of all his works, and therein every letter.
++
++Heaven is his Book; the Stars both great and small
++
++Are letters Nonperill and Capitall
++
++Disperst throughout; therein our learnings dull,
++
++In this thy Work it is compleat and full:
++
++Could man compose or set Heavens letters right
++
++He would, like Printing, bring to publick sight
++
++All what was done, nay what was thought upon;
++
++For by this way, I see it may be done.
++
++I. P.
++
++THE CONTENTS OF THE THREE BOOKS.
++
++The First Book.
++
++Page #
++
++
++
++25 . . . . . . . . . The number of Planets, Signes, Aspects, with their severall names and characters.
++
++27 . . . . . . . . . Of the use of the Ephemeris.
++
++30 . . . . . . . . . The right hand page of the Ephemeris unfolded.
++
++33 . . . . . . . . . How to erect a figure of Heaven by the Ephemeris and Table of Houses aforesaid.
++
++42 . . . . . . . . . Of the daily motion of the Planets, and how to reduce their motion to any hour of the day, and to the Meridian or London.
++
++44 . . . . . . . . . How to finde the quantity of the hourly motion of any Planet by the Table following.
++
++47 . . . . . . . . . Of the twelve houses of Heaven, and some names or termes of Astrologie.
++
++50 . . . . . . . . . Of the twelve houses of heaven their nature and
++
++significations.
++
++57 . . . . . . . . . Of the Planet Saturn, and his significations.
++
++61 . . . . . . . . . Of the Planet Jupiter, and his significations.
++
++65 . . . . . . . . . Of the Planet Mars, and his severall significations.
++
++69 . . . . . . . . . Of the Sun, his generall and particular significations.
++
++72 . . . . . . . . . Of the Planet Venus, and her severall significations and nature.
++
++76. . . . . . . . . Of Mercury, his significations, nature and property.
++
++80 . . . . . . . . . Of the Moon, her properties and significations,
++
++84 . . . . . . . . .Another brief description of the shapes and formes of the Planets.
++
++86 . . . . . . . . . Of the twelve Signes of the Zodiack and their manifold divisions.  93 . . . . . . . . .The Nature, Place, Countries, generall description and Diseases signified by the twelve houses.
++
++100 . . . . . . . . . Teaching what use may be made of the former discourse of the twelve Signes.
++
++101 . . . . . . . . .Of Essentiall Dignities of the Planets.
++
++104 . . . . . . . . . A Table of the Essentiall Dignities of the Planets.
++
++105. . . . . . . . . Of severall Termes, Aspects, words of Art, Accidents belonging to the Planets, with other necessary rules.
++
++108. . . . . . . . . A Table of the aspects of the Signes amongst one another.
++
++115. . . . . . . . . A ready Table whereby to examine the Fortitudes and Debilities of the Planets.
++
++116. . . . . . . . . A Table shewing the masculine and feminine degrees of every Sign.
++
++119 . . . . . . . . . A Table shewing what members in mans body every Planet signifieth in any of the twelve Signes.
++
++121 . . . . . . . . . Considerations before judgment.
++
++123 . . . . . . . . . What Significator, Querent and Quesited are: An Introduction to judgment.
++
++124 . . . . . . . . . To know whether a thing demanded will come to passe yea or not.
++
++THE CONTENTS OF THE SECOND BOOK, CONTAINING THE
++
++RESOLUTION OF QUESTIONS.
++
++Questions concerning the First House.
++
++Page #
++
++
++
++129.......If the Querent is likely to live long yea or not. Signes of health or long life.
++
++130.......The time when any accident shall happen.
++
++132. To what part of heaven it’s best the Querent direct his affai res.
++
++134.......What part of his life is like to be best.
++
++135.......An Astrologicall figure judging the former Demands.
++
++143. .Of the Part of Fortune, and how to take It either by day or night.
++
++145.......How to examine its fortitudes.
++
++147.......If one shall finde the party at home one would speak w I th.
++
++148.......Of a thing suddenly happening, whether It signifie good or ill.
++
++What marke, mole or scar the Querent hath.
++
++151.......Whether one absent be dead or alive.
++
++152...... ..An Astrologicall figure explaining the aforesaid demands.
++
++153.......A Woman whether her Son were with his Master or not.
++
++157.......Of a Ship at Sea, her safety or destruction.
++
++162.......Example of a ship at sea upon a figure judged.
++
++165.......Example of another ship.
++
++166.......The time of receiving any Question.
++
++Judgments concerning the Second House.
++
++viz of Riches.
++
++
++
++167.......Whether the Querent shall be rich.
++
++168 By what means attain Riches.
++
++172.......The reason or cause why the Querent may not attain a fortune.
++
++173.......If the Querent shall obtain the substance he hath lent.
++
++174.......If one shall acquire his wages or suspend owing him.
++
++175.......Of the time when the accidents treated of may happen.
++
++177.......A Figure resolving the doubts and demands aforesaid.
++
++184.......Of that Planet or Planets Impediting the effecting or performance of what is demanded in every Question.
++
++186.......If the Querent shall continue rich.
++
++Of the Third House. Viz of Brethren. Sisters.
++
++Kindred. Short Journeys.
++
++Page #
++
++
++
++188.......If the Querent and his brother, Neighbor or sister shall agree.
++
++189....... Of a Brother that is absent.
++
++192.......Of Reports, Intelligence or Fears, If true or false, or signifie good or evil.
++
++193.......If Rumours be true or false.
++
++194.......Of councell or advice, whether good or evil.
++
++195.......Whether the Querent have brethern of sisters. Of a short journey, if good to go; which way.
++
++196....... .An Astrologicall figure of an absent brother.
++
++200.......If Cambridge was taken or no.
++
++Of the Fourth house. viz. gf Parents. Lands.
++
++Tenements. Cities. Townes.
++
++
++
++202.......To find a thing hid or mislaid.
++
++203.......What part of the house or ground.
++
++204.......Of buying and selling Lands, Houses, Farmes, &c.
++
++205.......Of the goodnesse or badnesse of the Land or House.
++
++206.......Quality of the ground.
++
++Tenants good or ill.
++
++If wood on the ground.
++
++
++
++208.......If good to hire or take the Farm or house desired.
++
++210.......If the Querent shall enjoy the Estate of his Father.
++
++212.......If good to remove from one house to another.
++
++214.......Of turning the course of Rivers, &c.
++
++215.......Of Treasure hid in the ground.
++
++217.......If the Querent shall obtain it.
++
++219.......If the Author should purchase some Houses, an Astrological Figure thereof.
++
++Of the Fifth House. and its Questions.
++
++222.......If one shall have children.
++
++223.......If a woman ask whether she may conceive.
++
++224.......Whether the Querent shall have children, be he man or woman that asketh.
++
++225.......If a man shall have children by his Wife, yea or no, or of any other Woman whom he nominates.
++
++226.......Whether she is with child or not.
++
++228.......If the man ask unknown to the Woman.
++
++Other Judgments
++
++Page #
++
++
++
++229.......Whether a Woman be with child or not.
++
++230.......If a Woman do conceive with child of more then one. If male or female.
++
++231.......How long the Woman hath been conceived. Of the time when the birth will be.
++
++232.......Whether the birth shall be by day or night.
++
++234.......Whether unity is like to be between the Infant and Parents.
++
++235.......Of Embassadours and Messengers.
++
++236.......Of a Messenger sent forth upon any errand.
++
++238.......If the Querent shall ecer have children, a figure judged thereof.
++
++240.......If one were with child of a male or female; what time she should be delivered, a figure thereupon judged.
++
++Of the Sixth House, and its Questions, viz. of Sickness.
++
++Servants, small Cattle.
++
++243.......Judgment of sickness by Astrologie. What part of the body afflicted.
++
++244.......From what cause the sickness is.
++
++245.......Diseases signified by the Houses.
++
++Diseases signified by the Signs.
++
++
++
++246.......Diseases of the Planets.
++
++247.......Whether the disease will be long or short.
++
++248.......Signes of a long or short sickness.
++
++253.......Testimonies that the Querent shall live and not dye of the Infirmity now afflicting.
++
++255....... Arguments of death.
++
++258. .......D riot abridged.
++
++259.......If the party be sick of whom the question is demanded. Cause of the Disease, inward or outward.
++
++261 .......Of the quality and nature of the Disease.
++
++263 .......Whether the Disease be in the right or left side.
++
++264.......Whether the Disease be In the body, minde, or both.
++
++266.......Of the Crysis, or dayes criticall.
++
++267.......How long ere the sick recover.
++
++268.......Hermes Trimegistus upon the Decumbiture of the Sick.
++
++273-218...Of the Signs and conjectures of the Disease, and of
++
++life and death by the good or ill disposition of the
++
++MOON at the time of the Patients first lying down.
++
++
++
++282.......Astrologlcall Aphorismes judging of sickness.
++
++286.......A Figure of a sick Doctor, if curable.
++
++289.......A Figure set to know whether the sick would live or
++
++dye.
++
++
++
++290.......Of the Crysis in Diseases.
++
++294....... A Table shewing how to set a figure in sickness of
++
++sixteen sides.
++
++
++
++296....... If a Servant shall get free from his Master.
++
++Significations of the Seventh House. viz. of Marriage.
++
++Enemies. Law-suits. Contracts. Wars. Fugitives. Thefts.
++
++Page #
++
++
++
++298....…Aphorismes considerable before judgment.
++
++302....…Of Marriage.
++
++303....…More Aphorismes of Marriage by Alkindus.
++
++Of Marriage whether it shall take effect or not.
++
++
++
++304...….Of Marriage.
++
++305....…What shall be the occasion hindring the Marriage.
++
++Which love or desire is most.
++
++
++
++307....…Whether a man shall Marry.
++
++The time of Marriage.
++
++How many Husbands a Woman shall have.
++
++
++
++308.......From what part one shall Marry.
++
++What manner of person he or she is.
++
++Whether a man or woman be more noble.
++
++Who shall be master of the two.
++
++
++
++309.......Whether she be rich or not.
++
++Whether the Marriage be legitimate.
++
++How they shall agree after Marriage.
++
++Disagree.
++
++
++
++310....…Who shall be cause of their strife.
++
++That the Marriage shall be broken, and the cause thereof.
++
++
++
++311.......Whether a man or his Wife shall dye first. Which of the two shall live longest.
++
++312.......Whether she be a Maid, or chaste.
++
++Whether a Damosell be a Maid or not.
++
++
++
++313.......Whether a woman be honest to her Husband or not.
++
++Of a Woman whether she hath a Lover besides her Husband. .
++
++
++
++314....…Whether a Woman is honest.
++
++Whether a woman trades with any but her husband.
++
++
++
++316....…If ones Sweet-heart have a Lover besides himself. Hath she a Lover.
++
++317.......If a Marriage shall be perfected or not.
++
++318.......Whether the child conceived is the Son of the reputed Father.  Whether a woman living from her husband, shall be received into favor, or live with him again.
++
++319.......Of Servants fled, Beasts strayed, and things lost.
++
++320....…The place where the thing is that is lost.
++
++321....…How the Goods were lost.
++
++Whether the cattle be stolen or not.
++
++Whether the thing missing fled of it self.
++
++
++
++323.......Of Beasts strayed, or fugitives
++
++324....…Of Beasts or strayes.
++
++325....…That the beasts are lost.
++
++Dead or alive.
++
++In pound or not.
++
++The cattle shall be found again.
++
++
++
++326....…How far off a thing lost is from the Owner.
++
++Beasts stolen or strayed, in what place which way.
++
++Page#
++
++
++
++327.......In what ground.
++
++The cattle shall to pound and be long in pound. 328.......Escape the pound.
++
++Whether the fugitive shall be taken.
++
++Of MOON in questions of fugitives.
++
++329.......Whether he shall be taken.
++
++If a Fugitive shall be found or come again.
++
++
++
++330.......Distance of the Fugitive.
++
++A Woman flying from her Husband.
++
++Of a thief and theft.
++
++
++
++331.......Of the Significator of the Thief.
++
++The significator of the thing stolen.
++
++
++
++332....…Approved judgments of Theft.
++
++334.......Whether it be stolen or no.
++
++335........The Goods are stolen.
++
++Not stolen.
++
++It will be, or is intended to be stolen.
++
++It’s lost or stolen. .
++
++
++
++336.......Age of the Thief.
++
++337.......Of the same.
++
++338.......Whether the Thief be nam or woman.
++
++339.......If one thief or more. Of the cloaths of the Thief.
++
++340.......Names of Theeves or men according to Astrologie.
++
++342.......Whether the Thief be of the house or not. Stranger or familiar.
++
++343.......Rules by the Lord of the Seventh house.
++
++344.......Whether the Thief be in the Town or not.
++
++345.......Distance between the Owner and the Thief. Where the thief is.
++
++346.......Towards what part the thief is gone.
++
++347.......Of the house of the Thief, and marks thereof.
++
++348.......Tokens of the Thlefs house.
++
++349.......The Goods in the Owners hands.
++
++Whether the Goods be in the custody of the Thief.
++
++
++
++350.......If he carried all with him.
++
++Distance of the thing from the Owner.
++
++
++
++351.......Place where the Goods stolen are.
++
++353.......Lost or stolen, in what part of the house. The form or likeness of the entring of the house.
++
++354.......What is stolen by the Lord of the Second or Tenth house.
++
++The quality of the Goods stolen.
++
++355.......Sign of Recovery.
++
++If it shall be recovered.
++
++
++
++356.......In what time It shall be recovered. Asphorisms concerning Recovery.
++
++358.......The discovery of the Thief, and recovery of the Goods.
++
++359.......Of Theft.
++
++366.......Whether the Thief shall be known or not. Whether the Thief be suspected of the Owner or not. Who did the deed or fact.
++
++Page #
++
++360.......Whether it be the first fact the Thief did. Lillie’s experimental Rules of Theft.
++
++361.......Of Battle, War, or other contentions.
++
++367.......If one shall return safe from War, or a dangerous Voyage.
++
++368.......What will ensue of the War.
++
++369.......Who shall do best in a Law-suit.
++
++Of Partnership betwixt two, If it shall be, and who shall do best.
++
++370.......Of familiarity betwixt Neighbour and Neighbour. Of removing from place to place.
++
++371.......If good to remove or stay in any Town or City. Of Hunting.
++
++372.......Of a Law—suit or controversie betwixt two, who should do best.
++
++376.......Of Buying and Selling Commodities.
++
++377.......Of Partnership.
++
++379.......Whether a city, Town or Castle beseiged shall be taken.
++
++380.......Of Commanders in Armies, their abilities, fidelity, &c.
++
++383.......If two Armies shall fight.
++
++If the Querent have open enemies.
++
++
++
++385.......A Figure to know if a Lady should marry the party desired.
++
++389.......A second figure If the woman should marry the man beloved.
++
++390.......A figure for a fugitive servant.
++
++392.......A figure for a Dog missing.
++
++395.......Money lost, who stole it, a figure thereupon.
++
++397.......Fish stolen, a figure for it.
++
++399.......A figure to know If Sir William Waller and Sir Ralph Hopton were engaged.
++
++401.......A figure to know if the Earle of Essex should take Reading.
++
++Of the Eighth House. viz.
++
++Death, Dowrev. &c.
++
++404.......If the absent party be alive or dead.
++
++406.......Whether one absent will return.
++
++407.......The time when he will return.
++
++408.......Of the death of the Querent, or space of his own life.
++
++409.......When or about what time the Querent may dye.
++
++411.......Whether the Man or Wife shall dye first.
++
++412.......What manner of death the Querent shall dye.
++
++Whether the portion of the wife will be great, or easily obtained, or if the woman will be rich.
++
++414.......If one be afraid of a thing, whether he shall be in danger thereof or not.
++
++415.......A figure to know whether man or woman shall dye first.
++
++417.......A figure of a womans to know if her husband at Sea were alive or dead.
++
++Page #
++
++419.......A figure to know what manner of death Canterbury should dye.
++
++421.......A figure to know If the Querent should have the Portion promised.
++
++Of the Ninth House, viz. Long Journeys,
++
++Religion, Dreams.
++
++
++
++422.......Of a voyage by Sea, and successe thereof.
++
++423.......What wind he will have.
++
++Of him that taketh a journey.
++
++
++
++424.......Of the short or slow return of him that taketh a journey.
++
++425.......When he shall return that is gone a long journey.
++
++428.......The cause of a Journey, and successe thereof. Successe and length thereof.
++
++429.......If one shall profit by his knowledge, &c. in Chymistry or Chyrurgery.
++
++431.......Of ones Science or wisdom whether it be true.
++
++Of many persons travelling, in what condition they are.
++
++
++
++432.......To what part of Heaven the Traveller had best direct
++
++his Journey.
++
++If the person shall obtain a good Benefice.
++
++
++
++434.......Of Dreams whether they signifie anything or not.
++
++436.......A figure adjusted concerning Dreams.
++
++437.......A figure to know If one should obtain a Parsonage.
++
++439.......A figure erected to know if Presbytery shall stand.
++
++442.......A figure to know If the Querent should obtain the Phy 1 osophers Stone.
++
++Of the Tenth House. viz. of Government. Dignitv,
++
++Office, Command.
++
++
++
++444.......If the Querent shall obtain the Office desired or not.
++
++447.......If one shall continue in the Command or Office he is In.
++
++448.......Whether a King expulsed his Kingdom, or an Officer removed from his Office, shall return to the Kingdom or Office, or not.
++
++450.......Of the Profession or Trade any one is capable of.
++
++452.......If Prince Rupert should get honour by our wars, a figure thereof.
++
++453.......If he should worst the E. of Essex.
++
++454......What should become of him.
++
++Page #
++
++
++
++445.......If his Majesty should procure Forces out of Ireland to harm the Parliment, a figure thereupon, and judgment delivered.
++
++If the Queen then in the North, would advance with her Army; if she would prosper; when she and his Majesty would meet.
++
++456.......If attain the Preferment desired.
++
++Eleventh House, Viz. House of Friends, Hope,
++
++Substance of Kings.
++
++
++
++457.......Of good or ill in questions concerning this house.
++
++458.......If a Man shall have the Thing hoped for.
++
++459.......Of the agreeing of Friends. Of love betwixt two.
++
++Of the Twelfth House, viz. Imprisonment, Great Cattle,Whitcherv, Private Enemies, Labour, Banished Men.
++
++460.......Of secret enemies not named.
++
++To know who a secret enemy is.
++
++
++
++461.......Whether any man committed to prison shall soon be delivered.
++
++462.......Of the imprisoned.
++
++463.......If a question be asked for a Captive or Prisoner. Of a Captive or Slave.
++
++464.......If one be bewitched or not.
++
++465......Naturall Remedies against witchcraft.
++
++467.......A figure for a Horse lost.
++
++468.......A figure to know if one were Bewitched.
++
++470.......A figure of a Prisoner escaped out of Prison.
++
++471.......A Lady of her husband in prison, a figure of it.
++
++473.......A figure upon the Earle of Essex his last going into the west.
++
++474.......A Table of the Planetary hour.
++
++482.......To finde out what Planet ruleth any hour of the day or night.
++
++THE CONTENTS OF THE THIRD BOOK.
++
++Page #
++
++489.......A Table converting hours and minutes of time into degrees and minutes of the Equator.
++
++492........A Table of right ascentlons.
++
++494.......A Table of oblique ascentions for the latitude of 34 degrees.
++
++495.......A Table of oblique ascentions for the latitude of 49 degrees.
++
++498.......A Table of oblique ascentions for the latitude of 53 degrees.
++
++500.......Divers ways of rectifying Nativities.
++
++502.......Correction of an estimate figure by Trutine of Hermes.
++
++505.......Rectification of a Nativity by Animodar.
++
++507.......Rectification by Accidents, the way to frame an Astrological 1 Speculuna.
++
++509.......A Speculum of a Nativity.
++
++512.......Characters of the new aspects, the number of the degrees of the aspect.
++
++519.......Erection of a Scheam by Regiomontanus.
++
++524.......Things considerable before judgment given upon a
++
++Nativity.
++
++525.......Of the Space of life, whether the Native shall live
++
++long or not.
++
++527.......Of Hylech or Aphaeta, and the Intersicient Planet.
++
++531.......Of the Lord of the Geniture.
++
++532.......Of the Complexion, temperment of the body, quality of Planets and Signes.
++
++534.......Manners of the Native.
++
++539.......Quality of manners discernable from the Planets.
++
++543.......Of the understanding of the Native.
++
++446.......Of the Stature, shape and form of body.
++
++547.......Nature of the Signes, colour of the Face and Hair.
++
++549.......Of the grossenesse or leannesse of bodies.
++
++551.......Of the generall fortune or misery of the Native.
++
++Of the Second House, viz. of Riches,
++
++Or the goods of Fortune
++
++553.......Whether the Native shall be rich.
++
++554.......By what meanes the Native shall attain wealth.
++
++561.......If the Native shall attain his Estate by just or indirect dealing.
++
++562.......If the Estate of the Native shall be durable.
++
++Judgments upon the Third House.
++
++Page #
++
++564.......Of Kindred, Brethren, Sisters.
++
++If have Brethren, Sisters.
++
++566.......Fortune & condition of Brethren.
++
++567.......Of the unity or concord betwixt the Native and his Brethren.
++
++568.......Number of Brethren.
++
++Judgments upon the Fourth House.  concerning Parents, &c.
++
++569.......Of the Father.
++
++570.......Of the Mother.
++
++572.......If the Mother had difficult labour at the Native’s Birth.
++
++If the Native shall enjoy the Estate of his Father.
++
++573.......Of the mutuall agreement of Parents.
++
++574.......Of the Parents mutuall love to the Native.
++
++575.......Significatlons of great fortune out of Mines.
++
++Of. the Sixth House, viz. of Infirmities.
++
++576.......Of the infirmities of Bodies.
++
++577.......Aphorismes useful for this house.
++
++578.......Kinds and qualities of Diseases, how discoverable from the Planets and Signes.
++
++581.......Of weaknesse In the Sight, or casualties portended to the eyes.
++
++582.......Defects in the Eyes.
++
++Impediments in the Tongue.
++
++583.......Of the Tooth-ach.
++
++Of the falling Sicknesse.
++
++584.......Of the Stone.
++
++585.......Of the Gout.
++
++Of violent Falls.
++
++Whether the Diseases of the Native are curable or not.
++
++586.......Of Servants and small Cattle.
++
++Of the Seventh House.
++
++586.......Of mens Marriages.
++
++Whether the Native shall marry or not.
++
++588.......Signes of Marriage.
++
++589.......Whether the Native shall obtain his wife with ease or much difficulty.
++
++The time of Marriage.
++
++590.......Of the number of wives.
++
++Page #
++
++592.......From whence, or what quarter the Native shall marry.
++
++593.......What manner of wife or wives the Native shall have.
++
++595.......Aphorlsmes concerning the positure of Venus.
++
++597.......Of the mutual love and concord betwixt man and wife.
++
++599.......Whether the Native or his wife shall dye first.
++
++600.......Of the Marriage of women. If the woman shall marry.
++
++601.......If with difficulty; when; from whence; what manner of man.
++
++602.......If rich; if agree.
++
++The Fifth House.
++
++602.......Of Children.
++
++603.......Aphorisms concerning this house.
++
++604.......How many children the Native may have.
++
++605.......Whether male or female. Aphorisms of Albubater.
++
++Judgments upon the Ninth House, viz.  of Journeys and Religion.
++
++606.......Whether the Native shall travell or not.
++
++607.......To what part of the World the Native shall travell.
++
++608.......Whether travel by land or water.
++
++609.......The cause of travell. Haly his Aphorismes.
++
++610.......Of successe in travell.
++
++611.......What Region or Country will be best to travell into.
++
++The Religion of the Native.
++
++612.......Aphorisms belonging thereunto
++
++913.......Of Dreams.
++
++Of the Tenth House.
++
++615.......Of the Honour or Dignity of the Native. Whether the Native shall have Preferment or not.
++
++617.......Rules from the two Luminaries.
++
++618.......Aphorismes from the Sun.
++
++619.......Concerning the Moon. Of the Midheaven.
++
++620.......Of the Ascendant.
++
++Of the Fixed Stars.
++
++621.......What manner of Preferment, its quality.
++
++622.......If the Dignity or Honour shall continue.
++
++623.......Special Aphorismes concerning that judgment.
++
++624.......Of the Profession of the Native.
++
++626.......Experimented Aphorismes concerning the Natives Profession.
++
++Page #
++
++627.......Of Mercury when Lord of the Profession. When joyned with others.
++
++628.......Of Venus when alone signifies the Profession. When mixed with others.
++
++629.......Of Mars when significator of the Profession.
++
++When mixed with others.
++
++630.......Of Mercury and Venus when commixed. Of Venus with Mars.
++
++631.......Of Mars and Venus when Significators of Art.
++
++With what successe the Native shall handle it.
++
++633.......Quality of the Profession.
++
++Judgments belonging to the Eleventh House.
++
++634.......Of Friends.
++
++635.......Speciall rules concerning that house.
++
++636.......Quality of Friends.
++
++Constancy of Friends.
++
++637.......Whether there may be untly or concord betwixt two.
++
++639.......Whether of the Friends is more sincere.
++
++Of the Twelfth House.
++
++639.......Of enemies.
++
++640.......What manner of enemies, their quality.
++
++641.......If the Native shall overcome his enemies.
++
++642.......Whose friendship the Native shall most avoid.
++
++Of Captivity or Imprisonment.
++
++644.......Of death, arguments of a violent death.
++
++645.......The kinds of a violent death.
++
++646.......From the Sign, from the House the quality of a violent death.
++
++647.......From Saturn and Mars.
++
++648.......From the Lord of the Ascendant and Fixed Stars.
++
++The Effects of Directions.
++
++654...... .Directions wherefore.
++
++652.......Effects of Directions.
++
++653.......What places of Heaven, what Planets Directed, and for what.
++
++654.......How long the effects of a Direction last.
++
++656.......The Ascendant its signification, when directed to the body, term or aspect of Saturn.
++
++657.......The Ascendant directed to the Terms, body or aspect of Jupiter.
++
++659.......To the body, Terms or other aspect of Mars.
++
++660.......To the body or other aspect of Sun.
++
++661.......To the body, Term or aspect of Venus.
++
++Page #
++
++662.......To the body, Term or any aspect of Mercury.
++
++663.......To the Conjunction, Sextile, Trine, Square or Opposition of Moon.
++
++665.......To the North Node, South Node or to Part of Fortune, or cusp of the 2nd, 3rd or
++
++
++
++4th house.
++
++666-667..To severall Fixed Stars.
++
++668.......Mid-heaven directed to Promittors, and the reason why
++
++directed.
++
++669.......To the body of Saturn, or his Term, aspect.
++
++To the body, Term or rayes of Jupiter.
++
++671.......To the body, Term or severall aspects of Mars.
++
++672.......To the Aspect or Conjunction of Sun.
++
++673.......To the body, Term, &c. of Venus.
++
++674.......To the severall aspects or Terms of Mercury.
++
++675.......To the body of Moon or her aspects.
++
++676.......M.C. to the 11th or 12th house.
++
++M.C. to severall fixed stars.
++
++679.......The Sun directed to Promittors, and wherefore.
++
++680.......To the body or aspects of Saturn.
++
++681.......To the aspects or body of Jupiter.
++
++682.......To the body or aspect of Mars.
++
++683.......To the body or aspect of Venus.
++
++685.......To the like of Mercury
++
++686.......To the like of Moon.
++
++687-688...To North Node or South Node, or Part of Fortune, or cusp of any of the houses.
++
++689.......The Sun directed to principall fixed stars.
++
++691.......The Moon directed to Promittors, viz, to Saturn his body or aspect.
++
++694.......To the body, term or aspect of Jupiter.
++
++695.......To the aspect, term or body of Mars.
++
++696.......To the body or aspect of Sun.
++
++697.......To the body, term or aspect of Venus.
++
++698.......To the body or aspect of Mercury.
++
++700.......To the North Node, South Node, Part of Fortune, and to the twelve houses.
++
++701...... .To the fixed stars.
++
++703.......Part of Fortune wherefore directed, its effects when directed to Saturn or his aspects.
++
++704.......To the aspects of Jupiter, Mars and Sun.
++
++705.......To the apsects of Venus and Mercury.
++
++706.......To Moon and her aspects, to North Node and South Node.
++
++707.......To the cusps of the 12 houses.
++
++708.......Of the measure of time In directions.
++
++709.......The first and second way of measuring.
++
++713.......The third measure of time, according to Naibod.
++
++715-716…Of annuall Profections, mersurall and diurnall.
++
++717.......A Table of Profections exactly made.
++
++718.......The use of Profections and their effects.
++
++720.......Lord of the Veer, what Planet.
++
++721.......A Table converting degrees into dayes and hours, &c.
++
++Page #
++
++722.......A Table of the dayes of the yeer, teaching what moneth and day of the moneth when the Profectionall Significator or other, and the Promittor meets; severall examples.
++
++726.......How to judge a figure of Profections.
++
++729.......Judgments upon the Profections of the Ascendant and Moon, their signification.
++
++731.......What the mid-heaven and Sun signifie.
++
++732.......Signlfication of Part of Fortune.
++
++734.......Of Revolutions.
++
++738.......The Return of the Planets to their own places, and of other Planets in a Revolution.
++
++741.......The transit of the Planets.
++
++742.......Astrologlcal judgments by way of example upon the 12 houses, and upon Directions, Profections, Revolutions and transits, upon a Merchants Nativity.
++
++* hand written on this page,
++
++page - 294
++
++Table Moons Aspects
++
++Lunar Table.
++
++T01
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52.DEGREES.
++
++[T 01]
++
++Q IN A 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN
++
++HO. MIN A B C D E F
++
++0 0 0 0 12 51 28 55 27 2 16 7 4 31
++
++0 4 1 0 14 1 29 46 27 42 16 47 5 17
++
++0 7 2 0 15 11 0D 36 28 25 17 28 6 3
++
++0 11 3 0 16 21 1 26 29 1 18 8 6 50
++
++0 15 4 0 17 29 2 15 20 41 18 48 7 36
++
++0 18 5 0 18 37 3 4 0E 21 19 28 8 23
++
++0 22 6 0 19 44 3 53 1 0 20 8 9 9
++
++0 26 7 0 20 51 4 42 1 39 29 48 9 56
++
++0 29 8 0 21 59 5 29 2 18 21 27 10 42
++
++0 33 9 0 23 6 6 18 2 58 22 8 11 30
++
++0 37 10 0 14 12 7 6 3 38 22 48 12 17
++
++0 40 11 0 25 16 7 53 4 17 23 27 13 3
++
++0 44 12 0 26 22 8 40 4 56 24 8 13 51
++
++0 48 13 0 27 26 9 27 5 35 24 48 14 37
++
++0 52 14 0 28 30 10 12 6 14 25 28 15 24
++
++0 55 15 0 29 34 10 59 5 54 26 9 16 11
++
++0 59 16 0 0 C 37 11 45 7 32 26 50 16 59
++
++
++
++1 3 17 0 1 38 12 30 8 12 27 30 17 46
++
++1 6 18 0 2 41 13 16 8 52 28 11 18 22
++
++1 10 19 0 3 43 14 1 9 31 28 52 19 21
++
++1 14 20 0 4 45 14 47 10 10 29 33 20 9
++
++1 18 21 0 5 45 15 32 10 49 0F 14 20 57
++
++1 21 22 0 6 46 16 17 11 29 0 55 21 45
++
++1 25 23 0 7 46 17 2 12 8 1 36 22 32
++
++1 29 24 0 8 46 17 46 12 47 2 17 23 20
++
++1 33 25 0 9 46 18 31 13 27 2 58 24 9
++
++1 36 26 0 10 46 19 16 14 7 3 40 24 58
++
++1 40 27 0 11 45 20 1 14 46 4 22 26 46
++
++1 44 28 0 12 45 20 45 15 26 5 3 26 35
++
++1 48 29 0 13 44 21 29 16 5 5 45 27 23
++
++1 52 30 0 14 4 22 13 16 45 6 26 28 12
++
++T 02
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52.DEGREES.
++
++[T02]
++
++Q IN B 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME
++
++FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN
++
++HO. MIN B C D E F F
++
++
++
++1 52 0 0 14 41 22 13 16 45 6 26 28 12
++
++1 55 1 0 15 38 22 57 17 25 7 8 29 1
++
++1 59 2 0 16 36 23 42 18 5 7 50 29 50
++
++2 3 3 0 17 33 24 27 18 45 8 33 0G 40
++
++2 7 4 0 18 29 25 10 19 25 9 14 1 20
++
++2 11 5 0 19 26 25 55 20 5 9 57 2 19
++
++2 15 6 0 10 22 16 38 20 45 10 39 3 8
++
++2 19 7 0 21 20 27 23 21 26 11 23 3 58
++
++2 22 8 0 22 17 28 7 23 7 12 6 4 48
++
++2 26 9 0 23 13 18 51 22 47 12 48 5 38
++
++2 30 10 0 24 0 29 35 23 27 12 31 6 28
++
++2 34 11 0 25 5 0E 19 24 49 14 58 7 19
++
++2 38 12 0 16 1 1 4 24 49 14 58 8 9
++
++2 42 13 0 26 56 1 47 25 30 15 41 8 59
++
++2 46 14 0 27 51 2 32 26 12 16 25 9 50
++
++2 50 15 0 28 46 3 16 26 53 17 8 10 40
++
++2 54 16 0 29 41 4 1 27 34 17 52 11 32
++
++2 58 17 0 0D 38 4 46 28 17 18 36 12 24
++
++3 2 18 0 1 32 5 30 28 58 19 21 13 14
++
++3 6 19 0 2 27 6 15 29 40 20 5 14 6
++
++3 10 20 0 3 22 7 0 0F 23 20 50 14 57
++
++3 14 21 0 4 17 7 45 1 5 21 34 15 49
++
++3 18 22 0 5 11 8 30 1 47 22 19 16 40
++
++3 22 23 0 6 5 9 15 2 29 23 4 17 32
++
++3 26 24 0 6 59 10 0 3 12 23 49 18 24
++
++3 30 25 0 7 53 10 44 3 54 24 35 19 16
++
++3 35 26 0 8 48 11 30 4 37 25 20 20 8
++
++3 39 27 0 9 43 12 15 5 20 26 6 21 1
++
++3 43 28 0 10 36 13 1 6 3 26 51 21 53
++
++3 47 29 0 11 30 13 46 6 46 27 31 22 46
++
++3 51 30 0 12 24 14 31 7 29 28 23 23 38
++
++T03
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES.
++
++
++
++[T03]
++
++Q IN C 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 3 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN
++
++HO. MIN C D E F F G
++
++3 51 0 0 12 24 14 31 7 29 28 23 23 38
++
++3 55 1 0 13 19 15 17 8 13 29 9 24 31
++
++4 0 2 0 14 14 16 0 8 57 29 55 25 24
++
++4 4 3 0 15 8 16 49 9 41 0G 42 16 17
++
++4 8 4 0 16 2 17 35 10 25 1 28 27 0
++
++4 12 5 0 16 56 18 21 11 9 2 15 28 2
++
++4 16 6 0 17 50 19 7 11 53 3 1 28 56
++
++4 21 7 0 18 44 19 53 12 37 3 48 29 49
++
++4 25 8 0 19 38 20 40 13 22 4 35 0H 43
++
++4 29 9 0 20 31 21 25 14 6 5 21 1 36
++
++4 33 10 0 21 25 22 11 14 51 6 9 2 29
++
++4 38 11 0 22 19 12 50 15 35 6 56 3 23
++
++4 42 12 0 23 14 23 45 16 21 7 44 4 17
++
++4 46 13 0 24 8 24 31 17 5 8 31 5 11
++
++4 50 14
++
++0 25 2 15 18 17 50 9 18 6 5
++
++
++
++4 55 15 0 25 37 26 5 18 35 10 6 6 59
++
++4 59 16 0 26 51 26 53 19 21 10 54 7 53
++
++5 3 17 0 27 44 27 39 20 6 11 41 8 47
++
++5 8 18 0 28 38 28 27 20 51 12 28 9 40
++
++5 12 19 0 29 42 29 14 21 37 13 10 10 34
++
++5 16 20 0 0E 2 0F 2 22 22 14 2 11 28
++
++5 21 21 0 1 21 0 50 23 8 14 51 12 22
++
++5 25 22 0 2 15 1 37 23 53 15 39 13 37
++
++5 29 23 0 3 9 2 24 24 39 16 26 14 11
++
++5 34 24 0 4 4 3 12 25 25 17 14 15 36
++
++5 38 25 4 57 4 6 26 10 18 2 15 59
++
++5 42 26 0 5 52 4 47 26 56 18 50 16 53
++
++5 47 27 0 6 47 5 35 27 43 19 38 17 47
++
++5 51 28 0 7 41 6 23 28 28 20 25 18 42
++
++5 56 29 0 8 35 7 10 29 13 21 13 19 36
++
++6 0 30 0 9 29 7 58 0G 0 22 1 30 30
++
++T04
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES.
++
++[T04]
++
++Q IN D 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN DEG. MIN
++
++HO. MIN D E F G G H
++
++6 0 0 0 9 29 7 58 0 0 22 1 20 30
++
++6 4 1 0 10 24 8 47 0 49 22 50 21 25
++
++6 9 2 0 11 18 9 53 1 22 23 37 22 19
++
++6 13 3 0 12 12 10 23 2 17 24 24 23 12
++
++6 18 4 0 13 7 11 40 3 4 25 12 24 7
++
++6 27 5 0 14 1 11 52 3 49 26 0 25 2
++
++6 26 6 0 14 54 12 45 4 35 26 47 25 56
++
++6 31 7 0 15 49 13 33 5 21 27 5 26 51
++
++6 35 8 0 16 43 14 21 5 7 28 23 27 45
++
++6 39 9 0 17 37 15 9 6 52 29 10 28 39
++
++6 44 10 0 18 32 15 56 7 37 29 58 29 33
++
++6 48 11 0 19 26 16 44 8 23 0 H 45 0 I 27
++
++6 52 12 0 20 20 17 31 9 8 1 33 1 22
++
++6 57 13 0 21 13 18 19 9 54 2 20 2 16
++
++7 1 14 0 22 7 19 6 10 39 3 7 3 9
++
++7 5 15 0 23 1 19 54 11 24 3 55 4 3
++
++7 10 16 0 23 55 20 42 12 10 4 42 4 57
++
++7 14 17 0 24 49 21 28 12 54 5 28 5 51
++
++7 18 18 0 25 42 22 15 13 30 6 15 6 46
++
++7 22 19 0 26 37 23 4 14 24 7 2 7 40
++
++7 27 20 0 27 30 23 51 15 9 7 48 8 35
++
++7 31 21 0 28 24 24 38 15 54 8 38 9 29
++
++7 35 22 0 29 17 25 25 16 37 9 20 10 22
++
++7 39 23 0 0 F 11 26 12 17 22 10 6 11 16
++
++7 44 24 0 1 4 26 58 18 7 10 53 12 10
++
++7 48 25 0 1 57 27 45 18 51 11 39 13 3
++
++7 52 26 0 2 51 28 21 19 35 12 25 13 57
++
++7 56 27 0 3 43 29 18 20 19 12 11 14 51
++
++8 0 28 0 4 36 0 G 4 21 3 13 57 15 46
++
++8 5 29 0 5 29 0 51 21 47 14 43 16 41
++
++8 9 30 0 6 22 1 37 22 31 15 20 17 31
++
++T05
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES.
++
++[T 05]
++
++Q IN
++
++E
++
++
++
++10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN. E F G G H I
++
++8 9 0 0 6 22 1 37 22 31 15 29 17 35
++
++8 13 1 0 7 14 2 23 23 14 16 14 18 29
++
++8 17 2 0 8 4 3 9 23 57 16 59 10 23
++
++8 21 3 0 8 59 3 54 24 40 17 44 20 17
++
++8 25 4 0 9 51 4 36 25 23 18 30 21 12
++
++8 30 5 0 10 44 5 25 26 6 19 15 22 7
++
++8 34 6 0 11 36 6 10 26 48 10 0 13 1
++
++8 38 7 0 12 28 6 53 27 31 20 44 23 55
++
++8 42 8 0 13 19 7 41 28 12 21 29 24 49
++
++8 46 9 0 14 11 8 25 28 55 22 15 25 43
++
++8 50 10 0 15 2 9 10 29 37 23 0 26 37
++
++8 54 11 0 15 54 9 55 0 F 19 23 45 27 33
++
++8 58 12 0 16 45 10 39 1 1 24 29 28 27
++
++9 2 13 0 17 36 11 23 1 43 25 14 19 22
++
++9 6 14 0 18 28 12 8 2 25 25 59 0 J 18
++
++9 10 15 0 19 20 12 52 3 7 26 44 1 14
++
++9 14 16 0 20 10 13 35 3 48 27 28 2 8
++
++9 18 17 0 21 1 14 19 4 29 28 12 3 4
++
++9 22 18 0 21 51 15 2 5 10 18 56 3 59
++
++9 26 19 0 22 41 15 45 5 51 29 40 4 54
++
++9 30 20 0 23 32 16 28 6 32 0 I 25 5 50
++
++9 34 21 0 24 22 17 12 7 13 1 9 6 46
++
++9 38 22 0 25 12 17 54 7 53 1 42 7 42
++
++9 41 23 0 26 2 18 37 8 34 2 37 8 40
++
++9 45 24 0 26 51 19 20 9 15 3 22 9 37
++
++9 49 25 0 27 41 20 3 9 55 4 5 10 33
++
++9 53 26 0 28 31 20 45 10 35 4 49 11 30
++
++9 57 27 0 29 20 21 27 11 14 5 33 12 26
++
++
++
++10 1 28 0 0 G 9 22 9 11 55 6 18 13 24
++
++10 5 29 0 0 59 22 52 12 35 7 2 14 22
++
++10 8 30 0 1 48 23 33 13 14 7 47 15 19
++
++T06
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES.
++
++[T 06]
++
++Q IN F 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE TIME FROM NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN.
++
++HO. MIN. F G G H I J
++
++10 8 0 0 1 48 23 33 13 14 7 47 15 0
++
++10 12 1 0 2 37 24 15 13 54 8 31 16 16
++
++10 16 2 0 3 25 24 56 14 34 9 15 17 15
++
++10 20 3 0 4 1 25 38 15 14 9 59 18 14
++
++10 24 4 0 5 2 26 30 15 53 10 44 19 14
++
++10 27 5 0 5 50 27 1 16 33 11 28 20 14
++
++10 31 6 0 6 39 27 42 17 12 12 10 21 14
++
++10 35 7 0 7 27 28 23 17 51 12 57 22 14
++
++10 39 8 0 8 15 29 4 18 31 13 42 23 14
++
++10 42 9 0 9 3 29 46 19 10 14 28 24 15
++
++10 46 10 0 9 51 0 H 27 19 49 15 13 25 15
++
++10 50 11 0 10 38 1 8 20 29 15 58 26 17
++
++10 54 12 0 11 26 1 49 21 8 16 44 27 19
++
++10 57 13 0 12 14 2 30 21 48 17 29 28 21
++
++11 1 14 0 13 1 3 10 22 27 18 15 29 21
++
++11 5 15 0 13 49 3 51 23 6 19 1 0 K 26
++
++11 8 16 0 14 36 4 32 23 46 19 47 1 30
++
++11 12 17 0 15 23 5 12 24 25 20 33 2 33
++
++11 16 18 0 16 9 5 52 25 3 21 10 3 37
++
++11 20 19 0 16 57 6 32 25 43 22 7 4 4
++
++11 23 20 0 17 43 7 12 26 22 22 54 5 48
++
++11 27 21 0 18 30 7 52 27 1 23 42 6 54
++
++11 31 22 0 19 18 8 32 27 41 24 30 8 1
++
++11 34 23 0 20 4 9 12 28 21 25 18 9 8
++
++11 38 24 0 20 51 9 52 29 0 26 7 10 10
++
++11 42 25 0 21 37 10 32 29 39 26 56 11 21
++
++11 45 26 0 22 24 11 12 0 I 10 27 45 12 31
++
++11 49 27 0 23 10 11 52 0 58 28 34 13 39
++
++11 53 28 0 23 57 12 23 1 38 29 23 14 48
++
++11 56 29 0 24 42 13 12 2 18 0 J 14 15 59
++
++12 0 30 0 25 29 13 53 2 58 1 5 17 9
++
++T07
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES.
++
++[T 07]
++
++Q IN G 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN. G G H I J K
++
++12 0 0 0 25 29 13 53 2 58 1 5 17 9
++
++12 4 1 0 26 15 14 33 3 37 1 56 18 21
++
++12 7 2 0 27 1 15 13 4 17 2 48 19 22
++
++12 11 3 0 27 47 15 53 4 58 3 40 10 45
++
++12 15 4 0 28 34 16 33 5 28 4 33 21 57
++
++12 18 5 0 29 20 17 1 5 10 5 26 23 11
++
++12 22 6 0 0 H 6 17 53 7 1 6 20 24 24
++
++12 26 7 0 0 52 18 33 7 41 7 15 25 38
++
++12 29 8 0 1 38 10 14 8 22 8 10 26 53
++
++12 33 9 0 2 25 19 55 9 4 9 6 28 11
++
++12 37 10 0 2 12 20 35 9 46 10 2 29 26
++
++12 40 11 0 3 57 21 15 10 27 10 59 0 L 43
++
++12 44 12 0 4 44 21 57 11 10 11 58 2 1
++
++12 48 13 0 5 30 22 38 11 51 12 57 3 19
++
++12 52 14 0 6 17 23 18 12 34 13 56 4 37
++
++12 55 15 0 7 3 24 0 13 17 14 57 5 57
++
++12 59 16 0 7 50 24 41 14 1 15 58 7 17
++
++13 3 17 0 8 36 25 22 14 44 16 59 8 37
++
++13 6 18 0 9 22 26 4 15 27 18 2 9 58
++
++13 10 19 0 10 8 26 45 16 12 19 7 11 19
++
++13 14 20 0 10 55 27 27 16 55 20 13 12 42
++
++13 18 21 0 11 42 28 9 17 41 21 20 14 4
++
++13 21 22 0 12 29 28 51 18 27 22 29 15 29
++
++13 25 23 0 13 16 29 33 19 12 23 37 16 52
++
++13 29 24 0 14 2 0 I 15 19 57 24 45 18 16
++
++13 33 25 0 14 50 0 58 20 44 25 56 19 40
++
++13 36 26 0 15 37 1 40 21 32 27 0 21 6
++
++13 40 27 0 16 24 2 23 22 19 28 23 22 31
++
++13 44 28 0 17 11 3 7 23 7 29 33 23 57
++
++13 48 29 0 17 58 3 49 23 56 0 K 55 25 22
++
++13 52 30 0 18 46 4 32 24 44 2 12 26 49
++
++T08
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES.
++
++[T 08]
++
++Q IN H 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN. H H I I K L
++
++13 52 0 0 18 46 4 32 24 44 2 12 26 49
++
++13 55 1 0 19 33 5 16 25 34 3 32 28 15
++
++13 59 2 0 20 21 6 1 26 25 4 54 29 43
++
++14 3 3 0 21 9 6 45 27 16 6 19 1 A 11
++
++14 7 4 0 21 57 7 20 28 7 7 42 2 37
++
++14 11 5 0 22 44 8 14 28 59 9 7 4 6
++
++14 15 6 0 23 32 8 59 29 52 10 35 5 33
++
++14 19 7 0 24 22 9 45 0 J 46 12 6 7 1
++
++14 22 8 0 25 11 10 31 1 41 13 38 8 30
++
++14 26 9 0 25 59 11 10 2 36 15 10 9 57
++
++14 30 10 0 26 48 12 3 3 32 16 45 11 25
++
++14 34 11 0 27 32 12 49 4 29 18 23 12 52
++
++14 38 12 0 28 27 13 37 5 26 20 3 14 20
++
++14 42 13 0 29 16 14 24 6 25 21 45 15 48
++
++14 46 14 0 0 I 6 15 12 7 25 23 30 17 16
++
++14 50 15 0 0 55 16 0 8 26 25 14 18 44
++
++14 54 16 0 1 45 16 48 9 28 27 3 20 10
++
++14 58 17 0 2 36 17 38 10 23 28 54 21 38
++
++15 2 18 0 3 26 18 28 11 38 0 L 45 23 6
++
++15 6 19 0 4 16 19 17 12 43 2 37 24 31
++
++15 10 20 0 5 7 20 8 13 51 4 33 25 58
++
++15 14 21 0 5 58 20 59 15 0 6 31 27 24
++
++15 18 22 0 5 50 21 51 16 10 8 31 28 50
++
++15 22 23 0 7 41 22 43 17 21 10 32 0 B 15
++
++15 26 24 0 8 33 23 35 18 33 12 35 1 39
++
++15 30 25 0 9 24 24 29 19 48 14 39 3 4
++
++15 35 26 0 10 17 25 33 21 5 16 47 4 28
++
++15 39 27 0 11 9 26 17 22 23 18 56 5 52
++
++15 43 28 0 12 2 27 17 23 4 21 4 7 15
++
++15 47 29 0 12 54 28 8 25 5 23 12 8 36
++
++15 51 30 0 13 49 29 3 26 30 25 21 9 50
++
++T09
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES
++
++[T 09]
++
++Q IN I 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN I I I J L B
++
++
++
++15 51 0 0 13 47 29 3 26 20 25 21 9 59
++
++15 55 1 0 14 41 0 J 1 27 57 27 33 11 21
++
++16 0 2 0 15 35 0 59 29 26 29 49 12 43
++
++16 4 3 0 16 30 1 58 0 57 2 A 2 14 4
++
++16 8 4 0 17 25 2 57 2 31 4 14 15 24
++
++16 12 5 0 18 29 3 57 4 8 6 26 16 43
++
++16 16 6 0 19 15 4 58 5 46 8 35 18 1
++
++16 21 7 0 20 10 6 1 7 29 10 47 19 19
++
++16 25 8 0 21 7 7 4 9 13 13 0 20 38
++
++16 29 9 0 22 2 8 7 11 0 15 10 21 55
++
++16 33 10 0 22 59 9 11 12 51 17 21 23 12
++
++16 38 11 0 23 56 10 10 14 42 19 30 24 28
++
++16 42 12 0 24 53 11 24 16 41 21 39 25 45
++
++16 46 13 0 25 50 12 32 18 41 23 44 27 0
++
++16 50 14 0 26 47 13 41 10 44 25 48 28 14
++
++16 55 15 0 27 46 14 51 22 52 27 52 29 28
++
++16 59 16 0 28 45 16 2 25 0 29 52 0 41
++
++17 3 17 0 29 44 17 13 27 12 1 B 49 1 53
++
++17 8 18 0 0 J 49 18 28 29 28 3 47 3 6
++
++17 12 19 0 1 44 19 44 1 L 49 5 44 4 17
++
++17 16 20 0 2 44 21 1 4 11 7 28 5 28
++
++17 21 21 0 3 45 22 19 6 35 9 31 6 34
++
++17 25 22 0 4 46 23 38 9 2 11 22 7 47
++
++17 29 23 0 5 47 24 57 11 32 13 10 8 57
++
++17 34 24 0 6 50 26 20 14 7 14 57 10 6
++
++17 38 25 0 7 53 27 44 16 42 16 38 11 14
++
++17 43 26 0 8 56 29 11 19 21 18 21 12 23
++
++17 47 27 0 10 0 0 K 37 21 57 20 1 13 30
++
++17 51 28 0 11 4 2 5 24 37 21 38 14 36
++
++17 56 29 0 12 8 3 36 27 17 23 13 15 41
++
++18 0 30 0 13 13 5 10 0 A 0 24 50 16 47
++
++T10
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES
++
++[T 10]
++
++Q IN J 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOO
++
++N
++
++DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN J J K A B C
++
++
++
++18 0 0 0 13 13 5 10 0 0 24 50 16 47
++
++18 4 1 0 14 19 6 47 2 42 26 24 17 52
++
++18 9 2 0 15 24 8 22 5 22 27 54 18 56
++
++18 13 3 0 16 29 9 58 8 2 29 23 20 0
++
++18 18 4 0 17 38 11 40 10 40 0 C 51 21 4
++
++18 22 5 0 18 45 13 21 13 17 2 36 22 7
++
++18 26 6 0 19 54 15 2 15 52 3 39 23 9
++
++18 31 7 0 21 3 16 50 18 28 5 2 24 12
++
++18 35 8 0 22 13 18 38 20 58 6 21 25 14
++
++18 39 9 0 23 22 20 20 23 24 7 40 26 15
++
++18 44 10 0 24 32 22 22 15 49 8 59 27 16
++
++18 48 11 0 25 42 24 16 18 11 10 13 28 16
++
++18 52 12 0 26 54 26 13 0 B 32 11 32 29 16
++
++18 57 13 0 28 7 28 11 2 47 12 46 0 D 16
++
++19 9 14 0 29 19 0 L 7 5 0 13 58 1 14
++
++19 5 15 0 0 K 31 2 8 7 8 15 9 2 13
++
++19 10 16 0 1 46 4 11 9 15 16 19 3 12
++
++19 14 17 0 3 0 6 15 11 19 17 28 4 10
++
++19 18 18 0 4 15 8 21 13 19 18 36 5 7
++
++19 22 19 0 5 32 10 30 15 17 19 43 6 4
++
++19 27 20 0 6 48 12 39 17 9 20 49 7 1
++
++19 31 21 0 8 5 14 49 19 0 21 53 7 50
++
++19 35 22 0 9 21 17 0 29 47 22 56 8 53
++
++19 39 23 0 10 40 19 22 22 31 23 59 9 50
++
++19 44 24 0 11 59 21 25 24 14 25 2 10 45
++
++19 48 25 0 13 1 23 34 25 52 26 3 11 40
++
++19 52 26 0 14 3 25 45 27 28 27 3 12 35
++
++19 56 27 0 15 10 27 58 29 3 28 2 13 29
++
++20 0 28 0 17 17 0 A 13 0 C 34 29 1 14 24
++
++20 5 29 0 18 39 2 27 2 3 29 59 15 19
++
++20 9 30 0 20 1 4 39 3 30 0 D 56 16 13
++
++T11
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES
++
++[T 11]
++
++Q IN K 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN K K A C D D
++
++
++
++20 9 0 0 20 1 4 39 3 39 0 56 16 13
++
++20 13 1 0 21 23 6 48 4 54 1 52 17 6
++
++20 17 2 0 22 45 8 50 6 17 2 47 17 58
++
++20 21 3 0 24 8 11 4 7 37 3 43 18 51
++
++20 25 4 0 25 31 13 12 8 55 4 37 19 43
++
++20 30 5 0 26 56 15 21 10 12 5 31 20 35
++
++20 34 6 0 28 20 17 25 11 26 6 24 21 27
++
++20 38 7 0 29 45 19 20 12 39 7 17 22 18
++
++20 43 8 0 1 L 1 21 29 13 49 8 9 23 10
++
++20 46 9 0 2 36 23 29 15 0 9 1 24 2
++
++20 50 10 0 4 1 25 27 16 9 9 52 24 52
++
++20 54 11 0 5 28 27 22 17 16 10 42 25 44
++
++20 58 12 0 6 54 29 15 18 22 11 32 26 34
++
++21 2 13 0 8 21 1 B 5 19 27 12 21 27 24
++
++21 6 14 0 9 50 2 56 20 31 13 11 28 15
++
++21 10 15 0 11 10 4 45 21 34 14 0 29 5
++
++21 14 16 0 12 43 6 30 22 34 14 48 29 54
++
++21 18 17 0 14 12 8 14 23 35 15 36 0 E 44
++
++21 22 18 0 15 39 9 56 24 33 16 32 1 33
++
++21 26 19 0 17 7 11 37 25 31 17 10 2 22
++
++21 30 20 0 18 35 13 14 26 27 17 56 3 12
++
++21 34 21 0 20 3 14 50 27 23 18 43 4 1
++
++21 38 22 0 21 39 16 21 28 19 19 29 4 48
++
++21 41 23 0 22 58 17 54 29 14 20 15 5 38
++
++21 45 24 0 24 2 19 24 0 D 8 21 1 6 27
++
++21 49 25 0 25 52 20 52 1 1 21 45 7 15
++
++21 52 26 0 27 22 22 17 1 53 22 30 8 3
++
++21 57 27 0 28 49 23 41 2 44 23 14 8 51
++
++22 1 28 0 0 A 10 25 6 3 35 23 59 9 31
++
++22 5 29 0 1 42 26 28 4 26 24 44 10 27
++
++22 8 30 0 3 11 27 47 5 15 25 27 11 14
++
++T12
++
++A TABLE OF HOUSES FOR THE LATITUDE OF 52. DEGREES
++
++[T 12]
++
++Q IN L 10 HOUSE 11 HOUSE 12 HOUSE 1 HOUSE 2 HOUSE 3 HOUSE
++
++TIME FROM
++
++NOON DEG. MIN DEG. MIN DEG. MIN DEG. MIN. DEG. MIN. DEG. MIN
++
++HO. MIN L A B D D E
++
++
++
++22 8 0 0 3 11 27 47 5 15 25 27 11 14
++
++22 12 1 0 4 37 29 5 6 4 26 10 12 1
++
++22 16 2 0 6 3 0 C 21 6 52 26 53 12 48
++
++22 20 3 0 7 28 1 36 7 40 27 36 13 36
++
++22 24 4 0 8 54 2 51 8 28 28 19 14 23
++
++22 27 5 0 10 19 4 4 9 15 29 2 15 10
++
++22 31 6 0 11 44 5 15 10 2 29 45 15 57
++
++22 35 7 0 13 7 6 23 10 48 0 E 27 16 44
++
++22 39 8 0 14 31 7 30 11 33 1 9 17 31
++
++22 42 9 0 15 55 8 39 12 19 1 51 18 18
++
++22 46 10 0 17 18 9 47 13 4 2 33 19 5
++
++22 50 11 0 18 41 10 53 13 47 3 15 19 52
++
++22 54 12 0 20 1 11 58 14 31 3 56 20 38
++
++22 57 13 0 21 23 13 1 15 16 4 38 21 24
++
++23 1 14 0 22 42 14 2 15 59 5 18 22 10
++
++23 5 15 0 24 3 15 3 16 43 6 0 22 57
++
++23 8 16 0 25 23 16 4 17 26 6 41 23 43
++
++23 12 17 0 26 40 17 3 18 8 7 22 24 29
++
++23 16 18 0 27 58 18 2 18 50 8 3 25 16
++
++23 20 19 0 29 17 19 1 19 32 1 44 26 2
++
++23 23 20 0 0 B 33 19 50 20 14 9 25 26 48
++
++23 27 21 0 1 49 29 54 20 55 10 5 27 35
++
++23 31 22 0 3 7 21 50 21 37 10 46 28 22
++
++23 34 23 0 4 22 22 44 22 18 11 26 29 7
++
++23 38 24 0 5 36 23 39 22 59 12 6 29 54
++
++23 42 25 0 6 49 24 33 23 40 12 47 0 F 40
++
++23 45 26 0 3 2 25 27 24 21 13 27 1 26
++
++23 49 27 0 9 15 26 20 25 2 14 7 1 13
++
++23 53 28 0 10 27 27 12 25 42 14 47 2 52
++
++23 56 29 0 11 39 28 4 26 22 15 27 3 45
++
++24 0 30 0 12 51 28 55 27 2 16 7 4 31
++
++E01
++
++JANUARY. HATH XXXI. DAYES
++
++[E 01]
++
++THE DAILY MOTION OF THE PLANETS AND <
++
++M D M D M D M D M D M D
++
++W V U Q T S R <
++
++A C J J L K H E
++
++
++
++1 A 27 48 28
++
++R
++
++12 10 5 21 34 5 7 5 29 21 23 12 34
++
++2 B 27 50 28 6 10 51 22 35 6 17 7 8 3 I 17 12 45
++
++3 C 27 52 27 59 11 37 23 36 7 26 8 44 15 8 12 42
++
++4 D 27 54 27 54 12 23 24 37 8 35 10 18 26 59 12 24
++
++5 E 27 56 27 46 13 9 25 38 9 44 11 47 8 J 54 11 52
++
++6 F 27 58 27 40 13 55 26 39 10 53 13 12 20 54 11 30
++
++7 G 28 0 27 34 14 41 27 41 12 2 14 45 3 K 1 10 24
++
++8 A 28 2 27 28 15 27 28 42 12 10 16 10 15 17 9 24
++
++9 B 28 4 27 22 16 17 29 43 14 18 17 33 27 44 9 9
++
++
++
++10 C 28 6 27 17 17 0 0 K 44 15 26 18 50 10 L 13 8 50
++
++11 D 28 9 27 11 17 43 1 46 16 34 20 2 23 14 2 49
++
++12 E 28 11 27 6 18 32 2 47 17 42 21 7 6 A 18 9 6
++
++13 F 28 14 27 1 19 19 3 43 18 50 22 6 19 38 9 36
++
++14 G 28 17 26 56 20 5 4 49 19 57 23 0 3 B 15 10 17
++
++15 A 28 20 26 51 20 51 5 50 21 4 23 47 17 9 10 59
++
++16 B 28 23 26 46 21 37 6 51 22 11 24 25 1 C 22 11 34
++
++17 C 28 26 26 42 22 2 7 52 23 17 24 47 15 52 11 55
++
++18 D 28 29 26 37 23 10 8 53 24 23 24 47 2 D 34 11 54
++
++19 E 28 32 26 33 23 56 9 54 25 29 25 0 15 23 11 29
++
++20 F 28 35 26 29 24 43 10 55 20 35 24
++
++R
++
++53 0 E 11 10 44
++
++
++
++21 G 28 39 26 24 25 29 11 56 27 41 24 33 14 50 9 49
++
++22 A 28 43 26 21 26 15 12 57 28 57 23 53 19 12 8 58
++
++23 B 28 46 26 17 27 2 13 58 29 52 23 9 13 F 18 8 22
++
++24 C 28 50 26 13 27 48 14 58 0 A 57 22 21 16 59 8 5
++
++25 D 28 54 26 10 28 35 15 59 2 2 21 29 10 G 15 8 8
++
++26 E 28 58 26 7 28 21 16 59 3 6 20 33 23 9 8 27
++
++27 F 29 2 26 4 0 K 8 18 0 4 10 19 33 5 H 36 8 58
++
++28 G 29 6 26 2 0 54 19 1 5 14 18 25 17 49 9 33
++
++29 A 29 11 25 59 1 41 20 2 6 18 17 14 29 48 10 9
++
++30 B 29 15 25 57 2 28 21 3 7 21 15 5 11 I 39 10 38
++
++31 C 29 20 25 55 3 4 22 4 8 24 14 50 23 27 11 1
++
++1 2 31 0 5 0 47 1 13 1 45
++
++OF 10 2 27 0 4 0 51 0 39 0 26
++
++
++
++20 2 26 0 2 0 55 0 S 9 2 S 10
++
++E02
++
++JANUARY 1646
++
++THE LUNAR ASPECTS. THE PLANETS
++
++MUTUAL
++
++ASPECTS
++
++W V U Q T S
++
++OCCID. OCCID. ORIENT. OCCID. OCCID
++
++.
++
++
++
++1 A * 0
++
++2 B # 6 $ 9
++
++3 C * W V 21
++
++4 D $ 2 " 2 R APOG.
++
++5 E ! 9 * 2 ECLIP. Q
++
++6 F # 14 ! 11.48 VC Q V SS U S
++
++7 G ! 2 # Q W " R <
++
++8 A $ 23
++
++9 B * 0
++
++
++
++10 C * 14 ! 11
++
++11 D # 7 * 29
++
++12 E # 23 S IN ELONG. M
++
++13 F ! 15 * 13 # 25 * 5
++
++14 G * U T 9
++
++15 A $ 6 $ 10 * 7 # 12
++
++16 B
++
++17 C * 20 ! 17 # 13 $ 15
++
++18 D SS T S R PAIG.
++
++19 E # 21 " 14 $ 18 # V T 22
++
++20 F " 18
++
++21 G $ 23 * 19 " 15 SS W T R < E-
++
++22 A VC V U
++
++23 B # 23
++
++24 C $ 1 " 8
++
++25 D $ 11 $ 15 # W U 11 Q 0
++
++26 E " 11 $ 6 # 13
++
++27 F # 3.15 ORIENT. ! Q S 47
++
++28 G # 1
++
++29 A * 4 $ 13
++
++30 B * 20 * 8
++
++31 C $ 12 " 5
++
++AN
++
++INTRODUCTION
++
++TO ASTROLOGY.
++
++
++
++
++<pages index="Christian Astrology (Lilly, 1659).djvu" include="48-50,52-122" />
++
++
++
++
++<pages index="Christian Astrology (Lilly, 1659).djvu" from=123 to=127 />
++
++{{PD-old}}
+diff --git a/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/__init__.py b/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/__init__.py
+index dfe09b9303d5053203d551d1865048fb1f776019..cd3ed619e7184d2e0391743143959cbec82ee0af 100644
+--- a/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/__init__.py
++++ b/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/__init__.py
+@@ -3,0 +4,15 @@ from .engine import build_chart, derive_aspects, derive_planet_facts
++from .completion import (
++    EGYPTIAN_BOUNDS,
++    FACE_RULERS,
++    MODERN_POINT_SET,
++    PLANETARY_JOYS,
++    TRIPLICITY_RULERS,
++    ExtendedDignityFact,
++    IntegratedAstrologyCompletion,
++    ModernPointFact,
++    build_integrated_completion,
++    derive_extended_dignities,
++    derive_modern_point_aspects,
++    derive_modern_points,
++    validate_classical_completion_tables,
++)
+@@ -16,0 +32,8 @@ __all__ = [
++    "EGYPTIAN_BOUNDS",
++    "ExtendedDignityFact",
++    "FACE_RULERS",
++    "IntegratedAstrologyCompletion",
++    "MODERN_POINT_SET",
++    "ModernPointFact",
++    "PLANETARY_JOYS",
++    "TRIPLICITY_RULERS",
+@@ -22,0 +46 @@ __all__ = [
++    "build_integrated_completion",
+@@ -24,0 +49,3 @@ __all__ = [
++    "derive_extended_dignities",
++    "derive_modern_point_aspects",
++    "derive_modern_points",
+@@ -27,0 +55 @@ __all__ = [
++    "validate_classical_completion_tables",
+diff --git a/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/completion.py b/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/completion.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed80e67a738fc1dd7cf89e7177a9387b18f6aedf
+--- /dev/null
++++ b/examples/classical-western-astrology_v0.1.0/src/aion_astra_classical_astrology/completion.py
+@@ -0,0 +1,250 @@
++"""Classical-completion facts and a strictly labelled modern-point overlay.
++
++The functions in this module extend the existing v0.2 chart without replacing
++its classical core.  They derive inspectable historical rule-table facts only;
++they do not produce personality, fate, subjectivity, consciousness, or action
++recommendations.
++"""
++
++from __future__ import annotations
++
++from dataclasses import dataclass
++from itertools import combinations
++
++from .constants import (
++    INTEGRATED_ASPECT_ANGLES,
++    SIGN_ELEMENTS,
++    SIGNS,
++    TRADITIONAL_PLANETS,
++)
++from .engine import build_chart, normalize_longitude, sign_for_longitude, whole_sign_house
++from .errors import ValidationError
++from .models import AspectFact, ChartInput, ClassicalChart, PlanetPosition
++from .profiles import integrated_classical_modern_profile
++from .serialization import derivation_hash
++
++
++ALGORITHM_VERSION = "classical-completion-modern-points-0.3.0"
++
++# Dorothean day/night/participating triplicity rulers.  The participating ruler
++# is retained as a separate fact and never substituted for the sect ruler.
++TRIPLICITY_RULERS = {
++    "FIRE": ("SUN", "JUPITER", "SATURN"),
++    "EARTH": ("VENUS", "MOON", "MARS"),
++    "AIR": ("SATURN", "MERCURY", "JUPITER"),
++    "WATER": ("VENUS", "MARS", "MOON"),
++}
++
++# Egyptian bounds/terms as half-open [start, end) degree intervals.  A named
++# profile makes the school choice machine-visible; no generic "the bounds" is
++# implied.
++EGYPTIAN_BOUNDS = {
++    "ARIES": ((0, 6, "JUPITER"), (6, 14, "VENUS"), (14, 21, "MERCURY"), (21, 26, "MARS"), (26, 30, "SATURN")),
++    "TAURUS": ((0, 8, "VENUS"), (8, 14, "MERCURY"), (14, 22, "JUPITER"), (22, 27, "SATURN"), (27, 30, "MARS")),
++    "GEMINI": ((0, 6, "MERCURY"), (6, 12, "JUPITER"), (12, 17, "VENUS"), (17, 24, "MARS"), (24, 30, "SATURN")),
++    "CANCER": ((0, 7, "MARS"), (7, 13, "VENUS"), (13, 19, "MERCURY"), (19, 26, "JUPITER"), (26, 30, "SATURN")),
++    "LEO": ((0, 6, "JUPITER"), (6, 11, "VENUS"), (11, 18, "SATURN"), (18, 24, "MERCURY"), (24, 30, "MARS")),
++    "VIRGO": ((0, 7, "MERCURY"), (7, 17, "VENUS"), (17, 21, "JUPITER"), (21, 28, "MARS"), (28, 30, "SATURN")),
++    "LIBRA": ((0, 6, "SATURN"), (6, 14, "MERCURY"), (14, 21, "JUPITER"), (21, 28, "VENUS"), (28, 30, "MARS")),
++    "SCORPIO": ((0, 7, "MARS"), (7, 11, "VENUS"), (11, 19, "MERCURY"), (19, 24, "JUPITER"), (24, 30, "SATURN")),
++    "SAGITTARIUS": ((0, 12, "JUPITER"), (12, 17, "VENUS"), (17, 21, "MERCURY"), (21, 26, "SATURN"), (26, 30, "MARS")),
++    "CAPRICORN": ((0, 7, "MERCURY"), (7, 14, "JUPITER"), (14, 22, "VENUS"), (22, 26, "SATURN"), (26, 30, "MARS")),
++    "AQUARIUS": ((0, 7, "MERCURY"), (7, 13, "VENUS"), (13, 20, "JUPITER"), (20, 25, "MARS"), (25, 30, "SATURN")),
++    "PISCES": ((0, 12, "VENUS"), (12, 16, "JUPITER"), (16, 19, "MERCURY"), (19, 28, "MARS"), (28, 30, "SATURN")),
++}
++
++# Chaldean face/decan sequence, three ten-degree faces per sign.
++FACE_RULERS = {
++    "ARIES": ("MARS", "SUN", "VENUS"), "TAURUS": ("MERCURY", "MOON", "SATURN"),
++    "GEMINI": ("JUPITER", "MARS", "SUN"), "CANCER": ("VENUS", "MERCURY", "MOON"),
++    "LEO": ("SATURN", "JUPITER", "MARS"), "VIRGO": ("SUN", "VENUS", "MERCURY"),
++    "LIBRA": ("MOON", "SATURN", "JUPITER"), "SCORPIO": ("MARS", "SUN", "VENUS"),
++    "SAGITTARIUS": ("MERCURY", "MOON", "SATURN"), "CAPRICORN": ("JUPITER", "MARS", "SUN"),
++    "AQUARIUS": ("VENUS", "MERCURY", "MOON"), "PISCES": ("SATURN", "JUPITER", "MARS"),
++}
++
++PLANETARY_JOYS = {"MERCURY": 1, "MOON": 3, "VENUS": 5, "MARS": 6, "SUN": 9, "JUPITER": 11, "SATURN": 12}
++MODERN_POINT_SET = ("TRUE_NORTH_NODE", "CHIRON")
++
++
++@dataclass(frozen=True)
++class ExtendedDignityFact:
++    planet: str
++    triplicity_element: str
++    sect_triplicity_ruler: str
++    participating_triplicity_ruler: str
++    planet_is_sect_triplicity_ruler: bool
++    egyptian_bound_ruler: str
++    chaldean_face_ruler: str
++    planetary_joy_house: int
++    is_in_planetary_joy: bool
++    rule_profile: str = "DOROTHEAN_TRIPLICITY_EGYPTIAN_BOUNDS_CHALDEAN_FACES_V1"
++
++
++@dataclass(frozen=True)
++class ModernPointFact:
++    point: str
++    longitude: float
++    sign: str
++    sign_degree: float
++    whole_sign_house: int
++    motion_status: str
++    classical_dignity_status: str = "NOT_APPLICABLE"
++    classical_sect_status: str = "NOT_APPLICABLE"
++    rulership_status: str = "NO_RULERSHIP_ASSIGNED"
++
++
++@dataclass(frozen=True)
++class IntegratedAstrologyCompletion:
++    base_chart: ClassicalChart
++    extended_dignities: tuple[ExtendedDignityFact, ...]
++    modern_points: tuple[ModernPointFact, ...]
++    modern_point_aspects: tuple[AspectFact, ...]
++    algorithm_version: str
++    derivation_hash: str
++    interpretation_status: str = "NOT_PERFORMED"
++    subjectivity_conclusion: str = "NOT_ESTABLISHED"
++    consciousness_conclusion: str = "NOT_ESTABLISHED"
++    canonical_effect: str = "NONE"
++    deployment: bool = False
++    action_authority: str = "NONE"
++
++
++def _bound_ruler(sign: str, sign_degree: float) -> str:
++    for start, end, ruler in EGYPTIAN_BOUNDS[sign]:
++        if start <= sign_degree < end:
++            return ruler
++    raise ValidationError("sign_degree must be within [0, 30)")
++
++
++def derive_extended_dignities(source: ChartInput) -> tuple[ExtendedDignityFact, ...]:
++    """Derive the three omitted classical dignity layers plus planetary joys."""
++
++    traditional = {position.planet: position for position in source.positions if position.planet in TRADITIONAL_PLANETS}
++    if set(traditional) != set(TRADITIONAL_PLANETS):
++        raise ValidationError("extended dignities require the traditional seven planet positions")
++    result = []
++    for planet in TRADITIONAL_PLANETS:
++        position = traditional[planet]
++        sign = sign_for_longitude(position.longitude)
++        degree = position.longitude % 30.0
++        day_ruler, night_ruler, participating = TRIPLICITY_RULERS[SIGN_ELEMENTS[sign]]
++        sect_ruler = day_ruler if source.is_day_chart else night_ruler
++        house = whole_sign_house(position.longitude, source.ascendant_longitude)
++        result.append(ExtendedDignityFact(
++            planet=planet,
++            triplicity_element=SIGN_ELEMENTS[sign],
++            sect_triplicity_ruler=sect_ruler,
++            participating_triplicity_ruler=participating,
++            planet_is_sect_triplicity_ruler=planet == sect_ruler,
++            egyptian_bound_ruler=_bound_ruler(sign, degree),
++            chaldean_face_ruler=FACE_RULERS[sign][min(int(degree // 10), 2)],
++            planetary_joy_house=PLANETARY_JOYS[planet],
++            is_in_planetary_joy=house == PLANETARY_JOYS[planet],
++        ))
++    return tuple(result)
++
++
++def _motion_status(speed: float | None) -> str:
++    if speed is None:
++        return "NOT_DERIVED_WITHOUT_SPEED_VECTOR"
++    if speed < 0:
++        return "RETROGRADE"
++    if speed > 0:
++        return "DIRECT"
++    return "STATIONARY"
++
++
++def derive_modern_points(source: ChartInput, points: tuple[PlanetPosition, ...]) -> tuple[ModernPointFact, ...]:
++    """Derive a labelled node/Chiron overlay without treating either as a planet."""
++
++    names = tuple(point.planet for point in points)
++    if names != MODERN_POINT_SET:
++        raise ValidationError(f"modern points must be ordered exactly as {MODERN_POINT_SET!r}")
++    if len(set(names)) != len(names):
++        raise ValidationError("modern point names must be unique")
++    facts: list[ModernPointFact] = []
++    for point in points:
++        longitude = normalize_longitude(point.longitude)
++        facts.append(ModernPointFact(
++            point=point.planet,
++            longitude=longitude,
++            sign=sign_for_longitude(longitude),
++            sign_degree=round(longitude % 30.0, 8),
++            whole_sign_house=whole_sign_house(longitude, source.ascendant_longitude),
++            motion_status=_motion_status(point.speed_longitude),
++        ))
++    north = facts[0]
++    south_longitude = (north.longitude + 180.0) % 360.0
++    facts.append(ModernPointFact(
++        point="TRUE_SOUTH_NODE",
++        longitude=south_longitude,
++        sign=sign_for_longitude(south_longitude),
++        sign_degree=round(south_longitude % 30.0, 8),
++        whole_sign_house=whole_sign_house(south_longitude, source.ascendant_longitude),
++        motion_status=north.motion_status,
++    ))
++    return tuple(facts)
++
++
++def _separation(left: float, right: float) -> float:
++    raw = abs(left - right) % 360.0
++    return min(raw, 360.0 - raw)
++
++
++def derive_modern_point_aspects(
++    source: ChartInput,
++    point_facts: tuple[ModernPointFact, ...],
++) -> tuple[AspectFact, ...]:
++    """Aspect modern points to chart bodies under the explicit v0.2 orb table."""
++
++    profile = integrated_classical_modern_profile()
++    orbs = dict(profile.aspect_orbs)
++    angles = INTEGRATED_ASPECT_ANGLES
++    bodies = tuple((position.planet, position.longitude) for position in source.positions)
++    points = tuple((point.point, point.longitude) for point in point_facts)
++    pairs = [(point, body) for point in points for body in bodies] + list(combinations(points, 2))
++    result: list[AspectFact] = []
++    for (first_name, first_longitude), (second_name, second_longitude) in pairs:
++        separation = _separation(first_longitude, second_longitude)
++        candidates = sorted(
++            (abs(separation - angle), name, angle)
++            for name, angle in angles.items()
++            if abs(separation - angle) <= orbs[name]
++        )
++        if candidates:
++            orb, name, exact = candidates[0]
++            result.append(AspectFact(first_name, second_name, name, exact, round(separation, 8), round(orb, 8), "NOT_DERIVED_FOR_POINT_OVERLAY"))
++    return tuple(result)
++
++
++def build_integrated_completion(
++    source: ChartInput,
++    modern_points: tuple[PlanetPosition, ...],
++    *,
++    chart_id: str,
++) -> IntegratedAstrologyCompletion:
++    """Compose the v0.2 chart, completed classical facts, and modern points."""
++
++    base = build_chart(source, integrated_classical_modern_profile(), chart_id=chart_id)
++    dignities = derive_extended_dignities(source)
++    points = derive_modern_points(source, modern_points)
++    aspects = derive_modern_point_aspects(source, points)
++    payload = {"base": base, "dignities": dignities, "points": points, "aspects": aspects, "algorithm": ALGORITHM_VERSION}
++    return IntegratedAstrologyCompletion(base, dignities, points, aspects, ALGORITHM_VERSION, derivation_hash(payload))
++
++
++def validate_classical_completion_tables() -> bool:
++    """Fail closed unless every sign has complete, gap-free classical tables."""
++
++    if set(EGYPTIAN_BOUNDS) != set(SIGNS) or set(FACE_RULERS) != set(SIGNS):
++        return False
++    for sign in SIGNS:
++        bounds = EGYPTIAN_BOUNDS[sign]
++        if bounds[0][0] != 0 or bounds[-1][1] != 30:
++            return False
++        if any(left[1] != right[0] for left, right in zip(bounds, bounds[1:], strict=False)):
++            return False
++        if len(FACE_RULERS[sign]) != 3:
++            return False
++    return set(PLANETARY_JOYS) == set(TRADITIONAL_PLANETS)
+diff --git a/examples/classical-western-astrology_v0.1.0/tests/test_completion_profile.py b/examples/classical-western-astrology_v0.1.0/tests/test_completion_profile.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..aeda99ddab29ee43fe0c64e3d85f0cb07d910fa8
+--- /dev/null
++++ b/examples/classical-western-astrology_v0.1.0/tests/test_completion_profile.py
+@@ -0,0 +1,123 @@
++from __future__ import annotations
++
++from dataclasses import replace
++
++import pytest
++
++from aion_astra_classical_astrology import (
++    MODERN_POINT_SET,
++    ChartInput,
++    PlanetPosition,
++    build_integrated_completion,
++    derive_extended_dignities,
++    derive_modern_points,
++    validate_classical_completion_tables,
++)
++from aion_astra_classical_astrology.completion import EGYPTIAN_BOUNDS, FACE_RULERS
++from aion_astra_classical_astrology.errors import ValidationError
++from aion_astra_classical_astrology.fixtures import synthetic_reference_input
++
++
++def integrated_source(*, day: bool = True) -> ChartInput:
++    base = synthetic_reference_input()
++    return replace(
++        base,
++        input_id="SYNTHETIC_INTEGRATED_COMPLETION_001",
++        is_day_chart=day,
++        positions=base.positions + (
++            PlanetPosition("URANUS", 130.0, 0.01),
++            PlanetPosition("NEPTUNE", 220.0, -0.01),
++            PlanetPosition("PLUTO", 310.0, 0.0),
++        ),
++    )
++
++
++def test_completion_tables_are_total_and_gap_free() -> None:
++    assert validate_classical_completion_tables()
++    assert all(sum(end - start for start, end, _ in EGYPTIAN_BOUNDS[sign]) == 30 for sign in EGYPTIAN_BOUNDS)
++    assert all(len(rulers) == 3 for rulers in FACE_RULERS.values())
++
++
++def test_egyptian_bound_boundaries_are_half_open() -> None:
++    source = integrated_source()
++    positions = tuple(
++        PlanetPosition(p.planet, 5.999999 if p.planet == "SUN" else p.longitude, p.speed_longitude)
++        for p in source.positions
++    )
++    before = derive_extended_dignities(replace(source, positions=positions))[0]
++    positions = tuple(
++        PlanetPosition(p.planet, 6.0 if p.planet == "SUN" else p.longitude, p.speed_longitude)
++        for p in source.positions
++    )
++    after = derive_extended_dignities(replace(source, positions=positions))[0]
++    assert before.egyptian_bound_ruler == "JUPITER"
++    assert after.egyptian_bound_ruler == "VENUS"
++
++
++def test_triplicity_ruler_changes_by_sect_without_changing_element() -> None:
++    day = derive_extended_dignities(integrated_source(day=True))[0]
++    night = derive_extended_dignities(integrated_source(day=False))[0]
++    assert day.triplicity_element == night.triplicity_element == "FIRE"
++    assert day.sect_triplicity_ruler == "SUN"
++    assert night.sect_triplicity_ruler == "JUPITER"
++    assert day.participating_triplicity_ruler == night.participating_triplicity_ruler == "SATURN"
++
++
++def test_chaldean_faces_cover_each_ten_degree_segment() -> None:
++    source = integrated_source()
++    observed = []
++    for longitude in (0.0, 10.0, 20.0):
++        positions = tuple(
++            PlanetPosition(p.planet, longitude if p.planet == "SUN" else p.longitude, p.speed_longitude)
++            for p in source.positions
++        )
++        observed.append(derive_extended_dignities(replace(source, positions=positions))[0].chaldean_face_ruler)
++    assert observed == ["MARS", "SUN", "VENUS"]
++
++
++def test_planetary_joy_is_a_house_fact_not_an_interpretation() -> None:
++    facts = {fact.planet: fact for fact in derive_extended_dignities(integrated_source())}
++    assert facts["MERCURY"].planetary_joy_house == 1
++    assert isinstance(facts["MERCURY"].is_in_planetary_joy, bool)
++    assert all(fact.rule_profile.endswith("_V1") for fact in facts.values())
++
++
++def test_modern_points_are_not_promoted_to_planets_or_rulers() -> None:
++    facts = derive_modern_points(
++        integrated_source(),
++        (PlanetPosition("TRUE_NORTH_NODE", 42.0, -0.0529), PlanetPosition("CHIRON", 252.0, 0.02)),
++    )
++    assert [fact.point for fact in facts] == ["TRUE_NORTH_NODE", "CHIRON", "TRUE_SOUTH_NODE"]
++    assert facts[2].longitude == 222.0
++    assert all(fact.classical_dignity_status == "NOT_APPLICABLE" for fact in facts)
++    assert all(fact.rulership_status == "NO_RULERSHIP_ASSIGNED" for fact in facts)
++
++
++def test_modern_point_input_is_versioned_and_ordered() -> None:
++    with pytest.raises(ValidationError, match="ordered exactly"):
++        derive_modern_points(
++            integrated_source(),
++            (PlanetPosition("CHIRON", 252.0), PlanetPosition("TRUE_NORTH_NODE", 42.0)),
++        )
++    assert MODERN_POINT_SET == ("TRUE_NORTH_NODE", "CHIRON")
++
++
++def test_integrated_completion_preserves_nonclaim_and_no_effect_boundaries() -> None:
++    result = build_integrated_completion(
++        integrated_source(),
++        (PlanetPosition("TRUE_NORTH_NODE", 42.0, -0.0529), PlanetPosition("CHIRON", 252.0, 0.02)),
++        chart_id="SYNTHETIC_COMPLETION_CHART_001",
++    )
++    assert len(result.extended_dignities) == 7
++    assert len(result.modern_points) == 3
++    assert result.derivation_hash == build_integrated_completion(
++        integrated_source(),
++        (PlanetPosition("TRUE_NORTH_NODE", 42.0, -0.0529), PlanetPosition("CHIRON", 252.0, 0.02)),
++        chart_id="SYNTHETIC_COMPLETION_CHART_001",
++    ).derivation_hash
++    assert result.interpretation_status == "NOT_PERFORMED"
++    assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
++    assert result.consciousness_conclusion == "NOT_ESTABLISHED"
++    assert result.canonical_effect == "NONE"
++    assert result.deployment is False
++    assert result.action_authority == "NONE"
+diff --git a/scripts/fetch_astrology_bazi_sources.py b/scripts/fetch_astrology_bazi_sources.py
+index 1aeca851262c2ef5a160c884fbb7edd43d9f0fd3..bb3ab563fcda69e5f872d5f82100b16fbc6c0583 100644
+--- a/scripts/fetch_astrology_bazi_sources.py
++++ b/scripts/fetch_astrology_bazi_sources.py
+@@ -22 +22 @@ ROOT = Path(__file__).resolve().parents[1]
+-USER_AGENT = "aion-governance-source-audit/0.2 (+https://github.com/maker-luder/aion-governance-framework)"
++USER_AGENT = "aion-governance-source-audit/0.3 (+https://github.com/maker-luder/aion-governance-framework)"
+@@ -34,0 +35 @@ class Source:
++    normalize_utf8_text: bool = False
+@@ -39,0 +41,6 @@ SOURCES = (
++    Source("western", "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE", "https://en.wikisource.org/w/index.php?title=Christian_Astrology&oldid=15666418&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-christian-astrology.txt", note="Pinned OCR/transcription witness with known errors; retained for table and terminology cross-checks, not as a sole authority.", normalize_utf8_text=True),
++    Source("western", "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER", "https://www.attalus.org/info/dorotheus.html", "COPYRIGHTED_TRANSLATION_LINK_REGISTER", "HASH_ONLY", note="Source-family and translation-link register for day/night/participating triplicity provenance; no copyrighted translation is vendored."),
++    Source("western", "VALENS_ANTHOLOGIES_REGISTER", "https://onlinebooks.library.upenn.edu/webbin/book/lookupname?key=Vettius%20Valens", "BIBLIOGRAPHIC_LINK_REGISTER", "HASH_ONLY", note="Bibliographic/download register for the Hellenistic source family; no translation is vendored."),
++    Source("western", "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1", "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0001_1-141_t24-C-R0072.pdf", "PUBLIC_DOMAIN_MARK_1_0", "HASH_ONLY", note="Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored."),
++    Source("western", "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2", "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0002_142-278_t24-C-R0072.pdf", "PUBLIC_DOMAIN_MARK_1_0", "HASH_ONLY", note="Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored."),
++    Source("western", "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3", "https://bibliotecaparticular.casafernandopessoa.pt/1-91/2/1-91_master/1-91_PDF/1-91_0003_279-368_t24-C-R0072.pdf", "PUBLIC_DOMAIN_MARK_1_0", "HASH_ONLY", note="Primary historical witness for the early modern character-oriented overlay; scan is downloaded and hashed but not vendored."),
+@@ -47,3 +54,5 @@ SOURCES = (
+-    Source("bazi", "WIKISOURCE_DI_TIAN_SUI", "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-di-tian-sui.txt"),
+-    Source("bazi", "WIKISOURCE_YUAN_HAI_ZI_PING", "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-yuan-hai-zi-ping.txt", note="Source page itself reports completeness/provenance concerns; use as comparison evidence only."),
+-    Source("bazi", "WIKISOURCE_SAN_MING_TONG_HUI_INDEX", "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-san-ming-tong-hui-index.txt", note="Index/provenance snapshot; edition variation must remain explicit."),
++    Source("bazi", "WIKISOURCE_DI_TIAN_SUI", "https://zh.wikisource.org/w/index.php?title=%E6%BB%B4%E5%A4%A9%E9%AB%93&oldid=844410&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-di-tian-sui.txt"),
++    Source("bazi", "WIKISOURCE_YUAN_HAI_ZI_PING", "https://zh.wikisource.org/w/index.php?title=%E6%B7%B5%E6%B5%B7%E5%AD%90%E5%B9%B3&oldid=2593607&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-yuan-hai-zi-ping.txt", note="Pinned source page itself reports completeness/provenance concerns; use as comparison evidence only."),
++    Source("bazi", "WIKISOURCE_SAN_MING_TONG_HUI_INDEX", "https://zh.wikisource.org/w/index.php?title=%E4%B8%89%E5%91%BD%E9%80%9A%E6%9C%83_(%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC)&oldid=657391&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-san-ming-tong-hui-index.txt", note="Pinned index/provenance snapshot; edition variation must remain explicit."),
++    Source("bazi", "WIKISOURCE_QIONG_TONG_BAO_JIAN", "https://zh.wikisource.org/w/index.php?title=%E7%A9%B7%E9%80%9A%E5%AE%9D%E9%89%B4&oldid=2294674&action=raw", "PUBLIC_DOMAIN_TEXT_CC_BY_SA_SITE_LAYER", "VENDOR", "wikisource-qiong-tong-bao-jian.txt", note="Pinned traditional seasonal-balancing witness; interpretive prescriptions remain school-labelled and are not converted into automatic conclusions.", normalize_utf8_text=True),
++    Source("bazi", "CTEXT_SAN_MING_TONG_HUI_VOLUME_7", "https://ctext.org/wiki.pl?chapter=548506&if=en", "COPYRIGHTED_SITE_TRANSCRIPTION_REFERENCE", "HASH_ONLY", note="Historical school-variation and day-master-centred method witness; downloaded and hashed only because redistribution terms were not established."),
+@@ -50,0 +60 @@ SOURCES = (
++    Source("bazi", "HKO_SOLAR_TERM_TIMES", "https://www.hko.gov.hk/en/gts/astronomy/Solar_Term.htm", "OFFICIAL_REFERENCE_REDISTRIBUTION_NOT_ESTABLISHED", "HASH_ONLY", note="Official timing reference; page states the astronomical data lineage to HM Nautical Almanac Office and US Naval Observatory."),
+@@ -116 +126,8 @@ def main() -> int:
+-                target.write_bytes(payload)
++                repository_payload = payload
++                if source.normalize_utf8_text:
++                    text = payload.decode("utf-8")
++                    repository_payload = (
++                        "\n".join(line.rstrip(" \t") for line in text.splitlines()) + "\n"
++                    ).encode("utf-8")
++                    record["repository_normalization"] = "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1"
++                target.write_bytes(repository_payload)
+@@ -117,0 +135,2 @@ def main() -> int:
++                record["repository_sha256"] = hashlib.sha256(repository_payload).hexdigest()
++                record["repository_bytes"] = len(repository_payload)

@@ -10,11 +10,18 @@ policy for every item are in `SOURCE_FETCH_MANIFEST.json`.
   then discarded because the runtime dependency is already declared normally.
 - Wikisource snapshots contain public-domain source texts with Wikisource's
   CC BY-SA site/transcription layer. Attribution and source URLs are preserved
-  here and in the manifest. `淵海子平` is comparison evidence only because the
+  here and in the manifest, and each retained URL pins an exact revision.
+  `淵海子平` is comparison evidence only because the
   source page flags completeness/provenance concerns. The `三命通會` item is an
   index/provenance snapshot, not a claim of one definitive edition.
+- The pinned `窮通寶鑑` witness records a seasonal-balancing school tradition;
+  its interpretive prescriptions are not converted into automatic conclusions.
+- Chinese Text Project `三命通會` volume 7 is downloaded and hashed but not
+  retained because the transcription-layer redistribution terms were not
+  established.
 - Hong Kong Observatory and Taiwan Central Weather Administration references
-  are link-and-hash only and are not retained.
+  are link-and-hash only and are not retained. The HKO timing page records its
+  HM Nautical Almanac Office and US Naval Observatory data lineage.
 
 No network access is needed at runtime.
 

@@ -27,6 +27,15 @@ from .traditional_extensions import (
     traditional_luck_direction,
     validate_solar_term_sequence,
 )
+from .school_evidence import (
+    BaziSchoolEvidence,
+    SeasonalEvidenceFact,
+    TransformationCandidateFact,
+    build_bazi_school_evidence,
+    derive_seasonal_evidence,
+    derive_transformation_candidates,
+    validate_school_evidence_tables,
+)
 
 __all__ = [
     "BaziCore",
@@ -50,4 +59,11 @@ __all__ = [
     "ten_god_distribution_fact",
     "traditional_luck_direction",
     "validate_solar_term_sequence",
+    "BaziSchoolEvidence",
+    "SeasonalEvidenceFact",
+    "TransformationCandidateFact",
+    "build_bazi_school_evidence",
+    "derive_seasonal_evidence",
+    "derive_transformation_candidates",
+    "validate_school_evidence_tables",
 ]

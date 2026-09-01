@@ -1,0 +1,68 @@
+{
+  "register_version": "0.3.0",
+  "accessed_on": "2026-09-01",
+  "scope": "Historical rule-family and official astronomical provenance; not empirical validation",
+  "sources": [
+    {
+      "source_id": "WIKISOURCE_YUAN_HAI_ZI_PING",
+      "work": "淵海子平",
+      "used_for": [
+        "day-master-centred source-family comparison",
+        "combination and transformation-condition provenance"
+      ],
+      "limitation": "The source page reports completeness/provenance concerns; comparison evidence only"
+    },
+    {
+      "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
+      "work": "三命通會（四庫全書本）",
+      "used_for": [
+        "edition/index provenance",
+        "school-variation boundary"
+      ],
+      "limitation": "Index snapshot; not a definitive edition"
+    },
+    {
+      "source_id": "CTEXT_SAN_MING_TONG_HUI_VOLUME_7",
+      "work": "三命通會卷七",
+      "used_for": [
+        "day-master and seasonal-strength historical method witness",
+        "evidence-versus-conclusion boundary"
+      ],
+      "limitation": "Hash-only; transcription redistribution terms not established"
+    },
+    {
+      "source_id": "WIKISOURCE_DI_TIAN_SUI",
+      "work": "滴天髓",
+      "used_for": [
+        "traditional five-element source-family comparison"
+      ],
+      "limitation": "Short transcription witness; not a universal school profile"
+    },
+    {
+      "source_id": "WIKISOURCE_QIONG_TONG_BAO_JIAN",
+      "work": "窮通寶鑑",
+      "used_for": [
+        "seasonal-balancing tradition",
+        "reason for keeping useful-element conclusions school-labelled"
+      ],
+      "limitation": "Interpretive prescriptions are not automated"
+    },
+    {
+      "source_id": "HKO_24_SOLAR_TERMS",
+      "work": "The 24 Solar Terms",
+      "used_for": [
+        "24 fixed-qi positions at 15-degree intervals"
+      ],
+      "limitation": "Official astronomical reference; not an astrology validation"
+    },
+    {
+      "source_id": "HKO_SOLAR_TERM_TIMES",
+      "work": "Date and Time of the 24 Solar Terms",
+      "used_for": [
+        "official timing and upstream astronomical-data lineage"
+      ],
+      "limitation": "Hash-only; year-specific timing remains provider data"
+    }
+  ],
+  "manifest": "../sources/SOURCE_FETCH_MANIFEST.json"
+}

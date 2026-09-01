@@ -1,8 +1,8 @@
-# Classical-primary / Modern-overlay Western Astrology Example v0.2.0
+# Classical-complete / Modern-overlay Western Astrology Example v0.3.0
 
 This is an offline, deterministic Western-astrology fact-derivation example. The
 classical Hellenistic/medieval common-core profile remains intact and primary;
-v0.2.0 adds a separately labelled modern overlay rather than silently replacing
+v0.2.0 added a separately labelled modern overlay rather than silently replacing
 traditional rulers or classical dignity/sect rules.
 
 Its primary surface is:
@@ -23,6 +23,19 @@ The integrated v0.2.0 profile additionally exposes:
   sesquisquare, biquintile, and quincunx);
 - direct, retrograde, or stationary motion from an explicit longitude-speed
   vector; and applying/separating aspect phase only when both speeds exist.
+
+The v0.3.0 completion layer adds, without rewriting the v0.2 chart:
+
+- day/night/participating triplicity rulers under a named Dorothean profile;
+- all twelve complete Egyptian-bound tables with half-open degree intervals;
+- all thirty-six Chaldean faces/decans;
+- the seven traditional planetary joys as whole-sign-house facts;
+- true north/south lunar nodes and Chiron as modern **points**, never silently
+  promoted to planets, classical dignities, sect members, or sign rulers;
+- point-to-body and point-to-point aspects under the existing versioned orb
+  profile; and
+- one composed `build_integrated_completion(...)` result with deterministic
+  provenance and explicit non-claim fields.
 
 It does not calculate a high-precision ephemeris. Instead, it accepts
 already-calculated geocentric tropical longitudes and optional speed vectors
@@ -76,5 +89,6 @@ fate, health, compatibility, financial outcomes, identity, subjectivity,
 permissions, or governance authority. See
 [`docs/CLASSICAL_RULE_PROFILE.md`](docs/CLASSICAL_RULE_PROFILE.md),
 [`docs/WESTERN_ASTROLOGY_FUSION_PROFILE.md`](docs/WESTERN_ASTROLOGY_FUSION_PROFILE.md),
+[`docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md`](docs/CLASSICAL_MODERN_COMPLETION_PROFILE.md),
 [`docs/DERIVATION_AND_EPHEMERIS_BOUNDARY.md`](docs/DERIVATION_AND_EPHEMERIS_BOUNDARY.md),
 and [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md).
