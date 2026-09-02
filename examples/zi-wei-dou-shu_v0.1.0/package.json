@@ -1,0 +1,18 @@
+{
+  "name": "aion-astra-zi-wei-dou-shu",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Deterministic synthetic-only Zi Wei Dou Shu fact-profile adapter",
+  "type": "module",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "test": "node --test",
+    "fixture": "node src/cli.js fixtures/synthetic-lunar.json"
+  },
+  "dependencies": {
+    "iztro": "2.6.0"
+  }
+}

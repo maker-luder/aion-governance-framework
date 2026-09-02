@@ -29,6 +29,8 @@ The `components/multimodal_media_core_v0.1.0/` candidate adds a governed, provid
 
 `components/aion_astra_autonomous_research_v0.1.0/` composes existing inquiry, Triadic State Dynamics, bounded-loop and Evidence Interop owners into a finite 17-stage synthetic campaign. It grants no action, merge, deployment or scientific-promotion authority.
 
+The bounded comparison examples now include classical-primary plus modern Western astrology, Bazi, and a version-pinned Zi Wei Dou Shu fact profile. These examples exercise provenance, calendar/rule variance and deterministic receipts; they perform no prediction or personality synthesis, add no canonical state channel, and do not change the subjectivity evidence threshold. See [`docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md`](docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md).
+
 After the 2026-08-29 Human Owner-authorized convergence, `main` is the repository's only durable branch. Historical candidate lineage remains auditable through merged commits, pull requests and Git objects rather than parallel long-lived branches.
 
 ```text
