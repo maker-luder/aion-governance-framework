@@ -1,0 +1,16 @@
+{
+  "syntheticFixtureId": "SYNTHETIC-ZIWEI-0001",
+  "ruleProfile": "quanshu-default-v1",
+  "calendar": {
+    "type": "lunar",
+    "date": "2000-7-17",
+    "timeIndex": 2,
+    "gender": "女",
+    "isLeapMonth": false,
+    "fixLeap": true
+  },
+  "reference": {
+    "date": "2026-9-2",
+    "timeIndex": 4
+  }
+}

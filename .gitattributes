@@ -1,1 +1,3 @@
 qa/astrology-bazi-v0.3/*.patch text eol=lf
+qa/zi-wei-dou-shu-v0.1/*.patch text eol=lf
+examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/* text eol=lf

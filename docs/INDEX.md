@@ -21,6 +21,8 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 - [`API.md`](API.md) — current public-interface classification.
 - [`EXAMPLES.md`](EXAMPLES.md) — runnable example map.
 - [`../examples/classical-western-astrology_v0.1.0/README.md`](../examples/classical-western-astrology_v0.1.0/README.md) — synthetic-only classical-primary/modern-overlay Western astrology facts and non-claims.
+- [`../examples/bazi-capability_v0.1.1/README.md`](../examples/bazi-capability_v0.1.1/README.md) — deterministic Bazi facts, named school evidence and explicit interpretation boundaries.
+- [`../examples/zi-wei-dou-shu_v0.1.0/README.md`](../examples/zi-wei-dou-shu_v0.1.0/README.md) — version-pinned Zi Wei Dou Shu palace/star/time-layer facts with classical-default and Zhongzhou profiles.
 - [`INTEROPERABILITY.md`](INTEROPERABILITY.md) — JSON/subprocess boundary and reference integrations.
 - [`VERSIONING.md`](VERSIONING.md) and [`RELEASE_READINESS.md`](RELEASE_READINESS.md) — experimental version policy and conservative release gate.
 

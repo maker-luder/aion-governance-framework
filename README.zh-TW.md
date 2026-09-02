@@ -29,6 +29,8 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 `components/aion_astra_autonomous_research_v0.1.0/` 將既有 inquiry、Triadic State Dynamics、bounded loop 與 Evidence Interop owner surfaces 組合成有限的 17-stage synthetic campaign；它不取得 action、merge、deployment 或 scientific-promotion authority。
 
+目前 bounded comparison examples 已包含以古典為主並融合現代層的西洋占星、八字，以及固定版本的紫微斗數事實 profile。這些例子只用來測試 provenance、曆法／流派差異與 deterministic receipts；不產生命運預測或人格綜合、不新增 canonical state channel，也不改變主體性 evidence threshold。完整矩陣見 [`docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md`](docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md)。
+
 2026-08-29 經 Human Owner 批准完成收斂後，`main` 是本倉庫唯一的持久支線。歷史候選 lineage 仍由 merge commits、pull requests 與 Git objects 保持可稽核，而不是繼續維持多條長期平行支線。
 
 ```text

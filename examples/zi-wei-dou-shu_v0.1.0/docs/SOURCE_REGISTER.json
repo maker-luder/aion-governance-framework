@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "component": "zi-wei-dou-shu",
+  "profile_version": "0.1.0",
+  "sources": [
+    {
+      "id": "ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE",
+      "kind": "classical_text_witness",
+      "page_id": 342319,
+      "revision_id": 850734,
+      "role": "classical terminology, palace and star source-family witness",
+      "caveat": "attribution and surviving-edition history are disputed; transcription is not a sole algorithm authority"
+    },
+    {
+      "id": "IZTRO_2_6_0",
+      "kind": "modern_open_source_algorithm",
+      "version": "2.6.0",
+      "tag_object": "9a35a65f4c37ec76506ad9d86ec3ce6bb7efc85f",
+      "tag_commit": "80dcedfdeab8df9130d1088db4510f43c0cf2d78",
+      "npm_sha256": "df7013db5260d548ed1359f5173089eab6a925d90e15b327235b10a1e0b0abb9",
+      "license": "MIT",
+      "role": "calendar conversion, palace/star placement, transformations and time-layer implementation"
+    },
+    {
+      "id": "HKO_CALENDAR_TABLES",
+      "kind": "official_calendar_witness",
+      "years": [2000, 2026],
+      "role": "independent solar/lunar date and solar-term cross-check"
+    },
+    {
+      "id": "IZTRO_OFFICIAL_DOCUMENTATION",
+      "kind": "upstream_api_and_variance_documentation",
+      "role": "input semantics, output surface, leap-month behavior and school configuration"
+    }
+  ],
+  "scientific_status": "NOT_VALIDATED",
+  "runtime_network_required": false
+}

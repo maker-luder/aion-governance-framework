@@ -1,0 +1,34 @@
+name: Zi Wei Quality
+
+on:
+  pull_request:
+    paths:
+      - "examples/zi-wei-dou-shu_v0.1.0/**"
+      - "scripts/fetch_ziwei_sources.py"
+      - ".github/workflows/ziwei-quality.yml"
+  push:
+    branches: [main]
+    paths:
+      - "examples/zi-wei-dou-shu_v0.1.0/**"
+      - "scripts/fetch_ziwei_sources.py"
+      - ".github/workflows/ziwei-quality.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  deterministic-facts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: examples/zi-wei-dou-shu_v0.1.0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - run: pnpm test
+      - run: pnpm fixture > fixture-output.json
+      - run: node -e "const d=require('./fixture-output.json'); if(d.boundaries.AI_SUBJECTIVITY_POSSIBILITY!=='CENTRAL_RESEARCH_QUESTION'||d.boundaries.CANONICAL_EFFECT!=='NONE'||d.coverage.palaceCount!==12||d.coverage.majorStarCount!==14)process.exit(1)"

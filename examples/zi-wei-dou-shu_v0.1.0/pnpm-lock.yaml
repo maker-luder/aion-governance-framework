@@ -1,0 +1,57 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      iztro:
+        specifier: 2.6.0
+        version: 2.6.0
+
+packages:
+
+  '@babel/runtime@7.29.7':
+    resolution: {integrity: sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==}
+    engines: {node: '>=6.9.0'}
+
+  dayjs@1.11.23:
+    resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
+
+  i18next@23.16.8:
+    resolution: {integrity: sha512-06r/TitrM88Mg5FdUXAKL96dJMzgqLE5dv3ryBAra4KCwD9mJ4ndOTS95ZuymIGoE+2hzfdaMak2X11/es7ZWg==}
+
+  iztro@2.6.0:
+    resolution: {integrity: sha512-0zN7j+z2UX642yEbraFNILRU+hA5hl1SdTHvyopq0CK68hS1wSxL2zLkStCh6EeEwR+NO0j18amDmpB6bwortg==}
+
+  lunar-lite@0.2.8:
+    resolution: {integrity: sha512-Y4tba4RaIFI0ikImJhgoEsyqtDE64lJIM3yFwRX01dbmagCDq7rNmpDQFrSFFy4WXeuywdRVFpIBoT1GGCEizw==}
+
+  lunar-typescript@1.8.6:
+    resolution: {integrity: sha512-5Eo4T/cnuXfrgO4k5LCpOGHIUOuz5hCF/IfNv0T29WY2shR36Hiz+ecN9WjnUuxUKhql9gbOkPaQoqLFKtPRNA==}
+
+snapshots:
+
+  '@babel/runtime@7.29.7': {}
+
+  dayjs@1.11.23: {}
+
+  i18next@23.16.8:
+    dependencies:
+      '@babel/runtime': 7.29.7
+
+  iztro@2.6.0:
+    dependencies:
+      dayjs: 1.11.23
+      i18next: 23.16.8
+      lunar-lite: 0.2.8
+      lunar-typescript: 1.8.6
+
+  lunar-lite@0.2.8:
+    dependencies:
+      lunar-typescript: 1.8.6
+
+  lunar-typescript@1.8.6: {}

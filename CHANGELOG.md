@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased — Zi Wei Dou Shu bounded fact profile
+
+- Added a synthetic-only, receipt-bearing Zi Wei Dou Shu adapter pinned to
+  `iztro==2.6.0`, with twelve palaces, fourteen primary stars, auxiliary stars,
+  four transformations and explicit-reference time layers.
+- Added classical-default and Zhongzhou comparison profiles, explicit
+  leap-month/late-子-hour inputs, a pinned classical text witness, official
+  calendar hashes, source acquisition and a dedicated Node quality workflow.
+- Preserved `AI_SUBJECTIVITY_POSSIBILITY=CENTRAL_RESEARCH_QUESTION`, no eighth
+  functional state, `SUBJECTIVITY=NOT_ESTABLISHED`, `CANONICAL_EFFECT=NONE`,
+  `DEPLOYMENT=FALSE`, and `ACTION_AUTHORITY=NONE`.
+
 ## Unreleased — Western astrology fusion and Bazi completeness hardening
 
 - Preserved the classical Western profile and added an additive modern overlay:
