@@ -44,6 +44,12 @@ jobs:
       - name: Lint active Python sources for correctness
         run: ruff check --config ruff.toml .
 
+      - name: Run complete repository control suite (including real symlinks)
+        run: python -m pytest -q tests
+
+      - name: Verify retained subjectivity research sources offline
+        run: python scripts/fetch_subjectivity_sources.py
+
       - name: Validate documentation entry and convergence contract
         run: |
           python scripts/validate_documentation_entry.py --root .

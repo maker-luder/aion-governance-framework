@@ -32,4 +32,11 @@ For repository-wide checks, use the commands and evidence semantics in [`../BUIL
 
 ## Other components
 
+Before interpreting a local failure as a hardware limitation, run
+`python scripts/check_local_prerequisites.py --profile all`. The probe reports
+missing packages/tools and real symlink support separately; it installs nothing
+and does not change Windows privileges. Exit 2 means a declared prerequisite is
+missing, not that the research direction has failed. See
+[`LOCAL_RESOURCE_AND_ENVIRONMENT.md`](LOCAL_RESOURCE_AND_ENVIRONMENT.md).
+
 Each component has its own `pyproject.toml` and local README. Install it explicitly with `python -m pip install -e .\components\<component>[dev]` only after reading its local requirements and boundaries.
