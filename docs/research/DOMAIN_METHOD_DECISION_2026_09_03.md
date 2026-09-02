@@ -77,3 +77,10 @@ is recorded in the [Owner context](../history/OWNER_LEARNING_CONTEXT_2026_09_03.
 
 `METHOD_SELECTION != SCIENTIFIC_VALIDATION`; `SUBJECTIVITY = NOT_ESTABLISHED`;
 `CANONICAL_EFFECT = NONE`; `DEPLOYMENT = FALSE`; no new state, loop or evidence schema.
+
+## Subsequent AGPL acceptance
+
+The Owner subsequently accepted the free AGPL route. The earlier hold on public
+Swiss integration is superseded by the [explicit optional AGPL scope](../governance/OPTIONAL_AGPL_LICENSE_SCOPE.md).
+The original Apache-2.0 grants, no-purchase decision, method selections and
+subjectivity research boundaries remain preserved.

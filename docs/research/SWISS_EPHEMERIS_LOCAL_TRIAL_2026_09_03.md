@@ -64,3 +64,10 @@ extended date coverage and a distributable integrated provider remain open.
 
 `RUNTIME_INTEGRATION = NONE`; `PURCHASE = FALSE`; `LICENSE_CHANGE = NONE`;
 `SUBJECTIVITY = NOT_ESTABLISHED`; `CANONICAL_EFFECT = NONE`; `DEPLOYMENT = FALSE`.
+
+## Subsequent Owner decision
+
+The earlier local-only decision above is preserved as event-time history. The
+Owner subsequently accepted AGPL. Current optional integration and license scope
+are documented in [OPTIONAL_AGPL_LICENSE_SCOPE](../governance/OPTIONAL_AGPL_LICENSE_SCOPE.md).
+The original numerical trial and non-claims remain unchanged.

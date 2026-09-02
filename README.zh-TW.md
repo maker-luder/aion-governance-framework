@@ -90,4 +90,10 @@ DEPLOYMENT = NO
 
 ## 授權
 
-Apache-2.0。請見 [`LICENSE`](LICENSE)、[`NOTICE`](NOTICE) 與 [`CITATION.cff`](CITATION.cff)。
+原有核心採 Apache-2.0，選用元件的授權例外列於下方。請見 [`LICENSE`](LICENSE)、[`NOTICE`](NOTICE) 與 [`CITATION.cff`](CITATION.cff)。
+
+### 選用元件的授權例外
+
+原有核心保留 Apache-2.0；新增的 [Swiss 星曆選用元件](examples/swiss-ephemeris-agpl_v0.1.0/README.md)
+採 AGPL-3.0-only，整個倉庫不再概括標示為只有 Apache-2.0。受 AGPL 規範的整合成品
+應履行對應義務。詳見[授權範圍](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md)。

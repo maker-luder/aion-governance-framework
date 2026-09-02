@@ -25,7 +25,7 @@ DEPLOYMENT = FALSE
 | Uranus, Neptune, Pluto | Implemented modern overlay | traditional rulers retained |
 | Minor aspects and motion/phase | Implemented modern overlay | versioned, missing vectors unresolved |
 | True lunar nodes and Chiron | Implemented v0.3 as points | no classical dignity/sect/rulership |
-| High-precision ephemeris | Independent pinned local trial completed | no public provider integration; [trial/license disposition](SWISS_EPHEMERIS_LOCAL_TRIAL_2026_09_03.md) |
+| Swiss ephemeris position provider | Optional AGPL-labelled source adapter | pinned Windows x64 native files; offline TT positions only; [license scope](../governance/OPTIONAL_AGPL_LICENSE_SCOPE.md); not a complete horoscope or independent precision certification |
 | Predictive/personality synthesis | Not performed | validity not established |
 
 ## Bazi

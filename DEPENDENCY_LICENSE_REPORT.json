@@ -1,5 +1,13 @@
 {
   "status": "REVIEW_REQUIRED_BEFORE_RELEASE",
   "vendored_dependencies": [],
-  "note": "No third-party dependency source or wheel is included. Declared dependencies must be resolved by the installer and independently license-reviewed."
+  "note": "No third-party dependency source or wheel is included. Declared dependencies must be resolved by the installer and independently license-reviewed.",
+  "optional_copyleft_component": {
+    "path": "examples/swiss-ephemeris-agpl_v0.1.0",
+    "adapter_license": "AGPL-3.0-only",
+    "native_dependency": "Swiss Ephemeris 2.10.03 at 3fd0f956d73898b91cc4f67cf18b21af656d1342",
+    "native_vendored": false,
+    "core_apache_grants_preserved": true,
+    "combined_product_not_apache_only": true
+  }
 }

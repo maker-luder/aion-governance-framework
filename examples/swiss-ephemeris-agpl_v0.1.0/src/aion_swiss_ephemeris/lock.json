@@ -1,0 +1,54 @@
+{
+  "commit": "3fd0f956d73898b91cc4f67cf18b21af656d1342",
+  "files": [
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/LICENSE",
+      "bytes": 2371,
+      "sha256": "b6345743292c516d07799dfad46f1a641e5270da2160cc4d6bd54594d6faa991",
+      "git_blob_sha1": "b6f68752cdb15969a8d5e769b0c2ebe4de7c63b9"
+    },
+    {
+      "path": "agpl-3.0.txt",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/agpl-3.0.txt",
+      "bytes": 34523,
+      "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "git_blob_sha1": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e"
+    },
+    {
+      "path": "swephexp.h",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/swephexp.h",
+      "bytes": 40912,
+      "sha256": "53647b650504bbdec65166af1fbdb8580fa26a2ec821d5f50f032f5b0745b3cc",
+      "git_blob_sha1": "08ad61979a6f9de5dd539c5b0ec1e391a9b3c151"
+    },
+    {
+      "path": "windows/programs/swetest64.exe",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/windows/programs/swetest64.exe",
+      "bytes": 1145856,
+      "sha256": "c44d29554927ad1ba44196b5b274904f012dacaa3b4797f7f4ae6a48618fc1c5",
+      "git_blob_sha1": "ab34f6b0b90081e6f86c52ad6662617692d96062"
+    },
+    {
+      "path": "ephe/sepl_18.se1",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/ephe/sepl_18.se1",
+      "bytes": 484061,
+      "sha256": "ca1393ceab3a44fbc895887cf789c68819ae6a1cbc9b22225872dbe4ccd99a66",
+      "git_blob_sha1": "786702cd04506371ee6223af1ebac02d54c848b8"
+    },
+    {
+      "path": "ephe/semo_18.se1",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/ephe/semo_18.se1",
+      "bytes": 1304771,
+      "sha256": "1ca07bd67c24374d77226180c20a4f9996cba013697894810518e7eb582ca4f7",
+      "git_blob_sha1": "5427d9f885fd6cb9489584ade37e52c6abb4d407"
+    },
+    {
+      "path": "ephe/seas_18.se1",
+      "url": "https://raw.githubusercontent.com/aloistr/swisseph/3fd0f956d73898b91cc4f67cf18b21af656d1342/ephe/seas_18.se1",
+      "bytes": 223004,
+      "sha256": "a2cd8fc33807c78ca9a700c91c2e042258b12fc4796519e00781440b5ad8b2e2",
+      "git_blob_sha1": "8f900cab7e557e4c41f758a6bf3a3c3967e7e3db"
+    }
+  ]
+}

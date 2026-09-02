@@ -1,0 +1,18 @@
+date (dmy) 1.1.2000 greg.   12:00:00 TT		version 2.10.03
+UT:  2451544.999261240     delta t: 63.828914 sec
+TT:  2451545.000000000
+Epsilon (t/m)     23°26'15.6362,  23°26'21.4060
+Nutation          -0° 0'13.9315,  -0° 0' 5.7698
+Sun            , 280.3681666,  1.0194320
+Moon           , 223.3148946, 12.0212914
+Mercury        , 271.8881253,  1.5562502
+Venus          , 241.5649051,  1.2090389
+Mars           , 327.9627403,  0.7756727
+Jupiter        , 25.2530002,  0.0407588
+Saturn         , 40.3956537, -0.0199461
+Uranus         , 314.8091860,  0.0503432
+Neptune        , 303.1929549,  0.0355700
+Pluto          , 251.4546829,  0.0351531
+
+warning: SwissEph file 'sepl_18.se1' not found in PATH 'LOCAL_CACHE\intentionally-absent-data\' 
+using Moshier eph.; 

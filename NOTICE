@@ -1,7 +1,10 @@
 AION Governance Framework
 Copyright 2026 AION Project Owner
 
-Licensed under the Apache License, Version 2.0.
+The existing core is licensed under the Apache License, Version 2.0.
+Exception: examples/swiss-ephemeris-agpl_v0.1.0 is AGPL-3.0-only, with its own
+LICENSE and UPSTREAM_NOTICE.txt. An AGPL-covered combined product must meet
+the applicable AGPL conditions; this NOTICE does not designate it Apache-only.
 
 This repository contains AI-assisted research and engineering work. Attribution and provenance details are documented in docs/PROVENANCE.md and docs/governance/AI_COLLABORATION_DISCLOSURE.md.
 
