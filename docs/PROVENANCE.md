@@ -101,3 +101,14 @@ The broader repository-wide pytest collection/import-isolation issue discovered 
 ## Source package boundary
 
 Source-derived components preserve their original candidate status. Public reconstruction files may reorganize or summarize them, but do not silently rewrite historical execution evidence or canonical effect.
+
+## Owner learning and source-availability update — 2026-09-03
+
+The [Owner learning context](history/OWNER_LEARNING_CONTEXT_2026_09_03.md) is
+an attributed historical reference, not internal agent memory. The
+[method/source decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md) records
+the unavailable-original-whitepaper disposition without reconstructing lost quotations.
+Read the learning reference explicitly with
+`python scripts/read_owner_research_context.py --agent AION --task OWNER_LEARNING_HISTORY`
+(or `--agent ASTRA`). This uses the existing governed-source schema, verifies the
+source hash and a fixed byte cap, and grants no writeback or action authority.

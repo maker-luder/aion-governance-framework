@@ -37,7 +37,11 @@ from .school_evidence import (
     validate_school_evidence_tables,
 )
 
+from .month_structure import derive_month_structure, ziping_month_structure_profile
+
 __all__ = [
+    "derive_month_structure",
+    "ziping_month_structure_profile",
     "BaziCore",
     "Database",
     "calculate_annual_cycle",

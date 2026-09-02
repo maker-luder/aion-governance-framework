@@ -1,0 +1,63 @@
+{
+  "record_type": "SOURCE_ACQUISITION_RECEIPT",
+  "sources": [
+    {
+      "source_id": "lin-modern-planets",
+      "url": "https://www.zhanranxingzuo.com/6969.html",
+      "retrieved_at_utc": "2026-09-02T16:30:05.112271+00:00",
+      "bytes": 124318,
+      "sha256": "52afe324585d7386844a2bb3855611028f147d8ea01c1c3d67b67d985ed4eb25",
+      "exit_status": 0,
+      "retention": "EXTERNAL_LOCAL_CACHE_ONLY",
+      "public_copy": "NOT_REDISTRIBUTED",
+      "epistemic_role": "REFERENCE_NOT_VALIDATION"
+    },
+    {
+      "source_id": "lin-choice",
+      "url": "https://www.zhanranxingzuo.com/6981.html",
+      "retrieved_at_utc": "2026-09-02T16:30:06.419279+00:00",
+      "bytes": 124203,
+      "sha256": "5542ff70bdcb52bf2f47b225bd7c7a5b8299885ac43ae2225bbc646eeb80e2d3",
+      "exit_status": 0,
+      "retention": "EXTERNAL_LOCAL_CACHE_ONLY",
+      "public_copy": "NOT_REDISTRIBUTED",
+      "epistemic_role": "REFERENCE_NOT_VALIDATION"
+    },
+    {
+      "source_id": "ziping-text-commentary",
+      "url": "https://www.ncc.com.tw/fate/paleo/bg/bg_032.htm",
+      "retrieved_at_utc": "2026-09-02T16:29:58.449231+00:00",
+      "bytes": 101361,
+      "sha256": "a86a4e3b6b1fe66560b9e1df8e54aa3615bbd14c208ac52e505f5f6409af417e",
+      "exit_status": 0,
+      "retention": "EXTERNAL_LOCAL_CACHE_ONLY",
+      "public_copy": "NOT_REDISTRIBUTED",
+      "epistemic_role": "REFERENCE_NOT_VALIDATION"
+    },
+    {
+      "source_id": "ziwei-upstream-setup",
+      "url": "https://iztro.com/learn/setup",
+      "retrieved_at_utc": "2026-09-02T16:29:59.327271+00:00",
+      "bytes": 60979,
+      "sha256": "7ca97b4471e10d4f115dfb28c0608d96d367c1fb31774b1008b890f3598fdf74",
+      "exit_status": 0,
+      "retention": "EXTERNAL_LOCAL_CACHE_ONLY",
+      "public_copy": "NOT_REDISTRIBUTED",
+      "epistemic_role": "REFERENCE_NOT_VALIDATION"
+    },
+    {
+      "source_id": "swiss-license-info",
+      "url": "https://www.astro.com/swisseph/swephinfo_e.htm",
+      "retrieved_at_utc": "2026-09-02T16:30:01.450270+00:00",
+      "bytes": 62525,
+      "sha256": "2da28b729a2af9cd8a8d2f59faa0f053a70d8009c661f62755ce06c1b3a92e59",
+      "exit_status": 0,
+      "retention": "EXTERNAL_LOCAL_CACHE_ONLY",
+      "public_copy": "NOT_REDISTRIBUTED",
+      "epistemic_role": "REFERENCE_NOT_VALIDATION"
+    }
+  ],
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "protected_web_content_in_repository": false
+}

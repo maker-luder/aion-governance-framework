@@ -100,7 +100,7 @@ def derive_seasonal_evidence(pillars: tuple[Pillar, ...]) -> SeasonalEvidenceFac
     """Count visible/hidden evidence relative to the day master, without scoring."""
 
     by_name = {pillar.name: pillar for pillar in pillars}
-    if set(by_name) != {"YEAR", "MONTH", "DAY", "HOUR"}:
+    if len(pillars) != 4 or set(by_name) != {"YEAR", "MONTH", "DAY", "HOUR"}:
         raise ValidationError("seasonal evidence requires exactly YEAR, MONTH, DAY, HOUR pillars")
     day_master = by_name["DAY"].stem
     day_element = STEM_ELEMENTS[day_master]

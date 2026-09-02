@@ -123,3 +123,9 @@ DOCUMENTATION_CONVERGENCE != RESEARCH_SCOPE_EXPANSION
 ```
 
 If a new document does not fit a defined class, classify it before treating it as current authority.
+
+## Bounded learning and method references
+
+- [Owner learning context](history/OWNER_LEARNING_CONTEXT_2026_09_03.md) — historical, Owner-reported.
+- [Domain-method decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md) — research reference; profile selection, not validation.
+- [Swiss local trial and license disposition](research/SWISS_EPHEMERIS_LOCAL_TRIAL_2026_09_03.md) — research reference; no public integration.

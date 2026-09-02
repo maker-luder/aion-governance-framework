@@ -1,0 +1,31 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+  "source_id": "owner-learning-context-2026-09-03",
+  "source_title": "Owner learning context, 2026-09-03",
+  "source_version": "1",
+  "domain": "OTHER_DECLARED",
+  "source_class": "OTHER_REFERENCE",
+  "source_declared_status": "OWNER_REPORTED_HISTORY_NOT_INTERNAL_AGENT_MEMORY",
+  "registry_status": "ACTIVE_REFERENCE",
+  "epistemic_role": "REFERENCE",
+  "provenance": {
+    "kind": "REPOSITORY_FILE",
+    "locator": "docs/history/OWNER_LEARNING_CONTEXT_2026_09_03.md"
+  },
+  "content_hash": "sha256:02d853d0991339d87366abbe1dcae47cc9da01494c23e64eded79c5ea4327065",
+  "verification_policy": "SOURCE_GROUNDED",
+  "freshness_policy": "VERSION_BOUND",
+  "allowed_agents": [
+    "AION",
+    "ASTRA"
+  ],
+  "allowed_tasks": [
+    "OWNER_LEARNING_HISTORY"
+  ],
+  "context_policy": "ON_DEMAND",
+  "context_token_cap": 4096,
+  "authority_level": "REFERENCE_ONLY",
+  "writeback_authority": "NONE",
+  "canonical_effect": "NONE"
+}
