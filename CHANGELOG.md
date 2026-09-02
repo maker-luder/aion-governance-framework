@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-09-02 — repository evidence and environment hardening
+
+- Normalize component QA target paths to POSIX on Windows; run all root controls in Linux Quality CI.
+- Pin the remaining Zi Wei action references to exact official commits and test every workflow reference.
+- Add offline-verifiable core subjectivity source receipts using the existing governed-source schema.
+- Add local prerequisite diagnostics, measured resource context and a dated repository-gap ledger.
+- Correct the typed bridge's already-merged status without changing the subjectivity research method.
+
 ## Unreleased — Zi Wei Dou Shu bounded fact profile
 
 - Added a synthetic-only, receipt-bearing Zi Wei Dou Shu adapter pinned to

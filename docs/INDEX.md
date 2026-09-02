@@ -17,6 +17,9 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 ## Onboarding and external interfaces
 
 - [`INSTALLATION.md`](INSTALLATION.md) — source checkout, component-scoped installs, and tests.
+- [`LOCAL_RESOURCE_AND_ENVIRONMENT.md`](LOCAL_RESOURCE_AND_ENVIRONMENT.md) — distinguish resource limits, missing prerequisites and program defects.
+- [`research/REPOSITORY_GAP_AUDIT_2026_09_02.md`](research/REPOSITORY_GAP_AUDIT_2026_09_02.md) — dated whole-tree intake, repaired gaps and unresolved research needs.
+- [`research/sources/subjectivity/README.md`](research/sources/subjectivity/README.md) — licensed core research source snapshots and existing-schema candidate records.
 - [`QUICKSTART.md`](QUICKSTART.md) — deterministic inspection-only Evidence Interop export.
 - [`API.md`](API.md) — current public-interface classification.
 - [`EXAMPLES.md`](EXAMPLES.md) — runnable example map.

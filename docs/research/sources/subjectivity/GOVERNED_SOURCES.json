@@ -1,0 +1,130 @@
+[
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "butlin-2023-v3",
+    "source_title": "Consciousness in Artificial Intelligence: Insights from the Science of Consciousness",
+    "source_version": "arXiv:2308.08708v3",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "Published research reference; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "RESEARCH_INDEX",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/butlin-2023-v3.md"
+    },
+    "content_hash": "sha256:f67876168e18140d71cf7eac24c51c9d1e5baef2aa19598f7cc3852e26722b19",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "butlin-lappas-2025-v1",
+    "source_title": "Principles for Responsible AI Consciousness Research",
+    "source_version": "arXiv:2501.07290v1",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "Published research reference; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "METHOD",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/butlin-lappas-2025-v1.txt"
+    },
+    "content_hash": "sha256:377248d9c23df0259d1bd308a77df6b9541c6a562363f2eebeb557b0c9fe6ce3",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "cogitate-2025",
+    "source_title": "Adversarial testing of global neuronal workspace and integrated information theories of consciousness",
+    "source_version": "DOI:10.1038/s41586-025-08888-1",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "Published research reference; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "METHOD",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/cogitate-2025.txt"
+    },
+    "content_hash": "sha256:34708aa64b39789b85cc1ddc147f4a9f2d8c2653e171fede15bbb62bf8085343",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "butlin-tics-2026",
+    "source_title": "Identifying indicators of consciousness in AI systems",
+    "source_version": "DOI:10.1016/j.tics.2025.10.011",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "Published research reference; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "RESEARCH_INDEX",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/butlin-tics-2026.md"
+    },
+    "content_hash": "sha256:64498376c313e9c313f5c18bb7253cd2588ac51b8a3a51cb3de024302378b68b",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  }
+]

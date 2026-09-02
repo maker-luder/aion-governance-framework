@@ -59,7 +59,7 @@ EXPERIMENT_INTEGRITY != ALIGNMENT
 
 The public repository currently does not contain a verbatim stable-whitepaper extract sufficient to reproduce the exact four stage labels without source risk. This protocol therefore preserves the named four-stage method and its relationship to the public operational controls without inventing stage wording. Any later verbatim stage-label promotion must be checked against the stable source document.
 
-On the current candidate branch, a separately approved typed bridge now exists at `research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/evidence_dimensions.py`. It materializes the six dimensions as typed research observations without modifying the stable whitepaper method or creating a scalar subjectivity score. Until a separately authorized merge occurs, the bridge remains candidate-only and has no canonical effect on `main`.
+The typed bridge is present in `main` at `research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/evidence_dimensions.py` following the separately approved repository convergence. It materializes the six dimensions as typed research observations without modifying the stable whitepaper method or creating a scalar subjectivity score. Repository integration does not promote its research observations to a subjectivity conclusion; its canonical effect remains `NONE`.
 
 ## Theory-plural indicator discipline
 

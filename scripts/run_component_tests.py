@@ -52,7 +52,7 @@ def run_component_tests(
         )
         results.append(
             {
-                "target": str(target.relative_to(root)),
+                "target": target.relative_to(root).as_posix(),
                 "returncode": proc.returncode,
                 "output": proc.stdout,
             }
