@@ -90,4 +90,8 @@ Future protected-main transitions require fresh action-specific, exact-head Huma
 
 ## License
 
-Apache-2.0. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`CITATION.cff`](CITATION.cff).
+The existing core remains Apache-2.0. The optional
+[`Swiss Ephemeris example`](examples/swiss-ephemeris-agpl_v0.1.0/README.md) is
+AGPL-3.0-only; this repository is not uniformly Apache-only. See
+[`license scope`](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md),
+[`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`CITATION.cff`](CITATION.cff).

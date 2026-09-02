@@ -1,5 +1,10 @@
 # Start Here / 從這裡開始
 
+For the Owner's learning/continuity context and the current bounded domain choices,
+see the [source-attributed history](history/OWNER_LEARNING_CONTEXT_2026_09_03.md)
+and [method decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md). These are
+supporting references, not a replacement for the central subjectivity question.
+
 This is the single reader entry point for the AION Governance Framework. / 這是 AION Governance Framework 的單一閱讀入口。
 
 ## 1. What is this repository? / 這個倉庫是什麼？

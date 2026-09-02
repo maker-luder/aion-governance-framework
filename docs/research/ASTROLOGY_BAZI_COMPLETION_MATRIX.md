@@ -25,7 +25,7 @@ DEPLOYMENT = FALSE
 | Uranus, Neptune, Pluto | Implemented modern overlay | traditional rulers retained |
 | Minor aspects and motion/phase | Implemented modern overlay | versioned, missing vectors unresolved |
 | True lunar nodes and Chiron | Implemented v0.3 as points | no classical dignity/sect/rulership |
-| High-precision ephemeris | Upstream contract | source/version required; not bundled |
+| Swiss ephemeris position provider | Optional AGPL-labelled source adapter | pinned Windows x64 native files; offline TT positions only; [license scope](../governance/OPTIONAL_AGPL_LICENSE_SCOPE.md); not a complete horoscope or independent precision certification |
 | Predictive/personality synthesis | Not performed | validity not established |
 
 ## Bazi
@@ -39,7 +39,8 @@ DEPLOYMENT = FALSE
 | Fixed-qi 24 solar terms | Implemented | official 15-degree invariant |
 | Seasonal/day-master evidence | Implemented v0.3 | raw counts, no score |
 | Combination/harmony/meeting targets | Implemented v0.3 | conditions not evaluated |
-| Strength, 格局, 用神 | Evidence-ready, unresolved | requires a named owner-frozen school profile |
+| Named month-structure profile | Owner-selected; raw exposure/root evidence implemented | `AION_ZIPING_MONTH_STRUCTURE_V1`; [method decision](DOMAIN_METHOD_DECISION_2026_09_03.md) |
+| Strength, 格局成敗, 用神 selection | Interpretation remains unresolved | named profile does not turn raw evidence into an automatic judgment |
 | Free-form prediction or identity binding | Not performed | no runtime/authority effect |
 
 ## Source acquisition

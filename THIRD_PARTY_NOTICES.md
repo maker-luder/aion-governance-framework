@@ -38,3 +38,12 @@ Wikisource. The site/transcription layer is attributed under CC BY-SA terms;
 each retained snapshot records its page/revision provenance. These texts are
 research witnesses and are not treated as uniform historical or scientific
 authority.
+
+## Optional Swiss Ephemeris AGPL integration
+
+The source adapter at `examples/swiss-ephemeris-agpl_v0.1.0/` is AGPL-3.0-only,
+not covered by the core's Apache-only shorthand. It retains the original Swiss
+notice and AGPL license text. Native files are separately fetched from the pinned
+upstream revision into an external cache, not vendored in the repository. See
+[the license scope](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md) for combined-work
+and future network-service obligations. No upstream author endorsement is claimed.

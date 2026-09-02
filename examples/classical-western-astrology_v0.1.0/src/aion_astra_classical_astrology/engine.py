@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from itertools import combinations
+from math import isfinite
 
 from .constants import (
     ASPECT_ANGLES,
@@ -34,7 +35,7 @@ ALGORITHM_VERSION = "classical-primary-modern-overlay-fact-derivation-0.2.0"
 
 
 def normalize_longitude(value: float) -> float:
-    if not isinstance(value, (int, float)) or not 0.0 <= float(value) < 360.0:
+    if type(value) not in (int, float) or not isfinite(value) or not 0.0 <= float(value) < 360.0:
         raise ValidationError("longitude must be within [0, 360)")
     return float(value)
 
@@ -87,8 +88,10 @@ def _validate(source: ChartInput, profile: ClassicalRuleProfile) -> None:
         raise ValidationError("positions must contain exactly the profile planet set")
     for position in source.positions:
         normalize_longitude(position.longitude)
-        if position.speed_longitude is not None and not isinstance(position.speed_longitude, (int, float)):
-            raise ValidationError("speed_longitude must be numeric or null")
+        if position.speed_longitude is not None and (
+            type(position.speed_longitude) not in (int, float) or not isfinite(position.speed_longitude)
+        ):
+            raise ValidationError("speed_longitude must be finite numeric or null")
 
 
 def _dignities(planet: str, sign: str) -> tuple[str, ...]:

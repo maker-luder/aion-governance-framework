@@ -59,3 +59,12 @@ result is recorded at
 Redistributable reviewed snapshots are under `sources/reviewed-snapshots`; HKO
 and Taiwan CWA references are downloaded and hashed but discarded after hashing.
 See [`sources/README.md`](sources/README.md).
+
+## Selected month-structure evidence profile
+
+`ziping_month_structure_profile()` returns the additive Owner-selected
+`AION_ZIPING_MONTH_STRUCTURE_V1`. `derive_month_structure(pillars, profile_id=...)`
+returns month hidden-stem candidates, ten-god relations, literal exposure/root
+evidence and a deterministic hash. It neither scores strength nor selects 用神
+or claims 格局 success. Calendar defaults and existing fixtures are preserved.
+See [the bounded method decision](../../docs/research/DOMAIN_METHOD_DECISION_2026_09_03.md).
