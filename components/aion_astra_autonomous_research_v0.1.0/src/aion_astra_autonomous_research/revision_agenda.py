@@ -31,6 +31,8 @@ def build_revision_agenda(requests: tuple, *, limit: int = 3) -> tuple[AgendaEnt
             score=_SCORE_BY_KIND[AgendaKind.CONTRADICTION],
             source_refs=(f"memory:{request.memory_id}", f"revision-head:{request.expected_event_hash}")
                 + tuple(f"evidence:{ref}" for ref in request.evidence_refs)
-                + tuple(f"premise:{ref}" for ref in request.dependency_refs),
+                + tuple(f"premise:{ref}" for ref in request.dependency_refs)
+                + tuple(f"counterevidence:{ref}" for ref in request.counterevidence_refs)
+                + tuple(f"affected-by:{ref}" for ref in request.affected_by),
         )
     return tuple(sorted(entries.values(), key=lambda entry: entry.question_id)[:limit])

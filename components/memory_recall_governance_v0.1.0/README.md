@@ -21,3 +21,7 @@ See [the dated design, API boundaries, contrast and source notes](../../docs/res
 `RECORDED` is recall eligibility, not truth. Semantic contradiction detection,
 automatic review and artificial subjectivity remain unestablished/not implemented
 as specified in that document. No private database migration runs automatically.
+
+See the [bounded hardening addendum](../../docs/research/CLAIM_REVISION_HARDENING_2026_09_03.md)
+for version-bound DAG semantics, atomicity, declared source lineage, new-event
+canonicalization, resource caps, disposable migration tests and downgrade limits.

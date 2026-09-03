@@ -173,6 +173,13 @@ PROVENANCE != CORRECTNESS
 CONSENSUS != TRUTH
 ```
 
+## Subsequent local hardening
+
+The [bounded hardening addendum](CLAIM_REVISION_HARDENING_2026_09_03.md) records
+stricter graph/data validation, V2 canonical events, explicit source lineage,
+transaction/concurrency tests and compatibility limits. Historical V1 event hashes
+remain unchanged. This addendum does not confer remote integration authority.
+
 ## Primary-source reading and counterarguments
 
 Access checked 2026-09-03. The entries below are short original summaries based

@@ -268,12 +268,16 @@ def test_budget_exhaustion_is_atomic(fixture, monkeypatch, budget):
     store, service = fixture
     service.add_evidence(evidence(), writeback_approved=True)
     before = service.snapshot()
+    original_limit = getattr(revision, budget)
     monkeypatch.setattr(revision, budget, 0)
     with pytest.raises(ValueError, match="budget"):
         if budget == "MAX_EVIDENCE":
             service.add_evidence(evidence(eid="e2"), writeback_approved=True)
         else:
             resolve(service)
+    # Hardened reads also reject databases exceeding the active limit. Restore
+    # the injected test limit before comparing the unchanged persisted state.
+    monkeypatch.setattr(revision, budget, original_limit)
     assert before == service.snapshot()
     assert len(store.list_for_identity(user_id=REQUEST.user_id, agent_id=REQUEST.agent_id)) == 4
 
