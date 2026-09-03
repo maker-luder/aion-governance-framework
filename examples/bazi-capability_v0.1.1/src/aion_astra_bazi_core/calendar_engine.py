@@ -3,29 +3,20 @@
 from __future__ import annotations
 
 import math
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Any
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from lunar_python import Solar  # type: ignore[import-untyped]
 
 from .enums import DayRolloverRule, MonthBoundaryRule, SolarTimeRule, YearBoundaryRule
 from .errors import RuleProfileError, UnsupportedRangeError, ValidationError
 from .models import BaziRuleProfile, BaziSourceInput, CalendarContext
+from .timezone_data import offset_text as _offset_text, resolve_civil, timezone_provenance
 
-ALGORITHM_VERSION = "AION_BAZI_CALENDAR_ADAPTER_0.1.0"
+ALGORITHM_VERSION = "AION_BAZI_CALENDAR_ADAPTER_0.2.0"
 EPHEMERIS_VERSION = "lunar_python-1.4.8"
 SUPPORTED_YEAR_MIN = 1900
 SUPPORTED_YEAR_MAX = 2100
-
-
-def _offset_text(value: timedelta | None) -> str:
-    if value is None:
-        raise ValidationError("timezone offset is unavailable")
-    total = int(value.total_seconds())
-    sign = "+" if total >= 0 else "-"
-    total = abs(total)
-    return f"{sign}{total // 3600:02d}:{(total % 3600) // 60:02d}"
 
 
 def equation_of_time_minutes(value: datetime) -> float:
@@ -36,18 +27,14 @@ def equation_of_time_minutes(value: datetime) -> float:
 
 def normalize_source_time(source: BaziSourceInput, profile: BaziRuleProfile) -> tuple[datetime, datetime]:
     try:
-        timezone = ZoneInfo(source.timezone_id)
-    except ZoneInfoNotFoundError as exc:
-        raise ValidationError(f"unknown IANA timezone: {source.timezone_id}") from exc
-    parsed = datetime.fromisoformat(source.local_datetime)
-    if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=timezone)
-    else:
-        parsed = parsed.astimezone(timezone)
+        parsed = datetime.fromisoformat(source.local_datetime)
+    except (ValueError, TypeError) as exc:
+        raise ValidationError("invalid ISO local datetime") from exc
     if not SUPPORTED_YEAR_MIN <= parsed.year <= SUPPORTED_YEAR_MAX:
         raise UnsupportedRangeError(
             f"supported Gregorian years are {SUPPORTED_YEAR_MIN}..{SUPPORTED_YEAR_MAX}"
         )
+    parsed = resolve_civil(source.local_datetime, source.timezone_id, source.utc_offset_at_event)
     actual_offset = _offset_text(parsed.utcoffset())
     if actual_offset != source.utc_offset_at_event:
         raise ValidationError(
@@ -102,7 +89,7 @@ def calendar_context(
     context = CalendarContext(
         civil_local_datetime=civil.isoformat(),
         calculation_local_datetime=calculation.isoformat(),
-        utc_datetime=civil.astimezone(ZoneInfo("UTC")).isoformat(),
+        utc_datetime=civil.astimezone(timezone.utc).isoformat(),
         utc_offset=_offset_text(actual_offset),
         timezone_id=source.timezone_id,
         longitude_correction_minutes=round(longitude_minutes, 6),
@@ -111,5 +98,7 @@ def calendar_context(
         previous_jie_datetime=str(previous_jie.getSolar().toYmdHms()),
         next_jie=str(next_jie.getName()),
         next_jie_datetime=str(next_jie.getSolar().toYmdHms()),
+        timezone_data_version="tzdata-2026.3/IANA-2026c",
+        timezone_data_sha256=timezone_provenance(source.timezone_id)["tzif_sha256"],
     )
     return context, lunar, eight_char

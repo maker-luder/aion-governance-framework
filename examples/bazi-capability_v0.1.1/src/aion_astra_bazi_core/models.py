@@ -96,6 +96,8 @@ class CalendarContext:
     previous_jie_datetime: str
     next_jie: str
     next_jie_datetime: str
+    timezone_data_version: str = "NOT_RECORDED_LEGACY"
+    timezone_data_sha256: str = "NOT_RECORDED_LEGACY"
 
 
 @dataclass(frozen=True)

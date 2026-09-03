@@ -25,7 +25,7 @@ DEPLOYMENT = FALSE
 | Uranus, Neptune, Pluto | Implemented modern overlay | traditional rulers retained |
 | Minor aspects and motion/phase | Implemented modern overlay | versioned, missing vectors unresolved |
 | True lunar nodes and Chiron | Implemented v0.3 as points | no classical dignity/sect/rulership |
-| Swiss ephemeris position provider | Optional AGPL-labelled source adapter | pinned Windows x64 native files; offline TT positions only; [license scope](../governance/OPTIONAL_AGPL_LICENSE_SCOPE.md); not a complete horoscope or independent precision certification |
+| Swiss ephemeris provider and bounded chart bridge | Optional AGPL-labelled adapter | pinned Windows x64; TT positions and explicit-offset UTC ten-planet whole-sign chart; synthetic research bridge; [cycle scope and limits](RESEARCH_CALENDAR_CYCLE_2026_09_03.md); no independent precision certification |
 | Predictive/personality synthesis | Not performed | validity not established |
 
 ## Bazi
@@ -33,6 +33,7 @@ DEPLOYMENT = FALSE
 | Surface | Status | Boundary |
 |---|---|---|
 | Calendar normalization and four pillars | Implemented | pinned calendar/rule profile |
+| Cross-platform timezone provenance / DST gaps and folds | Implemented | package-only tzdata 2026.3; TZif hash; recorded offset disambiguates repeated local times |
 | Hidden stems, ten gods, NaYin, twelve stages | Implemented | deterministic facts |
 | Stem/branch relations | Implemented | named relation tables |
 | Luck direction/start and decade/annual/monthly cycles | Implemented | explicit school inputs |
@@ -55,6 +56,7 @@ manifests record every result and prove runtime network access is unnecessary.
 | Surface | Status | Boundary |
 |---|---|---|
 | Solar/lunar normalization | Implemented, pinned upstream | explicit calendar type and hour index |
+| HKO 2033 calendar-boundary witnesses | Seven dates tested in both profiles | shared independently sourced calendar facts, not independent star-placement validation |
 | Leap month and late 子 hour | Implemented | caller must choose named behavior |
 | Twelve palaces, 命/身, 五行局 | Implemented | deterministic facts under rule profile |
 | Fourteen primary stars | Implemented | exact-count invariant |

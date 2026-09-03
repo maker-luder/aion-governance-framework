@@ -1,0 +1,25 @@
+{
+  "status": "EXPLORATORY_CROSS_PROVIDER_REGRESSION_NOT_PRECISION_CERTIFICATION",
+  "time": "2000-01-01T12:00:00Z",
+  "center": "500@399 geocentre",
+  "quantity": "31 apparent observer ecliptic-of-date longitude",
+  "angular_tolerance_degrees": 0.0001,
+  "threshold_status": "engineering regression tolerance selected during review, not preregistered",
+  "limits": "two bodies at one epoch; shared ephemeris lineage is not independent validation",
+  "bodies": [
+    {
+      "body": "SUN",
+      "longitude": 280.3689092,
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%2710%27&EPHEM_TYPE=%27OBSERVER%27&CENTER=%27500%40399%27&START_TIME=%272000-01-01+12%3A00%3A00%27&STOP_TIME=%272000-01-01+12%3A01%3A00%27&STEP_SIZE=%271m%27&QUANTITIES=%2731%27&CSV_FORMAT=%27YES%27&EXTRA_PREC=%27YES%27",
+      "raw_bytes": 6856,
+      "raw_sha256": "23c523ceb9f9971a51447cc999de98b736afd689bf6e988cb4275608414d03ee"
+    },
+    {
+      "body": "MOON",
+      "longitude": 223.323786,
+      "url": "https://ssd.jpl.nasa.gov/api/horizons.api?format=json&COMMAND=%27301%27&EPHEM_TYPE=%27OBSERVER%27&CENTER=%27500%40399%27&START_TIME=%272000-01-01+12%3A00%3A00%27&STOP_TIME=%272000-01-01+12%3A01%3A00%27&STEP_SIZE=%271m%27&QUANTITIES=%2731%27&CSV_FORMAT=%27YES%27&EXTRA_PREC=%27YES%27",
+      "raw_bytes": 6975,
+      "raw_sha256": "c74ac82531075d36050a1ea12bf2ab40ee57c89333da2bb32ac62ee99deb54ef"
+    }
+  ]
+}

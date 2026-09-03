@@ -4,12 +4,14 @@ on:
   pull_request:
     paths:
       - "examples/zi-wei-dou-shu_v0.1.0/**"
+      - "examples/bazi-capability_v0.1.1/docs/HKO_2033_BOUNDARY_VECTORS.json"
       - "scripts/fetch_ziwei_sources.py"
       - ".github/workflows/ziwei-quality.yml"
   push:
     branches: [main]
     paths:
       - "examples/zi-wei-dou-shu_v0.1.0/**"
+      - "examples/bazi-capability_v0.1.1/docs/HKO_2033_BOUNDARY_VECTORS.json"
       - "scripts/fetch_ziwei_sources.py"
       - ".github/workflows/ziwei-quality.yml"
 

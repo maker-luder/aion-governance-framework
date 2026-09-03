@@ -72,6 +72,60 @@
       "intake_scope": "METADATA_ONLY",
       "full_text_status": "NOT_DOWNLOADED_PUBLISHER_HTTP_403",
       "freshness_note": "Crossref metadata can change; new bytes require manual review rather than overwriting the pinned snapshot."
+    },
+    {
+      "source_id": "hahami-2026-v2",
+      "title": "Detecting the Disturbance: A Nuanced View of Introspective Abilities in LLMs",
+      "version": "arXiv:2512.12411v2",
+      "url": "https://arxiv.org/pdf/2512.12411v2",
+      "license": "CC-BY-4.0",
+      "bytes": 1985826,
+      "sha256": "8453156e84539ffb88e86b9537e9c6b2a94e1deea29e7d38d1a5fba2ad8f8092",
+      "status": "PASS",
+      "retained_text": "hahami-2026-v2.txt",
+      "acquired_on": "2026-09-03",
+      "retained_bytes": 57453,
+      "retained_sha256": "80b8875f164eb7edc45743b4bad39b41043dbc1da2fd4097ae10b26f360e8ab2",
+      "transformation": "pypdf 6.10.0 layout; UTF8 LF trailing trim; figures/rotated labels omitted; not a PDF facsimile"
+    },
+    {
+      "source_id": "albantakis-iit4-2023",
+      "title": "Integrated information theory (IIT) 4.0: Formulating the properties of phenomenal existence in physical terms",
+      "version": "DOI:10.1371/journal.pcbi.1011465",
+      "url": "https://www.ncbi.nlm.nih.gov/research/bionlp/RESTful/pmcoa.cgi/BioC_xml/PMC10581496/unicode",
+      "license": "CC-BY-4.0",
+      "bytes": 205739,
+      "sha256": "00f3bf4741b578149ebbf524d5a52547f8c3db417b5de6abd1f4863a2d5f29de",
+      "status": "PASS",
+      "retained_text": "albantakis-iit4-2023.txt",
+      "acquired_on": "2026-09-03",
+      "retained_bytes": 131283,
+      "retained_sha256": "7e931e3d1fcd62dfa86d6970645bb2b1ff957d04d310e94fd7cfc8a4a394ee17",
+      "transformation": "NCBI BioC XML passage/text joined; UTF8 LF trailing trim; figures/equation layout not preserved"
+    },
+    {
+      "source_id": "lindsey-introspection-2025",
+      "title": "Emergent Introspective Awareness in Large Language Models",
+      "version": "2025-10-29 reviewed page snapshot",
+      "url": "https://transformer-circuits.pub/2025/introspection/index.html",
+      "license": "COPYRIGHTED_REFERENCE_NO_FULLTEXT_RETENTION",
+      "bytes": 441740,
+      "sha256": "4ee698ebe1f4f9c6d9c76fd981e286acf8ce73d825936bf4195955e5dd7f6dcd",
+      "status": "PASS",
+      "retained_text": null,
+      "acquired_on": "2026-09-03"
+    },
+    {
+      "source_id": "introspection-adapters-2026",
+      "title": "Introspection Adapters: Training LLMs to Report Their Learned Behaviors",
+      "version": "2026-04-28 reviewed research page",
+      "url": "https://alignment.anthropic.com/2026/introspection-adapters/",
+      "license": "COPYRIGHTED_REFERENCE_NO_FULLTEXT_RETENTION",
+      "bytes": 37296,
+      "sha256": "74c4a4119fc1f15db21a229f5fc45e1b6152812729c0599ca74116a9bb49d397",
+      "status": "PASS",
+      "retained_text": null,
+      "acquired_on": "2026-09-03"
     }
   ]
 }

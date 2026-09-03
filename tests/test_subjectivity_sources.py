@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 import shutil
+import hashlib
 
 import pytest
 
@@ -28,8 +29,20 @@ def update_manifest(root, mutate):
 def test_real_sources_verify_without_network(monkeypatch):
     monkeypatch.setattr(sources, "fetch", lambda *_: pytest.fail("offline validation performed network access"))
     manifest = sources.validate(ROOT)
-    assert len(manifest["sources"]) == 4
-    assert sum(bool(r["retained_text"]) for r in manifest["sources"]) == 2
+    assert len(manifest["sources"]) == 8
+    assert sum(bool(r["retained_text"]) for r in manifest["sources"]) == 4
+
+
+def test_author_code_reference_is_pinned_and_not_an_execution_claim():
+    directory = ROOT / sources.SOURCE_DIR
+    data = json.loads((directory/"AUTHOR_CODE_REFERENCE.json").read_text(encoding="utf-8"))
+    assert data["license"] == "MIT"
+    assert data["commit"] == "7d9280d79e4aa37599dc0fd89974be4bc7a54827"
+    assert len(data["files"]) == 2
+    for row in data["files"]:
+        payload = sources.local_file(ROOT, row["path"]).read_bytes()
+        assert len(payload) == row["bytes"] and hashlib.sha256(payload).hexdigest() == row["sha256"]
+        assert data["commit"] in row["url"]
 
 
 def test_tampered_reference_fails_closed(copy_root):
