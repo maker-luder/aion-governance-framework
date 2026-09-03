@@ -2,13 +2,25 @@
 
 `AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION`
 
-Three primary source bodies and one Crossref metadata record were downloaded on
-2026-09-02. The fourth paper's publisher returned HTTP 403; its full text was not
-downloaded. The metadata-only scope is explicit. `DOWNLOAD_MANIFEST.json`
-binds each exact payload, version, size, license and transformation. Two CC BY
-texts are retained for offline review. The CC BY-NC-SA 2023 PDF is download/hash
-only, with an original method card retained instead. Binary payloads belong in an
-external cache, not the public text-only source tree.
+The 2026-09-02 intake contained four sources. The 2026-09-03 extension brings
+the registry to eight sources and four retained CC BY text extractions: Butlin
+and Lappas, Cogitate, Hahami v2 and IIT 4.0. Lindsey and Introspection Adapters
+have downloaded/hashed webpages and original reference cards, not publicly
+copied full webpages. `DOWNLOAD_MANIFEST.json` binds payload/version/size/license
+and extraction method. Figures and equation layout are not preserved by text
+extraction. See the [review matrix](../../INTROSPECTION_REVIEW_MATRIX_2026_09_03.md).
+
+The TICS publisher's earlier HTTP 403 remains a dated acquisition result, not a
+claim of a fresh attempt. Its full text was not obtained in this cycle. The
+CC BY-NC-SA 2023 PDF remains external-cache-only. Binary payloads belong in an
+external cache, not the public text-only source tree. Original authors retain
+copyright; attribution and license links accompany the sources. These
+third-party texts are not relicensed Apache-2.0.
+
+`AUTHOR_CODE_REFERENCE.json` separately records the Hahami author repository
+at commit `7d9280d79e4aa37599dc0fd89974be4bc7a54827`. Its README and MIT license
+are retained with upstream/normalized hashes. This is a code-reference intake,
+not an implementation, model-weight download, or experiment execution.
 
 ## Verify or acquire
 
@@ -30,7 +42,7 @@ in the manifest, not an extra dependency of the offline verifier.
 ## Reuse existing governance; no new research schema
 
 `GOVERNED_SOURCES.json` validates against the existing
-`schemas/governed_knowledge_source_v0.1.0.schema.json`. All four records are
+`schemas/governed_knowledge_source_v0.1.0.schema.json`. All eight records are
 `CANDIDATE`, `REFERENCE_ONLY`, `ON_DEMAND` with a 1,500-token context cap. Content
 hashes bind the exact retained text/card, not a title or a network request.
 These records do not automatically activate the runtime source registry.

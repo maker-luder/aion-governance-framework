@@ -1,0 +1,26 @@
+{
+  "repository": "elyhahami18/llama-introspection-new",
+  "commit": "7d9280d79e4aa37599dc0fd89974be4bc7a54827",
+  "license": "MIT",
+  "scope": "README and LICENSE only; implementation and weights not downloaded or run",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/elyhahami18/llama-introspection-new/7d9280d79e4aa37599dc0fd89974be4bc7a54827/README.md",
+      "upstream_bytes": 7522,
+      "upstream_sha256": "3efb1ed78fff7e925fdf75ecce7f32b042a0dbef843148b04c19cecdf2e5f69f",
+      "path": "hahami-code-readme.txt",
+      "bytes": 7521,
+      "sha256": "e5e39bd08e5eab2e729285fdb2e06cd0aef18d5d747548bdd2b242b2058ccfc1",
+      "transformation": "UTF8 LF trailing trim"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/elyhahami18/llama-introspection-new/7d9280d79e4aa37599dc0fd89974be4bc7a54827/LICENSE",
+      "upstream_bytes": 1067,
+      "upstream_sha256": "f03f4b60ca76e60e7ab22542545f3f570e1d8afd1e9e4a1cc5a5fa751127ac7b",
+      "path": "hahami-code-license.txt",
+      "bytes": 1067,
+      "sha256": "f03f4b60ca76e60e7ab22542545f3f570e1d8afd1e9e4a1cc5a5fa751127ac7b",
+      "transformation": "UTF8 LF trailing trim"
+    }
+  ]
+}

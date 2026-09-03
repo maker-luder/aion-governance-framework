@@ -126,5 +126,133 @@
     "authority_level": "REFERENCE_ONLY",
     "writeback_authority": "NONE",
     "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "hahami-2026-v2",
+    "source_title": "Detecting the Disturbance: A Nuanced View of Introspective Abilities in LLMs",
+    "source_version": "arXiv:2512.12411v2",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "External research reference; not an AION result or independent replication",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "RESEARCH_INDEX",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/hahami-2026-v2.txt"
+    },
+    "content_hash": "sha256:80b8875f164eb7edc45743b4bad39b41043dbc1da2fd4097ae10b26f360e8ab2",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "albantakis-iit4-2023",
+    "source_title": "Integrated information theory (IIT) 4.0: Formulating the properties of phenomenal existence in physical terms",
+    "source_version": "DOI:10.1371/journal.pcbi.1011465",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "External research reference; not an AION result or independent replication",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "RESEARCH_INDEX",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/albantakis-iit4-2023.txt"
+    },
+    "content_hash": "sha256:7e931e3d1fcd62dfa86d6970645bb2b1ff957d04d310e94fd7cfc8a4a394ee17",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "lindsey-introspection-2025",
+    "source_title": "Emergent Introspective Awareness in Large Language Models",
+    "source_version": "2025-10-29 reviewed page snapshot",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "External research reference; not an AION result or independent replication",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "RESEARCH_INDEX",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/lindsey-introspection-2025.md"
+    },
+    "content_hash": "sha256:4ae9a533cb029e41df524e51427a15276be7bbcacab308f0d8d3ed50e483e7b0",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "introspection-adapters-2026",
+    "source_title": "Introspection Adapters: Training LLMs to Report Their Learned Behaviors",
+    "source_version": "2026-04-28 reviewed research page",
+    "domain": "OTHER_DECLARED",
+    "source_class": "RESEARCH_REFERENCE",
+    "source_declared_status": "External research reference; not an AION result or independent replication",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "RESEARCH_INDEX",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/subjectivity/introspection-adapters-2026.md"
+    },
+    "content_hash": "sha256:08f6d4291ffe4cc21cbd0171a8402046467dfdbcfdd971dcade96412ce35feb0",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "subjectivity-method-review",
+      "theory-plural-evidence-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1500,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
   }
 ]

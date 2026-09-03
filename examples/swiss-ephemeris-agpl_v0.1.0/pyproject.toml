@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aion-swiss-ephemeris-agpl"
-version = "0.1.0"
+version = "0.2.0"
 description = "Optional AGPL-3.0-only, pinned offline Swiss Ephemeris position provider"
 requires-python = ">=3.11"
 license = "AGPL-3.0-only"
@@ -12,12 +12,16 @@ license-files = ["LICENSE", "UPSTREAM_NOTICE.txt"]
 readme = "README.md"
 dependencies = []
 
+[project.optional-dependencies]
+research-bridge = ["aion-astra-classical-astrology==0.3.0"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
+namespaces = false
 
 [tool.setuptools.package-data]
-aion_swiss_ephemeris = ["lock.json"]
+aion_swiss_ephemeris = ["lock.json", "leap-seconds.list"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+pythonpath = ["src", "../classical-western-astrology_v0.1.0/src"]

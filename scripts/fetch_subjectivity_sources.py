@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = Path("docs/research/sources/subjectivity")
 MAX_BYTES = 20 * 1024 * 1024
-HOSTS = {"arxiv.org", "www.ncbi.nlm.nih.gov", "api.crossref.org"}
+HOSTS = {"arxiv.org", "www.ncbi.nlm.nih.gov", "api.crossref.org", "transformer-circuits.pub", "alignment.anthropic.com"}
 BOUNDARIES = {
     "central_research_question": "AI_SUBJECTIVITY_POSSIBILITY",
     "subjectivity": "NOT_ESTABLISHED",

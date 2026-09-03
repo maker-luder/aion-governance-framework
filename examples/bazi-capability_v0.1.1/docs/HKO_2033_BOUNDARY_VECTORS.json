@@ -1,0 +1,17 @@
+{
+  "source_url": "https://www.hko.gov.hk/tc/gts/time/calendar/pdf/files/2033.pdf",
+  "source_sha256": "416a9c2c0cb7788fa79127e0bb7f574f08dbaca78ef056c42b4ef38e05fca009",
+  "source_bytes": 165964,
+  "review": "Page 1 visually checked; selected calendar facts only, not a PDF reproduction.",
+  "calendar_basis": "Hong Kong civil date UTC+08:00; negative month denotes leap month",
+  "validity_scope": "Calendar conversion only, not Bazi/Zi Wei predictive validation",
+  "vectors": [
+    {"gregorian_date": "2033-01-31", "lunar_ymd": [2033, 1, 1]},
+    {"gregorian_date": "2033-08-25", "lunar_ymd": [2033, 8, 1]},
+    {"gregorian_date": "2033-09-23", "lunar_ymd": [2033, 9, 1]},
+    {"gregorian_date": "2033-11-22", "lunar_ymd": [2033, 11, 1]},
+    {"gregorian_date": "2033-12-21", "lunar_ymd": [2033, 11, 30]},
+    {"gregorian_date": "2033-12-22", "lunar_ymd": [2033, -11, 1]},
+    {"gregorian_date": "2033-12-31", "lunar_ymd": [2033, -11, 10]}
+  ]
+}
