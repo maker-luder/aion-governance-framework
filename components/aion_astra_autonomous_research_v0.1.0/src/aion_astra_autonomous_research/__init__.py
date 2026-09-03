@@ -1,4 +1,5 @@
 from .agenda import build_agenda, select_questions
+from .revision_agenda import build_revision_agenda
 from .blinding import BlindedConditionController, BlindedInterpretation
 from .campaign import BoundedAutonomousResearchCampaign, TARGET_QUESTION
 from .evidence import campaign_evidence_record, export_evidence_views, write_evidence_views
@@ -59,6 +60,7 @@ __all__ = [
     "StageEvent",
     "TARGET_QUESTION",
     "build_agenda",
+    "build_revision_agenda",
     "campaign_evidence_record",
     "export_evidence_views",
     "existing_loop_contract",

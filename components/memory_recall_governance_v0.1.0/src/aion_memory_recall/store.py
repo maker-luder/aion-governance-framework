@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -69,8 +70,18 @@ class SQLiteMemoryStore:
         connection.row_factory = sqlite3.Row
         return connection
 
+    @contextmanager
+    def _session(self):
+        """Commit/rollback and close; sqlite connection.__exit__ does not close."""
+        connection = self._connect()
+        try:
+            with connection:
+                yield connection
+        finally:
+            connection.close()
+
     def _initialize(self) -> None:
-        with self._connect() as connection:
+        with self._session() as connection:
             connection.execute(
                 """
                 CREATE TABLE IF NOT EXISTS memory_records (
@@ -131,7 +142,7 @@ class SQLiteMemoryStore:
         topic_values = frozenset(item.strip() for item in topics if item.strip())
         scope_values = frozenset(item.strip() for item in access_scope if item.strip())
 
-        with self._connect() as connection:
+        with self._session() as connection:
             connection.execute(
                 """
                 INSERT INTO memory_records (
@@ -159,7 +170,7 @@ class SQLiteMemoryStore:
         return self.get(memory_id)
 
     def get(self, memory_id: str) -> StoredMemory:
-        with self._connect() as connection:
+        with self._session() as connection:
             row = connection.execute(
                 "SELECT * FROM memory_records WHERE memory_id = ?", (memory_id,)
             ).fetchone()
@@ -168,7 +179,7 @@ class SQLiteMemoryStore:
         return self._decode(row)
 
     def list_for_identity(self, *, user_id: str, agent_id: str) -> list[StoredMemory]:
-        with self._connect() as connection:
+        with self._session() as connection:
             rows = connection.execute(
                 "SELECT * FROM memory_records WHERE user_id = ? AND agent_id = ? ORDER BY recorded_at, memory_id",
                 (user_id, agent_id),
@@ -195,7 +206,14 @@ class SQLiteMemoryStore:
     def _set_flag(self, memory_id: str, column: str, value: bool) -> None:
         if column not in {"conflict", "tombstoned", "superseded"}:
             raise ValueError("unsupported memory flag")
-        with self._connect() as connection:
+        with self._session() as connection:
+            connection.execute("BEGIN IMMEDIATE")
+            if connection.execute(
+                "SELECT 1 FROM sqlite_master WHERE type='table' AND name='claim_versions'"
+            ).fetchone() and connection.execute(
+                "SELECT 1 FROM claim_versions WHERE memory_id=?", (memory_id,)
+            ).fetchone():
+                raise MemoryWriteDenied("managed claim flags require ClaimRevisionService and versioned review")
             cursor = connection.execute(
                 f"UPDATE memory_records SET {column} = ? WHERE memory_id = ?",
                 (int(value), memory_id),

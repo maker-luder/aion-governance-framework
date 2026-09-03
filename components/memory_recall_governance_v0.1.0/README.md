@@ -7,3 +7,17 @@ The original public RC component used synthetic records only. The post-RC implem
 Persistent storage does **not** make a record canonical truth. Writes require explicit `writeback_approved=True`; every stored record keeps `canonical_effect="NONE"`; unverified, conflicted, tombstoned, superseded, identity-mismatched or scope-inaccessible records are not recalled.
 
 No private production memory database is included in the repository.
+
+## Opt-in cross-cycle claim revision
+
+`ClaimRevisionService` adds bounded claim versions, premise dependencies, typed
+evidence and explicit review history in the same `SQLiteMemoryStore` database.
+Challenges atomically quarantine affected downstream memory; retain/revise creates
+an immutable successor and never silently releases dependent claims. All mutations
+require explicit local writeback approval. Enrolled memory must use this revision
+protocol instead of the legacy direct flag setters. Unenrolled memory is unchanged.
+
+See [the dated design, API boundaries, contrast and source notes](../../docs/research/CLAIM_REVISION_2026_09_03.md).
+`RECORDED` is recall eligibility, not truth. Semantic contradiction detection,
+automatic review and artificial subjectivity remain unestablished/not implemented
+as specified in that document. No private database migration runs automatically.
