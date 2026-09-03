@@ -31,6 +31,8 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 
 ## Current research core
 
+- [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
+
 | Class | Document | Responsibility |
 |---|---|---|
 | `CURRENT_CORE` | [`PROJECT_PURPOSE_ANCHOR.md`](PROJECT_PURPOSE_ANCHOR.md) | Protect central purpose from engineering/product drift |
