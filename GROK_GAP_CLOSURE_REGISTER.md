@@ -9,67 +9,156 @@ SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 DERIVED_REPORT = TRUE
+WHOLE_REPOSITORY_REVIEW_COMPLETE = TRUE
+NO_CLOSE_NOW_FOUND_AFTER_WHOLE_TREE = TRUE
+ALL_RESEARCH_GAPS_CLOSED = FALSE
 ```
 
 This file is a derived campaign notebook. It is not a governance authority,
 evidence schema, or scientific conclusion register.
 
-Dated source reused and re-checked against current main:
-`docs/research/REPOSITORY_GAP_AUDIT_2026_09_02.md` (audit baseline was older than `f3789b7`).
+`NO_CLOSE_NOW_FOUND` after whole-tree coverage does not mean research gaps are
+closed. Scientific, Owner-gated, and externally blocked items remain open.
 
-## Classification counts (this campaign pass)
+## PR #84 changed-file promotion (advisory only)
 
-See entries below. CLOSE_NOW items are implemented only in this sandbox.
+`PROMOTION_CLASSIFICATION != MERGE_AUTHORITY`
 
-## Gaps from the 2026-09-02 audit, re-checked on main@f3789b7
+| Path | Advisory class | Why |
+|---|---|---|
+| `GROK_EXPERIMENT_RULES.md` | `SANDBOX_ONLY` | sandbox operating rules; not assumed for main |
+| `GROK_GAP_CLOSURE_REGISTER.md` | `SANDBOX_ONLY` | derived campaign notebook |
+| `experiments/comparison-domain-source-ledger_v0.1.0/README.md` | `MAIN_CANDIDATE` | reusable provenance experiment if Owner accepts |
+| `experiments/comparison-domain-source-ledger_v0.1.0/run_experiment.py` | `MAIN_CANDIDATE` | offline checker over existing surfaces |
+| `experiments/comparison-domain-source-ledger_v0.1.0/tests/test_ledger_offline.py` | `MAIN_CANDIDATE` | invariant tests |
+| `experiments/comparison-domain-source-ledger_v0.1.0/RESULT.md` | `MAIN_CANDIDATE` | negative first-run + post-repair rerun |
+| `experiments/comparison-domain-source-ledger_v0.1.0/RESULT.json` | `SANDBOX_ONLY` | generated snapshot; not authority |
+| `experiments/comparison-domain-source-ledger_v0.1.0/LEDGER.md` | `SANDBOX_ONLY` | derived report; cite original manifests |
+| `.github/workflows/quality.yml` | `OWNER_DECISION_REQUIRED` | CI surface of main after any merge |
+| `examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json` | `MAIN_CANDIDATE` | hash-field alignment only; cause not claimed |
 
-| ID | Classification | Evidence | Problem | Result |
-|---|---|---|---|---|
-| GA-01 POSIX target fields | ALREADY_CLOSED | `.github/workflows/quality.yml`; root tests | Windows backslash `target` fields | Quality now runs `python -m pytest -q tests` on Linux 3.11/3.12 |
-| GA-02 root test discovery | ALREADY_CLOSED | `.github/workflows/quality.yml` | Quality used a subset | Current workflow runs the complete control suite |
-| GA-03 action pin | ALREADY_CLOSED | `.github/workflows/quality.yml` | moving v4 tags | checkout/setup-python are 40-hex pinned |
-| GA-04 core paper intake | ALREADY_CLOSED / BLOCKED_EXTERNAL_EVIDENCE | `docs/research/sources/subjectivity/` | consolidated receipts | some sources retained; TICS full text remains 403 |
-| GA-05 environment probe | ALREADY_CLOSED | `docs/LOCAL_RESOURCE_AND_ENVIRONMENT.md` | conflated failures | probe exists; no auto-install |
-| GA-06 protocol integration wording | ALREADY_CLOSED | current protocol docs on main | stale branch-only wording | current main already merged later research |
-| GA-07 whitepaper four-stage labels | OWNER_DECISION_REQUIRED | audit unresolved table | authoritative wording not in tree | internet text is not a substitute |
-| GA-08 independent IV&V | BLOCKED_INDEPENDENT_VALIDATION | HOLD `BOUNDARY-IVV-01` | same-team rerun != independent | remains open |
-| GA-09 model-level causal evidence | SCIENTIFIC_EXPERIMENT_REQUIRED | audit unresolved table | fixture != model mechanism | remains open |
-| GA-10 whole-system scientific validation | SCIENTIFIC_EXPERIMENT_REQUIRED | audit unresolved table | unit tests != scientific validation | remains open |
-| GA-11 ephemeris / school adjudication | OWNER_DECISION_REQUIRED | `examples/*/DEFERRED_ITEMS.md` | competing schools / license | comparison domains only |
-| GA-12 TICS 2026 full text | BLOCKED_EXTERNAL_EVIDENCE | audit unresolved table | HTTP 403 | metadata != content |
-| GA-13 release readiness | OWNER_DECISION_REQUIRED | `PUBLIC_RELEASE_POLICY.md` | merge != release | Human Owner gate |
-| GA-14 C0 HOLDs | OWNER_DECISION_REQUIRED | `docs/history/c0/C0_REMAINING_HOLD_REGISTER_2026-08-08.md` | deferred capabilities | `DEFERRED != DEFECT` |
-
-## Gaps found by EX-001 / this campaign
-
-### GC-001 Gutenberg repository hash drift
-
-- classification: CLOSE_NOW (closed in this campaign)
-- evidence paths: `examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json`; EX-001 RESULT
-- problem: checked-in Ptolemy/Sepharial texts no longer matched recorded `repository_sha256` (download hash was copied into the repository field after LF normalization)
-- why it matters: provenance integrity of vendored witnesses
-- reuse: existing fetch-manifest fields (`sha256` vs `repository_sha256` + `repository_normalization`) already used by Lilly/Bazi entries
-- minimal repair: set `repository_sha256`/`repository_bytes` to current checked-in bytes; keep original download `sha256`/`bytes`; add the existing normalization token
-- tests: `python -m pytest -q experiments/comparison-domain-source-ledger_v0.1.0/tests`
-- result: after repair, EX-001 `C3B_ALL_CHECKED_IN_HASHES_MATCH = SUPPORTED`, coverage `24/24`
-- remaining limitation: external URL current content still NOT_VERIFIED; legal license effectiveness NOT_ESTABLISHED
-- promotion implication: sandbox-only until Human Owner / Codex review of PR #84
-
-### GC-002 EX-001 not invoked by Quality
-
-- classification: CLOSE_NOW
-- evidence: `.github/workflows/quality.yml` runs `g1-recall-gate-baseline` but not the new ledger experiment
-- reuse: existing Quality experiment step pattern
-- minimal repair: add the EX-001 pytest invocation after the Recall Gate step
-- remaining limitation: Quality push trigger still omits `grok/**`; pull_request still runs it
-- promotion implication: sandbox workflow change only
-
-## Scientific stop-lines kept
+## GC-001 wording correction
 
 ```text
-ENGINEERING_PASS != SCIENTIFIC_VALIDATION
-REPRODUCIBLE_FIXTURE != MODEL_LEVEL_CAUSAL_EVIDENCE
-SAME_TEAM_RERUN != INDEPENDENT_IVV
+OBSERVED_METADATA_INCONSISTENCY = ESTABLISHED
+CURRENT_REPOSITORY_HASH = ESTABLISHED
+EXACT_HISTORICAL_CAUSE = NOT_ESTABLISHED
+```
+
+The two Gutenberg entries had `repository_sha256` equal to recorded download
+`sha256`, while checked-in bytes differed. That inconsistency is established.
+The current working-tree SHA-256 is established. This campaign did not replay
+the original download bytes, so LF/normalization is only a competing
+explanation, not a proven historical cause. The `repository_normalization`
+token copied from Lilly was therefore removed from those two entries.
+
+## WHOLE_TREE_COVERAGE
+
+Inspection target: `main@f3789b7f4c08f39093886e4b07c036add363ab73` (independent
+of the 2026-09-02 audit). Marker search covered text files excluding vendored
+snapshot/public-domain payloads.
+
+### repository root
+
+- paths inspected: root control docs and license/notice files
+- files counted: 22 root files + listed trees
+- checks: documentation-entry contract; sampled local Markdown links (348 checked, 0 broken in sample)
+- gaps found: none CLOSE_NOW
+- classification: release readiness remains OWNER_DECISION_REQUIRED
+- evidence: `scripts/validate_documentation_entry.py`
+
+### .github/workflows/
+
+- paths: 9 workflows + `.github/ci` toolchains
+- checks: all remote actions 40-hex pinned; Quality runs root `tests/`, `run_component_tests.py`, g1 experiment
+- gaps: push branches omit `grok/**` (PRs still run Quality)
+- classification: push-filter = OPTIONAL_NOT_REQUIRED; pins = ALREADY_CLOSED
+- evidence: `tests/test_workflow_integrity.py`
+
+### components/*
+
+- counted: 19 components, all README + `tests/`
+- CI: all 19 discovered by `scripts/run_component_tests.py`
+- IMPLEMENTATION_PRESENT / TESTS_PRESENT / TESTS_IN_CI = YES
+- HOLDs remain documented deferred capabilities
+- CLOSE_NOW: none
+
+### research-labs/*
+
+- counted: 9 labs, all README + `tests/`
+- CI: all 9 in component runner
+- embodiment/sexual-function runtime and subjectivity conclusions stay unauthorized / NOT_ESTABLISHED
+- CLOSE_NOW: none
+
+### research-workbench/
+
+- counted: 1 dated addendum file
+- classification: OPTIONAL_NOT_REQUIRED to expand
+- CLOSE_NOW: none
+
+### examples/*
+
+- counted: 4 examples (bazi, western, swiss-ephemeris, zi-wei)
+- CI: first three via component runner; zi-wei via `ziwei-quality.yml` (`test/` not `tests/`)
+- GC-001 hash-field drift closed as metadata alignment only
+- CLOSE_NOW remaining: none
+
+### experiments/*
+
+- main: `g1-recall-gate-baseline_v0.1.0` only
+- sandbox: EX-001 added; LEDGER/RESULT derived
+- CLOSE_NOW remaining: none
+
+### scripts/* and tests/*
+
+- scripts 25; root tests 18
+- Quality runs the full `tests/` package plus evidence scripts
+- CLOSE_NOW: none
+
+### qa/*
+
+- counted: 38 files
+- generated CURRENT_* artifacts are not authority
+- HOLD/NOT_EVALUATED tokens are schema/governance vocabulary
+- CLOSE_NOW: none
+
+### docs/*
+
+- counted: 134 files
+- C0 HOLD register and protocols present
+- sampled local links: 0 broken
+- CLOSE_NOW: none
+
+### manifest/* and schemas/*
+
+- 2 manifest files; 7 schemas
+- no parallel schema added
+- CLOSE_NOW: none
+
+### Marker sweep (not automatically defects)
+
+| Marker | approx hits | default class |
+|---|---:|---|
+| TODO / FIXME / PLACEHOLDER | 0 | no unmarked defect tokens |
+| HOLD | 532 | governance vocabulary |
+| DEFERRED | 15 | documented scope exclusion |
+| NOT_IMPLEMENTED | 51 | documented absence |
+| NOT_EVALUATED | 67 | evidence-schema vocabulary |
+| NOT_RUN | 10 | admission-validator vocabulary |
+| PENDING | 27 | dated/deferred notes |
+| STALE | 10 | documented stale-entry guards |
+| MISSING | 5 | descriptive |
+| UNKNOWN | 125 | includes explicit non-claims |
+
+`DEFERRED != DEFECT`. `HOLD != PASS`.
+
+## Whole-tree CLOSE_NOW result
+
+```text
+WHOLE_REPOSITORY_REVIEW_COMPLETE = TRUE
+KNOWN_GAP_SET_CLOSE_NOW = 0
+WHOLE_REPOSITORY_CLOSE_NOW = 0
+ALL_RESEARCH_GAPS_CLOSED = FALSE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
