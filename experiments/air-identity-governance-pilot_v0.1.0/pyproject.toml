@@ -1,0 +1,9 @@
+[project]
+name = "air-identity-pilot"
+version = "0.1.0"
+description = "Bounded AIR identity-governance research pilot"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

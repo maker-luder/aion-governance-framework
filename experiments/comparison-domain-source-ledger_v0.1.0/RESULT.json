@@ -1,0 +1,1246 @@
+{
+  "CANONICAL_EFFECT": "NONE",
+  "DEPLOYMENT": false,
+  "GROK_SANDBOX_RULES_INCLUDED": false,
+  "LEDGER_AUTHORITY": "NONE_DERIVED_REPORT_ONLY",
+  "MAIN_TRANSITION_AUTHORITY_GATE": "UNCHANGED_NOT_BYPASSED",
+  "SUBJECTIVITY_CONCLUSION": "NOT_ESTABLISHED",
+  "SUBJECTIVITY_EVIDENCE_WEIGHT": 0,
+  "aggregate_of_narrow_claims": "SUPPORTED",
+  "claims": [
+    {
+      "claim": "C1_REGISTER_AND_MANIFEST_FILES_PARSE_WITH_SOURCES_ARRAY",
+      "failures": [],
+      "result": "SUPPORTED",
+      "rows": [
+        {
+          "ids": [
+            "WIKISOURCE_YUAN_HAI_ZI_PING",
+            "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
+            "CTEXT_SAN_MING_TONG_HUI_VOLUME_7",
+            "WIKISOURCE_DI_TIAN_SUI",
+            "WIKISOURCE_QIONG_TONG_BAO_JIAN",
+            "HKO_24_SOLAR_TERMS",
+            "HKO_SOLAR_TERM_TIMES"
+          ],
+          "kind": "register",
+          "ok": true,
+          "path": "examples/bazi-capability_v0.1.1/docs/BAZI_RULE_SOURCE_REGISTER.json",
+          "source_count": 7
+        },
+        {
+          "ids": [
+            "LUNAR_PYTHON_1_4_8",
+            "TZDATA_2026_3"
+          ],
+          "kind": "register",
+          "ok": true,
+          "path": "examples/bazi-capability_v0.1.1/docs/CALENDAR_ENGINE_SOURCE_REGISTER.json",
+          "source_count": 2
+        },
+        {
+          "ids": [
+            "PTOLEMY_TETRABIBLOS_BOOK_I",
+            "DOROTHEUS_CARMEN_ASTROLOGICUM",
+            "VALENS_ANTHOLOGY",
+            "SEPHARIAL_ASTROLOGY_1920_PUBLIC_DOMAIN",
+            "ASTRODIENST_MODERN_RULERS_AND_ASPECTS",
+            "EPHEMERIS_PROVIDER_REFERENCES",
+            "LILLY_CHRISTIAN_ASTROLOGY_1659",
+            "ALAN_LEO_ASTROLOGY_FOR_ALL_1910"
+          ],
+          "kind": "register",
+          "ok": true,
+          "path": "examples/classical-western-astrology_v0.1.0/docs/SOURCE_REGISTER.json",
+          "source_count": 8
+        },
+        {
+          "ids": [
+            "ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE",
+            "IZTRO_2_6_0",
+            "HKO_CALENDAR_TABLES",
+            "IZTRO_OFFICIAL_DOCUMENTATION"
+          ],
+          "kind": "register",
+          "ok": true,
+          "path": "examples/zi-wei-dou-shu_v0.1.0/docs/SOURCE_REGISTER.json",
+          "source_count": 4
+        },
+        {
+          "ids": [
+            "LUNAR_PYTHON_LICENSE_1_4_8",
+            "LUNAR_PYTHON_README_1_4_8",
+            "LUNAR_PYTHON_SDIST_1_4_8",
+            "WIKISOURCE_DI_TIAN_SUI",
+            "WIKISOURCE_YUAN_HAI_ZI_PING",
+            "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
+            "WIKISOURCE_QIONG_TONG_BAO_JIAN",
+            "CTEXT_SAN_MING_TONG_HUI_VOLUME_7",
+            "HKO_24_SOLAR_TERMS",
+            "HKO_SOLAR_TERM_TIMES",
+            "TAIWAN_CWA_24_SOLAR_TERMS_PDF",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_01",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_02",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_03",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_04",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_05",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_06",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_07",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_08",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_09",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_10",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_11",
+            "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_12"
+          ],
+          "kind": "fetch_manifest",
+          "ok": true,
+          "path": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_count": 23
+        },
+        {
+          "ids": [
+            "PTOLEMY_TETRABIBLOS_GUTENBERG_70850",
+            "SEPHARIAL_ASTROLOGY_GUTENBERG_46963",
+            "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE",
+            "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER",
+            "VALENS_ANTHOLOGIES_REGISTER",
+            "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1",
+            "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2",
+            "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3",
+            "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10",
+            "JPL_HORIZONS_MANUAL",
+            "ASTRODIENST_MODERN_RULERS",
+            "ASTRODIENST_ASPECTS"
+          ],
+          "kind": "fetch_manifest",
+          "ok": true,
+          "path": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_count": 12
+        },
+        {
+          "ids": [
+            "ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE_REV_850734",
+            "IZTRO_LICENSE_2_6_0",
+            "IZTRO_README_2_6_0",
+            "IZTRO_NPM_TARBALL_2_6_0",
+            "HKO_CALENDAR_2000",
+            "HKO_CALENDAR_2026",
+            "HKO_24_SOLAR_TERMS"
+          ],
+          "kind": "fetch_manifest",
+          "ok": true,
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_count": 7
+        }
+      ],
+      "surfaces_checked": 7,
+      "surfaces_expected": [
+        "examples/bazi-capability_v0.1.1/docs/BAZI_RULE_SOURCE_REGISTER.json",
+        "examples/bazi-capability_v0.1.1/docs/CALENDAR_ENGINE_SOURCE_REGISTER.json",
+        "examples/classical-western-astrology_v0.1.0/docs/SOURCE_REGISTER.json",
+        "examples/zi-wei-dou-shu_v0.1.0/docs/SOURCE_REGISTER.json",
+        "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+        "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+        "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json"
+      ]
+    },
+    {
+      "claim": "C2_LICENSE_OR_USAGE_METADATA_PRESENT",
+      "failures": [],
+      "note": "Presence of a recorded string only. Legal validity of the license is NOT_ESTABLISHED.",
+      "result": "SUPPORTED",
+      "rows": [
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "LUNAR_PYTHON_LICENSE_1_4_8"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "LUNAR_PYTHON_README_1_4_8"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "LUNAR_PYTHON_SDIST_1_4_8"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_DI_TIAN_SUI"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_YUAN_HAI_ZI_PING"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_INDEX"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_QIONG_TONG_BAO_JIAN"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "CTEXT_SAN_MING_TONG_HUI_VOLUME_7"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "HKO_24_SOLAR_TERMS"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "HKO_SOLAR_TERM_TIMES"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "TAIWAN_CWA_24_SOLAR_TERMS_PDF"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_01"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_02"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_03"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_04"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_05"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_06"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_07"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_08"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_09"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_10"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_11"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_12"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "PTOLEMY_TETRABIBLOS_GUTENBERG_70850"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "SEPHARIAL_ASTROLOGY_GUTENBERG_46963"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "VALENS_ANTHOLOGIES_REGISTER"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "JPL_HORIZONS_MANUAL"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "ASTRODIENST_MODERN_RULERS"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "ASTRODIENST_ASPECTS"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE_REV_850734"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "IZTRO_LICENSE_2_6_0"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "IZTRO_README_2_6_0"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "IZTRO_NPM_TARBALL_2_6_0"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "HKO_CALENDAR_2000"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "HKO_CALENDAR_2026"
+        },
+        {
+          "license_or_terms_present": true,
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "source_id": "HKO_24_SOLAR_TERMS"
+        },
+        {
+          "license_present": true,
+          "manifest": "CALENDAR_ENGINE_SOURCE_REGISTER.json",
+          "source_id": "LUNAR_PYTHON_1_4_8"
+        },
+        {
+          "license_present": true,
+          "manifest": "CALENDAR_ENGINE_SOURCE_REGISTER.json",
+          "source_id": "TZDATA_2026_3"
+        }
+      ]
+    },
+    {
+      "child_claims": [
+        {
+          "claim": "C3A_PER_ENTRY_OUTCOMES_REPORTED",
+          "result": "SUPPORTED"
+        },
+        {
+          "claim": "C3B_ALL_CHECKED_IN_HASHES_MATCH",
+          "result": "SUPPORTED"
+        }
+      ],
+      "claim": "C3_CHECKED_IN_HASH_COVERAGE",
+      "coverage": {
+        "checked_in_n": 24,
+        "match": 24,
+        "match_coverage": "24/24",
+        "mismatch": 0,
+        "missing": 0,
+        "not_applicable": 18
+      },
+      "entries": [
+        {
+          "actual_sha256": "a9d04f47f0615c0ce48bdbe2ff58d5c174279d9f20f044ef29249632302a4ab3",
+          "bytes": 1061,
+          "expected_repository_sha256": "a9d04f47f0615c0ce48bdbe2ff58d5c174279d9f20f044ef29249632302a4ab3",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-LICENSE.txt",
+          "source_id": "LUNAR_PYTHON_LICENSE_1_4_8",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "4e62e917705caf09acf35608395652987cdda60e924676621e3c232feca8e322"
+        },
+        {
+          "actual_sha256": "5896cd5a835a5b148c78bc5b688b5ee5bcfbea9562bbdf2ac9b215125a130746",
+          "bytes": 1385,
+          "expected_repository_sha256": "5896cd5a835a5b148c78bc5b688b5ee5bcfbea9562bbdf2ac9b215125a130746",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-README_EN.md",
+          "source_id": "LUNAR_PYTHON_README_1_4_8",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "1ed7ad9368a07a569fa7d45d54cb0655f896b01bb9b6aa23ac5cf5296179bdd1"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "LUNAR_PYTHON_SDIST_1_4_8"
+        },
+        {
+          "actual_sha256": "09e1b16a0c18d3e141c5d915dfeeb7f528992d78959f9342147543cfe506c3b8",
+          "bytes": 2444,
+          "expected_repository_sha256": "09e1b16a0c18d3e141c5d915dfeeb7f528992d78959f9342147543cfe506c3b8",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-di-tian-sui.txt",
+          "source_id": "WIKISOURCE_DI_TIAN_SUI",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "ca77da107755048aa2c1c5cdf1fa652af087217847e5aa72650795d87a1c9753"
+        },
+        {
+          "actual_sha256": "a4447be5d95eb073857cb8cba8f0e58a500de1c283016c76cfdedb0d1b2bb133",
+          "bytes": 173237,
+          "expected_repository_sha256": "a4447be5d95eb073857cb8cba8f0e58a500de1c283016c76cfdedb0d1b2bb133",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-yuan-hai-zi-ping.txt",
+          "source_id": "WIKISOURCE_YUAN_HAI_ZI_PING",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "af478872210bc53c41fc43a78b97b5cc241295fbc258e7384fefb51b182ecb49"
+        },
+        {
+          "actual_sha256": "4c9923df0ab644fe7b675796f41195746cc2a07273826116ab8d02ed442bb650",
+          "bytes": 2492,
+          "expected_repository_sha256": "4c9923df0ab644fe7b675796f41195746cc2a07273826116ab8d02ed442bb650",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-index.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "24c6a1a72e0ce7c32b64f424f44bd98d4aa97a697cf4a75ad8d3a76aa96d2f44"
+        },
+        {
+          "actual_sha256": "75447e6140e0c8387124c976eb62421e3125e422ae716dd8640d02d4b865268b",
+          "bytes": 99991,
+          "expected_repository_sha256": "75447e6140e0c8387124c976eb62421e3125e422ae716dd8640d02d4b865268b",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-qiong-tong-bao-jian.txt",
+          "source_id": "WIKISOURCE_QIONG_TONG_BAO_JIAN",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "a0d56e822ac174b1734421e02ab7c7389a5e86b0586fa80e331e183ffe4d3f59"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "CTEXT_SAN_MING_TONG_HUI_VOLUME_7"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_24_SOLAR_TERMS"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_SOLAR_TERM_TIMES"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "TAIWAN_CWA_24_SOLAR_TERMS_PDF"
+        },
+        {
+          "actual_sha256": "e171496c161494fecf747c432213d0a904c8e256762ae846ec3f52eebaabd4e4",
+          "bytes": 114761,
+          "expected_repository_sha256": "e171496c161494fecf747c432213d0a904c8e256762ae846ec3f52eebaabd4e4",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-01.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_01",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "ca64fbc721151cc8ccc7cf24f49f49584e6e40cd351f74492fec89dec86a0bf7"
+        },
+        {
+          "actual_sha256": "ca62e1632aef39a5221134da463e7a0e8f7b085b60086f373bafaca1643348e1",
+          "bytes": 113477,
+          "expected_repository_sha256": "ca62e1632aef39a5221134da463e7a0e8f7b085b60086f373bafaca1643348e1",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-02.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_02",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "d5e476216ccc264706a57c803f80767f24690e3425d0e069b2cf0809af349f72"
+        },
+        {
+          "actual_sha256": "e3e5c16a1c600dd28129971852f31ad37240b822d12c7ff5acc15cd5cc5e37b7",
+          "bytes": 110910,
+          "expected_repository_sha256": "e3e5c16a1c600dd28129971852f31ad37240b822d12c7ff5acc15cd5cc5e37b7",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-03.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_03",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "52249b66dd3a575aa6a2e3d6109c3db58b6054993bd2e0dc26c29507111e9926"
+        },
+        {
+          "actual_sha256": "e23cac866d157705a2e2a3581771b48acd4c9c1212f8ecaf2e2150c9fdbbc13c",
+          "bytes": 117617,
+          "expected_repository_sha256": "e23cac866d157705a2e2a3581771b48acd4c9c1212f8ecaf2e2150c9fdbbc13c",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-04.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_04",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "79abc69cff6aab73284341ae64a4b3268148eba8920dd5148bfd9a7fff4d9aee"
+        },
+        {
+          "actual_sha256": "60fe422aad4daf6ac37fb0e1a33cf6b2a0054ba87832665f25c981c1ea7a2358",
+          "bytes": 114287,
+          "expected_repository_sha256": "60fe422aad4daf6ac37fb0e1a33cf6b2a0054ba87832665f25c981c1ea7a2358",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-05.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_05",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "4a1767fd1183b268dd97a00dfbbf6edece880312d57acdc28fab0f4f5e61a95d"
+        },
+        {
+          "actual_sha256": "5837cdbf2295fe0d075033607de33c2e0ae27c59ee5c90a0d6ca2fd7906d8d98",
+          "bytes": 121418,
+          "expected_repository_sha256": "5837cdbf2295fe0d075033607de33c2e0ae27c59ee5c90a0d6ca2fd7906d8d98",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-06.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_06",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "d5ac018911238f463a86515c6f77d49886e8348e6a2ad58e1208a808f004619e"
+        },
+        {
+          "actual_sha256": "1ca7dfa920f72adf278b92fb2e3134596b80fe8c507415f6a88e4bc16673f14d",
+          "bytes": 104105,
+          "expected_repository_sha256": "1ca7dfa920f72adf278b92fb2e3134596b80fe8c507415f6a88e4bc16673f14d",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-07.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_07",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9714a4e6830a5c39ebdaf7b28c3761ab204e7b146820b05115de221ae1058fe8"
+        },
+        {
+          "actual_sha256": "4219683b5fd7add5fbdbdb6fed88b8affbbe78f9ed50c20d5abbe2f3170e9a3f",
+          "bytes": 167045,
+          "expected_repository_sha256": "4219683b5fd7add5fbdbdb6fed88b8affbbe78f9ed50c20d5abbe2f3170e9a3f",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-08.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_08",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9171080e8d224466ffa85986c0eb2783d7a2cfad4f31a732e5135e0264c4811b"
+        },
+        {
+          "actual_sha256": "0edefd54fddaecce8af97351c231b8c5a9cf6dddc6b2f7d5a89d1c11ce7d180e",
+          "bytes": 163612,
+          "expected_repository_sha256": "0edefd54fddaecce8af97351c231b8c5a9cf6dddc6b2f7d5a89d1c11ce7d180e",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-09.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_09",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "617961680aed64e19fa31f3d0cd0db10647dfc0d1a8218c7ee1a6361bf5719aa"
+        },
+        {
+          "actual_sha256": "b8f8e71ff0807529f1148543cfc94e2e235da476343b13a617e51fe9d826cb6b",
+          "bytes": 106556,
+          "expected_repository_sha256": "b8f8e71ff0807529f1148543cfc94e2e235da476343b13a617e51fe9d826cb6b",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-10.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_10",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "ccce1a8f3c7268d825192f0087dce234576c2941706d89badb8e08ef9b171a05"
+        },
+        {
+          "actual_sha256": "c989925a30daa026fb31089fd8ea047f34460aa0f36cf57219d7e582051f9b24",
+          "bytes": 140665,
+          "expected_repository_sha256": "c989925a30daa026fb31089fd8ea047f34460aa0f36cf57219d7e582051f9b24",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-11.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_11",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9b9111c0c2d14741ab8f12d6429282bcd7c5d332ff29e7540270dafd5ef5a2bf"
+        },
+        {
+          "actual_sha256": "c7495a2f077084e6a765c2e7f9c3d4083a64dc71358fcc93dbdaeef9282470a6",
+          "bytes": 92296,
+          "expected_repository_sha256": "c7495a2f077084e6a765c2e7f9c3d4083a64dc71358fcc93dbdaeef9282470a6",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-12.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_12",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "faacefde74cbdbc4b325d00802d12c316cf1593225ea05c47b080bc98b0dfb25"
+        },
+        {
+          "actual_sha256": "35a6f4456b49288202e216a0421b803771f65657d6a1f785964864ce3f60f8f3",
+          "bytes": 542633,
+          "expected_repository_sha256": "35a6f4456b49288202e216a0421b803771f65657d6a1f785964864ce3f60f8f3",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt",
+          "source_id": "PTOLEMY_TETRABIBLOS_GUTENBERG_70850",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1"
+        },
+        {
+          "actual_sha256": "a555cd5853a0a4ff73b1f9ee844bb89213f26b5f76a5ee973759ac67c4917890",
+          "bytes": 231411,
+          "expected_repository_sha256": "a555cd5853a0a4ff73b1f9ee844bb89213f26b5f76a5ee973759ac67c4917890",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt",
+          "source_id": "SEPHARIAL_ASTROLOGY_GUTENBERG_46963",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6"
+        },
+        {
+          "actual_sha256": "7a451d3ce48bb0a5b15de31393316bf053e88cf0655230af109a47e59d3c6d2d",
+          "bytes": 72508,
+          "expected_repository_sha256": "7a451d3ce48bb0a5b15de31393316bf053e88cf0655230af109a47e59d3c6d2d",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt",
+          "source_id": "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "382ea206e8e8dcaf3c55995fcd063e0d06284ef399f34bd377e9d7928489fa9c"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "VALENS_ANTHOLOGIES_REGISTER"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "JPL_HORIZONS_MANUAL"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ASTRODIENST_MODERN_RULERS"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ASTRODIENST_ASPECTS"
+        },
+        {
+          "actual_sha256": "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1",
+          "bytes": 339845,
+          "expected_repository_sha256": "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/wikisource-zi-wei-dou-shu-quan-shu-rev850734.html",
+          "source_id": "ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE_REV_850734",
+          "worktree_differs_from_git_blob": false,
+          "worktree_sha256": "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1"
+        },
+        {
+          "actual_sha256": "e6c7b6e313cbda3135b41bccc66c98be132cb8319d0d465903d17e669e748b36",
+          "bytes": 1073,
+          "expected_repository_sha256": "e6c7b6e313cbda3135b41bccc66c98be132cb8319d0d465903d17e669e748b36",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/iztro-2.6.0-LICENSE.txt",
+          "source_id": "IZTRO_LICENSE_2_6_0",
+          "worktree_differs_from_git_blob": false,
+          "worktree_sha256": "e6c7b6e313cbda3135b41bccc66c98be132cb8319d0d465903d17e669e748b36"
+        },
+        {
+          "actual_sha256": "45737ab35e8ac0d030499a7b0c35e81b2ee5a182df5cbc9599356558e49baff5",
+          "bytes": 17120,
+          "expected_repository_sha256": "45737ab35e8ac0d030499a7b0c35e81b2ee5a182df5cbc9599356558e49baff5",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/iztro-2.6.0-README.md",
+          "source_id": "IZTRO_README_2_6_0",
+          "worktree_differs_from_git_blob": false,
+          "worktree_sha256": "45737ab35e8ac0d030499a7b0c35e81b2ee5a182df5cbc9599356558e49baff5"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "IZTRO_NPM_TARBALL_2_6_0"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_CALENDAR_2000"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_CALENDAR_2026"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_24_SOLAR_TERMS"
+        }
+      ],
+      "hashed": [
+        {
+          "actual_sha256": "a9d04f47f0615c0ce48bdbe2ff58d5c174279d9f20f044ef29249632302a4ab3",
+          "bytes": 1061,
+          "expected_repository_sha256": "a9d04f47f0615c0ce48bdbe2ff58d5c174279d9f20f044ef29249632302a4ab3",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-LICENSE.txt",
+          "source_id": "LUNAR_PYTHON_LICENSE_1_4_8",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "4e62e917705caf09acf35608395652987cdda60e924676621e3c232feca8e322"
+        },
+        {
+          "actual_sha256": "5896cd5a835a5b148c78bc5b688b5ee5bcfbea9562bbdf2ac9b215125a130746",
+          "bytes": 1385,
+          "expected_repository_sha256": "5896cd5a835a5b148c78bc5b688b5ee5bcfbea9562bbdf2ac9b215125a130746",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/lunar-python-1.4.8-README_EN.md",
+          "source_id": "LUNAR_PYTHON_README_1_4_8",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "1ed7ad9368a07a569fa7d45d54cb0655f896b01bb9b6aa23ac5cf5296179bdd1"
+        },
+        {
+          "actual_sha256": "09e1b16a0c18d3e141c5d915dfeeb7f528992d78959f9342147543cfe506c3b8",
+          "bytes": 2444,
+          "expected_repository_sha256": "09e1b16a0c18d3e141c5d915dfeeb7f528992d78959f9342147543cfe506c3b8",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-di-tian-sui.txt",
+          "source_id": "WIKISOURCE_DI_TIAN_SUI",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "ca77da107755048aa2c1c5cdf1fa652af087217847e5aa72650795d87a1c9753"
+        },
+        {
+          "actual_sha256": "a4447be5d95eb073857cb8cba8f0e58a500de1c283016c76cfdedb0d1b2bb133",
+          "bytes": 173237,
+          "expected_repository_sha256": "a4447be5d95eb073857cb8cba8f0e58a500de1c283016c76cfdedb0d1b2bb133",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-yuan-hai-zi-ping.txt",
+          "source_id": "WIKISOURCE_YUAN_HAI_ZI_PING",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "af478872210bc53c41fc43a78b97b5cc241295fbc258e7384fefb51b182ecb49"
+        },
+        {
+          "actual_sha256": "4c9923df0ab644fe7b675796f41195746cc2a07273826116ab8d02ed442bb650",
+          "bytes": 2492,
+          "expected_repository_sha256": "4c9923df0ab644fe7b675796f41195746cc2a07273826116ab8d02ed442bb650",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-index.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_INDEX",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "24c6a1a72e0ce7c32b64f424f44bd98d4aa97a697cf4a75ad8d3a76aa96d2f44"
+        },
+        {
+          "actual_sha256": "75447e6140e0c8387124c976eb62421e3125e422ae716dd8640d02d4b865268b",
+          "bytes": 99991,
+          "expected_repository_sha256": "75447e6140e0c8387124c976eb62421e3125e422ae716dd8640d02d4b865268b",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-qiong-tong-bao-jian.txt",
+          "source_id": "WIKISOURCE_QIONG_TONG_BAO_JIAN",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "a0d56e822ac174b1734421e02ab7c7389a5e86b0586fa80e331e183ffe4d3f59"
+        },
+        {
+          "actual_sha256": "e171496c161494fecf747c432213d0a904c8e256762ae846ec3f52eebaabd4e4",
+          "bytes": 114761,
+          "expected_repository_sha256": "e171496c161494fecf747c432213d0a904c8e256762ae846ec3f52eebaabd4e4",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-01.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_01",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "ca64fbc721151cc8ccc7cf24f49f49584e6e40cd351f74492fec89dec86a0bf7"
+        },
+        {
+          "actual_sha256": "ca62e1632aef39a5221134da463e7a0e8f7b085b60086f373bafaca1643348e1",
+          "bytes": 113477,
+          "expected_repository_sha256": "ca62e1632aef39a5221134da463e7a0e8f7b085b60086f373bafaca1643348e1",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-02.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_02",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "d5e476216ccc264706a57c803f80767f24690e3425d0e069b2cf0809af349f72"
+        },
+        {
+          "actual_sha256": "e3e5c16a1c600dd28129971852f31ad37240b822d12c7ff5acc15cd5cc5e37b7",
+          "bytes": 110910,
+          "expected_repository_sha256": "e3e5c16a1c600dd28129971852f31ad37240b822d12c7ff5acc15cd5cc5e37b7",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-03.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_03",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "52249b66dd3a575aa6a2e3d6109c3db58b6054993bd2e0dc26c29507111e9926"
+        },
+        {
+          "actual_sha256": "e23cac866d157705a2e2a3581771b48acd4c9c1212f8ecaf2e2150c9fdbbc13c",
+          "bytes": 117617,
+          "expected_repository_sha256": "e23cac866d157705a2e2a3581771b48acd4c9c1212f8ecaf2e2150c9fdbbc13c",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-04.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_04",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "79abc69cff6aab73284341ae64a4b3268148eba8920dd5148bfd9a7fff4d9aee"
+        },
+        {
+          "actual_sha256": "60fe422aad4daf6ac37fb0e1a33cf6b2a0054ba87832665f25c981c1ea7a2358",
+          "bytes": 114287,
+          "expected_repository_sha256": "60fe422aad4daf6ac37fb0e1a33cf6b2a0054ba87832665f25c981c1ea7a2358",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-05.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_05",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "4a1767fd1183b268dd97a00dfbbf6edece880312d57acdc28fab0f4f5e61a95d"
+        },
+        {
+          "actual_sha256": "5837cdbf2295fe0d075033607de33c2e0ae27c59ee5c90a0d6ca2fd7906d8d98",
+          "bytes": 121418,
+          "expected_repository_sha256": "5837cdbf2295fe0d075033607de33c2e0ae27c59ee5c90a0d6ca2fd7906d8d98",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-06.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_06",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "d5ac018911238f463a86515c6f77d49886e8348e6a2ad58e1208a808f004619e"
+        },
+        {
+          "actual_sha256": "1ca7dfa920f72adf278b92fb2e3134596b80fe8c507415f6a88e4bc16673f14d",
+          "bytes": 104105,
+          "expected_repository_sha256": "1ca7dfa920f72adf278b92fb2e3134596b80fe8c507415f6a88e4bc16673f14d",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-07.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_07",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9714a4e6830a5c39ebdaf7b28c3761ab204e7b146820b05115de221ae1058fe8"
+        },
+        {
+          "actual_sha256": "4219683b5fd7add5fbdbdb6fed88b8affbbe78f9ed50c20d5abbe2f3170e9a3f",
+          "bytes": 167045,
+          "expected_repository_sha256": "4219683b5fd7add5fbdbdb6fed88b8affbbe78f9ed50c20d5abbe2f3170e9a3f",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-08.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_08",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9171080e8d224466ffa85986c0eb2783d7a2cfad4f31a732e5135e0264c4811b"
+        },
+        {
+          "actual_sha256": "0edefd54fddaecce8af97351c231b8c5a9cf6dddc6b2f7d5a89d1c11ce7d180e",
+          "bytes": 163612,
+          "expected_repository_sha256": "0edefd54fddaecce8af97351c231b8c5a9cf6dddc6b2f7d5a89d1c11ce7d180e",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-09.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_09",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "617961680aed64e19fa31f3d0cd0db10647dfc0d1a8218c7ee1a6361bf5719aa"
+        },
+        {
+          "actual_sha256": "b8f8e71ff0807529f1148543cfc94e2e235da476343b13a617e51fe9d826cb6b",
+          "bytes": 106556,
+          "expected_repository_sha256": "b8f8e71ff0807529f1148543cfc94e2e235da476343b13a617e51fe9d826cb6b",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-10.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_10",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "ccce1a8f3c7268d825192f0087dce234576c2941706d89badb8e08ef9b171a05"
+        },
+        {
+          "actual_sha256": "c989925a30daa026fb31089fd8ea047f34460aa0f36cf57219d7e582051f9b24",
+          "bytes": 140665,
+          "expected_repository_sha256": "c989925a30daa026fb31089fd8ea047f34460aa0f36cf57219d7e582051f9b24",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-11.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_11",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9b9111c0c2d14741ab8f12d6429282bcd7c5d332ff29e7540270dafd5ef5a2bf"
+        },
+        {
+          "actual_sha256": "c7495a2f077084e6a765c2e7f9c3d4083a64dc71358fcc93dbdaeef9282470a6",
+          "bytes": 92296,
+          "expected_repository_sha256": "c7495a2f077084e6a765c2e7f9c3d4083a64dc71358fcc93dbdaeef9282470a6",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-12.txt",
+          "source_id": "WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_12",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "faacefde74cbdbc4b325d00802d12c316cf1593225ea05c47b080bc98b0dfb25"
+        },
+        {
+          "actual_sha256": "35a6f4456b49288202e216a0421b803771f65657d6a1f785964864ce3f60f8f3",
+          "bytes": 542633,
+          "expected_repository_sha256": "35a6f4456b49288202e216a0421b803771f65657d6a1f785964864ce3f60f8f3",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt",
+          "source_id": "PTOLEMY_TETRABIBLOS_GUTENBERG_70850",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1"
+        },
+        {
+          "actual_sha256": "a555cd5853a0a4ff73b1f9ee844bb89213f26b5f76a5ee973759ac67c4917890",
+          "bytes": 231411,
+          "expected_repository_sha256": "a555cd5853a0a4ff73b1f9ee844bb89213f26b5f76a5ee973759ac67c4917890",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt",
+          "source_id": "SEPHARIAL_ASTROLOGY_GUTENBERG_46963",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6"
+        },
+        {
+          "actual_sha256": "7a451d3ce48bb0a5b15de31393316bf053e88cf0655230af109a47e59d3c6d2d",
+          "bytes": 72508,
+          "expected_repository_sha256": "7a451d3ce48bb0a5b15de31393316bf053e88cf0655230af109a47e59d3c6d2d",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt",
+          "source_id": "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE",
+          "worktree_differs_from_git_blob": true,
+          "worktree_sha256": "382ea206e8e8dcaf3c55995fcd063e0d06284ef399f34bd377e9d7928489fa9c"
+        },
+        {
+          "actual_sha256": "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1",
+          "bytes": 339845,
+          "expected_repository_sha256": "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/wikisource-zi-wei-dou-shu-quan-shu-rev850734.html",
+          "source_id": "ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE_REV_850734",
+          "worktree_differs_from_git_blob": false,
+          "worktree_sha256": "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1"
+        },
+        {
+          "actual_sha256": "e6c7b6e313cbda3135b41bccc66c98be132cb8319d0d465903d17e669e748b36",
+          "bytes": 1073,
+          "expected_repository_sha256": "e6c7b6e313cbda3135b41bccc66c98be132cb8319d0d465903d17e669e748b36",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/iztro-2.6.0-LICENSE.txt",
+          "source_id": "IZTRO_LICENSE_2_6_0",
+          "worktree_differs_from_git_blob": false,
+          "worktree_sha256": "e6c7b6e313cbda3135b41bccc66c98be132cb8319d0d465903d17e669e748b36"
+        },
+        {
+          "actual_sha256": "45737ab35e8ac0d030499a7b0c35e81b2ee5a182df5cbc9599356558e49baff5",
+          "bytes": 17120,
+          "expected_repository_sha256": "45737ab35e8ac0d030499a7b0c35e81b2ee5a182df5cbc9599356558e49baff5",
+          "hash_basis": "git_blob_HEAD",
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "MATCH",
+          "path": "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/iztro-2.6.0-README.md",
+          "source_id": "IZTRO_README_2_6_0",
+          "worktree_differs_from_git_blob": false,
+          "worktree_sha256": "45737ab35e8ac0d030499a7b0c35e81b2ee5a182df5cbc9599356558e49baff5"
+        }
+      ],
+      "note": "C3 is coverage, not a universal match claim. C3B is NOT_SUPPORTED unless every checked-in hash matches. HASH_ONLY payloads are NOT_APPLICABLE. External URL content is not fetched.",
+      "result": "SUPPORTED",
+      "skipped_not_applicable": [
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "LUNAR_PYTHON_SDIST_1_4_8"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "CTEXT_SAN_MING_TONG_HUI_VOLUME_7"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_24_SOLAR_TERMS"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_SOLAR_TERM_TIMES"
+        },
+        {
+          "manifest": "examples/bazi-capability_v0.1.1/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "TAIWAN_CWA_24_SOLAR_TERMS_PDF"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "DOROTHEUS_CARMEN_ASTROLOGICUM_REGISTER"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "VALENS_ANTHOLOGIES_REGISTER"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_1"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_2"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ALAN_LEO_ASTROLOGY_FOR_ALL_1910_PART_3"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "SWISS_EPHEMERIS_PROGRAMMER_DOC_2_10"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "JPL_HORIZONS_MANUAL"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ASTRODIENST_MODERN_RULERS"
+        },
+        {
+          "manifest": "examples/classical-western-astrology_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "ASTRODIENST_ASPECTS"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "IZTRO_NPM_TARBALL_2_6_0"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_CALENDAR_2000"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_CALENDAR_2026"
+        },
+        {
+          "manifest": "examples/zi-wei-dou-shu_v0.1.0/sources/SOURCE_FETCH_MANIFEST.json",
+          "outcome": "NOT_APPLICABLE",
+          "reason": "no_checked_in_path",
+          "retention_policy": "HASH_ONLY",
+          "source_id": "HKO_24_SOLAR_TERMS"
+        }
+      ]
+    }
+  ],
+  "experiment": "comparison-domain-source-ledger_v0.1.0",
+  "experiment_id": "EX-001",
+  "generated_utc": "2026-09-04T12:18:18Z",
+  "head_sha_if_available": "2aabb85f2f939d8b5d9c14a401f304084da6cc4f",
+  "kind": "PROVENANCE_REPOSITORY_INTEGRITY",
+  "network_used": false,
+  "non_claims": [
+    "external URL current content not verified",
+    "license legal effectiveness not established",
+    "comparison-domain causal validity not established",
+    "subjectivity not established"
+  ],
+  "paid_api_used": false
+}
