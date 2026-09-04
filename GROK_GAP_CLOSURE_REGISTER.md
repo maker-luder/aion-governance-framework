@@ -10,15 +10,17 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 DERIVED_REPORT = TRUE
 WHOLE_REPOSITORY_REVIEW_COMPLETE = TRUE
-NO_CLOSE_NOW_FOUND_AFTER_WHOLE_TREE = TRUE
+NO_ADDITIONAL_CLOSE_NOW_IDENTIFIED = TRUE
 ALL_RESEARCH_GAPS_CLOSED = FALSE
+CAMPAIGN_STATUS = FROZEN_PENDING_OWNER_CODEX_REVIEW
 ```
 
 This file is a derived campaign notebook. It is not a governance authority,
 evidence schema, or scientific conclusion register.
 
-`NO_CLOSE_NOW_FOUND` after whole-tree coverage does not mean research gaps are
-closed. Scientific, Owner-gated, and externally blocked items remain open.
+`NO_ADDITIONAL_CLOSE_NOW_IDENTIFIED = TRUE` means only that this completed
+audit identified no additional objectively closable gaps. It is not proof that
+no latent defect exists.
 
 ## PR #84 changed-file promotion (advisory only)
 
@@ -63,7 +65,7 @@ snapshot/public-domain payloads.
 - paths inspected: root control docs and license/notice files
 - files counted: 22 root files + listed trees
 - checks: documentation-entry contract; sampled local Markdown links (348 checked, 0 broken in sample)
-- gaps found: none CLOSE_NOW
+- gaps found: no additional CLOSE_NOW identified
 - classification: release readiness remains OWNER_DECISION_REQUIRED
 - evidence: `scripts/validate_documentation_entry.py`
 
@@ -81,59 +83,59 @@ snapshot/public-domain payloads.
 - CI: all 19 discovered by `scripts/run_component_tests.py`
 - IMPLEMENTATION_PRESENT / TESTS_PRESENT / TESTS_IN_CI = YES
 - HOLDs remain documented deferred capabilities
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### research-labs/*
 
 - counted: 9 labs, all README + `tests/`
 - CI: all 9 in component runner
 - embodiment/sexual-function runtime and subjectivity conclusions stay unauthorized / NOT_ESTABLISHED
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### research-workbench/
 
 - counted: 1 dated addendum file
 - classification: OPTIONAL_NOT_REQUIRED to expand
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### examples/*
 
 - counted: 4 examples (bazi, western, swiss-ephemeris, zi-wei)
 - CI: first three via component runner; zi-wei via `ziwei-quality.yml` (`test/` not `tests/`)
 - GC-001 hash-field drift closed as metadata alignment only
-- CLOSE_NOW remaining: none
+- additional CLOSE_NOW identified: none
 
 ### experiments/*
 
 - main: `g1-recall-gate-baseline_v0.1.0` only
 - sandbox: EX-001 added; LEDGER/RESULT derived
-- CLOSE_NOW remaining: none
+- additional CLOSE_NOW identified: none
 
 ### scripts/* and tests/*
 
 - scripts 25; root tests 18
 - Quality runs the full `tests/` package plus evidence scripts
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### qa/*
 
 - counted: 38 files
 - generated CURRENT_* artifacts are not authority
 - HOLD/NOT_EVALUATED tokens are schema/governance vocabulary
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### docs/*
 
 - counted: 134 files
 - C0 HOLD register and protocols present
 - sampled local links: 0 broken
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### manifest/* and schemas/*
 
 - 2 manifest files; 7 schemas
 - no parallel schema added
-- CLOSE_NOW: none
+- additional CLOSE_NOW identified: none
 
 ### Marker sweep (not automatically defects)
 
@@ -152,14 +154,17 @@ snapshot/public-domain payloads.
 
 `DEFERRED != DEFECT`. `HOLD != PASS`.
 
-## Whole-tree CLOSE_NOW result
+## Whole-tree result
 
 ```text
 WHOLE_REPOSITORY_REVIEW_COMPLETE = TRUE
-KNOWN_GAP_SET_CLOSE_NOW = 0
-WHOLE_REPOSITORY_CLOSE_NOW = 0
+NO_ADDITIONAL_CLOSE_NOW_IDENTIFIED = TRUE
 ALL_RESEARCH_GAPS_CLOSED = FALSE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
+CAMPAIGN_STATUS = FROZEN_PENDING_OWNER_CODEX_REVIEW
 ```
+
+Meaning: the completed audit identified no additional objectively closable
+gaps. This is not proof that no latent defect exists.
