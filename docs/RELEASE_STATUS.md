@@ -36,9 +36,13 @@ After termination, individually scoped events were merged through separate prote
 - PR #53 — adapter registry and durable execution-evidence loop;
 - PR #54 — research-question / repository-state documentation reconciliation;
 - PR #56 — Endogenous Goal Dynamics × Four-Domain bounded research materialization;
-- PR #63 — governed knowledge, seven-state experiments, AION/Astra isolation accounting, and theory-plural subjectivity-relevant research convergence.
+- PR #63 — governed knowledge, seven-state experiments, AION/Astra isolation accounting, and theory-plural subjectivity-relevant research convergence;
+- PR #74 — Human Owner-authorized diachronic/collective, multimodal, bounded autonomous research and single-main convergence;
+- PR #85 — Human Owner-authorized curated comparison-domain provenance checks, D3/D4 retained mechanism pilots, prospective D2 design, bounded inquiry artifacts and AIR engineering pilot.
 
 PR #63 merged the approved exact candidate head `e85651583d204162e309ffd968f31249a8bce983` as merge commit `2d37aa92c2bc454abcea41b2174e3415d98865b1`.
+
+PR #74 established the durable single-main topology on 2026-08-29. PR #85 merged approved exact candidate `e98ac8779e313e72dc75d9f29892457e656e2c9a` as merge commit `5f9fe710bea8ea3993b51d9ea5d17333b1c636b1` on 2026-09-04 while preserving that topology, negative results and provenance gaps. Neither transition changes the scientific disposition below.
 
 ```text
 PROJECT_WORK_LOOP = TERMINATED

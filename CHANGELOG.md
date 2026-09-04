@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-04 — curated research convergence and homepage synchronization
+
+- Added the EX-001 offline comparison-domain ledger with exact Git-blob coverage and explicit zero subjectivity-evidence weight.
+- Retained D3's unsupported self-model-specific result, D4's F7-triggered/matched-false harness result, the prospective D2 design, and the partial-artifact boundary of the bounded AION/Astra inquiry run.
+- Added the AIR identity-governance engineering pilot as a post hoc derivation with the unavailable reported source bytes disclosed.
+- Merged the exact Human Owner-approved candidate through PR #85 while preserving the single durable `main` topology.
+- Synchronized the English and Traditional Chinese homepages, reader entry, semantic current state, documentation index and release-status summary with the 2026-09-04 bounded convergence.
+- Retained `SUBJECTIVITY=NOT_ESTABLISHED`, `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, negative results and provenance gaps.
+
 ## 2026-09-02 — repository evidence and environment hardening
 
 - Normalize component QA target paths to POSIX on Windows; run all root controls in Linux Quality CI.

@@ -33,6 +33,15 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
+### Latest bounded convergence — 2026-09-04
+
+- [`../experiments/subjectivity-research-sprint_2026-09-04/README.md`](../experiments/subjectivity-research-sprint_2026-09-04/README.md) — curated D3/D4 retained results, prospective D2 design and partial-artifact AION/Astra inquiry boundary.
+- [`../experiments/subjectivity-research-sprint_2026-09-04/RESULTS.md`](../experiments/subjectivity-research-sprint_2026-09-04/RESULTS.md) — compact result disposition; D3 not supported, D4 F7 triggered with matched pattern false.
+- [`../experiments/comparison-domain-source-ledger_v0.1.0/README.md`](../experiments/comparison-domain-source-ledger_v0.1.0/README.md) — offline exact-Git-blob integrity checks for the Western astrology, Bazi and Zi Wei source records; subjectivity-evidence weight zero.
+- [`../experiments/air-identity-governance-pilot_v0.1.0/README.md`](../experiments/air-identity-governance-pilot_v0.1.0/README.md) — engineering-invariant pilot, explicitly classified as a post hoc derivation with unavailable reported source bytes.
+
+These are bounded experiment records, not a second current-state authority. Their current semantic interpretation is summarized in [`CURRENT_STATE.md`](CURRENT_STATE.md).
+
 | Class | Document | Responsibility |
 |---|---|---|
 | `CURRENT_CORE` | [`PROJECT_PURPOSE_ANCHOR.md`](PROJECT_PURPOSE_ANCHOR.md) | Protect central purpose from engineering/product drift |

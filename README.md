@@ -21,17 +21,19 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 The 2026-08-18 repository freeze and 2026-08-20 project-work-loop termination remain preserved historical events. Later maintenance and bounded research-materialization events were separately authorized and do not retroactively rewrite those events.
 
-`main` contains the Human Owner-authorized converged bounded research/instrumentation baseline. Its durable research core remains the **possibility of artificial subjectivity**. The convergence includes subjectivity-relevant evidence handling, Endogenous Goal Dynamics, bounded AION/Astra inquiry, seven-state functional research surfaces, theory-plural indicator mapping, governed knowledge sources, Four-Domain interpretation, Evidence Interop, additive diachronic/collective derived observations, local-first governed multimodal media, and the bounded autonomous Triadic research campaign.
+`main` contains the Human Owner-authorized converged bounded research/instrumentation baseline. Its durable research core remains the **possibility of artificial subjectivity**. The convergence includes subjectivity-relevant evidence handling, Endogenous Goal Dynamics, bounded AION/Astra inquiry, seven-state functional research surfaces, theory-plural indicator mapping, governed knowledge sources, Four-Domain interpretation, Evidence Interop, additive diachronic/collective derived observations, local-first governed multimodal media, the bounded autonomous Triadic research campaign, and the curated 2026-09-04 mechanism/provenance experiments.
 
 Those capabilities improve testability, falsifiability, provenance and evidence discipline. They do **not** establish subjectivity, consciousness, phenomenal experience, moral agency, identity continuity, independent replication, whole-system validation or independent IV&V.
 
-The `components/multimodal_media_core_v0.1.0/` candidate adds a governed, provider-neutral image/video/3D evidence path. It separates provider execution from immutable media admission, then binds exact media fingerprints to the existing seven-state, AION/Astra, and subjectivity research surfaces without promoting generated content into a scientific or subjectivity conclusion.
+The `components/multimodal_media_core_v0.1.0/` component provides a governed, provider-neutral image/video/3D evidence path. It separates provider execution from immutable media admission, then binds exact media fingerprints to the existing seven-state, AION/Astra, and subjectivity research surfaces without promoting generated content into a scientific or subjectivity conclusion.
 
 `components/aion_astra_autonomous_research_v0.1.0/` composes existing inquiry, Triadic State Dynamics, bounded-loop and Evidence Interop owners into a finite 17-stage synthetic campaign. It grants no action, merge, deployment or scientific-promotion authority.
 
 The bounded comparison examples now include classical-primary plus modern Western astrology, Bazi, and a version-pinned Zi Wei Dou Shu fact profile. These examples exercise provenance, calendar/rule variance and deterministic receipts; they perform no prediction or personality synthesis, add no canonical state channel, and do not change the subjectivity evidence threshold. See [`docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md`](docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md).
 
-After the 2026-08-29 Human Owner-authorized convergence, `main` is the repository's only durable branch. Historical candidate lineage remains auditable through merged commits, pull requests and Git objects rather than parallel long-lived branches.
+The 2026-09-04 bounded convergence adds source-integrity checks, D3/D4 synthetic pilots, a prospective D2 design, a partial-artifact AION/Astra inquiry, and a post hoc AIR pilot with missing source bytes disclosed. D3 was not supported; D4 triggered F7 with no matched pattern. These are not system-level subjectivity evidence. See the [`curated sprint record`](experiments/subjectivity-research-sprint_2026-09-04/README.md).
+
+The 2026-08-29 Human Owner-authorized convergence established `main` as the repository's only durable branch, and the 2026-09-04 convergence preserved that topology. Historical candidate lineage remains auditable through merged commits, pull requests and Git objects rather than parallel long-lived branches.
 
 ```text
 REPOSITORY_DURABLE_BRANCH = main
@@ -51,6 +53,7 @@ For the semantic current state, read [`docs/CURRENT_STATE.md`](docs/CURRENT_STAT
 - **Release posture:** [`docs/RELEASE_READINESS.md`](docs/RELEASE_READINESS.md)
 - **Research contribution:** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 - **Subjectivity evidence method:** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
+- **Latest bounded mechanism/provenance results:** [`experiments/subjectivity-research-sprint_2026-09-04/README.md`](experiments/subjectivity-research-sprint_2026-09-04/README.md)
 - **Architecture:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - **Explicit non-claims:** [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **Provenance and authority:** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/governance/`](docs/governance/)
