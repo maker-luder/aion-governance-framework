@@ -15,9 +15,10 @@
       "transport": "PYTHON_URLLIB_SYSTEM_TLS",
       "bytes": 552667,
       "sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1",
+      "repository_normalization": "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1",
       "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt",
-      "repository_sha256": "9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1",
-      "repository_bytes": 552667
+      "repository_sha256": "35a6f4456b49288202e216a0421b803771f65657d6a1f785964864ce3f60f8f3",
+      "repository_bytes": 542633
     },
     {
       "source_id": "SEPHARIAL_ASTROLOGY_GUTENBERG_46963",
@@ -29,9 +30,10 @@
       "transport": "PYTHON_URLLIB_SYSTEM_TLS",
       "bytes": 235778,
       "sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6",
+      "repository_normalization": "UTF8_LF_REMOVE_TRAILING_HORIZONTAL_WHITESPACE_V1",
       "repository_path": "examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt",
-      "repository_sha256": "93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6",
-      "repository_bytes": 235778
+      "repository_sha256": "a555cd5853a0a4ff73b1f9ee844bb89213f26b5f76a5ee973759ac67c4917890",
+      "repository_bytes": 231411
     },
     {
       "source_id": "LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE",
