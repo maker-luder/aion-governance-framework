@@ -3,8 +3,8 @@
 ```text
 EXPERIMENT_ID = EX-001
 KIND = PROVENANCE / REPOSITORY-INTEGRITY
-RUN_UTC = 2026-09-04T09:31:45Z
-BASE_HEAD_AT_RUN = f4c911af558e5076a52cfe7b4efc5a8e00585d2c
+FIRST_RUN_UTC = 2026-09-04T09:31:45Z
+RERUN_AFTER_GC001_UTC = 2026-09-04T09:44:00Z
 NETWORK_USED = FALSE
 PAID_API_USED = FALSE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
@@ -23,51 +23,40 @@ python experiments/comparison-domain-source-ledger_v0.1.0/run_experiment.py --wr
 python -m pytest -q experiments/comparison-domain-source-ledger_v0.1.0/tests
 ```
 
-## Literal pytest result
-
-```text
-..........                                                               [100%]
-10 passed in 0.07s
-```
-
-## Narrow claims
+## First-run claims (before GC-001)
 
 | Claim | Result |
 |---|---|
-| C1 register **and** fetch-manifest files parse with a `sources` array (7/7 surfaces) | `SUPPORTED` |
-| C2 license/usage metadata strings are present | `SUPPORTED` |
-| C3A per-entry outcomes reported | `SUPPORTED` |
+| C1 | `SUPPORTED` |
+| C2 | `SUPPORTED` |
+| C3A | `SUPPORTED` |
 | C3B all checked-in hashes match | `NOT_SUPPORTED` |
-| C3 coverage aggregate | `PARTIALLY_SUPPORTED` |
-| Aggregate of C1 + C2 + C3A + C3B | `PARTIALLY_SUPPORTED` |
+| match_coverage | `22/24` |
 
-C2 records only that a metadata string exists. Legal effectiveness remains
-`NOT_ESTABLISHED`. External URLs were not fetched.
+Negative finding kept: Ptolemy and Sepharial `repository_sha256` copied the download hash after LF normalization.
 
-## C3 coverage
+## Rerun after GC-001
+
+GC-001 updated only `repository_sha256` / `repository_bytes` / `repository_normalization` on those two fetch-manifest entries. Original download `sha256`/`bytes` were left unchanged.
+
+Literal pytest after repair:
 
 ```text
-checked_in_n = 24
-MATCH = 22
-MISMATCH = 2
-MISSING = 0
-NOT_APPLICABLE = 18
-match_coverage = 22/24
+10 passed in 0.08s
 ```
 
-`C3B` is `NOT_SUPPORTED` because two checked-in entries mismatch. That is not
-hidden inside a universal "hash matches" claim.
+| Claim | Result |
+|---|---|
+| C1 register and fetch-manifest files parse (7/7) | `SUPPORTED` |
+| C2 license/usage metadata present | `SUPPORTED` |
+| C3A per-entry outcomes reported | `SUPPORTED` |
+| C3B all checked-in hashes match | `SUPPORTED` |
+| C3 coverage | `24/24 MATCH` |
+| Aggregate | `SUPPORTED` |
 
-Mismatch entries:
-
-| source_id | recorded repository_sha256 | working-tree sha256 |
-|---|---|---|
-| `PTOLEMY_TETRABIBLOS_GUTENBERG_70850` | `9acc3da34642eb0a54d8b14224bfa52017aec6bb7f8c0558f50e8492ed226fc1` | `35a6f4456b49288202e216a0421b803771f65657d6a1f785964864ce3f60f8f3` |
-| `SEPHARIAL_ASTROLOGY_GUTENBERG_46963` | `93a32745a37a43763e1b62924e59d136c886a58f050febbbf8f1b6798d80eaf6` | `a555cd5853a0a4ff73b1f9ee844bb89213f26b5f76a5ee973759ac67c4917890` |
-
-Competing explanations remain: original-download hash vs later normalization;
-working-tree bytes vs intended blob; later drift. This experiment does not
-choose among them and does not rewrite authoritative manifests.
+External URL current content remains `NOT_VERIFIED`.
+License legal effectiveness remains `NOT_ESTABLISHED`.
+This does not establish comparison-domain causal validity or subjectivity.
 
 ## Falsifiers
 
