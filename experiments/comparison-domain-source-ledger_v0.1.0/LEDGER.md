@@ -3,31 +3,32 @@
 ```text
 AUTHORITY = NONE
 DERIVED_FROM = existing domain registers and fetch manifests
+HASH_BASIS = git_blob_HEAD
 SUBJECTIVITY_EVIDENCE_WEIGHT = 0
 ```
 
 This file is generated from existing typed surfaces. Cite the original
 register or manifest, not this report.
 
-Generated (UTC): 2026-09-04T09:31:45Z
-Head SHA recorded by runner: f4c911af558e5076a52cfe7b4efc5a8e00585d2c
+Generated (UTC): 2026-09-04T12:13:02Z
+Source tree ref before derived-artifact commit: 1b1015cf1347c135470e38a18e5e91ee72690fd1
 
 ## Claims
 
 - `C1_REGISTER_AND_MANIFEST_FILES_PARSE_WITH_SOURCES_ARRAY` = `SUPPORTED`
 - `C2_LICENSE_OR_USAGE_METADATA_PRESENT` = `SUPPORTED`
-- `C3_CHECKED_IN_HASH_COVERAGE` = `PARTIALLY_SUPPORTED`
+- `C3_CHECKED_IN_HASH_COVERAGE` = `SUPPORTED`
   - `C3A_PER_ENTRY_OUTCOMES_REPORTED` = `SUPPORTED`
-  - `C3B_ALL_CHECKED_IN_HASHES_MATCH` = `NOT_SUPPORTED`
+  - `C3B_ALL_CHECKED_IN_HASHES_MATCH` = `SUPPORTED`
 
 ## C3 coverage
 
 - checked_in_n = 24
-- MATCH = 22
-- MISMATCH = 2
+- MATCH = 24
+- MISMATCH = 0
 - MISSING = 0
 - NOT_APPLICABLE = 18
-- match_coverage = 22/24
+- match_coverage = 24/24
 
 ## Per-entry checked-in outcomes
 
@@ -49,8 +50,8 @@ Head SHA recorded by runner: f4c911af558e5076a52cfe7b4efc5a8e00585d2c
 - `WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_10` `examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-10.txt` `MATCH`
 - `WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_11` `examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-11.txt` `MATCH`
 - `WIKISOURCE_SAN_MING_TONG_HUI_VOLUME_12` `examples/bazi-capability_v0.1.1/sources/reviewed-snapshots/wikisource-san-ming-tong-hui-volume-12.txt` `MATCH`
-- `PTOLEMY_TETRABIBLOS_GUTENBERG_70850` `examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt` `MISMATCH`
-- `SEPHARIAL_ASTROLOGY_GUTENBERG_46963` `examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt` `MISMATCH`
+- `PTOLEMY_TETRABIBLOS_GUTENBERG_70850` `examples/classical-western-astrology_v0.1.0/sources/public-domain/ptolemy-tetrabiblos-pg70850.txt` `MATCH`
+- `SEPHARIAL_ASTROLOGY_GUTENBERG_46963` `examples/classical-western-astrology_v0.1.0/sources/public-domain/sepharial-astrology-pg46963.txt` `MATCH`
 - `LILLY_CHRISTIAN_ASTROLOGY_WIKISOURCE` `examples/classical-western-astrology_v0.1.0/sources/public-domain/wikisource-christian-astrology.txt` `MATCH`
 - `ZI_WEI_DOU_SHU_QUAN_SHU_WIKISOURCE_REV_850734` `examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/wikisource-zi-wei-dou-shu-quan-shu-rev850734.html` `MATCH`
 - `IZTRO_LICENSE_2_6_0` `examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/iztro-2.6.0-LICENSE.txt` `MATCH`
@@ -82,3 +83,4 @@ Head SHA recorded by runner: f4c911af558e5076a52cfe7b4efc5a8e00585d2c
 - External URL current content: NOT_VERIFIED
 - Legal license effectiveness: NOT_ESTABLISHED
 - Subjectivity / causal validation of comparison domains: NOT_ESTABLISHED
+

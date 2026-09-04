@@ -27,11 +27,13 @@ Only `repository_sha256` and `repository_bytes` were aligned to current
 checked-in bytes. Original download `sha256`/`bytes` were left unchanged.
 No `repository_normalization` recipe is claimed for these two entries.
 
-Literal pytest after alignment:
+Curated candidate pytest after binding C3 to Git blob bytes:
 
 ```text
-10 passed in 0.08s
+11 passed
 ```
 
 C3B `SUPPORTED`, match_coverage `24/24`.
+The result is independent of Windows/Linux working-tree line-ending
+materialization because `repository_sha256` is checked against `HEAD` blobs.
 External URL current content remains `NOT_VERIFIED`.

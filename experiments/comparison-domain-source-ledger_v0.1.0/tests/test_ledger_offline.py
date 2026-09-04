@@ -87,6 +87,10 @@ def test_c3_coverage_matches_entry_outcomes() -> None:
     assert coverage["checked_in_n"] == coverage["match"] + coverage["mismatch"] + coverage["missing"]
     assert coverage["not_applicable"] == len(c3["skipped_not_applicable"])
     assert coverage["match_coverage"] == f"{coverage['match']}/{coverage['checked_in_n']}"
+    assert coverage["checked_in_n"] == 24
+    assert coverage["match"] == 24
+    assert coverage["mismatch"] == 0
+    assert all(row["hash_basis"] == "git_blob_HEAD" for row in hashed)
     children = {item["claim"]: item["result"] for item in c3["child_claims"]}
     assert children["C3A_PER_ENTRY_OUTCOMES_REPORTED"] == "SUPPORTED"
     if coverage["mismatch"] or coverage["missing"]:

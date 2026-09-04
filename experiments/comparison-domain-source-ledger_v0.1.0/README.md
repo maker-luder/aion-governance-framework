@@ -45,7 +45,8 @@ as if both results came from the same repository head.
    with a `sources` array.
 2. `C2` — fetch-manifest entries record `license_or_terms`; calendar-engine
    register entries record `license`. This is metadata presence only.
-3. `C3` — coverage over fetch-manifest entries:
+3. `C3` — coverage over fetch-manifest entries using the exact Git blob at
+   `HEAD`, not platform-dependent working-tree line endings:
    - `C3A` per-entry outcome is one of `MATCH | MISMATCH | MISSING | NOT_APPLICABLE`
    - `C3B` every checked-in `repository_path` SHA-256 equals recorded
      `repository_sha256` (`SUPPORTED` only if coverage is complete)
@@ -75,3 +76,8 @@ python -m pytest -q experiments/comparison-domain-source-ledger_v0.1.0/tests
 No network, paid API, model call, or write outside this experiment directory
 is required. The runner may overwrite only `LEDGER.md` and `RESULT.json` in
 this directory when `--write-derived` is passed.
+
+The output records a diagnostic working-tree hash when the file is
+materialized. On Windows this may differ from the Git blob because of checkout
+line-ending normalization; the `repository_sha256` comparison is bound to the
+Git blob, which is the byte sequence shared by all clones.

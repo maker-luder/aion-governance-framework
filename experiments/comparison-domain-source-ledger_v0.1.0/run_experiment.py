@@ -41,6 +41,17 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def git_blob_bytes(relpath: str, ref: str = "HEAD") -> bytes:
+    result = subprocess.run(
+        ["git", "-C", str(ROOT), "show", f"{ref}:{relpath}"],
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        raise FileNotFoundError(f"{ref}:{relpath}")
+    return result.stdout
+
+
 def load_json(relpath: str) -> dict[str, Any]:
     path = ROOT / relpath
     if not path.is_file():
@@ -118,14 +129,20 @@ def check_local_hashes() -> dict[str, Any]:
                 entries.append({"manifest": relpath, "source_id": sid, "outcome": "NOT_APPLICABLE", "reason": "no_checked_in_path", "retention_policy": item.get("retention_policy")})
                 continue
             path = ROOT / str(repo_path)
-            row: dict[str, Any] = {"manifest": relpath, "source_id": sid, "path": repo_path, "expected_repository_sha256": expected}
-            if not path.is_file():
-                row.update({"outcome": "MISSING", "reason": "missing_file"})
+            row: dict[str, Any] = {"manifest": relpath, "source_id": sid, "path": repo_path, "expected_repository_sha256": expected, "hash_basis": "git_blob_HEAD"}
+            try:
+                blob = git_blob_bytes(str(repo_path))
+            except FileNotFoundError:
+                row.update({"outcome": "MISSING", "reason": "missing_git_blob"})
                 entries.append(row)
                 continue
-            actual = sha256_file(path)
+            actual = hashlib.sha256(blob).hexdigest()
             row["actual_sha256"] = actual
-            row["bytes"] = path.stat().st_size
+            row["bytes"] = len(blob)
+            if path.is_file():
+                worktree_sha256 = sha256_file(path)
+                row["worktree_sha256"] = worktree_sha256
+                row["worktree_differs_from_git_blob"] = worktree_sha256 != actual
             if isinstance(expected, str) and actual == expected:
                 row["outcome"] = "MATCH"
             else:
@@ -166,7 +183,7 @@ def verdict(parts: list[dict[str, Any]]) -> str:
 def render_ledger(report: dict[str, Any]) -> str:
     c3 = next(item for item in report["claims"] if item["claim"] == "C3_CHECKED_IN_HASH_COVERAGE")
     coverage = c3["coverage"]
-    lines = ["# Derived source ledger — EX-001", "", "```text", "AUTHORITY = NONE", "DERIVED_FROM = existing domain registers and fetch manifests", "SUBJECTIVITY_EVIDENCE_WEIGHT = 0", "```", "", "This file is generated from existing typed surfaces. Cite the original", "register or manifest, not this report.", "", f"Generated (UTC): {report['generated_utc']}", f"Head SHA recorded by runner: {report['head_sha_if_available']}", "", "## Claims", ""]
+    lines = ["# Derived source ledger — EX-001", "", "```text", "AUTHORITY = NONE", "DERIVED_FROM = existing domain registers and fetch manifests", "HASH_BASIS = git_blob_HEAD", "SUBJECTIVITY_EVIDENCE_WEIGHT = 0", "```", "", "This file is generated from existing typed surfaces. Cite the original", "register or manifest, not this report.", "", f"Generated (UTC): {report['generated_utc']}", f"Source tree ref before derived-artifact commit: {report['head_sha_if_available']}", "", "## Claims", ""]
     for item in report["claims"]:
         lines.append(f"- `{item['claim']}` = `{item['result']}`")
         for child in item.get("child_claims") or []:
