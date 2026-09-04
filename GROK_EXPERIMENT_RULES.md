@@ -31,7 +31,7 @@ This branch is the only workspace assigned to Grok Bot for bounded experiments. 
 
 ## Review workflow
 
-1. Create a small topic branch from `grok/experimental-sandbox` only when needed, or commit directly to the sandbox branch if the GitHub connection supports only one assigned branch.
+1. Commit experimental work only to `grok/experimental-sandbox`. Do not create any additional remote branch.
 2. Keep each experiment bounded and reversible.
 3. Open a draft pull request to `main`.
 4. Label conclusions conservatively: `SUPPORTED`, `PARTIALLY_SUPPORTED`, `NOT_SUPPORTED`, or `NOT_ESTABLISHED`.
@@ -40,7 +40,7 @@ This branch is the only workspace assigned to Grok Bot for bounded experiments. 
 
 ## 中文摘要
 
-- Grok 只能在 `grok/experimental-sandbox` 實驗。
+- Grok 只能在 `grok/experimental-sandbox` 實驗，也不建立其他遠端分支。
 - 不直接修改、推送或合併 `main`。
 - 每個成果都以草稿 PR 提交，由 Human Owner 與 Codex 審查。
 - 核心維持「AI 主體性的可能」，結論保持 `NOT_ESTABLISHED`。
