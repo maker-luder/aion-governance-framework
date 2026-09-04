@@ -102,6 +102,9 @@ jobs:
       - name: Run minimal Recall Gate contrast experiment
         run: python experiments/g1-recall-gate-baseline_v0.1.0/run_experiment.py
 
+      - name: Run EX-001 comparison-domain source ledger tests
+        run: python -m pytest -q experiments/comparison-domain-source-ledger_v0.1.0/tests
+
       - name: Generate current branch-aware coverage evidence
         run: python scripts/run_current_coverage.py
 
