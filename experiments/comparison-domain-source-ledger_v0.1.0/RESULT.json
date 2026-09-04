@@ -1232,8 +1232,8 @@
   ],
   "experiment": "comparison-domain-source-ledger_v0.1.0",
   "experiment_id": "EX-001",
-  "generated_utc": "2026-09-04T12:13:02Z",
-  "head_sha_if_available": "1b1015cf1347c135470e38a18e5e91ee72690fd1",
+  "generated_utc": "2026-09-04T12:18:18Z",
+  "head_sha_if_available": "2aabb85f2f939d8b5d9c14a401f304084da6cc4f",
   "kind": "PROVENANCE_REPOSITORY_INTEGRITY",
   "network_used": false,
   "non_claims": [

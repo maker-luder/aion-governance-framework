@@ -10,8 +10,8 @@ SUBJECTIVITY_EVIDENCE_WEIGHT = 0
 This file is generated from existing typed surfaces. Cite the original
 register or manifest, not this report.
 
-Generated (UTC): 2026-09-04T12:13:02Z
-Source tree ref before derived-artifact commit: 1b1015cf1347c135470e38a18e5e91ee72690fd1
+Generated (UTC): 2026-09-04T12:18:18Z
+Source tree ref before derived-artifact commit: 2aabb85f2f939d8b5d9c14a401f304084da6cc4f
 
 ## Claims
 
