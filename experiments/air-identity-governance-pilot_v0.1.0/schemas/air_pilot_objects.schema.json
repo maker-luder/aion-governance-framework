@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AIR identity pilot boundary envelope",
+  "description": "Non-canonical research schema. CANONICAL_EFFECT=NONE; SUBJECTIVITY_CONCLUSION=NOT_ESTABLISHED.",
+  "type": "object",
+  "required": ["agent_id", "status", "canonical_effect", "subjectivity_conclusion"],
+  "additionalProperties": true,
+  "properties": {
+    "agent_id": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["REGISTERED", "CLAIMED", "ACTIVE", "SUSPENDED", "CONFLICTED", "SEALED", "CONTINUITY_ENDED"]
+    },
+    "canonical_effect": { "const": "NONE" },
+    "subjectivity_conclusion": { "const": "NOT_ESTABLISHED" }
+  }
+}
