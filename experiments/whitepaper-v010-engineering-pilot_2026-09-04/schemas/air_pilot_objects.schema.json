@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AIR identity pilot objects (sandbox only)",
+  "description": "Non-canonical derived schema. CANONICAL_EFFECT=NONE.",
+  "type": "object",
+  "properties": {
+    "agent_id": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["REGISTERED", "CLAIMED", "ACTIVE", "SUSPENDED", "CONFLICTED", "SEALED", "CONTINUITY_ENDED"]
+    },
+    "canonical_effect": { "const": "NONE" },
+    "subjectivity_conclusion": { "const": "NOT_ESTABLISHED" }
+  }
+}
