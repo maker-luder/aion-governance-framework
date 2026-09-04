@@ -9,11 +9,14 @@ SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 AUTHORITY = NONE
+PR_DIFF_INCLUDES_SANDBOX_RULES = TRUE
+MAIN_TRANSITION_AUTHORITY_GATE = UNCHANGED_NOT_BYPASSED
 ```
 
 This experiment checks that existing comparison-domain source registers and fetch
-manifests still describe checked-in files. It is not subjectivity evidence and
-does not raise any subjectivity evidence layer.
+manifests still parse, still record license/usage metadata, and still have
+per-entry local hash outcomes for checked-in files. It is not subjectivity
+evidence and does not raise any subjectivity evidence layer.
 
 ## Authority
 
@@ -32,11 +35,18 @@ not be cited as authority over those files.
 
 ## Narrow claims
 
-1. Listed register and manifest files exist and parse as JSON with a `sources` array.
-2. Fetch-manifest entries record license/usage metadata (`license_or_terms`).
-   Calendar-engine register entries record `license`.
-3. Fetch-manifest entries that name a checked-in `repository_path` and
-   `repository_sha256` have a local file whose SHA-256 matches that field.
+1. `C1` — listed register **and** fetch-manifest files exist and parse as JSON
+   with a `sources` array.
+2. `C2` — fetch-manifest entries record `license_or_terms`; calendar-engine
+   register entries record `license`. This is metadata presence only.
+3. `C3` — coverage over fetch-manifest entries:
+   - `C3A` per-entry outcome is one of `MATCH | MISMATCH | MISSING | NOT_APPLICABLE`
+   - `C3B` every checked-in `repository_path` SHA-256 equals recorded
+     `repository_sha256` (`SUPPORTED` only if coverage is complete)
+
+`C3` is not a universal "hashes match" claim softened by
+`PARTIALLY_SUPPORTED`. Coverage counts stay visible. `C3B` is `NOT_SUPPORTED`
+as soon as any checked-in entry is `MISMATCH` or `MISSING`.
 
 ## Non-claims
 
