@@ -1,0 +1,9 @@
+[project]
+name = "air-identity-pilot"
+version = "0.1.0"
+description = "Sandbox-only AIR identity mechanism pilot derived from white paper v0.10"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
