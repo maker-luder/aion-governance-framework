@@ -1,25 +1,17 @@
 # Subjectivity research sprint 2026-09-04
 
 ```text
-CAMPAIGN = SUBJECTIVITY_RESEARCH_SPRINT
 GAP_CLOSURE_CAMPAIGN = FROZEN
-BASELINE = main@f3789b7f4c08f39093886e4b07c036add363ab73
-WORKSPACE = grok/experimental-sandbox
-PR = #84
+SUBJECTIVITY_MECHANISM_PILOT = COMPLETED
+CORE_AION_ASTRA_INQUIRY = ACTIVE
+SUBJECTIVITY_RELEVANT_MECHANISM_PILOT != SYSTEM_LEVEL_SUBJECTIVITY_EVIDENCE
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 IDENTITY_CONTINUITY = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
-AUTHORITY = NONE
 ```
 
-`MORE_ARTIFACTS != STRONGER_EVIDENCE`
-`L3_MECHANISM != SUBJECT`
-`L3_SYNTHETIC_HARNESS != GENERALIZED_MODEL_MECHANISM`
-`DUAL_ROLE_ANALYSIS != INDEPENDENT_IVV`
-
-This directory is a SANDBOX_ONLY sprint notebook plus bounded runners.
-It does not replace Endogenous Goal Dynamics, Triadic State Dynamics,
-the subjectivity pipeline, or the Subjectivity Evidence Protocol.
+D3/D4 synthetic scoring results remain as a mechanism pilot only. They are not rerun.
+Current center: `inquiry_run/` using `components/aion_astra_inquiry_v0.1.0`.
