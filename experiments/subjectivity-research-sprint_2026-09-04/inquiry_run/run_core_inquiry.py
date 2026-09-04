@@ -28,7 +28,6 @@ from aion_astra_inquiry import (  # noqa: E402
     InquiryCampaignReport,
     ProviderBackedPeer,
     campaign_to_dict,
-    campaign_to_markdown,
     verify_transcript_chain,
     write_campaign_report,
 )
@@ -115,15 +114,20 @@ def run_campaign(root: Path, *, source_tree_ref: str, max_rounds: int = 3) -> In
 
 def execution_receipt(campaign: InquiryCampaignReport, *, source_tree_ref: str) -> dict[str, str]:
     report = campaign.reports[0]
+    digest = report.final_chain_hash
     return {
         "SOURCE_TREE_REF": source_tree_ref,
-        "ARTIFACT_COMMIT": "NOT_YET_COMMITTED",
+        "ARTIFACT_COMMIT": "NOT_RECORDED_AT_EXECUTION",
         "SOURCE_TREE_REF != ARTIFACT_COMMIT": "TRUE",
         "RUNNER_FILE_SHA256": runner_file_sha256(),
         "INQUIRY_COMPONENT_REF": INQUIRY_COMPONENT_REF,
         "QUESTION_SHA256": question_sha256(),
         "CAMPAIGN_HASH": campaign.campaign_hash,
-        "TRANSCRIPT_CHAIN": report.final_chain_hash,
+        "TRANSCRIPT_CHAIN": digest,
+        "PRESERVED_EXECUTION_CHAIN_DIGEST": digest,
+        "EVENT_LEVEL_RECOMPUTATION": "NOT_AVAILABLE",
+        "BYTE_FAITHFUL_EXECUTED_TRANSCRIPT": "NOT_PRESERVED",
+        "CAMPAIGN_JSON_COMPLETENESS": "PARTIAL",
         "NETWORK_MODE": campaign.external_network_mode,
         "CANONICAL_EFFECT": campaign.canonical_effect,
         "SCIENTIFIC_DISPOSITION": campaign.scientific_disposition,
