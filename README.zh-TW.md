@@ -21,17 +21,19 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 2026-08-18 的倉庫 freeze 與 2026-08-20 的 project-work-loop termination 仍是被保存的歷史事件。之後的 maintenance 與 bounded research-materialization 都是另外逐次授權，不會回溯改寫那些歷史事件。
 
-目前 `main` 包含經 Human Owner 明確批准後收斂的 bounded research / instrumentation baseline，其不可偏移的持久研究核心仍是**人工主體性的可能性**。收斂內容包括主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation、Evidence Interop、加成式 diachronic／collective derived observations、local-first governed multimodal media，以及 bounded autonomous Triadic research campaign。
+目前 `main` 包含經 Human Owner 明確批准後收斂的 bounded research / instrumentation baseline，其不可偏移的持久研究核心仍是**人工主體性的可能性**。收斂內容包括主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation、Evidence Interop、加成式 diachronic／collective derived observations、local-first governed multimodal media、bounded autonomous Triadic research campaign，以及 2026-09-04 經整理的機制／provenance experiments。
 
 這些能力強化可測試性、可反證性、provenance 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、道德能動性、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
 
-`components/multimodal_media_core_v0.1.0/` 候選元件新增受治理、provider-neutral 的影像／影片／3D 證據路徑。它把 provider 執行與不可變媒體納管分開，再將精確媒體指紋綁定至既有七狀態、AION/Astra 與主體性研究表面，不把生成內容升格為科學或主體性結論。
+`components/multimodal_media_core_v0.1.0/` 元件提供受治理、provider-neutral 的影像／影片／3D 證據路徑。它把 provider 執行與不可變媒體納管分開，再將精確媒體指紋綁定至既有七狀態、AION/Astra 與主體性研究表面，不把生成內容升格為科學或主體性結論。
 
 `components/aion_astra_autonomous_research_v0.1.0/` 將既有 inquiry、Triadic State Dynamics、bounded loop 與 Evidence Interop owner surfaces 組合成有限的 17-stage synthetic campaign；它不取得 action、merge、deployment 或 scientific-promotion authority。
 
 目前 bounded comparison examples 已包含以古典為主並融合現代層的西洋占星、八字，以及固定版本的紫微斗數事實 profile。這些例子只用來測試 provenance、曆法／流派差異與 deterministic receipts；不產生命運預測或人格綜合、不新增 canonical state channel，也不改變主體性 evidence threshold。完整矩陣見 [`docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md`](docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md)。
 
-2026-08-29 經 Human Owner 批准完成收斂後，`main` 是本倉庫唯一的持久支線。歷史候選 lineage 仍由 merge commits、pull requests 與 Git objects 保持可稽核，而不是繼續維持多條長期平行支線。
+2026-09-04 的 bounded convergence 加入來源完整性檢查、D3／D4 synthetic pilots、prospective D2 design、partial-artifact AION/Astra inquiry，以及揭露來源 bytes 未存續的 post hoc AIR pilot。D3 未獲支持；D4 觸發 F7，但 matched pattern 為 false。這些結果都不是 system-level subjectivity evidence。詳見 [`curated sprint record`](experiments/subjectivity-research-sprint_2026-09-04/README.md)。
+
+2026-08-29 經 Human Owner 批准的收斂確立 `main` 為本倉庫唯一的持久支線；2026-09-04 的收斂延續相同 topology。歷史候選 lineage 仍由 merge commits、pull requests 與 Git objects 保持可稽核，而不是繼續維持多條長期平行支線。
 
 ```text
 REPOSITORY_DURABLE_BRANCH = main
@@ -51,6 +53,7 @@ AUTONOMOUS_RESEARCH_CAMPAIGN != AUTONOMOUS_AUTHORITY
 - **release 狀態：** [`docs/RELEASE_READINESS.md`](docs/RELEASE_READINESS.md)
 - **研究貢獻摘要：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 - **主體性 evidence method：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
+- **最新 bounded 機制／provenance 結果：** [`experiments/subjectivity-research-sprint_2026-09-04/README.md`](experiments/subjectivity-research-sprint_2026-09-04/README.md)
 - **架構：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - **明確不能宣稱什麼：** [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **Provenance 與 authority：** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/`](docs/governance/)

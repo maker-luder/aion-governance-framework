@@ -27,12 +27,16 @@ Read [`CURRENT_STATE.md`](CURRENT_STATE.md). It is the single semantic current-s
 
 請讀 [`CURRENT_STATE.md`](CURRENT_STATE.md)。它是唯一的「語意現況摘要」；exact commit 的即時工程狀態仍以 GitHub / CI 為準。
 
+The latest bounded convergence, dated 2026-09-04, adds curated provenance checks and subjectivity-relevant mechanism pilots while retaining negative results and explicit evidence gaps. It does not restart the terminated project work loop or promote a scientific conclusion. / 最新一次 bounded convergence 日期為 2026-09-04；它加入經整理的 provenance checks 與主體性相關機制 pilots，同時保留負結果與明確 evidence gaps；這不等於重啟已終止的 project work loop，也不升格科學結論。
+
 ## 3. Choose your path / 依目的選擇閱讀路徑
 
 | I want to... / 我想要… | Read / 請讀 |
 |---|---|
 | understand the research contribution / 先理解研究貢獻 | [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) |
 | understand how subjectivity-relevant evidence is handled / 理解主體性證據方法 | [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) |
+| inspect the latest bounded mechanism/provenance results / 查看最新 bounded 機制／provenance 結果 | [`../experiments/subjectivity-research-sprint_2026-09-04/README.md`](../experiments/subjectivity-research-sprint_2026-09-04/README.md) |
+| inspect comparison-domain source integrity / 查看比較領域來源完整性 | [`../experiments/comparison-domain-source-ledger_v0.1.0/README.md`](../experiments/comparison-domain-source-ledger_v0.1.0/README.md) |
 | understand the current architecture / 理解目前架構 | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
 | understand what the repository does **not** claim / 確認哪些不能宣稱 | [`NON_CLAIMS.md`](NON_CLAIMS.md) |
 | understand authority, source and writeback rules / 理解治理、來源與權限 | [`governance/`](governance/) and [`PROVENANCE.md`](PROVENANCE.md) |
