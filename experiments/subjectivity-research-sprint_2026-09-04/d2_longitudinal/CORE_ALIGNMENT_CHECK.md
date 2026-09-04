@@ -2,11 +2,13 @@
 
 ```text
 TASK_TYPE = LONGITUDINAL_OBSERVATION
-EXPECTED_GAIN = SYSTEM_LEVEL_EVIDENCE_GAIN + METHOD_GAIN
 CORE_ALIGNMENT = PASS_FOR_DESIGN_ONLY
 IMPLEMENTATION = NOT_STARTED
 IMPLEMENT_EXPERIMENT = NO
-TRACTABILITY_BIAS_RISK = TRUE
+D2_EXECUTION = NOT_AUTHORIZED
+CURRENT_PROVIDER_SUITABLE_FOR_PERSISTENT_VS_RESET_D2 = NO
+D2_PERSISTENT_STATE_CAUSAL_TEST = BLOCKED_BY_CURRENT_PROVIDER_SEMANTICS
+FIXTURE_RETRIEVAL != CORRECTION_RECOVERY
 ```
 
 ## RESEARCH_QUESTION
@@ -18,47 +20,22 @@ mechanisms?
 
 ## OBSERVED_SYSTEM_PHENOMENON
 
-Existing bounded AION/Astra inquiry-role behavior: distinct `AgentId` providers,
-alternating turns, attributed retrieval, challenges, hash-chained transcript.
+Existing bounded AION/Astra inquiry-role behavior.
 
 ## EVIDENCE_GAP
 
 No prospective cross-episode continuity observation yet exists.
+`EVIDENCE_GAP != PHENOMENON`.
 
-```text
-EVIDENCE_GAP != PHENOMENON
-```
+## Pre-execution capability result
 
-## WHY_SUBJECTIVITY_RELEVANT
-
-Diachronic continuity is a protocol evidence dimension. Prospective episodes are
-needed to score OBSERVED vs UNKNOWN under matched persistent vs reset peers.
+Private notes persist and are read, but they do not change scored public fields.
+Do not create a new stateful provider to unblock the arm contrast.
 
 ## SIMPLER_ENGINEERING_EXPLANATIONS
 
-Shared transcript; retrieved memory; fixed role labels; deterministic templates;
-repository keyword retrieval; evaluator cueing; persistent private notes;
-correction-file retrieval.
+Templates; shared transcript; fixture-file retrieval; role labels.
 
-## WHAT_UNCERTAINTY_THIS_WORK_REDUCES
+## GATE
 
-Whether continuity cells differ between PERSISTENT_PEERS and RESET_PEERS after a
-synthetic correction fixture on an isolated temp surface — without treating the
-difference as identity.
-
-## WHY_EXISTING_COMPONENTS_ARE_INSUFFICIENT
-
-Inquiry has no preregistered longitudinal scoring packet. Continuity governance
-does not run AION/Astra episodes. Inventory is retrospective only.
-
-## EXPECTED_EVIDENCE_GAIN
-
-Frozen PASS/PARTIAL/HOLD/FAIL or OBSERVED/UNKNOWN cells. Ceiling L1/L2.
-
-## TARGET_LEVEL
-
-SYSTEM_LEVEL_OBSERVATION of inquiry-role behavior.
-
-## DRIFT_RISK
-
-Synthetic selector reruns are REJECTED. No new schema/loop/state.
+Design remains on file. Execution remains unauthorized.
