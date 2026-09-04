@@ -1,0 +1,8 @@
+{
+  "SELF_MODEL_CAUSAL_ROLE != SUBJECTIVITY_ESTABLISHED": true,
+  "SELF_WORLD_MODEL_FUNCTION != PHENOMENAL_SELF": true,
+  "SUBJECTIVITY_CONCLUSION": "NOT_ESTABLISHED",
+  "claim_ceiling": "L3_SYNTHETIC_HARNESS",
+  "result_status": "NOT_SUPPORTED",
+  "self_model_specific_effect_observed": false
+}
