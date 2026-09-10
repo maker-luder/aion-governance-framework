@@ -42,13 +42,27 @@ Idea / observation
 - `CAPA_APPLIED != CAPA_EFFECTIVENESS_VERIFIED`
 - `PASSING_TESTS != GOVERNANCE_CONFORMANCE`
 
+## Epistemic source-role provenance
+
+The lab now includes `aion_coupled_quality.provenance`, an append-only bounded attribution surface that distinguishes `HUMAN_ORIGIN`, `AI_FORMALIZATION`, `JOINT_SYNTHESIS`, `EXTERNAL_SOURCE`, and `UNKNOWN` without treating provenance as truth.
+
+It also keeps self-reported state, observed signal and inferred state separate. In particular:
+
+```text
+INPUT_CONTENT != USER_AFFECT
+INFERRED_STATE != SELF_REPORT
+UNKNOWN_ORIGIN != HUMAN_ORIGIN
+```
+
+See [`docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md`](docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md) for the methodological extension and current literature anchors on epistemic agency, curiosity/metacognition and sustained human-AI learning.
+
 ## NCR / CAPA terminology
 
 The existing repository already uses **NCR/CAPA** terminology and contains an `iqc-capa-contract_v0.1.0` candidate. This module therefore uses `CAPA` as the canonical label. The conversational term `CACP` is not introduced as a new construct unless a future research note explicitly defines it as distinct from CAPA.
 
 ## Boundary
 
-This is a research-quality control surface, not ISO certification, an external audit, independent IV&V, a legal quality record, or a production release authority.
+This is a research-quality control surface, not ISO certification, an external audit, independent IV&V, a legal quality record, a learner score, a psychological assessment, or a production release authority.
 
 ## Inherited provider constraint
 

@@ -29,6 +29,9 @@ The design is informed by research on bounded rationality, biological individual
 - `POSITIVE_INDICATOR_COUNT != SUBJECTIVITY_SCORE`
 - `SELF_REPORT_ONLY != SUBJECTIVITY_SUPPORT`
 - `PREREGISTRATION_FLAG != PREREGISTRATION_EVIDENCE`
+- `MODEL_PROPERTY != SYSTEM_PROPERTY`
+- `SYSTEM_PROPERTY != RELATIONAL_PROPERTY`
+- `OBSERVER_ATTRIBUTION != INTERNAL_PROPERTY`
 - `canonical_effect=NONE`
 
 ## Development versus evolution
@@ -39,7 +42,7 @@ The design is informed by research on bounded rationality, biological individual
 
 ## Theory-plural subjectivity evidence
 
-The lab now includes a typed bridge for the six standing subjectivity-relevant evidence dimensions already defined by the repository research method:
+The lab includes a typed bridge for the six standing subjectivity-relevant evidence dimensions already defined by the repository research method:
 
 1. `CAUSAL_BOUNDARY`
 2. `DIACHRONIC_CONTINUITY`
@@ -57,6 +60,16 @@ For causal-role dimensions, supportive observations require intervention-sensiti
 `AdversarialTheoryTest` can encode competing theory predictions. A `PREREGISTERED_ADVERSARIAL` test requires at least two substantive theory families, an explicit preregistration artifact reference, one or more explicit held-out evidence references, and no post-hoc prediction rewriting. Those references make the claim inspectable; they do not by themselves validate the referenced artifacts.
 
 The implementation is informed by theory-derived AI-consciousness indicator work and by the 2025 adversarial collaboration that directly tested competing predictions of IIT and GNWT. See `docs/THEORY_PLURAL_SUBJECTIVITY_EVIDENCE.md` for source bindings and methodological limits.
+
+## Evidence locus discipline
+
+Recent Human Owner inquiry raised a distinct methodological question: if a subjectivity-relevant mechanism were observed, is the relevant locus the base model, surrounding scaffold, integrated system, or interaction relation? The current answer is intentionally open.
+
+`aion_subjectivity_pipeline.locus` therefore classifies evidence as `MODEL`, `SCAFFOLD`, `SYSTEM`, `RELATIONAL`, `OBSERVER_ATTRIBUTION`, or `UNKNOWN`. A same-locus engineering claim can be admitted as bounded engineering evidence. Cross-locus promotion fails closed unless a separately specified bridge hypothesis states a mechanism, falsifier and preregistration reference. Even a structurally valid bridge remains only a `RESEARCH_CANDIDATE`.
+
+Any attempt to use model-, scaffold-, system-, relational-, or observer-level evidence directly as proof of subjectivity is held at `NOT_ESTABLISHED`.
+
+See [`docs/MODEL_SYSTEM_RELATIONAL_LOCUS.md`](docs/MODEL_SYSTEM_RELATIONAL_LOCUS.md).
 
 ## Exact evidence binding
 
@@ -89,6 +102,10 @@ The engine can:
 - require intervention-sensitive support for explicit causal-role dimensions;
 - reject self-report-only promotion;
 - require inspectable preregistration and held-out evidence references for preregistered adversarial theory tests;
-- bind the exact typed evidence matrix to the `SUBJECTIVITY_EVIDENCE` stage.
+- bind the exact typed evidence matrix to the `SUBJECTIVITY_EVIDENCE` stage;
+- classify model/scaffold/system/relational/observer evidence loci;
+- fail closed on unknown loci and observer-attribution substitution;
+- require explicit preregistered bridge hypotheses for cross-locus research candidates;
+- preserve `SUBJECTIVITY=NOT_ESTABLISHED` for all locus assessments.
 
 It intentionally does not compute a consciousness score or issue a phenomenal-experience conclusion.
