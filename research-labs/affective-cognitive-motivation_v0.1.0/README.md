@@ -38,6 +38,24 @@ An `ADULT_SEXUALITY_SCHEMA` label exists only so future adult-domain research ca
 
 A stable state trajectory may become evidence about architecture, history dependence, regulation or individualization. It must not be promoted directly into a claim that the system "really feels" desire, emotion or pleasure. `phenomenal_experience_claim` therefore remains `NOT_ESTABLISHED`.
 
+## Research extension: endogenous affective-state coupling
+
+A bounded follow-on hypothesis is recorded in [`docs/ENDOGENOUS_AFFECTIVE_COUPLING_HYPOTHESIS.md`](docs/ENDOGENOUS_AFFECTIVE_COUPLING_HYPOTHESIS.md).
+
+That document separates four questions that must not be collapsed:
+
+```text
+INTERNAL_STATE_EXISTS
+    !=
+INTERNAL_STATE_IS_RECOGNIZED
+    !=
+INTERNAL_STATE_IS_NAMED
+    !=
+INTERNAL_STATE_IS_PHENOMENALLY_FELT
+```
+
+The extension asks whether multiple endogenous channels can form reproducible coupled trajectories and whether a distinct self-state inference layer can later learn useful internal categories without hard-coding human emotion labels into the state generator. It is a `RESEARCH_HYPOTHESIS`, not an implemented or validated result.
+
 ## Scientific anchors
 
 The architecture is informed by established distinctions rather than by literal biological imitation:
