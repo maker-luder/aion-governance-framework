@@ -4,16 +4,26 @@ Status: **CORRECTION / HOLD / EVIDENCE PRESERVATION**
 
 ## 修正原因
 
-PR #88 的原始發布 HEAD `37339d7163cc41a39de64dc19f5d29ab6f1955b6` 將完整本機封存材料一併放入公開候選樹，其中包含三個 `.zip` 與一個 Git bundle。Repository 既有 `scripts/scan_public_tree.py` 明確拒絕 `.zip` 等封裝／二進位產物，因此 Quality workflow 在 public-tree scan 階段失敗。
+PR #88 的原始發布 HEAD `37339d7163cc41a39de64dc19f5d29ab6f1955b6` 將完整本機封存材料一併放入公開候選樹，其中包含三個 `.zip` 與一個 Git bundle。Repository 既有 `scripts/scan_public_tree.py` 明確拒絕 `.zip` 等封裝／二進位產物，因此原始 Quality workflow 在 public-tree scan 階段失敗。
 
-這是**發布封裝不符合既有 public-tree policy**，不是理由去放寬或繞過 scanner。既有 public-tree policy 保持不變。
+第一輪公開樹修正 HEAD `f13e9d3878b5f4081c65d2e3188d3d98a7c011b6` 移除了上述四個封裝；該 exact-head 的遠端 Quality 隨後再次在同一 scanner 階段失敗，這次 CI 明確指出 `baseline-root_controls.txt` 含 private-path pattern。該檔是 Windows 本機 root/control 原始 traceback，雖部分路徑曾以 `<LOCAL_HOME>` 取代，仍殘留可識別的本機絕對路徑，因此不符合既有 public-tree policy。
 
-## 從公開候選樹移除的四個封裝
+這些都是**發布封裝／公開副本不符合既有 public-tree policy**，不是理由去放寬或繞過 scanner。既有 public-tree policy 保持不變。
+
+## 從公開候選樹移除的材料
+
+原始發布後移除：
 
 - `baseline.zip`
 - `candidate-draft.zip`
 - `incident-research-originals.zip`
 - `incident.bundle`
+
+第一輪修正後再依 CI 證據移除：
+
+- `baseline-root_controls.txt`
+
+後者的可稽核結論仍由 `EXECUTION_HOLD.md`、`baseline-verification.json` 與其他文字型 verification records 保留；不以一份含 private-path 的 raw traceback 換取公開樹完整性。
 
 移除僅限 PR #88 的公開 candidate tree。此動作：
 
@@ -43,4 +53,4 @@ DEPLOYMENT = FALSE
 MERGE_AUTHORITY = HUMAN ONLY
 ```
 
-本次修正只處理已被 CI 直接證實的公開樹封裝問題；不藉機擴張成新的 CAPA 實作或平行治理系統。
+本次修正只處理 CI 直接證實的公開樹問題；不藉機擴張成新的 CAPA 實作或平行治理系統。
