@@ -40,9 +40,9 @@ A stable state trajectory may become evidence about architecture, history depend
 
 ## Research extension: endogenous affective-state coupling
 
-A bounded follow-on hypothesis is recorded in [`docs/ENDOGENOUS_AFFECTIVE_COUPLING_HYPOTHESIS.md`](docs/ENDOGENOUS_AFFECTIVE_COUPLING_HYPOTHESIS.md).
+The preregistered hypothesis is recorded in [`docs/ENDOGENOUS_AFFECTIVE_COUPLING_HYPOTHESIS.md`](docs/ENDOGENOUS_AFFECTIVE_COUPLING_HYPOTHESIS.md).
 
-That document separates four questions that must not be collapsed:
+That hypothesis separates four questions that must not be collapsed:
 
 ```text
 INTERNAL_STATE_EXISTS
@@ -54,7 +54,39 @@ INTERNAL_STATE_IS_NAMED
 INTERNAL_STATE_IS_PHENOMENALLY_FELT
 ```
 
-The extension asks whether multiple endogenous channels can form reproducible coupled trajectories and whether a distinct self-state inference layer can later learn useful internal categories without hard-coding human emotion labels into the state generator. It is a `RESEARCH_HYPOTHESIS`, not an implemented or validated result.
+The branch now contains an initial deterministic implementation candidate in `src/aion_affective_motivation/coupling.py`. It represents multiple internal engineering channels, applies explicit event drives and channel-to-channel coupling, records a per-channel transition trace, supports one-channel interventions, and keeps post-hoc semantic self-state classification outside the transition mechanism.
+
+The current implementation is intentionally synthetic. Its coefficients are declared toy research parameters, not validated psychological constants. Successful execution or tests can establish only properties of this implementation.
+
+```text
+COUPLED_STATE_IMPLEMENTATION = CANDIDATE
+SEMANTIC_LABEL_IN_TRANSITION = FALSE
+ACTION_AUTHORITY = NONE
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+```
+
+### Current prototype channels
+
+The coupling candidate currently exposes salience, wanting, predicted liking, approach, avoidance, uncertainty, novelty, exploration, goal commitment, control estimate, self expectation, pressure and social affiliation as independently inspectable values.
+
+Matched synthetic event inputs currently include novelty, prediction error, goal progress, social feedback and resource pressure. The engine updates every channel from a declared persistence term, baseline term, direct event contribution and channel-coupling contribution, with each component retained in the transition trace.
+
+### Self-state inference prototype
+
+`PrototypeSelfStateRecognizer` is deliberately downstream of state generation. It learns simple centroids from already-generated state examples and can attach a post-hoc class label. The label is not accepted by `EndogenousCouplingEngine.step`, so changing classifier vocabulary cannot causally alter the state transition in this prototype.
+
+This is a minimal classifier used to test architectural separation, not evidence that a system has learned human emotion or acquired subjective self-awareness.
+
+## Run
+
+From this lab:
+
+```bash
+PYTHONPATH=src python -m pytest -q -o addopts=
+```
+
+The new coupling tests cover internal intervention effects, coexistence of approach and avoidance, transition provenance, post-hoc prototype learning, label non-feedback, and the phenomenal/action-authority boundary.
 
 ## Scientific anchors
 
