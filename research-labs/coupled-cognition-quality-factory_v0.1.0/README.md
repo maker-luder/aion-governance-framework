@@ -56,6 +56,40 @@ UNKNOWN_ORIGIN != HUMAN_ORIGIN
 
 See [`docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md`](docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md) for the methodological extension and current literature anchors on epistemic agency, curiosity/metacognition and sustained human-AI learning.
 
+## Provenance-to-claim quality gate
+
+`aion_coupled_quality.claim_quality` closes the previously open integration gap
+between the provenance ledger and the quality factory. It binds a bounded claim
+to source-role records, observed and inferred content, supporting and challenging
+evidence, competing explanations, a falsifier, dependencies, revisions and
+transfer-candidate metadata. It reuses `ResearchLot` evidence and final-QA state;
+it does not add a database, autonomous loop or second canonical evidence schema.
+
+The gate fails closed for missing, invalid or unknown provenance; private-transcript
+publication; unresolved contradictory evidence; stale revisions or dependencies;
+unsupported mechanism/replication promotion; a population inference from one
+naturalistic case; and a causal learning inference from an isolated transfer
+observation. A successful result means only
+`ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD`.
+
+```text
+QUALITY_GATE_PASS != SCIENTIFIC_VALIDATION
+NATURALISTIC_OBSERVATION != CAUSAL_IDENTIFICATION
+TRANSFER_CANDIDATE != STABLE_SKILL_ACQUISITION
+MECHANISM != PHENOMENAL_EXPERIENCE
+BETTER_EVIDENCE_PIPELINE != SUBJECTIVITY_CONFIRMED
+```
+
+The deterministic public-safe fixture at
+`fixtures/naturalistic_learning_case_2026-09-11.json` preserves the structure of
+one reported case without publishing a private transcript or third-party identity.
+It remains hypothesis-generating and `SCIENTIFIC_DISPOSITION=HOLD`.
+
+The adapter validates caller-supplied structure. It does not authenticate source
+content, detect semantic contradiction, prove that a `final_qa_pass` flag came
+from an external auditor, or persist a revision graph. Those remain evidence,
+review and storage responsibilities outside this bounded integration.
+
 ## NCR / CAPA terminology
 
 The existing repository already uses **NCR/CAPA** terminology and contains an `iqc-capa-contract_v0.1.0` candidate. This module therefore uses `CAPA` as the canonical label. The conversational term `CACP` is not introduced as a new construct unless a future research note explicitly defines it as distinct from CAPA.

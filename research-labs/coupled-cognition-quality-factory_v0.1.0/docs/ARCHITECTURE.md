@@ -29,3 +29,24 @@ Final QA is blocked by open counterevidence, open NCR/CAPA, absent falsifier, or
 `THE_PAIR_CORRECTED_EACH_OTHER` is useful, but it is still internal process evidence.
 
 It is not equivalent to `THE_CLAIM_WAS_INDEPENDENTLY_CORROBORATED`.
+
+## Claim-quality integration
+
+The provenance ledger and factory remain separate responsibilities, connected by
+the opt-in `ProvenanceClaimQualityGate` adapter:
+
+```text
+source-role provenance
+-> observation / inference / hypothesis separation
+-> supporting and challenging evidence bindings
+-> competing explanations + falsifier
+-> dependency / revision freshness
+-> transfer and scope checks
+-> existing factory final QA
+-> bounded-record admission or HOLD
+```
+
+The adapter is deliberately fail-closed and non-canonical. It checks structural
+admissibility and promotion boundaries, not whether a claim is true. It does not
+replace the persistent claim-revision service or the standing subjectivity-evidence
+protocol.
