@@ -18,6 +18,15 @@ from .coupling import (
     make_uniform_state,
 )
 from .engine import MotivationalStateEngine, StateAnalysis
+from .experiment import (
+    CouplingExperimentHarness,
+    CouplingTrajectory,
+    MatchedTrajectoryComparison,
+    ResetRestoreAssessment,
+    ablate_source_channel,
+    randomized_state,
+    uncoupled_policy,
+)
 from .models import ConflictKind, MotivationalSignal, MotivationalState, SignalDomain
 from .policy import GovernanceDecision, MotivationalGovernancePolicy, RuntimeMode
 
@@ -28,7 +37,9 @@ __all__ = [
     "CoupledInternalState",
     "CouplingEdge",
     "CouplingEvent",
+    "CouplingExperimentHarness",
     "CouplingPolicy",
+    "CouplingTrajectory",
     "CouplingTransition",
     "DEFAULT_COUPLING_POLICY",
     "EndogenousCouplingEngine",
@@ -38,14 +49,19 @@ __all__ = [
     "InternalChannel",
     "LabeledStateExample",
     "LearnedPrototype",
+    "MatchedTrajectoryComparison",
     "MotivationalGovernancePolicy",
     "MotivationalSignal",
     "MotivationalState",
     "MotivationalStateEngine",
     "PrototypeSelfStateRecognizer",
+    "ResetRestoreAssessment",
     "RuntimeMode",
     "SelfStateInference",
     "SignalDomain",
     "StateAnalysis",
+    "ablate_source_channel",
     "make_uniform_state",
+    "randomized_state",
+    "uncoupled_policy",
 ]
