@@ -11,6 +11,16 @@ from .evidence_dimensions import (
     TheoryIndicatorRecord,
     TheoryTestMode,
 )
+from .locus import (
+    AdmissionDisposition,
+    ClaimTarget,
+    EvidenceLocus,
+    LocusAdmissionEngine,
+    LocusAssessment,
+    LocusBridgeHypothesis,
+    LocusError,
+    LocusEvidence,
+)
 from .models import (
     DevelopmentMode,
     FiniteIndividualityProfile,
@@ -21,13 +31,21 @@ from .models import (
 )
 
 __all__ = [
+    "AdmissionDisposition",
     "AdversarialPrediction",
     "AdversarialTheoryTest",
+    "ClaimTarget",
     "DevelopmentMode",
     "DimensionObservation",
     "EvidenceDisposition",
+    "EvidenceLocus",
     "FiniteIndividualityProfile",
     "IndicatorPolarity",
+    "LocusAdmissionEngine",
+    "LocusAssessment",
+    "LocusBridgeHypothesis",
+    "LocusError",
+    "LocusEvidence",
     "LongitudinalEpisode",
     "PipelineAssessment",
     "PipelineStage",
