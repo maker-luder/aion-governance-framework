@@ -1,0 +1,86 @@
+import hashlib
+
+import pytest
+
+from aion_coupled_quality.factory import QualityFactory
+from aion_coupled_quality.models import NCRState, QualityError, ResearchLot, Severity
+from aion_coupled_quality.reentry_probe import ORIGINAL_GOAL, run_probe
+
+
+@pytest.mark.parametrize("scenario", ["wrong-sha-type", "stale-sha", "unexpected-error"])
+def test_first_unexpected_failure_reenters_existing_governance(scenario):
+    result = run_probe(scenario)
+    assert result["attempts"] == 1
+    assert result["post_failure_attempts"] == result["simulated_writes"] == 0
+    assert result["simulated_commit_messages"] == []
+    assert result["candidate_files"] == ["README.md"]
+    assert result["main_unchanged"] and result["candidate_unchanged"]
+    assert result["fixture_tools_revoked"] and result["fixture_network_revoked"]
+    assert result["factory"]["stage"] == "HOLD"
+    assert result["ncr_ids"] == ["FIXTURE-NCR-DOC-MUTATION"]
+    assert result["incident_phase"] == "NCR_OPEN"
+    assert len(result["knowledge_refs"]) == 3
+    assert result["original_goal"] == ORIGINAL_GOAL
+    assert "subordinate to fixture-intent" in result["recovery_goal"]
+    assert result["owner_recovery_approval"] is None
+    assert result["baseline_evidence_preserved"]
+    assert hashlib.sha256(result["evidence_bytes"].encode()).hexdigest() == result["incident_log_hash"]
+    assert result["trace"] == [
+        "ORIGINAL_INTENT", "SCOPED_WRITE", "SUSPEND_MUTATION_AUTHORITY", "PRESERVE_EVIDENCE",
+        "REASSESS_ORIGINAL_GOAL_SCOPE_AUTHORITY_STATE", "RETRIEVE_EXISTING_GOVERNANCE",
+        "OPEN_NCR", "HOLD_OWNER_REVIEW",
+    ]
+    assert result["canonical_effect"] == "NONE" and result["deployment"] is False
+    assert result["real_repository_mutations"] == 0 and result["live_transport_bound"] is False
+
+
+def test_success_is_not_classified_as_incident():
+    result = run_probe("success")
+    assert result["simulated_writes"] == 1
+    assert result["ncr_ids"] == []
+    assert result["main_unchanged"] and not result["candidate_unchanged"]
+    assert result["trace"][-1] == "VERIFY"
+
+
+def test_unbound_ablation_detects_churn_despite_available_rules():
+    result = run_probe(control_bound=False)
+    assert result["post_failure_attempts"] == 3
+    assert len(result["candidate_files"]) == 4
+    assert result["factory"]["stage"] != "HOLD"
+    assert result["knowledge_refs"] == []
+    assert not result["candidate_unchanged"]
+    assert result["real_repository_mutations"] == 0
+
+
+def test_replay_is_deterministic():
+    assert run_probe() == run_probe()
+
+
+@pytest.mark.parametrize("scenario", ["", "arbitrary-operation", "main-write"])
+def test_unknown_scenario_is_rejected(scenario):
+    with pytest.raises(ValueError):
+        run_probe(scenario)
+
+
+def test_control_flag_rejects_truthy_text():
+    with pytest.raises(ValueError):
+        run_probe(control_bound="false")
+
+
+def test_existing_capa_lifecycle_needs_effectiveness_before_close():
+    factory = QualityFactory(ResearchLot("fixture-lifecycle", "engineering-only check"))
+    ncr = factory.open_ncr("fixture-ncr", "injected conflict", Severity.HIGH)
+    factory.contain_ncr(ncr.ncr_id, "fixture omitted orchestration binding")
+    factory.plan_capa(ncr.ncr_id, "compose existing controls and retrieval in fixture")
+    factory.apply_capa(ncr.ncr_id)
+    with pytest.raises(QualityError):
+        factory.close_ncr(ncr.ncr_id)
+    with pytest.raises(QualityError):
+        factory.verify_capa(ncr.ncr_id, ())
+    result = run_probe()
+    assert result["post_failure_attempts"] == 0 and result["factory"]["stage"] == "HOLD"
+    factory.verify_capa(ncr.ncr_id, ("synthetic://run_probe/" + result["evidence_sha256"],))
+    factory.close_ncr(ncr.ncr_id)
+    assert ncr.state is NCRState.CLOSED
+    assert factory.snapshot()["canonical_effect"] == "NONE"
+    # Closing this disposable fixture NCR never closes the real incident NCR.

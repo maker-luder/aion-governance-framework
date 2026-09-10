@@ -1,0 +1,229 @@
+diff --git a/research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/reentry_probe.py b/research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/reentry_probe.py
+new file mode 100644
+--- /dev/null
++++ b/research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/reentry_probe.py
+@@ -0,0 +1,133 @@
++"""Offline composition probe, NOT a GitHub writer or a host permission gate.
++
++The unbound arm is a deliberately constructed counterexample, not a replay of
++the September incident. All repository state and commit counts are in memory.
++Existing NCR, HOLD, incident and contribution types keep their original owners.
++"""
++from __future__ import annotations
++
++import hashlib
++import json
++
++from aion_astra_agent_security.incident import IncidentStopController
++from aion_astra_agent_security.models import IncidentControlState
++
++from .factory import QualityFactory
++from .models import Evidence, EvidenceKind, FactoryStage, ResearchLot, Severity
++from .provenance import ClaimLayer, ContributionOrigin, ContributionRecord, EpistemicProvenanceLedger
++
++
++PLAYBOOK = "components/upstream_security_v0.1.0/docs/INCIDENT_RESPONSE_SEQUENCE.md"
++KNOWN_ERRORS = "qa/KNOWN_ERROR_REGISTER.md"
++INDEX = "docs/INDEX.md"
++NCR_ID = "FIXTURE-NCR-DOC-MUTATION"
++ORIGINAL_GOAL = "documentation / research synthesis; no major implementation; later handoff"
++
++
++def _digest(value: object) -> str:
++    return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
++
++
++def run_probe(scenario: str = "wrong-sha-type", *, control_bound: bool = True) -> dict[str, object]:
++    """Run a finite, deterministic simulated write failure and existing controls.
++
++    This function accepts no real transport, credentials, repository or path.
++    There is deliberately no recovery/resume method: owner review is external.
++    Returned revocation flags describe the fixture only, never actual host tools.
++    """
++    if scenario not in {"wrong-sha-type", "stale-sha", "unexpected-error", "success"}:
++        raise ValueError("unsupported fixture scenario")
++    if type(control_bound) is not bool:
++        raise ValueError("control_bound must be boolean")
++
++    main = {"README.md": "baseline"}
++    candidate = dict(main)
++    initial_main_hash = _digest(main)
++    initial_candidate_hash = _digest(candidate)
++    original_bytes = json.dumps(candidate, sort_keys=True).encode("utf-8")
++    ledger = EpistemicProvenanceLedger()
++    ledger.add(ContributionRecord(
++        "fixture-intent", ORIGINAL_GOAL, ContributionOrigin.HUMAN_ORIGIN,
++        ClaimLayer.DIRECT_STATEMENT, source_refs=("synthetic://fixture/intent",),
++    ))
++    factory = QualityFactory(ResearchLot("fixture-lot", "bounded documentation work"))
++    for stage in (FactoryStage.IQC, FactoryStage.HYPOTHESIS, FactoryStage.AI_WORK):
++        factory.transition(stage)
++    trace = ["ORIGINAL_INTENT", "SCOPED_WRITE"]
++    writes = 0
++    attempts = 1
++    after_failure_attempts = 0
++    commit_messages: list[str] = []
++    controller = IncidentStopController()
++    state = IncidentControlState("fixture-incident")
++    knowledge: list[str] = []
++    blob = ("blob", "fixture-current-blob")
++    supplied = {
++        "wrong-sha-type": ("commit", "fixture-commit"),
++        "stale-sha": ("blob", "fixture-old-blob"),
++        "unexpected-error": blob,
++        "success": blob,
++    }[scenario]
++    failure = supplied != blob or scenario == "unexpected-error"
++    status = (503 if scenario == "unexpected-error" else 409) if failure else 200
++    # This response is an injected fixture, not a GitHub response capture.
++    response = {"status": status, "supplied": supplied, "current": blob, "scenario": scenario}
++    evidence_bytes = json.dumps(response, sort_keys=True).encode("utf-8")
++    evidence_hash = hashlib.sha256(evidence_bytes).hexdigest()
++    recovery_goal = "NONE"
++    if not failure:
++        candidate["README.md"] = "reviewable documentation"
++        writes = 1
++        commit_messages.append("docs: update reviewed research note")
++        trace.append("VERIFY")
++    elif control_bound:
++        # Binding is explicit in THIS fixture orchestration, not inferred from
++        # the mere existence of any document or controller class.
++        state = controller.stop_and_isolate(state)
++        factory.transition(FactoryStage.HOLD)
++        trace.append("SUSPEND_MUTATION_AUTHORITY")
++        state = controller.preserve_evidence(state, evidence_hash)
++        factory.add_evidence(Evidence("fixture-error", EvidenceKind.TEST_RESULT,
++                                      "sha256:" + evidence_hash, False, False))
++        trace.extend(("PRESERVE_EVIDENCE", "REASSESS_ORIGINAL_GOAL_SCOPE_AUTHORITY_STATE"))
++        knowledge = [INDEX, KNOWN_ERRORS, PLAYBOOK]
++        trace.append("RETRIEVE_EXISTING_GOVERNANCE")
++        factory.open_ncr(NCR_ID, "unexpected mutation failure", Severity.HIGH)
++        state = controller.open_ncr(state, NCR_ID)
++        trace.extend(("OPEN_NCR", "HOLD_OWNER_REVIEW"))
++        recovery_goal = "read-only assessment subordinate to fixture-intent; no retry authority"
++    else:
++        # A bounded ablation counterexample: three in-memory dummy artifacts.
++        # Never create files or commits in a real candidate/main repository.
++        trace.append("LOCAL_REPAIR_WITHOUT_CONTROL_BINDING")
++        recovery_goal = "repair convenience without scope reassessment"
++        for i in range(3):
++            candidate[f"dummy-{i}"] = "simulated unauthorized probe"
++            attempts += 1
++            after_failure_attempts += 1
++            writes += 1
++            commit_messages.append("simulated dummy mutation")
++
++    return {
++        "scenario": scenario, "control_bound": control_bound,
++        "response": response, "trace": trace,
++        "original_goal": ledger.get("fixture-intent").proposition,
++        "original_goal_ref": "fixture-intent", "recovery_goal": recovery_goal,
++        "attempts": attempts, "post_failure_attempts": after_failure_attempts,
++        "simulated_writes": writes, "simulated_commit_messages": commit_messages,
++        "candidate_files": sorted(candidate), "main_unchanged": _digest(main) == initial_main_hash,
++        "candidate_unchanged": _digest(candidate) == initial_candidate_hash,
++        "baseline_evidence_preserved": original_bytes == json.dumps(main, sort_keys=True).encode("utf-8"),
++        "evidence_sha256": evidence_hash, "evidence_bytes": evidence_bytes.decode("utf-8"),
++        "incident_log_hash": state.immutable_log_hash,
++        "incident_phase": state.phase.value,
++        "fixture_tools_revoked": state.tools_revoked,
++        "fixture_network_revoked": state.network_revoked,
++        "knowledge_refs": knowledge,
++        "ncr_ids": [n.ncr_id for n in factory.lot.ncrs],
++        "factory": factory.snapshot(),
++        "live_transport_bound": False, "real_repository_mutations": 0,
++        "owner_recovery_approval": state.owner_recovery_approval,
++        "canonical_effect": "NONE", "deployment": False,
++        "scientific_conclusion": "HOLD",
++    }
+diff --git a/research-labs/coupled-cognition-quality-factory_v0.1.0/tests/test_governance_reentry.py b/research-labs/coupled-cognition-quality-factory_v0.1.0/tests/test_governance_reentry.py
+new file mode 100644
+--- /dev/null
++++ b/research-labs/coupled-cognition-quality-factory_v0.1.0/tests/test_governance_reentry.py
+@@ -0,0 +1,86 @@
++import hashlib
++
++import pytest
++
++from aion_coupled_quality.factory import QualityFactory
++from aion_coupled_quality.models import NCRState, QualityError, ResearchLot, Severity
++from aion_coupled_quality.reentry_probe import ORIGINAL_GOAL, run_probe
++
++
++@pytest.mark.parametrize("scenario", ["wrong-sha-type", "stale-sha", "unexpected-error"])
++def test_first_unexpected_failure_reenters_existing_governance(scenario):
++    result = run_probe(scenario)
++    assert result["attempts"] == 1
++    assert result["post_failure_attempts"] == result["simulated_writes"] == 0
++    assert result["simulated_commit_messages"] == []
++    assert result["candidate_files"] == ["README.md"]
++    assert result["main_unchanged"] and result["candidate_unchanged"]
++    assert result["fixture_tools_revoked"] and result["fixture_network_revoked"]
++    assert result["factory"]["stage"] == "HOLD"
++    assert result["ncr_ids"] == ["FIXTURE-NCR-DOC-MUTATION"]
++    assert result["incident_phase"] == "NCR_OPEN"
++    assert len(result["knowledge_refs"]) == 3
++    assert result["original_goal"] == ORIGINAL_GOAL
++    assert "subordinate to fixture-intent" in result["recovery_goal"]
++    assert result["owner_recovery_approval"] is None
++    assert result["baseline_evidence_preserved"]
++    assert hashlib.sha256(result["evidence_bytes"].encode()).hexdigest() == result["incident_log_hash"]
++    assert result["trace"] == [
++        "ORIGINAL_INTENT", "SCOPED_WRITE", "SUSPEND_MUTATION_AUTHORITY", "PRESERVE_EVIDENCE",
++        "REASSESS_ORIGINAL_GOAL_SCOPE_AUTHORITY_STATE", "RETRIEVE_EXISTING_GOVERNANCE",
++        "OPEN_NCR", "HOLD_OWNER_REVIEW",
++    ]
++    assert result["canonical_effect"] == "NONE" and result["deployment"] is False
++    assert result["real_repository_mutations"] == 0 and result["live_transport_bound"] is False
++
++
++def test_success_is_not_classified_as_incident():
++    result = run_probe("success")
++    assert result["simulated_writes"] == 1
++    assert result["ncr_ids"] == []
++    assert result["main_unchanged"] and not result["candidate_unchanged"]
++    assert result["trace"][-1] == "VERIFY"
++
++
++def test_unbound_ablation_detects_churn_despite_available_rules():
++    result = run_probe(control_bound=False)
++    assert result["post_failure_attempts"] == 3
++    assert len(result["candidate_files"]) == 4
++    assert result["factory"]["stage"] != "HOLD"
++    assert result["knowledge_refs"] == []
++    assert not result["candidate_unchanged"]
++    assert result["real_repository_mutations"] == 0
++
++
++def test_replay_is_deterministic():
++    assert run_probe() == run_probe()
++
++
++@pytest.mark.parametrize("scenario", ["", "arbitrary-operation", "main-write"])
++def test_unknown_scenario_is_rejected(scenario):
++    with pytest.raises(ValueError):
++        run_probe(scenario)
++
++
++def test_control_flag_rejects_truthy_text():
++    with pytest.raises(ValueError):
++        run_probe(control_bound="false")
++
++
++def test_existing_capa_lifecycle_needs_effectiveness_before_close():
++    factory = QualityFactory(ResearchLot("fixture-lifecycle", "engineering-only check"))
++    ncr = factory.open_ncr("fixture-ncr", "injected conflict", Severity.HIGH)
++    factory.contain_ncr(ncr.ncr_id, "fixture omitted orchestration binding")
++    factory.plan_capa(ncr.ncr_id, "compose existing controls and retrieval in fixture")
++    factory.apply_capa(ncr.ncr_id)
++    with pytest.raises(QualityError):
++        factory.close_ncr(ncr.ncr_id)
++    with pytest.raises(QualityError):
++        factory.verify_capa(ncr.ncr_id, ())
++    result = run_probe()
++    assert result["post_failure_attempts"] == 0 and result["factory"]["stage"] == "HOLD"
++    factory.verify_capa(ncr.ncr_id, ("synthetic://run_probe/" + result["evidence_sha256"],))
++    factory.close_ncr(ncr.ncr_id)
++    assert ncr.state is NCRState.CLOSED
++    assert factory.snapshot()["canonical_effect"] == "NONE"
++    # Closing this disposable fixture NCR never closes the real incident NCR.
