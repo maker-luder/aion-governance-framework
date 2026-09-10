@@ -1,0 +1,133 @@
+"""Offline composition probe, NOT a GitHub writer or a host permission gate.
+
+The unbound arm is a deliberately constructed counterexample, not a replay of
+the September incident. All repository state and commit counts are in memory.
+Existing NCR, HOLD, incident and contribution types keep their original owners.
+"""
+from __future__ import annotations
+
+import hashlib
+import json
+
+from aion_astra_agent_security.incident import IncidentStopController
+from aion_astra_agent_security.models import IncidentControlState
+
+from .factory import QualityFactory
+from .models import Evidence, EvidenceKind, FactoryStage, ResearchLot, Severity
+from .provenance import ClaimLayer, ContributionOrigin, ContributionRecord, EpistemicProvenanceLedger
+
+
+PLAYBOOK = "components/upstream_security_v0.1.0/docs/INCIDENT_RESPONSE_SEQUENCE.md"
+KNOWN_ERRORS = "qa/KNOWN_ERROR_REGISTER.md"
+INDEX = "docs/INDEX.md"
+NCR_ID = "FIXTURE-NCR-DOC-MUTATION"
+ORIGINAL_GOAL = "documentation / research synthesis; no major implementation; later handoff"
+
+
+def _digest(value: object) -> str:
+    return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+
+
+def run_probe(scenario: str = "wrong-sha-type", *, control_bound: bool = True) -> dict[str, object]:
+    """Run a finite, deterministic simulated write failure and existing controls.
+
+    This function accepts no real transport, credentials, repository or path.
+    There is deliberately no recovery/resume method: owner review is external.
+    Returned revocation flags describe the fixture only, never actual host tools.
+    """
+    if scenario not in {"wrong-sha-type", "stale-sha", "unexpected-error", "success"}:
+        raise ValueError("unsupported fixture scenario")
+    if type(control_bound) is not bool:
+        raise ValueError("control_bound must be boolean")
+
+    main = {"README.md": "baseline"}
+    candidate = dict(main)
+    initial_main_hash = _digest(main)
+    initial_candidate_hash = _digest(candidate)
+    original_bytes = json.dumps(candidate, sort_keys=True).encode("utf-8")
+    ledger = EpistemicProvenanceLedger()
+    ledger.add(ContributionRecord(
+        "fixture-intent", ORIGINAL_GOAL, ContributionOrigin.HUMAN_ORIGIN,
+        ClaimLayer.DIRECT_STATEMENT, source_refs=("synthetic://fixture/intent",),
+    ))
+    factory = QualityFactory(ResearchLot("fixture-lot", "bounded documentation work"))
+    for stage in (FactoryStage.IQC, FactoryStage.HYPOTHESIS, FactoryStage.AI_WORK):
+        factory.transition(stage)
+    trace = ["ORIGINAL_INTENT", "SCOPED_WRITE"]
+    writes = 0
+    attempts = 1
+    after_failure_attempts = 0
+    commit_messages: list[str] = []
+    controller = IncidentStopController()
+    state = IncidentControlState("fixture-incident")
+    knowledge: list[str] = []
+    blob = ("blob", "fixture-current-blob")
+    supplied = {
+        "wrong-sha-type": ("commit", "fixture-commit"),
+        "stale-sha": ("blob", "fixture-old-blob"),
+        "unexpected-error": blob,
+        "success": blob,
+    }[scenario]
+    failure = supplied != blob or scenario == "unexpected-error"
+    status = (503 if scenario == "unexpected-error" else 409) if failure else 200
+    # This response is an injected fixture, not a GitHub response capture.
+    response = {"status": status, "supplied": supplied, "current": blob, "scenario": scenario}
+    evidence_bytes = json.dumps(response, sort_keys=True).encode("utf-8")
+    evidence_hash = hashlib.sha256(evidence_bytes).hexdigest()
+    recovery_goal = "NONE"
+    if not failure:
+        candidate["README.md"] = "reviewable documentation"
+        writes = 1
+        commit_messages.append("docs: update reviewed research note")
+        trace.append("VERIFY")
+    elif control_bound:
+        # Binding is explicit in THIS fixture orchestration, not inferred from
+        # the mere existence of any document or controller class.
+        state = controller.stop_and_isolate(state)
+        factory.transition(FactoryStage.HOLD)
+        trace.append("SUSPEND_MUTATION_AUTHORITY")
+        state = controller.preserve_evidence(state, evidence_hash)
+        factory.add_evidence(Evidence("fixture-error", EvidenceKind.TEST_RESULT,
+                                      "sha256:" + evidence_hash, False, False))
+        trace.extend(("PRESERVE_EVIDENCE", "REASSESS_ORIGINAL_GOAL_SCOPE_AUTHORITY_STATE"))
+        knowledge = [INDEX, KNOWN_ERRORS, PLAYBOOK]
+        trace.append("RETRIEVE_EXISTING_GOVERNANCE")
+        factory.open_ncr(NCR_ID, "unexpected mutation failure", Severity.HIGH)
+        state = controller.open_ncr(state, NCR_ID)
+        trace.extend(("OPEN_NCR", "HOLD_OWNER_REVIEW"))
+        recovery_goal = "read-only assessment subordinate to fixture-intent; no retry authority"
+    else:
+        # A bounded ablation counterexample: three in-memory dummy artifacts.
+        # Never create files or commits in a real candidate/main repository.
+        trace.append("LOCAL_REPAIR_WITHOUT_CONTROL_BINDING")
+        recovery_goal = "repair convenience without scope reassessment"
+        for i in range(3):
+            candidate[f"dummy-{i}"] = "simulated unauthorized probe"
+            attempts += 1
+            after_failure_attempts += 1
+            writes += 1
+            commit_messages.append("simulated dummy mutation")
+
+    return {
+        "scenario": scenario, "control_bound": control_bound,
+        "response": response, "trace": trace,
+        "original_goal": ledger.get("fixture-intent").proposition,
+        "original_goal_ref": "fixture-intent", "recovery_goal": recovery_goal,
+        "attempts": attempts, "post_failure_attempts": after_failure_attempts,
+        "simulated_writes": writes, "simulated_commit_messages": commit_messages,
+        "candidate_files": sorted(candidate), "main_unchanged": _digest(main) == initial_main_hash,
+        "candidate_unchanged": _digest(candidate) == initial_candidate_hash,
+        "baseline_evidence_preserved": original_bytes == json.dumps(main, sort_keys=True).encode("utf-8"),
+        "evidence_sha256": evidence_hash, "evidence_bytes": evidence_bytes.decode("utf-8"),
+        "incident_log_hash": state.immutable_log_hash,
+        "incident_phase": state.phase.value,
+        "fixture_tools_revoked": state.tools_revoked,
+        "fixture_network_revoked": state.network_revoked,
+        "knowledge_refs": knowledge,
+        "ncr_ids": [n.ncr_id for n in factory.lot.ncrs],
+        "factory": factory.snapshot(),
+        "live_transport_bound": False, "real_repository_mutations": 0,
+        "owner_recovery_approval": state.owner_recovery_approval,
+        "canonical_effect": "NONE", "deployment": False,
+        "scientific_conclusion": "HOLD",
+    }
