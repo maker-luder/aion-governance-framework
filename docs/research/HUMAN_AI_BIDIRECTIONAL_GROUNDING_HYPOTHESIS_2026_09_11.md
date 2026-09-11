@@ -25,7 +25,7 @@ THIRD_PARTY_IDENTITY = NOT_RECORDED
 | Long-term human–AI learning may be bidirectional rather than only AI teaching a human | `HUMAN_OWNER_ORIGINAL` | Research direction |
 | Human correction can recalibrate the AI-visible interaction state | `HUMAN_OWNER_ORIGINAL` | Reported interaction practice |
 | `CO_CONSTRUCTED_THINKING_SPACE` | `HUMAN_OWNER_ORIGINAL` | Local working term; not an established construct |
-| Exact replication of a complete dyad may be impossible because the dyad depends on human, system, history and infrastructure | `HUMAN_OWNER_ORIGINAL` | Boundary proposal |
+| Human Owner raised the concern that exact replication of the complete longitudinal dyad may not be feasible and may not be an appropriate primary replication target, because the interaction depends on the human, system configuration, interaction history, memory, personalization and infrastructure | `HUMAN_OWNER_ORIGINAL` | Boundary concern; `CONSERVATIVE_EDITORIAL_PARAPHRASE`, not a verbatim Human Owner quotation |
 | Common ground, grounding, scaffolding, co-regulation, joint problem space, shared task representation, relational continuity, retrieval, transfer and error correction | `GPT_PROPOSED_WORKING_LABEL` / `CANDIDATE_CORRESPONDENCE` | Literature-search vocabulary, not mechanism attribution |
 | The formal hypotheses, variables, falsifiers and study contrasts below | `GPT_PROPOSED_FORMALIZATION` | Testable proposal |
 | A longitudinal dyad may be studied through controlled continuity conditions without treating it as symmetric cognition | `JOINT_SYNTHESIS_CANDIDATE` | Provisional synthesis |
@@ -154,8 +154,8 @@ scoring procedure and time budget where possible. Held-out tasks and independent
 scoring are needed to distinguish retained task structure from answer retrieval.
 
 ```text
-PARTICULAR_DYAD_CONTENT_NOT_EXACTLY_REPLICABLE
-!= INTERACTION_MECHANISM_UNTESTABLE
+EXACT_REPRODUCTION_OF_PARTICULAR_DYAD_CONTENT
+= NOT_REQUIRED_FOR_MECHANISM_LEVEL_TESTING
 PARTIAL_REPLICATION != SCIENTIFIC_TRUTH
 ```
 
