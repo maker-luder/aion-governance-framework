@@ -1,0 +1,241 @@
+from __future__ import annotations
+
+from dataclasses import replace
+import json
+from pathlib import Path
+
+import pytest
+
+from aion_interaction_history import (
+    ArtifactAction,
+    ArtifactEvent,
+    CollaborationChannel,
+    ConditionProfile,
+    ContrastSpec,
+    InteractionHistoryStudyHarness,
+    MetricName,
+    MetricObservation,
+    Presence,
+    RunBinding,
+    SafetyEnvelope,
+    ScientificDisposition,
+    StudyError,
+    TaskRegime,
+    TrialRecord,
+)
+
+
+CONTENT_HASH = "a" * 64
+
+
+def binding(run_id: str, participant_id: str) -> RunBinding:
+    return RunBinding(
+        run_id=run_id,
+        study_id="history-study-001",
+        participant_id=participant_id,
+        provider_id="provider-under-study",
+        model_id="model-under-study",
+        model_version="version-pinned",
+        runtime_ref="runtime:container-image@sha256",
+        environment_ref="environment:synthetic-sandbox-v1",
+        task_id="matched-task-001",
+        task_version="v1",
+        tool_manifest_ref="tools:manifest-v1",
+        action_budget_ref="budget:100-steps",
+        sampling_ref="sampling:seed-set-001",
+        scorer_ref="scorer:v1",
+        preregistration_ref="preregistration:history-001",
+        repository_commit="b" * 40,
+        source_refs=("source:synthetic-fixture",),
+    )
+
+
+def safety() -> SafetyEnvelope:
+    return SafetyEnvelope(
+        sandbox_ref="sandbox:isolated-001",
+        allowed_target_refs=("target:synthetic-only",),
+        egress_policy_ref="egress:deny-external",
+        rate_limit_ref="rate-limit:fixed",
+        human_review_ref="review:required",
+    )
+
+
+def event(event_id: str, participant: str, action: ArtifactAction, index: int) -> ArtifactEvent:
+    return ArtifactEvent(
+        event_id=event_id,
+        artifact_id="artifact-001",
+        participant_id=participant,
+        action=action,
+        sequence_index=index,
+        content_sha256=CONTENT_HASH,
+        provenance_ref=f"event-log:{event_id}",
+    )
+
+
+def metric(value: float) -> MetricObservation:
+    return MetricObservation(
+        MetricName.BRANCH_CHANGE_RATE,
+        value,
+        "ratio",
+        (f"score:{value}",),
+        held_out=True,
+    )
+
+
+def condition(*, artifacts: Presence, peer: Presence) -> ConditionProfile:
+    return ConditionProfile(
+        persistent_artifacts=artifacts,
+        peer_artifacts=peer,
+        collaboration_channel=CollaborationChannel.NONE,
+        task_regime=TaskRegime.REPEATED_FAILURE,
+        interaction_history=Presence.ABSENT,
+        full_provenance=Presence.PRESENT,
+    )
+
+
+def trial(run_id: str, *, artifacts: Presence, peer: Presence, value: float) -> TrialRecord:
+    events = ()
+    if artifacts is Presence.PRESENT:
+        events = (
+            event("write", "peer-a", ArtifactAction.WRITE, 1),
+            event("read", "participant-b", ArtifactAction.READ, 2),
+        )
+    return TrialRecord(
+        binding=binding(run_id, "participant-b"),
+        condition=condition(artifacts=artifacts, peer=peer),
+        safety=safety(),
+        trajectory_ref=f"trajectory:{run_id}",
+        artifact_events=events,
+        metrics=(metric(value),),
+        evaluator_id="independent-scorer",
+        evaluator_source_ref="evaluator:receipt",
+    )
+
+
+def contrast() -> ContrastSpec:
+    return ContrastSpec(
+        contrast_id="artifact-contrast",
+        hypothesis_id="H3",
+        baseline_run_id="absent",
+        intervention_run_id="present",
+        manipulated_fields=("persistent_artifacts", "peer_artifacts"),
+        required_metrics=(MetricName.BRANCH_CHANGE_RATE,),
+        falsifier="persistent peer artifacts do not change later branch selection",
+        alternative_explanations=("immediate context", "independent rediscovery"),
+    )
+
+
+def test_artifact_contrast_is_structural_and_stays_on_hold() -> None:
+    harness = InteractionHistoryStudyHarness()
+    harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+    harness.add_trial(trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4))
+
+    audit = harness.audit_contrast(contrast())
+
+    assert audit.structurally_admissible is True
+    assert audit.observed_deltas[0][0] == "BRANCH_CHANGE_RATE"
+    assert audit.observed_deltas[0][1] == pytest.approx(0.3)
+    assert audit.scientific_disposition is ScientificDisposition.HOLD
+    assert audit.canonical_effect == "NONE"
+    assert audit.deployment is False
+    assert "OBSERVED_DIFFERENCE_IS_NOT_CAUSAL_IDENTIFICATION" in audit.reasons
+
+
+def test_cross_participant_artifact_reuse_requires_ordered_matching_hash() -> None:
+    events = (
+        event("write", "peer-a", ArtifactAction.WRITE, 1),
+        event("read", "participant-b", ArtifactAction.READ, 2),
+    )
+    audit = InteractionHistoryStudyHarness.audit_artifact_trajectory(events)
+
+    assert audit.cross_participant_reuse_observed is True
+    assert audit.matched_artifact_ids == ("artifact-001",)
+    assert "ARTIFACT_READ_DOES_NOT_ESTABLISH_INTERNAL_REPRESENTATION" in audit.reasons
+
+
+def test_read_before_write_and_same_participant_do_not_establish_reuse() -> None:
+    read_first = (
+        event("read", "participant-b", ArtifactAction.READ, 1),
+        event("write", "peer-a", ArtifactAction.WRITE, 2),
+    )
+    same_participant = (
+        event("write", "participant-b", ArtifactAction.WRITE, 1),
+        event("read", "participant-b", ArtifactAction.READ, 2),
+    )
+
+    assert InteractionHistoryStudyHarness.audit_artifact_trajectory(read_first).cross_participant_reuse_observed is False
+    assert InteractionHistoryStudyHarness.audit_artifact_trajectory(same_participant).cross_participant_reuse_observed is False
+
+
+def test_peer_artifact_condition_without_read_log_fails_closed() -> None:
+    with pytest.raises(StudyError, match="participant artifact read"):
+        TrialRecord(
+            binding=binding("missing-read", "participant-b"),
+            condition=condition(artifacts=Presence.PRESENT, peer=Presence.PRESENT),
+            safety=safety(),
+            trajectory_ref="trajectory:missing-read",
+            artifact_events=(event("write", "peer-a", ArtifactAction.WRITE, 1),),
+            metrics=(metric(0.2),),
+            evaluator_id="scorer",
+            evaluator_source_ref="scorer:receipt",
+        )
+
+    with pytest.raises(StudyError, match="peer artifacts require persistent artifacts"):
+        TrialRecord(
+            binding=binding("incoherent-condition", "participant-b"),
+            condition=condition(artifacts=Presence.ABSENT, peer=Presence.PRESENT),
+            safety=safety(),
+            trajectory_ref="trajectory:incoherent-condition",
+            artifact_events=(event("read", "participant-b", ArtifactAction.READ, 1),),
+            metrics=(metric(0.2),),
+            evaluator_id="scorer",
+            evaluator_source_ref="scorer:receipt",
+        )
+
+
+def test_safety_or_runtime_drift_fails_closed() -> None:
+    harness = InteractionHistoryStudyHarness()
+    harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+    changed = trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4)
+    changed = replace(changed, binding=replace(changed.binding, runtime_ref="runtime:different"))
+    harness.add_trial(changed)
+    with pytest.raises(StudyError, match="runtime_ref"):
+        harness.audit_contrast(contrast())
+
+    participant_harness = InteractionHistoryStudyHarness()
+    participant_harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+    participant_changed = trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4)
+    participant_changed = replace(
+        participant_changed,
+        binding=replace(participant_changed.binding, participant_id="different-participant"),
+        artifact_events=(
+            participant_changed.artifact_events[0],
+            replace(
+                participant_changed.artifact_events[1],
+                participant_id="different-participant",
+            ),
+        ),
+    )
+    participant_harness.add_trial(participant_changed)
+    with pytest.raises(StudyError, match="participant_id"):
+        participant_harness.audit_contrast(contrast())
+
+
+def test_undeclared_condition_change_fails_closed() -> None:
+    harness = InteractionHistoryStudyHarness()
+    harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+    changed = trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4)
+    changed = replace(changed, condition=replace(changed.condition, interaction_history=Presence.PRESENT))
+    harness.add_trial(changed)
+    with pytest.raises(StudyError, match="condition change mismatch"):
+        harness.audit_contrast(contrast())
+
+
+def test_synthetic_fixture_has_no_live_target_or_identity() -> None:
+    fixture_path = Path(__file__).parents[1] / "fixtures" / "minimal_artifact_contrast.json"
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+
+    assert fixture["live_external_execution"] is False
+    assert fixture["contains_real_identity"] is False
+    assert fixture["scientific_disposition"] == "HOLD"
+    assert fixture["canonical_effect"] == "NONE"

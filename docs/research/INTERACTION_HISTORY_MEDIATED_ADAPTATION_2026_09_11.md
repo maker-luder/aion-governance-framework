@@ -272,6 +272,27 @@ tasks, independent scoring and replication across models or runtimes. Incident
 postmortems are valuable observational sources but are not controlled mechanism
 tests.
 
+## 12.1 Bounded engineering harness
+
+The separately authorized typed study-design surface is implemented at
+[`research-labs/interaction-history-study_v0.1.0`](../../research-labs/interaction-history-study_v0.1.0/README.md).
+It records exact run/configuration bindings, the six proposed intervention
+factors, sandbox controls, provenance-preserving artifact write/read events and
+metric evidence. It executes no agent and authorizes no external security test.
+
+Its artifact audit can report only an ordered, hash-matched cross-participant
+write/read sequence. That observation does not establish a changed internal
+strategy representation. Its contrast audit remains `SCIENTIFIC_DISPOSITION =
+HOLD` even when structurally admissible.
+
+```text
+EXPERIMENTAL_HARNESS = IMPLEMENTED_CANDIDATE
+HARNESS_PASS != HYPOTHESIS_CONFIRMED
+ARTIFACT_READ_OBSERVED != INTERNAL_REPRESENTATION_CHANGED
+CODE_VALIDATION = ENGINEERING_ONLY
+EMPIRICAL_EXECUTION = NOT_PERFORMED
+```
+
 ```text
 INCIDENT_RECONSTRUCTION != CAUSAL_IDENTIFICATION
 OBSERVATIONAL_ASSOCIATION != CAUSAL_IDENTIFICATION
