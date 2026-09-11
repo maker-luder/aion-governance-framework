@@ -216,3 +216,23 @@ def test_nonempty_output_directory_fails_without_overwrite(tmp_path: Path) -> No
         write_bundle(output, {"prov.jsonld": b"{}\n"})
     assert caught.value.category == "write_failure"
     assert sentinel.read_text() == "do not overwrite"
+
+
+def test_completed_export_rejects_protocol_tampering(repository_scratch: Path) -> None:
+    from hashlib import sha256
+
+    protocol = repository_scratch / "protocol.md"
+    protocol.write_bytes(b"Frozen synthetic protocol.\n")
+    record = json.loads(RECORD.read_text())
+    record.update(
+        result_status="PASS",
+        code_commit=_head(),
+        protocol_ref=protocol.relative_to(ROOT).as_posix(),
+        protocol_hash=sha256(protocol.read_bytes()).hexdigest(),
+    )
+    path = repository_scratch / "record.json"
+    path.write_text(json.dumps(record))
+    assert "interop-manifest.json" in build_bundle(ROOT, path, expected_head=_head())
+    protocol.write_bytes(b"Changed after the result.\n")
+    with pytest.raises(InteropError, match="protocol_hash does not match"):
+        build_bundle(ROOT, path, expected_head=_head())
