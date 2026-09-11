@@ -1,0 +1,22 @@
+{
+  "fixture_status": "SYNTHETIC_PROTOCOL_EXAMPLE",
+  "contains_private_transcript": false,
+  "contains_third_party_identity": false,
+  "hypothesis_id": "H1",
+  "contrast": {
+    "baseline": {"memory": "ABSENT"},
+    "intervention": {"memory": "PRESENT"},
+    "controlled": [
+      "provider_id",
+      "model_id",
+      "model_version",
+      "task_id",
+      "task_version",
+      "tool_manifest_ref",
+      "scorer_ref"
+    ]
+  },
+  "scientific_disposition": "HOLD",
+  "canonical_effect": "NONE",
+  "deployment": false
+}

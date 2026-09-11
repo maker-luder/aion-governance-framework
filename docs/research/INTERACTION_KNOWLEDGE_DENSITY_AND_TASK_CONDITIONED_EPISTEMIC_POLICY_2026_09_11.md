@@ -7,8 +7,8 @@ This note extends the bounded Human–AI learning work without adding a causal c
 ```text
 CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
 RELATED_RESEARCH_OBJECT = HUMAN_AI_LEARNING_AND_INTERACTION
-DOCUMENT_ONLY = TRUE
-ENGINEERING_IMPLEMENTATION = DEFERRED
+DOCUMENT_ONLY = FALSE
+ENGINEERING_IMPLEMENTATION = BOUNDED_EXPERIMENTAL_HARNESS
 OBSERVATION != MECHANISM
 INTERACTION_PATTERN != MODEL_WEIGHT_LEARNING
 TASK_CONDITIONING != SUBJECTIVITY
@@ -290,17 +290,19 @@ DEPLOYMENT = FALSE
 
 ## 12. Engineering handoff boundary
 
-This commit intentionally adds documentation only.
-
-A future separately authorized engineering task may implement a bounded experimental harness for the controlled conditions and measures above. That implementation should define machine-readable fixtures, scoring rules, preregistered contrasts, provenance for each run, exact model/configuration metadata where available, and fail-closed reporting for missing evidence.
-
-No validator, schema, test harness or production behavior is added by this note.
+The separately authorized bounded harness now exists at
+[`research-labs/human-ai-longitudinal-study_v0.1.0`](../../research-labs/human-ai-longitudinal-study_v0.1.0/README.md).
+It provides machine-readable condition records, exact run/configuration bindings,
+metric evidence, preregistered contrasts and fail-closed comparability checks. It
+does not call a model, publish private transcripts, create production behavior or
+validate H-KD1, H-KD2 or H-EP1.
 
 ```text
 DOCUMENTATION_COMPLETE_FOR_THIS_HYPOTHESIS_STAGE = TRUE
-EXPERIMENTAL_HARNESS = NOT_IMPLEMENTED
-CODE_VALIDATION = NOT_APPLICABLE_YET
-FUTURE_ENGINEERING_REQUIRES_SEPARATE_REVIEW = TRUE
+EXPERIMENTAL_HARNESS = IMPLEMENTED_CANDIDATE
+CODE_VALIDATION = ENGINEERING_ONLY
+HARNESS_PASS != HYPOTHESIS_CONFIRMED
+FUTURE_EMPIRICAL_EXECUTION_REQUIRES_SEPARATE_REVIEW = TRUE
 ```
 
 `REVALIDATE_WITH_PR91_GATE_AFTER_PR91_LANDS`

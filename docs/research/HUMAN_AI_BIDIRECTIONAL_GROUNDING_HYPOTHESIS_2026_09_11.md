@@ -196,6 +196,12 @@ continuity and transfer. Human-subject review, consent and privacy controls appl
 where participant data are collected. Raw private transcripts and third-party
 identities are not required for this repository artifact.
 
+The bounded typed study-design surface for these contrasts is implemented at
+[`research-labs/human-ai-longitudinal-study_v0.1.0`](../../research-labs/human-ai-longitudinal-study_v0.1.0/README.md).
+It validates run bindings, condition isolation and metric provenance only.
+`HARNESS_PASS != HYPOTHESIS_CONFIRMED`; no empirical run is supplied by that
+implementation.
+
 ## 9. Falsifiers
 
 H1 should be weakened or rejected if, under suitable controls:
