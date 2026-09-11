@@ -212,6 +212,28 @@ INDEPENDENT_REPLICATION
 
 These roles are complementary and must not be collapsed into a single evidence tier.
 
+## Experimental harness binding
+
+The bounded
+[`model-family-review-study_v0.1.0`](../../research-labs/model-family-review-study_v0.1.0/README.md)
+harness records candidate comparisons without invoking reviewers or admitting a
+scientific claim. It binds each trial to an exact repository commit and tree,
+review task, prompt, file scope, tool manifest, budget, scoring rubric,
+preregistration, runtime, reviewer product labels, session-isolation evidence,
+metric evidence and evaluator provenance.
+
+The current harness can machine-check a provider-level contrast because
+`provider_relation` is derived from bound provider IDs. It cannot establish model
+lineage. `family_relation` therefore remains a non-manipulable candidate label in
+v0.1.0 even when structural evidence references are present.
+
+```text
+PROVIDER_RELATION != MODEL_FAMILY_IDENTITY
+CANDIDATE_FAMILY_LABEL != VERIFIED_LINEAGE
+HARNESS_PASS != HYPOTHESIS_CONFIRMED
+METRIC_DELTA != CAUSAL_IDENTIFICATION
+```
+
 ## Documentation-transfer implication
 
 A separate but related candidate observation is that an AI system without the repository's original conversational history was able to reconstruct a substantial portion of its intended semantic boundaries from the repository itself.
@@ -232,6 +254,7 @@ REVIEW_FIDELITY != CLAIM_TRUTH
 TRIGGERING_OBSERVATION = RECORDED
 MODEL_FAMILY_EFFECT = NOT_ESTABLISHED
 CAUSAL_EXPLANATION = NOT_ESTABLISHED
+MEASUREMENT_HARNESS = IMPLEMENTED_EXPERIMENTAL
 MEASUREMENT_MANUAL = NOT_IMPLEMENTED
 CONTROLLED_COMPARISON = NOT_RUN
 CROSS_FAMILY_REPLICATION = NOT_RUN

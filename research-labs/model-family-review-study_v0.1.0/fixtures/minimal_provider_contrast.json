@@ -1,0 +1,10 @@
+{
+  "fixture_type": "SYNTHETIC_PROTOCOL_EXAMPLE",
+  "contains_private_transcript": false,
+  "contains_third_party_identity": false,
+  "comparison_level": "PROVIDER_RELATION_ONLY",
+  "model_family_effect": "NOT_ESTABLISHED",
+  "scientific_disposition": "HOLD",
+  "canonical_effect": "NONE",
+  "deployment": false
+}
