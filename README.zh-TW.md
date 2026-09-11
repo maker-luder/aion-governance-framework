@@ -12,68 +12,54 @@ AION 是一個以人類治理與 provenance-first 為核心的研究框架，用
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+MORAL_AGENCY = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
 ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
-RUN_INTEGRITY_PASS != SCIENTIFIC_TRUTH
 CI_PASS != SCIENTIFIC_VALIDATION
 ```
 
 ## 目前狀態
 
-2026-08-18 的倉庫 freeze 與 2026-08-20 的 project-work-loop termination 仍是被保存的歷史事件。之後的 maintenance 與 bounded research-materialization 都是另外逐次授權，不會回溯改寫那些歷史事件。
+2026-08-18 的倉庫 freeze 與 2026-08-20 的 project-work-loop termination 仍是被保存的歷史事件。之後的 bounded maintenance 與 research-materialization 都是另外逐次授權，不會回溯改寫那些歷史事件。
 
-目前 `main` 包含經 Human Owner 明確批准後收斂的 bounded research / instrumentation baseline，其不可偏移的持久研究核心仍是**人工主體性的可能性**。收斂內容包括主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation、Evidence Interop、加成式 diachronic／collective derived observations、local-first governed multimodal media、bounded autonomous Triadic research campaign，以及 2026-09-04 經整理的機制／provenance experiments。
+目前 `main` 包含經 Human Owner 明確批准後收斂的 bounded research / instrumentation baseline。較早的收斂已建立主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation、Evidence Interop、multimodal evidence handling、bounded autonomous research campaigns，以及經整理的 mechanism / provenance experiments。
 
-這些能力強化可測試性、可反證性、provenance 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、道德能動性、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
+最新一輪 bounded convergence 新增四個研究方法表面：
 
-`components/multimodal_media_core_v0.1.0/` 元件提供受治理、provider-neutral 的影像／影片／3D 證據路徑。它把 provider 執行與不可變媒體納管分開，再將精確媒體指紋綁定至既有七狀態、AION/Astra 與主體性研究表面，不把生成內容升格為科學或主體性結論。
-
-`components/aion_astra_autonomous_research_v0.1.0/` 將既有 inquiry、Triadic State Dynamics、bounded loop 與 Evidence Interop owner surfaces 組合成有限的 17-stage synthetic campaign；它不取得 action、merge、deployment 或 scientific-promotion authority。
-
-目前 bounded comparison examples 已包含以古典為主並融合現代層的西洋占星、八字，以及固定版本的紫微斗數事實 profile。這些例子只用來測試 provenance、曆法／流派差異與 deterministic receipts；不產生命運預測或人格綜合、不新增 canonical state channel，也不改變主體性 evidence threshold。完整矩陣見 [`docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md`](docs/research/ASTROLOGY_BAZI_COMPLETION_MATRIX.md)。
-
-2026-09-04 的 bounded convergence 加入來源完整性檢查、D3／D4 synthetic pilots、prospective D2 design、partial-artifact AION/Astra inquiry，以及揭露來源 bytes 未存續的 post hoc AIR pilot。D3 未獲支持；D4 觸發 F7，但 matched pattern 為 false。這些結果都不是 system-level subjectivity evidence。詳見 [`curated sprint record`](experiments/subjectivity-research-sprint_2026-09-04/README.md)。
-
-2026-08-29 經 Human Owner 批准的收斂確立 `main` 為本倉庫唯一的持久支線；2026-09-04 的收斂延續相同 topology。歷史候選 lineage 仍由 merge commits、pull requests 與 Git objects 保持可稽核，而不是繼續維持多條長期平行支線。
+- **Provenance-to-claim quality admission：** [`coupled-cognition-quality-factory_v0.1.0`](research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) 現在包含 fail-closed 的 provenance-to-claim admission gate。它檢查的是結構可接受性與 provenance discipline，不判定科學真偽。
+- **Human–AI longitudinal grounding / epistemic-policy study design：** [`HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md`](docs/research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md)、[`INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md`](docs/research/INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md) 與 [`human-ai-longitudinal-study_v0.1.0`](research-labs/human-ai-longitudinal-study_v0.1.0/README.md) 提供 bounded comparison infrastructure。Harness 只驗證 bindings 與 contrast structure。
+- **Interaction-history-mediated adaptation：** [`INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md`](docs/research/INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md) 與 [`interaction-history-study_v0.1.0`](research-labs/interaction-history-study_v0.1.0/README.md) 綁定 sandbox、runtime / task、artifact event 與 cross-participant reuse evidence。Harness 不執行 agent，也不因此建立 individual learning。
+- **Endogenous memory significance：** [`ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](docs/research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) 與 [`memory-value-divergence-probe_v0.1.0`](experiments/memory-value-divergence-probe_v0.1.0/README.md) 實作一個狹義的 synthetic H-MS1 policy-divergence probe；`H_MS2_ENDOGENOUS_SELF_RELEVANCE = NOT_TESTED`。
 
 ```text
-REPOSITORY_DURABLE_BRANCH = main
-BRANCH_CONVERGENCE != HISTORY_ERASURE
-MULTIMODAL_CAPABILITY != SUBJECTIVITY_EVIDENCE
-AUTONOMOUS_RESEARCH_CAMPAIGN != AUTONOMOUS_AUTHORITY
+CLAIM_ADMISSION_PASS != CLAIM_TRUE
+HARNESS_PASS != HYPOTHESIS_CONFIRMED
+METRIC_DELTA != CAUSAL_IDENTIFICATION
+ARTIFACT_READ_OBSERVED != INTERNAL_REPRESENTATION_CHANGED
+SYSTEM_LEVEL_ADAPTATION != INDIVIDUAL_LEARNING_PROVEN
+POLICY_DIVERGENCE != SCIENTIFIC_VALIDATION
+SELECTIVE_RETENTION != DESIRE_TO_REMEMBER
 ```
+
+這些新增內容提升可測試性、可反證性、provenance、comparability 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、道德能動性、道德地位、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
+
+`main` 仍是本倉庫的 durable branch topology。歷史 candidate lineage 由 merged commits、pull requests 與 Git objects 保持可稽核。
 
 要看「現在到底是什麼狀態」，請讀 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)。若要確認某一顆 exact commit 的工程狀態，請看即時 GitHub / CI evidence，而不是靜態文件。
 
 ## 依目的閱讀
 
 - **第一次進來：** [`docs/START_HERE.md`](docs/START_HERE.md)
-- **安裝並執行 bounded export：** [`docs/INSTALLATION.md`](docs/INSTALLATION.md) -> [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
-- **目前程式介面：** [`docs/API.md`](docs/API.md)
-- **語言中立整合：** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
-- **release 狀態：** [`docs/RELEASE_READINESS.md`](docs/RELEASE_READINESS.md)
+- **目前語意狀態：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
 - **研究貢獻摘要：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 - **主體性 evidence method：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
-- **最新 bounded 機制／provenance 結果：** [`experiments/subjectivity-research-sprint_2026-09-04/README.md`](experiments/subjectivity-research-sprint_2026-09-04/README.md)
 - **架構：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
 - **明確不能宣稱什麼：** [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **Provenance 與 authority：** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/`](docs/governance/)
 - **Engineering evidence / QA：** [`qa/README.md`](qa/README.md)
 - **完整文件地圖：** [`docs/INDEX.md`](docs/INDEX.md)
 - **歷史紀錄：** [`docs/history/`](docs/history/)
-
-## 文件治理規則
-
-本倉庫刻意保存大量歷史與 component-local material，但「文件很多」不等於「權威很多」。
-
-```text
-FILE_COUNT != AUTHORITY
-NEWER_FILE != MORE_AUTHORITATIVE
-HISTORICAL_RECORD != CURRENT_STATE
-SUPPORTING_DOCUMENT != ENTRY_POINT
-COMPONENT_LOCAL != GLOBAL_AUTHORITY
-```
-
-完整的文件分類與收斂規則請見 [`docs/governance/DOCUMENTATION_GOVERNANCE.md`](docs/governance/DOCUMENTATION_GOVERNANCE.md)。
 
 ## 治理邊界
 
@@ -93,10 +79,4 @@ DEPLOYMENT = NO
 
 ## 授權
 
-原有核心採 Apache-2.0，選用元件的授權例外列於下方。請見 [`LICENSE`](LICENSE)、[`NOTICE`](NOTICE) 與 [`CITATION.cff`](CITATION.cff)。
-
-### 選用元件的授權例外
-
-原有核心保留 Apache-2.0；新增的 [Swiss 星曆選用元件](examples/swiss-ephemeris-agpl_v0.1.0/README.md)
-採 AGPL-3.0-only，整個倉庫不再概括標示為只有 Apache-2.0。受 AGPL 規範的整合成品
-應履行對應義務。詳見[授權範圍](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md)。
+原有核心採 Apache-2.0。選用的 [`Swiss Ephemeris example`](examples/swiss-ephemeris-agpl_v0.1.0/README.md) 採 AGPL-3.0-only，因此整個倉庫不能概括標示為只有 Apache-2.0。詳見 [`授權範圍`](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md)、[`LICENSE`](LICENSE)、[`NOTICE`](NOTICE) 與 [`CITATION.cff`](CITATION.cff)。
