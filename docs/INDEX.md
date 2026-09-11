@@ -33,7 +33,29 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
-### Latest bounded convergence — 2026-09-04
+### Latest bounded convergence — 2026-09-11 / 2026-09-12
+
+The latest Human Owner-authorized convergence sequence is PR #91 -> #93 -> #94 -> #95. These files are current bounded research/method surfaces, not proof of their hypotheses.
+
+- [`../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md`](../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) — provenance-to-claim quality admission; structural claim/evidence/provenance validation without truth promotion.
+- [`research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md`](research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md) — bounded Human–AI longitudinal bidirectional-grounding hypothesis; scientific disposition HOLD.
+- [`research/INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md`](research/INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md) — interaction-knowledge-density and task-conditioned epistemic-policy working hypotheses and study design.
+- [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) — typed longitudinal study harness with exact run bindings, condition isolation, provenance-bound metrics and fail-closed comparability checks; no real human study is executed by the harness.
+- [`research/INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md`](research/INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md) — bounded cross-case interaction-history-mediated adaptation hypotheses; no shared causal mechanism is asserted.
+- [`../research-labs/interaction-history-study_v0.1.0/README.md`](../research-labs/interaction-history-study_v0.1.0/README.md) — sandboxed study harness with exact runtime/task bindings and hash-bound cross-participant artifact provenance; no external system execution or security-testing authorization.
+- [`research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) — relational-memory-value and endogenous-memory-significance hypotheses with explicit falsifiers and non-claims.
+- [`../experiments/memory-value-divergence-probe_v0.1.0/README.md`](../experiments/memory-value-divergence-probe_v0.1.0/README.md) — minimal synthetic H-MS1 policy-divergence probe; `H_MS2_ENDOGENOUS_SELF_RELEVANCE = NOT_TESTED`.
+
+```text
+CLAIM_ADMISSION_PASS != CLAIM_TRUE
+HARNESS_PASS != HYPOTHESIS_CONFIRMED
+METRIC_DELTA != CAUSAL_IDENTIFICATION
+SYSTEM_LEVEL_ADAPTATION != INDIVIDUAL_LEARNING_PROVEN
+POLICY_DIVERGENCE != SCIENTIFIC_VALIDATION
+SELECTIVE_RETENTION != DESIRE_TO_REMEMBER
+```
+
+### Earlier bounded convergence — 2026-09-04
 
 - [`../experiments/subjectivity-research-sprint_2026-09-04/README.md`](../experiments/subjectivity-research-sprint_2026-09-04/README.md) — curated D3/D4 retained results, prospective D2 design and partial-artifact AION/Astra inquiry boundary.
 - [`../experiments/subjectivity-research-sprint_2026-09-04/RESULTS.md`](../experiments/subjectivity-research-sprint_2026-09-04/RESULTS.md) — compact result disposition; D3 not supported, D4 F7 triggered with matched pattern false.
@@ -83,11 +105,11 @@ CI_PASS != THEORY_CONFIRMATION
 These are bounded to the component/lab they describe and are not global reader entry points:
 
 - [`../components/`](../components/) — governance, execution, evidence and runtime components;
-- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics and bounded research loop;
+- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics, bounded research loop, claim-quality admission, Human–AI longitudinal study, and interaction-history study;
   - [`Diachronic and Collective Dynamics profile`](../research-labs/bounded-autonomous-research-loop_v0.1.0/docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md) — component-local derived observations over the unchanged seven-state surface;
 - [`../components/multimodal_media_core_v0.1.0/`](../components/multimodal_media_core_v0.1.0/) — governed local-first image, video and 3D evidence generation with provider-neutral admission controls;
-- [`../components/aion_astra_autonomous_research_v0.1.0/`](../components/aion_astra_autonomous_research_v0.1.0/) — finite 17-stage synthetic Triadic research campaign using existing inquiry, bounded-loop and Evidence Interop owners;
-- [`../experiments/`](../experiments/) — bounded experiments and baselines.
+- [`../components/aion_astra_autonomous_research_v0.1.0/`](../components/aion_astra_autonomous_research_v0.1.0/) — finite synthetic Triadic research campaign using existing inquiry, bounded-loop and Evidence Interop owners;
+- [`../experiments/`](../experiments/) — bounded experiments and baselines, including the synthetic memory-value divergence probe.
 
 Read the local `README`/`docs` only after the relevant global method/architecture document.
 
@@ -140,5 +162,4 @@ If a new document does not fit a defined class, classify it before treating it a
 - [Owner learning context](history/OWNER_LEARNING_CONTEXT_2026_09_03.md) — historical, Owner-reported.
 - [Domain-method decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md) — research reference; profile selection, not validation.
 - [Swiss local trial and license disposition](research/SWISS_EPHEMERIS_LOCAL_TRIAL_2026_09_03.md) — research reference; no public integration.
-
 - [Optional AGPL license scope](governance/OPTIONAL_AGPL_LICENSE_SCOPE.md) — current supporting license disposition, preserving original Apache grants.
