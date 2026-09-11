@@ -29,3 +29,63 @@ Final QA is blocked by open counterevidence, open NCR/CAPA, absent falsifier, or
 `THE_PAIR_CORRECTED_EACH_OTHER` is useful, but it is still internal process evidence.
 
 It is not equivalent to `THE_CLAIM_WAS_INDEPENDENTLY_CORROBORATED`.
+
+## Claim-quality integration
+
+The provenance ledger and factory remain separate responsibilities, connected by
+the opt-in `ProvenanceClaimQualityGate` adapter:
+
+```text
+source-role provenance
+-> observation / inference / hypothesis separation
+-> supporting and challenging evidence bindings
+-> competing explanations + falsifier
+-> dependency / revision freshness
+-> transfer and scope checks
+-> existing factory final QA
+-> bounded-record admission or HOLD
+```
+
+The adapter is deliberately fail-closed and non-canonical. It checks structural
+admissibility and promotion boundaries, not whether a claim is true. It does not
+replace the persistent claim-revision service or the standing subjectivity-evidence
+protocol.
+
+`ResearchClaimRecord` is a typed admission view, not a second evidence schema.
+Each assessment must load the repository-native
+`schemas/research_evidence_record_v0.2.0.schema.json` and the protocol named by
+that schema. The adapter checks the complete claim-level mapping, schema version,
+closed-schema marker, protocol reference and every adapter-field mapping. Drift
+fails closed rather than allowing the Python representation and JSON evidence
+contract to evolve as parallel truth sources.
+
+The reviewed schema and protocol bytes are bound by SHA-256 dependency pins;
+hashes are compared, not merely reported. Nested field targets are traversed in
+full, and remapping to a different existing field is rejected. Any canonical
+content change holds admission until an explicit adapter compatibility review
+updates the pins. This conservative byte binding also rejects formatting-only
+changes; use the repository's LF checkout. Pins are dependency fingerprints, not
+a replacement schema, scientific conclusion or Human Owner approval receipt.
+
+```text
+ADAPTER != CANONICAL_SCHEMA
+TYPED_REPRESENTATION != SECOND_TRUTH_SOURCE
+SCHEMA_BINDING_PASS != EVIDENCE_TRUE
+```
+
+Observed evidence is not forced to be supporting evidence. Typed relations permit
+`OBSERVES`, `SUPPORTS`, `CHALLENGES`, `NEUTRAL` and `UNRESOLVED`; only explicitly
+supporting evidence enters claim-level promotion checks.
+
+L4 admission requires at least two repeated held-out records plus declared and
+traceable separation: distinct producers, distinct runtime/context references,
+source references and non-unknown replication provenance. These declarations are
+structural review inputs, not independent IV&V or scientific validation.
+
+A resolved challenge marker is insufficient. Every marker must name a current
+claim/version resolution, a non-circular resolution reference and non-unknown
+provenance. Where the bounded claim has a `ClaimRevision`, the resolution must
+link to that revision's rationale reference. The reference may point to an
+inspection-only export or receipt from the existing claim-revision service; this
+adapter does not create another revision database or independently authenticate
+the referenced record.

@@ -1,0 +1,35 @@
+{
+  "record_type": "PUBLIC_SAFE_NATURALISTIC_OBSERVATION_FIXTURE",
+  "event_date": "2026-09-11",
+  "provenance": {
+    "research_direction": "HUMAN_ORIGIN",
+    "event_report": "HUMAN_ORIGIN",
+    "formalization": "AI_FORMALIZATION",
+    "combined_record": "JOINT_SYNTHESIS"
+  },
+  "prior_expectation": "FREQUENT_AI_USE_APPROXIMATES_BASIC_AI_SYSTEM_UNDERSTANDING",
+  "observed_anomaly": "SAME_PRODUCT_USE_WITH_REPEATED_FOUNDATIONAL_KNOWLEDGE_GAPS",
+  "provisional_interpretation": "GENUINE_KNOWLEDGE_GAP_CURRENTLY_BETTER_SUPPORTED",
+  "competing_explanations": [
+    "DELIBERATE_PRETENDING",
+    "RECENCY_EFFECT",
+    "UNRECORDED_PRIOR_KNOWLEDGE",
+    "SOCIAL_ADAPTATION_WITHOUT_GENERAL_TRANSFER",
+    "SELF_REPORT_RECONSTRUCTION_ERROR"
+  ],
+  "claims": {
+    "model_revision": "AI_USE_DOES_NOT_ENTAIL_AI_SYSTEM_UNDERSTANDING",
+    "transfer": "TRANSFER_CANDIDATE",
+    "knowledge_shape": "RELATIONAL_FLUENCY_DOES_NOT_ENTAIL_COMPLETE_DEFINITIONAL_PRECISION"
+  },
+  "raw_private_transcript": "NOT_PUBLISHED",
+  "third_party_identity": "NOT_RECORDED",
+  "population_claim": "NOT_ESTABLISHED",
+  "causal_learning_effect": "NOT_ESTABLISHED",
+  "psychological_diagnosis": "NONE",
+  "scientific_disposition": "HOLD",
+  "subjectivity": "NOT_ESTABLISHED",
+  "consciousness": "NOT_ESTABLISHED",
+  "phenomenal_experience": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE"
+}
