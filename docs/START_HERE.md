@@ -1,9 +1,6 @@
 # Start Here / 從這裡開始
 
-For the Owner's learning/continuity context and the current bounded domain choices,
-see the [source-attributed history](history/OWNER_LEARNING_CONTEXT_2026_09_03.md)
-and [method decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md). These are
-supporting references, not a replacement for the central subjectivity question.
+For the Owner's learning/continuity context and bounded domain choices, see the [source-attributed history](history/OWNER_LEARNING_CONTEXT_2026_09_03.md) and [method decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md). These are supporting references, not a replacement for the central subjectivity question.
 
 This is the single reader entry point for the AION Governance Framework. / 這是 AION Governance Framework 的單一閱讀入口。
 
@@ -17,6 +14,9 @@ AION 是一個以人類治理與 provenance-first 為核心的研究框架，用
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+MORAL_AGENCY = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
 ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 CI_PASS != SCIENTIFIC_VALIDATION
 ```
@@ -27,15 +27,23 @@ Read [`CURRENT_STATE.md`](CURRENT_STATE.md). It is the single semantic current-s
 
 請讀 [`CURRENT_STATE.md`](CURRENT_STATE.md)。它是唯一的「語意現況摘要」；exact commit 的即時工程狀態仍以 GitHub / CI 為準。
 
-The latest bounded convergence, dated 2026-09-04, adds curated provenance checks and subjectivity-relevant mechanism pilots while retaining negative results and explicit evidence gaps. It does not restart the terminated project work loop or promote a scientific conclusion. / 最新一次 bounded convergence 日期為 2026-09-04；它加入經整理的 provenance checks 與主體性相關機制 pilots，同時保留負結果與明確 evidence gaps；這不等於重啟已終止的 project work loop，也不升格科學結論。
+The latest bounded convergence sequence is PR #91 -> #93 -> #94 -> #95. It adds provenance-to-claim quality admission, Human–AI longitudinal grounding / epistemic-policy study infrastructure, interaction-history/artifact study infrastructure, and an endogenous-memory-significance hypothesis with a minimal synthetic memory-value divergence probe. These additions preserve `SCIENTIFIC_DISPOSITION = HOLD`; they do not restart the terminated project work loop or promote a scientific conclusion.
+
+最新 bounded convergence sequence 為 PR #91 -> #93 -> #94 -> #95；新增 provenance-to-claim quality admission、Human–AI longitudinal grounding / epistemic-policy study infrastructure、interaction-history / artifact study infrastructure，以及 endogenous-memory-significance hypothesis 與最小 synthetic memory-value divergence probe。這些新增內容仍維持 `SCIENTIFIC_DISPOSITION = HOLD`，不等於重啟已終止的 project work loop，也不升格科學結論。
 
 ## 3. Choose your path / 依目的選擇閱讀路徑
 
 | I want to... / 我想要… | Read / 請讀 |
 |---|---|
+| understand the current semantic standing / 先確認目前語意狀態 | [`CURRENT_STATE.md`](CURRENT_STATE.md) |
 | understand the research contribution / 先理解研究貢獻 | [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) |
 | understand how subjectivity-relevant evidence is handled / 理解主體性證據方法 | [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) |
-| inspect the latest bounded mechanism/provenance results / 查看最新 bounded 機制／provenance 結果 | [`../experiments/subjectivity-research-sprint_2026-09-04/README.md`](../experiments/subjectivity-research-sprint_2026-09-04/README.md) |
+| inspect provenance-to-claim quality admission / 查看 provenance-to-claim quality admission | [`../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md`](../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) |
+| inspect Human–AI longitudinal study design / 查看 Human–AI longitudinal study design | [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) |
+| inspect interaction-history adaptation study design / 查看 interaction-history adaptation study design | [`../research-labs/interaction-history-study_v0.1.0/README.md`](../research-labs/interaction-history-study_v0.1.0/README.md) |
+| inspect endogenous memory significance / 查看 endogenous memory significance | [`research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) |
+| run the minimal memory-value divergence probe / 執行最小 memory-value divergence probe | [`../experiments/memory-value-divergence-probe_v0.1.0/README.md`](../experiments/memory-value-divergence-probe_v0.1.0/README.md) |
+| inspect earlier bounded mechanism/provenance results / 查看較早 bounded 機制／provenance 結果 | [`../experiments/subjectivity-research-sprint_2026-09-04/README.md`](../experiments/subjectivity-research-sprint_2026-09-04/README.md) |
 | inspect comparison-domain source integrity / 查看比較領域來源完整性 | [`../experiments/comparison-domain-source-ledger_v0.1.0/README.md`](../experiments/comparison-domain-source-ledger_v0.1.0/README.md) |
 | understand the current architecture / 理解目前架構 | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
 | understand what the repository does **not** claim / 確認哪些不能宣稱 | [`NON_CLAIMS.md`](NON_CLAIMS.md) |
@@ -52,6 +60,7 @@ NEWER_FILE != MORE_AUTHORITATIVE
 HISTORICAL_RECORD != CURRENT_STATE
 SUPPORTING_DOCUMENT != ENTRY_POINT
 GENERATED_EVIDENCE != SCIENTIFIC_TRUTH
+HARNESS_PASS != HYPOTHESIS_CONFIRMED
 ```
 
 Dated records preserve what was true or decided at their event time. They are not silently rewritten to look current. Current semantic standing is summarized in `CURRENT_STATE.md`; live exact-head engineering evidence remains external to static prose.
