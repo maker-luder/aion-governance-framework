@@ -277,8 +277,12 @@ tests.
 The separately authorized typed study-design surface is implemented at
 [`research-labs/interaction-history-study_v0.1.0`](../../research-labs/interaction-history-study_v0.1.0/README.md).
 It records exact run/configuration bindings, the six proposed intervention
-factors, sandbox controls, provenance-preserving artifact write/read events and
+factors, sandbox controls, structurally referenced artifact write/read events and
 metric evidence. It executes no agent and authorizes no external security test.
+
+In v0.1.0, a non-empty `provenance_ref` is only a structural pointer. It is not
+authenticated provenance, so `full_provenance` cannot be used as a manipulated
+condition in this harness version.
 
 Its artifact audit can report only an ordered, hash-matched cross-participant
 write/read sequence. That observation does not establish a changed internal

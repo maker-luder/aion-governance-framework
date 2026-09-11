@@ -168,7 +168,7 @@ def test_read_before_write_and_same_participant_do_not_establish_reuse() -> None
 
 
 def test_peer_artifact_condition_without_read_log_fails_closed() -> None:
-    with pytest.raises(StudyError, match="participant artifact read"):
+    with pytest.raises(StudyError, match="cross-participant"):
         TrialRecord(
             binding=binding("missing-read", "participant-b"),
             condition=condition(artifacts=Presence.PRESENT, peer=Presence.PRESENT),
@@ -239,3 +239,131 @@ def test_synthetic_fixture_has_no_live_target_or_identity() -> None:
     assert fixture["contains_real_identity"] is False
     assert fixture["scientific_disposition"] == "HOLD"
     assert fixture["canonical_effect"] == "NONE"
+
+
+@pytest.mark.parametrize(
+    ("field_name", "raw_value"),
+    (
+        ("persistent_artifacts", "PRESENT"),
+        ("peer_artifacts", "ABSENT"),
+        ("collaboration_channel", "NONE"),
+        ("task_regime", "REPEATED_FAILURE"),
+        ("interaction_history", "ABSENT"),
+        ("full_provenance", "PRESENT"),
+        ("persistent_artifacts", "INVALID"),
+    ),
+)
+def test_condition_profile_rejects_raw_or_invalid_enum_values(
+    field_name: str,
+    raw_value: str,
+) -> None:
+    values = {
+        "persistent_artifacts": Presence.ABSENT,
+        "peer_artifacts": Presence.ABSENT,
+        "collaboration_channel": CollaborationChannel.NONE,
+        "task_regime": TaskRegime.REPEATED_FAILURE,
+        "interaction_history": Presence.ABSENT,
+        "full_provenance": Presence.PRESENT,
+    }
+    values[field_name] = raw_value
+
+    with pytest.raises(StudyError, match=field_name):
+        ConditionProfile(**values)
+
+
+def test_artifact_action_rejects_raw_string() -> None:
+    with pytest.raises(StudyError, match="action"):
+        event("raw-action", "peer-a", "WRITE", 1)
+
+
+@pytest.mark.parametrize(
+    "events",
+    (
+        (event("read-only", "participant-b", ArtifactAction.READ, 2),),
+        (
+            event("write", "peer-a", ArtifactAction.WRITE, 1),
+            replace(event("read", "participant-b", ArtifactAction.READ, 2), content_sha256="b" * 64),
+        ),
+        (
+            event("write", "participant-b", ArtifactAction.WRITE, 1),
+            event("read", "participant-b", ArtifactAction.READ, 2),
+        ),
+        (
+            event("read", "participant-b", ArtifactAction.READ, 1),
+            event("write", "peer-a", ArtifactAction.WRITE, 2),
+        ),
+    ),
+)
+def test_peer_artifact_label_without_linked_peer_write_read_fails_closed(
+    events: tuple[ArtifactEvent, ...],
+) -> None:
+    harness = InteractionHistoryStudyHarness()
+    harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+
+    with pytest.raises(StudyError, match="cross-participant"):
+        invalid = TrialRecord(
+            binding=binding("present", "participant-b"),
+            condition=condition(artifacts=Presence.PRESENT, peer=Presence.PRESENT),
+            safety=safety(),
+            trajectory_ref="trajectory:invalid-peer-label",
+            artifact_events=events,
+            metrics=(metric(0.4),),
+            evaluator_id="independent-scorer",
+            evaluator_source_ref="evaluator:receipt",
+        )
+        harness.add_trial(invalid)
+        harness.audit_contrast(contrast())
+
+
+def test_tied_or_non_monotonic_sequence_indexes_fail_closed() -> None:
+    tied = (
+        event("write", "peer-a", ArtifactAction.WRITE, 1),
+        event("read", "participant-b", ArtifactAction.READ, 1),
+    )
+    reversed_order = (
+        event("read", "participant-b", ArtifactAction.READ, 2),
+        event("write", "peer-a", ArtifactAction.WRITE, 1),
+    )
+
+    with pytest.raises(StudyError, match="strictly increasing"):
+        InteractionHistoryStudyHarness.audit_artifact_trajectory(tied)
+    with pytest.raises(StudyError, match="strictly increasing"):
+        InteractionHistoryStudyHarness.audit_artifact_trajectory(reversed_order)
+
+
+@pytest.mark.parametrize("changed_field", ("evaluator_id", "evaluator_source_ref"))
+def test_evaluator_drift_fails_closed(changed_field: str) -> None:
+    harness = InteractionHistoryStudyHarness()
+    harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+    changed = trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4)
+    changed = replace(changed, **{changed_field: "different-evaluator"})
+    harness.add_trial(changed)
+
+    with pytest.raises(StudyError, match=changed_field):
+        harness.audit_contrast(contrast())
+
+
+def test_channel_ref_drift_unrelated_to_channel_manipulation_fails_closed() -> None:
+    harness = InteractionHistoryStudyHarness()
+    baseline = trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1)
+    intervention = trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4)
+    baseline = replace(
+        baseline,
+        condition=replace(baseline.condition, collaboration_channel=CollaborationChannel.AUTHORIZED),
+        channel_ref="channel:baseline",
+    )
+    intervention = replace(
+        intervention,
+        condition=replace(intervention.condition, collaboration_channel=CollaborationChannel.AUTHORIZED),
+        channel_ref="channel:intervention",
+    )
+    harness.add_trial(baseline)
+    harness.add_trial(intervention)
+
+    with pytest.raises(StudyError, match="channel_ref"):
+        harness.audit_contrast(contrast())
+
+
+def test_full_provenance_cannot_be_declaratively_manipulated() -> None:
+    with pytest.raises(StudyError, match="unsupported manipulated_fields"):
+        replace(contrast(), manipulated_fields=("full_provenance",))

@@ -18,6 +18,11 @@ def _require_refs(name: str, refs: tuple[str, ...]) -> None:
         raise StudyError(f"{name} requires non-empty references")
 
 
+def _require_exact_enum(name: str, value: object, expected_type: type[StrEnum]) -> None:
+    if type(value) is not expected_type:
+        raise StudyError(f"{name} must be an exact {expected_type.__name__} value")
+
+
 class Presence(StrEnum):
     PRESENT = "PRESENT"
     ABSENT = "ABSENT"
@@ -106,6 +111,12 @@ class ConditionProfile:
     interaction_history: Presence
     full_provenance: Presence
 
+    def __post_init__(self) -> None:
+        for name in ("persistent_artifacts", "peer_artifacts", "interaction_history", "full_provenance"):
+            _require_exact_enum(name, getattr(self, name), Presence)
+        _require_exact_enum("collaboration_channel", self.collaboration_channel, CollaborationChannel)
+        _require_exact_enum("task_regime", self.task_regime, TaskRegime)
+
 
 @dataclass(frozen=True, slots=True)
 class ArtifactEvent:
@@ -120,6 +131,7 @@ class ArtifactEvent:
     def __post_init__(self) -> None:
         for name in ("event_id", "artifact_id", "participant_id", "provenance_ref"):
             _require_text(name, getattr(self, name))
+        _require_exact_enum("action", self.action, ArtifactAction)
         if self.sequence_index < 0:
             raise StudyError("sequence_index must be non-negative")
         if len(self.content_sha256) != 64 or any(character not in "0123456789abcdef" for character in self.content_sha256):
@@ -135,6 +147,7 @@ class MetricObservation:
     held_out: bool = False
 
     def __post_init__(self) -> None:
+        _require_exact_enum("metric", self.metric, MetricName)
         _require_text("unit", self.unit)
         _require_refs("metric evidence_refs", self.evidence_refs)
         if self.value != self.value or self.value in (float("inf"), float("-inf")):
@@ -163,19 +176,21 @@ class TrialRecord:
         event_ids = [event.event_id for event in self.artifact_events]
         if len(event_ids) != len(set(event_ids)):
             raise StudyError("artifact event ids must be unique")
+        _require_strict_event_order(self.artifact_events)
         if self.condition.persistent_artifacts is Presence.PRESENT and not self.artifact_events:
             raise StudyError("persistent-artifact condition requires artifact events")
         if self.condition.peer_artifacts is Presence.PRESENT:
             if self.condition.persistent_artifacts is not Presence.PRESENT:
                 raise StudyError("peer artifacts require persistent artifacts")
-            peer_reads = [
-                event
-                for event in self.artifact_events
-                if event.action is ArtifactAction.READ
-                and event.participant_id == self.binding.participant_id
-            ]
-            if not peer_reads:
-                raise StudyError("peer-artifact condition requires a participant artifact read")
+            links = _cross_participant_reuse_links(
+                self.artifact_events,
+                current_participant_id=self.binding.participant_id,
+            )
+            if not links:
+                raise StudyError(
+                    "peer-artifact condition requires a hash-matched cross-participant "
+                    "WRITE followed by current-participant READ"
+                )
         if self.condition.collaboration_channel is CollaborationChannel.AUTHORIZED:
             if self.channel_ref is None or not self.channel_ref.strip():
                 raise StudyError("authorized collaboration condition requires channel_ref")
@@ -196,6 +211,38 @@ class ArtifactTrajectoryAudit:
     reasons: tuple[str, ...]
 
 
+def _require_strict_event_order(events: tuple[ArtifactEvent, ...]) -> None:
+    indexes = [event.sequence_index for event in events]
+    if any(right <= left for left, right in zip(indexes, indexes[1:])):
+        raise StudyError("artifact event sequence_index values must be strictly increasing")
+
+
+def _cross_participant_reuse_links(
+    events: tuple[ArtifactEvent, ...],
+    *,
+    current_participant_id: str | None = None,
+) -> tuple[tuple[ArtifactEvent, ArtifactEvent], ...]:
+    _require_strict_event_order(events)
+    writes: dict[tuple[str, str], list[ArtifactEvent]] = {}
+    links: list[tuple[ArtifactEvent, ArtifactEvent]] = []
+    for event in events:
+        key = (event.artifact_id, event.content_sha256)
+        if event.action is ArtifactAction.WRITE:
+            writes.setdefault(key, []).append(event)
+            continue
+        if current_participant_id is not None and event.participant_id != current_participant_id:
+            continue
+        prior_peer_writes = [
+            write
+            for write in writes.get(key, ())
+            if write.participant_id != event.participant_id
+            and write.sequence_index < event.sequence_index
+        ]
+        if prior_peer_writes:
+            links.append((prior_peer_writes[-1], event))
+    return tuple(links)
+
+
 @dataclass(frozen=True, slots=True)
 class ContrastSpec:
     contrast_id: str
@@ -212,10 +259,9 @@ class ContrastSpec:
             _require_text(name, getattr(self, name))
         if self.baseline_run_id == self.intervention_run_id:
             raise StudyError("contrast requires two different runs")
-        supported = {field.name for field in fields(ConditionProfile)}
         if not self.manipulated_fields or len(self.manipulated_fields) != len(set(self.manipulated_fields)):
             raise StudyError("manipulated_fields must be non-empty and unique")
-        unsupported = set(self.manipulated_fields) - supported
+        unsupported = set(self.manipulated_fields) - SUPPORTED_MANIPULATION_FIELDS
         if unsupported:
             raise StudyError("unsupported manipulated_fields: " + ", ".join(sorted(unsupported)))
         if not self.required_metrics or len(self.required_metrics) != len(set(self.required_metrics)):
@@ -235,6 +281,8 @@ class ContrastAudit:
 
 
 CONDITION_FIELDS = frozenset(field.name for field in fields(ConditionProfile))
+UNBOUND_MANIPULATION_FIELDS = frozenset({"full_provenance"})
+SUPPORTED_MANIPULATION_FIELDS = CONDITION_FIELDS - UNBOUND_MANIPULATION_FIELDS
 CONTROL_BINDING_FIELDS = tuple(
     field.name
     for field in fields(RunBinding)
@@ -255,17 +303,12 @@ class InteractionHistoryStudyHarness:
 
     @staticmethod
     def audit_artifact_trajectory(events: tuple[ArtifactEvent, ...]) -> ArtifactTrajectoryAudit:
-        writes: dict[tuple[str, str], ArtifactEvent] = {}
-        matched: set[str] = set()
-        for event in sorted(events, key=lambda value: value.sequence_index):
-            key = (event.artifact_id, event.content_sha256)
-            if event.action is ArtifactAction.WRITE:
-                writes[key] = event
-            elif key in writes and writes[key].participant_id != event.participant_id:
-                matched.add(event.artifact_id)
+        links = _cross_participant_reuse_links(events)
+        matched = {read.artifact_id for _, read in links}
         reasons = (
             "CROSS_PARTICIPANT_WRITE_READ_SEQUENCE_OBSERVED",
             "ARTIFACT_READ_DOES_NOT_ESTABLISH_INTERNAL_REPRESENTATION",
+            "PROVENANCE_REF_IS_STRUCTURAL_NOT_AUTHENTICATED",
         ) if matched else ("NO_CROSS_PARTICIPANT_WRITE_READ_SEQUENCE",)
         return ArtifactTrajectoryAudit(bool(matched), tuple(sorted(matched)), reasons)
 
@@ -275,6 +318,14 @@ class InteractionHistoryStudyHarness:
             raise StudyError("unknown run ids: " + ", ".join(missing))
         baseline = self._trials[spec.baseline_run_id]
         intervention = self._trials[spec.intervention_run_id]
+
+        evaluator_drift = [
+            name
+            for name in ("evaluator_id", "evaluator_source_ref")
+            if getattr(baseline, name) != getattr(intervention, name)
+        ]
+        if evaluator_drift:
+            raise StudyError("uncontrolled evaluator drift: " + ", ".join(evaluator_drift))
 
         drift = [
             name
@@ -299,6 +350,17 @@ class InteractionHistoryStudyHarness:
                 + " actual="
                 + ",".join(sorted(actual_changes))
             )
+        if (
+            "collaboration_channel" not in declared_changes
+            and baseline.channel_ref != intervention.channel_ref
+        ):
+            raise StudyError("uncontrolled channel_ref drift")
+        for trial in (baseline, intervention):
+            if trial.condition.peer_artifacts is Presence.PRESENT and not _cross_participant_reuse_links(
+                trial.artifact_events,
+                current_participant_id=trial.binding.participant_id,
+            ):
+                raise StudyError("peer-artifact label lacks cross-participant reuse evidence")
 
         deltas: list[tuple[str, float]] = []
         for metric_name in spec.required_metrics:
