@@ -52,6 +52,10 @@ For semantic current state, read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md
 
 - **First visit:** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **Current semantic standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+- **Install:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
+- **Quickstart:** [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
+- **Current programmatic interfaces:** [`docs/API.md`](docs/API.md)
+- **Language-neutral integration:** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
 - **Research contribution:** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 - **Subjectivity evidence method:** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 - **Architecture:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
