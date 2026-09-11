@@ -17,6 +17,10 @@ class ClaimQualityError(ValueError):
 
 CANONICAL_SCHEMA_REF = "schemas/research_evidence_record_v0.2.0.schema.json"
 CANONICAL_PROTOCOL_REF = "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"
+# Reviewed dependency fingerprints, not a second schema or an approval receipt.
+# Canonical changes require explicit adapter review before updating these pins.
+CANONICAL_SCHEMA_SHA256 = "836c6c9c7f6bd6d7ce99b6c754ebfaa7c2fc3c723bc22f6f9623ebba01bb3804"
+CANONICAL_PROTOCOL_SHA256 = "c83e99ab2ac699c4b1e15b043264310c63be572d387816b26c7a31dccfea39fd"
 
 
 class ClaimLevel(StrEnum):
@@ -242,6 +246,13 @@ def load_canonical_claim_contract(
     protocol_path.relative_to(root)
     schema_bytes = schema_path.read_bytes()
     protocol_bytes = protocol_path.read_bytes()
+    failures: list[str] = []
+    if hashlib.sha256(schema_bytes).hexdigest() != CANONICAL_SCHEMA_SHA256:
+        failures.append("CANONICAL_SCHEMA_CONTENT_DRIFT")
+    if hashlib.sha256(protocol_bytes).hexdigest() != CANONICAL_PROTOCOL_SHA256:
+        failures.append("CANONICAL_PROTOCOL_CONTENT_DRIFT")
+    if failures:
+        raise ClaimQualityError(";".join(failures))
     schema = json.loads(schema_bytes)
     properties = schema.get("properties", {})
     level_values = tuple(properties.get("claim_level", {}).get("enum", ()))
@@ -251,7 +262,6 @@ def load_canonical_claim_contract(
         .get("method_ref", {})
         .get("const")
     )
-    failures: list[str] = []
     if schema.get("additionalProperties") is not False:
         failures.append("CANONICAL_SCHEMA_MUST_REMAIN_CLOSED")
     if schema.get("properties", {}).get("schema_version", {}).get("const") != "0.2.0":
@@ -263,12 +273,18 @@ def load_canonical_claim_contract(
     adapter_fields = {item.name for item in fields(ResearchClaimRecord)}
     if set(field_mapping) != adapter_fields:
         failures.append("ADAPTER_FIELD_MAPPING_INCOMPLETE")
-    canonical_top = set(properties)
     for adapter_field, target in field_mapping.items():
+        if target != _ADAPTER_FIELD_MAPPING.get(adapter_field):
+            failures.append(f"ADAPTER_FIELD_MAPPING_DRIFT:{adapter_field}")
         if target.startswith("adapter_extension:"):
             continue
-        if target.split(".", 1)[0] not in canonical_top:
-            failures.append(f"UNSUPPORTED_FIELD_SEMANTICS:{adapter_field}->{target}")
+        node = schema
+        for segment in target.split("."):
+            children = node.get("properties", {})
+            if segment not in children:
+                failures.append(f"UNSUPPORTED_FIELD_SEMANTICS:{adapter_field}->{target}")
+                break
+            node = children[segment]
     if failures:
         raise ClaimQualityError(";".join(failures))
     return CanonicalClaimContract(

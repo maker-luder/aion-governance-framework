@@ -30,7 +30,7 @@ from aion_coupled_quality import (
     Severity,
     load_canonical_claim_contract,
 )
-from aion_coupled_quality.claim_quality import _ADAPTER_FIELD_MAPPING
+from aion_coupled_quality.claim_quality import ClaimQualityError, _ADAPTER_FIELD_MAPPING
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -419,7 +419,7 @@ def test_adapter_contract_fails_on_schema_or_mapping_drift(tmp_path: Path) -> No
     schema = json.loads(schema_path.read_text())
     schema["properties"]["claim_level"]["enum"].append("L6_UNDEFINED")
     schema_path.write_text(json.dumps(schema))
-    with pytest.raises(Exception, match="CLAIM_LEVEL_MAPPING_DRIFT"):
+    with pytest.raises(ClaimQualityError, match="CANONICAL_SCHEMA_CONTENT_DRIFT"):
         load_canonical_claim_contract(tmp_path)
 
     shutil.copy(REPOSITORY_ROOT / "schemas/research_evidence_record_v0.2.0.schema.json", schema_path)
@@ -438,6 +438,55 @@ def test_gate_holds_without_canonical_binding() -> None:
         _claim(), ledger=_ledger(), lot=_lot(), evidence_bindings=_bindings()
     )
     assert "MISSING_CANONICAL_SCHEMA_PROTOCOL_BINDING" in result.reasons
+
+
+@pytest.mark.parametrize("target", [
+    "evidence_architecture.nonexistent",
+    "claim_text",
+    "adapter_extension:inferred_statements",
+])
+def test_nested_or_reassigned_mapping_fails_closed(target: str) -> None:
+    mapping = dict(_ADAPTER_FIELD_MAPPING)
+    mapping["inferred_statements"] = target
+    with pytest.raises(ClaimQualityError, match="ADAPTER_FIELD_MAPPING_DRIFT"):
+        load_canonical_claim_contract(REPOSITORY_ROOT, field_mapping=mapping)
+
+
+@pytest.mark.parametrize("mutation", [
+    "nested_field_removed", "nonclaim_changed", "field_type_changed", "protocol_changed",
+])
+def test_canonical_content_drift_holds_admission(tmp_path: Path, mutation: str) -> None:
+    for reference in (
+        "schemas/research_evidence_record_v0.2.0.schema.json",
+        "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
+    ):
+        destination = tmp_path / reference
+        destination.parent.mkdir(exist_ok=True)
+        shutil.copyfile(REPOSITORY_ROOT / reference, destination)
+    if mutation == "protocol_changed":
+        (tmp_path / "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md").write_text(
+            "Unreviewed protocol replacement", encoding="utf-8"
+        )
+        expected = "CANONICAL_PROTOCOL_CONTENT_DRIFT"
+    else:
+        path = tmp_path / "schemas/research_evidence_record_v0.2.0.schema.json"
+        schema = json.loads(path.read_text(encoding="utf-8"))
+        if mutation == "nested_field_removed":
+            del schema["properties"]["evidence_architecture"]["properties"]["interpretation"]
+        elif mutation == "nonclaim_changed":
+            schema["properties"]["nonclaims"]["properties"]["subjectivity_conclusion"]["const"] = "ESTABLISHED"
+        else:
+            schema["properties"]["claim_text"]["type"] = "integer"
+        path.write_text(json.dumps(schema), encoding="utf-8")
+        expected = "CANONICAL_SCHEMA_CONTENT_DRIFT"
+    with pytest.raises(ClaimQualityError, match=expected):
+        load_canonical_claim_contract(tmp_path)
+    result = ProvenanceClaimQualityGate().assess(
+        _claim(), ledger=_ledger(), lot=_lot(), evidence_bindings=_bindings(),
+        repository_root=tmp_path,
+    )
+    assert result.disposition is ClaimAdmissionDisposition.HOLD
+    assert any(expected in reason for reason in result.reasons)
 
 
 def test_mechanism_cannot_be_promoted_to_phenomenology_or_subjectivity() -> None:

@@ -59,6 +59,14 @@ closed-schema marker, protocol reference and every adapter-field mapping. Drift
 fails closed rather than allowing the Python representation and JSON evidence
 contract to evolve as parallel truth sources.
 
+The reviewed schema and protocol bytes are bound by SHA-256 dependency pins;
+hashes are compared, not merely reported. Nested field targets are traversed in
+full, and remapping to a different existing field is rejected. Any canonical
+content change holds admission until an explicit adapter compatibility review
+updates the pins. This conservative byte binding also rejects formatting-only
+changes; use the repository's LF checkout. Pins are dependency fingerprints, not
+a replacement schema, scientific conclusion or Human Owner approval receipt.
+
 ```text
 ADAPTER != CANONICAL_SCHEMA
 TYPED_REPRESENTATION != SECOND_TRUTH_SOURCE
