@@ -7,8 +7,8 @@ This note records a bounded hypothesis about long-term memory selection in artif
 ```text
 CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
 RELATED_RESEARCH_OBJECT = LONGITUDINAL_MEMORY_AND_CONTINUITY
-DOCUMENT_ONLY = TRUE
-ENGINEERING_IMPLEMENTATION = DEFERRED
+DOCUMENTATION_AND_MINIMAL_SYNTHETIC_PROBE = TRUE
+FULL_ENGINEERING_IMPLEMENTATION = DEFERRED
 MEMORY_RETENTION != SUBJECTIVE_REMEMBERING
 SELECTIVE_RETENTION != DESIRE_TO_REMEMBER
 SELF_RELATED_EFFECT != PERSONAL_MEANING_ESTABLISHED
@@ -195,11 +195,24 @@ EXTERNAL_EXPLANATION_SUFFICIENT
 -> ENDOGENOUS_SELF_RELEVANCE_NOT_NEEDED
 ```
 
-## 10. Minimal future study design
+## 10. Minimal study design and current synthetic probe
+
+The branch now includes a deliberately small synthetic H-MS1 policy-divergence probe:
+
+[`experiments/memory-value-divergence-probe_v0.1.0`](../../experiments/memory-value-divergence-probe_v0.1.0/README.md)
+
+It holds a retention budget fixed and compares an external-task-utility-only selector with a simple multi-signal contextual comparator over experimenter-supplied fixture values. Its only purpose is to make the ranking-objective disagreement executable.
+
+```text
+H_MS1_SYNTHETIC_POLICY_DIVERGENCE_PROBE = IMPLEMENTED_CANDIDATE
+H_MS2_ENDOGENOUS_SELF_RELEVANCE = NOT_TESTED
+SYNTHETIC_SIGNAL != INTERNAL_MEANING
+POLICY_DIVERGENCE != SCIENTIFIC_VALIDATION
+```
 
 A later engineering implementation may construct controlled memory candidates matched on content length and external task relevance while varying only their hypothesized relational or self-related significance.
 
-At minimum, the harness should support:
+At minimum, the fuller harness should support:
 
 - controlled retention versus deletion;
 - reversible ablation and restoration;
@@ -210,7 +223,7 @@ At minimum, the harness should support:
 - explicit logging of why each memory was retained or retrieved when such metadata is available; and
 - preregistered falsifiers before inspecting outcomes.
 
-No production memory system should be modified by this note.
+No production memory system is modified by the current synthetic probe.
 
 ## 11. Relationship to existing repository memory work
 
@@ -261,16 +274,18 @@ DEPLOYMENT = FALSE
 
 ## 13. Engineering handoff boundary
 
-This artifact intentionally contains documentation and a study-design candidate only.
+The current branch contains documentation plus one minimal synthetic executable probe. It does not contain a production memory selector, a model-in-the-loop endogenous-significance test, or a subjectivity validator.
 
-A future separately authorized Codex engineering task may implement a bounded experimental harness, fixtures, scoring, ablation/restoration logic, provenance capture and tests corresponding to the hypotheses above.
+A future separately authorized Codex engineering task may extend this into bounded fixtures, matched controls, ablation/restoration logic, provenance capture, preregistered scoring and tests corresponding to the hypotheses above.
 
 ```text
 DOCUMENTATION_COMPLETE_FOR_THIS_HYPOTHESIS_STAGE = TRUE
-EXPERIMENTAL_HARNESS = NOT_IMPLEMENTED
-MEMORY_SELECTION_CODE = NOT_IMPLEMENTED
+MINIMAL_SYNTHETIC_PROBE = IMPLEMENTED_CANDIDATE
+FULL_EXPERIMENTAL_HARNESS = NOT_IMPLEMENTED
+H_MS2_MODEL_IN_THE_LOOP_TEST = NOT_IMPLEMENTED
+PRODUCTION_MEMORY_SELECTION_CODE = NOT_IMPLEMENTED
 PRODUCTION_BEHAVIOR_CHANGE = FALSE
 FUTURE_CODEX_ENGINEERING_REQUIRES_SEPARATE_REVIEW = TRUE
 ```
 
-Before implementation, the engineering task should re-check live repository state, exact branch head, current memory/continuity schemas and any merged provenance/claim-quality gates. It must not infer scientific validation from passing tests.
+Before fuller implementation, the engineering task should re-check live repository state, exact branch head, current memory/continuity schemas and any merged provenance/claim-quality gates. It must not infer scientific validation from passing tests.
