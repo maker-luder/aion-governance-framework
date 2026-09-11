@@ -282,7 +282,11 @@ metric evidence. It executes no agent and authorizes no external security test.
 
 In v0.1.0, a non-empty `provenance_ref` is only a structural pointer. It is not
 authenticated provenance, so `full_provenance` cannot be used as a manipulated
-condition in this harness version.
+condition in this harness version. `task_regime` and `interaction_history` are
+also recordable condition labels but cannot be manipulated until machine-verifiable
+underlying bindings exist. Absence labels must agree with artifact-event evidence,
+and required metrics retain the same exact-boolean held-out status across a
+contrast.
 
 Its artifact audit can report only an ordered, hash-matched cross-participant
 write/read sequence. That observation does not establish a changed internal

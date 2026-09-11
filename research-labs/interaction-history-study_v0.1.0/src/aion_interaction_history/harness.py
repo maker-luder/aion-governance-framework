@@ -148,6 +148,8 @@ class MetricObservation:
 
     def __post_init__(self) -> None:
         _require_exact_enum("metric", self.metric, MetricName)
+        if type(self.held_out) is not bool:
+            raise StudyError("held_out must be an exact bool")
         _require_text("unit", self.unit)
         _require_refs("metric evidence_refs", self.evidence_refs)
         if self.value != self.value or self.value in (float("inf"), float("-inf")):
@@ -177,16 +179,30 @@ class TrialRecord:
         if len(event_ids) != len(set(event_ids)):
             raise StudyError("artifact event ids must be unique")
         _require_strict_event_order(self.artifact_events)
+        reuse_links = _cross_participant_reuse_links(
+            self.artifact_events,
+            current_participant_id=self.binding.participant_id,
+        )
+        if (
+            self.condition.peer_artifacts is Presence.PRESENT
+            and self.condition.persistent_artifacts is not Presence.PRESENT
+        ):
+            raise StudyError("peer artifacts require persistent artifacts")
+        if (
+            self.condition.persistent_artifacts is Presence.ABSENT
+            and self.artifact_events
+        ):
+            raise StudyError(
+                "persistent_artifacts=ABSENT conflicts with artifact event evidence"
+            )
+        if self.condition.peer_artifacts is Presence.ABSENT and reuse_links:
+            raise StudyError(
+                "peer_artifacts=ABSENT conflicts with cross-participant reuse evidence"
+            )
         if self.condition.persistent_artifacts is Presence.PRESENT and not self.artifact_events:
             raise StudyError("persistent-artifact condition requires artifact events")
         if self.condition.peer_artifacts is Presence.PRESENT:
-            if self.condition.persistent_artifacts is not Presence.PRESENT:
-                raise StudyError("peer artifacts require persistent artifacts")
-            links = _cross_participant_reuse_links(
-                self.artifact_events,
-                current_participant_id=self.binding.participant_id,
-            )
-            if not links:
+            if not reuse_links:
                 raise StudyError(
                     "peer-artifact condition requires a hash-matched cross-participant "
                     "WRITE followed by current-participant READ"
@@ -281,7 +297,9 @@ class ContrastAudit:
 
 
 CONDITION_FIELDS = frozenset(field.name for field in fields(ConditionProfile))
-UNBOUND_MANIPULATION_FIELDS = frozenset({"full_provenance"})
+UNBOUND_MANIPULATION_FIELDS = frozenset(
+    {"full_provenance", "interaction_history", "task_regime"}
+)
 SUPPORTED_MANIPULATION_FIELDS = CONDITION_FIELDS - UNBOUND_MANIPULATION_FIELDS
 CONTROL_BINDING_FIELDS = tuple(
     field.name
@@ -368,6 +386,8 @@ class InteractionHistoryStudyHarness:
             right = intervention.metric(metric_name)
             if left.unit != right.unit:
                 raise StudyError(f"metric unit drift: {metric_name.value}")
+            if left.held_out != right.held_out:
+                raise StudyError(f"held_out status drift: {metric_name.value}")
             deltas.append((metric_name.value, right.value - left.value))
 
         return ContrastAudit(

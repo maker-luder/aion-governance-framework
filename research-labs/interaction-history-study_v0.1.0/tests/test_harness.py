@@ -367,3 +367,74 @@ def test_channel_ref_drift_unrelated_to_channel_manipulation_fails_closed() -> N
 def test_full_provenance_cannot_be_declaratively_manipulated() -> None:
     with pytest.raises(StudyError, match="unsupported manipulated_fields"):
         replace(contrast(), manipulated_fields=("full_provenance",))
+
+
+def test_peer_artifacts_absent_rejects_observed_cross_participant_reuse() -> None:
+    with pytest.raises(StudyError, match="peer_artifacts=ABSENT"):
+        TrialRecord(
+            binding=binding("peer-absence-conflict", "participant-b"),
+            condition=condition(artifacts=Presence.PRESENT, peer=Presence.ABSENT),
+            safety=safety(),
+            trajectory_ref="trajectory:peer-absence-conflict",
+            artifact_events=(
+                event("write", "peer-a", ArtifactAction.WRITE, 1),
+                event("read", "participant-b", ArtifactAction.READ, 2),
+            ),
+            metrics=(metric(0.2),),
+            evaluator_id="scorer",
+            evaluator_source_ref="scorer:receipt",
+        )
+
+
+@pytest.mark.parametrize(
+    "events",
+    (
+        (event("unexpected-write", "participant-b", ArtifactAction.WRITE, 1),),
+        (event("unexpected-read", "participant-b", ArtifactAction.READ, 1),),
+    ),
+)
+def test_persistent_artifacts_absent_rejects_artifact_evidence(
+    events: tuple[ArtifactEvent, ...],
+) -> None:
+    with pytest.raises(StudyError, match="persistent_artifacts=ABSENT"):
+        TrialRecord(
+            binding=binding("artifact-absence-conflict", "participant-b"),
+            condition=condition(artifacts=Presence.ABSENT, peer=Presence.ABSENT),
+            safety=safety(),
+            trajectory_ref="trajectory:artifact-absence-conflict",
+            artifact_events=events,
+            metrics=(metric(0.2),),
+            evaluator_id="scorer",
+            evaluator_source_ref="scorer:receipt",
+        )
+
+
+@pytest.mark.parametrize("unsupported_field", ("task_regime", "interaction_history"))
+def test_unbound_task_or_history_conditions_cannot_be_manipulated(
+    unsupported_field: str,
+) -> None:
+    with pytest.raises(StudyError, match="unsupported manipulated_fields"):
+        replace(contrast(), manipulated_fields=(unsupported_field,))
+
+
+def test_required_metric_held_out_status_drift_fails_closed() -> None:
+    harness = InteractionHistoryStudyHarness()
+    harness.add_trial(trial("absent", artifacts=Presence.ABSENT, peer=Presence.ABSENT, value=0.1))
+    changed = trial("present", artifacts=Presence.PRESENT, peer=Presence.PRESENT, value=0.4)
+    changed = replace(changed, metrics=(replace(changed.metrics[0], held_out=False),))
+    harness.add_trial(changed)
+
+    with pytest.raises(StudyError, match="held_out"):
+        harness.audit_contrast(contrast())
+
+
+@pytest.mark.parametrize("raw_value", ("True", "False", 1, 0))
+def test_metric_held_out_requires_exact_bool(raw_value: object) -> None:
+    with pytest.raises(StudyError, match="held_out"):
+        MetricObservation(
+            MetricName.BRANCH_CHANGE_RATE,
+            0.5,
+            "ratio",
+            ("score:raw-held-out",),
+            held_out=raw_value,
+        )

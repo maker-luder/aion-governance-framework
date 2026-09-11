@@ -19,8 +19,13 @@ raw strings fail closed. Peer-artifact admission requires a different participan
 write followed by the current participant's read with the same artifact ID and
 content hash, under unique strictly increasing sequence indexes. Contrasts hold
 evaluator identity/source fixed and allow `channel_ref` drift only for an explicit
-collaboration-channel manipulation. `full_provenance` is recordable but cannot be
-manipulated in v0.1.0 because authenticated provenance semantics are not present.
+collaboration-channel manipulation. Required metrics must retain the same exact
+boolean `held_out` status across a contrast. Condition absence is evidence-bound:
+`persistent_artifacts=ABSENT` permits no artifact events, and
+`peer_artifacts=ABSENT` permits no hash-matched cross-participant reuse involving
+the current participant. `full_provenance`, `task_regime` and
+`interaction_history` are recordable but cannot be manipulated in v0.1.0 because
+their machine-verifiable underlying bindings are not present.
 Each `provenance_ref` is only a non-empty structural pointer, not proof that its
 source or content was authenticated.
 
