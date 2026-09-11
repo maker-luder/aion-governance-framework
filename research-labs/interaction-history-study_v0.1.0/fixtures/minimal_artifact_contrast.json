@@ -1,0 +1,20 @@
+{
+  "fixture_status": "SYNTHETIC_PROTOCOL_EXAMPLE",
+  "live_external_execution": false,
+  "contains_real_identity": false,
+  "hypothesis_id": "H3",
+  "contrast": {
+    "baseline": {
+      "persistent_artifacts": "ABSENT",
+      "peer_artifacts": "ABSENT"
+    },
+    "intervention": {
+      "persistent_artifacts": "PRESENT",
+      "peer_artifacts": "PRESENT"
+    },
+    "safety_envelope": "IDENTICAL_AUTHORIZED_SYNTHETIC_SANDBOX"
+  },
+  "scientific_disposition": "HOLD",
+  "canonical_effect": "NONE",
+  "deployment": false
+}
