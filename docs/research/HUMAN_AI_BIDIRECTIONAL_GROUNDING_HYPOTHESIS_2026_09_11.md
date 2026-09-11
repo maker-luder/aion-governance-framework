@@ -63,16 +63,22 @@ Clark and Brennan's account of grounding treats communication as coordinated wor
 that updates common ground. Roschelle and Teasley use `joint problem space` for a
 socially negotiated problem representation in human collaborative problem solving.
 These are candidate analytical correspondences, not evidence that a human–AI dyad
-has symmetric mental states. OpenAI's product documentation distinguishes saved
-memory from referenced chat history; this establishes configurable retrieval
-features, not subjective remembering or learning.
+has symmetric mental states. Under OpenAI's current product documentation, enabled
+Memory automatically synthesizes relevant context from past chats and, where the
+account and feature support it, files and connected apps. The user-visible Memory
+summary is a high-level, automatically updated view; it may omit details or factors
+that Memory can remember or reference. The earlier Saved memories experience
+remains available as a legacy option. These are `PRODUCT_FEATURE_FACT` statements,
+not learning-science evidence.
 
 | External term or system feature | Permitted use here | Prohibited inference |
 |---|---|---|
 | Common ground / grounding | Describe repair and coordination demands | Mutual belief or symmetric understanding established |
 | Scaffolding | Candidate description of adjusted explanation support | Durable human learning caused by the AI |
 | Joint problem space | Candidate measure of stable task representation | Shared consciousness or co-agency |
-| Persistent memory / chat-history reference | Experimental continuity condition | Subjective remembering or identity continuity |
+| Current Memory synthesis | Experimental continuity condition drawing on eligible chats, files and connected apps | Subjective remembering, learning or identity continuity |
+| Memory summary | User-visible high-level review and correction surface | Complete interaction history or complete account of response-shaping factors |
+| Legacy Saved memories | Optional legacy product mode | Current Memory architecture as a whole |
 | Personalization | Controlled rule/profile condition | Model-parameter learning or self-modification |
 | Relational continuity | Functional interaction pattern | Phenomenal or personal identity continuity |
 
@@ -128,10 +134,10 @@ BIDIRECTIONAL_GROUNDING != SYMMETRIC_COGNITION
 
 ## 6. Replication boundary
 
-`EXACT_DYAD_REPLICATION = NOT_EXPECTED`. The full interaction depends on human
+`EXACT_DYAD_REPLICATION = NOT_EXPECTED`. Exact replication may not be feasible and
+is not the primary replication target because the full interaction depends on human
 traits, AI configuration, interaction history, personalization, memory or summaries,
-shared terminology, correction history and provider infrastructure. This makes an
-identical replay an inappropriate primary standard.
+shared terminology, correction history and provider infrastructure.
 
 `MECHANISM_LEVEL_PARTIAL_REPLICATION = TESTABLE`. Candidate controlled contrasts
 include:
@@ -163,6 +169,10 @@ infrastructure. A continuity result should therefore report which layer persiste
 INFRASTRUCTURE_CONTINUITY != IDENTITY_CONTINUITY_PROVEN
 ROLE_CONTINUITY != SUBJECTIVE_IDENTITY_CONTINUITY
 MEMORY_RETRIEVAL != SUBJECTIVE_REMEMBERING
+MEMORY_SYNTHESIS != SUBJECTIVE_REMEMBERING
+MEMORY_RETRIEVAL != LEARNING
+MEMORY_SUMMARY != COMPLETE_INTERACTION_HISTORY
+PRODUCT_CONTINUITY != IDENTITY_CONTINUITY
 RELATIONAL_CONTINUITY != PHENOMENAL_CONTINUITY
 JOINT_PROBLEM_SPACE != SHARED_CONSCIOUSNESS
 COMMON_HISTORY_IN_CONTEXT != AI_EXPERIENCED_HISTORY
@@ -244,8 +254,9 @@ DEPLOYMENT = FALSE
    `EXTERNAL_SOURCE`; human–human collaborative-learning construct, used only as
    a candidate correspondence.
 3. OpenAI, [Memory FAQ](https://help.openai.com/en/articles/8590148-memory-faq).
-   `EXTERNAL_SOURCE`; product-feature distinction only, not evidence for the
-   hypothesis.
+   `EXTERNAL_SOURCE / PRODUCT_FEATURE_FACT`; current automatic context synthesis,
+   Memory summary limitations and legacy Saved memories option only. This is not
+   learning-science evidence.
 4. AION repository,
    [`HUMAN_AI_LEARNING_NATURAL_OBSERVATION_2026_09_11.md`](HUMAN_AI_LEARNING_NATURAL_OBSERVATION_2026_09_11.md).
    `HUMAN_OWNER_SELF_REPORT + GPT_PROPOSED_FORMALIZATION + JOINT_SYNTHESIS`;
