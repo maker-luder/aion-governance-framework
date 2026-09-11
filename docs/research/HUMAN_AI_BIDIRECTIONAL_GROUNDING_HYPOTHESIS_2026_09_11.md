@@ -200,7 +200,9 @@ The bounded typed study-design surface for these contrasts is implemented at
 [`research-labs/human-ai-longitudinal-study_v0.1.0`](../../research-labs/human-ai-longitudinal-study_v0.1.0/README.md).
 It validates run bindings, condition isolation and metric provenance only.
 `HARNESS_PASS != HYPOTHESIS_CONFIRMED`; no empirical run is supplied by that
-implementation.
+implementation. The provenance-to-claim quality gate from PR #91 is now on
+`main`; this harness does not implicitly satisfy that gate, and any mapping from
+study records to claim-admission records requires separate review.
 
 ## 9. Falsifiers
 
@@ -271,4 +273,7 @@ DEPLOYMENT = FALSE
 The external sources support vocabulary and feature descriptions. They do not
 validate H1 or elevate the natural observation.
 
-`REVALIDATE_WITH_PR91_GATE_AFTER_PR91_LANDS`
+```text
+PR91_ON_MAIN = TRUE
+HARNESS_TO_PR91_CLAIM_ADMISSION_MAPPING = NOT_IMPLEMENTED
+```

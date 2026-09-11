@@ -9,15 +9,18 @@ evidence and preregistered contrasts. It does not call a model, store a private
 transcript, infer product-internal mechanisms or decide whether a hypothesis is
 true.
 
-The harness is a study-design surface, not a canonical evidence schema. A later
-evidence claim must still pass the repository's canonical evidence admission
-protocol. PR #91 is not a dependency; after it lands, records produced here may be
-adapted to its admission view through a separately reviewed mapping.
+The harness is a study-design surface, not a canonical evidence schema. PR #91 is
+now on `main` and provides the repository's provenance-to-claim quality gate. This
+harness remains separate: any conversion of its study records into that claim
+admission surface requires a separately reviewed mapping rather than implicit
+promotion.
 
 All condition fields require exact runtime enum instances; raw strings fail
 closed. Contrasts hold evaluator identity/source and held-out status fixed.
 `task_domain` and `ai_support` remain recordable labels but cannot be declared as
 v0.1.0 manipulations because no exact underlying task/support binding is present.
+Metric values accept exact `int` or `float` runtime values only; booleans, strings,
+other types and non-finite numbers fail closed.
 
 Key boundaries:
 
@@ -27,6 +30,7 @@ METRIC_DELTA != CAUSAL_IDENTIFICATION
 MEMORY_RETRIEVAL != LEARNING
 LONGITUDINAL_ADAPTATION != SUBJECTIVITY
 POLICY_SWITCHING_BEHAVIOR != INTERNAL_POLICY_MODULE_PROVEN
+HARNESS_RECORD != PR91_CLAIM_ADMISSION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED

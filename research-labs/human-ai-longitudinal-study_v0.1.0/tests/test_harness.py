@@ -58,7 +58,7 @@ def condition(*, memory: Presence) -> ConditionProfile:
     )
 
 
-def metric(value: float) -> MetricObservation:
+def metric(value: float | int) -> MetricObservation:
     return MetricObservation(
         metric=MetricName.PROVENANCE_ACCURACY,
         value=value,
@@ -68,7 +68,7 @@ def metric(value: float) -> MetricObservation:
     )
 
 
-def trial(run_id: str, *, memory: Presence, value: float) -> TrialRecord:
+def trial(run_id: str, *, memory: Presence, value: float | int) -> TrialRecord:
     return TrialRecord(
         binding=binding(run_id),
         condition=condition(memory=memory),
@@ -105,6 +105,7 @@ def test_admissible_contrast_remains_scientific_hold() -> None:
     assert audit.canonical_effect == "NONE"
     assert audit.deployment is False
     assert "METRIC_DELTA_IS_NOT_CAUSAL_IDENTIFICATION" in audit.reasons
+    assert "CLAIM_ADMISSION_REQUIRES_SEPARATE_PR91_MAPPING" in audit.reasons
 
 
 def test_continuity_condition_without_artifact_provenance_fails_closed() -> None:
@@ -256,3 +257,32 @@ def test_held_out_status_drift_fails_closed() -> None:
 def test_unbound_conditions_cannot_be_manipulated(unsupported_field: str) -> None:
     with pytest.raises(StudyError, match="unsupported manipulated_fields"):
         replace(contrast(), manipulated_fields=(unsupported_field,))
+
+
+@pytest.mark.parametrize("raw_value", ("0.5", True, False, None))
+def test_metric_value_rejects_non_exact_numeric_types(raw_value: object) -> None:
+    with pytest.raises(StudyError, match="metric value must be an exact int or float"):
+        MetricObservation(
+            metric=MetricName.PROVENANCE_ACCURACY,
+            value=raw_value,
+            unit="ratio",
+            evidence_refs=("score:invalid-type",),
+            held_out=True,
+        )
+
+
+@pytest.mark.parametrize("non_finite", (float("nan"), float("inf"), float("-inf")))
+def test_metric_value_rejects_non_finite_numbers(non_finite: float) -> None:
+    with pytest.raises(StudyError, match="metric value must be finite"):
+        MetricObservation(
+            metric=MetricName.PROVENANCE_ACCURACY,
+            value=non_finite,
+            unit="ratio",
+            evidence_refs=("score:non-finite",),
+            held_out=True,
+        )
+
+
+def test_metric_value_accepts_exact_int_and_float() -> None:
+    assert metric(1).value == 1
+    assert metric(1.0).value == 1.0

@@ -295,7 +295,8 @@ The separately authorized bounded harness now exists at
 It provides machine-readable condition records, exact run/configuration bindings,
 metric evidence, preregistered contrasts and fail-closed comparability checks. It
 does not call a model, publish private transcripts, create production behavior or
-validate H-KD1, H-KD2 or H-EP1.
+validate H-KD1, H-KD2 or H-EP1. PR #91 is now on `main`; any conversion from this
+harness into its claim-admission records remains separately reviewed future work.
 
 ```text
 DOCUMENTATION_COMPLETE_FOR_THIS_HYPOTHESIS_STAGE = TRUE
@@ -303,6 +304,6 @@ EXPERIMENTAL_HARNESS = IMPLEMENTED_CANDIDATE
 CODE_VALIDATION = ENGINEERING_ONLY
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
 FUTURE_EMPIRICAL_EXECUTION_REQUIRES_SEPARATE_REVIEW = TRUE
+PR91_ON_MAIN = TRUE
+HARNESS_TO_PR91_CLAIM_ADMISSION_MAPPING = NOT_IMPLEMENTED
 ```
-
-`REVALIDATE_WITH_PR91_GATE_AFTER_PR91_LANDS`

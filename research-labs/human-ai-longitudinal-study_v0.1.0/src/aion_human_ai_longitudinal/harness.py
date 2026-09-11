@@ -130,13 +130,15 @@ class ConditionProfile:
 @dataclass(frozen=True, slots=True)
 class MetricObservation:
     metric: MetricName
-    value: float
+    value: float | int
     unit: str
     evidence_refs: tuple[str, ...]
     held_out: bool = False
 
     def __post_init__(self) -> None:
         _require_exact_enum("metric", self.metric, MetricName)
+        if type(self.value) not in (int, float):
+            raise StudyError("metric value must be an exact int or float")
         _require_text("unit", self.unit)
         _require_refs("metric evidence_refs", self.evidence_refs)
         if self.value != self.value or self.value in (float("inf"), float("-inf")):
@@ -318,13 +320,13 @@ class LongitudinalStudyHarness:
                 raise StudyError(f"metric unit drift: {metric_name.value}")
             if left.held_out != right.held_out:
                 raise StudyError(f"held_out status drift: {metric_name.value}")
-            deltas.append((metric_name.value, right.value - left.value))
+            deltas.append((metric_name.value, float(right.value) - float(left.value)))
 
         reasons = (
             "STRUCTURAL_CONTRAST_ADMISSIBLE",
             "METRIC_DELTA_IS_NOT_CAUSAL_IDENTIFICATION",
             "HARNESS_PASS_IS_NOT_HYPOTHESIS_CONFIRMATION",
-            "REVALIDATE_WITH_PR91_GATE_AFTER_PR91_LANDS",
+            "CLAIM_ADMISSION_REQUIRES_SEPARATE_PR91_MAPPING",
         )
         return ContrastAudit(
             contrast_id=spec.contrast_id,
