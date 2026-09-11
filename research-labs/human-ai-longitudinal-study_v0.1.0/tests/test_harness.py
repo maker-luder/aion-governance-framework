@@ -169,3 +169,90 @@ def test_synthetic_fixture_contains_no_private_transcript_or_identity() -> None:
     assert fixture["contains_third_party_identity"] is False
     assert fixture["scientific_disposition"] == "HOLD"
     assert fixture["canonical_effect"] == "NONE"
+
+
+@pytest.mark.parametrize(
+    ("field_name", "raw_value"),
+    (
+        ("memory", "PRESENT"),
+        ("personalization", "ABSENT"),
+        ("interaction_history", "ABSENT"),
+        ("provenance_rules", "PRESENT"),
+        ("summary", "NONE"),
+        ("context", "MATCHED_CURRENT"),
+        ("epistemic_instruction", "FULL_PROTOCOL"),
+        ("task_domain", "RESEARCH_AUDIT"),
+        ("ai_support", "PRESENT"),
+        ("memory", "INVALID"),
+    ),
+)
+def test_condition_profile_rejects_raw_or_invalid_enum_values(
+    field_name: str,
+    raw_value: str,
+) -> None:
+    values = {
+        "memory": Presence.ABSENT,
+        "personalization": Presence.ABSENT,
+        "interaction_history": Presence.ABSENT,
+        "provenance_rules": Presence.PRESENT,
+        "summary": SummaryCondition.NONE,
+        "context": ContextCondition.MATCHED_CURRENT,
+        "epistemic_instruction": EpistemicInstruction.FULL_PROTOCOL,
+        "task_domain": TaskDomain.RESEARCH_AUDIT,
+        "ai_support": Presence.PRESENT,
+    }
+    values[field_name] = raw_value
+
+    with pytest.raises(StudyError, match=field_name):
+        ConditionProfile(**values)
+
+
+def test_raw_present_cannot_bypass_continuity_artifact_requirement() -> None:
+    values = {
+        "memory": "PRESENT",
+        "personalization": Presence.ABSENT,
+        "interaction_history": Presence.ABSENT,
+        "provenance_rules": Presence.PRESENT,
+        "summary": SummaryCondition.NONE,
+        "context": ContextCondition.MATCHED_CURRENT,
+        "epistemic_instruction": EpistemicInstruction.FULL_PROTOCOL,
+        "task_domain": TaskDomain.RESEARCH_AUDIT,
+        "ai_support": Presence.PRESENT,
+    }
+    with pytest.raises(StudyError, match="memory"):
+        TrialRecord(
+            binding=binding("raw-present"),
+            condition=ConditionProfile(**values),
+            metrics=(metric(0.5),),
+            evaluator_id="scorer",
+            evaluator_source_ref="scorer:receipt",
+        )
+
+
+@pytest.mark.parametrize("changed_field", ("evaluator_id", "evaluator_source_ref"))
+def test_evaluator_drift_fails_closed(changed_field: str) -> None:
+    harness = LongitudinalStudyHarness()
+    harness.add_trial(trial("baseline", memory=Presence.ABSENT, value=0.5))
+    changed = trial("memory", memory=Presence.PRESENT, value=0.75)
+    changed = replace(changed, **{changed_field: "different-evaluator"})
+    harness.add_trial(changed)
+
+    with pytest.raises(StudyError, match=changed_field):
+        harness.audit_contrast(contrast())
+
+
+def test_held_out_status_drift_fails_closed() -> None:
+    harness = LongitudinalStudyHarness()
+    harness.add_trial(trial("baseline", memory=Presence.ABSENT, value=0.5))
+    changed = trial("memory", memory=Presence.PRESENT, value=0.75)
+    changed = replace(changed, metrics=(replace(changed.metrics[0], held_out=False),))
+    harness.add_trial(changed)
+
+    with pytest.raises(StudyError, match="held_out"):
+        harness.audit_contrast(contrast())
+
+
+@pytest.mark.parametrize("unsupported_field", ("task_domain", "ai_support"))
+def test_unbound_conditions_cannot_be_manipulated(unsupported_field: str) -> None:
+    with pytest.raises(StudyError, match="unsupported manipulated_fields"):
+        replace(contrast(), manipulated_fields=(unsupported_field,))

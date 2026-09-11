@@ -14,6 +14,11 @@ evidence claim must still pass the repository's canonical evidence admission
 protocol. PR #91 is not a dependency; after it lands, records produced here may be
 adapted to its admission view through a separately reviewed mapping.
 
+All condition fields require exact runtime enum instances; raw strings fail
+closed. Contrasts hold evaluator identity/source and held-out status fixed.
+`task_domain` and `ai_support` remain recordable labels but cannot be declared as
+v0.1.0 manipulations because no exact underlying task/support binding is present.
+
 Key boundaries:
 
 ```text

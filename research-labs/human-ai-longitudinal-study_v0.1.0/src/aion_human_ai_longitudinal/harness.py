@@ -18,6 +18,11 @@ def _require_refs(name: str, refs: tuple[str, ...]) -> None:
         raise StudyError(f"{name} requires non-empty references")
 
 
+def _require_exact_enum(name: str, value: object, expected_type: type[StrEnum]) -> None:
+    if type(value) is not expected_type:
+        raise StudyError(f"{name} must be an exact {expected_type.__name__} value")
+
+
 class Presence(StrEnum):
     PRESENT = "PRESENT"
     ABSENT = "ABSENT"
@@ -113,6 +118,14 @@ class ConditionProfile:
     task_domain: TaskDomain
     ai_support: Presence
 
+    def __post_init__(self) -> None:
+        for name in ("memory", "personalization", "interaction_history", "provenance_rules", "ai_support"):
+            _require_exact_enum(name, getattr(self, name), Presence)
+        _require_exact_enum("summary", self.summary, SummaryCondition)
+        _require_exact_enum("context", self.context, ContextCondition)
+        _require_exact_enum("epistemic_instruction", self.epistemic_instruction, EpistemicInstruction)
+        _require_exact_enum("task_domain", self.task_domain, TaskDomain)
+
 
 @dataclass(frozen=True, slots=True)
 class MetricObservation:
@@ -123,6 +136,7 @@ class MetricObservation:
     held_out: bool = False
 
     def __post_init__(self) -> None:
+        _require_exact_enum("metric", self.metric, MetricName)
         _require_text("unit", self.unit)
         _require_refs("metric evidence_refs", self.evidence_refs)
         if self.value != self.value or self.value in (float("inf"), float("-inf")):
@@ -170,6 +184,8 @@ class TrialRecord:
 
 
 CONDITION_FIELDS = frozenset(field.name for field in fields(ConditionProfile))
+UNBOUND_MANIPULATION_FIELDS = frozenset({"task_domain", "ai_support"})
+SUPPORTED_MANIPULATION_FIELDS = CONDITION_FIELDS - UNBOUND_MANIPULATION_FIELDS
 CONTROL_BINDING_FIELDS = (
     "study_id",
     "provider_id",
@@ -210,7 +226,7 @@ class ContrastSpec:
             raise StudyError("contrast requires two different runs")
         if not self.manipulated_fields or len(self.manipulated_fields) != len(set(self.manipulated_fields)):
             raise StudyError("manipulated_fields must be non-empty and unique")
-        unsupported = set(self.manipulated_fields) - CONDITION_FIELDS
+        unsupported = set(self.manipulated_fields) - SUPPORTED_MANIPULATION_FIELDS
         if unsupported:
             raise StudyError("unsupported manipulated_fields: " + ", ".join(sorted(unsupported)))
         if not self.required_metrics or len(self.required_metrics) != len(set(self.required_metrics)):
@@ -247,6 +263,14 @@ class LongitudinalStudyHarness:
             raise StudyError("unknown run ids: " + ", ".join(missing))
         baseline = self._trials[spec.baseline_run_id]
         intervention = self._trials[spec.intervention_run_id]
+
+        evaluator_drift = [
+            name
+            for name in ("evaluator_id", "evaluator_source_ref")
+            if getattr(baseline, name) != getattr(intervention, name)
+        ]
+        if evaluator_drift:
+            raise StudyError("uncontrolled evaluator drift: " + ", ".join(evaluator_drift))
 
         binding_drift = [
             name
@@ -292,6 +316,8 @@ class LongitudinalStudyHarness:
             right = intervention.metric(metric_name)
             if left.unit != right.unit:
                 raise StudyError(f"metric unit drift: {metric_name.value}")
+            if left.held_out != right.held_out:
+                raise StudyError(f"held_out status drift: {metric_name.value}")
             deltas.append((metric_name.value, right.value - left.value))
 
         reasons = (
