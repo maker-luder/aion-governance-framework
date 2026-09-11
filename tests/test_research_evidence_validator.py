@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -86,7 +87,7 @@ def valid_record(commit: str = "a" * 40, *, result_status: str = "PASS") -> dict
         "competing_hypotheses": ["The observation is explained by a confound."],
         "preregistration_status": "EXPLORATORY",
         "protocol_ref": "docs/protocol.json",
-        "protocol_hash": "b" * 64,
+        "protocol_hash": hashlib.sha256(b"{}\n").hexdigest(),
         "code_commit": commit,
         "model_or_runtime_ref": "components/example",
         "environment_ref": "qa/environment.json",
@@ -210,3 +211,96 @@ def test_missing_record_returns_hold(tmp_path: Path) -> None:
     missing = root / "qa" / "missing-record.json"
     result = validator.validate_record(root, missing, expected_head="a" * 40)
     assert result.status == "HOLD"
+
+
+def test_protocol_bytes_are_bound_and_tampering_fails(tmp_path: Path) -> None:
+    root, path = make_root(tmp_path)
+    first = validator.validate_record(root, path, expected_head="a" * 40)
+    assert first.status == "PASS"
+    assert first.protocol_binding == "VERIFIED"
+    (root / "docs/protocol.json").write_bytes(b'{"changed": true}\n')
+    second = validator.validate_record(root, path, expected_head="a" * 40)
+    assert second.status == "FAIL"
+    assert second.protocol_binding == "MISMATCH"
+
+
+def test_incomplete_record_reports_deferred_hash_check(tmp_path: Path) -> None:
+    record = valid_record(result_status="NOT_RUN")
+    record["protocol_hash"] = "0" * 64
+    root, path = make_root(tmp_path, record)
+    result = validator.validate_record(root, path, expected_head="a" * 40)
+    assert result.status == "PASS"
+    assert result.as_dict()["protocol_binding"] == "DEFERRED"
+
+
+def test_external_protocol_cannot_claim_verified_bytes(tmp_path: Path) -> None:
+    record = valid_record()
+    record["protocol_ref"] = "https://example.invalid/protocol"
+    root, path = make_root(tmp_path, record)
+    result = validator.validate_record(root, path, expected_head="a" * 40)
+    assert result.status == "FAIL"
+    assert result.protocol_binding == "UNVERIFIED"
+
+
+def test_protocol_directory_is_not_hashable_evidence(tmp_path: Path) -> None:
+    record = valid_record()
+    record["protocol_ref"] = "docs/"
+    root, path = make_root(tmp_path, record)
+    result = validator.validate_record(root, path, expected_head="a" * 40)
+    assert result.status == "FAIL"
+    assert result.protocol_binding == "UNVERIFIED"
+
+
+def test_unlisted_local_prefix_and_relative_escape_fail(tmp_path: Path) -> None:
+    root, path = make_root(tmp_path)
+    outside = tmp_path / "outside.json"
+    outside.write_text("{}")
+    for ref in ("experiments/missing.json", "missing.json", "../outside.json", str(outside), "file:///tmp/a", "C:\\private.json"):
+        record = valid_record()
+        record["evidence_refs"] = [ref]
+        path.write_text(json.dumps(record))
+        assert validator.validate_record(root, path, expected_head="a" * 40).status == "FAIL", ref
+
+
+def test_experiment_reference_and_protocol_fragment_work(tmp_path: Path) -> None:
+    record = valid_record()
+    record["protocol_ref"] = "./docs/protocol.json#whole-file-digest"
+    record["evidence_refs"] = ["experiments/result.json"]
+    root, path = make_root(tmp_path, record)
+    (root / "experiments").mkdir()
+    (root / "experiments/result.json").write_text("{}")
+    assert validator.validate_record(root, path, expected_head="a" * 40).status == "PASS"
+
+
+def test_completed_records_cannot_skip_head_binding(tmp_path: Path) -> None:
+    root, path = make_root(tmp_path)
+    for head in ("", "UNSPECIFIED", "main", "A" * 40):
+        result = validator.validate_record(root, path, expected_head=head)
+        assert result.status == "FAIL"
+        assert any("exact inspected head" in item for item in result.diagnostics)
+
+
+def test_non_utf8_record_holds_instead_of_crashing(tmp_path: Path) -> None:
+    root, path = make_root(tmp_path)
+    path.write_bytes(b"\xff")
+    result = validator.validate_record(root, path, expected_head="a" * 40)
+    assert result.status == "HOLD"
+    assert result.protocol_binding == "NOT_CHECKED"
+
+
+def test_negative_results_require_same_integrity_as_positive(tmp_path: Path) -> None:
+    root, path = make_root(tmp_path)
+    for status in ("PASS", "PARTIAL", "FAIL", "INCONCLUSIVE", "NEGATIVE", "NULL", "CONTRADICTORY"):
+        record = valid_record(result_status=status)
+        record["protocol_hash"] = "0" * 64
+        path.write_text(json.dumps(record))
+        result = validator.validate_record(root, path, expected_head="a" * 40)
+        assert result.status == "FAIL"
+        assert result.protocol_binding == "MISMATCH"
+
+
+def test_schema_invalid_status_is_diagnostic_not_exception(tmp_path: Path) -> None:
+    record = valid_record()
+    record["result_status"] = []
+    root, path = make_root(tmp_path, record)
+    assert validator.validate_record(root, path, expected_head="a" * 40).status == "FAIL"
