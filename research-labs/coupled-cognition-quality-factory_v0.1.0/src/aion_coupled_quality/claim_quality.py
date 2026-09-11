@@ -1,7 +1,11 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+import hashlib
+import json
+from dataclasses import dataclass, field, fields
 from enum import StrEnum
+from pathlib import Path
+from typing import Mapping
 
 from .models import ResearchLot
 from .provenance import ContributionOrigin, EpistemicProvenanceLedger, ProvenanceError
@@ -9,6 +13,10 @@ from .provenance import ContributionOrigin, EpistemicProvenanceLedger, Provenanc
 
 class ClaimQualityError(ValueError):
     pass
+
+
+CANONICAL_SCHEMA_REF = "schemas/research_evidence_record_v0.2.0.schema.json"
+CANONICAL_PROTOCOL_REF = "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md"
 
 
 class ClaimLevel(StrEnum):
@@ -30,8 +38,11 @@ class ClaimStatus(StrEnum):
 
 
 class EvidenceRelation(StrEnum):
+    OBSERVES = "OBSERVES"
     SUPPORTS = "SUPPORTS"
     CHALLENGES = "CHALLENGES"
+    NEUTRAL = "NEUTRAL"
+    UNRESOLVED = "UNRESOLVED"
 
 
 class PublicationClass(StrEnum):
@@ -59,10 +70,37 @@ class EvidenceBinding:
     repeated: bool = False
     comparison_control: bool = False
     independently_scored: bool = False
+    producer_ref: str = ""
+    runtime_or_context_ref: str = ""
+    replication_source_ref: str = ""
+    replication_provenance_record_id: str = ""
 
     def __post_init__(self) -> None:
         if not self.evidence_id.strip() or not self.provenance_record_id.strip():
             raise ClaimQualityError("evidence_id and provenance_record_id must be non-empty")
+
+
+@dataclass(frozen=True, slots=True)
+class ChallengeResolution:
+    challenge_id: str
+    claim_id: str
+    claim_version: int
+    resolution_ref: str
+    provenance_record_id: str
+
+    def __post_init__(self) -> None:
+        if any(
+            not value.strip()
+            for value in (
+                self.challenge_id,
+                self.claim_id,
+                self.resolution_ref,
+                self.provenance_record_id,
+            )
+        ):
+            raise ClaimQualityError("challenge resolution fields must be non-empty")
+        if self.claim_version < 1:
+            raise ClaimQualityError("challenge resolution requires a positive claim version")
 
 
 @dataclass(frozen=True, slots=True)
@@ -94,6 +132,12 @@ class ClaimRevision:
 
 @dataclass(frozen=True, slots=True)
 class ResearchClaimRecord:
+    """Typed admission view over the repository-native evidence contract.
+
+    This boundary object is not a schema, persistence format, or canonical truth
+    source. Admission requires an exact binding to the existing v0.2 JSON schema
+    and subjectivity protocol.
+    """
     claim_id: str
     version: int
     statement: str
@@ -108,6 +152,7 @@ class ResearchClaimRecord:
     publication_class: PublicationClass = PublicationClass.PUBLIC_SAFE
     challenging_evidence_ids: tuple[str, ...] = field(default_factory=tuple)
     resolved_challenge_ids: tuple[str, ...] = field(default_factory=tuple)
+    challenge_resolutions: tuple[ChallengeResolution, ...] = field(default_factory=tuple)
     dependencies: tuple[ClaimDependency, ...] = field(default_factory=tuple)
     revision: ClaimRevision | None = None
     population_scope: bool = False
@@ -143,6 +188,100 @@ class ResearchClaimRecord:
             raise ClaimQualityError("resolved challenges must refer to challenging evidence ids")
 
 
+_ADAPTER_FIELD_MAPPING: Mapping[str, str] = {
+    "claim_id": "claim_id",
+    "version": "adapter_extension:version",
+    "statement": "claim_text",
+    "provenance_record_id": "provenance",
+    "claim_level": "claim_level",
+    "status": "result_status",
+    "observed_evidence_ids": "observed_outcomes",
+    "inferred_statements": "evidence_architecture.interpretation",
+    "competing_explanations": "competing_hypotheses",
+    "falsifier": "expected_outcomes",
+    "supporting_evidence_ids": "evidence_refs",
+    "publication_class": "adapter_extension:publication_class",
+    "challenging_evidence_ids": "evidence_architecture.alternative_explanation_refs",
+    "resolved_challenge_ids": "adapter_extension:resolved_challenge_ids",
+    "challenge_resolutions": "adapter_extension:challenge_resolutions",
+    "dependencies": "adapter_extension:dependencies",
+    "revision": "adapter_extension:revision",
+    "population_scope": "evidence_architecture.claim_scope",
+    "causal_learning_effect": "evidence_architecture.mechanism",
+    "subjectivity_claim": "nonclaims.subjectivity_conclusion",
+    "consciousness_claim": "nonclaims.consciousness_conclusion",
+    "phenomenal_experience_claim": "adapter_extension:phenomenal_experience_conclusion",
+    "moral_agency_claim": "adapter_extension:moral_agency_conclusion",
+    "moral_status_claim": "nonclaims.moral_status_conclusion",
+    "canonical_effect": "canonical_effect",
+}
+
+
+@dataclass(frozen=True, slots=True)
+class CanonicalClaimContract:
+    schema_ref: str
+    schema_version: str
+    schema_sha256: str
+    protocol_ref: str
+    protocol_sha256: str
+    claim_levels: tuple[str, ...]
+    adapter_field_mapping: tuple[tuple[str, str], ...]
+
+
+def load_canonical_claim_contract(
+    repository_root: Path,
+    *,
+    field_mapping: Mapping[str, str] = _ADAPTER_FIELD_MAPPING,
+) -> CanonicalClaimContract:
+    """Bind this adapter to the existing schema/protocol; never replace them."""
+
+    root = repository_root.resolve()
+    schema_path = (root / CANONICAL_SCHEMA_REF).resolve(strict=True)
+    protocol_path = (root / CANONICAL_PROTOCOL_REF).resolve(strict=True)
+    schema_path.relative_to(root)
+    protocol_path.relative_to(root)
+    schema_bytes = schema_path.read_bytes()
+    protocol_bytes = protocol_path.read_bytes()
+    schema = json.loads(schema_bytes)
+    properties = schema.get("properties", {})
+    level_values = tuple(properties.get("claim_level", {}).get("enum", ()))
+    method_ref = (
+        properties.get("evidence_architecture", {})
+        .get("properties", {})
+        .get("method_ref", {})
+        .get("const")
+    )
+    failures: list[str] = []
+    if schema.get("additionalProperties") is not False:
+        failures.append("CANONICAL_SCHEMA_MUST_REMAIN_CLOSED")
+    if schema.get("properties", {}).get("schema_version", {}).get("const") != "0.2.0":
+        failures.append("CANONICAL_SCHEMA_VERSION_DRIFT")
+    if level_values != tuple(item.value for item in ClaimLevel):
+        failures.append("CLAIM_LEVEL_MAPPING_DRIFT")
+    if method_ref != CANONICAL_PROTOCOL_REF:
+        failures.append("CANONICAL_PROTOCOL_MAPPING_DRIFT")
+    adapter_fields = {item.name for item in fields(ResearchClaimRecord)}
+    if set(field_mapping) != adapter_fields:
+        failures.append("ADAPTER_FIELD_MAPPING_INCOMPLETE")
+    canonical_top = set(properties)
+    for adapter_field, target in field_mapping.items():
+        if target.startswith("adapter_extension:"):
+            continue
+        if target.split(".", 1)[0] not in canonical_top:
+            failures.append(f"UNSUPPORTED_FIELD_SEMANTICS:{adapter_field}->{target}")
+    if failures:
+        raise ClaimQualityError(";".join(failures))
+    return CanonicalClaimContract(
+        schema_ref=CANONICAL_SCHEMA_REF,
+        schema_version="0.2.0",
+        schema_sha256=hashlib.sha256(schema_bytes).hexdigest(),
+        protocol_ref=CANONICAL_PROTOCOL_REF,
+        protocol_sha256=hashlib.sha256(protocol_bytes).hexdigest(),
+        claim_levels=level_values,
+        adapter_field_mapping=tuple(sorted(field_mapping.items())),
+    )
+
+
 @dataclass(frozen=True, slots=True)
 class ClaimQualityAssessment:
     claim_id: str
@@ -174,8 +313,16 @@ class ProvenanceClaimQualityGate:
         lot: ResearchLot,
         evidence_bindings: tuple[EvidenceBinding, ...],
         known_claims: tuple[ResearchClaimRecord, ...] = (),
+        repository_root: Path | None = None,
     ) -> ClaimQualityAssessment:
         failures: list[str] = []
+        if repository_root is None:
+            failures.append("MISSING_CANONICAL_SCHEMA_PROTOCOL_BINDING")
+        else:
+            try:
+                load_canonical_claim_contract(repository_root)
+            except (ClaimQualityError, OSError, ValueError, json.JSONDecodeError) as exc:
+                failures.append(f"CANONICAL_SCHEMA_PROTOCOL_DRIFT:{exc}")
         binding_by_id = {item.evidence_id: item for item in evidence_bindings}
         if len(binding_by_id) != len(evidence_bindings):
             failures.append("DUPLICATE_EVIDENCE_BINDING")
@@ -213,10 +360,6 @@ class ProvenanceClaimQualityGate:
             if binding is not None and binding.relation is not EvidenceRelation.SUPPORTS:
                 failures.append(f"SUPPORT_RELATION_MISMATCH:{evidence_id}")
 
-        for evidence_id in claim.observed_evidence_ids:
-            if evidence_id not in claim.supporting_evidence_ids:
-                failures.append(f"OBSERVATION_NOT_BOUND_AS_SUPPORT:{evidence_id}")
-
         for evidence_id in claim.challenging_evidence_ids:
             binding = binding_by_id.get(evidence_id)
             if evidence_id not in lot_challenge_ids:
@@ -226,12 +369,14 @@ class ProvenanceClaimQualityGate:
             if evidence_id not in claim.resolved_challenge_ids:
                 failures.append(f"UNRESOLVED_CONTRADICTORY_EVIDENCE:{evidence_id}")
 
+        self._check_challenge_resolutions(claim, ledger, failures)
+
         if lot.canonical_effect != "NONE" or lot.deployment:
             failures.append("QUALITY_LOT_CANNOT_GRANT_CANONICAL_OR_DEPLOYMENT_AUTHORITY")
         if not lot.final_qa_pass:
             failures.append("QUALITY_FACTORY_FINAL_QA_NOT_PASSED")
 
-        self._check_claim_level(claim, binding_by_id, failures)
+        self._check_claim_level(claim, binding_by_id, ledger, failures)
         self._check_scope_and_transfer(claim, binding_by_id, failures)
         self._check_dependencies_and_revision(claim, known_claims, failures)
 
@@ -292,6 +437,7 @@ class ProvenanceClaimQualityGate:
     def _check_claim_level(
         claim: ResearchClaimRecord,
         bindings: dict[str, EvidenceBinding],
+        ledger: EpistemicProvenanceLedger,
         failures: list[str],
     ) -> None:
         ordered_levels = tuple(ClaimLevel)
@@ -304,6 +450,52 @@ class ProvenanceClaimQualityGate:
             qualifying = [item for item in supports if item.repeated and item.held_out]
             if len(qualifying) < 2:
                 failures.append("ROBUST_REPLICATION_REQUIRES_REPEATED_HELD_OUT_EVIDENCE")
+                return
+            if any(
+                not item.producer_ref.strip()
+                or not item.runtime_or_context_ref.strip()
+                or not item.replication_source_ref.strip()
+                or not item.replication_provenance_record_id.strip()
+                for item in qualifying
+            ):
+                failures.append("L4_REQUIRES_REPLICATION_SEPARATION_EVIDENCE")
+                return
+            if len({item.producer_ref for item in qualifying}) < 2:
+                failures.append("L4_REQUIRES_DISTINCT_PRODUCERS")
+            if len({item.runtime_or_context_ref for item in qualifying}) < 2:
+                failures.append("L4_REQUIRES_DISTINCT_RUNTIME_OR_CONTEXT")
+            for item in qualifying:
+                provenance = ProvenanceClaimQualityGate._get_provenance(
+                    item.replication_provenance_record_id, ledger, failures
+                )
+                if provenance is not None and provenance.origin is ContributionOrigin.UNKNOWN:
+                    failures.append(f"UNKNOWN_REPLICATION_ORIGIN:{item.evidence_id}")
+
+    @staticmethod
+    def _check_challenge_resolutions(
+        claim: ResearchClaimRecord,
+        ledger: EpistemicProvenanceLedger,
+        failures: list[str],
+    ) -> None:
+        by_id = {item.challenge_id: item for item in claim.challenge_resolutions}
+        if len(by_id) != len(claim.challenge_resolutions):
+            failures.append("DUPLICATE_CHALLENGE_RESOLUTION")
+        for challenge_id in claim.resolved_challenge_ids:
+            resolution = by_id.get(challenge_id)
+            if resolution is None:
+                failures.append(f"MISSING_CHALLENGE_RESOLUTION_EVIDENCE:{challenge_id}")
+                continue
+            if resolution.claim_id != claim.claim_id or resolution.claim_version != claim.version:
+                failures.append(f"STALE_OR_UNRELATED_CHALLENGE_RESOLUTION:{challenge_id}")
+            if resolution.resolution_ref in {challenge_id, claim.claim_id}:
+                failures.append(f"CIRCULAR_CHALLENGE_RESOLUTION:{challenge_id}")
+            provenance = ProvenanceClaimQualityGate._get_provenance(
+                resolution.provenance_record_id, ledger, failures
+            )
+            if provenance is not None and provenance.origin is ContributionOrigin.UNKNOWN:
+                failures.append(f"UNKNOWN_RESOLUTION_ORIGIN:{challenge_id}")
+            if claim.revision is not None and resolution.resolution_ref != claim.revision.rationale_ref:
+                failures.append(f"RESOLUTION_REVISION_LINK_MISMATCH:{challenge_id}")
 
     @staticmethod
     def _check_scope_and_transfer(

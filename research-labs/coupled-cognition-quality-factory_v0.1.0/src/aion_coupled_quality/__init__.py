@@ -1,6 +1,8 @@
 from .factory import QualityFactory
 from .claim_quality import (
     ClaimAdmissionDisposition,
+    CanonicalClaimContract,
+    ChallengeResolution,
     ClaimDependency,
     ClaimLevel,
     ClaimQualityAssessment,
@@ -12,6 +14,7 @@ from .claim_quality import (
     ProvenanceClaimQualityGate,
     PublicationClass,
     ResearchClaimRecord,
+    load_canonical_claim_contract,
 )
 from .models import (
     CounterDisposition,
@@ -38,6 +41,8 @@ from .provider_policy import ProhibitedProviderError, assert_provider_allowed
 
 __all__ = [
     "ClaimAdmissionDisposition",
+    "CanonicalClaimContract",
+    "ChallengeResolution",
     "ClaimDependency",
     "ClaimLayer",
     "ClaimLevel",
@@ -65,6 +70,7 @@ __all__ = [
     "QualityFactory",
     "ResearchLot",
     "ResearchClaimRecord",
+    "load_canonical_claim_contract",
     "Severity",
     "StateAttribution",
     "PublicationClass",

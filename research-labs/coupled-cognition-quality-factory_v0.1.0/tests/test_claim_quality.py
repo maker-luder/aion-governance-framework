@@ -1,8 +1,13 @@
 import json
+import shutil
+from dataclasses import fields
 from pathlib import Path
+
+import pytest
 
 from aion_coupled_quality import (
     ClaimAdmissionDisposition,
+    ChallengeResolution,
     ClaimDependency,
     ClaimLayer,
     ClaimLevel,
@@ -23,10 +28,13 @@ from aion_coupled_quality import (
     ResearchClaimRecord,
     ResearchLot,
     Severity,
+    load_canonical_claim_contract,
 )
+from aion_coupled_quality.claim_quality import _ADAPTER_FIELD_MAPPING
 
 
 ROOT = Path(__file__).resolve().parents[1]
+REPOSITORY_ROOT = ROOT.parents[1]
 
 
 def _ledger(*, unknown_claim_origin: bool = False) -> EpistemicProvenanceLedger:
@@ -40,6 +48,24 @@ def _ledger(*, unknown_claim_origin: bool = False) -> EpistemicProvenanceLedger:
             source_refs=(() if unknown_claim_origin else ("fixture:public-safe-observation",)),
         )
     )
+    ledger.add(
+        ContributionRecord(
+            record_id="resolution-provenance",
+            proposition="A review receipt addresses the named challenge.",
+            origin=ContributionOrigin.AI_FORMALIZATION,
+            layer=ClaimLayer.CORRECTION,
+        )
+    )
+    for record_id, source in (("replication-a", "fixture:replication-a"), ("replication-b", "fixture:replication-b")):
+        ledger.add(
+            ContributionRecord(
+                record_id=record_id,
+                proposition="Separated replication provenance.",
+                origin=ContributionOrigin.EXTERNAL_SOURCE,
+                layer=ClaimLayer.SOURCE_REPORT,
+                source_refs=(source,),
+            )
+        )
     ledger.add(
         ContributionRecord(
             record_id="support-provenance",
@@ -60,7 +86,7 @@ def _ledger(*, unknown_claim_origin: bool = False) -> EpistemicProvenanceLedger:
     return ledger
 
 
-def _lot(*, final_qa: bool = True) -> ResearchLot:
+def _lot(*, final_qa: bool = True, second_support: bool = False) -> ResearchLot:
     lot = ResearchLot(lot_id="LOT-1", claim="bounded observation claim", risk=Severity.MEDIUM)
     factory = QualityFactory(lot)
     factory.set_falsifier("A matched observation contradicts the proposed distinction.")
@@ -73,6 +99,16 @@ def _lot(*, final_qa: bool = True) -> ResearchLot:
             independent_of_current_pair=True,
         )
     )
+    if second_support:
+        factory.add_evidence(
+            Evidence(
+                evidence_id="E-2",
+                kind=EvidenceKind.EXTERNAL_PRIMARY,
+                reference="fixture:replication-b",
+                supports_claim=True,
+                independent_of_current_pair=True,
+            )
+        )
     factory.add_counterevidence(
         CounterEvidenceItem(
             item_id="C-1",
@@ -130,6 +166,7 @@ def _assess(
         lot=lot or _lot(),
         evidence_bindings=bindings or _bindings(),
         known_claims=known_claims,
+        repository_root=REPOSITORY_ROOT,
     )
 
 
@@ -211,7 +248,13 @@ def test_resolved_challenge_retains_the_link() -> None:
         ),
     )
     result = _assess(
-        _claim(challenging_evidence_ids=("C-1",), resolved_challenge_ids=("C-1",)),
+        _claim(
+            challenging_evidence_ids=("C-1",),
+            resolved_challenge_ids=("C-1",),
+            challenge_resolutions=(
+                ChallengeResolution("C-1", "CLAIM-1", 1, "fixture:resolution", "resolution-provenance"),
+            ),
+        ),
         bindings=bindings,
     )
     assert result.disposition is ClaimAdmissionDisposition.ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD
@@ -222,10 +265,179 @@ def test_observation_cannot_be_promoted_to_mechanism_without_intervention() -> N
     assert "MECHANISM_PROMOTION_REQUIRES_INTERVENTION_SENSITIVE_EVIDENCE" in result.reasons
 
 
-def test_observed_evidence_must_be_bound_as_support() -> None:
+def test_observed_evidence_must_have_a_binding_but_need_not_be_support() -> None:
     result = _assess(_claim(observed_evidence_ids=("UNBOUND",)))
     assert "MISSING_EVIDENCE_BINDING:UNBOUND" in result.reasons
-    assert "OBSERVATION_NOT_BOUND_AS_SUPPORT:UNBOUND" in result.reasons
+
+    observed = EvidenceBinding(
+        evidence_id="O-1",
+        provenance_record_id="support-provenance",
+        relation=EvidenceRelation.OBSERVES,
+        publication_class=PublicationClass.PUBLIC_SAFE,
+    )
+    separated = _assess(_claim(observed_evidence_ids=("O-1",)), bindings=_bindings() + (observed,))
+    assert separated.disposition is ClaimAdmissionDisposition.ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD
+
+
+def test_same_author_same_runtime_repeats_do_not_reach_l4() -> None:
+    bindings = tuple(
+        EvidenceBinding(
+            evidence_id=evidence_id,
+            provenance_record_id="support-provenance",
+            relation=EvidenceRelation.SUPPORTS,
+            publication_class=PublicationClass.PUBLIC_SAFE,
+            intervention_sensitive=True,
+            held_out=True,
+            repeated=True,
+            producer_ref="same-author",
+            runtime_or_context_ref="same-runtime",
+            replication_source_ref=f"fixture:{evidence_id}",
+            replication_provenance_record_id=provenance,
+        )
+        for evidence_id, provenance in (("E-1", "replication-a"), ("E-2", "replication-b"))
+    )
+    result = _assess(
+        _claim(claim_level=ClaimLevel.L4_ROBUST_REPLICATION, supporting_evidence_ids=("E-1", "E-2")),
+        lot=_lot(second_support=True),
+        bindings=bindings,
+    )
+    assert "L4_REQUIRES_DISTINCT_PRODUCERS" in result.reasons
+    assert "L4_REQUIRES_DISTINCT_RUNTIME_OR_CONTEXT" in result.reasons
+
+
+def test_l4_separation_is_structurally_admissible_not_scientific_truth() -> None:
+    bindings = tuple(
+        EvidenceBinding(
+            evidence_id=evidence_id,
+            provenance_record_id="support-provenance",
+            relation=EvidenceRelation.SUPPORTS,
+            publication_class=PublicationClass.PUBLIC_SAFE,
+            intervention_sensitive=True,
+            held_out=True,
+            repeated=True,
+            producer_ref=producer,
+            runtime_or_context_ref=runtime,
+            replication_source_ref=f"fixture:{evidence_id}",
+            replication_provenance_record_id=provenance,
+        )
+        for evidence_id, producer, runtime, provenance in (
+            ("E-1", "producer-a", "runtime-a", "replication-a"),
+            ("E-2", "producer-b", "runtime-b", "replication-b"),
+        )
+    )
+    result = _assess(
+        _claim(claim_level=ClaimLevel.L4_ROBUST_REPLICATION, supporting_evidence_ids=("E-1", "E-2")),
+        lot=_lot(second_support=True),
+        bindings=bindings,
+    )
+    assert result.disposition is ClaimAdmissionDisposition.ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD
+    assert result.scientific_disposition == "HOLD"
+    assert result.subjectivity == "NOT_ESTABLISHED"
+
+
+def test_resolved_marker_without_traceable_resolution_holds() -> None:
+    binding = EvidenceBinding(
+        "C-1", "challenge-provenance", EvidenceRelation.CHALLENGES, PublicationClass.PUBLIC_SAFE
+    )
+    result = _assess(
+        _claim(challenging_evidence_ids=("C-1",), resolved_challenge_ids=("C-1",)),
+        bindings=_bindings() + (binding,),
+    )
+    assert "MISSING_CHALLENGE_RESOLUTION_EVIDENCE:C-1" in result.reasons
+
+
+def test_stale_unrelated_unknown_and_circular_resolutions_hold() -> None:
+    binding = EvidenceBinding(
+        "C-1", "challenge-provenance", EvidenceRelation.CHALLENGES, PublicationClass.PUBLIC_SAFE
+    )
+    ledger = _ledger()
+    ledger.add(
+        ContributionRecord(
+            record_id="unknown-resolution",
+            proposition="Unknown resolution source.",
+            origin=ContributionOrigin.UNKNOWN,
+            layer=ClaimLayer.CORRECTION,
+        )
+    )
+    cases = (
+        (ChallengeResolution("C-1", "OTHER", 1, "fixture:resolution", "resolution-provenance"), "STALE_OR_UNRELATED_CHALLENGE_RESOLUTION:C-1"),
+        (ChallengeResolution("C-1", "CLAIM-1", 2, "fixture:resolution", "resolution-provenance"), "STALE_OR_UNRELATED_CHALLENGE_RESOLUTION:C-1"),
+        (ChallengeResolution("C-1", "CLAIM-1", 1, "fixture:resolution", "unknown-resolution"), "UNKNOWN_RESOLUTION_ORIGIN:C-1"),
+        (ChallengeResolution("C-1", "CLAIM-1", 1, "C-1", "resolution-provenance"), "CIRCULAR_CHALLENGE_RESOLUTION:C-1"),
+    )
+    for resolution, expected in cases:
+        result = _assess(
+            _claim(
+                challenging_evidence_ids=("C-1",),
+                resolved_challenge_ids=("C-1",),
+                challenge_resolutions=(resolution,),
+            ),
+            bindings=_bindings() + (binding,),
+            ledger=ledger,
+        )
+        assert expected in result.reasons
+
+
+def test_resolution_must_link_to_the_claim_revision() -> None:
+    binding = EvidenceBinding(
+        "C-1", "challenge-provenance", EvidenceRelation.CHALLENGES, PublicationClass.PUBLIC_SAFE
+    )
+    prior = _claim()
+    claim = _claim(
+        version=2,
+        status=ClaimStatus.REVISED,
+        challenging_evidence_ids=("C-1",),
+        resolved_challenge_ids=("C-1",),
+        challenge_resolutions=(
+            ChallengeResolution(
+                "C-1", "CLAIM-1", 2, "fixture:unrelated-review", "resolution-provenance"
+            ),
+        ),
+        revision=ClaimRevision(
+            "CLAIM-1", 1, 2, ("statement",), "fixture:actual-revision-receipt"
+        ),
+    )
+    result = _assess(claim, bindings=_bindings() + (binding,), known_claims=(prior,))
+    assert "RESOLUTION_REVISION_LINK_MISMATCH:C-1" in result.reasons
+
+
+def test_adapter_contract_is_bound_to_canonical_schema_and_protocol() -> None:
+    contract = load_canonical_claim_contract(REPOSITORY_ROOT)
+    assert contract.schema_version == "0.2.0"
+    assert contract.claim_levels == tuple(item.value for item in ClaimLevel)
+    assert {name for name, _ in contract.adapter_field_mapping} == {
+        item.name for item in fields(ResearchClaimRecord)
+    }
+
+
+def test_adapter_contract_fails_on_schema_or_mapping_drift(tmp_path: Path) -> None:
+    (tmp_path / "schemas").mkdir()
+    (tmp_path / "docs").mkdir()
+    shutil.copy(REPOSITORY_ROOT / "schemas/research_evidence_record_v0.2.0.schema.json", tmp_path / "schemas")
+    shutil.copy(REPOSITORY_ROOT / "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md", tmp_path / "docs")
+    schema_path = tmp_path / "schemas/research_evidence_record_v0.2.0.schema.json"
+    schema = json.loads(schema_path.read_text())
+    schema["properties"]["claim_level"]["enum"].append("L6_UNDEFINED")
+    schema_path.write_text(json.dumps(schema))
+    with pytest.raises(Exception, match="CLAIM_LEVEL_MAPPING_DRIFT"):
+        load_canonical_claim_contract(tmp_path)
+
+    shutil.copy(REPOSITORY_ROOT / "schemas/research_evidence_record_v0.2.0.schema.json", schema_path)
+    missing = dict(_ADAPTER_FIELD_MAPPING)
+    missing.pop("claim_id")
+    with pytest.raises(Exception, match="ADAPTER_FIELD_MAPPING_INCOMPLETE"):
+        load_canonical_claim_contract(tmp_path, field_mapping=missing)
+    unsupported = dict(_ADAPTER_FIELD_MAPPING)
+    unsupported["claim_id"] = "imaginary_semantics.claim_id"
+    with pytest.raises(Exception, match="UNSUPPORTED_FIELD_SEMANTICS"):
+        load_canonical_claim_contract(tmp_path, field_mapping=unsupported)
+
+
+def test_gate_holds_without_canonical_binding() -> None:
+    result = ProvenanceClaimQualityGate().assess(
+        _claim(), ledger=_ledger(), lot=_lot(), evidence_bindings=_bindings()
+    )
+    assert "MISSING_CANONICAL_SCHEMA_PROTOCOL_BINDING" in result.reasons
 
 
 def test_mechanism_cannot_be_promoted_to_phenomenology_or_subjectivity() -> None:

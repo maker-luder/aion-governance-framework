@@ -72,8 +72,20 @@ naturalistic case; and a causal learning inference from an isolated transfer
 observation. A successful result means only
 `ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD`.
 
+The Python records are typed admission views over the repository-native v0.2
+research-evidence schema and subjectivity protocol. Every assessment requires a
+live schema/protocol binding and rejects claim-level, field-mapping, version or
+method-reference drift. L4 additionally requires traceable producer and
+runtime/context separation; same-author, same-runtime repetitions cannot qualify.
+Challenge-resolution markers require current-claim linkage, a resolution reference
+and non-unknown provenance. Observation remains distinct from support, challenge,
+neutral and unresolved evidence relations.
+
 ```text
 QUALITY_GATE_PASS != SCIENTIFIC_VALIDATION
+ADAPTER != CANONICAL_SCHEMA
+RESOLVED_CHALLENGE_MARKER != VALIDATED_CHALLENGE_RESOLUTION
+SAME_AUTHOR_RERUN != INDEPENDENT_REPLICATION
 NATURALISTIC_OBSERVATION != CAUSAL_IDENTIFICATION
 TRANSFER_CANDIDATE != STABLE_SKILL_ACQUISITION
 MECHANISM != PHENOMENAL_EXPERIENCE
