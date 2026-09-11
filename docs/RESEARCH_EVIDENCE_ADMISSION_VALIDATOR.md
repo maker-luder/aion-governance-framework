@@ -61,15 +61,50 @@ independent_ivv = NOT_ACHIEVED
 
 ## Local-reference validation
 
-The validator walks fields ending in `_ref` and `_refs`. For references using an approved repository-local prefix—such as `components/`, `examples/`, `research-labs/`, `docs/`, `qa/`, `scripts/`, `schemas/`, or `.github/`—it checks that the referenced path exists in the inspected repository. Fragment identifiers after `#` are ignored for the filesystem existence check.
+The validator walks fields ending in `_ref` and `_refs`. Repository-relative
+path-shaped references (including `experiments/`, `./docs/`, and root filenames
+with extensions) must resolve inside the repository. Absolute paths, Windows
+paths, `file:` URIs and escaping symlinks are rejected. Fragments after `#` are
+ignored for filesystem checks. Bare identifiers without a slash or dot and
+non-file URI references remain opaque; they are never fetched or claimed verified.
+A local reference may name a directory for a runtime, but a completed protocol
+must name a regular file.
 
-Missing local evidence references are diagnostics. External or non-local references are not silently treated as local files; their existence and evidential meaning remain separate review questions.
+## Protocol byte binding
+
+Completed records (including negative, null and contradictory results) must bind
+`protocol_hash` to SHA-256 of the exact retained protocol file bytes. Hashing uses
+binary bytes, without newline normalization; a fragment still binds the whole
+file. External protocols must first be retained lawfully with separate source
+provenance and referenced locally. A missing, mismatched or unverifiable completed
+protocol fails admission and therefore blocks the existing Evidence Interop export.
+
+The additive `protocol_binding` output distinguishes `VERIFIED`, `MISMATCH`,
+`UNVERIFIED`, `DEFERRED` and `NOT_CHECKED`. `NOT_RUN` and `HOLD` retain structural
+validation with `DEFERRED`; this does not mean their digest was verified. Unreadable
+record/schema input returns `HOLD` and `NOT_CHECKED`. Completed records also fail
+when no exact lowercase 40-hex inspected head is available. An explicitly supplied
+head remains a caller-specified comparison target, not proof of a clean checkout;
+use the existing source-state binding control for that separate check.
+
+```text
+PROTOCOL_BYTES_MATCH != PREREGISTRATION_TIME_VERIFIED
+PROTOCOL_BYTES_MATCH != PROTOCOL_WAS_ACTUALLY_EXECUTED
+PROTOCOL_BYTES_MATCH != EVIDENCE_TRUE
+PROTOCOL_BYTES_MATCH != SUBJECTIVITY_ESTABLISHED
+```
+
+This is a deliberate tightening for completed records. Old synthetic placeholder
+hashes are not silently repaired. Their original records remain intact and must
+be requalified with genuine protocol bytes before completed-record admission.
+The check assumes a stable local workspace during inspection; it is not a
+filesystem transaction or protection against concurrent adversarial file swaps.
 
 ## PASS / HOLD / FAIL semantics
 
 | Status | Meaning | What it does not mean |
 |---|---|---|
-| `PASS` | The record and schema are structurally valid, local references resolve, exact-head binding is satisfied or explicitly deferred, and `canonical_effect` remains `NONE`. | It does not mean the evidence is true, replicated, accepted, canonical, or independently validated. |
+| `PASS` | The record and schema are structurally valid, local references resolve, completed protocol byte binding and exact-head binding are satisfied or explicitly deferred, and `canonical_effect` remains `NONE`. | It does not mean the evidence is true, replicated, accepted, canonical, or independently validated. |
 | `HOLD` | The schema or record is missing, malformed as a JSON object, or otherwise unavailable for a meaningful inspection. | It is not an automatic scientific downgrade or a permission to bypass review. |
 | `FAIL` | The record is inspectable but has schema errors, missing local references, an invalid completed-record source binding, or an open canonical boundary. | It does not identify a universal research interpretation or authorize a replacement governance band. |
 
@@ -115,3 +150,6 @@ VALIDATOR_PASS != INDEPENDENT_IVV
 ```
 
 The validator is a public engineering control for evidence structure and provenance. It is not a subjectivity detector, identity proof, consciousness classifier, moral-status classifier, release approval, deployment gate, or canonicalization mechanism.
+
+The dated [2026-09-11 gap audit](research/REPOSITORY_GAP_AUDIT_2026_09_11.md)
+records the protocol-binding correction, external sources and remaining limits.

@@ -1,24 +1,16 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import re
 import subprocess
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any, Iterable
+from urllib.parse import urlsplit
 
 SCHEMA_RELATIVE = "schemas/research_evidence_record_v0.2.0.schema.json"
-LOCAL_PREFIXES = (
-    "components/",
-    "examples/",
-    "research-labs/",
-    "research-workbench/",
-    "docs/",
-    "qa/",
-    "scripts/",
-    "schemas/",
-    ".github/",
-)
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,12 +22,14 @@ class EvidenceValidation:
     canonical_effect: str = "NONE"
     deployment: bool = False
     independent_ivv: str = "NOT_ACHIEVED"
+    protocol_binding: str = "NOT_CHECKED"
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "record_ref": self.record_ref,
             "status": self.status,
             "diagnostics": list(self.diagnostics),
+            "protocol_binding": self.protocol_binding,
             "mutation_performed": self.mutation_performed,
             "canonical_effect": self.canonical_effect,
             "deployment": self.deployment,
@@ -55,8 +49,8 @@ def _git_head(root: Path) -> str:
 def _load_json(path: Path) -> tuple[Any | None, str | None]:
     try:
         return json.loads(path.read_text(encoding="utf-8")), None
-    except FileNotFoundError:
-        return None, f"missing JSON file: {path}"
+    except (OSError, UnicodeError) as exc:
+        return None, f"unavailable JSON file: {path}: {type(exc).__name__}"
     except json.JSONDecodeError as exc:
         return None, f"invalid JSON: {path}: {exc}"
 
@@ -82,18 +76,45 @@ def _iter_declared_refs(value: Any, key: str | None = None) -> Iterable[str]:
                 yield item
 
 
-def _local_ref_exists(root: Path, value: str) -> bool:
+def _local_path(root: Path, value: str) -> Path | None:
+    """Resolve relative paths; URI references are opaque and never downloaded."""
     candidate = value.split("#", 1)[0]
-    if not candidate.startswith(LOCAL_PREFIXES):
-        return True
-    root = root.resolve()
-    candidate_path = root / candidate
+    if not candidate or "\\" in candidate or PureWindowsPath(candidate).drive:
+        raise ValueError("invalid repository-relative reference")
+    parsed = urlsplit(candidate)
+    if parsed.scheme == "file" or Path(candidate).is_absolute():
+        raise ValueError("reference must be repository-relative")
+    if parsed.scheme or ("/" not in candidate and "." not in candidate):
+        return None
+    resolved = (root / candidate).resolve(strict=True)
+    resolved.relative_to(root.resolve())
+    return resolved
+
+
+def _local_ref_exists(root: Path, value: str) -> bool:
     try:
-        resolved = candidate_path.resolve(strict=True)
-        resolved.relative_to(root)
-    except (OSError, ValueError):
+        _local_path(root, value)
+    except (OSError, ValueError, RuntimeError):
         return False
     return True
+
+
+def _protocol_binding(root: Path, record: dict[str, Any]) -> tuple[str, str | None]:
+    if str(record.get("result_status")) in {"NOT_RUN", "HOLD"}:
+        return "DEFERRED", None
+    try:
+        protocol = _local_path(root, str(record.get("protocol_ref", "")))
+        if protocol is None:
+            return "UNVERIFIED", "completed protocol requires a retained repository-local file"
+        if not protocol.is_file():
+            return "UNVERIFIED", "completed protocol reference must resolve to a regular file"
+        with protocol.open("rb") as stream:
+            digest = hashlib.file_digest(stream, "sha256").hexdigest()
+    except (OSError, ValueError, RuntimeError):
+        return "UNVERIFIED", "completed protocol bytes are unavailable or outside repository"
+    if digest != record.get("protocol_hash"):
+        return "MISMATCH", "protocol_hash does not match exact protocol file bytes"
+    return "VERIFIED", None
 
 
 def _schema_diagnostics(schema: dict[str, Any], record: dict[str, Any]) -> list[str]:
@@ -108,7 +129,7 @@ def _schema_diagnostics(schema: dict[str, Any], record: dict[str, Any]) -> list[
     validator = Draft202012Validator(schema)
     return [
         f"schema validation: {error.message}"
-        for error in sorted(validator.iter_errors(record), key=lambda item: list(item.absolute_path))
+        for error in sorted(validator.iter_errors(record), key=lambda item: tuple(str(part) for part in item.absolute_path))
     ]
 
 
@@ -142,9 +163,15 @@ def validate_record(
     inspected_head = expected_head if expected_head is not None else _git_head(root)
     code_commit = str(record.get("code_commit", ""))
     result_status = str(record.get("result_status", ""))
-    if inspected_head and inspected_head != "UNSPECIFIED" and code_commit != inspected_head:
-        if result_status not in {"NOT_RUN", "HOLD"}:
+    if result_status not in {"NOT_RUN", "HOLD"}:
+        if re.fullmatch(r"[0-9a-f]{40}", inspected_head or "") is None:
+            diagnostics.append("completed record requires an exact inspected head")
+        elif code_commit != inspected_head:
             diagnostics.append("completed record code_commit is not bound to the inspected head")
+
+    protocol_binding, protocol_error = _protocol_binding(root, record)
+    if protocol_error:
+        diagnostics.append(protocol_error)
 
     if record.get("canonical_effect") != "NONE":
         diagnostics.append("canonical_effect must remain NONE")
@@ -153,6 +180,7 @@ def validate_record(
         "PASS" if not diagnostics else "FAIL",
         record_ref,
         tuple(diagnostics),
+        protocol_binding=protocol_binding,
     )
 
 
