@@ -20,6 +20,7 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 - [`LOCAL_RESOURCE_AND_ENVIRONMENT.md`](LOCAL_RESOURCE_AND_ENVIRONMENT.md) — distinguish resource limits, missing prerequisites and program defects.
 - [`research/REPOSITORY_GAP_AUDIT_2026_09_02.md`](research/REPOSITORY_GAP_AUDIT_2026_09_02.md) — dated whole-tree intake, repaired gaps and unresolved research needs.
 - [`research/sources/subjectivity/README.md`](research/sources/subjectivity/README.md) — licensed core research source snapshots and existing-schema candidate records.
+- [`research/sources/quality/README.md`](research/sources/quality/README.md) — bounded derivative NIST/FDA quality-method cards, exact upstream receipts and existing-schema candidate records.
 - [`QUICKSTART.md`](QUICKSTART.md) — deterministic inspection-only Evidence Interop export.
 - [`API.md`](API.md) — current public-interface classification.
 - [`EXAMPLES.md`](EXAMPLES.md) — runnable example map.
@@ -32,6 +33,14 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 ## Current research core
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
+
+### Latest Four-Domain subjectivity and quality deepening — PR #98 / #99 / #100
+
+- [`research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md) — exact-PR cross-read; testable AI-subjectivity possibility; typed Four-Domain admission; automated source-to-final-QA, NCR/CAPA and claim-control trace; external Human-review boundary.
+- [`../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md) — executable contract and fail-closed outcomes.
+
+The strongest implemented quality outcome is `READY_FOR_HUMAN_REVIEW`, not release or
+scientific validation. `SUBJECTIVITY=NOT_ESTABLISHED`; `CANONICAL_EFFECT=NONE`.
 
 ### Latest bounded convergence — 2026-09-11 / 2026-09-12
 

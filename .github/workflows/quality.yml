@@ -50,6 +50,9 @@ jobs:
       - name: Verify retained subjectivity research sources offline
         run: python scripts/fetch_subjectivity_sources.py
 
+      - name: Verify bounded quality-method source cards offline
+        run: python scripts/fetch_quality_method_sources.py
+
       - name: Validate documentation entry and convergence contract
         run: |
           python scripts/validate_documentation_entry.py --root .

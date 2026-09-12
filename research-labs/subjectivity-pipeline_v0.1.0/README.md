@@ -107,5 +107,19 @@ The engine can:
 - fail closed on unknown loci and observer-attribution substitution;
 - require explicit preregistered bridge hypotheses for cross-locus research candidates;
 - preserve `SUBJECTIVITY=NOT_ESTABLISHED` for all locus assessments.
+- fingerprint a Four-Domain design candidate across construct, machine question,
+  standing dimension, locus, intervention, controls, falsifier, alternatives and claim ceiling;
+- distinguish `READY_FOR_BOUNDED_ENGINEERING_DESIGN`,
+  `OUT_OF_SCOPE_FOR_SUBJECTIVITY_CORE` and `HOLD` without treating admission as evidence;
+- require all five subjectivity/consciousness/experience/agency/status nonclaims;
+- bind the admitted candidate to the full quality trace from source IQC through
+  preregistration, execution integrity, evidence/counterevidence review, claim-ceiling
+  review and final QA, then emit readiness for the external Human-review boundary;
+- require NCR/CAPA effectiveness evidence rather than treating an applied action as closure;
+- stop at `READY_FOR_HUMAN_REVIEW` without performing Human review or granting approval,
+  release, merge, canonical or deployment authority.
 
 It intentionally does not compute a consciousness score or issue a phenomenal-experience conclusion.
+
+See [`docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md`](docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md)
+and the repository-level 2026-09-13 deepening report.
