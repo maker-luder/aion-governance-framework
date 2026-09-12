@@ -21,6 +21,8 @@ The Human Owner explicitly clarified the intended division of labor:
 - ChatGPT Teacher should not silently take over large implementation merely because it is technically capable of repository mutation;
 - documentation-only recording, scoped review actions, provenance repair, and explicitly authorized governance operations remain separate from large executable implementation.
 
+The Human Owner further clarified the historical reason for this division: before Codex and ChatGPT Work were used as implementation-focused collaborators, GitHub/repository checks helped provide QA evidence around changes; over time, the workflow evolved so that Codex and Work absorb substantial execution while the Human Owner and ChatGPT Teacher preserve the independent review/QA side. The key invariant is separation of implementation from review, not a claim that GitHub itself was or is a human-equivalent reviewer.
+
 The motivation supplied by the Human Owner is operational rather than ontological: repeated observation suggested that large code-writing workloads can cause ChatGPT Teacher to lose the intended review/QA role or drift away from the research question. The response is therefore role separation and externalization, not a claim that one AI system is intrinsically incapable of coding.
 
 ## CHATGPT_TEACHER_FORMALIZATION
