@@ -212,6 +212,50 @@ def test_closed_capa_requires_effectiveness_evidence():
     assert ResearchQualityChainEngine().assess(admission, chain).disposition is ResearchQualityDisposition.CAPA_REQUIRED
 
 
+def test_defect_must_link_to_exact_ncr_and_ncr_ids_are_unique():
+    admission = FourDomainAdmissionEngine().assess(candidate())
+    closed = CapaRecord(
+        ncr_id="NCR-OTHER",
+        state=CapaState.CLOSED,
+        root_cause="unrelated source drift",
+        corrective_action="correct unrelated source state",
+        preventive_action="add unrelated source digest",
+        effectiveness_test="inject unrelated drift",
+        verification_refs=("tests/unrelated-regression.json",),
+    )
+    unlinked = ResearchQualityChainEngine().assess(
+        admission,
+        quality_chain(admission, checkpoints=checkpoints(defect=True), capa_records=(closed,)),
+    )
+    assert unlinked.disposition is ResearchQualityDisposition.CAPA_REQUIRED
+    assert any("DEFECT_WITHOUT_LINKED_NCR:NCR-001" in reason for reason in unlinked.reasons)
+
+    duplicate = ResearchQualityChainEngine().assess(
+        admission,
+        quality_chain(admission, capa_records=(closed, closed)),
+    )
+    assert duplicate.disposition is ResearchQualityDisposition.HOLD
+    assert "DUPLICATE_NCR_ID" in duplicate.reasons
+
+
+def test_blank_capa_effectiveness_reference_is_incomplete():
+    admission = FourDomainAdmissionEngine().assess(candidate())
+    closed = CapaRecord(
+        ncr_id="NCR-001",
+        state=CapaState.CLOSED,
+        root_cause="source-state drift",
+        corrective_action="bind exact source state",
+        preventive_action="add digest check",
+        effectiveness_test="inject stale digest",
+        verification_refs=("",),
+    )
+    assessment = ResearchQualityChainEngine().assess(
+        admission,
+        quality_chain(admission, capa_records=(closed,)),
+    )
+    assert assessment.disposition is ResearchQualityDisposition.CAPA_REQUIRED
+
+
 def test_closed_verified_capa_allows_human_review_when_checkpoints_pass():
     admission = FourDomainAdmissionEngine().assess(candidate())
     closed = CapaRecord(

@@ -327,6 +327,17 @@ class ResearchQualityChainEngine:
             if record.defect_refs and not chain.capa_records:
                 reasons.append(f"{record.checkpoint.value}_DEFECT_WITHOUT_NCR_CAPA")
 
+        ncr_ids = [record.ncr_id for record in chain.capa_records]
+        if len(ncr_ids) != len(set(ncr_ids)):
+            reasons.append("DUPLICATE_NCR_ID")
+        linked_ncr_ids = set(ncr_ids)
+        for checkpoint in chain.checkpoints:
+            unlinked = sorted(set(checkpoint.defect_refs) - linked_ncr_ids)
+            if unlinked:
+                reasons.append(
+                    f"{checkpoint.checkpoint.value}_DEFECT_WITHOUT_LINKED_NCR:" + ",".join(unlinked)
+                )
+
         capa_incomplete = False
         for record in chain.capa_records:
             if not record.ncr_id.strip():
@@ -341,7 +352,11 @@ class ResearchQualityChainEngine:
                 record.preventive_action,
                 record.effectiveness_test,
             )
-            if any(not value.strip() for value in required) or not record.verification_refs:
+            if (
+                any(not value.strip() for value in required)
+                or not record.verification_refs
+                or any(not value.strip() for value in record.verification_refs)
+            ):
                 reasons.append(f"CAPA_EFFECTIVENESS_EVIDENCE_INCOMPLETE:{record.ncr_id}")
                 capa_incomplete = True
 
@@ -364,7 +379,12 @@ class ResearchQualityChainEngine:
         if structural_hold:
             return ResearchQualityAssessment(chain.chain_id, ResearchQualityDisposition.HOLD, tuple(reasons))
 
-        checkpoint_failure = any(reason.endswith("_NOT_PASS") or "DEFECT_WITHOUT_NCR_CAPA" in reason for reason in reasons)
+        checkpoint_failure = any(
+            reason.endswith("_NOT_PASS")
+            or "DEFECT_WITHOUT_NCR_CAPA" in reason
+            or "DEFECT_WITHOUT_LINKED_NCR" in reason
+            for reason in reasons
+        )
         if capa_incomplete or checkpoint_failure:
             return ResearchQualityAssessment(
                 chain.chain_id,

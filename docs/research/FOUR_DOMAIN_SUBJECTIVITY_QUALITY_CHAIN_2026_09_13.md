@@ -280,6 +280,8 @@ Automated tests now establish that the implementation fails closed for:
 - a defect without NCR/CAPA;
 - an applied but unverified CAPA;
 - a closed CAPA without effectiveness evidence;
+- a checkpoint defect that does not link to the exact NCR identifier;
+- duplicate NCR identifiers or blank effectiveness references;
 - canonical or deployment-effect attempts;
 - quality-card tampering, path escape, source-host drift and registry promotion.
 
