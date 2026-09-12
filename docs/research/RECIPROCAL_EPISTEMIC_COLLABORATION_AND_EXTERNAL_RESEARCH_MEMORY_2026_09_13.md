@@ -15,6 +15,8 @@ This note records a Human Owner observation and a bounded research formalization
 
 The Human Owner's current metaphor is that the repository has become a **large research library**: if a detail is forgotten later, or a new external Human/AI collaborator re-enters the project, the surviving artifacts should make the earlier work recoverable and challengeable.
 
+The repository also now records a separate local role-allocation note at [`HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md`](HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md): Human Owner + ChatGPT Teacher primarily hold review/QA/research-boundary roles, while Codex and ChatGPT Work are the preferred implementation/execution agents for substantial executable work. This is an operational anti-drift rule, not a universal capability claim.
+
 This note does **not** claim that a Git repository is biological memory, that an AI has autobiographical memory, that repository persistence proves identity continuity, or that reciprocal correction is rare among users.
 
 ```text
@@ -44,7 +46,8 @@ The Human Owner supplied the following observations and research motivations:
 - the repository is intentionally being used as a long-lived external place where experiments, research notes, disagreements, rules and provenance can be found again later;
 - this externalization matters because a Human may forget, an account may change, an AI collaborator may change, and later participants may re-enter from an external position;
 - the original research motivation included making work externally inspectable rather than leaving it only inside private conversation;
-- a later re-entry may produce a different route through the material without requiring the original conversational state to survive.
+- a later re-entry may produce a different route through the material without requiring the original conversational state to survive;
+- substantial coding and mutation-heavy implementation should normally be handed to Codex or ChatGPT Work, while the Human Owner and ChatGPT Teacher preserve independent review/QA, provenance, claim-boundary and governance roles.
 
 The exact phrase `REPOSITORY_AS_EXTERNAL_EPISTEMIC_MEMORY_SCAFFOLD` is **not** attributed to the Human Owner.
 
@@ -57,7 +60,8 @@ ChatGPT Teacher formalized the current observation into:
 - `EXTERNAL_EPISTEMIC_MEMORY_SCAFFOLD`;
 - `REENTRY_RECOVERABILITY`;
 - separation of document persistence, discoverability, retrieval and causal activation;
-- candidate future tests for whether repository artifacts reduce re-grounding cost without silently substituting stored text for understanding.
+- candidate future tests for whether repository artifacts reduce re-grounding cost without silently substituting stored text for understanding;
+- explicit separation of `CAPABILITY_TO_IMPLEMENT` from `ASSIGNED_ROLE_TO_IMPLEMENT`.
 
 External literature below supplies comparison constructs only. Conceptual similarity does not establish mechanism identity or novelty.
 
@@ -294,7 +298,10 @@ When a separate fresh Human Owner instruction is later given, Codex should first
 - `EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md`;
 - the governance re-entry audit and discoverability distinctions;
 - current Four-Domain and claim-quality controls;
+- `HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md`;
 - this note and any newer main changes.
+
+Under the recorded role separation, Codex is the preferred coding-focused implementation agent. ChatGPT Work may also own long-running multi-step execution when separately instructed. ChatGPT Teacher and the Human Owner remain the primary research/QA reviewers unless a fresh instruction explicitly changes scope.
 
 Codex should **not** assume that new code is required. Acceptable outcomes include `NO_IMPLEMENTATION_YET` if the existing harness already supports the strongest useful test.
 
@@ -337,6 +344,7 @@ Not permitted from that result:
 6. What evidence distinguishes successful retrieval from causal activation of a rule?
 7. Can another AI or human reviewer independently reconstruct the same research boundary from the repository?
 8. Which parts of the collaboration remain deliberately non-reconstructible because private dialogue should not be published?
+9. Does explicit role separation reduce implementation/review drift without creating unnecessary handoff overhead?
 
 ## 11. Current disposition
 
@@ -345,6 +353,7 @@ RECIPROCAL_CORRECTION_AS_RESEARCH_IDEA = ESTABLISHED_IN_ADJACENT_LITERATURE
 THIS_EXACT_COLLABORATION_PROTOCOL = LOCAL_CANDIDATE
 POPULATION_RARITY = UNKNOWN
 REPOSITORY_AS_EXTERNAL_EPISTEMIC_MEMORY_SCAFFOLD = CHATGPT_TEACHER_FORMALIZATION
+ROLE_SEPARATION = HUMAN_OWNER_EXPLICIT_LOCAL_RULE
 HISTORICAL_METHOD_CONTINUITY = SUPPORTED
 EXACT_EARLIEST_WORDING = NOT_ESTABLISHED
 FUTURE_IMPLEMENTATION = DEFERRED
