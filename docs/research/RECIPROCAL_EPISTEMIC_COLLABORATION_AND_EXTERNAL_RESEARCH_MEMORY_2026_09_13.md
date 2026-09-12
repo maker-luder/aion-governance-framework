@@ -15,7 +15,7 @@ This note records a Human Owner observation and a bounded research formalization
 
 The Human Owner's current metaphor is that the repository has become a **large research library**: if a detail is forgotten later, or a new external Human/AI collaborator re-enters the project, the surviving artifacts should make the earlier work recoverable and challengeable.
 
-The repository also now records a separate local role-allocation note at [`HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md`](HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md): Human Owner + ChatGPT Teacher primarily hold review/QA/research-boundary roles, while Codex and ChatGPT Work are the preferred implementation/execution agents for substantial executable work. This is an operational anti-drift rule, not a universal capability claim.
+The repository also now records a separate local role-allocation note at [`HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md`](HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md): Human Owner + ChatGPT Teacher primarily hold review/QA/research-boundary roles, while Codex and ChatGPT Work are the preferred implementation/execution agents for substantial executable work. GitHub Actions and repository checks supply automated QA evidence but do not replace Human review or Human Owner authority. This is an operational anti-drift rule, not a universal capability claim.
 
 This note does **not** claim that a Git repository is biological memory, that an AI has autobiographical memory, that repository persistence proves identity continuity, or that reciprocal correction is rare among users.
 
@@ -47,7 +47,8 @@ The Human Owner supplied the following observations and research motivations:
 - this externalization matters because a Human may forget, an account may change, an AI collaborator may change, and later participants may re-enter from an external position;
 - the original research motivation included making work externally inspectable rather than leaving it only inside private conversation;
 - a later re-entry may produce a different route through the material without requiring the original conversational state to survive;
-- substantial coding and mutation-heavy implementation should normally be handed to Codex or ChatGPT Work, while the Human Owner and ChatGPT Teacher preserve independent review/QA, provenance, claim-boundary and governance roles.
+- substantial coding and mutation-heavy implementation should normally be handed to Codex or ChatGPT Work, while the Human Owner and ChatGPT Teacher preserve independent review/QA, provenance, claim-boundary and governance roles;
+- repository/GitHub checks historically functioned as part of the QA evidence path and continue to supplement, not replace, the Human + Teacher review layer.
 
 The exact phrase `REPOSITORY_AS_EXTERNAL_EPISTEMIC_MEMORY_SCAFFOLD` is **not** attributed to the Human Owner.
 
