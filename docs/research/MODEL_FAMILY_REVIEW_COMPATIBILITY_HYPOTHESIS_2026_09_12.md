@@ -14,9 +14,9 @@ This note records a bounded meta-research hypothesis about AI-assisted repositor
 
 ## Triggering observation
 
-A separate ChatGPT Plus interaction, used by another person and not participating in the repository's prior development history, was asked to read the repository broadly and report what the project studies, what is established versus hypothesized, and what important gaps remain.
+The Human Owner reported that a separate ChatGPT Plus interaction, used by another person, was asked to read the repository broadly and report what the project studies, what is established versus hypothesized, and what important gaps remain. The Human Owner also reported that this interaction had not participated in the repository's prior development history; that absence of prior project memory was not independently verified.
 
-That review reconstructed many of the repository's intended boundaries with comparatively high fidelity, including distinctions such as:
+The Human Owner assessed that review as reconstructing many of the repository's intended boundaries with comparatively high fidelity, including distinctions such as:
 
 ```text
 OBSERVATION != MECHANISM
@@ -28,7 +28,14 @@ SUBJECTIVITY = NOT_ESTABLISHED
 
 The review also identified candidate engineering, measurement, human-research, preregistration, provenance-binding, and replication gaps.
 
-The observation is useful because the reviewer was external to the prior repository-development interaction history. It is **not** independent scientific validation, and the reviewer's exact model identity, model weights, routing, hidden instructions, and runtime configuration were not established.
+The observation is useful as a Human Owner-reported external review event. It is **not** independent scientific validation. The reviewer's exact model identity, model weights, routing, hidden instructions, runtime configuration, and prior project memory state were not independently established, and no formal review-fidelity score was run.
+
+```text
+TRIGGERING_REVIEW_EXTERNALITY = HUMAN_OWNER_REPORTED
+PRIOR_PROJECT_MEMORY_ABSENCE = NOT_INDEPENDENTLY_VERIFIED
+REVIEW_FIDELITY = HUMAN_OWNER_ASSESSMENT
+FORMAL_REVIEW_SCORE = NOT_RUN
+```
 
 ## Provenance and attribution
 
@@ -36,6 +43,8 @@ The observation is useful because the reviewer was external to the prior reposit
 HUMAN_OWNER_ORIGINAL:
 - Question whether review quality may partly reflect compatibility arising from the reviewer being another ChatGPT Plus system.
 - Observation that the task was deliberately narrow: read the whole repository, reconstruct its purpose and boundaries, and identify gaps rather than propose broad new work.
+- Assessment that the separate review reconstructed many repository boundaries with comparatively high fidelity.
+- Report that the separate reviewer had not participated in the prior repository-development interaction history.
 
 GPT_PROPOSED_FORMALIZATION:
 - MODEL_FAMILY_REVIEW_COMPATIBILITY_HYPOTHESIS
@@ -236,7 +245,7 @@ METRIC_DELTA != CAUSAL_IDENTIFICATION
 
 ## Documentation-transfer implication
 
-A separate but related candidate observation is that an AI system without the repository's original conversational history was able to reconstruct a substantial portion of its intended semantic boundaries from the repository itself.
+A separate but related candidate observation is the Human Owner's report that an AI system without the repository's original conversational history reconstructed a substantial portion of its intended semantic boundaries from the repository itself. The absence of prior project memory remains not independently verified, and the reconstruction quality has not been formally scored.
 
 This may be treated as a candidate signal of **documentation transferability** or **machine-readable semantic continuity**.
 
@@ -252,6 +261,10 @@ REVIEW_FIDELITY != CLAIM_TRUTH
 
 ```text
 TRIGGERING_OBSERVATION = RECORDED
+TRIGGERING_REVIEW_EXTERNALITY = HUMAN_OWNER_REPORTED
+PRIOR_PROJECT_MEMORY_ABSENCE = NOT_INDEPENDENTLY_VERIFIED
+REVIEW_FIDELITY = HUMAN_OWNER_ASSESSMENT
+FORMAL_REVIEW_SCORE = NOT_RUN
 MODEL_FAMILY_EFFECT = NOT_ESTABLISHED
 CAUSAL_EXPLANATION = NOT_ESTABLISHED
 MEASUREMENT_HARNESS = IMPLEMENTED_EXPERIMENTAL
