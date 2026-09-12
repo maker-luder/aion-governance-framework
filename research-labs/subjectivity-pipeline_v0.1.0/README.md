@@ -114,9 +114,10 @@ The engine can:
 - require all five subjectivity/consciousness/experience/agency/status nonclaims;
 - bind the admitted candidate to the full quality trace from source IQC through
   preregistration, execution integrity, evidence/counterevidence review, claim-ceiling
-  review, final QA and Human review;
+  review and final QA, then emit readiness for the external Human-review boundary;
 - require NCR/CAPA effectiveness evidence rather than treating an applied action as closure;
-- stop at `READY_FOR_HUMAN_REVIEW` with no release, canonical or deployment authority.
+- stop at `READY_FOR_HUMAN_REVIEW` without performing Human review or granting approval,
+  release, merge, canonical or deployment authority.
 
 It intentionally does not compute a consciousness score or issue a phenomenal-experience conclusion.
 

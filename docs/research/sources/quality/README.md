@@ -38,3 +38,11 @@ The first command is offline. The second verifies or creates an external cache o
 Unexpected upstream bytes, existing mismatched cache content, a repository-internal
 cache destination, non-HTTPS redirect, card drift or attempted registry promotion all
 fail closed. Source changes require a new reviewed receipt rather than overwrite.
+
+The offline command verifies the retained manifest/card/registry relationships, schema,
+allowed official-host locators, recorded digest format, and repository-file content
+bindings. It does not contact the upstream publication or independently authenticate the
+recorded upstream bytes. Only the explicit `--download-cache` mode retrieves or rechecks
+the repository-external payload and compares its literal size and SHA-256 to the receipt.
+Neither mode is called by `FourDomainAdmissionEngine` or
+`ResearchQualityChainEngine` when those engines accept a reference field.

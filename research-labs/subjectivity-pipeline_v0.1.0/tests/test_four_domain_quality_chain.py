@@ -157,13 +157,40 @@ def quality_chain(admission, **changes):
     return replace(base, **changes)
 
 
-def test_full_trace_reaches_human_review_not_release_or_subjectivity():
+def test_final_qa_emits_external_review_readiness_not_automated_human_review():
     admission = FourDomainAdmissionEngine().assess(candidate())
     assessment = ResearchQualityChainEngine().assess(admission, quality_chain(admission))
+    assert tuple(QualityCheckpoint) == (
+        QualityCheckpoint.SOURCE_IQC,
+        QualityCheckpoint.DESIGN_ADMISSION,
+        QualityCheckpoint.PREREGISTRATION,
+        QualityCheckpoint.EXECUTION_INTEGRITY,
+        QualityCheckpoint.EVIDENCE_REVIEW,
+        QualityCheckpoint.COUNTEREVIDENCE_REVIEW,
+        QualityCheckpoint.CLAIM_CEILING_REVIEW,
+        QualityCheckpoint.FINAL_QA,
+    )
+    assert "HUMAN_REVIEW" not in QualityCheckpoint.__members__
     assert assessment.disposition is ResearchQualityDisposition.READY_FOR_HUMAN_REVIEW
     assert assessment.release_authority == "NONE"
     assert assessment.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert assessment.scientific_disposition == "HOLD"
+
+
+def test_opaque_reference_fields_are_structural_bindings_not_resolution_claims():
+    opaque = candidate(
+        source_refs=("opaque:unresolved-source-reference",),
+        source_classes=("DECLARED_REFERENCE_CLASS",),
+    )
+    admission = FourDomainAdmissionEngine().assess(opaque)
+    chain = quality_chain(
+        admission,
+        exact_source_state_ref="opaque:unresolved-source-state",
+        exact_runtime_ref="opaque:unresolved-runtime-state",
+    )
+    assessment = ResearchQualityChainEngine().assess(admission, chain)
+    assert admission.disposition is FourDomainDisposition.READY_FOR_BOUNDED_ENGINEERING_DESIGN
+    assert assessment.disposition is ResearchQualityDisposition.READY_FOR_HUMAN_REVIEW
 
 
 def test_missing_checkpoint_or_fingerprint_drift_holds():

@@ -20,7 +20,8 @@ Candidate, legacy, protocol, and synthesis documents retain their original statu
   records the Four-Domain vertical translation method.
 - [`FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md)
   records the bounded typed implementation, latest-PR cross-read, official-source
-  transformation, end-to-end quality binding, negative paths and residuals.
+  transformation, automated source-to-final-QA quality binding, external Human-review
+  boundary, negative paths and residuals.
 - [`sources/quality/README.md`](sources/quality/README.md) indexes the derivative
   NIST/FDA quality-method cards and exact acquisition receipts.
 

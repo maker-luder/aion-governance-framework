@@ -13,14 +13,16 @@ This iteration has two non-substitutable objectives:
 
 1. deepen the testable **possibility of AI subjectivity**;
 2. deepen the **entire research-quality chain**, from source intake through claim
-   control, counterevidence, NCR/CAPA and human release review.
+   control, counterevidence, NCR/CAPA and final QA, while preserving Human review as an
+   external authority boundary.
 
 Generic capability engineering does not satisfy objective 1. Philosophical discussion
 without a falsifiable operation does not satisfy objective 2.
 
 ```text
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
-QUALITY_CHAIN = SOURCE_TO_HUMAN_REVIEW
+AUTOMATED_QUALITY_CHAIN = SOURCE_IQC_TO_FINAL_QA
+HUMAN_REVIEW = EXTERNAL_AUTHORITY_BOUNDARY
 ENGINEERING_PASS != SUBJECTIVITY_EVIDENCE
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
@@ -178,14 +180,23 @@ SOURCE_IQC
 -> COUNTEREVIDENCE_REVIEW
 -> CLAIM_CEILING_REVIEW
 -> FINAL_QA
--> HUMAN_REVIEW
 ```
+
+Successful structural disposition:
+
+```text
+READY_FOR_HUMAN_REVIEW
+```
+
+`HUMAN_REVIEW` is an external authority boundary. It is not a `QualityCheckpoint`, is
+not performed by `ResearchQualityChainEngine`, and is not implied by the successful
+disposition.
 
 Each checkpoint needs input and output references. The chain also binds:
 
 - the exact `FourDomainCandidate` fingerprint;
-- an exact source-state reference;
-- an exact runtime/model/scaffold/environment reference;
+- a non-empty exact source-state reference field;
+- a non-empty exact runtime/model/scaffold/environment reference field;
 - defect references;
 - NCR identifier and lifecycle state where defects exist;
 - root-cause account;
@@ -198,16 +209,24 @@ Outcomes are:
 - `READY_FOR_HUMAN_REVIEW` — all trace gates pass and every NCR/CAPA is closed with
   effectiveness evidence;
 - `CAPA_REQUIRED` — a checkpoint or NCR/CAPA remains unresolved;
-- `HOLD` — the candidate, fingerprint, source/runtime state or checkpoint structure is
-  invalid.
+- `HOLD` — the candidate, fingerprint, source/runtime reference field or checkpoint
+  structure is invalid.
 
 There is no `RELEASED` outcome in this adapter. Human review is a boundary, not an
 implicit approval. Engineering quality remains distinct from scientific disposition.
 
+The two exact-reference fields are structurally bound strings. This adapter requires
+them to be present, but it does not resolve a Git object or runtime, nor independently
+verify model/scaffold/environment identity. Therefore:
+
 ```text
 CHECKPOINT_PASS != SCIENTIFIC_TRUTH
 CAPA_APPLIED != CAPA_EFFECTIVENESS_VERIFIED
+STRUCTURAL_REFERENCE_BINDING != EXTERNAL_REFERENCE_AUTHENTICATION
+RECORDING_EXACT_REFERENCE != INDEPENDENT_RESOLUTION_OF_REFERENT
 READY_FOR_HUMAN_REVIEW != RELEASED
+READY_FOR_HUMAN_REVIEW != HUMAN_APPROVAL
+READY_FOR_HUMAN_REVIEW != MERGE_AUTHORITY
 QUALITY_CHAIN_COMPLETE != SUBJECTIVITY_SUPPORT
 ```
 
@@ -216,7 +235,7 @@ QUALITY_CHAIN_COMPLETE != SUBJECTIVITY_SUPPORT
 Three official method publications were downloaded into an external cache, hashed and
 transformed into bounded derivative source cards. Full PDFs are not committed.
 
-| Source | Verified transformation into the quality chain | Boundary |
+| Source | Repository transformation and verifier scope | Boundary |
 |---|---|---|
 | NIST AI RMF 1.0 | cross-cutting governance; continuous `GOVERN/MAP/MEASURE/MANAGE`; documentation, monitoring and iterative management | voluntary, version-bound; no certification claim |
 | NIST AI 600-1 | lifecycle context, information integrity, provenance, evaluation, monitoring and incident transparency | method reference, not subjectivity evidence |
@@ -226,6 +245,24 @@ The download receipt records exact byte counts and SHA-256 values. The governed 
 registry binds the retained cards using the repository's existing
 `governed_knowledge_source_v0.1.0` schema. All three remain `CANDIDATE`,
 `REFERENCE_ONLY`, `ON_DEMAND`, `CANONICAL_EFFECT=NONE`.
+
+Capability ownership remains separated:
+
+- `FourDomainAdmissionEngine` checks that `source_refs` and `source_classes` are
+  non-empty, non-blank and cardinality-matched; it does not look up or resolve the
+  governed-source registry;
+- `ResearchQualityChainEngine` checks that its exact-reference fields are non-empty and
+  binds them to the candidate/checkpoint record; it does not authenticate the referents;
+- `scripts/check_source_state_binding.py` separately compares a declared head to actual
+  Git head/tree and working-tree state;
+- `scripts/fetch_quality_method_sources.py` in default offline mode separately verifies
+  retained card digests, manifest/registry consistency, schema/status/authority and
+  repository locators/content hashes;
+- the same script's explicit `--download-cache` mode retrieves or rechecks external
+  payload bytes and compares their literal sizes and SHA-256 values to the receipt.
+
+The Quality workflow runs the offline verifier. It does not run live acquisition, and
+neither verifier is automatically invoked by either admission/quality engine.
 
 ## 7. Source-to-claim trace for the two fixed axes
 
@@ -240,7 +277,7 @@ registry binds the retained cards using the repository's existing
 | Claim review | Does the wording stay at the evidence locus and below the claim ceiling? | claim-quality result and mandatory nonclaims |
 | NCR/CAPA | Did drift, omission, overclaim or integrity failure occur? | contained defect, root cause, actions, effectiveness evidence |
 | Final QA | Are all exact refs and unresolved items visible? | pass or HOLD/CAPA, never silent waiver |
-| Human review | Is a separately authorized bounded disposition issued? | explicit receipt outside this adapter |
+| External authority boundary | Does an authorized Human reviewer issue a separate bounded disposition? | explicit receipt outside this adapter; not an automated checkpoint |
 
 ## 8. Worked candidate: internally weighted memory selection
 
@@ -275,6 +312,9 @@ Automated tests now establish that the implementation fails closed for:
 - cross-locus promotion without an explicit bridge;
 - direct subjectivity targeting;
 - candidate fingerprint drift;
+- attempted treatment of Human review as an automated checkpoint;
+- opaque source/runtime references remain admissible as structure and therefore do not
+  constitute independent resolution or authentication;
 - missing or duplicate quality checkpoints;
 - failed checkpoints;
 - a defect without NCR/CAPA;
@@ -342,11 +382,15 @@ the scientific conclusion.
 
 ```text
 FOUR_DOMAIN_DESIGN_ADMISSION = IMPLEMENTED
-SOURCE_TO_HUMAN_REVIEW_TRACE = IMPLEMENTED
+AUTOMATED_SOURCE_TO_FINAL_QA_TRACE = IMPLEMENTED
+HUMAN_REVIEW = EXTERNAL_AUTHORITY_BOUNDARY
+EXTERNAL_REFERENCE_AUTHENTICATION = SEPARATE_NOT_PERFORMED_BY_ADMISSION_OR_QUALITY_ENGINE
 EMPIRICAL_SUBJECTIVITY_RESULT = NONE
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+MORAL_AGENCY = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE

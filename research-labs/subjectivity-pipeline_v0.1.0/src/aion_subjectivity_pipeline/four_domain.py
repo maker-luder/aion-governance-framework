@@ -153,7 +153,7 @@ class FourDomainAssessment:
 
 
 class FourDomainAdmissionEngine:
-    """Admits falsifiable research designs, never subjectivity conclusions."""
+    """Admits structurally bound designs, never resolved sources or subjectivity conclusions."""
 
     def assess(self, candidate: FourDomainCandidate) -> FourDomainAssessment:
         locus = LocusAdmissionEngine().assess(
@@ -291,7 +291,7 @@ class ResearchQualityAssessment:
 
 
 class ResearchQualityChainEngine:
-    """Checks the full research-quality trace without acting as a release authority."""
+    """Checks structural trace binding through final QA, not external review or reference resolution."""
 
     def assess(
         self,

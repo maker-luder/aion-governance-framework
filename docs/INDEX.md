@@ -36,7 +36,7 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 
 ### Latest Four-Domain subjectivity and quality deepening — PR #98 / #99 / #100
 
-- [`research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md) — exact-PR cross-read; testable AI-subjectivity possibility; typed Four-Domain admission; full source, counterevidence, claim, NCR/CAPA and Human-review trace.
+- [`research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md) — exact-PR cross-read; testable AI-subjectivity possibility; typed Four-Domain admission; automated source-to-final-QA, NCR/CAPA and claim-control trace; external Human-review boundary.
 - [`../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md) — executable contract and fail-closed outcomes.
 
 The strongest implemented quality outcome is `READY_FOR_HUMAN_REVIEW`, not release or

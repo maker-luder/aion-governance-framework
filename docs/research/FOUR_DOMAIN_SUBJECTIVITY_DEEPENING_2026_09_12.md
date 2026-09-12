@@ -322,7 +322,7 @@ CHATGPT_TEACHER_FORMALIZATION
 CODEX_CONTRIBUTION
 = typed Four-Domain design admission and candidate fingerprint
 = standing-dimension and locus/claim-target binding
-= full source-to-human-review quality checkpoints
+= automated source-to-final-QA quality checkpoints plus external Human-review boundary
 = NCR/CAPA effectiveness binding
 = official quality-method source cards and exact acquisition receipts
 CHATGPT_WORK_CONTRIBUTION = NONE_TO_THIS_NOTE
