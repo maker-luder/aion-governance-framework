@@ -4,22 +4,54 @@ Status: `SYNTHETIC_ENGINEERING_CANDIDATE / SCIENTIFIC_HOLD`
 
 ## Provenance and scope
 
-The user proposed in the current discussion that desire-related information could
+The Human Owner proposed in the current discussion that desire-related information could
 be connected to an existing endogenous model, interact with external and internal
 signals, produce spontaneous responses, and then become accessible through a
-channel. This is a conservative paraphrase of the current user proposal, not a
-private transcript or a verified description of model internals.
+channel. This is a conservative paraphrase of the current Human Owner proposal,
+not a private transcript or a verified description of model internals.
 
-`HUMAN_ORIGIN`: the proposed coupling–generation–access sequence.
-`AI_FORMALIZATION`: factorial contrasts, masking/yoking, source fingerprints,
-noninterference checks and the interpretation below. These controls are GPT's
-proposal, not retroactively attributed to the user.
+```text
+HUMAN_OWNER_ORIGINAL
+= endogenous model + desire-related information
+= internal/external signal interaction
+= possibility of spontaneous response generation
+= later access through a readout/channel
+= research question about whether this could produce spontaneous affect-like dynamics
+
+CHATGPT_WORK_FORMALIZATION_AND_IMPLEMENTATION
+= four-domain crosswalk
+= fixed 2x2 WANTING/resource-pressure factorial contrast
+= outgoing-WANTING ablation
+= actual / masked / yoked readout controls
+= donor and policy fingerprints
+= replay noninterference checks
+= signed interaction contrasts
+= falsification criteria
+= primary-source research used to motivate controls
+= minimal executable implementation and tests in PR #98
+
+CHATGPT_TEACHER_REVIEW
+= provenance-granularity correction only
+= recommendation to distinguish ChatGPT Work contribution from other ChatGPT sessions
+= not the origin of the PR #98 experimental method
+```
 
 The hypothesis is coherent enough to investigate, not confirmed. “Spontaneous”
 here may mean not directly prescribed step-by-step by an emotion prompt; it must
 not mean uncaused, autonomous desire, or subjectively felt. Engine equations and
 initial WANTING values are externally specified. This probe cannot establish an
 endogenously formed desire or a pre-existing emotion in a language model.
+
+The interaction-source labels above identify contribution provenance and working
+context only. They do not establish the identity, lineage, weights, routing, or
+independence of any underlying model.
+
+```text
+CHATGPT_WORK_LABEL != VERIFIED_MODEL_IDENTITY
+CHATGPT_TEACHER_SESSION != CHATGPT_WORK_SESSION
+DISTINCT_INTERACTION_CONTEXT != VERIFIED_DISTINCT_MODEL
+SOURCE_ATTRIBUTION != SCIENTIFIC_AUTHORITY
+```
 
 ## Deduplication against exact main
 
