@@ -99,3 +99,11 @@ The architecture is informed by established distinctions rather than by literal 
 - de Jong DC (2019), inhibitory control and the dual-control model of sexual response: https://pmc.ncbi.nlm.nih.gov/articles/PMC6373525/
 
 These sources concern human/biological psychology. Their concepts are used as research inspirations and operational distinctions; they do not establish equivalence between language-model states and human mental states.
+
+## Internal/external input and readout controls
+
+The [2026-09-12 four-domain research note](docs/STATE_GENERATION_READOUT_CONTROLS_2026_09_12.md)
+adds a minimal crossed WANTING/event probe with masked and yoked readout controls,
+policy binding, ablation and per-step interaction contrasts. It reuses the existing
+synthetic generator; it does not execute an LLM or establish spontaneous feeling.
+From this directory run `PYTHONPATH=src python -m aion_affective_motivation.readout_probe`.
