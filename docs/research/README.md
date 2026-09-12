@@ -13,3 +13,17 @@ Research-reference material remains separate from `main`'s current status and fr
 ## Provenance rule
 
 Candidate, legacy, protocol, and synthesis documents retain their original status vocabulary and event-time context. A move into this directory does not mean that a candidate became current, that a legacy item was requalified, or that a historical claim was accepted.
+
+## Latest Four-Domain and quality deepening
+
+- [`FOUR_DOMAIN_SUBJECTIVITY_DEEPENING_2026_09_12.md`](FOUR_DOMAIN_SUBJECTIVITY_DEEPENING_2026_09_12.md)
+  records the Four-Domain vertical translation method.
+- [`FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md)
+  records the bounded typed implementation, latest-PR cross-read, official-source
+  transformation, end-to-end quality binding, negative paths and residuals.
+- [`sources/quality/README.md`](sources/quality/README.md) indexes the derivative
+  NIST/FDA quality-method cards and exact acquisition receipts.
+
+These additions keep artificial-subjectivity possibility as the central research
+question while treating quality engineering as a control surface rather than positive
+subjectivity evidence.

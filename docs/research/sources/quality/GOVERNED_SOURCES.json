@@ -1,0 +1,101 @@
+[
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "nist-ai-rmf-1.0",
+    "source_title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+    "source_version": "NIST AI 100-1 / January 2023",
+    "domain": "GOVERNANCE",
+    "source_class": "GOVERNANCE_REFERENCE",
+    "source_declared_status": "Official method reference; bounded derivative card; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "METHOD",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/quality/nist-ai-rmf-1.0.md"
+    },
+    "content_hash": "sha256:c87a957839a02efdf54b687bed3ab8da293167cb7c6a74333897f7e1a492fb84",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "research-quality-method-review",
+      "ncr-capa-method-review",
+      "four-domain-subjectivity-design-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1400,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "nist-ai-600-1",
+    "source_title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+    "source_version": "NIST AI 600-1 / July 2024",
+    "domain": "GOVERNANCE",
+    "source_class": "GOVERNANCE_REFERENCE",
+    "source_declared_status": "Official method reference; bounded derivative card; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "METHOD",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/quality/nist-ai-600-1.md"
+    },
+    "content_hash": "sha256:7f7596ae925c3e9148016400e41c5b03a3505d445b1055cacfade87b3be1b067",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "research-quality-method-review",
+      "ncr-capa-method-review",
+      "four-domain-subjectivity-design-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1400,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  },
+  {
+    "schema_version": "0.1.0",
+    "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
+    "source_id": "fda-capa-qsit-1999",
+    "source_title": "Guide to Inspections of Quality Systems",
+    "source_version": "August 1999",
+    "domain": "GOVERNANCE",
+    "source_class": "GOVERNANCE_REFERENCE",
+    "source_declared_status": "Official method reference; bounded derivative card; not an AION result",
+    "registry_status": "CANDIDATE",
+    "epistemic_role": "METHOD",
+    "provenance": {
+      "kind": "REPOSITORY_FILE",
+      "locator": "docs/research/sources/quality/fda-capa-qsit-1999.md"
+    },
+    "content_hash": "sha256:f7ac7e4148d50353b5a57482d59a1633a0a25f25d00a1e044870bb402c76d4a5",
+    "verification_policy": "SOURCE_GROUNDED",
+    "freshness_policy": "VERSION_BOUND",
+    "allowed_agents": [
+      "AION",
+      "ASTRA"
+    ],
+    "allowed_tasks": [
+      "research-quality-method-review",
+      "ncr-capa-method-review",
+      "four-domain-subjectivity-design-review"
+    ],
+    "context_policy": "ON_DEMAND",
+    "context_token_cap": 1400,
+    "authority_level": "REFERENCE_ONLY",
+    "writeback_authority": "NONE",
+    "canonical_effect": "NONE"
+  }
+]

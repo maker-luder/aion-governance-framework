@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "purpose": "RESEARCH_QUALITY_METHOD_CROSSWALK",
+  "subjectivity": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "runtime_network_required": false,
+  "sources": [
+    {
+      "source_id": "nist-ai-rmf-1.0",
+      "title": "Artificial Intelligence Risk Management Framework (AI RMF 1.0)",
+      "version": "NIST AI 100-1 / January 2023",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf",
+      "bytes": 1946127,
+      "sha256": "7576edb531d9848825814ee88e28b1795d3a84b435b4b797d3670eafdc4a89f1",
+      "card": "nist-ai-rmf-1.0.md",
+      "sections": "Executive Summary; sections 4, 5, 5.1-5.4",
+      "card_bytes": 1883,
+      "card_sha256": "c87a957839a02efdf54b687bed3ab8da293167cb7c6a74333897f7e1a492fb84",
+      "status": "PASS",
+      "intake_scope": "DERIVATIVE_CARD_ONLY",
+      "checked_on": "2026-09-13"
+    },
+    {
+      "source_id": "nist-ai-600-1",
+      "title": "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile",
+      "version": "NIST AI 600-1 / July 2024",
+      "url": "https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf",
+      "bytes": 1174643,
+      "sha256": "6e73620ab6b64e90ef2c04bf0e0d6246185a2f4b1b13cab0df494496cff89b6a",
+      "card": "nist-ai-600-1.md",
+      "sections": "sections 1-3; Information Integrity; suggested actions",
+      "card_bytes": 1850,
+      "card_sha256": "7f7596ae925c3e9148016400e41c5b03a3505d445b1055cacfade87b3be1b067",
+      "status": "PASS",
+      "intake_scope": "DERIVATIVE_CARD_ONLY",
+      "checked_on": "2026-09-13"
+    },
+    {
+      "source_id": "fda-capa-qsit-1999",
+      "title": "Guide to Inspections of Quality Systems",
+      "version": "August 1999",
+      "url": "https://www.fda.gov/files/Guide-to-Inspections-of-Quality-Systems.pdf",
+      "bytes": 975229,
+      "sha256": "2bd078f1ce4f3a45c35379f609f819916255d0a86504d9118935fa7ff1f60ee0",
+      "card": "fda-capa-qsit-1999.md",
+      "sections": "CAPA inspection objectives and narrative, printed pages 47-58",
+      "card_bytes": 1897,
+      "card_sha256": "f7ac7e4148d50353b5a57482d59a1633a0a25f25d00a1e044870bb402c76d4a5",
+      "status": "PASS",
+      "intake_scope": "DERIVATIVE_CARD_ONLY",
+      "checked_on": "2026-09-13"
+    }
+  ]
+}

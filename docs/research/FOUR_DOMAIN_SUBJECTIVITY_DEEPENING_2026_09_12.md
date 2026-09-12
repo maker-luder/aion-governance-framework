@@ -1,9 +1,17 @@
 # Four-Domain subjectivity deepening — 2026-09-12
 
-Status: `RESEARCH_REFERENCE / DOCUMENTATION_ONLY / DRAFT`
+Status: `RESEARCH_REFERENCE / BOUNDED_IMPLEMENTATION / DRAFT`
 Canonical effect: `NONE`
-Implementation authorization: `NONE`
-Executable change: `NONE`
+Implementation authorization: `HUMAN_OWNER_INSTRUCTION_2026_09_13 / PR_100_ONLY`
+Executable change: `FOUR_DOMAIN_ADMISSION_AND_QUALITY_CHAIN_BINDING`
+
+> 2026-09-13 implementation note: the original text below preserves the state of
+> the proposal when first written. A later direct Human Owner instruction asked Codex
+> to deepen the AI-subjectivity axis and the entire quality-management chain, cross-read
+> the latest PRs, and transform admissible external material into the repository. The
+> bounded implementation and current source/quality analysis are recorded in
+> [`FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md).
+> This changes neither merge authority nor the scientific `HOLD`.
 
 ## Purpose
 
@@ -263,16 +271,20 @@ NEW_CANONICAL_STATE = NO
 
 Any future implementation should consume or reference existing typed structures where appropriate rather than silently replacing the frozen method or creating a competing taxonomy.
 
-## Codex implementation handoff boundary
+## Historical Codex implementation handoff boundary (superseded for PR #100 only on 2026-09-13)
 
-The Human Owner's current instruction is to record this research direction now and defer executable implementation.
+At the time this note was first authored, the Human Owner's instruction was to record
+the research direction and defer executable implementation. That historical state is
+preserved below. It was superseded for bounded implementation on PR #100 by the direct
+2026-09-13 instruction; merge, main-write, canonical and deployment authority remain absent.
 
 ```text
-CURRENT_PR_SCOPE = DOCUMENTATION_ONLY
+ORIGINAL_PR_SCOPE = DOCUMENTATION_ONLY
 CURRENT_IMPLEMENTER = ChatGPT Teacher
-EXECUTABLE_IMPLEMENTATION = DEFERRED
+ORIGINAL_EXECUTABLE_IMPLEMENTATION = DEFERRED
 FUTURE_EXECUTABLE_IMPLEMENTER = CODEX
-CODEX_IMPLEMENTATION_AUTHORIZATION = NOT_YET_GRANTED_IN_THIS_NOTE
+ORIGINAL_CODEX_IMPLEMENTATION_AUTHORIZATION = NOT_YET_GRANTED_IN_THIS_NOTE
+CURRENT_CODEX_IMPLEMENTATION_AUTHORIZATION = PR_100_BOUNDED_CHANGE_GRANTED_2026_09_13
 MERGE_AUTHORIZATION = NONE
 MAIN_WRITE = NO
 ```
@@ -307,7 +319,12 @@ CHATGPT_TEACHER_FORMALIZATION
 = anti-drift and non-claim boundaries
 = Codex handoff constraints
 
-CODEX_CONTRIBUTION = NONE_YET
+CODEX_CONTRIBUTION
+= typed Four-Domain design admission and candidate fingerprint
+= standing-dimension and locus/claim-target binding
+= full source-to-human-review quality checkpoints
+= NCR/CAPA effectiveness binding
+= official quality-method source cards and exact acquisition receipts
 CHATGPT_WORK_CONTRIBUTION = NONE_TO_THIS_NOTE
 ```
 
@@ -320,7 +337,7 @@ This note deepens research structure, not scientific conclusion.
 ```text
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
 FOUR_DOMAIN_DEEPENING = METHODOLOGICAL_PROPOSAL
-IMPLEMENTATION = DEFERRED
+IMPLEMENTATION = BOUNDED_PR_100_CANDIDATE
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
