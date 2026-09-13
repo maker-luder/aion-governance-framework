@@ -1,5 +1,8 @@
 # Human-AI longitudinal study harness v0.1.0
 
+The bounded reciprocal re-entry metric extension is documented in
+[`RECIPROCAL_REENTRY_METRIC_RUNNER.md`](RECIPROCAL_REENTRY_METRIC_RUNNER.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal

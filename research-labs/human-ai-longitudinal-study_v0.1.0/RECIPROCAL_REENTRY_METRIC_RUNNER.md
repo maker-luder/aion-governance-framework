@@ -1,0 +1,28 @@
+# Reciprocal re-entry controlled metric runner
+
+Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
+
+This bounded extension reuses the merged PR #93 longitudinal harness directory. It
+implements the two-condition contrast authorized from PR #102 without importing
+PR #108. Synthetic unstructured output is compared with a synthetic packet that
+contains provenance, `UNKNOWN`, claim-ceiling and correction-history structure.
+
+The runner scores only four preregistered observations: protocol reconstruction
+fidelity, stale-claim errors, provenance errors and unresolved-alternative
+retention. Task, evaluator, repository and scorer vocabularies are controlled;
+packet contents are bound by distinct SHA-256 digests. Private material and
+non-synthetic records fail closed.
+
+```text
+RUNNER_PASS != EMPIRICAL_RESULT
+METRIC_DELTA != CAUSAL_IDENTIFICATION
+REENTRY_FIDELITY != IDENTITY_CONTINUITY
+REPOSITORY_ARTIFACT != MEMORY
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
+SCIENTIFIC_DISPOSITION = HOLD
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```

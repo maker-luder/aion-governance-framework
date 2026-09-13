@@ -15,6 +15,15 @@ from .harness import (
     TaskDomain,
     TrialRecord,
 )
+from .reentry_metrics import (
+    ReconstructionRecord,
+    ReentryBinding,
+    ReentryCondition,
+    ReentryContrastReceipt,
+    ReentryMetrics,
+    compare_reentry_conditions,
+    score_reconstruction,
+)
 
 __all__ = [
     "AdmissionDisposition",
@@ -32,4 +41,11 @@ __all__ = [
     "SummaryCondition",
     "TaskDomain",
     "TrialRecord",
+    "ReconstructionRecord",
+    "ReentryBinding",
+    "ReentryCondition",
+    "ReentryContrastReceipt",
+    "ReentryMetrics",
+    "compare_reentry_conditions",
+    "score_reconstruction",
 ]
