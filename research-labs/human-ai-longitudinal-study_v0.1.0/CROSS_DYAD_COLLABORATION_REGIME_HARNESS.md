@@ -39,7 +39,9 @@ seed, metrics, and held-out state. The extension therefore adds only the missing
 cross-dyad experimental surface inside that lab:
 
 - an exact task-by-condition matrix;
-- immutable condition-packet fingerprints;
+- immutable condition-packet fingerprints over the actual instruction and
+  closure-rule payloads, not only their reference labels;
+- immutable task fingerprints over the actual synthetic prompt payloads;
 - repository-relevance positive and negative controls;
 - the specified inquiry and closure metrics without a composite score;
 - deterministic, synthetic-only execution and receipt materialization.
@@ -112,6 +114,12 @@ The runner reads only the two committed JSON fixtures, constructs the exact
 the committed receipt byte-for-byte. The test suite also verifies fixture hashes,
 the complete matrix, matched controls, metric coverage, privacy boundaries, enum
 strictness, and fail-closed drift handling.
+
+Each condition fixture carries both a human-readable reference and its actual
+instruction and closure-rule payload. Each task fixture likewise carries both a
+prompt reference and its actual prompt payload. Run bindings hash those contents;
+changing content while retaining a label therefore fails closed. The receipt
+also records the implementation-base commit SHA and tree SHA as distinct fields.
 
 ## Receipt interpretation
 

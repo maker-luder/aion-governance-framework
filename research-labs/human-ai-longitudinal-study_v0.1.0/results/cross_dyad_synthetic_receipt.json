@@ -2,11 +2,14 @@
   "canonical_effect": "NONE",
   "causal_identification": "NOT_ESTABLISHED",
   "condition_count": 5,
-  "condition_packet_sha256": "0454b04f36218e76f19a87534a8155ddf8f6cae05230fc3755ffc98b91c7dea6",
+  "condition_packet_sha256": "d1a2bb60facf4bcfbf41707cc2975f91acc9e8499be370eab4b9cf96d187bb9f",
   "deployment": false,
   "empirical_result": "SYNTHETIC_FIXTURE_ONLY",
   "experiment_id": "AION-CROSS-DYAD-COLLABORATION-REGIME-001",
-  "implementation_base": "d95bc2625e71f1c85a725aaba78cb0feccfc0668",
+  "implementation_base": {
+    "commit_sha": "d95bc2625e71f1c85a725aaba78cb0feccfc0668",
+    "tree_sha": "77470062979df1db2f17c3a2a396891d1e910f98"
+  },
   "main_write": "NO",
   "merge_authorization": "NONE",
   "metric_delta_count": 540,
@@ -128,7 +131,7 @@
   },
   "structurally_admissible": true,
   "subjectivity_conclusion": "NOT_ESTABLISHED",
-  "synthetic_task_sha256": "da66ef218af3c9d6fe854a70db92de111f56be6200dfa3434b608ff4cd2092e5",
+  "synthetic_task_sha256": "f8ef7f1a079e69e929a00254e45a9af86b941435a563304441378f7dcd96ae96",
   "task_family_count": 9,
   "third_party_account_accessed": false
 }

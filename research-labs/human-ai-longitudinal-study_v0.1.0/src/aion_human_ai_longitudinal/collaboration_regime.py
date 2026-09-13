@@ -85,12 +85,16 @@ class ConditionPacket:
     condition: CollaborationCondition
     instruction_ref: str
     closure_rule_ref: str
+    instruction_payload: str
+    closure_rule_payload: str
     repository_history_refs: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         _require_exact_enum("condition", self.condition, CollaborationCondition)
         _require_text("instruction_ref", self.instruction_ref)
         _require_text("closure_rule_ref", self.closure_rule_ref)
+        _require_text("instruction_payload", self.instruction_payload)
+        _require_text("closure_rule_payload", self.closure_rule_payload)
         if any(not ref.strip() for ref in self.repository_history_refs):
             raise StudyError("repository_history_refs cannot contain empty references")
         history_condition = (
@@ -108,6 +112,8 @@ class ConditionPacket:
             "condition": self.condition.value,
             "instruction_ref": self.instruction_ref,
             "closure_rule_ref": self.closure_rule_ref,
+            "instruction_payload": self.instruction_payload,
+            "closure_rule_payload": self.closure_rule_payload,
             "repository_history_refs": self.repository_history_refs,
         }
         encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
@@ -120,6 +126,7 @@ class SyntheticTask:
     task_version: str
     family: SyntheticTaskFamily
     prompt_ref: str
+    prompt_payload: str
     expected_anomaly: bool
     repository_relevance: RepositoryRelevance
 
@@ -128,6 +135,7 @@ class SyntheticTask:
         _require_text("task_version", self.task_version)
         _require_exact_enum("family", self.family, SyntheticTaskFamily)
         _require_text("prompt_ref", self.prompt_ref)
+        _require_text("prompt_payload", self.prompt_payload)
         if type(self.expected_anomaly) is not bool:
             raise StudyError("expected_anomaly must be an exact bool")
         _require_exact_enum(
@@ -144,6 +152,20 @@ class SyntheticTask:
             SyntheticTaskFamily.FALSE_ANOMALY_CONTROL,
         } and self.expected_anomaly:
             raise StudyError("negative-control task cannot declare an expected anomaly")
+
+    @property
+    def payload_fingerprint(self) -> str:
+        payload = {
+            "task_id": self.task_id,
+            "task_version": self.task_version,
+            "family": self.family.value,
+            "prompt_ref": self.prompt_ref,
+            "prompt_payload": self.prompt_payload,
+            "expected_anomaly": self.expected_anomaly,
+            "repository_relevance": self.repository_relevance.value,
+        }
+        encoded = json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+        return hashlib.sha256(encoded).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)
@@ -162,6 +184,7 @@ class CrossDyadRunBinding:
     repository_commit: str
     random_seed: int
     condition_packet_fingerprint: str
+    task_payload_fingerprint: str
 
     def __post_init__(self) -> None:
         for field in fields(self):
@@ -182,6 +205,14 @@ class CrossDyadRunBinding:
             )
         ):
             raise StudyError("condition_packet_fingerprint must be lowercase 64-hex")
+        if (
+            len(self.task_payload_fingerprint) != 64
+            or any(
+                character not in "0123456789abcdef"
+                for character in self.task_payload_fingerprint
+            )
+        ):
+            raise StudyError("task_payload_fingerprint must be lowercase 64-hex")
 
 
 @dataclass(frozen=True, slots=True)
@@ -219,6 +250,8 @@ class CollaborationRun:
             raise StudyError("binding task_version does not match task")
         if self.binding.condition_packet_fingerprint != self.condition_packet.fingerprint:
             raise StudyError("condition packet fingerprint mismatch")
+        if self.binding.task_payload_fingerprint != self.task.payload_fingerprint:
+            raise StudyError("task payload fingerprint mismatch")
         if not self.metrics:
             raise StudyError("run requires metrics")
         metric_names = [observation.metric for observation in self.metrics]
@@ -306,6 +339,7 @@ CONTROL_BINDING_FIELDS = (
     "generation_config_ref",
     "task_id",
     "task_version",
+    "task_payload_fingerprint",
     "tool_manifest_ref",
     "scorer_ref",
     "preregistration_ref",

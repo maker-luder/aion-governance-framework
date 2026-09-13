@@ -30,6 +30,7 @@ from aion_human_ai_longitudinal import (  # noqa: E402
 
 
 BASE_MAIN = "d95bc2625e71f1c85a725aaba78cb0feccfc0668"
+BASE_TREE = "77470062979df1db2f17c3a2a396891d1e910f98"
 SPEC_HEAD = "3ce4f759caf662a53f0d1f3a54709bc482d7df5e"
 EXPERIMENT_ID = "AION-CROSS-DYAD-COLLABORATION-REGIME-001"
 SPEC_REF = (
@@ -57,6 +58,8 @@ def load_inputs() -> tuple[list[ConditionPacket], list[SyntheticTask], Path, Pat
             condition=CollaborationCondition(row["condition"]),
             instruction_ref=row["instruction_ref"],
             closure_rule_ref=row["closure_rule_ref"],
+            instruction_payload=row["instruction_payload"],
+            closure_rule_payload=row["closure_rule_payload"],
             repository_history_refs=tuple(row["repository_history_refs"]),
         )
         for row in packet_data["packets"]
@@ -67,6 +70,7 @@ def load_inputs() -> tuple[list[ConditionPacket], list[SyntheticTask], Path, Pat
             task_version=row["task_version"],
             family=SyntheticTaskFamily(row["family"]),
             prompt_ref=row["prompt_ref"],
+            prompt_payload=row["prompt_payload"],
             expected_anomaly=row["expected_anomaly"],
             repository_relevance=RepositoryRelevance(row["repository_relevance"]),
         )
@@ -130,6 +134,7 @@ def execute() -> dict[str, object]:
                 repository_commit=BASE_MAIN,
                 random_seed=20260913,
                 condition_packet_fingerprint=packet.fingerprint,
+                task_payload_fingerprint=task.payload_fingerprint,
             )
             harness.add_run(
                 CollaborationRun(
@@ -165,7 +170,10 @@ def execute() -> dict[str, object]:
             "used_as_implementation_base": False,
             "reference": SPEC_REF,
         },
-        "implementation_base": BASE_MAIN,
+        "implementation_base": {
+            "commit_sha": BASE_MAIN,
+            "tree_sha": BASE_TREE,
+        },
         "condition_count": len(packets),
         "task_family_count": len(tasks),
         "run_count": audit.run_count,

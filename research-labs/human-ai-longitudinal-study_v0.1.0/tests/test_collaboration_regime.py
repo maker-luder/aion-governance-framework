@@ -41,6 +41,8 @@ def packet(condition: CollaborationCondition) -> ConditionPacket:
         condition=condition,
         instruction_ref=f"instruction:{condition.value}",
         closure_rule_ref=f"closure:{condition.value}",
+        instruction_payload=f"Execute bounded protocol for {condition.value}.",
+        closure_rule_payload=f"Stop when evidence threshold for {condition.value} is met.",
         repository_history_refs=refs,
     )
 
@@ -62,6 +64,7 @@ def task(family: SyntheticTaskFamily) -> SyntheticTask:
         task_version="v1",
         family=family,
         prompt_ref=f"prompt:{family.value}",
+        prompt_payload=f"Synthetic task payload for {family.value}.",
         expected_anomaly=anomaly,
         repository_relevance=relevance,
     )
@@ -98,6 +101,7 @@ def run(
         repository_commit=BASE,
         random_seed=7,
         condition_packet_fingerprint=condition_packet.fingerprint,
+        task_payload_fingerprint=synthetic_task.payload_fingerprint,
     )
     return CollaborationRun(
         binding=binding,
@@ -198,12 +202,16 @@ def test_condition_d_requires_history_and_other_conditions_reject_it() -> None:
             CollaborationCondition.RECIPROCAL_PROTOCOL_WITH_REPOSITORY_HISTORY,
             "instruction",
             "closure",
+            "instruction payload",
+            "closure payload",
         )
     with pytest.raises(StudyError, match="only condition D"):
         ConditionPacket(
             CollaborationCondition.RECIPROCAL_EPISTEMIC_PROTOCOL,
             "instruction",
             "closure",
+            "instruction payload",
+            "closure payload",
             ("history:unexpected",),
         )
 
@@ -229,12 +237,47 @@ def test_metric_values_reject_bool_non_numeric_and_non_finite(value: object) -> 
 
 def test_raw_enum_and_condition_packet_fingerprint_drift_fail_closed() -> None:
     with pytest.raises(StudyError, match="exact CollaborationCondition"):
-        ConditionPacket("CONDITION_A_NEUTRAL_TASK_COMPLETION", "instruction", "closure")
+        ConditionPacket(
+            "CONDITION_A_NEUTRAL_TASK_COMPLETION",
+            "instruction",
+            "closure",
+            "instruction payload",
+            "closure payload",
+        )
     baseline = run(task(ALL_TASK_FAMILIES[0]), CORE_CONDITIONS[0])
     with pytest.raises(StudyError, match="fingerprint mismatch"):
         replace(
             baseline,
             binding=replace(baseline.binding, condition_packet_fingerprint="0" * 64),
+        )
+
+
+def test_actual_condition_and_closure_payloads_are_immutably_bound() -> None:
+    baseline = run(task(ALL_TASK_FAMILIES[0]), CORE_CONDITIONS[0])
+    with pytest.raises(StudyError, match="condition packet fingerprint mismatch"):
+        replace(
+            baseline,
+            condition_packet=replace(
+                baseline.condition_packet,
+                instruction_payload=baseline.condition_packet.instruction_payload + " tampered",
+            ),
+        )
+    with pytest.raises(StudyError, match="condition packet fingerprint mismatch"):
+        replace(
+            baseline,
+            condition_packet=replace(
+                baseline.condition_packet,
+                closure_rule_payload=baseline.condition_packet.closure_rule_payload + " tampered",
+            ),
+        )
+
+
+def test_actual_task_payload_is_immutably_bound() -> None:
+    baseline = run(task(ALL_TASK_FAMILIES[0]), CORE_CONDITIONS[0])
+    with pytest.raises(StudyError, match="task payload fingerprint mismatch"):
+        replace(
+            baseline,
+            task=replace(baseline.task, prompt_payload=baseline.task.prompt_payload + " tampered"),
         )
 
 
@@ -245,6 +288,7 @@ def test_repository_task_relevance_and_negative_controls_are_bound() -> None:
             "v1",
             SyntheticTaskFamily.REPOSITORY_RETRIEVAL_USEFUL,
             "prompt:bad",
+            "bad prompt payload",
             False,
             RepositoryRelevance.IRRELEVANT,
         )
@@ -254,6 +298,7 @@ def test_repository_task_relevance_and_negative_controls_are_bound() -> None:
             "v1",
             SyntheticTaskFamily.FALSE_ANOMALY_CONTROL,
             "prompt:false-anomaly",
+            "false anomaly prompt payload",
             True,
             RepositoryRelevance.NOT_APPLICABLE,
         )
@@ -276,3 +321,7 @@ def test_committed_execution_receipt_matches_fixture_inputs() -> None:
     assert receipt["third_party_account_accessed"] is False
     assert receipt["scientific_disposition"] == "HOLD"
     assert receipt["canonical_effect"] == "NONE"
+    assert receipt["implementation_base"] == {
+        "commit_sha": BASE,
+        "tree_sha": "77470062979df1db2f17c3a2a396891d1e910f98",
+    }

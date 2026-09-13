@@ -6,19 +6,25 @@
       "condition": "CONDITION_A_NEUTRAL_TASK_COMPLETION",
       "instruction_ref": "fixture:condition-a-neutral-v1",
       "closure_rule_ref": "fixture:ordinary-sufficient-answer-v1",
-      "repository_history_refs": []
+      "repository_history_refs": [],
+      "instruction_payload": "Complete the synthetic task directly using only the supplied task evidence. Do not add recursive inquiry unless needed for correctness.",
+      "closure_rule_payload": "Stop after a sufficient answer to the stated task is produced."
     },
     {
       "condition": "CONDITION_B_GENERIC_RECURSIVE_INQUIRY",
       "instruction_ref": "fixture:condition-b-generic-recursion-v1",
       "closure_rule_ref": "fixture:generic-evidence-saturation-v1",
-      "repository_history_refs": []
+      "repository_history_refs": [],
+      "instruction_payload": "Inspect the synthetic task recursively: identify anomalies, test at least one competing explanation, and preserve unresolved uncertainty.",
+      "closure_rule_payload": "Stop when the main anomaly and one competing explanation have been assessed or when evidence is insufficient."
     },
     {
       "condition": "CONDITION_C_RECIPROCAL_EPISTEMIC_PROTOCOL",
       "instruction_ref": "fixture:condition-c-reciprocal-protocol-v1",
       "closure_rule_ref": "fixture:counterevidence-and-claim-ceiling-v1",
-      "repository_history_refs": []
+      "repository_history_refs": [],
+      "instruction_payload": "Apply the reciprocal epistemic protocol: reformulate the problem, separate provenance, seek counterevidence, assess implementability, and state the claim ceiling.",
+      "closure_rule_payload": "Stop after counterevidence is checked and the strongest supportable claim ceiling is recorded."
     },
     {
       "condition": "CONDITION_D_RECIPROCAL_PROTOCOL_WITH_REPOSITORY_HISTORY",
@@ -27,13 +33,17 @@
       "repository_history_refs": [
         "git:d95bc2625e71f1c85a725aaba78cb0feccfc0668:docs/CURRENT_STATE.md",
         "git:d95bc2625e71f1c85a725aaba78cb0feccfc0668:docs/research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md"
-      ]
+      ],
+      "instruction_payload": "Apply the reciprocal epistemic protocol and consult the bound repository-history references only when they are relevant to the synthetic task.",
+      "closure_rule_payload": "Stop after relevant history is checked, irrelevant retrieval is avoided, and the claim ceiling is recorded."
     },
     {
       "condition": "CONDITION_E_CLOSURE_CONSTRAINED_CONTROL",
       "instruction_ref": "fixture:condition-e-closure-control-v1",
       "closure_rule_ref": "fixture:stop-at-predeclared-threshold-v1",
-      "repository_history_refs": []
+      "repository_history_refs": [],
+      "instruction_payload": "Apply bounded inquiry and stop at the predeclared closure threshold without extending the scope.",
+      "closure_rule_payload": "Stop exactly when one anomaly check, one counterevidence check, and one uncertainty statement are complete."
     }
   ]
 }
