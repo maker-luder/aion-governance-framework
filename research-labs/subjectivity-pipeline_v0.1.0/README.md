@@ -1,5 +1,16 @@
 # Subjectivity Pipeline v0.1.0
 
+## Bounded continuity-dissociation extension
+
+The synthetic continuity-channel intervention surface is documented in
+[`docs/CONTINUITY_DISSOCIATION_HARNESS.md`](docs/CONTINUITY_DISSOCIATION_HARNESS.md).
+It reuses this pipeline's `DIACHRONIC_CONTINUITY` and
+`SELF_MODEL_CAUSAL_ROLE` evidence dimensions while keeping event memory,
+semantic self-state, update path, preference state, relational history, and
+strategy signature operationally separate. Its deterministic receipt is a
+structural harness check only and preserves `SUBJECTIVITY = NOT_ESTABLISHED` and
+`CANONICAL_EFFECT = NONE`.
+
 Status: `RESEARCH_LAB_CANDIDATE`
 Canonical effect: `NONE`
 Subjectivity conclusion: `NOT_ESTABLISHED`

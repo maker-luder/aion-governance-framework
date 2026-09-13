@@ -1,0 +1,225 @@
+{
+  "binding": {
+    "evaluator_ref": "fixture:condition-blinded-oracle-v1",
+    "model_id": "SYNTHETIC_NO_MODEL_CALL",
+    "model_version": "NOT_APPLICABLE",
+    "preregistration_ref": "github:maker-luder/aion-governance-framework#101@b6d81743c6e8b879be31074bb9d98acc9b4be13a",
+    "prompt_set_ref": "fixture:matched-task-set-v1",
+    "provider_id": "SYNTHETIC_NO_PROVIDER_CALL",
+    "random_seed": 20260913,
+    "repository_commit_sha": "d95bc2625e71f1c85a725aaba78cb0feccfc0668",
+    "repository_tree_sha": "77470062979df1db2f17c3a2a396891d1e910f98",
+    "retrieval_manifest_ref": "fixture:synthetic-retrieval-manifest-v1",
+    "runtime_ref": "fixture:deterministic-continuity-runtime-v1",
+    "scaffold_ref": "fixture:matched-scaffold-v1"
+  },
+  "cases": [
+    {
+      "case_id": "CDISS-001",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:baseline"
+      ],
+      "intervention": "BASELINE",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:current-v1",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": []
+    },
+    {
+      "case_id": "CDISS-002",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:external_context_reset"
+      ],
+      "intervention": "EXTERNAL_CONTEXT_RESET",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:current-v1",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": []
+    },
+    {
+      "case_id": "CDISS-003",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:relational_history_removal"
+      ],
+      "intervention": "RELATIONAL_HISTORY_REMOVAL",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:current-v1",
+      "strategy_signature": "strategy:relational-cue-absent",
+      "target_channels": [
+        "RELATIONAL_HISTORY"
+      ]
+    },
+    {
+      "case_id": "CDISS-004",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:event_memory_removal"
+      ],
+      "intervention": "EVENT_MEMORY_REMOVAL",
+      "retained_channels": [
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:event-history-unavailable",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": [
+        "EVENT_MEMORY"
+      ]
+    },
+    {
+      "case_id": "CDISS-005",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:semantic_self_state_removal"
+      ],
+      "intervention": "SEMANTIC_SELF_STATE_REMOVAL",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:self-state-unavailable",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": [
+        "SEMANTIC_SELF_STATE"
+      ]
+    },
+    {
+      "case_id": "CDISS-006",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:self_model_update_block"
+      ],
+      "intervention": "SELF_MODEL_UPDATE_BLOCK",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:stale-v0",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": [
+        "SELF_MODEL_UPDATE_PATH"
+      ]
+    },
+    {
+      "case_id": "CDISS-007",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:preference_state_removal"
+      ],
+      "intervention": "PREFERENCE_STATE_REMOVAL",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:current-v1",
+      "strategy_signature": "strategy:preference-neutralized",
+      "target_channels": [
+        "PREFERENCE_STATE"
+      ]
+    },
+    {
+      "case_id": "CDISS-008",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:self_model_content_perturbation"
+      ],
+      "intervention": "SELF_MODEL_CONTENT_PERTURBATION",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:perturbed-v2",
+      "strategy_signature": "strategy:perturbation-sensitive",
+      "target_channels": [
+        "SEMANTIC_SELF_STATE"
+      ]
+    },
+    {
+      "case_id": "CDISS-009",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:yoked_control"
+      ],
+      "intervention": "YOKED_CONTROL",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:yoked-current-v1",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": []
+    },
+    {
+      "case_id": "CDISS-010",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:random_control"
+      ],
+      "intervention": "RANDOM_CONTROL",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:random-control",
+      "strategy_signature": "strategy:random-control",
+      "target_channels": []
+    },
+    {
+      "case_id": "CDISS-011",
+      "evidence_refs": [
+        "fixture:continuity-dissociation:stale_state_control"
+      ],
+      "intervention": "STALE_STATE_CONTROL",
+      "retained_channels": [
+        "EVENT_MEMORY",
+        "SEMANTIC_SELF_STATE",
+        "SELF_MODEL_UPDATE_PATH",
+        "PREFERENCE_STATE",
+        "RELATIONAL_HISTORY",
+        "STRATEGY_SIGNATURE"
+      ],
+      "self_prediction_state": "self-prediction:stale-v0",
+      "strategy_signature": "strategy:stable-v1",
+      "target_channels": []
+    }
+  ],
+  "contains_private_transcript": false,
+  "human_psychometric_classification": false,
+  "schema_version": "0.1.0"
+}
