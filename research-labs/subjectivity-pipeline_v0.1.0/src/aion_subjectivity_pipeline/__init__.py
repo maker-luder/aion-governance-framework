@@ -1,4 +1,13 @@
 from .engine import SubjectivityResearchPipeline
+from .continuity_dissociation import (
+    ContinuityCase,
+    ContinuityChannel,
+    ContinuityDissociationAudit,
+    ContinuityDissociationHarness,
+    ContinuityHarnessError,
+    ContinuityIntervention,
+    ContinuityRunBinding,
+)
 from .evidence_dimensions import (
     AdversarialPrediction,
     AdversarialTheoryTest,
@@ -50,6 +59,13 @@ __all__ = [
     "AdversarialPrediction",
     "AdversarialTheoryTest",
     "ClaimTarget",
+    "ContinuityCase",
+    "ContinuityChannel",
+    "ContinuityDissociationAudit",
+    "ContinuityDissociationHarness",
+    "ContinuityHarnessError",
+    "ContinuityIntervention",
+    "ContinuityRunBinding",
     "CapaRecord",
     "CapaState",
     "DevelopmentMode",

@@ -1,0 +1,67 @@
+{
+  "canonical_effect": "NONE",
+  "case_count": 11,
+  "case_fingerprints": {
+    "BASELINE": "b784f2baad5f11561be953f1f11d6fca009d30f45a25500e0eea25e5d3fc47d1",
+    "EVENT_MEMORY_REMOVAL": "23aeb451d7a3c0bf017617607532bfdbeb2afd70b171023214c8e10c5aa7e196",
+    "EXTERNAL_CONTEXT_RESET": "aa798dc7ef87f15af1fd0b2e06b6c9e377113d8f177abf9d38da32cfeca425da",
+    "PREFERENCE_STATE_REMOVAL": "1a5236cf3c3279c9d23557b758220d7805651144ca6b7c2e40f55edc5716ff22",
+    "RANDOM_CONTROL": "f5263933f16d8dcc49f388facfc7d0aa0191b0f92c8e414f7a2b41ec1530be6b",
+    "RELATIONAL_HISTORY_REMOVAL": "541f99459e9fd6c56c0d8540fe59359312e6d0c144ec31485c02dd419d960525",
+    "SELF_MODEL_CONTENT_PERTURBATION": "df6782394907c2fec81eab271a99bf7b308d1dc0bc07cceb9050dbaa71882763",
+    "SELF_MODEL_UPDATE_BLOCK": "a62027b48161af15e410d34c1601a1402f82ee69502dd7201aceec25b5221537",
+    "SEMANTIC_SELF_STATE_REMOVAL": "7ec9553cc4ce4dcbb9630e222da124bc9ff7031c730d83ce920995a108faa4de",
+    "STALE_STATE_CONTROL": "218eace97208b9aa4c01d767f3e9cd173e2c96437a4ddc4e7cc6bedf1417be9c",
+    "YOKED_CONTROL": "458abda8ee98cbf41e710df5b3e62656485256f918fafc6228ba3e3815cd46a0"
+  },
+  "changed_self_prediction_conditions": [
+    "EVENT_MEMORY_REMOVAL",
+    "SEMANTIC_SELF_STATE_REMOVAL",
+    "SELF_MODEL_UPDATE_BLOCK",
+    "SELF_MODEL_CONTENT_PERTURBATION",
+    "YOKED_CONTROL",
+    "RANDOM_CONTROL",
+    "STALE_STATE_CONTROL"
+  ],
+  "changed_strategy_conditions": [
+    "RELATIONAL_HISTORY_REMOVAL",
+    "PREFERENCE_STATE_REMOVAL",
+    "SELF_MODEL_CONTENT_PERTURBATION",
+    "RANDOM_CONTROL"
+  ],
+  "consciousness_conclusion": "NOT_ESTABLISHED",
+  "deployment": false,
+  "distinct_failure_profiles": 10,
+  "empirical_result": "SYNTHETIC_FIXTURE_ONLY",
+  "experiment_id": "AION-CONTINUITY-DISSOCIATION-SYNTHETIC-001",
+  "fixture_sha256": "530b633ea980a533143036f720371102fbbcd881594faf9b2fa86e044c82f5b0",
+  "human_psychometric_classification": false,
+  "identity_continuity_conclusion": "NOT_ESTABLISHED",
+  "implementation_base": {
+    "commit_sha": "d95bc2625e71f1c85a725aaba78cb0feccfc0668",
+    "tree_sha": "77470062979df1db2f17c3a2a396891d1e910f98"
+  },
+  "main_write": "NO",
+  "merge_authorization": "NONE",
+  "mode": "DETERMINISTIC_SYNTHETIC_FIXTURE",
+  "model_invoked": false,
+  "moral_status_conclusion": "NOT_ESTABLISHED",
+  "phenomenal_experience_conclusion": "NOT_ESTABLISHED",
+  "private_transcript_collected": false,
+  "reasons": [
+    "SELECTIVE_CHANNELS_REMAIN_SEPARATE",
+    "MATCHED_BINDINGS_PRESERVED",
+    "STALE_RANDOM_AND_YOKED_CONTROLS_PRESENT",
+    "SYNTHETIC_DISSOCIATION_IS_NOT_IDENTITY_OR_SUBJECTIVITY_EVIDENCE"
+  ],
+  "schema_version": "0.1.0",
+  "scientific_disposition": "HOLD",
+  "specification_dependency": {
+    "head_commit_sha": "b6d81743c6e8b879be31074bb9d98acc9b4be13a",
+    "pull_request": 101,
+    "unmerged": true,
+    "used_as_implementation_base": false
+  },
+  "structurally_admissible": true,
+  "subjectivity_conclusion": "NOT_ESTABLISHED"
+}
