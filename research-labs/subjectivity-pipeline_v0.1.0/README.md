@@ -4,6 +4,12 @@ Status: `RESEARCH_LAB_CANDIDATE`
 Canonical effect: `NONE`
 Subjectivity conclusion: `NOT_ESTABLISHED`
 
+The bounded executable standards-crosswalk extension is documented in
+[`docs/EXECUTABLE_STANDARDS_CROSSWALK.md`](docs/EXECUTABLE_STANDARDS_CROSSWALK.md).
+It preserves the merged Four-Domain quality chain and adds source-role,
+confound-register, and TEVV-term validation without creating subjectivity
+evidence from standards conformance.
+
 This lab connects five governed research blocks:
 
 `ENCOUNTER -> PROVENANCE -> AFFECT_MOTIVATION -> CONTINUITY -> SUBJECTIVITY_EVIDENCE`
