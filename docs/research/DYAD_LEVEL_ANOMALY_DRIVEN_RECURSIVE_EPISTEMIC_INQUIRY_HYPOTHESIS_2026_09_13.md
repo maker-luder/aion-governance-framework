@@ -157,7 +157,7 @@ ANOMALY_CUE
 
 ## 5. External research crosswalk
 
-A bounded literature search found strong adjacent constructs but no source that directly establishes this exact repository-specific dyadic pattern.
+A broader follow-up search found **direct conceptual overlap** with recursive Human–AI inquiry. Therefore this repository must not claim that recursive Human–AI inquiry itself is novel.
 
 ### 5.1 Problem finding
 
@@ -187,7 +187,7 @@ Use here:
 
 ```text
 DIALECTICAL_HUMAN_AI_EPISTEMIC_INTERACTION = EXTERNALLY_SUPPORTED_CONSTRUCT
-THIS_EXACT_LONGITUDINAL_RECURSIVE_PATTERN = NOT_ESTABLISHED_BY_THAT_PAPER
+THIS_EXACT_ANOMALY_QA_POLICY = NOT_ESTABLISHED_BY_THAT_PAPER
 ```
 
 ### 5.3 Abductive Human–AI research collaboration
@@ -202,10 +202,45 @@ Use here:
 
 ```text
 ITERATIVE_HUMAN_AI_ABDUCTIVE_RESEARCH_WORKFLOW = EXTERNALLY_SUPPORTED_EXAMPLE
-SPONTANEOUS_DYAD_LEVEL_INQUIRY_POLICY = NOT_ESTABLISHED
+THIS_REPOSITORY_SPECIFIC_ANOMALY_TRIGGERED_QA_POLICY = NOT_ESTABLISHED
 ```
 
-### 5.4 Joint problem space
+### 5.4 Recursive dialogue / recursive inquiry
+
+Wiles (2025) explicitly describes `recursive dialogue` and `recursive inquiry` in a longitudinal Human–ChatGPT autoethnographic research setting, where later turns build on and reframe prior insights and the dialogue itself becomes part of the methodology.
+
+Source:
+
+- Wiles (2025), *Recursive Cognition in Practice: How AI Dialogue Generated and Analyzed Its Own Methodology*, DOI `10.1177/16094069251381709`.
+
+This is a direct conceptual overlap and invalidates any claim that recursive Human–AI inquiry is unique to this repository.
+
+```text
+RECURSIVE_HUMAN_AI_INQUIRY = PRIOR_CONCEPTUAL_PRECEDENT_FOUND
+GENERAL_RECURSIVE_INQUIRY_NOVELTY = REJECTED
+```
+
+However, that work does not establish the present mechanistic hypothesis about anomaly cues, explicit counterevidence, provenance controls, claim ceilings, closure conditions and QA-governed recursive inquiry.
+
+### 5.5 AI-mediated recursive epistemic production
+
+Wang (2026) proposes a `Recursive Epistemic Production Cycle` in which sustained Human–LLM interaction can generate emergent research questions, structural abstractions, iterative hypotheses and formalized knowledge outputs.
+
+Source:
+
+- Wang (2026), *AI-mediated Epistemic Interaction and Human AI Collaborative Knowledge Production*, SSRN preprint, DOI `10.2139/ssrn.7330698`.
+
+Source-status boundary:
+
+```text
+SSRN_PREPRINT = NON_PEER_REVIEWED_SOURCE
+CONCEPTUAL_OVERLAP = RELEVANT
+EMPIRICAL_VALIDATION = NOT_ESTABLISHED_BY_SOURCE_STATUS_ALONE
+```
+
+This source substantially overlaps the broad idea that recursive Human–AI interaction can produce new questions and formalized outputs. It does not remove the need to test this repository's more specific interaction-policy hypothesis.
+
+### 5.6 Joint problem space
 
 Collaborative-learning research describes a `joint problem space` as a shared, negotiated problem-solving structure that participants construct and maintain over time.
 
@@ -222,24 +257,29 @@ JOINT_PROBLEM_SPACE != SHARED_CONSCIOUSNESS
 
 The repository's longitudinal artifact history may help maintain a joint problem representation, but this does not establish shared mental states or identity continuity.
 
-## 6. Current novelty boundary
+## 6. Revised novelty boundary
 
-The bounded search supports the following statement only:
+The current literature search requires a narrower novelty claim.
 
 ```text
-DIRECT_MATCH_IN_BOUNDED_SEARCH = NOT_FOUND
-RELATED_CONSTRUCTS = FOUND
+DIRECT_CONCEPTUAL_OVERLAP_WITH_RECURSIVE_HUMAN_AI_INQUIRY = FOUND
+PRIOR_RECURSIVE_INQUIRY_TERMINOLOGY = FOUND
+PRIOR_RECURSIVE_EPISTEMIC_PRODUCTION_MODEL = FOUND
+EXACT_MECHANISTIC_MATCH_FOR_ANOMALY_TRIGGERED_QA_GOVERNED_DYAD_POLICY = NOT_ESTABLISHED
 SCIENTIFIC_NOVELTY = NOT_ESTABLISHED
 ```
 
-The absence of a direct match in a limited search is not evidence that no prior paper exists.
+The current candidate contribution is therefore **not**:
 
 ```text
-NO_DIRECT_MATCH_FOUND
-!= NO_PRIOR_RESEARCH_EXISTS
+"Human and AI can engage in recursive inquiry"
 ```
 
-A later literature review should search across HCI, CSCW, learning sciences, distributed cognition, human–AI teaming, scientific discovery, cognitive offloading, problem finding and abductive reasoning before any novelty claim is made.
+A more defensible research target is:
+
+> whether longitudinal collaboration under explicit provenance, counterevidence, uncertainty, QA and closure controls produces a measurable anomaly-triggered interaction policy distinguishable from Human-only disposition, AI-only style, explicit prompt rules, topic complexity and repository retrieval effects.
+
+Even that target must not be described as novel until a much broader systematic literature review is completed.
 
 ## 7. Candidate mechanism
 
@@ -294,6 +334,7 @@ Future work must preserve at least:
 7. **Task-complexity effect** — complex questions naturally require more steps; the apparent dyad pattern may disappear on matched simple tasks.
 8. **Human habit transfer** — the previously recorded Human-side habit hypothesis may explain the effect without requiring a dyad-level construct.
 9. **Prompt / system configuration** — model-level or product-level context may directly account for the observed behavior.
+10. **Known recursive-inquiry workflow effect** — the observed behavior may be an instance of already-described recursive Human–AI inquiry rather than a distinct local mechanism.
 
 ## 9. Four-Domain translation
 
@@ -366,6 +407,7 @@ Not permitted:
 "the AI learned curiosity"
 "the Human has a stable personality type"
 "the interaction proves AI subjectivity"
+"recursive Human-AI inquiry is novel"
 "the workflow is scientifically novel"
 ```
 
@@ -384,9 +426,10 @@ matched ordinary tasks
 
 CONDITIONS
 A. neutral minimal collaboration protocol
-B. reciprocal epistemic protocol without repository history
-C. reciprocal epistemic protocol + structured repository-history packet
-D. optional closure-constrained control
+B. generic recursive-inquiry protocol from external literature
+C. repository reciprocal-epistemic protocol without repository history
+D. repository reciprocal-epistemic protocol + structured repository-history packet
+E. optional closure-constrained control
 
 MEASURE
 - anomaly detection
@@ -398,6 +441,8 @@ MEASURE
 - premature closure
 - over-expansion / failure-to-stop
 ```
+
+Adding a generic recursive-inquiry condition is now important because external literature already demonstrates conceptually similar workflows. The test should ask whether the repository-specific QA / provenance / closure controls produce distinguishable behavior beyond generic recursion.
 
 The implementation should test observable interaction behavior, not infer hidden consciousness, personality or subjective experience.
 
@@ -435,7 +480,7 @@ Candidate failure modes:
 - **provenance collapse** — Human / Teacher / external source roles become blurred;
 - **repository anchoring** — historical documentation suppresses better new explanations;
 - **tool escalation** — web / code / agents are invoked merely because they are available;
-- **false novelty** — local interaction pattern is mislabeled as a new scientific category without adequate literature review.
+- **false novelty** — local interaction pattern is mislabeled as a new scientific category despite existing recursive-inquiry literature.
 
 This makes the hypothesis primarily relevant to Human–AI epistemic collaboration and research-quality engineering, with only indirect relevance to subjectivity research.
 
@@ -445,7 +490,9 @@ This makes the hypothesis primarily relevant to Human–AI epistemic collaborati
 HUMAN_OWNER_NEW_RESEARCH_QUESTION = RECORDED
 CHATGPT_TEACHER_FORMALIZATION = RECORDED
 JOINT_RESEARCH_HYPOTHESIS = ACTIVE_FOR_REVIEW
-DIRECT_MATCH_IN_BOUNDED_LITERATURE_SEARCH = NOT_FOUND
+DIRECT_CONCEPTUAL_OVERLAP_WITH_RECURSIVE_HUMAN_AI_INQUIRY = FOUND
+GENERAL_RECURSIVE_INQUIRY_NOVELTY = REJECTED
+EXACT_MECHANISTIC_MATCH = NOT_ESTABLISHED
 SCIENTIFIC_NOVELTY = NOT_ESTABLISHED
 DYAD_LEVEL_CAUSAL_POLICY = NOT_ESTABLISHED
 SUBJECTIVITY_RELEVANCE = INDIRECT / METHOD_CONTROL
