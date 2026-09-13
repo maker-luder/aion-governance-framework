@@ -338,9 +338,79 @@ READ_WHAT_IS_NEEDED
 != LOAD_EVERYTHING
 ```
 
-## 8. Suggested repository navigation layers
+## 8. Current research navigation marker
 
-This note does not create these files automatically. It records a candidate future organization.
+As of the live state checked on 2026-09-13, PR #102 is the preferred **first research navigation entry** for the current research cluster. It should be read early because it aggregates the newest draft research-method, QA, role-separation, external-memory, recursive-inquiry, coordination, resilience and experiment-specification material.
+
+This is a navigation rule, not an authority rule.
+
+```text
+PR #102 FIRST-READ
+!= PR #102 CANONICAL
+!= PR #102 FIRST-MERGE
+!= PR #102 COMPLETE_REPOSITORY_STATE
+```
+
+The preferred read order is:
+
+```text
+1. LIVE_REPOSITORY_STATE
+2. CURRENT_MAIN
+3. PR #102 AS CURRENT RESEARCH / METHOD OVERLAY
+4. TASK-RELEVANT SIBLING / HISTORICAL MATERIAL
+5. EXISTING IMPLEMENTATION / HARNESS
+6. MINIMAL AUTHORIZED ACTION
+```
+
+Task-dependent cross-reading currently includes:
+
+```text
+PR #101
+-> personality / memory / self-model / continuity specialized Draft
+
+MERGED PR #93
+-> longitudinal Human-AI grounding / study-harness antecedent
+
+OTHER PRs / MERGED HISTORY
+-> only when materially relevant to the task
+```
+
+PR #101 is a sibling specialized research hypothesis, not subordinate to PR #102. Merged PR #93 is part of canonical ancestry on `main`.
+
+```text
+MAIN
+= CANONICAL_BASELINE
+
+PR #102
+= CURRENT_DRAFT_RESEARCH_METHOD_OVERLAY
++ PREFERRED_FIRST_RESEARCH_NAVIGATION_ENTRY
+
+PR #101
+= SPECIALIZED_SIBLING_DRAFT
+
+MERGED PR #93
+= CANONICAL_HISTORICAL_ANTECEDENT
+```
+
+A first navigation entry must not silently become an implementation base branch.
+
+```text
+FIRST_NAVIGATION_ENTRY
+!= IMPLEMENTATION_BASE_BRANCH
+```
+
+If future implementation actually depends on unmerged content from PR #102 or PR #101, that dependency must be reported explicitly.
+
+```text
+UNMERGED_DEPENDENCY
+-> EXPLICIT_REPORT_REQUIRED
+```
+
+The separate dated marker `CURRENT_RESEARCH_NAVIGATION_2026_09_13.md` records the same current relationship for discoverability. Live repository state overrides stale factual status in either document.
+
+## 9. Suggested repository navigation layers
+
+This note does not create active agent instructions automatically.
 
 ### Layer A — short agent map
 
@@ -395,7 +465,7 @@ MAP
 -> LIVE_EXECUTION_RECEIPT
 ```
 
-## 9. Handoff authority boundary
+## 10. Handoff authority boundary
 
 Repository documentation can preserve standing process rules, but it must not silently become new authority.
 
@@ -414,13 +484,16 @@ CODEX_CAPABILITY
 
 WORK_CAPABILITY
 != WORK_AUTHORITY
+
+READ_ORDER
+!= AUTHORITY_ORDER
 ```
 
 For this repository, high-impact actions remain subject to current Human Owner governance.
 
 A future short prompt must still explicitly communicate any authority delta that cannot safely be inferred from standing repository rules.
 
-## 10. Review / QA protocol after implementation
+## 11. Review / QA protocol after implementation
 
 The short handoff design must not reduce independent review.
 
@@ -451,7 +524,7 @@ HUMAN OWNER
 
 The Human–Teacher conversation therefore preserves its context for research and review rather than repeatedly carrying the entire implementation specification inline.
 
-## 11. Public-repository reproducibility objective
+## 12. Public-repository reproducibility objective
 
 The Human Owner's stated objective is broader than convenience.
 
@@ -492,7 +565,7 @@ OPENNESS
 != CORRECTNESS
 ```
 
-## 12. Four-Domain mapping of this protocol
+## 13. Four-Domain mapping of this protocol
 
 ### DOMAIN_1_HUMAN_CONSTRUCT
 
@@ -550,7 +623,7 @@ WORKFLOW_STABILITY
 != SUBJECTIVITY
 ```
 
-## 13. Candidate future implementation — not authorized
+## 14. Candidate future implementation — not authorized by this note
 
 After a separate fresh Human Owner instruction, Codex / ChatGPT Work may inspect whether the repository would benefit from the following minimum implementation:
 
@@ -568,81 +641,19 @@ NO_IMPLEMENTATION_YET = ACCEPTABLE
 NO_NEW_AGENT_INSTRUCTION_SURFACE_WITHOUT_FRESH_AUTHORIZATION = REQUIRED
 ```
 
-## 14. Suggested success criteria for later evaluation
-
-A repository-first handoff should be considered useful only if it improves or preserves:
-
-- recovery of required constraints;
-- exact live-state verification;
-- provenance accuracy;
-- implementation correctness;
-- QA independence;
-- authority correctness;
-- reviewability;
-- re-entry into the Human–Teacher research discussion;
-- external inspectability.
-
-It should not be adopted merely because prompts are shorter.
+## 15. Current disposition
 
 ```text
-SHORTER_PROMPT
-!= BETTER_WORKFLOW
-
-BETTER_WORKFLOW
-REQUIRES
-QUALITY_PRESERVATION_OR_IMPROVEMENT
-```
-
-## 15. Relationship to current PR #102
-
-This note complements:
-
-- `RECIPROCAL_EPISTEMIC_COLLABORATION_AND_EXTERNAL_RESEARCH_MEMORY_2026_09_13.md`;
-- `HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md`;
-- `HUMAN_PROBLEM_SOLVING_HABIT_TRANSFER_FROM_AI_COLLABORATION_2026_09_13.md`;
-- `EPISTEMIC_CO_DEVELOPMENT_WORKFLOW_AND_QUALITY_LINE_2026_09_13.md`;
-- `FOUR_DOMAIN_STANDARDS_SUBJECTIVITY_CROSSWALK_2026_09_13.md`.
-
-Together they separate:
-
-```text
-WHY_KNOWLEDGE_IS_EXTERNALIZED
-WHO_DOES_WHAT
-HOW_COLLABORATION_MAY_AFFECT_HUMAN_METHOD
-HOW_THE_EPISTEMIC_LOOP_IS_QUALITY_CONTROLLED
-HOW_EXTERNAL_STANDARDS_MAP_TO_FOUR_DOMAIN
-HOW_FUTURE_AGENTS_SHOULD_RECEIVE_CONTEXT
-```
-
-## 16. Final boundary
-
-```text
-REPOSITORY_FIRST_HANDOFF = JOINT_PROCESS_DIRECTION
-
-HUMAN_OWNER_ORIGINAL
-= observation that giant engineering prompts can disrupt the ongoing Human–Teacher research context
-+ preference to place durable operational knowledge in the public repository
-+ preference for inspectable / contestable / externally reviewable research process
-
-CHATGPT_TEACHER_FORMALIZATION
-= stable knowledge vs live state vs task delta separation
-+ repository-first handoff protocol
-+ short-map / scoped-retrieval model
-+ Four-Domain translation
-+ candidate evaluation design
-
-EXTERNAL_SUPPORT
-= OPENAI_CODEX_HARNESS_ENGINEERING
-+ OPENAI_AGENTS_MD_MECHANISM
-+ LONG_CONTEXT_RETRIEVAL_RESEARCH
-+ IRRELEVANT_CONTEXT_DISTRACTION_RESEARCH
-+ EXTERNAL_MEMORY_ARCHITECTURE_ANALOGY
-
-CAUSAL_EFFECT_ON_THIS_DYAD = NOT_ESTABLISHED
-AGENTS_MD_IMPLEMENTATION = NOT_AUTHORIZED
-CODEX_WORK_IMPLEMENTATION = NOT_AUTHORIZED
+REPOSITORY_FIRST_HANDOFF = RECORDED_PROCESS_HYPOTHESIS
+PR_102_FIRST_RESEARCH_NAVIGATION_ENTRY = RECORDED_CURRENT_RULE
+PR_102_CANONICAL = FALSE
+PR_101_SIBLING_DRAFT = TRUE
+PR_93_MERGED_ANTECEDENT = TRUE
+LIVE_STATE_RECHECK_REQUIRED = TRUE
+ROOT_AGENTS_MD = NOT_CREATED_BY_THIS_NOTE
+EXECUTABLE_IMPLEMENTATION = NONE
 MERGE_AUTHORIZATION = NONE
-MAIN_WRITE = NO
+MAIN_WRITE_AUTHORIZATION = NONE
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
-SCIENTIFIC_DISPOSITION = HOLD
+```
