@@ -1,5 +1,8 @@
 # Human-AI longitudinal study harness v0.1.0
 
+The bounded calibration extension is documented in
+[`ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md`](ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal

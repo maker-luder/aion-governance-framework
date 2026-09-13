@@ -15,8 +15,19 @@ from .harness import (
     TaskDomain,
     TrialRecord,
 )
+from .adaptive_rigor import (
+    CalibrationCondition,
+    CalibrationError,
+    CalibrationMetric,
+    CalibrationRun,
+    audit_calibration,
+)
 
 __all__ = [
+    "CalibrationCondition",
+    "CalibrationError",
+    "CalibrationMetric",
+    "CalibrationRun",
     "AdmissionDisposition",
     "ConditionProfile",
     "ContextCondition",
@@ -32,4 +43,5 @@ __all__ = [
     "SummaryCondition",
     "TaskDomain",
     "TrialRecord",
+    "audit_calibration",
 ]
