@@ -23,7 +23,13 @@ Role summaries do not overwrite file-level or event-level provenance. When autho
 
 Unknown historical attribution is marked `SOURCE_UNVERIFIED` rather than guessed.
 
-## Imperceptible watermark policy — normative
+## All-watermark prohibition — normative
+
+The Human Owner explicitly corrected the scope on 2026-09-14: this public repository prohibits **all watermarks**, visible or invisible, disclosed or undisclosed, regardless of legality, provider, or asserted legitimate purpose. Public, transparent, inspectable and challengeable records are required. This rule covers repository artifacts and project outputs, including externally supplied material admitted to them.
+
+Ordinary encoding metadata, character shaping and explicit provenance records are not automatically watermarks. Their possible legitimate function is not permission to use them as watermark carriers. Any confirmed watermark is prohibited even if a detector does not identify it or a historical hash matches. An artifact confirmed to contain a watermark must be blocked from admission/publication pending an explicit, reviewable remediation; historical evidence must not be silently rewritten.
+
+The existing retained Unicode findings are technical character signals, **not confirmed watermarks**. Their path/hash retention mechanism cannot authorize a watermark. The scanner cannot determine every signal's purpose or certify compliance with the full prohibition; unresolved watermark classification requires review and must not be represented as established absence.
 
 The project distinguishes technical content markers, provenance records, authorship claims and identity claims. They are not interchangeable.
 
@@ -64,11 +70,11 @@ Accordingly, the watermark policy is treated as part of the repository's audit a
 
 The following requirements apply to project-owned output paths:
 
-1. The project **MUST NOT** intentionally embed imperceptible, hidden or undisclosed machine-readable watermarks or content markers in user-facing text, images, files or other artifacts as a mechanism for identity, authorship, attribution, respect or provenance.
+1. The project **MUST NOT** embed, require, or knowingly admit any watermark in repository artifacts or project outputs. This includes visible, invisible, statistical and metadata-based watermarks, whether disclosed or undisclosed and whatever their purpose. Hidden or undisclosed identity/authorship/provenance content markers are also prohibited.
 2. The presence or absence of a watermark or content marker **MUST NOT**, by itself, establish the identity of a user, author, model, agent or research subject, and **MUST NOT**, by itself, establish authorship.
 3. When provenance is required, the project **SHOULD** use explicit, inspectable, documented and auditable records such as declared attribution, version history, commit lineage, manifests, checksums or other disclosed provenance mechanisms.
 4. A marker discovered in an external artifact **MUST** remain an external technical signal. It **MUST NOT** be promoted into canonical identity, authorship or subjectivity evidence.
-5. A dependency, provider or output path that requires non-disableable imperceptible watermarking in project-generated outputs **MUST** be treated as incompatible with that output path unless a later explicit governance revision authorizes a transparent alternative.
+5. A dependency, provider or output path that requires any non-disableable watermarking **MUST** be treated as incompatible. Legality, disclosure, attribution, respect or a provider requirement grants no exception.
 6. Project-owned tracked UTF-8 text **MUST NOT** contain high-risk invisible Unicode format controls, blank/filler characters or selector-only code points covered by `scripts/scan_public_tree.py`. Detection in a project-owned path fails closed. A leading UTF-8 BOM is treated as encoding metadata rather than an embedded content marker; the same `U+FEFF` occurring later in content remains a finding.
 7. The Quality workflow **MUST** run the public-tree scanner before later release/evidence reconciliation steps. A detectable project-owned imperceptible marker is a quality failure, not a warning.
 8. Retained external-source, incident-original and archival QA patch evidence **MUST NOT** be silently rewritten merely to remove an externally supplied or historically preserved marker. Detectable markers there remain explicitly classified as retained technical signals and do not become project provenance evidence.
@@ -90,9 +96,9 @@ LEADING_UTF8_BOM != EMBEDDED_WATERMARK
 SCANNER_PASS != UNIVERSAL_WATERMARK_ABSENCE
 ```
 
-This enforcement does not authorize a hidden-marker allowlist. Any future exception mechanism must be explicit, path- and purpose-specific, reviewable, and cannot authorize an imperceptible identity/authorship/provenance watermark that contradicts the normative prohibition above.
+This enforcement does not authorize a watermark allowlist. Neither retained-evidence registration nor legitimate Unicode usage creates an exception to the all-watermark prohibition.
 
-This policy rejects imperceptible marking as a project provenance or identity mechanism without rejecting provenance itself. Provenance remains a first-class governance requirement; it must remain distinguishable from identity and be represented through transparent, reviewable evidence.
+This policy rejects all watermarks without rejecting explicit provenance records. Provenance remains a first-class governance requirement; it must remain distinguishable from identity and be represented through transparent, reviewable evidence.
 
 ## Historical event provenance
 
