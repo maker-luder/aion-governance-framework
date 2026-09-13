@@ -80,6 +80,35 @@ The following requirements apply to project-owned output paths:
 8. Retained external-source, incident-original and archival QA patch evidence **MUST NOT** be silently rewritten merely to remove an externally supplied or historically preserved marker. Detectable markers there remain explicitly classified as retained technical signals and do not become project provenance evidence.
 9. Automated enforcement is intentionally bounded. A scanner pass **MUST NOT** be interpreted as proof that no statistical model watermark, binary-media steganography, metadata watermark, provider-side transformation or other undetectable marking exists.
 
+### Project scope, self-audit and unsupported uses — 2026-09-14
+
+This boundary applies only to this project's governance, maintainer decisions, accepted contributions and repository-supported functionality. It preserves PUBLIC / TRANSPARENT / INSPECTABLE / AUDITABLE / CHALLENGEABLE operation and normal clone, download, inspection, audit, reproduction and research. It imposes no download prohibition.
+
+The project **MUST NOT** develop or accept features, workflows, APIs, research axes or executable tooling for external watermark discovery/hunting: searching third-party content for invisible watermarks, tracking watermarks, inferring their users/models/sources, identity tracking, covert attribution through hidden markers, or facilitating watermark evasion, exploitation or weaponization. A general-purpose third-party watermark detection or attribution service is outside project scope and must not be implemented or supported.
+
+Repository self-integrity/compliance audit remains permitted and necessary: checking the repository and repository-owned outputs for accidental watermarks or prohibited markers, checking all-watermark-policy compliance, and reviewing historical-evidence admission. This includes bounded review of material proposed for admission to this repository; it does not authorize general third-party searching or source/identity inference. The existing scanner and its local test fixtures serve this self-audit purpose.
+
+The project **MUST NOT** actively implement, support, facilitate or endorse clearly unlawful uses. Maintainers must reject contributions and project-supported functionality with those purposes. This is a project-governance requirement, not a guarantee that public code cannot be misused or that a scanner determines legality.
+
+All watermarks in project artifacts remain prohibited, including visible, invisible, disclosed, undisclosed, statistical and metadata-based watermarks. A technical signal is not a confirmed watermark: ordinary Unicode, BOMs and variation selectors must not automatically be described as watermarks. The scanner remains a bounded detector, not a universal watermark detector.
+
+```text
+SELF_AUDIT != EXTERNAL_WATERMARK_HUNTING
+REPOSITORY_SELF_AUDIT != GENERAL_PURPOSE_WATERMARK_DETECTION_SERVICE
+PUBLIC_ACCESS != PROJECT_ENDORSEMENT_OF_ALL_USES
+OPEN_SOURCE_AVAILABILITY != PROJECT_PURPOSE_IS_UNBOUNDED
+PROJECT_MUST_NOT_IMPLEMENT_OR_SUPPORT_ILLEGAL_USE
+TECHNICAL_SIGNAL != CONFIRMED_WATERMARK
+SCANNER_PASS != UNIVERSAL_WATERMARK_ABSENCE
+```
+
+These project-scope and contribution-acceptance rules do not amend, override or add conditions to Apache-2.0 permissions for downstream recipients. LICENSE remains unchanged; no technical or legal prevention of all downstream misuse is claimed. See [Apache-2.0 sections 2 and 4](https://www.apache.org/licenses/LICENSE-2.0) for reproduction and redistribution permissions and conditions (checked 2026-09-14). Any licensing review requires separate explicit Human Owner authorization.
+
+Provenance for this clarification:
+- **Human Owner originated:** the public/transparent/auditable principle, all-watermark prohibition, non-exploitation concern, opposition to developing watermark hunting/tracking/exploitation tools, and opposition to supporting unlawful uses.
+- **ChatGPT Teacher proposed formalization:** the self-audit/external-hunting distinction, project-scope/non-goal framing, separation of Apache-2.0 from a download prohibition, and expressing this intent through project governance without changing LICENSE.
+- **Work / Codex:** performs only the bounded implementation and verification of these requirements; it does not originate or reassign the Human Owner's intent.
+
 ### Executable enforcement boundary
 
 `scripts/scan_public_tree.py` provides a fail-closed repository check for detectable high-risk invisible markers in project-owned UTF-8 text. The current machine-detectable profile includes Unicode format controls (`Cf`), selected blank/filler characters and the supplementary variation-selector range. Common visible emoji presentation selectors are not blanket-banned merely for being Unicode selectors, and a leading UTF-8 BOM is treated as an encoding signature rather than a watermark.
