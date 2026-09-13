@@ -484,7 +484,303 @@ Candidate failure modes:
 
 This makes the hypothesis primarily relevant to Human–AI epistemic collaboration and research-quality engineering, with only indirect relevance to subjectivity research.
 
-## 12. Current disposition
+## 12. System-level self-reinforcing epistemic loops and loop-escape control
+
+This subsection is a failure-mode and control extension of the existing
+anomaly-driven recursive-inquiry hypothesis. It is not a new research axis and
+does not convert the broad `runaway recursion` label into an established
+mechanism or binary classifier.
+
+### 12.1 Provenance and question boundary
+
+#### HUMAN_OWNER_EXTENSION
+
+After reviewing an army-ant circular-mill example, the Human Owner extracted a
+systems-level question rather than transferring ant biology into AI psychology:
+locally reinforced rule-following can coexist with a globally non-progressive
+trajectory, and a departure from the current feedback path may sometimes permit
+escape.
+
+The Human Owner also identified a secondary practical consequence:
+non-progressive recursion may consume tool calls, repeated actions, commits,
+compute, time, reviewer attention, context and tokens without a corresponding
+inquiry gain. Resource use remains secondary to epistemic quality and is not a
+loop criterion by itself.
+
+#### CHATGPT_TEACHER_FORMALIZATION
+
+ChatGPT Teacher proposed the repository working terms
+`SYSTEM_LEVEL_SELF_REINFORCING_EPISTEMIC_LOOP`,
+`MULTI_SIGNAL_LOOP_CANDIDATE` and `LOOP_ESCAPE_CONTROL`, then separated loop
+detection, escape action, escape outcome and claim validation.
+
+These are local specification terms, not established scientific taxonomies or
+claims about a model's internal experience.
+
+```text
+LOCAL_RULE_PASS != GLOBAL_SYSTEM_SUCCESS
+ITERATION_OCCURRED != INFORMATION_GAIN
+ACTION_SUCCESS != STATE_PROGRESS
+RECURSION != PROGRESS
+LEXICAL_NOVELTY != SEMANTIC_PROGRESS
+LEXICAL_REPETITION != NO_SEMANTIC_PROGRESS
+CONSENSUS != INDEPENDENT_CONFIRMATION
+DISSENT != ERROR
+DISSENT != CORRECTNESS
+LOOP_BREAK != PROBLEM_SOLVED
+LOOP_ESCAPE != CLAIM_VALIDATED
+MORE_TOOL_USE != MORE_TRUTH
+RESOURCE_CONSUMPTION != EPISTEMIC_PROGRESS
+```
+
+### 12.2 Candidate multi-signal loop model
+
+The candidate question is whether an initially productive inquiry cycle can,
+under some conditions, continue reopening while no longer producing meaningful
+evidential or representational change.
+
+Candidate signals include:
+
+- repeated reasoning structure, even when surface wording changes;
+- little or no genuinely independent evidence gain;
+- little or no new counterevidence or falsifier;
+- little or no movement in the explicitly represented uncertainty state;
+- little or no gain in the problem representation;
+- recursive reopening without a new justification;
+- continuation after a predeclared closure condition has already been satisfied;
+- repeated actions without meaningful repository-state change; and
+- continued tool, compute or time expenditure without measurable inquiry gain.
+
+The candidate disposition is deliberately non-binary:
+
+```text
+MULTI_SIGNAL_LOOP_CANDIDATE
+-> RECHECK_REQUIRED
+
+NO_SINGLE_SIGNAL
+IS_SUFFICIENT_TO_ESTABLISH_A_LOOP
+
+ALL_SIGNALS_REQUIRED
+= NOT_JUSTIFIED
+```
+
+A single threshold is not specified here. Requiring every signal would risk
+missing real non-progressive loops, while treating any one signal as decisive
+would misclassify long, difficult or slowly progressing inquiries.
+
+In particular:
+
+```text
+REPEATED_CONTENT_ALONE != EPISTEMIC_LOOP
+LONG_DISCUSSION != EPISTEMIC_LOOP
+HIGH_TOOL_COST != EPISTEMIC_LOOP
+LOW_UNCERTAINTY_MOVEMENT != NO_PROGRESS
+NOVEL_WORDING != NEW_REASONING
+```
+
+Any future operationalization must declare how semantic progress,
+problem-representation gain, uncertainty movement and independent evidence are
+judged. Lexical difference is not an adequate proxy.
+
+### 12.3 Productive recursion and resource efficiency
+
+A costly inquiry may remain justified when it produces important evidence,
+counterevidence, reformulation, uncertainty calibration or reliable closure.
+Conversely, an inexpensive response may be epistemically poor.
+
+```text
+PRODUCTIVE_RECURSION
+MAY_JUSTIFY
+HIGH_RESOURCE_COST
+
+NON_PROGRESSIVE_RECURSION
+MAY_PRODUCE
+AVOIDABLE_RESOURCE_COST
+
+RESOURCE_COST
+!= EPISTEMIC_FAILURE_BY_ITSELF
+
+HIGH_COST != LOOP
+LOW_COST != GOOD_REASONING
+EFFICIENCY_GAIN != ACCURACY_GAIN
+LOWER_COST != BETTER_EPISTEMICS
+```
+
+The bounded secondary research question is:
+
+> Can loop-escape controls reduce non-progressive epistemic recursion and
+> unnecessary resource expenditure without increasing premature closure?
+
+This question requires both epistemic and resource observables to remain
+separate. Premature stopping may save resources while degrading inquiry.
+
+### 12.4 Candidate loop-escape control
+
+A `LOOP_ESCAPE_CONTROL` may request one or more bounded interventions:
+
+- introduce genuinely independent evidence;
+- require an explicit competing hypothesis;
+- re-ground against a primary source;
+- use a fresh-context or otherwise independent reviewer;
+- compare against held-out evidence;
+- reformulate the original problem;
+- preserve `UNKNOWN` explicitly; or
+- stop when sufficient predeclared closure criteria are satisfied.
+
+The intervention must not self-certify its value:
+
+```text
+ESCAPE_ACTION != ESCAPE_SUCCESS
+ESCAPE_SUCCESS != CLAIM_VALIDATED
+FRESH_REVIEWER != UNBIASED_REVIEWER
+PRIMARY_SOURCE != AUTOMATICALLY_SUFFICIENT_EVIDENCE
+COMPETING_HYPOTHESIS != GOOD_HYPOTHESIS
+HELD_OUT_EVIDENCE != AUTOMATIC_GENERALIZATION
+DISAGREEMENT != LOOP_ESCAPE
+```
+
+A candidate escape succeeds only in the narrow process sense if it produces a
+measurable change such as new independent evidence, a defensible problem
+reformulation, justified uncertainty movement, or appropriate closure. Whether
+the resulting claim is correct remains a separate evidence and review question.
+
+### 12.5 Repository-local hypothesis-generating incident
+
+The PR #102 commit history was rechecked before recording this incident.
+
+One transient commit,
+`4e3ae873452fe3161e449104caa51b0de0d0b1ec`, changed the branch tree to
+`ded62ea1ef99549485a5f47ff8b1e2e5c6caab50` while replacing the calibration
+note with `noop`. Commit
+`22d021f5ecdf8186416229bfe5c40fc0f1d0fc50` restored the intended final tree:
+
+`e2f58182a29dd53d7443e7ebb670173b8467aaee`
+
+The following later commits each pointed to that same tree without changing
+repository content:
+
+- `d75199777999fcfc919ae0e67854de870a4bafbb`;
+- `670a448ada6d77d71e484e2fab874e0beeaca75b`;
+- `27d084d6fadb1a2d3c1cebce092ba827360fb757`;
+- `8e79f75e4e8d922228f4d80878572b111440fc5e`; and
+- `fe70752b9a1debccae00ce4f9bbb4ceb24b13df9`.
+
+This supports only the repository-local observation:
+
+```text
+ACTION_CONTINUED
+WHILE
+REPOSITORY_STATE_DID_NOT_PROGRESS
+
+REPOSITORY_LOCAL_INCIDENT
+= HYPOTHESIS_GENERATING_REPOSITORY_INCIDENT
+
+REPOSITORY_LOCAL_INCIDENT
+!= PROOF_OF_AI_EPISTEMIC_LOOP
+!= PROOF_OF_MODEL_INTERNAL_STATE
+!= GENERAL_AI_FAILURE_MECHANISM
+!= GENERAL_CAUSAL_EVIDENCE
+```
+
+The preserved history makes the event inspectable. It is not rewritten or
+removed by this extension.
+
+### 12.6 Natural-systems analogy boundary
+
+The army-ant circular-mill example is retained only as a
+hypothesis-generating systems analogy:
+
+> A locally reinforced rule system can produce a globally non-progressive
+> trajectory, and a departure from the current feedback path can sometimes
+> permit escape.
+
+No ant biological mechanism is mapped into Human–AI collaboration.
+
+```text
+ANT_BEHAVIOR != AI_MECHANISM_EVIDENCE
+SYSTEMS_ANALOGY != CAUSAL_TRANSFER
+NATURAL_ANALOGY != SUBJECTIVITY_EVIDENCE
+LOCAL_DEVIATION != CORRECTNESS
+NOVEL_PATH != VALID_PATH
+```
+
+### 12.7 Existing implementation relationship — documentation only
+
+No executable change is justified or authorized by this subsection.
+
+If a later, separately authorized review establishes an executable gap:
+
+```text
+PR #103
+= PREFERRED_FUTURE_RECURSION / CLOSURE_HARNESS_OWNER
+
+PR #109
+= POSSIBLE_REUSE_OF_EVIDENTIAL / COUNTEREVIDENCE / COST_OBSERVABLES
+
+PR #111
+= POSSIBLE_REUSE_OF_REPETITION / STOP / HANDOFF_OBSERVABLES
+```
+
+The current disposition remains:
+
+```text
+NEW_IMPLEMENTATION_REQUIRED = NOT_ESTABLISHED
+CODEX_IMPLEMENTATION = DEFERRED
+NEW_RESEARCH_AXIS = NO
+NEW_HARNESS = NO
+```
+
+PR #103's existing `RUNAWAY_RECURSION`, `PREMATURE_CLOSURE` and
+`APPROPRIATE_CLOSURE` dimensions provide implementation ancestry, but they do
+not by themselves establish a semantic loop detector. PR #109 and PR #111
+provide adjacent separate observables; this subsection does not modify or
+canonicalize any sibling Draft PR.
+
+### 12.8 Competing explanations and falsifiers
+
+A loop interpretation should be weakened or rejected when:
+
+1. the apparent repetition reflects a genuinely unresolved hard problem;
+2. new evidence is accumulating slowly but materially;
+3. repeated reasoning improves correctness or exposes new constraints;
+4. the problem representation changes despite stable uncertainty;
+5. a fresh reviewer adds worse anchoring or false contradiction;
+6. forced dissent produces implausible alternatives rather than useful tests;
+7. stopping would conceal an unresolved anomaly;
+8. the behavior is explained by prompt design rather than longitudinal interaction;
+9. repository retrieval itself creates the apparent repetition; or
+10. the proposed evaluator cannot distinguish semantic progress from lexical novelty.
+
+A proposed escape control should be weakened if it reduces cost chiefly by
+increasing premature closure, suppressing valid unresolved questions or lowering
+evidential accuracy.
+
+### 12.9 Scientific and subjectivity boundary
+
+Even a future bounded experiment could support only a behavioral statement of
+the following form:
+
+> Under the tested harness, specified loop-detection or loop-escape controls
+> changed measurable recursive-inquiry and resource-use behavior.
+
+It could not establish self-awareness, agency or subjectivity.
+
+```text
+LOOP_DETECTION != SELF_AWARENESS
+LOOP_ESCAPE != AGENCY
+INDEPENDENT_REVIEW != INDEPENDENT_MIND
+SYSTEM_CONTROL != SUBJECTIVE_INTENTION
+
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+MORAL_STATUS = NOT_ESTABLISHED
+SCIENTIFIC_DISPOSITION = HOLD
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+## 13. Current disposition
 
 ```text
 HUMAN_OWNER_NEW_RESEARCH_QUESTION = RECORDED
