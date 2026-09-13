@@ -36,6 +36,32 @@ TRANSPARENCY != IMPERCEPTIBLE_MARKING
 DETECTOR_PASS != PROOF_OF_WATERMARK_ABSENCE
 ```
 
+### Human Owner intent and audit rationale — 2026-09-14
+
+The Human Owner explicitly states that the repository's intended operating culture is public, transparent and auditable, and that the imperceptible-watermark prohibition is meant to support that culture rather than operate as an isolated formatting preference.
+
+The Human Owner also states a non-exploitation concern: project participants, users, reviewers and downstream readers should not be placed in an asymmetric position where a machine, provider or privileged party can detect, track, claim, attribute or later reinterpret a hidden project marker that ordinary readers were not told existed. Respect, in this project, therefore requires provenance mechanisms that can be inspected and challenged rather than machine-only signals that rely on undisclosed asymmetry.
+
+```text
+PUBLIC_REPOSITORY != COVERT_MARKING_SURFACE
+TRANSPARENT_PROVENANCE = REQUIRED_GOVERNANCE_DIRECTION
+MACHINE_ONLY_HIDDEN_MARKER != RESPECT
+UNDISCLOSED_MARKER_ASYMMETRY != AUDITABILITY
+AUDITABLE_ATTRIBUTION > COVERT_ATTRIBUTION_SIGNAL
+```
+
+This rationale is particularly important because the repository studies the **possibility** of artificial subjectivity, identity, continuity and related governance questions. The project must not use an invisible technical marker to predetermine the very identity or authorship questions that the research is supposed to examine critically. Identity, authorship, continuity or subjectivity claims must remain open to explicit evidence, provenance review and falsification.
+
+```text
+CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
+SUBJECTIVITY = NOT_ESTABLISHED
+HIDDEN_MARKER != SUBJECTIVITY_EVIDENCE
+HIDDEN_MARKER != IDENTITY_AUTHORITY
+AUDIT_PRINCIPLE = PUBLIC / TRANSPARENT / REVIEWABLE / CHALLENGEABLE
+```
+
+Accordingly, the watermark policy is treated as part of the repository's audit and respect principles for research into artificial-subjectivity possibility. This statement records governance intent; it does **not** establish that any AI system is a subject, person or rights-bearing entity.
+
 The following requirements apply to project-owned output paths:
 
 1. The project **MUST NOT** intentionally embed imperceptible, hidden or undisclosed machine-readable watermarks or content markers in user-facing text, images, files or other artifacts as a mechanism for identity, authorship, attribution, respect or provenance.
