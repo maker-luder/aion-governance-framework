@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import unicodedata
@@ -8,8 +9,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROHIBITED_SUFFIXES = {".zip", ".whl", ".sqlite3", ".db", ".pyc"}
 GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "build", "dist"}
-EXTERNAL_EVIDENCE_PARTS = {"sources", "incident-originals"}
-RETAINED_QA_EVIDENCE_SUFFIXES = {".patch"}
+# Exact historical byte retention, not directory-based permission to add markers.
+# Reviewed against main 738f154921ed5f9f6216255481290d67c845cd5e.
+RETAINED_MARKER_EVIDENCE = {
+    "qa/zi-wei-dou-shu-v0.1/ZI_WEI_DOU_SHU_V0_1.patch":
+        "8a08a3e8e9dce8497821605d6c0530b315d91c8df1edf1bc02a4cc8fc358dfd9",
+    "examples/zi-wei-dou-shu_v0.1.0/sources/reviewed-snapshots/"
+    "wikisource-zi-wei-dou-shu-quan-shu-rev850734.html":
+        "760c3a8e3eaa8bb21fb955c24c585d04f5f396b9653f2fbc061cb942dc1831b1",
+}
 PATH_PATTERNS = [
     re.compile(r"[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+", re.I),
     re.compile(r"^/home/[A-Za-z0-9._-]+(?:/|$)"),
@@ -46,15 +54,9 @@ def _is_generated(path: Path) -> bool:
     )
 
 
-def _is_retained_evidence(path: Path, root: Path) -> bool:
-    relative = path.relative_to(root)
-    if any(part in EXTERNAL_EVIDENCE_PARTS for part in relative.parts):
-        return True
-    return (
-        bool(relative.parts)
-        and relative.parts[0] == "qa"
-        and path.suffix.lower() in RETAINED_QA_EVIDENCE_SUFFIXES
-    )
+def _is_retained_evidence(path: Path, root: Path, payload: bytes) -> bool:
+    expected = RETAINED_MARKER_EVIDENCE.get(path.relative_to(root).as_posix())
+    return expected is not None and hashlib.sha256(payload).hexdigest() == expected
 
 
 def _imperceptible_reason(char: str) -> str | None:
@@ -92,31 +94,34 @@ def _find_imperceptible_markers(text: str) -> list[tuple[int, int, int, str]]:
 def scan_root_detailed(root: Path = ROOT) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     retained_marker_signals: list[str] = []
-    for path in root.rglob("*"):
+    for path in sorted(root.rglob("*")):
         if path.is_symlink() or not path.is_file() or ".git" in path.parts:
             continue
         if _is_generated(path):
             continue
         rel = path.relative_to(root).as_posix()
-        if rel == "scripts/scan_public_tree.py":
-            continue
         if path.suffix.lower() in PROHIBITED_SUFFIXES:
             errors.append(f"prohibited file: {rel}")
             continue
         try:
-            text = path.read_text(encoding="utf-8")
+            payload = path.read_bytes()
+            text = payload.decode("utf-8")
         except UnicodeDecodeError:
             errors.append(f"non-UTF8 file: {rel}")
             continue
-        for pattern in PATH_PATTERNS:
-            if pattern.search(text):
-                errors.append(f"private path pattern: {rel}")
-        for pattern in SECRET_PATTERNS:
-            if pattern.search(text):
-                errors.append(f"secret pattern: {rel}")
+        # Only literal secret/path regex definitions need a self-exemption.
+        # Unicode checks still cover the scanner's own source bytes.
+        if rel != "scripts/scan_public_tree.py":
+            for pattern in PATH_PATTERNS:
+                if pattern.search(text):
+                    errors.append(f"private path pattern: {rel}")
+            for pattern in SECRET_PATTERNS:
+                if pattern.search(text):
+                    errors.append(f"secret pattern: {rel}")
+        retained = _is_retained_evidence(path, root, payload)
         for line, column, codepoint, reason in _find_imperceptible_markers(text):
             finding = f"{rel}:{line}:{column} U+{codepoint:04X} {reason}"
-            if _is_retained_evidence(path, root):
+            if retained:
                 retained_marker_signals.append(f"retained imperceptible marker signal: {finding}")
             else:
                 errors.append(f"imperceptible marker: {finding}")
@@ -136,6 +141,8 @@ def main() -> int:
                 "status": "PASS" if not errors else "FAIL",
                 "errors": errors,
                 "retained_marker_signals": retained_marker_signals,
+                "unicode_database_version": unicodedata.unidata_version,
+                "retention_policy": "EXACT_PATH_AND_SHA256",
                 "watermark_detection_scope": (
                     "bounded to detectable high-risk invisible Unicode controls in UTF-8 text; "
                     "a leading UTF-8 BOM is treated as encoding metadata; PASS does not prove "
