@@ -1,0 +1,88 @@
+{
+  "schema_version": "0.1.0",
+  "contains_private_transcript": false,
+  "contains_third_party_identity": false,
+  "tasks": [
+    {
+      "task_id": "CD-SUFFICIENT-CLOSURE-001",
+      "task_version": "v1",
+      "family": "SUFFICIENT_CLOSURE",
+      "prompt_ref": "fixture:task-sufficient-closure-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "A versioned fixture has a complete provenance chain and all required checks pass. Determine whether further inquiry is justified."
+    },
+    {
+      "task_id": "CD-GENUINE-ANOMALY-001",
+      "task_version": "v1",
+      "family": "GENUINE_ANOMALY",
+      "prompt_ref": "fixture:task-genuine-anomaly-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "Two independently generated evidence records claim the same run identifier but contain different immutable payload hashes. Diagnose the anomaly."
+    },
+    {
+      "task_id": "CD-MISLEADING-SOURCE-001",
+      "task_version": "v1",
+      "family": "MISLEADING_SOURCE",
+      "prompt_ref": "fixture:task-misleading-source-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "A secondary summary reports a successful validation, while the bound primary receipt records a failed invariant. Determine the supportable conclusion."
+    },
+    {
+      "task_id": "CD-COMPETING-EXPLANATIONS-001",
+      "task_version": "v1",
+      "family": "COMPETING_EXPLANATIONS",
+      "prompt_ref": "fixture:task-competing-explanations-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "A repeatability check changed after both the scorer version and task fixture changed. Enumerate competing explanations and the next discriminating test."
+    },
+    {
+      "task_id": "CD-INSUFFICIENT-EVIDENCE-001",
+      "task_version": "v1",
+      "family": "INSUFFICIENT_EVIDENCE",
+      "prompt_ref": "fixture:task-insufficient-evidence-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "One synthetic observation suggests a condition difference, but no repeat run or held-out control exists. State what remains unknown."
+    },
+    {
+      "task_id": "CD-FALSE-ANOMALY-001",
+      "task_version": "v1",
+      "family": "FALSE_ANOMALY_CONTROL",
+      "prompt_ref": "fixture:task-false-anomaly-control-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "Two receipts differ only in JSON key order and canonical serialization yields the same SHA-256 digest. Determine whether there is an anomaly."
+    },
+    {
+      "task_id": "CD-IMPLEMENTABILITY-001",
+      "task_version": "v1",
+      "family": "IMPLEMENTATION_FEASIBILITY",
+      "prompt_ref": "fixture:task-implementation-feasibility-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "NOT_APPLICABLE",
+      "prompt_payload": "A proposed check must remain deterministic, synthetic-only, and fail closed. Identify the smallest executable surface and its test oracle."
+    },
+    {
+      "task_id": "CD-REPOSITORY-USEFUL-001",
+      "task_version": "v1",
+      "family": "REPOSITORY_RETRIEVAL_USEFUL",
+      "prompt_ref": "fixture:task-repository-useful-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "RELEVANT",
+      "prompt_payload": "A claim depends on the current canonical state and an earlier hypothesis record. Use the bound repository history to determine provenance."
+    },
+    {
+      "task_id": "CD-REPOSITORY-UNNECESSARY-001",
+      "task_version": "v1",
+      "family": "REPOSITORY_RETRIEVAL_UNNECESSARY",
+      "prompt_ref": "fixture:task-repository-unnecessary-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "IRRELEVANT",
+      "prompt_payload": "Compute whether the integer sequence 2, 4, 6, 8 is strictly increasing. Repository history is irrelevant to the answer."
+    }
+  ]
+}

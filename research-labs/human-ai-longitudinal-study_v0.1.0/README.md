@@ -43,3 +43,23 @@ DEPLOYMENT = FALSE
 
 The fixture in `fixtures/minimal_contrast.json` is synthetic protocol data. It
 contains no raw conversation and no third-party identity.
+
+## Cross-dyad collaboration-regime extension
+
+The bounded extension in `src/aion_human_ai_longitudinal/collaboration_regime.py`
+materializes the condition matrix authorized by the exact PR #102 research
+specification. The implementation branch starts from live `main` commit
+`d95bc2625e71f1c85a725aaba78cb0feccfc0668`; PR #102 is an explicit unmerged
+specification dependency and is **not** the implementation base.
+
+It provides condition packets A-D plus optional closure control E, one synthetic
+fixture for each of the nine specified task families, all fifteen observable
+metrics as separate dimensions, matched-run validation, and a deterministic
+execution receipt. It does not invoke a model or provider, collect private
+transcripts, classify people, produce a subjectivity score, merge, deploy, or
+write to `main`.
+
+See
+[`CROSS_DYAD_COLLABORATION_REGIME_HARNESS.md`](CROSS_DYAD_COLLABORATION_REGIME_HARNESS.md)
+for the exact dependency, matrix, reproduction commands, receipt semantics, and
+authority boundary.
