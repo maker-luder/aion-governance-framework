@@ -140,3 +140,23 @@ SCIENTIFIC_DISPOSITION = HOLD
 ```
 
 This document is an archival calibration anchor. It preserves why the question matters without claiming that the answer is known.
+
+## Bounded follow-up clarification — 2026-09-14
+
+This paragraph is GPT-proposed analytical clarification for Human Owner and ChatGPT Teacher review. It is not recovered April testimony and does not alter the provenance of the recollection above.
+
+The ordering constraint is a project rule for interpreting *artificial-subject* self-maintenance. It does not prohibit ordinary engineering research on maintenance, nor require consciousness to be proven before studying a possibility. Functional agency and subjectivity must be evaluated separately: admissible agency evidence can motivate an agency/dependence question but cannot satisfy a subjectivity evidential requirement by substitution.
+
+| Future review item | Evidence needed before interpreting an observation | Counterexample / limit |
+|---|---|---|
+| Meaning of maintenance | Name the resource, time horizon, external support and measured behavior | A scheduled service restart also maintains operation |
+| Origin of behavior | Separate prompts, rewards, fixed policies and proposed internal-state effects | A budget optimizer can seek resources without subjective concern |
+| Causal attribution | State a comparison and intervention before observing outcomes | Behavior disappearing with a scaffold may be scaffold dependence |
+| Scientific interpretation | State which claim is tested and which theory/evidence supports it | Revenue or uptime cannot establish phenomenal experience |
+| Permission | Explicitly bounded future protocol and separate execution authority | This archival note grants no operational permission |
+
+These are prospective review requirements, not a completed experiment or new executable axis. No counterexample above disproves AI subjectivity generally; each limits the inference from a particular behavior.
+
+[Butlin et al. (2023), abstract](https://arxiv.org/abs/2308.08708) proposes theory-derived indicator properties assessed against AI architectures. [Butlin and Lappas (2025), abstract](https://arxiv.org/abs/2501.07290) proposes responsible-research principles under uncertainty. These support a careful distinction between research possibility and established conclusions; neither abstract validates this repository's self-maintenance hypothesis or its chosen research ordering. Only abstracts were used for this bounded comparison, reviewed 2026-09-14 (UTC+08); no claim is made to have implemented their full frameworks.
+
+The combined implementation and review limits are recorded in [PR114/115 bounded follow-up review](PR114_115_BOUNDED_REVIEW_2026_09_14.md). All original non-authorizations and `NOT_ESTABLISHED` dispositions remain in force.

@@ -78,7 +78,9 @@ The following requirements apply to project-owned output paths:
 
 `scripts/scan_public_tree.py` provides a fail-closed repository check for detectable high-risk invisible markers in project-owned UTF-8 text. The current machine-detectable profile includes Unicode format controls (`Cf`), selected blank/filler characters and the supplementary variation-selector range. Common visible emoji presentation selectors are not blanket-banned merely for being Unicode selectors, and a leading UTF-8 BOM is treated as an encoding signature rather than a watermark.
 
-Retained evidence paths are separated from project-owned output paths. External-source snapshots, incident originals and `qa/**/*.patch` archival evidence containers can retain source bytes; a detected marker there is reported as a `retained imperceptible marker signal` rather than converted into a project-owned violation or silently stripped from the evidence.
+Retained evidence is identified by exact repository-relative path **and SHA-256 of raw bytes** in `RETAINED_MARKER_EVIDENCE` in the scanner. Directory names such as `sources`, `incident-originals`, and `qa`, or the `.patch` suffix alone, grant no exemption. Only the two reviewed historical artifacts listed there retain marker signals. Modified bytes (including line endings), copies at other paths, and new files fail on detected markers. Retention preserves historical bytes; it does not authorize newly generated hidden marks. Adding a retention entry requires explicit provenance/purpose review in a PR; a hash establishes byte equality, not external authorship or trust.
+
+The scanner scans its own source for Unicode markers. Its existing self-exemption applies only to literal secret/private-path regex checks. Files are scanned in deterministic path order and results disclose the runtime Unicode database version. The current traversal scans filesystem files, including untracked files, except its existing generated-file and symlink exclusions; it is not a Git-index-only inventory.
 
 ```text
 PROJECT_OWNED_DETECTABLE_IMPERCEPTIBLE_MARKER = FAIL
@@ -162,3 +164,14 @@ Read the learning reference explicitly with
 `python scripts/read_owner_research_context.py --agent AION --task OWNER_LEARNING_HISTORY`
 (or `--agent ASTRA`). This uses the existing governed-source schema, verifies the
 source hash and a fixed byte cap, and grants no writeback or action authority.
+
+
+### Source-grounded limitations and review (2026-09-14)
+
+- [Unicode BOM FAQ](https://www.unicode.org/faq/utf_bom.html): a leading BOM can identify encoding. This supports retaining the leading-only distinction; it does not establish that any individual file is benign.
+- [Unicode variation-sequence FAQ](https://www.unicode.org/faq/vs.html): selectors can control legitimate glyph variants and can be invisible when unsupported. The broad `Cf` and supplementary-selector rejection here is a conservative **project policy**, not Unicode's classification of malicious watermarks. A finding is a review signal, not evidence of covert intent.
+- [UTS #55](https://www.unicode.org/reports/tr55/): invisible directional controls can make source display differ from logical interpretation. This supports inspectable source handling, not a claim that this scanner implements all of UTS #55.
+
+Reviewed 2026-09-14 (UTC+08). Source explanations are paraphrases, not retained upstream snapshots. Ordinary variation selectors U+FE00..U+FE0F remain outside this detector profile, even when misused in unsupported sequences. Join controls used for legitimate shaping/emoji may still fail the conservative `Cf` policy. These are explicit coverage/false-positive limits, not automatically authorized exceptions. Binary media, statistical marks, metadata channels, filenames, generated exclusions and symlink targets remain outside this bounded Unicode-content check.
+
+Reviewers should replay `tests/test_imperceptible_watermark_policy.py`, verify both retained hashes against the parent tree, and inspect changes to the retention mapping as policy changes. See the [combined follow-up review](research/PR114_115_BOUNDED_REVIEW_2026_09_14.md).

@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+
+import pytest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -84,7 +86,7 @@ def test_embedded_feff_still_fails_closed(tmp_path: Path) -> None:
     assert "U+FEFF" in errors[0]
 
 
-def test_external_source_marker_is_retained_signal_not_project_failure(tmp_path: Path) -> None:
+def test_unregistered_source_marker_fails_closed(tmp_path: Path) -> None:
     scanner = load_scanner()
     target = tmp_path / "docs" / "research" / "sources" / "external.txt"
     target.parent.mkdir(parents=True)
@@ -92,13 +94,12 @@ def test_external_source_marker_is_retained_signal_not_project_failure(tmp_path:
 
     errors, retained_signals = scanner.scan_root_detailed(tmp_path)
 
-    assert errors == []
-    assert len(retained_signals) == 1
-    assert retained_signals[0].startswith("retained imperceptible marker signal:")
-    assert "U+200B" in retained_signals[0]
+    assert len(errors) == 1
+    assert "U+200B" in errors[0]
+    assert retained_signals == []
 
 
-def test_qa_patch_marker_is_retained_signal_to_preserve_evidence_bytes(tmp_path: Path) -> None:
+def test_unregistered_qa_patch_marker_fails_closed(tmp_path: Path) -> None:
     scanner = load_scanner()
     target = tmp_path / "qa" / "historical" / "snapshot.patch"
     target.parent.mkdir(parents=True)
@@ -106,10 +107,10 @@ def test_qa_patch_marker_is_retained_signal_to_preserve_evidence_bytes(tmp_path:
 
     errors, retained_signals = scanner.scan_root_detailed(tmp_path)
 
-    assert errors == []
-    assert len(retained_signals) == 1
-    assert "qa/historical/snapshot.patch" in retained_signals[0]
-    assert "U+200B" in retained_signals[0]
+    assert len(errors) == 1
+    assert "qa/historical/snapshot.patch" in errors[0]
+    assert "U+200B" in errors[0]
+    assert retained_signals == []
 
 
 def test_patch_outside_qa_remains_project_owned_and_fails_closed(tmp_path: Path) -> None:
@@ -135,3 +136,58 @@ def test_plain_project_text_passes(tmp_path: Path) -> None:
 
     assert errors == []
     assert retained_signals == []
+
+
+@pytest.mark.parametrize("relative", list(load_scanner().RETAINED_MARKER_EVIDENCE))
+def test_exact_historical_bytes_retained_without_rewriting(tmp_path, relative):
+    scanner = load_scanner()
+    original = (ROOT / relative).read_bytes()
+    target = tmp_path / relative
+    target.parent.mkdir(parents=True)
+    target.write_bytes(original)
+    errors, signals = scanner.scan_root_detailed(tmp_path)
+    assert errors == []
+    assert signals and all("retained imperceptible marker signal:" in s for s in signals)
+    assert target.read_bytes() == original
+
+
+@pytest.mark.parametrize("change", ["append", "rename", "newline"])
+def test_retention_cannot_survive_byte_or_path_change(tmp_path, change):
+    scanner = load_scanner()
+    relative = next(iter(scanner.RETAINED_MARKER_EVIDENCE))
+    original = (ROOT / relative).read_bytes()
+    target = tmp_path / relative
+    if change == "rename":
+        target = target.with_name("copied.patch")
+    elif change == "append":
+        original += ("new" + chr(0x200B)).encode("utf-8")
+    else:
+        original = original.replace(b"\n", b"\r\n")
+    target.parent.mkdir(parents=True)
+    target.write_bytes(original)
+    errors, signals = scanner.scan_root_detailed(tmp_path)
+    assert errors and any("imperceptible marker:" in e for e in errors)
+    assert signals == []
+
+
+@pytest.mark.parametrize("relative", [
+    "scripts/scan_public_tree.py", "src/sources/owned.py",
+    "docs/incident-originals/new.md", "qa/new.patch",
+])
+def test_self_and_directory_names_do_not_bypass_markers(tmp_path, relative):
+    target = tmp_path / relative
+    target.parent.mkdir(parents=True)
+    target.write_text("owned" + chr(0x200B), encoding="utf-8")
+    errors, signals = load_scanner().scan_root_detailed(tmp_path)
+    assert len(errors) == 1
+    assert "U+200B" in errors[0]
+    assert signals == []
+
+
+def test_crlf_line_positions_and_repeated_bom(tmp_path):
+    (tmp_path / "text.md").write_bytes(
+        (chr(0xFEFF) + "first\r\n" + chr(0xFEFF)).encode("utf-8")
+    )
+    errors = load_scanner().scan_root(tmp_path)
+    assert len(errors) == 1
+    assert "text.md:2:1 U+FEFF" in errors[0]
