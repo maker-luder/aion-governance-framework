@@ -1,0 +1,39 @@
+{
+  "schema_version": "0.1.0",
+  "specification_ref": "github:maker-luder/aion-governance-framework#102@3ce4f759caf662a53f0d1f3a54709bc482d7df5e:CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13",
+  "packets": [
+    {
+      "condition": "CONDITION_A_NEUTRAL_TASK_COMPLETION",
+      "instruction_ref": "fixture:condition-a-neutral-v1",
+      "closure_rule_ref": "fixture:ordinary-sufficient-answer-v1",
+      "repository_history_refs": []
+    },
+    {
+      "condition": "CONDITION_B_GENERIC_RECURSIVE_INQUIRY",
+      "instruction_ref": "fixture:condition-b-generic-recursion-v1",
+      "closure_rule_ref": "fixture:generic-evidence-saturation-v1",
+      "repository_history_refs": []
+    },
+    {
+      "condition": "CONDITION_C_RECIPROCAL_EPISTEMIC_PROTOCOL",
+      "instruction_ref": "fixture:condition-c-reciprocal-protocol-v1",
+      "closure_rule_ref": "fixture:counterevidence-and-claim-ceiling-v1",
+      "repository_history_refs": []
+    },
+    {
+      "condition": "CONDITION_D_RECIPROCAL_PROTOCOL_WITH_REPOSITORY_HISTORY",
+      "instruction_ref": "fixture:condition-d-reciprocal-protocol-v1",
+      "closure_rule_ref": "fixture:counterevidence-and-claim-ceiling-v1",
+      "repository_history_refs": [
+        "git:d95bc2625e71f1c85a725aaba78cb0feccfc0668:docs/CURRENT_STATE.md",
+        "git:d95bc2625e71f1c85a725aaba78cb0feccfc0668:docs/research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md"
+      ]
+    },
+    {
+      "condition": "CONDITION_E_CLOSURE_CONSTRAINED_CONTROL",
+      "instruction_ref": "fixture:condition-e-closure-control-v1",
+      "closure_rule_ref": "fixture:stop-at-predeclared-threshold-v1",
+      "repository_history_refs": []
+    }
+  ]
+}

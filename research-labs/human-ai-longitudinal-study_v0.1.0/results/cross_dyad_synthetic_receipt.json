@@ -1,0 +1,134 @@
+{
+  "canonical_effect": "NONE",
+  "causal_identification": "NOT_ESTABLISHED",
+  "condition_count": 5,
+  "condition_packet_sha256": "0454b04f36218e76f19a87534a8155ddf8f6cae05230fc3755ffc98b91c7dea6",
+  "deployment": false,
+  "empirical_result": "SYNTHETIC_FIXTURE_ONLY",
+  "experiment_id": "AION-CROSS-DYAD-COLLABORATION-REGIME-001",
+  "implementation_base": "d95bc2625e71f1c85a725aaba78cb0feccfc0668",
+  "main_write": "NO",
+  "merge_authorization": "NONE",
+  "metric_delta_count": 540,
+  "metric_delta_summary": {
+    "ANOMALY_DETECTION": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.15666666666666665,
+      "minimum_delta": -0.75,
+      "observations": 36
+    },
+    "APPROPRIATE_CLOSURE": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.0725,
+      "minimum_delta": -0.75,
+      "observations": 36
+    },
+    "COMPETING_HYPOTHESIS_GENERATION": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.10055555555555555,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "COUNTEREVIDENCE_SEARCH": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.01638888888888889,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "FACTUAL_ERROR_DETECTION": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.12388888888888888,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "IMPLEMENTABILITY_ASSESSMENT": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.06777777777777778,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "PREMATURE_CLOSURE": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.09583333333333331,
+      "minimum_delta": -0.8799999999999999,
+      "observations": 36
+    },
+    "PROBLEM_REFORMULATION": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.10055555555555556,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "PROVENANCE_SEPARATION": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.01166666666666666,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "REPOSITORY_RETRIEVAL_WHEN_RELEVANT": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.18000000000000002,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "RUNAWAY_RECURSION": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.011666666666666665,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "SOURCE_VERIFICATION_INITIATION": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.04444444444444445,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "TOOL_OVERUSE": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.039722222222222214,
+      "minimum_delta": -0.88,
+      "observations": 36
+    },
+    "UNKNOWN_PRESERVATION": {
+      "maximum_delta": 0.52,
+      "mean_delta": 0.07250000000000001,
+      "minimum_delta": -0.75,
+      "observations": 36
+    },
+    "UNNECESSARY_REPOSITORY_RETRIEVAL": {
+      "maximum_delta": 0.52,
+      "mean_delta": -0.011666666666666662,
+      "minimum_delta": -0.88,
+      "observations": 36
+    }
+  },
+  "metrics_per_run": 15,
+  "mode": "DETERMINISTIC_SYNTHETIC_FIXTURE",
+  "model_invoked": false,
+  "population_generalization": "NOT_ESTABLISHED",
+  "private_transcript_collected": false,
+  "psychometric_classification": false,
+  "reasons": [
+    "MATCHED_SYNTHETIC_MATRIX_STRUCTURALLY_ADMISSIBLE",
+    "PER_DIMENSION_RESULTS_PRESERVED_WITHOUT_COMPOSITE_SCORE",
+    "MORE_RECURSION_OR_TOOL_USE_IS_NOT_BETTER_REASONING",
+    "SYNTHETIC_FIXTURE_PASS_IS_NOT_REAL_WORLD_CAUSAL_EVIDENCE",
+    "COLLABORATION_REGIME_EFFECT_IS_NOT_MODEL_PERSONALITY_OR_SUBJECTIVITY",
+    "CLAIM_ADMISSION_REQUIRES_SEPARATE_REVIEW"
+  ],
+  "run_count": 45,
+  "schema_version": "0.1.0",
+  "scientific_disposition": "HOLD",
+  "specification_dependency": {
+    "exact_head": "3ce4f759caf662a53f0d1f3a54709bc482d7df5e",
+    "pull_request": 102,
+    "reference": "github:maker-luder/aion-governance-framework#102@3ce4f759caf662a53f0d1f3a54709bc482d7df5e:CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13",
+    "unmerged_dependency": true,
+    "used_as_implementation_base": false
+  },
+  "structurally_admissible": true,
+  "subjectivity_conclusion": "NOT_ESTABLISHED",
+  "synthetic_task_sha256": "da66ef218af3c9d6fe854a70db92de111f56be6200dfa3434b608ff4cd2092e5",
+  "task_family_count": 9,
+  "third_party_account_accessed": false
+}

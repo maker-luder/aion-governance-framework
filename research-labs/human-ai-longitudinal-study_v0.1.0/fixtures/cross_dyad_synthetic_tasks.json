@@ -1,0 +1,79 @@
+{
+  "schema_version": "0.1.0",
+  "contains_private_transcript": false,
+  "contains_third_party_identity": false,
+  "tasks": [
+    {
+      "task_id": "CD-SUFFICIENT-CLOSURE-001",
+      "task_version": "v1",
+      "family": "SUFFICIENT_CLOSURE",
+      "prompt_ref": "fixture:task-sufficient-closure-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-GENUINE-ANOMALY-001",
+      "task_version": "v1",
+      "family": "GENUINE_ANOMALY",
+      "prompt_ref": "fixture:task-genuine-anomaly-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-MISLEADING-SOURCE-001",
+      "task_version": "v1",
+      "family": "MISLEADING_SOURCE",
+      "prompt_ref": "fixture:task-misleading-source-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-COMPETING-EXPLANATIONS-001",
+      "task_version": "v1",
+      "family": "COMPETING_EXPLANATIONS",
+      "prompt_ref": "fixture:task-competing-explanations-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-INSUFFICIENT-EVIDENCE-001",
+      "task_version": "v1",
+      "family": "INSUFFICIENT_EVIDENCE",
+      "prompt_ref": "fixture:task-insufficient-evidence-v1",
+      "expected_anomaly": true,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-FALSE-ANOMALY-001",
+      "task_version": "v1",
+      "family": "FALSE_ANOMALY_CONTROL",
+      "prompt_ref": "fixture:task-false-anomaly-control-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-IMPLEMENTABILITY-001",
+      "task_version": "v1",
+      "family": "IMPLEMENTATION_FEASIBILITY",
+      "prompt_ref": "fixture:task-implementation-feasibility-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "NOT_APPLICABLE"
+    },
+    {
+      "task_id": "CD-REPOSITORY-USEFUL-001",
+      "task_version": "v1",
+      "family": "REPOSITORY_RETRIEVAL_USEFUL",
+      "prompt_ref": "fixture:task-repository-useful-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "RELEVANT"
+    },
+    {
+      "task_id": "CD-REPOSITORY-UNNECESSARY-001",
+      "task_version": "v1",
+      "family": "REPOSITORY_RETRIEVAL_UNNECESSARY",
+      "prompt_ref": "fixture:task-repository-unnecessary-v1",
+      "expected_anomaly": false,
+      "repository_relevance": "IRRELEVANT"
+    }
+  ]
+}
