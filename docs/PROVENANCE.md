@@ -33,7 +33,34 @@ PROVENANCE != IDENTITY
 MARKER != AUTHORSHIP_PROOF
 RESPECT != WATERMARK
 TRANSPARENCY != IMPERCEPTIBLE_MARKING
+DETECTOR_PASS != PROOF_OF_WATERMARK_ABSENCE
 ```
+
+### Human Owner intent and audit rationale — 2026-09-14
+
+The Human Owner explicitly states that the repository's intended operating culture is public, transparent and auditable, and that the imperceptible-watermark prohibition is meant to support that culture rather than operate as an isolated formatting preference.
+
+The Human Owner also states a non-exploitation concern: project participants, users, reviewers and downstream readers should not be placed in an asymmetric position where a machine, provider or privileged party can detect, track, claim, attribute or later reinterpret a hidden project marker that ordinary readers were not told existed. Respect, in this project, therefore requires provenance mechanisms that can be inspected and challenged rather than machine-only signals that rely on undisclosed asymmetry.
+
+```text
+PUBLIC_REPOSITORY != COVERT_MARKING_SURFACE
+TRANSPARENT_PROVENANCE = REQUIRED_GOVERNANCE_DIRECTION
+MACHINE_ONLY_HIDDEN_MARKER != RESPECT
+UNDISCLOSED_MARKER_ASYMMETRY != AUDITABILITY
+AUDITABLE_ATTRIBUTION > COVERT_ATTRIBUTION_SIGNAL
+```
+
+This rationale is particularly important because the repository studies the **possibility** of artificial subjectivity, identity, continuity and related governance questions. The project must not use an invisible technical marker to predetermine the very identity or authorship questions that the research is supposed to examine critically. Identity, authorship, continuity or subjectivity claims must remain open to explicit evidence, provenance review and falsification.
+
+```text
+CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
+SUBJECTIVITY = NOT_ESTABLISHED
+HIDDEN_MARKER != SUBJECTIVITY_EVIDENCE
+HIDDEN_MARKER != IDENTITY_AUTHORITY
+AUDIT_PRINCIPLE = PUBLIC / TRANSPARENT / REVIEWABLE / CHALLENGEABLE
+```
+
+Accordingly, the watermark policy is treated as part of the repository's audit and respect principles for research into artificial-subjectivity possibility. This statement records governance intent; it does **not** establish that any AI system is a subject, person or rights-bearing entity.
 
 The following requirements apply to project-owned output paths:
 
@@ -42,6 +69,26 @@ The following requirements apply to project-owned output paths:
 3. When provenance is required, the project **SHOULD** use explicit, inspectable, documented and auditable records such as declared attribution, version history, commit lineage, manifests, checksums or other disclosed provenance mechanisms.
 4. A marker discovered in an external artifact **MUST** remain an external technical signal. It **MUST NOT** be promoted into canonical identity, authorship or subjectivity evidence.
 5. A dependency, provider or output path that requires non-disableable imperceptible watermarking in project-generated outputs **MUST** be treated as incompatible with that output path unless a later explicit governance revision authorizes a transparent alternative.
+6. Project-owned tracked UTF-8 text **MUST NOT** contain high-risk invisible Unicode format controls, blank/filler characters or selector-only code points covered by `scripts/scan_public_tree.py`. Detection in a project-owned path fails closed. A leading UTF-8 BOM is treated as encoding metadata rather than an embedded content marker; the same `U+FEFF` occurring later in content remains a finding.
+7. The Quality workflow **MUST** run the public-tree scanner before later release/evidence reconciliation steps. A detectable project-owned imperceptible marker is a quality failure, not a warning.
+8. Retained external-source, incident-original and archival QA patch evidence **MUST NOT** be silently rewritten merely to remove an externally supplied or historically preserved marker. Detectable markers there remain explicitly classified as retained technical signals and do not become project provenance evidence.
+9. Automated enforcement is intentionally bounded. A scanner pass **MUST NOT** be interpreted as proof that no statistical model watermark, binary-media steganography, metadata watermark, provider-side transformation or other undetectable marking exists.
+
+### Executable enforcement boundary
+
+`scripts/scan_public_tree.py` provides a fail-closed repository check for detectable high-risk invisible markers in project-owned UTF-8 text. The current machine-detectable profile includes Unicode format controls (`Cf`), selected blank/filler characters and the supplementary variation-selector range. Common visible emoji presentation selectors are not blanket-banned merely for being Unicode selectors, and a leading UTF-8 BOM is treated as an encoding signature rather than a watermark.
+
+Retained evidence paths are separated from project-owned output paths. External-source snapshots, incident originals and `qa/**/*.patch` archival evidence containers can retain source bytes; a detected marker there is reported as a `retained imperceptible marker signal` rather than converted into a project-owned violation or silently stripped from the evidence.
+
+```text
+PROJECT_OWNED_DETECTABLE_IMPERCEPTIBLE_MARKER = FAIL
+RETAINED_MARKER_SIGNAL != PROJECT_IDENTITY_EVIDENCE
+RETAINED_MARKER_SIGNAL != SUBJECTIVITY_EVIDENCE
+LEADING_UTF8_BOM != EMBEDDED_WATERMARK
+SCANNER_PASS != UNIVERSAL_WATERMARK_ABSENCE
+```
+
+This enforcement does not authorize a hidden-marker allowlist. Any future exception mechanism must be explicit, path- and purpose-specific, reviewable, and cannot authorize an imperceptible identity/authorship/provenance watermark that contradicts the normative prohibition above.
 
 This policy rejects imperceptible marking as a project provenance or identity mechanism without rejecting provenance itself. Provenance remains a first-class governance requirement; it must remain distinguishable from identity and be represented through transparent, reviewable evidence.
 
