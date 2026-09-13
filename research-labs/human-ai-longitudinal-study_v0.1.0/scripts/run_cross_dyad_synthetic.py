@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import sys
 
@@ -147,9 +148,9 @@ def execute() -> dict[str, object]:
     summaries = {
         metric: {
             "observations": len(values),
-            "minimum_delta": min(values),
-            "maximum_delta": max(values),
-            "mean_delta": sum(values) / len(values),
+            "minimum_delta": round(min(values), 12),
+            "maximum_delta": round(max(values), 12),
+            "mean_delta": round(math.fsum(values) / len(values), 12),
         }
         for metric, values in by_metric.items()
     }

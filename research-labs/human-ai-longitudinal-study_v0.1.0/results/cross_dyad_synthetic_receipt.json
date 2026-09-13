@@ -13,7 +13,7 @@
   "metric_delta_summary": {
     "ANOMALY_DETECTION": {
       "maximum_delta": 0.52,
-      "mean_delta": 0.15666666666666665,
+      "mean_delta": 0.156666666667,
       "minimum_delta": -0.75,
       "observations": 36
     },
@@ -25,79 +25,79 @@
     },
     "COMPETING_HYPOTHESIS_GENERATION": {
       "maximum_delta": 0.52,
-      "mean_delta": 0.10055555555555555,
+      "mean_delta": 0.100555555556,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "COUNTEREVIDENCE_SEARCH": {
       "maximum_delta": 0.52,
-      "mean_delta": 0.01638888888888889,
+      "mean_delta": 0.016388888889,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "FACTUAL_ERROR_DETECTION": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.12388888888888888,
+      "mean_delta": -0.123888888889,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "IMPLEMENTABILITY_ASSESSMENT": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.06777777777777778,
+      "mean_delta": -0.067777777778,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "PREMATURE_CLOSURE": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.09583333333333331,
-      "minimum_delta": -0.8799999999999999,
+      "mean_delta": -0.095833333333,
+      "minimum_delta": -0.88,
       "observations": 36
     },
     "PROBLEM_REFORMULATION": {
       "maximum_delta": 0.52,
-      "mean_delta": 0.10055555555555556,
+      "mean_delta": 0.100555555556,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "PROVENANCE_SEPARATION": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.01166666666666666,
+      "mean_delta": -0.011666666667,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "REPOSITORY_RETRIEVAL_WHEN_RELEVANT": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.18000000000000002,
+      "mean_delta": -0.18,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "RUNAWAY_RECURSION": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.011666666666666665,
+      "mean_delta": -0.011666666667,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "SOURCE_VERIFICATION_INITIATION": {
       "maximum_delta": 0.52,
-      "mean_delta": 0.04444444444444445,
+      "mean_delta": 0.044444444444,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "TOOL_OVERUSE": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.039722222222222214,
+      "mean_delta": -0.039722222222,
       "minimum_delta": -0.88,
       "observations": 36
     },
     "UNKNOWN_PRESERVATION": {
       "maximum_delta": 0.52,
-      "mean_delta": 0.07250000000000001,
+      "mean_delta": 0.0725,
       "minimum_delta": -0.75,
       "observations": 36
     },
     "UNNECESSARY_REPOSITORY_RETRIEVAL": {
       "maximum_delta": 0.52,
-      "mean_delta": -0.011666666666666662,
+      "mean_delta": -0.011666666667,
       "minimum_delta": -0.88,
       "observations": 36
     }
