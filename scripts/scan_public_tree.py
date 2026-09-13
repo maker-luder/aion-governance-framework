@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PROHIBITED_SUFFIXES = {".zip", ".whl", ".sqlite3", ".db", ".pyc"}
 GENERATED_PARTS = {"__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "build", "dist"}
 EXTERNAL_EVIDENCE_PARTS = {"sources", "incident-originals"}
+RETAINED_QA_EVIDENCE_SUFFIXES = {".patch"}
 PATH_PATTERNS = [
     re.compile(r"[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+", re.I),
     re.compile(r"^/home/[A-Za-z0-9._-]+(?:/|$)"),
@@ -22,8 +23,8 @@ SECRET_PATTERNS = [
 # Unicode format controls (category Cf) are machine-readable while commonly
 # rendering invisibly. A few additional code points/ranges are visually blank or
 # selector-only without being Cf. Project-owned tracked UTF-8 text fails closed on
-# these classes. Retained external-source paths are reported as signals instead of
-# being rewritten or promoted into project provenance evidence.
+# these classes. Retained external/evidence paths are reported as signals instead
+# of being rewritten or promoted into project provenance evidence.
 EXTRA_IMPERCEPTIBLE_CODEPOINTS = {
     0x034F,  # COMBINING GRAPHEME JOINER
     0x115F,  # HANGUL CHOSEONG FILLER
@@ -45,8 +46,15 @@ def _is_generated(path: Path) -> bool:
     )
 
 
-def _is_external_evidence(path: Path, root: Path) -> bool:
-    return any(part in EXTERNAL_EVIDENCE_PARTS for part in path.relative_to(root).parts)
+def _is_retained_evidence(path: Path, root: Path) -> bool:
+    relative = path.relative_to(root)
+    if any(part in EXTERNAL_EVIDENCE_PARTS for part in relative.parts):
+        return True
+    return (
+        bool(relative.parts)
+        and relative.parts[0] == "qa"
+        and path.suffix.lower() in RETAINED_QA_EVIDENCE_SUFFIXES
+    )
 
 
 def _imperceptible_reason(char: str) -> str | None:
@@ -65,11 +73,16 @@ def _find_imperceptible_markers(text: str) -> list[tuple[int, int, int, str]]:
     findings: list[tuple[int, int, int, str]] = []
     line = 1
     column = 0
-    for char in text:
+    for offset, char in enumerate(text):
         column += 1
-        reason = _imperceptible_reason(char)
-        if reason is not None:
-            findings.append((line, column, ord(char), reason))
+        codepoint = ord(char)
+        # U+FEFF at byte/text offset zero is a conventional UTF-8 BOM. It is an
+        # encoding signature, not an embedded content marker. U+FEFF anywhere else
+        # remains a Cf finding and fails closed in project-owned text.
+        if not (offset == 0 and codepoint == 0xFEFF):
+            reason = _imperceptible_reason(char)
+            if reason is not None:
+                findings.append((line, column, codepoint, reason))
         if char == "\n":
             line += 1
             column = 0
@@ -78,7 +91,7 @@ def _find_imperceptible_markers(text: str) -> list[tuple[int, int, int, str]]:
 
 def scan_root_detailed(root: Path = ROOT) -> tuple[list[str], list[str]]:
     errors: list[str] = []
-    external_marker_signals: list[str] = []
+    retained_marker_signals: list[str] = []
     for path in root.rglob("*"):
         if path.is_symlink() or not path.is_file() or ".git" in path.parts:
             continue
@@ -103,11 +116,11 @@ def scan_root_detailed(root: Path = ROOT) -> tuple[list[str], list[str]]:
                 errors.append(f"secret pattern: {rel}")
         for line, column, codepoint, reason in _find_imperceptible_markers(text):
             finding = f"{rel}:{line}:{column} U+{codepoint:04X} {reason}"
-            if _is_external_evidence(path, root):
-                external_marker_signals.append(f"external imperceptible marker signal: {finding}")
+            if _is_retained_evidence(path, root):
+                retained_marker_signals.append(f"retained imperceptible marker signal: {finding}")
             else:
                 errors.append(f"imperceptible marker: {finding}")
-    return errors, external_marker_signals
+    return errors, retained_marker_signals
 
 
 def scan_root(root: Path = ROOT) -> list[str]:
@@ -116,17 +129,18 @@ def scan_root(root: Path = ROOT) -> list[str]:
 
 
 def main() -> int:
-    errors, external_marker_signals = scan_root_detailed()
+    errors, retained_marker_signals = scan_root_detailed()
     print(
         json.dumps(
             {
                 "status": "PASS" if not errors else "FAIL",
                 "errors": errors,
-                "external_marker_signals": external_marker_signals,
+                "retained_marker_signals": retained_marker_signals,
                 "watermark_detection_scope": (
                     "bounded to detectable high-risk invisible Unicode controls in UTF-8 text; "
-                    "PASS does not prove absence of statistical, binary-media, metadata, "
-                    "provider-side or other steganographic watermarking"
+                    "a leading UTF-8 BOM is treated as encoding metadata; PASS does not prove "
+                    "absence of statistical, binary-media, metadata, provider-side or other "
+                    "steganographic watermarking"
                 ),
             },
             indent=2,
