@@ -43,3 +43,21 @@ def test_committed_condition_references_map_to_single_payload() -> None:
         reference_key="closure_rule_ref",
         payload_key="closure_rule_payload",
     )
+
+
+def test_reference_guard_rejects_same_ref_with_different_payload() -> None:
+    packets: list[dict[str, object]] = [
+        {"closure_rule_ref": "fixture:same", "closure_rule_payload": "first"},
+        {"closure_rule_ref": "fixture:same", "closure_rule_payload": "second"},
+    ]
+
+    try:
+        _assert_single_payload_per_reference(
+            packets,
+            reference_key="closure_rule_ref",
+            payload_key="closure_rule_payload",
+        )
+    except AssertionError as exc:
+        assert "maps to multiple" in str(exc)
+    else:
+        raise AssertionError("reference guard accepted same ref with different payload")
