@@ -4,13 +4,13 @@ Status: `IMPLEMENTED_SYNTHETIC_FIXTURE / SCIENTIFIC_HOLD`
 
 ## Read-before-act provenance
 
-This extension was prepared only after reading the live repository state and the
-research navigation path in this order:
+This extension was originally prepared only after reading the live repository
+state and the research navigation path in this order:
 
 1. live `main` at `d95bc2625e71f1c85a725aaba78cb0feccfc0668`;
-2. open Draft PR #102 at
+2. then-open Draft PR #102 at
    `3ce4f759caf662a53f0d1f3a54709bc482d7df5e`;
-3. open Draft PR #101 at
+3. then-open Draft PR #101 at
    `b6d81743c6e8b879be31074bb9d98acc9b4be13a`;
 4. merged PR #93, head
    `c37655c33fa235de6528ff687daa65f86f01afe4`, merge commit
@@ -18,18 +18,79 @@ research navigation path in this order:
 5. the longitudinal harness already present on live `main`.
 
 The implementation branch was cut from the exact live `main` commit in item 1.
-PR #102 supplies the exact bounded experiment specification only:
+The fixture, runner and committed execution receipt intentionally retain the
+exact PR #102 head that supplied the implementation-time specification. That
+historical binding is evidence about what was implemented and must not be
+rewritten as though a later specification state had existed at implementation
+time:
 
 ```text
-UNMERGED_SPECIFICATION_DEPENDENCY = PR #102 @ 3ce4f759caf662a53f0d1f3a54709bc482d7df5e
+HISTORICAL_SPECIFICATION_REFERENCE = PR #102 @ 3ce4f759caf662a53f0d1f3a54709bc482d7df5e
+STATE_AT_IMPLEMENTATION = UNMERGED_DRAFT
 IMPLEMENTATION_BASE = main @ d95bc2625e71f1c85a725aaba78cb0feccfc0668
 PR102_USED_AS_IMPLEMENTATION_BASE = FALSE
 ```
 
-PR #101 was cross-read for boundary compatibility. Its proposed future
-personality-continuity implementation remains deferred and is not implemented
-here. PR #93 is the merged antecedent for the longitudinal study surface reused
-by this extension.
+PR #102 has since merged. The current repository provenance is:
+
+```text
+PR102_CURRENT_STATE = MERGED
+PR102_FINAL_HEAD = 2b151df564d753d6ce978a319a99959b864f7309
+PR102_MERGE_COMMIT = e95da8be67a8ff313d2e5ebf61ade0c2e2adac66
+PR103_SYNC_BASE = 0ee6b8036115645162bb3d8af2f574651851f4cc
+HISTORICAL_REFERENCE != CURRENT_SPECIFICATION_STATE
+OLD_SPEC_BINDING != AUTOMATIC_NONCONFORMANCE
+COMPLETE_CONFORMANCE_TO_HARDENED_PR102 = NOT_ESTABLISHED
+```
+
+PR #101 was cross-read for boundary compatibility. Its later merged state does
+not retroactively change the scope of this harness. PR #93 is the merged
+antecedent for the longitudinal study surface reused by this extension.
+
+## Specification-convergence and semantic-drift check — 2026-09-14
+
+The merge of current `main` into PR #103 did not intentionally rewrite the
+cross-dyad implementation surface. The historical A-D conditions, optional E
+closure control, nine synthetic task families and fifteen observable dimensions
+remain the implementation-time contract.
+
+The merged final PR #102 specification later added interpretation hardening and
+prospective confound controls, including prompt-length, information-volume,
+task-relevance, tool/time-budget and answer-leakage controls plus the prospective
+`C_PLUS_MATCHED_INFORMATION_CONTROL`. Those additions do not retroactively become
+implemented conditions merely because PR #102 is now on `main`.
+
+The current interpretation must therefore remain bounded:
+
+```text
+SYNC_INTRODUCED_CORE_IMPLEMENTATION_DRIFT = NO_EVIDENCE_FOUND
+SPECIFICATION_EVOLUTION_AFTER_IMPLEMENTATION = YES
+HISTORICAL_A_TO_E_SURFACE = PRESERVED
+C_PLUS_MATCHED_INFORMATION_CONTROL = NOT_IMPLEMENTED
+HISTORY_SPECIFIC_CAUSAL_IDENTIFICATION = NOT_ESTABLISHED
+CURRENT_HARDENED_SPEC_FULL_CONFORMANCE = NOT_ESTABLISHED
+```
+
+A residual finding already recorded during PR #102 review remains visible rather
+than being silently repaired in this provenance-only convergence step: conditions
+C and D share `closure_rule_ref = fixture:counterevidence-and-claim-ceiling-v1`
+while their `closure_rule_payload` values differ. Their instruction payloads also
+differ. Per-packet fingerprints bind the supplied bytes, but they do not establish
+cross-packet reference-to-content consistency or isolate repository history as the
+unique causal difference.
+
+```text
+PER_PACKET_INTEGRITY = PRESENT
+CROSS_PACKET_REFERENTIAL_CONSISTENCY = NOT_ESTABLISHED
+C_VS_D = PACKAGE_CONTRAST
+C_VS_D != UNIQUE_HISTORY_EFFECT
+SAME_REF != SAME_PAYLOAD
+FINDING_EXISTS != SILENT_RETROACTIVE_REWRITE
+```
+
+No executable fixture, runner, receipt or historical specification reference is
+changed by this convergence note. Any future implementation of the hardened
+prospective controls requires a separate explicit scope decision.
 
 ## Why this is an extension, not another framework
 
@@ -121,6 +182,10 @@ prompt reference and its actual prompt payload. Run bindings hash those contents
 changing content while retaining a label therefore fails closed. The receipt
 also records the implementation-base commit SHA and tree SHA as distinct fields.
 
+The receipt's PR #102 dependency fields are intentionally historical execution
+provenance. In particular, an implementation-time `unmerged_dependency = true`
+does not assert that PR #102 is still unmerged now.
+
 ## Receipt interpretation
 
 The deterministic numeric values are protocol fixtures for checking the harness;
@@ -142,10 +207,11 @@ DEPLOYMENT = FALSE
 
 ## Human Owner authorization boundary
 
-This materialization is limited to the authorization recorded in the exact PR
-#102 specification: synthetic task harness, condition packets, observable
-metrics, tests, execution receipts, and reproduction documentation on a separate
-implementation Draft PR.
+This materialization is limited to the authorization recorded in the historical
+exact PR #102 specification: synthetic task harness, condition packets,
+observable metrics, tests, execution receipts, and reproduction documentation on
+a separate implementation Draft PR. Later PR #102 documentation hardening does
+not silently expand that implementation authorization.
 
 The work performs no merge, no `main` write, no deployment, no private transcript
 collection, no third-party account access, no psychometric classification of

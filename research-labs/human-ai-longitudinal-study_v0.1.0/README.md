@@ -47,10 +47,24 @@ contains no raw conversation and no third-party identity.
 ## Cross-dyad collaboration-regime extension
 
 The bounded extension in `src/aion_human_ai_longitudinal/collaboration_regime.py`
-materializes the condition matrix authorized by the exact PR #102 research
-specification. The implementation branch starts from live `main` commit
-`d95bc2625e71f1c85a725aaba78cb0feccfc0668`; PR #102 is an explicit unmerged
-specification dependency and is **not** the implementation base.
+materializes the historical condition matrix authorized by PR #102 at exact head
+`3ce4f759caf662a53f0d1f3a54709bc482d7df5e`. The implementation branch started
+from live `main` commit `d95bc2625e71f1c85a725aaba78cb0feccfc0668`;
+PR #102 was not the implementation base.
+
+PR #102 later merged at final head
+`2b151df564d753d6ce978a319a99959b864f7309` via merge commit
+`e95da8be67a8ff313d2e5ebf61ade0c2e2adac66`. The original fixture, runner and
+execution receipt retain their implementation-time exact-head reference as
+historical provenance; that old binding is not rewritten into a false claim that
+the later hardened specification existed at implementation time.
+
+The merged PR #102 hardening adds prospective confound-control and interpretation
+requirements. Complete conformance of this historical #103 implementation to the
+later hardened specification is `NOT_ESTABLISHED`, and the prospective
+`C_PLUS_MATCHED_INFORMATION_CONTROL` is not implemented here. The existing C/D
+comparison therefore remains a package contrast and must not be interpreted as a
+uniquely identified longitudinal-history effect.
 
 It provides condition packets A-D plus optional closure control E, one synthetic
 fixture for each of the nine specified task families, all fifteen observable
@@ -61,5 +75,5 @@ write to `main`.
 
 See
 [`CROSS_DYAD_COLLABORATION_REGIME_HARNESS.md`](CROSS_DYAD_COLLABORATION_REGIME_HARNESS.md)
-for the exact dependency, matrix, reproduction commands, receipt semantics, and
-authority boundary.
+for the historical/current specification distinction, semantic-drift assessment,
+matrix, reproduction commands, receipt semantics, and authority boundary.
