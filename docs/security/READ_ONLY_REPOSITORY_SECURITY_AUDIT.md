@@ -2,7 +2,7 @@
 
 Status: `IMPLEMENTED_BOUNDED_AUDIT / HUMAN_REVIEW_REQUIRED`
 
-This minimal scanner implements the PR #102 P2 candidate by examining only files
+This minimal scanner implements the P2 candidate now canonically recorded by merged PR #102 by examining only files
 already tracked in a local Git worktree. It records the exact commit and tree,
 unexpected binary suffixes, a small set of high-confidence secret markers,
 required security documents, relative links inside those documents, top-level
