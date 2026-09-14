@@ -109,6 +109,8 @@ class StandardsCrosswalkAudit:
     confound_count: int
     tev_vocabulary_complete: bool
     reasons: tuple[str, ...]
+    model_invoked: bool = False
+    evidence_admissibility: str = "PROCESS_CONTROL_ONLY"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
     consciousness_conclusion: str = "NOT_ESTABLISHED"
     phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
@@ -175,6 +177,8 @@ def audit_fingerprint(audit: StandardsCrosswalkAudit) -> str:
                 "confound_count": audit.confound_count,
                 "tev_vocabulary_complete": audit.tev_vocabulary_complete,
                 "reasons": audit.reasons,
+                "model_invoked": audit.model_invoked,
+                "evidence_admissibility": audit.evidence_admissibility,
                 "subjectivity_conclusion": audit.subjectivity_conclusion,
                 "canonical_effect": audit.canonical_effect,
             },

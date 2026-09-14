@@ -72,6 +72,8 @@ def test_complete_registry_is_structurally_admissible_with_nonclaims() -> None:
     )
     assert audit.structurally_admissible
     assert audit.tev_vocabulary_complete
+    assert audit.model_invoked is False
+    assert audit.evidence_admissibility == "PROCESS_CONTROL_ONLY"
     assert audit.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert audit.consciousness_conclusion == "NOT_ESTABLISHED"
     assert audit.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
