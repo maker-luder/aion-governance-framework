@@ -83,3 +83,10 @@ def test_nested_directory_is_rejected_as_audit_root(tmp_path: Path) -> None:
     nested.mkdir()
     with pytest.raises(ValueError, match="exact git top-level"):
         audit_repository(nested)
+
+
+def test_current_repository_merge_tree_has_no_high_or_critical_findings() -> None:
+    root = Path(__file__).resolve().parents[1]
+    receipt = audit_repository(root)
+    assert receipt["tracked_file_count"] > 0
+    assert receipt["high_or_critical_count"] == 0
