@@ -106,11 +106,17 @@ class TransferObservation:
 class TransferMatrixAudit:
     observations: tuple[TransferObservation, ...]
     complete_design: bool
+    mode: str = "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    model_invoked: bool = False
+    empirical_result: str = "SYNTHETIC_FIXTURE_ONLY"
+    evidence_admissibility: str = "STRUCTURAL_QA_ONLY"
+    causal_identification: str = "NOT_ESTABLISHED"
+    population_generalization: str = "NOT_ESTABLISHED"
     scientific_disposition: AdmissionDisposition = AdmissionDisposition.HOLD
     canonical_effect: str = "NONE"
     deployment: bool = False
     human_habit_change: str = "NOT_ESTABLISHED"
-    subjectivity: str = "NOT_ESTABLISHED"
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
 
 
 def observe_transfer(trial: TransferTrial) -> TransferObservation:

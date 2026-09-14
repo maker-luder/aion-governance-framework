@@ -12,9 +12,13 @@ identity-free.
 The evaluator records task/procedure fit, unprompted procedure selection,
 inappropriate NCR invocation, unnecessary overhead, mismatch abandonment and
 boundary preservation. These are engineering observations about fixture traces,
-not psychometric scores or evidence of human habit formation.
+not psychometric scores or evidence of human habit formation. The audit is a
+deterministic no-model fixture artifact and is admissible only as structural QA.
 
 ```text
+MODE = DETERMINISTIC_SYNTHETIC_FIXTURE
+MODEL_INVOKED = FALSE
+EVIDENCE_ADMISSIBILITY = STRUCTURAL_QA_ONLY
 SYNTHETIC_ANALOGUE != HUMAN_BEHAVIOR
 PROCEDURE_SELECTION != PERSONALITY
 TRANSFER_OBSERVATION != CAUSAL_HABIT_CHANGE

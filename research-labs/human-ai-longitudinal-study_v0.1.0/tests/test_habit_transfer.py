@@ -59,7 +59,13 @@ def test_complete_held_out_synthetic_matrix_is_audited_without_human_claim() -> 
     assert len(result.observations) == 8
     assert all(item.correct_task_classification for item in result.observations)
     assert result.human_habit_change == "NOT_ESTABLISHED"
-    assert result.subjectivity == "NOT_ESTABLISHED"
+    assert result.mode == "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    assert result.model_invoked is False
+    assert result.empirical_result == "SYNTHETIC_FIXTURE_ONLY"
+    assert result.evidence_admissibility == "STRUCTURAL_QA_ONLY"
+    assert result.causal_identification == "NOT_ESTABLISHED"
+    assert result.population_generalization == "NOT_ESTABLISHED"
+    assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert result.scientific_disposition.value == "HOLD"
 
 
