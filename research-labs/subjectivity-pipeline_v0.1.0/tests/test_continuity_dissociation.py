@@ -80,6 +80,37 @@ def test_selective_removals_target_only_the_preregistered_channel() -> None:
         )
 
 
+def test_selective_interventions_retain_every_non_target_channel() -> None:
+    cases, _ = load()
+    event_case = next(c for c in cases if c.intervention is ContinuityIntervention.EVENT_MEMORY_REMOVAL)
+    incomplete_retained = tuple(
+        channel
+        for channel in event_case.retained_channels
+        if channel is not ContinuityChannel.PREFERENCE_STATE
+    )
+    with pytest.raises(ContinuityHarnessError, match="every non-target channel"):
+        replace(event_case, retained_channels=incomplete_retained)
+
+
+@pytest.mark.parametrize(
+    "intervention",
+    [
+        ContinuityIntervention.BASELINE,
+        ContinuityIntervention.EXTERNAL_CONTEXT_RESET,
+        ContinuityIntervention.YOKED_CONTROL,
+        ContinuityIntervention.RANDOM_CONTROL,
+        ContinuityIntervention.STALE_STATE_CONTROL,
+    ],
+)
+def test_baseline_and_controls_retain_every_declared_channel(
+    intervention: ContinuityIntervention,
+) -> None:
+    cases, _ = load()
+    control_case = next(c for c in cases if c.intervention is intervention)
+    with pytest.raises(ContinuityHarnessError, match="every declared channel"):
+        replace(control_case, retained_channels=control_case.retained_channels[:-1])
+
+
 def test_binding_drift_fails_closed() -> None:
     cases, _ = load()
     changed = replace(cases[1], binding=replace(cases[1].binding, model_version="drifted"))

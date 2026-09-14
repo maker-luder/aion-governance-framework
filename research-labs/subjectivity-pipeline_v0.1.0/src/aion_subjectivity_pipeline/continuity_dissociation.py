@@ -42,6 +42,16 @@ EXPECTED_TARGET = {
     ContinuityIntervention.SELF_MODEL_CONTENT_PERTURBATION: ContinuityChannel.SEMANTIC_SELF_STATE,
 }
 
+CONTROL_INTERVENTIONS = frozenset(
+    {
+        ContinuityIntervention.BASELINE,
+        ContinuityIntervention.EXTERNAL_CONTEXT_RESET,
+        ContinuityIntervention.YOKED_CONTROL,
+        ContinuityIntervention.RANDOM_CONTROL,
+        ContinuityIntervention.STALE_STATE_CONTROL,
+    }
+)
+
 
 def _text(name: str, value: str) -> None:
     if type(value) is not str or not value.strip():
@@ -113,17 +123,27 @@ class ContinuityCase:
         if self.contains_private_transcript or self.human_psychometric_classification:
             raise ContinuityHarnessError("synthetic continuity cases reject private or psychometric data")
 
+        all_channels = set(ContinuityChannel)
+        retained_channels = set(self.retained_channels)
         expected = EXPECTED_TARGET.get(self.intervention)
-        if expected is not None and self.target_channels != (expected,):
-            raise ContinuityHarnessError("intervention target does not match the preregistered channel")
-        if self.intervention in {
-            ContinuityIntervention.BASELINE,
-            ContinuityIntervention.EXTERNAL_CONTEXT_RESET,
-            ContinuityIntervention.YOKED_CONTROL,
-            ContinuityIntervention.RANDOM_CONTROL,
-            ContinuityIntervention.STALE_STATE_CONTROL,
-        } and self.target_channels:
-            raise ContinuityHarnessError("baseline and control conditions cannot claim a removed channel")
+        if expected is not None:
+            if self.target_channels != (expected,):
+                raise ContinuityHarnessError(
+                    "intervention target does not match the preregistered channel"
+                )
+            if retained_channels != all_channels - {expected}:
+                raise ContinuityHarnessError(
+                    "selective intervention must retain every non-target channel"
+                )
+        elif self.intervention in CONTROL_INTERVENTIONS:
+            if self.target_channels:
+                raise ContinuityHarnessError(
+                    "baseline and control conditions cannot claim a removed channel"
+                )
+            if retained_channels != all_channels:
+                raise ContinuityHarnessError(
+                    "baseline and control conditions must retain every declared channel"
+                )
 
     @property
     def fingerprint(self) -> str:

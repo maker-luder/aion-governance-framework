@@ -57,9 +57,12 @@
   "schema_version": "0.1.0",
   "scientific_disposition": "HOLD",
   "specification_dependency": {
-    "head_commit_sha": "b6d81743c6e8b879be31074bb9d98acc9b4be13a",
+    "current_merged_head_sha": "fe398ab14e018c749cdce3268bbc274bb02b72ac",
+    "full_conformance_to_merged_specification": "NOT_ESTABLISHED",
+    "historical_preregistration_head_sha": "b6d81743c6e8b879be31074bb9d98acc9b4be13a",
+    "merge_commit_sha": "9d21e6981f5eb61a35ec8c283b99193cbfe43fd5",
+    "merged": true,
     "pull_request": 101,
-    "unmerged": true,
     "used_as_implementation_base": false
   },
   "structurally_admissible": true,

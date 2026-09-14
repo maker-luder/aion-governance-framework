@@ -23,7 +23,9 @@ from aion_subjectivity_pipeline import (  # noqa: E402
 BASE_COMMIT_SHA = "d95bc2625e71f1c85a725aaba78cb0feccfc0668"
 BASE_TREE_SHA = "77470062979df1db2f17c3a2a396891d1e910f98"
 SPECIFICATION_PR = 101
-SPECIFICATION_HEAD_SHA = "b6d81743c6e8b879be31074bb9d98acc9b4be13a"
+ORIGINAL_SPECIFICATION_HEAD_SHA = "b6d81743c6e8b879be31074bb9d98acc9b4be13a"
+MERGED_SPECIFICATION_HEAD_SHA = "fe398ab14e018c749cdce3268bbc274bb02b72ac"
+SPECIFICATION_MERGE_COMMIT_SHA = "9d21e6981f5eb61a35ec8c283b99193cbfe43fd5"
 
 
 def execute() -> dict[str, object]:
@@ -52,9 +54,12 @@ def execute() -> dict[str, object]:
         "mode": "DETERMINISTIC_SYNTHETIC_FIXTURE",
         "specification_dependency": {
             "pull_request": SPECIFICATION_PR,
-            "head_commit_sha": SPECIFICATION_HEAD_SHA,
-            "unmerged": True,
+            "historical_preregistration_head_sha": ORIGINAL_SPECIFICATION_HEAD_SHA,
+            "current_merged_head_sha": MERGED_SPECIFICATION_HEAD_SHA,
+            "merge_commit_sha": SPECIFICATION_MERGE_COMMIT_SHA,
+            "merged": True,
             "used_as_implementation_base": False,
+            "full_conformance_to_merged_specification": "NOT_ESTABLISHED",
         },
         "implementation_base": {
             "commit_sha": BASE_COMMIT_SHA,
