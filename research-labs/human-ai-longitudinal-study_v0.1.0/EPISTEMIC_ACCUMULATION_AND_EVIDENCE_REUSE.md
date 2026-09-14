@@ -17,12 +17,17 @@ claim/source/version/proposition/scope/support/ceiling manifests; and a fail-clo
 evidence-reuse firewall when proposition, scope, currency, canonical state, or
 empirical-result binding changes. Private transcript payloads are rejected.
 
-This does not duplicate PR #103's cross-dyad metrics.
+This does not duplicate PR #103's cross-dyad metrics. The matrix output is a
+deterministic no-model fixture artifact and is admissible only as structural QA,
+consistent with the structural-fixture evidence boundary now present on `main`.
 
 ```text
 IMPLEMENTATION_REUSE != EVIDENCE_REUSE
 SAME_TOPIC != SAME_SUPPORTED_PROPOSITION
 UNMERGED_DRAFT != CANONICAL_EVIDENCE
+MODE = DETERMINISTIC_SYNTHETIC_FIXTURE
+MODEL_INVOKED = FALSE
+EVIDENCE_ADMISSIBILITY = STRUCTURAL_QA_ONLY
 SYNTHETIC_MATRIX_PASS != LONGITUDINAL_ACCUMULATION_EFFECT
 MUTUAL_LEARNING = NOT_ESTABLISHED
 AI_IDENTITY_CONTINUITY = NOT_ESTABLISHED

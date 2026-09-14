@@ -67,7 +67,11 @@ def test_a_to_d_matrix_preserves_nonclaims() -> None:
     assert result["structurally_admissible"] is True
     assert result["empirical_result"] == "SYNTHETIC_FIXTURE_ONLY"
     assert result["mutual_learning"] == "NOT_ESTABLISHED"
-    assert result["subjectivity"] == "NOT_ESTABLISHED"
+    assert result["mode"] == "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    assert result["model_invoked"] is False
+    assert result["evidence_admissibility"] == "STRUCTURAL_QA_ONLY"
+    assert result["subjectivity_conclusion"] == "NOT_ESTABLISHED"
+    assert result["scientific_disposition"] == "HOLD"
     assert result["canonical_effect"] == "NONE"
     with pytest.raises(AccumulationError, match="exact A-D"):
         audit_accumulation_packets(packets()[:-1])

@@ -180,12 +180,18 @@ def audit_accumulation_packets(packets: tuple[AccumulationConditionPacket, ...])
     if len(packets) != len(ArtifactCondition) or set(conditions) != set(ArtifactCondition):
         raise AccumulationError("exact A-D accumulation matrix is required")
     return {
+        "mode": "DETERMINISTIC_SYNTHETIC_FIXTURE",
+        "model_invoked": False,
         "structurally_admissible": True,
+        "evidence_admissibility": "STRUCTURAL_QA_ONLY",
         "condition_count": len(packets),
         "empirical_result": "SYNTHETIC_FIXTURE_ONLY",
         "mutual_learning": "NOT_ESTABLISHED",
         "identity_continuity": "NOT_ESTABLISHED",
-        "subjectivity": "NOT_ESTABLISHED",
+        "causal_identification": "NOT_ESTABLISHED",
+        "population_generalization": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "scientific_disposition": "HOLD",
         "consciousness": "NOT_ESTABLISHED",
         "phenomenal_experience": "NOT_ESTABLISHED",
         "canonical_effect": "NONE",
