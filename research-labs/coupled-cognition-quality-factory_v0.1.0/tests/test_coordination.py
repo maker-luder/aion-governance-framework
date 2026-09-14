@@ -60,6 +60,10 @@ def test_coordination_metrics_and_explicit_closure() -> None:
     assert result.unresolved_request_ids == ()
     assert result.termination_quality == "EXPLICIT"
     assert result.ncr_reasons == ()
+    assert result.model_invoked is False
+    assert result.evidence_admissibility == "PROCESS_QUALITY_ONLY"
+    assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert result.consciousness_conclusion == "NOT_ESTABLISHED"
 
 
 def test_unequal_turns_alone_do_not_open_ncr() -> None:

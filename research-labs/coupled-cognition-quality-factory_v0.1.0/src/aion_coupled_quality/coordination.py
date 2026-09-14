@@ -123,6 +123,10 @@ class CoordinationAudit:
     repeated_turn_content: int
     termination_quality: str
     ncr_reasons: tuple[str, ...]
+    model_invoked: bool = False
+    evidence_admissibility: str = "PROCESS_QUALITY_ONLY"
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
     scientific_disposition: str = "HOLD"
     canonical_effect: str = "NONE"
     deployment: bool = False

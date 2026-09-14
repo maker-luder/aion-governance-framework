@@ -11,9 +11,12 @@ explicit stop/handoff quality.
 An NCR reason is emitted only when a stated process requirement is violated.
 Unequal participation by itself is measured but is not classified as suppression
 or nonconformance. The harness performs no networking, agent orchestration,
-psychometric inference or autonomous action.
+psychometric inference or autonomous action. Its output is admissible only as
+process-quality evidence, not as subjectivity or consciousness evidence.
 
 ```text
+MODEL_INVOKED = FALSE
+EVIDENCE_ADMISSIBILITY = PROCESS_QUALITY_ONLY
 TURN_CONCENTRATION != INTENTIONAL_SUPPRESSION
 ROLE_COVERAGE != CONTENT_CORRECTNESS
 ORCHESTRATION != EPISTEMIC_AUTHORITY
