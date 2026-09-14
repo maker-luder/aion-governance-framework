@@ -66,6 +66,12 @@ later hardened specification is `NOT_ESTABLISHED`, and the prospective
 comparison therefore remains a package contrast and must not be interpreted as a
 uniquely identified longitudinal-history effect.
 
+The committed condition fixture now also enforces referential consistency through
+a regression test: repeated instruction or closure references must map to exactly
+one payload in that fixture. Condition D uses its own closure reference matching
+its unchanged history-aware closure payload. This closes the prior same-reference
+/ different-payload defect without making C and D semantically matched.
+
 It provides condition packets A-D plus optional closure control E, one synthetic
 fixture for each of the nine specified task families, all fifteen observable
 metrics as separate dimensions, matched-run validation, and a deterministic
@@ -75,5 +81,5 @@ write to `main`.
 
 See
 [`CROSS_DYAD_COLLABORATION_REGIME_HARNESS.md`](CROSS_DYAD_COLLABORATION_REGIME_HARNESS.md)
-for the historical/current specification distinction, semantic-drift assessment,
-matrix, reproduction commands, receipt semantics, and authority boundary.
+for the exact dependency, matrix, reproduction commands, receipt semantics,
+referential-consistency boundary, and authority boundary.
