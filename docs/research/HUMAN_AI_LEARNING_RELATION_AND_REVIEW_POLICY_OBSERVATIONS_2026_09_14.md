@@ -437,3 +437,27 @@ WORK_CROSS_READ = PENDING
 CODEX_IMPLEMENTATION_REVIEW = PENDING
 MERGE_AUTHORIZATION = NONE
 ```
+
+## Post-creation current-main convergence review
+
+This branch was synchronized with `main@6e0ae579da9d09b3ba4041d52a7e9833ceb10ca1`.
+The original intake baseline above remains historical provenance, not current-state
+metadata.
+
+Current-main recheck found:
+
+- `H_MS2_ENDOGENOUS_SELF_RELEVANCE = NOT_TESTED` remains the canonical state;
+- the model-family review harness records dimension-specific metric observations
+  and contrast deltas but does not itself invoke reviewers, produce a composite
+  person/AI value score, or admit a scientific claim;
+- its `rubric_ref` is therefore a bounded measurement reference, not a holistic
+  worth score;
+- the newer structural-fixture evidence boundary requires deterministic no-model
+  fixture output to remain structural QA only.
+
+```text
+DIMENSION_SPECIFIC_MEASUREMENT != HOLISTIC_SCORING
+RUBRIC_REFERENCE != PERSON_OR_AI_VALUE_SCORE
+HARNESS_RECORDING != REVIEWER_EVALUATION_EXECUTED
+CURRENT_MAIN_RECHECK != CONTROLLED_EXPERIMENT
+```
