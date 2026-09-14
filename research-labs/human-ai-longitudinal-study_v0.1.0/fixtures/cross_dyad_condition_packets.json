@@ -29,7 +29,7 @@
     {
       "condition": "CONDITION_D_RECIPROCAL_PROTOCOL_WITH_REPOSITORY_HISTORY",
       "instruction_ref": "fixture:condition-d-reciprocal-protocol-v1",
-      "closure_rule_ref": "fixture:counterevidence-and-claim-ceiling-v1",
+      "closure_rule_ref": "fixture:repository-history-and-claim-ceiling-v1",
       "repository_history_refs": [
         "git:d95bc2625e71f1c85a725aaba78cb0feccfc0668:docs/CURRENT_STATE.md",
         "git:d95bc2625e71f1c85a725aaba78cb0feccfc0668:docs/research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md"
