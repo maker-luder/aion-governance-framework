@@ -715,3 +715,25 @@ WORK_INDEPENDENT_REVIEW = PENDING
 CODEX_IMPLEMENTATION_REVIEW = NOT_YET_REQUIRED
 MERGE_AUTHORIZATION = NONE
 ```
+
+## Post-creation current-main crosswalk
+
+This branch was synchronized with `main@6e0ae579da9d09b3ba4041d52a7e9833ceb10ca1`.
+The original baseline above remains historical provenance.
+
+Merged PR #119 now provides one adjacent fail-closed control: deterministic
+no-model fixture receipts cannot be admitted as empirical research evidence and
+remain `STRUCTURAL_QA_ONLY`. That control partially represents the broader
+admission-risk family but does not by itself test whether an observation
+discriminates a target hypothesis from plausible alternatives.
+
+Accordingly, the current classification is:
+
+```text
+CURRENT_MAIN_OVERLAP = PARTIALLY_REPRESENTED
+STRUCTURAL_FIXTURE_ADMISSION_GAP = CONTROL_PRESENT
+HYPOTHESIS_COMPATIBILITY_VS_DISCRIMINATION_GAP = STILL_CANDIDATE
+NEW_PARALLEL_FIXTURE_VALIDATOR = NOT_JUSTIFIED
+SUBJECTIVITY = NOT_ESTABLISHED
+SCIENTIFIC_DISPOSITION = HOLD
+```
