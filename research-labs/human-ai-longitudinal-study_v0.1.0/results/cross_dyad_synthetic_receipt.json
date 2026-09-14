@@ -2,7 +2,7 @@
   "canonical_effect": "NONE",
   "causal_identification": "NOT_ESTABLISHED",
   "condition_count": 5,
-  "condition_packet_sha256": "d1a2bb60facf4bcfbf41707cc2975f91acc9e8499be370eab4b9cf96d187bb9f",
+  "condition_packet_sha256": "616ba8b1af63d330b4f296e6a70a74108b0cd31beaa61584f97960ee628210b2",
   "deployment": false,
   "empirical_result": "SYNTHETIC_FIXTURE_ONLY",
   "experiment_id": "AION-CROSS-DYAD-COLLABORATION-REGIME-001",
