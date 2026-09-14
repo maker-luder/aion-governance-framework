@@ -71,26 +71,54 @@ HISTORY_SPECIFIC_CAUSAL_IDENTIFICATION = NOT_ESTABLISHED
 CURRENT_HARDENED_SPEC_FULL_CONFORMANCE = NOT_ESTABLISHED
 ```
 
-A residual finding already recorded during PR #102 review remains visible rather
-than being silently repaired in this provenance-only convergence step: conditions
-C and D share `closure_rule_ref = fixture:counterevidence-and-claim-ceiling-v1`
-while their `closure_rule_payload` values differ. Their instruction payloads also
-differ. Per-packet fingerprints bind the supplied bytes, but they do not establish
-cross-packet reference-to-content consistency or isolate repository history as the
-unique causal difference.
+The PR #102 review also identified a narrower referential-integrity defect in the
+committed condition fixture: conditions C and D used the same
+`closure_rule_ref = fixture:counterevidence-and-claim-ceiling-v1` while carrying
+different closure payloads. Per-packet fingerprints bound each packet, but the
+shared reference did not identify one stable payload.
+
+That defect is repaired in the later bounded hardening described below. The
+repair does not make C and D semantically matched and does not establish a unique
+history effect.
+
+## Referential-consistency hardening — 2026-09-14
+
+The condition-D closure payload remains unchanged. Only its human-readable
+reference is disambiguated to match the payload it actually names:
 
 ```text
-PER_PACKET_INTEGRITY = PRESENT
-CROSS_PACKET_REFERENTIAL_CONSISTENCY = NOT_ESTABLISHED
-C_VS_D = PACKAGE_CONTRAST
-C_VS_D != UNIQUE_HISTORY_EFFECT
-SAME_REF != SAME_PAYLOAD
-FINDING_EXISTS != SILENT_RETROACTIVE_REWRITE
+OLD_D_CLOSURE_RULE_REF = fixture:counterevidence-and-claim-ceiling-v1
+NEW_D_CLOSURE_RULE_REF = fixture:repository-history-and-claim-ceiling-v1
+D_CLOSURE_RULE_PAYLOAD_CHANGED = FALSE
+D_INSTRUCTION_PAYLOAD_CHANGED = FALSE
 ```
 
-No executable fixture, runner, receipt or historical specification reference is
-changed by this convergence note. Any future implementation of the hardened
-prospective controls requires a separate explicit scope decision.
+A committed regression test now verifies, for the synthetic condition fixture,
+that every repeated `instruction_ref` maps to exactly one `instruction_payload`
+and every repeated `closure_rule_ref` maps to exactly one
+`closure_rule_payload`. This is a repository-fixture invariant; it is not a new
+generic runtime reference registry.
+
+Because the condition fixture bytes changed, the deterministic receipt is
+regenerated only to update the bound `condition_packet_sha256`. The historical
+PR #102 specification reference, implementation base, synthetic metric values,
+claim boundaries and scientific disposition are not promoted or rewritten.
+
+```text
+COMMITTED_FIXTURE_REFERENTIAL_CONSISTENCY = ENFORCED_BY_REGRESSION_TEST
+PER_PACKET_INTEGRITY = PRESENT
+SAME_REF_DIFFERENT_PAYLOAD = REJECTED_FOR_COMMITTED_FIXTURE
+GENERIC_RUNTIME_REFERENCE_REGISTRY = NOT_IMPLEMENTED
+C_VS_D = PACKAGE_CONTRAST
+C_VS_D != UNIQUE_HISTORY_EFFECT
+HISTORY_SPECIFIC_CAUSAL_IDENTIFICATION = NOT_ESTABLISHED
+```
+
+Conditions C and D still have different instruction payloads and different
+closure semantics, and D additionally carries repository-history references.
+The ref repair therefore closes the naming/integrity defect only; it does not
+convert the historical C-vs-D package comparison into the prospective matched
+history-specific contrast described by the hardened PR #102 specification.
 
 ## Why this is an extension, not another framework
 
@@ -174,13 +202,16 @@ The runner reads only the two committed JSON fixtures, constructs the exact
 `results/cross_dyad_synthetic_receipt.json`. Re-running the script must reproduce
 the committed receipt byte-for-byte. The test suite also verifies fixture hashes,
 the complete matrix, matched controls, metric coverage, privacy boundaries, enum
-strictness, and fail-closed drift handling.
+strictness, fail-closed drift handling, and committed-fixture reference-to-payload
+consistency.
 
 Each condition fixture carries both a human-readable reference and its actual
 instruction and closure-rule payload. Each task fixture likewise carries both a
 prompt reference and its actual prompt payload. Run bindings hash those contents;
-changing content while retaining a label therefore fails closed. The receipt
-also records the implementation-base commit SHA and tree SHA as distinct fields.
+changing content while retaining a label therefore fails closed at run-binding
+integrity, while the committed-fixture regression test separately guards against
+one reference naming multiple payloads. The receipt also records the
+implementation-base commit SHA and tree SHA as distinct fields.
 
 The receipt's PR #102 dependency fields are intentionally historical execution
 provenance. In particular, an implementation-time `unmerged_dependency = true`
