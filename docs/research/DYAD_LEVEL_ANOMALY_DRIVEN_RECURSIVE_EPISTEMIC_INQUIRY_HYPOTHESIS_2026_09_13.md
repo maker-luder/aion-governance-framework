@@ -910,6 +910,27 @@ Path keys, relative to the repository:
 | Exact #102 specification binding for #111 | #111 coordination documentation and PR body | No exact-SHA assertion identified in inspected surfaces | UNKNOWN | Do not invent a binding or infer nonconformance from missing provenance |
 | AI subjectivity, shared mind or psychological diagnosis | All three inspected surfaces | Existing nonclaim/privacy boundaries | OUT_OF_SCOPE | Structural/behavioral evidence cannot establish these conclusions |
 
+Minor residual finding (ChatGPT Teacher independent review; Work reverified
+the exact #103 fixture above): Condition C and Condition D both use
+`closure_rule_ref = fixture:counterevidence-and-claim-ceiling-v1`, but their
+`closure_rule_payload` values differ. C requires counterevidence checking and
+the strongest supportable claim ceiling; D requires relevant-history checking,
+avoiding irrelevant retrieval, and recording the claim ceiling. Per-packet
+fingerprints bind each supplied payload; they do not establish a consistent
+reference-to-content mapping across packets. This does not establish harness
+failure or automatic nonconformance and does not require an implementation
+change. No sibling modification or new harness is proposed.
+
+```text
+PER_PACKET_INTEGRITY = PRESENT
+CROSS_PACKET_REFERENTIAL_CONSISTENCY = NOT_ESTABLISHED
+SAME_REF != SAME_PAYLOAD
+SAME_CLOSURE_RULE_REF != SAME_CLOSURE_RULE_CONTENT
+PER_PACKET_FINGERPRINT_INTEGRITY != CROSS_PACKET_REFERENTIAL_CONSISTENCY
+OLD_SPEC_BINDING != AUTOMATIC_NONCONFORMANCE
+FINDING_EXISTS != IMPLEMENTATION_CHANGE_REQUIRED
+```
+
 Cross-dyad prospective requirements are in
 [CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13.md](CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13.md),
 §6.3-§6.5. No sibling binding, fixture, test or receipt is updated here.
