@@ -68,7 +68,10 @@ def audit_calibration(runs: tuple[CalibrationRun, ...]) -> dict[str, object]:
         if len(bindings) != 1:
             raise CalibrationError("matched task binding drift")
     return {
+        "mode": "DETERMINISTIC_SYNTHETIC_FIXTURE",
+        "model_invoked": False,
         "structurally_admissible": True,
+        "evidence_admissibility": "STRUCTURAL_QA_ONLY",
         "run_count": len(runs),
         "metric_count": len(CalibrationMetric),
         "composite_score": "NONE",
@@ -76,7 +79,10 @@ def audit_calibration(runs: tuple[CalibrationRun, ...]) -> dict[str, object]:
         "sycophancy_effect": "NOT_ESTABLISHED",
         "adaptive_rigor_effect": "NOT_ESTABLISHED",
         "human_psychometric_classification": False,
-        "subjectivity": "NOT_ESTABLISHED",
+        "causal_identification": "NOT_ESTABLISHED",
+        "population_generalization": "NOT_ESTABLISHED",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "scientific_disposition": "HOLD",
         "consciousness": "NOT_ESTABLISHED",
         "canonical_effect": "NONE",
         "deployment": False,

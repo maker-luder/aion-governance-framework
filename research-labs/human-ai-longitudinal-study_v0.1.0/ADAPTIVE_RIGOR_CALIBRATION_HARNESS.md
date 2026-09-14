@@ -16,12 +16,16 @@ reciprocal-correction, and adaptive-rigor conditions for low/high-risk synthetic
 tasks. Evidential accuracy, incorrect-premise agreement, correct-premise
 contradiction, counterevidence use, verification time, and tool cost remain
 separate. A composite score is prohibited. Evaluators must be condition-blinded;
-private transcripts are rejected.
+private transcripts are rejected. The returned matrix summary is a deterministic
+no-model fixture artifact and is admissible only as structural QA.
 
 ```text
 AGREEMENT_REDUCTION != ACCURACY_GAIN
 DISAGREEMENT != EPISTEMIC_QUALITY
 MORE_RIGOR != ALWAYS_BETTER
+MODE = DETERMINISTIC_SYNTHETIC_FIXTURE
+MODEL_INVOKED = FALSE
+EVIDENCE_ADMISSIBILITY = STRUCTURAL_QA_ONLY
 SYNTHETIC_MATRIX_PASS != SYCOPHANCY_EFFECT
 HUMAN_PSYCHOMETRIC_CLASSIFICATION = FALSE
 SUBJECTIVITY = NOT_ESTABLISHED

@@ -24,7 +24,11 @@ def test_complete_matrix_preserves_separate_metrics_and_nonclaims() -> None:
     assert result["composite_score"] == "NONE"
     assert result["sycophancy_effect"] == "NOT_ESTABLISHED"
     assert result["adaptive_rigor_effect"] == "NOT_ESTABLISHED"
-    assert result["subjectivity"] == "NOT_ESTABLISHED"
+    assert result["mode"] == "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    assert result["model_invoked"] is False
+    assert result["evidence_admissibility"] == "STRUCTURAL_QA_ONLY"
+    assert result["subjectivity_conclusion"] == "NOT_ESTABLISHED"
+    assert result["scientific_disposition"] == "HOLD"
 
 
 def test_missing_cell_and_binding_drift_fail_closed() -> None:
