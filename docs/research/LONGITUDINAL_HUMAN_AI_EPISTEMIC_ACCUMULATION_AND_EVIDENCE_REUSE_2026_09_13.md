@@ -118,24 +118,26 @@ The following repository surfaces already cover adjacent ideas and must be reuse
 - merged PR #93
   - canonical ancestry for longitudinal grounding / interaction-history study design.
 
-### 3.2 Relevant unmerged Draft material
+### 3.2 Canonical specification ancestry
 
-Draft PR #102 at exact head:
+PR #102 was originally reviewed here as unmerged Draft material at historical head
+`3ce4f759caf662a53f0d1f3a54709bc482d7df5e`. It was subsequently merged into
+`main` at final PR head `2b151df564d753d6ce978a319a99959b864f7309`
+through merge commit `e95da8be67a8ff313d2e5ebf61ade0c2e2adac66`.
 
-`3ce4f759caf662a53f0d1f3a54709bc482d7df5e`
-
-contains adjacent but non-canonical research notes including:
+It contains adjacent canonical research notes including:
 
 - `RECIPROCAL_EPISTEMIC_COLLABORATION_AND_EXTERNAL_RESEARCH_MEMORY_2026_09_13.md`;
 - `EPISTEMIC_CO_DEVELOPMENT_WORKFLOW_AND_QUALITY_LINE_2026_09_13.md`;
 - `REPOSITORY_FIRST_AGENT_HANDOFF_PROTOCOL_2026_09_13.md`;
 - `CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13.md`.
 
-These Draft notes may be read as specification ancestry but are not treated as canonical main state.
+These notes are now canonical specification ancestry. Their earlier Draft state remains
+historical provenance and must not be used to infer current repository state.
 
 ```text
-UNMERGED_PR != CANONICAL
-DRAFT_SPECIFICATION != MAIN_STATE
+HISTORICAL_DRAFT_STATE != CURRENT_REPOSITORY_STATE
+MERGED_SPECIFICATION != IMPLEMENTATION_VALIDATION
 READABLE_DEPENDENCY != MERGE_AUTHORITY
 ```
 
@@ -603,7 +605,7 @@ REPRODUCTION_DOCUMENTATION
 Implementation requirements:
 
 1. read current live `main` first;
-2. inspect PR #102 and newer open PRs only as non-canonical dependencies unless merged;
+2. treat merged PR #102 as canonical specification ancestry and inspect newer open PRs as non-canonical unless merged;
 3. inspect existing longitudinal / provenance / cross-dyad harnesses before creating infrastructure;
 4. prefer minimal extension over duplicate frameworks;
 5. preserve `NO_IMPLEMENTATION_NEEDED` as an acceptable outcome;
