@@ -3,7 +3,7 @@
 Status: `BOUNDED_IMPLEMENTATION / SYNTHETICALLY_TESTED`
 
 This lab implements the P0/P1 repository recoverability surface proposed by
-Draft PR #102. It creates a fresh Git mirror, archives it outside the source
+merged PR #102. It creates a fresh Git mirror, archives it outside the source
 working tree, records SHA-256 and exact commit/tree/ref provenance, then verifies
 checksum, archive extraction, Git integrity, refs, HEAD, tree, and required files
 inside a temporary isolated restore.
@@ -11,7 +11,9 @@ inside a temporary isolated restore.
 ```text
 IMPLEMENTATION_BASE_COMMIT_SHA = d95bc2625e71f1c85a725aaba78cb0feccfc0668
 IMPLEMENTATION_BASE_TREE_SHA = 77470062979df1db2f17c3a2a396891d1e910f98
-UNMERGED_SPECIFICATION_DEPENDENCY = PR #102 @ 3ce4f759caf662a53f0d1f3a54709bc482d7df5e
+ORIGINAL_SPECIFICATION_REVIEW = PR #102 @ 3ce4f759caf662a53f0d1f3a54709bc482d7df5e
+CURRENT_SPECIFICATION_STATUS = MERGED @ 2b151df564d753d6ce978a319a99959b864f7309
+SYNCED_MAIN_COMMIT_SHA = 6e0ae579da9d09b3ba4041d52a7e9833ceb10ca1
 PR102_USED_AS_IMPLEMENTATION_BASE = FALSE
 ```
 
