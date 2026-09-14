@@ -37,7 +37,7 @@ PR #102 has since merged. The current repository provenance is:
 PR102_CURRENT_STATE = MERGED
 PR102_FINAL_HEAD = 2b151df564d753d6ce978a319a99959b864f7309
 PR102_MERGE_COMMIT = e95da8be67a8ff313d2e5ebf61ade0c2e2adac66
-PR103_SYNC_BASE = 0ee6b8036115645162bb3d8af2f574651851f4cc
+PR103_SYNC_COMMIT = 0ee6b8036115645162bb3d8af2f574651851f4cc
 HISTORICAL_REFERENCE != CURRENT_SPECIFICATION_STATE
 OLD_SPEC_BINDING != AUTOMATIC_NONCONFORMANCE
 COMPLETE_CONFORMANCE_TO_HARDENED_PR102 = NOT_ESTABLISHED
@@ -77,8 +77,8 @@ committed condition fixture: conditions C and D used the same
 different closure payloads. Per-packet fingerprints bound each packet, but the
 shared reference did not identify one stable payload.
 
-That defect is repaired in the later bounded hardening described below. The
-repair does not make C and D semantically matched and does not establish a unique
+That defect is repaired in the bounded hardening described below. The repair
+does not make C and D semantically matched and does not establish a unique
 history effect.
 
 ## Referential-consistency hardening — 2026-09-14
@@ -96,8 +96,9 @@ D_INSTRUCTION_PAYLOAD_CHANGED = FALSE
 A committed regression test now verifies, for the synthetic condition fixture,
 that every repeated `instruction_ref` maps to exactly one `instruction_payload`
 and every repeated `closure_rule_ref` maps to exactly one
-`closure_rule_payload`. This is a repository-fixture invariant; it is not a new
-generic runtime reference registry.
+`closure_rule_payload`. A negative regression case proves the guard rejects one
+reference mapped to two payloads. This is a repository-fixture invariant; it is
+not a new generic runtime reference registry.
 
 Because the condition fixture bytes changed, the deterministic receipt is
 regenerated only to update the bound `condition_packet_sha256`. The historical
