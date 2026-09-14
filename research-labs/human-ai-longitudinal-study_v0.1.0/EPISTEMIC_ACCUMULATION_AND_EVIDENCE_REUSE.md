@@ -8,7 +8,8 @@ reusing merged PR #93's longitudinal harness.
 ```text
 IMPLEMENTATION_BASE_COMMIT_SHA = d95bc2625e71f1c85a725aaba78cb0feccfc0668
 IMPLEMENTATION_BASE_TREE_SHA = 77470062979df1db2f17c3a2a396891d1e910f98
-UNMERGED_SPECIFICATION_DEPENDENCY = PR #106 @ e75d86db4e2e31c6f4da893e2ea5bfdd6cf9a6e0
+OPEN_DRAFT_SPECIFICATION_DEPENDENCY = PR #106 @ 570fb0f1c88f0d5db22493858f28fdab546b75cf
+SYNCED_MAIN_COMMIT_SHA = 6e0ae579da9d09b3ba4041d52a7e9833ceb10ca1
 ```
 
 Implemented: exact A-D fresh/summary/versioned/navigable condition packets; typed
@@ -17,7 +18,7 @@ claim/source/version/proposition/scope/support/ceiling manifests; and a fail-clo
 evidence-reuse firewall when proposition, scope, currency, canonical state, or
 empirical-result binding changes. Private transcript payloads are rejected.
 
-This does not duplicate PR #103's cross-dyad metrics. The matrix output is a
+This does not duplicate closed-unmerged PR #103's historical cross-dyad metrics. The matrix output is a
 deterministic no-model fixture artifact and is admissible only as structural QA,
 consistent with the structural-fixture evidence boundary now present on `main`.
 
