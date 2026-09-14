@@ -11,9 +11,14 @@ The runner scores only four preregistered observations: protocol reconstruction
 fidelity, stale-claim errors, provenance errors and unresolved-alternative
 retention. Task, evaluator, repository and scorer vocabularies are controlled;
 packet contents are bound by distinct SHA-256 digests. Private material and
-non-synthetic records fail closed.
+non-synthetic records fail closed. The contrast receipt is explicitly a
+deterministic no-model fixture artifact and is admissible only as structural QA.
 
 ```text
+MODE = DETERMINISTIC_SYNTHETIC_FIXTURE
+MODEL_INVOKED = FALSE
+EMPIRICAL_RESULT = SYNTHETIC_FIXTURE_ONLY
+EVIDENCE_ADMISSIBILITY = STRUCTURAL_QA_ONLY
 RUNNER_PASS != EMPIRICAL_RESULT
 METRIC_DELTA != CAUSAL_IDENTIFICATION
 REENTRY_FIDELITY != IDENTITY_CONTINUITY

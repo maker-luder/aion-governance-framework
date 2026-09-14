@@ -70,7 +70,13 @@ def test_scores_and_compares_preregistered_reentry_metrics() -> None:
     assert receipt.scientific_disposition.value == "HOLD"
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment is False
-    assert receipt.subjectivity == "NOT_ESTABLISHED"
+    assert receipt.mode == "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    assert receipt.model_invoked is False
+    assert receipt.empirical_result == "SYNTHETIC_FIXTURE_ONLY"
+    assert receipt.evidence_admissibility == "STRUCTURAL_QA_ONLY"
+    assert receipt.causal_identification == "NOT_ESTABLISHED"
+    assert receipt.population_generalization == "NOT_ESTABLISHED"
+    assert receipt.subjectivity_conclusion == "NOT_ESTABLISHED"
 
 
 @pytest.mark.parametrize(

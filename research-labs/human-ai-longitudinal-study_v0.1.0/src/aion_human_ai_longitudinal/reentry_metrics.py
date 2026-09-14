@@ -102,10 +102,16 @@ class ReentryContrastReceipt:
     baseline: ReentryMetrics
     intervention: ReentryMetrics
     deltas: tuple[tuple[str, float], ...]
+    mode: str = "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    model_invoked: bool = False
+    empirical_result: str = "SYNTHETIC_FIXTURE_ONLY"
+    evidence_admissibility: str = "STRUCTURAL_QA_ONLY"
+    causal_identification: str = "NOT_ESTABLISHED"
+    population_generalization: str = "NOT_ESTABLISHED"
     scientific_disposition: AdmissionDisposition = AdmissionDisposition.HOLD
     canonical_effect: str = "NONE"
     deployment: bool = False
-    subjectivity: str = "NOT_ESTABLISHED"
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
 
 
 def score_reconstruction(record: ReconstructionRecord) -> ReentryMetrics:
