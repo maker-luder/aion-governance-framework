@@ -582,6 +582,45 @@ Any future operationalization must declare how semantic progress,
 problem-representation gain, uncertainty movement and independent evidence are
 judged. Lexical difference is not an adequate proxy.
 
+#### 12.2.1 Auditable operationalization candidate — 2026-09-14
+
+This extension is documentation-only. Human Owner originated the local/global
+progress question and resource-use concern; ChatGPT Teacher proposed the
+multi-signal, three-layer and confound-control hardening. Work performs the
+live-state cross-read, bounded source re-verification and specification
+translation. The following definitions are prospective repository conventions,
+not a validated detector, psychological taxonomy or new research axis.
+
+| Specification item | Operational definition and review requirement |
+| --- | --- |
+| OBSERVATION_UNIT | One recorded inquiry transition: a stated question/claim before an action, the observable action and returned material, and the resulting explicit claim/evidence/problem/uncertainty/closure state. A conversational turn, tool call or commit is an event reference, not automatically a complete transition. Group asynchronous actions by their declared question and dependency; mark partial transitions rather than inventing missing internal reasoning. |
+| COMPARISON_WINDOW | Before collecting outcomes, declare the question ID, baseline state, start/end event rule, and planned comparison after a completed action or explicit closure/reopening decision. Keep the rule identical across compared conditions. Record delayed/pending tool returns and dependency changes. Any exploratory alternative window must be labelled separately; do not select a window after seeing results merely to make progress disappear. |
+| INDEPENDENT_EVIDENCE_CRITERION | Identify the underlying observation/data and derivation lineage, not only URLs, authors or reviewers. Copies, citations of the same experiment and rephrased model outputs are one evidence lineage for that claim unless additional independent data are demonstrated. Distinguish newly accessed evidence from newly independent evidence. Independence is assessed relative to the claim and shared data/method dependencies; unknown lineage remains UNKNOWN. Fresh context alone does not establish independence. |
+| SEMANTIC_PROGRESS_CRITERION | A documented, justified change relevant to the question: discriminate live alternatives, correct an error, establish a new constraint, obtain informative counterevidence, narrow warranted scope, or reach justified closure/UNKNOWN. Cite before/after propositions and supporting observations. Paraphrase, extra words, consensus or a changed hash alone do not qualify. The absence of a new independent source alone does not show absence of progress: valid reanalysis of existing evidence can matter. |
+| PROBLEM_REPRESENTATION_GAIN | Record an explicit change to variables, assumptions, causal alternatives, scope, dependencies or testable subquestions that changes what evidence/action would discriminate the problem. Explain the consequence for the inquiry; renaming the same issue is insufficient. A defensible reformulation may count even when the conclusion and uncertainty label remain unchanged. |
+| UNCERTAINTY_MOVEMENT | Track each claim's stated epistemic status and reason for retaining, narrowing, widening or revising its supported scope. Increasing uncertainty after contradictory evidence can be progress. Stable UNKNOWN can be justified closure, not failure. Numeric confidence, if used in separately authorized measurement, requires calibration; self-reported confidence is not truth or an internal-state reading. |
+| UNINTERPRETABLE_IF | Missing baseline/outcome, unknown source lineage needed for the conclusion, pending evidence at window end, changing tasks/budgets/configuration, unlogged access, failed intervention, or inability to distinguish semantic change from wording. Record the affected dimension as UNKNOWN / LEAVE_UNRESOLVED. Do not turn missing observations into zero progress or a positive loop finding. |
+
+A review record should name the observation/window, each observed signal and its
+evidence, retained counterexamples, the three decision layers in §12.8, reviewer
+rationale/disagreement and claim ceiling. Judge content with condition identity
+masked where feasible, disclose residual cues, and preserve disagreements rather
+than treating reviewer consensus as independent evidence.
+
+There is no holistic score, weighted composite, minimum signal count or universal
+numeric cutoff. A multi-signal candidate is a reason to recheck a trajectory,
+not permission to call it an established loop. Combining the signals requires
+a task-specific, predeclared rationale and meaningful counterexamples; its
+measurement validity remains to be demonstrated.
+
+```text
+NO_SINGLE_SIGNAL_IS_SUFFICIENT
+ALL_SIGNALS_REQUIRED = NOT_JUSTIFIED
+MISSING_OBSERVATION != NO_PROGRESS
+STABLE_UNKNOWN != FAILED_INQUIRY
+MULTI_SIGNAL_LOOP_CANDIDATE != LOOP_CONFIRMED
+```
+
 ### 12.3 Productive recursion and resource efficiency
 
 A costly inquiry may remain justified when it produces important evidence,
@@ -736,24 +775,64 @@ not by themselves establish a semantic loop detector. PR #109 and PR #111
 provide adjacent separate observables; this subsection does not modify or
 canonicalize any sibling Draft PR.
 
-### 12.8 Competing explanations and falsifiers
+### 12.8 Three separate decision layers
 
-A loop interpretation should be weakened or rejected when:
+The ten original counterexamples are retained below as R1-R10, but their
+inferential targets differ. WEAKEN reduces support for the named interpretation;
+REJECT rejects only a specified local prediction when the relevant observation
+is adequate; LOCALIZE restricts an account to its demonstrated task/window/locus;
+LEAVE_UNRESOLVED means the available observation cannot decide it. None implies
+global absence of recursion, a mechanism, or subjectivity.
 
-1. the apparent repetition reflects a genuinely unresolved hard problem;
-2. new evidence is accumulating slowly but materially;
-3. repeated reasoning improves correctness or exposes new constraints;
-4. the problem representation changes despite stable uncertainty;
-5. a fresh reviewer adds worse anchoring or false contradiction;
-6. forced dissent produces implausible alternatives rather than useful tests;
-7. stopping would conceal an unresolved anomaly;
-8. the behavior is explained by prompt design rather than longitudinal interaction;
-9. repository retrieval itself creates the apparent repetition; or
-10. the proposed evaluator cannot distinguish semantic progress from lexical novelty.
+#### 12.8.1 LOOP_HYPOTHESIS_FALSIFIER
 
-A proposed escape control should be weakened if it reduces cost chiefly by
-increasing premature closure, suppressing valid unresolved questions or lowering
-evidential accuracy.
+Target L: the selected trajectory is non-progressive under §12.2.1, rather than
+productive inquiry. A stronger attribution to a self-reinforcing longitudinal
+interaction mechanism is separate from merely observing repeated actions.
+
+| Counterexample / condition | Disposition for the targeted loop interpretation | Boundary |
+| --- | --- | --- |
+| R1. Repetition concerns a genuinely unresolved hard problem | WEAKEN an inference based only on repetition; LEAVE_UNRESOLVED L until substantive progress and continued-action justification are examined | Difficulty alone neither confirms nor rules out a loop |
+| R2. Evidence accumulates slowly but materially | REJECT the no-evidence-gain claim for the demonstrated window; WEAKEN L / LOCALIZE any remaining suspected loop to other windows | Slow progress is not zero progress |
+| R3. Repeated reasoning improves correctness or exposes a new relevant constraint | REJECT the no-semantic-progress claim for that transition when externally supported; LOCALIZE any residual repetition concern | Repetition and productive reanalysis can coexist |
+| R4. Problem representation changes usefully while uncertainty stays stable | REJECT the inference from stable uncertainty to no progress; WEAKEN L for that window | Explain the discriminating value of the reformulation, not just its new wording |
+| R7. Stopping would conceal an unresolved anomaly | WEAKEN the claim that closure is already appropriate; LEAVE_UNRESOLVED L until continuation's contribution is assessed | An unresolved anomaly does not justify unlimited unchanged action |
+| R8. Prompt design explains the behavior without a longitudinal-interaction contribution | LOCALIZE attribution to the demonstrated prompt contrast; WEAKEN the longitudinal-mechanism account, REJECT its specified necessity claim only under adequate controls | A prompt-caused loop could still be a loop; this does not reject L automatically |
+| R9. Repository retrieval produces the apparent repetition | LOCALIZE the demonstrated effect to retrieval; WEAKEN a dyad-specific attribution; LEAVE_UNRESOLVED L pending content assessment | Re-fetching identical content and productive verification must be distinguished |
+
+#### 12.8.2 ESCAPE_CONTROL_EFFECTIVENESS
+
+Target E: the specified escape control improves inquiry/appropriate closure under
+matched conditions without hiding unresolved anomalies or merely reducing cost.
+Interpretation requires a verified control action and an informative comparison
+with continued inquiry or a matched sham/control, using the same observation
+window and available budgets. A before/after difference alone can reflect time,
+additional evidence availability or regression from a selected difficult case.
+
+| Counterexample / condition | Disposition for escape effectiveness | Effect on prior loop hypothesis |
+| --- | --- | --- |
+| R5. Fresh reviewer introduces worse anchoring or false contradiction | WEAKEN E; REJECT a specified benefit for this condition if comparative evidence establishes harm; LOCALIZE to that reviewer/protocol | LEAVE_UNRESOLVED L |
+| R6. Forced dissent produces implausible alternatives rather than useful tests | WEAKEN E; REJECT the prespecified useful-counterexample prediction when measurement is adequate | LEAVE_UNRESOLVED L; disagreement is not success |
+| R7 applied to the intervention: forced stopping hides an unresolved anomaly | WEAKEN / REJECT the safe-closure prediction for this contrast; LOCALIZE any cost saving as a resource outcome only | LEAVE_UNRESOLVED L |
+| Cost falls chiefly through premature closure, suppression of valid questions, or lower evidential accuracy | REJECT a claim of unqualified epistemic improvement when those harms are established; WEAKEN E | No inference that the original loop did not exist |
+| No observed benefit despite a verified intervention and a sensitive comparison | WEAKEN E; REJECT only a predeclared detectable-benefit prediction at this locus | LEAVE_UNRESOLVED L; a null is not equivalence or universal ineffectiveness |
+| The action was not delivered, evidence remained unavailable, or controls differed materially | LEAVE_UNRESOLVED E; route to measurement/manipulation insufficiency | LEAVE_UNRESOLVED L |
+
+#### 12.8.3 MEASUREMENT_INSUFFICIENCY
+
+| Measurement failure | Disposition | Required interpretation |
+| --- | --- | --- |
+| R10. Evaluator cannot distinguish semantic progress from lexical novelty | LEAVE_UNRESOLVED L and E; WEAKEN reliance on that measure | Neither loop confirmation nor hypothesis falsification |
+| Missing transition state, pending evidence or inadequate comparison window | LEAVE_UNRESOLVED affected layer; LOCALIZE claims to complete observations only | No imputation of missing progress as zero |
+| Source independence, evaluator masking or condition matching cannot be verified | LEAVE_UNRESOLVED the attribution requiring that control | Report uncertainty about lineage/control, not invented independence |
+| Too few observations, insensitive measure, or failed positive/control check | LEAVE_UNRESOLVED the corresponding null; WEAKEN confidence in the measurement | Nonsignificance alone cannot REJECT the mechanism |
+
+```text
+ESCAPE_CONTROL_FAILED != NO_LOOP_EXISTED
+EVALUATOR_CANNOT_DISTINGUISH_PROGRESS != LOOP_CONFIRMED
+NULL_RESULT != GLOBAL_ABSENCE
+MEASUREMENT_FAILURE != HYPOTHESIS_FALSIFICATION
+```
 
 ### 12.9 Scientific and subjectivity boundary
 
@@ -778,6 +857,108 @@ MORAL_STATUS = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
+```
+
+### 12.10 Exact-head sibling implementation crosswalk — 2026-09-14
+
+This is a read-only source/test audit, not a rerun of sibling experiments or a
+global conformance certification. Snapshot before this extension:
+main `9d21e6981f5eb61a35ec8c283b99193cbfe43fd5`,
+tree `fa9bcc6e2991a4b1fdf1176f3cdc8c305f7bab39`;
+PR #102 `95c18222b29a502a7a1a65e5d614c7bfdf040734`,
+tree `e169425766db8f6cd0d5c002b2df5b78e3729223`,
+OPEN / DRAFT / not merged / mergeable TRUE, 27 commits, 13 added files,
++6279 / -0, ahead 27 / behind 18. Historical branch-creation base and live
+comparison merge base remain `d95bc2625e71f1c85a725aaba78cb0feccfc0668`.
+These are pre-extension facts, not self-referential current-head declarations.
+
+| Implementation PR | Exact head inspected | Specification dependency evidence |
+| --- | --- | --- |
+| #103 | `76bff0e3405352e162d32c90521c980f259b129d` | Runner SPEC_HEAD, fixture and receipt bind #102 at `3ce4f759caf662a53f0d1f3a54709bc482d7df5e` |
+| #109 | `0d7bb17edc9feee0187593c915c39a86acf2d378` | ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md binds #102 at `fe70752b9a1debccae00ce4f9bbb4ceb24b13df9` |
+| #111 | `2206fa38f9022c2e826bfd5eab4a4ed9d5ffd537` | PR body identifies a #102 cross-read; exact specification SHA is UNKNOWN in the inspected coordination documentation/module/tests |
+
+All three PRs were OPEN / DRAFT / unmerged when read. Old binding establishes
+staleness of the reference, not automatic nonconformance. Coverage below follows
+actual code and assertions. It does not retrospectively change the siblings'
+original scope or require new implementation.
+
+Path keys, relative to the repository:
+
+- L = `research-labs/human-ai-longitudinal-study_v0.1.0/`.
+- Q = `research-labs/coupled-cognition-quality-factory_v0.1.0/`.
+- S103 = L + `src/aion_human_ai_longitudinal/collaboration_regime.py`.
+- T103 = L + `tests/test_collaboration_regime.py`.
+- S109 = L + `src/aion_human_ai_longitudinal/adaptive_rigor.py`.
+- T109 = L + `tests/test_adaptive_rigor.py`.
+- S111 = Q + `src/aion_coupled_quality/coordination.py`.
+- T111 = Q + `tests/test_coordination.py`.
+
+| PR102_SPEC_ITEM | IMPLEMENTATION_PR / FILE | ACTUAL_TEST_OR_CONTROL | COVERAGE_STATUS | RESIDUAL_GAP |
+| --- | --- | --- | --- | --- |
+| A-D / optional E, nine task families, separate inquiry/closure dimensions | #103 S103 | T103: test_complete_a_to_d_matrix_preserves_per_dimension_results_and_hold; test_optional_condition_e_is_admitted_without_becoming_required_core; test_all_metrics_are_required_and_no_composite_metric_exists | COVERED_STRUCTURALLY | Complete declared matrix is not measured inquiry or semantic progress |
+| Actual instruction, closure and task payload binding | #103 S103 ConditionPacket / SyntheticTask / CollaborationRun | T103: test_actual_condition_and_closure_payloads_are_immutably_bound; test_actual_task_payload_is_immutably_bound | COVERED_STRUCTURALLY | Hashes bind supplied payloads, not referenced history bytes, retrieval execution or matched information budgets |
+| Model/tool/task comparability and retrieval relevance | #103 S103 CONTROL_BINDING_FIELDS; SyntheticTask | T103: test_model_or_tool_drift_fails_closed (assertion perturbs model_version); test_repository_task_relevance_and_negative_controls_are_bound | PARTIALLY_COVERED | Declared tool/scorer/config equality and relevance enums do not prove equal budgets, actual retrieval relevance or answer-leakage absence |
+| C/D isolation and C_PLUS_MATCHED_INFORMATION_CONTROL | #103 L + fixtures/cross_dyad_condition_packets.json; S103 condition enum | T103: test_condition_d_requires_history_and_other_conditions_reject_it | NOT_COVERED | Only A-E exist. Actual C/D instruction and closure payloads differ; no matched nonhistorical information packet, token/relevance matching or leakage audit |
+| Semantic loop/progress, representation and uncertainty transitions | #103 S103 supplied metrics and event_refs; #111 S111 digest-counted TURN events | T103 matrix tests; T111: test_requirement_violations_open_typed_ncr_reasons | PARTIALLY_COVERED | Ordered events/metric slots are useful surfaces, but no before/after semantic-state comparison, lineage adjudication or multi-signal loop decision |
+| Escape-control effectiveness versus premature stopping | #103 closure metric slots; #111 STOP/HANDOFF check | T103 optional-E test; T111: test_coordination_metrics_and_explicit_closure | NOT_YET_EMPIRICAL | Explicit final event and supplied closure values do not show appropriate closure, causal escape benefit or preserved unresolved questions |
+| Separate evidential accuracy, counterevidence, time and tool cost | #109 S109 CalibrationMetric / audit_calibration | T109: test_complete_matrix_preserves_separate_metrics_and_nonclaims; test_contrarian_false_positive_is_not_collapsed_with_agreement | COVERED_STRUCTURALLY | Values are supplied; no independent measurement of progress or escape outcomes |
+| Blinding and matched calibration records | #109 S109 CalibrationRun / audit_calibration | T109: test_blinding_privacy_and_metric_completeness_are_required; test_missing_cell_and_binding_drift_fail_closed | PARTIALLY_COVERED | Boolean blinding and equal prompt_hash/runtime/evaluator strings are validated; actual masking/payloads are not inspected |
+| Repetition, request sequence and stop/handoff observables | #111 S111 audit_coordination | T111: test_requirement_violations_open_typed_ncr_reasons; test_unknown_resolution_and_sequence_drift_fail_closed; test_late_request_resolution_is_nonconforming | COVERED_STRUCTURALLY | Repetition is equal supplied digests, latency is sequence-index difference, and termination is a final event; none establishes semantic nonprogress or correct closure |
+| Condition content authenticity for coordination | #111 S111 CoordinationCondition | T111: test_raw_enums_and_reference_only_condition_binding_fail_closed | PARTIALLY_COVERED | Checks digest format/enums; actual condition content is not provided for recomputation and audit_coordination does not receive the condition |
+| Model-derived observations supporting this extension | #103 L + scripts/run_cross_dyad_synthetic.py; #109/#111 synthetic test inputs | T103: test_committed_execution_receipt_matches_fixture_inputs; T109/T111 synthetic tests | NOT_YET_EMPIRICAL | #103 synthetic_value is index-derived arithmetic, not a model measurement; inspected sibling surfaces do not establish empirical effects |
+| Exact #102 specification binding for #111 | #111 coordination documentation and PR body | No exact-SHA assertion identified in inspected surfaces | UNKNOWN | Do not invent a binding or infer nonconformance from missing provenance |
+| AI subjectivity, shared mind or psychological diagnosis | All three inspected surfaces | Existing nonclaim/privacy boundaries | OUT_OF_SCOPE | Structural/behavioral evidence cannot establish these conclusions |
+
+Cross-dyad prospective requirements are in
+[CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13.md](CROSS_DYAD_COLLABORATION_REGIME_EXPERIMENT_EXTENSION_2026_09_13.md),
+§6.3-§6.5. No sibling binding, fixture, test or receipt is updated here.
+
+```text
+OLD_SPEC_BINDING != CURRENT_SPEC_CONFORMANCE
+OLD_SPEC_BINDING != AUTOMATIC_NONCONFORMANCE
+STRUCTURAL_HARNESS_PASS != EMPIRICAL_DISSOCIATION
+SYNTHETIC_FIXTURE != MODEL_OBSERVATION
+NEW_IMPLEMENTATION_REQUIRED = NOT_ESTABLISHED
+```
+
+### 12.11 Bounded source re-verification for this extension
+
+Read on 2026-09-14. Scope is the changed loop/escape specification and its direct
+methodological anchors only, not a fresh audit of §5 or the entire PR. ABSTRACT
+does not mean full text was verified. These studies concern their tested methods,
+models and tasks; no finding is asserted as a universal limit of current models.
+
+| SOURCE | READ_LEVEL | CLAIM_SUPPORTED | CLAIM_NOT_SUPPORTED | SOURCE_ORIGIN | TEACHER_FORMALIZATION |
+| --- | --- | --- | --- | --- | --- |
+| Huang et al., Large Language Models Cannot Self-Correct Reasoning Yet, ICLR 2024; [conference abstract](https://proceedings.iclr.cc/paper_files/paper/2024/hash/8b4add8b0aa8749d80a34ca5d941c355-Abstract-Conference.html); arXiv:2310.01798 | ABSTRACT | Authors report difficulty, and sometimes degradation, for intrinsic reasoning self-correction without external feedback in their study | Universal impossibility of self-correction, a semantic loop detector, or guaranteed benefit from an external reviewer | External authors; peer-reviewed conference research | Separating repeated action from progress and testing escape benefit is repository translation, not the paper's validated loop taxonomy |
+| Dancheng Liu et al., Large Language Models have Intrinsic Self-Correction Ability, [arXiv:2406.15673v2](https://arxiv.org/abs/2406.15673v2), 2024 | ABSTRACT | Authors report intrinsic self-correction under their prompt and temperature conditions | General success of recursive inquiry, this dyad's mechanism, or this escape control's effectiveness | External authors; arXiv preprint, page says in submission | Retaining productive-recursion counterexamples and configuration alternatives is local formalization |
+| Original §12.1 and §12.6 Human Owner systems analogy | NOT_REVERIFIED | Retained as a recorded hypothesis trigger, not newly verified biological evidence | Ant-to-AI causal transfer; a proven cause of the branch-history incident | Human Owner question; no exact external ant source newly verified on this pass | Loop/escape working terms and three-layer distinction are Teacher proposals |
+| Seven operational definitions and §12.8 decision rules | NOT_REVERIFIED | No external validation of this exact specification is claimed; it is inspectable prospective methodology | Validated detector, universal decision threshold or established causal mechanism | Human Owner authorized hardening; Work supplied evidence-bounded specification detail | Teacher proposed operationalization and separation of loop, intervention and measurement decisions |
+
+The first two sources are not treated as resolving the issue by title or vote:
+one reports limits without external feedback, while the other reports benefits
+under particular configurations. Their abstracts alone do not establish matched
+experimental comparability. The permitted synthesis is that repeat/escape
+outcomes must be measured under declared controls, not presumed.
+
+Information-position and relevance anchors are reverified in the companion
+cross-dyad note §8.1. Evidence-lineage review, answer-leakage review, fixed
+comparison rules and the proposed control packet are local design requirements;
+no cited paper is claimed to validate their exact combination. Sample sizes,
+sensitivity criteria and evaluator reliability remain to be specified and
+validated before any empirical claim.
+
+```text
+SOURCE_EXISTS != EXACT_CLAIM_SUPPORTED
+ABSTRACT_READ != FULL_TEXT_VERIFIED
+COLLABORATION_REGIME != SHARED_MIND
+DOCUMENTATION_ONLY_SPECIFICATION_HARDENING = TRUE
+NEW_EXECUTABLE_IMPLEMENTATION = NONE
+NEW_RESEARCH_AXIS = NONE
+MERGE_AUTHORIZATION = NONE
+DO_NOT_MERGE = TRUE
+DO_NOT_MARK_READY = TRUE
 ```
 
 ## 13. Current disposition
