@@ -1,5 +1,8 @@
 # Human-AI longitudinal study harness v0.1.0
 
+The bounded evidence-reuse firewall and artifact-condition extension is
+documented in [`EPISTEMIC_ACCUMULATION_AND_EVIDENCE_REUSE.md`](EPISTEMIC_ACCUMULATION_AND_EVIDENCE_REUSE.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal
