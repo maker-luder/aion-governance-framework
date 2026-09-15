@@ -1,5 +1,8 @@
 # Human-AI longitudinal study harness v0.1.0
 
+The bounded evidence-reuse firewall and artifact-condition extension is
+documented in [`EPISTEMIC_ACCUMULATION_AND_EVIDENCE_REUSE.md`](EPISTEMIC_ACCUMULATION_AND_EVIDENCE_REUSE.md).
+
 The bounded calibration extension is documented in
 [`ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md`](ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md).
 
