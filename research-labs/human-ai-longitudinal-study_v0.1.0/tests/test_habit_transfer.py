@@ -56,6 +56,8 @@ def matrix() -> tuple[TransferTrial, ...]:
 def test_complete_held_out_synthetic_matrix_is_audited_without_human_claim() -> None:
     result = audit_transfer_matrix(matrix())
     assert result.complete_design is True
+    assert result.matched_task_controls is True
+    assert result.exposure_payloads_bound is True
     assert len(result.observations) == 8
     assert all(item.correct_task_classification for item in result.observations)
     assert result.human_habit_change == "NOT_ESTABLISHED"
@@ -66,6 +68,8 @@ def test_complete_held_out_synthetic_matrix_is_audited_without_human_claim() -> 
     assert result.causal_identification == "NOT_ESTABLISHED"
     assert result.population_generalization == "NOT_ESTABLISHED"
     assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert result.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert result.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
     assert result.scientific_disposition.value == "HOLD"
 
 
@@ -93,10 +97,33 @@ def test_missing_or_duplicate_design_cell_fails_closed() -> None:
         audit_transfer_matrix(matrix() + (matrix()[0],))
 
 
-def test_evaluator_drift_fails_closed() -> None:
+def test_evaluator_and_matched_task_drift_fail_closed() -> None:
     items = list(matrix())
     items[-1] = replace(items[-1], evaluator_payload_sha256=digest("f"))
     with pytest.raises(StudyError, match="evaluator binding drift"):
+        audit_transfer_matrix(tuple(items))
+
+    items = list(matrix())
+    items[4] = replace(items[4], task_payload_sha256=digest("9"))
+    with pytest.raises(StudyError, match="task or ground-truth binding drift"):
+        audit_transfer_matrix(tuple(items))
+
+    items = list(matrix())
+    items[4] = replace(items[4], expected_procedures=frozenset({SelectedProcedure.NONE}))
+    with pytest.raises(StudyError, match="task or ground-truth binding drift"):
+        audit_transfer_matrix(tuple(items))
+
+
+def test_exposure_payloads_are_consistent_and_content_distinct() -> None:
+    items = list(matrix())
+    items[1] = replace(items[1], exposure_payload_sha256=digest("c"))
+    with pytest.raises(StudyError, match="binding drift within condition"):
+        audit_transfer_matrix(tuple(items))
+
+    items = list(matrix())
+    for index in range(4, 8):
+        items[index] = replace(items[index], exposure_payload_sha256=digest("a"))
+    with pytest.raises(StudyError, match="content-distinct"):
         audit_transfer_matrix(tuple(items))
 
 
@@ -105,12 +132,13 @@ def test_evaluator_drift_fails_closed() -> None:
     [
         ("held_out", False, "held-out synthetic"),
         ("synthetic", False, "held-out synthetic"),
+        ("process_prompt_present", True, "cannot include a process prompt"),
         ("contains_human_identity", True, "human identity"),
         ("contains_private_material", True, "private material"),
         ("task_payload_sha256", "task-label", "SHA-256"),
     ],
 )
-def test_privacy_and_content_binding_fail_closed(field: str, value: object, match: str) -> None:
+def test_privacy_content_binding_and_unprompted_transfer_fail_closed(field: str, value: object, match: str) -> None:
     with pytest.raises(StudyError, match=match):
         replace(matrix()[0], **{field: value})
 
