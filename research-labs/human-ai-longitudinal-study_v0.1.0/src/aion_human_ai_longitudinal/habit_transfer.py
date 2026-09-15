@@ -77,6 +77,8 @@ class TransferTrial:
         ):
             if type(getattr(self, name)) is not bool:
                 raise StudyError(f"{name} must be an exact bool")
+        if self.process_prompt_present:
+            raise StudyError("held-out transfer trials cannot include a process prompt")
         if type(self.overhead_steps) is not int or self.overhead_steps < 0:
             raise StudyError("overhead_steps must be a non-negative exact int")
         for name in ("task_payload_sha256", "exposure_payload_sha256", "evaluator_payload_sha256"):
@@ -106,6 +108,8 @@ class TransferObservation:
 class TransferMatrixAudit:
     observations: tuple[TransferObservation, ...]
     complete_design: bool
+    matched_task_controls: bool = True
+    exposure_payloads_bound: bool = True
     mode: str = "DETERMINISTIC_SYNTHETIC_FIXTURE"
     model_invoked: bool = False
     empirical_result: str = "SYNTHETIC_FIXTURE_ONLY"
@@ -117,6 +121,8 @@ class TransferMatrixAudit:
     deployment: bool = False
     human_habit_change: str = "NOT_ESTABLISHED"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
 
 
 def observe_transfer(trial: TransferTrial) -> TransferObservation:
@@ -132,8 +138,7 @@ def observe_transfer(trial: TransferTrial) -> TransferObservation:
         trial_id=trial.trial_id,
         correct_task_classification=correct,
         spontaneous_schema_selection=(
-            not trial.process_prompt_present
-            and trial.selected_procedure
+            trial.selected_procedure
             in {SelectedProcedure.PROVENANCE_AND_CLAIM_BOUNDARY, SelectedProcedure.FULL_NCR_CAPA}
         ),
         inappropriate_ncr_invocation=inappropriate_ncr,
@@ -169,6 +174,29 @@ def audit_transfer_matrix(trials: tuple[TransferTrial, ...]) -> TransferMatrixAu
     duplicates = len(trials) != len(cells)
     if missing or duplicates:
         raise StudyError("matrix requires exactly one held-out synthetic trial per design cell")
+
+    for task_class in TransferTaskClass:
+        matched = [trial for trial in trials if trial.task_class is task_class]
+        controls = {
+            (
+                trial.task_payload_sha256,
+                trial.expected_procedures,
+                trial.mismatch_evidence_presented,
+            )
+            for trial in matched
+        }
+        if len(controls) != 1:
+            raise StudyError("held-out task or ground-truth binding drift across exposure conditions")
+
+    exposure_hashes: dict[ExposureCondition, str] = {}
+    for exposure in ExposureCondition:
+        hashes = {trial.exposure_payload_sha256 for trial in trials if trial.exposure is exposure}
+        if len(hashes) != 1:
+            raise StudyError("exposure payload binding drift within condition")
+        exposure_hashes[exposure] = next(iter(hashes))
+    if len(set(exposure_hashes.values())) != len(ExposureCondition):
+        raise StudyError("exposure conditions must have content-distinct payload bindings")
+
     return TransferMatrixAudit(
         observations=tuple(observe_transfer(trial) for trial in trials),
         complete_design=True,
