@@ -25,7 +25,8 @@ def _run(*args: str, cwd: Path | None = None) -> str:
         check=False,
     )
     if process.returncode:
-        raise RecoveryError(f"command failed ({args[0]} {args[1]}): {process.stdout.strip()}")
+        suffix = f" {args[1]}" if len(args) > 1 else ""
+        raise RecoveryError(f"command failed ({args[0]}{suffix}): {process.stdout.strip()}")
     return process.stdout.strip()
 
 
@@ -57,6 +58,70 @@ def _refs(git_dir: Path) -> dict[str, str]:
     return dict(line.split(" ", 1) for line in output.splitlines() if line)
 
 
+def _head_symbolic_ref(git_dir: Path) -> str | None:
+    process = subprocess.run(
+        ("git", f"--git-dir={git_dir}", "symbolic-ref", "-q", "HEAD"),
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if process.returncode == 0:
+        return process.stdout.strip()
+    if process.returncode == 1:
+        return None
+    raise RecoveryError(f"failed to inspect symbolic HEAD: {process.stdout.strip()}")
+
+
+def _reachable_lfs_pointer_oids(git_dir: Path) -> tuple[str, ...]:
+    """Return reachable Git blob OIDs that are LFS pointer records.
+
+    A mirror archive contains Git objects, not the external Git LFS object store.
+    v0.1.0 therefore fails closed if any reachable ref depends on an LFS pointer.
+    """
+    listing = _run("git", f"--git-dir={git_dir}", "rev-list", "--objects", "--all")
+    object_ids = tuple(dict.fromkeys(line.split(" ", 1)[0] for line in listing.splitlines() if line))
+    if not object_ids:
+        return ()
+
+    check = subprocess.run(
+        (
+            "git",
+            f"--git-dir={git_dir}",
+            "cat-file",
+            "--batch-check=%(objectname) %(objecttype) %(objectsize)",
+        ),
+        input="\n".join(object_ids) + "\n",
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        check=False,
+    )
+    if check.returncode:
+        raise RecoveryError(f"failed to inspect reachable Git objects: {check.stdout.strip()}")
+
+    small_blobs: list[str] = []
+    for line in check.stdout.splitlines():
+        parts = line.split()
+        if len(parts) != 3:
+            raise RecoveryError("unexpected git cat-file batch-check output")
+        oid, object_type, size_text = parts
+        if object_type == "blob" and int(size_text) <= 1024:
+            small_blobs.append(oid)
+
+    marker = "version https://git-lfs.github.com/spec/v1"
+    pointers: list[str] = []
+    for oid in small_blobs:
+        payload = _run("git", f"--git-dir={git_dir}", "cat-file", "blob", oid)
+        if payload.startswith(marker + "\n") or payload == marker:
+            pointers.append(oid)
+    return tuple(sorted(pointers))
+
+
 def _write_zip(source: Path, target: Path) -> None:
     with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for path in sorted(item for item in source.rglob("*") if item.is_dir()):
@@ -80,10 +145,18 @@ def create_repository_backup(
     required_files: tuple[str, ...] = (),
 ) -> dict[str, object]:
     """Create a non-secret archive and receipt from a fresh Git mirror clone."""
-    if not timestamp.strip():
+    if type(timestamp) is not str or not timestamp.strip():
         raise RecoveryError("timestamp is required")
-    if any(not item.strip() or Path(item).is_absolute() or ".." in Path(item).parts for item in required_files):
+    if type(required_files) is not tuple or any(
+        type(item) is not str
+        or not item.strip()
+        or Path(item).is_absolute()
+        or ".." in Path(item).parts
+        for item in required_files
+    ):
         raise RecoveryError("required_files must be safe repository-relative paths")
+    if len(set(required_files)) != len(required_files):
+        raise RecoveryError("required_files must be unique")
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     if Path(source).exists() and output_dir.is_relative_to(Path(source).resolve()):
@@ -95,7 +168,13 @@ def create_repository_backup(
         integrity_output = _run("git", f"--git-dir={mirror}", "fsck", "--full")
         head_commit = _run("git", f"--git-dir={mirror}", "rev-parse", "HEAD")
         head_tree = _run("git", f"--git-dir={mirror}", "rev-parse", "HEAD^{tree}")
+        head_symbolic_ref = _head_symbolic_ref(mirror)
         refs = _refs(mirror)
+        lfs_pointer_oids = _reachable_lfs_pointer_oids(mirror)
+        if lfs_pointer_oids:
+            raise RecoveryError(
+                "reachable Git LFS pointer objects detected; v0.1.0 cannot verify external LFS object recovery"
+            )
         for item in required_files:
             _run("git", f"--git-dir={mirror}", "cat-file", "-e", f"HEAD:{item}")
         archive_path = output_dir / "repository-mirror.zip"
@@ -108,9 +187,12 @@ def create_repository_backup(
         "backup_method": "FRESH_GIT_MIRROR_ZIP",
         "source_head_commit_sha": head_commit,
         "source_head_tree_sha": head_tree,
+        "source_head_symbolic_ref": head_symbolic_ref,
         "refs": refs,
         "refs_captured": len(refs),
-        "lfs_applicable": "NOT_ASSESSED",
+        "lfs_policy": "FAIL_CLOSED_ON_REACHABLE_POINTER",
+        "lfs_applicable": False,
+        "lfs_pointer_object_count": 0,
         "lfs_objects_fetched": False,
         "archive_file": archive_path.name,
         "archive_sha256": _sha256(archive_path),
@@ -156,6 +238,8 @@ def verify_repository_restore(
     timestamp: str,
 ) -> dict[str, object]:
     """Verify checksum, isolated extraction, Git integrity, refs, HEAD and required files."""
+    if type(timestamp) is not str or not timestamp.strip():
+        raise RecoveryError("timestamp is required")
     receipt = json.loads(backup_receipt_path.read_text(encoding="utf-8"))
     actual_sha = _sha256(archive_path)
     if actual_sha != receipt["archive_sha256"]:
@@ -169,13 +253,19 @@ def verify_repository_restore(
         integrity_output = _run("git", f"--git-dir={git_dir}", "fsck", "--full")
         restored_commit = _run("git", f"--git-dir={git_dir}", "rev-parse", "HEAD")
         restored_tree = _run("git", f"--git-dir={git_dir}", "rev-parse", "HEAD^{tree}")
+        restored_head_symbolic_ref = _head_symbolic_ref(git_dir)
         restored_refs = _refs(git_dir)
         if restored_commit != receipt["source_head_commit_sha"]:
             raise RecoveryError("restored HEAD commit SHA mismatch")
         if restored_tree != receipt["source_head_tree_sha"]:
             raise RecoveryError("restored HEAD tree SHA mismatch")
+        if restored_head_symbolic_ref != receipt["source_head_symbolic_ref"]:
+            raise RecoveryError("restored symbolic HEAD mismatch")
         if restored_refs != receipt["refs"]:
             raise RecoveryError("restored refs mismatch")
+        lfs_pointer_oids = _reachable_lfs_pointer_oids(git_dir)
+        if lfs_pointer_oids:
+            raise RecoveryError("restored mirror contains reachable Git LFS pointer objects")
         for item in receipt["required_files"]:
             _run("git", f"--git-dir={git_dir}", "cat-file", "-e", f"HEAD:{item}")
 
@@ -190,10 +280,14 @@ def verify_repository_restore(
         "git_fsck_output": integrity_output,
         "restored_head_commit_sha": restored_commit,
         "restored_head_tree_sha": restored_tree,
+        "restored_head_symbolic_ref": restored_head_symbolic_ref,
+        "head_symbolic_ref_comparison": "PASS",
         "ref_comparison": "PASS",
+        "lfs_policy": receipt["lfs_policy"],
+        "lfs_pointer_object_count": 0,
         "required_file_check": "PASS",
         "optional_test_suite": "NOT_REQUESTED",
-        "unresolved_warnings": ["LFS_APPLICABILITY_NOT_ASSESSED"],
+        "unresolved_warnings": [],
         "human_review_status": "PENDING",
         "restore_verified": True,
         "canonical_effect": "NONE",
