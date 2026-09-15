@@ -76,3 +76,28 @@ __all__ = [
     "PublicationClass",
     "assert_provider_allowed",
 ]
+from .coordination import (
+    ContextPolicy,
+    CoordinationAudit,
+    CoordinationCondition,
+    CoordinationEvent,
+    CoordinationRequirement,
+    CoordinationRole,
+    EventKind,
+    MonitorPolicy,
+    SpeakerPolicy,
+    audit_coordination,
+)
+
+__all__ += [
+    "ContextPolicy",
+    "CoordinationAudit",
+    "CoordinationCondition",
+    "CoordinationEvent",
+    "CoordinationRequirement",
+    "CoordinationRole",
+    "EventKind",
+    "MonitorPolicy",
+    "SpeakerPolicy",
+    "audit_coordination",
+]
