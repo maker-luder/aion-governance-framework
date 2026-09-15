@@ -82,6 +82,8 @@ class SubjectivityConfoundRecord:
             raise StandardsCrosswalkError("machine operationalization is required")
         if not self.competing_explanations or any(not item.strip() for item in self.competing_explanations):
             raise StandardsCrosswalkError("competing explanations are required")
+        if len(set(self.competing_explanations)) != len(self.competing_explanations):
+            raise StandardsCrosswalkError("competing explanations must be unique")
         if type(self.machine_equivalence) is not bool or type(self.subjectivity_proxy) is not bool:
             raise StandardsCrosswalkError("confound flags must be exact bools")
         if self.machine_equivalence or self.subjectivity_proxy:
@@ -125,6 +127,7 @@ class FourDomainStandardsRegistry:
         self,
         *,
         sources: tuple[ExternalStandardSource, ...],
+        source_payloads: dict[str, str],
         bindings: tuple[FourDomainStandardBinding, ...],
         confounds: tuple[SubjectivityConfoundRecord, ...],
         tev_vocabulary: tuple[TevvDefinition, ...],
@@ -132,12 +135,28 @@ class FourDomainStandardsRegistry:
         source_ids = [source.standard_id for source in sources]
         if not sources or len(source_ids) != len(set(source_ids)):
             raise StandardsCrosswalkError("standard sources must be non-empty and unique")
+        if type(source_payloads) is not dict or any(
+            type(key) is not str or type(value) is not str for key, value in source_payloads.items()
+        ):
+            raise StandardsCrosswalkError("source_payloads must be an exact string mapping")
+        if set(source_payloads) != set(source_ids):
+            raise StandardsCrosswalkError("source_payloads must cover every declared standard exactly")
+        for source in sources:
+            if payload_sha256(source_payloads[source.standard_id]) != source.content_sha256:
+                raise StandardsCrosswalkError(
+                    f"content hash mismatch for standard source: {source.standard_id}"
+                )
+
         binding_ids = [binding.binding_id for binding in bindings]
         if not bindings or len(binding_ids) != len(set(binding_ids)):
             raise StandardsCrosswalkError("bindings must be non-empty and unique")
-        unknown = {binding.standard_id for binding in bindings} - set(source_ids)
+        bound_source_ids = {binding.standard_id for binding in bindings}
+        unknown = bound_source_ids - set(source_ids)
         if unknown:
             raise StandardsCrosswalkError(f"unknown standard bindings: {sorted(unknown)}")
+        unbound = set(source_ids) - bound_source_ids
+        if unbound:
+            raise StandardsCrosswalkError(f"standard sources require Four-Domain bindings: {sorted(unbound)}")
         if {item.term for item in tev_vocabulary} != set(TevvTerm):
             raise StandardsCrosswalkError("TEST EVALUATION VERIFICATION VALIDATION must remain distinct and complete")
         if len(tev_vocabulary) != len(TevvTerm):
@@ -154,6 +173,7 @@ class FourDomainStandardsRegistry:
             confound_count=len(confounds),
             tev_vocabulary_complete=True,
             reasons=(
+                "SOURCE_CONTENT_HASHES_VERIFIED",
                 "EXTERNAL_STANDARD_ROLE_IS_EXPLICIT",
                 "FOUR_DOMAIN_TRANSLATION_IS_COMPLETE",
                 "TEVV_TERMS_REMAIN_DISTINCT",
@@ -180,7 +200,12 @@ def audit_fingerprint(audit: StandardsCrosswalkAudit) -> str:
                 "model_invoked": audit.model_invoked,
                 "evidence_admissibility": audit.evidence_admissibility,
                 "subjectivity_conclusion": audit.subjectivity_conclusion,
+                "consciousness_conclusion": audit.consciousness_conclusion,
+                "phenomenal_experience_conclusion": audit.phenomenal_experience_conclusion,
+                "moral_status_conclusion": audit.moral_status_conclusion,
+                "scientific_disposition": audit.scientific_disposition,
                 "canonical_effect": audit.canonical_effect,
+                "deployment": audit.deployment,
             },
             sort_keys=True,
             separators=(",", ":"),
