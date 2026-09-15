@@ -1,5 +1,8 @@
 # Coupled-Cognition Quality Factory v0.1.0
 
+The bounded conversational and multi-agent coordination extension is documented
+in [`docs/COORDINATION_QUALITY.md`](docs/COORDINATION_QUALITY.md).
+
 This external post-freeze research module treats human–LLM collaborative inquiry as a **quality-controlled production line** rather than as a self-validating conversation. Its purpose is to prevent a characteristic coupled-cognition failure: the human and model can agree, become mutually coherent, and still be wrong.
 
 The module does **not** restore any former project identity, runtime, owner authority, or canonical state.
