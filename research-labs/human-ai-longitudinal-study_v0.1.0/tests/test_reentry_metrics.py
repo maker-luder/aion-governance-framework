@@ -49,7 +49,9 @@ def record(condition: ReentryCondition) -> ReconstructionRecord:
             if structured
             else frozenset({"search-convenience"})
         ),
+        expected_stale_claim_ids=frozenset({"claim-7"}),
         stale_claim_ids=frozenset() if structured else frozenset({"claim-7"}),
+        expected_provenance_error_ids=frozenset({"claim-2"}),
         provenance_error_ids=frozenset() if structured else frozenset({"claim-2"}),
     )
 
@@ -77,6 +79,8 @@ def test_scores_and_compares_preregistered_reentry_metrics() -> None:
     assert receipt.causal_identification == "NOT_ESTABLISHED"
     assert receipt.population_generalization == "NOT_ESTABLISHED"
     assert receipt.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert receipt.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert receipt.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
 
 
 @pytest.mark.parametrize(
@@ -96,6 +100,29 @@ def test_uncontrolled_binding_drift_fails_closed(field: str, value: object) -> N
         compare_reentry_conditions(left, right)
 
 
+def test_scorer_contract_drift_fails_closed() -> None:
+    left = record(ReentryCondition.UNSTRUCTURED_OUTPUT)
+    right = record(ReentryCondition.STRUCTURED_BOUNDARY_PACKET)
+    with pytest.raises(StudyError, match="scorer contract drift"):
+        compare_reentry_conditions(
+            left,
+            replace(right, expected_stale_claim_ids=frozenset({"claim-7", "claim-8"})),
+        )
+    with pytest.raises(StudyError, match="scorer contract drift"):
+        compare_reentry_conditions(
+            left,
+            replace(right, expected_provenance_error_ids=frozenset({"claim-2", "claim-3"})),
+        )
+
+
+def test_error_ids_must_come_from_frozen_scorer_universe() -> None:
+    item = record(ReentryCondition.UNSTRUCTURED_OUTPUT)
+    with pytest.raises(StudyError, match="stale claim ids"):
+        replace(item, stale_claim_ids=frozenset({"invented-stale-claim"}))
+    with pytest.raises(StudyError, match="provenance error ids"):
+        replace(item, provenance_error_ids=frozenset({"invented-provenance-error"}))
+
+
 def test_packet_label_without_distinct_content_binding_fails_closed() -> None:
     left = record(ReentryCondition.UNSTRUCTURED_OUTPUT)
     right = record(ReentryCondition.STRUCTURED_BOUNDARY_PACKET)
@@ -112,6 +139,8 @@ def test_private_or_non_synthetic_record_is_rejected() -> None:
         replace(binding("run", "b"), contains_private_material=True)
     with pytest.raises(StudyError, match="synthetic non-private"):
         replace(binding("run", "b"), synthetic=False)
+    with pytest.raises(StudyError, match="must be unique"):
+        replace(binding("run", "b"), source_refs=("PR-93", "PR-93"))
 
 
 def test_scorer_vocabularies_fail_closed() -> None:
