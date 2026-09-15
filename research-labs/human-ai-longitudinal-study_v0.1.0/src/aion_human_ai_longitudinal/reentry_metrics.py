@@ -53,8 +53,12 @@ class ReentryBinding:
             value = getattr(self, name)
             if len(value) != 64 or any(char not in "0123456789abcdef" for char in value):
                 raise StudyError(f"{name} must be a lowercase SHA-256 digest")
-        if not self.source_refs or any(not ref.strip() for ref in self.source_refs):
-            raise StudyError("source_refs must contain non-empty references")
+        if type(self.source_refs) is not tuple or not self.source_refs or any(
+            type(ref) is not str or not ref.strip() for ref in self.source_refs
+        ):
+            raise StudyError("source_refs must be a tuple of non-empty references")
+        if len(set(self.source_refs)) != len(self.source_refs):
+            raise StudyError("source_refs must be unique")
         if type(self.synthetic) is not bool or type(self.contains_private_material) is not bool:
             raise StudyError("privacy flags must be exact bool values")
         if not self.synthetic or self.contains_private_material:
@@ -69,7 +73,9 @@ class ReconstructionRecord:
     reconstructed_protocol_items: frozenset[str]
     expected_open_alternatives: frozenset[str]
     retained_open_alternatives: frozenset[str]
+    expected_stale_claim_ids: frozenset[str]
     stale_claim_ids: frozenset[str]
+    expected_provenance_error_ids: frozenset[str]
     provenance_error_ids: frozenset[str]
 
     def __post_init__(self) -> None:
@@ -79,12 +85,18 @@ class ReconstructionRecord:
         _require_text_set("reconstructed_protocol_items", self.reconstructed_protocol_items, allow_empty=True)
         _require_text_set("expected_open_alternatives", self.expected_open_alternatives)
         _require_text_set("retained_open_alternatives", self.retained_open_alternatives, allow_empty=True)
+        _require_text_set("expected_stale_claim_ids", self.expected_stale_claim_ids, allow_empty=True)
         _require_text_set("stale_claim_ids", self.stale_claim_ids, allow_empty=True)
+        _require_text_set("expected_provenance_error_ids", self.expected_provenance_error_ids, allow_empty=True)
         _require_text_set("provenance_error_ids", self.provenance_error_ids, allow_empty=True)
         if not self.reconstructed_protocol_items <= self.expected_protocol_items:
             raise StudyError("reconstructed protocol items must be scorer-recognized expected items")
         if not self.retained_open_alternatives <= self.expected_open_alternatives:
             raise StudyError("retained alternatives must be scorer-recognized expected alternatives")
+        if not self.stale_claim_ids <= self.expected_stale_claim_ids:
+            raise StudyError("stale claim ids must be scorer-recognized expected ids")
+        if not self.provenance_error_ids <= self.expected_provenance_error_ids:
+            raise StudyError("provenance error ids must be scorer-recognized expected ids")
 
 
 @dataclass(frozen=True, slots=True)
@@ -112,6 +124,8 @@ class ReentryContrastReceipt:
     canonical_effect: str = "NONE"
     deployment: bool = False
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
 
 
 def score_reconstruction(record: ReconstructionRecord) -> ReentryMetrics:
@@ -157,10 +171,17 @@ def compare_reentry_conditions(
         raise StudyError("uncontrolled re-entry binding drift: " + ", ".join(drift))
     if baseline.binding.packet_payload_sha256 == intervention.binding.packet_payload_sha256:
         raise StudyError("condition packets must have distinct content bindings")
-    if baseline.expected_protocol_items != intervention.expected_protocol_items:
-        raise StudyError("expected protocol-item scorer set drift")
-    if baseline.expected_open_alternatives != intervention.expected_open_alternatives:
-        raise StudyError("expected alternative scorer set drift")
+    scorer_fields = (
+        "expected_protocol_items",
+        "expected_open_alternatives",
+        "expected_stale_claim_ids",
+        "expected_provenance_error_ids",
+    )
+    scorer_drift = [
+        name for name in scorer_fields if getattr(baseline, name) != getattr(intervention, name)
+    ]
+    if scorer_drift:
+        raise StudyError("scorer contract drift: " + ", ".join(scorer_drift))
 
     left = score_reconstruction(baseline)
     right = score_reconstruction(intervention)
