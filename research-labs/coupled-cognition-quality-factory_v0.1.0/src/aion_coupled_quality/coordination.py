@@ -116,8 +116,10 @@ class CoordinationRequirement:
 
 @dataclass(frozen=True, slots=True)
 class CoordinationAudit:
+    condition: CoordinationCondition
     turn_concentration: float
     role_coverage: float
+    request_latencies: tuple[int, ...]
     topic_switch_latencies: tuple[int, ...]
     unresolved_request_ids: tuple[str, ...]
     repeated_turn_content: int
@@ -127,6 +129,7 @@ class CoordinationAudit:
     evidence_admissibility: str = "PROCESS_QUALITY_ONLY"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
     consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
     scientific_disposition: str = "HOLD"
     canonical_effect: str = "NONE"
     deployment: bool = False
@@ -135,7 +138,10 @@ class CoordinationAudit:
 def audit_coordination(
     events: tuple[CoordinationEvent, ...],
     requirement: CoordinationRequirement,
+    condition: CoordinationCondition,
 ) -> CoordinationAudit:
+    if type(condition) is not CoordinationCondition:
+        raise QualityError("coordination audit requires an exact CoordinationCondition")
     if not events:
         raise QualityError("coordination audit requires events")
     sequences = [event.sequence for event in events]
@@ -152,7 +158,8 @@ def audit_coordination(
     role_coverage = len(observed_roles & requirement.required_roles) / len(requirement.required_roles)
 
     opened: dict[str, CoordinationEvent] = {}
-    latencies: list[int] = []
+    request_latencies: list[int] = []
+    topic_switch_latencies: list[int] = []
     ncrs: list[str] = []
     for event in events:
         if event.kind in {EventKind.TURN_REQUEST, EventKind.TOPIC_SWITCH_REQUEST}:
@@ -162,8 +169,12 @@ def audit_coordination(
         elif event.kind is EventKind.REQUEST_RESOLVED:
             if event.request_id not in opened:
                 raise QualityError(f"resolution for unknown request_id: {event.request_id}")
-            latency = event.sequence - opened.pop(event.request_id).sequence
-            latencies.append(latency)
+            request = opened.pop(event.request_id)
+            latency = event.sequence - request.sequence
+            if request.kind is EventKind.TOPIC_SWITCH_REQUEST:
+                topic_switch_latencies.append(latency)
+            else:
+                request_latencies.append(latency)
             if latency > requirement.maximum_request_latency:
                 ncrs.append(f"REQUEST_LATENCY_EXCEEDED:{event.request_id}")
 
@@ -177,9 +188,11 @@ def audit_coordination(
         ncrs.append("TERMINATION_OR_HANDOFF_MISSING")
     duplicates = sum(count - 1 for count in Counter(event.content_sha256 for event in turns).values())
     return CoordinationAudit(
+        condition=condition,
         turn_concentration=concentration,
         role_coverage=role_coverage,
-        topic_switch_latencies=tuple(latencies),
+        request_latencies=tuple(request_latencies),
+        topic_switch_latencies=tuple(topic_switch_latencies),
         unresolved_request_ids=unresolved,
         repeated_turn_content=duplicates,
         termination_quality="EXPLICIT" if terminated else "MISSING",
