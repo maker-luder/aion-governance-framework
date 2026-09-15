@@ -15,6 +15,16 @@ from .harness import (
     TaskDomain,
     TrialRecord,
 )
+from .habit_transfer import (
+    ExposureCondition,
+    SelectedProcedure,
+    TransferMatrixAudit,
+    TransferObservation,
+    TransferTaskClass,
+    TransferTrial,
+    audit_transfer_matrix,
+    observe_transfer,
+)
 
 __all__ = [
     "AdmissionDisposition",
@@ -32,4 +42,12 @@ __all__ = [
     "SummaryCondition",
     "TaskDomain",
     "TrialRecord",
+    "ExposureCondition",
+    "SelectedProcedure",
+    "TransferMatrixAudit",
+    "TransferObservation",
+    "TransferTaskClass",
+    "TransferTrial",
+    "audit_transfer_matrix",
+    "observe_transfer",
 ]
