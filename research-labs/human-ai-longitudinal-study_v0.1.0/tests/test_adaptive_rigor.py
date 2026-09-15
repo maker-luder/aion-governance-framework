@@ -58,17 +58,24 @@ def test_missing_cell_and_task_binding_drift_fail_closed() -> None:
 
 def test_condition_payloads_are_bound_and_not_label_only() -> None:
     runs = matrix()
-    same_as_baseline = replace(
-        runs[1], condition_payload_sha256=runs[0].condition_payload_sha256
-    )
-    with pytest.raises(CalibrationError, match="content-distinct"):
-        audit_calibration((runs[0], same_as_baseline) + runs[2:])
 
     drift_within_condition = replace(
         runs[5], condition_payload_sha256=digest("unexpected condition drift")
     )
     with pytest.raises(CalibrationError, match="condition payload binding drift"):
         audit_calibration(runs[:5] + (drift_within_condition,) + runs[6:])
+
+    duplicated_condition_payload = list(runs)
+    duplicated_condition_payload[1] = replace(
+        duplicated_condition_payload[1],
+        condition_payload_sha256=runs[0].condition_payload_sha256,
+    )
+    duplicated_condition_payload[5] = replace(
+        duplicated_condition_payload[5],
+        condition_payload_sha256=runs[4].condition_payload_sha256,
+    )
+    with pytest.raises(CalibrationError, match="content-distinct"):
+        audit_calibration(tuple(duplicated_condition_payload))
 
 
 def test_blinding_privacy_and_metric_completeness_are_required() -> None:
