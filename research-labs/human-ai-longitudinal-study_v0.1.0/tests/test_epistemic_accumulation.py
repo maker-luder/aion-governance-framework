@@ -51,6 +51,15 @@ def test_inflated_allowed_status_fails_closed() -> None:
         EvidenceReuseFirewall().validate(manifest(requested_proposition="different"))
 
 
+def test_manifest_enums_and_counterevidence_are_typed() -> None:
+    with pytest.raises(AccumulationError, match="support_relation"):
+        replace(manifest(), support_relation="DIRECT")
+    with pytest.raises(AccumulationError, match="reuse_status"):
+        replace(manifest(), reuse_status="ALLOWED")
+    with pytest.raises(AccumulationError, match="must be unique"):
+        replace(manifest(), known_counterevidence=("same", "same"))
+
+
 def test_dependency_graph_separates_baseline_from_relations() -> None:
     graph = DependencyGraph("base", (
         DependencyNode("base", NodeType.BASELINE, "git:base"),
@@ -60,11 +69,19 @@ def test_dependency_graph_separates_baseline_from_relations() -> None:
     assert graph.edges[0].relation is EdgeType.SUPPORTED_BY
     with pytest.raises(AccumulationError, match="unknown node"):
         replace(graph, edges=(DependencyEdge("claim", "missing", EdgeType.DEPENDS_ON),))
+    with pytest.raises(AccumulationError, match="unique BASELINE"):
+        DependencyGraph("claim", (
+            DependencyNode("claim", NodeType.CLAIM, "claim:v1"),
+            DependencyNode("source", NodeType.SOURCE, "doi:fixture"),
+        ), ())
+    with pytest.raises(AccumulationError, match="edge relation must be exact"):
+        DependencyEdge("claim", "source", "SUPPORTED_BY")
 
 
 def test_a_to_d_matrix_preserves_nonclaims() -> None:
     result = audit_accumulation_packets(packets())
     assert result["structurally_admissible"] is True
+    assert result["condition_definitions_bound"] is True
     assert result["empirical_result"] == "SYNTHETIC_FIXTURE_ONLY"
     assert result["mutual_learning"] == "NOT_ESTABLISHED"
     assert result["mode"] == "DETERMINISTIC_SYNTHETIC_FIXTURE"
@@ -77,10 +94,14 @@ def test_a_to_d_matrix_preserves_nonclaims() -> None:
         audit_accumulation_packets(packets()[:-1])
 
 
-def test_controls_and_privacy_fail_closed() -> None:
-    with pytest.raises(AccumulationError, match="versioned artifact"):
+def test_condition_definitions_and_privacy_fail_closed() -> None:
+    with pytest.raises(AccumulationError, match="VERSIONED_ARTIFACT controls"):
         AccumulationConditionPacket(ArtifactCondition.VERSIONED_ARTIFACT, "x", True, False, True, False)
-    with pytest.raises(AccumulationError, match="navigation condition"):
+    with pytest.raises(AccumulationError, match="VERSIONED_ARTIFACT_PLUS_NAVIGATION controls"):
         AccumulationConditionPacket(ArtifactCondition.VERSIONED_ARTIFACT_PLUS_NAVIGATION, "x", True, True, True, False)
+    with pytest.raises(AccumulationError, match="FRESH_TASK_LOCAL controls"):
+        replace(packets()[0], provenance_present=True)
+    with pytest.raises(AccumulationError, match="FLAT_SUMMARY controls"):
+        replace(packets()[1], navigation_present=True)
     with pytest.raises(AccumulationError, match="private"):
         replace(packets()[0], contains_private_transcript=True)
