@@ -30,12 +30,23 @@ from .epistemic_accumulation import (
     SupportRelation,
     audit_accumulation_packets,
 )
+from .adaptive_rigor import (
+    CalibrationCondition,
+    CalibrationError,
+    CalibrationMetric,
+    CalibrationRun,
+    audit_calibration,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
     "AccumulationError",
     "AdmissionDisposition",
     "ArtifactCondition",
+    "CalibrationCondition",
+    "CalibrationError",
+    "CalibrationMetric",
+    "CalibrationRun",
     "ConditionProfile",
     "ContextCondition",
     "ContrastAudit",
@@ -60,4 +71,5 @@ __all__ = [
     "TaskDomain",
     "TrialRecord",
     "audit_accumulation_packets",
+    "audit_calibration",
 ]
