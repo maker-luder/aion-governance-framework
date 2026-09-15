@@ -31,15 +31,41 @@ def repository(tmp_path: Path) -> Path:
     return tmp_path
 
 
-def test_clean_fixture_receipt_binds_commit_and_tree(tmp_path: Path) -> None:
+def test_clean_fixture_receipt_binds_commit_tree_and_head_objects(tmp_path: Path) -> None:
     root = repository(tmp_path)
     receipt = audit_repository(root)
     assert receipt["mode"] == "READ_ONLY"
+    assert receipt["scan_source"] == "HEAD_GIT_OBJECTS"
+    assert receipt["working_tree_content_used"] is False
     assert receipt["high_or_critical_count"] == 0
     assert receipt["findings"] == []
+    assert receipt["tracked_file_count"] == receipt["blob_count"]
     assert len(receipt["repository_commit_sha"]) == 40
     assert len(receipt["repository_tree_sha"]) == 40
     assert len(receipt["receipt_sha256"]) == 64
+
+
+def test_dirty_worktree_content_is_not_misattributed_to_head_tree(tmp_path: Path) -> None:
+    root = repository(tmp_path)
+    committed_tree = subprocess.run(
+        ["git", "-C", str(root), "rev-parse", "HEAD^{tree}"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    synthetic_secret = "gh" + "p_" + "Z" * 24
+    security = root / "SECURITY.md"
+    security.write_text(
+        security.read_text(encoding="utf-8") + "\n" + synthetic_secret + "\n",
+        encoding="utf-8",
+    )
+    (root / "untracked.exe").write_bytes(b"MZ")
+
+    receipt = audit_repository(root)
+    assert receipt["repository_tree_sha"] == committed_tree
+    assert receipt["working_tree_content_used"] is False
+    assert all(item["check"] != "GITHUB_TOKEN" for item in receipt["findings"])
+    assert all(item["path"] != "untracked.exe" for item in receipt["findings"])
 
 
 def test_unexpected_binary_and_high_confidence_secret_are_reported(tmp_path: Path) -> None:
@@ -68,7 +94,17 @@ def test_missing_security_doc_and_workflow_permission_are_reported(tmp_path: Pat
     assert "WORKFLOW_PERMISSION_REVIEW" in checks
 
 
-def test_stale_relative_security_link_is_reported(tmp_path: Path) -> None:
+def test_top_level_write_permission_requires_review(tmp_path: Path) -> None:
+    root = repository(tmp_path)
+    workflow = root / ".github/workflows/quality.yml"
+    workflow.write_text("permissions:\n  contents: write\nname: quality\n", encoding="utf-8")
+    git(root, "add", str(workflow.relative_to(root)))
+    git(root, "commit", "-qm", "write permission fixture")
+    findings = audit_repository(root)["findings"]
+    assert any(item["check"] == "WORKFLOW_PERMISSION_REVIEW" for item in findings)
+
+
+def test_stale_relative_security_link_is_reported_from_head_tree(tmp_path: Path) -> None:
     root = repository(tmp_path)
     security = root / "SECURITY.md"
     security.write_text(security.read_text(encoding="utf-8") + "\n[missing](docs/missing.md)\n", encoding="utf-8")
@@ -89,4 +125,5 @@ def test_current_repository_merge_tree_has_no_high_or_critical_findings() -> Non
     root = Path(__file__).resolve().parents[1]
     receipt = audit_repository(root)
     assert receipt["tracked_file_count"] > 0
+    assert receipt["scan_source"] == "HEAD_GIT_OBJECTS"
     assert receipt["high_or_critical_count"] == 0
