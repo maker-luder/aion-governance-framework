@@ -562,6 +562,10 @@ class ExtendedQualityControls:
     claim_withdrawal: tuple[ClaimWithdrawalPropagationRecord, ...] = field(default_factory=tuple)
 
     def trace_refs(self) -> tuple[str, ...]:
+        if not self.data_quality:
+            raise QualityError("full QMS requires at least one data-quality record")
+        if not self.supplier_quality:
+            raise QualityError("full QMS requires at least one upstream supplier-quality record")
         refs = [item.data_id for item in self.data_quality]
         refs.extend(item.supplier_object_id for item in self.supplier_quality)
         refs.extend(item.sampling_plan_id for item in self.sampling)
