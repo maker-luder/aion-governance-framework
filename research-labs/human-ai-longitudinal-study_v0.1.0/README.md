@@ -15,6 +15,9 @@ The bounded held-out habit-transfer analogue is documented in
 The bounded externalized-metacognitive-policy transfer extension is documented in
 [`METACOGNITIVE_POLICY_TRANSFER_HARNESS.md`](METACOGNITIVE_POLICY_TRANSFER_HARNESS.md).
 
+The bounded task-selection / effective-exposure extension is documented in
+[`TASK_SELECTION_EXPOSURE_HARNESS.md`](TASK_SELECTION_EXPOSURE_HARNESS.md).
+
 The repository-defined Co-Constructed Thinking Space (CCTS) structural contract is
 implemented in `src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
 and grounded by
@@ -36,6 +39,16 @@ externalized learner rules versus content-matched non-policy exposure, separates
 policy-available behavior from policy-withheld held-out transfer, and includes a
 low-stakes negative control for overprocessing. Its deterministic fixture does not
 establish learning, internalization, dependence, or causal effect.
+
+The task-selection extension adds a structural design contract for distinguishing
+product/tool access from effective domain exposure. It holds access, model
+configuration, tool availability, evaluator, prior-knowledge control, time budget,
+task difficulty and resource-cost information fixed while allowing synthetic
+free-selection tracks to encode different domain exposure distributions. A matched
+assigned-exposure control requires identical distribution and payload bindings. The
+extension also binds held-out domain tasks without collecting Human or model
+observations. It does not establish H-TS1, H-DL1, H-RA1, Human learning, or causal
+effects; H-RA1 remains explicitly untested by this harness.
 
 The CCTS extension formalizes a repository-local relational construct rather than
 claiming a new external scientific taxonomy. Its core profile requires an explicit
@@ -75,10 +88,12 @@ promotion.
 
 All condition fields require exact runtime enum instances; raw strings fail
 closed. Contrasts hold evaluator identity/source and held-out status fixed.
-`task_domain` and `ai_support` remain recordable labels but cannot be declared as
-v0.1.0 manipulations because no exact underlying task/support binding is present.
-Metric values accept exact `int` or `float` runtime values only; booleans, strings,
-other types and non-finite numbers fail closed.
+`task_domain` and `ai_support` in the original v0.1.0 longitudinal contrast remain
+recordable labels rather than manipulations unless an extension provides exact
+underlying bindings. The task-selection extension provides its own exact
+`SelectionTaskDomain` family/payload bindings and does not retroactively change the
+original harness semantics. Metric values accept exact `int` or `float` runtime
+values only; booleans, strings, other types and non-finite numbers fail closed.
 
 Key boundaries:
 
@@ -90,6 +105,11 @@ LONGITUDINAL_ADAPTATION != SUBJECTIVITY
 POLICY_SWITCHING_BEHAVIOR != INTERNAL_POLICY_MODULE_PROVEN
 EXTERNALIZED_RULE != INTERNALIZED_SKILL
 POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
+SAME_ACCESS_BINDING != SAME_EFFECTIVE_EXPOSURE
+SYNTHETIC_EXPOSURE_DIVERGENCE != HUMAN_SELF_SELECTION_OBSERVED
+HELD_OUT_TASK_BINDING != HUMAN_TRANSFER
+DOMAIN_FLUENCY != GENERAL_AI_LITERACY
+RESOURCE_COST_INFORMATION_CONTROLLED != H_RA1_TESTED
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 GROUNDING_CHECKPOINT_PRESENT != AI_UNDERSTANDING_PROVEN
@@ -111,4 +131,5 @@ DEPLOYMENT = FALSE
 ```
 
 The fixture in `fixtures/minimal_contrast.json` is synthetic protocol data. It
-contains no raw conversation and no third-party identity.
+contains no raw conversation and no third-party identity. The task-selection
+tests likewise use only deterministic synthetic hashes, tracks and exposure units.
