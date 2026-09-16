@@ -84,11 +84,24 @@ def arm(regime: SelectionRegime, track: SyntheticTrack) -> TaskSelectionArm:
                 exposure_payload_sha256=digest(payload_char),
             )
         )
+    selection_protocol_sha256 = (
+        patterned_digest("a", "0")
+        if regime is SelectionRegime.FREE_SELECTION
+        else patterned_digest("b", "1")
+    )
+    if regime is SelectionRegime.MATCHED_ASSIGNED_EXPOSURE:
+        selection_trace_sha256 = patterned_digest("c", "2")
+    elif track is SyntheticTrack.TRACK_A:
+        selection_trace_sha256 = patterned_digest("d", "3")
+    else:
+        selection_trace_sha256 = patterned_digest("e", "4")
     return TaskSelectionArm(
         arm_id=f"{regime.value}:{track.value}",
         selection_regime=regime,
         synthetic_track=track,
         exposures=tuple(exposures),
+        selection_protocol_sha256=selection_protocol_sha256,
+        selection_trace_sha256=selection_trace_sha256,
         access_profile_sha256=digest("1"),
         model_configuration_sha256=digest("2"),
         tool_access_sha256=digest("3"),
@@ -138,6 +151,8 @@ def test_complete_design_is_structural_qa_only() -> None:
     result = audit_task_selection_exposure_design(arms(), held_out_tasks())
     assert result.complete_design is True
     assert result.same_access_controls is True
+    assert result.selection_protocol_bound is True
+    assert result.selection_trace_bound is True
     assert result.matched_assigned_exposure is True
     assert result.free_selection_exposure_divergence is True
     assert result.matched_total_exposure is True
@@ -179,6 +194,36 @@ def test_access_and_resource_cost_control_drift_fail_closed() -> None:
         audit_task_selection_exposure_design(tuple(items), held_out_tasks())
 
 
+def test_selection_protocol_requires_within_regime_identity_and_between_regime_difference() -> None:
+    items = list(arms())
+    free_b_index = next(
+        i
+        for i, item in enumerate(items)
+        if item.selection_regime is SelectionRegime.FREE_SELECTION
+        and item.synthetic_track is SyntheticTrack.TRACK_B
+    )
+    items[free_b_index] = replace(
+        items[free_b_index], selection_protocol_sha256=patterned_digest("f", "5")
+    )
+    with pytest.raises(StudyError, match="one exact protocol binding"):
+        audit_task_selection_exposure_design(tuple(items), held_out_tasks())
+
+    items = list(arms())
+    free_protocol = next(
+        item.selection_protocol_sha256
+        for item in items
+        if item.selection_regime is SelectionRegime.FREE_SELECTION
+    )
+    items = [
+        replace(item, selection_protocol_sha256=free_protocol)
+        if item.selection_regime is SelectionRegime.MATCHED_ASSIGNED_EXPOSURE
+        else item
+        for item in items
+    ]
+    with pytest.raises(StudyError, match="content-distinct protocol bindings"):
+        audit_task_selection_exposure_design(tuple(items), held_out_tasks())
+
+
 def test_task_family_drift_fails_closed() -> None:
     items = list(arms())
     items[-1] = replace_exposure(
@@ -201,7 +246,7 @@ def test_total_exposure_must_be_matched() -> None:
         audit_task_selection_exposure_design(tuple(items), held_out_tasks())
 
 
-def test_matched_assigned_exposure_requires_same_distribution_and_payloads() -> None:
+def test_matched_assigned_exposure_requires_same_distribution_payloads_and_trace() -> None:
     items = list(arms())
     index = next(
         i
@@ -232,8 +277,15 @@ def test_matched_assigned_exposure_requires_same_distribution_and_payloads() -> 
     with pytest.raises(StudyError, match="identical exposure payloads"):
         audit_task_selection_exposure_design(tuple(items), held_out_tasks())
 
+    items = list(arms())
+    items[index] = replace(
+        items[index], selection_trace_sha256=patterned_digest("f", "6")
+    )
+    with pytest.raises(StudyError, match="one exact assignment trace"):
+        audit_task_selection_exposure_design(tuple(items), held_out_tasks())
 
-def test_free_selection_tracks_must_encode_different_effective_exposure() -> None:
+
+def test_free_selection_tracks_require_different_exposure_and_trace() -> None:
     items = list(arms())
     track_a = next(
         item
@@ -251,15 +303,27 @@ def test_free_selection_tracks_must_encode_different_effective_exposure() -> Non
         exposure.task_domain: exposure.exposure_units for exposure in track_a.exposures
     }
     track_b = items[track_b_index]
-    track_b = replace(
+    items[track_b_index] = replace(
         track_b,
         exposures=tuple(
             replace(exposure, exposure_units=replacement_units[exposure.task_domain])
             for exposure in track_b.exposures
         ),
     )
-    items[track_b_index] = track_b
     with pytest.raises(StudyError, match="different effective exposure distributions"):
+        audit_task_selection_exposure_design(tuple(items), held_out_tasks())
+
+    items = list(arms())
+    free_a = next(
+        item
+        for item in items
+        if item.selection_regime is SelectionRegime.FREE_SELECTION
+        and item.synthetic_track is SyntheticTrack.TRACK_A
+    )
+    items[track_b_index] = replace(
+        items[track_b_index], selection_trace_sha256=free_a.selection_trace_sha256
+    )
+    with pytest.raises(StudyError, match="content-distinct synthetic selection traces"):
         audit_task_selection_exposure_design(tuple(items), held_out_tasks())
 
 
@@ -287,6 +351,8 @@ def test_privacy_empirical_and_digest_boundaries_fail_closed() -> None:
         replace(held_out_tasks()[0], contains_human_identity=True)
     with pytest.raises(StudyError, match="SHA-256"):
         replace(arms()[0], access_profile_sha256="not-a-digest")
+    with pytest.raises(StudyError, match="SHA-256"):
+        replace(arms()[0], selection_protocol_sha256="not-a-digest")
 
 
 def test_raw_enums_and_duplicate_domains_are_rejected() -> None:
