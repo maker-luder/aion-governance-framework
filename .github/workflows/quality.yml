@@ -44,6 +44,14 @@ jobs:
       - name: Lint active Python sources for correctness
         run: ruff check --config ruff.toml .
 
+      - name: Enforce repository mypy policy and exact-head checks
+        run: |
+          python scripts/run_repository_mypy.py \
+            --root . \
+            --policy .github/ci/mypy-policy.json \
+            --evidence-output "${RUNNER_TEMP}/mypy-evidence-${{ matrix.python-version }}.json"
+          cat "${RUNNER_TEMP}/mypy-evidence-${{ matrix.python-version }}.json"
+
       - name: Run complete repository control suite (including real symlinks)
         run: python -m pytest -q tests
 
