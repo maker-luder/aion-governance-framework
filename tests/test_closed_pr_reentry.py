@@ -22,17 +22,16 @@ def registry() -> dict:
 
 
 def entry(record: dict, pr: int) -> dict:
-    return next(item for item in record["closed_unmerged"] if item["pr"] == pr)
+    return next(item for item in record["historical_reentry_cohort"] if item["pr"] == pr)
 
 
-def test_recalibrated_registry_covers_closed_inventory_and_preserves_two_cores() -> None:
+def test_registry_preserves_frozen_historical_cohort_and_two_cores() -> None:
     result = module.validate_registry(registry())
     assert result["status"] == "PASS"
-    assert result["closed_prs_covered"] == 115
-    assert result["merged_closed_prs"] == 103
-    assert result["closed_unmerged_prs"] == 12
-    assert result["open_prs_at_recalibration_snapshot"] == 1
-    assert result["open_pr_count_is_reentry_guard"] is False
+    assert result["historical_cohort_size"] == 12
+    assert result["future_global_pr_counts_are_reentry_guard"] is False
+    assert result["retained_draft_pr"] == 122
+    assert result["superseded_duplicate_drafts"] == [123, 124]
     assert result["full_qms_mapping"] is True
     assert result["direct_historical_merge"] is False
     assert result["historical_code_reuse"] is False
@@ -40,19 +39,21 @@ def test_recalibrated_registry_covers_closed_inventory_and_preserves_two_cores()
     assert result["subjectivity"] == "NOT_ESTABLISHED"
 
 
-def test_open_pr_snapshot_is_not_a_closed_reentry_guard() -> None:
+def test_audit_snapshot_is_provenance_not_future_global_guard() -> None:
     record = registry()
-    record["open_pr_count"] = 4
-    result = module.validate_registry(record)
-    assert result["status"] == "PASS"
-    assert result["open_prs_at_recalibration_snapshot"] == 4
-    assert result["open_pr_count_is_reentry_guard"] is False
+    assert record["audit_snapshot"]["scope"] == "HISTORICAL_CLOSED_UNMERGED_COHORT_AT_AUDIT"
+    assert record["audit_snapshot"]["global_future_pr_counts_are_reentry_guard"] is False
+
+    broken = deepcopy(record)
+    broken["audit_snapshot"]["global_future_pr_counts_are_reentry_guard"] = True
+    with pytest.raises(module.ReentryValidationError, match="future global PR counts"):
+        module.validate_registry(broken)
 
 
-def test_closed_inventory_still_fails_closed() -> None:
+def test_historical_snapshot_itself_is_immutable_provenance() -> None:
     record = registry()
-    record["closed_pr_count"] = 116
-    with pytest.raises(module.ReentryValidationError, match="closed PR inventory count drift"):
+    record["audit_snapshot"]["closed_pr_count"] = 117
+    with pytest.raises(module.ReentryValidationError, match="historical audit snapshot changed"):
         module.validate_registry(record)
 
 
@@ -80,18 +81,18 @@ def test_historical_head_ci_and_direct_merge_cannot_be_promoted() -> None:
         module.validate_registry(record)
 
 
-def test_human_owner_confirmed_priority_order_is_fail_closed() -> None:
+def test_consolidation_keeps_one_research_draft_and_two_superseded_drafts() -> None:
     record = registry()
-    record["redesign_priority_plan"][0], record["redesign_priority_plan"][1] = record["redesign_priority_plan"][1], record["redesign_priority_plan"][0]
-    with pytest.raises(module.ReentryValidationError, match="priority plan drifted"):
-        module.validate_registry(record)
+    plan = record["consolidation_plan"]
+    assert plan["retained_draft_pr"] == 122
+    assert plan["superseded_draft_prs"] == [123, 124]
+    assert plan["current_main_method_anchor"] == "PR118_INTERPRETIVE_SPECIFICITY_AND_EVIDENCE_ADMISSION"
+    assert plan["historical_code_reuse"] is False
 
-
-def test_priority_designs_forbid_historical_code_reuse() -> None:
-    record = registry()
-    record["redesign_priority_plan"][0]["historical_code_reuse"] = True
-    with pytest.raises(module.ReentryValidationError, match="historical code reuse"):
-        module.validate_registry(record)
+    broken = deepcopy(record)
+    broken["consolidation_plan"]["superseded_draft_prs"] = [124]
+    with pytest.raises(module.ReentryValidationError, match="duplicate Draft disposition"):
+        module.validate_registry(broken)
 
 
 def test_pr103_incident_cannot_be_revived_as_merge_candidate() -> None:
@@ -101,20 +102,20 @@ def test_pr103_incident_cannot_be_revived_as_merge_candidate() -> None:
         module.validate_registry(record)
 
 
-def test_pr84_sandbox_remains_superseded_while_method_question_may_be_extracted() -> None:
+def test_pr84_sandbox_remains_superseded_and_method_is_localized() -> None:
     record = registry()
     pr84 = entry(record, 84)
     assert pr84["allowed_action"] == "NO_ACTION"
     assert pr84["derivative_method_source_only"] is True
-    assert pr84["new_current_main_question"] == "SUBJECTIVITY_INDICATOR_DISCRIMINANT_VALIDITY_MATRIX"
+    assert pr84["current_use"] == "LOCAL_DISCRIMINANT_VALIDITY_CHECKLIST_IN_REFINED_PR122"
 
     broken = deepcopy(record)
-    entry(broken, 84)["historical_code_reuse"] = True
-    with pytest.raises(module.ReentryValidationError, match="sandbox was reintroduced"):
+    entry(broken, 84)["current_use"] = "REVIVE_GENERIC_MATRIX"
+    with pytest.raises(module.ReentryValidationError, match="not properly deduplicated"):
         module.validate_registry(broken)
 
 
-def test_memory_locus_sources_are_extract_and_reauthor_only() -> None:
+def test_memory_continuity_sources_are_extract_and_reauthor_only() -> None:
     record = registry()
     for pr in (38, 41, 8):
         candidate = entry(record, pr)
