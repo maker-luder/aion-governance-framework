@@ -1,0 +1,185 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "CLOSED_PR_DUAL_CORE_REENTRY_REGISTRY",
+  "repository": "maker-luder/aion-governance-framework",
+  "audit_date": "2026-09-16",
+  "audited_main": "337500458801cb1ab4d2786ddabd527c43eddddd",
+  "closed_pr_count": 110,
+  "merged_closed_pr_count": 98,
+  "closed_unmerged_pr_count": 12,
+  "core_contract": {
+    "central_research_question": "AI_SUBJECTIVITY_POSSIBILITY",
+    "quality_management_line": "END_TO_END_RESEARCH_QUALITY_AND_GOVERNANCE",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "canonical_effect": "NONE",
+    "deployment": false
+  },
+  "merged_closed_policy": {
+    "disposition": "CANONICAL_ALREADY_ABSORBED",
+    "reimport_from_historical_pr": false,
+    "rule": "Review current-main artifacts instead of re-importing already-merged PR bytes or evidence claims."
+  },
+  "future_reentry_contract": {
+    "historical_head_is_authority": false,
+    "historical_ci_is_current_evidence": false,
+    "direct_reopen_and_merge": false,
+    "evidence_reuse_requires_current_claim_rebinding": true,
+    "external_material_policy": "DERIVATIVE_ONLY",
+    "raw_external_publication_in_repo_by_default": false,
+    "quality_feed_requirements": [
+      "MAP_TO_EXISTING_RESEARCH_QUALITY_CHAIN",
+      "CURRENT_MAIN_DEDUP_CHECK",
+      "CONTROL_EFFECTIVENESS_RECHECK",
+      "FAIL_CLOSED_ON_STALE_OR_AMBIGUOUS_PROVENANCE"
+    ],
+    "subjectivity_feed_requirements": [
+      "ONTOLOGY_NEUTRAL_QUESTION",
+      "THEORY_OR_CONSTRUCT_LINK",
+      "DISCRIMINATING_PREDICTION",
+      "FALSIFIER_OR_SUPPORT_REDUCING_CONDITION",
+      "COMPETING_EXPLANATIONS",
+      "MIMICRY_ALTERNATIVE",
+      "INTERNAL_VARIANT_ALTERNATIVE",
+      "INDICATOR_VALIDATION_STATUS",
+      "CLAIM_CEILING"
+    ]
+  },
+  "closed_unmerged": [
+    {
+      "pr": 103,
+      "title": "research: materialize bounded cross-dyad collaboration regime harness",
+      "historical_head": "f4cc648194be7ea5f3344f8c7cb8a51960a6e286",
+      "disposition": "HISTORICAL_RESEARCH_VALIDITY_INCIDENT",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "PR119_CANONICAL_INCIDENT_RECORD_AND_STRUCTURAL_FIXTURE_BOUNDARY",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["DESIGN_ADMISSION", "EVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "reason": "Engineering checks were historically green but the deterministic no-model fixture was not empirical evidence; PR #119 already records the NCR/CAPA and preventive boundary."
+    },
+    {
+      "pr": 84,
+      "title": "Draft: sandbox gap-closure + mechanism pilot + core AION/Astra inquiry",
+      "historical_head": "7a427b123cf7d7dde9e29e1a85975299030aa1cb",
+      "disposition": "SUPERSEDED_BY_MERGED_PR_85",
+      "core_relation": "NONE",
+      "current_main_crosscheck": "CURATED_REPLACEMENT_ALREADY_CANONICAL",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": [],
+      "reason": "The sandbox was explicitly superseded by the curated #85 convergence; re-entry would reintroduce excluded sandbox material."
+    },
+    {
+      "pr": 80,
+      "title": "Preserve Owner learning context and pin bounded domain methods",
+      "historical_head": "a6afd7bf1b9c5d50c5301be12912e82a8bf5ec7a",
+      "disposition": "CONTENT_ABSORBED_BY_CURRENT_MAIN",
+      "core_relation": "NONE",
+      "current_main_crosscheck": "OWNER_LEARNING_CONTEXT_DOMAIN_METHOD_AND_SWISS_DISPOSITION_PRESENT",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": [],
+      "reason": "Current main already contains the bounded Owner-learning reference, domain-method decision, governed source record and later Swiss integration/licensing work."
+    },
+    {
+      "pr": 41,
+      "title": "feat: add Phase 1 observation evidence MCP bridge",
+      "historical_head": "7986381dd48bbf702f2fc015078c8d072523adb2",
+      "disposition": "EXTRACT_REDESIGN_CANDIDATE",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "EXACT_MCP_SURFACE_NOT_CANONICAL; PROVENANCE_SOURCE_ADMISSION_CONTROLS_HAVE_SINCE_DEEPENED",
+      "allowed_action": "EXTRACT_REDESIGN_ONLY",
+      "quality_targets": ["SOURCE_IQC", "EVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "control_effectiveness_recheck": true,
+      "reason": "The reusable idea is the separation of retrieval mechanism from evidence source class and fail-closed metadata admission, not the old MCP tool surface."
+    },
+    {
+      "pr": 38,
+      "title": "research: twin autobiographical memory + MCP design v0.1",
+      "historical_head": "852339be16207ca08450ca6a8d3597772de3cd3b",
+      "disposition": "CONCEPT_ABSORBED_BY_LATER_MEMORY_RESEARCH",
+      "core_relation": "SUBJECTIVITY_FEED",
+      "current_main_crosscheck": "MEMORY_RETENTION_AND_RETRIEVAL_ALREADY_SEPARATED_FROM_SUBJECTIVE_REMEMBERING",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": [],
+      "reason": "The useful non-claim AUTOBIOGRAPHICAL_MEMORY != PHENOMENAL_MEMORY is already represented more generally by later memory-significance and longitudinal controls."
+    },
+    {
+      "pr": 37,
+      "title": "publication: stage AION / Astra v0.1 reader site",
+      "historical_head": "540d190e8b60e92e3b6af94ad8f96d06091c73b3",
+      "disposition": "PUBLIC_COMMUNICATION_CONCEPT_ONLY",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "CURRENT_PUBLIC_READER_PATH_AND_NONCLAIMS_EXIST; NO_SITE_REVIVAL_JUSTIFIED",
+      "allowed_action": "EXTRACT_REDESIGN_ONLY",
+      "quality_targets": ["FINAL_QA", "CLAIM_CEILING_REVIEW"],
+      "control_effectiveness_recheck": true,
+      "reason": "Only the public-communication discipline is reusable; deployment/site staging is not required for either core."
+    },
+    {
+      "pr": 33,
+      "title": "ci(research): retarget convergence gate to preserved research branch",
+      "historical_head": "092a389c70b417dc318e5a6f9f55470fa0872f2b",
+      "disposition": "OBSOLETE_BRANCH_TOPOLOGY_REMEDIATION",
+      "core_relation": "NONE",
+      "current_main_crosscheck": "TARGET_BRANCH_WORKFLOW_CONTEXT_IS_HISTORICAL",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": [],
+      "reason": "The patch addressed a retired branch target and must not be re-applied to current main."
+    },
+    {
+      "pr": 26,
+      "title": "test: disposable positive merge-control candidate",
+      "historical_head": "bedcf6a6a56fa6f5c79e3806384f6519817b492a",
+      "disposition": "HISTORICAL_GOVERNANCE_TEST_CONTROL",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "MAIN_TRANSITION_AUTHORITY_GATE_IS_CANONICAL",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["FINAL_QA"],
+      "reason": "Disposable positive control evidence remains historical test provenance; it is not a feature candidate."
+    },
+    {
+      "pr": 25,
+      "title": "test: disposable negative merge-control candidate",
+      "historical_head": "26de721573a0f4210a1aab8e92dc86dc82be1b9c",
+      "disposition": "HISTORICAL_GOVERNANCE_TEST_CONTROL",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "MAIN_TRANSITION_AUTHORITY_GATE_IS_CANONICAL",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["FINAL_QA"],
+      "reason": "Disposable negative control proved fail-closed authority behavior and must remain historical evidence."
+    },
+    {
+      "pr": 19,
+      "title": "research: selectively promote reviewed CSOMI/SLSH integration artifacts",
+      "historical_head": "ce0fa4899a9498d7795d4da9b5f96ba3570c3ead",
+      "disposition": "FROZEN_RESEARCH_AUTHORITY_PRESERVED",
+      "core_relation": "DUAL_CORE_REFERENCE",
+      "current_main_crosscheck": "FINAL_PR19_DISPOSITION_AND_FROZEN_AUTHORITY_REFS_EXIST",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["SOURCE_IQC", "DESIGN_ADMISSION", "EVIDENCE_REVIEW"],
+      "reason": "Repository history explicitly preserved the source authorities while forbidding wholesale promotion; any future use must formulate a new current-main question."
+    },
+    {
+      "pr": 12,
+      "title": "audit: reconcile Manus final IQC delivery on main candidate",
+      "historical_head": "7f06ba94ff8aedddd4474970bdeb74118e86393c",
+      "disposition": "QUALITY_CONTROLS_ABSORBED_BY_CURRENT_MAIN",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "IQC_SOURCE_STATE_BINDING_TRACEABILITY_PACKAGE_AND_RECONCILIATION_CONTROLS_PRESENT",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": ["SOURCE_IQC", "EXECUTION_INTEGRITY", "FINAL_QA"],
+      "reason": "The durable quality controls from the reconciliation are now canonical; the historical delivery must not be wholesale re-applied."
+    },
+    {
+      "pr": 8,
+      "title": "Review-only experiment: external evidence + continuity anchor",
+      "historical_head": "2d393d4437094049e9767f8fea72ad7feea3fb08",
+      "disposition": "HISTORICAL_REVIEW_ONLY_SURFACE",
+      "core_relation": "DUAL_CORE_REFERENCE",
+      "current_main_crosscheck": "REVIEW_PROVENANCE_AND_EVIDENCE_CLASSIFICATION_NOW_HAVE_NEWER_CANONICAL_CONTROLS",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["SOURCE_IQC", "EVIDENCE_REVIEW"],
+      "reason": "The PR explicitly prohibited use as a route to main; retain it only as historical review-method provenance."
+    }
+  ]
+}
