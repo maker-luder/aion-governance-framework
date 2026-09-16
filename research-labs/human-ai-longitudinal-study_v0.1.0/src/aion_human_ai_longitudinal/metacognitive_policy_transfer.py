@@ -160,7 +160,7 @@ def observe_metacognitive_transfer(
         unexpected_actions=unexpected,
         scaffolded_policy_application_candidate=(externalized and available and exact),
         independent_transfer_candidate=(externalized and not available and exact),
-        overprocessing_negative_control=(negative_control and not exact),
+        overprocessing_negative_control=(negative_control and bool(unexpected)),
     )
 
 
