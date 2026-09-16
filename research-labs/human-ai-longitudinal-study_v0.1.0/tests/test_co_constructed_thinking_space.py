@@ -37,14 +37,16 @@ def research_manifest() -> CoConstructedThinkingSpaceManifest:
         contribution("human", ContributionRole.HUMAN_OWNER, "1"),
         contribution("ai", ContributionRole.AI_COLLABORATOR, "2"),
         contribution("evidence", ContributionRole.EXTERNAL_EVIDENCE, "3"),
-        contribution("repository", ContributionRole.REPOSITORY_ARTIFACT, "4"),
-        contribution("implementation", ContributionRole.IMPLEMENTATION_EVIDENCE, "5"),
+        contribution("implementation", ContributionRole.IMPLEMENTATION_EVIDENCE, "4"),
+        contribution("repository", ContributionRole.REPOSITORY_ARTIFACT, "b"),
+        contribution("reentry", ContributionRole.REPOSITORY_ARTIFACT, "c"),
     )
     edges = (
         RevisionEdge("human", "ai", RevisionRelation.CHALLENGES),
-        RevisionEdge("ai", "human", RevisionRelation.CLARIFIES),
+        RevisionEdge("ai", "human", RevisionRelation.REVISES),
         RevisionEdge("evidence", "ai", RevisionRelation.REVISES),
-        RevisionEdge("repository", "implementation", RevisionRelation.CLARIFIES),
+        RevisionEdge("repository", "human", RevisionRelation.CLARIFIES),
+        RevisionEdge("reentry", "ai", RevisionRelation.CLARIFIES),
         RevisionEdge("implementation", "human", RevisionRelation.CHALLENGES),
     )
     return CoConstructedThinkingSpaceManifest(
@@ -86,7 +88,7 @@ def test_complete_longitudinal_repository_profile_is_structural_qa_only() -> Non
     assert audit.deployment is False
 
 
-def test_core_profile_requires_reciprocity_but_not_research_infrastructure() -> None:
+def test_core_profile_requires_substantive_reciprocity_but_not_research_infrastructure() -> None:
     manifest = CoConstructedThinkingSpaceManifest(
         space_id="ccts:synthetic:core",
         profile=ThinkingSpaceProfile.CORE_INTERACTION,
@@ -114,6 +116,18 @@ def test_core_profile_requires_reciprocity_but_not_research_infrastructure() -> 
     assert audit.longitudinal_bindings_present is False
 
 
+def test_clarification_only_edges_do_not_satisfy_substantive_reciprocity() -> None:
+    manifest = research_manifest()
+    edges = tuple(
+        RevisionEdge(edge.source_id, edge.target_id, RevisionRelation.CLARIFIES)
+        if {edge.source_id, edge.target_id} == {"human", "ai"}
+        else edge
+        for edge in manifest.revision_edges
+    )
+    with pytest.raises(StudyError, match="REVISES or CHALLENGES"):
+        audit_co_constructed_thinking_space(replace(manifest, revision_edges=edges))
+
+
 def test_one_way_interaction_is_not_co_construction() -> None:
     manifest = research_manifest()
     edges = tuple(
@@ -122,9 +136,7 @@ def test_one_way_interaction_is_not_co_construction() -> None:
         if not (edge.source_id == "ai" and edge.target_id == "human")
     )
     with pytest.raises(StudyError, match="reciprocal Human<->AI"):
-        audit_co_constructed_thinking_space(
-            replace(manifest, revision_edges=edges)
-        )
+        audit_co_constructed_thinking_space(replace(manifest, revision_edges=edges))
 
 
 def test_disconnected_declared_role_is_not_mediation() -> None:
@@ -135,9 +147,7 @@ def test_disconnected_declared_role_is_not_mediation() -> None:
         if edge.source_id != "evidence" and edge.target_id != "evidence"
     )
     with pytest.raises(StudyError, match="connected revision graph"):
-        audit_co_constructed_thinking_space(
-            replace(manifest, revision_edges=edges)
-        )
+        audit_co_constructed_thinking_space(replace(manifest, revision_edges=edges))
 
 
 def test_longitudinal_profile_requires_external_repository_and_implementation_roles() -> None:
@@ -148,9 +158,7 @@ def test_longitudinal_profile_requires_external_repository_and_implementation_ro
         (ContributionRole.IMPLEMENTATION_EVIDENCE, "implementation evidence"),
     ):
         contributions = tuple(
-            item
-            for item in manifest.contributions
-            if item.role is not missing_role
+            item for item in manifest.contributions if item.role is not missing_role
         )
         known = {item.contribution_id for item in contributions}
         edges = tuple(
@@ -158,21 +166,9 @@ def test_longitudinal_profile_requires_external_repository_and_implementation_ro
             for edge in manifest.revision_edges
             if edge.source_id in known and edge.target_id in known
         )
-        if missing_role is ContributionRole.IMPLEMENTATION_EVIDENCE:
-            edges = edges + (
-                RevisionEdge(
-                    "repository",
-                    "human",
-                    RevisionRelation.CLARIFIES,
-                ),
-            )
         with pytest.raises(StudyError, match=match):
             audit_co_constructed_thinking_space(
-                replace(
-                    manifest,
-                    contributions=contributions,
-                    revision_edges=edges,
-                )
+                replace(manifest, contributions=contributions, revision_edges=edges)
             )
 
 
@@ -180,6 +176,23 @@ def test_longitudinal_profile_requires_persistent_artifact_and_reentry_bindings(
     with pytest.raises(StudyError, match="persistent artifact and re-entry"):
         audit_co_constructed_thinking_space(
             replace(research_manifest(), reentry_binding_sha256=None)
+        )
+
+
+@pytest.mark.parametrize(
+    "field,match",
+    [
+        ("persistent_artifact_sha256", "persistent artifact binding must match"),
+        ("reentry_binding_sha256", "re-entry binding must match"),
+    ],
+)
+def test_longitudinal_bindings_must_resolve_to_declared_repository_artifacts(
+    field: str,
+    match: str,
+) -> None:
+    with pytest.raises(StudyError, match=match):
+        audit_co_constructed_thinking_space(
+            replace(research_manifest(), **{field: digest("d")})
         )
 
 
@@ -200,10 +213,7 @@ def test_duplicate_contribution_ids_and_structural_binding_aliases_fail_closed()
     manifest = research_manifest()
     duplicate = contribution("human", ContributionRole.EXTERNAL_EVIDENCE, "d")
     with pytest.raises(StudyError, match="contribution ids must be unique"):
-        replace(
-            manifest,
-            contributions=manifest.contributions + (duplicate,),
-        )
+        replace(manifest, contributions=manifest.contributions + (duplicate,))
 
     with pytest.raises(StudyError, match="content-distinct"):
         replace(
