@@ -158,6 +158,14 @@ def test_longitudinal_profile_requires_external_repository_and_implementation_ro
             for edge in manifest.revision_edges
             if edge.source_id in known and edge.target_id in known
         )
+        if missing_role is ContributionRole.IMPLEMENTATION_EVIDENCE:
+            edges = edges + (
+                RevisionEdge(
+                    "repository",
+                    "human",
+                    RevisionRelation.CLARIFIES,
+                ),
+            )
         with pytest.raises(StudyError, match=match):
             audit_co_constructed_thinking_space(
                 replace(
