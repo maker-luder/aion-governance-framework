@@ -25,18 +25,35 @@ def entry(record: dict, pr: int) -> dict:
     return next(item for item in record["closed_unmerged"] if item["pr"] == pr)
 
 
-def test_current_registry_covers_live_inventory_and_preserves_two_cores() -> None:
+def test_recalibrated_registry_covers_closed_inventory_and_preserves_two_cores() -> None:
     result = module.validate_registry(registry())
     assert result["status"] == "PASS"
     assert result["closed_prs_covered"] == 115
     assert result["merged_closed_prs"] == 103
     assert result["closed_unmerged_prs"] == 12
-    assert result["open_prs"] == 1
+    assert result["open_prs_at_recalibration_snapshot"] == 1
+    assert result["open_pr_count_is_reentry_guard"] is False
     assert result["full_qms_mapping"] is True
     assert result["direct_historical_merge"] is False
     assert result["historical_code_reuse"] is False
     assert result["new_quality_ontology"] is False
     assert result["subjectivity"] == "NOT_ESTABLISHED"
+
+
+def test_open_pr_snapshot_is_not_a_closed_reentry_guard() -> None:
+    record = registry()
+    record["open_pr_count"] = 4
+    result = module.validate_registry(record)
+    assert result["status"] == "PASS"
+    assert result["open_prs_at_recalibration_snapshot"] == 4
+    assert result["open_pr_count_is_reentry_guard"] is False
+
+
+def test_closed_inventory_still_fails_closed() -> None:
+    record = registry()
+    record["closed_pr_count"] = 116
+    with pytest.raises(module.ReentryValidationError, match="closed PR inventory count drift"):
+        module.validate_registry(record)
 
 
 def test_registry_is_bound_to_current_main_and_full_qms() -> None:
@@ -79,8 +96,7 @@ def test_priority_designs_forbid_historical_code_reuse() -> None:
 
 def test_pr103_incident_cannot_be_revived_as_merge_candidate() -> None:
     record = registry()
-    pr103 = entry(record, 103)
-    pr103["allowed_action"] = "REOPEN_AND_MERGE"
+    entry(record, 103)["allowed_action"] = "REOPEN_AND_MERGE"
     with pytest.raises(module.ReentryValidationError, match="prohibited re-entry action"):
         module.validate_registry(record)
 

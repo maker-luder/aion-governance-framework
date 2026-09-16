@@ -64,13 +64,17 @@ def validate_registry(record: dict[str, Any]) -> dict[str, Any]:
     closed_count = record.get("closed_pr_count")
     merged_count = record.get("merged_closed_pr_count")
     unmerged_count = record.get("closed_unmerged_pr_count")
-    open_count = record.get("open_pr_count")
-    if any(type(value) is not int for value in (closed_count, merged_count, unmerged_count, open_count)):
-        raise ReentryValidationError("PR inventory counts must be exact integers")
-    if (closed_count, merged_count, unmerged_count, open_count) != (115, 103, 12, 1):
-        raise ReentryValidationError("PR inventory count drift")
+    open_snapshot = record.get("open_pr_count")
+    if any(type(value) is not int for value in (closed_count, merged_count, unmerged_count, open_snapshot)):
+        raise ReentryValidationError("PR inventory values must be exact integers")
+    if (closed_count, merged_count, unmerged_count) != (115, 103, 12):
+        raise ReentryValidationError("closed PR inventory count drift")
     if merged_count + unmerged_count != closed_count:
         raise ReentryValidationError("closed PR inventory arithmetic mismatch")
+    if open_snapshot < 0:
+        raise ReentryValidationError("open PR snapshot cannot be negative")
+    # Open PR count is intentionally snapshot metadata, not a re-entry guard. Creating a
+    # new Draft research PR must not invalidate the closed-PR inventory control.
 
     core = record.get("core_contract")
     required_core = {
@@ -176,10 +180,9 @@ def validate_registry(record: dict[str, Any]) -> dict[str, Any]:
                         raise ReentryValidationError(f"PR {pr} needs distinct competing explanations")
                 else:
                     _nonempty(value, f"PR {pr} {field}")
-        if action == "EXTRACT_REDESIGN_ONLY":
+        if action == "EXTRACT_REDESIGN_ONLY" and pr != 37:
             if entry.get("historical_code_reuse") is not False or entry.get("current_main_reauthoring_required") is not True:
-                if pr not in {37}:
-                    raise ReentryValidationError(f"PR {pr} extraction must be newly authored from current main")
+                raise ReentryValidationError(f"PR {pr} extraction must be newly authored from current main")
 
     by_pr = {entry["pr"]: entry for entry in entries}
     if by_pr[103]["disposition"] != "HISTORICAL_RESEARCH_VALIDITY_INCIDENT" or by_pr[103]["allowed_action"] != "PRESERVE_ONLY" or by_pr[103].get("historical_code_reuse") is not False:
@@ -207,7 +210,8 @@ def validate_registry(record: dict[str, Any]) -> dict[str, Any]:
         "closed_prs_covered": closed_count,
         "merged_closed_prs": merged_count,
         "closed_unmerged_prs": unmerged_count,
-        "open_prs": open_count,
+        "open_prs_at_recalibration_snapshot": open_snapshot,
+        "open_pr_count_is_reentry_guard": False,
         "full_qms_mapping": True,
         "direct_historical_merge": False,
         "historical_code_reuse": False,
