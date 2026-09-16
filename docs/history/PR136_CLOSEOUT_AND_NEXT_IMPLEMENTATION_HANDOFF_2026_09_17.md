@@ -1,8 +1,25 @@
 # PR #136 closeout and next implementation handoff — 2026-09-17
 
-Status: `OPERATIONAL_HANDOFF / HISTORICAL_RECORD / NO_RESEARCH_CLAIM`
+Status: `OPERATIONAL_HANDOFF / HISTORICAL_RECORD / NO_RESEARCH_CLAIM / TEMPORARY_MAIN_GUIDANCE`
 
 This record exists so the Human Owner, ChatGPT Teacher, Work, and Codex can recover the next task from the repository rather than from memory alone.
+
+## 0. Temporary placement in `main`
+
+The Human Owner explicitly authorizes this handoff record to be merged into `main` as a **temporary operational recovery guide** because PR #136 is closed and the next implementation must not depend on conversation memory alone.
+
+This placement is intentionally provisional. When the next accepted implementation resolves, revises, or supersedes the gaps recorded here, this handoff must be reviewed and then revised, superseded, or reclassified so that a temporary recovery record is not mistaken for a permanent implementation specification.
+
+```text
+TEMPORARY_MAIN_HANDOFF = TRUE
+FUTURE_REVISION_REQUIRED = TRUE
+PR136_IMPLEMENTATION_ACCEPTED = FALSE
+TEMPORARY_HANDOFF != CANONICAL_RESEARCH_RESULT
+TEMPORARY_HANDOFF != PERMANENT_IMPLEMENTATION_SPECIFICATION
+MERGING_THIS_HANDOFF != MERGING_PR136
+```
+
+The temporary nature of this document does not weaken its recovery function while it is current. Until a later accepted record replaces it, future sessions should use it to reconstruct the unresolved work and then re-check live repository state.
 
 ## 1. Live state at closeout
 
