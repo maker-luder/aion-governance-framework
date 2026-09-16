@@ -56,6 +56,17 @@ from .habit_transfer import (
     audit_transfer_matrix,
     observe_transfer,
 )
+from .metacognitive_policy_transfer import (
+    MetacognitiveAction,
+    MetacognitiveTaskClass,
+    MetacognitiveTransferAudit,
+    MetacognitiveTransferObservation,
+    MetacognitiveTransferTrial,
+    PolicyAccessCondition,
+    PolicyExposureCondition,
+    audit_metacognitive_transfer_matrix,
+    observe_metacognitive_transfer,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
@@ -79,9 +90,16 @@ __all__ = [
     "EvidenceSupportManifest",
     "ExposureCondition",
     "LongitudinalStudyHarness",
+    "MetacognitiveAction",
+    "MetacognitiveTaskClass",
+    "MetacognitiveTransferAudit",
+    "MetacognitiveTransferObservation",
+    "MetacognitiveTransferTrial",
     "MetricName",
     "MetricObservation",
     "NodeType",
+    "PolicyAccessCondition",
+    "PolicyExposureCondition",
     "Presence",
     "ReconstructionRecord",
     "ReentryBinding",
@@ -102,8 +120,10 @@ __all__ = [
     "TrialRecord",
     "audit_accumulation_packets",
     "audit_calibration",
+    "audit_metacognitive_transfer_matrix",
     "audit_transfer_matrix",
     "compare_reentry_conditions",
+    "observe_metacognitive_transfer",
     "observe_transfer",
     "score_reconstruction",
 ]
