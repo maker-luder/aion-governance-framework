@@ -3,7 +3,7 @@
 Status: `HYPOTHESIS_SOURCE / PROVENANCE_RECORD / SCIENTIFIC_HOLD`
 Canonical effect: `NONE`
 Deployment: `FALSE`
-Executable implementation: `UNCHANGED`
+Executable implementation: `BOUNDED_VOICE_AMBIGUITY_STOP_GATE`
 
 ## 1. Why this note exists
 
@@ -296,15 +296,40 @@ EVIDENCE_SUPPORTS_ONLY_WHAT_IT_SUPPORTS
 UNKNOWN_MUST_REMAIN_REPRESENTABLE
 ```
 
-## 12. Implementation boundary
+## 12. Bounded executable implementation
 
-This correction intentionally adds no new executable semantics. The existing PR #131 synthetic contract remains unchanged while the continuity question is still being decomposed.
+The Human Owner-origin process rule is now implemented as a bounded synthetic gate in:
+
+- `research-labs/human-ai-longitudinal-study_v0.1.0/src/aion_human_ai_longitudinal/epistemic_agency_continuity.py`
+- `research-labs/human-ai-longitudinal-study_v0.1.0/tests/test_epistemic_agency_continuity.py`
+
+The implementation adds typed resolution sources and a fail-closed disposition for technically consequential ambiguous voice tokens:
 
 ```text
-CORRECTION_RECORDED = TRUE
+TechnicalTokenResolutionSource
+= REPOSITORY_EVIDENCE
+| EXTERNAL_EVIDENCE
+| HUMAN_OWNER_CLARIFICATION
+| UNRESOLVED
+
+TechnicalTokenDisposition
+= STOP
+| RECORD_OR_IMPLEMENT
+```
+
+For a voice-derived token where both `technically_consequential` and `ambiguity_detected` are true, the gate requires repository search before persistence. If external search is relevant, that search must also be completed before persistence. If the token remains unresolved after the applicable search path, the gate returns `STOP`, marks persistence as not permitted, and requires Human Owner clarification before recording or implementation can resume.
+
+Repository- or external-evidence resolution requires a bound SHA-256 evidence digest. Human Owner clarification is represented separately and cannot be silently rewritten as external or repository evidence.
+
+The implementation does not transcribe audio, infer speech recognition confidence, call a model, search the web, or automatically mutate repository state. It is a deterministic contract for representing whether persistence is permitted after ambiguity has already been detected.
+
+```text
 VOICE_AMBIGUITY_STOP_RULE_RECORDED = TRUE
-NEW_EXECUTABLE_SEMANTICS = FALSE
-PR131_EXISTING_IMPLEMENTATION = UNCHANGED_BY_THIS_CORRECTION
+VOICE_AMBIGUITY_STOP_GATE_IMPLEMENTED = TRUE
+IMPLEMENTATION_MODE = DETERMINISTIC_SYNTHETIC_CONTRACT
+AUTOMATIC_SPEECH_RECOGNITION = FALSE
+MODEL_INVOCATION = FALSE
+EMPIRICAL_RESOURCE_SAVING_EFFECT = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
