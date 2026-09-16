@@ -7,6 +7,7 @@ writeback.
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 import json
 import sqlite3
 from contextlib import contextmanager
@@ -71,7 +72,7 @@ class SQLiteMemoryStore:
         return connection
 
     @contextmanager
-    def _session(self):
+    def _session(self) -> Iterator[sqlite3.Connection]:
         """Commit/rollback and close; sqlite connection.__exit__ does not close."""
         connection = self._connect()
         try:
