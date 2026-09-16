@@ -58,6 +58,11 @@ from .four_domain import (
     ResearchQualityChainEngine,
     ResearchQualityDisposition,
 )
+from .quality_receipt import (
+    QualityChainReceiptError,
+    ResearchQualityChainReceipt,
+    build_research_quality_chain_receipt,
+)
 from .models import (
     DevelopmentMode,
     FiniteIndividualityProfile,
@@ -102,9 +107,11 @@ __all__ = [
     "PipelineStage",
     "QualityCheckpoint",
     "QualityCheckpointRecord",
+    "QualityChainReceiptError",
     "ResearchQualityAssessment",
     "ResearchQualityChain",
     "ResearchQualityChainEngine",
+    "ResearchQualityChainReceipt",
     "ResearchQualityDisposition",
     "StageRecord",
     "SubjectivityEvidenceDimension",
@@ -123,5 +130,6 @@ __all__ = [
     "TevvDefinition",
     "TevvTerm",
     "audit_fingerprint",
+    "build_research_quality_chain_receipt",
     "payload_sha256",
 ]
