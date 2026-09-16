@@ -25,6 +25,11 @@ class RevisionRelation(StrEnum):
     CLARIFIES = "CLARIFIES"
 
 
+_SUBSTANTIVE_RECIPROCITY_RELATIONS = frozenset(
+    {RevisionRelation.REVISES, RevisionRelation.CHALLENGES}
+)
+
+
 def _validate_digest(name: str, digest: str) -> None:
     if type(digest) is not str or len(digest) != 64 or any(
         char not in "0123456789abcdef" for char in digest
@@ -151,7 +156,9 @@ class CoConstructedThinkingSpaceManifest:
                 optional_digests.append(digest)
         all_structural_digests = structural_digests + tuple(optional_digests)
         if len(set(all_structural_digests)) != len(all_structural_digests):
-            raise StudyError("longitudinal bindings must be distinct from core bindings and each other")
+            raise StudyError(
+                "longitudinal bindings must be distinct from core bindings and each other"
+            )
 
         for name in (
             "synthetic",
@@ -221,16 +228,18 @@ def audit_co_constructed_thinking_space(
     human_to_ai = any(
         role_by_id[edge.source_id] is ContributionRole.HUMAN_OWNER
         and role_by_id[edge.target_id] is ContributionRole.AI_COLLABORATOR
+        and edge.relation in _SUBSTANTIVE_RECIPROCITY_RELATIONS
         for edge in manifest.revision_edges
     )
     ai_to_human = any(
         role_by_id[edge.source_id] is ContributionRole.AI_COLLABORATOR
         and role_by_id[edge.target_id] is ContributionRole.HUMAN_OWNER
+        and edge.relation in _SUBSTANTIVE_RECIPROCITY_RELATIONS
         for edge in manifest.revision_edges
     )
     if not (human_to_ai and ai_to_human):
         raise StudyError(
-            "co-construction requires reciprocal Human<->AI revision or challenge edges"
+            "co-construction requires reciprocal Human<->AI REVISES or CHALLENGES edges"
         )
 
     contribution_ids = set(role_by_id)
@@ -241,10 +250,21 @@ def audit_co_constructed_thinking_space(
     external_evidence = ContributionRole.EXTERNAL_EVIDENCE in roles
     repository_artifact = ContributionRole.REPOSITORY_ARTIFACT in roles
     implementation_evidence = ContributionRole.IMPLEMENTATION_EVIDENCE in roles
-    longitudinal_bindings = (
+
+    repository_artifact_payloads = {
+        item.payload_sha256
+        for item in manifest.contributions
+        if item.role is ContributionRole.REPOSITORY_ARTIFACT
+    }
+    persistent_artifact_bound = (
         manifest.persistent_artifact_sha256 is not None
-        and manifest.reentry_binding_sha256 is not None
+        and manifest.persistent_artifact_sha256 in repository_artifact_payloads
     )
+    reentry_binding_bound = (
+        manifest.reentry_binding_sha256 is not None
+        and manifest.reentry_binding_sha256 in repository_artifact_payloads
+    )
+    longitudinal_bindings = persistent_artifact_bound and reentry_binding_bound
 
     research_profile_complete = False
     if manifest.profile is ThinkingSpaceProfile.LONGITUDINAL_REPOSITORY_RESEARCH:
@@ -258,9 +278,17 @@ def audit_co_constructed_thinking_space(
             raise StudyError(
                 "longitudinal repository research profile requires implementation evidence"
             )
-        if not longitudinal_bindings:
+        if manifest.persistent_artifact_sha256 is None or manifest.reentry_binding_sha256 is None:
             raise StudyError(
                 "longitudinal repository research profile requires persistent artifact and re-entry bindings"
+            )
+        if not persistent_artifact_bound:
+            raise StudyError(
+                "persistent artifact binding must match a declared REPOSITORY_ARTIFACT payload"
+            )
+        if not reentry_binding_bound:
+            raise StudyError(
+                "re-entry binding must match a declared REPOSITORY_ARTIFACT payload"
             )
         research_profile_complete = True
 
