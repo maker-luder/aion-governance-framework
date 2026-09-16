@@ -4,10 +4,11 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from hashlib import sha256
 from html import unescape
+from http.client import HTTPMessage
 import ipaddress
 import re
 import socket
-from typing import Mapping, Protocol
+from typing import IO, Mapping, Protocol
 from urllib.parse import parse_qs, quote_plus, unquote, urljoin, urlparse
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
@@ -69,7 +70,15 @@ class _ValidatedRedirectHandler(HTTPRedirectHandler):
         self._max_redirects = max_redirects
         self._redirects = 0
 
-    def redirect_request(self, req: Request, fp: object, code: int, msg: str, headers: object, newurl: str) -> Request | None:
+    def redirect_request(
+        self,
+        req: Request,
+        fp: IO[bytes],
+        code: int,
+        msg: str,
+        headers: HTTPMessage,
+        newurl: str,
+    ) -> Request | None:
         self._redirects += 1
         if self._redirects > self._max_redirects:
             raise ValueError("external redirect budget exceeded")
