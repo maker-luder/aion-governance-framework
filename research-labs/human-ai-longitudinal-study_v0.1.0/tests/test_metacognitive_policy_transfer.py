@@ -160,6 +160,29 @@ def test_negative_control_detects_overprocessing_without_global_scoring() -> Non
     assert observation.unexpected_actions == (MetacognitiveAction.SEARCH_COUNTEREVIDENCE,)
 
 
+def test_negative_control_omission_is_not_mislabeled_as_overprocessing() -> None:
+    item = trial(
+        PolicyExposureCondition.EXTERNALIZED_METACOGNITIVE_POLICY,
+        PolicyAccessCondition.POLICY_WITHHELD,
+        MetacognitiveTaskClass.LOW_STAKES_NEGATIVE_CONTROL,
+    )
+    item = replace(
+        item,
+        expected_actions=frozenset(
+            {
+                MetacognitiveAction.LIGHTWEIGHT_RESPONSE,
+                MetacognitiveAction.PRESERVE_UNKNOWN,
+            }
+        ),
+        observed_actions=frozenset({MetacognitiveAction.LIGHTWEIGHT_RESPONSE}),
+    )
+    observation = observe_metacognitive_transfer(item)
+    assert observation.exact_action_match is False
+    assert observation.overprocessing_negative_control is False
+    assert observation.missing_actions == (MetacognitiveAction.PRESERVE_UNKNOWN,)
+    assert observation.unexpected_actions == ()
+
+
 def test_missing_or_duplicate_design_cell_fails_closed() -> None:
     with pytest.raises(StudyError, match="exactly one"):
         audit_metacognitive_transfer_matrix(matrix()[:-1])
