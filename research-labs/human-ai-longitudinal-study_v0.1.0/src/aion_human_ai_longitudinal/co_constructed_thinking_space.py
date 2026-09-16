@@ -32,6 +32,25 @@ def _validate_digest(name: str, digest: str) -> None:
         raise StudyError(f"{name} must be a lowercase SHA-256 digest")
 
 
+def _revision_graph_is_connected(
+    contribution_ids: set[str],
+    revision_edges: tuple[RevisionEdge, ...],
+) -> bool:
+    adjacency = {contribution_id: set() for contribution_id in contribution_ids}
+    for edge in revision_edges:
+        adjacency[edge.source_id].add(edge.target_id)
+        adjacency[edge.target_id].add(edge.source_id)
+    pending = [next(iter(contribution_ids))]
+    visited: set[str] = set()
+    while pending:
+        current = pending.pop()
+        if current in visited:
+            continue
+        visited.add(current)
+        pending.extend(adjacency[current] - visited)
+    return visited == contribution_ids
+
+
 @dataclass(frozen=True, slots=True)
 class EpistemicContribution:
     contribution_id: str
@@ -124,10 +143,15 @@ class CoConstructedThinkingSpaceManifest:
         if len(set(structural_digests)) != len(structural_digests):
             raise StudyError("core structural bindings must be content-distinct")
 
+        optional_digests: list[str] = []
         for name in ("persistent_artifact_sha256", "reentry_binding_sha256"):
             digest = getattr(self, name)
             if digest is not None:
                 _validate_digest(name, digest)
+                optional_digests.append(digest)
+        all_structural_digests = structural_digests + tuple(optional_digests)
+        if len(set(all_structural_digests)) != len(all_structural_digests):
+            raise StudyError("longitudinal bindings must be distinct from core bindings and each other")
 
         for name in (
             "synthetic",
@@ -153,7 +177,9 @@ class CoConstructedThinkingSpaceManifest:
             or self.asserts_shared_consciousness
             or self.asserts_ai_subjectivity_from_structure
         ):
-            raise StudyError("thinking-space structure cannot establish shared mind, consciousness, or AI subjectivity")
+            raise StudyError(
+                "thinking-space structure cannot establish shared mind, consciousness, or AI subjectivity"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -161,6 +187,7 @@ class ThinkingSpaceAudit:
     profile: ThinkingSpaceProfile
     roles_present: tuple[ContributionRole, ...]
     reciprocal_human_ai_revision: bool
+    revision_graph_connected: bool
     external_evidence_present: bool
     repository_artifact_present: bool
     implementation_evidence_present: bool
@@ -202,7 +229,14 @@ def audit_co_constructed_thinking_space(
         for edge in manifest.revision_edges
     )
     if not (human_to_ai and ai_to_human):
-        raise StudyError("co-construction requires reciprocal Human<->AI revision or challenge edges")
+        raise StudyError(
+            "co-construction requires reciprocal Human<->AI revision or challenge edges"
+        )
+
+    contribution_ids = set(role_by_id)
+    graph_connected = _revision_graph_is_connected(contribution_ids, manifest.revision_edges)
+    if not graph_connected:
+        raise StudyError("all declared contributions must participate in one connected revision graph")
 
     external_evidence = ContributionRole.EXTERNAL_EVIDENCE in roles
     repository_artifact = ContributionRole.REPOSITORY_ARTIFACT in roles
@@ -217,17 +251,24 @@ def audit_co_constructed_thinking_space(
         if not external_evidence:
             raise StudyError("longitudinal repository research profile requires external evidence")
         if not repository_artifact:
-            raise StudyError("longitudinal repository research profile requires repository artifact mediation")
+            raise StudyError(
+                "longitudinal repository research profile requires repository artifact mediation"
+            )
         if not implementation_evidence:
-            raise StudyError("longitudinal repository research profile requires implementation evidence")
+            raise StudyError(
+                "longitudinal repository research profile requires implementation evidence"
+            )
         if not longitudinal_bindings:
-            raise StudyError("longitudinal repository research profile requires persistent artifact and re-entry bindings")
+            raise StudyError(
+                "longitudinal repository research profile requires persistent artifact and re-entry bindings"
+            )
         research_profile_complete = True
 
     return ThinkingSpaceAudit(
         profile=manifest.profile,
         roles_present=tuple(sorted(roles, key=str)),
         reciprocal_human_ai_revision=True,
+        revision_graph_connected=True,
         external_evidence_present=external_evidence,
         repository_artifact_present=repository_artifact,
         implementation_evidence_present=implementation_evidence,
