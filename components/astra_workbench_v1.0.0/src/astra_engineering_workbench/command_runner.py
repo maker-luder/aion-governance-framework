@@ -13,6 +13,12 @@ from .command_policy import CommandPolicy, sanitized_environment
 from .models import CommandRequest, CommandResult
 
 
+def _creation_flags() -> int:
+    if os.name != "nt":
+        return 0
+    return int(getattr(subprocess, "CREATE_NEW_PROCESS_GROUP", 0))
+
+
 class CommandRunner:
     def __init__(self, candidate_root: Path, audit: AppendOnlyAudit) -> None:
         self.candidate_root = candidate_root
@@ -29,9 +35,7 @@ class CommandRunner:
             stderr=subprocess.PIPE,
             text=False,
             shell=False,
-            creationflags=(
-                subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
-            ),
+            creationflags=_creation_flags(),
         )
         timed_out = False
         try:
