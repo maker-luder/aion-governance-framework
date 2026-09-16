@@ -5,3 +5,5 @@ pytest==9.1.1
 pytest-cov==7.1.0
 jsonschema==4.26.0
 ruff==0.16.4
+mypy==2.3.1
+types-tzdata==2026.0.0.20260408

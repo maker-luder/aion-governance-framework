@@ -7,12 +7,15 @@ No model, scheduler, network, repository writer or canonical-state writer runs h
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass
 from enum import Enum
 import hashlib
 import json
 import re
+import sqlite3
+from typing import Any
 
 from .revision_integrity import bounded_dag, canonical_payload, identifier, strict_json, timestamp
 from .models import RecallRequest
@@ -191,7 +194,7 @@ class ClaimRevisionService:
             self._validate_state(db)
 
     @staticmethod
-    def _evidence_payload(raw: str) -> dict:
+    def _evidence_payload(raw: str) -> dict[str, Any]:
         data = strict_json(raw)
         if not isinstance(data, dict):
             raise ValueError("corrupt evidence object")
@@ -200,7 +203,7 @@ class ClaimRevisionService:
         return asdict(EvidenceLink(**data))
 
     @staticmethod
-    def _duplicates(links: list[dict]) -> list[dict]:
+    def _duplicates(links: list[dict[str, Any]]) -> list[dict[str, Any]]:
         groups: dict[str, list[str]] = {}
         for link in links:
             groups.setdefault(link["content_sha256"], []).append(link["evidence_id"])
@@ -208,7 +211,7 @@ class ClaimRevisionService:
                 for key, ids in sorted(groups.items()) if len(ids) > 1]
 
     @staticmethod
-    def _source_lineage(links: list[dict]) -> dict[str, list[str]]:
+    def _source_lineage(links: list[dict[str, Any]]) -> dict[str, list[str]]:
         graph: dict[str, tuple[str, ...]] = {}
         for link in links:
             source = link["source_id"]
@@ -226,14 +229,14 @@ class ClaimRevisionService:
             roots[source] = sorted(set().union(*(set(roots[parent]) for parent in graph[source]))) if graph[source] else [source]
         return {key: roots[key] for key in sorted(roots)}
 
-    def _graph(self, db) -> tuple[dict, dict]:
+    def _graph(self, db: sqlite3.Connection) -> tuple[dict[str, sqlite3.Row], dict[str, tuple[str, ...]]]:
         count = db.execute("SELECT count(*) FROM claim_versions WHERE scope=?", (self.scope,)).fetchone()[0]
         if count > MAX_VERSIONS:
             raise ValueError("claim version budget exceeded")
         if db.execute("SELECT 1 FROM claim_versions WHERE scope=? AND (length(dependencies_json)>4000 OR length(assumptions_json)>160000 OR length(memory_id)>200 OR length(claim_id)>200) LIMIT 1", (self.scope,)).fetchone():
             raise ValueError("stored version text budget exceeded")
-        rows = {r["memory_id"]: r for r in db.execute("SELECT * FROM claim_versions WHERE scope=? ORDER BY memory_id", (self.scope,))}
-        graph = {}
+        rows: dict[str, sqlite3.Row] = {r["memory_id"]: r for r in db.execute("SELECT * FROM claim_versions WHERE scope=? ORDER BY memory_id", (self.scope,))}
+        graph: dict[str, tuple[str, ...]] = {}
         for mid, row in rows.items():
             identifier(mid, "memory_id")
             identifier(row["claim_id"], "claim_id")
@@ -247,9 +250,9 @@ class ClaimRevisionService:
                     max_parents=MAX_PARENTS, labels={mid: r["claim_id"] for mid, r in rows.items()})
         return rows, graph
 
-    def _lineage(self, db, memory_id: str) -> set[str]:
+    def _lineage(self, db: sqlite3.Connection, memory_id: str) -> set[str]:
         _, graph = self._graph(db)
-        result = set()
+        result: set[str] = set()
         todo = [memory_id]
         while todo:
             mid = todo.pop()
@@ -259,7 +262,7 @@ class ClaimRevisionService:
                 todo.extend(graph[mid])
         return result
 
-    def _validate_state(self, db) -> None:
+    def _validate_state(self, db: sqlite3.Connection) -> None:
         """Fail closed on bounded structural corruption; no repair or truth judgment."""
         expected = {
             "claim_versions": ("memory_id", "scope", "claim_id", "version", "status", "inference_type", "assumptions_json", "dependencies_json", "supersedes"),
@@ -312,7 +315,7 @@ class ClaimRevisionService:
                     raise ValueError("invalid supersession lineage")
         if any(sorted(versions) != list(range(1, len(versions) + 1)) for versions in claims.values()):
             raise ValueError("nonlinear claim version sequence")
-        links = []
+        links: list[dict[str, Any]] = []
         for row in db.execute("SELECT * FROM claim_evidence WHERE scope=? ORDER BY evidence_id", (self.scope,)):
             if len(row["payload_json"]) > 40000:
                 raise ValueError("evidence payload budget exceeded")
@@ -321,20 +324,24 @@ class ClaimRevisionService:
                 raise ValueError("corrupt evidence binding")
             links.append(link)
         self._source_lineage(links)
-        events = [dict(r) for r in db.execute("SELECT * FROM claim_revision_events WHERE scope=? ORDER BY sequence", (self.scope,))]
+        events: list[dict[str, Any]] = [dict(r) for r in db.execute("SELECT * FROM claim_revision_events WHERE scope=? ORDER BY sequence", (self.scope,))]
         if not verify_revision_history({"events": events, "event_head": self._head(db)}):
             raise ValueError("revision event chain damaged")
         self._validate_projection(rows, links, events)
 
     @staticmethod
-    def _validate_projection(rows: dict, links: list[dict], events: list[dict]) -> None:
+    def _validate_projection(
+        rows: dict[str, sqlite3.Row],
+        links: list[dict[str, Any]],
+        events: list[dict[str, Any]],
+    ) -> None:
         """Cross-check bounded event effects, not authenticity of a rewritten database."""
         statuses: dict[str, str] = {}
-        dependencies: dict[str, tuple] = {}
-        seen_evidence: dict[str, dict] = {}
+        dependencies: dict[str, tuple[str, ...]] = {}
+        seen_evidence: dict[str, dict[str, Any]] = {}
         retired = {ClaimStatus.SUPERSEDED, ClaimStatus.WITHDRAWN}
 
-        def insert(mid, claim_id, version, parents, previous):
+        def insert(mid: str, claim_id: str, version: int, parents: list[str], previous: str | None) -> None:
             row = rows.get(mid)
             if mid in statuses or row is None or (row['claim_id'], row['version'], row['supersedes']) != (claim_id, version, previous):
                 raise ValueError("event/version projection mismatch")
@@ -343,7 +350,7 @@ class ClaimRevisionService:
             statuses[mid] = ClaimStatus.RECORDED
             dependencies[mid] = tuple(parents)
 
-        def hold(mid, status, declared):
+        def hold(mid: str, status: ClaimStatus, declared: list[str]) -> None:
             affected = {mid}
             for node in bounded_dag(dependencies, max_nodes=MAX_VERSIONS, max_edges=MAX_EDGES,
                                     max_depth=MAX_DEPTH, max_parents=MAX_PARENTS):
@@ -391,7 +398,7 @@ class ClaimRevisionService:
             if statuses != {mid: row['status'] for mid, row in rows.items()}:
                 raise ValueError("event/status projection mismatch")
             # New events normalize human text; V1 events and stored payloads remain untouched.
-            def normalize(link):
+            def normalize(link: dict[str, Any]) -> dict[str, Any]:
                 return canonical_payload({'link': link})
             if {k: normalize(v) for k, v in seen_evidence.items()} != {v['evidence_id']: normalize(v) for v in links}:
                 raise ValueError("event/evidence projection mismatch")
@@ -399,7 +406,7 @@ class ClaimRevisionService:
             raise ValueError("malformed revision event projection") from exc
 
     @contextmanager
-    def _transaction(self, approved: bool):
+    def _transaction(self, approved: bool) -> Iterator[sqlite3.Connection]:
         if approved is not True:
             raise MemoryWriteDenied("explicit local writeback approval is required")
         db = self.store._connect()
@@ -415,7 +422,7 @@ class ClaimRevisionService:
         finally:
             db.close()
 
-    def _memory(self, db, memory_id: str) -> StoredMemory:
+    def _memory(self, db: sqlite3.Connection, memory_id: str) -> StoredMemory:
         identifier(memory_id, "memory_id")
         if db.execute("SELECT 1 FROM memory_records WHERE memory_id=? AND (length(content)>4000 OR length(provenance_source)>4000 OR length(entities_json)>16000 OR length(topics_json)>16000 OR length(access_scope_json)>16000) LIMIT 1", (memory_id,)).fetchone():
             raise ValueError("memory text budget exceeded")
@@ -439,18 +446,20 @@ class ClaimRevisionService:
                 identifier(ref, "memory reference")
         return item
 
-    def _version(self, db, memory_id: str):
+    def _version(self, db: sqlite3.Connection, memory_id: str) -> sqlite3.Row:
         self._memory(db, memory_id)
         row = db.execute("SELECT * FROM claim_versions WHERE memory_id=? AND scope=?", (memory_id, self.scope)).fetchone()
         if row is None:
             raise KeyError(memory_id)
+        if not isinstance(row, sqlite3.Row):
+            raise ValueError("claim version row factory is not sqlite3.Row")
         return row
 
-    def _head(self, db) -> str:
+    def _head(self, db: sqlite3.Connection) -> str:
         row = db.execute("SELECT event_hash FROM claim_revision_events WHERE scope=? ORDER BY sequence DESC LIMIT 1", (self.scope,)).fetchone()
-        return "GENESIS" if row is None else row[0]
+        return "GENESIS" if row is None else str(row[0])
 
-    def _append(self, db, payload: dict) -> None:
+    def _append(self, db: sqlite3.Connection, payload: dict[str, Any]) -> None:
         count = db.execute("SELECT count(*) FROM claim_revision_events WHERE scope=?", (self.scope,)).fetchone()[0]
         if count >= MAX_EVENTS:
             raise ValueError("revision event budget exhausted")
@@ -464,7 +473,7 @@ class ClaimRevisionService:
         digest = _hash({"sequence": count + 1, "previous_hash": previous, "payload": payload})
         db.execute("INSERT INTO claim_revision_events VALUES(?,?,?,?,?)", (self.scope, count + 1, previous, _json(payload), digest))
 
-    def _dependencies(self, db, ids: tuple[str, ...], item: StoredMemory, claim_id: str) -> None:
+    def _dependencies(self, db: sqlite3.Connection, ids: tuple[str, ...], item: StoredMemory, claim_id: str) -> None:
         if not isinstance(ids, tuple) or len(ids) > MAX_PARENTS or len(ids) != len(set(ids)):
             raise ValueError("dependencies must be a tuple of at most 16 distinct version IDs")
         for mid in ids:
@@ -481,7 +490,7 @@ class ClaimRevisionService:
         bounded_dag(graph, max_nodes=MAX_VERSIONS, max_edges=MAX_EDGES, max_depth=MAX_DEPTH,
                     max_parents=MAX_PARENTS, labels=labels)
 
-    def _insert(self, db, memory_id: str, claim_id: str, version: int, inference_type: InferenceType,
+    def _insert(self, db: sqlite3.Connection, memory_id: str, claim_id: str, version: int, inference_type: InferenceType,
                 assumptions: tuple[str, ...], dependencies: tuple[str, ...], supersedes: str | None) -> None:
         identifier(claim_id, "claim_id")
         if not isinstance(inference_type, InferenceType):
@@ -515,7 +524,7 @@ class ClaimRevisionService:
                 "claim_id": claim_id, "inference_type": inference_type.value,
                 "assumptions": assumptions, "dependencies": sorted(dependencies)})
 
-    def _hold(self, db, memory_id: str, status: ClaimStatus) -> list[str]:
+    def _hold(self, db: sqlite3.Connection, memory_id: str, status: ClaimStatus) -> list[str]:
         rows, graph = self._graph(db)
         affected = {memory_id}
         # Include retired nodes while traversing historical version-bound edges.
@@ -564,7 +573,7 @@ class ClaimRevisionService:
             db.execute("BEGIN")
             self._validate_state(db)
             rows = db.execute("SELECT * FROM claim_versions WHERE scope=? AND status IN ('CHALLENGED','DEPENDENCY_HOLD') ORDER BY memory_id", (self.scope,)).fetchall()
-            result = []
+            result: list[RevisionRequest] = []
             for row in rows:
                 try:
                     item = self._memory(db, row["memory_id"])
@@ -625,6 +634,8 @@ class ClaimRevisionService:
                 db.execute("UPDATE memory_records SET superseded=1 WHERE memory_id=?", (memory_id,))
             else:
                 content = item.content if decision is ReviewDecision.RETAIN else replacement_content
+                if content is None:
+                    raise ValueError("revision requires replacement_content")
                 _text(content, "replacement_content")
                 if decision is ReviewDecision.RETAIN and replacement_content is not None:
                     raise ValueError("retain uses the existing content")
@@ -646,7 +657,7 @@ class ClaimRevisionService:
                               "affected": affected})
             return successor
 
-    def snapshot(self) -> dict:
+    def snapshot(self) -> dict[str, Any]:
         """Inspection-only export with complete version, evidence and event history.
 
         Same-namespace export requires access to every enrolled memory, rather
@@ -674,7 +685,7 @@ class ClaimRevisionService:
                     "distinct_content_digests": len({e["content_sha256"] for e in links})}
 
 
-def verify_revision_history(snapshot: dict) -> bool:
+def verify_revision_history(snapshot: dict[str, Any]) -> bool:
     """Check event-chain integrity only, not truth or resistance to database-owner tampering."""
     previous = "GENESIS"
     try:
@@ -690,6 +701,6 @@ def verify_revision_history(snapshot: dict) -> bool:
             if event["sequence"] != number or event["previous_hash"] != previous or event["event_hash"] != expected:
                 return False
             previous = expected
-        return snapshot["event_head"] == previous
+        return bool(snapshot["event_head"] == previous)
     except (KeyError, TypeError, ValueError):
         return False

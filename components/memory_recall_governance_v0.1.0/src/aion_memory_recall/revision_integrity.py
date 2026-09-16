@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import heapq
 import json
 import unicodedata
+from typing import Any, NoReturn
 
 
 CANONICALIZATION = "CLAIM_REVISION_V2"
@@ -26,7 +27,7 @@ def timestamp(value: str) -> str:
     return parsed.astimezone(timezone.utc).isoformat(timespec="microseconds")
 
 
-def canonical_payload(value: dict) -> dict:
+def canonical_payload(value: dict[str, Any]) -> dict[str, Any]:
     """Normalize human text only. IDs/URIs remain exact; time denotes a UTC instant.
 
     Lists remain ordered. Callers sort set-like references before this function.
@@ -34,7 +35,7 @@ def canonical_payload(value: dict) -> dict:
     """
     text_fields = {"content", "replacement_content", "rationale", "reason", "assumptions", "publisher"}
 
-    def visit(item, field=""):
+    def visit(item: Any, field: str = "") -> Any:
         if item is None or type(item) in (bool, int):
             return item
         if isinstance(item, str):
@@ -50,6 +51,8 @@ def canonical_payload(value: dict) -> dict:
         raise ValueError("canonical payload permits only explicit JSON primitives; no floats or sets")
 
     result = visit(value)
+    if not isinstance(result, dict):
+        raise ValueError("canonical payload root must remain an object")
     result["canonicalization"] = CANONICALIZATION
     return result
 
@@ -59,8 +62,8 @@ def bounded_dag(graph: dict[str, tuple[str, ...]], *, max_nodes: int, max_edges:
     """Iterative, sorted Kahn traversal; rejects cycles and longest-path excess."""
     if len(graph) > max_nodes:
         raise ValueError("graph node budget exceeded")
-    children = {node: [] for node in graph}
-    degrees = {}
+    children: dict[str, list[str]] = {node: [] for node in graph}
+    degrees: dict[str, int] = {}
     edge_count = 0
     for node, parents in graph.items():
         identifier(node)
@@ -77,9 +80,9 @@ def bounded_dag(graph: dict[str, tuple[str, ...]], *, max_nodes: int, max_edges:
             children[parent].append(node)
     ready = [node for node, degree in degrees.items() if degree == 0]
     heapq.heapify(ready)
-    depths = {node: 0 for node in ready}
+    depths: dict[str, int] = {node: 0 for node in ready}
     ancestors: dict[str, set[str]] = {}
-    result = []
+    result: list[str] = []
     while ready:
         node = heapq.heappop(ready)
         result.append(node)
@@ -100,17 +103,17 @@ def bounded_dag(graph: dict[str, tuple[str, ...]], *, max_nodes: int, max_edges:
     return tuple(result)
 
 
-def strict_json(value: str):
+def strict_json(value: str) -> Any:
     """Reject ambiguous duplicate object keys and non-finite JSON numbers."""
-    def pairs(items):
-        result = {}
+    def pairs(items: list[tuple[str, Any]]) -> dict[str, Any]:
+        result: dict[str, Any] = {}
         for key, item in items:
             if key in result:
                 raise ValueError("duplicate JSON key")
             result[key] = item
         return result
 
-    def reject(_):
+    def reject(_: str) -> NoReturn:
         raise ValueError("non-finite JSON value")
 
     return json.loads(value, object_pairs_hook=pairs, parse_constant=reject)

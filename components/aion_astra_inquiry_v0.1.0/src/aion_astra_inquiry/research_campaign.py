@@ -99,6 +99,7 @@ class BoundedAutonomousResearchCampaign:
         self._evidence_limit = evidence_limit
         self._repository_ref = repository_ref.strip() or "UNSPECIFIED"
         self._max_harness_runs_per_cycle = max_harness_runs_per_cycle
+        self._external_source: EvidenceSource | None
         if external_evidence_source is not None:
             self._external_source = external_evidence_source
         elif external_web:
@@ -107,6 +108,7 @@ class BoundedAutonomousResearchCampaign:
             self._external_source = None
         self._external_enabled = self._external_source is not None
         self._closure = BoundedResearchClosure()
+        self._harness: BoundedHarnessOrchestrator | None
         if harness_orchestrator is not None:
             self._harness = harness_orchestrator
         elif harness_execution and max_harness_runs_per_cycle > 0:

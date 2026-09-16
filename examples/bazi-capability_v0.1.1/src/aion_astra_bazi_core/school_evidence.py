@@ -107,7 +107,7 @@ def derive_seasonal_evidence(pillars: tuple[Pillar, ...]) -> SeasonalEvidenceFac
     month_branch = by_name["MONTH"].branch
     visible = Counter(STEM_ELEMENTS[pillar.stem] for pillar in pillars)
     hidden = Counter(STEM_ELEMENTS[stem] for pillar in pillars for stem in pillar.hidden_stems)
-    relations = Counter()
+    relations: Counter[str] = Counter()
     for element, count in visible.items():
         relations[_element_relation(day_element, element)] += count
     for element, count in hidden.items():

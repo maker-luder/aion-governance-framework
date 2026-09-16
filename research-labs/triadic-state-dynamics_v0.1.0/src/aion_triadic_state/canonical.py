@@ -8,7 +8,7 @@ from typing import Any, Mapping
 
 
 def canonical_value(value: Any) -> Any:
-    if is_dataclass(value):
+    if is_dataclass(value) and not isinstance(value, type):
         return canonical_value(asdict(value))
     if isinstance(value, Enum):
         return value.value
