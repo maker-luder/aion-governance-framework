@@ -74,7 +74,7 @@ class DataQualityDisposition(StrEnum):
 
 
 class SupplierQualityDisposition(StrEnum):
-    QUALIFIED_FOR_DECLARED_SCOPE = "QUALIFIED_FOR_DECLARED_SCOPE"
+    CONDITIONAL = "CONDITIONAL"
     ENHANCED_REVIEW = "ENHANCED_REVIEW"
     SCOPE_RESTRICTED = "SCOPE_RESTRICTED"
     QUARANTINED = "QUARANTINED"
@@ -302,13 +302,17 @@ class UpstreamQualityRecord:
             "incident_refs",
             "local_ncr_refs",
         ):
-            _text_tuple(name, getattr(self, name), allow_empty=name not in {"provenance_refs", "assessment_refs", "requalification_triggers"})
+            _text_tuple(
+                name,
+                getattr(self, name),
+                allow_empty=name not in {"provenance_refs", "assessment_refs", "requalification_triggers"},
+            )
         if type(self.criticality) is not Severity:
             raise QualityError("criticality must be an exact Severity")
         if type(self.disposition) is not SupplierQualityDisposition:
             raise QualityError("disposition must be an exact SupplierQualityDisposition")
-        if self.disposition is SupplierQualityDisposition.QUALIFIED_FOR_DECLARED_SCOPE and not self.approved_scope_refs:
-            raise QualityError("qualified supplier scope must identify approved scope refs")
+        if self.disposition is SupplierQualityDisposition.CONDITIONAL and not self.approved_scope_refs:
+            raise QualityError("conditional supplier state must identify approved scope refs")
         if self.disposition in {SupplierQualityDisposition.QUARANTINED, SupplierQualityDisposition.DENIED} and not (
             self.incident_refs or self.assessment_refs
         ):
@@ -338,7 +342,11 @@ class ClaimWithdrawalPropagationRecord:
             "local_ncr_refs",
             "resolution_refs",
         ):
-            _text_tuple(name, getattr(self, name), allow_empty=name in {"dependent_claim_refs", "local_ncr_refs", "resolution_refs"})
+            _text_tuple(
+                name,
+                getattr(self, name),
+                allow_empty=name in {"dependent_claim_refs", "local_ncr_refs", "resolution_refs"},
+            )
         if type(self.disposition) is not ClaimImpactDisposition:
             raise QualityError("disposition must be an exact ClaimImpactDisposition")
         if type(self.history_preserved) is not bool or type(self.deletion_requested) is not bool:
