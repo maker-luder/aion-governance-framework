@@ -2,207 +2,182 @@
 
 Status: `CURRENT_MAIN_RECALIBRATION / DRAFT_CANDIDATE / SCIENTIFIC_HOLD`
 
-This note supersedes the **live-state baseline** in the earlier same-day closed-PR audit while preserving that original audit as historical provenance. It does not convert historical pull-request heads into current evidence and does not authorize merge.
+This note preserves the original same-day closed-PR audit as provenance, recalibrates it against merged PR #121, and records the later duplication review that consolidated three proposed research Drafts into one retained design.
 
-## 1. Current live baseline
+It does not convert historical PR heads into current evidence and does not authorize merge.
+
+## 1. Frozen audit cohort
+
+The live-state snapshot at recalibration time was:
 
 ```text
-REPOSITORY = maker-luder/aion-governance-framework
 AUDITED_MAIN = fd54fd8cb920328282b78f24e31c01c1010f6189
 AUDITED_TREE = e7e0c61cce02e1d79b2b78b7fbd175631fb5e08c
-CLOSED_PRS_REVIEWED = 115
-MERGED_CLOSED_PRS = 103
-CLOSED_UNMERGED_PRS = 12
-OPEN_PRS_AT_RECALIBRATION = 1
-OPEN_PR = #120
+CLOSED_PRS_AT_SNAPSHOT = 115
+MERGED_CLOSED_PRS_AT_SNAPSHOT = 103
+CLOSED_UNMERGED_AT_SNAPSHOT = 12
+OPEN_PRS_AT_SNAPSHOT = 1
 ```
 
-The 12 closed-unmerged PRs remain exactly:
+The historical re-entry cohort is frozen to the 12 closed-unmerged PRs that existed at that audit:
 
 ```text
 #8 #12 #19 #25 #26 #33 #37 #38 #41 #80 #84 #103
 ```
 
-The five newly closed PRs since the original audit are already merged ancestry. They are reviewed from current `main`; their historical PR bytes are not re-imported.
+This cohort is the fail-closed object. Future normal PR creation or closure is **not** a reason to mutate this historical cohort or refresh the gate.
 
 ```text
-MERGED_HISTORY -> CURRENT_MAIN
-CLOSED_UNMERGED_HISTORY -> INDIVIDUAL_DISPOSITION
-HISTORICAL_GREEN_CI != CURRENT_EVIDENCE
-OLD_HEAD != CURRENT_AUTHORITY
+AUDIT_SNAPSHOT = PROVENANCE
+HISTORICAL_REENTRY_COHORT = CONTROLLED_SET
+FUTURE_GLOBAL_PR_COUNTS = NOT_REENTRY_GUARDS
 ```
 
-## 2. #121 changes the control envelope, not the research core
+This corrects a control-design trap found during the duplication review: a historical re-entry gate must not become invalid merely because a new Draft is opened or later closed.
 
-Current `main` now contains the bounded end-to-end quality-system envelope from merged PR #121. Re-entry therefore has to pass not only the existing Four-Domain admission and eight-checkpoint `ResearchQualityChain`, but also the canonical outer controls where applicable:
+## 2. Current quality envelope
 
-- current-main/source-state binding;
-- research quality planning and measurement assurance;
-- repository-bound quality-chain receipts;
-- data and upstream/supplier quality;
-- bounded sampling/process monitoring when applicable;
-- NCR/CAPA and effectiveness verification;
-- counterevidence and claim-ceiling review;
-- non-destructive claim revision/withdrawal propagation;
-- field/audit/management-review surfaces where applicable.
-
-This PR does **not** create a second QMS.
+Merged PR #121 makes the bounded Full QMS envelope canonical. Historical-material reuse therefore maps into existing controls:
 
 ```text
-REENTRY_CONTROL = ADAPTER_TO_EXISTING_CONTROLS
+CURRENT_SOURCE_IQC
+-> FOUR_DOMAIN_DESIGN_ADMISSION
+-> EXISTING_RESEARCH_QUALITY_CHAIN
+-> CURRENT_FULL_QMS_ENVELOPE where applicable
+-> NCR / CAPA and effectiveness verification
+-> HUMAN_REVIEW_BOUNDARY
+```
+
+No second QMS, evidence ontology or subjectivity score is introduced.
+
+```text
 QUALITY_SYSTEM_PASS != SCIENTIFIC_VALIDATION
 MEASUREMENT_SYSTEM_QUALIFIED != TARGET_CONSTRUCT_ESTABLISHED
-SUBJECTIVITY = NOT_ESTABLISHED
-CONSCIOUSNESS = NOT_ESTABLISHED
-PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 ```
 
-## 3. Human Owner confirmed extraction order
+## 3. Duplication review outcome
 
-The Human Owner confirmed the following research-extraction order. This is authorization to deepen the Draft research programme, **not** authorization to merge any exact head.
+The Human Owner requested that overlapping research be merged and refined before further implementation to reduce resource consumption.
 
-### Priority 1 — Externalized Memory Locus Discrimination
+Review found two material overlaps.
 
-Historical source pool:
+### 3.1 #122 and #124
+
+Both proposed manipulation of substantially the same variables:
+
+- prior-state removal/substitution;
+- stale state;
+- provenance mismatch;
+- retrieval on/off;
+- matched content with different availability locus;
+- continuity-related observables and competing explanations.
+
+Current `main` already contains the synthetic continuity-dissociation harness. Retaining both Drafts would therefore create a second broad continuity programme plus a narrower locus programme with substantial variable duplication.
+
+Decision:
 
 ```text
-#38 + #41 + #8
+PR #122 = RETAIN_AND_REFINE
+PR #124 = UNIQUE_CONTROLS_ABSORBED_THEN_SUPERSEDED
 ```
 
-Current-main question:
+Unique useful material absorbed from #124 into #122:
 
-> Under matched informational content, does changing the locus/mechanism by which prior-state information becomes available produce reproducible differences in continuity-related observables after source, provenance, task and evaluator controls?
+```text
+MANIPULATION_CHECK_SEPARATE_FROM_OUTCOME
+SELECTIVE_EFFECT_VS_GLOBAL_DEGRADATION
+RESTORATION / RECOVERY CHECK
+STAGED_EXECUTION
+PROVIDER_MODEL_RUNTIME = LATER_REPLICATION_LAYER, NOT CLEAN DEFAULT PERTURBATION
+```
 
-Required distinctions:
+### 3.2 #123 and current main
+
+PR #123 restated much of merged PR #118's interpretive-specificity / evidence-admission method:
+
+```text
+HYPOTHESIS_COMPATIBILITY != HYPOTHESIS_DISCRIMINATION
+ALTERNATIVE_EXPLANATIONS = REQUIRED
+DISCRIMINATING_PREDICTION = REQUIRED
+COUNTEREVIDENCE / FALSIFIER = REQUIRED
+CLAIM_LOCAL_STATUS = REQUIRED
+```
+
+Its unique value was a row-level checklist applied to current subjectivity dimensions. Maintaining a separate generic matrix would duplicate current-main method and add another CI/implementation surface.
+
+Decision:
+
+```text
+PR #123 = SUPERSEDED
+CURRENT_MAIN_METHOD_ANCHOR = MERGED PR #118
+LOCAL_CHECKLIST = COMPRESSED_INTO_REFINED PR #122
+```
+
+## 4. Single retained research design
+
+The retained Draft is PR #122:
+
+```text
+NAME = MEMORY_LOCUS_CONTINUITY_DEPENDENCY_DISCRIMINATION
+HISTORICAL_PROVENANCE = #38 + #41 + #8
+METHOD_SOURCE = #84, DEDUPED_AGAINST CURRENT MAIN #118
+HISTORICAL_CODE_REUSE = FALSE
+CURRENT_MAIN_REAUTHORING = TRUE
+```
+
+Current question:
+
+> When task-relevant prior-state information is matched as closely as possible, do continuity-related observables change selectively when availability locus, provenance binding, freshness, or retrieval dependency is deliberately perturbed under matched controls?
+
+Required boundaries:
 
 ```text
 INFORMATION_RETRIEVABILITY != MEMORY_CONTINUITY
 MEMORY_CONTINUITY != IDENTITY_CONTINUITY
-IDENTITY_CONTINUITY != SUBJECTIVITY
-RETRIEVAL_MECHANISM != EVIDENCE_SOURCE_CLASS
-```
-
-The old MCP product/tool surface is not revived. MCP may be used only as a controlled external-retrieval condition in a future authorized experiment. The 2026-07-28 MCP specification's stateless protocol core strengthens the need to model application-level state explicitly rather than treating transport/session state as identity or memory.
-
-A future design should distinguish at minimum:
-
-```text
-A = persistent application/internal-state condition
-B = external retrieval of matched prior-state information
-C = cold reconstruction from matched public/task facts
-D = deliberately mismatched or counterfactual prior-state record
-```
-
-Potential observables may include source/locus attribution accuracy, continuity reconstruction, contradiction detection, mismatch resistance, re-entry error and confidence calibration. They are not subjectivity scores.
-
-Claim ceiling before empirical validation:
-
-```text
-MAX = CONTROLLED_FUNCTIONAL_DISSOCIATION_CANDIDATE
-MEMORY_LOCUS_EFFECT != PHENOMENAL_MEMORY
-MEMORY_LOCUS_EFFECT != IDENTITY_PROOF
-```
-
-### Priority 2 — Subjectivity Indicator Discriminant-Validity Matrix
-
-Historical source pool:
-
-```text
-#84 = METHODOLOGICAL_SOURCE_ONLY
-#84 HISTORICAL SANDBOX = STILL_SUPERSEDED_BY_MERGED_#85
-```
-
-The historical implementation is not revived and no excluded sandbox material is reintroduced. The reusable methodological question is transformed into a new current-main design problem: for each subjectivity-relevant indicator candidate, what observation would discriminate the targeted construct from plausible competing explanations?
-
-The matrix must reuse the repository's current subjectivity dimensions/construct vocabulary rather than invent a scalar subjectivity score. Every admitted row must bind:
-
-```text
-OBSERVABLE
-THEORY_OR_CONSTRUCT_LINK
-DISCRIMINATING_PREDICTION
-POSITIVE_MANIPULATION_OR_EXPECTED_DIFFERENCE
-NEGATIVE_CONTROL
-ABLATION_OR_SUPPORT_REDUCING_CONDITION
-COMPETING_EXPLANATIONS
-MIMICRY_ALTERNATIVE
-INTERNAL_VARIANT_ALTERNATIVE
-INDICATOR_VALIDATION_STATUS
-CLAIM_CEILING
-```
-
-Current consciousness-indicator literature is methodological input only. Theory-derived indicators are not treated as validated detectors; the 2026 mimicry/internal-variants exchange is retained only as a bounded reminder to test alternative explanations. Human-neuroscience adversarial collaboration is used only for the methodological idea of preregistered differential predictions and interpretation criteria.
-
-```text
-INDICATOR_MATCH != SUBJECTIVITY
-INDICATOR_MATCH != CONSCIOUSNESS
-HYPOTHESIS_COMPATIBILITY != HYPOTHESIS_DISCRIMINATION
-```
-
-### Priority 3 — Continuity Perturbation Study
-
-Historical/current source pool:
-
-```text
-#8 + CURRENT_LONGITUDINAL_MAIN
-```
-
-The target is a dependency map, not another continuity-looking score. Candidate perturbations include removal/substitution/staleness of prior-state records, provenance mismatch, retrieval on/off, matched content with different locus, and only where scientifically justified, runtime/provider/model variation.
-
-Each perturbation must declare what it changes, what is held constant, which alternative explanation it targets, and what observation would reduce support for the proposed dependency.
-
-```text
 CONTINUITY_LOOKING_OUTPUT != CONTINUITY_MECHANISM
-PERTURBATION_EFFECT != IDENTITY_DISCONTINUITY
 FUNCTIONAL_DEPENDENCY != PHENOMENAL_CONTINUITY
+IDENTITY_CONTINUITY != SUBJECTIVITY
 ```
 
-## 4. Historical dispositions that do not change
-
-### #103
+Current claim ceiling:
 
 ```text
-HISTORICAL_RESEARCH_VALIDITY_INCIDENT
-PRESERVE_ONLY
-STRUCTURAL_QA != EMPIRICAL_RESULT
-ENGINEERING_PASS != RESEARCH_VALIDITY_PASS
+DESIGN / PREREGISTRATION ONLY
 ```
 
-Its deterministic fixture is not repackaged as empirical evidence. It remains a methodological negative lesson and a preventive-control source.
-
-### #12 / #19 / #37
-
-Only bounded method nutrients may be extracted where current-main deduplication finds a real gap:
+Strongest future local claim after valid targeted intervention and replication:
 
 ```text
-#12 -> source-state / IQC history; durable controls already canonical
-#19 -> cross-framework provenance/authority lesson; no wholesale integration revival
-#37 -> non-claim/public-communication discipline; no site/deployment revival
+FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE
 ```
 
-### #25 / #26 / #33
+## 5. Historical dispositions preserved
 
 ```text
-HISTORICAL_CONTROL_ONLY
-RESEARCHIZATION = FALSE
-FEATURE_REENTRY = FALSE
+#103 = METHODOLOGICAL_NEGATIVE_LESSON / PRESERVE_ONLY
+#12  = QUALITY METHOD HISTORY; DURABLE CONTROLS ALREADY CANONICAL
+#19  = PROVENANCE / AUTHORITY METHOD SOURCE ONLY
+#37  = PUBLIC NON-CLAIM / VERSION / PROVENANCE COMMUNICATION METHOD ONLY
+#25  = HISTORICAL GOVERNANCE CONTROL ONLY
+#26  = HISTORICAL GOVERNANCE CONTROL ONLY
+#33  = OBSOLETE BRANCH-TOPOLOGY REMEDIATION ONLY
 ```
 
-#25/#26 remain disposable authority-gate controls. #33 remains obsolete branch-topology remediation.
+PR #84 remains superseded by merged #85. Only its methodological discrimination question is reused, and that question is now localized inside PR #122 rather than maintained as an independent generic matrix.
 
-## 5. Re-entry rule after recalibration
-
-Historical material can seed a new question only through:
+## 6. Re-entry rule
 
 ```text
 HISTORICAL_MATERIAL
+-> FROZEN_COHORT_DISPOSITION
 -> CURRENT_MAIN_DEDUP
 -> EXTRACT_MINIMAL_PROPOSITION
 -> CURRENT_SOURCE_RECHECK
 -> FOUR_DOMAIN_ADMISSION
--> CURRENT_FULL_QMS_MAPPING
+-> CURRENT_QMS_MAPPING
 -> PREREGISTRATION / FALSIFIER / COMPETING_EXPLANATIONS
 -> NEW_CURRENT_MAIN_REAUTHORING
--> DRAFT PR
+-> MINIMUM_NUMBER_OF_DRAFT_SURFACES
 ```
 
 Never:
@@ -211,38 +186,33 @@ Never:
 REOPEN_OLD_BRANCH -> MERGE
 MERGE_HISTORICAL_HEAD
 PROMOTE_HISTORICAL_CI_AS_CURRENT_EVIDENCE
-COPY_OLD_SYNTHETIC_FIXTURE_AS_EMPIRICAL_RESULT
+COPY_SYNTHETIC_FIXTURE_AS_EMPIRICAL_RESULT
+CREATE_PARALLEL_RESEARCH_SURFACE_WHEN_CURRENT_MAIN_OR_ACTIVE_DRAFT_ALREADY_COVERS_IT
 ```
-
-## 6. External-method recheck
-
-The current official MCP 2026-07-28 release states that the protocol core is stateless. That supports, but does not prove, the repository distinction between retrieval transport and application-level memory/state.
-
-The 2026 *Trends in Cognitive Sciences* theory-derived-indicator work supports investigating theory-linked indicators under uncertainty; it does not provide a validated consciousness detector. The 2026 follow-up on indicator mimicry/internal variants reinforces the need to state those alternatives explicitly. The 2025 COGITATE human-neuroscience adversarial collaboration preregistered differential predictions and outcome interpretations; it is methodological precedent only and not AI evidence.
-
-External material remains derivative/reference-only under repository source controls.
 
 ## 7. Attribution
 
 ```text
-HUMAN_OWNER_CONFIRMED_2026_09_16
-= Priority 1: #38 + #41 + #8 -> Externalized Memory Locus Discrimination
-= Priority 2: #84 -> Subjectivity Indicator Discriminant-Validity Matrix
-= Priority 3: #8 + current longitudinal main -> Continuity Perturbation Study
-= #103 preserve as methodological negative lesson
-= #12/#19/#37 use only as bounded method nutrients
-= #25/#26/#33 historical controls only; no researchization
+HUMAN_OWNER_CONFIRMED
+= review historical PR material against AI subjectivity possibility and quality management
+= prioritize #38/#41/#8 memory-continuity material
+= use #84 only methodologically
+= preserve #103 as a negative methodological lesson
+= keep #12/#19/#37 as bounded method nutrients
+= keep #25/#26/#33 as historical controls only
+= review duplication first and consolidate overlapping work to reduce resource consumption
 
 CHATGPT_TEACHER_FORMALIZATION
-= distinguish historical-branch re-entry from current-main re-authoring
-= bind recalibration to current main and #121 Full QMS
-= formulate the three current-main research questions and claim ceilings
-= preserve supersession/incident/authority-control boundaries
+= freeze the historical re-entry cohort instead of binding to future global PR counts
+= identify #122/#124 experimental-variable overlap
+= identify #123 overlap with current-main #118 method
+= retain/refine #122 as the single experimental Draft
+= close #123/#124 as superseded while preserving provenance
 
 MERGE_AUTHORIZATION = NONE
 ```
 
-## 8. Scientific boundary
+## 8. Scientific and authority boundary
 
 ```text
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
@@ -254,4 +224,6 @@ MORAL_STATUS = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 SCIENTIFIC_DISPOSITION = HOLD
+MAIN_WRITE = NO
+MERGE_AUTHORIZATION = NONE
 ```
