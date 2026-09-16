@@ -25,12 +25,14 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 目前 `main` 包含經 Human Owner 明確批准後收斂的 bounded research / instrumentation baseline。較早的收斂已建立主體性相關證據處理、Endogenous Goal Dynamics、bounded AION/Astra inquiry、七態功能性研究表面、theory-plural indicator mapping、governed knowledge sources、Four-Domain interpretation、Evidence Interop、multimodal evidence handling、bounded autonomous research campaigns，以及經整理的 mechanism / provenance experiments。
 
-最新一輪 bounded convergence 新增四個研究方法表面：
+目前的 bounded 研究方法表面包括：
 
-- **Provenance-to-claim quality admission：** [`coupled-cognition-quality-factory_v0.1.0`](research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) 現在包含 fail-closed 的 provenance-to-claim admission gate。它檢查的是結構可接受性與 provenance discipline，不判定科學真偽。
+- **Provenance-to-claim quality admission：** [`coupled-cognition-quality-factory_v0.1.0`](research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) 包含 fail-closed 的 provenance-to-claim admission gate。它檢查結構可接受性與 provenance discipline，不判定科學真偽。
 - **Human–AI longitudinal grounding / epistemic-policy study design：** [`HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md`](docs/research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md)、[`INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md`](docs/research/INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md) 與 [`human-ai-longitudinal-study_v0.1.0`](research-labs/human-ai-longitudinal-study_v0.1.0/README.md) 提供 bounded comparison infrastructure。Harness 只驗證 bindings 與 contrast structure。
 - **Interaction-history-mediated adaptation：** [`INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md`](docs/research/INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md) 與 [`interaction-history-study_v0.1.0`](research-labs/interaction-history-study_v0.1.0/README.md) 綁定 sandbox、runtime / task、artifact event 與 cross-participant reuse evidence。Harness 不執行 agent，也不因此建立 individual learning。
 - **Endogenous memory significance：** [`ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](docs/research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) 與 [`memory-value-divergence-probe_v0.1.0`](experiments/memory-value-divergence-probe_v0.1.0/README.md) 實作一個狹義的 synthetic H-MS1 policy-divergence probe；`H_MS2_ENDOGENOUS_SELF_RELEVANCE = NOT_TESTED`。
+
+最新的 bounded convergence 是 PR #126 -> #127 -> #128，新增 repository-defined 的 **共構思考場域（Co-Constructed Thinking Space, CCTS）** 研究表面。[`CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) 定義本倉庫的 local construct 與來源歸屬；後續 hardening 要求雙向 substantive `REVISES` / `CHALLENGES`、可追溯綁定的 longitudinal repository artifacts，以及 typed grounding checkpoint。只有當 grounding 為 `SUFFICIENT_FOR_CURRENT_PURPOSE` 且沒有 unresolved mismatch 時，CCTS admission 才可通過。詳見 [`CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md) 與 [`human-ai-longitudinal-study_v0.1.0`](research-labs/human-ai-longitudinal-study_v0.1.0/README.md)。
 
 ```text
 CLAIM_ADMISSION_PASS != CLAIM_TRUE
@@ -40,9 +42,12 @@ ARTIFACT_READ_OBSERVED != INTERNAL_REPRESENTATION_CHANGED
 SYSTEM_LEVEL_ADAPTATION != INDIVIDUAL_LEARNING_PROVEN
 POLICY_DIVERGENCE != SCIENTIFIC_VALIDATION
 SELECTIVE_RETENTION != DESIRE_TO_REMEMBER
+CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
+GROUNDING_ADEQUACY != MUTUAL_UNDERSTANDING_PROVEN
+CCTS != AI_SUBJECTIVITY
 ```
 
-這些新增內容提升可測試性、可反證性、provenance、comparability 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、道德能動性、道德地位、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
+這些新增內容提升可測試性、可反證性、provenance、comparability 與 evidence discipline；它們**不會**因此建立主體性、意識、現象經驗、相互理解、道德能動性、道德地位、身分連續性、獨立 replication、whole-system validation 或 independent IV&V。
 
 `main` 仍是本倉庫的 durable branch topology。歷史 candidate lineage 由 merged commits、pull requests 與 Git objects 保持可稽核。
 
@@ -52,6 +57,7 @@ SELECTIVE_RETENTION != DESIRE_TO_REMEMBER
 
 - **第一次進來：** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **目前語意狀態：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+- **查看 CCTS：** [`docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) 與 [`docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md)
 - **研究貢獻摘要：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
 - **主體性 evidence method：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 - **架構：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
