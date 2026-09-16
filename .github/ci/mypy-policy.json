@@ -1,0 +1,253 @@
+{
+  "schema_version": "0.1.0",
+  "mypy_version": "2.3.1",
+  "discovery_roots": [
+    "components",
+    "examples",
+    "experiments",
+    "research-labs"
+  ],
+  "packages": [
+    {
+      "root": "components/aion_runtime_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src",
+      "mypy_path": [
+        "components/governance_kernel_v0.4.0/src",
+        "components/astra_workbench_v1.0.0/src",
+        "research-labs/language-core-g1_v0.2.1/src",
+        "components/memory_recall_governance_v0.1.0/src",
+        "components/executable_runtime_v0.1.0/src",
+        "components/individual_runtime_state_v0.1.0/src",
+        "components/aion_evidence_interop_v0.1.0/src",
+        "components/agent_execution_substrate_v0.1.0/src",
+        "components/aion_runtime_v0.1.0/src",
+        "components/astra_runtime_v0.1.0/src"
+      ]
+    },
+    {
+      "root": "examples/bazi-capability_v0.1.1",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "components/language_core_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "components/astra_runtime_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src",
+      "mypy_path": [
+        "components/governance_kernel_v0.4.0/src",
+        "components/astra_workbench_v1.0.0/src",
+        "research-labs/language-core-g1_v0.2.1/src",
+        "components/memory_recall_governance_v0.1.0/src",
+        "components/executable_runtime_v0.1.0/src",
+        "components/individual_runtime_state_v0.1.0/src",
+        "components/aion_evidence_interop_v0.1.0/src",
+        "components/agent_execution_substrate_v0.1.0/src",
+        "components/aion_runtime_v0.1.0/src",
+        "components/astra_runtime_v0.1.0/src"
+      ]
+    },
+    {
+      "root": "components/astra_workbench_v1.0.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "components/upstream_security_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "components/governance_kernel_v0.4.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "examples/swiss-ephemeris-agpl_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "components/aion_astra_inquiry_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "components/executable_runtime_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src",
+      "mypy_path": [
+        "components/governance_kernel_v0.4.0/src",
+        "components/astra_workbench_v1.0.0/src",
+        "research-labs/language-core-g1_v0.2.1/src",
+        "components/memory_recall_governance_v0.1.0/src",
+        "components/executable_runtime_v0.1.0/src",
+        "components/individual_runtime_state_v0.1.0/src",
+        "components/aion_evidence_interop_v0.1.0/src",
+        "components/agent_execution_substrate_v0.1.0/src",
+        "components/aion_runtime_v0.1.0/src",
+        "components/astra_runtime_v0.1.0/src"
+      ]
+    },
+    {
+      "root": "components/identity_governance_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "research-labs/language-core-g1_v0.2.1",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "components/encounter_governance_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "components/multimodal_media_core_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "components/continuity_governance_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "components/aion_evidence_interop_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; it remains on the Runtime Strong QA dependency path but has no package-local mypy gate yet."
+    },
+    {
+      "root": "components/iqc_quality_inspection_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "components/individual_runtime_state_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src",
+      "mypy_path": [
+        "components/governance_kernel_v0.4.0/src",
+        "components/astra_workbench_v1.0.0/src",
+        "research-labs/language-core-g1_v0.2.1/src",
+        "components/memory_recall_governance_v0.1.0/src",
+        "components/executable_runtime_v0.1.0/src",
+        "components/individual_runtime_state_v0.1.0/src",
+        "components/aion_evidence_interop_v0.1.0/src",
+        "components/agent_execution_substrate_v0.1.0/src",
+        "components/aion_runtime_v0.1.0/src",
+        "components/astra_runtime_v0.1.0/src"
+      ]
+    },
+    {
+      "root": "components/memory_recall_governance_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; it remains on the Runtime Strong QA dependency path but has no package-local mypy gate yet."
+    },
+    {
+      "root": "research-labs/subjectivity-pipeline_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "examples/classical-western-astrology_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active example package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger example-specific exemption is required before promotion."
+    },
+    {
+      "root": "components/agent_execution_substrate_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; it remains on the Runtime Strong QA dependency path but has no package-local mypy gate yet."
+    },
+    {
+      "root": "research-labs/triadic-state-dynamics_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
+    },
+    {
+      "root": "research-labs/twin-genesis-embodiment_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/endogenous-goal-dynamics_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "components/research_integrity_security_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "research-labs/endogenous-norm-formation_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/interaction-history-study_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/model-family-review-study_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/repository-recoverability_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "components/aion_astra_autonomous_research_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a stronger package-specific exemption is required before promotion."
+    },
+    {
+      "root": "experiments/air-identity-governance-pilot_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active experiment package without a local mypy configuration at the 2026-09-17 baseline; explicit migration or a documented experiment-specific exemption is required before promotion."
+    },
+    {
+      "root": "research-labs/human-ai-longitudinal-study_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/affective-cognitive-motivation_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/bounded-autonomous-research-loop_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/coupled-cognition-quality-factory_v0.1.0",
+      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
+      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    }
+  ]
+}
