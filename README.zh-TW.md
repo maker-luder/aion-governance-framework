@@ -6,7 +6,7 @@
 > **目前狀態：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
 > **完整文件索引：** [`docs/INDEX.md`](docs/INDEX.md)
 >
-> **操作恢復交接 — 2026-09-17：** PR #136 已在未合併的狀態下關閉；最終仔細審查發現仍有研究設計與實作語意問題。未來 Work、Codex 或 ChatGPT Teacher 的工作應從即時 `main` 開始，不應只靠記憶，也不應直接延續已關閉的 PR 分支。請先讀 [`PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)。
+> **操作恢復交接 — 2026-09-17：** PR #136 已在未合併的狀態下關閉；最終仔細審查發現仍有研究設計與實作語意問題。未來 Work、Codex 或 ChatGPT Teacher 的工作應從即時 `main` 開始，不應只靠記憶，也不應直接延續已關閉的 PR 分支。請先讀 [`PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)。**這份交接手冊是暫時合併進 `main` 的操作指引；當下一輪被接受的實作完成並解決目前缺口後，必須重新審視、修改或由新紀錄取代。**
 
 AION 是一個以人類治理與 provenance-first（來源追溯優先）為核心的研究框架，用來研究身分、連續性、記憶、研究完整性，以及**人工主體性的可能性**；不把工程行為直接視為主體性證明。Astra 是相互區分的工程／研究工作台，用來實作與測試 bounded candidates（有限範圍候選方案）。
 
@@ -66,7 +66,7 @@ CCTS 提升的是結構可稽核性；它**不會**因此建立主體性、意�
 
 - **第一次進來：** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **目前語意狀態：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
-- **目前恢復／下一次實作交接：** [`docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)
+- **目前恢復／下一次實作交接（暫時指引；未來必須修改或取代）：** [`docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)
 - **查看 CCTS：** [`docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) 與 [`docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md)
 - **安裝：** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **快速開始：** [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
