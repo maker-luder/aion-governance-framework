@@ -45,6 +45,8 @@ class TaskSelectionArm:
     selection_regime: SelectionRegime
     synthetic_track: SyntheticTrack
     exposures: tuple[DomainExposure, ...]
+    selection_protocol_sha256: str
+    selection_trace_sha256: str
     access_profile_sha256: str
     model_configuration_sha256: str
     tool_access_sha256: str
@@ -86,6 +88,8 @@ class TaskSelectionArm:
         if self.contains_human_identity or self.contains_private_material:
             raise StudyError("human identity and private material are excluded")
         for name in (
+            "selection_protocol_sha256",
+            "selection_trace_sha256",
             "access_profile_sha256",
             "model_configuration_sha256",
             "tool_access_sha256",
@@ -141,6 +145,8 @@ class TaskSelectionExposureAudit:
     held_out_tasks: tuple[HeldOutTransferTask, ...]
     complete_design: bool
     same_access_controls: bool = True
+    selection_protocol_bound: bool = True
+    selection_trace_bound: bool = True
     matched_assigned_exposure: bool = True
     free_selection_exposure_divergence: bool = True
     matched_total_exposure: bool = True
@@ -220,6 +226,19 @@ def audit_task_selection_exposure_design(
         if len({getattr(arm, field) for arm in arms}) != 1:
             raise StudyError(f"uncontrolled {field} drift")
 
+    protocol_by_regime: dict[SelectionRegime, str] = {}
+    for regime in SelectionRegime:
+        regime_protocols = {
+            arm.selection_protocol_sha256
+            for arm in arms
+            if arm.selection_regime is regime
+        }
+        if len(regime_protocols) != 1:
+            raise StudyError("each selection regime requires one exact protocol binding")
+        protocol_by_regime[regime] = next(iter(regime_protocols))
+    if len(set(protocol_by_regime.values())) != len(SelectionRegime):
+        raise StudyError("selection regimes require content-distinct protocol bindings")
+
     domain_maps = {arm.arm_id: _domain_map(arm) for arm in arms}
     for domain in SelectionTaskDomain:
         task_families = {
@@ -242,6 +261,10 @@ def audit_task_selection_exposure_design(
         assigned[SyntheticTrack.TRACK_B]
     ):
         raise StudyError("matched assigned-exposure tracks require identical exposure distributions")
+    if assigned[SyntheticTrack.TRACK_A].selection_trace_sha256 != assigned[
+        SyntheticTrack.TRACK_B
+    ].selection_trace_sha256:
+        raise StudyError("matched assigned-exposure tracks require one exact assignment trace")
     for domain in SelectionTaskDomain:
         left = domain_maps[assigned[SyntheticTrack.TRACK_A].arm_id][domain]
         right = domain_maps[assigned[SyntheticTrack.TRACK_B].arm_id][domain]
@@ -257,6 +280,10 @@ def audit_task_selection_exposure_design(
     free_b = _exposure_vector(free[SyntheticTrack.TRACK_B])
     if free_a == free_b:
         raise StudyError("free-selection tracks must encode different effective exposure distributions")
+    if free[SyntheticTrack.TRACK_A].selection_trace_sha256 == free[
+        SyntheticTrack.TRACK_B
+    ].selection_trace_sha256:
+        raise StudyError("free-selection tracks require content-distinct synthetic selection traces")
 
     transfer_by_domain = {task.task_domain: task for task in held_out_tasks}
     if set(transfer_by_domain) != set(SelectionTaskDomain) or len(transfer_by_domain) != len(
