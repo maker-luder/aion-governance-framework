@@ -80,7 +80,7 @@ def test_absent_evidence_can_remain_unknown():
 
 
 def test_conflicting_evidence_cannot_be_settled_fact():
-    with pytest.raises(StudyError, match="CONFLICTING evidence cannot support a settled FACT"):
+    with pytest.raises(StudyError, match="FACT requires VERIFIED_BINDING"):
         make_record(
             evidence_state=EvidenceState.CONFLICTING,
             evidence_sha256=DIGEST_A,
