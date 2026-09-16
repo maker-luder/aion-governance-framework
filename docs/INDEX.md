@@ -34,17 +34,35 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
-### Latest Four-Domain subjectivity and quality deepening — PR #98 / #99 / #100
+### Latest bounded convergence — CCTS / PR #126 / #127 / #128
+
+The latest Human Owner-authorized bounded convergence formalizes and hardens the repository-defined **Co-Constructed Thinking Space (CCTS)** research surface. CCTS is a local repository construct with explicit provenance, not an externally established taxonomy and not evidence of AI subjectivity or consciousness.
+
+- [`research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) — source-attributed repository formalization of `共構思考場域 / CO_CONSTRUCTED_THINKING_SPACE`; explicit problem representation, Human/AI contribution roles, substantive reciprocal revision, provenance, claim boundaries, authority separation, rejected-branch preservation and longitudinal repository mediation.
+- [`research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md) — grounding-admission extension requiring a typed checkpoint bound to the same problem representation, `SUFFICIENT_FOR_CURRENT_PURPOSE`, and no unresolved mismatch; structural grounding is not proof of mutual understanding or symmetric cognition.
+- [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) — component-local executable CCTS contract, including substantive `REVISES` / `CHALLENGES`, referential longitudinal artifact bindings, grounding admission and fail-closed non-claim boundaries.
+
+```text
+CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
+CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
+GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
+GROUNDING_ADEQUACY != AI_UNDERSTANDING_PROVEN
+CCTS != AI_SUBJECTIVITY
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+SCIENTIFIC_DISPOSITION = HOLD
+```
+
+### Four-Domain subjectivity and quality deepening — PR #98 / #99 / #100
 
 - [`research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md) — exact-PR cross-read; testable AI-subjectivity possibility; typed Four-Domain admission; automated source-to-final-QA, NCR/CAPA and claim-control trace; external Human-review boundary.
 - [`../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md) — executable contract and fail-closed outcomes.
 
-The strongest implemented quality outcome is `READY_FOR_HUMAN_REVIEW`, not release or
-scientific validation. `SUBJECTIVITY=NOT_ESTABLISHED`; `CANONICAL_EFFECT=NONE`.
+The strongest implemented quality outcome is `READY_FOR_HUMAN_REVIEW`, not release or scientific validation. `SUBJECTIVITY=NOT_ESTABLISHED`; `CANONICAL_EFFECT=NONE`.
 
-### Latest bounded convergence — 2026-09-11 / 2026-09-12
+### Earlier bounded convergence — 2026-09-11 / 2026-09-12
 
-The latest Human Owner-authorized convergence sequence is PR #91 -> #93 -> #94 -> #95. These files are current bounded research/method surfaces, not proof of their hypotheses.
+The Human Owner-authorized PR #91 -> #93 -> #94 -> #95 sequence remains a current bounded research/method surface where not superseded. These files are not proof of their hypotheses.
 
 - [`../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md`](../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) — provenance-to-claim quality admission; structural claim/evidence/provenance validation without truth promotion.
 - [`research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md`](research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md) — bounded Human–AI longitudinal bidirectional-grounding hypothesis; scientific disposition HOLD.
@@ -114,7 +132,7 @@ CI_PASS != THEORY_CONFIRMATION
 These are bounded to the component/lab they describe and are not global reader entry points:
 
 - [`../components/`](../components/) — governance, execution, evidence and runtime components;
-- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics, bounded research loop, claim-quality admission, Human–AI longitudinal study, and interaction-history study;
+- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics, bounded research loop, claim-quality admission, Human–AI longitudinal study/CCTS, and interaction-history study;
   - [`Diachronic and Collective Dynamics profile`](../research-labs/bounded-autonomous-research-loop_v0.1.0/docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md) — component-local derived observations over the unchanged seven-state surface;
 - [`../components/multimodal_media_core_v0.1.0/`](../components/multimodal_media_core_v0.1.0/) — governed local-first image, video and 3D evidence generation with provider-neutral admission controls;
 - [`../components/aion_astra_autonomous_research_v0.1.0/`](../components/aion_astra_autonomous_research_v0.1.0/) — finite synthetic Triadic research campaign using existing inquiry, bounded-loop and Evidence Interop owners;

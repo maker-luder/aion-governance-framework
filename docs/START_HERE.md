@@ -27,19 +27,26 @@ Read [`CURRENT_STATE.md`](CURRENT_STATE.md). It is the single semantic current-s
 
 請讀 [`CURRENT_STATE.md`](CURRENT_STATE.md)。它是唯一的「語意現況摘要」；exact commit 的即時工程狀態仍以 GitHub / CI 為準。
 
-The latest bounded convergence sequence is PR #91 -> #93 -> #94 -> #95. It adds provenance-to-claim quality admission, Human–AI longitudinal grounding / epistemic-policy study infrastructure, interaction-history/artifact study infrastructure, and an endogenous-memory-significance hypothesis with a minimal synthetic memory-value divergence probe. These additions preserve `SCIENTIFIC_DISPOSITION = HOLD`; they do not restart the terminated project work loop or promote a scientific conclusion.
+The most recent bounded convergence sequence is PR #126 -> #127 -> #128. It formalizes the repository-defined Co-Constructed Thinking Space (CCTS), hardens substantive Human<->AI reciprocity and referential longitudinal bindings, and adds a typed grounding checkpoint that must be sufficient for the current purpose with no unresolved mismatch before CCTS admission. Earlier bounded research/method surfaces remain current where not superseded. The CCTS convergence preserves `SCIENTIFIC_DISPOSITION = HOLD`; it does not restart the terminated project work loop, prove mutual understanding, or promote an AI-subjectivity or consciousness conclusion.
 
-最新 bounded convergence sequence 為 PR #91 -> #93 -> #94 -> #95；新增 provenance-to-claim quality admission、Human–AI longitudinal grounding / epistemic-policy study infrastructure、interaction-history / artifact study infrastructure，以及 endogenous-memory-significance hypothesis 與最小 synthetic memory-value divergence probe。這些新增內容仍維持 `SCIENTIFIC_DISPOSITION = HOLD`，不等於重啟已終止的 project work loop，也不升格科學結論。
+最新 bounded convergence sequence 為 PR #126 -> #127 -> #128；它正式化 repository-defined 的共構思考場域（CCTS）、收緊 Human<->AI substantive reciprocity 與 longitudinal referential bindings，並加入 typed grounding checkpoint。只有在 grounding 足以支撐當前目的且沒有 unresolved mismatch 時，CCTS admission 才可通過。較早的 bounded research / method surfaces 在未被取代的部分仍保持有效。這次 CCTS convergence 仍維持 `SCIENTIFIC_DISPOSITION = HOLD`，不等於重啟已終止的 project work loop，也不證明 mutual understanding、AI subjectivity 或 consciousness。
+
+```text
+CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
+GROUNDING_ADEQUACY != MUTUAL_UNDERSTANDING_PROVEN
+CCTS != AI_SUBJECTIVITY
+```
 
 ## 3. Choose your path / 依目的選擇閱讀路徑
 
 | I want to... / 我想要… | Read / 請讀 |
 |---|---|
 | understand the current semantic standing / 先確認目前語意狀態 | [`CURRENT_STATE.md`](CURRENT_STATE.md) |
+| inspect the CCTS definition and grounding admission / 查看 CCTS 定義與 grounding admission | [`research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) and [`research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md) |
 | understand the research contribution / 先理解研究貢獻 | [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) |
 | understand how subjectivity-relevant evidence is handled / 理解主體性證據方法 | [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) |
 | inspect provenance-to-claim quality admission / 查看 provenance-to-claim quality admission | [`../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md`](../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) |
-| inspect Human–AI longitudinal study design / 查看 Human–AI longitudinal study design | [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) |
+| inspect Human–AI longitudinal study design and CCTS executable contract / 查看 Human–AI longitudinal study與 CCTS executable contract | [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) |
 | inspect interaction-history adaptation study design / 查看 interaction-history adaptation study design | [`../research-labs/interaction-history-study_v0.1.0/README.md`](../research-labs/interaction-history-study_v0.1.0/README.md) |
 | inspect endogenous memory significance / 查看 endogenous memory significance | [`research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) |
 | run the minimal memory-value divergence probe / 執行最小 memory-value divergence probe | [`../experiments/memory-value-divergence-probe_v0.1.0/README.md`](../experiments/memory-value-divergence-probe_v0.1.0/README.md) |
