@@ -15,6 +15,11 @@ The bounded held-out habit-transfer analogue is documented in
 The bounded externalized-metacognitive-policy transfer extension is documented in
 [`METACOGNITIVE_POLICY_TRANSFER_HARNESS.md`](METACOGNITIVE_POLICY_TRANSFER_HARNESS.md).
 
+The repository-defined Co-Constructed Thinking Space (CCTS) structural contract is
+implemented in `src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
+and grounded by
+[`../../docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](../../docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal
@@ -29,6 +34,16 @@ externalized learner rules versus content-matched non-policy exposure, separates
 policy-available behavior from policy-withheld held-out transfer, and includes a
 low-stakes negative control for overprocessing. Its deterministic fixture does not
 establish learning, internalization, dependence, or causal effect.
+
+The CCTS extension formalizes a repository-local relational construct rather than
+claiming a new external scientific taxonomy. Its core profile requires an explicit
+problem representation, Human and AI contribution roles, reciprocal Human<->AI
+revision/challenge paths, provenance, claim-boundary, authority-policy and
+rejected-branch bindings. Its stronger longitudinal repository profile additionally
+requires external-evidence, repository-artifact and implementation-evidence roles,
+plus persistent-artifact and re-entry bindings. Structural conformance cannot be
+promoted into evidence of shared mind, consciousness, AI subjectivity, distributed
+cognition as an empirical mechanism, or epistemic co-agency as a measured effect.
 
 The harness is a study-design surface, not a canonical evidence schema. PR #91 is
 now on `main` and provides the repository's provenance-to-claim quality gate. This
@@ -53,6 +68,9 @@ LONGITUDINAL_ADAPTATION != SUBJECTIVITY
 POLICY_SWITCHING_BEHAVIOR != INTERNAL_POLICY_MODULE_PROVEN
 EXTERNALIZED_RULE != INTERNALIZED_SKILL
 POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
+CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
+JOINT_PROBLEM_REPRESENTATION != SHARED_MIND
+RECIPROCAL_REVISION != EPISTEMIC_CO_AGENCY_ESTABLISHED
 HARNESS_RECORD != PR91_CLAIM_ADMISSION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
