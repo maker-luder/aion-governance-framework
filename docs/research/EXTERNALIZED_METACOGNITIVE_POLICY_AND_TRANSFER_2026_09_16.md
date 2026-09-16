@@ -176,6 +176,13 @@ POLICY_WITHHELD
 
 on matched task families with different held-out task payloads.
 
+The phrase `CONTENT_MATCHED_NON_POLICY_EXPOSURE` is not accepted as a label-only claim. Both exposure conditions must share an exact `exposure_content_family_sha256`, while their actual exposure payload hashes must remain different. This represents the intended common content family and the policy/non-policy manipulation as separate bindings.
+
+```text
+CONDITION_LABEL != CONTENT_MATCH_BINDING
+CONTENT_FAMILY_MATCH != EXPOSURE_PAYLOAD_IDENTITY
+```
+
 A low-stakes negative-control task is included because a rigid learned procedure may produce overprocessing rather than adaptive transfer.
 
 ```text
@@ -233,7 +240,7 @@ It adds a fail-closed structural design audit for a complete factorial matrix ac
 - policy available versus policy withheld;
 - source-role conflict, insufficient evidence, comprehension-threshold, hypothesis-stress, and low-stakes negative-control tasks.
 
-The audit requires exact enum types, unique design cells, content-addressed exposure/access/task/evaluator bindings, matched task families, different held-out task payloads across availability phases, privacy exclusion, and zero model/human observations in the deterministic fixture.
+The audit requires exact enum types, unique design cells, a shared exposure content-family binding, content-distinct exposure payloads, content-addressed access/task/evaluator bindings, matched task families, different held-out task payloads across availability phases, privacy exclusion, and zero model/human observations in the deterministic fixture.
 
 The implementation does not call a model and does not collect Human Owner data.
 
