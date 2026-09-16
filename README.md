@@ -6,7 +6,7 @@
 > **Current state:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
 > **Documentation index:** [`docs/INDEX.md`](docs/INDEX.md)
 >
-> **Operational recovery handoff — 2026-09-17:** PR #136 was closed without merge after final detailed review found unresolved research-design and implementation-semantics gaps. Future Work, Codex, or ChatGPT Teacher sessions should start from live `main`, not from memory and not by blindly continuing the closed PR branch. See [`PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md).
+> **Operational recovery handoff — 2026-09-17:** PR #136 was closed without merge after final detailed review found unresolved research-design and implementation-semantics gaps. Future Work, Codex, or ChatGPT Teacher sessions should start from live `main`, not from memory and not by blindly continuing the closed PR branch. See [`PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md). **This handoff is intentionally temporary guidance in `main`: it must be reviewed, revised, or superseded when the next accepted implementation resolves the recorded gaps.**
 
 AION is a human-governed, provenance-first research framework for studying identity, continuity, memory, research integrity, and the **possibility of artificial subjectivity** without treating implementation behavior as proof of subjectivity. Astra is a distinct engineering/research workbench used to materialize and test bounded candidates.
 
@@ -44,7 +44,7 @@ For exact-commit engineering status, use live GitHub/CI evidence rather than sta
 
 - **First visit:** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **Current semantic standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
-- **Current recovery / next implementation handoff:** [`docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)
+- **Current recovery / next implementation handoff (temporary; future revision required):** [`docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)
 - **Inspect CCTS:** [`docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) and [`docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md)
 - **Install:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Quickstart:** [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
