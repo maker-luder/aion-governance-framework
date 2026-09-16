@@ -46,6 +46,16 @@ from .reentry_metrics import (
     compare_reentry_conditions,
     score_reconstruction,
 )
+from .habit_transfer import (
+    ExposureCondition,
+    SelectedProcedure,
+    TransferMatrixAudit,
+    TransferObservation,
+    TransferTaskClass,
+    TransferTrial,
+    audit_transfer_matrix,
+    observe_transfer,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
@@ -67,6 +77,7 @@ __all__ = [
     "EpistemicInstruction",
     "EvidenceReuseFirewall",
     "EvidenceSupportManifest",
+    "ExposureCondition",
     "LongitudinalStudyHarness",
     "MetricName",
     "MetricObservation",
@@ -79,13 +90,20 @@ __all__ = [
     "ReentryMetrics",
     "RunBinding",
     "ReuseStatus",
+    "SelectedProcedure",
     "StudyError",
     "SummaryCondition",
     "SupportRelation",
     "TaskDomain",
+    "TransferMatrixAudit",
+    "TransferObservation",
+    "TransferTaskClass",
+    "TransferTrial",
     "TrialRecord",
     "audit_accumulation_packets",
     "audit_calibration",
+    "audit_transfer_matrix",
     "compare_reentry_conditions",
+    "observe_transfer",
     "score_reconstruction",
 ]

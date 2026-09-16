@@ -9,6 +9,9 @@ The bounded calibration extension is documented in
 The bounded reciprocal re-entry metric extension is documented in
 [`RECIPROCAL_REENTRY_METRIC_RUNNER.md`](RECIPROCAL_REENTRY_METRIC_RUNNER.md).
 
+The bounded held-out habit-transfer analogue is documented in
+[`SYNTHETIC_HABIT_TRANSFER_ANALOGUE.md`](SYNTHETIC_HABIT_TRANSFER_ANALOGUE.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal
