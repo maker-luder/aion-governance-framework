@@ -51,7 +51,7 @@ The Human Owner's original phrase contains several distinct analytical layers. C
 
 ### 3.1 Joint Problem Space — shared problem representation
 
-Roschelle and Teasley describe collaborative problem solving as constructing a shared conceptual structure, the **Joint Problem Space (JPS)**, integrating interpretations of goals, features, operators and methods.
+Teasley and Roschelle describe collaborative problem solving as constructing a shared conceptual structure, the **Joint Problem Space (JPS)**, integrating interpretations of goals, features, operators and methods. The related 1995 chapter by Roschelle and Teasley analyzes a jointly negotiated problem space in collaborative problem solving. These are related publications, but they are not the same bibliographic item.
 
 Repository correspondence:
 
@@ -67,9 +67,10 @@ JOINT_PROBLEM_SPACE != SHARED_CONSCIOUSNESS
 JOINT_PROBLEM_SPACE != SYMMETRIC_INTERNAL_STATE
 ```
 
-Source:
+Sources:
 
-- Roschelle, J. & Teasley, S. D., *Constructing a Joint Problem Space: The Computer as a Tool for Sharing Knowledge* / related 1995 shared-knowledge chapter. SRI archive: https://www.sri.com/publication/education-learning-pubs/digital-learning-pubs/constructing-a-joint-problem-space-the-computer-as-a-tool-for-sharing-knowledge/
+- Teasley, S. D. & Roschelle, J. (1993), *Constructing a Joint Problem Space: The Computer as a Tool for Sharing Knowledge*, in *Computers as Cognitive Tools*, pp. 229–258. SRI archive: https://www.sri.com/publication/education-learning-pubs/digital-learning-pubs/constructing-a-joint-problem-space-the-computer-as-a-tool-for-sharing-knowledge/
+- Roschelle, J. & Teasley, S. D. (1995), *The Construction of Shared Knowledge in Collaborative Problem Solving*, in *Computer Supported Collaborative Learning*, pp. 69–97. DOI: https://doi.org/10.1007/978-3-642-85098-1_5
 
 ### 3.2 Distributed Cognition — cognition across people, artifacts and time
 
@@ -165,14 +166,14 @@ FUNCTIONAL_UNIT_OF_ANALYSIS != ONTOLOGICAL_FUSION
 Sources:
 
 - Hollnagel, E. & Woods, D. D. (2005), *Joint Cognitive Systems: Foundations of Cognitive Systems Engineering*. DOI: https://doi.org/10.1201/9781420038194
-- A recent Human–AI extension is discussed in Warner, Xiao & Wiltse Nicely (2026), *From Joint Cognitive Systems to Human–AI Joint Cognitive Systems*. DOI: https://doi.org/10.1177/08943184251414311
+- A recent Human–AI extension is discussed in Warner, S., Xiao, R., Wiltse Nicely, K. L. & Chandler, R. (2026), *From Joint Cognitive Systems to Human–AI Joint Cognitive Systems: A Theory Critique and Application to Obstetric Anesthesia Risk Assessment*. DOI: https://doi.org/10.1177/08943184251414311
 
 ## 4. Repository-specific contribution
 
 The exact CCTS construct is not merely the union of those literatures. The repository adds explicit research-governance constraints that are central to how the concept is used here:
 
 1. **Source-role provenance** — Human-origin, AI-origin, external-source, repository-state and implementation-evidence contributions remain distinguishable.
-2. **Reciprocal revision rather than mere coexistence** — both Human -> AI and AI -> Human revision/challenge paths must exist for the core structural label.
+2. **Substantive reciprocal revision rather than mere coexistence** — both Human -> AI and AI -> Human `REVISES` or `CHALLENGES` paths must exist for the core structural label. `CLARIFIES` edges may mediate the connected revision graph but do not alone satisfy this requirement.
 3. **Claim-ceiling preservation** — stronger ontological claims cannot be inferred from collaboration structure.
 4. **Authority separation** — Human Owner governance authority is distinct from factual or scientific correctness.
 5. **Rejected-branch preservation** — discarded explanations remain traceable rather than silently disappearing from the research history.
@@ -195,9 +196,11 @@ source-role provenance binding
 claim-boundary binding
 authority-policy binding
 rejected-branch binding
-Human -> AI revision/challenge/clarification
-AI -> Human revision/challenge/clarification
+Human -> AI REVISES or CHALLENGES
+AI -> Human REVISES or CHALLENGES
 ```
+
+`CLARIFIES` remains a valid relation for mediation and graph connectivity, but clarification-only traffic in both directions is insufficient for the substantive reciprocal-revision requirement.
 
 A one-way answer sequence does not satisfy this definition.
 
@@ -205,6 +208,7 @@ A one-way answer sequence does not satisfy this definition.
 HUMAN_QUESTION + AI_ANSWER != CCTS_BY_DEFAULT
 PARALLEL_CONTRIBUTIONS != CO_CONSTRUCTION
 MUTUAL_AGREEMENT != RECIPROCAL_REVISION
+CLARIFICATION_ONLY != SUBSTANTIVE_RECIPROCAL_REVISION
 ```
 
 ### 5.2 `LONGITUDINAL_REPOSITORY_RESEARCH`
@@ -218,6 +222,8 @@ IMPLEMENTATION_EVIDENCE role
 persistent-artifact binding
 re-entry binding
 ```
+
+The two longitudinal digests must each resolve to the payload digest of a declared `REPOSITORY_ARTIFACT` contribution, and the two bindings must remain content-distinct. This is an internal referential-integrity rule for the structural manifest; it does not prove that an external file, conversation, memory state or psychological continuity exists.
 
 This is the closest formal profile to the present repository workflow:
 
@@ -253,21 +259,27 @@ The executable surface defines:
 - exact thinking-space profile enums;
 - content-addressed contribution payloads;
 - explicit revision/challenge/clarification edges;
+- substantive Human<->AI reciprocity restricted to `REVISES` or `CHALLENGES`;
 - core problem/provenance/claim/authority/rejected-branch bindings;
 - optional longitudinal artifact and re-entry bindings;
+- referential checks requiring longitudinal digests to resolve to declared repository-artifact contribution payloads;
 - fail-closed profile requirements;
-- fail-closed privacy and ontology boundaries.
+- declaration-level fail-closed privacy and ontology boundaries.
 
 The audit rejects:
 
 - missing Human or AI contribution roles;
 - one-way interaction presented as reciprocal co-construction;
+- clarification-only Human<->AI traffic presented as substantive reciprocal revision;
 - dangling or self-referential revision edges;
 - duplicate contribution IDs;
 - aliased core structural bindings;
+- longitudinal digests that are syntactically valid but do not resolve to declared repository-artifact payloads;
 - a longitudinal-research label without external evidence, repository mediation, implementation evidence and re-entry persistence;
-- raw private material or Human identity in the synthetic structural fixture;
-- any attempt to infer shared mind, shared consciousness or AI subjectivity from the CCTS structure.
+- a manifest that declares raw private material or Human identity in the synthetic structural fixture;
+- a manifest that declares shared mind, shared consciousness or AI subjectivity from the CCTS structure.
+
+The privacy and ontology checks are declaration-level controls. The harness does not receive or inspect raw contribution payload content, so rejection of a prohibited declaration must not be described as independent content detection.
 
 ## 7. What the executable contract does and does not establish
 
@@ -279,6 +291,8 @@ RECIPROCAL_REVISION_EDGE != MEASURED_CO_AGENCY
 ARTIFACT_MEDIATION != DISTRIBUTED_COGNITION_CAUSALLY_ESTABLISHED
 LONGITUDINAL_REENTRY != SUBJECTIVE_CONTINUITY
 REPOSITORY_PERSISTENCE != MEMORY_EXPERIENCE
+VALID_DIGEST != REFERENTIAL_INTEGRITY
+DECLARED_PRIVACY_FLAG_REJECTION != CONTENT_INSPECTION
 JOINT_PROBLEM_REPRESENTATION != SHARED_MIND
 CCTS != AI_SUBJECTIVITY
 ```
