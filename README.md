@@ -25,12 +25,14 @@ The 2026-08-18 repository freeze and 2026-08-20 project-work-loop termination re
 
 `main` contains the Human Owner-authorized converged bounded research/instrumentation baseline. Earlier convergences established subjectivity-relevant evidence handling, Endogenous Goal Dynamics, bounded AION/Astra inquiry, seven-state functional research surfaces, theory-plural indicator mapping, governed knowledge sources, Four-Domain interpretation, Evidence Interop, multimodal evidence handling, bounded autonomous research campaigns, and curated mechanism/provenance experiments.
 
-The latest bounded convergence adds four research-method surfaces:
+Current bounded research-method surfaces include:
 
-- **Provenance-to-claim quality admission:** [`coupled-cognition-quality-factory_v0.1.0`](research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) now includes a fail-closed provenance-to-claim admission gate. It checks structural admissibility and provenance discipline, not scientific truth.
+- **Provenance-to-claim quality admission:** [`coupled-cognition-quality-factory_v0.1.0`](research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) includes a fail-closed provenance-to-claim admission gate. It checks structural admissibility and provenance discipline, not scientific truth.
 - **Human–AI longitudinal grounding / epistemic-policy study design:** [`HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md`](docs/research/HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md), [`INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md`](docs/research/INTERACTION_KNOWLEDGE_DENSITY_AND_TASK_CONDITIONED_EPISTEMIC_POLICY_2026_09_11.md), and [`human-ai-longitudinal-study_v0.1.0`](research-labs/human-ai-longitudinal-study_v0.1.0/README.md) provide bounded comparison infrastructure. The harness validates bindings and contrast structure only.
 - **Interaction-history-mediated adaptation:** [`INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md`](docs/research/INTERACTION_HISTORY_MEDIATED_ADAPTATION_2026_09_11.md) and [`interaction-history-study_v0.1.0`](research-labs/interaction-history-study_v0.1.0/README.md) bind sandbox, runtime/task, artifact-event and cross-participant reuse evidence. The harness does not execute agents or establish individual learning.
 - **Endogenous memory significance:** [`ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](docs/research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) and the [`memory-value-divergence-probe_v0.1.0`](experiments/memory-value-divergence-probe_v0.1.0/README.md) implement one narrow synthetic H-MS1 policy-divergence probe. `H_MS2_ENDOGENOUS_SELF_RELEVANCE = NOT_TESTED`.
+
+The most recent bounded convergence, PR #126 -> #127 -> #128, adds the repository-defined **Co-Constructed Thinking Space (CCTS)** research surface. [`CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) defines the local construct and its provenance; follow-up hardening requires substantive bidirectional `REVISES` / `CHALLENGES`, referentially bound longitudinal repository artifacts, and a typed grounding checkpoint that must be `SUFFICIENT_FOR_CURRENT_PURPOSE` with no unresolved mismatch before CCTS admission. See [`CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md) and [`human-ai-longitudinal-study_v0.1.0`](research-labs/human-ai-longitudinal-study_v0.1.0/README.md).
 
 ```text
 CLAIM_ADMISSION_PASS != CLAIM_TRUE
@@ -40,9 +42,12 @@ ARTIFACT_READ_OBSERVED != INTERNAL_REPRESENTATION_CHANGED
 SYSTEM_LEVEL_ADAPTATION != INDIVIDUAL_LEARNING_PROVEN
 POLICY_DIVERGENCE != SCIENTIFIC_VALIDATION
 SELECTIVE_RETENTION != DESIRE_TO_REMEMBER
+CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
+GROUNDING_ADEQUACY != MUTUAL_UNDERSTANDING_PROVEN
+CCTS != AI_SUBJECTIVITY
 ```
 
-These additions improve testability, falsifiability, provenance, comparability and evidence discipline. They do **not** establish subjectivity, consciousness, phenomenal experience, moral agency, moral status, identity continuity, independent replication, whole-system validation or independent IV&V.
+These additions improve testability, falsifiability, provenance, comparability and evidence discipline. They do **not** establish subjectivity, consciousness, phenomenal experience, mutual understanding, moral agency, moral status, identity continuity, independent replication, whole-system validation or independent IV&V.
 
 `main` remains the repository's durable branch topology. Historical candidate lineage remains auditable through merged commits, pull requests and Git objects.
 
@@ -52,6 +57,7 @@ For semantic current state, read [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md
 
 - **First visit:** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **Current semantic standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+- **Inspect CCTS:** [`docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) and [`docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md)
 - **Install:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
 - **Quickstart:** [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
 - **Current programmatic interfaces:** [`docs/API.md`](docs/API.md)
