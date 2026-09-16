@@ -239,6 +239,7 @@ class QualityAuditRecord:
     competence_ref: str
     evidence_refs: tuple[str, ...]
     finding_refs: tuple[str, ...]
+    open_finding_refs: tuple[str, ...]
     unresolved_high_severity_finding: bool
     ncr_refs: tuple[str, ...] = field(default_factory=tuple)
     complete: bool = True
@@ -249,7 +250,10 @@ class QualityAuditRecord:
         _text_tuple("criteria_refs", self.criteria_refs)
         _text_tuple("evidence_refs", self.evidence_refs)
         _text_tuple("finding_refs", self.finding_refs, allow_empty=True)
+        _text_tuple("open_finding_refs", self.open_finding_refs, allow_empty=True)
         _text_tuple("ncr_refs", self.ncr_refs, allow_empty=True)
+        if not set(self.open_finding_refs) <= set(self.finding_refs):
+            raise QualityError("open_finding_refs must be a subset of finding_refs")
         if type(self.independence) is not AuditIndependence:
             raise QualityError("independence must be an exact AuditIndependence")
         if type(self.unresolved_high_severity_finding) is not bool or type(self.complete) is not bool:
@@ -355,13 +359,10 @@ class EndToEndQualitySystemEngine:
             and signal.state in {FieldSignalState.OPEN, FieldSignalState.TRIAGED}
             for signal in field_signals
         )
+        if unresolved_field:
+            reasons.append("OPEN_FIELD_SIGNAL_REVIEW_REQUIRED")
         if severe_uncontained:
             reasons.append("HIGH_OR_CRITICAL_FIELD_SIGNAL_REQUIRES_NCR_CAPA")
-
-        if plan.post_release_monitoring_required and ControlTarget.POST_RELEASE_MONITORING not in {
-            control.target for control in plan.controls
-        }:
-            reasons.append("POST_RELEASE_MONITORING_CONTROL_REQUIRED")
 
         audit_ids = [audit.audit_id for audit in audits]
         if len(audit_ids) != len(set(audit_ids)):
@@ -369,10 +370,12 @@ class EndToEndQualitySystemEngine:
         if not audits:
             reasons.append("AUDIT_PROGRAMME_EXECUTION_REQUIRED")
         incomplete_audit = any(not audit.complete for audit in audits)
-        unresolved_audit = any(audit.finding_refs for audit in audits)
+        unresolved_audit = any(audit.open_finding_refs for audit in audits)
         unresolved_high_audit = any(audit.unresolved_high_severity_finding for audit in audits)
         if incomplete_audit:
             reasons.append("INCOMPLETE_AUDIT_RECORD")
+        if unresolved_audit:
+            reasons.append("OPEN_AUDIT_FINDING_REVIEW_REQUIRED")
         if unresolved_high_audit:
             reasons.append("HIGH_SEVERITY_AUDIT_FINDING_REQUIRES_NCR_CAPA")
 
@@ -389,6 +392,16 @@ class EndToEndQualitySystemEngine:
         if actual_review_flags != expected_review_flags:
             reasons.append("MANAGEMENT_REVIEW_INPUT_SUMMARY_MISMATCH")
 
+        expected_review_refs = {
+            plan.plan_id,
+            chain.chain_id,
+            *measurement_ids,
+            *signal_ids,
+            *audit_ids,
+        }
+        if not expected_review_refs <= set(management_review.input_refs):
+            reasons.append("MANAGEMENT_REVIEW_TRACE_INPUTS_INCOMPLETE")
+
         issues_present = any(expected_review_flags) or severe_uncontained or unresolved_high_audit
         if issues_present and management_review.decision is ManagementDecision.NO_ACTION:
             reasons.append("MANAGEMENT_REVIEW_NO_ACTION_WITH_OPEN_QUALITY_ISSUES")
@@ -403,7 +416,10 @@ class EndToEndQualitySystemEngine:
                 "AUDIT_PROGRAMME_EXECUTION_REQUIRED",
                 "INCOMPLETE_AUDIT_RECORD",
                 "MANAGEMENT_REVIEW_INPUT_SUMMARY_MISMATCH",
+                "MANAGEMENT_REVIEW_TRACE_INPUTS_INCOMPLETE",
                 "EXISTING_RESEARCH_QUALITY_CHAIN_HOLD",
+                "OPEN_FIELD_SIGNAL_REVIEW_REQUIRED",
+                "OPEN_AUDIT_FINDING_REVIEW_REQUIRED",
             }
             for reason in reasons
         )
