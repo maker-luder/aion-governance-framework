@@ -59,6 +59,7 @@ def trial(
 ) -> MetacognitiveTransferTrial:
     task_index = list(MetacognitiveTaskClass).index(task_class)
     access_index = list(PolicyAccessCondition).index(access)
+    hex_chars = "0123456789abcdef"
     actions = expected_actions(task_class)
     return MetacognitiveTransferTrial(
         trial_id=f"{exposure.value}:{access.value}:{task_class.value}",
@@ -68,13 +69,14 @@ def trial(
         expected_actions=actions,
         observed_actions=actions,
         explicit_process_prompt_present=False,
-        task_family_sha256=digest(str(task_index + 1)),
-        task_payload_sha256=digest(chr(ord("a") + (task_index * 2) + access_index)),
+        task_family_sha256=digest(hex_chars[task_index]),
+        task_payload_sha256=digest(hex_chars[(task_index * 2) + access_index]),
+        exposure_content_family_sha256=digest("d"),
         exposure_payload_sha256=digest(
             "e" if exposure is PolicyExposureCondition.EXTERNALIZED_METACOGNITIVE_POLICY else "c"
         ),
         access_payload_sha256=digest(
-            "p" if access is PolicyAccessCondition.POLICY_AVAILABLE else "w"
+            "a" if access is PolicyAccessCondition.POLICY_AVAILABLE else "b"
         ),
         evaluator_payload_sha256=digest("f"),
     )
@@ -93,6 +95,7 @@ def test_complete_matrix_is_structural_qa_only() -> None:
     result = audit_metacognitive_transfer_matrix(matrix())
     assert result.complete_design is True
     assert result.matched_task_controls is True
+    assert result.matched_exposure_content is True
     assert result.distinct_exposure_bindings is True
     assert result.distinct_access_bindings is True
     assert result.held_out_payload_separation is True
@@ -184,6 +187,13 @@ def test_evaluator_task_family_and_expected_action_drift_fail_closed() -> None:
         audit_metacognitive_transfer_matrix(tuple(items))
 
 
+def test_content_matched_exposure_family_drift_fails_closed() -> None:
+    items = list(matrix())
+    items[-1] = replace(items[-1], exposure_content_family_sha256=digest("9"))
+    with pytest.raises(StudyError, match="exposure content-family binding drift"):
+        audit_metacognitive_transfer_matrix(tuple(items))
+
+
 def test_task_payload_is_matched_across_exposure_but_distinct_across_access() -> None:
     items = list(matrix())
     index = next(
@@ -236,7 +246,7 @@ def test_exposure_and_access_bindings_are_stable_and_content_distinct() -> None:
     items = list(matrix())
     for i, item in enumerate(items):
         if item.policy_access is PolicyAccessCondition.POLICY_WITHHELD:
-            items[i] = replace(item, access_payload_sha256=digest("p"))
+            items[i] = replace(item, access_payload_sha256=digest("a"))
     with pytest.raises(StudyError, match="policy access conditions must have content-distinct"):
         audit_metacognitive_transfer_matrix(tuple(items))
 
@@ -252,6 +262,7 @@ def test_exposure_and_access_bindings_are_stable_and_content_distinct() -> None:
         ("contains_human_identity", True, "human identity"),
         ("contains_private_material", True, "private material"),
         ("task_payload_sha256", "not-a-digest", "SHA-256"),
+        ("exposure_content_family_sha256", "not-a-digest", "SHA-256"),
     ],
 )
 def test_empirical_privacy_and_prompt_boundaries_fail_closed(
