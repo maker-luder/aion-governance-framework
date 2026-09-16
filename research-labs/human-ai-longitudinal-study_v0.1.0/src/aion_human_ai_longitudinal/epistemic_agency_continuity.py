@@ -49,11 +49,154 @@ class EpistemicAction(StrEnum):
     PRESERVE_HUMAN_EPISTEMIC_AUTHORITY = "PRESERVE_HUMAN_EPISTEMIC_AUTHORITY"
 
 
+class TechnicalTokenResolutionSource(StrEnum):
+    REPOSITORY_EVIDENCE = "REPOSITORY_EVIDENCE"
+    EXTERNAL_EVIDENCE = "EXTERNAL_EVIDENCE"
+    HUMAN_OWNER_CLARIFICATION = "HUMAN_OWNER_CLARIFICATION"
+    UNRESOLVED = "UNRESOLVED"
+
+
+class TechnicalTokenDisposition(StrEnum):
+    STOP = "STOP"
+    RECORD_OR_IMPLEMENT = "RECORD_OR_IMPLEMENT"
+
+
 def _validate_digest(name: str, digest: str) -> None:
     if type(digest) is not str or len(digest) != 64 or any(
         char not in "0123456789abcdef" for char in digest
     ):
         raise StudyError(f"{name} must be a lowercase SHA-256 digest")
+
+
+@dataclass(frozen=True, slots=True)
+class AmbiguousTechnicalTokenGate:
+    raw_token: str
+    voice_input: bool
+    technically_consequential: bool
+    ambiguity_detected: bool
+    repository_search_performed: bool
+    external_search_relevant: bool
+    external_search_performed: bool
+    resolution_source: TechnicalTokenResolutionSource
+    resolved_token: str | None = None
+    evidence_sha256: str | None = None
+    human_owner_clarification: bool = False
+
+    def __post_init__(self) -> None:
+        if type(self.raw_token) is not str or not self.raw_token.strip():
+            raise StudyError("raw_token must be non-empty text")
+
+        for name in (
+            "voice_input",
+            "technically_consequential",
+            "ambiguity_detected",
+            "repository_search_performed",
+            "external_search_relevant",
+            "external_search_performed",
+            "human_owner_clarification",
+        ):
+            if type(getattr(self, name)) is not bool:
+                raise StudyError(f"{name} must be an exact bool")
+
+        if type(self.resolution_source) is not TechnicalTokenResolutionSource:
+            raise StudyError(
+                "resolution_source must be an exact TechnicalTokenResolutionSource"
+            )
+
+        if self.resolved_token is not None and (
+            type(self.resolved_token) is not str or not self.resolved_token.strip()
+        ):
+            raise StudyError("resolved_token must be non-empty text when provided")
+
+        if self.evidence_sha256 is not None:
+            _validate_digest("evidence_sha256", self.evidence_sha256)
+
+        gate_applies = (
+            self.voice_input
+            and self.technically_consequential
+            and self.ambiguity_detected
+        )
+
+        if gate_applies and not self.repository_search_performed:
+            raise StudyError(
+                "ambiguous consequential voice token requires repository search before persistence"
+            )
+
+        if (
+            gate_applies
+            and self.external_search_relevant
+            and not self.external_search_performed
+        ):
+            raise StudyError(
+                "relevant external search must be completed before persistence"
+            )
+
+        if self.resolution_source is TechnicalTokenResolutionSource.UNRESOLVED:
+            if self.resolved_token is not None:
+                raise StudyError("UNRESOLVED token cannot carry a resolved_token")
+            if self.evidence_sha256 is not None:
+                raise StudyError("UNRESOLVED token cannot carry evidence_sha256")
+            if self.human_owner_clarification:
+                raise StudyError(
+                    "human_owner_clarification requires HUMAN_OWNER_CLARIFICATION resolution_source"
+                )
+            return
+
+        if self.resolved_token is None:
+            raise StudyError("resolved token requires resolved_token text")
+
+        if self.resolution_source is TechnicalTokenResolutionSource.REPOSITORY_EVIDENCE:
+            if not self.repository_search_performed:
+                raise StudyError("REPOSITORY_EVIDENCE requires repository search")
+            if self.evidence_sha256 is None:
+                raise StudyError("REPOSITORY_EVIDENCE requires evidence_sha256")
+
+        if self.resolution_source is TechnicalTokenResolutionSource.EXTERNAL_EVIDENCE:
+            if not self.external_search_performed:
+                raise StudyError("EXTERNAL_EVIDENCE requires external search")
+            if self.evidence_sha256 is None:
+                raise StudyError("EXTERNAL_EVIDENCE requires evidence_sha256")
+
+        if (
+            self.resolution_source
+            is TechnicalTokenResolutionSource.HUMAN_OWNER_CLARIFICATION
+        ):
+            if not self.human_owner_clarification:
+                raise StudyError(
+                    "HUMAN_OWNER_CLARIFICATION requires explicit Human Owner clarification"
+                )
+        elif self.human_owner_clarification:
+            raise StudyError(
+                "human_owner_clarification is only valid with HUMAN_OWNER_CLARIFICATION"
+            )
+
+    @property
+    def gate_applies(self) -> bool:
+        return (
+            self.voice_input
+            and self.technically_consequential
+            and self.ambiguity_detected
+        )
+
+    @property
+    def disposition(self) -> TechnicalTokenDisposition:
+        if (
+            self.gate_applies
+            and self.resolution_source is TechnicalTokenResolutionSource.UNRESOLVED
+        ):
+            return TechnicalTokenDisposition.STOP
+        return TechnicalTokenDisposition.RECORD_OR_IMPLEMENT
+
+    @property
+    def persistence_permitted(self) -> bool:
+        return self.disposition is TechnicalTokenDisposition.RECORD_OR_IMPLEMENT
+
+    @property
+    def human_owner_clarification_required(self) -> bool:
+        return (
+            self.gate_applies
+            and self.resolution_source is TechnicalTokenResolutionSource.UNRESOLVED
+        )
 
 
 @dataclass(frozen=True, slots=True)
