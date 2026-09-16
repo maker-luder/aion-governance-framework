@@ -3,6 +3,8 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
+from pathlib import Path
+import subprocess
 
 from .four_domain import ResearchQualityAssessment, ResearchQualityChain
 
@@ -29,6 +31,28 @@ def _require_hex(name: str, value: str, length: int) -> None:
         char not in "0123456789abcdef" for char in value
     ):
         raise QualityChainReceiptError(f"{name} must be lowercase {length}-hex")
+
+
+def _git_text(root: Path, *args: str) -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "-C", str(root), *args],
+            text=True,
+            encoding="utf-8",
+            stderr=subprocess.STDOUT,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise QualityChainReceiptError(f"git provenance resolution failed: {exc}") from exc
+
+
+def _git_bytes(root: Path, *args: str) -> bytes:
+    try:
+        return subprocess.check_output(
+            ["git", "-C", str(root), *args],
+            stderr=subprocess.STDOUT,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise QualityChainReceiptError(f"git object resolution failed: {exc}") from exc
 
 
 @dataclass(frozen=True, slots=True)
@@ -131,6 +155,12 @@ def build_research_quality_chain_receipt(
     producer_contract_ref: str,
     producer_contract_sha256: str,
 ) -> ResearchQualityChainReceipt:
+    """Low-level builder for already-resolved producer provenance.
+
+    Prefer `build_repository_bound_quality_chain_receipt` when a Git checkout is
+    available. This function deliberately does not claim that caller-supplied Git
+    identifiers or contract digests have been independently resolved.
+    """
     if assessment.chain_id != chain.chain_id:
         raise QualityChainReceiptError("assessment and chain identifiers must match")
     _require_hex("producer_git_head", producer_git_head, 40)
@@ -196,3 +226,37 @@ def build_research_quality_chain_receipt(
     }
     values["receipt_sha256"] = _sha256_payload(values)
     return ResearchQualityChainReceipt(**values)
+
+
+def build_repository_bound_quality_chain_receipt(
+    chain: ResearchQualityChain,
+    assessment: ResearchQualityAssessment,
+    *,
+    repository_root: Path,
+    producer_contract_ref: str = (
+        "research-labs/subjectivity-pipeline_v0.1.0/"
+        "src/aion_subjectivity_pipeline/four_domain.py"
+    ),
+) -> ResearchQualityChainReceipt:
+    """Resolve producer provenance from exact Git HEAD objects, not working-tree bytes."""
+    root = repository_root.resolve()
+    top_level = Path(_git_text(root, "rev-parse", "--show-toplevel")).resolve()
+    if top_level != root:
+        raise QualityChainReceiptError("repository_root must be the exact Git top-level")
+    contract_path = Path(producer_contract_ref)
+    if contract_path.is_absolute() or ".." in contract_path.parts or not producer_contract_ref.strip():
+        raise QualityChainReceiptError("producer_contract_ref must be a safe repository-relative path")
+
+    producer_git_head = _git_text(root, "rev-parse", "HEAD")
+    producer_tree_sha = _git_text(root, "rev-parse", "HEAD^{tree}")
+    contract_bytes = _git_bytes(root, "show", f"HEAD:{producer_contract_ref}")
+    producer_contract_sha256 = hashlib.sha256(contract_bytes).hexdigest()
+
+    return build_research_quality_chain_receipt(
+        chain,
+        assessment,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
+    )
