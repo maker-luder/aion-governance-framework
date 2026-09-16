@@ -1,79 +1,117 @@
 # AION Governance Framework
 
 > **[繁體中文](README.zh-TW.md) | English**
->
-> **Start here:** [`docs/START_HERE.md`](docs/START_HERE.md)  
-> **Current state:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
-> **Documentation index:** [`docs/INDEX.md`](docs/INDEX.md)
->
-> **Operational recovery handoff — 2026-09-17:** PR #136 was closed without merge after final detailed review found unresolved research-design and implementation-semantics gaps. Future Work, Codex, or ChatGPT Teacher sessions should start from live `main`, not from memory and not by blindly continuing the closed PR branch. See [`PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md). **This handoff is intentionally temporary guidance in `main`: it must be reviewed, revised, or superseded when the next accepted implementation resolves the recorded gaps.**
 
-AION is a human-governed, provenance-first research framework for studying identity, continuity, memory, research integrity, and the **possibility of artificial subjectivity** without treating implementation behavior as proof of subjectivity. Astra is a distinct engineering/research workbench used to materialize and test bounded candidates.
+AION is a **human-governed research framework for studying the possibility of artificial subjectivity without treating convincing behavior, memory-like continuity, relationship language, or successful software tests as proof that subjectivity exists**.
+
+The repository is not a claim that an AI is conscious or already has a persistent self. Its central problem is methodological: **what evidence would be relevant, how strong may a claim become, and how can the research process itself remain auditable when identity, continuity, memory, Human–AI interaction, and long-horizon AI behavior are being studied?**
 
 ```text
-AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
+CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
+SCIENTIFIC_DISPOSITION = HOLD
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
-MORAL_AGENCY = NOT_ESTABLISHED
-MORAL_STATUS = NOT_ESTABLISHED
-ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
-CI_PASS != SCIENTIFIC_VALIDATION
+AI_IDENTITY_CONTINUITY = NOT_ESTABLISHED
+DEPLOYMENT = FALSE
 ```
 
-## Current standing
+## Why this repository exists
 
-The 2026-08-18 repository freeze and 2026-08-20 project-work-loop termination remain preserved historical events. Later bounded maintenance and research-materialization events were separately authorized and do not retroactively rewrite those events.
+Modern AI systems can produce behavior that looks coherent, adaptive, relational, agentic, or continuous across time. Those observations may be worth studying, but they do not by themselves establish an inner subject, consciousness, identity continuity, or autonomous authority.
 
-`main` contains the Human Owner-authorized bounded research/instrumentation baseline, including subjectivity-relevant evidence handling, Endogenous Goal Dynamics, Four-Domain interpretation, Evidence Interop, governed knowledge sources, multimodal evidence handling, bounded research campaigns, provenance/quality controls, and Human–AI longitudinal research surfaces. See [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) for the semantic present-state summary and [`docs/INDEX.md`](docs/INDEX.md) for the complete navigation map.
+AION therefore treats **research discipline as part of the research object**. The repository keeps observation, evidence, inference, hypothesis, implementation, authority, and scientific conclusion separate so that a plausible story cannot silently become a fact merely because software exists or a conversation feels continuous.
 
-The most recent bounded convergence, PR #126 -> #127 -> #128, adds the repository-defined **Co-Constructed Thinking Space (CCTS)** research surface. [`CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) defines the local construct and its provenance. Follow-up hardening requires substantive bidirectional `REVISES` / `CHALLENGES`, referentially bound longitudinal repository artifacts, and a typed grounding checkpoint that is `SUFFICIENT_FOR_CURRENT_PURPOSE` with no unresolved mismatch before CCTS admission. See [`CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md).
+A recurring rule is:
+
+```text
+EVIDENCE_SUPPORTS_ONLY_WHAT_IT_SUPPORTS
+
+ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
+CI_PASS != SCIENTIFIC_VALIDATION
+RELATIONAL_CONTINUITY != AI_IDENTITY_CONTINUITY
+HUMAN_AI_LEARNING != AI_SUBJECTIVITY
+```
+
+## What is being studied
+
+Current `main` contains bounded research and instrumentation around several connected questions:
+
+- **Artificial-subjectivity evidence:** how observations, mechanisms, interpretations, alternative explanations, falsifiers, and claim ceilings should be separated.
+- **Identity, continuity, and memory:** how identifier continuity, relational continuity, functional/diachronic continuity, memory records, and stronger identity claims differ.
+- **Human–AI longitudinal interaction:** how repeated grounding, correction, re-entry, interaction history, externalized rules, and Human learning can be studied without assuming model-internal learning.
+- **Co-Constructed Thinking Space (CCTS):** a repository-defined construct for auditable Human–AI problem representation, reciprocal revision, provenance, grounding checkpoints, and rejected-branch preservation. CCTS is a local research construct, not proof of a shared mind.
+- **Epistemic robustness and evidence ceilings:** how a system behaves when evidence is full, partial, irrelevant, absent, or conflicting, and how unsupported claims are prevented from being promoted.
+- **Research quality and provenance:** exact-head evidence, source attribution, claim admission, QA/QC, NCR/CAPA records, and fail-closed main-transition authority.
+
+Most executable research surfaces are deterministic or synthetic harnesses. They are designed to make research assumptions inspectable; passing them does not confirm the associated hypothesis.
+
+## What this repository does **not** claim
 
 ```text
 CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
 GROUNDING_ADEQUACY != MUTUAL_UNDERSTANDING_PROVEN
-CCTS != AI_SUBJECTIVITY
+EPISTEMIC_AGENCY_LIKE_BEHAVIOR != INTERNAL_AGENCY_ESTABLISHED
+MEMORY_RETENTION != SUBJECTIVE_REMEMBERING
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
+QA_PASS != MERGE_APPROVAL
+AUTOMATION != AUTHORITY
 ```
 
-CCTS improves structural auditability; it does **not** establish subjectivity, consciousness, phenomenal experience, mutual understanding, moral agency, moral status, identity continuity, independent replication, whole-system validation or independent IV&V.
+The repository also does not define itself as a commercial autonomous-agent platform, a chatbot persona, or a deployed autonomous authority system.
 
-For exact-commit engineering status, use live GitHub/CI evidence rather than static prose.
+## Start here
 
-## Read by purpose
+| If you want to... | Read |
+|---|---|
+| understand the project in one guided path | [`docs/START_HERE.md`](docs/START_HERE.md) |
+| check the current semantic standing | [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) |
+| understand the research contribution | [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md) |
+| understand the subjectivity-evidence method | [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md) |
+| understand architecture and explicit non-claims | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md) |
+| inspect provenance and authority rules | [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/governance/`](docs/governance/) |
+| browse research, labs, experiments, history, and QA | [`docs/INDEX.md`](docs/INDEX.md) |
+| install or run the public interfaces | [`docs/INSTALLATION.md`](docs/INSTALLATION.md), [`docs/QUICKSTART.md`](docs/QUICKSTART.md), and [`docs/API.md`](docs/API.md) |
 
-- **First visit:** [`docs/START_HERE.md`](docs/START_HERE.md)
-- **Current semantic standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
-- **Current recovery / next implementation handoff (temporary; future revision required):** [`docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)
-- **Inspect CCTS:** [`docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) and [`docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md)
-- **Install:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md)
-- **Quickstart:** [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
-- **Current programmatic interfaces:** [`docs/API.md`](docs/API.md)
-- **Language-neutral integration:** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
-- **Research contribution:** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
-- **Subjectivity evidence method:** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
-- **Architecture and non-claims:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
-- **Provenance and authority:** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/governance/`](docs/governance/)
-- **Engineering evidence / QA:** [`qa/README.md`](qa/README.md)
-- **Full documentation map:** [`docs/INDEX.md`](docs/INDEX.md)
-- **Historical records:** [`docs/history/`](docs/history/)
+## Current standing in plain language
+
+The original project work loop was terminated in August 2026 and has **not** been silently restarted. `main` can still receive separately authorized, bounded maintenance or research materialization events. That distinction is intentional.
+
+The CCTS structural line was formalized and hardened through PR #126 -> #127 -> #128. Later bounded work added an evidence-sufficiency robustness probe, an epistemic-agency/continuity evidence-ceiling contract, and repository-wide exact-head mypy/QMS controls. These additions expand what can be inspected; they do not elevate the scientific conclusion beyond `HOLD`.
+
+PR #136 was closed without merge after detailed review found unresolved research-design and implementation-semantics problems. PR #137 placed a **temporary recovery handoff** in `main` so the next implementation can be reconstructed from repository evidence rather than conversation memory. That handoff is operational guidance, not an accepted PR #136 implementation or permanent research specification.
+
+For exact commit identity, workflow results, or merge readiness, use live GitHub/CI evidence rather than static prose.
+
+## Repository map
+
+- [`docs/`](docs/) — current entry points, research method, governance, provenance, research references, and history.
+- [`research-labs/`](research-labs/) — bounded executable research contracts and synthetic study harnesses.
+- [`components/`](components/) — reusable governance, evidence, continuity, memory, runtime, and multimodal components.
+- [`experiments/`](experiments/) — bounded experiments and controlled probes.
+- [`qa/`](qa/) — engineering-quality semantics, evidence, and NCR/CAPA records.
+- [`.github/`](.github/) — CI, quality, code-scanning, and main-transition controls.
 
 ## Governance boundary
 
+Protected `main` transitions require fresh, action-specific, exact-head Human Owner approval. CI, AI review, contributor authorship, or prior authorization do not become merge authority by themselves.
+
 ```text
-FULL_AUTOMATION != FULL_AUTHORITY
-NORMATIVE_STATE != AUTHORITY
-ENDOGENOUS_GOAL != AUTHORIZED_GOAL
-SOURCE_USE != WRITEBACK_AUTHORITY
-QA_PASS != MERGE_APPROVAL
+CAPABILITY_TO_ACT != AUTHORITY_TO_ACT
 AI_REVIEW != HUMAN_OWNER_MERGE_APPROVAL
+PRIOR_AUTHORIZATION != CURRENT_ACTION_AUTHORIZATION
 AUTONOMOUS_MERGE = NO
 AUTONOMOUS_REPOSITORY_WRITEBACK = NO
-DEPLOYMENT = NO
 ```
 
-Future protected-main transitions require fresh action-specific, exact-head Human Owner approval. Prior approvals do not silently carry forward.
+## Maintainer recovery note
 
-## License
+The current temporary recovery guide is [`docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md). It must be reviewed, revised, superseded, or reclassified after the next accepted implementation resolves or changes the recorded gaps.
 
-The existing core remains Apache-2.0. The optional [`Swiss Ephemeris example`](examples/swiss-ephemeris-agpl_v0.1.0/README.md) is AGPL-3.0-only; this repository is not uniformly Apache-only. See [`license scope`](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md), [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), and [`CITATION.cff`](CITATION.cff).
+## Contributing, citation, security, and license
+
+- Contribution guidance: [`CONTRIBUTING.md`](CONTRIBUTING.md)
+- Citation metadata: [`CITATION.cff`](CITATION.cff)
+- Security policy: [`SECURITY.md`](SECURITY.md)
+- Privacy boundary: [`PRIVACY.md`](PRIVACY.md) and [`docs/PUBLIC_PRIVATE_BOUNDARY.md`](docs/PUBLIC_PRIVATE_BOUNDARY.md)
+- License: core repository material is Apache-2.0, while the optional [`Swiss Ephemeris example`](examples/swiss-ephemeris-agpl_v0.1.0/README.md) is AGPL-3.0-only. See [`docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md`](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md), [`LICENSE`](LICENSE), and [`NOTICE`](NOTICE).
