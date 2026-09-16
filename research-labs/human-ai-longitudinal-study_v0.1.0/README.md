@@ -38,12 +38,22 @@ establish learning, internalization, dependence, or causal effect.
 The CCTS extension formalizes a repository-local relational construct rather than
 claiming a new external scientific taxonomy. Its core profile requires an explicit
 problem representation, Human and AI contribution roles, reciprocal Human<->AI
-revision/challenge paths, provenance, claim-boundary, authority-policy and
-rejected-branch bindings. Its stronger longitudinal repository profile additionally
-requires external-evidence, repository-artifact and implementation-evidence roles,
-plus persistent-artifact and re-entry bindings. Structural conformance cannot be
-promoted into evidence of shared mind, consciousness, AI subjectivity, distributed
-cognition as an empirical mechanism, or epistemic co-agency as a measured effect.
+`REVISES` or `CHALLENGES` paths, provenance, claim-boundary, authority-policy and
+rejected-branch bindings. `CLARIFIES` edges may mediate the connected revision graph
+but do not, by themselves, satisfy the substantive reciprocity requirement. Its
+stronger longitudinal repository profile additionally requires external-evidence,
+repository-artifact and implementation-evidence roles, plus persistent-artifact and
+re-entry bindings. Each longitudinal digest must resolve to the payload digest of a
+declared `REPOSITORY_ARTIFACT` contribution; digest syntax or presence alone is not
+referential integrity. Structural conformance cannot be promoted into evidence of
+shared mind, consciousness, AI subjectivity, distributed cognition as an empirical
+mechanism, or epistemic co-agency as a measured effect.
+
+Privacy and ontology booleans in the CCTS manifest are declaration-level fail-closed
+controls. The structural harness rejects a manifest that declares private material,
+Human identity, shared mind, shared consciousness or structure-derived AI
+subjectivity. It does not inspect raw payload content, because raw payloads are not
+part of this synthetic contract.
 
 The harness is a study-design surface, not a canonical evidence schema. PR #91 is
 now on `main` and provides the repository's provenance-to-claim quality gate. This
@@ -71,6 +81,8 @@ POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
 JOINT_PROBLEM_REPRESENTATION != SHARED_MIND
 RECIPROCAL_REVISION != EPISTEMIC_CO_AGENCY_ESTABLISHED
+VALID_DIGEST != REFERENTIAL_INTEGRITY
+DECLARED_PRIVACY_FLAG_REJECTION != CONTENT_INSPECTION
 HARNESS_RECORD != PR91_CLAIM_ADMISSION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
