@@ -22,8 +22,6 @@
 - **Observation:** repository-level mypy coverage had diverged between QA lanes; restoring centralized execution surfaced latent required-check failures. The first remediation attempt also exposed that a GitHub pull-request synthetic merge ref can be mistaken for the exact PR source head unless source-state identity is explicitly verified.
 - **Containment:** PR #133 remains Draft and unmerged; repository-wide mypy pass is not claimed; failing static-analysis evidence is preserved rather than broadly suppressed.
 - **Corrective / preventive action:** PR #133 is the remediation candidate for centralized package dispositions, fail-closed package discovery, exact-head Python 3.11/3.12 mypy evidence, package-local configuration reuse, MYPYPATH / PEP 561 handling, and policy regression tests.
-- **Current corrective evidence:** exact head `07f55dbafb0405745d44c068149d26424540fcf5` has Python 3.11 and 3.12 exact-head required mypy checks passing for all 13 currently required strict packages; 23 explicit exemptions remain, so repository-wide mypy pass is still not established.
-- **Effectiveness:** not yet verified. CAPA closure still requires subsequent post-merge re-entry/recurrence evidence and an explicit independent-review disposition.
+- **Effectiveness:** not yet verified. CAPA closure requires exact-head required-check success, fail-closed discovery/source-state verification, subsequent re-entry evidence, and an explicit independent-review disposition.
 - **Detailed record:** `docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_INTEGRITY_2026_09_17.md`.
-- **Progress evidence:** `docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_PROGRESS_2026_09_17.md`.
 - **Canonical effect:** none.
