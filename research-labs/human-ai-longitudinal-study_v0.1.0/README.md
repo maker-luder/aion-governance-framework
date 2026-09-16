@@ -6,6 +6,9 @@ documented in [`EPISTEMIC_ACCUMULATION_AND_EVIDENCE_REUSE.md`](EPISTEMIC_ACCUMUL
 The bounded calibration extension is documented in
 [`ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md`](ADAPTIVE_RIGOR_CALIBRATION_HARNESS.md).
 
+The bounded reciprocal re-entry metric extension is documented in
+[`RECIPROCAL_REENTRY_METRIC_RUNNER.md`](RECIPROCAL_REENTRY_METRIC_RUNNER.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal

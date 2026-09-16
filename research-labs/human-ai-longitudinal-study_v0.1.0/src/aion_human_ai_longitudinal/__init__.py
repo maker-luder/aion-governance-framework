@@ -37,6 +37,15 @@ from .adaptive_rigor import (
     CalibrationRun,
     audit_calibration,
 )
+from .reentry_metrics import (
+    ReconstructionRecord,
+    ReentryBinding,
+    ReentryCondition,
+    ReentryContrastReceipt,
+    ReentryMetrics,
+    compare_reentry_conditions,
+    score_reconstruction,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
@@ -63,6 +72,11 @@ __all__ = [
     "MetricObservation",
     "NodeType",
     "Presence",
+    "ReconstructionRecord",
+    "ReentryBinding",
+    "ReentryCondition",
+    "ReentryContrastReceipt",
+    "ReentryMetrics",
     "RunBinding",
     "ReuseStatus",
     "StudyError",
@@ -72,4 +86,6 @@ __all__ = [
     "TrialRecord",
     "audit_accumulation_packets",
     "audit_calibration",
+    "compare_reentry_conditions",
+    "score_reconstruction",
 ]
