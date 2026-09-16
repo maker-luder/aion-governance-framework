@@ -451,6 +451,8 @@ class ClaimRevisionService:
         row = db.execute("SELECT * FROM claim_versions WHERE memory_id=? AND scope=?", (memory_id, self.scope)).fetchone()
         if row is None:
             raise KeyError(memory_id)
+        if not isinstance(row, sqlite3.Row):
+            raise ValueError("claim version row factory is not sqlite3.Row")
         return row
 
     def _head(self, db: sqlite3.Connection) -> str:
