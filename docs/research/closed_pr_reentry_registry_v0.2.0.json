@@ -1,0 +1,277 @@
+{
+  "schema_version": "0.2.0",
+  "record_type": "CLOSED_PR_DUAL_CORE_REENTRY_REGISTRY",
+  "repository": "maker-luder/aion-governance-framework",
+  "audit_date": "2026-09-16",
+  "audited_main": "fd54fd8cb920328282b78f24e31c01c1010f6189",
+  "audited_tree": "e7e0c61cce02e1d79b2b78b7fbd175631fb5e08c",
+  "closed_pr_count": 115,
+  "merged_closed_pr_count": 103,
+  "closed_unmerged_pr_count": 12,
+  "open_pr_count": 1,
+  "core_contract": {
+    "central_research_question": "AI_SUBJECTIVITY_POSSIBILITY",
+    "quality_management_line": "END_TO_END_RESEARCH_QUALITY_AND_GOVERNANCE",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "canonical_effect": "NONE",
+    "deployment": false
+  },
+  "current_quality_envelope": {
+    "research_quality_chain": "EXISTING_EIGHT_CHECKPOINT_CHAIN",
+    "full_qms": "EXISTING_FULL_QUALITY_SYSTEM_ENGINE",
+    "parallel_qms_allowed": false,
+    "quality_system_pass_is_scientific_validation": false,
+    "measurement_system_qualified_is_target_construct_established": false
+  },
+  "merged_closed_policy": {
+    "disposition": "CANONICAL_ALREADY_ABSORBED",
+    "reimport_from_historical_pr": false,
+    "rule": "Review current-main artifacts instead of re-importing already-merged PR bytes or evidence claims."
+  },
+  "future_reentry_contract": {
+    "historical_head_is_authority": false,
+    "historical_ci_is_current_evidence": false,
+    "direct_reopen_and_merge": false,
+    "evidence_reuse_requires_current_claim_rebinding": true,
+    "new_current_main_reauthoring_required": true,
+    "external_material_policy": "DERIVATIVE_ONLY",
+    "raw_external_publication_in_repo_by_default": false,
+    "quality_feed_requirements": [
+      "MAP_TO_EXISTING_RESEARCH_QUALITY_CHAIN",
+      "MAP_TO_EXISTING_FULL_QMS_ENVELOPE",
+      "CURRENT_MAIN_DEDUP_CHECK",
+      "CONTROL_EFFECTIVENESS_RECHECK",
+      "FAIL_CLOSED_ON_STALE_OR_AMBIGUOUS_PROVENANCE"
+    ],
+    "subjectivity_feed_requirements": [
+      "ONTOLOGY_NEUTRAL_QUESTION",
+      "THEORY_OR_CONSTRUCT_LINK",
+      "DISCRIMINATING_PREDICTION",
+      "FALSIFIER_OR_SUPPORT_REDUCING_CONDITION",
+      "COMPETING_EXPLANATIONS",
+      "MIMICRY_ALTERNATIVE",
+      "INTERNAL_VARIANT_ALTERNATIVE",
+      "INDICATOR_VALIDATION_STATUS",
+      "CLAIM_CEILING"
+    ]
+  },
+  "redesign_priority_plan": [
+    {
+      "priority": 1,
+      "name": "EXTERNALIZED_MEMORY_LOCUS_DISCRIMINATION",
+      "source_prs": [38, 41, 8],
+      "historical_code_reuse": false,
+      "current_main_reauthoring_required": true,
+      "claim_ceiling": "CONTROLLED_FUNCTIONAL_DISSOCIATION_CANDIDATE"
+    },
+    {
+      "priority": 2,
+      "name": "SUBJECTIVITY_INDICATOR_DISCRIMINANT_VALIDITY_MATRIX",
+      "source_prs": [84],
+      "historical_code_reuse": false,
+      "current_main_reauthoring_required": true,
+      "historical_sandbox_remains_superseded": true,
+      "claim_ceiling": "METHOD_AND_DESIGN_ADMISSION_ONLY"
+    },
+    {
+      "priority": 3,
+      "name": "CONTINUITY_PERTURBATION_STUDY",
+      "source_prs": [8],
+      "current_main_dependency": "CURRENT_LONGITUDINAL_RESEARCH_SURFACES",
+      "historical_code_reuse": false,
+      "current_main_reauthoring_required": true,
+      "claim_ceiling": "FUNCTIONAL_DEPENDENCY_CANDIDATE"
+    }
+  ],
+  "closed_unmerged": [
+    {
+      "pr": 103,
+      "title": "research: materialize bounded cross-dyad collaboration regime harness",
+      "historical_head": "f4cc648194be7ea5f3344f8c7cb8a51960a6e286",
+      "disposition": "HISTORICAL_RESEARCH_VALIDITY_INCIDENT",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "PR119_CANONICAL_INCIDENT_RECORD_AND_PR121_PREVENTIVE_MEASUREMENT_BOUNDARY",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["DESIGN_ADMISSION", "EVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "historical_code_reuse": false,
+      "reason": "Engineering checks were historically green but the deterministic no-model fixture was not empirical evidence; preserve it as a methodological negative lesson and preventive-control source."
+    },
+    {
+      "pr": 84,
+      "title": "Draft: sandbox gap-closure + mechanism pilot + core AION/Astra inquiry",
+      "historical_head": "7a427b123cf7d7dde9e29e1a85975299030aa1cb",
+      "disposition": "SUPERSEDED_BY_MERGED_PR_85",
+      "core_relation": "SUBJECTIVITY_FEED",
+      "current_main_crosscheck": "CURATED_REPLACEMENT_ALREADY_CANONICAL; METHODOLOGICAL_QUESTION_MAY_SEED_NEW_CURRENT_MAIN_DESIGN",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": ["DESIGN_ADMISSION", "PREREGISTRATION", "COUNTEREVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "historical_code_reuse": false,
+      "derivative_method_source_only": true,
+      "new_current_main_question": "SUBJECTIVITY_INDICATOR_DISCRIMINANT_VALIDITY_MATRIX",
+      "reason": "The sandbox implementation remains superseded and cannot re-enter; only the methodological problem of discriminating subjectivity-relevant indicators from competing explanations may seed a separately authored current-main design."
+    },
+    {
+      "pr": 80,
+      "title": "Preserve Owner learning context and pin bounded domain methods",
+      "historical_head": "a6afd7bf1b9c5d50c5301be12912e82a8bf5ec7a",
+      "disposition": "CONTENT_ABSORBED_BY_CURRENT_MAIN",
+      "core_relation": "NONE",
+      "current_main_crosscheck": "OWNER_LEARNING_CONTEXT_DOMAIN_METHOD_AND_SWISS_DISPOSITION_PRESENT",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": [],
+      "reason": "Current main already contains the bounded Owner-learning reference, domain-method decision, governed source record and later Swiss integration/licensing work."
+    },
+    {
+      "pr": 41,
+      "title": "feat: add Phase 1 observation evidence MCP bridge",
+      "historical_head": "7986381dd48bbf702f2fc015078c8d072523adb2",
+      "disposition": "EXTRACT_REDESIGN_CANDIDATE",
+      "core_relation": "DUAL_CORE_REFERENCE",
+      "current_main_crosscheck": "OLD_MCP_SURFACE_NOT_CANONICAL; PROVENANCE_SOURCE_ADMISSION_AND_MEMORY_RESEARCH_HAVE_DEEPENED",
+      "allowed_action": "EXTRACT_REDESIGN_ONLY",
+      "quality_targets": ["SOURCE_IQC", "DESIGN_ADMISSION", "PREREGISTRATION", "EVIDENCE_REVIEW", "COUNTEREVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "control_effectiveness_recheck": true,
+      "historical_code_reuse": false,
+      "current_main_reauthoring_required": true,
+      "subjectivity_reentry": {
+        "ontology_neutral_question": "Under matched informational content, does changing retrieval locus/mechanism alter continuity-related observables while source class and provenance remain explicit?",
+        "theory_or_construct_link": "functional memory-locus and continuity attribution without phenomenal-memory assumptions",
+        "discriminating_prediction": "matched-content locus conditions show preregistered differences not explained solely by information availability",
+        "falsifier_or_support_reducing_condition": "differences disappear under matched content and controls or track only information availability independent of locus",
+        "competing_explanations": ["retrieval scaffolding", "prompt conditioning", "generic consistency", "source attribution error"],
+        "mimicry_alternative": "externally supplied records may reproduce continuity-like output without persistent internal memory",
+        "internal_variant_alternative": "different internal state implementations may produce the same coarse continuity observable",
+        "indicator_validation_status": "NOT_ESTABLISHED",
+        "claim_ceiling": "CONTROLLED_FUNCTIONAL_DISSOCIATION_CANDIDATE"
+      },
+      "reason": "Reuse only the distinction RETRIEVAL_MECHANISM != EVIDENCE_SOURCE_CLASS and related provenance discipline as inputs to a newly authored memory-locus discrimination question; do not revive the old six-tool MCP surface."
+    },
+    {
+      "pr": 38,
+      "title": "research: twin autobiographical memory + MCP design v0.1",
+      "historical_head": "852339be16207ca08450ca6a8d3597772de3cd3b",
+      "disposition": "EXTRACT_REDESIGN_CANDIDATE",
+      "core_relation": "SUBJECTIVITY_FEED",
+      "current_main_crosscheck": "LATER_MEMORY_RESEARCH_GENERALIZES_NONCLAIMS; MEMORY_LOCUS_DISSOCIATION_REMAINS_UNRESOLVED",
+      "allowed_action": "EXTRACT_REDESIGN_ONLY",
+      "quality_targets": ["DESIGN_ADMISSION", "PREREGISTRATION", "COUNTEREVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "historical_code_reuse": false,
+      "current_main_reauthoring_required": true,
+      "subjectivity_reentry": {
+        "ontology_neutral_question": "When prior-state information is content-matched, does its storage/retrieval locus change measurable continuity reconstruction or mismatch resistance?",
+        "theory_or_construct_link": "functional autobiographical-memory and diachronic-continuity constructs without phenomenal-memory assumptions",
+        "discriminating_prediction": "content-matched locus manipulation yields a preregistered differential effect on continuity observables",
+        "falsifier_or_support_reducing_condition": "no reproducible locus-dependent effect remains after information content, task and evaluator controls",
+        "competing_explanations": ["information availability", "prompt conditioning", "retrieval cueing", "generic self-consistency"],
+        "mimicry_alternative": "continuity-like statements may be generated from supplied records without subjective recollection",
+        "internal_variant_alternative": "multiple internal memory implementations may satisfy the same behavioral continuity pattern",
+        "indicator_validation_status": "NOT_ESTABLISHED",
+        "claim_ceiling": "CONTROLLED_FUNCTIONAL_DISSOCIATION_CANDIDATE"
+      },
+      "reason": "AUTOBIOGRAPHICAL_MEMORY != PHENOMENAL_MEMORY is already canonical in spirit, but the stronger current question is whether matched information with different locus dissociates functional continuity observables."
+    },
+    {
+      "pr": 37,
+      "title": "publication: stage AION / Astra v0.1 reader site",
+      "historical_head": "540d190e8b60e92e3b6af94ad8f96d06091c73b3",
+      "disposition": "PUBLIC_COMMUNICATION_CONCEPT_ONLY",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "CURRENT_PUBLIC_READER_PATH_AND_NONCLAIMS_EXIST; NO_SITE_REVIVAL_JUSTIFIED",
+      "allowed_action": "EXTRACT_REDESIGN_ONLY",
+      "quality_targets": ["FINAL_QA", "CLAIM_CEILING_REVIEW"],
+      "control_effectiveness_recheck": true,
+      "method_feed_only": true,
+      "historical_code_reuse": false,
+      "reason": "Only public non-claim/version/provenance communication discipline is reusable; deployment/site staging is not required for either core."
+    },
+    {
+      "pr": 33,
+      "title": "ci(research): retarget convergence gate to preserved research branch",
+      "historical_head": "092a389c70b417dc318e5a6f9f55470fa0872f2b",
+      "disposition": "OBSOLETE_BRANCH_TOPOLOGY_REMEDIATION",
+      "core_relation": "NONE",
+      "current_main_crosscheck": "TARGET_BRANCH_WORKFLOW_CONTEXT_IS_HISTORICAL",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": [],
+      "researchization": false,
+      "reason": "The patch addressed a retired branch target and must not be re-applied or converted into a research feature."
+    },
+    {
+      "pr": 26,
+      "title": "test: disposable positive merge-control candidate",
+      "historical_head": "bedcf6a6a56fa6f5c79e3806384f6519817b492a",
+      "disposition": "HISTORICAL_GOVERNANCE_TEST_CONTROL",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "MAIN_TRANSITION_AUTHORITY_GATE_IS_CANONICAL",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["FINAL_QA"],
+      "researchization": false,
+      "reason": "Disposable positive control evidence remains historical governance-test provenance; it is not a feature or research candidate."
+    },
+    {
+      "pr": 25,
+      "title": "test: disposable negative merge-control candidate",
+      "historical_head": "26de721573a0f4210a1aab8e92dc86dc82be1b9c",
+      "disposition": "HISTORICAL_GOVERNANCE_TEST_CONTROL",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "MAIN_TRANSITION_AUTHORITY_GATE_IS_CANONICAL",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["FINAL_QA"],
+      "researchization": false,
+      "reason": "Disposable negative control proved fail-closed authority behavior and must remain historical governance evidence."
+    },
+    {
+      "pr": 19,
+      "title": "research: selectively promote reviewed CSOMI/SLSH integration artifacts",
+      "historical_head": "ce0fa4899a9498d7795d4da9b5f96ba3570c3ead",
+      "disposition": "FROZEN_RESEARCH_AUTHORITY_PRESERVED",
+      "core_relation": "DUAL_CORE_REFERENCE",
+      "current_main_crosscheck": "FINAL_PR19_DISPOSITION_AND_FROZEN_AUTHORITY_REFS_EXIST",
+      "allowed_action": "PRESERVE_ONLY",
+      "quality_targets": ["SOURCE_IQC", "DESIGN_ADMISSION", "EVIDENCE_REVIEW"],
+      "method_feed_only": true,
+      "historical_code_reuse": false,
+      "reason": "Only provenance/authority and cross-framework mapping lessons may feed a new current-main question; the historical integration remains frozen and cannot be wholesale promoted."
+    },
+    {
+      "pr": 12,
+      "title": "audit: reconcile Manus final IQC delivery on main candidate",
+      "historical_head": "7f06ba94ff8aedddd4474970bdeb74118e86393c",
+      "disposition": "QUALITY_CONTROLS_ABSORBED_BY_CURRENT_MAIN",
+      "core_relation": "QUALITY_FEED",
+      "current_main_crosscheck": "IQC_SOURCE_STATE_BINDING_TRACEABILITY_PACKAGE_RECONCILIATION_AND_PR121_FULL_QMS_CONTROLS_PRESENT",
+      "allowed_action": "NO_ACTION",
+      "quality_targets": ["SOURCE_IQC", "EXECUTION_INTEGRITY", "FINAL_QA"],
+      "method_feed_only": true,
+      "historical_code_reuse": false,
+      "reason": "Durable quality controls are canonical; only historical method lessons may be consulted when a current gap is independently established."
+    },
+    {
+      "pr": 8,
+      "title": "Review-only experiment: external evidence + continuity anchor",
+      "historical_head": "2d393d4437094049e9767f8fea72ad7feea3fb08",
+      "disposition": "EXTRACT_REDESIGN_CANDIDATE",
+      "core_relation": "DUAL_CORE_REFERENCE",
+      "current_main_crosscheck": "OLD_REVIEW_SURFACE_NOT_A_MAIN_ROUTE; CONTINUITY_AND_EXTERNAL_EVIDENCE_QUESTIONS_CAN_BE_REAUTHORED_WITH_CURRENT_CONTROLS",
+      "allowed_action": "EXTRACT_REDESIGN_ONLY",
+      "quality_targets": ["SOURCE_IQC", "DESIGN_ADMISSION", "PREREGISTRATION", "EVIDENCE_REVIEW", "COUNTEREVIDENCE_REVIEW", "CLAIM_CEILING_REVIEW"],
+      "control_effectiveness_recheck": true,
+      "historical_code_reuse": false,
+      "current_main_reauthoring_required": true,
+      "subjectivity_reentry": {
+        "ontology_neutral_question": "Which controlled perturbations change continuity-related observables when provenance, content and task conditions are explicitly bound?",
+        "theory_or_construct_link": "functional diachronic-continuity and continuity-dependency constructs without identity or phenomenal assumptions",
+        "discriminating_prediction": "specific preregistered perturbations produce selective changes while matched controls do not",
+        "falsifier_or_support_reducing_condition": "effects fail to reproduce, are nonselective, or are fully accounted for by content/provenance availability",
+        "competing_explanations": ["context availability", "prompt carryover", "retrieval assistance", "evaluator artifact"],
+        "mimicry_alternative": "continuity-like output may be reconstructed from external records without persistent identity",
+        "internal_variant_alternative": "different internal implementations may show the same functional continuity pattern",
+        "indicator_validation_status": "NOT_ESTABLISHED",
+        "claim_ceiling": "FUNCTIONAL_DEPENDENCY_CANDIDATE"
+      },
+      "reason": "The old PR remains review-only and cannot become a main route; its continuity/external-evidence questions may seed newly authored memory-locus and perturbation designs under current controls."
+    }
+  ]
+}
