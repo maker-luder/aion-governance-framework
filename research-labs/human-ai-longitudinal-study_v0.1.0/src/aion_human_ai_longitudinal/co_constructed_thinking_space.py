@@ -163,22 +163,6 @@ class CoConstructedThinkingSpaceManifest:
             if edge.source_id not in known_ids or edge.target_id not in known_ids:
                 raise StudyError("revision edge must reference known contributions")
 
-        role_by_id = {item.contribution_id: item.role for item in self.contributions}
-        checkpoint = self.grounding_checkpoint
-        if checkpoint.problem_representation_sha256 != self.problem_representation_sha256:
-            raise StudyError(
-                "grounding checkpoint must bind the manifest problem representation"
-            )
-        if (
-            checkpoint.human_contribution_id not in known_ids
-            or checkpoint.ai_contribution_id not in known_ids
-        ):
-            raise StudyError("grounding checkpoint must reference known contributions")
-        if role_by_id[checkpoint.human_contribution_id] is not ContributionRole.HUMAN_OWNER:
-            raise StudyError("grounding human contribution must have HUMAN_OWNER role")
-        if role_by_id[checkpoint.ai_contribution_id] is not ContributionRole.AI_COLLABORATOR:
-            raise StudyError("grounding AI contribution must have AI_COLLABORATOR role")
-
         structural_digests = (
             self.problem_representation_sha256,
             self.provenance_manifest_sha256,
@@ -196,6 +180,22 @@ class CoConstructedThinkingSpaceManifest:
             _validate_digest(name, digest)
         if len(set(structural_digests)) != len(structural_digests):
             raise StudyError("core structural bindings must be content-distinct")
+
+        role_by_id = {item.contribution_id: item.role for item in self.contributions}
+        checkpoint = self.grounding_checkpoint
+        if checkpoint.problem_representation_sha256 != self.problem_representation_sha256:
+            raise StudyError(
+                "grounding checkpoint must bind the manifest problem representation"
+            )
+        if (
+            checkpoint.human_contribution_id not in known_ids
+            or checkpoint.ai_contribution_id not in known_ids
+        ):
+            raise StudyError("grounding checkpoint must reference known contributions")
+        if role_by_id[checkpoint.human_contribution_id] is not ContributionRole.HUMAN_OWNER:
+            raise StudyError("grounding human contribution must have HUMAN_OWNER role")
+        if role_by_id[checkpoint.ai_contribution_id] is not ContributionRole.AI_COLLABORATOR:
+            raise StudyError("grounding AI contribution must have AI_COLLABORATOR role")
 
         optional_digests: list[str] = []
         for name in ("persistent_artifact_sha256", "reentry_binding_sha256"):
