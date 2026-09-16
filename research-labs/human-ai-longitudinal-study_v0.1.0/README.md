@@ -19,6 +19,8 @@ The repository-defined Co-Constructed Thinking Space (CCTS) structural contract 
 implemented in `src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
 and grounded by
 [`../../docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](../../docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md).
+The grounding-admission extension is documented in
+[`../../docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](../../docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md).
 
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
@@ -37,11 +39,21 @@ establish learning, internalization, dependence, or causal effect.
 
 The CCTS extension formalizes a repository-local relational construct rather than
 claiming a new external scientific taxonomy. Its core profile requires an explicit
-problem representation, Human and AI contribution roles, reciprocal Human<->AI
-`REVISES` or `CHALLENGES` paths, provenance, claim-boundary, authority-policy and
-rejected-branch bindings. `CLARIFIES` edges may mediate the connected revision graph
-but do not, by themselves, satisfy the substantive reciprocity requirement. Its
-stronger longitudinal repository profile additionally requires external-evidence,
+problem representation, a typed grounding checkpoint bound to known Human and AI
+contributions and the same problem representation, reciprocal Human<->AI `REVISES`
+or `CHALLENGES` paths, provenance, claim-boundary, authority-policy and
+rejected-branch bindings. CCTS admission requires the grounding checkpoint to be
+`SUFFICIENT_FOR_CURRENT_PURPOSE` with no unresolved mismatch. `CLARIFIES` edges may
+mediate the connected revision graph but do not, by themselves, satisfy the
+substantive reciprocity requirement.
+
+The grounding checkpoint is structural declaration-level evidence only. It records
+that the manifest explicitly represents adequate alignment for the current purpose;
+it does not inspect natural-language meaning, prove semantic equivalence, establish
+mutual belief, establish identical internal representations, or prove that an AI
+possesses an internal state of understanding.
+
+The stronger longitudinal repository profile additionally requires external-evidence,
 repository-artifact and implementation-evidence roles, plus persistent-artifact and
 re-entry bindings. Each longitudinal digest must resolve to the payload digest of a
 declared `REPOSITORY_ARTIFACT` contribution; digest syntax or presence alone is not
@@ -79,6 +91,10 @@ POLICY_SWITCHING_BEHAVIOR != INTERNAL_POLICY_MODULE_PROVEN
 EXTERNALIZED_RULE != INTERNALIZED_SKILL
 POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
+GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
+GROUNDING_CHECKPOINT_PRESENT != AI_UNDERSTANDING_PROVEN
+GROUNDING_PRESENT_AT_ADMISSION != TEMPORAL_ORDER_PROVEN
+PROBLEM_REPRESENTATION_DIGEST_PRESENT != PROBLEM_REPRESENTATION_GROUNDED
 JOINT_PROBLEM_REPRESENTATION != SHARED_MIND
 RECIPROCAL_REVISION != EPISTEMIC_CO_AGENCY_ESTABLISHED
 VALID_DIGEST != REFERENTIAL_INTEGRITY

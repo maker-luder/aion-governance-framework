@@ -9,6 +9,8 @@ from aion_human_ai_longitudinal.co_constructed_thinking_space import (
     CoConstructedThinkingSpaceManifest,
     ContributionRole,
     EpistemicContribution,
+    GroundingCheckpoint,
+    GroundingDisposition,
     RevisionEdge,
     RevisionRelation,
     ThinkingSpaceProfile,
@@ -29,6 +31,16 @@ def contribution(
         contribution_id=contribution_id,
         role=role,
         payload_sha256=digest(char),
+    )
+
+
+def grounding_checkpoint(problem_char: str = "6") -> GroundingCheckpoint:
+    return GroundingCheckpoint(
+        problem_representation_sha256=digest(problem_char),
+        human_contribution_id="human",
+        ai_contribution_id="ai",
+        disposition=GroundingDisposition.SUFFICIENT_FOR_CURRENT_PURPOSE,
+        unresolved_mismatch=False,
     )
 
 
@@ -53,6 +65,7 @@ def research_manifest() -> CoConstructedThinkingSpaceManifest:
         space_id="ccts:synthetic:research",
         profile=ThinkingSpaceProfile.LONGITUDINAL_REPOSITORY_RESEARCH,
         problem_representation_sha256=digest("6"),
+        grounding_checkpoint=grounding_checkpoint(),
         contributions=contributions,
         revision_edges=edges,
         provenance_manifest_sha256=digest("7"),
@@ -67,6 +80,7 @@ def research_manifest() -> CoConstructedThinkingSpaceManifest:
 def test_complete_longitudinal_repository_profile_is_structural_qa_only() -> None:
     audit = audit_co_constructed_thinking_space(research_manifest())
     assert audit.profile is ThinkingSpaceProfile.LONGITUDINAL_REPOSITORY_RESEARCH
+    assert audit.grounding_adequate_for_current_purpose is True
     assert audit.reciprocal_human_ai_revision is True
     assert audit.revision_graph_connected is True
     assert audit.external_evidence_present is True
@@ -77,6 +91,8 @@ def test_complete_longitudinal_repository_profile_is_structural_qa_only() -> Non
     assert audit.mode == "DETERMINISTIC_SYNTHETIC_STRUCTURE"
     assert audit.empirical_data_collected is False
     assert audit.evidence_admissibility == "STRUCTURAL_QA_ONLY"
+    assert audit.grounding_evidence_scope == "STRUCTURAL_DECLARATION_ONLY"
+    assert audit.mutual_understanding == "NOT_ESTABLISHED"
     assert audit.epistemic_co_agency == "NOT_ESTABLISHED"
     assert audit.distributed_cognition_mechanism == "NOT_ESTABLISHED"
     assert audit.human_learning == "NOT_ESTABLISHED"
@@ -88,11 +104,18 @@ def test_complete_longitudinal_repository_profile_is_structural_qa_only() -> Non
     assert audit.deployment is False
 
 
-def test_core_profile_requires_substantive_reciprocity_but_not_research_infrastructure() -> None:
+def test_core_profile_requires_grounding_and_substantive_reciprocity_but_not_research_infrastructure() -> None:
     manifest = CoConstructedThinkingSpaceManifest(
         space_id="ccts:synthetic:core",
         profile=ThinkingSpaceProfile.CORE_INTERACTION,
         problem_representation_sha256=digest("1"),
+        grounding_checkpoint=GroundingCheckpoint(
+            problem_representation_sha256=digest("1"),
+            human_contribution_id="human",
+            ai_contribution_id="ai",
+            disposition=GroundingDisposition.SUFFICIENT_FOR_CURRENT_PURPOSE,
+            unresolved_mismatch=False,
+        ),
         contributions=(
             contribution("human", ContributionRole.HUMAN_OWNER, "2"),
             contribution("ai", ContributionRole.AI_COLLABORATOR, "3"),
@@ -107,6 +130,7 @@ def test_core_profile_requires_substantive_reciprocity_but_not_research_infrastr
         rejected_branch_manifest_sha256=digest("7"),
     )
     audit = audit_co_constructed_thinking_space(manifest)
+    assert audit.grounding_adequate_for_current_purpose is True
     assert audit.reciprocal_human_ai_revision is True
     assert audit.revision_graph_connected is True
     assert audit.research_profile_complete is False
@@ -114,6 +138,74 @@ def test_core_profile_requires_substantive_reciprocity_but_not_research_infrastr
     assert audit.repository_artifact_present is False
     assert audit.implementation_evidence_present is False
     assert audit.longitudinal_bindings_present is False
+
+
+def test_grounding_checkpoint_must_bind_manifest_problem_representation() -> None:
+    with pytest.raises(StudyError, match="bind the manifest problem representation"):
+        replace(
+            research_manifest(),
+            grounding_checkpoint=grounding_checkpoint("d"),
+        )
+
+
+def test_grounding_checkpoint_must_reference_known_human_and_ai_roles() -> None:
+    manifest = research_manifest()
+    checkpoint = manifest.grounding_checkpoint
+
+    with pytest.raises(StudyError, match="known contributions"):
+        replace(
+            manifest,
+            grounding_checkpoint=replace(
+                checkpoint,
+                ai_contribution_id="unknown",
+            ),
+        )
+
+    with pytest.raises(StudyError, match="HUMAN_OWNER role"):
+        replace(
+            manifest,
+            grounding_checkpoint=replace(
+                checkpoint,
+                human_contribution_id="evidence",
+            ),
+        )
+
+    with pytest.raises(StudyError, match="AI_COLLABORATOR role"):
+        replace(
+            manifest,
+            grounding_checkpoint=replace(
+                checkpoint,
+                ai_contribution_id="evidence",
+            ),
+        )
+
+
+def test_grounding_repair_required_fails_closed() -> None:
+    manifest = research_manifest()
+    with pytest.raises(StudyError, match="sufficient for the current purpose"):
+        audit_co_constructed_thinking_space(
+            replace(
+                manifest,
+                grounding_checkpoint=replace(
+                    manifest.grounding_checkpoint,
+                    disposition=GroundingDisposition.REPAIR_REQUIRED,
+                ),
+            )
+        )
+
+
+def test_unresolved_grounding_mismatch_fails_closed() -> None:
+    manifest = research_manifest()
+    with pytest.raises(StudyError, match="unresolved grounding mismatch"):
+        audit_co_constructed_thinking_space(
+            replace(
+                manifest,
+                grounding_checkpoint=replace(
+                    manifest.grounding_checkpoint,
+                    unresolved_mismatch=True,
+                ),
+            )
+        )
 
 
 def test_clarification_only_edges_do_not_satisfy_substantive_reciprocity() -> None:
@@ -240,6 +332,7 @@ def test_duplicate_contribution_ids_and_structural_binding_aliases_fail_closed()
         ("asserts_shared_consciousness", True, "shared mind"),
         ("asserts_ai_subjectivity_from_structure", True, "shared mind"),
         ("problem_representation_sha256", "not-a-digest", "SHA-256"),
+        ("grounding_checkpoint", None, "exact GroundingCheckpoint"),
     ],
 )
 def test_empirical_privacy_ontological_and_digest_boundaries_fail_closed(
@@ -249,6 +342,26 @@ def test_empirical_privacy_ontological_and_digest_boundaries_fail_closed(
 ) -> None:
     with pytest.raises(StudyError, match=match):
         replace(research_manifest(), **{field: value})
+
+
+def test_grounding_checkpoint_rejects_raw_enum_and_invalid_bool() -> None:
+    with pytest.raises(StudyError, match="exact GroundingDisposition"):
+        GroundingCheckpoint(
+            problem_representation_sha256=digest("1"),
+            human_contribution_id="human",
+            ai_contribution_id="ai",
+            disposition="SUFFICIENT_FOR_CURRENT_PURPOSE",  # type: ignore[arg-type]
+            unresolved_mismatch=False,
+        )
+
+    with pytest.raises(StudyError, match="unresolved_mismatch must be an exact bool"):
+        GroundingCheckpoint(
+            problem_representation_sha256=digest("1"),
+            human_contribution_id="human",
+            ai_contribution_id="ai",
+            disposition=GroundingDisposition.SUFFICIENT_FOR_CURRENT_PURPOSE,
+            unresolved_mismatch=0,  # type: ignore[arg-type]
+        )
 
 
 def test_raw_enum_values_are_rejected() -> None:
