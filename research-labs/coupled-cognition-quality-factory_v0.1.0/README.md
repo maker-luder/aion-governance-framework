@@ -3,6 +3,13 @@
 The bounded conversational and multi-agent coordination extension is documented
 in [`docs/COORDINATION_QUALITY.md`](docs/COORDINATION_QUALITY.md).
 
+The bounded end-to-end QMS extension is documented in
+[`docs/END_TO_END_RESEARCH_QMS.md`](docs/END_TO_END_RESEARCH_QMS.md). It adds
+quality planning, measurement assurance, post-release field-signal intake,
+management-system audit records and management review around the existing
+Four-Domain / ResearchQualityChain / NCR-CAPA middle line without creating a
+parallel quality ontology.
+
 This external post-freeze research module treats human–LLM collaborative inquiry as a **quality-controlled production line** rather than as a self-validating conversation. Its purpose is to prevent a characteristic coupled-cognition failure: the human and model can agree, become mutually coherent, and still be wrong.
 
 The module does **not** restore any former project identity, runtime, owner authority, or canonical state.
@@ -16,7 +23,8 @@ OLD_PROJECT_RESTORATION = NO
 ## Factory line
 
 ```text
-Idea / observation
+Quality Plan / Measurement Assurance
+  -> Idea / observation
   -> IQC: source / scope / provenance intake
   -> hypothesis + explicit falsifier
   -> AI work
@@ -26,12 +34,16 @@ Idea / observation
   -> implementation / experiment
   -> verification
   -> FINAL QA
-  -> RELEASE or HOLD
+  -> Human authority boundary
+  -> field-quality signals / audit programme / management review
                          |
                          +-> NCR -> containment -> root-cause hypothesis
                                   -> CAPA plan -> CAPA applied
                                   -> effectiveness verification -> NCR close
 ```
+
+The new end-to-end layer references the existing canonical middle controls; it does
+not grant release, merge or scientific authority.
 
 ## Core invariants
 
@@ -44,6 +56,9 @@ Idea / observation
 - `OPEN_NCR -> RELEASE_HOLD`
 - `CAPA_APPLIED != CAPA_EFFECTIVENESS_VERIFIED`
 - `PASSING_TESTS != GOVERNANCE_CONFORMANCE`
+- `MEASUREMENT_SYSTEM_QUALIFIED != TARGET_CONSTRUCT_ESTABLISHED`
+- `MANAGEMENT_REVIEW != MERGE_AUTHORITY`
+- `QMS_PASS != SUBJECTIVITY_EVIDENCE`
 
 ## Epistemic source-role provenance
 
