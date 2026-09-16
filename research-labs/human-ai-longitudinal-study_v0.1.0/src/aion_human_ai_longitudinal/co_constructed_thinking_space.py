@@ -46,7 +46,9 @@ def _revision_graph_is_connected(
     contribution_ids: set[str],
     revision_edges: tuple[RevisionEdge, ...],
 ) -> bool:
-    adjacency = {contribution_id: set() for contribution_id in contribution_ids}
+    adjacency: dict[str, set[str]] = {
+        contribution_id: set() for contribution_id in contribution_ids
+    }
     for edge in revision_edges:
         adjacency[edge.source_id].add(edge.target_id)
         adjacency[edge.target_id].add(edge.source_id)
