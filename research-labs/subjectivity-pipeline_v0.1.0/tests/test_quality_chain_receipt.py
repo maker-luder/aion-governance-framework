@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import hashlib
+from pathlib import Path
+import subprocess
 
 import pytest
 
@@ -13,6 +16,7 @@ from aion_subjectivity_pipeline import (
 )
 from aion_subjectivity_pipeline.quality_receipt import (
     QualityChainReceiptError,
+    build_repository_bound_quality_chain_receipt,
     build_research_quality_chain_receipt,
 )
 
@@ -47,6 +51,29 @@ def assessment() -> ResearchQualityAssessment:
     )
 
 
+def git(root: Path, *args: str) -> str:
+    return subprocess.check_output(
+        ["git", "-C", str(root), *args],
+        text=True,
+        encoding="utf-8",
+    ).strip()
+
+
+def repository_fixture(tmp_path: Path) -> tuple[Path, str]:
+    root = tmp_path / "repo"
+    root.mkdir()
+    git(root, "init", "-q")
+    git(root, "config", "user.name", "Receipt Fixture")
+    git(root, "config", "user.email", "fixture@example.invalid")
+    contract_ref = "contracts/four_domain.py"
+    contract_path = root / contract_ref
+    contract_path.parent.mkdir(parents=True)
+    contract_path.write_text("CANONICAL = True\n", encoding="utf-8")
+    git(root, "add", contract_ref)
+    git(root, "commit", "-qm", "fixture contract")
+    return root, contract_ref
+
+
 def test_receipt_is_content_addressed_and_preserves_nonclaims() -> None:
     receipt = build_research_quality_chain_receipt(
         chain(),
@@ -65,6 +92,51 @@ def test_receipt_is_content_addressed_and_preserves_nonclaims() -> None:
     assert receipt.scientific_disposition == "HOLD"
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment is False
+
+
+def test_repository_bound_receipt_resolves_head_tree_and_contract_from_git_objects(tmp_path: Path) -> None:
+    root, contract_ref = repository_fixture(tmp_path)
+    committed_bytes = b"CANONICAL = True\n"
+    receipt = build_repository_bound_quality_chain_receipt(
+        chain(),
+        assessment(),
+        repository_root=root,
+        producer_contract_ref=contract_ref,
+    )
+    assert receipt.producer_git_head == git(root, "rev-parse", "HEAD")
+    assert receipt.producer_tree_sha == git(root, "rev-parse", "HEAD^{tree}")
+    assert receipt.producer_contract_sha256 == hashlib.sha256(committed_bytes).hexdigest()
+
+    # Dirty working-tree bytes must not be silently attributed to the committed tree.
+    (root / contract_ref).write_text("CANONICAL = False\n", encoding="utf-8")
+    dirty_receipt = build_repository_bound_quality_chain_receipt(
+        chain(),
+        assessment(),
+        repository_root=root,
+        producer_contract_ref=contract_ref,
+    )
+    assert dirty_receipt.producer_contract_sha256 == hashlib.sha256(committed_bytes).hexdigest()
+    assert dirty_receipt.producer_tree_sha == receipt.producer_tree_sha
+
+
+def test_repository_bound_receipt_rejects_non_top_level_and_unsafe_contract_path(tmp_path: Path) -> None:
+    root, contract_ref = repository_fixture(tmp_path)
+    nested = root / "nested"
+    nested.mkdir()
+    with pytest.raises(QualityChainReceiptError, match="exact Git top-level"):
+        build_repository_bound_quality_chain_receipt(
+            chain(),
+            assessment(),
+            repository_root=nested,
+            producer_contract_ref=contract_ref,
+        )
+    with pytest.raises(QualityChainReceiptError, match="safe repository-relative"):
+        build_repository_bound_quality_chain_receipt(
+            chain(),
+            assessment(),
+            repository_root=root,
+            producer_contract_ref="../outside.py",
+        )
 
 
 def test_receipt_tampering_fails_closed() -> None:
