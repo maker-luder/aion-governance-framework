@@ -45,6 +45,7 @@ class MetacognitiveTransferTrial:
     explicit_process_prompt_present: bool
     task_family_sha256: str
     task_payload_sha256: str
+    exposure_content_family_sha256: str
     exposure_payload_sha256: str
     access_payload_sha256: str
     evaluator_payload_sha256: str
@@ -93,6 +94,7 @@ class MetacognitiveTransferTrial:
         for name in (
             "task_family_sha256",
             "task_payload_sha256",
+            "exposure_content_family_sha256",
             "exposure_payload_sha256",
             "access_payload_sha256",
             "evaluator_payload_sha256",
@@ -120,6 +122,7 @@ class MetacognitiveTransferAudit:
     observations: tuple[MetacognitiveTransferObservation, ...]
     complete_design: bool
     matched_task_controls: bool = True
+    matched_exposure_content: bool = True
     distinct_exposure_bindings: bool = True
     distinct_access_bindings: bool = True
     held_out_payload_separation: bool = True
@@ -187,6 +190,12 @@ def audit_metacognitive_transfer_matrix(
     evaluator_bindings = {trial.evaluator_payload_sha256 for trial in trials}
     if len(evaluator_bindings) != 1:
         raise StudyError("uncontrolled evaluator binding drift")
+
+    exposure_content_families = {
+        trial.exposure_content_family_sha256 for trial in trials
+    }
+    if len(exposure_content_families) != 1:
+        raise StudyError("exposure content-family binding drift")
 
     for task_class in MetacognitiveTaskClass:
         task_trials = [trial for trial in trials if trial.task_class is task_class]
