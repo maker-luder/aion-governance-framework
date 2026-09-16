@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, replace
 from enum import Enum
 from hashlib import sha256
@@ -422,7 +423,7 @@ def _best_excerpt(text: str, tokens: tuple[str, ...]) -> str:
     return excerpt[start:end]
 
 
-def _hash_event(previous_hash: str, payload: dict[str, object]) -> str:
+def _hash_event(previous_hash: str, payload: Mapping[str, object]) -> str:
     encoded = json.dumps(
         {"previous_hash": previous_hash, "payload": payload},
         sort_keys=True,
