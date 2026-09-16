@@ -127,6 +127,21 @@ Creator-side implementation and CI reruns are not independent IV&V.
 STATUS = NOT_YET_VERIFIED
 ```
 
+## Merge sequencing clarification
+
+The Human Owner has approved the merge sequence: record the NCR/CAPA incident in `main` first, then re-check PR #133 against the resulting latest `main` and only then transition the remediation candidate.
+
+EV-4 and EV-5 are CAPA effectiveness / closure criteria. They are not prerequisites for placing either the open NCR/CAPA record or its remediation implementation into `main`.
+
+```text
+EV4_OR_EV5_PENDING
+!= MERGE_PROHIBITED
+
+EV4_OR_EV5_PENDING
+= NCR_REMAINS_OPEN
+= CAPA_EFFECTIVENESS_NOT_VERIFIED
+```
+
 ## Current CAPA disposition
 
 ```text
