@@ -12,6 +12,9 @@ The bounded reciprocal re-entry metric extension is documented in
 The bounded held-out habit-transfer analogue is documented in
 [`SYNTHETIC_HABIT_TRANSFER_ANALOGUE.md`](SYNTHETIC_HABIT_TRANSFER_ANALOGUE.md).
 
+The bounded externalized-metacognitive-policy transfer extension is documented in
+[`METACOGNITIVE_POLICY_TRANSFER_HARNESS.md`](METACOGNITIVE_POLICY_TRANSFER_HARNESS.md).
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal
@@ -20,6 +23,12 @@ engineering records. It records conditions, exact run configuration, metric
 evidence and preregistered contrasts. It does not call a model, store a private
 transcript, infer product-internal mechanisms or decide whether a hypothesis is
 true.
+
+The metacognitive-policy extension adds a structural discrimination contract for
+externalized learner rules versus content-matched non-policy exposure, separates
+policy-available behavior from policy-withheld held-out transfer, and includes a
+low-stakes negative control for overprocessing. Its deterministic fixture does not
+establish learning, internalization, dependence, or causal effect.
 
 The harness is a study-design surface, not a canonical evidence schema. PR #91 is
 now on `main` and provides the repository's provenance-to-claim quality gate. This
@@ -42,6 +51,8 @@ METRIC_DELTA != CAUSAL_IDENTIFICATION
 MEMORY_RETRIEVAL != LEARNING
 LONGITUDINAL_ADAPTATION != SUBJECTIVITY
 POLICY_SWITCHING_BEHAVIOR != INTERNAL_POLICY_MODULE_PROVEN
+EXTERNALIZED_RULE != INTERNALIZED_SKILL
+POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
 HARNESS_RECORD != PR91_CLAIM_ADMISSION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
