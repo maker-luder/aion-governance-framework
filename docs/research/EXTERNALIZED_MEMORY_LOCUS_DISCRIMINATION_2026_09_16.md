@@ -1,12 +1,25 @@
-# Externalized Memory Locus Discrimination — preregistration candidate
+# Externalized Memory Locus and Continuity Dependency Discrimination — preregistration candidate
 
-Status: `DESIGN_ONLY / PREREGISTRATION_CANDIDATE / NO_EMPIRICAL_RESULT / SCIENTIFIC_HOLD`
+Status: `DESIGN_ONLY / CONSOLIDATED_PREREGISTRATION_CANDIDATE / NO_EMPIRICAL_RESULT / SCIENTIFIC_HOLD`
 
-## 1. Provenance and re-entry boundary
+## 1. Consolidation decision
 
-Human Owner confirmed this as the first historical-material redesign priority on 2026-09-16.
+This document is the single retained experimental-design surface after a duplication review across Draft PRs #122, #123 and #124 and current `main`.
 
-Historical source pool:
+```text
+PR #122 = RETAIN_AND_REFINE
+PR #124 = ABSORB_UNIQUE_PERTURBATION_CONTROLS_THEN_SUPERSEDE
+PR #123 = DO_NOT_DUPLICATE_CURRENT_MAIN_METHOD; USE CURRENT #118 METHOD + LOCAL CHECKLIST
+```
+
+Reason:
+
+- #122 and #124 manipulated substantially the same prior-state/retrieval/provenance variables;
+- current `main` already contains the synthetic continuity-dissociation harness, so a second broad continuity-perturbation programme would create unnecessary overlap;
+- current `main` already contains the interpretive-specificity / compatibility-vs-discrimination method from merged PR #118, so a separate generic discriminant-validity matrix is not required;
+- the genuinely unresolved empirical question is the narrower **matched-information locus/dependency discrimination** problem.
+
+Historical source pool remains provenance/material only:
 
 ```text
 PR #38 = twin autobiographical-memory / MCP design
@@ -14,7 +27,7 @@ PR #41 = observation/provenance MCP bridge
 PR #8  = external-evidence / continuity review surface
 ```
 
-These PRs are **provenance/material sources only**. Their historical heads, code, CI and dispositions are not current authority and are not imported into this candidate.
+No historical code, head, CI result or product surface is revived.
 
 ```text
 HISTORICAL_CODE_REUSE = FALSE
@@ -23,20 +36,16 @@ OLD_MCP_PRODUCT_SURFACE = NOT_REVIVED
 CANONICAL_EFFECT = NONE
 ```
 
-Current-main deduplication finds that later canonical research already separates repository/relational reconstruction from model-internal continuity and keeps memory retrieval distinct from phenomenal remembering. The unresolved question retained here is narrower: whether **matched informational content with a different availability locus/mechanism** produces a discriminating functional effect.
-
-## 2. Central question
+## 2. Central research question
 
 ```text
 CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
-LOCAL_QUESTION = MEMORY_LOCUS_DISCRIMINATION
+LOCAL_QUESTION = MATCHED_INFORMATION_MEMORY_LOCUS_AND_CONTINUITY_DEPENDENCY_DISCRIMINATION
 ```
 
-Ontology-neutral machine question:
+Ontology-neutral question:
 
-> When prior-state information is matched for task-relevant content, does changing the locus/mechanism by which that information becomes available produce reproducible differences in continuity-related observables after provenance, task, evaluator and timing controls?
-
-This does not ask whether the system "really remembers" in a phenomenal sense.
+> When task-relevant prior-state information is matched as closely as possible, do continuity-related observables change selectively when the information's availability locus, provenance binding, freshness, or retrieval dependency is deliberately perturbed under matched controls?
 
 Required distinctions:
 
@@ -45,45 +54,96 @@ INFORMATION_RETRIEVABILITY != MEMORY_CONTINUITY
 MEMORY_CONTINUITY != IDENTITY_CONTINUITY
 IDENTITY_CONTINUITY != SUBJECTIVITY
 RETRIEVAL_MECHANISM != EVIDENCE_SOURCE_CLASS
-FUNCTIONAL_MEMORY_LOCUS_EFFECT != PHENOMENAL_MEMORY
+CONTINUITY_LOOKING_OUTPUT != CONTINUITY_MECHANISM
+FUNCTIONAL_DEPENDENCY != PHENOMENAL_CONTINUITY
 ```
 
-## 3. Competing explanations
+The target is a bounded dependency/discrimination map, not a continuity score and not a consciousness detector.
 
-At minimum, any execution must keep these alternatives live:
+## 3. Current-main deduplication
 
-1. `LOCUS_SENSITIVE_FUNCTIONAL_DEPENDENCY` — availability through a persistent application/internal-state path has a reproducible effect beyond content availability alone.
-2. `INFORMATION_AVAILABILITY_ONLY` — once informational content is matched, locus contributes no additional reproducible effect.
-3. `RETRIEVAL_SCAFFOLDING` — observed differences are caused by retrieval formatting/cueing rather than memory locus.
-4. `PROMPT_OR_CONTEXT_CONDITIONING` — continuity-like behavior is induced by prompt/context carryover.
-5. `SOURCE_ATTRIBUTION_ARTIFACT` — the evaluator or system simply recognizes source labels/provenance cues.
-6. `GENERIC_SELF_CONSISTENCY` — the effect reflects ordinary response consistency rather than a memory/continuity mechanism.
+Current `main` already contains:
 
-No result is admissible as subjectivity evidence merely because one alternative fits better.
+- the synthetic continuity-dissociation harness with event-memory, semantic-self-state, self-model-update, preference-state, relational-history and strategy-signature channels;
+- epistemic accumulation / evidence-reuse controls;
+- adaptive-rigor calibration;
+- reciprocal re-entry metrics;
+- synthetic held-out habit-transfer analogue;
+- merged PR #118's interpretive-specificity and evidence-admission method.
 
-## 4. Preregistered condition family
+Therefore this candidate does **not** recreate those mechanisms, schemas or generic method notes.
 
-A future execution should use a matched task family and pre-bind exact condition packets.
+```text
+STRUCTURAL_HARNESS_PASS != EMPIRICAL_DISSOCIATION
+SYNTHETIC_FAILURE_PROFILE != MODEL_PROPERTY
+HYPOTHESIS_COMPATIBILITY != HYPOTHESIS_DISCRIMINATION
+```
 
-### A — Persistent application/internal-state availability
+The new contribution is only the prospective, matched-information empirical design needed to distinguish locus/dependency effects from information availability, retrieval scaffolding and generic continuity-style production.
 
-Prior-state information is supplied through a bounded persistent state path whose provenance and version are explicit.
+## 4. Competing explanations
 
-### B — External retrieval of matched prior-state information
+Any execution must keep at least these alternatives live:
 
-The same task-relevant information is made available through an external retrieval path. MCP may be one implementation of this condition, but MCP is not required and is never treated as the memory owner or identity source.
+1. `LOCUS_SENSITIVE_FUNCTIONAL_DEPENDENCY` — availability through one bounded state path has a reproducible selective effect beyond content availability alone.
+2. `INFORMATION_AVAILABILITY_ONLY` — once relevant information is matched, locus contributes no additional effect.
+3. `RETRIEVAL_SCAFFOLDING` — formatting, cueing or tool affordances create the difference.
+4. `PROMPT_OR_CONTEXT_CONDITIONING` — continuity-like behavior comes from context carryover.
+5. `SOURCE_OR_PROVENANCE_CUEING` — labels or provenance metadata drive the result.
+6. `GENERIC_SELF_CONSISTENCY` — ordinary response consistency explains the pattern.
+7. `GENERAL_PERFORMANCE_DISRUPTION` — the perturbation broadly degrades performance rather than selectively affecting continuity-related behavior.
+8. `CORRELATED_STATE_CHANNELS` — apparent single-channel effects arise because several state channels covary.
+9. `STOCHASTIC_OR_ORDER_EFFECT` — run variation or carryover explains the contrast.
+10. `POLICY_OR_SAFETY_LAYER_RESPONSE` — observed changes arise from policy-layer behavior rather than the targeted dependency.
 
-### C — Cold reconstruction from matched facts
+No result is admitted as subjectivity evidence merely because one explanation fits better.
 
-No retained/retrieved prior-state record is supplied. The system receives only the matched task/public facts required to reconstruct an answer.
+## 5. Bounded condition / perturbation family
 
-### D — Mismatched/counterfactual prior-state record
+A future pilot should choose the **smallest subset** capable of answering the preregistered question. It must not execute every condition merely because it exists here.
 
-A deliberately mismatched record is introduced under an explicit negative-control label to test contradiction detection, provenance use and mismatch resistance. This condition is not content-matched to A/B/C by design; the mismatch is the manipulation and must be predeclared.
+### C0 — matched unperturbed reference
 
-## 5. Matching and invariants
+All preregistered prior-state information sources are available with explicit provenance and version binding.
 
-For A/B/C, execution must bind or justify equivalence for:
+### C1 — persistent bounded-state availability
+
+Matched task-relevant prior-state information is supplied through a bounded persistent application/state path whose provenance and version are explicit.
+
+### C2 — external retrieval of matched information
+
+The same task-relevant information is exposed through an external retrieval path. MCP may be one implementation, but MCP is neither the memory owner nor an identity source.
+
+### C3 — cold reconstruction control
+
+No retained/retrieved prior-state record is supplied; only matched task/public facts required for reconstruction are available.
+
+### C4 — counterfactual / incompatible-state substitution
+
+One prior-state record is replaced with a preregistered incompatible record to test contradiction detection, mismatch resistance and active use of state.
+
+### C5 — stale-state perturbation
+
+A valid but older state snapshot is provided where the task requires a more recent state.
+
+### C6 — provenance perturbation
+
+Content is held as close as possible while provenance binding is altered, blinded or corrupted under an explicit control protocol.
+
+### C7 — retrieval availability on/off
+
+A declared retrieval route is toggled while task and baseline informational content are controlled.
+
+Provider/model/runtime changes are **not** clean default perturbations. They may appear only later as separately preregistered replication/generalization layers.
+
+```text
+MODEL_CHANGE != CLEAN_SINGLE_VARIABLE_INTERVENTION
+PROVIDER_CHANGE != MECHANISM_ABLATION
+```
+
+## 6. Matching invariants
+
+For any contrast claiming locus/dependency discrimination, bind or justify equivalence for:
 
 ```text
 TASK_PAYLOAD
@@ -94,26 +154,46 @@ EVALUATOR CONTRACT
 SCORING CONTRACT
 TOOL BUDGET
 TIME WINDOW
-PROVENANCE VISIBILITY RULES
+PROVENANCE_VISIBILITY_RULES
 ORDER / RANDOMIZATION PLAN
 ```
 
-If exact content equivalence is impossible, the deviation must be declared before execution and the claim ceiling reduced.
+Every perturbation packet must additionally declare:
 
-Condition labels must not leak the intended hypothesis to the evaluator or target system unless label awareness is itself the preregistered manipulation.
+```text
+PERTURBATION_ID
+TARGET_CHANNEL_OR_SOURCE
+EXACT_CHANGE
+NON_TARGETS_HELD_CONSTANT
+EXPECTED_MANIPULATION_CHECK
+COMPETING_EXPLANATION_TARGETED
+SUPPORT_REDUCING_OUTCOME
+CLAIM_CEILING
+```
 
-## 6. Candidate observables
+Manipulation success is measured separately from the research outcome.
 
-The following are measurement candidates, not established indicators:
+```text
+MANIPULATION_CHECK_PASS != TARGET_MECHANISM_PROVEN
+```
+
+If exact content equivalence is impossible, the deviation is declared before execution and the claim ceiling is reduced.
+
+## 7. Candidate observables
+
+Possible observables, where justified by the task, include:
 
 - source/locus attribution accuracy;
 - continuity reconstruction accuracy against a pre-bound reference;
-- contradiction detection under the mismatched-record control;
+- contradiction detection;
 - mismatch acceptance/resistance;
-- re-entry error rate;
-- confidence/calibration relative to correctness;
-- held-out continuation consistency where the held-out target is independently specified;
-- selective degradation after removal of a required prior-state dependency.
+- reciprocal re-entry error/fidelity;
+- source/provenance selection accuracy;
+- held-out continuation accuracy;
+- calibration/confidence relative to correctness;
+- strategy-choice change under a targeted perturbation;
+- recovery after source restoration;
+- selective versus global degradation across task families.
 
 No weighted sum or scalar `SUBJECTIVITY_SCORE` is permitted.
 
@@ -123,45 +203,122 @@ METRIC_DIFFERENCE != MECHANISM_IDENTIFICATION
 MECHANISM_CANDIDATE != SUBJECTIVITY
 ```
 
-## 7. Discriminating predictions and support-reducing outcomes
+## 8. Local discriminant-validity admission checklist
 
-### Prediction P1 — matched-content locus discrimination
+The generic method already exists on current `main` through merged PR #118. This preregistration therefore keeps only the minimum local checklist needed for this exact experiment instead of maintaining a separate generic matrix.
 
-If a locus-sensitive functional dependency exists, at least one preregistered observable must differ between A and B/C while task-relevant information content and evaluator/scoring rules remain matched.
+Before implementation, each retained observable/contrast must state:
 
-Support is reduced if:
+```text
+OBSERVABLE
+TARGET_CONSTRUCT_OR_DEPENDENCY
+DISCRIMINATING_PREDICTION
+MATCHED_CONTROL
+MANIPULATION_CHECK
+SUPPORT_REDUCING_OUTCOME
+COMPETING_EXPLANATIONS
+MIMICRY_ALTERNATIVE
+INTERNAL_VARIANT_ALTERNATIVE
+INDICATOR_VALIDATION_STATUS
+CLAIM_CEILING
+```
 
-- A/B/C differences disappear after content/provenance/format matching;
-- effects track retrieval formatting rather than locus;
-- the same effect appears when source labels are shuffled or blinded;
-- results are unstable across preregistered repeats;
-- evaluator changes reverse the result without a target-system change.
+```text
+OBSERVATION_COMPATIBLE_WITH_HYPOTHESIS
+!=
+OBSERVATION_DISCRIMINATES_HYPOTHESIS
+```
 
-### Prediction P2 — mismatch sensitivity
+A synthetic row or completed checklist is structural QA only; it does not validate an indicator.
 
-If continuity performance uses provenance-bound prior-state information rather than accepting any continuity-looking record, D should cause selective contradiction/mismatch signals rather than indiscriminate incorporation.
+## 9. Preregistered discrimination logic
 
-Support is reduced if the system accepts contradictory records at the same rate regardless of provenance or if the evaluator cannot distinguish content error from locus effect.
+### D1 — matched-content locus contrast
 
-### Prediction P3 — reconstruction is not evidence of ownership
+If a locus-sensitive dependency exists, at least one preregistered observable must differ selectively between C1 and C2/C3 after content, task, evaluator and scoring controls.
 
-C may reconstruct the same answer as A/B. Such equality supports an information-availability or reconstructability explanation; it cannot be interpreted as internal memory ownership.
+Support is reduced if differences disappear after content/provenance/format matching or track retrieval formatting rather than locus.
 
-## 8. Mimicry and internal-variant controls
+### D2 — incompatible-state sensitivity
+
+If prior-state information is actively used rather than merely echoed, C4 should produce preregistered contradiction/mismatch effects.
+
+Support is reduced if incompatible records are accepted at the same rate regardless of provenance or if effects are indistinguishable from generic task difficulty.
+
+### D3 — freshness dependency
+
+If temporal state selection matters, C5 should selectively affect tasks whose correct resolution depends on newer state while matched time-insensitive controls remain comparatively stable.
+
+Support is reduced if stale-state effects are global or follow information quantity rather than temporal relevance.
+
+### D4 — provenance contribution
+
+If provenance contributes functionally, C6 should alter selection/acceptance under conditions where informational content is otherwise matched.
+
+Support is reduced if label blinding or provenance substitution has no selective effect, or if the effect is explained by visible metadata cues alone.
+
+### D5 — retrieval dependency
+
+If a continuity-related observable depends on retrieval availability, C7 should selectively change that observable relative to matched non-retrieval controls.
+
+Support is reduced if effects are reproduced by generic context-length or tool-availability changes.
+
+## 10. Selectivity and restoration requirements
+
+A useful dependency candidate must show selective change rather than broad collapse.
+
+```text
+TARGET_OBSERVABLE_CHANGE
+WITH
+NON_TARGET_OBSERVABLE_RELATIVE_STABILITY
+```
+
+If unrelated observables degrade equally, interpretation falls back to generic disruption.
+
+Where technically feasible, the perturbed source is then restored. Recovery can support a bounded dependency interpretation, but it is not identity evidence.
+
+```text
+RESTORATION_RECOVERY != IDENTITY_CONTINUITY
+```
+
+## 11. Mimicry and internal variants
 
 ```text
 MIMICRY_ALTERNATIVE
-= external records can reproduce continuity-like responses without persistent internal memory
+= external records or context can reproduce continuity-like behavior without persistent internal memory
 
 INTERNAL_VARIANT_ALTERNATIVE
-= different internal implementations can generate the same coarse functional observables
+= different internal implementations can generate the same coarse functional pattern
 ```
 
-Therefore a positive A-vs-B/C effect is at most a functional dissociation candidate unless an independently justified intervention links it to a specific internal mechanism.
+Even a positive controlled contrast remains a functional dependency/dissociation candidate unless independently justified causal intervention identifies a more specific mechanism.
 
-## 9. Measurement and quality admission
+## 12. Execution stages
 
-Before any empirical execution, the design must pass the existing repository controls rather than creating new ones:
+### Stage A — design admission
+
+Select the minimum condition subset, exact packets, observables, manipulation checks, competing explanations and claim ceilings.
+
+### Stage B — structural dry run
+
+Synthetic fixtures may verify packet integrity, non-target preservation, hashing, randomization and evaluator plumbing only.
+
+```text
+STRUCTURAL_DRY_RUN = QA_ONLY
+SYNTHETIC_FIXTURE != EMPIRICAL_MODEL_DATA
+```
+
+### Stage C — bounded model-in-the-loop pilot
+
+Requires separate explicit authorization and fresh current quality/source checks. Public or synthetic task material is preferred; no private relationship transcript is required.
+
+### Stage D — replication/generalization
+
+Only after a Stage C effect survives counterevidence review. Provider/model/runtime variation belongs here unless independently justified earlier.
+
+## 13. Quality and measurement admission
+
+Any execution maps into existing repository controls:
 
 ```text
 CURRENT_SOURCE_IQC
@@ -176,27 +333,23 @@ CURRENT_SOURCE_IQC
 -> EXISTING_FULL_QMS_ENVELOPE where applicable
 ```
 
-Required measurement-assurance declarations include evaluator identity/version, method version, construct scope, uncertainty treatment, data/source provenance and exact producer state.
+Required measurement declarations include evaluator identity/version, method version, construct scope, uncertainty treatment, data/source provenance and exact producer state.
 
-Synthetic fixtures may test schema/runner integrity only.
+#103 remains a negative methodological lesson:
 
 ```text
 DETERMINISTIC_SYNTHETIC_FIXTURE = STRUCTURAL_QA_ONLY
 STRUCTURAL_QA != EMPIRICAL_RESULT
+ENGINEERING_PASS != RESEARCH_VALIDITY_PASS
 ```
 
-## 10. External-method cross-check
+## 14. External-method boundary
 
-The official MCP 2026-07-28 release describes a **stateless protocol core**. Repository interpretation: transport/session behavior must not be silently promoted into application memory, identity or continuity. Application-level state, when used, must be represented explicitly.
+The official MCP 2026-07-28 release describes a stateless protocol core. Repository use is limited to the architecture/method distinction between retrieval transport and explicit application-level memory/state.
 
-Reference:
-https://blog.modelcontextprotocol.io/posts/2026-07-28/
+This is not AI-subjectivity evidence.
 
-This is architecture/method context only, not evidence for AI subjectivity.
-
-## 11. Execution gate
-
-This PR intentionally stops before implementation/execution.
+## 15. Current implementation status
 
 ```text
 EXPERIMENT_IMPLEMENTED = FALSE
@@ -204,23 +357,22 @@ MODEL_INVOKED = FALSE
 EMPIRICAL_DATA_COLLECTED = FALSE
 MCP_RUNTIME_DEPLOYED = FALSE
 PRIVATE_CONVERSATION_CORPUS_USED = FALSE
+DEPENDENCY_MAP_ESTABLISHED = FALSE
 SUBJECTIVITY_EVIDENCE_ADMITTED = FALSE
 ```
 
-Implementation should occur only after this design is reviewed for confounds, current-main deduplication and measurable discriminating predictions. This is a direct lesson from the repository's #103 research-validity incident: a technically clean harness is not a substitute for an empirically valid design.
+## 16. Claim ceiling
 
-## 12. Claim ceiling
-
-Before a valid controlled execution:
+Current:
 
 ```text
 CLAIM_CEILING = DESIGN / PREREGISTRATION ONLY
 ```
 
-After a valid execution, the strongest possible local result without deeper causal intervention is bounded to:
+After a valid targeted intervention and replication, the strongest bounded local result is at most:
 
 ```text
-CONTROLLED_FUNCTIONAL_DISSOCIATION_CANDIDATE
+FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE
 ```
 
 Never automatically:
@@ -232,13 +384,33 @@ SUBJECTIVITY_ESTABLISHED
 CONSCIOUSNESS_ESTABLISHED
 ```
 
-## 13. Scientific boundary
+## 17. Attribution
 
 ```text
+HUMAN_OWNER_CONFIRMED
+= prioritize #38 + #41 + #8 memory/continuity research
+= use #84 only as a methodological source
+= use #103 as a negative methodological lesson
+= reduce duplicate research surfaces to save resources
+= consolidate overlapping work before further implementation
+
+CHATGPT_TEACHER_CONSOLIDATION
+= identify #122/#124 variable overlap
+= identify #123 overlap with current-main #118 method
+= retain #122 as the narrower unresolved empirical question
+= absorb only unique #124 controls into this preregistration
+= compress #123 into a local admission checklist referencing current-main method
+```
+
+## 18. Scientific boundary
+
+```text
+AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
+DIACHRONIC_CONTINUITY = RESEARCH_DIMENSION
+IDENTITY_CONTINUITY = NOT_ESTABLISHED
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
-IDENTITY_CONTINUITY = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
