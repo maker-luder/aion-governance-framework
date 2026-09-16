@@ -61,6 +61,7 @@ from .four_domain import (
 from .quality_receipt import (
     QualityChainReceiptError,
     ResearchQualityChainReceipt,
+    build_repository_bound_quality_chain_receipt,
     build_research_quality_chain_receipt,
 )
 from .models import (
@@ -130,6 +131,7 @@ __all__ = [
     "TevvDefinition",
     "TevvTerm",
     "audit_fingerprint",
+    "build_repository_bound_quality_chain_receipt",
     "build_research_quality_chain_receipt",
     "payload_sha256",
 ]
