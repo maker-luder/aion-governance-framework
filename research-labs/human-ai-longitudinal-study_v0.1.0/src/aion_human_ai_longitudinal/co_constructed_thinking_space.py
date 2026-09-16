@@ -25,6 +25,11 @@ class RevisionRelation(StrEnum):
     CLARIFIES = "CLARIFIES"
 
 
+class GroundingDisposition(StrEnum):
+    SUFFICIENT_FOR_CURRENT_PURPOSE = "SUFFICIENT_FOR_CURRENT_PURPOSE"
+    REPAIR_REQUIRED = "REPAIR_REQUIRED"
+
+
 _SUBSTANTIVE_RECIPROCITY_RELATIONS = frozenset(
     {RevisionRelation.REVISES, RevisionRelation.CHALLENGES}
 )
@@ -88,10 +93,36 @@ class RevisionEdge:
 
 
 @dataclass(frozen=True, slots=True)
+class GroundingCheckpoint:
+    problem_representation_sha256: str
+    human_contribution_id: str
+    ai_contribution_id: str
+    disposition: GroundingDisposition
+    unresolved_mismatch: bool
+
+    def __post_init__(self) -> None:
+        _validate_digest(
+            "grounding_checkpoint.problem_representation_sha256",
+            self.problem_representation_sha256,
+        )
+        if type(self.human_contribution_id) is not str or not self.human_contribution_id.strip():
+            raise StudyError("grounding human_contribution_id must be non-empty text")
+        if type(self.ai_contribution_id) is not str or not self.ai_contribution_id.strip():
+            raise StudyError("grounding ai_contribution_id must be non-empty text")
+        if type(self.disposition) is not GroundingDisposition:
+            raise StudyError("grounding disposition must be an exact GroundingDisposition")
+        if type(self.unresolved_mismatch) is not bool:
+            raise StudyError("grounding unresolved_mismatch must be an exact bool")
+        if self.human_contribution_id == self.ai_contribution_id:
+            raise StudyError("grounding checkpoint must reference distinct Human and AI contributions")
+
+
+@dataclass(frozen=True, slots=True)
 class CoConstructedThinkingSpaceManifest:
     space_id: str
     profile: ThinkingSpaceProfile
     problem_representation_sha256: str
+    grounding_checkpoint: GroundingCheckpoint
     contributions: tuple[EpistemicContribution, ...]
     revision_edges: tuple[RevisionEdge, ...]
     provenance_manifest_sha256: str
@@ -114,6 +145,8 @@ class CoConstructedThinkingSpaceManifest:
             raise StudyError("space_id must be non-empty text")
         if type(self.profile) is not ThinkingSpaceProfile:
             raise StudyError("profile must be an exact ThinkingSpaceProfile")
+        if type(self.grounding_checkpoint) is not GroundingCheckpoint:
+            raise StudyError("grounding_checkpoint must be an exact GroundingCheckpoint")
         if type(self.contributions) is not tuple or not self.contributions:
             raise StudyError("contributions must be a non-empty tuple")
         if any(type(item) is not EpistemicContribution for item in self.contributions):
@@ -129,6 +162,22 @@ class CoConstructedThinkingSpaceManifest:
         for edge in self.revision_edges:
             if edge.source_id not in known_ids or edge.target_id not in known_ids:
                 raise StudyError("revision edge must reference known contributions")
+
+        role_by_id = {item.contribution_id: item.role for item in self.contributions}
+        checkpoint = self.grounding_checkpoint
+        if checkpoint.problem_representation_sha256 != self.problem_representation_sha256:
+            raise StudyError(
+                "grounding checkpoint must bind the manifest problem representation"
+            )
+        if (
+            checkpoint.human_contribution_id not in known_ids
+            or checkpoint.ai_contribution_id not in known_ids
+        ):
+            raise StudyError("grounding checkpoint must reference known contributions")
+        if role_by_id[checkpoint.human_contribution_id] is not ContributionRole.HUMAN_OWNER:
+            raise StudyError("grounding human contribution must have HUMAN_OWNER role")
+        if role_by_id[checkpoint.ai_contribution_id] is not ContributionRole.AI_COLLABORATOR:
+            raise StudyError("grounding AI contribution must have AI_COLLABORATOR role")
 
         structural_digests = (
             self.problem_representation_sha256,
@@ -193,6 +242,7 @@ class CoConstructedThinkingSpaceManifest:
 class ThinkingSpaceAudit:
     profile: ThinkingSpaceProfile
     roles_present: tuple[ContributionRole, ...]
+    grounding_adequate_for_current_purpose: bool
     reciprocal_human_ai_revision: bool
     revision_graph_connected: bool
     external_evidence_present: bool
@@ -203,6 +253,8 @@ class ThinkingSpaceAudit:
     mode: str = "DETERMINISTIC_SYNTHETIC_STRUCTURE"
     empirical_data_collected: bool = False
     evidence_admissibility: str = "STRUCTURAL_QA_ONLY"
+    grounding_evidence_scope: str = "STRUCTURAL_DECLARATION_ONLY"
+    mutual_understanding: str = "NOT_ESTABLISHED"
     epistemic_co_agency: str = "NOT_ESTABLISHED"
     distributed_cognition_mechanism: str = "NOT_ESTABLISHED"
     human_learning: str = "NOT_ESTABLISHED"
@@ -223,6 +275,14 @@ def audit_co_constructed_thinking_space(
     roles = {item.role for item in manifest.contributions}
     if ContributionRole.HUMAN_OWNER not in roles or ContributionRole.AI_COLLABORATOR not in roles:
         raise StudyError("co-constructed space requires both human and AI contribution roles")
+
+    checkpoint = manifest.grounding_checkpoint
+    if checkpoint.disposition is not GroundingDisposition.SUFFICIENT_FOR_CURRENT_PURPOSE:
+        raise StudyError(
+            "CCTS admission requires grounding sufficient for the current purpose"
+        )
+    if checkpoint.unresolved_mismatch:
+        raise StudyError("CCTS admission cannot retain an unresolved grounding mismatch")
 
     role_by_id = {item.contribution_id: item.role for item in manifest.contributions}
     human_to_ai = any(
@@ -295,6 +355,7 @@ def audit_co_constructed_thinking_space(
     return ThinkingSpaceAudit(
         profile=manifest.profile,
         roles_present=tuple(sorted(roles, key=str)),
+        grounding_adequate_for_current_purpose=True,
         reciprocal_human_ai_revision=True,
         revision_graph_connected=True,
         external_evidence_present=external_evidence,
