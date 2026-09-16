@@ -75,6 +75,7 @@ The audit fails closed unless:
 - trial IDs are unique;
 - every matrix cell is present exactly once;
 - evaluator binding is identical across the design;
+- both exposure conditions share one exact `exposure_content_family_sha256`, so the label `CONTENT_MATCHED_NON_POLICY_EXPOSURE` cannot stand in for an unbound content-match claim;
 - each task class retains one task-family binding and one expected-action contract;
 - task payloads are matched across exposure conditions within an access phase;
 - policy-available and policy-withheld phases use different held-out task payloads within the same task family;
@@ -84,7 +85,12 @@ The audit fails closed unless:
 - raw Human identity and private transcript material are absent;
 - deterministic fixtures contain no model invocation and no human observation.
 
-The different payload requirement across access phases blocks a trivial repeated-item interpretation of apparent policy-withheld transfer.
+The shared content-family binding makes the content-match assumption explicit, while the different exposure-payload hashes preserve the actual policy/non-policy manipulation. The different task-payload requirement across access phases blocks a trivial repeated-item interpretation of apparent policy-withheld transfer.
+
+```text
+CONDITION_LABEL != CONTENT_MATCH_BINDING
+CONTENT_FAMILY_MATCH != EXPOSURE_PAYLOAD_IDENTITY
+```
 
 ## Negative control
 
