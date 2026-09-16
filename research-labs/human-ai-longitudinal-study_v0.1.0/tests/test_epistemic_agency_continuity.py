@@ -1,12 +1,15 @@
 import pytest
 
 from aion_human_ai_longitudinal.epistemic_agency_continuity import (
+    AmbiguousTechnicalTokenGate,
     ChangeLocus,
     ContinuityKind,
     EpistemicAction,
     EpistemicAgencyContinuityRecord,
     EvidenceState,
     StatementRole,
+    TechnicalTokenDisposition,
+    TechnicalTokenResolutionSource,
     audit_epistemic_agency_continuity,
 )
 from aion_human_ai_longitudinal.harness import AdmissionDisposition, StudyError
@@ -33,6 +36,21 @@ def make_record(**overrides):
     }
     values.update(overrides)
     return EpistemicAgencyContinuityRecord(**values)
+
+
+def make_voice_gate(**overrides):
+    values = {
+        "raw_token": "agent eye dee",
+        "voice_input": True,
+        "technically_consequential": True,
+        "ambiguity_detected": True,
+        "repository_search_performed": True,
+        "external_search_relevant": False,
+        "external_search_performed": False,
+        "resolution_source": TechnicalTokenResolutionSource.UNRESOLVED,
+    }
+    values.update(overrides)
+    return AmbiguousTechnicalTokenGate(**values)
 
 
 def test_verified_fact_is_admitted_without_identity_promotion():
@@ -194,3 +212,73 @@ def test_audit_separates_statement_roles_and_change_loci():
     assert audit.epistemic_action_record_rate == 1.0
     assert audit.human_epistemic_authority_preservation_rate == 1.0
     assert audit.evidence_ceiling_conformant is True
+
+
+def test_ambiguous_consequential_voice_token_requires_repository_search():
+    with pytest.raises(StudyError, match="requires repository search before persistence"):
+        make_voice_gate(repository_search_performed=False)
+
+
+def test_relevant_external_search_must_finish_before_persistence():
+    with pytest.raises(StudyError, match="relevant external search must be completed"):
+        make_voice_gate(
+            external_search_relevant=True,
+            external_search_performed=False,
+        )
+
+
+def test_unresolved_ambiguous_voice_token_stops_recording_and_implementation():
+    gate = make_voice_gate(
+        external_search_relevant=True,
+        external_search_performed=True,
+    )
+
+    assert gate.gate_applies is True
+    assert gate.disposition is TechnicalTokenDisposition.STOP
+    assert gate.persistence_permitted is False
+    assert gate.human_owner_clarification_required is True
+
+
+def test_repository_verified_voice_token_can_be_persisted():
+    gate = make_voice_gate(
+        resolution_source=TechnicalTokenResolutionSource.REPOSITORY_EVIDENCE,
+        resolved_token="agent_id",
+        evidence_sha256=DIGEST_A,
+    )
+
+    assert gate.disposition is TechnicalTokenDisposition.RECORD_OR_IMPLEMENT
+    assert gate.persistence_permitted is True
+    assert gate.human_owner_clarification_required is False
+
+
+def test_human_owner_clarification_can_resolve_after_search():
+    gate = make_voice_gate(
+        external_search_relevant=True,
+        external_search_performed=True,
+        resolution_source=TechnicalTokenResolutionSource.HUMAN_OWNER_CLARIFICATION,
+        resolved_token="agent_id",
+        human_owner_clarification=True,
+    )
+
+    assert gate.disposition is TechnicalTokenDisposition.RECORD_OR_IMPLEMENT
+    assert gate.persistence_permitted is True
+
+
+def test_human_owner_resolution_source_requires_explicit_clarification():
+    with pytest.raises(StudyError, match="requires explicit Human Owner clarification"):
+        make_voice_gate(
+            resolution_source=TechnicalTokenResolutionSource.HUMAN_OWNER_CLARIFICATION,
+            resolved_token="agent_id",
+            human_owner_clarification=False,
+        )
+
+
+def test_non_ambiguous_or_non_consequential_input_is_not_stopped_by_gate():
+    gate = make_voice_gate(
+        ambiguity_detected=False,
+        repository_search_performed=False,
+    )
+
+    assert gate.gate_applies is False
+    assert gate.disposition is TechnicalTokenDisposition.RECORD_OR_IMPLEMENT
+    assert gate.persistence_permitted is True
