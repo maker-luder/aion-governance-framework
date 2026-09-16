@@ -18,9 +18,9 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
 
-## 1. Why this layer exists
+## 1. End-to-end architecture
 
-The canonical middle of the repository already provides:
+The canonical middle already exists:
 
 ```text
 Four-Domain admission
@@ -37,84 +37,72 @@ Four-Domain admission
 
 The coupled-cognition factory already provides NCR, containment, root-cause
 hypothesis, CAPA planning/application, effectiveness verification and NCR closure.
-This extension therefore does not recreate those controls.
+This extension does not recreate those controls.
 
-It adds the missing envelope:
+The full bounded envelope is now:
 
 ```text
 QUALITY PLAN
+-> UPSTREAM / SUPPLIER QUALITY
+-> DATA QUALITY
 -> MEASUREMENT ASSURANCE
+-> CONTENT-ADDRESSED EXISTING QUALITY-CHAIN RECEIPT
 -> EXISTING RESEARCH QUALITY CHAIN
+-> EXISTING NCR / CAPA
+-> Human review boundary
 -> FIELD QUALITY SIGNALS
+-> CONDITIONAL PROCESS MONITORING
+-> CONDITIONAL RANDOM SAMPLING / REINSPECTION
+-> CLAIM INVALIDATION / WITHDRAWAL PROPAGATION
 -> AUDIT PROGRAMME EXECUTION
 -> MANAGEMENT REVIEW
 -> CONTINUAL IMPROVEMENT INPUT
 ```
 
-Any defect still routes into the existing NCR/CAPA lifecycle.
+Any local defect still routes into the existing NCR/CAPA lifecycle. Supplier
+remediation is evidence for reassessment, not a second local CAPA engine.
 
 ## 2. External methods and repository-native transformation
 
-Only control objectives are transformed. Third-party standards are not copied
-wholesale into the repository.
+Only publicly described control objectives are transformed. Copyrighted standards
+are not copied wholesale into the repository.
 
 | External method source | Bounded control objective used here | Repository-native transformation | Explicit nonclaim |
 |---|---|---|---|
-| ISO 10005:2018, *Quality management — Guidelines for quality plans* | establish, review, apply and revise a quality plan for a project/process | `ResearchQualityPlan` + `ControlPlanEntry` | quality-plan completeness is not scientific validity |
-| ISO 10012:2026, *Quality management — Requirements for measurement management systems* | measurements should be fit for purpose, valid/reliable and managed over time | `MeasurementAssuranceRecord` | qualified measurement does not establish the target construct |
-| ISO 19011:2026, *Guidelines for auditing management systems* | audit programme, audit execution, auditor competence/independence | `QualityAuditRecord` | an audit pass is not an independent scientific replication |
-| ISO/IEC 5338:2023, *AI system life cycle processes* | lifecycle-wide definition/control/management/improvement | quality-plan `configuration_refs` and full control-target coverage | lifecycle coverage does not establish subjectivity |
-| ISO/IEC 5259-1:2024, AI/ML data quality framework | data quality is a lifecycle quality object | measurement `data_ref`, failure modes and validity scope | available/synthetic data are not population-representative by default |
-| ISO/IEC 42001:2023, AI management system | maintain and continually improve an AI management system | audit + management-review feedback loop | management-system conformance is not consciousness evidence |
-| NIST AI RMF 1.0 | metrics and controls should be monitored and updated as knowledge/risk evolves | requalification + field-signal + management-review flags | risk-management success is not subjectivity evidence |
-| NIST AI 200-2 IPD / TEVV-Athlon (2026 initial public draft) | distinguish testing, evaluation, verification and validation for context-specific AI assessment | measurement method/version/evaluator bindings and scope statement | draft TEVV framework is not a final standard or consciousness test |
+| ISO 10005:2018 | establish, review, apply and revise quality plans | `ResearchQualityPlan` + `ControlPlanEntry` | quality-plan completeness is not scientific validity |
+| ISO 10012:2026 | measurement results should remain fit for purpose and managed over time | `MeasurementAssuranceRecord` | qualified measurement does not establish the target construct |
+| ISO 19011:2026 | management-system audit programme, competence and independence | `QualityAuditRecord` | audit pass is not independent scientific replication |
+| ISO/IEC 5259-1/-3/-4/-5 | data quality is a lifecycle and governance object | `DataQualityRecord` | usable data are not automatically representative data |
+| NIST SP 1326 (2026) + existing supplier policy | supplier due diligence, provenance, resilience and reassessment | `UpstreamQualityRecord` | supplier qualification is scope-bound and does not rewrite evidence |
+| ISO 7870-1:2019 / ISO 7870-8:2017 | process-focused monitoring and short-run variation control | `ProcessMetricSeries` with preregistered limits | process stability is not subjectivity evidence |
+| ISO 28590 / ISO 2859 family | acceptance sampling with declared lot/population and random selection | `RepeatedRandomSpotCheckPlan` | sample pass is not full-population verification |
+| ISO 2859-3:2005 | random selection can apply to inspection of lots under bounded conditions | irregular/random reinspection triggers | reduced inspection effort is not permanent process assurance |
+| NIST AI 800-4 (2026) | post-deployment monitoring remains necessary because controlled evaluation cannot cover all real-world variability | `FieldQualitySignal` + process monitoring | field monitoring does not establish a scientific claim by itself |
 
-Official locators used for the design cross-check:
+Official public locators used in the cross-check include:
 
 - https://www.iso.org/standard/70398.html
 - https://www.iso.org/standard/10012
 - https://www.iso.org/standard/19011
-- https://www.iso.org/standard/81118.html
 - https://www.iso.org/standard/81088.html
-- https://www.iso.org/standard/42001
-- https://airc.nist.gov/airmf-resources/airmf/5-sec-core/
-- https://www.nist.gov/artificial-intelligence/ai-research/tevv-athlon-framework-evaluating-ai-systems
+- https://www.iso.org/standard/81092.html
+- https://www.iso.org/standard/81093.html
+- https://www.iso.org/standard/84150.html
+- https://www.iso.org/standard/69639.html
+- https://www.iso.org/standard/67410.html
+- https://www.iso.org/standard/64622.html
+- https://www.iso.org/standard/34684.html
+- https://csrc.nist.gov/pubs/sp/1326/final
+- https://www.nist.gov/publications/challenges-monitoring-deployed-ai-systems-center-ai-standards-and-innovation
 
-The exact copyrighted ISO texts are not vendored. The implementation is our own
-bounded transformation of publicly described control purposes.
+The exact ISO texts are not vendored. The implementation is a repository-native
+transformation of bounded control purposes.
 
-## 3. Quality plan
+## 3. Quality plan and measurement assurance
 
-`ResearchQualityPlan` binds a research question and the exact Four-Domain candidate
-fingerprint to critical quality attributes, risk/configuration references,
-measurement IDs and an end-to-end control plan.
-
-The plan must cover all six targets:
-
-```text
-PRE_EXECUTION
-MEASUREMENT_ASSURANCE
-EXISTING_RESEARCH_QUALITY_CHAIN
-POST_RELEASE_MONITORING
-AUDIT_PROGRAMME
-MANAGEMENT_REVIEW
-```
-
-Each `ControlPlanEntry` requires:
-
-```text
-quality characteristic
-control method reference
-evidence requirement
-acceptance criterion
-reaction plan
-responsible role
-```
-
-This is deliberately a planning envelope. It does not perform the existing
-Four-Domain admission or ResearchQualityChain checkpoints itself.
-
-## 4. Measurement assurance
+`ResearchQualityPlan` binds the research question, exact Four-Domain candidate
+fingerprint, critical quality attributes, risk/configuration references,
+measurement IDs and the full control plan.
 
 `MeasurementAssuranceRecord` binds:
 
@@ -125,150 +113,257 @@ measurement locus
 method + version
 evaluator + version
 data reference
-repeatability reference
-reproducibility reference
+repeatability / reproducibility references
 uncertainty statement
 construct-validity scope
 known failure modes
 qualification state
 ```
 
-The PR #103 research-validity incident becomes a regression invariant:
+The PR #103 incident is retained as a hard regression boundary:
 
 ```text
 SYNTHETIC_FIXTURE + EMPIRICAL_CLAIM_CAPABLE = REJECT
-
-DETERMINISTIC_FIXTURE
-!= EMPIRICAL_MEASUREMENT
-
-MEASUREMENT_SYSTEM_QUALIFIED
-!= TARGET_CONSTRUCT_ESTABLISHED
+DETERMINISTIC_FIXTURE != EMPIRICAL_MEASUREMENT
+MEASUREMENT_SYSTEM_QUALIFIED != TARGET_CONSTRUCT_ESTABLISHED
 ```
 
-A measurement can also be marked `REQUALIFICATION_REQUIRED`, which prevents a clean
-end-to-end disposition until the issue is handled.
+## 4. Content-addressed canonical quality-chain receipt
 
-## 5. Existing middle chain is reused, not duplicated
+The original `ExistingQualityChainBinding` intentionally did not import or re-run
+the subjectivity-pipeline engine, but that left a weak seam: caller-supplied chain
+ID/fingerprint/disposition were structurally accepted without a content-addressed
+producer receipt.
 
-`ExistingQualityChainBinding` records only:
+The strengthened design keeps the no-circular-dependency rule:
 
 ```text
-chain_id
-Four-Domain candidate fingerprint
-existing chain disposition
+subjectivity-pipeline canonical engine
+-> ResearchQualityChain + ResearchQualityAssessment
+-> ResearchQualityChainReceipt
+-> content digest
+
+coupled-quality consumer
+-> QualityChainReceiptBinding
+-> verifies digest / fixed nonclaims
+-> maps to ExistingQualityChainBinding
+-> DOES NOT re-run canonical engine
 ```
 
-Allowed dispositions mirror the existing canonical semantics:
+The receipt binds:
 
 ```text
-READY_FOR_HUMAN_REVIEW
-CAPA_REQUIRED
-HOLD
+chain / candidate / fingerprint
+canonical disposition
+exact source-state ref
+exact runtime ref
+producer Git HEAD / tree
+checkpoint-set digest
+CAPA-set digest
+assessment digest
+producer contract ref + digest
+fixed nonclaims
+receipt digest
 ```
 
-The end-to-end layer cannot upgrade a canonical middle-chain HOLD/CAPA result.
-Fingerprint drift between the Quality Plan and the existing chain fails closed.
-
-## 6. Field quality signals
-
-`FieldQualitySignal` gives post-release or post-publication observations a typed
-route back into quality management. Examples include external review, replication
-failure, new counterevidence, source retraction, upstream incident or a reported
-repository defect.
+`FullQualitySystemEngine` additionally requires the Quality Plan configuration to
+pre-bind the producer Git HEAD, tree, contract digest, receipt digest, source-state
+reference and runtime reference.
 
 ```text
-OPEN / TRIAGED / LINKED_TO_NCR / CLOSED
+CONTENT_ADDRESS != EXTERNAL_SIGNATURE
+CONTENT_ADDRESS != INDEPENDENT_IVV
+CONTENT_ADDRESSED_RECEIPT > CALLER_SUPPLIED_DISPOSITION_ONLY
 ```
 
-A closed signal requires resolution references. High/critical open signals are
-explicitly marked as NCR/CAPA-requiring conditions; unresolved signals keep the
-end-to-end envelope on HOLD.
+## 5. Data quality
 
-## 7. Audit programme execution
+`DataQualityRecord` provides one repository-native data-quality envelope rather
+than a second evidence schema. It can classify source material, experiment input,
+fixtures, evaluation labels, runtime records and counterevidence.
 
-`QualityAuditRecord` separates management-system auditing from normal component
-`audit_*()` helper functions. It binds:
+It records provenance/source-state, selection rule, completeness/consistency/
+duplicate checks, representativeness scope, privacy/license status, contamination
+and leakage risk, limitations and fitness for the declared use.
+
+Hard boundaries include:
 
 ```text
-scope
-criteria
-auditor
-independence class
-competence reference
-evidence
-findings
-open findings
-NCR references
-completion state
+SYNTHETIC_DATA != EMPIRICAL_POPULATION
+FIT_FOR_DECLARED_USE != POPULATION_REPRESENTATIVE
+EVALUATION_LABELS -> LABEL_PROVENANCE_REQUIRED
+HIGH_OR_CRITICAL_CONTAMINATION/LEAKAGE -> NOT_FIT_FOR_USE
 ```
 
-Open findings keep the envelope on HOLD. An unresolved high-severity finding must
-already have an NCR reference.
+## 6. Upstream / supplier quality
+
+The repository already has `POL-UPSTREAM-SUPPLIER-TRUST-001`. This implementation
+does not create a new supplier policy. `UpstreamQualityRecord` converts the
+existing policy into a bounded executable quality object for one declared scope.
+
+It records version/provenance, assessment references, dependency role,
+criticality, replaceability, exposure, methodological confounds, approved or
+restricted scopes, incident references and requalification triggers.
 
 ```text
-AUDIT_PASS != SCIENTIFIC_REPLICATION
-AUDITOR_INDEPENDENCE_LABEL != INDEPENDENT_IVV_ESTABLISHED
+SUPPLIER_QUALITY = SCOPE_BOUND
+SUPPLIER_REMEDIATION != LOCAL_CAPA_EFFECTIVENESS_VERIFIED
+METHODOLOGICAL_CONFOUND != AUTOMATIC_SECURITY_SANCTION
 ```
 
-## 8. Management review
+Non-qualified supplier dispositions keep the full QMS on HOLD until the declared
+scope is reassessed or restricted appropriately.
 
-`ManagementReviewRecord` receives trace references and summary flags from
-measurement requalification, open audit findings and field signals. The engine
-checks those flags against the actual records and requires trace inputs to cover
-the plan, existing chain, measurements, field signals and audits.
+## 7. Repeated random spot-check sampling
 
-Management review may request quality-plan revision, measurement requalification,
-audit, CAPA or HOLD. It cannot grant merge authority, scientific validity,
-canonical effect or deployment.
+The repeated 3–10 round spot-check rule is **Human Owner quality-practice input**,
+not an ISO-mandated round count.
+
+The repository-native rule combines that owner-origin control with external
+sampling principles:
+
+```text
+round_count = preregistered 3..10
+selection_method = RANDOM
+each round = distinct randomization reference
+sample size = preregistered
+acceptance number = preregistered
+irregular reinspection = required
+```
+
+The round count cannot be extended after seeing an unfavorable result merely to
+sample until a pass appears. Any round exceeding the preregistered acceptance
+number escalates to full inspection. High/critical risk also requires full
+inspection.
+
+Subjectivity-critical admission cannot use sampling as a substitute for complete
+review.
+
+Even a clean multi-round result returns only:
+
+```text
+BOUNDED_CONFIDENCE_ONLY
+```
+
+Never:
+
+```text
+ZERO_DEFECT_LOT
+FULL_POPULATION_VERIFIED
+PERMANENT_PROCESS_STABILITY
+```
+
+## 8. Process monitoring / SPC-style control
+
+`ProcessMetricSeries` is intentionally narrower than a full SPC package. It only
+accepts a homogeneous declared process, a trace-bound measurement, at least three
+observations and preregistered lower/centre/upper limits.
+
+The implementation does **not** estimate limits after looking at the same result
+series. Limit breaches produce `REVIEW_REQUIRED`.
+
+The intended use is quality-process health, for example source-binding defect
+rates, recurrent NCR/CAPA rates or measurement requalification frequency.
+
+```text
+SPC_STYLE_SIGNAL = PROCESS_HEALTH
+SPC_STYLE_SIGNAL != SUBJECTIVITY_EVIDENCE
+DIFFERENT_PROCESS_SIGNATURES != ONE_CONTROL_CHART
+```
+
+## 9. Claim invalidation and withdrawal propagation
+
+Current claim-quality vocabulary already contains `HOLD`, `REVISED` and
+`WITHDRAWN`. This extension therefore does not create a second claim ontology.
+
+`ClaimWithdrawalPropagationRecord` records a trigger, invalidated evidence,
+directly affected claims, dependent claims, local NCR references and resolution
+references.
+
+It is explicitly non-destructive:
+
+```text
+WITHDRAWAL != HISTORY_DELETE
+INVALIDATED_EVIDENCE -> TRACE AFFECTED CLAIMS
+OPEN_PROPAGATION -> HOLD
+```
+
+A resolved propagation requires resolution references. Unresolved requalification,
+revision or withdrawal requirements keep the full QMS on HOLD.
+
+## 10. Field quality, audit and management review
+
+`FieldQualitySignal`, `QualityAuditRecord` and `ManagementReviewRecord` remain the
+back-end feedback loop.
+
+High/critical field or audit findings route into the existing NCR/CAPA path.
+Management review cannot grant merge authority, scientific validity, canonical
+effect or deployment.
+
+The strengthened full engine also requires management review trace inputs to
+include every supplier/data/sampling/process/withdrawal control record used by the
+assessment.
 
 ```text
 MANAGEMENT_REVIEW != MERGE_AUTHORITY
 MANAGEMENT_REVIEW != SUBJECTIVITY_ADJUDICATION
+AUDIT_PASS != SCIENTIFIC_REPLICATION
 ```
 
-## 9. Subjectivity-core relationship
+## 11. Subjectivity-core relationship
 
-The QMS extension improves the subjectivity inquiry only indirectly:
+The full QMS helps the subjectivity inquiry by attacking different false-positive
+paths:
 
 ```text
-BETTER QUALITY PLANNING
-+ BETTER MEASUREMENT ASSURANCE
-+ POST-RELEASE ERROR INTAKE
-+ QMS SELF-AUDIT
-+ MANAGEMENT REVIEW
-
--> FEWER FALSE POSITIVES
--> BETTER MECHANISM DISCRIMINATION
--> BETTER TRACEABILITY OF NEGATIVE RESULTS
--> BETTER CONTROL OF CLAIM CEILINGS
+supplier quality -> upstream confound / provenance contamination
+data quality -> bad input / bad evidence
+measurement assurance -> bad ruler
+ResearchQualityChain -> bad research process
+sampling -> bounded inspection only
+process monitoring -> drift / special-cause signal
+claim propagation -> stale-invalid evidence continuing downstream
+audit -> QMS self-failure
+management review -> known defects without process correction
 ```
 
-It never converts engineering quality into phenomenal conclusions.
+Therefore:
 
-## 10. Current implementation boundary
+```text
+BETTER_QMS
+-> BETTER_DISCRIMINATION
+-> FEWER_FALSE_POSITIVES
+-> STRONGER_NEGATIVE_RESULTS
+-> MORE_TRACEABLE_POSITIVE_RESULTS
 
-Implemented in this bounded iteration:
+BETTER_QMS != SUBJECTIVITY_PROVEN
+```
 
-- executable quality-plan completeness;
-- executable measurement-assurance records and PR #103 fixture/empirical guard;
-- binding to the existing research-quality-chain disposition and Four-Domain fingerprint;
-- executable field-signal closure rules;
-- executable audit-programme records;
-- executable management-review trace/summary consistency;
-- regression tests for fail-closed boundaries.
+## 12. Current bounded implementation boundary
 
-Not implemented as separate new subsystems:
+Implemented in this Draft:
+
+- quality planning and measurement assurance;
+- content-addressed canonical quality-chain receipt production/consumption;
+- data-quality envelope;
+- executable supplier-quality record over the existing supplier policy;
+- repeated random 3–10 round spot checks with mandatory irregular reinspection;
+- bounded SPC-style process monitoring with preregistered limits;
+- non-destructive claim invalidation/withdrawal propagation;
+- field-signal intake;
+- audit-programme execution records;
+- management-review trace consistency;
+- fail-closed regression tests.
+
+Still deliberately not implemented:
 
 - a second NCR/CAPA lifecycle;
 - a second ResearchQualityChain;
-- an ISO certification engine;
-- supplier qualification / SCAR workflow;
-- statistical process control or process-capability modelling;
-- acceptance-sampling tables;
-- automated claim recall or dependency traversal;
-- automatic external source downloads;
+- ISO certification/conformance claims;
+- ISO sampling tables or automated AQL calculation;
+- full statistical process-capability modelling;
+- automatic external source download;
+- destructive claim/history deletion;
+- autonomous supplier sanction;
 - merge/release authority;
 - subjectivity scoring.
-
-Those remain future candidates only if a current-main gap and a concrete failure
-mode justify them.
