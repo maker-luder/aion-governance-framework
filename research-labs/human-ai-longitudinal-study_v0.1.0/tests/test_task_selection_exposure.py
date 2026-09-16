@@ -20,6 +20,10 @@ def digest(char: str) -> str:
     return char * 64
 
 
+def patterned_digest(left: str, right: str) -> str:
+    return (left + right) * 32
+
+
 def exposure_vector(
     regime: SelectionRegime,
     track: SyntheticTrack,
@@ -106,12 +110,12 @@ def arms() -> tuple[TaskSelectionArm, ...]:
 
 def held_out_tasks() -> tuple[HeldOutTransferTask, ...]:
     family_chars = "0123"
-    payload_chars = "abcd"
+    payload_pairs = (("0", "f"), ("1", "e"), ("2", "d"), ("3", "c"))
     return tuple(
         HeldOutTransferTask(
             task_domain=domain,
             task_family_sha256=digest(family_chars[index]),
-            task_payload_sha256=digest(payload_chars[index]),
+            task_payload_sha256=patterned_digest(*payload_pairs[index]),
             evaluator_payload_sha256=digest("4"),
         )
         for index, domain in enumerate(SelectionTaskDomain)
