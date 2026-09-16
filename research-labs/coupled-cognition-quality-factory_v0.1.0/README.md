@@ -4,11 +4,13 @@ The bounded conversational and multi-agent coordination extension is documented
 in [`docs/COORDINATION_QUALITY.md`](docs/COORDINATION_QUALITY.md).
 
 The bounded end-to-end QMS extension is documented in
-[`docs/END_TO_END_RESEARCH_QMS.md`](docs/END_TO_END_RESEARCH_QMS.md). It adds
-quality planning, measurement assurance, post-release field-signal intake,
-management-system audit records and management review around the existing
-Four-Domain / ResearchQualityChain / NCR-CAPA middle line without creating a
-parallel quality ontology.
+[`docs/END_TO_END_RESEARCH_QMS.md`](docs/END_TO_END_RESEARCH_QMS.md). It now adds
+quality planning, measurement assurance, content-addressed binding to the existing
+ResearchQualityChain, upstream/supplier quality, data quality, bounded repeated
+random spot checks, process-health monitoring, non-destructive claim-withdrawal
+propagation, post-release field-signal intake, management-system audit records and
+management review around the existing Four-Domain / ResearchQualityChain /
+NCR-CAPA middle line without creating a parallel quality ontology.
 
 This external post-freeze research module treats human–LLM collaborative inquiry as a **quality-controlled production line** rather than as a self-validating conversation. Its purpose is to prevent a characteristic coupled-cognition failure: the human and model can agree, become mutually coherent, and still be wrong.
 
@@ -23,7 +25,11 @@ OLD_PROJECT_RESTORATION = NO
 ## Factory line
 
 ```text
-Quality Plan / Measurement Assurance
+Quality Plan
+  -> Supplier / upstream quality
+  -> Data quality
+  -> Measurement Assurance
+  -> content-addressed existing ResearchQualityChain receipt
   -> Idea / observation
   -> IQC: source / scope / provenance intake
   -> hypothesis + explicit falsifier
@@ -35,14 +41,17 @@ Quality Plan / Measurement Assurance
   -> verification
   -> FINAL QA
   -> Human authority boundary
-  -> field-quality signals / audit programme / management review
+  -> field-quality signals
+  -> conditional process monitoring / bounded sampling
+  -> claim invalidation / withdrawal propagation
+  -> audit programme / management review
                          |
                          +-> NCR -> containment -> root-cause hypothesis
                                   -> CAPA plan -> CAPA applied
                                   -> effectiveness verification -> NCR close
 ```
 
-The new end-to-end layer references the existing canonical middle controls; it does
+The end-to-end layer references the existing canonical middle controls; it does
 not grant release, merge or scientific authority.
 
 ## Core invariants
@@ -57,12 +66,27 @@ not grant release, merge or scientific authority.
 - `CAPA_APPLIED != CAPA_EFFECTIVENESS_VERIFIED`
 - `PASSING_TESTS != GOVERNANCE_CONFORMANCE`
 - `MEASUREMENT_SYSTEM_QUALIFIED != TARGET_CONSTRUCT_ESTABLISHED`
+- `SYNTHETIC_DATA != EMPIRICAL_POPULATION`
+- `SAMPLE_PASS != FULL_POPULATION_VERIFICATION`
+- `MULTIPLE_SAMPLE_PASS != ZERO_DEFECT_LOT`
+- `SPC_STYLE_SIGNAL != SUBJECTIVITY_EVIDENCE`
+- `WITHDRAWAL != HISTORY_DELETE`
 - `MANAGEMENT_REVIEW != MERGE_AUTHORITY`
 - `QMS_PASS != SUBJECTIVITY_EVIDENCE`
 
+## Owner-origin repeated random spot-check rule
+
+The repository now preserves a bounded Human Owner quality-practice rule for
+sampling: when sampling is permitted, the round count is preregistered at 3–10,
+each round uses a distinct randomization reference, and irregular reinspection is
+required. This 3–10 rule is not attributed to ISO. A clean result provides only a
+bounded confidence signal and never establishes that an entire lot is defect-free.
+Subjectivity-critical admission and high/critical inspection remain full-review
+surfaces.
+
 ## Epistemic source-role provenance
 
-The lab now includes `aion_coupled_quality.provenance`, an append-only bounded attribution surface that distinguishes `HUMAN_ORIGIN`, `AI_FORMALIZATION`, `JOINT_SYNTHESIS`, `EXTERNAL_SOURCE`, and `UNKNOWN` without treating provenance as truth.
+The lab includes `aion_coupled_quality.provenance`, an append-only bounded attribution surface that distinguishes `HUMAN_ORIGIN`, `AI_FORMALIZATION`, `JOINT_SYNTHESIS`, `EXTERNAL_SOURCE`, and `UNKNOWN` without treating provenance as truth.
 
 It also keeps self-reported state, observed signal and inferred state separate. In particular:
 
@@ -76,12 +100,12 @@ See [`docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md`](docs/EPISTEMIC_PROVENANC
 
 ## Provenance-to-claim quality gate
 
-`aion_coupled_quality.claim_quality` closes the previously open integration gap
-between the provenance ledger and the quality factory. It binds a bounded claim
-to source-role records, observed and inferred content, supporting and challenging
-evidence, competing explanations, a falsifier, dependencies, revisions and
-transfer-candidate metadata. It reuses `ResearchLot` evidence and final-QA state;
-it does not add a database, autonomous loop or second canonical evidence schema.
+`aion_coupled_quality.claim_quality` closes the integration gap between the
+provenance ledger and the quality factory. It binds a bounded claim to source-role
+records, observed and inferred content, supporting and challenging evidence,
+competing explanations, a falsifier, dependencies, revisions and transfer-candidate
+metadata. It reuses `ResearchLot` evidence and final-QA state; it does not add a
+database, autonomous loop or second canonical evidence schema.
 
 The gate fails closed for missing, invalid or unknown provenance; private-transcript
 publication; unresolved contradictory evidence; stale revisions or dependencies;
@@ -114,11 +138,6 @@ The deterministic public-safe fixture at
 `fixtures/naturalistic_learning_case_2026-09-11.json` preserves the structure of
 one reported case without publishing a private transcript or third-party identity.
 It remains hypothesis-generating and `SCIENTIFIC_DISPOSITION=HOLD`.
-
-The adapter validates caller-supplied structure. It does not authenticate source
-content, detect semantic contradiction, prove that a `final_qa_pass` flag came
-from an external auditor, or persist a revision graph. Those remain evidence,
-review and storage responsibilities outside this bounded integration.
 
 ## NCR / CAPA terminology
 
