@@ -24,6 +24,12 @@ Candidate, legacy, protocol, and synthesis documents retain their original statu
   boundary, negative paths and residuals.
 - [`sources/quality/README.md`](sources/quality/README.md) indexes the derivative
   NIST/FDA quality-method cards and exact acquisition receipts.
+- [`CLOSED_PR_DUAL_CORE_REENTRY_AUDIT_2026_09_16.md`](CLOSED_PR_DUAL_CORE_REENTRY_AUDIT_2026_09_16.md)
+  audits all closed PRs at the 2026-09-16 snapshot and adds a fail-closed historical
+  re-entry layer. The paired
+  [`closed_pr_reentry_registry_v0.1.0.json`](closed_pr_reentry_registry_v0.1.0.json)
+  binds the 12 closed-unmerged dispositions; merged PR history is read through current
+  `main` rather than re-imported.
 
 These additions keep artificial-subjectivity possibility as the central research
 question while treating quality engineering as a control surface rather than positive
