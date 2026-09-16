@@ -222,11 +222,11 @@ def supplier(**changes: object) -> UpstreamQualityRecord:
         "provenance_refs": ("provenance:supplier",),
         "assessment_refs": ("assessment:due-diligence",),
         "dependency_role": "RESEARCH",
-        "criticality": Severity.MODERATE,
+        "criticality": Severity.MEDIUM,
         "replaceability": "MODERATE",
         "exposure": "LOCAL_LIMITED",
         "methodological_confounds": ("identity shaping prior",),
-        "disposition": SupplierQualityDisposition.QUALIFIED_FOR_DECLARED_SCOPE,
+        "disposition": SupplierQualityDisposition.CONDITIONAL,
         "requalification_triggers": ("model version change", "supplier incident"),
         "approved_scope_refs": ("scope:bounded-research",),
     }
