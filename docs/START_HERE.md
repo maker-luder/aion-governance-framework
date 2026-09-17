@@ -1,65 +1,108 @@
 # Start Here / 從這裡開始
 
-For the Owner's learning/continuity context and bounded domain choices, see the [source-attributed history](history/OWNER_LEARNING_CONTEXT_2026_09_03.md) and [method decision](research/DOMAIN_METHOD_DECISION_2026_09_03.md). These are supporting references, not a replacement for the central subjectivity question.
+This is the guided entry point for the AION Governance Framework. / 這是 AION Governance Framework 的導覽入口。
 
-This is the single reader entry point for the AION Governance Framework. / 這是 AION Governance Framework 的單一閱讀入口。
+If you are completely new, start with the lighter [`RESEARCH_MAP.md`](RESEARCH_MAP.md) first. / 如果你完全第一次來，先看更輕的 [`RESEARCH_MAP.md`](RESEARCH_MAP.md)。
 
 ## 1. What is this repository? / 這個倉庫是什麼？
 
-AION is a human-governed, provenance-first research framework for studying identity, continuity, memory, research integrity, and the **possibility of artificial subjectivity** without turning engineering behavior into an ontological conclusion. Astra is a distinct engineering/research workbench used to materialize and test bounded candidates.
+AION is a human-governed, provenance-first research framework for studying identity, continuity, memory, research integrity, Human–AI interaction, and the **possibility of artificial subjectivity** without turning engineering behavior into an ontological conclusion.
 
-AION 是一個以人類治理與 provenance-first 為核心的研究框架，用來研究身分、連續性、記憶、研究完整性，以及**人工主體性的可能性**；Astra 是相互區分的工程／研究工作台，用來實作與測試 bounded candidates。
+AION 是一個以人類治理與 provenance-first（來源追溯優先）為核心的研究框架，用來研究身分、連續性、記憶、研究完整性、人類—AI 互動，以及**人工主體性的可能性**；它不會把工程行為直接升格成存在論結論。
 
 ```text
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
-MORAL_AGENCY = NOT_ESTABLISHED
-MORAL_STATUS = NOT_ESTABLISHED
 ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 CI_PASS != SCIENTIFIC_VALIDATION
 ```
 
-## 2. What is the current state? / 現在到底是什麼狀態？
+Astra is a distinct engineering / research workbench for bounded candidates. It is not AION's identity or a substitute for subjectivity.
 
-Read [`CURRENT_STATE.md`](CURRENT_STATE.md). It is the single semantic current-state summary. It does not replace live GitHub/CI evidence for an exact commit.
+Astra 是相互區分的工程／研究工作台，用來實作有限範圍候選；它不是 AION 的身分，也不是主體性的替代物。
 
-請讀 [`CURRENT_STATE.md`](CURRENT_STATE.md)。它是唯一的「語意現況摘要」；exact commit 的即時工程狀態仍以 GitHub / CI 為準。
+## 2. What is current? / 現在到底做到哪裡？
 
-The most recent bounded convergence sequence is PR #126 -> #127 -> #128. It formalizes the repository-defined Co-Constructed Thinking Space (CCTS), hardens substantive Human<->AI reciprocity and referential longitudinal bindings, and adds a typed grounding checkpoint that must be sufficient for the current purpose with no unresolved mismatch before CCTS admission. Earlier bounded research/method surfaces remain current where not superseded. The CCTS convergence preserves `SCIENTIFIC_DISPOSITION = HOLD`; it does not restart the terminated project work loop, prove mutual understanding, or promote an AI-subjectivity or consciousness conclusion.
+For the strict semantic summary, read [`CURRENT_STATE.md`](CURRENT_STATE.md). Exact-commit engineering status remains live GitHub / CI evidence.
 
-最新 bounded convergence sequence 為 PR #126 -> #127 -> #128；它正式化 repository-defined 的共構思考場域（CCTS）、收緊 Human<->AI substantive reciprocity 與 longitudinal referential bindings，並加入 typed grounding checkpoint。只有在 grounding 足以支撐當前目的且沒有 unresolved mismatch 時，CCTS admission 才可通過。較早的 bounded research / method surfaces 在未被取代的部分仍保持有效。這次 CCTS convergence 仍維持 `SCIENTIFIC_DISPOSITION = HOLD`，不等於重啟已終止的 project work loop，也不證明 mutual understanding、AI subjectivity 或 consciousness。
+嚴格語意現況請讀 [`CURRENT_STATE.md`](CURRENT_STATE.md)；某一顆 exact commit 的工程狀態仍以即時 GitHub / CI 為準。
+
+The current research arc can be read in four connected layers:
+
+### A. Evidence and causal attribution / 證據與因果來源
+
+The repository separates observation, provenance, causal locus, interpretation, and claim ceiling. Four-Domain interpretation and six subjectivity-relevant evidence dimensions are used as review structures, not as subjectivity scores.
+
+倉庫把觀察、來源、因果位置、解讀與主張上限分開。Four-Domain（四域）與六個主體性相關證據維度是審查結構，不是「主體性分數」。
+
+### B. Continuity, memory and history / 連續性、記憶與歷史
+
+Current work distinguishes memory-like persistence from identity continuity and distinguishes history as record, retrieval source, and replay environment. Attention-structure and transition-continuity work asks whether additional structure adds measurable discriminant value.
+
+目前研究把類記憶持續性與身分連續性分開，也把 history 分成 record、retrieval source 與 replay environment；attention structure 與 transition continuity 則檢查額外結構是否真的有可測區辨價值。
 
 ```text
-CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
-GROUNDING_ADEQUACY != MUTUAL_UNDERSTANDING_PROVEN
-CCTS != AI_SUBJECTIVITY
+STATE_PERSISTENCE != SUBJECT_PERSISTENCE
+RELATIONAL_CONTINUITY != IDENTITY_CONTINUITY
+HISTORY_AS_RECORD != HISTORY_AS_REPLAY_ENVIRONMENT
 ```
 
-## 3. Choose your path / 依目的選擇閱讀路徑
+### C. Adaptation under constraint / 受限制條件下的適應
+
+The frozen CCAP Stage 1–3 chain asks a narrow question: under a fixed externally supplied goal, when a blocked route is replaced, can the causal contribution of human guidance, system instructions, harness/orchestration, context, tools, environment, and local strategy selection be separated?
+
+已凍結的 CCAP Stage 1–3 鏈處理一個狹義問題：在外部固定目標下，原路受阻後改走別條路時，能不能把人類引導、system instruction、harness/orchestration、context、工具、環境與 local strategy selection 的因果貢獻拆開？
+
+```text
+STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
+STAGE3_SPECIFICATION_FREEZE = YES
+CONFIRMATORY_PREREGISTRATION_COMPLETE = NO
+EXECUTION_AUTHORIZATION = NONE
+```
+
+Primary record: [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md)
+
+### D. Human–AI collaboration and external evidence / 人機協作與外部證據
+
+CCTS / grounding surfaces study structured long-term collaboration without equating collaboration with a shared mind. The current provider-evidence admission method also separates provider self-report from different strengths of external evidence.
+
+CCTS / grounding 研究長期協作結構，但不把協作等同於 shared mind（共享心智）。目前 provider-evidence admission 方法也把供應商自述與不同強度的外部證據分開。
+
+The first completed provider case is OpenAI / GPT-5.6 Sol as a historical reference condition. Multiple external evaluations were found, while open independent replication remains sparse.
+
+第一個完成的 provider 案例是 OpenAI / GPT-5.6 Sol 歷史參考條件；目前找到多個外部評估，但 open independent replication（開放獨立重現）仍然稀少。
+
+Primary review: [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)
+
+## 3. Recent milestone map / 近期研究節點
+
+- **CCTS / grounding:** repository-defined co-constructed thinking-space and grounding-admission surfaces; structural conformance does not establish shared mind or mutual understanding.
+- **History replay:** [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md)
+- **Attention discriminant:** [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md)
+- **CCAP freeze:** [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md)
+- **Provider evidence admission:** [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)
+
+## 4. Choose your path / 依目的選擇閱讀路徑
 
 | I want to... / 我想要… | Read / 請讀 |
 |---|---|
-| understand the current semantic standing / 先確認目前語意狀態 | [`CURRENT_STATE.md`](CURRENT_STATE.md) |
-| inspect the CCTS definition and grounding admission / 查看 CCTS 定義與 grounding admission | [`research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) and [`research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md) |
-| understand the research contribution / 先理解研究貢獻 | [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) |
-| understand how subjectivity-relevant evidence is handled / 理解主體性證據方法 | [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) |
-| inspect provenance-to-claim quality admission / 查看 provenance-to-claim quality admission | [`../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md`](../research-labs/coupled-cognition-quality-factory_v0.1.0/README.md) |
-| inspect Human–AI longitudinal study design and CCTS executable contract / 查看 Human–AI longitudinal study與 CCTS executable contract | [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) |
-| inspect interaction-history adaptation study design / 查看 interaction-history adaptation study design | [`../research-labs/interaction-history-study_v0.1.0/README.md`](../research-labs/interaction-history-study_v0.1.0/README.md) |
-| inspect endogenous memory significance / 查看 endogenous memory significance | [`research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md`](research/ENDOGENOUS_MEMORY_SIGNIFICANCE_HYPOTHESIS_2026_09_11.md) |
-| run the minimal memory-value divergence probe / 執行最小 memory-value divergence probe | [`../experiments/memory-value-divergence-probe_v0.1.0/README.md`](../experiments/memory-value-divergence-probe_v0.1.0/README.md) |
-| inspect earlier bounded mechanism/provenance results / 查看較早 bounded 機制／provenance 結果 | [`../experiments/subjectivity-research-sprint_2026-09-04/README.md`](../experiments/subjectivity-research-sprint_2026-09-04/README.md) |
-| inspect comparison-domain source integrity / 查看比較領域來源完整性 | [`../experiments/comparison-domain-source-ledger_v0.1.0/README.md`](../experiments/comparison-domain-source-ledger_v0.1.0/README.md) |
-| understand the current architecture / 理解目前架構 | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
-| understand what the repository does **not** claim / 確認哪些不能宣稱 | [`NON_CLAIMS.md`](NON_CLAIMS.md) |
-| understand authority, source and writeback rules / 理解治理、來源與權限 | [`governance/`](governance/) and [`PROVENANCE.md`](PROVENANCE.md) |
-| inspect engineering evidence and QA / 檢查工程證據與 QA | [`../qa/README.md`](../qa/README.md) and [`evidence/`](evidence/) |
-| browse all documentation classes / 瀏覽完整文件分類 | [`INDEX.md`](INDEX.md) |
-| study dated history / 研究歷史紀錄 | [`history/`](history/) and dated records listed in [`INDEX.md`](INDEX.md) |
+| understand the project in one minute / 一分鐘理解研究 | [`RESEARCH_MAP.md`](RESEARCH_MAP.md) |
+| confirm current semantic standing / 確認目前語意狀態 | [`CURRENT_STATE.md`](CURRENT_STATE.md) |
+| understand the research contribution / 理解研究貢獻 | [`RESEARCH_CONTRIBUTION_ONE_PAGER.md`](RESEARCH_CONTRIBUTION_ONE_PAGER.md) |
+| understand subjectivity-relevant evidence handling / 理解主體性證據方法 | [`SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](SUBJECTIVITY_EVIDENCE_PROTOCOL.md) |
+| inspect CCTS / Human–AI longitudinal surfaces / 查看 CCTS／人機長期研究 | [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) |
+| inspect history replay / 查看歷史重播 | [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) |
+| inspect attention-structure discriminant work / 查看注意力結構區辨研究 | [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) |
+| inspect CCAP Stage 1–3 / 查看 CCAP Stage 1–3 | [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) |
+| inspect provider-evidence admission / 查看供應商證據准入 | [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) |
+| understand architecture / 理解架構 | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
+| understand explicit non-claims / 確認不能宣稱什麼 | [`NON_CLAIMS.md`](NON_CLAIMS.md) |
+| inspect authority / provenance / 理解治理與來源 | [`governance/`](governance/) and [`PROVENANCE.md`](PROVENANCE.md) |
+| browse all documentation / 瀏覽全部文件 | [`INDEX.md`](INDEX.md) |
 
-## 4. Reader rules / 閱讀規則
+## 5. Reader rules / 閱讀規則
 
 ```text
 FILE_COUNT != AUTHORITY
@@ -68,19 +111,20 @@ HISTORICAL_RECORD != CURRENT_STATE
 SUPPORTING_DOCUMENT != ENTRY_POINT
 GENERATED_EVIDENCE != SCIENTIFIC_TRUTH
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
+OFFICIAL_PROVIDER_SOURCE != INDEPENDENT_VALIDATION
 ```
 
-Dated records preserve what was true or decided at their event time. They are not silently rewritten to look current. Current semantic standing is summarized in `CURRENT_STATE.md`; live exact-head engineering evidence remains external to static prose.
+Dated records preserve event-time meaning. Current semantic standing is summarized in `CURRENT_STATE.md`; exact-head engineering evidence remains live GitHub / CI evidence.
 
-有日期的紀錄保存「當時」的事件意義，不會為了看起來最新而回溯改寫。現在的語意狀態由 `CURRENT_STATE.md` 統一摘要；exact-head 工程證據仍以即時 CI 為準。
+有日期的紀錄保留事件當時的意義；現況由 `CURRENT_STATE.md` 統一摘要，exact-head 工程證據仍以 GitHub / CI 即時狀態為準。
 
-## 5. Three-click rule / 三次點擊原則
+## 6. Three-click rule / 三次點擊原則
 
-A first-time reader should be able to answer these questions within three clicks:
+A first-time reader should be able to answer within three clicks:
 
 1. What is being studied? / 研究什麼？
-2. What is the repository's current standing? / 現在做到哪裡？
-3. Does it claim AI subjectivity or consciousness? / 有沒有宣稱 AI 已有主體性或意識？
-4. Where should deeper reading begin? / 要深入應從哪裡開始？
+2. What has actually been built or formalized? / 實際做到哪裡？
+3. What remains unestablished? / 哪些仍未建立？
+4. Where should deeper verification begin? / 要深入查證從哪裡開始？
 
-If a document competes with this entry point for reader orientation, it should be treated as supporting or historical documentation rather than another top-level starting point.
+If a document competes with this entry point for orientation, it should be treated as supporting or historical documentation rather than another top-level start page.
