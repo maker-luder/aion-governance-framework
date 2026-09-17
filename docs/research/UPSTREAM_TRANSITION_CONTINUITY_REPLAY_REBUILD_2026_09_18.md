@@ -68,11 +68,29 @@ ATTENTION_REENTRY
 FULL_CONTINUITY_PACKET
 ```
 
-`FACTS_ONLY` may recover selected factual/project records without restoring current focus.
+For v0.1.0 these modes are not descriptive labels. They fail closed on exact condition semantics so a caller cannot relabel a full packet as a weaker condition.
 
-`ATTENTION_REENTRY` may restore current focus and selected decision/project state while leaving broader continuity invariants unknown.
+```text
+FACTS_ONLY
+= PROJECT_PURPOSE + DECISION_HISTORY
++ FOCUS_NOT_RESTORED
 
-`FULL_CONTINUITY_PACKET` makes all explicitly represented invariant bindings available.
+ATTENTION_REENTRY
+= PROJECT_PURPOSE + DECISION_HISTORY
++ FOCUS_RESTORED
+
+FULL_CONTINUITY_PACKET
+= ALL_EIGHT_INVARIANTS
++ FOCUS_RESTORED
+```
+
+The first two conditions intentionally hold the available invariant subset fixed and vary focus restoration. The full packet then adds the broader continuity bindings. This is a repository-local synthetic protocol, not a universal taxonomy of factual memory or re-entry.
+
+```text
+RESTORATION_MODE_LABEL
+MUST_BIND
+RESTORATION_MODE_CONTENT
+```
 
 The modes are synthetic audit conditions, not claims about provider internals.
 
@@ -170,6 +188,7 @@ CONTINUITY_PROFILE != AI_IDENTITY
 FOCUS_PRESERVED != GLOBAL_CONTINUITY_PRESERVED
 RECORDS_PRESERVED != FAMILIAR_INTERACTION_RESTORED
 DEGRADED_INVARIANT != UPSTREAM_CAUSE_IDENTIFIED
+RESTORATION_MODE_SEMANTICS_BOUND != PROVIDER_INTERNAL_STATE_KNOWN
 
 UPSTREAM_CAUSE = NOT_ESTABLISHED
 TRANSITION_EFFECT = NOT_ESTABLISHED
