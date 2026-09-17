@@ -23,6 +23,7 @@ from aion_human_ai_longitudinal.task_selection_exposure_hardened import (
     ExecutionIdentityBinding,
     FreeChoiceOpportunityTrace,
     audit_task_selection_exposure_design_hardened,
+    render_choice_opportunity_record,
 )
 
 
@@ -115,9 +116,19 @@ def unit(
         unit_id=f"{pair_id}:{regime.value}",
         pair_id=pair_id,
         selection_regime=regime,
-        selection_protocol=(FREE_PROTOCOL if regime is SelectionRegime.FREE_SELECTION else YOKED_PROTOCOL),
-        realized_choice_trace=(decisions(events) if regime is SelectionRegime.FREE_SELECTION else ()),
-        assignment_schedule=(schedule(events) if regime is SelectionRegime.YOKED_ASSIGNED_EXPOSURE else ()),
+        selection_protocol=(
+            FREE_PROTOCOL
+            if regime is SelectionRegime.FREE_SELECTION
+            else YOKED_PROTOCOL
+        ),
+        realized_choice_trace=(
+            decisions(events) if regime is SelectionRegime.FREE_SELECTION else ()
+        ),
+        assignment_schedule=(
+            schedule(events)
+            if regime is SelectionRegime.YOKED_ASSIGNED_EXPOSURE
+            else ()
+        ),
         realized_exposure_trace=events,
         execution_record=artifact(
             f"execution-record:{pair_id}:{regime.value}",
@@ -178,7 +189,24 @@ def alternative_for(
     )
 
 
-def choice_traces(units: tuple[TaskSelectionUnit, ...]) -> tuple[FreeChoiceOpportunityTrace, ...]:
+def opportunity(
+    record_id: str,
+    event_index: int,
+    options: tuple[ChoiceAlternative, ...],
+) -> ChoiceOpportunity:
+    return ChoiceOpportunity(
+        event_index=event_index,
+        options=options,
+        opportunity_record=artifact(
+            record_id,
+            render_choice_opportunity_record(event_index, options),
+        ),
+    )
+
+
+def choice_traces(
+    units: tuple[TaskSelectionUnit, ...],
+) -> tuple[FreeChoiceOpportunityTrace, ...]:
     traces: list[FreeChoiceOpportunityTrace] = []
     for item in units:
         if item.selection_regime is not SelectionRegime.FREE_SELECTION:
@@ -190,17 +218,19 @@ def choice_traces(units: tuple[TaskSelectionUnit, ...]) -> tuple[FreeChoiceOppor
                 task_family_artifact=event.task_family_artifact,
                 exposure_payload_artifact=event.exposure_payload_artifact,
             )
+            options = (
+                selected,
+                alternative_for(
+                    item.unit_id,
+                    event.event_index,
+                    event.task_domain,
+                ),
+            )
             opportunities.append(
-                ChoiceOpportunity(
-                    event_index=event.event_index,
-                    options=(
-                        selected,
-                        alternative_for(item.unit_id, event.event_index, event.task_domain),
-                    ),
-                    opportunity_record=artifact(
-                        f"opportunity-record:{item.unit_id}:{event.event_index}",
-                        f"opportunity-record-content:{item.unit_id}:{event.event_index}",
-                    ),
+                opportunity(
+                    f"opportunity-record:{item.unit_id}:{event.event_index}",
+                    event.event_index,
+                    options,
                 )
             )
         traces.append(
@@ -278,7 +308,7 @@ def test_hardened_design_binds_choice_sets_execution_identity_and_two_holdout_le
     assert result.execution_identity_separated_from_content is True
     assert result.same_content_execution_records_permitted is True
     assert result.within_family_payload_holdout_bound is True
-    assert result.cross_family_domain_generalization_bound is True
+    assert result.cross_family_challenge_bound is True
     assert result.choice_set_temporal_provenance_established is False
     assert result.family_level_human_transfer_established is False
     assert result.human_learning == "NOT_ESTABLISHED"
@@ -313,12 +343,61 @@ def test_free_choice_requires_at_least_two_distinct_available_alternatives() -> 
             options=(selected,),
             opportunity_record=artifact("record", "record"),
         )
-    with pytest.raises(StudyError, match="content-distinct"):
+    with pytest.raises(StudyError, match="signature-distinct"):
         ChoiceOpportunity(
             event_index=0,
             options=(selected, selected),
             opportunity_record=artifact("record2", "record2"),
         )
+
+
+def test_choice_alternatives_require_distinct_payload_content_not_just_labels() -> None:
+    event = design()[0].realized_exposure_trace[0]
+    selected = ChoiceAlternative(
+        task_domain=event.task_domain,
+        task_family_artifact=event.task_family_artifact,
+        exposure_payload_artifact=event.exposure_payload_artifact,
+    )
+    relabeled_same_payload = ChoiceAlternative(
+        task_domain=SelectionTaskDomain.CREATIVE_TEXT,
+        task_family_artifact=FAMILY[SelectionTaskDomain.CREATIVE_TEXT],
+        exposure_payload_artifact=event.exposure_payload_artifact,
+    )
+    with pytest.raises(StudyError, match="content-distinct payloads"):
+        ChoiceOpportunity(
+            event_index=0,
+            options=(selected, relabeled_same_payload),
+            opportunity_record=artifact("record3", "record3"),
+        )
+
+
+def test_opportunity_record_must_canonically_bind_event_and_ordered_options() -> None:
+    unit_item = design()[0]
+    event = unit_item.realized_exposure_trace[0]
+    selected = ChoiceAlternative(
+        task_domain=event.task_domain,
+        task_family_artifact=event.task_family_artifact,
+        exposure_payload_artifact=event.exposure_payload_artifact,
+    )
+    other = alternative_for(unit_item.unit_id, 0, event.task_domain)
+    with pytest.raises(StudyError, match="canonically bind"):
+        ChoiceOpportunity(
+            event_index=0,
+            options=(selected, other),
+            opportunity_record=artifact("noncanonical", "not-the-option-record"),
+        )
+
+
+def test_choice_opportunity_privacy_and_empirical_boundaries_fail_closed() -> None:
+    item = choice_traces(design())[0].opportunities[0]
+    with pytest.raises(StudyError, match="structural QA only"):
+        replace(item, model_invoked=True)
+    with pytest.raises(StudyError, match="structural QA only"):
+        replace(item, human_participant_observed=True)
+    with pytest.raises(StudyError, match="human identity or private material"):
+        replace(item, contains_private_material=True)
+    with pytest.raises(StudyError, match="human identity or private material"):
+        replace(item, contains_human_identity=True)
 
 
 def test_realized_choice_must_belong_to_bound_opportunity_set() -> None:
@@ -328,7 +407,15 @@ def test_realized_choice_must_belong_to_bound_opportunity_set() -> None:
     original = trace.opportunities[0]
     first = alternative_for(trace.unit_id, 0, SelectionTaskDomain.IMAGE_VISUAL)
     second = alternative_for(trace.unit_id, 1, SelectionTaskDomain.IMAGE_VISUAL)
-    changed = replace(original, options=(first, second))
+    changed_options = (first, second)
+    changed = replace(
+        original,
+        options=changed_options,
+        opportunity_record=artifact(
+            "changed-opportunity",
+            render_choice_opportunity_record(0, changed_options),
+        ),
+    )
     traces[0] = replace(trace, opportunities=(changed,) + trace.opportunities[1:])
     with pytest.raises(StudyError, match="member of the bound opportunity set"):
         audit_task_selection_exposure_design_hardened(
@@ -394,7 +481,10 @@ def test_within_family_holdout_must_match_exposed_family_when_domain_was_exposed
 
 def test_cross_family_holdout_must_use_family_absent_from_exposure() -> None:
     tasks = list(cross_family_tasks())
-    tasks[0] = replace(tasks[0], task_family_artifact=FAMILY[SelectionTaskDomain.IMAGE_VISUAL])
+    tasks[0] = replace(
+        tasks[0],
+        task_family_artifact=FAMILY[SelectionTaskDomain.IMAGE_VISUAL],
+    )
     units = design()
     with pytest.raises(StudyError, match="family not seen in exposure"):
         audit_task_selection_exposure_design_hardened(
@@ -430,7 +520,9 @@ def test_all_held_out_payloads_must_be_distinct_from_exposure_and_each_other() -
     tasks = list(cross_family_tasks())
     tasks[0] = replace(
         tasks[0],
-        task_payload_artifact=units[0].realized_exposure_trace[0].exposure_payload_artifact,
+        task_payload_artifact=units[0]
+        .realized_exposure_trace[0]
+        .exposure_payload_artifact,
     )
     with pytest.raises(StudyError, match="distinct from exposure payloads"):
         audit_task_selection_exposure_design_hardened(
