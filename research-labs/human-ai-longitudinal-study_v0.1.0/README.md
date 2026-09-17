@@ -18,6 +18,14 @@ The bounded externalized-metacognitive-policy transfer extension is documented i
 The bounded task-selection / yoked-exposure design-audit extension is documented in
 [`TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md`](TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md).
 
+The additive post-merge hardening for explicit choice-opportunity sets,
+execution identity/content separation and cross-family held-out challenges is
+implemented in `src/aion_human_ai_longitudinal/task_selection_exposure_hardened.py`
+and documented in
+[`../../docs/research/TASK_SELECTION_CHOICE_OPPORTUNITY_AND_TRANSFER_HARDENING_2026_09_17.md`](../../docs/research/TASK_SELECTION_CHOICE_OPPORTUNITY_AND_TRANSFER_HARDENING_2026_09_17.md).
+The PR #139 auditor is retained for historical/API compatibility; the hardened
+auditor is the stricter future admission surface for these three semantics.
+
 The repository-defined Co-Constructed Thinking Space (CCTS) structural contract is
 implemented in `src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
 and grounded by
@@ -50,6 +58,15 @@ episode; event counts do not imply equal duration, difficulty, cognitive intensi
 or learning opportunity. Bound artifacts recompute SHA-256 from their supplied UTF-8
 content, but content/digest integrity is not semantic or scientific validation. The
 temporal-provenance layer is specification-only and does not estimate causal effects.
+
+The post-merge task-selection hardening adds an event-level choice-opportunity trace
+for every free-selection unit. Each opportunity contains at least two content-bound,
+distinct alternatives and the realized choice must be a member of that set. It also
+separates execution identity from execution-record content so independently identified
+executions may serialize identically, and it requires both within-family/new-payload
+and cross-family/same-domain held-out records. These are structural controls only:
+choice-set binding does not prove Human autonomy, and cross-family held-out structure
+does not establish transfer or learning.
 
 The CCTS extension formalizes a repository-local relational construct rather than
 claiming a new external scientific taxonomy. Its core profile requires an explicit
@@ -109,6 +126,10 @@ YOKED_EXPOSURE_MATCH != CAUSAL_IDENTIFICATION_COMPLETE
 TASK_EPISODE_COUNT != EQUAL_EXPOSURE_INTENSITY
 HASH_MATCH != SCIENTIFIC_SEMANTICS_VALIDATED
 TEMPORAL_ORDER != CAUSALITY
+REALIZED_CHOICE_TRACE_PRESENT != CHOICE_OPPORTUNITY_OPERATIONALIZED
+CHOICE_OPPORTUNITY_SET_BOUND != HUMAN_AUTONOMY_ESTABLISHED
+SEPARATE_EXECUTION_IDENTITY != EXECUTION_CONTENT_MUST_DIFFER
+CROSS_FAMILY_HELD_OUT_TASK != DOMAIN_GENERALIZATION_ESTABLISHED
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 GROUNDING_CHECKPOINT_PRESENT != AI_UNDERSTANDING_PROVEN
