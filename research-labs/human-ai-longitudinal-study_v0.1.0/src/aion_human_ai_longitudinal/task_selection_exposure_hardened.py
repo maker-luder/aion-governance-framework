@@ -21,11 +21,17 @@ class ChoiceAlternative:
 
     def __post_init__(self) -> None:
         if type(self.task_domain) is not SelectionTaskDomain:
-            raise StudyError("choice alternative task_domain must be exact SelectionTaskDomain")
+            raise StudyError(
+                "choice alternative task_domain must be exact SelectionTaskDomain"
+            )
         if type(self.task_family_artifact) is not BoundArtifact:
-            raise StudyError("choice alternative task_family_artifact must be exact BoundArtifact")
+            raise StudyError(
+                "choice alternative task_family_artifact must be exact BoundArtifact"
+            )
         if type(self.exposure_payload_artifact) is not BoundArtifact:
-            raise StudyError("choice alternative exposure_payload_artifact must be exact BoundArtifact")
+            raise StudyError(
+                "choice alternative exposure_payload_artifact must be exact BoundArtifact"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -33,21 +39,64 @@ class ChoiceOpportunity:
     event_index: int
     options: tuple[ChoiceAlternative, ...]
     opportunity_record: BoundArtifact
+    synthetic: bool = True
+    model_invoked: bool = False
+    human_participant_observed: bool = False
+    contains_human_identity: bool = False
+    contains_private_material: bool = False
 
     def __post_init__(self) -> None:
         if type(self.event_index) is not int or self.event_index < 0:
-            raise StudyError("choice opportunity event_index must be a non-negative exact int")
+            raise StudyError(
+                "choice opportunity event_index must be a non-negative exact int"
+            )
         if type(self.options) is not tuple:
             raise StudyError("choice opportunity options must be an exact tuple")
         if len(self.options) < 2:
             raise StudyError("free choice requires at least two available alternatives")
         if any(type(option) is not ChoiceAlternative for option in self.options):
-            raise StudyError("choice opportunity options must contain exact ChoiceAlternative values")
+            raise StudyError(
+                "choice opportunity options must contain exact ChoiceAlternative values"
+            )
+
         signatures = tuple(_alternative_signature(option) for option in self.options)
         if len(set(signatures)) != len(signatures):
-            raise StudyError("choice opportunity alternatives must be content-distinct")
+            raise StudyError("choice opportunity alternatives must be signature-distinct")
+        payload_digests = tuple(
+            option.exposure_payload_artifact.sha256_digest for option in self.options
+        )
+        if len(set(payload_digests)) != len(payload_digests):
+            raise StudyError(
+                "choice opportunity alternatives must have content-distinct payloads"
+            )
+
         if type(self.opportunity_record) is not BoundArtifact:
             raise StudyError("choice opportunity requires an exact BoundArtifact record")
+        expected_record = render_choice_opportunity_record(self.event_index, self.options)
+        if self.opportunity_record.content_utf8 != expected_record:
+            raise StudyError(
+                "opportunity_record must canonically bind event_index and ordered options"
+            )
+
+        for name in (
+            "synthetic",
+            "model_invoked",
+            "human_participant_observed",
+            "contains_human_identity",
+            "contains_private_material",
+        ):
+            if type(getattr(self, name)) is not bool:
+                raise StudyError(f"{name} must be an exact bool")
+        if not self.synthetic:
+            raise StudyError("choice opportunities must remain synthetic in this hardening")
+        if self.model_invoked or self.human_participant_observed:
+            raise StudyError(
+                "choice opportunities are structural QA only and cannot contain model or human observations"
+            )
+        if self.contains_human_identity or self.contains_private_material:
+            raise StudyError(
+                "choice opportunities cannot declare human identity or private material"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,12 +108,18 @@ class FreeChoiceOpportunityTrace:
         if type(self.unit_id) is not str or not self.unit_id.strip():
             raise StudyError("choice opportunity trace unit_id must be non-empty text")
         if type(self.opportunities) is not tuple or not self.opportunities:
-            raise StudyError("choice opportunity trace requires an exact non-empty tuple")
+            raise StudyError(
+                "choice opportunity trace requires an exact non-empty tuple"
+            )
         if any(type(item) is not ChoiceOpportunity for item in self.opportunities):
-            raise StudyError("choice opportunity trace must contain exact ChoiceOpportunity values")
+            raise StudyError(
+                "choice opportunity trace must contain exact ChoiceOpportunity values"
+            )
         indices = tuple(item.event_index for item in self.opportunities)
         if indices != tuple(range(len(indices))):
-            raise StudyError("choice opportunity event_index values must be contiguous from zero")
+            raise StudyError(
+                "choice opportunity event_index values must be contiguous from zero"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -96,7 +151,7 @@ class HardenedTaskSelectionExposureAudit:
     execution_identity_separated_from_content: bool = True
     same_content_execution_records_permitted: bool = True
     within_family_payload_holdout_bound: bool = True
-    cross_family_domain_generalization_bound: bool = True
+    cross_family_challenge_bound: bool = True
     choice_set_temporal_provenance_established: bool = False
     family_level_human_transfer_established: bool = False
     mode: str = "DETERMINISTIC_SYNTHETIC_FIXTURE"
@@ -125,6 +180,32 @@ def _alternative_signature(
         option.task_family_artifact.sha256_digest,
         option.exposure_payload_artifact.sha256_digest,
     )
+
+
+def render_choice_opportunity_record(
+    event_index: int,
+    options: tuple[ChoiceAlternative, ...],
+) -> str:
+    lines = [
+        "CHOICE_OPPORTUNITY_V1",
+        f"EVENT_INDEX={event_index}",
+        f"OPTION_COUNT={len(options)}",
+    ]
+    for index, option in enumerate(options):
+        lines.extend(
+            (
+                f"OPTION[{index}].TASK_DOMAIN={option.task_domain.value}",
+                (
+                    f"OPTION[{index}].TASK_FAMILY_SHA256="
+                    f"{option.task_family_artifact.sha256_digest}"
+                ),
+                (
+                    f"OPTION[{index}].EXPOSURE_PAYLOAD_SHA256="
+                    f"{option.exposure_payload_artifact.sha256_digest}"
+                ),
+            )
+        )
+    return "\n".join(lines)
 
 
 def _decision_signature(
@@ -209,7 +290,9 @@ def audit_task_selection_exposure_design_hardened(
         if len(pair_units) != 2:
             raise StudyError("each pair_id requires exactly two study units")
         if {unit.selection_regime for unit in pair_units} != set(SelectionRegime):
-            raise StudyError("each pair_id requires one free and one yoked-assigned unit")
+            raise StudyError(
+                "each pair_id requires one free and one yoked-assigned unit"
+            )
 
     control_fields = (
         "exposure_unit_definition",
@@ -234,10 +317,14 @@ def audit_task_selection_exposure_design_hardened(
             if unit.selection_regime is regime
         }
         if len(digests) != 1:
-            raise StudyError("each selection regime requires one exact protocol binding")
+            raise StudyError(
+                "each selection regime requires one exact protocol binding"
+            )
         protocol_by_regime[regime] = next(iter(digests))
     if len(set(protocol_by_regime.values())) != len(SelectionRegime):
-        raise StudyError("selection regimes require content-distinct protocol bindings")
+        raise StudyError(
+            "selection regimes require content-distinct protocol bindings"
+        )
 
     for pair_id, pair_units in pairs.items():
         free = next(
@@ -252,9 +339,13 @@ def audit_task_selection_exposure_design_hardened(
         )
         free_signature = _exposure_signature(free)
         if free_signature != _exposure_signature(yoked):
-            raise StudyError(f"pair {pair_id} must receive the same realized exposure sequence")
+            raise StudyError(
+                f"pair {pair_id} must receive the same realized exposure sequence"
+            )
         if _assignment_signature(yoked) != free_signature:
-            raise StudyError(f"pair {pair_id} yoked schedule must copy the free unit exposure sequence")
+            raise StudyError(
+                f"pair {pair_id} yoked schedule must copy the free unit exposure sequence"
+            )
 
     free_units = tuple(
         unit for unit in units if unit.selection_regime is SelectionRegime.FREE_SELECTION
@@ -262,13 +353,20 @@ def audit_task_selection_exposure_design_hardened(
     free_unit_ids = {unit.unit_id for unit in free_units}
     if type(choice_opportunity_traces) is not tuple or not choice_opportunity_traces:
         raise StudyError("hardened design requires free-choice opportunity traces")
-    if any(type(trace) is not FreeChoiceOpportunityTrace for trace in choice_opportunity_traces):
-        raise StudyError("choice opportunity traces must contain exact FreeChoiceOpportunityTrace values")
+    if any(
+        type(trace) is not FreeChoiceOpportunityTrace
+        for trace in choice_opportunity_traces
+    ):
+        raise StudyError(
+            "choice opportunity traces must contain exact FreeChoiceOpportunityTrace values"
+        )
     trace_by_unit = {trace.unit_id: trace for trace in choice_opportunity_traces}
     if len(trace_by_unit) != len(choice_opportunity_traces):
         raise StudyError("each free unit requires exactly one choice opportunity trace")
     if set(trace_by_unit) != free_unit_ids:
-        raise StudyError("choice opportunity traces must bind exactly the FREE_SELECTION units")
+        raise StudyError(
+            "choice opportunity traces must bind exactly the FREE_SELECTION units"
+        )
 
     for unit in free_units:
         trace = trace_by_unit[unit.unit_id]
@@ -280,30 +378,44 @@ def audit_task_selection_exposure_design_hardened(
             strict=True,
         ):
             if decision.event_index != opportunity.event_index:
-                raise StudyError("choice opportunity event_index must match realized choice event_index")
-            option_signatures = {_alternative_signature(option) for option in opportunity.options}
+                raise StudyError(
+                    "choice opportunity event_index must match realized choice event_index"
+                )
+            option_signatures = {
+                _alternative_signature(option) for option in opportunity.options
+            }
             if _decision_signature(decision) not in option_signatures:
-                raise StudyError("realized choice must be a member of the bound opportunity set")
+                raise StudyError(
+                    "realized choice must be a member of the bound opportunity set"
+                )
 
     if type(execution_identities) is not tuple or not execution_identities:
         raise StudyError("hardened design requires execution identity bindings")
-    if any(type(item) is not ExecutionIdentityBinding for item in execution_identities):
-        raise StudyError("execution identities must contain exact ExecutionIdentityBinding values")
+    if any(
+        type(item) is not ExecutionIdentityBinding for item in execution_identities
+    ):
+        raise StudyError(
+            "execution identities must contain exact ExecutionIdentityBinding values"
+        )
     execution_by_unit = {item.unit_id: item for item in execution_identities}
     if len(execution_by_unit) != len(execution_identities):
         raise StudyError("each unit requires exactly one execution identity binding")
     if set(execution_by_unit) != set(unit_ids):
         raise StudyError("execution identity bindings must cover exactly the study units")
-    if len({item.execution_id for item in execution_identities}) != len(execution_identities):
-        raise StudyError("execution_id values must be unique")
-    if len({item.execution_record_artifact_id for item in execution_identities}) != len(
+    if len({item.execution_id for item in execution_identities}) != len(
         execution_identities
     ):
+        raise StudyError("execution_id values must be unique")
+    if len(
+        {item.execution_record_artifact_id for item in execution_identities}
+    ) != len(execution_identities):
         raise StudyError("execution record artifact identities must be unique")
     for unit in units:
         binding = execution_by_unit[unit.unit_id]
         if binding.execution_record_artifact_id != unit.execution_record.artifact_id:
-            raise StudyError("execution identity must bind the unit execution_record artifact_id")
+            raise StudyError(
+                "execution identity must bind the unit execution_record artifact_id"
+            )
 
     family_by_domain: dict[SelectionTaskDomain, str] = {}
     exposure_payloads: set[str] = set()
@@ -333,27 +445,43 @@ def audit_task_selection_exposure_design_hardened(
         cross = cross_by_domain[domain]
         for task in (within, cross):
             if task.evaluator_payload.sha256_digest != evaluator_binding:
-                raise StudyError("held-out evaluator binding must match unit evaluator binding")
+                raise StudyError(
+                    "held-out evaluator binding must match unit evaluator binding"
+                )
             payload_digest = task.task_payload_artifact.sha256_digest
             if payload_digest in exposure_payloads:
-                raise StudyError("held-out task payload must remain distinct from exposure payloads")
+                raise StudyError(
+                    "held-out task payload must remain distinct from exposure payloads"
+                )
             if payload_digest in all_held_out_payloads:
-                raise StudyError("held-out task payloads must be mutually content-distinct")
+                raise StudyError(
+                    "held-out task payloads must be mutually content-distinct"
+                )
             all_held_out_payloads.add(payload_digest)
 
         exposure_family = family_by_domain.get(domain)
         within_family = within.task_family_artifact.sha256_digest
         cross_family = cross.task_family_artifact.sha256_digest
         if exposure_family is not None and within_family != exposure_family:
-            raise StudyError("within-family held-out task must match the exposed task family")
+            raise StudyError(
+                "within-family held-out task must match the exposed task family"
+            )
         if exposure_family is not None and cross_family == exposure_family:
-            raise StudyError("cross-family held-out task must use a family not seen in exposure")
+            raise StudyError(
+                "cross-family held-out task must use a family not seen in exposure"
+            )
         if exposure_family is None and cross_family == within_family:
-            raise StudyError("zero-exposure domains still require two distinct held-out families")
+            raise StudyError(
+                "zero-exposure domains still require two distinct held-out families"
+            )
         if cross_family in exposed_family_digests:
-            raise StudyError("cross-family held-out family must be globally absent from exposure")
+            raise StudyError(
+                "cross-family held-out family must be globally absent from exposure"
+            )
         if cross_family in cross_family_digests:
-            raise StudyError("cross-family held-out family bindings must be unique by domain")
+            raise StudyError(
+                "cross-family held-out family bindings must be unique by domain"
+            )
         cross_family_digests.add(cross_family)
 
     free_counts = tuple(_domain_counts(unit) for unit in free_units)
