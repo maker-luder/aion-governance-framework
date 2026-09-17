@@ -209,6 +209,59 @@ PROCESS_TRACE != CAUSAL_PROOF
 CAUSAL_CLAIM_REQUIRES_TEMPORAL_COMPATIBILITY
 ```
 
+### 9.1 Candidate temporal event schema
+
+A future empirical or richer synthetic implementation must not collapse chronology, provenance and causal interpretation into one field. The minimum event record is specified as:
+
+```text
+EVENT_ID
+PAIR_ID
+UNIT_ID
+TIME_OR_INTERVAL
+EVENT_TYPE
+SOURCE_REF
+OBSERVED_OR_INFERRED
+PRIOR_STATE_BINDING
+INPUT_BINDING
+ACTION_BINDING
+OUTPUT_BINDING
+NEXT_STATE_BINDING
+CANDIDATE_CAUSAL_ROLE
+ALTERNATIVE_EXPLANATIONS
+EVIDENCE_STRENGTH
+CLAIM_CEILING
+```
+
+Field semantics:
+
+- `EVENT_ID`: unique event identifier inside the longitudinal record;
+- `PAIR_ID`: anonymous yoked-pair binding when the event belongs to a paired design;
+- `UNIT_ID`: anonymous study-unit binding;
+- `TIME_OR_INTERVAL`: event time or bounded interval, including uncertainty where exact time is unavailable;
+- `EVENT_TYPE`: prior-state, selection/assignment, exposure, feedback/correction, assessment, outcome-observation or other preregistered type;
+- `SOURCE_REF`: provenance reference for the event record;
+- `OBSERVED_OR_INFERRED`: explicitly separates directly represented observation from later inference;
+- `PRIOR_STATE_BINDING`: state that existed before the event;
+- `INPUT_BINDING`: input available at the event;
+- `ACTION_BINDING`: action or selection represented at the event;
+- `OUTPUT_BINDING`: immediate output of the event;
+- `NEXT_STATE_BINDING`: next recorded state after the event;
+- `CANDIDATE_CAUSAL_ROLE`: research-role label only, not a causal conclusion;
+- `ALTERNATIVE_EXPLANATIONS`: competing interpretations that remain viable;
+- `EVIDENCE_STRENGTH`: bounded evidence-quality classification under a future accepted protocol;
+- `CLAIM_CEILING`: strongest claim the event may support without over-promotion.
+
+The schema must allow uncertain time intervals and missing/non-applicable bindings rather than inventing precision. A later implementation must define exact enum/value semantics before admission.
+
+```text
+OBSERVED_EVENT != CAUSAL_ROLE_CONFIRMED
+INFERRED_EVENT != OBSERVED_EVENT
+TIME_STAMP_PRESENT != TEMPORAL_PRECISION_ESTABLISHED
+ROLE_LABEL != CAUSAL_IDENTIFICATION
+```
+
+### 9.2 Candidate causal roles
+
 A future empirical design must distinguish at least:
 
 - `pre-treatment variable` — 處置前變項;
