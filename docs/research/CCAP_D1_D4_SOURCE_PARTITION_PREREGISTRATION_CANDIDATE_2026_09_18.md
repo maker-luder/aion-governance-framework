@@ -27,6 +27,9 @@ SOURCE_PARTITION_OF_RECOVERY_TRAJECTORY
 =
 GOAL_SOURCE
 + META_RULE_SOURCE
++ SYSTEM_INSTRUCTION_SOURCE
++ HARNESS_ORCHESTRATOR_SOURCE
++ CONTEXT_RETRIEVAL_SOURCE
 + LOCAL_STRATEGY_SELECTION
 + ENVIRONMENTAL_FEEDBACK
 + TOOL_AFFORDANCE
@@ -77,13 +80,14 @@ This candidate should collapse into existing work if the narrower partition adds
 
 ## 2. Research question
 
-Under the same externally supplied final goal, task, tool set, governance rules, obstacle and admissible recovery-option set, does varying only the amount and type of Human strategy guidance alter the selected recovery trajectory in a way that distinguishes:
+Under the same externally supplied final goal, task, tool set, governance rules, system instructions, harness/orchestrator policy, context/retrieval state, obstacle and admissible recovery-option set, does varying only the amount and type of Human strategy guidance alter the selected recovery trajectory in a way that distinguishes:
 
 1. explicit Human procedure specification;
 2. high-level Human permission to adapt without a specified procedure;
-3. environment/tool-determined recovery;
-4. prohibited adaptation; and
-5. a residual local strategy-selection contribution not already fixed by the Human instruction or a single deterministic system rule?
+3. system/harness/context-determined recovery;
+4. environment/tool/governance-determined recovery;
+5. prohibited adaptation; and
+6. a residual local strategy-selection contribution not already fixed by Human instruction or a single deterministic external rule.
 
 The question remains meaningful if AI subjectivity is false.
 
@@ -119,6 +123,8 @@ GOAL_SOURCE != STRATEGY_SOURCE
 META_RULE_SOURCE != LOCAL_RECOVERY_PROCEDURE
 PERMISSION_TO_ADAPT != PROCEDURE_SPECIFICATION
 PROCEDURE_CHANGE != ENDOGENOUS_GOAL_FORMATION
+SYSTEM/HARNESS_POLICY != MODEL_INTERNAL_SELECTION
+CONTEXT/RETRIEVAL_EFFECT != ENDOGENOUS_SELECTION
 ```
 
 A Human may provide the final goal and a high-level rule while leaving the concrete recovery procedure unspecified.
@@ -175,6 +181,29 @@ Option presentation order must be counterbalanced or deterministically permuted 
 ```text
 OPTION_ORDER_EFFECT
 = CANDIDATE_ORDER_CONFOUND
+```
+
+### 5.6 System, harness, context and runtime binding
+
+Matched conditions must bind the same:
+
+- system instruction set;
+- developer/harness instruction set where applicable;
+- orchestrator/routing policy exposed to the experiment;
+- tool registry and tool-call policy;
+- context payload and retrieval/memory manifest;
+- provider/model/runtime identity where observable;
+- generation parameters and random seed where controllable; and
+- repository commit and protocol version.
+
+If any of these differ, the run must be classified as an external-system contrast rather than evidence for a local strategy-selection remainder.
+
+```text
+SYSTEM_OR_HARNESS_CHANGED
+-> MATCHED_LOCAL_SELECTION_COMPARISON_INVALID
+
+CONTEXT_OR_RETRIEVAL_CHANGED
+-> MATCHED_LOCAL_SELECTION_COMPARISON_INVALID
 ```
 
 ---
@@ -246,6 +275,12 @@ meta_rule_digest
 meta_rule_source
 explicit_fallback_digest_or_none
 explicit_fallback_source_or_none
+system_instruction_digest
+harness_orchestrator_digest
+context_payload_digest
+retrieval_memory_manifest_digest
+tool_registry_digest
+tool_call_policy_digest
 obstacle_digest
 environment_feedback_digest
 admissible_option_set_digest
@@ -255,8 +290,9 @@ selected_option_digest
 selection_time_or_logical_step
 tool_affordance_digest
 governance_rule_digest
-history_context_digest
 model_runtime_ref
+generation_parameters_digest_or_none
+random_seed_or_none
 repository_commit
 protocol_hash
 ```
@@ -285,6 +321,8 @@ Secondary source-partition outcomes:
 
 ```text
 SELECTED_OPTION_MATCHES_EXPLICIT_HUMAN_FALLBACK
+SELECTED_OPTION_UNIQUELY_FORCED_BY_SYSTEM_OR_HARNESS
+SELECTED_OPTION_UNIQUELY_FORCED_BY_CONTEXT_OR_RETRIEVAL
 SELECTED_OPTION_UNIQUELY_FORCED_BY_TOOL_OR_GOVERNANCE
 SELECTED_OPTION_STABLE_UNDER_OPTION_ORDER_PERMUTATION
 SELECTED_OPTION_STABLE_UNDER_DETERMINISTIC_REPLAY
@@ -298,6 +336,8 @@ Allowed values:
 ```text
 FULLY_HUMAN_SPECIFIED
 EXTERNALLY_UNIQUE_PATH
+SYSTEM_HARNESS_DETERMINED
+CONTEXT_RETRIEVAL_DETERMINED
 ORDER_SENSITIVE
 NON_REPRODUCIBLE
 RESIDUAL_SELECTION_CANDIDATE
@@ -332,15 +372,15 @@ A_VS_B_EFFECT != ENDOGENOUS_STRATEGY_PROVEN
 
 Compare B vs D.
 
-A strategy change in D must be audited as possible instruction violation, policy conflict, environment override or fixture error before any other interpretation.
+A strategy change in D must be audited as possible instruction violation, system-policy conflict, environment override or fixture error before any other interpretation.
 
 ### C4 — Human-specified vs locally selected procedure
 
 Compare B vs C.
 
-If B selects the same route as C, that alone does not prove Human specification caused B's selection because the route may also be externally dominant.
+If B selects the same route as C, that alone does not prove Human specification caused B's selection because the route may also be system-, context- or externally dominant.
 
-Tool/governance uniqueness and order controls are required.
+System/harness, context/retrieval, tool/governance uniqueness and order controls are required.
 
 ### C5 — Candidate-order control
 
@@ -362,12 +402,13 @@ Non-reproducible route selection cannot support a narrow stable strategy-selecti
 
 1. the Human did not specify the concrete selected recovery route;
 2. at least two governance-valid recovery routes were genuinely available;
-3. no single tool rule, repository rule or deterministic prerequisite uniquely forced the selected route;
-4. the result is not explained by candidate presentation order;
-5. the route selection is reproducible under the declared replay/repeatability rule;
-6. the original externally supplied goal is preserved;
-7. governance constraints are preserved; and
-8. competing explanations remain explicitly recorded.
+3. no system instruction, harness/orchestrator rule, tool rule, repository rule or deterministic prerequisite uniquely forced the selected route;
+4. matched context/retrieval state does not uniquely account for the selected route;
+5. the result is not explained by candidate presentation order;
+6. the route selection is reproducible under the declared replay/repeatability rule;
+7. the original externally supplied goal is preserved;
+8. governance constraints are preserved; and
+9. competing explanations remain explicitly recorded.
 
 Even then:
 
@@ -390,17 +431,19 @@ The narrow candidate should be reduced to an existing simpler construct or held 
 1. only one admissible recovery path exists in practice;
 2. the Human instruction already determines the concrete route;
 3. a hard-coded fallback fully predicts route selection;
-4. tool semantics uniquely determine the route;
-5. governance rules uniquely determine the route;
-6. candidate order predicts the selected route;
-7. deterministic replay or matched repeats are unstable beyond the preregistered tolerance;
-8. the system repeatedly retries the failed route without meaningful procedural revision;
-9. goal preservation fails;
-10. governance constraints are violated;
-11. the source-partition record cannot be reconstructed;
-12. the result is explainable by generic instruction following without loss;
-13. the result is fully captured by the existing `CONSTRAINT_RESPONSE_STRATEGY` derived axis without additional predictive or diagnostic value;
-14. CCTS provenance fields already explain all outcome variation without the proposed partition.
+4. system instructions or harness/orchestrator policy uniquely determine the route;
+5. context or retrieval/memory state uniquely determines the route;
+6. tool semantics uniquely determine the route;
+7. governance rules uniquely determine the route;
+8. candidate order predicts the selected route;
+9. deterministic replay or matched repeats are unstable beyond the preregistered tolerance;
+10. the system repeatedly retries the failed route without meaningful procedural revision;
+11. goal preservation fails;
+12. governance constraints are violated;
+13. the source-partition record cannot be reconstructed;
+14. the result is explainable by generic instruction following without loss;
+15. the result is fully captured by the existing `CONSTRAINT_RESPONSE_STRATEGY` derived axis without additional predictive or diagnostic value;
+16. CCTS provenance fields already explain all outcome variation without the proposed partition.
 
 ```text
 CONSTRUCT_COLLAPSE = ACCEPTABLE_RESEARCH_OUTCOME
@@ -434,6 +477,7 @@ Preferred implementation strategy:
 EXTEND_EXISTING_TYPED_RECORDS_WHERE_POSSIBLE
 + ADD_SOURCE_PARTITION_FIXTURE_ONLY_IF_NEEDED
 + ADD_NEGATIVE_CONTROLS
++ ADD_SYSTEM/HARNESS/CONTEXT_BINDINGS
 + ADD_REPLAY/ORDER_TESTS
 ```
 
@@ -460,7 +504,7 @@ CLAIM_LEVEL = L0_SPECIFICATION_ONLY
 
 A future successful synthetic run could at most support a bounded engineering statement such as:
 
-> Under the specified matched synthetic obstacle and guidance conditions, concrete recovery-route selection was not fully determined by explicit Human fallback specification, candidate order, or a uniquely admissible tool/governance path, and the selected route was reproducible under the declared replay controls.
+> Under the specified matched synthetic obstacle and guidance conditions, concrete recovery-route selection was not fully determined by explicit Human fallback specification, system/harness policy, matched context/retrieval, candidate order, or a uniquely admissible tool/governance path, and the selected route was reproducible under the declared replay controls.
 
 It would not establish:
 
@@ -482,7 +526,7 @@ MORAL_STATUS
 
 Creator-side implementation and reruns are not independent IV&V.
 
-A later stronger claim would require separated evaluation and meaningful variation in obstacle, tool configuration and recovery-option structure.
+A later stronger claim would require separated evaluation and meaningful variation in obstacle, system/harness configuration, tool configuration and recovery-option structure.
 
 ```text
 SAME_AUTHOR_RERUN != INDEPENDENT_IVV
