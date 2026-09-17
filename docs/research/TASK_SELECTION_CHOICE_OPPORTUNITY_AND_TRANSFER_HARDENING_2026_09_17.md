@@ -39,7 +39,7 @@ The post-merge review nevertheless identified three deeper specification gaps:
 
 1. `FREE_SELECTION` had a realized choice trace but no event-level binding of which alternatives were actually available;
 2. distinct execution records were represented by requiring content digests to differ, which conflated record identity with record content;
-3. held-out transfer was payload-level within the same family, not a separate cross-family generalization challenge.
+3. held-out transfer was payload-level within the same family, not a separate cross-family challenge.
 
 These are hardening gaps, not evidence that PR #139's bounded `SCIENTIFIC_HOLD` claims were false.
 
@@ -51,8 +51,9 @@ For every `FREE_SELECTION` event:
 ```text
 CHOICE_OPPORTUNITY_EVENT
 ├─ EVENT_INDEX
-├─ >= 2 CONTENT_DISTINCT AVAILABLE ALTERNATIVES
-├─ BOUND OPPORTUNITY RECORD
+├─ >= 2 SIGNATURE-DISTINCT AVAILABLE ALTERNATIVES
+├─ >= 2 PAYLOAD-CONTENT-DISTINCT ALTERNATIVES
+├─ CANONICALLY BOUND OPPORTUNITY RECORD
 └─ REALIZED CHOICE MUST BELONG TO AVAILABLE ALTERNATIVES
 ```
 
@@ -64,6 +65,20 @@ TASK_FAMILY_ARTIFACT
 EXPOSURE_PAYLOAD_ARTIFACT
 ```
 
+The opportunity record is not an arbitrary attached artifact. Its UTF-8 content is canonically rendered from the event index and ordered option signatures:
+
+```text
+CHOICE_OPPORTUNITY_V1
+EVENT_INDEX=...
+OPTION_COUNT=...
+OPTION[0].TASK_DOMAIN=...
+OPTION[0].TASK_FAMILY_SHA256=...
+OPTION[0].EXPOSURE_PAYLOAD_SHA256=...
+...
+```
+
+`BoundArtifact` then recomputes the SHA-256 of that canonical content. Re-labeling the same payload under a different domain or family cannot manufacture a second content-distinct choice because exposure-payload digests must also be unique inside an opportunity set.
+
 This fixes a specific construct-validity gap:
 
 ```text
@@ -72,16 +87,15 @@ REALIZED_CHOICE_TRACE_PRESENT
 CHOICE_OPPORTUNITY_OPERATIONALIZED
 ```
 
-The hardened structural audit can now establish that the synthetic record represents
-multiple bound alternatives and that the selected alternative is one of them.
-It still cannot establish that a Human genuinely perceived the alternatives as viable,
-that opportunity was temporally recorded before selection, or that choice was free in a
-philosophical or psychological sense.
+The hardened structural audit can establish that the synthetic record represents multiple bound alternatives and that the selected alternative is one of them. It still cannot establish that a Human genuinely perceived the alternatives as viable, that the opportunity was temporally recorded before selection, or that choice was free in a philosophical or psychological sense.
+
+The opportunity record also remains synthetic-only and fails closed if it declares model invocation, Human observation, Human identity or private material.
 
 ```text
 CHOICE_SET_BOUND != SUBJECTIVE_FREEDOM_PROVEN
 CHOICE_SET_BOUND != TEMPORAL_PROVENANCE_ESTABLISHED
 CHOICE_SET_BOUND != RANDOMIZATION
+CANONICAL_CHOICE_RECORD != REAL_WORLD_AVAILABILITY_PROVEN
 ```
 
 ## 4. External methodology cross-check
@@ -110,11 +124,9 @@ METHOD_PRECEDENT != PRESENT_HYPOTHESIS_VALIDATION
 
 ## 5. Execution identity is not content inequality
 
-PR #139's base auditor required every execution record to have a distinct SHA-256 digest.
-That was conservative but semantically over-strong.
+PR #139's base auditor required every execution record to have a distinct SHA-256 digest. That was conservative but semantically over-strong.
 
-Two independently identified executions may legitimately serialize to identical content.
-The hardened auditor therefore separates identity from content:
+Two independently identified executions may legitimately serialize to identical content. The hardened auditor therefore separates identity from content:
 
 ```text
 EXECUTION_ID = UNIQUE
@@ -141,13 +153,13 @@ A. WITHIN_FAMILY_PAYLOAD_HOLDOUT
    SAME EXPOSED FAMILY WHEN THE DOMAIN WAS EXPOSED
    + NEW PAYLOAD
 
-B. CROSS_FAMILY_DOMAIN_GENERALIZATION
+B. CROSS_FAMILY_CHALLENGE
    SAME DOMAIN
    + FAMILY ABSENT FROM ALL EXPOSURE EVENTS
    + NEW PAYLOAD
 ```
 
-For a domain with zero exposure, the two held-out records must still bind two distinct task families so that the schema does not silently collapse the two challenge levels.
+For a domain with zero exposure, the two held-out records must still bind two distinct task families so that the schema does not silently collapse the two challenge levels. In that zero-exposure case, however, neither record is evidence of transfer or generalization from prior exposure because no exposure exists for that domain.
 
 The cross-family family bindings must be absent from all exposure-family bindings and unique by domain.
 
@@ -156,8 +168,11 @@ This creates a stronger structural challenge but still does not establish transf
 ```text
 WITHIN_FAMILY_NEW_PAYLOAD != HUMAN_TRANSFER_ESTABLISHED
 CROSS_FAMILY_HELD_OUT_TASK != DOMAIN_GENERALIZATION_ESTABLISHED
+ZERO_EXPOSURE_DOMAIN + TWO_HELD_OUT_FAMILIES != TRANSFER_TEST
 FAMILY_LEVEL_CHALLENGE_PRESENT != LEARNING_ESTABLISHED
 ```
+
+For this reason the audit field is named `cross_family_challenge_bound`, not `cross_family_domain_generalization_bound`.
 
 ## 7. Relationship to the PR #139 auditor
 
@@ -184,15 +199,18 @@ HISTORICAL_API_REWRITE = FALSE
 The hardened test surface must cover at least:
 
 - one opportunity trace for every free-selection unit;
-- at least two content-distinct alternatives per opportunity;
+- at least two signature-distinct alternatives per opportunity;
+- distinct exposure-payload content per alternative;
+- canonical event/options binding in the opportunity record;
+- privacy and empirical-observation fail-closed boundaries for opportunity records;
 - realized choice membership in the opportunity set;
 - exact pair-level yoked sequence matching;
 - valid free-selection null outcomes;
 - same-content execution records with distinct execution identities;
 - duplicate execution identity rejection;
-- within-family held-out family matching;
+- within-family held-out family matching when the domain was exposed;
 - cross-family family absence from exposure;
-- zero-exposure-domain family separation;
+- zero-exposure-domain family separation without a transfer claim;
 - held-out payload separation from exposure and from each other;
 - continued scientific `HOLD` boundaries.
 
