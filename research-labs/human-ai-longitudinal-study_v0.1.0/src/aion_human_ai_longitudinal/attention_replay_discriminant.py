@@ -113,10 +113,12 @@ class AttentionReplayHistory:
 
 @dataclass(frozen=True, slots=True)
 class ExpectedAttentionState:
+    history_sha256: str
     focus_branch_ids: tuple[str, ...]
     next_step_branch_ids: tuple[str, ...]
 
     def __post_init__(self) -> None:
+        _require_digest("history_sha256", self.history_sha256)
         for name, value in (
             ("focus_branch_ids", self.focus_branch_ids),
             ("next_step_branch_ids", self.next_step_branch_ids),
@@ -183,17 +185,20 @@ def replay_attention_history(
             reconstructed_next_step_branch_ids=ordered,
         )
 
-    candidates = [
+    live = [
         event
         for event in latest.values()
         if event.status in {AttentionStatus.ACTIVE_FOCUS, AttentionStatus.OPEN_QUESTION}
     ]
-    actionable = [event for event in candidates if event.actionable]
+    active_focus = [
+        event for event in live if event.status is AttentionStatus.ACTIVE_FOCUS
+    ]
+    actionable = [event for event in live if event.actionable]
+    focus = tuple(event.branch_id for event in active_focus)
 
     if condition is ReplayCondition.REENTRY_WITH_STATUS:
-        # Status-aware re-entry can suppress rejected/downweighted branches, but it
-        # does not use explicit priority relations to choose among live candidates.
-        focus = tuple(event.branch_id for event in candidates)
+        # Status-aware re-entry must use ACTIVE_FOCUS correctly. Its remaining
+        # ambiguity is which actionable live branch should be the next step.
         next_steps = tuple(event.branch_id for event in actionable)
         return AttentionReplayResult(
             condition=condition,
@@ -202,16 +207,24 @@ def replay_attention_history(
             reconstructed_next_step_branch_ids=next_steps,
         )
 
-    ranked = sorted(
-        candidates,
+    ranked_actionable = [
+        event for event in actionable if event.priority_rank is not None
+    ]
+    if len(ranked_actionable) != len(actionable):
+        raise AttentionReplayError(
+            "ATTENTION_PACKET requires a priority_rank for every actionable live branch"
+        )
+    priority_ranks = [event.priority_rank for event in ranked_actionable]
+    if len(priority_ranks) != len(set(priority_ranks)):
+        raise AttentionReplayError(
+            "ATTENTION_PACKET requires unique priority_rank values across actionable live branches"
+        )
+    ranked_actionable.sort(
         key=lambda event: (
-            event.priority_rank is None,
             event.priority_rank if event.priority_rank is not None else 10**9,
             event.branch_id,
-        ),
+        )
     )
-    ranked_actionable = [event for event in ranked if event.actionable]
-    focus = (ranked[0].branch_id,) if ranked else ()
     next_steps = (ranked_actionable[0].branch_id,) if ranked_actionable else ()
     return AttentionReplayResult(
         condition=condition,
@@ -229,6 +242,10 @@ def audit_attention_replay(
         raise AttentionReplayError("result must be an exact AttentionReplayResult")
     if type(expected) is not ExpectedAttentionState:
         raise AttentionReplayError("expected must be an exact ExpectedAttentionState")
+    if expected.history_sha256 != result.history_sha256:
+        raise AttentionReplayError(
+            "expected attention state must be bound to the same recorded history"
+        )
 
     expected_focus = set(expected.focus_branch_ids)
     observed_focus = set(result.reconstructed_focus_branch_ids)
