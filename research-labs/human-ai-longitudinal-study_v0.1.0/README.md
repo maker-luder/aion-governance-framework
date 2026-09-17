@@ -26,6 +26,14 @@ and documented in
 The PR #139 auditor is retained for historical/API compatibility; the hardened
 auditor is the stricter future admission surface for these three semantics.
 
+The bounded attention-structure reconstruction extension is implemented in
+`src/aion_human_ai_longitudinal/attention_structure_reconstruction.py` and documented in
+[`ATTENTION_STRUCTURE_RECONSTRUCTION_HARNESS.md`](ATTENTION_STRUCTURE_RECONSTRUCTION_HARNESS.md)
+plus
+[`../../docs/research/ATTENTION_STRUCTURE_RECONSTRUCTION_ACROSS_CONTEXTS_AND_SYSTEMS_2026_09_17.md`](../../docs/research/ATTENTION_STRUCTURE_RECONSTRUCTION_ACROSS_CONTEXTS_AND_SYSTEMS_2026_09_17.md).
+It separates factual/project-state recall from reconstruction of active research focus,
+open/downweighted/rejected branches, priority relations and next-step structure.
+
 The repository-defined Co-Constructed Thinking Space (CCTS) structural contract is
 implemented in `src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
 and grounded by
@@ -67,6 +75,16 @@ executions may serialize identically, and it requires both within-family/new-pay
 and cross-family/same-domain held-out records. These are structural controls only:
 choice-set binding does not prove Human autonomy, and cross-family held-out structure
 does not establish transfer or learning.
+
+The attention-structure reconstruction extension adds a version-bound research-question
+manifest with typed status and relation semantics, exact focus/next-step sets, canonical
+manifest hashing, structurally distinct within-context/cross-context/cross-system study
+conditions, and deterministic metrics for node/content/status/relation fidelity,
+focus/next-step/open-question preservation, unsupported additions, priority inversions
+and reinflation of previously downweighted/rejected/resolved branches. These are
+structural QA metrics only. They do not establish an empirical cross-context effect,
+cross-system portability, a product memory mechanism, AI-internal attention continuity,
+identity continuity or subjectivity.
 
 The CCTS extension formalizes a repository-local relational construct rather than
 claiming a new external scientific taxonomy. Its core profile requires an explicit
@@ -130,6 +148,10 @@ REALIZED_CHOICE_TRACE_PRESENT != CHOICE_OPPORTUNITY_OPERATIONALIZED
 CHOICE_OPPORTUNITY_SET_BOUND != HUMAN_AUTONOMY_ESTABLISHED
 SEPARATE_EXECUTION_IDENTITY != EXECUTION_CONTENT_MUST_DIFFER
 CROSS_FAMILY_HELD_OUT_TASK != DOMAIN_GENERALIZATION_ESTABLISHED
+ATTENTION_STRUCTURE != FACTUAL_MEMORY
+ATTENTION_STRUCTURE_RECONSTRUCTION != ATTENTION_CONTINUITY
+CROSS_CONTEXT_RECONSTRUCTION != PRODUCT_MEMORY_MECHANISM
+CROSS_SYSTEM_RECONSTRUCTION != AI_IDENTITY_CONTINUITY
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 GROUNDING_CHECKPOINT_PRESENT != AI_UNDERSTANDING_PROVEN
