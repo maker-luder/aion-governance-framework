@@ -116,7 +116,7 @@ YOKED_ASSIGNMENT
 
 It does not validate the Human–AI task-selection hypothesis.
 
-Choice-experiment methodology likewise treats a choice task as presenting a bounded set of alternatives rather than inferring availability solely from the chosen outcome. See, for example, Georgiou et al. (2023), *Discrete choice experiments: An overview on constructing D-optimal and near-optimal choice sets*, Heliyon 9(8), e18256, DOI `10.1016/j.heliyon.2023.e18256`.
+Choice-experiment methodology likewise treats a choice task as presenting a bounded set of alternatives rather than inferring availability solely from the chosen outcome. See, for example, Alamri, Georgiou & Stylianou (2023), *Discrete choice experiments: An overview on constructing D-optimal and near-optimal choice sets*, Heliyon 9(7), e18256, DOI `10.1016/j.heliyon.2023.e18256`.
 
 ```text
 METHOD_PRECEDENT != PRESENT_HYPOTHESIS_VALIDATION
