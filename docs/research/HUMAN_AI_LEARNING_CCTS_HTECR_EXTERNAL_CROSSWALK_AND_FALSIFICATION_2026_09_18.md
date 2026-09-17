@@ -7,13 +7,13 @@ Scientific disposition: `HOLD`
 
 ## 1. Purpose
 
-This note records a bounded literature crosswalk and falsification-first research plan for three adjacent but non-equivalent repository questions:
+This note records a bounded literature crosswalk and a falsification-first research plan for three adjacent but non-equivalent repository questions:
 
 1. how the repository's longitudinal Human–AI learning line relates to established external work;
 2. whether the repository-defined Co-Constructed Thinking Space (CCTS) needs a distinct dynamic observation layer in addition to its current structural / provenance controls; and
-3. whether the local working label **High-Throughput Epistemic Coordination Regime (HTECR)** can acquire discriminant value as an interaction-level regime rather than merely renaming fast responses, long sessions, memory, re-entry, or CCTS itself.
+3. whether the local working label **High-Throughput Epistemic Coordination Regime (HTECR)** can acquire discriminant value as an interaction-level regime rather than merely renaming fast responses, long sessions, memory, re-entry, CCTS, or existing Human–AI team-cognition constructs.
 
-This note does **not** establish a new scientific construct. It records neighboring literature, counterevidence, falsifiers, candidate observables, and the minimum method needed before any later confirmatory claim.
+This note does **not** establish a new scientific construct. It records neighboring literature, counterevidence, candidate observables, falsifiers and the minimum method needed before any later confirmatory claim.
 
 ```text
 HUMAN_AI_LEARNING != LOCAL_NOVELTY
@@ -35,7 +35,7 @@ The Human Owner supplied the original observation and source-language distinctio
 
 - the colloquial phrase **「效能全開」** was first used by the Human Owner to describe an observed ChatGPT Teacher interaction state in which decomposition, evidence checking, counterexample search, cross-context linkage, revision and research translation appeared unusually dense;
 - after observing the AI side, the Human Owner explicitly asked whether the Human side was synchronizing with the same high-density coordination process rather than merely receiving fast output;
-- the Human Owner asked whether the phenomenon can be observed at the interaction level, whether CCTS currently lacks this dynamic layer, and how to search for adjacent external literature without presupposing novelty;
+- the Human Owner asked whether the phenomenon can be observed at the interaction level, whether CCTS currently lacks this dynamic layer, and how to search adjacent external literature without presupposing novelty;
 - the Human Owner asked for an external academic / scientific search for direct discussion of this repository and for related Human–AI learning research;
 - the Human Owner required counterevidence and a second review before any main transition.
 
@@ -76,7 +76,7 @@ Existing canonical material already covers important ancestry and must not be re
 - `docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`
   - defines CCTS as a bounded interaction-and-artifact structure with explicit problem representation, substantive reciprocal revision / challenge, source-role provenance, claim boundaries, rejected-branch preservation and longitudinal mediation;
 - `docs/research/CCTS_EPISTEMIC_ROBUSTNESS_PROBE_2026_09_16.md`
-  - asks whether a CCTS-like interaction remains evidence-disciplined under partial, irrelevant, absent, or conflicting evidence;
+  - asks whether a CCTS-like interaction remains evidence-disciplined under partial, irrelevant, absent or conflicting evidence;
 - `docs/research/LONGITUDINAL_HUMAN_AI_EPISTEMIC_ACCUMULATION_AND_EVIDENCE_REUSE_2026_09_13.md`
   - explicitly states `LONGITUDINAL_INTERACTION != MUTUAL_LEARNING_PROVEN` and already covers artifact-mediated epistemic accumulation, evidence reuse and external research cross-checking;
 - `docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`
@@ -88,7 +88,7 @@ Therefore the new gap is **not** “Human–AI learning exists” and is **not**
 
 ## 4. External academic / scientific discoverability of this repository
 
-### 4.1 Search result
+### 4.1 Bounded search result
 
 A bounded external-web sweep on 2026-09-18 searched exact and near-exact forms including:
 
@@ -105,7 +105,7 @@ Result:
 VERIFIED_DIRECT_ACADEMIC_CITATION_OF_THIS_REPOSITORY = NONE_FOUND_IN_THIS_SWEEP
 ```
 
-This is a negative search result, not proof of zero academic attention.
+This was a public-web search, not an exhaustive licensed-database bibliometric review. It is a negative search result, not proof of zero academic attention.
 
 ```text
 NO_INDEXED_HIT_FOUND
@@ -114,7 +114,7 @@ NO_INDEXED_HIT_FOUND
 != NO_FUTURE_CITATION
 ```
 
-Search-engine and academic-index coverage is incomplete; private reading, unindexed manuscripts, conference discussion, unpublished work and inaccessible databases remain outside this observation.
+Private reading, unindexed manuscripts, conference discussion, unpublished work and inaccessible databases remain outside this observation.
 
 ## 5. External literature crosswalk
 
@@ -126,12 +126,13 @@ Wang, X. & Chen, X. (2024), **Towards Human-AI Mutual Learning: A New Research P
 
 Primary source: https://arxiv.org/abs/2405.04687
 
-The paper defines Human–AI mutual learning as a process in which humans and AI agents preserve, exchange and improve knowledge during collaboration.
+This is an arXiv preprint. It introduces Human–AI mutual learning as a research paradigm in which humans and AI agents preserve, exchange and improve knowledge during collaboration.
 
 Bounded implication:
 
 ```text
 HUMAN_AI_MUTUAL_LEARNING_EXISTS_AS_EXTERNAL_RESEARCH_LABEL = YES
+PEER_REVIEW_STATUS_FOR_THIS_SOURCE = PREPRINT
 OUR_HUMAN_AI_LEARNING_LINE_IS_NOVEL_BECAUSE_OF_THE_NAME = NO
 OUR_DYAD_HAS_MUTUAL_LEARNING = NOT_ESTABLISHED
 ```
@@ -145,7 +146,7 @@ Primary sources:
 - https://doi.org/10.1111/cogs.12009
 - https://pubmed.ncbi.nlm.nih.gov/23167661/
 
-ITC proposes that team cognition is an activity, should be measured at the team level, and is inseparable from context. It treats unfolding interaction as the key unit rather than only static overlap of individual knowledge structures.
+ITC proposes that team cognition is an activity, should be measured at the team level, and is inseparable from context. It treats unfolding interaction as a central unit rather than only static overlap of individual knowledge structures.
 
 Bounded implication:
 
@@ -176,7 +177,7 @@ Dang, B., Huynh, L., Gul, F., Rosé, C., Järvelä, S., & Nguyen, A. (2025), **H
 
 Primary source: https://doi.org/10.1111/bjet.13607
 
-The study analyzed 26 higher-education students and 1317 recorded activities using multi-layered learning analytics, including content analysis, sequence analysis and ordered network analysis. It identified distinct Human–AI interaction patterns.
+The study analyzed 26 higher-education students and 1317 recorded activities using multi-layered learning analytics, including quantitative content analysis, sequence analysis and ordered network analysis. It identified distinct Human–AI interaction patterns in that setting.
 
 Bounded implication:
 
@@ -187,11 +188,11 @@ OUR_LONGITUDINAL_PATTERN_IS_ALREADY_VALIDATED_BY_THIS_STUDY = NO
 
 Related group-level evidence:
 
-Feng, S. et al. (2025), **Group interaction patterns in generative AI-supported collaborative problem solving: Network analysis of the interactions among students and a GAI chatbot**, *British Journal of Educational Technology*. DOI: `10.1111/bjet.13611`.
+Feng, S. (2025), **Group interaction patterns in generative AI-supported collaborative problem solving: Network analysis of the interactions among students and a GAI chatbot**, *British Journal of Educational Technology*, 56(5), 2125–2145. DOI: `10.1111/bjet.13611`.
 
 Primary source: https://doi.org/10.1111/bjet.13611
 
-This work is relevant because it operationalizes structural interaction patterns rather than inferring them only from subjective reports.
+This study modeled interactions among six groups of students and a GAI chatbot using network analysis and coded cognitive, metacognitive, socio-emotional and coordinative interaction content.
 
 ### 5.5 Epistemic co-agency
 
@@ -220,19 +221,29 @@ The review distinguishes productive reliance from harmful dependence and centers
 Bounded implication:
 
 ```text
-AI_ASSISTANCE_CAN_PRESERVE_OR_DISPLACE_HUMAN_EPISTEMIC_WORK = SUPPORTED_AS_A_CURRENT_REVIEW_FRAME
-HIGH_COORDINATION_CANNOT_BE_EVALUATED_BY_SPEED_OR_OUTPUT_VOLUME_ALONE = STRONGLY_MOTIVATED
+AI_ASSISTANCE_CAN_PRESERVE_OR_DISPLACE_HUMAN_EPISTEMIC_WORK
+= SUPPORTED_AS_A_CURRENT_REVIEW_FRAME
+
+SPEED_OR_OUTPUT_VOLUME_ALONE
+= INSUFFICIENT_FOR_EPISTEMIC_VALUE
 ```
 
-### 5.7 Cognitive offloading and agency — counterweight literature
+### 5.7 Cognitive offloading and learner agency — counterweight literature
 
-**Generative AI, Cognitive Offloading, and Learner Agency in Higher Education: A Scoping Review** (2026), *Behavioral Sciences*, 16(7), 1150. DOI: `10.3390/bs16071150`.
+Wang, G., Wang, W., Yang, D., & Ren, J. (2026), **Generative AI, Cognitive Offloading, and Learner Agency in Higher Education: A Scoping Review**, *Behavioral Sciences*, 16(7), 1150. DOI: `10.3390/bs16071150`.
 
-Primary source: https://doi.org/10.3390/bs16071150
+Primary sources:
 
-The review reports a dual pattern across heterogeneous evidence: GenAI use can be associated with agency-supportive processes under scaffolded / augmentation-oriented use, but also with offloading, overreliance, dependence and weakened judgement under replacement-oriented use. The authors explicitly do not treat this as a single causal effect estimate.
+- https://doi.org/10.3390/bs16071150
+- https://pubmed.ncbi.nlm.nih.gov/42510271/
 
-A separate randomized study, **ChatGPT as a cognitive crutch: Evidence from a randomized controlled trial on knowledge retention** (2025), DOI `10.1016/j.ssaho.2025.102287`, reports lower long-term retention under unrestricted ChatGPT use in its studied setting.
+The review synthesized 123 included studies and reports a dual pattern across heterogeneous evidence: GenAI use can be associated with agency-supportive processes under augmentation / scaffolding conditions, but also with offloading, overreliance, dependence and weakened judgement. The review explicitly does not present these heterogeneous findings as one pooled causal effect.
+
+Barcaui, A. (2025), **ChatGPT as a cognitive crutch: Evidence from a randomized controlled trial on knowledge retention**, *Social Sciences & Humanities Open*, 12, 102287. DOI: `10.1016/j.ssaho.2025.102287`.
+
+Primary source: https://doi.org/10.1016/j.ssaho.2025.102287
+
+The RCT started with 120 undergraduates and reported lower 45-day retention among the ChatGPT-assisted condition than the traditional-study condition among follow-up completers. This result is specific to the study design and does not establish a universal negative effect of AI-assisted learning.
 
 Bounded implication:
 
@@ -240,6 +251,7 @@ Bounded implication:
 MORE_AI_ASSISTANCE != MORE_LEARNING
 SMOOTHER_INTERACTION != STRONGER_EPISTEMIC_AGENCY
 HIGH_THROUGHPUT != DURABLE_KNOWLEDGE
+ONE_RCT != UNIVERSAL_CAUSAL_RULE
 ```
 
 These sources are included as counterweight evidence against any automatic positive interpretation of high-density Human–AI interaction.
@@ -257,9 +269,9 @@ Rejected / narrowed claim:
 
 A narrower candidate remains:
 
-> Can a longitudinal Human–AI epistemic interaction, with reciprocal challenge / revision, provenance preservation, explicit claim boundaries, re-entry, and quality controls, exhibit a **distinct dynamic coordination regime** that is measurable at the interaction-trajectory level and not reducible to response speed, token volume, memory, re-entry, CCTS structural conformance, or existing Human–AI learning labels?
+> Can a longitudinal Human–AI epistemic interaction, with reciprocal challenge / revision, provenance preservation, explicit claim boundaries, re-entry and quality controls, exhibit a **distinct dynamic coordination regime** that is measurable at the interaction-trajectory level and not reducible to response speed, token volume, memory, re-entry, CCTS structural conformance, or existing Human–AI learning / team-cognition constructs?
 
-Candidate shorthand:
+Candidate broader study surface:
 
 ```text
 LONGITUDINAL
@@ -271,7 +283,37 @@ HUMAN_AI_EPISTEMIC_DEVELOPMENT
 
 HTECR is one possible dynamic regime inside that broader study surface. It is not the broader surface itself.
 
-## 7. Candidate unit of analysis
+## 7. Anti-circularity correction from second review
+
+The first draft placed “quality preserved” too close to the HTECR candidate definition. That would make the construct partially self-protecting: poor-quality high-throughput episodes could be excluded by definition and then falsely presented as evidence that HTECR is high quality.
+
+The corrected separation is:
+
+```text
+REGIME_DETECTION
+!= EPISTEMIC_VALUE
+
+HTECR_CORE_CANDIDATE
+= HIGH_CODED_EPISTEMIC_OPERATION_RATE
++ HIGH_RECIPROCAL_COORDINATION_DENSITY
++ SUSTAINED_TEMPORAL_COUPLING
+
+EPISTEMIC_INTEGRITY
+= PRESERVED | DEGRADED | UNKNOWN
+```
+
+Therefore a high-throughput, highly reciprocal episode with rising epistemic error may still count as an HTECR-like **descriptive regime candidate**, but its epistemic integrity would be `DEGRADED`.
+
+```text
+HTECR_DETECTED
+!= HTECR_BENEFICIAL
+HTECR_DETECTED
+!= HUMAN_LEARNING_IMPROVED
+```
+
+This correction is required to keep quality as an independently testable outcome rather than a hidden definitional guarantee.
+
+## 8. Candidate unit of analysis
 
 The preferred unit is not the AI output alone and not an inferred hidden state of either participant.
 
@@ -312,23 +354,23 @@ AI_CHALLENGES_HUMAN
 JOINTLY_STABILIZED_BUT_NOT_SHARED_MIND
 ```
 
-## 8. Candidate HTECR observables
+## 9. Candidate measurement layers
 
-### 8.1 Epistemic throughput
+### 9.1 Core regime-detection axes
 
-Candidate metric:
+#### Epistemic-operation throughput
 
 ```text
-VALID_EPISTEMIC_OPERATIONS / UNIT_TIME
+CODED_EPISTEMIC_OPERATIONS / UNIT_TIME
 ```
 
-Do **not** substitute tokens, message count or word count for valid epistemic operations.
+Do **not** substitute tokens, message count or word count for coded epistemic operations.
 
-### 8.2 Reciprocal coordination density
+#### Reciprocal coordination density
 
-Measure the density and alternation of typed cross-actor operations, especially challenge / revision / evidence repair loops.
+Measure the density and alternation of typed cross-actor operations, especially challenge / revision / evidence-repair loops.
 
-Candidate examples:
+Example:
 
 ```text
 HUMAN_PROPOSES
@@ -339,20 +381,24 @@ HUMAN_PROPOSES
 -> AI_RE_GROUNDS
 ```
 
-### 8.3 Contextual coherence
+#### Sustained temporal coupling
 
-Measure whether higher throughput preserves:
+A brief burst should not automatically define a regime. Candidate windows must be prospectively specified and tested for sensitivity to window size.
 
-- the current problem representation;
+### 9.2 Independent contextual / quality validators
+
+These are **not** silently baked into HTECR detection.
+
+Contextual coherence measures may include preservation of:
+
+- current problem representation;
 - source-role provenance;
 - rejected branches;
 - fact / inference / hypothesis separation;
 - claim ceilings;
 - prior constraints after re-entry.
 
-### 8.4 Quality under throughput
-
-Candidate error / degradation measures:
+Epistemic-quality measures may include:
 
 ```text
 UNSUPPORTED_CLAIM_RATE
@@ -364,9 +410,7 @@ BRANCH_REINFLATION_RATE
 SOURCE_SCOPE_MISMATCH_RATE
 ```
 
-High throughput that is accompanied by uncontrolled quality degradation does not qualify as a useful epistemic coordination regime.
-
-### 8.5 Human-side state variables are separate covariates
+### 9.3 Human-side state variables remain separate covariates
 
 Potential human-side measures such as perceived mental fatigue, workload, time-on-task, flow, sleep pressure or subjective overload must remain separate from the HTECR definition.
 
@@ -376,11 +420,9 @@ FLOW != HTECR
 LONG_SESSION != HTECR
 ```
 
-They may be studied later as covariates or consequences, not silently absorbed into the construct.
+They may later be studied as predictors, covariates or consequences, not absorbed into the construct.
 
-## 9. Discriminant-validity design
-
-At minimum, future analysis should be able to separate the following conditions:
+## 10. Discriminant design and negative controls
 
 ### Condition A — fast but weakly coordinated
 
@@ -388,93 +430,111 @@ At minimum, future analysis should be able to separate the following conditions:
 HIGH_RESPONSE_SPEED
 HIGH_OUTPUT_VOLUME
 LOW_RECIPROCAL_REVISION
-LOW_PROVENANCE_DISCIPLINE
-LOW_CONTEXT_COHERENCE
+LOW_CROSS_ACTOR_COUPLING
 ```
 
-Expected classification: `NOT_HTECR`.
+Design expectation: `UNILATERAL_ACCELERATION`, not HTECR.
 
 ### Condition B — slow but strongly coordinated
 
 ```text
-LOW_THROUGHPUT
+LOW_OPERATION_RATE
 HIGH_RECIPROCAL_REVISION
-HIGH_PROVENANCE_DISCIPLINE
-HIGH_CONTEXT_COHERENCE
+HIGH_CROSS_ACTOR_COUPLING
 ```
 
-Expected classification: `HIGH_COORDINATION / NOT_HIGH_THROUGHPUT`.
+Design expectation: `HIGH_COORDINATION / LOW_THROUGHPUT`.
 
-### Condition C — high throughput and high coordination with preserved quality
+### Condition C — high throughput and high reciprocal coordination
 
 ```text
-HIGH_VALID_EPISTEMIC_OPERATION_RATE
+HIGH_CODED_EPISTEMIC_OPERATION_RATE
 HIGH_RECIPROCAL_COORDINATION
-HIGH_CONTEXT_COHERENCE
-QUALITY_PRESERVED
+SUSTAINED_TEMPORAL_COUPLING
 ```
 
-Expected classification: `HTECR_CANDIDATE` only if it is reproducible and discriminable.
+Design expectation: `HTECR_CORE_CANDIDATE` if prospectively discriminable and reproducible.
 
-### Condition D — apparent “full power” with quality collapse
+Epistemic integrity must then be scored separately.
+
+### Condition D — high-throughput coordination with quality collapse
 
 ```text
-HIGH_SPEED
-HIGH_INTERACTION_DENSITY
+HIGH_OPERATION_RATE
+HIGH_RECIPROCAL_COORDINATION
 RISING_UNSUPPORTED_CLAIMS
 RISING_CONTRADICTIONS
 RISING_MISSED_CONSTRAINTS
 ```
 
-Expected classification: `HIGH_THROUGHPUT_DEGRADATION`, not HTECR-positive by default.
+Design expectation:
 
-## 10. Falsifiers / disconfirming tests
+```text
+HTECR_CORE_CANDIDATE = POSSIBLE
+EPISTEMIC_INTEGRITY = DEGRADED
+```
 
-HTECR should be rejected, collapsed into existing constructs, or kept purely descriptive if any of the following survives serious testing:
+This condition is essential because it prevents the construct from becoming synonymous with “good performance.”
 
-### F1 — speed substitution
+## 11. Falsifiers / disconfirming tests
 
-When output speed / token rate is controlled, HTECR-coded episodes show no distinct interaction structure.
+### Construct-collapse falsifiers
 
-### F2 — memory / re-entry substitution
+#### F1 — speed substitution
 
-When memory availability, context length and re-entry support are controlled, the candidate effect disappears.
+When response speed / output volume is controlled, HTECR-coded episodes show no distinct reciprocal or temporal interaction structure.
 
-### F3 — CCTS substitution
+#### F2 — memory / re-entry substitution
 
-Every proposed HTECR feature is already fully explained by CCTS structural conformance with no additional dynamic information.
+When memory availability, context length and re-entry support are controlled, the candidate regime distinction disappears.
 
-### F4 — ITC / Human–AI teaming substitution
+#### F3 — CCTS substitution
 
-Existing Interactive Team Cognition or Human–AI team cognition measures explain the same phenomenon without a meaningful residual construct.
+Every proposed dynamic feature is fully predicted by CCTS structural conformance with no additional temporal / interaction information.
 
-### F5 — quality failure
+#### F4 — ITC / Human–AI team-cognition substitution
 
-Higher candidate HTECR scores systematically increase epistemic errors or reduce durable learning / judgement, making “high coordination” a misleading label.
+Existing Interactive Team Cognition or Human–AI team-cognition operationalizations explain the same observable phenomenon without a meaningful residual construct.
 
-### F6 — one-dyad artifact
+#### F5 — one-dyad artifact
 
-The pattern appears only in the current Human Owner–ChatGPT Teacher dyad and fails to generalize across tasks, sessions, humans, models or providers.
+The pattern appears only in the current Human Owner–ChatGPT Teacher dyad and fails to replicate across sessions, tasks, humans, models or providers.
 
-### F7 — observer / coder instability
+#### F6 — observer / coder instability
 
-Independent coders cannot reliably identify the proposed events or regime boundaries.
+Independent coders cannot reliably identify the proposed event classes or regime boundaries.
 
-### F8 — post hoc segmentation
+#### F7 — post hoc segmentation
 
 The regime can only be identified after outcomes are known and cannot be prospectively segmented using preregistered criteria.
 
-### F9 — human-side desynchronization
+#### F8 — human-side desynchronization
 
-AI-side operation density rises while Human-side questioning, challenge, revision or verification does not; the event is better described as unilateral model output acceleration.
+AI-side operation density rises while Human-side questioning, challenge, revision or verification does not; the event is better described as unilateral model-output acceleration.
 
-### F10 — no learning consequence
+### Stronger-interpretation falsifiers
 
-Repeated HTECR-coded sessions produce no transferable human understanding, judgement improvement, recoverability or research-quality benefit relative to appropriate controls.
+These do not necessarily falsify the existence of a descriptive interaction regime, but they falsify stronger positive interpretations.
 
-F10 is not required to reject the existence of an interaction regime, but it rejects any stronger interpretation that the regime constitutes improved Human–AI learning.
+#### F9 — epistemic-value failure
 
-## 11. Minimum future method
+HTECR-core episodes show equal or worse unsupported-claim, contradiction, provenance or constraint-miss rates than matched controls.
+
+#### F10 — learning-benefit failure
+
+Repeated HTECR-core sessions produce no transferable human understanding, judgement improvement, recoverability, delayed retention or research-quality benefit relative to appropriate controls.
+
+Therefore:
+
+```text
+F1-F8
+= MAY_COLLAPSE_OR_REJECT_DISTINCT_CONSTRUCT
+
+F9-F10
+= MAY_REJECT_POSITIVE_EPISTEMIC_OR_LEARNING_INTERPRETATION
+```
+
+## 12. Minimum future method
 
 ### Phase 0 — observational coding only
 
@@ -486,18 +546,18 @@ Required outputs:
 2. actor-role provenance;
 3. typed epistemic-operation coding;
 4. CCTS structural-conformance status;
-5. throughput and coordination metrics;
-6. quality / error metrics;
+5. throughput / coordination / coupling metrics;
+6. independent contextual-coherence and quality metrics;
 7. task and session context;
 8. explicit missing-data markers.
 
 ### Phase 1 — inter-rater reliability
 
-Before confirmatory interpretation, at least two independently applied coding passes should be compared. The exact reliability statistic must be chosen based on the coding level and label structure; no threshold is asserted in this note.
+Before confirmatory interpretation, compare at least two independently applied coding passes. The exact reliability statistic and acceptance rule must be chosen prospectively for the coding scale; this note does not invent a threshold.
 
 ### Phase 2 — negative controls
 
-Include fast-but-uncoordinated, slow-but-coordinated and high-output-quality-collapse episodes. If the candidate metric cannot separate them, stop.
+Include fast-but-uncoordinated, slow-but-coordinated and high-throughput-quality-collapse episodes. If the candidate measures cannot distinguish these conditions, stop or collapse the construct.
 
 ### Phase 3 — prospective preregistration
 
@@ -505,19 +565,20 @@ Predefine:
 
 - event ontology;
 - regime start / end rule;
+- temporal window;
 - metrics;
 - exclusions;
 - primary contrasts;
 - falsifiers;
-- stopping / inconclusive rules.
+- inconclusive / stopping rules.
 
 ### Phase 4 — cross-session / cross-dyad replication
 
-Only after the construct survives within-dyad falsification should it be tested across humans, models, tasks and providers.
+Only after the candidate survives within-dyad falsification should it be tested across humans, models, tasks and providers.
 
-### Phase 5 — learning outcome separation
+### Phase 5 — learning-outcome separation
 
-If studying Human–AI learning, measure human learning / judgement separately from interaction quality. Candidate outcomes may include transfer, independent reconstruction, delayed retention, verification quality or calibrated uncertainty.
+If studying Human–AI learning, measure human learning / judgement separately from interaction-regime detection. Candidate outcomes may include transfer, independent reconstruction, delayed retention, verification quality or calibrated uncertainty.
 
 ```text
 INTERACTION_REGIME_DETECTED
@@ -528,7 +589,7 @@ DYAD_LEVEL_PATTERN
 != AI_SUBJECTIVITY
 ```
 
-## 12. Evidence and claim-control rules
+## 13. Evidence and claim-control rules
 
 For every future central claim:
 
@@ -546,35 +607,46 @@ DEFINE_CLAIM
 
 Use primary / original sources where possible. Search snippets, AI summaries and conceptual similarity are discovery aids, not final evidence.
 
-## 13. Second-review checklist for this note
+## 14. Second-review findings
 
-Before any merge, independently re-check:
+The second review changed the first draft rather than merely approving it.
 
-- [ ] exact live `main` and PR head;
-- [ ] external source titles, dates and DOI / identifiers;
-- [ ] no claim that this repository has verified academic citation;
-- [ ] no claim that Human–AI Learning is locally novel as a field;
-- [ ] CCTS and HTECR remain non-equivalent;
-- [ ] HTECR remains a working label;
-- [ ] human fatigue / flow are not embedded into the HTECR definition;
-- [ ] counterevidence and cognitive-offloading literature remain present;
-- [ ] falsifiers can reject or collapse the construct;
-- [ ] no subjectivity / consciousness inference;
-- [ ] no implementation or execution is silently authorized by this note.
+Corrections made:
 
-## 14. Current disposition
+1. **Anti-circularity:** separated HTECR-core regime detection from epistemic quality so quality collapse remains observable instead of being excluded by definition.
+2. **Source status:** explicitly marked Wang & Chen (2024) as an arXiv preprint.
+3. **Counterevidence calibration:** recorded the 2026 scoping review as heterogeneous configurative evidence rather than a pooled causal estimate.
+4. **RCT scope:** recorded Barcaui (2025) as one design-specific randomized study, not a universal AI-learning rule.
+5. **Falsifier split:** separated construct-collapse tests from tests that only reject a positive learning / epistemic interpretation.
+6. **Search limitation:** clarified that the no-citation result is a bounded public-web sweep, not exhaustive bibliometrics.
+
+Second-review disposition:
 
 ```text
-DIRECT_ACADEMIC_CITATION_OF_REPOSITORY = NONE_VERIFIED_IN_2026_09_18_SWEEP
+SOURCE_METADATA_RECHECK = PASS_WITH_CORRECTIONS
+COUNTEREVIDENCE_PRESENT = YES
+CIRCULARITY_RISK_FOUND = YES_AND_REPAIRED
+NOVELTY_OVERCLAIM = REJECTED
+SCIENTIFIC_CLAIM_PROMOTION = NONE
+```
+
+## 15. Current disposition
+
+```text
+DIRECT_ACADEMIC_CITATION_OF_REPOSITORY
+= NONE_VERIFIED_IN_BOUNDED_2026_09_18_PUBLIC_WEB_SWEEP
+
 EXTERNAL_HUMAN_AI_LEARNING_LITERATURE = PRESENT
 EXTERNAL_INTERACTION_LEVEL_TEAM_COGNITION_LITERATURE = PRESENT
 EXTERNAL_HUMAN_AI_TEAM_COGNITION_LITERATURE = PRESENT
 EXTERNAL_EPISTEMIC_AGENCY_AND_DEPENDENCE_LITERATURE = PRESENT
+EXTERNAL_COGNITIVE_OFFLOADING_COUNTEREVIDENCE = PRESENT
 
 HUMAN_AI_LEARNING_AS_BROAD_NOVEL_GAP = REJECTED
 CCTS_DYNAMIC_OBSERVATION_GAP = PLAUSIBLE_CANDIDATE
 HTECR_DISCRIMINANT_VALUE = NOT_ESTABLISHED
 HTECR_SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
+HTECR_EPISTEMIC_VALUE = NOT_ESTABLISHED
 
 NEXT_VALID_STEP
 = FALSIFICATION_FIRST_OBSERVATIONAL_OPERATIONALIZATION
@@ -584,14 +656,14 @@ CONFIRMATORY_EXECUTION_AUTHORIZATION = NONE
 SCIENTIFIC_DISPOSITION = HOLD
 ```
 
-## 15. References
+## 16. References
 
 1. Wang, X., & Chen, X. (2024). *Towards Human-AI Mutual Learning: A New Research Paradigm*. arXiv:2405.04687. https://arxiv.org/abs/2405.04687
 2. Cooke, N. J., Gorman, J. C., Myers, C. W., & Duran, J. L. (2013). Interactive team cognition. *Cognitive Science, 37*(2), 255–285. https://doi.org/10.1111/cogs.12009
 3. Narayanan, R., Cohen, M. C., Feigh, K. M., & Cooke, N. J. (2025). Two Sides of the Same Coin? Joint Perspectives From Shared Mental Models and Interactive Team Cognition Theories on Human-AI Team Cognition. *Proceedings of the Human Factors and Ergonomics Society Annual Meeting*. https://doi.org/10.1177/10711813251358788
 4. Dang, B., Huynh, L., Gul, F., Rosé, C., Järvelä, S., & Nguyen, A. (2025). Human–AI collaborative learning in mixed reality: Examining the cognitive and socio-emotional interactions. *British Journal of Educational Technology, 56*, 2078–2101. https://doi.org/10.1111/bjet.13607
-5. Feng, S. et al. (2025). Group interaction patterns in generative AI-supported collaborative problem solving: Network analysis of the interactions among students and a GAI chatbot. *British Journal of Educational Technology*. https://doi.org/10.1111/bjet.13611
+5. Feng, S. (2025). Group interaction patterns in generative AI-supported collaborative problem solving: Network analysis of the interactions among students and a GAI chatbot. *British Journal of Educational Technology, 56*(5), 2125–2145. https://doi.org/10.1111/bjet.13611
 6. Samuel, A. (2026). Learning with machines: Toward a theory of epistemic co-agency. *Computers and Education: Artificial Intelligence, 10*, 100573. https://doi.org/10.1016/j.caeai.2026.100573
 7. Du, Y., & Yuan, Y. (2026). Epistemic dependence in AI-mediated learning. *AI & Society*. https://doi.org/10.1007/s00146-026-03294-1
-8. *Generative AI, Cognitive Offloading, and Learner Agency in Higher Education: A Scoping Review* (2026). *Behavioral Sciences, 16*(7), 1150. https://doi.org/10.3390/bs16071150
-9. *ChatGPT as a cognitive crutch: Evidence from a randomized controlled trial on knowledge retention* (2025). https://doi.org/10.1016/j.ssaho.2025.102287
+8. Wang, G., Wang, W., Yang, D., & Ren, J. (2026). Generative AI, Cognitive Offloading, and Learner Agency in Higher Education: A Scoping Review. *Behavioral Sciences, 16*(7), 1150. https://doi.org/10.3390/bs16071150
+9. Barcaui, A. (2025). ChatGPT as a cognitive crutch: Evidence from a randomized controlled trial on knowledge retention. *Social Sciences & Humanities Open, 12*, 102287. https://doi.org/10.1016/j.ssaho.2025.102287
