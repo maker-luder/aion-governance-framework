@@ -34,6 +34,15 @@ class RestorationMode(StrEnum):
     FULL_CONTINUITY_PACKET = "FULL_CONTINUITY_PACKET"
 
 
+_MINIMAL_REENTRY_INVARIANTS = frozenset(
+    {
+        ContinuityInvariant.PROJECT_PURPOSE,
+        ContinuityInvariant.DECISION_HISTORY,
+    }
+)
+_ALL_CONTINUITY_INVARIANTS = frozenset(ContinuityInvariant)
+
+
 def _require_text(name: str, value: str) -> None:
     if type(value) is not str or not value.strip():
         raise ContinuityReplayError(f"{name} must be non-empty text")
@@ -134,12 +143,34 @@ class RestorationPolicy:
         if type(self.overrides) is not tuple or any(
             type(item) is not RestorationOverride for item in self.overrides
         ):
-            raise ContinuityReplayError("overrides must contain exact RestorationOverride values")
+            raise ContinuityReplayError(
+                "overrides must contain exact RestorationOverride values"
+            )
         overridden = [item.invariant for item in self.overrides]
         if len(overridden) != len(set(overridden)):
             raise ContinuityReplayError("override invariants must be unique")
         if not set(overridden) <= set(self.included_invariants):
             raise ContinuityReplayError("overrides may only target included invariants")
+
+        included = frozenset(self.included_invariants)
+        if self.mode is RestorationMode.FACTS_ONLY:
+            if included != _MINIMAL_REENTRY_INVARIANTS or self.restore_focus:
+                raise ContinuityReplayError(
+                    "FACTS_ONLY requires exactly project-purpose/decision-history "
+                    "bindings and cannot restore focus"
+                )
+        elif self.mode is RestorationMode.ATTENTION_REENTRY:
+            if included != _MINIMAL_REENTRY_INVARIANTS or not self.restore_focus:
+                raise ContinuityReplayError(
+                    "ATTENTION_REENTRY requires exactly project-purpose/decision-history "
+                    "bindings and must restore focus"
+                )
+        else:
+            if included != _ALL_CONTINUITY_INVARIANTS or not self.restore_focus:
+                raise ContinuityReplayError(
+                    "FULL_CONTINUITY_PACKET requires every continuity invariant "
+                    "and must restore focus"
+                )
 
 
 @dataclass(frozen=True, slots=True)
@@ -206,7 +237,9 @@ def audit_transition_continuity(
     if type(result) is not TransitionReplayResult:
         raise ContinuityReplayError("result must be an exact TransitionReplayResult")
     if result.history_sha256 != history.history_sha256:
-        raise ContinuityReplayError("result must be bound to the same recorded transition history")
+        raise ContinuityReplayError(
+            "result must be bound to the same recorded transition history"
+        )
 
     observed = dict(result.invariant_values)
     dispositions: list[tuple[ContinuityInvariant, ContinuityDisposition]] = []
@@ -249,5 +282,7 @@ def compare_restoration_policies(
         for policy in policies
     )
     if len({audit.history_sha256 for audit in audits}) != 1:
-        raise ContinuityReplayError("all policies must replay the same transition history")
+        raise ContinuityReplayError(
+            "all policies must replay the same transition history"
+        )
     return audits
