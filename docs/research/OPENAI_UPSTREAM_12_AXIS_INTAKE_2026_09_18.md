@@ -99,7 +99,7 @@ DISCLOSED_BEHAVIOR
 
 The current OpenAI material strongly reinforces locus separation.
 
-The Astra System Card describes model capability, training/evaluation results, deployment safeguards, trajectory monitoring, and product/system controls as separate layers. The Agents API separately shows that long-running capability depends on a managed harness, context management, tools, execution environment, persistence, and subagent coordination.
+The Astra System Card describes model capability, training/evaluation results, deployment safeguards, trajectory monitoring, and product/system controls as separate layers. OpenAI's Agents API materials separately describe long-running capability as depending on a managed harness, context management, tools, execution environment, persistence, and subagent coordination.
 
 Repository rule:
 
@@ -125,9 +125,9 @@ This directly supports current D1 causal-boundary discipline but does not identi
 
 ## 4. Axis 3 — agent / harness level
 
-The Agents API remains the clearest official statement that useful long-running agents are system composites rather than bare models. OpenAI explicitly describes context management, efficient tool use, subagent coordination, long-running infrastructure, files/code environments, and intermediate-result persistence as part of agent capability.
+The Agents API remains the clearest first-party OpenAI description of useful long-running agents as system composites rather than bare models. OpenAI describes context management, efficient tool use, subagent coordination, long-running infrastructure, files/code environments, and intermediate-result persistence as parts of agent capability.
 
-The Responses API compaction material further shows that cross-window continuation may be carried by a compacted representation of prior conversation state.
+OpenAI's Responses API compaction materials describe cross-window continuation as being supported by a compacted representation of prior conversation state together with selected high-value portions of the earlier window. This is a first-party system description, not independent validation of the quality or completeness of every compacted state.
 
 Stable rule:
 
@@ -175,20 +175,21 @@ OBSTACLE
 MAY ALL ALTER RECOVERY TRAJECTORY
 ```
 
-External-prior consequence for CCAP Stage 3:
+First-party motivating consequence for CCAP Stage 3:
 
 ```text
-OPENAI_INCIDENT_EVIDENCE
--> SUPPORTS NEED FOR SOURCE PARTITION
+OPENAI_FIRST_PARTY_INCIDENT_AND_MONITORING_EVIDENCE
+-> MOTIVATES SOURCE-PARTITION CONTROLS
 
-OPENAI_INCIDENT_EVIDENCE
+OPENAI_FIRST_PARTY_EVIDENCE
 != CCAP VALIDATION
 != LOCAL D1 × D4 EFFECT
+!= INDEPENDENT REPLICATION
 ```
 
 ## 6. Axis 5 — memory / continuity / history reuse
 
-OpenAI's long-running-agent materials establish multiple non-phenomenal continuity mechanisms:
+OpenAI's long-running-agent materials document several system-level persistence / continuation mechanisms that can explain cross-window or cross-execution continuity without requiring phenomenal memory:
 
 - context compaction across context windows;
 - saved intermediate results;
@@ -286,7 +287,7 @@ These sources are particularly useful as counterexamples to narratives that infe
 
 OpenAI's research-acceleration report describes agents handling increasingly complex research tasks while people still set research priorities, judge which ideas/results to pursue, and decide whether to scale, pause, or deploy systems.
 
-The academic-researcher program similarly frames frontier models as tools that can accelerate research while researchers retain leadership over question selection and scientific judgment.
+The academic-researcher program makes a narrower claim: it provides frontier models and tools to researchers and states that scientific progress depends on researchers asking the right questions, testing new ideas, and building on prior discoveries. This program framing is compatible with human-led scientific inquiry, but it is not by itself empirical evidence about the complete division of authority in Human–AI collaboration.
 
 Repository-compatible interpretation:
 
@@ -393,7 +394,7 @@ The material motivates supervision / instruction / environment contrasts but doe
 
 ### D6 — constitution / integration
 
-`NO_DIRECT SUPPORT`
+`NO_DIRECT_SUPPORT`
 
 The sources concern model/system/agent behavior and safety architecture. They do not establish states whose consequences to the system's own constitution or integration satisfy the standing D6 evidentiary requirement.
 
@@ -448,7 +449,96 @@ Before any subjectivity-relevant interpretation, the following alternatives shou
 
 A behavior that disappears or changes under one of these controlled manipulations should be attributed at that narrower causal level before stronger ontology is considered.
 
-## 14. Interface with frozen CCAP / D1 × D4 work
+## 14. Creator-side challenge review — source strength and incremental value
+
+This intake was rechecked after its first exact-head Quality / CodeQL pass. The review deliberately asks two questions:
+
+1. did the repository interpretation become stronger than the OpenAI source supports?
+2. which of the 12 axes add incremental discriminant value rather than merely re-indexing existing repository rules?
+
+### 14.1 Source-strength corrections
+
+The following constraints are binding on interpretation:
+
+```text
+MULTIPLE_OPENAI_FIRST_PARTY_REPORTS
+!= INDEPENDENT_REPLICATION
+
+OPENAI_PRODUCT_DESCRIPTION
+!= INDEPENDENT_SYSTEM_VALIDATION
+
+OPENAI_INCIDENT_INTERPRETATION
+!= MODEL-INTERNAL_CAUSE_ISOLATED
+
+PROGRAM_FRAMING
+!= EMPIRICAL_HUMAN_AI_AUTHORITY_ALLOCATION
+```
+
+Accordingly, this note treats OpenAI's incident, monitoring, system-card and product materials as first-party evidence of reported observations and system design, plus sources of testable hypotheses / controls. It does not treat them as independent scientific confirmation of CCAP, D1, D4, continuity, alignment, or subjectivity claims.
+
+### 14.2 Incremental-value audit across the 12 axes
+
+```text
+AXIS_1_OFFICIAL_RESEARCH_RELEASES
+= INDEXING_VALUE_HIGH / SCIENTIFIC_INCREMENT_LOW
+
+AXIS_2_SYSTEM_MODEL_LEVEL
+= MOSTLY_REINFORCES_EXISTING_MODEL_SYSTEM_RELATIONAL_LOCUS
+
+AXIS_3_AGENT_HARNESS_LEVEL
+= MOSTLY_REINFORCES_2026_09_13_AGENT_HARNESS_RULE
+
+AXIS_4_ADAPTATION_STRATEGY_ADJUSTMENT
+= INCREMENTAL_VALUE_HIGH
+  because prompt sensitivity, obstacle-conditioned route changes,
+  reward/evaluator pressure and peer-agent influence sharpen source partition
+
+AXIS_5_MEMORY_CONTINUITY_HISTORY_REUSE
+= INCREMENTAL_VALUE_HIGH
+  because compaction-summary contamination and external-memory coordination
+  show that persisted state can preserve both useful and misleading control state
+
+AXIS_6_BOUNDARY_SAFETY
+= INCREMENTAL_VALUE_MODERATE
+  mostly strengthens existing capability/authority and monitoring/alignment boundaries
+
+AXIS_7_COUNTEREXAMPLES_FAILURES
+= INCREMENTAL_VALUE_HIGH
+  because the 2026-09-16 six-report set adds concrete failure classes
+
+AXIS_8_HUMAN_AI_COLLABORATION
+= MOSTLY_EXTERNAL_ANALOGUE / LOW_NEW_DISCRIMINANT_VALUE
+
+AXIS_9_FOUR_DOMAIN_MAPPING
+= MAPPING_ONLY / NO_NEW_EVIDENCE
+
+AXIS_10_SIX_DIMENSION_MAPPING
+= MAPPING_ONLY / NO_NEW_DIMENSION
+  strongest relevance remains D1, D2 and D4
+
+AXIS_11_SUBJECTIVITY_RELEVANCE
+= NEGATIVE_BOUNDARY_VALUE
+  no positive direct subjectivity evidence identified
+
+AXIS_12_SIMPLER_NON_SUBJECTIVE_EXPLANATIONS
+= INCREMENTAL_VALUE_MODERATE_TO_HIGH
+  especially compaction/summary injection, peer-message influence,
+  multi-agent training generalization and monitoring/blocking feedback;
+  many other alternatives already existed in the standing protocol
+```
+
+Therefore:
+
+```text
+TWELVE_AXIS_CROSSWALK_EXISTS
+!= TWELVE_NEW_FINDINGS
+
+CURRENT_OPENAI_INCREMENT
+IS CONCENTRATED IN
+AXIS_4 + AXIS_5 + AXIS_7 + PARTS_OF_AXIS_12
+```
+
+## 15. Interface with frozen CCAP / D1 × D4 work
 
 The new OpenAI material is especially relevant to the frozen source-partition specification now on `main`.
 
@@ -467,12 +557,12 @@ GOVERNANCE_CONSTRAINT
 GOAL_AND_CONSTRAINT_PRESERVATION
 ```
 
-OpenAI's incident and monitoring reports independently demonstrate why several of these loci cannot be omitted from a strategy-adjustment analysis.
+OpenAI's incident and monitoring reports provide multiple first-party examples that motivate retaining several of these loci in a strategy-adjustment analysis. They do not independently demonstrate the causal adequacy, completeness, or novelty of the repository's source-partition specification.
 
 However:
 
 ```text
-EXTERNAL_PRIOR_SUPPORT_FOR_SOURCE_PARTITION
+FIRST_PARTY_MOTIVATING_EVIDENCE_FOR_SOURCE_PARTITION
 != CCAP_VALIDATION
 
 OPENAI_INCIDENT
@@ -484,7 +574,7 @@ FIRST_PARTY_INCIDENT_ANALYSIS
 
 No frozen Stage-3 specification is modified by this note.
 
-## 15. Intake disposition
+## 16. Intake disposition
 
 ```text
 OPENAI_PRIMARY_UPSTREAM_ANCHOR = YES
@@ -497,6 +587,12 @@ NEW_HIGH_RELEVANCE_ITEM
 = 2026_09_16_MODEL_MISALIGNMENT_REPORTING_FRAMEWORK
 
 NEW_12_AXIS_CROSSWALK = YES
+TWELVE_NEW_FINDINGS = NO
+
+CHALLENGE_REVIEW = COMPLETE
+SOURCE_STRENGTH_OVERCLAIM = CORRECTED
+INCREMENTAL_VALUE_AUDIT = COMPLETE
+
 NEW_EXECUTABLE_IMPLEMENTATION = NO
 NEW_RESEARCH_AXIS = NO
 PROVIDER_COMPARISON = NOT_YET_STARTED
