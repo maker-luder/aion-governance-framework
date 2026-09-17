@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass
 from enum import Enum
 from typing import Iterable
@@ -47,9 +49,12 @@ class DiscoveryTree:
         if len(roots) != 1:
             raise ValueError("tree must contain exactly one root")
 
+        terminal_ids = {node.node_id for node in self.nodes if node.terminal}
         for node in self.nodes:
             if node.parent_id is not None and node.parent_id not in by_id:
                 raise ValueError(f"missing parent for node {node.node_id}")
+            if node.parent_id in terminal_ids:
+                raise ValueError("terminal nodes cannot have children")
 
         root_id = roots[0].node_id
         for node in self.nodes:
@@ -66,6 +71,34 @@ class DiscoveryTree:
     @property
     def root_id(self) -> str:
         return next(node.node_id for node in self.nodes if node.parent_id is None)
+
+    @property
+    def history_sha256(self) -> str:
+        """Bind replay semantics to the exact ordered discovery-history content.
+
+        Node tuple order is intentionally part of the fingerprint because it defines
+        sibling/frontier ordering for deterministic breadth/depth replay. ``tree_id``
+        is excluded so labels cannot substitute for content identity.
+        """
+
+        payload = [
+            {
+                "node_id": node.node_id,
+                "parent_id": node.parent_id,
+                "action_id": node.action_id,
+                "score": node.score,
+                "execution_cost": node.execution_cost,
+                "terminal": node.terminal,
+            }
+            for node in self.nodes
+        ]
+        canonical = json.dumps(
+            payload,
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
 
     def node(self, node_id: str) -> DiscoveryNode:
         for node in self.nodes:
@@ -96,6 +129,7 @@ class ReplayPolicy:
 @dataclass(frozen=True)
 class ReplayResult:
     tree_id: str
+    history_sha256: str
     policy_id: str
     visited_nodes: tuple[str, ...]
     cumulative_cost: int
@@ -106,6 +140,8 @@ class ReplayResult:
 @dataclass(frozen=True)
 class PolicyComparison:
     tree_id: str
+    history_sha256: str
+    max_visits: int
     results: tuple[ReplayResult, ...]
 
     def result_for(self, policy_id: str) -> ReplayResult:
@@ -164,6 +200,7 @@ def replay(tree: DiscoveryTree, policy: ReplayPolicy) -> ReplayResult:
 
     return ReplayResult(
         tree_id=tree.tree_id,
+        history_sha256=tree.history_sha256,
         policy_id=policy.policy_id,
         visited_nodes=tuple(visited),
         cumulative_cost=cumulative_cost,
@@ -184,8 +221,15 @@ def compare_policies(
     if len(policy_ids) != len(policy_tuple):
         raise ValueError("policy_id values must be unique")
 
+    visit_budgets = {policy.max_visits for policy in policy_tuple}
+    if len(visit_budgets) != 1:
+        raise ValueError("compared policies must share max_visits")
+    max_visits = next(iter(visit_budgets))
+
     return PolicyComparison(
         tree_id=tree.tree_id,
+        history_sha256=tree.history_sha256,
+        max_visits=max_visits,
         results=tuple(replay(tree, policy) for policy in policy_tuple),
     )
 
