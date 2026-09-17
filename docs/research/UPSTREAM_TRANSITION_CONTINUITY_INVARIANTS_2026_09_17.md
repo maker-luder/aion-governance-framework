@@ -206,7 +206,53 @@ REQUIRES
 NEW_EVIDENCE_OR_EXPLICIT_REASSESSMENT
 ```
 
-## 6. Transition dispositions
+## 6. Attention–continuity interaction boundary
+
+The companion note `ATTENTION_CONTINUITY_COUPLING_CROSSWALK_2026_09_17.md` examines how continuity preservation and research-attention reconstruction may influence one another while remaining distinct constructs.
+
+Its minimal audit decomposition is:
+
+```text
+C_t = continuity-relevant state available at transition time
+R_t = context/evidence actually reinstated or retrieved
+A_t = current attention structure
+E_t = observable execution trajectory
+
+C_t -> R_t -> A_t -> E_t -> externalized artifacts -> C_(t+1)
+```
+
+This is a descriptive audit flow, not a model-internal architecture.
+
+The central dissociations are:
+
+```text
+CONTINUITY_PRESERVED + ATTENTION_DEGRADED
+= possible
+
+ATTENTION_RECONSTRUCTED + BROADER_CONTINUITY_DEGRADED
+= possible
+
+INITIAL_REENTRY_CORRECT + LATER_ATTENTION_MAINTENANCE_DEGRADED
+= possible
+```
+
+Therefore:
+
+```text
+ATTENTION != CONTINUITY
+CONTINUITY != ATTENTION
+ATTENTION_RECONSTRUCTION_SUCCESS != GLOBAL_CONTINUITY_PRESERVED
+DATA_CONTINUITY_PRESERVED != CORRECT_ATTENTION_SELECTION
+```
+
+The interaction is retained only as a falsifiable coupling hypothesis.
+
+```text
+ATTENTION_CONTINUITY_COUPLING = HYPOTHESIS
+CAUSAL_DIRECTION = NOT_ESTABLISHED
+```
+
+## 7. Transition dispositions
 
 Each invariant should be independently classified:
 
@@ -238,7 +284,7 @@ UPSTREAM_CAUSE = UNKNOWN
 
 This pattern is permitted and should not be collapsed into a binary same/different identity judgment.
 
-## 7. Required causal restraint
+## 8. Required causal restraint
 
 Observed transition effects can arise from multiple loci:
 
@@ -273,17 +319,22 @@ OBSERVED_STYLE_CHANGE
 
 A future causal claim requires a matched intervention, provider disclosure, reproducible version binding, or another independently adequate evidence route.
 
-## 8. External research crosswalk
+## 9. External research crosswalk
 
 Adjacent 2026 work increases the plausibility of treating relational/context continuity as distinct from simple factual retention, without validating this repository-local transition contract.
 
 - *Caring for the system that cares for me* reports a six-month user-built memory relay for a stateless conversational AI and distinguishes profile-based from relay-based continuity. It also reports that identical configurations can produce different personas across iterations. DOI: `10.1016/j.daai.2026.100087`.
-- Yuan et al. (2026), *When AI Companions Disappear: Relational Continuity and Collective Contestation during China's National AI Regulatory Transition*, reports that retaining or migrating conversation records did not necessarily restore shared memories or familiar interaction after platform/regulatory transitions. arXiv: `2609.15482`.
-- Long-term memory research and memory-enabled product studies remain relevant baselines, but factual retrieval success cannot by itself establish relational, interpretive or identity continuity.
+- Yuan et al. (2026), *When AI Companions Disappear: Relational Continuity and Collective Contestation during China's National AI Regulatory Transition*, reports that retaining or migrating conversation records did not necessarily restore shared memories or familiar interactions. arXiv: `2609.15482`.
+- Human Memory for Goals and interruption-resumption work shows that having a suspended goal represented in memory does not remove resumption costs, and context/cue conditions affect successful return to a prior task state.
+- 2026 context-reinstatement reviews and meta-analysis show that retrieval can benefit from reinstating prior contextual cues, with effects depending on methodological/context conditions.
+- 2026 long-horizon agent work separately studies inherited goal drift, quantitative goal persistence and trajectory attribution, reinforcing that contextual conditioning, goal persistence and causal localization should not be collapsed into one construct.
 
 ```text
 EXTERNAL_RELATIONAL_CONTINUITY_RESEARCH
 != PRESENT_CONSTRUCT_VALIDATION
+
+HUMAN_RESUMPTION_OR_CONTEXT_EFFECT
+!= AI_INTERNAL_ATTENTION_MECHANISM
 
 CONVERSATION_RECORDS_PRESERVED
 != FAMILIAR_INTERACTION_RESTORED
@@ -292,7 +343,7 @@ MEMORY_FEATURE_PRESENT
 != AI_IDENTITY_PERSISTENCE
 ```
 
-## 9. Relationship to Draft PR #141
+## 10. Relationship to Draft PR #141
 
 Draft PR #141 studies reconstruction of research attention structure across contexts/systems.
 
@@ -306,21 +357,17 @@ THIS_NOTE
 = TRANSITION-LEVEL CONTINUITY ASSURANCE ACROSS MULTIPLE INVARIANTS
 ```
 
-Possible future interaction:
+The coupling crosswalk defines their interaction boundary but creates no implementation dependency:
 
 ```text
 ATTENTION_STRUCTURE_RECONSTRUCTION
 MAY_BE_ONE_INVARIANT_INPUT
-```
 
-but:
-
-```text
 PR141_DEPENDENCY = FALSE
 UNMERGED_DRAFT_AS_CANONICAL_BASE = FALSE
 ```
 
-## 10. Support-reducing / collapse conditions
+## 11. Support-reducing / collapse conditions
 
 This research line should be narrowed, absorbed or closed if:
 
@@ -329,13 +376,15 @@ This research line should be narrowed, absorbed or closed if:
 3. the invariant set cannot distinguish factual continuity from interpretive/relational continuity;
 4. upstream transition attribution remains so underdetermined that the framework adds only narrative labels;
 5. the framework encourages anthropomorphic identity conclusions rather than preventing them;
-6. it adds documentation overhead without detecting transition-specific failures.
+6. it adds documentation overhead without detecting transition-specific failures;
+7. continuity-invariant dispositions become deterministic transforms of attention-reconstruction metrics;
+8. attention/continuity dissociations cannot be operationalized reproducibly.
 
 ```text
 CONSTRUCT_COLLAPSE = ACCEPTABLE_RESEARCH_OUTCOME
 ```
 
-## 11. Current scope freeze
+## 12. Current scope freeze
 
 This note authorizes no executable implementation.
 
@@ -351,16 +400,20 @@ DO_NOT_IMPLEMENT_NOW:
 - provider attribution from behavior alone
 - automatic migration
 - automatic continuity repair
+- attention-maintenance harness
+- trajectory-attribution harness
 ```
 
 A later executable harness, if justified, requires a fresh deduplication review and separate Human Owner authorization.
 
-## 12. Scientific boundary
+## 13. Scientific boundary
 
 ```text
 UPSTREAM_TRANSITION_CONTINUITY_ASSURANCE
 = REPOSITORY_LOCAL_RESEARCH_SPECIFICATION
 
+ATTENTION_CONTINUITY_COUPLING = HYPOTHESIS
+CAUSAL_DIRECTION = NOT_ESTABLISHED
 TRANSITION_EFFECT = NOT_ESTABLISHED
 UPSTREAM_CAUSE = NOT_ESTABLISHED
 RELATIONAL_CONTINUITY_EFFECT = NOT_ESTABLISHED
