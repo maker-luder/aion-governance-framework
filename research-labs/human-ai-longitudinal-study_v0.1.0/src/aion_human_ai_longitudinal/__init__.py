@@ -92,6 +92,15 @@ from .task_selection_exposure import (
     TaskSelectionUnit,
     audit_task_selection_exposure_design,
 )
+from .task_selection_exposure_hardened import (
+    ChoiceAlternative,
+    ChoiceOpportunity,
+    ExecutionIdentityBinding,
+    FreeChoiceOpportunityTrace,
+    HardenedTaskSelectionExposureAudit,
+    audit_task_selection_exposure_design_hardened,
+    render_choice_opportunity_record,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
@@ -104,6 +113,8 @@ __all__ = [
     "CalibrationError",
     "CalibrationMetric",
     "CalibrationRun",
+    "ChoiceAlternative",
+    "ChoiceOpportunity",
     "CoConstructedThinkingSpaceManifest",
     "ConditionProfile",
     "ContextCondition",
@@ -118,11 +129,14 @@ __all__ = [
     "EpistemicInstruction",
     "EvidenceReuseFirewall",
     "EvidenceSupportManifest",
+    "ExecutionIdentityBinding",
     "ExposureCondition",
     "ExposureEvent",
     "ExposureUnitKind",
+    "FreeChoiceOpportunityTrace",
     "GroundingCheckpoint",
     "GroundingDisposition",
+    "HardenedTaskSelectionExposureAudit",
     "HeldOutTransferTask",
     "LongitudinalStudyHarness",
     "MetacognitiveAction",
@@ -167,9 +181,11 @@ __all__ = [
     "audit_co_constructed_thinking_space",
     "audit_metacognitive_transfer_matrix",
     "audit_task_selection_exposure_design",
+    "audit_task_selection_exposure_design_hardened",
     "audit_transfer_matrix",
     "compare_reentry_conditions",
     "observe_metacognitive_transfer",
     "observe_transfer",
+    "render_choice_opportunity_record",
     "score_reconstruction",
 ]
