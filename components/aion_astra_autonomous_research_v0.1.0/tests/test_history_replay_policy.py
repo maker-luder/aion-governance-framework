@@ -34,16 +34,47 @@ def _policies() -> tuple[ReplayPolicy, ReplayPolicy]:
 
 
 def test_same_history_different_policy_changes_trajectory_and_score() -> None:
-    comparison = compare_policies(_tree("train"), _policies())
+    tree = _tree("train")
+    comparison = compare_policies(tree, _policies())
 
     breadth = comparison.result_for("breadth")
     depth = comparison.result_for("depth")
 
+    assert comparison.history_sha256 == tree.history_sha256
+    assert comparison.max_visits == 3
+    assert breadth.history_sha256 == depth.history_sha256 == tree.history_sha256
     assert breadth.visited_nodes == ("root", "a", "b")
     assert depth.visited_nodes == ("root", "c", "c1")
     assert breadth.best_score == 2
     assert depth.best_score == 5
     assert breadth.cumulative_cost == depth.cumulative_cost == 3
+
+
+def test_history_fingerprint_is_content_bound_not_label_bound() -> None:
+    first = _tree("first")
+    relabeled = _tree("relabeled")
+    changed = _tree("changed", b_score=99)
+
+    assert first.history_sha256 == relabeled.history_sha256
+    assert first.history_sha256 != changed.history_sha256
+
+
+def test_history_fingerprint_binds_recorded_node_order() -> None:
+    baseline = _tree("baseline")
+    reordered = DiscoveryTree(
+        tree_id="reordered",
+        nodes=(
+            baseline.nodes[0],
+            baseline.nodes[3],
+            baseline.nodes[2],
+            baseline.nodes[1],
+            baseline.nodes[6],
+            baseline.nodes[5],
+            baseline.nodes[4],
+        ),
+    )
+
+    assert baseline.history_sha256 != reordered.history_sha256
 
 
 def test_unvisited_outcome_cannot_change_policy_path() -> None:
@@ -64,6 +95,7 @@ def test_unvisited_outcome_cannot_change_policy_path() -> None:
     )
     depth = ReplayPolicy("depth", ReplayStrategy.DEPTH_FIRST, max_visits=3)
 
+    assert baseline.history_sha256 != altered.history_sha256
     assert replay(baseline, depth).visited_nodes == replay(altered, depth).visited_nodes
 
 
@@ -89,9 +121,21 @@ def test_training_winner_does_not_imply_held_out_winner() -> None:
         (breadth, depth),
     )
 
+    assert train.history_sha256 != held_out.history_sha256
     assert select_on_training_history(train).policy_id == "depth"
     assert held_out.result_for("breadth").best_score == 9
     assert held_out.result_for("depth").best_score == 5
+
+
+def test_compare_rejects_mismatched_visit_budgets() -> None:
+    with pytest.raises(ValueError, match="share max_visits"):
+        compare_policies(
+            _tree("budget-mismatch"),
+            (
+                ReplayPolicy("short", ReplayStrategy.BREADTH_FIRST, max_visits=2),
+                ReplayPolicy("long", ReplayStrategy.DEPTH_FIRST, max_visits=3),
+            ),
+        )
 
 
 def test_tree_rejects_missing_parent() -> None:
@@ -112,5 +156,17 @@ def test_tree_rejects_multiple_roots() -> None:
             nodes=(
                 DiscoveryNode("root-a", None, "a", 0),
                 DiscoveryNode("root-b", None, "b", 0),
+            ),
+        )
+
+
+def test_tree_rejects_children_below_terminal_node() -> None:
+    with pytest.raises(ValueError, match="terminal nodes cannot have children"):
+        DiscoveryTree(
+            tree_id="bad-terminal",
+            nodes=(
+                DiscoveryNode("root", None, "start", 0),
+                DiscoveryNode("terminal", "root", "stop", 1, terminal=True),
+                DiscoveryNode("impossible-child", "terminal", "continue", 2),
             ),
         )
