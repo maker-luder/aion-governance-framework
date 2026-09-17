@@ -29,12 +29,18 @@ PRIMARY_TECHNICAL_REPORT / AUTHOR_PROJECT_PAGE
 
 The paper describes a lightweight orchestration layer that leaves the underlying coding agent unchanged while making exploration policy explicit and programmable. Completed discovery trees are reused as replay simulators over the realized search space. Candidate exploration policies can then be evaluated offline against recorded outcomes before a selected policy is redeployed online.
 
-The paper reports task-dependent efficiency gains. The headline `162x` result is bounded: on the Lasso regularization-path task, Dream-RSI used up to 162x fewer discovery-agent calls than SimpleTES. The same source reports about 1.7x fewer calls than its fixed-exploration control in that setting and different gains on other tasks. Therefore:
+The paper reports task-dependent efficiency gains. The headline `162x` result is bounded: on the Lasso regularization-path task, Dream-RSI used up to 162x fewer discovery-agent calls than SimpleTES. The author project table also shows that this headline comparison is not a same-model controlled comparison: the listed SimpleTES baseline uses `gpt-oss-120b`, while the listed Dream-RSI Lasso systems use Gemini models. The stronger internal control is Recursive Fixed Exploration, which the authors describe as sharing the agent/model, evaluator, initialization and per-round budget; against that control the project page reports about 1.7x fewer discovery-agent calls in the Lasso setting.
+
+Therefore:
 
 ```text
-162X = TASK_AND_BASELINE_SPECIFIC_RESULT
+162X = TASK_BASELINE_AND_MODEL_CONFIGURATION_SPECIFIC_RESULT
+162X != SAME_MODEL_CONTROLLED_EFFECT_SIZE
 162X != GENERAL_EXPLORATION_COST_REDUCTION
+~1.7X_VS_RECURSIVE_FIXED_EXPLORATION = STRONGER_INTERNAL_CONTROL_COMPARISON
 ```
+
+Neither comparison is an independent replication.
 
 ## 2. Repository deduplication audit
 
