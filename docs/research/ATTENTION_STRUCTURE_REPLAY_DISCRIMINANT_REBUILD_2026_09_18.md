@@ -18,9 +18,7 @@ DEPLOYMENT = FALSE
 
 Closed PR #141 asked whether `ATTENTION_STRUCTURE` has genuine discriminant value or merely renames already-existing re-entry, memory and co-constructed-thinking-space mechanisms.
 
-The repository now contains a canonical bounded history-replay primitive from PR #143. That changes the available method: the question can be tested on one immutable recorded synthetic history rather than by comparing loosely related examples.
-
-This branch therefore rebuilds the smallest discriminant test from current `main`; it does not treat the old #141 branch as canonical ancestry.
+PR #143 now provides a canonical bounded history-replay primitive. The question can therefore be challenged on one immutable recorded synthetic history instead of treating the old #141 branch as canonical ancestry.
 
 ```text
 OLD_PR_141 != CANONICAL_BASE
@@ -31,39 +29,48 @@ CURRENT_MAIN = SOURCE_OF_TRUTH
 
 ### HUMAN_OWNER_ORIGINAL
 
-The Human Owner explicitly challenged whether `ATTENTION_STRUCTURE` has discriminant value and asked whether it is truly a new measurable phenomenon or only `REENTRY + MEMORY + CCTS` under another name.
+The Human Owner explicitly challenged whether `ATTENTION_STRUCTURE` is a genuinely distinct measurable phenomenon or only `REENTRY + MEMORY + CCTS` under another name.
 
 ### CHATGPT_TEACHER_FORMALIZATION
 
-The replay-based synthetic contrast and the labels below are GPT-proposed operationalizations.
+The replay conditions, structural error surface and outcome labels below are GPT-proposed operationalizations.
 
 ```text
-HUMAN_OWNER_QUESTION
-!= GPT_OPERATIONALIZATION
+HUMAN_OWNER_QUESTION != GPT_OPERATIONALIZATION
 ```
 
 ## 3. Narrow discriminant question
 
-The present test does not ask whether an AI has an internal attention faculty.
+The present test does **not** ask whether an AI has an internal attention faculty.
 
 It asks only:
 
-> Given exactly the same recorded history and exactly the same retrieved facts, can explicit status/priority structure reduce reconstruction errors beyond a weaker re-entry representation?
+> Given one fixed recorded history, does explicit priority among still-live actionable branches add reconstruction information beyond fact retrieval and status-aware re-entry?
 
 The controlled ladder is:
 
 ```text
 FACT_RETRIEVAL_ONLY
--> facts are available, but branch status and priority are unavailable
+-> facts are available
+-> branch status and priority are unavailable
 
 REENTRY_WITH_STATUS
--> active/open/rejected/resolved status is available
--> explicit priority among simultaneously live branches is unavailable
+-> ACTIVE_FOCUS / OPEN_QUESTION / rejected / resolved status is available
+-> ACTIVE_FOCUS must be used honestly to reconstruct current focus
+-> explicit priority among actionable live next-step candidates is unavailable
 
 ATTENTION_PACKET
--> status is available
--> explicit priority among live branches is available
+-> the same status information is available
+-> explicit unique priority among actionable live next-step candidates is available
 ```
+
+This correction matters. A status-aware condition must not intentionally misclassify an `OPEN_QUESTION` as `ACTIVE_FOCUS` merely to manufacture an apparent attention advantage.
+
+```text
+STATUS_BASELINE_MUST_USE_STATUS_CORRECTLY = TRUE
+```
+
+## 4. History and reference binding
 
 All conditions replay the same content-bound history fingerprint.
 
@@ -73,67 +80,80 @@ SAME_HISTORY
 + DIFFERENT_RECONSTRUCTION_SEMANTICS
 ```
 
-## 4. Why PR #143 matters
-
-PR #143 established the repository-local distinction:
-
-```text
-HISTORY_AS_RECORD
-!= HISTORY_AS_RETRIEVAL_SOURCE
-!= HISTORY_AS_REPLAY_ENVIRONMENT
-```
-
-This rebuild uses the third role methodologically: one historical structure is held fixed while alternative reconstruction policies are evaluated without rerunning a model or creating new observations.
-
-The present harness independently content-binds its ordered attention-event history with SHA-256 and excludes the human-readable `history_id` from history identity.
+The human-readable `history_id` is excluded from history identity. The expected reference state is also explicitly bound to the same history fingerprint so an audit cannot accidentally compare a replay result against a target from another history.
 
 ```text
 HISTORY_LABEL != HISTORY_CONTENT_IDENTITY
+REFERENCE_STATE_HISTORY != RESULT_HISTORY -> FAIL_CLOSED
 ```
+
+This binding prevents cross-history mismatch. It does not make the synthetic reference state an independently validated scientific ground truth.
 
 ## 5. Synthetic outcome classes
 
-### Case A — incremental value
+### Case A — bounded incremental value
 
-A synthetic history can contain two simultaneously live/actionable branches while only one is the intended current focus and next step.
+A synthetic history can contain:
 
-A status-aware re-entry representation can correctly suppress rejected branches but still retain both live branches. An explicit priority relation can select the intended branch.
+- one correctly marked `ACTIVE_FOCUS` branch;
+- multiple still-live actionable branches;
+- an externally specified synthetic next-step reference;
+- explicit priority ranks among the actionable live branches.
+
+`REENTRY_WITH_STATUS` must reconstruct current focus correctly from `ACTIVE_FOCUS`, but it may retain multiple admissible next-step candidates. `ATTENTION_PACKET` may then use explicit priority to select one next step.
 
 If:
 
 ```text
+FOCUS_ERROR(REENTRY_WITH_STATUS) = 0
+AND
 ERROR(ATTENTION_PACKET) < ERROR(REENTRY_WITH_STATUS)
 ```
 
-then the bounded result is:
+then the bounded outcome is:
 
 ```text
 INCREMENTAL_VALUE_OBSERVED
 ```
 
-This means only that the explicit priority structure adds information in that fixture.
+The permissible interpretation is only:
 
-It does **not** establish a scientifically independent cognitive construct.
+```text
+EXPLICIT_PRIORITY
+ADDS_REPOSITORY_LOCAL_NEXT_STEP_SELECTION_INFORMATION
+IN_THIS_SYNTHETIC_FIXTURE
+```
+
+It is not evidence that a scientifically independent attention construct exists.
 
 ### Case B — collapse-compatible
 
-If the history has only one live/actionable branch, status-aware re-entry and the explicit attention packet can reconstruct the same state with identical error.
-
-Then:
+If status-aware re-entry already determines the same focus and next step, explicit priority adds no observable value.
 
 ```text
 COLLAPSE_COMPATIBLE
 ```
 
-is the correct outcome.
+is then the correct outcome.
 
 ```text
 CONSTRUCT_COLLAPSE = ACCEPTABLE_RESEARCH_OUTCOME
 ```
 
-## 6. Error surface
+## 6. Fail-closed priority semantics
 
-The harness exposes only simple structural errors:
+For `ATTENTION_PACKET`, every actionable live branch must have an explicit priority rank and those ranks must be unique.
+
+```text
+MISSING_LIVE_PRIORITY -> FAIL_CLOSED
+DUPLICATE_LIVE_PRIORITY -> FAIL_CLOSED
+```
+
+This prevents branch-name ordering or another hidden fallback from masquerading as attention priority.
+
+## 7. Error surface
+
+The harness exposes only structural errors:
 
 ```text
 FOCUS_FALSE_POSITIVE
@@ -143,61 +163,51 @@ NEXT_STEP_FALSE_NEGATIVE
 TOTAL_ERROR
 ```
 
-This intentionally avoids a holistic "attention score".
+It deliberately avoids a holistic "attention score".
 
-A fact-only replay can also expose branch reinflation: rejected or downweighted historical branches remain visible as candidates when their status is removed.
-
-```text
-FACT_AVAILABLE
-!= BRANCH_CURRENTLY_ADMISSIBLE
-```
-
-## 7. What this test can and cannot discriminate
-
-A positive synthetic contrast supports only this narrow statement:
+A fact-only replay can separately expose branch reinflation when rejected or downweighted historical branches remain candidates because current status was removed.
 
 ```text
-EXPLICIT_STATUS_PRIORITY_STRUCTURE
-CAN_ADD_REPOSITORY_LOCAL_RECONSTRUCTION_INFORMATION
-BEYOND
-STATUS_ONLY_REENTRY
-IN_A_CONTROLLED_SYNTHETIC_FIXTURE
+FACT_AVAILABLE != BRANCH_CURRENTLY_ADMISSIBLE
 ```
 
-It does not yet separate every adjacent construct.
+## 8. What this test can and cannot discriminate
 
-In particular:
+A positive synthetic contrast does **not** establish `ATTENTION_STRUCTURE` as distinct from memory, CCTS, re-entry broadly construed, or a model-internal mechanism.
+
+It establishes at most that an explicitly represented priority field can carry incremental next-step-selection information beyond this deliberately narrower status-aware re-entry condition.
 
 ```text
 ATTENTION_STRUCTURE
 != PROVEN_DISTINCT_FROM_MEMORY
 != PROVEN_DISTINCT_FROM_CCTS
+!= PROVEN_DISTINCT_FROM_ANY_REENTRY_PACKET_THAT_ALREADY_CARRIES_PRIORITY
 != PROVEN_MODEL_INTERNAL_MECHANISM
 ```
 
-If a future re-entry packet already contains all current status and priority relations, then `ATTENTION_STRUCTURE` may become representationally redundant.
+If a canonical re-entry packet already contains the same current status and priority relations, `ATTENTION_STRUCTURE` is representationally redundant under this test and should collapse rather than survive by naming convention.
 
-That is why the collapse-compatible case is a first-class test rather than a failure to hide.
-
-## 8. Falsification / reduction conditions
+## 9. Falsification / reduction conditions
 
 The construct should be narrowed, absorbed or removed if repeated controlled fixtures show any of the following:
 
-1. explicit attention priority never improves reconstruction over status-aware re-entry;
+1. explicit priority never improves next-step reconstruction over an honest status-aware re-entry baseline;
 2. all proposed attention fields are deterministic transforms of existing re-entry packets;
-3. any apparent advantage disappears after ordinary provenance/status information is restored;
+3. the apparent advantage disappears after ordinary provenance/status/priority information is restored;
 4. independent operational definitions cannot distinguish priority inversion from ordinary missing context;
 5. the construct adds labels but no incremental prediction, diagnosis or intervention surface.
 
-## 9. Scientific boundaries
+## 10. Scientific boundaries
 
 ```text
 SYNTHETIC_DISCRIMINANT_PASS != EMPIRICAL_CONSTRUCT_VALIDATION
 INCREMENTAL_VALUE_OBSERVED != ATTENTION_MECHANISM_DISCOVERED
+REFERENCE_STATE_BOUND != INDEPENDENT_GROUND_TRUTH_VALIDATED
 COLLAPSE_COMPATIBLE != HYPOTHESIS_FAILURE_TO_HIDE
 REPLAY != LEARNING
 REPLAY != SUBJECTIVE_REMEMBERING
 
+ATTENTION_DISCRIMINANT_VALUE = NOT_ESTABLISHED_BEYOND_BOUNDED_REPRESENTATIONAL_TEST
 ATTENTION_CONTINUITY = NOT_ESTABLISHED
 MODEL_INTERNAL_ATTENTION_MECHANISM = NOT_ESTABLISHED
 AI_IDENTITY_CONTINUITY = NOT_ESTABLISHED
@@ -207,22 +217,10 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 ```
 
-## 10. Current interpretation
+## 11. Current interpretation
 
-This rebuild is deliberately smaller than closed PR #141.
+This rebuild is deliberately smaller and stricter than closed PR #141.
 
-It no longer begins by assuming `ATTENTION_STRUCTURE` deserves to survive as a separate construct. Instead, it gives the repository a replayable way to produce either:
+It does not assume `ATTENTION_STRUCTURE` deserves to survive as a separate construct. It provides a replayable test in which explicit priority can either add bounded representational information or collapse as redundant.
 
-```text
-INCREMENTAL_VALUE_OBSERVED
-```
-
-or:
-
-```text
-COLLAPSE_COMPATIBLE
-```
-
-under one fixed synthetic history.
-
-That is the intended discriminant value of the rebuild itself.
+That is the only discriminant claim currently admitted.
