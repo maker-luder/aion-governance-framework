@@ -97,7 +97,7 @@ ChatGPT Teacher-origin contributions include, without claiming completeness:
 - decomposition of candidate observables into epistemic-operation rate, reciprocal coordination density and sustained temporal coupling;
 - proposal of discriminant controls against speed, token volume, memory, re-entry and CCTS substitution;
 - external-literature retrieval, crosswalk and counterevidence synthesis;
-- the anti-circularity correction separating regime detection from epistemic quality.
+- the anti-circularity correction separating regime detection from epistemic quality, first proposed during ChatGPT Teacher second review.
 
 ```text
 AI_FORMALIZATION
@@ -112,7 +112,7 @@ The following current research propositions should be treated as **joint synthes
 2. HTECR, if retained, must be tested as an interaction-level descriptive regime rather than a hidden model-internal mode;
 3. `Human–AI Learning` is too broad to claim as a local novelty, because external literature already covers adjacent mutual-learning, collaborative-learning and team-cognition constructs;
 4. the narrower candidate gap is a longitudinal, reciprocal, provenance-preserving Human–AI epistemic-development process with a possibly distinct dynamic coordination regime;
-5. HTECR detection must remain separate from epistemic value so that high-throughput coordination with degraded quality remains observable;
+5. the retained method rule that HTECR detection must remain separate from epistemic value, after the AI-origin anti-circularity correction was exposed to Human review and incorporated into the shared research method;
 6. future work must preserve construct-collapse falsifiers, negative controls, cross-session / cross-dyad tests and separate human-learning outcomes;
 7. source attribution itself is part of the method and must remain auditable across later re-entry.
 
@@ -128,6 +128,45 @@ JOINT_SYNTHESIS
 JOINT_SYNTHESIS
 != SYMMETRIC_COGNITION
 ```
+
+### 3.4 Provenance transition / temporal source-state
+
+A later joint synthesis does **not** retroactively erase the origin of an earlier proposal. PR #153 therefore records provenance as a transition when appropriate.
+
+Example — anti-circularity correction:
+
+```text
+T0  AI_FORMALIZATION
+    ChatGPT Teacher identifies circularity risk and proposes:
+    REGIME_DETECTION != EPISTEMIC_VALUE
+
+T1  HUMAN_REVIEW
+    Human Owner reviews / challenges / accepts-or-rejects the proposed correction
+    as part of the shared research process.
+
+T2  JOINT_SYNTHESIS
+    The corrected separation is retained as part of the jointly stabilized
+    research method, while T0 remains AI-origin provenance.
+```
+
+The same principle applies to any proposition that changes provenance state through later reciprocal review:
+
+```text
+LATER_JOINT_SYNTHESIS
+!= RETROACTIVE_JOINT_ORIGIN
+
+JOINT_ADOPTION_OF_AI_ORIGINATED_PROPOSAL
+!= AI_ORIGIN_ERASED
+
+JOINT_ADOPTION_OF_HUMAN_ORIGINATED_PROPOSAL
+!= HUMAN_ORIGIN_ERASED
+
+SOURCE_TRANSITION
+= PRESERVE_PARENT_PROVENANCE
++ RECORD_LATER_SYNTHESIS_STATE
+```
+
+This temporal distinction prevents double attribution from becoming source laundering.
 
 ## 4. Research participation versus authority / ownership
 
@@ -216,6 +255,10 @@ RESEARCH_QUESTION_NARROWING
 + HUMAN_AI_LEARNING_GAP_REDEFINITION
 = JOINT_SYNTHESIS_WITH_TRACEABLE_HUMAN_AND_AI_PARENTS
 
+PROVENANCE_TRANSITION
+= PRESERVE_ORIGINAL_PARENT_ORIGIN
++ RECORD_LATER_JOINT_SYNTHESIS_WHEN_JUSTIFIED
+
 EXTERNAL_LITERATURE
 = EXTERNAL_SOURCE
 ```
@@ -226,6 +269,7 @@ This correction prevents both failure modes:
 AI_ORIGIN_LAUNDERED_AS_HUMAN_ORIGIN = PROHIBITED
 HUMAN_ORIGIN_ERASED_INTO_AI_FORMALIZATION = PROHIBITED
 JOINT_SYNTHESIS_COLLAPSED_INTO_ONE_PARTICIPANT = PROHIBITED
+LATER_JOINT_ADOPTION_ERASES_ORIGINAL_SOURCE = PROHIBITED
 ```
 
 ## 7. Merge consequence
