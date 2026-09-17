@@ -368,7 +368,7 @@ DEPLOYMENT = FALSE
 - Trafton, J. G., Altmann, E. M., Brock, D. P., & Mintz, F. E. (2003). *Preparing to resume an interrupted task: effects of prospective goal encoding and retrospective rehearsal.* International Journal of Human-Computer Studies, 58(5), 583–603. https://doi.org/10.1016/S1071-5819(03)00023-5
 - Monk, C. A., Trafton, J. G., & Boehm-Davis, D. A. (2008). *The effect of interruption duration and demand on resuming suspended goals.* Journal of Experimental Psychology: Applied. https://doi.org/10.1037/a0014402
 - Van-Horenbeke, F. A., & Peer, A. (2021). *Activity, Plan, and Goal Recognition: A Review.* Frontiers in Robotics and AI, 8, 643010. https://doi.org/10.3389/frobt.2021.643010
-- O'Neill, T. A., McNeese, N. J., Barron, A., & Schelble, B. G. (2021). *Human–Autonomy Teaming: Definitions, Debates, and Directions.* Frontiers in Psychology. https://pmc.ncbi.nlm.nih.gov/articles/PMC8195568/
+- Lyons, J. B., Sycara, K., Lewis, M., & Capiola, A. (2021). *Human–Autonomy Teaming: Definitions, Debates, and Directions.* Frontiers in Psychology, 12, 589585. https://doi.org/10.3389/fpsyg.2021.589585
 - Cai, Y., Zhu, Y., Gao, L., Tang, W., & Qin, S. (2026). *Push Your Agent: Measuring and Enforcing Quantitative Goal Persistence in Long-Horizon LLM Agents.* arXiv:2605.23574. https://arxiv.org/abs/2605.23574
 - Chen, J., Sun, Y., Zhang, L., Xu, L., & Shi, J. (2026). *Long-Horizon Agent Trajectory Attribution: A Unified Benchmark and Fine-Grained Annotation Framework.* arXiv:2608.06909. https://arxiv.org/abs/2608.06909
 - Zhu, C., et al. (2026). *SAFARI: Scaling Long Horizon Agentic Fault Attribution via Active Investigation.* arXiv:2606.24626. https://arxiv.org/abs/2606.24626
