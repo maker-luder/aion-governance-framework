@@ -5,6 +5,8 @@ Canonical effect: `NONE`
 Deployment: `FALSE`
 Scientific disposition: `HOLD`
 
+> Provenance correction: this primary note must be read together with [`HUMAN_AI_LEARNING_HTECR_PROVENANCE_SUPPLEMENT_2026_09_18.md`](HUMAN_AI_LEARNING_HTECR_PROVENANCE_SUPPLEMENT_2026_09_18.md). The original observation / phrase, GPT formalization, joint synthesis, and external-source layers are intentionally distinct.
+
 ## 1. Purpose
 
 This note records a bounded literature crosswalk and a falsification-first research plan for three adjacent but non-equivalent repository questions:
@@ -37,7 +39,8 @@ The Human Owner supplied the original observation and source-language distinctio
 - after observing the AI side, the Human Owner explicitly asked whether the Human side was synchronizing with the same high-density coordination process rather than merely receiving fast output;
 - the Human Owner asked whether the phenomenon can be observed at the interaction level, whether CCTS currently lacks this dynamic layer, and how to search adjacent external literature without presupposing novelty;
 - the Human Owner asked for an external academic / scientific search for direct discussion of this repository and for related Human–AI learning research;
-- the Human Owner required counterevidence and a second review before any main transition.
+- the Human Owner required counterevidence and a second review before any main transition;
+- the Human Owner later identified that a two-part `Human observation -> AI formalization` provenance account was itself incomplete for a research process that depends on reciprocal Human–AI challenge, correction, and jointly stabilized research questions.
 
 The original phrase remains Human Owner provenance. It must not be rewritten as a GPT-originated label.
 
@@ -65,6 +68,27 @@ HTECR
 
 This distinction remains a hypothesis to be tested, not a settled ontology.
 
+### 2.3 JOINT_SYNTHESIS
+
+Existing repository provenance already distinguishes `JOINT_SYNTHESIS` from both `HUMAN_ORIGIN` and `AI_FORMALIZATION`. For PR #153, the following are treated as jointly synthesized research propositions because they emerged through repeated Human <-> ChatGPT Teacher challenge, correction, narrowing and re-formulation:
+
+- the interaction trajectory, not AI output alone, is the preferred unit of analysis;
+- HTECR must be tested as an interaction-level descriptive regime rather than a hidden model-internal mode;
+- `Human–AI Learning` is too broad to claim as a local novelty;
+- the narrower candidate gap concerns longitudinal, reciprocal, provenance-preserving Human–AI epistemic development and a possibly distinct dynamic coordination regime;
+- regime detection must remain separate from epistemic value;
+- future testing must include construct-collapse falsifiers, negative controls, cross-session / cross-dyad replication and separately measured Human learning outcomes.
+
+The exact role split is expanded in `HUMAN_AI_LEARNING_HTECR_PROVENANCE_SUPPLEMENT_2026_09_18.md`.
+
+```text
+HUMAN_ORIGIN != AI_FORMALIZATION
+AI_FORMALIZATION != JOINT_SYNTHESIS
+JOINT_SYNTHESIS != EXTERNAL_VALIDATION
+JOINT_SYNTHESIS != MUTUAL_AGREEMENT_AS_TRUTH
+PROVENANCE != CORRECTNESS
+```
+
 ## 3. Repository ancestry and deduplication
 
 This note was prepared from live `main` commit:
@@ -81,6 +105,10 @@ Existing canonical material already covers important ancestry and must not be re
   - explicitly states `LONGITUDINAL_INTERACTION != MUTUAL_LEARNING_PROVEN` and already covers artifact-mediated epistemic accumulation, evidence reuse and external research cross-checking;
 - `docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`
   - already applies a discriminant-value test against memory, re-entry and CCTS ancestry;
+- `research-labs/coupled-cognition-quality-factory_v0.1.0/docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md`
+  - already defines `HUMAN_ORIGIN`, `AI_FORMALIZATION`, `JOINT_SYNTHESIS`, `EXTERNAL_SOURCE`, and `UNKNOWN` as distinct provenance roles;
+- `docs/research/HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md`
+  - already records Human Owner + ChatGPT Teacher as the primary problem-decomposition / research-discussion / source-review / QA layer while preserving Human Owner governance authority;
 - `research-labs/human-ai-longitudinal-study_v0.1.0/`
   - already provides a bounded executable CCTS / longitudinal study surface.
 
@@ -596,6 +624,7 @@ For every future central claim:
 ```text
 DEFINE_CLAIM
 -> SEARCH_EXISTING_REPOSITORY_ANCESTRY
+-> PRESERVE HUMAN_ORIGIN / AI_FORMALIZATION / JOINT_SYNTHESIS
 -> SEARCH_PRIMARY_EXTERNAL_LITERATURE
 -> RECORD_EXACT_SUPPORTED_PROPOSITION
 -> SEARCH_DISCONFIRMING_EVIDENCE
@@ -607,9 +636,9 @@ DEFINE_CLAIM
 
 Use primary / original sources where possible. Search snippets, AI summaries and conceptual similarity are discovery aids, not final evidence.
 
-## 14. Second-review findings
+## 14. Review findings
 
-The second review changed the first draft rather than merely approving it.
+The pre-merge review changed the candidate rather than merely approving it.
 
 Corrections made:
 
@@ -619,13 +648,15 @@ Corrections made:
 4. **RCT scope:** recorded Barcaui (2025) as one design-specific randomized study, not a universal AI-learning rule.
 5. **Falsifier split:** separated construct-collapse tests from tests that only reject a positive learning / epistemic interpretation.
 6. **Search limitation:** clarified that the no-citation result is a bounded public-web sweep, not exhaustive bibliometrics.
+7. **Provenance completeness:** added an explicit `JOINT_SYNTHESIS` layer after review found that the prior two-part `Human observation / AI formalization` account erased the reciprocal formation of some research questions and method choices.
 
-Second-review disposition:
+Current review disposition:
 
 ```text
 SOURCE_METADATA_RECHECK = PASS_WITH_CORRECTIONS
 COUNTEREVIDENCE_PRESENT = YES
 CIRCULARITY_RISK_FOUND = YES_AND_REPAIRED
+PROVENANCE_OMISSION_FOUND = YES_AND_REPAIRED
 NOVELTY_OVERCLAIM = REJECTED
 SCIENTIFIC_CLAIM_PROMOTION = NONE
 ```
