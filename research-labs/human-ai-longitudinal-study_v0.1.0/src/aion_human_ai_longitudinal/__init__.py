@@ -117,6 +117,10 @@ from .attention_structure_reconstruction import (
     digest_attention_structure_manifest,
     render_attention_structure_manifest,
 )
+from .attention_structure_discriminant import (
+    AttentionDiscriminantDiagnostics,
+    diagnose_attention_structure_discriminants,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
@@ -124,6 +128,7 @@ __all__ = [
     "AdmissionDisposition",
     "ArtifactCondition",
     "AssignmentStep",
+    "AttentionDiscriminantDiagnostics",
     "AttentionNode",
     "AttentionNodeStatus",
     "AttentionReconstructionAudit",
@@ -212,6 +217,7 @@ __all__ = [
     "audit_task_selection_exposure_design_hardened",
     "audit_transfer_matrix",
     "compare_reentry_conditions",
+    "diagnose_attention_structure_discriminants",
     "digest_attention_structure_manifest",
     "observe_metacognitive_transfer",
     "observe_transfer",
