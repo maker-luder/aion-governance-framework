@@ -15,6 +15,9 @@ The bounded held-out habit-transfer analogue is documented in
 The bounded externalized-metacognitive-policy transfer extension is documented in
 [`METACOGNITIVE_POLICY_TRANSFER_HARNESS.md`](METACOGNITIVE_POLICY_TRANSFER_HARNESS.md).
 
+The bounded task-selection / yoked-exposure design-audit extension is documented in
+[`TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md`](TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md).
+
 The repository-defined Co-Constructed Thinking Space (CCTS) structural contract is
 implemented in `src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
 and grounded by
@@ -36,6 +39,17 @@ externalized learner rules versus content-matched non-policy exposure, separates
 policy-available behavior from policy-withheld held-out transfer, and includes a
 low-stakes negative control for overprocessing. Its deterministic fixture does not
 establish learning, internalization, dependence, or causal effect.
+
+The task-selection extension represents anonymous between-unit yoked pairs. Each
+`FREE_SELECTION` unit is paired with one `YOKED_ASSIGNED_EXPOSURE` unit that must
+receive the exact task-domain, task-family and exposure-payload sequence realized
+by its paired free-selection unit. Equal free-selection outcomes remain valid null
+or support-reducing results rather than design failures, and zero exposure in an
+individual domain is representable. One exposure unit is one bounded synthetic task
+episode; event counts do not imply equal duration, difficulty, cognitive intensity
+or learning opportunity. Bound artifacts recompute SHA-256 from their supplied UTF-8
+content, but content/digest integrity is not semantic or scientific validation. The
+temporal-provenance layer is specification-only and does not estimate causal effects.
 
 The CCTS extension formalizes a repository-local relational construct rather than
 claiming a new external scientific taxonomy. Its core profile requires an explicit
@@ -90,6 +104,11 @@ LONGITUDINAL_ADAPTATION != SUBJECTIVITY
 POLICY_SWITCHING_BEHAVIOR != INTERNAL_POLICY_MODULE_PROVEN
 EXTERNALIZED_RULE != INTERNALIZED_SKILL
 POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
+FREE_SELECTION_NULL != DESIGN_FAILURE
+YOKED_EXPOSURE_MATCH != CAUSAL_IDENTIFICATION_COMPLETE
+TASK_EPISODE_COUNT != EQUAL_EXPOSURE_INTENSITY
+HASH_MATCH != SCIENTIFIC_SEMANTICS_VALIDATED
+TEMPORAL_ORDER != CAUSALITY
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 GROUNDING_CHECKPOINT_PRESENT != AI_UNDERSTANDING_PROVEN
