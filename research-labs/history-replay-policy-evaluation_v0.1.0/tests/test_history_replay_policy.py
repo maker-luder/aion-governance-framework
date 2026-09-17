@@ -77,7 +77,7 @@ def test_patience_can_stop_replay_without_exhausting_tree() -> None:
 
     result = replay(_tree("patience", b_score=0), policy)
 
-    assert result.visited_nodes == ("root", "a")
+    assert result.visited_nodes == ("root", "a", "b")
     assert result.terminal_reason == "PATIENCE_EXHAUSTED"
 
 
