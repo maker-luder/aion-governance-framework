@@ -77,6 +77,8 @@ CI_PASS != SCIENTIFIC_VALIDATION
 - **架構與不宣稱事項：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) 與 [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **來源追溯與治理：** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/`](docs/governance/)
 - **安裝／快速開始：** [`docs/INSTALLATION.md`](docs/INSTALLATION.md) 與 [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
+- **公開 API（應用程式介面）參考：** [`docs/API.md`](docs/API.md)
+- **互通整合：** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
 - **完整文件地圖：** [`docs/INDEX.md`](docs/INDEX.md)
 
 > **暫時操作備註：** PR #136 仍然是關閉且未合併。下一輪相關實作前，請先讀 [`PR #136 恢復交接手冊`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)。這份交接是暫時操作指引，不代表 PR #136 的實作已被接受，也不是永久研究規格。
