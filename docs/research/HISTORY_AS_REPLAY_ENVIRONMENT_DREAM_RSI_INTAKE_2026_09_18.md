@@ -99,6 +99,8 @@ Controls:
 
 ```text
 DISCOVERY_TREE = FIXED
+ORDERED_NODE_SEQUENCE = FIXED
+HISTORY_SHA256 = CONTENT_BOUND
 RECORDED_OUTCOMES = FIXED
 EVALUATOR_VALUES = FIXED
 VISIT_BUDGET = FIXED_WHEN_COMPARED
@@ -108,6 +110,8 @@ ONLY_EXPLORATION_POLICY_CHANGES = TRUE
 ```
 
 The policy must not inspect an unvisited node's recorded score before selecting that node. Recorded outcomes become visible only after the simulated visit.
+
+Node tuple order is part of this bounded replay-history semantics because it determines deterministic sibling/frontier ordering. The canonical SHA-256 history fingerprint binds the ordered node content and excludes the free-form `tree_id` label, so relabeling the same history does not create a new content identity.
 
 ## 5. Required held-out boundary
 
@@ -171,3 +175,28 @@ SYNTHETIC_TREE != REAL_AGENT_DISCOVERY_HISTORY
 POLICY_DIFFERENCE != LEARNING
 OFFLINE_SELECTION != ONLINE_IMPROVEMENT_PROVEN
 ```
+
+The current policy set is deliberately small: breadth-first and depth-first traversal plus optional patience stopping. This is sufficient only to test whether recorded history can function as a policy-sensitive replay surface. It does not reproduce Dream-RSI's policy-development agent, concurrency control, semantic observation handling, multi-world simulator pool, or recursive online redeployment.
+
+## 10. Separate review hardening
+
+A separate creator-side review pass was performed after the initial candidate was implemented. This is not independent IV&V.
+
+Three structural weaknesses were found and repaired before any merge decision:
+
+1. **History identity was label-only.** `tree_id` could name two different histories without cryptographic distinction. Replay results and comparisons now carry a canonical `history_sha256` computed from the exact ordered node content. `tree_id` is explicitly not treated as content identity.
+2. **Terminal topology was underconstrained.** A node marked terminal could still have children. The tree now fails closed when any terminal node has descendants directly attached beneath it.
+3. **Matched visit budget was documented but not enforced.** A policy comparison could previously include different `max_visits` values. `compare_policies()` now rejects such comparisons.
+
+Regression tests also preserve the non-oracular boundary: changing the score of an unvisited node may change the history fingerprint but cannot change a policy path that never observes that node.
+
+```text
+TREE_LABEL != HISTORY_CONTENT_IDENTITY
+ORDERED_HISTORY_CONTENT -> HISTORY_SHA256
+TERMINAL_NODE -> NO_CHILDREN
+MATCHED_POLICY_COMPARISON -> SAME_MAX_VISITS
+UNVISITED_SCORE_CHANGE != POLICY_PATH_CHANGE_WHEN_UNOBSERVED
+CREATOR_SIDE_REVIEW != INDEPENDENT_IV_AND_V
+```
+
+These repairs strengthen structural validity only. They do not establish empirical usefulness, external validity, generalization, recursive self-improvement, or any subjectivity claim.
