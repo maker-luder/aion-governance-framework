@@ -59,6 +59,8 @@ For the semantic present state, read [`docs/CURRENT_STATE.md`](docs/CURRENT_STAT
 - **Architecture and explicit non-claims:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **Provenance and governance:** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/governance/`](docs/governance/)
 - **Install / quickstart:** [`docs/INSTALLATION.md`](docs/INSTALLATION.md) and [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
+- **Public API reference:** [`docs/API.md`](docs/API.md)
+- **Interoperability:** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
 - **Complete documentation map:** [`docs/INDEX.md`](docs/INDEX.md)
 
 > **Temporary operational note:** PR #136 remains closed and unmerged. Before the next related implementation cycle, read the [`PR #136 recovery handoff`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md). The handoff is temporary operational guidance, not an accepted PR #136 implementation or permanent research specification.
