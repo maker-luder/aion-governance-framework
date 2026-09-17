@@ -2,14 +2,15 @@
 
 > Curated catalog. This is not a second `START_HERE` and does not create authority by listing a file.
 
-For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic standing, use [`CURRENT_STATE.md`](CURRENT_STATE.md).
+For a 60-second public map, use [`RESEARCH_MAP.md`](RESEARCH_MAP.md). For guided first reading, use [`START_HERE.md`](START_HERE.md). For current semantic standing, use [`CURRENT_STATE.md`](CURRENT_STATE.md).
 
 ## Current entry and state
 
 | Class | Document | Responsibility |
 |---|---|---|
-| `CURRENT_ENTRY` | [`../README.md`](../README.md) / [`../README.zh-TW.md`](../README.zh-TW.md) | Short public orientation and route to the single entry point |
-| `CURRENT_ENTRY` | [`START_HERE.md`](START_HERE.md) | Single human reader entry point |
+| `CURRENT_ENTRY` | [`../README.md`](../README.md) / [`../README.zh-TW.md`](../README.zh-TW.md) | Public landing page and reading-depth routes |
+| `CURRENT_ENTRY` | [`RESEARCH_MAP.md`](RESEARCH_MAP.md) | 60-second plain-language bilingual research map |
+| `CURRENT_ENTRY` | [`START_HERE.md`](START_HERE.md) | Guided human reader entry point |
 | `CURRENT_STATE` | [`CURRENT_STATE.md`](CURRENT_STATE.md) | Single semantic present-state summary |
 | navigation | [`README.md`](README.md) | Compatibility documentation guide pointing to current navigation |
 | navigation | this file | Curated catalog and class map |
@@ -34,9 +35,28 @@ For first reading, use [`START_HERE.md`](START_HERE.md). For current semantic st
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
-### Latest bounded convergence — CCTS / PR #126 / #127 / #128
+### Recent bounded milestones — 2026-09-18
 
-The latest Human Owner-authorized bounded convergence formalizes and hardens the repository-defined **Co-Constructed Thinking Space (CCTS)** research surface. CCTS is a local repository construct with explicit provenance, not an externally established taxonomy and not evidence of AI subjectivity or consciousness.
+The latest bounded research material on `main` extends beyond the earlier CCTS convergence. The following records are current research references, not proof of their hypotheses:
+
+- [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) — separates history as record, retrieval source and replay environment; replay-policy comparison does not establish learning or subjective memory.
+- [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) — tests whether attention-structure reconstruction has discriminant value beyond existing re-entry, memory and CCTS mechanisms; no model-internal attention mechanism is established.
+- [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) — freezes the current CCAP Stage 1–3 specification chain; confirmatory preregistration and execution remain incomplete.
+- [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) — first completed provider-evidence admission case; multiple external evaluations and partial cross-source triangulation exist, while open independent replication remains sparse.
+
+```text
+DOCUMENT_PRESENT_ON_MAIN != SCIENTIFIC_CLAIM_PROMOTED
+HISTORY_REPLAY != SUBJECTIVE_REMEMBERING
+ATTENTION_STRUCTURE != PROVEN_MODEL_INTERNAL_MECHANISM
+STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
+PROVIDER_REPORT != INDEPENDENT_VALIDATION
+CROSS_SOURCE_CONVERGENCE != EXACT_REPLICATION
+SCIENTIFIC_DISPOSITION = HOLD
+```
+
+### CCTS / grounding — PR #126 / #127 / #128
+
+The earlier Human Owner-authorized bounded convergence formalized and hardened the repository-defined **Co-Constructed Thinking Space (CCTS)** research surface. CCTS remains a current local repository construct with explicit provenance, not an externally established taxonomy and not evidence of AI subjectivity or consciousness.
 
 - [`research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) — source-attributed repository formalization of `共構思考場域 / CO_CONSTRUCTED_THINKING_SPACE`; explicit problem representation, Human/AI contribution roles, substantive reciprocal revision, provenance, claim boundaries, authority separation, rejected-branch preservation and longitudinal repository mediation.
 - [`research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md) — grounding-admission extension requiring a typed checkpoint bound to the same problem representation, `SUFFICIENT_FOR_CURRENT_PURPOSE`, and no unresolved mismatch; structural grounding is not proof of mutual understanding or symmetric cognition.

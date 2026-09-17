@@ -2,15 +2,17 @@
 
 > **繁體中文 | [English](README.md)**
 >
-> **第一次閱讀：** [`docs/START_HERE.md`](docs/START_HERE.md)  
-> **目前狀態：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
-> **完整文件索引：** [`docs/INDEX.md`](docs/INDEX.md)
+> **60 秒研究地圖：** [`docs/RESEARCH_MAP.md`](docs/RESEARCH_MAP.md)  
+> **5 分鐘導覽：** [`docs/START_HERE.md`](docs/START_HERE.md)  
+> **嚴格現況：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
 
-AION 是一個由人類治理、以來源追溯為優先、可稽核的研究框架，用來研究**人工主體性的可能性**；它不會因為 AI 表現得有說服力、出現類記憶連續性、使用關係語言，或軟體測試成功，就把這些現象直接當成主體性證明。
+AION 是一個由人類治理、以來源追溯為優先的研究框架，用來研究**人工主體性的可能性**，但不會把看起來有說服力的 AI 行為直接當成主體性證明。
 
-中央問題是方法論上的：**哪些證據真正與人工主體性有關？現有證據最多允許我們主張到哪裡？當研究涉及身分、連續性、記憶、人類—AI 互動與長期 AI 行為時，研究過程本身要如何維持可追溯、可稽核？**
+用白話說，這個倉庫正在問：
 
-Astra 是與 AION 相互區分的工程／研究工作台，用來實作與測試有限範圍候選方案；它不是 AION 的身分、記憶流或主體性替代物。
+> 當 AI 系統出現類記憶連續性、策略改變、長時間持續工作、協作或自我相關行為時，其中多少其實可以由模型、提示、harness（研究／執行框架）、工具、記憶、環境或人類引導解釋？排除這些較簡單來源後，還需要什麼證據，才有資格提出更強的主體性相關主張？
+
+目前答案刻意維持保守：
 
 ```text
 AI_SUBJECTIVITY_POSSIBILITY = CENTRAL_RESEARCH_QUESTION
@@ -29,29 +31,36 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 現象經驗 = 尚未建立
 ```
 
-## 這個倉庫是做什麼的？
+## 研究目前走到哪裡？
 
-這個倉庫把觀察、證據、推論、假說、實作、授權與科學結論分開保存，避免某個看起來合理的解讀，只因為軟體存在或長期互動感覺連續，就悄悄變成「事實」。
+目前 `main` 可整理成四條彼此相連的研究線：
 
-目前主要包含有限範圍的：
+1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
+2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建，以及 transition continuity（轉換連續性）分析；但不把持續存在直接等同於身分延續。
+3. **受限制條件下的適應** —— 研究遇到阻礙後的策略修正，包括已凍結的 CCAP Stage 1–3 鏈與狹義 D1 × D4 source-partition（來源拆分）候選；目前**尚未建立確認性證據**。
+4. **Human–AI collaboration（人機協作）與證據准入** —— CCTS / grounding（共構思考場域／共同基礎）研究表面，以及把供應商自述、外部評估、有限獨立調查與開放獨立重現分級的 provider-evidence admission（供應商證據准入）方法。
 
-- 主體性相關證據方法與明確的不宣稱邊界；
-- 身分、連續性、記憶與來源追溯研究；
-- Human–AI Learning（人類—AI 學習）與長期互動歷史研究；
-- 合成資料實驗與可重現的研究測試框架；
-- 研究品質、QA/QC（品質保證／品質控制）、精確提交檢查與 NCR/CAPA（不符合事項／矯正與預防措施）控制。
+近期研究節點：
 
-重要邊界包括：
+- [`HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) —— 把歷史作為紀錄、檢索來源與 replay environment 分開。
+- [`ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) —— 檢查 attention structure 是否真的比既有 re-entry / memory / CCTS 多出區辨價值。
+- [`CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) —— 在任何確認性執行前，先凍結目前的 co-constructed adaptive process 規格鏈。
+- [`OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) —— 第一個完成的 provider-evidence admission 案例；目前已有多個外部評估，但 open independent replication（開放獨立重現）仍然稀少。
+
+## 這個倉庫沒有宣稱什麼？
 
 ```text
 ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 工程能力 != 主體性證據
 
-HUMAN_AI_LEARNING != AI_SUBJECTIVITY
-人類—AI 學習 != AI 主體性
+MEMORY_CONTINUITY != IDENTITY_CONTINUITY
+記憶連續性 != 身分連續性
 
-RELATIONAL_CONTINUITY != AI_IDENTITY_CONTINUITY
-關係連續性 != AI 身分連續性
+STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
+策略調整 != 內生目標
+
+HUMAN_AI_COLLABORATION != SHARED_MIND
+人機協作 != 共享心智
 
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
 研究測試框架通過 != 假說已確認
@@ -62,30 +71,30 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 這些邊界不是先替研究問題決定答案，而是避免結論超過證據能支撐的範圍。
 
-## 目前科學狀態
+## 依閱讀深度選入口
 
-目前仍維持 `SCIENTIFIC_DISPOSITION = HOLD（科學結論狀態 = 保留判斷）`。倉庫並沒有宣稱已經建立主體性、意識、現象經驗，或持續的 AI 身分連續性。
+- **我只有一分鐘：** [`docs/RESEARCH_MAP.md`](docs/RESEARCH_MAP.md)
+- **我想先被帶著看懂：** [`docs/START_HERE.md`](docs/START_HERE.md)
+- **我要確認正式語意現況：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+- **我要一頁看研究貢獻：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
+- **我要看主體性證據方法：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
+- **我要看架構／不宣稱事項：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) 與 [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
+- **我要查來源與治理：** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/`](docs/governance/)
+- **我要完整文件地圖：** [`docs/INDEX.md`](docs/INDEX.md)
 
-要確認目前語意狀態，請讀 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)。若要確認某一顆精確提交的工程狀態，應以即時 GitHub / CI（持續整合）證據為準，而不是只看靜態文件。
+若要確認某一顆精確提交的工程狀態，請以即時 GitHub / CI 證據為準，而不是只看靜態文件。
 
-## 接下來從哪裡讀？
+## 工程與互通
 
-- **第一次閱讀：** [`docs/START_HERE.md`](docs/START_HERE.md)
-- **目前語意狀態：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
-- **研究貢獻摘要：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
-- **主體性證據方法：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
-- **架構與不宣稱事項：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) 與 [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
-- **來源追溯與治理：** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/`](docs/governance/)
-- **安裝／快速開始：** [`docs/INSTALLATION.md`](docs/INSTALLATION.md) 與 [`docs/QUICKSTART.md`](docs/QUICKSTART.md)
-- **公開 API（應用程式介面）參考：** [`docs/API.md`](docs/API.md)
-- **互通整合：** [`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
-- **完整文件地圖：** [`docs/INDEX.md`](docs/INDEX.md)
+- 安裝／快速開始：[`docs/INSTALLATION.md`](docs/INSTALLATION.md)、[`docs/QUICKSTART.md`](docs/QUICKSTART.md)
+- 公開 API 參考：[`docs/API.md`](docs/API.md)
+- 互通整合：[`docs/INTEROPERABILITY.md`](docs/INTEROPERABILITY.md)
 
-> **暫時操作備註：** PR #136 仍然是關閉且未合併。下一輪相關實作前，請先讀 [`PR #136 恢復交接手冊`](docs/history/PR136_CLOSEOUT_AND_NEXT_IMPLEMENTATION_HANDOFF_2026_09_17.md)。這份交接是暫時操作指引，不代表 PR #136 的實作已被接受，也不是永久研究規格。
+Astra 是與 AION 相互區分的工程／研究工作台，用來實作與測試有限範圍候選方案；它不是 AION 的身分、記憶流或主體性替代物。
 
 ## 治理與授權
 
-AION 維持人類治理。工程能力、自動化、品質檢查、AI 審查或過去的批准，都不能自行產生把新變更送入 `main（主分支）` 的授權。
+AION 維持人類治理。工程能力、自動化、品質檢查、AI 審查或過去的批准，都不能自行產生把新變更送入 `main` 的授權。
 
 ```text
 QA_PASS != MERGE_APPROVAL
