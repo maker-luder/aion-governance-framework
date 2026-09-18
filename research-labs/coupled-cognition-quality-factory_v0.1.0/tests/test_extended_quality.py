@@ -126,6 +126,7 @@ def ai_impact(**changes: object) -> AIImpactAssessmentRecord:
 
 def risk_impact_receipt(
     *,
+    assessment_target_ref: str = "quality-plan:PLAN-001",
     risk_disposition: AIRiskDisposition = AIRiskDisposition.ACCEPTED_WITH_CONTROLS,
     impact_disposition: AIImpactDisposition = AIImpactDisposition.ASSESSED_WITH_CONTROLS,
 ) -> AIRiskImpactReceipt:
@@ -134,6 +135,7 @@ def risk_impact_receipt(
     assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
     return build_risk_impact_receipt(
         receipt_id="RISK-IMPACT-RECEIPT-001",
+        assessment_target_ref=assessment_target_ref,
         risks=risks,
         impacts=impacts,
         assessment=assessment,
@@ -658,3 +660,13 @@ def test_full_qms_ready_requires_bounded_ai_risk_impact_receipt() -> None:
     assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
     assert "CONTENT_ADDRESSED_AI_RISK_IMPACT_RECEIPT_BOUND" in result.reasons
     assert "AI_RISK_IMPACT_READY_FOR_HUMAN_REVIEW" in result.reasons
+
+
+
+def test_full_qms_rejects_risk_impact_receipt_for_different_plan_target() -> None:
+    wrong_target = risk_impact_receipt(
+        assessment_target_ref="quality-plan:PLAN-OTHER",
+    )
+    result = assess(risk_receipt_value=wrong_target)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH" in result.reasons
