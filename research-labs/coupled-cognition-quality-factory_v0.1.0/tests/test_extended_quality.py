@@ -732,10 +732,14 @@ def extended_controls() -> ExtendedQualityControls:
 def review(
     risk_receipt: AIRiskImpactReceipt | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
+    security_receipt_value: AISecurityProfileReceipt | None = None,
     extra_refs: tuple[str, ...] | None = None,
 ) -> ManagementReviewRecord:
     risk_bound = risk_receipt or risk_impact_receipt()
     tevv_bound = tevv_receipt_value or tevv_receipt()
+    security_bound = security_receipt_value or security_receipt(
+        tevv_receipt_value=tevv_bound
+    )
     tevv_measurement_ids = tuple(
         item.measurement_id for item in tevv_bound.measurement_bindings
     )
@@ -759,6 +763,21 @@ def review(
         *tevv_bound.risk_refs,
         *tevv_measurement_ids,
         *tevv_bound.data_quality_refs,
+        security_bound.receipt_id,
+        security_bound.profile_id,
+        f"ai-security-profile-receipt:{security_bound.receipt_sha256}",
+        *security_bound.threat_ids,
+        *security_bound.test_ids,
+        *security_bound.risk_refs,
+        *security_bound.data_quality_refs,
+        *security_bound.security_control_refs,
+        security_bound.incident_response_ref,
+        *security_bound.authorization_scope_refs,
+        *security_bound.isolation_refs,
+        *security_bound.task_budget_refs,
+        *security_bound.logging_plan_refs,
+        *security_bound.source_refs,
+        security_bound.tevv_alignment_basis_ref,
     )
     refs = tuple(dict.fromkeys(default_refs)) if extra_refs is None else extra_refs
     return ManagementReviewRecord(
@@ -776,6 +795,7 @@ def assess(
     receipt_value: QualityChainReceiptBinding | None = None,
     risk_receipt_value: AIRiskImpactReceipt | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
+    security_receipt_value: AISecurityProfileReceipt | None = None,
     plan_value: ResearchQualityPlan | None = None,
     controls_value: ExtendedQualityControls | None = None,
     review_value: ManagementReviewRecord | None = None,
@@ -783,15 +803,23 @@ def assess(
     bound = receipt_value or receipt()
     risk_bound = risk_receipt_value or risk_impact_receipt()
     tevv_bound = tevv_receipt_value or tevv_receipt()
+    security_bound = security_receipt_value or security_receipt(
+        tevv_receipt_value=tevv_bound
+    )
     return FullQualitySystemEngine().assess(
-        plan=plan_value or quality_plan(bound, risk_bound, tevv_bound),
+        plan=plan_value or quality_plan(bound, risk_bound, tevv_bound, security_bound),
         measurements=(measurement(),),
         chain_receipt=bound,
         risk_impact_receipt=risk_bound,
         tevv_receipt=tevv_bound,
+        security_receipt=security_bound,
         field_signals=(field_signal(),),
         audits=(audit(),),
-        management_review=review_value or review(risk_bound, tevv_bound),
+        management_review=review_value or review(
+            risk_bound,
+            tevv_bound,
+            security_bound,
+        ),
         controls=controls_value or extended_controls(),
     )
 
