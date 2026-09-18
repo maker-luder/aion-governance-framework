@@ -299,6 +299,21 @@ HUMAN_LEARNING_RCT_EFFECT != GEMINI_MODEL_ONLY_EFFECT
 
 These are not reasons to reject Gemini as a research reference. They are reasons to preserve source and causal boundaries.
 
+The external sweep also identified model-generation and task-specific counterevidence:
+
+~~~text
+GEMINI_2_5_TO_3_7_INTERVENTION_EFFECT
+= DIRECTION_NOT_STABLE_IN_ONE_CONTROLLED_STUDY
+
+GEMINI_3_5_SPATIAL_BIOLOGY_LONG_HORIZON_SUCCESS
+= LOW_IN_ONE_EXTERNAL_MODEL_HARNESS_BENCHMARK
+
+GEMINI_3_5_CONFLICT_EVIDENCE_HANDLING
+= RESIDUAL_FAILURE_PRESENT_IN_ONE_EXTERNAL_COUNTERFACTUAL_BENCHMARK
+~~~
+
+These remain bounded task-specific findings and are not generalized into a global model-quality conclusion.
+
 ## 16. What the external sweep did not establish
 
 ~~~text
