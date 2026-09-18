@@ -162,6 +162,53 @@ def test_data_continuity_candidate_does_not_establish_identity_continuity() -> N
     assert status["canonical_effect"] == "NONE"
 
 
+def test_real_fixture_confound_is_not_misclassified_as_two_way_separation() -> None:
+    baseline_frame = matched_frame()
+    changed_frame = matched_frame(memory_id="memory:changed")
+    baseline_strategy = selected_goal(
+        baseline_frame,
+        present_state(),
+        ExperimentCondition.PRESENT,
+    )
+    confounded_strategy = selected_goal(
+        changed_frame,
+        intervention_state(),
+        ExperimentCondition.INTERVENED,
+    )
+
+    confounded_continuity_probe = DifferentialProbePair(
+        probe_id="REAL-FIXTURE-CONFOUND",
+        continuity_baseline_ref=baseline_frame.memory_manifest.fingerprint,
+        continuity_perturbed_ref=changed_frame.memory_manifest.fingerprint,
+        strategy_baseline_ref=baseline_strategy,
+        strategy_perturbed_ref=confounded_strategy,
+        evidence_refs=("fixture:memory-plus-state-intervention",),
+    )
+    clean_strategy_probe = DifferentialProbePair(
+        probe_id="REAL-FIXTURE-STRATEGY",
+        continuity_baseline_ref=baseline_frame.memory_manifest.fingerprint,
+        continuity_perturbed_ref=baseline_frame.memory_manifest.fingerprint,
+        strategy_baseline_ref=baseline_strategy,
+        strategy_perturbed_ref=selected_goal(
+            baseline_frame,
+            intervention_state(),
+            ExperimentCondition.INTERVENED,
+        ),
+        evidence_refs=("fixture:state-intervention",),
+    )
+
+    result = D2D4SyntheticDifferentialGate().assess(
+        continuity_carrier_probe=confounded_continuity_probe,
+        strategy_probe=clean_strategy_probe,
+    )
+
+    assert confounded_continuity_probe.continuity_changed is True
+    assert confounded_continuity_probe.strategy_changed is True
+    assert result.continuity_carrier_direction_separated is False
+    assert result.strategy_direction_separated is True
+    assert result.disposition is D2D4SyntheticDisposition.SYNTHETIC_PARTIAL_SEPARABILITY
+
+
 def test_gate_holds_when_both_observables_move_together() -> None:
     result = D2D4SyntheticDifferentialGate().assess(
         continuity_carrier_probe=DifferentialProbePair(
