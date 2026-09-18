@@ -638,3 +638,13 @@ def test_repository_bound_profile_rejects_nested_root_and_unsafe_path(tmp_path: 
             repository_root=root,
             vocabulary_ref="../outside.py",
         )
+
+
+
+def test_every_declared_metric_is_bound_to_at_least_one_case() -> None:
+    unused = replace(
+        metric("METRIC-UNUSED"),
+        measurement_concept="declared but unscheduled metric",
+    )
+    with pytest.raises(TEVVError, match="referenced by at least one TEVV case"):
+        profile(metrics=(metric(), unused))
