@@ -553,32 +553,33 @@ def quality_plan(
         assessment_target_sha256=target_sha256,
         tevv_receipt_value=tevv_bound,
     )
+    configuration_refs = (
+        *seed.configuration_refs,
+        f"git:{risk_bound.producer_git_head}",
+        f"tree:{risk_bound.producer_tree_sha}",
+        f"contract-sha256:{risk_bound.producer_contract_sha256}",
+        f"risk-impact-receipt:{risk_bound.receipt_sha256}",
+        risk_bound.exact_source_state_ref,
+        risk_bound.exact_runtime_ref,
+        f"git:{tevv_bound.producer_git_head}",
+        f"tree:{tevv_bound.producer_tree_sha}",
+        f"contract-sha256:{tevv_bound.producer_contract_sha256}",
+        f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
+        f"tevv-profile:{tevv_bound.profile_id}:{tevv_bound.profile_sha256}",
+        f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}",
+        tevv_bound.exact_source_state_ref,
+        tevv_bound.exact_runtime_ref,
+        f"git:{security_bound.producer_git_head}",
+        f"tree:{security_bound.producer_tree_sha}",
+        f"contract-sha256:{security_bound.producer_contract_sha256}",
+        f"ai-security-profile-receipt:{security_bound.receipt_sha256}",
+        f"ai-security-profile:{security_bound.profile_id}:{security_bound.profile_sha256}",
+        security_bound.exact_source_state_ref,
+        security_bound.exact_runtime_ref,
+    )
     return replace(
         seed,
-        configuration_refs=(
-            *seed.configuration_refs,
-            f"git:{risk_bound.producer_git_head}",
-            f"tree:{risk_bound.producer_tree_sha}",
-            f"contract-sha256:{risk_bound.producer_contract_sha256}",
-            f"risk-impact-receipt:{risk_bound.receipt_sha256}",
-            risk_bound.exact_source_state_ref,
-            risk_bound.exact_runtime_ref,
-            f"git:{tevv_bound.producer_git_head}",
-            f"tree:{tevv_bound.producer_tree_sha}",
-            f"contract-sha256:{tevv_bound.producer_contract_sha256}",
-            f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
-            f"tevv-profile:{tevv_bound.profile_id}:{tevv_bound.profile_sha256}",
-            f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}",
-            tevv_bound.exact_source_state_ref,
-            tevv_bound.exact_runtime_ref,
-            f"git:{security_bound.producer_git_head}",
-            f"tree:{security_bound.producer_tree_sha}",
-            f"contract-sha256:{security_bound.producer_contract_sha256}",
-            f"ai-security-profile-receipt:{security_bound.receipt_sha256}",
-            f"ai-security-profile:{security_bound.profile_id}:{security_bound.profile_sha256}",
-            security_bound.exact_source_state_ref,
-            security_bound.exact_runtime_ref,
-        ),
+        configuration_refs=tuple(dict.fromkeys(configuration_refs)),
     )
 
 
@@ -798,7 +799,9 @@ def review(
         *security_bound.source_refs,
         security_bound.tevv_alignment_basis_ref,
     )
-    refs = tuple(dict.fromkeys(default_refs)) if extra_refs is None else extra_refs
+    refs = tuple(
+        dict.fromkeys(default_refs if extra_refs is None else extra_refs)
+    )
     return ManagementReviewRecord(
         review_id="MGMT-001",
         input_refs=refs,
