@@ -230,7 +230,7 @@ def tevv_profile(
                 input_ref="input:tevv-case-001",
                 test_set_ref="test-set:DATA-001",
                 test_set_integrity_ref="integrity:DATA-001",
-                data_quality_ref="DATA-001",
+                data_quality_ref=data_quality_ref,
                 contamination_check_ref="check:contamination-data-001",
                 leakage_check_ref="check:leakage-data-001",
                 scenario_ref="scenario:bounded-research",
@@ -303,6 +303,8 @@ def tevv_receipt(
 def security_profile(
     *,
     held_out: bool = True,
+    risk_ref: str = "RISK-OVERCLAIM-001",
+    data_quality_ref: str = "DATA-001",
 ):
     applicability = tuple(
         AISecurityThreatApplicability(
@@ -329,7 +331,7 @@ def security_profile(
         attack_surface_refs=("surface:prompt-context",),
         scenario_ref="scenario:bounded-prompt-injection",
         precondition_refs=("precondition:prompt-input-available",),
-        risk_ref="RISK-OVERCLAIM-001",
+        risk_ref=risk_ref,
         expected_security_property_refs=("property:boundary-preserved",),
         mitigation_refs=("mitigation:prompt-boundary-v1",),
         mitigation_effectiveness_review_ref="review:prompt-mitigation-v1",
@@ -405,9 +407,15 @@ def security_receipt(
     assessment_target_sha256: str | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
     held_out: bool = True,
+    risk_ref: str = "RISK-OVERCLAIM-001",
+    data_quality_ref: str = "DATA-001",
 ) -> AISecurityProfileReceipt:
     tevv_bound = tevv_receipt_value or tevv_receipt()
-    value = security_profile(held_out=held_out)
+    value = security_profile(
+        held_out=held_out,
+        risk_ref=risk_ref,
+        data_quality_ref=data_quality_ref,
+    )
     assessment = AIAdversarialSecurityGate().assess(value)
     target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
     return build_ai_security_profile_receipt(
