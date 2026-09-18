@@ -6,6 +6,19 @@ from dataclasses import replace
 
 import pytest
 
+from aion_ai_security_profile import (
+    AIAdversarialSecurityGate,
+    AIAdversaryModel,
+    AISecurityProfileDisposition,
+    AISecurityProfileReceipt,
+    AISecurityTestSpec,
+    AISecurityThreatApplicability,
+    AISecurityThreatClass,
+    AISecurityThreatRecord,
+    AttackerKnowledge,
+    build_ai_adversarial_security_profile,
+    build_ai_security_profile_receipt,
+)
 from aion_ai_tevv import (
     AITEVVProfileGate,
     AISystemBinding,
