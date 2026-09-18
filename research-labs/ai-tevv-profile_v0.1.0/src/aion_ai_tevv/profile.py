@@ -169,6 +169,22 @@ class AISystemBinding:
 
 
 @dataclass(frozen=True, slots=True)
+class TEVVUnmeasuredRisk:
+    risk_ref: str
+    rationale_ref: str
+
+    def __post_init__(self) -> None:
+        _text("risk_ref", self.risk_ref)
+        _text("rationale_ref", self.rationale_ref)
+
+    def as_dict(self) -> dict[str, str]:
+        return {
+            "risk_ref": self.risk_ref,
+            "rationale_ref": self.rationale_ref,
+        }
+
+
+@dataclass(frozen=True, slots=True)
 class TEVVMetricSpec:
     metric_id: str
     measurement_concept: str
@@ -177,6 +193,8 @@ class TEVVMetricSpec:
     unit: str
     acceptance_criterion_ref: str
     uncertainty_ref: str
+    quality_characteristic_refs: tuple[str, ...]
+    effectiveness_review_ref: str
     risk_refs: tuple[str, ...]
 
     def __post_init__(self) -> None:
@@ -188,8 +206,10 @@ class TEVVMetricSpec:
             "unit",
             "acceptance_criterion_ref",
             "uncertainty_ref",
+            "effectiveness_review_ref",
         ):
             _text(name, getattr(self, name))
+        _refs("quality_characteristic_refs", self.quality_characteristic_refs)
         _refs("risk_refs", self.risk_refs)
 
     def as_dict(self) -> dict[str, object]:
@@ -201,6 +221,8 @@ class TEVVMetricSpec:
             "unit": self.unit,
             "acceptance_criterion_ref": self.acceptance_criterion_ref,
             "uncertainty_ref": self.uncertainty_ref,
+            "quality_characteristic_refs": tuple(sorted(self.quality_characteristic_refs)),
+            "effectiveness_review_ref": self.effectiveness_review_ref,
             "risk_refs": tuple(sorted(self.risk_refs)),
         }
 
@@ -284,6 +306,7 @@ class AITEVVProfile:
     tevv_vocabulary_sha256: str
     lifecycle_stage: TEVVLifecycleStage
     risk_refs: tuple[str, ...]
+    unmeasured_risks: tuple[TEVVUnmeasuredRisk, ...]
     activities: tuple[TEVVActivity, ...]
     system: AISystemBinding
     metrics: tuple[TEVVMetricSpec, ...]
@@ -296,11 +319,13 @@ class AITEVVProfile:
     tevv_toolchain_ref: str
     tevv_toolchain_version: str
     verification_requirement_refs: tuple[str, ...]
+    validation_requirement_refs: tuple[str, ...]
     evaluator_ref: str
     evaluator_version: str
     evaluator_independence: EvaluatorIndependence
     target_context_ref: str
     context_similarity_statement: str
+    context_similarity_basis_refs: tuple[str, ...]
     failure_action_ref: str
     preregistration_ref: str
     profile_sha256: str
@@ -340,6 +365,15 @@ class AITEVVProfile:
         if type(self.lifecycle_stage) is not TEVVLifecycleStage:
             raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
         _refs("risk_refs", self.risk_refs)
+        if type(self.unmeasured_risks) is not tuple or any(
+            type(item) is not TEVVUnmeasuredRisk for item in self.unmeasured_risks
+        ):
+            raise TEVVError("unmeasured_risks must contain exact TEVVUnmeasuredRisk values")
+        unmeasured_refs = tuple(item.risk_ref for item in self.unmeasured_risks)
+        if len(unmeasured_refs) != len(set(unmeasured_refs)):
+            raise TEVVError("unmeasured risk references must be unique")
+        if not set(unmeasured_refs) <= set(self.risk_refs):
+            raise TEVVError("unmeasured risk references must be declared in risk_refs")
         if type(self.activities) is not tuple or not self.activities:
             raise TEVVError("activities must be a non-empty tuple")
         if any(type(item) is not TEVVActivity for item in self.activities):
@@ -364,9 +398,16 @@ class AITEVVProfile:
             raise TEVVError("case identifiers must be unique")
         known_metrics = set(metric_ids)
         known_risks = set(self.risk_refs)
+        measured_risks: set[str] = set()
         for metric in self.metrics:
             if not set(metric.risk_refs) <= known_risks:
                 raise TEVVError("metric references risk outside profile risk_refs")
+            measured_risks.update(metric.risk_refs)
+        unmeasured_risk_refs = {item.risk_ref for item in self.unmeasured_risks}
+        if measured_risks & unmeasured_risk_refs:
+            raise TEVVError("a declared risk cannot be both measured and unmeasured")
+        if measured_risks | unmeasured_risk_refs != known_risks:
+            raise TEVVError("every declared risk must be measured or explicitly documented as unmeasured")
         for case in self.cases:
             if not set(case.metric_ids) <= known_metrics:
                 raise TEVVError("case references unknown metric identifiers")
@@ -382,6 +423,13 @@ class AITEVVProfile:
             and not self.verification_requirement_refs
         ):
             raise TEVVError("verification activity requires requirement references")
+        _refs("validation_requirement_refs", self.validation_requirement_refs, allow_empty=True)
+        if (
+            TEVVActivity.VALIDATION in self.activities
+            and not self.validation_requirement_refs
+        ):
+            raise TEVVError("validation activity requires intended-use validation references")
+        _refs("context_similarity_basis_refs", self.context_similarity_basis_refs)
         if type(self.evaluator_independence) is not EvaluatorIndependence:
             raise TEVVError("evaluator_independence must be an exact EvaluatorIndependence")
         for name in ("model_executed", "empirical_model_evidence", "deployment"):
@@ -414,6 +462,10 @@ class AITEVVProfile:
             "tevv_vocabulary_sha256": self.tevv_vocabulary_sha256,
             "lifecycle_stage": self.lifecycle_stage.value,
             "risk_refs": tuple(sorted(self.risk_refs)),
+            "unmeasured_risks": [
+                item.as_dict()
+                for item in sorted(self.unmeasured_risks, key=lambda item: item.risk_ref)
+            ],
             "activities": tuple(sorted(item.value for item in self.activities)),
             "system": self.system.as_dict(),
             "metrics": [item.as_dict() for item in sorted(self.metrics, key=lambda item: item.metric_id)],
@@ -426,11 +478,13 @@ class AITEVVProfile:
             "tevv_toolchain_ref": self.tevv_toolchain_ref,
             "tevv_toolchain_version": self.tevv_toolchain_version,
             "verification_requirement_refs": tuple(sorted(self.verification_requirement_refs)),
+            "validation_requirement_refs": tuple(sorted(self.validation_requirement_refs)),
             "evaluator_ref": self.evaluator_ref,
             "evaluator_version": self.evaluator_version,
             "evaluator_independence": self.evaluator_independence.value,
             "target_context_ref": self.target_context_ref,
             "context_similarity_statement": self.context_similarity_statement,
+            "context_similarity_basis_refs": tuple(sorted(self.context_similarity_basis_refs)),
             "failure_action_ref": self.failure_action_ref,
             "preregistration_ref": self.preregistration_ref,
             "model_executed": self.model_executed,
@@ -468,15 +522,20 @@ class AITEVVProfileGate:
             "TEVV_VOCABULARY_REFERENCE_AND_DIGEST_BOUND",
             "LIFECYCLE_STAGE_BOUND",
             "METRICS_MAPPED_TO_DECLARED_RISKS",
+            "ALL_DECLARED_RISKS_MEASURED_OR_EXPLICITLY_UNMEASURED",
+            "METRICS_MAPPED_TO_QUALITY_CHARACTERISTICS",
+            "METRIC_EFFECTIVENESS_REVIEW_PLANNED",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
             "ORACLE_STRATEGY_EXPLICIT",
             "METRICS_AND_ACCEPTANCE_CRITERIA_BOUND",
             "TEST_SCENARIO_ENVIRONMENT_AND_APPROACH_BOUND",
             "TEVV_TOOLCHAIN_PROVENANCE_BOUND",
             "VERIFICATION_REQUIREMENTS_BOUND_WHEN_APPLICABLE",
+            "VALIDATION_INTENDED_USE_REQUIREMENTS_BOUND_WHEN_APPLICABLE",
             "NONDETERMINISM_AND_REPETITION_POLICY_BOUND",
             "EVALUATOR_IDENTITY_AND_INDEPENDENCE_RECORDED",
             "TARGET_CONTEXT_AND_SIMILARITY_SCOPE_RECORDED",
+            "CONTEXT_SIMILARITY_BASIS_RECORDED",
             "PROFILE_IS_STRUCTURAL_NOT_EMPIRICAL_MODEL_EVIDENCE",
         ]
 
@@ -517,6 +576,7 @@ def build_tevv_profile(
     tevv_vocabulary_sha256: str,
     lifecycle_stage: TEVVLifecycleStage,
     risk_refs: tuple[str, ...],
+    unmeasured_risks: tuple[TEVVUnmeasuredRisk, ...],
     activities: tuple[TEVVActivity, ...],
     system: AISystemBinding,
     metrics: tuple[TEVVMetricSpec, ...],
@@ -529,11 +589,13 @@ def build_tevv_profile(
     tevv_toolchain_ref: str,
     tevv_toolchain_version: str,
     verification_requirement_refs: tuple[str, ...],
+    validation_requirement_refs: tuple[str, ...],
     evaluator_ref: str,
     evaluator_version: str,
     evaluator_independence: EvaluatorIndependence,
     target_context_ref: str,
     context_similarity_statement: str,
+    context_similarity_basis_refs: tuple[str, ...],
     failure_action_ref: str,
     preregistration_ref: str,
 ) -> AITEVVProfile:
@@ -542,6 +604,10 @@ def build_tevv_profile(
     if type(lifecycle_stage) is not TEVVLifecycleStage:
         raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
     _refs("risk_refs", risk_refs)
+    if type(unmeasured_risks) is not tuple or any(
+        type(item) is not TEVVUnmeasuredRisk for item in unmeasured_risks
+    ):
+        raise TEVVError("unmeasured_risks must contain exact TEVVUnmeasuredRisk values")
     if type(activities) is not tuple or not activities or any(
         type(item) is not TEVVActivity for item in activities
     ):
@@ -567,6 +633,9 @@ def build_tevv_profile(
         "tevv_vocabulary_sha256": tevv_vocabulary_sha256,
         "lifecycle_stage": lifecycle_stage.value,
         "risk_refs": tuple(sorted(risk_refs)),
+        "unmeasured_risks": [
+            item.as_dict() for item in sorted(unmeasured_risks, key=lambda item: item.risk_ref)
+        ],
         "activities": tuple(sorted(item.value for item in activities)),
         "system": system.as_dict(),
         "metrics": [item.as_dict() for item in sorted(metrics, key=lambda item: item.metric_id)],
@@ -579,11 +648,13 @@ def build_tevv_profile(
         "tevv_toolchain_ref": tevv_toolchain_ref,
         "tevv_toolchain_version": tevv_toolchain_version,
         "verification_requirement_refs": tuple(sorted(verification_requirement_refs)),
+        "validation_requirement_refs": tuple(sorted(validation_requirement_refs)),
         "evaluator_ref": evaluator_ref,
         "evaluator_version": evaluator_version,
         "evaluator_independence": evaluator_independence.value,
         "target_context_ref": target_context_ref,
         "context_similarity_statement": context_similarity_statement,
+        "context_similarity_basis_refs": tuple(sorted(context_similarity_basis_refs)),
         "failure_action_ref": failure_action_ref,
         "preregistration_ref": preregistration_ref,
         "model_executed": False,
@@ -604,6 +675,7 @@ def build_tevv_profile(
         tevv_vocabulary_sha256=tevv_vocabulary_sha256,
         lifecycle_stage=lifecycle_stage,
         risk_refs=risk_refs,
+        unmeasured_risks=unmeasured_risks,
         activities=activities,
         system=system,
         metrics=metrics,
@@ -616,11 +688,13 @@ def build_tevv_profile(
         tevv_toolchain_ref=tevv_toolchain_ref,
         tevv_toolchain_version=tevv_toolchain_version,
         verification_requirement_refs=verification_requirement_refs,
+        validation_requirement_refs=validation_requirement_refs,
         evaluator_ref=evaluator_ref,
         evaluator_version=evaluator_version,
         evaluator_independence=evaluator_independence,
         target_context_ref=target_context_ref,
         context_similarity_statement=context_similarity_statement,
+        context_similarity_basis_refs=context_similarity_basis_refs,
         failure_action_ref=failure_action_ref,
         preregistration_ref=preregistration_ref,
         profile_sha256=_sha256(values),
@@ -636,6 +710,7 @@ def build_repository_bound_tevv_profile(
     intended_use_ref: str,
     lifecycle_stage: TEVVLifecycleStage,
     risk_refs: tuple[str, ...],
+    unmeasured_risks: tuple[TEVVUnmeasuredRisk, ...],
     activities: tuple[TEVVActivity, ...],
     system: AISystemBinding,
     metrics: tuple[TEVVMetricSpec, ...],
@@ -648,11 +723,13 @@ def build_repository_bound_tevv_profile(
     tevv_toolchain_ref: str,
     tevv_toolchain_version: str,
     verification_requirement_refs: tuple[str, ...],
+    validation_requirement_refs: tuple[str, ...],
     evaluator_ref: str,
     evaluator_version: str,
     evaluator_independence: EvaluatorIndependence,
     target_context_ref: str,
     context_similarity_statement: str,
+    context_similarity_basis_refs: tuple[str, ...],
     failure_action_ref: str,
     preregistration_ref: str,
     repository_root: Path,
@@ -689,6 +766,7 @@ def build_repository_bound_tevv_profile(
         tevv_vocabulary_sha256=vocabulary_sha256,
         lifecycle_stage=lifecycle_stage,
         risk_refs=risk_refs,
+        unmeasured_risks=unmeasured_risks,
         activities=activities,
         system=system,
         metrics=metrics,
@@ -701,11 +779,13 @@ def build_repository_bound_tevv_profile(
         tevv_toolchain_ref=tevv_toolchain_ref,
         tevv_toolchain_version=tevv_toolchain_version,
         verification_requirement_refs=verification_requirement_refs,
+        validation_requirement_refs=validation_requirement_refs,
         evaluator_ref=evaluator_ref,
         evaluator_version=evaluator_version,
         evaluator_independence=evaluator_independence,
         target_context_ref=target_context_ref,
         context_similarity_statement=context_similarity_statement,
+        context_similarity_basis_refs=context_similarity_basis_refs,
         failure_action_ref=failure_action_ref,
         preregistration_ref=preregistration_ref,
     )
