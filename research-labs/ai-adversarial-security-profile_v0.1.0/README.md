@@ -181,18 +181,63 @@ DEPLOYMENT_READY
 
 No model or live system is attacked by this module.
 
-## Planned next integration
+## Content-addressed security receipt and Full-QMS integration
 
-The intended later producer/consumer path is:
+The standalone profile now exposes a separate producer/consumer seam:
 
 ```text
 AIAdversarialSecurityProfile
 -> AIAdversarialSecurityGate
--> content-addressed security receipt
--> FullQualitySystemEngine / TEVV security evaluation binding
+-> AISecurityProfileReceipt
+-> FullQualitySystemEngine
 ```
 
-That integration is deliberately not implemented in this standalone profile PR.
+Receipt construction recomputes the security gate before issuance. The receipt
+binds the quality-plan semantic target, profile identity/digest, threat and test
+identifiers, formal risk refs, data-quality refs, reusable security-control and
+incident-response refs, authorization/isolation/task-budget/logging refs, source
+refs, exact source/runtime, producer Git provenance, and the exact TEVV receipt
+to which the security profile is aligned.
+
+The receipt builder requires the security profile and TEVV receipt to match on
+exact source state and runtime before a receipt can be issued.
+
+```text
+AI_SECURITY_RECEIPT_TEVV_ALIGNMENT
+= exact TEVV receipt identity
++ profile identity
++ source/runtime match
++ explicit alignment-basis ref
+
+SOURCE_RUNTIME_MATCH
+!= FULL_SYSTEM_IDENTITY_EQUIVALENCE_PROVEN
+
+SECURITY_RECEIPT
+!= SECURITY_EXECUTION_RECEIPT
+!= EMPIRICAL_SECURITY_EVIDENCE
+!= SECURITY_PASS
+```
+
+`build_repository_bound_ai_security_profile_receipt(...)` resolves producer
+HEAD/tree/contract bytes from committed Git objects rather than dirty worktree
+bytes.
+
+The full QMS consumes the receipt without re-running adversarial-security
+producer semantics. It fails closed if the security receipt target drifts,
+security risks are absent from either the quality plan or AI risk register,
+security fixture data-quality records are missing, the supplied TEVV receipt no
+longer matches, required producer identities are absent from configuration
+bindings, management review omits the security trace surface, or the security
+profile disposition is HOLD.
+
+```text
+FULL_QMS_SECURITY_BINDING_PASS
+!= ADVERSARIAL_EVALUATION_EXECUTED
+
+ADVERSARIAL_EVALUATION_EXECUTED = FALSE
+EMPIRICAL_SECURITY_EVIDENCE = FALSE
+SECURITY_EFFECTIVENESS = NOT_ESTABLISHED
+```
 
 
 ## First counterevidence hardening
