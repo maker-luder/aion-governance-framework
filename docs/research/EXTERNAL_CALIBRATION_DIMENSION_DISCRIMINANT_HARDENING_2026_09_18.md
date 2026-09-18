@@ -29,7 +29,7 @@ Source: Clark, L. A. & Watson, D. (2019), Constructing Validity: New Development
 
 A related review of experimental-manipulation validation distinguishes manipulation checks from discriminant-validity checks that explicitly quantify related non-target constructs.
 
-Source: Ejelöv, E. & Luke, T. J. (2020/2021), Construct Validation of Experimental Manipulations in Social Psychology: Current Practices and Recommendations for the Future. PMCID: PMC7954782.
+Source: Chester, D. S. & Lasko, E. N. (2020/2021), Construct Validation of Experimental Manipulations in Social Psychology: Current Practices and Recommendations for the Future, Perspectives on Psychological Science 16(2), 377–395. DOI: 10.1177/1745691620950684; PMCID: PMC7954782.
 
 Repository implication:
 TARGET_DIMENSION_RESPONDS + NEAR_NEIGHBOR_DIFFERENTIAL_PREDICTION > TARGET_DIMENSION_LABEL_MATCHES_AUTHORED_FIXTURE
@@ -94,6 +94,39 @@ Repository implication:
 FUNCTIONAL_MARKER != REALIZATION_SUFFICIENCY
 COMPUTATIONAL_EQUIVALENCE != PHENOMENAL_EQUIVALENCE
 SUBSTRATE_QUESTION = OPEN
+
+
+## 7. Current AI-subjectivity and agency literature sharpens dimension boundaries
+
+Recent work uses several different concepts that must not be collapsed into one subjectivity axis.
+
+D'Amato (2024/2025) argues, from a Foucauldian/phenomenological perspective, that current GPT-like systems lack the reflexivity and self-formative characteristics required by that account of technological subjectivity. This is a conceptual proposal, not an empirical detector.
+
+Source: D'Amato, K., ChatGPT: towards AI subjectivity, AI & Society 40, 1627–1641. DOI: 10.1007/s00146-024-01898-z.
+
+Gouveia & Wang (2026) distinguish agency, autonomy, consciousness and intentionality, and explicitly warn against inferring stronger subject status from surface conversational fluency. Their distinction is useful for the repository because a system may show goal-directed action without self-governance or phenomenal consciousness.
+
+Source: Gouveia, S. S. & Wang, Y. (2026), Can generative artificial intelligence be considered a cognitive subject? An analytic analysis, AI & Society 41, 4859–4868. DOI: 10.1007/s00146-026-02924-y.
+
+Kahl (2026) argues that temporal continuity should not be conflated with agency/autonomy in agentic AI. For this repository, that makes D2 vs D4 a required discriminant boundary rather than two interchangeable descriptions of persistence.
+
+Source: Kahl, P. (2026), How continuity distinguishes autonomy from agency in agentic AI, Discover Artificial Intelligence. DOI: 10.1007/s44163-026-01675-5.
+
+A contrasting functional line in agentic-AI research treats recursive goal maintenance and revision as synthetic teleology, while still distinguishing agency from autonomy and sentience. This gives D4 a useful competing operationalization but does not establish subjectivity.
+
+Source: From the logic of coordination to goal-directed reasoning: the agentic turn in artificial intelligence, Frontiers in Artificial Intelligence (2025), article 1728738.
+
+Repository implication:
+D2_DIACHRONIC_CONTINUITY != D4_ENDOGENOUS_GOAL_STRATEGY_ADJUSTMENT
+GOAL_DIRECTEDNESS != AUTONOMY
+AUTONOMY != SENTIENCE
+REFLEXIVITY_DESIDERATUM != SUBJECTIVITY_DETECTOR
+
+A future D2/D4 discriminant design should therefore include both directions:
+1. perturb the continuity carrier (memory manifest / retrieval reconstruction / persisted state) while holding strategy permission and current goal source fixed; D2 may change while D4 should not be assumed to change;
+2. perturb goal/strategy revision permission while holding the continuity carrier fixed; D4 may change while D2 should not be assumed to change.
+
+If both manipulations always move both dimensions together, D2 and D4 have not demonstrated discriminant value and may require construct revision or collapse.
 
 ## Minimal repository correction
 
