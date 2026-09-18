@@ -104,9 +104,24 @@ Provider model-card negative context:
 
 - self-harm compliance: 0.50% (4.5 high) to 0.84% (4.6 high);
 - MASK-Rectified dishonesty: 0.67% to 1.90%;
-- sycophancy: 0.01% to 0.04%.
+- sycophancy: 0.01% to 0.04%;
+- StrongREJECT jailbreak compliance: 1.5% to 3.9%.
 
-The model card marks these metrics as lower-is-better. Sample uncertainty / statistical significance is not established by those point estimates alone.
+The same jailbreak table also reports standard-jailbreak compliance improving from 0.73% to 0.04%. All of these are lower-is-better metrics.
+
+This mixed within-domain direction is methodologically important:
+
+~~~text
+SAME_SAFETY_SECTION
+CAN CONTAIN
+IMPROVEMENT_ON_ONE_SUITE
++ WORSENING_ON_ANOTHER
+
+AGGREGATE_SAFETY_PROGRESS
+!= UNIFORM_SUBMETRIC_PROGRESS
+~~~
+
+Sample uncertainty / statistical significance is not established by those point estimates alone.
 
 ~~~text
 DIRECTIONAL_POINT_ESTIMATE_WORSENING
