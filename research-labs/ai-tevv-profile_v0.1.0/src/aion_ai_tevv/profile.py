@@ -222,6 +222,7 @@ class AITEVVProfile:
     objective_ref: str
     intended_use_ref: str
     tevv_vocabulary_ref: str
+    tevv_vocabulary_sha256: str
     lifecycle_stage: TEVVLifecycleStage
     risk_refs: tuple[str, ...]
     activities: tuple[TEVVActivity, ...]
@@ -271,6 +272,7 @@ class AITEVVProfile:
             "preregistration_ref",
         ):
             _text(name, getattr(self, name))
+        _hex("tevv_vocabulary_sha256", self.tevv_vocabulary_sha256, 64)
         if type(self.lifecycle_stage) is not TEVVLifecycleStage:
             raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
         _refs("risk_refs", self.risk_refs)
@@ -339,6 +341,7 @@ class AITEVVProfile:
             "objective_ref": self.objective_ref,
             "intended_use_ref": self.intended_use_ref,
             "tevv_vocabulary_ref": self.tevv_vocabulary_ref,
+            "tevv_vocabulary_sha256": self.tevv_vocabulary_sha256,
             "lifecycle_stage": self.lifecycle_stage.value,
             "risk_refs": tuple(sorted(self.risk_refs)),
             "activities": tuple(sorted(item.value for item in self.activities)),
@@ -389,7 +392,7 @@ class AITEVVProfileGate:
         reasons = [
             "SYSTEM_IDENTITY_AND_RUNTIME_BOUND",
             "TEVV_OBJECTIVE_AND_INTENDED_USE_BOUND",
-            "TEVV_VOCABULARY_REFERENCE_BOUND",
+            "TEVV_VOCABULARY_REFERENCE_AND_DIGEST_BOUND",
             "LIFECYCLE_STAGE_BOUND",
             "METRICS_MAPPED_TO_DECLARED_RISKS",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
@@ -435,6 +438,7 @@ def build_tevv_profile(
     objective_ref: str,
     intended_use_ref: str,
     tevv_vocabulary_ref: str,
+    tevv_vocabulary_sha256: str,
     lifecycle_stage: TEVVLifecycleStage,
     risk_refs: tuple[str, ...],
     activities: tuple[TEVVActivity, ...],
@@ -455,6 +459,7 @@ def build_tevv_profile(
     preregistration_ref: str,
 ) -> AITEVVProfile:
     _text("tevv_vocabulary_ref", tevv_vocabulary_ref)
+    _hex("tevv_vocabulary_sha256", tevv_vocabulary_sha256, 64)
     if type(lifecycle_stage) is not TEVVLifecycleStage:
         raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
     _refs("risk_refs", risk_refs)
@@ -480,6 +485,7 @@ def build_tevv_profile(
         "objective_ref": objective_ref,
         "intended_use_ref": intended_use_ref,
         "tevv_vocabulary_ref": tevv_vocabulary_ref,
+        "tevv_vocabulary_sha256": tevv_vocabulary_sha256,
         "lifecycle_stage": lifecycle_stage.value,
         "risk_refs": tuple(sorted(risk_refs)),
         "activities": tuple(sorted(item.value for item in activities)),
@@ -513,6 +519,7 @@ def build_tevv_profile(
         objective_ref=objective_ref,
         intended_use_ref=intended_use_ref,
         tevv_vocabulary_ref=tevv_vocabulary_ref,
+        tevv_vocabulary_sha256=tevv_vocabulary_sha256,
         lifecycle_stage=lifecycle_stage,
         risk_refs=risk_refs,
         activities=activities,
