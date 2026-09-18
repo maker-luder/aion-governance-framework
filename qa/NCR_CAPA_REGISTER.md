@@ -17,15 +17,15 @@
 
 ## NCR-QA-MYPY-20260917-01 — mypy QA coverage and exact-head evidence integrity
 
-- **Status:** `OPEN / CLOSURE_REVIEW_PASS / OWNER_CLOSURE_DECISION_PENDING`.
+- **Status:** `CLOSED / CAPA_EFFECTIVENESS_VERIFIED_WITH_LIMITATIONS / OWNER_APPROVED`.
 - **Severity:** `MAJOR_HIGH_CANDIDATE`; `CRITICAL_NOT_ESTABLISHED`.
 - **Observation:** repository-level mypy coverage had diverged between QA lanes; restoring centralized execution surfaced latent required-check failures. The first remediation attempt also exposed that a GitHub pull-request synthetic merge ref can be mistaken for the exact PR source head unless source-state identity is explicitly verified.
 - **Remediation state:** PR #133 was merged on 2026-09-16 at exact head `f9b69d0c1f0d59778975f6bfc4464125e0114a1c`. The historical incident/progress documents retain their event-time pre-merge snapshots.
 - **Corrective / preventive action:** centralized package dispositions, fail-closed package discovery, exact-head Python 3.11/3.12 mypy evidence, package-local configuration reuse, MYPYPATH / PEP 561 handling, and policy regression tests are present in current history.
 - **Effectiveness:** EV-1 through EV-4 are now supported, including later unrelated Python-package re-entry through PRs #139, #157, and #160 with successful exact-head mypy on Python 3.11 and 3.12. EV-5 is disposed by explicitly recording that independent IV&V is not achieved; creator-side CI and ChatGPT review are not independent IV&V.
-- **Closure review:** `PASS / CLOSE_WITH_LIMITATIONS_RECOMMENDED`; the NCR remains open until explicit Human Owner closure.
+- **Closure decision:** Human Owner explicitly approved closure on 2026-09-19. `NCR = CLOSED`; `CAPA_EFFECTIVENESS = VERIFIED_WITH_LIMITATIONS`.
 - **Detailed records:** `docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_INTEGRITY_2026_09_17.md`; `docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md`.
-- **Non-claim:** repository-wide mypy pass remains not established where explicit exemptions exist.
+- **Retained limitations:** `INDEPENDENT_IVV = NOT_ACHIEVED`; repository-wide mypy pass remains not established where explicit exemptions exist; creator-side CI and ChatGPT review are not independent IV&V.
 - **Canonical effect:** none.
 
 
