@@ -462,7 +462,7 @@ structural TEVV disposition
 declared TEVV risk refs
 TEVV metric ids
 TEVV case data-quality refs
-TEVV metric -> MeasurementAssuranceRecord bindings
+TEVV metric -> MeasurementAssuranceRecord bindings + mapping-basis refs
 AI-system exact source state + runtime
 producer Git HEAD + tree
 producer contract ref + digest
@@ -483,6 +483,7 @@ receipt target == quality-plan:<plan_id>
 receipt target digest == plan.assessment_target_sha256()
 TEVV risk refs <= quality-plan risk refs
 all TEVV metric measurement bindings <= quality-plan measurement ids
+every TEVV metric -> QMS measurement mapping has an inspectable basis ref
 all bound measurement ids exist in supplied MeasurementAssuranceRecord values
 all TEVV data-quality refs exist in ExtendedQualityControls.data_quality
 TEVV producer/source/runtime/receipt identities are pre-bound in configuration_refs
@@ -515,3 +516,17 @@ CONTENT_ADDRESSED_TEVV_RECEIPT
 
 Empirical model-run outputs require a future execution/evidence receipt and are
 outside this integration.
+
+
+The mapping basis is traceability, not a semantic proof:
+
+```text
+TEVV_METRIC_MAPPED_TO_MEASUREMENT_ID
++ MAPPING_BASIS_REF
+!= CONSTRUCT_EQUIVALENCE_PROVEN
+!= METHOD_EQUIVALENCE_PROVEN
+```
+
+A later empirical execution layer may add stronger observed-result and method-compatibility
+checks. This structural integration only ensures that no TEVV metric enters the full QMS
+without an explicit QMS measurement-assurance mapping and rationale.
