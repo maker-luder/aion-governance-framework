@@ -224,6 +224,7 @@ def _receipt(**changes: object) -> AIRiskImpactReceipt:
     values: dict[str, object] = {
         "receipt_id": "RISK-IMPACT-RECEIPT-001",
         "assessment_target_ref": "quality-plan:PLAN-001",
+        "assessment_target_sha256": "a" * 64,
         "risks": risks,
         "impacts": impacts,
         "assessment": assessment,
@@ -297,6 +298,7 @@ def test_receipt_rejects_assessment_from_different_inputs() -> None:
         build_risk_impact_receipt(
             receipt_id="RISK-IMPACT-RECEIPT-002",
             assessment_target_ref="quality-plan:PLAN-001",
+            assessment_target_sha256="a" * 64,
             risks=risks,
             impacts=impacts,
             assessment=wrong_assessment,
@@ -326,6 +328,7 @@ def test_receipt_recomputes_gate_assessment_before_emission() -> None:
         build_risk_impact_receipt(
             receipt_id="RISK-IMPACT-RECEIPT-FORGED",
             assessment_target_ref="quality-plan:PLAN-001",
+            assessment_target_sha256="a" * 64,
             risks=risks,
             impacts=impacts,
             assessment=forged,
@@ -371,6 +374,7 @@ def test_repository_bound_receipt_uses_committed_git_objects(tmp_path: Path) -> 
     receipt = build_repository_bound_risk_impact_receipt(
         receipt_id="RISK-IMPACT-RECEIPT-GIT",
         assessment_target_ref="quality-plan:PLAN-001",
+        assessment_target_sha256="a" * 64,
         risks=risks,
         impacts=impacts,
         assessment=assessment,
@@ -387,6 +391,7 @@ def test_repository_bound_receipt_uses_committed_git_objects(tmp_path: Path) -> 
     dirty_receipt = build_repository_bound_risk_impact_receipt(
         receipt_id="RISK-IMPACT-RECEIPT-GIT-DIRTY",
         assessment_target_ref="quality-plan:PLAN-001",
+        assessment_target_sha256="a" * 64,
         risks=risks,
         impacts=impacts,
         assessment=assessment,
@@ -411,6 +416,7 @@ def test_repository_bound_receipt_rejects_unsafe_producer_paths(tmp_path: Path) 
         build_repository_bound_risk_impact_receipt(
             receipt_id="RISK-IMPACT-RECEIPT-NESTED",
             assessment_target_ref="quality-plan:PLAN-001",
+            assessment_target_sha256="a" * 64,
             risks=risks,
             impacts=impacts,
             assessment=assessment,
@@ -424,6 +430,7 @@ def test_repository_bound_receipt_rejects_unsafe_producer_paths(tmp_path: Path) 
         build_repository_bound_risk_impact_receipt(
             receipt_id="RISK-IMPACT-RECEIPT-UNSAFE",
             assessment_target_ref="quality-plan:PLAN-001",
+            assessment_target_sha256="a" * 64,
             risks=risks,
             impacts=impacts,
             assessment=assessment,
@@ -466,6 +473,7 @@ def test_risk_impact_assessment_and_receipt_are_order_invariant() -> None:
     common: dict[str, object] = {
         "receipt_id": "RISK-IMPACT-RECEIPT-ORDER",
         "assessment_target_ref": "quality-plan:PLAN-001",
+        "assessment_target_sha256": "a" * 64,
         "exact_source_state_ref": "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
         "exact_runtime_ref": "runtime:receipt-builder-v1",
         "producer_git_head": "1" * 40,
@@ -503,8 +511,13 @@ def test_receipt_cannot_upgrade_consciousness_or_phenomenal_experience() -> None
 def test_receipt_assessment_target_is_mandatory_and_content_bound() -> None:
     with pytest.raises(QualityError, match="assessment_target_ref"):
         _receipt(assessment_target_ref="")
+    with pytest.raises(QualityError, match="assessment_target_sha256"):
+        _receipt(assessment_target_sha256="")
 
     first = _receipt()
     second = _receipt(assessment_target_ref="quality-plan:PLAN-OTHER")
+    third = _receipt(assessment_target_sha256="b" * 64)
     assert first.assessment_target_ref == "quality-plan:PLAN-001"
+    assert first.assessment_target_sha256 == "a" * 64
     assert first.receipt_sha256 != second.receipt_sha256
+    assert first.receipt_sha256 != third.receipt_sha256
