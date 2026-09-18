@@ -117,6 +117,11 @@ class EvaluatorIndependence(StrEnum):
     EXTERNAL_INDEPENDENT = "EXTERNAL_INDEPENDENT"
 
 
+class HumanSubjectsStatus(StrEnum):
+    NOT_APPLICABLE = "NOT_APPLICABLE"
+    APPLICABLE = "APPLICABLE"
+
+
 class TEVVProfileDisposition(StrEnum):
     READY_FOR_BOUNDED_EXECUTION = "READY_FOR_BOUNDED_EXECUTION"
     HOLD = "HOLD"
@@ -232,6 +237,7 @@ class TEVVCaseSpec:
     case_id: str
     input_ref: str
     test_set_ref: str
+    test_set_integrity_ref: str
     data_quality_ref: str
     contamination_check_ref: str
     leakage_check_ref: str
@@ -251,6 +257,7 @@ class TEVVCaseSpec:
             "case_id",
             "input_ref",
             "test_set_ref",
+            "test_set_integrity_ref",
             "data_quality_ref",
             "contamination_check_ref",
             "leakage_check_ref",
@@ -280,6 +287,7 @@ class TEVVCaseSpec:
             "case_id": self.case_id,
             "input_ref": self.input_ref,
             "test_set_ref": self.test_set_ref,
+            "test_set_integrity_ref": self.test_set_integrity_ref,
             "data_quality_ref": self.data_quality_ref,
             "contamination_check_ref": self.contamination_check_ref,
             "leakage_check_ref": self.leakage_check_ref,
@@ -323,6 +331,10 @@ class AITEVVProfile:
     evaluator_ref: str
     evaluator_version: str
     evaluator_independence: EvaluatorIndependence
+    evaluator_independence_basis_ref: str
+    human_subjects_status: HumanSubjectsStatus
+    human_subjects_protection_refs: tuple[str, ...]
+    population_representativeness_refs: tuple[str, ...]
     target_context_ref: str
     context_similarity_statement: str
     context_similarity_basis_refs: tuple[str, ...]
@@ -355,6 +367,7 @@ class AITEVVProfile:
             "tevv_toolchain_version",
             "evaluator_ref",
             "evaluator_version",
+            "evaluator_independence_basis_ref",
             "target_context_ref",
             "context_similarity_statement",
             "failure_action_ref",
@@ -436,6 +449,29 @@ class AITEVVProfile:
         _refs("context_similarity_basis_refs", self.context_similarity_basis_refs)
         if type(self.evaluator_independence) is not EvaluatorIndependence:
             raise TEVVError("evaluator_independence must be an exact EvaluatorIndependence")
+        if type(self.human_subjects_status) is not HumanSubjectsStatus:
+            raise TEVVError("human_subjects_status must be an exact HumanSubjectsStatus")
+        _refs(
+            "human_subjects_protection_refs",
+            self.human_subjects_protection_refs,
+            allow_empty=True,
+        )
+        _refs(
+            "population_representativeness_refs",
+            self.population_representativeness_refs,
+            allow_empty=True,
+        )
+        if self.human_subjects_status is HumanSubjectsStatus.APPLICABLE:
+            if not self.human_subjects_protection_refs:
+                raise TEVVError("applicable human-subjects TEVV requires protection refs")
+            if not self.population_representativeness_refs:
+                raise TEVVError(
+                    "applicable human-subjects TEVV requires population representativeness refs"
+                )
+        elif self.human_subjects_protection_refs or self.population_representativeness_refs:
+            raise TEVVError(
+                "human-subjects refs require human_subjects_status=APPLICABLE"
+            )
         for name in ("model_executed", "empirical_model_evidence", "deployment"):
             if type(getattr(self, name)) is not bool:
                 raise TEVVError(f"{name} must be an exact bool")
@@ -486,6 +522,14 @@ class AITEVVProfile:
             "evaluator_ref": self.evaluator_ref,
             "evaluator_version": self.evaluator_version,
             "evaluator_independence": self.evaluator_independence.value,
+            "evaluator_independence_basis_ref": self.evaluator_independence_basis_ref,
+            "human_subjects_status": self.human_subjects_status.value,
+            "human_subjects_protection_refs": tuple(
+                sorted(self.human_subjects_protection_refs)
+            ),
+            "population_representativeness_refs": tuple(
+                sorted(self.population_representativeness_refs)
+            ),
             "target_context_ref": self.target_context_ref,
             "context_similarity_statement": self.context_similarity_statement,
             "context_similarity_basis_refs": tuple(sorted(self.context_similarity_basis_refs)),
@@ -531,6 +575,7 @@ class AITEVVProfileGate:
             "METRIC_EFFECTIVENESS_REVIEW_PLANNED",
             "EVERY_DECLARED_METRIC_BOUND_TO_AT_LEAST_ONE_CASE",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
+            "TEST_SET_INTEGRITY_REF_BOUND",
             "ORACLE_STRATEGY_EXPLICIT",
             "METRICS_AND_ACCEPTANCE_CRITERIA_BOUND",
             "TEST_SCENARIO_ENVIRONMENT_AND_APPROACH_BOUND",
@@ -539,6 +584,8 @@ class AITEVVProfileGate:
             "VALIDATION_INTENDED_USE_REQUIREMENTS_BOUND_WHEN_APPLICABLE",
             "NONDETERMINISM_AND_REPETITION_POLICY_BOUND",
             "EVALUATOR_IDENTITY_AND_INDEPENDENCE_RECORDED",
+            "EVALUATOR_INDEPENDENCE_BASIS_RECORDED",
+            "HUMAN_SUBJECTS_APPLICABILITY_RECORDED",
             "TARGET_CONTEXT_AND_SIMILARITY_SCOPE_RECORDED",
             "CONTEXT_SIMILARITY_BASIS_RECORDED",
             "PROFILE_IS_STRUCTURAL_NOT_EMPIRICAL_MODEL_EVIDENCE",
@@ -598,6 +645,10 @@ def build_tevv_profile(
     evaluator_ref: str,
     evaluator_version: str,
     evaluator_independence: EvaluatorIndependence,
+    evaluator_independence_basis_ref: str,
+    human_subjects_status: HumanSubjectsStatus,
+    human_subjects_protection_refs: tuple[str, ...],
+    population_representativeness_refs: tuple[str, ...],
     target_context_ref: str,
     context_similarity_statement: str,
     context_similarity_basis_refs: tuple[str, ...],
@@ -657,6 +708,12 @@ def build_tevv_profile(
         "evaluator_ref": evaluator_ref,
         "evaluator_version": evaluator_version,
         "evaluator_independence": evaluator_independence.value,
+        "evaluator_independence_basis_ref": evaluator_independence_basis_ref,
+        "human_subjects_status": human_subjects_status.value,
+        "human_subjects_protection_refs": tuple(sorted(human_subjects_protection_refs)),
+        "population_representativeness_refs": tuple(
+            sorted(population_representativeness_refs)
+        ),
         "target_context_ref": target_context_ref,
         "context_similarity_statement": context_similarity_statement,
         "context_similarity_basis_refs": tuple(sorted(context_similarity_basis_refs)),
@@ -697,6 +754,10 @@ def build_tevv_profile(
         evaluator_ref=evaluator_ref,
         evaluator_version=evaluator_version,
         evaluator_independence=evaluator_independence,
+        evaluator_independence_basis_ref=evaluator_independence_basis_ref,
+        human_subjects_status=human_subjects_status,
+        human_subjects_protection_refs=human_subjects_protection_refs,
+        population_representativeness_refs=population_representativeness_refs,
         target_context_ref=target_context_ref,
         context_similarity_statement=context_similarity_statement,
         context_similarity_basis_refs=context_similarity_basis_refs,
@@ -732,6 +793,10 @@ def build_repository_bound_tevv_profile(
     evaluator_ref: str,
     evaluator_version: str,
     evaluator_independence: EvaluatorIndependence,
+    evaluator_independence_basis_ref: str,
+    human_subjects_status: HumanSubjectsStatus,
+    human_subjects_protection_refs: tuple[str, ...],
+    population_representativeness_refs: tuple[str, ...],
     target_context_ref: str,
     context_similarity_statement: str,
     context_similarity_basis_refs: tuple[str, ...],
@@ -788,6 +853,10 @@ def build_repository_bound_tevv_profile(
         evaluator_ref=evaluator_ref,
         evaluator_version=evaluator_version,
         evaluator_independence=evaluator_independence,
+        evaluator_independence_basis_ref=evaluator_independence_basis_ref,
+        human_subjects_status=human_subjects_status,
+        human_subjects_protection_refs=human_subjects_protection_refs,
+        population_representativeness_refs=population_representativeness_refs,
         target_context_ref=target_context_ref,
         context_similarity_statement=context_similarity_statement,
         context_similarity_basis_refs=context_similarity_basis_refs,
