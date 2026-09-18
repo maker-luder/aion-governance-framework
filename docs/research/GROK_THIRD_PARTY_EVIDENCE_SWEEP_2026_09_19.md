@@ -98,6 +98,21 @@ The LatchBio result must not be double-counted merely because xAI republishes it
 
 ## 7. Negative / null / failure evidence
 
+The review retains both external and provider-reported negative evidence rather than constructing a monotonic progress narrative.
+
+Provider model-card negative context:
+
+- self-harm compliance: 0.50% (4.5 high) to 0.84% (4.6 high);
+- MASK-Rectified dishonesty: 0.67% to 1.90%;
+- sycophancy: 0.01% to 0.04%.
+
+The model card marks these metrics as lower-is-better. Sample uncertainty / statistical significance is not established by those point estimates alone.
+
+~~~text
+DIRECTIONAL_POINT_ESTIMATE_WORSENING
+!= STATISTICALLY_SIGNIFICANT_REGRESSION_ESTABLISHED
+~~~
+
 Current external negative evidence includes:
 
 ~~~text
