@@ -196,16 +196,32 @@ The consumer side does not re-run the producer semantics. `FullQualitySystemEngi
 requires the quality plan to pre-bind the receipt's producer/source identity and requires
 management review to include the receipt and the bound risk/impact identifiers.
 
-The receipt also carries an explicit assessment target. Full-QMS consumption requires:
+The receipt also carries both an explicit assessment target and a content-addressed
+semantic target digest. Full-QMS consumption requires:
 
 ```text
 risk_impact_receipt.assessment_target_ref
 ==
 quality-plan:<plan_id>
+
+AND
+
+risk_impact_receipt.assessment_target_sha256
+==
+plan.assessment_target_sha256()
 ```
 
-This prevents a valid receipt for one quality plan from being silently reused for a
-different plan.
+The semantic digest binds the research question, subjectivity-core binding,
+Four-Domain candidate fingerprint, critical quality attributes, complete control-plan
+entries, measurement IDs, risk refs, monitoring requirement and fixed nonclaims.
+
+`configuration_refs` are intentionally excluded from this semantic digest because the
+final plan contains the risk/impact receipt digest itself; including it would create a
+self-referential hash. Producer Git/tree/contract, source state, runtime and receipt
+identity remain separately pre-bound in `configuration_refs`.
+
+This prevents a valid receipt from being silently reused not only for a different plan
+ID, but also for a materially changed plan that reuses the same ID.
 
 The consumer additionally requires every receipt risk ID to be present in the quality
 plan's `risk_refs`.
