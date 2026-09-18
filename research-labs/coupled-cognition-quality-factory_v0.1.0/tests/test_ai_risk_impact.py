@@ -250,6 +250,8 @@ def test_risk_impact_receipt_is_content_addressed_and_non_authoritative() -> Non
     assert receipt.certification_claim == "NONE"
     assert receipt.scientific_disposition == "HOLD"
     assert receipt.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert receipt.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert receipt.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
     assert receipt.disposition is AIRiskImpactDisposition.READY_FOR_HUMAN_REVIEW
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment_authority == "NONE"
@@ -423,3 +425,67 @@ def test_repository_bound_receipt_rejects_unsafe_producer_paths(tmp_path: Path) 
             repository_root=root,
             producer_contract_ref="../outside.py",
         )
+
+
+
+def test_risk_impact_assessment_and_receipt_are_order_invariant() -> None:
+    risk_a = risk(risk_id="RISK-A")
+    risk_b = risk(
+        risk_id="RISK-B",
+        risk_version="0.1.1",
+        residual_risk_basis_ref="assessment:risk-b-residual-v1",
+    )
+    impact_a = impact(
+        assessment_id="IMPACT-A",
+        linked_risk_ids=("RISK-A",),
+        residual_impact_basis_ref="assessment:impact-a-residual-v1",
+    )
+    impact_b = impact(
+        assessment_id="IMPACT-B",
+        linked_risk_ids=("RISK-B",),
+        residual_impact_basis_ref="assessment:impact-b-residual-v1",
+    )
+
+    assessment_ab = AIRiskImpactGate().assess(
+        risks=(risk_a, risk_b),
+        impacts=(impact_a, impact_b),
+    )
+    assessment_ba = AIRiskImpactGate().assess(
+        risks=(risk_b, risk_a),
+        impacts=(impact_b, impact_a),
+    )
+    assert assessment_ab == assessment_ba
+
+    common: dict[str, object] = {
+        "receipt_id": "RISK-IMPACT-RECEIPT-ORDER",
+        "exact_source_state_ref": "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+        "exact_runtime_ref": "runtime:receipt-builder-v1",
+        "producer_git_head": "1" * 40,
+        "producer_tree_sha": "2" * 40,
+        "producer_contract_ref": "contract:ai-risk-impact-v0.1.0",
+        "producer_contract_sha256": "3" * 64,
+    }
+    receipt_ab = build_risk_impact_receipt(
+        risks=(risk_a, risk_b),
+        impacts=(impact_a, impact_b),
+        assessment=assessment_ab,
+        **common,
+    )
+    receipt_ba = build_risk_impact_receipt(
+        risks=(risk_b, risk_a),
+        impacts=(impact_b, impact_a),
+        assessment=assessment_ba,
+        **common,
+    )
+    assert receipt_ab.risk_set_sha256 == receipt_ba.risk_set_sha256
+    assert receipt_ab.impact_set_sha256 == receipt_ba.impact_set_sha256
+    assert receipt_ab.assessment_sha256 == receipt_ba.assessment_sha256
+    assert receipt_ab.receipt_sha256 == receipt_ba.receipt_sha256
+
+
+def test_receipt_cannot_upgrade_consciousness_or_phenomenal_experience() -> None:
+    receipt = _receipt()
+    with pytest.raises(QualityError, match="consciousness"):
+        replace(receipt, consciousness_conclusion="ESTABLISHED")
+    with pytest.raises(QualityError, match="phenomenal experience"):
+        replace(receipt, phenomenal_experience_conclusion="ESTABLISHED")
