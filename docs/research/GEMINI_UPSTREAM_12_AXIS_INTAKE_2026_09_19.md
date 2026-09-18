@@ -228,6 +228,14 @@ SAFETY_PROFILE
 
 The double-blind evaluation pilot is an evaluation-integrity method. It is not, by itself, a successful independent evaluation result.
 
+Gemini 3.8 Flash's model card also states that its Frontier Safety judgment relies on the directly assessed Gemini 3.7 Flash baseline plus Google's finding that 3.8 showed no meaningful new capabilities or material performance increases in the Frontier Safety Framework domains.
+
+~~~text
+DIRECT_3_7_FRONTIER_SAFETY_ASSESSMENT
++ PROVIDER_3_8_NO_MATERIAL_INCREASE_JUDGMENT
+!= FULL_DIRECT_INDEPENDENT_3_8_FRONTIER_SAFETY_REASSESSMENT
+~~~
+
 ## 8. Axis 7 — counterexamples / failures
 
 Unlike the OpenAI PR #151 evidence set, this Gemini intake did not identify a comparable public provider incident chain with independent post-incident reconstruction at the same evidence depth.
