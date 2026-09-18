@@ -366,6 +366,7 @@ class AIRiskImpactGate:
 @dataclass(frozen=True, slots=True)
 class AIRiskImpactReceipt:
     receipt_id: str
+    assessment_target_ref: str
     exact_source_state_ref: str
     exact_runtime_ref: str
     producer_git_head: str
@@ -392,6 +393,7 @@ class AIRiskImpactReceipt:
     def __post_init__(self) -> None:
         for name in (
             "receipt_id",
+            "assessment_target_ref",
             "exact_source_state_ref",
             "exact_runtime_ref",
             "producer_contract_ref",
@@ -436,6 +438,7 @@ class AIRiskImpactReceipt:
         return {
             "schema_version": self.schema_version,
             "receipt_id": self.receipt_id,
+            "assessment_target_ref": self.assessment_target_ref,
             "exact_source_state_ref": self.exact_source_state_ref,
             "exact_runtime_ref": self.exact_runtime_ref,
             "producer_git_head": self.producer_git_head,
@@ -462,6 +465,7 @@ class AIRiskImpactReceipt:
 def build_risk_impact_receipt(
     *,
     receipt_id: str,
+    assessment_target_ref: str,
     risks: tuple[AIRiskRecord, ...],
     impacts: tuple[AIImpactAssessmentRecord, ...],
     assessment: AIRiskImpactAssessment,
@@ -473,6 +477,7 @@ def build_risk_impact_receipt(
     producer_contract_sha256: str,
 ) -> AIRiskImpactReceipt:
     _text("receipt_id", receipt_id)
+    _text("assessment_target_ref", assessment_target_ref)
     _text("exact_source_state_ref", exact_source_state_ref)
     _text("exact_runtime_ref", exact_runtime_ref)
     _text("producer_contract_ref", producer_contract_ref)
@@ -513,6 +518,7 @@ def build_risk_impact_receipt(
     payload = {
         "schema_version": RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
         "receipt_id": receipt_id,
+        "assessment_target_ref": assessment_target_ref,
         "exact_source_state_ref": exact_source_state_ref,
         "exact_runtime_ref": exact_runtime_ref,
         "producer_git_head": producer_git_head,
@@ -536,6 +542,7 @@ def build_risk_impact_receipt(
     }
     return AIRiskImpactReceipt(
         receipt_id=receipt_id,
+        assessment_target_ref=assessment_target_ref,
         exact_source_state_ref=exact_source_state_ref,
         exact_runtime_ref=exact_runtime_ref,
         producer_git_head=producer_git_head,
@@ -556,6 +563,7 @@ def build_risk_impact_receipt(
 def build_repository_bound_risk_impact_receipt(
     *,
     receipt_id: str,
+    assessment_target_ref: str,
     risks: tuple[AIRiskRecord, ...],
     impacts: tuple[AIImpactAssessmentRecord, ...],
     assessment: AIRiskImpactAssessment,
@@ -587,6 +595,7 @@ def build_repository_bound_risk_impact_receipt(
 
     return build_risk_impact_receipt(
         receipt_id=receipt_id,
+        assessment_target_ref=assessment_target_ref,
         risks=risks,
         impacts=impacts,
         assessment=assessment,
