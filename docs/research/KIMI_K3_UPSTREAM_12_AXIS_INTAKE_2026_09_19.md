@@ -86,6 +86,8 @@ Current first-party sources include:
   https://github.com/MoonshotAI/kimi-help-center/blob/master/en-US/agent/overview.md
 - Kimi Agent Swarm:
   https://github.com/MoonshotAI/kimi-help-center/blob/master/en-US/agent/swarm.md
+- Kimi Code AgentSwarm tool:
+  https://github.com/MoonshotAI/kimi-code/blob/main/docs/en/reference/tools.md
 - Kimi K2.5 historical repository:
   https://github.com/MoonshotAI/Kimi-K2.5
 
@@ -158,7 +160,17 @@ Exact claims require artifact revision, serving surface, system prompt, tools, r
 
 Kimi Agent is a provider product powered by K3 and described as using 20+ tools.
 
-Agent Swarm is a separate orchestration layer. Provider documentation says it can coordinate up to 300 sub-agent instances in parallel and, in the K2.6 product lineage, more than 4,000 tool calls per task.
+Kimi's hosted Agent Swarm is a separate orchestration layer. Provider product documentation says it can coordinate up to 300 sub-agent instances in parallel and, in the K2.6 product lineage, more than 4,000 tool calls per task.
+
+That claim is surface-bound: the separate Kimi Code `AgentSwarm` tool currently documents a maximum of 128 total subagents and can bind spawned subagents to a configured model pool or the caller's primary model.
+
+~~~text
+KIMI_PRODUCT_AGENT_SWARM
+!= KIMI_CODE_AGENTSWARM_TOOL
+
+PRODUCT_SWARM_LIMIT
+!= UNIVERSAL_SWARM_LIMIT
+~~~
 
 This creates a high-value causal partition:
 
