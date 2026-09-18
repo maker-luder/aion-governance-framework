@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-ai-adversarial-security-profile"
+version = "0.1.0"
+description = "Fail-closed structural profile for bounded AI-specific adversarial security evaluation"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "../ai-tevv-profile_v0.1.0/src"]
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_ai_security_profile"]
+mypy_path = ["../ai-tevv-profile_v0.1.0/src"]
