@@ -632,3 +632,39 @@ def test_repository_bound_security_receipt_rejects_unsafe_contract_path(
             repository_root=root,
             producer_contract_ref="../outside.py",
         )
+
+
+
+def test_security_receipt_requires_same_tevv_assessment_target() -> None:
+    value = profile()
+    assessment = AIAdversarialSecurityGate().assess(value)
+
+    with pytest.raises(AISecurityError, match="assessment target refs must match"):
+        build_ai_security_profile_receipt(
+            receipt_id="AI-SECURITY-RECEIPT-TARGET-REF",
+            assessment_target_ref="quality-plan:PLAN-SECURITY-OTHER",
+            assessment_target_sha256="b" * 64,
+            profile=value,
+            assessment=assessment,
+            tevv_receipt=tevv_receipt(),
+            tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+            producer_git_head="4" * 40,
+            producer_tree_sha="5" * 40,
+            producer_contract_ref="contract:ai-security-profile-v1",
+            producer_contract_sha256="6" * 64,
+        )
+
+    with pytest.raises(AISecurityError, match="assessment target digests must match"):
+        build_ai_security_profile_receipt(
+            receipt_id="AI-SECURITY-RECEIPT-TARGET-DIGEST",
+            assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+            assessment_target_sha256="c" * 64,
+            profile=value,
+            assessment=assessment,
+            tevv_receipt=tevv_receipt(),
+            tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+            producer_git_head="4" * 40,
+            producer_tree_sha="5" * 40,
+            producer_contract_ref="contract:ai-security-profile-v1",
+            producer_contract_sha256="6" * 64,
+        )
