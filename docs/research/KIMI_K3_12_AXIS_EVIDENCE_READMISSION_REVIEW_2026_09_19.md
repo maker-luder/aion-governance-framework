@@ -32,8 +32,11 @@ PUBLIC_OPEN_WEIGHT_ARTIFACT
 CURRENT_KIMI_AGENT
 = POWERED_BY_K3
 
-CURRENT_KIMI_SWARM
-= K3_SWARM
+CURRENT_HOSTED_KIMI_AGENT_SWARM
+= KIMI_PRODUCT_AGENT_SWARM_POWERED_BY_K3
+
+CURRENT_KIMI_CODE_AGENTSWARM
+= SEPARATE_TOOL_CONTRACT
 
 EXTERNAL_K3_SAFETY_EVALUATION
 = PRESENT
@@ -42,7 +45,10 @@ THEREFORE
 
 KIMI_K3
 != KIMI_AGENT
-!= KIMI_SWARM
+!= KIMI_PRODUCT_AGENT_SWARM
+
+KIMI_PRODUCT_AGENT_SWARM
+!= KIMI_CODE_AGENTSWARM_TOOL
 ~~~
 
 The main scientific increment is causal-locus discipline, not positive subjectivity evidence.
@@ -309,7 +315,34 @@ The first adversarial review found two material scope / provenance issues:
 
 These corrections narrow provenance and product-surface claims. They do not increase subjectivity confidence.
 
-## 16. Challenge-review cautions
+## 16. Cross-file consistency review corrections
+
+The next exact-head cross-file review found two residual naming / scope inconsistencies after the first adversarial pass:
+
+~~~text
+1. FRONTIER_LABEL_OVERREACH
+   "CURRENT PUBLIC FRONTIER MODEL REFERENCE"
+   was narrower and stronger than the other four files' wording.
+
+   correction:
+   CURRENT PUBLIC KIMI MODEL REFERENCE
+
+2. RESIDUAL_SWARM_ALIAS_COLLAPSE
+   "K3_SWARM" / generic "KIMI_SWARM"
+   still appeared as a current reference in baseline / re-admission language
+   after the hosted product and Kimi Code AgentSwarm surfaces had been separated.
+
+   correction:
+   CURRENT_HOSTED_KIMI_AGENT_SWARM
+   = KIMI_PRODUCT_AGENT_SWARM_POWERED_BY_K3
+
+   CURRENT_KIMI_CODE_AGENTSWARM
+   = SEPARATE_TOOL_CONTRACT
+~~~
+
+These are scope-consistency corrections only. They do not upgrade any evidence class or scientific conclusion.
+
+## 17. Challenge-review cautions
 
 The current record explicitly blocks:
 
@@ -348,7 +381,7 @@ LONG_HORIZON_EXECUTION
 != ENDOGENOUS_GOAL
 ~~~
 
-## 17. Repository-local execution boundary
+## 18. Repository-local execution boundary
 
 ~~~text
 KIMI_WEIGHT_DOWNLOAD
@@ -363,7 +396,10 @@ LOCAL_KIMI_EXECUTION
 KIMI_AGENT_EXECUTION
 = NO
 
-KIMI_SWARM_EXECUTION
+KIMI_PRODUCT_AGENT_SWARM_EXECUTION
+= NO
+
+KIMI_CODE_AGENTSWARM_EXECUTION
 = NO
 
 RUNTIME_INSTALLATION
@@ -379,7 +415,7 @@ NEW_EXECUTABLE_IMPLEMENTATION
 = NO
 ~~~
 
-## 18. Re-admission decision
+## 19. Re-admission decision
 
 ~~~text
 EVIDENCE_ADMISSIBILITY_AS_RESEARCH_REFERENCE
@@ -437,7 +473,7 @@ DEPLOYMENT
 = FALSE
 ~~~
 
-## 19. Files controlling this review
+## 20. Files controlling this review
 
 - `KIMI_K3_UPSTREAM_12_AXIS_INTAKE_2026_09_19.md`
 - `KIMI_K3_REFERENCE_BASELINE_LINEAGE_AND_PRODUCT_TOPOLOGY_2026_09_19.md`
