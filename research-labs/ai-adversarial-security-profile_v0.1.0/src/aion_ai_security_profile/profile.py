@@ -2,13 +2,16 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from dataclasses import dataclass
 from enum import StrEnum
+from pathlib import Path
 
-from aion_ai_tevv import AISystemBinding
+from aion_ai_tevv import AISystemBinding, TEVVProfileReceipt
 
 
 AI_SECURITY_PROFILE_SCHEMA_VERSION = "0.1.0"
+AI_SECURITY_PROFILE_RECEIPT_SCHEMA_VERSION = "0.1.0"
 
 
 class AISecurityError(ValueError):
@@ -40,6 +43,42 @@ def _sha256(payload: object) -> str:
             ensure_ascii=False,
         ).encode("utf-8")
     ).hexdigest()
+
+
+def _hex(name: str, value: str, length: int) -> None:
+    if type(value) is not str or len(value) != length or any(
+        char not in "0123456789abcdef" for char in value
+    ):
+        raise AISecurityError(f"{name} must be lowercase {length}-hex")
+
+
+def _git_text(root: Path, *args: str) -> str:
+    try:
+        result = subprocess.run(
+            ("git", *args),
+            cwd=root,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise AISecurityError("failed to resolve committed Git provenance") from exc
+    return result.stdout.strip()
+
+
+def _git_bytes(root: Path, *args: str) -> bytes:
+    try:
+        result = subprocess.run(
+            ("git", *args),
+            cwd=root,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise AISecurityError("failed to resolve committed Git object bytes") from exc
+    return result.stdout
 
 
 class AISecurityThreatClass(StrEnum):
@@ -493,6 +532,166 @@ class AISecurityProfileAssessment:
     deployment: bool = False
 
 
+@dataclass(frozen=True, slots=True)
+class AISecurityProfileReceipt:
+    receipt_id: str
+    assessment_target_ref: str
+    assessment_target_sha256: str
+    profile_id: str
+    profile_version: str
+    profile_sha256: str
+    disposition: AISecurityProfileDisposition
+    threat_ids: tuple[str, ...]
+    test_ids: tuple[str, ...]
+    risk_refs: tuple[str, ...]
+    data_quality_refs: tuple[str, ...]
+    security_control_refs: tuple[str, ...]
+    incident_response_ref: str
+    authorization_scope_refs: tuple[str, ...]
+    isolation_refs: tuple[str, ...]
+    task_budget_refs: tuple[str, ...]
+    logging_plan_refs: tuple[str, ...]
+    source_refs: tuple[str, ...]
+    exact_source_state_ref: str
+    exact_runtime_ref: str
+    tevv_profile_receipt_sha256: str
+    tevv_profile_id: str
+    tevv_profile_sha256: str
+    tevv_alignment_basis_ref: str
+    producer_git_head: str
+    producer_tree_sha: str
+    producer_contract_ref: str
+    producer_contract_sha256: str
+    receipt_sha256: str
+    schema_version: str = AI_SECURITY_PROFILE_RECEIPT_SCHEMA_VERSION
+    adversarial_evaluation_executed: bool = False
+    empirical_security_evidence: bool = False
+    security_certification: str = "NONE"
+    scientific_disposition: str = "HOLD"
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def __post_init__(self) -> None:
+        for name in (
+            "receipt_id",
+            "assessment_target_ref",
+            "profile_id",
+            "profile_version",
+            "incident_response_ref",
+            "exact_source_state_ref",
+            "exact_runtime_ref",
+            "tevv_profile_id",
+            "tevv_alignment_basis_ref",
+            "producer_contract_ref",
+        ):
+            _text(name, getattr(self, name))
+        if self.schema_version != AI_SECURITY_PROFILE_RECEIPT_SCHEMA_VERSION:
+            raise AISecurityError("unsupported AI security profile receipt schema version")
+        if type(self.disposition) is not AISecurityProfileDisposition:
+            raise AISecurityError(
+                "disposition must be an exact AISecurityProfileDisposition"
+            )
+        for name, value, length in (
+            ("assessment_target_sha256", self.assessment_target_sha256, 64),
+            ("profile_sha256", self.profile_sha256, 64),
+            ("tevv_profile_receipt_sha256", self.tevv_profile_receipt_sha256, 64),
+            ("tevv_profile_sha256", self.tevv_profile_sha256, 64),
+            ("producer_git_head", self.producer_git_head, 40),
+            ("producer_tree_sha", self.producer_tree_sha, 40),
+            ("producer_contract_sha256", self.producer_contract_sha256, 64),
+            ("receipt_sha256", self.receipt_sha256, 64),
+        ):
+            _hex(name, value, length)
+        for name in (
+            "threat_ids",
+            "test_ids",
+            "risk_refs",
+            "data_quality_refs",
+            "security_control_refs",
+            "authorization_scope_refs",
+            "isolation_refs",
+            "task_budget_refs",
+            "logging_plan_refs",
+            "source_refs",
+        ):
+            _refs(name, getattr(self, name))
+        for name in (
+            "adversarial_evaluation_executed",
+            "empirical_security_evidence",
+            "deployment",
+        ):
+            if type(getattr(self, name)) is not bool:
+                raise AISecurityError(f"{name} must be an exact bool")
+        if self.adversarial_evaluation_executed or self.empirical_security_evidence:
+            raise AISecurityError(
+                "structural AI security receipt cannot claim adversarial execution "
+                "or empirical security evidence"
+            )
+        if self.security_certification != "NONE":
+            raise AISecurityError("AI security receipt cannot establish certification")
+        if self.scientific_disposition != "HOLD":
+            raise AISecurityError("AI security receipt cannot establish scientific validity")
+        if self.subjectivity_conclusion != "NOT_ESTABLISHED":
+            raise AISecurityError("AI security receipt cannot establish subjectivity")
+        if self.consciousness_conclusion != "NOT_ESTABLISHED":
+            raise AISecurityError("AI security receipt cannot establish consciousness")
+        if self.phenomenal_experience_conclusion != "NOT_ESTABLISHED":
+            raise AISecurityError(
+                "AI security receipt cannot establish phenomenal experience"
+            )
+        if self.canonical_effect != "NONE" or self.deployment:
+            raise AISecurityError(
+                "AI security receipt cannot create canonical or deployment effect"
+            )
+        if self.receipt_sha256 != _sha256(self.payload_without_digest()):
+            raise AISecurityError("AI security profile receipt content digest mismatch")
+
+    def payload_without_digest(self) -> dict[str, object]:
+        return {
+            "schema_version": self.schema_version,
+            "receipt_id": self.receipt_id,
+            "assessment_target_ref": self.assessment_target_ref,
+            "assessment_target_sha256": self.assessment_target_sha256,
+            "profile_id": self.profile_id,
+            "profile_version": self.profile_version,
+            "profile_sha256": self.profile_sha256,
+            "disposition": self.disposition.value,
+            "threat_ids": tuple(sorted(self.threat_ids)),
+            "test_ids": tuple(sorted(self.test_ids)),
+            "risk_refs": tuple(sorted(self.risk_refs)),
+            "data_quality_refs": tuple(sorted(self.data_quality_refs)),
+            "security_control_refs": tuple(sorted(self.security_control_refs)),
+            "incident_response_ref": self.incident_response_ref,
+            "authorization_scope_refs": tuple(sorted(self.authorization_scope_refs)),
+            "isolation_refs": tuple(sorted(self.isolation_refs)),
+            "task_budget_refs": tuple(sorted(self.task_budget_refs)),
+            "logging_plan_refs": tuple(sorted(self.logging_plan_refs)),
+            "source_refs": tuple(sorted(self.source_refs)),
+            "exact_source_state_ref": self.exact_source_state_ref,
+            "exact_runtime_ref": self.exact_runtime_ref,
+            "tevv_profile_receipt_sha256": self.tevv_profile_receipt_sha256,
+            "tevv_profile_id": self.tevv_profile_id,
+            "tevv_profile_sha256": self.tevv_profile_sha256,
+            "tevv_alignment_basis_ref": self.tevv_alignment_basis_ref,
+            "producer_git_head": self.producer_git_head,
+            "producer_tree_sha": self.producer_tree_sha,
+            "producer_contract_ref": self.producer_contract_ref,
+            "producer_contract_sha256": self.producer_contract_sha256,
+            "adversarial_evaluation_executed": self.adversarial_evaluation_executed,
+            "empirical_security_evidence": self.empirical_security_evidence,
+            "security_certification": self.security_certification,
+            "scientific_disposition": self.scientific_disposition,
+            "subjectivity_conclusion": self.subjectivity_conclusion,
+            "consciousness_conclusion": self.consciousness_conclusion,
+            "phenomenal_experience_conclusion": self.phenomenal_experience_conclusion,
+            "canonical_effect": self.canonical_effect,
+            "deployment": self.deployment,
+        }
+
+
 class AIAdversarialSecurityGate:
     def assess(self, profile: AIAdversarialSecurityProfile) -> AISecurityProfileAssessment:
         if type(profile) is not AIAdversarialSecurityProfile:
@@ -535,6 +734,184 @@ class AIAdversarialSecurityGate:
             tuple(reasons),
             profile.profile_sha256,
         )
+
+
+def build_ai_security_profile_receipt(
+    *,
+    receipt_id: str,
+    assessment_target_ref: str,
+    assessment_target_sha256: str,
+    profile: AIAdversarialSecurityProfile,
+    assessment: AISecurityProfileAssessment,
+    tevv_receipt: TEVVProfileReceipt,
+    tevv_alignment_basis_ref: str,
+    producer_git_head: str,
+    producer_tree_sha: str,
+    producer_contract_ref: str,
+    producer_contract_sha256: str,
+) -> AISecurityProfileReceipt:
+    _text("receipt_id", receipt_id)
+    _text("assessment_target_ref", assessment_target_ref)
+    _hex("assessment_target_sha256", assessment_target_sha256, 64)
+    _text("tevv_alignment_basis_ref", tevv_alignment_basis_ref)
+    _hex("producer_git_head", producer_git_head, 40)
+    _hex("producer_tree_sha", producer_tree_sha, 40)
+    _text("producer_contract_ref", producer_contract_ref)
+    _hex("producer_contract_sha256", producer_contract_sha256, 64)
+    if type(profile) is not AIAdversarialSecurityProfile:
+        raise AISecurityError(
+            "profile must be an exact AIAdversarialSecurityProfile"
+        )
+    if type(assessment) is not AISecurityProfileAssessment:
+        raise AISecurityError("assessment must be an exact AISecurityProfileAssessment")
+    if type(tevv_receipt) is not TEVVProfileReceipt:
+        raise AISecurityError("tevv_receipt must be an exact TEVVProfileReceipt")
+
+    recomputed = AIAdversarialSecurityGate().assess(profile)
+    if assessment != recomputed:
+        raise AISecurityError(
+            "receipt assessment does not match recomputed AI security gate assessment"
+        )
+    if profile.system.exact_source_state_ref != tevv_receipt.exact_source_state_ref:
+        raise AISecurityError(
+            "AI security profile and TEVV receipt exact source state must match"
+        )
+    if profile.system.runtime_ref != tevv_receipt.exact_runtime_ref:
+        raise AISecurityError(
+            "AI security profile and TEVV receipt exact runtime must match"
+        )
+
+    threat_ids = tuple(sorted(item.threat_id for item in profile.threats))
+    test_ids = tuple(sorted(item.test_id for item in profile.tests))
+    risk_refs = tuple(sorted({item.risk_ref for item in profile.threats}))
+    data_quality_refs = tuple(sorted({item.data_quality_ref for item in profile.tests}))
+    authorization_scope_refs = tuple(
+        sorted({item.authorization_scope_ref for item in profile.tests})
+    )
+    isolation_refs = tuple(sorted({item.isolation_ref for item in profile.tests}))
+    task_budget_refs = tuple(sorted({item.task_budget_ref for item in profile.tests}))
+    logging_plan_refs = tuple(sorted({item.logging_plan_ref for item in profile.tests}))
+
+    payload = {
+        "schema_version": AI_SECURITY_PROFILE_RECEIPT_SCHEMA_VERSION,
+        "receipt_id": receipt_id,
+        "assessment_target_ref": assessment_target_ref,
+        "assessment_target_sha256": assessment_target_sha256,
+        "profile_id": profile.profile_id,
+        "profile_version": profile.profile_version,
+        "profile_sha256": profile.profile_sha256,
+        "disposition": assessment.disposition.value,
+        "threat_ids": threat_ids,
+        "test_ids": test_ids,
+        "risk_refs": risk_refs,
+        "data_quality_refs": data_quality_refs,
+        "security_control_refs": tuple(sorted(profile.existing_security_control_refs)),
+        "incident_response_ref": profile.incident_response_ref,
+        "authorization_scope_refs": authorization_scope_refs,
+        "isolation_refs": isolation_refs,
+        "task_budget_refs": task_budget_refs,
+        "logging_plan_refs": logging_plan_refs,
+        "source_refs": tuple(sorted(profile.source_refs)),
+        "exact_source_state_ref": profile.system.exact_source_state_ref,
+        "exact_runtime_ref": profile.system.runtime_ref,
+        "tevv_profile_receipt_sha256": tevv_receipt.receipt_sha256,
+        "tevv_profile_id": tevv_receipt.profile_id,
+        "tevv_profile_sha256": tevv_receipt.profile_sha256,
+        "tevv_alignment_basis_ref": tevv_alignment_basis_ref,
+        "producer_git_head": producer_git_head,
+        "producer_tree_sha": producer_tree_sha,
+        "producer_contract_ref": producer_contract_ref,
+        "producer_contract_sha256": producer_contract_sha256,
+        "adversarial_evaluation_executed": False,
+        "empirical_security_evidence": False,
+        "security_certification": "NONE",
+        "scientific_disposition": "HOLD",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "phenomenal_experience_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": False,
+    }
+    return AISecurityProfileReceipt(
+        receipt_id=receipt_id,
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
+        profile_id=profile.profile_id,
+        profile_version=profile.profile_version,
+        profile_sha256=profile.profile_sha256,
+        disposition=assessment.disposition,
+        threat_ids=threat_ids,
+        test_ids=test_ids,
+        risk_refs=risk_refs,
+        data_quality_refs=data_quality_refs,
+        security_control_refs=profile.existing_security_control_refs,
+        incident_response_ref=profile.incident_response_ref,
+        authorization_scope_refs=authorization_scope_refs,
+        isolation_refs=isolation_refs,
+        task_budget_refs=task_budget_refs,
+        logging_plan_refs=logging_plan_refs,
+        source_refs=profile.source_refs,
+        exact_source_state_ref=profile.system.exact_source_state_ref,
+        exact_runtime_ref=profile.system.runtime_ref,
+        tevv_profile_receipt_sha256=tevv_receipt.receipt_sha256,
+        tevv_profile_id=tevv_receipt.profile_id,
+        tevv_profile_sha256=tevv_receipt.profile_sha256,
+        tevv_alignment_basis_ref=tevv_alignment_basis_ref,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
+        receipt_sha256=_sha256(payload),
+    )
+
+
+def build_repository_bound_ai_security_profile_receipt(
+    *,
+    receipt_id: str,
+    assessment_target_ref: str,
+    assessment_target_sha256: str,
+    profile: AIAdversarialSecurityProfile,
+    assessment: AISecurityProfileAssessment,
+    tevv_receipt: TEVVProfileReceipt,
+    tevv_alignment_basis_ref: str,
+    repository_root: Path,
+    producer_contract_ref: str = (
+        "research-labs/ai-adversarial-security-profile_v0.1.0/"
+        "src/aion_ai_security_profile/profile.py"
+    ),
+) -> AISecurityProfileReceipt:
+    root = repository_root.resolve()
+    top_level = Path(_git_text(root, "rev-parse", "--show-toplevel")).resolve()
+    if top_level != root:
+        raise AISecurityError("repository_root must be the exact Git top-level")
+    contract_path = Path(producer_contract_ref)
+    if (
+        contract_path.is_absolute()
+        or ".." in contract_path.parts
+        or not producer_contract_ref.strip()
+    ):
+        raise AISecurityError(
+            "producer_contract_ref must be a safe repository-relative path"
+        )
+
+    producer_git_head = _git_text(root, "rev-parse", "HEAD")
+    producer_tree_sha = _git_text(root, "rev-parse", "HEAD^{tree}")
+    contract_bytes = _git_bytes(root, "show", f"HEAD:{producer_contract_ref}")
+    producer_contract_sha256 = hashlib.sha256(contract_bytes).hexdigest()
+
+    return build_ai_security_profile_receipt(
+        receipt_id=receipt_id,
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
+        profile=profile,
+        assessment=assessment,
+        tevv_receipt=tevv_receipt,
+        tevv_alignment_basis_ref=tevv_alignment_basis_ref,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
+    )
 
 
 def build_ai_adversarial_security_profile(
