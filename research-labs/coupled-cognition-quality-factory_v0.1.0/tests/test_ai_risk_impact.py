@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import hashlib
+from pathlib import Path
+import subprocess
 
 import pytest
 
@@ -15,6 +18,7 @@ from aion_coupled_quality.ai_risk_impact import (
     AIRiskImpactReceipt,
     AIRiskRecord,
     RiskLikelihood,
+    build_repository_bound_risk_impact_receipt,
     build_risk_impact_receipt,
 )
 
@@ -304,3 +308,118 @@ def test_receipt_requires_exact_assessment_input_identity() -> None:
 def test_receipt_runtime_binding_is_mandatory() -> None:
     with pytest.raises(QualityError, match="exact_runtime_ref"):
         _receipt(exact_runtime_ref="")
+
+
+
+def test_receipt_recomputes_gate_assessment_before_emission() -> None:
+    risks = (risk(),)
+    impacts = (impact(),)
+    forged = replace(
+        AIRiskImpactGate().assess(risks=risks, impacts=impacts),
+        disposition=AIRiskImpactDisposition.HOLD,
+    )
+    with pytest.raises(QualityError, match="recomputed gate assessment"):
+        build_risk_impact_receipt(
+            receipt_id="RISK-IMPACT-RECEIPT-FORGED",
+            risks=risks,
+            impacts=impacts,
+            assessment=forged,
+            exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+            exact_runtime_ref="runtime:receipt-builder-v1",
+            producer_git_head="1" * 40,
+            producer_tree_sha="2" * 40,
+            producer_contract_ref="contract:ai-risk-impact-v0.1.0",
+            producer_contract_sha256="3" * 64,
+        )
+
+
+def _git(root: Path, *args: str) -> str:
+    return subprocess.check_output(
+        ["git", "-C", str(root), *args],
+        text=True,
+        encoding="utf-8",
+    ).strip()
+
+
+def _repository_fixture(tmp_path: Path) -> tuple[Path, str, bytes]:
+    root = tmp_path / "repo"
+    root.mkdir()
+    _git(root, "init", "-q")
+    _git(root, "config", "user.name", "Risk Impact Receipt Fixture")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    contract_ref = "contracts/ai_risk_impact.py"
+    contract_path = root / contract_ref
+    contract_path.parent.mkdir(parents=True)
+    committed_bytes = b"RISK_IMPACT_CONTRACT = True\n"
+    contract_path.write_bytes(committed_bytes)
+    _git(root, "add", contract_ref)
+    _git(root, "commit", "-qm", "fixture risk impact contract")
+    return root, contract_ref, committed_bytes
+
+
+def test_repository_bound_receipt_uses_committed_git_objects(tmp_path: Path) -> None:
+    root, contract_ref, committed_bytes = _repository_fixture(tmp_path)
+    risks = (risk(),)
+    impacts = (impact(),)
+    assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
+
+    receipt = build_repository_bound_risk_impact_receipt(
+        receipt_id="RISK-IMPACT-RECEIPT-GIT",
+        risks=risks,
+        impacts=impacts,
+        assessment=assessment,
+        exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+        exact_runtime_ref="runtime:receipt-builder-v1",
+        repository_root=root,
+        producer_contract_ref=contract_ref,
+    )
+    assert receipt.producer_git_head == _git(root, "rev-parse", "HEAD")
+    assert receipt.producer_tree_sha == _git(root, "rev-parse", "HEAD^{tree}")
+    assert receipt.producer_contract_sha256 == hashlib.sha256(committed_bytes).hexdigest()
+
+    (root / contract_ref).write_text("RISK_IMPACT_CONTRACT = False\n", encoding="utf-8")
+    dirty_receipt = build_repository_bound_risk_impact_receipt(
+        receipt_id="RISK-IMPACT-RECEIPT-GIT-DIRTY",
+        risks=risks,
+        impacts=impacts,
+        assessment=assessment,
+        exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+        exact_runtime_ref="runtime:receipt-builder-v1",
+        repository_root=root,
+        producer_contract_ref=contract_ref,
+    )
+    assert dirty_receipt.producer_contract_sha256 == hashlib.sha256(committed_bytes).hexdigest()
+    assert dirty_receipt.producer_tree_sha == receipt.producer_tree_sha
+
+
+def test_repository_bound_receipt_rejects_unsafe_producer_paths(tmp_path: Path) -> None:
+    root, contract_ref, _ = _repository_fixture(tmp_path)
+    nested = root / "nested"
+    nested.mkdir()
+    risks = (risk(),)
+    impacts = (impact(),)
+    assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
+
+    with pytest.raises(QualityError, match="exact Git top-level"):
+        build_repository_bound_risk_impact_receipt(
+            receipt_id="RISK-IMPACT-RECEIPT-NESTED",
+            risks=risks,
+            impacts=impacts,
+            assessment=assessment,
+            exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+            exact_runtime_ref="runtime:receipt-builder-v1",
+            repository_root=nested,
+            producer_contract_ref=contract_ref,
+        )
+
+    with pytest.raises(QualityError, match="safe repository-relative"):
+        build_repository_bound_risk_impact_receipt(
+            receipt_id="RISK-IMPACT-RECEIPT-UNSAFE",
+            risks=risks,
+            impacts=impacts,
+            assessment=assessment,
+            exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+            exact_runtime_ref="runtime:receipt-builder-v1",
+            repository_root=root,
+            producer_contract_ref="../outside.py",
+        )
