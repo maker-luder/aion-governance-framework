@@ -631,6 +631,9 @@ class FullQualitySystemEngine:
         if not required_configuration_refs <= set(plan.configuration_refs):
             reasons.append("QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION")
 
+        if risk_impact_receipt.assessment_target_ref != f"quality-plan:{plan.plan_id}":
+            reasons.append("AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH")
+
         if not set(risk_impact_receipt.risk_ids) <= set(plan.risk_refs):
             reasons.append("AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS")
 
@@ -713,6 +716,7 @@ class FullQualitySystemEngine:
         hard_hold = any(
             reason in {
                 "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION",
+                "AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH",
                 "AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
                 "MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
