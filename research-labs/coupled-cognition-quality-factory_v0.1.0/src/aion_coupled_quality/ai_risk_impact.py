@@ -2,8 +2,10 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from dataclasses import asdict, dataclass, field
 from enum import StrEnum
+from pathlib import Path
 
 from .models import QualityError, Severity
 
@@ -43,6 +45,28 @@ def _digest(payload: object) -> str:
             ensure_ascii=False,
         ).encode("utf-8")
     ).hexdigest()
+
+
+def _git_text(root: Path, *args: str) -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "-C", str(root), *args],
+            text=True,
+            encoding="utf-8",
+            stderr=subprocess.STDOUT,
+        ).strip()
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise QualityError(f"git provenance resolution failed: {exc}") from exc
+
+
+def _git_bytes(root: Path, *args: str) -> bytes:
+    try:
+        return subprocess.check_output(
+            ["git", "-C", str(root), *args],
+            stderr=subprocess.STDOUT,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise QualityError(f"git object resolution failed: {exc}") from exc
 
 
 class AILifecycleStage(StrEnum):
@@ -454,6 +478,10 @@ def build_risk_impact_receipt(
     if type(assessment) is not AIRiskImpactAssessment:
         raise QualityError("receipt assessment must be an exact AIRiskImpactAssessment")
 
+    recomputed_assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
+    if assessment != recomputed_assessment:
+        raise QualityError("receipt assessment does not match recomputed gate assessment")
+
     if any(item.exact_source_state_ref != exact_source_state_ref for item in risks):
         raise QualityError("risk record source state does not match receipt source state")
     if any(item.exact_source_state_ref != exact_source_state_ref for item in impacts):
@@ -509,4 +537,51 @@ def build_risk_impact_receipt(
         assessment_sha256=assessment_sha256,
         disposition=assessment.disposition,
         receipt_sha256=_digest(payload),
+    )
+
+
+
+def build_repository_bound_risk_impact_receipt(
+    *,
+    receipt_id: str,
+    risks: tuple[AIRiskRecord, ...],
+    impacts: tuple[AIImpactAssessmentRecord, ...],
+    assessment: AIRiskImpactAssessment,
+    exact_source_state_ref: str,
+    exact_runtime_ref: str,
+    repository_root: Path,
+    producer_contract_ref: str = (
+        "research-labs/coupled-cognition-quality-factory_v0.1.0/"
+        "src/aion_coupled_quality/ai_risk_impact.py"
+    ),
+) -> AIRiskImpactReceipt:
+    """Resolve producer provenance from committed Git objects before issuing a receipt.
+
+    Dirty working-tree bytes are intentionally ignored. The receipt binds the exact
+    committed producer HEAD/tree/contract plus the caller-declared source/runtime state.
+    """
+    root = repository_root.resolve()
+    top_level = Path(_git_text(root, "rev-parse", "--show-toplevel")).resolve()
+    if top_level != root:
+        raise QualityError("repository_root must be the exact Git top-level")
+    contract_path = Path(producer_contract_ref)
+    if contract_path.is_absolute() or ".." in contract_path.parts or not producer_contract_ref.strip():
+        raise QualityError("producer_contract_ref must be a safe repository-relative path")
+
+    producer_git_head = _git_text(root, "rev-parse", "HEAD")
+    producer_tree_sha = _git_text(root, "rev-parse", "HEAD^{tree}")
+    contract_bytes = _git_bytes(root, "show", f"HEAD:{producer_contract_ref}")
+    producer_contract_sha256 = hashlib.sha256(contract_bytes).hexdigest()
+
+    return build_risk_impact_receipt(
+        receipt_id=receipt_id,
+        risks=risks,
+        impacts=impacts,
+        assessment=assessment,
+        exact_source_state_ref=exact_source_state_ref,
+        exact_runtime_ref=exact_runtime_ref,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
     )
