@@ -27,11 +27,11 @@ META_PROVIDER_MATERIAL
 LATEST_OFFICIAL_LLAMA_FAMILY_IDENTIFIED
 = LLAMA_4
 
-CURRENT_META_FRONTIER_FAMILY
-= MUSE
-
-CURRENT_META_FRONTIER_REFERENCE
+CURRENT_PUBLIC_META_FRONTIER_MODEL_REFERENCE
 = MUSE_SPARK_1_3
+
+MUSE_AS_PROVIDER_CANONICAL_FAMILY_LABEL
+= NOT_ASSUMED
 
 CURRENT_META_PERSONAL_AGENT
 = MUSE
@@ -58,7 +58,7 @@ WITH FAMILY / VERSION / DATE BINDING
 
 Llama 4 Scout and Maverick remain the latest Llama family identified in Meta's official Llama model repository.
 
-They must not be described as Meta's current frontier family without qualification.
+They must not be described as Meta's current public frontier model reference without qualification; equally, the existence of Muse Spark must not be used to imply that Llama is deprecated or no longer a distinct active model family.
 
 ## 4. Axis 2 — model / artifact / system level
 
@@ -391,8 +391,11 @@ E2_EXTERNAL_CURRENT_LLAMA_BENCHMARKS
 E2_BENCHMARK_METHOD_ANALYSIS
 = PRESENT
 
-E3_INDEPENDENT_LLAMA_MECHANISTIC_INTERVENTION
+E2_INDEPENDENT_LLAMA_MECHANISTIC_INTERVENTION
 = PRESENT / NARROW / LLAMA_3_1_SPECIFIC
+
+E3_BOUNDED_INDEPENDENT_INCIDENT_INVESTIGATION
+= NOT_IDENTIFIED_IN_THIS_REVIEW
 
 E4_OPEN_INDEPENDENT_REPLICATION
 = SPARSE / DOMAIN_SPECIFIC
