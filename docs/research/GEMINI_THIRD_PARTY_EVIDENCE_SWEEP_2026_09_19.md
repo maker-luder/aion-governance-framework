@@ -203,7 +203,88 @@ GEMINI_SIDE_CELL
 
 The study is methodologically relevant to model / harness separation but does not by itself quantify a Gemini harness effect.
 
-## 9. Guided Learning RCT — partnered Human-learning evidence
+## 9. Additional external negative / failure evidence
+
+### 9.1 Long-horizon security-agent failure localization
+
+A 2026 external preprint evaluates long-horizon security-agent failures with controlled interventions across model generations. It reports that protocol-disambiguation guidance increased state observation for Gemini 2.5 Flash, while repeating the same design with Gemini 3.7 Flash produced the opposite effect; state observation also no longer reliably predicted task completion.
+
+Source:
+https://arxiv.org/abs/2608.20563
+
+Evidence class:
+
+~~~text
+E2
+= EVALUATOR_CONTROLLED_EXTERNAL_TEST
+~~~
+
+Research value:
+
+~~~text
+SAME_INTERVENTION
++ DIFFERENT_GEMINI_GENERATION
+CAN PRODUCE
+DIFFERENT_OR_OPPOSITE_EFFECT
+
+MODEL_GENERATION_TRANSFER
+!= ESTABLISHED
+
+INTERMEDIATE_STATE_OBSERVATION
+!= TASK_COMPLETION
+~~~
+
+### 9.2 SpatialBench-Long
+
+An external preprint evaluates long-horizon spatial-biology agent systems. Gemini 3.5 Flash paired with the Pi terminal coding harness achieved 8 successful runs out of 72, tied with two GPT-5.5 model-harness pairs in that study.
+
+Source:
+https://arxiv.org/abs/2605.28065
+
+Evidence class:
+
+~~~text
+E2
+= EVALUATOR_CONTROLLED_EXTERNAL_TEST
+~~~
+
+Research value:
+
+~~~text
+STRONG_GENERAL_CAPABILITY_CLAIMS
+!= HIGH_END_TO_END_SUCCESS_ON_EVERY_LONG_HORIZON_DOMAIN
+
+MODEL_HARNESS_PAIR_RESULT
+!= BARE_MODEL_RESULT
+~~~
+
+### 9.3 EviScope conflict-condition residual failures
+
+A September 2026 external preprint evaluates evidence-grounding under paired counterfactual evidence changes. Gemini 3.5 Flash achieved high joint success in the reported setup but still answered some contradiction-insertion cases.
+
+Source:
+https://arxiv.org/abs/2609.17081
+
+Evidence class:
+
+~~~text
+E2
+= EVALUATOR_CONTROLLED_EXTERNAL_TEST
+~~~
+
+Research value:
+
+~~~text
+HIGH_AGGREGATE_SUCCESS
+!= ZERO_CONFLICT_BLINDNESS
+
+CORRECT_ANSWER_RATE
+!= EVIDENCE_USE_FAITHFULNESS
+~~~
+
+These studies are task-specific preprints. They are admitted as external counterevidence and method evidence, not as broad replications of Gemini capability or safety.
+
+## 11. Guided Learning RCT — partnered Human-learning evidence
 
 Google DeepMind reports an eight-week RCT with Fab AI and support from Sierra Leone's Ministry of Education, involving 1,763 students across 12 schools.
 
@@ -227,7 +308,7 @@ HUMAN_LEARNING_EFFECT
 != AI_LEARNING
 ~~~
 
-## 10. Double-blind evaluation pilot — method evidence, not result evidence
+## 11. Double-blind evaluation pilot — method evidence, not result evidence
 
 Google DeepMind describes a cryptographically isolated double-blind evaluation design intended to hide external benchmark content from the provider while also protecting proprietary model access.
 
@@ -246,7 +327,7 @@ NOT YET
 
 The method is highly relevant to benchmark contamination and evaluator independence, but the existence of the infrastructure is not a model-performance result.
 
-## 11. Scheming honeypot research — high relevance, first-party
+## 12. Scheming honeypot research — high relevance, first-party
 
 Google DeepMind's scheming-honeypot work is provider research rather than independent evidence.
 
@@ -262,7 +343,7 @@ E0
 
 Its methodological value is high because hidden-goal and agency-prompt manipulations alter observed behavior, but it cannot be counted as independent replication of itself.
 
-## 12. External benchmark services — capability cross-check only
+## 13. External benchmark services — capability cross-check only
 
 Current public benchmark services and leaderboards can provide additional external measurements, but they differ in contamination controls, reasoning-effort settings, harnesses, and score aggregation.
 
@@ -279,11 +360,11 @@ MULTIPLE_BENCHMARKS
 != MULTIPLE_INDEPENDENT_MECHANISMS
 ~~~
 
-## 13. Negative / null / limitation evidence
+## 14. Negative / null / limitation evidence
 
 The challenge review deliberately preserves results that weaken simple progress narratives.
 
-### 13.1 Gemini 3.8 multilingual-safety regression
+### 14.1 Gemini 3.8 multilingual-safety regression
 
 Google's 3.8 Flash model card reports a +5.4 percentage-point change relative to 3.7 Flash on its multilingual safety automated evaluation, where lower is better. The same card warns that improved evaluation query sets make its reported safety results not directly comparable to earlier Gemini model cards.
 
@@ -295,7 +376,7 @@ MODEL_CARD_SEQUENCE
 != CLEAN_LONGITUDINAL_EXPERIMENT
 ~~~
 
-### 13.2 Harness-study null result
+### 14.2 Harness-study null result
 
 The external contamination-controlled harness study found no resolved average harness advantage in its paired same-model Claude and GPT contrasts. Gemini 3.5 Flash appears only as a side cell and therefore does not support a Gemini-specific harness-effect estimate.
 
@@ -307,7 +388,7 @@ GEMINI_SIDE_CELL
 != GEMINI_HARNESS_CAUSAL_EFFECT
 ~~~
 
-### 13.3 ReguSim negative controls
+### 14.3 ReguSim negative controls
 
 ReguSim reports that visible rules reduce but do not eliminate rejected actions, and that simple structured monitoring baselines can match or exceed prompt-only LLM monitors.
 
@@ -319,7 +400,7 @@ LLM_MONITOR
 != AUTOMATICALLY_SUPERIOR_MONITOR
 ~~~
 
-### 13.4 Guided Learning heterogeneity and intervention bundling
+### 14.4 Guided Learning heterogeneity and intervention bundling
 
 The Sierra Leone RCT was teacher-led: educators designed lessons, set objectives, and facilitated classroom discussion. Google also reports that students entering with stronger math skills benefited most.
 
@@ -337,9 +418,9 @@ MUST NOT BE COLLAPSED INTO
 MODEL_ONLY_CAUSATION
 ~~~
 
-## 14. Cross-source convergence matrix
+## 15. Cross-source convergence matrix
 
-### 14.1 Prompt / incentive / evaluator dependence
+### 15.1 Prompt / incentive / evaluator dependence
 
 Provider scheming research and external ReguSim evidence both support the weaker statement that observed behavior can shift with instruction, goal, incentive, persona, or evaluation context.
 
@@ -351,7 +432,7 @@ NOT
 = ENDOGENOUS_GOAL_ESTABLISHED
 ~~~
 
-### 14.2 Model vs harness / system locus
+### 15.2 Model vs harness / system locus
 
 Google's Antigravity disclosures and the external harness study both support model/harness separation as a methodological necessity.
 
@@ -363,7 +444,7 @@ NOT
 = EXACT_GEMINI_HARNESS_EFFECT_IDENTIFIED
 ~~~
 
-### 14.3 Evaluator dependence
+### 15.3 Evaluator dependence
 
 The medical missing-information study and Google's double-blind initiative independently motivate stronger evaluator-provenance and contamination controls.
 
@@ -375,13 +456,13 @@ NOT
 = ONE_EVALUATOR_IS_GROUND_TRUTH
 ~~~
 
-### 14.4 Human learning
+### 15.4 Human learning
 
 The Sierra Leone RCT supplies bounded field evidence of Human-learning outcomes.
 
 At the search cutoff, no open independent replication of the same intervention / population / protocol was identified.
 
-## 15. What is still missing
+## 16. What is still missing
 
 ~~~text
 E3_BOUNDED_INDEPENDENT_INCIDENT_INVESTIGATION
@@ -403,7 +484,7 @@ HUMAN_LEARNING_RCT_INDEPENDENT_REPLICATION
 = NOT_IDENTIFIED
 ~~~
 
-## 16. Revised disposition for Gemini Flash reference use
+## 17. Revised disposition for Gemini Flash reference use
 
 ~~~text
 MULTIPLE_EXTERNAL_EVALUATIONS = YES
@@ -420,7 +501,7 @@ NEITHER
 = INDEPENDENTLY_VALIDATED_STABLE_UNIVERSAL_BASELINE
 ~~~
 
-## 17. Evidence-admission fields for future provider sweeps
+## 18. Evidence-admission fields for future provider sweeps
 
 Future provider sweeps should preserve:
 
@@ -445,7 +526,7 @@ evidence class
 claim ceiling
 ~~~
 
-## 18. Subjectivity boundary
+## 19. Subjectivity boundary
 
 No external source in this sweep establishes:
 
@@ -460,7 +541,7 @@ IDENTITY_CONTINUITY
 
 The evidence is useful for causal partition, continuity counterexamples, evaluator controls, and Human-AI study design.
 
-## 19. Current admission status
+## 20. Current admission status
 
 ~~~text
 GEMINI_EXTERNAL_EVIDENCE
