@@ -127,15 +127,18 @@ def ai_impact(**changes: object) -> AIImpactAssessmentRecord:
 def risk_impact_receipt(
     *,
     assessment_target_ref: str = "quality-plan:PLAN-001",
+    assessment_target_sha256: str | None = None,
     risk_disposition: AIRiskDisposition = AIRiskDisposition.ACCEPTED_WITH_CONTROLS,
     impact_disposition: AIImpactDisposition = AIImpactDisposition.ASSESSED_WITH_CONTROLS,
 ) -> AIRiskImpactReceipt:
     risks = (ai_risk(disposition=risk_disposition),)
     impacts = (ai_impact(disposition=impact_disposition),)
     assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
+    target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
     return build_risk_impact_receipt(
         receipt_id="RISK-IMPACT-RECEIPT-001",
         assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=target_sha256,
         risks=risks,
         impacts=impacts,
         assessment=assessment,
@@ -214,12 +217,10 @@ def control_entries() -> tuple[ControlPlanEntry, ...]:
     )
 
 
-def quality_plan(
+def quality_plan_seed(
     chain_receipt: QualityChainReceiptBinding | None = None,
-    risk_receipt: AIRiskImpactReceipt | None = None,
 ) -> ResearchQualityPlan:
     bound = chain_receipt or receipt()
-    risk_bound = risk_receipt or risk_impact_receipt()
     return ResearchQualityPlan(
         plan_id="PLAN-001",
         research_question_ref="research:ai-subjectivity-possibility",
@@ -228,7 +229,7 @@ def quality_plan(
         critical_quality_attributes=("construct validity", "claim ceiling", "provenance"),
         controls=control_entries(),
         measurement_ids=("MEAS-001",),
-        risk_refs=("risk:construct-drift", *risk_bound.risk_ids),
+        risk_refs=("risk:construct-drift", "RISK-OVERCLAIM-001"),
         configuration_refs=(
             f"git:{bound.producer_git_head}",
             f"tree:{bound.producer_tree_sha}",
@@ -236,6 +237,23 @@ def quality_plan(
             f"quality-chain-receipt:{bound.receipt_sha256}",
             bound.exact_source_state_ref,
             bound.exact_runtime_ref,
+        ),
+    )
+
+
+def quality_plan(
+    chain_receipt: QualityChainReceiptBinding | None = None,
+    risk_receipt: AIRiskImpactReceipt | None = None,
+) -> ResearchQualityPlan:
+    bound = chain_receipt or receipt()
+    seed = quality_plan_seed(bound)
+    risk_bound = risk_receipt or risk_impact_receipt(
+        assessment_target_sha256=seed.assessment_target_sha256()
+    )
+    return replace(
+        seed,
+        configuration_refs=(
+            *seed.configuration_refs,
             f"git:{risk_bound.producer_git_head}",
             f"tree:{risk_bound.producer_tree_sha}",
             f"contract-sha256:{risk_bound.producer_contract_sha256}",
