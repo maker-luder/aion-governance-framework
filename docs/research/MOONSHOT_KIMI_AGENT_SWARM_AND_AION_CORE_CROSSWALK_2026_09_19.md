@@ -21,13 +21,14 @@ The goal is the opposite: use Kimi's explicit orchestration layers to test wheth
 
 ## 2. Kimi's high-value methodological feature
 
-Kimi provides a particularly explicit stack:
+Kimi provides a particularly explicit stack, but the swarm surface itself must remain product-bound:
 
 ~~~text
 OPEN_WEIGHT_MODEL
 + HOSTED_API
 + SINGLE_AGENT_PRODUCT
-+ MULTI_AGENT_SWARM
++ HOSTED_AGENT_SWARM_PRODUCT
++ KIMI_CODE_AGENTSWARM_TOOL
 + MANY_TOOLS
 + SHARED_TASK_STATE
 + PARALLEL_EXECUTION
@@ -45,6 +46,22 @@ RELATIONAL_MULTI_AGENT_LOCUS
 ~~~
 
 No one of these should be silently promoted to a "self".
+
+Moonshot's current public documentation also demonstrates that "Agent Swarm" is not one universal execution contract:
+
+~~~text
+HOSTED_KIMI_AGENT_SWARM
+= up to 300 subagents
+
+KIMI_CODE_AGENTSWARM_TOOL
+= up to 128 total subagents
+= configurable model binding
+
+HOSTED_KIMI_AGENT_SWARM
+!= KIMI_CODE_AGENTSWARM_TOOL
+~~~
+
+This is direct evidence that orchestration surface is a causal / reproducibility variable.
 
 ## 3. Swarm decomposition
 
