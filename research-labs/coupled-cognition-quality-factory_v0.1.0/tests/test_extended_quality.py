@@ -588,7 +588,7 @@ def review(
     tevv_measurement_ids = tuple(
         item.measurement_id for item in tevv_bound.measurement_bindings
     )
-    refs = (
+    default_refs = (
         "PLAN-001",
         "CHAIN-001",
         "MEAS-001",
@@ -608,7 +608,8 @@ def review(
         *tevv_bound.risk_refs,
         *tevv_measurement_ids,
         *tevv_bound.data_quality_refs,
-    ) if extra_refs is None else extra_refs
+    )
+    refs = tuple(dict.fromkeys(default_refs)) if extra_refs is None else extra_refs
     return ManagementReviewRecord(
         review_id="MGMT-001",
         input_refs=refs,
