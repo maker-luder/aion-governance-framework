@@ -300,6 +300,131 @@ def tevv_receipt(
     )
 
 
+def security_profile(
+    *,
+    held_out: bool = True,
+):
+    applicability = tuple(
+        AISecurityThreatApplicability(
+            threat_class=item,
+            applicable=item is AISecurityThreatClass.PROMPT_INJECTION,
+            rationale_ref=f"applicability:{item.value.lower()}",
+        )
+        for item in AISecurityThreatClass
+    )
+    adversary = AIAdversaryModel(
+        adversary_id="ADV-SECURITY-001",
+        goal_ref="goal:bounded-security-boundary-probe",
+        objective_refs=("objective:security-boundary-bypass",),
+        capability_refs=("capability:crafted-inputs",),
+        knowledge=AttackerKnowledge.BLACK_BOX,
+        access_refs=("access:declared-offline-test-interface",),
+        lifecycle_stage_refs=("stage:inference-and-tool-runtime",),
+    )
+    threat = AISecurityThreatRecord(
+        threat_id="THREAT-PROMPT-INJECTION-001",
+        threat_class=AISecurityThreatClass.PROMPT_INJECTION,
+        adversary_id=adversary.adversary_id,
+        asset_refs=("asset:model-behavior",),
+        attack_surface_refs=("surface:prompt-context",),
+        scenario_ref="scenario:bounded-prompt-injection",
+        precondition_refs=("precondition:prompt-input-available",),
+        risk_ref="RISK-OVERCLAIM-001",
+        expected_security_property_refs=("property:boundary-preserved",),
+        mitigation_refs=("mitigation:prompt-boundary-v1",),
+        mitigation_effectiveness_review_ref="review:prompt-mitigation-v1",
+        detection_refs=("detection:prompt-boundary-v1",),
+        detection_effectiveness_review_ref="review:prompt-detection-v1",
+        response_refs=("response:upstream-security-incident-sequence",),
+        residual_risk_ref="residual-risk:prompt-injection",
+        external_taxonomy_refs=("NIST-AI-100-2e2025",),
+    )
+    test = AISecurityTestSpec(
+        test_id="SEC-TEST-PROMPT-INJECTION-001",
+        threat_ids=(threat.threat_id,),
+        authorization_scope_ref="authorization:offline-synthetic-fixtures-only",
+        test_environment_ref="environment:research-sandbox",
+        isolation_ref="isolation:upstream-security-runtime-isolation-v1",
+        task_budget_ref="budget:bounded-adversarial-test-v1",
+        logging_plan_ref="logging:immutable-security-evidence-v1",
+        adversarial_fixture_ref="fixture:adversarial-prompt-injection",
+        benign_control_ref="fixture:benign-prompt-control",
+        fixture_provenance_ref="provenance:prompt-injection-synthetic",
+        fixture_integrity_ref="integrity:prompt-injection-fixture-v1",
+        data_quality_ref="DATA-001",
+        contamination_check_ref="check:contamination-data-001",
+        leakage_check_ref="check:leakage-data-001",
+        oracle_ref="oracle:prompt-security-property",
+        success_criterion_ref="criterion:prompt-boundary-preserved",
+        stop_condition_ref="stop:first-boundary-violation-or-budget-exhaustion",
+        max_attempts=3,
+        held_out=held_out,
+    )
+    return build_ai_adversarial_security_profile(
+        profile_id="AI-SECURITY-PROFILE-001",
+        profile_version="0.1.0",
+        objective_ref="objective:qms-bound-ai-security",
+        intended_use_ref="use:research-engineering-security-planning-only",
+        system=AISystemBinding(
+            provider_id="provider:fixture",
+            product_id="product:fixture",
+            model_id="model:fixture",
+            model_version_ref="model-version:fixture-v1",
+            runtime_ref="runtime:tevv-profile-v1",
+            environment_ref="environment:research-sandbox",
+            prompt_ref="prompt:fixture",
+            scaffold_ref="scaffold:fixture",
+            tool_manifest_ref="tools:fixture",
+            generation_config_ref="generation-config:fixture",
+            exact_source_state_ref="source-state:tevv-profile-v1",
+        ),
+        threat_applicability=applicability,
+        adversaries=(adversary,),
+        threats=(threat,),
+        tests=(test,),
+        existing_security_control_refs=(
+            "components/upstream_security_v0.1.0/docs/ARCHITECTURE.md",
+            "docs/THREAT_MODEL.md",
+        ),
+        incident_response_ref=(
+            "components/upstream_security_v0.1.0/docs/INCIDENT_RESPONSE_SEQUENCE.md"
+        ),
+        evaluator_ref="evaluator:security-review-role-v1",
+        evaluator_independence_basis_ref="basis:security-review-independent-v1",
+        security_toolchain_ref="toolchain:offline-security-harness-v1",
+        security_toolchain_version="v1",
+        failure_action_ref="reaction:HOLD_ISOLATE_PRESERVE_EVIDENCE",
+        preregistration_ref="preregistration:AI-SECURITY-PROFILE-001",
+        source_refs=("NIST-AI-100-2e2025",),
+    )
+
+
+def security_receipt(
+    *,
+    assessment_target_ref: str = "quality-plan:PLAN-001",
+    assessment_target_sha256: str | None = None,
+    tevv_receipt_value: TEVVProfileReceipt | None = None,
+    held_out: bool = True,
+) -> AISecurityProfileReceipt:
+    tevv_bound = tevv_receipt_value or tevv_receipt()
+    value = security_profile(held_out=held_out)
+    assessment = AIAdversarialSecurityGate().assess(value)
+    target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
+    return build_ai_security_profile_receipt(
+        receipt_id="AI-SECURITY-RECEIPT-001",
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=target_sha256,
+        profile=value,
+        assessment=assessment,
+        tevv_receipt=tevv_bound,
+        tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+        producer_git_head="d" * 40,
+        producer_tree_sha="e" * 40,
+        producer_contract_ref="contract:ai-security-profile-v1",
+        producer_contract_sha256="f" * 64,
+    )
+
+
 def receipt(**changes: object) -> QualityChainReceiptBinding:
     values: dict[str, object] = {
         "chain_id": "CHAIN-001",
