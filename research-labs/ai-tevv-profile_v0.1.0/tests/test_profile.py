@@ -229,3 +229,60 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
     )
 
     assert first.profile_sha256 == second.profile_sha256
+
+
+
+def test_profile_rejects_unsupported_schema_version() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="unsupported TEVV profile schema version"):
+        replace(value, schema_version="9.9.9")
+
+
+def test_case_reference_sets_are_digest_order_invariant() -> None:
+    metric_a = metric("METRIC-A")
+    metric_b = metric("METRIC-B")
+    first_case = TEVVCaseSpec(
+        case_id="CASE-ORDER",
+        input_ref="input:order",
+        test_set_ref="test-set:order",
+        data_quality_ref="data-quality:order",
+        contamination_check_ref="check:contamination",
+        leakage_check_ref="check:leakage",
+        oracle_strategy=OracleStrategy.COMPOSITE,
+        oracle_ref="oracle:composite",
+        expected_property_refs=("property:a", "property:b"),
+        metric_ids=("METRIC-A", "METRIC-B"),
+        slice_refs=("slice:a", "slice:b"),
+        held_out=True,
+    )
+    second_case = replace(
+        first_case,
+        expected_property_refs=("property:b", "property:a"),
+        metric_ids=("METRIC-B", "METRIC-A"),
+        slice_refs=("slice:b", "slice:a"),
+    )
+
+    common = {
+        "profile_id": "TEVV-CASE-ORDER",
+        "profile_version": "0.1.0",
+        "objective_ref": "objective:case-order",
+        "intended_use_ref": "use:structural-test",
+        "activities": (TEVVActivity.TESTING,),
+        "system": system(),
+        "metrics": (metric_a, metric_b),
+        "repetition_policy_ref": "policy:repeat-v1",
+        "nondeterminism_policy_ref": "policy:nondeterminism-v1",
+        "minimum_repetitions": 1,
+        "stochastic_system": False,
+        "aggregation_rule_ref": "aggregation:v1",
+        "evaluator_ref": "evaluator:v1",
+        "evaluator_version": "v1",
+        "evaluator_independence": EvaluatorIndependence.NON_INDEPENDENT,
+        "target_context_ref": "context:test",
+        "context_similarity_statement": "Structural comparison only.",
+        "failure_action_ref": "reaction:hold",
+        "preregistration_ref": "preregistration:case-order",
+    }
+    first = build_tevv_profile(cases=(first_case,), **common)
+    second = build_tevv_profile(cases=(second_case,), **common)
+    assert first.profile_sha256 == second.profile_sha256
