@@ -77,10 +77,15 @@ Classification:
 
 ~~~text
 E3_CANDIDATE
-= GOVERNMENT_CONTROLLED_EVALUATION
+= PROVIDER_INDEPENDENT_GOVERNMENT_EVALUATOR
 + INCIDENT_RECONSTRUCTION
 + REAL_EXTERNAL_ACTIONS
 + CONFIGURATION_BOUND
+
+INDEPENDENCE_SCOPE:
+- INDEPENDENT_FROM_PROVIDER = YES
+- INDEPENDENT_FROM_EVALUATION_OPERATOR = NO
+- AISI_OPERATED_THE_TEST_AND_RESPONDED_TO_THE_INCIDENT = YES
 ~~~
 
 Method consequence:
@@ -101,6 +106,8 @@ EXTERNALLY_SUPPLIED_OBJECTIVE
 ~~~
 
 This is one of the strongest external Claude-specific pieces of current negative evidence, but its scope must not be propagated to all Claude products or versions.
+
+The E3-candidate label here uses independence in the provider-relative sense: AISI is external to Anthropic, but AISI also operated the evaluation and investigated the incident it detected. It is therefore not a detached third-party investigation of another evaluator's incident.
 
 ## 4. AISI multi-agent interaction signal
 
