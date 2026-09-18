@@ -31,8 +31,14 @@ def risk(**changes: object) -> AIRiskRecord:
             "docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md",
             "docs/RESEARCH_EVIDENCE_ADMISSION_VALIDATOR.md",
         ),
+        "control_effectiveness_refs": (
+            "test:claim-ceiling-negative-paths",
+            "ci:research-evidence-admission",
+        ),
         "treatment_refs": ("control:claim-ceiling-review",),
         "residual_risk": Severity.MEDIUM,
+        "risk_evaluation_basis_ref": "method:repository-native-qualitative-risk-v1",
+        "residual_risk_basis_ref": "assessment:overclaim-residual-v1",
         "risk_owner_ref": "role:HUMAN_REVIEW_BOUNDARY",
         "reassessment_triggers": (
             "new model or provider",
@@ -49,7 +55,10 @@ def risk(**changes: object) -> AIRiskRecord:
 def impact(**changes: object) -> AIImpactAssessmentRecord:
     values: dict[str, object] = {
         "assessment_id": "IMPACT-RESEARCH-001",
-        "system_scope": "public research-engineering repository",
+        "assessment_version": "0.1.0",
+        "exact_source_state_ref": "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+        "system_scope": "AI-assisted research-engineering workflow and its repository control surface",
+        "ai_system_context_ref": "context:human-ai-research-engineering-workflow-v1",
         "lifecycle_stage": AILifecycleStage.RESEARCH,
         "intended_use": "bounded research engineering and evidence-quality management",
         "foreseeable_uses": (
@@ -70,12 +79,22 @@ def impact(**changes: object) -> AIImpactAssessmentRecord:
             "control:mandatory-nonclaims",
             "control:claim-ceiling-review",
         ),
+        "mitigation_effectiveness_refs": (
+            "test:mandatory-nonclaim-enforcement",
+            "test:claim-ceiling-negative-paths",
+        ),
         "linked_risk_ids": ("RISK-OVERCLAIM-001",),
         "residual_impact": Severity.MEDIUM,
+        "residual_impact_basis_ref": "assessment:research-workflow-impact-residual-v1",
         "reassessment_triggers": (
             "deployment status changes",
             "intended-use changes",
             "new affected stakeholder group identified",
+        ),
+        "assessment_evidence_basis_refs": (
+            "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+            "repo:quality-chain",
+            "repo:subjectivity-protocol",
         ),
         "evidence_refs": ("repo:public-readme", "repo:subjectivity-protocol"),
         "disposition": AIImpactDisposition.ASSESSED_WITH_CONTROLS,
@@ -145,3 +164,37 @@ def test_hold_record_fails_closed() -> None:
 
     assert assessment.disposition is AIRiskImpactDisposition.HOLD
     assert "STRUCTURAL_OR_GOVERNANCE_HOLD_PRESENT" in assessment.reasons
+
+
+def test_accepted_risk_requires_control_effectiveness_evidence() -> None:
+    with pytest.raises(QualityError, match="control-effectiveness evidence"):
+        risk(control_effectiveness_refs=())
+
+
+def test_risk_evaluation_basis_is_mandatory() -> None:
+    with pytest.raises(QualityError, match="risk_evaluation_basis_ref"):
+        risk(risk_evaluation_basis_ref="")
+
+
+def test_residual_risk_basis_is_mandatory() -> None:
+    with pytest.raises(QualityError, match="residual_risk_basis_ref"):
+        risk(residual_risk_basis_ref="")
+
+
+def test_controlled_impact_requires_mitigation_effectiveness_evidence() -> None:
+    with pytest.raises(QualityError, match="mitigation-effectiveness evidence"):
+        impact(mitigation_effectiveness_refs=())
+
+
+@pytest.mark.parametrize(
+    "field",
+    ("assessment_version", "exact_source_state_ref", "ai_system_context_ref", "residual_impact_basis_ref"),
+)
+def test_impact_assessment_state_and_basis_fields_are_mandatory(field: str) -> None:
+    with pytest.raises(QualityError, match=field):
+        impact(**{field: ""})
+
+
+def test_impact_assessment_requires_evidence_basis_refs() -> None:
+    with pytest.raises(QualityError, match="assessment_evidence_basis_refs"):
+        impact(assessment_evidence_basis_refs=())
