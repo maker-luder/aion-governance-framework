@@ -134,9 +134,9 @@ https://github.com/MoonshotAI/Kimi-K3
 
 ## 5. Open-weight vs open-source terminology
 
-Moonshot's launch language sometimes uses "open-source", but the K3 artifact is distributed under the custom Kimi K3 License.
+Moonshot's official K3 repository describes K3 as `open-weight` and releases the code repository and model weights under the custom Kimi K3 License.
 
-The license permits use, modification, redistribution and derivative works but contains additional commercial-service and attribution conditions.
+The license permits use, modification, redistribution and derivative works but adds conditions for some Model-as-a-Service commercial use and some large commercial products.
 
 Therefore this repository uses:
 
@@ -145,13 +145,13 @@ KIMI_K3
 = OPEN_WEIGHT
 
 KIMI_K3
-!= OSI_OPEN_SOURCE_BY_DEFAULT
+!= STANDARD_PERMISSIVE_OPEN_SOURCE_LICENSE_BY_DEFAULT
 
-PROVIDER_MARKETING_TERM
-!= REPOSITORY_LICENSE_CLASSIFICATION
+LICENSE_CLASSIFICATION
+= CUSTOM_KIMI_K3_LICENSE
 ~~~
 
-This distinction is methodological, not a legal conclusion.
+This is a provenance / reproducibility distinction, not a legal opinion.
 
 ## 6. License lineage is not uniform across Kimi generations
 
@@ -221,17 +221,40 @@ Long-horizon success or failure cannot be localized to weights without controlli
 
 Provider documentation describes Agent Swarm as a horizontal-scaling orchestration system.
 
-Current provider claims include:
+Current Kimi Agent Swarm product claims include:
 
 ~~~text
-MAX_SUBAGENTS
+KIMI_PRODUCT_AGENT_SWARM_MAX_SUBAGENTS
 = up to 300
 
 K2_6_LINEAGE_TOOL_CALLS_PER_TASK
 = over 4,000
 
-CURRENT_SWARM_MODEL
+CURRENT_KIMI_PRODUCT_SWARM_MODEL
 = KIMI_K3
+~~~
+
+However, Moonshot's separate Kimi Code documentation defines an `AgentSwarm` tool with a different current contract:
+
+~~~text
+KIMI_CODE_AGENTSWARM_MAX_TOTAL_SUBAGENTS
+= 128
+
+KIMI_CODE_AGENTSWARM_MODEL_BINDING
+= CONFIGURABLE_MODEL_POOL_OR_PRIMARY_MODEL
+~~~
+
+Source:
+https://github.com/MoonshotAI/kimi-code/blob/main/docs/en/reference/tools.md
+
+Therefore:
+
+~~~text
+KIMI_PRODUCT_AGENT_SWARM
+!= KIMI_CODE_AGENTSWARM_TOOL
+
+300_SUBAGENT_PRODUCT_CLAIM
+!= UNIVERSAL_KIMI_SWARM_LIMIT
 ~~~
 
 The exact current K3 Swarm implementation details are not fully exposed by these public product pages.
@@ -366,6 +389,8 @@ MOONSHOT_AI != KIMI_K3
 KIMI_K3 != KIMI_AGENT
 
 KIMI_AGENT != KIMI_SWARM
+
+KIMI_PRODUCT_AGENT_SWARM != KIMI_CODE_AGENTSWARM_TOOL
 
 MODEL_WEIGHT != HOSTED_SERVICE
 
