@@ -81,7 +81,7 @@ Re-admission: HIGH RELEVANCE.
 
 Google explicitly describes Antigravity as an agent harness and reports co-optimization with Gemini 3.5 Flash.
 
-External harness research independently reinforces that model/harness separation is methodologically necessary, although it does not provide a Gemini-specific paired causal estimate.
+External harness research separately reinforces that model/harness separation is methodologically necessary, although it does not provide a Gemini-specific paired causal estimate.
 
 Therefore:
 
