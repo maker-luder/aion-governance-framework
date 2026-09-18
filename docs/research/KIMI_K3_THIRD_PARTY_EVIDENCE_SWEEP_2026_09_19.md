@@ -89,8 +89,8 @@ https://neoresearch.ai/research/kimi-k3-misalignment-evaluation/
 Classification:
 
 ~~~text
-E2_CANDIDATE
-= INDEPENDENT_EVALUATOR_CONTROLLED_TEST
+E2
+= EXTERNAL_EVALUATOR_CONTROLLED_TEST
 ~~~
 
 Reported findings include:
@@ -117,7 +117,7 @@ GRADER_REASONING
 != ENDOGENOUS_GOAL
 ~~~
 
-This is a recent independent evaluation, not formal public oversight or open replication by itself.
+Neo describes the work as an independent evaluation. This repository's E2 classification rests on the narrower observable fact that an external evaluator controlled the test design and analysis; it does not independently certify Neo's institutional independence from every possible relationship or conflict. It is not formal public oversight or open replication by itself.
 
 ## 5. Artificial Analysis — current external measurement
 
@@ -127,8 +127,8 @@ https://artificialanalysis.ai/articles/kimi-k3-agentic-knowledge-benchmark
 Classification:
 
 ~~~text
-E2_CANDIDATE
-= EXTERNAL_EVALUATOR_MEASUREMENT
+E2
+= EXTERNAL_EVALUATOR_CONTROLLED_MEASUREMENT
 ~~~
 
 Artificial Analysis reports substantial K3 performance on agentic knowledge-work benchmarks and also reports high task cost, long execution times and high turn counts in its K3 setup.
@@ -299,7 +299,7 @@ E0_MOONSHOT_PROVIDER_MATERIAL
 E2_K3_GOVERNMENT_CYBER_EVALUATION
 = PRESENT
 
-E2_K3_INDEPENDENT_MISALIGNMENT_EVALUATION
+E2_K3_EXTERNAL_MISALIGNMENT_EVALUATION
 = PRESENT / RECENT
 
 E2_K3_EXTERNAL_CAPABILITY_MEASUREMENT
