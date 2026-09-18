@@ -301,6 +301,7 @@ def tevv_receipt(
             TEVVMetricMeasurementBinding(
                 metric_id="TEVV-METRIC-001",
                 measurement_id=measurement_id,
+                measurement_sha256=measurement().semantic_sha256(),
                 mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
@@ -1247,6 +1248,7 @@ def test_full_qms_ready_records_tevv_structural_bindings_only() -> None:
     assert "TEVV_RECEIPT_TARGET_SEMANTICS_BOUND" in result.reasons
     assert "TEVV_RISK_COVERAGE_BOUND_TO_QUALITY_PLAN" in result.reasons
     assert "TEVV_MEASUREMENT_ASSURANCE_BINDINGS_COMPLETE" in result.reasons
+    assert "TEVV_MEASUREMENT_ASSURANCE_DIGESTS_BOUND" in result.reasons
     assert "TEVV_DATA_QUALITY_BINDINGS_COMPLETE" in result.reasons
     assert "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY" in result.reasons
     assert result.scientific_disposition == "HOLD"
