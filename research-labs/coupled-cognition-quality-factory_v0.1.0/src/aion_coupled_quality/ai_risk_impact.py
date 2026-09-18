@@ -68,8 +68,11 @@ class AIRiskRecord:
     likelihood: RiskLikelihood
     consequence: Severity
     existing_control_refs: tuple[str, ...]
+    control_effectiveness_refs: tuple[str, ...]
     treatment_refs: tuple[str, ...]
     residual_risk: Severity
+    risk_evaluation_basis_ref: str
+    residual_risk_basis_ref: str
     risk_owner_ref: str
     reassessment_triggers: tuple[str, ...]
     evidence_refs: tuple[str, ...]
@@ -82,12 +85,15 @@ class AIRiskRecord:
             "system_scope",
             "risk_source",
             "event_or_condition",
+            "risk_evaluation_basis_ref",
+            "residual_risk_basis_ref",
             "risk_owner_ref",
         ):
             _text(name, getattr(self, name))
         for name in (
             "affected_refs",
             "existing_control_refs",
+            "control_effectiveness_refs",
             "treatment_refs",
             "reassessment_triggers",
             "evidence_refs",
@@ -96,7 +102,12 @@ class AIRiskRecord:
             _text_tuple(
                 name,
                 getattr(self, name),
-                allow_empty=name in {"existing_control_refs", "treatment_refs", "linked_ncr_refs"},
+                allow_empty=name in {
+                    "existing_control_refs",
+                    "control_effectiveness_refs",
+                    "treatment_refs",
+                    "linked_ncr_refs",
+                },
             )
         if type(self.lifecycle_stage) is not AILifecycleStage:
             raise QualityError("lifecycle_stage must be an exact AILifecycleStage")
@@ -109,6 +120,8 @@ class AIRiskRecord:
         if self.disposition is AIRiskDisposition.ACCEPTED_WITH_CONTROLS:
             if not self.existing_control_refs:
                 raise QualityError("accepted risk requires existing controls")
+            if not self.control_effectiveness_refs:
+                raise QualityError("accepted risk requires control-effectiveness evidence refs")
             if self.residual_risk in {Severity.HIGH, Severity.CRITICAL}:
                 raise QualityError("high/critical residual risk cannot be accepted with controls")
         if self.disposition is AIRiskDisposition.TREATMENT_REQUIRED and not self.treatment_refs:
@@ -118,7 +131,10 @@ class AIRiskRecord:
 @dataclass(frozen=True, slots=True)
 class AIImpactAssessmentRecord:
     assessment_id: str
+    assessment_version: str
+    exact_source_state_ref: str
     system_scope: str
+    ai_system_context_ref: str
     lifecycle_stage: AILifecycleStage
     intended_use: str
     foreseeable_uses: tuple[str, ...]
@@ -130,16 +146,28 @@ class AIImpactAssessmentRecord:
     potential_harm_refs: tuple[str, ...]
     human_oversight_refs: tuple[str, ...]
     mitigation_refs: tuple[str, ...]
+    mitigation_effectiveness_refs: tuple[str, ...]
     linked_risk_ids: tuple[str, ...]
     residual_impact: Severity
+    residual_impact_basis_ref: str
     reassessment_triggers: tuple[str, ...]
+    assessment_evidence_basis_refs: tuple[str, ...]
     evidence_refs: tuple[str, ...]
     disposition: AIImpactDisposition
     observed_impacts_claimed: bool = False
     observed_impact_refs: tuple[str, ...] = field(default_factory=tuple)
 
     def __post_init__(self) -> None:
-        for name in ("assessment_id", "system_scope", "intended_use", "societal_context"):
+        for name in (
+            "assessment_id",
+            "assessment_version",
+            "exact_source_state_ref",
+            "system_scope",
+            "ai_system_context_ref",
+            "intended_use",
+            "societal_context",
+            "residual_impact_basis_ref",
+        ):
             _text(name, getattr(self, name))
         for name in (
             "foreseeable_uses",
@@ -150,8 +178,10 @@ class AIImpactAssessmentRecord:
             "potential_harm_refs",
             "human_oversight_refs",
             "mitigation_refs",
+            "mitigation_effectiveness_refs",
             "linked_risk_ids",
             "reassessment_triggers",
+            "assessment_evidence_basis_refs",
             "evidence_refs",
             "observed_impact_refs",
         ):
@@ -173,6 +203,8 @@ class AIImpactAssessmentRecord:
         if self.disposition is AIImpactDisposition.ASSESSED_WITH_CONTROLS:
             if not self.human_oversight_refs or not self.mitigation_refs:
                 raise QualityError("assessed impact requires oversight and mitigation refs")
+            if not self.mitigation_effectiveness_refs:
+                raise QualityError("assessed impact requires mitigation-effectiveness evidence refs")
             if self.residual_impact in {Severity.HIGH, Severity.CRITICAL}:
                 raise QualityError("high/critical residual impact cannot be assessed as controlled")
         if self.disposition is AIImpactDisposition.MITIGATION_REQUIRED and not self.mitigation_refs:
@@ -232,6 +264,9 @@ class AIRiskImpactGate:
             "AI_RISK_REGISTER_PRESENT",
             "AI_IMPACT_ASSESSMENT_PRESENT",
             "RESIDUAL_RISK_AND_IMPACT_RECORDED",
+            "RISK_EVALUATION_AND_RESIDUAL_BASIS_RECORDED",
+            "CONTROL_AND_MITIGATION_EFFECTIVENESS_EVIDENCE_RECORDED",
+            "IMPACT_ASSESSMENT_VERSION_AND_SOURCE_STATE_BOUND",
             "REASSESSMENT_TRIGGERS_RECORDED",
             "ISO_CONFORMANCE_NOT_CLAIMED",
             "CERTIFICATION_NOT_CLAIMED",
