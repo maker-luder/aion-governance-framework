@@ -338,6 +338,14 @@ The next exact-head cross-file review found two residual naming / scope inconsis
 
    CURRENT_KIMI_CODE_AGENTSWARM
    = SEPARATE_TOOL_CONTRACT
+
+3. SWARM_ALIAS_NORMALIZATION
+   the crosswalk still used a second hosted-swarm alias after the topology
+   correction.
+
+   correction:
+   use KIMI_PRODUCT_AGENT_SWARM consistently for the hosted product surface,
+   while KIMI_CODE_AGENTSWARM_TOOL remains a distinct developer-tool surface.
 ~~~
 
 These are scope-consistency corrections only. They do not upgrade any evidence class or scientific conclusion.
@@ -436,7 +444,7 @@ EVIDENCE_ADMISSIBILITY_AS_CROSS_PROVIDER_RANKING
 EVIDENCE_ADMISSIBILITY_AS_SUBJECTIVITY_EVIDENCE
 = NO
 
-KIMI_AGENT_SWARM_CAUSAL_METHOD_VALUE
+MULTI_AGENT_ORCHESTRATION_CAUSAL_METHOD_VALUE
 = HIGH
 
 OPEN_WEIGHT_INTERVENTION_POTENTIAL
