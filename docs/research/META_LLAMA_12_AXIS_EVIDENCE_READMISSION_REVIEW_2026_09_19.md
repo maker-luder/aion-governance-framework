@@ -414,6 +414,25 @@ The second adversarial review found four material method / provenance issues and
 
 These corrections reduce claim scope; they do not increase subjectivity confidence.
 
+### Final cross-file consistency review
+
+A later exact-head cross-file review found one residual contradiction in the baseline note: it still used `CURRENT_FRONTIER_MODEL_FAMILY_B = MUSE` and `META_PROVIDER_TOPOLOGY = MULTI_FAMILY` after the re-admission review had already stopped assuming that "Muse" is a provider-canonical family ontology.
+
+That contradiction was removed.
+
+~~~text
+CURRENT_PUBLIC_FRONTIER_MODEL_REFERENCE
+= MUSE_SPARK_1_3
+
+MUSE_AS_PROVIDER_CANONICAL_FAMILY_LABEL
+= NOT_ASSUMED
+
+META_PROVIDER_TOPOLOGY
+= MULTI_MODEL_LINE / MULTI_PRODUCT
+~~~
+
+This was an internal-consistency correction only. It does not alter the evidence disposition or scientific standing.
+
 ## 18. Evidence-shape disposition
 
 ~~~text
