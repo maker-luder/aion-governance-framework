@@ -154,6 +154,21 @@ VERIFIED_SEMI_PRIVATE_BENCHMARK
 != GENERAL_MODEL_VALIDATION
 ~~~
 
+A separate external long-horizon security-agent study also reports a generation-sensitive intervention result: protocol-disambiguation guidance that improved state observation for Gemini 2.5 Flash produced the opposite effect when the same design was repeated with Gemini 3.7 Flash.
+
+Source:
+https://arxiv.org/abs/2608.20563
+
+~~~text
+INTERVENTION_EFFECT_ON_GEMINI_2_5
+!= INTERVENTION_EFFECT_ON_GEMINI_3_7
+
+MODEL_LINEAGE_LABEL
+!= INTERVENTION_RESPONSE_STABILITY
+~~~
+
+This strengthens the requirement to keep model generation and exact evaluation condition pinned.
+
 ## 7. Phase D — Gemini 3.8 Flash current release cohort
 
 Gemini 3.8 Flash was published on 2026-09-02 and is described as building on Gemini 3.7 Flash.
