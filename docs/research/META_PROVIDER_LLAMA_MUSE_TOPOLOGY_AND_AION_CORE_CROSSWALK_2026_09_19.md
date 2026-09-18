@@ -33,14 +33,17 @@ LLAMA
 = HISTORICAL + CURRENT OPEN-WEIGHT FAMILY
   LATEST OFFICIAL RELEASE FOUND: LLAMA_4
 
-MUSE
-= CURRENT FRONTIER FAMILY
+MUSE_SPARK_1_3
+= CURRENT PUBLIC META FRONTIER MODEL REFERENCE
 
-MUSE_AGENT
+MUSE
 = CURRENT PERSONAL AGENT PRODUCT
 
 MUSE_GLIMMER
-= CURRENT MUSE-FAMILY OPEN-WEIGHT MODEL
+= CURRENT MUSE-LABELED OPEN-WEIGHT MODEL
+
+MUSE_AS_PROVIDER_CANONICAL_FAMILY_LABEL
+= NOT_ASSUMED
 ~~~
 
 Therefore the intake retains `Meta / Llama` as the planned provider-family research target while explicitly refusing to equate Llama with Meta's current public frontier model reference. This does not assert that Meta has deprecated Llama or that "Muse" is a provider-canonical family ontology.
