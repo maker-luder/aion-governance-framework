@@ -573,15 +573,18 @@ class TEVVProfileAssessment:
 class TEVVMetricMeasurementBinding:
     metric_id: str
     measurement_id: str
+    mapping_basis_ref: str
 
     def __post_init__(self) -> None:
         _text("metric_id", self.metric_id)
         _text("measurement_id", self.measurement_id)
+        _text("mapping_basis_ref", self.mapping_basis_ref)
 
     def as_dict(self) -> dict[str, str]:
         return {
             "metric_id": self.metric_id,
             "measurement_id": self.measurement_id,
+            "mapping_basis_ref": self.mapping_basis_ref,
         }
 
 
