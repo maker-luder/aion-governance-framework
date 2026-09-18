@@ -111,27 +111,36 @@ adversary
 assets
 attack surfaces
 scenario
+preconditions
+formal risk ref
 expected security properties
 mitigations
+mitigation-effectiveness review plan
 detection
+detection-effectiveness review plan
 response
 residual risk
 external taxonomy references
 ```
 
-A mitigation reference is not proof of effectiveness.
+This keeps the security profile connected to the repository's AI risk line while
+preserving the distinction between a planned control and demonstrated control
+effectiveness.
 
 ```text
+RISK_REF_BOUND != RISK_CALIBRATED
 MITIGATION_REF_BOUND != MITIGATION_EFFECTIVE
+MITIGATION_EFFECTIVENESS_REVIEW_PLANNED != MITIGATION_EFFECTIVENESS_PROVEN
 DETECTION_REF_BOUND != DETECTION_VALIDATED
+DETECTION_EFFECTIVENESS_REVIEW_PLANNED != DETECTION_EFFECTIVENESS_PROVEN
 RESIDUAL_RISK_REF_BOUND != RESIDUAL_RISK_CALIBRATED
 ```
 
 ## Adversarial test specification
 
-Each test binds both adversarial and benign control fixtures, fixture integrity,
-data quality, an oracle, success criterion, stop condition, and an attempt
-budget.
+Each test binds both adversarial and benign control fixtures, fixture provenance
+and integrity, data quality, contamination and leakage checks, an oracle,
+success criterion, stop condition, and an attempt budget.
 
 Version 0.1.0 is intentionally offline-only:
 
@@ -182,3 +191,51 @@ AIAdversarialSecurityProfile
 ```
 
 That integration is deliberately not implemented in this standalone profile PR.
+
+
+## First counterevidence hardening
+
+A fresh review against NIST AI 100-2e2025 and OWASP GenAI guidance found three
+structural gaps in the first candidate:
+
+1. A threat could exist without a direct formal risk-register reference.
+2. Mitigation and detection refs existed without an explicit plan to review
+   their effectiveness.
+3. Adversarial fixtures had integrity and data-quality refs but lacked explicit
+   provenance, contamination, and leakage checks.
+
+The profile now requires:
+
+```text
+threat.precondition_refs
+threat.risk_ref
+threat.mitigation_effectiveness_review_ref
+threat.detection_effectiveness_review_ref
+
+test.fixture_provenance_ref
+test.contamination_check_ref
+test.leakage_check_ref
+```
+
+It also rejects a profile that marks every core AI threat class as
+non-applicable. Applicability remains contextual, but a profile cannot become a
+security-shaped empty shell.
+
+OWASP's 2025 prompt-injection guidance distinguishes direct and indirect
+injection and recommends adversarial testing of trust boundaries; the schema
+supports multiple scenario-specific threat records under the same threat class
+rather than pretending one generic fixture covers every injection path.
+
+OWASP's 2025 data/model poisoning guidance emphasizes data origin,
+transformation/versioning, anomaly detection and robustness testing. Those
+concerns motivate the explicit fixture provenance/integrity and
+contamination/leakage fields here.
+
+These additions are still structural planning controls:
+
+```text
+PROVENANCE_REF_BOUND != FIXTURE_TRUSTWORTHY
+CONTAMINATION_CHECK_REF_BOUND != CONTAMINATION_ABSENT
+LEAKAGE_CHECK_REF_BOUND != LEAKAGE_ABSENT
+EFFECTIVENESS_REVIEW_REF_BOUND != EFFECTIVENESS_PROVEN
+```
