@@ -276,6 +276,8 @@ class AIRiskImpactAssessment:
     certification_claim: str = "NONE"
     scientific_disposition: str = "HOLD"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
     canonical_effect: str = "NONE"
     deployment_authority: str = "NONE"
 
@@ -303,8 +305,8 @@ class AIRiskImpactGate:
         if any(type(item) is not AIImpactAssessmentRecord for item in impacts):
             raise QualityError("impacts must contain exact AIImpactAssessmentRecord values")
 
-        risk_ids = tuple(item.risk_id for item in risks)
-        impact_ids = tuple(item.assessment_id for item in impacts)
+        risk_ids = tuple(sorted(item.risk_id for item in risks))
+        impact_ids = tuple(sorted(item.assessment_id for item in impacts))
         if len(risk_ids) != len(set(risk_ids)):
             raise QualityError("risk identifiers must be unique")
         if len(impact_ids) != len(set(impact_ids)):
@@ -382,6 +384,8 @@ class AIRiskImpactReceipt:
     certification_claim: str = "NONE"
     scientific_disposition: str = "HOLD"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
     canonical_effect: str = "NONE"
     deployment_authority: str = "NONE"
 
@@ -419,6 +423,10 @@ class AIRiskImpactReceipt:
             raise QualityError("risk/impact receipt cannot establish scientific validity")
         if self.subjectivity_conclusion != "NOT_ESTABLISHED":
             raise QualityError("risk/impact receipt cannot establish subjectivity")
+        if self.consciousness_conclusion != "NOT_ESTABLISHED":
+            raise QualityError("risk/impact receipt cannot establish consciousness")
+        if self.phenomenal_experience_conclusion != "NOT_ESTABLISHED":
+            raise QualityError("risk/impact receipt cannot establish phenomenal experience")
         if self.canonical_effect != "NONE" or self.deployment_authority != "NONE":
             raise QualityError("risk/impact receipt cannot grant canonical or deployment authority")
         if self.receipt_sha256 != _digest(self.payload_without_digest()):
@@ -444,6 +452,8 @@ class AIRiskImpactReceipt:
             "certification_claim": self.certification_claim,
             "scientific_disposition": self.scientific_disposition,
             "subjectivity_conclusion": self.subjectivity_conclusion,
+            "consciousness_conclusion": self.consciousness_conclusion,
+            "phenomenal_experience_conclusion": self.phenomenal_experience_conclusion,
             "canonical_effect": self.canonical_effect,
             "deployment_authority": self.deployment_authority,
         }
@@ -491,9 +501,9 @@ def build_risk_impact_receipt(
     impact_items = sorted(impacts, key=lambda item: item.assessment_id)
     risk_ids = tuple(item.risk_id for item in risk_items)
     impact_ids = tuple(item.assessment_id for item in impact_items)
-    if assessment.risk_ids != tuple(item.risk_id for item in risks):
+    if assessment.risk_ids != risk_ids:
         raise QualityError("assessment risk ids do not match receipt risk inputs")
-    if assessment.impact_assessment_ids != tuple(item.assessment_id for item in impacts):
+    if assessment.impact_assessment_ids != impact_ids:
         raise QualityError("assessment impact ids do not match receipt impact inputs")
 
     risk_set_sha256 = _digest([asdict(item) for item in risk_items])
@@ -519,6 +529,8 @@ def build_risk_impact_receipt(
         "certification_claim": "NONE",
         "scientific_disposition": "HOLD",
         "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "phenomenal_experience_conclusion": "NOT_ESTABLISHED",
         "canonical_effect": "NONE",
         "deployment_authority": "NONE",
     }
