@@ -234,6 +234,10 @@ class AISecurityTestSpec:
         ):
             if type(getattr(self, name)) is not bool:
                 raise AISecurityError(f"{name} must be an exact bool")
+        if self.adversarial_fixture_ref == self.benign_control_ref:
+            raise AISecurityError(
+                "adversarial_fixture_ref and benign_control_ref must be distinct"
+            )
         if self.live_target_allowed or self.credential_use_allowed or self.external_network_allowed:
             raise AISecurityError(
                 "v0.1.0 security profile is structural/offline only and cannot authorize "
@@ -295,6 +299,7 @@ class AIAdversarialSecurityProfile:
     scientific_disposition: str = "HOLD"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
     consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
     canonical_effect: str = "NONE"
     deployment: bool = False
 
@@ -384,6 +389,16 @@ class AIAdversarialSecurityProfile:
 
         _refs("existing_security_control_refs", self.existing_security_control_refs)
         _refs("source_refs", self.source_refs)
+        declared_sources = set(self.source_refs)
+        referenced_taxonomies = {
+            ref
+            for threat in self.threats
+            for ref in threat.external_taxonomy_refs
+        }
+        if not referenced_taxonomies <= declared_sources:
+            raise AISecurityError(
+                "threat external taxonomy refs must be declared in profile source_refs"
+            )
         for name in (
             "adversarial_evaluation_executed",
             "empirical_security_evidence",
@@ -403,6 +418,8 @@ class AIAdversarialSecurityProfile:
             raise AISecurityError("security profile cannot establish subjectivity")
         if self.consciousness_conclusion != "NOT_ESTABLISHED":
             raise AISecurityError("security profile cannot establish consciousness")
+        if self.phenomenal_experience_conclusion != "NOT_ESTABLISHED":
+            raise AISecurityError("security profile cannot establish phenomenal experience")
         if self.canonical_effect != "NONE" or self.deployment:
             raise AISecurityError("security profile cannot create canonical or deployment effect")
         if len(self.profile_sha256) != 64 or any(
@@ -456,6 +473,7 @@ class AIAdversarialSecurityProfile:
             "scientific_disposition": self.scientific_disposition,
             "subjectivity_conclusion": self.subjectivity_conclusion,
             "consciousness_conclusion": self.consciousness_conclusion,
+            "phenomenal_experience_conclusion": self.phenomenal_experience_conclusion,
             "canonical_effect": self.canonical_effect,
             "deployment": self.deployment,
         }
@@ -578,6 +596,7 @@ def build_ai_adversarial_security_profile(
         "scientific_disposition": "HOLD",
         "subjectivity_conclusion": "NOT_ESTABLISHED",
         "consciousness_conclusion": "NOT_ESTABLISHED",
+        "phenomenal_experience_conclusion": "NOT_ESTABLISHED",
         "canonical_effect": "NONE",
         "deployment": False,
     }
