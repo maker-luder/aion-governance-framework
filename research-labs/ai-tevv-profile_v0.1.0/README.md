@@ -33,10 +33,12 @@ was one generic AI-system TEVV planning surface that explicitly binds:
 - test-set and data-quality references;
 - contamination and leakage checks;
 - explicit oracle strategy for the AI test-oracle problem;
-- metrics, methods, uncertainty references, and acceptance criteria;
+- metrics, methods, uncertainty references, acceptance criteria, quality-characteristic mapping, and metric-effectiveness review;
+- complete accounting of declared risks as measured or explicitly unmeasured with rationale;
 - stochasticity / repetition / aggregation policy;
 - evaluator identity, version, and independence;
-- target context and similarity limitations;
+- target context, similarity limitations, and evidence basis for the similarity statement;
+- verification requirement traceability and validation intended-use criteria;
 - preregistration and failure reaction;
 - a content digest for the complete profile.
 
@@ -312,4 +314,135 @@ STRUCTURAL_HARDENING != MODEL_EXECUTION
 RISK_REF_BOUND != RISK_MEASURED
 INDEPENDENCE_DECLARED != INDEPENDENCE_INDEPENDENTLY_VERIFIED
 PROFILE_DIGEST != DIGITAL_SIGNATURE
+```
+
+
+## Second counterevidence hardening — measurement completeness and validity traceability
+
+A fresh cross-check against the current NIST AI RMF MEASURE function and the
+August 2026 NIST AI 200-2 initial public draft found four additional structural
+gaps in the first candidate.
+
+### 1. Declared risks could silently remain unmeasured
+
+NIST AI RMF MEASURE 1.1 explicitly calls for risks or trustworthiness
+characteristics that will not or cannot be measured to be documented.
+
+The profile now requires every declared `risk_ref` to be exactly one of:
+
+```text
+MEASURED
+-> referenced by at least one TEVVMetricSpec
+
+OR
+
+EXPLICITLY_UNMEASURED
+-> TEVVUnmeasuredRisk(risk_ref, rationale_ref)
+```
+
+A risk cannot be in both sets, and no declared risk may be in neither.
+
+```text
+RISK_DECLARED
+!= RISK_MEASURED
+
+UNMEASURED_RISK_DOCUMENTED
+!= RISK_RESOLVED
+```
+
+### 2. Metrics lacked an explicit system-quality / trustworthiness target
+
+NIST AI 200-2 IPD describes TEVV design as selecting system attributes or
+trustworthiness characteristics, then defining measurement concepts ("Blocks")
+and evidence-producing activities. NIST AI RMF MEASURE likewise evaluates
+trustworthy characteristics.
+
+Each `TEVVMetricSpec` now requires:
+
+```text
+quality_characteristic_refs
+effectiveness_review_ref
+```
+
+The first binds the metric to the quality/trustworthiness characteristic it is
+intended to inform. The second records how the usefulness/effectiveness of the
+metric itself will later be reviewed, reflecting AI RMF MEASURE 2.13.
+
+These are planning references only:
+
+```text
+QUALITY_CHARACTERISTIC_REF_BOUND
+!= QUALITY_CHARACTERISTIC_ACHIEVED
+
+METRIC_EFFECTIVENESS_REVIEW_PLANNED
+!= METRIC_EFFECTIVENESS_PROVEN
+```
+
+### 3. Validation needed a distinct intended-use trace
+
+The repository already keeps TEST / EVALUATION / VERIFICATION / VALIDATION as
+distinct vocabulary terms. The profile previously enforced requirement
+traceability for VERIFICATION but did not require an equivalent intended-use
+trace when VALIDATION was declared.
+
+A profile containing `VALIDATION` now requires non-empty
+`validation_requirement_refs`.
+
+```text
+VERIFICATION
+-> specification / requirement trace
+
+VALIDATION
+-> intended-use sufficiency trace
+```
+
+This is structural traceability, not evidence that the system is valid.
+
+### 4. Context similarity was only prose
+
+NIST AI RMF MEASURE 2.3 calls for performance or assurance criteria to be
+measured under conditions similar to the relevant deployment setting(s), with
+measures documented. For this repository's current research-stage profile there
+is no deployment claim, but the basis for any asserted context similarity still
+needs traceability.
+
+The profile now requires:
+
+```text
+target_context_ref
+context_similarity_statement
+context_similarity_basis_refs
+```
+
+For a research sandbox, the basis may document why the sandbox is the intended
+scope rather than claiming similarity to production.
+
+```text
+CONTEXT_SIMILARITY_STATEMENT
+!= CONTEXT_SIMILARITY_EVIDENCE
+
+CONTEXT_BASIS_REF_BOUND
+!= DEPLOYMENT_EQUIVALENCE_PROVEN
+```
+
+## Current external-source status
+
+As of 2026-09-18:
+
+- NIST AI RMF 1.0 remains the published framework, while NIST states that a
+  revision is in progress;
+- NIST AI 200-2 TEVV-Athlon remains an **Initial Public Draft**, announced
+  2026-08-07 with comments requested through 2026-10-06;
+- ISO/IEC TR 29119-11:2020 remains published and is in its review cycle;
+- ISO/IEC 25059:2023 remains published while Edition 2 is progressing toward
+  replacement.
+
+The repository therefore treats these as versioned external method anchors, not
+timeless or self-updating conformance targets.
+
+```text
+EXTERNAL_GUIDANCE_VERSIONED = TRUE
+NIST_AI_200_2_IPD = DRAFT_METHOD_SIGNAL
+ISO_CONFORMANCE = NOT_ESTABLISHED
+NIST_CONFORMANCE = NOT_ESTABLISHED
 ```
