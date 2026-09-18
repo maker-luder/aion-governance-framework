@@ -21,6 +21,14 @@ from .standards_crosswalk import (
     audit_fingerprint,
     payload_sha256,
 )
+from .dimension_discriminant import (
+    DimensionBindingSpecification,
+    DimensionDifferentialPrediction,
+    DimensionDiscriminantAssessment,
+    DimensionDiscriminantAudit,
+    DimensionDiscriminantDisposition,
+    SystemBoundarySpecification,
+)
 from .evidence_dimensions import (
     AdversarialPrediction,
     AdversarialTheoryTest,
@@ -89,6 +97,11 @@ __all__ = [
     "CapaState",
     "DevelopmentMode",
     "DimensionObservation",
+    "DimensionBindingSpecification",
+    "DimensionDifferentialPrediction",
+    "DimensionDiscriminantAssessment",
+    "DimensionDiscriminantAudit",
+    "DimensionDiscriminantDisposition",
     "EvidenceDisposition",
     "EvidenceLocus",
     "FiniteIndividualityProfile",
@@ -118,6 +131,7 @@ __all__ = [
     "SubjectivityEvidenceDimension",
     "SubjectivityEvidenceMatrix",
     "SubjectivityResearchPipeline",
+    "SystemBoundarySpecification",
     "TheoryFamily",
     "TheoryIndicatorRecord",
     "TheoryTestMode",
