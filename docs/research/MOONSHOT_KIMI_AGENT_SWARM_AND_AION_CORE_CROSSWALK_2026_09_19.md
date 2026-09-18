@@ -27,7 +27,7 @@ Kimi provides a particularly explicit stack, but the swarm surface itself must r
 OPEN_WEIGHT_MODEL
 + HOSTED_API
 + SINGLE_AGENT_PRODUCT
-+ HOSTED_AGENT_SWARM_PRODUCT
++ KIMI_PRODUCT_AGENT_SWARM
 + KIMI_CODE_AGENTSWARM_TOOL
 + MANY_TOOLS
 + SHARED_TASK_STATE
@@ -50,14 +50,14 @@ No one of these should be silently promoted to a "self".
 Moonshot's current public documentation also demonstrates that "Agent Swarm" is not one universal execution contract:
 
 ~~~text
-HOSTED_KIMI_AGENT_SWARM
+KIMI_PRODUCT_AGENT_SWARM
 = up to 300 subagents
 
 KIMI_CODE_AGENTSWARM_TOOL
 = up to 128 total subagents
 = configurable model binding
 
-HOSTED_KIMI_AGENT_SWARM
+KIMI_PRODUCT_AGENT_SWARM
 != KIMI_CODE_AGENTSWARM_TOOL
 ~~~
 
