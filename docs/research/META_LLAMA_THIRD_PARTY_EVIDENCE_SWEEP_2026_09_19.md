@@ -30,7 +30,7 @@ E1 = PROVIDER-ENABLED OR PARTNERED EXTERNAL EVALUATION
 
 E2 = EVALUATOR-CONTROLLED EXTERNAL TEST
 
-E3 = BOUNDED INDEPENDENT INCIDENT / MECHANISTIC INVESTIGATION
+E3 = BOUNDED INDEPENDENT INCIDENT INVESTIGATION
 
 E4 = OPEN INDEPENDENT REPLICATION
 ~~~
@@ -245,8 +245,9 @@ The effect is concentrated in early-layer interventions and collapses later.
 Classification:
 
 ~~~text
-E3_CANDIDATE
-= INDEPENDENT_MECHANISTIC_INTERVENTION_STUDY
+E2_INDEPENDENT_MECHANISTIC_INTERVENTION_STUDY
+= EVALUATOR_CONTROLLED_EXTERNAL_TEST
++ PROVIDER_INDEPENDENT_RESEARCHERS
 + OPEN_CODE_REFERENCE
 + EXACT_MODEL_BOUND
 ~~~
@@ -325,7 +326,7 @@ Artificial Analysis currently measures Muse Spark 1.3 through Meta's first-party
 Source:
 https://artificialanalysis.ai/articles/muse-spark-1-3
 
-That evidence is relevant to the claim that Meta's current frontier line is Muse.
+That evidence is relevant only to provider topology: Muse Spark 1.3 is a distinct current public Meta model reference. It is not evidence that Llama is deprecated, replaced for every product, or part of the same model family.
 
 It is not admitted here as Llama performance or Llama mechanism evidence.
 
