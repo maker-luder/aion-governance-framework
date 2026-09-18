@@ -249,6 +249,12 @@
       "root": "research-labs/coupled-cognition-quality-factory_v0.1.0",
       "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
       "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+    },
+    {
+      "root": "research-labs/ai-tevv-profile_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
     }
   ]
 }
