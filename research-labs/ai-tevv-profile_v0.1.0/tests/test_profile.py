@@ -764,6 +764,7 @@ def profile_receipt(
         TEVVMetricMeasurementBinding(
             metric_id="METRIC-ACCURACY",
             measurement_id="MEAS-001",
+            mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
         ),
     ),
 ) -> TEVVProfileReceipt:
@@ -823,6 +824,7 @@ def test_tevv_profile_receipt_recomputes_gate_assessment() -> None:
                 TEVVMetricMeasurementBinding(
                     metric_id="METRIC-ACCURACY",
                     measurement_id="MEAS-001",
+                    mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
                 ),
             ),
             producer_git_head="1" * 40,
@@ -847,6 +849,7 @@ def test_tevv_profile_receipt_requires_complete_metric_measurement_binding() -> 
                 TEVVMetricMeasurementBinding(
                     metric_id="METRIC-A",
                     measurement_id="MEAS-001",
+                    mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
                 ),
             ),
         )
