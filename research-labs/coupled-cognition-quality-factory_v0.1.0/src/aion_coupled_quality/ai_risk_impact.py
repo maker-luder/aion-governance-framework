@@ -188,7 +188,11 @@ class AIImpactAssessmentRecord:
             _text_tuple(
                 name,
                 getattr(self, name),
-                allow_empty=name in {"affected_groups", "observed_impact_refs"},
+                allow_empty=name in {
+                    "affected_groups",
+                    "mitigation_effectiveness_refs",
+                    "observed_impact_refs",
+                },
             )
         if type(self.lifecycle_stage) is not AILifecycleStage:
             raise QualityError("lifecycle_stage must be an exact AILifecycleStage")
