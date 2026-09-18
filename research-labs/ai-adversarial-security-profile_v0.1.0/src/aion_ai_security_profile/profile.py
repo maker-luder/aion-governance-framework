@@ -766,6 +766,14 @@ def build_ai_security_profile_receipt(
         raise AISecurityError("assessment must be an exact AISecurityProfileAssessment")
     if type(tevv_receipt) is not TEVVProfileReceipt:
         raise AISecurityError("tevv_receipt must be an exact TEVVProfileReceipt")
+    if tevv_receipt.assessment_target_ref != assessment_target_ref:
+        raise AISecurityError(
+            "AI security receipt and TEVV receipt assessment target refs must match"
+        )
+    if tevv_receipt.assessment_target_sha256 != assessment_target_sha256:
+        raise AISecurityError(
+            "AI security receipt and TEVV receipt assessment target digests must match"
+        )
 
     recomputed = AIAdversarialSecurityGate().assess(profile)
     if assessment != recomputed:
