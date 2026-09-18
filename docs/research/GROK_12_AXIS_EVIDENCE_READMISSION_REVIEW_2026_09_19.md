@@ -83,7 +83,18 @@ MODEL_REFUSAL
 
 Re-admission: YES.
 
-The final record retains SpatialBench regression, new external failure modes, alias redirects, checkpoint drift, and provider-reported lower-is-better behavior metrics that move upward from 4.5 to 4.6. Those point-estimate changes are retained as negative context without claiming statistical significance.
+The final record retains SpatialBench regression, new external failure modes, alias redirects, checkpoint drift, and provider-reported lower-is-better metrics that move upward from 4.5 to 4.6. It also retains the mixed jailbreak result: standard-jailbreak compliance improves from 0.73% to 0.04% while StrongREJECT compliance moves from 1.5% to 3.9%, where lower is better. These point-estimate changes are retained as negative / mixed context without claiming statistical significance.
+
+~~~text
+ONE_SAFETY_SUBMETRIC_IMPROVES
+WHILE_ANOTHER_WORSENS
+
+THEREFORE
+
+SAFETY_PROGRESS
+MUST NOT BE TREATED
+AS A SINGLE_MONOTONIC_SCALAR
+~~~
 
 ## 10. Axis 8 — Human–AI collaboration
 
