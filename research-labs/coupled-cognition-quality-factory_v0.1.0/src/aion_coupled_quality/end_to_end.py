@@ -240,6 +240,30 @@ class MeasurementAssuranceRecord:
                 "deterministic/synthetic fixtures cannot be declared empirical-claim capable"
             )
 
+    def semantic_payload(self) -> dict[str, object]:
+        return {
+            "measurement_id": self.measurement_id,
+            "target_construct": self.target_construct,
+            "observable": self.observable,
+            "measurement_locus": self.measurement_locus,
+            "method_ref": self.method_ref,
+            "method_version": self.method_version,
+            "evaluator_ref": self.evaluator_ref,
+            "evaluator_version": self.evaluator_version,
+            "data_ref": self.data_ref,
+            "repeatability_ref": self.repeatability_ref,
+            "reproducibility_ref": self.reproducibility_ref,
+            "uncertainty_statement": self.uncertainty_statement,
+            "construct_validity_scope": self.construct_validity_scope,
+            "known_failure_modes": sorted(self.known_failure_modes),
+            "synthetic_fixture": self.synthetic_fixture,
+            "empirical_claim_capable": self.empirical_claim_capable,
+            "qualification": self.qualification.value,
+        }
+
+    def semantic_sha256(self) -> str:
+        return _sha256_payload(self.semantic_payload())
+
 
 @dataclass(frozen=True, slots=True)
 class ExistingQualityChainBinding:
