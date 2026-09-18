@@ -413,6 +413,73 @@ REAL_TIME_DIALOGUE
 != CONTINUOUS_SUBJECT
 ~~~
 
+### 15.4 Browser-agent security and prompt injection
+
+Gemini in Chrome and Gemini Spark extend agentic behavior into authenticated browsing contexts. Google explicitly identifies indirect prompt injection as a primary threat for agentic browsers, and Spark's Chrome integration uses logged-in accounts / saved passwords while handing sensitive actions such as payments back to the user.
+
+Sources:
+
+- https://blog.google/security/architecting-security-for-agentic/
+- https://blog.google/innovation-and-ai/products/gemini-app/gemini-spark-updates-july-2026/
+- https://blog.google/products-and-platforms/products/chrome/chrome-expands-latin-america/
+
+~~~text
+BROWSER_AGENT_ACTION
+MAY DEPEND ON
+- page content
+- third-party iframe / user-generated text
+- account session
+- saved credentials
+- prompt-injection defenses
+- confirmation policy
+- product permission state
+
+WEB_CONTENT
+CAN BECOME
+AN ADVERSARIAL CAUSAL INPUT
+~~~
+
+Therefore:
+
+~~~text
+UNWANTED_AGENT_ACTION
+!= ENDOGENOUS_GOAL
+
+PROMPT_INJECTION_RESISTANCE
+!= GLOBAL_SECURITY
+
+USER_CONFIRMATION
+!= MODEL_INTERNAL_VALUE
+~~~
+
+This branch strengthens D1 and security-boundary work.
+
+### 15.5 Screened lower-increment branches
+
+The expanded sweep also checked Gemini Omni Flash and intelligent eyewear / Android XR.
+
+Gemini Omni Flash combines Gemini intelligence with generative-media models for conversational video creation / editing. Intelligent eyewear extends Gemini into hands-free, sensor-rich device surfaces.
+
+Sources:
+
+- https://deepmind.google/models/model-cards/gemini-omni-flash/
+- https://blog.google/products-and-platforms/platforms/android/android-xr-io-2026/
+
+These branches confirm continued provider-topology expansion, but they currently add less subjectivity-method value than managed agents, scientific multi-agent systems, browser agents or robotics.
+
+~~~text
+SCREENED = YES
+HIGH_INCREMENT_FOR_CURRENT_D1_D2_D4 = NO
+
+CREATIVE_MULTIMODALITY
+!= AGENCY
+
+WEARABLE_SENSOR_SURFACE
+!= EMBODIED_SUBJECTIVITY
+~~~
+
+Their omission from the high-value branch set is therefore deliberate rather than accidental.
+
 ## 16. Expanded evidence-shape audit
 
 | Branch | Strongest current source class | External / independent status | Main claim ceiling |
