@@ -82,10 +82,11 @@ def profile(
         profile_version="0.1.0",
         objective_ref="objective:bounded-ai-system-quality-evaluation",
         intended_use_ref="use:research-engineering-only",
+        tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
         activities=(
-            TEVVActivity.TESTING,
+            TEVVActivity.TEST,
             TEVVActivity.EVALUATION,
             TEVVActivity.VERIFICATION,
             TEVVActivity.VALIDATION,
@@ -192,9 +193,10 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         profile_version="0.1.0",
         objective_ref="objective:order-invariance",
         intended_use_ref="use:structural-test",
+        tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
-        activities=(TEVVActivity.TESTING, TEVVActivity.EVALUATION),
+        activities=(TEVVActivity.TEST, TEVVActivity.EVALUATION),
         system=system(),
         metrics=(metric_a, metric_b),
         cases=(case_a, case_b),
@@ -216,9 +218,10 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         profile_version="0.1.0",
         objective_ref="objective:order-invariance",
         intended_use_ref="use:structural-test",
+        tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
-        activities=(TEVVActivity.EVALUATION, TEVVActivity.TESTING),
+        activities=(TEVVActivity.EVALUATION, TEVVActivity.TEST),
         system=system(),
         metrics=(metric_b, metric_a),
         cases=(case_b, case_a),
@@ -275,9 +278,10 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "profile_version": "0.1.0",
         "objective_ref": "objective:case-order",
         "intended_use_ref": "use:structural-test",
+        "tevv_vocabulary_ref": "subjectivity-pipeline:TevvDefinition:v0.1.0",
         "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
         "risk_refs": ("risk:bounded-model-quality",),
-        "activities": (TEVVActivity.TESTING,),
+        "activities": (TEVVActivity.TEST,),
         "system": system(),
         "metrics": (metric_a, metric_b),
         "repetition_policy_ref": "policy:repeat-v1",
@@ -321,9 +325,10 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         profile_version="0.1.0",
         objective_ref="objective:independence-check",
         intended_use_ref="use:structural-test",
+        tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
-        activities=(TEVVActivity.TESTING,),
+        activities=(TEVVActivity.TEST,),
         system=system(),
         metrics=(metric(),),
         cases=(case(),),
@@ -352,9 +357,10 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         "profile_version": "0.1.0",
         "objective_ref": "objective:builder-types",
         "intended_use_ref": "use:structural-test",
+        "tevv_vocabulary_ref": "subjectivity-pipeline:TevvDefinition:v0.1.0",
         "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
         "risk_refs": ("risk:bounded-model-quality",),
-        "activities": (TEVVActivity.TESTING,),
+        "activities": (TEVVActivity.TEST,),
         "system": system(),
         "metrics": (metric(),),
         "cases": (case(),),
@@ -375,3 +381,11 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         build_tevv_profile(**(kwargs | {"lifecycle_stage": "RESEARCH"}))
     with pytest.raises(TEVVError, match="activities"):
         build_tevv_profile(**(kwargs | {"activities": ("TESTING",)}))
+
+
+
+def test_profile_requires_repository_tevv_vocabulary_reference() -> None:
+    value = profile()
+    assert value.tevv_vocabulary_ref == "subjectivity-pipeline:TevvDefinition:v0.1.0"
+    with pytest.raises(TEVVError, match="tevv_vocabulary_ref"):
+        replace(value, tevv_vocabulary_ref="")
