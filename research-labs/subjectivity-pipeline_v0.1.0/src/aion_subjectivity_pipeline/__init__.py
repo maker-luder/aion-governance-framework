@@ -21,6 +21,12 @@ from .standards_crosswalk import (
     audit_fingerprint,
     payload_sha256,
 )
+from .d2_d4_differential import (
+    D2D4SyntheticAssessment,
+    D2D4SyntheticDifferentialGate,
+    D2D4SyntheticDisposition,
+    DifferentialProbePair,
+)
 from .dimension_discriminant import (
     DimensionBindingSpecification,
     DimensionDifferentialPrediction,
@@ -97,6 +103,10 @@ __all__ = [
     "CapaState",
     "DevelopmentMode",
     "DimensionObservation",
+    "D2D4SyntheticAssessment",
+    "D2D4SyntheticDifferentialGate",
+    "D2D4SyntheticDisposition",
+    "DifferentialProbePair",
     "DimensionBindingSpecification",
     "DimensionDifferentialPrediction",
     "DimensionDiscriminantAssessment",
