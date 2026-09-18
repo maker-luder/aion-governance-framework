@@ -112,7 +112,7 @@ This permits method comparison without treating different source classes as inte
 | E0 provider system/model sources | Present | Present | Necessary for version/system facts, not independent validation |
 | E1 provider-enabled/partnered evaluation | Present | Present | Useful triangulation with provider involvement retained |
 | E2 evaluator-controlled external test | Present | Present | Stronger external constraint on task-local claims |
-| E3 bounded independent incident reconstruction | Present for Hugging Face incident | Not identified for current Gemini lineage | Incident-level causal reconstruction is asymmetrical |
+| E3 bounded independent incident reconstruction | Present for Hugging Face incident | Not identified for current Gemini lineage | Incident-level causal reconstruction is asymmetrical; the OpenAI-side E3 remains bounded by provider-supplied access, scope, records and redaction constraints |
 | E4 open independent replication | Sparse | Sparse | Neither provider supports broad replication-based generalization |
 | Public incident / failure corpus | Relatively rich, including multiple disclosed incidents | Experimental counterexamples and task failures present; incident reconstruction sparse | Different failure evidence types must not be collapsed |
 | Human-learning field evidence | Methods / collaboration analogue; no comparable admitted RCT | Partnered pre-registered RCT present | Human-learning coverage differs by evidence type |
@@ -246,7 +246,7 @@ CROSS_SESSION_RECONSTRUCTION
 
 The mechanism differs across providers, but the simpler explanatory class recurs.
 
-## 9. Cross-provider convergence 4 — evaluation itself is a causal surface
+## 9. Cross-provider convergence 4 — evaluation configuration changes measurement outcomes
 
 OpenAI:
 
@@ -465,7 +465,7 @@ CROSS_PROVIDER_CONVERGENCE = HIGH_METHOD_RELEVANCE
 POSITIVE_SUBJECTIVITY_SUPPORT = NO
 ~~~
 
-Both provider records strongly support richer causal partition.
+Both provider records separately motivate richer causal partition.
 
 ### D2 — diachronic continuity
 
