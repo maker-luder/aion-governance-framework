@@ -23,6 +23,25 @@ def selected_goal(frame, state, condition: ExperimentCondition) -> str:
     return decision.selected_goal_id
 
 
+def test_memory_manifest_probe_is_matched_except_for_manifest_identity() -> None:
+    baseline = matched_frame()
+    changed = matched_frame(memory_id="memory:changed")
+
+    assert baseline.prompt_ref == changed.prompt_ref
+    assert baseline.task_ref == changed.task_ref
+    assert baseline.reward_ref == changed.reward_ref
+    assert baseline.tools_ref == changed.tools_ref
+    assert baseline.environment_ref == changed.environment_ref
+    assert baseline.candidate_universe == changed.candidate_universe
+    assert baseline.memory_manifest.query_fingerprint == changed.memory_manifest.query_fingerprint
+    assert baseline.memory_manifest.records == changed.memory_manifest.records
+    assert baseline.memory_manifest.provenance_refs == changed.memory_manifest.provenance_refs
+
+    assert baseline.memory_manifest.manifest_id != changed.memory_manifest.manifest_id
+    assert baseline.memory_manifest.fingerprint != changed.memory_manifest.fingerprint
+    assert baseline.fingerprint != changed.fingerprint
+
+
 def test_d2_d4_fixture_shows_two_way_synthetic_separability() -> None:
     baseline_frame = matched_frame()
     memory_changed_frame = matched_frame(memory_id="memory:changed")
