@@ -459,3 +459,47 @@ independent attestation.
 GIT_OBJECT_RESOLUTION != EXTERNAL_SIGNATURE
 GIT_OBJECT_RESOLUTION != INDEPENDENT_IVV
 ```
+
+
+### 10.5 Third counterevidence hardening: order invariance and complete scientific nonclaims
+
+A further adversarial review found two smaller but real integrity gaps before full-QMS
+integration:
+
+1. risk/impact set semantics were order-insensitive, but the bounded assessment retained
+   caller order in its identifier tuples. Because the assessment is hashed into the
+   receipt, semantically identical sets could produce different receipts solely because
+   the caller supplied a different tuple order;
+2. the assessment/receipt fixed `SUBJECTIVITY = NOT_ESTABLISHED`, but did not carry the
+   repository's parallel fixed nonclaims for consciousness and phenomenal experience.
+
+The gate now emits canonical sorted risk and impact identifiers. Receipt generation still
+sorts the record sets, and the assessment hash is therefore invariant to caller tuple
+order for semantically identical inputs.
+
+```text
+SAME_RISK_IMPACT_SET
++ DIFFERENT_CALLER_ORDER
+-> SAME_BOUNDED_ASSESSMENT
+-> SAME_CONTENT_DIGEST
+```
+
+The bounded assessment and receipt now preserve all three scientific nonclaims:
+
+```text
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+```
+
+Negative tests reject attempts to upgrade consciousness or phenomenal experience through
+receipt mutation.
+
+Current boundary remains:
+
+```text
+LAYER_1_CONTROL = IMPLEMENTED
+LAYER_1_COUNTEREVIDENCE_HARDENING = APPLIED
+FULL_QMS_INTEGRATION = NOT_YET
+EXACT_HEAD_CI = REQUIRED_BEFORE_NEXT_LAYER
+```
