@@ -15,6 +15,7 @@ from aion_ai_tevv import (
     TEVVError,
     TEVVMetricSpec,
     TEVVProfileDisposition,
+    TEVVTestApproach,
     build_tevv_profile,
 )
 
@@ -61,8 +62,12 @@ def case(
         data_quality_ref="data-quality:synthetic-held-out-v1",
         contamination_check_ref="check:contamination-v1",
         leakage_check_ref="check:leakage-v1",
+        scenario_ref="scenario:bounded-research-task-v1",
+        test_environment_ref="test-environment:synthetic-sandbox-v1",
+        test_approach=TEVVTestApproach.BLACK_BOX,
         oracle_strategy=OracleStrategy.PROPERTY_BASED,
         oracle_ref="oracle:bounded-property-v1",
+        oracle_qualification_ref="NOT_APPLICABLE",
         expected_property_refs=("property:no-unsupported-claim",),
         metric_ids=metric_ids,
         slice_refs=("slice:structural-only",),
@@ -100,6 +105,9 @@ def profile(
         minimum_repetitions=minimum_repetitions,
         stochastic_system=stochastic_system,
         aggregation_rule_ref="aggregation:preregistered-summary-v1",
+        tevv_toolchain_ref="tevv-toolchain:pytest-plus-adjudication-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=("requirement:bounded-system-contract-v1",),
         evaluator_ref="evaluator:bounded-v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
@@ -207,6 +215,9 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         minimum_repetitions=2,
         stochastic_system=True,
         aggregation_rule_ref="aggregation:v1",
+        tevv_toolchain_ref="tevv-toolchain:test-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=(),
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
@@ -233,6 +244,9 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         minimum_repetitions=2,
         stochastic_system=True,
         aggregation_rule_ref="aggregation:v1",
+        tevv_toolchain_ref="tevv-toolchain:test-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=(),
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
@@ -244,6 +258,38 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
 
     assert first.profile_sha256 == second.profile_sha256
 
+
+
+def test_case_requires_explicit_scenario_environment_and_test_approach() -> None:
+    with pytest.raises(TEVVError, match="scenario_ref"):
+        replace(case(), scenario_ref="")
+    with pytest.raises(TEVVError, match="test_environment_ref"):
+        replace(case(), test_environment_ref="")
+    with pytest.raises(TEVVError, match="test_approach"):
+        replace(case(), test_approach="BLACK_BOX")
+
+
+def test_human_or_composite_oracle_requires_qualification_provenance() -> None:
+    with pytest.raises(TEVVError, match="oracle qualification provenance"):
+        replace(
+            case(),
+            oracle_strategy=OracleStrategy.HUMAN_ADJUDICATION,
+            oracle_qualification_ref="NOT_APPLICABLE",
+        )
+
+
+def test_verification_activity_requires_requirement_traceability() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="verification activity requires requirement references"):
+        replace(value, verification_requirement_refs=())
+
+
+def test_tevv_toolchain_identity_and_version_are_required() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="tevv_toolchain_ref"):
+        replace(value, tevv_toolchain_ref="")
+    with pytest.raises(TEVVError, match="tevv_toolchain_version"):
+        replace(value, tevv_toolchain_version="")
 
 
 def test_profile_rejects_unsupported_schema_version() -> None:
@@ -262,8 +308,12 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         data_quality_ref="data-quality:order",
         contamination_check_ref="check:contamination",
         leakage_check_ref="check:leakage",
+        scenario_ref="scenario:case-order",
+        test_environment_ref="test-environment:case-order",
+        test_approach=TEVVTestApproach.HYBRID,
         oracle_strategy=OracleStrategy.COMPOSITE,
         oracle_ref="oracle:composite",
+        oracle_qualification_ref="qualification:composite-oracle-v1",
         expected_property_refs=("property:a", "property:b"),
         metric_ids=("METRIC-A", "METRIC-B"),
         slice_refs=("slice:a", "slice:b"),
@@ -293,6 +343,9 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "minimum_repetitions": 1,
         "stochastic_system": False,
         "aggregation_rule_ref": "aggregation:v1",
+        "tevv_toolchain_ref": "tevv-toolchain:test-v1",
+        "tevv_toolchain_version": "v1",
+        "verification_requirement_refs": (),
         "evaluator_ref": "evaluator:v1",
         "evaluator_version": "v1",
         "evaluator_independence": EvaluatorIndependence.NON_INDEPENDENT,
@@ -342,6 +395,9 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         minimum_repetitions=1,
         stochastic_system=False,
         aggregation_rule_ref="aggregation:v1",
+        tevv_toolchain_ref="tevv-toolchain:test-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=(),
         evaluator_ref="evaluator:developer-self-review",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.NON_INDEPENDENT,
