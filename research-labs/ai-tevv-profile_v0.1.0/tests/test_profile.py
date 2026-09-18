@@ -11,6 +11,7 @@ from aion_ai_tevv import (
     AITEVVProfileGate,
     AISystemBinding,
     EvaluatorIndependence,
+    HumanSubjectsStatus,
     OracleStrategy,
     TEVVActivity,
     TEVVLifecycleStage,
@@ -66,6 +67,7 @@ def case(
         case_id=case_id,
         input_ref=f"input:{case_id}",
         test_set_ref="test-set:synthetic-held-out-v1",
+        test_set_integrity_ref="sha256:test-set-synthetic-held-out-v1",
         data_quality_ref="data-quality:synthetic-held-out-v1",
         contamination_check_ref="check:contamination-v1",
         leakage_check_ref="check:leakage-v1",
@@ -122,6 +124,10 @@ def profile(
         evaluator_ref="evaluator:bounded-v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        evaluator_independence_basis_ref="basis:independent-from-front-line-development-v1",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
         target_context_ref="context:research-sandbox-v1",
         context_similarity_statement=(
             "No deployment claim; the profile is scoped to the declared research sandbox."
@@ -235,6 +241,10 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        evaluator_independence_basis_ref="basis:independent-from-front-line-development-v1",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
         target_context_ref="context:test",
         context_similarity_statement="Structural comparison only.",
         context_similarity_basis_refs=("basis:structural-comparison-v1",),
@@ -267,6 +277,10 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        evaluator_independence_basis_ref="basis:independent-from-front-line-development-v1",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
         target_context_ref="context:test",
         context_similarity_statement="Structural comparison only.",
         context_similarity_basis_refs=("basis:structural-comparison-v1",),
@@ -424,6 +438,10 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         evaluator_ref="evaluator:developer-self-review",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.NON_INDEPENDENT,
+        evaluator_independence_basis_ref="basis:developer-self-review-v1",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
         target_context_ref="context:test",
         context_similarity_statement="Structural test only.",
         context_similarity_basis_refs=("basis:structural-test-v1",),
@@ -463,6 +481,10 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         "evaluator_ref": "evaluator:v1",
         "evaluator_version": "v1",
         "evaluator_independence": EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        "evaluator_independence_basis_ref": "basis:independent-from-front-line-development-v1",
+        "human_subjects_status": HumanSubjectsStatus.NOT_APPLICABLE,
+        "human_subjects_protection_refs": (),
+        "population_representativeness_refs": (),
         "target_context_ref": "context:test",
         "context_similarity_statement": "Structural test only.",
         "context_similarity_basis_refs": ("basis:structural-test-v1",),
@@ -593,6 +615,10 @@ def _repository_bound_profile(
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        evaluator_independence_basis_ref="basis:independent-from-front-line-development-v1",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
         target_context_ref="context:test",
         context_similarity_statement="Structural test only.",
         context_similarity_basis_refs=("basis:structural-test-v1",),
@@ -648,3 +674,43 @@ def test_every_declared_metric_is_bound_to_at_least_one_case() -> None:
     )
     with pytest.raises(TEVVError, match="referenced by at least one TEVV case"):
         profile(metrics=(metric(), unused))
+
+
+
+def test_case_requires_test_set_integrity_reference() -> None:
+    with pytest.raises(TEVVError, match="test_set_integrity_ref"):
+        replace(case(), test_set_integrity_ref="")
+
+
+def test_evaluator_independence_requires_basis_reference() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="evaluator_independence_basis_ref"):
+        replace(value, evaluator_independence_basis_ref="")
+
+
+def test_human_subjects_applicability_is_explicit_and_fail_closed() -> None:
+    value = profile()
+    assert value.human_subjects_status is HumanSubjectsStatus.NOT_APPLICABLE
+
+    with pytest.raises(TEVVError, match="protection refs"):
+        replace(
+            value,
+            human_subjects_status=HumanSubjectsStatus.APPLICABLE,
+            human_subjects_protection_refs=(),
+            population_representativeness_refs=("population:relevant-v1",),
+        )
+
+    with pytest.raises(TEVVError, match="population representativeness refs"):
+        replace(
+            value,
+            human_subjects_status=HumanSubjectsStatus.APPLICABLE,
+            human_subjects_protection_refs=("ethics:protection-v1",),
+            population_representativeness_refs=(),
+        )
+
+    with pytest.raises(TEVVError, match="human_subjects_status=APPLICABLE"):
+        replace(
+            value,
+            human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+            human_subjects_protection_refs=("ethics:should-not-be-present",),
+        )
