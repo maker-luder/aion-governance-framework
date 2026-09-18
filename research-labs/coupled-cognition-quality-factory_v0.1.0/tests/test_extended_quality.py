@@ -688,3 +688,41 @@ def test_full_qms_rejects_risk_impact_receipt_for_different_plan_target() -> Non
     result = assess(risk_receipt_value=wrong_target)
     assert result.disposition is EndToEndDisposition.HOLD
     assert "AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH" in result.reasons
+
+
+
+def test_full_qms_rejects_same_plan_id_after_semantic_target_drift() -> None:
+    risk_bound = risk_impact_receipt()
+    original_plan = quality_plan(risk_receipt=risk_bound)
+    mutated_plan = replace(
+        original_plan,
+        research_question_ref="research:different-question",
+    )
+
+    assert mutated_plan.plan_id == original_plan.plan_id
+    assert mutated_plan.assessment_target_sha256() != original_plan.assessment_target_sha256()
+
+    result = assess(
+        risk_receipt_value=risk_bound,
+        plan_value=mutated_plan,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_RISK_IMPACT_RECEIPT_TARGET_DIGEST_MISMATCH" in result.reasons
+
+
+def test_quality_plan_assessment_target_digest_is_order_invariant_for_set_like_fields() -> None:
+    plan = quality_plan_seed()
+    reordered = replace(
+        plan,
+        critical_quality_attributes=tuple(reversed(plan.critical_quality_attributes)),
+        controls=tuple(reversed(plan.controls)),
+        measurement_ids=tuple(reversed(plan.measurement_ids)),
+        risk_refs=tuple(reversed(plan.risk_refs)),
+    )
+    assert reordered.assessment_target_sha256() == plan.assessment_target_sha256()
+
+
+def test_full_qms_ready_records_semantic_target_binding() -> None:
+    result = assess()
+    assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
+    assert "AI_RISK_IMPACT_RECEIPT_TARGET_SEMANTICS_BOUND" in result.reasons
