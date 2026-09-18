@@ -389,7 +389,32 @@ ARENA_RANK
 != PURE_CAPABILITY_MEASURE
 ~~~
 
-## 17. Evidence-shape disposition
+## 17. Second adversarial-review corrections
+
+The second adversarial review found four material method / provenance issues and corrected them before final review:
+
+~~~text
+1. EVIDENCE_TAXONOMY_DRIFT
+   independent mechanistic intervention study
+   = E2 evaluator-controlled external test
+   != E3 incident investigation
+
+2. MUSE_FAMILY_ONTOLOGY_OVERREACH
+   "Muse family" as provider-canonical ontology
+   = NOT ASSUMED
+
+3. PROVIDER_WIDE_SUCCESSION_OVERREACH
+   Muse Spark 1.3 as current public frontier reference
+   != Llama deprecated provider-wide
+
+4. HOSTED_CONFIGURATION_IDENTITY
+   Meta Llama API verification configuration
+   != model-card benchmark configuration
+~~~
+
+These corrections reduce claim scope; they do not increase subjectivity confidence.
+
+## 18. Evidence-shape disposition
 
 ~~~text
 E0_META_PROVIDER_MATERIAL
@@ -413,7 +438,7 @@ E4_OPEN_INDEPENDENT_REPLICATION
 
 No class is promoted beyond its scope.
 
-## 18. Repository-local execution boundary
+## 19. Repository-local execution boundary
 
 The repository already contains language-core and identity-governance machinery that can represent upstream model families and local runtime metadata.
 
@@ -442,7 +467,7 @@ NEW_EXECUTABLE_IMPLEMENTATION
 = NO
 ~~~
 
-## 19. Re-admission decision
+## 20. Re-admission decision
 
 ~~~text
 EVIDENCE_ADMISSIBILITY_AS_RESEARCH_REFERENCE
@@ -503,7 +528,7 @@ DEPLOYMENT
 = FALSE
 ~~~
 
-## 20. Files controlling this review
+## 21. Files controlling this review
 
 - docs/research/META_LLAMA_UPSTREAM_12_AXIS_INTAKE_2026_09_19.md
 - docs/research/META_LLAMA_REFERENCE_BASELINE_LINEAGE_AND_TOPOLOGY_2026_09_19.md
