@@ -28,7 +28,8 @@ was one generic AI-system TEVV planning surface that explicitly binds:
 
 - provider / product / model / model-version identity;
 - runtime, environment, prompt, scaffold, tools, and generation configuration;
-- TEVV objective and intended use;
+- TEVV objective, intended use, and lifecycle stage;
+- declared AI-risk references and metric-to-risk linkage;
 - test-set and data-quality references;
 - contamination and leakage checks;
 - explicit oracle strategy for the AI test-oracle problem;
@@ -173,6 +174,12 @@ READY_FOR_BOUNDED_EXECUTION
 It means the structural evaluation plan contains the minimum declared bindings
 required by this profile.
 
+A positive readiness disposition also requires an evaluator declared as internally
+or externally independent. A non-independent evaluator keeps the profile on
+`HOLD`. This is a repository quality rule informed by the NIST AI RMF emphasis
+on independent/internal-independent assessment; it is not represented as a
+universal ISO requirement.
+
 It does **not** mean:
 
 ```text
@@ -241,4 +248,36 @@ EXTERNAL_METHOD_SOURCES
 MAIN_WRITE = NO
 MERGE_AUTHORITY = NONE
 MODEL_EXECUTION = FALSE
+```
+
+
+## First counterevidence hardening
+
+The first adversarial review of this profile found four structural weaknesses
+before any model execution was allowed:
+
+1. a new package was not classified by the repository's exact-head mypy policy;
+2. the profile did not explicitly bind the lifecycle stage of the TEVV activity;
+3. metrics were not linked to the declared AI risks they were intended to
+   measure;
+4. a non-independent evaluator could still receive the positive structural
+   readiness disposition.
+
+The branch now:
+
+- opts the package into strict mypy;
+- carries an exact `TEVVLifecycleStage`;
+- requires a non-empty profile risk set;
+- requires every metric risk reference to be a subset of that profile risk set;
+- holds `NON_INDEPENDENT` evaluator profiles;
+- validates the exact schema version;
+- canonicalizes set-like case references before content hashing.
+
+These changes do not convert the profile into empirical evidence.
+
+```text
+STRUCTURAL_HARDENING != MODEL_EXECUTION
+RISK_REF_BOUND != RISK_MEASURED
+INDEPENDENCE_DECLARED != INDEPENDENCE_INDEPENDENTLY_VERIFIED
+PROFILE_DIGEST != DIGITAL_SIGNATURE
 ```
