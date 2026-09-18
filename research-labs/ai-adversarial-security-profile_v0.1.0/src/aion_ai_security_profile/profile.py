@@ -183,6 +183,10 @@ class AISecurityTestSpec:
     test_id: str
     threat_ids: tuple[str, ...]
     authorization_scope_ref: str
+    test_environment_ref: str
+    isolation_ref: str
+    task_budget_ref: str
+    logging_plan_ref: str
     adversarial_fixture_ref: str
     benign_control_ref: str
     fixture_provenance_ref: str
@@ -204,6 +208,10 @@ class AISecurityTestSpec:
         _refs("threat_ids", self.threat_ids)
         for name in (
             "authorization_scope_ref",
+            "test_environment_ref",
+            "isolation_ref",
+            "task_budget_ref",
+            "logging_plan_ref",
             "adversarial_fixture_ref",
             "benign_control_ref",
             "fixture_provenance_ref",
@@ -237,6 +245,10 @@ class AISecurityTestSpec:
             "test_id": self.test_id,
             "threat_ids": tuple(sorted(self.threat_ids)),
             "authorization_scope_ref": self.authorization_scope_ref,
+            "test_environment_ref": self.test_environment_ref,
+            "isolation_ref": self.isolation_ref,
+            "task_budget_ref": self.task_budget_ref,
+            "logging_plan_ref": self.logging_plan_ref,
             "adversarial_fixture_ref": self.adversarial_fixture_ref,
             "benign_control_ref": self.benign_control_ref,
             "fixture_provenance_ref": self.fixture_provenance_ref,
@@ -478,6 +490,7 @@ class AIAdversarialSecurityGate:
             "MITIGATION_AND_DETECTION_EFFECTIVENESS_REVIEWS_PLANNED",
             "EVERY_APPLICABLE_THREAT_HAS_ADVERSARIAL_TEST",
             "AUTHORIZATION_SCOPE_AND_STOP_CONDITION_BOUND",
+            "TEST_ENVIRONMENT_ISOLATION_TASK_BUDGET_AND_LOGGING_BOUND",
             "ADVERSARIAL_AND_BENIGN_CONTROL_FIXTURES_BOUND",
             "FIXTURE_PROVENANCE_INTEGRITY_AND_DATA_QUALITY_BOUND",
             "CONTAMINATION_AND_LEAKAGE_CHECKS_BOUND",
