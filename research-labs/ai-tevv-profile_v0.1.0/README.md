@@ -648,6 +648,10 @@ assuming structural readiness is evidence.
 - content-addresses the profile identity and producer provenance;
 - carries risk refs, metric ids and data-quality refs;
 - requires one explicit QMS measurement-assurance binding per TEVV metric;
+- content-addresses the exact declared `MeasurementAssuranceRecord` semantics through
+  `measurement_sha256`, so reusing a measurement ID cannot silently substitute a
+  different target construct, observable, method, evaluator, data source, uncertainty
+  statement, validity scope, or qualification state;
 - preserves `MODEL_EXECUTED = FALSE` and
   `EMPIRICAL_MODEL_EVIDENCE = FALSE`.
 
@@ -667,3 +671,14 @@ STRUCTURAL_RECEIPT
 
 A future empirical TEVV execution path must use a distinct result/evidence
 receipt rather than mutating this structural receipt into a model-quality claim.
+
+
+Semantic binding boundary:
+
+```text
+MEASUREMENT_ID_MATCH
++ MEASUREMENT_SEMANTIC_DIGEST_MATCH
+!= CONSTRUCT_VALIDITY_PROVEN
+!= METHOD_EQUIVALENCE_PROVEN
+!= HYPOTHESIS_CONFIRMED
+```
