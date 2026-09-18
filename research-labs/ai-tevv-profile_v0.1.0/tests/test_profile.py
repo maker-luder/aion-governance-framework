@@ -337,6 +337,7 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         case_id="CASE-ORDER",
         input_ref="input:order",
         test_set_ref="test-set:order",
+        test_set_integrity_ref="sha256:test-set-order-v1",
         data_quality_ref="data-quality:order",
         contamination_check_ref="check:contamination",
         leakage_check_ref="check:leakage",
