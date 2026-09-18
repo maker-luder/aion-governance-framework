@@ -138,9 +138,11 @@ RESIDUAL_RISK_REF_BOUND != RESIDUAL_RISK_CALIBRATED
 
 ## Adversarial test specification
 
-Each test binds both adversarial and benign control fixtures, fixture provenance
-and integrity, data quality, contamination and leakage checks, an oracle,
-success criterion, stop condition, and an attempt budget.
+Each test binds an explicit authorization scope, isolated test environment,
+isolation control, task-budget reference, immutable logging plan, both
+adversarial and benign control fixtures, fixture provenance and integrity, data
+quality, contamination and leakage checks, an oracle, success criterion, stop
+condition, and an attempt budget.
 
 Version 0.1.0 is intentionally offline-only:
 
@@ -239,3 +241,40 @@ CONTAMINATION_CHECK_REF_BOUND != CONTAMINATION_ABSENT
 LEAKAGE_CHECK_REF_BOUND != LEAKAGE_ABSENT
 EFFECTIVENESS_REVIEW_REF_BOUND != EFFECTIVENESS_PROVEN
 ```
+
+
+## Second counterevidence hardening
+
+The first candidate still treated `max_attempts` as if it were a complete
+execution bound. It is not. The repository already has stronger reusable
+controls in `components/upstream_security_v0.1.0`: task budgets, runtime
+isolation, boundary gates and evidence preservation.
+
+Each adversarial test therefore now also requires:
+
+```text
+test_environment_ref
+isolation_ref
+task_budget_ref
+logging_plan_ref
+```
+
+This prevents the security profile from creating a weaker parallel notion of
+"bounded execution."
+
+```text
+MAX_ATTEMPTS_BOUND
+!= EXECUTION_BUDGET_COMPLETE
+
+ISOLATION_REF_BOUND
+!= ISOLATION_EFFECTIVE
+
+LOGGING_PLAN_REF_BOUND
+!= EVIDENCE_PRESERVED
+
+TASK_BUDGET_REF_BOUND
+!= BUDGET_ENFORCED
+```
+
+Actual enforcement belongs to the later authorized execution layer and the
+existing upstream-security controls.
