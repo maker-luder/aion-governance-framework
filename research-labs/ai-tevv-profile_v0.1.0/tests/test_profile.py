@@ -20,6 +20,7 @@ from aion_ai_tevv import (
     TEVVProfileDisposition,
     TEVVUnmeasuredRisk,
     TEVVTestApproach,
+    build_repository_bound_tevv_profile,
     build_tevv_profile,
 )
 
