@@ -48,7 +48,7 @@ def _hex(name: str, value: str, length: int) -> None:
 
 
 class TEVVActivity(StrEnum):
-    TESTING = "TESTING"
+    TEST = "TEST"
     EVALUATION = "EVALUATION"
     VERIFICATION = "VERIFICATION"
     VALIDATION = "VALIDATION"
@@ -221,6 +221,7 @@ class AITEVVProfile:
     profile_version: str
     objective_ref: str
     intended_use_ref: str
+    tevv_vocabulary_ref: str
     lifecycle_stage: TEVVLifecycleStage
     risk_refs: tuple[str, ...]
     activities: tuple[TEVVActivity, ...]
@@ -258,6 +259,7 @@ class AITEVVProfile:
             "profile_version",
             "objective_ref",
             "intended_use_ref",
+            "tevv_vocabulary_ref",
             "repetition_policy_ref",
             "nondeterminism_policy_ref",
             "aggregation_rule_ref",
@@ -336,6 +338,7 @@ class AITEVVProfile:
             "profile_version": self.profile_version,
             "objective_ref": self.objective_ref,
             "intended_use_ref": self.intended_use_ref,
+            "tevv_vocabulary_ref": self.tevv_vocabulary_ref,
             "lifecycle_stage": self.lifecycle_stage.value,
             "risk_refs": tuple(sorted(self.risk_refs)),
             "activities": tuple(sorted(item.value for item in self.activities)),
@@ -386,6 +389,7 @@ class AITEVVProfileGate:
         reasons = [
             "SYSTEM_IDENTITY_AND_RUNTIME_BOUND",
             "TEVV_OBJECTIVE_AND_INTENDED_USE_BOUND",
+            "TEVV_VOCABULARY_REFERENCE_BOUND",
             "LIFECYCLE_STAGE_BOUND",
             "METRICS_MAPPED_TO_DECLARED_RISKS",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
@@ -430,6 +434,7 @@ def build_tevv_profile(
     profile_version: str,
     objective_ref: str,
     intended_use_ref: str,
+    tevv_vocabulary_ref: str,
     lifecycle_stage: TEVVLifecycleStage,
     risk_refs: tuple[str, ...],
     activities: tuple[TEVVActivity, ...],
@@ -449,6 +454,7 @@ def build_tevv_profile(
     failure_action_ref: str,
     preregistration_ref: str,
 ) -> AITEVVProfile:
+    _text("tevv_vocabulary_ref", tevv_vocabulary_ref)
     if type(lifecycle_stage) is not TEVVLifecycleStage:
         raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
     _refs("risk_refs", risk_refs)
@@ -473,6 +479,7 @@ def build_tevv_profile(
         "profile_version": profile_version,
         "objective_ref": objective_ref,
         "intended_use_ref": intended_use_ref,
+        "tevv_vocabulary_ref": tevv_vocabulary_ref,
         "lifecycle_stage": lifecycle_stage.value,
         "risk_refs": tuple(sorted(risk_refs)),
         "activities": tuple(sorted(item.value for item in activities)),
@@ -505,6 +512,7 @@ def build_tevv_profile(
         profile_version=profile_version,
         objective_ref=objective_ref,
         intended_use_ref=intended_use_ref,
+        tevv_vocabulary_ref=tevv_vocabulary_ref,
         lifecycle_stage=lifecycle_stage,
         risk_refs=risk_refs,
         activities=activities,
