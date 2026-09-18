@@ -159,7 +159,7 @@ GENERAL_PRODUCT_PREVALENCE
 = NOT_ESTABLISHED
 ~~~
 
-AISI / CAISI and Neo Research provide non-provider safety evidence under bounded evaluation settings.
+AISI / CAISI and Neo Research provide non-provider safety evidence under bounded evaluation settings. Neo's study is treated as E2 because the external evaluator controlled the testing and analysis; the repository does not independently certify every institutional-independence condition.
 
 ## 9. Axis 7 — counterexamples / failures
 
@@ -265,7 +265,7 @@ E0_PROVIDER_MATERIAL
 E2_K3_GOVERNMENT_CYBER_EVALUATION
 = PRESENT
 
-E2_K3_INDEPENDENT_MISALIGNMENT_EVALUATION
+E2_K3_EXTERNAL_MISALIGNMENT_EVALUATION
 = PRESENT / RECENT
 
 E2_K3_EXTERNAL_CAPABILITY_MEASUREMENT
@@ -286,7 +286,30 @@ CROSS_SOURCE_TRIANGULATION
 
 No evidence class is promoted beyond its source conditions.
 
-## 15. Challenge-review cautions
+## 15. First adversarial-review corrections
+
+The first adversarial review found two material scope / provenance issues:
+
+~~~text
+1. SWARM_SURFACE_COLLAPSE
+   hosted Kimi Agent Swarm
+   != Kimi Code AgentSwarm tool
+
+   hosted product claim = up to 300 subagents
+   Kimi Code tool contract = up to 128 total subagents
+
+2. E2_CANDIDATE / E2_PROMOTION_DRIFT
+   Neo Research and Artificial Analysis were initially marked E2_CANDIDATE
+   while the re-admission summary treated them as E2.
+
+   resolution:
+   E2 classification is now based on evaluator-controlled external testing /
+   measurement, not an unverified claim of total institutional independence.
+~~~
+
+These corrections narrow provenance and product-surface claims. They do not increase subjectivity confidence.
+
+## 16. Challenge-review cautions
 
 The current record explicitly blocks:
 
@@ -325,7 +348,7 @@ LONG_HORIZON_EXECUTION
 != ENDOGENOUS_GOAL
 ~~~
 
-## 16. Repository-local execution boundary
+## 17. Repository-local execution boundary
 
 ~~~text
 KIMI_WEIGHT_DOWNLOAD
@@ -356,7 +379,7 @@ NEW_EXECUTABLE_IMPLEMENTATION
 = NO
 ~~~
 
-## 17. Re-admission decision
+## 18. Re-admission decision
 
 ~~~text
 EVIDENCE_ADMISSIBILITY_AS_RESEARCH_REFERENCE
@@ -414,7 +437,7 @@ DEPLOYMENT
 = FALSE
 ~~~
 
-## 18. Files controlling this review
+## 19. Files controlling this review
 
 - `KIMI_K3_UPSTREAM_12_AXIS_INTAKE_2026_09_19.md`
 - `KIMI_K3_REFERENCE_BASELINE_LINEAGE_AND_PRODUCT_TOPOLOGY_2026_09_19.md`
