@@ -125,7 +125,7 @@ FROM
 Llama-4-Maverick-17B-128E-Instruct
 ~~~
 
-The experimental version was optimized for conversationality and appeared in Arena before the public release version was separately evaluated.
+Meta's launch post described the cited Arena score as an experimental chat version. TechCrunch later reported that a Meta spokesperson characterized `Llama-4-Maverick-03-26-Experimental` as a chat-optimized experimental variant, distinct from the publicly released checkpoint.
 
 Secondary source:
 https://techcrunch.com/2025/04/06/metas-benchmarks-for-its-new-ai-models-are-a-bit-misleading/
