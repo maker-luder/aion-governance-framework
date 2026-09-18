@@ -194,8 +194,11 @@ from .ai_risk_impact import (
     AIRiskImpactAssessment,
     AIRiskImpactDisposition,
     AIRiskImpactGate,
+    AIRiskImpactReceipt,
     AIRiskRecord,
+    RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
     RiskLikelihood,
+    build_risk_impact_receipt,
 )
 
 __all__ += [
@@ -206,6 +209,9 @@ __all__ += [
     "AIRiskImpactAssessment",
     "AIRiskImpactDisposition",
     "AIRiskImpactGate",
+    "AIRiskImpactReceipt",
     "AIRiskRecord",
+    "RISK_IMPACT_RECEIPT_SCHEMA_VERSION",
     "RiskLikelihood",
+    "build_risk_impact_receipt",
 ]
