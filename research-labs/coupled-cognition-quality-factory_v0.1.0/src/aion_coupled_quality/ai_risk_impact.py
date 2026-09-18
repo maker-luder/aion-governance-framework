@@ -1,9 +1,14 @@
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+import hashlib
+import json
+from dataclasses import asdict, dataclass, field
 from enum import StrEnum
 
 from .models import QualityError, Severity
+
+
+RISK_IMPACT_RECEIPT_SCHEMA_VERSION = "0.1.0"
 
 
 def _text(name: str, value: str) -> None:
@@ -20,6 +25,24 @@ def _text_tuple(name: str, values: tuple[str, ...], *, allow_empty: bool = False
         raise QualityError(f"{name} must contain non-empty text")
     if len(values) != len(set(values)):
         raise QualityError(f"{name} must be unique")
+
+
+def _hex(name: str, value: str, length: int) -> None:
+    if type(value) is not str or len(value) != length or any(
+        char not in "0123456789abcdef" for char in value
+    ):
+        raise QualityError(f"{name} must be lowercase {length}-hex")
+
+
+def _digest(payload: object) -> str:
+    return hashlib.sha256(
+        json.dumps(
+            payload,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+        ).encode("utf-8")
+    ).hexdigest()
 
 
 class AILifecycleStage(StrEnum):
@@ -60,6 +83,8 @@ class AIRiskImpactDisposition(StrEnum):
 @dataclass(frozen=True, slots=True)
 class AIRiskRecord:
     risk_id: str
+    risk_version: str
+    exact_source_state_ref: str
     system_scope: str
     lifecycle_stage: AILifecycleStage
     risk_source: str
@@ -82,6 +107,8 @@ class AIRiskRecord:
     def __post_init__(self) -> None:
         for name in (
             "risk_id",
+            "risk_version",
+            "exact_source_state_ref",
             "system_scope",
             "risk_source",
             "event_or_condition",
@@ -270,6 +297,7 @@ class AIRiskImpactGate:
             "RESIDUAL_RISK_AND_IMPACT_RECORDED",
             "RISK_EVALUATION_AND_RESIDUAL_BASIS_RECORDED",
             "CONTROL_AND_MITIGATION_EFFECTIVENESS_EVIDENCE_RECORDED",
+            "RISK_VERSION_AND_SOURCE_STATE_BOUND",
             "IMPACT_ASSESSMENT_VERSION_AND_SOURCE_STATE_BOUND",
             "REASSESSMENT_TRIGGERS_RECORDED",
             "ISO_CONFORMANCE_NOT_CLAIMED",
@@ -306,3 +334,166 @@ class AIRiskImpactGate:
             risk_ids,
             impact_ids,
         )
+
+
+
+@dataclass(frozen=True, slots=True)
+class AIRiskImpactReceipt:
+    receipt_id: str
+    exact_source_state_ref: str
+    producer_git_head: str
+    producer_tree_sha: str
+    producer_contract_ref: str
+    producer_contract_sha256: str
+    risk_ids: tuple[str, ...]
+    impact_assessment_ids: tuple[str, ...]
+    risk_set_sha256: str
+    impact_set_sha256: str
+    assessment_sha256: str
+    receipt_sha256: str
+    schema_version: str = RISK_IMPACT_RECEIPT_SCHEMA_VERSION
+    iso_conformance_claim: str = "NONE"
+    certification_claim: str = "NONE"
+    scientific_disposition: str = "HOLD"
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    canonical_effect: str = "NONE"
+    deployment_authority: str = "NONE"
+
+    def __post_init__(self) -> None:
+        for name in (
+            "receipt_id",
+            "exact_source_state_ref",
+            "producer_contract_ref",
+        ):
+            _text(name, getattr(self, name))
+        _text_tuple("risk_ids", self.risk_ids)
+        _text_tuple("impact_assessment_ids", self.impact_assessment_ids)
+        if self.risk_ids != tuple(sorted(self.risk_ids)):
+            raise QualityError("risk_ids must use canonical sorted order")
+        if self.impact_assessment_ids != tuple(sorted(self.impact_assessment_ids)):
+            raise QualityError("impact_assessment_ids must use canonical sorted order")
+        if self.schema_version != RISK_IMPACT_RECEIPT_SCHEMA_VERSION:
+            raise QualityError("unsupported AI risk/impact receipt schema version")
+        _hex("producer_git_head", self.producer_git_head, 40)
+        _hex("producer_tree_sha", self.producer_tree_sha, 40)
+        for name in (
+            "producer_contract_sha256",
+            "risk_set_sha256",
+            "impact_set_sha256",
+            "assessment_sha256",
+            "receipt_sha256",
+        ):
+            _hex(name, getattr(self, name), 64)
+        if self.iso_conformance_claim != "NONE" or self.certification_claim != "NONE":
+            raise QualityError("risk/impact receipt cannot claim ISO conformance or certification")
+        if self.scientific_disposition != "HOLD":
+            raise QualityError("risk/impact receipt cannot establish scientific validity")
+        if self.subjectivity_conclusion != "NOT_ESTABLISHED":
+            raise QualityError("risk/impact receipt cannot establish subjectivity")
+        if self.canonical_effect != "NONE" or self.deployment_authority != "NONE":
+            raise QualityError("risk/impact receipt cannot grant canonical or deployment authority")
+        if self.receipt_sha256 != _digest(self.payload_without_digest()):
+            raise QualityError("risk/impact receipt content digest mismatch")
+
+    def payload_without_digest(self) -> dict[str, object]:
+        return {
+            "schema_version": self.schema_version,
+            "receipt_id": self.receipt_id,
+            "exact_source_state_ref": self.exact_source_state_ref,
+            "producer_git_head": self.producer_git_head,
+            "producer_tree_sha": self.producer_tree_sha,
+            "producer_contract_ref": self.producer_contract_ref,
+            "producer_contract_sha256": self.producer_contract_sha256,
+            "risk_ids": self.risk_ids,
+            "impact_assessment_ids": self.impact_assessment_ids,
+            "risk_set_sha256": self.risk_set_sha256,
+            "impact_set_sha256": self.impact_set_sha256,
+            "assessment_sha256": self.assessment_sha256,
+            "iso_conformance_claim": self.iso_conformance_claim,
+            "certification_claim": self.certification_claim,
+            "scientific_disposition": self.scientific_disposition,
+            "subjectivity_conclusion": self.subjectivity_conclusion,
+            "canonical_effect": self.canonical_effect,
+            "deployment_authority": self.deployment_authority,
+        }
+
+
+def build_risk_impact_receipt(
+    *,
+    receipt_id: str,
+    risks: tuple[AIRiskRecord, ...],
+    impacts: tuple[AIImpactAssessmentRecord, ...],
+    assessment: AIRiskImpactAssessment,
+    exact_source_state_ref: str,
+    producer_git_head: str,
+    producer_tree_sha: str,
+    producer_contract_ref: str,
+    producer_contract_sha256: str,
+) -> AIRiskImpactReceipt:
+    _text("receipt_id", receipt_id)
+    _text("exact_source_state_ref", exact_source_state_ref)
+    _text("producer_contract_ref", producer_contract_ref)
+    _hex("producer_git_head", producer_git_head, 40)
+    _hex("producer_tree_sha", producer_tree_sha, 40)
+    _hex("producer_contract_sha256", producer_contract_sha256, 64)
+    if type(risks) is not tuple or not risks or any(type(item) is not AIRiskRecord for item in risks):
+        raise QualityError("receipt risks must contain exact AIRiskRecord values")
+    if type(impacts) is not tuple or not impacts or any(
+        type(item) is not AIImpactAssessmentRecord for item in impacts
+    ):
+        raise QualityError("receipt impacts must contain exact AIImpactAssessmentRecord values")
+    if type(assessment) is not AIRiskImpactAssessment:
+        raise QualityError("receipt assessment must be an exact AIRiskImpactAssessment")
+
+    if any(item.exact_source_state_ref != exact_source_state_ref for item in risks):
+        raise QualityError("risk record source state does not match receipt source state")
+    if any(item.exact_source_state_ref != exact_source_state_ref for item in impacts):
+        raise QualityError("impact assessment source state does not match receipt source state")
+
+    risk_items = sorted(risks, key=lambda item: item.risk_id)
+    impact_items = sorted(impacts, key=lambda item: item.assessment_id)
+    risk_ids = tuple(item.risk_id for item in risk_items)
+    impact_ids = tuple(item.assessment_id for item in impact_items)
+    if assessment.risk_ids != tuple(item.risk_id for item in risks):
+        raise QualityError("assessment risk ids do not match receipt risk inputs")
+    if assessment.impact_assessment_ids != tuple(item.assessment_id for item in impacts):
+        raise QualityError("assessment impact ids do not match receipt impact inputs")
+
+    risk_set_sha256 = _digest([asdict(item) for item in risk_items])
+    impact_set_sha256 = _digest([asdict(item) for item in impact_items])
+    assessment_sha256 = _digest(asdict(assessment))
+
+    payload = {
+        "schema_version": RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
+        "receipt_id": receipt_id,
+        "exact_source_state_ref": exact_source_state_ref,
+        "producer_git_head": producer_git_head,
+        "producer_tree_sha": producer_tree_sha,
+        "producer_contract_ref": producer_contract_ref,
+        "producer_contract_sha256": producer_contract_sha256,
+        "risk_ids": risk_ids,
+        "impact_assessment_ids": impact_ids,
+        "risk_set_sha256": risk_set_sha256,
+        "impact_set_sha256": impact_set_sha256,
+        "assessment_sha256": assessment_sha256,
+        "iso_conformance_claim": "NONE",
+        "certification_claim": "NONE",
+        "scientific_disposition": "HOLD",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment_authority": "NONE",
+    }
+    return AIRiskImpactReceipt(
+        receipt_id=receipt_id,
+        exact_source_state_ref=exact_source_state_ref,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
+        risk_ids=risk_ids,
+        impact_assessment_ids=impact_ids,
+        risk_set_sha256=risk_set_sha256,
+        impact_set_sha256=impact_set_sha256,
+        assessment_sha256=assessment_sha256,
+        receipt_sha256=_digest(payload),
+    )
