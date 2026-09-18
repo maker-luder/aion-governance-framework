@@ -870,6 +870,7 @@ def test_repository_bound_tevv_receipt_uses_committed_producer_bytes(tmp_path: P
             TEVVMetricMeasurementBinding(
                 metric_id="METRIC-ACCURACY",
                 measurement_id="MEAS-001",
+                mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
         repository_root=root,
@@ -891,6 +892,7 @@ def test_repository_bound_tevv_receipt_uses_committed_producer_bytes(tmp_path: P
             TEVVMetricMeasurementBinding(
                 metric_id="METRIC-ACCURACY",
                 measurement_id="MEAS-001",
+                mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
         repository_root=root,
@@ -898,3 +900,13 @@ def test_repository_bound_tevv_receipt_uses_committed_producer_bytes(tmp_path: P
     )
     assert dirty.producer_contract_sha256 == expected
     assert dirty.producer_tree_sha == receipt.producer_tree_sha
+
+
+
+def test_tevv_metric_measurement_binding_requires_mapping_basis() -> None:
+    with pytest.raises(TEVVError, match="mapping_basis_ref"):
+        TEVVMetricMeasurementBinding(
+            metric_id="METRIC-ACCURACY",
+            measurement_id="MEAS-001",
+            mapping_basis_ref="",
+        )
