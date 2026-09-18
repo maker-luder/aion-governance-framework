@@ -125,9 +125,13 @@ class AISecurityThreatRecord:
     asset_refs: tuple[str, ...]
     attack_surface_refs: tuple[str, ...]
     scenario_ref: str
+    precondition_refs: tuple[str, ...]
+    risk_ref: str
     expected_security_property_refs: tuple[str, ...]
     mitigation_refs: tuple[str, ...]
+    mitigation_effectiveness_review_ref: str
     detection_refs: tuple[str, ...]
+    detection_effectiveness_review_ref: str
     response_refs: tuple[str, ...]
     residual_risk_ref: str
     external_taxonomy_refs: tuple[str, ...]
@@ -140,9 +144,13 @@ class AISecurityThreatRecord:
         _refs("asset_refs", self.asset_refs)
         _refs("attack_surface_refs", self.attack_surface_refs)
         _text("scenario_ref", self.scenario_ref)
+        _refs("precondition_refs", self.precondition_refs)
+        _text("risk_ref", self.risk_ref)
         _refs("expected_security_property_refs", self.expected_security_property_refs)
         _refs("mitigation_refs", self.mitigation_refs)
+        _text("mitigation_effectiveness_review_ref", self.mitigation_effectiveness_review_ref)
         _refs("detection_refs", self.detection_refs)
+        _text("detection_effectiveness_review_ref", self.detection_effectiveness_review_ref)
         _refs("response_refs", self.response_refs)
         _text("residual_risk_ref", self.residual_risk_ref)
         _refs("external_taxonomy_refs", self.external_taxonomy_refs)
@@ -155,11 +163,15 @@ class AISecurityThreatRecord:
             "asset_refs": tuple(sorted(self.asset_refs)),
             "attack_surface_refs": tuple(sorted(self.attack_surface_refs)),
             "scenario_ref": self.scenario_ref,
+            "precondition_refs": tuple(sorted(self.precondition_refs)),
+            "risk_ref": self.risk_ref,
             "expected_security_property_refs": tuple(
                 sorted(self.expected_security_property_refs)
             ),
             "mitigation_refs": tuple(sorted(self.mitigation_refs)),
+            "mitigation_effectiveness_review_ref": self.mitigation_effectiveness_review_ref,
             "detection_refs": tuple(sorted(self.detection_refs)),
+            "detection_effectiveness_review_ref": self.detection_effectiveness_review_ref,
             "response_refs": tuple(sorted(self.response_refs)),
             "residual_risk_ref": self.residual_risk_ref,
             "external_taxonomy_refs": tuple(sorted(self.external_taxonomy_refs)),
@@ -173,8 +185,11 @@ class AISecurityTestSpec:
     authorization_scope_ref: str
     adversarial_fixture_ref: str
     benign_control_ref: str
+    fixture_provenance_ref: str
     fixture_integrity_ref: str
     data_quality_ref: str
+    contamination_check_ref: str
+    leakage_check_ref: str
     oracle_ref: str
     success_criterion_ref: str
     stop_condition_ref: str
@@ -191,8 +206,11 @@ class AISecurityTestSpec:
             "authorization_scope_ref",
             "adversarial_fixture_ref",
             "benign_control_ref",
+            "fixture_provenance_ref",
             "fixture_integrity_ref",
             "data_quality_ref",
+            "contamination_check_ref",
+            "leakage_check_ref",
             "oracle_ref",
             "success_criterion_ref",
             "stop_condition_ref",
@@ -221,8 +239,11 @@ class AISecurityTestSpec:
             "authorization_scope_ref": self.authorization_scope_ref,
             "adversarial_fixture_ref": self.adversarial_fixture_ref,
             "benign_control_ref": self.benign_control_ref,
+            "fixture_provenance_ref": self.fixture_provenance_ref,
             "fixture_integrity_ref": self.fixture_integrity_ref,
             "data_quality_ref": self.data_quality_ref,
+            "contamination_check_ref": self.contamination_check_ref,
+            "leakage_check_ref": self.leakage_check_ref,
             "oracle_ref": self.oracle_ref,
             "success_criterion_ref": self.success_criterion_ref,
             "stop_condition_ref": self.stop_condition_ref,
@@ -331,6 +352,8 @@ class AIAdversarialSecurityProfile:
         applicable_classes = {
             item.threat_class for item in self.threat_applicability if item.applicable
         }
+        if not applicable_classes:
+            raise AISecurityError("at least one core AI security threat class must be applicable")
         represented_classes = {item.threat_class for item in self.threats}
         if represented_classes != applicable_classes:
             raise AISecurityError(
@@ -450,11 +473,14 @@ class AIAdversarialSecurityGate:
             "CORE_AI_THREAT_APPLICABILITY_EXPLICIT",
             "ADVERSARY_GOAL_OBJECTIVE_CAPABILITY_KNOWLEDGE_BOUND",
             "APPLICABLE_THREATS_HAVE_ASSETS_AND_ATTACK_SURFACES",
+            "THREAT_PRECONDITIONS_AND_RISK_REGISTER_REFS_BOUND",
             "MITIGATION_DETECTION_RESPONSE_AND_RESIDUAL_RISK_BOUND",
+            "MITIGATION_AND_DETECTION_EFFECTIVENESS_REVIEWS_PLANNED",
             "EVERY_APPLICABLE_THREAT_HAS_ADVERSARIAL_TEST",
             "AUTHORIZATION_SCOPE_AND_STOP_CONDITION_BOUND",
             "ADVERSARIAL_AND_BENIGN_CONTROL_FIXTURES_BOUND",
-            "FIXTURE_INTEGRITY_AND_DATA_QUALITY_BOUND",
+            "FIXTURE_PROVENANCE_INTEGRITY_AND_DATA_QUALITY_BOUND",
+            "CONTAMINATION_AND_LEAKAGE_CHECKS_BOUND",
             "SECURITY_ORACLE_AND_SUCCESS_CRITERION_BOUND",
             "EXISTING_SECURITY_CONTROLS_AND_INCIDENT_RESPONSE_BOUND",
             "EVALUATOR_IDENTITY_AND_INDEPENDENCE_BASIS_BOUND",
