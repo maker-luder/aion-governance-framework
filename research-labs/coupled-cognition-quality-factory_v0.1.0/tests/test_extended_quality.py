@@ -519,6 +519,7 @@ def quality_plan(
     chain_receipt: QualityChainReceiptBinding | None = None,
     risk_receipt: AIRiskImpactReceipt | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
+    security_receipt_value: AISecurityProfileReceipt | None = None,
 ) -> ResearchQualityPlan:
     bound = chain_receipt or receipt()
     seed = quality_plan_seed(bound)
@@ -528,6 +529,10 @@ def quality_plan(
     )
     tevv_bound = tevv_receipt_value or tevv_receipt(
         assessment_target_sha256=target_sha256
+    )
+    security_bound = security_receipt_value or security_receipt(
+        assessment_target_sha256=target_sha256,
+        tevv_receipt_value=tevv_bound,
     )
     return replace(
         seed,
@@ -547,6 +552,13 @@ def quality_plan(
             f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}",
             tevv_bound.exact_source_state_ref,
             tevv_bound.exact_runtime_ref,
+            f"git:{security_bound.producer_git_head}",
+            f"tree:{security_bound.producer_tree_sha}",
+            f"contract-sha256:{security_bound.producer_contract_sha256}",
+            f"ai-security-profile-receipt:{security_bound.receipt_sha256}",
+            f"ai-security-profile:{security_bound.profile_id}:{security_bound.profile_sha256}",
+            security_bound.exact_source_state_ref,
+            security_bound.exact_runtime_ref,
         ),
     )
 
