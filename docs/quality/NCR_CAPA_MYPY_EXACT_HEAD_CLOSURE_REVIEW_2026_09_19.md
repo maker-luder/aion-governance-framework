@@ -1,7 +1,7 @@
 # NCR / CAPA closure review — mypy QA coverage and exact-head evidence integrity — 2026-09-19
 
 Related NCR: `NCR-QA-MYPY-20260917-01`  
-Status: `CLOSURE_REVIEW_PASS / OWNER_CLOSURE_DECISION_PENDING`  
+Status: `CLOSED / CAPA_EFFECTIVENESS_VERIFIED_WITH_LIMITATIONS / OWNER_APPROVED`  
 Canonical effect: `NONE`  
 Deployment: `FALSE`
 
@@ -14,10 +14,13 @@ It does not rewrite the original incident chronology and does not claim independ
 
 ~~~text
 CLOSURE_REVIEW_PASS
-!= NCR_CLOSED
+= YES
 
-OWNER_CLOSURE_DECISION
-= STILL_REQUIRED
+HUMAN_OWNER_CLOSURE_DECISION
+= GIVEN
+
+NCR_CLOSED
+= YES
 ~~~
 
 ## 2. Live remediation state
@@ -221,23 +224,38 @@ The closure assessment is limited to the NCR's two identified governance defects
 It does not assert full repository type correctness, runtime correctness,
 scientific validity, or independent IV&V.
 
-## 9. Closure recommendation
+## 9. Human Owner closure decision
+
+The Human Owner explicitly approved closure on 2026-09-19 with the existing
+limitations retained.
 
 ~~~text
+HUMAN_OWNER_CLOSURE_APPROVAL
+= GIVEN
+
 NCR
-= OPEN_PENDING_OWNER_DECISION
+= CLOSED
 
-CLOSURE_REVIEW
-= PASS
-
-RECOMMENDED_OWNER_DISPOSITION
-= CLOSE_WITH_LIMITATIONS_RECORDED
+CAPA_EFFECTIVENESS
+= VERIFIED_WITH_LIMITATIONS
 
 INDEPENDENT_IVV
 = NOT_ACHIEVED
 
+ABSENCE_OF_INDEPENDENT_IVV
+= EXPLICITLY_DOCUMENTED
+
 REPOSITORY_WIDE_MYPY_PASS
 = NOT_ESTABLISHED
+
+EXPLICIT_EXEMPTIONS_REMAIN_VISIBLE
+= YES
+
+CLOSURE_DOES_NOT_ASSERT_RUNTIME_CORRECTNESS
+= YES
+
+CLOSURE_DOES_NOT_ASSERT_SCIENTIFIC_VALIDITY
+= YES
 
 CANONICAL_EFFECT
 = NONE
@@ -246,4 +264,5 @@ DEPLOYMENT
 = FALSE
 ~~~
 
-The NCR must remain open until the Human Owner explicitly accepts closure.
+The closure is bounded to the NCR's identified QA-governance and exact-head
+evidence-binding defects. Historical failures remain part of the record.
