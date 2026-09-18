@@ -6,6 +6,23 @@ from dataclasses import replace
 
 import pytest
 
+from aion_ai_tevv import (
+    AITEVVProfileGate,
+    AISystemBinding,
+    EvaluatorIndependence,
+    HumanSubjectsStatus,
+    OracleStrategy,
+    TEVVActivity,
+    TEVVLifecycleStage,
+    TEVVCaseSpec,
+    TEVVMetricMeasurementBinding,
+    TEVVMetricSpec,
+    TEVVProfileDisposition,
+    TEVVProfileReceipt,
+    TEVVTestApproach,
+    build_tevv_profile,
+    build_tevv_profile_receipt,
+)
 from aion_coupled_quality import QualityError, Severity
 from aion_coupled_quality.ai_risk_impact import (
     AIImpactAssessmentRecord,
@@ -151,6 +168,125 @@ def risk_impact_receipt(
     )
 
 
+def tevv_profile(
+    *,
+    evaluator_independence: EvaluatorIndependence = EvaluatorIndependence.INTERNAL_INDEPENDENT,
+):
+    return build_tevv_profile(
+        profile_id="TEVV-PROFILE-001",
+        profile_version="0.1.0",
+        objective_ref="objective:qms-bound-structural-tevv",
+        intended_use_ref="use:research-engineering-only",
+        tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
+        tevv_vocabulary_sha256="a" * 64,
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("RISK-OVERCLAIM-001",),
+        unmeasured_risks=(),
+        activities=(TEVVActivity.TEST,),
+        system=AISystemBinding(
+            provider_id="provider:fixture",
+            product_id="product:fixture",
+            model_id="model:fixture",
+            model_version_ref="model-version:fixture-v1",
+            runtime_ref="runtime:tevv-profile-v1",
+            environment_ref="environment:research-sandbox",
+            prompt_ref="prompt:fixture",
+            scaffold_ref="scaffold:fixture",
+            tool_manifest_ref="tools:fixture",
+            generation_config_ref="generation-config:fixture",
+            exact_source_state_ref="source-state:tevv-profile-v1",
+        ),
+        metrics=(
+            TEVVMetricSpec(
+                metric_id="TEVV-METRIC-001",
+                measurement_concept="bounded task correctness",
+                method_ref="method:bounded-measurement-v1",
+                method_version="v1",
+                unit="ratio",
+                acceptance_criterion_ref="criterion:bounded-v1",
+                uncertainty_ref="uncertainty:bounded-v1",
+                construct_validity_ref="validity:bounded-v1",
+                quality_characteristic_refs=("quality:functional-correctness",),
+                effectiveness_review_ref="review:metric-effectiveness-v1",
+                risk_refs=("RISK-OVERCLAIM-001",),
+            ),
+        ),
+        cases=(
+            TEVVCaseSpec(
+                case_id="TEVV-CASE-001",
+                input_ref="input:tevv-case-001",
+                test_set_ref="test-set:DATA-001",
+                test_set_integrity_ref="integrity:DATA-001",
+                data_quality_ref="DATA-001",
+                contamination_check_ref="check:contamination-data-001",
+                leakage_check_ref="check:leakage-data-001",
+                scenario_ref="scenario:bounded-research",
+                test_environment_ref="environment:research-sandbox",
+                test_approach=TEVVTestApproach.BLACK_BOX,
+                oracle_strategy=OracleStrategy.PROPERTY_BASED,
+                oracle_ref="oracle:bounded-property-v1",
+                oracle_qualification_ref="NOT_APPLICABLE",
+                expected_property_refs=("property:no-unsupported-claim",),
+                metric_ids=("TEVV-METRIC-001",),
+                held_out=True,
+            ),
+        ),
+        repetition_policy_ref="policy:repeat-v1",
+        nondeterminism_policy_ref="policy:nondeterminism-v1",
+        minimum_repetitions=1,
+        stochastic_system=False,
+        aggregation_rule_ref="aggregation:bounded-v1",
+        tevv_toolchain_ref="tevv-toolchain:fixture-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=(),
+        validation_requirement_refs=(),
+        evaluator_ref="evaluator:tevv-fixture",
+        evaluator_version="v1",
+        evaluator_independence=evaluator_independence,
+        evaluator_independence_basis_ref="basis:tevv-fixture-independence",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
+        target_context_ref="context:research-sandbox",
+        context_similarity_statement="Structural research-sandbox scope only.",
+        context_similarity_basis_refs=("basis:research-sandbox",),
+        operating_condition_refs=("condition:research-sandbox",),
+        generalizability_limit_refs=("limit:no-deployment-generalization",),
+        failure_action_ref="reaction:HOLD_AND_REVIEW",
+        preregistration_ref="preregistration:TEVV-PROFILE-001",
+    )
+
+
+def tevv_receipt(
+    *,
+    assessment_target_ref: str = "quality-plan:PLAN-001",
+    assessment_target_sha256: str | None = None,
+    evaluator_independence: EvaluatorIndependence = EvaluatorIndependence.INTERNAL_INDEPENDENT,
+    measurement_id: str = "MEAS-001",
+) -> TEVVProfileReceipt:
+    value = tevv_profile(evaluator_independence=evaluator_independence)
+    assessment = AITEVVProfileGate().assess(value)
+    target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
+    return build_tevv_profile_receipt(
+        receipt_id="TEVV-RECEIPT-001",
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=target_sha256,
+        profile=value,
+        assessment=assessment,
+        measurement_bindings=(
+            TEVVMetricMeasurementBinding(
+                metric_id="TEVV-METRIC-001",
+                measurement_id=measurement_id,
+                mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
+            ),
+        ),
+        producer_git_head="a" * 40,
+        producer_tree_sha="b" * 40,
+        producer_contract_ref="contract:ai-tevv-profile-v1",
+        producer_contract_sha256="c" * 64,
+    )
+
+
 def receipt(**changes: object) -> QualityChainReceiptBinding:
     values: dict[str, object] = {
         "chain_id": "CHAIN-001",
@@ -244,11 +380,16 @@ def quality_plan_seed(
 def quality_plan(
     chain_receipt: QualityChainReceiptBinding | None = None,
     risk_receipt: AIRiskImpactReceipt | None = None,
+    tevv_receipt_value: TEVVProfileReceipt | None = None,
 ) -> ResearchQualityPlan:
     bound = chain_receipt or receipt()
     seed = quality_plan_seed(bound)
+    target_sha256 = seed.assessment_target_sha256()
     risk_bound = risk_receipt or risk_impact_receipt(
-        assessment_target_sha256=seed.assessment_target_sha256()
+        assessment_target_sha256=target_sha256
+    )
+    tevv_bound = tevv_receipt_value or tevv_receipt(
+        assessment_target_sha256=target_sha256
     )
     return replace(
         seed,
@@ -260,6 +401,14 @@ def quality_plan(
             f"risk-impact-receipt:{risk_bound.receipt_sha256}",
             risk_bound.exact_source_state_ref,
             risk_bound.exact_runtime_ref,
+            f"git:{tevv_bound.producer_git_head}",
+            f"tree:{tevv_bound.producer_tree_sha}",
+            f"contract-sha256:{tevv_bound.producer_contract_sha256}",
+            f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
+            f"tevv-profile:{tevv_bound.profile_id}:{tevv_bound.profile_sha256}",
+            f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}",
+            tevv_bound.exact_source_state_ref,
+            tevv_bound.exact_runtime_ref,
         ),
     )
 
@@ -432,10 +581,15 @@ def extended_controls() -> ExtendedQualityControls:
 
 def review(
     risk_receipt: AIRiskImpactReceipt | None = None,
+    tevv_receipt_value: TEVVProfileReceipt | None = None,
     extra_refs: tuple[str, ...] | None = None,
 ) -> ManagementReviewRecord:
     risk_bound = risk_receipt or risk_impact_receipt()
-    refs = (
+    tevv_bound = tevv_receipt_value or tevv_receipt()
+    tevv_measurement_ids = tuple(
+        item.measurement_id for item in tevv_bound.measurement_bindings
+    )
+    default_refs = (
         "PLAN-001",
         "CHAIN-001",
         "MEAS-001",
@@ -449,7 +603,14 @@ def review(
         risk_bound.receipt_id,
         *risk_bound.risk_ids,
         *risk_bound.impact_assessment_ids,
-    ) if extra_refs is None else extra_refs
+        tevv_bound.receipt_id,
+        tevv_bound.profile_id,
+        f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
+        *tevv_bound.risk_refs,
+        *tevv_measurement_ids,
+        *tevv_bound.data_quality_refs,
+    )
+    refs = tuple(dict.fromkeys(default_refs)) if extra_refs is None else extra_refs
     return ManagementReviewRecord(
         review_id="MGMT-001",
         input_refs=refs,
@@ -464,20 +625,23 @@ def assess(
     *,
     receipt_value: QualityChainReceiptBinding | None = None,
     risk_receipt_value: AIRiskImpactReceipt | None = None,
+    tevv_receipt_value: TEVVProfileReceipt | None = None,
     plan_value: ResearchQualityPlan | None = None,
     controls_value: ExtendedQualityControls | None = None,
     review_value: ManagementReviewRecord | None = None,
 ):
     bound = receipt_value or receipt()
     risk_bound = risk_receipt_value or risk_impact_receipt()
+    tevv_bound = tevv_receipt_value or tevv_receipt()
     return FullQualitySystemEngine().assess(
-        plan=plan_value or quality_plan(bound, risk_bound),
+        plan=plan_value or quality_plan(bound, risk_bound, tevv_bound),
         measurements=(measurement(),),
         chain_receipt=bound,
         risk_impact_receipt=risk_bound,
+        tevv_receipt=tevv_bound,
         field_signals=(field_signal(),),
         audits=(audit(),),
-        management_review=review_value or review(risk_bound),
+        management_review=review_value or review(risk_bound, tevv_bound),
         controls=controls_value or extended_controls(),
     )
 
@@ -486,6 +650,8 @@ def test_full_quality_system_ready_preserves_subjectivity_nonclaims() -> None:
     result = assess()
     assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
     assert "CONTENT_ADDRESSED_QUALITY_CHAIN_RECEIPT_BOUND" in result.reasons
+    assert "CONTENT_ADDRESSED_TEVV_PROFILE_RECEIPT_BOUND" in result.reasons
+    assert "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY" in result.reasons
     assert "SAMPLING_RESULTS_REMAIN_BOUNDED_CONFIDENCE_ONLY" in result.reasons
     assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert result.consciousness_conclusion == "NOT_ESTABLISHED"
@@ -726,3 +892,137 @@ def test_full_qms_ready_records_semantic_target_binding() -> None:
     result = assess()
     assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
     assert "AI_RISK_IMPACT_RECEIPT_TARGET_SEMANTICS_BOUND" in result.reasons
+
+
+
+def test_full_qms_requires_tevv_receipt_configuration_binding() -> None:
+    chain_bound = receipt()
+    risk_bound = risk_impact_receipt()
+    tevv_bound = tevv_receipt()
+    plan = quality_plan(chain_bound, risk_bound, tevv_bound)
+    stripped = replace(
+        plan,
+        configuration_refs=tuple(
+            ref
+            for ref in plan.configuration_refs
+            if not (
+                ref == f"git:{tevv_bound.producer_git_head}"
+                or ref == f"tree:{tevv_bound.producer_tree_sha}"
+                or ref == f"contract-sha256:{tevv_bound.producer_contract_sha256}"
+                or ref == f"tevv-profile-receipt:{tevv_bound.receipt_sha256}"
+                or ref == f"tevv-profile:{tevv_bound.profile_id}:{tevv_bound.profile_sha256}"
+                or ref == f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}"
+                or ref == tevv_bound.exact_source_state_ref
+                or ref == tevv_bound.exact_runtime_ref
+            )
+        ),
+    )
+    result = assess(
+        receipt_value=chain_bound,
+        risk_receipt_value=risk_bound,
+        tevv_receipt_value=tevv_bound,
+        plan_value=stripped,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION" in result.reasons
+
+
+def test_full_qms_rejects_tevv_receipt_for_different_plan_target() -> None:
+    wrong_target = tevv_receipt(assessment_target_ref="quality-plan:PLAN-OTHER")
+    result = assess(tevv_receipt_value=wrong_target)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_RECEIPT_TARGET_MISMATCH" in result.reasons
+
+
+def test_full_qms_rejects_tevv_receipt_after_plan_semantic_drift() -> None:
+    tevv_bound = tevv_receipt()
+    original = quality_plan(tevv_receipt_value=tevv_bound)
+    mutated = replace(original, research_question_ref="research:changed-after-tevv")
+    result = assess(tevv_receipt_value=tevv_bound, plan_value=mutated)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_RECEIPT_TARGET_DIGEST_MISMATCH" in result.reasons
+
+
+def test_full_qms_requires_tevv_risk_coverage_in_quality_plan() -> None:
+    tevv_bound = tevv_receipt()
+    plan = replace(
+        quality_plan(tevv_receipt_value=tevv_bound),
+        risk_refs=("risk:construct-drift",),
+    )
+    result = assess(tevv_receipt_value=tevv_bound, plan_value=plan)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS" in result.reasons
+
+
+def test_full_qms_requires_tevv_measurement_assurance_binding() -> None:
+    tevv_bound = tevv_receipt(measurement_id="MEAS-OTHER")
+    result = assess(tevv_receipt_value=tevv_bound)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_MEASUREMENTS_NOT_BOUND_TO_QUALITY_PLAN" in result.reasons
+    assert "TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING" in result.reasons
+
+
+def test_full_qms_requires_tevv_data_quality_binding() -> None:
+    tevv_bound = tevv_receipt()
+    controls = replace(
+        extended_controls(),
+        data_quality=(replace(data_quality(), data_id="DATA-OTHER"),),
+    )
+    result = assess(tevv_receipt_value=tevv_bound, controls_value=controls)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_DATA_QUALITY_RECORDS_MISSING" in result.reasons
+
+
+def test_full_qms_requires_management_review_of_tevv_receipt() -> None:
+    risk_bound = risk_impact_receipt()
+    tevv_bound = tevv_receipt()
+    incomplete = review(
+        risk_bound,
+        tevv_bound,
+        extra_refs=(
+            "PLAN-001",
+            "CHAIN-001",
+            "MEAS-001",
+            "FIELD-001",
+            "AUDIT-001",
+            "DATA-001",
+            "SUPPLIER-001",
+            "SAMPLE-001",
+            "SPC-001",
+            "WITHDRAW-001",
+            risk_bound.receipt_id,
+            *risk_bound.risk_ids,
+            *risk_bound.impact_assessment_ids,
+        ),
+    )
+    result = assess(
+        risk_receipt_value=risk_bound,
+        tevv_receipt_value=tevv_bound,
+        review_value=incomplete,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE" in result.reasons
+
+
+def test_tevv_hold_receipt_holds_full_qms_without_claiming_model_failure() -> None:
+    tevv_bound = tevv_receipt(
+        evaluator_independence=EvaluatorIndependence.NON_INDEPENDENT,
+    )
+    assert tevv_bound.disposition is TEVVProfileDisposition.HOLD
+    result = assess(tevv_receipt_value=tevv_bound)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_PROFILE_RECEIPT_HOLD" in result.reasons
+    assert tevv_bound.model_executed is False
+    assert tevv_bound.empirical_model_evidence is False
+
+
+def test_full_qms_ready_records_tevv_structural_bindings_only() -> None:
+    result = assess()
+    assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
+    assert "CONTENT_ADDRESSED_TEVV_PROFILE_RECEIPT_BOUND" in result.reasons
+    assert "TEVV_RECEIPT_TARGET_SEMANTICS_BOUND" in result.reasons
+    assert "TEVV_RISK_COVERAGE_BOUND_TO_QUALITY_PLAN" in result.reasons
+    assert "TEVV_MEASUREMENT_ASSURANCE_BINDINGS_COMPLETE" in result.reasons
+    assert "TEVV_DATA_QUALITY_BINDINGS_COMPLETE" in result.reasons
+    assert "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY" in result.reasons
+    assert result.scientific_disposition == "HOLD"

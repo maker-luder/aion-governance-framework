@@ -441,3 +441,92 @@ Still deliberately not implemented:
 - autonomous supplier sanction;
 - merge/release authority;
 - subjectivity scoring.
+
+
+## Structural AI TEVV profile integration
+
+The full-QMS layer now has a bounded consumer seam for the standalone structural
+AI TEVV profile merged in PR #157.
+
+The integration does **not** treat the TEVV profile as model-execution evidence.
+Instead, the TEVV producer emits a content-addressed `TEVVProfileReceipt`.
+Receipt construction recomputes `AITEVVProfileGate.assess(...)` against the
+same profile before issuance.
+
+The receipt binds:
+
+```text
+quality-plan target ref + semantic target digest
+TEVV profile id / version / profile digest
+structural TEVV disposition
+declared TEVV risk refs
+TEVV metric ids
+TEVV case data-quality refs
+TEVV metric -> MeasurementAssuranceRecord bindings + mapping-basis refs
+AI-system exact source state + runtime
+producer Git HEAD + tree
+producer contract ref + digest
+TEVV vocabulary ref + digest
+fixed model-execution / empirical-evidence nonclaims
+receipt digest
+```
+
+The repository-bound receipt builder resolves the producer Git HEAD, tree and
+contract bytes from committed Git objects. Dirty worktree bytes are not silently
+attributed to the committed producer.
+
+`FullQualitySystemEngine` consumes the receipt without re-running TEVV producer
+semantics. It fails closed unless:
+
+```text
+receipt target == quality-plan:<plan_id>
+receipt target digest == plan.assessment_target_sha256()
+TEVV risk refs <= quality-plan risk refs
+all TEVV metric measurement bindings <= quality-plan measurement ids
+every TEVV metric -> QMS measurement mapping has an inspectable basis ref
+all bound measurement ids exist in supplied MeasurementAssuranceRecord values
+all TEVV data-quality refs exist in ExtendedQualityControls.data_quality
+TEVV producer/source/runtime/receipt identities are pre-bound in configuration_refs
+TEVV receipt/profile/exact receipt digest are present in management-review inputs
+receipt disposition == READY_FOR_BOUNDED_EXECUTION
+```
+
+A positive full-QMS disposition therefore means only that the structural TEVV
+plan has been integrated into the declared quality system and is ready for
+bounded Human review / later execution planning.
+
+```text
+TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION
+!= MODEL_EXECUTED
+
+FULL_QMS_TEVV_BINDING_PASS
+!= MODEL_QUALITY_PASS
+
+MEASUREMENT_ASSURANCE_BOUND
+!= METRIC_OBSERVED
+
+DATA_QUALITY_RECORD_BOUND
+!= TEST_CASE_EXECUTED
+
+CONTENT_ADDRESSED_TEVV_RECEIPT
+!= DIGITAL_SIGNATURE
+!= INDEPENDENT_IVV
+!= SCIENTIFIC_VALIDATION
+```
+
+Empirical model-run outputs require a future execution/evidence receipt and are
+outside this integration.
+
+
+The mapping basis is traceability, not a semantic proof:
+
+```text
+TEVV_METRIC_MAPPED_TO_MEASUREMENT_ID
++ MAPPING_BASIS_REF
+!= CONSTRUCT_EQUIVALENCE_PROVEN
+!= METHOD_EQUIVALENCE_PROVEN
+```
+
+A later empirical execution layer may add stronger observed-result and method-compatibility
+checks. This structural integration only ensures that no TEVV metric enters the full QMS
+without an explicit QMS measurement-assurance mapping and rationale.
