@@ -10,6 +10,7 @@ from aion_ai_tevv import (
     EvaluatorIndependence,
     OracleStrategy,
     TEVVActivity,
+    TEVVLifecycleStage,
     TEVVCaseSpec,
     TEVVError,
     TEVVMetricSpec,
@@ -43,6 +44,7 @@ def metric(metric_id: str = "METRIC-ACCURACY") -> TEVVMetricSpec:
         unit="ratio",
         acceptance_criterion_ref="criterion:preregistered-threshold-v1",
         uncertainty_ref="uncertainty:binomial-and-run-variation-v1",
+        risk_refs=("risk:bounded-model-quality",),
     )
 
 
@@ -80,6 +82,8 @@ def profile(
         profile_version="0.1.0",
         objective_ref="objective:bounded-ai-system-quality-evaluation",
         intended_use_ref="use:research-engineering-only",
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("risk:bounded-model-quality",),
         activities=(
             TEVVActivity.TESTING,
             TEVVActivity.EVALUATION,
@@ -188,6 +192,8 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         profile_version="0.1.0",
         objective_ref="objective:order-invariance",
         intended_use_ref="use:structural-test",
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("risk:bounded-model-quality",),
         activities=(TEVVActivity.TESTING, TEVVActivity.EVALUATION),
         system=system(),
         metrics=(metric_a, metric_b),
@@ -210,6 +216,8 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         profile_version="0.1.0",
         objective_ref="objective:order-invariance",
         intended_use_ref="use:structural-test",
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("risk:bounded-model-quality",),
         activities=(TEVVActivity.EVALUATION, TEVVActivity.TESTING),
         system=system(),
         metrics=(metric_b, metric_a),
@@ -267,6 +275,8 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "profile_version": "0.1.0",
         "objective_ref": "objective:case-order",
         "intended_use_ref": "use:structural-test",
+        "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
+        "risk_refs": ("risk:bounded-model-quality",),
         "activities": (TEVVActivity.TESTING,),
         "system": system(),
         "metrics": (metric_a, metric_b),
@@ -286,3 +296,50 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
     first = build_tevv_profile(cases=(first_case,), **common)
     second = build_tevv_profile(cases=(second_case,), **common)
     assert first.profile_sha256 == second.profile_sha256
+
+
+
+def test_profile_binds_lifecycle_stage_and_metric_risks() -> None:
+    value = profile()
+    assert value.lifecycle_stage is TEVVLifecycleStage.RESEARCH
+    assert value.risk_refs == ("risk:bounded-model-quality",)
+
+    with pytest.raises(TEVVError, match="lifecycle_stage"):
+        replace(value, lifecycle_stage="RESEARCH")
+
+    outside_risk_metric = replace(
+        metric(),
+        risk_refs=("risk:not-declared-by-profile",),
+    )
+    with pytest.raises(TEVVError, match="outside profile risk_refs"):
+        profile(metrics=(outside_risk_metric,))
+
+
+def test_non_independent_evaluator_holds_execution_readiness() -> None:
+    value = build_tevv_profile(
+        profile_id="TEVV-NON-INDEPENDENT",
+        profile_version="0.1.0",
+        objective_ref="objective:independence-check",
+        intended_use_ref="use:structural-test",
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("risk:bounded-model-quality",),
+        activities=(TEVVActivity.TESTING,),
+        system=system(),
+        metrics=(metric(),),
+        cases=(case(),),
+        repetition_policy_ref="policy:repeat-v1",
+        nondeterminism_policy_ref="policy:nondeterminism-v1",
+        minimum_repetitions=1,
+        stochastic_system=False,
+        aggregation_rule_ref="aggregation:v1",
+        evaluator_ref="evaluator:developer-self-review",
+        evaluator_version="v1",
+        evaluator_independence=EvaluatorIndependence.NON_INDEPENDENT,
+        target_context_ref="context:test",
+        context_similarity_statement="Structural test only.",
+        failure_action_ref="reaction:hold",
+        preregistration_ref="preregistration:non-independent",
+    )
+    assessment = AITEVVProfileGate().assess(value)
+    assert assessment.disposition is TEVVProfileDisposition.HOLD
+    assert "NON_INDEPENDENT_EVALUATOR_REQUIRES_REVIEW" in assessment.reasons
