@@ -82,6 +82,13 @@ MODEL_FAMILY
 
 Llama's open-weight distribution makes this distinction inspectable and experimentally useful.
 
+Meta's own Llama verification report also shows why the distinction is operational rather than theoretical: the hosted Llama API verification used FP8 model IDs and a 128k context limit at report generation, while the model-card benchmark configuration was BF16 and advertised context limits were larger.
+
+~~~text
+HOSTED_API_VERIFICATION
+!= MODEL_CARD_CONFIGURATION
+~~~
+
 ## 5. Axis 3 — agent / harness
 
 Re-admission:
@@ -330,7 +337,7 @@ META
 ├─ LLAMA
 │  └─ latest official family identified: Llama 4
 │
-├─ MUSE
+├─ CURRENT PUBLIC NON-LLAMA MODEL REFERENCES
 │  ├─ Muse Spark 1.3
 │  └─ Muse Glimmer
 │
@@ -339,6 +346,9 @@ META
    ├─ Muse
    ├─ Muse Code
    └─ Meta Model API
+
+"Muse family" as a provider-canonical ontology
+= NOT ASSUMED
 ~~~
 
 This topology is methodological, not a permanent ontology. Future releases can change it.
