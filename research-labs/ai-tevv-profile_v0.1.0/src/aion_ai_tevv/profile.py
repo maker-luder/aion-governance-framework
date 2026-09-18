@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 TEVV_PROFILE_SCHEMA_VERSION = "0.1.0"
-TEVV_PROFILE_RECEIPT_SCHEMA_VERSION = "0.1.0"
+TEVV_PROFILE_RECEIPT_SCHEMA_VERSION = "0.2.0"
 DEFAULT_TEVV_VOCABULARY_REPOSITORY_PATH = (
     "research-labs/subjectivity-pipeline_v0.1.0/"
     "src/aion_subjectivity_pipeline/standards_crosswalk.py"
@@ -573,17 +573,20 @@ class TEVVProfileAssessment:
 class TEVVMetricMeasurementBinding:
     metric_id: str
     measurement_id: str
+    measurement_sha256: str
     mapping_basis_ref: str
 
     def __post_init__(self) -> None:
         _text("metric_id", self.metric_id)
         _text("measurement_id", self.measurement_id)
+        _hex("measurement_sha256", self.measurement_sha256, 64)
         _text("mapping_basis_ref", self.mapping_basis_ref)
 
     def as_dict(self) -> dict[str, str]:
         return {
             "metric_id": self.metric_id,
             "measurement_id": self.measurement_id,
+            "measurement_sha256": self.measurement_sha256,
             "mapping_basis_ref": self.mapping_basis_ref,
         }
 
