@@ -2,11 +2,17 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 from dataclasses import dataclass
 from enum import StrEnum
+from pathlib import Path
 
 
 TEVV_PROFILE_SCHEMA_VERSION = "0.1.0"
+DEFAULT_TEVV_VOCABULARY_REPOSITORY_PATH = (
+    "research-labs/subjectivity-pipeline_v0.1.0/"
+    "src/aion_subjectivity_pipeline/standards_crosswalk.py"
+)
 
 
 class TEVVError(ValueError):
@@ -45,6 +51,35 @@ def _hex(name: str, value: str, length: int) -> None:
         char not in "0123456789abcdef" for char in value
     ):
         raise TEVVError(f"{name} must be lowercase {length}-hex")
+
+
+def _git_text(root: Path, *args: str) -> str:
+    try:
+        result = subprocess.run(
+            ("git", *args),
+            cwd=root,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise TEVVError("failed to resolve committed Git provenance") from exc
+    return result.stdout.strip()
+
+
+def _git_bytes(root: Path, *args: str) -> bytes:
+    try:
+        result = subprocess.run(
+            ("git", *args),
+            cwd=root,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise TEVVError("failed to resolve committed Git object bytes") from exc
+    return result.stdout
 
 
 class TEVVActivity(StrEnum):
@@ -539,4 +574,82 @@ def build_tevv_profile(
         failure_action_ref=failure_action_ref,
         preregistration_ref=preregistration_ref,
         profile_sha256=_sha256(values),
+    )
+
+
+
+def build_repository_bound_tevv_profile(
+    *,
+    profile_id: str,
+    profile_version: str,
+    objective_ref: str,
+    intended_use_ref: str,
+    lifecycle_stage: TEVVLifecycleStage,
+    risk_refs: tuple[str, ...],
+    activities: tuple[TEVVActivity, ...],
+    system: AISystemBinding,
+    metrics: tuple[TEVVMetricSpec, ...],
+    cases: tuple[TEVVCaseSpec, ...],
+    repetition_policy_ref: str,
+    nondeterminism_policy_ref: str,
+    minimum_repetitions: int,
+    stochastic_system: bool,
+    aggregation_rule_ref: str,
+    evaluator_ref: str,
+    evaluator_version: str,
+    evaluator_independence: EvaluatorIndependence,
+    target_context_ref: str,
+    context_similarity_statement: str,
+    failure_action_ref: str,
+    preregistration_ref: str,
+    repository_root: Path,
+    tevv_vocabulary_ref: str = DEFAULT_TEVV_VOCABULARY_REPOSITORY_PATH,
+) -> AITEVVProfile:
+    """Bind TEVV vocabulary provenance to committed repository bytes.
+
+    Dirty working-tree vocabulary bytes are intentionally ignored. The builder
+    resolves the exact vocabulary object from HEAD and records its SHA-256 in
+    the profile before content-addressing the complete profile.
+    """
+    root = repository_root.resolve()
+    top_level = Path(_git_text(root, "rev-parse", "--show-toplevel")).resolve()
+    if top_level != root:
+        raise TEVVError("repository_root must be the exact Git top-level")
+
+    vocabulary_path = Path(tevv_vocabulary_ref)
+    if (
+        vocabulary_path.is_absolute()
+        or ".." in vocabulary_path.parts
+        or not tevv_vocabulary_ref.strip()
+    ):
+        raise TEVVError("tevv_vocabulary_ref must be a safe repository-relative path")
+
+    vocabulary_bytes = _git_bytes(root, "show", f"HEAD:{tevv_vocabulary_ref}")
+    vocabulary_sha256 = hashlib.sha256(vocabulary_bytes).hexdigest()
+
+    return build_tevv_profile(
+        profile_id=profile_id,
+        profile_version=profile_version,
+        objective_ref=objective_ref,
+        intended_use_ref=intended_use_ref,
+        tevv_vocabulary_ref=tevv_vocabulary_ref,
+        tevv_vocabulary_sha256=vocabulary_sha256,
+        lifecycle_stage=lifecycle_stage,
+        risk_refs=risk_refs,
+        activities=activities,
+        system=system,
+        metrics=metrics,
+        cases=cases,
+        repetition_policy_ref=repetition_policy_ref,
+        nondeterminism_policy_ref=nondeterminism_policy_ref,
+        minimum_repetitions=minimum_repetitions,
+        stochastic_system=stochastic_system,
+        aggregation_rule_ref=aggregation_rule_ref,
+        evaluator_ref=evaluator_ref,
+        evaluator_version=evaluator_version,
+        evaluator_independence=evaluator_independence,
+        target_context_ref=target_context_ref,
+        context_similarity_statement=context_similarity_statement,
+        failure_action_ref=failure_action_ref,
+        preregistration_ref=preregistration_ref,
     )
