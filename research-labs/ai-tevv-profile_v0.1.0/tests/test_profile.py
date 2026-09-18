@@ -367,6 +367,7 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "evaluator_independence": EvaluatorIndependence.NON_INDEPENDENT,
         "target_context_ref": "context:test",
         "context_similarity_statement": "Structural comparison only.",
+        "context_similarity_basis_refs": ("basis:structural-comparison-v1",),
         "failure_action_ref": "reaction:hold",
         "preregistration_ref": "preregistration:case-order",
     }
