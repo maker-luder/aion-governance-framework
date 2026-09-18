@@ -11,6 +11,7 @@ from .profile import (
     TEVVMetricSpec,
     TEVVProfileAssessment,
     TEVVProfileDisposition,
+    TEVVTestApproach,
     TEVV_PROFILE_SCHEMA_VERSION,
     build_tevv_profile,
 )
@@ -28,6 +29,7 @@ __all__ = [
     "TEVVMetricSpec",
     "TEVVProfileAssessment",
     "TEVVProfileDisposition",
+    "TEVVTestApproach",
     "TEVV_PROFILE_SCHEMA_VERSION",
     "build_tevv_profile",
 ]
