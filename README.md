@@ -72,6 +72,8 @@ For exact-commit engineering status, use live GitHub / CI evidence rather than s
 
 Astra is a distinct engineering / research workbench used to materialize and test bounded candidates. It is not defined as AION's identity, memory stream, or substitute for subjectivity.
 
+**Current engineering status:** `main` now includes bounded TEVV (Testing / Evaluation / Verification / Validation), Full-QMS integration, an AI adversarial-security profile, and a content-addressed AI security receipt integrated into `FullQualitySystemEngine`. These are engineering controls and evidence-binding mechanisms; they do **not** establish adversarial-security effectiveness, scientific validation, subjectivity, consciousness, or phenomenal experience.
+
 ## Governance and license
 
 AION remains human-governed. Engineering capability, automation, quality checks, AI review, or prior approval do not independently create authority to transition `main`.
