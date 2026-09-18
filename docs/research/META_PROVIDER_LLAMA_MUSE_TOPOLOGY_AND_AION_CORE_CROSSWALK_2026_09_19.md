@@ -43,7 +43,7 @@ MUSE_GLIMMER
 = CURRENT MUSE-FAMILY OPEN-WEIGHT MODEL
 ~~~
 
-Therefore the intake retains `Meta / Llama` as the planned provider-family research target while explicitly refusing to equate Llama with Meta's current frontier product baseline.
+Therefore the intake retains `Meta / Llama` as the planned provider-family research target while explicitly refusing to equate Llama with Meta's current public frontier model reference. This does not assert that Meta has deprecated Llama or that "Muse" is a provider-canonical family ontology.
 
 ## 3. Why this matters to the AION core
 
