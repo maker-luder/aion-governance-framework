@@ -151,11 +151,17 @@ Therefore:
 LATEST_LLAMA_FAMILY
 = LLAMA_4
 
-CURRENT_META_FRONTIER_FAMILY
-= MUSE_SPARK
+CURRENT_PUBLIC_META_FRONTIER_MODEL_REFERENCE
+= MUSE_SPARK_1_3
+
+MUSE_AS_PROVIDER_CANONICAL_FAMILY_LABEL
+= NOT_ASSUMED
 
 LATEST_LLAMA
-!= CURRENT_META_AI_MODEL_BASELINE
+!= CURRENT_PUBLIC_META_FRONTIER_MODEL_REFERENCE
+
+LLAMA_DEPRECATED_BY_THIS_FACT
+= NO
 ~~~
 
 ## 6. Axis 2 — model / artifact / system level
@@ -194,6 +200,16 @@ OPEN_WEIGHT
 ~~~
 
 A valid baseline requires exact artifact and execution provenance.
+
+Meta's own benchmark-verification report provides a concrete example: its Llama API verification used FP8 model IDs for both Maverick and Scout and reported a 128k API context limit at that time, while the model-card benchmark configuration was BF16 and the model card lists 1M context for Maverick and 10M for Scout.
+
+~~~text
+MODEL_CARD_BENCHMARK_CONFIGURATION
+!= LLAMA_API_VERIFICATION_CONFIGURATION
+
+CLOSE_SCORES
+!= CONFIGURATION_IDENTITY
+~~~
 
 ## 7. Axis 3 — agent / harness level
 
