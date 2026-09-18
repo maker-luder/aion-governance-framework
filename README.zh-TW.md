@@ -92,6 +92,8 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 Astra 是與 AION 相互區分的工程／研究工作台，用來實作與測試有限範圍候選方案；它不是 AION 的身分、記憶流或主體性替代物。
 
+**目前工程狀態：** `main` 現已包含 bounded TEVV（Testing / Evaluation / Verification / Validation，測試／評估／驗證／確效）、Full-QMS integration（完整品質管理系統整合）、AI adversarial-security profile（AI 對抗性安全設定檔），以及已整合進 `FullQualitySystemEngine` 的 content-addressed AI security receipt（內容定址 AI 安全收據）。這些屬於工程控制與證據綁定機制；它們**不代表**已建立對抗性安全有效性，也不構成科學驗證、主體性、意識或現象經驗的證據。
+
 ## 治理與授權
 
 AION 維持人類治理。工程能力、自動化、品質檢查、AI 審查或過去的批准，都不能自行產生把新變更送入 `main` 的授權。
