@@ -17,12 +17,16 @@ from aion_ai_tevv import (
     TEVVLifecycleStage,
     TEVVCaseSpec,
     TEVVError,
+    TEVVMetricMeasurementBinding,
     TEVVMetricSpec,
     TEVVProfileDisposition,
+    TEVVProfileReceipt,
     TEVVUnmeasuredRisk,
     TEVVTestApproach,
     build_repository_bound_tevv_profile,
+    build_repository_bound_tevv_profile_receipt,
     build_tevv_profile,
+    build_tevv_profile_receipt,
 )
 
 
@@ -748,3 +752,146 @@ def test_profile_requires_operating_conditions_and_generalizability_limits() -> 
         replace(value, operating_condition_refs=())
     with pytest.raises(TEVVError, match="generalizability_limit_refs"):
         replace(value, generalizability_limit_refs=())
+
+
+
+def profile_receipt(
+    *,
+    profile_value=None,
+    assessment_target_ref: str = "quality-plan:PLAN-001",
+    assessment_target_sha256: str = "b" * 64,
+    measurement_bindings: tuple[TEVVMetricMeasurementBinding, ...] = (
+        TEVVMetricMeasurementBinding(
+            metric_id="METRIC-ACCURACY",
+            measurement_id="MEAS-001",
+        ),
+    ),
+) -> TEVVProfileReceipt:
+    value = profile_value or profile()
+    assessment = AITEVVProfileGate().assess(value)
+    return build_tevv_profile_receipt(
+        receipt_id="TEVV-RECEIPT-001",
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
+        profile=value,
+        assessment=assessment,
+        measurement_bindings=measurement_bindings,
+        producer_git_head="1" * 40,
+        producer_tree_sha="2" * 40,
+        producer_contract_ref="research-labs/ai-tevv-profile_v0.1.0/src/aion_ai_tevv/profile.py",
+        producer_contract_sha256="3" * 64,
+    )
+
+
+def test_tevv_profile_receipt_is_content_addressed_and_non_empirical() -> None:
+    value = profile_receipt()
+
+    assert value.profile_id == "TEVV-PROFILE-001"
+    assert value.metric_ids == ("METRIC-ACCURACY",)
+    assert value.data_quality_refs == ("data-quality:synthetic-held-out-v1",)
+    assert value.risk_refs == ("risk:bounded-model-quality",)
+    assert value.disposition is TEVVProfileDisposition.READY_FOR_BOUNDED_EXECUTION
+    assert value.model_executed is False
+    assert value.empirical_model_evidence is False
+    assert value.scientific_disposition == "HOLD"
+    assert value.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert value.canonical_effect == "NONE"
+    assert value.deployment is False
+    assert len(value.receipt_sha256) == 64
+
+
+def test_tevv_profile_receipt_detects_tampering() -> None:
+    value = profile_receipt()
+    with pytest.raises(TEVVError, match="content digest mismatch"):
+        replace(value, receipt_sha256="0" * 64)
+
+
+def test_tevv_profile_receipt_recomputes_gate_assessment() -> None:
+    value = profile()
+    forged = replace(
+        AITEVVProfileGate().assess(value),
+        disposition=TEVVProfileDisposition.HOLD,
+    )
+    with pytest.raises(TEVVError, match="recomputed TEVV gate assessment"):
+        build_tevv_profile_receipt(
+            receipt_id="TEVV-RECEIPT-FORGED",
+            assessment_target_ref="quality-plan:PLAN-001",
+            assessment_target_sha256="b" * 64,
+            profile=value,
+            assessment=forged,
+            measurement_bindings=(
+                TEVVMetricMeasurementBinding(
+                    metric_id="METRIC-ACCURACY",
+                    measurement_id="MEAS-001",
+                ),
+            ),
+            producer_git_head="1" * 40,
+            producer_tree_sha="2" * 40,
+            producer_contract_ref="contract:tevv",
+            producer_contract_sha256="3" * 64,
+        )
+
+
+def test_tevv_profile_receipt_requires_complete_metric_measurement_binding() -> None:
+    value = profile(
+        metrics=(metric("METRIC-A"), metric("METRIC-B")),
+        cases=(
+            case("CASE-A", metric_ids=("METRIC-A",)),
+            case("CASE-B", metric_ids=("METRIC-B",)),
+        ),
+    )
+    with pytest.raises(TEVVError, match="cover every TEVV metric exactly once"):
+        profile_receipt(
+            profile_value=value,
+            measurement_bindings=(
+                TEVVMetricMeasurementBinding(
+                    metric_id="METRIC-A",
+                    measurement_id="MEAS-001",
+                ),
+            ),
+        )
+
+
+def test_repository_bound_tevv_receipt_uses_committed_producer_bytes(tmp_path: Path) -> None:
+    root, vocabulary_ref, committed_bytes = _repository_fixture(tmp_path)
+    value = profile()
+    assessment = AITEVVProfileGate().assess(value)
+
+    receipt = build_repository_bound_tevv_profile_receipt(
+        receipt_id="TEVV-RECEIPT-GIT",
+        assessment_target_ref="quality-plan:PLAN-001",
+        assessment_target_sha256="b" * 64,
+        profile=value,
+        assessment=assessment,
+        measurement_bindings=(
+            TEVVMetricMeasurementBinding(
+                metric_id="METRIC-ACCURACY",
+                measurement_id="MEAS-001",
+            ),
+        ),
+        repository_root=root,
+        producer_contract_ref=vocabulary_ref,
+    )
+    expected = hashlib.sha256(committed_bytes).hexdigest()
+    assert receipt.producer_git_head == _git(root, "rev-parse", "HEAD")
+    assert receipt.producer_tree_sha == _git(root, "rev-parse", "HEAD^{tree}")
+    assert receipt.producer_contract_sha256 == expected
+
+    (root / vocabulary_ref).write_text("class TevvTerm:\n    CHANGED = True\n", encoding="utf-8")
+    dirty = build_repository_bound_tevv_profile_receipt(
+        receipt_id="TEVV-RECEIPT-GIT-DIRTY",
+        assessment_target_ref="quality-plan:PLAN-001",
+        assessment_target_sha256="b" * 64,
+        profile=value,
+        assessment=assessment,
+        measurement_bindings=(
+            TEVVMetricMeasurementBinding(
+                metric_id="METRIC-ACCURACY",
+                measurement_id="MEAS-001",
+            ),
+        ),
+        repository_root=root,
+        producer_contract_ref=vocabulary_ref,
+    )
+    assert dirty.producer_contract_sha256 == expected
+    assert dirty.producer_tree_sha == receipt.producer_tree_sha
