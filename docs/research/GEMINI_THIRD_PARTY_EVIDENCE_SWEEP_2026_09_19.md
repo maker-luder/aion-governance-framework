@@ -148,7 +148,7 @@ CAN ALTER
 OBSERVED_POLICY_BEHAVIOR
 ~~~
 
-This independently supports causal-boundary and evaluator/evidence-separation discipline.
+This external study supports causal-boundary and evaluator/evidence-separation discipline.
 
 ## 7. Medical missing-information evaluation — evaluator dependence
 
@@ -446,7 +446,7 @@ NOT
 
 ### 15.3 Evaluator dependence
 
-The medical missing-information study and Google's double-blind initiative independently motivate stronger evaluator-provenance and contamination controls.
+The medical missing-information study and Google's double-blind initiative separately motivate stronger evaluator-provenance and contamination controls.
 
 ~~~text
 CONVERGENCE
