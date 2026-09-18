@@ -228,3 +228,43 @@ This record does not establish:
 - any merge or canonical-promotion authority.
 
 It records the failure because failure evidence is part of repository quality evidence and must not be erased by later successful recovery.
+
+
+## 11. Current-state reconciliation after PR merge
+
+The event-time sections above remain unchanged as historical evidence.
+
+Later repository state:
+
+~~~text
+PR_176
+= MERGED
+
+PR_176_EXACT_HEAD
+= c067e3183905321448fb3ddaaa3794cde87b01f3
+
+PR_176_MERGE_COMMIT
+= bfaee47510b280ce183564bf7e0dafdc6dcb8517
+~~~
+
+This later merge changes only the pull-request state.
+
+~~~text
+PR_MERGED
+!= ROOT_CAUSE_IDENTIFIED
+
+PR_MERGED
+!= CAPA_EFFECTIVENESS_VERIFIED
+
+PR_MERGED
+!= INCIDENT_CLOSED
+~~~
+
+Current incident disposition remains:
+
+~~~text
+NCR_STATUS = OPEN
+ROOT_CAUSE = UNKNOWN
+CAPA_EFFECTIVENESS = NOT_VERIFIED
+INCIDENT_CLOSED = FALSE
+~~~
