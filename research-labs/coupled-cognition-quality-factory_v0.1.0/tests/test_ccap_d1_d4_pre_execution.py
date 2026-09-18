@@ -256,15 +256,16 @@ def receipt():
 
 
 def test_ccap_pre_execution_profile_is_structurally_ready_only() -> None:
-    assessment = AITEVVProfileGate().assess(profile())
+    value = profile()
+    assessment = AITEVVProfileGate().assess(value)
 
     assert assessment.disposition is TEVVProfileDisposition.READY_FOR_BOUNDED_EXECUTION
     assert assessment.model_executed is False
     assert assessment.empirical_model_evidence is False
     assert assessment.scientific_disposition == "HOLD"
-    assert assessment.subjectivity_conclusion == "NOT_ESTABLISHED"
-    assert assessment.consciousness_conclusion == "NOT_ESTABLISHED"
-    assert assessment.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
+    assert value.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert value.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert value.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
 
 
 def test_ccap_tevv_cases_cover_primary_guidance_and_reduction_controls() -> None:
