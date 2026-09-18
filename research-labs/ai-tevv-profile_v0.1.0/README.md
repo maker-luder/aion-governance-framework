@@ -446,3 +446,38 @@ NIST_AI_200_2_IPD = DRAFT_METHOD_SIGNAL
 ISO_CONFORMANCE = NOT_ESTABLISHED
 NIST_CONFORMANCE = NOT_ESTABLISHED
 ```
+
+
+### 5. A metric declaration without an evidence-producing case was not enough
+
+A follow-up adversarial pass found a local completeness bug: the profile could
+declare a metric, count its linked risk as "measured", but never reference that
+metric from any `TEVVCaseSpec`.
+
+That would create:
+
+```text
+METRIC_SPEC_EXISTS
+!= EVENT / CASE_SCHEDULED_TO_PRODUCE_EVIDENCE
+```
+
+The profile now requires every declared metric ID to be referenced by at least
+one TEVV case. This closes the structural path where a risk appeared measured
+only because an unused metric specification named it.
+
+```text
+DECLARED_RISK
+-> METRIC
+-> AT_LEAST_ONE_CASE
+-> EVIDENCE_COLLECTION_PLAN
+
+otherwise -> HOLD / INVALID PROFILE
+```
+
+This still does not mean evidence has actually been collected.
+
+```text
+CASE_BOUND_TO_METRIC != CASE_EXECUTED
+MODEL_EXECUTED = FALSE
+EMPIRICAL_MODEL_EVIDENCE = FALSE
+```
