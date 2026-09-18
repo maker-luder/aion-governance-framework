@@ -5,7 +5,8 @@ Status: `PRE_INDICATOR_SYSTEM_BOUNDARY / SCIENTIFIC_HOLD`
 ```text
 CENTRAL_RESEARCH_QUESTION = AI_SUBJECTIVITY_POSSIBILITY
 BOUNDARY_TARGET = CCAP_D1_X_D4_SOURCE_PARTITION
-BOUNDARY_FIXED_BEFORE_DIMENSION_ASSIGNMENT = TRUE
+BOUNDARY_FIXED_BEFORE_HISTORICAL_DIMENSION_ASSIGNMENT = FALSE
+BOUNDARY_FIXED_FOR_FUTURE_REBINDING = TRUE
 SYSTEM_BOUNDARY != SUBJECTIVITY_CLAIM
 SYSTEM_BOUNDARY != MODEL_INTERNAL_LOCUS
 CANONICAL_EFFECT = NONE
@@ -25,8 +26,9 @@ INDICATOR_RESULT
 -> SAME_INDICATOR_NOW_APPEARS_SUPPORTED
 ```
 
-The boundary must instead remain independently inspectable and content-bound before
-dimension assignment.
+The boundary must instead remain independently inspectable and content-bound before any future dimension re-assignment or adversarial execution.
+
+The historical CCAP D1/D4 mapping predates this artifact. Therefore this file is a retrospective hardening step, not evidence that the original mapping satisfied an individuation-before-indicators requirement.
 
 ## Included loci
 
@@ -71,6 +73,12 @@ absorbed into the assessed system merely because its effects appear in the inter
 ## Boundary invariants
 
 ```text
+HISTORICAL_D1_D4_MAPPING
+=> RETROSPECTIVE_BOUNDARY_HARDENING_REQUIRED
+
+FUTURE_DIMENSION_REBINDING
+=> BOUNDARY_MUST_ALREADY_BE_FIXED
+
 BOUNDARY_CHANGE
 => NEW_PROTOCOL_BINDING
 
@@ -108,7 +116,8 @@ subjectivity without an explicit bridge.
 ## Nonclaims
 
 ```text
-SYSTEM_INDIVIDUATED_FOR_PROTOCOL = YES
+SYSTEM_BOUNDARY_OPERATIONALLY_DECLARED = YES
+HISTORICAL_PRE_INDICATOR_INDIVIDUATION = NOT_ACHIEVED
 METAPHYSICAL_INDIVIDUATION = NOT_ESTABLISHED
 MODEL_INTERNAL_CAUSAL_LOCUS = NOT_ESTABLISHED
 ENDOGENOUS_GOAL = NOT_ESTABLISHED
