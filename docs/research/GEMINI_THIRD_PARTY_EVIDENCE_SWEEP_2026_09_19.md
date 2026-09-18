@@ -284,7 +284,7 @@ CORRECT_ANSWER_RATE
 
 These studies are task-specific preprints. They are admitted as external counterevidence and method evidence, not as broad replications of Gemini capability or safety.
 
-## 11. Guided Learning RCT — partnered Human-learning evidence
+## 10. Guided Learning RCT — partnered Human-learning evidence
 
 Google DeepMind reports an eight-week RCT with Fab AI and support from Sierra Leone's Ministry of Education, involving 1,763 students across 12 schools.
 
