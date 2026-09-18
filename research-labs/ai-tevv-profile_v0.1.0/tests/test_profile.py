@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from dataclasses import replace
+import hashlib
+from pathlib import Path
+import subprocess
 
 import pytest
 
@@ -530,3 +533,107 @@ def test_context_similarity_requires_evidence_basis_refs() -> None:
     value = profile()
     with pytest.raises(TEVVError, match="context_similarity_basis_refs"):
         replace(value, context_similarity_basis_refs=())
+
+
+
+def _git(root: Path, *args: str) -> str:
+    return subprocess.check_output(
+        ["git", "-C", str(root), *args],
+        text=True,
+        encoding="utf-8",
+    ).strip()
+
+
+def _repository_fixture(tmp_path: Path) -> tuple[Path, str, bytes]:
+    root = tmp_path / "repo"
+    root.mkdir()
+    _git(root, "init", "-q")
+    _git(root, "config", "user.name", "TEVV Fixture")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    vocabulary_ref = (
+        "research-labs/subjectivity-pipeline_v0.1.0/"
+        "src/aion_subjectivity_pipeline/standards_crosswalk.py"
+    )
+    vocabulary_path = root / vocabulary_ref
+    vocabulary_path.parent.mkdir(parents=True)
+    committed_bytes = b"class TevvTerm:\n    pass\n"
+    vocabulary_path.write_bytes(committed_bytes)
+    _git(root, "add", vocabulary_ref)
+    _git(root, "commit", "-qm", "fixture TEVV vocabulary")
+    return root, vocabulary_ref, committed_bytes
+
+
+def _repository_bound_profile(
+    *,
+    repository_root: Path,
+    vocabulary_ref: str,
+):
+    return build_repository_bound_tevv_profile(
+        profile_id="TEVV-REPO-BOUND",
+        profile_version="0.1.0",
+        objective_ref="objective:repository-bound-vocabulary",
+        intended_use_ref="use:structural-test",
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("risk:bounded-model-quality",),
+        unmeasured_risks=(),
+        activities=(TEVVActivity.TEST,),
+        system=system(),
+        metrics=(metric(),),
+        cases=(case(),),
+        repetition_policy_ref="policy:repeat-v1",
+        nondeterminism_policy_ref="policy:nondeterminism-v1",
+        minimum_repetitions=1,
+        stochastic_system=False,
+        aggregation_rule_ref="aggregation:v1",
+        tevv_toolchain_ref="tevv-toolchain:test-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=(),
+        validation_requirement_refs=(),
+        evaluator_ref="evaluator:v1",
+        evaluator_version="v1",
+        evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        target_context_ref="context:test",
+        context_similarity_statement="Structural test only.",
+        context_similarity_basis_refs=("basis:structural-test-v1",),
+        failure_action_ref="reaction:hold",
+        preregistration_ref="preregistration:repository-bound",
+        repository_root=repository_root,
+        tevv_vocabulary_ref=vocabulary_ref,
+    )
+
+
+def test_repository_bound_profile_uses_committed_vocabulary_bytes(tmp_path: Path) -> None:
+    root, vocabulary_ref, committed_bytes = _repository_fixture(tmp_path)
+
+    first = _repository_bound_profile(
+        repository_root=root,
+        vocabulary_ref=vocabulary_ref,
+    )
+    expected = hashlib.sha256(committed_bytes).hexdigest()
+    assert first.tevv_vocabulary_sha256 == expected
+
+    (root / vocabulary_ref).write_text("class TevvTerm:\n    CHANGED = True\n", encoding="utf-8")
+    dirty = _repository_bound_profile(
+        repository_root=root,
+        vocabulary_ref=vocabulary_ref,
+    )
+    assert dirty.tevv_vocabulary_sha256 == expected
+    assert dirty.profile_sha256 == first.profile_sha256
+
+
+def test_repository_bound_profile_rejects_nested_root_and_unsafe_path(tmp_path: Path) -> None:
+    root, vocabulary_ref, _ = _repository_fixture(tmp_path)
+    nested = root / "nested"
+    nested.mkdir()
+
+    with pytest.raises(TEVVError, match="exact Git top-level"):
+        _repository_bound_profile(
+            repository_root=nested,
+            vocabulary_ref=vocabulary_ref,
+        )
+
+    with pytest.raises(TEVVError, match="safe repository-relative"):
+        _repository_bound_profile(
+            repository_root=root,
+            vocabulary_ref="../outside.py",
+        )
