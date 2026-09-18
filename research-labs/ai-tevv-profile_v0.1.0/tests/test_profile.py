@@ -83,6 +83,7 @@ def profile(
         objective_ref="objective:bounded-ai-system-quality-evaluation",
         intended_use_ref="use:research-engineering-only",
         tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
+        tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
         activities=(
@@ -194,6 +195,7 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         objective_ref="objective:order-invariance",
         intended_use_ref="use:structural-test",
         tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
+        tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
         activities=(TEVVActivity.TEST, TEVVActivity.EVALUATION),
@@ -219,6 +221,7 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         objective_ref="objective:order-invariance",
         intended_use_ref="use:structural-test",
         tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
+        tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
         activities=(TEVVActivity.EVALUATION, TEVVActivity.TEST),
@@ -279,6 +282,7 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "objective_ref": "objective:case-order",
         "intended_use_ref": "use:structural-test",
         "tevv_vocabulary_ref": "subjectivity-pipeline:TevvDefinition:v0.1.0",
+        "tevv_vocabulary_sha256": "a" * 64,
         "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
         "risk_refs": ("risk:bounded-model-quality",),
         "activities": (TEVVActivity.TEST,),
@@ -326,6 +330,7 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         objective_ref="objective:independence-check",
         intended_use_ref="use:structural-test",
         tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
+        tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
         activities=(TEVVActivity.TEST,),
@@ -358,6 +363,7 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         "objective_ref": "objective:builder-types",
         "intended_use_ref": "use:structural-test",
         "tevv_vocabulary_ref": "subjectivity-pipeline:TevvDefinition:v0.1.0",
+        "tevv_vocabulary_sha256": "a" * 64,
         "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
         "risk_refs": ("risk:bounded-model-quality",),
         "activities": (TEVVActivity.TEST,),
@@ -387,5 +393,8 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
 def test_profile_requires_repository_tevv_vocabulary_reference() -> None:
     value = profile()
     assert value.tevv_vocabulary_ref == "subjectivity-pipeline:TevvDefinition:v0.1.0"
+    assert value.tevv_vocabulary_sha256 == "a" * 64
     with pytest.raises(TEVVError, match="tevv_vocabulary_ref"):
         replace(value, tevv_vocabulary_ref="")
+    with pytest.raises(TEVVError, match="tevv_vocabulary_sha256"):
+        replace(value, tevv_vocabulary_sha256="not-a-digest")
