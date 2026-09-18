@@ -309,3 +309,102 @@ INDEPENDENT_IVV = NOT_ACHIEVED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ```
+
+
+## 10. Layer-1 closure hardening before full-QMS integration
+
+The second counterevidence review identified two gaps that must be closed before this
+control can be considered for `FullQualitySystemEngine` integration:
+
+1. risk records lacked their own version + exact source-state binding; and
+2. the risk/impact producer surface lacked a content-addressed receipt.
+
+This PR now hardens both.
+
+### 10.1 Risk record version and source-state binding
+
+Every `AIRiskRecord` now carries:
+
+```text
+risk_version
+exact_source_state_ref
+```
+
+This makes a risk evaluation explicitly historical and source-bound.
+
+```text
+RISK_ID_SAME
+!=
+RISK_EVALUATION_STATE_SAME
+
+RISK_VERSION
++ EXACT_SOURCE_STATE
+-> REQUIRED
+```
+
+A later repository/model/runtime/source-state change cannot silently reuse an older risk
+evaluation as though it were produced against the new state.
+
+### 10.2 Content-addressed AI risk/impact receipt
+
+The new `AIRiskImpactReceipt` binds:
+
+```text
+receipt id
+exact source-state ref
+producer Git HEAD
+producer tree SHA
+producer contract ref + digest
+canonical sorted risk IDs
+canonical sorted impact-assessment IDs
+risk-set SHA-256
+impact-set SHA-256
+combined assessment SHA-256
+fixed nonclaims
+receipt SHA-256
+```
+
+`build_risk_impact_receipt(...)` additionally requires all risk and impact records to
+match the receipt's declared exact source state before a receipt can be emitted.
+
+The receipt is content-addressed, not signed:
+
+```text
+CONTENT_ADDRESS != DIGITAL_SIGNATURE
+CONTENT_ADDRESS != INDEPENDENT_IVV
+CONTENT_ADDRESS != ISO_CONFORMANCE
+CONTENT_ADDRESS != MERGE_AUTHORITY
+```
+
+The intended future consumer pattern mirrors the repository's existing quality-chain
+receipt discipline:
+
+```text
+AI risk + impact producer
+-> typed records
+-> AIRiskImpactGate
+-> AIRiskImpactAssessment
+-> AIRiskImpactReceipt
+-> content digest
+
+future FullQualitySystemEngine integration
+-> pre-bind expected producer/source/receipt identity
+-> verify receipt
+-> consume bounded disposition
+-> DOES NOT re-run producer semantics
+```
+
+### 10.3 Current integration boundary
+
+This layer-1 hardening does **not** itself connect the new receipt to
+`FullQualitySystemEngine`.
+
+```text
+RISK_SOURCE_BINDING = IMPLEMENTED
+RISK_IMPACT_CONTENT_RECEIPT = IMPLEMENTED
+FULL_QMS_INTEGRATION = NOT_YET
+MAIN_WRITE = NO
+MERGE_AUTHORITY = NONE
+```
+
+The next decision remains contingent on exact-head CI and another counterevidence review.
