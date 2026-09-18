@@ -41,6 +41,8 @@ Primary current first-party sources:
   https://docs.x.ai/grok-bot/security-faq
 - Safety / model-card index:
   https://x.ai/safety
+- Grok 4.6 model card:
+  https://media.x.ai/v1/website/card-4p6-4cd2dc57.pdf
 - Grok 4.20 system card:
   https://data.x.ai/2026-04-07-grok-4-20-model-card.pdf
 - Biosecurity at the frontier:
@@ -209,6 +211,7 @@ The provider and external evidence set contains useful negative / limiting mater
 
 - external LatchBio testing reports a Grok 4.6 regression on SpatialBench relative to 4.5;
 - the same external evaluation reports new failure modes including claims that the model cannot see provided data and output-token fragmentation;
+- xAI's own Grok 4.6 model card reports higher values than 4.5 on several lower-is-better behavior metrics: self-harm compliance, MASK-Rectified dishonesty, and sycophancy;
 - xAI model aliases can silently resolve to newer stable versions;
 - retired model slugs can redirect to Grok 4.3 rather than fail closed.
 
@@ -218,6 +221,9 @@ MODEL_NAME_STRING
 
 NEWER_MODEL
 != MONOTONIC_IMPROVEMENT
+
+SMALL_PROVIDER_REPORTED_BEHAVIOR_METRIC_INCREASE
+!= STATISTICALLY_SIGNIFICANT_REGRESSION_ESTABLISHED
 
 MODEL_ALIAS_SUCCESS
 != SAME_MODEL_EXECUTION
