@@ -11,3 +11,8 @@ requires-python = ">=3.11"
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_ai_tevv"]
