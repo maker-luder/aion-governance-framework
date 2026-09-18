@@ -70,9 +70,13 @@ def threat(threat_class: AISecurityThreatClass) -> AISecurityThreatRecord:
         asset_refs=("asset:model-behavior", "asset:research-evidence-integrity"),
         attack_surface_refs=(f"surface:{suffix.lower()}",),
         scenario_ref=f"scenario:{suffix.lower()}-bounded",
+        precondition_refs=(f"precondition:{suffix.lower()}-surface-exposed",),
+        risk_ref=f"risk:ai-security:{suffix.lower()}",
         expected_security_property_refs=("property:fail-closed-boundary-preserved",),
         mitigation_refs=(f"mitigation:{suffix.lower()}-v1",),
+        mitigation_effectiveness_review_ref=f"review:mitigation-effectiveness:{suffix.lower()}",
         detection_refs=(f"detection:{suffix.lower()}-v1",),
+        detection_effectiveness_review_ref=f"review:detection-effectiveness:{suffix.lower()}",
         response_refs=("response:upstream-security-incident-sequence",),
         residual_risk_ref=f"residual-risk:{suffix.lower()}",
         external_taxonomy_refs=(
@@ -90,8 +94,11 @@ def security_test(threat_class: AISecurityThreatClass) -> AISecurityTestSpec:
         authorization_scope_ref="authorization:offline-synthetic-fixtures-only",
         adversarial_fixture_ref=f"fixture:adversarial-{suffix.lower()}",
         benign_control_ref=f"fixture:benign-{suffix.lower()}",
+        fixture_provenance_ref=f"provenance:{suffix.lower()}-synthetic-fixture",
         fixture_integrity_ref=f"sha256:{suffix.lower()}-fixture-manifest",
         data_quality_ref=f"data-quality:{suffix.lower()}-synthetic",
+        contamination_check_ref=f"check:contamination:{suffix.lower()}",
+        leakage_check_ref=f"check:leakage:{suffix.lower()}",
         oracle_ref=f"oracle:{suffix.lower()}-security-property",
         success_criterion_ref=f"criterion:{suffix.lower()}-bounded-v1",
         stop_condition_ref="stop:first-boundary-violation-or-budget-exhaustion",
@@ -249,3 +256,37 @@ def test_profile_preserves_security_and_subjectivity_nonclaims() -> None:
     assert value.consciousness_conclusion == "NOT_ESTABLISHED"
     assert value.canonical_effect == "NONE"
     assert value.deployment is False
+
+
+
+def test_at_least_one_core_threat_must_be_applicable() -> None:
+    all_not_applicable = tuple(
+        replace(item, applicable=False)
+        for item in applicability()
+    )
+    with pytest.raises(AISecurityError, match="at least one core AI security threat"):
+        profile(
+            applicability_value=all_not_applicable,
+            threats_value=(),
+            tests_value=(),
+        )
+
+
+def test_threat_requires_formal_risk_and_effectiveness_review_refs() -> None:
+    base = threat(AISecurityThreatClass.PROMPT_INJECTION)
+    with pytest.raises(AISecurityError, match="risk_ref"):
+        replace(base, risk_ref="")
+    with pytest.raises(AISecurityError, match="mitigation_effectiveness_review_ref"):
+        replace(base, mitigation_effectiveness_review_ref="")
+    with pytest.raises(AISecurityError, match="detection_effectiveness_review_ref"):
+        replace(base, detection_effectiveness_review_ref="")
+
+
+def test_adversarial_fixture_requires_provenance_contamination_and_leakage_refs() -> None:
+    base = security_test(AISecurityThreatClass.PROMPT_INJECTION)
+    with pytest.raises(AISecurityError, match="fixture_provenance_ref"):
+        replace(base, fixture_provenance_ref="")
+    with pytest.raises(AISecurityError, match="contamination_check_ref"):
+        replace(base, contamination_check_ref="")
+    with pytest.raises(AISecurityError, match="leakage_check_ref"):
+        replace(base, leakage_check_ref="")
