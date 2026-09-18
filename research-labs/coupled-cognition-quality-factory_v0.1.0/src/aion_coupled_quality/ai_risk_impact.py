@@ -341,6 +341,7 @@ class AIRiskImpactGate:
 class AIRiskImpactReceipt:
     receipt_id: str
     exact_source_state_ref: str
+    exact_runtime_ref: str
     producer_git_head: str
     producer_tree_sha: str
     producer_contract_ref: str
@@ -350,6 +351,7 @@ class AIRiskImpactReceipt:
     risk_set_sha256: str
     impact_set_sha256: str
     assessment_sha256: str
+    disposition: AIRiskImpactDisposition
     receipt_sha256: str
     schema_version: str = RISK_IMPACT_RECEIPT_SCHEMA_VERSION
     iso_conformance_claim: str = "NONE"
@@ -363,6 +365,7 @@ class AIRiskImpactReceipt:
         for name in (
             "receipt_id",
             "exact_source_state_ref",
+            "exact_runtime_ref",
             "producer_contract_ref",
         ):
             _text(name, getattr(self, name))
@@ -374,6 +377,8 @@ class AIRiskImpactReceipt:
             raise QualityError("impact_assessment_ids must use canonical sorted order")
         if self.schema_version != RISK_IMPACT_RECEIPT_SCHEMA_VERSION:
             raise QualityError("unsupported AI risk/impact receipt schema version")
+        if type(self.disposition) is not AIRiskImpactDisposition:
+            raise QualityError("receipt disposition must be an exact AIRiskImpactDisposition")
         _hex("producer_git_head", self.producer_git_head, 40)
         _hex("producer_tree_sha", self.producer_tree_sha, 40)
         for name in (
@@ -400,6 +405,7 @@ class AIRiskImpactReceipt:
             "schema_version": self.schema_version,
             "receipt_id": self.receipt_id,
             "exact_source_state_ref": self.exact_source_state_ref,
+            "exact_runtime_ref": self.exact_runtime_ref,
             "producer_git_head": self.producer_git_head,
             "producer_tree_sha": self.producer_tree_sha,
             "producer_contract_ref": self.producer_contract_ref,
@@ -409,6 +415,7 @@ class AIRiskImpactReceipt:
             "risk_set_sha256": self.risk_set_sha256,
             "impact_set_sha256": self.impact_set_sha256,
             "assessment_sha256": self.assessment_sha256,
+            "disposition": self.disposition.value,
             "iso_conformance_claim": self.iso_conformance_claim,
             "certification_claim": self.certification_claim,
             "scientific_disposition": self.scientific_disposition,
@@ -425,6 +432,7 @@ def build_risk_impact_receipt(
     impacts: tuple[AIImpactAssessmentRecord, ...],
     assessment: AIRiskImpactAssessment,
     exact_source_state_ref: str,
+    exact_runtime_ref: str,
     producer_git_head: str,
     producer_tree_sha: str,
     producer_contract_ref: str,
@@ -432,6 +440,7 @@ def build_risk_impact_receipt(
 ) -> AIRiskImpactReceipt:
     _text("receipt_id", receipt_id)
     _text("exact_source_state_ref", exact_source_state_ref)
+    _text("exact_runtime_ref", exact_runtime_ref)
     _text("producer_contract_ref", producer_contract_ref)
     _hex("producer_git_head", producer_git_head, 40)
     _hex("producer_tree_sha", producer_tree_sha, 40)
@@ -467,6 +476,7 @@ def build_risk_impact_receipt(
         "schema_version": RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
         "receipt_id": receipt_id,
         "exact_source_state_ref": exact_source_state_ref,
+        "exact_runtime_ref": exact_runtime_ref,
         "producer_git_head": producer_git_head,
         "producer_tree_sha": producer_tree_sha,
         "producer_contract_ref": producer_contract_ref,
@@ -476,6 +486,7 @@ def build_risk_impact_receipt(
         "risk_set_sha256": risk_set_sha256,
         "impact_set_sha256": impact_set_sha256,
         "assessment_sha256": assessment_sha256,
+        "disposition": assessment.disposition.value,
         "iso_conformance_claim": "NONE",
         "certification_claim": "NONE",
         "scientific_disposition": "HOLD",
@@ -486,6 +497,7 @@ def build_risk_impact_receipt(
     return AIRiskImpactReceipt(
         receipt_id=receipt_id,
         exact_source_state_ref=exact_source_state_ref,
+        exact_runtime_ref=exact_runtime_ref,
         producer_git_head=producer_git_head,
         producer_tree_sha=producer_tree_sha,
         producer_contract_ref=producer_contract_ref,
@@ -495,5 +507,6 @@ def build_risk_impact_receipt(
         risk_set_sha256=risk_set_sha256,
         impact_set_sha256=impact_set_sha256,
         assessment_sha256=assessment_sha256,
+        disposition=assessment.disposition,
         receipt_sha256=_digest(payload),
     )
