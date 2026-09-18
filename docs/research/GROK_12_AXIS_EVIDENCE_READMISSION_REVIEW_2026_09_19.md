@@ -83,7 +83,7 @@ MODEL_REFUSAL
 
 Re-admission: YES.
 
-The final record retains SpatialBench regression, new external failure modes, alias redirects, and checkpoint drift.
+The final record retains SpatialBench regression, new external failure modes, alias redirects, checkpoint drift, and provider-reported lower-is-better behavior metrics that move upward from 4.5 to 4.6. Those point-estimate changes are retained as negative context without claiming statistical significance.
 
 ## 10. Axis 8 — Human–AI collaboration
 
