@@ -255,6 +255,15 @@
       "disposition": "MYPY_REQUIRED_STRICT",
       "config": "pyproject.toml",
       "target": "src"
+    },
+    {
+      "root": "research-labs/ai-adversarial-security-profile_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src",
+      "mypy_path": [
+        "research-labs/ai-tevv-profile_v0.1.0/src"
+      ]
     }
   ]
 }
