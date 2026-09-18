@@ -377,3 +377,33 @@ AI_SECURITY_ENGINEERING
 != CONSCIOUSNESS_EVIDENCE
 != PHENOMENAL_EXPERIENCE_EVIDENCE
 ```
+
+
+## Receipt-chain target consistency hardening
+
+A counterevidence review of the new receipt seam found that source/runtime
+alignment alone was insufficient at receipt issuance: a security receipt could
+otherwise be constructed around a TEVV receipt for a different quality-plan
+assessment target and rely on the downstream Full-QMS consumer to detect the
+mismatch.
+
+Receipt construction now fails closed unless both are identical:
+
+```text
+security assessment_target_ref
+==
+TEVV receipt assessment_target_ref
+
+security assessment_target_sha256
+==
+TEVV receipt assessment_target_sha256
+```
+
+This moves target-consistency validation to the producer boundary as well as the
+Full-QMS consumer boundary.
+
+```text
+SECURITY_RECEIPT_TARGET == TEVV_RECEIPT_TARGET
+!= SECURITY_EFFECTIVENESS_PROVEN
+!= MODEL_SECURITY_PASS
+```
