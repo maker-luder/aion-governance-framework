@@ -28,7 +28,7 @@ was one generic AI-system TEVV planning surface that explicitly binds:
 
 - provider / product / model / model-version identity;
 - runtime, environment, prompt, scaffold, tools, and generation configuration;
-- TEVV objective, intended use, and lifecycle stage;
+- TEVV objective, intended use, lifecycle stage, and repository TEVV-vocabulary reference;
 - declared AI-risk references and metric-to-risk linkage;
 - test-set and data-quality references;
 - contamination and leakage checks;
@@ -104,6 +104,37 @@ current method-development signal rather than a stable normative requirement.
 NIST_AI_200_2_IPD = DRAFT_METHOD_SIGNAL
 != FINAL_STANDARD
 != REPOSITORY_CONFORMANCE_TARGET
+```
+
+## Relationship to the existing TEVV vocabulary
+
+This repository already has a standards-crosswalk vocabulary surface in
+`research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/standards_crosswalk.py`.
+
+That existing surface answers a different question:
+
+```text
+TevvDefinition / TevvTerm
+= WHAT TEST / EVALUATION / VERIFICATION / VALIDATION MEAN
+= vocabulary + pass-criterion semantics
+```
+
+This package answers:
+
+```text
+AITEVVProfile
+= HOW ONE DECLARED AI-SYSTEM EVALUATION PLAN IS BOUND
+= system identity + lifecycle + risks + data + oracle + metrics + repetition + evaluator + context
+```
+
+To prevent vocabulary drift, the profile carries a required
+`tevv_vocabulary_ref`. Its activity vocabulary is aligned to the repository's
+existing `TEST | EVALUATION | VERIFICATION | VALIDATION` terms.
+
+```text
+TEVV_VOCABULARY != TEVV_EXECUTION_PROFILE
+NEW_PROFILE != DUPLICATE_TEvv_DEFINITION
+VOCABULARY_REF_BOUND != VOCABULARY_CONTENT_INDEPENDENTLY_VERIFIED
 ```
 
 ## Test-oracle handling
