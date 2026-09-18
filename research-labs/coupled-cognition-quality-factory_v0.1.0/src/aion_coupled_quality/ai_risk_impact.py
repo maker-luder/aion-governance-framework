@@ -367,6 +367,7 @@ class AIRiskImpactGate:
 class AIRiskImpactReceipt:
     receipt_id: str
     assessment_target_ref: str
+    assessment_target_sha256: str
     exact_source_state_ref: str
     exact_runtime_ref: str
     producer_git_head: str
@@ -401,6 +402,7 @@ class AIRiskImpactReceipt:
             _text(name, getattr(self, name))
         _text_tuple("risk_ids", self.risk_ids)
         _text_tuple("impact_assessment_ids", self.impact_assessment_ids)
+        _hex("assessment_target_sha256", self.assessment_target_sha256, 64)
         if self.risk_ids != tuple(sorted(self.risk_ids)):
             raise QualityError("risk_ids must use canonical sorted order")
         if self.impact_assessment_ids != tuple(sorted(self.impact_assessment_ids)):
@@ -439,6 +441,7 @@ class AIRiskImpactReceipt:
             "schema_version": self.schema_version,
             "receipt_id": self.receipt_id,
             "assessment_target_ref": self.assessment_target_ref,
+            "assessment_target_sha256": self.assessment_target_sha256,
             "exact_source_state_ref": self.exact_source_state_ref,
             "exact_runtime_ref": self.exact_runtime_ref,
             "producer_git_head": self.producer_git_head,
@@ -466,6 +469,7 @@ def build_risk_impact_receipt(
     *,
     receipt_id: str,
     assessment_target_ref: str,
+    assessment_target_sha256: str,
     risks: tuple[AIRiskRecord, ...],
     impacts: tuple[AIImpactAssessmentRecord, ...],
     assessment: AIRiskImpactAssessment,
@@ -478,6 +482,7 @@ def build_risk_impact_receipt(
 ) -> AIRiskImpactReceipt:
     _text("receipt_id", receipt_id)
     _text("assessment_target_ref", assessment_target_ref)
+    _hex("assessment_target_sha256", assessment_target_sha256, 64)
     _text("exact_source_state_ref", exact_source_state_ref)
     _text("exact_runtime_ref", exact_runtime_ref)
     _text("producer_contract_ref", producer_contract_ref)
@@ -519,6 +524,7 @@ def build_risk_impact_receipt(
         "schema_version": RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
         "receipt_id": receipt_id,
         "assessment_target_ref": assessment_target_ref,
+        "assessment_target_sha256": assessment_target_sha256,
         "exact_source_state_ref": exact_source_state_ref,
         "exact_runtime_ref": exact_runtime_ref,
         "producer_git_head": producer_git_head,
@@ -543,6 +549,7 @@ def build_risk_impact_receipt(
     return AIRiskImpactReceipt(
         receipt_id=receipt_id,
         assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
         exact_source_state_ref=exact_source_state_ref,
         exact_runtime_ref=exact_runtime_ref,
         producer_git_head=producer_git_head,
@@ -564,6 +571,7 @@ def build_repository_bound_risk_impact_receipt(
     *,
     receipt_id: str,
     assessment_target_ref: str,
+    assessment_target_sha256: str,
     risks: tuple[AIRiskRecord, ...],
     impacts: tuple[AIImpactAssessmentRecord, ...],
     assessment: AIRiskImpactAssessment,
@@ -596,6 +604,7 @@ def build_repository_bound_risk_impact_receipt(
     return build_risk_impact_receipt(
         receipt_id=receipt_id,
         assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
         risks=risks,
         impacts=impacts,
         assessment=assessment,
