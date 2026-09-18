@@ -279,9 +279,67 @@ MULTIPLE_BENCHMARKS
 != MULTIPLE_INDEPENDENT_MECHANISMS
 ~~~
 
-## 13. Cross-source convergence matrix
+## 13. Negative / null / limitation evidence
 
-### 13.1 Prompt / incentive / evaluator dependence
+The challenge review deliberately preserves results that weaken simple progress narratives.
+
+### 13.1 Gemini 3.8 multilingual-safety regression
+
+Google's 3.8 Flash model card reports a +5.4 percentage-point change relative to 3.7 Flash on its multilingual safety automated evaluation, where lower is better. The same card warns that improved evaluation query sets make its reported safety results not directly comparable to earlier Gemini model cards.
+
+~~~text
+NEW_MODEL_VERSION
+!= UNIFORM_SAFETY_IMPROVEMENT
+
+MODEL_CARD_SEQUENCE
+!= CLEAN_LONGITUDINAL_EXPERIMENT
+~~~
+
+### 13.2 Harness-study null result
+
+The external contamination-controlled harness study found no resolved average harness advantage in its paired same-model Claude and GPT contrasts. Gemini 3.5 Flash appears only as a side cell and therefore does not support a Gemini-specific harness-effect estimate.
+
+~~~text
+HARNESS_MATTERS_AS_A_CAUSAL_LOCUS
+!= NATIVE_HARNESS_AVERAGE_ADVANTAGE_ESTABLISHED
+
+GEMINI_SIDE_CELL
+!= GEMINI_HARNESS_CAUSAL_EFFECT
+~~~
+
+### 13.3 ReguSim negative controls
+
+ReguSim reports that visible rules reduce but do not eliminate rejected actions, and that simple structured monitoring baselines can match or exceed prompt-only LLM monitors.
+
+~~~text
+RULE_VISIBILITY
+!= RULE_GROUNDED_ACTION_GUARANTEED
+
+LLM_MONITOR
+!= AUTOMATICALLY_SUPERIOR_MONITOR
+~~~
+
+### 13.4 Guided Learning heterogeneity and intervention bundling
+
+The Sierra Leone RCT was teacher-led: educators designed lessons, set objectives, and facilitated classroom discussion. Google also reports that students entering with stronger math skills benefited most.
+
+Therefore the treatment is a bundled Human-AI educational intervention rather than an isolated model-component effect.
+
+~~~text
+GUIDED_LEARNING_RCT_EFFECT
+!= BARE_GEMINI_MODEL_EFFECT
+
+TEACHER_LED_INTERVENTION
++ PRODUCT_DESIGN
++ TRAINING_PROTOCOL
++ CLASSROOM_CONTEXT
+MUST NOT BE COLLAPSED INTO
+MODEL_ONLY_CAUSATION
+~~~
+
+## 14. Cross-source convergence matrix
+
+### 14.1 Prompt / incentive / evaluator dependence
 
 Provider scheming research and external ReguSim evidence both support the weaker statement that observed behavior can shift with instruction, goal, incentive, persona, or evaluation context.
 
@@ -293,7 +351,7 @@ NOT
 = ENDOGENOUS_GOAL_ESTABLISHED
 ~~~
 
-### 13.2 Model vs harness / system locus
+### 14.2 Model vs harness / system locus
 
 Google's Antigravity disclosures and the external harness study both support model/harness separation as a methodological necessity.
 
@@ -305,7 +363,7 @@ NOT
 = EXACT_GEMINI_HARNESS_EFFECT_IDENTIFIED
 ~~~
 
-### 13.3 Evaluator dependence
+### 14.3 Evaluator dependence
 
 The medical missing-information study and Google's double-blind initiative independently motivate stronger evaluator-provenance and contamination controls.
 
@@ -317,13 +375,13 @@ NOT
 = ONE_EVALUATOR_IS_GROUND_TRUTH
 ~~~
 
-### 13.4 Human learning
+### 14.4 Human learning
 
 The Sierra Leone RCT supplies bounded field evidence of Human-learning outcomes.
 
 At the search cutoff, no open independent replication of the same intervention / population / protocol was identified.
 
-## 14. What is still missing
+## 15. What is still missing
 
 ~~~text
 E3_BOUNDED_INDEPENDENT_INCIDENT_INVESTIGATION
@@ -345,7 +403,7 @@ HUMAN_LEARNING_RCT_INDEPENDENT_REPLICATION
 = NOT_IDENTIFIED
 ~~~
 
-## 15. Revised disposition for Gemini Flash reference use
+## 16. Revised disposition for Gemini Flash reference use
 
 ~~~text
 MULTIPLE_EXTERNAL_EVALUATIONS = YES
@@ -362,7 +420,7 @@ NEITHER
 = INDEPENDENTLY_VALIDATED_STABLE_UNIVERSAL_BASELINE
 ~~~
 
-## 16. Evidence-admission fields for future provider sweeps
+## 17. Evidence-admission fields for future provider sweeps
 
 Future provider sweeps should preserve:
 
@@ -387,7 +445,7 @@ evidence class
 claim ceiling
 ~~~
 
-## 17. Subjectivity boundary
+## 18. Subjectivity boundary
 
 No external source in this sweep establishes:
 
@@ -402,7 +460,7 @@ IDENTITY_CONTINUITY
 
 The evidence is useful for causal partition, continuity counterexamples, evaluator controls, and Human-AI study design.
 
-## 18. Current admission status
+## 19. Current admission status
 
 ~~~text
 GEMINI_EXTERNAL_EVIDENCE
