@@ -105,6 +105,12 @@ class OracleStrategy(StrEnum):
     COMPOSITE = "COMPOSITE"
 
 
+class TEVVTestApproach(StrEnum):
+    BLACK_BOX = "BLACK_BOX"
+    WHITE_BOX = "WHITE_BOX"
+    HYBRID = "HYBRID"
+
+
 class EvaluatorIndependence(StrEnum):
     NON_INDEPENDENT = "NON_INDEPENDENT"
     INTERNAL_INDEPENDENT = "INTERNAL_INDEPENDENT"
@@ -207,8 +213,12 @@ class TEVVCaseSpec:
     data_quality_ref: str
     contamination_check_ref: str
     leakage_check_ref: str
+    scenario_ref: str
+    test_environment_ref: str
+    test_approach: TEVVTestApproach
     oracle_strategy: OracleStrategy
     oracle_ref: str
+    oracle_qualification_ref: str
     expected_property_refs: tuple[str, ...]
     metric_ids: tuple[str, ...]
     slice_refs: tuple[str, ...] = ()
@@ -222,11 +232,21 @@ class TEVVCaseSpec:
             "data_quality_ref",
             "contamination_check_ref",
             "leakage_check_ref",
+            "scenario_ref",
+            "test_environment_ref",
             "oracle_ref",
+            "oracle_qualification_ref",
         ):
             _text(name, getattr(self, name))
+        if type(self.test_approach) is not TEVVTestApproach:
+            raise TEVVError("test_approach must be an exact TEVVTestApproach")
         if type(self.oracle_strategy) is not OracleStrategy:
             raise TEVVError("oracle_strategy must be an exact OracleStrategy")
+        if (
+            self.oracle_strategy in {OracleStrategy.HUMAN_ADJUDICATION, OracleStrategy.COMPOSITE}
+            and self.oracle_qualification_ref == "NOT_APPLICABLE"
+        ):
+            raise TEVVError("human/composite oracle requires oracle qualification provenance")
         _refs("expected_property_refs", self.expected_property_refs)
         _refs("metric_ids", self.metric_ids)
         _refs("slice_refs", self.slice_refs, allow_empty=True)
@@ -241,8 +261,12 @@ class TEVVCaseSpec:
             "data_quality_ref": self.data_quality_ref,
             "contamination_check_ref": self.contamination_check_ref,
             "leakage_check_ref": self.leakage_check_ref,
+            "scenario_ref": self.scenario_ref,
+            "test_environment_ref": self.test_environment_ref,
+            "test_approach": self.test_approach.value,
             "oracle_strategy": self.oracle_strategy.value,
             "oracle_ref": self.oracle_ref,
+            "oracle_qualification_ref": self.oracle_qualification_ref,
             "expected_property_refs": tuple(sorted(self.expected_property_refs)),
             "metric_ids": tuple(sorted(self.metric_ids)),
             "slice_refs": tuple(sorted(self.slice_refs)),
@@ -269,6 +293,9 @@ class AITEVVProfile:
     minimum_repetitions: int
     stochastic_system: bool
     aggregation_rule_ref: str
+    tevv_toolchain_ref: str
+    tevv_toolchain_version: str
+    verification_requirement_refs: tuple[str, ...]
     evaluator_ref: str
     evaluator_version: str
     evaluator_independence: EvaluatorIndependence
@@ -299,6 +326,8 @@ class AITEVVProfile:
             "repetition_policy_ref",
             "nondeterminism_policy_ref",
             "aggregation_rule_ref",
+            "tevv_toolchain_ref",
+            "tevv_toolchain_version",
             "evaluator_ref",
             "evaluator_version",
             "target_context_ref",
@@ -347,6 +376,12 @@ class AITEVVProfile:
             raise TEVVError("stochastic_system must be an exact bool")
         if self.stochastic_system and self.minimum_repetitions < 2:
             raise TEVVError("stochastic TEVV requires at least two repetitions")
+        _refs("verification_requirement_refs", self.verification_requirement_refs, allow_empty=True)
+        if (
+            TEVVActivity.VERIFICATION in self.activities
+            and not self.verification_requirement_refs
+        ):
+            raise TEVVError("verification activity requires requirement references")
         if type(self.evaluator_independence) is not EvaluatorIndependence:
             raise TEVVError("evaluator_independence must be an exact EvaluatorIndependence")
         for name in ("model_executed", "empirical_model_evidence", "deployment"):
@@ -388,6 +423,9 @@ class AITEVVProfile:
             "minimum_repetitions": self.minimum_repetitions,
             "stochastic_system": self.stochastic_system,
             "aggregation_rule_ref": self.aggregation_rule_ref,
+            "tevv_toolchain_ref": self.tevv_toolchain_ref,
+            "tevv_toolchain_version": self.tevv_toolchain_version,
+            "verification_requirement_refs": tuple(sorted(self.verification_requirement_refs)),
             "evaluator_ref": self.evaluator_ref,
             "evaluator_version": self.evaluator_version,
             "evaluator_independence": self.evaluator_independence.value,
@@ -433,6 +471,9 @@ class AITEVVProfileGate:
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
             "ORACLE_STRATEGY_EXPLICIT",
             "METRICS_AND_ACCEPTANCE_CRITERIA_BOUND",
+            "TEST_SCENARIO_ENVIRONMENT_AND_APPROACH_BOUND",
+            "TEVV_TOOLCHAIN_PROVENANCE_BOUND",
+            "VERIFICATION_REQUIREMENTS_BOUND_WHEN_APPLICABLE",
             "NONDETERMINISM_AND_REPETITION_POLICY_BOUND",
             "EVALUATOR_IDENTITY_AND_INDEPENDENCE_RECORDED",
             "TARGET_CONTEXT_AND_SIMILARITY_SCOPE_RECORDED",
@@ -485,6 +526,9 @@ def build_tevv_profile(
     minimum_repetitions: int,
     stochastic_system: bool,
     aggregation_rule_ref: str,
+    tevv_toolchain_ref: str,
+    tevv_toolchain_version: str,
+    verification_requirement_refs: tuple[str, ...],
     evaluator_ref: str,
     evaluator_version: str,
     evaluator_independence: EvaluatorIndependence,
@@ -532,6 +576,9 @@ def build_tevv_profile(
         "minimum_repetitions": minimum_repetitions,
         "stochastic_system": stochastic_system,
         "aggregation_rule_ref": aggregation_rule_ref,
+        "tevv_toolchain_ref": tevv_toolchain_ref,
+        "tevv_toolchain_version": tevv_toolchain_version,
+        "verification_requirement_refs": tuple(sorted(verification_requirement_refs)),
         "evaluator_ref": evaluator_ref,
         "evaluator_version": evaluator_version,
         "evaluator_independence": evaluator_independence.value,
@@ -566,6 +613,9 @@ def build_tevv_profile(
         minimum_repetitions=minimum_repetitions,
         stochastic_system=stochastic_system,
         aggregation_rule_ref=aggregation_rule_ref,
+        tevv_toolchain_ref=tevv_toolchain_ref,
+        tevv_toolchain_version=tevv_toolchain_version,
+        verification_requirement_refs=verification_requirement_refs,
         evaluator_ref=evaluator_ref,
         evaluator_version=evaluator_version,
         evaluator_independence=evaluator_independence,
@@ -595,6 +645,9 @@ def build_repository_bound_tevv_profile(
     minimum_repetitions: int,
     stochastic_system: bool,
     aggregation_rule_ref: str,
+    tevv_toolchain_ref: str,
+    tevv_toolchain_version: str,
+    verification_requirement_refs: tuple[str, ...],
     evaluator_ref: str,
     evaluator_version: str,
     evaluator_independence: EvaluatorIndependence,
@@ -645,6 +698,9 @@ def build_repository_bound_tevv_profile(
         minimum_repetitions=minimum_repetitions,
         stochastic_system=stochastic_system,
         aggregation_rule_ref=aggregation_rule_ref,
+        tevv_toolchain_ref=tevv_toolchain_ref,
+        tevv_toolchain_version=tevv_toolchain_version,
+        verification_requirement_refs=verification_requirement_refs,
         evaluator_ref=evaluator_ref,
         evaluator_version=evaluator_version,
         evaluator_independence=evaluator_independence,
