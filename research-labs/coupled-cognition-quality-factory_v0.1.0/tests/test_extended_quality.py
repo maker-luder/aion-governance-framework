@@ -241,7 +241,7 @@ def tevv_profile(
                 input_ref="input:tevv-case-001",
                 test_set_ref="test-set:DATA-001",
                 test_set_integrity_ref="integrity:DATA-001",
-                data_quality_ref=data_quality_ref,
+                data_quality_ref="DATA-001",
                 contamination_check_ref="check:contamination-data-001",
                 leakage_check_ref="check:leakage-data-001",
                 scenario_ref="scenario:bounded-research",
