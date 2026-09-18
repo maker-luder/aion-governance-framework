@@ -15,6 +15,7 @@ from aion_ai_tevv import (
     TEVVError,
     TEVVMetricSpec,
     TEVVProfileDisposition,
+    TEVVUnmeasuredRisk,
     TEVVTestApproach,
     build_tevv_profile,
 )
@@ -45,6 +46,8 @@ def metric(metric_id: str = "METRIC-ACCURACY") -> TEVVMetricSpec:
         unit="ratio",
         acceptance_criterion_ref="criterion:preregistered-threshold-v1",
         uncertainty_ref="uncertainty:binomial-and-run-variation-v1",
+        quality_characteristic_refs=("quality:functional-correctness",),
+        effectiveness_review_ref="review:metric-effectiveness-v1",
         risk_refs=("risk:bounded-model-quality",),
     )
 
@@ -81,6 +84,8 @@ def profile(
     cases: tuple[TEVVCaseSpec, ...] | None = None,
     minimum_repetitions: int = 3,
     stochastic_system: bool = True,
+    risk_refs: tuple[str, ...] = ("risk:bounded-model-quality",),
+    unmeasured_risks: tuple[TEVVUnmeasuredRisk, ...] = (),
 ):
     return build_tevv_profile(
         profile_id="TEVV-PROFILE-001",
@@ -90,7 +95,8 @@ def profile(
         tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
         tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
-        risk_refs=("risk:bounded-model-quality",),
+        risk_refs=risk_refs,
+        unmeasured_risks=unmeasured_risks,
         activities=(
             TEVVActivity.TEST,
             TEVVActivity.EVALUATION,
@@ -108,6 +114,7 @@ def profile(
         tevv_toolchain_ref="tevv-toolchain:pytest-plus-adjudication-v1",
         tevv_toolchain_version="v1",
         verification_requirement_refs=("requirement:bounded-system-contract-v1",),
+        validation_requirement_refs=("validation:intended-use-sufficiency-v1",),
         evaluator_ref="evaluator:bounded-v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
@@ -115,6 +122,7 @@ def profile(
         context_similarity_statement=(
             "No deployment claim; the profile is scoped to the declared research sandbox."
         ),
+        context_similarity_basis_refs=("basis:research-sandbox-scope-v1",),
         failure_action_ref="reaction:HOLD_AND_REVIEW",
         preregistration_ref="preregistration:TEVV-PROFILE-001",
     )
@@ -206,6 +214,7 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
+        unmeasured_risks=(),
         activities=(TEVVActivity.TEST, TEVVActivity.EVALUATION),
         system=system(),
         metrics=(metric_a, metric_b),
@@ -218,11 +227,13 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         tevv_toolchain_ref="tevv-toolchain:test-v1",
         tevv_toolchain_version="v1",
         verification_requirement_refs=(),
+        validation_requirement_refs=(),
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
         target_context_ref="context:test",
         context_similarity_statement="Structural comparison only.",
+        context_similarity_basis_refs=("basis:structural-comparison-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:order",
     )
@@ -235,6 +246,7 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
+        unmeasured_risks=(),
         activities=(TEVVActivity.EVALUATION, TEVVActivity.TEST),
         system=system(),
         metrics=(metric_b, metric_a),
@@ -247,11 +259,13 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         tevv_toolchain_ref="tevv-toolchain:test-v1",
         tevv_toolchain_version="v1",
         verification_requirement_refs=(),
+        validation_requirement_refs=(),
         evaluator_ref="evaluator:v1",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
         target_context_ref="context:test",
         context_similarity_statement="Structural comparison only.",
+        context_similarity_basis_refs=("basis:structural-comparison-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:order",
     )
@@ -335,6 +349,7 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "tevv_vocabulary_sha256": "a" * 64,
         "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
         "risk_refs": ("risk:bounded-model-quality",),
+        "unmeasured_risks": (),
         "activities": (TEVVActivity.TEST,),
         "system": system(),
         "metrics": (metric_a, metric_b),
@@ -346,6 +361,7 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "tevv_toolchain_ref": "tevv-toolchain:test-v1",
         "tevv_toolchain_version": "v1",
         "verification_requirement_refs": (),
+        "validation_requirement_refs": (),
         "evaluator_ref": "evaluator:v1",
         "evaluator_version": "v1",
         "evaluator_independence": EvaluatorIndependence.NON_INDEPENDENT,
@@ -386,6 +402,7 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         tevv_vocabulary_sha256="a" * 64,
         lifecycle_stage=TEVVLifecycleStage.RESEARCH,
         risk_refs=("risk:bounded-model-quality",),
+        unmeasured_risks=(),
         activities=(TEVVActivity.TEST,),
         system=system(),
         metrics=(metric(),),
@@ -398,11 +415,13 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         tevv_toolchain_ref="tevv-toolchain:test-v1",
         tevv_toolchain_version="v1",
         verification_requirement_refs=(),
+        validation_requirement_refs=(),
         evaluator_ref="evaluator:developer-self-review",
         evaluator_version="v1",
         evaluator_independence=EvaluatorIndependence.NON_INDEPENDENT,
         target_context_ref="context:test",
         context_similarity_statement="Structural test only.",
+        context_similarity_basis_refs=("basis:structural-test-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:non-independent",
     )
@@ -422,6 +441,7 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         "tevv_vocabulary_sha256": "a" * 64,
         "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
         "risk_refs": ("risk:bounded-model-quality",),
+        "unmeasured_risks": (),
         "activities": (TEVVActivity.TEST,),
         "system": system(),
         "metrics": (metric(),),
@@ -434,11 +454,13 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         "tevv_toolchain_ref": "tevv-toolchain:test-v1",
         "tevv_toolchain_version": "v1",
         "verification_requirement_refs": (),
+        "validation_requirement_refs": (),
         "evaluator_ref": "evaluator:v1",
         "evaluator_version": "v1",
         "evaluator_independence": EvaluatorIndependence.INTERNAL_INDEPENDENT,
         "target_context_ref": "context:test",
         "context_similarity_statement": "Structural test only.",
+        "context_similarity_basis_refs": ("basis:structural-test-v1",),
         "failure_action_ref": "reaction:hold",
         "preregistration_ref": "preregistration:builder-types",
     }
@@ -457,3 +479,53 @@ def test_profile_requires_repository_tevv_vocabulary_reference() -> None:
         replace(value, tevv_vocabulary_ref="")
     with pytest.raises(TEVVError, match="tevv_vocabulary_sha256"):
         replace(value, tevv_vocabulary_sha256="not-a-digest")
+
+
+
+def test_every_declared_risk_is_measured_or_explicitly_unmeasured() -> None:
+    with pytest.raises(TEVVError, match="measured or explicitly documented as unmeasured"):
+        profile(
+            risk_refs=("risk:bounded-model-quality", "risk:no-metric-yet"),
+        )
+
+    documented = profile(
+        risk_refs=("risk:bounded-model-quality", "risk:no-metric-yet"),
+        unmeasured_risks=(
+            TEVVUnmeasuredRisk(
+                risk_ref="risk:no-metric-yet",
+                rationale_ref="rationale:no-valid-metric-yet-v1",
+            ),
+        ),
+    )
+    assert documented.unmeasured_risks[0].risk_ref == "risk:no-metric-yet"
+
+
+def test_declared_risk_cannot_be_both_measured_and_unmeasured() -> None:
+    with pytest.raises(TEVVError, match="both measured and unmeasured"):
+        profile(
+            unmeasured_risks=(
+                TEVVUnmeasuredRisk(
+                    risk_ref="risk:bounded-model-quality",
+                    rationale_ref="rationale:invalid-double-classification",
+                ),
+            ),
+        )
+
+
+def test_metric_requires_quality_characteristic_and_effectiveness_review() -> None:
+    with pytest.raises(TEVVError, match="quality_characteristic_refs"):
+        replace(metric(), quality_characteristic_refs=())
+    with pytest.raises(TEVVError, match="effectiveness_review_ref"):
+        replace(metric(), effectiveness_review_ref="")
+
+
+def test_validation_activity_requires_intended_use_validation_refs() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="intended-use validation references"):
+        replace(value, validation_requirement_refs=())
+
+
+def test_context_similarity_requires_evidence_basis_refs() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="context_similarity_basis_refs"):
+        replace(value, context_similarity_basis_refs=())
