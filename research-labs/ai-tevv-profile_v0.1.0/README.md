@@ -596,3 +596,40 @@ failure reaction
 It still does **not** execute a model, calculate model-quality results, validate
 an oracle, prove statistical power, establish fairness, or establish scientific
 claims about AI subjectivity.
+
+
+## Fourth counterevidence hardening — construct validity and generalizability limits
+
+NIST AI RMF MEASURE 2.5 explicitly distinguishes validity from raw performance and
+calls for documenting limitations on generalizability beyond the conditions under
+which an AI system was developed. It also highlights construct validity: a measurement
+or proxy should actually measure the concept it claims to measure.
+
+The profile now requires each metric to bind:
+
+```text
+construct_validity_ref
+```
+
+and each profile to bind:
+
+```text
+operating_condition_refs
+generalizability_limit_refs
+```
+
+These references are structural evidence targets only.
+
+```text
+CONSTRUCT_VALIDITY_REF_BOUND
+!= CONSTRUCT_VALIDITY_PROVEN
+
+OPERATING_CONDITIONS_RECORDED
+!= DEPLOYMENT_CONDITIONS_MATCHED
+
+GENERALIZABILITY_LIMITS_RECORDED
+!= GENERALIZABILITY_DEMONSTRATED
+```
+
+This keeps a research-stage TEVV profile from silently turning a bounded sandbox result
+into a broad validity or deployment claim.
