@@ -197,9 +197,9 @@ class TEVVCaseSpec:
             "leakage_check_ref": self.leakage_check_ref,
             "oracle_strategy": self.oracle_strategy.value,
             "oracle_ref": self.oracle_ref,
-            "expected_property_refs": self.expected_property_refs,
-            "metric_ids": self.metric_ids,
-            "slice_refs": self.slice_refs,
+            "expected_property_refs": tuple(sorted(self.expected_property_refs)),
+            "metric_ids": tuple(sorted(self.metric_ids)),
+            "slice_refs": tuple(sorted(self.slice_refs)),
             "held_out": self.held_out,
         }
 
@@ -238,6 +238,8 @@ class AITEVVProfile:
     deployment: bool = False
 
     def __post_init__(self) -> None:
+        if self.schema_version != TEVV_PROFILE_SCHEMA_VERSION:
+            raise TEVVError("unsupported TEVV profile schema version")
         for name in (
             "profile_id",
             "profile_version",
