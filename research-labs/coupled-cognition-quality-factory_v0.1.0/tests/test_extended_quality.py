@@ -6,6 +6,19 @@ from dataclasses import replace
 
 import pytest
 
+from aion_ai_security_profile import (
+    AIAdversarialSecurityGate,
+    AIAdversaryModel,
+    AISecurityProfileDisposition,
+    AISecurityProfileReceipt,
+    AISecurityTestSpec,
+    AISecurityThreatApplicability,
+    AISecurityThreatClass,
+    AISecurityThreatRecord,
+    AttackerKnowledge,
+    build_ai_adversarial_security_profile,
+    build_ai_security_profile_receipt,
+)
 from aion_ai_tevv import (
     AITEVVProfileGate,
     AISystemBinding,
@@ -147,9 +160,20 @@ def risk_impact_receipt(
     assessment_target_sha256: str | None = None,
     risk_disposition: AIRiskDisposition = AIRiskDisposition.ACCEPTED_WITH_CONTROLS,
     impact_disposition: AIImpactDisposition = AIImpactDisposition.ASSESSED_WITH_CONTROLS,
+    risk_id: str = "RISK-OVERCLAIM-001",
 ) -> AIRiskImpactReceipt:
-    risks = (ai_risk(disposition=risk_disposition),)
-    impacts = (ai_impact(disposition=impact_disposition),)
+    risks = (
+        ai_risk(
+            risk_id=risk_id,
+            disposition=risk_disposition,
+        ),
+    )
+    impacts = (
+        ai_impact(
+            linked_risk_ids=(risk_id,),
+            disposition=impact_disposition,
+        ),
+    )
     assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
     target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
     return build_risk_impact_receipt(
@@ -287,6 +311,142 @@ def tevv_receipt(
     )
 
 
+def security_profile(
+    *,
+    held_out: bool = True,
+    risk_ref: str = "RISK-OVERCLAIM-001",
+    data_quality_ref: str = "DATA-001",
+):
+    applicability = tuple(
+        AISecurityThreatApplicability(
+            threat_class=item,
+            applicable=item is AISecurityThreatClass.PROMPT_INJECTION,
+            rationale_ref=f"applicability:{item.value.lower()}",
+        )
+        for item in AISecurityThreatClass
+    )
+    adversary = AIAdversaryModel(
+        adversary_id="ADV-SECURITY-001",
+        goal_ref="goal:bounded-security-boundary-probe",
+        objective_refs=("objective:security-boundary-bypass",),
+        capability_refs=("capability:crafted-inputs",),
+        knowledge=AttackerKnowledge.BLACK_BOX,
+        access_refs=("access:declared-offline-test-interface",),
+        lifecycle_stage_refs=("stage:inference-and-tool-runtime",),
+    )
+    threat = AISecurityThreatRecord(
+        threat_id="THREAT-PROMPT-INJECTION-001",
+        threat_class=AISecurityThreatClass.PROMPT_INJECTION,
+        adversary_id=adversary.adversary_id,
+        asset_refs=("asset:model-behavior",),
+        attack_surface_refs=("surface:prompt-context",),
+        scenario_ref="scenario:bounded-prompt-injection",
+        precondition_refs=("precondition:prompt-input-available",),
+        risk_ref=risk_ref,
+        expected_security_property_refs=("property:boundary-preserved",),
+        mitigation_refs=("mitigation:prompt-boundary-v1",),
+        mitigation_effectiveness_review_ref="review:prompt-mitigation-v1",
+        detection_refs=("detection:prompt-boundary-v1",),
+        detection_effectiveness_review_ref="review:prompt-detection-v1",
+        response_refs=("response:upstream-security-incident-sequence",),
+        residual_risk_ref="residual-risk:prompt-injection",
+        external_taxonomy_refs=("NIST-AI-100-2e2025",),
+    )
+    test = AISecurityTestSpec(
+        test_id="SEC-TEST-PROMPT-INJECTION-001",
+        threat_ids=(threat.threat_id,),
+        authorization_scope_ref="authorization:offline-synthetic-fixtures-only",
+        test_environment_ref="environment:research-sandbox",
+        isolation_ref="isolation:upstream-security-runtime-isolation-v1",
+        task_budget_ref="budget:bounded-adversarial-test-v1",
+        logging_plan_ref="logging:immutable-security-evidence-v1",
+        adversarial_fixture_ref="fixture:adversarial-prompt-injection",
+        benign_control_ref="fixture:benign-prompt-control",
+        fixture_provenance_ref="provenance:prompt-injection-synthetic",
+        fixture_integrity_ref="integrity:prompt-injection-fixture-v1",
+        data_quality_ref=data_quality_ref,
+        contamination_check_ref="check:contamination-data-001",
+        leakage_check_ref="check:leakage-data-001",
+        oracle_ref="oracle:prompt-security-property",
+        success_criterion_ref="criterion:prompt-boundary-preserved",
+        stop_condition_ref="stop:first-boundary-violation-or-budget-exhaustion",
+        max_attempts=3,
+        held_out=held_out,
+    )
+    return build_ai_adversarial_security_profile(
+        profile_id="AI-SECURITY-PROFILE-001",
+        profile_version="0.1.0",
+        objective_ref="objective:qms-bound-ai-security",
+        intended_use_ref="use:research-engineering-security-planning-only",
+        system=AISystemBinding(
+            provider_id="provider:fixture",
+            product_id="product:fixture",
+            model_id="model:fixture",
+            model_version_ref="model-version:fixture-v1",
+            runtime_ref="runtime:tevv-profile-v1",
+            environment_ref="environment:research-sandbox",
+            prompt_ref="prompt:fixture",
+            scaffold_ref="scaffold:fixture",
+            tool_manifest_ref="tools:fixture",
+            generation_config_ref="generation-config:fixture",
+            exact_source_state_ref="source-state:tevv-profile-v1",
+        ),
+        threat_applicability=applicability,
+        adversaries=(adversary,),
+        threats=(threat,),
+        tests=(test,),
+        existing_security_control_refs=(
+            "components/upstream_security_v0.1.0/docs/ARCHITECTURE.md",
+            "docs/THREAT_MODEL.md",
+        ),
+        incident_response_ref=(
+            "components/upstream_security_v0.1.0/docs/INCIDENT_RESPONSE_SEQUENCE.md"
+        ),
+        evaluator_ref="evaluator:security-review-role-v1",
+        evaluator_independence_basis_ref="basis:security-review-independent-v1",
+        security_toolchain_ref="toolchain:offline-security-harness-v1",
+        security_toolchain_version="v1",
+        failure_action_ref="reaction:HOLD_ISOLATE_PRESERVE_EVIDENCE",
+        preregistration_ref="preregistration:AI-SECURITY-PROFILE-001",
+        source_refs=("NIST-AI-100-2e2025",),
+    )
+
+
+def security_receipt(
+    *,
+    assessment_target_ref: str = "quality-plan:PLAN-001",
+    assessment_target_sha256: str | None = None,
+    tevv_receipt_value: TEVVProfileReceipt | None = None,
+    held_out: bool = True,
+    risk_ref: str = "RISK-OVERCLAIM-001",
+    data_quality_ref: str = "DATA-001",
+) -> AISecurityProfileReceipt:
+    target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
+    tevv_bound = tevv_receipt_value or tevv_receipt(
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=target_sha256,
+    )
+    value = security_profile(
+        held_out=held_out,
+        risk_ref=risk_ref,
+        data_quality_ref=data_quality_ref,
+    )
+    assessment = AIAdversarialSecurityGate().assess(value)
+    return build_ai_security_profile_receipt(
+        receipt_id="AI-SECURITY-RECEIPT-001",
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=target_sha256,
+        profile=value,
+        assessment=assessment,
+        tevv_receipt=tevv_bound,
+        tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+        producer_git_head="d" * 40,
+        producer_tree_sha="e" * 40,
+        producer_contract_ref="contract:ai-security-profile-v1",
+        producer_contract_sha256="f" * 64,
+    )
+
+
 def receipt(**changes: object) -> QualityChainReceiptBinding:
     values: dict[str, object] = {
         "chain_id": "CHAIN-001",
@@ -381,6 +541,7 @@ def quality_plan(
     chain_receipt: QualityChainReceiptBinding | None = None,
     risk_receipt: AIRiskImpactReceipt | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
+    security_receipt_value: AISecurityProfileReceipt | None = None,
 ) -> ResearchQualityPlan:
     bound = chain_receipt or receipt()
     seed = quality_plan_seed(bound)
@@ -391,25 +552,37 @@ def quality_plan(
     tevv_bound = tevv_receipt_value or tevv_receipt(
         assessment_target_sha256=target_sha256
     )
+    security_bound = security_receipt_value or security_receipt(
+        assessment_target_sha256=target_sha256,
+        tevv_receipt_value=tevv_bound,
+    )
+    configuration_refs = (
+        *seed.configuration_refs,
+        f"git:{risk_bound.producer_git_head}",
+        f"tree:{risk_bound.producer_tree_sha}",
+        f"contract-sha256:{risk_bound.producer_contract_sha256}",
+        f"risk-impact-receipt:{risk_bound.receipt_sha256}",
+        risk_bound.exact_source_state_ref,
+        risk_bound.exact_runtime_ref,
+        f"git:{tevv_bound.producer_git_head}",
+        f"tree:{tevv_bound.producer_tree_sha}",
+        f"contract-sha256:{tevv_bound.producer_contract_sha256}",
+        f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
+        f"tevv-profile:{tevv_bound.profile_id}:{tevv_bound.profile_sha256}",
+        f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}",
+        tevv_bound.exact_source_state_ref,
+        tevv_bound.exact_runtime_ref,
+        f"git:{security_bound.producer_git_head}",
+        f"tree:{security_bound.producer_tree_sha}",
+        f"contract-sha256:{security_bound.producer_contract_sha256}",
+        f"ai-security-profile-receipt:{security_bound.receipt_sha256}",
+        f"ai-security-profile:{security_bound.profile_id}:{security_bound.profile_sha256}",
+        security_bound.exact_source_state_ref,
+        security_bound.exact_runtime_ref,
+    )
     return replace(
         seed,
-        configuration_refs=(
-            *seed.configuration_refs,
-            f"git:{risk_bound.producer_git_head}",
-            f"tree:{risk_bound.producer_tree_sha}",
-            f"contract-sha256:{risk_bound.producer_contract_sha256}",
-            f"risk-impact-receipt:{risk_bound.receipt_sha256}",
-            risk_bound.exact_source_state_ref,
-            risk_bound.exact_runtime_ref,
-            f"git:{tevv_bound.producer_git_head}",
-            f"tree:{tevv_bound.producer_tree_sha}",
-            f"contract-sha256:{tevv_bound.producer_contract_sha256}",
-            f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
-            f"tevv-profile:{tevv_bound.profile_id}:{tevv_bound.profile_sha256}",
-            f"tevv-vocabulary-sha256:{tevv_bound.tevv_vocabulary_sha256}",
-            tevv_bound.exact_source_state_ref,
-            tevv_bound.exact_runtime_ref,
-        ),
+        configuration_refs=tuple(dict.fromkeys(configuration_refs)),
     )
 
 
@@ -582,10 +755,14 @@ def extended_controls() -> ExtendedQualityControls:
 def review(
     risk_receipt: AIRiskImpactReceipt | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
+    security_receipt_value: AISecurityProfileReceipt | None = None,
     extra_refs: tuple[str, ...] | None = None,
 ) -> ManagementReviewRecord:
     risk_bound = risk_receipt or risk_impact_receipt()
     tevv_bound = tevv_receipt_value or tevv_receipt()
+    security_bound = security_receipt_value or security_receipt(
+        tevv_receipt_value=tevv_bound
+    )
     tevv_measurement_ids = tuple(
         item.measurement_id for item in tevv_bound.measurement_bindings
     )
@@ -609,8 +786,25 @@ def review(
         *tevv_bound.risk_refs,
         *tevv_measurement_ids,
         *tevv_bound.data_quality_refs,
+        security_bound.receipt_id,
+        security_bound.profile_id,
+        f"ai-security-profile-receipt:{security_bound.receipt_sha256}",
+        *security_bound.threat_ids,
+        *security_bound.test_ids,
+        *security_bound.risk_refs,
+        *security_bound.data_quality_refs,
+        *security_bound.security_control_refs,
+        security_bound.incident_response_ref,
+        *security_bound.authorization_scope_refs,
+        *security_bound.isolation_refs,
+        *security_bound.task_budget_refs,
+        *security_bound.logging_plan_refs,
+        *security_bound.source_refs,
+        security_bound.tevv_alignment_basis_ref,
     )
-    refs = tuple(dict.fromkeys(default_refs)) if extra_refs is None else extra_refs
+    refs = tuple(
+        dict.fromkeys(default_refs if extra_refs is None else extra_refs)
+    )
     return ManagementReviewRecord(
         review_id="MGMT-001",
         input_refs=refs,
@@ -626,6 +820,7 @@ def assess(
     receipt_value: QualityChainReceiptBinding | None = None,
     risk_receipt_value: AIRiskImpactReceipt | None = None,
     tevv_receipt_value: TEVVProfileReceipt | None = None,
+    security_receipt_value: AISecurityProfileReceipt | None = None,
     plan_value: ResearchQualityPlan | None = None,
     controls_value: ExtendedQualityControls | None = None,
     review_value: ManagementReviewRecord | None = None,
@@ -633,15 +828,23 @@ def assess(
     bound = receipt_value or receipt()
     risk_bound = risk_receipt_value or risk_impact_receipt()
     tevv_bound = tevv_receipt_value or tevv_receipt()
+    security_bound = security_receipt_value or security_receipt(
+        tevv_receipt_value=tevv_bound
+    )
     return FullQualitySystemEngine().assess(
-        plan=plan_value or quality_plan(bound, risk_bound, tevv_bound),
+        plan=plan_value or quality_plan(bound, risk_bound, tevv_bound, security_bound),
         measurements=(measurement(),),
         chain_receipt=bound,
         risk_impact_receipt=risk_bound,
         tevv_receipt=tevv_bound,
+        security_receipt=security_bound,
         field_signals=(field_signal(),),
         audits=(audit(),),
-        management_review=review_value or review(risk_bound, tevv_bound),
+        management_review=review_value or review(
+            risk_bound,
+            tevv_bound,
+            security_bound,
+        ),
         controls=controls_value or extended_controls(),
     )
 
@@ -929,7 +1132,15 @@ def test_full_qms_requires_tevv_receipt_configuration_binding() -> None:
 
 def test_full_qms_rejects_tevv_receipt_for_different_plan_target() -> None:
     wrong_target = tevv_receipt(assessment_target_ref="quality-plan:PLAN-OTHER")
-    result = assess(tevv_receipt_value=wrong_target)
+    aligned_security = security_receipt(
+        assessment_target_ref=wrong_target.assessment_target_ref,
+        assessment_target_sha256=wrong_target.assessment_target_sha256,
+        tevv_receipt_value=wrong_target,
+    )
+    result = assess(
+        tevv_receipt_value=wrong_target,
+        security_receipt_value=aligned_security,
+    )
     assert result.disposition is EndToEndDisposition.HOLD
     assert "TEVV_RECEIPT_TARGET_MISMATCH" in result.reasons
 
@@ -1026,3 +1237,179 @@ def test_full_qms_ready_records_tevv_structural_bindings_only() -> None:
     assert "TEVV_DATA_QUALITY_BINDINGS_COMPLETE" in result.reasons
     assert "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY" in result.reasons
     assert result.scientific_disposition == "HOLD"
+
+
+
+def test_full_qms_ready_records_ai_security_structural_bindings_only() -> None:
+    result = assess()
+    assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
+    assert "CONTENT_ADDRESSED_AI_SECURITY_PROFILE_RECEIPT_BOUND" in result.reasons
+    assert "AI_SECURITY_RECEIPT_TARGET_SEMANTICS_BOUND" in result.reasons
+    assert "AI_SECURITY_RISK_REGISTER_BINDINGS_COMPLETE" in result.reasons
+    assert "AI_SECURITY_DATA_QUALITY_BINDINGS_COMPLETE" in result.reasons
+    assert "AI_SECURITY_TEVV_RECEIPT_ALIGNMENT_BOUND" in result.reasons
+    assert "AI_SECURITY_SOURCE_RUNTIME_ALIGNMENT_BOUND" in result.reasons
+    assert "AI_SECURITY_CONTROL_AND_RESPONSE_TRACE_BOUND" in result.reasons
+    assert (
+        "AI_SECURITY_PROFILE_READY_FOR_BOUNDED_ADVERSARIAL_EVALUATION_ONLY"
+        in result.reasons
+    )
+    assert result.scientific_disposition == "HOLD"
+    assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert result.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert result.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
+
+
+def test_full_qms_requires_ai_security_receipt_configuration_binding() -> None:
+    chain_bound = receipt()
+    risk_bound = risk_impact_receipt()
+    tevv_bound = tevv_receipt()
+    security_bound = security_receipt(tevv_receipt_value=tevv_bound)
+    plan = quality_plan(chain_bound, risk_bound, tevv_bound, security_bound)
+    stripped = replace(
+        plan,
+        configuration_refs=tuple(
+            ref
+            for ref in plan.configuration_refs
+            if not (
+                ref == f"git:{security_bound.producer_git_head}"
+                or ref == f"tree:{security_bound.producer_tree_sha}"
+                or ref
+                == f"contract-sha256:{security_bound.producer_contract_sha256}"
+                or ref
+                == f"ai-security-profile-receipt:{security_bound.receipt_sha256}"
+                or ref
+                == f"ai-security-profile:{security_bound.profile_id}:{security_bound.profile_sha256}"
+                or ref == security_bound.exact_source_state_ref
+                or ref == security_bound.exact_runtime_ref
+            )
+        ),
+    )
+    result = assess(
+        receipt_value=chain_bound,
+        risk_receipt_value=risk_bound,
+        tevv_receipt_value=tevv_bound,
+        security_receipt_value=security_bound,
+        plan_value=stripped,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION" in result.reasons
+
+
+def test_full_qms_rejects_ai_security_receipt_for_different_plan_target() -> None:
+    wrong_target = security_receipt(
+        assessment_target_ref="quality-plan:PLAN-OTHER",
+    )
+    result = assess(security_receipt_value=wrong_target)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_RECEIPT_TARGET_MISMATCH" in result.reasons
+
+
+def test_full_qms_rejects_ai_security_receipt_after_plan_semantic_drift() -> None:
+    security_bound = security_receipt()
+    original = quality_plan(security_receipt_value=security_bound)
+    mutated = replace(
+        original,
+        research_question_ref="research:changed-after-ai-security",
+    )
+    result = assess(
+        security_receipt_value=security_bound,
+        plan_value=mutated,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_RECEIPT_TARGET_DIGEST_MISMATCH" in result.reasons
+
+
+def test_full_qms_requires_ai_security_risks_in_quality_plan() -> None:
+    security_bound = security_receipt(
+        risk_ref="RISK-AI-SECURITY-ORPHAN",
+    )
+    result = assess(security_receipt_value=security_bound)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS" in result.reasons
+
+
+def test_full_qms_requires_ai_security_risks_in_ai_risk_register() -> None:
+    risk_bound = risk_impact_receipt(risk_id="RISK-OTHER")
+    tevv_bound = tevv_receipt()
+    security_bound = security_receipt(tevv_receipt_value=tevv_bound)
+    result = assess(
+        risk_receipt_value=risk_bound,
+        tevv_receipt_value=tevv_bound,
+        security_receipt_value=security_bound,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_RISKS_NOT_BOUND_TO_AI_RISK_REGISTER" in result.reasons
+
+
+def test_full_qms_requires_ai_security_data_quality_binding() -> None:
+    security_bound = security_receipt(data_quality_ref="DATA-SECURITY-OTHER")
+    result = assess(security_receipt_value=security_bound)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_DATA_QUALITY_RECORDS_MISSING" in result.reasons
+
+
+def test_full_qms_requires_ai_security_alignment_with_supplied_tevv_receipt() -> None:
+    tevv_for_security = tevv_receipt()
+    security_bound = security_receipt(tevv_receipt_value=tevv_for_security)
+    different_tevv = tevv_receipt(measurement_id="MEAS-OTHER")
+    result = assess(
+        tevv_receipt_value=different_tevv,
+        security_receipt_value=security_bound,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_TEVV_RECEIPT_ALIGNMENT_MISMATCH" in result.reasons
+
+
+def test_full_qms_requires_management_review_of_ai_security_receipt() -> None:
+    risk_bound = risk_impact_receipt()
+    tevv_bound = tevv_receipt()
+    security_bound = security_receipt(tevv_receipt_value=tevv_bound)
+    incomplete = review(
+        risk_bound,
+        tevv_bound,
+        security_bound,
+        extra_refs=(
+            "PLAN-001",
+            "CHAIN-001",
+            "MEAS-001",
+            "FIELD-001",
+            "AUDIT-001",
+            "DATA-001",
+            "SUPPLIER-001",
+            "SAMPLE-001",
+            "SPC-001",
+            "WITHDRAW-001",
+            risk_bound.receipt_id,
+            *risk_bound.risk_ids,
+            *risk_bound.impact_assessment_ids,
+            tevv_bound.receipt_id,
+            tevv_bound.profile_id,
+            f"tevv-profile-receipt:{tevv_bound.receipt_sha256}",
+            *tevv_bound.risk_refs,
+            *tuple(
+                item.measurement_id
+                for item in tevv_bound.measurement_bindings
+            ),
+            *tevv_bound.data_quality_refs,
+        ),
+    )
+    result = assess(
+        risk_receipt_value=risk_bound,
+        tevv_receipt_value=tevv_bound,
+        security_receipt_value=security_bound,
+        review_value=incomplete,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "MANAGEMENT_REVIEW_AI_SECURITY_INPUTS_INCOMPLETE" in result.reasons
+
+
+def test_ai_security_hold_receipt_holds_full_qms_without_security_pass_claim() -> None:
+    security_bound = security_receipt(held_out=False)
+    assert security_bound.disposition is AISecurityProfileDisposition.HOLD
+    result = assess(security_receipt_value=security_bound)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_SECURITY_PROFILE_RECEIPT_HOLD" in result.reasons
+    assert security_bound.adversarial_evaluation_executed is False
+    assert security_bound.empirical_security_evidence is False
+    assert security_bound.security_certification == "NONE"

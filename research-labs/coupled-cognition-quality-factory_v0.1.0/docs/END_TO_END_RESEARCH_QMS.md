@@ -530,3 +530,142 @@ TEVV_METRIC_MAPPED_TO_MEASUREMENT_ID
 A later empirical execution layer may add stronger observed-result and method-compatibility
 checks. This structural integration only ensures that no TEVV metric enters the full QMS
 without an explicit QMS measurement-assurance mapping and rationale.
+
+
+## Structural AI adversarial-security receipt integration
+
+The full-QMS layer now consumes the standalone structural AI adversarial-security
+profile through a content-addressed `AISecurityProfileReceipt`.
+
+The producer side remains separate:
+
+```text
+AIAdversarialSecurityProfile
+-> AIAdversarialSecurityGate
+-> AISecurityProfileAssessment
+-> AISecurityProfileReceipt
+-> content digest
+```
+
+Receipt construction recomputes the security gate against the same profile
+before issuance. The receipt binds:
+
+```text
+quality-plan target ref + semantic target digest
+security profile id / version / profile digest
+security structural disposition
+threat ids
+test ids
+formal AI-security risk refs
+security fixture data-quality refs
+existing security-control refs
+incident-response ref
+authorization-scope refs
+isolation refs
+task-budget refs
+logging-plan refs
+method-source refs
+AI-system exact source state + runtime
+exact TEVV profile receipt digest / profile identity
+TEVV alignment-basis ref
+producer Git HEAD + tree
+producer contract ref + digest
+fixed adversarial-execution / empirical-evidence nonclaims
+receipt digest
+```
+
+The repository-bound builder resolves the producer Git HEAD, tree and contract
+bytes from committed Git objects.
+
+The security receipt is explicitly chained to the supplied TEVV receipt:
+
+```text
+security_receipt.tevv_profile_receipt_sha256
+==
+tevv_receipt.receipt_sha256
+
+security_receipt.tevv_profile_id
+==
+tevv_receipt.profile_id
+
+security_receipt.tevv_profile_sha256
+==
+tevv_receipt.profile_sha256
+
+security_receipt exact source/runtime
+==
+tevv_receipt exact source/runtime
+```
+
+This is an integration identity check, not proof that every system-binding field
+is semantically equivalent:
+
+```text
+SOURCE_RUNTIME_MATCH
++ EXACT_TEVV_RECEIPT_BINDING
++ ALIGNMENT_BASIS_REF
+!= FULL_SYSTEM_IDENTITY_EQUIVALENCE_PROVEN
+```
+
+`FullQualitySystemEngine` consumes the security receipt without re-running the
+security gate. It fails closed unless:
+
+```text
+security receipt target == quality-plan:<plan_id>
+security receipt target digest == plan.assessment_target_sha256()
+
+security risk refs <= quality-plan risk refs
+security risk refs <= AI risk/impact receipt risk ids
+
+security data-quality refs
+<= supplied DataQualityRecord ids
+
+security receipt's TEVV receipt/profile identity
+== supplied TEVV receipt identity
+
+security source/runtime
+== supplied TEVV source/runtime
+
+producer Git/tree/contract
++ security receipt digest
++ security profile digest
++ source/runtime
+are pre-bound in quality-plan configuration refs
+
+management review contains:
+security receipt/profile
+threat/test ids
+risk/data refs
+security-control + incident-response refs
+authorization/isolation/task-budget/logging refs
+method-source refs
+TEVV alignment-basis ref
+
+security disposition
+== READY_FOR_BOUNDED_ADVERSARIAL_EVALUATION
+```
+
+A positive Full-QMS result therefore means only that the **structural security
+plan and its dependencies are traceably integrated into the declared quality
+system**.
+
+It does not mean any adversarial test ran.
+
+```text
+CONTENT_ADDRESSED_AI_SECURITY_RECEIPT
+!= DIGITAL_SIGNATURE
+!= INDEPENDENT_IVV
+
+FULL_QMS_SECURITY_BINDING_PASS
+!= SECURITY_PASS
+
+SECURITY_PROFILE_READY_FOR_BOUNDED_ADVERSARIAL_EVALUATION
+!= ADVERSARIAL_EVALUATION_EXECUTED
+
+ADVERSARIAL_EVALUATION_EXECUTED = FALSE
+EMPIRICAL_SECURITY_EVIDENCE = FALSE
+SECURITY_EFFECTIVENESS = NOT_ESTABLISHED
+DEPLOYMENT = FALSE
+```
+
+A future empirical security-execution/result receipt remains a separate layer.

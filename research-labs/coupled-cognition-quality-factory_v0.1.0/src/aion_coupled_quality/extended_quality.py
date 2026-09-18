@@ -6,6 +6,10 @@ import math
 from dataclasses import dataclass, field
 from enum import StrEnum
 
+from aion_ai_security_profile import (
+    AISecurityProfileDisposition,
+    AISecurityProfileReceipt,
+)
 from aion_ai_tevv import TEVVProfileDisposition, TEVVProfileReceipt
 
 from .ai_risk_impact import AIRiskImpactDisposition, AIRiskImpactReceipt
@@ -598,10 +602,11 @@ class FullQualitySystemEngine:
     """Adds bounded supplier/data/sampling/process/withdrawal controls around the existing QMS.
 
     It consumes content-addressed producer receipts from the canonical
-    ResearchQualityChain, AI risk/impact control, and standalone structural TEVV
-    profile rather than re-running those producer semantics. It does not establish
-    model quality, empirical TEVV evidence, subjectivity, scientific validity,
-    release authority, or merge authority.
+    ResearchQualityChain, AI risk/impact control, standalone structural TEVV
+    profile, and standalone structural AI adversarial-security profile rather
+    than re-running those producer semantics. It does not establish model quality,
+    empirical TEVV evidence, adversarial-security effectiveness, subjectivity,
+    scientific validity, release authority, or merge authority.
     """
 
     def assess(
@@ -612,6 +617,7 @@ class FullQualitySystemEngine:
         chain_receipt: QualityChainReceiptBinding,
         risk_impact_receipt: AIRiskImpactReceipt,
         tevv_receipt: TEVVProfileReceipt,
+        security_receipt: AISecurityProfileReceipt,
         field_signals: tuple[FieldQualitySignal, ...],
         audits: tuple[QualityAuditRecord, ...],
         management_review: ManagementReviewRecord,
@@ -640,6 +646,13 @@ class FullQualitySystemEngine:
             f"tevv-vocabulary-sha256:{tevv_receipt.tevv_vocabulary_sha256}",
             tevv_receipt.exact_source_state_ref,
             tevv_receipt.exact_runtime_ref,
+            f"git:{security_receipt.producer_git_head}",
+            f"tree:{security_receipt.producer_tree_sha}",
+            f"contract-sha256:{security_receipt.producer_contract_sha256}",
+            f"ai-security-profile-receipt:{security_receipt.receipt_sha256}",
+            f"ai-security-profile:{security_receipt.profile_id}:{security_receipt.profile_sha256}",
+            security_receipt.exact_source_state_ref,
+            security_receipt.exact_runtime_ref,
         }
         if not required_configuration_refs <= set(plan.configuration_refs):
             reasons.append("QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION")
@@ -675,6 +688,36 @@ class FullQualitySystemEngine:
         if not set(tevv_receipt.data_quality_refs) <= control_data_ids:
             reasons.append("TEVV_DATA_QUALITY_RECORDS_MISSING")
 
+        if security_receipt.assessment_target_ref != f"quality-plan:{plan.plan_id}":
+            reasons.append("AI_SECURITY_RECEIPT_TARGET_MISMATCH")
+
+        if security_receipt.assessment_target_sha256 != plan.assessment_target_sha256():
+            reasons.append("AI_SECURITY_RECEIPT_TARGET_DIGEST_MISMATCH")
+
+        if not set(security_receipt.risk_refs) <= set(plan.risk_refs):
+            reasons.append("AI_SECURITY_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS")
+
+        if not set(security_receipt.risk_refs) <= set(risk_impact_receipt.risk_ids):
+            reasons.append("AI_SECURITY_RISKS_NOT_BOUND_TO_AI_RISK_REGISTER")
+
+        if not set(security_receipt.data_quality_refs) <= control_data_ids:
+            reasons.append("AI_SECURITY_DATA_QUALITY_RECORDS_MISSING")
+
+        if (
+            security_receipt.tevv_profile_receipt_sha256
+            != tevv_receipt.receipt_sha256
+            or security_receipt.tevv_profile_id != tevv_receipt.profile_id
+            or security_receipt.tevv_profile_sha256 != tevv_receipt.profile_sha256
+        ):
+            reasons.append("AI_SECURITY_TEVV_RECEIPT_ALIGNMENT_MISMATCH")
+
+        if (
+            security_receipt.exact_source_state_ref
+            != tevv_receipt.exact_source_state_ref
+            or security_receipt.exact_runtime_ref != tevv_receipt.exact_runtime_ref
+        ):
+            reasons.append("AI_SECURITY_TEVV_SOURCE_RUNTIME_MISMATCH")
+
         required_risk_review_refs = {
             risk_impact_receipt.receipt_id,
             *risk_impact_receipt.risk_ids,
@@ -693,6 +736,26 @@ class FullQualitySystemEngine:
         }
         if not required_tevv_review_refs <= set(management_review.input_refs):
             reasons.append("MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE")
+
+        required_security_review_refs = {
+            security_receipt.receipt_id,
+            security_receipt.profile_id,
+            f"ai-security-profile-receipt:{security_receipt.receipt_sha256}",
+            *security_receipt.threat_ids,
+            *security_receipt.test_ids,
+            *security_receipt.risk_refs,
+            *security_receipt.data_quality_refs,
+            *security_receipt.security_control_refs,
+            security_receipt.incident_response_ref,
+            *security_receipt.authorization_scope_refs,
+            *security_receipt.isolation_refs,
+            *security_receipt.task_budget_refs,
+            *security_receipt.logging_plan_refs,
+            *security_receipt.source_refs,
+            security_receipt.tevv_alignment_basis_ref,
+        }
+        if not required_security_review_refs <= set(management_review.input_refs):
+            reasons.append("MANAGEMENT_REVIEW_AI_SECURITY_INPUTS_INCOMPLETE")
 
         extended_refs = controls.trace_refs()
         if not set(extended_refs) <= set(management_review.input_refs):
@@ -765,6 +828,9 @@ class FullQualitySystemEngine:
         if tevv_receipt.disposition is TEVVProfileDisposition.HOLD:
             reasons.append("TEVV_PROFILE_RECEIPT_HOLD")
 
+        if security_receipt.disposition is AISecurityProfileDisposition.HOLD:
+            reasons.append("AI_SECURITY_PROFILE_RECEIPT_HOLD")
+
         hard_hold = any(
             reason in {
                 "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION",
@@ -777,8 +843,16 @@ class FullQualitySystemEngine:
                 "TEVV_MEASUREMENTS_NOT_BOUND_TO_QUALITY_PLAN",
                 "TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING",
                 "TEVV_DATA_QUALITY_RECORDS_MISSING",
+                "AI_SECURITY_RECEIPT_TARGET_MISMATCH",
+                "AI_SECURITY_RECEIPT_TARGET_DIGEST_MISMATCH",
+                "AI_SECURITY_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
+                "AI_SECURITY_RISKS_NOT_BOUND_TO_AI_RISK_REGISTER",
+                "AI_SECURITY_DATA_QUALITY_RECORDS_MISSING",
+                "AI_SECURITY_TEVV_RECEIPT_ALIGNMENT_MISMATCH",
+                "AI_SECURITY_TEVV_SOURCE_RUNTIME_MISMATCH",
                 "MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE",
+                "MANAGEMENT_REVIEW_AI_SECURITY_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
                 "DATA_QUALITY_HOLD",
                 "UPSTREAM_SUPPLIER_QUALITY_REVIEW_REQUIRED",
@@ -789,6 +863,7 @@ class FullQualitySystemEngine:
                 "AI_RISK_IMPACT_RECEIPT_HOLD",
                 "AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED",
                 "TEVV_PROFILE_RECEIPT_HOLD",
+                "AI_SECURITY_PROFILE_RECEIPT_HOLD",
             }
             for reason in reasons
         )
@@ -811,6 +886,14 @@ class FullQualitySystemEngine:
                     "TEVV_MEASUREMENT_ASSURANCE_MAPPING_BASIS_RECORDED",
                     "TEVV_DATA_QUALITY_BINDINGS_COMPLETE",
                     "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY",
+                    "CONTENT_ADDRESSED_AI_SECURITY_PROFILE_RECEIPT_BOUND",
+                    "AI_SECURITY_RECEIPT_TARGET_SEMANTICS_BOUND",
+                    "AI_SECURITY_RISK_REGISTER_BINDINGS_COMPLETE",
+                    "AI_SECURITY_DATA_QUALITY_BINDINGS_COMPLETE",
+                    "AI_SECURITY_TEVV_RECEIPT_ALIGNMENT_BOUND",
+                    "AI_SECURITY_SOURCE_RUNTIME_ALIGNMENT_BOUND",
+                    "AI_SECURITY_CONTROL_AND_RESPONSE_TRACE_BOUND",
+                    "AI_SECURITY_PROFILE_READY_FOR_BOUNDED_ADVERSARIAL_EVALUATION_ONLY",
                     "DATA_QUALITY_BOUND_TO_DECLARED_USE",
                     "SUPPLIER_QUALITY_BOUND_TO_DECLARED_SCOPE",
                     "SAMPLING_RESULTS_REMAIN_BOUNDED_CONFIDENCE_ONLY",

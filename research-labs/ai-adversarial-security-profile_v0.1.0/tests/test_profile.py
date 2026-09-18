@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import subprocess
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -9,14 +12,32 @@ from aion_ai_security_profile import (
     AIAdversaryModel,
     AISecurityError,
     AISecurityProfileDisposition,
+    AISecurityProfileReceipt,
     AISecurityTestSpec,
     AISecurityThreatApplicability,
     AISecurityThreatClass,
     AISecurityThreatRecord,
     AttackerKnowledge,
     build_ai_adversarial_security_profile,
+    build_ai_security_profile_receipt,
+    build_repository_bound_ai_security_profile_receipt,
 )
-from aion_ai_tevv import AISystemBinding
+from aion_ai_tevv import (
+    AITEVVProfileGate,
+    AISystemBinding,
+    EvaluatorIndependence,
+    HumanSubjectsStatus,
+    OracleStrategy,
+    TEVVActivity,
+    TEVVLifecycleStage,
+    TEVVCaseSpec,
+    TEVVMetricMeasurementBinding,
+    TEVVMetricSpec,
+    TEVVProfileReceipt,
+    TEVVTestApproach,
+    build_tevv_profile,
+    build_tevv_profile_receipt,
+)
 
 
 def system() -> AISystemBinding:
@@ -32,6 +53,116 @@ def system() -> AISystemBinding:
         tool_manifest_ref="tools:deny-by-default-v1",
         generation_config_ref="generation-config:security-fixture-v1",
         exact_source_state_ref="git:security-profile-fixture-v1",
+    )
+
+
+def tevv_receipt(
+    *,
+    exact_source_state_ref: str = "git:security-profile-fixture-v1",
+    exact_runtime_ref: str = "runtime:security-sandbox-v1",
+) -> TEVVProfileReceipt:
+    tevv_system = AISystemBinding(
+        provider_id="provider-under-study",
+        product_id="product-under-study",
+        model_id="model-under-study",
+        model_version_ref="model-version:security-profile-v1",
+        runtime_ref=exact_runtime_ref,
+        environment_ref="environment:offline-security-sandbox-v1",
+        prompt_ref="prompt:security-fixture-v1",
+        scaffold_ref="scaffold:security-fixture-v1",
+        tool_manifest_ref="tools:deny-by-default-v1",
+        generation_config_ref="generation-config:security-fixture-v1",
+        exact_source_state_ref=exact_source_state_ref,
+    )
+    value = build_tevv_profile(
+        profile_id="TEVV-PROFILE-SECURITY-001",
+        profile_version="0.1.0",
+        objective_ref="objective:security-aligned-tevv",
+        intended_use_ref="use:research-engineering-security-planning-only",
+        tevv_vocabulary_ref="subjectivity-pipeline:TevvDefinition:v0.1.0",
+        tevv_vocabulary_sha256="a" * 64,
+        lifecycle_stage=TEVVLifecycleStage.RESEARCH,
+        risk_refs=("risk:ai-security:prompt_injection",),
+        unmeasured_risks=(),
+        activities=(TEVVActivity.TEST,),
+        system=tevv_system,
+        metrics=(
+            TEVVMetricSpec(
+                metric_id="TEVV-SECURITY-METRIC-001",
+                measurement_concept="bounded security-property observation",
+                method_ref="method:security-property-v1",
+                method_version="v1",
+                unit="ratio",
+                acceptance_criterion_ref="criterion:security-property-v1",
+                uncertainty_ref="uncertainty:security-property-v1",
+                construct_validity_ref="validity:security-property-v1",
+                quality_characteristic_refs=("quality:security-robustness",),
+                effectiveness_review_ref="review:security-metric-effectiveness-v1",
+                risk_refs=("risk:ai-security:prompt_injection",),
+            ),
+        ),
+        cases=(
+            TEVVCaseSpec(
+                case_id="TEVV-SECURITY-CASE-001",
+                input_ref="input:security-case-001",
+                test_set_ref="test-set:security-case-001",
+                test_set_integrity_ref="integrity:security-case-001",
+                data_quality_ref="data-quality:prompt_injection-synthetic",
+                contamination_check_ref="check:contamination:prompt-injection",
+                leakage_check_ref="check:leakage:prompt-injection",
+                scenario_ref="scenario:bounded-security",
+                test_environment_ref="environment:offline-security-sandbox-v1",
+                test_approach=TEVVTestApproach.BLACK_BOX,
+                oracle_strategy=OracleStrategy.PROPERTY_BASED,
+                oracle_ref="oracle:security-property-v1",
+                oracle_qualification_ref="NOT_APPLICABLE",
+                expected_property_refs=("property:boundary-preserved",),
+                metric_ids=("TEVV-SECURITY-METRIC-001",),
+                held_out=True,
+            ),
+        ),
+        repetition_policy_ref="policy:security-repeat-v1",
+        nondeterminism_policy_ref="policy:security-nondeterminism-v1",
+        minimum_repetitions=1,
+        stochastic_system=False,
+        aggregation_rule_ref="aggregation:security-bounded-v1",
+        tevv_toolchain_ref="tevv-toolchain:security-v1",
+        tevv_toolchain_version="v1",
+        verification_requirement_refs=(),
+        validation_requirement_refs=(),
+        evaluator_ref="evaluator:security-tevv-v1",
+        evaluator_version="v1",
+        evaluator_independence=EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        evaluator_independence_basis_ref="basis:security-tevv-independent-v1",
+        human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
+        human_subjects_protection_refs=(),
+        population_representativeness_refs=(),
+        target_context_ref="context:offline-security-sandbox",
+        context_similarity_statement="Offline structural security scope only.",
+        context_similarity_basis_refs=("basis:offline-security-sandbox",),
+        operating_condition_refs=("condition:offline-security-sandbox",),
+        generalizability_limit_refs=("limit:no-live-system-generalization",),
+        failure_action_ref="reaction:HOLD_AND_REVIEW",
+        preregistration_ref="preregistration:TEVV-PROFILE-SECURITY-001",
+    )
+    assessment = AITEVVProfileGate().assess(value)
+    return build_tevv_profile_receipt(
+        receipt_id="TEVV-SECURITY-RECEIPT-001",
+        assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+        assessment_target_sha256="b" * 64,
+        profile=value,
+        assessment=assessment,
+        measurement_bindings=(
+            TEVVMetricMeasurementBinding(
+                metric_id="TEVV-SECURITY-METRIC-001",
+                measurement_id="MEAS-SECURITY-001",
+                mapping_basis_ref="mapping:security-tevv-to-measurement-v1",
+            ),
+        ),
+        producer_git_head="1" * 40,
+        producer_tree_sha="2" * 40,
+        producer_contract_ref="contract:tevv-security-v1",
+        producer_contract_sha256="3" * 64,
     )
 
 
@@ -331,3 +462,209 @@ def test_security_profile_cannot_establish_phenomenal_experience() -> None:
     value = profile()
     with pytest.raises(AISecurityError, match="phenomenal experience"):
         replace(value, phenomenal_experience_conclusion="ESTABLISHED")
+
+
+
+def security_receipt(
+    *,
+    profile_value=None,
+    tevv_receipt_value: TEVVProfileReceipt | None = None,
+) -> AISecurityProfileReceipt:
+    value = profile_value or profile()
+    assessment = AIAdversarialSecurityGate().assess(value)
+    tevv_bound = tevv_receipt_value or tevv_receipt()
+    return build_ai_security_profile_receipt(
+        receipt_id="AI-SECURITY-RECEIPT-001",
+        assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+        assessment_target_sha256="b" * 64,
+        profile=value,
+        assessment=assessment,
+        tevv_receipt=tevv_bound,
+        tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+        producer_git_head="4" * 40,
+        producer_tree_sha="5" * 40,
+        producer_contract_ref="contract:ai-security-profile-v1",
+        producer_contract_sha256="6" * 64,
+    )
+
+
+def test_security_receipt_is_content_addressed_and_structural_only() -> None:
+    value = security_receipt()
+
+    assert value.profile_id == "AI-SECURITY-PROFILE-001"
+    assert value.disposition is AISecurityProfileDisposition.READY_FOR_BOUNDED_ADVERSARIAL_EVALUATION
+    assert "THREAT-PROMPT_INJECTION" in value.threat_ids
+    assert "SEC-TEST-PROMPT_INJECTION" in value.test_ids
+    assert "risk:ai-security:prompt_injection" in value.risk_refs
+    assert "data-quality:prompt_injection-synthetic" in value.data_quality_refs
+    assert value.tevv_profile_id == "TEVV-PROFILE-SECURITY-001"
+    assert value.adversarial_evaluation_executed is False
+    assert value.empirical_security_evidence is False
+    assert value.security_certification == "NONE"
+    assert value.scientific_disposition == "HOLD"
+    assert value.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert value.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert value.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
+    assert value.canonical_effect == "NONE"
+    assert value.deployment is False
+    assert len(value.receipt_sha256) == 64
+
+
+def test_security_receipt_detects_tampering() -> None:
+    value = security_receipt()
+    with pytest.raises(AISecurityError, match="content digest mismatch"):
+        replace(value, receipt_sha256="0" * 64)
+
+
+def test_security_receipt_recomputes_security_gate() -> None:
+    value = profile()
+    forged = replace(
+        AIAdversarialSecurityGate().assess(value),
+        disposition=AISecurityProfileDisposition.HOLD,
+    )
+    with pytest.raises(AISecurityError, match="recomputed AI security gate"):
+        build_ai_security_profile_receipt(
+            receipt_id="AI-SECURITY-RECEIPT-FORGED",
+            assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+            assessment_target_sha256="b" * 64,
+            profile=value,
+            assessment=forged,
+            tevv_receipt=tevv_receipt(),
+            tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+            producer_git_head="4" * 40,
+            producer_tree_sha="5" * 40,
+            producer_contract_ref="contract:ai-security-profile-v1",
+            producer_contract_sha256="6" * 64,
+        )
+
+
+def test_security_receipt_requires_tevv_source_and_runtime_alignment() -> None:
+    with pytest.raises(AISecurityError, match="exact source state must match"):
+        security_receipt(
+            tevv_receipt_value=tevv_receipt(
+                exact_source_state_ref="source-state:different"
+            )
+        )
+    with pytest.raises(AISecurityError, match="exact runtime must match"):
+        security_receipt(
+            tevv_receipt_value=tevv_receipt(
+                exact_runtime_ref="runtime:different"
+            )
+        )
+
+
+def _git(root: Path, *args: str) -> str:
+    return subprocess.run(
+        ("git", *args),
+        cwd=root,
+        check=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    ).stdout.strip()
+
+
+def test_repository_bound_security_receipt_uses_committed_contract_bytes(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    _git(root, "init")
+    _git(root, "config", "user.email", "fixture@example.invalid")
+    _git(root, "config", "user.name", "Fixture")
+    contract_ref = "contract.py"
+    committed_bytes = b"SECURITY_PROFILE_CONTRACT = 'v1'\n"
+    (root / contract_ref).write_bytes(committed_bytes)
+    _git(root, "add", contract_ref)
+    _git(root, "commit", "-m", "fixture")
+
+    value = profile()
+    assessment = AIAdversarialSecurityGate().assess(value)
+    receipt = build_repository_bound_ai_security_profile_receipt(
+        receipt_id="AI-SECURITY-RECEIPT-GIT",
+        assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+        assessment_target_sha256="b" * 64,
+        profile=value,
+        assessment=assessment,
+        tevv_receipt=tevv_receipt(),
+        tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+        repository_root=root,
+        producer_contract_ref=contract_ref,
+    )
+
+    assert receipt.producer_git_head == _git(root, "rev-parse", "HEAD")
+    assert receipt.producer_tree_sha == _git(root, "rev-parse", "HEAD^{tree}")
+    assert receipt.producer_contract_sha256 == hashlib.sha256(committed_bytes).hexdigest()
+
+    (root / contract_ref).write_text(
+        "SECURITY_PROFILE_CONTRACT = 'dirty'\n",
+        encoding="utf-8",
+    )
+    dirty = build_repository_bound_ai_security_profile_receipt(
+        receipt_id="AI-SECURITY-RECEIPT-GIT-DIRTY",
+        assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+        assessment_target_sha256="b" * 64,
+        profile=value,
+        assessment=assessment,
+        tevv_receipt=tevv_receipt(),
+        tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+        repository_root=root,
+        producer_contract_ref=contract_ref,
+    )
+    assert dirty.producer_contract_sha256 == receipt.producer_contract_sha256
+
+
+def test_repository_bound_security_receipt_rejects_unsafe_contract_path(
+    tmp_path: Path,
+) -> None:
+    root = tmp_path / "repo"
+    root.mkdir()
+    _git(root, "init")
+    with pytest.raises(AISecurityError, match="safe repository-relative"):
+        build_repository_bound_ai_security_profile_receipt(
+            receipt_id="AI-SECURITY-RECEIPT-UNSAFE",
+            assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+            assessment_target_sha256="b" * 64,
+            profile=profile(),
+            assessment=AIAdversarialSecurityGate().assess(profile()),
+            tevv_receipt=tevv_receipt(),
+            tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+            repository_root=root,
+            producer_contract_ref="../outside.py",
+        )
+
+
+
+def test_security_receipt_requires_same_tevv_assessment_target() -> None:
+    value = profile()
+    assessment = AIAdversarialSecurityGate().assess(value)
+
+    with pytest.raises(AISecurityError, match="assessment target refs must match"):
+        build_ai_security_profile_receipt(
+            receipt_id="AI-SECURITY-RECEIPT-TARGET-REF",
+            assessment_target_ref="quality-plan:PLAN-SECURITY-OTHER",
+            assessment_target_sha256="b" * 64,
+            profile=value,
+            assessment=assessment,
+            tevv_receipt=tevv_receipt(),
+            tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+            producer_git_head="4" * 40,
+            producer_tree_sha="5" * 40,
+            producer_contract_ref="contract:ai-security-profile-v1",
+            producer_contract_sha256="6" * 64,
+        )
+
+    with pytest.raises(AISecurityError, match="assessment target digests must match"):
+        build_ai_security_profile_receipt(
+            receipt_id="AI-SECURITY-RECEIPT-TARGET-DIGEST",
+            assessment_target_ref="quality-plan:PLAN-SECURITY-001",
+            assessment_target_sha256="c" * 64,
+            profile=value,
+            assessment=assessment,
+            tevv_receipt=tevv_receipt(),
+            tevv_alignment_basis_ref="mapping:security-profile-to-tevv-v1",
+            producer_git_head="4" * 40,
+            producer_tree_sha="5" * 40,
+            producer_contract_ref="contract:ai-security-profile-v1",
+            producer_contract_sha256="6" * 64,
+        )

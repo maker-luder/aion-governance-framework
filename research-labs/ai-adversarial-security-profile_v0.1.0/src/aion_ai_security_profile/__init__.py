@@ -1,4 +1,5 @@
 from .profile import (
+    AI_SECURITY_PROFILE_RECEIPT_SCHEMA_VERSION,
     AI_SECURITY_PROFILE_SCHEMA_VERSION,
     AIAdversarialSecurityGate,
     AIAdversarialSecurityProfile,
@@ -6,15 +7,19 @@ from .profile import (
     AISecurityError,
     AISecurityProfileAssessment,
     AISecurityProfileDisposition,
+    AISecurityProfileReceipt,
     AISecurityTestSpec,
     AISecurityThreatApplicability,
     AISecurityThreatClass,
     AISecurityThreatRecord,
     AttackerKnowledge,
     build_ai_adversarial_security_profile,
+    build_ai_security_profile_receipt,
+    build_repository_bound_ai_security_profile_receipt,
 )
 
 __all__ = [
+    "AI_SECURITY_PROFILE_RECEIPT_SCHEMA_VERSION",
     "AI_SECURITY_PROFILE_SCHEMA_VERSION",
     "AIAdversarialSecurityGate",
     "AIAdversarialSecurityProfile",
@@ -22,10 +27,13 @@ __all__ = [
     "AISecurityError",
     "AISecurityProfileAssessment",
     "AISecurityProfileDisposition",
+    "AISecurityProfileReceipt",
     "AISecurityTestSpec",
     "AISecurityThreatApplicability",
     "AISecurityThreatClass",
     "AISecurityThreatRecord",
     "AttackerKnowledge",
     "build_ai_adversarial_security_profile",
+    "build_ai_security_profile_receipt",
+    "build_repository_bound_ai_security_profile_receipt",
 ]
