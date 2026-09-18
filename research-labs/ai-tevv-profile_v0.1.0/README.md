@@ -633,3 +633,37 @@ GENERALIZABILITY_LIMITS_RECORDED
 
 This keeps a research-stage TEVV profile from silently turning a bounded sandbox result
 into a broad validity or deployment claim.
+
+
+## Full-QMS integration receipt
+
+A separately reviewed integration layer can consume a
+`TEVVProfileReceipt` rather than importing a bare `AITEVVProfile` and
+assuming structural readiness is evidence.
+
+`build_tevv_profile_receipt(...)`:
+
+- recomputes the TEVV structural gate before receipt issuance;
+- binds the quality-plan semantic target;
+- content-addresses the profile identity and producer provenance;
+- carries risk refs, metric ids and data-quality refs;
+- requires one explicit QMS measurement-assurance binding per TEVV metric;
+- preserves `MODEL_EXECUTED = FALSE` and
+  `EMPIRICAL_MODEL_EVIDENCE = FALSE`.
+
+`build_repository_bound_tevv_profile_receipt(...)` additionally resolves the
+producer Git HEAD, tree and contract bytes from committed Git objects.
+
+```text
+STRUCTURAL_PROFILE
+-> STRUCTURAL_GATE
+-> CONTENT_ADDRESSED_TEVV_PROFILE_RECEIPT
+-> FULL_QMS_CONSUMER
+
+STRUCTURAL_RECEIPT
+!= EXECUTION_RECEIPT
+!= EMPIRICAL_MODEL_EVIDENCE
+```
+
+A future empirical TEVV execution path must use a distinct result/evidence
+receipt rather than mutating this structural receipt into a model-quality claim.
