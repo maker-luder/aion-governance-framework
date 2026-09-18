@@ -1132,7 +1132,15 @@ def test_full_qms_requires_tevv_receipt_configuration_binding() -> None:
 
 def test_full_qms_rejects_tevv_receipt_for_different_plan_target() -> None:
     wrong_target = tevv_receipt(assessment_target_ref="quality-plan:PLAN-OTHER")
-    result = assess(tevv_receipt_value=wrong_target)
+    aligned_security = security_receipt(
+        assessment_target_ref=wrong_target.assessment_target_ref,
+        assessment_target_sha256=wrong_target.assessment_target_sha256,
+        tevv_receipt_value=wrong_target,
+    )
+    result = assess(
+        tevv_receipt_value=wrong_target,
+        security_receipt_value=aligned_security,
+    )
     assert result.disposition is EndToEndDisposition.HOLD
     assert "TEVV_RECEIPT_TARGET_MISMATCH" in result.reasons
 
