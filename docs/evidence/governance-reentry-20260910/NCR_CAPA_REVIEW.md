@@ -5,7 +5,7 @@ Document-Type: NCR / CAPA
 Status: CANDIDATE / OPEN / UNDER_REVIEW  
 Scope: Research documentation / GitHub mutation execution  
 Authority: INFORMATIONAL  
-Last-Reviewed: 2026-09-10
+Last-Reviewed: 2026-09-19
 
 此為 repository 外 reviewable NCR，不宣称正式 register 已更新。既有 register 的 NCR-PRC-001/002 保留，日期事件 ID 作可追溯擴充候選。
 
@@ -92,3 +92,74 @@ CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 MERGE_AUTHORITY = HUMAN_ONLY
 ```
+
+
+## J. 2026-09-19 effectiveness reassessment
+
+A later repository mutation event occurred during Draft PR #176.
+
+The later event is separately preserved as:
+
+~~~text
+NCR-GH-WRITE-20260919-01
+docs/history/incidents/PR176_KIMI_RESEARCH_WRITE_FAILURE_2026-09-19.md
+~~~
+
+What is established:
+
+- a repository-document modification failed;
+- the low-level connector / API failure payload was not preserved in the later review trace;
+- recovery writes proceeded before formal incident / NCR registration;
+- exact-state review and incident recording occurred later;
+- PR #176 was eventually merged through a separate exact-head Human Owner authority process.
+
+What is not established:
+
+- that the 2026-09-19 technical failure had the same SHA/object cause as the 2026-09-10 event;
+- that the same connector or transport defect recurred;
+- that a specific technical root cause is shared between the two incidents.
+
+The relevant effectiveness result is process-level:
+
+~~~text
+INTENDED_SEQUENCE
+= FAILURE
+-> STOP
+-> PRESERVE
+-> RECORD
+-> READ_ONLY_EXACT_STATE_REVIEW
+-> BOUNDED_RECOVERY_DECISION
+-> RETRY_OR_REPAIR
+
+2026_09_19_OBSERVED_SEQUENCE
+= FAILURE
+-> RECOVERY_WRITES
+-> LATER_EXACT_STATE_REVIEW
+-> LATER_INCIDENT_REGISTRATION
+~~~
+
+Therefore the newer event is counterevidence against claiming that the earlier
+CAPA candidate is effective at the external host / orchestration layer.
+
+~~~text
+SAME_TECHNICAL_ROOT_CAUSE
+= NOT_ESTABLISHED
+
+HOST_PROCESS_CONTROL_EFFECTIVENESS
+= NOT_ESTABLISHED
+
+CAPA_EFFECTIVENESS
+= NOT_VERIFIED
+
+RECURRENCE_OR_PROCESS_GAP_SIGNAL
+= PRESENT
+
+CLOSURE
+= NO
+
+NCR
+= OPEN / UNDER_REVIEW
+~~~
+
+This reassessment does not erase later successful recovery and does not classify
+the event as a security compromise. It only prevents a false closure claim.

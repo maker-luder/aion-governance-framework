@@ -156,3 +156,29 @@ REPOSITORY_WIDE_MYPY_PASS = NOT_ESTABLISHED
 ```
 
 No CAPA closure is claimed by this progress record.
+
+
+## 2026-09-19 current-state reconciliation
+
+The sections above remain event-time evidence and are not rewritten.
+
+Current state is controlled by:
+`docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md`.
+
+~~~text
+PR133_MERGED = TRUE
+PR133_EXACT_HEAD = f9b69d0c1f0d59778975f6bfc4464125e0114a1c
+EV_1 = PASS
+EV_2 = PASS
+EV_3 = PASS
+EV_4 = PASS
+EV_5 = COMPLETE_WITH_EXPLICIT_LIMITATION
+CLOSURE_REVIEW = PASS
+HUMAN_OWNER_CLOSURE_APPROVAL = GIVEN
+NCR = CLOSED
+CAPA_EFFECTIVENESS = VERIFIED_WITH_LIMITATIONS
+INDEPENDENT_IVV = NOT_ACHIEVED
+~~~
+
+The historical statements `PR133_MERGED = FALSE` and `EV_4 = NOT_YET_POSSIBLE`
+describe the earlier review time and are not current-state assertions.
