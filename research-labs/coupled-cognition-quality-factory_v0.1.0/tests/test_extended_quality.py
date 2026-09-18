@@ -277,6 +277,7 @@ def tevv_receipt(
             TEVVMetricMeasurementBinding(
                 metric_id="TEVV-METRIC-001",
                 measurement_id=measurement_id,
+                mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
         producer_git_head="a" * 40,
