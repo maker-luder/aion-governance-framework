@@ -175,9 +175,9 @@ DEPLOYMENT_POLICY_DIFFERENCE
 
 ## 9. Axis 7 — counterexamples / failures
 
-Re-admission: YES, but weaker than OpenAI PR #151 incident evidence.
+Re-admission: YES, WITH EVIDENCE-CLASS LIMIT.
 
-The current Gemini record contains experimental counterexamples and limitations, but this review did not identify an OpenAI-Hugging-Face-style public incident chain with comparable independent post-incident reconstruction.
+The current Gemini record contains experimental counterexamples and limitations, but this review did not identify a current-lineage public incident chain with bounded independent post-incident reconstruction sufficient for E3 classification.
 
 ~~~text
 COUNTEREXAMPLE_EVIDENCE = PRESENT
@@ -276,7 +276,30 @@ ORDINARY_PLANNING_AND_RECOVERY
 
 These alternatives should be tested before stronger ontology is considered.
 
-## 15. What the external sweep did not establish
+## 15. Challenge-review corrections retained after external sweep
+
+The independent challenge review found four points that must remain explicit in the final Gemini-only admission:
+
+~~~text
+A. 3.8 Flash multilingual safety shows a reported regression vs 3.7
+B. changed safety-evaluation query sets limit longitudinal card-to-card comparability
+C. external harness work does not establish a Gemini-specific harness causal advantage
+D. Sierra Leone Guided Learning is a bundled teacher-led intervention,
+   not an isolated bare-model effect
+~~~
+
+Accordingly:
+
+~~~text
+NEWER_GEMINI != UNIFORMLY_BETTER_ON_EVERY_SAFETY_METRIC
+MODEL_CARD_SEQUENCE != CLEAN_LONGITUDINAL_EXPERIMENT
+HARNESS_LOCUS_RELEVANCE != NATIVE_HARNESS_ADVANTAGE
+HUMAN_LEARNING_RCT_EFFECT != GEMINI_MODEL_ONLY_EFFECT
+~~~
+
+These are not reasons to reject Gemini as a research reference. They are reasons to preserve source and causal boundaries.
+
+## 16. What the external sweep did not establish
 
 ~~~text
 GEMINI_3_5_OR_3_8_STABLE_UNIVERSAL_BASELINE
@@ -304,7 +327,7 @@ PHENOMENAL_EXPERIENCE
 = NO
 ~~~
 
-## 16. Re-admission decision
+## 17. Re-admission decision
 
 ~~~text
 EVIDENCE_ADMISSIBILITY_AS_RESEARCH_REFERENCE
@@ -323,14 +346,14 @@ EVIDENCE_ADMISSIBILITY_AS_SUBJECTIVITY_EVIDENCE
 = NO
 ~~~
 
-## 17. Files controlling this review
+## 18. Files controlling this review
 
 - docs/research/GEMINI_UPSTREAM_12_AXIS_INTAKE_2026_09_19.md
 - docs/research/GEMINI_FLASH_REFERENCE_BASELINE_AND_TIMELINE_2026_09_19.md
 - docs/research/GEMINI_THIRD_PARTY_EVIDENCE_SWEEP_2026_09_19.md
 - docs/research/GEMINI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md
 
-## 18. Current disposition
+## 19. Current disposition
 
 ~~~text
 GEMINI_PROVIDER_INTAKE
