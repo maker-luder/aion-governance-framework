@@ -15,10 +15,13 @@ ACTIVE_RESEARCH_PROGRAM = NO
 POST_TERMINATION_BOUNDED_MAINTENANCE = PRESENT_IN_MAIN
 POST_TERMINATION_BOUNDED_RESEARCH_MATERIALIZATION = PRESENT_IN_MAIN
 
-LATEST_BOUNDED_RESEARCH_MILESTONE = PR_151_OPENAI_EVIDENCE_ADMISSION_REFERENCE
-LATEST_MILESTONE_MERGE_COMMIT = db348bce3edd0390fc2b916259d19713046f55bf
+LATEST_BOUNDED_RESEARCH_MILESTONE = PR_167_D2_D4_SYNTHETIC_DIFFERENTIAL
+LATEST_MILESTONE_MERGE_COMMIT = 1c4e78b478ef71673f5e5f920f7322386407a46c
+LATEST_PUBLIC_ENTRY_SYNC = PR_168
+LATEST_PUBLIC_ENTRY_SYNC_MERGE_COMMIT = 4625230d8a2c093260c3c7395e03938af558fb80
 LATEST_RESEARCH_SPECIFICATION_FREEZE = PR_150_CCAP_STAGE1_STAGE3
 RECENT_HISTORY_CONTINUITY_SEQUENCE = PR_143 + PR_144 + PR_145 + PR_146
+RECENT_RESEARCH_ENGINEERING_SEQUENCE = PR_155 + PR_157 + PR_158 + PR_160 + PR_161 + PR_163 + PR_164 + PR_165 + PR_166 + PR_167
 
 CENTRAL_RESEARCH_CORE_DRIFT = PROHIBITED
 REPOSITORY_DURABLE_BRANCH = main
@@ -46,6 +49,7 @@ The current `main` contains coordinated bounded research / instrumentation surfa
 - Endogenous Goal Dynamics and D1 × D4 constraint-response / source-partition controls;
 - the frozen CCAP Stage 1–3 specification chain;
 - provider-evidence admission, including the first completed OpenAI / GPT-5.6 Sol historical-reference case;
+- bounded AI risk/impact controls plus content-addressed TEVV, risk/impact and AI-security receipt boundaries integrated into the full research QMS;
 - provenance-to-claim quality admission, exact-head authority, QA/QC and NCR/CAPA-related controls;
 - governed multimodal evidence handling, interoperability and bounded synthetic research campaigns.
 
@@ -103,6 +107,25 @@ Primary record:
 
 - [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md)
 
+After the freeze, separately authorized bounded work extended this line through TEVV pre-execution mapping, Four-Domain × six-dimension stress testing, assessment-system-boundary / discriminant hardening, a D2 × D4 differential protocol, and a synthetic differential execution. The latest execution establishes fixture-level separability only.
+
+```text
+SYNTHETIC_TWO_WAY_SEPARABILITY = FIXTURE_LEVEL_ONLY
+D2_SUPPORT = NOT_ESTABLISHED
+D4_SUPPORT = NOT_ESTABLISHED
+INDEPENDENT_VALIDATION = NOT_ACHIEVED
+CONFIRMATORY_EMPIRICAL_EXECUTION = NOT_COMPLETED
+```
+
+Primary post-freeze records:
+
+- [`research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md`](research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md)
+- [`research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md`](research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md)
+- [`research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md`](research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md)
+- [`research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md`](research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md)
+- [`research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md`](research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md)
+- [`research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md`](research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md)
+
 ### 4. OpenAI / GPT-5.6 Sol evidence admission
 
 PR #151 added a version-pinned OpenAI upstream intake, GPT-5.6 Sol historical-reference timeline, third-party evidence sweep, and 12-axis evidence re-admission review.
@@ -124,6 +147,26 @@ Provider disclosures remain provider disclosures unless separately triangulated.
 Primary record:
 
 - [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)
+
+### 5. TEVV / Full-QMS / AI-security research engineering
+
+The current `main` also contains the bounded research-engineering stack developed after the OpenAI evidence-admission milestone:
+
+- bounded AI risk / impact controls and content-addressed risk-impact receipts;
+- bounded AI TEVV profiles and content-addressed TEVV receipts;
+- a bounded AI adversarial-security profile and content-addressed security receipts;
+- Full-QMS consumer checks that bind receipt target semantics, producer/source identity and declared risk/data/measurement relations;
+- PR #163 exact measurement-semantic binding, preventing same-ID / different-semantics substitution.
+
+These controls improve auditability and fail-closed research handling. They do not establish model quality, adversarial-security effectiveness, scientific validity or subjectivity.
+
+```text
+STRUCTURAL_TEVV != EMPIRICAL_MODEL_VALIDATION
+STRUCTURAL_SECURITY_PROFILE != SECURITY_EFFECTIVENESS
+CONTENT_ADDRESSED_RECEIPT != DIGITAL_SIGNATURE
+FULL_QMS_PASS != SCIENTIFIC_VALIDATION
+ENGINEERING_INTEGRATION != SUBJECTIVITY_EVIDENCE
+```
 
 ## Scientific disposition / 科學結論狀態
 
