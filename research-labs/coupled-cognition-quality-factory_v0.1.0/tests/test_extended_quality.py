@@ -421,14 +421,17 @@ def security_receipt(
     risk_ref: str = "RISK-OVERCLAIM-001",
     data_quality_ref: str = "DATA-001",
 ) -> AISecurityProfileReceipt:
-    tevv_bound = tevv_receipt_value or tevv_receipt()
+    target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
+    tevv_bound = tevv_receipt_value or tevv_receipt(
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=target_sha256,
+    )
     value = security_profile(
         held_out=held_out,
         risk_ref=risk_ref,
         data_quality_ref=data_quality_ref,
     )
     assessment = AIAdversarialSecurityGate().assess(value)
-    target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
     return build_ai_security_profile_receipt(
         receipt_id="AI-SECURITY-RECEIPT-001",
         assessment_target_ref=assessment_target_ref,
