@@ -343,3 +343,35 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
     assessment = AITEVVProfileGate().assess(value)
     assert assessment.disposition is TEVVProfileDisposition.HOLD
     assert "NON_INDEPENDENT_EVALUATOR_REQUIRES_REVIEW" in assessment.reasons
+
+
+
+def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
+    kwargs = {
+        "profile_id": "TEVV-BUILDER-TYPES",
+        "profile_version": "0.1.0",
+        "objective_ref": "objective:builder-types",
+        "intended_use_ref": "use:structural-test",
+        "lifecycle_stage": TEVVLifecycleStage.RESEARCH,
+        "risk_refs": ("risk:bounded-model-quality",),
+        "activities": (TEVVActivity.TESTING,),
+        "system": system(),
+        "metrics": (metric(),),
+        "cases": (case(),),
+        "repetition_policy_ref": "policy:repeat-v1",
+        "nondeterminism_policy_ref": "policy:nondeterminism-v1",
+        "minimum_repetitions": 1,
+        "stochastic_system": False,
+        "aggregation_rule_ref": "aggregation:v1",
+        "evaluator_ref": "evaluator:v1",
+        "evaluator_version": "v1",
+        "evaluator_independence": EvaluatorIndependence.INTERNAL_INDEPENDENT,
+        "target_context_ref": "context:test",
+        "context_similarity_statement": "Structural test only.",
+        "failure_action_ref": "reaction:hold",
+        "preregistration_ref": "preregistration:builder-types",
+    }
+    with pytest.raises(TEVVError, match="lifecycle_stage"):
+        build_tevv_profile(**(kwargs | {"lifecycle_stage": "RESEARCH"}))
+    with pytest.raises(TEVVError, match="activities"):
+        build_tevv_profile(**(kwargs | {"activities": ("TESTING",)}))
