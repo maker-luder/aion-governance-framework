@@ -7,6 +7,17 @@ from dataclasses import replace
 import pytest
 
 from aion_coupled_quality import QualityError, Severity
+from aion_coupled_quality.ai_risk_impact import (
+    AIImpactAssessmentRecord,
+    AIImpactDisposition,
+    AILifecycleStage,
+    AIRiskDisposition,
+    AIRiskImpactGate,
+    AIRiskImpactReceipt,
+    AIRiskRecord,
+    RiskLikelihood,
+    build_risk_impact_receipt,
+)
 from aion_coupled_quality.end_to_end import (
     AuditIndependence,
     ControlPlanEntry,
@@ -51,6 +62,88 @@ def digest(payload: object) -> str:
     return hashlib.sha256(
         json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
     ).hexdigest()
+
+
+def ai_risk(**changes: object) -> AIRiskRecord:
+    values: dict[str, object] = {
+        "risk_id": "RISK-OVERCLAIM-001",
+        "risk_version": "0.1.0",
+        "exact_source_state_ref": "source-state:risk-impact-v1",
+        "system_scope": "AI-assisted research-engineering workflow",
+        "lifecycle_stage": AILifecycleStage.RESEARCH,
+        "risk_source": "evidence-to-claim promotion",
+        "event_or_condition": "engineering output exceeds its evidence ceiling",
+        "affected_refs": ("research:subjectivity-core",),
+        "likelihood": RiskLikelihood.POSSIBLE,
+        "consequence": Severity.HIGH,
+        "existing_control_refs": ("control:claim-ceiling",),
+        "control_effectiveness_refs": ("test:claim-ceiling",),
+        "treatment_refs": ("plan:claim-ceiling-review",),
+        "residual_risk": Severity.MEDIUM,
+        "risk_evaluation_basis_ref": "method:qualitative-risk-v1",
+        "residual_risk_basis_ref": "assessment:residual-risk-v1",
+        "risk_owner_ref": "role:HUMAN_REVIEW_BOUNDARY",
+        "reassessment_triggers": ("model version change",),
+        "evidence_refs": ("evidence:risk-001",),
+        "disposition": AIRiskDisposition.ACCEPTED_WITH_CONTROLS,
+    }
+    values.update(changes)
+    return AIRiskRecord(**values)
+
+
+def ai_impact(**changes: object) -> AIImpactAssessmentRecord:
+    values: dict[str, object] = {
+        "assessment_id": "IMPACT-RESEARCH-001",
+        "assessment_version": "0.1.0",
+        "exact_source_state_ref": "source-state:risk-impact-v1",
+        "system_scope": "AI-assisted research-engineering workflow",
+        "ai_system_context_ref": "context:bounded-human-ai-research",
+        "lifecycle_stage": AILifecycleStage.RESEARCH,
+        "intended_use": "bounded research engineering",
+        "foreseeable_uses": ("maintainer review",),
+        "foreseeable_misuses": ("engineering result treated as scientific proof",),
+        "affected_individuals": ("maintainers", "external readers"),
+        "affected_groups": ("research collaborators",),
+        "societal_context": "public AI research under scientific uncertainty",
+        "potential_benefit_refs": ("benefit:traceability",),
+        "potential_harm_refs": ("harm:false-confidence",),
+        "human_oversight_refs": ("control:HUMAN_REVIEW_BOUNDARY",),
+        "mitigation_refs": ("control:mandatory-nonclaims",),
+        "mitigation_effectiveness_refs": ("test:mandatory-nonclaims",),
+        "linked_risk_ids": ("RISK-OVERCLAIM-001",),
+        "residual_impact": Severity.MEDIUM,
+        "residual_impact_basis_ref": "assessment:residual-impact-v1",
+        "reassessment_triggers": ("scope change",),
+        "assessment_evidence_basis_refs": ("evidence:impact-basis",),
+        "evidence_refs": ("evidence:impact-001",),
+        "disposition": AIImpactDisposition.ASSESSED_WITH_CONTROLS,
+        "observed_impacts_claimed": False,
+        "observed_impact_refs": (),
+    }
+    values.update(changes)
+    return AIImpactAssessmentRecord(**values)
+
+
+def risk_impact_receipt(
+    *,
+    risk_disposition: AIRiskDisposition = AIRiskDisposition.ACCEPTED_WITH_CONTROLS,
+    impact_disposition: AIImpactDisposition = AIImpactDisposition.ASSESSED_WITH_CONTROLS,
+) -> AIRiskImpactReceipt:
+    risks = (ai_risk(disposition=risk_disposition),)
+    impacts = (ai_impact(disposition=impact_disposition),)
+    assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
+    return build_risk_impact_receipt(
+        receipt_id="RISK-IMPACT-RECEIPT-001",
+        risks=risks,
+        impacts=impacts,
+        assessment=assessment,
+        exact_source_state_ref="source-state:risk-impact-v1",
+        exact_runtime_ref="runtime:risk-impact-v1",
+        producer_git_head="7" * 40,
+        producer_tree_sha="8" * 40,
+        producer_contract_ref="contract:ai-risk-impact-v1",
+        producer_contract_sha256="9" * 64,
+    )
 
 
 def receipt(**changes: object) -> QualityChainReceiptBinding:
@@ -119,8 +212,12 @@ def control_entries() -> tuple[ControlPlanEntry, ...]:
     )
 
 
-def quality_plan(chain_receipt: QualityChainReceiptBinding | None = None) -> ResearchQualityPlan:
+def quality_plan(
+    chain_receipt: QualityChainReceiptBinding | None = None,
+    risk_receipt: AIRiskImpactReceipt | None = None,
+) -> ResearchQualityPlan:
     bound = chain_receipt or receipt()
+    risk_bound = risk_receipt or risk_impact_receipt()
     return ResearchQualityPlan(
         plan_id="PLAN-001",
         research_question_ref="research:ai-subjectivity-possibility",
@@ -129,7 +226,7 @@ def quality_plan(chain_receipt: QualityChainReceiptBinding | None = None) -> Res
         critical_quality_attributes=("construct validity", "claim ceiling", "provenance"),
         controls=control_entries(),
         measurement_ids=("MEAS-001",),
-        risk_refs=("risk:construct-drift",),
+        risk_refs=("risk:construct-drift", *risk_bound.risk_ids),
         configuration_refs=(
             f"git:{bound.producer_git_head}",
             f"tree:{bound.producer_tree_sha}",
@@ -137,6 +234,12 @@ def quality_plan(chain_receipt: QualityChainReceiptBinding | None = None) -> Res
             f"quality-chain-receipt:{bound.receipt_sha256}",
             bound.exact_source_state_ref,
             bound.exact_runtime_ref,
+            f"git:{risk_bound.producer_git_head}",
+            f"tree:{risk_bound.producer_tree_sha}",
+            f"contract-sha256:{risk_bound.producer_contract_sha256}",
+            f"risk-impact-receipt:{risk_bound.receipt_sha256}",
+            risk_bound.exact_source_state_ref,
+            risk_bound.exact_runtime_ref,
         ),
     )
 
@@ -307,7 +410,11 @@ def extended_controls() -> ExtendedQualityControls:
     )
 
 
-def review(extra_refs: tuple[str, ...] | None = None) -> ManagementReviewRecord:
+def review(
+    risk_receipt: AIRiskImpactReceipt | None = None,
+    extra_refs: tuple[str, ...] | None = None,
+) -> ManagementReviewRecord:
+    risk_bound = risk_receipt or risk_impact_receipt()
     refs = (
         "PLAN-001",
         "CHAIN-001",
@@ -319,6 +426,9 @@ def review(extra_refs: tuple[str, ...] | None = None) -> ManagementReviewRecord:
         "SAMPLE-001",
         "SPC-001",
         "WITHDRAW-001",
+        risk_bound.receipt_id,
+        *risk_bound.risk_ids,
+        *risk_bound.impact_assessment_ids,
     ) if extra_refs is None else extra_refs
     return ManagementReviewRecord(
         review_id="MGMT-001",
@@ -333,18 +443,21 @@ def review(extra_refs: tuple[str, ...] | None = None) -> ManagementReviewRecord:
 def assess(
     *,
     receipt_value: QualityChainReceiptBinding | None = None,
+    risk_receipt_value: AIRiskImpactReceipt | None = None,
     plan_value: ResearchQualityPlan | None = None,
     controls_value: ExtendedQualityControls | None = None,
     review_value: ManagementReviewRecord | None = None,
 ):
     bound = receipt_value or receipt()
+    risk_bound = risk_receipt_value or risk_impact_receipt()
     return FullQualitySystemEngine().assess(
-        plan=plan_value or quality_plan(bound),
+        plan=plan_value or quality_plan(bound, risk_bound),
         measurements=(measurement(),),
         chain_receipt=bound,
+        risk_impact_receipt=risk_bound,
         field_signals=(field_signal(),),
         audits=(audit(),),
-        management_review=review_value or review(),
+        management_review=review_value or review(risk_bound),
         controls=controls_value or extended_controls(),
     )
 
@@ -369,7 +482,7 @@ def test_quality_chain_receipt_tampering_and_plan_binding_fail_closed() -> None:
     unbound_plan = replace(quality_plan(valid), configuration_refs=("git:unrelated",))
     result = assess(receipt_value=valid, plan_value=unbound_plan)
     assert result.disposition is EndToEndDisposition.HOLD
-    assert "QUALITY_CHAIN_RECEIPT_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION" in result.reasons
+    assert "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION" in result.reasons
 
 
 def test_data_quality_separates_synthetic_fixture_from_empirical_population() -> None:
@@ -463,3 +576,85 @@ def test_management_review_must_trace_extended_controls() -> None:
     result = assess(review_value=incomplete)
     assert result.disposition is EndToEndDisposition.HOLD
     assert "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE" in result.reasons
+
+
+
+def test_full_qms_requires_risk_impact_receipt_configuration_binding() -> None:
+    chain_bound = receipt()
+    risk_bound = risk_impact_receipt()
+    unbound = replace(
+        quality_plan(chain_bound, risk_bound),
+        configuration_refs=(
+            f"git:{chain_bound.producer_git_head}",
+            f"tree:{chain_bound.producer_tree_sha}",
+            f"contract-sha256:{chain_bound.producer_contract_sha256}",
+            f"quality-chain-receipt:{chain_bound.receipt_sha256}",
+            chain_bound.exact_source_state_ref,
+            chain_bound.exact_runtime_ref,
+        ),
+    )
+    result = assess(
+        receipt_value=chain_bound,
+        risk_receipt_value=risk_bound,
+        plan_value=unbound,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION" in result.reasons
+
+
+def test_full_qms_requires_risk_register_binding_to_quality_plan() -> None:
+    chain_bound = receipt()
+    risk_bound = risk_impact_receipt()
+    plan = replace(
+        quality_plan(chain_bound, risk_bound),
+        risk_refs=("risk:construct-drift",),
+    )
+    result = assess(
+        receipt_value=chain_bound,
+        risk_receipt_value=risk_bound,
+        plan_value=plan,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS" in result.reasons
+
+
+def test_full_qms_requires_management_review_of_risk_and_impact_receipt() -> None:
+    risk_bound = risk_impact_receipt()
+    incomplete_review = review(
+        risk_bound,
+        extra_refs=(
+            "PLAN-001",
+            "CHAIN-001",
+            "MEAS-001",
+            "FIELD-001",
+            "AUDIT-001",
+            "DATA-001",
+            "SUPPLIER-001",
+            "SAMPLE-001",
+            "SPC-001",
+            "WITHDRAW-001",
+        ),
+    )
+    result = assess(
+        risk_receipt_value=risk_bound,
+        review_value=incomplete_review,
+    )
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE" in result.reasons
+
+
+def test_open_ai_risk_treatment_holds_full_qms_without_relabeling_as_capa() -> None:
+    risk_bound = risk_impact_receipt(
+        risk_disposition=AIRiskDisposition.TREATMENT_REQUIRED,
+    )
+    result = assess(risk_receipt_value=risk_bound)
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED" in result.reasons
+    assert "CAPA_REQUIRED" not in result.reasons
+
+
+def test_full_qms_ready_requires_bounded_ai_risk_impact_receipt() -> None:
+    result = assess()
+    assert result.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
+    assert "CONTENT_ADDRESSED_AI_RISK_IMPACT_RECEIPT_BOUND" in result.reasons
+    assert "AI_RISK_IMPACT_READY_FOR_HUMAN_REVIEW" in result.reasons
