@@ -198,6 +198,7 @@ from .ai_risk_impact import (
     AIRiskRecord,
     RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
     RiskLikelihood,
+    build_repository_bound_risk_impact_receipt,
     build_risk_impact_receipt,
 )
 
@@ -213,5 +214,6 @@ __all__ += [
     "AIRiskRecord",
     "RISK_IMPACT_RECEIPT_SCHEMA_VERSION",
     "RiskLikelihood",
+    "build_repository_bound_risk_impact_receipt",
     "build_risk_impact_receipt",
 ]
