@@ -386,6 +386,8 @@ class AITEVVProfileGate:
         reasons = [
             "SYSTEM_IDENTITY_AND_RUNTIME_BOUND",
             "TEVV_OBJECTIVE_AND_INTENDED_USE_BOUND",
+            "LIFECYCLE_STAGE_BOUND",
+            "METRICS_MAPPED_TO_DECLARED_RISKS",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
             "ORACLE_STRATEGY_EXPLICIT",
             "METRICS_AND_ACCEPTANCE_CRITERIA_BOUND",
@@ -447,6 +449,24 @@ def build_tevv_profile(
     failure_action_ref: str,
     preregistration_ref: str,
 ) -> AITEVVProfile:
+    if type(lifecycle_stage) is not TEVVLifecycleStage:
+        raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
+    _refs("risk_refs", risk_refs)
+    if type(activities) is not tuple or not activities or any(
+        type(item) is not TEVVActivity for item in activities
+    ):
+        raise TEVVError("activities must contain exact TEVVActivity values")
+    if type(system) is not AISystemBinding:
+        raise TEVVError("system must be an exact AISystemBinding")
+    if type(metrics) is not tuple or not metrics or any(
+        type(item) is not TEVVMetricSpec for item in metrics
+    ):
+        raise TEVVError("metrics must contain exact TEVVMetricSpec values")
+    if type(cases) is not tuple or not cases or any(
+        type(item) is not TEVVCaseSpec for item in cases
+    ):
+        raise TEVVError("cases must contain exact TEVVCaseSpec values")
+
     values: dict[str, object] = {
         "schema_version": TEVV_PROFILE_SCHEMA_VERSION,
         "profile_id": profile_id,
