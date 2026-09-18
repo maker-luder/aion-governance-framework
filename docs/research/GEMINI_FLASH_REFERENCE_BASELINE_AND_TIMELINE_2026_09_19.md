@@ -175,6 +175,14 @@ GEMINI_3_8_FLASH
 != LONGITUDINALLY_STABLE_REFERENCE_ESTABLISHED
 ~~~
 
+The 3.8 model card also inherits part of its Frontier Safety reasoning from the directly assessed 3.7 Flash baseline. Google reports no meaningful new 3.8 capabilities or material increases in the relevant Frontier Safety domains and therefore judges 3.8 unlikely to reach tracked or critical capability levels.
+
+~~~text
+INHERITED_FRONTIER_SAFETY_REASONING
+!= FULL_NEW_DIRECT_3_8_ASSESSMENT
+!= INDEPENDENT_REPLICATION
+~~~
+
 ## 8. Phase E — deployment-policy branching
 
 The 2026-09-02 launch also introduces Gemini 3.8 Flash Cyber as a specialized cybersecurity variant with a different access / mitigation posture.
