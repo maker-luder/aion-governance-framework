@@ -485,6 +485,7 @@ TEVV risk refs <= quality-plan risk refs
 all TEVV metric measurement bindings <= quality-plan measurement ids
 every TEVV metric -> QMS measurement mapping has an inspectable basis ref
 all bound measurement ids exist in supplied MeasurementAssuranceRecord values
+every bound measurement_sha256 == supplied MeasurementAssuranceRecord.semantic_sha256()
 all TEVV data-quality refs exist in ExtendedQualityControls.data_quality
 TEVV producer/source/runtime/receipt identities are pre-bound in configuration_refs
 TEVV receipt/profile/exact receipt digest are present in management-review inputs
@@ -522,6 +523,7 @@ The mapping basis is traceability, not a semantic proof:
 
 ```text
 TEVV_METRIC_MAPPED_TO_MEASUREMENT_ID
++ EXACT_MEASUREMENT_SEMANTIC_DIGEST
 + MAPPING_BASIS_REF
 != CONSTRUCT_EQUIVALENCE_PROVEN
 != METHOD_EQUIVALENCE_PROVEN

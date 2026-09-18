@@ -156,6 +156,7 @@ def tevv_receipt(
             TEVVMetricMeasurementBinding(
                 metric_id="TEVV-SECURITY-METRIC-001",
                 measurement_id="MEAS-SECURITY-001",
+                measurement_sha256="d" * 64,
                 mapping_basis_ref="mapping:security-tevv-to-measurement-v1",
             ),
         ),

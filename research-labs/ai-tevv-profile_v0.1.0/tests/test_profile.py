@@ -764,6 +764,7 @@ def profile_receipt(
         TEVVMetricMeasurementBinding(
             metric_id="METRIC-ACCURACY",
             measurement_id="MEAS-001",
+            measurement_sha256="d" * 64,
             mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
         ),
     ),
@@ -824,6 +825,7 @@ def test_tevv_profile_receipt_recomputes_gate_assessment() -> None:
                 TEVVMetricMeasurementBinding(
                     metric_id="METRIC-ACCURACY",
                     measurement_id="MEAS-001",
+                    measurement_sha256="d" * 64,
                     mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
                 ),
             ),
@@ -849,6 +851,7 @@ def test_tevv_profile_receipt_requires_complete_metric_measurement_binding() -> 
                 TEVVMetricMeasurementBinding(
                     metric_id="METRIC-A",
                     measurement_id="MEAS-001",
+                    measurement_sha256="d" * 64,
                     mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
                 ),
             ),
@@ -870,6 +873,7 @@ def test_repository_bound_tevv_receipt_uses_committed_producer_bytes(tmp_path: P
             TEVVMetricMeasurementBinding(
                 metric_id="METRIC-ACCURACY",
                 measurement_id="MEAS-001",
+                measurement_sha256="d" * 64,
                 mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
@@ -892,6 +896,7 @@ def test_repository_bound_tevv_receipt_uses_committed_producer_bytes(tmp_path: P
             TEVVMetricMeasurementBinding(
                 metric_id="METRIC-ACCURACY",
                 measurement_id="MEAS-001",
+                measurement_sha256="d" * 64,
                 mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
@@ -908,5 +913,6 @@ def test_tevv_metric_measurement_binding_requires_mapping_basis() -> None:
         TEVVMetricMeasurementBinding(
             metric_id="METRIC-ACCURACY",
             measurement_id="MEAS-001",
+            measurement_sha256="d" * 64,
             mapping_basis_ref="",
         )

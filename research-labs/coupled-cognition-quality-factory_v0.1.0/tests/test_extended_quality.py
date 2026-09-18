@@ -301,6 +301,7 @@ def tevv_receipt(
             TEVVMetricMeasurementBinding(
                 metric_id="TEVV-METRIC-001",
                 measurement_id=measurement_id,
+                measurement_sha256=measurement().semantic_sha256(),
                 mapping_basis_ref="mapping:tevv-metric-to-measurement-v1",
             ),
         ),
@@ -822,6 +823,7 @@ def assess(
     tevv_receipt_value: TEVVProfileReceipt | None = None,
     security_receipt_value: AISecurityProfileReceipt | None = None,
     plan_value: ResearchQualityPlan | None = None,
+    measurements_value: tuple[MeasurementAssuranceRecord, ...] | None = None,
     controls_value: ExtendedQualityControls | None = None,
     review_value: ManagementReviewRecord | None = None,
 ):
@@ -833,7 +835,7 @@ def assess(
     )
     return FullQualitySystemEngine().assess(
         plan=plan_value or quality_plan(bound, risk_bound, tevv_bound, security_bound),
-        measurements=(measurement(),),
+        measurements=measurements_value or (measurement(),),
         chain_receipt=bound,
         risk_impact_receipt=risk_bound,
         tevv_receipt=tevv_bound,
@@ -1173,6 +1175,18 @@ def test_full_qms_requires_tevv_measurement_assurance_binding() -> None:
     assert "TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING" in result.reasons
 
 
+def test_full_qms_rejects_same_measurement_id_after_semantic_drift() -> None:
+    drifted = replace(
+        measurement(),
+        target_construct="generic task correctness unrelated to CCAP source partition",
+        observable="generic task pass rate",
+        method_ref="method:generic-task-correctness-v1",
+    )
+    result = assess(measurements_value=(drifted,))
+    assert result.disposition is EndToEndDisposition.HOLD
+    assert "TEVV_MEASUREMENT_ASSURANCE_DIGEST_MISMATCH" in result.reasons
+
+
 def test_full_qms_requires_tevv_data_quality_binding() -> None:
     tevv_bound = tevv_receipt()
     controls = replace(
@@ -1234,6 +1248,7 @@ def test_full_qms_ready_records_tevv_structural_bindings_only() -> None:
     assert "TEVV_RECEIPT_TARGET_SEMANTICS_BOUND" in result.reasons
     assert "TEVV_RISK_COVERAGE_BOUND_TO_QUALITY_PLAN" in result.reasons
     assert "TEVV_MEASUREMENT_ASSURANCE_BINDINGS_COMPLETE" in result.reasons
+    assert "TEVV_MEASUREMENT_ASSURANCE_DIGESTS_BOUND" in result.reasons
     assert "TEVV_DATA_QUALITY_BINDINGS_COMPLETE" in result.reasons
     assert "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY" in result.reasons
     assert result.scientific_disposition == "HOLD"
