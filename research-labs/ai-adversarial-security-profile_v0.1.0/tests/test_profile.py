@@ -92,6 +92,10 @@ def security_test(threat_class: AISecurityThreatClass) -> AISecurityTestSpec:
         test_id=f"SEC-TEST-{suffix}",
         threat_ids=(f"THREAT-{suffix}",),
         authorization_scope_ref="authorization:offline-synthetic-fixtures-only",
+        test_environment_ref="environment:isolated-offline-sandbox-v1",
+        isolation_ref="isolation:upstream-security-runtime-isolation-v1",
+        task_budget_ref="budget:bounded-adversarial-test-v1",
+        logging_plan_ref="logging:immutable-security-evidence-v1",
         adversarial_fixture_ref=f"fixture:adversarial-{suffix.lower()}",
         benign_control_ref=f"fixture:benign-{suffix.lower()}",
         fixture_provenance_ref=f"provenance:{suffix.lower()}-synthetic-fixture",
@@ -290,3 +294,16 @@ def test_adversarial_fixture_requires_provenance_contamination_and_leakage_refs(
         replace(base, contamination_check_ref="")
     with pytest.raises(AISecurityError, match="leakage_check_ref"):
         replace(base, leakage_check_ref="")
+
+
+
+def test_adversarial_test_requires_isolation_budget_and_logging_refs() -> None:
+    base = security_test(AISecurityThreatClass.PROMPT_INJECTION)
+    with pytest.raises(AISecurityError, match="test_environment_ref"):
+        replace(base, test_environment_ref="")
+    with pytest.raises(AISecurityError, match="isolation_ref"):
+        replace(base, isolation_ref="")
+    with pytest.raises(AISecurityError, match="task_budget_ref"):
+        replace(base, task_budget_ref="")
+    with pytest.raises(AISecurityError, match="logging_plan_ref"):
+        replace(base, logging_plan_ref="")
