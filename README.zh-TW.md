@@ -37,7 +37,7 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 
 1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
 2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建，以及 transition continuity（轉換連續性）分析；但不把持續存在直接等同於身分延續。
-3. **受限制條件下的適應** —— 研究遇到阻礙後的策略修正，包括已凍結的 CCAP Stage 1–3 鏈與狹義 D1 × D4 source-partition（來源拆分）候選；目前**尚未建立確認性證據**。
+3. **受限制條件下的適應與區辨測試** —— 研究遇到阻礙後的策略修正，包括已凍結的 CCAP Stage 1–3 鏈、已映射進既有 TEVV／量測機制的 D1 × D4 source-partition（來源拆分）、Four-Domain × 六維結構壓力測試，以及 prospective discriminant hardening（前瞻式區辨硬化）。最新的 synthetic D2 × D4 differential probe（合成 D2 × D4 差異探針）目前只顯示**fixture-level（測試夾具層級）的可分離性**；D2 支持、D4 支持與獨立驗證都仍然**尚未建立**。
 4. **Human–AI collaboration（人機協作）與證據准入** —— CCTS / grounding（共構思考場域／共同基礎）研究表面，以及把供應商自述、外部評估、有限獨立調查與開放獨立重現分級的 provider-evidence admission（供應商證據准入）方法。
 
 近期研究節點：
@@ -45,6 +45,9 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 - [`HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) —— 把歷史作為紀錄、檢索來源與 replay environment 分開。
 - [`ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) —— 檢查 attention structure 是否真的比既有 re-entry / memory / CCTS 多出區辨價值。
 - [`CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) —— 在任何確認性執行前，先凍結目前的 co-constructed adaptive process 規格鏈。
+- [`CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md`](docs/research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md) —— 把凍結的 D1 × D4 source-partition 問題映射進既有 TEVV／量測結構，不新增研究軸，也不把結構設計誤當成實證結果。
+- [`CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md`](docs/research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md) 與 [`EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md`](docs/research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md) —— 明確固定 assessment system boundary（評估系統邊界）與前瞻式區辨測試，同時保留歷史 D1／D4 mapping 的科學 HOLD。
+- [`D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md`](docs/research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md) 與 [`D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md`](docs/research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md) —— 把 D2 × D4 從差異協議候選推進到可執行的合成探針；目前觀察到的分離只存在於 fixture level，不能當成 D2 或 D4 的科學支持。
 - [`OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) —— 第一個完成的 provider-evidence admission 案例；目前已有多個外部評估，但 open independent replication（開放獨立重現）仍然稀少。
 
 ## 這個倉庫沒有宣稱什麼？
@@ -61,6 +64,12 @@ STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 
 HUMAN_AI_COLLABORATION != SHARED_MIND
 人機協作 != 共享心智
+
+STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
+結構完整性 != 區辨效度
+
+SYNTHETIC_SEPARABILITY != D2_OR_D4_SUPPORT
+合成可分離性 != D2 或 D4 的科學支持
 
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
 研究測試框架通過 != 假說已確認
@@ -92,7 +101,7 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 Astra 是與 AION 相互區分的工程／研究工作台，用來實作與測試有限範圍候選方案；它不是 AION 的身分、記憶流或主體性替代物。
 
-**目前工程狀態：** `main` 現已包含 bounded TEVV（Testing / Evaluation / Verification / Validation，測試／評估／驗證／確效）、Full-QMS integration（完整品質管理系統整合）、AI adversarial-security profile（AI 對抗性安全設定檔），以及已整合進 `FullQualitySystemEngine` 的 content-addressed AI security receipt（內容定址 AI 安全收據）。這些屬於工程控制與證據綁定機制；它們**不代表**已建立對抗性安全有效性，也不構成科學驗證、主體性、意識或現象經驗的證據。
+**目前工程狀態：** `main` 現已包含 bounded TEVV（Testing / Evaluation / Verification / Validation，測試／評估／驗證／確效）、TEVV metric 與 QMS measurement-assurance record 之間的 exact measurement-semantic binding（精確量測語意綁定）、Full-QMS integration（完整品質管理系統整合）、AI adversarial-security profile（AI 對抗性安全設定檔）、已整合進 `FullQualitySystemEngine` 的 content-addressed AI security receipt（內容定址 AI 安全收據），以及用於 pre-execution source partition（執行前來源拆分）、system-boundary-aware discriminant audit（系統邊界感知的區辨審查）與 synthetic D2 × D4 differential probe（合成 D2 × D4 差異探針）的有限範圍 CCAP research harness。這些屬於工程控制、可追溯機制與 fixture-scoped（測試夾具範圍）的研究工具；它們**不代表**已建立對抗性安全有效性，也不構成 D2 支持、D4 支持、獨立科學驗證、主體性、意識或現象經驗的證據。
 
 ## 治理與授權
 
