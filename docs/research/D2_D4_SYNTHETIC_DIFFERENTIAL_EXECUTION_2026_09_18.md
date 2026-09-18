@@ -47,6 +47,23 @@ ENDOGENOUS_GOAL = ESTABLISHED
 IDENTITY_CONTINUITY = ESTABLISHED
 SUBJECTIVITY = ESTABLISHED
 
+## Known architectural limitation
+
+In the current deterministic EGD mechanism, the goal selector scores candidate goals from external candidate priority plus internal-state channel contributions. The memory manifest participates in frame identity / comparability but is not itself a direct scoring term.
+
+Therefore the Direction-A result is partly architecture-induced:
+
+MEMORY_MANIFEST_CHANGE
+-> FRAME_FINGERPRINT_CHANGE
+-> SELECTOR_SCORE_INPUTS_OTHERWISE_UNCHANGED
+-> STRATEGY_OUTPUT_CAN_REMAIN_STABLE
+
+This is useful as an engineering orthogonality check, but it is not independent evidence that D2 and D4 are empirically separable constructs.
+
+ARCHITECTURAL_ORTHOGONALITY != CONSTRUCT_DISCRIMINANT_VALIDITY
+
+A stronger later test must introduce a preregistered continuity-relevant mechanism that could plausibly influence behavior while still allowing matched D4 controls.
+
 ## Fail-closed outcomes
 
 If both observables move together in both directions:
