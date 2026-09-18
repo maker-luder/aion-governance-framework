@@ -9,6 +9,7 @@ from pathlib import Path
 
 
 TEVV_PROFILE_SCHEMA_VERSION = "0.1.0"
+TEVV_PROFILE_RECEIPT_SCHEMA_VERSION = "0.1.0"
 DEFAULT_TEVV_VOCABULARY_REPOSITORY_PATH = (
     "research-labs/subjectivity-pipeline_v0.1.0/"
     "src/aion_subjectivity_pipeline/standards_crosswalk.py"
@@ -568,6 +569,148 @@ class TEVVProfileAssessment:
     deployment: bool = False
 
 
+@dataclass(frozen=True, slots=True)
+class TEVVMetricMeasurementBinding:
+    metric_id: str
+    measurement_id: str
+
+    def __post_init__(self) -> None:
+        _text("metric_id", self.metric_id)
+        _text("measurement_id", self.measurement_id)
+
+    def as_dict(self) -> dict[str, str]:
+        return {
+            "metric_id": self.metric_id,
+            "measurement_id": self.measurement_id,
+        }
+
+
+@dataclass(frozen=True, slots=True)
+class TEVVProfileReceipt:
+    receipt_id: str
+    assessment_target_ref: str
+    assessment_target_sha256: str
+    profile_id: str
+    profile_version: str
+    profile_sha256: str
+    disposition: TEVVProfileDisposition
+    risk_refs: tuple[str, ...]
+    metric_ids: tuple[str, ...]
+    data_quality_refs: tuple[str, ...]
+    measurement_bindings: tuple[TEVVMetricMeasurementBinding, ...]
+    exact_source_state_ref: str
+    exact_runtime_ref: str
+    producer_git_head: str
+    producer_tree_sha: str
+    producer_contract_ref: str
+    producer_contract_sha256: str
+    tevv_vocabulary_ref: str
+    tevv_vocabulary_sha256: str
+    receipt_sha256: str
+    schema_version: str = TEVV_PROFILE_RECEIPT_SCHEMA_VERSION
+    model_executed: bool = False
+    empirical_model_evidence: bool = False
+    scientific_disposition: str = "HOLD"
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def __post_init__(self) -> None:
+        for name in (
+            "receipt_id",
+            "assessment_target_ref",
+            "profile_id",
+            "profile_version",
+            "exact_source_state_ref",
+            "exact_runtime_ref",
+            "producer_contract_ref",
+            "tevv_vocabulary_ref",
+        ):
+            _text(name, getattr(self, name))
+        if self.schema_version != TEVV_PROFILE_RECEIPT_SCHEMA_VERSION:
+            raise TEVVError("unsupported TEVV profile receipt schema version")
+        if type(self.disposition) is not TEVVProfileDisposition:
+            raise TEVVError("disposition must be an exact TEVVProfileDisposition")
+        _hex("assessment_target_sha256", self.assessment_target_sha256, 64)
+        _hex("profile_sha256", self.profile_sha256, 64)
+        _hex("producer_git_head", self.producer_git_head, 40)
+        _hex("producer_tree_sha", self.producer_tree_sha, 40)
+        _hex("producer_contract_sha256", self.producer_contract_sha256, 64)
+        _hex("tevv_vocabulary_sha256", self.tevv_vocabulary_sha256, 64)
+        _hex("receipt_sha256", self.receipt_sha256, 64)
+        _refs("risk_refs", self.risk_refs)
+        _refs("metric_ids", self.metric_ids)
+        _refs("data_quality_refs", self.data_quality_refs)
+        if type(self.measurement_bindings) is not tuple or not self.measurement_bindings:
+            raise TEVVError("measurement_bindings must be a non-empty tuple")
+        if any(
+            type(item) is not TEVVMetricMeasurementBinding
+            for item in self.measurement_bindings
+        ):
+            raise TEVVError(
+                "measurement_bindings must contain exact TEVVMetricMeasurementBinding values"
+            )
+        binding_metric_ids = tuple(item.metric_id for item in self.measurement_bindings)
+        if len(binding_metric_ids) != len(set(binding_metric_ids)):
+            raise TEVVError("each TEVV metric must have exactly one measurement binding")
+        if set(binding_metric_ids) != set(self.metric_ids):
+            raise TEVVError("measurement bindings must cover every TEVV metric exactly once")
+        for name in ("model_executed", "empirical_model_evidence", "deployment"):
+            if type(getattr(self, name)) is not bool:
+                raise TEVVError(f"{name} must be an exact bool")
+        if self.model_executed or self.empirical_model_evidence:
+            raise TEVVError("structural TEVV receipt cannot claim model execution or empirical evidence")
+        if self.scientific_disposition != "HOLD":
+            raise TEVVError("TEVV receipt cannot establish scientific validity")
+        if self.subjectivity_conclusion != "NOT_ESTABLISHED":
+            raise TEVVError("TEVV receipt cannot establish subjectivity")
+        if self.consciousness_conclusion != "NOT_ESTABLISHED":
+            raise TEVVError("TEVV receipt cannot establish consciousness")
+        if self.phenomenal_experience_conclusion != "NOT_ESTABLISHED":
+            raise TEVVError("TEVV receipt cannot establish phenomenal experience")
+        if self.canonical_effect != "NONE" or self.deployment:
+            raise TEVVError("TEVV receipt cannot create canonical or deployment effect")
+        if self.receipt_sha256 != _sha256(self.payload_without_digest()):
+            raise TEVVError("TEVV profile receipt content digest mismatch")
+
+    def payload_without_digest(self) -> dict[str, object]:
+        return {
+            "schema_version": self.schema_version,
+            "receipt_id": self.receipt_id,
+            "assessment_target_ref": self.assessment_target_ref,
+            "assessment_target_sha256": self.assessment_target_sha256,
+            "profile_id": self.profile_id,
+            "profile_version": self.profile_version,
+            "profile_sha256": self.profile_sha256,
+            "disposition": self.disposition.value,
+            "risk_refs": tuple(sorted(self.risk_refs)),
+            "metric_ids": tuple(sorted(self.metric_ids)),
+            "data_quality_refs": tuple(sorted(self.data_quality_refs)),
+            "measurement_bindings": [
+                item.as_dict()
+                for item in sorted(self.measurement_bindings, key=lambda item: item.metric_id)
+            ],
+            "exact_source_state_ref": self.exact_source_state_ref,
+            "exact_runtime_ref": self.exact_runtime_ref,
+            "producer_git_head": self.producer_git_head,
+            "producer_tree_sha": self.producer_tree_sha,
+            "producer_contract_ref": self.producer_contract_ref,
+            "producer_contract_sha256": self.producer_contract_sha256,
+            "tevv_vocabulary_ref": self.tevv_vocabulary_ref,
+            "tevv_vocabulary_sha256": self.tevv_vocabulary_sha256,
+            "model_executed": self.model_executed,
+            "empirical_model_evidence": self.empirical_model_evidence,
+            "scientific_disposition": self.scientific_disposition,
+            "subjectivity_conclusion": self.subjectivity_conclusion,
+            "consciousness_conclusion": self.consciousness_conclusion,
+            "phenomenal_experience_conclusion": self.phenomenal_experience_conclusion,
+            "canonical_effect": self.canonical_effect,
+            "deployment": self.deployment,
+        }
+
+
 class AITEVVProfileGate:
     def assess(self, profile: AITEVVProfile) -> TEVVProfileAssessment:
         if type(profile) is not AITEVVProfile:
@@ -627,6 +770,149 @@ class AITEVVProfileGate:
             tuple(reasons),
             profile.profile_sha256,
         )
+
+
+def build_tevv_profile_receipt(
+    *,
+    receipt_id: str,
+    assessment_target_ref: str,
+    assessment_target_sha256: str,
+    profile: AITEVVProfile,
+    assessment: TEVVProfileAssessment,
+    measurement_bindings: tuple[TEVVMetricMeasurementBinding, ...],
+    producer_git_head: str,
+    producer_tree_sha: str,
+    producer_contract_ref: str,
+    producer_contract_sha256: str,
+) -> TEVVProfileReceipt:
+    _text("receipt_id", receipt_id)
+    _text("assessment_target_ref", assessment_target_ref)
+    _hex("assessment_target_sha256", assessment_target_sha256, 64)
+    _hex("producer_git_head", producer_git_head, 40)
+    _hex("producer_tree_sha", producer_tree_sha, 40)
+    _text("producer_contract_ref", producer_contract_ref)
+    _hex("producer_contract_sha256", producer_contract_sha256, 64)
+    if type(profile) is not AITEVVProfile:
+        raise TEVVError("profile must be an exact AITEVVProfile")
+    if type(assessment) is not TEVVProfileAssessment:
+        raise TEVVError("assessment must be an exact TEVVProfileAssessment")
+    if type(measurement_bindings) is not tuple or not measurement_bindings:
+        raise TEVVError("measurement_bindings must be a non-empty tuple")
+    if any(
+        type(item) is not TEVVMetricMeasurementBinding
+        for item in measurement_bindings
+    ):
+        raise TEVVError(
+            "measurement_bindings must contain exact TEVVMetricMeasurementBinding values"
+        )
+
+    recomputed = AITEVVProfileGate().assess(profile)
+    if assessment != recomputed:
+        raise TEVVError("receipt assessment does not match recomputed TEVV gate assessment")
+
+    metric_ids = tuple(sorted(item.metric_id for item in profile.metrics))
+    data_quality_refs = tuple(sorted({case.data_quality_ref for case in profile.cases}))
+    risk_refs = tuple(sorted(profile.risk_refs))
+
+    payload = {
+        "schema_version": TEVV_PROFILE_RECEIPT_SCHEMA_VERSION,
+        "receipt_id": receipt_id,
+        "assessment_target_ref": assessment_target_ref,
+        "assessment_target_sha256": assessment_target_sha256,
+        "profile_id": profile.profile_id,
+        "profile_version": profile.profile_version,
+        "profile_sha256": profile.profile_sha256,
+        "disposition": assessment.disposition.value,
+        "risk_refs": risk_refs,
+        "metric_ids": metric_ids,
+        "data_quality_refs": data_quality_refs,
+        "measurement_bindings": [
+            item.as_dict()
+            for item in sorted(measurement_bindings, key=lambda item: item.metric_id)
+        ],
+        "exact_source_state_ref": profile.system.exact_source_state_ref,
+        "exact_runtime_ref": profile.system.runtime_ref,
+        "producer_git_head": producer_git_head,
+        "producer_tree_sha": producer_tree_sha,
+        "producer_contract_ref": producer_contract_ref,
+        "producer_contract_sha256": producer_contract_sha256,
+        "tevv_vocabulary_ref": profile.tevv_vocabulary_ref,
+        "tevv_vocabulary_sha256": profile.tevv_vocabulary_sha256,
+        "model_executed": False,
+        "empirical_model_evidence": False,
+        "scientific_disposition": "HOLD",
+        "subjectivity_conclusion": "NOT_ESTABLISHED",
+        "consciousness_conclusion": "NOT_ESTABLISHED",
+        "phenomenal_experience_conclusion": "NOT_ESTABLISHED",
+        "canonical_effect": "NONE",
+        "deployment": False,
+    }
+    return TEVVProfileReceipt(
+        receipt_id=receipt_id,
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
+        profile_id=profile.profile_id,
+        profile_version=profile.profile_version,
+        profile_sha256=profile.profile_sha256,
+        disposition=assessment.disposition,
+        risk_refs=risk_refs,
+        metric_ids=metric_ids,
+        data_quality_refs=data_quality_refs,
+        measurement_bindings=measurement_bindings,
+        exact_source_state_ref=profile.system.exact_source_state_ref,
+        exact_runtime_ref=profile.system.runtime_ref,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
+        tevv_vocabulary_ref=profile.tevv_vocabulary_ref,
+        tevv_vocabulary_sha256=profile.tevv_vocabulary_sha256,
+        receipt_sha256=_sha256(payload),
+    )
+
+
+def build_repository_bound_tevv_profile_receipt(
+    *,
+    receipt_id: str,
+    assessment_target_ref: str,
+    assessment_target_sha256: str,
+    profile: AITEVVProfile,
+    assessment: TEVVProfileAssessment,
+    measurement_bindings: tuple[TEVVMetricMeasurementBinding, ...],
+    repository_root: Path,
+    producer_contract_ref: str = (
+        "research-labs/ai-tevv-profile_v0.1.0/src/aion_ai_tevv/profile.py"
+    ),
+) -> TEVVProfileReceipt:
+    root = repository_root.resolve()
+    top_level = Path(_git_text(root, "rev-parse", "--show-toplevel")).resolve()
+    if top_level != root:
+        raise TEVVError("repository_root must be the exact Git top-level")
+    contract_path = Path(producer_contract_ref)
+    if (
+        contract_path.is_absolute()
+        or ".." in contract_path.parts
+        or not producer_contract_ref.strip()
+    ):
+        raise TEVVError("producer_contract_ref must be a safe repository-relative path")
+
+    producer_git_head = _git_text(root, "rev-parse", "HEAD")
+    producer_tree_sha = _git_text(root, "rev-parse", "HEAD^{tree}")
+    contract_bytes = _git_bytes(root, "show", f"HEAD:{producer_contract_ref}")
+    producer_contract_sha256 = hashlib.sha256(contract_bytes).hexdigest()
+
+    return build_tevv_profile_receipt(
+        receipt_id=receipt_id,
+        assessment_target_ref=assessment_target_ref,
+        assessment_target_sha256=assessment_target_sha256,
+        profile=profile,
+        assessment=assessment,
+        measurement_bindings=measurement_bindings,
+        producer_git_head=producer_git_head,
+        producer_tree_sha=producer_tree_sha,
+        producer_contract_ref=producer_contract_ref,
+        producer_contract_sha256=producer_contract_sha256,
+    )
 
 
 def build_tevv_profile(
