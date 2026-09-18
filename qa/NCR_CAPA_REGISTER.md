@@ -25,3 +25,17 @@
 - **Effectiveness:** not yet verified. CAPA closure requires exact-head required-check success, fail-closed discovery/source-state verification, subsequent re-entry evidence, and an explicit independent-review disposition.
 - **Detailed record:** `docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_INTEGRITY_2026_09_17.md`.
 - **Canonical effect:** none.
+
+
+## NCR-GH-WRITE-20260919-01 — PR #176 repository-document mutation failure
+
+- **Status:** `OPEN / CONTAINED / RCA_PENDING / CAPA_REQUIRED / EFFECTIVENESS_NOT_VERIFIED`.
+- **Observation:** during the first adversarial-review correction pass for Draft PR #176, at least one GitHub-connected document modification failed. The Human Owner observed the user-visible failure message `抱歉，我無法完成這項修改。`.
+- **Evidence limitation:** the exact low-level connector / API error was not preserved in the surviving later review trace. Root cause therefore remains `UNKNOWN`; stale SHA, connector instability, request rejection, concurrent state change and other causes remain hypotheses only.
+- **Process gap:** recovery writes continued before the failure had been formally registered. Existing repository material already proposes stop/preserve/read-only-review behavior after unexpected mutation failures; the Human Owner has now explicitly required that every failure be recorded.
+- **Containment:** PR #176 remains Draft and unmerged. The later branch state was re-read; subsequent file-scoped recovery commits are preserved without history rewrite.
+- **Corrective action:** preserve a detailed incident record, retain the recovery commit chain, do not claim a solved root cause, and require future unexpected mutation failures to be recorded before any recovery write.
+- **Preventive action:** future comparable failures must preserve non-sensitive failure evidence when available, re-read exact ref/file/blob state, separate known facts from causal hypotheses, require an explicit bounded recovery decision, and return to HOLD on repeated failure.
+- **Effectiveness:** not yet verified. Closure requires a later comparable failure to demonstrate failure-record-before-retry, exact-state review, bounded recovery, read-back verification and preserved incident history.
+- **Detailed record:** `docs/history/incidents/PR176_KIMI_RESEARCH_WRITE_FAILURE_2026-09-19.md`.
+- **Canonical effect:** none.
