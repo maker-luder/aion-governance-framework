@@ -25,7 +25,7 @@ META_PROVIDER
 != MUSE_PERSONAL_AGENT
 ~~~
 
-As of the search cutoff, Meta's official model repository still identifies Llama 4 Scout and Llama 4 Maverick as the latest released Llama family, while Meta's current frontier developer/product line has moved to Muse Spark 1.3 and the Muse personal agent.
+As of the search cutoff, Meta's official model repository still identifies Llama 4 Scout and Llama 4 Maverick as the latest released Llama family, while Meta's current public developer and product materials center Muse Spark 1.3 and the Muse personal agent. This is a topology split, not evidence that Llama has been deprecated.
 
 Therefore this intake must not use `Meta / Llama` as if provider and current frontier model family were synonyms.
 
@@ -600,9 +600,12 @@ META_PROVIDER_TOPOLOGY_CORRECTION = REQUIRED
 CURRENT_LLAMA_REFERENCE
 = LLAMA_4_SCOUT + LLAMA_4_MAVERICK
 
-CURRENT_META_FRONTIER_REFERENCE
+CURRENT_PUBLIC_META_FRONTIER_MODEL_REFERENCE
 = MUSE_SPARK_1_3
-NOT_LLAMA
+NOT_A_LLAMA_RELEASE
+
+LLAMA_DEPRECATED_BY_THIS_FACT
+= NO
 
 NEW_EXECUTABLE_IMPLEMENTATION = NO
 NEW_MODEL_EXECUTION = NO
