@@ -481,3 +481,118 @@ CASE_BOUND_TO_METRIC != CASE_EXECUTED
 MODEL_EXECUTED = FALSE
 EMPIRICAL_MODEL_EVIDENCE = FALSE
 ```
+
+
+## Third counterevidence hardening — evaluator independence, human-subjects applicability, and test-set integrity
+
+A fresh exact-head review after the previous hardening found three additional
+structural weaknesses.
+
+### 1. Evaluator independence was self-labelled without a basis reference
+
+The profile already distinguished:
+
+```text
+NON_INDEPENDENT
+INTERNAL_INDEPENDENT
+EXTERNAL_INDEPENDENT
+```
+
+but the enum alone did not explain why the evaluator should be treated as
+independent. NIST AI RMF MEASURE 1.3 calls for internal experts who did not
+serve as front-line developers and/or independent assessors to participate in
+assessment.
+
+The profile now requires:
+
+```text
+evaluator_independence
+evaluator_independence_basis_ref
+```
+
+This does not independently prove evaluator independence; it makes the basis
+inspectable.
+
+```text
+INDEPENDENCE_LABEL
+!= INDEPENDENCE_PROVEN
+
+INDEPENDENCE_BASIS_REF_BOUND
+!= INDEPENDENT_IVV
+```
+
+### 2. Human-subjects applicability was implicit
+
+NIST AI RMF MEASURE 2.2 states that evaluations involving human subjects should
+meet applicable human-subject protection requirements and be representative of
+the relevant population.
+
+The profile now records an exact `HumanSubjectsStatus`:
+
+```text
+NOT_APPLICABLE
+APPLICABLE
+```
+
+When `APPLICABLE`, both are mandatory:
+
+```text
+human_subjects_protection_refs
+population_representativeness_refs
+```
+
+When `NOT_APPLICABLE`, those refs must be empty so the profile cannot carry a
+contradictory applicability state.
+
+A human adjudicator is not automatically treated as a research human subject;
+the applicability decision remains explicit and must be made according to the
+actual evaluation design and governing requirements.
+
+### 3. Test-set identity lacked an integrity reference
+
+`test_set_ref` named the test set but did not prevent a mutable artifact from
+changing under the same logical name. Every `TEVVCaseSpec` now also requires:
+
+```text
+test_set_integrity_ref
+```
+
+The integrity reference may point to an immutable revision, content digest,
+signed manifest, or equivalent repository-recognized integrity artifact.
+
+```text
+TEST_SET_REF
+!= TEST_SET_CONTENT_IDENTITY
+
+TEST_SET_INTEGRITY_REF_BOUND
+!= CONTAMINATION_ABSENT
+!= LEAKAGE_ABSENT
+```
+
+Contamination and leakage remain separate checks.
+
+## Current bounded interpretation
+
+The standalone profile now records:
+
+```text
+system identity / runtime / prompt / tool configuration
+risk -> metric coverage or explicit unmeasured rationale
+quality-characteristic mapping
+metric-effectiveness review plan
+test-set identity + integrity reference
+data-quality / contamination / leakage references
+test oracle strategy
+verification requirements
+validation intended-use requirements
+nondeterminism / repetition / aggregation
+evaluator independence + basis
+human-subjects applicability
+target-context similarity + basis
+preregistration
+failure reaction
+```
+
+It still does **not** execute a model, calculate model-quality results, validate
+an oracle, prove statistical power, establish fairness, or establish scientific
+claims about AI subjectivity.
