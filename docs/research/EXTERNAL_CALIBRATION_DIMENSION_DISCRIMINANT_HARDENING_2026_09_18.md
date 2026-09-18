@@ -79,7 +79,7 @@ Repository implication:
 SYSTEM_BOUNDARY -> INDICATOR_OR_DIMENSION_ASSIGNMENT
 INDICATOR_RESULT -> SYSTEM_BOUNDARY = PROHIBITED
 
-The CCAP-specific system boundary is therefore frozen in CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md before further dimension-discriminant testing.
+The CCAP-specific system boundary is therefore frozen in CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md before further dimension-discriminant testing. Because the historical D1/D4 mapping predates this boundary artifact, the existing mapping cannot be retroactively labelled compliant with an individuation-before-indicators requirement.
 
 ## 6. Computational markers do not settle substrate or realization questions
 
@@ -101,11 +101,14 @@ The cross-check supports a bounded correction rather than a new framework.
 
 Mandatory gates:
 1. Frozen-source content binding: source declaring dimension coverage is bound by SHA-256; stale content fails closed.
-2. Pre-indicator system-boundary binding: one content-bound system boundary exists before dimension assignment; boundary drift fails closed.
+2. System-boundary temporal binding: historical mappings that predate the boundary remain HOLD; only a future rebinding performed after the content-bound boundary exists can satisfy the pre-indicator ordering gate; boundary drift fails closed.
 3. Exact direct-dimension assignment: executable candidate direct dimensions must match the frozen specification; D1+D4 cannot silently become D2+D5 or all six.
 4. Near-neighbor differential predictions: every direct dimension requires at least one predeclared distinct near-neighbor prediction and falsifier.
 
-Strongest allowed disposition:
+Current historical CCAP disposition:
+HOLD / RETROSPECTIVE_BOUNDARY_HARDENING_REQUIRED
+
+Strongest allowed disposition after a future prospective rebinding:
 READY_FOR_ADVERSARIAL_REVIEW
 
 Always preserved:
