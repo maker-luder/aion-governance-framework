@@ -174,7 +174,7 @@ MANAGED_AGENT_BEHAVIOR
 
 ## 7. Teamwork creates a multi-agent system layer
 
-Antigravity Teamwork allows autonomous teams of agents to collaborate, critique, iterate, and operate over hours or days. Google reports results on mathematics, theoretical computer science, systems engineering and open-source optimization.
+Google describes Antigravity Teamwork as allowing autonomous teams of agents to collaborate, critique, iterate, and operate over hours or days. Google reports results on mathematics, theoretical computer science, systems engineering and open-source optimization.
 
 Source:
 https://blog.google/innovation-and-ai/technology/developers-tools/antigravity-teamwork-multi-agent/
@@ -201,7 +201,7 @@ TASK_ALLOCATION
 MUST BE PART OF SYSTEM PROVENANCE
 ~~~
 
-## 8. Consumer and background agents add temporal autonomy without authority autonomy
+## 8. Consumer and background agents add delegated persistence without independent authority
 
 Google Search information agents and Gemini Spark can run in the background across long time windows. Google describes 24/7 background operation, monitoring, persistent trackers, Workspace integrations, Chrome browsing, use of logged-in accounts, and handoff to the user for sensitive actions.
 
