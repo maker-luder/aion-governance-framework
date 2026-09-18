@@ -12,14 +12,18 @@ from aion_coupled_quality.ai_risk_impact import (
     AIRiskDisposition,
     AIRiskImpactDisposition,
     AIRiskImpactGate,
+    AIRiskImpactReceipt,
     AIRiskRecord,
     RiskLikelihood,
+    build_risk_impact_receipt,
 )
 
 
 def risk(**changes: object) -> AIRiskRecord:
     values: dict[str, object] = {
         "risk_id": "RISK-OVERCLAIM-001",
+        "risk_version": "0.1.0",
+        "exact_source_state_ref": "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
         "system_scope": "public research-engineering repository",
         "lifecycle_stage": AILifecycleStage.RESEARCH,
         "risk_source": "evidence-to-claim promotion",
@@ -198,3 +202,97 @@ def test_impact_assessment_state_and_basis_fields_are_mandatory(field: str) -> N
 def test_impact_assessment_requires_evidence_basis_refs() -> None:
     with pytest.raises(QualityError, match="assessment_evidence_basis_refs"):
         impact(assessment_evidence_basis_refs=())
+
+
+def test_risk_version_and_source_state_are_mandatory() -> None:
+    with pytest.raises(QualityError, match="risk_version"):
+        risk(risk_version="")
+    with pytest.raises(QualityError, match="exact_source_state_ref"):
+        risk(exact_source_state_ref="")
+
+
+def _receipt(**changes: object) -> AIRiskImpactReceipt:
+    risks = changes.pop("risks", (risk(),))
+    impacts = changes.pop("impacts", (impact(),))
+    assert isinstance(risks, tuple)
+    assert isinstance(impacts, tuple)
+    assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
+    values: dict[str, object] = {
+        "receipt_id": "RISK-IMPACT-RECEIPT-001",
+        "risks": risks,
+        "impacts": impacts,
+        "assessment": assessment,
+        "exact_source_state_ref": "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+        "producer_git_head": "1" * 40,
+        "producer_tree_sha": "2" * 40,
+        "producer_contract_ref": "contract:ai-risk-impact-v0.1.0",
+        "producer_contract_sha256": "3" * 64,
+    }
+    values.update(changes)
+    return build_risk_impact_receipt(**values)
+
+
+def test_risk_impact_receipt_is_content_addressed_and_non_authoritative() -> None:
+    receipt = _receipt()
+
+    assert receipt.risk_ids == ("RISK-OVERCLAIM-001",)
+    assert receipt.impact_assessment_ids == ("IMPACT-RESEARCH-001",)
+    assert len(receipt.risk_set_sha256) == 64
+    assert len(receipt.impact_set_sha256) == 64
+    assert len(receipt.assessment_sha256) == 64
+    assert len(receipt.receipt_sha256) == 64
+    assert receipt.iso_conformance_claim == "NONE"
+    assert receipt.certification_claim == "NONE"
+    assert receipt.scientific_disposition == "HOLD"
+    assert receipt.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert receipt.canonical_effect == "NONE"
+    assert receipt.deployment_authority == "NONE"
+
+
+def test_receipt_rejects_risk_source_state_drift() -> None:
+    with pytest.raises(QualityError, match="risk record source state"):
+        _receipt(risks=(risk(exact_source_state_ref="git:other-head"),))
+
+
+def test_receipt_rejects_impact_source_state_drift() -> None:
+    with pytest.raises(QualityError, match="impact assessment source state"):
+        _receipt(impacts=(impact(exact_source_state_ref="git:other-head"),))
+
+
+def test_receipt_digest_detects_tampering() -> None:
+    receipt = _receipt()
+    with pytest.raises(QualityError, match="content digest mismatch"):
+        replace(receipt, receipt_sha256="0" * 64)
+
+
+def test_receipt_changes_when_bound_risk_content_changes() -> None:
+    first = _receipt()
+    changed_risk = risk(
+        risk_version="0.1.1",
+        residual_risk_basis_ref="assessment:overclaim-residual-v2",
+    )
+    second = _receipt(risks=(changed_risk,))
+
+    assert first.risk_set_sha256 != second.risk_set_sha256
+    assert first.receipt_sha256 != second.receipt_sha256
+
+
+def test_receipt_requires_exact_assessment_input_identity() -> None:
+    risks = (risk(),)
+    impacts = (impact(),)
+    wrong_assessment = AIRiskImpactGate().assess(
+        risks=(risk(risk_id="RISK-OTHER"),),
+        impacts=(impact(linked_risk_ids=("RISK-OTHER",)),),
+    )
+    with pytest.raises(QualityError, match="assessment risk ids"):
+        build_risk_impact_receipt(
+            receipt_id="RISK-IMPACT-RECEIPT-002",
+            risks=risks,
+            impacts=impacts,
+            assessment=wrong_assessment,
+            exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+            producer_git_head="1" * 40,
+            producer_tree_sha="2" * 40,
+            producer_contract_ref="contract:ai-risk-impact-v0.1.0",
+            producer_contract_sha256="3" * 64,
+        )
