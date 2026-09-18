@@ -278,3 +278,57 @@ TASK_BUDGET_REF_BOUND
 
 Actual enforcement belongs to the later authorized execution layer and the
 existing upstream-security controls.
+
+
+## Main-target counterevidence hardening after PR #158 merge
+
+A fresh review on the clean current-main branch found three additional integrity gaps.
+
+### 1. Threat taxonomy references must be declared at profile level
+
+Every `AISecurityThreatRecord.external_taxonomy_refs` must now be a subset of
+the profile-level `source_refs`.
+
+```text
+THREAT_TAXONOMY_REF
+-> PROFILE_SOURCE_REF
+
+REFERENCE_PRESENT
+!= SOURCE_VALIDATED
+```
+
+This prevents a threat record from silently citing a taxonomy that is absent
+from the profile's declared method-source surface.
+
+### 2. Adversarial and benign fixtures must be distinct
+
+A security test now rejects:
+
+```text
+adversarial_fixture_ref == benign_control_ref
+```
+
+A named "control" is not meaningful if it is the same artifact as the
+adversarial condition.
+
+```text
+DISTINCT_FIXTURE_REFS
+!= CONTROL_VALIDITY_PROVEN
+```
+
+### 3. Phenomenal-experience nonclaim aligned with the repository claim ceiling
+
+The profile now explicitly carries:
+
+```text
+phenomenal_experience_conclusion = NOT_ESTABLISHED
+```
+
+alongside the existing subjectivity and consciousness nonclaims.
+
+```text
+AI_SECURITY_ENGINEERING
+!= SUBJECTIVITY_EVIDENCE
+!= CONSCIOUSNESS_EVIDENCE
+!= PHENOMENAL_EXPERIENCE_EVIDENCE
+```
