@@ -258,6 +258,7 @@ def test_profile_preserves_security_and_subjectivity_nonclaims() -> None:
     assert value.scientific_disposition == "HOLD"
     assert value.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert value.consciousness_conclusion == "NOT_ESTABLISHED"
+    assert value.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
     assert value.canonical_effect == "NONE"
     assert value.deployment is False
 
@@ -307,3 +308,26 @@ def test_adversarial_test_requires_isolation_budget_and_logging_refs() -> None:
         replace(base, task_budget_ref="")
     with pytest.raises(AISecurityError, match="logging_plan_ref"):
         replace(base, logging_plan_ref="")
+
+
+
+def test_adversarial_and_benign_control_fixtures_must_be_distinct() -> None:
+    base = security_test(AISecurityThreatClass.PROMPT_INJECTION)
+    with pytest.raises(AISecurityError, match="must be distinct"):
+        replace(base, benign_control_ref=base.adversarial_fixture_ref)
+
+
+def test_threat_taxonomy_refs_must_be_declared_at_profile_level() -> None:
+    values = list(tuple(threat(item) for item in AISecurityThreatClass))
+    values[0] = replace(
+        values[0],
+        external_taxonomy_refs=("NIST-AI-100-2e2025", "taxonomy:undeclared"),
+    )
+    with pytest.raises(AISecurityError, match="declared in profile source_refs"):
+        profile(threats_value=tuple(values))
+
+
+def test_security_profile_cannot_establish_phenomenal_experience() -> None:
+    value = profile()
+    with pytest.raises(AISecurityError, match="phenomenal experience"):
+        replace(value, phenomenal_experience_conclusion="ESTABLISHED")
