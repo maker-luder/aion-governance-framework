@@ -87,40 +87,43 @@ LATEST_META_PROVIDER_FRONTIER_MODEL
 != LLAMA_4
 ~~~
 
-## 4. Current Meta frontier baseline is Muse, not Llama
+## 4. Current public Meta frontier reference is Muse Spark 1.3
 
-Meta's current developer and research surfaces center the Muse family.
+Meta's current public research and product materials describe Muse Spark 1.3 as its most capable current model for agentic work.
 
 As of the search cutoff:
 
 ~~~text
 MUSE_SPARK_1_3
 release = 2026-09-02
-family = MUSE
 availability = Meta Model API + Muse Code
 reasoning variants = xhigh / max where available
-weights = not generally available at cutoff
+public_open_weight_release = NOT_YET_RELEASED
+provider_roadmap = future Muse Spark open-weights release
 ~~~
 
 Source:
 https://research.meta.ai/blog/introducing-muse-spark-1-3
 
-Meta's developer landing page now places Muse Spark at the center while still listing Llama 4 and Llama 3 as distinct model families.
+Meta's 2026 Muse product launch also describes Muse as powered by Muse Spark, which Meta calls its most capable model to date.
 
 Source:
-https://ai.meta.com/llama/
+https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/
 
 Therefore:
 
 ~~~text
-CURRENT_META_DEVELOPER_CENTER
-= MUSE_CENTERED
+CURRENT_PUBLIC_META_FRONTIER_MODEL_REFERENCE
+= MUSE_SPARK_1_3
 
 LLAMA
-= STILL_AVAILABLE DISTINCT FAMILY
+= STILL_AVAILABLE DISTINCT MODEL FAMILY
 
-PROVIDER_CURRENTNESS
-!= LLAMA_FAMILY_CURRENTNESS
+MUSE_AS_PROVIDER_CANONICAL_FAMILY_LABEL
+= NOT_ASSUMED
+
+LLAMA_DEPRECATED_BY_MUSE_SPARK
+= NO
 ~~~
 
 ## 5. Muse personal agent is another layer
@@ -162,7 +165,7 @@ MUSE_AGENT_BEHAVIOR
 != LLAMA_BEHAVIOR
 ~~~
 
-## 6. Open-weight strategy has also moved beyond Llama
+## 6. Meta's open-weight strategy now includes a non-Llama Muse-labeled model
 
 Meta released Muse Glimmer on 2026-08-10 as a 30B open-weight local agent model under Apache-2.0.
 
@@ -181,8 +184,11 @@ MUSE_GLIMMER
 != LLAMA_DERIVATIVE_BY_NAME
 
 MUSE_GLIMMER
-= MUSE_FAMILY_OPEN_WEIGHT_ARTIFACT
+= MUSE_LABELED_OPEN_WEIGHT_ARTIFACT
   WITH DOCUMENTED_DISTILLATION_FROM_MUSE_SPARK
+
+MUSE_GLIMMER_PROVIDER_CANONICAL_FAMILY_STATUS
+= NOT_ASSUMED
 ~~~
 
 This is a major provider-topology change relative to the historical assumption that Meta's open-weight model line could be represented by `Llama` alone.
@@ -260,7 +266,22 @@ Every derivative claim requires explicit lineage evidence.
 
 Artificial Analysis currently observes Llama 4 through multiple providers.
 
-Meta's own benchmark-verification report also distinguishes model-card scores from a Llama API configuration and notes a provider-surface context limitation in that report.
+Meta's own benchmark-verification report directly demonstrates that a hosted Llama API surface can differ from the model-card baseline.
+
+The report identifies:
+
+~~~text
+Llama API Maverick model id
+= Llama-4-Maverick-17B-128E-Instruct-FP8
+
+Llama API Scout model id
+= Llama-4-Scout-17B-16E-Instruct-FP8
+
+Llama API context at report generation
+= up to 128k
+~~~
+
+By contrast, the Llama 4 model card says its reported benchmark evaluations were run on BF16 models and lists 1M context for Maverick and 10M for Scout. The open-weight model repository also documents Scout's public release as BF16, with int4 as an on-the-fly deployment path.
 
 Source:
 https://github.com/meta-llama/llama-verifications/blob/main/BENCHMARKS_REPORT.md
@@ -268,6 +289,9 @@ https://github.com/meta-llama/llama-verifications/blob/main/BENCHMARKS_REPORT.md
 Therefore:
 
 ~~~text
+MODEL_CARD_BENCHMARK_CONFIGURATION
+!= LLAMA_API_VERIFICATION_CONFIGURATION
+
 MODEL_CARD_MAX_CONTEXT
 != HOSTED_PROVIDER_MAX_CONTEXT
 
@@ -276,6 +300,9 @@ MODEL_CARD_CHECKPOINT
 
 LOCAL_RUNTIME
 != CLOUD_RUNTIME
+
+CLOSE_BENCHMARK_SCORES
+!= CONFIGURATION_IDENTITY
 ~~~
 
 Runtime identity fields should include:
@@ -310,7 +337,7 @@ META_AI
 
 for 2026.
 
-Current Meta product/model evidence shows a transition to Muse.
+Current Meta product/model evidence shows that Muse Spark is now a distinct current public model reference. This does not establish that every Meta AI surface has migrated away from Llama.
 
 Therefore:
 
@@ -374,7 +401,7 @@ PROVIDER_REFERENCE
 LATEST_LLAMA_REFERENCE
 = LLAMA_4_SCOUT + LLAMA_4_MAVERICK
 
-CURRENT_META_FRONTIER_REFERENCE
+CURRENT_PUBLIC_META_FRONTIER_MODEL_REFERENCE
 = MUSE_SPARK_1_3
 
 CURRENT_META_PERSONAL_AGENT_REFERENCE
@@ -454,8 +481,11 @@ META_PROVIDER_TOPOLOGY
 LLAMA_LATEST_FAMILY_IDENTIFIED
 = YES
 
-META_CURRENT_FRONTIER_MOVED_BEYOND_LLAMA
+CURRENT_PUBLIC_META_FRONTIER_REFERENCE_IS_MUSE_SPARK_1_3
 = YES
+
+LLAMA_DEPRECATED_OR_REPLACED_PROVIDER_WIDE
+= NOT_ESTABLISHED
 
 OPEN_WEIGHT_LINE_CONTINUES_OUTSIDE_LLAMA
 = YES
