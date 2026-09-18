@@ -364,7 +364,7 @@ def security_profile(
         benign_control_ref="fixture:benign-prompt-control",
         fixture_provenance_ref="provenance:prompt-injection-synthetic",
         fixture_integrity_ref="integrity:prompt-injection-fixture-v1",
-        data_quality_ref="DATA-001",
+        data_quality_ref=data_quality_ref,
         contamination_check_ref="check:contamination-data-001",
         leakage_check_ref="check:leakage-data-001",
         oracle_ref="oracle:prompt-security-property",
