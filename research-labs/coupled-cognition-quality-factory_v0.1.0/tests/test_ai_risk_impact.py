@@ -283,14 +283,14 @@ def test_receipt_changes_when_bound_risk_content_changes() -> None:
     assert first.receipt_sha256 != second.receipt_sha256
 
 
-def test_receipt_requires_exact_assessment_input_identity() -> None:
+def test_receipt_rejects_assessment_from_different_inputs() -> None:
     risks = (risk(),)
     impacts = (impact(),)
     wrong_assessment = AIRiskImpactGate().assess(
         risks=(risk(risk_id="RISK-OTHER"),),
         impacts=(impact(linked_risk_ids=("RISK-OTHER",)),),
     )
-    with pytest.raises(QualityError, match="assessment risk ids"):
+    with pytest.raises(QualityError, match="recomputed gate assessment"):
         build_risk_impact_receipt(
             receipt_id="RISK-IMPACT-RECEIPT-002",
             risks=risks,
