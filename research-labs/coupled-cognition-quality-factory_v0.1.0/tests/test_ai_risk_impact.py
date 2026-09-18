@@ -223,6 +223,7 @@ def _receipt(**changes: object) -> AIRiskImpactReceipt:
         "impacts": impacts,
         "assessment": assessment,
         "exact_source_state_ref": "git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+        "exact_runtime_ref": "runtime:receipt-builder-v1",
         "producer_git_head": "1" * 40,
         "producer_tree_sha": "2" * 40,
         "producer_contract_ref": "contract:ai-risk-impact-v0.1.0",
@@ -245,6 +246,7 @@ def test_risk_impact_receipt_is_content_addressed_and_non_authoritative() -> Non
     assert receipt.certification_claim == "NONE"
     assert receipt.scientific_disposition == "HOLD"
     assert receipt.subjectivity_conclusion == "NOT_ESTABLISHED"
+    assert receipt.disposition is AIRiskImpactDisposition.READY_FOR_HUMAN_REVIEW
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment_authority == "NONE"
 
@@ -291,8 +293,14 @@ def test_receipt_requires_exact_assessment_input_identity() -> None:
             impacts=impacts,
             assessment=wrong_assessment,
             exact_source_state_ref="git:d9155e9fd6908b2880adc43e160ece70a1036cc7",
+            exact_runtime_ref="runtime:receipt-builder-v1",
             producer_git_head="1" * 40,
             producer_tree_sha="2" * 40,
             producer_contract_ref="contract:ai-risk-impact-v0.1.0",
             producer_contract_sha256="3" * 64,
         )
+
+
+def test_receipt_runtime_binding_is_mandatory() -> None:
+    with pytest.raises(QualityError, match="exact_runtime_ref"):
+        _receipt(exact_runtime_ref="")
