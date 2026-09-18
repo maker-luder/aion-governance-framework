@@ -160,9 +160,20 @@ def risk_impact_receipt(
     assessment_target_sha256: str | None = None,
     risk_disposition: AIRiskDisposition = AIRiskDisposition.ACCEPTED_WITH_CONTROLS,
     impact_disposition: AIImpactDisposition = AIImpactDisposition.ASSESSED_WITH_CONTROLS,
+    risk_id: str = "RISK-OVERCLAIM-001",
 ) -> AIRiskImpactReceipt:
-    risks = (ai_risk(disposition=risk_disposition),)
-    impacts = (ai_impact(disposition=impact_disposition),)
+    risks = (
+        ai_risk(
+            risk_id=risk_id,
+            disposition=risk_disposition,
+        ),
+    )
+    impacts = (
+        ai_impact(
+            linked_risk_ids=(risk_id,),
+            disposition=impact_disposition,
+        ),
+    )
     assessment = AIRiskImpactGate().assess(risks=risks, impacts=impacts)
     target_sha256 = assessment_target_sha256 or quality_plan_seed().assessment_target_sha256()
     return build_risk_impact_receipt(
