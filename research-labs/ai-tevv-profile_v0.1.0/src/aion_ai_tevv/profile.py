@@ -54,6 +54,14 @@ class TEVVActivity(StrEnum):
     VALIDATION = "VALIDATION"
 
 
+class TEVVLifecycleStage(StrEnum):
+    RESEARCH = "RESEARCH"
+    DESIGN_DEVELOPMENT = "DESIGN_DEVELOPMENT"
+    PRE_DEPLOYMENT = "PRE_DEPLOYMENT"
+    OPERATIONAL = "OPERATIONAL"
+    RETIREMENT = "RETIREMENT"
+
+
 class OracleStrategy(StrEnum):
     REFERENCE = "REFERENCE"
     PROPERTY_BASED = "PROPERTY_BASED"
@@ -128,6 +136,7 @@ class TEVVMetricSpec:
     unit: str
     acceptance_criterion_ref: str
     uncertainty_ref: str
+    risk_refs: tuple[str, ...]
 
     def __post_init__(self) -> None:
         for name in (
@@ -140,8 +149,9 @@ class TEVVMetricSpec:
             "uncertainty_ref",
         ):
             _text(name, getattr(self, name))
+        _refs("risk_refs", self.risk_refs)
 
-    def as_dict(self) -> dict[str, str]:
+    def as_dict(self) -> dict[str, object]:
         return {
             "metric_id": self.metric_id,
             "measurement_concept": self.measurement_concept,
@@ -150,6 +160,7 @@ class TEVVMetricSpec:
             "unit": self.unit,
             "acceptance_criterion_ref": self.acceptance_criterion_ref,
             "uncertainty_ref": self.uncertainty_ref,
+            "risk_refs": tuple(sorted(self.risk_refs)),
         }
 
 
@@ -210,6 +221,8 @@ class AITEVVProfile:
     profile_version: str
     objective_ref: str
     intended_use_ref: str
+    lifecycle_stage: TEVVLifecycleStage
+    risk_refs: tuple[str, ...]
     activities: tuple[TEVVActivity, ...]
     system: AISystemBinding
     metrics: tuple[TEVVMetricSpec, ...]
@@ -256,6 +269,9 @@ class AITEVVProfile:
             "preregistration_ref",
         ):
             _text(name, getattr(self, name))
+        if type(self.lifecycle_stage) is not TEVVLifecycleStage:
+            raise TEVVError("lifecycle_stage must be an exact TEVVLifecycleStage")
+        _refs("risk_refs", self.risk_refs)
         if type(self.activities) is not tuple or not self.activities:
             raise TEVVError("activities must be a non-empty tuple")
         if any(type(item) is not TEVVActivity for item in self.activities):
@@ -279,6 +295,10 @@ class AITEVVProfile:
         if len(case_ids) != len(set(case_ids)):
             raise TEVVError("case identifiers must be unique")
         known_metrics = set(metric_ids)
+        known_risks = set(self.risk_refs)
+        for metric in self.metrics:
+            if not set(metric.risk_refs) <= known_risks:
+                raise TEVVError("metric references risk outside profile risk_refs")
         for case in self.cases:
             if not set(case.metric_ids) <= known_metrics:
                 raise TEVVError("case references unknown metric identifiers")
@@ -316,6 +336,8 @@ class AITEVVProfile:
             "profile_version": self.profile_version,
             "objective_ref": self.objective_ref,
             "intended_use_ref": self.intended_use_ref,
+            "lifecycle_stage": self.lifecycle_stage.value,
+            "risk_refs": tuple(sorted(self.risk_refs)),
             "activities": tuple(sorted(item.value for item in self.activities)),
             "system": self.system.as_dict(),
             "metrics": [item.as_dict() for item in sorted(self.metrics, key=lambda item: item.metric_id)],
@@ -373,6 +395,15 @@ class AITEVVProfileGate:
             "PROFILE_IS_STRUCTURAL_NOT_EMPIRICAL_MODEL_EVIDENCE",
         ]
 
+        if profile.evaluator_independence is EvaluatorIndependence.NON_INDEPENDENT:
+            reasons.append("NON_INDEPENDENT_EVALUATOR_REQUIRES_REVIEW")
+            return TEVVProfileAssessment(
+                profile.profile_id,
+                TEVVProfileDisposition.HOLD,
+                tuple(reasons),
+                profile.profile_sha256,
+            )
+
         if any(not case.held_out for case in profile.cases):
             reasons.append("NON_HELD_OUT_CASE_REQUIRES_REVIEW")
             return TEVVProfileAssessment(
@@ -397,6 +428,8 @@ def build_tevv_profile(
     profile_version: str,
     objective_ref: str,
     intended_use_ref: str,
+    lifecycle_stage: TEVVLifecycleStage,
+    risk_refs: tuple[str, ...],
     activities: tuple[TEVVActivity, ...],
     system: AISystemBinding,
     metrics: tuple[TEVVMetricSpec, ...],
@@ -420,6 +453,8 @@ def build_tevv_profile(
         "profile_version": profile_version,
         "objective_ref": objective_ref,
         "intended_use_ref": intended_use_ref,
+        "lifecycle_stage": lifecycle_stage.value,
+        "risk_refs": tuple(sorted(risk_refs)),
         "activities": tuple(sorted(item.value for item in activities)),
         "system": system.as_dict(),
         "metrics": [item.as_dict() for item in sorted(metrics, key=lambda item: item.metric_id)],
@@ -450,6 +485,8 @@ def build_tevv_profile(
         profile_version=profile_version,
         objective_ref=objective_ref,
         intended_use_ref=intended_use_ref,
+        lifecycle_stage=lifecycle_stage,
+        risk_refs=risk_refs,
         activities=activities,
         system=system,
         metrics=metrics,
