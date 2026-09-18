@@ -503,3 +503,72 @@ LAYER_1_COUNTEREVIDENCE_HARDENING = APPLIED
 FULL_QMS_INTEGRATION = NOT_YET
 EXACT_HEAD_CI = REQUIRED_BEFORE_NEXT_LAYER
 ```
+
+
+## 11. Layer-2 integration into FullQualitySystemEngine
+
+After the standalone control was sealed and exact-head Quality/CodeQL passed at
+`82c513537c85fce85b473f6eea19b4d84f804490`, the next bounded layer integrates the
+content-addressed AI risk/impact receipt into the repository's existing full QMS.
+
+The integration does not import risk/impact producer records into the full-QMS engine.
+It consumes the validated receipt as a boundary object.
+
+The quality plan must pre-bind:
+
+```text
+risk-impact producer Git HEAD
+risk-impact producer tree SHA
+risk-impact producer contract SHA-256
+risk-impact receipt SHA-256
+risk-impact exact source-state ref
+risk-impact exact runtime ref
+risk IDs
+```
+
+Management review must include:
+
+```text
+risk-impact receipt ID
+risk IDs
+impact-assessment IDs
+```
+
+A fourth integration countercheck found a cross-plan reuse risk: a cryptographically
+content-addressed receipt could still be valid while describing the wrong assessment
+target. The receipt therefore now includes `assessment_target_ref`, and
+`FullQualitySystemEngine` requires exact equality with:
+
+```text
+quality-plan:<plan.plan_id>
+```
+
+Fail-closed integration rules include:
+
+```text
+RECEIPT_NOT_BOUND_TO_PLAN_CONFIGURATION -> HOLD
+RECEIPT_TARGET_MISMATCH -> HOLD
+RISK_IDS_NOT_BOUND_TO_PLAN_RISK_REFS -> HOLD
+MANAGEMENT_REVIEW_MISSING_RISK_IMPACT_INPUTS -> HOLD
+RISK_IMPACT_RECEIPT_HOLD -> HOLD
+RISK_TREATMENT_OR_IMPACT_MITIGATION_REQUIRED -> HOLD
+```
+
+Prospective risk treatment is deliberately not converted into CAPA:
+
+```text
+RISK_TREATMENT_REQUIRED != NONCONFORMITY
+RISK_TREATMENT_REQUIRED != CAPA_REQUIRED
+```
+
+This layer still grants no merge, release, deployment, canonical, ISO-conformity or
+scientific authority.
+
+```text
+FULL_QMS_INTEGRATION = IMPLEMENTED_CANDIDATE
+EXACT_HEAD_CI = PENDING
+MAIN_WRITE = NO
+MERGE_AUTHORITY = NONE
+ISO_CONFORMANCE = NOT_ESTABLISHED
+SCIENTIFIC_DISPOSITION = HOLD
+```
