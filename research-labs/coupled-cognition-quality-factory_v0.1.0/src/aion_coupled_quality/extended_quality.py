@@ -6,6 +6,7 @@ import math
 from dataclasses import dataclass, field
 from enum import StrEnum
 
+from .ai_risk_impact import AIRiskImpactDisposition, AIRiskImpactReceipt
 from .end_to_end import (
     EndToEndDisposition,
     EndToEndQualityAssessment,
@@ -605,6 +606,7 @@ class FullQualitySystemEngine:
         plan: ResearchQualityPlan,
         measurements: tuple[MeasurementAssuranceRecord, ...],
         chain_receipt: QualityChainReceiptBinding,
+        risk_impact_receipt: AIRiskImpactReceipt,
         field_signals: tuple[FieldQualitySignal, ...],
         audits: tuple[QualityAuditRecord, ...],
         management_review: ManagementReviewRecord,
@@ -619,9 +621,32 @@ class FullQualitySystemEngine:
             f"quality-chain-receipt:{chain_receipt.receipt_sha256}",
             chain_receipt.exact_source_state_ref,
             chain_receipt.exact_runtime_ref,
+            f"git:{risk_impact_receipt.producer_git_head}",
+            f"tree:{risk_impact_receipt.producer_tree_sha}",
+            f"contract-sha256:{risk_impact_receipt.producer_contract_sha256}",
+            f"risk-impact-receipt:{risk_impact_receipt.receipt_sha256}",
+            risk_impact_receipt.exact_source_state_ref,
+            risk_impact_receipt.exact_runtime_ref,
         }
         if not required_configuration_refs <= set(plan.configuration_refs):
-            reasons.append("QUALITY_CHAIN_RECEIPT_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION")
+            reasons.append("QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION")
+
+        if risk_impact_receipt.assessment_target_ref != f"quality-plan:{plan.plan_id}":
+            reasons.append("AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH")
+
+        if risk_impact_receipt.assessment_target_sha256 != plan.assessment_target_sha256():
+            reasons.append("AI_RISK_IMPACT_RECEIPT_TARGET_DIGEST_MISMATCH")
+
+        if not set(risk_impact_receipt.risk_ids) <= set(plan.risk_refs):
+            reasons.append("AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS")
+
+        required_risk_review_refs = {
+            risk_impact_receipt.receipt_id,
+            *risk_impact_receipt.risk_ids,
+            *risk_impact_receipt.impact_assessment_ids,
+        }
+        if not required_risk_review_refs <= set(management_review.input_refs):
+            reasons.append("MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE")
 
         extended_refs = controls.trace_refs()
         if not set(extended_refs) <= set(management_review.input_refs):
@@ -683,9 +708,21 @@ class FullQualitySystemEngine:
         if claim_impact:
             reasons.append("CLAIM_WITHDRAWAL_OR_REQUALIFICATION_PROPAGATION_OPEN")
 
+        if risk_impact_receipt.disposition is AIRiskImpactDisposition.HOLD:
+            reasons.append("AI_RISK_IMPACT_RECEIPT_HOLD")
+        elif (
+            risk_impact_receipt.disposition
+            is AIRiskImpactDisposition.TREATMENT_OR_MITIGATION_REQUIRED
+        ):
+            reasons.append("AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED")
+
         hard_hold = any(
             reason in {
-                "QUALITY_CHAIN_RECEIPT_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION",
+                "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION",
+                "AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH",
+                "AI_RISK_IMPACT_RECEIPT_TARGET_DIGEST_MISMATCH",
+                "AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
+                "MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
                 "DATA_QUALITY_HOLD",
                 "UPSTREAM_SUPPLIER_QUALITY_REVIEW_REQUIRED",
@@ -693,6 +730,8 @@ class FullQualitySystemEngine:
                 "SAMPLING_CONTROL_HOLD",
                 "PROCESS_STABILITY_REVIEW_REQUIRED",
                 "CLAIM_WITHDRAWAL_OR_REQUALIFICATION_PROPAGATION_OPEN",
+                "AI_RISK_IMPACT_RECEIPT_HOLD",
+                "AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED",
             }
             for reason in reasons
         )
@@ -705,6 +744,9 @@ class FullQualitySystemEngine:
             reasons.extend(
                 (
                     "CONTENT_ADDRESSED_QUALITY_CHAIN_RECEIPT_BOUND",
+                    "CONTENT_ADDRESSED_AI_RISK_IMPACT_RECEIPT_BOUND",
+                    "AI_RISK_IMPACT_RECEIPT_TARGET_SEMANTICS_BOUND",
+                    "AI_RISK_IMPACT_READY_FOR_HUMAN_REVIEW",
                     "DATA_QUALITY_BOUND_TO_DECLARED_USE",
                     "SUPPLIER_QUALITY_BOUND_TO_DECLARED_SCOPE",
                     "SAMPLING_RESULTS_REMAIN_BOUNDED_CONFIDENCE_ONLY",

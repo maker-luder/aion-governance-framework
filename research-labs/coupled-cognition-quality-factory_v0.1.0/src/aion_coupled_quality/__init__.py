@@ -185,3 +185,35 @@ __all__ += [
     "assess_process_stability",
     "assess_repeated_random_sampling",
 ]
+
+from .ai_risk_impact import (
+    AIImpactAssessmentRecord,
+    AIImpactDisposition,
+    AILifecycleStage,
+    AIRiskDisposition,
+    AIRiskImpactAssessment,
+    AIRiskImpactDisposition,
+    AIRiskImpactGate,
+    AIRiskImpactReceipt,
+    AIRiskRecord,
+    RISK_IMPACT_RECEIPT_SCHEMA_VERSION,
+    RiskLikelihood,
+    build_repository_bound_risk_impact_receipt,
+    build_risk_impact_receipt,
+)
+
+__all__ += [
+    "AIImpactAssessmentRecord",
+    "AIImpactDisposition",
+    "AILifecycleStage",
+    "AIRiskDisposition",
+    "AIRiskImpactAssessment",
+    "AIRiskImpactDisposition",
+    "AIRiskImpactGate",
+    "AIRiskImpactReceipt",
+    "AIRiskRecord",
+    "RISK_IMPACT_RECEIPT_SCHEMA_VERSION",
+    "RiskLikelihood",
+    "build_repository_bound_risk_impact_receipt",
+    "build_risk_impact_receipt",
+]

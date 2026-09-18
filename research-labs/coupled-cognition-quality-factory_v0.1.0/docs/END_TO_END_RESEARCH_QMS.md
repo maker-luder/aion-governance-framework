@@ -47,6 +47,7 @@ QUALITY PLAN
 -> DATA QUALITY
 -> MEASUREMENT ASSURANCE
 -> CONTENT-ADDRESSED EXISTING QUALITY-CHAIN RECEIPT
+-> CONTENT-ADDRESSED AI RISK / IMPACT RECEIPT
 -> EXISTING RESEARCH QUALITY CHAIN
 -> EXISTING NCR / CAPA
 -> Human review boundary
@@ -174,6 +175,79 @@ reference and runtime reference.
 CONTENT_ADDRESS != EXTERNAL_SIGNATURE
 CONTENT_ADDRESS != INDEPENDENT_IVV
 CONTENT_ADDRESSED_RECEIPT > CALLER_SUPPLIED_DISPOSITION_ONLY
+```
+
+## 4A. AI risk / impact receipt integration
+
+The full QMS now consumes a second content-addressed receipt for the bounded AI
+risk-management and impact-assessment surface.
+
+The producer side remains separate:
+
+```text
+AI risk records + AI impact records
+-> AIRiskImpactGate
+-> AIRiskImpactAssessment
+-> AIRiskImpactReceipt
+-> content digest
+```
+
+The consumer side does not re-run the producer semantics. `FullQualitySystemEngine`
+requires the quality plan to pre-bind the receipt's producer/source identity and requires
+management review to include the receipt and the bound risk/impact identifiers.
+
+The receipt also carries both an explicit assessment target and a content-addressed
+semantic target digest. Full-QMS consumption requires:
+
+```text
+risk_impact_receipt.assessment_target_ref
+==
+quality-plan:<plan_id>
+
+AND
+
+risk_impact_receipt.assessment_target_sha256
+==
+plan.assessment_target_sha256()
+```
+
+The semantic digest binds the research question, subjectivity-core binding,
+Four-Domain candidate fingerprint, critical quality attributes, complete control-plan
+entries, measurement IDs, risk refs, monitoring requirement and fixed nonclaims.
+
+`configuration_refs` are intentionally excluded from this semantic digest because the
+final plan contains the risk/impact receipt digest itself; including it would create a
+self-referential hash. Producer Git/tree/contract, source state, runtime and receipt
+identity remain separately pre-bound in `configuration_refs`.
+
+This prevents a valid receipt from being silently reused not only for a different plan
+ID, but also for a materially changed plan that reuses the same ID.
+
+The consumer additionally requires every receipt risk ID to be present in the quality
+plan's `risk_refs`.
+
+Disposition handling remains fail-closed:
+
+```text
+AI_RISK_IMPACT_READY_FOR_HUMAN_REVIEW
+-> may continue through remaining QMS checks
+
+AI_RISK_IMPACT_HOLD
+-> FULL_QMS HOLD
+
+AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED
+-> FULL_QMS HOLD
+-> NOT silently relabelled as NCR/CAPA
+```
+
+The distinction matters because prospective risk treatment is not automatically a
+nonconformity corrective-action event.
+
+```text
+RISK_TREATMENT_REQUIRED != NCR_EXISTS
+RISK_TREATMENT_REQUIRED != CAPA_REQUIRED
+CONTENT_ADDRESSED_RECEIPT != INDEPENDENT_IVV
+FULL_QMS_READY_FOR_HUMAN_REVIEW != MERGE_AUTHORITY
 ```
 
 ## 5. Data quality

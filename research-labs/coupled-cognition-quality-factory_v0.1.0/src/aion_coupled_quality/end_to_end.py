@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import dataclass, field
 from enum import StrEnum
 
@@ -68,6 +70,16 @@ def _text_tuple(name: str, values: tuple[str, ...], *, allow_empty: bool = False
         raise QualityError(f"{name} must contain non-empty text")
     if len(values) != len(set(values)):
         raise QualityError(f"{name} must be unique")
+
+
+def _sha256_payload(payload: object) -> str:
+    rendered = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    ).encode("utf-8")
+    return hashlib.sha256(rendered).hexdigest()
 
 
 @dataclass(frozen=True, slots=True)
@@ -142,6 +154,43 @@ class ResearchQualityPlan:
             raise QualityError("post_release_monitoring_required must be an exact bool")
         if self.canonical_effect != "NONE" or self.deployment:
             raise QualityError("quality plan cannot create canonical or deployment effect")
+
+    def assessment_target_payload(self) -> dict[str, object]:
+        """Canonical semantic target for AI risk/impact assessment.
+
+        Configuration refs are intentionally excluded because the final plan pre-binds
+        the risk/impact receipt digest, which would create a self-referential hash.
+        Producer/source/runtime identities remain separately enforced by the full QMS.
+        """
+        control_payload = [
+            {
+                "control_id": control.control_id,
+                "target": control.target.value,
+                "quality_characteristic": control.quality_characteristic,
+                "control_method_ref": control.control_method_ref,
+                "evidence_required": sorted(control.evidence_required),
+                "acceptance_criterion": control.acceptance_criterion,
+                "reaction_plan": control.reaction_plan,
+                "responsible_role": control.responsible_role,
+            }
+            for control in sorted(self.controls, key=lambda item: item.control_id)
+        ]
+        return {
+            "plan_id": self.plan_id,
+            "research_question_ref": self.research_question_ref,
+            "subjectivity_core_binding_ref": self.subjectivity_core_binding_ref,
+            "four_domain_candidate_fingerprint": self.four_domain_candidate_fingerprint,
+            "critical_quality_attributes": sorted(self.critical_quality_attributes),
+            "controls": control_payload,
+            "measurement_ids": sorted(self.measurement_ids),
+            "risk_refs": sorted(self.risk_refs),
+            "post_release_monitoring_required": self.post_release_monitoring_required,
+            "canonical_effect": self.canonical_effect,
+            "deployment": self.deployment,
+        }
+
+    def assessment_target_sha256(self) -> str:
+        return _sha256_payload(self.assessment_target_payload())
 
 
 @dataclass(frozen=True, slots=True)
