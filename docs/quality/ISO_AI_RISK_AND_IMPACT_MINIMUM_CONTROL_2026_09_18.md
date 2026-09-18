@@ -572,3 +572,35 @@ MERGE_AUTHORITY = NONE
 ISO_CONFORMANCE = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 ```
+
+
+### Quality-plan semantic target hardening
+
+A later counterevidence pass identified a stale-target class that plan-ID binding alone
+could not prevent:
+
+```text
+SAME_PLAN_ID
++ CHANGED_RESEARCH_QUESTION / CONTROL_PLAN / MEASUREMENTS / RISKS
+!=
+SAME_ASSESSMENT_TARGET
+```
+
+`ResearchQualityPlan.assessment_target_sha256()` now produces a canonical semantic
+digest over the non-self-referential plan surface. `AIRiskImpactReceipt` binds that
+digest, and `FullQualitySystemEngine` fails closed if the current plan digest differs.
+
+The digest is order-invariant for set-like plan fields and deliberately excludes
+`configuration_refs` because that collection contains the risk/impact receipt digest
+itself. Configuration/provenance identities remain separately required by the full QMS.
+
+```text
+PLAN_ID_MATCH
+!=
+PLAN_SEMANTICS_MATCH
+
+PLAN_ID_MATCH
++ PLAN_TARGET_DIGEST_MATCH
++ CONFIGURATION_BINDING
+-> REQUIRED
+```
