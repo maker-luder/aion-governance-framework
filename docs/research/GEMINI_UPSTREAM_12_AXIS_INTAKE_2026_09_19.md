@@ -215,6 +215,16 @@ Relevant Gemini-side boundary material includes:
 
 The 3.8 Flash Cyber split is methodologically useful because the same broad model family can be deployed under different cybersecurity policies.
 
+The Gemini 3.8 Flash model card also reports a concrete negative result that must not be omitted: automated multilingual safety regressed relative to 3.7 Flash (+5.4 percentage points on a lower-is-better metric). Google also states that the improved evaluation queries used for this card are not directly comparable with results in earlier Gemini model cards.
+
+~~~text
+NEWER_MODEL
+!= MONOTONIC_SAFETY_IMPROVEMENT
+
+UPDATED_EVALUATION_METHOD
+!= DIRECT_LONGITUDINAL_COMPARABILITY
+~~~
+
 ~~~text
 MODEL_FAMILY_CONTINUITY
 != DEPLOYMENT_POLICY_CONTINUITY
@@ -238,7 +248,7 @@ DIRECT_3_7_FRONTIER_SAFETY_ASSESSMENT
 
 ## 8. Axis 7 — counterexamples / failures
 
-Unlike the OpenAI PR #151 evidence set, this Gemini intake did not identify a comparable public provider incident chain with independent post-incident reconstruction at the same evidence depth.
+This Gemini intake did not identify a public current-lineage incident chain with bounded independent post-incident reconstruction sufficient for E3 classification.
 
 The strongest current failure / counterexample material is instead experimental:
 
@@ -251,7 +261,7 @@ Therefore:
 
 ~~~text
 COUNTEREVIDENCE_PRESENT = YES
-PUBLIC_INCIDENT_RECONSTRUCTION_DEPTH = LOWER_THAN_OPENAI_PR151_CASE
+E3_BOUNDED_INDEPENDENT_INCIDENT_RECONSTRUCTION = NOT_IDENTIFIED_FOR_CURRENT_GEMINI_LINEAGE
 
 ABSENCE_OF_PUBLIC_INCIDENT
 != ABSENCE_OF_FAILURE
