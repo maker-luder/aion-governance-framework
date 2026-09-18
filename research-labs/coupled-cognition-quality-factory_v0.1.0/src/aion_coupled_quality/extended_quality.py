@@ -678,11 +678,18 @@ class FullQualitySystemEngine:
         tevv_measurement_ids = {
             item.measurement_id for item in tevv_receipt.measurement_bindings
         }
-        supplied_measurement_ids = {item.measurement_id for item in measurements}
+        measurement_by_id = {item.measurement_id: item for item in measurements}
+        supplied_measurement_ids = set(measurement_by_id)
         if not tevv_measurement_ids <= set(plan.measurement_ids):
             reasons.append("TEVV_MEASUREMENTS_NOT_BOUND_TO_QUALITY_PLAN")
         if not tevv_measurement_ids <= supplied_measurement_ids:
             reasons.append("TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING")
+        elif any(
+            measurement_by_id[binding.measurement_id].semantic_sha256()
+            != binding.measurement_sha256
+            for binding in tevv_receipt.measurement_bindings
+        ):
+            reasons.append("TEVV_MEASUREMENT_ASSURANCE_DIGEST_MISMATCH")
 
         control_data_ids = {item.data_id for item in controls.data_quality}
         if not set(tevv_receipt.data_quality_refs) <= control_data_ids:
@@ -842,6 +849,7 @@ class FullQualitySystemEngine:
                 "TEVV_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
                 "TEVV_MEASUREMENTS_NOT_BOUND_TO_QUALITY_PLAN",
                 "TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING",
+                "TEVV_MEASUREMENT_ASSURANCE_DIGEST_MISMATCH",
                 "TEVV_DATA_QUALITY_RECORDS_MISSING",
                 "AI_SECURITY_RECEIPT_TARGET_MISMATCH",
                 "AI_SECURITY_RECEIPT_TARGET_DIGEST_MISMATCH",
@@ -883,6 +891,7 @@ class FullQualitySystemEngine:
                     "TEVV_RECEIPT_TARGET_SEMANTICS_BOUND",
                     "TEVV_RISK_COVERAGE_BOUND_TO_QUALITY_PLAN",
                     "TEVV_MEASUREMENT_ASSURANCE_BINDINGS_COMPLETE",
+                    "TEVV_MEASUREMENT_ASSURANCE_DIGESTS_BOUND",
                     "TEVV_MEASUREMENT_ASSURANCE_MAPPING_BASIS_RECORDED",
                     "TEVV_DATA_QUALITY_BINDINGS_COMPLETE",
                     "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY",
