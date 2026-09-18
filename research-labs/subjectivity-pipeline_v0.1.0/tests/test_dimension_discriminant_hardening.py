@@ -30,7 +30,7 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def boundary(*, fixed_before_indicator_assignment: bool = True) -> SystemBoundarySpecification:
+def boundary(*, fixed_before_indicator_assignment: bool = False) -> SystemBoundarySpecification:
     return SystemBoundarySpecification(
         boundary_id="BOUNDARY-CCAP-D1-D4-001",
         subject_ref="research-candidate:ccap-d1-d4-source-partition",
@@ -104,6 +104,7 @@ def specification(
     *,
     system_boundary: SystemBoundarySpecification | None = None,
     predictions: tuple[DimensionDifferentialPrediction, ...] | None = None,
+    prospective: bool = False,
 ) -> DimensionBindingSpecification:
     return DimensionBindingSpecification(
         specification_id="DIM-BIND-CCAP-D1-D4-001",
@@ -112,7 +113,7 @@ def specification(
         direct_dimensions=(D1, D4),
         conditional_dimensions=(D2, D3, D5, D6),
         closed_dimensions=(),
-        system_boundary=system_boundary or boundary(),
+        system_boundary=system_boundary or boundary(fixed_before_indicator_assignment=prospective),
         differential_predictions=differential_predictions() if predictions is None else predictions,
     )
 
@@ -132,8 +133,18 @@ def assess(
     )
 
 
-def test_ccap_discriminant_audit_reaches_only_adversarial_review_readiness() -> None:
+def test_historical_ccap_mapping_holds_because_boundary_was_added_after_mapping() -> None:
     result = assess(specification())
+
+    assert result.disposition is DimensionDiscriminantDisposition.HOLD
+    assert "SYSTEM_BOUNDARY_NOT_FIXED_BEFORE_INDICATOR_ASSIGNMENT" in result.reasons
+    assert result.independent_validation_status == "NOT_ACHIEVED"
+    assert result.scientific_disposition == "HOLD"
+    assert result.subjectivity_conclusion == "NOT_ESTABLISHED"
+
+
+def test_future_prospective_rebinding_can_reach_only_adversarial_review_readiness() -> None:
+    result = assess(specification(prospective=True))
 
     assert result.disposition is DimensionDiscriminantDisposition.READY_FOR_ADVERSARIAL_REVIEW
     assert result.independent_validation_status == "NOT_ACHIEVED"
@@ -145,7 +156,7 @@ def test_ccap_discriminant_audit_reaches_only_adversarial_review_readiness() -> 
 
 
 def test_wrong_near_neighbor_dimension_assignment_fails_closed() -> None:
-    result = assess(specification(), candidate_dimensions=(D2, D5))
+    result = assess(specification(prospective=True), candidate_dimensions=(D2, D5))
 
     assert result.disposition is DimensionDiscriminantDisposition.HOLD
     assert "DIRECT_DIMENSION_ASSIGNMENT_MISMATCH" in result.reasons
@@ -153,7 +164,7 @@ def test_wrong_near_neighbor_dimension_assignment_fails_closed() -> None:
 
 def test_all_six_dimensions_cannot_be_force_bound_to_ccap() -> None:
     result = assess(
-        specification(),
+        specification(prospective=True),
         candidate_dimensions=(D1, D2, D3, D4, D5, D6),
     )
 
@@ -162,14 +173,14 @@ def test_all_six_dimensions_cannot_be_force_bound_to_ccap() -> None:
 
 
 def test_stale_frozen_dimension_source_digest_fails_closed() -> None:
-    result = assess(specification(), current_source_sha256="0" * 64)
+    result = assess(specification(prospective=True), current_source_sha256="0" * 64)
 
     assert result.disposition is DimensionDiscriminantDisposition.HOLD
     assert "FROZEN_DIMENSION_SOURCE_DIGEST_MISMATCH" in result.reasons
 
 
 def test_system_boundary_content_drift_fails_closed() -> None:
-    result = assess(specification(), current_boundary_sha256="0" * 64)
+    result = assess(specification(prospective=True), current_boundary_sha256="0" * 64)
 
     assert result.disposition is DimensionDiscriminantDisposition.HOLD
     assert "SYSTEM_BOUNDARY_DIGEST_MISMATCH" in result.reasons
@@ -187,7 +198,7 @@ def test_system_boundary_must_be_fixed_before_dimension_assignment() -> None:
 
 def test_every_direct_dimension_requires_near_neighbor_differential_prediction() -> None:
     only_d1 = (differential_predictions()[0],)
-    result = assess(specification(predictions=only_d1))
+    result = assess(specification(predictions=only_d1, prospective=True))
 
     assert result.disposition is DimensionDiscriminantDisposition.HOLD
     assert (
