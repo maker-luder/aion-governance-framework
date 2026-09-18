@@ -412,3 +412,50 @@ MERGE_AUTHORITY = NONE
 ```
 
 The next decision remains contingent on exact-head CI and another counterevidence review.
+
+
+### 10.4 Repository-bound producer resolution and assessment recomputation
+
+A further cross-check against the repository's existing
+`ResearchQualityChainReceipt` pattern found two additional seams:
+
+1. caller-supplied Git provenance alone was weaker than the existing repository-bound
+   quality-chain receipt builder; and
+2. a caller could theoretically construct an `AIRiskImpactAssessment` object manually
+   and pass it to the receipt builder without proving it was the gate result for the same
+   risk/impact inputs.
+
+The hardened surface now adds
+`build_repository_bound_risk_impact_receipt(...)`, which resolves from committed Git
+objects:
+
+```text
+producer Git HEAD
+producer tree SHA
+producer contract bytes -> SHA-256
+```
+
+Dirty working-tree contract bytes are not silently attributed to the committed producer
+tree.
+
+The low-level receipt builder also recomputes `AIRiskImpactGate.assess(...)` from the
+supplied risk/impact records and requires exact equality with the supplied assessment.
+
+```text
+CALLER_SUPPLIED_ASSESSMENT
+!=
+TRUSTED_GATE_RESULT
+
+SUPPLIED_ASSESSMENT
++ RECOMPUTED_GATE_ASSESSMENT
++ EXACT_EQUALITY
+-> REQUIRED_FOR_RECEIPT
+```
+
+The repository-bound builder still does not create an external digital signature or
+independent attestation.
+
+```text
+GIT_OBJECT_RESOLUTION != EXTERNAL_SIGNATURE
+GIT_OBJECT_RESOLUTION != INDEPENDENT_IVV
+```
