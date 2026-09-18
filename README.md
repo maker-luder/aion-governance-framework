@@ -28,7 +28,7 @@ The current `main` is organized around four connected research lines:
 
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
 2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, and transition-continuity analysis without equating persistence with identity.
-3. **Adaptation under constraint** — bounded work on obstacle-conditioned strategy revision, including the frozen CCAP Stage 1–3 chain and a narrow D1 × D4 source-partition candidate. Confirmatory evidence has **not** been established.
+3. **Adaptation under constraint and discriminant testing** — bounded work on obstacle-conditioned strategy revision, including the frozen CCAP Stage 1–3 chain, a D1 × D4 source-partition mapped into the existing TEVV / measurement machinery, Four-Domain × six-dimension structural stress tests, and prospective discriminant hardening. The latest synthetic D2 × D4 differential probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
 4. **Human–AI collaboration and evidence admission** — CCTS / grounding research surfaces plus a provider-evidence admission method that separates provider reports, external evaluations, bounded investigations, and open independent replication.
 
 Recent milestones include:
@@ -36,6 +36,9 @@ Recent milestones include:
 - [`HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) — distinguishes history as record, retrieval source, and replay environment.
 - [`ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) — tests whether attention structure adds discriminant value beyond existing re-entry / memory / CCTS mechanisms.
 - [`CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) — freezes the current co-constructed adaptive-process specification chain before any confirmatory execution.
+- [`CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md`](docs/research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md) — maps the frozen D1 × D4 source-partition question into existing TEVV / measurement structures without creating a new research axis or empirical result.
+- [`CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md`](docs/research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md) and [`EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md`](docs/research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md) — make the assessment boundary and prospective discriminant tests explicit while preserving the historical D1 / D4 mapping on scientific HOLD.
+- [`D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md`](docs/research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md) and [`D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md`](docs/research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md) — move D2 × D4 from a differential protocol candidate to an executable synthetic probe; observed separation is fixture-level only and is not scientific support for either dimension.
 - [`OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) — first completed provider-evidence admission case; multiple external evaluations exist, while open independent replication remains sparse.
 
 ## What this repository does not claim
@@ -45,6 +48,8 @@ ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 MEMORY_CONTINUITY != IDENTITY_CONTINUITY
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
+STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
+SYNTHETIC_SEPARABILITY != D2_OR_D4_SUPPORT
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
 CI_PASS != SCIENTIFIC_VALIDATION
 ```
@@ -72,7 +77,7 @@ For exact-commit engineering status, use live GitHub / CI evidence rather than s
 
 Astra is a distinct engineering / research workbench used to materialize and test bounded candidates. It is not defined as AION's identity, memory stream, or substitute for subjectivity.
 
-**Current engineering status:** `main` now includes bounded TEVV (Testing / Evaluation / Verification / Validation), Full-QMS integration, an AI adversarial-security profile, and a content-addressed AI security receipt integrated into `FullQualitySystemEngine`. These are engineering controls and evidence-binding mechanisms; they do **not** establish adversarial-security effectiveness, scientific validation, subjectivity, consciousness, or phenomenal experience.
+**Current engineering status:** `main` now includes bounded TEVV (Testing / Evaluation / Verification / Validation), exact measurement-semantic binding between TEVV metrics and QMS measurement-assurance records, Full-QMS integration, an AI adversarial-security profile, a content-addressed AI security receipt integrated into `FullQualitySystemEngine`, and bounded CCAP research harnesses for pre-execution source partitioning, system-boundary-aware discriminant auditing, and synthetic D2 × D4 differential probes. These are engineering controls, traceability mechanisms, and fixture-scoped research instruments; they do **not** establish adversarial-security effectiveness, D2 support, D4 support, independent scientific validation, subjectivity, consciousness, or phenomenal experience.
 
 ## Governance and license
 
