@@ -6,6 +6,8 @@ import math
 from dataclasses import dataclass, field
 from enum import StrEnum
 
+from aion_ai_tevv import TEVVProfileDisposition, TEVVProfileReceipt
+
 from .ai_risk_impact import AIRiskImpactDisposition, AIRiskImpactReceipt
 from .end_to_end import (
     EndToEndDisposition,
@@ -595,9 +597,11 @@ class FullQualitySystemAssessment:
 class FullQualitySystemEngine:
     """Adds bounded supplier/data/sampling/process/withdrawal controls around the existing QMS.
 
-    It consumes a content-addressed receipt from the canonical ResearchQualityChain
-    rather than importing or re-running that engine. It does not establish
-    subjectivity, scientific validity, release authority, or merge authority.
+    It consumes content-addressed producer receipts from the canonical
+    ResearchQualityChain, AI risk/impact control, and standalone structural TEVV
+    profile rather than re-running those producer semantics. It does not establish
+    model quality, empirical TEVV evidence, subjectivity, scientific validity,
+    release authority, or merge authority.
     """
 
     def assess(
@@ -607,6 +611,7 @@ class FullQualitySystemEngine:
         measurements: tuple[MeasurementAssuranceRecord, ...],
         chain_receipt: QualityChainReceiptBinding,
         risk_impact_receipt: AIRiskImpactReceipt,
+        tevv_receipt: TEVVProfileReceipt,
         field_signals: tuple[FieldQualitySignal, ...],
         audits: tuple[QualityAuditRecord, ...],
         management_review: ManagementReviewRecord,
@@ -627,6 +632,14 @@ class FullQualitySystemEngine:
             f"risk-impact-receipt:{risk_impact_receipt.receipt_sha256}",
             risk_impact_receipt.exact_source_state_ref,
             risk_impact_receipt.exact_runtime_ref,
+            f"git:{tevv_receipt.producer_git_head}",
+            f"tree:{tevv_receipt.producer_tree_sha}",
+            f"contract-sha256:{tevv_receipt.producer_contract_sha256}",
+            f"tevv-profile-receipt:{tevv_receipt.receipt_sha256}",
+            f"tevv-profile:{tevv_receipt.profile_id}:{tevv_receipt.profile_sha256}",
+            f"tevv-vocabulary-sha256:{tevv_receipt.tevv_vocabulary_sha256}",
+            tevv_receipt.exact_source_state_ref,
+            tevv_receipt.exact_runtime_ref,
         }
         if not required_configuration_refs <= set(plan.configuration_refs):
             reasons.append("QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION")
@@ -640,6 +653,28 @@ class FullQualitySystemEngine:
         if not set(risk_impact_receipt.risk_ids) <= set(plan.risk_refs):
             reasons.append("AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS")
 
+        if tevv_receipt.assessment_target_ref != f"quality-plan:{plan.plan_id}":
+            reasons.append("TEVV_RECEIPT_TARGET_MISMATCH")
+
+        if tevv_receipt.assessment_target_sha256 != plan.assessment_target_sha256():
+            reasons.append("TEVV_RECEIPT_TARGET_DIGEST_MISMATCH")
+
+        if not set(tevv_receipt.risk_refs) <= set(plan.risk_refs):
+            reasons.append("TEVV_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS")
+
+        tevv_measurement_ids = {
+            item.measurement_id for item in tevv_receipt.measurement_bindings
+        }
+        supplied_measurement_ids = {item.measurement_id for item in measurements}
+        if not tevv_measurement_ids <= set(plan.measurement_ids):
+            reasons.append("TEVV_MEASUREMENTS_NOT_BOUND_TO_QUALITY_PLAN")
+        if not tevv_measurement_ids <= supplied_measurement_ids:
+            reasons.append("TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING")
+
+        control_data_ids = {item.data_id for item in controls.data_quality}
+        if not set(tevv_receipt.data_quality_refs) <= control_data_ids:
+            reasons.append("TEVV_DATA_QUALITY_RECORDS_MISSING")
+
         required_risk_review_refs = {
             risk_impact_receipt.receipt_id,
             *risk_impact_receipt.risk_ids,
@@ -647,6 +682,17 @@ class FullQualitySystemEngine:
         }
         if not required_risk_review_refs <= set(management_review.input_refs):
             reasons.append("MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE")
+
+        required_tevv_review_refs = {
+            tevv_receipt.receipt_id,
+            tevv_receipt.profile_id,
+            f"tevv-profile-receipt:{tevv_receipt.receipt_sha256}",
+            *tevv_receipt.risk_refs,
+            *tevv_measurement_ids,
+            *tevv_receipt.data_quality_refs,
+        }
+        if not required_tevv_review_refs <= set(management_review.input_refs):
+            reasons.append("MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE")
 
         extended_refs = controls.trace_refs()
         if not set(extended_refs) <= set(management_review.input_refs):
@@ -716,13 +762,23 @@ class FullQualitySystemEngine:
         ):
             reasons.append("AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED")
 
+        if tevv_receipt.disposition is TEVVProfileDisposition.HOLD:
+            reasons.append("TEVV_PROFILE_RECEIPT_HOLD")
+
         hard_hold = any(
             reason in {
                 "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION",
                 "AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH",
                 "AI_RISK_IMPACT_RECEIPT_TARGET_DIGEST_MISMATCH",
                 "AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
+                "TEVV_RECEIPT_TARGET_MISMATCH",
+                "TEVV_RECEIPT_TARGET_DIGEST_MISMATCH",
+                "TEVV_RISKS_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
+                "TEVV_MEASUREMENTS_NOT_BOUND_TO_QUALITY_PLAN",
+                "TEVV_MEASUREMENT_ASSURANCE_RECORDS_MISSING",
+                "TEVV_DATA_QUALITY_RECORDS_MISSING",
                 "MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE",
+                "MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
                 "DATA_QUALITY_HOLD",
                 "UPSTREAM_SUPPLIER_QUALITY_REVIEW_REQUIRED",
@@ -732,6 +788,7 @@ class FullQualitySystemEngine:
                 "CLAIM_WITHDRAWAL_OR_REQUALIFICATION_PROPAGATION_OPEN",
                 "AI_RISK_IMPACT_RECEIPT_HOLD",
                 "AI_RISK_IMPACT_TREATMENT_OR_MITIGATION_REQUIRED",
+                "TEVV_PROFILE_RECEIPT_HOLD",
             }
             for reason in reasons
         )
@@ -747,6 +804,12 @@ class FullQualitySystemEngine:
                     "CONTENT_ADDRESSED_AI_RISK_IMPACT_RECEIPT_BOUND",
                     "AI_RISK_IMPACT_RECEIPT_TARGET_SEMANTICS_BOUND",
                     "AI_RISK_IMPACT_READY_FOR_HUMAN_REVIEW",
+                    "CONTENT_ADDRESSED_TEVV_PROFILE_RECEIPT_BOUND",
+                    "TEVV_RECEIPT_TARGET_SEMANTICS_BOUND",
+                    "TEVV_RISK_COVERAGE_BOUND_TO_QUALITY_PLAN",
+                    "TEVV_MEASUREMENT_ASSURANCE_BINDINGS_COMPLETE",
+                    "TEVV_DATA_QUALITY_BINDINGS_COMPLETE",
+                    "TEVV_PROFILE_READY_FOR_BOUNDED_EXECUTION_ONLY",
                     "DATA_QUALITY_BOUND_TO_DECLARED_USE",
                     "SUPPLIER_QUALITY_BOUND_TO_DECLARED_SCOPE",
                     "SAMPLING_RESULTS_REMAIN_BOUNDED_CONFIDENCE_ONLY",
