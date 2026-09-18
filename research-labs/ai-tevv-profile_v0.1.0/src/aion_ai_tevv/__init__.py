@@ -14,6 +14,7 @@ from .profile import (
     TEVVProfileDisposition,
     TEVVTestApproach,
     TEVV_PROFILE_SCHEMA_VERSION,
+    build_repository_bound_tevv_profile,
     build_tevv_profile,
 )
 
@@ -33,5 +34,6 @@ __all__ = [
     "TEVVProfileDisposition",
     "TEVVTestApproach",
     "TEVV_PROFILE_SCHEMA_VERSION",
+    "build_repository_bound_tevv_profile",
     "build_tevv_profile",
 ]
