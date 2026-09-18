@@ -198,6 +198,7 @@ class TEVVMetricSpec:
     unit: str
     acceptance_criterion_ref: str
     uncertainty_ref: str
+    construct_validity_ref: str
     quality_characteristic_refs: tuple[str, ...]
     effectiveness_review_ref: str
     risk_refs: tuple[str, ...]
@@ -211,6 +212,7 @@ class TEVVMetricSpec:
             "unit",
             "acceptance_criterion_ref",
             "uncertainty_ref",
+            "construct_validity_ref",
             "effectiveness_review_ref",
         ):
             _text(name, getattr(self, name))
@@ -226,6 +228,7 @@ class TEVVMetricSpec:
             "unit": self.unit,
             "acceptance_criterion_ref": self.acceptance_criterion_ref,
             "uncertainty_ref": self.uncertainty_ref,
+            "construct_validity_ref": self.construct_validity_ref,
             "quality_characteristic_refs": tuple(sorted(self.quality_characteristic_refs)),
             "effectiveness_review_ref": self.effectiveness_review_ref,
             "risk_refs": tuple(sorted(self.risk_refs)),
@@ -338,6 +341,8 @@ class AITEVVProfile:
     target_context_ref: str
     context_similarity_statement: str
     context_similarity_basis_refs: tuple[str, ...]
+    operating_condition_refs: tuple[str, ...]
+    generalizability_limit_refs: tuple[str, ...]
     failure_action_ref: str
     preregistration_ref: str
     profile_sha256: str
@@ -447,6 +452,8 @@ class AITEVVProfile:
         ):
             raise TEVVError("validation activity requires intended-use validation references")
         _refs("context_similarity_basis_refs", self.context_similarity_basis_refs)
+        _refs("operating_condition_refs", self.operating_condition_refs)
+        _refs("generalizability_limit_refs", self.generalizability_limit_refs)
         if type(self.evaluator_independence) is not EvaluatorIndependence:
             raise TEVVError("evaluator_independence must be an exact EvaluatorIndependence")
         if type(self.human_subjects_status) is not HumanSubjectsStatus:
@@ -533,6 +540,8 @@ class AITEVVProfile:
             "target_context_ref": self.target_context_ref,
             "context_similarity_statement": self.context_similarity_statement,
             "context_similarity_basis_refs": tuple(sorted(self.context_similarity_basis_refs)),
+            "operating_condition_refs": tuple(sorted(self.operating_condition_refs)),
+            "generalizability_limit_refs": tuple(sorted(self.generalizability_limit_refs)),
             "failure_action_ref": self.failure_action_ref,
             "preregistration_ref": self.preregistration_ref,
             "model_executed": self.model_executed,
@@ -572,6 +581,7 @@ class AITEVVProfileGate:
             "METRICS_MAPPED_TO_DECLARED_RISKS",
             "ALL_DECLARED_RISKS_MEASURED_OR_EXPLICITLY_UNMEASURED",
             "METRICS_MAPPED_TO_QUALITY_CHARACTERISTICS",
+            "METRIC_CONSTRUCT_VALIDITY_BASIS_RECORDED",
             "METRIC_EFFECTIVENESS_REVIEW_PLANNED",
             "EVERY_DECLARED_METRIC_BOUND_TO_AT_LEAST_ONE_CASE",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
@@ -588,6 +598,7 @@ class AITEVVProfileGate:
             "HUMAN_SUBJECTS_APPLICABILITY_RECORDED",
             "TARGET_CONTEXT_AND_SIMILARITY_SCOPE_RECORDED",
             "CONTEXT_SIMILARITY_BASIS_RECORDED",
+            "OPERATING_CONDITIONS_AND_GENERALIZABILITY_LIMITS_RECORDED",
             "PROFILE_IS_STRUCTURAL_NOT_EMPIRICAL_MODEL_EVIDENCE",
         ]
 
@@ -652,6 +663,8 @@ def build_tevv_profile(
     target_context_ref: str,
     context_similarity_statement: str,
     context_similarity_basis_refs: tuple[str, ...],
+    operating_condition_refs: tuple[str, ...],
+    generalizability_limit_refs: tuple[str, ...],
     failure_action_ref: str,
     preregistration_ref: str,
 ) -> AITEVVProfile:
@@ -717,6 +730,8 @@ def build_tevv_profile(
         "target_context_ref": target_context_ref,
         "context_similarity_statement": context_similarity_statement,
         "context_similarity_basis_refs": tuple(sorted(context_similarity_basis_refs)),
+        "operating_condition_refs": tuple(sorted(operating_condition_refs)),
+        "generalizability_limit_refs": tuple(sorted(generalizability_limit_refs)),
         "failure_action_ref": failure_action_ref,
         "preregistration_ref": preregistration_ref,
         "model_executed": False,
@@ -761,6 +776,8 @@ def build_tevv_profile(
         target_context_ref=target_context_ref,
         context_similarity_statement=context_similarity_statement,
         context_similarity_basis_refs=context_similarity_basis_refs,
+        operating_condition_refs=operating_condition_refs,
+        generalizability_limit_refs=generalizability_limit_refs,
         failure_action_ref=failure_action_ref,
         preregistration_ref=preregistration_ref,
         profile_sha256=_sha256(values),
@@ -800,6 +817,8 @@ def build_repository_bound_tevv_profile(
     target_context_ref: str,
     context_similarity_statement: str,
     context_similarity_basis_refs: tuple[str, ...],
+    operating_condition_refs: tuple[str, ...],
+    generalizability_limit_refs: tuple[str, ...],
     failure_action_ref: str,
     preregistration_ref: str,
     repository_root: Path,
@@ -860,6 +879,8 @@ def build_repository_bound_tevv_profile(
         target_context_ref=target_context_ref,
         context_similarity_statement=context_similarity_statement,
         context_similarity_basis_refs=context_similarity_basis_refs,
+        operating_condition_refs=operating_condition_refs,
+        generalizability_limit_refs=generalizability_limit_refs,
         failure_action_ref=failure_action_ref,
         preregistration_ref=preregistration_ref,
     )
