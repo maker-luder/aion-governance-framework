@@ -634,6 +634,9 @@ class FullQualitySystemEngine:
         if risk_impact_receipt.assessment_target_ref != f"quality-plan:{plan.plan_id}":
             reasons.append("AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH")
 
+        if risk_impact_receipt.assessment_target_sha256 != plan.assessment_target_sha256():
+            reasons.append("AI_RISK_IMPACT_RECEIPT_TARGET_DIGEST_MISMATCH")
+
         if not set(risk_impact_receipt.risk_ids) <= set(plan.risk_refs):
             reasons.append("AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS")
 
@@ -717,6 +720,7 @@ class FullQualitySystemEngine:
             reason in {
                 "QUALITY_RECEIPTS_NOT_BOUND_TO_QUALITY_PLAN_CONFIGURATION",
                 "AI_RISK_IMPACT_RECEIPT_TARGET_MISMATCH",
+                "AI_RISK_IMPACT_RECEIPT_TARGET_DIGEST_MISMATCH",
                 "AI_RISK_REGISTER_NOT_BOUND_TO_QUALITY_PLAN_RISK_REFS",
                 "MANAGEMENT_REVIEW_AI_RISK_IMPACT_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
@@ -741,6 +745,7 @@ class FullQualitySystemEngine:
                 (
                     "CONTENT_ADDRESSED_QUALITY_CHAIN_RECEIPT_BOUND",
                     "CONTENT_ADDRESSED_AI_RISK_IMPACT_RECEIPT_BOUND",
+                    "AI_RISK_IMPACT_RECEIPT_TARGET_SEMANTICS_BOUND",
                     "AI_RISK_IMPACT_READY_FOR_HUMAN_REVIEW",
                     "DATA_QUALITY_BOUND_TO_DECLARED_USE",
                     "SUPPLIER_QUALITY_BOUND_TO_DECLARED_SCOPE",
