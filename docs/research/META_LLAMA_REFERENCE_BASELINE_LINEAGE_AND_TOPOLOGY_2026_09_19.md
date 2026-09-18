@@ -382,7 +382,7 @@ Llama-4-Maverick-03-26-Experimental
 Llama-4-Maverick-17B-128E-Instruct
 ~~~
 
-The experimental chat variant was evaluated on Arena and optimized for conversationality, while the publicly released checkpoint was distinct.
+Meta's launch post identified the cited Arena score as coming from an experimental chat version. TechCrunch later reported that a Meta spokesperson described `Llama-4-Maverick-03-26-Experimental` as a chat-optimized experimental variant, distinct from the publicly released checkpoint.
 
 This means:
 
