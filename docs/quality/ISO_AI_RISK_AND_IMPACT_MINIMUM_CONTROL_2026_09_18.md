@@ -352,6 +352,7 @@ The new `AIRiskImpactReceipt` binds:
 ```text
 receipt id
 exact source-state ref
+exact runtime ref
 producer Git HEAD
 producer tree SHA
 producer contract ref + digest
@@ -360,6 +361,7 @@ canonical sorted impact-assessment IDs
 risk-set SHA-256
 impact-set SHA-256
 combined assessment SHA-256
+bounded risk/impact disposition
 fixed nonclaims
 receipt SHA-256
 ```
@@ -402,6 +404,8 @@ This layer-1 hardening does **not** itself connect the new receipt to
 ```text
 RISK_SOURCE_BINDING = IMPLEMENTED
 RISK_IMPACT_CONTENT_RECEIPT = IMPLEMENTED
+RECEIPT_RUNTIME_BINDING = IMPLEMENTED
+RECEIPT_BOUNDED_DISPOSITION = IMPLEMENTED
 FULL_QMS_INTEGRATION = NOT_YET
 MAIN_WRITE = NO
 MERGE_AUTHORITY = NONE
