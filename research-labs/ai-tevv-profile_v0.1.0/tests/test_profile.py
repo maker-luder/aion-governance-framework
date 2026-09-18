@@ -51,6 +51,7 @@ def metric(metric_id: str = "METRIC-ACCURACY") -> TEVVMetricSpec:
         unit="ratio",
         acceptance_criterion_ref="criterion:preregistered-threshold-v1",
         uncertainty_ref="uncertainty:binomial-and-run-variation-v1",
+        construct_validity_ref="validity:metric-concept-v1",
         quality_characteristic_refs=("quality:functional-correctness",),
         effectiveness_review_ref="review:metric-effectiveness-v1",
         risk_refs=("risk:bounded-model-quality",),
@@ -133,6 +134,8 @@ def profile(
             "No deployment claim; the profile is scoped to the declared research sandbox."
         ),
         context_similarity_basis_refs=("basis:research-sandbox-scope-v1",),
+        operating_condition_refs=("condition:research-sandbox-v1",),
+        generalizability_limit_refs=("limit:not-generalized-beyond-research-sandbox-v1",),
         failure_action_ref="reaction:HOLD_AND_REVIEW",
         preregistration_ref="preregistration:TEVV-PROFILE-001",
     )
@@ -248,6 +251,8 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         target_context_ref="context:test",
         context_similarity_statement="Structural comparison only.",
         context_similarity_basis_refs=("basis:structural-comparison-v1",),
+        operating_condition_refs=("condition:structural-comparison-v1",),
+        generalizability_limit_refs=("limit:structural-comparison-only-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:order",
     )
@@ -284,6 +289,8 @@ def test_profile_digest_is_order_invariant_for_metric_case_and_activity_sets() -
         target_context_ref="context:test",
         context_similarity_statement="Structural comparison only.",
         context_similarity_basis_refs=("basis:structural-comparison-v1",),
+        operating_condition_refs=("condition:structural-comparison-v1",),
+        generalizability_limit_refs=("limit:structural-comparison-only-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:order",
     )
@@ -391,6 +398,8 @@ def test_case_reference_sets_are_digest_order_invariant() -> None:
         "target_context_ref": "context:test",
         "context_similarity_statement": "Structural comparison only.",
         "context_similarity_basis_refs": ("basis:structural-comparison-v1",),
+        "operating_condition_refs": ("condition:structural-comparison-v1",),
+        "generalizability_limit_refs": ("limit:structural-comparison-only-v1",),
         "failure_action_ref": "reaction:hold",
         "preregistration_ref": "preregistration:case-order",
     }
@@ -450,6 +459,8 @@ def test_non_independent_evaluator_holds_execution_readiness() -> None:
         target_context_ref="context:test",
         context_similarity_statement="Structural test only.",
         context_similarity_basis_refs=("basis:structural-test-v1",),
+        operating_condition_refs=("condition:structural-test-v1",),
+        generalizability_limit_refs=("limit:structural-test-only-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:non-independent",
     )
@@ -493,6 +504,8 @@ def test_builder_fails_closed_on_raw_lifecycle_or_activity_values() -> None:
         "target_context_ref": "context:test",
         "context_similarity_statement": "Structural test only.",
         "context_similarity_basis_refs": ("basis:structural-test-v1",),
+        "operating_condition_refs": ("condition:structural-test-v1",),
+        "generalizability_limit_refs": ("limit:structural-test-only-v1",),
         "failure_action_ref": "reaction:hold",
         "preregistration_ref": "preregistration:builder-types",
     }
@@ -627,6 +640,8 @@ def _repository_bound_profile(
         target_context_ref="context:test",
         context_similarity_statement="Structural test only.",
         context_similarity_basis_refs=("basis:structural-test-v1",),
+        operating_condition_refs=("condition:structural-test-v1",),
+        generalizability_limit_refs=("limit:structural-test-only-v1",),
         failure_action_ref="reaction:hold",
         preregistration_ref="preregistration:repository-bound",
         repository_root=repository_root,
@@ -719,3 +734,17 @@ def test_human_subjects_applicability_is_explicit_and_fail_closed() -> None:
             human_subjects_status=HumanSubjectsStatus.NOT_APPLICABLE,
             human_subjects_protection_refs=("ethics:should-not-be-present",),
         )
+
+
+
+def test_metric_requires_construct_validity_reference() -> None:
+    with pytest.raises(TEVVError, match="construct_validity_ref"):
+        replace(metric(), construct_validity_ref="")
+
+
+def test_profile_requires_operating_conditions_and_generalizability_limits() -> None:
+    value = profile()
+    with pytest.raises(TEVVError, match="operating_condition_refs"):
+        replace(value, operating_condition_refs=())
+    with pytest.raises(TEVVError, match="generalizability_limit_refs"):
+        replace(value, generalizability_limit_refs=())
