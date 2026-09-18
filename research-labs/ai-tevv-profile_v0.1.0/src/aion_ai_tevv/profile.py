@@ -408,9 +408,13 @@ class AITEVVProfile:
             raise TEVVError("a declared risk cannot be both measured and unmeasured")
         if measured_risks | unmeasured_risk_refs != known_risks:
             raise TEVVError("every declared risk must be measured or explicitly documented as unmeasured")
+        used_metric_ids: set[str] = set()
         for case in self.cases:
             if not set(case.metric_ids) <= known_metrics:
                 raise TEVVError("case references unknown metric identifiers")
+            used_metric_ids.update(case.metric_ids)
+        if used_metric_ids != known_metrics:
+            raise TEVVError("every declared metric must be referenced by at least one TEVV case")
         if type(self.minimum_repetitions) is not int or self.minimum_repetitions < 1:
             raise TEVVError("minimum_repetitions must be a positive exact int")
         if type(self.stochastic_system) is not bool:
@@ -525,6 +529,7 @@ class AITEVVProfileGate:
             "ALL_DECLARED_RISKS_MEASURED_OR_EXPLICITLY_UNMEASURED",
             "METRICS_MAPPED_TO_QUALITY_CHARACTERISTICS",
             "METRIC_EFFECTIVENESS_REVIEW_PLANNED",
+            "EVERY_DECLARED_METRIC_BOUND_TO_AT_LEAST_ONE_CASE",
             "TEST_SET_AND_DATA_QUALITY_REFS_BOUND",
             "ORACLE_STRATEGY_EXPLICIT",
             "METRICS_AND_ACCEPTANCE_CRITERIA_BOUND",
