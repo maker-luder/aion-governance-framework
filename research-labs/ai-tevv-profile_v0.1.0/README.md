@@ -127,14 +127,15 @@ AITEVVProfile
 = system identity + lifecycle + risks + data + oracle + metrics + repetition + evaluator + context
 ```
 
-To prevent vocabulary drift, the profile carries a required
-`tevv_vocabulary_ref`. Its activity vocabulary is aligned to the repository's
-existing `TEST | EVALUATION | VERIFICATION | VALIDATION` terms.
+To prevent vocabulary drift, the profile carries both a required
+`tevv_vocabulary_ref` and a 64-hex `tevv_vocabulary_sha256`. Its activity
+vocabulary is aligned to the repository's existing
+`TEST | EVALUATION | VERIFICATION | VALIDATION` terms.
 
 ```text
 TEVV_VOCABULARY != TEVV_EXECUTION_PROFILE
 NEW_PROFILE != DUPLICATE_TEvv_DEFINITION
-VOCABULARY_REF_BOUND != VOCABULARY_CONTENT_INDEPENDENTLY_VERIFIED
+VOCABULARY_REF_AND_DIGEST_BOUND != VOCABULARY_SEMANTICS_INDEPENDENTLY_VERIFIED
 ```
 
 ## Test-oracle handling
