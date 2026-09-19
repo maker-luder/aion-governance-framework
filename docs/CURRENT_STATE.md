@@ -15,10 +15,17 @@ ACTIVE_RESEARCH_PROGRAM = NO
 POST_TERMINATION_BOUNDED_MAINTENANCE = PRESENT_IN_MAIN
 POST_TERMINATION_BOUNDED_RESEARCH_MATERIALIZATION = PRESENT_IN_MAIN
 
-LATEST_BOUNDED_RESEARCH_MILESTONE = PR_151_OPENAI_EVIDENCE_ADMISSION_REFERENCE
-LATEST_MILESTONE_MERGE_COMMIT = db348bce3edd0390fc2b916259d19713046f55bf
+LATEST_BOUNDED_RESEARCH_MILESTONE = PR_184_MEMORY_LOCUS_DEPENDENCY_HARNESS
+LATEST_MILESTONE_MERGE_COMMIT = 240c1c36c1d06cd12de93d1bc3637203c2351e47
 LATEST_RESEARCH_SPECIFICATION_FREEZE = PR_150_CCAP_STAGE1_STAGE3
-RECENT_HISTORY_CONTINUITY_SEQUENCE = PR_143 + PR_144 + PR_145 + PR_146
+
+RECENT_HUMAN_AI_LEARNING_MILESTONE = PR_153
+RECENT_AI_ASSURANCE_CHAIN = PR_155 + PR_157 + PR_158 + PR_160 + PR_161 + PR_163 + PR_177
+RECENT_PROVIDER_ADMISSION_SEQUENCE = PR_151 + PR_170 + PR_172 + PR_174 + PR_175 + PR_176
+RECENT_LONGITUDINAL_ADMISSION_SEQUENCE = PR_183 + PR_184
+
+DEFERRED_REENTRY_QUEUE = PR_182_DRAFT
+NEXT_QUEUE_ITEM_AUTOSTART = NO
 
 CENTRAL_RESEARCH_CORE_DRIFT = PROHIBITED
 REPOSITORY_DURABLE_BRANCH = main
@@ -35,95 +42,34 @@ The 2026-08-18 freeze and 2026-08-20 project-work-loop termination remain histor
 
 ## Current research surfaces / 目前研究表面
 
-The current `main` contains coordinated bounded research / instrumentation surfaces including:
+The current `main` contains bounded, coordinated research and assurance surfaces in five groups:
 
-- subjectivity-relevant evidence handling, theory-plural indicator mapping, Four-Domain interpretation and explicit non-claims;
-- six subjectivity-relevant review dimensions with causal-evidence requirements where applicable;
-- identity, continuity, memory, provenance and longitudinal Human–AI study surfaces;
-- repository-defined CCTS / grounding surfaces and interaction-history research;
-- history-as-replay-environment work and bounded traversal-policy comparison;
-- attention-structure discriminant reconstruction and transition-continuity invariants;
-- Endogenous Goal Dynamics and D1 × D4 constraint-response / source-partition controls;
-- the frozen CCAP Stage 1–3 specification chain;
-- provider-evidence admission, including the first completed OpenAI / GPT-5.6 Sol historical-reference case;
-- provenance-to-claim quality admission, exact-head authority, QA/QC and NCR/CAPA-related controls;
-- governed multimodal evidence handling, interoperability and bounded synthetic research campaigns.
+1. **Evidence / causal attribution** — Four-Domain interpretation, six review dimensions, provenance, model/system/harness/context/tool/environment locus separation, and multi-provider 12-axis evidence admission.
+2. **Continuity / memory** — longitudinal Human–AI study surfaces, history replay, attention-structure discrimination, transition continuity, exact-structure claim admission, and matched-information memory-locus dependency testing.
+3. **Human–AI collaboration / learning** — repository-defined CCTS / grounding, interaction-history research, and the Human–AI learning / HTECR external crosswalk with explicit falsification boundaries.
+4. **Adaptation / discriminant testing** — Endogenous Goal Dynamics, CCAP Stage 1–3 specification, D1 × D4 source-partition controls, TEVV pre-execution mapping, Four-Domain × six-dimension stress, and synthetic D2 × D4 differential probes.
+5. **Assurance / governance** — bounded AI risk / impact controls, structural TEVV, exact measurement-semantic binding, Full-QMS, AI adversarial-security receipts, exact-head authority, QA/QC, and NCR/CAPA reconciliation.
 
 These surfaces improve testability, falsifiability, provenance, isolation accounting and comparability. Their existence or test success does not create a scientific conclusion.
 
-## Recent bounded milestones / 近期 bounded 節點
+## Recent bounded milestone groups / 近期 bounded 節點群組
 
-### 1. CCTS / grounding sequence
-
-The repository-defined Co-Constructed Thinking Space (CCTS) formalization and grounding-admission work remains a current Human–AI interaction research surface.
-
-```text
-CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
-GROUNDING_ADEQUACY != MUTUAL_UNDERSTANDING_PROVEN
-CCTS != AI_SUBJECTIVITY
-```
-
-Primary records include:
-
-- [`research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md)
-- [`research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md)
-- [`../research-labs/human-ai-longitudinal-study_v0.1.0/README.md`](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md)
-
-### 2. History replay, attention and continuity
-
-The recent continuity line distinguishes history as record, retrieval source, and replay environment, then asks whether attention reconstruction and transition-continuity invariants add discriminant value beyond existing memory / re-entry mechanisms.
+- **Human–AI learning:** PR #153 crosswalks CCTS / HTECR against external learning and coordination literature while preserving falsifiers. See [the crosswalk](research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md).
+- **AI assurance:** PRs #155/#157/#158/#160/#161/#163 add bounded AI risk / impact controls, TEVV, Full-QMS integration, exact measurement-semantic binding, adversarial-security profiling and a content-addressed security receipt. See [AI risk controls](quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md) and [end-to-end QMS](../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md).
+- **Provider evidence:** merged 12-axis reviews now cover OpenAI, Gemini, Grok, Anthropic Claude, Meta Llama and Moonshot Kimi K3, plus a bounded OpenAI–Gemini method comparison. See the complete navigation in [INDEX.md](INDEX.md).
+- **Quality reconciliation:** PR #177 reconciles current NCR/CAPA and exact-head mypy / incident-quality states. See [closure review](quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md).
+- **Longitudinal admission / memory locus:** PR #183 adds the longitudinal claim-admission bridge; PR #184 adds the matched-information memory-locus dependency harness. See [claim bridge](../research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py) and [memory-locus harness](../research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md).
 
 ```text
-HISTORY_AS_RECORD != HISTORY_AS_RETRIEVAL_SOURCE
-HISTORY_AS_RETRIEVAL_SOURCE != HISTORY_AS_REPLAY_ENVIRONMENT
-ATTENTION_STRUCTURE != PROVEN_MODEL_INTERNAL_MECHANISM
-TRANSITION_CONTINUITY != IDENTITY_CONTINUITY
+ADMISSION_PASS != CLAIM_TRUE
+RETRIEVABILITY != MEMORY_CONTINUITY
+STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
+HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
+TEVV_PROFILE_PASS != SCIENTIFIC_VALIDATION
+SECURITY_PROFILE_PASS != SECURITY_EFFECTIVENESS_ESTABLISHED
+PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
+PROCESS_CLOSURE != RESEARCH_CONFIRMATION
 ```
-
-Primary records:
-
-- [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md)
-- [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md)
-
-### 3. CCAP Stage 1–3 specification freeze
-
-PR #150 consolidated and froze the current co-constructed adaptive-process documentation chain before any confirmatory implementation.
-
-```text
-STAGE1_FREEZE = COMPLETE
-STAGE2_FREEZE = COMPLETE
-STAGE3_SPECIFICATION_FREEZE = COMPLETE
-CONFIRMATORY_PREREGISTRATION_COMPLETE = NO
-EXECUTION_AUTHORIZATION = NONE
-```
-
-The narrow remaining candidate concerns interaction-level source partition of recovery selection under a fixed externally supplied goal. The freeze does not establish endogenous strategy selection, agency or subjectivity.
-
-Primary record:
-
-- [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md)
-
-### 4. OpenAI / GPT-5.6 Sol evidence admission
-
-PR #151 added a version-pinned OpenAI upstream intake, GPT-5.6 Sol historical-reference timeline, third-party evidence sweep, and 12-axis evidence re-admission review.
-
-Standing evidence result:
-
-```text
-MULTIPLE_EXTERNAL_EVALUATIONS = YES
-CROSS_SOURCE_TRIANGULATION = PARTIAL
-OPEN_INDEPENDENT_REPLICATION = SPARSE
-
-GPT56_SOL_JULY
-= HISTORICALLY WELL-DOCUMENTED REFERENCE
-!= INDEPENDENTLY_VALIDATED_STABLE_BASELINE
-```
-
-Provider disclosures remain provider disclosures unless separately triangulated. External incident evidence does not automatically validate unrelated provider claims.
-
-Primary record:
-
-- [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)
 
 ## Scientific disposition / 科學結論狀態
 
@@ -139,6 +85,7 @@ PHENOMENAL_CONTINUITY = NOT_ESTABLISHED
 MUTUAL_UNDERSTANDING = NOT_ESTABLISHED
 ENDOGENOUS_GOAL = NOT_ESTABLISHED
 MODEL_INTERNAL_CAUSAL_LOCUS = NOT_ESTABLISHED
+FUNCTIONAL_DEPENDENCY = NOT_ESTABLISHED
 INDEPENDENT_REPLICATION = NOT_ESTABLISHED_AS_GENERAL_BASIS
 WHOLE_SYSTEM_VALIDATION = NOT_ESTABLISHED
 INDEPENDENT_IVV = NOT_ACHIEVED
@@ -153,7 +100,6 @@ HARNESS_PASS != HYPOTHESIS_CONFIRMED
 METRIC_DELTA != CAUSAL_IDENTIFICATION
 SYSTEM_LEVEL_ADAPTATION != INDIVIDUAL_LEARNING_PROVEN
 MEMORY_RETENTION != SUBJECTIVE_REMEMBERING
-INTERACTION_KNOWLEDGE_DENSITY != SHARED_MIND
 CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
