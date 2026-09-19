@@ -40,6 +40,7 @@ def load_cases() -> tuple[MemoryLocusCase, ...]:
             discriminating_prediction=shared["discriminating_prediction"],
             manipulation_check_ref=shared["manipulation_check_ref"],
             support_reducing_outcome=shared["support_reducing_outcome"],
+            competing_explanation_targeted=row["competing_explanation_targeted"],
             competing_explanations=tuple(shared["competing_explanations"]),
             evidence_refs=tuple(shared["evidence_refs"]),
             binding=binding,
