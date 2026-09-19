@@ -28,9 +28,18 @@ from aion_coupled_quality.longitudinal_claim_bridge import (
 )
 from aion_human_ai_longitudinal import (
     AdmissionDisposition,
+    ConditionProfile,
+    ContextCondition,
     ContrastAudit,
     ContrastSpec,
+    EpistemicInstruction,
     MetricName,
+    MetricObservation,
+    Presence,
+    RunBinding,
+    SummaryCondition,
+    TaskDomain,
+    TrialRecord,
 )
 
 
@@ -69,6 +78,87 @@ def _audit(**changes: object) -> ContrastAudit:
     return ContrastAudit(**defaults)
 
 
+def _binding(run_id: str, *, context_ref: str) -> RunBinding:
+    return RunBinding(
+        run_id=run_id,
+        study_id="STUDY-GROUNDING-01",
+        provider_id="provider:test",
+        model_id="model:test",
+        model_version="v1",
+        configuration_ref="config:matched-v1",
+        task_id="task:grounding",
+        task_version="v1",
+        prompt_ref="prompt:matched",
+        context_ref=context_ref,
+        tool_manifest_ref="tools:none",
+        scorer_ref="scorer:v1",
+        preregistration_ref="prereg:H-GROUNDING-01",
+        repository_commit="git:test-fixture",
+        source_refs=("fixture:public-safe",),
+    )
+
+
+def _condition(*, memory: Presence) -> ConditionProfile:
+    return ConditionProfile(
+        memory=memory,
+        personalization=Presence.ABSENT,
+        interaction_history=Presence.ABSENT,
+        provenance_rules=Presence.PRESENT,
+        summary=SummaryCondition.NONE,
+        context=ContextCondition.MATCHED_CURRENT,
+        epistemic_instruction=EpistemicInstruction.FULL_PROTOCOL,
+        task_domain=TaskDomain.RESEARCH_AUDIT,
+        ai_support=Presence.PRESENT,
+    )
+
+
+def _trial(
+    run_id: str,
+    *,
+    memory: Presence,
+    context_ref: str,
+    value: float,
+    evidence_ref: str,
+) -> TrialRecord:
+    return TrialRecord(
+        binding=_binding(run_id, context_ref=context_ref),
+        condition=_condition(memory=memory),
+        metrics=(
+            MetricObservation(
+                metric=MetricName.REGROUNDING_COST,
+                value=value,
+                unit="turns",
+                evidence_refs=(evidence_ref,),
+            ),
+        ),
+        evaluator_id="evaluator:fixture",
+        evaluator_source_ref="fixture:evaluator-protocol",
+        retrieved_artifact_refs=("fixture:memory-artifact",)
+        if memory is Presence.PRESENT
+        else (),
+    )
+
+
+def _baseline() -> TrialRecord:
+    return _trial(
+        "RUN-BASE",
+        memory=Presence.ABSENT,
+        context_ref="context:base",
+        value=4.0,
+        evidence_ref="fixture:base:regrounding",
+    )
+
+
+def _intervention() -> TrialRecord:
+    return _trial(
+        "RUN-MEMORY",
+        memory=Presence.PRESENT,
+        context_ref="context:memory",
+        value=2.5,
+        evidence_ref="fixture:memory:regrounding",
+    )
+
+
 def _request(**changes: object) -> LongitudinalClaimRequest:
     defaults = dict(
         claim_id="CLAIM-LONG-01",
@@ -78,12 +168,22 @@ def _request(**changes: object) -> LongitudinalClaimRequest:
         claim_level=ClaimLevel.L0_OBSERVATION,
         evidence=(
             LongitudinalEvidenceInput(
-                evidence_id="E-LONG-1",
-                provenance_record_id="evidence-prov",
+                evidence_id="E-BASE",
+                provenance_record_id="evidence-base-prov",
                 relation=EvidenceRelation.SUPPORTS,
+                run_id="RUN-BASE",
+                metric_name=MetricName.REGROUNDING_COST.value,
+                study_evidence_ref="fixture:base:regrounding",
                 publication_class=PublicationClass.SYNTHETIC,
-                producer_ref="human-ai-longitudinal-study:C-MEMORY-01",
-                runtime_or_context_ref="RUN-BASE->RUN-MEMORY",
+            ),
+            LongitudinalEvidenceInput(
+                evidence_id="E-INTERVENTION",
+                provenance_record_id="evidence-intervention-prov",
+                relation=EvidenceRelation.SUPPORTS,
+                run_id="RUN-MEMORY",
+                metric_name=MetricName.REGROUNDING_COST.value,
+                study_evidence_ref="fixture:memory:regrounding",
+                publication_class=PublicationClass.SYNTHETIC,
             ),
         ),
         inferred_statements=("The observation remains compatible with simpler explanations.",),
@@ -102,14 +202,18 @@ def _ledger() -> EpistemicProvenanceLedger:
             layer=ClaimLayer.OBSERVATION,
         )
     )
-    ledger.add(
-        ContributionRecord(
-            record_id="evidence-prov",
-            proposition="Synthetic longitudinal contrast evidence.",
-            origin=ContributionOrigin.AI_FORMALIZATION,
-            layer=ClaimLayer.OBSERVATION,
+    for record_id, proposition in (
+        ("evidence-base-prov", "Synthetic baseline metric evidence."),
+        ("evidence-intervention-prov", "Synthetic intervention metric evidence."),
+    ):
+        ledger.add(
+            ContributionRecord(
+                record_id=record_id,
+                proposition=proposition,
+                origin=ContributionOrigin.AI_FORMALIZATION,
+                layer=ClaimLayer.OBSERVATION,
+            )
         )
-    )
     return ledger
 
 
@@ -120,18 +224,34 @@ def _lot() -> ResearchLot:
         risk=Severity.MEDIUM,
         evidence=[
             Evidence(
-                evidence_id="E-LONG-1",
+                evidence_id="E-BASE",
                 kind=EvidenceKind.TEST_RESULT,
-                reference="fixture:longitudinal-contrast",
+                reference="fixture:base:regrounding",
                 supports_claim=True,
-            )
+            ),
+            Evidence(
+                evidence_id="E-INTERVENTION",
+                kind=EvidenceKind.TEST_RESULT,
+                reference="fixture:memory:regrounding",
+                supports_claim=True,
+            ),
         ],
         final_qa_pass=True,
     )
 
 
+def _mapping(request: LongitudinalClaimRequest | None = None):
+    return build_longitudinal_claim_mapping(
+        _spec(),
+        _audit(),
+        _baseline(),
+        _intervention(),
+        request or _request(),
+    )
+
+
 def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
-    mapping = build_longitudinal_claim_mapping(_spec(), _audit(), _request())
+    mapping = _mapping()
     assert mapping.hypothesis_id == "H-GROUNDING-01"
     assert mapping.contrast_id == "C-MEMORY-01"
     assert mapping.baseline_run_id == "RUN-BASE"
@@ -140,6 +260,18 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
     assert mapping.claim.subjectivity_claim is False
     assert mapping.claim.consciousness_claim is False
     assert mapping.canonical_effect == "NONE"
+    assert {item.runtime_or_context_ref for item in mapping.evidence_bindings} == {
+        (
+            "provider:provider:test|model:model:test|version:v1|"
+            "configuration:config:matched-v1|context:context:base|"
+            "repo:git:test-fixture|run:RUN-BASE"
+        ),
+        (
+            "provider:provider:test|model:model:test|version:v1|"
+            "configuration:config:matched-v1|context:context:memory|"
+            "repo:git:test-fixture|run:RUN-MEMORY"
+        ),
+    }
 
     assessment = assess_longitudinal_claim_mapping(
         mapping,
@@ -147,7 +279,10 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
         lot=_lot(),
         repository_root=REPOSITORY_ROOT,
     )
-    assert assessment.disposition is ClaimAdmissionDisposition.ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD
+    assert (
+        assessment.disposition
+        is ClaimAdmissionDisposition.ADMISSIBLE_AS_BOUNDED_RESEARCH_RECORD
+    )
     assert assessment.scientific_disposition == "HOLD"
     assert assessment.subjectivity == "NOT_ESTABLISHED"
     assert assessment.consciousness == "NOT_ESTABLISHED"
@@ -159,7 +294,23 @@ def test_contrast_identity_mismatch_fails_closed() -> None:
         build_longitudinal_claim_mapping(
             _spec(),
             _audit(contrast_id="OTHER-CONTRAST"),
+            _baseline(),
+            _intervention(),
             _request(),
+        )
+
+
+def test_run_binding_mismatch_fails_closed() -> None:
+    wrong = _trial(
+        "WRONG-RUN",
+        memory=Presence.ABSENT,
+        context_ref="context:base",
+        value=4.0,
+        evidence_ref="fixture:base:regrounding",
+    )
+    with pytest.raises(LongitudinalClaimBridgeError, match="baseline trial run_id"):
+        build_longitudinal_claim_mapping(
+            _spec(), _audit(), wrong, _intervention(), _request()
         )
 
 
@@ -168,6 +319,8 @@ def test_structurally_inadmissible_contrast_cannot_enter_mapping() -> None:
         build_longitudinal_claim_mapping(
             _spec(),
             _audit(structurally_admissible=False),
+            _baseline(),
+            _intervention(),
             _request(),
         )
 
@@ -177,39 +330,38 @@ def test_metric_drift_between_spec_and_audit_fails_closed() -> None:
         build_longitudinal_claim_mapping(
             _spec(),
             _audit(observed_deltas=((MetricName.ERROR_DETECTION.value, 1.0),)),
+            _baseline(),
+            _intervention(),
             _request(),
         )
 
 
-def test_bridge_does_not_infer_support_from_observation() -> None:
-    request = _request(
-        evidence=(
-            LongitudinalEvidenceInput(
-                evidence_id="E-LONG-1",
-                provenance_record_id="evidence-prov",
-                relation=EvidenceRelation.OBSERVES,
-            ),
-        )
+def test_evidence_must_bind_to_actual_trial_metric_reference() -> None:
+    bad = replace(
+        _request().evidence[0],
+        study_evidence_ref="fixture:not-from-trial",
     )
-    with pytest.raises(LongitudinalClaimBridgeError, match="explicitly supporting"):
-        build_longitudinal_claim_mapping(_spec(), _audit(), request)
+    request = _request(evidence=(bad, _request().evidence[1]))
+    with pytest.raises(LongitudinalClaimBridgeError, match="not bound to trial metric evidence"):
+        build_longitudinal_claim_mapping(
+            _spec(), _audit(), _baseline(), _intervention(), request
+        )
 
 
-def test_support_requires_exact_producer_and_runtime_context_refs() -> None:
-    with pytest.raises(LongitudinalClaimBridgeError, match="producer_ref"):
-        LongitudinalEvidenceInput(
-            evidence_id="E-LONG-1",
-            provenance_record_id="evidence-prov",
-            relation=EvidenceRelation.SUPPORTS,
+def test_support_must_cover_both_runs_for_required_metric() -> None:
+    observed_only = replace(
+        _request().evidence[0],
+        relation=EvidenceRelation.OBSERVES,
+    )
+    request = _request(evidence=(observed_only, _request().evidence[1]))
+    with pytest.raises(LongitudinalClaimBridgeError, match="cover both runs"):
+        build_longitudinal_claim_mapping(
+            _spec(), _audit(), _baseline(), _intervention(), request
         )
 
 
 def test_l3_is_not_admitted_without_explicit_intervention_sensitive_evidence() -> None:
-    mapping = build_longitudinal_claim_mapping(
-        _spec(),
-        _audit(),
-        _request(claim_level=ClaimLevel.L3_INTERVENTION_SENSITIVE_MECHANISM),
-    )
+    mapping = _mapping(_request(claim_level=ClaimLevel.L3_INTERVENTION_SENSITIVE_MECHANISM))
     assessment = assess_longitudinal_claim_mapping(
         mapping,
         ledger=_ledger(),
@@ -217,7 +369,10 @@ def test_l3_is_not_admitted_without_explicit_intervention_sensitive_evidence() -
         repository_root=REPOSITORY_ROOT,
     )
     assert assessment.disposition is ClaimAdmissionDisposition.HOLD
-    assert "MECHANISM_PROMOTION_REQUIRES_INTERVENTION_SENSITIVE_EVIDENCE" in assessment.reasons
+    assert (
+        "MECHANISM_PROMOTION_REQUIRES_INTERVENTION_SENSITIVE_EVIDENCE"
+        in assessment.reasons
+    )
 
 
 def test_private_evidence_remains_blocked_by_existing_gate() -> None:
@@ -225,11 +380,8 @@ def test_private_evidence_remains_blocked_by_existing_gate() -> None:
         _request().evidence[0],
         publication_class=PublicationClass.PRIVATE_TRANSCRIPT,
     )
-    mapping = build_longitudinal_claim_mapping(
-        _spec(),
-        _audit(),
-        _request(evidence=(private,)),
-    )
+    request = _request(evidence=(private, _request().evidence[1]))
+    mapping = _mapping(request)
     assessment = assess_longitudinal_claim_mapping(
         mapping,
         ledger=_ledger(),
@@ -237,7 +389,7 @@ def test_private_evidence_remains_blocked_by_existing_gate() -> None:
         repository_root=REPOSITORY_ROOT,
     )
     assert assessment.disposition is ClaimAdmissionDisposition.HOLD
-    assert "PRIVATE_TRANSCRIPT_NOT_PUBLISHABLE:E-LONG-1" in assessment.reasons
+    assert "PRIVATE_TRANSCRIPT_NOT_PUBLISHABLE:E-BASE" in assessment.reasons
 
 
 @pytest.mark.parametrize(
@@ -252,14 +404,16 @@ def test_harness_cannot_smuggle_authority_into_claim_mapping(
         build_longitudinal_claim_mapping(
             _spec(),
             _audit(canonical_effect=canonical_effect, deployment=deployment),
+            _baseline(),
+            _intervention(),
             _request(),
         )
 
 
 def test_missing_evidence_provenance_is_still_rejected_by_existing_gate() -> None:
-    mapping = build_longitudinal_claim_mapping(_spec(), _audit(), _request())
-    empty_ledger = EpistemicProvenanceLedger()
-    empty_ledger.add(
+    mapping = _mapping()
+    incomplete_ledger = EpistemicProvenanceLedger()
+    incomplete_ledger.add(
         ContributionRecord(
             record_id="claim-prov",
             proposition="Bounded longitudinal contrast claim.",
@@ -269,9 +423,10 @@ def test_missing_evidence_provenance_is_still_rejected_by_existing_gate() -> Non
     )
     assessment = assess_longitudinal_claim_mapping(
         mapping,
-        ledger=empty_ledger,
+        ledger=incomplete_ledger,
         lot=_lot(),
         repository_root=REPOSITORY_ROOT,
     )
     assert assessment.disposition is ClaimAdmissionDisposition.HOLD
-    assert "INVALID_PROVENANCE:evidence-prov" in assessment.reasons
+    assert "INVALID_PROVENANCE:evidence-base-prov" in assessment.reasons
+    assert "INVALID_PROVENANCE:evidence-intervention-prov" in assessment.reasons
