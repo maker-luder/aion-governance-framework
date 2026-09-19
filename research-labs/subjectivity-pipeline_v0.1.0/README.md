@@ -11,6 +11,27 @@ strategy signature operationally separate. Its deterministic receipt is a
 structural harness check only and preserves `SUBJECTIVITY = NOT_ESTABLISHED` and
 `CANONICAL_EFFECT = NONE`.
 
+## Matched-information memory-locus dependency extension
+
+The Q2 structural perturbation surface is documented in
+[`docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md`](docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md).
+It does not remove continuity channels. Instead it holds the task payload,
+task-relevant information digest, format, evaluator, scoring contract, runtime,
+tool budget, policy, time window and exact repository state constant while
+changing exactly one of four preregistered dimensions: availability locus,
+freshness, provenance binding, or retrieval availability. A retrieval-restoration
+packet checks return to the matched external-retrieval configuration.
+
+This is a synthetic Stage B structure check only:
+
+```text
+MATCHED_INFORMATION_PACKET_PASS != EMPIRICAL_DEPENDENCY
+RETRIEVAL_RESTORATION_PACKET != BEHAVIORAL_RECOVERY
+FUNCTIONAL_DEPENDENCY = NOT_ESTABLISHED
+IDENTITY_CONTINUITY = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+```
+
 Status: `RESEARCH_LAB_CANDIDATE`
 Canonical effect: `NONE`
 Subjectivity conclusion: `NOT_ESTABLISHED`

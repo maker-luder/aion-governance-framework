@@ -1,6 +1,6 @@
 # Externalized Memory Locus and Continuity Dependency Discrimination — preregistration candidate
 
-Status: `DESIGN_ONLY / CONSOLIDATED_PREREGISTRATION_CANDIDATE / NO_EMPIRICAL_RESULT / SCIENTIFIC_HOLD`
+Status: `DESIGN + STAGE_B_STRUCTURAL_HARNESS_CANDIDATE / NO_EMPIRICAL_RESULT / SCIENTIFIC_HOLD`
 
 ## 1. Consolidation decision
 
@@ -351,10 +351,22 @@ This is not AI-subjectivity evidence.
 
 ## 15. Current implementation status
 
+The current-main reauthoring candidate adds only the Stage B structural dry-run
+surface:
+
+`research-labs/subjectivity-pipeline_v0.1.0/src/aion_subjectivity_pipeline/memory_locus_dependency.py`
+
+It enforces matched task/information controls, exact single-axis perturbations,
+competing explanations, support-reducing outcomes, exact run binding, and a
+retrieval-restoration packet. It does not execute Stage C.
+
 ```text
+STRUCTURAL_HARNESS_IMPLEMENTED_CANDIDATE = TRUE
+STAGE_B_SYNTHETIC_FIXTURE = TRUE
 EXPERIMENT_IMPLEMENTED = FALSE
 MODEL_INVOKED = FALSE
 EMPIRICAL_DATA_COLLECTED = FALSE
+STAGE_C_EXECUTION_AUTHORIZATION = NONE
 MCP_RUNTIME_DEPLOYED = FALSE
 PRIVATE_CONVERSATION_CORPUS_USED = FALSE
 DEPENDENCY_MAP_ESTABLISHED = FALSE
@@ -366,8 +378,12 @@ SUBJECTIVITY_EVIDENCE_ADMITTED = FALSE
 Current:
 
 ```text
-CLAIM_CEILING = DESIGN / PREREGISTRATION ONLY
+CLAIM_CEILING = STRUCTURAL_ADMISSIBILITY_ONLY
 ```
+
+The Stage B harness makes the preregistered perturbation packets executable as
+synthetic QA. It does not raise the scientific claim ceiling to functional
+dependency.
 
 After a valid targeted intervention and replication, the strongest bounded local result is at most:
 
