@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import hashlib
+import json
 import math
 from pathlib import Path
 from typing import Protocol
@@ -134,40 +136,59 @@ def _metric_name(value: object) -> str:
     return candidate
 
 
+def _content_addressed_ref(kind: str, payload: dict[str, str]) -> str:
+    if not kind.strip() or any(not key.strip() or not value.strip() for key, value in payload.items()):
+        raise LongitudinalClaimBridgeError(
+            "content-addressed reference requires non-empty kind, keys, and values"
+        )
+    canonical = json.dumps(
+        payload,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+    ).encode("utf-8")
+    return f"{kind}-sha256:{hashlib.sha256(canonical).hexdigest()}"
+
+
 def _runtime_context_ref(trial: LongitudinalTrialRecordView) -> str:
     binding = trial.binding
-    values = (
-        binding.provider_id,
-        binding.model_id,
-        binding.model_version,
-        binding.configuration_ref,
-        binding.context_ref,
-        binding.repository_commit,
-        binding.run_id,
-    )
-    if any(not value.strip() for value in values):
-        raise LongitudinalClaimBridgeError(
-            "trial runtime/context binding fields must be non-empty"
-        )
-    return "|".join(
-        (
-            f"provider:{binding.provider_id}",
-            f"model:{binding.model_id}",
-            f"version:{binding.model_version}",
-            f"configuration:{binding.configuration_ref}",
-            f"context:{binding.context_ref}",
-            f"repo:{binding.repository_commit}",
-            f"run:{binding.run_id}",
-        )
+    return _content_addressed_ref(
+        "longitudinal-runtime",
+        {
+            "configuration_ref": binding.configuration_ref,
+            "context_ref": binding.context_ref,
+            "model_id": binding.model_id,
+            "model_version": binding.model_version,
+            "provider_id": binding.provider_id,
+            "repository_commit": binding.repository_commit,
+            "run_id": binding.run_id,
+        },
     )
 
 
 def _producer_ref(trial: LongitudinalTrialRecordView) -> str:
-    if not trial.evaluator_id.strip() or not trial.evaluator_source_ref.strip():
-        raise LongitudinalClaimBridgeError(
-            "trial evaluator identity and source reference must be non-empty"
-        )
-    return f"evaluator:{trial.evaluator_id}|source:{trial.evaluator_source_ref}"
+    return _content_addressed_ref(
+        "longitudinal-producer",
+        {
+            "evaluator_id": trial.evaluator_id,
+            "evaluator_source_ref": trial.evaluator_source_ref,
+        },
+    )
+
+
+def _naturalistic_case_ref(
+    trial: LongitudinalTrialRecordView,
+    spec: LongitudinalContrastSpecView,
+) -> str:
+    return _content_addressed_ref(
+        "longitudinal-case",
+        {
+            "contrast_id": spec.contrast_id,
+            "hypothesis_id": spec.hypothesis_id,
+            "run_id": trial.binding.run_id,
+            "study_id": trial.binding.study_id,
+        },
+    )
 
 
 def _bounded_observation_statement(
@@ -370,11 +391,9 @@ def build_longitudinal_claim_mapping(
             provenance_record_id=item.provenance_record_id,
             relation=EvidenceRelation.SUPPORTS,
             publication_class=PublicationClass.SYNTHETIC,
-            naturalistic_case_id=(
-                f"study:{trial_by_run[item.run_id].binding.study_id}"
-                f"|hypothesis:{spec.hypothesis_id}"
-                f"|contrast:{spec.contrast_id}"
-                f"|run:{item.run_id}"
+            naturalistic_case_id=_naturalistic_case_ref(
+                trial_by_run[item.run_id],
+                spec,
             ),
             intervention_sensitive=False,
             transfer_candidate=False,
