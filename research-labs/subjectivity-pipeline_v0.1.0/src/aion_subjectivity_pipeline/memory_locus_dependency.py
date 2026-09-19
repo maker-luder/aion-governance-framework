@@ -42,7 +42,8 @@ class PerturbationDimension(StrEnum):
     RETRIEVAL_DEPENDENCY = "RETRIEVAL_DEPENDENCY"
 
 
-CLAIM_CEILING = "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
+CURRENT_CLAIM_CEILING = "STRUCTURAL_ADMISSIBILITY_ONLY"
+FUTURE_MAX_CLAIM_CEILING = "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
 
 
 EXPECTED_DIMENSION = {
@@ -174,7 +175,7 @@ class MemoryLocusCase:
     evidence_refs: tuple[str, ...]
     binding: MemoryLocusRunBinding
     restoration_of_condition: MemoryLocusCondition | None = None
-    claim_ceiling: str = CLAIM_CEILING
+    claim_ceiling: str = CURRENT_CLAIM_CEILING
     contains_private_transcript: bool = False
     human_psychometric_classification: bool = False
 
@@ -210,8 +211,8 @@ class MemoryLocusCase:
             raise MemoryLocusHarnessError("competing_explanations must be non-empty")
         if not self.evidence_refs or any(not item.strip() for item in self.evidence_refs):
             raise MemoryLocusHarnessError("evidence_refs must be non-empty")
-        if self.claim_ceiling != CLAIM_CEILING:
-            raise MemoryLocusHarnessError("claim_ceiling exceeds the preregistered Q2 ceiling")
+        if self.claim_ceiling != CURRENT_CLAIM_CEILING:
+            raise MemoryLocusHarnessError("Stage B claim_ceiling must remain structural admissibility only")
         if type(self.contains_private_transcript) is not bool:
             raise MemoryLocusHarnessError("contains_private_transcript must be an exact bool")
         if type(self.human_psychometric_classification) is not bool:
@@ -281,6 +282,8 @@ class MemoryLocusDependencyAudit:
     matched_information_digest: str
     reasons: tuple[str, ...]
     empirical_result: str = "NONE_SYNTHETIC_STRUCTURE_ONLY"
+    current_claim_ceiling: str = CURRENT_CLAIM_CEILING
+    future_max_claim_ceiling: str = FUTURE_MAX_CLAIM_CEILING
     functional_dependency_conclusion: str = "NOT_ESTABLISHED"
     identity_continuity_conclusion: str = "NOT_ESTABLISHED"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
