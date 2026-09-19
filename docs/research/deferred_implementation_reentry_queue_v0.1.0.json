@@ -1,0 +1,164 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "DEFERRED_IMPLEMENTATION_REENTRY_QUEUE",
+  "repository": "maker-luder/aion-governance-framework",
+  "baseline_main": "e69d7087db60359ac473d6b00f6a9a820e8a0ae1",
+  "policy": {
+    "current_main_reauthoring_required": true,
+    "direct_reopen_old_pr": false,
+    "historical_head_is_authority": false,
+    "one_active_reentry_implementation_at_a_time": true,
+    "separate_execution_and_merge_authority": true,
+    "scientific_disposition": "HOLD"
+  },
+  "queue": [
+    {
+      "id": "Q1",
+      "source_prs": [
+        93
+      ],
+      "action": "CURRENT_MAIN_REAUTHOR",
+      "kind": "BOUNDED_ENGINEERING_ADAPTER",
+      "priority": "HIGH",
+      "blocking_conditions": [],
+      "claim_ceiling": "STRUCTURAL_ADMISSIBILITY_ONLY"
+    },
+    {
+      "id": "Q2",
+      "source_prs": [
+        122
+      ],
+      "action": "CURRENT_MAIN_REAUTHOR",
+      "kind": "BOUNDED_SYNTHETIC_PERTURBATION_HARNESS",
+      "priority": "HIGH",
+      "blocking_conditions": [
+        "CURRENT_MAIN_DEDUP_AGAINST_CONTINUITY_DISSOCIATION"
+      ],
+      "claim_ceiling": "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
+    },
+    {
+      "id": "Q3",
+      "source_prs": [
+        61
+      ],
+      "action": "CURRENT_MAIN_REAUTHOR",
+      "kind": "SYNTHETIC_DISCOVERY_PROTOTYPE",
+      "priority": "MEDIUM_HIGH",
+      "blocking_conditions": [
+        "PREREGISTER_BASELINE_AND_NULL_CONTROLS"
+      ],
+      "claim_ceiling": "PREDICTIVE_OR_CAUSAL_VALUE_CANDIDATE"
+    },
+    {
+      "id": "Q4",
+      "source_prs": [
+        158,
+        161
+      ],
+      "action": "IMPLEMENT_SCHEMA_AND_GATE_ONLY",
+      "kind": "QUALITY_ENGINEERING",
+      "priority": "MEDIUM_HIGH",
+      "blocking_conditions": [
+        "NO_EMPIRICAL_RESULT_FABRICATION"
+      ],
+      "claim_ceiling": "EXECUTION_RECEIPT_STRUCTURAL_VALIDITY_ONLY"
+    },
+    {
+      "id": "Q5",
+      "source_prs": [
+        180
+      ],
+      "action": "DESIGN_FIRST",
+      "kind": "HUMAN_AI_LEARNING",
+      "priority": "MEDIUM",
+      "blocking_conditions": [
+        "CURRENT_MAIN_DEDUP",
+        "EXTERNAL_CONSTRUCT_DEDUP",
+        "OPERATIONALIZATION_REVIEW"
+      ],
+      "claim_ceiling": "HYPOTHESIS_CANDIDATE"
+    },
+    {
+      "id": "Q6",
+      "source_prs": [
+        178
+      ],
+      "action": "DESIGN_FIRST",
+      "kind": "HUMAN_AI_LEARNING",
+      "priority": "MEDIUM",
+      "blocking_conditions": [
+        "CURRENT_MAIN_DEDUP",
+        "EXTERNAL_REPAIR_LITERATURE_DEDUP",
+        "TRANSFER_AND_RETENTION_OPERATIONALIZATION"
+      ],
+      "claim_ceiling": "HYPOTHESIS_CANDIDATE"
+    },
+    {
+      "id": "Q7",
+      "source_prs": [
+        149,
+        148,
+        147
+      ],
+      "action": "PREIMPLEMENTATION_BLOCKER",
+      "kind": "CCAP_CONFIRMATORY_PROGRESSION",
+      "priority": "HIGH",
+      "blocking_conditions": [
+        "CONFIRMATORY_PREREGISTRATION_INCOMPLETE",
+        "EXECUTION_AUTHORIZATION_NONE"
+      ],
+      "claim_ceiling": "NO_CONFIRMATORY_CLAIM"
+    }
+  ],
+  "absorbed_or_reimplemented": [
+    136,
+    141,
+    142,
+    156,
+    159,
+    101,
+    106,
+    41,
+    38,
+    8,
+    12,
+    13
+  ],
+  "preserve_or_hold": [
+    103,
+    84,
+    123,
+    124,
+    154,
+    169,
+    173,
+    179,
+    37,
+    33,
+    25,
+    26,
+    19,
+    80
+  ],
+  "procedure": [
+    "LIVE_STATE_RECHECK",
+    "CURRENT_MAIN_DEDUP",
+    "EXTERNAL_DEDUP_WHERE_RESEARCH_RELEVANT",
+    "DEFINE_SURVIVING_PROPOSITION",
+    "CHOOSE_ACTION_CLASS",
+    "IMPLEMENT_ONE_ITEM_ONLY",
+    "REVERSE_REVIEW",
+    "QA_AND_REMOTE_CI",
+    "OPEN_DRAFT_PR_WITH_EXACT_HEAD",
+    "SEPARATE_HUMAN_OWNER_REVIEW_AND_AUTHORIZATION"
+  ],
+  "invariants": [
+    "IMPLEMENTATION_EXISTS != IMPLEMENTATION_CORRECT",
+    "LOCAL_TEST_PASS != REMOTE_CI_PASS",
+    "CI_PASS != SCIENTIFIC_VALIDATION",
+    "STRUCTURAL_HARNESS != EMPIRICAL_RESULT",
+    "CONSTRUCT_COLLAPSE = ACCEPTABLE_RESEARCH_OUTCOME",
+    "SUBJECTIVITY = NOT_ESTABLISHED",
+    "CONSCIOUSNESS = NOT_ESTABLISHED"
+  ]
+}
