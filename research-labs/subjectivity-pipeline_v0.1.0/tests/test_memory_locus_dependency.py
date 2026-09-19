@@ -45,6 +45,7 @@ def load() -> tuple[tuple[MemoryLocusCase, ...], dict[str, object]]:
             discriminating_prediction=shared["discriminating_prediction"],
             manipulation_check_ref=shared["manipulation_check_ref"],
             support_reducing_outcome=shared["support_reducing_outcome"],
+            competing_explanation_targeted=row["competing_explanation_targeted"],
             competing_explanations=tuple(shared["competing_explanations"]),
             evidence_refs=tuple(shared["evidence_refs"]),
             binding=binding,
@@ -180,10 +181,24 @@ def test_restoration_must_name_disabled_condition_and_restore_configuration() ->
 
 def test_competing_explanations_and_support_reducing_outcome_are_mandatory() -> None:
     cases, _ = load()
-    with pytest.raises(MemoryLocusHarnessError, match="at least two competing"):
-        replace(cases[0], competing_explanations=("ONLY_ONE",))
+    with pytest.raises(MemoryLocusHarnessError, match="competing explanations are missing"):
+        replace(
+            cases[0],
+            competing_explanations=cases[0].competing_explanations[:-1],
+        )
     with pytest.raises(MemoryLocusHarnessError, match="support_reducing_outcome"):
         replace(cases[0], support_reducing_outcome="")
+
+
+def test_non_reference_condition_targets_preregistered_competing_explanation() -> None:
+    cases, _ = load()
+    external = next(
+        case
+        for case in cases
+        if case.condition is MemoryLocusCondition.MATCHED_EXTERNAL_RETRIEVAL
+    )
+    with pytest.raises(MemoryLocusHarnessError, match="must target a preregistered"):
+        replace(external, competing_explanation_targeted="UNREGISTERED_ALTERNATIVE")
 
 
 def test_private_and_human_psychometric_data_are_rejected() -> None:
