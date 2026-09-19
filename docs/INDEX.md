@@ -37,7 +37,7 @@ For a 60-second public map, use [`RESEARCH_MAP.md`](RESEARCH_MAP.md). For guided
 
 ### Recent bounded milestones — 2026-09-18 / 2026-09-19
 
-The latest bounded material on `main` extends through PR #184. These are navigation references, not proof of their hypotheses or effectiveness.
+This is a curated navigation snapshot, not a live PR ledger. Exact merged standing and exact-head engineering status belong to live GitHub / CI. These are navigation references, not proof of their hypotheses or effectiveness.
 
 - [`research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md`](research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md) — Human–AI learning / CCTS / HTECR external crosswalk with explicit falsification boundaries.
 - [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) — separates history as record, retrieval source and replay environment.
@@ -87,6 +87,7 @@ SCIENTIFIC_DISPOSITION = HOLD
 
 - [`research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md) — exact-PR cross-read; testable AI-subjectivity possibility; typed Four-Domain admission; automated source-to-final-QA, NCR/CAPA and claim-control trace; external Human-review boundary.
 - [`../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md) — executable contract and fail-closed outcomes.
+- [`../research-labs/subjectivity-pipeline_v0.1.0/docs/EXECUTABLE_STANDARDS_CROSSWALK.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/EXECUTABLE_STANDARDS_CROSSWALK.md) — executable Four-Domain standards registry plus the 2026-09-19 governance/assurance operating route, source-lifecycle freshness gap, and explicit non-certification / non-subjectivity boundaries.
 
 The strongest implemented quality outcome is `READY_FOR_HUMAN_REVIEW`, not release or scientific validation. `SUBJECTIVITY=NOT_ESTABLISHED`; `CANONICAL_EFFECT=NONE`.
 
