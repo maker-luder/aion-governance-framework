@@ -300,6 +300,17 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
     assert all(not item.repeated for item in mapping.evidence_bindings)
     assert all(not item.comparison_control for item in mapping.evidence_bindings)
     assert all(not item.independently_scored for item in mapping.evidence_bindings)
+    runtime_refs = {item.runtime_or_context_ref for item in mapping.evidence_bindings}
+    assert len(runtime_refs) == 2
+    assert all(ref.startswith("longitudinal-runtime-sha256:") for ref in runtime_refs)
+    assert all(
+        item.producer_ref.startswith("longitudinal-producer-sha256:")
+        for item in mapping.evidence_bindings
+    )
+    assert all(
+        item.naturalistic_case_id.startswith("longitudinal-case-sha256:")
+        for item in mapping.evidence_bindings
+    )
 
     assessment = assess_longitudinal_claim_mapping(
         mapping,
@@ -315,6 +326,44 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
     assert assessment.subjectivity == "NOT_ESTABLISHED"
     assert assessment.consciousness == "NOT_ESTABLISHED"
     assert assessment.canonical_effect == "NONE"
+
+
+def test_content_addressed_runtime_ref_avoids_delimiter_collision() -> None:
+    baseline_a = _baseline()
+    baseline_b = _baseline()
+    baseline_a = replace(
+        baseline_a,
+        binding=replace(
+            baseline_a.binding,
+            provider_id="a|model:b",
+            model_id="c",
+        ),
+    )
+    baseline_b = replace(
+        baseline_b,
+        binding=replace(
+            baseline_b.binding,
+            provider_id="a",
+            model_id="b|model:c",
+        ),
+    )
+
+    mapping_a = _mapping(baseline=baseline_a)
+    mapping_b = _mapping(baseline=baseline_b)
+
+    ref_a = next(
+        item.runtime_or_context_ref
+        for item in mapping_a.evidence_bindings
+        if item.evidence_id == "E-BASE"
+    )
+    ref_b = next(
+        item.runtime_or_context_ref
+        for item in mapping_b.evidence_bindings
+        if item.evidence_id == "E-BASE"
+    )
+    assert ref_a != ref_b
+    assert ref_a.startswith("longitudinal-runtime-sha256:")
+    assert ref_b.startswith("longitudinal-runtime-sha256:")
 
 
 def test_contrast_identity_mismatch_fails_closed() -> None:
