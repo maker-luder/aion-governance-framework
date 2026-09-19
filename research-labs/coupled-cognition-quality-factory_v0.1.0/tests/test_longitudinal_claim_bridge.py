@@ -170,8 +170,6 @@ def _intervention(**changes: object) -> TrialRecord:
 
 def _request(**changes: object) -> LongitudinalClaimRequest:
     defaults = dict(
-        claim_id="CLAIM-LONG-01",
-        version=1,
         provenance_record_id="claim-prov",
         evidence=(
             LongitudinalEvidenceInput(
@@ -202,11 +200,23 @@ def _ledger() -> EpistemicProvenanceLedger:
             proposition="Bounded longitudinal contrast claim.",
             origin=ContributionOrigin.AI_FORMALIZATION,
             layer=ClaimLayer.OBSERVATION,
+            source_refs=(
+                "fixture:base:regrounding",
+                "fixture:memory:regrounding",
+            ),
         )
     )
-    for record_id, proposition in (
-        ("evidence-base-prov", "Synthetic baseline metric evidence."),
-        ("evidence-intervention-prov", "Synthetic intervention metric evidence."),
+    for record_id, proposition, source_ref in (
+        (
+            "evidence-base-prov",
+            "Synthetic baseline metric evidence.",
+            "fixture:base:regrounding",
+        ),
+        (
+            "evidence-intervention-prov",
+            "Synthetic intervention metric evidence.",
+            "fixture:memory:regrounding",
+        ),
     ):
         ledger.add(
             ContributionRecord(
@@ -214,6 +224,7 @@ def _ledger() -> EpistemicProvenanceLedger:
                 proposition=proposition,
                 origin=ContributionOrigin.AI_FORMALIZATION,
                 layer=ClaimLayer.OBSERVATION,
+                source_refs=(source_ref,),
             )
         )
     return ledger
@@ -281,6 +292,8 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
 
     claim = mapping.claim
     assert claim.claim_level is ClaimLevel.L0_OBSERVATION
+    assert claim.version == 1
+    assert claim.claim_id.startswith("longitudinal-l0-claim-sha256:")
     assert claim.statement == (
         "Synthetic longitudinal contrast C-MEMORY-01 associated with H-GROUNDING-01 "
         "recorded bounded metric deltas: REGROUNDING_COST=-1.5 turns. "
@@ -326,6 +339,66 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
     assert assessment.subjectivity == "NOT_ESTABLISHED"
     assert assessment.consciousness == "NOT_ESTABLISHED"
     assert assessment.canonical_effect == "NONE"
+
+
+def test_claim_identity_is_content_addressed_and_not_caller_selected() -> None:
+    first = _mapping()
+    second = _mapping()
+    altered = _mapping(intervention=_intervention(context_ref="context:memory-v2"))
+
+    assert first.claim.claim_id == second.claim.claim_id
+    assert first.claim.version == 1
+    assert altered.claim.claim_id != first.claim.claim_id
+
+
+def test_evidence_provenance_must_bind_exact_trial_evidence_ref() -> None:
+    mapping = _mapping()
+    ledger = _ledger()
+    wrong = EpistemicProvenanceLedger()
+    wrong.add(ledger.get("claim-prov"))
+    wrong.add(
+        ContributionRecord(
+            record_id="evidence-base-prov",
+            proposition="Valid but unrelated provenance record.",
+            origin=ContributionOrigin.AI_FORMALIZATION,
+            layer=ClaimLayer.OBSERVATION,
+            source_refs=("fixture:unrelated-source",),
+        )
+    )
+    wrong.add(ledger.get("evidence-intervention-prov"))
+
+    with pytest.raises(LongitudinalClaimBridgeError, match="not source-bound"):
+        assess_longitudinal_claim_mapping(
+            mapping,
+            ledger=wrong,
+            lot=_lot(),
+            repository_root=REPOSITORY_ROOT,
+        )
+
+
+def test_claim_provenance_must_bind_all_trial_evidence_refs() -> None:
+    mapping = _mapping()
+    ledger = _ledger()
+    wrong = EpistemicProvenanceLedger()
+    wrong.add(
+        ContributionRecord(
+            record_id="claim-prov",
+            proposition="Bounded longitudinal contrast claim.",
+            origin=ContributionOrigin.AI_FORMALIZATION,
+            layer=ClaimLayer.OBSERVATION,
+            source_refs=("fixture:base:regrounding",),
+        )
+    )
+    wrong.add(ledger.get("evidence-base-prov"))
+    wrong.add(ledger.get("evidence-intervention-prov"))
+
+    with pytest.raises(LongitudinalClaimBridgeError, match="not bound to all trial evidence refs"):
+        assess_longitudinal_claim_mapping(
+            mapping,
+            ledger=wrong,
+            lot=_lot(),
+            repository_root=REPOSITORY_ROOT,
+        )
 
 
 def test_content_addressed_runtime_ref_avoids_delimiter_collision() -> None:
@@ -530,6 +603,10 @@ def test_missing_evidence_provenance_is_still_rejected_by_existing_gate() -> Non
             proposition="Bounded longitudinal contrast claim.",
             origin=ContributionOrigin.AI_FORMALIZATION,
             layer=ClaimLayer.OBSERVATION,
+            source_refs=(
+                "fixture:base:regrounding",
+                "fixture:memory:regrounding",
+            ),
         )
     )
     assessment = assess_longitudinal_claim_mapping(
