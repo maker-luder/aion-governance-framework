@@ -71,6 +71,8 @@ def test_q2_structural_matrix_is_admissible_without_model_execution() -> None:
     )
     assert audit.restoration_present is True
     assert audit.empirical_result == "NONE_SYNTHETIC_STRUCTURE_ONLY"
+    assert audit.current_claim_ceiling == "STRUCTURAL_ADMISSIBILITY_ONLY"
+    assert audit.future_max_claim_ceiling == "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
     assert audit.functional_dependency_conclusion == "NOT_ESTABLISHED"
     assert audit.identity_continuity_conclusion == "NOT_ESTABLISHED"
     assert audit.subjectivity_conclusion == "NOT_ESTABLISHED"
@@ -209,3 +211,12 @@ def test_q2_surface_cannot_become_subjectivity_or_identity_score() -> None:
     assert "SUBJECTIVITY" not in enum_names
     assert "IDENTITY" not in enum_names
     assert "CONSCIOUSNESS" not in enum_names
+
+
+def test_stage_b_packets_cannot_claim_future_functional_dependency_ceiling() -> None:
+    cases, _ = load()
+    with pytest.raises(MemoryLocusHarnessError, match="structural admissibility only"):
+        replace(
+            cases[0],
+            claim_ceiling="FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE",
+        )
