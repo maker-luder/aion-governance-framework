@@ -44,6 +44,9 @@ def load() -> tuple[tuple[MemoryLocusCase, ...], dict[str, object]]:
             observable_ref=shared["observable_ref"],
             discriminating_prediction=shared["discriminating_prediction"],
             manipulation_check_ref=shared["manipulation_check_ref"],
+            target_channel_or_source=row["target_channel_or_source"],
+            exact_change=row["exact_change"],
+            non_targets_held_constant=tuple(row["non_targets_held_constant"]),
             support_reducing_outcome=shared["support_reducing_outcome"],
             competing_explanation_targeted=row["competing_explanation_targeted"],
             competing_explanations=tuple(shared["competing_explanations"]),
@@ -236,4 +239,20 @@ def test_stage_b_packets_cannot_claim_future_functional_dependency_ceiling() -> 
         replace(
             cases[0],
             claim_ceiling="FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE",
+        )
+
+
+def test_explicit_preregistration_packet_declarations_are_enforced() -> None:
+    cases, _ = load()
+    external = next(
+        case
+        for case in cases
+        if case.condition is MemoryLocusCondition.MATCHED_EXTERNAL_RETRIEVAL
+    )
+    with pytest.raises(MemoryLocusHarnessError, match="exact_change"):
+        replace(external, exact_change="availability_locus:WRONG")
+    with pytest.raises(MemoryLocusHarnessError, match="non_targets_held_constant"):
+        replace(
+            external,
+            non_targets_held_constant=external.non_targets_held_constant[:-1],
         )
