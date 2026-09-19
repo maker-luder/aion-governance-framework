@@ -246,6 +246,7 @@ The 2026-09-19 live observation found:
 
 ```text
 RULESET_ID = 20545803
+RULESET_UPDATED_AT = 2026-08-15T22:52:13.759+08:00
 ENFORCEMENT = active
 TARGET = default branch
 STRICT_REQUIRED_STATUS_CHECKS = true
@@ -264,7 +265,9 @@ Python 3.12
 
 The `integration_id` pin is a positive control: GitHub documents that a required
 status check can be restricted to a specific GitHub App, preventing the same-named
-status from another source from satisfying the rule.
+status from another source from satisfying the rule. This mitigates unexpected-source
+status spoofing; it does not make candidate-modified workflow logic independent of the
+candidate.
 
 However:
 
