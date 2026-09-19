@@ -16,6 +16,14 @@ PRIOR_AUTHORIZATION != CURRENT_ACTION_AUTHORIZATION
 OWNER_ACCOUNT_EVIDENCE != HUMAN_PRESENCE_ATTESTATION
 ACCOUNT_ACTION != HUMAN_OWNER_INTENT
 AUTHENTICATED_GITHUB_IDENTITY != INDEPENDENT_PROOF_OF_CURRENT_HUMAN_CONSENT
+ACCOUNT_ATTRIBUTION != INTERACTION_ORIGIN
+USER_ATTRIBUTED_APP_ACTION != DIRECT_HUMAN_UI_ACTION
+AUTHORITY_ASSERTION_ORIGIN != REPOSITORY_TRANSPORT
+TIMESTAMP_FRESHNESS != HUMAN_INTENT_FRESHNESS
+HEAD_BINDING != BASE_BINDING
+APPROVAL != MERGE_METHOD_BINDING
+CONTROL_SELF_MODIFICATION != INDEPENDENT_CONTROL_VALIDATION
+REPOSITORY_RULESET_STATE != VERSIONED_SOURCE_STATE
 FAIL_CLOSED_TO = HOLD
 ```
 
@@ -116,6 +124,196 @@ Likewise:
 - once the final receipt passes, avoid further PR state/metadata transitions before merge.
 
 This sequencing requirement is operational hardening, not a relaxation of the fail-closed gate.
+
+## Falsification review: remaining trust-boundary limits
+
+A 2026-09-19 falsification review against current GitHub documentation and the live
+repository ruleset found that the event-order fix is necessary but not sufficient.
+The gate remains a **structural repository control**, not independent proof of direct
+human interaction.
+
+### Account attribution does not establish interaction origin
+
+GitHub Apps can act on behalf of a user using a user access token, and GitHub documents
+that such API activity is attributed to that user. GitHub's webhook documentation also
+warns not to assume that `sender` always identifies the person who caused an event.
+
+Therefore:
+
+```text
+GITHUB_EVENT_SENDER_MATCH = ACCOUNT_ATTRIBUTION_EVIDENCE
+GITHUB_EVENT_SENDER_MATCH != DIRECT_HUMAN_UI_ACTION_PROOF
+GITHUB_EVENT_SENDER_MATCH != INDEPENDENT_HUMAN_INTENT_PROOF
+```
+
+The current v0.1 receipt field:
+
+```text
+approval_source.recorded_by = HUMAN_OWNER
+```
+
+must be interpreted only as a structured authority assertion, not proof that the
+Human Owner personally typed the repository edit. A future receipt schema should
+separate:
+
+```text
+AUTHORITY_ORIGIN
+= external Human Owner attestation
+
+REPOSITORY_TRANSPORT
+= PR-body edit / API transport
+
+TRANSPORT_MEDIATION
+= direct-human / assisted / programmatic / not-established
+```
+
+Until that schema exists, no review may promote the v0.1 field into stronger provenance.
+
+### Candidate-controlled control-plane limitation
+
+The current workflow uses the `pull_request` event. GitHub documents that such
+workflows run from the pull-request merge branch, and the default `actions/checkout`
+also checks out that merge branch.
+
+The current gate then executes:
+
+```text
+scripts/validate_main_transition_authority.py
+```
+
+from the checked-out candidate state. Therefore a PR that changes the authority
+workflow, validator, schema, or generator can affect the control surface used to
+evaluate that same PR.
+
+```text
+CANDIDATE_CONTROL_CHANGE
+!= INDEPENDENT_VALIDATION_OF_THAT_CONTROL_CHANGE
+```
+
+Any PR touching these paths is therefore classified as `CONTROL_PLANE_CHANGE`:
+
+```text
+.github/workflows/main-transition-authority.yml
+scripts/validate_main_transition_authority.py
+scripts/generate_main_transition_authority_receipt.py
+schemas/main_transition_authority_receipt_*.schema.json
+tests/test_main_transition_authority.py
+```
+
+For such a PR:
+
+- a candidate-head authority-gate PASS is necessary but **not sufficient** evidence;
+- exact diff review against the trusted `main` control is mandatory;
+- weakening of constants, event requirements, exact-target binding, failure behavior,
+  or epistemic-boundary fields is a HOLD condition;
+- a future implementation should move authority evaluation to a control surface that
+  the candidate cannot redefine for its own transition.
+
+This is a known assurance limitation, not evidence that current historical merges
+were unauthorized.
+
+### Base-state and merge-method binding gaps
+
+The v0.1 receipt binds the PR and exact head, but not the exact base SHA or merge
+method. The live ruleset currently uses strict required status checks, which reduces
+base-drift risk, but the receipt itself does not encode the complete approved
+transition.
+
+Future receipt hardening should bind at least:
+
+```text
+TARGET_HEAD_SHA
+TARGET_BASE_SHA
+MERGE_METHOD
+RULESET_OBSERVATION_REF
+```
+
+Operationally, until that schema exists:
+
+```text
+BASE_MOVED_AFTER_REVIEW -> RECHECK / HOLD
+MERGE_METHOD_DEFAULT = merge
+NONDEFAULT_MERGE_METHOD -> FRESH_HUMAN_OWNER_APPROVAL_REQUIRED
+```
+
+### External ruleset drift
+
+The `Main Protection` ruleset is GitHub-side configuration and is not versioned by
+this repository. A source-control review cannot prove that the live ruleset is
+unchanged.
+
+The 2026-09-19 live observation found:
+
+```text
+RULESET_ID = 20545803
+ENFORCEMENT = active
+TARGET = default branch
+STRICT_REQUIRED_STATUS_CHECKS = true
+BYPASS_ACTORS = []
+REQUIRED_APPROVING_REVIEW_COUNT = 0
+
+Fresh exact-head Human Owner approval receipt
+  integration_id = 15368
+
+Python 3.11
+  integration_id = 15368
+
+Python 3.12
+  integration_id = 15368
+```
+
+The `integration_id` pin is a positive control: GitHub documents that a required
+status check can be restricted to a specific GitHub App, preventing the same-named
+status from another source from satisfying the rule.
+
+However:
+
+```text
+RECORDED_RULESET_SNAPSHOT != LIVE_RULESET
+```
+
+A live ruleset recheck is therefore required immediately before relying on repository
+protection for a main transition.
+
+### Separation-of-duties limitation
+
+NIST SP 800-53 AC-5 treats separation of duties as a control against abuse of
+authorized privileges. This repository currently has a single Human Owner and the
+live ruleset requires zero approving reviews.
+
+Therefore:
+
+```text
+SINGLE_OWNER_MODEL != INDEPENDENT_HUMAN_SEPARATION_OF_DUTIES
+AI_REVIEW != SECOND_HUMAN_APPROVER
+CI_PASS != INDEPENDENT_AUTHORIZATION
+```
+
+The repository uses compensating controls — exact-head review, app-pinned required
+checks, no bypass actors, fail-closed authority semantics, provenance, and retained
+history — but does not claim that these are equivalent to independent human review
+or NIST conformance.
+
+### Current assurance ceiling
+
+```text
+MAIN_TRANSITION_AUTHORITY_GATE
+= STRUCTURAL_AUTHORITY_ASSERTION_CONTROL
+
+MAIN_TRANSITION_AUTHORITY_GATE
+!= DIRECT_HUMAN_PRESENCE_PROOF
+!= CRYPTOGRAPHIC_NON_REPUDIATION
+!= INDEPENDENT_SEPARATION_OF_DUTIES
+!= CANDIDATE-INDEPENDENT_CONTROL_PLANE
+```
+
+External calibration sources:
+
+- https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/authenticating-with-a-github-app-on-behalf-of-a-user
+- https://docs.github.com/en/webhooks/webhook-events-and-payloads
+- https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+- https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets
+- https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
 
 ## Receipt placement
 
