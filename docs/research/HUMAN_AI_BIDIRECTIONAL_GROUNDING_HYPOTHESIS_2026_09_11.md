@@ -275,5 +275,16 @@ validate H1 or elevate the natural observation.
 
 ```text
 PR91_ON_MAIN = TRUE
-HARNESS_TO_PR91_CLAIM_ADMISSION_MAPPING = NOT_IMPLEMENTED
+HARNESS_TO_PR91_CLAIM_ADMISSION_MAPPING = IMPLEMENTED_CANDIDATE
+MAPPING_PATH = research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py
+MAPPING_EFFECT = STRUCTURAL_ADMISSION_ONLY
+EMPIRICAL_RESULT = NONE
+SCIENTIFIC_VALIDATION = NONE
 ```
+
+The adapter maps an already-validated longitudinal contrast into the existing PR #91
+`ResearchClaimRecord` / `EvidenceBinding` surface and then submits it to the existing
+`ProvenanceClaimQualityGate`. It does not create provenance, infer support from a metric
+delta, authorize deployment, or promote subjectivity / consciousness claims. Supporting
+evidence must carry explicit producer and runtime/context references, and mechanism-level
+promotion still requires explicitly intervention-sensitive evidence under the existing gate.
