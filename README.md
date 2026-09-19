@@ -96,3 +96,5 @@ AUTONOMOUS_REPOSITORY_WRITEBACK = NO
 ```
 
 The core repository remains Apache-2.0. The optional [`Swiss Ephemeris example`](examples/swiss-ephemeris-agpl_v0.1.0/README.md) is AGPL-3.0-only, so the repository should not be described as uniformly Apache-only. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), [`CITATION.cff`](CITATION.cff), and [`docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md`](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md).
+
+For contribution, security reporting, and citation routes, see [`CONTRIBUTING.md`](CONTRIBUTING.md), [`SECURITY.md`](SECURITY.md), and [`CITATION.cff`](CITATION.cff).
