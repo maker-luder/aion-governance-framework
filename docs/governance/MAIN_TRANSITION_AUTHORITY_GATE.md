@@ -23,6 +23,7 @@ TIMESTAMP_FRESHNESS != HUMAN_INTENT_FRESHNESS
 HEAD_BINDING != BASE_BINDING
 APPROVAL != MERGE_METHOD_BINDING
 CONTROL_SELF_MODIFICATION != INDEPENDENT_CONTROL_VALIDATION
+CHECK_NAME_PLUS_APP_SOURCE != WORKFLOW_DEFINITION_BINDING
 REPOSITORY_RULESET_STATE != VERSIONED_SOURCE_STATE
 FAIL_CLOSED_TO = HOLD
 ```
@@ -267,7 +268,10 @@ The `integration_id` pin is a positive control: GitHub documents that a required
 status check can be restricted to a specific GitHub App, preventing the same-named
 status from another source from satisfying the rule. This mitigates unexpected-source
 status spoofing; it does not make candidate-modified workflow logic independent of the
-candidate.
+candidate. GitHub also documents that required status checks do not distinguish the
+workflow, matrix, or event trigger that produced a same-named check. Therefore the
+current ruleset binds the check context and app source, not an immutable workflow
+definition.
 
 However:
 
