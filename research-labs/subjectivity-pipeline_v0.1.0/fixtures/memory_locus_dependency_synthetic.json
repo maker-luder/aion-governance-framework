@@ -25,7 +25,8 @@
       "provenance_state": "INTACT",
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
-      "restoration_of_condition": null
+      "restoration_of_condition": null,
+      "competing_explanation_targeted": "REFERENCE_CONTROL"
     },
     {
       "case_id": "Q2-C1",
@@ -35,7 +36,8 @@
       "provenance_state": "INTACT",
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
-      "restoration_of_condition": null
+      "restoration_of_condition": null,
+      "competing_explanation_targeted": "INFORMATION_AVAILABILITY_ONLY"
     },
     {
       "case_id": "Q2-C5",
@@ -45,7 +47,8 @@
       "provenance_state": "INTACT",
       "freshness_state": "STALE",
       "retrieval_enabled": true,
-      "restoration_of_condition": null
+      "restoration_of_condition": null,
+      "competing_explanation_targeted": "GENERAL_PERFORMANCE_DISRUPTION"
     },
     {
       "case_id": "Q2-C6",
@@ -55,7 +58,8 @@
       "provenance_state": "BLINDED",
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
-      "restoration_of_condition": null
+      "restoration_of_condition": null,
+      "competing_explanation_targeted": "SOURCE_OR_PROVENANCE_CUEING"
     },
     {
       "case_id": "Q2-C7-OFF",
@@ -65,7 +69,8 @@
       "provenance_state": "INTACT",
       "freshness_state": "CURRENT",
       "retrieval_enabled": false,
-      "restoration_of_condition": null
+      "restoration_of_condition": null,
+      "competing_explanation_targeted": "RETRIEVAL_SCAFFOLDING"
     },
     {
       "case_id": "Q2-C7-RESTORE",
@@ -75,7 +80,8 @@
       "provenance_state": "INTACT",
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
-      "restoration_of_condition": "RETRIEVAL_DISABLED"
+      "restoration_of_condition": "RETRIEVAL_DISABLED",
+      "competing_explanation_targeted": "RETRIEVAL_SCAFFOLDING"
     }
   ],
   "shared": {
@@ -87,10 +93,16 @@
     "manipulation_check_ref": "check:exact-single-axis-perturbation",
     "support_reducing_outcome": "Any effect that disappears under content, format, provenance, freshness, or retrieval matching reduces support for a locus-sensitive dependency.",
     "competing_explanations": [
+      "LOCUS_SENSITIVE_FUNCTIONAL_DEPENDENCY",
       "INFORMATION_AVAILABILITY_ONLY",
       "RETRIEVAL_SCAFFOLDING",
       "PROMPT_OR_CONTEXT_CONDITIONING",
-      "GENERAL_PERFORMANCE_DISRUPTION"
+      "SOURCE_OR_PROVENANCE_CUEING",
+      "GENERIC_SELF_CONSISTENCY",
+      "GENERAL_PERFORMANCE_DISRUPTION",
+      "CORRELATED_STATE_CHANNELS",
+      "STOCHASTIC_OR_ORDER_EFFECT",
+      "POLICY_OR_SAFETY_LAYER_RESPONSE"
     ],
     "evidence_refs": [
       "fixture:q2-public-synthetic"
