@@ -351,6 +351,33 @@ def test_claim_identity_is_content_addressed_and_not_caller_selected() -> None:
     assert altered.claim.claim_id != first.claim.claim_id
 
 
+def test_claim_identity_changes_when_full_run_binding_changes() -> None:
+    baseline = _baseline()
+    changed = replace(
+        baseline,
+        binding=replace(
+            baseline.binding,
+            prompt_ref="prompt:changed",
+        ),
+    )
+
+    original = _mapping(baseline=baseline)
+    mutated = _mapping(baseline=changed)
+
+    assert original.claim.claim_id != mutated.claim.claim_id
+    original_ref = next(
+        item.runtime_or_context_ref
+        for item in original.evidence_bindings
+        if item.evidence_id == "E-BASE"
+    )
+    mutated_ref = next(
+        item.runtime_or_context_ref
+        for item in mutated.evidence_bindings
+        if item.evidence_id == "E-BASE"
+    )
+    assert original_ref != mutated_ref
+
+
 def test_evidence_provenance_must_bind_exact_trial_evidence_ref() -> None:
     mapping = _mapping()
     ledger = _ledger()
