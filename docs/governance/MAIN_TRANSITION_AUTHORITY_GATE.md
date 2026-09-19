@@ -72,6 +72,51 @@ For a PR targeting `main`, `.github/workflows/main-transition-authority.yml` acc
 
 Missing, stale, mismatched, inherited, contradictory, malformed, duplicate, ambiguous, or unknown evidence returns `HOLD` with exit status 10.
 
+## Operator sequencing and event-order invariant
+
+The authority receipt is both exact-head-bound and **event-bound**. The workflow also runs on
+`opened`, `synchronize`, `reopened`, and `ready_for_review` events, but the validator can
+return `PASS` only for a fresh `pull_request: edited` event that specifically edits the PR body.
+
+Therefore the safest operator order is:
+
+```text
+FINALIZE_EXACT_HEAD
+-> COMPLETE_REVIEW_AND_REQUIRED_ENGINEERING_CHECKS
+-> IF_DRAFT: MARK_READY_FOR_REVIEW
+-> WAIT_FOR_RESULTING_AUTHORITY_GATE_EVENT
+-> HUMAN_OWNER_CONFIRMS_FRESH_EXACT_HEAD_MERGE_APPROVAL
+-> EDIT_PR_BODY_WITH_ONE_FRESH_AUTHORITY_RECEIPT
+-> REQUIRE_AUTHORITY_GATE_PASS
+-> RECHECK_EXACT_HEAD_AND_REQUIRED_CHECKS
+-> MERGE_WITHOUT_INTERVENING_PR_STATE_OR_METADATA_TRANSITION
+```
+
+A successful receipt check must not be treated as permanently sticky. A later workflow-triggering
+event can become the latest required-check result even when the commit SHA is unchanged.
+
+```text
+SAME_HEAD != SAME_AUTHORITY_EVENT
+PRIOR_AUTHORITY_PASS != CURRENT_MERGE_READINESS
+EXACT_HEAD + EXACT_EVENT + EXACT_ORDER = REQUIRED_OPERATIONAL_BINDING
+```
+
+In particular, changing a Draft PR to Ready for review **after** the final receipt creates a
+`ready_for_review` event. That event is intentionally non-authorizing and therefore fails closed
+to `HOLD`. A fresh Human Owner confirmation and fresh PR-body receipt are then required before
+merge.
+
+Likewise:
+
+- `synchronize` means the candidate head changed and always requires a new exact-head review and
+  fresh approval receipt;
+- `reopened` and `ready_for_review` do not themselves authorize merge, even when the receipt
+  remains present in the body;
+- an `edited` event that changes only title or other non-body metadata remains `HOLD`;
+- once the final receipt passes, avoid further PR state/metadata transitions before merge.
+
+This sequencing requirement is operational hardening, not a relaxation of the fail-closed gate.
+
 ## Receipt placement
 
 Only after the candidate head is final and the Human Owner gives fresh approval, edit the target PR body once and add exactly one block:
