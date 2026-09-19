@@ -78,6 +78,14 @@ class LongitudinalEvidenceInput:
     metric_name: str
     study_evidence_ref: str
     publication_class: PublicationClass = PublicationClass.SYNTHETIC
+    intervention_sensitive: bool = False
+    transfer_candidate: bool = False
+    held_out: bool = False
+    repeated: bool = False
+    comparison_control: bool = False
+    independently_scored: bool = False
+    replication_source_ref: str = ""
+    replication_provenance_record_id: str = ""
 
     def __post_init__(self) -> None:
         for name in (
@@ -89,6 +97,23 @@ class LongitudinalEvidenceInput:
         ):
             if not getattr(self, name).strip():
                 raise LongitudinalClaimBridgeError(f"{name} must be non-empty")
+        if any(
+            (
+                self.intervention_sensitive,
+                self.transfer_candidate,
+                self.held_out,
+                self.repeated,
+                self.comparison_control,
+                self.independently_scored,
+            )
+        ):
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 cannot accept advanced evidence qualification flags"
+            )
+        if self.replication_source_ref or self.replication_provenance_record_id:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 cannot accept replication qualification refs"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,6 +130,8 @@ class LongitudinalClaimRequest:
     challenge_resolutions: tuple[ChallengeResolution, ...] = field(default_factory=tuple)
     dependencies: tuple[ClaimDependency, ...] = field(default_factory=tuple)
     revision: ClaimRevision | None = None
+    population_scope: bool = False
+    causal_learning_effect: bool = False
 
     def __post_init__(self) -> None:
         if not self.claim_id.strip() or not self.statement.strip():
@@ -120,6 +147,10 @@ class LongitudinalClaimRequest:
         if self.claim_level is not ClaimLevel.L0_OBSERVATION:
             raise LongitudinalClaimBridgeError(
                 "longitudinal claim bridge v0.1 admits L0 observation records only"
+            )
+        if self.population_scope or self.causal_learning_effect:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 cannot promote population or causal-learning scope"
             )
 
 
