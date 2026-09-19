@@ -645,3 +645,79 @@ def test_missing_evidence_provenance_is_still_rejected_by_existing_gate() -> Non
     assert assessment.disposition is ClaimAdmissionDisposition.HOLD
     assert "INVALID_PROVENANCE:evidence-base-prov" in assessment.reasons
     assert "INVALID_PROVENANCE:evidence-intervention-prov" in assessment.reasons
+
+def test_structural_revalidation_rejects_uncontrolled_evaluator_drift() -> None:
+    intervention = replace(_intervention(), evaluator_id="evaluator:other")
+    with pytest.raises(
+        LongitudinalClaimBridgeError,
+        match="structural revalidation failed: uncontrolled evaluator drift",
+    ):
+        _mapping(intervention=intervention)
+
+
+def test_structural_revalidation_rejects_uncontrolled_binding_drift() -> None:
+    intervention = _intervention()
+    intervention = replace(
+        intervention,
+        binding=replace(intervention.binding, provider_id="provider:other"),
+    )
+    with pytest.raises(
+        LongitudinalClaimBridgeError,
+        match="structural revalidation failed: uncontrolled binding drift",
+    ):
+        _mapping(intervention=intervention)
+
+
+def test_structural_revalidation_rejects_undeclared_condition_change() -> None:
+    intervention = _intervention()
+    intervention = replace(
+        intervention,
+        condition=replace(intervention.condition, personalization=Presence.PRESENT),
+    )
+    with pytest.raises(
+        LongitudinalClaimBridgeError,
+        match="structural revalidation failed: condition change mismatch",
+    ):
+        _mapping(intervention=intervention)
+
+
+def test_claim_identity_changes_when_falsifier_changes() -> None:
+    original = _mapping()
+    changed = _mapping(
+        spec=replace(
+            _spec(),
+            falsifier="A different preregistered falsifier for the bounded observation.",
+        )
+    )
+    assert changed.claim.claim_id != original.claim.claim_id
+
+
+def test_claim_identity_changes_when_alternative_explanations_change() -> None:
+    original = _mapping()
+    changed = _mapping(
+        spec=replace(
+            _spec(),
+            alternative_explanations=("Different alternative explanation",),
+        )
+    )
+    assert changed.claim.claim_id != original.claim.claim_id
+
+
+def test_claim_identity_changes_when_provenance_mapping_changes() -> None:
+    original = _mapping()
+    changed = _mapping(
+        request=replace(_request(), provenance_record_id="claim-prov-v2")
+    )
+    assert changed.claim.claim_id != original.claim.claim_id
+
+
+def test_claim_identity_changes_when_evidence_identity_changes() -> None:
+    original = _mapping()
+    evidence = _request().evidence
+    changed_evidence = (
+        replace(evidence[0], evidence_id="E-BASE-V2"),
+        evidence[1],
+    )
+    changed = _mapping(request=_request(evidence=changed_evidence))
+    assert changed.claim.claim_id != original.claim.claim_id
+
