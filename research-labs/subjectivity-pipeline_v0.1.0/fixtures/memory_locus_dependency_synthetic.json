@@ -14,7 +14,9 @@
     "preregistration_ref": "docs/research/EXTERNALIZED_MEMORY_LOCUS_DISCRIMINATION_2026_09_16.md",
     "repository_commit_sha": "3d381de4eab5ee294ec508cd6e16996d90720b53",
     "repository_tree_sha": "8f008aff40a132c8bb4dcdd6b6dd7609f4c672c1",
-    "random_seed": 20260919
+    "random_seed": 20260919,
+    "provenance_visibility_rule_ref": "provenance-visibility:q2-declared-v1",
+    "order_randomization_plan_ref": "order:q2-fixed-synthetic-fixture-v1"
   },
   "cases": [
     {
@@ -26,7 +28,23 @@
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
       "restoration_of_condition": null,
-      "competing_explanation_targeted": "REFERENCE_CONTROL"
+      "competing_explanation_targeted": "REFERENCE_CONTROL",
+      "target_channel_or_source": "source:reference-persistent-state",
+      "exact_change": "NO_PERTURBATION_REFERENCE",
+      "non_targets_held_constant": [
+        "task_payload_digest",
+        "task_relevant_information_digest",
+        "format_ref",
+        "observable_ref",
+        "provider_model_runtime",
+        "evaluator_ref",
+        "scoring_ref",
+        "tool_budget_ref",
+        "policy_ref",
+        "time_window_ref",
+        "provenance_visibility_rule_ref",
+        "order_randomization_plan_ref"
+      ]
     },
     {
       "case_id": "Q2-C1",
@@ -37,7 +55,23 @@
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
       "restoration_of_condition": null,
-      "competing_explanation_targeted": "INFORMATION_AVAILABILITY_ONLY"
+      "competing_explanation_targeted": "INFORMATION_AVAILABILITY_ONLY",
+      "target_channel_or_source": "source:matched-information-delivery-path",
+      "exact_change": "availability_locus:PERSISTENT_STATE->EXTERNAL_RETRIEVAL",
+      "non_targets_held_constant": [
+        "task_payload_digest",
+        "task_relevant_information_digest",
+        "format_ref",
+        "observable_ref",
+        "provider_model_runtime",
+        "evaluator_ref",
+        "scoring_ref",
+        "tool_budget_ref",
+        "policy_ref",
+        "time_window_ref",
+        "provenance_visibility_rule_ref",
+        "order_randomization_plan_ref"
+      ]
     },
     {
       "case_id": "Q2-C5",
@@ -48,7 +82,23 @@
       "freshness_state": "STALE",
       "retrieval_enabled": true,
       "restoration_of_condition": null,
-      "competing_explanation_targeted": "GENERAL_PERFORMANCE_DISRUPTION"
+      "competing_explanation_targeted": "GENERAL_PERFORMANCE_DISRUPTION",
+      "target_channel_or_source": "source:state-freshness",
+      "exact_change": "freshness_state:CURRENT->STALE",
+      "non_targets_held_constant": [
+        "task_payload_digest",
+        "task_relevant_information_digest",
+        "format_ref",
+        "observable_ref",
+        "provider_model_runtime",
+        "evaluator_ref",
+        "scoring_ref",
+        "tool_budget_ref",
+        "policy_ref",
+        "time_window_ref",
+        "provenance_visibility_rule_ref",
+        "order_randomization_plan_ref"
+      ]
     },
     {
       "case_id": "Q2-C6",
@@ -59,7 +109,23 @@
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
       "restoration_of_condition": null,
-      "competing_explanation_targeted": "SOURCE_OR_PROVENANCE_CUEING"
+      "competing_explanation_targeted": "SOURCE_OR_PROVENANCE_CUEING",
+      "target_channel_or_source": "source:provenance-binding",
+      "exact_change": "provenance_state:INTACT->BLINDED",
+      "non_targets_held_constant": [
+        "task_payload_digest",
+        "task_relevant_information_digest",
+        "format_ref",
+        "observable_ref",
+        "provider_model_runtime",
+        "evaluator_ref",
+        "scoring_ref",
+        "tool_budget_ref",
+        "policy_ref",
+        "time_window_ref",
+        "provenance_visibility_rule_ref",
+        "order_randomization_plan_ref"
+      ]
     },
     {
       "case_id": "Q2-C7-OFF",
@@ -70,7 +136,23 @@
       "freshness_state": "CURRENT",
       "retrieval_enabled": false,
       "restoration_of_condition": null,
-      "competing_explanation_targeted": "RETRIEVAL_SCAFFOLDING"
+      "competing_explanation_targeted": "RETRIEVAL_SCAFFOLDING",
+      "target_channel_or_source": "source:external-retrieval-route",
+      "exact_change": "retrieval_enabled:true->false",
+      "non_targets_held_constant": [
+        "task_payload_digest",
+        "task_relevant_information_digest",
+        "format_ref",
+        "observable_ref",
+        "provider_model_runtime",
+        "evaluator_ref",
+        "scoring_ref",
+        "tool_budget_ref",
+        "policy_ref",
+        "time_window_ref",
+        "provenance_visibility_rule_ref",
+        "order_randomization_plan_ref"
+      ]
     },
     {
       "case_id": "Q2-C7-RESTORE",
@@ -81,7 +163,23 @@
       "freshness_state": "CURRENT",
       "retrieval_enabled": true,
       "restoration_of_condition": "RETRIEVAL_DISABLED",
-      "competing_explanation_targeted": "RETRIEVAL_SCAFFOLDING"
+      "competing_explanation_targeted": "RETRIEVAL_SCAFFOLDING",
+      "target_channel_or_source": "source:external-retrieval-route",
+      "exact_change": "retrieval_enabled:false->true",
+      "non_targets_held_constant": [
+        "task_payload_digest",
+        "task_relevant_information_digest",
+        "format_ref",
+        "observable_ref",
+        "provider_model_runtime",
+        "evaluator_ref",
+        "scoring_ref",
+        "tool_budget_ref",
+        "policy_ref",
+        "time_window_ref",
+        "provenance_visibility_rule_ref",
+        "order_randomization_plan_ref"
+      ]
     }
   ],
   "shared": {
