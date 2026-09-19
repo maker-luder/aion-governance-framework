@@ -52,10 +52,12 @@ FUNCTIONAL_DEPENDENCY != IDENTITY_CONTINUITY
 CONTINUITY_LIKE_OUTPUT != CONTINUITY_MECHANISM
 ```
 
-Current ceiling:
+Current and future ceilings:
 
 ```text
 EMPIRICAL_RESULT = NONE_SYNTHETIC_STRUCTURE_ONLY
+CURRENT_CLAIM_CEILING = STRUCTURAL_ADMISSIBILITY_ONLY
+FUTURE_MAX_CLAIM_CEILING = FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE
 FUNCTIONAL_DEPENDENCY = NOT_ESTABLISHED
 IDENTITY_CONTINUITY = NOT_ESTABLISHED
 SUBJECTIVITY = NOT_ESTABLISHED
@@ -63,4 +65,24 @@ CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
+```
+
+
+## External construct-dedup anchors
+
+These sources are adjacency controls, not validation of the repository-local hypothesis:
+
+- Risko & Gilbert (2016), *Cognitive Offloading*, Trends in Cognitive Sciences,
+  DOI 10.1016/j.tics.2016.07.002 — external support can change task processing
+  requirements without becoming identical to internal memory.
+- Johnson, Hashtroudi & Lindsay (1993), *Source monitoring*, Psychological
+  Bulletin, DOI 10.1037/0033-2909.114.1.3 — source attribution is a distinct
+  problem from content availability.
+- Wang et al. (NeurIPS 2023), *Augmenting Language Models with Long-Term
+  Memory*, DOI 10.52202/075280-3259 — a decoupled memory retriever/reader
+  architecture demonstrates that retrieval path and model backbone can be
+  architecturally distinct.
+
+```text
+EXTERNAL_CONSTRUCT_ADJACENCY != Q2_VALIDATION
 ```
