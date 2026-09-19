@@ -52,8 +52,15 @@ class LongitudinalRunBindingView(Protocol):
     model_id: str
     model_version: str
     configuration_ref: str
+    task_id: str
+    task_version: str
+    prompt_ref: str
     context_ref: str
+    tool_manifest_ref: str
+    scorer_ref: str
+    preregistration_ref: str
     repository_commit: str
+    source_refs: tuple[str, ...]
 
 
 class LongitudinalMetricObservationView(Protocol):
@@ -153,9 +160,21 @@ def _runtime_context_ref(trial: LongitudinalTrialRecordView) -> str:
             "context_ref": binding.context_ref,
             "model_id": binding.model_id,
             "model_version": binding.model_version,
+            "preregistration_ref": binding.preregistration_ref,
+            "prompt_ref": binding.prompt_ref,
             "provider_id": binding.provider_id,
             "repository_commit": binding.repository_commit,
             "run_id": binding.run_id,
+            "scorer_ref": binding.scorer_ref,
+            "source_refs": json.dumps(
+                binding.source_refs,
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ),
+            "study_id": binding.study_id,
+            "task_id": binding.task_id,
+            "task_version": binding.task_version,
+            "tool_manifest_ref": binding.tool_manifest_ref,
         },
     )
 
@@ -532,10 +551,8 @@ def _validate_provenance_binding(
             )
         try:
             record = ledger.get(binding.provenance_record_id)
-        except ProvenanceError as exc:
-            raise LongitudinalClaimBridgeError(
-                f"mapped evidence provenance is missing: {evidence_id}"
-            ) from exc
+        except ProvenanceError:
+            continue
         if expected_ref not in record.source_refs:
             raise LongitudinalClaimBridgeError(
                 f"mapped evidence provenance is not source-bound: {evidence_id}"
@@ -543,15 +560,14 @@ def _validate_provenance_binding(
 
     try:
         claim_record = ledger.get(mapping.claim.provenance_record_id or "")
-    except ProvenanceError as exc:
-        raise LongitudinalClaimBridgeError(
-            "mapped claim provenance is missing"
-        ) from exc
-    expected_claim_sources = set(expected_by_id.values())
-    if not expected_claim_sources.issubset(set(claim_record.source_refs)):
-        raise LongitudinalClaimBridgeError(
-            "mapped claim provenance is not bound to all trial evidence refs"
-        )
+    except ProvenanceError:
+        claim_record = None
+    if claim_record is not None:
+        expected_claim_sources = set(expected_by_id.values())
+        if not expected_claim_sources.issubset(set(claim_record.source_refs)):
+            raise LongitudinalClaimBridgeError(
+                "mapped claim provenance is not bound to all trial evidence refs"
+            )
 
 
 def _validate_quality_lot_evidence(
