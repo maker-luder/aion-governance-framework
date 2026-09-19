@@ -1,6 +1,6 @@
 # Deferred / historical PR implementation re-entry plan — 2026-09-19
 
-Status: `EXECUTION_GUIDE / CURRENT_MAIN_REAUTHORING_ONLY / SCIENTIFIC_HOLD`
+Status: `REFRESHED_CURRENT_MAIN_REVIEW / CURRENT_MAIN_REAUTHORING_ONLY / SCIENTIFIC_HOLD`
 
 ## 1. Purpose
 
@@ -10,8 +10,11 @@ It is intentionally **not** a historical-branch revival plan.
 
 ```text
 REPOSITORY = maker-luder/aion-governance-framework
-BASE_MAIN = e69d7087db60359ac473d6b00f6a9a820e8a0ae1
-BASE_TREE = 7b207e6927f9f6c36218e11c024338c0b7186ec6
+BASE_MAIN = 27f42f0636583a7f2da5a3d5b8a2352aecd1cfc8
+BASE_TREE = 2d38ccebc8522c07b90fc4d7439441ef1b7003b3
+REFRESHED_FROM_PR_HEAD = ab9e349a56528ea79c650785027c480c3fe424cb
+REFRESH_DATE = 2026-09-20
+REFRESH_DISPOSITION = MINIMAL_DOC_REFRESH
 
 DIRECT_REOPEN_AND_MERGE_OLD_PR = NO
 HISTORICAL_HEAD_AS_CURRENT_AUTHORITY = NO
@@ -41,80 +44,84 @@ AND BOUNDED_TEST_OR_ENGINEERING_PATH_EXISTS
 
 A historical PR number is provenance only. Implementation must be authored from current `main`.
 
-## 3. Active implementation queue
+## 3. Current disposition queue
 
-### Q1 — PR #93 derived gap: grounding-harness → claim-admission binding
-
-Current-main evidence still records:
-
-```text
-HARNESS_TO_PR91_CLAIM_ADMISSION_MAPPING = NOT_IMPLEMENTED
-```
-
-Action:
-
-```text
-ACTION = CURRENT_MAIN_REAUTHOR
-TYPE = BOUNDED_ENGINEERING_ADAPTER
-PRIORITY = HIGH
-LIVE_MODEL_REQUIRED = NO
-HUMAN_SUBJECT_REQUIRED = NO
-```
-
-Implement only the adapter / admission mapping between the current bidirectional-grounding study surface and the current provenance / claim-quality admission machinery.
-
-Required checks:
-- current schema and protocol exact bindings;
-- no second evidence ontology;
-- no automatic claim promotion;
-- counterevidence and falsifier paths remain explicit;
-- successful mapping means structural admissibility only.
-
-### Q2 — PR #122: memory-locus continuity dependency discrimination
-
-PR #122 is merged as the retained design surface, but the experimental implementation remained false.
-
-```text
-ACTION = CURRENT_MAIN_REAUTHOR
-TYPE = BOUNDED_SYNTHETIC_PERTURBATION_HARNESS
-PRIORITY = HIGH
-HISTORICAL_CODE_REUSE = NO
-```
-
-Before coding:
-1. deduplicate against the existing continuity-dissociation harness;
-2. preserve matched-information controls;
-3. manipulate availability locus / provenance binding / freshness / retrieval dependency only where separable;
-4. predeclare selectivity and restoration criteria;
-5. retain functional-dependency claim ceiling.
-
-```text
-FUNCTIONAL_DEPENDENCY != IDENTITY_CONTINUITY
-CONTINUITY_LIKE_OUTPUT != CONTINUITY_MECHANISM
-```
+Q1 and Q2 are no longer active implementation work. They moved to the completed / absorbed section after the live current-main recheck below.
 
 ### Q3 — PR #61: latent regulatory-variable discovery extension
 
-Current `main` still documents the research question but not an implemented discovery surface.
+Current `main` already contains two relevant but non-identical surfaces:
+
+1. `research-labs/endogenous-goal-dynamics_v0.1.0/` freezes the candidate universe for matched selection trials, separates generation from selection, binds provider/model/generator/selector/seed, and preregisters random, prompt, memory, intervention, ablation, stale-state and cross-provider falsifiers;
+2. `research-labs/endogenous-norm-formation_v0.1.0/docs/LATENT_REGULATORY_STATE_DISCOVERY.md` documents a future latent-state protocol with held-out prediction, intervention, ablation, replay, transfer, provenance and rejection criteria, but remains explicitly `NOT IMPLEMENTED`.
+
+Therefore Q3 is not a new research axis and is not an executable implementation item in this refresh:
 
 ```text
-ACTION = CURRENT_MAIN_REAUTHOR
-TYPE = SYNTHETIC_DISCOVERY_PROTOTYPE
+CURRENT_MAIN_DEDUP = COMPLETE
+DEDUP_RESULT = OVERLAPPING_CONTROL_MACHINERY / DISTINCT_UNIMPLEMENTED_DISCOVERY_QUESTION
+ACTION = DESIGN_ONLY_HOLD
+Q3_EXECUTABLE_IMPLEMENTATION = NOT_AUTHORIZED
 PRIORITY = MEDIUM_HIGH
+SCIENTIFIC_DISPOSITION = HOLD
 ```
 
-Minimum implementation:
-- engineer-defined baseline representation;
-- candidate latent-variable discovery path;
-- held-out prediction test;
-- intervention / perturbation test where technically meaningful;
-- anti-overfit and null / shuffled controls;
-- explicit rejection path if discovered variables do not add predictive value.
+The surviving discriminant is narrower than the earlier prototype wording:
 
 ```text
-DISCOVERED_VARIABLE != ENDOGENOUS_NORM
+OBSERVED_REGULARITY
+!= LATENT_REGULATORY_VARIABLE
+
+IF
+STOCHASTIC_VARIATION
++ SELECTION
++ EVALUATOR_PRESSURE
++ ENVIRONMENT_FEEDBACK
+CAN EXPLAIN THE EFFECT
+
+THEN
+LATENT_REGULATORY_VARIABLE = NOT_ESTABLISHED
+```
+
+Before a latent regulatory-variable candidate may be considered, a future protocol must control or bind:
+
+- stochastic candidate generation and the candidate universe;
+- the selection rule;
+- random-seed effects;
+- evaluator / reward pressure;
+- environmental feedback;
+- prompt, context, memory, tools and harness / orchestration confounds;
+- provider, model and runtime identity.
+
+Only after those controls may the following justify further study:
+
+- a reproducible residual effect;
+- predictable intervention sensitivity;
+- held-out predictive value under conditions not used to design the candidate.
+
+```text
+RESIDUAL_EFFECT != LATENT_REGULATORY_VARIABLE_PROVEN
+RESIDUAL_EFFECT != ENDOGENOUS_VARIABLE_PROVEN
+RESIDUAL_EFFECT != SUBJECTIVITY
 PREDICTIVE_GAIN != SUBJECTIVITY_EVIDENCE
 ```
+
+This compact compound falsifier adds discriminant value because the existing current-main surfaces distribute these controls across the Endogenous Goal Dynamics harness, the latent-state future protocol, and the upstream 12-axis intake; none states the complete stochastic-search-plus-selection rejection rule in one Q3 admission boundary.
+
+### OpenAI source cross-check for Q3 scope
+
+The already-ingested OpenAI case, *How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules* (2026-09-10), describes bacteria, fungi, parasites and viruses as the biomedical problem domain. Those organisms are not an AI mutation or latent-regulation mechanism.
+
+```text
+FUNGI_AS_AI_MECHANISM = REJECT
+BIOMEDICAL_PROBLEM_DOMAIN != AI_MUTATION_MECHANISM
+AI_HYPOTHESIS_GENERATION != EMPIRICAL_CONFIRMATION
+PROMISING_CANDIDATE != VALIDATED_EFFECT
+DUPLICATE_REINGESTION = NO
+NEW_BIOLOGY_RESEARCH_AXIS = NO
+```
+
+The source remains useful only for the repository's existing hypothesis-generation / empirical-confirmation boundary.
 
 ### Q4 — PR #158 / #161: TEVV and security execution-receipt contracts
 
@@ -229,7 +236,34 @@ Next admissible step:
 4. obtain separate execution authorization;
 5. only then build/run the confirmatory harness.
 
-## 4. Already reimplemented / absorbed — do not revive old PR
+## 4. Completed / absorbed / reimplemented — do not revive old PR
+
+### Q1 — completed on current main by PR #183
+
+PR #183 merged the claim-admission bridge at merge commit `3d381de4eab5ee294ec508cd6e16996d90720b53`.
+
+```text
+Q1_STATUS = COMPLETED / IMPLEMENTED_ON_CURRENT_MAIN
+SOURCE_GAP = #93-DERIVED
+CURRENT_IMPLEMENTATION = LONGITUDINAL_CLAIM_ADMISSION_BRIDGE
+ACTIVE_IMPLEMENTATION_QUEUE = NO
+CLAIM_CEILING = STRUCTURAL_ADMISSIBILITY_ONLY
+```
+
+### Q2 — completed on current main by PR #184
+
+PR #184 merged the bounded synthetic memory-locus dependency harness at merge commit `240c1c36c1d06cd12de93d1bc3637203c2351e47`. The implementation explicitly deduplicates against the continuity-dissociation harness and preserves the functional-dependency claim ceiling.
+
+```text
+Q2_STATUS = COMPLETED / IMPLEMENTED_ON_CURRENT_MAIN
+SOURCE_SPECIFICATION = #122
+CURRENT_IMPLEMENTATION = MEMORY_LOCUS_DEPENDENCY_HARNESS
+ACTIVE_IMPLEMENTATION_QUEUE = NO
+FUNCTIONAL_DEPENDENCY = NOT_ESTABLISHED
+IDENTITY_CONTINUITY = NOT_ESTABLISHED
+```
+
+The following earlier items also remain absorbed or reimplemented:
 
 ```text
 #136 -> reimplemented / hardened by merged #139 and #140
@@ -335,6 +369,29 @@ STEP 9  HUMAN_OWNER_REVIEW
   -> execution authorization is separate from merge authorization
 ```
 
+For any eventual `main` transition, PR #188 makes the following event order binding:
+
+```text
+FINALIZE_EXACT_HEAD
+-> COMPLETE_REVIEW_AND_REQUIRED_ENGINEERING_CHECKS
+-> IF_DRAFT: MARK_READY_FOR_REVIEW
+-> WAIT_FOR_RESULTING_AUTHORITY_GATE_EVENT
+-> HUMAN_OWNER_CONFIRMS_FRESH_EXACT_HEAD_MERGE_APPROVAL
+-> EDIT_PR_BODY_WITH_ONE_FRESH_AUTHORITY_RECEIPT
+-> REQUIRE_AUTHORITY_GATE_PASS
+-> RECHECK_EXACT_HEAD_AND_REQUIRED_CHECKS
+-> MERGE_WITHOUT_INTERVENING_PR_STATE_OR_METADATA_TRANSITION
+```
+
+The authority receipt is event-bound as well as exact-head-bound. A later `synchronize`, `reopened`, `ready_for_review`, title edit, or other relevant state / metadata event does not inherit an earlier PASS. Any such change requires a fresh exact-head review and, where applicable, a fresh Human Owner confirmation and PR-body receipt.
+
+```text
+CI_PASS != MERGE_AUTHORITY
+AI_REVIEW != HUMAN_OWNER_MERGE_APPROVAL
+PRIOR_AUTHORITY_PASS != CURRENT_MERGE_READINESS
+NO_INTERVENING_PR_STATE_OR_METADATA_CHANGE = REQUIRED_AFTER_FINAL_PASS
+```
+
 ## 7. Queue discipline
 
 ```text
@@ -355,8 +412,17 @@ The purpose is to prevent historical backlog from becoming an uncontrolled paral
 IMPLEMENTATION_EXISTS != IMPLEMENTATION_CORRECT
 STRUCTURAL_HARNESS != EMPIRICAL_RESULT
 EMPIRICAL_EFFECT != INTERNAL_MECHANISM
+VARIATION != SELECTION
+CANDIDATE_GENERATION != CANDIDATE_SELECTION
+SELF_GENERATED_CANDIDATE != ENDOGENOUS_SELECTION
+STOCHASTIC_SEARCH_PLUS_SELECTION != ENDOGENOUS_AGENCY
+OBSERVED_REGULARITY != LATENT_INTERNAL_MECHANISM
+RESIDUAL_EFFECT != SUBJECTIVITY
+PREDICTIVE_GAIN != SUBJECTIVITY_EVIDENCE
 ADAPTATION != SUBJECTIVITY
 CONTINUITY != IDENTITY
+TEST_PASS != SCIENTIFIC_VALIDATION
+CI_PASS != SCIENTIFIC_VALIDATION
 QUALITY_GATE_PASS != SCIENTIFIC_VALIDATION
 
 SUBJECTIVITY = NOT_ESTABLISHED
