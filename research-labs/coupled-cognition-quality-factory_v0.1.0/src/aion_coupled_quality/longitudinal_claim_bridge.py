@@ -377,12 +377,16 @@ def build_longitudinal_claim_mapping(
 
     for run_id in (spec.baseline_run_id, spec.intervention_run_id):
         for metric_name in required_metrics:
-            if not any(
-                item.run_id == run_id and item.metric_name == metric_name
+            provided_refs = {
+                item.study_evidence_ref
                 for item in request.evidence
-            ):
+                if item.run_id == run_id and item.metric_name == metric_name
+            }
+            expected_refs = allowed_refs[(run_id, metric_name)]
+            if provided_refs != expected_refs:
                 raise LongitudinalClaimBridgeError(
-                    "supporting evidence must cover both runs for every required metric"
+                    "evidence mapping must cover every trial metric evidence ref: "
+                    f"{run_id}/{metric_name}"
                 )
 
     bindings = tuple(
