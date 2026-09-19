@@ -99,6 +99,27 @@ def test_q2_structural_matrix_is_admissible_without_model_execution() -> None:
     assert first == second
     fixture = LAB_ROOT / "fixtures/memory_locus_dependency_synthetic.json"
     assert first["fixture_sha256"] == hashlib.sha256(fixture.read_bytes()).hexdigest()
+    assert first["experiment_id"] == "AION-MEMORY-LOCUS-DEPENDENCY-SYNTHETIC-001"
+    assert first["mode"] == "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    assert first["implementation_base"] == {
+        "commit_sha": "3d381de4eab5ee294ec508cd6e16996d90720b53",
+        "tree_sha": "8f008aff40a132c8bb4dcdd6b6dd7609f4c672c1",
+    }
+    assert first["specification_dependency"] == {
+        "pull_request": 122,
+        "merged_head_sha": "dcc669584070f2b49b5338926b79110c30a67cb1",
+        "merge_commit_sha": "d9a3a94ba4d15d499532ca2eceadd16ad704c67c",
+        "merged": True,
+        "used_as_implementation_base": False,
+        "full_conformance_to_merged_specification": "NOT_ESTABLISHED",
+    }
+    assert set(first["case_fingerprints"]) == {
+        condition.value for condition in MemoryLocusCondition
+    }
+    assert first["indicator_validation_status"] == "NOT_VALIDATED"
+    assert len(first["competing_explanations_retained"]) == 10
+    assert first["merge_authorization"] == "NONE"
+    assert first["main_write"] == "NO"
     assert first["current_claim_ceiling"] == "STRUCTURAL_ADMISSIBILITY_ONLY"
     assert first["future_max_claim_ceiling"] == "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
     assert first["model_invoked"] is False
