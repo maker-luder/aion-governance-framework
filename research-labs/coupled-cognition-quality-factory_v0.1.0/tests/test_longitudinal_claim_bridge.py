@@ -260,6 +260,15 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
     assert mapping.claim.subjectivity_claim is False
     assert mapping.claim.consciousness_claim is False
     assert mapping.canonical_effect == "NONE"
+    assert mapping.claim.claim_level is ClaimLevel.L0_OBSERVATION
+    assert mapping.claim.population_scope is False
+    assert mapping.claim.causal_learning_effect is False
+    assert all(not item.intervention_sensitive for item in mapping.evidence_bindings)
+    assert all(not item.transfer_candidate for item in mapping.evidence_bindings)
+    assert all(not item.held_out for item in mapping.evidence_bindings)
+    assert all(not item.repeated for item in mapping.evidence_bindings)
+    assert all(not item.comparison_control for item in mapping.evidence_bindings)
+    assert all(not item.independently_scored for item in mapping.evidence_bindings)
     assert {item.runtime_or_context_ref for item in mapping.evidence_bindings} == {
         (
             "provider:provider:test|model:model:test|version:v1|"
@@ -360,19 +369,76 @@ def test_support_must_cover_both_runs_for_required_metric() -> None:
         )
 
 
-def test_l3_is_not_admitted_without_explicit_intervention_sensitive_evidence() -> None:
-    mapping = _mapping(_request(claim_level=ClaimLevel.L3_INTERVENTION_SENSITIVE_MECHANISM))
-    assessment = assess_longitudinal_claim_mapping(
-        mapping,
-        ledger=_ledger(),
-        lot=_lot(),
-        repository_root=REPOSITORY_ROOT,
-    )
-    assert assessment.disposition is ClaimAdmissionDisposition.HOLD
-    assert (
-        "MECHANISM_PROMOTION_REQUIRES_INTERVENTION_SENSITIVE_EVIDENCE"
-        in assessment.reasons
-    )
+@pytest.mark.parametrize(
+    "claim_level",
+    (
+        ClaimLevel.L1_REPEATABLE_BEHAVIOR,
+        ClaimLevel.L2_STATE_ASSOCIATION,
+        ClaimLevel.L3_INTERVENTION_SENSITIVE_MECHANISM,
+        ClaimLevel.L4_ROBUST_REPLICATION,
+        ClaimLevel.L5_SUBJECTIVITY_NOT_AUTOMATICALLY_ESTABLISHED,
+    ),
+)
+def test_bridge_v01_rejects_claim_levels_above_l0(claim_level: ClaimLevel) -> None:
+    with pytest.raises(LongitudinalClaimBridgeError, match="L0 observation records only"):
+        _request(claim_level=claim_level)
+
+
+@pytest.mark.parametrize(
+    "field_name",
+    (
+        "intervention_sensitive",
+        "transfer_candidate",
+        "held_out",
+        "repeated",
+        "comparison_control",
+        "independently_scored",
+    ),
+)
+def test_advanced_evidence_qualification_flags_fail_closed(field_name: str) -> None:
+    changes = {field_name: True}
+    with pytest.raises(LongitudinalClaimBridgeError, match="advanced evidence qualification"):
+        LongitudinalEvidenceInput(
+            evidence_id="E-ADVANCED",
+            provenance_record_id="evidence-base-prov",
+            relation=EvidenceRelation.SUPPORTS,
+            run_id="RUN-BASE",
+            metric_name=MetricName.REGROUNDING_COST.value,
+            study_evidence_ref="fixture:base:regrounding",
+            **changes,
+        )
+
+
+def test_replication_qualification_refs_fail_closed() -> None:
+    with pytest.raises(LongitudinalClaimBridgeError, match="replication qualification"):
+        LongitudinalEvidenceInput(
+            evidence_id="E-REPLICATION",
+            provenance_record_id="evidence-base-prov",
+            relation=EvidenceRelation.SUPPORTS,
+            run_id="RUN-BASE",
+            metric_name=MetricName.REGROUNDING_COST.value,
+            study_evidence_ref="fixture:base:regrounding",
+            replication_source_ref="fixture:replication",
+            replication_provenance_record_id="replication-prov",
+        )
+
+
+@pytest.mark.parametrize(
+    ("population_scope", "causal_learning_effect"),
+    ((True, False), (False, True), (True, True)),
+)
+def test_population_and_causal_learning_promotion_fail_closed(
+    population_scope: bool,
+    causal_learning_effect: bool,
+) -> None:
+    with pytest.raises(
+        LongitudinalClaimBridgeError,
+        match="cannot promote population or causal-learning scope",
+    ):
+        _request(
+            population_scope=population_scope,
+            causal_learning_effect=causal_learning_effect,
+        )
 
 
 def test_private_evidence_remains_blocked_by_existing_gate() -> None:
