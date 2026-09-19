@@ -246,29 +246,46 @@ moving:
 - ISO/IEC 25059:2023 has advanced replacement work noted by ISO.
 
 A future minimal executable extension may therefore add a bounded lifecycle
-record such as:
+record. The status must be **multi-axis**, because publication and maintenance
+state are not mutually exclusive. For example, NIST AI RMF 1.0 is published
+while a revision is in progress, and ISO/IEC 25059:2023 remains published while
+a replacement is in the approval phase.
 
 ```text
-StandardLifecycleStatus
-= PUBLISHED
-| UNDER_REVISION
-| INITIAL_PUBLIC_DRAFT
-| UNDER_DEVELOPMENT
-| SUPERSEDED
+StandardLifecycleRecord
+
+issuance_state
+= UNDER_DEVELOPMENT
+| DRAFT
+| PUBLISHED
 | WITHDRAWN
+
+maintenance_state
+= CURRENT
+| REVISION_IN_PROGRESS
+| REPLACEMENT_PENDING
+| SUPERSEDED
+| UNKNOWN
 
 status_observed_on
 status_source_locator
+successor_ref
 revalidation_trigger
 ```
 
 Candidate fail-closed rules:
 
 ```text
-DRAFT_AS_FINAL_STANDARD -> REJECT
+UNDER_DEVELOPMENT_OR_DRAFT_AS_FINAL_STANDARD -> REJECT
 SUPERSEDED_SOURCE_USED_AS_CURRENT_WITHOUT_JUSTIFICATION -> REJECT
 MISSING_STATUS_PROVENANCE -> REJECT
 STATUS_CHANGE_AFTER_RECORDED_REVIEW -> REVALIDATION_REQUIRED
+```
+
+```text
+PUBLISHED + REVISION_IN_PROGRESS = VALID_COMBINATION
+PUBLISHED + REPLACEMENT_PENDING = VALID_COMBINATION
+SINGLE_EXCLUSIVE_LIFECYCLE_ENUM = INSUFFICIENT
 ```
 
 This should be implemented only if a fresh code-level review confirms that the
