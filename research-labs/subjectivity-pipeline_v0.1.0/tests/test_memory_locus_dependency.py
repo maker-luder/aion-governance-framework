@@ -42,12 +42,21 @@ def load() -> tuple[tuple[MemoryLocusCase, ...], dict[str, object]]:
             task_relevant_information_digest=shared["task_relevant_information_digest"],
             format_ref=shared["format_ref"],
             observable_ref=shared["observable_ref"],
-            discriminating_prediction=shared["discriminating_prediction"],
-            manipulation_check_ref=shared["manipulation_check_ref"],
+            target_construct_or_dependency=row["target_construct_or_dependency"],
+            discriminating_prediction=row["discriminating_prediction"],
+            matched_control_condition=(
+                MemoryLocusCondition(row["matched_control_condition"])
+                if row["matched_control_condition"]
+                else None
+            ),
+            manipulation_check_ref=row["manipulation_check_ref"],
+            mimicry_alternative=row["mimicry_alternative"],
+            internal_variant_alternative=row["internal_variant_alternative"],
+            indicator_validation_status=row["indicator_validation_status"],
             target_channel_or_source=row["target_channel_or_source"],
             exact_change=row["exact_change"],
             non_targets_held_constant=tuple(row["non_targets_held_constant"]),
-            support_reducing_outcome=shared["support_reducing_outcome"],
+            support_reducing_outcome=row["support_reducing_outcome"],
             competing_explanation_targeted=row["competing_explanation_targeted"],
             competing_explanations=tuple(shared["competing_explanations"]),
             evidence_refs=tuple(shared["evidence_refs"]),
@@ -256,3 +265,25 @@ def test_explicit_preregistration_packet_declarations_are_enforced() -> None:
             external,
             non_targets_held_constant=external.non_targets_held_constant[:-1],
         )
+
+
+def test_local_discriminant_validity_fields_are_explicit_and_bounded() -> None:
+    cases, _ = load()
+    external = next(
+        case
+        for case in cases
+        if case.condition is MemoryLocusCondition.MATCHED_EXTERNAL_RETRIEVAL
+    )
+    assert external.matched_control_condition is MemoryLocusCondition.REFERENCE_PERSISTENT
+    assert external.target_construct_or_dependency == "AVAILABILITY_LOCUS_DEPENDENCY"
+    assert external.mimicry_alternative
+    assert external.internal_variant_alternative
+    assert external.indicator_validation_status == "NOT_VALIDATED"
+
+    with pytest.raises(MemoryLocusHarnessError, match="matched_control_condition"):
+        replace(
+            external,
+            matched_control_condition=MemoryLocusCondition.RETRIEVAL_DISABLED,
+        )
+    with pytest.raises(MemoryLocusHarnessError, match="NOT_VALIDATED"):
+        replace(external, indicator_validation_status="VALIDATED")
