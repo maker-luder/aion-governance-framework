@@ -143,3 +143,35 @@ FINALIZE_EXACT_HEAD
 
 This historical record does not itself change merge authority or authorize any
 future transition.
+
+## 7. Later falsification addendum: account attribution vs interaction origin
+
+A later 2026-09-19 review found an additional provenance distinction that was not
+captured in the initial event-order analysis.
+
+The Human Owner had explicitly approved the merge externally, but the final PR-body
+receipt transport was performed through an assisted connected-app action rather than
+being independently established as a direct Human Owner UI edit.
+
+GitHub documents that a GitHub App using a user access token can perform actions on
+behalf of a user and that such activity is attributed to that user. Therefore the
+repository event's matching user identity does not establish the physical interaction
+path.
+
+```text
+HUMAN_OWNER_EXTERNAL_APPROVAL = ESTABLISHED_IN_INTERACTION_CONTEXT
+DIRECT_HUMAN_GITHUB_UI_EDIT = NOT_ESTABLISHED
+PROGRAMMATIC_OR_ASSISTED_TRANSPORT = POSSIBLE / OBSERVED_IN_PROCESS
+UNAUTHORIZED_MERGE = NOT_ESTABLISHED
+
+GITHUB_ACCOUNT_ATTRIBUTION
+!= DIRECT_HUMAN_INTERACTION_PROOF
+```
+
+This does not retroactively convert PR #187 into an unauthorized merge. It narrows
+the provenance claim: the repository gate structurally validated a Human Owner
+authority assertion transported through an account-attributed PR edit; it did not
+independently verify who physically performed that edit.
+
+The corrective direction is prospective schema/procedure hardening, not historical
+rewriting.
