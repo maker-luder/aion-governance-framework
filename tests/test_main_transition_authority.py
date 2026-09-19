@@ -222,6 +222,24 @@ def test_non_body_edit_event_fails_closed() -> None:
     assert result.account_evidence.pr_body_edit_event is False
 
 
+def test_ready_for_review_event_with_existing_receipt_fails_closed() -> None:
+    event = event_for(valid_receipt(), action="ready_for_review")
+    event["changes"] = {}
+    result = validate(event)
+    assert result.status == "HOLD"
+    assert result.account_evidence.pr_body_edit_event is False
+    assert result.account_evidence.target_pr_match is True
+    assert result.account_evidence.target_head_match is True
+    assert result.account_evidence.timestamp_fresh is True
+    assert any(
+        "fresh approval must arrive in a pull_request edited event" in item
+        for item in result.diagnostics
+    )
+    assert any(
+        "must specifically edit the pull request body" in item for item in result.diagnostics
+    )
+
+
 def test_contradiction_fails_closed() -> None:
     record = valid_receipt()
     record["contradictions"] = ["MERGE_MAIN = NOT_APPROVED"]
