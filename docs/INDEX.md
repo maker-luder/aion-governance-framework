@@ -87,6 +87,7 @@ SCIENTIFIC_DISPOSITION = HOLD
 
 - [`research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md`](research/FOUR_DOMAIN_SUBJECTIVITY_QUALITY_CHAIN_2026_09_13.md) — exact-PR cross-read; testable AI-subjectivity possibility; typed Four-Domain admission; automated source-to-final-QA, NCR/CAPA and claim-control trace; external Human-review boundary.
 - [`../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/FOUR_DOMAIN_AND_RESEARCH_QUALITY_CHAIN.md) — executable contract and fail-closed outcomes.
+- [`../research-labs/subjectivity-pipeline_v0.1.0/docs/EXECUTABLE_STANDARDS_CROSSWALK.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/EXECUTABLE_STANDARDS_CROSSWALK.md) — executable Four-Domain standards registry plus the 2026-09-19 governance/assurance operating route, source-lifecycle freshness gap, and explicit non-certification / non-subjectivity boundaries.
 
 The strongest implemented quality outcome is `READY_FOR_HUMAN_REVIEW`, not release or scientific validation. `SUBJECTIVITY=NOT_ESTABLISHED`; `CANONICAL_EFFECT=NONE`.
 
