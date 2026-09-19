@@ -114,6 +114,14 @@ class LongitudinalEvidenceInput:
             raise LongitudinalClaimBridgeError(
                 "longitudinal claim bridge v0.1 cannot accept replication qualification refs"
             )
+        if self.relation is not EvidenceRelation.SUPPORTS:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 accepts trial metric evidence as SUPPORTS only"
+            )
+        if self.publication_class is not PublicationClass.SYNTHETIC:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 accepts SYNTHETIC trial evidence only"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -151,6 +159,14 @@ class LongitudinalClaimRequest:
         if self.population_scope or self.causal_learning_effect:
             raise LongitudinalClaimBridgeError(
                 "longitudinal claim bridge v0.1 cannot promote population or causal-learning scope"
+            )
+        if self.publication_class is not PublicationClass.SYNTHETIC:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 emits SYNTHETIC claims only"
+            )
+        if self.resolved_challenge_ids or self.challenge_resolutions:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 does not resolve challenge evidence"
             )
 
 
@@ -215,6 +231,19 @@ def _producer_ref(trial: LongitudinalTrialRecordView) -> str:
     return f"evaluator:{trial.evaluator_id}|source:{trial.evaluator_source_ref}"
 
 
+def _bounded_observation_statement(
+    spec: LongitudinalContrastSpecView,
+    audit: LongitudinalContrastAuditView,
+) -> str:
+    rendered = ", ".join(
+        f"{name}={float(value):.12g}" for name, value in audit.observed_deltas
+    )
+    return (
+        f"Longitudinal contrast {spec.contrast_id} recorded bounded metric deltas "
+        f"for hypothesis {spec.hypothesis_id}: {rendered}."
+    )
+
+
 def build_longitudinal_claim_mapping(
     spec: LongitudinalContrastSpecView,
     audit: LongitudinalContrastAuditView,
@@ -225,11 +254,13 @@ def build_longitudinal_claim_mapping(
     """Map one validated longitudinal contrast into the existing PR #91 gate.
 
     The adapter binds evidence to the actual metric evidence references on both
-    source trials. Version 0.1 intentionally admits L0 observation records only:
-    the source harness has no typed verification surface for intervention,
-    replication, population, or causal-learning qualification. It does not
-    create provenance, quality evidence, scientific truth, or authority. The
-    existing ProvenanceClaimQualityGate remains the admission authority.
+    source trials. Version 0.1 intentionally admits only synthetic L0 observation
+    records with a bridge-generated bounded observation statement. The source
+    harness has no typed verification surface for intervention, replication,
+    population, causal-learning, publication, or challenge-resolution
+    qualification. It does not create provenance, quality evidence, scientific
+    truth, or authority. The existing ProvenanceClaimQualityGate remains the
+    admission authority.
     """
 
     if not spec.contrast_id.strip() or not spec.hypothesis_id.strip():
@@ -319,55 +350,26 @@ def build_longitudinal_claim_mapping(
                 f"evidence mapping is not bound to trial metric evidence: {item.evidence_id}"
             )
 
-    supporting_ids = tuple(
-        item.evidence_id
-        for item in request.evidence
-        if item.relation is EvidenceRelation.SUPPORTS
-    )
-    if not supporting_ids:
-        raise LongitudinalClaimBridgeError(
-            "claim admission mapping requires at least one explicitly supporting evidence item"
-        )
-
+    supporting_ids = tuple(item.evidence_id for item in request.evidence)
     for run_id in (spec.baseline_run_id, spec.intervention_run_id):
         for metric_name in required_metrics:
             if not any(
-                item.relation is EvidenceRelation.SUPPORTS
-                and item.run_id == run_id
-                and item.metric_name == metric_name
+                item.run_id == run_id and item.metric_name == metric_name
                 for item in request.evidence
             ):
                 raise LongitudinalClaimBridgeError(
                     "supporting evidence must cover both runs for every required metric"
                 )
 
-    challenging_ids = tuple(
-        item.evidence_id
-        for item in request.evidence
-        if item.relation is EvidenceRelation.CHALLENGES
-    )
-    observed_ids = tuple(
-        item.evidence_id
-        for item in request.evidence
-        if item.relation
-        in {
-            EvidenceRelation.OBSERVES,
-            EvidenceRelation.SUPPORTS,
-            EvidenceRelation.NEUTRAL,
-            EvidenceRelation.UNRESOLVED,
-        }
-    )
-    if not observed_ids:
-        raise LongitudinalClaimBridgeError(
-            "claim admission mapping requires at least one observed/non-challenge evidence item"
-        )
+    challenging_ids: tuple[str, ...] = ()
+    observed_ids = supporting_ids
 
     bindings = tuple(
         EvidenceBinding(
             evidence_id=item.evidence_id,
             provenance_record_id=item.provenance_record_id,
-            relation=item.relation,
-            publication_class=item.publication_class,
+            relation=EvidenceRelation.SUPPORTS,
+            publication_class=PublicationClass.SYNTHETIC,
             naturalistic_case_id=(
                 f"study:{trial_by_run[item.run_id].binding.study_id}"
                 f"|hypothesis:{spec.hypothesis_id}"
@@ -391,7 +393,7 @@ def build_longitudinal_claim_mapping(
     claim = ResearchClaimRecord(
         claim_id=request.claim_id,
         version=request.version,
-        statement=request.statement,
+        statement=_bounded_observation_statement(spec, audit),
         provenance_record_id=request.provenance_record_id,
         claim_level=request.claim_level,
         status=ClaimStatus.OBSERVED,
@@ -400,7 +402,7 @@ def build_longitudinal_claim_mapping(
         competing_explanations=spec.alternative_explanations,
         falsifier=spec.falsifier,
         supporting_evidence_ids=supporting_ids,
-        publication_class=request.publication_class,
+        publication_class=PublicationClass.SYNTHETIC,
         challenging_evidence_ids=challenging_ids,
         resolved_challenge_ids=request.resolved_challenge_ids,
         challenge_resolutions=request.challenge_resolutions,
