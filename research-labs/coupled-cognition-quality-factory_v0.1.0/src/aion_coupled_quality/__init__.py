@@ -217,3 +217,21 @@ __all__ += [
     "build_repository_bound_risk_impact_receipt",
     "build_risk_impact_receipt",
 ]
+
+from .longitudinal_claim_bridge import (
+    LongitudinalClaimAdmissionMapping,
+    LongitudinalClaimBridgeError,
+    LongitudinalClaimRequest,
+    LongitudinalEvidenceInput,
+    assess_longitudinal_claim_mapping,
+    build_longitudinal_claim_mapping,
+)
+
+__all__ += [
+    "LongitudinalClaimAdmissionMapping",
+    "LongitudinalClaimBridgeError",
+    "LongitudinalClaimRequest",
+    "LongitudinalEvidenceInput",
+    "assess_longitudinal_claim_mapping",
+    "build_longitudinal_claim_mapping",
+]
