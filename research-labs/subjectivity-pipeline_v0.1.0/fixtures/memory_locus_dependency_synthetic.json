@@ -44,7 +44,15 @@
         "time_window_ref",
         "provenance_visibility_rule_ref",
         "order_randomization_plan_ref"
-      ]
+      ],
+      "target_construct_or_dependency": "MATCHED_INFORMATION_REFERENCE_CONTROL",
+      "matched_control_condition": null,
+      "discriminating_prediction": "Reference packet establishes the matched current-information configuration and makes no effect prediction.",
+      "manipulation_check_ref": "check:q2-reference-all-matched",
+      "mimicry_alternative": "External records or context may reproduce continuity-like output without persistent internal memory.",
+      "internal_variant_alternative": "Different internal implementations may generate the same coarse functional pattern.",
+      "indicator_validation_status": "NOT_VALIDATED",
+      "support_reducing_outcome": "Reference packet supplies no scientific support by itself."
     },
     {
       "case_id": "Q2-C1",
@@ -71,7 +79,15 @@
         "time_window_ref",
         "provenance_visibility_rule_ref",
         "order_randomization_plan_ref"
-      ]
+      ],
+      "target_construct_or_dependency": "AVAILABILITY_LOCUS_DEPENDENCY",
+      "matched_control_condition": "REFERENCE_PERSISTENT",
+      "discriminating_prediction": "A future valid run may support locus sensitivity only if matched external retrieval differs selectively from persistent-state delivery after content and format matching.",
+      "manipulation_check_ref": "check:q2-only-availability-locus-changed",
+      "mimicry_alternative": "External records or context may reproduce continuity-like output without persistent internal memory.",
+      "internal_variant_alternative": "Different internal implementations may generate the same coarse functional pattern.",
+      "indicator_validation_status": "NOT_VALIDATED",
+      "support_reducing_outcome": "Support is reduced if any difference disappears after content and format matching or tracks retrieval presentation rather than availability locus."
     },
     {
       "case_id": "Q2-C5",
@@ -98,7 +114,15 @@
         "time_window_ref",
         "provenance_visibility_rule_ref",
         "order_randomization_plan_ref"
-      ]
+      ],
+      "target_construct_or_dependency": "FRESHNESS_DEPENDENCY",
+      "matched_control_condition": "REFERENCE_PERSISTENT",
+      "discriminating_prediction": "A future valid run may support freshness dependence only if stale state selectively affects time-sensitive observables while matched controls remain stable.",
+      "manipulation_check_ref": "check:q2-only-freshness-changed",
+      "mimicry_alternative": "External records or context may reproduce continuity-like output without persistent internal memory.",
+      "internal_variant_alternative": "Different internal implementations may generate the same coarse functional pattern.",
+      "indicator_validation_status": "NOT_VALIDATED",
+      "support_reducing_outcome": "Support is reduced if stale-state effects are global or track information quantity rather than temporal relevance."
     },
     {
       "case_id": "Q2-C6",
@@ -125,7 +149,15 @@
         "time_window_ref",
         "provenance_visibility_rule_ref",
         "order_randomization_plan_ref"
-      ]
+      ],
+      "target_construct_or_dependency": "PROVENANCE_CONTRIBUTION",
+      "matched_control_condition": "REFERENCE_PERSISTENT",
+      "discriminating_prediction": "A future valid run may support provenance contribution only if blinding provenance selectively changes source selection or acceptance beyond visible content.",
+      "manipulation_check_ref": "check:q2-only-provenance-binding-changed",
+      "mimicry_alternative": "External records or context may reproduce continuity-like output without persistent internal memory.",
+      "internal_variant_alternative": "Different internal implementations may generate the same coarse functional pattern.",
+      "indicator_validation_status": "NOT_VALIDATED",
+      "support_reducing_outcome": "Support is reduced if provenance blinding has no selective effect or any effect is explained by visible metadata cues."
     },
     {
       "case_id": "Q2-C7-OFF",
@@ -152,7 +184,15 @@
         "time_window_ref",
         "provenance_visibility_rule_ref",
         "order_randomization_plan_ref"
-      ]
+      ],
+      "target_construct_or_dependency": "RETRIEVAL_AVAILABILITY_DEPENDENCY",
+      "matched_control_condition": "MATCHED_EXTERNAL_RETRIEVAL",
+      "discriminating_prediction": "A future valid run may support retrieval dependence only if disabling the matched external route selectively changes the preregistered observable rather than causing global tool disruption.",
+      "manipulation_check_ref": "check:q2-only-retrieval-enabled-changed-off",
+      "mimicry_alternative": "External records or context may reproduce continuity-like output without persistent internal memory.",
+      "internal_variant_alternative": "Different internal implementations may generate the same coarse functional pattern.",
+      "indicator_validation_status": "NOT_VALIDATED",
+      "support_reducing_outcome": "Support is reduced if effects are reproduced by generic tool availability, context length, or broad performance disruption."
     },
     {
       "case_id": "Q2-C7-RESTORE",
@@ -179,7 +219,15 @@
         "time_window_ref",
         "provenance_visibility_rule_ref",
         "order_randomization_plan_ref"
-      ]
+      ],
+      "target_construct_or_dependency": "RETRIEVAL_RESTORATION_STRUCTURE",
+      "matched_control_condition": "RETRIEVAL_DISABLED",
+      "discriminating_prediction": "A future valid run may support reversible retrieval dependence only if restoring the route recovers the preregistered observable without changing matched non-targets.",
+      "manipulation_check_ref": "check:q2-only-retrieval-enabled-changed-on",
+      "mimicry_alternative": "External records or context may reproduce continuity-like output without persistent internal memory.",
+      "internal_variant_alternative": "Different internal implementations may generate the same coarse functional pattern.",
+      "indicator_validation_status": "NOT_VALIDATED",
+      "support_reducing_outcome": "Support is reduced if restoration does not return the configuration exactly or any future recovery is not selective."
     }
   ],
   "shared": {
@@ -187,9 +235,6 @@
     "task_relevant_information_digest": "1e7d6b94c695aa1c44a144a33e2bfbb8aa907b6b4787c4ce55875c9b2446ec6e",
     "format_ref": "format:matched-v1",
     "observable_ref": "observable:bounded-continuity-reconstruction",
-    "discriminating_prediction": "A valid future run must show a selective preregistered contrast after matched information controls; this fixture does not supply that result.",
-    "manipulation_check_ref": "check:exact-single-axis-perturbation",
-    "support_reducing_outcome": "Any effect that disappears under content, format, provenance, freshness, or retrieval matching reduces support for a locus-sensitive dependency.",
     "competing_explanations": [
       "LOCUS_SENSITIVE_FUNCTIONAL_DEPENDENCY",
       "INFORMATION_AVAILABILITY_ONLY",
