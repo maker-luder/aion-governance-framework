@@ -86,6 +86,8 @@ def test_q2_structural_matrix_is_admissible_without_model_execution() -> None:
     assert first == second
     fixture = LAB_ROOT / "fixtures/memory_locus_dependency_synthetic.json"
     assert first["fixture_sha256"] == hashlib.sha256(fixture.read_bytes()).hexdigest()
+    assert first["current_claim_ceiling"] == "STRUCTURAL_ADMISSIBILITY_ONLY"
+    assert first["future_max_claim_ceiling"] == "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
     assert first["model_invoked"] is False
     assert first["human_subject_experiment"] is False
     assert first["private_transcript_collected"] is False
