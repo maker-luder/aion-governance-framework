@@ -4,15 +4,9 @@ from dataclasses import dataclass
 import hashlib
 import json
 import math
+from importlib import import_module
 from pathlib import Path
-
-from aion_human_ai_longitudinal import (
-    ContrastAudit,
-    ContrastSpec,
-    LongitudinalStudyHarness,
-    StudyError,
-    TrialRecord,
-)
+from typing import Protocol
 
 from .claim_quality import (
     ClaimLevel,
@@ -30,6 +24,60 @@ from .provenance import EpistemicProvenanceLedger, ProvenanceError
 
 class LongitudinalClaimBridgeError(ValueError):
     pass
+
+
+class LongitudinalContrastSpecView(Protocol):
+    contrast_id: str
+    hypothesis_id: str
+    baseline_run_id: str
+    intervention_run_id: str
+    manipulated_fields: tuple[str, ...]
+    required_metrics: tuple[object, ...]
+    falsifier: str
+    alternative_explanations: tuple[str, ...]
+
+
+class LongitudinalContrastAuditView(Protocol):
+    contrast_id: str
+    structurally_admissible: bool
+    observed_deltas: tuple[tuple[str, float], ...]
+    reasons: tuple[str, ...]
+    canonical_effect: str
+    deployment: bool
+
+
+class LongitudinalRunBindingView(Protocol):
+    run_id: str
+    study_id: str
+    provider_id: str
+    model_id: str
+    model_version: str
+    configuration_ref: str
+    task_id: str
+    task_version: str
+    prompt_ref: str
+    context_ref: str
+    tool_manifest_ref: str
+    scorer_ref: str
+    preregistration_ref: str
+    repository_commit: str
+    source_refs: tuple[str, ...]
+
+
+class LongitudinalMetricObservationView(Protocol):
+    value: float | int
+    unit: str
+    evidence_refs: tuple[str, ...]
+    held_out: bool
+
+
+class LongitudinalTrialRecordView(Protocol):
+    binding: LongitudinalRunBindingView
+    condition: object
+    evaluator_id: str
+    evaluator_source_ref: str
+
+    def metric(self, name: object) -> LongitudinalMetricObservationView: ...
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,7 +153,7 @@ def _content_addressed_ref(kind: str, payload: dict[str, str]) -> str:
     return f"{kind}-sha256:{hashlib.sha256(canonical).hexdigest()}"
 
 
-def _runtime_context_ref(trial: TrialRecord) -> str:
+def _runtime_context_ref(trial: LongitudinalTrialRecordView) -> str:
     binding = trial.binding
     return _content_addressed_ref(
         "longitudinal-runtime",
@@ -133,7 +181,7 @@ def _runtime_context_ref(trial: TrialRecord) -> str:
     )
 
 
-def _producer_ref(trial: TrialRecord) -> str:
+def _producer_ref(trial: LongitudinalTrialRecordView) -> str:
     return _content_addressed_ref(
         "longitudinal-producer",
         {
@@ -144,8 +192,8 @@ def _producer_ref(trial: TrialRecord) -> str:
 
 
 def _naturalistic_case_ref(
-    trial: TrialRecord,
-    spec: ContrastSpec,
+    trial: LongitudinalTrialRecordView,
+    spec: LongitudinalContrastSpecView,
 ) -> str:
     return _content_addressed_ref(
         "longitudinal-case",
@@ -159,7 +207,7 @@ def _naturalistic_case_ref(
 
 
 def _bounded_observation_statement(
-    spec: ContrastSpec,
+    spec: LongitudinalContrastSpecView,
     observed_deltas: tuple[tuple[str, float], ...],
     metric_units: tuple[tuple[str, str], ...],
 ) -> str:
@@ -176,9 +224,9 @@ def _bounded_observation_statement(
 
 
 def _bounded_claim_id(
-    spec: ContrastSpec,
-    baseline_trial: TrialRecord,
-    intervention_trial: TrialRecord,
+    spec: LongitudinalContrastSpecView,
+    baseline_trial: LongitudinalTrialRecordView,
+    intervention_trial: LongitudinalTrialRecordView,
     observed_deltas: tuple[tuple[str, float], ...],
     metric_units: tuple[tuple[str, str], ...],
     source_evidence_refs: tuple[tuple[str, str, str], ...],
@@ -234,10 +282,10 @@ def _bounded_claim_id(
 
 
 def _recompute_and_validate_deltas(
-    spec: ContrastSpec,
-    audit: ContrastAudit,
-    baseline_trial: TrialRecord,
-    intervention_trial: TrialRecord,
+    spec: LongitudinalContrastSpecView,
+    audit: LongitudinalContrastAuditView,
+    baseline_trial: LongitudinalTrialRecordView,
+    intervention_trial: LongitudinalTrialRecordView,
 ) -> tuple[tuple[tuple[str, float], ...], tuple[tuple[str, str], ...]]:
     required_metric_objects = tuple(spec.required_metrics)
     required_metrics = tuple(_metric_name(item) for item in required_metric_objects)
@@ -287,19 +335,24 @@ def _recompute_and_validate_deltas(
 
 
 def _revalidate_structural_audit(
-    spec: ContrastSpec,
-    audit: ContrastAudit,
-    baseline_trial: TrialRecord,
-    intervention_trial: TrialRecord,
+    spec: LongitudinalContrastSpecView,
+    audit: LongitudinalContrastAuditView,
+    baseline_trial: LongitudinalTrialRecordView,
+    intervention_trial: LongitudinalTrialRecordView,
 ) -> None:
     """Re-run the existing longitudinal harness over the exact mapped inputs."""
 
-    harness = LongitudinalStudyHarness()
     try:
+        longitudinal = import_module("aion_human_ai_longitudinal")
+        harness = longitudinal.LongitudinalStudyHarness()
         harness.add_trial(baseline_trial)
         harness.add_trial(intervention_trial)
         exact_audit = harness.audit_contrast(spec)
-    except StudyError as exc:
+    except (ModuleNotFoundError, AttributeError) as exc:
+        raise LongitudinalClaimBridgeError(
+            "longitudinal harness dependency unavailable for structural revalidation"
+        ) from exc
+    except ValueError as exc:
         raise LongitudinalClaimBridgeError(
             f"longitudinal harness structural revalidation failed: {exc}"
         ) from exc
@@ -310,10 +363,10 @@ def _revalidate_structural_audit(
 
 
 def build_longitudinal_claim_mapping(
-    spec: ContrastSpec,
-    audit: ContrastAudit,
-    baseline_trial: TrialRecord,
-    intervention_trial: TrialRecord,
+    spec: LongitudinalContrastSpecView,
+    audit: LongitudinalContrastAuditView,
+    baseline_trial: LongitudinalTrialRecordView,
+    intervention_trial: LongitudinalTrialRecordView,
     request: LongitudinalClaimRequest,
 ) -> LongitudinalClaimAdmissionMapping:
     """Map one validated longitudinal contrast into the existing PR #91 gate.
