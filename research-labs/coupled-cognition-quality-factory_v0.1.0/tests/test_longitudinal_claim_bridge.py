@@ -353,16 +353,27 @@ def test_claim_identity_is_content_addressed_and_not_caller_selected() -> None:
 
 def test_claim_identity_changes_when_full_run_binding_changes() -> None:
     baseline = _baseline()
-    changed = replace(
+    intervention = _intervention()
+    changed_baseline = replace(
         baseline,
         binding=replace(
             baseline.binding,
             prompt_ref="prompt:changed",
         ),
     )
+    changed_intervention = replace(
+        intervention,
+        binding=replace(
+            intervention.binding,
+            prompt_ref="prompt:changed",
+        ),
+    )
 
-    original = _mapping(baseline=baseline)
-    mutated = _mapping(baseline=changed)
+    original = _mapping(baseline=baseline, intervention=intervention)
+    mutated = _mapping(
+        baseline=changed_baseline,
+        intervention=changed_intervention,
+    )
 
     assert original.claim.claim_id != mutated.claim.claim_id
     original_ref = next(
@@ -430,26 +441,54 @@ def test_claim_provenance_must_bind_all_trial_evidence_refs() -> None:
 
 def test_content_addressed_runtime_ref_avoids_delimiter_collision() -> None:
     baseline_a = _baseline()
+    intervention_a = _intervention()
     baseline_b = _baseline()
-    baseline_a = replace(
+    intervention_b = _intervention()
+
+    def with_identity(
+        trial: TrialRecord,
+        *,
+        provider_id: str,
+        model_id: str,
+    ) -> TrialRecord:
+        return replace(
+            trial,
+            binding=replace(
+                trial.binding,
+                provider_id=provider_id,
+                model_id=model_id,
+            ),
+        )
+
+    baseline_a = with_identity(
         baseline_a,
-        binding=replace(
-            baseline_a.binding,
-            provider_id="a|model:b",
-            model_id="c",
-        ),
+        provider_id="a|model:b",
+        model_id="c",
     )
-    baseline_b = replace(
+    intervention_a = with_identity(
+        intervention_a,
+        provider_id="a|model:b",
+        model_id="c",
+    )
+    baseline_b = with_identity(
         baseline_b,
-        binding=replace(
-            baseline_b.binding,
-            provider_id="a",
-            model_id="b|model:c",
-        ),
+        provider_id="a",
+        model_id="b|model:c",
+    )
+    intervention_b = with_identity(
+        intervention_b,
+        provider_id="a",
+        model_id="b|model:c",
     )
 
-    mapping_a = _mapping(baseline=baseline_a)
-    mapping_b = _mapping(baseline=baseline_b)
+    mapping_a = _mapping(
+        baseline=baseline_a,
+        intervention=intervention_a,
+    )
+    mapping_b = _mapping(
+        baseline=baseline_b,
+        intervention=intervention_b,
+    )
 
     ref_a = next(
         item.runtime_or_context_ref
