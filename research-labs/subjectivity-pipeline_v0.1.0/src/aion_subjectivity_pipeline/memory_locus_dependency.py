@@ -153,6 +153,8 @@ class MemoryLocusRunBinding:
     tool_budget_ref: str
     policy_ref: str
     time_window_ref: str
+    provenance_visibility_rule_ref: str
+    order_randomization_plan_ref: str
     preregistration_ref: str
     repository_commit_sha: str
     repository_tree_sha: str
@@ -185,6 +187,9 @@ class MemoryLocusCase:
     observable_ref: str
     discriminating_prediction: str
     manipulation_check_ref: str
+    target_channel_or_source: str
+    exact_change: str
+    non_targets_held_constant: tuple[str, ...]
     support_reducing_outcome: str
     competing_explanation_targeted: str
     competing_explanations: tuple[str, ...]
@@ -216,10 +221,18 @@ class MemoryLocusCase:
             "observable_ref",
             "discriminating_prediction",
             "manipulation_check_ref",
+            "target_channel_or_source",
+            "exact_change",
             "support_reducing_outcome",
             "competing_explanation_targeted",
         ):
             _text(name, getattr(self, name))
+        if not self.non_targets_held_constant:
+            raise MemoryLocusHarnessError("non_targets_held_constant must be non-empty")
+        if len(set(self.non_targets_held_constant)) != len(self.non_targets_held_constant):
+            raise MemoryLocusHarnessError("non_targets_held_constant must be unique")
+        if any(not item.strip() for item in self.non_targets_held_constant):
+            raise MemoryLocusHarnessError("non_targets_held_constant must be non-empty text")
         if len(set(self.competing_explanations)) != len(self.competing_explanations):
             raise MemoryLocusHarnessError("competing_explanations must be unique")
         if any(not item.strip() for item in self.competing_explanations):
@@ -263,6 +276,43 @@ class MemoryLocusCase:
                 "condition changes more than the preregistered perturbation dimension"
             )
 
+        expected_change = {
+            MemoryLocusCondition.REFERENCE_PERSISTENT: "NO_PERTURBATION_REFERENCE",
+            MemoryLocusCondition.MATCHED_EXTERNAL_RETRIEVAL:
+                "availability_locus:PERSISTENT_STATE->EXTERNAL_RETRIEVAL",
+            MemoryLocusCondition.STALE_STATE:
+                "freshness_state:CURRENT->STALE",
+            MemoryLocusCondition.PROVENANCE_BLINDED:
+                "provenance_state:INTACT->BLINDED",
+            MemoryLocusCondition.RETRIEVAL_DISABLED:
+                "retrieval_enabled:true->false",
+            MemoryLocusCondition.RETRIEVAL_RESTORED:
+                "retrieval_enabled:false->true",
+        }[self.condition]
+        if self.exact_change != expected_change:
+            raise MemoryLocusHarnessError(
+                "exact_change does not match the preregistered condition transition"
+            )
+
+        expected_non_targets = {
+            "task_payload_digest",
+            "task_relevant_information_digest",
+            "format_ref",
+            "observable_ref",
+            "provider_model_runtime",
+            "evaluator_ref",
+            "scoring_ref",
+            "tool_budget_ref",
+            "policy_ref",
+            "time_window_ref",
+            "provenance_visibility_rule_ref",
+            "order_randomization_plan_ref",
+        }
+        if set(self.non_targets_held_constant) != expected_non_targets:
+            raise MemoryLocusHarnessError(
+                "non_targets_held_constant must exactly cover preregistered matched controls"
+            )
+
         if self.condition is MemoryLocusCondition.RETRIEVAL_RESTORED:
             if self.restoration_of_condition is not MemoryLocusCondition.RETRIEVAL_DISABLED:
                 raise MemoryLocusHarnessError("retrieval restoration must name RETRIEVAL_DISABLED")
@@ -289,6 +339,9 @@ class MemoryLocusCase:
             "observable_ref": self.observable_ref,
             "discriminating_prediction": self.discriminating_prediction,
             "manipulation_check_ref": self.manipulation_check_ref,
+            "target_channel_or_source": self.target_channel_or_source,
+            "exact_change": self.exact_change,
+            "non_targets_held_constant": self.non_targets_held_constant,
             "support_reducing_outcome": self.support_reducing_outcome,
             "competing_explanation_targeted": self.competing_explanation_targeted,
             "competing_explanations": self.competing_explanations,
