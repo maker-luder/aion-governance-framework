@@ -406,12 +406,6 @@ def build_longitudinal_claim_mapping(
         raise LongitudinalClaimBridgeError(
             "longitudinal contrast cannot carry canonical or deployment authority"
         )
-    _revalidate_structural_audit(
-        spec,
-        audit,
-        baseline_trial,
-        intervention_trial,
-    )
     if not spec.manipulated_fields or any(
         not item.strip() for item in spec.manipulated_fields
     ):
@@ -428,6 +422,12 @@ def build_longitudinal_claim_mapping(
         )
 
     observed_deltas, metric_units = _recompute_and_validate_deltas(
+        spec,
+        audit,
+        baseline_trial,
+        intervention_trial,
+    )
+    _revalidate_structural_audit(
         spec,
         audit,
         baseline_trial,
