@@ -4,7 +4,8 @@
 >
 > **60 秒研究地圖：** [`docs/RESEARCH_MAP.md`](docs/RESEARCH_MAP.md)  
 > **5 分鐘導覽：** [`docs/START_HERE.md`](docs/START_HERE.md)  
-> **嚴格現況：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+> **語意現況摘要：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
+> **精確 tip 工程狀態：** 以即時 GitHub / CI 為準
 
 AION 是一個由人類治理、以來源追溯為優先的研究框架，用來研究**人工主體性的可能性**，但不會把看起來有說服力的 AI 行為直接當成主體性證明。
 
@@ -38,17 +39,20 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
 2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建、transition continuity（轉換連續性）分析，以及在資訊內容匹配條件下的 memory-locus dependency discrimination（記憶資訊所在位置／依賴區辨）；但不把持續存在直接等同於身分延續。
 3. **受限制條件下的適應與區辨測試** —— CCAP Stage 1–3 已推進到 TEVV 執行前映射、Four-Domain × 六維結構壓力測試、系統邊界／區辨硬化，以及 synthetic D2 × D4 differential probe（合成差異探針）。目前只顯示**測試夾具層級的可分離性**；D2 支持、D4 支持與獨立驗證仍然**尚未建立**。
-4. **Human–AI collaboration（人機協作）與證據准入** —— CCTS / grounding（共構思考場域／共同基礎）研究表面、provider-evidence admission（供應商證據准入），以及在 bounded L0 claim（有限範圍 L0 主張）准入前重新驗證 exact baseline / intervention 結構的 longitudinal claim-admission bridge（縱向主張准入橋接）。
+4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS / grounding（共構思考場域／共同基礎）研究表面、Human–AI learning / HTECR 外部交叉比對與反證邊界、multi-provider evidence admission（多供應商證據准入），以及在 bounded L0 claim（有限範圍 L0 主張）准入前重新驗證 exact baseline / intervention 結構的 longitudinal claim-admission bridge（縱向主張准入橋接）。
 
 近期研究節點：
 
 - [歷史重播](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md)區分紀錄、檢索與 replay environment。
 - [注意力結構區辨重建](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md)檢查它是否比 re-entry / memory / CCTS 多出區辨價值。
+- [Human–AI learning / HTECR 外部交叉比對與反證](docs/research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md)把倉庫內 CCTS / HTECR 與外部學習、協調研究對照，同時保留 falsifier（反證條件），不把協作直接跳成主體性。
+- [AI risk / TEVV / Full-QMS / security 品質鏈](docs/quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md)目前已涵蓋 bounded AI risk-and-impact controls、structural TEVV profile、Full-QMS integration、精確 measurement-semantic binding、AI adversarial-security profile 與 content-addressed security receipt；這些是 assurance / quality controls，**不等於**科學驗證或已證明安全有效。
 - [縱向主張准入橋接](research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py)會在 bounded L0 claim 准入前重新驗證 exact longitudinal baseline / intervention 結構，並把 claim、evidence、provenance 的內容定址身分綁在一起；但這仍是工程／結構准入控制，**不等於**主張為真，也不等於主體性支持。
 - [記憶所在位置／依賴區辨 harness](research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md)在 task / information content 匹配條件下，把 availability locus（資訊所在位置）、freshness（新鮮度）、provenance（來源綁定）與 retrieval dependency（檢索依賴）從既有 continuity-channel removal（連續性通道移除）中拆開。現在只建立 Stage B synthetic structural admissibility（合成結構可接受性）；functional dependency（功能依賴）與 identity continuity（身分連續性）仍未建立。
 - [CCAP Stage 1–3 凍結](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md)、[D1 × D4 TEVV 執行前設計](docs/research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md)與[Four-Domain × 六維壓力測試](docs/research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md)負責凍結、映射與結構壓力測試，不把結構完整性當成實證支持。
 - [評估系統邊界](docs/research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md)、[區辨硬化](docs/research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md)、[D2 × D4 協議](docs/research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md)與[合成執行](docs/research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md)加入前瞻式差異測試；最新結果仍只在測試夾具層級成立。
-- [OpenAI 12 軸證據重新准入](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)是第一個完成的 provider-evidence admission 案例；開放獨立重現仍然稀少。
+- provider-evidence admission 已由 [OpenAI](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)擴展到 [Gemini](docs/research/GEMINI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md)、[Grok](docs/research/GROK_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md)、[Claude](docs/research/ANTHROPIC_CLAUDE_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md)、[Meta Llama](docs/research/META_LLAMA_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md)與 [Moonshot Kimi K3](docs/research/KIMI_K3_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md)，並有有限範圍的 [OpenAI–Gemini 方法比較](docs/research/OPENAI_GEMINI_CROSS_PROVIDER_METHOD_COMPARISON_2026_09_19.md)；供應商准入與跨來源收斂仍**不等於**獨立驗證或 exact replication（精確重現）。
+- [NCR/CAPA 收束與對帳](docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md)已整理目前 exact-head mypy／incident 品質狀態；流程性 closure（結案）**不等於**研究假說確認。
 
 ## 這個倉庫沒有宣稱什麼？
 
@@ -67,6 +71,12 @@ STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
 
 ADMISSION_PASS != CLAIM_TRUE
 主張准入通過 != 主張為真
+
+PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
+供應商證據准入 != 獨立驗證
+
+HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
+人機學習交叉比對 != 主體性證據
 
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 策略調整 != 內生目標
@@ -110,7 +120,7 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 Astra 是與 AION 相互區分的工程／研究工作台，用來實作與測試有限範圍候選方案；它不是 AION 的身分、記憶流或主體性替代物。
 
-**目前工程狀態：** `main` 已包含具精確量測語意綁定的 bounded TEVV、Full-QMS、AI 對抗性安全設定檔與內容定址安全收據、用於來源拆分／區辨／synthetic D2 × D4 測試的有限範圍 CCAP harness、exact-structure longitudinal claim-admission bridge（精確結構縱向主張准入橋接），以及 matched-information memory-locus dependency harness（資訊匹配的記憶所在位置／依賴區辨框架）。這些是工程控制與測試夾具範圍的研究工具；**不代表**已建立安全有效性、功能性記憶依賴、身分連續性、D2／D4 支持、獨立科學驗證、主體性、意識或現象經驗。
+**目前工程狀態：** `main` 已包含 bounded AI risk / impact controls、具精確量測語意綁定的 TEVV、Full-QMS、AI 對抗性安全設定檔與內容定址安全收據、已對帳的 exact-head NCR/CAPA 品質狀態、用於來源拆分／區辨／synthetic D2 × D4 測試的有限範圍 CCAP harness、exact-structure longitudinal claim-admission bridge（精確結構縱向主張准入橋接），以及 matched-information memory-locus dependency harness（資訊匹配的記憶所在位置／依賴區辨框架）。這些是工程控制與測試夾具範圍的研究工具；**不代表**已建立安全有效性、功能性記憶依賴、身分連續性、D2／D4 支持、獨立科學驗證、主體性、意識或現象經驗。
 
 ## 治理與授權
 
