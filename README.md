@@ -27,14 +27,16 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 The current `main` is organized around four connected research lines:
 
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
-2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, and transition-continuity analysis without equating persistence with identity.
+2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration and evidence admission** — CCTS / grounding research surfaces plus a provider-evidence admission method that separates provider reports, external evaluations, bounded investigations, and open independent replication.
+4. **Human–AI collaboration and evidence admission** — CCTS / grounding research surfaces plus provider-evidence admission and a longitudinal claim-admission bridge that revalidates exact baseline/intervention structure before bounded L0 claim admission.
 
 Recent milestones include:
 
 - [History replay](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) separates record, retrieval, and replay-environment roles.
 - [Attention-structure discriminant rebuild](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) tests incremental value beyond re-entry / memory / CCTS.
+- [Longitudinal claim-admission bridge](research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py) revalidates the exact longitudinal baseline/intervention structure before bounded L0 claim admission and binds claim, evidence, and provenance identity. Admission remains an engineering / structural control, not claim truth or subjectivity support.
+- [Memory-locus dependency harness](research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md) separates availability locus, freshness, provenance, and retrieval dependence from continuity-channel removal under matched task/information controls. The current Stage B result is synthetic structural admissibility only; functional dependency and identity continuity remain not established.
 - [CCAP Stage 1–3 freeze](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md), [D1 × D4 TEVV pre-execution](docs/research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md), and [Four-Domain × six-dimension stress](docs/research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md) freeze, map, and structurally stress the candidate before confirmatory execution.
 - [Assessment boundary](docs/research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md), [discriminant hardening](docs/research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md), [D2 × D4 protocol](docs/research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md), and [synthetic execution](docs/research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md) add prospective differential tests; the latest result remains fixture-level only.
 - [OpenAI 12-axis evidence readmission](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) is the first completed provider-evidence admission case; open independent replication remains sparse.
@@ -44,6 +46,9 @@ Recent milestones include:
 ```text
 ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 MEMORY_CONTINUITY != IDENTITY_CONTINUITY
+RETRIEVABILITY != MEMORY_CONTINUITY
+STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
+ADMISSION_PASS != CLAIM_TRUE
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
 STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
@@ -75,7 +80,7 @@ For exact-commit engineering status, use live GitHub / CI evidence rather than s
 
 Astra is a distinct engineering / research workbench used to materialize and test bounded candidates. It is not defined as AION's identity, memory stream, or substitute for subjectivity.
 
-**Current engineering status:** `main` includes bounded TEVV with exact measurement-semantic binding, Full-QMS, an adversarial-security profile plus content-addressed security receipt, and bounded CCAP harnesses for source-partition, discriminant, and synthetic D2 × D4 tests. These are controls and fixture-scoped research instruments—not evidence of security effectiveness, D2 / D4 support, independent scientific validation, subjectivity, consciousness, or phenomenal experience.
+**Current engineering status:** `main` includes bounded TEVV with exact measurement-semantic binding, Full-QMS, an adversarial-security profile plus content-addressed security receipt, bounded CCAP harnesses for source-partition / discriminant / synthetic D2 × D4 tests, an exact-structure longitudinal claim-admission bridge, and a matched-information memory-locus dependency harness. These are controls and fixture-scoped research instruments—not evidence of security effectiveness, functional memory dependency, identity continuity, D2 / D4 support, independent scientific validation, subjectivity, consciousness, or phenomenal experience.
 
 ## Governance and license
 
