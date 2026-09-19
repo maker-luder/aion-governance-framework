@@ -18,7 +18,7 @@ from .claim_quality import (
     ResearchClaimRecord,
 )
 from .models import EvidenceKind, ResearchLot
-from .provenance import EpistemicProvenanceLedger
+from .provenance import EpistemicProvenanceLedger, ProvenanceError
 
 
 class LongitudinalClaimBridgeError(ValueError):
@@ -93,18 +93,12 @@ class LongitudinalEvidenceInput:
 
 @dataclass(frozen=True, slots=True)
 class LongitudinalClaimRequest:
-    claim_id: str
-    version: int
     provenance_record_id: str
     evidence: tuple[LongitudinalEvidenceInput, ...]
 
     def __post_init__(self) -> None:
-        if not self.claim_id.strip():
-            raise LongitudinalClaimBridgeError("claim_id must be non-empty")
         if not self.provenance_record_id.strip():
             raise LongitudinalClaimBridgeError("provenance_record_id must be non-empty")
-        if self.version < 1:
-            raise LongitudinalClaimBridgeError("claim version must be positive")
         if not self.evidence:
             raise LongitudinalClaimBridgeError("at least one evidence mapping is required")
 
@@ -205,6 +199,37 @@ def _bounded_observation_statement(
         f"{spec.hypothesis_id} recorded bounded metric deltas: {rendered}. "
         "This observation does not establish the hypothesis, a mechanism, "
         "causal learning, subjectivity, or consciousness."
+    )
+
+
+def _bounded_claim_id(
+    spec: LongitudinalContrastSpecView,
+    baseline_trial: LongitudinalTrialRecordView,
+    intervention_trial: LongitudinalTrialRecordView,
+    observed_deltas: tuple[tuple[str, float], ...],
+    metric_units: tuple[tuple[str, str], ...],
+    source_evidence_refs: tuple[tuple[str, str, str], ...],
+) -> str:
+    return _content_addressed_ref(
+        "longitudinal-l0-claim",
+        {
+            "baseline_runtime_ref": _runtime_context_ref(baseline_trial),
+            "contrast_id": spec.contrast_id,
+            "hypothesis_id": spec.hypothesis_id,
+            "intervention_runtime_ref": _runtime_context_ref(intervention_trial),
+            "metric_units": json.dumps(
+                metric_units, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+            ),
+            "observed_deltas": json.dumps(
+                observed_deltas, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+            ),
+            "source_evidence_refs": json.dumps(
+                source_evidence_refs,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ),
+        },
     )
 
 
@@ -389,6 +414,26 @@ def build_longitudinal_claim_mapping(
                     f"{run_id}/{metric_name}"
                 )
 
+    source_evidence_refs = tuple(
+        sorted(
+            (
+                run_id,
+                metric_name,
+                evidence_ref,
+            )
+            for (run_id, metric_name), evidence_refs in allowed_refs.items()
+            for evidence_ref in evidence_refs
+        )
+    )
+    bounded_claim_id = _bounded_claim_id(
+        spec,
+        baseline_trial,
+        intervention_trial,
+        observed_deltas,
+        metric_units,
+        source_evidence_refs,
+    )
+
     bindings = tuple(
         EvidenceBinding(
             evidence_id=item.evidence_id,
@@ -418,8 +463,8 @@ def build_longitudinal_claim_mapping(
         (item.evidence_id, item.study_evidence_ref) for item in request.evidence
     )
     claim = ResearchClaimRecord(
-        claim_id=request.claim_id,
-        version=request.version,
+        claim_id=bounded_claim_id,
+        version=1,
         statement=_bounded_observation_statement(
             spec,
             observed_deltas,
@@ -462,6 +507,51 @@ def build_longitudinal_claim_mapping(
         claim=claim,
         evidence_bindings=bindings,
     )
+
+
+def _validate_provenance_binding(
+    mapping: LongitudinalClaimAdmissionMapping,
+    ledger: EpistemicProvenanceLedger,
+) -> None:
+    binding_by_id = {item.evidence_id: item for item in mapping.evidence_bindings}
+    expected_by_id = dict(mapping.quality_evidence_refs)
+    if len(binding_by_id) != len(mapping.evidence_bindings):
+        raise LongitudinalClaimBridgeError(
+            "mapping contains duplicate evidence bindings"
+        )
+    if len(expected_by_id) != len(mapping.quality_evidence_refs):
+        raise LongitudinalClaimBridgeError(
+            "mapping contains duplicate quality evidence ids"
+        )
+
+    for evidence_id, expected_ref in mapping.quality_evidence_refs:
+        binding = binding_by_id.get(evidence_id)
+        if binding is None:
+            raise LongitudinalClaimBridgeError(
+                f"mapping is missing evidence binding: {evidence_id}"
+            )
+        try:
+            record = ledger.get(binding.provenance_record_id)
+        except ProvenanceError as exc:
+            raise LongitudinalClaimBridgeError(
+                f"mapped evidence provenance is missing: {evidence_id}"
+            ) from exc
+        if expected_ref not in record.source_refs:
+            raise LongitudinalClaimBridgeError(
+                f"mapped evidence provenance is not source-bound: {evidence_id}"
+            )
+
+    try:
+        claim_record = ledger.get(mapping.claim.provenance_record_id or "")
+    except ProvenanceError as exc:
+        raise LongitudinalClaimBridgeError(
+            "mapped claim provenance is missing"
+        ) from exc
+    expected_claim_sources = set(expected_by_id.values())
+    if not expected_claim_sources.issubset(set(claim_record.source_refs)):
+        raise LongitudinalClaimBridgeError(
+            "mapped claim provenance is not bound to all trial evidence refs"
+        )
 
 
 def _validate_quality_lot_evidence(
@@ -507,6 +597,7 @@ def assess_longitudinal_claim_mapping(
         raise LongitudinalClaimBridgeError(
             "mapping cannot grant canonical or deployment authority"
         )
+    _validate_provenance_binding(mapping, ledger)
     _validate_quality_lot_evidence(mapping, lot)
     return ProvenanceClaimQualityGate().assess(
         mapping.claim,
