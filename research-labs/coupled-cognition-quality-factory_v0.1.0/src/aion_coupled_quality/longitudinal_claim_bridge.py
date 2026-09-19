@@ -46,34 +46,57 @@ class LongitudinalContrastAuditView(Protocol):
     deployment: bool
 
 
+class LongitudinalRunBindingView(Protocol):
+    run_id: str
+    study_id: str
+    provider_id: str
+    model_id: str
+    model_version: str
+    configuration_ref: str
+    context_ref: str
+    repository_commit: str
+
+
+class LongitudinalMetricObservationView(Protocol):
+    evidence_refs: tuple[str, ...]
+
+
+class LongitudinalTrialRecordView(Protocol):
+    binding: LongitudinalRunBindingView
+    evaluator_id: str
+    evaluator_source_ref: str
+
+    def metric(self, name: object) -> LongitudinalMetricObservationView: ...
+
+
 @dataclass(frozen=True, slots=True)
 class LongitudinalEvidenceInput:
     evidence_id: str
     provenance_record_id: str
     relation: EvidenceRelation
+    run_id: str
+    metric_name: str
+    study_evidence_ref: str
     publication_class: PublicationClass = PublicationClass.SYNTHETIC
-    naturalistic_case_id: str = ""
     intervention_sensitive: bool = False
     transfer_candidate: bool = False
     held_out: bool = False
     repeated: bool = False
     comparison_control: bool = False
     independently_scored: bool = False
-    producer_ref: str = ""
-    runtime_or_context_ref: str = ""
     replication_source_ref: str = ""
     replication_provenance_record_id: str = ""
 
     def __post_init__(self) -> None:
-        if not self.evidence_id.strip() or not self.provenance_record_id.strip():
-            raise LongitudinalClaimBridgeError(
-                "evidence_id and provenance_record_id must be non-empty"
-            )
-        if self.relation is EvidenceRelation.SUPPORTS:
-            if not self.producer_ref.strip() or not self.runtime_or_context_ref.strip():
-                raise LongitudinalClaimBridgeError(
-                    "supporting longitudinal evidence requires producer_ref and runtime_or_context_ref"
-                )
+        for name in (
+            "evidence_id",
+            "provenance_record_id",
+            "run_id",
+            "metric_name",
+            "study_evidence_ref",
+        ):
+            if not getattr(self, name).strip():
+                raise LongitudinalClaimBridgeError(f"{name} must be non-empty")
 
 
 @dataclass(frozen=True, slots=True)
@@ -125,28 +148,79 @@ class LongitudinalClaimAdmissionMapping:
 def _metric_name(value: object) -> str:
     candidate = getattr(value, "value", value)
     if not isinstance(candidate, str) or not candidate.strip():
-        raise LongitudinalClaimBridgeError("required metric names must resolve to non-empty strings")
+        raise LongitudinalClaimBridgeError(
+            "required metric names must resolve to non-empty strings"
+        )
     return candidate
+
+
+def _runtime_context_ref(trial: LongitudinalTrialRecordView) -> str:
+    binding = trial.binding
+    values = (
+        binding.provider_id,
+        binding.model_id,
+        binding.model_version,
+        binding.configuration_ref,
+        binding.context_ref,
+        binding.repository_commit,
+        binding.run_id,
+    )
+    if any(not value.strip() for value in values):
+        raise LongitudinalClaimBridgeError(
+            "trial runtime/context binding fields must be non-empty"
+        )
+    return "|".join(
+        (
+            f"provider:{binding.provider_id}",
+            f"model:{binding.model_id}",
+            f"version:{binding.model_version}",
+            f"configuration:{binding.configuration_ref}",
+            f"context:{binding.context_ref}",
+            f"repo:{binding.repository_commit}",
+            f"run:{binding.run_id}",
+        )
+    )
+
+
+def _producer_ref(trial: LongitudinalTrialRecordView) -> str:
+    if not trial.evaluator_id.strip() or not trial.evaluator_source_ref.strip():
+        raise LongitudinalClaimBridgeError(
+            "trial evaluator identity and source reference must be non-empty"
+        )
+    return f"evaluator:{trial.evaluator_id}|source:{trial.evaluator_source_ref}"
 
 
 def build_longitudinal_claim_mapping(
     spec: LongitudinalContrastSpecView,
     audit: LongitudinalContrastAuditView,
+    baseline_trial: LongitudinalTrialRecordView,
+    intervention_trial: LongitudinalTrialRecordView,
     request: LongitudinalClaimRequest,
 ) -> LongitudinalClaimAdmissionMapping:
-    """Map one structurally admissible longitudinal contrast into the existing PR #91 gate.
+    """Map one validated longitudinal contrast into the existing PR #91 gate.
 
-    The function does not create provenance, quality evidence, scientific truth, or
-    authority. Callers must supply those independently and the existing
-    ProvenanceClaimQualityGate remains the admission authority.
+    The adapter binds evidence to the actual metric evidence references on both
+    source trials. It does not create provenance, quality evidence, scientific
+    truth, or authority. The existing ProvenanceClaimQualityGate remains the
+    admission authority.
     """
 
     if not spec.contrast_id.strip() or not spec.hypothesis_id.strip():
         raise LongitudinalClaimBridgeError("contrast_id and hypothesis_id must be non-empty")
     if spec.contrast_id != audit.contrast_id:
-        raise LongitudinalClaimBridgeError("contrast audit does not match the contrast specification")
+        raise LongitudinalClaimBridgeError(
+            "contrast audit does not match the contrast specification"
+        )
     if spec.baseline_run_id == spec.intervention_run_id:
         raise LongitudinalClaimBridgeError("baseline and intervention run ids must differ")
+    if baseline_trial.binding.run_id != spec.baseline_run_id:
+        raise LongitudinalClaimBridgeError(
+            "baseline trial run_id does not match contrast specification"
+        )
+    if intervention_trial.binding.run_id != spec.intervention_run_id:
+        raise LongitudinalClaimBridgeError(
+            "intervention trial run_id does not match contrast specification"
+        )
     if not audit.structurally_admissible:
         raise LongitudinalClaimBridgeError(
             "structurally inadmissible contrast cannot enter claim admission mapping"
@@ -166,7 +240,8 @@ def build_longitudinal_claim_mapping(
     ):
         raise LongitudinalClaimBridgeError("alternative_explanations must be non-empty")
 
-    required_metrics = tuple(_metric_name(item) for item in spec.required_metrics)
+    required_metric_objects = tuple(spec.required_metrics)
+    required_metrics = tuple(_metric_name(item) for item in required_metric_objects)
     if not required_metrics or len(set(required_metrics)) != len(required_metrics):
         raise LongitudinalClaimBridgeError("required_metrics must be non-empty and unique")
 
@@ -179,21 +254,70 @@ def build_longitudinal_claim_mapping(
         )
     for name, value in audit.observed_deltas:
         if not name.strip() or not math.isfinite(float(value)):
-            raise LongitudinalClaimBridgeError("observed deltas require finite named values")
+            raise LongitudinalClaimBridgeError(
+                "observed deltas require finite named values"
+            )
+
+    trial_by_run = {
+        baseline_trial.binding.run_id: baseline_trial,
+        intervention_trial.binding.run_id: intervention_trial,
+    }
+    allowed_refs: dict[tuple[str, str], set[str]] = {}
+    for metric_object, metric_name in zip(required_metric_objects, required_metrics, strict=True):
+        for trial in (baseline_trial, intervention_trial):
+            refs = tuple(trial.metric(metric_object).evidence_refs)
+            if not refs or any(not ref.strip() for ref in refs):
+                raise LongitudinalClaimBridgeError(
+                    "required trial metrics must carry non-empty evidence references"
+                )
+            allowed_refs[(trial.binding.run_id, metric_name)] = set(refs)
 
     evidence_ids = tuple(item.evidence_id for item in request.evidence)
     if len(set(evidence_ids)) != len(evidence_ids):
         raise LongitudinalClaimBridgeError("evidence mappings must use unique evidence ids")
 
+    for item in request.evidence:
+        if item.run_id not in trial_by_run:
+            raise LongitudinalClaimBridgeError(
+                f"evidence mapping uses unknown run_id: {item.run_id}"
+            )
+        key = (item.run_id, item.metric_name)
+        refs = allowed_refs.get(key)
+        if refs is None:
+            raise LongitudinalClaimBridgeError(
+                f"evidence mapping uses non-required metric: {item.metric_name}"
+            )
+        if item.study_evidence_ref not in refs:
+            raise LongitudinalClaimBridgeError(
+                f"evidence mapping is not bound to trial metric evidence: {item.evidence_id}"
+            )
+
     supporting_ids = tuple(
-        item.evidence_id for item in request.evidence if item.relation is EvidenceRelation.SUPPORTS
+        item.evidence_id
+        for item in request.evidence
+        if item.relation is EvidenceRelation.SUPPORTS
     )
     if not supporting_ids:
         raise LongitudinalClaimBridgeError(
             "claim admission mapping requires at least one explicitly supporting evidence item"
         )
+
+    for run_id in (spec.baseline_run_id, spec.intervention_run_id):
+        for metric_name in required_metrics:
+            if not any(
+                item.relation is EvidenceRelation.SUPPORTS
+                and item.run_id == run_id
+                and item.metric_name == metric_name
+                for item in request.evidence
+            ):
+                raise LongitudinalClaimBridgeError(
+                    "supporting evidence must cover both runs for every required metric"
+                )
+
     challenging_ids = tuple(
-        item.evidence_id for item in request.evidence if item.relation is EvidenceRelation.CHALLENGES
+        item.evidence_id
+        for item in request.evidence
+        if item.relation is EvidenceRelation.CHALLENGES
     )
     observed_ids = tuple(
         item.evidence_id
@@ -217,15 +341,20 @@ def build_longitudinal_claim_mapping(
             provenance_record_id=item.provenance_record_id,
             relation=item.relation,
             publication_class=item.publication_class,
-            naturalistic_case_id=item.naturalistic_case_id,
+            naturalistic_case_id=(
+                f"study:{trial_by_run[item.run_id].binding.study_id}"
+                f"|hypothesis:{spec.hypothesis_id}"
+                f"|contrast:{spec.contrast_id}"
+                f"|run:{item.run_id}"
+            ),
             intervention_sensitive=item.intervention_sensitive,
             transfer_candidate=item.transfer_candidate,
             held_out=item.held_out,
             repeated=item.repeated,
             comparison_control=item.comparison_control,
             independently_scored=item.independently_scored,
-            producer_ref=item.producer_ref,
-            runtime_or_context_ref=item.runtime_or_context_ref,
+            producer_ref=_producer_ref(trial_by_run[item.run_id]),
+            runtime_or_context_ref=_runtime_context_ref(trial_by_run[item.run_id]),
             replication_source_ref=item.replication_source_ref,
             replication_provenance_record_id=item.replication_provenance_record_id,
         )
@@ -267,7 +396,9 @@ def build_longitudinal_claim_mapping(
         intervention_run_id=spec.intervention_run_id,
         manipulated_fields=tuple(spec.manipulated_fields),
         required_metrics=required_metrics,
-        observed_deltas=tuple((name, float(value)) for name, value in audit.observed_deltas),
+        observed_deltas=tuple(
+            (name, float(value)) for name, value in audit.observed_deltas
+        ),
         claim=claim,
         evidence_bindings=bindings,
     )
@@ -284,7 +415,9 @@ def assess_longitudinal_claim_mapping(
     """Submit a mapped longitudinal claim to the existing provenance quality gate."""
 
     if mapping.canonical_effect != "NONE" or mapping.deployment:
-        raise LongitudinalClaimBridgeError("mapping cannot grant canonical or deployment authority")
+        raise LongitudinalClaimBridgeError(
+            "mapping cannot grant canonical or deployment authority"
+        )
     return ProvenanceClaimQualityGate().assess(
         mapping.claim,
         ledger=ledger,
