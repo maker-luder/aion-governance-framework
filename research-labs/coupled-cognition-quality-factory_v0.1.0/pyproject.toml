@@ -9,5 +9,5 @@ description = "Inspection-oriented quality factory for human-AI collaborative in
 requires-python = ">=3.11"
 
 [tool.pytest.ini_options]
-pythonpath = ["src", "../ai-tevv-profile_v0.1.0/src", "../ai-adversarial-security-profile_v0.1.0/src"]
+pythonpath = ["src", "../human-ai-longitudinal-study_v0.1.0/src", "../ai-tevv-profile_v0.1.0/src", "../ai-adversarial-security-profile_v0.1.0/src"]
 testpaths = ["tests"]
