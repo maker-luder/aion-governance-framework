@@ -418,8 +418,30 @@ def test_duplicate_trial_metric_evidence_mapping_fails_closed() -> None:
 
 def test_support_must_cover_both_runs_for_required_metric() -> None:
     request = _request(evidence=(_request().evidence[1],))
-    with pytest.raises(LongitudinalClaimBridgeError, match="cover both runs"):
+    with pytest.raises(LongitudinalClaimBridgeError, match="cover every trial metric evidence ref"):
         _mapping(request=request)
+
+
+def test_all_trial_metric_evidence_refs_must_be_mapped() -> None:
+    baseline = _baseline()
+    metric = baseline.metrics[0]
+    baseline = replace(
+        baseline,
+        metrics=(
+            replace(
+                metric,
+                evidence_refs=(
+                    "fixture:base:regrounding",
+                    "fixture:base:secondary",
+                ),
+            ),
+        ),
+    )
+    with pytest.raises(
+        LongitudinalClaimBridgeError,
+        match="cover every trial metric evidence ref",
+    ):
+        _mapping(baseline=baseline)
 
 
 @pytest.mark.parametrize(
