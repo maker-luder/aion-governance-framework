@@ -202,6 +202,8 @@ def test_restoration_must_name_disabled_condition_and_restore_configuration() ->
         restored,
         condition=MemoryLocusCondition.MATCHED_EXTERNAL_RETRIEVAL,
         target_dimension=PerturbationDimension.AVAILABILITY_LOCUS,
+        matched_control_condition=MemoryLocusCondition.REFERENCE_PERSISTENT,
+        exact_change="availability_locus:PERSISTENT_STATE->EXTERNAL_RETRIEVAL",
         restoration_of_condition=None,
     )
     altered_cases = tuple(
