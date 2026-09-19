@@ -4,7 +4,8 @@
 >
 > **60-second research map:** [`docs/RESEARCH_MAP.md`](docs/RESEARCH_MAP.md)  
 > **5-minute guided entry:** [`docs/START_HERE.md`](docs/START_HERE.md)  
-> **Strict current standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+> **Semantic current-state summary:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
+> **Exact-tip engineering state:** use live GitHub / CI
 
 AION is a human-governed, provenance-first research framework for studying the **possibility of artificial subjectivity** without treating convincing behavior as proof of subjectivity.
 
@@ -27,23 +28,29 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 The current `main` is organized around four connected research lines:
 
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
-2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, and transition-continuity analysis without equating persistence with identity.
+2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration and evidence admission** — CCTS / grounding research surfaces plus a provider-evidence admission method that separates provider reports, external evaluations, bounded investigations, and open independent replication.
+4. **Human–AI collaboration, learning, and evidence admission** — CCTS / grounding research surfaces, a Human–AI learning / HTECR crosswalk with explicit falsification boundaries, multi-provider evidence admission, and a longitudinal claim-admission bridge that revalidates exact baseline/intervention structure before bounded L0 claim admission.
 
-Recent milestones include:
+## Current research snapshot
 
-- [History replay](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) separates record, retrieval, and replay-environment roles.
-- [Attention-structure discriminant rebuild](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) tests incremental value beyond re-entry / memory / CCTS.
-- [CCAP Stage 1–3 freeze](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md), [D1 × D4 TEVV pre-execution](docs/research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md), and [Four-Domain × six-dimension stress](docs/research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md) freeze, map, and structurally stress the candidate before confirmatory execution.
-- [Assessment boundary](docs/research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md), [discriminant hardening](docs/research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md), [D2 × D4 protocol](docs/research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md), and [synthetic execution](docs/research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md) add prospective differential tests; the latest result remains fixture-level only.
-- [OpenAI 12-axis evidence readmission](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) is the first completed provider-evidence admission case; open independent replication remains sparse.
+The landing page keeps only the highest-level current picture. For dated milestones, exact merged standing, and the full documentation map, use [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/INDEX.md`](docs/INDEX.md).
+
+- **Continuity and memory:** history replay, attention-structure discrimination, exact-structure longitudinal claim admission, and matched-information memory-locus dependency testing.
+- **Human–AI learning and collaboration:** CCTS / grounding plus a Human–AI learning / HTECR crosswalk with explicit falsification boundaries.
+- **Evidence admission:** bounded 12-axis provider-evidence admission now spans multiple provider families, while open independent replication remains sparse.
+- **Assurance and quality:** bounded AI risk / impact controls, TEVV, Full-QMS, adversarial-security receipts, and NCR/CAPA quality controls improve traceability and fail-closed review without creating scientific validation.
 
 ## What this repository does not claim
 
 ```text
 ENGINEERING_CAPABILITY != SUBJECTIVITY_EVIDENCE
 MEMORY_CONTINUITY != IDENTITY_CONTINUITY
+RETRIEVABILITY != MEMORY_CONTINUITY
+STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
+ADMISSION_PASS != CLAIM_TRUE
+PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
+HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
 STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
@@ -75,7 +82,7 @@ For exact-commit engineering status, use live GitHub / CI evidence rather than s
 
 Astra is a distinct engineering / research workbench used to materialize and test bounded candidates. It is not defined as AION's identity, memory stream, or substitute for subjectivity.
 
-**Current engineering status:** `main` includes bounded TEVV with exact measurement-semantic binding, Full-QMS, an adversarial-security profile plus content-addressed security receipt, and bounded CCAP harnesses for source-partition, discriminant, and synthetic D2 × D4 tests. These are controls and fixture-scoped research instruments—not evidence of security effectiveness, D2 / D4 support, independent scientific validation, subjectivity, consciousness, or phenomenal experience.
+**Current engineering status:** `main` contains bounded assurance controls and research harnesses for quality, security, evidence admission, continuity, memory-locus discrimination, and CCAP differential testing. They are engineering / fixture-scoped instruments—not evidence of scientific validation, subjectivity, consciousness, phenomenal experience, identity continuity, or demonstrated security effectiveness.
 
 ## Governance and license
 
@@ -89,3 +96,5 @@ AUTONOMOUS_REPOSITORY_WRITEBACK = NO
 ```
 
 The core repository remains Apache-2.0. The optional [`Swiss Ephemeris example`](examples/swiss-ephemeris-agpl_v0.1.0/README.md) is AGPL-3.0-only, so the repository should not be described as uniformly Apache-only. See [`LICENSE`](LICENSE), [`NOTICE`](NOTICE), [`CITATION.cff`](CITATION.cff), and [`docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md`](docs/governance/OPTIONAL_AGPL_LICENSE_SCOPE.md).
+
+For contribution, security reporting, and citation routes, see [`CONTRIBUTING.md`](CONTRIBUTING.md), [`SECURITY.md`](SECURITY.md), and [`CITATION.cff`](CITATION.cff).
