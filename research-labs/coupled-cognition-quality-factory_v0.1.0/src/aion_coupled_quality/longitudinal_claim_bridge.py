@@ -5,7 +5,14 @@ import hashlib
 import json
 import math
 from pathlib import Path
-from typing import Protocol
+
+from aion_human_ai_longitudinal import (
+    ContrastAudit,
+    ContrastSpec,
+    LongitudinalStudyHarness,
+    StudyError,
+    TrialRecord,
+)
 
 from .claim_quality import (
     ClaimLevel,
@@ -23,59 +30,6 @@ from .provenance import EpistemicProvenanceLedger, ProvenanceError
 
 class LongitudinalClaimBridgeError(ValueError):
     pass
-
-
-class LongitudinalContrastSpecView(Protocol):
-    contrast_id: str
-    hypothesis_id: str
-    baseline_run_id: str
-    intervention_run_id: str
-    manipulated_fields: tuple[str, ...]
-    required_metrics: tuple[object, ...]
-    falsifier: str
-    alternative_explanations: tuple[str, ...]
-
-
-class LongitudinalContrastAuditView(Protocol):
-    contrast_id: str
-    structurally_admissible: bool
-    observed_deltas: tuple[tuple[str, float], ...]
-    reasons: tuple[str, ...]
-    canonical_effect: str
-    deployment: bool
-
-
-class LongitudinalRunBindingView(Protocol):
-    run_id: str
-    study_id: str
-    provider_id: str
-    model_id: str
-    model_version: str
-    configuration_ref: str
-    task_id: str
-    task_version: str
-    prompt_ref: str
-    context_ref: str
-    tool_manifest_ref: str
-    scorer_ref: str
-    preregistration_ref: str
-    repository_commit: str
-    source_refs: tuple[str, ...]
-
-
-class LongitudinalMetricObservationView(Protocol):
-    value: float | int
-    unit: str
-    evidence_refs: tuple[str, ...]
-    held_out: bool
-
-
-class LongitudinalTrialRecordView(Protocol):
-    binding: LongitudinalRunBindingView
-    evaluator_id: str
-    evaluator_source_ref: str
-
-    def metric(self, name: object) -> LongitudinalMetricObservationView: ...
 
 
 @dataclass(frozen=True, slots=True)
@@ -151,7 +105,7 @@ def _content_addressed_ref(kind: str, payload: dict[str, str]) -> str:
     return f"{kind}-sha256:{hashlib.sha256(canonical).hexdigest()}"
 
 
-def _runtime_context_ref(trial: LongitudinalTrialRecordView) -> str:
+def _runtime_context_ref(trial: TrialRecord) -> str:
     binding = trial.binding
     return _content_addressed_ref(
         "longitudinal-runtime",
@@ -179,7 +133,7 @@ def _runtime_context_ref(trial: LongitudinalTrialRecordView) -> str:
     )
 
 
-def _producer_ref(trial: LongitudinalTrialRecordView) -> str:
+def _producer_ref(trial: TrialRecord) -> str:
     return _content_addressed_ref(
         "longitudinal-producer",
         {
@@ -190,8 +144,8 @@ def _producer_ref(trial: LongitudinalTrialRecordView) -> str:
 
 
 def _naturalistic_case_ref(
-    trial: LongitudinalTrialRecordView,
-    spec: LongitudinalContrastSpecView,
+    trial: TrialRecord,
+    spec: ContrastSpec,
 ) -> str:
     return _content_addressed_ref(
         "longitudinal-case",
@@ -205,7 +159,7 @@ def _naturalistic_case_ref(
 
 
 def _bounded_observation_statement(
-    spec: LongitudinalContrastSpecView,
+    spec: ContrastSpec,
     observed_deltas: tuple[tuple[str, float], ...],
     metric_units: tuple[tuple[str, str], ...],
 ) -> str:
@@ -222,12 +176,13 @@ def _bounded_observation_statement(
 
 
 def _bounded_claim_id(
-    spec: LongitudinalContrastSpecView,
-    baseline_trial: LongitudinalTrialRecordView,
-    intervention_trial: LongitudinalTrialRecordView,
+    spec: ContrastSpec,
+    baseline_trial: TrialRecord,
+    intervention_trial: TrialRecord,
     observed_deltas: tuple[tuple[str, float], ...],
     metric_units: tuple[tuple[str, str], ...],
     source_evidence_refs: tuple[tuple[str, str, str], ...],
+    request: LongitudinalClaimRequest,
 ) -> str:
     return _content_addressed_ref(
         "longitudinal-l0-claim",
@@ -248,15 +203,41 @@ def _bounded_claim_id(
                 separators=(",", ":"),
                 ensure_ascii=True,
             ),
+            "claim_provenance_record_id": request.provenance_record_id,
+            "evidence_mapping": json.dumps(
+                tuple(
+                    (
+                        item.evidence_id,
+                        item.provenance_record_id,
+                        item.run_id,
+                        item.metric_name,
+                        item.study_evidence_ref,
+                    )
+                    for item in request.evidence
+                ),
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ),
+            "falsifier": spec.falsifier,
+            "alternative_explanations": json.dumps(
+                spec.alternative_explanations,
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ),
+            "manipulated_fields": json.dumps(
+                spec.manipulated_fields,
+                separators=(",", ":"),
+                ensure_ascii=True,
+            ),
         },
     )
 
 
 def _recompute_and_validate_deltas(
-    spec: LongitudinalContrastSpecView,
-    audit: LongitudinalContrastAuditView,
-    baseline_trial: LongitudinalTrialRecordView,
-    intervention_trial: LongitudinalTrialRecordView,
+    spec: ContrastSpec,
+    audit: ContrastAudit,
+    baseline_trial: TrialRecord,
+    intervention_trial: TrialRecord,
 ) -> tuple[tuple[tuple[str, float], ...], tuple[tuple[str, str], ...]]:
     required_metric_objects = tuple(spec.required_metrics)
     required_metrics = tuple(_metric_name(item) for item in required_metric_objects)
@@ -305,11 +286,34 @@ def _recompute_and_validate_deltas(
     return tuple(recomputed), tuple(units)
 
 
+def _revalidate_structural_audit(
+    spec: ContrastSpec,
+    audit: ContrastAudit,
+    baseline_trial: TrialRecord,
+    intervention_trial: TrialRecord,
+) -> None:
+    """Re-run the existing longitudinal harness over the exact mapped inputs."""
+
+    harness = LongitudinalStudyHarness()
+    try:
+        harness.add_trial(baseline_trial)
+        harness.add_trial(intervention_trial)
+        exact_audit = harness.audit_contrast(spec)
+    except StudyError as exc:
+        raise LongitudinalClaimBridgeError(
+            f"longitudinal harness structural revalidation failed: {exc}"
+        ) from exc
+    if exact_audit != audit:
+        raise LongitudinalClaimBridgeError(
+            "provided contrast audit does not match exact longitudinal harness revalidation"
+        )
+
+
 def build_longitudinal_claim_mapping(
-    spec: LongitudinalContrastSpecView,
-    audit: LongitudinalContrastAuditView,
-    baseline_trial: LongitudinalTrialRecordView,
-    intervention_trial: LongitudinalTrialRecordView,
+    spec: ContrastSpec,
+    audit: ContrastAudit,
+    baseline_trial: TrialRecord,
+    intervention_trial: TrialRecord,
     request: LongitudinalClaimRequest,
 ) -> LongitudinalClaimAdmissionMapping:
     """Map one validated longitudinal contrast into the existing PR #91 gate.
@@ -350,6 +354,12 @@ def build_longitudinal_claim_mapping(
         raise LongitudinalClaimBridgeError(
             "longitudinal contrast cannot carry canonical or deployment authority"
         )
+    _revalidate_structural_audit(
+        spec,
+        audit,
+        baseline_trial,
+        intervention_trial,
+    )
     if not spec.manipulated_fields or any(
         not item.strip() for item in spec.manipulated_fields
     ):
@@ -451,6 +461,7 @@ def build_longitudinal_claim_mapping(
         observed_deltas,
         metric_units,
         source_evidence_refs,
+        request,
     )
 
     bindings = tuple(
