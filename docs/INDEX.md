@@ -37,7 +37,7 @@ For a 60-second public map, use [`RESEARCH_MAP.md`](RESEARCH_MAP.md). For guided
 
 ### Recent bounded milestones — 2026-09-18 / 2026-09-19
 
-The latest bounded material on `main` extends through PR #184. These are navigation references, not proof of their hypotheses or effectiveness.
+This is a curated navigation snapshot, not a live PR ledger. Exact merged standing and exact-head engineering status belong to live GitHub / CI. These are navigation references, not proof of their hypotheses or effectiveness.
 
 - [`research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md`](research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md) — Human–AI learning / CCTS / HTECR external crosswalk with explicit falsification boundaries.
 - [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) — separates history as record, retrieval source and replay environment.
