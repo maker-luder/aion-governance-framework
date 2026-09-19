@@ -185,8 +185,13 @@ class MemoryLocusCase:
     task_relevant_information_digest: str
     format_ref: str
     observable_ref: str
+    target_construct_or_dependency: str
     discriminating_prediction: str
+    matched_control_condition: MemoryLocusCondition | None
     manipulation_check_ref: str
+    mimicry_alternative: str
+    internal_variant_alternative: str
+    indicator_validation_status: str
     target_channel_or_source: str
     exact_change: str
     non_targets_held_constant: tuple[str, ...]
@@ -219,8 +224,12 @@ class MemoryLocusCase:
         for name in (
             "format_ref",
             "observable_ref",
+            "target_construct_or_dependency",
             "discriminating_prediction",
             "manipulation_check_ref",
+            "mimicry_alternative",
+            "internal_variant_alternative",
+            "indicator_validation_status",
             "target_channel_or_source",
             "exact_change",
             "support_reducing_outcome",
@@ -251,6 +260,16 @@ class MemoryLocusCase:
         elif self.competing_explanation_targeted not in REQUIRED_COMPETING_EXPLANATIONS:
             raise MemoryLocusHarnessError(
                 "non-reference condition must target a preregistered competing explanation"
+            )
+
+        expected_control = COMPARATOR.get(self.condition)
+        if self.matched_control_condition is not expected_control:
+            raise MemoryLocusHarnessError(
+                "matched_control_condition does not match preregistered comparator"
+            )
+        if self.indicator_validation_status != "NOT_VALIDATED":
+            raise MemoryLocusHarnessError(
+                "Stage B indicator_validation_status must remain NOT_VALIDATED"
             )
         if not self.evidence_refs or any(not item.strip() for item in self.evidence_refs):
             raise MemoryLocusHarnessError("evidence_refs must be non-empty")
@@ -337,8 +356,15 @@ class MemoryLocusCase:
             "task_relevant_information_digest": self.task_relevant_information_digest,
             "format_ref": self.format_ref,
             "observable_ref": self.observable_ref,
+            "target_construct_or_dependency": self.target_construct_or_dependency,
             "discriminating_prediction": self.discriminating_prediction,
+            "matched_control_condition": (
+                self.matched_control_condition.value if self.matched_control_condition else None
+            ),
             "manipulation_check_ref": self.manipulation_check_ref,
+            "mimicry_alternative": self.mimicry_alternative,
+            "internal_variant_alternative": self.internal_variant_alternative,
+            "indicator_validation_status": self.indicator_validation_status,
             "target_channel_or_source": self.target_channel_or_source,
             "exact_change": self.exact_change,
             "non_targets_held_constant": self.non_targets_held_constant,
