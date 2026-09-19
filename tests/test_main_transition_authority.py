@@ -231,8 +231,13 @@ def test_ready_for_review_event_with_existing_receipt_fails_closed() -> None:
     assert result.account_evidence.target_pr_match is True
     assert result.account_evidence.target_head_match is True
     assert result.account_evidence.timestamp_fresh is True
-    assert any("fresh approval must arrive in a pull_request edited event" in item for item in result.diagnostics)
-    assert any("must specifically edit the pull request body" in item for item in result.diagnostics)
+    assert any(
+        "fresh approval must arrive in a pull_request edited event" in item
+        for item in result.diagnostics
+    )
+    assert any(
+        "must specifically edit the pull request body" in item for item in result.diagnostics
+    )
 
 
 def test_contradiction_fails_closed() -> None:
