@@ -35,22 +35,32 @@ For a 60-second public map, use [`RESEARCH_MAP.md`](RESEARCH_MAP.md). For guided
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
-### Recent bounded milestones — 2026-09-18
+### Recent bounded milestones — 2026-09-18 / 2026-09-19
 
-The latest bounded research material on `main` extends beyond the earlier CCTS convergence. The following records are current research references, not proof of their hypotheses:
+The latest bounded material on `main` extends through PR #184. These are navigation references, not proof of their hypotheses or effectiveness.
 
-- [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) — separates history as record, retrieval source and replay environment; replay-policy comparison does not establish learning or subjective memory.
-- [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) — tests whether attention-structure reconstruction has discriminant value beyond existing re-entry, memory and CCTS mechanisms; no model-internal attention mechanism is established.
-- [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) — freezes the current CCAP Stage 1–3 specification chain; confirmatory preregistration and execution remain incomplete.
-- [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) — first completed provider-evidence admission case; multiple external evaluations and partial cross-source triangulation exist, while open independent replication remains sparse.
+- [`research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md`](research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md) — Human–AI learning / CCTS / HTECR external crosswalk with explicit falsification boundaries.
+- [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) — separates history as record, retrieval source and replay environment.
+- [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) — tests discriminant value beyond re-entry / memory / CCTS.
+- [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) — current CCAP Stage 1–3 specification freeze.
+- [`research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md`](research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md), [`research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md`](research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md), and [`research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md`](research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md) — bounded TEVV mapping, structural stress and synthetic differential probes.
+- [`quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md`](quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md), [`../research-labs/ai-tevv-profile_v0.1.0/README.md`](../research-labs/ai-tevv-profile_v0.1.0/README.md), [`../research-labs/ai-adversarial-security-profile_v0.1.0/README.md`](../research-labs/ai-adversarial-security-profile_v0.1.0/README.md), and [`../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md`](../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md) — current bounded AI risk / TEVV / Full-QMS / security-assurance chain.
+- [`../research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py`](../research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py) — exact-structure longitudinal claim-admission bridge from PR #183; admission does not establish claim truth.
+- [`../research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md`](../research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md) — PR #184 matched-information memory-locus dependency harness; current result is structural admissibility only.
+- Provider-evidence readmission: [OpenAI](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md), [Gemini](research/GEMINI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), [Grok](research/GROK_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), [Claude](research/ANTHROPIC_CLAUDE_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), [Meta Llama](research/META_LLAMA_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), and [Moonshot Kimi K3](research/KIMI_K3_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), plus the [OpenAI–Gemini method comparison](research/OPENAI_GEMINI_CROSS_PROVIDER_METHOD_COMPARISON_2026_09_19.md).
+- [`quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md`](quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md) — current exact-head / incident-quality reconciliation.
 
 ```text
 DOCUMENT_PRESENT_ON_MAIN != SCIENTIFIC_CLAIM_PROMOTED
-HISTORY_REPLAY != SUBJECTIVE_REMEMBERING
-ATTENTION_STRUCTURE != PROVEN_MODEL_INTERNAL_MECHANISM
-STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
-PROVIDER_REPORT != INDEPENDENT_VALIDATION
+HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
+ADMISSION_PASS != CLAIM_TRUE
+RETRIEVABILITY != MEMORY_CONTINUITY
+STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
+TEVV_PROFILE_PASS != SCIENTIFIC_VALIDATION
+SECURITY_PROFILE_PASS != SECURITY_EFFECTIVENESS_ESTABLISHED
+PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
 CROSS_SOURCE_CONVERGENCE != EXACT_REPLICATION
+PROCESS_CLOSURE != RESEARCH_CONFIRMATION
 SCIENTIFIC_DISPOSITION = HOLD
 ```
 
@@ -152,7 +162,7 @@ CI_PASS != THEORY_CONFIRMATION
 These are bounded to the component/lab they describe and are not global reader entry points:
 
 - [`../components/`](../components/) — governance, execution, evidence and runtime components;
-- [`../research-labs/`](../research-labs/) — bounded research materialization, including subjectivity pipeline, Endogenous Goal Dynamics, norm formation, triadic state dynamics, bounded research loop, claim-quality admission, Human–AI longitudinal study/CCTS, and interaction-history study;
+- [`../research-labs/`](../research-labs/) — bounded research materialization, including the subjectivity pipeline, coupled quality / claim admission, AI TEVV, AI adversarial security, Endogenous Goal Dynamics, norm formation, triadic state dynamics, bounded research loop, Human–AI longitudinal study/CCTS, and interaction-history study;
   - [`Diachronic and Collective Dynamics profile`](../research-labs/bounded-autonomous-research-loop_v0.1.0/docs/DIACHRONIC_COLLECTIVE_DYNAMICS.md) — component-local derived observations over the unchanged seven-state surface;
 - [`../components/multimodal_media_core_v0.1.0/`](../components/multimodal_media_core_v0.1.0/) — governed local-first image, video and 3D evidence generation with provider-neutral admission controls;
 - [`../components/aion_astra_autonomous_research_v0.1.0/`](../components/aion_astra_autonomous_research_v0.1.0/) — finite synthetic Triadic research campaign using existing inquiry, bounded-loop and Evidence Interop owners;
