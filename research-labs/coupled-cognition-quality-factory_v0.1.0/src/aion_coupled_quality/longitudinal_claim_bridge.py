@@ -78,14 +78,6 @@ class LongitudinalEvidenceInput:
     metric_name: str
     study_evidence_ref: str
     publication_class: PublicationClass = PublicationClass.SYNTHETIC
-    intervention_sensitive: bool = False
-    transfer_candidate: bool = False
-    held_out: bool = False
-    repeated: bool = False
-    comparison_control: bool = False
-    independently_scored: bool = False
-    replication_source_ref: str = ""
-    replication_provenance_record_id: str = ""
 
     def __post_init__(self) -> None:
         for name in (
@@ -113,8 +105,6 @@ class LongitudinalClaimRequest:
     challenge_resolutions: tuple[ChallengeResolution, ...] = field(default_factory=tuple)
     dependencies: tuple[ClaimDependency, ...] = field(default_factory=tuple)
     revision: ClaimRevision | None = None
-    population_scope: bool = False
-    causal_learning_effect: bool = False
 
     def __post_init__(self) -> None:
         if not self.claim_id.strip() or not self.statement.strip():
@@ -127,6 +117,10 @@ class LongitudinalClaimRequest:
             raise LongitudinalClaimBridgeError("at least one evidence mapping is required")
         if any(not item.strip() for item in self.inferred_statements):
             raise LongitudinalClaimBridgeError("inferred_statements cannot contain empty values")
+        if self.claim_level is not ClaimLevel.L0_OBSERVATION:
+            raise LongitudinalClaimBridgeError(
+                "longitudinal claim bridge v0.1 admits L0 observation records only"
+            )
 
 
 @dataclass(frozen=True, slots=True)
@@ -200,9 +194,11 @@ def build_longitudinal_claim_mapping(
     """Map one validated longitudinal contrast into the existing PR #91 gate.
 
     The adapter binds evidence to the actual metric evidence references on both
-    source trials. It does not create provenance, quality evidence, scientific
-    truth, or authority. The existing ProvenanceClaimQualityGate remains the
-    admission authority.
+    source trials. Version 0.1 intentionally admits L0 observation records only:
+    the source harness has no typed verification surface for intervention,
+    replication, population, or causal-learning qualification. It does not
+    create provenance, quality evidence, scientific truth, or authority. The
+    existing ProvenanceClaimQualityGate remains the admission authority.
     """
 
     if not spec.contrast_id.strip() or not spec.hypothesis_id.strip():
@@ -347,16 +343,16 @@ def build_longitudinal_claim_mapping(
                 f"|contrast:{spec.contrast_id}"
                 f"|run:{item.run_id}"
             ),
-            intervention_sensitive=item.intervention_sensitive,
-            transfer_candidate=item.transfer_candidate,
-            held_out=item.held_out,
-            repeated=item.repeated,
-            comparison_control=item.comparison_control,
-            independently_scored=item.independently_scored,
+            intervention_sensitive=False,
+            transfer_candidate=False,
+            held_out=False,
+            repeated=False,
+            comparison_control=False,
+            independently_scored=False,
             producer_ref=_producer_ref(trial_by_run[item.run_id]),
             runtime_or_context_ref=_runtime_context_ref(trial_by_run[item.run_id]),
-            replication_source_ref=item.replication_source_ref,
-            replication_provenance_record_id=item.replication_provenance_record_id,
+            replication_source_ref="",
+            replication_provenance_record_id="",
         )
         for item in request.evidence
     )
@@ -379,8 +375,8 @@ def build_longitudinal_claim_mapping(
         challenge_resolutions=request.challenge_resolutions,
         dependencies=request.dependencies,
         revision=request.revision,
-        population_scope=request.population_scope,
-        causal_learning_effect=request.causal_learning_effect,
+        population_scope=False,
+        causal_learning_effect=False,
         subjectivity_claim=False,
         consciousness_claim=False,
         phenomenal_experience_claim=False,
