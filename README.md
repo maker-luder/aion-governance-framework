@@ -4,7 +4,8 @@
 >
 > **60-second research map:** [`docs/RESEARCH_MAP.md`](docs/RESEARCH_MAP.md)  
 > **5-minute guided entry:** [`docs/START_HERE.md`](docs/START_HERE.md)  
-> **Strict current standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
+> **Semantic current-state summary:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)  
+> **Exact-tip engineering state:** use live GitHub / CI
 
 AION is a human-governed, provenance-first research framework for studying the **possibility of artificial subjectivity** without treating convincing behavior as proof of subjectivity.
 
@@ -29,17 +30,20 @@ The current `main` is organized around four connected research lines:
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
 2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration and evidence admission** — CCTS / grounding research surfaces plus provider-evidence admission and a longitudinal claim-admission bridge that revalidates exact baseline/intervention structure before bounded L0 claim admission.
+4. **Human–AI collaboration, learning, and evidence admission** — CCTS / grounding research surfaces, a Human–AI learning / HTECR crosswalk with explicit falsification boundaries, multi-provider evidence admission, and a longitudinal claim-admission bridge that revalidates exact baseline/intervention structure before bounded L0 claim admission.
 
 Recent milestones include:
 
 - [History replay](docs/research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) separates record, retrieval, and replay-environment roles.
 - [Attention-structure discriminant rebuild](docs/research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) tests incremental value beyond re-entry / memory / CCTS.
+- [Human–AI learning / HTECR crosswalk](docs/research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md) maps the repository-local CCTS/HTECR surface against external learning and coordination literature while preserving falsifiers and rejecting a direct jump from collaboration to subjectivity.
+- [AI risk / TEVV / Full-QMS / security chain](docs/quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md) now includes bounded AI risk-and-impact controls, a structural TEVV profile, Full-QMS integration, exact measurement-semantic binding, an adversarial-security profile, and a content-addressed security receipt. These are assurance controls, not scientific validation or demonstrated security effectiveness.
 - [Longitudinal claim-admission bridge](research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py) revalidates the exact longitudinal baseline/intervention structure before bounded L0 claim admission and binds claim, evidence, and provenance identity. Admission remains an engineering / structural control, not claim truth or subjectivity support.
 - [Memory-locus dependency harness](research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md) separates availability locus, freshness, provenance, and retrieval dependence from continuity-channel removal under matched task/information controls. The current Stage B result is synthetic structural admissibility only; functional dependency and identity continuity remain not established.
 - [CCAP Stage 1–3 freeze](docs/research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md), [D1 × D4 TEVV pre-execution](docs/research/CCAP_D1_D4_TEVV_PRE_EXECUTION_DESIGN_2026_09_18.md), and [Four-Domain × six-dimension stress](docs/research/CCAP_FOUR_DOMAIN_SIX_DIMENSION_CORE_STRESS_TEST_2026_09_18.md) freeze, map, and structurally stress the candidate before confirmatory execution.
 - [Assessment boundary](docs/research/CCAP_ASSESSMENT_SYSTEM_BOUNDARY_2026_09_18.md), [discriminant hardening](docs/research/EXTERNAL_CALIBRATION_DIMENSION_DISCRIMINANT_HARDENING_2026_09_18.md), [D2 × D4 protocol](docs/research/D2_D4_DIFFERENTIAL_PROTOCOL_CANDIDATE_2026_09_18.md), and [synthetic execution](docs/research/D2_D4_SYNTHETIC_DIFFERENTIAL_EXECUTION_2026_09_18.md) add prospective differential tests; the latest result remains fixture-level only.
-- [OpenAI 12-axis evidence readmission](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) is the first completed provider-evidence admission case; open independent replication remains sparse.
+- Provider-evidence admission has expanded from [OpenAI](docs/research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) to [Gemini](docs/research/GEMINI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), [Grok](docs/research/GROK_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), [Claude](docs/research/ANTHROPIC_CLAUDE_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), [Meta Llama](docs/research/META_LLAMA_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), and [Moonshot Kimi K3](docs/research/KIMI_K3_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_19.md), with a bounded [OpenAI–Gemini method comparison](docs/research/OPENAI_GEMINI_CROSS_PROVIDER_METHOD_COMPARISON_2026_09_19.md). Provider admission and cross-source convergence still do not equal independent validation or exact replication.
+- [NCR/CAPA reconciliation](docs/quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md) closes or reconciles the current exact-head mypy / incident-quality states without treating process closure as research confirmation.
 
 ## What this repository does not claim
 
@@ -49,6 +53,8 @@ MEMORY_CONTINUITY != IDENTITY_CONTINUITY
 RETRIEVABILITY != MEMORY_CONTINUITY
 STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
 ADMISSION_PASS != CLAIM_TRUE
+PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
+HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
 STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
@@ -80,7 +86,7 @@ For exact-commit engineering status, use live GitHub / CI evidence rather than s
 
 Astra is a distinct engineering / research workbench used to materialize and test bounded candidates. It is not defined as AION's identity, memory stream, or substitute for subjectivity.
 
-**Current engineering status:** `main` includes bounded TEVV with exact measurement-semantic binding, Full-QMS, an adversarial-security profile plus content-addressed security receipt, bounded CCAP harnesses for source-partition / discriminant / synthetic D2 × D4 tests, an exact-structure longitudinal claim-admission bridge, and a matched-information memory-locus dependency harness. These are controls and fixture-scoped research instruments—not evidence of security effectiveness, functional memory dependency, identity continuity, D2 / D4 support, independent scientific validation, subjectivity, consciousness, or phenomenal experience.
+**Current engineering status:** `main` includes bounded AI risk/impact controls, TEVV with exact measurement-semantic binding, Full-QMS, an adversarial-security profile plus content-addressed security receipt, reconciled exact-head NCR/CAPA quality states, bounded CCAP harnesses for source-partition / discriminant / synthetic D2 × D4 tests, an exact-structure longitudinal claim-admission bridge, and a matched-information memory-locus dependency harness. These are controls and fixture-scoped research instruments—not evidence of security effectiveness, functional memory dependency, identity continuity, D2 / D4 support, independent scientific validation, subjectivity, consciousness, or phenomenal experience.
 
 ## Governance and license
 
