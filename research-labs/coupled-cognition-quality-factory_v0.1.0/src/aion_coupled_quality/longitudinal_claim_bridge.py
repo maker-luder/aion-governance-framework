@@ -73,7 +73,6 @@ class LongitudinalMetricObservationView(Protocol):
 
 class LongitudinalTrialRecordView(Protocol):
     binding: LongitudinalRunBindingView
-    condition: object
     evaluator_id: str
     evaluator_source_ref: str
 
