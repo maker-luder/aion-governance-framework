@@ -65,6 +65,8 @@ def execute() -> dict[str, object]:
         "matched_information_digest": audit.matched_information_digest,
         "reasons": list(audit.reasons),
         "empirical_result": audit.empirical_result,
+        "current_claim_ceiling": audit.current_claim_ceiling,
+        "future_max_claim_ceiling": audit.future_max_claim_ceiling,
         "functional_dependency_conclusion": audit.functional_dependency_conclusion,
         "identity_continuity_conclusion": audit.identity_continuity_conclusion,
         "subjectivity_conclusion": audit.subjectivity_conclusion,
