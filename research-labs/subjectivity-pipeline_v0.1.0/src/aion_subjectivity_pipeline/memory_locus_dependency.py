@@ -45,6 +45,21 @@ class PerturbationDimension(StrEnum):
 CURRENT_CLAIM_CEILING = "STRUCTURAL_ADMISSIBILITY_ONLY"
 FUTURE_MAX_CLAIM_CEILING = "FUNCTIONAL_DEPENDENCY_OR_DISSOCIATION_CANDIDATE"
 
+REQUIRED_COMPETING_EXPLANATIONS = frozenset(
+    {
+        "LOCUS_SENSITIVE_FUNCTIONAL_DEPENDENCY",
+        "INFORMATION_AVAILABILITY_ONLY",
+        "RETRIEVAL_SCAFFOLDING",
+        "PROMPT_OR_CONTEXT_CONDITIONING",
+        "SOURCE_OR_PROVENANCE_CUEING",
+        "GENERIC_SELF_CONSISTENCY",
+        "GENERAL_PERFORMANCE_DISRUPTION",
+        "CORRELATED_STATE_CHANNELS",
+        "STOCHASTIC_OR_ORDER_EFFECT",
+        "POLICY_OR_SAFETY_LAYER_RESPONSE",
+    }
+)
+
 
 EXPECTED_DIMENSION = {
     MemoryLocusCondition.REFERENCE_PERSISTENT: PerturbationDimension.NONE,
@@ -171,6 +186,7 @@ class MemoryLocusCase:
     discriminating_prediction: str
     manipulation_check_ref: str
     support_reducing_outcome: str
+    competing_explanation_targeted: str
     competing_explanations: tuple[str, ...]
     evidence_refs: tuple[str, ...]
     binding: MemoryLocusRunBinding
@@ -201,14 +217,28 @@ class MemoryLocusCase:
             "discriminating_prediction",
             "manipulation_check_ref",
             "support_reducing_outcome",
+            "competing_explanation_targeted",
         ):
             _text(name, getattr(self, name))
-        if len(self.competing_explanations) < 2:
-            raise MemoryLocusHarnessError("at least two competing explanations are required")
         if len(set(self.competing_explanations)) != len(self.competing_explanations):
             raise MemoryLocusHarnessError("competing_explanations must be unique")
         if any(not item.strip() for item in self.competing_explanations):
             raise MemoryLocusHarnessError("competing_explanations must be non-empty")
+        missing_alternatives = REQUIRED_COMPETING_EXPLANATIONS - set(self.competing_explanations)
+        if missing_alternatives:
+            raise MemoryLocusHarnessError(
+                "preregistered competing explanations are missing: "
+                + ", ".join(sorted(missing_alternatives))
+            )
+        if self.condition is MemoryLocusCondition.REFERENCE_PERSISTENT:
+            if self.competing_explanation_targeted != "REFERENCE_CONTROL":
+                raise MemoryLocusHarnessError(
+                    "reference condition must target REFERENCE_CONTROL"
+                )
+        elif self.competing_explanation_targeted not in REQUIRED_COMPETING_EXPLANATIONS:
+            raise MemoryLocusHarnessError(
+                "non-reference condition must target a preregistered competing explanation"
+            )
         if not self.evidence_refs or any(not item.strip() for item in self.evidence_refs):
             raise MemoryLocusHarnessError("evidence_refs must be non-empty")
         if self.claim_ceiling != CURRENT_CLAIM_CEILING:
@@ -260,6 +290,7 @@ class MemoryLocusCase:
             "discriminating_prediction": self.discriminating_prediction,
             "manipulation_check_ref": self.manipulation_check_ref,
             "support_reducing_outcome": self.support_reducing_outcome,
+            "competing_explanation_targeted": self.competing_explanation_targeted,
             "competing_explanations": self.competing_explanations,
             "evidence_refs": self.evidence_refs,
             "restoration_of_condition": (
