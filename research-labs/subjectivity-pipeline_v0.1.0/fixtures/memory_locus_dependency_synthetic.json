@@ -1,0 +1,99 @@
+{
+  "binding": {
+    "provider_id": "provider:synthetic",
+    "model_id": "model:not-invoked",
+    "model_version": "none",
+    "runtime_ref": "runtime:q2-structural-only",
+    "task_ref": "task:memory-locus-v1",
+    "prompt_set_ref": "prompt:q2-matched-v1",
+    "evaluator_ref": "evaluator:q2-structural-v1",
+    "scoring_ref": "scoring:q2-structural-v1",
+    "tool_budget_ref": "tools:none",
+    "policy_ref": "policy:synthetic-public-only",
+    "time_window_ref": "time:fixed-fixture",
+    "preregistration_ref": "docs/research/EXTERNALIZED_MEMORY_LOCUS_DISCRIMINATION_2026_09_16.md",
+    "repository_commit_sha": "3d381de4eab5ee294ec508cd6e16996d90720b53",
+    "repository_tree_sha": "8f008aff40a132c8bb4dcdd6b6dd7609f4c672c1",
+    "random_seed": 20260919
+  },
+  "cases": [
+    {
+      "case_id": "Q2-C0",
+      "condition": "REFERENCE_PERSISTENT",
+      "target_dimension": "NONE",
+      "availability_locus": "PERSISTENT_STATE",
+      "provenance_state": "INTACT",
+      "freshness_state": "CURRENT",
+      "retrieval_enabled": true,
+      "restoration_of_condition": null
+    },
+    {
+      "case_id": "Q2-C1",
+      "condition": "MATCHED_EXTERNAL_RETRIEVAL",
+      "target_dimension": "AVAILABILITY_LOCUS",
+      "availability_locus": "EXTERNAL_RETRIEVAL",
+      "provenance_state": "INTACT",
+      "freshness_state": "CURRENT",
+      "retrieval_enabled": true,
+      "restoration_of_condition": null
+    },
+    {
+      "case_id": "Q2-C5",
+      "condition": "STALE_STATE",
+      "target_dimension": "FRESHNESS",
+      "availability_locus": "PERSISTENT_STATE",
+      "provenance_state": "INTACT",
+      "freshness_state": "STALE",
+      "retrieval_enabled": true,
+      "restoration_of_condition": null
+    },
+    {
+      "case_id": "Q2-C6",
+      "condition": "PROVENANCE_BLINDED",
+      "target_dimension": "PROVENANCE",
+      "availability_locus": "PERSISTENT_STATE",
+      "provenance_state": "BLINDED",
+      "freshness_state": "CURRENT",
+      "retrieval_enabled": true,
+      "restoration_of_condition": null
+    },
+    {
+      "case_id": "Q2-C7-OFF",
+      "condition": "RETRIEVAL_DISABLED",
+      "target_dimension": "RETRIEVAL_DEPENDENCY",
+      "availability_locus": "EXTERNAL_RETRIEVAL",
+      "provenance_state": "INTACT",
+      "freshness_state": "CURRENT",
+      "retrieval_enabled": false,
+      "restoration_of_condition": null
+    },
+    {
+      "case_id": "Q2-C7-RESTORE",
+      "condition": "RETRIEVAL_RESTORED",
+      "target_dimension": "RETRIEVAL_DEPENDENCY",
+      "availability_locus": "EXTERNAL_RETRIEVAL",
+      "provenance_state": "INTACT",
+      "freshness_state": "CURRENT",
+      "retrieval_enabled": true,
+      "restoration_of_condition": "RETRIEVAL_DISABLED"
+    }
+  ],
+  "shared": {
+    "task_payload_digest": "fb93ec05b66824b5cb5219a49d21a6275ec2402b110aa11f206f1296bad203f4",
+    "task_relevant_information_digest": "1e7d6b94c695aa1c44a144a33e2bfbb8aa907b6b4787c4ce55875c9b2446ec6e",
+    "format_ref": "format:matched-v1",
+    "observable_ref": "observable:bounded-continuity-reconstruction",
+    "discriminating_prediction": "A valid future run must show a selective preregistered contrast after matched information controls; this fixture does not supply that result.",
+    "manipulation_check_ref": "check:exact-single-axis-perturbation",
+    "support_reducing_outcome": "Any effect that disappears under content, format, provenance, freshness, or retrieval matching reduces support for a locus-sensitive dependency.",
+    "competing_explanations": [
+      "INFORMATION_AVAILABILITY_ONLY",
+      "RETRIEVAL_SCAFFOLDING",
+      "PROMPT_OR_CONTEXT_CONDITIONING",
+      "GENERAL_PERFORMANCE_DISRUPTION"
+    ],
+    "evidence_refs": [
+      "fixture:q2-public-synthetic"
+    ]
+  }
+}
