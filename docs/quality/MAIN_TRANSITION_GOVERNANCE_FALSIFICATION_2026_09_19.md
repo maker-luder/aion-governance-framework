@@ -40,7 +40,10 @@ Python 3.12
 This is a positive control because GitHub supports pinning a required status check
 to a specific GitHub App source. It mitigates same-name status spoofing from an
 unexpected integration; it does **not** make candidate-modified GitHub Actions workflow
-logic independent of the candidate.
+logic independent of the candidate. GitHub's required-check troubleshooting guidance
+also states that required status checks do not take workflow, matrix, or event-trigger
+type into account. The current rule therefore does not cryptographically bind the
+required context to one immutable workflow definition.
 
 ## 3. Counterexample findings
 
@@ -91,6 +94,9 @@ its own authority-check implementation.
 ```text
 SELF_MODIFIED_CONTROL_PASS
 != INDEPENDENT_CONTROL_VALIDATION
+
+CHECK_NAME_PLUS_APP_SOURCE
+!= WORKFLOW_DEFINITION_BINDING
 ```
 
 This is the strongest technical assurance gap found in this review.
