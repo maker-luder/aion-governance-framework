@@ -284,7 +284,9 @@ SCIENTIFIC_VALIDATION = NONE
 
 The adapter maps an already-validated longitudinal contrast into the existing PR #91
 `ResearchClaimRecord` / `EvidenceBinding` surface and then submits it to the existing
-`ProvenanceClaimQualityGate`. It does not create provenance, infer support from a metric
-delta, authorize deployment, or promote subjectivity / consciousness claims. Supporting
-evidence must carry explicit producer and runtime/context references, and mechanism-level
-promotion still requires explicitly intervention-sensitive evidence under the existing gate.
+`ProvenanceClaimQualityGate`. Version 0.1 is deliberately capped at
+`L0_OBSERVATION`: the longitudinal harness does not yet provide typed verification for
+intervention-sensitive, repeated, held-out, replication, population or causal-learning
+qualification. Those flags cannot be supplied through this bridge. It does not create
+provenance, infer support from a metric delta, authorize deployment, or promote
+subjectivity / consciousness claims.
