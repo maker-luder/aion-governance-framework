@@ -263,6 +263,11 @@ def test_real_longitudinal_types_map_into_existing_claim_gate() -> None:
     assert mapping.claim.claim_level is ClaimLevel.L0_OBSERVATION
     assert mapping.claim.population_scope is False
     assert mapping.claim.causal_learning_effect is False
+    assert mapping.claim.publication_class is PublicationClass.SYNTHETIC
+    assert mapping.claim.statement == (
+        "Longitudinal contrast C-MEMORY-01 recorded bounded metric deltas "
+        "for hypothesis H-GROUNDING-01: REGROUNDING_COST=-1.5."
+    )
     assert all(not item.intervention_sensitive for item in mapping.evidence_bindings)
     assert all(not item.transfer_candidate for item in mapping.evidence_bindings)
     assert all(not item.held_out for item in mapping.evidence_bindings)
@@ -358,14 +363,18 @@ def test_evidence_must_bind_to_actual_trial_metric_reference() -> None:
 
 
 def test_support_must_cover_both_runs_for_required_metric() -> None:
-    observed_only = replace(
-        _request().evidence[0],
-        relation=EvidenceRelation.OBSERVES,
-    )
-    request = _request(evidence=(observed_only, _request().evidence[1]))
+    request = _request(evidence=(_request().evidence[1],))
     with pytest.raises(LongitudinalClaimBridgeError, match="cover both runs"):
         build_longitudinal_claim_mapping(
             _spec(), _audit(), _baseline(), _intervention(), request
+        )
+
+
+def test_non_support_trial_relation_fails_closed() -> None:
+    with pytest.raises(LongitudinalClaimBridgeError, match="SUPPORTS only"):
+        replace(
+            _request().evidence[0],
+            relation=EvidenceRelation.OBSERVES,
         )
 
 
@@ -441,21 +450,24 @@ def test_population_and_causal_learning_promotion_fail_closed(
         )
 
 
-def test_private_evidence_remains_blocked_by_existing_gate() -> None:
-    private = replace(
-        _request().evidence[0],
-        publication_class=PublicationClass.PRIVATE_TRANSCRIPT,
-    )
-    request = _request(evidence=(private, _request().evidence[1]))
+def test_non_synthetic_trial_evidence_fails_closed() -> None:
+    with pytest.raises(LongitudinalClaimBridgeError, match="SYNTHETIC trial evidence only"):
+        replace(
+            _request().evidence[0],
+            publication_class=PublicationClass.PRIVATE_TRANSCRIPT,
+        )
+
+
+def test_non_synthetic_claim_publication_class_fails_closed() -> None:
+    with pytest.raises(LongitudinalClaimBridgeError, match="emits SYNTHETIC claims only"):
+        _request(publication_class=PublicationClass.PUBLIC_SAFE)
+
+
+def test_caller_statement_cannot_override_bounded_observation_statement() -> None:
+    request = _request(statement="This proves the hypothesis and subjectivity.")
     mapping = _mapping(request)
-    assessment = assess_longitudinal_claim_mapping(
-        mapping,
-        ledger=_ledger(),
-        lot=_lot(),
-        repository_root=REPOSITORY_ROOT,
-    )
-    assert assessment.disposition is ClaimAdmissionDisposition.HOLD
-    assert "PRIVATE_TRANSCRIPT_NOT_PUBLISHABLE:E-BASE" in assessment.reasons
+    assert "proves the hypothesis" not in mapping.claim.statement
+    assert mapping.claim.statement.startswith("Longitudinal contrast C-MEMORY-01 recorded bounded metric deltas")
 
 
 @pytest.mark.parametrize(
