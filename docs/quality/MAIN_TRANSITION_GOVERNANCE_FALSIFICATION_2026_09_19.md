@@ -22,6 +22,7 @@ At review time:
 ```text
 MAIN = a711e3110ce353e9407390dff0819177b162283c
 MAIN_PROTECTION_RULESET_ID = 20545803
+RULESET_UPDATED_AT = 2026-08-15T22:52:13.759+08:00
 RULESET_ENFORCEMENT = active
 STRICT_REQUIRED_STATUS_CHECKS = true
 BYPASS_ACTORS = []
@@ -37,7 +38,9 @@ Python 3.12
 ```
 
 This is a positive control because GitHub supports pinning a required status check
-to a specific GitHub App source.
+to a specific GitHub App source. It mitigates same-name status spoofing from an
+unexpected integration; it does **not** make candidate-modified GitHub Actions workflow
+logic independent of the candidate.
 
 ## 3. Counterexample findings
 
@@ -325,3 +328,4 @@ SEPARATION_OF_DUTIES_LIMIT = CONFIRMED
 CURRENT_GATE_VALUE = REAL_BUT_BOUNDED
 CURRENT_GATE_ASSURANCE_CEILING = STRUCTURAL / PROCEDURAL
 MERGE_AUTHORITY_FOR_THIS_REVIEW = NONE
+```
