@@ -19,6 +19,13 @@ from aion_subjectivity_pipeline import (
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "fixtures/memory_locus_dependency_synthetic.json"
 
+EXPERIMENT_ID = "AION-MEMORY-LOCUS-DEPENDENCY-SYNTHETIC-001"
+IMPLEMENTATION_BASE_COMMIT_SHA = "3d381de4eab5ee294ec508cd6e16996d90720b53"
+IMPLEMENTATION_BASE_TREE_SHA = "8f008aff40a132c8bb4dcdd6b6dd7609f4c672c1"
+SPECIFICATION_PR = 122
+SPECIFICATION_HEAD_SHA = "dcc669584070f2b49b5338926b79110c30a67cb1"
+SPECIFICATION_MERGE_COMMIT_SHA = "d9a3a94ba4d15d499532ca2eceadd16ad704c67c"
+
 
 def load_cases() -> tuple[MemoryLocusCase, ...]:
     data = json.loads(FIXTURE.read_text(encoding="utf-8"))
@@ -67,10 +74,29 @@ def load_cases() -> tuple[MemoryLocusCase, ...]:
 
 
 def execute() -> dict[str, object]:
-    audit = MemoryLocusDependencyHarness().audit(load_cases())
+    cases = load_cases()
+    audit = MemoryLocusDependencyHarness().audit(cases)
     return {
         "schema_version": "0.1.0",
+        "experiment_id": EXPERIMENT_ID,
+        "mode": "DETERMINISTIC_SYNTHETIC_FIXTURE",
+        "specification_dependency": {
+            "pull_request": SPECIFICATION_PR,
+            "merged_head_sha": SPECIFICATION_HEAD_SHA,
+            "merge_commit_sha": SPECIFICATION_MERGE_COMMIT_SHA,
+            "merged": True,
+            "used_as_implementation_base": False,
+            "full_conformance_to_merged_specification": "NOT_ESTABLISHED",
+        },
+        "implementation_base": {
+            "commit_sha": IMPLEMENTATION_BASE_COMMIT_SHA,
+            "tree_sha": IMPLEMENTATION_BASE_TREE_SHA,
+        },
         "fixture_sha256": hashlib.sha256(FIXTURE.read_bytes()).hexdigest(),
+        "case_fingerprints": {
+            case.condition.value: case.fingerprint
+            for case in cases
+        },
         "case_count": audit.case_count,
         "exercised_dimensions": list(audit.exercised_dimensions),
         "restoration_present": audit.restoration_present,
@@ -91,6 +117,10 @@ def execute() -> dict[str, object]:
         "model_invoked": False,
         "human_subject_experiment": False,
         "private_transcript_collected": False,
+        "indicator_validation_status": "NOT_VALIDATED",
+        "competing_explanations_retained": list(cases[0].competing_explanations),
+        "merge_authorization": "NONE",
+        "main_write": "NO",
     }
 
 
