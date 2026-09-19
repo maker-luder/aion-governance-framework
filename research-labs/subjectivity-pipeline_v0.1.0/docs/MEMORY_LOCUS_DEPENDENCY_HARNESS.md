@@ -86,3 +86,20 @@ These sources are adjacency controls, not validation of the repository-local hyp
 ```text
 EXTERNAL_CONSTRUCT_ADJACENCY != Q2_VALIDATION
 ```
+
+
+## Deterministic receipt binding
+
+The structural runner follows the repository's existing continuity-harness
+pattern. It records the current-main implementation base separately from the
+merged #122 specification dependency, hashes the exact fixture, and emits one
+fingerprint per Q2 condition.
+
+```text
+IMPLEMENTATION_BASE != SPECIFICATION_HEAD
+FIXTURE_SHA256 + CASE_FINGERPRINTS = STRUCTURAL_INPUT_BINDING
+STRUCTURAL_INPUT_BINDING != SCIENTIFIC_VALIDATION
+FULL_CONFORMANCE_TO_MERGED_SPECIFICATION = NOT_ESTABLISHED
+MERGE_AUTHORIZATION = NONE
+MAIN_WRITE = NO
+```
