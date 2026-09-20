@@ -4,6 +4,12 @@ from dataclasses import replace
 
 import pytest
 
+from aion_astra_twin_embodiment.teacher_body_channels import (
+    build_teacher_body_signal_schema,
+)
+from aion_astra_twin_embodiment.teacher_body_dynamics import (
+    build_teacher_body_dynamics_profile,
+)
 from aion_astra_twin_embodiment.teacher_body_runtime import (
     append_teacher_session_snapshot,
     apply_teacher_calibration_observations,
@@ -132,3 +138,24 @@ def test_retained_snapshot_hash_is_recomputed_and_verified() -> None:
 
     with pytest.raises(ValueError, match="snapshot hash mismatch"):
         validate_teacher_cross_session_retention(retention)
+
+
+def test_runtime_validation_rejects_incomplete_actual_signal_instance() -> None:
+    binding = build_teacher_body_runtime_binding("RUNTIME-GAP", "SESSION-GAP")
+    signals = build_teacher_body_signal_schema()
+    without_vestibular = replace(
+        signals,
+        channels=tuple(
+            channel
+            for channel in signals.channels
+            if channel.domain != "VESTIBULAR"
+        ),
+    )
+    dynamics = build_teacher_body_dynamics_profile(without_vestibular)
+
+    with pytest.raises(ValueError, match="missing required channels"):
+        validate_teacher_body_runtime_binding(
+            binding,
+            signals=without_vestibular,
+            dynamics=dynamics,
+        )
