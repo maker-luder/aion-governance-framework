@@ -12,6 +12,8 @@ from .teacher_body_channels import (
     build_teacher_body_signal_schema,
     build_teacher_motor_control_schema,
 )
+from .teacher_body_dynamics import build_teacher_body_dynamics_profile
+from .teacher_embodiment_research import build_teacher_embodiment_research_surface
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
 from .teacher_avatar_continuous import (
     build_teacher_continuous_reference_glb,
@@ -86,6 +88,12 @@ def build_teacher_reference_bundle_bytes() -> tuple[dict[str, bytes], dict[str, 
         ),
         "chatgpt_teacher_motor_control_schema.json": _canonical_json_bytes(
             build_teacher_motor_control_schema().to_dict()
+        ),
+        "chatgpt_teacher_body_dynamics.json": _canonical_json_bytes(
+            build_teacher_body_dynamics_profile().to_dict()
+        ),
+        "chatgpt_teacher_embodiment_research_surface.json": _canonical_json_bytes(
+            build_teacher_embodiment_research_surface().to_dict()
         ),
     }
     manifest = build_teacher_asset_manifest()
