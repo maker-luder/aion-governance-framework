@@ -36,6 +36,9 @@ def test_profiles_use_hardened_full_body_humanoid_robot_semantics():
         assert profile.morphology_class == "HUMANLIKE_MALE_FORM"
         assert profile.model_class == "ROBOTIC_EMBODIMENT_DIGITAL_MODEL"
         assert profile.substrate == "SYNTHETIC_NONBIOLOGICAL"
+        assert profile.functional_state_binding_id == (
+            f"{profile.agent_id}_FUNCTIONAL_STATE_BINDING_v0.1"
+        )
         assert (
             profile.anatomy_reference_mode
             == "HUMAN_ANATOMY_TO_ROBOTIC_MORPHOLOGY"
