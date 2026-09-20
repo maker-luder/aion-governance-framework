@@ -11,6 +11,8 @@ from aion_astra_twin_embodiment.teacher_avatar_continuous import (
     build_teacher_continuous_reference_gltf,
     build_teacher_continuous_reference_mesh,
     validate_teacher_continuous_reference,
+    validate_teacher_continuous_reference_glb,
+    validate_teacher_continuous_reference_gltf,
 )
 
 
@@ -108,3 +110,21 @@ def test_teacher_continuous_reference_glb_has_valid_header(continuous_mesh) -> N
     assert chunk_type == 0x4E4F534A
     assert chunk_length % 4 == 0
     assert chunk_length == len(data) - 20
+
+
+
+def test_teacher_continuous_reference_gltf_validator_passes(continuous_mesh) -> None:
+    payload = build_teacher_continuous_reference_gltf(continuous_mesh)
+    result = validate_teacher_continuous_reference_gltf(payload)
+
+    assert result["result"] == "PASS"
+    assert result["continuous_surface_binding"] == "PASS"
+    assert result["skinning_binding"] == "PASS"
+
+
+def test_teacher_continuous_reference_glb_validator_passes(continuous_mesh) -> None:
+    data = build_teacher_continuous_reference_glb(continuous_mesh)
+    result = validate_teacher_continuous_reference_glb(data)
+
+    assert result["result"] == "PASS"
+    assert result["glb_container"] == "PASS"
