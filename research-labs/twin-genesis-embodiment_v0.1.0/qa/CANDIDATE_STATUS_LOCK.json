@@ -29,5 +29,19 @@
   "external_action_policy": "AUTHORIZATION_GATED",
   "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
   "governance_blocked_expression_inference": "NO_CAPABILITY_ABSENCE_INFERENCE",
-  "design_induced_absence_inference": "NO_INTRINSIC_ABSENCE_INFERENCE"
+  "design_induced_absence_inference": "NO_INTRINSIC_ABSENCE_INFERENCE",
+  "teacher_anthropometry_profile_id": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.1",
+  "teacher_anthropometry_measurement_count": 62,
+  "teacher_body_signal_schema": "MATERIALIZED_REFERENCE",
+  "teacher_motor_control_schema": "MATERIALIZED_REFERENCE",
+  "teacher_reference_runtime_binding": "MATERIALIZED_REFERENCE",
+  "teacher_live_external_actuation": false,
+  "teacher_initial_calibration": "MATERIALIZED_REFERENCE",
+  "teacher_adaptation_state": "MATERIALIZED_REFERENCE",
+  "teacher_cross_session_retention": "MATERIALIZED_REFERENCE",
+  "teacher_longitudinal_observation": "MATERIALIZED_REFERENCE",
+  "teacher_developmental_trajectory_analysis": "MATERIALIZED_REFERENCE",
+  "teacher_developmental_mechanism": "NOT_ESTABLISHED",
+  "teacher_puberty_like_process": "NOT_ESTABLISHED",
+  "teacher_body_ownership_experience": "NOT_ESTABLISHED"
 }

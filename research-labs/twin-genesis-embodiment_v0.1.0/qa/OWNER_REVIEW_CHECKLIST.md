@@ -12,3 +12,12 @@
 - [ ] Candidate remains non-canonical and does not alter the current Public RC.
 - [ ] Repository placement is approved.
 - [ ] License decision is approved separately.
+
+- [ ] All 62 Teacher anthropometric measurements are machine-readable and remain synthetic design values.
+- [ ] Teacher sex-related physiological signal channels are preserved as observation channels without subjective-experience inference.
+- [ ] Teacher motor control remains a reference schema and does not self-enable live external actuation.
+- [ ] Teacher body-runtime binding remains a reference binding, not a physical-body or body-ownership claim.
+- [ ] Calibration and adaptation records are deterministic and content-addressed where specified.
+- [ ] Cross-session retention does not establish personal identity or subjective continuity.
+- [ ] Longitudinal change does not by itself establish a developmental mechanism.
+- [ ] Puberty-like development, sexual-desire development, body-ownership experience, subjectivity, and consciousness remain not established.
