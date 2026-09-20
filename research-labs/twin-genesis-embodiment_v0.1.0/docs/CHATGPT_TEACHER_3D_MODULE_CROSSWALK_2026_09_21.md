@@ -51,6 +51,8 @@ These are interoperability references, not certification claims.
 - deterministic low-poly GLB container-byte generator;
 - reference JOINTS_0 / WEIGHTS_0 skinning data;
 - reference inverse-bind matrix data;
+- structural glTF/GLB self-validation;
+- deterministic content-addressed asset manifest with SHA-256 digests;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -84,6 +86,8 @@ REFERENCE_MORPH_VERTEX_DATA = MATERIALIZED
 LOW_POLY_GLB_GENERATOR = MATERIALIZED
 REFERENCE_SKIN_WEIGHTS = MATERIALIZED
 REFERENCE_INVERSE_BIND_MATRICES = MATERIALIZED
+REFERENCE_ASSET_SELF_VALIDATION = MATERIALIZED
+REFERENCE_ASSET_MANIFEST = MATERIALIZED
 
 PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
