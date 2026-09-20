@@ -1,49 +1,66 @@
 # ChatGPT Teacher 3D Module — Standards Crosswalk and Completion Audit
 
-Status: executable contract candidate; production-quality 3D asset completeness is not yet established.
+Status: executable contract + renderable low-poly reference candidate; production-quality 3D asset completeness is not yet established.
 
 ## External technical anchors
 
-The module was cross-checked against:
+The module was cross-checked against primary interoperability specifications:
 
-- Khronos glTF 2.0: scene/node hierarchy, meshes, materials, skins, joints, morph targets, and animation storage;
-- VRM 1.0: right-handed Y-up / metric convention, T-pose +Z orientation, humanoid bone mapping, expressions, gaze, first-person metadata, spring-bone/constraint adjacency.
+- Khronos glTF 2.0 specification: https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html
+  - scene / node hierarchy;
+  - meshes and materials;
+  - skin / joints;
+  - JOINTS_0 / WEIGHTS_0 semantics;
+  - morph targets;
+  - animation storage.
+- VRM 1.0 humanoid specification: https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm-1.0/humanoid.md
+  - required humanoid bones;
+  - parent-child expectations;
+  - optional eyes, jaw, shoulders, toes and finger bones.
+- VRM feature model: https://vrm.dev/en/vrm/vrm_features/
+  - right-handed Y-up / metric convention;
+  - T-pose +Z orientation;
+  - pose, expression and gaze handling.
+- VRM 1.0 expression specification: https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm-1.0/expressions.md
+  - emotion, vowel, blink, gaze and neutral expression presets.
 
 These are interoperability references, not certification claims.
 
 ## Gap classification
 
-### Now materialized in the repository candidate
+### Materialized in this repository candidate
 
 - machine-readable body dimensions;
 - machine-readable complete adult male anatomical inventory;
 - VRM-aligned required humanoid bone coverage;
 - extended finger, toe, eye and jaw bone hierarchy;
 - explicit T-pose / +Z / metric coordinate contract;
-- expression preset coverage;
+- VRM-aligned expression preset coverage;
 - PBR material-role contract;
 - LOD contract;
 - collision-region contract;
 - deformation-test contract;
 - fail-closed governance boundaries;
-- structural glTF skeleton/skin contract generator;
-- regression tests.
+- structural glTF skeleton / skin contract generator;
+- deterministic glTF 2.0 low-poly renderable reference geometry;
+- neutral external male-anatomy reference geometry;
+- regression tests;
+- CLI output for the machine-readable contract and low-poly glTF reference.
 
-### Still not materialized as production asset bytes
+### Still not materialized as production-quality asset evidence
 
-- continuous renderable body mesh;
-- production topology / retopology;
-- vertex-level linear-blend skin weights;
-- inverse bind matrix buffer data;
-- facial and body morph-target vertex deltas;
-- UV unwrap;
+- continuous production body mesh / retopology;
+- production-grade vertex-level linear-blend skin weights;
+- verified inverse-bind matrices for a continuous skinned mesh;
+- facial and body morph-target vertex deltas suitable for final animation;
+- production UV unwrap;
 - texture image binaries;
 - normal / roughness / subsurface texture maps;
-- final hair curves/cards/strands;
+- final hair curves / cards / strands;
 - spring-bone runtime data;
 - production collision shapes;
 - authored animation clips;
-- GLB / VRM binary package;
+- final GLB / VRM package;
 - external validator pass against Khronos / VRM schemas;
 - Blender / Unity / Unreal import validation.
 
@@ -52,14 +69,20 @@ Therefore:
 ```text
 ANATOMICAL_SPEC_COMPLETENESS = COMPLETE_CANDIDATE
 EXECUTABLE_CONTRACT_COMPLETENESS = COMPLETE_CANDIDATE
+
+LOW_POLY_RENDERABLE_REFERENCE = MATERIALIZED
+LOW_POLY_EXTERNAL_ANATOMY_REFERENCE = MATERIALIZED
+
+PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
+PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
+PRODUCTION_MORPH_VERTEX_DATA = NOT_MATERIALIZED
+PRODUCTION_UV_TEXTURE_ASSETS = NOT_MATERIALIZED
+FINAL_GLB_OR_VRM_BINARY = NOT_MATERIALIZED
+
 PRODUCTION_3D_ASSET_COMPLETENESS = NOT_ESTABLISHED
-RENDERABLE_MESH = NOT_MATERIALIZED
-SKIN_WEIGHTS = NOT_MATERIALIZED
-MORPH_VERTEX_DATA = NOT_MATERIALIZED
-GLB_OR_VRM_BINARY = NOT_MATERIALIZED
 ```
 
-This candidate must not be described as a finished production-quality 3D body until the remaining asset-level evidence exists.
+The low-poly reference closes the earlier “no renderable geometry exists” gap. It does not, by itself, establish production-quality topology, deformation quality, realism, interoperability, or final-asset completeness.
 
 ## Scientific and identity boundaries
 
