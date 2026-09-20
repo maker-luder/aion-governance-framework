@@ -49,6 +49,10 @@ def test_non_3d_runtime_materializes_only_after_validation():
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
     assert (
+        state.sexual_function_status
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
         state.sensory_signal_processing_reference
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
