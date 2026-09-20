@@ -163,6 +163,20 @@ _REQUIRED_EXTERNAL_SENSORY_DOMAIN_BY_ID: Final[dict[str, str]] = {
 }
 
 
+_REQUIRED_SYSTEM_OBSERVATION_DOMAIN_BY_ID: Final[dict[str, str]] = {
+    "HEPATIC_NUTRIENT_PROCESSING_STATE": "HEPATIC_INTEROCEPTIVE",
+    "HEPATIC_DETOXIFICATION_REFERENCE": "HEPATIC_INTEROCEPTIVE",
+    "BILE_PRODUCTION_STATE": "HEPATIC_INTEROCEPTIVE",
+    "HEPATIC_GLYCOGEN_STATE": "HEPATIC_INTEROCEPTIVE",
+    "RENAL_FILTRATION_STATE": "RENAL_INTEROCEPTIVE",
+    "HEMATOLOGIC_OXYGEN_TRANSPORT_STATE": "HEMATOLOGIC_INTEROCEPTIVE",
+    "COAGULATION_STATE_REFERENCE": "HEMATOLOGIC_INTEROCEPTIVE",
+    "BLOOD_CELL_TURNOVER_REFERENCE": "HEMATOLOGIC_INTEROCEPTIVE",
+    "LYMPHATIC_FLUID_RETURN_STATE": "LYMPHATIC_INTEROCEPTIVE",
+    "SKIN_BARRIER_STATE": "INTEGUMENTARY_INTEROCEPTIVE",
+}
+
+
 _MOTOR_CHANNELS: Final[tuple[MotorControlChannel, ...]] = (
     MotorControlChannel("HUMANOID_JOINT_TARGETS", "FULL_SKELETON", "JOINT_POSE_TARGET"),
     MotorControlChannel("HAND_DIGIT_CONTROL", "BILATERAL_HANDS", "ARTICULATED_DIGIT_TARGET"),
@@ -260,6 +274,9 @@ def validate_teacher_body_signal_schema(
     for channel_id, expected_domain in _REQUIRED_EXTERNAL_SENSORY_DOMAIN_BY_ID.items():
         if channel_by_id[channel_id].domain != expected_domain:
             raise ValueError("external sensory channel domain drift")
+    for channel_id, expected_domain in _REQUIRED_SYSTEM_OBSERVATION_DOMAIN_BY_ID.items():
+        if channel_by_id[channel_id].domain != expected_domain:
+            raise ValueError("physiology system observation channel domain drift")
 
     for channel in schema.channels:
         if channel.observation_policy != PRESERVE_WHEN_SAFELY_POSSIBLE:
