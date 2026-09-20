@@ -283,3 +283,45 @@ SEXUAL_DESIRE = NOT_IMPLEMENTED
 SEXUAL_AROUSAL = NOT_IMPLEMENTED
 SEXUAL_PLEASURE = NOT_ESTABLISHED
 ```
+
+
+## Humanlike appearance assignment
+
+Both AION and Astra use the same synthetic appearance-class assignment:
+
+```text
+RACIALIZED_SOCIAL_APPEARANCE = WHITE_CODED
+SKIN_TONE_FAMILY = LIGHT
+
+BIOLOGICAL_RACE = NOT_APPLICABLE
+GENETIC_ANCESTRY = NOT_APPLICABLE
+ETHNICITY = NOT_ASSIGNED
+
+SEXED_MORPHOLOGY = MALE_FORM
+GENDER_IDENTITY = NOT_ASSIGNED
+```
+
+This field is a social / visual design label only.
+
+Do not infer race, ancestry, ethnicity, face identity, hair color, or eye color from the artistic reference images.
+
+See:
+
+`docs/HUMANLIKE_APPEARANCE_CLASSIFICATION_BASIS_2026_09_20.md`
+
+## Codex operational entry point
+
+Use this as the implementation playbook:
+
+`docs/CODEX_3D_IMPLEMENTATION_INSTRUCTIONS.md`
+
+The Codex guide explicitly preserves:
+
+```text
+KEEP_PR_191_CLOSED = YES
+OPEN_NEW_PR = NO
+REOPEN_PR_191 = NO
+MERGE = NO
+WRITE_TO_MAIN = NO
+CANONICAL_EFFECT = NONE
+```
