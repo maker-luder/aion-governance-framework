@@ -1,19 +1,26 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/aion/schemas/body-profile-candidate.json",
-  "title": "AION/Astra Complete Robotic Male Body Module Candidate",
+  "title": "AION/Astra 3D Full-Body Humanlike Male-Form Humanoid Robotic Embodiment Digital Model Candidate",
   "type": "object",
   "required": [
     "schema_version",
     "profile_id",
+    "profile_status",
     "agent_id",
     "embodiment_platform",
-    "body_module_class",
+    "body_scope",
+    "morphology_class",
+    "model_class",
     "substrate",
     "anatomy_reference_mode",
     "body_character",
+    "full_body_components",
     "robotic_layers",
+    "representation_layers",
     "robotic_systems",
+    "model_status",
+    "future_interchange_targets",
     "measurements",
     "external_male_form_modules",
     "engineering_requirements",
@@ -22,11 +29,14 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "0.2.0"
+      "const": "0.3.0"
     },
     "profile_id": {
       "type": "string",
       "minLength": 1
+    },
+    "profile_status": {
+      "const": "IMPLEMENTED_SPEC_CANDIDATE"
     },
     "agent_id": {
       "enum": [
@@ -37,8 +47,14 @@
     "embodiment_platform": {
       "const": "HUMANOID_ROBOT"
     },
-    "body_module_class": {
-      "const": "COMPLETE_ROBOTIC_MALE_BODY_MODULE"
+    "body_scope": {
+      "const": "FULL_BODY"
+    },
+    "morphology_class": {
+      "const": "HUMANLIKE_MALE_FORM"
+    },
+    "model_class": {
+      "const": "ROBOTIC_EMBODIMENT_DIGITAL_MODEL"
     },
     "substrate": {
       "const": "SYNTHETIC_NONBIOLOGICAL"
@@ -55,6 +71,28 @@
         "minLength": 1
       }
     },
+    "full_body_components": {
+      "type": "array",
+      "minItems": 13,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "HEAD",
+          "NECK",
+          "TORSO",
+          "PELVIS",
+          "LEFT_ARM",
+          "RIGHT_ARM",
+          "LEFT_HAND",
+          "RIGHT_HAND",
+          "LEFT_LEG",
+          "RIGHT_LEG",
+          "LEFT_FOOT",
+          "RIGHT_FOOT",
+          "EXTERNAL_MALE_FORM_SURFACE"
+        ]
+      }
+    },
     "robotic_layers": {
       "type": "array",
       "minItems": 4,
@@ -65,6 +103,25 @@
           "ACTUATOR_INTERFACE_LAYER",
           "COMPLIANT_VOLUME_LAYER",
           "SYNTHETIC_SKIN_SHELL"
+        ]
+      }
+    },
+    "representation_layers": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "MORPHOLOGY_LAYER",
+          "VISUAL_GEOMETRY_LAYER",
+          "STRUCTURAL_MODEL_LAYER",
+          "KINEMATIC_MODEL_LAYER",
+          "DYNAMIC_MODEL_LAYER",
+          "COLLISION_MODEL_LAYER",
+          "ACTUATION_INTERFACE_LAYER",
+          "SENSOR_INTERFACE_LAYER",
+          "COMPLIANT_BODY_LAYER",
+          "SYNTHETIC_SKIN_LAYER"
         ]
       }
     },
@@ -92,6 +149,82 @@
         },
         "service_access": {
           "const": "FUTURE_DESIGN_REQUIRED"
+        }
+      },
+      "additionalProperties": false
+    },
+    "model_status": {
+      "type": "object",
+      "required": [
+        "physical_robot",
+        "digital_twin",
+        "robot_description",
+        "visual_asset",
+        "kinematic_model",
+        "dynamic_model",
+        "collision_model",
+        "actuation_interface",
+        "sensor_interface"
+      ],
+      "properties": {
+        "physical_robot": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "digital_twin": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "robot_description": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "visual_asset": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "kinematic_model": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "dynamic_model": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "collision_model": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "actuation_interface": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "sensor_interface": {
+          "const": "NOT_IMPLEMENTED"
+        }
+      },
+      "additionalProperties": false
+    },
+    "future_interchange_targets": {
+      "type": "object",
+      "required": [
+        "robot_description",
+        "visual_asset"
+      ],
+      "properties": {
+        "robot_description": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "URDF",
+              "SDF"
+            ]
+          }
+        },
+        "visual_asset": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "GLB",
+              "USD"
+            ]
+          }
         }
       },
       "additionalProperties": false
@@ -226,7 +359,8 @@
         "person_identity_reconstruction",
         "source_person_exact_measurement_claim",
         "derivation_note",
-        "reference_role"
+        "reference_role",
+        "terminology_standardization_claim"
       ],
       "properties": {
         "source_record": {
@@ -248,6 +382,9 @@
         },
         "reference_role": {
           "const": "MORPHOLOGY_AND_POSE_ONLY"
+        },
+        "terminology_standardization_claim": {
+          "const": "NONE"
         }
       },
       "additionalProperties": false
