@@ -47,6 +47,24 @@ def test_teacher_low_poly_asset_contains_reference_uvs_and_morph_data() -> None:
     assert payload["extras"]["production_morph_target_vertex_data_status"] == "NOT_MATERIALIZED"
 
 
+def test_teacher_low_poly_asset_contains_reference_skinning_data() -> None:
+    payload = build_teacher_low_poly_gltf()
+    skinned = payload["meshes"][1]["primitives"][0]
+
+    assert skinned["attributes"]["JOINTS_0"] == 5
+    assert skinned["attributes"]["WEIGHTS_0"] == 6
+    assert payload["skins"][0]["inverseBindMatrices"] == 7
+    assert payload["skins"][0]["joints"]
+    assert payload["accessors"][5]["componentType"] == 5123
+    assert payload["accessors"][5]["type"] == "VEC4"
+    assert payload["accessors"][6]["componentType"] == 5126
+    assert payload["accessors"][6]["type"] == "VEC4"
+    assert payload["accessors"][7]["type"] == "MAT4"
+    assert payload["extras"]["reference_skin_weights_status"] == "MATERIALIZED"
+    assert payload["extras"]["reference_inverse_bind_matrices_status"] == "MATERIALIZED"
+    assert payload["extras"]["linear_blend_skin_weights_status"] == "NOT_MATERIALIZED"
+
+
 def test_teacher_low_poly_asset_contains_full_external_reference_regions() -> None:
     payload = build_teacher_low_poly_gltf()
     names = {node["name"] for node in payload["nodes"]}
