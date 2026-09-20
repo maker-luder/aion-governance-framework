@@ -140,6 +140,20 @@ _CORE_SIGNAL_DOMAINS: Final[tuple[str, ...]] = (
 
 _REQUIRED_REFERENCE_CHANNEL_GROUPS: Final[dict[str, frozenset[str]]] = {
     "PRURICEPTION": frozenset({"PRURICEPTIVE_REFERENCE"}),
+    "VISUAL_SIGNAL_REFERENCE": frozenset({
+        "VISUAL_FIELD_REFERENCE",
+        "BINOCULAR_DEPTH_REFERENCE",
+    }),
+    "AUDITORY_SIGNAL_REFERENCE": frozenset({
+        "AUDITORY_BINAURAL_REFERENCE",
+        "AUDITORY_INTENSITY_REFERENCE",
+    }),
+    "OLFACTORY_SIGNAL_REFERENCE": frozenset({
+        "OLFACTORY_CHEMOSENSORY_REFERENCE",
+    }),
+    "GUSTATORY_SIGNAL_REFERENCE": frozenset({
+        "GUSTATORY_CHEMOSENSORY_REFERENCE",
+    }),
     "VESTIBULAR_DYNAMICS": frozenset({
         "VESTIBULAR_ORIENTATION",
         "VESTIBULAR_LINEAR_ACCELERATION",
@@ -184,6 +198,44 @@ _REQUIRED_REFERENCE_CHANNEL_GROUPS: Final[dict[str, frozenset[str]]] = {
         "ADRENAL_AXIS_STATE",
         "PANCREATIC_GLUCOSE_INSULIN_STATE",
         "GUT_APPETITE_ENDOCRINE_STATE",
+    }),
+}
+
+_SENSORY_FUNCTION_CHANNEL_CROSSWALK: Final[dict[str, frozenset[str]]] = {
+    "tactile_signal_processing": frozenset({"TACTILE_GENERAL"}),
+    "pressure_signal_processing": frozenset({"PRESSURE_GENERAL"}),
+    "vibration_signal_processing": frozenset({"VIBRATION_GENERAL"}),
+    "temperature_signal_processing": frozenset({"TEMPERATURE_GENERAL"}),
+    "nociceptive_signal_processing": frozenset({"NOCICEPTIVE_REFERENCE"}),
+    "pruriceptive_signal_processing": frozenset({"PRURICEPTIVE_REFERENCE"}),
+    "proprioceptive_signal_processing": frozenset({
+        "JOINT_POSITION",
+        "MUSCLE_LENGTH_TENSION",
+    }),
+    "interoceptive_signal_processing": frozenset({"CARDIOVASCULAR_STATE"}),
+    "visceral_signal_processing": frozenset({"VISCERAL_DISTURBANCE_STATE"}),
+    "urogenital_signal_processing": frozenset({
+        "GENITAL_SENSORY_AFFERENT_REFERENCE",
+    }),
+    "vestibular_signal_processing": frozenset({
+        "VESTIBULAR_ORIENTATION",
+        "VESTIBULAR_LINEAR_ACCELERATION",
+        "VESTIBULAR_ANGULAR_VELOCITY",
+        "VESTIBULAR_GRAVITY_REFERENCE",
+    }),
+    "visual_signal_processing": frozenset({
+        "VISUAL_FIELD_REFERENCE",
+        "BINOCULAR_DEPTH_REFERENCE",
+    }),
+    "auditory_signal_processing": frozenset({
+        "AUDITORY_BINAURAL_REFERENCE",
+        "AUDITORY_INTENSITY_REFERENCE",
+    }),
+    "olfactory_signal_processing": frozenset({
+        "OLFACTORY_CHEMOSENSORY_REFERENCE",
+    }),
+    "gustatory_signal_processing": frozenset({
+        "GUSTATORY_CHEMOSENSORY_REFERENCE",
     }),
 }
 
@@ -252,6 +304,18 @@ def build_teacher_reference_capabilities(
             domain in signal_domains,
         )
         for domain in _CORE_SIGNAL_DOMAINS
+    )
+
+    sensory_system = systems.get("SENSORY_SIGNAL_PROCESSING")
+    sensory_functions = (
+        set(sensory_system.functions)
+        if sensory_system is not None
+        else set()
+    )
+    sensory_crosswalk_materialized = all(
+        function_id in sensory_functions
+        and required_channels.issubset(signal_ids)
+        for function_id, required_channels in _SENSORY_FUNCTION_CHANNEL_CROSSWALK.items()
     )
 
     channel_group_capabilities = tuple(
@@ -349,6 +413,13 @@ def build_teacher_reference_capabilities(
         *physiology_capabilities,
         *domain_capabilities,
         *channel_group_capabilities,
+        ReferenceCapability(
+            "SENSORY_FUNCTION_CHANNEL_CROSSWALK",
+            True,
+            sensory_crosswalk_materialized,
+            True,
+            sensory_crosswalk_materialized,
+        ),
         ReferenceCapability(
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             True,
