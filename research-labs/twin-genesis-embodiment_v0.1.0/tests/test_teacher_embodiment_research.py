@@ -24,10 +24,12 @@ def test_reference_completeness_precedes_causal_absence_interpretation() -> None
     capabilities = build_teacher_reference_capabilities()
     complete = assess_teacher_reference_completeness(capabilities)
 
-    assert complete.status == "COMPLETE_REFERENCE_BASELINE"
+    assert complete.status == "COMPLETE_DECLARED_REFERENCE_BASELINE"
     assert complete.causal_absence_interpretation == (
         "ELIGIBLE_FOR_CONTROLLED_PERTURBATION"
     )
+    assert complete.completeness_scope == "DECLARED_REFERENCE_CONTRACT_ONLY"
+    assert complete.global_human_body_completeness_status == "NOT_ESTABLISHED"
     assert complete.intrinsic_absence_conclusion == "NOT_ESTABLISHED"
 
     changed = tuple(
@@ -38,11 +40,11 @@ def test_reference_completeness_precedes_causal_absence_interpretation() -> None
     )
     incomplete = assess_teacher_reference_completeness(changed)
 
-    assert incomplete.status == "INCOMPLETE_REFERENCE_BASELINE"
+    assert incomplete.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     assert "HOMEOSTATIC_REGULATION" in incomplete.missing_required_capabilities
     assert incomplete.intrinsic_absence_conclusion == "NOT_ESTABLISHED"
     assert incomplete.causal_absence_interpretation == (
-        "HOLD_INCOMPLETE_REFERENCE_BASELINE"
+        "HOLD_INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     )
 
 
@@ -64,13 +66,13 @@ def test_reference_completeness_is_derived_from_materialized_schema() -> None:
     )
     assessment = assess_teacher_reference_completeness(capabilities)
 
-    assert assessment.status == "INCOMPLETE_REFERENCE_BASELINE"
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     assert "VESTIBULAR" in assessment.missing_required_capabilities
     assert "VESTIBULAR" in assessment.missing_required_observation_channels
     assert "BODY_STATE_INTEGRATION" in assessment.missing_required_capabilities
     assert assessment.intrinsic_absence_conclusion == "NOT_ESTABLISHED"
     assert assessment.causal_absence_interpretation == (
-        "HOLD_INCOMPLETE_REFERENCE_BASELINE"
+        "HOLD_INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     )
 
 
@@ -109,7 +111,7 @@ def test_reference_completeness_detects_wrong_physiology_function_set() -> None:
     capabilities = build_teacher_reference_capabilities(physiology=broken)
     assessment = assess_teacher_reference_completeness(capabilities)
 
-    assert assessment.status == "INCOMPLETE_REFERENCE_BASELINE"
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     assert (
         "PHYSIOLOGY_SYSTEM_CARDIOVASCULAR"
         in assessment.missing_required_capabilities
