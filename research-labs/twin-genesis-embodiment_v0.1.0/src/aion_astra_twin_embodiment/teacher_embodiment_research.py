@@ -379,6 +379,10 @@ def build_teacher_reference_capabilities(
     sensorimotor_prediction_materialized = (
         body_state_integration_materialized and motor_materialized
     )
+    homeostatic_drive_representation_materialized = (
+        body_dynamics_valid
+        and bool(dynamics.homeostatic_drive_source_groups)
+    )
     try:
         validate_teacher_body_model_profile(body_model, anthropometry)
         body_model_valid = True
@@ -499,6 +503,13 @@ def build_teacher_reference_capabilities(
             "SENSORIMOTOR_PREDICTION",
             True,
             sensorimotor_prediction_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "HOMEOSTATIC_DRIVE_REPRESENTATION",
+            True,
+            homeostatic_drive_representation_materialized,
             False,
             True,
         ),
