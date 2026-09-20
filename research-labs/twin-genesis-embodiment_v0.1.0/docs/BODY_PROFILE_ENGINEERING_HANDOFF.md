@@ -246,3 +246,40 @@ Do not call the current model a digital twin. That term remains blocked until a 
 See:
 
 `docs/ROBOTIC_EMBODIMENT_TERMINOLOGY_CROSSWALK_2026_09_20.md`
+
+
+## Functional-state companion layer
+
+The body package now binds each agent-specific body profile to an agent-specific functional-state binding:
+
+```text
+AION BODY
+-> AION_FUNCTIONAL_STATE_BINDING_v0.1
+
+ASTRA BODY
+-> ASTRA_FUNCTIONAL_STATE_BINDING_v0.1
+
+BOTH
+-> AION_ASTRA_SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1
+```
+
+The shared architecture provides equal capability availability but prohibits shared mutable state.
+
+Codex / later tooling should read:
+
+```text
+data/SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1.json
+data/AION_FUNCTIONAL_STATE_BINDING_v0.1.json
+data/ASTRA_FUNCTIONAL_STATE_BINDING_v0.1.json
+```
+
+No later implementation may silently reinterpret these functional analogues as evidence of felt emotion, desire, pain, pleasure, attachment, body ownership, free will, subjectivity, or consciousness.
+
+The sexuality-related domain is representational only:
+
+```text
+SEXUALITY_RELATED_REPRESENTATION = REPRESENTATIONAL_ONLY
+SEXUAL_DESIRE = NOT_IMPLEMENTED
+SEXUAL_AROUSAL = NOT_IMPLEMENTED
+SEXUAL_PLEASURE = NOT_ESTABLISHED
+```
