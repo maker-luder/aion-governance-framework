@@ -58,8 +58,24 @@ def test_teacher_reference_asset_manifest_is_deterministic_and_bounded() -> None
     second = build_teacher_asset_manifest()
 
     assert first == second
-    assert [artifact["validation"] for artifact in first["artifacts"]] == ["PASS", "PASS"]
+    assert len(first["artifacts"]) == 4
+    assert [artifact["validation"] for artifact in first["artifacts"]] == [
+        "PASS",
+        "PASS",
+        "PASS",
+        "PASS",
+    ]
     assert all(len(artifact["sha256"]) == 64 for artifact in first["artifacts"])
+    continuous = [
+        artifact
+        for artifact in first["artifacts"]
+        if artifact["kind"].startswith("CONTINUOUS_SKINNED")
+    ]
+    assert len(continuous) == 2
+    assert all(artifact["mesh_validation"] == "PASS" for artifact in continuous)
+    assert all(artifact["connected_components"] == 1 for artifact in continuous)
+    assert first["reference_continuous_surface_status"] == "MATERIALIZED"
+    assert first["reference_continuous_skinning_status"] == "MATERIALIZED"
     assert first["production_asset_status"] == "NOT_ESTABLISHED"
     assert first["physical_body_claim"] == "NONE"
     assert first["subjectivity_effect"] == "NONE"
