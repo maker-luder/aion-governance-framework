@@ -90,6 +90,13 @@ def test_teacher_continuous_reference_gltf_is_skinned_and_embedded(continuous_me
     assert payload["extras"]["connected_components"] == 1
     assert payload["extras"]["status"] == "CONTINUOUS_SKINNED_REFERENCE_MATERIALIZED"
     assert payload["extras"]["production_topology_status"] == "NOT_ESTABLISHED"
+    assert payload["extras"]["physiology_profile_id"] == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    assert (
+        payload["extras"]["reproductive_physiology_status"]
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert payload["extras"]["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
+    assert payload["extras"]["erotic_intent"] == "NONE"
 
     uri = payload["buffers"][0]["uri"]
     prefix = "data:application/octet-stream;base64,"
