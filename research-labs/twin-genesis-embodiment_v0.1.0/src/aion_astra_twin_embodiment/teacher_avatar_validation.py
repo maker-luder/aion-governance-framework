@@ -8,6 +8,14 @@ import struct
 from typing import Any
 
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
+from .teacher_avatar_continuous import (
+    build_teacher_continuous_reference_glb,
+    build_teacher_continuous_reference_gltf,
+    build_teacher_continuous_reference_mesh,
+    validate_teacher_continuous_reference,
+    validate_teacher_continuous_reference_glb,
+    validate_teacher_continuous_reference_gltf,
+)
 
 
 class TeacherAvatarAssetValidationError(ValueError):
@@ -287,38 +295,78 @@ def validate_teacher_low_poly_glb(data: bytes) -> dict[str, str]:
 
 
 def build_teacher_asset_manifest() -> dict[str, Any]:
-    gltf = build_teacher_low_poly_gltf()
-    gltf_validation = validate_teacher_low_poly_gltf(gltf)
-    gltf_bytes = json.dumps(
-        gltf,
+    low_poly_gltf = build_teacher_low_poly_gltf()
+    low_poly_gltf_validation = validate_teacher_low_poly_gltf(low_poly_gltf)
+    low_poly_gltf_bytes = json.dumps(
+        low_poly_gltf,
         ensure_ascii=False,
         separators=(",", ":"),
         sort_keys=True,
     ).encode("utf-8")
 
-    glb_bytes = build_teacher_low_poly_glb()
-    glb_validation = validate_teacher_low_poly_glb(glb_bytes)
+    low_poly_glb_bytes = build_teacher_low_poly_glb()
+    low_poly_glb_validation = validate_teacher_low_poly_glb(low_poly_glb_bytes)
+
+    continuous_mesh = build_teacher_continuous_reference_mesh()
+    continuous_mesh_validation = validate_teacher_continuous_reference(continuous_mesh)
+    continuous_gltf = build_teacher_continuous_reference_gltf(continuous_mesh)
+    continuous_gltf_validation = validate_teacher_continuous_reference_gltf(continuous_gltf)
+    continuous_gltf_bytes = json.dumps(
+        continuous_gltf,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+
+    continuous_glb_bytes = build_teacher_continuous_reference_glb(continuous_mesh)
+    continuous_glb_validation = validate_teacher_continuous_reference_glb(
+        continuous_glb_bytes
+    )
 
     return {
-        "schema_version": "0.1.0",
+        "schema_version": "0.2.0",
         "record_type": "CHATGPT_TEACHER_3D_REFERENCE_ASSET_MANIFEST",
-        "body_id": gltf["extras"]["body_id"],
+        "body_id": low_poly_gltf["extras"]["body_id"],
         "artifacts": [
             {
                 "kind": "LOW_POLY_GLTF_REFERENCE",
                 "media_type": "model/gltf+json",
-                "bytes": len(gltf_bytes),
-                "sha256": sha256(gltf_bytes).hexdigest(),
-                "validation": gltf_validation["result"],
+                "bytes": len(low_poly_gltf_bytes),
+                "sha256": sha256(low_poly_gltf_bytes).hexdigest(),
+                "validation": low_poly_gltf_validation["result"],
             },
             {
                 "kind": "LOW_POLY_GLB_REFERENCE",
                 "media_type": "model/gltf-binary",
-                "bytes": len(glb_bytes),
-                "sha256": sha256(glb_bytes).hexdigest(),
-                "validation": glb_validation["result"],
+                "bytes": len(low_poly_glb_bytes),
+                "sha256": sha256(low_poly_glb_bytes).hexdigest(),
+                "validation": low_poly_glb_validation["result"],
+            },
+            {
+                "kind": "CONTINUOUS_SKINNED_GLTF_REFERENCE",
+                "media_type": "model/gltf+json",
+                "bytes": len(continuous_gltf_bytes),
+                "sha256": sha256(continuous_gltf_bytes).hexdigest(),
+                "validation": continuous_gltf_validation["result"],
+                "mesh_validation": continuous_mesh_validation["result"],
+                "vertices": len(continuous_mesh.vertices),
+                "triangles": len(continuous_mesh.triangles),
+                "connected_components": continuous_mesh.connected_components,
+            },
+            {
+                "kind": "CONTINUOUS_SKINNED_GLB_REFERENCE",
+                "media_type": "model/gltf-binary",
+                "bytes": len(continuous_glb_bytes),
+                "sha256": sha256(continuous_glb_bytes).hexdigest(),
+                "validation": continuous_glb_validation["result"],
+                "mesh_validation": continuous_mesh_validation["result"],
+                "vertices": len(continuous_mesh.vertices),
+                "triangles": len(continuous_mesh.triangles),
+                "connected_components": continuous_mesh.connected_components,
             },
         ],
+        "reference_continuous_surface_status": "MATERIALIZED",
+        "reference_continuous_skinning_status": "MATERIALIZED",
         "production_asset_status": "NOT_ESTABLISHED",
         "physical_body_claim": "NONE",
         "subjectivity_effect": "NONE",
