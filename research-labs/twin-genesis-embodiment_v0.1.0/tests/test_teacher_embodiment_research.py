@@ -136,6 +136,8 @@ def test_new_reference_channel_groups_are_machine_verifiable() -> None:
         "IMMUNE_INFLAMMATORY_STATE",
         "TISSUE_INJURY_REPAIR",
         "VISCERAL_DISTURBANCE",
+        "FEEDING_HOMEOSTASIS",
+        "ENDOCRINE_DYNAMICS",
     }
     assert expected.issubset(capability_ids)
 
@@ -185,6 +187,29 @@ def test_body_model_capabilities_are_part_of_declared_completeness() -> None:
 
     assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     assert "PERIPERSONAL_SPACE" in assessment.missing_required_capabilities
+
+
+def test_feeding_and_endocrine_groups_fail_declared_completeness_when_missing() -> None:
+    signals = build_teacher_body_signal_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    broken = replace(
+        signals,
+        channels=tuple(
+            channel
+            for channel in signals.channels
+            if channel.channel_id != "SATIATION_SIGNAL_REFERENCE"
+        ),
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=broken,
+            dynamics=dynamics,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "FEEDING_HOMEOSTASIS" in assessment.missing_required_capabilities
+    assert "FEEDING_HOMEOSTASIS" in assessment.missing_required_observation_channels
 
 
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
