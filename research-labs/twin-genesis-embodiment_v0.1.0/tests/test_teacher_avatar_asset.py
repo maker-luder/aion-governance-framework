@@ -108,6 +108,11 @@ def test_teacher_low_poly_asset_preserves_nonclaim_boundaries() -> None:
         extras["sexual_function_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        extras["governance_epistemics_profile_id"]
+        == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    )
+    assert extras["developmental_possibility_status"] == "OPEN_RESEARCH_QUESTION"
     assert extras["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
     assert extras["erotic_intent"] == "NONE"
     assert extras["intimate_interaction_status"] == "NOT_AUTHORIZED"
