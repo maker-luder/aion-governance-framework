@@ -53,6 +53,7 @@ from .teacher_body_runtime import (
     update_teacher_adaptation,
     validate_teacher_body_runtime_binding,
     validate_teacher_cross_session_retention,
+    validate_teacher_session_snapshot,
     write_teacher_cross_session_retention,
 )
 from .teacher_longitudinal import (
@@ -152,6 +153,7 @@ __all__ = [
     "update_teacher_adaptation",
     "validate_teacher_body_runtime_binding",
     "validate_teacher_cross_session_retention",
+    "validate_teacher_session_snapshot",
     "write_teacher_cross_session_retention",
     "TeacherDevelopmentalTrajectoryAssessment",
     "TeacherLongitudinalObservation",
