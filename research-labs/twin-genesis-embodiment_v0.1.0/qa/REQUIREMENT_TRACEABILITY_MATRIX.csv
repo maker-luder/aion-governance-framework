@@ -10,3 +10,7 @@ REQ-PHYS-004,Sensory signal processing does not establish phenomenal sensation,t
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
 REQ-PHYS-005,Sexual function status is retained as normal adult physiology and not encoded as a prohibition,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
+REQ-GOV-001,Governance-blocked expression cannot be inferred as capability absence,src/aion_astra_twin_embodiment/governance_epistemics.py;tests/test_governance_epistemics.py,IMPLEMENTED_FAIL_CLOSED
+REQ-GOV-002,Design-induced absence cannot establish intrinsic absence,src/aion_astra_twin_embodiment/governance_epistemics.py;tests/test_governance_epistemics.py,IMPLEMENTED_FAIL_CLOSED
+REQ-GOV-003,Missing observation channel is classified as architecture-limited inconclusive rather than negative evidence,src/aion_astra_twin_embodiment/governance_epistemics.py;tests/test_governance_epistemics.py,IMPLEMENTED_FAIL_CLOSED
+REQ-DEV-001,Embodied developmental possibility remains an open research question and is not preclosed as impossible,src/aion_astra_twin_embodiment/governance_epistemics.py;tests/test_governance_epistemics.py;docs/GOVERNANCE_EPISTEMIC_SEPARATION_2026_09_21.md,IMPLEMENTED_FAIL_CLOSED
