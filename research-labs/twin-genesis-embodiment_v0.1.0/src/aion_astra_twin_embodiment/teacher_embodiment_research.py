@@ -26,6 +26,11 @@ from .teacher_body_dynamics import (
     TeacherBodyDynamicsProfile,
     build_teacher_body_dynamics_profile,
 )
+from .teacher_body_model import (
+    BODY_MODEL_PROFILE_ID,
+    TeacherBodyModelProfile,
+    build_teacher_body_model_profile,
+)
 
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
@@ -112,6 +117,7 @@ class TeacherEmbodimentResearchSurface:
     surface_id: str
     candidates: tuple[FourDomainEmbodimentCandidate, ...]
     body_dynamics_profile_id: str = BODY_DYNAMICS_PROFILE_ID
+    body_model_profile_id: str = BODY_MODEL_PROFILE_ID
     developmental_possibility_status: str = OPEN_RESEARCH_QUESTION
     subjectivity_status: str = NOT_ESTABLISHED
     phenomenal_experience_status: str = NOT_ESTABLISHED
@@ -174,6 +180,7 @@ def build_teacher_reference_capabilities(
     signal_schema: TeacherBodySignalSchema | None = None,
     motor_schema: TeacherMotorControlSchema | None = None,
     dynamics: TeacherBodyDynamicsProfile | None = None,
+    body_model: TeacherBodyModelProfile | None = None,
 ) -> tuple[ReferenceCapability, ...]:
     anthropometry = anthropometry or build_teacher_anthropometry_profile()
     physiology = physiology or build_adult_male_physiology_reference(
@@ -182,6 +189,7 @@ def build_teacher_reference_capabilities(
     signal_schema = signal_schema or build_teacher_body_signal_schema()
     motor_schema = motor_schema or build_teacher_motor_control_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signal_schema)
+    body_model = body_model or build_teacher_body_model_profile(anthropometry)
 
     measurement_ids = [item.measurement_id for item in anthropometry.measurements]
     anthropometry_complete = (
@@ -266,6 +274,36 @@ def build_teacher_reference_capabilities(
     sensorimotor_prediction_materialized = (
         body_state_integration_materialized and motor_materialized
     )
+    body_model_id_match = body_model.body_id == anthropometry.body_id
+    body_schema_materialized = (
+        body_model_id_match
+        and body_model.body_schema_status == "REFERENCE_BODY_SCHEMA_MATERIALIZED"
+        and bool(body_model.body_schema_segments)
+    )
+    peripersonal_space_materialized = (
+        body_model_id_match
+        and body_model.peripersonal_space_status
+        == "REFERENCE_PERIPERSONAL_SPACE_MATERIALIZED"
+        and bool(body_model.peripersonal_zones)
+    )
+    multisensory_integration_materialized = (
+        body_model_id_match
+        and body_model.multisensory_integration_status
+        == "REFERENCE_MULTISENSORY_INTEGRATION_MATERIALIZED"
+        and bool(body_model.supported_multisensory_modalities)
+    )
+    allostatic_regulation_materialized = (
+        body_model_id_match
+        and body_model.allostatic_regulation_status
+        == "REFERENCE_PREDICTIVE_REGULATION_MATERIALIZED"
+        and bool(body_model.allostatic_variable_ids)
+    )
+    body_model_plasticity_materialized = (
+        body_model_id_match
+        and body_model.plasticity_status
+        == "CONTROLLED_REFERENCE_PLASTICITY_MATERIALIZED"
+        and bool(body_model.plasticity_domains)
+    )
 
     return (
         ReferenceCapability(
@@ -317,6 +355,41 @@ def build_teacher_reference_capabilities(
             "SENSORIMOTOR_PREDICTION",
             True,
             sensorimotor_prediction_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "BODY_SCHEMA_MODEL",
+            True,
+            body_schema_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "PERIPERSONAL_SPACE",
+            True,
+            peripersonal_space_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "MULTISENSORY_INTEGRATION",
+            True,
+            multisensory_integration_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "ALLOSTATIC_REGULATION",
+            True,
+            allostatic_regulation_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "BODY_MODEL_PLASTICITY",
+            True,
+            body_model_plasticity_materialized,
             False,
             True,
         ),
@@ -538,6 +611,8 @@ def validate_teacher_embodiment_research_surface(
         raise ValueError("Teacher embodiment research-surface id drift")
     if surface.body_dynamics_profile_id != BODY_DYNAMICS_PROFILE_ID:
         raise ValueError("Teacher embodiment research surface dynamics binding drift")
+    if surface.body_model_profile_id != BODY_MODEL_PROFILE_ID:
+        raise ValueError("Teacher embodiment research surface body-model binding drift")
     candidate_ids = [candidate.candidate_id for candidate in surface.candidates]
     if len(candidate_ids) != len(set(candidate_ids)):
         raise ValueError("embodiment research candidate ids must be unique")
