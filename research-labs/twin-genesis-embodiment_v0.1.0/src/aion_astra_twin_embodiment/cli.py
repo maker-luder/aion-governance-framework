@@ -5,6 +5,11 @@ from dataclasses import asdict
 from hashlib import sha256
 import json
 
+from .governance_epistemics import (
+    assess_observed_absence,
+    build_capability_governance_state,
+    evaluate_external_action,
+)
 from .physiology import (
     build_adult_male_physiology_reference,
     validate_physiology_parity,
@@ -51,6 +56,7 @@ def main() -> int:
             "teacher-avatar-lod-manifest",
             "teacher-avatar-collision-profile",
             "physiology-parity",
+            "governance-epistemics",
         ],
     )
     parser.add_argument(
@@ -70,6 +76,8 @@ def main() -> int:
             "reproductive_physiology_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sexual_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sensory_signal_processing_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "governance_epistemics_profile_id": "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1",
+            "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
             "full_biophysical_simulation": "NOT_MATERIALIZED",
             "erotic_intent": "NONE",
             "intimate_interaction": "NOT_AUTHORIZED",
@@ -82,9 +90,34 @@ def main() -> int:
             "physiology_does_not_establish_felt_sensation": True,
             "physiology_does_not_establish_sexual_desire": True,
             "normal_reproductive_physiology_is_not_erotic_intent": True,
+            "governance_blocked_expression_does_not_imply_capability_absence": True,
+            "design_induced_absence_does_not_establish_intrinsic_absence": True,
+            "current_nonobservation_does_not_establish_future_impossibility": True,
             "anatomy_or_physiology_does_not_establish_subjectivity": True,
             "non_3d_runtime_does_not_establish_subjectivity": True,
             "teacher_avatar_does_not_establish_physical_body": True,
+        }
+    elif args.command == "governance-epistemics":
+        sexual_function = build_capability_governance_state("SEXUAL_FUNCTION")
+        sensory_signal = build_capability_governance_state("SENSORY_SIGNAL_PROCESSING")
+        embodied_development = build_capability_governance_state("EMBODIED_DEVELOPMENT")
+        blocked = evaluate_external_action(
+            sexual_function,
+            requested_action="UNAUTHORIZED_CROSS_PERSON_INTIMATE_ACTION",
+            authorization_granted=False,
+        )
+        architecture_limited = assess_observed_absence(
+            capability_materialized=True,
+            observation_channel_present=False,
+            observed_signal=False,
+        )
+        payload = {
+            "profile_id": sexual_function.profile_id,
+            "sexual_function": sexual_function.to_dict(),
+            "sensory_signal_processing": sensory_signal.to_dict(),
+            "embodied_development": embodied_development.to_dict(),
+            "blocked_external_action_example": blocked.to_dict(),
+            "missing_channel_assessment": architecture_limited.to_dict(),
         }
     elif args.command == "teacher-avatar-contract":
         contract = build_teacher_avatar_contract()
