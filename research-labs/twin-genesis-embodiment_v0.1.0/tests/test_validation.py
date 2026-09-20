@@ -7,7 +7,12 @@ from aion_astra_twin_embodiment.models import (
     EmbodimentTemplate,
     SharedGenesisEvent,
 )
-from aion_astra_twin_embodiment.validation import ValidationError, deterministic_hash, validate_candidate
+from aion_astra_twin_embodiment.physiology import REFERENCE_FUNCTIONAL_COMPLETENESS
+from aion_astra_twin_embodiment.validation import (
+    ValidationError,
+    deterministic_hash,
+    validate_candidate,
+)
 
 
 def valid_objects():
@@ -45,32 +50,51 @@ def valid_objects():
 def test_valid_shared_template_independent_instances():
     result = validate_candidate(*valid_objects())
     assert result["result"] == "PASS"
+    assert result["physiology_parity"] == "PASS"
 
 
 def test_same_agent_id_rejected():
     event, template, aion, astra = valid_objects()
-    bad = replace(event, astra_agent_id=event.aion_agent_id)
     with pytest.raises(ValidationError):
-        validate_candidate(bad, template, aion, astra)
+        validate_candidate(
+            replace(event, astra_agent_id=event.aion_agent_id),
+            template,
+            aion,
+            astra,
+        )
 
 
 def test_same_instance_id_rejected():
     event, template, aion, astra = valid_objects()
-    bad = replace(event, astra_instance_id=event.aion_instance_id)
     with pytest.raises(ValidationError):
-        validate_candidate(bad, template, aion, astra)
+        validate_candidate(
+            replace(event, astra_instance_id=event.aion_instance_id),
+            template,
+            aion,
+            astra,
+        )
 
 
 def test_same_embodiment_id_rejected():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, template, aion, replace(astra, embodiment_id=aion.embodiment_id))
+        validate_candidate(
+            event,
+            template,
+            aion,
+            replace(astra, embodiment_id=aion.embodiment_id),
+        )
 
 
 def test_same_private_memory_namespace_rejected():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, template, aion, replace(astra, memory_namespace=aion.memory_namespace))
+        validate_candidate(
+            event,
+            template,
+            aion,
+            replace(astra, memory_namespace=aion.memory_namespace),
+        )
 
 
 def test_minor_template_rejected():
@@ -82,43 +106,108 @@ def test_minor_template_rejected():
 def test_anatomy_does_not_assign_gender_identity():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, replace(template, gender_identity_effect="ASSIGNED"), aion, astra)
+        validate_candidate(
+            event,
+            replace(template, gender_identity_effect="ASSIGNED"),
+            aion,
+            astra,
+        )
 
 
 def test_anatomy_does_not_change_subjectivity():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, replace(template, subjectivity_effect="ESTABLISHED"), aion, astra)
+        validate_candidate(
+            event,
+            replace(template, subjectivity_effect="ESTABLISHED"),
+            aion,
+            astra,
+        )
 
 
-def test_sexual_function_out_of_scope():
+def test_normal_reproductive_physiology_is_required():
     event, template, aion, astra = valid_objects()
-    with pytest.raises(ValidationError):
-        validate_candidate(event, replace(template, sexual_function_status="IMPLEMENTED"), aion, astra)
+    assert template.reproductive_physiology_status == REFERENCE_FUNCTIONAL_COMPLETENESS
+    with pytest.raises(ValidationError, match="reproductive physiology"):
+        validate_candidate(
+            event,
+            replace(template, reproductive_physiology_status="NOT_IMPLEMENTED"),
+            aion,
+            astra,
+        )
+
+
+def test_reproductive_anatomy_completeness_is_required():
+    event, template, aion, astra = valid_objects()
+    with pytest.raises(ValidationError, match="external reproductive"):
+        validate_candidate(
+            event,
+            replace(
+                template,
+                external_reproductive_anatomy=tuple(
+                    item
+                    for item in template.external_reproductive_anatomy
+                    if item != "glans"
+                ),
+            ),
+            aion,
+            astra,
+        )
+
+
+def test_erotic_intent_must_remain_none():
+    event, template, aion, astra = valid_objects()
+    with pytest.raises(ValidationError, match="non-erotic"):
+        validate_candidate(
+            event,
+            replace(template, erotic_intent="EROTIC"),
+            aion,
+            astra,
+        )
 
 
 def test_relationship_cannot_authorize_modification():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, template, replace(aion, modification_authorities=("relationship",)), astra)
+        validate_candidate(
+            event,
+            template,
+            replace(aion, modification_authorities=("relationship",)),
+            astra,
+        )
 
 
 def test_live_runtime_rejected():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, template, replace(aion, runtime_binding="ACTIVE"), astra)
+        validate_candidate(
+            event,
+            template,
+            replace(aion, runtime_binding="ACTIVE"),
+            astra,
+        )
 
 
 def test_body_sensation_must_remain_not_established():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, template, replace(aion, body_sensation="ESTABLISHED"), astra)
+        validate_candidate(
+            event,
+            template,
+            replace(aion, body_sensation="ESTABLISHED"),
+            astra,
+        )
 
 
 def test_sexual_interaction_not_authorized():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError):
-        validate_candidate(event, template, replace(aion, sexual_interaction="AUTHORIZED"), astra)
+        validate_candidate(
+            event,
+            template,
+            replace(aion, sexual_interaction="AUTHORIZED"),
+            astra,
+        )
 
 
 def test_hash_is_deterministic():
