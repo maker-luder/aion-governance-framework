@@ -3,10 +3,24 @@ from __future__ import annotations
 import argparse
 import json
 
+from .teacher_avatar import (
+    build_teacher_avatar_contract,
+    build_teacher_avatar_gltf_contract,
+    validate_teacher_avatar_contract,
+)
+
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="AION/Astra twin embodiment candidate CLI")
-    parser.add_argument("command", choices=["qa-status", "non-claims"])
+    parser.add_argument(
+        "command",
+        choices=[
+            "qa-status",
+            "non-claims",
+            "teacher-avatar-contract",
+            "teacher-avatar-gltf-contract",
+        ],
+    )
     args = parser.parse_args()
 
     if args.command == "qa-status":
@@ -19,15 +33,26 @@ def main() -> int:
             "canonical_effect": "NONE",
             "subjectivity_conclusion": "NOT_ESTABLISHED",
         }
-    else:
+    elif args.command == "non-claims":
         payload = {
             "anatomy_does_not_establish_gender_identity": True,
             "anatomy_does_not_establish_sensation": True,
             "anatomy_does_not_establish_sexual_desire": True,
             "anatomy_does_not_establish_subjectivity": True,
             "non_3d_runtime_does_not_establish_subjectivity": True,
+            "teacher_avatar_does_not_establish_physical_body": True,
         }
-    print(json.dumps(payload, ensure_ascii=False, indent=2))
+    elif args.command == "teacher-avatar-contract":
+        contract = build_teacher_avatar_contract()
+        validation = validate_teacher_avatar_contract(contract)
+        payload = {
+            "contract": contract.to_dict(),
+            "validation": validation,
+        }
+    else:
+        payload = build_teacher_avatar_gltf_contract()
+
+    print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
 
 
