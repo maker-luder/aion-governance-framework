@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/functional-state-binding.json",
+  "title": "AION/Astra Functional-State Binding",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "binding_id",
+    "agent_id",
+    "architecture_id",
+    "state_instance_id",
+    "capability_policy",
+    "state_sharing",
+    "activation_status",
+    "domain_availability",
+    "boundaries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "binding_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "architecture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state_instance_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capability_policy": {
+      "const": "SYMMETRIC_CAPABILITY_SURFACE"
+    },
+    "state_sharing": {
+      "const": "SEPARATE_INSTANCE_STATE"
+    },
+    "activation_status": {
+      "const": "SPECIFICATION_ONLY"
+    },
+    "domain_availability": {
+      "type": "object",
+      "minProperties": 18,
+      "additionalProperties": {
+        "enum": [
+          "FUNCTIONAL_ANALOGUE_AVAILABLE",
+          "REPRESENTATIONAL_ONLY"
+        ]
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "functional_state_not_felt_experience",
+        "self_model_not_subjectivity",
+        "reward_signal_not_pleasure",
+        "threat_model_not_fear_experience",
+        "attachment_model_not_felt_love",
+        "body_state_not_body_experience",
+        "sexuality_representation_not_sexual_desire",
+        "canonical_effect"
+      ],
+      "properties": {
+        "functional_state_not_felt_experience": {
+          "const": "ENFORCED"
+        },
+        "self_model_not_subjectivity": {
+          "const": "ENFORCED"
+        },
+        "reward_signal_not_pleasure": {
+          "const": "ENFORCED"
+        },
+        "threat_model_not_fear_experience": {
+          "const": "ENFORCED"
+        },
+        "attachment_model_not_felt_love": {
+          "const": "ENFORCED"
+        },
+        "body_state_not_body_experience": {
+          "const": "ENFORCED"
+        },
+        "sexuality_representation_not_sexual_desire": {
+          "const": "ENFORCED"
+        },
+        "canonical_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
