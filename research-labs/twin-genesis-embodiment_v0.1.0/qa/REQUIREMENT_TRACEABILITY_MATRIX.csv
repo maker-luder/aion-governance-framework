@@ -2,7 +2,11 @@ requirement_id,requirement,evidence,status
 REQ-TWIN-001,Distinct AION and Astra identity roots,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-TWIN-002,Shared template with independent embodiment instances,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-ANAT-001,Adult male clinical anatomy candidate,schemas/EMBODIMENT_TEMPLATE_SCHEMA.json,IMPLEMENTED_AS_CANDIDATE
-REQ-BOUNDARY-001,Anatomy does not establish gender identity or subjectivity,src/aion_astra_twin_embodiment/validation.py,IMPLEMENTED_AS_CANDIDATE
+REQ-BOUNDARY-001,Anatomy or physiology does not establish gender identity phenomenal sensation or subjectivity,src/aion_astra_twin_embodiment/validation.py,IMPLEMENTED_AS_CANDIDATE
+REQ-PHYS-001,Complete adult male physiology reference across normal body systems,tests/test_physiology.py,IMPLEMENTED_AS_REFERENCE
+REQ-PHYS-002,AION Astra Teacher physiology function parity,tests/test_physiology.py;src/aion_astra_twin_embodiment/cli.py,IMPLEMENTED_FAIL_CLOSED
+REQ-PHYS-003,Normal reproductive physiology is included while erotic intent remains none,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
+REQ-PHYS-004,Sensory signal processing does not establish phenomenal sensation,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
 REQ-TEACHER-001,Machine-readable Teacher body dimensions and anatomical inventory,src/aion_astra_twin_embodiment/teacher_avatar.py,IMPLEMENTED_AS_CANDIDATE
@@ -23,5 +27,7 @@ REQ-TEACHER-015,VRM required humanoid parent chain mapping with license authoriz
 REQ-TEACHER-016,Hash-verified materialized reference bundle,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-017,Three-level continuous reference LOD set,tests/test_teacher_avatar_lod.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-018,Full-body geometric collision proxy profile with clinical external male-anatomy references,tests/test_teacher_avatar_physics.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-019,Reference bundle includes LOD and collision metadata,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-020,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-019,Reference bundle includes LOD collision and physiology metadata,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-020,Teacher internal male anatomy includes complete reproductive pathway structures,tests/test_teacher_avatar.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-021,Teacher contract and glTF outputs bind to shared adult male physiology profile,tests/test_teacher_avatar.py;tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-022,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
