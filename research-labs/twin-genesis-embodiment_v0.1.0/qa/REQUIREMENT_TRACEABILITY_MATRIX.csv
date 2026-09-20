@@ -21,4 +21,7 @@ REQ-TEACHER-013,Continuous reference glTF/GLB validation and content-addressed m
 REQ-TEACHER-014,Continuous reference morph targets and embedded texture,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-015,VRM required humanoid parent chain mapping with license authorization held,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_CANDIDATE
 REQ-TEACHER-016,Hash-verified materialized reference bundle,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-017,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-017,Three-level continuous reference LOD set,tests/test_teacher_avatar_lod.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-018,Full-body geometric collision proxy profile with clinical external male-anatomy references,tests/test_teacher_avatar_physics.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-019,Reference bundle includes LOD and collision metadata,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-020,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
