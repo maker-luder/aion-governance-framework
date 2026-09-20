@@ -248,7 +248,7 @@ def validate_teacher_body_runtime_binding(
         dynamics=dynamics,
     )
     completeness = assess_teacher_reference_completeness(capabilities)
-    if completeness.status != "COMPLETE_REFERENCE_BASELINE":
+    if completeness.status != "COMPLETE_DECLARED_REFERENCE_BASELINE":
         raise ValueError(
             "body runtime binding requires a complete derived reference baseline"
         )
