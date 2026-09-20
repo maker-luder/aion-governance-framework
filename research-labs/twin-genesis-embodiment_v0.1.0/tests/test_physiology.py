@@ -81,6 +81,16 @@ def test_general_physiology_contains_new_reference_axes() -> None:
     assert "inflammatory_state_signal_reference" in systems["IMMUNE_LYMPHATIC"]
     assert "tissue_injury_signal_reference" in systems["INTEGUMENTARY_THERMOREGULATORY"]
     assert "tissue_repair_state_reference" in systems["INTEGUMENTARY_THERMOREGULATORY"]
+    assert "gastric_distension_signal_reference" in systems["DIGESTIVE_METABOLIC"]
+    assert "nutrient_absorption_state_reference" in systems["DIGESTIVE_METABOLIC"]
+    assert "orexigenic_signal_reference" in systems["DIGESTIVE_METABOLIC"]
+    assert "satiation_signal_reference" in systems["DIGESTIVE_METABOLIC"]
+    assert "satiety_signal_reference" in systems["DIGESTIVE_METABOLIC"]
+    assert "hypothalamic_pituitary_state_signal_reference" in systems["ENDOCRINE"]
+    assert "thyroid_axis_state_signal_reference" in systems["ENDOCRINE"]
+    assert "adrenal_axis_state_signal_reference" in systems["ENDOCRINE"]
+    assert "pancreatic_glucose_insulin_state_reference" in systems["ENDOCRINE"]
+    assert "gut_appetite_endocrine_signal_reference" in systems["ENDOCRINE"]
 
 
 def test_signal_processing_does_not_claim_felt_sensation() -> None:
