@@ -72,6 +72,16 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "ADRENAL_AXIS_STATE" in ids
     assert "PANCREATIC_GLUCOSE_INSULIN_STATE" in ids
     assert "GUT_APPETITE_ENDOCRINE_STATE" in ids
+    assert "HEPATIC_NUTRIENT_PROCESSING_STATE" in ids
+    assert "HEPATIC_DETOXIFICATION_REFERENCE" in ids
+    assert "BILE_PRODUCTION_STATE" in ids
+    assert "HEPATIC_GLYCOGEN_STATE" in ids
+    assert "RENAL_FILTRATION_STATE" in ids
+    assert "HEMATOLOGIC_OXYGEN_TRANSPORT_STATE" in ids
+    assert "COAGULATION_STATE_REFERENCE" in ids
+    assert "BLOOD_CELL_TURNOVER_REFERENCE" in ids
+    assert "LYMPHATIC_FLUID_RETURN_STATE" in ids
+    assert "SKIN_BARRIER_STATE" in ids
     assert "GENITAL_SENSORY_AFFERENT_REFERENCE" in ids
     assert schema.physiological_arousal_observation_status == "REPRESENTABLE"
     assert schema.sexual_salience_representation_status == "RESEARCHABLE"
@@ -182,4 +192,50 @@ def test_external_sensory_reference_domains_fail_closed_on_drift() -> None:
     )
 
     with pytest.raises(ValueError, match="external sensory channel domain drift"):
+        validate_teacher_body_signal_schema(broken)
+
+
+def test_physiology_system_observation_channels_fail_closed_when_removed() -> None:
+    schema = build_teacher_body_signal_schema()
+    for channel_id in (
+        "HEPATIC_DETOXIFICATION_REFERENCE",
+        "RENAL_FILTRATION_STATE",
+        "COAGULATION_STATE_REFERENCE",
+        "LYMPHATIC_FLUID_RETURN_STATE",
+        "SKIN_BARRIER_STATE",
+    ):
+        broken = replace(
+            schema,
+            channels=tuple(
+                channel
+                for channel in schema.channels
+                if channel.channel_id != channel_id
+            ),
+        )
+        with pytest.raises(ValueError, match="missing required channels"):
+            validate_teacher_body_signal_schema(broken)
+
+
+def test_physiology_system_observation_domains_fail_closed_on_drift() -> None:
+    schema = build_teacher_body_signal_schema()
+    hepatic = next(
+        channel
+        for channel in schema.channels
+        if channel.channel_id == "HEPATIC_NUTRIENT_PROCESSING_STATE"
+    )
+    broken_hepatic = replace(hepatic, domain="INTEROCEPTIVE")
+    broken = replace(
+        schema,
+        channels=tuple(
+            broken_hepatic
+            if channel.channel_id == hepatic.channel_id
+            else channel
+            for channel in schema.channels
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="physiology system observation channel domain drift",
+    ):
         validate_teacher_body_signal_schema(broken)
