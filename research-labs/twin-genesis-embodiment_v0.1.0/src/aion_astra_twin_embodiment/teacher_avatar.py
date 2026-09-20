@@ -139,6 +139,8 @@ class TeacherAvatarContract:
     reproductive_physiology_status: str
     sexual_function_status: str
     sensory_signal_processing_status: str
+    governance_epistemics_profile_id: str
+    developmental_possibility_status: str
     phenomenal_sensation_status: str
     erotic_intent: str
     intimate_interaction_status: str
@@ -253,6 +255,10 @@ def build_teacher_avatar_contract() -> TeacherAvatarContract:
         reproductive_physiology_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         sexual_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         sensory_signal_processing_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
+        governance_epistemics_profile_id=build_adult_male_physiology_reference(
+            "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+        ).governance_epistemics_profile_id,
+        developmental_possibility_status="OPEN_RESEARCH_QUESTION",
         phenomenal_sensation_status="NOT_ESTABLISHED",
         erotic_intent="NONE",
         intimate_interaction_status="NOT_AUTHORIZED",
@@ -314,6 +320,10 @@ def validate_teacher_avatar_contract(contract: TeacherAvatarContract) -> dict[st
         raise ValueError("Teacher normal sexual function must remain included in the physiology reference")
     if contract.sensory_signal_processing_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         raise ValueError("Teacher sensory signal-processing completeness drift")
+    if contract.governance_epistemics_profile_id != physiology.governance_epistemics_profile_id:
+        raise ValueError("Teacher governance epistemics profile binding drift")
+    if contract.developmental_possibility_status != "OPEN_RESEARCH_QUESTION":
+        raise ValueError("Teacher embodied development must remain an open research question")
     if contract.phenomenal_sensation_status != "NOT_ESTABLISHED":
         raise ValueError("Teacher physiology cannot establish phenomenal sensation")
     if contract.erotic_intent != "NONE":
@@ -400,6 +410,8 @@ def build_teacher_avatar_gltf_contract() -> dict[str, Any]:
             "reproductive_physiology_status": contract.reproductive_physiology_status,
             "sexual_function_status": contract.sexual_function_status,
             "sensory_signal_processing_status": contract.sensory_signal_processing_status,
+            "governance_epistemics_profile_id": contract.governance_epistemics_profile_id,
+            "developmental_possibility_status": contract.developmental_possibility_status,
             "phenomenal_sensation_status": contract.phenomenal_sensation_status,
             "erotic_intent": contract.erotic_intent,
             "intimate_interaction_status": contract.intimate_interaction_status,
