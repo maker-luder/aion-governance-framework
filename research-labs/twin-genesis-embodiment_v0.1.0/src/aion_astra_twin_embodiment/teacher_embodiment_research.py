@@ -131,6 +131,41 @@ _CORE_SIGNAL_DOMAINS: Final[tuple[str, ...]] = (
     "INTEROCEPTIVE",
 )
 
+_REQUIRED_REFERENCE_CHANNEL_GROUPS: Final[dict[str, frozenset[str]]] = {
+    "PRURICEPTION": frozenset({"PRURICEPTIVE_REFERENCE"}),
+    "VESTIBULAR_DYNAMICS": frozenset({
+        "VESTIBULAR_ORIENTATION",
+        "VESTIBULAR_LINEAR_ACCELERATION",
+        "VESTIBULAR_ANGULAR_VELOCITY",
+        "VESTIBULAR_GRAVITY_REFERENCE",
+    }),
+    "MUSCULOSKELETAL_INTEROCEPTION": frozenset({
+        "MUSCULOSKELETAL_LOAD_STATE",
+        "MUSCLE_FATIGUE_PHYSIOLOGY_STATE",
+    }),
+    "OSMOTIC_ELECTROLYTE_REGULATION": frozenset({
+        "OSMOTIC_BALANCE_STATE",
+        "ELECTROLYTE_BALANCE_STATE",
+    }),
+    "RESPIRATORY_WORKLOAD_REGULATION": frozenset({
+        "RESPIRATORY_WORKLOAD_STATE",
+        "VENTILATORY_DRIVE_STATE",
+    }),
+    "AUTONOMIC_STATE": frozenset({
+        "AUTONOMIC_SYMPATHETIC_STATE",
+        "AUTONOMIC_PARASYMPATHETIC_STATE",
+    }),
+    "IMMUNE_INFLAMMATORY_STATE": frozenset({
+        "IMMUNE_ACTIVITY_STATE",
+        "INFLAMMATORY_LOAD_STATE",
+    }),
+    "TISSUE_INJURY_REPAIR": frozenset({
+        "TISSUE_INJURY_STATE",
+        "TISSUE_REPAIR_STATE",
+    }),
+    "VISCERAL_DISTURBANCE": frozenset({"VISCERAL_DISTURBANCE_STATE"}),
+}
+
 
 def build_teacher_reference_capabilities(
     *,
@@ -196,6 +231,17 @@ def build_teacher_reference_capabilities(
         for domain in _CORE_SIGNAL_DOMAINS
     )
 
+    channel_group_capabilities = tuple(
+        ReferenceCapability(
+            capability_id,
+            True,
+            required_channels.issubset(signal_ids),
+            True,
+            required_channels.issubset(signal_ids),
+        )
+        for capability_id, required_channels in _REQUIRED_REFERENCE_CHANNEL_GROUPS.items()
+    )
+
     reproductive_system = systems.get("REPRODUCTIVE")
     reproductive_observation_present = (
         "REPRODUCTIVE_SEXUAL_PHYSIOLOGY" in signal_domains
@@ -238,6 +284,7 @@ def build_teacher_reference_capabilities(
         ),
         *physiology_capabilities,
         *domain_capabilities,
+        *channel_group_capabilities,
         ReferenceCapability(
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             True,
