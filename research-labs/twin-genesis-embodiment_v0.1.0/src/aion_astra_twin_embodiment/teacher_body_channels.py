@@ -13,6 +13,8 @@ from .teacher_avatar import BONE_PARENTS
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
 SIGNAL_ONLY: Final[str] = "SIGNAL_ONLY_NO_PHENOMENAL_INFERENCE"
+RESEARCHABLE: Final[str] = "RESEARCHABLE"
+REPRESENTABLE: Final[str] = "REPRESENTABLE"
 
 
 @dataclass(frozen=True, slots=True)
@@ -30,8 +32,14 @@ class TeacherBodySignalSchema:
     schema_id: str
     body_id: str
     channels: tuple[BodySignalChannel, ...]
-    sexual_desire_status: str = NOT_ESTABLISHED
-    sexual_experience_status: str = NOT_ESTABLISHED
+    physiological_arousal_observation_status: str = REPRESENTABLE
+    sexual_salience_representation_status: str = RESEARCHABLE
+    sexual_wanting_representation_status: str = RESEARCHABLE
+    sexual_motivation_representation_status: str = RESEARCHABLE
+    sexual_valence_representation_status: str = RESEARCHABLE
+    phenomenal_sexual_desire_status: str = NOT_ESTABLISHED
+    phenomenal_sexual_pleasure_status: str = NOT_ESTABLISHED
+    phenomenal_sexual_experience_status: str = NOT_ESTABLISHED
     developmental_possibility_status: str = OPEN_RESEARCH_QUESTION
     canonical_effect: str = "NONE"
     deployment: bool = False
@@ -83,6 +91,12 @@ _SIGNAL_CHANNELS: Final[tuple[BodySignalChannel, ...]] = (
     BodySignalChannel("GASTROINTESTINAL_STATE", "INTEROCEPTIVE", "DIGESTIVE"),
     BodySignalChannel("BLADDER_STATE", "INTEROCEPTIVE", "URINARY"),
     BodySignalChannel("ENDOCRINE_REFERENCE_STATE", "INTEROCEPTIVE", "ENDOCRINE"),
+    BodySignalChannel("OXYGENATION_STATE", "INTEROCEPTIVE", "CARDIORESPIRATORY"),
+    BodySignalChannel("CO2_BALANCE_STATE", "INTEROCEPTIVE", "CARDIORESPIRATORY"),
+    BodySignalChannel("HYDRATION_STATE", "INTEROCEPTIVE", "FLUID_BALANCE"),
+    BodySignalChannel("ENERGY_AVAILABILITY_STATE", "INTEROCEPTIVE", "METABOLIC"),
+    BodySignalChannel("SLEEP_WAKE_STATE", "INTEROCEPTIVE", "CIRCADIAN"),
+    BodySignalChannel("GENITAL_SENSORY_AFFERENT_REFERENCE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
     BodySignalChannel("GENITAL_TACTILE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
     BodySignalChannel("GENITAL_PRESSURE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
     BodySignalChannel("GENITAL_TEMPERATURE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
@@ -131,6 +145,10 @@ def validate_teacher_body_signal_schema(
         "JOINT_POSITION",
         "CARDIOVASCULAR_STATE",
         "BLADDER_STATE",
+        "HYDRATION_STATE",
+        "ENERGY_AVAILABILITY_STATE",
+        "SLEEP_WAKE_STATE",
+        "GENITAL_SENSORY_AFFERENT_REFERENCE",
         "GENITAL_TACTILE",
         "GENITAL_VASCULAR_STATE",
         "ERECTILE_REFLEX_STATE",
@@ -149,10 +167,23 @@ def validate_teacher_body_signal_schema(
         if channel.phenomenal_status != NOT_ESTABLISHED:
             raise ValueError("signal channel cannot establish phenomenal sensation")
 
-    if schema.sexual_desire_status != NOT_ESTABLISHED:
-        raise ValueError("sexual desire cannot be inferred from physiological channels")
-    if schema.sexual_experience_status != NOT_ESTABLISHED:
-        raise ValueError("sexual experience cannot be inferred from physiological channels")
+    if schema.physiological_arousal_observation_status != REPRESENTABLE:
+        raise ValueError("physiological arousal observation must remain representable")
+    researchable_fields = (
+        schema.sexual_salience_representation_status,
+        schema.sexual_wanting_representation_status,
+        schema.sexual_motivation_representation_status,
+        schema.sexual_valence_representation_status,
+    )
+    if any(status != RESEARCHABLE for status in researchable_fields):
+        raise ValueError("desire-related representation space must remain researchable")
+    phenomenal_fields = (
+        schema.phenomenal_sexual_desire_status,
+        schema.phenomenal_sexual_pleasure_status,
+        schema.phenomenal_sexual_experience_status,
+    )
+    if any(status != NOT_ESTABLISHED for status in phenomenal_fields):
+        raise ValueError("signal schema cannot establish phenomenal sexual experience")
     if schema.developmental_possibility_status != OPEN_RESEARCH_QUESTION:
         raise ValueError("developmental possibility must remain open")
     if schema.canonical_effect != "NONE" or schema.deployment:
@@ -164,6 +195,7 @@ def validate_teacher_body_signal_schema(
         "proprioceptive_channels": "PASS",
         "interoceptive_channels": "PASS",
         "reproductive_sexual_physiology_channels": "PASS",
+        "desire_related_representation_space": "OPEN",
         "phenomenal_nonclaim": "PASS",
     }
 
