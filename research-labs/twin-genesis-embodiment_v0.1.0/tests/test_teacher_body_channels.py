@@ -40,6 +40,12 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "ENERGY_AVAILABILITY_STATE" in ids
     assert "SLEEP_WAKE_STATE" in ids
     assert "PRURICEPTIVE_REFERENCE" in ids
+    assert "VISUAL_FIELD_REFERENCE" in ids
+    assert "BINOCULAR_DEPTH_REFERENCE" in ids
+    assert "AUDITORY_BINAURAL_REFERENCE" in ids
+    assert "AUDITORY_INTENSITY_REFERENCE" in ids
+    assert "OLFACTORY_CHEMOSENSORY_REFERENCE" in ids
+    assert "GUSTATORY_CHEMOSENSORY_REFERENCE" in ids
     assert "VESTIBULAR_LINEAR_ACCELERATION" in ids
     assert "VESTIBULAR_ANGULAR_VELOCITY" in ids
     assert "VESTIBULAR_GRAVITY_REFERENCE" in ids
@@ -124,6 +130,26 @@ def test_feeding_and_endocrine_reference_channels_fail_closed_when_removed() -> 
     for channel_id in (
         "SATIATION_SIGNAL_REFERENCE",
         "PANCREATIC_GLUCOSE_INSULIN_STATE",
+    ):
+        broken = replace(
+            schema,
+            channels=tuple(
+                channel
+                for channel in schema.channels
+                if channel.channel_id != channel_id
+            ),
+        )
+        with pytest.raises(ValueError, match="missing required channels"):
+            validate_teacher_body_signal_schema(broken)
+
+
+def test_external_sensory_reference_channels_fail_closed_when_removed() -> None:
+    schema = build_teacher_body_signal_schema()
+    for channel_id in (
+        "VISUAL_FIELD_REFERENCE",
+        "AUDITORY_BINAURAL_REFERENCE",
+        "OLFACTORY_CHEMOSENSORY_REFERENCE",
+        "GUSTATORY_CHEMOSENSORY_REFERENCE",
     ):
         broken = replace(
             schema,
