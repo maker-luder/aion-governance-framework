@@ -56,6 +56,16 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "INFLAMMATORY_LOAD_STATE" in ids
     assert "TISSUE_INJURY_STATE" in ids
     assert "TISSUE_REPAIR_STATE" in ids
+    assert "GASTRIC_DISTENSION_STATE" in ids
+    assert "NUTRIENT_ABSORPTION_STATE" in ids
+    assert "OREXIGENIC_SIGNAL_REFERENCE" in ids
+    assert "SATIATION_SIGNAL_REFERENCE" in ids
+    assert "SATIETY_SIGNAL_REFERENCE" in ids
+    assert "HYPOTHALAMIC_PITUITARY_STATE" in ids
+    assert "THYROID_AXIS_STATE" in ids
+    assert "ADRENAL_AXIS_STATE" in ids
+    assert "PANCREATIC_GLUCOSE_INSULIN_STATE" in ids
+    assert "GUT_APPETITE_ENDOCRINE_STATE" in ids
     assert "GENITAL_SENSORY_AFFERENT_REFERENCE" in ids
     assert schema.physiological_arousal_observation_status == "REPRESENTABLE"
     assert schema.sexual_salience_representation_status == "RESEARCHABLE"
@@ -107,3 +117,21 @@ def test_expanded_reference_channels_fail_closed_when_removed() -> None:
 
     with pytest.raises(ValueError, match="missing required channels"):
         validate_teacher_body_signal_schema(broken)
+
+
+def test_feeding_and_endocrine_reference_channels_fail_closed_when_removed() -> None:
+    schema = build_teacher_body_signal_schema()
+    for channel_id in (
+        "SATIATION_SIGNAL_REFERENCE",
+        "PANCREATIC_GLUCOSE_INSULIN_STATE",
+    ):
+        broken = replace(
+            schema,
+            channels=tuple(
+                channel
+                for channel in schema.channels
+                if channel.channel_id != channel_id
+            ),
+        )
+        with pytest.raises(ValueError, match="missing required channels"):
+            validate_teacher_body_signal_schema(broken)
