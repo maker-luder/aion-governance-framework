@@ -25,6 +25,18 @@ from .teacher_avatar_continuous import (
     validate_teacher_continuous_reference_glb,
     validate_teacher_continuous_reference_gltf,
 )
+from .teacher_avatar_lod import (
+    TeacherLodReference,
+    build_teacher_lod_manifest,
+    build_teacher_lod_references,
+    validate_teacher_lod_references,
+)
+from .teacher_avatar_physics import (
+    CollisionProxy,
+    TeacherCollisionProfile,
+    build_teacher_collision_profile,
+    validate_teacher_collision_profile,
+)
 from .teacher_avatar_validation import (
     TeacherAvatarAssetValidationError,
     build_teacher_asset_manifest,
@@ -57,6 +69,14 @@ __all__ = [
     "validate_teacher_continuous_reference",
     "validate_teacher_continuous_reference_gltf",
     "validate_teacher_continuous_reference_glb",
+    "TeacherLodReference",
+    "build_teacher_lod_references",
+    "build_teacher_lod_manifest",
+    "validate_teacher_lod_references",
+    "CollisionProxy",
+    "TeacherCollisionProfile",
+    "build_teacher_collision_profile",
+    "validate_teacher_collision_profile",
     "TeacherAvatarAssetValidationError",
     "build_teacher_asset_manifest",
     "validate_teacher_low_poly_gltf",
