@@ -53,6 +53,19 @@ _HAPPY_REFERENCE_DELTAS: tuple[tuple[float, float, float], ...] = tuple(
     for position in _CUBE_POSITIONS
 )
 
+_REFERENCE_JOINTS: tuple[tuple[int, int, int, int], ...] = tuple(
+    (0, 0, 0, 0) for _ in _CUBE_POSITIONS
+)
+_REFERENCE_WEIGHTS: tuple[tuple[float, float, float, float], ...] = tuple(
+    (1.0, 0.0, 0.0, 0.0) for _ in _CUBE_POSITIONS
+)
+_HIPS_INVERSE_BIND_MATRIX: tuple[float, ...] = (
+    1.0, 0.0, 0.0, 0.0,
+    0.0, 1.0, 0.0, 0.0,
+    0.0, 0.0, 1.0, 0.0,
+    0.0, -0.96, 0.0, 1.0,
+)
+
 
 def _reference_buffer() -> tuple[bytes, dict[str, tuple[int, int]]]:
     chunks: list[bytes] = []
@@ -82,6 +95,18 @@ def _reference_buffer() -> tuple[bytes, dict[str, tuple[int, int]]]:
     add(
         "happy",
         b"".join(struct.pack("<fff", *delta) for delta in _HAPPY_REFERENCE_DELTAS),
+    )
+    add(
+        "joints",
+        b"".join(struct.pack("<HHHH", *joints) for joints in _REFERENCE_JOINTS),
+    )
+    add(
+        "weights",
+        b"".join(struct.pack("<ffff", *weights) for weights in _REFERENCE_WEIGHTS),
+    )
+    add(
+        "inverse_bind",
+        struct.pack("<" + "f" * 16, *_HIPS_INVERSE_BIND_MATRIX),
     )
     return b"".join(chunks), layout
 
@@ -214,6 +239,18 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
         nodes.append(geometry_node)
         nodes[node_index[parent_bone]]["children"].append(index)
 
+    skinned_reference_index = len(nodes)
+    nodes.append(
+        {
+            "name": "GEO_SKINNED_HIPS_REFERENCE",
+            "mesh": 1,
+            "skin": 0,
+            "scale": [0.33, 0.23, 0.22],
+            "extras": {"anatomy_role": "SKINNING_REFERENCE"},
+        }
+    )
+    roots.append(skinned_reference_index)
+
     for node in nodes:
         if node.get("children") == []:
             node.pop("children", None)
@@ -221,20 +258,28 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
     raw_buffer, layout = _reference_buffer()
     encoded = base64.b64encode(raw_buffer).decode("ascii")
 
-    buffer_view_names = ("positions", "indices", "uvs", "blink", "happy")
-    buffer_views = [
-        {
+    buffer_view_names = (
+        "positions",
+        "indices",
+        "uvs",
+        "blink",
+        "happy",
+        "joints",
+        "weights",
+        "inverse_bind",
+    )
+    buffer_views: list[dict[str, Any]] = []
+    for name in buffer_view_names:
+        view: dict[str, Any] = {
             "buffer": 0,
             "byteOffset": layout[name][0],
             "byteLength": layout[name][1],
-            **(
-                {"target": 34963}
-                if name == "indices"
-                else {"target": 34962}
-            ),
         }
-        for name in buffer_view_names
-    ]
+        if name == "indices":
+            view["target"] = 34963
+        elif name != "inverse_bind":
+            view["target"] = 34962
+        buffer_views.append(view)
 
     blink_min = [min(delta[i] for delta in _BLINK_REFERENCE_DELTAS) for i in range(3)]
     blink_max = [max(delta[i] for delta in _BLINK_REFERENCE_DELTAS) for i in range(3)]
@@ -302,6 +347,31 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
                 "min": happy_min,
                 "max": happy_max,
             },
+            {
+                "bufferView": 5,
+                "byteOffset": 0,
+                "componentType": 5123,
+                "count": len(_REFERENCE_JOINTS),
+                "type": "VEC4",
+                "min": [0, 0, 0, 0],
+                "max": [0, 0, 0, 0],
+            },
+            {
+                "bufferView": 6,
+                "byteOffset": 0,
+                "componentType": 5126,
+                "count": len(_REFERENCE_WEIGHTS),
+                "type": "VEC4",
+                "min": [1.0, 0.0, 0.0, 0.0],
+                "max": [1.0, 0.0, 0.0, 0.0],
+            },
+            {
+                "bufferView": 7,
+                "byteOffset": 0,
+                "componentType": 5126,
+                "count": 1,
+                "type": "MAT4",
+            },
         ],
         "materials": [
             {
@@ -330,6 +400,30 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
                 ],
                 "weights": [0.0, 0.0],
                 "extras": {"targetNames": ["blinkReference", "happyReference"]},
+            },
+            {
+                "name": "SkinnedUnitCubeReferenceMesh",
+                "primitives": [
+                    {
+                        "attributes": {
+                            "POSITION": 0,
+                            "TEXCOORD_0": 2,
+                            "JOINTS_0": 5,
+                            "WEIGHTS_0": 6,
+                        },
+                        "indices": 1,
+                        "material": 0,
+                        "mode": 4,
+                    }
+                ],
+            },
+        ],
+        "skins": [
+            {
+                "name": "TeacherReferenceSkin",
+                "inverseBindMatrices": 7,
+                "skeleton": node_index["hips"],
+                "joints": [node_index["hips"]],
             }
         ],
         "extras": {
@@ -344,6 +438,8 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
             "renderable_mesh_status": "LOW_POLY_REFERENCE_MATERIALIZED",
             "reference_uv_status": "MATERIALIZED",
             "reference_morph_target_vertex_data_status": "MATERIALIZED",
+            "reference_skin_weights_status": "MATERIALIZED",
+            "reference_inverse_bind_matrices_status": "MATERIALIZED",
             "continuous_production_mesh_status": "NOT_MATERIALIZED",
             "linear_blend_skin_weights_status": "NOT_MATERIALIZED",
             "production_morph_target_vertex_data_status": "NOT_MATERIALIZED",
