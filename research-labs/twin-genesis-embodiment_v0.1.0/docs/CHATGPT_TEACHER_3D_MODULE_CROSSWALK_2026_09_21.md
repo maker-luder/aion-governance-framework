@@ -35,7 +35,7 @@ These are interoperability references, not certification claims.
 - machine-readable body dimensions;
 - machine-readable complete adult male anatomical inventory;
 - shared machine-verifiable adult-male physiology reference across 13 normal physiological systems;
-- complete reproductive-physiology reference with non-erotic governance boundaries;
+- complete reproductive-physiology reference with retained `sexual_function_status` and separate non-erotic governance boundaries;
 - AION / Astra / Teacher physiology-function parity validation;
 - VRM-aligned required humanoid bone coverage;
 - extended finger, toe, eye and jaw bone hierarchy;
@@ -122,6 +122,7 @@ REFERENCE_BUNDLE_FILE_COUNT = 8
 PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
 PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
 REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SEXUAL_FUNCTION_STATUS = REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED
 SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
 PHENOMENAL_SENSATION = NOT_ESTABLISHED
 EROTIC_INTENT = NONE
