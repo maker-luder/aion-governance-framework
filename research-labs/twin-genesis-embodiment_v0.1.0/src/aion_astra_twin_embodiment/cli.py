@@ -10,6 +10,14 @@ from .teacher_avatar import (
     validate_teacher_avatar_contract,
 )
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
+from .teacher_avatar_continuous import (
+    build_teacher_continuous_reference_glb,
+    build_teacher_continuous_reference_gltf,
+    build_teacher_continuous_reference_mesh,
+    validate_teacher_continuous_reference,
+    validate_teacher_continuous_reference_glb,
+    validate_teacher_continuous_reference_gltf,
+)
 from .teacher_avatar_validation import (
     build_teacher_asset_manifest,
     validate_teacher_low_poly_glb,
@@ -29,6 +37,8 @@ def main() -> int:
             "teacher-avatar-lowpoly-gltf",
             "teacher-avatar-lowpoly-glb-info",
             "teacher-avatar-asset-manifest",
+            "teacher-avatar-continuous-gltf-info",
+            "teacher-avatar-continuous-glb-info",
         ],
     )
     args = parser.parse_args()
@@ -75,8 +85,34 @@ def main() -> int:
             "physical_body_claim": "NONE",
             "subjectivity_effect": "NONE",
         }
-    else:
+    elif args.command == "teacher-avatar-asset-manifest":
         payload = build_teacher_asset_manifest()
+    elif args.command == "teacher-avatar-continuous-gltf-info":
+        mesh = build_teacher_continuous_reference_mesh()
+        mesh_validation = validate_teacher_continuous_reference(mesh)
+        gltf = build_teacher_continuous_reference_gltf(mesh)
+        payload = {
+            "artifact_kind": "CONTINUOUS_SKINNED_GLTF_REFERENCE",
+            "vertices": len(mesh.vertices),
+            "triangles": len(mesh.triangles),
+            "mesh_validation": mesh_validation,
+            "gltf_validation": validate_teacher_continuous_reference_gltf(gltf),
+            "production_asset_status": "NOT_ESTABLISHED",
+            "physical_body_claim": "NONE",
+            "subjectivity_effect": "NONE",
+        }
+    else:
+        mesh = build_teacher_continuous_reference_mesh()
+        glb = build_teacher_continuous_reference_glb(mesh)
+        payload = {
+            "artifact_kind": "CONTINUOUS_SKINNED_GLB_REFERENCE",
+            "bytes": len(glb),
+            "sha256": sha256(glb).hexdigest(),
+            "validation": validate_teacher_continuous_reference_glb(glb),
+            "production_asset_status": "NOT_ESTABLISHED",
+            "physical_body_claim": "NONE",
+            "subjectivity_effect": "NONE",
+        }
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
