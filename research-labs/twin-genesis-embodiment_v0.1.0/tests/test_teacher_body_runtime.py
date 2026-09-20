@@ -38,6 +38,7 @@ def test_teacher_body_runtime_binding_is_materialized_without_live_external_actu
     assert binding.research_surface_id == (
         "CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1"
     )
+    assert result["reference_completeness"] == "PASS"
     assert binding.skeleton_root == "hips"
     assert binding.viewpoint_anchor == "head"
     assert binding.live_external_actuation is False
