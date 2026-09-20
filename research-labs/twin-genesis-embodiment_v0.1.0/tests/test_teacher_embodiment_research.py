@@ -119,6 +119,46 @@ def test_reference_completeness_detects_wrong_physiology_function_set() -> None:
     assert "ADULT_MALE_PHYSIOLOGY" in assessment.missing_required_capabilities
 
 
+def test_new_reference_channel_groups_are_machine_verifiable() -> None:
+    capabilities = build_teacher_reference_capabilities()
+    capability_ids = {item.capability_id for item in capabilities}
+
+    expected = {
+        "PRURICEPTION",
+        "VESTIBULAR_DYNAMICS",
+        "MUSCULOSKELETAL_INTEROCEPTION",
+        "OSMOTIC_ELECTROLYTE_REGULATION",
+        "RESPIRATORY_WORKLOAD_REGULATION",
+        "AUTONOMIC_STATE",
+        "IMMUNE_INFLAMMATORY_STATE",
+        "TISSUE_INJURY_REPAIR",
+        "VISCERAL_DISTURBANCE",
+    }
+    assert expected.issubset(capability_ids)
+
+    signals = build_teacher_body_signal_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    without_pruriception = replace(
+        signals,
+        channels=tuple(
+            channel
+            for channel in signals.channels
+            if channel.channel_id != "PRURICEPTIVE_REFERENCE"
+        ),
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=without_pruriception,
+            dynamics=dynamics,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "PRURICEPTION" in assessment.missing_required_capabilities
+    assert "PRURICEPTION" in assessment.missing_required_observation_channels
+    assert assessment.global_human_body_completeness_status == "NOT_ESTABLISHED"
+
+
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
     surface = build_teacher_embodiment_research_surface()
     result = validate_teacher_embodiment_research_surface(surface)
