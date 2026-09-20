@@ -417,7 +417,9 @@
     "source_person_exact_measurement_claim": "NO",
     "derivation_note": "Human artistic-anatomy references provide morphology, proportion and pose targets only. Repository-local terminology translates those references into a full-body humanlike male-form humanoid robotic embodiment digital model. This does not claim source-person biometrics, biological implementation, or that the repository-local compound term is an external standard term.",
     "reference_role": "MORPHOLOGY_AND_POSE_ONLY",
-    "terminology_standardization_claim": "NONE"
+    "terminology_standardization_claim": "NONE",
+    "appearance_source": "HUMAN_OWNER_DESIGN_CHOICE",
+    "appearance_note": "WHITE_CODED is a repository social-appearance design label only. It is not a biological race, genetic ancestry, ethnicity, or capability classification."
   },
   "embodiment_platform": "HUMANOID_ROBOT",
   "substrate": "SYNTHETIC_NONBIOLOGICAL",
@@ -498,5 +500,20 @@
       "USD"
     ]
   },
-  "functional_state_binding_id": "AION_FUNCTIONAL_STATE_BINDING_v0.1"
+  "functional_state_binding_id": "AION_FUNCTIONAL_STATE_BINDING_v0.1",
+  "appearance_profile": {
+    "racialized_social_appearance": "WHITE_CODED",
+    "skin_tone_family": "LIGHT",
+    "exact_skin_albedo": "UNRESOLVED",
+    "biological_race": "NOT_APPLICABLE",
+    "genetic_ancestry": "NOT_APPLICABLE",
+    "ethnicity": "NOT_ASSIGNED",
+    "sexed_morphology": "MALE_FORM",
+    "gender_identity": "NOT_ASSIGNED",
+    "facial_identity_status": "UNRESOLVED",
+    "hair_color": "UNASSIGNED",
+    "eye_color": "UNASSIGNED",
+    "source_class": "DESIGN",
+    "source_authority": "HUMAN_OWNER"
+  }
 }
