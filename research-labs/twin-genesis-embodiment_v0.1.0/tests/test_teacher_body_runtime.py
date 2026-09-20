@@ -34,6 +34,10 @@ def test_teacher_body_runtime_binding_is_materialized_without_live_external_actu
     assert result["result"] == "PASS"
     assert binding.binding_status == "REFERENCE_BINDING_MATERIALIZED"
     assert binding.physiology_profile_id == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    assert binding.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
+    assert binding.research_surface_id == (
+        "CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1"
+    )
     assert binding.skeleton_root == "hips"
     assert binding.viewpoint_anchor == "head"
     assert binding.live_external_actuation is False
