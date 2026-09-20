@@ -53,13 +53,20 @@ These are interoperability references, not certification claims.
 - reference inverse-bind matrix data;
 - structural glTF/GLB self-validation;
 - deterministic content-addressed asset manifest with SHA-256 digests;
+- deterministic marching-tetrahedra continuous humanoid reference surface;
+- one connected reference surface across torso, limbs, head and external male anatomy;
+- continuous-reference normals and cylindrical UV coordinates;
+- continuous-reference 4-joint normalized skin weights;
+- continuous-reference inverse-bind matrices;
+- continuous-reference glTF and GLB output;
+- continuous-reference structural validation;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
 ### Still not materialized as production-quality asset evidence
 
-- continuous production body mesh / retopology;
-- production-grade vertex-level linear-blend skin weights;
+- production retopology / artist-reviewed edge flow;
+- production-grade vertex-level linear-blend skin weights and deformation tuning;
 - verified inverse-bind matrices for a continuous skinned mesh;
 - final facial and body morph-target vertex deltas suitable for production animation;
 - production UV unwrap;
@@ -88,8 +95,13 @@ REFERENCE_SKIN_WEIGHTS = MATERIALIZED
 REFERENCE_INVERSE_BIND_MATRICES = MATERIALIZED
 REFERENCE_ASSET_SELF_VALIDATION = MATERIALIZED
 REFERENCE_ASSET_MANIFEST = MATERIALIZED
+CONTINUOUS_REFERENCE_MESH = MATERIALIZED
+CONTINUOUS_REFERENCE_CONNECTED_COMPONENTS = 1
+CONTINUOUS_REFERENCE_SKIN_WEIGHTS = MATERIALIZED
+CONTINUOUS_REFERENCE_GLTF = MATERIALIZED
+CONTINUOUS_REFERENCE_GLB = MATERIALIZED
 
-PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
+PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
 PRODUCTION_MORPH_VERTEX_DATA = NOT_MATERIALIZED
 PRODUCTION_TEXTURE_ASSETS = NOT_MATERIALIZED
