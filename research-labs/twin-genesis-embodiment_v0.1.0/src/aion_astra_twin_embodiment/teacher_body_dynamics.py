@@ -500,6 +500,12 @@ def evaluate_teacher_sensorimotor_prediction(
     if set(expected_by_id) != set(observed_by_id):
         raise ValueError("expected and observed sensorimotor channels must match")
 
+    signal_ids = {
+        channel.channel_id for channel in build_teacher_body_signal_schema().channels
+    }
+    if not set(expected_by_id).issubset(signal_ids):
+        raise ValueError("sensorimotor evaluation references unknown body signal channel")
+
     errors: list[float] = []
     for channel_id, expected_values in expected_by_id.items():
         observed_values = observed_by_id[channel_id]
@@ -507,6 +513,8 @@ def evaluate_teacher_sensorimotor_prediction(
             raise ValueError("sensorimotor vector dimensions must match")
         if not expected_values:
             raise ValueError("sensorimotor vectors cannot be empty")
+        if any(not isfinite(value) for value in expected_values + observed_values):
+            raise ValueError("sensorimotor values must be finite")
         errors.extend(
             abs(expected_value - observed_value)
             for expected_value, observed_value in zip(
