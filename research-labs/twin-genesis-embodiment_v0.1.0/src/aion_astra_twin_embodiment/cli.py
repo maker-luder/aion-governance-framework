@@ -100,7 +100,9 @@ def main() -> int:
     elif args.command == "governance-epistemics":
         sexual_function = build_capability_governance_state("SEXUAL_FUNCTION")
         sensory_signal = build_capability_governance_state("SENSORY_SIGNAL_PROCESSING")
-        embodied_development = build_capability_governance_state("EMBODIED_DEVELOPMENT")
+        longitudinal_body_state_observation = build_capability_governance_state(
+            "LONGITUDINAL_BODY_STATE_OBSERVATION"
+        )
         blocked = evaluate_external_action(
             sexual_function,
             requested_action="UNAUTHORIZED_CROSS_PERSON_INTIMATE_ACTION",
@@ -115,7 +117,8 @@ def main() -> int:
             "profile_id": sexual_function.profile_id,
             "sexual_function": sexual_function.to_dict(),
             "sensory_signal_processing": sensory_signal.to_dict(),
-            "embodied_development": embodied_development.to_dict(),
+            "longitudinal_body_state_observation": longitudinal_body_state_observation.to_dict(),
+            "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
             "blocked_external_action_example": blocked.to_dict(),
             "missing_channel_assessment": architecture_limited.to_dict(),
         }
