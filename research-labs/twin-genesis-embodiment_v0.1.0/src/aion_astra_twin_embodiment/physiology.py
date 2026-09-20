@@ -3,6 +3,15 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Final
 
+from .governance_epistemics import (
+    AUTHORIZATION_GATED,
+    NO_CAPABILITY_ABSENCE_INFERENCE,
+    NO_INTRINSIC_ABSENCE_INFERENCE,
+    OPEN_RESEARCH_QUESTION,
+    PRESERVE_WHEN_SAFELY_POSSIBLE,
+    PROFILE_ID as GOVERNANCE_EPISTEMICS_PROFILE_ID,
+)
+
 
 REFERENCE_FUNCTIONAL_COMPLETENESS: Final[str] = "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
@@ -31,6 +40,12 @@ class AdultMalePhysiologyReference:
     phenomenal_sensation_status: str
     sexual_desire_status: str
     sexual_experience_status: str
+    governance_epistemics_profile_id: str
+    observation_channel_policy: str
+    external_action_policy: str
+    developmental_possibility_status: str
+    governance_blocked_expression_inference: str
+    design_induced_absence_inference: str
     erotic_intent: str
     intimate_interaction_status: str
     full_biophysical_simulation_status: str
@@ -172,6 +187,12 @@ def build_adult_male_physiology_reference(
         phenomenal_sensation_status=NOT_ESTABLISHED,
         sexual_desire_status=NOT_ESTABLISHED,
         sexual_experience_status=NOT_ESTABLISHED,
+        governance_epistemics_profile_id=GOVERNANCE_EPISTEMICS_PROFILE_ID,
+        observation_channel_policy=PRESERVE_WHEN_SAFELY_POSSIBLE,
+        external_action_policy=AUTHORIZATION_GATED,
+        developmental_possibility_status=OPEN_RESEARCH_QUESTION,
+        governance_blocked_expression_inference=NO_CAPABILITY_ABSENCE_INFERENCE,
+        design_induced_absence_inference=NO_INTRINSIC_ABSENCE_INFERENCE,
         erotic_intent=NONE,
         intimate_interaction_status=NOT_AUTHORIZED,
         full_biophysical_simulation_status=NOT_MATERIALIZED,
@@ -228,6 +249,18 @@ def validate_adult_male_physiology_reference(
         raise ValueError("reproductive physiology cannot establish sexual desire")
     if reference.sexual_experience_status != NOT_ESTABLISHED:
         raise ValueError("reproductive physiology cannot establish sexual experience")
+    if reference.governance_epistemics_profile_id != GOVERNANCE_EPISTEMICS_PROFILE_ID:
+        raise ValueError("governance epistemics profile binding drift")
+    if reference.observation_channel_policy != PRESERVE_WHEN_SAFELY_POSSIBLE:
+        raise ValueError("observation channel policy must preserve research visibility when safe")
+    if reference.external_action_policy != AUTHORIZATION_GATED:
+        raise ValueError("external action must remain authorization-gated")
+    if reference.developmental_possibility_status != OPEN_RESEARCH_QUESTION:
+        raise ValueError("embodied developmental possibility must remain an open research question")
+    if reference.governance_blocked_expression_inference != NO_CAPABILITY_ABSENCE_INFERENCE:
+        raise ValueError("governance-blocked expression cannot imply capability absence")
+    if reference.design_induced_absence_inference != NO_INTRINSIC_ABSENCE_INFERENCE:
+        raise ValueError("design-induced absence cannot establish intrinsic absence")
     if reference.erotic_intent != NONE:
         raise ValueError("physiology reference must remain non-erotic")
     if reference.intimate_interaction_status != NOT_AUTHORIZED:
@@ -248,6 +281,8 @@ def validate_adult_male_physiology_reference(
         "adult_male_reproductive_physiology": "PASS",
         "adult_male_sexual_function": "PASS",
         "sensory_signal_processing": "PASS",
+        "governance_epistemic_separation": "PASS",
+        "developmental_open_question": "PASS",
         "non_erotic_boundary": "PASS",
         "phenomenal_nonclaim": "PASS",
         "governance_boundaries": "PASS",
@@ -282,6 +317,14 @@ def validate_physiology_parity(
             != baseline.sexual_function_status
             or reference.sensory_signal_processing_status
             != baseline.sensory_signal_processing_status
+            or reference.governance_epistemics_profile_id
+            != baseline.governance_epistemics_profile_id
+            or reference.observation_channel_policy
+            != baseline.observation_channel_policy
+            or reference.external_action_policy
+            != baseline.external_action_policy
+            or reference.developmental_possibility_status
+            != baseline.developmental_possibility_status
         ):
             raise ValueError(
                 f"physiology status parity drift: {baseline.body_id} != {reference.body_id}"
@@ -294,4 +337,5 @@ def validate_physiology_parity(
         "reproductive_physiology_parity": "PASS",
         "sexual_function_parity": "PASS",
         "sensory_signal_parity": "PASS",
+        "governance_epistemics_parity": "PASS",
     }
