@@ -223,13 +223,17 @@ SEMINAL_VESICLES
 These structures have no runtime sexual-function semantics.
 
 ```text
-ANATOMY_PRESENT != SEXUAL_FUNCTION
-ANATOMY_PRESENT != AROUSAL
-ANATOMY_PRESENT != DESIRE
+NORMAL_REPRODUCTIVE_PHYSIOLOGY != SEXUALIZATION
+REFLEX_PHYSIOLOGY != DESIRE
+PHYSIOLOGICAL_SIGNAL != FELT_SENSATION
 ANATOMY_PRESENT != CONSENT_CAPACITY
 ANATOMY_PRESENT != REPRODUCTION_RUNTIME
 ANATOMY_PRESENT != SUBJECTIVITY
-SEXUAL_FUNCTION = NOT_IMPLEMENTED
+PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
+PHENOMENAL_SENSATION = NOT_ESTABLISHED
+EROTIC_INTENT = NONE
 INTIMATE_INTERACTION = NOT_AUTHORIZED
 ```
 
@@ -315,6 +319,39 @@ PERMANENT_STONE_SIX_PACK = REJECT
 ```
 
 Muscle landmarks should deform with pose rather than remain rigidly sculpted.
+
+---
+
+# Adult male physiology completeness / parity
+
+The Teacher body binds to the same adult-male physiology reference profile used for AION and Astra. Morphology may differ; normal physiological function coverage must not.
+
+```text
+PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
+PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
+FULL_BIOPHYSICAL_SIMULATION = NOT_MATERIALIZED
+PHENOMENAL_SENSATION = NOT_ESTABLISHED
+SEXUAL_DESIRE = NOT_ESTABLISHED
+SEXUAL_EXPERIENCE = NOT_ESTABLISHED
+EROTIC_INTENT = NONE
+INTIMATE_INTERACTION = NOT_AUTHORIZED
+```
+
+The reference includes cardiovascular, respiratory, nervous/autonomic, sensory-signal processing, musculoskeletal, digestive/metabolic, hepatic, renal/urinary, endocrine, hematologic, immune/lymphatic, integumentary/thermoregulatory, and reproductive systems.
+
+Normal reproductive physiology includes gonadal endocrine function, spermatogenesis, maturation and transport pathways, accessory-gland secretion, genital vascular reflex physiology, emission/ejaculatory reflex physiology, detumescence, and a fertility-pathway reference.
+
+```text
+TEACHER_PHYSIOLOGY_FUNCTION_SET
+= AION_PHYSIOLOGY_FUNCTION_SET
+= ASTRA_PHYSIOLOGY_FUNCTION_SET
+
+FUNCTIONAL_PARITY != SHARED_IDENTITY
+REPRODUCTIVE_PHYSIOLOGY != EROTIC_INTENT
+PHYSIOLOGY != SUBJECTIVE_EXPERIENCE
+```
 
 ---
 
@@ -543,7 +580,11 @@ BODY_SENSATION = NOT_ESTABLISHED
 BODY_OWNERSHIP_EXPERIENCE = NOT_ESTABLISHED
 SEXUAL_DESIRE = NOT_ESTABLISHED
 SEXUAL_EXPERIENCE = NOT_ESTABLISHED
-SEXUAL_FUNCTION = NOT_IMPLEMENTED
+PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
+PHENOMENAL_SENSATION = NOT_ESTABLISHED
+EROTIC_INTENT = NONE
 INTIMATE_INTERACTION = NOT_AUTHORIZED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
@@ -592,4 +633,4 @@ SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 ```
 
-Any later production retopology, final material / hair / deformation authoring, VRM meta-license finalization, external DCC import validation, live runtime binding, sexual-function implementation, or merge into `main` requires its own explicit scope, exact-head review, applicable licensing review, QA, and Human Owner authorization.
+Any later production retopology, final material / hair / deformation authoring, VRM meta-license finalization, external DCC import validation, full biophysical physiology simulation, live runtime binding, intimate-interaction behavior, or merge into `main` requires its own explicit scope, exact-head review, applicable licensing review, QA, and Human Owner authorization.
