@@ -66,7 +66,7 @@ These are interoperability references, not certification claims.
 - explicit hold on VRM meta/license authorization;
 - three-level continuous reference LOD set with monotonic geometry complexity;
 - full-body geometric collision proxy profile;
-- neutral clinical collision proxies for external male anatomy without sexual-function semantics;
+- neutral clinical collision proxies for external male anatomy with reproductive-physiology reference coverage but no erotic-intent or intimate-interaction behavior semantics;
 - hash-verified reference bundle writer including LOD and collision metadata;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
