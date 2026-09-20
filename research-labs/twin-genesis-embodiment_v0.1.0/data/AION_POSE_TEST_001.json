@@ -34,6 +34,8 @@
     "subjectivity_effect": "NONE",
     "canonical_effect": "NONE",
     "embodiment_platform": "HUMANOID_ROBOT",
-    "biological_tissue": "NO"
+    "biological_tissue": "NO",
+    "body_scope": "FULL_BODY",
+    "model_class": "ROBOTIC_EMBODIMENT_DIGITAL_MODEL"
   }
 }
