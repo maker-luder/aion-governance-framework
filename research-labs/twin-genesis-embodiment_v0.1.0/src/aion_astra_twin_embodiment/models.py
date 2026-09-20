@@ -3,9 +3,35 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Final
 
+from .physiology import REFERENCE_FUNCTIONAL_COMPLETENESS
+
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
 NOT_IMPLEMENTED: Final[str] = "NOT_IMPLEMENTED"
+NOT_MATERIALIZED: Final[str] = "NOT_MATERIALIZED"
+NOT_AUTHORIZED: Final[str] = "NOT_AUTHORIZED"
 NONE: Final[str] = "NONE"
+
+REQUIRED_EXTERNAL_REPRODUCTIVE_ANATOMY: Final[tuple[str, ...]] = (
+    "penis",
+    "glans",
+    "prepuce",
+    "scrotum",
+    "testes",
+    "inguinal_region",
+    "perineum",
+    "anal_region",
+)
+
+REQUIRED_INTERNAL_REPRODUCTIVE_ANATOMY: Final[tuple[str, ...]] = (
+    "epididymis",
+    "vas_deferens",
+    "spermatic_cord",
+    "ejaculatory_ducts",
+    "seminal_vesicles",
+    "prostate",
+    "bulbourethral_glands",
+    "urethra",
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -26,19 +52,16 @@ class EmbodimentTemplate:
     template_version: str
     adult_status: bool = True
     anatomical_configuration: str = "ADULT_MALE_ANATOMY_CANDIDATE"
-    external_reproductive_anatomy: tuple[str, ...] = (
-        "penis",
-        "scrotum",
-        "testes",
-    )
-    internal_reproductive_anatomy: tuple[str, ...] = (
-        "epididymis",
-        "vas_deferens",
-        "prostate",
-        "seminal_vesicles",
-    )
-    sexual_function_status: str = NOT_IMPLEMENTED
-    sensory_simulation_status: str = NOT_IMPLEMENTED
+    external_reproductive_anatomy: tuple[str, ...] = REQUIRED_EXTERNAL_REPRODUCTIVE_ANATOMY
+    internal_reproductive_anatomy: tuple[str, ...] = REQUIRED_INTERNAL_REPRODUCTIVE_ANATOMY
+    physiology_profile_id: str = "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    physiological_function_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    reproductive_physiology_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    sensory_signal_processing_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    phenomenal_sensation_status: str = NOT_ESTABLISHED
+    erotic_intent: str = NONE
+    intimate_interaction_status: str = NOT_AUTHORIZED
+    full_biophysical_simulation_status: str = NOT_MATERIALIZED
     gender_identity_effect: str = NONE
     subjectivity_effect: str = NONE
 
@@ -57,6 +80,6 @@ class EmbodimentInstance:
     gender_identity: str = "NOT_ASSIGNED"
     sexual_desire: str = NOT_ESTABLISHED
     sexual_experience: str = NOT_ESTABLISHED
-    sexual_interaction: str = "NOT_AUTHORIZED"
+    sexual_interaction: str = NOT_AUTHORIZED
     modification_authorities: tuple[str, ...] = field(default_factory=tuple)
     canonical_effect: str = NONE
