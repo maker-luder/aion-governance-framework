@@ -428,7 +428,15 @@ def validate_body_profile(profile: BodyProfileCandidate) -> dict[str, str]:
     if profile.provenance.get("reference_role") != "MORPHOLOGY_AND_POSE_ONLY":
         failures.append("Reference role must remain morphology / pose only")
     if profile.provenance.get("terminology_standardization_claim") != "NONE":
-        failures.append("Repository-local terminology must not be misrepresented as a standard")
+        failures.append(
+            "Repository-local terminology must not be misrepresented as a standard"
+        )
+    if profile.provenance.get("appearance_source") != "HUMAN_OWNER_DESIGN_CHOICE":
+        failures.append(
+            "Appearance source must remain HUMAN_OWNER_DESIGN_CHOICE"
+        )
+    if not str(profile.provenance.get("appearance_note", "")).strip():
+        failures.append("Appearance note must not be empty")
 
     if failures:
         raise BodyProfileValidationError("; ".join(sorted(set(failures))))
