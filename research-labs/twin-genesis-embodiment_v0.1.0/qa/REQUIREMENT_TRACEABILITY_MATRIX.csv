@@ -5,3 +5,11 @@ REQ-ANAT-001,Adult male clinical anatomy candidate,schemas/EMBODIMENT_TEMPLATE_S
 REQ-BOUNDARY-001,Anatomy does not establish gender identity or subjectivity,src/aion_astra_twin_embodiment/validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
+REQ-TEACHER-001,Machine-readable Teacher body dimensions and anatomical inventory,src/aion_astra_twin_embodiment/teacher_avatar.py,IMPLEMENTED_AS_CANDIDATE
+REQ-TEACHER-002,VRM-aligned required humanoid bones plus fingers toes eyes and jaw,tests/test_teacher_avatar.py,IMPLEMENTED_AS_CANDIDATE
+REQ-TEACHER-003,T-pose +Z metric coordinate contract,tests/test_teacher_avatar.py,IMPLEMENTED_AS_CANDIDATE
+REQ-TEACHER-004,VRM-aligned expression preset coverage,tests/test_teacher_avatar.py,IMPLEMENTED_AS_CANDIDATE
+REQ-TEACHER-005,Deterministic renderable low-poly glTF reference geometry,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-006,Clinical adult male external reproductive anatomy included in neutral reference geometry,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-007,Teacher avatar cannot establish physical body sensation subjectivity or canonical authority,tests/test_teacher_avatar.py;tests/test_teacher_avatar_asset.py,IMPLEMENTED_FAIL_CLOSED
+REQ-TEACHER-008,Production continuous mesh skin weights morph data UV textures and GLB/VRM package,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
