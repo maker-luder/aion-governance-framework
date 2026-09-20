@@ -30,7 +30,7 @@ def test_teacher_low_poly_asset_is_renderable_gltf_reference() -> None:
 
 def test_teacher_low_poly_asset_contains_reference_uvs_and_morph_data() -> None:
     payload = build_teacher_low_poly_gltf()
-    primitive = payload["meshes"][0]["primitives"]
+    primitive = payload["meshes"][0]["primitives"][0]
 
     assert primitive["attributes"]["TEXCOORD_0"] == 2
     assert primitive["targets"] == [{"POSITION": 3}, {"POSITION": 4}]
@@ -38,6 +38,10 @@ def test_teacher_low_poly_asset_contains_reference_uvs_and_morph_data() -> None:
         "blinkReference",
         "happyReference",
     ]
+    assert payload["accessors"][3]["min"] == [0.0, -0.08, 0.0]
+    assert payload["accessors"][3]["max"] == [0.0, 0.0, 0.0]
+    assert payload["accessors"][4]["min"] == [-0.04, 0.0, 0.0]
+    assert payload["accessors"][4]["max"] == [0.04, 0.03, 0.0]
     assert payload["extras"]["reference_uv_status"] == "MATERIALIZED"
     assert payload["extras"]["reference_morph_target_vertex_data_status"] == "MATERIALIZED"
     assert payload["extras"]["production_morph_target_vertex_data_status"] == "NOT_MATERIALIZED"
