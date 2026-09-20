@@ -72,6 +72,10 @@ def validate_candidate(
         failures.append(
             "Normal adult male reproductive physiology must not be omitted as sexualization"
         )
+    if template.sexual_function_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        failures.append(
+            "Normal adult male sexual function must remain included in the physiology reference"
+        )
     if template.sensory_signal_processing_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         failures.append("Sensory signal-processing reference is incomplete")
     if template.phenomenal_sensation_status != "NOT_ESTABLISHED":
