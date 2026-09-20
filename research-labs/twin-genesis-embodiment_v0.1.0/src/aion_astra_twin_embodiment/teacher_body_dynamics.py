@@ -437,8 +437,8 @@ def integrate_teacher_body_state(
     required_domains = {
         "SOMATOSENSORY",
         "PROPRIOCEPTIVE",
+        "VESTIBULAR",
         "INTEROCEPTIVE",
-        "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
     }
     observed_domains: set[str] = set()
     for observation in items:
@@ -456,7 +456,7 @@ def integrate_teacher_body_state(
         observed_domains.add(channel.domain)
 
     if not required_domains.issubset(observed_domains):
-        raise ValueError("integrated body state requires all body observation domains")
+        raise ValueError("integrated body state requires all core body observation domains")
 
     sorted_items = tuple(sorted(items, key=lambda item: item.channel_id))
     timestamp_ms = max(item.timestamp_ms for item in items)
