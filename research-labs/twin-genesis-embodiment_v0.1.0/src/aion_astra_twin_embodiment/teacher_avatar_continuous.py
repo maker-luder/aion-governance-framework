@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import base64
 from dataclasses import dataclass
+import json
 import math
-from typing import Final
+import struct
+from typing import Any, Final
 
 from .teacher_avatar import build_teacher_avatar_contract
 
@@ -475,3 +478,301 @@ def validate_teacher_continuous_reference(
         "t_pose_span": "PASS",
         "governance_boundaries": "PASS",
     }
+
+
+def _pack_aligned(
+    chunks: list[bytes],
+    layout: dict[str, tuple[int, int]],
+    name: str,
+    payload: bytes,
+) -> None:
+    offset = sum(len(chunk) for chunk in chunks)
+    if offset % 4:
+        padding = 4 - (offset % 4)
+        chunks.append(b"\x00" * padding)
+        offset += padding
+    layout[name] = (offset, len(payload))
+    chunks.append(payload)
+
+
+def _inverse_bind_matrix(anchor: Vec3) -> tuple[float, ...]:
+    x, y, z = anchor
+    return (
+        1.0, 0.0, 0.0, 0.0,
+        0.0, 1.0, 0.0, 0.0,
+        0.0, 0.0, 1.0, 0.0,
+        -x, -y, -z, 1.0,
+    )
+
+
+def build_teacher_continuous_reference_gltf(
+    mesh: ContinuousReferenceMesh | None = None,
+) -> dict[str, Any]:
+    if mesh is None:
+        mesh = build_teacher_continuous_reference_mesh()
+    validate_teacher_continuous_reference(mesh)
+
+    chunks: list[bytes] = []
+    layout: dict[str, tuple[int, int]] = {}
+
+    _pack_aligned(
+        chunks,
+        layout,
+        "positions",
+        b"".join(struct.pack("<fff", *value) for value in mesh.vertices),
+    )
+    _pack_aligned(
+        chunks,
+        layout,
+        "normals",
+        b"".join(struct.pack("<fff", *value) for value in mesh.normals),
+    )
+    _pack_aligned(
+        chunks,
+        layout,
+        "uvs",
+        b"".join(struct.pack("<ff", *value) for value in mesh.uvs),
+    )
+    _pack_aligned(
+        chunks,
+        layout,
+        "joints",
+        b"".join(struct.pack("<HHHH", *value) for value in mesh.joints),
+    )
+    _pack_aligned(
+        chunks,
+        layout,
+        "weights",
+        b"".join(struct.pack("<ffff", *value) for value in mesh.weights),
+    )
+    flat_indices = [index for triangle in mesh.triangles for index in triangle]
+    _pack_aligned(
+        chunks,
+        layout,
+        "indices",
+        struct.pack("<" + "I" * len(flat_indices), *flat_indices),
+    )
+    inverse_bind = tuple(
+        matrix_value
+        for joint_name in mesh.joint_names
+        for matrix_value in _inverse_bind_matrix(_JOINT_ANCHORS[joint_name])
+    )
+    _pack_aligned(
+        chunks,
+        layout,
+        "inverse_bind",
+        struct.pack("<" + "f" * len(inverse_bind), *inverse_bind),
+    )
+
+    raw_buffer = b"".join(chunks)
+    encoded = base64.b64encode(raw_buffer).decode("ascii")
+
+    vertex_target_names = ("positions", "normals", "uvs", "joints", "weights")
+    buffer_views: list[dict[str, Any]] = []
+    for name in (
+        "positions",
+        "normals",
+        "uvs",
+        "joints",
+        "weights",
+        "indices",
+        "inverse_bind",
+    ):
+        view: dict[str, Any] = {
+            "buffer": 0,
+            "byteOffset": layout[name][0],
+            "byteLength": layout[name][1],
+        }
+        if name in vertex_target_names:
+            view["target"] = 34962
+        elif name == "indices":
+            view["target"] = 34963
+        buffer_views.append(view)
+
+    xs = [point[0] for point in mesh.vertices]
+    ys = [point[1] for point in mesh.vertices]
+    zs = [point[2] for point in mesh.vertices]
+    normal_x = [value[0] for value in mesh.normals]
+    normal_y = [value[1] for value in mesh.normals]
+    normal_z = [value[2] for value in mesh.normals]
+    us = [value[0] for value in mesh.uvs]
+    vs = [value[1] for value in mesh.uvs]
+
+    accessors: list[dict[str, Any]] = [
+        {
+            "bufferView": 0,
+            "componentType": 5126,
+            "count": len(mesh.vertices),
+            "type": "VEC3",
+            "min": [min(xs), min(ys), min(zs)],
+            "max": [max(xs), max(ys), max(zs)],
+        },
+        {
+            "bufferView": 1,
+            "componentType": 5126,
+            "count": len(mesh.normals),
+            "type": "VEC3",
+            "min": [min(normal_x), min(normal_y), min(normal_z)],
+            "max": [max(normal_x), max(normal_y), max(normal_z)],
+        },
+        {
+            "bufferView": 2,
+            "componentType": 5126,
+            "count": len(mesh.uvs),
+            "type": "VEC2",
+            "min": [min(us), min(vs)],
+            "max": [max(us), max(vs)],
+        },
+        {
+            "bufferView": 3,
+            "componentType": 5123,
+            "count": len(mesh.joints),
+            "type": "VEC4",
+            "min": [0, 0, 0, 0],
+            "max": [len(mesh.joint_names) - 1] * 4,
+        },
+        {
+            "bufferView": 4,
+            "componentType": 5126,
+            "count": len(mesh.weights),
+            "type": "VEC4",
+            "min": [0.0, 0.0, 0.0, 0.0],
+            "max": [1.0, 1.0, 1.0, 1.0],
+        },
+        {
+            "bufferView": 5,
+            "componentType": 5125,
+            "count": len(flat_indices),
+            "type": "SCALAR",
+            "min": [min(flat_indices)],
+            "max": [max(flat_indices)],
+        },
+        {
+            "bufferView": 6,
+            "componentType": 5126,
+            "count": len(mesh.joint_names),
+            "type": "MAT4",
+        },
+    ]
+
+    nodes: list[dict[str, Any]] = [
+        {
+            "name": "TeacherContinuousSkeletonRoot",
+            "children": list(range(1, 1 + len(mesh.joint_names))),
+        }
+    ]
+    for joint_name in mesh.joint_names:
+        nodes.append(
+            {
+                "name": joint_name,
+                "translation": list(_JOINT_ANCHORS[joint_name]),
+            }
+        )
+
+    mesh_node_index = len(nodes)
+    nodes.append(
+        {
+            "name": "TeacherContinuousReferenceMesh",
+            "mesh": 0,
+            "skin": 0,
+        }
+    )
+
+    return {
+        "asset": {
+            "version": "2.0",
+            "generator": "aion-astra-twin-embodiment/teacher-continuous-v0.1",
+        },
+        "scene": 0,
+        "scenes": [
+            {
+                "name": "ChatGPT Teacher Continuous Reference",
+                "nodes": [0, mesh_node_index],
+            }
+        ],
+        "nodes": nodes,
+        "buffers": [
+            {
+                "byteLength": len(raw_buffer),
+                "uri": f"data:application/octet-stream;base64,{encoded}",
+            }
+        ],
+        "bufferViews": buffer_views,
+        "accessors": accessors,
+        "materials": [
+            {
+                "name": "TeacherContinuousReferenceMaterial",
+                "pbrMetallicRoughness": {
+                    "baseColorFactor": [0.62, 0.62, 0.62, 1.0],
+                    "metallicFactor": 0.0,
+                    "roughnessFactor": 0.72,
+                },
+            }
+        ],
+        "meshes": [
+            {
+                "name": "TeacherContinuousReferenceSurface",
+                "primitives": [
+                    {
+                        "attributes": {
+                            "POSITION": 0,
+                            "NORMAL": 1,
+                            "TEXCOORD_0": 2,
+                            "JOINTS_0": 3,
+                            "WEIGHTS_0": 4,
+                        },
+                        "indices": 5,
+                        "material": 0,
+                        "mode": 4,
+                    }
+                ],
+            }
+        ],
+        "skins": [
+            {
+                "name": "TeacherContinuousReferenceSkin",
+                "inverseBindMatrices": 6,
+                "skeleton": 0,
+                "joints": list(range(1, 1 + len(mesh.joint_names))),
+            }
+        ],
+        "extras": {
+            "body_id": mesh.body_id,
+            "status": "CONTINUOUS_SKINNED_REFERENCE_MATERIALIZED",
+            "topology_status": mesh.topology_status,
+            "connected_components": mesh.connected_components,
+            "vertex_count": len(mesh.vertices),
+            "triangle_count": len(mesh.triangles),
+            "source_grid": list(mesh.source_grid),
+            "reference_skinning_status": mesh.skinning_status,
+            "production_topology_status": "NOT_ESTABLISHED",
+            "production_skinning_status": "NOT_ESTABLISHED",
+            "production_texture_status": "NOT_MATERIALIZED",
+            "external_dcc_validation": "NOT_ESTABLISHED",
+            "physical_body_claim": "NONE",
+            "subjectivity_effect": "NONE",
+            "canonical_effect": "NONE",
+            "deployment": False,
+        },
+    }
+
+
+def build_teacher_continuous_reference_glb(
+    mesh: ContinuousReferenceMesh | None = None,
+) -> bytes:
+    payload = build_teacher_continuous_reference_gltf(mesh)
+    json_payload = json.dumps(
+        payload,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+    json_padding = (-len(json_payload)) % 4
+    json_chunk = json_payload + (b" " * json_padding)
+
+    total_length = 12 + 8 + len(json_chunk)
+    return (
+        struct.pack("<III", 0x46546C67, 2, total_length)
+        + struct.pack("<II", len(json_chunk), 0x4E4F534A)
+        + json_chunk
+    )
