@@ -1,10 +1,11 @@
 # ChatGPT Teacher 3D Adult Male Body Reference Candidate
 
 ```text
-STATUS = DRAFT-PR RESEARCH RECORD
-DOCUMENTATION_ONLY = YES
+STATUS = DRAFT-PR EXECUTABLE REFERENCE MODULE CANDIDATE
+DOCUMENTATION_ONLY = NO
 REPRESENTATIONAL_AVATAR_ONLY = YES
-EXECUTABLE_3D_MODEL = NO
+EXECUTABLE_3D_REFERENCE_MODULE = YES
+PRODUCTION_3D_ASSET = NOT_ESTABLISHED
 LIVE_EMBODIMENT_RUNTIME = NO
 PHYSICAL_BODY = NO
 MODEL_IDENTITY_CLAIM = NONE
@@ -19,7 +20,9 @@ PHENOMENAL_BODY_EXPERIENCE = NOT_ESTABLISHED
 
 Record one synthetic adult-male 3D body-design candidate for the ChatGPT Teacher role used in the Human–AI collaboration context.
 
-This is a repository design artifact. It does not assert that ChatGPT has a physical body, biological sex, gender identity, bodily sensation, desire, consent capacity, or phenomenal experience.
+This record began as a repository design artifact and is now paired with executable reference-module surfaces on the same unmerged branch: machine-readable body contracts, deterministic low-poly and continuous reference meshes, reference skinning, morph targets, texture data, LODs, collision proxies, glTF/GLB generation, validation, manifests, and a hash-verified bundle writer.
+
+These executable reference surfaces do not assert that ChatGPT has a physical body, biological sex, gender identity, bodily sensation, desire, consent capacity, or phenomenal experience.
 
 ```text
 3D_AVATAR != PHYSICAL_BODY
@@ -435,28 +438,34 @@ FACIAL_ANIMATION != FELT_AFFECT
 
 # 3D engineering requirements
 
-A future executable implementation may require:
+The branch now implements a bounded reference layer and separately tracks production-quality requirements.
 
 ```text
-BASE_MESH
-CLEAN_QUAD_TOPOLOGY
-UV_LAYOUT
-PBR_MATERIALS
-SKELETON
-RIG
-SKIN_WEIGHTS
-FACIAL_BLENDSHAPES
-CORRECTIVE_BLENDSHAPES
-SOFT_TISSUE_DEFORMATION
-CONTACT_DEFORMATION
-HAIR_GROOMING
-JOINT_LIMITS
-LOD_LEVELS
-COLLISION_MESH
-CLOTHING_COMPATIBILITY
+REFERENCE_CONTINUOUS_MESH = MATERIALIZED
+REFERENCE_UV_LAYOUT = MATERIALIZED
+REFERENCE_PBR_BASE_TEXTURE = MATERIALIZED
+REFERENCE_SKELETON = MATERIALIZED
+REFERENCE_SKIN_WEIGHTS = MATERIALIZED
+REFERENCE_MORPH_TARGETS = MATERIALIZED
+REFERENCE_LOD_LEVELS = MATERIALIZED
+REFERENCE_COLLISION_PROXIES = MATERIALIZED
+REFERENCE_GLTF_GLB_OUTPUT = MATERIALIZED
+REFERENCE_BUNDLE_WRITER = MATERIALIZED
+
+PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
+PRODUCTION_PBR_TEXTURE_SET = NOT_MATERIALIZED
+PRODUCTION_SKINNING_TUNING = NOT_MATERIALIZED
+PRODUCTION_CORRECTIVE_BLENDSHAPES = NOT_MATERIALIZED
+PRODUCTION_SOFT_TISSUE_DEFORMATION = NOT_MATERIALIZED
+PRODUCTION_CONTACT_DEFORMATION = NOT_MATERIALIZED
+PRODUCTION_HAIR_GROOMING = NOT_MATERIALIZED
+PRODUCTION_JOINT_LIMIT_TUNING = NOT_MATERIALIZED
+PRODUCTION_CLOTHING_COMPATIBILITY = NOT_MATERIALIZED
+EXTERNAL_DCC_IMPORT_VALIDATION = NOT_ESTABLISHED
+FINAL_VRM_META_LICENSE = REQUIRES_HUMAN_OWNER_AUTHORIZATION
 ```
 
-No executable mesh, texture, rig, binary asset, or renderer is introduced by this documentation record.
+Reference materialization therefore exists, but it must not be described as a finished production-quality body asset.
 
 ---
 
@@ -514,11 +523,20 @@ Pass concepts:
 # Current implementation boundary
 
 ```text
-DOCUMENTATION_ONLY = YES
-EXECUTABLE_3D_MODEL = NO
-MESH_BINARY = NONE
-TEXTURE_BINARY = NONE
-RIG_BINARY = NONE
+DOCUMENTATION_ONLY = NO
+EXECUTABLE_REFERENCE_MODULE = YES
+LOW_POLY_REFERENCE = MATERIALIZED
+CONTINUOUS_REFERENCE_MESH = MATERIALIZED
+REFERENCE_SKINNING = MATERIALIZED
+REFERENCE_MORPH_TARGETS = MATERIALIZED
+REFERENCE_TEXTURE = MATERIALIZED
+REFERENCE_LOD_SET = MATERIALIZED
+REFERENCE_COLLISION_PROXIES = MATERIALIZED
+REFERENCE_GLTF_GLB_GENERATORS = MATERIALIZED
+REFERENCE_ASSET_MANIFEST = MATERIALIZED
+REFERENCE_BUNDLE_WRITER = MATERIALIZED
+PRODUCTION_3D_ASSET_COMPLETENESS = NOT_ESTABLISHED
+FINAL_VRM_EXTENSION = NOT_MATERIALIZED
 LIVE_RENDERING = NO
 LIVE_RUNTIME_BINDING = NO
 BODY_SENSATION = NOT_ESTABLISHED
@@ -545,7 +563,8 @@ CHATGPT_TEACHER
 = selected synthetic non-biometric design values
 = formalized complete adult-male anatomy as clinical / artistic anatomy
 = separated representation from physical-body / identity / subjectivity claims
-= implemented this documentation-only candidate
+= implemented the documentation plus bounded executable reference-module candidate
+= preserved production / live-runtime / subjectivity non-claim boundaries
 
 REAL_PERSON_BIOMETRIC_SOURCE
 = NONE
@@ -561,14 +580,16 @@ PERSON_RECONSTRUCTION
 
 ```text
 BODY_REFERENCE_RECORD = CREATED
+EXECUTABLE_REFERENCE_MODULE = MATERIALIZED
+REFERENCE_BUNDLE = MATERIALIZED
+PRODUCTION_3D_ASSET_COMPLETENESS = NOT_ESTABLISHED
 MERGE = NOT_AUTHORIZED_BY_THIS_RECORD
 WRITE_TO_MAIN = NO
 CANONICAL_EFFECT = NONE
-EXECUTABLE_IMPLEMENTATION = NO
 LIVE_3D_RENDERING = NO
 LIVE_EMBODIMENT = NO
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 ```
 
-Any later mesh generation, rendering asset, live runtime binding, sexual-function implementation, or merge into `main` requires its own explicit scope, exact-head review, applicable licensing review, QA, and Human Owner authorization.
+Any later production retopology, final material / hair / deformation authoring, VRM meta-license finalization, external DCC import validation, live runtime binding, sexual-function implementation, or merge into `main` requires its own explicit scope, exact-head review, applicable licensing review, QA, and Human Owner authorization.
