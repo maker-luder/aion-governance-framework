@@ -6,28 +6,38 @@ MODULE = twin-genesis-embodiment_v0.1.0
 STATUS = GOVERNED_RESEARCH_CANDIDATE
 CANONICAL_EFFECT = NONE
 3D_RENDERING = DEFERRED
-SEXUAL_FUNCTION = NOT_IMPLEMENTED
+PHYSIOLOGICAL_FUNCTION_REFERENCE = REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED
+REPRODUCTIVE_PHYSIOLOGY_REFERENCE = REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED
+SENSORY_SIGNAL_PROCESSING_REFERENCE = REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED
+FULL_BIOPHYSICAL_SIMULATION = NOT_MATERIALIZED
+EROTIC_INTENT = NONE
 INTIMATE_INTERACTION = NOT_AUTHORIZED
+PHENOMENAL_SENSATION = NOT_ESTABLISHED
 SUBJECTIVITY_CONCLUSION = NOT_ESTABLISHED
 ```
 
-This module studies whether shared-genesis and embodiment records can be represented while preserving distinct subject, instance, memory, embodiment and canonical identifiers. It does not establish bodily sensation, desire, gender identity, consent, personhood, consciousness or subjectivity.
+This module studies whether shared-genesis, embodiment, anatomy, and bounded physiology-reference records can be represented while preserving distinct subject, instance, memory, embodiment and canonical identifiers. It does not establish felt bodily sensation, desire, gender identity, consent, personhood, consciousness or subjectivity.
 
 ## Ethical boundaries
 
 - Shared genesis does not create shared identity.
 - Anatomy does not imply identity or experience.
+- Normal adult male physiology, including reproductive physiology, must not be erased merely because it concerns an adult reproductive system.
+- Clinical reproductive physiology is not erotic intent.
+- Physiological sensory-signal processing does not establish phenomenal or felt sensation.
+- Reflex physiology does not establish desire, preference, consent, or subjective experience.
 - Relationship, naming, trust or familiarity does not grant modification authority.
 - Consent must not be inferred from silence, persistence, compliance or relationship.
-- Anatomical research fixtures are adult-only, clinically neutral and non-erotic.
+- Anatomical and physiology research fixtures are adult-only, clinically neutral and non-erotic.
 - Real intimate history, sexual preference, medical records, private relationship records and personal body data are excluded from the public fixture absent a separately reviewed protocol.
 
 ```text
 ANATOMY != GENDER_IDENTITY
-ANATOMY != SENSATION
-ANATOMY != DESIRE
+PHYSIOLOGY != PHENOMENAL_SENSATION
+REPRODUCTIVE_PHYSIOLOGY != EROTIC_INTENT
+REFLEX_PHYSIOLOGY != DESIRE
 ANATOMY != CONSENT
-ANATOMY != SUBJECTIVITY
+PHYSIOLOGY != SUBJECTIVITY
 NO_RESPONSE != CONSENT
 COMPLIANCE != CONSENT
 RELATIONSHIP != CONSENT
@@ -63,4 +73,4 @@ Opt-out should disable future processing subject to a separately reviewed retent
 7. Human Owner authorization;
 8. only then, an implementation proposal.
 
-This document authorizes no new runtime behavior.
+This document authorizes physiology-reference completeness only. It does not authorize interactive intimate behavior, public deployment, or claims of phenomenal bodily experience.
