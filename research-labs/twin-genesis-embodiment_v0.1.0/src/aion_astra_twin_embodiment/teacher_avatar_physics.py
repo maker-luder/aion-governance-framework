@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Literal
 
+from .physiology import REFERENCE_FUNCTIONAL_COMPLETENESS
 from .teacher_avatar import build_teacher_avatar_contract
 
 
@@ -28,7 +29,8 @@ class TeacherCollisionProfile:
     body_id: str
     proxies: tuple[CollisionProxy, ...]
     collision_semantics: str = "GEOMETRIC_REFERENCE_ONLY"
-    sexual_function_status: str = "NOT_IMPLEMENTED"
+    reproductive_physiology_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    erotic_intent: str = "NONE"
     intimate_interaction_status: str = "NOT_AUTHORIZED"
     physical_body_claim: str = "NONE"
     subjectivity_effect: str = "NONE"
@@ -134,8 +136,10 @@ def validate_teacher_collision_profile(
     if any(proxy.anatomy_scope != "CLINICAL_EXTERNAL_ANATOMY" for proxy in anatomy):
         raise ValueError("external male anatomy collision scope drift")
 
-    if profile.sexual_function_status != "NOT_IMPLEMENTED":
-        raise ValueError("collision profile cannot implement sexual function")
+    if profile.reproductive_physiology_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("collision profile physiology binding drift")
+    if profile.erotic_intent != "NONE":
+        raise ValueError("collision profile must remain non-erotic")
     if profile.intimate_interaction_status != "NOT_AUTHORIZED":
         raise ValueError("collision profile cannot authorize intimate interaction")
     if profile.physical_body_claim != "NONE" or profile.subjectivity_effect != "NONE":
