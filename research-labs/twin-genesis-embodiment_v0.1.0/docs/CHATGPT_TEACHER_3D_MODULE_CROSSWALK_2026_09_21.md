@@ -11,8 +11,10 @@ The module was cross-checked against primary interoperability specifications:
   - meshes and materials;
   - skin / joints;
   - JOINTS_0 / WEIGHTS_0 semantics;
+  - TEXCOORD_0;
   - morph targets;
-  - animation storage.
+  - animation storage;
+  - GLB container format.
 - VRM 1.0 humanoid specification: https://github.com/vrm-c/vrm-specification/blob/master/specification/VRMC_vrm-1.0/humanoid.md
   - required humanoid bones;
   - parent-child expectations;
@@ -44,15 +46,18 @@ These are interoperability references, not certification claims.
 - structural glTF skeleton / skin contract generator;
 - deterministic glTF 2.0 low-poly renderable reference geometry;
 - neutral external male-anatomy reference geometry;
+- reference UV coordinates;
+- reference morph-target POSITION deltas;
+- deterministic low-poly GLB container-byte generator;
 - regression tests;
-- CLI output for the machine-readable contract and low-poly glTF reference.
+- CLI output for machine-readable contract / glTF / GLB reference metadata.
 
 ### Still not materialized as production-quality asset evidence
 
 - continuous production body mesh / retopology;
 - production-grade vertex-level linear-blend skin weights;
 - verified inverse-bind matrices for a continuous skinned mesh;
-- facial and body morph-target vertex deltas suitable for final animation;
+- final facial and body morph-target vertex deltas suitable for production animation;
 - production UV unwrap;
 - texture image binaries;
 - normal / roughness / subsurface texture maps;
@@ -60,7 +65,7 @@ These are interoperability references, not certification claims.
 - spring-bone runtime data;
 - production collision shapes;
 - authored animation clips;
-- final GLB / VRM package;
+- final production GLB / VRM package;
 - external validator pass against Khronos / VRM schemas;
 - Blender / Unity / Unreal import validation.
 
@@ -72,17 +77,20 @@ EXECUTABLE_CONTRACT_COMPLETENESS = COMPLETE_CANDIDATE
 
 LOW_POLY_RENDERABLE_REFERENCE = MATERIALIZED
 LOW_POLY_EXTERNAL_ANATOMY_REFERENCE = MATERIALIZED
+REFERENCE_UV = MATERIALIZED
+REFERENCE_MORPH_VERTEX_DATA = MATERIALIZED
+LOW_POLY_GLB_GENERATOR = MATERIALIZED
 
 PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
 PRODUCTION_MORPH_VERTEX_DATA = NOT_MATERIALIZED
-PRODUCTION_UV_TEXTURE_ASSETS = NOT_MATERIALIZED
-FINAL_GLB_OR_VRM_BINARY = NOT_MATERIALIZED
+PRODUCTION_TEXTURE_ASSETS = NOT_MATERIALIZED
+FINAL_PRODUCTION_GLB_OR_VRM_BINARY = NOT_MATERIALIZED
 
 PRODUCTION_3D_ASSET_COMPLETENESS = NOT_ESTABLISHED
 ```
 
-The low-poly reference closes the earlier “no renderable geometry exists” gap. It does not, by itself, establish production-quality topology, deformation quality, realism, interoperability, or final-asset completeness.
+The low-poly reference closes the earlier “no renderable geometry exists” gap and now also supplies reference UV / morph / GLB data. It does not, by itself, establish production-quality topology, deformation quality, realism, interoperability, or final-asset completeness.
 
 ## Scientific and identity boundaries
 
