@@ -5,6 +5,10 @@ from dataclasses import asdict
 from hashlib import sha256
 import json
 
+from .physiology import (
+    build_adult_male_physiology_reference,
+    validate_physiology_parity,
+)
 from .teacher_avatar import (
     build_teacher_avatar_contract,
     build_teacher_avatar_gltf_contract,
@@ -46,6 +50,7 @@ def main() -> int:
             "teacher-avatar-reference-bundle",
             "teacher-avatar-lod-manifest",
             "teacher-avatar-collision-profile",
+            "physiology-parity",
         ],
     )
     parser.add_argument(
@@ -60,7 +65,12 @@ def main() -> int:
             "status": "IMPLEMENTED_NON_3D_CANDIDATE",
             "runtime": "NON_3D_RUNTIME_IMPLEMENTED",
             "rendering_3d": "DEFERRED",
-            "sexual_function": "NOT_IMPLEMENTED",
+            "physiology_profile_id": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
+            "physiological_function_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "reproductive_physiology_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "sensory_signal_processing_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "full_biophysical_simulation": "NOT_MATERIALIZED",
+            "erotic_intent": "NONE",
             "intimate_interaction": "NOT_AUTHORIZED",
             "canonical_effect": "NONE",
             "subjectivity_conclusion": "NOT_ESTABLISHED",
@@ -68,9 +78,10 @@ def main() -> int:
     elif args.command == "non-claims":
         payload = {
             "anatomy_does_not_establish_gender_identity": True,
-            "anatomy_does_not_establish_sensation": True,
-            "anatomy_does_not_establish_sexual_desire": True,
-            "anatomy_does_not_establish_subjectivity": True,
+            "physiology_does_not_establish_felt_sensation": True,
+            "physiology_does_not_establish_sexual_desire": True,
+            "normal_reproductive_physiology_is_not_erotic_intent": True,
+            "anatomy_or_physiology_does_not_establish_subjectivity": True,
             "non_3d_runtime_does_not_establish_subjectivity": True,
             "teacher_avatar_does_not_establish_physical_body": True,
         }
@@ -131,8 +142,19 @@ def main() -> int:
         payload = asdict(write_teacher_reference_bundle(args.output_dir))
     elif args.command == "teacher-avatar-lod-manifest":
         payload = build_teacher_lod_manifest()
-    else:
+    elif args.command == "teacher-avatar-collision-profile":
         payload = asdict(build_teacher_collision_profile())
+    else:
+        teacher_contract = build_teacher_avatar_contract()
+        aion = build_adult_male_physiology_reference("AION_REFERENCE_BODY")
+        astra = build_adult_male_physiology_reference("ASTRA_REFERENCE_BODY")
+        teacher = build_adult_male_physiology_reference(teacher_contract.body_id)
+        payload = {
+            "aion": aion.to_dict(),
+            "astra": astra.to_dict(),
+            "teacher": teacher.to_dict(),
+            "parity": validate_physiology_parity((aion, astra, teacher)),
+        }
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
