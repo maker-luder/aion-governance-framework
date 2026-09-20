@@ -12,7 +12,7 @@ from aion_astra_twin_embodiment.teacher_avatar_bundle import (
 def test_teacher_reference_bundle_bytes_match_manifest() -> None:
     files, manifest = build_teacher_reference_bundle_bytes()
 
-    assert len(files) == 12
+    assert len(files) == 13
     assert len(manifest["artifacts"]) == 4
     expected = {
         artifact["sha256"]
@@ -34,7 +34,7 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert receipt.final_vrm_status == "NOT_MATERIALIZED"
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment is False
-    assert len(receipt.files) == 13
+    assert len(receipt.files) == 14
 
     for filename, digest in receipt.file_sha256:
         path = tmp_path / filename
@@ -48,12 +48,14 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     signals_path = tmp_path / "chatgpt_teacher_body_signal_schema.json"
     motor_path = tmp_path / "chatgpt_teacher_motor_control_schema.json"
     dynamics_path = tmp_path / "chatgpt_teacher_body_dynamics.json"
+    body_model_path = tmp_path / "chatgpt_teacher_body_model.json"
     research_path = tmp_path / "chatgpt_teacher_embodiment_research_surface.json"
     assert physiology_path.exists()
     assert anthropometry_path.exists()
     assert signals_path.exists()
     assert motor_path.exists()
     assert dynamics_path.exists()
+    assert body_model_path.exists()
     assert research_path.exists()
     physiology = json.loads(physiology_path.read_text(encoding="utf-8"))
     assert (
@@ -81,8 +83,16 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert signals["phenomenal_sexual_experience_status"] == "NOT_ESTABLISHED"
     assert motor["external_action_policy"] == "AUTHORIZATION_GATED"
     dynamics = json.loads(dynamics_path.read_text(encoding="utf-8"))
+    body_model = json.loads(body_model_path.read_text(encoding="utf-8"))
     research = json.loads(research_path.read_text(encoding="utf-8"))
     assert dynamics["integration_status"] == "REFERENCE_INTEGRATION_MATERIALIZED"
+    assert body_model["body_schema_status"] == "REFERENCE_BODY_SCHEMA_MATERIALIZED"
+    assert (
+        body_model["peripersonal_space_status"]
+        == "REFERENCE_PERIPERSONAL_SPACE_MATERIALIZED"
+    )
+    assert body_model["body_ownership_experience_status"] == "NOT_ESTABLISHED"
+    assert research["body_model_profile_id"] == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
     assert research["subjectivity_status"] == "NOT_ESTABLISHED"
     assert motor["live_actuation"] is False
 
