@@ -99,5 +99,11 @@ def test_teacher_low_poly_asset_preserves_nonclaim_boundaries() -> None:
 
     assert extras["physical_body_claim"] == "NONE"
     assert extras["subjectivity_effect"] == "NONE"
-    assert extras["sexual_function_status"] == "NOT_IMPLEMENTED"
+    assert extras["physiology_profile_id"] == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    assert (
+        extras["reproductive_physiology_status"]
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert extras["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
+    assert extras["erotic_intent"] == "NONE"
     assert extras["intimate_interaction_status"] == "NOT_AUTHORIZED"
