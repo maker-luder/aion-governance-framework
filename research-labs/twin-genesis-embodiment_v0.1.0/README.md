@@ -42,6 +42,8 @@ Current Teacher candidate surfaces:
 - deterministic low-poly GLB container-byte generator;
 - reference JOINTS_0 / WEIGHTS_0 skinning data;
 - reference inverse-bind matrix data;
+- structural glTF/GLB self-validation;
+- deterministic content-addressed asset manifest with SHA-256 digests;
 - fail-closed non-claims for physical embodiment, sensation, subjectivity, sexual function, canonical effect, and deployment.
 
 The low-poly generator is an offline reference asset, not a live embodiment runtime and not a production-quality continuous human mesh.
@@ -53,6 +55,8 @@ REFERENCE_MORPH_TARGET_VERTEX_DATA = MATERIALIZED
 LOW_POLY_GLB_GENERATOR = MATERIALIZED
 REFERENCE_SKIN_WEIGHTS = MATERIALIZED
 REFERENCE_INVERSE_BIND_MATRICES = MATERIALIZED
+REFERENCE_ASSET_SELF_VALIDATION = MATERIALIZED
+REFERENCE_ASSET_MANIFEST = MATERIALIZED
 
 PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
 PRODUCTION_LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
@@ -72,4 +76,5 @@ python -m aion_astra_twin_embodiment.cli teacher-avatar-contract
 python -m aion_astra_twin_embodiment.cli teacher-avatar-gltf-contract
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-gltf
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-glb-info
+python -m aion_astra_twin_embodiment.cli teacher-avatar-asset-manifest
 ```
