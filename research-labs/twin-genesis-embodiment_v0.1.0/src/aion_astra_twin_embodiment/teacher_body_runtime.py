@@ -20,6 +20,8 @@ from .teacher_body_channels import (
     TeacherMotorControlSchema,
     build_teacher_body_signal_schema,
     build_teacher_motor_control_schema,
+    validate_teacher_body_signal_schema,
+    validate_teacher_motor_control_schema,
 )
 from .teacher_body_dynamics import (
     TeacherBodyDynamicsProfile,
@@ -30,6 +32,7 @@ from .teacher_embodiment_research import (
     TeacherEmbodimentResearchSurface,
     assess_teacher_reference_completeness,
     build_teacher_embodiment_research_surface,
+    build_teacher_reference_capabilities,
     validate_teacher_embodiment_research_surface,
 )
 
@@ -230,9 +233,21 @@ def validate_teacher_body_runtime_binding(
     motor = motor or build_teacher_motor_control_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
     research = research or build_teacher_embodiment_research_surface()
+    validate_teacher_body_signal_schema(signals)
+    validate_teacher_motor_control_schema(motor)
     validate_teacher_body_dynamics_profile(dynamics, signals)
     validate_teacher_embodiment_research_surface(research)
-    completeness = assess_teacher_reference_completeness()
+
+    physiology = build_adult_male_physiology_reference(anthropometry.body_id)
+    validate_adult_male_physiology_reference(physiology)
+    capabilities = build_teacher_reference_capabilities(
+        anthropometry=anthropometry,
+        physiology=physiology,
+        signal_schema=signals,
+        motor_schema=motor,
+        dynamics=dynamics,
+    )
+    completeness = assess_teacher_reference_completeness(capabilities)
     if completeness.status != "COMPLETE_REFERENCE_BASELINE":
         raise ValueError(
             "body runtime binding requires a complete derived reference baseline"
@@ -242,8 +257,6 @@ def validate_teacher_body_runtime_binding(
         raise ValueError("body runtime binding body id drift")
     if binding.anthropometry_profile_id != anthropometry.profile_id:
         raise ValueError("body runtime anthropometry profile drift")
-    physiology = build_adult_male_physiology_reference(anthropometry.body_id)
-    validate_adult_male_physiology_reference(physiology)
     if binding.physiology_profile_id != physiology.profile_id:
         raise ValueError("body runtime physiology profile drift")
     if binding.signal_schema_id != signals.schema_id:
