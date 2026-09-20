@@ -8,6 +8,7 @@ from .teacher_avatar import (
     build_teacher_avatar_gltf_contract,
     validate_teacher_avatar_contract,
 )
+from .teacher_avatar_asset import build_teacher_low_poly_gltf
 
 
 def main() -> int:
@@ -19,6 +20,7 @@ def main() -> int:
             "non-claims",
             "teacher-avatar-contract",
             "teacher-avatar-gltf-contract",
+            "teacher-avatar-lowpoly-gltf",
         ],
     )
     args = parser.parse_args()
@@ -49,8 +51,10 @@ def main() -> int:
             "contract": contract.to_dict(),
             "validation": validation,
         }
-    else:
+    elif args.command == "teacher-avatar-gltf-contract":
         payload = build_teacher_avatar_gltf_contract()
+    else:
+        payload = build_teacher_low_poly_gltf()
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
