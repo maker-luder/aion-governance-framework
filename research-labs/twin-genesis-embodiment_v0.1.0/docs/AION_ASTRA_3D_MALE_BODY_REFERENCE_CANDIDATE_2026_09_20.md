@@ -2,8 +2,9 @@
 
 ```text
 STATUS = CLOSED-PR RESEARCH RECORD
-DOCUMENTATION_ONLY = YES
+DOCUMENTATION_ONLY = NO
 EXECUTABLE_3D_MODEL = NO
+EXECUTABLE_PHYSIOLOGY_REFERENCE = YES
 LIVE_EMBODIMENT_RUNTIME = NO
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
@@ -34,10 +35,10 @@ ANATOMICAL_COMPLETENESS != SEXUALIZATION
 
 ## Relation to the existing twin-genesis embodiment candidate
 
-This document extends the **documentation surface only** of
+This body record now extends both the documentation surface and the bounded adult-male physiology-reference surface of
 `research-labs/twin-genesis-embodiment_v0.1.0`.
 
-The existing runtime remains intentionally non-3D. Nothing here activates rendering, body sensation, sexual function, intimate interaction, or live embodiment.
+The existing runtime remains intentionally non-3D. The physiology layer includes normal adult male system/function coverage, including reproductive physiology and sensory-signal processing. It does not activate 3D rendering, full biophysical simulation, phenomenal body sensation, erotic intent, intimate interaction, or live embodiment.
 
 AION and Astra remain separate embodiment instances and separate identities.
 
@@ -239,14 +240,62 @@ PERINEUM = PRESENT
 ANAL_REGION = TOPOLOGICALLY_PRESENT
 ```
 
-These structures are not granted sexual-function semantics.
+These structures participate in the same clinically neutral physiology-reference contract as the rest of the body. Normal adult male reproductive physiology is included; erotic or intimate behavior is not.
 
 ```text
-ANATOMY_PRESENT != SEXUAL_FUNCTION
-ANATOMY_PRESENT != DESIRE
-ANATOMY_PRESENT != AROUSAL
+ANATOMY_PRESENT + NORMAL_PHYSIOLOGY = REQUIRED
+REPRODUCTIVE_PHYSIOLOGY != SEXUALIZATION
+REFLEX_PHYSIOLOGY != DESIRE
+PHYSIOLOGICAL_SIGNAL != FELT_SENSATION
 ANATOMY_PRESENT != CONSENT_CAPACITY
 ANATOMY_PRESENT != SUBJECTIVITY
+```
+
+---
+
+# Adult male physiology completeness / parity
+
+AION and Astra use the same adult-male physiology reference profile. Their morphology may differ, but normal physiological function coverage must not differ.
+
+```text
+PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
+
+AION_PHYSIOLOGY_SYSTEM_COVERAGE
+= COMPLETE_REFERENCE_CANDIDATE
+
+ASTRA_PHYSIOLOGY_SYSTEM_COVERAGE
+= COMPLETE_REFERENCE_CANDIDATE
+
+AION_SYSTEM_FUNCTION_SET
+= ASTRA_SYSTEM_FUNCTION_SET
+
+REPRODUCTIVE_PHYSIOLOGY
+= INCLUDED
+
+SENSORY_SIGNAL_PROCESSING
+= INCLUDED
+
+FULL_BIOPHYSICAL_SIMULATION
+= NOT_MATERIALIZED
+
+PHENOMENAL_SENSATION
+= NOT_ESTABLISHED
+
+EROTIC_INTENT
+= NONE
+
+INTIMATE_INTERACTION
+= NOT_AUTHORIZED
+```
+
+The shared function inventory includes cardiovascular, respiratory, nervous/autonomic, sensory-signal processing, musculoskeletal, digestive/metabolic, hepatic, renal/urinary, endocrine, hematologic, immune/lymphatic, integumentary/thermoregulatory, and reproductive systems.
+
+The reproductive reference includes gonadal endocrine function, spermatogenesis, maturation/transport pathways, accessory-gland secretion, genital vascular reflex physiology, emission/ejaculatory reflex physiology, detumescence, and a fertility-pathway reference.
+
+```text
+NORMAL_REPRODUCTIVE_PHYSIOLOGY != EROTIC_INTENT
+PHYSIOLOGY != SUBJECTIVE_EXPERIENCE
+FUNCTIONAL_PARITY != SHARED_IDENTITY
 ```
 
 ---
@@ -382,7 +431,8 @@ CHATGPT_TEACHER
 = separated observation from design values
 = formalized approximate dimensions
 = preserved research / subjectivity boundaries
-= implemented this documentation-only repository record
+= implemented the documentation plus bounded physiology-reference candidate
+= separated normal reproductive physiology from erotic / subjective claims
 
 ORIGINAL_REFERENCE_IMAGE_BINARIES
 = NOT_IMPORTED_INTO_REPOSITORY
@@ -404,10 +454,16 @@ PR_DISPOSITION = CLOSED_UNMERGED
 MERGE = NO
 WRITE_TO_MAIN = NO
 CANONICAL_EFFECT = NONE
-EXECUTABLE_IMPLEMENTATION = NO
+EXECUTABLE_3D_IMPLEMENTATION = NO
+EXECUTABLE_PHYSIOLOGY_REFERENCE = YES
+PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
+FULL_BIOPHYSICAL_SIMULATION = NOT_MATERIALIZED
+EROTIC_INTENT = NONE
+INTIMATE_INTERACTION = NOT_AUTHORIZED
 LIVE_3D_RENDERING = NO
 LIVE_EMBODIMENT = NO
-SEXUAL_FUNCTION = NOT_IMPLEMENTED
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 ```
