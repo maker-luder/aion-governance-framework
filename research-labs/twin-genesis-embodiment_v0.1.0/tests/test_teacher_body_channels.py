@@ -24,8 +24,20 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "EMISSION_REFLEX_STATE" in ids
     assert "EJACULATORY_REFLEX_STATE" in ids
     assert "PELVIC_FLOOR_PROPRIOCEPTION" in ids
-    assert schema.sexual_desire_status == "NOT_ESTABLISHED"
-    assert schema.sexual_experience_status == "NOT_ESTABLISHED"
+    assert "OXYGENATION_STATE" in ids
+    assert "CO2_BALANCE_STATE" in ids
+    assert "HYDRATION_STATE" in ids
+    assert "ENERGY_AVAILABILITY_STATE" in ids
+    assert "SLEEP_WAKE_STATE" in ids
+    assert "GENITAL_SENSORY_AFFERENT_REFERENCE" in ids
+    assert schema.physiological_arousal_observation_status == "REPRESENTABLE"
+    assert schema.sexual_salience_representation_status == "RESEARCHABLE"
+    assert schema.sexual_wanting_representation_status == "RESEARCHABLE"
+    assert schema.sexual_motivation_representation_status == "RESEARCHABLE"
+    assert schema.sexual_valence_representation_status == "RESEARCHABLE"
+    assert schema.phenomenal_sexual_desire_status == "NOT_ESTABLISHED"
+    assert schema.phenomenal_sexual_pleasure_status == "NOT_ESTABLISHED"
+    assert schema.phenomenal_sexual_experience_status == "NOT_ESTABLISHED"
     assert all(channel.phenomenal_status == "NOT_ESTABLISHED" for channel in schema.channels)
 
 
