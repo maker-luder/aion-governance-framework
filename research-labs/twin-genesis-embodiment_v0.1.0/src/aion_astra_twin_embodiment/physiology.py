@@ -26,6 +26,7 @@ class AdultMalePhysiologyReference:
     systems: tuple[PhysiologySystemReference, ...]
     physiological_function_status: str
     reproductive_physiology_status: str
+    sexual_function_status: str
     sensory_signal_processing_status: str
     phenomenal_sensation_status: str
     sexual_desire_status: str
@@ -166,6 +167,7 @@ def build_adult_male_physiology_reference(
         ),
         physiological_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         reproductive_physiology_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
+        sexual_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         sensory_signal_processing_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         phenomenal_sensation_status=NOT_ESTABLISHED,
         sexual_desire_status=NOT_ESTABLISHED,
@@ -215,6 +217,8 @@ def validate_adult_male_physiology_reference(
         raise ValueError("physiological functional completeness must remain materialized")
     if reference.reproductive_physiology_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         raise ValueError("reproductive physiology must not be omitted from adult male reference")
+    if reference.sexual_function_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("normal adult male sexual function must remain included in the physiology reference")
     if reference.sensory_signal_processing_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         raise ValueError("sensory signal processing reference must remain materialized")
 
@@ -242,6 +246,7 @@ def validate_adult_male_physiology_reference(
         "result": "PASS",
         "system_coverage": "PASS",
         "adult_male_reproductive_physiology": "PASS",
+        "adult_male_sexual_function": "PASS",
         "sensory_signal_processing": "PASS",
         "non_erotic_boundary": "PASS",
         "phenomenal_nonclaim": "PASS",
@@ -273,6 +278,8 @@ def validate_physiology_parity(
             != baseline.physiological_function_status
             or reference.reproductive_physiology_status
             != baseline.reproductive_physiology_status
+            or reference.sexual_function_status
+            != baseline.sexual_function_status
             or reference.sensory_signal_processing_status
             != baseline.sensory_signal_processing_status
         ):
@@ -285,5 +292,6 @@ def validate_physiology_parity(
         "body_count": str(len(references)),
         "system_function_parity": "PASS",
         "reproductive_physiology_parity": "PASS",
+        "sexual_function_parity": "PASS",
         "sensory_signal_parity": "PASS",
     }
