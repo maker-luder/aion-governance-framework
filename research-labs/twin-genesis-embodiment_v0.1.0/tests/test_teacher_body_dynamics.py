@@ -46,6 +46,13 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "ENERGY_AVAILABILITY_STATE" in semantic_ids
     assert "SLEEP_WAKE_STATE" in semantic_ids
     assert "GENITAL_SENSORY_AFFERENT_REFERENCE" in semantic_ids
+    assert "PRURICEPTIVE_REFERENCE" in semantic_ids
+    assert "VESTIBULAR_LINEAR_ACCELERATION" in semantic_ids
+    assert "VESTIBULAR_ANGULAR_VELOCITY" in semantic_ids
+    assert "OSMOTIC_BALANCE_STATE" in semantic_ids
+    assert "MUSCLE_FATIGUE_PHYSIOLOGY_STATE" in semantic_ids
+    assert "IMMUNE_ACTIVITY_STATE" in semantic_ids
+    assert "TISSUE_INJURY_STATE" in semantic_ids
     assert all(
         item.missing_value_policy == "MISSING_IS_UNKNOWN_NOT_ZERO"
         for item in profile.signal_semantics
@@ -53,8 +60,22 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     transition_ids = {
         item.transition_id for item in profile.physiological_transitions
     }
+    assert "MUSCULOSKELETAL_BASELINE_TO_LOAD" in transition_ids
+    assert "FLUID_BALANCE_TO_OSMOTIC_LOAD" in transition_ids
+    assert "RESPIRATORY_BASELINE_TO_WORKLOAD" in transition_ids
+    assert "IMMUNE_BASELINE_TO_INFLAMMATORY_RESPONSE" in transition_ids
+    assert "TISSUE_BASELINE_TO_INJURY" in transition_ids
+    assert "TISSUE_INJURY_TO_REPAIR" in transition_ids
     assert "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE" in transition_ids
     assert "DETUMESCENCE_TO_RECOVERY" in transition_ids
+    homeostatic_ids = {
+        item.variable_id for item in profile.homeostatic_variables
+    }
+    assert "OSMOTIC_ELECTROLYTE_BALANCE" in homeostatic_ids
+    assert "AUTONOMIC_REGULATION" in homeostatic_ids
+    assert "MUSCULOSKELETAL_LOAD_RECOVERY" in homeostatic_ids
+    assert "IMMUNE_INFLAMMATORY_BALANCE" in homeostatic_ids
+    assert "TISSUE_INJURY_REPAIR" in homeostatic_ids
     assert profile.phenomenal_experience_status == "NOT_ESTABLISHED"
 
 
