@@ -24,8 +24,12 @@ def test_adult_male_physiology_reference_is_functionally_complete_and_non_erotic
     assert reference.erotic_intent == "NONE"
     assert reference.intimate_interaction_status == "NOT_AUTHORIZED"
     assert reference.phenomenal_sensation_status == "NOT_ESTABLISHED"
-    assert reference.sexual_desire_status == "NOT_ESTABLISHED"
-    assert reference.sexual_experience_status == "NOT_ESTABLISHED"
+    assert reference.phenomenal_sexual_desire_status == "NOT_ESTABLISHED"
+    assert reference.phenomenal_sexual_pleasure_status == "NOT_ESTABLISHED"
+    assert reference.phenomenal_sexual_experience_status == "NOT_ESTABLISHED"
+    payload = reference.to_dict()
+    assert "sexual_desire_status" not in payload
+    assert "sexual_experience_status" not in payload
     assert reference.governance_epistemics_profile_id == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
     assert reference.observation_channel_policy == "PRESERVE_WHEN_SAFELY_POSSIBLE"
     assert reference.external_action_policy == "AUTHORIZATION_GATED"
@@ -101,3 +105,12 @@ def test_aion_astra_physiology_parity_is_enforced() -> None:
     assert result["reproductive_physiology_parity"] == "PASS"
     assert result["sexual_function_parity"] == "PASS"
     assert result["governance_epistemics_parity"] == "PASS"
+
+
+def test_physiology_rejects_phenomenal_sexual_claim_regression() -> None:
+    reference = build_adult_male_physiology_reference("AION-BODY-001")
+
+    with pytest.raises(ValueError, match="phenomenal sexual desire"):
+        validate_adult_male_physiology_reference(
+            replace(reference, phenomenal_sexual_desire_status="ESTABLISHED")
+        )
