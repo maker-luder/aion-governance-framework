@@ -48,6 +48,7 @@ def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> No
 
     assert result["result"] == "PASS"
     assert covered == set(SIX_EVIDENCE_DIMENSIONS)
+    assert surface.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
     assert surface.subjectivity_status == "NOT_ESTABLISHED"
     assert surface.phenomenal_experience_status == "NOT_ESTABLISHED"
     assert all(candidate.falsifier for candidate in surface.candidates)
