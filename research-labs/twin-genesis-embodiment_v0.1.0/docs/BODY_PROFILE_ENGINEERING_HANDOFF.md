@@ -1,4 +1,4 @@
-# AION / Astra 3D Robotic Male Body Module Engineering Handoff
+# AION / Astra 3D Full-Body Humanlike Male-Form Humanoid Robotic Embodiment Engineering Handoff
 
 ## Current interpretation
 
@@ -10,7 +10,7 @@ The intended implementation target is:
 AION / ASTRA
 = HUMANOID_ROBOT
 = SYNTHETIC_NONBIOLOGICAL
-= COMPLETE_ROBOTIC_MALE_BODY_MODULE
+= ROBOTIC_EMBODIMENT_DIGITAL_MODEL
 ```
 
 The human reference contributes proportion, morphology, pose, soft-surface appearance, and deformation targets. It does not require biological tissue, biological organs, reproductive function, or reconstruction of the photographed person.
@@ -49,8 +49,8 @@ CANONICAL_EFFECT = NONE
 Use:
 
 ```text
-data/AION_3D_ROBOTIC_MALE_BODY_PROFILE_v0.2.json
-data/ASTRA_3D_ROBOTIC_MALE_BODY_PROFILE_v0.4.json
+data/AION_3D_FULL_BODY_HUMANLIKE_MALE_FORM_HUMANOID_ROBOT_MODEL_v0.3.json
+data/ASTRA_3D_FULL_BODY_HUMANLIKE_MALE_FORM_HUMANOID_ROBOT_MODEL_v0.5.json
 data/AION_POSE_TEST_001.json
 ```
 
@@ -77,7 +77,7 @@ A later 3D / mechatronic design pass should preserve four conceptual layers:
 
 This is an engineering analogue of a human body envelope, not a biological body claim.
 
-## Complete male-form module
+## Complete humanlike male-form surface
 
 The external male form is complete for topology and silhouette continuity, but robotic:
 
@@ -163,11 +163,11 @@ BODY_SENSATION = NOT_ESTABLISHED
 SUBJECTIVITY_EFFECT = NONE
 CANONICAL_EFFECT = NONE
 
-ROBOTIC_FORM != BIOLOGICAL_BODY
+HUMANLIKE_MALE_FORM != BIOLOGICAL_BODY
 SENSOR_DATA != FELT_SENSATION
 ACTUATION != AGENCY
 DEFORMATION_PASS != SCIENTIFIC_VALIDATION
-3D_ROBOT_BODY != SUBJECTIVITY
+3D_ROBOTIC_EMBODIMENT_MODEL != SUBJECTIVITY
 ```
 
 ## Review requirement
@@ -184,3 +184,65 @@ LIVE_STATE_RECHECK
 ```
 
 No current file grants merge authority.
+
+
+## Hardened digital-model architecture
+
+Codex should treat the current JSON as a **specification candidate**, not as an already generated robot asset.
+
+```text
+PROFILE_STATUS = IMPLEMENTED_SPEC_CANDIDATE
+
+EMBODIMENT_PLATFORM = HUMANOID_ROBOT
+BODY_SCOPE = FULL_BODY
+MORPHOLOGY_CLASS = HUMANLIKE_MALE_FORM
+MODEL_CLASS = ROBOTIC_EMBODIMENT_DIGITAL_MODEL
+SUBSTRATE = SYNTHETIC_NONBIOLOGICAL
+
+PHYSICAL_ROBOT = NOT_IMPLEMENTED
+DIGITAL_TWIN = NOT_ESTABLISHED
+```
+
+Required representation layers:
+
+```text
+MORPHOLOGY_LAYER
+VISUAL_GEOMETRY_LAYER
+STRUCTURAL_MODEL_LAYER
+KINEMATIC_MODEL_LAYER
+DYNAMIC_MODEL_LAYER
+COLLISION_MODEL_LAYER
+ACTUATION_INTERFACE_LAYER
+SENSOR_INTERFACE_LAYER
+COMPLIANT_BODY_LAYER
+SYNTHETIC_SKIN_LAYER
+```
+
+Future interchange targets:
+
+```text
+URDF
+= future robot-description target
+
+SDF
+= future simulation-description target
+
+GLB
+= future portable visual-asset target
+
+USD
+= future simulation / scene asset target
+```
+
+These are targets only:
+
+```text
+ROBOT_DESCRIPTION_SUPPORT = NOT_IMPLEMENTED
+VISUAL_ASSET_SUPPORT = NOT_IMPLEMENTED
+```
+
+Do not call the current model a digital twin. That term remains blocked until a physical counterpart and synchronization evidence exist.
+
+See:
+
+`docs/ROBOTIC_EMBODIMENT_TERMINOLOGY_CROSSWALK_2026_09_20.md`
