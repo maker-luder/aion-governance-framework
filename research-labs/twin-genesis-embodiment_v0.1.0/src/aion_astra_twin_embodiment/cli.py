@@ -10,6 +10,11 @@ from .teacher_avatar import (
     validate_teacher_avatar_contract,
 )
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
+from .teacher_avatar_validation import (
+    build_teacher_asset_manifest,
+    validate_teacher_low_poly_glb,
+    validate_teacher_low_poly_gltf,
+)
 
 
 def main() -> int:
@@ -23,6 +28,7 @@ def main() -> int:
             "teacher-avatar-gltf-contract",
             "teacher-avatar-lowpoly-gltf",
             "teacher-avatar-lowpoly-glb-info",
+            "teacher-avatar-asset-manifest",
         ],
     )
     args = parser.parse_args()
@@ -57,16 +63,20 @@ def main() -> int:
         payload = build_teacher_avatar_gltf_contract()
     elif args.command == "teacher-avatar-lowpoly-gltf":
         payload = build_teacher_low_poly_gltf()
-    else:
+        payload["extras"]["self_validation"] = validate_teacher_low_poly_gltf(payload)
+    elif args.command == "teacher-avatar-lowpoly-glb-info":
         glb = build_teacher_low_poly_glb()
         payload = {
             "artifact_kind": "LOW_POLY_GLB_REFERENCE",
             "bytes": len(glb),
             "sha256": sha256(glb).hexdigest(),
+            "validation": validate_teacher_low_poly_glb(glb),
             "production_asset_status": "NOT_ESTABLISHED",
             "physical_body_claim": "NONE",
             "subjectivity_effect": "NONE",
         }
+    else:
+        payload = build_teacher_asset_manifest()
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
