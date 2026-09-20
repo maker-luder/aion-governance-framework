@@ -33,6 +33,10 @@ def test_teacher_collision_profile_preserves_anatomy_boundaries() -> None:
         profile.reproductive_physiology_status
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        profile.sexual_function_status
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
     assert profile.erotic_intent == "NONE"
     assert profile.intimate_interaction_status == "NOT_AUTHORIZED"
     assert profile.physical_body_claim == "NONE"
