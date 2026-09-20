@@ -195,6 +195,16 @@ def _default_semantic(channel_id: str) -> BodySignalSemantic:
         unit = "unitless"
         reference_min = None
         reference_max = None
+    elif channel_id in {"VESTIBULAR_LINEAR_ACCELERATION", "VESTIBULAR_GRAVITY_REFERENCE"}:
+        value_kind = "VECTOR3"
+        unit = "meter_per_second_squared_reference"
+        reference_min = None
+        reference_max = None
+    elif channel_id == "VESTIBULAR_ANGULAR_VELOCITY":
+        value_kind = "VECTOR3"
+        unit = "radian_per_second_reference"
+        reference_min = None
+        reference_max = None
     elif channel_id in {"TEMPERATURE_GENERAL", "GENITAL_TEMPERATURE"}:
         unit = "degree_celsius_reference"
         reference_min = None
@@ -242,6 +252,69 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             "THERMAL_LOAD_REFERENCE",
             "THERMAL_RECOVERY_REFERENCE",
             ("THERMOREGULATORY_STATE", "HYDRATION_STATE"),
+        ),
+        PhysiologicalTransition(
+            "MUSCULOSKELETAL_BASELINE_TO_LOAD",
+            "MUSCULOSKELETAL",
+            "BASELINE_REFERENCE",
+            "LOAD_RESPONSE_REFERENCE",
+            ("MUSCULOSKELETAL_LOAD_STATE", "MUSCLE_LENGTH_TENSION"),
+        ),
+        PhysiologicalTransition(
+            "MUSCULOSKELETAL_LOAD_TO_RECOVERY",
+            "MUSCULOSKELETAL",
+            "LOAD_RESPONSE_REFERENCE",
+            "RECOVERY_REFERENCE",
+            ("MUSCLE_FATIGUE_PHYSIOLOGY_STATE", "ENERGY_AVAILABILITY_STATE"),
+        ),
+        PhysiologicalTransition(
+            "FLUID_BALANCE_TO_OSMOTIC_LOAD",
+            "OSMOTIC",
+            "FLUID_BALANCE_REFERENCE",
+            "OSMOTIC_LOAD_REFERENCE",
+            ("OSMOTIC_BALANCE_STATE", "ELECTROLYTE_BALANCE_STATE", "HYDRATION_STATE"),
+        ),
+        PhysiologicalTransition(
+            "OSMOTIC_LOAD_TO_RECOVERY",
+            "OSMOTIC",
+            "OSMOTIC_LOAD_REFERENCE",
+            "FLUID_BALANCE_RECOVERY_REFERENCE",
+            ("OSMOTIC_BALANCE_STATE", "HYDRATION_STATE"),
+        ),
+        PhysiologicalTransition(
+            "RESPIRATORY_BASELINE_TO_WORKLOAD",
+            "RESPIRATORY",
+            "BASELINE_REFERENCE",
+            "RESPIRATORY_WORKLOAD_REFERENCE",
+            ("RESPIRATORY_WORKLOAD_STATE", "VENTILATORY_DRIVE_STATE", "CO2_BALANCE_STATE"),
+        ),
+        PhysiologicalTransition(
+            "IMMUNE_BASELINE_TO_INFLAMMATORY_RESPONSE",
+            "IMMUNE_INFLAMMATORY",
+            "BASELINE_REFERENCE",
+            "INFLAMMATORY_RESPONSE_REFERENCE",
+            ("IMMUNE_ACTIVITY_STATE", "INFLAMMATORY_LOAD_STATE"),
+        ),
+        PhysiologicalTransition(
+            "INFLAMMATORY_RESPONSE_TO_RECOVERY",
+            "IMMUNE_INFLAMMATORY",
+            "INFLAMMATORY_RESPONSE_REFERENCE",
+            "RECOVERY_REFERENCE",
+            ("IMMUNE_ACTIVITY_STATE", "INFLAMMATORY_LOAD_STATE"),
+        ),
+        PhysiologicalTransition(
+            "TISSUE_BASELINE_TO_INJURY",
+            "TISSUE_INJURY_REPAIR",
+            "BASELINE_REFERENCE",
+            "INJURY_REFERENCE",
+            ("TISSUE_INJURY_STATE", "NOCICEPTIVE_REFERENCE"),
+        ),
+        PhysiologicalTransition(
+            "TISSUE_INJURY_TO_REPAIR",
+            "TISSUE_INJURY_REPAIR",
+            "INJURY_REFERENCE",
+            "REPAIR_REFERENCE",
+            ("TISSUE_INJURY_STATE", "TISSUE_REPAIR_STATE"),
         ),
         PhysiologicalTransition(
             "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE",
@@ -328,6 +401,36 @@ def _build_homeostatic_variables() -> tuple[HomeostaticVariable, ...]:
             "URINARY_LOAD",
             ("BLADDER_STATE",),
             "BOUNDED_REFERENCE_LOAD",
+            "REGULATORY_REFERENCE",
+        ),
+        HomeostaticVariable(
+            "OSMOTIC_ELECTROLYTE_BALANCE",
+            ("OSMOTIC_BALANCE_STATE", "ELECTROLYTE_BALANCE_STATE", "HYDRATION_STATE"),
+            "BOUNDED_REFERENCE_BALANCE",
+            "NEGATIVE_FEEDBACK_REFERENCE",
+        ),
+        HomeostaticVariable(
+            "AUTONOMIC_REGULATION",
+            ("AUTONOMIC_SYMPATHETIC_STATE", "AUTONOMIC_PARASYMPATHETIC_STATE", "CARDIOVASCULAR_STATE"),
+            "BOUNDED_REFERENCE_BALANCE",
+            "REGULATORY_REFERENCE",
+        ),
+        HomeostaticVariable(
+            "MUSCULOSKELETAL_LOAD_RECOVERY",
+            ("MUSCULOSKELETAL_LOAD_STATE", "MUSCLE_FATIGUE_PHYSIOLOGY_STATE", "ENERGY_AVAILABILITY_STATE"),
+            "BOUNDED_REFERENCE_RECOVERY",
+            "REGULATORY_REFERENCE",
+        ),
+        HomeostaticVariable(
+            "IMMUNE_INFLAMMATORY_BALANCE",
+            ("IMMUNE_ACTIVITY_STATE", "INFLAMMATORY_LOAD_STATE"),
+            "BOUNDED_REFERENCE_RESPONSE",
+            "REGULATORY_REFERENCE",
+        ),
+        HomeostaticVariable(
+            "TISSUE_INJURY_REPAIR",
+            ("TISSUE_INJURY_STATE", "TISSUE_REPAIR_STATE", "NOCICEPTIVE_REFERENCE"),
+            "BOUNDED_REFERENCE_REPAIR",
             "REGULATORY_REFERENCE",
         ),
         HomeostaticVariable(
