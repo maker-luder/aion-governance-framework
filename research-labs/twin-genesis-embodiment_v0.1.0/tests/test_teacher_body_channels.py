@@ -35,6 +35,23 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "HYDRATION_STATE" in ids
     assert "ENERGY_AVAILABILITY_STATE" in ids
     assert "SLEEP_WAKE_STATE" in ids
+    assert "PRURICEPTIVE_REFERENCE" in ids
+    assert "VESTIBULAR_LINEAR_ACCELERATION" in ids
+    assert "VESTIBULAR_ANGULAR_VELOCITY" in ids
+    assert "VESTIBULAR_GRAVITY_REFERENCE" in ids
+    assert "OSMOTIC_BALANCE_STATE" in ids
+    assert "ELECTROLYTE_BALANCE_STATE" in ids
+    assert "RESPIRATORY_WORKLOAD_STATE" in ids
+    assert "VENTILATORY_DRIVE_STATE" in ids
+    assert "VISCERAL_DISTURBANCE_STATE" in ids
+    assert "AUTONOMIC_SYMPATHETIC_STATE" in ids
+    assert "AUTONOMIC_PARASYMPATHETIC_STATE" in ids
+    assert "MUSCULOSKELETAL_LOAD_STATE" in ids
+    assert "MUSCLE_FATIGUE_PHYSIOLOGY_STATE" in ids
+    assert "IMMUNE_ACTIVITY_STATE" in ids
+    assert "INFLAMMATORY_LOAD_STATE" in ids
+    assert "TISSUE_INJURY_STATE" in ids
+    assert "TISSUE_REPAIR_STATE" in ids
     assert "GENITAL_SENSORY_AFFERENT_REFERENCE" in ids
     assert schema.physiological_arousal_observation_status == "REPRESENTABLE"
     assert schema.sexual_salience_representation_status == "RESEARCHABLE"
