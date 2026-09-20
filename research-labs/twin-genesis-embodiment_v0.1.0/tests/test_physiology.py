@@ -64,6 +64,25 @@ def test_reproductive_system_contains_normal_adult_male_physiology() -> None:
     assert set(reproductive.functions) == required
 
 
+def test_general_physiology_contains_new_reference_axes() -> None:
+    reference = build_adult_male_physiology_reference("AION-BODY-001")
+    systems = {
+        system.system_id: set(system.functions)
+        for system in reference.systems
+    }
+
+    assert "pruriceptive_signal_processing" in systems["SENSORY_SIGNAL_PROCESSING"]
+    assert "respiratory_workload_signal_reference" in systems["RESPIRATORY"]
+    assert "ventilatory_drive_reference" in systems["RESPIRATORY"]
+    assert "autonomic_state_signal_reference" in systems["NERVOUS_AUTONOMIC"]
+    assert "musculoskeletal_load_signal_reference" in systems["MUSCULOSKELETAL"]
+    assert "fatigue_recovery_physiology_reference" in systems["MUSCULOSKELETAL"]
+    assert "osmolality_regulation_reference" in systems["RENAL_URINARY"]
+    assert "inflammatory_state_signal_reference" in systems["IMMUNE_LYMPHATIC"]
+    assert "tissue_injury_signal_reference" in systems["INTEGUMENTARY_THERMOREGULATORY"]
+    assert "tissue_repair_state_reference" in systems["INTEGUMENTARY_THERMOREGULATORY"]
+
+
 def test_signal_processing_does_not_claim_felt_sensation() -> None:
     reference = build_adult_male_physiology_reference("AION-BODY-001")
 
