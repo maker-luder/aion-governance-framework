@@ -64,7 +64,10 @@ These are interoperability references, not certification claims.
 - deterministic embedded PNG reference texture;
 - VRM required humanoid parent-chain aligned mapping candidate;
 - explicit hold on VRM meta/license authorization;
-- hash-verified reference bundle writer;
+- three-level continuous reference LOD set with monotonic geometry complexity;
+- full-body geometric collision proxy profile;
+- neutral clinical collision proxies for external male anatomy without sexual-function semantics;
+- hash-verified reference bundle writer including LOD and collision metadata;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -110,6 +113,9 @@ CONTINUOUS_REFERENCE_TEXTURE = MATERIALIZED
 VRM_REQUIRED_PARENT_CHAIN = ALIGNED_CANDIDATE
 VRM_META_LICENSE_AUTHORIZATION = REQUIRED_FROM_HUMAN_OWNER
 REFERENCE_BUNDLE_WRITER = MATERIALIZED
+REFERENCE_LOD_SET = MATERIALIZED
+REFERENCE_COLLISION_PROXIES = MATERIALIZED
+REFERENCE_BUNDLE_FILE_COUNT = 7
 
 PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
