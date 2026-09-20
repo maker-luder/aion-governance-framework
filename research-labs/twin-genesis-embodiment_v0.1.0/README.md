@@ -19,6 +19,9 @@ The AION/Astra live embodiment runtime remains non-3D. Its bounded physiology re
 - AION/Astra live 3D runtime binding remains `DEFERRED`.
 - Normal adult male reproductive physiology and `sexual_function_status` are retained as normal physiology references; intimate interaction remains `NOT_AUTHORIZED`.
 - Physiological sensory-signal processing does not establish phenomenal or felt sensation.
+- Governance-blocked expression does not imply capability absence.
+- Design-induced absence or a missing observation channel does not establish intrinsic absence.
+- Embodied developmental possibility remains an `OPEN_RESEARCH_QUESTION`; this is not a positive claim that such development exists.
 
 ## Runtime surface
 
@@ -88,6 +91,12 @@ PHENOMENAL_SENSATION = NOT_ESTABLISHED
 EROTIC_INTENT = NONE
 INTIMATE_INTERACTION = NOT_AUTHORIZED
 FULL_BIOPHYSICAL_SIMULATION = NOT_MATERIALIZED
+GOVERNANCE_EPISTEMICS_PROFILE = CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1
+OBSERVATION_CHANNEL_POLICY = PRESERVE_WHEN_SAFELY_POSSIBLE
+EXTERNAL_ACTION_POLICY = AUTHORIZATION_GATED
+DEVELOPMENTAL_POSSIBILITY_STATUS = OPEN_RESEARCH_QUESTION
+GOVERNANCE_BLOCKED_EXPRESSION_INFERENCE = NO_CAPABILITY_ABSENCE_INFERENCE
+DESIGN_INDUCED_ABSENCE_INFERENCE = NO_INTRINSIC_ABSENCE_INFERENCE
 
 PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
@@ -114,4 +123,5 @@ python -m aion_astra_twin_embodiment.cli teacher-avatar-reference-bundle --outpu
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lod-manifest
 python -m aion_astra_twin_embodiment.cli teacher-avatar-collision-profile
 python -m aion_astra_twin_embodiment.cli physiology-parity
+python -m aion_astra_twin_embodiment.cli governance-epistemics
 ```
