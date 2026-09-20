@@ -6,7 +6,7 @@
 
 This candidate records a shared-genesis twin architecture for AION and Astra and a clinically neutral adult male anatomical embodiment template. The base runtime materializes two validated, distinct embodiment runtime records after governance invariants pass.
 
-The AION/Astra live embodiment runtime remains non-3D. It still creates no body sensation, sexual function, intimate interaction, gender identity, subjectivity, or canonical state.
+The AION/Astra live embodiment runtime remains non-3D. Its bounded physiology reference now includes normal adult male physiological and reproductive function coverage plus sensory-signal processing, while full biophysical simulation, phenomenal body sensation, erotic intent, intimate interaction, gender identity, subjectivity, and canonical state remain unestablished or unauthorized.
 
 ## Core invariants
 
@@ -17,7 +17,8 @@ The AION/Astra live embodiment runtime remains non-3D. It still creates no body 
 - Anatomy does not establish gender identity, sensation, desire, consent, or subjectivity.
 - Relationship, trust, familiarity, or naming never grant embodiment modification authority.
 - AION/Astra live 3D runtime binding remains `DEFERRED`.
-- Sexual function remains `NOT_IMPLEMENTED` and intimate interaction remains `NOT_AUTHORIZED`.
+- Normal adult male reproductive physiology is included as a non-erotic reference; intimate interaction remains `NOT_AUTHORIZED`.
+- Physiological sensory-signal processing does not establish phenomenal or felt sensation.
 
 ## Runtime surface
 
@@ -52,7 +53,8 @@ Current Teacher candidate surfaces:
 - three-level continuous reference LOD set with monotonic complexity and one connected surface per level;
 - full-body collision proxy profile including neutral clinical external male-anatomy proxies;
 - hash-verified bundle writer that materializes low-poly + continuous glTF/GLB + LOD metadata + collision metadata + manifest;
-- fail-closed non-claims for physical embodiment, sensation, subjectivity, sexual function, canonical effect, and deployment.
+- fail-closed non-claims for physical embodiment, phenomenal sensation, erotic intent, subjectivity, canonical effect, and deployment.
+- shared AION / Astra / Teacher adult-male physiology parity validation.
 
 The low-poly generator is an offline reference asset, not a live embodiment runtime and not a production-quality continuous human mesh.
 
@@ -77,6 +79,14 @@ REFERENCE_BUNDLE_WRITER = MATERIALIZED
 REFERENCE_LOD_SET = MATERIALIZED
 REFERENCE_COLLISION_PROXIES = MATERIALIZED
 REFERENCE_BUNDLE_FILE_COUNT = 7
+PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
+PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
+PHENOMENAL_SENSATION = NOT_ESTABLISHED
+EROTIC_INTENT = NONE
+INTIMATE_INTERACTION = NOT_AUTHORIZED
+FULL_BIOPHYSICAL_SIMULATION = NOT_MATERIALIZED
 
 PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
@@ -102,4 +112,5 @@ python -m aion_astra_twin_embodiment.cli teacher-avatar-continuous-glb-info
 python -m aion_astra_twin_embodiment.cli teacher-avatar-reference-bundle --output-dir ./teacher-reference-bundle
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lod-manifest
 python -m aion_astra_twin_embodiment.cli teacher-avatar-collision-profile
+python -m aion_astra_twin_embodiment.cli physiology-parity
 ```
