@@ -17,7 +17,7 @@ The AION/Astra live embodiment runtime remains non-3D. Its bounded physiology re
 - Anatomy does not establish gender identity, sensation, desire, consent, or subjectivity.
 - Relationship, trust, familiarity, or naming never grant embodiment modification authority.
 - AION/Astra live 3D runtime binding remains `DEFERRED`.
-- Normal adult male reproductive physiology is included as a non-erotic reference; intimate interaction remains `NOT_AUTHORIZED`.
+- Normal adult male reproductive physiology and `sexual_function_status` are retained as normal physiology references; intimate interaction remains `NOT_AUTHORIZED`.
 - Physiological sensory-signal processing does not establish phenomenal or felt sensation.
 
 ## Runtime surface
@@ -82,6 +82,7 @@ REFERENCE_BUNDLE_FILE_COUNT = 8
 PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
 PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
 REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SEXUAL_FUNCTION_STATUS = REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED
 SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
 PHENOMENAL_SENSATION = NOT_ESTABLISHED
 EROTIC_INTENT = NONE
