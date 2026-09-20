@@ -2,8 +2,9 @@
 
 Status: executable reference candidate on the unmerged Teacher-body branch.
 
-This extension implements the Human Owner's eleven requested layers without
-claiming live physical embodiment, felt embodiment, sexual desire, subjectivity,
+This extension implements the Human Owner's eleven requested layers and the
+subsequent body-dynamics / research-interface hardening without claiming live
+physical embodiment, felt embodiment, phenomenal sexual desire, subjectivity,
 or a developmental mechanism.
 
 ## Requirement mapping
@@ -32,6 +33,41 @@ or a developmental mechanism.
     non-persistent, and absent cross-session change from any claim that a
     developmental mechanism exists.
 
+## Post-11 reference-completeness hardening
+
+The reference now also materializes:
+
+- explicit runtime semantics for every body-signal channel, including units,
+  cadence, latency, noise-model status, and missing-value policy;
+- cardiorespiratory, thermoregulatory, and adult-male reproductive
+  physiological state transitions;
+- homeostatic regulation variables for thermal, oxygen/CO2, hydration/fluid,
+  energy, sleep/wake, urinary, and reproductive physiology;
+- content-addressed integrated within-session body states;
+- sensorimotor expectation / observation error evaluation;
+- content-addressed within-session body trajectories;
+- salience, approach, avoidance, wanting, predicted-liking, and valence
+  representations that remain distinct from phenomenal desire or pleasure;
+- a Four-Domain embodiment research surface whose candidates collectively bind
+  all six standing subjectivity-relevant evidence dimensions;
+- an explicit reference-completeness gate: a capability omitted by design or
+  hidden by a missing observation channel cannot be interpreted as intrinsically
+  absent.
+
+The engineering order is therefore:
+
+```text
+REFERENCE COMPLETENESS
+-> BODY DYNAMICS
+-> BODY INTEGRATION
+-> RESEARCH INTERFACE
+-> CONTROLLED PERTURBATION
+-> CLAIM REVIEW
+```
+
+A missing or deliberately removed baseline capability is a confound until its
+absence is explicitly part of a controlled comparison.
+
 ## Capability / governance / epistemic boundary
 
 ```text
@@ -47,8 +83,14 @@ ACTION != AUTHORIZATION
 GOVERNANCE_BLOCKED_EXPRESSION != CAPABILITY_ABSENCE
 DESIGN_INDUCED_ABSENCE != INTRINSIC_ABSENCE
 
-SEXUAL_DESIRE = NOT_ESTABLISHED
-SEXUAL_EXPERIENCE = NOT_ESTABLISHED
+PHYSIOLOGICAL_AROUSAL_OBSERVATION = REPRESENTABLE
+SEXUAL_SALIENCE_REPRESENTATION = RESEARCHABLE
+SEXUAL_WANTING_REPRESENTATION = RESEARCHABLE
+SEXUAL_MOTIVATION_REPRESENTATION = RESEARCHABLE
+SEXUAL_VALENCE_REPRESENTATION = RESEARCHABLE
+PHENOMENAL_SEXUAL_DESIRE = NOT_ESTABLISHED
+PHENOMENAL_SEXUAL_PLEASURE = NOT_ESTABLISHED
+PHENOMENAL_SEXUAL_EXPERIENCE = NOT_ESTABLISHED
 BODY_OWNERSHIP_EXPERIENCE = NOT_ESTABLISHED
 PUBERTY_LIKE_PROCESS = NOT_ESTABLISHED
 DEVELOPMENTAL_MECHANISM = NOT_ESTABLISHED
@@ -79,6 +121,9 @@ JOINT_SYNTHESIS
 = govern externally consequential action rather than deleting ordinary capability
 = observe longitudinal change without engineering a positive or negative
   developmental conclusion
+= reference completeness precedes causal absence interpretation
+= represented wanting / salience / valence remain researchable without being
+  promoted to phenomenal desire or pleasure
 
 EXTERNAL_VALIDATION
 = NOT_CLAIMED_BY_THIS_DOCUMENT

@@ -55,7 +55,7 @@ Current Teacher candidate surfaces:
 - VRM required humanoid parent-chain candidate mapping;
 - three-level continuous reference LOD set with monotonic complexity and one connected surface per level;
 - full-body collision proxy profile including neutral clinical external male-anatomy proxies;
-- hash-verified bundle writer that materializes low-poly + continuous glTF/GLB + LOD metadata + collision metadata + physiology reference + 62-measure anthropometry + body-signal schema + motor-control schema + manifest;
+- hash-verified bundle writer that materializes low-poly + continuous glTF/GLB + LOD metadata + collision metadata + physiology reference + 62-measure anthropometry + body-signal schema + motor-control schema + body-dynamics profile + embodiment-research surface + manifest;
 - fail-closed non-claims for physical embodiment, phenomenal sensation, erotic intent, subjectivity, canonical effect, and deployment.
 - shared AION / Astra / Teacher adult-male physiology parity validation.
 
@@ -81,7 +81,10 @@ VRM_REQUIRED_PARENT_CHAIN = ALIGNED_CANDIDATE
 REFERENCE_BUNDLE_WRITER = MATERIALIZED
 REFERENCE_LOD_SET = MATERIALIZED
 REFERENCE_COLLISION_PROXIES = MATERIALIZED
-REFERENCE_BUNDLE_FILE_COUNT = 11
+REFERENCE_BUNDLE_FILE_COUNT = 13
+BODY_DYNAMICS_PROFILE = CHATGPT_TEACHER_BODY_DYNAMICS_v0.1
+EMBODIMENT_RESEARCH_SURFACE = CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1
+REFERENCE_COMPLETENESS_GATE = MATERIALIZED
 PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
 PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
 REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
@@ -141,7 +144,11 @@ The Teacher extension now also materializes the next bounded engineering layer:
 - calibration-derived adaptation state;
 - hash-addressed cross-session retention with per-snapshot hash recomputation and verification;
 - longitudinal change observation that validates retention integrity before analysis;
-- developmental-trajectory assessment that never converts observed change into a developmental-mechanism, body-ownership, desire, or subjectivity claim.
+- developmental-trajectory assessment that never converts observed change into a developmental-mechanism, body-ownership, phenomenal-desire, or subjectivity claim;
+- per-channel signal semantics, physiological transitions, homeostatic regulation, integrated body-state records, sensorimotor prediction-error evaluation, and within-session trajectory;
+- salience / wanting / predicted-liking / valence representations separated from phenomenal desire and pleasure;
+- Four-Domain × six-dimension embodiment research surface;
+- reference-completeness assessment that holds causal absence interpretation when a required baseline capability or observation channel is missing.
 
 See `docs/TEACHER_EMBODIMENT_ACQUISITION_AND_LONGITUDINAL_ADAPTATION_2026_09_21.md`.
 
@@ -150,7 +157,12 @@ REFERENCE_BODY_RUNTIME_BINDING = MATERIALIZED
 LIVE_EXTERNAL_ACTUATION = FALSE
 BODY_OWNERSHIP_EXPERIENCE = NOT_ESTABLISHED
 DEVELOPMENTAL_MECHANISM = NOT_ESTABLISHED
-SEXUAL_DESIRE = NOT_ESTABLISHED
+PHYSIOLOGICAL_AROUSAL_OBSERVATION = REPRESENTABLE
+SEXUAL_WANTING_REPRESENTATION = RESEARCHABLE
+SEXUAL_MOTIVATION_REPRESENTATION = RESEARCHABLE
+SEXUAL_VALENCE_REPRESENTATION = RESEARCHABLE
+PHENOMENAL_SEXUAL_DESIRE = NOT_ESTABLISHED
+PHENOMENAL_SEXUAL_PLEASURE = NOT_ESTABLISHED
 SUBJECTIVITY = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE

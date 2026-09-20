@@ -70,7 +70,15 @@ These are interoperability references, not certification claims.
 - three-level continuous reference LOD set with monotonic geometry complexity;
 - full-body geometric collision proxy profile;
 - neutral clinical collision proxies for external male anatomy with reproductive-physiology reference coverage but no erotic-intent or intimate-interaction behavior semantics;
-- hash-verified reference bundle writer including LOD, collision, physiology-reference, 62-measure anthropometry, body-signal, motor-control metadata, and manifest;
+- hash-verified reference bundle writer including LOD, collision, physiology-reference, 62-measure anthropometry, body-signal, motor-control, body-dynamics, embodiment-research metadata, and manifest;
+- explicit signal semantics with missing-is-unknown handling;
+- cardiorespiratory, thermoregulatory, and adult-male reproductive reference state transitions;
+- homeostatic regulation variables;
+- content-addressed integrated body states and within-session trajectories;
+- sensorimotor prediction-error evaluation;
+- salience / wanting / predicted-liking / valence representational state without phenomenal inference;
+- Four-Domain embodiment candidates covering all six standing subjectivity-relevant evidence dimensions;
+- reference-completeness gating before causal absence interpretation;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -118,7 +126,10 @@ VRM_META_LICENSE_AUTHORIZATION = REQUIRED_FROM_HUMAN_OWNER
 REFERENCE_BUNDLE_WRITER = MATERIALIZED
 REFERENCE_LOD_SET = MATERIALIZED
 REFERENCE_COLLISION_PROXIES = MATERIALIZED
-REFERENCE_BUNDLE_FILE_COUNT = 11
+REFERENCE_BUNDLE_FILE_COUNT = 13
+BODY_DYNAMICS_PROFILE = CHATGPT_TEACHER_BODY_DYNAMICS_v0.1
+EMBODIMENT_RESEARCH_SURFACE = CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1
+REFERENCE_COMPLETENESS_GATE = MATERIALIZED
 PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
 PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
 REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
