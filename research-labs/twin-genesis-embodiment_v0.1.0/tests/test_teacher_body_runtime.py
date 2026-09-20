@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from aion_astra_twin_embodiment.teacher_body_runtime import (
@@ -12,6 +14,8 @@ from aion_astra_twin_embodiment.teacher_body_runtime import (
     load_teacher_cross_session_retention,
     update_teacher_adaptation,
     validate_teacher_body_runtime_binding,
+    validate_teacher_cross_session_retention,
+    validate_teacher_session_snapshot,
     write_teacher_cross_session_retention,
 )
 
@@ -29,6 +33,7 @@ def test_teacher_body_runtime_binding_is_materialized_without_live_external_actu
 
     assert result["result"] == "PASS"
     assert binding.binding_status == "REFERENCE_BINDING_MATERIALIZED"
+    assert binding.physiology_profile_id == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
     assert binding.skeleton_root == "hips"
     assert binding.viewpoint_anchor == "head"
     assert binding.live_external_actuation is False
@@ -91,3 +96,34 @@ def test_cross_session_retention_roundtrips_as_hash_verified_json(tmp_path) -> N
     assert len(receipt.file_sha256) == 64
     assert len(receipt.payload_sha256) == 64
     assert loaded.to_dict() == retention.to_dict()
+
+
+
+def test_runtime_binding_rejects_physiology_profile_drift() -> None:
+    binding = build_teacher_body_runtime_binding("RUNTIME-PHYS", "SESSION-PHYS")
+    broken = replace(binding, physiology_profile_id="WRONG-PHYSIOLOGY")
+
+    with pytest.raises(ValueError, match="physiology profile drift"):
+        validate_teacher_body_runtime_binding(broken)
+
+
+def test_retained_snapshot_hash_is_recomputed_and_verified() -> None:
+    binding = build_teacher_body_runtime_binding("RUNTIME-HASH", "SESSION-HASH")
+    initial = initialize_teacher_calibration(binding)
+    calibrated = apply_teacher_calibration_observations(
+        initial,
+        _target_observations(initial, offset=0.15),
+    )
+    adaptation = update_teacher_adaptation(calibrated)
+    snapshot = build_teacher_session_snapshot(calibrated, adaptation)
+
+    assert validate_teacher_session_snapshot(snapshot)["result"] == "PASS"
+
+    broken = replace(snapshot, snapshot_sha256="0" * 64)
+    retention = replace(
+        build_teacher_cross_session_retention(),
+        snapshots=(broken,),
+    )
+
+    with pytest.raises(ValueError, match="snapshot hash mismatch"):
+        validate_teacher_cross_session_retention(retention)
