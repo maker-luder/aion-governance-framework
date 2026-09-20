@@ -40,7 +40,21 @@ def test_non_3d_runtime_materializes_only_after_validation():
 
     assert state.runtime_status == "IMPLEMENTED_NON_3D_CANDIDATE"
     assert state.rendering_3d == "DEFERRED"
-    assert state.sexual_function == "NOT_IMPLEMENTED"
+    assert (
+        state.physiological_function_reference
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
+        state.reproductive_physiology_reference
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
+        state.sensory_signal_processing_reference
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert state.full_biophysical_simulation == "NOT_MATERIALIZED"
     assert state.intimate_interaction == "NOT_AUTHORIZED"
+    assert state.body_sensation == "NOT_ESTABLISHED"
     assert state.canonical_effect == "NONE"
     assert state.validation["result"] == "PASS"
+    assert state.validation["physiology_parity"] == "PASS"
