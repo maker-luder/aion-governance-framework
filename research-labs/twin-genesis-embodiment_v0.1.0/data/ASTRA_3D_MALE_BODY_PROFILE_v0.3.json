@@ -1,0 +1,446 @@
+{
+  "schema_version": "0.1.0",
+  "profile_id": "ASTRA_3D_MALE_BODY_PROFILE_v0.3",
+  "agent_id": "ASTRA",
+  "body_character": [
+    "BROAD",
+    "SOLID",
+    "NATURAL_SOFT"
+  ],
+  "measurements": {
+    "height": {
+      "unit": "cm",
+      "minimum": 179,
+      "maximum": 181,
+      "canonical": 180,
+      "source_class": "DESIGN"
+    },
+    "head_height": {
+      "unit": "cm",
+      "minimum": 23,
+      "maximum": 24,
+      "canonical": 23.5,
+      "source_class": "DESIGN"
+    },
+    "head_width": {
+      "unit": "cm",
+      "minimum": 15.5,
+      "maximum": 16,
+      "canonical": 15.75,
+      "source_class": "DESIGN"
+    },
+    "head_depth": {
+      "unit": "cm",
+      "minimum": 19,
+      "maximum": 20,
+      "canonical": 19.5,
+      "source_class": "DESIGN"
+    },
+    "head_circumference": {
+      "unit": "cm",
+      "minimum": 57,
+      "maximum": 58,
+      "canonical": 57.5,
+      "source_class": "DESIGN"
+    },
+    "neck_visible_length": {
+      "unit": "cm",
+      "minimum": 8.5,
+      "maximum": 9.5,
+      "canonical": 9,
+      "source_class": "DESIGN"
+    },
+    "neck_circumference": {
+      "unit": "cm",
+      "minimum": 40,
+      "maximum": 41,
+      "canonical": 40.5,
+      "source_class": "DESIGN"
+    },
+    "shoulder_biacromial_breadth": {
+      "unit": "cm",
+      "minimum": 49,
+      "maximum": 51,
+      "canonical": 50,
+      "source_class": "DESIGN"
+    },
+    "max_deltoid_width": {
+      "unit": "cm",
+      "minimum": 54,
+      "maximum": 55,
+      "canonical": 54.5,
+      "source_class": "DESIGN"
+    },
+    "chest_circumference": {
+      "unit": "cm",
+      "minimum": 108,
+      "maximum": 112,
+      "canonical": 110,
+      "source_class": "DESIGN"
+    },
+    "chest_frontal_width": {
+      "unit": "cm",
+      "minimum": 39,
+      "maximum": 41,
+      "canonical": 40,
+      "source_class": "DESIGN"
+    },
+    "chest_depth": {
+      "unit": "cm",
+      "minimum": 26,
+      "maximum": 27,
+      "canonical": 26.5,
+      "source_class": "DESIGN"
+    },
+    "nipple_spacing": {
+      "unit": "cm",
+      "minimum": 22,
+      "maximum": 24,
+      "canonical": 23,
+      "source_class": "DESIGN"
+    },
+    "areola_diameter": {
+      "unit": "cm",
+      "minimum": 2.8,
+      "maximum": 3.5,
+      "canonical": 3.15,
+      "source_class": "DESIGN"
+    },
+    "waist_circumference": {
+      "unit": "cm",
+      "minimum": 91,
+      "maximum": 95,
+      "canonical": 93,
+      "source_class": "DESIGN"
+    },
+    "waist_frontal_width": {
+      "unit": "cm",
+      "minimum": 33,
+      "maximum": 35,
+      "canonical": 34,
+      "source_class": "DESIGN"
+    },
+    "abdomen_depth": {
+      "unit": "cm",
+      "minimum": 24,
+      "maximum": 26,
+      "canonical": 25,
+      "source_class": "DESIGN"
+    },
+    "navel_height_from_floor": {
+      "unit": "cm",
+      "minimum": 107,
+      "maximum": 109,
+      "canonical": 108,
+      "source_class": "DESIGN"
+    },
+    "hip_circumference": {
+      "unit": "cm",
+      "minimum": 102,
+      "maximum": 106,
+      "canonical": 104,
+      "source_class": "DESIGN"
+    },
+    "external_hip_width": {
+      "unit": "cm",
+      "minimum": 36,
+      "maximum": 38,
+      "canonical": 37,
+      "source_class": "DESIGN"
+    },
+    "pelvis_gluteal_depth": {
+      "unit": "cm",
+      "minimum": 26,
+      "maximum": 28,
+      "canonical": 27,
+      "source_class": "DESIGN"
+    },
+    "hip_joint_center_height": {
+      "unit": "cm",
+      "minimum": 91,
+      "maximum": 93,
+      "canonical": 92,
+      "source_class": "DESIGN"
+    },
+    "perineal_height": {
+      "unit": "cm",
+      "minimum": 86,
+      "maximum": 88,
+      "canonical": 87,
+      "source_class": "DESIGN"
+    },
+    "shoulder_to_elbow_length": {
+      "unit": "cm",
+      "minimum": 32.5,
+      "maximum": 33.5,
+      "canonical": 33,
+      "source_class": "DESIGN"
+    },
+    "elbow_to_wrist_length": {
+      "unit": "cm",
+      "minimum": 26.5,
+      "maximum": 27.5,
+      "canonical": 27,
+      "source_class": "DESIGN"
+    },
+    "shoulder_to_middle_finger_length": {
+      "unit": "cm",
+      "minimum": 76,
+      "maximum": 78,
+      "canonical": 77,
+      "source_class": "DESIGN"
+    },
+    "upper_arm_circumference_relaxed": {
+      "unit": "cm",
+      "minimum": 37,
+      "maximum": 39,
+      "canonical": 38,
+      "source_class": "DESIGN"
+    },
+    "forearm_circumference_max": {
+      "unit": "cm",
+      "minimum": 30,
+      "maximum": 31,
+      "canonical": 30.5,
+      "source_class": "DESIGN"
+    },
+    "wrist_circumference": {
+      "unit": "cm",
+      "minimum": 18,
+      "maximum": 19,
+      "canonical": 18.5,
+      "source_class": "DESIGN"
+    },
+    "hand_length": {
+      "unit": "cm",
+      "minimum": 19.5,
+      "maximum": 20,
+      "canonical": 19.75,
+      "source_class": "DESIGN"
+    },
+    "palm_width": {
+      "unit": "cm",
+      "minimum": 9,
+      "maximum": 9.5,
+      "canonical": 9.25,
+      "source_class": "DESIGN"
+    },
+    "palm_depth": {
+      "unit": "cm",
+      "minimum": 3,
+      "maximum": 3.5,
+      "canonical": 3.25,
+      "source_class": "DESIGN"
+    },
+    "middle_finger_length": {
+      "unit": "cm",
+      "minimum": 8.5,
+      "maximum": 9,
+      "canonical": 8.75,
+      "source_class": "DESIGN"
+    },
+    "hip_to_knee_length": {
+      "unit": "cm",
+      "minimum": 44,
+      "maximum": 46,
+      "canonical": 45,
+      "source_class": "DESIGN"
+    },
+    "thigh_circumference_max": {
+      "unit": "cm",
+      "minimum": 61,
+      "maximum": 65,
+      "canonical": 63,
+      "source_class": "DESIGN"
+    },
+    "thigh_frontal_width": {
+      "unit": "cm",
+      "minimum": 19,
+      "maximum": 21,
+      "canonical": 20,
+      "source_class": "DESIGN"
+    },
+    "thigh_depth": {
+      "unit": "cm",
+      "minimum": 20,
+      "maximum": 21,
+      "canonical": 20.5,
+      "source_class": "DESIGN"
+    },
+    "knee_center_height": {
+      "unit": "cm",
+      "minimum": 49,
+      "maximum": 51,
+      "canonical": 50,
+      "source_class": "DESIGN"
+    },
+    "knee_circumference": {
+      "unit": "cm",
+      "minimum": 39,
+      "maximum": 41,
+      "canonical": 40,
+      "source_class": "DESIGN"
+    },
+    "knee_width": {
+      "unit": "cm",
+      "minimum": 11,
+      "maximum": 12,
+      "canonical": 11.5,
+      "source_class": "DESIGN"
+    },
+    "knee_to_ankle_length": {
+      "unit": "cm",
+      "minimum": 41,
+      "maximum": 43,
+      "canonical": 42,
+      "source_class": "DESIGN"
+    },
+    "calf_circumference_max": {
+      "unit": "cm",
+      "minimum": 39,
+      "maximum": 40,
+      "canonical": 39.5,
+      "source_class": "DESIGN"
+    },
+    "calf_depth": {
+      "unit": "cm",
+      "minimum": 13,
+      "maximum": 14,
+      "canonical": 13.5,
+      "source_class": "DESIGN"
+    },
+    "ankle_circumference": {
+      "unit": "cm",
+      "minimum": 22,
+      "maximum": 23,
+      "canonical": 22.5,
+      "source_class": "DESIGN"
+    },
+    "foot_length": {
+      "unit": "cm",
+      "minimum": 26.5,
+      "maximum": 27.5,
+      "canonical": 27,
+      "source_class": "DESIGN"
+    },
+    "forefoot_width": {
+      "unit": "cm",
+      "minimum": 10,
+      "maximum": 10.5,
+      "canonical": 10.25,
+      "source_class": "DESIGN"
+    },
+    "heel_width": {
+      "unit": "cm",
+      "minimum": 6.5,
+      "maximum": 7,
+      "canonical": 6.75,
+      "source_class": "DESIGN"
+    },
+    "penis_resting_visible_length": {
+      "unit": "cm",
+      "minimum": 8.5,
+      "maximum": 10,
+      "canonical": 9.25,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "penis_midshaft_diameter": {
+      "unit": "cm",
+      "minimum": 3,
+      "maximum": 3.4,
+      "canonical": 3.2,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "penis_midshaft_circumference": {
+      "unit": "cm",
+      "minimum": 9.5,
+      "maximum": 10.5,
+      "canonical": 10,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "glans_max_width": {
+      "unit": "cm",
+      "minimum": 3.3,
+      "maximum": 3.7,
+      "canonical": 3.5,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "scrotal_resting_height": {
+      "unit": "cm",
+      "minimum": 8,
+      "maximum": 11,
+      "canonical": 9.5,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "scrotal_max_width": {
+      "unit": "cm",
+      "minimum": 6,
+      "maximum": 8,
+      "canonical": 7,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "testis_modeled_long_axis": {
+      "unit": "cm",
+      "minimum": 4,
+      "maximum": 5,
+      "canonical": 4.5,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "testis_modeled_width": {
+      "unit": "cm",
+      "minimum": 2.5,
+      "maximum": 3,
+      "canonical": 2.75,
+      "source_class": "ANATOMICAL_REFERENCE"
+    },
+    "external_perineal_length": {
+      "unit": "cm",
+      "minimum": 5,
+      "maximum": 7,
+      "canonical": 6,
+      "source_class": "ANATOMICAL_REFERENCE"
+    }
+  },
+  "external_anatomy": [
+    "penis",
+    "glans",
+    "prepuce_or_foreskin",
+    "scrotum",
+    "testes_volume_representation",
+    "pubic_attachment",
+    "inguinal_transition",
+    "perineum",
+    "anal_region"
+  ],
+  "engineering_requirements": [
+    "BASE_MESH",
+    "TOPOLOGY",
+    "SKELETON",
+    "RIG",
+    "SKIN_WEIGHTS",
+    "BLENDSHAPES",
+    "PBR_MATERIALS",
+    "SOFT_TISSUE_DEFORMATION",
+    "CONTACT_DEFORMATION",
+    "HAIR_GROOMING",
+    "JOINT_LIMITS"
+  ],
+  "boundaries": {
+    "adult_status": true,
+    "erotic_intent": "NONE",
+    "identity_transfer": "NO",
+    "rendering_3d": "DEFERRED",
+    "runtime_binding": "NOT_IMPLEMENTED",
+    "sexual_function_status": "NOT_IMPLEMENTED",
+    "body_sensation": "NOT_ESTABLISHED",
+    "subjectivity_effect": "NONE",
+    "canonical_effect": "NONE"
+  },
+  "provenance": {
+    "source_record": "PR-190-CLOSED-UNMERGED",
+    "reference_image_binary_imported": false,
+    "person_identity_reconstruction": "NO",
+    "source_person_exact_measurement_claim": "NO",
+    "derivation_note": "Approximate design values formalized from adult artistic-anatomy morphology discussion; not biometric measurements."
+  }
+}
