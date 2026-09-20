@@ -914,6 +914,7 @@ def build_teacher_continuous_reference_gltf(
             "physiology_profile_id": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
             "physiological_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "reproductive_physiology_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "sexual_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sensory_signal_processing_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "phenomenal_sensation_status": "NOT_ESTABLISHED",
             "erotic_intent": "NONE",
@@ -987,6 +988,11 @@ def validate_teacher_continuous_reference_gltf(
         != "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     ):
         raise ValueError("continuous reference reproductive physiology drift")
+    if (
+        extras.get("sexual_function_status")
+        != "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    ):
+        raise ValueError("continuous reference sexual function status drift")
     if extras.get("phenomenal_sensation_status") != "NOT_ESTABLISHED":
         raise ValueError("continuous reference cannot establish phenomenal sensation")
     if extras.get("erotic_intent") != "NONE":
