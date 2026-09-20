@@ -33,6 +33,11 @@ from .teacher_body_model import (
     build_teacher_body_model_profile,
     validate_teacher_body_model_profile,
 )
+from .teacher_physiology_observability import (
+    TeacherPhysiologyObservabilityProfile,
+    build_teacher_physiology_observability_profile,
+    validate_teacher_physiology_observability_profile,
+)
 from .teacher_embodiment_research import (
     TeacherEmbodimentResearchSurface,
     assess_teacher_reference_completeness,
@@ -63,6 +68,7 @@ class TeacherBodyRuntimeBinding:
     body_id: str
     anthropometry_profile_id: str
     physiology_profile_id: str
+    physiology_observability_profile_id: str
     signal_schema_id: str
     motor_schema_id: str
     body_dynamics_profile_id: str
@@ -196,6 +202,9 @@ def build_teacher_body_runtime_binding(
     physiology = build_adult_male_physiology_reference(anthropometry.body_id)
     validate_adult_male_physiology_reference(physiology)
     signals = build_teacher_body_signal_schema()
+    physiology_observability = build_teacher_physiology_observability_profile(
+        signals
+    )
     motor = build_teacher_motor_control_schema()
     dynamics = build_teacher_body_dynamics_profile(signals)
     body_model = build_teacher_body_model_profile(anthropometry)
@@ -207,6 +216,7 @@ def build_teacher_body_runtime_binding(
         body_id=anthropometry.body_id,
         anthropometry_profile_id=anthropometry.profile_id,
         physiology_profile_id=physiology.profile_id,
+        physiology_observability_profile_id=physiology_observability.profile_id,
         signal_schema_id=signals.schema_id,
         motor_schema_id=motor.schema_id,
         body_dynamics_profile_id=dynamics.profile_id,
@@ -225,6 +235,7 @@ def build_teacher_body_runtime_binding(
         dynamics,
         research,
         body_model=body_model,
+        physiology_observability=physiology_observability,
     )
     return binding
 
@@ -237,17 +248,26 @@ def validate_teacher_body_runtime_binding(
     dynamics: TeacherBodyDynamicsProfile | None = None,
     research: TeacherEmbodimentResearchSurface | None = None,
     body_model: TeacherBodyModelProfile | None = None,
+    physiology_observability: TeacherPhysiologyObservabilityProfile | None = None,
 ) -> dict[str, str]:
     anthropometry = anthropometry or build_teacher_anthropometry_profile()
     signals = signals or build_teacher_body_signal_schema()
     motor = motor or build_teacher_motor_control_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
     body_model = body_model or build_teacher_body_model_profile(anthropometry)
+    physiology_observability = (
+        physiology_observability
+        or build_teacher_physiology_observability_profile(signals)
+    )
     research = research or build_teacher_embodiment_research_surface()
     validate_teacher_body_signal_schema(signals)
     validate_teacher_motor_control_schema(motor)
     validate_teacher_body_dynamics_profile(dynamics, signals)
     validate_teacher_body_model_profile(body_model, anthropometry)
+    validate_teacher_physiology_observability_profile(
+        physiology_observability,
+        signals,
+    )
     validate_teacher_embodiment_research_surface(research)
 
     physiology = build_adult_male_physiology_reference(anthropometry.body_id)
@@ -259,6 +279,7 @@ def validate_teacher_body_runtime_binding(
         motor_schema=motor,
         dynamics=dynamics,
         body_model=body_model,
+        physiology_observability=physiology_observability,
     )
     completeness = assess_teacher_reference_completeness(capabilities)
     if completeness.status != "COMPLETE_DECLARED_REFERENCE_BASELINE":
@@ -272,6 +293,11 @@ def validate_teacher_body_runtime_binding(
         raise ValueError("body runtime anthropometry profile drift")
     if binding.physiology_profile_id != physiology.profile_id:
         raise ValueError("body runtime physiology profile drift")
+    if (
+        binding.physiology_observability_profile_id
+        != physiology_observability.profile_id
+    ):
+        raise ValueError("body runtime physiology observability profile drift")
     if binding.signal_schema_id != signals.schema_id:
         raise ValueError("body runtime signal schema drift")
     if binding.motor_schema_id != motor.schema_id:
@@ -301,6 +327,7 @@ def validate_teacher_body_runtime_binding(
         "result": "PASS",
         "anthropometry_binding": "PASS",
         "physiology_binding": "PASS",
+        "physiology_observability_binding": "PASS",
         "signal_binding": "PASS",
         "motor_binding": "PASS",
         "body_dynamics_binding": "PASS",
