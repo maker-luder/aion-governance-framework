@@ -7,6 +7,11 @@ from pathlib import Path
 from typing import Final
 
 from .physiology import build_adult_male_physiology_reference
+from .teacher_anthropometry import build_teacher_anthropometry_profile
+from .teacher_body_channels import (
+    build_teacher_body_signal_schema,
+    build_teacher_motor_control_schema,
+)
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
 from .teacher_avatar_continuous import (
     build_teacher_continuous_reference_glb,
@@ -72,6 +77,15 @@ def build_teacher_reference_bundle_bytes() -> tuple[dict[str, bytes], dict[str, 
             build_adult_male_physiology_reference(
                 "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
             ).to_dict()
+        ),
+        "chatgpt_teacher_anthropometry.json": _canonical_json_bytes(
+            build_teacher_anthropometry_profile().to_dict()
+        ),
+        "chatgpt_teacher_body_signal_schema.json": _canonical_json_bytes(
+            build_teacher_body_signal_schema().to_dict()
+        ),
+        "chatgpt_teacher_motor_control_schema.json": _canonical_json_bytes(
+            build_teacher_motor_control_schema().to_dict()
         ),
     }
     manifest = build_teacher_asset_manifest()

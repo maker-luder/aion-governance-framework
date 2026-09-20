@@ -70,7 +70,7 @@ These are interoperability references, not certification claims.
 - three-level continuous reference LOD set with monotonic geometry complexity;
 - full-body geometric collision proxy profile;
 - neutral clinical collision proxies for external male anatomy with reproductive-physiology reference coverage but no erotic-intent or intimate-interaction behavior semantics;
-- hash-verified reference bundle writer including LOD, collision, physiology-reference metadata, and manifest;
+- hash-verified reference bundle writer including LOD, collision, physiology-reference, 62-measure anthropometry, body-signal, motor-control metadata, and manifest;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -118,7 +118,7 @@ VRM_META_LICENSE_AUTHORIZATION = REQUIRED_FROM_HUMAN_OWNER
 REFERENCE_BUNDLE_WRITER = MATERIALIZED
 REFERENCE_LOD_SET = MATERIALIZED
 REFERENCE_COLLISION_PROXIES = MATERIALIZED
-REFERENCE_BUNDLE_FILE_COUNT = 8
+REFERENCE_BUNDLE_FILE_COUNT = 11
 PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
 PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
 REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
