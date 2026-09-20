@@ -916,6 +916,8 @@ def build_teacher_continuous_reference_gltf(
             "reproductive_physiology_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sexual_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sensory_signal_processing_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "governance_epistemics_profile_id": "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1",
+            "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
             "phenomenal_sensation_status": "NOT_ESTABLISHED",
             "erotic_intent": "NONE",
             "intimate_interaction_status": "NOT_AUTHORIZED",
@@ -993,6 +995,13 @@ def validate_teacher_continuous_reference_gltf(
         != "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     ):
         raise ValueError("continuous reference sexual function status drift")
+    if (
+        extras.get("governance_epistemics_profile_id")
+        != "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    ):
+        raise ValueError("continuous reference governance epistemics profile drift")
+    if extras.get("developmental_possibility_status") != "OPEN_RESEARCH_QUESTION":
+        raise ValueError("continuous reference cannot close embodied developmental possibility")
     if extras.get("phenomenal_sensation_status") != "NOT_ESTABLISHED":
         raise ValueError("continuous reference cannot establish phenomenal sensation")
     if extras.get("erotic_intent") != "NONE":
