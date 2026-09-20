@@ -204,6 +204,82 @@ _REQUIRED_REFERENCE_CHANNEL_GROUPS: Final[dict[str, frozenset[str]]] = {
     }),
 }
 
+_PHYSIOLOGY_SYSTEM_OBSERVATION_CROSSWALK: Final[dict[str, frozenset[str]]] = {
+    "CARDIOVASCULAR": frozenset({"CARDIOVASCULAR_STATE"}),
+    "RESPIRATORY": frozenset({
+        "RESPIRATORY_STATE",
+        "RESPIRATORY_WORKLOAD_STATE",
+        "VENTILATORY_DRIVE_STATE",
+    }),
+    "NERVOUS_AUTONOMIC": frozenset({
+        "AUTONOMIC_SYMPATHETIC_STATE",
+        "AUTONOMIC_PARASYMPATHETIC_STATE",
+    }),
+    "SENSORY_SIGNAL_PROCESSING": frozenset({
+        "TACTILE_GENERAL",
+        "VISUAL_FIELD_REFERENCE",
+        "AUDITORY_BINAURAL_REFERENCE",
+        "OLFACTORY_CHEMOSENSORY_REFERENCE",
+        "GUSTATORY_CHEMOSENSORY_REFERENCE",
+        "VESTIBULAR_ORIENTATION",
+    }),
+    "MUSCULOSKELETAL": frozenset({
+        "JOINT_POSITION",
+        "MUSCLE_LENGTH_TENSION",
+        "MUSCULOSKELETAL_LOAD_STATE",
+    }),
+    "DIGESTIVE_METABOLIC": frozenset({
+        "GASTROINTESTINAL_STATE",
+        "GASTRIC_DISTENSION_STATE",
+        "NUTRIENT_ABSORPTION_STATE",
+        "ENERGY_AVAILABILITY_STATE",
+    }),
+    "HEPATIC": frozenset({
+        "HEPATIC_NUTRIENT_PROCESSING_STATE",
+        "HEPATIC_DETOXIFICATION_REFERENCE",
+        "BILE_PRODUCTION_STATE",
+        "HEPATIC_GLYCOGEN_STATE",
+    }),
+    "RENAL_URINARY": frozenset({
+        "RENAL_FILTRATION_STATE",
+        "HYDRATION_STATE",
+        "ELECTROLYTE_BALANCE_STATE",
+        "BLADDER_STATE",
+    }),
+    "ENDOCRINE": frozenset({
+        "HYPOTHALAMIC_PITUITARY_STATE",
+        "THYROID_AXIS_STATE",
+        "ADRENAL_AXIS_STATE",
+        "PANCREATIC_GLUCOSE_INSULIN_STATE",
+        "GONADAL_ENDOCRINE_REFERENCE",
+    }),
+    "HEMATOLOGIC": frozenset({
+        "HEMATOLOGIC_OXYGEN_TRANSPORT_STATE",
+        "COAGULATION_STATE_REFERENCE",
+        "BLOOD_CELL_TURNOVER_REFERENCE",
+    }),
+    "IMMUNE_LYMPHATIC": frozenset({
+        "IMMUNE_ACTIVITY_STATE",
+        "INFLAMMATORY_LOAD_STATE",
+        "LYMPHATIC_FLUID_RETURN_STATE",
+    }),
+    "INTEGUMENTARY_THERMOREGULATORY": frozenset({
+        "SKIN_BARRIER_STATE",
+        "TEMPERATURE_GENERAL",
+        "THERMOREGULATORY_STATE",
+        "TISSUE_INJURY_STATE",
+        "TISSUE_REPAIR_STATE",
+    }),
+    "REPRODUCTIVE": frozenset({
+        "GENITAL_SENSORY_AFFERENT_REFERENCE",
+        "GENITAL_VASCULAR_STATE",
+        "GONADAL_ENDOCRINE_REFERENCE",
+        "EMISSION_REFLEX_STATE",
+        "EJACULATORY_REFLEX_STATE",
+    }),
+}
+
+
 _SENSORY_FUNCTION_CHANNEL_CROSSWALK: Final[dict[str, frozenset[str]]] = {
     "tactile_signal_processing": frozenset({"TACTILE_GENERAL"}),
     "pressure_signal_processing": frozenset({"PRESSURE_GENERAL"}),
@@ -339,6 +415,22 @@ def build_teacher_reference_capabilities(
         for function_id, required_channels in _SENSORY_FUNCTION_CHANNEL_CROSSWALK.items()
     )
 
+    system_observation_capabilities = tuple(
+        ReferenceCapability(
+            f"PHYSIOLOGY_OBSERVATION_SURFACE_{system_id}",
+            True,
+            (
+                signal_schema_valid
+                and system_id in systems
+                and required_channels.issubset(signal_ids)
+            ),
+            True,
+            signal_schema_valid and required_channels.issubset(signal_ids),
+        )
+        for system_id, required_channels
+        in _PHYSIOLOGY_SYSTEM_OBSERVATION_CROSSWALK.items()
+    )
+
     channel_group_capabilities = tuple(
         ReferenceCapability(
             capability_id,
@@ -462,6 +554,7 @@ def build_teacher_reference_capabilities(
             True,
         ),
         *physiology_capabilities,
+        *system_observation_capabilities,
         *domain_capabilities,
         *channel_group_capabilities,
         ReferenceCapability(
