@@ -12,7 +12,7 @@ from aion_astra_twin_embodiment.teacher_avatar_bundle import (
 def test_teacher_reference_bundle_bytes_match_manifest() -> None:
     files, manifest = build_teacher_reference_bundle_bytes()
 
-    assert len(files) == 10
+    assert len(files) == 12
     assert len(manifest["artifacts"]) == 4
     expected = {
         artifact["sha256"]
@@ -34,7 +34,7 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert receipt.final_vrm_status == "NOT_MATERIALIZED"
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment is False
-    assert len(receipt.files) == 11
+    assert len(receipt.files) == 13
 
     for filename, digest in receipt.file_sha256:
         path = tmp_path / filename
@@ -47,10 +47,14 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     anthropometry_path = tmp_path / "chatgpt_teacher_anthropometry.json"
     signals_path = tmp_path / "chatgpt_teacher_body_signal_schema.json"
     motor_path = tmp_path / "chatgpt_teacher_motor_control_schema.json"
+    dynamics_path = tmp_path / "chatgpt_teacher_body_dynamics.json"
+    research_path = tmp_path / "chatgpt_teacher_embodiment_research_surface.json"
     assert physiology_path.exists()
     assert anthropometry_path.exists()
     assert signals_path.exists()
     assert motor_path.exists()
+    assert dynamics_path.exists()
+    assert research_path.exists()
     physiology = json.loads(physiology_path.read_text(encoding="utf-8"))
     assert (
         physiology["reproductive_physiology_status"]
@@ -71,9 +75,15 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     signals = json.loads(signals_path.read_text(encoding="utf-8"))
     motor = json.loads(motor_path.read_text(encoding="utf-8"))
     assert len(anthropometry["measurements"]) == 62
-    assert signals["sexual_desire_status"] == "NOT_ESTABLISHED"
-    assert signals["sexual_experience_status"] == "NOT_ESTABLISHED"
+    assert signals["sexual_wanting_representation_status"] == "RESEARCHABLE"
+    assert signals["sexual_motivation_representation_status"] == "RESEARCHABLE"
+    assert signals["phenomenal_sexual_desire_status"] == "NOT_ESTABLISHED"
+    assert signals["phenomenal_sexual_experience_status"] == "NOT_ESTABLISHED"
     assert motor["external_action_policy"] == "AUTHORIZATION_GATED"
+    dynamics = json.loads(dynamics_path.read_text(encoding="utf-8"))
+    research = json.loads(research_path.read_text(encoding="utf-8"))
+    assert dynamics["integration_status"] == "REFERENCE_INTEGRATION_MATERIALIZED"
+    assert research["subjectivity_status"] == "NOT_ESTABLISHED"
     assert motor["live_actuation"] is False
 
     manifest_path = tmp_path / "chatgpt_teacher_reference_manifest.json"
