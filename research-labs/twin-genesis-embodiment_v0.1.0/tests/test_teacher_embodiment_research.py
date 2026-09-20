@@ -2,6 +2,12 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+from aion_astra_twin_embodiment.teacher_body_channels import (
+    build_teacher_body_signal_schema,
+)
+from aion_astra_twin_embodiment.teacher_body_dynamics import (
+    build_teacher_body_dynamics_profile,
+)
 from aion_astra_twin_embodiment.teacher_embodiment_research import (
     SIX_EVIDENCE_DIMENSIONS,
     assess_teacher_reference_completeness,
@@ -35,6 +41,43 @@ def test_reference_completeness_precedes_causal_absence_interpretation() -> None
     assert incomplete.causal_absence_interpretation == (
         "HOLD_INCOMPLETE_REFERENCE_BASELINE"
     )
+
+
+def test_reference_completeness_is_derived_from_materialized_schema() -> None:
+    signals = build_teacher_body_signal_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    without_vestibular = replace(
+        signals,
+        channels=tuple(
+            channel
+            for channel in signals.channels
+            if channel.domain != "VESTIBULAR"
+        ),
+    )
+
+    capabilities = build_teacher_reference_capabilities(
+        signal_schema=without_vestibular,
+        dynamics=dynamics,
+    )
+    assessment = assess_teacher_reference_completeness(capabilities)
+
+    assert assessment.status == "INCOMPLETE_REFERENCE_BASELINE"
+    assert "VESTIBULAR" in assessment.missing_required_capabilities
+    assert "VESTIBULAR" in assessment.missing_required_observation_channels
+    assert "BODY_STATE_INTEGRATION" in assessment.missing_required_capabilities
+    assert assessment.intrinsic_absence_conclusion == "NOT_ESTABLISHED"
+    assert assessment.causal_absence_interpretation == (
+        "HOLD_INCOMPLETE_REFERENCE_BASELINE"
+    )
+
+
+def test_physiology_completeness_is_decomposed_by_system() -> None:
+    capabilities = build_teacher_reference_capabilities()
+    capability_ids = {item.capability_id for item in capabilities}
+
+    assert "PHYSIOLOGY_SYSTEM_CARDIOVASCULAR" in capability_ids
+    assert "PHYSIOLOGY_SYSTEM_IMMUNE_LYMPHATIC" in capability_ids
+    assert "PHYSIOLOGY_SYSTEM_REPRODUCTIVE" in capability_ids
 
 
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
