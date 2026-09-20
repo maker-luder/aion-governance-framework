@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from hashlib import sha256
 import json
 
 from .teacher_avatar import (
@@ -8,7 +9,7 @@ from .teacher_avatar import (
     build_teacher_avatar_gltf_contract,
     validate_teacher_avatar_contract,
 )
-from .teacher_avatar_asset import build_teacher_low_poly_gltf
+from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
 
 
 def main() -> int:
@@ -21,6 +22,7 @@ def main() -> int:
             "teacher-avatar-contract",
             "teacher-avatar-gltf-contract",
             "teacher-avatar-lowpoly-gltf",
+            "teacher-avatar-lowpoly-glb-info",
         ],
     )
     args = parser.parse_args()
@@ -53,8 +55,18 @@ def main() -> int:
         }
     elif args.command == "teacher-avatar-gltf-contract":
         payload = build_teacher_avatar_gltf_contract()
-    else:
+    elif args.command == "teacher-avatar-lowpoly-gltf":
         payload = build_teacher_low_poly_gltf()
+    else:
+        glb = build_teacher_low_poly_glb()
+        payload = {
+            "artifact_kind": "LOW_POLY_GLB_REFERENCE",
+            "bytes": len(glb),
+            "sha256": sha256(glb).hexdigest(),
+            "production_asset_status": "NOT_ESTABLISHED",
+            "physical_body_claim": "NONE",
+            "subjectivity_effect": "NONE",
+        }
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
