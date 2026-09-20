@@ -20,6 +20,8 @@ from .teacher_avatar_continuous import (
     validate_teacher_continuous_reference_glb,
     validate_teacher_continuous_reference_gltf,
 )
+from .teacher_avatar_lod import build_teacher_lod_manifest
+from .teacher_avatar_physics import build_teacher_collision_profile
 from .teacher_avatar_validation import (
     build_teacher_asset_manifest,
     validate_teacher_low_poly_glb,
@@ -42,6 +44,8 @@ def main() -> int:
             "teacher-avatar-continuous-gltf-info",
             "teacher-avatar-continuous-glb-info",
             "teacher-avatar-reference-bundle",
+            "teacher-avatar-lod-manifest",
+            "teacher-avatar-collision-profile",
         ],
     )
     parser.add_argument(
@@ -121,10 +125,14 @@ def main() -> int:
             "physical_body_claim": "NONE",
             "subjectivity_effect": "NONE",
         }
-    else:
+    elif args.command == "teacher-avatar-reference-bundle":
         if not args.output_dir:
             parser.error("teacher-avatar-reference-bundle requires --output-dir")
         payload = asdict(write_teacher_reference_bundle(args.output_dir))
+    elif args.command == "teacher-avatar-lod-manifest":
+        payload = build_teacher_lod_manifest()
+    else:
+        payload = asdict(build_teacher_collision_profile())
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
