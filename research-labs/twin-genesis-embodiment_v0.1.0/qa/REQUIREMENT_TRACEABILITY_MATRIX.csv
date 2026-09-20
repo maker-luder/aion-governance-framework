@@ -9,3 +9,4 @@ REQ-PHYS-003,Normal reproductive physiology is included while erotic intent rema
 REQ-PHYS-004,Sensory signal processing does not establish phenomenal sensation,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
+REQ-PHYS-005,Sexual function status is retained as normal adult physiology and not encoded as a prohibition,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
