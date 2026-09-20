@@ -13,6 +13,9 @@ from aion_astra_twin_embodiment.teacher_body_dynamics import (
 from aion_astra_twin_embodiment.teacher_body_model import (
     build_teacher_body_model_profile,
 )
+from aion_astra_twin_embodiment.teacher_physiology_observability import (
+    build_teacher_physiology_observability_profile,
+)
 from aion_astra_twin_embodiment.teacher_body_runtime import (
     append_teacher_session_snapshot,
     apply_teacher_calibration_observations,
@@ -43,12 +46,16 @@ def test_teacher_body_runtime_binding_is_materialized_without_live_external_actu
     assert result["result"] == "PASS"
     assert binding.binding_status == "REFERENCE_BINDING_MATERIALIZED"
     assert binding.physiology_profile_id == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    assert binding.physiology_observability_profile_id == (
+        "CHATGPT_TEACHER_PHYSIOLOGY_OBSERVABILITY_v0.1"
+    )
     assert binding.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
     assert binding.body_model_profile_id == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
     assert binding.research_surface_id == (
         "CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1"
     )
     assert result["body_model_binding"] == "PASS"
+    assert result["physiology_observability_binding"] == "PASS"
     assert result["reference_completeness"] == "PASS"
     assert binding.skeleton_root == "hips"
     assert binding.viewpoint_anchor == "head"
@@ -178,4 +185,25 @@ def test_runtime_validation_rejects_body_model_profile_drift() -> None:
         validate_teacher_body_runtime_binding(
             broken,
             body_model=body_model,
+        )
+
+
+def test_runtime_validation_rejects_physiology_observability_profile_drift() -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-OBSERVABILITY",
+        "SESSION-OBSERVABILITY",
+    )
+    observability = build_teacher_physiology_observability_profile()
+    broken = replace(
+        binding,
+        physiology_observability_profile_id="WRONG-OBSERVABILITY",
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="physiology observability profile drift",
+    ):
+        validate_teacher_body_runtime_binding(
+            broken,
+            physiology_observability=observability,
         )
