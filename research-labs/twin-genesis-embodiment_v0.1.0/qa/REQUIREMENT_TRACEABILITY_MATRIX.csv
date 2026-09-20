@@ -7,6 +7,7 @@ REQ-PHYS-001,Complete adult male physiology reference across normal body systems
 REQ-PHYS-002,AION Astra Teacher physiology function parity,tests/test_physiology.py;src/aion_astra_twin_embodiment/cli.py,IMPLEMENTED_FAIL_CLOSED
 REQ-PHYS-003,Normal reproductive physiology is included while erotic intent remains none,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
 REQ-PHYS-004,Sensory signal processing does not establish phenomenal sensation,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
+REQ-PHYS-005,Sexual function status is retained as normal adult physiology and not encoded as a prohibition,tests/test_physiology.py;tests/test_validation.py,IMPLEMENTED_FAIL_CLOSED
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
 REQ-TEACHER-001,Machine-readable Teacher body dimensions and anatomical inventory,src/aion_astra_twin_embodiment/teacher_avatar.py,IMPLEMENTED_AS_CANDIDATE
@@ -31,3 +32,4 @@ REQ-TEACHER-019,Reference bundle includes LOD collision and physiology metadata,
 REQ-TEACHER-020,Teacher internal male anatomy includes complete reproductive pathway structures,tests/test_teacher_avatar.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-021,Teacher contract and glTF outputs bind to shared adult male physiology profile,tests/test_teacher_avatar.py;tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-022,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-023,Teacher contract assets bundle and collision profile retain sexual_function_status as normal physiology,tests/test_teacher_avatar.py;tests/test_teacher_avatar_asset.py;tests/test_teacher_avatar_bundle.py;tests/test_teacher_avatar_physics.py,IMPLEMENTED_FAIL_CLOSED
