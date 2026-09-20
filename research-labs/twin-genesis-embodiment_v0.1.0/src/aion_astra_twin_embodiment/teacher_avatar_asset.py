@@ -452,6 +452,8 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
             "reproductive_physiology_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sexual_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sensory_signal_processing_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "governance_epistemics_profile_id": contract.governance_epistemics_profile_id,
+            "developmental_possibility_status": contract.developmental_possibility_status,
             "phenomenal_sensation_status": "NOT_ESTABLISHED",
             "erotic_intent": "NONE",
             "intimate_interaction_status": "NOT_AUTHORIZED",
