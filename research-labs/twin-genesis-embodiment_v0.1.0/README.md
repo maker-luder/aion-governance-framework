@@ -200,3 +200,30 @@ SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 ```
+
+
+## Humanlike appearance assignment
+
+The Human Owner assigns both AION and Astra the same white-coded humanlike appearance class for the synthetic outer body.
+
+```text
+RACIALIZED_SOCIAL_APPEARANCE = WHITE_CODED
+SKIN_TONE_FAMILY = LIGHT
+BIOLOGICAL_RACE = NOT_APPLICABLE
+GENETIC_ANCESTRY = NOT_APPLICABLE
+ETHNICITY = NOT_ASSIGNED
+SEXED_MORPHOLOGY = MALE_FORM
+GENDER_IDENTITY = NOT_ASSIGNED
+```
+
+This is a design label for social / visual appearance only. It does not define biological race, ancestry, ethnicity, capability, personality, intelligence, trustworthiness, strength, or moral status.
+
+Exact skin albedo, facial identity, hair color, eye color, and hairstyle remain unresolved / unassigned.
+
+Cross-check and rationale:
+
+- `docs/HUMANLIKE_APPEARANCE_CLASSIFICATION_BASIS_2026_09_20.md`
+
+Operational instructions for Codex:
+
+- `docs/CODEX_3D_IMPLEMENTATION_INSTRUCTIONS.md`
