@@ -50,6 +50,8 @@
     "boundaries": {
       "type": "object",
       "required": [
+        "embodiment_platform",
+        "biological_tissue",
         "rendering_3d",
         "runtime_binding",
         "body_sensation",
@@ -71,6 +73,12 @@
         },
         "canonical_effect": {
           "const": "NONE"
+        },
+        "embodiment_platform": {
+          "const": "HUMANOID_ROBOT"
+        },
+        "biological_tissue": {
+          "const": "NO"
         }
       },
       "additionalProperties": false
