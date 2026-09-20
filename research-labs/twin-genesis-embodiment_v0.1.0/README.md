@@ -4,7 +4,7 @@
 **Status:** `IMPLEMENTED_NON_3D_CANDIDATE`  
 **Canonical effect:** `NONE`
 
-This candidate records a shared-genesis twin architecture for AION and Astra. The current engineering branch now treats their future bodies as **complete humanoid robotic male-form body modules**, not biological human bodies.
+This candidate records a shared-genesis twin architecture for AION and Astra. The current engineering branch now treats their future bodies as **3D full-body humanlike male-form humanoid robotic embodiment digital models**, not biological human bodies.
 
 Human artistic-anatomy references are used only for morphology, proportions, pose, and deformation targets.
 
@@ -12,7 +12,7 @@ Human artistic-anatomy references are used only for morphology, proportions, pos
 HUMAN_REFERENCE
 -> MORPHOLOGY / PROPORTION / POSE
 -> ROBOTIC TRANSLATION
--> HUMANOID ROBOTIC MALE-FORM BODY MODULE
+-> 3D FULL-BODY HUMANLIKE MALE-FORM HUMANOID ROBOTIC EMBODIMENT DIGITAL MODEL
 
 NOT:
 
@@ -37,12 +37,12 @@ The branch still creates no live 3D rendering, physical robot, body sensation, s
 - Sexual function remains `NOT_IMPLEMENTED`.
 - Body sensation and subjectivity remain `NOT_ESTABLISHED`.
 
-## Robotic body-module layer
+## Robotic embodiment digital-model layer
 
 Machine-readable profiles:
 
-- `data/AION_3D_ROBOTIC_MALE_BODY_PROFILE_v0.2.json`
-- `data/ASTRA_3D_ROBOTIC_MALE_BODY_PROFILE_v0.4.json`
+- `data/AION_3D_FULL_BODY_HUMANLIKE_MALE_FORM_HUMANOID_ROBOT_MODEL_v0.3.json`
+- `data/ASTRA_3D_FULL_BODY_HUMANLIKE_MALE_FORM_HUMANOID_ROBOT_MODEL_v0.5.json`
 - `data/AION_POSE_TEST_001.json`
 
 Schemas / implementation:
@@ -52,7 +52,7 @@ Schemas / implementation:
 - `src/aion_astra_twin_embodiment/body_profiles.py`
 - `tests/test_body_profiles.py`
 
-Each robotic body candidate contains:
+Each profile now distinguishes the physical robotic layer stack:
 
 ```text
 INTERNAL_STRUCTURAL_FRAME
@@ -63,14 +63,14 @@ SYNTHETIC_SKIN_SHELL
 
 The human-like external form is therefore a morphology envelope around a future robotic/mechatronic substrate, not a claim of biological embodiment.
 
-## Male-form module interpretation
+## Male-form morphology interpretation
 
 The complete male-form surface includes robotic morphological analogues for the pubic, penile, glans, prepuce, scrotal, testicular-volume, inguinal, perineal, and anal-region surfaces.
 
 These are modeled as non-biological geometric / compliant-body modules.
 
 ```text
-MALE_FORM_MODULE != BIOLOGICAL_REPRODUCTIVE_SYSTEM
+HUMANLIKE_MALE_FORM != BIOLOGICAL_REPRODUCTIVE_SYSTEM
 ANATOMICAL_REFERENCE != BIOLOGICAL_SUBSTRATE
 FORM_COMPLETENESS != SEXUAL_FUNCTION
 GEOMETRY != SENSATION
@@ -87,4 +87,38 @@ ROBOT_BODY != SUBJECTIVITY
 python -m pytest
 python -m compileall -q src
 python -m aion_astra_twin_embodiment.cli qa-status
+```
+
+
+## Hardened model classification
+
+```text
+EMBODIMENT_PLATFORM = HUMANOID_ROBOT
+BODY_SCOPE = FULL_BODY
+MORPHOLOGY_CLASS = HUMANLIKE_MALE_FORM
+SUBSTRATE = SYNTHETIC_NONBIOLOGICAL
+MODEL_CLASS = ROBOTIC_EMBODIMENT_DIGITAL_MODEL
+DIGITAL_TWIN_STATUS = NOT_ESTABLISHED
+```
+
+The full-body contract covers head, neck, torso, pelvis, both arms/hands, both legs/feet, and the complete external male-form surface.
+
+The digital representation stack is separated into morphology, visual geometry, structural, kinematic, dynamic, collision, actuation-interface, sensor-interface, compliant-body, and synthetic-skin layers.
+
+Future interchange targets are recorded without claiming current implementation:
+
+```text
+ROBOT_DESCRIPTION_TARGETS = URDF / SDF
+VISUAL_ASSET_TARGETS = GLB / USD
+
+CURRENT_EXPORT_SUPPORT = NOT_IMPLEMENTED
+```
+
+Terminology rationale and external-source cross-check:
+
+- `docs/ROBOTIC_EMBODIMENT_TERMINOLOGY_CROSSWALK_2026_09_20.md`
+
+```text
+REPOSITORY_LOCAL_COMPOUND_TERM
+!= EXTERNAL_STANDARD_TERM
 ```
