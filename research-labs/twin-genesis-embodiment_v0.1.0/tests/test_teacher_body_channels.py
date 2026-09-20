@@ -161,3 +161,25 @@ def test_external_sensory_reference_channels_fail_closed_when_removed() -> None:
         )
         with pytest.raises(ValueError, match="missing required channels"):
             validate_teacher_body_signal_schema(broken)
+
+
+def test_external_sensory_reference_domains_fail_closed_on_drift() -> None:
+    schema = build_teacher_body_signal_schema()
+    visual = next(
+        channel
+        for channel in schema.channels
+        if channel.channel_id == "VISUAL_FIELD_REFERENCE"
+    )
+    broken_visual = replace(visual, domain="AUDITORY")
+    broken = replace(
+        schema,
+        channels=tuple(
+            broken_visual
+            if channel.channel_id == "VISUAL_FIELD_REFERENCE"
+            else channel
+            for channel in schema.channels
+        ),
+    )
+
+    with pytest.raises(ValueError, match="external sensory channel domain drift"):
+        validate_teacher_body_signal_schema(broken)
