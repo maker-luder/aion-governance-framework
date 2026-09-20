@@ -447,7 +447,12 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
             "production_asset_status": "NOT_ESTABLISHED",
             "physical_body_claim": "NONE",
             "subjectivity_effect": "NONE",
-            "sexual_function_status": "NOT_IMPLEMENTED",
+            "physiology_profile_id": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
+            "physiological_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "reproductive_physiology_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "sensory_signal_processing_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "phenomenal_sensation_status": "NOT_ESTABLISHED",
+            "erotic_intent": "NONE",
             "intimate_interaction_status": "NOT_AUTHORIZED",
         },
     }
