@@ -35,6 +35,10 @@ def test_teacher_avatar_contract_is_complete_and_bounded() -> None:
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
     assert (
+        contract.sexual_function_status
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
         contract.sensory_signal_processing_status
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
@@ -79,6 +83,15 @@ def test_teacher_avatar_boundary_promotion_fails_closed() -> None:
     object.__setattr__(broken, "reproductive_physiology_status", "NOT_IMPLEMENTED")
 
     with pytest.raises(ValueError, match="reproductive physiology"):
+        validate_teacher_avatar_contract(broken)
+
+
+def test_teacher_avatar_sexual_function_status_cannot_be_removed() -> None:
+    contract = build_teacher_avatar_contract()
+    broken = copy.copy(contract)
+    object.__setattr__(broken, "sexual_function_status", "NOT_IMPLEMENTED")
+
+    with pytest.raises(ValueError, match="sexual function"):
         validate_teacher_avatar_contract(broken)
 
 
