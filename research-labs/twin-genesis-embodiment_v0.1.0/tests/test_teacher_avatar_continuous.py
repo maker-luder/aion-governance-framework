@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import base64
 import math
+import struct
 
 import pytest
 
 from aion_astra_twin_embodiment.teacher_avatar_continuous import (
+    build_teacher_continuous_reference_glb,
+    build_teacher_continuous_reference_gltf,
     build_teacher_continuous_reference_mesh,
     validate_teacher_continuous_reference,
 )
@@ -61,3 +65,46 @@ def test_teacher_continuous_reference_is_reference_not_production(continuous_mes
 def test_teacher_continuous_reference_rejects_too_small_grid() -> None:
     with pytest.raises(ValueError, match="at least 5 samples"):
         build_teacher_continuous_reference_mesh((4, 10, 10))
+
+
+
+def test_teacher_continuous_reference_gltf_is_skinned_and_embedded(continuous_mesh) -> None:
+    payload = build_teacher_continuous_reference_gltf(continuous_mesh)
+    primitive = payload["meshes"][0]["primitives"][0]
+
+    assert payload["asset"]["version"] == "2.0"
+    assert primitive["attributes"] == {
+        "POSITION": 0,
+        "NORMAL": 1,
+        "TEXCOORD_0": 2,
+        "JOINTS_0": 3,
+        "WEIGHTS_0": 4,
+    }
+    assert payload["accessors"][3]["componentType"] == 5123
+    assert payload["accessors"][4]["componentType"] == 5126
+    assert payload["accessors"][5]["componentType"] == 5125
+    assert payload["accessors"][6]["type"] == "MAT4"
+    assert payload["skins"][0]["joints"]
+    assert payload["extras"]["connected_components"] == 1
+    assert payload["extras"]["status"] == "CONTINUOUS_SKINNED_REFERENCE_MATERIALIZED"
+    assert payload["extras"]["production_topology_status"] == "NOT_ESTABLISHED"
+
+    uri = payload["buffers"][0]["uri"]
+    prefix = "data:application/octet-stream;base64,"
+    assert uri.startswith(prefix)
+    decoded = base64.b64decode(uri.removeprefix(prefix))
+    assert len(decoded) == payload["buffers"][0]["byteLength"]
+
+
+def test_teacher_continuous_reference_glb_has_valid_header(continuous_mesh) -> None:
+    data = build_teacher_continuous_reference_glb(continuous_mesh)
+
+    magic, version, total_length = struct.unpack("<III", data[:12])
+    chunk_length, chunk_type = struct.unpack("<II", data[12:20])
+
+    assert magic == 0x46546C67
+    assert version == 2
+    assert total_length == len(data)
+    assert chunk_type == 0x4E4F534A
+    assert chunk_length % 4 == 0
+    assert chunk_length == len(data) - 20
