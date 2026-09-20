@@ -11,6 +11,9 @@ from aion_astra_twin_embodiment.teacher_body_channels import (
 from aion_astra_twin_embodiment.teacher_body_dynamics import (
     build_teacher_body_dynamics_profile,
 )
+from aion_astra_twin_embodiment.teacher_body_model import (
+    build_teacher_body_model_profile,
+)
 from aion_astra_twin_embodiment.teacher_embodiment_research import (
     SIX_EVIDENCE_DIMENSIONS,
     assess_teacher_reference_completeness,
@@ -159,6 +162,31 @@ def test_new_reference_channel_groups_are_machine_verifiable() -> None:
     assert assessment.global_human_body_completeness_status == "NOT_ESTABLISHED"
 
 
+def test_body_model_capabilities_are_part_of_declared_completeness() -> None:
+    capabilities = build_teacher_reference_capabilities()
+    capability_ids = {item.capability_id for item in capabilities}
+
+    assert {
+        "BODY_SCHEMA_MODEL",
+        "PERIPERSONAL_SPACE",
+        "MULTISENSORY_INTEGRATION",
+        "ALLOSTATIC_REGULATION",
+        "BODY_MODEL_PLASTICITY",
+    }.issubset(capability_ids)
+
+    body_model = build_teacher_body_model_profile()
+    broken = replace(
+        body_model,
+        peripersonal_zones=(),
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(body_model=broken)
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "PERIPERSONAL_SPACE" in assessment.missing_required_capabilities
+
+
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
     surface = build_teacher_embodiment_research_surface()
     result = validate_teacher_embodiment_research_surface(surface)
@@ -171,6 +199,7 @@ def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> No
     assert result["result"] == "PASS"
     assert covered == set(SIX_EVIDENCE_DIMENSIONS)
     assert surface.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
+    assert surface.body_model_profile_id == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
     assert surface.subjectivity_status == "NOT_ESTABLISHED"
     assert surface.phenomenal_experience_status == "NOT_ESTABLISHED"
     assert all(candidate.falsifier for candidate in surface.candidates)
