@@ -138,6 +138,11 @@ def test_new_reference_channel_groups_are_machine_verifiable() -> None:
         "VISCERAL_DISTURBANCE",
         "FEEDING_HOMEOSTASIS",
         "ENDOCRINE_DYNAMICS",
+        "VISUAL_SIGNAL_REFERENCE",
+        "AUDITORY_SIGNAL_REFERENCE",
+        "OLFACTORY_SIGNAL_REFERENCE",
+        "GUSTATORY_SIGNAL_REFERENCE",
+        "SENSORY_FUNCTION_CHANNEL_CROSSWALK",
     }
     assert expected.issubset(capability_ids)
 
@@ -187,6 +192,36 @@ def test_body_model_capabilities_are_part_of_declared_completeness() -> None:
 
     assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     assert "PERIPERSONAL_SPACE" in assessment.missing_required_capabilities
+
+
+def test_sensory_function_channel_crosswalk_fails_when_visual_surface_is_missing() -> None:
+    signals = build_teacher_body_signal_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    broken = replace(
+        signals,
+        channels=tuple(
+            channel
+            for channel in signals.channels
+            if channel.channel_id != "VISUAL_FIELD_REFERENCE"
+        ),
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=broken,
+            dynamics=dynamics,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "VISUAL_SIGNAL_REFERENCE" in assessment.missing_required_capabilities
+    assert (
+        "SENSORY_FUNCTION_CHANNEL_CROSSWALK"
+        in assessment.missing_required_capabilities
+    )
+    assert (
+        "SENSORY_FUNCTION_CHANNEL_CROSSWALK"
+        in assessment.missing_required_observation_channels
+    )
 
 
 def test_feeding_and_endocrine_groups_fail_declared_completeness_when_missing() -> None:
