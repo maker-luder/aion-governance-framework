@@ -44,6 +44,9 @@ Current Teacher candidate surfaces:
 - reference inverse-bind matrix data;
 - structural glTF/GLB self-validation;
 - deterministic content-addressed asset manifest with SHA-256 digests;
+- single-connected continuous humanoid reference surface generated from an implicit anatomical volume;
+- continuous-reference normals, UVs, JOINTS_0 / WEIGHTS_0 and inverse-bind matrices;
+- continuous-reference glTF and GLB output with structural validation;
 - fail-closed non-claims for physical embodiment, sensation, subjectivity, sexual function, canonical effect, and deployment.
 
 The low-poly generator is an offline reference asset, not a live embodiment runtime and not a production-quality continuous human mesh.
@@ -57,8 +60,13 @@ REFERENCE_SKIN_WEIGHTS = MATERIALIZED
 REFERENCE_INVERSE_BIND_MATRICES = MATERIALIZED
 REFERENCE_ASSET_SELF_VALIDATION = MATERIALIZED
 REFERENCE_ASSET_MANIFEST = MATERIALIZED
+CONTINUOUS_REFERENCE_MESH = MATERIALIZED
+CONTINUOUS_REFERENCE_GLTF = MATERIALIZED
+CONTINUOUS_REFERENCE_GLB = MATERIALIZED
+CONTINUOUS_REFERENCE_SKIN_WEIGHTS = MATERIALIZED
+CONTINUOUS_REFERENCE_CONNECTED_COMPONENTS = 1
 
-PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
+PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
 PRODUCTION_MORPH_TARGET_VERTEX_DATA = NOT_MATERIALIZED
 PRODUCTION_TEXTURE_ASSETS = NOT_MATERIALIZED
@@ -77,4 +85,6 @@ python -m aion_astra_twin_embodiment.cli teacher-avatar-gltf-contract
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-gltf
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-glb-info
 python -m aion_astra_twin_embodiment.cli teacher-avatar-asset-manifest
+python -m aion_astra_twin_embodiment.cli teacher-avatar-continuous-gltf-info
+python -m aion_astra_twin_embodiment.cli teacher-avatar-continuous-glb-info
 ```
