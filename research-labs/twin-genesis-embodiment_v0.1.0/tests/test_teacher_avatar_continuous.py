@@ -128,3 +128,25 @@ def test_teacher_continuous_reference_glb_validator_passes(continuous_mesh) -> N
 
     assert result["result"] == "PASS"
     assert result["glb_container"] == "PASS"
+
+
+
+def test_teacher_continuous_reference_has_morph_targets_and_texture(continuous_mesh) -> None:
+    payload = build_teacher_continuous_reference_gltf(continuous_mesh)
+    primitive = payload["meshes"][0]["primitives"][0]
+
+    assert primitive["targets"] == [{"POSITION": 7}, {"POSITION": 8}]
+    assert payload["meshes"][0]["extras"]["targetNames"] == [
+        "blinkReference",
+        "happyReference",
+    ]
+    assert payload["accessors"][7]["count"] == len(continuous_mesh.vertices)
+    assert payload["accessors"][8]["count"] == len(continuous_mesh.vertices)
+    assert payload["extras"]["reference_morph_targets_status"] == "MATERIALIZED"
+    assert payload["extras"]["reference_texture_status"] == "MATERIALIZED"
+
+    image_uri = payload["images"][0]["uri"]
+    prefix = "data:image/png;base64,"
+    assert image_uri.startswith(prefix)
+    png = base64.b64decode(image_uri.removeprefix(prefix))
+    assert png.startswith(b"\x89PNG\r\n\x1a\n")
