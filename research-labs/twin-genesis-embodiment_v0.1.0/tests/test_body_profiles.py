@@ -224,3 +224,53 @@ def test_full_body_scope_cannot_be_downgraded():
 def test_repository_local_compound_term_is_not_claimed_as_external_standard():
     for profile in profiles():
         assert profile.provenance["terminology_standardization_claim"] == "NONE"
+
+
+def test_white_coded_humanlike_appearance_is_design_only():
+    aion, astra = profiles()
+    for profile in (aion, astra):
+        appearance = profile.appearance_profile
+        assert appearance.racialized_social_appearance == "WHITE_CODED"
+        assert appearance.skin_tone_family == "LIGHT"
+        assert appearance.biological_race == "NOT_APPLICABLE"
+        assert appearance.genetic_ancestry == "NOT_APPLICABLE"
+        assert appearance.ethnicity == "NOT_ASSIGNED"
+        assert appearance.sexed_morphology == "MALE_FORM"
+        assert appearance.gender_identity == "NOT_ASSIGNED"
+        assert appearance.source_class == "DESIGN"
+        assert appearance.source_authority == "HUMAN_OWNER"
+
+
+def test_biological_white_race_classification_is_rejected():
+    aion, _ = profiles()
+    invalid_appearance = replace(
+        aion.appearance_profile,
+        biological_race="WHITE",
+    )
+
+    with pytest.raises(BodyProfileValidationError):
+        validate_body_profile(
+            replace(aion, appearance_profile=invalid_appearance)
+        )
+
+
+def test_facial_identity_remains_unresolved_for_codex():
+    for profile in profiles():
+        assert profile.appearance_profile.facial_identity_status == "UNRESOLVED"
+        assert profile.appearance_profile.exact_skin_albedo == "UNRESOLVED"
+        assert profile.appearance_profile.hair_color == "UNASSIGNED"
+        assert profile.appearance_profile.eye_color == "UNASSIGNED"
+
+
+def test_aion_and_astra_share_requested_social_appearance_class():
+    aion, astra = profiles()
+    assert (
+        aion.appearance_profile.racialized_social_appearance
+        == astra.appearance_profile.racialized_social_appearance
+        == "WHITE_CODED"
+    )
+    assert (
+        aion.appearance_profile.skin_tone_family
+        == astra.appearance_profile.skin_tone_family
+        == "LIGHT"
+    )
