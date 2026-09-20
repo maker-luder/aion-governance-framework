@@ -11,6 +11,15 @@ from .teacher_avatar import (
     validate_teacher_avatar_contract,
 )
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
+from .teacher_avatar_continuous import (
+    ContinuousReferenceMesh,
+    build_teacher_continuous_reference_glb,
+    build_teacher_continuous_reference_gltf,
+    build_teacher_continuous_reference_mesh,
+    validate_teacher_continuous_reference,
+    validate_teacher_continuous_reference_glb,
+    validate_teacher_continuous_reference_gltf,
+)
 from .teacher_avatar_validation import (
     TeacherAvatarAssetValidationError,
     build_teacher_asset_manifest,
@@ -33,6 +42,13 @@ __all__ = [
     "build_teacher_avatar_gltf_contract",
     "build_teacher_low_poly_gltf",
     "build_teacher_low_poly_glb",
+    "ContinuousReferenceMesh",
+    "build_teacher_continuous_reference_mesh",
+    "build_teacher_continuous_reference_gltf",
+    "build_teacher_continuous_reference_glb",
+    "validate_teacher_continuous_reference",
+    "validate_teacher_continuous_reference_gltf",
+    "validate_teacher_continuous_reference_glb",
     "TeacherAvatarAssetValidationError",
     "build_teacher_asset_manifest",
     "validate_teacher_low_poly_gltf",
