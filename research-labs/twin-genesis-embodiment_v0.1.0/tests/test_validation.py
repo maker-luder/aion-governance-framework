@@ -137,6 +137,18 @@ def test_normal_reproductive_physiology_is_required():
         )
 
 
+def test_normal_sexual_function_status_is_required():
+    event, template, aion, astra = valid_objects()
+    assert template.sexual_function_status == REFERENCE_FUNCTIONAL_COMPLETENESS
+    with pytest.raises(ValidationError, match="sexual function"):
+        validate_candidate(
+            event,
+            replace(template, sexual_function_status="NOT_IMPLEMENTED"),
+            aion,
+            astra,
+        )
+
+
 def test_reproductive_anatomy_completeness_is_required():
     event, template, aion, astra = valid_objects()
     with pytest.raises(ValidationError, match="external reproductive"):
