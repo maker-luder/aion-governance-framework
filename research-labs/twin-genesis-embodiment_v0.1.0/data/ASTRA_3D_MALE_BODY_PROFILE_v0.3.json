@@ -1,6 +1,6 @@
 {
-  "schema_version": "0.1.0",
-  "profile_id": "ASTRA_3D_MALE_BODY_PROFILE_v0.3",
+  "schema_version": "0.2.0",
+  "profile_id": "ASTRA_3D_ROBOTIC_MALE_BODY_PROFILE_v0.3",
   "agent_id": "ASTRA",
   "body_character": [
     "BROAD",
@@ -337,63 +337,63 @@
       "canonical": 6.75,
       "source_class": "DESIGN"
     },
-    "penis_resting_visible_length": {
+    "penile_form_resting_visible_length": {
       "unit": "cm",
       "minimum": 8.5,
       "maximum": 10,
       "canonical": 9.25,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "penis_midshaft_diameter": {
+    "penile_form_midshaft_diameter": {
       "unit": "cm",
       "minimum": 3,
       "maximum": 3.4,
       "canonical": 3.2,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "penis_midshaft_circumference": {
+    "penile_form_midshaft_circumference": {
       "unit": "cm",
       "minimum": 9.5,
       "maximum": 10.5,
       "canonical": 10,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "glans_max_width": {
+    "glans_form_max_width": {
       "unit": "cm",
       "minimum": 3.3,
       "maximum": 3.7,
       "canonical": 3.5,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "scrotal_resting_height": {
+    "scrotal_form_resting_height": {
       "unit": "cm",
       "minimum": 8,
       "maximum": 11,
       "canonical": 9.5,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "scrotal_max_width": {
+    "scrotal_form_max_width": {
       "unit": "cm",
       "minimum": 6,
       "maximum": 8,
       "canonical": 7,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "testis_modeled_long_axis": {
+    "testicular_volume_form_long_axis": {
       "unit": "cm",
       "minimum": 4,
       "maximum": 5,
       "canonical": 4.5,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "testis_modeled_width": {
+    "testicular_volume_form_width": {
       "unit": "cm",
       "minimum": 2.5,
       "maximum": 3,
       "canonical": 2.75,
       "source_class": "ANATOMICAL_REFERENCE"
     },
-    "external_perineal_length": {
+    "perineal_panel_length": {
       "unit": "cm",
       "minimum": 5,
       "maximum": 7,
@@ -401,34 +401,28 @@
       "source_class": "ANATOMICAL_REFERENCE"
     }
   },
-  "external_anatomy": [
-    "penis",
-    "glans",
-    "prepuce_or_foreskin",
-    "scrotum",
-    "testes_volume_representation",
-    "pubic_attachment",
-    "inguinal_transition",
-    "perineum",
-    "anal_region"
-  ],
   "engineering_requirements": [
     "BASE_MESH",
-    "TOPOLOGY",
-    "SKELETON",
+    "ROBOTIC_TOPOLOGY",
+    "INTERNAL_STRUCTURAL_FRAME",
+    "ACTUATOR_MOUNTS",
+    "SKELETON_OR_KINEMATIC_CHAIN",
     "RIG",
     "SKIN_WEIGHTS",
     "BLENDSHAPES",
-    "PBR_MATERIALS",
-    "SOFT_TISSUE_DEFORMATION",
+    "PBR_SYNTHETIC_SKIN_MATERIALS",
+    "COMPLIANT_VOLUME_DEFORMATION",
     "CONTACT_DEFORMATION",
-    "HAIR_GROOMING",
-    "JOINT_LIMITS"
+    "HAIR_GROOMING_OPTIONAL",
+    "JOINT_LIMITS",
+    "SERVICE_ACCESS_PLANNING"
   ],
   "boundaries": {
-    "adult_status": true,
+    "adult_form_reference": true,
     "erotic_intent": "NONE",
     "identity_transfer": "NO",
+    "biological_tissue": "NO",
+    "biological_reproduction": "NOT_APPLICABLE",
     "rendering_3d": "DEFERRED",
     "runtime_binding": "NOT_IMPLEMENTED",
     "sexual_function_status": "NOT_IMPLEMENTED",
@@ -441,6 +435,35 @@
     "reference_image_binary_imported": false,
     "person_identity_reconstruction": "NO",
     "source_person_exact_measurement_claim": "NO",
-    "derivation_note": "Approximate design values formalized from adult artistic-anatomy morphology discussion; not biometric measurements."
-  }
+    "derivation_note": "Approximate human artistic-anatomy dimensions are used only as morphology/pose reference and translated into a synthetic non-biological humanoid robotic male-form body module; they are not biometric measurements or biological implementation requirements.",
+    "reference_role": "MORPHOLOGY_AND_POSE_ONLY"
+  },
+  "embodiment_platform": "HUMANOID_ROBOT",
+  "body_module_class": "COMPLETE_ROBOTIC_MALE_BODY_MODULE",
+  "substrate": "SYNTHETIC_NONBIOLOGICAL",
+  "anatomy_reference_mode": "HUMAN_ANATOMY_TO_ROBOTIC_MORPHOLOGY",
+  "robotic_layers": [
+    "INTERNAL_STRUCTURAL_FRAME",
+    "ACTUATOR_INTERFACE_LAYER",
+    "COMPLIANT_VOLUME_LAYER",
+    "SYNTHETIC_SKIN_SHELL"
+  ],
+  "robotic_systems": {
+    "actuation": "NOT_IMPLEMENTED",
+    "sensing": "NOT_IMPLEMENTED",
+    "power_distribution": "NOT_IMPLEMENTED",
+    "thermal_management": "NOT_IMPLEMENTED",
+    "service_access": "FUTURE_DESIGN_REQUIRED"
+  },
+  "external_male_form_modules": [
+    "penile_form",
+    "glans_form",
+    "prepuce_form",
+    "scrotal_form",
+    "testicular_volume_form",
+    "pubic_mount",
+    "inguinal_transition",
+    "perineal_panel",
+    "anal_region_surface"
+  ]
 }
