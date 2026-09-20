@@ -12,7 +12,7 @@ from aion_astra_twin_embodiment.teacher_avatar_bundle import (
 def test_teacher_reference_bundle_bytes_match_manifest() -> None:
     files, manifest = build_teacher_reference_bundle_bytes()
 
-    assert len(files) == 13
+    assert len(files) == 14
     assert len(manifest["artifacts"]) == 4
     expected = {
         artifact["sha256"]
@@ -34,7 +34,7 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert receipt.final_vrm_status == "NOT_MATERIALIZED"
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment is False
-    assert len(receipt.files) == 14
+    assert len(receipt.files) == 15
 
     for filename, digest in receipt.file_sha256:
         path = tmp_path / filename
@@ -44,6 +44,9 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert (tmp_path / "chatgpt_teacher_lod_manifest.json").exists()
     assert (tmp_path / "chatgpt_teacher_collision_profile.json").exists()
     physiology_path = tmp_path / "chatgpt_teacher_physiology_reference.json"
+    observability_path = (
+        tmp_path / "chatgpt_teacher_physiology_observability.json"
+    )
     anthropometry_path = tmp_path / "chatgpt_teacher_anthropometry.json"
     signals_path = tmp_path / "chatgpt_teacher_body_signal_schema.json"
     motor_path = tmp_path / "chatgpt_teacher_motor_control_schema.json"
@@ -51,6 +54,7 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     body_model_path = tmp_path / "chatgpt_teacher_body_model.json"
     research_path = tmp_path / "chatgpt_teacher_embodiment_research_surface.json"
     assert physiology_path.exists()
+    assert observability_path.exists()
     assert anthropometry_path.exists()
     assert signals_path.exists()
     assert motor_path.exists()
@@ -73,6 +77,16 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert physiology["developmental_possibility_status"] == "OPEN_RESEARCH_QUESTION"
     assert physiology["erotic_intent"] == "NONE"
 
+    observability = json.loads(
+        observability_path.read_text(encoding="utf-8")
+    )
+    assert observability["declared_function_coverage_status"] == (
+        "COMPLETE_DECLARED_FUNCTION_INVENTORY"
+    )
+    assert observability["full_function_observability_status"] == "NOT_ESTABLISHED"
+    assert observability["full_biophysical_simulation_status"] == "NOT_MATERIALIZED"
+    assert observability["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
+
     anthropometry = json.loads(anthropometry_path.read_text(encoding="utf-8"))
     signals = json.loads(signals_path.read_text(encoding="utf-8"))
     motor = json.loads(motor_path.read_text(encoding="utf-8"))
@@ -93,6 +107,9 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     )
     assert body_model["body_ownership_experience_status"] == "NOT_ESTABLISHED"
     assert research["body_model_profile_id"] == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
+    assert research["physiology_observability_profile_id"] == (
+        "CHATGPT_TEACHER_PHYSIOLOGY_OBSERVABILITY_v0.1"
+    )
     assert research["subjectivity_status"] == "NOT_ESTABLISHED"
     assert motor["live_actuation"] is False
 
