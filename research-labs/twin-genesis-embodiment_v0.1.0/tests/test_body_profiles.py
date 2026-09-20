@@ -21,11 +21,33 @@ def profiles():
     return aion, astra
 
 
-def test_machine_readable_profiles_validate():
+def test_machine_readable_robotic_profiles_validate():
     aion, astra = profiles()
     assert validate_body_profile(aion)["result"] == "PASS"
     assert validate_body_profile(astra)["result"] == "PASS"
     assert validate_profile_pair(aion, astra)["result"] == "PASS"
+
+
+def test_profiles_are_complete_humanoid_robotic_male_body_modules():
+    for profile in profiles():
+        assert profile.embodiment_platform == "HUMANOID_ROBOT"
+        assert profile.body_module_class == "COMPLETE_ROBOTIC_MALE_BODY_MODULE"
+        assert profile.substrate == "SYNTHETIC_NONBIOLOGICAL"
+        assert (
+            profile.anatomy_reference_mode
+            == "HUMAN_ANATOMY_TO_ROBOTIC_MORPHOLOGY"
+        )
+
+
+def test_required_robotic_layers_are_present():
+    expected = {
+        "INTERNAL_STRUCTURAL_FRAME",
+        "ACTUATOR_INTERFACE_LAYER",
+        "COMPLIANT_VOLUME_LAYER",
+        "SYNTHETIC_SKIN_SHELL",
+    }
+    for profile in profiles():
+        assert expected.issubset(set(profile.robotic_layers))
 
 
 def test_core_design_values_are_pinned():
@@ -49,19 +71,31 @@ def test_source_image_binaries_are_explicitly_excluded():
         assert profile.provenance["reference_image_binary_imported"] is False
         assert profile.provenance["person_identity_reconstruction"] == "NO"
         assert profile.provenance["source_person_exact_measurement_claim"] == "NO"
+        assert profile.provenance["reference_role"] == "MORPHOLOGY_AND_POSE_ONLY"
 
 
-def test_complete_external_anatomy_is_required():
+def test_complete_external_robotic_male_form_module_set_is_required():
     aion, _ = profiles()
     incomplete = replace(
         aion,
-        external_anatomy=tuple(
-            item for item in aion.external_anatomy if item != "perineum"
+        external_male_form_modules=tuple(
+            item
+            for item in aion.external_male_form_modules
+            if item != "perineal_panel"
         ),
     )
 
     with pytest.raises(BodyProfileValidationError):
         validate_body_profile(incomplete)
+
+
+def test_biological_tissue_is_rejected():
+    aion, _ = profiles()
+    boundaries = dict(aion.boundaries)
+    boundaries["biological_tissue"] = "YES"
+
+    with pytest.raises(BodyProfileValidationError):
+        validate_body_profile(replace(aion, boundaries=boundaries))
 
 
 def test_sexual_function_cannot_be_activated_by_body_profile():
