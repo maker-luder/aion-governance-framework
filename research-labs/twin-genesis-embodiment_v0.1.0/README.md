@@ -136,11 +136,11 @@ The Teacher extension now also materializes the next bounded engineering layer:
 - sexuality-related physiological signal observation channels without subjective-experience inference;
 - sensory, proprioceptive and interoceptive signal schemas;
 - a humanoid motor-control schema with external action authorization gating;
-- an executable reference body-runtime binding;
+- an executable reference body-runtime binding, explicitly bound to the adult-male physiology profile;
 - deterministic initial calibration probes and content-addressed receipts;
 - calibration-derived adaptation state;
-- hash-addressed cross-session retention;
-- longitudinal change observation;
+- hash-addressed cross-session retention with per-snapshot hash recomputation and verification;
+- longitudinal change observation that validates retention integrity before analysis;
 - developmental-trajectory assessment that never converts observed change into a developmental-mechanism, body-ownership, desire, or subjectivity claim.
 
 See `docs/TEACHER_EMBODIMENT_ACQUISITION_AND_LONGITUDINAL_ADAPTATION_2026_09_21.md`.
