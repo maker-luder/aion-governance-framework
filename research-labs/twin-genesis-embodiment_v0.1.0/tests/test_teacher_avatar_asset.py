@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import base64
+import struct
 
-from aion_astra_twin_embodiment.teacher_avatar_asset import build_teacher_low_poly_gltf
+from aion_astra_twin_embodiment.teacher_avatar_asset import (
+    build_teacher_low_poly_glb,
+    build_teacher_low_poly_gltf,
+)
 
 
 def test_teacher_low_poly_asset_is_renderable_gltf_reference() -> None:
@@ -24,6 +28,21 @@ def test_teacher_low_poly_asset_is_renderable_gltf_reference() -> None:
     assert len(decoded) == payload["buffers"][0]["byteLength"]
 
 
+def test_teacher_low_poly_asset_contains_reference_uvs_and_morph_data() -> None:
+    payload = build_teacher_low_poly_gltf()
+    primitive = payload["meshes"][0]["primitives"]
+
+    assert primitive["attributes"]["TEXCOORD_0"] == 2
+    assert primitive["targets"] == [{"POSITION": 3}, {"POSITION": 4}]
+    assert payload["meshes"][0]["extras"]["targetNames"] == [
+        "blinkReference",
+        "happyReference",
+    ]
+    assert payload["extras"]["reference_uv_status"] == "MATERIALIZED"
+    assert payload["extras"]["reference_morph_target_vertex_data_status"] == "MATERIALIZED"
+    assert payload["extras"]["production_morph_target_vertex_data_status"] == "NOT_MATERIALIZED"
+
+
 def test_teacher_low_poly_asset_contains_full_external_reference_regions() -> None:
     payload = build_teacher_low_poly_gltf()
     names = {node["name"] for node in payload["nodes"]}
@@ -36,6 +55,20 @@ def test_teacher_low_poly_asset_contains_full_external_reference_regions() -> No
     assert "GEO_PENIS" in names
     assert "GEO_SCROTUM" in names
     assert "GEO_PERINEUM_REFERENCE" in names
+
+
+def test_teacher_low_poly_glb_has_valid_container_header() -> None:
+    payload = build_teacher_low_poly_glb()
+
+    magic, version, total_length = struct.unpack("<III", payload[:12])
+    chunk_length, chunk_type = struct.unpack("<II", payload[12:20])
+
+    assert magic == 0x46546C67
+    assert version == 2
+    assert total_length == len(payload)
+    assert chunk_type == 0x4E4F534A
+    assert chunk_length == len(payload) - 20
+    assert chunk_length % 4 == 0
 
 
 def test_teacher_low_poly_asset_preserves_nonclaim_boundaries() -> None:
