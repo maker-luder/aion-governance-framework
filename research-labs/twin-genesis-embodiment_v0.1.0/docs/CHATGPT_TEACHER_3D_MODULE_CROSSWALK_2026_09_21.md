@@ -60,6 +60,11 @@ These are interoperability references, not certification claims.
 - continuous-reference inverse-bind matrices;
 - continuous-reference glTF and GLB output;
 - continuous-reference structural validation;
+- continuous-reference blink / happy morph-target POSITION deltas;
+- deterministic embedded PNG reference texture;
+- VRM required humanoid parent-chain aligned mapping candidate;
+- explicit hold on VRM meta/license authorization;
+- hash-verified reference bundle writer;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -100,6 +105,11 @@ CONTINUOUS_REFERENCE_CONNECTED_COMPONENTS = 1
 CONTINUOUS_REFERENCE_SKIN_WEIGHTS = MATERIALIZED
 CONTINUOUS_REFERENCE_GLTF = MATERIALIZED
 CONTINUOUS_REFERENCE_GLB = MATERIALIZED
+CONTINUOUS_REFERENCE_MORPH_TARGETS = MATERIALIZED
+CONTINUOUS_REFERENCE_TEXTURE = MATERIALIZED
+VRM_REQUIRED_PARENT_CHAIN = ALIGNED_CANDIDATE
+VRM_META_LICENSE_AUTHORIZATION = REQUIRED_FROM_HUMAN_OWNER
+REFERENCE_BUNDLE_WRITER = MATERIALIZED
 
 PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
