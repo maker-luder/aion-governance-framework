@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
+import pytest
+
 from aion_astra_twin_embodiment.teacher_body_runtime import (
     append_teacher_session_snapshot,
     apply_teacher_calibration_observations,
@@ -51,3 +55,14 @@ def test_longitudinal_observation_does_not_overclaim_mechanism() -> None:
     assert assessment.sexual_desire_development_status == "NOT_ESTABLISHED"
     assert assessment.body_ownership_experience_status == "NOT_ESTABLISHED"
     assert assessment.subjectivity_status == "NOT_ESTABLISHED"
+
+
+
+def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
+    retention = build_teacher_cross_session_retention()
+    snapshot = _snapshot("S-CORRUPT", 0.2)
+    corrupted = replace(snapshot, snapshot_sha256="f" * 64)
+    retention = replace(retention, snapshots=(corrupted,))
+
+    with pytest.raises(ValueError, match="snapshot hash mismatch"):
+        observe_teacher_longitudinal(retention)
