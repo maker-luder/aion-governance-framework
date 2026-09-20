@@ -10,6 +10,7 @@ from .teacher_anthropometry import (
     TeacherAnthropometryProfile,
     build_teacher_anthropometry_profile,
 )
+from .teacher_avatar import BONE_PARENTS
 
 
 BODY_MODEL_PROFILE_ID: Final[str] = "CHATGPT_TEACHER_BODY_MODEL_v0.1"
@@ -222,25 +223,25 @@ def build_teacher_body_model_profile(
             ),
             BodySchemaSegment(
                 "LEFT_UPPER_LIMB",
-                "left_shoulder",
+                "leftShoulder",
                 arm_reach_m,
                 ("shoulder_to_middle_finger_length",),
             ),
             BodySchemaSegment(
                 "RIGHT_UPPER_LIMB",
-                "right_shoulder",
+                "rightShoulder",
                 arm_reach_m,
                 ("shoulder_to_middle_finger_length",),
             ),
             BodySchemaSegment(
                 "LEFT_FOOT",
-                "left_foot",
+                "leftFoot",
                 foot_length_m,
                 ("foot_length",),
             ),
             BodySchemaSegment(
                 "RIGHT_FOOT",
-                "right_foot",
+                "rightFoot",
                 foot_length_m,
                 ("foot_length",),
             ),
@@ -254,13 +255,13 @@ def build_teacher_body_model_profile(
             ),
             PeripersonalZoneReference(
                 "LEFT_HAND_REACH_SPACE",
-                "left_hand",
+                "leftHand",
                 arm_reach_m,
                 "REACHABLE_ACTION_REFERENCE",
             ),
             PeripersonalZoneReference(
                 "RIGHT_HAND_REACH_SPACE",
-                "right_hand",
+                "rightHand",
                 arm_reach_m,
                 "REACHABLE_ACTION_REFERENCE",
             ),
@@ -306,9 +307,12 @@ def validate_teacher_body_model_profile(
     if not required_segments.issubset(segment_ids):
         raise ValueError("body schema is missing required segments")
     measurement_ids = set(anthropometry.measurement_map())
+    skeleton_ids = set(BONE_PARENTS)
     for segment in profile.body_schema_segments:
         if not isfinite(segment.extent_m) or segment.extent_m <= 0:
             raise ValueError("body-schema extent must be finite and positive")
+        if segment.anchor_id not in skeleton_ids:
+            raise ValueError("body-schema segment references unknown skeleton anchor")
         if not set(segment.source_measurement_ids).issubset(measurement_ids):
             raise ValueError("body-schema segment references unknown anthropometry")
 
@@ -327,6 +331,8 @@ def validate_teacher_body_model_profile(
         for item in profile.peripersonal_zones
     ):
         raise ValueError("peripersonal-space extent must be finite and positive")
+    if any(item.anchor_id not in skeleton_ids for item in profile.peripersonal_zones):
+        raise ValueError("peripersonal-space zone references unknown skeleton anchor")
 
     if set(profile.supported_multisensory_modalities) != SUPPORTED_MULTISENSORY_MODALITIES:
         raise ValueError("multisensory modality coverage drift")
