@@ -124,3 +124,19 @@ def test_within_session_body_trajectory_is_content_addressed_and_ordered() -> No
 
     with pytest.raises(ValueError, match="sequence must increase"):
         append_teacher_body_state(trajectory, first)
+
+
+def test_sensorimotor_prediction_rejects_unknown_body_channel() -> None:
+    state = _integrated_state(0, 100)
+
+    with pytest.raises(ValueError, match="unknown body signal channel"):
+        evaluate_teacher_sensorimotor_prediction(
+            state,
+            motor_channel_id="POSTURE_CONTROL",
+            expectations=(
+                SensorimotorExpectation("UNKNOWN_BODY_CHANNEL", (0.1,)),
+            ),
+            observations=(
+                TeacherBodyObservation("UNKNOWN_BODY_CHANNEL", (0.1,), 110),
+            ),
+        )
