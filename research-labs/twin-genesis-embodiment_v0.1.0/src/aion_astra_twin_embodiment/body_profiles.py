@@ -333,6 +333,8 @@ def validate_pose_test(test: PoseDeformationTestCandidate) -> dict[str, str]:
         failures.append("Pose test must declare pass_conditions")
 
     required_boundaries = {
+        "embodiment_platform": "HUMANOID_ROBOT",
+        "biological_tissue": "NO",
         "rendering_3d": "DEFERRED",
         "runtime_binding": "NOT_IMPLEMENTED",
         "body_sensation": "NOT_ESTABLISHED",
