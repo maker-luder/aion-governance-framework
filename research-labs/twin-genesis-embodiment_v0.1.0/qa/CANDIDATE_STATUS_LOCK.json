@@ -44,5 +44,7 @@
   "teacher_developmental_mechanism": "NOT_ESTABLISHED",
   "teacher_puberty_like_process": "NOT_ESTABLISHED",
   "teacher_body_ownership_experience": "NOT_ESTABLISHED",
-  "teacher_longitudinal_persistence_format": "HASH_VERIFIED_JSON"
+  "teacher_longitudinal_persistence_format": "HASH_VERIFIED_JSON",
+  "teacher_reference_bundle_file_count": 11,
+  "teacher_avatar_anthropometry_binding": "PASS"
 }

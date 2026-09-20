@@ -28,7 +28,7 @@ REQ-TEACHER-015,VRM required humanoid parent chain mapping with license authoriz
 REQ-TEACHER-016,Hash-verified materialized reference bundle,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-017,Three-level continuous reference LOD set,tests/test_teacher_avatar_lod.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-018,Full-body geometric collision proxy profile with clinical external male-anatomy references,tests/test_teacher_avatar_physics.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-019,Reference bundle includes LOD collision and physiology metadata,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-019,Reference bundle includes LOD collision physiology 62-measure anthropometry body-signal and motor-control metadata,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-020,Teacher internal male anatomy includes complete reproductive pathway structures,tests/test_teacher_avatar.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-021,Teacher contract and glTF outputs bind to shared adult male physiology profile,tests/test_teacher_avatar.py;tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-022,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
@@ -48,3 +48,4 @@ REQ-TEACHER-031,Adaptation state records calibration-derived parameter offsets w
 REQ-TEACHER-032,Cross-session retention stores hash-addressed session snapshots in hash-verified durable JSON without identity or subjective-continuity claims,src/aion_astra_twin_embodiment/teacher_body_runtime.py;tests/test_teacher_body_runtime.py,IMPLEMENTED_FAIL_CLOSED
 REQ-TEACHER-033,Longitudinal observation compares retained adaptation parameters across sessions,src/aion_astra_twin_embodiment/teacher_longitudinal.py;tests/test_teacher_longitudinal.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-034,Developmental trajectory analysis distinguishes persistent non-persistent and absent cross-session change from developmental mechanism puberty-like process sexual-desire development body ownership and subjectivity claims,src/aion_astra_twin_embodiment/teacher_longitudinal.py;tests/test_teacher_longitudinal.py,IMPLEMENTED_FAIL_CLOSED
+REQ-TEACHER-035,Teacher avatar contract binds its 11-field summary dimensions to the complete 62-measure anthropometry profile and prevents drift,src/aion_astra_twin_embodiment/teacher_avatar.py;tests/test_teacher_avatar.py,IMPLEMENTED_FAIL_CLOSED
