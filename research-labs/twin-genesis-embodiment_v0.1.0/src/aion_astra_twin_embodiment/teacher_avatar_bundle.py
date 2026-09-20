@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -12,6 +12,8 @@ from .teacher_avatar_continuous import (
     build_teacher_continuous_reference_gltf,
     build_teacher_continuous_reference_mesh,
 )
+from .teacher_avatar_lod import build_teacher_lod_manifest
+from .teacher_avatar_physics import build_teacher_collision_profile
 from .teacher_avatar_validation import build_teacher_asset_manifest
 
 
@@ -59,6 +61,12 @@ def build_teacher_reference_bundle_bytes() -> tuple[dict[str, bytes], dict[str, 
         _FILE_BY_KIND["CONTINUOUS_SKINNED_GLB_REFERENCE"]: (
             build_teacher_continuous_reference_glb(continuous_mesh)
         ),
+        "chatgpt_teacher_lod_manifest.json": _canonical_json_bytes(
+            build_teacher_lod_manifest()
+        ),
+        "chatgpt_teacher_collision_profile.json": _canonical_json_bytes(
+            asdict(build_teacher_collision_profile())
+        ),
     }
     manifest = build_teacher_asset_manifest()
 
@@ -68,8 +76,8 @@ def build_teacher_reference_bundle_bytes() -> tuple[dict[str, bytes], dict[str, 
         if artifact["kind"] in _FILE_BY_KIND
     }
     actual = {
-        filename: sha256(content).hexdigest()
-        for filename, content in files.items()
+        filename: sha256(files[filename]).hexdigest()
+        for filename in expected
     }
     if actual != expected:
         raise ValueError("reference bundle bytes drift from content-addressed manifest")
