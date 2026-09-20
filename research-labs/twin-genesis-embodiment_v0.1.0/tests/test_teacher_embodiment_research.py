@@ -14,6 +14,9 @@ from aion_astra_twin_embodiment.teacher_body_dynamics import (
 from aion_astra_twin_embodiment.teacher_body_model import (
     build_teacher_body_model_profile,
 )
+from aion_astra_twin_embodiment.teacher_physiology_observability import (
+    build_teacher_physiology_observability_profile,
+)
 from aion_astra_twin_embodiment.teacher_embodiment_research import (
     SIX_EVIDENCE_DIMENSIONS,
     assess_teacher_reference_completeness,
@@ -413,6 +416,29 @@ def test_system_observation_domain_drift_fails_declared_completeness() -> None:
     )
 
 
+def test_physiology_observability_inventory_is_part_of_declared_completeness() -> None:
+    capabilities = build_teacher_reference_capabilities()
+    capability_ids = {item.capability_id for item in capabilities}
+    assert "PHYSIOLOGY_FUNCTION_OBSERVABILITY_INVENTORY" in capability_ids
+
+    observability = build_teacher_physiology_observability_profile()
+    broken = replace(
+        observability,
+        bindings=observability.bindings[:-1],
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            physiology_observability=broken,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert (
+        "PHYSIOLOGY_FUNCTION_OBSERVABILITY_INVENTORY"
+        in assessment.missing_required_capabilities
+    )
+
+
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
     surface = build_teacher_embodiment_research_surface()
     result = validate_teacher_embodiment_research_surface(surface)
@@ -426,6 +452,9 @@ def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> No
     assert covered == set(SIX_EVIDENCE_DIMENSIONS)
     assert surface.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
     assert surface.body_model_profile_id == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
+    assert surface.physiology_observability_profile_id == (
+        "CHATGPT_TEACHER_PHYSIOLOGY_OBSERVABILITY_v0.1"
+    )
     assert surface.subjectivity_status == "NOT_ESTABLISHED"
     assert surface.phenomenal_experience_status == "NOT_ESTABLISHED"
     assert all(candidate.falsifier for candidate in surface.candidates)
