@@ -124,6 +124,7 @@ class BodyProfileCandidate:
     body_scope: str
     morphology_class: str
     model_class: str
+    functional_state_binding_id: str
     substrate: str
     anatomy_reference_mode: str
     body_character: tuple[str, ...]
@@ -154,6 +155,7 @@ class BodyProfileCandidate:
             body_scope=str(value["body_scope"]),
             morphology_class=str(value["morphology_class"]),
             model_class=str(value["model_class"]),
+            functional_state_binding_id=str(value["functional_state_binding_id"]),
             substrate=str(value["substrate"]),
             anatomy_reference_mode=str(value["anatomy_reference_mode"]),
             body_character=tuple(str(item) for item in value["body_character"]),
@@ -251,6 +253,11 @@ def validate_body_profile(profile: BodyProfileCandidate) -> dict[str, str]:
     if profile.model_class != "ROBOTIC_EMBODIMENT_DIGITAL_MODEL":
         failures.append(
             "model_class must be ROBOTIC_EMBODIMENT_DIGITAL_MODEL"
+        )
+    expected_binding_id = f"{profile.agent_id}_FUNCTIONAL_STATE_BINDING_v0.1"
+    if profile.functional_state_binding_id != expected_binding_id:
+        failures.append(
+            "functional_state_binding_id must bind the matching agent profile"
         )
     if profile.substrate != "SYNTHETIC_NONBIOLOGICAL":
         failures.append("substrate must be SYNTHETIC_NONBIOLOGICAL")
@@ -369,6 +376,7 @@ def validate_body_profile(profile: BodyProfileCandidate) -> dict[str, str]:
         "body_scope": profile.body_scope,
         "morphology_class": profile.morphology_class,
         "model_class": profile.model_class,
+        "functional_state_binding_id": profile.functional_state_binding_id,
         "substrate": profile.substrate,
         "anatomy_reference_mode": profile.anatomy_reference_mode,
         "body_character": list(profile.body_character),
