@@ -236,8 +236,10 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
         for name in buffer_view_names
     ]
 
-    blink_values = [component for delta in _BLINK_REFERENCE_DELTAS for component in delta]
-    happy_values = [component for delta in _HAPPY_REFERENCE_DELTAS for component in delta]
+    blink_min = [min(delta[i] for delta in _BLINK_REFERENCE_DELTAS) for i in range(3)]
+    blink_max = [max(delta[i] for delta in _BLINK_REFERENCE_DELTAS) for i in range(3)]
+    happy_min = [min(delta[i] for delta in _HAPPY_REFERENCE_DELTAS) for i in range(3)]
+    happy_max = [max(delta[i] for delta in _HAPPY_REFERENCE_DELTAS) for i in range(3)]
 
     return {
         "asset": {
@@ -288,8 +290,8 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
                 "componentType": 5126,
                 "count": len(_BLINK_REFERENCE_DELTAS),
                 "type": "VEC3",
-                "min": [0.0, min(blink_values), 0.0],
-                "max": [0.0, max(blink_values), 0.0],
+                "min": blink_min,
+                "max": blink_max,
             },
             {
                 "bufferView": 4,
@@ -297,8 +299,8 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
                 "componentType": 5126,
                 "count": len(_HAPPY_REFERENCE_DELTAS),
                 "type": "VEC3",
-                "min": [min(happy_values), min(happy_values), 0.0],
-                "max": [max(happy_values), max(happy_values), 0.0],
+                "min": happy_min,
+                "max": happy_max,
             },
         ],
         "materials": [
