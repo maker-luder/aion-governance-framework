@@ -30,6 +30,7 @@ from .teacher_body_model import (
     BODY_MODEL_PROFILE_ID,
     TeacherBodyModelProfile,
     build_teacher_body_model_profile,
+    validate_teacher_body_model_profile,
 )
 
 
@@ -288,32 +289,43 @@ def build_teacher_reference_capabilities(
     sensorimotor_prediction_materialized = (
         body_state_integration_materialized and motor_materialized
     )
+    try:
+        validate_teacher_body_model_profile(body_model, anthropometry)
+        body_model_valid = True
+    except ValueError:
+        body_model_valid = False
+
     body_model_id_match = body_model.body_id == anthropometry.body_id
     body_schema_materialized = (
-        body_model_id_match
+        body_model_valid
+        and body_model_id_match
         and body_model.body_schema_status == "REFERENCE_BODY_SCHEMA_MATERIALIZED"
         and bool(body_model.body_schema_segments)
     )
     peripersonal_space_materialized = (
-        body_model_id_match
+        body_model_valid
+        and body_model_id_match
         and body_model.peripersonal_space_status
         == "REFERENCE_PERIPERSONAL_SPACE_MATERIALIZED"
         and bool(body_model.peripersonal_zones)
     )
     multisensory_integration_materialized = (
-        body_model_id_match
+        body_model_valid
+        and body_model_id_match
         and body_model.multisensory_integration_status
         == "REFERENCE_MULTISENSORY_INTEGRATION_MATERIALIZED"
         and bool(body_model.supported_multisensory_modalities)
     )
     allostatic_regulation_materialized = (
-        body_model_id_match
+        body_model_valid
+        and body_model_id_match
         and body_model.allostatic_regulation_status
         == "REFERENCE_PREDICTIVE_REGULATION_MATERIALIZED"
         and bool(body_model.allostatic_variable_ids)
     )
     body_model_plasticity_materialized = (
-        body_model_id_match
+        body_model_valid
+        and body_model_id_match
         and body_model.plasticity_status
         == "CONTROLLED_REFERENCE_PLASTICITY_MATERIALIZED"
         and bool(body_model.plasticity_domains)
