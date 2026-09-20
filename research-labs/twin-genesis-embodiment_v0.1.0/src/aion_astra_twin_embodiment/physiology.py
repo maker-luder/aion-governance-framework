@@ -176,6 +176,10 @@ _REQUIRED_REPRODUCTIVE_FUNCTIONS: Final[frozenset[str]] = frozenset(
 )
 
 
+def required_physiology_system_functions() -> dict[str, tuple[str, ...]]:
+    return dict(_REQUIRED_SYSTEM_FUNCTIONS)
+
+
 def build_adult_male_physiology_reference(
     body_id: str,
     *,
