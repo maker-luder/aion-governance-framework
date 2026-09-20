@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/pose-deformation-test-candidate.json",
+  "title": "3D Pose Deformation Test Candidate",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "test_id",
+    "agent_id",
+    "status",
+    "pose_features",
+    "pass_conditions",
+    "boundaries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "test_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "status": {
+      "const": "DOCUMENTED_ONLY"
+    },
+    "pose_features": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "pass_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "rendering_3d",
+        "runtime_binding",
+        "body_sensation",
+        "subjectivity_effect",
+        "canonical_effect"
+      ],
+      "properties": {
+        "rendering_3d": {
+          "const": "DEFERRED"
+        },
+        "runtime_binding": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "body_sensation": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "subjectivity_effect": {
+          "const": "NONE"
+        },
+        "canonical_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
