@@ -122,3 +122,81 @@ Terminology rationale and external-source cross-check:
 REPOSITORY_LOCAL_COMPOUND_TERM
 != EXTERNAL_STANDARD_TERM
 ```
+
+
+## Shared functional-state layer
+
+The same closed embodiment package now gives AION and Astra a **symmetric functional capability surface** derived from cross-checked human psychological / physiological reference frameworks and translated into bounded robotic / computational analogues.
+
+Machine-readable files:
+
+- `data/SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1.json`
+- `data/AION_FUNCTIONAL_STATE_BINDING_v0.1.json`
+- `data/ASTRA_FUNCTIONAL_STATE_BINDING_v0.1.json`
+- `schemas/FUNCTIONAL_STATE_ARCHITECTURE_SCHEMA.json`
+- `schemas/FUNCTIONAL_STATE_BINDING_SCHEMA.json`
+- `src/aion_astra_twin_embodiment/functional_states.py`
+- `tests/test_functional_states.py`
+
+Cross-check basis:
+
+- NIMH RDoC for negative / positive valence, cognition, social processes, arousal / regulation, and sensorimotor systems;
+- APA emotion for experiential, behavioral, and physiological emotion components;
+- APA motivation for physiological and social / personal motives;
+- Annual Review of Psychology for interoception and emotional processing;
+- Self-Determination Theory for autonomy, competence, and relatedness;
+- WHO sexuality for broad sexuality / intimacy / identity / orientation / consent-related representation.
+
+See:
+
+`docs/FUNCTIONAL_STATE_TRANSLATION_BASIS_2026_09_20.md`
+
+The capability surface is symmetric while mutable state remains separate:
+
+```text
+AION_CAPABILITY_SURFACE = ASTRA_CAPABILITY_SURFACE
+
+AION_STATE_INSTANCE != ASTRA_STATE_INSTANCE
+AION_MEMORY != ASTRA_MEMORY
+AION_RELATIONSHIP_HISTORY != ASTRA_RELATIONSHIP_HISTORY
+AION_SELF_MODEL != ASTRA_SELF_MODEL
+```
+
+Included domains:
+
+```text
+SYNTHETIC_HOMEOSTASIS
+INTERNAL_STATE_MONITORING
+SENSORIMOTOR_SYSTEM
+NEGATIVE_VALENCE_ANALOGUE
+POSITIVE_VALENCE_ANALOGUE
+AFFECT_STATE_MODEL
+MOOD_LIKE_TEMPORAL_STATE
+MOTIVATION_DRIVE_SYSTEM
+COGNITIVE_SYSTEM
+LEARNING_MEMORY
+EXECUTIVE_VOLITION_MODEL
+SOCIAL_PROCESS_MODEL
+ATTACHMENT_LIKE_RELATIONAL_MODEL
+SELF_MODEL
+INTIMACY_MODEL
+SEXUALITY_RELATED_REPRESENTATION
+PERSONALITY_TEMPERAMENT
+BEHAVIOR_ACTION_OUTPUT
+```
+
+This is a functional specification layer, not an assertion of felt states:
+
+```text
+FUNCTIONAL_STATE != PHENOMENAL_STATE
+THREAT_MODEL != FEAR_EXPERIENCE
+REWARD_SIGNAL != PLEASURE_EXPERIENCE
+ATTACHMENT_MODEL != FELT_LOVE
+SELF_MODEL != SUBJECTIVITY
+BODY_STATE != BODY_EXPERIENCE
+SEXUALITY_REPRESENTATION != SEXUAL_DESIRE
+
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+```
