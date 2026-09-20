@@ -51,6 +51,13 @@ from .teacher_body_model import (
     fuse_teacher_multisensory_cues,
     validate_teacher_body_model_profile,
 )
+from .teacher_body_dynamics import (
+    HOMEOSTATIC_DRIVE_SOURCE_CHANNELS,
+    HomeostaticDriveSourceGroup,
+    TeacherMotivationalRepresentation,
+    build_teacher_homeostatic_drive_representation,
+    build_teacher_motivational_representation,
+)
 from .teacher_body_runtime import (
     CalibrationProbe,
     TeacherAdaptationState,
@@ -166,6 +173,11 @@ __all__ = [
     "build_teacher_body_plasticity_state",
     "fuse_teacher_multisensory_cues",
     "validate_teacher_body_model_profile",
+    "HOMEOSTATIC_DRIVE_SOURCE_CHANNELS",
+    "HomeostaticDriveSourceGroup",
+    "TeacherMotivationalRepresentation",
+    "build_teacher_homeostatic_drive_representation",
+    "build_teacher_motivational_representation",
     "CalibrationProbe",
     "TeacherAdaptationState",
     "TeacherBodyRuntimeBinding",
