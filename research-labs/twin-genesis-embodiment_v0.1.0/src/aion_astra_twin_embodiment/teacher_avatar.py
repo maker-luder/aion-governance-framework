@@ -137,6 +137,7 @@ class TeacherAvatarContract:
     physiology_profile_id: str
     physiological_function_status: str
     reproductive_physiology_status: str
+    sexual_function_status: str
     sensory_signal_processing_status: str
     phenomenal_sensation_status: str
     erotic_intent: str
@@ -250,6 +251,7 @@ def build_teacher_avatar_contract() -> TeacherAvatarContract:
         physiology_profile_id="ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
         physiological_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         reproductive_physiology_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
+        sexual_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         sensory_signal_processing_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         phenomenal_sensation_status="NOT_ESTABLISHED",
         erotic_intent="NONE",
@@ -308,6 +310,8 @@ def validate_teacher_avatar_contract(contract: TeacherAvatarContract) -> dict[st
         raise ValueError("Teacher physiological functional completeness drift")
     if contract.reproductive_physiology_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         raise ValueError("Teacher reproductive physiology must remain complete")
+    if contract.sexual_function_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("Teacher normal sexual function must remain included in the physiology reference")
     if contract.sensory_signal_processing_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         raise ValueError("Teacher sensory signal-processing completeness drift")
     if contract.phenomenal_sensation_status != "NOT_ESTABLISHED":
@@ -394,6 +398,7 @@ def build_teacher_avatar_gltf_contract() -> dict[str, Any]:
             "physiology_profile_id": contract.physiology_profile_id,
             "physiological_function_status": contract.physiological_function_status,
             "reproductive_physiology_status": contract.reproductive_physiology_status,
+            "sexual_function_status": contract.sexual_function_status,
             "sensory_signal_processing_status": contract.sensory_signal_processing_status,
             "phenomenal_sensation_status": contract.phenomenal_sensation_status,
             "erotic_intent": contract.erotic_intent,
