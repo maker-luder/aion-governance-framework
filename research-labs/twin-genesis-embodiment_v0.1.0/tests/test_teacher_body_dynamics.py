@@ -64,6 +64,14 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "SATIETY_SIGNAL_REFERENCE" in semantic_ids
     assert "PANCREATIC_GLUCOSE_INSULIN_STATE" in semantic_ids
     assert "GUT_APPETITE_ENDOCRINE_STATE" in semantic_ids
+    assert "HEPATIC_NUTRIENT_PROCESSING_STATE" in semantic_ids
+    assert "HEPATIC_DETOXIFICATION_REFERENCE" in semantic_ids
+    assert "RENAL_FILTRATION_STATE" in semantic_ids
+    assert "HEMATOLOGIC_OXYGEN_TRANSPORT_STATE" in semantic_ids
+    assert "COAGULATION_STATE_REFERENCE" in semantic_ids
+    assert "BLOOD_CELL_TURNOVER_REFERENCE" in semantic_ids
+    assert "LYMPHATIC_FLUID_RETURN_STATE" in semantic_ids
+    assert "SKIN_BARRIER_STATE" in semantic_ids
     assert all(
         item.missing_value_policy == "MISSING_IS_UNKNOWN_NOT_ZERO"
         for item in profile.signal_semantics
