@@ -143,6 +143,7 @@ def test_new_reference_channel_groups_are_machine_verifiable() -> None:
         "OLFACTORY_SIGNAL_REFERENCE",
         "GUSTATORY_SIGNAL_REFERENCE",
         "SENSORY_FUNCTION_CHANNEL_CROSSWALK",
+        "HOMEOSTATIC_DRIVE_REPRESENTATION",
     }
     assert expected.issubset(capability_ids)
 
@@ -254,6 +255,28 @@ def test_external_sensory_domain_drift_fails_declared_completeness() -> None:
     assert "VISUAL_SIGNAL_REFERENCE" in assessment.missing_required_capabilities
     assert (
         "SENSORY_FUNCTION_CHANNEL_CROSSWALK"
+        in assessment.missing_required_capabilities
+    )
+
+
+def test_homeostatic_drive_mapping_is_part_of_declared_completeness() -> None:
+    signals = build_teacher_body_signal_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    broken = replace(
+        dynamics,
+        homeostatic_drive_source_groups=(),
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=signals,
+            dynamics=broken,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "BODY_DYNAMICS_VALIDATION" in assessment.missing_required_capabilities
+    assert (
+        "HOMEOSTATIC_DRIVE_REPRESENTATION"
         in assessment.missing_required_capabilities
     )
 
