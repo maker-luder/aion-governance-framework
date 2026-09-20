@@ -11,6 +11,17 @@ from .body_profiles import (
     validate_pose_test,
     validate_profile_pair,
 )
+from .functional_states import (
+    FunctionalDomain,
+    FunctionalStateArchitecture,
+    FunctionalStateBinding,
+    FunctionalStateValidationError,
+    load_functional_architecture,
+    load_functional_binding,
+    validate_binding_pair,
+    validate_functional_architecture,
+    validate_functional_binding,
+)
 from .models import EmbodimentInstance, EmbodimentTemplate, SharedGenesisEvent
 from .runtime import TwinGenesisRuntime, TwinRuntimeState
 from .runtime_binding import TwinRuntimeContexts, build_runtime_contexts
@@ -26,6 +37,15 @@ __all__ = [
     "validate_body_profile",
     "validate_pose_test",
     "validate_profile_pair",
+    "FunctionalDomain",
+    "FunctionalStateArchitecture",
+    "FunctionalStateBinding",
+    "FunctionalStateValidationError",
+    "load_functional_architecture",
+    "load_functional_binding",
+    "validate_binding_pair",
+    "validate_functional_architecture",
+    "validate_functional_binding",
     "EmbodimentInstance",
     "EmbodimentTemplate",
     "SharedGenesisEvent",
