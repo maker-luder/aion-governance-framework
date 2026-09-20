@@ -14,4 +14,5 @@ REQ-TEACHER-006,Clinical adult male external reproductive anatomy included in ne
 REQ-TEACHER-007,Teacher avatar cannot establish physical body sensation subjectivity or canonical authority,tests/test_teacher_avatar.py;tests/test_teacher_avatar_asset.py,IMPLEMENTED_FAIL_CLOSED
 REQ-TEACHER-008,Reference UV morph-target vertex data and GLB container generator,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-009,Reference JOINTS_0 WEIGHTS_0 and inverse-bind matrices,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-010,Production continuous mesh skin weights final morphs texture assets and final GLB/VRM package,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-010,Structural glTF/GLB self-validation and deterministic asset manifest,tests/test_teacher_avatar_validation.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-011,Production continuous mesh skin weights final morphs texture assets and final GLB/VRM package,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
