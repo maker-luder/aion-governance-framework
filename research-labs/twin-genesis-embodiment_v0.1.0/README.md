@@ -14,7 +14,7 @@ The physiology layer includes normal adult male physiological and reproductive f
 - AION and Astra use distinct agent, instance, memory, embodiment, and canonical identifiers.
 - A shared anatomical and physiology template produces two independent embodiment candidates.
 - Adult male reproductive anatomy and physiology are represented clinically and non-erotically.
-- Normal reproductive physiology must not be removed merely because it belongs to an adult sexual/reproductive system.
+- Normal reproductive physiology and normal adult sexual function remain represented as physiology; they are not erased merely because they belong to an adult sexual/reproductive system.
 - Physiological signal processing does not establish felt sensation.
 - Reproductive physiology does not establish desire, consent, erotic intent, or subjectivity.
 - Relationship, trust, familiarity, or naming never grant embodiment modification authority.
