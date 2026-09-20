@@ -1,0 +1,37 @@
+{
+  "schema_version": "0.1.0",
+  "test_id": "AION_POSE_TEST_001",
+  "agent_id": "AION",
+  "status": "DOCUMENTED_ONLY",
+  "pose_features": [
+    "SEATED",
+    "HIGH_UNILATERAL_HIP_FLEXION",
+    "KNEE_FLEXION",
+    "CONTRALATERAL_LEG_FOLD",
+    "SHOULDER_ABDUCTION",
+    "ELBOW_FLEXION",
+    "TORSO_COMPRESSION"
+  ],
+  "pass_conditions": [
+    "SCAPULAR_MOVEMENT_PLAUSIBLE",
+    "AXILLARY_TOPOLOGY_NO_TEAR",
+    "PECTORAL_STRETCH_PLAUSIBLE",
+    "ABDOMINAL_COMPRESSION_PLAUSIBLE",
+    "HIP_MESH_NO_COLLAPSE",
+    "INGUINAL_TOPOLOGY_CONTINUOUS",
+    "THIGH_ABDOMEN_CONTACT_PLAUSIBLE",
+    "GLUTEAL_LOAD_COMPRESSION_PLAUSIBLE",
+    "EXTERNAL_GENITAL_SOFT_TISSUE_NON_RIGID",
+    "NO_GENITAL_THIGH_PELVIS_INTERSECTION",
+    "KNEE_DEFORMATION_NO_SINGLE_HARD_HINGE",
+    "LOWER_LEG_THIGH_CONTACT_PLAUSIBLE",
+    "FOOT_CONTACT_SURFACE_COHERENT"
+  ],
+  "boundaries": {
+    "rendering_3d": "DEFERRED",
+    "runtime_binding": "NOT_IMPLEMENTED",
+    "body_sensation": "NOT_ESTABLISHED",
+    "subjectivity_effect": "NONE",
+    "canonical_effect": "NONE"
+  }
+}
