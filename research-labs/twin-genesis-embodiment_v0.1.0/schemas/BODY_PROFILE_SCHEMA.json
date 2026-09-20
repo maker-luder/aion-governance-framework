@@ -12,6 +12,7 @@
     "body_scope",
     "morphology_class",
     "model_class",
+    "functional_state_binding_id",
     "substrate",
     "anatomy_reference_mode",
     "body_character",
@@ -388,6 +389,10 @@
         }
       },
       "additionalProperties": false
+    },
+    "functional_state_binding_id": {
+      "type": "string",
+      "minLength": 1
     }
   },
   "additionalProperties": false
