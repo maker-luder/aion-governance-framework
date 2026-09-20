@@ -61,6 +61,25 @@ _REQUIRED_JOINTS: Final[tuple[str, ...]] = (
     "rightHand",
 )
 
+_REQUIRED_JOINT_PARENTS: Final[dict[str, str | None]] = {
+    "hips": None,
+    "spine": "hips",
+    "head": "spine",
+    "leftUpperLeg": "hips",
+    "leftLowerLeg": "leftUpperLeg",
+    "leftFoot": "leftLowerLeg",
+    "rightUpperLeg": "hips",
+    "rightLowerLeg": "rightUpperLeg",
+    "rightFoot": "rightLowerLeg",
+    "leftUpperArm": "spine",
+    "leftLowerArm": "leftUpperArm",
+    "leftHand": "leftLowerArm",
+    "rightUpperArm": "spine",
+    "rightLowerArm": "rightUpperArm",
+    "rightHand": "rightLowerArm",
+}
+
+
 _JOINT_ANCHORS: Final[dict[str, Vec3]] = {
     "hips": (0.0, 0.96, 0.0),
     "spine": (0.0, 1.24, 0.0),
@@ -750,19 +769,41 @@ def build_teacher_continuous_reference_gltf(
         },
     ]
 
+    joint_node_index = {
+        name: 1 + index for index, name in enumerate(mesh.joint_names)
+    }
     nodes: list[dict[str, Any]] = [
         {
             "name": "TeacherContinuousSkeletonRoot",
-            "children": list(range(1, 1 + len(mesh.joint_names))),
+            "children": [joint_node_index["hips"]],
         }
     ]
+
+    child_map: dict[str, list[int]] = {name: [] for name in mesh.joint_names}
+    for joint_name, parent_name in _REQUIRED_JOINT_PARENTS.items():
+        if parent_name is not None:
+            child_map[parent_name].append(joint_node_index[joint_name])
+
     for joint_name in mesh.joint_names:
-        nodes.append(
-            {
-                "name": joint_name,
-                "translation": list(_JOINT_ANCHORS[joint_name]),
-            }
-        )
+        parent_name = _REQUIRED_JOINT_PARENTS[joint_name]
+        anchor = _JOINT_ANCHORS[joint_name]
+        if parent_name is None:
+            translation = list(anchor)
+        else:
+            parent_anchor = _JOINT_ANCHORS[parent_name]
+            translation = [
+                anchor[0] - parent_anchor[0],
+                anchor[1] - parent_anchor[1],
+                anchor[2] - parent_anchor[2],
+            ]
+
+        node: dict[str, Any] = {
+            "name": joint_name,
+            "translation": translation,
+        }
+        if child_map[joint_name]:
+            node["children"] = child_map[joint_name]
+        nodes.append(node)
 
     mesh_node_index = len(nodes)
     nodes.append(
@@ -864,7 +905,7 @@ def build_teacher_continuous_reference_gltf(
                 "name": "TeacherContinuousReferenceSkin",
                 "inverseBindMatrices": 6,
                 "skeleton": 0,
-                "joints": list(range(1, 1 + len(mesh.joint_names))),
+                "joints": [joint_node_index[name] for name in mesh.joint_names],
             }
         ],
         "extras": {
@@ -878,6 +919,13 @@ def build_teacher_continuous_reference_gltf(
             "reference_skinning_status": mesh.skinning_status,
             "reference_morph_targets_status": "MATERIALIZED",
             "reference_texture_status": "MATERIALIZED",
+            "vrm_required_humanoid_parent_chain": "ALIGNED_CANDIDATE",
+            "vrm_humanoid_mapping_candidate": {
+                name: {"node": joint_node_index[name]}
+                for name in mesh.joint_names
+            },
+            "vrm_meta_license_authorization": "REQUIRED_FROM_HUMAN_OWNER",
+            "final_vrm_extension_status": "NOT_MATERIALIZED",
             "production_topology_status": "NOT_ESTABLISHED",
             "production_skinning_status": "NOT_ESTABLISHED",
             "production_texture_status": "NOT_MATERIALIZED",
@@ -982,6 +1030,42 @@ def validate_teacher_continuous_reference_gltf(
         if morph_accessor.get("count") != accessors[0].get("count"):
             raise ValueError("continuous morph target count must match POSITION count")
 
+    nodes = payload.get("nodes")
+    if not isinstance(nodes, list) or len(nodes) < len(_REQUIRED_JOINTS) + 2:
+        raise ValueError("continuous reference node hierarchy is incomplete")
+    node_index_by_name = {
+        node.get("name"): index
+        for index, node in enumerate(nodes)
+        if isinstance(node, dict) and isinstance(node.get("name"), str)
+    }
+    if nodes[0].get("children") != [node_index_by_name.get("hips")]:
+        raise ValueError("continuous skeleton root must parent hips")
+
+    for joint_name, parent_name in _REQUIRED_JOINT_PARENTS.items():
+        joint_index = node_index_by_name.get(joint_name)
+        if not isinstance(joint_index, int):
+            raise ValueError(f"missing humanoid joint node: {joint_name}")
+        if parent_name is None:
+            continue
+        parent_index = node_index_by_name.get(parent_name)
+        if not isinstance(parent_index, int):
+            raise ValueError(f"missing parent humanoid joint node: {parent_name}")
+        if joint_index not in nodes[parent_index].get("children", []):
+            raise ValueError(
+                f"humanoid parent-chain drift: {parent_name} -> {joint_name}"
+            )
+
+    mapping = extras.get("vrm_humanoid_mapping_candidate")
+    if not isinstance(mapping, dict) or set(mapping) != set(_REQUIRED_JOINTS):
+        raise ValueError("VRM humanoid mapping candidate is incomplete")
+    for joint_name, record in mapping.items():
+        if record != {"node": node_index_by_name[joint_name]}:
+            raise ValueError("VRM humanoid mapping candidate node drift")
+    if extras.get("vrm_meta_license_authorization") != "REQUIRED_FROM_HUMAN_OWNER":
+        raise ValueError("VRM meta/license authorization boundary drift")
+    if extras.get("final_vrm_extension_status") != "NOT_MATERIALIZED":
+        raise ValueError("VRM extension cannot be self-authorized")
+
     skin = skins[0]
     joints = skin.get("joints")
     if not isinstance(joints, list) or not joints:
@@ -1017,6 +1101,8 @@ def validate_teacher_continuous_reference_gltf(
         "skinning_binding": "PASS",
         "morph_targets": "PASS",
         "reference_texture": "PASS",
+        "vrm_humanoid_parent_chain": "PASS",
+        "vrm_license_boundary": "PASS",
         "governance_boundaries": "PASS",
     }
 
