@@ -12,4 +12,5 @@ REQ-TEACHER-004,VRM-aligned expression preset coverage,tests/test_teacher_avatar
 REQ-TEACHER-005,Deterministic renderable low-poly glTF reference geometry,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-006,Clinical adult male external reproductive anatomy included in neutral reference geometry,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-007,Teacher avatar cannot establish physical body sensation subjectivity or canonical authority,tests/test_teacher_avatar.py;tests/test_teacher_avatar_asset.py,IMPLEMENTED_FAIL_CLOSED
-REQ-TEACHER-008,Production continuous mesh skin weights morph data UV textures and GLB/VRM package,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-008,Reference UV morph-target vertex data and GLB container generator,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-009,Production continuous mesh skin weights final morphs texture assets and final GLB/VRM package,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
