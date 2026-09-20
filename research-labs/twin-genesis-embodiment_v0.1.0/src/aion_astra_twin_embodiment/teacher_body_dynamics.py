@@ -185,7 +185,28 @@ def _default_semantic(channel_id: str) -> BodySignalSemantic:
     reference_min: float | None = 0.0
     reference_max: float | None = 1.0
 
-    if channel_id == "JOINT_POSITION":
+    if channel_id in {"VISUAL_FIELD_REFERENCE", "BINOCULAR_DEPTH_REFERENCE"}:
+        value_kind = "VARIABLE_VECTOR"
+        unit = "visual_feature_reference"
+        reference_min = None
+        reference_max = None
+    elif channel_id in {
+        "AUDITORY_BINAURAL_REFERENCE",
+        "AUDITORY_INTENSITY_REFERENCE",
+    }:
+        value_kind = "VARIABLE_VECTOR"
+        unit = "auditory_feature_reference"
+        reference_min = None
+        reference_max = None
+    elif channel_id in {
+        "OLFACTORY_CHEMOSENSORY_REFERENCE",
+        "GUSTATORY_CHEMOSENSORY_REFERENCE",
+    }:
+        value_kind = "VARIABLE_VECTOR"
+        unit = "chemosensory_feature_reference"
+        reference_min = None
+        reference_max = None
+    elif channel_id == "JOINT_POSITION":
         value_kind = "VARIABLE_VECTOR"
         unit = "radian"
         reference_min = None
