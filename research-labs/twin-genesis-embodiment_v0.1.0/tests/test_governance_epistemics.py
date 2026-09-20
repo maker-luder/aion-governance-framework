@@ -93,7 +93,7 @@ def test_governance_contract_rejects_preemptive_capability_deletion() -> None:
 
 
 def test_governance_contract_rejects_premature_developmental_conclusion() -> None:
-    state = build_capability_governance_state("EMBODIED_DEVELOPMENT")
+    state = build_capability_governance_state("LONGITUDINAL_BODY_STATE_OBSERVATION")
 
     with pytest.raises(ValueError, match="open research question"):
         validate_capability_governance_state(
