@@ -101,6 +101,19 @@ def test_multisensory_fusion_is_confidence_weighted_and_content_addressed() -> N
     assert fusion.phenomenal_body_ownership_status == "NOT_ESTABLISHED"
 
 
+def test_multisensory_fusion_is_order_invariant_for_content_addressing() -> None:
+    cues = (
+        MultisensoryCue("a", "VISUAL", (1.0, 0.0), 0.7),
+        MultisensoryCue("b", "PROPRIOCEPTIVE", (0.8, 0.0), 0.3),
+    )
+    forward = fuse_teacher_multisensory_cues(cues)
+    reverse = fuse_teacher_multisensory_cues(reversed(cues))
+
+    assert forward.fused_estimate == pytest.approx(reverse.fused_estimate)
+    assert forward.normalized_weights == reverse.normalized_weights
+    assert forward.fusion_sha256 == reverse.fusion_sha256
+
+
 def test_multisensory_fusion_rejects_dimension_and_modality_drift() -> None:
     with pytest.raises(ValueError, match="dimensions"):
         fuse_teacher_multisensory_cues(
@@ -167,6 +180,34 @@ def test_body_plasticity_requires_explicit_bounded_update_and_evidence() -> None
                 ),
             ),
         )
+
+
+def test_body_plasticity_hash_is_order_invariant() -> None:
+    updates = (
+        BodyPlasticityUpdate(
+            domain="BODY_SCHEMA",
+            parameter_id="RIGHT_UPPER_LIMB.extent",
+            delta=0.05,
+            evidence_ref="TRIAL-A",
+        ),
+        BodyPlasticityUpdate(
+            domain="MULTISENSORY_WEIGHTING",
+            parameter_id="VISUAL.weight",
+            delta=-0.05,
+            evidence_ref="TRIAL-B",
+        ),
+    )
+    forward = build_teacher_body_plasticity_state(
+        sequence=3,
+        updates=updates,
+    )
+    reverse = build_teacher_body_plasticity_state(
+        sequence=3,
+        updates=reversed(updates),
+    )
+
+    assert forward.updates == reverse.updates
+    assert forward.plasticity_sha256 == reverse.plasticity_sha256
 
 
 def test_body_model_validation_fails_closed_on_missing_peripersonal_zone() -> None:
