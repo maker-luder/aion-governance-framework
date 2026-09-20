@@ -51,6 +51,8 @@
       "type": "object",
       "required": [
         "embodiment_platform",
+        "body_scope",
+        "model_class",
         "biological_tissue",
         "rendering_3d",
         "runtime_binding",
@@ -79,6 +81,12 @@
         },
         "biological_tissue": {
           "const": "NO"
+        },
+        "body_scope": {
+          "const": "FULL_BODY"
+        },
+        "model_class": {
+          "const": "ROBOTIC_EMBODIMENT_DIGITAL_MODEL"
         }
       },
       "additionalProperties": false
