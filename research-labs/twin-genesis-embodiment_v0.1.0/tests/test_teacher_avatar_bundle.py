@@ -50,6 +50,10 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
         physiology["reproductive_physiology_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        physiology["sexual_function_status"]
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
     assert physiology["erotic_intent"] == "NONE"
 
     manifest_path = tmp_path / "chatgpt_teacher_reference_manifest.json"
@@ -59,6 +63,10 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert manifest["physiology_profile_id"] == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
     assert (
         manifest["reproductive_physiology_status"]
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
+        manifest["sexual_function_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
     assert manifest["erotic_intent"] == "NONE"
