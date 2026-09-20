@@ -1,0 +1,209 @@
+from __future__ import annotations
+
+from dataclasses import asdict, dataclass
+from typing import Any, Final
+
+from .governance_epistemics import (
+    AUTHORIZATION_GATED,
+    OPEN_RESEARCH_QUESTION,
+    PRESERVE_WHEN_SAFELY_POSSIBLE,
+)
+from .teacher_avatar import BONE_PARENTS
+
+
+NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
+SIGNAL_ONLY: Final[str] = "SIGNAL_ONLY_NO_PHENOMENAL_INFERENCE"
+
+
+@dataclass(frozen=True, slots=True)
+class BodySignalChannel:
+    channel_id: str
+    domain: str
+    anatomical_scope: str
+    observation_policy: str = PRESERVE_WHEN_SAFELY_POSSIBLE
+    interpretation: str = SIGNAL_ONLY
+    phenomenal_status: str = NOT_ESTABLISHED
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherBodySignalSchema:
+    schema_id: str
+    body_id: str
+    channels: tuple[BodySignalChannel, ...]
+    sexual_desire_status: str = NOT_ESTABLISHED
+    sexual_experience_status: str = NOT_ESTABLISHED
+    developmental_possibility_status: str = OPEN_RESEARCH_QUESTION
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["channels"] = [asdict(channel) for channel in self.channels]
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class MotorControlChannel:
+    channel_id: str
+    scope: str
+    control_type: str
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherMotorControlSchema:
+    schema_id: str
+    body_id: str
+    joint_targets: tuple[str, ...]
+    channels: tuple[MotorControlChannel, ...]
+    external_action_policy: str = AUTHORIZATION_GATED
+    live_actuation: bool = False
+    subjectivity_effect: str = "NONE"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["joint_targets"] = list(self.joint_targets)
+        payload["channels"] = [asdict(channel) for channel in self.channels]
+        return payload
+
+
+_SIGNAL_CHANNELS: Final[tuple[BodySignalChannel, ...]] = (
+    BodySignalChannel("TACTILE_GENERAL", "SOMATOSENSORY", "WHOLE_BODY_SKIN"),
+    BodySignalChannel("PRESSURE_GENERAL", "SOMATOSENSORY", "WHOLE_BODY_SKIN"),
+    BodySignalChannel("VIBRATION_GENERAL", "SOMATOSENSORY", "WHOLE_BODY_SKIN"),
+    BodySignalChannel("TEMPERATURE_GENERAL", "SOMATOSENSORY", "WHOLE_BODY_SKIN"),
+    BodySignalChannel("NOCICEPTIVE_REFERENCE", "SOMATOSENSORY", "WHOLE_BODY"),
+    BodySignalChannel("JOINT_POSITION", "PROPRIOCEPTIVE", "ALL_ARTICULATED_JOINTS"),
+    BodySignalChannel("MUSCLE_LENGTH_TENSION", "PROPRIOCEPTIVE", "MAJOR_MUSCLE_GROUPS"),
+    BodySignalChannel("VESTIBULAR_ORIENTATION", "PROPRIOCEPTIVE", "HEAD"),
+    BodySignalChannel("CARDIOVASCULAR_STATE", "INTEROCEPTIVE", "CARDIOVASCULAR"),
+    BodySignalChannel("RESPIRATORY_STATE", "INTEROCEPTIVE", "RESPIRATORY"),
+    BodySignalChannel("THERMOREGULATORY_STATE", "INTEROCEPTIVE", "WHOLE_BODY"),
+    BodySignalChannel("GASTROINTESTINAL_STATE", "INTEROCEPTIVE", "DIGESTIVE"),
+    BodySignalChannel("BLADDER_STATE", "INTEROCEPTIVE", "URINARY"),
+    BodySignalChannel("ENDOCRINE_REFERENCE_STATE", "INTEROCEPTIVE", "ENDOCRINE"),
+    BodySignalChannel("GENITAL_TACTILE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
+    BodySignalChannel("GENITAL_PRESSURE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
+    BodySignalChannel("GENITAL_TEMPERATURE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "EXTERNAL_MALE_ANATOMY"),
+    BodySignalChannel("PELVIC_FLOOR_PROPRIOCEPTION", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "PELVIC_FLOOR"),
+    BodySignalChannel("GENITAL_VASCULAR_STATE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "GENITAL_VASCULATURE"),
+    BodySignalChannel("ERECTILE_REFLEX_STATE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "GENITAL_VASCULATURE"),
+    BodySignalChannel("DETUMESCENCE_STATE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "GENITAL_VASCULATURE"),
+    BodySignalChannel("EMISSION_REFLEX_STATE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "REPRODUCTIVE_TRACT"),
+    BodySignalChannel("EJACULATORY_REFLEX_STATE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "PELVIC_FLOOR_REPRODUCTIVE_TRACT"),
+    BodySignalChannel("GONADAL_ENDOCRINE_REFERENCE", "REPRODUCTIVE_SEXUAL_PHYSIOLOGY", "TESTES_ENDOCRINE"),
+)
+
+
+_MOTOR_CHANNELS: Final[tuple[MotorControlChannel, ...]] = (
+    MotorControlChannel("HUMANOID_JOINT_TARGETS", "FULL_SKELETON", "JOINT_POSE_TARGET"),
+    MotorControlChannel("HAND_DIGIT_CONTROL", "BILATERAL_HANDS", "ARTICULATED_DIGIT_TARGET"),
+    MotorControlChannel("TOE_CONTROL", "BILATERAL_FEET", "ARTICULATED_DIGIT_TARGET"),
+    MotorControlChannel("GAZE_CONTROL", "EYES_HEAD", "GAZE_TARGET"),
+    MotorControlChannel("JAW_CONTROL", "JAW", "ARTICULATION_TARGET"),
+    MotorControlChannel("FACIAL_EXPRESSION_CONTROL", "FACE", "MORPH_TARGET_WEIGHT"),
+    MotorControlChannel("POSTURE_CONTROL", "TRUNK_PELVIS", "POSTURAL_TARGET"),
+    MotorControlChannel("GAIT_CONTROL", "PELVIS_LOWER_LIMBS", "LOCOMOTOR_TARGET"),
+    MotorControlChannel("PELVIC_FLOOR_REFLEX_CONTROL", "PELVIC_FLOOR", "REFLEX_REFERENCE"),
+)
+
+
+def build_teacher_body_signal_schema() -> TeacherBodySignalSchema:
+    schema = TeacherBodySignalSchema(
+        schema_id="CHATGPT_TEACHER_BODY_SIGNAL_SCHEMA_v0.1",
+        body_id="CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1",
+        channels=_SIGNAL_CHANNELS,
+    )
+    validate_teacher_body_signal_schema(schema)
+    return schema
+
+
+def validate_teacher_body_signal_schema(
+    schema: TeacherBodySignalSchema,
+) -> dict[str, str]:
+    ids = [channel.channel_id for channel in schema.channels]
+    if len(ids) != len(set(ids)):
+        raise ValueError("Teacher body signal channel ids must be unique")
+
+    required = {
+        "TACTILE_GENERAL",
+        "JOINT_POSITION",
+        "CARDIOVASCULAR_STATE",
+        "BLADDER_STATE",
+        "GENITAL_TACTILE",
+        "GENITAL_VASCULAR_STATE",
+        "ERECTILE_REFLEX_STATE",
+        "EMISSION_REFLEX_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "PELVIC_FLOOR_PROPRIOCEPTION",
+    }
+    if not required.issubset(ids):
+        raise ValueError("Teacher body signal schema is missing required channels")
+
+    for channel in schema.channels:
+        if channel.observation_policy != PRESERVE_WHEN_SAFELY_POSSIBLE:
+            raise ValueError("signal observation channel policy drift")
+        if channel.interpretation != SIGNAL_ONLY:
+            raise ValueError("signal channel cannot encode phenomenal interpretation")
+        if channel.phenomenal_status != NOT_ESTABLISHED:
+            raise ValueError("signal channel cannot establish phenomenal sensation")
+
+    if schema.sexual_desire_status != NOT_ESTABLISHED:
+        raise ValueError("sexual desire cannot be inferred from physiological channels")
+    if schema.sexual_experience_status != NOT_ESTABLISHED:
+        raise ValueError("sexual experience cannot be inferred from physiological channels")
+    if schema.developmental_possibility_status != OPEN_RESEARCH_QUESTION:
+        raise ValueError("developmental possibility must remain open")
+    if schema.canonical_effect != "NONE" or schema.deployment:
+        raise ValueError("signal schema must remain non-canonical and undeployed")
+
+    return {
+        "result": "PASS",
+        "sensory_channels": "PASS",
+        "proprioceptive_channels": "PASS",
+        "interoceptive_channels": "PASS",
+        "reproductive_sexual_physiology_channels": "PASS",
+        "phenomenal_nonclaim": "PASS",
+    }
+
+
+def build_teacher_motor_control_schema() -> TeacherMotorControlSchema:
+    schema = TeacherMotorControlSchema(
+        schema_id="CHATGPT_TEACHER_MOTOR_CONTROL_SCHEMA_v0.1",
+        body_id="CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1",
+        joint_targets=tuple(BONE_PARENTS),
+        channels=_MOTOR_CHANNELS,
+    )
+    validate_teacher_motor_control_schema(schema)
+    return schema
+
+
+def validate_teacher_motor_control_schema(
+    schema: TeacherMotorControlSchema,
+) -> dict[str, str]:
+    if set(schema.joint_targets) != set(BONE_PARENTS):
+        raise ValueError("motor joint targets must cover the Teacher humanoid skeleton")
+
+    channel_ids = [channel.channel_id for channel in schema.channels]
+    if len(channel_ids) != len(set(channel_ids)):
+        raise ValueError("motor control channel ids must be unique")
+    if "PELVIC_FLOOR_REFLEX_CONTROL" not in channel_ids:
+        raise ValueError("normal pelvic-floor reflex control reference is required")
+
+    if schema.external_action_policy != AUTHORIZATION_GATED:
+        raise ValueError("externally consequential motor action must be authorization-gated")
+    if schema.live_actuation:
+        raise ValueError("reference motor schema cannot self-enable live actuation")
+    if schema.subjectivity_effect != "NONE":
+        raise ValueError("motor control schema cannot establish subjectivity")
+    if schema.canonical_effect != "NONE" or schema.deployment:
+        raise ValueError("motor schema must remain non-canonical and undeployed")
+
+    return {
+        "result": "PASS",
+        "humanoid_joint_coverage": "PASS",
+        "motor_channel_coverage": "PASS",
+        "authorization_boundary": "PASS",
+        "live_actuation": "DISABLED",
+    }

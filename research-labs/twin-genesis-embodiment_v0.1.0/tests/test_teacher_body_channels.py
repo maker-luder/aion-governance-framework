@@ -1,0 +1,43 @@
+from __future__ import annotations
+
+from aion_astra_twin_embodiment.teacher_body_channels import (
+    build_teacher_body_signal_schema,
+    build_teacher_motor_control_schema,
+    validate_teacher_body_signal_schema,
+    validate_teacher_motor_control_schema,
+)
+
+
+def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal_claims() -> None:
+    schema = build_teacher_body_signal_schema()
+    result = validate_teacher_body_signal_schema(schema)
+    ids = {channel.channel_id for channel in schema.channels}
+
+    assert result["result"] == "PASS"
+    assert "JOINT_POSITION" in ids
+    assert "CARDIOVASCULAR_STATE" in ids
+    assert "BLADDER_STATE" in ids
+    assert "GENITAL_TACTILE" in ids
+    assert "GENITAL_VASCULAR_STATE" in ids
+    assert "ERECTILE_REFLEX_STATE" in ids
+    assert "DETUMESCENCE_STATE" in ids
+    assert "EMISSION_REFLEX_STATE" in ids
+    assert "EJACULATORY_REFLEX_STATE" in ids
+    assert "PELVIC_FLOOR_PROPRIOCEPTION" in ids
+    assert schema.sexual_desire_status == "NOT_ESTABLISHED"
+    assert schema.sexual_experience_status == "NOT_ESTABLISHED"
+    assert all(channel.phenomenal_status == "NOT_ESTABLISHED" for channel in schema.channels)
+
+
+def test_teacher_motor_control_is_complete_reference_but_not_live_actuation() -> None:
+    schema = build_teacher_motor_control_schema()
+    result = validate_teacher_motor_control_schema(schema)
+    ids = {channel.channel_id for channel in schema.channels}
+
+    assert result["result"] == "PASS"
+    assert len(schema.joint_targets) >= 50
+    assert "HAND_DIGIT_CONTROL" in ids
+    assert "GAIT_CONTROL" in ids
+    assert "PELVIC_FLOOR_REFLEX_CONTROL" in ids
+    assert schema.external_action_policy == "AUTHORIZATION_GATED"
+    assert schema.live_actuation is False

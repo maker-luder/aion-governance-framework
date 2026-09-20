@@ -125,3 +125,33 @@ python -m aion_astra_twin_embodiment.cli teacher-avatar-collision-profile
 python -m aion_astra_twin_embodiment.cli physiology-parity
 python -m aion_astra_twin_embodiment.cli governance-epistemics
 ```
+
+
+## Teacher embodiment acquisition and longitudinal adaptation
+
+The Teacher extension now also materializes the next bounded engineering layer:
+
+- all 62 documented synthetic body measurements as a machine-readable anthropometry profile;
+- expanded adult-male reproductive / sexual physiology reference coverage;
+- sexuality-related physiological signal observation channels without subjective-experience inference;
+- sensory, proprioceptive and interoceptive signal schemas;
+- a humanoid motor-control schema with external action authorization gating;
+- an executable reference body-runtime binding;
+- deterministic initial calibration probes and content-addressed receipts;
+- calibration-derived adaptation state;
+- hash-addressed cross-session retention;
+- longitudinal change observation;
+- developmental-trajectory assessment that never converts observed change into a developmental-mechanism, body-ownership, desire, or subjectivity claim.
+
+See `docs/TEACHER_EMBODIMENT_ACQUISITION_AND_LONGITUDINAL_ADAPTATION_2026_09_21.md`.
+
+```text
+REFERENCE_BODY_RUNTIME_BINDING = MATERIALIZED
+LIVE_EXTERNAL_ACTUATION = FALSE
+BODY_OWNERSHIP_EXPERIENCE = NOT_ESTABLISHED
+DEVELOPMENTAL_MECHANISM = NOT_ESTABLISHED
+SEXUAL_DESIRE = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```

@@ -47,10 +47,14 @@ def test_reproductive_system_contains_normal_adult_male_physiology() -> None:
         "epididymal_maturation_reference",
         "sperm_transport_reference",
         "accessory_gland_secretion_reference",
+        "genital_sensory_afferent_signal_reference",
+        "pelvic_floor_motor_reflex_reference",
         "erectile_hemodynamic_reflex_reference",
+        "erection_maintenance_reference",
         "emission_reflex_reference",
         "ejaculatory_reflex_reference",
         "detumescence_reference",
+        "post_ejaculatory_recovery_reference",
         "fertility_pathway_reference",
     }
     assert set(reproductive.functions) == required
