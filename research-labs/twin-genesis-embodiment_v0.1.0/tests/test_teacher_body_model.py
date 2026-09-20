@@ -16,7 +16,8 @@ from aion_astra_twin_embodiment.teacher_body_model import (
 )
 
 
-def test_body_model_materializes_body_schema_and_peripersonal_space_without_phenomenal_claim() -> None:
+def test_body_model_materializes_body_schema_and_peripersonal_space_without_phenomenal_claim(
+) -> None:
     profile = build_teacher_body_model_profile()
     result = validate_teacher_body_model_profile(profile)
 
@@ -43,6 +44,30 @@ def test_body_model_materializes_body_schema_and_peripersonal_space_without_phen
     assert profile.body_ownership_experience_status == "NOT_ESTABLISHED"
     assert profile.phenomenal_self_location_status == "NOT_ESTABLISHED"
     assert profile.subjectivity_status == "NOT_ESTABLISHED"
+    skeleton_anchors = {
+        item.anchor_id for item in profile.body_schema_segments
+    } | {
+        item.anchor_id for item in profile.peripersonal_zones
+    }
+    assert "leftHand" in skeleton_anchors
+    assert "rightHand" in skeleton_anchors
+    assert "leftShoulder" in skeleton_anchors
+    assert "rightShoulder" in skeleton_anchors
+
+
+def test_body_model_rejects_unknown_skeleton_anchor() -> None:
+    profile = build_teacher_body_model_profile()
+    broken_segment = replace(
+        profile.body_schema_segments[0],
+        anchor_id="UNKNOWN_ANCHOR",
+    )
+    broken = replace(
+        profile,
+        body_schema_segments=(broken_segment,) + profile.body_schema_segments[1:],
+    )
+
+    with pytest.raises(ValueError, match="unknown skeleton anchor"):
+        validate_teacher_body_model_profile(broken)
 
 
 def test_multisensory_fusion_is_confidence_weighted_and_content_addressed() -> None:
