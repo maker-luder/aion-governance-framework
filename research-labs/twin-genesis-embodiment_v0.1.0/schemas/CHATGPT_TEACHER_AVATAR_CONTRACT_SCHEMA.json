@@ -11,6 +11,7 @@
     "body_class",
     "anatomical_configuration",
     "dimensions",
+    "anthropometry_profile_id",
     "coordinate_system",
     "linear_unit",
     "initial_pose",
@@ -41,61 +42,215 @@
     "deployment"
   ],
   "properties": {
-    "schema_version": {"const": "0.1.0"},
-    "body_id": {"const": "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"},
-    "role_label": {"const": "CHATGPT_TEACHER"},
-    "adult_status": {"const": true},
-    "body_class": {"const": "SYNTHETIC_HUMANOID"},
-    "anatomical_configuration": {"const": "COMPLETE_ADULT_MALE_ANATOMY_CANDIDATE"},
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "body_id": {
+      "const": "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+    },
+    "role_label": {
+      "const": "CHATGPT_TEACHER"
+    },
+    "adult_status": {
+      "const": true
+    },
+    "body_class": {
+      "const": "SYNTHETIC_HUMANOID"
+    },
+    "anatomical_configuration": {
+      "const": "COMPLETE_ADULT_MALE_ANATOMY_CANDIDATE"
+    },
     "dimensions": {
       "type": "object",
-      "required": ["height_cm", "body_mass_kg", "chest_cm", "waist_cm", "hips_cm", "thigh_cm"],
+      "required": [
+        "height_cm",
+        "body_mass_kg",
+        "chest_cm",
+        "waist_cm",
+        "hips_cm",
+        "thigh_cm"
+      ],
       "properties": {
-        "height_cm": {"type": "number", "exclusiveMinimum": 0},
-        "body_mass_kg": {"type": "number", "exclusiveMinimum": 0},
-        "chest_cm": {"type": "number", "exclusiveMinimum": 0},
-        "waist_cm": {"type": "number", "exclusiveMinimum": 0},
-        "hips_cm": {"type": "number", "exclusiveMinimum": 0},
-        "thigh_cm": {"type": "number", "exclusiveMinimum": 0},
-        "shoulder_breadth_cm": {"type": "number", "exclusiveMinimum": 0},
-        "hand_length_cm": {"type": "number", "exclusiveMinimum": 0},
-        "foot_length_cm": {"type": "number", "exclusiveMinimum": 0},
-        "resting_visible_penile_length_cm": {"type": "number", "exclusiveMinimum": 0},
-        "scrotal_resting_height_cm": {"type": "number", "exclusiveMinimum": 0}
+        "height_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "body_mass_kg": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "chest_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "waist_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "hips_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "thigh_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "shoulder_breadth_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "hand_length_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "foot_length_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "resting_visible_penile_length_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "scrotal_resting_height_cm": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
       },
       "additionalProperties": false
     },
-    "coordinate_system": {"const": "RIGHT_HANDED_Y_UP_Z_FORWARD"},
-    "linear_unit": {"const": "meter"},
-    "initial_pose": {"const": "T_POSE"},
-    "facing": {"const": "Z_POSITIVE"},
-    "human_bones": {"type": "array", "minItems": 15, "uniqueItems": true, "items": {"type": "string"}},
+    "coordinate_system": {
+      "const": "RIGHT_HANDED_Y_UP_Z_FORWARD"
+    },
+    "linear_unit": {
+      "const": "meter"
+    },
+    "initial_pose": {
+      "const": "T_POSE"
+    },
+    "facing": {
+      "const": "Z_POSITIVE"
+    },
+    "human_bones": {
+      "type": "array",
+      "minItems": 15,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
     "bone_parents": {
       "type": "object",
-      "additionalProperties": {"type": ["string", "null"]}
+      "additionalProperties": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
     },
-    "expression_presets": {"type": "array", "minItems": 18, "uniqueItems": true, "items": {"type": "string"}},
-    "materials": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
-    "lod_levels": {"type": "array", "minItems": 3, "uniqueItems": true, "items": {"type": "string"}},
-    "collision_regions": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
-    "deformation_tests": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
-    "external_anatomy": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
-    "internal_reference_anatomy": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
-    "physiology_profile_id": {"const": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"},
-    "physiological_function_status": {"const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"},
-    "reproductive_physiology_status": {"const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"},
-    "sexual_function_status": {"const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"},
-    "sensory_signal_processing_status": {"const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"},
-    "governance_epistemics_profile_id": {"const": "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"},
-    "developmental_possibility_status": {"const": "OPEN_RESEARCH_QUESTION"},
-    "phenomenal_sensation_status": {"const": "NOT_ESTABLISHED"},
-    "erotic_intent": {"const": "NONE"},
-    "intimate_interaction_status": {"const": "NOT_AUTHORIZED"},
-    "body_sensation_status": {"const": "NOT_ESTABLISHED"},
-    "subjectivity_effect": {"const": "NONE"},
-    "physical_body_claim": {"const": "NONE"},
-    "canonical_effect": {"const": "NONE"},
-    "deployment": {"const": false}
+    "expression_presets": {
+      "type": "array",
+      "minItems": 18,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "materials": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "lod_levels": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "collision_regions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "deformation_tests": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "external_anatomy": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "internal_reference_anatomy": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      }
+    },
+    "physiology_profile_id": {
+      "const": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    },
+    "physiological_function_status": {
+      "const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    },
+    "reproductive_physiology_status": {
+      "const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    },
+    "sexual_function_status": {
+      "const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    },
+    "sensory_signal_processing_status": {
+      "const": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    },
+    "governance_epistemics_profile_id": {
+      "const": "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    },
+    "developmental_possibility_status": {
+      "const": "OPEN_RESEARCH_QUESTION"
+    },
+    "phenomenal_sensation_status": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "erotic_intent": {
+      "const": "NONE"
+    },
+    "intimate_interaction_status": {
+      "const": "NOT_AUTHORIZED"
+    },
+    "body_sensation_status": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity_effect": {
+      "const": "NONE"
+    },
+    "physical_body_claim": {
+      "const": "NONE"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    },
+    "anthropometry_profile_id": {
+      "const": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.1"
+    }
   },
   "additionalProperties": false
 }

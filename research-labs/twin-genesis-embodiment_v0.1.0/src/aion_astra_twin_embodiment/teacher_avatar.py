@@ -3,6 +3,10 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Final
 
+from .teacher_anthropometry import (
+    TEACHER_ANTHROPOMETRY_PROFILE_ID,
+    build_teacher_anthropometry_profile,
+)
 from .physiology import (
     REFERENCE_FUNCTIONAL_COMPLETENESS,
     build_adult_male_physiology_reference,
@@ -121,6 +125,7 @@ class TeacherAvatarContract:
     body_class: str
     anatomical_configuration: str
     dimensions: TeacherBodyDimensions
+    anthropometry_profile_id: str
     coordinate_system: str
     linear_unit: str
     initial_pose: str
@@ -172,6 +177,7 @@ def build_teacher_avatar_contract() -> TeacherAvatarContract:
         body_class="SYNTHETIC_HUMANOID",
         anatomical_configuration="COMPLETE_ADULT_MALE_ANATOMY_CANDIDATE",
         dimensions=TeacherBodyDimensions(),
+        anthropometry_profile_id=TEACHER_ANTHROPOMETRY_PROFILE_ID,
         coordinate_system=COORDINATE_SYSTEM,
         linear_unit=LINEAR_UNIT,
         initial_pose="T_POSE",
@@ -308,6 +314,29 @@ def validate_teacher_avatar_contract(contract: TeacherAvatarContract) -> dict[st
     if contract.dimensions.height_cm <= 0 or contract.dimensions.body_mass_kg <= 0:
         raise ValueError("body dimensions must be positive")
 
+    anthropometry = build_teacher_anthropometry_profile()
+    if contract.anthropometry_profile_id != anthropometry.profile_id:
+        raise ValueError("Teacher anthropometry profile binding drift")
+    if contract.body_id != anthropometry.body_id:
+        raise ValueError("Teacher anthropometry body binding drift")
+    measurement_map = anthropometry.measurement_map()
+    dimension_crosswalk = {
+        "height_cm": "total_height",
+        "body_mass_kg": "body_mass",
+        "chest_cm": "chest_circumference",
+        "waist_cm": "waist_circumference",
+        "hips_cm": "hip_circumference",
+        "thigh_cm": "maximum_thigh_circumference",
+        "shoulder_breadth_cm": "biacromial_shoulder_breadth",
+        "hand_length_cm": "hand_length",
+        "foot_length_cm": "foot_length",
+        "resting_visible_penile_length_cm": "resting_visible_penile_length",
+        "scrotal_resting_height_cm": "scrotal_resting_height",
+    }
+    for field_name, measurement_id in dimension_crosswalk.items():
+        if getattr(contract.dimensions, field_name) != measurement_map[measurement_id].nominal:
+            raise ValueError(f"Teacher dimension summary drift: {field_name}")
+
     physiology = build_adult_male_physiology_reference(contract.body_id)
     validate_adult_male_physiology_reference(physiology)
     if contract.physiology_profile_id != physiology.profile_id:
@@ -345,6 +374,7 @@ def validate_teacher_avatar_contract(contract: TeacherAvatarContract) -> dict[st
         "humanoid_required_bones": "PASS",
         "hierarchy": "PASS",
         "expressions": "PASS",
+        "anthropometry_profile": "PASS",
         "physiology_reference": "PASS",
         "governance_boundaries": "PASS",
     }
@@ -405,6 +435,7 @@ def build_teacher_avatar_gltf_contract() -> dict[str, Any]:
             "collisionRegions": list(contract.collision_regions),
             "deformationTests": list(contract.deformation_tests),
             "dimensions": asdict(contract.dimensions),
+            "anthropometry_profile_id": contract.anthropometry_profile_id,
             "physiology_profile_id": contract.physiology_profile_id,
             "physiological_function_status": contract.physiological_function_status,
             "reproductive_physiology_status": contract.reproductive_physiology_status,

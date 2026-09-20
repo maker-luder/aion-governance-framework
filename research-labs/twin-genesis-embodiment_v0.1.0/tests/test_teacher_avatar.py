@@ -20,6 +20,7 @@ def test_teacher_avatar_contract_is_complete_and_bounded() -> None:
     assert set(VRM_REQUIRED_BONES).issubset(set(contract.human_bones))
     assert len(contract.human_bones) >= 50
     assert contract.dimensions.height_cm == 183.0
+    assert contract.anthropometry_profile_id == "CHATGPT_TEACHER_ANTHROPOMETRY_v0.1"
     assert contract.anatomical_configuration == "COMPLETE_ADULT_MALE_ANATOMY_CANDIDATE"
     assert "SPERMATIC_CORD" in contract.internal_reference_anatomy
     assert "EJACULATORY_DUCTS" in contract.internal_reference_anatomy
@@ -67,6 +68,7 @@ def test_teacher_avatar_gltf_contract_has_scene_skin_and_vrm_aligned_metadata() 
     assert payload["extras"]["initial_pose"] == "T_POSE"
     assert payload["extras"]["facing"] == "Z_POSITIVE"
     assert payload["extras"]["linear_unit"] == "meter"
+    assert payload["extras"]["anthropometry_profile_id"] == "CHATGPT_TEACHER_ANTHROPOMETRY_v0.1"
     assert set(VRM_REQUIRED_BONES).issubset(payload["extras"]["humanBones"])
     assert payload["extras"]["renderable_mesh_status"] == "NOT_MATERIALIZED"
     assert payload["extras"]["linear_blend_skin_weights_status"] == "NOT_MATERIALIZED"
