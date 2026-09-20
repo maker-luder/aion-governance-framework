@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
+import pytest
+
 from aion_astra_twin_embodiment.teacher_body_channels import (
     build_teacher_body_signal_schema,
     build_teacher_motor_control_schema,
@@ -88,3 +92,18 @@ def test_teacher_body_signal_schema_does_not_reintroduce_coarse_desire_lock() ->
     assert payload["sexual_valence_representation_status"] == "RESEARCHABLE"
     assert payload["phenomenal_sexual_desire_status"] == "NOT_ESTABLISHED"
     assert payload["phenomenal_sexual_pleasure_status"] == "NOT_ESTABLISHED"
+
+
+def test_expanded_reference_channels_fail_closed_when_removed() -> None:
+    schema = build_teacher_body_signal_schema()
+    broken = replace(
+        schema,
+        channels=tuple(
+            channel
+            for channel in schema.channels
+            if channel.channel_id != "IMMUNE_ACTIVITY_STATE"
+        ),
+    )
+
+    with pytest.raises(ValueError, match="missing required channels"):
+        validate_teacher_body_signal_schema(broken)
