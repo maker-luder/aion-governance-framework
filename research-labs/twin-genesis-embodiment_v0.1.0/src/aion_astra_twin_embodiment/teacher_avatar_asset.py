@@ -1,0 +1,260 @@
+from __future__ import annotations
+
+import base64
+import struct
+from typing import Any
+
+from .teacher_avatar import build_teacher_avatar_contract, validate_teacher_avatar_contract
+
+
+_CUBE_POSITIONS: tuple[tuple[float, float, float], ...] = (
+    (-0.5, -0.5, -0.5),
+    (0.5, -0.5, -0.5),
+    (0.5, 0.5, -0.5),
+    (-0.5, 0.5, -0.5),
+    (-0.5, -0.5, 0.5),
+    (0.5, -0.5, 0.5),
+    (0.5, 0.5, 0.5),
+    (-0.5, 0.5, 0.5),
+)
+
+_CUBE_INDICES: tuple[int, ...] = (
+    0, 1, 2, 2, 3, 0,
+    4, 6, 5, 6, 4, 7,
+    0, 4, 5, 5, 1, 0,
+    3, 2, 6, 6, 7, 3,
+    1, 5, 6, 6, 2, 1,
+    0, 3, 7, 7, 4, 0,
+)
+
+
+def _cube_buffer() -> bytes:
+    position_bytes = b"".join(struct.pack("<fff", *position) for position in _CUBE_POSITIONS)
+    index_bytes = struct.pack("<" + "H" * len(_CUBE_INDICES), *_CUBE_INDICES)
+    return position_bytes + index_bytes
+
+
+def _bone_translation(name: str) -> list[float]:
+    direct: dict[str, tuple[float, float, float]] = {
+        "hips": (0.0, 0.96, 0.0),
+        "spine": (0.0, 0.20, 0.0),
+        "chest": (0.0, 0.23, 0.0),
+        "upperChest": (0.0, 0.20, 0.0),
+        "neck": (0.0, 0.13, 0.0),
+        "head": (0.0, 0.14, 0.0),
+        "leftEye": (0.035, 0.035, 0.09),
+        "rightEye": (-0.035, 0.035, 0.09),
+        "jaw": (0.0, -0.08, 0.04),
+        "leftShoulder": (0.16, 0.08, 0.0),
+        "rightShoulder": (-0.16, 0.08, 0.0),
+        "leftUpperArm": (0.22, 0.0, 0.0),
+        "rightUpperArm": (-0.22, 0.0, 0.0),
+        "leftLowerArm": (0.30, 0.0, 0.0),
+        "rightLowerArm": (-0.30, 0.0, 0.0),
+        "leftHand": (0.25, 0.0, 0.0),
+        "rightHand": (-0.25, 0.0, 0.0),
+        "leftUpperLeg": (0.11, -0.11, 0.0),
+        "rightUpperLeg": (-0.11, -0.11, 0.0),
+        "leftLowerLeg": (0.0, -0.45, 0.0),
+        "rightLowerLeg": (0.0, -0.45, 0.0),
+        "leftFoot": (0.0, -0.43, 0.07),
+        "rightFoot": (0.0, -0.43, 0.07),
+        "leftToes": (0.0, 0.0, 0.15),
+        "rightToes": (0.0, 0.0, 0.15),
+    }
+    if name in direct:
+        return list(direct[name])
+
+    side_sign = 1.0 if name.startswith("left") else -1.0
+    if "ThumbMetacarpal" in name:
+        return [0.025 * side_sign, -0.01, 0.02]
+    if "ThumbProximal" in name or "ThumbDistal" in name:
+        return [0.025 * side_sign, 0.0, 0.0]
+    if name.endswith("Proximal"):
+        return [0.0, 0.0, 0.035]
+    if name.endswith("Intermediate"):
+        return [0.0, 0.0, 0.025]
+    if name.endswith("Distal"):
+        return [0.0, 0.0, 0.02]
+    return [0.0, 0.0, 0.0]
+
+
+def _segment_scale(name: str) -> list[float] | None:
+    direct: dict[str, tuple[float, float, float]] = {
+        "hips": (0.33, 0.23, 0.22),
+        "spine": (0.30, 0.20, 0.20),
+        "chest": (0.43, 0.28, 0.23),
+        "upperChest": (0.45, 0.24, 0.23),
+        "neck": (0.12, 0.15, 0.12),
+        "head": (0.17, 0.24, 0.19),
+        "leftUpperArm": (0.31, 0.13, 0.13),
+        "rightUpperArm": (0.31, 0.13, 0.13),
+        "leftLowerArm": (0.28, 0.10, 0.10),
+        "rightLowerArm": (0.28, 0.10, 0.10),
+        "leftHand": (0.18, 0.08, 0.04),
+        "rightHand": (0.18, 0.08, 0.04),
+        "leftUpperLeg": (0.18, 0.43, 0.18),
+        "rightUpperLeg": (0.18, 0.43, 0.18),
+        "leftLowerLeg": (0.14, 0.42, 0.14),
+        "rightLowerLeg": (0.14, 0.42, 0.14),
+        "leftFoot": (0.12, 0.08, 0.28),
+        "rightFoot": (0.12, 0.08, 0.28),
+        "leftToes": (0.11, 0.05, 0.10),
+        "rightToes": (0.11, 0.05, 0.10),
+        "jaw": (0.12, 0.06, 0.10),
+    }
+    if name in direct:
+        return list(direct[name])
+    if any(token in name for token in ("Thumb", "Index", "Middle", "Ring", "Little")):
+        return [0.025, 0.025, 0.055]
+    return None
+
+
+def build_teacher_low_poly_gltf() -> dict[str, Any]:
+    contract = build_teacher_avatar_contract()
+    validate_teacher_avatar_contract(contract)
+
+    bone_names = list(contract.human_bones)
+    node_index = {name: index for index, name in enumerate(bone_names)}
+    nodes: list[dict[str, Any]] = [
+        {"name": name, "translation": _bone_translation(name), "children": []}
+        for name in bone_names
+    ]
+    roots: list[int] = []
+
+    for bone, parent in contract.bone_parents.items():
+        if parent is None:
+            roots.append(node_index[bone])
+        else:
+            nodes[node_index[parent]]["children"].append(node_index[bone])
+
+    geometry_roles: list[tuple[str, str, list[float], list[float]]] = []
+    for bone in bone_names:
+        scale = _segment_scale(bone)
+        if scale is not None:
+            geometry_roles.append((f"GEO_{bone}", bone, [0.0, 0.0, 0.0], scale))
+
+    geometry_roles.extend(
+        [
+            ("GEO_PENIS", "hips", [0.0, -0.05, 0.13], [0.045, 0.095, 0.045]),
+            ("GEO_SCROTUM", "hips", [0.0, -0.09, 0.07], [0.07, 0.07, 0.06]),
+            ("GEO_LEFT_TESTIS_VOLUME", "hips", [0.025, -0.09, 0.07], [0.03, 0.045, 0.03]),
+            ("GEO_RIGHT_TESTIS_VOLUME", "hips", [-0.025, -0.09, 0.07], [0.03, 0.045, 0.03]),
+            ("GEO_PERINEUM_REFERENCE", "hips", [0.0, -0.11, -0.04], [0.09, 0.03, 0.10]),
+        ]
+    )
+
+    for geometry_name, parent_bone, translation, scale in geometry_roles:
+        index = len(nodes)
+        nodes.append(
+            {
+                "name": geometry_name,
+                "mesh": 0,
+                "translation": translation,
+                "scale": scale,
+                "extras": {"anatomy_role": geometry_name.removeprefix("GEO_")},
+            }
+        )
+        nodes[node_index[parent_bone]]["children"].append(index)
+
+    for node in nodes:
+        if node.get("children") == []:
+            node.pop("children", None)
+
+    raw_buffer = _cube_buffer()
+    encoded = base64.b64encode(raw_buffer).decode("ascii")
+    position_byte_length = len(_CUBE_POSITIONS) * 3 * 4
+    index_byte_length = len(_CUBE_INDICES) * 2
+
+    return {
+        "asset": {
+            "version": "2.0",
+            "generator": "aion-astra-twin-embodiment/teacher-low-poly-v0.1",
+        },
+        "scene": 0,
+        "scenes": [{"name": "ChatGPT Teacher Low Poly Reference", "nodes": roots}],
+        "nodes": nodes,
+        "buffers": [
+            {
+                "byteLength": len(raw_buffer),
+                "uri": f"data:application/octet-stream;base64,{encoded}",
+            }
+        ],
+        "bufferViews": [
+            {
+                "buffer": 0,
+                "byteOffset": 0,
+                "byteLength": position_byte_length,
+                "target": 34962,
+            },
+            {
+                "buffer": 0,
+                "byteOffset": position_byte_length,
+                "byteLength": index_byte_length,
+                "target": 34963,
+            },
+        ],
+        "accessors": [
+            {
+                "bufferView": 0,
+                "byteOffset": 0,
+                "componentType": 5126,
+                "count": len(_CUBE_POSITIONS),
+                "type": "VEC3",
+                "min": [-0.5, -0.5, -0.5],
+                "max": [0.5, 0.5, 0.5],
+            },
+            {
+                "bufferView": 1,
+                "byteOffset": 0,
+                "componentType": 5123,
+                "count": len(_CUBE_INDICES),
+                "type": "SCALAR",
+                "min": [0],
+                "max": [7],
+            },
+        ],
+        "materials": [
+            {
+                "name": "TeacherReferenceMaterial",
+                "pbrMetallicRoughness": {
+                    "baseColorFactor": [0.62, 0.62, 0.62, 1.0],
+                    "metallicFactor": 0.0,
+                    "roughnessFactor": 0.8,
+                },
+            }
+        ],
+        "meshes": [
+            {
+                "name": "UnitCubeReferenceMesh",
+                "primitives": [
+                    {
+                        "attributes": {"POSITION": 0},
+                        "indices": 1,
+                        "material": 0,
+                        "mode": 4,
+                    }
+                ],
+            }
+        ],
+        "extras": {
+            "body_id": contract.body_id,
+            "status": "RENDERABLE_LOW_POLY_REFERENCE",
+            "rig_mode": "SEGMENTED_HIERARCHICAL_REFERENCE",
+            "coordinate_system": contract.coordinate_system,
+            "linear_unit": contract.linear_unit,
+            "initial_pose": contract.initial_pose,
+            "facing": contract.facing,
+            "anatomical_configuration": contract.anatomical_configuration,
+            "renderable_mesh_status": "LOW_POLY_REFERENCE_MATERIALIZED",
+            "continuous_production_mesh_status": "NOT_MATERIALIZED",
+            "linear_blend_skin_weights_status": "NOT_MATERIALIZED",
+            "morph_target_vertex_data_status": "NOT_MATERIALIZED",
+            "uv_texture_assets_status": "NOT_MATERIALIZED",
+            "production_asset_status": "NOT_ESTABLISHED",
+            "physical_body_claim": "NONE",
+            "subjectivity_effect": "NONE",
+            "sexual_function_status": "NOT_IMPLEMENTED",
+            "intimate_interaction_status": "NOT_AUTHORIZED",
+        },
+    }
