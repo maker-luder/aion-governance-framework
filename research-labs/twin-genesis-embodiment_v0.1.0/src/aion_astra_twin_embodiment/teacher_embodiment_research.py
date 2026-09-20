@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Final, Iterable
 
+from .teacher_body_dynamics import BODY_DYNAMICS_PROFILE_ID
+
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
 OPEN_RESEARCH_QUESTION: Final[str] = "OPEN_RESEARCH_QUESTION"
@@ -85,6 +87,7 @@ class FourDomainEmbodimentCandidate:
 class TeacherEmbodimentResearchSurface:
     surface_id: str
     candidates: tuple[FourDomainEmbodimentCandidate, ...]
+    body_dynamics_profile_id: str = BODY_DYNAMICS_PROFILE_ID
     developmental_possibility_status: str = OPEN_RESEARCH_QUESTION
     subjectivity_status: str = NOT_ESTABLISHED
     phenomenal_experience_status: str = NOT_ESTABLISHED
@@ -318,6 +321,8 @@ def validate_teacher_embodiment_research_surface(
 ) -> dict[str, str]:
     if surface.surface_id != RESEARCH_SURFACE_ID:
         raise ValueError("Teacher embodiment research-surface id drift")
+    if surface.body_dynamics_profile_id != BODY_DYNAMICS_PROFILE_ID:
+        raise ValueError("Teacher embodiment research surface dynamics binding drift")
     candidate_ids = [candidate.candidate_id for candidate in surface.candidates]
     if len(candidate_ids) != len(set(candidate_ids)):
         raise ValueError("embodiment research candidate ids must be unique")
