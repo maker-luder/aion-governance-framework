@@ -20,11 +20,14 @@ from .teacher_body_channels import (
     TeacherMotorControlSchema,
     build_teacher_body_signal_schema,
     build_teacher_motor_control_schema,
+    validate_teacher_body_signal_schema,
+    validate_teacher_motor_control_schema,
 )
 from .teacher_body_dynamics import (
     BODY_DYNAMICS_PROFILE_ID,
     TeacherBodyDynamicsProfile,
     build_teacher_body_dynamics_profile,
+    validate_teacher_body_dynamics_profile,
 )
 from .teacher_body_model import (
     BODY_MODEL_PROFILE_ID,
@@ -258,6 +261,24 @@ def build_teacher_reference_capabilities(
     dynamics = dynamics or build_teacher_body_dynamics_profile(signal_schema)
     body_model = body_model or build_teacher_body_model_profile(anthropometry)
 
+    try:
+        validate_teacher_body_signal_schema(signal_schema)
+        signal_schema_valid = True
+    except ValueError:
+        signal_schema_valid = False
+
+    try:
+        validate_teacher_motor_control_schema(motor_schema)
+        motor_schema_valid = True
+    except ValueError:
+        motor_schema_valid = False
+
+    try:
+        validate_teacher_body_dynamics_profile(dynamics, signal_schema)
+        body_dynamics_valid = True
+    except ValueError:
+        body_dynamics_valid = False
+
     measurement_ids = [item.measurement_id for item in anthropometry.measurements]
     anthropometry_complete = (
         len(measurement_ids) == EXPECTED_MEASUREMENT_COUNT
@@ -299,9 +320,9 @@ def build_teacher_reference_capabilities(
                 else domain
             ),
             True,
-            domain in signal_domains,
+            signal_schema_valid and domain in signal_domains,
             True,
-            domain in signal_domains,
+            signal_schema_valid and domain in signal_domains,
         )
         for domain in _CORE_SIGNAL_DOMAINS
     )
@@ -312,7 +333,7 @@ def build_teacher_reference_capabilities(
         if sensory_system is not None
         else set()
     )
-    sensory_crosswalk_materialized = all(
+    sensory_crosswalk_materialized = signal_schema_valid and all(
         function_id in sensory_functions
         and required_channels.issubset(signal_ids)
         for function_id, required_channels in _SENSORY_FUNCTION_CHANNEL_CROSSWALK.items()
@@ -322,9 +343,9 @@ def build_teacher_reference_capabilities(
         ReferenceCapability(
             capability_id,
             True,
-            required_channels.issubset(signal_ids),
+            signal_schema_valid and required_channels.issubset(signal_ids),
             True,
-            required_channels.issubset(signal_ids),
+            signal_schema_valid and required_channels.issubset(signal_ids),
         )
         for capability_id, required_channels in _REQUIRED_REFERENCE_CHANNEL_GROUPS.items()
     )
@@ -339,16 +360,21 @@ def build_teacher_reference_capabilities(
         and bool(reproductive_system.functions)
     )
 
-    homeostasis_materialized = bool(dynamics.homeostatic_variables) and all(
+    homeostasis_materialized = body_dynamics_valid and bool(dynamics.homeostatic_variables) and all(
         set(variable.source_channels).issubset(signal_ids)
         for variable in dynamics.homeostatic_variables
     )
     core_domains_present = set(_CORE_SIGNAL_DOMAINS).issubset(signal_domains)
     body_state_integration_materialized = (
-        core_domains_present and semantics_ids == signal_ids
+        signal_schema_valid
+        and body_dynamics_valid
+        and core_domains_present
+        and semantics_ids == signal_ids
     )
-    motor_materialized = bool(motor_schema.joint_targets) and bool(
-        motor_schema.channels
+    motor_materialized = (
+        motor_schema_valid
+        and bool(motor_schema.joint_targets)
+        and bool(motor_schema.channels)
     )
     sensorimotor_prediction_materialized = (
         body_state_integration_materialized and motor_materialized
@@ -396,6 +422,27 @@ def build_teacher_reference_capabilities(
     )
 
     return (
+        ReferenceCapability(
+            "SIGNAL_SCHEMA_VALIDATION",
+            True,
+            signal_schema_valid,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "MOTOR_SCHEMA_VALIDATION",
+            True,
+            motor_schema_valid,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "BODY_DYNAMICS_VALIDATION",
+            True,
+            body_dynamics_valid,
+            False,
+            True,
+        ),
         ReferenceCapability(
             "ANTHROPOMETRY",
             True,
