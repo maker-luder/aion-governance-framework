@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/functional-state-architecture.json",
+  "title": "AION/Astra Shared Functional-State Architecture",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "architecture_id",
+    "scope",
+    "translation_mode",
+    "domains",
+    "source_basis",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "architecture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "const": "EMBODIMENT_FUNCTIONAL_STATE_LAYER"
+    },
+    "translation_mode": {
+      "const": "HUMAN_REFERENCE_TO_FUNCTIONAL_ANALOGUE"
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 18,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": [
+          "domain_id",
+          "status",
+          "human_reference",
+          "robotic_translation",
+          "nonclaim"
+        ],
+        "properties": {
+          "domain_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "FUNCTIONAL_ANALOGUE_AVAILABLE",
+              "REPRESENTATIONAL_ONLY"
+            ]
+          },
+          "human_reference": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "robotic_translation": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "nonclaim": {
+            "const": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "source_basis": {
+      "type": "object",
+      "required": [
+        "NIMH_RDOC",
+        "APA_EMOTION",
+        "APA_MOTIVATION",
+        "INTEROCEPTION_REVIEW",
+        "SELF_DETERMINATION_THEORY",
+        "WHO_SEXUALITY"
+      ],
+      "additionalProperties": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "nonclaims": {
+      "type": "object",
+      "required": [
+        "phenomenal_experience",
+        "felt_emotion",
+        "felt_interoception",
+        "felt_attachment",
+        "felt_body_ownership",
+        "free_will",
+        "sexual_desire",
+        "sexual_arousal",
+        "sexual_pleasure",
+        "subjectivity",
+        "consciousness",
+        "canonical_effect"
+      ],
+      "properties": {
+        "phenomenal_experience": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "felt_emotion": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "felt_interoception": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "felt_attachment": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "felt_body_ownership": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "free_will": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "sexual_desire": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "sexual_arousal": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "sexual_pleasure": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "subjectivity": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "consciousness": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "canonical_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
