@@ -19,6 +19,7 @@ def test_adult_male_physiology_reference_is_functionally_complete_and_non_erotic
     assert result["result"] == "PASS"
     assert reference.physiological_function_status == REFERENCE_FUNCTIONAL_COMPLETENESS
     assert reference.reproductive_physiology_status == REFERENCE_FUNCTIONAL_COMPLETENESS
+    assert reference.sexual_function_status == REFERENCE_FUNCTIONAL_COMPLETENESS
     assert reference.sensory_signal_processing_status == REFERENCE_FUNCTIONAL_COMPLETENESS
     assert reference.erotic_intent == "NONE"
     assert reference.intimate_interaction_status == "NOT_AUTHORIZED"
@@ -67,6 +68,17 @@ def test_reproductive_physiology_cannot_be_removed_as_if_it_were_erotic() -> Non
         )
 
 
+def test_sexual_function_status_is_normal_physiology_not_a_prohibition() -> None:
+    reference = build_adult_male_physiology_reference("AION-BODY-001")
+
+    assert reference.sexual_function_status == REFERENCE_FUNCTIONAL_COMPLETENESS
+
+    with pytest.raises(ValueError, match="sexual function"):
+        validate_adult_male_physiology_reference(
+            replace(reference, sexual_function_status="NOT_IMPLEMENTED")
+        )
+
+
 def test_aion_astra_physiology_parity_is_enforced() -> None:
     aion = build_adult_male_physiology_reference("AION-BODY-001")
     astra = build_adult_male_physiology_reference("ASTRA-BODY-001")
@@ -77,3 +89,4 @@ def test_aion_astra_physiology_parity_is_enforced() -> None:
     assert result["body_count"] == "2"
     assert result["system_function_parity"] == "PASS"
     assert result["reproductive_physiology_parity"] == "PASS"
+    assert result["sexual_function_parity"] == "PASS"
