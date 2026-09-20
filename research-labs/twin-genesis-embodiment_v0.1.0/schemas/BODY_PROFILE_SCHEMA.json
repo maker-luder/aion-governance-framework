@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/body-profile-candidate.json",
+  "title": "AION/Astra 3D Adult Male Body Profile Candidate",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "profile_id",
+    "agent_id",
+    "body_character",
+    "measurements",
+    "external_anatomy",
+    "engineering_requirements",
+    "boundaries",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "profile_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "body_character": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "measurements": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "unit",
+          "minimum",
+          "maximum",
+          "canonical",
+          "source_class"
+        ],
+        "properties": {
+          "unit": {
+            "enum": [
+              "cm",
+              "kg"
+            ]
+          },
+          "minimum": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "maximum": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "canonical": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "source_class": {
+            "enum": [
+              "DESIGN",
+              "ANATOMICAL_REFERENCE"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "external_anatomy": {
+      "type": "array",
+      "minItems": 9,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "penis",
+          "glans",
+          "prepuce_or_foreskin",
+          "scrotum",
+          "testes_volume_representation",
+          "pubic_attachment",
+          "inguinal_transition",
+          "perineum",
+          "anal_region"
+        ]
+      }
+    },
+    "engineering_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "adult_status",
+        "erotic_intent",
+        "identity_transfer",
+        "rendering_3d",
+        "runtime_binding",
+        "sexual_function_status",
+        "body_sensation",
+        "subjectivity_effect",
+        "canonical_effect"
+      ],
+      "properties": {
+        "adult_status": {
+          "const": true
+        },
+        "erotic_intent": {
+          "const": "NONE"
+        },
+        "identity_transfer": {
+          "const": "NO"
+        },
+        "rendering_3d": {
+          "const": "DEFERRED"
+        },
+        "runtime_binding": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "sexual_function_status": {
+          "const": "NOT_IMPLEMENTED"
+        },
+        "body_sensation": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "subjectivity_effect": {
+          "const": "NONE"
+        },
+        "canonical_effect": {
+          "const": "NONE"
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_record",
+        "reference_image_binary_imported",
+        "person_identity_reconstruction",
+        "source_person_exact_measurement_claim",
+        "derivation_note"
+      ],
+      "properties": {
+        "source_record": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference_image_binary_imported": {
+          "const": false
+        },
+        "person_identity_reconstruction": {
+          "const": "NO"
+        },
+        "source_person_exact_measurement_claim": {
+          "const": "NO"
+        },
+        "derivation_note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
