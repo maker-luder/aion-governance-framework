@@ -252,10 +252,10 @@ def test_external_sensory_domain_drift_fails_declared_completeness() -> None:
 
     assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
     assert "SIGNAL_SCHEMA_VALIDATION" in assessment.missing_required_capabilities
-    assert "VISUAL_SIGNAL_REFERENCE" in assessment.missing_required_capabilities
+    assert "VISUAL_SIGNAL_REFERENCE" not in assessment.missing_required_capabilities
     assert (
         "SENSORY_FUNCTION_CHANNEL_CROSSWALK"
-        in assessment.missing_required_capabilities
+        not in assessment.missing_required_capabilities
     )
 
 
@@ -372,6 +372,14 @@ def test_missing_system_observation_surface_fails_declared_completeness() -> Non
         "PHYSIOLOGY_OBSERVATION_SURFACE_HEPATIC"
         in assessment.missing_required_observation_channels
     )
+    assert (
+        "PHYSIOLOGY_OBSERVATION_SURFACE_CARDIOVASCULAR"
+        not in assessment.missing_required_capabilities
+    )
+    assert (
+        "PHYSIOLOGY_OBSERVATION_SURFACE_RESPIRATORY"
+        not in assessment.missing_required_capabilities
+    )
 
 
 def test_system_observation_domain_drift_fails_declared_completeness() -> None:
@@ -401,7 +409,7 @@ def test_system_observation_domain_drift_fails_declared_completeness() -> None:
     assert "SIGNAL_SCHEMA_VALIDATION" in assessment.missing_required_capabilities
     assert (
         "PHYSIOLOGY_OBSERVATION_SURFACE_RENAL_URINARY"
-        in assessment.missing_required_capabilities
+        not in assessment.missing_required_capabilities
     )
 
 
