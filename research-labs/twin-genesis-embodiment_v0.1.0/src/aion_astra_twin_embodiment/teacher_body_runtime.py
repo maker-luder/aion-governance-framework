@@ -28,6 +28,7 @@ from .teacher_body_dynamics import (
 )
 from .teacher_embodiment_research import (
     TeacherEmbodimentResearchSurface,
+    assess_teacher_reference_completeness,
     build_teacher_embodiment_research_surface,
     validate_teacher_embodiment_research_surface,
 )
@@ -231,6 +232,11 @@ def validate_teacher_body_runtime_binding(
     research = research or build_teacher_embodiment_research_surface()
     validate_teacher_body_dynamics_profile(dynamics, signals)
     validate_teacher_embodiment_research_surface(research)
+    completeness = assess_teacher_reference_completeness()
+    if completeness.status != "COMPLETE_REFERENCE_BASELINE":
+        raise ValueError(
+            "body runtime binding requires a complete derived reference baseline"
+        )
 
     if binding.body_id != anthropometry.body_id:
         raise ValueError("body runtime binding body id drift")
@@ -271,6 +277,7 @@ def validate_teacher_body_runtime_binding(
         "motor_binding": "PASS",
         "body_dynamics_binding": "PASS",
         "research_surface_binding": "PASS",
+        "reference_completeness": "PASS",
         "live_external_actuation": "DISABLED",
         "phenomenal_nonclaim": "PASS",
     }
