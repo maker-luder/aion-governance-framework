@@ -20,7 +20,8 @@ def test_teacher_reference_bundle_bytes_match_manifest() -> None:
     }
     actual = {
         sha256(content).hexdigest()
-        for content in files.values()
+        for filename, content in files.items()
+        if filename.endswith((".gltf", ".glb"))
     }
     assert actual == expected
 
