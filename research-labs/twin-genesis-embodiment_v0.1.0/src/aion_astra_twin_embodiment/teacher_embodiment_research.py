@@ -64,8 +64,10 @@ class TeacherReferenceCompletenessAssessment:
     status: str
     missing_required_capabilities: tuple[str, ...]
     missing_required_observation_channels: tuple[str, ...]
+    completeness_scope: str = "DECLARED_REFERENCE_CONTRACT_ONLY"
+    global_human_body_completeness_status: str = NOT_ESTABLISHED
     intrinsic_absence_conclusion: str = NOT_ESTABLISHED
-    causal_absence_interpretation: str = "HOLD_INCOMPLETE_REFERENCE_BASELINE"
+    causal_absence_interpretation: str = "HOLD_INCOMPLETE_DECLARED_REFERENCE_BASELINE"
 
     def to_dict(self) -> dict[str, Any]:
         payload = asdict(self)
@@ -315,16 +317,16 @@ def assess_teacher_reference_completeness(
     complete = not missing_capabilities and not missing_channels
     return TeacherReferenceCompletenessAssessment(
         status=(
-            "COMPLETE_REFERENCE_BASELINE"
+            "COMPLETE_DECLARED_REFERENCE_BASELINE"
             if complete
-            else "INCOMPLETE_REFERENCE_BASELINE"
+            else "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
         ),
         missing_required_capabilities=missing_capabilities,
         missing_required_observation_channels=missing_channels,
         causal_absence_interpretation=(
             "ELIGIBLE_FOR_CONTROLLED_PERTURBATION"
             if complete
-            else "HOLD_INCOMPLETE_REFERENCE_BASELINE"
+            else "HOLD_INCOMPLETE_DECLARED_REFERENCE_BASELINE"
         ),
     )
 
