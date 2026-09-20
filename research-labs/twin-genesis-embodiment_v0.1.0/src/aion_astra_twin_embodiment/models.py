@@ -57,6 +57,7 @@ class EmbodimentTemplate:
     physiology_profile_id: str = "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
     physiological_function_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     reproductive_physiology_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    sexual_function_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     sensory_signal_processing_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     phenomenal_sensation_status: str = NOT_ESTABLISHED
     erotic_intent: str = NONE
