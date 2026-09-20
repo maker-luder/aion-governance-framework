@@ -21,6 +21,16 @@ from .teacher_body_channels import (
     build_teacher_body_signal_schema,
     build_teacher_motor_control_schema,
 )
+from .teacher_body_dynamics import (
+    TeacherBodyDynamicsProfile,
+    build_teacher_body_dynamics_profile,
+    validate_teacher_body_dynamics_profile,
+)
+from .teacher_embodiment_research import (
+    TeacherEmbodimentResearchSurface,
+    build_teacher_embodiment_research_surface,
+    validate_teacher_embodiment_research_surface,
+)
 
 
 NOT_ESTABLISHED = "NOT_ESTABLISHED"
@@ -46,6 +56,8 @@ class TeacherBodyRuntimeBinding:
     physiology_profile_id: str
     signal_schema_id: str
     motor_schema_id: str
+    body_dynamics_profile_id: str
+    research_surface_id: str
     skeleton_root: str
     viewpoint_anchor: str
     binding_status: str
@@ -175,6 +187,8 @@ def build_teacher_body_runtime_binding(
     validate_adult_male_physiology_reference(physiology)
     signals = build_teacher_body_signal_schema()
     motor = build_teacher_motor_control_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    research = build_teacher_embodiment_research_surface()
     binding = TeacherBodyRuntimeBinding(
         binding_id=f"TEACHER-BINDING:{runtime_id}:{session_id}",
         runtime_id=runtime_id,
@@ -184,12 +198,21 @@ def build_teacher_body_runtime_binding(
         physiology_profile_id=physiology.profile_id,
         signal_schema_id=signals.schema_id,
         motor_schema_id=motor.schema_id,
+        body_dynamics_profile_id=dynamics.profile_id,
+        research_surface_id=research.surface_id,
         skeleton_root="hips",
         viewpoint_anchor="head",
         binding_status="REFERENCE_BINDING_MATERIALIZED",
         live_external_actuation=False,
     )
-    validate_teacher_body_runtime_binding(binding, anthropometry, signals, motor)
+    validate_teacher_body_runtime_binding(
+        binding,
+        anthropometry,
+        signals,
+        motor,
+        dynamics,
+        research,
+    )
     return binding
 
 
@@ -198,10 +221,16 @@ def validate_teacher_body_runtime_binding(
     anthropometry: TeacherAnthropometryProfile | None = None,
     signals: TeacherBodySignalSchema | None = None,
     motor: TeacherMotorControlSchema | None = None,
+    dynamics: TeacherBodyDynamicsProfile | None = None,
+    research: TeacherEmbodimentResearchSurface | None = None,
 ) -> dict[str, str]:
     anthropometry = anthropometry or build_teacher_anthropometry_profile()
     signals = signals or build_teacher_body_signal_schema()
     motor = motor or build_teacher_motor_control_schema()
+    dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
+    research = research or build_teacher_embodiment_research_surface()
+    validate_teacher_body_dynamics_profile(dynamics, signals)
+    validate_teacher_embodiment_research_surface(research)
 
     if binding.body_id != anthropometry.body_id:
         raise ValueError("body runtime binding body id drift")
@@ -215,6 +244,10 @@ def validate_teacher_body_runtime_binding(
         raise ValueError("body runtime signal schema drift")
     if binding.motor_schema_id != motor.schema_id:
         raise ValueError("body runtime motor schema drift")
+    if binding.body_dynamics_profile_id != dynamics.profile_id:
+        raise ValueError("body runtime dynamics profile drift")
+    if binding.research_surface_id != research.surface_id:
+        raise ValueError("body runtime research surface drift")
     if binding.skeleton_root != "hips" or binding.viewpoint_anchor != "head":
         raise ValueError("body runtime skeletal/viewpoint anchor drift")
     if binding.binding_status != "REFERENCE_BINDING_MATERIALIZED":
@@ -236,6 +269,8 @@ def validate_teacher_body_runtime_binding(
         "physiology_binding": "PASS",
         "signal_binding": "PASS",
         "motor_binding": "PASS",
+        "body_dynamics_binding": "PASS",
+        "research_surface_binding": "PASS",
         "live_external_actuation": "DISABLED",
         "phenomenal_nonclaim": "PASS",
     }
