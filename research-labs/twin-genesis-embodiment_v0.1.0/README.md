@@ -21,6 +21,9 @@ The physiology layer includes normal adult male physiological and reproductive f
 - 3D rendering remains `DEFERRED`.
 - Full biophysical simulation remains `NOT_MATERIALIZED`.
 - Intimate interaction remains `NOT_AUTHORIZED`.
+- Governance-blocked expression does not imply capability absence.
+- Design-induced absence or a missing observation channel does not establish intrinsic absence.
+- Embodied developmental possibility remains an `OPEN_RESEARCH_QUESTION`; this is not a positive claim that such development exists.
 
 ## Runtime surface
 
@@ -33,4 +36,5 @@ python -m pytest
 python -m compileall -q src
 python -m aion_astra_twin_embodiment.cli qa-status
 python -m aion_astra_twin_embodiment.cli physiology-parity
+python -m aion_astra_twin_embodiment.cli governance-epistemics
 ```
