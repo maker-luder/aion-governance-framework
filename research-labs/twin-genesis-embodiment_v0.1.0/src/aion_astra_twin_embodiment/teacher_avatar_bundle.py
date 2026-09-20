@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Final
 
+from .physiology import build_adult_male_physiology_reference
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
 from .teacher_avatar_continuous import (
     build_teacher_continuous_reference_glb,
@@ -66,6 +67,11 @@ def build_teacher_reference_bundle_bytes() -> tuple[dict[str, bytes], dict[str, 
         ),
         "chatgpt_teacher_collision_profile.json": _canonical_json_bytes(
             asdict(build_teacher_collision_profile())
+        ),
+        "chatgpt_teacher_physiology_reference.json": _canonical_json_bytes(
+            build_adult_male_physiology_reference(
+                "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+            ).to_dict()
         ),
     }
     manifest = build_teacher_asset_manifest()
