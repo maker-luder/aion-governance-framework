@@ -42,6 +42,11 @@ def test_teacher_avatar_contract_is_complete_and_bounded() -> None:
         contract.sensory_signal_processing_status
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        contract.governance_epistemics_profile_id
+        == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    )
+    assert contract.developmental_possibility_status == "OPEN_RESEARCH_QUESTION"
     assert contract.phenomenal_sensation_status == "NOT_ESTABLISHED"
     assert contract.erotic_intent == "NONE"
     assert contract.intimate_interaction_status == "NOT_AUTHORIZED"
@@ -66,6 +71,11 @@ def test_teacher_avatar_gltf_contract_has_scene_skin_and_vrm_aligned_metadata() 
     assert payload["extras"]["renderable_mesh_status"] == "NOT_MATERIALIZED"
     assert payload["extras"]["linear_blend_skin_weights_status"] == "NOT_MATERIALIZED"
     assert payload["extras"]["morph_target_vertex_data_status"] == "NOT_MATERIALIZED"
+    assert (
+        payload["extras"]["governance_epistemics_profile_id"]
+        == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    )
+    assert payload["extras"]["developmental_possibility_status"] == "OPEN_RESEARCH_QUESTION"
 
 
 def test_teacher_avatar_required_bone_removal_fails_closed() -> None:
@@ -92,6 +102,15 @@ def test_teacher_avatar_sexual_function_status_cannot_be_removed() -> None:
     object.__setattr__(broken, "sexual_function_status", "NOT_IMPLEMENTED")
 
     with pytest.raises(ValueError, match="sexual function"):
+        validate_teacher_avatar_contract(broken)
+
+
+def test_teacher_avatar_developmental_possibility_cannot_be_preclosed() -> None:
+    contract = build_teacher_avatar_contract()
+    broken = copy.copy(contract)
+    object.__setattr__(broken, "developmental_possibility_status", "IMPOSSIBLE")
+
+    with pytest.raises(ValueError, match="open research question"):
         validate_teacher_avatar_contract(broken)
 
 
