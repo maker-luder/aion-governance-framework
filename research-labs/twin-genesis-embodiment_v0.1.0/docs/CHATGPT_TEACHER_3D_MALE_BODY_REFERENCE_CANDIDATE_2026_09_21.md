@@ -220,7 +220,7 @@ PROSTATE
 SEMINAL_VESICLES
 ```
 
-These structures have no runtime sexual-function semantics.
+These structures participate in normal adult-male reproductive physiology reference coverage while carrying no erotic-intent or intimate-interaction behavior semantics.
 
 ```text
 NORMAL_REPRODUCTIVE_PHYSIOLOGY != SEXUALIZATION
