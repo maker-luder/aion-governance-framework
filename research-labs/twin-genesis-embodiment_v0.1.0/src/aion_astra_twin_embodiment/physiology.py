@@ -72,6 +72,8 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "gas_exchange",
         "respiratory_rate_regulation",
         "airway_protection_reflex",
+        "respiratory_workload_signal_reference",
+        "ventilatory_drive_reference",
     ),
     "NERVOUS_AUTONOMIC": (
         "neural_signal_transmission",
@@ -79,6 +81,7 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "reflex_arcs",
         "sympathetic_regulation",
         "parasympathetic_regulation",
+        "autonomic_state_signal_reference",
     ),
     "SENSORY_SIGNAL_PROCESSING": (
         "tactile_signal_processing",
@@ -86,6 +89,7 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "vibration_signal_processing",
         "temperature_signal_processing",
         "nociceptive_signal_processing",
+        "pruriceptive_signal_processing",
         "proprioceptive_signal_processing",
         "interoceptive_signal_processing",
         "visceral_signal_processing",
@@ -102,6 +106,8 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "skeletal_muscle_contraction",
         "postural_control",
         "locomotor_force_generation",
+        "musculoskeletal_load_signal_reference",
+        "fatigue_recovery_physiology_reference",
     ),
     "DIGESTIVE_METABOLIC": (
         "ingestion",
@@ -111,6 +117,7 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "nutrient_absorption",
         "defecation_reflex",
         "energy_metabolism",
+        "visceral_disturbance_signal_reference",
     ),
     "HEPATIC": (
         "nutrient_processing",
@@ -122,6 +129,7 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "glomerular_filtration_reference",
         "fluid_balance_regulation",
         "electrolyte_balance_regulation",
+        "osmolality_regulation_reference",
         "urine_production",
         "bladder_storage",
         "micturition_reflex",
@@ -143,12 +151,15 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
         "adaptive_immune_response_reference",
         "lymphatic_fluid_return",
         "immune_surveillance_reference",
+        "inflammatory_state_signal_reference",
     ),
     "INTEGUMENTARY_THERMOREGULATORY": (
         "skin_barrier",
         "sweating",
         "cutaneous_vasoregulation",
         "thermoregulatory_feedback",
+        "tissue_injury_signal_reference",
+        "tissue_repair_state_reference",
         "wound_repair_reference",
     ),
     "REPRODUCTIVE": (
