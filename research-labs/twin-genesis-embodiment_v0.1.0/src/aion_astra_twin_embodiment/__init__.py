@@ -11,6 +11,11 @@ from .teacher_avatar import (
     validate_teacher_avatar_contract,
 )
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
+from .teacher_avatar_bundle import (
+    TeacherReferenceBundleReceipt,
+    build_teacher_reference_bundle_bytes,
+    write_teacher_reference_bundle,
+)
 from .teacher_avatar_continuous import (
     ContinuousReferenceMesh,
     build_teacher_continuous_reference_glb,
@@ -46,6 +51,9 @@ __all__ = [
     "build_teacher_continuous_reference_mesh",
     "build_teacher_continuous_reference_gltf",
     "build_teacher_continuous_reference_glb",
+    "TeacherReferenceBundleReceipt",
+    "build_teacher_reference_bundle_bytes",
+    "write_teacher_reference_bundle",
     "validate_teacher_continuous_reference",
     "validate_teacher_continuous_reference_gltf",
     "validate_teacher_continuous_reference_glb",
