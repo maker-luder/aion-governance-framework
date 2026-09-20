@@ -15,6 +15,12 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
 
     assert result["result"] == "PASS"
     assert "JOINT_POSITION" in ids
+    assert "VESTIBULAR_ORIENTATION" in ids
+    vestibular = next(
+        channel for channel in schema.channels
+        if channel.channel_id == "VESTIBULAR_ORIENTATION"
+    )
+    assert vestibular.domain == "VESTIBULAR"
     assert "CARDIOVASCULAR_STATE" in ids
     assert "BLADDER_STATE" in ids
     assert "GENITAL_TACTILE" in ids
