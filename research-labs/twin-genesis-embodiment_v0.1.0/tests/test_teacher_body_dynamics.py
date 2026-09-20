@@ -53,6 +53,11 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "MUSCLE_FATIGUE_PHYSIOLOGY_STATE" in semantic_ids
     assert "IMMUNE_ACTIVITY_STATE" in semantic_ids
     assert "TISSUE_INJURY_STATE" in semantic_ids
+    assert "GASTRIC_DISTENSION_STATE" in semantic_ids
+    assert "SATIATION_SIGNAL_REFERENCE" in semantic_ids
+    assert "SATIETY_SIGNAL_REFERENCE" in semantic_ids
+    assert "PANCREATIC_GLUCOSE_INSULIN_STATE" in semantic_ids
+    assert "GUT_APPETITE_ENDOCRINE_STATE" in semantic_ids
     assert all(
         item.missing_value_policy == "MISSING_IS_UNKNOWN_NOT_ZERO"
         for item in profile.signal_semantics
@@ -66,6 +71,10 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "IMMUNE_BASELINE_TO_INFLAMMATORY_RESPONSE" in transition_ids
     assert "TISSUE_BASELINE_TO_INJURY" in transition_ids
     assert "TISSUE_INJURY_TO_REPAIR" in transition_ids
+    assert "ENERGY_DEMAND_TO_OREXIGENIC_SIGNAL" in transition_ids
+    assert "NUTRIENT_ARRIVAL_TO_SATIATION_SIGNAL" in transition_ids
+    assert "SATIATION_TO_SATIETY_SIGNAL" in transition_ids
+    assert "ENDOCRINE_BASELINE_TO_ADAPTIVE_RESPONSE" in transition_ids
     assert "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE" in transition_ids
     assert "DETUMESCENCE_TO_RECOVERY" in transition_ids
     homeostatic_ids = {
@@ -76,6 +85,8 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "MUSCULOSKELETAL_LOAD_RECOVERY" in homeostatic_ids
     assert "IMMUNE_INFLAMMATORY_BALANCE" in homeostatic_ids
     assert "TISSUE_INJURY_REPAIR" in homeostatic_ids
+    assert "FEEDING_ENERGY_REGULATION" in homeostatic_ids
+    assert "ENDOCRINE_AXIS_REGULATION" in homeostatic_ids
     assert profile.phenomenal_experience_status == "NOT_ESTABLISHED"
 
 
