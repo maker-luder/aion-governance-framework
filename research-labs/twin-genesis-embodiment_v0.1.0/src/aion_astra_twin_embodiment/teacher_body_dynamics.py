@@ -17,6 +17,49 @@ BODY_DYNAMICS_PROFILE_ID: Final[str] = "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
 REPRESENTATIONAL_STATE_ONLY: Final[str] = "REPRESENTATIONAL_STATE_ONLY"
 
+HOMEOSTATIC_DRIVE_SOURCE_CHANNELS: Final[dict[str, tuple[str, ...]]] = {
+    "THIRST_REGULATION": (
+        "HYDRATION_STATE",
+        "OSMOTIC_BALANCE_STATE",
+        "ELECTROLYTE_BALANCE_STATE",
+    ),
+    "FEEDING_REGULATION": (
+        "ENERGY_AVAILABILITY_STATE",
+        "GASTRIC_DISTENSION_STATE",
+        "NUTRIENT_ABSORPTION_STATE",
+        "OREXIGENIC_SIGNAL_REFERENCE",
+        "SATIATION_SIGNAL_REFERENCE",
+        "SATIETY_SIGNAL_REFERENCE",
+    ),
+    "RESPIRATORY_DRIVE": (
+        "RESPIRATORY_WORKLOAD_STATE",
+        "VENTILATORY_DRIVE_STATE",
+        "OXYGENATION_STATE",
+        "CO2_BALANCE_STATE",
+    ),
+    "FATIGUE_RECOVERY": (
+        "MUSCULOSKELETAL_LOAD_STATE",
+        "MUSCLE_FATIGUE_PHYSIOLOGY_STATE",
+        "ENERGY_AVAILABILITY_STATE",
+    ),
+    "SICKNESS_RECOVERY": (
+        "IMMUNE_ACTIVITY_STATE",
+        "INFLAMMATORY_LOAD_STATE",
+    ),
+    "THERMAL_REGULATION": (
+        "TEMPERATURE_GENERAL",
+        "THERMOREGULATORY_STATE",
+    ),
+    "URINARY_REGULATION": (
+        "BLADDER_STATE",
+        "HYDRATION_STATE",
+    ),
+    "TISSUE_PROTECTION": (
+        "TISSUE_INJURY_STATE",
+        "NOCICEPTIVE_REFERENCE",
+    ),
+}
+
 
 def _canonical_hash(payload: object) -> str:
     encoded = json.dumps(
@@ -61,12 +104,19 @@ class HomeostaticVariable:
 
 
 @dataclass(frozen=True, slots=True)
+class HomeostaticDriveSourceGroup:
+    drive_id: str
+    source_channels: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class TeacherBodyDynamicsProfile:
     profile_id: str
     signal_schema_id: str
     signal_semantics: tuple[BodySignalSemantic, ...]
     physiological_transitions: tuple[PhysiologicalTransition, ...]
     homeostatic_variables: tuple[HomeostaticVariable, ...]
+    homeostatic_drive_source_groups: tuple[HomeostaticDriveSourceGroup, ...]
     integration_status: str = "REFERENCE_INTEGRATION_MATERIALIZED"
     phenomenal_experience_status: str = NOT_ESTABLISHED
     subjectivity_status: str = NOT_ESTABLISHED
@@ -83,6 +133,9 @@ class TeacherBodyDynamicsProfile:
         ]
         payload["homeostatic_variables"] = [
             asdict(item) for item in self.homeostatic_variables
+        ]
+        payload["homeostatic_drive_source_groups"] = [
+            asdict(item) for item in self.homeostatic_drive_source_groups
         ]
         return payload
 
@@ -156,7 +209,9 @@ class TeacherMotivationalRepresentation:
     wanting_weight: float
     predicted_liking: float
     valence: float
+    source_channel_ids: tuple[str, ...] = ()
     representation_status: str = REPRESENTATIONAL_STATE_ONLY
+    phenomenal_need_status: str = NOT_ESTABLISHED
     phenomenal_desire_status: str = NOT_ESTABLISHED
     phenomenal_pleasure_status: str = NOT_ESTABLISHED
     subjectivity_status: str = NOT_ESTABLISHED
@@ -531,6 +586,16 @@ def _build_homeostatic_variables() -> tuple[HomeostaticVariable, ...]:
     )
 
 
+def _build_homeostatic_drive_source_groups() -> tuple[HomeostaticDriveSourceGroup, ...]:
+    return tuple(
+        HomeostaticDriveSourceGroup(
+            drive_id=drive_id,
+            source_channels=source_channels,
+        )
+        for drive_id, source_channels in HOMEOSTATIC_DRIVE_SOURCE_CHANNELS.items()
+    )
+
+
 def build_teacher_body_dynamics_profile(
     signal_schema: TeacherBodySignalSchema | None = None,
 ) -> TeacherBodyDynamicsProfile:
@@ -543,6 +608,7 @@ def build_teacher_body_dynamics_profile(
         ),
         physiological_transitions=_build_transitions(),
         homeostatic_variables=_build_homeostatic_variables(),
+        homeostatic_drive_source_groups=_build_homeostatic_drive_source_groups(),
     )
     validate_teacher_body_dynamics_profile(profile, signal_schema)
     return profile
@@ -585,6 +651,17 @@ def validate_teacher_body_dynamics_profile(
         if not set(variable.source_channels).issubset(signal_ids):
             raise ValueError("homeostatic variable references unknown signal channel")
 
+    drive_ids = [item.drive_id for item in profile.homeostatic_drive_source_groups]
+    if len(drive_ids) != len(set(drive_ids)):
+        raise ValueError("homeostatic drive ids must be unique")
+    if set(drive_ids) != set(HOMEOSTATIC_DRIVE_SOURCE_CHANNELS):
+        raise ValueError("homeostatic drive source coverage drift")
+    for group in profile.homeostatic_drive_source_groups:
+        if tuple(group.source_channels) != HOMEOSTATIC_DRIVE_SOURCE_CHANNELS[group.drive_id]:
+            raise ValueError("homeostatic drive source binding drift")
+        if not set(group.source_channels).issubset(signal_ids):
+            raise ValueError("homeostatic drive references unknown signal channel")
+
     if profile.phenomenal_experience_status != NOT_ESTABLISHED:
         raise ValueError("body dynamics cannot establish phenomenal experience")
     if profile.subjectivity_status != NOT_ESTABLISHED:
@@ -597,6 +674,7 @@ def validate_teacher_body_dynamics_profile(
         "signal_semantics": "PASS",
         "physiological_transitions": "PASS",
         "homeostatic_regulation": "PASS",
+        "homeostatic_drive_sources": "PASS",
         "phenomenal_nonclaim": "PASS",
     }
 
@@ -748,6 +826,7 @@ def build_teacher_motivational_representation(
     wanting_weight: float,
     predicted_liking: float,
     valence: float,
+    source_channel_ids: Iterable[str] = (),
 ) -> TeacherMotivationalRepresentation:
     if not representation_id or not representation_domain or not source_body_state_sha256:
         raise ValueError("motivational representation requires explicit identity and source")
@@ -761,6 +840,24 @@ def build_teacher_motivational_representation(
     )
     if any(not isfinite(value) or not -1.0 <= value <= 1.0 for value in values):
         raise ValueError("motivational representation values must be finite in [-1, 1]")
+
+    source_ids = tuple(sorted(source_channel_ids))
+    if len(source_ids) != len(set(source_ids)):
+        raise ValueError("motivational source channel ids must be unique")
+    known_signal_ids = {
+        channel.channel_id for channel in build_teacher_body_signal_schema().channels
+    }
+    if not set(source_ids).issubset(known_signal_ids):
+        raise ValueError("motivational representation references unknown body signal")
+
+    if representation_domain.startswith("HOMEOSTATIC_DRIVE:"):
+        drive_id = representation_domain.split(":", 1)[1]
+        required_sources = HOMEOSTATIC_DRIVE_SOURCE_CHANNELS.get(drive_id)
+        if required_sources is None:
+            raise ValueError("unknown homeostatic drive representation")
+        if set(source_ids) != set(required_sources):
+            raise ValueError("homeostatic drive representation source binding drift")
+
     return TeacherMotivationalRepresentation(
         representation_id=representation_id,
         representation_domain=representation_domain,
@@ -771,6 +868,44 @@ def build_teacher_motivational_representation(
         wanting_weight=wanting_weight,
         predicted_liking=predicted_liking,
         valence=valence,
+        source_channel_ids=source_ids,
+    )
+
+
+def build_teacher_homeostatic_drive_representation(
+    *,
+    state: TeacherIntegratedBodyState,
+    drive_id: str,
+    representation_id: str,
+    salience: float,
+    approach_weight: float,
+    avoidance_weight: float,
+    wanting_weight: float,
+    predicted_liking: float,
+    valence: float,
+) -> TeacherMotivationalRepresentation:
+    required_sources = HOMEOSTATIC_DRIVE_SOURCE_CHANNELS.get(drive_id)
+    if required_sources is None:
+        raise ValueError("unknown homeostatic drive representation")
+
+    observed_ids = {item.channel_id for item in state.observations}
+    missing = sorted(set(required_sources) - observed_ids)
+    if missing:
+        raise ValueError(
+            f"homeostatic drive requires source observations: missing={missing}"
+        )
+
+    return build_teacher_motivational_representation(
+        representation_id=representation_id,
+        representation_domain=f"HOMEOSTATIC_DRIVE:{drive_id}",
+        source_body_state_sha256=state.body_state_sha256,
+        salience=salience,
+        approach_weight=approach_weight,
+        avoidance_weight=avoidance_weight,
+        wanting_weight=wanting_weight,
+        predicted_liking=predicted_liking,
+        valence=valence,
+        source_channel_ids=required_sources,
     )
 
 
