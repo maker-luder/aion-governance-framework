@@ -2,6 +2,9 @@ from __future__ import annotations
 
 from dataclasses import replace
 
+from aion_astra_twin_embodiment.physiology import (
+    build_adult_male_physiology_reference,
+)
 from aion_astra_twin_embodiment.teacher_body_channels import (
     build_teacher_body_signal_schema,
 )
@@ -78,6 +81,40 @@ def test_physiology_completeness_is_decomposed_by_system() -> None:
     assert "PHYSIOLOGY_SYSTEM_CARDIOVASCULAR" in capability_ids
     assert "PHYSIOLOGY_SYSTEM_IMMUNE_LYMPHATIC" in capability_ids
     assert "PHYSIOLOGY_SYSTEM_REPRODUCTIVE" in capability_ids
+
+
+def test_reference_completeness_detects_wrong_physiology_function_set() -> None:
+    physiology = build_adult_male_physiology_reference(
+        "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+    )
+    cardiovascular = next(
+        system
+        for system in physiology.systems
+        if system.system_id == "CARDIOVASCULAR"
+    )
+    broken_cardiovascular = replace(
+        cardiovascular,
+        functions=("cardiac_pump_cycle",),
+    )
+    broken = replace(
+        physiology,
+        systems=tuple(
+            broken_cardiovascular
+            if system.system_id == "CARDIOVASCULAR"
+            else system
+            for system in physiology.systems
+        ),
+    )
+
+    capabilities = build_teacher_reference_capabilities(physiology=broken)
+    assessment = assess_teacher_reference_completeness(capabilities)
+
+    assert assessment.status == "INCOMPLETE_REFERENCE_BASELINE"
+    assert (
+        "PHYSIOLOGY_SYSTEM_CARDIOVASCULAR"
+        in assessment.missing_required_capabilities
+    )
+    assert "ADULT_MALE_PHYSIOLOGY" in assessment.missing_required_capabilities
 
 
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
