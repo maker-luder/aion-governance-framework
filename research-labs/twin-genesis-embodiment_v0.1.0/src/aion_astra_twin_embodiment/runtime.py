@@ -1,8 +1,10 @@
 """Non-3D twin-genesis runtime candidate.
 
 This module materializes validated AION/Astra embodiment instances as a bounded
-runtime record. It does not implement rendering, body sensation, sexual
-function, intimate interaction, gender assignment, or subjectivity claims.
+runtime record. The adult-male physiology reference includes normal
+physiological and reproductive function coverage, while full biophysical
+simulation, phenomenal sensation, erotic intent, intimate interaction,
+gender assignment and subjectivity claims remain outside this runtime.
 """
 
 from __future__ import annotations
@@ -11,6 +13,7 @@ from dataclasses import asdict, dataclass
 from typing import Any
 
 from .models import EmbodimentInstance, EmbodimentTemplate, SharedGenesisEvent
+from .physiology import REFERENCE_FUNCTIONAL_COMPLETENESS
 from .validation import validate_candidate
 
 
@@ -24,7 +27,11 @@ class TwinRuntimeState:
     astra_embodiment_id: str
     validation: dict[str, str]
     rendering_3d: str = "DEFERRED"
-    sexual_function: str = "NOT_IMPLEMENTED"
+    physiology_profile_id: str = "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    physiological_function_reference: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    reproductive_physiology_reference: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    sensory_signal_processing_reference: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    full_biophysical_simulation: str = "NOT_MATERIALIZED"
     intimate_interaction: str = "NOT_AUTHORIZED"
     body_sensation: str = "NOT_ESTABLISHED"
     subjectivity_conclusion: str = "NOT_ESTABLISHED"
