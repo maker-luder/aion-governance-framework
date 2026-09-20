@@ -37,17 +37,24 @@ Current Teacher candidate surfaces:
 - structural glTF skeleton/skin contract output;
 - deterministic renderable low-poly glTF reference geometry;
 - explicit clinical external male anatomy in the low-poly reference;
+- reference UV coordinates;
+- reference morph-target vertex deltas for blink/happy deformation probes;
+- deterministic low-poly GLB container-byte generator;
 - fail-closed non-claims for physical embodiment, sensation, subjectivity, sexual function, canonical effect, and deployment.
 
 The low-poly generator is an offline reference asset, not a live embodiment runtime and not a production-quality continuous human mesh.
 
 ```text
 LOW_POLY_RENDERABLE_REFERENCE = MATERIALIZED
+REFERENCE_UV = MATERIALIZED
+REFERENCE_MORPH_TARGET_VERTEX_DATA = MATERIALIZED
+LOW_POLY_GLB_GENERATOR = MATERIALIZED
+
 PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
-LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
-MORPH_TARGET_VERTEX_DATA = NOT_MATERIALIZED
-UV_TEXTURE_ASSETS = NOT_MATERIALIZED
-GLB_OR_VRM_BINARY_PACKAGE = NOT_MATERIALIZED
+PRODUCTION_LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
+PRODUCTION_MORPH_TARGET_VERTEX_DATA = NOT_MATERIALIZED
+PRODUCTION_TEXTURE_ASSETS = NOT_MATERIALIZED
+FINAL_PRODUCTION_GLB_OR_VRM_PACKAGE = NOT_MATERIALIZED
 PRODUCTION_3D_ASSET_COMPLETENESS = NOT_ESTABLISHED
 ```
 
@@ -60,4 +67,5 @@ python -m aion_astra_twin_embodiment.cli qa-status
 python -m aion_astra_twin_embodiment.cli teacher-avatar-contract
 python -m aion_astra_twin_embodiment.cli teacher-avatar-gltf-contract
 python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-gltf
+python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-glb-info
 ```
