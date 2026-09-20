@@ -346,7 +346,7 @@ def build_teacher_reference_capabilities(
     body_model = body_model or build_teacher_body_model_profile(anthropometry)
     physiology_observability = (
         physiology_observability
-        or build_teacher_physiology_observability_profile(signal_schema)
+        or build_teacher_physiology_observability_profile()
     )
 
     try:
