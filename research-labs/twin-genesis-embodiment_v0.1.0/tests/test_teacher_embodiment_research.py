@@ -224,6 +224,40 @@ def test_sensory_function_channel_crosswalk_fails_when_visual_surface_is_missing
     )
 
 
+def test_external_sensory_domain_drift_fails_declared_completeness() -> None:
+    signals = build_teacher_body_signal_schema()
+    visual = next(
+        channel
+        for channel in signals.channels
+        if channel.channel_id == "VISUAL_FIELD_REFERENCE"
+    )
+    broken_visual = replace(visual, domain="AUDITORY")
+    broken = replace(
+        signals,
+        channels=tuple(
+            broken_visual
+            if channel.channel_id == "VISUAL_FIELD_REFERENCE"
+            else channel
+            for channel in signals.channels
+        ),
+    )
+    dynamics = build_teacher_body_dynamics_profile(broken)
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=broken,
+            dynamics=dynamics,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "SIGNAL_SCHEMA_VALIDATION" in assessment.missing_required_capabilities
+    assert "VISUAL_SIGNAL_REFERENCE" in assessment.missing_required_capabilities
+    assert (
+        "SENSORY_FUNCTION_CHANNEL_CROSSWALK"
+        in assessment.missing_required_capabilities
+    )
+
+
 def test_feeding_and_endocrine_groups_fail_declared_completeness_when_missing() -> None:
     signals = build_teacher_body_signal_schema()
     dynamics = build_teacher_body_dynamics_profile(signals)
