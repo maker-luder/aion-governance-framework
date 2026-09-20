@@ -3,7 +3,10 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any
 
-from .teacher_body_runtime import TeacherCrossSessionRetention
+from .teacher_body_runtime import (
+    TeacherCrossSessionRetention,
+    validate_teacher_cross_session_retention,
+)
 
 
 NOT_ESTABLISHED = "NOT_ESTABLISHED"
@@ -59,6 +62,7 @@ def _parameter_maps(
 def observe_teacher_longitudinal(
     retention: TeacherCrossSessionRetention,
 ) -> TeacherLongitudinalObservation:
+    validate_teacher_cross_session_retention(retention)
     count = len(retention.snapshots)
     if count < 2:
         return TeacherLongitudinalObservation(
