@@ -322,6 +322,89 @@ def test_invalid_body_model_structure_fails_declared_completeness() -> None:
     assert "PERIPERSONAL_SPACE" in assessment.missing_required_capabilities
 
 
+def test_all_physiology_systems_have_declared_minimum_observation_surfaces() -> None:
+    capabilities = build_teacher_reference_capabilities()
+    capability_ids = {item.capability_id for item in capabilities}
+
+    expected = {
+        "PHYSIOLOGY_OBSERVATION_SURFACE_CARDIOVASCULAR",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_RESPIRATORY",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_NERVOUS_AUTONOMIC",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_SENSORY_SIGNAL_PROCESSING",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_MUSCULOSKELETAL",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_DIGESTIVE_METABOLIC",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_HEPATIC",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_RENAL_URINARY",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_ENDOCRINE",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_HEMATOLOGIC",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_IMMUNE_LYMPHATIC",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_INTEGUMENTARY_THERMOREGULATORY",
+        "PHYSIOLOGY_OBSERVATION_SURFACE_REPRODUCTIVE",
+    }
+    assert expected.issubset(capability_ids)
+
+
+def test_missing_system_observation_surface_fails_declared_completeness() -> None:
+    signals = build_teacher_body_signal_schema()
+    dynamics = build_teacher_body_dynamics_profile(signals)
+    broken = replace(
+        signals,
+        channels=tuple(
+            channel
+            for channel in signals.channels
+            if channel.channel_id != "HEPATIC_DETOXIFICATION_REFERENCE"
+        ),
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=broken,
+            dynamics=dynamics,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "SIGNAL_SCHEMA_VALIDATION" in assessment.missing_required_capabilities
+    assert (
+        "PHYSIOLOGY_OBSERVATION_SURFACE_HEPATIC"
+        in assessment.missing_required_capabilities
+    )
+    assert (
+        "PHYSIOLOGY_OBSERVATION_SURFACE_HEPATIC"
+        in assessment.missing_required_observation_channels
+    )
+
+
+def test_system_observation_domain_drift_fails_declared_completeness() -> None:
+    signals = build_teacher_body_signal_schema()
+    renal = next(
+        channel
+        for channel in signals.channels
+        if channel.channel_id == "RENAL_FILTRATION_STATE"
+    )
+    broken_renal = replace(renal, domain="INTEROCEPTIVE")
+    broken = replace(
+        signals,
+        channels=tuple(
+            broken_renal if channel.channel_id == renal.channel_id else channel
+            for channel in signals.channels
+        ),
+    )
+    dynamics = build_teacher_body_dynamics_profile(broken)
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            signal_schema=broken,
+            dynamics=dynamics,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "SIGNAL_SCHEMA_VALIDATION" in assessment.missing_required_capabilities
+    assert (
+        "PHYSIOLOGY_OBSERVATION_SURFACE_RENAL_URINARY"
+        in assessment.missing_required_capabilities
+    )
+
+
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
     surface = build_teacher_embodiment_research_surface()
     result = validate_teacher_embodiment_research_surface(surface)
