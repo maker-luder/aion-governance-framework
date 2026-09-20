@@ -34,6 +34,9 @@ These are interoperability references, not certification claims.
 
 - machine-readable body dimensions;
 - machine-readable complete adult male anatomical inventory;
+- shared machine-verifiable adult-male physiology reference across 13 normal physiological systems;
+- complete reproductive-physiology reference with non-erotic governance boundaries;
+- AION / Astra / Teacher physiology-function parity validation;
 - VRM-aligned required humanoid bone coverage;
 - extended finger, toe, eye and jaw bone hierarchy;
 - explicit T-pose / +Z / metric coordinate contract;
@@ -67,7 +70,7 @@ These are interoperability references, not certification claims.
 - three-level continuous reference LOD set with monotonic geometry complexity;
 - full-body geometric collision proxy profile;
 - neutral clinical collision proxies for external male anatomy with reproductive-physiology reference coverage but no erotic-intent or intimate-interaction behavior semantics;
-- hash-verified reference bundle writer including LOD and collision metadata;
+- hash-verified reference bundle writer including LOD, collision, physiology-reference metadata, and manifest;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -78,7 +81,7 @@ These are interoperability references, not certification claims.
 - verified inverse-bind matrices for a continuous skinned mesh;
 - final facial and body morph-target vertex deltas suitable for production animation;
 - production UV unwrap;
-- texture image binaries;
+- production-grade texture image sets beyond the deterministic embedded reference PNG;
 - normal / roughness / subsurface texture maps;
 - final hair curves / cards / strands;
 - spring-bone runtime data;
@@ -115,7 +118,15 @@ VRM_META_LICENSE_AUTHORIZATION = REQUIRED_FROM_HUMAN_OWNER
 REFERENCE_BUNDLE_WRITER = MATERIALIZED
 REFERENCE_LOD_SET = MATERIALIZED
 REFERENCE_COLLISION_PROXIES = MATERIALIZED
-REFERENCE_BUNDLE_FILE_COUNT = 7
+REFERENCE_BUNDLE_FILE_COUNT = 8
+PHYSIOLOGY_PROFILE = ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1
+PHYSIOLOGICAL_FUNCTIONAL_COMPLETENESS = MATERIALIZED_AS_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY = MATERIALIZED_AS_REFERENCE
+SENSORY_SIGNAL_PROCESSING = MATERIALIZED_AS_REFERENCE
+PHENOMENAL_SENSATION = NOT_ESTABLISHED
+EROTIC_INTENT = NONE
+INTIMATE_INTERACTION = NOT_AUTHORIZED
+FULL_BIOPHYSICAL_SIMULATION = NOT_MATERIALIZED
 
 PRODUCTION_RETOPOLOGY = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
