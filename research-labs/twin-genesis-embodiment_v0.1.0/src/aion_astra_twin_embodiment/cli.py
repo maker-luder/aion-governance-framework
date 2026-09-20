@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 from hashlib import sha256
 import json
 
@@ -10,6 +11,7 @@ from .teacher_avatar import (
     validate_teacher_avatar_contract,
 )
 from .teacher_avatar_asset import build_teacher_low_poly_glb, build_teacher_low_poly_gltf
+from .teacher_avatar_bundle import write_teacher_reference_bundle
 from .teacher_avatar_continuous import (
     build_teacher_continuous_reference_glb,
     build_teacher_continuous_reference_gltf,
@@ -39,7 +41,13 @@ def main() -> int:
             "teacher-avatar-asset-manifest",
             "teacher-avatar-continuous-gltf-info",
             "teacher-avatar-continuous-glb-info",
+            "teacher-avatar-reference-bundle",
         ],
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=None,
+        help="Output directory for teacher-avatar-reference-bundle",
     )
     args = parser.parse_args()
 
@@ -101,7 +109,7 @@ def main() -> int:
             "physical_body_claim": "NONE",
             "subjectivity_effect": "NONE",
         }
-    else:
+    elif args.command == "teacher-avatar-continuous-glb-info":
         mesh = build_teacher_continuous_reference_mesh()
         glb = build_teacher_continuous_reference_glb(mesh)
         payload = {
@@ -113,6 +121,10 @@ def main() -> int:
             "physical_body_claim": "NONE",
             "subjectivity_effect": "NONE",
         }
+    else:
+        if not args.output_dir:
+            parser.error("teacher-avatar-reference-bundle requires --output-dir")
+        payload = asdict(write_teacher_reference_bundle(args.output_dir))
 
     print(json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True))
     return 0
