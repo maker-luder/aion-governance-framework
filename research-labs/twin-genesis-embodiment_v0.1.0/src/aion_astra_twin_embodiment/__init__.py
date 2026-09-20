@@ -58,6 +58,16 @@ from .teacher_body_dynamics import (
     build_teacher_homeostatic_drive_representation,
     build_teacher_motivational_representation,
 )
+from .teacher_physiology_observability import (
+    DERIVED_REFERENCE,
+    DIRECT_OBSERVATION_REFERENCE,
+    FUNCTIONAL_REFERENCE_ONLY,
+    OBSERVABILITY_PROFILE_ID,
+    PhysiologyFunctionObservability,
+    TeacherPhysiologyObservabilityProfile,
+    build_teacher_physiology_observability_profile,
+    validate_teacher_physiology_observability_profile,
+)
 from .teacher_body_runtime import (
     CalibrationProbe,
     TeacherAdaptationState,
@@ -178,6 +188,14 @@ __all__ = [
     "TeacherMotivationalRepresentation",
     "build_teacher_homeostatic_drive_representation",
     "build_teacher_motivational_representation",
+    "DERIVED_REFERENCE",
+    "DIRECT_OBSERVATION_REFERENCE",
+    "FUNCTIONAL_REFERENCE_ONLY",
+    "OBSERVABILITY_PROFILE_ID",
+    "PhysiologyFunctionObservability",
+    "TeacherPhysiologyObservabilityProfile",
+    "build_teacher_physiology_observability_profile",
+    "validate_teacher_physiology_observability_profile",
     "CalibrationProbe",
     "TeacherAdaptationState",
     "TeacherBodyRuntimeBinding",
