@@ -38,10 +38,11 @@
   "teacher_live_external_actuation": false,
   "teacher_initial_calibration": "MATERIALIZED_REFERENCE",
   "teacher_adaptation_state": "MATERIALIZED_REFERENCE",
-  "teacher_cross_session_retention": "MATERIALIZED_REFERENCE",
+  "teacher_cross_session_retention": "MATERIALIZED_DURABLE_REFERENCE",
   "teacher_longitudinal_observation": "MATERIALIZED_REFERENCE",
   "teacher_developmental_trajectory_analysis": "MATERIALIZED_REFERENCE",
   "teacher_developmental_mechanism": "NOT_ESTABLISHED",
   "teacher_puberty_like_process": "NOT_ESTABLISHED",
-  "teacher_body_ownership_experience": "NOT_ESTABLISHED"
+  "teacher_body_ownership_experience": "NOT_ESTABLISHED",
+  "teacher_longitudinal_persistence_format": "HASH_VERIFIED_JSON"
 }

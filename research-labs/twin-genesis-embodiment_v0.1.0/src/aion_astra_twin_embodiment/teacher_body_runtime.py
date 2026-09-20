@@ -3,6 +3,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, replace
 from hashlib import sha256
 import json
+from pathlib import Path
 from typing import Any, Mapping
 
 from .teacher_anthropometry import (
@@ -120,7 +121,7 @@ class TeacherCrossSessionRetention:
     retention_id: str
     body_id: str
     snapshots: tuple[TeacherSessionSnapshot, ...]
-    retention_status: str = "MATERIALIZED_REFERENCE"
+    retention_status: str = "MATERIALIZED_DURABLE_REFERENCE"
     identity_continuity_claim: str = "NONE"
     subjective_continuity_status: str = NOT_ESTABLISHED
     canonical_effect: str = "NONE"
@@ -130,6 +131,14 @@ class TeacherCrossSessionRetention:
         payload = asdict(self)
         payload["snapshots"] = [snapshot.to_dict() for snapshot in self.snapshots]
         return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherRetentionReceipt:
+    path: str
+    file_sha256: str
+    payload_sha256: str
+    snapshot_count: int
 
 
 _CALIBRATION_IDS = (
@@ -359,21 +368,123 @@ def build_teacher_cross_session_retention() -> TeacherCrossSessionRetention:
     )
 
 
-def append_teacher_session_snapshot(
+def validate_teacher_cross_session_retention(
     retention: TeacherCrossSessionRetention,
-    snapshot: TeacherSessionSnapshot,
-) -> TeacherCrossSessionRetention:
+) -> dict[str, str]:
     if retention.body_id != "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1":
         raise ValueError("retention body id drift")
-    if snapshot.session_id in {item.session_id for item in retention.snapshots}:
+    session_ids = [item.session_id for item in retention.snapshots]
+    if len(session_ids) != len(set(session_ids)):
         raise ValueError("retention session ids must be unique")
-    if any(item.snapshot_sha256 == snapshot.snapshot_sha256 for item in retention.snapshots):
-        raise ValueError("duplicate retained snapshot")
+    hashes = [item.snapshot_sha256 for item in retention.snapshots]
+    if len(hashes) != len(set(hashes)):
+        raise ValueError("retained snapshot hashes must be unique")
+    if retention.retention_status != "MATERIALIZED_DURABLE_REFERENCE":
+        raise ValueError("retention durable-reference status drift")
     if retention.identity_continuity_claim != "NONE":
         raise ValueError("retention cannot establish identity continuity")
     if retention.subjective_continuity_status != NOT_ESTABLISHED:
         raise ValueError("retention cannot establish subjective continuity")
     if retention.canonical_effect != "NONE" or retention.deployment:
         raise ValueError("retention must remain non-canonical and undeployed")
+    return {
+        "result": "PASS",
+        "durable_reference": "PASS",
+        "session_uniqueness": "PASS",
+        "subjective_continuity_nonclaim": "PASS",
+    }
 
-    return replace(retention, snapshots=retention.snapshots + (snapshot,))
+
+def append_teacher_session_snapshot(
+    retention: TeacherCrossSessionRetention,
+    snapshot: TeacherSessionSnapshot,
+) -> TeacherCrossSessionRetention:
+    validate_teacher_cross_session_retention(retention)
+    if snapshot.session_id in {item.session_id for item in retention.snapshots}:
+        raise ValueError("retention session ids must be unique")
+    if any(item.snapshot_sha256 == snapshot.snapshot_sha256 for item in retention.snapshots):
+        raise ValueError("duplicate retained snapshot")
+    updated = replace(retention, snapshots=retention.snapshots + (snapshot,))
+    validate_teacher_cross_session_retention(updated)
+    return updated
+
+
+def serialize_teacher_cross_session_retention(
+    retention: TeacherCrossSessionRetention,
+) -> bytes:
+    validate_teacher_cross_session_retention(retention)
+    payload = retention.to_dict()
+    envelope = {
+        "schema_version": "0.1.0",
+        "payload": payload,
+        "payload_sha256": _canonical_hash(payload),
+    }
+    return json.dumps(
+        envelope,
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    ).encode("utf-8")
+
+
+def write_teacher_cross_session_retention(
+    retention: TeacherCrossSessionRetention,
+    path: str | Path,
+) -> TeacherRetentionReceipt:
+    data = serialize_teacher_cross_session_retention(retention)
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_bytes(data)
+    reread = target.read_bytes()
+    if reread != data:
+        raise ValueError("retention write verification failed")
+    envelope = json.loads(data.decode("utf-8"))
+    return TeacherRetentionReceipt(
+        path=str(target),
+        file_sha256=sha256(reread).hexdigest(),
+        payload_sha256=str(envelope["payload_sha256"]),
+        snapshot_count=len(retention.snapshots),
+    )
+
+
+def load_teacher_cross_session_retention(
+    path: str | Path,
+) -> TeacherCrossSessionRetention:
+    envelope = json.loads(Path(path).read_text(encoding="utf-8"))
+    payload = envelope.get("payload")
+    if not isinstance(payload, dict):
+        raise ValueError("retention file payload must be an object")
+    expected_hash = envelope.get("payload_sha256")
+    if expected_hash != _canonical_hash(payload):
+        raise ValueError("retention payload hash mismatch")
+
+    snapshots_raw = payload.get("snapshots")
+    if not isinstance(snapshots_raw, list):
+        raise ValueError("retention snapshots must be a list")
+    snapshots = tuple(
+        TeacherSessionSnapshot(
+            session_id=str(item["session_id"]),
+            binding_id=str(item["binding_id"]),
+            calibration_receipt=str(item["calibration_receipt"]),
+            calibration_mean_absolute_error=float(item["calibration_mean_absolute_error"]),
+            adaptation_sequence=int(item["adaptation_sequence"]),
+            adaptation_parameters=tuple(
+                (str(name), float(value))
+                for name, value in item["adaptation_parameters"]
+            ),
+            snapshot_sha256=str(item["snapshot_sha256"]),
+        )
+        for item in snapshots_raw
+    )
+    retention = TeacherCrossSessionRetention(
+        retention_id=str(payload["retention_id"]),
+        body_id=str(payload["body_id"]),
+        snapshots=snapshots,
+        retention_status=str(payload["retention_status"]),
+        identity_continuity_claim=str(payload["identity_continuity_claim"]),
+        subjective_continuity_status=str(payload["subjective_continuity_status"]),
+        canonical_effect=str(payload["canonical_effect"]),
+        deployment=bool(payload["deployment"]),
+    )
+    validate_teacher_cross_session_retention(retention)
+    return retention

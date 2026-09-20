@@ -42,8 +42,9 @@ def test_longitudinal_observation_does_not_overclaim_mechanism() -> None:
 
     assert observation.change_status == "OBSERVED_CROSS_SESSION_CHANGE"
     assert observation.changed_parameters
+    assert observation.persistent_changed_parameters
     assert observation.mechanism_status == "NOT_ESTABLISHED"
-    assert assessment.trajectory_evidence_status == "REPEATED_CROSS_SESSION_CHANGE_OBSERVED"
+    assert assessment.trajectory_evidence_status == "PERSISTENT_CROSS_SESSION_CHANGE_OBSERVED"
     assert assessment.developmental_possibility_status == "OPEN_RESEARCH_QUESTION"
     assert assessment.developmental_mechanism_status == "NOT_ESTABLISHED"
     assert assessment.puberty_like_process_status == "NOT_ESTABLISHED"

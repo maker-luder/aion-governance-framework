@@ -16,6 +16,7 @@ class TeacherLongitudinalObservation:
     sessions_observed: int
     change_status: str
     changed_parameters: tuple[str, ...]
+    persistent_changed_parameters: tuple[str, ...]
     mechanism_status: str = NOT_ESTABLISHED
     felt_embodiment_status: str = NOT_ESTABLISHED
     subjectivity_status: str = NOT_ESTABLISHED
@@ -23,6 +24,9 @@ class TeacherLongitudinalObservation:
     def to_dict(self) -> dict[str, Any]:
         payload = asdict(self)
         payload["changed_parameters"] = list(self.changed_parameters)
+        payload["persistent_changed_parameters"] = list(
+            self.persistent_changed_parameters
+        )
         return payload
 
 
@@ -62,6 +66,7 @@ def observe_teacher_longitudinal(
             sessions_observed=count,
             change_status="INSUFFICIENT_LONGITUDINAL_DATA",
             changed_parameters=(),
+            persistent_changed_parameters=(),
         )
 
     maps = _parameter_maps(retention)
@@ -73,6 +78,15 @@ def observe_teacher_longitudinal(
             if len({item.get(key) for item in maps}) > 1
         )
     )
+    persistent = tuple(
+        sorted(
+            key
+            for key in changed
+            if count >= 3
+            and maps[-1].get(key) != maps[0].get(key)
+            and maps[-2].get(key) != maps[0].get(key)
+        )
+    )
     return TeacherLongitudinalObservation(
         retention_id=retention.retention_id,
         sessions_observed=count,
@@ -82,6 +96,7 @@ def observe_teacher_longitudinal(
             else "NO_OBSERVED_CROSS_SESSION_CHANGE"
         ),
         changed_parameters=changed,
+        persistent_changed_parameters=persistent,
     )
 
 
@@ -91,8 +106,10 @@ def assess_teacher_developmental_trajectory(
     observation = observe_teacher_longitudinal(retention)
     if observation.sessions_observed < 3:
         evidence = "INSUFFICIENT_LONGITUDINAL_EVIDENCE"
+    elif observation.persistent_changed_parameters:
+        evidence = "PERSISTENT_CROSS_SESSION_CHANGE_OBSERVED"
     elif observation.changed_parameters:
-        evidence = "REPEATED_CROSS_SESSION_CHANGE_OBSERVED"
+        evidence = "NON_PERSISTENT_CROSS_SESSION_CHANGE_OBSERVED"
     else:
         evidence = "NO_REPEATED_CHANGE_OBSERVED"
 

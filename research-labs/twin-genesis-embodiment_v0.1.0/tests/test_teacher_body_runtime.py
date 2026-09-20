@@ -9,8 +9,10 @@ from aion_astra_twin_embodiment.teacher_body_runtime import (
     build_teacher_cross_session_retention,
     build_teacher_session_snapshot,
     initialize_teacher_calibration,
+    load_teacher_cross_session_retention,
     update_teacher_adaptation,
     validate_teacher_body_runtime_binding,
+    write_teacher_cross_session_retention,
 )
 
 
@@ -63,4 +65,29 @@ def test_calibration_adaptation_and_retention_are_content_addressed() -> None:
     assert adaptation.mechanism_status == "NOT_ESTABLISHED"
     assert len(snapshot.snapshot_sha256) == 64
     assert len(retention.snapshots) == 1
+    assert retention.retention_status == "MATERIALIZED_DURABLE_REFERENCE"
     assert retention.subjective_continuity_status == "NOT_ESTABLISHED"
+
+
+def test_cross_session_retention_roundtrips_as_hash_verified_json(tmp_path) -> None:
+    binding = build_teacher_body_runtime_binding("RUNTIME-2", "SESSION-2")
+    initial = initialize_teacher_calibration(binding)
+    calibrated = apply_teacher_calibration_observations(
+        initial,
+        _target_observations(initial, offset=0.1),
+    )
+    adaptation = update_teacher_adaptation(calibrated)
+    snapshot = build_teacher_session_snapshot(calibrated, adaptation)
+    retention = append_teacher_session_snapshot(
+        build_teacher_cross_session_retention(),
+        snapshot,
+    )
+
+    path = tmp_path / "teacher-retention.json"
+    receipt = write_teacher_cross_session_retention(retention, path)
+    loaded = load_teacher_cross_session_retention(path)
+
+    assert receipt.snapshot_count == 1
+    assert len(receipt.file_sha256) == 64
+    assert len(receipt.payload_sha256) == 64
+    assert loaded.to_dict() == retention.to_dict()

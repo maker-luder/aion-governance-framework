@@ -23,12 +23,14 @@ or a developmental mechanism.
    content-addressed calibration receipt.
 8. Adaptation records calibration-derived parameter offsets while leaving the
    underlying mechanism unestablished.
-9. Cross-session retention stores hash-addressed session snapshots without
-   claiming personal or subjective continuity.
+9. Cross-session retention stores hash-addressed session snapshots in a
+   hash-verified durable JSON envelope without claiming personal or subjective
+   continuity.
 10. Longitudinal observation compares retained adaptation parameters across
     sessions.
-11. Developmental-trajectory analysis distinguishes observed repeated change
-    from any claim that a developmental mechanism exists.
+11. Developmental-trajectory analysis distinguishes persistent,
+    non-persistent, and absent cross-session change from any claim that a
+    developmental mechanism exists.
 
 ## Capability / governance / epistemic boundary
 
