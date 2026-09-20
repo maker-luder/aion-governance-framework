@@ -49,6 +49,8 @@ These are interoperability references, not certification claims.
 - reference UV coordinates;
 - reference morph-target POSITION deltas;
 - deterministic low-poly GLB container-byte generator;
+- reference JOINTS_0 / WEIGHTS_0 skinning data;
+- reference inverse-bind matrix data;
 - regression tests;
 - CLI output for machine-readable contract / glTF / GLB reference metadata.
 
@@ -80,6 +82,8 @@ LOW_POLY_EXTERNAL_ANATOMY_REFERENCE = MATERIALIZED
 REFERENCE_UV = MATERIALIZED
 REFERENCE_MORPH_VERTEX_DATA = MATERIALIZED
 LOW_POLY_GLB_GENERATOR = MATERIALIZED
+REFERENCE_SKIN_WEIGHTS = MATERIALIZED
+REFERENCE_INVERSE_BIND_MATRICES = MATERIALIZED
 
 PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
 PRODUCTION_SKIN_WEIGHTS = NOT_MATERIALIZED
