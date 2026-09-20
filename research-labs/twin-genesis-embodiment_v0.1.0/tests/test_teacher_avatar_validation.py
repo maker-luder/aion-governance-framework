@@ -80,6 +80,11 @@ def test_teacher_reference_asset_manifest_is_deterministic_and_bounded() -> None
         first["sexual_function_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        first["governance_epistemics_profile_id"]
+        == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    )
+    assert first["developmental_possibility_status"] == "OPEN_RESEARCH_QUESTION"
     assert first["production_asset_status"] == "NOT_ESTABLISHED"
     assert first["physical_body_claim"] == "NONE"
     assert first["subjectivity_effect"] == "NONE"
