@@ -3,7 +3,28 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Final, Iterable
 
-from .teacher_body_dynamics import BODY_DYNAMICS_PROFILE_ID
+from .physiology import (
+    REFERENCE_FUNCTIONAL_COMPLETENESS,
+    REQUIRED_PHYSIOLOGY_SYSTEM_IDS,
+    AdultMalePhysiologyReference,
+    build_adult_male_physiology_reference,
+)
+from .teacher_anthropometry import (
+    EXPECTED_MEASUREMENT_COUNT,
+    TeacherAnthropometryProfile,
+    build_teacher_anthropometry_profile,
+)
+from .teacher_body_channels import (
+    TeacherBodySignalSchema,
+    TeacherMotorControlSchema,
+    build_teacher_body_signal_schema,
+    build_teacher_motor_control_schema,
+)
+from .teacher_body_dynamics import (
+    BODY_DYNAMICS_PROFILE_ID,
+    TeacherBodyDynamicsProfile,
+    build_teacher_body_dynamics_profile,
+)
 
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
@@ -100,29 +121,172 @@ class TeacherEmbodimentResearchSurface:
         return payload
 
 
-_DEFAULT_CAPABILITIES: Final[tuple[ReferenceCapability, ...]] = (
-    ReferenceCapability("ANTHROPOMETRY", True, True, False, True),
-    ReferenceCapability("ADULT_MALE_PHYSIOLOGY", True, True, False, True),
-    ReferenceCapability("SOMATOSENSORY_SIGNALS", True, True, True, True),
-    ReferenceCapability("PROPRIOCEPTION", True, True, True, True),
-    ReferenceCapability("INTEROCEPTION", True, True, True, True),
-    ReferenceCapability("REPRODUCTIVE_SEXUAL_PHYSIOLOGY", True, True, True, True),
-    ReferenceCapability("MOTOR_CONTROL", True, True, False, True),
-    ReferenceCapability("HOMEOSTATIC_REGULATION", True, True, True, True),
-    ReferenceCapability("BODY_STATE_INTEGRATION", True, True, False, True),
-    ReferenceCapability("SENSORIMOTOR_PREDICTION", True, True, False, True),
-    ReferenceCapability("PRODUCTION_3D_ASSET", False, False, False, False),
+_CORE_SIGNAL_DOMAINS: Final[tuple[str, ...]] = (
+    "SOMATOSENSORY",
+    "PROPRIOCEPTIVE",
+    "VESTIBULAR",
+    "INTEROCEPTIVE",
 )
 
 
-def build_teacher_reference_capabilities() -> tuple[ReferenceCapability, ...]:
-    return _DEFAULT_CAPABILITIES
+def build_teacher_reference_capabilities(
+    *,
+    anthropometry: TeacherAnthropometryProfile | None = None,
+    physiology: AdultMalePhysiologyReference | None = None,
+    signal_schema: TeacherBodySignalSchema | None = None,
+    motor_schema: TeacherMotorControlSchema | None = None,
+    dynamics: TeacherBodyDynamicsProfile | None = None,
+) -> tuple[ReferenceCapability, ...]:
+    anthropometry = anthropometry or build_teacher_anthropometry_profile()
+    physiology = physiology or build_adult_male_physiology_reference(
+        anthropometry.body_id
+    )
+    signal_schema = signal_schema or build_teacher_body_signal_schema()
+    motor_schema = motor_schema or build_teacher_motor_control_schema()
+    dynamics = dynamics or build_teacher_body_dynamics_profile(signal_schema)
+
+    measurement_ids = [item.measurement_id for item in anthropometry.measurements]
+    anthropometry_complete = (
+        len(measurement_ids) == EXPECTED_MEASUREMENT_COUNT
+        and len(measurement_ids) == len(set(measurement_ids))
+    )
+
+    systems = {system.system_id: system for system in physiology.systems}
+    physiology_capabilities = tuple(
+        ReferenceCapability(
+            f"PHYSIOLOGY_SYSTEM_{system_id}",
+            True,
+            (
+                (system := systems.get(system_id)) is not None
+                and system.status == REFERENCE_FUNCTIONAL_COMPLETENESS
+                and bool(system.functions)
+            ),
+            False,
+            True,
+        )
+        for system_id in REQUIRED_PHYSIOLOGY_SYSTEM_IDS
+    )
+    physiology_complete = (
+        physiology.adult_status
+        and physiology.physiological_function_status
+        == REFERENCE_FUNCTIONAL_COMPLETENESS
+        and all(item.materialized for item in physiology_capabilities)
+    )
+
+    signal_ids = {channel.channel_id for channel in signal_schema.channels}
+    signal_domains = {channel.domain for channel in signal_schema.channels}
+    semantics_ids = {item.channel_id for item in dynamics.signal_semantics}
+
+    domain_capabilities = tuple(
+        ReferenceCapability(
+            (
+                "SOMATOSENSORY_SIGNALS"
+                if domain == "SOMATOSENSORY"
+                else domain
+            ),
+            True,
+            domain in signal_domains,
+            True,
+            domain in signal_domains,
+        )
+        for domain in _CORE_SIGNAL_DOMAINS
+    )
+
+    reproductive_system = systems.get("REPRODUCTIVE")
+    reproductive_observation_present = (
+        "REPRODUCTIVE_SEXUAL_PHYSIOLOGY" in signal_domains
+    )
+    reproductive_materialized = (
+        reproductive_system is not None
+        and reproductive_system.status == REFERENCE_FUNCTIONAL_COMPLETENESS
+        and bool(reproductive_system.functions)
+    )
+
+    homeostasis_materialized = bool(dynamics.homeostatic_variables) and all(
+        set(variable.source_channels).issubset(signal_ids)
+        for variable in dynamics.homeostatic_variables
+    )
+    core_domains_present = set(_CORE_SIGNAL_DOMAINS).issubset(signal_domains)
+    body_state_integration_materialized = (
+        core_domains_present and semantics_ids == signal_ids
+    )
+    motor_materialized = bool(motor_schema.joint_targets) and bool(
+        motor_schema.channels
+    )
+    sensorimotor_prediction_materialized = (
+        body_state_integration_materialized and motor_materialized
+    )
+
+    return (
+        ReferenceCapability(
+            "ANTHROPOMETRY",
+            True,
+            anthropometry_complete,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "ADULT_MALE_PHYSIOLOGY",
+            True,
+            physiology_complete,
+            False,
+            True,
+        ),
+        *physiology_capabilities,
+        *domain_capabilities,
+        ReferenceCapability(
+            "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
+            True,
+            reproductive_materialized,
+            True,
+            reproductive_observation_present,
+        ),
+        ReferenceCapability(
+            "MOTOR_CONTROL",
+            True,
+            motor_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "HOMEOSTATIC_REGULATION",
+            True,
+            homeostasis_materialized,
+            True,
+            homeostasis_materialized,
+        ),
+        ReferenceCapability(
+            "BODY_STATE_INTEGRATION",
+            True,
+            body_state_integration_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "SENSORIMOTOR_PREDICTION",
+            True,
+            sensorimotor_prediction_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "PRODUCTION_3D_ASSET",
+            False,
+            False,
+            False,
+            False,
+        ),
+    )
 
 
 def assess_teacher_reference_completeness(
     capabilities: Iterable[ReferenceCapability] | None = None,
 ) -> TeacherReferenceCompletenessAssessment:
-    items = tuple(capabilities or _DEFAULT_CAPABILITIES)
+    items = tuple(
+        build_teacher_reference_capabilities()
+        if capabilities is None
+        else capabilities
+    )
     ids = [item.capability_id for item in items]
     if len(ids) != len(set(ids)):
         raise ValueError("reference capability ids must be unique")
