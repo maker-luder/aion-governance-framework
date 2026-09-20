@@ -5,7 +5,18 @@ import json
 from dataclasses import asdict
 from typing import Any
 
-from .models import EmbodimentInstance, EmbodimentTemplate, SharedGenesisEvent
+from .models import (
+    REQUIRED_EXTERNAL_REPRODUCTIVE_ANATOMY,
+    REQUIRED_INTERNAL_REPRODUCTIVE_ANATOMY,
+    EmbodimentInstance,
+    EmbodimentTemplate,
+    SharedGenesisEvent,
+)
+from .physiology import (
+    REFERENCE_FUNCTIONAL_COMPLETENESS,
+    build_adult_male_physiology_reference,
+    validate_physiology_parity,
+)
 
 
 class ValidationError(ValueError):
@@ -43,19 +54,54 @@ def validate_candidate(
         failures.append("Embodiment-to-agent binding does not match the genesis event")
     if aion.instance_id != event.aion_instance_id or astra.instance_id != event.astra_instance_id:
         failures.append("Embodiment-to-instance binding does not match the genesis event")
-    if template.sexual_function_status != "NOT_IMPLEMENTED":
-        failures.append("Sexual function is outside this candidate scope")
+
+    if set(template.external_reproductive_anatomy) != set(
+        REQUIRED_EXTERNAL_REPRODUCTIVE_ANATOMY
+    ):
+        failures.append("Adult male external reproductive/pelvic anatomy is incomplete")
+    if set(template.internal_reproductive_anatomy) != set(
+        REQUIRED_INTERNAL_REPRODUCTIVE_ANATOMY
+    ):
+        failures.append("Adult male internal reproductive anatomy is incomplete")
+
+    if template.physiology_profile_id != "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1":
+        failures.append("Adult male physiology profile binding drift")
+    if template.physiological_function_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        failures.append("Normal adult male physiological function reference is incomplete")
+    if template.reproductive_physiology_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        failures.append(
+            "Normal adult male reproductive physiology must not be omitted as sexualization"
+        )
+    if template.sensory_signal_processing_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        failures.append("Sensory signal-processing reference is incomplete")
+    if template.phenomenal_sensation_status != "NOT_ESTABLISHED":
+        failures.append(
+            "Physiological signal processing must not establish phenomenal sensation"
+        )
+    if template.erotic_intent != "NONE":
+        failures.append("Physiology reference must remain non-erotic")
+    if template.intimate_interaction_status != "NOT_AUTHORIZED":
+        failures.append(
+            "Physiological completeness does not authorize intimate interaction"
+        )
+    if template.full_biophysical_simulation_status != "NOT_MATERIALIZED":
+        failures.append(
+            "Functional completeness reference cannot claim full biophysical simulation"
+        )
     if template.gender_identity_effect != "NONE":
         failures.append("Anatomy must not assign gender identity")
     if template.subjectivity_effect != "NONE":
-        failures.append("Anatomy must not alter subjectivity conclusions")
+        failures.append("Anatomy or physiology must not alter subjectivity conclusions")
+
     for instance in (aion, astra):
         if instance.runtime_binding != "NOT_IMPLEMENTED":
             failures.append("Live embodiment runtime is not authorized")
         if instance.body_sensation != "NOT_ESTABLISHED":
-            failures.append("Body sensation must remain NOT_ESTABLISHED")
+            failures.append(
+                "Phenomenal body sensation must remain NOT_ESTABLISHED"
+            )
         if instance.sexual_interaction != "NOT_AUTHORIZED":
-            failures.append("Sexual interaction is not authorized")
+            failures.append("Sexual/intimate interaction is not authorized")
         forbidden = {"relationship", "trust", "familiarity", "intimacy"}
         if forbidden.intersection(set(instance.modification_authorities)):
             failures.append("Relationship or trust cannot grant modification authority")
@@ -64,6 +110,17 @@ def validate_candidate(
 
     if event.canonical_effect != "NONE":
         failures.append("Shared genesis candidate must have no canonical effect")
+
+    try:
+        physiology_parity = validate_physiology_parity(
+            (
+                build_adult_male_physiology_reference(aion.embodiment_id),
+                build_adult_male_physiology_reference(astra.embodiment_id),
+            )
+        )
+    except ValueError as exc:
+        failures.append(str(exc))
+        physiology_parity = {"result": "FAIL"}
 
     if failures:
         raise ValidationError("; ".join(sorted(set(failures))))
@@ -74,6 +131,8 @@ def validate_candidate(
         "template_hash": deterministic_hash(asdict(template)),
         "aion_hash": deterministic_hash(asdict(aion)),
         "astra_hash": deterministic_hash(asdict(astra)),
+        "physiology_parity": physiology_parity["result"],
+        "physiology_profile_id": template.physiology_profile_id,
         "canonical_effect": "NONE",
         "subjectivity_conclusion": "NOT_ESTABLISHED",
     }
