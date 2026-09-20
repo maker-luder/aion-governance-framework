@@ -6,6 +6,7 @@ import json
 import math
 import struct
 from typing import Any, Final
+import zlib
 
 from .teacher_avatar import build_teacher_avatar_contract
 
@@ -505,6 +506,63 @@ def _inverse_bind_matrix(anchor: Vec3) -> tuple[float, ...]:
     )
 
 
+def _continuous_morph_deltas(
+    vertices: tuple[Vec3, ...],
+) -> tuple[tuple[Vec3, ...], tuple[Vec3, ...]]:
+    blink: list[Vec3] = []
+    happy: list[Vec3] = []
+
+    for x, y, z in vertices:
+        eye_region = (
+            1.67 <= y <= 1.75
+            and z >= 0.075
+            and 0.025 <= abs(x) <= 0.105
+        )
+        blink.append((0.0, -0.012 if eye_region else 0.0, 0.0))
+
+        mouth_region = (
+            1.58 <= y <= 1.67
+            and z >= 0.075
+            and abs(x) <= 0.09
+        )
+        if mouth_region:
+            lift = 0.008 + 0.02 * min(1.0, abs(x) / 0.09)
+            happy.append((0.0, lift, 0.006))
+        else:
+            happy.append((0.0, 0.0, 0.0))
+
+    return tuple(blink), tuple(happy)
+
+
+def _png_chunk(kind: bytes, payload: bytes) -> bytes:
+    return (
+        struct.pack(">I", len(payload))
+        + kind
+        + payload
+        + struct.pack(">I", zlib.crc32(kind + payload) & 0xFFFFFFFF)
+    )
+
+
+def _reference_skin_png() -> bytes:
+    width = 2
+    height = 2
+    pixels = (
+        bytes((157, 126, 112, 255, 166, 134, 119, 255))
+        + bytes((151, 120, 107, 255, 161, 129, 114, 255))
+    )
+    rows = b"".join(
+        b"\x00" + pixels[row * width * 4 : (row + 1) * width * 4]
+        for row in range(height)
+    )
+    header = struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0)
+    return (
+        b"\x89PNG\r\n\x1a\n"
+        + _png_chunk(b"IHDR", header)
+        + _png_chunk(b"IDAT", zlib.compress(rows, level=9))
+        + _png_chunk(b"IEND", b"")
+    )
+
+
 def build_teacher_continuous_reference_gltf(
     mesh: ContinuousReferenceMesh | None = None,
 ) -> dict[str, Any]:
@@ -552,6 +610,19 @@ def build_teacher_continuous_reference_gltf(
         "indices",
         struct.pack("<" + "I" * len(flat_indices), *flat_indices),
     )
+    blink_deltas, happy_deltas = _continuous_morph_deltas(mesh.vertices)
+    _pack_aligned(
+        chunks,
+        layout,
+        "blink",
+        b"".join(struct.pack("<fff", *value) for value in blink_deltas),
+    )
+    _pack_aligned(
+        chunks,
+        layout,
+        "happy",
+        b"".join(struct.pack("<fff", *value) for value in happy_deltas),
+    )
     inverse_bind = tuple(
         matrix_value
         for joint_name in mesh.joint_names
@@ -577,6 +648,8 @@ def build_teacher_continuous_reference_gltf(
         "weights",
         "indices",
         "inverse_bind",
+        "blink",
+        "happy",
     ):
         view: dict[str, Any] = {
             "buffer": 0,
@@ -597,6 +670,12 @@ def build_teacher_continuous_reference_gltf(
     normal_z = [value[2] for value in mesh.normals]
     us = [value[0] for value in mesh.uvs]
     vs = [value[1] for value in mesh.uvs]
+    blink_x = [value[0] for value in blink_deltas]
+    blink_y = [value[1] for value in blink_deltas]
+    blink_z = [value[2] for value in blink_deltas]
+    happy_x = [value[0] for value in happy_deltas]
+    happy_y = [value[1] for value in happy_deltas]
+    happy_z = [value[2] for value in happy_deltas]
 
     accessors: list[dict[str, Any]] = [
         {
@@ -653,6 +732,22 @@ def build_teacher_continuous_reference_gltf(
             "count": len(mesh.joint_names),
             "type": "MAT4",
         },
+        {
+            "bufferView": 7,
+            "componentType": 5126,
+            "count": len(mesh.vertices),
+            "type": "VEC3",
+            "min": [min(blink_x), min(blink_y), min(blink_z)],
+            "max": [max(blink_x), max(blink_y), max(blink_z)],
+        },
+        {
+            "bufferView": 8,
+            "componentType": 5126,
+            "count": len(mesh.vertices),
+            "type": "VEC3",
+            "min": [min(happy_x), min(happy_y), min(happy_z)],
+            "max": [max(happy_x), max(happy_y), max(happy_z)],
+        },
     ]
 
     nodes: list[dict[str, Any]] = [
@@ -699,11 +794,36 @@ def build_teacher_continuous_reference_gltf(
         ],
         "bufferViews": buffer_views,
         "accessors": accessors,
+        "samplers": [
+            {
+                "magFilter": 9729,
+                "minFilter": 9729,
+                "wrapS": 10497,
+                "wrapT": 10497,
+            }
+        ],
+        "images": [
+            {
+                "name": "TeacherReferenceSkinTexture",
+                "uri": (
+                    "data:image/png;base64,"
+                    + base64.b64encode(_reference_skin_png()).decode("ascii")
+                ),
+            }
+        ],
+        "textures": [
+            {
+                "name": "TeacherReferenceSkinTexture",
+                "sampler": 0,
+                "source": 0,
+            }
+        ],
         "materials": [
             {
                 "name": "TeacherContinuousReferenceMaterial",
                 "pbrMetallicRoughness": {
-                    "baseColorFactor": [0.62, 0.62, 0.62, 1.0],
+                    "baseColorFactor": [1.0, 1.0, 1.0, 1.0],
+                    "baseColorTexture": {"index": 0, "texCoord": 0},
                     "metallicFactor": 0.0,
                     "roughnessFactor": 0.72,
                 },
@@ -724,8 +844,19 @@ def build_teacher_continuous_reference_gltf(
                         "indices": 5,
                         "material": 0,
                         "mode": 4,
+                        "targets": [
+                            {"POSITION": 7},
+                            {"POSITION": 8},
+                        ],
                     }
                 ],
+                "weights": [0.0, 0.0],
+                "extras": {
+                    "targetNames": [
+                        "blinkReference",
+                        "happyReference",
+                    ]
+                },
             }
         ],
         "skins": [
@@ -745,6 +876,8 @@ def build_teacher_continuous_reference_gltf(
             "triangle_count": len(mesh.triangles),
             "source_grid": list(mesh.source_grid),
             "reference_skinning_status": mesh.skinning_status,
+            "reference_morph_targets_status": "MATERIALIZED",
+            "reference_texture_status": "MATERIALIZED",
             "production_topology_status": "NOT_ESTABLISHED",
             "production_skinning_status": "NOT_ESTABLISHED",
             "production_texture_status": "NOT_MATERIALIZED",
@@ -807,7 +940,7 @@ def validate_teacher_continuous_reference_gltf(
         raise ValueError("continuous reference requires exactly one mesh")
     if not isinstance(skins, list) or len(skins) != 1:
         raise ValueError("continuous reference requires exactly one skin")
-    if not isinstance(accessors, list) or len(accessors) != 7:
+    if not isinstance(accessors, list) or len(accessors) != 9:
         raise ValueError("continuous reference accessor layout drift")
     if not isinstance(buffers, list) or len(buffers) != 1:
         raise ValueError("continuous reference requires one embedded buffer")
@@ -825,6 +958,8 @@ def validate_teacher_continuous_reference_gltf(
         raise ValueError("continuous reference vertex attribute binding drift")
     if primitive.get("indices") != 5:
         raise ValueError("continuous reference index accessor drift")
+    if primitive.get("targets") != [{"POSITION": 7}, {"POSITION": 8}]:
+        raise ValueError("continuous reference morph target binding drift")
     if accessors[0].get("count") != extras.get("vertex_count"):
         raise ValueError("continuous POSITION count does not match vertex_count")
     if accessors[1].get("count") != accessors[0].get("count"):
@@ -841,6 +976,11 @@ def validate_teacher_continuous_reference_gltf(
         raise ValueError("continuous WEIGHTS_0 must use float VEC4")
     if accessors[6].get("type") != "MAT4" or accessors[6].get("componentType") != 5126:
         raise ValueError("continuous inverseBindMatrices must use float MAT4")
+    for morph_accessor in accessors[7:9]:
+        if morph_accessor.get("type") != "VEC3":
+            raise ValueError("continuous morph target must use VEC3 POSITION deltas")
+        if morph_accessor.get("count") != accessors[0].get("count"):
+            raise ValueError("continuous morph target count must match POSITION count")
 
     skin = skins[0]
     joints = skin.get("joints")
@@ -850,6 +990,17 @@ def validate_teacher_continuous_reference_gltf(
         raise ValueError("continuous inverseBindMatrices count is insufficient")
     if skin.get("inverseBindMatrices") != 6:
         raise ValueError("continuous inverseBindMatrices accessor drift")
+
+    images = payload.get("images")
+    if not isinstance(images, list) or len(images) != 1:
+        raise ValueError("continuous reference texture image is required")
+    image_uri = images[0].get("uri")
+    image_prefix = "data:image/png;base64,"
+    if not isinstance(image_uri, str) or not image_uri.startswith(image_prefix):
+        raise ValueError("continuous reference texture must be embedded PNG")
+    png = base64.b64decode(image_uri.removeprefix(image_prefix), validate=True)
+    if not png.startswith(b"\x89PNG\r\n\x1a\n"):
+        raise ValueError("continuous reference texture PNG signature is invalid")
 
     uri = buffers[0].get("uri")
     prefix = "data:application/octet-stream;base64,"
@@ -864,6 +1015,8 @@ def validate_teacher_continuous_reference_gltf(
         "gltf_structure": "PASS",
         "continuous_surface_binding": "PASS",
         "skinning_binding": "PASS",
+        "morph_targets": "PASS",
+        "reference_texture": "PASS",
         "governance_boundaries": "PASS",
     }
 
