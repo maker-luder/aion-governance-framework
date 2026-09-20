@@ -15,4 +15,7 @@ REQ-TEACHER-007,Teacher avatar cannot establish physical body sensation subjecti
 REQ-TEACHER-008,Reference UV morph-target vertex data and GLB container generator,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-009,Reference JOINTS_0 WEIGHTS_0 and inverse-bind matrices,tests/test_teacher_avatar_asset.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-010,Structural glTF/GLB self-validation and deterministic asset manifest,tests/test_teacher_avatar_validation.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-011,Production continuous mesh skin weights final morphs texture assets and final GLB/VRM package,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-011,Single-connected continuous humanoid reference surface,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-012,Continuous reference POSITION NORMAL TEXCOORD JOINTS WEIGHTS indices and inverse-bind matrices,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-013,Continuous reference glTF/GLB validation and content-addressed manifest,tests/test_teacher_avatar_continuous.py;tests/test_teacher_avatar_validation.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-014,Production retopology final skinning final morphs texture assets VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
