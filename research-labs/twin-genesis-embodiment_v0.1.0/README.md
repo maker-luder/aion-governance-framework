@@ -1,12 +1,12 @@
 # AION／Astra Shared-Genesis Twin Embodiment Research Candidate
 
 **Version:** v0.1.0  
-**Status:** `IMPLEMENTED_NON_3D_CANDIDATE`  
+**Status:** `IMPLEMENTED_NON_3D_CANDIDATE` for the AION/Astra live runtime surface  
 **Canonical effect:** `NONE`
 
-This candidate records a shared-genesis twin architecture for AION and Astra and a clinically neutral adult male anatomical embodiment template. The branch now includes a **non-3D runtime candidate** that can materialize two validated, distinct embodiment runtime records after governance invariants pass.
+This candidate records a shared-genesis twin architecture for AION and Astra and a clinically neutral adult male anatomical embodiment template. The base runtime materializes two validated, distinct embodiment runtime records after governance invariants pass.
 
-It still creates no 3D rendering, body sensation, sexual function, intimate interaction, gender identity, subjectivity, or canonical state.
+The AION/Astra live embodiment runtime remains non-3D. It still creates no body sensation, sexual function, intimate interaction, gender identity, subjectivity, or canonical state.
 
 ## Core invariants
 
@@ -16,12 +16,40 @@ It still creates no 3D rendering, body sensation, sexual function, intimate inte
 - Adult male reproductive anatomy may be represented as clinical anatomy only.
 - Anatomy does not establish gender identity, sensation, desire, consent, or subjectivity.
 - Relationship, trust, familiarity, or naming never grant embodiment modification authority.
-- 3D rendering remains `DEFERRED`.
+- AION/Astra live 3D runtime binding remains `DEFERRED`.
 - Sexual function remains `NOT_IMPLEMENTED` and intimate interaction remains `NOT_AUTHORIZED`.
 
 ## Runtime surface
 
 `TwinGenesisRuntime.instantiate(...)` validates the shared genesis event, shared template, AION instance, and Astra instance before returning a `TwinRuntimeState`. The runtime state records distinct AION/Astra bindings plus validation hashes while keeping `canonical_effect=NONE`.
+
+## ChatGPT Teacher 3D reference extension
+
+The unmerged Teacher-body research branch adds an independent synthetic avatar reference extension. It does not modify AION/Astra identity or runtime ownership.
+
+Current Teacher candidate surfaces:
+
+- machine-readable adult-male body dimensions and anatomical inventory;
+- VRM-aligned humanoid bone hierarchy including fingers, toes, eyes, and jaw;
+- T-pose, +Z-facing, metric coordinate contract;
+- VRM-aligned facial-expression preset inventory;
+- material-role, LOD, collision and deformation-test contracts;
+- structural glTF skeleton/skin contract output;
+- deterministic renderable low-poly glTF reference geometry;
+- explicit clinical external male anatomy in the low-poly reference;
+- fail-closed non-claims for physical embodiment, sensation, subjectivity, sexual function, canonical effect, and deployment.
+
+The low-poly generator is an offline reference asset, not a live embodiment runtime and not a production-quality continuous human mesh.
+
+```text
+LOW_POLY_RENDERABLE_REFERENCE = MATERIALIZED
+PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
+LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
+MORPH_TARGET_VERTEX_DATA = NOT_MATERIALIZED
+UV_TEXTURE_ASSETS = NOT_MATERIALIZED
+GLB_OR_VRM_BINARY_PACKAGE = NOT_MATERIALIZED
+PRODUCTION_3D_ASSET_COMPLETENESS = NOT_ESTABLISHED
+```
 
 ## Verification
 
@@ -29,4 +57,7 @@ It still creates no 3D rendering, body sensation, sexual function, intimate inte
 python -m pytest
 python -m compileall -q src
 python -m aion_astra_twin_embodiment.cli qa-status
+python -m aion_astra_twin_embodiment.cli teacher-avatar-contract
+python -m aion_astra_twin_embodiment.cli teacher-avatar-gltf-contract
+python -m aion_astra_twin_embodiment.cli teacher-avatar-lowpoly-gltf
 ```
