@@ -212,6 +212,24 @@ def test_feeding_and_endocrine_groups_fail_declared_completeness_when_missing() 
     assert "FEEDING_HOMEOSTASIS" in assessment.missing_required_observation_channels
 
 
+def test_invalid_body_model_structure_fails_declared_completeness() -> None:
+    body_model = build_teacher_body_model_profile()
+    broken_zone = replace(
+        body_model.peripersonal_zones[0],
+        anchor_id="UNKNOWN_ANCHOR",
+    )
+    broken = replace(
+        body_model,
+        peripersonal_zones=(broken_zone,) + body_model.peripersonal_zones[1:],
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(body_model=broken)
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert "PERIPERSONAL_SPACE" in assessment.missing_required_capabilities
+
+
 def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> None:
     surface = build_teacher_embodiment_research_surface()
     result = validate_teacher_embodiment_research_surface(surface)
