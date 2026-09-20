@@ -95,6 +95,10 @@ def test_teacher_continuous_reference_gltf_is_skinned_and_embedded(continuous_me
         payload["extras"]["reproductive_physiology_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        payload["extras"]["sexual_function_status"]
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
     assert payload["extras"]["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
     assert payload["extras"]["erotic_intent"] == "NONE"
 
