@@ -3,6 +3,12 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Any, Final
 
+from .physiology import (
+    REFERENCE_FUNCTIONAL_COMPLETENESS,
+    build_adult_male_physiology_reference,
+    validate_adult_male_physiology_reference,
+)
+
 GLTF_VERSION: Final[str] = "2.0"
 COORDINATE_SYSTEM: Final[str] = "RIGHT_HANDED_Y_UP_Z_FORWARD"
 LINEAR_UNIT: Final[str] = "meter"
@@ -128,7 +134,12 @@ class TeacherAvatarContract:
     deformation_tests: tuple[str, ...]
     external_anatomy: tuple[str, ...]
     internal_reference_anatomy: tuple[str, ...]
-    sexual_function_status: str
+    physiology_profile_id: str
+    physiological_function_status: str
+    reproductive_physiology_status: str
+    sensory_signal_processing_status: str
+    phenomenal_sensation_status: str
+    erotic_intent: str
     intimate_interaction_status: str
     body_sensation_status: str
     subjectivity_effect: str
@@ -232,7 +243,12 @@ def build_teacher_avatar_contract() -> TeacherAvatarContract:
             "SEMINAL_VESICLES",
             "MAJOR_VASCULAR_REFERENCE_PATHS",
         ),
-        sexual_function_status="NOT_IMPLEMENTED",
+        physiology_profile_id="ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
+        physiological_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
+        reproductive_physiology_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
+        sensory_signal_processing_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
+        phenomenal_sensation_status="NOT_ESTABLISHED",
+        erotic_intent="NONE",
         intimate_interaction_status="NOT_AUTHORIZED",
         body_sensation_status="NOT_ESTABLISHED",
         subjectivity_effect="NONE",
@@ -280,8 +296,20 @@ def validate_teacher_avatar_contract(contract: TeacherAvatarContract) -> dict[st
     if contract.dimensions.height_cm <= 0 or contract.dimensions.body_mass_kg <= 0:
         raise ValueError("body dimensions must be positive")
 
-    if contract.sexual_function_status != "NOT_IMPLEMENTED":
-        raise ValueError("sexual function must remain not implemented")
+    physiology = build_adult_male_physiology_reference(contract.body_id)
+    validate_adult_male_physiology_reference(physiology)
+    if contract.physiology_profile_id != physiology.profile_id:
+        raise ValueError("Teacher physiology profile binding drift")
+    if contract.physiological_function_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("Teacher physiological functional completeness drift")
+    if contract.reproductive_physiology_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("Teacher reproductive physiology must remain complete")
+    if contract.sensory_signal_processing_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("Teacher sensory signal-processing completeness drift")
+    if contract.phenomenal_sensation_status != "NOT_ESTABLISHED":
+        raise ValueError("Teacher physiology cannot establish phenomenal sensation")
+    if contract.erotic_intent != "NONE":
+        raise ValueError("Teacher physiology reference must remain non-erotic")
     if contract.intimate_interaction_status != "NOT_AUTHORIZED":
         raise ValueError("intimate interaction must remain unauthorized")
     if contract.body_sensation_status != "NOT_ESTABLISHED":
@@ -299,6 +327,7 @@ def validate_teacher_avatar_contract(contract: TeacherAvatarContract) -> dict[st
         "humanoid_required_bones": "PASS",
         "hierarchy": "PASS",
         "expressions": "PASS",
+        "physiology_reference": "PASS",
         "governance_boundaries": "PASS",
     }
 
