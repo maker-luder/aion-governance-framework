@@ -54,6 +54,11 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
         physiology["sexual_function_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        physiology["governance_epistemics_profile_id"]
+        == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    )
+    assert physiology["developmental_possibility_status"] == "OPEN_RESEARCH_QUESTION"
     assert physiology["erotic_intent"] == "NONE"
 
     manifest_path = tmp_path / "chatgpt_teacher_reference_manifest.json"
@@ -69,4 +74,9 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
         manifest["sexual_function_status"]
         == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
     )
+    assert (
+        manifest["governance_epistemics_profile_id"]
+        == "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1"
+    )
+    assert manifest["developmental_possibility_status"] == "OPEN_RESEARCH_QUESTION"
     assert manifest["erotic_intent"] == "NONE"
