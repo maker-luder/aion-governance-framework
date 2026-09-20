@@ -16,8 +16,8 @@ DATA_DIR = Path(__file__).resolve().parents[1] / "data"
 
 
 def profiles():
-    aion = load_body_profile(DATA_DIR / "AION_3D_MALE_BODY_PROFILE_v0.1.json")
-    astra = load_body_profile(DATA_DIR / "ASTRA_3D_MALE_BODY_PROFILE_v0.3.json")
+    aion = load_body_profile(DATA_DIR / "AION_3D_ROBOTIC_MALE_BODY_PROFILE_v0.2.json")
+    astra = load_body_profile(DATA_DIR / "ASTRA_3D_ROBOTIC_MALE_BODY_PROFILE_v0.4.json")
     return aion, astra
 
 
@@ -149,7 +149,7 @@ def test_aion_pose_deformation_candidate_validates():
     assert result["result"] == "PASS"
     assert test.status == "DOCUMENTED_ONLY"
     assert "HIP_MESH_NO_COLLAPSE" in test.pass_conditions
-    assert "NO_GENITAL_THIGH_PELVIS_INTERSECTION" in test.pass_conditions
+    assert "NO_MALE_FORM_MODULE_THIGH_PELVIS_INTERSECTION" in test.pass_conditions
 
 
 def test_pose_test_cannot_activate_runtime():
