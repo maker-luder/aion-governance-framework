@@ -30,6 +30,7 @@ class TeacherCollisionProfile:
     proxies: tuple[CollisionProxy, ...]
     collision_semantics: str = "GEOMETRIC_REFERENCE_ONLY"
     reproductive_physiology_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    sexual_function_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     erotic_intent: str = "NONE"
     intimate_interaction_status: str = "NOT_AUTHORIZED"
     physical_body_claim: str = "NONE"
@@ -138,6 +139,8 @@ def validate_teacher_collision_profile(
 
     if profile.reproductive_physiology_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
         raise ValueError("collision profile physiology binding drift")
+    if profile.sexual_function_status != REFERENCE_FUNCTIONAL_COMPLETENESS:
+        raise ValueError("collision profile sexual function status drift")
     if profile.erotic_intent != "NONE":
         raise ValueError("collision profile must remain non-erotic")
     if profile.intimate_interaction_status != "NOT_AUTHORIZED":
