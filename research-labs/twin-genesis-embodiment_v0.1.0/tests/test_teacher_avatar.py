@@ -21,7 +21,25 @@ def test_teacher_avatar_contract_is_complete_and_bounded() -> None:
     assert len(contract.human_bones) >= 50
     assert contract.dimensions.height_cm == 183.0
     assert contract.anatomical_configuration == "COMPLETE_ADULT_MALE_ANATOMY_CANDIDATE"
-    assert contract.sexual_function_status == "NOT_IMPLEMENTED"
+    assert "SPERMATIC_CORD" in contract.internal_reference_anatomy
+    assert "EJACULATORY_DUCTS" in contract.internal_reference_anatomy
+    assert "BULBOURETHRAL_GLANDS" in contract.internal_reference_anatomy
+    assert "URETHRA" in contract.internal_reference_anatomy
+    assert contract.physiology_profile_id == "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
+    assert (
+        contract.physiological_function_status
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
+        contract.reproductive_physiology_status
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert (
+        contract.sensory_signal_processing_status
+        == "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    )
+    assert contract.phenomenal_sensation_status == "NOT_ESTABLISHED"
+    assert contract.erotic_intent == "NONE"
     assert contract.intimate_interaction_status == "NOT_AUTHORIZED"
     assert contract.body_sensation_status == "NOT_ESTABLISHED"
     assert contract.subjectivity_effect == "NONE"
@@ -58,9 +76,9 @@ def test_teacher_avatar_required_bone_removal_fails_closed() -> None:
 def test_teacher_avatar_boundary_promotion_fails_closed() -> None:
     contract = build_teacher_avatar_contract()
     broken = copy.copy(contract)
-    object.__setattr__(broken, "sexual_function_status", "IMPLEMENTED")
+    object.__setattr__(broken, "reproductive_physiology_status", "NOT_IMPLEMENTED")
 
-    with pytest.raises(ValueError, match="sexual function"):
+    with pytest.raises(ValueError, match="reproductive physiology"):
         validate_teacher_avatar_contract(broken)
 
 
