@@ -18,4 +18,7 @@ REQ-TEACHER-010,Structural glTF/GLB self-validation and deterministic asset mani
 REQ-TEACHER-011,Single-connected continuous humanoid reference surface,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-012,Continuous reference POSITION NORMAL TEXCOORD JOINTS WEIGHTS indices and inverse-bind matrices,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
 REQ-TEACHER-013,Continuous reference glTF/GLB validation and content-addressed manifest,tests/test_teacher_avatar_continuous.py;tests/test_teacher_avatar_validation.py,IMPLEMENTED_AS_REFERENCE
-REQ-TEACHER-014,Production retopology final skinning final morphs texture assets VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
+REQ-TEACHER-014,Continuous reference morph targets and embedded texture,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-015,VRM required humanoid parent chain mapping with license authorization held,tests/test_teacher_avatar_continuous.py,IMPLEMENTED_AS_CANDIDATE
+REQ-TEACHER-016,Hash-verified materialized reference bundle,tests/test_teacher_avatar_bundle.py,IMPLEMENTED_AS_REFERENCE
+REQ-TEACHER-017,Production retopology final skinning final morphs production textures final VRM package and DCC import validation,docs/CHATGPT_TEACHER_3D_MODULE_CROSSWALK_2026_09_21.md,NOT_MATERIALIZED
