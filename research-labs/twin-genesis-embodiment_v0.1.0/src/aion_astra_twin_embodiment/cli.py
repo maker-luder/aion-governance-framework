@@ -68,6 +68,7 @@ def main() -> int:
             "physiology_profile_id": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
             "physiological_function_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "reproductive_physiology_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "sexual_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "sensory_signal_processing_reference": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
             "full_biophysical_simulation": "NOT_MATERIALIZED",
             "erotic_intent": "NONE",
