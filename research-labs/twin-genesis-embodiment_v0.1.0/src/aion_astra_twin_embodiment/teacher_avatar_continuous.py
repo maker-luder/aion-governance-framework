@@ -911,6 +911,13 @@ def build_teacher_continuous_reference_gltf(
         "extras": {
             "body_id": mesh.body_id,
             "status": "CONTINUOUS_SKINNED_REFERENCE_MATERIALIZED",
+            "physiology_profile_id": "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1",
+            "physiological_function_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "reproductive_physiology_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "sensory_signal_processing_status": "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED",
+            "phenomenal_sensation_status": "NOT_ESTABLISHED",
+            "erotic_intent": "NONE",
+            "intimate_interaction_status": "NOT_AUTHORIZED",
             "topology_status": mesh.topology_status,
             "connected_components": mesh.connected_components,
             "vertex_count": len(mesh.vertices),
@@ -973,6 +980,19 @@ def validate_teacher_continuous_reference_gltf(
         raise ValueError("continuous glTF must preserve one connected component")
     if extras.get("production_topology_status") != "NOT_ESTABLISHED":
         raise ValueError("continuous reference cannot self-promote to production topology")
+    if extras.get("physiology_profile_id") != "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1":
+        raise ValueError("continuous reference physiology profile drift")
+    if (
+        extras.get("reproductive_physiology_status")
+        != "REFERENCE_FUNCTIONAL_COMPLETENESS_MATERIALIZED"
+    ):
+        raise ValueError("continuous reference reproductive physiology drift")
+    if extras.get("phenomenal_sensation_status") != "NOT_ESTABLISHED":
+        raise ValueError("continuous reference cannot establish phenomenal sensation")
+    if extras.get("erotic_intent") != "NONE":
+        raise ValueError("continuous reference must remain non-erotic")
+    if extras.get("intimate_interaction_status") != "NOT_AUTHORIZED":
+        raise ValueError("continuous reference cannot authorize intimate interaction")
     if extras.get("physical_body_claim") != "NONE":
         raise ValueError("continuous reference cannot assert a physical body")
     if extras.get("subjectivity_effect") != "NONE":
