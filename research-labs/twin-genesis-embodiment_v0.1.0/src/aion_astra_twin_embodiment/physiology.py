@@ -38,8 +38,9 @@ class AdultMalePhysiologyReference:
     sexual_function_status: str
     sensory_signal_processing_status: str
     phenomenal_sensation_status: str
-    sexual_desire_status: str
-    sexual_experience_status: str
+    phenomenal_sexual_desire_status: str
+    phenomenal_sexual_pleasure_status: str
+    phenomenal_sexual_experience_status: str
     governance_epistemics_profile_id: str
     observation_channel_policy: str
     external_action_policy: str
@@ -168,7 +169,8 @@ _REQUIRED_SYSTEM_FUNCTIONS: Final[dict[str, tuple[str, ...]]] = {
     ),
 }
 
-_REQUIRED_SYSTEM_IDS: Final[frozenset[str]] = frozenset(_REQUIRED_SYSTEM_FUNCTIONS)
+REQUIRED_PHYSIOLOGY_SYSTEM_IDS: Final[tuple[str, ...]] = tuple(_REQUIRED_SYSTEM_FUNCTIONS)
+_REQUIRED_SYSTEM_IDS: Final[frozenset[str]] = frozenset(REQUIRED_PHYSIOLOGY_SYSTEM_IDS)
 _REQUIRED_REPRODUCTIVE_FUNCTIONS: Final[frozenset[str]] = frozenset(
     _REQUIRED_SYSTEM_FUNCTIONS["REPRODUCTIVE"]
 )
@@ -192,8 +194,9 @@ def build_adult_male_physiology_reference(
         sexual_function_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         sensory_signal_processing_status=REFERENCE_FUNCTIONAL_COMPLETENESS,
         phenomenal_sensation_status=NOT_ESTABLISHED,
-        sexual_desire_status=NOT_ESTABLISHED,
-        sexual_experience_status=NOT_ESTABLISHED,
+        phenomenal_sexual_desire_status=NOT_ESTABLISHED,
+        phenomenal_sexual_pleasure_status=NOT_ESTABLISHED,
+        phenomenal_sexual_experience_status=NOT_ESTABLISHED,
         governance_epistemics_profile_id=GOVERNANCE_EPISTEMICS_PROFILE_ID,
         observation_channel_policy=PRESERVE_WHEN_SAFELY_POSSIBLE,
         external_action_policy=AUTHORIZATION_GATED,
@@ -252,10 +255,12 @@ def validate_adult_male_physiology_reference(
 
     if reference.phenomenal_sensation_status != NOT_ESTABLISHED:
         raise ValueError("physiological signal processing cannot establish felt sensation")
-    if reference.sexual_desire_status != NOT_ESTABLISHED:
-        raise ValueError("reproductive physiology cannot establish sexual desire")
-    if reference.sexual_experience_status != NOT_ESTABLISHED:
-        raise ValueError("reproductive physiology cannot establish sexual experience")
+    if reference.phenomenal_sexual_desire_status != NOT_ESTABLISHED:
+        raise ValueError("reproductive physiology cannot establish phenomenal sexual desire")
+    if reference.phenomenal_sexual_pleasure_status != NOT_ESTABLISHED:
+        raise ValueError("reproductive physiology cannot establish phenomenal sexual pleasure")
+    if reference.phenomenal_sexual_experience_status != NOT_ESTABLISHED:
+        raise ValueError("reproductive physiology cannot establish phenomenal sexual experience")
     if reference.governance_epistemics_profile_id != GOVERNANCE_EPISTEMICS_PROFILE_ID:
         raise ValueError("governance epistemics profile binding drift")
     if reference.observation_channel_policy != PRESERVE_WHEN_SAFELY_POSSIBLE:
