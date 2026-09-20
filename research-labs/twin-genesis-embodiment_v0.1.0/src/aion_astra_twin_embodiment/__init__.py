@@ -1,5 +1,14 @@
 """AION/Astra shared-genesis twin embodiment research candidate."""
 
+from .governance_epistemics import (
+    CapabilityGovernanceState,
+    ExternalActionDecision,
+    AbsenceAssessment,
+    assess_observed_absence,
+    build_capability_governance_state,
+    evaluate_external_action,
+    validate_capability_governance_state,
+)
 from .models import EmbodimentInstance, EmbodimentTemplate, SharedGenesisEvent
 from .physiology import (
     REFERENCE_FUNCTIONAL_COMPLETENESS,
@@ -54,6 +63,13 @@ from .teacher_avatar_validation import (
 from .validation import ValidationError, validate_candidate
 
 __all__ = [
+    "CapabilityGovernanceState",
+    "ExternalActionDecision",
+    "AbsenceAssessment",
+    "assess_observed_absence",
+    "build_capability_governance_state",
+    "evaluate_external_action",
+    "validate_capability_governance_state",
     "EmbodimentInstance",
     "EmbodimentTemplate",
     "SharedGenesisEvent",
