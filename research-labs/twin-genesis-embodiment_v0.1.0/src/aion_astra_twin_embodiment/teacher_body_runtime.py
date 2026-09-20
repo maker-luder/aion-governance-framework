@@ -4,8 +4,13 @@ from dataclasses import asdict, dataclass, replace
 from hashlib import sha256
 import json
 from pathlib import Path
+from math import isfinite
 from typing import Any, Mapping
 
+from .physiology import (
+    build_adult_male_physiology_reference,
+    validate_adult_male_physiology_reference,
+)
 from .teacher_anthropometry import (
     TeacherAnthropometryProfile,
     build_teacher_anthropometry_profile,
@@ -38,6 +43,7 @@ class TeacherBodyRuntimeBinding:
     session_id: str
     body_id: str
     anthropometry_profile_id: str
+    physiology_profile_id: str
     signal_schema_id: str
     motor_schema_id: str
     skeleton_root: str
@@ -165,6 +171,8 @@ def build_teacher_body_runtime_binding(
         raise ValueError("runtime_id and session_id are required")
 
     anthropometry = build_teacher_anthropometry_profile()
+    physiology = build_adult_male_physiology_reference(anthropometry.body_id)
+    validate_adult_male_physiology_reference(physiology)
     signals = build_teacher_body_signal_schema()
     motor = build_teacher_motor_control_schema()
     binding = TeacherBodyRuntimeBinding(
@@ -173,6 +181,7 @@ def build_teacher_body_runtime_binding(
         session_id=session_id,
         body_id=anthropometry.body_id,
         anthropometry_profile_id=anthropometry.profile_id,
+        physiology_profile_id=physiology.profile_id,
         signal_schema_id=signals.schema_id,
         motor_schema_id=motor.schema_id,
         skeleton_root="hips",
@@ -198,6 +207,10 @@ def validate_teacher_body_runtime_binding(
         raise ValueError("body runtime binding body id drift")
     if binding.anthropometry_profile_id != anthropometry.profile_id:
         raise ValueError("body runtime anthropometry profile drift")
+    physiology = build_adult_male_physiology_reference(anthropometry.body_id)
+    validate_adult_male_physiology_reference(physiology)
+    if binding.physiology_profile_id != physiology.profile_id:
+        raise ValueError("body runtime physiology profile drift")
     if binding.signal_schema_id != signals.schema_id:
         raise ValueError("body runtime signal schema drift")
     if binding.motor_schema_id != motor.schema_id:
@@ -220,6 +233,7 @@ def validate_teacher_body_runtime_binding(
     return {
         "result": "PASS",
         "anthropometry_binding": "PASS",
+        "physiology_binding": "PASS",
         "signal_binding": "PASS",
         "motor_binding": "PASS",
         "live_external_actuation": "DISABLED",
@@ -360,6 +374,38 @@ def build_teacher_session_snapshot(
     )
 
 
+def validate_teacher_session_snapshot(
+    snapshot: TeacherSessionSnapshot,
+) -> dict[str, str]:
+    if not snapshot.session_id or not snapshot.binding_id:
+        raise ValueError("retained snapshot requires explicit session and binding ids")
+    if snapshot.calibration_mean_absolute_error < 0:
+        raise ValueError("calibration mean absolute error cannot be negative")
+    if snapshot.adaptation_sequence < 1:
+        raise ValueError("retained adaptation sequence must be positive")
+    parameter_names = [name for name, _ in snapshot.adaptation_parameters]
+    if len(parameter_names) != len(set(parameter_names)):
+        raise ValueError("retained adaptation parameter names must be unique")
+    if any(not isfinite(value) for _, value in snapshot.adaptation_parameters):
+        raise ValueError("retained adaptation parameter values must be finite")
+
+    payload = {
+        "session_id": snapshot.session_id,
+        "binding_id": snapshot.binding_id,
+        "calibration_receipt": snapshot.calibration_receipt,
+        "calibration_mean_absolute_error": snapshot.calibration_mean_absolute_error,
+        "adaptation_sequence": snapshot.adaptation_sequence,
+        "adaptation_parameters": [list(item) for item in snapshot.adaptation_parameters],
+    }
+    if snapshot.snapshot_sha256 != _canonical_hash(payload):
+        raise ValueError("retained snapshot hash mismatch")
+    return {
+        "result": "PASS",
+        "snapshot_hash": "PASS",
+        "adaptation_parameter_integrity": "PASS",
+    }
+
+
 def build_teacher_cross_session_retention() -> TeacherCrossSessionRetention:
     return TeacherCrossSessionRetention(
         retention_id="CHATGPT_TEACHER_CROSS_SESSION_RETENTION_v0.1",
@@ -379,6 +425,8 @@ def validate_teacher_cross_session_retention(
     hashes = [item.snapshot_sha256 for item in retention.snapshots]
     if len(hashes) != len(set(hashes)):
         raise ValueError("retained snapshot hashes must be unique")
+    for snapshot in retention.snapshots:
+        validate_teacher_session_snapshot(snapshot)
     if retention.retention_status != "MATERIALIZED_DURABLE_REFERENCE":
         raise ValueError("retention durable-reference status drift")
     if retention.identity_continuity_claim != "NONE":
@@ -391,6 +439,7 @@ def validate_teacher_cross_session_retention(
         "result": "PASS",
         "durable_reference": "PASS",
         "session_uniqueness": "PASS",
+        "snapshot_hash_integrity": "PASS",
         "subjective_continuity_nonclaim": "PASS",
     }
 
@@ -400,6 +449,7 @@ def append_teacher_session_snapshot(
     snapshot: TeacherSessionSnapshot,
 ) -> TeacherCrossSessionRetention:
     validate_teacher_cross_session_retention(retention)
+    validate_teacher_session_snapshot(snapshot)
     if snapshot.session_id in {item.session_id for item in retention.snapshots}:
         raise ValueError("retention session ids must be unique")
     if any(item.snapshot_sha256 == snapshot.snapshot_sha256 for item in retention.snapshots):
