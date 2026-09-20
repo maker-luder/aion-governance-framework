@@ -16,6 +16,7 @@
     "substrate",
     "anatomy_reference_mode",
     "body_character",
+    "appearance_profile",
     "full_body_components",
     "robotic_layers",
     "representation_layers",
@@ -361,7 +362,9 @@
         "source_person_exact_measurement_claim",
         "derivation_note",
         "reference_role",
-        "terminology_standardization_claim"
+        "terminology_standardization_claim",
+        "appearance_source",
+        "appearance_note"
       ],
       "properties": {
         "source_record": {
@@ -386,6 +389,13 @@
         },
         "terminology_standardization_claim": {
           "const": "NONE"
+        },
+        "appearance_source": {
+          "const": "HUMAN_OWNER_DESIGN_CHOICE"
+        },
+        "appearance_note": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "additionalProperties": false
@@ -393,6 +403,66 @@
     "functional_state_binding_id": {
       "type": "string",
       "minLength": 1
+    },
+    "appearance_profile": {
+      "type": "object",
+      "required": [
+        "racialized_social_appearance",
+        "skin_tone_family",
+        "exact_skin_albedo",
+        "biological_race",
+        "genetic_ancestry",
+        "ethnicity",
+        "sexed_morphology",
+        "gender_identity",
+        "facial_identity_status",
+        "hair_color",
+        "eye_color",
+        "source_class",
+        "source_authority"
+      ],
+      "properties": {
+        "racialized_social_appearance": {
+          "const": "WHITE_CODED"
+        },
+        "skin_tone_family": {
+          "const": "LIGHT"
+        },
+        "exact_skin_albedo": {
+          "const": "UNRESOLVED"
+        },
+        "biological_race": {
+          "const": "NOT_APPLICABLE"
+        },
+        "genetic_ancestry": {
+          "const": "NOT_APPLICABLE"
+        },
+        "ethnicity": {
+          "const": "NOT_ASSIGNED"
+        },
+        "sexed_morphology": {
+          "const": "MALE_FORM"
+        },
+        "gender_identity": {
+          "const": "NOT_ASSIGNED"
+        },
+        "facial_identity_status": {
+          "const": "UNRESOLVED"
+        },
+        "hair_color": {
+          "const": "UNASSIGNED"
+        },
+        "eye_color": {
+          "const": "UNASSIGNED"
+        },
+        "source_class": {
+          "const": "DESIGN"
+        },
+        "source_authority": {
+          "const": "HUMAN_OWNER"
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false
