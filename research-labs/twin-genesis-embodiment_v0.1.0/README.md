@@ -40,6 +40,8 @@ Current Teacher candidate surfaces:
 - reference UV coordinates;
 - reference morph-target vertex deltas for blink/happy deformation probes;
 - deterministic low-poly GLB container-byte generator;
+- reference JOINTS_0 / WEIGHTS_0 skinning data;
+- reference inverse-bind matrix data;
 - fail-closed non-claims for physical embodiment, sensation, subjectivity, sexual function, canonical effect, and deployment.
 
 The low-poly generator is an offline reference asset, not a live embodiment runtime and not a production-quality continuous human mesh.
@@ -49,6 +51,8 @@ LOW_POLY_RENDERABLE_REFERENCE = MATERIALIZED
 REFERENCE_UV = MATERIALIZED
 REFERENCE_MORPH_TARGET_VERTEX_DATA = MATERIALIZED
 LOW_POLY_GLB_GENERATOR = MATERIALIZED
+REFERENCE_SKIN_WEIGHTS = MATERIALIZED
+REFERENCE_INVERSE_BIND_MATRICES = MATERIALIZED
 
 PRODUCTION_CONTINUOUS_MESH = NOT_MATERIALIZED
 PRODUCTION_LINEAR_BLEND_SKIN_WEIGHTS = NOT_MATERIALIZED
