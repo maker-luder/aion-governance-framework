@@ -150,3 +150,27 @@ def test_teacher_continuous_reference_has_morph_targets_and_texture(continuous_m
     assert image_uri.startswith(prefix)
     png = base64.b64decode(image_uri.removeprefix(prefix))
     assert png.startswith(b"\x89PNG\r\n\x1a\n")
+
+
+
+def test_teacher_continuous_reference_aligns_vrm_required_parent_chain(continuous_mesh) -> None:
+    payload = build_teacher_continuous_reference_gltf(continuous_mesh)
+    nodes = payload["nodes"]
+    index = {node["name"]: i for i, node in enumerate(nodes)}
+
+    assert nodes[0]["children"] == [index["hips"]]
+    assert index["spine"] in nodes[index["hips"]]["children"]
+    assert index["head"] in nodes[index["spine"]]["children"]
+    assert index["leftUpperLeg"] in nodes[index["hips"]]["children"]
+    assert index["leftLowerLeg"] in nodes[index["leftUpperLeg"]]["children"]
+    assert index["leftFoot"] in nodes[index["leftLowerLeg"]]["children"]
+    assert index["rightUpperArm"] in nodes[index["spine"]]["children"]
+    assert index["rightLowerArm"] in nodes[index["rightUpperArm"]]["children"]
+    assert index["rightHand"] in nodes[index["rightLowerArm"]]["children"]
+
+    mapping = payload["extras"]["vrm_humanoid_mapping_candidate"]
+    assert mapping["hips"] == {"node": index["hips"]}
+    assert mapping["head"] == {"node": index["head"]}
+    assert payload["extras"]["vrm_required_humanoid_parent_chain"] == "ALIGNED_CANDIDATE"
+    assert payload["extras"]["vrm_meta_license_authorization"] == "REQUIRED_FROM_HUMAN_OWNER"
+    assert payload["extras"]["final_vrm_extension_status"] == "NOT_MATERIALIZED"
