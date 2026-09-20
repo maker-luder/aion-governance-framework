@@ -23,8 +23,12 @@ def _integrated_state(sequence: int, timestamp_ms: int):
         (
             TeacherBodyObservation("TACTILE_GENERAL", (0.2,), timestamp_ms),
             TeacherBodyObservation("JOINT_POSITION", (0.1, 0.2), timestamp_ms),
+            TeacherBodyObservation(
+                "VESTIBULAR_ORIENTATION",
+                (1.0, 0.0, 0.0, 0.0),
+                timestamp_ms,
+            ),
             TeacherBodyObservation("CARDIOVASCULAR_STATE", (0.5,), timestamp_ms),
-            TeacherBodyObservation("GENITAL_VASCULAR_STATE", (0.3,), timestamp_ms),
         ),
         sequence=sequence,
     )
@@ -54,8 +58,8 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert profile.phenomenal_experience_status == "NOT_ESTABLISHED"
 
 
-def test_integrated_body_state_requires_all_body_signal_domains() -> None:
-    with pytest.raises(ValueError, match="all body observation domains"):
+def test_integrated_body_state_requires_all_core_body_signal_domains() -> None:
+    with pytest.raises(ValueError, match="all core body observation domains"):
         integrate_teacher_body_state(
             (
                 TeacherBodyObservation("TACTILE_GENERAL", (0.2,), 100),
@@ -67,8 +71,29 @@ def test_integrated_body_state_requires_all_body_signal_domains() -> None:
 
     state = _integrated_state(0, 100)
     assert state.integration_status == "INTEGRATED_REFERENCE_STATE"
+    assert "VESTIBULAR" in state.domain_coverage
+    assert "REPRODUCTIVE_SEXUAL_PHYSIOLOGY" not in state.domain_coverage
     assert len(state.body_state_sha256) == 64
     assert state.felt_body_status == "NOT_ESTABLISHED"
+
+
+def test_reproductive_observation_is_available_but_not_mandatory_in_every_body_state() -> None:
+    state = integrate_teacher_body_state(
+        (
+            TeacherBodyObservation("TACTILE_GENERAL", (0.2,), 100),
+            TeacherBodyObservation("JOINT_POSITION", (0.1,), 100),
+            TeacherBodyObservation(
+                "VESTIBULAR_ORIENTATION",
+                (1.0, 0.0, 0.0, 0.0),
+                100,
+            ),
+            TeacherBodyObservation("CARDIOVASCULAR_STATE", (0.5,), 100),
+            TeacherBodyObservation("GENITAL_VASCULAR_STATE", (0.3,), 100),
+        ),
+        sequence=0,
+    )
+
+    assert "REPRODUCTIVE_SEXUAL_PHYSIOLOGY" in state.domain_coverage
 
 
 def test_sensorimotor_prediction_error_is_observable_without_felt_agency_claim() -> None:
