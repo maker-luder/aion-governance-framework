@@ -9,7 +9,9 @@ from aion_astra_twin_embodiment.teacher_body_dynamics import (
     SensorimotorExpectation,
     TeacherBodyObservation,
     append_teacher_body_state,
+    HOMEOSTATIC_DRIVE_SOURCE_CHANNELS,
     build_teacher_body_dynamics_profile,
+    build_teacher_homeostatic_drive_representation,
     build_teacher_motivational_representation,
     build_teacher_within_session_trajectory,
     evaluate_teacher_sensorimotor_prediction,
@@ -91,6 +93,11 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "TISSUE_INJURY_REPAIR" in homeostatic_ids
     assert "FEEDING_ENERGY_REGULATION" in homeostatic_ids
     assert "ENDOCRINE_AXIS_REGULATION" in homeostatic_ids
+    drive_ids = {
+        item.drive_id for item in profile.homeostatic_drive_source_groups
+    }
+    assert drive_ids == set(HOMEOSTATIC_DRIVE_SOURCE_CHANNELS)
+    assert result["homeostatic_drive_sources"] == "PASS"
     semantics = {
         item.channel_id: item
         for item in profile.signal_semantics
@@ -183,8 +190,84 @@ def test_motivational_representation_stays_distinct_from_phenomenal_desire() -> 
 
     assert representation.representation_status == "REPRESENTATIONAL_STATE_ONLY"
     assert representation.wanting_weight == pytest.approx(0.3)
+    assert representation.phenomenal_need_status == "NOT_ESTABLISHED"
     assert representation.phenomenal_desire_status == "NOT_ESTABLISHED"
     assert representation.phenomenal_pleasure_status == "NOT_ESTABLISHED"
+
+
+def _thirst_source_state():
+    return integrate_teacher_body_state(
+        (
+            TeacherBodyObservation("TACTILE_GENERAL", (0.2,), 100),
+            TeacherBodyObservation("JOINT_POSITION", (0.1,), 100),
+            TeacherBodyObservation(
+                "VESTIBULAR_ORIENTATION",
+                (1.0, 0.0, 0.0, 0.0),
+                100,
+            ),
+            TeacherBodyObservation("CARDIOVASCULAR_STATE", (0.5,), 100),
+            TeacherBodyObservation("HYDRATION_STATE", (0.4,), 100),
+            TeacherBodyObservation("OSMOTIC_BALANCE_STATE", (0.6,), 100),
+            TeacherBodyObservation("ELECTROLYTE_BALANCE_STATE", (0.5,), 100),
+        ),
+        sequence=0,
+    )
+
+
+def test_homeostatic_drive_representation_requires_bound_physiological_sources() -> None:
+    state = _thirst_source_state()
+    representation = build_teacher_homeostatic_drive_representation(
+        state=state,
+        drive_id="THIRST_REGULATION",
+        representation_id="THIRST-REF-1",
+        salience=0.5,
+        approach_weight=0.4,
+        avoidance_weight=0.0,
+        wanting_weight=0.4,
+        predicted_liking=0.1,
+        valence=-0.2,
+    )
+
+    assert representation.representation_domain == (
+        "HOMEOSTATIC_DRIVE:THIRST_REGULATION"
+    )
+    assert set(representation.source_channel_ids) == set(
+        HOMEOSTATIC_DRIVE_SOURCE_CHANNELS["THIRST_REGULATION"]
+    )
+    assert representation.phenomenal_need_status == "NOT_ESTABLISHED"
+    assert representation.phenomenal_desire_status == "NOT_ESTABLISHED"
+    assert representation.subjectivity_status == "NOT_ESTABLISHED"
+
+
+def test_homeostatic_drive_rejects_missing_or_wrong_source_binding() -> None:
+    state = _integrated_state(0, 100)
+
+    with pytest.raises(ValueError, match="requires source observations"):
+        build_teacher_homeostatic_drive_representation(
+            state=state,
+            drive_id="THIRST_REGULATION",
+            representation_id="THIRST-MISSING",
+            salience=0.5,
+            approach_weight=0.4,
+            avoidance_weight=0.0,
+            wanting_weight=0.4,
+            predicted_liking=0.1,
+            valence=-0.2,
+        )
+
+    with pytest.raises(ValueError, match="source binding drift"):
+        build_teacher_motivational_representation(
+            representation_id="THIRST-WRONG",
+            representation_domain="HOMEOSTATIC_DRIVE:THIRST_REGULATION",
+            source_body_state_sha256=state.body_state_sha256,
+            salience=0.5,
+            approach_weight=0.4,
+            avoidance_weight=0.0,
+            wanting_weight=0.4,
+            predicted_liking=0.1,
+            valence=-0.2,
+            source_channel_ids=("CARDIOVASCULAR_STATE",),
+        )
 
 
 def test_within_session_body_trajectory_is_content_addressed_and_ordered() -> None:
