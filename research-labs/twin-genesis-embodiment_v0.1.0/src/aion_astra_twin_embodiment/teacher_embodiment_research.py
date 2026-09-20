@@ -396,9 +396,9 @@ def build_teacher_reference_capabilities(
                 else domain
             ),
             True,
-            signal_schema_valid and domain in signal_domains,
+            domain in signal_domains,
             True,
-            signal_schema_valid and domain in signal_domains,
+            domain in signal_domains,
         )
         for domain in _CORE_SIGNAL_DOMAINS
     )
@@ -409,7 +409,7 @@ def build_teacher_reference_capabilities(
         if sensory_system is not None
         else set()
     )
-    sensory_crosswalk_materialized = signal_schema_valid and all(
+    sensory_crosswalk_materialized = all(
         function_id in sensory_functions
         and required_channels.issubset(signal_ids)
         for function_id, required_channels in _SENSORY_FUNCTION_CHANNEL_CROSSWALK.items()
@@ -420,12 +420,11 @@ def build_teacher_reference_capabilities(
             f"PHYSIOLOGY_OBSERVATION_SURFACE_{system_id}",
             True,
             (
-                signal_schema_valid
-                and system_id in systems
+                system_id in systems
                 and required_channels.issubset(signal_ids)
             ),
             True,
-            signal_schema_valid and required_channels.issubset(signal_ids),
+            required_channels.issubset(signal_ids),
         )
         for system_id, required_channels
         in _PHYSIOLOGY_SYSTEM_OBSERVATION_CROSSWALK.items()
@@ -435,9 +434,9 @@ def build_teacher_reference_capabilities(
         ReferenceCapability(
             capability_id,
             True,
-            signal_schema_valid and required_channels.issubset(signal_ids),
+            required_channels.issubset(signal_ids),
             True,
-            signal_schema_valid and required_channels.issubset(signal_ids),
+            required_channels.issubset(signal_ids),
         )
         for capability_id, required_channels in _REQUIRED_REFERENCE_CHANNEL_GROUPS.items()
     )
