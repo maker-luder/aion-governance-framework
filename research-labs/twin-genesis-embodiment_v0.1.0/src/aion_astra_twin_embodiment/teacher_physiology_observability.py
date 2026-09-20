@@ -34,6 +34,11 @@ class TeacherPhysiologyObservabilityProfile:
     signal_schema_id: str
     bindings: tuple[PhysiologyFunctionObservability, ...]
     declared_function_coverage_status: str = "COMPLETE_DECLARED_FUNCTION_INVENTORY"
+    observability_scope: str = "DECLARED_MACHINE_REFERENCE_SURFACE_ONLY"
+    direct_observation_interpretation: str = (
+        "DIRECT_CHANNEL_BINDING_NOT_BIOLOGICAL_MEASUREMENT"
+    )
+    biological_measurement_status: str = NOT_ESTABLISHED
     full_function_observability_status: str = NOT_ESTABLISHED
     full_biophysical_simulation_status: str = NOT_MATERIALIZED
     phenomenal_sensation_status: str = NOT_ESTABLISHED
@@ -733,6 +738,14 @@ def validate_teacher_physiology_observability_profile(
         "COMPLETE_DECLARED_FUNCTION_INVENTORY"
     ):
         raise ValueError("declared physiology function inventory is incomplete")
+    if profile.observability_scope != "DECLARED_MACHINE_REFERENCE_SURFACE_ONLY":
+        raise ValueError("physiology observability scope drift")
+    if profile.direct_observation_interpretation != (
+        "DIRECT_CHANNEL_BINDING_NOT_BIOLOGICAL_MEASUREMENT"
+    ):
+        raise ValueError("direct observation interpretation drift")
+    if profile.biological_measurement_status != NOT_ESTABLISHED:
+        raise ValueError("machine reference cannot establish biological measurement")
     if profile.full_function_observability_status != NOT_ESTABLISHED:
         raise ValueError("function inventory cannot establish full observability")
     if profile.full_biophysical_simulation_status != NOT_MATERIALIZED:
@@ -761,6 +774,8 @@ def validate_teacher_physiology_observability_profile(
         "direct_observation_count": str(counts[DIRECT_OBSERVATION_REFERENCE]),
         "derived_reference_count": str(counts[DERIVED_REFERENCE]),
         "functional_only_count": str(counts[FUNCTIONAL_REFERENCE_ONLY]),
+        "machine_reference_scope": "PASS",
+        "biological_measurement_nonclaim": "PASS",
         "full_observability_nonclaim": "PASS",
         "phenomenal_nonclaim": "PASS",
     }
