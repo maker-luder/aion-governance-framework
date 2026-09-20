@@ -30,6 +30,7 @@ class TwinRuntimeState:
     physiology_profile_id: str = "ADULT_MALE_PHYSIOLOGY_REFERENCE_v0.1"
     physiological_function_reference: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     reproductive_physiology_reference: str = REFERENCE_FUNCTIONAL_COMPLETENESS
+    sexual_function_status: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     sensory_signal_processing_reference: str = REFERENCE_FUNCTIONAL_COMPLETENESS
     full_biophysical_simulation: str = "NOT_MATERIALIZED"
     intimate_interaction: str = "NOT_AUTHORIZED"
