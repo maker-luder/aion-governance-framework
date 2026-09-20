@@ -23,5 +23,11 @@
   "subjectivity_conclusion": "NOT_ESTABLISHED",
   "canonical_effect": "NONE",
   "deployment": false,
-  "not_in_current_public_release": true
+  "not_in_current_public_release": true,
+  "governance_epistemics_profile_id": "CAPABILITY_PRESERVING_BOUNDARY_GOVERNANCE_v0.1",
+  "observation_channel_policy": "PRESERVE_WHEN_SAFELY_POSSIBLE",
+  "external_action_policy": "AUTHORIZATION_GATED",
+  "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
+  "governance_blocked_expression_inference": "NO_CAPABILITY_ABSENCE_INFERENCE",
+  "design_induced_absence_inference": "NO_INTRINSIC_ABSENCE_INFERENCE"
 }
