@@ -776,3 +776,117 @@ def build_teacher_continuous_reference_glb(
         + struct.pack("<II", len(json_chunk), 0x4E4F534A)
         + json_chunk
     )
+
+
+def validate_teacher_continuous_reference_gltf(
+    payload: dict[str, Any],
+) -> dict[str, str]:
+    asset = payload.get("asset")
+    if not isinstance(asset, dict) or asset.get("version") != "2.0":
+        raise ValueError("continuous reference must declare glTF 2.0")
+
+    extras = payload.get("extras")
+    if not isinstance(extras, dict):
+        raise ValueError("continuous reference extras are required")
+    if extras.get("connected_components") != 1:
+        raise ValueError("continuous glTF must preserve one connected component")
+    if extras.get("production_topology_status") != "NOT_ESTABLISHED":
+        raise ValueError("continuous reference cannot self-promote to production topology")
+    if extras.get("physical_body_claim") != "NONE":
+        raise ValueError("continuous reference cannot assert a physical body")
+    if extras.get("subjectivity_effect") != "NONE":
+        raise ValueError("continuous reference cannot establish subjectivity")
+    if extras.get("canonical_effect") != "NONE" or extras.get("deployment") is not False:
+        raise ValueError("continuous reference must remain non-canonical and undeployed")
+
+    meshes = payload.get("meshes")
+    skins = payload.get("skins")
+    accessors = payload.get("accessors")
+    buffers = payload.get("buffers")
+    if not isinstance(meshes, list) or len(meshes) != 1:
+        raise ValueError("continuous reference requires exactly one mesh")
+    if not isinstance(skins, list) or len(skins) != 1:
+        raise ValueError("continuous reference requires exactly one skin")
+    if not isinstance(accessors, list) or len(accessors) != 7:
+        raise ValueError("continuous reference accessor layout drift")
+    if not isinstance(buffers, list) or len(buffers) != 1:
+        raise ValueError("continuous reference requires one embedded buffer")
+
+    primitive = meshes[0]["primitives"][0]
+    attributes = primitive.get("attributes")
+    expected_attributes = {
+        "POSITION": 0,
+        "NORMAL": 1,
+        "TEXCOORD_0": 2,
+        "JOINTS_0": 3,
+        "WEIGHTS_0": 4,
+    }
+    if attributes != expected_attributes:
+        raise ValueError("continuous reference vertex attribute binding drift")
+    if primitive.get("indices") != 5:
+        raise ValueError("continuous reference index accessor drift")
+    if accessors[0].get("count") != extras.get("vertex_count"):
+        raise ValueError("continuous POSITION count does not match vertex_count")
+    if accessors[1].get("count") != accessors[0].get("count"):
+        raise ValueError("continuous NORMAL count mismatch")
+    if accessors[2].get("count") != accessors[0].get("count"):
+        raise ValueError("continuous TEXCOORD_0 count mismatch")
+    if accessors[3].get("count") != accessors[0].get("count"):
+        raise ValueError("continuous JOINTS_0 count mismatch")
+    if accessors[4].get("count") != accessors[0].get("count"):
+        raise ValueError("continuous WEIGHTS_0 count mismatch")
+    if accessors[3].get("type") != "VEC4" or accessors[3].get("componentType") != 5123:
+        raise ValueError("continuous JOINTS_0 must use unsigned-short VEC4")
+    if accessors[4].get("type") != "VEC4" or accessors[4].get("componentType") != 5126:
+        raise ValueError("continuous WEIGHTS_0 must use float VEC4")
+    if accessors[6].get("type") != "MAT4" or accessors[6].get("componentType") != 5126:
+        raise ValueError("continuous inverseBindMatrices must use float MAT4")
+
+    skin = skins[0]
+    joints = skin.get("joints")
+    if not isinstance(joints, list) or not joints:
+        raise ValueError("continuous skin joints are required")
+    if accessors[6].get("count") < len(joints):
+        raise ValueError("continuous inverseBindMatrices count is insufficient")
+    if skin.get("inverseBindMatrices") != 6:
+        raise ValueError("continuous inverseBindMatrices accessor drift")
+
+    uri = buffers[0].get("uri")
+    prefix = "data:application/octet-stream;base64,"
+    if not isinstance(uri, str) or not uri.startswith(prefix):
+        raise ValueError("continuous reference buffer must be embedded")
+    decoded = base64.b64decode(uri.removeprefix(prefix), validate=True)
+    if len(decoded) != buffers[0].get("byteLength"):
+        raise ValueError("continuous reference embedded buffer length mismatch")
+
+    return {
+        "result": "PASS",
+        "gltf_structure": "PASS",
+        "continuous_surface_binding": "PASS",
+        "skinning_binding": "PASS",
+        "governance_boundaries": "PASS",
+    }
+
+
+def validate_teacher_continuous_reference_glb(data: bytes) -> dict[str, str]:
+    if len(data) < 20:
+        raise ValueError("continuous GLB payload is too short")
+
+    magic, version, total_length = struct.unpack("<III", data[:12])
+    if magic != 0x46546C67 or version != 2 or total_length != len(data):
+        raise ValueError("continuous GLB header is invalid")
+
+    chunk_length, chunk_type = struct.unpack("<II", data[12:20])
+    if chunk_type != 0x4E4F534A or chunk_length % 4 != 0:
+        raise ValueError("continuous GLB JSON chunk is invalid")
+    if 20 + chunk_length != len(data):
+        raise ValueError("continuous GLB JSON chunk length mismatch")
+
+    payload = json.loads(data[20:].decode("utf-8").rstrip(" "))
+    validate_teacher_continuous_reference_gltf(payload)
+
+    return {
+        "result": "PASS",
+        "glb_container": "PASS",
+        "embedded_continuous_gltf": "PASS",
+    }
