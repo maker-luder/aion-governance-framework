@@ -255,13 +255,13 @@ def validate_teacher_body_runtime_binding(
     motor = motor or build_teacher_motor_control_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
     body_model = body_model or build_teacher_body_model_profile(anthropometry)
+    research = research or build_teacher_embodiment_research_surface()
+    validate_teacher_body_signal_schema(signals)
+    validate_teacher_motor_control_schema(motor)
     physiology_observability = (
         physiology_observability
         or build_teacher_physiology_observability_profile(signals)
     )
-    research = research or build_teacher_embodiment_research_surface()
-    validate_teacher_body_signal_schema(signals)
-    validate_teacher_motor_control_schema(motor)
     validate_teacher_body_dynamics_profile(dynamics, signals)
     validate_teacher_body_model_profile(body_model, anthropometry)
     validate_teacher_physiology_observability_profile(
