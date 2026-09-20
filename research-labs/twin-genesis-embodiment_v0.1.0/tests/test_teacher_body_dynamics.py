@@ -53,6 +53,10 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "MUSCLE_FATIGUE_PHYSIOLOGY_STATE" in semantic_ids
     assert "IMMUNE_ACTIVITY_STATE" in semantic_ids
     assert "TISSUE_INJURY_STATE" in semantic_ids
+    assert "VISUAL_FIELD_REFERENCE" in semantic_ids
+    assert "AUDITORY_BINAURAL_REFERENCE" in semantic_ids
+    assert "OLFACTORY_CHEMOSENSORY_REFERENCE" in semantic_ids
+    assert "GUSTATORY_CHEMOSENSORY_REFERENCE" in semantic_ids
     assert "GASTRIC_DISTENSION_STATE" in semantic_ids
     assert "SATIATION_SIGNAL_REFERENCE" in semantic_ids
     assert "SATIETY_SIGNAL_REFERENCE" in semantic_ids
@@ -87,6 +91,22 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "TISSUE_INJURY_REPAIR" in homeostatic_ids
     assert "FEEDING_ENERGY_REGULATION" in homeostatic_ids
     assert "ENDOCRINE_AXIS_REGULATION" in homeostatic_ids
+    semantics = {
+        item.channel_id: item
+        for item in profile.signal_semantics
+    }
+    assert semantics["VISUAL_FIELD_REFERENCE"].value_kind == "VARIABLE_VECTOR"
+    assert semantics["VISUAL_FIELD_REFERENCE"].unit == "visual_feature_reference"
+    assert semantics["AUDITORY_BINAURAL_REFERENCE"].value_kind == "VARIABLE_VECTOR"
+    assert semantics["AUDITORY_BINAURAL_REFERENCE"].unit == "auditory_feature_reference"
+    assert (
+        semantics["OLFACTORY_CHEMOSENSORY_REFERENCE"].unit
+        == "chemosensory_feature_reference"
+    )
+    assert (
+        semantics["GUSTATORY_CHEMOSENSORY_REFERENCE"].unit
+        == "chemosensory_feature_reference"
+    )
     assert profile.phenomenal_experience_status == "NOT_ESTABLISHED"
 
 
