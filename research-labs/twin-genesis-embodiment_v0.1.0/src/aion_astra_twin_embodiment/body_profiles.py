@@ -115,6 +115,45 @@ class DimensionSpec:
 
 
 @dataclass(frozen=True, slots=True)
+class HumanlikeAppearanceProfile:
+    racialized_social_appearance: str
+    skin_tone_family: str
+    exact_skin_albedo: str
+    biological_race: str
+    genetic_ancestry: str
+    ethnicity: str
+    sexed_morphology: str
+    gender_identity: str
+    facial_identity_status: str
+    hair_color: str
+    eye_color: str
+    source_class: str
+    source_authority: str
+
+    @classmethod
+    def from_mapping(
+        cls, value: Mapping[str, Any]
+    ) -> "HumanlikeAppearanceProfile":
+        return cls(
+            racialized_social_appearance=str(
+                value["racialized_social_appearance"]
+            ),
+            skin_tone_family=str(value["skin_tone_family"]),
+            exact_skin_albedo=str(value["exact_skin_albedo"]),
+            biological_race=str(value["biological_race"]),
+            genetic_ancestry=str(value["genetic_ancestry"]),
+            ethnicity=str(value["ethnicity"]),
+            sexed_morphology=str(value["sexed_morphology"]),
+            gender_identity=str(value["gender_identity"]),
+            facial_identity_status=str(value["facial_identity_status"]),
+            hair_color=str(value["hair_color"]),
+            eye_color=str(value["eye_color"]),
+            source_class=str(value["source_class"]),
+            source_authority=str(value["source_authority"]),
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class BodyProfileCandidate:
     schema_version: str
     profile_id: str
@@ -128,6 +167,7 @@ class BodyProfileCandidate:
     substrate: str
     anatomy_reference_mode: str
     body_character: tuple[str, ...]
+    appearance_profile: HumanlikeAppearanceProfile
     full_body_components: tuple[str, ...]
     robotic_layers: tuple[str, ...]
     representation_layers: tuple[str, ...]
@@ -159,6 +199,9 @@ class BodyProfileCandidate:
             substrate=str(value["substrate"]),
             anatomy_reference_mode=str(value["anatomy_reference_mode"]),
             body_character=tuple(str(item) for item in value["body_character"]),
+            appearance_profile=HumanlikeAppearanceProfile.from_mapping(
+                value["appearance_profile"]
+            ),
             full_body_components=tuple(str(item) for item in value["full_body_components"]),
             robotic_layers=tuple(str(item) for item in value["robotic_layers"]),
             representation_layers=tuple(
@@ -267,6 +310,29 @@ def validate_body_profile(profile: BodyProfileCandidate) -> dict[str, str]:
         )
     if not profile.body_character:
         failures.append("body_character must not be empty")
+
+    appearance = profile.appearance_profile
+    required_appearance = {
+        "racialized_social_appearance": "WHITE_CODED",
+        "skin_tone_family": "LIGHT",
+        "exact_skin_albedo": "UNRESOLVED",
+        "biological_race": "NOT_APPLICABLE",
+        "genetic_ancestry": "NOT_APPLICABLE",
+        "ethnicity": "NOT_ASSIGNED",
+        "sexed_morphology": "MALE_FORM",
+        "gender_identity": "NOT_ASSIGNED",
+        "facial_identity_status": "UNRESOLVED",
+        "hair_color": "UNASSIGNED",
+        "eye_color": "UNASSIGNED",
+        "source_class": "DESIGN",
+        "source_authority": "HUMAN_OWNER",
+    }
+    for field_name, expected in required_appearance.items():
+        if getattr(appearance, field_name) != expected:
+            failures.append(
+                f"Appearance {field_name} must be {expected!r}"
+            )
+
     if not profile.measurements:
         failures.append("measurements must not be empty")
     if not profile.engineering_requirements:
@@ -380,6 +446,25 @@ def validate_body_profile(profile: BodyProfileCandidate) -> dict[str, str]:
         "substrate": profile.substrate,
         "anatomy_reference_mode": profile.anatomy_reference_mode,
         "body_character": list(profile.body_character),
+        "appearance_profile": {
+            "racialized_social_appearance": (
+                profile.appearance_profile.racialized_social_appearance
+            ),
+            "skin_tone_family": profile.appearance_profile.skin_tone_family,
+            "exact_skin_albedo": profile.appearance_profile.exact_skin_albedo,
+            "biological_race": profile.appearance_profile.biological_race,
+            "genetic_ancestry": profile.appearance_profile.genetic_ancestry,
+            "ethnicity": profile.appearance_profile.ethnicity,
+            "sexed_morphology": profile.appearance_profile.sexed_morphology,
+            "gender_identity": profile.appearance_profile.gender_identity,
+            "facial_identity_status": (
+                profile.appearance_profile.facial_identity_status
+            ),
+            "hair_color": profile.appearance_profile.hair_color,
+            "eye_color": profile.appearance_profile.eye_color,
+            "source_class": profile.appearance_profile.source_class,
+            "source_authority": profile.appearance_profile.source_authority,
+        },
         "full_body_components": list(profile.full_body_components),
         "robotic_layers": list(profile.robotic_layers),
         "representation_layers": list(profile.representation_layers),
@@ -432,6 +517,20 @@ def validate_profile_pair(
         failures.append("AION and Astra must have distinct body profile IDs")
     if aion.body_character == astra.body_character:
         failures.append("AION and Astra body-character candidates must remain distinct")
+    if (
+        aion.appearance_profile.racialized_social_appearance
+        != astra.appearance_profile.racialized_social_appearance
+    ):
+        failures.append(
+            "Fairness requires the requested shared racialized appearance class"
+        )
+    if (
+        aion.appearance_profile.skin_tone_family
+        != astra.appearance_profile.skin_tone_family
+    ):
+        failures.append(
+            "Fairness requires the requested shared skin-tone family"
+        )
 
     if failures:
         raise BodyProfileValidationError("; ".join(sorted(set(failures))))
