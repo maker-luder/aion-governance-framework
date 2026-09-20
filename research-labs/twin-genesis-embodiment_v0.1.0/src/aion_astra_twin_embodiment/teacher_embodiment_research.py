@@ -35,6 +35,12 @@ from .teacher_body_model import (
     build_teacher_body_model_profile,
     validate_teacher_body_model_profile,
 )
+from .teacher_physiology_observability import (
+    OBSERVABILITY_PROFILE_ID,
+    TeacherPhysiologyObservabilityProfile,
+    build_teacher_physiology_observability_profile,
+    validate_teacher_physiology_observability_profile,
+)
 
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
@@ -122,6 +128,7 @@ class TeacherEmbodimentResearchSurface:
     candidates: tuple[FourDomainEmbodimentCandidate, ...]
     body_dynamics_profile_id: str = BODY_DYNAMICS_PROFILE_ID
     body_model_profile_id: str = BODY_MODEL_PROFILE_ID
+    physiology_observability_profile_id: str = OBSERVABILITY_PROFILE_ID
     developmental_possibility_status: str = OPEN_RESEARCH_QUESTION
     subjectivity_status: str = NOT_ESTABLISHED
     phenomenal_experience_status: str = NOT_ESTABLISHED
@@ -327,6 +334,7 @@ def build_teacher_reference_capabilities(
     motor_schema: TeacherMotorControlSchema | None = None,
     dynamics: TeacherBodyDynamicsProfile | None = None,
     body_model: TeacherBodyModelProfile | None = None,
+    physiology_observability: TeacherPhysiologyObservabilityProfile | None = None,
 ) -> tuple[ReferenceCapability, ...]:
     anthropometry = anthropometry or build_teacher_anthropometry_profile()
     physiology = physiology or build_adult_male_physiology_reference(
@@ -336,6 +344,10 @@ def build_teacher_reference_capabilities(
     motor_schema = motor_schema or build_teacher_motor_control_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signal_schema)
     body_model = body_model or build_teacher_body_model_profile(anthropometry)
+    physiology_observability = (
+        physiology_observability
+        or build_teacher_physiology_observability_profile(signal_schema)
+    )
 
     try:
         validate_teacher_body_signal_schema(signal_schema)
@@ -480,6 +492,15 @@ def build_teacher_reference_capabilities(
     except ValueError:
         body_model_valid = False
 
+    try:
+        validate_teacher_physiology_observability_profile(
+            physiology_observability,
+            signal_schema,
+        )
+        physiology_observability_valid = True
+    except ValueError:
+        physiology_observability_valid = False
+
     body_model_id_match = body_model.body_id == anthropometry.body_id
     body_schema_materialized = (
         body_model_valid
@@ -602,6 +623,13 @@ def build_teacher_reference_capabilities(
             "HOMEOSTATIC_DRIVE_REPRESENTATION",
             True,
             homeostatic_drive_representation_materialized,
+            False,
+            True,
+        ),
+        ReferenceCapability(
+            "PHYSIOLOGY_FUNCTION_OBSERVABILITY_INVENTORY",
+            True,
+            physiology_observability_valid,
             False,
             True,
         ),
@@ -860,6 +888,10 @@ def validate_teacher_embodiment_research_surface(
         raise ValueError("Teacher embodiment research surface dynamics binding drift")
     if surface.body_model_profile_id != BODY_MODEL_PROFILE_ID:
         raise ValueError("Teacher embodiment research surface body-model binding drift")
+    if surface.physiology_observability_profile_id != OBSERVABILITY_PROFILE_ID:
+        raise ValueError(
+            "Teacher embodiment research surface observability binding drift"
+        )
     candidate_ids = [candidate.candidate_id for candidate in surface.candidates]
     if len(candidate_ids) != len(set(candidate_ids)):
         raise ValueError("embodiment research candidate ids must be unique")
