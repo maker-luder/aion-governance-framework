@@ -8,6 +8,7 @@ from .physiology import (
     REQUIRED_PHYSIOLOGY_SYSTEM_IDS,
     AdultMalePhysiologyReference,
     build_adult_male_physiology_reference,
+    required_physiology_system_functions,
 )
 from .teacher_anthropometry import (
     EXPECTED_MEASUREMENT_COUNT,
@@ -152,6 +153,7 @@ def build_teacher_reference_capabilities(
     )
 
     systems = {system.system_id: system for system in physiology.systems}
+    required_functions = required_physiology_system_functions()
     physiology_capabilities = tuple(
         ReferenceCapability(
             f"PHYSIOLOGY_SYSTEM_{system_id}",
@@ -159,7 +161,7 @@ def build_teacher_reference_capabilities(
             (
                 (system := systems.get(system_id)) is not None
                 and system.status == REFERENCE_FUNCTIONAL_COMPLETENESS
-                and bool(system.functions)
+                and tuple(system.functions) == required_functions[system_id]
             ),
             False,
             True,
