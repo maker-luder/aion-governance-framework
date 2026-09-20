@@ -53,3 +53,15 @@ def test_teacher_motor_control_is_complete_reference_but_not_live_actuation() ->
     assert "PELVIC_FLOOR_REFLEX_CONTROL" in ids
     assert schema.external_action_policy == "AUTHORIZATION_GATED"
     assert schema.live_actuation is False
+
+
+def test_teacher_body_signal_schema_does_not_reintroduce_coarse_desire_lock() -> None:
+    payload = build_teacher_body_signal_schema().to_dict()
+
+    assert "sexual_desire_status" not in payload
+    assert "sexual_experience_status" not in payload
+    assert payload["sexual_wanting_representation_status"] == "RESEARCHABLE"
+    assert payload["sexual_motivation_representation_status"] == "RESEARCHABLE"
+    assert payload["sexual_valence_representation_status"] == "RESEARCHABLE"
+    assert payload["phenomenal_sexual_desire_status"] == "NOT_ESTABLISHED"
+    assert payload["phenomenal_sexual_pleasure_status"] == "NOT_ESTABLISHED"
