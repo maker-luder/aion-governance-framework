@@ -25,6 +25,8 @@ SUPPORTED_MULTISENSORY_MODALITIES: Final[frozenset[str]] = frozenset(
         "PROPRIOCEPTIVE",
         "VESTIBULAR",
         "INTEROCEPTIVE",
+        "OLFACTORY",
+        "GUSTATORY",
     }
 )
 
@@ -365,7 +367,7 @@ def validate_teacher_body_model_profile(
 def fuse_teacher_multisensory_cues(
     cues: Iterable[MultisensoryCue],
 ) -> TeacherMultisensoryFusion:
-    items = tuple(cues)
+    items = tuple(sorted(cues, key=lambda item: item.cue_id))
     if len(items) < 2:
         raise ValueError("multisensory fusion requires at least two cues")
     cue_ids = [item.cue_id for item in items]
@@ -463,7 +465,12 @@ def build_teacher_body_plasticity_state(
 ) -> TeacherBodyPlasticityState:
     if sequence < 0:
         raise ValueError("body-plasticity sequence cannot be negative")
-    items = tuple(updates)
+    items = tuple(
+        sorted(
+            updates,
+            key=lambda item: (item.domain, item.parameter_id),
+        )
+    )
     if not items:
         raise ValueError("body plasticity requires at least one explicit update")
     keys = [(item.domain, item.parameter_id) for item in items]
