@@ -68,6 +68,17 @@ from .teacher_physiology_observability import (
     build_teacher_physiology_observability_profile,
     validate_teacher_physiology_observability_profile,
 )
+from .teacher_genital_geometry import (
+    CIRCUMFERENCE_TRANSFORM_RATIO,
+    GENITAL_GEOMETRY_PROFILE_ID,
+    LENGTH_TRANSFORM_RATIO,
+    TeacherBoundGenitalGeometryState,
+    TeacherGenitalGeometryProfile,
+    build_teacher_bound_genital_geometry_state,
+    build_teacher_genital_geometry_profile,
+    validate_teacher_bound_genital_geometry_state,
+    validate_teacher_genital_geometry_profile,
+)
 from .teacher_body_runtime import (
     CalibrationProbe,
     TeacherAdaptationState,
@@ -199,6 +210,15 @@ __all__ = [
     "TeacherPhysiologyObservabilityProfile",
     "build_teacher_physiology_observability_profile",
     "validate_teacher_physiology_observability_profile",
+    "CIRCUMFERENCE_TRANSFORM_RATIO",
+    "GENITAL_GEOMETRY_PROFILE_ID",
+    "LENGTH_TRANSFORM_RATIO",
+    "TeacherBoundGenitalGeometryState",
+    "TeacherGenitalGeometryProfile",
+    "build_teacher_bound_genital_geometry_state",
+    "build_teacher_genital_geometry_profile",
+    "validate_teacher_bound_genital_geometry_state",
+    "validate_teacher_genital_geometry_profile",
     "CalibrationProbe",
     "TeacherAdaptationState",
     "TeacherBodyRuntimeBinding",
