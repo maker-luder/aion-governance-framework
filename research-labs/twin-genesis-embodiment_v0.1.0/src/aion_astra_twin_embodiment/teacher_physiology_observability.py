@@ -624,6 +624,12 @@ _BINDINGS: Final[tuple[PhysiologyFunctionObservability, ...]] = (
     ),
     _o(
         "REPRODUCTIVE",
+        "bladder_neck_ejaculatory_closure_reference",
+        DIRECT_OBSERVATION_REFERENCE,
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+    ),
+    _o(
+        "REPRODUCTIVE",
         "genital_sensory_afferent_signal_reference",
         DIRECT_OBSERVATION_REFERENCE,
         "GENITAL_SENSORY_AFFERENT_REFERENCE",
@@ -633,6 +639,12 @@ _BINDINGS: Final[tuple[PhysiologyFunctionObservability, ...]] = (
         "pelvic_floor_motor_reflex_reference",
         DERIVED_REFERENCE,
         "PELVIC_FLOOR_PROPRIOCEPTION",
+    ),
+    _o(
+        "REPRODUCTIVE",
+        "external_urethral_sphincter_ejaculatory_coordination_reference",
+        DIRECT_OBSERVATION_REFERENCE,
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
     ),
     _o(
         "REPRODUCTIVE",
@@ -693,6 +705,20 @@ _REQUIRED_REPRODUCTIVE_OBSERVABILITY_BINDINGS: Final[
     ): (
         DIRECT_OBSERVATION_REFERENCE,
         ("ACCESSORY_GLAND_SECRETION_STATE",),
+    ),
+    (
+        "REPRODUCTIVE",
+        "bladder_neck_ejaculatory_closure_reference",
+    ): (
+        DIRECT_OBSERVATION_REFERENCE,
+        ("BLADDER_NECK_EJACULATORY_CLOSURE_STATE",),
+    ),
+    (
+        "REPRODUCTIVE",
+        "external_urethral_sphincter_ejaculatory_coordination_reference",
+    ): (
+        DIRECT_OBSERVATION_REFERENCE,
+        ("EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",),
     ),
 }
 
