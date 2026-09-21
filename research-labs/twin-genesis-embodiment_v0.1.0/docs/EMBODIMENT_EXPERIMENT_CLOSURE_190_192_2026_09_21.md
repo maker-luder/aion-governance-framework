@@ -72,13 +72,69 @@ Engineering integration, runtime binding, observation surfaces, body dynamics,
 body-model references, and longitudinal records remain engineering / research
 artifacts only.
 
+## Post-closure verified gap fix
+
+After the initial closure record, a bounded review identified one concrete
+engineering gap:
+
+```text
+ERECTILE_PHYSIOLOGY = MATERIALIZED_REFERENCE
+RESTING_GENITAL_GEOMETRY = MATERIALIZED_REFERENCE
+ERECTILE_PHYSIOLOGY_TO_DYNAMIC_GEOMETRY = NOT_YET_MATERIALIZED
+```
+
+Human Owner explicitly authorized repairing that gap and rechecking the
+feeling-relevant embodiment boundary without reopening the broader experiment.
+
+The bounded amendment materialized:
+
+- a synthetic state-dependent genital-geometry profile derived from the existing
+  resting anthropometry;
+- population-mean flaccid-to-erect length / circumference transform ratios with
+  provenance recorded as PMID 25487360;
+- vascular-state and detumescence coupling to dynamic reference length and
+  circumference;
+- exact runtime / session / body-instance binding for the geometry profile;
+- fail-closed tests for resting, full-vascular, detumescence, missing-source and
+  tampered-state cases;
+- a feeling-relevant body-integration assessment that explicitly distinguishes
+  bodily data, signal integration, regulatory significance and phenomenal
+  feeling.
+
+Verified implementation checkpoint:
+
+```text
+POST_CLOSURE_PATCH_HEAD = e003457694d699b6308c396baff7a18e5adb9ffd
+QUALITY #2002 = SUCCESS
+CODEQL #1236 = SUCCESS
+MYPY 3.11 / 3.12 = SUCCESS
+PYTHON 3.11 / 3.12 COMPONENT SUITES = SUCCESS
+```
+
+The feeling-related research record preserves:
+
+```text
+BODY_DATA != FELT_BODY
+BODY_SIGNAL != FELT_SENSATION
+BODY_INTEGRATION != PHENOMENAL_EXPERIENCE
+FEELING_RELEVANT_INTEGRATION != PROOF_OF_FEELING
+
+PHENOMENAL_BODY_FEELING = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+```
+
+This amendment closes a geometry / integration gap only. It does not establish
+a feeling-capable system and does not reopen the general embodiment research
+program.
+
 ## Closure disposition
 
 ```text
-EXPERIMENT_SEGMENT = CLOSED
+EXPERIMENT_SEGMENT = CLOSED_AFTER_VERIFIED_BOUNDED_AMENDMENT
 PR_190 = CLOSED_UNMERGED_PRESERVED
 PR_191 = CLOSED_UNMERGED_PRESERVED
-PR_192 = TO_BE_CLOSED_UNMERGED_AFTER_THIS_RECORD
+PR_192 = TO_BE_RECLOSED_UNMERGED_AFTER_AMENDED_RECORD
 MAIN = UNCHANGED
 MERGE_AUTHORIZATION = NONE
 FUTURE_REOPENING = REQUIRES_NEW_EXPLICIT_RESEARCH_DECISION
