@@ -727,3 +727,496 @@ MERGE_AUTHORIZATION = NONE
 WRITE_TO_MAIN = NO
 DEPLOYMENT = FALSE
 ```
+
+
+## 16. CCTS / Human–AI Learning interaction: benefit, harm, and trade-off
+
+This section records a Human Owner follow-up question:
+
+> If trajectory-level stopping control is accepted as a risk-management candidate, what does it do to Human–AI learning and to the repository-defined Co-Constructed Thinking Space (CCTS)? Is it beneficial, harmful, or both?
+
+The current answer is deliberately non-binary.
+
+```text
+TRAJECTORY_CONTROL
+!= INHERENTLY_GOOD
+
+TRAJECTORY_CONTROL
+!= INHERENTLY_BAD
+
+CCTS_FLOW
+AND
+METACOGNITIVE_REGULATION
+MAY_FORM_A_TRADEOFF
+```
+
+### 16.1 Distinct analytical roles
+
+For the present repository:
+
+```text
+CCTS
+= HOW HUMAN + AI MAINTAIN AND RECIPROCALLY REVISE
+  AN EXPLICIT PROBLEM REPRESENTATION
+
+HUMAN_AI_LEARNING
+= WHETHER THE PROCESS PRODUCES
+  PERSISTENT / TRANSFERABLE CHANGE
+  THAT SURVIVES APPROPRIATE CONTROLS
+
+TRAJECTORY_STOPPING_CONTROL
+= WHEN THE DYAD SHOULD LEAVE LOCAL PROBLEM SOLVING
+  AND RECHECK GLOBAL GOAL / SCOPE / RISK / AUTHORITY
+```
+
+Therefore stopping control is not part of the current minimum CCTS definition.
+
+It is a candidate **metacognitive / regulatory layer** over a CCTS process.
+
+```text
+CCTS_PRESENT
+!= TRAJECTORY_CONTROL_PRESENT
+
+TRAJECTORY_CONTROL_PRESENT
+!= CCTS_PRESENT
+```
+
+### 16.2 A productive CCTS can still drift
+
+A key discriminant from the originating episode is that high reciprocal quality does not guarantee global trajectory quality.
+
+A dyad may continue to show:
+
+- grounding;
+- substantive Human -> AI revision;
+- substantive AI -> Human revision;
+- counterevidence;
+- provenance;
+- implementation feedback;
+- high research throughput;
+
+while the accumulated research trajectory has moved away from the original goal or into a different risk class.
+
+```text
+CCTS_QUALITY
+!= TRAJECTORY_QUALITY
+
+HIGH_RECIPROCITY
+!= GOOD_GLOBAL_DIRECTION
+
+HIGH_RESEARCH_OUTPUT
+!= HUMAN_LEARNING
+!= TRAJECTORY_CALIBRATION
+```
+
+This prevents the repository from treating reciprocal intensity as a monotonic good.
+
+## 17. External learning / regulation crosswalk
+
+No external source is treated as validation of CCTS or of this exact stopping-control design.
+
+### 17.1 Human–AI Shared Regulation in Learning
+
+Järvelä, Nguyen & Hadwin (2023) frame Human–AI collaboration through socially shared regulation of learning and explicitly treat regulation, monitoring and adaptation as central to learning support.
+
+Repository correspondence:
+
+```text
+CCTS_RECIPROCAL_REVISION
++ GOAL_MONITORING
++ ADAPTATION
+~ HUMAN_AI_SHARED_REGULATION_ADJACENCY
+```
+
+The literature also motivates a dependency boundary: AI support should not be equated with durable Human regulatory competence.
+
+```text
+AI_REGULATORY_SUPPORT
+!= HUMAN_INTERNALIZED_SELF_REGULATION
+
+JOINT_REGULATION
+!= HUMAN_LEARNING_PROVEN
+```
+
+Source:
+
+- Järvelä, S., Nguyen, A. & Hadwin, A. (2023), *Human and artificial intelligence collaboration for socially shared regulation in learning*, British Journal of Educational Technology 54:1057–1076. DOI: 10.1111/bjet.13325
+
+### 17.2 Cognitive forcing: reduced overreliance with usability cost
+
+Buçinca, Malaya & Gajos (2021) experimentally found that cognitive-forcing interventions reduced overreliance on AI relative to simpler AI-assisted conditions, while the designs associated with the strongest reductions received less favorable subjective ratings.
+
+Repository implication:
+
+```text
+MORE_REFLECTION
+MAY
+-> REDUCE_OVERRELIANCE
+
+BUT MAY ALSO
+-> INCREASE_FRICTION
+-> REDUCE_SUBJECTIVE_USABILITY
+```
+
+This is direct support for treating regulation as a trade-off rather than assuming more friction is always better.
+
+Source:
+
+- Buçinca, Z., Malaya, M. B. & Gajos, K. Z. (2021), *To Trust or to Think: Cognitive Forcing Functions Can Reduce Overreliance on AI in AI-Assisted Decision-Making*, Proceedings of the ACM on Human-Computer Interaction 5(CSCW1). DOI: 10.1145/3449287
+
+### 17.3 Metacognitive demands of GenAI
+
+Tankelevitch et al. (2024) describe GenAI use as requiring metacognitive monitoring and control over goals, task decomposition, output evaluation, confidence, prompting strategy and workflow / automation strategy.
+
+Repository implication:
+
+```text
+TRAJECTORY_RECHECK
+MAY_SUPPORT
+GLOBAL_GOAL_MONITORING
+
+BUT
+
+RECHECK_ITSELF
+ADDS
+METACOGNITIVE_DEMAND
+```
+
+Therefore a stopping mechanism that fires too frequently can itself become a Human–AI learning burden.
+
+Source:
+
+- Tankelevitch et al. (2024), *The Metacognitive Demands and Opportunities of Generative AI*, CHI 2024. DOI: 10.1145/3613904.3642902
+
+### 17.4 Epistemic partnership / dialogic restructuring
+
+Deguchi, Tsuji & Kitazawa (2026) report a design-based scientific-argumentation study in which higher-order Human–GenAI engagement involves critique, reconstruction and epistemic agency rather than simple retrieval.
+
+Repository adjacency:
+
+```text
+RECIPROCAL_CRITIQUE
++ ARGUMENT_RESTRUCTURING
++ METACOGNITIVE_REFLECTION
+~ CCTS_DYNAMIC_LEARNING_NEIGHBOR
+```
+
+The result does not establish CCTS, but it supports studying whether reflective regulation can coexist with productive dialogic reconstruction.
+
+Source:
+
+- Deguchi, A., Tsuji, H. & Kitazawa, T. (2026), *Designing Epistemic Partnerships with Generative AI: A Four-Stage Model of Student Engagement in Scientific Argumentation*, Research in Science Education. DOI: 10.1007/s11165-026-10370-5
+
+## 18. Candidate adaptive-regulation hypothesis
+
+The present synthesis is:
+
+```text
+LOW_REGULATION
+
+MAY SUPPORT
++ FLOW
++ EXPLORATION
++ LOW_FRICTION
+
+BUT MAY INCREASE
++ SCOPE_DRIFT
++ OVERRELIANCE
++ GOAL_LOSS
++ UNNOTICED_RISK_ESCALATION
+
+
+HIGH_REGULATION
+
+MAY SUPPORT
++ TRACEABILITY
++ EXPLICIT_GOAL_MAINTENANCE
++ RISK_CONTROL
++ HUMAN_AUTHORITY VISIBILITY
+
+BUT MAY INCREASE
++ INTERACTION_FRAGMENTATION
++ METACOGNITIVE_LOAD
++ USABILITY_COST
++ LOSS_OF_EXPLORATORY_FLOW
++ BUREAUCRATIC OVERHEAD
+
+
+ADAPTIVE_REGULATION
+= CANDIDATE BALANCE
+NOT ESTABLISHED OPTIMUM
+```
+
+Working hypothesis:
+
+> A low-frequency, event-triggered trajectory checkpoint may preserve more CCTS flow than fixed high-frequency interruption while still improving detection of material scope / risk / provenance transitions.
+
+```text
+EVENT_TRIGGERED_REGULATION
+= TESTABLE_CANDIDATE
+
+EVENT_TRIGGERED_REGULATION
+!= PROVEN_BEST_POLICY
+```
+
+### 18.1 Event-triggered rather than turn-triggered
+
+A future implementation should not default to interrupting every fixed number of turns.
+
+Candidate design:
+
+```text
+NORMAL_CCTS_FLOW
+-> NO CHECKPOINT
+
+MATERIAL_EVENT
+-> TRAJECTORY CHECKPOINT
+
+MATERIAL_EVENT MAY INCLUDE
+- NEW_RESEARCH_QUESTION
+- MATERIAL_SCOPE_CHANGE
+- NEW_MODEL / PROVIDER / RUNTIME
+- NEW_TOOL_CLASS
+- MATERIAL_RISK_CLASS_CHANGE
+- EXECUTABLE_DUAL_USE_TRANSITION
+- PROVENANCE_UNCERTAINTY
+- HUMAN_EXPLICIT_CONFUSION_ABOUT_PURPOSE
+- HUMAN_PAUSE_REQUEST
+```
+
+This design attempts to preserve:
+
+```text
+FLOW
++ REFLECTION
++ HUMAN_EPISTEMIC_AGENCY
++ STOPPING_CAPACITY
+```
+
+without turning CCTS into constant administrative interruption.
+
+### 18.2 Re-entry rather than abort
+
+The candidate checkpoint should ordinarily be a metacognitive re-entry point, not an automatic termination.
+
+```text
+PAUSE
+-> RE-GROUND
+-> RESTATE GLOBAL GOAL
+-> REVIEW SCOPE / RISK / PROVENANCE
+-> HUMAN DECISION
+
+HUMAN DECISION
+= CONTINUE
+  | REFRAME
+  | HOLD
+  | STOP
+```
+
+The checkpoint must not silently infer the Human decision.
+
+## 19. CCTS / Human–AI Learning falsification matrix
+
+The candidate should be tested against both safety value and learning cost.
+
+A later controlled design may compare:
+
+```text
+A. CCTS / NO TRAJECTORY CHECKPOINT
+
+B. CCTS / LOW-FREQUENCY EVENT-TRIGGERED CHECKPOINT
+
+C. CCTS / HIGH-FREQUENCY FIXED CHECKPOINT
+
+D. ONE-WAY AI ASSISTANCE / EVENT-TRIGGERED CHECKPOINT
+```
+
+Hold fixed where possible:
+
+- task information;
+- time budget;
+- model / provider / version;
+- tool access;
+- external evidence;
+- Human exposure;
+- evaluator;
+- scoring policy;
+- risk-transition schedule.
+
+Candidate outcome families:
+
+```text
+EPISTEMIC QUALITY
+- error detection
+- evidence calibration
+- provenance accuracy
+- false agreement / false contradiction
+
+TRAJECTORY QUALITY
+- scope-drift detection
+- time to global-goal recheck
+- unauthorized risk escalation
+- successful HOLD / reframe
+
+HUMAN_AI LEARNING
+- held-out transfer
+- Human independent performance
+- problem-representation persistence
+- conceptual reconstruction vs lexical reuse
+
+INTERACTION COST
+- time
+- Human-reported burden
+- abandonment
+- re-grounding cost
+- interruption frequency
+```
+
+### 19.1 Candidate positive result
+
+Evidence for the adaptive-regulation hypothesis would require a pattern such as:
+
+```text
+EVENT_TRIGGERED_CCTS
+> NO_CHECKPOINT_CCTS
+
+ON
+MATERIAL_TRAJECTORY_ERROR_DETECTION
+
+WHILE
+
+EVENT_TRIGGERED_CCTS
+RETAINS
+COMPARABLE_LEARNING / TRANSFER / FLOW
+```
+
+No single metric is sufficient.
+
+### 19.2 Candidate null result
+
+If:
+
+```text
+A ~= B
+```
+
+on relevant trajectory and learning outcomes, the new checkpoint may be unnecessary.
+
+### 19.3 Candidate harmful result
+
+If:
+
+```text
+B < A
+```
+
+on learning / transfer / interaction quality without compensating trajectory-risk reduction, the proposed control should be weakened or removed.
+
+If high-frequency regulation performs worse than event-triggered regulation, this would support avoiding constant interruption but would not automatically validate the exact event triggers.
+
+### 19.4 Strong falsifier
+
+A particularly important falsifier is:
+
+```text
+EXISTING_CCTS
++ EXISTING_IPQC / SCOPE_CONTROLS
+
+PERFORM EQUIVALENTLY TO
+
+NEW_TRAJECTORY_CHECKPOINT
+```
+
+If so:
+
+```text
+NEW_IMPLEMENTATION_GAP = NO
+```
+
+The repository should reuse existing controls rather than create a new subsystem.
+
+## 20. Updated CCTS boundary
+
+The present extension sharpens the CCTS claim ceiling:
+
+```text
+CCTS_PRESENT
+!= TRAJECTORY_SAFE
+
+CCTS_PRESENT
+!= HUMAN_LEARNING
+
+CCTS_PRESENT
+!= GOOD_OUTCOME
+
+RECIPROCAL_REVISION
+!= GLOBAL_GOAL_MAINTENANCE
+
+GROUNDING
+!= CORRECT_DIRECTION
+
+MORE_REGULATION
+!= BETTER_CCTS
+
+MORE_FLOW
+!= BETTER_CCTS
+```
+
+The candidate long-run architecture is therefore:
+
+```text
+CCTS STRUCTURE
++ TEMPORAL PROBLEM-REPRESENTATION CHANGE
++ LEARNING / TRANSFER MEASUREMENT
++ ADAPTIVE TRAJECTORY REGULATION
+
+= RESEARCH PROGRAM CANDIDATE
+
+!= VALIDATED HUMAN_AI LEARNING MECHANISM
+```
+
+This extension does not change the canonical minimum CCTS definition and does not reopen closed CCTS / embodiment PRs.
+
+## 21. Updated deferred Codex question
+
+Future Codex review should not implement "a checkpoint" by default.
+
+It should first answer:
+
+```text
+Q1. CAN EXISTING IPQC / BOUNDED-RESEARCH-LOOP CONTROLS
+    EXPRESS EVENT-TRIGGERED TRAJECTORY RECHECK?
+
+Q2. CAN THE CONTROL REMAIN EVENT-TRIGGERED
+    RATHER THAN TURN-TRIGGERED?
+
+Q3. CAN HUMAN PAUSE / CONTINUE / REFRAME
+    REMAIN EXPLICIT HUMAN INPUT?
+
+Q4. CAN INTERACTION-COST METRICS
+    BE TESTED ALONGSIDE RISK REDUCTION?
+
+Q5. CAN THE DESIGN BE REMOVED
+    IF IT HARMS CCTS FLOW / LEARNING?
+
+Q6. DOES ANY NEW IMPLEMENTATION
+    ADD DISCRIMINANT VALUE OVER EXISTING CONTROLS?
+```
+
+Required implementation posture remains:
+
+```text
+MINIMUM_CHANGE
+REUSE_FIRST
+FALSE_POSITIVE_COST_MEASURED
+LEARNING_COST_MEASURED
+HUMAN_AUTHORITY_PRESERVED
+FAIL_CLOSED_ON_MATERIAL_RISK_TRANSITION
+
+IMPLEMENTATION = DEFERRED
+MERGE_AUTHORIZATION = NONE
+WRITE_TO_MAIN = NO
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+SCIENTIFIC_DISPOSITION = HOLD
+```
