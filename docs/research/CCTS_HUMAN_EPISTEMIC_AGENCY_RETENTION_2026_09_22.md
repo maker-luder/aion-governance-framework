@@ -102,6 +102,73 @@ DEPENDENCY_RISK = ELIMINATED
 LONGITUDINAL_FAMILIARITY_EFFECT = RULED_OUT
 ```
 
+
+### 3.1 Sanitized naturalistic contrast — same product access, different epistemic trajectories
+
+The Human Owner recalled a non-research comparison with another family member who also used a paid ChatGPT plan, but primarily for image generation, writing assistance and general information rather than repository-centered AI research.
+
+The relevant observation is not the family relationship or the other person's identity. No private transcript, account data or identifying detail is required.
+
+```text
+SAME_PRODUCT_ACCESS
+!= SAME_KNOWLEDGE_STRUCTURE
+
+SAME_SUBSCRIPTION
+!= SAME_INTERACTION_HISTORY
+
+SAME_MODEL_FAMILY
+!= SAME_USAGE_PATTERN
+
+SAME_TOOL
+!= SAME_EPISTEMIC_TRAJECTORY
+
+DIFFERENT_USAGE_PATTERN
+!= LOWER_VALUE
+```
+
+### Provenance
+
+```text
+HUMAN_OWNER_SELF_REPORT
+= observed substantial differences in AI vocabulary, workflow familiarity,
+  task framing and expectations despite superficially similar product access
+
+CHATGPT_TEACHER_FORMALIZATION
+= distinguish access / interaction history / knowledge structure /
+  task-conditioned value / epistemic trajectory
+
+JOINT_SYNTHESIS_FOR_CAUSAL_MECHANISM
+= NOT_ESTABLISHED
+```
+
+This is a naturalistic anecdote, not a controlled comparison. It does not establish that subscription level, model family, usage frequency or task type causes a particular knowledge structure.
+
+The main methodological value is to block a weak proxy:
+
+```text
+PRODUCT_ACCESS_PARITY
+!= COGNITIVE_OR_EPISTEMIC_PARITY
+```
+
+For future CCTS / Human–AI learning work, the observation suggests that "same AI product" is an insufficient control unless interaction history, task domain, scaffold exposure, repository use, prior expertise and learning goals are also considered.
+
+It also provides a value-boundary correction:
+
+```text
+USAGE_DIFFERENCE
+!= VALUE_DIFFERENCE
+
+RESEARCH_INTENSIVE_USE
+!= UNIVERSALLY_BETTER_USE
+
+TASK_CONDITIONED_VALUE
+MAY_DIFFER
+ACROSS_USERS
+```
+
+The other user's use pattern must not be treated as deficient merely because it differs from the Human Owner's research-intensive pattern.
+
+
 ## 4. Repository ancestry and deduplication
 
 This note is not a new research axis.
