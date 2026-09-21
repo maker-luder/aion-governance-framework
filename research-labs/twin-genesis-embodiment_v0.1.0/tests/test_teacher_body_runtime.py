@@ -8,7 +8,9 @@ from aion_astra_twin_embodiment.teacher_body_channels import (
     build_teacher_body_signal_schema,
 )
 from aion_astra_twin_embodiment.teacher_body_dynamics import (
+    TeacherBodyObservation,
     build_teacher_body_dynamics_profile,
+    integrate_teacher_body_state,
 )
 from aion_astra_twin_embodiment.teacher_body_model import (
     build_teacher_body_model_profile,
@@ -19,6 +21,7 @@ from aion_astra_twin_embodiment.teacher_physiology_observability import (
 from aion_astra_twin_embodiment.teacher_body_runtime import (
     append_teacher_session_snapshot,
     apply_teacher_calibration_observations,
+    bind_teacher_integrated_body_state,
     build_teacher_body_runtime_binding,
     build_teacher_cross_session_retention,
     build_teacher_session_snapshot,
@@ -26,6 +29,7 @@ from aion_astra_twin_embodiment.teacher_body_runtime import (
     load_teacher_cross_session_retention,
     update_teacher_adaptation,
     validate_teacher_body_runtime_binding,
+    validate_teacher_bound_body_state,
     validate_teacher_cross_session_retention,
     validate_teacher_session_snapshot,
     write_teacher_cross_session_retention,
@@ -62,6 +66,79 @@ def test_teacher_body_runtime_binding_is_materialized_without_live_external_actu
     assert binding.live_external_actuation is False
     assert binding.body_ownership_experience_status == "NOT_ESTABLISHED"
     assert binding.subjectivity_status == "NOT_ESTABLISHED"
+
+
+def _integrated_runtime_body_state():
+    return integrate_teacher_body_state(
+        (
+            TeacherBodyObservation("TACTILE_GENERAL", (0.2,), 100),
+            TeacherBodyObservation("JOINT_POSITION", (0.1,), 100),
+            TeacherBodyObservation(
+                "VESTIBULAR_ORIENTATION",
+                (1.0, 0.0, 0.0, 0.0),
+                100,
+            ),
+            TeacherBodyObservation("CARDIOVASCULAR_STATE", (0.5,), 100),
+        ),
+        sequence=3,
+    )
+
+
+def test_integrated_body_state_binds_to_exact_runtime_body_instance() -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-INTEGRATION",
+        "SESSION-INTEGRATION",
+    )
+    state = _integrated_runtime_body_state()
+    bound = bind_teacher_integrated_body_state(binding, state)
+    result = validate_teacher_bound_body_state(bound, binding, state)
+
+    assert result["result"] == "PASS"
+    assert bound.binding_id == binding.binding_id
+    assert bound.runtime_id == binding.runtime_id
+    assert bound.session_id == binding.session_id
+    assert bound.body_id == binding.body_id
+    assert bound.signal_schema_id == binding.signal_schema_id
+    assert bound.body_dynamics_profile_id == binding.body_dynamics_profile_id
+    assert bound.body_model_profile_id == binding.body_model_profile_id
+    assert (
+        bound.physiology_observability_profile_id
+        == binding.physiology_observability_profile_id
+    )
+    assert bound.source_body_state_sha256 == state.body_state_sha256
+    assert bound.sequence == state.sequence
+    assert bound.timestamp_ms == state.timestamp_ms
+    assert len(bound.bound_state_sha256) == 64
+    assert bound.physical_body_claim == "NONE"
+    assert bound.body_ownership_experience_status == "NOT_ESTABLISHED"
+    assert bound.subjectivity_status == "NOT_ESTABLISHED"
+
+
+def test_bound_body_state_fails_closed_on_instance_or_source_drift() -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-INTEGRATION",
+        "SESSION-INTEGRATION",
+    )
+    state = _integrated_runtime_body_state()
+    bound = bind_teacher_integrated_body_state(binding, state)
+
+    with pytest.raises(ValueError, match="session id drift"):
+        validate_teacher_bound_body_state(
+            replace(bound, session_id="OTHER-SESSION"),
+            binding,
+            state,
+        )
+
+    with pytest.raises(ValueError, match="source-state hash drift"):
+        validate_teacher_bound_body_state(
+            replace(bound, source_body_state_sha256="0" * 64),
+            binding,
+            state,
+        )
+
+    tampered_state = replace(state, body_state_sha256="0" * 64)
+    with pytest.raises(ValueError, match="hash does not match bound signal schema"):
+        bind_teacher_integrated_body_state(binding, tampered_state)
 
 
 def test_initial_calibration_requires_complete_observation_set() -> None:
