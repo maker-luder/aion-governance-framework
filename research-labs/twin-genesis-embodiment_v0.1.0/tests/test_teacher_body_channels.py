@@ -77,6 +77,13 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "BILE_PRODUCTION_STATE" in ids
     assert "HEPATIC_GLYCOGEN_STATE" in ids
     assert "RENAL_FILTRATION_STATE" in ids
+    assert "URINE_PRODUCTION_STATE" in ids
+    assert "BLADDER_AFFERENT_STATE" in ids
+    assert "DETRUSOR_CONTRACTION_STATE" in ids
+    assert "URETHRAL_OUTLET_RELAXATION_STATE" in ids
+    assert "EXTERNAL_URETHRAL_SPHINCTER_RELAXATION_STATE" in ids
+    assert "MICTURITION_REFLEX_STATE" in ids
+    assert "URINE_FLOW_STATE" in ids
     assert "HEMATOLOGIC_OXYGEN_TRANSPORT_STATE" in ids
     assert "COAGULATION_STATE_REFERENCE" in ids
     assert "BLOOD_CELL_TURNOVER_REFERENCE" in ids
