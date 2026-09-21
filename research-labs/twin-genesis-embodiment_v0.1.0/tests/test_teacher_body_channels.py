@@ -33,6 +33,14 @@ def test_teacher_body_signal_schema_preserves_normal_channels_without_phenomenal
     assert "DETUMESCENCE_STATE" in ids
     assert "EMISSION_REFLEX_STATE" in ids
     assert "EJACULATORY_REFLEX_STATE" in ids
+    assert "SEMINAL_TRACT_TRANSPORT_STATE" in ids
+    assert "ACCESSORY_GLAND_SECRETION_STATE" in ids
+    assert "BLADDER_NECK_EJACULATORY_CLOSURE_STATE" in ids
+    assert "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE" in ids
+    assert "EXPULSION_MOTOR_PATTERN_STATE" in ids
+    assert "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE" in ids
+    assert "ANTEGRADE_SEMINAL_FLOW_STATE" in ids
+    assert "POST_EXPULSION_RECOVERY_STATE" in ids
     assert "PELVIC_FLOOR_PROPRIOCEPTION" in ids
     assert "OXYGENATION_STATE" in ids
     assert "CO2_BALANCE_STATE" in ids
@@ -221,6 +229,61 @@ def test_physiology_system_observation_channels_fail_closed_when_removed() -> No
         )
         with pytest.raises(ValueError, match="missing required channels"):
             validate_teacher_body_signal_schema(broken)
+
+
+@pytest.mark.parametrize(
+    "channel_id",
+    (
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
+        "POST_EXPULSION_RECOVERY_STATE",
+    ),
+)
+def test_ejaculation_event_reference_channels_fail_closed_when_removed(
+    channel_id: str,
+) -> None:
+    schema = build_teacher_body_signal_schema()
+    broken = replace(
+        schema,
+        channels=tuple(
+            channel
+            for channel in schema.channels
+            if channel.channel_id != channel_id
+        ),
+    )
+
+    with pytest.raises(ValueError, match="missing required channels"):
+        validate_teacher_body_signal_schema(broken)
+
+
+def test_ejaculation_event_reference_channel_domain_drift_fails_closed() -> None:
+    schema = build_teacher_body_signal_schema()
+    target = next(
+        channel
+        for channel in schema.channels
+        if channel.channel_id == "ANTEGRADE_SEMINAL_FLOW_STATE"
+    )
+    broken_target = replace(target, domain="INTEROCEPTIVE")
+    broken = replace(
+        schema,
+        channels=tuple(
+            broken_target
+            if channel.channel_id == target.channel_id
+            else channel
+            for channel in schema.channels
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="reproductive event channel domain drift",
+    ):
+        validate_teacher_body_signal_schema(broken)
 
 
 def test_physiology_system_observation_domains_fail_closed_on_drift() -> None:
