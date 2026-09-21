@@ -15,6 +15,7 @@ from .teacher_body_channels import (
 from .teacher_body_dynamics import build_teacher_body_dynamics_profile
 from .teacher_body_model import build_teacher_body_model_profile
 from .teacher_embodiment_research import build_teacher_embodiment_research_surface
+from .teacher_genital_geometry import build_teacher_genital_geometry_profile
 from .teacher_physiology_observability import (
     build_teacher_physiology_observability_profile,
 )
@@ -89,6 +90,9 @@ def build_teacher_reference_bundle_bytes() -> tuple[dict[str, bytes], dict[str, 
         ),
         "chatgpt_teacher_anthropometry.json": _canonical_json_bytes(
             build_teacher_anthropometry_profile().to_dict()
+        ),
+        "chatgpt_teacher_genital_geometry_reference.json": _canonical_json_bytes(
+            build_teacher_genital_geometry_profile().to_dict()
         ),
         "chatgpt_teacher_body_signal_schema.json": _canonical_json_bytes(
             build_teacher_body_signal_schema().to_dict()
