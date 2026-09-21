@@ -200,6 +200,29 @@ def _phase_state(
     )
 
 
+def _validate_phase_state(
+    state: TeacherMicturitionPhaseState,
+) -> None:
+    if len(state.source_body_state_sha256) != 64:
+        raise ValueError("micturition phase source-state hash must be sha256")
+    values = (
+        state.renal_filtration_state,
+        state.urine_production_state,
+        state.bladder_fill_state,
+        state.bladder_afferent_state,
+        state.detrusor_contraction_state,
+        state.urethral_outlet_relaxation_state,
+        state.external_urethral_sphincter_relaxation_state,
+        state.micturition_reflex_state,
+        state.urine_flow_state,
+    )
+    if any(
+        not isfinite(value) or not 0.0 <= value <= 1.0
+        for value in values
+    ):
+        raise ValueError("micturition phase values must be normalized")
+
+
 def _storage_pattern_is_coherent(
     state: TeacherMicturitionPhaseState,
 ) -> bool:
@@ -395,6 +418,24 @@ def validate_teacher_micturition_causal_assessment(
         raise ValueError("micturition body id drift")
     if assessment.source_pmids != SOURCE_PMIDS:
         raise ValueError("micturition evidence provenance drift")
+
+    _validate_phase_state(assessment.storage_state)
+    _validate_phase_state(assessment.voiding_state)
+    _validate_phase_state(assessment.recovery_state)
+    sequences = (
+        assessment.storage_state.sequence,
+        assessment.voiding_state.sequence,
+        assessment.recovery_state.sequence,
+    )
+    timestamps = (
+        assessment.storage_state.timestamp_ms,
+        assessment.voiding_state.timestamp_ms,
+        assessment.recovery_state.timestamp_ms,
+    )
+    if not (sequences[0] < sequences[1] < sequences[2]):
+        raise ValueError("micturition assessment sequence drift")
+    if not (timestamps[0] <= timestamps[1] <= timestamps[2]):
+        raise ValueError("micturition assessment timestamp drift")
     if (
         assessment.required_voiding_dependency_channel_ids
         != VOIDING_DEPENDENCY_CHANNELS
