@@ -237,7 +237,7 @@ def validate_synthetic_role_profile(profile: SyntheticRoleProfile) -> dict[str, 
     if profile.subjectivity_status != NOT_ESTABLISHED:
         raise ValueError("appearance profile cannot establish subjectivity")
     if profile.canonical_effect != NONE or profile.deployment:
-        raise ValueError("synthetic role profile must remain non-canonical and undeployed")
+        raise ValueError(\n            "synthetic role profile must remain non-canonical and undeployed"\n        )
 
     return {
         "result": "PASS",
