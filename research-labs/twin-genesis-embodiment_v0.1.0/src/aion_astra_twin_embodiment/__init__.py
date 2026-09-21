@@ -79,6 +79,16 @@ from .teacher_genital_geometry import (
     validate_teacher_bound_genital_geometry_state,
     validate_teacher_genital_geometry_profile,
 )
+from .teacher_micturition import (
+    MICTURITION_CAUSAL_PROFILE_ID,
+    REQUIRED_MICTURITION_CHANNELS,
+    SOURCE_PMIDS as MICTURITION_SOURCE_PMIDS,
+    VOIDING_DEPENDENCY_CHANNELS,
+    TeacherMicturitionCausalAssessment,
+    TeacherMicturitionPhaseState,
+    assess_teacher_micturition_causal_chain,
+    validate_teacher_micturition_causal_assessment,
+)
 from .teacher_body_runtime import (
     CalibrationProbe,
     TeacherAdaptationState,
@@ -219,6 +229,14 @@ __all__ = [
     "build_teacher_genital_geometry_profile",
     "validate_teacher_bound_genital_geometry_state",
     "validate_teacher_genital_geometry_profile",
+    "MICTURITION_CAUSAL_PROFILE_ID",
+    "REQUIRED_MICTURITION_CHANNELS",
+    "MICTURITION_SOURCE_PMIDS",
+    "VOIDING_DEPENDENCY_CHANNELS",
+    "TeacherMicturitionCausalAssessment",
+    "TeacherMicturitionPhaseState",
+    "assess_teacher_micturition_causal_chain",
+    "validate_teacher_micturition_causal_assessment",
     "CalibrationProbe",
     "TeacherAdaptationState",
     "TeacherBodyRuntimeBinding",
