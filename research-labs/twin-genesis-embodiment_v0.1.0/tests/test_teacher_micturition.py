@@ -262,13 +262,13 @@ def test_micturition_requires_all_causal_source_channels() -> None:
         "SESSION-MICTURITION",
     )
     storage, voiding, recovery = _coherent_cycle()
-    missing_afferent = replace(
-        voiding,
-        observations=tuple(
+    missing_afferent = integrate_teacher_body_state(
+        tuple(
             observation
             for observation in voiding.observations
             if observation.channel_id != "BLADDER_AFFERENT_STATE"
         ),
+        sequence=voiding.sequence,
     )
 
     with pytest.raises(
