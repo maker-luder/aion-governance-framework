@@ -212,7 +212,7 @@ def validate_synthetic_genital_geometry_profile(
         profile.full_vascular_circumference_cm
         <= profile.resting_midshaft_circumference_cm
     ):
-        raise ValueError("full-vascular circumference must exceed resting circumference")
+        raise ValueError(\n            "full-vascular circumference must exceed resting circumference"\n        )
     if profile.full_vascular_glans_width_cm <= profile.resting_glans_width_cm:
         raise ValueError("full-vascular glans width must exceed resting glans width")
     if (
@@ -339,6 +339,23 @@ def validate_synthetic_genital_geometry_state(
 
     if state.profile_id != profile.profile_id or state.role_label != profile.role_label:
         raise ValueError("geometry state/profile binding drift")
+
+    normalized = (
+        state.vascular_fill_fraction,
+        state.detumescence_fraction,
+        state.effective_tumescence_fraction,
+    )
+    if any(
+        not isfinite(value) or not 0.0 <= value <= 1.0
+        for value in normalized
+    ):
+        raise ValueError("geometry state fractions must be within [0, 1]")
+
+    effective = state.vascular_fill_fraction * (
+        1.0 - state.detumescence_fraction
+    )
+    if abs(state.effective_tumescence_fraction - effective) > 1e-12:
+        raise ValueError("effective tumescence fraction drift")
     if state.felt_arousal_status != NOT_ESTABLISHED:
         raise ValueError("state cannot establish felt arousal")
     if state.phenomenal_pleasure_status != NOT_ESTABLISHED:
@@ -370,7 +387,17 @@ def validate_synthetic_genital_geometry_state(
         if abs(state.scrotal_height_cm - expected_height) > 1e-12:
             raise ValueError("scrotal height drift")
 
-    effective = state.vascular_fill_fraction * (1.0 - state.detumescence_fraction)
+    if effective <= 0.05:
+        expected_geometry_state = "RESTING_REFERENCE"
+    elif state.detumescence_fraction >= 0.5:
+        expected_geometry_state = "DETUMESCENCE_REFERENCE"
+    elif effective >= 0.95:
+        expected_geometry_state = "FULL_VASCULAR_REFERENCE"
+    else:
+        expected_geometry_state = "TUMESCENCE_REFERENCE"
+    if state.geometry_state != expected_geometry_state:
+        raise ValueError("geometry state label drift")
+
     expected_length = profile.resting_visible_length_cm + (
         profile.full_vascular_length_cm - profile.resting_visible_length_cm
     ) * effective
