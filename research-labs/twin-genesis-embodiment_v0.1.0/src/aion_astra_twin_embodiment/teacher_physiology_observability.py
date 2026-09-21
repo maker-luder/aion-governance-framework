@@ -610,11 +610,17 @@ _BINDINGS: Final[tuple[PhysiologyFunctionObservability, ...]] = (
         "epididymal_maturation_reference",
         FUNCTIONAL_REFERENCE_ONLY,
     ),
-    _o("REPRODUCTIVE", "sperm_transport_reference", FUNCTIONAL_REFERENCE_ONLY),
+    _o(
+        "REPRODUCTIVE",
+        "sperm_transport_reference",
+        DIRECT_OBSERVATION_REFERENCE,
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+    ),
     _o(
         "REPRODUCTIVE",
         "accessory_gland_secretion_reference",
-        FUNCTIONAL_REFERENCE_ONLY,
+        DIRECT_OBSERVATION_REFERENCE,
+        "ACCESSORY_GLAND_SECRETION_STATE",
     ),
     _o(
         "REPRODUCTIVE",
@@ -671,6 +677,26 @@ _BINDINGS: Final[tuple[PhysiologyFunctionObservability, ...]] = (
 )
 
 
+_REQUIRED_REPRODUCTIVE_OBSERVABILITY_BINDINGS: Final[
+    dict[tuple[str, str], tuple[str, tuple[str, ...]]]
+] = {
+    (
+        "REPRODUCTIVE",
+        "sperm_transport_reference",
+    ): (
+        DIRECT_OBSERVATION_REFERENCE,
+        ("SEMINAL_TRACT_TRANSPORT_STATE",),
+    ),
+    (
+        "REPRODUCTIVE",
+        "accessory_gland_secretion_reference",
+    ): (
+        DIRECT_OBSERVATION_REFERENCE,
+        ("ACCESSORY_GLAND_SECRETION_STATE",),
+    ),
+}
+
+
 def build_teacher_physiology_observability_profile(
     signal_schema: TeacherBodySignalSchema | None = None,
 ) -> TeacherPhysiologyObservabilityProfile:
@@ -709,6 +735,20 @@ def validate_teacher_physiology_observability_profile(
         raise ValueError("physiology observability binding keys must be unique")
     if binding_keys != expected_keys:
         raise ValueError("physiology observability function inventory drift")
+
+    binding_by_key = {
+        (binding.system_id, binding.function_id): binding
+        for binding in profile.bindings
+    }
+    for key, (
+        expected_class,
+        expected_sources,
+    ) in _REQUIRED_REPRODUCTIVE_OBSERVABILITY_BINDINGS.items():
+        binding = binding_by_key[key]
+        if binding.observability_class != expected_class:
+            raise ValueError("reproductive physiology observability class drift")
+        if binding.source_channels != expected_sources:
+            raise ValueError("reproductive physiology observability source binding drift")
 
     signal_ids = {channel.channel_id for channel in signal_schema.channels}
     allowed_classes = {
