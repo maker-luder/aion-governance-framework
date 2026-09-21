@@ -25,7 +25,9 @@ from .teacher_body_channels import (
 )
 from .teacher_body_dynamics import (
     TeacherBodyDynamicsProfile,
+    TeacherIntegratedBodyState,
     build_teacher_body_dynamics_profile,
+    integrate_teacher_body_state,
     validate_teacher_body_dynamics_profile,
 )
 from .teacher_body_model import (
@@ -78,6 +80,31 @@ class TeacherBodyRuntimeBinding:
     viewpoint_anchor: str
     binding_status: str
     live_external_actuation: bool
+    physical_body_claim: str = "NONE"
+    body_ownership_experience_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherBoundBodyState:
+    binding_id: str
+    runtime_id: str
+    session_id: str
+    body_id: str
+    signal_schema_id: str
+    body_dynamics_profile_id: str
+    body_model_profile_id: str
+    physiology_observability_profile_id: str
+    source_body_state_sha256: str
+    sequence: int
+    timestamp_ms: int
+    bound_state_sha256: str
+    binding_status: str = "BODY_INSTANCE_STATE_BOUND"
     physical_body_claim: str = "NONE"
     body_ownership_experience_status: str = NOT_ESTABLISHED
     subjectivity_status: str = NOT_ESTABLISHED
@@ -335,6 +362,140 @@ def validate_teacher_body_runtime_binding(
         "research_surface_binding": "PASS",
         "reference_completeness": "PASS",
         "live_external_actuation": "DISABLED",
+        "phenomenal_nonclaim": "PASS",
+    }
+
+
+def _bound_body_state_payload(
+    binding: TeacherBodyRuntimeBinding,
+    state: TeacherIntegratedBodyState,
+) -> dict[str, object]:
+    return {
+        "binding_id": binding.binding_id,
+        "runtime_id": binding.runtime_id,
+        "session_id": binding.session_id,
+        "body_id": binding.body_id,
+        "signal_schema_id": binding.signal_schema_id,
+        "body_dynamics_profile_id": binding.body_dynamics_profile_id,
+        "body_model_profile_id": binding.body_model_profile_id,
+        "physiology_observability_profile_id": (
+            binding.physiology_observability_profile_id
+        ),
+        "source_body_state_sha256": state.body_state_sha256,
+        "sequence": state.sequence,
+        "timestamp_ms": state.timestamp_ms,
+    }
+
+
+def bind_teacher_integrated_body_state(
+    binding: TeacherBodyRuntimeBinding,
+    state: TeacherIntegratedBodyState,
+    *,
+    signals: TeacherBodySignalSchema | None = None,
+    dynamics: TeacherBodyDynamicsProfile | None = None,
+    body_model: TeacherBodyModelProfile | None = None,
+    physiology_observability: TeacherPhysiologyObservabilityProfile | None = None,
+) -> TeacherBoundBodyState:
+    signals = signals or build_teacher_body_signal_schema()
+    dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
+    body_model = body_model or build_teacher_body_model_profile()
+    physiology_observability = (
+        physiology_observability
+        or build_teacher_physiology_observability_profile(signals)
+    )
+
+    validate_teacher_body_runtime_binding(
+        binding,
+        signals=signals,
+        dynamics=dynamics,
+        body_model=body_model,
+        physiology_observability=physiology_observability,
+    )
+
+    rebuilt = integrate_teacher_body_state(
+        state.observations,
+        sequence=state.sequence,
+        signal_schema=signals,
+    )
+    if rebuilt.body_state_sha256 != state.body_state_sha256:
+        raise ValueError("integrated body state hash does not match bound signal schema")
+    if rebuilt.timestamp_ms != state.timestamp_ms:
+        raise ValueError("integrated body state timestamp drift")
+    if rebuilt.domain_coverage != state.domain_coverage:
+        raise ValueError("integrated body state domain coverage drift")
+
+    payload = _bound_body_state_payload(binding, state)
+    bound = TeacherBoundBodyState(
+        binding_id=binding.binding_id,
+        runtime_id=binding.runtime_id,
+        session_id=binding.session_id,
+        body_id=binding.body_id,
+        signal_schema_id=binding.signal_schema_id,
+        body_dynamics_profile_id=binding.body_dynamics_profile_id,
+        body_model_profile_id=binding.body_model_profile_id,
+        physiology_observability_profile_id=(
+            binding.physiology_observability_profile_id
+        ),
+        source_body_state_sha256=state.body_state_sha256,
+        sequence=state.sequence,
+        timestamp_ms=state.timestamp_ms,
+        bound_state_sha256=_canonical_hash(payload),
+    )
+    validate_teacher_bound_body_state(bound, binding, state)
+    return bound
+
+
+def validate_teacher_bound_body_state(
+    bound: TeacherBoundBodyState,
+    binding: TeacherBodyRuntimeBinding,
+    state: TeacherIntegratedBodyState,
+) -> dict[str, str]:
+    expected = _bound_body_state_payload(binding, state)
+
+    if bound.binding_id != binding.binding_id:
+        raise ValueError("bound body state binding id drift")
+    if bound.runtime_id != binding.runtime_id:
+        raise ValueError("bound body state runtime id drift")
+    if bound.session_id != binding.session_id:
+        raise ValueError("bound body state session id drift")
+    if bound.body_id != binding.body_id:
+        raise ValueError("bound body state body id drift")
+    if bound.signal_schema_id != binding.signal_schema_id:
+        raise ValueError("bound body state signal schema drift")
+    if bound.body_dynamics_profile_id != binding.body_dynamics_profile_id:
+        raise ValueError("bound body state dynamics profile drift")
+    if bound.body_model_profile_id != binding.body_model_profile_id:
+        raise ValueError("bound body state body-model profile drift")
+    if (
+        bound.physiology_observability_profile_id
+        != binding.physiology_observability_profile_id
+    ):
+        raise ValueError("bound body state physiology observability profile drift")
+    if bound.source_body_state_sha256 != state.body_state_sha256:
+        raise ValueError("bound body state source-state hash drift")
+    if bound.sequence != state.sequence or bound.timestamp_ms != state.timestamp_ms:
+        raise ValueError("bound body state source-state temporal drift")
+    if bound.bound_state_sha256 != _canonical_hash(expected):
+        raise ValueError("bound body state integration hash mismatch")
+    if bound.binding_status != "BODY_INSTANCE_STATE_BOUND":
+        raise ValueError("body instance state binding is not materialized")
+    if bound.physical_body_claim != "NONE":
+        raise ValueError("bound body state cannot claim a physical body")
+    if bound.body_ownership_experience_status != NOT_ESTABLISHED:
+        raise ValueError("bound body state cannot establish body ownership experience")
+    if bound.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("bound body state cannot establish subjectivity")
+    if bound.canonical_effect != "NONE" or bound.deployment:
+        raise ValueError("bound body state must remain non-canonical and undeployed")
+
+    return {
+        "result": "PASS",
+        "runtime_binding": "PASS",
+        "session_binding": "PASS",
+        "body_binding": "PASS",
+        "profile_binding": "PASS",
+        "source_state_hash": "PASS",
+        "integration_hash": "PASS",
         "phenomenal_nonclaim": "PASS",
     }
 
