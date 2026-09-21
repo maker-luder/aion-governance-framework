@@ -35,6 +35,11 @@ from .teacher_body_model import (
     build_teacher_body_model_profile,
     validate_teacher_body_model_profile,
 )
+from .teacher_genital_geometry import (
+    TeacherGenitalGeometryProfile,
+    build_teacher_genital_geometry_profile,
+    validate_teacher_genital_geometry_profile,
+)
 from .teacher_physiology_observability import (
     TeacherPhysiologyObservabilityProfile,
     build_teacher_physiology_observability_profile,
@@ -75,6 +80,7 @@ class TeacherBodyRuntimeBinding:
     motor_schema_id: str
     body_dynamics_profile_id: str
     body_model_profile_id: str
+    genital_geometry_profile_id: str
     research_surface_id: str
     skeleton_root: str
     viewpoint_anchor: str
@@ -99,6 +105,7 @@ class TeacherBoundBodyState:
     signal_schema_id: str
     body_dynamics_profile_id: str
     body_model_profile_id: str
+    genital_geometry_profile_id: str
     physiology_observability_profile_id: str
     source_body_state_sha256: str
     sequence: int
@@ -235,6 +242,7 @@ def build_teacher_body_runtime_binding(
     motor = build_teacher_motor_control_schema()
     dynamics = build_teacher_body_dynamics_profile(signals)
     body_model = build_teacher_body_model_profile(anthropometry)
+    genital_geometry = build_teacher_genital_geometry_profile(anthropometry)
     research = build_teacher_embodiment_research_surface()
     binding = TeacherBodyRuntimeBinding(
         binding_id=f"TEACHER-BINDING:{runtime_id}:{session_id}",
@@ -248,6 +256,7 @@ def build_teacher_body_runtime_binding(
         motor_schema_id=motor.schema_id,
         body_dynamics_profile_id=dynamics.profile_id,
         body_model_profile_id=body_model.profile_id,
+        genital_geometry_profile_id=genital_geometry.profile_id,
         research_surface_id=research.surface_id,
         skeleton_root="hips",
         viewpoint_anchor="head",
@@ -262,6 +271,7 @@ def build_teacher_body_runtime_binding(
         dynamics,
         research,
         body_model=body_model,
+        genital_geometry=genital_geometry,
         physiology_observability=physiology_observability,
     )
     return binding
@@ -275,6 +285,7 @@ def validate_teacher_body_runtime_binding(
     dynamics: TeacherBodyDynamicsProfile | None = None,
     research: TeacherEmbodimentResearchSurface | None = None,
     body_model: TeacherBodyModelProfile | None = None,
+    genital_geometry: TeacherGenitalGeometryProfile | None = None,
     physiology_observability: TeacherPhysiologyObservabilityProfile | None = None,
 ) -> dict[str, str]:
     anthropometry = anthropometry or build_teacher_anthropometry_profile()
@@ -282,6 +293,10 @@ def validate_teacher_body_runtime_binding(
     motor = motor or build_teacher_motor_control_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
     body_model = body_model or build_teacher_body_model_profile(anthropometry)
+    genital_geometry = (
+        genital_geometry
+        or build_teacher_genital_geometry_profile(anthropometry)
+    )
     research = research or build_teacher_embodiment_research_surface()
     validate_teacher_body_signal_schema(signals)
     validate_teacher_motor_control_schema(motor)
@@ -291,6 +306,7 @@ def validate_teacher_body_runtime_binding(
     )
     validate_teacher_body_dynamics_profile(dynamics, signals)
     validate_teacher_body_model_profile(body_model, anthropometry)
+    validate_teacher_genital_geometry_profile(genital_geometry, anthropometry)
     validate_teacher_physiology_observability_profile(
         physiology_observability,
         signals,
@@ -306,6 +322,7 @@ def validate_teacher_body_runtime_binding(
         motor_schema=motor,
         dynamics=dynamics,
         body_model=body_model,
+        genital_geometry=genital_geometry,
         physiology_observability=physiology_observability,
     )
     completeness = assess_teacher_reference_completeness(capabilities)
@@ -333,6 +350,8 @@ def validate_teacher_body_runtime_binding(
         raise ValueError("body runtime dynamics profile drift")
     if binding.body_model_profile_id != body_model.profile_id:
         raise ValueError("body runtime body-model profile drift")
+    if binding.genital_geometry_profile_id != genital_geometry.profile_id:
+        raise ValueError("body runtime genital-geometry profile drift")
     if binding.research_surface_id != research.surface_id:
         raise ValueError("body runtime research surface drift")
     if binding.skeleton_root != "hips" or binding.viewpoint_anchor != "head":
@@ -359,6 +378,7 @@ def validate_teacher_body_runtime_binding(
         "motor_binding": "PASS",
         "body_dynamics_binding": "PASS",
         "body_model_binding": "PASS",
+        "genital_geometry_binding": "PASS",
         "research_surface_binding": "PASS",
         "reference_completeness": "PASS",
         "live_external_actuation": "DISABLED",
@@ -378,6 +398,7 @@ def _bound_body_state_payload(
         "signal_schema_id": binding.signal_schema_id,
         "body_dynamics_profile_id": binding.body_dynamics_profile_id,
         "body_model_profile_id": binding.body_model_profile_id,
+        "genital_geometry_profile_id": binding.genital_geometry_profile_id,
         "physiology_observability_profile_id": (
             binding.physiology_observability_profile_id
         ),
@@ -394,11 +415,16 @@ def bind_teacher_integrated_body_state(
     signals: TeacherBodySignalSchema | None = None,
     dynamics: TeacherBodyDynamicsProfile | None = None,
     body_model: TeacherBodyModelProfile | None = None,
+    genital_geometry: TeacherGenitalGeometryProfile | None = None,
     physiology_observability: TeacherPhysiologyObservabilityProfile | None = None,
 ) -> TeacherBoundBodyState:
     signals = signals or build_teacher_body_signal_schema()
     dynamics = dynamics or build_teacher_body_dynamics_profile(signals)
     body_model = body_model or build_teacher_body_model_profile()
+    genital_geometry = (
+        genital_geometry
+        or build_teacher_genital_geometry_profile()
+    )
     physiology_observability = (
         physiology_observability
         or build_teacher_physiology_observability_profile(signals)
@@ -409,6 +435,7 @@ def bind_teacher_integrated_body_state(
         signals=signals,
         dynamics=dynamics,
         body_model=body_model,
+        genital_geometry=genital_geometry,
         physiology_observability=physiology_observability,
     )
 
@@ -433,6 +460,7 @@ def bind_teacher_integrated_body_state(
         signal_schema_id=binding.signal_schema_id,
         body_dynamics_profile_id=binding.body_dynamics_profile_id,
         body_model_profile_id=binding.body_model_profile_id,
+        genital_geometry_profile_id=binding.genital_geometry_profile_id,
         physiology_observability_profile_id=(
             binding.physiology_observability_profile_id
         ),
@@ -466,6 +494,11 @@ def validate_teacher_bound_body_state(
         raise ValueError("bound body state dynamics profile drift")
     if bound.body_model_profile_id != binding.body_model_profile_id:
         raise ValueError("bound body state body-model profile drift")
+    if (
+        bound.genital_geometry_profile_id
+        != binding.genital_geometry_profile_id
+    ):
+        raise ValueError("bound body state genital-geometry profile drift")
     if (
         bound.physiology_observability_profile_id
         != binding.physiology_observability_profile_id
