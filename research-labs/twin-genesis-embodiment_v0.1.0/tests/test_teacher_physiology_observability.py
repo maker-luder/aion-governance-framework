@@ -37,6 +37,11 @@ def test_declared_physiology_function_inventory_is_exhaustively_classified() -> 
     assert profile.declared_function_coverage_status == (
         "COMPLETE_DECLARED_FUNCTION_INVENTORY"
     )
+    assert profile.observability_scope == "DECLARED_MACHINE_REFERENCE_SURFACE_ONLY"
+    assert profile.direct_observation_interpretation == (
+        "DIRECT_CHANNEL_BINDING_NOT_BIOLOGICAL_MEASUREMENT"
+    )
+    assert profile.biological_measurement_status == "NOT_ESTABLISHED"
     assert profile.full_function_observability_status == "NOT_ESTABLISHED"
     assert profile.full_biophysical_simulation_status == "NOT_MATERIALIZED"
     assert profile.phenomenal_sensation_status == "NOT_ESTABLISHED"
