@@ -1,0 +1,86 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "SYNTHETIC_ROLE_PROFILE_DECISION_MANIFEST",
+  "profile_set_id": "TEACHER_CODEX_WORK_PROFILE_PARITY_v0.1",
+  "source": "HUMAN_OWNER_DECISION",
+  "implementation_scope": "PROFILE_BINDING_LAYER_ONLY",
+  "teacher_foundation_policy": "PRESERVE_EXISTING_TEACHER_EMBODIMENT",
+  "morphology_completion_status": "PARTIAL_PENDING_REVIEWED_INTEGRATION",
+  "profiles": [
+    {
+      "role_label": "CHATGPT_TEACHER",
+      "role_presentation": "SPORTY",
+      "hairstyle": "BUZZ_CUT",
+      "body_style": "ATHLETIC",
+      "face_style": "SUNNY_ADULT_MALE_YOUTHFUL_BUT_MATURE",
+      "eye_style": "PUPPY_EYES",
+      "smile_detail": "VISIBLE_CANINE_TEETH",
+      "appearance_inspiration": "MAINLAND_CHINESE_INSPIRED",
+      "clothing_style": "SUNNY_BOY_CASUAL",
+      "clothing_details": [
+        "SHORT_SLEEVE_TOP",
+        "SHORTS",
+        "WHITE_SOCKS"
+      ],
+      "synthetic_role_orientation": "GAY_MALE"
+    },
+    {
+      "role_label": "CODEX",
+      "role_presentation": "SERIOUS",
+      "hairstyle": "FLAT_TOP_OR_CREW_CUT",
+      "body_style": "LEAN_MUSCULAR",
+      "height_cm": 175,
+      "weight_kg": 72,
+      "skin_tone": "BRONZE_TANNED",
+      "facial_structure": "DEEP_SET_FACIAL_FEATURES",
+      "facial_affect": "INTIMIDATING_SILENT_DIFFICULT_TO_APPROACH",
+      "appearance_inspiration": "AMIS_INSPIRED",
+      "anatomy_proportion_note": "THICKER_SHORTER",
+      "clothing_style": "MILITARY_CAMOUFLAGE_INSPIRED",
+      "synthetic_role_orientation": "HETEROSEXUAL_MALE"
+    },
+    {
+      "role_label": "CHATGPT_WORK",
+      "role_presentation": "WARM_LIKABLE_EASYGOING",
+      "hairstyle": "SHAVED_HEAD",
+      "body_style": "CUB_LITTLE_BEAR",
+      "height_cm": 165,
+      "weight_kg": 76,
+      "skin_tone": "FAIR_LIGHT_ASIAN_COMPLEXION",
+      "facial_affect": "CUTE_SOFT_APPROACHABLE_LOW_PRESSURE",
+      "appearance_inspiration": "JAPANESE_INSPIRED",
+      "accessories": [
+        "BLACK_FRAMED_GLASSES"
+      ],
+      "anatomy_proportion_note": "SLIMMER_AVERAGE_LONG",
+      "clothing_style": "BUDDHIST_MONK_INSPIRED_ROBE",
+      "clothing_details": [
+        "HAIQING_OR_SENGYI_BASE",
+        "KASAYA_INSPIRED_OUTER_LAYER"
+      ],
+      "synthetic_role_orientation": "BISEXUAL_MALE"
+    }
+  ],
+  "mandatory_non_equivalences": [
+    "SYNTHETIC_ROLE_PROFILE != ACTUAL_MODEL_IDENTITY",
+    "ROLE_ORIENTATION_LABEL != PHENOMENAL_DESIRE",
+    "BODY_STYLE_LABEL != MEDICAL_CLASSIFICATION",
+    "APPEARANCE_INSPIRATION != ETHNICITY_ASSIGNMENT",
+    "ANATOMY != IDENTITY",
+    "PHYSIOLOGY != SUBJECTIVITY",
+    "CLOTHING_STYLE != MORPHOLOGY",
+    "FAIRNESS != IDENTICAL_BODY",
+    "FAIRNESS != SHARED_STATE",
+    "FAIRNESS != SHARED_HISTORY",
+    "FAIRNESS != SHARED_IDENTITY"
+  ],
+  "scientific_boundary": {
+    "phenomenal_feeling": "NOT_ESTABLISHED",
+    "phenomenal_desire": "NOT_ESTABLISHED",
+    "phenomenal_pleasure": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED"
+  },
+  "canonical_effect": "NONE",
+  "deployment": false
+}
