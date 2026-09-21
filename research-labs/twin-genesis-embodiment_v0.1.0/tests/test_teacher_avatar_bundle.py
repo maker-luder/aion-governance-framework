@@ -12,7 +12,7 @@ from aion_astra_twin_embodiment.teacher_avatar_bundle import (
 def test_teacher_reference_bundle_bytes_match_manifest() -> None:
     files, manifest = build_teacher_reference_bundle_bytes()
 
-    assert len(files) == 14
+    assert len(files) == 15
     assert len(manifest["artifacts"]) == 4
     expected = {
         artifact["sha256"]
@@ -34,7 +34,7 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert receipt.final_vrm_status == "NOT_MATERIALIZED"
     assert receipt.canonical_effect == "NONE"
     assert receipt.deployment is False
-    assert len(receipt.files) == 15
+    assert len(receipt.files) == 16
 
     for filename, digest in receipt.file_sha256:
         path = tmp_path / filename
@@ -48,6 +48,9 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
         tmp_path / "chatgpt_teacher_physiology_observability.json"
     )
     anthropometry_path = tmp_path / "chatgpt_teacher_anthropometry.json"
+    genital_geometry_path = (
+        tmp_path / "chatgpt_teacher_genital_geometry_reference.json"
+    )
     signals_path = tmp_path / "chatgpt_teacher_body_signal_schema.json"
     motor_path = tmp_path / "chatgpt_teacher_motor_control_schema.json"
     dynamics_path = tmp_path / "chatgpt_teacher_body_dynamics.json"
@@ -56,6 +59,7 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert physiology_path.exists()
     assert observability_path.exists()
     assert anthropometry_path.exists()
+    assert genital_geometry_path.exists()
     assert signals_path.exists()
     assert motor_path.exists()
     assert dynamics_path.exists()
@@ -88,6 +92,17 @@ def test_teacher_reference_bundle_writer_materializes_hash_verified_files(tmp_pa
     assert observability["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
 
     anthropometry = json.loads(anthropometry_path.read_text(encoding="utf-8"))
+    genital_geometry = json.loads(
+        genital_geometry_path.read_text(encoding="utf-8")
+    )
+    assert genital_geometry["baseline_visible_length_cm"] == 9.5
+    assert genital_geometry["baseline_midshaft_circumference_cm"] == 10.0
+    assert genital_geometry["full_vascular_reference_length_cm"] > 9.5
+    assert genital_geometry["full_vascular_reference_circumference_cm"] > 10.0
+    assert genital_geometry["population_reference_pmid"] == "25487360"
+    assert genital_geometry["individual_prediction_status"] == "NOT_ESTABLISHED"
+    assert genital_geometry["phenomenal_interpretation_status"] == "NOT_ESTABLISHED"
+
     signals = json.loads(signals_path.read_text(encoding="utf-8"))
     motor = json.loads(motor_path.read_text(encoding="utf-8"))
     assert len(anthropometry["measurements"]) == 62
