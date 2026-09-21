@@ -223,6 +223,62 @@ def test_flow_without_required_upstream_pattern_is_not_misattributed() -> None:
     )
 
 
+@pytest.mark.parametrize(
+    "ablated_parameter",
+    (
+        "bladder_afferent",
+        "detrusor",
+        "outlet_relaxation",
+        "sphincter_relaxation",
+        "micturition_reflex",
+    ),
+)
+def test_each_required_voiding_dependency_fails_individually_when_ablated(
+    ablated_parameter: str,
+) -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-MICTURITION",
+        "SESSION-MICTURITION",
+    )
+    storage, _, recovery = _coherent_cycle()
+    voiding_inputs = {
+        "bladder_afferent": 0.9,
+        "detrusor": 0.9,
+        "outlet_relaxation": 0.9,
+        "sphincter_relaxation": 0.9,
+        "micturition_reflex": 0.9,
+    }
+    voiding_inputs[ablated_parameter] = 0.1
+    ablated_voiding = _state(
+        sequence=2,
+        timestamp_ms=200,
+        bladder_fill=0.6,
+        urine_flow=0.8,
+        **voiding_inputs,
+    )
+
+    assessment = assess_teacher_micturition_causal_chain(
+        binding=binding,
+        storage_state=storage,
+        voiding_state=ablated_voiding,
+        recovery_state=recovery,
+    )
+
+    assert assessment.event_classification == (
+        "UNRESOLVED_NON_MICTURITION_URETHRAL_FLOW_REFERENCE"
+    )
+    assert assessment.forward_causal_path_status == "FAIL"
+    assert assessment.reverse_evidence_trace_status == (
+        "FAIL_REQUIRED_UPSTREAM_EVIDENCE_MISSING"
+    )
+    assert assessment.alternative_cause_disambiguation_status == (
+        "PASS_FLOW_NOT_MISATTRIBUTED_TO_MICTURITION"
+    )
+    assert assessment.counterfactual_dependency_status == (
+        "PASS_NEGATIVE_CONTROL_CLASSIFICATION"
+    )
+
+
 def test_recovery_path_must_reduce_bladder_load_and_stop_flow() -> None:
     binding = build_teacher_body_runtime_binding(
         "RUNTIME-MICTURITION",
