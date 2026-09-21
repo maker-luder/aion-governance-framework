@@ -4,14 +4,16 @@ from dataclasses import asdict, dataclass
 from hashlib import sha256
 import json
 from math import isfinite
-from typing import Any, Final
+from typing import TYPE_CHECKING, Any, Final
 
 from .teacher_anthropometry import (
     TeacherAnthropometryProfile,
     build_teacher_anthropometry_profile,
 )
 from .teacher_body_dynamics import TeacherIntegratedBodyState
-from .teacher_body_runtime import TeacherBoundBodyState
+
+if TYPE_CHECKING:
+    from .teacher_body_runtime import TeacherBoundBodyState
 
 
 GENITAL_GEOMETRY_PROFILE_ID: Final[str] = (
@@ -242,6 +244,8 @@ def build_teacher_bound_genital_geometry_state(
 
     if bound_body_state.body_id != profile.body_id:
         raise ValueError("genital geometry body binding drift")
+    if bound_body_state.genital_geometry_profile_id != profile.profile_id:
+        raise ValueError("genital geometry profile binding drift")
     if (
         bound_body_state.source_body_state_sha256
         != body_state.body_state_sha256
@@ -336,6 +340,8 @@ def validate_teacher_bound_genital_geometry_state(
         raise ValueError("bound genital geometry session id drift")
     if state.body_id != bound_body_state.body_id:
         raise ValueError("bound genital geometry body id drift")
+    if bound_body_state.genital_geometry_profile_id != profile.profile_id:
+        raise ValueError("bound genital geometry profile binding drift")
     if state.source_bound_state_sha256 != bound_body_state.bound_state_sha256:
         raise ValueError("bound genital geometry bound-state hash drift")
     if state.source_body_state_sha256 != body_state.body_state_sha256:
