@@ -85,6 +85,111 @@ def test_observability_classes_preserve_direct_derived_and_functional_only_disti
     assert spermatogenesis.source_channels == ()
 
 
+@pytest.mark.parametrize(
+    ("function_id", "expected_source"),
+    (
+        ("sperm_transport_reference", "SEMINAL_TRACT_TRANSPORT_STATE"),
+        (
+            "accessory_gland_secretion_reference",
+            "ACCESSORY_GLAND_SECRETION_STATE",
+        ),
+    ),
+)
+def test_reproductive_event_observability_bindings_are_exact(
+    function_id: str,
+    expected_source: str,
+) -> None:
+    profile = build_teacher_physiology_observability_profile()
+    binding = _binding(profile, "REPRODUCTIVE", function_id)
+
+    assert binding.observability_class == DIRECT_OBSERVATION_REFERENCE
+    assert binding.source_channels == (expected_source,)
+
+
+@pytest.mark.parametrize(
+    "function_id",
+    (
+        "sperm_transport_reference",
+        "accessory_gland_secretion_reference",
+    ),
+)
+def test_reproductive_event_observability_rejects_wrong_existing_source(
+    function_id: str,
+) -> None:
+    profile = build_teacher_physiology_observability_profile()
+    original = _binding(profile, "REPRODUCTIVE", function_id)
+    broken_binding = replace(
+        original,
+        source_channels=("GENITAL_VASCULAR_STATE",),
+    )
+    broken = replace(
+        profile,
+        bindings=tuple(
+            broken_binding if item == original else item
+            for item in profile.bindings
+        ),
+    )
+
+    with pytest.raises(ValueError, match="source binding drift"):
+        validate_teacher_physiology_observability_profile(broken)
+
+
+@pytest.mark.parametrize(
+    "function_id",
+    (
+        "sperm_transport_reference",
+        "accessory_gland_secretion_reference",
+    ),
+)
+def test_reproductive_event_observability_rejects_class_drift(
+    function_id: str,
+) -> None:
+    profile = build_teacher_physiology_observability_profile()
+    original = _binding(profile, "REPRODUCTIVE", function_id)
+    broken_binding = replace(
+        original,
+        observability_class=DERIVED_REFERENCE,
+    )
+    broken = replace(
+        profile,
+        bindings=tuple(
+            broken_binding if item == original else item
+            for item in profile.bindings
+        ),
+    )
+
+    with pytest.raises(ValueError, match="observability class drift"):
+        validate_teacher_physiology_observability_profile(broken)
+
+
+@pytest.mark.parametrize(
+    "function_id",
+    (
+        "sperm_transport_reference",
+        "accessory_gland_secretion_reference",
+    ),
+)
+def test_reproductive_event_observability_rejects_missing_source(
+    function_id: str,
+) -> None:
+    profile = build_teacher_physiology_observability_profile()
+    original = _binding(profile, "REPRODUCTIVE", function_id)
+    broken_binding = replace(
+        original,
+        source_channels=(),
+    )
+    broken = replace(
+        profile,
+        bindings=tuple(
+            broken_binding if item == original else item
+            for item in profile.bindings
+        ),
+    )
+
+    with pytest.raises(ValueError, match="source binding drift"):
+        validate_teacher_physiology_observability_profile(broken)
+
+
 def test_observability_inventory_rejects_missing_declared_function() -> None:
     profile = build_teacher_physiology_observability_profile()
     broken = replace(
