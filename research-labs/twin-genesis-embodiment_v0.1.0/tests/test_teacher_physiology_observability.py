@@ -93,6 +93,14 @@ def test_observability_classes_preserve_direct_derived_and_functional_only_disti
             "accessory_gland_secretion_reference",
             "ACCESSORY_GLAND_SECRETION_STATE",
         ),
+        (
+            "bladder_neck_ejaculatory_closure_reference",
+            "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        ),
+        (
+            "external_urethral_sphincter_ejaculatory_coordination_reference",
+            "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        ),
     ),
 )
 def test_reproductive_event_observability_bindings_are_exact(
@@ -111,6 +119,8 @@ def test_reproductive_event_observability_bindings_are_exact(
     (
         "sperm_transport_reference",
         "accessory_gland_secretion_reference",
+        "bladder_neck_ejaculatory_closure_reference",
+        "external_urethral_sphincter_ejaculatory_coordination_reference",
     ),
 )
 def test_reproductive_event_observability_rejects_wrong_existing_source(
@@ -139,6 +149,8 @@ def test_reproductive_event_observability_rejects_wrong_existing_source(
     (
         "sperm_transport_reference",
         "accessory_gland_secretion_reference",
+        "bladder_neck_ejaculatory_closure_reference",
+        "external_urethral_sphincter_ejaculatory_coordination_reference",
     ),
 )
 def test_reproductive_event_observability_rejects_class_drift(
@@ -167,6 +179,8 @@ def test_reproductive_event_observability_rejects_class_drift(
     (
         "sperm_transport_reference",
         "accessory_gland_secretion_reference",
+        "bladder_neck_ejaculatory_closure_reference",
+        "external_urethral_sphincter_ejaculatory_coordination_reference",
     ),
 )
 def test_reproductive_event_observability_rejects_missing_source(
