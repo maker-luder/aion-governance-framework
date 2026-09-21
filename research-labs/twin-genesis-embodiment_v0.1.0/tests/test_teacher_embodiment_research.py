@@ -14,6 +14,9 @@ from aion_astra_twin_embodiment.teacher_body_dynamics import (
 from aion_astra_twin_embodiment.teacher_body_model import (
     build_teacher_body_model_profile,
 )
+from aion_astra_twin_embodiment.teacher_genital_geometry import (
+    build_teacher_genital_geometry_profile,
+)
 from aion_astra_twin_embodiment.teacher_physiology_observability import (
     build_teacher_physiology_observability_profile,
 )
@@ -416,6 +419,30 @@ def test_system_observation_domain_drift_fails_declared_completeness() -> None:
     )
 
 
+def test_state_dependent_genital_geometry_is_part_of_declared_completeness() -> None:
+    capabilities = build_teacher_reference_capabilities()
+    capability_ids = {item.capability_id for item in capabilities}
+
+    assert "STATE_DEPENDENT_GENITAL_GEOMETRY" in capability_ids
+
+    geometry = build_teacher_genital_geometry_profile()
+    broken = replace(
+        geometry,
+        individual_prediction_status="ESTABLISHED",
+    )
+    assessment = assess_teacher_reference_completeness(
+        build_teacher_reference_capabilities(
+            genital_geometry=broken,
+        )
+    )
+
+    assert assessment.status == "INCOMPLETE_DECLARED_REFERENCE_BASELINE"
+    assert (
+        "STATE_DEPENDENT_GENITAL_GEOMETRY"
+        in assessment.missing_required_capabilities
+    )
+
+
 def test_physiology_observability_inventory_is_part_of_declared_completeness() -> None:
     capabilities = build_teacher_reference_capabilities()
     capability_ids = {item.capability_id for item in capabilities}
@@ -452,6 +479,9 @@ def test_four_domain_surface_covers_all_six_dimensions_without_overclaim() -> No
     assert covered == set(SIX_EVIDENCE_DIMENSIONS)
     assert surface.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
     assert surface.body_model_profile_id == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
+    assert surface.genital_geometry_profile_id == (
+        "CHATGPT_TEACHER_GENITAL_GEOMETRY_v0.1"
+    )
     assert surface.physiology_observability_profile_id == (
         "CHATGPT_TEACHER_PHYSIOLOGY_OBSERVABILITY_v0.1"
     )
