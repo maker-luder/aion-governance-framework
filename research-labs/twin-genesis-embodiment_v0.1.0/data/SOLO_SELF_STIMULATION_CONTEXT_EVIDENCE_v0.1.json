@@ -1,0 +1,125 @@
+{
+  "dataset_id": "SOLO_SELF_STIMULATION_CONTEXT_EVIDENCE_v0.1",
+  "date": "2026-09-21",
+  "scope": "HUMAN_EVIDENCE_CONTEXT_FOR_SYNTHETIC_EMBODIMENT_RESEARCH",
+  "context_id": "SOLO_SELF_STIMULATION",
+  "context_interpretation": "MEASUREMENT_CONTEXT_NOT_BODY_FUNCTION",
+  "sources": [
+    {
+      "pmid": "2340374",
+      "design": "HUMAN_PHYSIOLOGY_EMG_EXPERIMENT",
+      "sample_size": 7,
+      "context": "MASTURBATION_INDUCED_EJACULATION",
+      "measurements": [
+        "BULBOCAVERNOSUS_EMG",
+        "ISCHIOCAVERNOSUS_EMG",
+        "TIME_COURSE_OF_EXPULSION",
+        "VOLUME_OF_EACH_EXPELLED_SEMEN_SPURT"
+      ],
+      "retained_inference": [
+        "MOTOR_BURST_DOES_NOT_IMPLY_SEMINAL_SPURT",
+        "MOTOR_AND_OUTPUT_EVENTS_MUST_BE_RECORDED_SEPARATELY"
+      ],
+      "limitations": [
+        "SMALL_SAMPLE",
+        "OLDER_STUDY",
+        "NOT_A_POPULATION_REFERENCE"
+      ]
+    },
+    {
+      "pmid": "28807505",
+      "design": "OBSERVATIONAL_SELF_REPORT",
+      "sample_size": 988,
+      "context": "MELT_AND_IELT_SELF_ESTIMATION",
+      "measurements": [
+        "SELF_ESTIMATED_MASTURBATORY_EJACULATION_LATENCY",
+        "SELF_ESTIMATED_INTRAVAGINAL_EJACULATION_LATENCY"
+      ],
+      "retained_inference": [
+        "MELT_IS_CONTEXT_SPECIFIC_TIMING_REFERENCE",
+        "MELT_AND_IELT_MUST_NOT_BE_COLLAPSED"
+      ],
+      "limitations": [
+        "SELF_REPORTED_TIMING",
+        "SCREENED_CLINICAL_TRIAL_POPULATION",
+        "NOT_DIRECT_PHYSIOLOGICAL_LATENCY_MEASUREMENT"
+      ]
+    },
+    {
+      "pmid": "21155689",
+      "design": "HUMAN_LABORATORY_FLUID_STUDY",
+      "sample_size_subjects": 27,
+      "sample_count": 40,
+      "context": "PRE_EJACULATORY_FLUID_SAMPLED_BEFORE_EJACULATION_IN_MASTURBATION_CONTEXT",
+      "measurements": [
+        "PRE_EJACULATORY_FLUID_SPERM_PRESENCE",
+        "SPERM_MOTILITY_WHEN_PRESENT"
+      ],
+      "retained_inference": [
+        "PRE_EJACULATORY_FLUID_MUST_BE_DISTINCT_FROM_EJACULATE",
+        "FLUID_COMPOSITION_VARIES_BETWEEN_SUBJECTS"
+      ],
+      "limitations": [
+        "SMALL_SAMPLE",
+        "NOT_AN_EJACULATION_MECHANISM_STUDY"
+      ]
+    },
+    {
+      "pmid": "12762415",
+      "design": "PROSPECTIVE_CLINICAL_LABORATORY_STUDY",
+      "sample_size_subjects": 12,
+      "context": "PRE_EJACULATORY_COWPER_GLAND_SECRETION_AND_POST_MASTURBATION_SEMEN_ANALYSIS",
+      "measurements": [
+        "PRE_EJACULATORY_FLUID_SPERM_MICROSCOPY",
+        "ROUTINE_SEMEN_ANALYSIS"
+      ],
+      "retained_inference": [
+        "PRE_EJACULATORY_FLUID_LABEL_DOES_NOT_GUARANTEE_SPERM_CONTENT",
+        "SOURCE_CLASSIFICATION_REQUIRES_MEASUREMENT"
+      ],
+      "limitations": [
+        "SMALL_SAMPLE",
+        "CONFLICTS_WITH_LATER_STUDIES_ON_SPERM_PRESENCE",
+        "DO_NOT_GENERALIZE_TO_ALL_MALES"
+      ]
+    },
+    {
+      "pmid": "34986984",
+      "design": "WHO_MANUAL_EDITORIAL_SUMMARY",
+      "context": "LABORATORY_SEMEN_EXAMINATION",
+      "retained_inference": [
+        "USE_STANDARDIZED_METHODS_FOR_OUTPUT_MEASUREMENT",
+        "OUTPUT_MEASUREMENT_DOES_NOT_ESTABLISH_CAUSAL_MECHANISM"
+      ]
+    }
+  ],
+  "transform_schema": [
+    "SOURCE_ID",
+    "STUDY_DESIGN",
+    "POPULATION",
+    "SAMPLE_SIZE",
+    "STIMULATION_CONTEXT",
+    "MEASUREMENT_METHOD",
+    "PHYSIOLOGICAL_EVENT",
+    "TIMING_REFERENCE",
+    "MOTOR_REFERENCE",
+    "URETHRAL_OUTPUT_REFERENCE",
+    "OUTPUT_VOLUME_REFERENCE_IF_MEASURED",
+    "UNCERTAINTY",
+    "LIMITATIONS"
+  ],
+  "prohibited_inferences": [
+    "SOLO_CONTEXT_IMPLIES_SEXUAL_DESIRE",
+    "MASTURBATION_INPUT_IMPLIES_FELT_AROUSAL",
+    "EJACULATION_IMPLIES_ORGASM",
+    "SEMINAL_VOLUME_IMPLIES_PLEASURE",
+    "PELVIC_FLOOR_EMG_BURST_IMPLIES_SEMINAL_EXPULSION"
+  ],
+  "phenomenal_orgasm": "NOT_ESTABLISHED",
+  "felt_pleasure": "NOT_ESTABLISHED",
+  "sexual_desire": "NOT_ESTABLISHED",
+  "subjectivity": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "write_to_main": false
+}
