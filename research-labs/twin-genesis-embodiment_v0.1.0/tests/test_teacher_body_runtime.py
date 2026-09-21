@@ -55,10 +55,14 @@ def test_teacher_body_runtime_binding_is_materialized_without_live_external_actu
     )
     assert binding.body_dynamics_profile_id == "CHATGPT_TEACHER_BODY_DYNAMICS_v0.1"
     assert binding.body_model_profile_id == "CHATGPT_TEACHER_BODY_MODEL_v0.1"
+    assert binding.genital_geometry_profile_id == (
+        "CHATGPT_TEACHER_GENITAL_GEOMETRY_v0.1"
+    )
     assert binding.research_surface_id == (
         "CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1"
     )
     assert result["body_model_binding"] == "PASS"
+    assert result["genital_geometry_binding"] == "PASS"
     assert result["physiology_observability_binding"] == "PASS"
     assert result["reference_completeness"] == "PASS"
     assert binding.skeleton_root == "hips"
@@ -102,6 +106,10 @@ def test_integrated_body_state_binds_to_exact_runtime_body_instance() -> None:
     assert bound.body_dynamics_profile_id == binding.body_dynamics_profile_id
     assert bound.body_model_profile_id == binding.body_model_profile_id
     assert (
+        bound.genital_geometry_profile_id
+        == binding.genital_geometry_profile_id
+    )
+    assert (
         bound.physiology_observability_profile_id
         == binding.physiology_observability_profile_id
     )
@@ -132,6 +140,16 @@ def test_bound_body_state_fails_closed_on_instance_or_source_drift() -> None:
     with pytest.raises(ValueError, match="source-state hash drift"):
         validate_teacher_bound_body_state(
             replace(bound, source_body_state_sha256="0" * 64),
+            binding,
+            state,
+        )
+
+    with pytest.raises(ValueError, match="genital-geometry profile drift"):
+        validate_teacher_bound_body_state(
+            replace(
+                bound,
+                genital_geometry_profile_id="WRONG-GEOMETRY",
+            ),
             binding,
             state,
         )
