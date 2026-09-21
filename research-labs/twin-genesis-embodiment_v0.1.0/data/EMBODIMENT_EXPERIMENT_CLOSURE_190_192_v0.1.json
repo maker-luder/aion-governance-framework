@@ -1,7 +1,7 @@
 {
   "manifest_id": "EMBODIMENT_EXPERIMENT_CLOSURE_190_192_v0.1",
   "date": "2026-09-21",
-  "status": "CLOSED_RESEARCH_SEGMENT",
+  "status": "CLOSED_RESEARCH_SEGMENT_AFTER_VERIFIED_BOUNDED_AMENDMENT",
   "integration_mode": "ARCHIVAL_PACKAGE_INTEGRATION",
   "branch_history_merge": false,
   "write_to_main": false,
@@ -24,7 +24,8 @@
       "pull_request": 192,
       "role_scope": "CHATGPT_TEACHER_3D_BODY_REFERENCE_RUNTIME_AND_INTEGRATION",
       "exact_head_before_closure_record": "4f73520f5b590c4a7d6674cb35991d61066c4249",
-      "disposition": "CLOSE_UNMERGED_AFTER_CLOSURE_RECORD"
+      "disposition": "RECLOSE_UNMERGED_AFTER_AMENDED_CLOSURE_RECORD",
+      "verified_post_closure_patch_head": "e003457694d699b6308c396baff7a18e5adb9ffd"
     }
   ],
   "preserved_boundaries": {
@@ -37,5 +38,31 @@
     "moral_status": "NOT_ESTABLISHED",
     "digital_twin_identity": "NOT_ESTABLISHED"
   },
-  "future_reopening_policy": "REQUIRES_NEW_EXPLICIT_RESEARCH_DECISION"
+  "future_reopening_policy": "REQUIRES_NEW_EXPLICIT_RESEARCH_DECISION",
+  "amendments": [
+    {
+      "amendment_id": "POST_CLOSURE_GAP_FIX_2026_09_21",
+      "authorization": "EXPLICIT_HUMAN_OWNER_RESEARCH_DECISION",
+      "scope": [
+        "ERECTILE_PHYSIOLOGY_TO_STATE_DEPENDENT_GEOMETRY",
+        "FEELING_RELEVANT_BODY_INTEGRATION_ASSESSMENT"
+      ],
+      "verified_patch_head": "e003457694d699b6308c396baff7a18e5adb9ffd",
+      "quality_run": "#2002 SUCCESS",
+      "codeql_run": "#1236 SUCCESS",
+      "geometry_reference": {
+        "population_reference_pmid": "25487360",
+        "transform_basis": "SYNTHETIC_RATIO_FROM_POPULATION_MEANS",
+        "individual_prediction_status": "NOT_ESTABLISHED",
+        "biological_measurement_status": "NOT_ESTABLISHED"
+      },
+      "feeling_relevant_research_boundary": {
+        "body_data_not_felt_body": true,
+        "body_integration_not_phenomenal_experience": true,
+        "phenomenal_body_feeling": "NOT_ESTABLISHED",
+        "subjectivity": "NOT_ESTABLISHED",
+        "consciousness": "NOT_ESTABLISHED"
+      }
+    }
+  ]
 }
