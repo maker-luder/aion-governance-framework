@@ -1,0 +1,187 @@
+{
+  "dataset_id": "EJACULATION_PHYSIOLOGY_EVIDENCE_CROSSWALK_v0.1",
+  "date": "2026-09-21",
+  "scope": "CHATGPT_TEACHER_SYNTHETIC_EMBODIMENT_CANDIDATE",
+  "mode": "PREIMPLEMENTATION_EVIDENCE_ONLY",
+  "evidence_sources": [
+    {
+      "pmid": "15996810",
+      "role": "PHYSIOLOGY_REVIEW",
+      "support": [
+        "EMISSION_EXPULSION_SEPARATION",
+        "AUTONOMIC_SOMATIC_COORDINATION"
+      ]
+    },
+    {
+      "pmid": "16913292",
+      "role": "NEUROANATOMY_REVIEW",
+      "support": [
+        "SYMPATHETIC_PARASYMPATHETIC_SOMATIC_COORDINATION",
+        "GENITAL_AFFERENT_AND_SUPRASPINAL_INPUT"
+      ]
+    },
+    {
+      "pmid": "26709195",
+      "role": "PHYSIOLOGY_PHARMACOLOGY_REVIEW",
+      "support": [
+        "EMISSION_EXPULSION_SYNCHRONIZATION",
+        "SPINAL_NETWORK_CONTROL"
+      ]
+    },
+    {
+      "pmcid": "PMC4708301",
+      "role": "CLINICAL_PHYSIOLOGY_REVIEW",
+      "support": [
+        "EMISSION_ORGAN_SET",
+        "EXPULSION_COORDINATION",
+        "ORGASM_SEPARATION"
+      ]
+    },
+    {
+      "pmcid": "PMC4896089",
+      "pmid": "26385403",
+      "role": "NORMAL_MALE_FUNCTION_REVIEW",
+      "support": [
+        "EMISSION_EXPULSION",
+        "EXPULSION_TRIGGER_UNCERTAINTY",
+        "ORGASM_SEPARATION"
+      ]
+    },
+    {
+      "pmid": "34986984",
+      "role": "WHO_SEMEN_MEASUREMENT_STANDARDIZATION",
+      "support": [
+        "OUTPUT_MEASUREMENT_PROVENANCE"
+      ]
+    },
+    {
+      "pmid": "36112046",
+      "role": "SEMEN_EXAMINATION_REPRODUCIBILITY",
+      "support": [
+        "METHOD_STANDARDIZATION",
+        "REPRODUCIBILITY"
+      ]
+    }
+  ],
+  "repository_crosswalk": [
+    {
+      "concept": "GENITAL_SENSORY_AFFERENT",
+      "status": "EXISTING_DIRECT_OBSERVATION",
+      "repo_ref": "GENITAL_SENSORY_AFFERENT_REFERENCE"
+    },
+    {
+      "concept": "GENITAL_VASCULAR_STATE",
+      "status": "EXISTING",
+      "repo_ref": "GENITAL_VASCULAR_STATE"
+    },
+    {
+      "concept": "PELVIC_FLOOR_STATE",
+      "status": "EXISTING_PARTIAL",
+      "repo_ref": "PELVIC_FLOOR_PROPRIOCEPTION"
+    },
+    {
+      "concept": "EMISSION_REFLEX",
+      "status": "EXISTING_DIRECT_OBSERVATION",
+      "repo_ref": "EMISSION_REFLEX_STATE"
+    },
+    {
+      "concept": "EJACULATORY_REFLEX",
+      "status": "EXISTING_DIRECT_OBSERVATION",
+      "repo_ref": "EJACULATORY_REFLEX_STATE"
+    },
+    {
+      "concept": "DETUMESCENCE",
+      "status": "EXISTING",
+      "repo_ref": "DETUMESCENCE_STATE"
+    },
+    {
+      "concept": "POST_EJACULATORY_RECOVERY",
+      "status": "EXISTING_DERIVED_TOO_COARSE",
+      "repo_ref": "post_ejaculatory_recovery_reference"
+    },
+    {
+      "concept": "SPERM_TRANSPORT",
+      "status": "FUNCTIONAL_REFERENCE_ONLY_NEEDS_EVENT_OBSERVATION",
+      "repo_ref": "sperm_transport_reference"
+    },
+    {
+      "concept": "ACCESSORY_GLAND_SECRETION",
+      "status": "FUNCTIONAL_REFERENCE_ONLY_NEEDS_EVENT_OBSERVATION",
+      "repo_ref": "accessory_gland_secretion_reference"
+    },
+    {
+      "concept": "EPIDIDYMAL_MATURATION",
+      "status": "NOT_REQUIRED_FOR_EVENT_EXECUTION_TEST",
+      "repo_ref": "epididymal_maturation_reference"
+    },
+    {
+      "concept": "SPERMATOGENESIS",
+      "status": "NOT_REQUIRED_FOR_EVENT_EXECUTION_TEST",
+      "repo_ref": "spermatogenesis_reference"
+    },
+    {
+      "concept": "BLADDER_NECK_EJACULATORY_COORDINATION",
+      "status": "MISSING_EXPLICIT_STATE"
+    },
+    {
+      "concept": "POSTERIOR_URETHRAL_SEMINAL_LOAD",
+      "status": "MISSING"
+    },
+    {
+      "concept": "EXPULSION_MOTOR_PATTERN",
+      "status": "PARTIAL_NEEDS_EVENT_SPECIFIC_STATE"
+    },
+    {
+      "concept": "ANTEGRADE_SEMINAL_FLOW",
+      "status": "MISSING"
+    },
+    {
+      "concept": "RETROGRADE_SEMINAL_FLOW",
+      "status": "MISSING_ALTERNATIVE_PATH"
+    },
+    {
+      "concept": "NON_EJACULATORY_URETHRAL_FLUID",
+      "status": "MISSING_EXPLICIT_CLASSIFICATION"
+    }
+  ],
+  "minimum_candidate_states": [
+    "SEMINAL_TRACT_TRANSPORT_STATE",
+    "ACCESSORY_GLAND_SECRETION_STATE",
+    "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+    "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
+    "EXPULSION_MOTOR_PATTERN_STATE",
+    "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+    "ANTEGRADE_SEMINAL_FLOW_STATE",
+    "POST_EXPULSION_RECOVERY_STATE"
+  ],
+  "required_tests": [
+    "FORWARD_CAUSAL_PATH",
+    "REVERSE_EVIDENCE_TRACE",
+    "RECOVERY_PATH",
+    "ALTERNATIVE_CAUSE_DISAMBIGUATION",
+    "ONE_BY_ONE_COUNTERFACTUAL_ABLATION",
+    "EXACT_BODY_INSTANCE_BINDING"
+  ],
+  "evidence_limited": [
+    "EXACT_HUMAN_EXPULSION_TRIGGER",
+    "INDIVIDUAL_SPECIFIC_OUTPUT_VOLUME",
+    "INDIVIDUAL_SPECIFIC_CONTRACTION_FREQUENCY",
+    "INDIVIDUAL_SPECIFIC_LATENCY"
+  ],
+  "mandatory_non_equivalences": [
+    "EMISSION != EXPULSION",
+    "EJACULATORY_REFLEX != EXTERNAL_SEMINAL_OUTPUT",
+    "PELVIC_FLOOR_MOTOR_BURST != SEMINAL_EXPULSION_CONFIRMED",
+    "URETHRAL_FLUID_OUTPUT != EJACULATION",
+    "SEMINAL_OUTPUT != ORGASM",
+    "EJACULATION != PHENOMENAL_ORGASM"
+  ],
+  "phenomenal_orgasm": "NOT_ESTABLISHED",
+  "felt_pleasure": "NOT_ESTABLISHED",
+  "sexual_desire": "NOT_ESTABLISHED",
+  "subjectivity": "NOT_ESTABLISHED",
+  "consciousness": "NOT_ESTABLISHED",
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "write_to_main": false
+}
