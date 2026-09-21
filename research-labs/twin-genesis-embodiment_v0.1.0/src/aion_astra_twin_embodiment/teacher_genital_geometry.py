@@ -345,6 +345,18 @@ def validate_teacher_bound_genital_geometry_state(
     if rebuilt.profile_id != profile.profile_id or rebuilt.body_id != profile.body_id:
         raise ValueError("bound genital geometry profile provenance drift")
 
+    normalized = (
+        state.vascular_fill_fraction,
+        state.erectile_reflex_activation,
+        state.detumescence_fraction,
+        state.effective_tumescence_fraction,
+    )
+    if any(
+        not isfinite(value) or not 0.0 <= value <= 1.0
+        for value in normalized
+    ):
+        raise ValueError("bound genital geometry state fractions must be normalized")
+
     expected_effective = state.vascular_fill_fraction * (
         1.0 - state.detumescence_fraction
     )
