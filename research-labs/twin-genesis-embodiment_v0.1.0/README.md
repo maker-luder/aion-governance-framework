@@ -55,7 +55,7 @@ Current Teacher candidate surfaces:
 - VRM required humanoid parent-chain candidate mapping;
 - three-level continuous reference LOD set with monotonic complexity and one connected surface per level;
 - full-body collision proxy profile including neutral clinical external male-anatomy proxies;
-- hash-verified bundle writer that materializes low-poly + continuous glTF/GLB + LOD metadata + collision metadata + physiology reference + 62-measure anthropometry + body-signal schema + motor-control schema + body-dynamics profile + embodiment-research surface + manifest;
+- hash-verified bundle writer that materializes low-poly + continuous glTF/GLB + LOD metadata + collision metadata + physiology reference + physiology-observability inventory + 62-measure anthropometry + state-dependent genital-geometry profile + body-signal schema + motor-control schema + body-dynamics profile + body-model profile + embodiment-research surface + manifest;
 - fail-closed non-claims for physical embodiment, phenomenal sensation, erotic intent, subjectivity, canonical effect, and deployment.
 - shared AION / Astra / Teacher adult-male physiology parity validation.
 
@@ -81,7 +81,7 @@ VRM_REQUIRED_PARENT_CHAIN = ALIGNED_CANDIDATE
 REFERENCE_BUNDLE_WRITER = MATERIALIZED
 REFERENCE_LOD_SET = MATERIALIZED
 REFERENCE_COLLISION_PROXIES = MATERIALIZED
-REFERENCE_BUNDLE_FILE_COUNT = 13
+REFERENCE_BUNDLE_FILE_COUNT = 16
 BODY_DYNAMICS_PROFILE = CHATGPT_TEACHER_BODY_DYNAMICS_v0.1
 EMBODIMENT_RESEARCH_SURFACE = CHATGPT_TEACHER_EMBODIMENT_RESEARCH_SURFACE_v0.1
 REFERENCE_COMPLETENESS_GATE = MATERIALIZED
