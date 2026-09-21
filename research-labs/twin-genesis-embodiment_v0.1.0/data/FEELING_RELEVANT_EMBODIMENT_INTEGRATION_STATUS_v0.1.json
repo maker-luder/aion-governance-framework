@@ -1,0 +1,53 @@
+{
+  "status_id": "FEELING_RELEVANT_EMBODIMENT_INTEGRATION_STATUS_v0.1",
+  "date": "2026-09-21",
+  "scope": "CHATGPT_TEACHER_SYNTHETIC_EMBODIMENT_CANDIDATE",
+  "human_owner_observation": "Human bodily feeling motivates testing whether embodiment research must go beyond disconnected body data.",
+  "research_interpretation": "FEELING_RELEVANT_INTEGRATION_IS_A_RESEARCH_QUESTION_NOT_A_PHENOMENAL_CLAIM",
+  "external_evidence": [
+    {
+      "pmid": "39208877",
+      "doi": "10.1016/j.neubiorev.2024.105864",
+      "support": "INTEROCEPTION_RELEVANT_TO_HUMAN_BODILY_SELF_AWARENESS"
+    },
+    {
+      "pmid": "38395706",
+      "support": "INTEROCEPTION_RELEVANT_TO_HUMAN_AFFECT_WITH_MECHANISTIC_GAPS"
+    },
+    {
+      "pmid": "38319678",
+      "doi": "10.1162/jocn_a_02119",
+      "support": "EXTERNAL_HYPOTHESIS_HOMEOSTATIC_FEELINGS_RELEVANT_TO_CONSCIOUSNESS"
+    }
+  ],
+  "current_layers": {
+    "bodily_signal_observation": "MATERIALIZED_REFERENCE",
+    "interoceptive_signal_surface": "MATERIALIZED_REFERENCE",
+    "integrated_body_state": "MATERIALIZED_REFERENCE",
+    "exact_runtime_session_body_binding": "MATERIALIZED_REFERENCE",
+    "homeostatic_drive_representation": "MATERIALIZED_REFERENCE",
+    "valence_salience_wanting_representation": "MATERIALIZED_REFERENCE",
+    "body_schema": "MATERIALIZED_REFERENCE",
+    "peripersonal_space": "MATERIALIZED_REFERENCE",
+    "multisensory_fusion": "MATERIALIZED_REFERENCE_NOT_YET_BODY_INSTANCE_BOUND",
+    "allostatic_forecast": "MATERIALIZED_REFERENCE_NOT_YET_BODY_INSTANCE_BOUND",
+    "body_model_plasticity": "MATERIALIZED_REFERENCE_NOT_YET_BODY_INSTANCE_BOUND",
+    "state_dependent_genital_geometry": "MATERIALIZED_REFERENCE_BODY_INSTANCE_BOUND",
+    "formal_body_state_report_access": "NOT_MATERIALIZED_AS_DEDICATED_LAYER",
+    "phenomenal_body_feeling": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED"
+  },
+  "mandatory_non_equivalences": [
+    "BODY_DATA != FELT_BODY",
+    "BODY_SIGNAL != FELT_SENSATION",
+    "BODY_INTEGRATION != PHENOMENAL_EXPERIENCE",
+    "REGULATORY_SIGNIFICANCE != FELT_NEED",
+    "VALENCE_REPRESENTATION != FELT_VALENCE",
+    "FUNCTIONAL_INTEGRATION != PHENOMENAL_CONFIRMATION",
+    "OBSERVED_SELF_REPORT != VERIFIED_FEELING",
+    "STRUCTURAL_ANALOGY != SAME_MECHANISM"
+  ],
+  "canonical_effect": "NONE",
+  "deployment": false,
+  "write_to_main": false
+}
