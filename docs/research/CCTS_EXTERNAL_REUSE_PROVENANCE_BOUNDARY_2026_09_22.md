@@ -118,7 +118,8 @@ The bounded repository rule is therefore:
 
 ```text
 KNOWN_DERIVATION_FROM_REPOSITORY
-=> INDEPENDENCE_FLAG = FALSE
+=> INDEPENDENT_ORIGIN = FALSE
+=> INDEPENDENT_DATA_METHOD_ANALYSIS = REQUIRES_SEPARATE_REVIEW
 
 SOURCE_SIMILARITY
 != INDEPENDENT_REPLICATION
@@ -230,3 +231,24 @@ CONSCIOUSNESS = NOT_ESTABLISHED
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 SCIENTIFIC_DISPOSITION = HOLD
 ```
+
+
+## 12. Independence dimensions clarified — 2026-09-23
+
+Work cross-review distinguishes dependence of a hypothesis or construct from
+independence of its empirical test. Deriving a question or operational definition
+from CCTS does not, by itself, disqualify independently collected data or analysis.
+Conversely, publication at an external venue does not make reused repository
+fixtures into independent evidence. The earlier shorthand `DERIVED != INDEPENDENT`
+refers to origin/dependency and must not be used as a blanket exclusion of replication.
+
+Review derivation, data collection, method implementation and analysis separately.
+For example, a cited CCTS-derived hypothesis tested with new independent data is
+a candidate for review; republishing the same synthetic fixtures is not independent
+empirical corroboration. Unknown independence stays unknown. Neither case decides
+misconduct, legal ownership, scientific truth or AI subjectivity.
+
+The three observations in #198 remain separately sourced documentation.
+[Draft PR #199](https://github.com/maker-luder/aion-governance-framework/pull/199)
+contains the synthetic implementation/cross-review handoff, not an ingestion of
+these private episodes or a completed external-evidence-independence detector.
