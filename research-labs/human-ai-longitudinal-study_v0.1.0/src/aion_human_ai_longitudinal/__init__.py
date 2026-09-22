@@ -67,6 +67,13 @@ from .metacognitive_policy_transfer import (
     audit_metacognitive_transfer_matrix,
     observe_metacognitive_transfer,
 )
+from .epistemic_revision import (
+    ConceptualRevisionTrace,
+    EpistemicChallengeType,
+    EpistemicRevisionAudit,
+    RevisionDisposition,
+    audit_ccts_epistemic_revision_loop,
+)
 from .co_constructed_thinking_space import (
     CoConstructedThinkingSpaceManifest,
     ContributionRole,
@@ -116,6 +123,7 @@ __all__ = [
     "ChoiceAlternative",
     "ChoiceOpportunity",
     "CoConstructedThinkingSpaceManifest",
+    "ConceptualRevisionTrace",
     "ConditionProfile",
     "ContextCondition",
     "ContrastAudit",
@@ -125,7 +133,9 @@ __all__ = [
     "DependencyGraph",
     "DependencyNode",
     "EdgeType",
+    "EpistemicChallengeType",
     "EpistemicContribution",
+    "EpistemicRevisionAudit",
     "EpistemicInstruction",
     "EvidenceReuseFirewall",
     "EvidenceSupportManifest",
@@ -155,6 +165,7 @@ __all__ = [
     "ReentryCondition",
     "ReentryContrastReceipt",
     "ReentryMetrics",
+    "RevisionDisposition",
     "RevisionEdge",
     "RevisionRelation",
     "RunBinding",
@@ -179,6 +190,7 @@ __all__ = [
     "audit_accumulation_packets",
     "audit_calibration",
     "audit_co_constructed_thinking_space",
+    "audit_ccts_epistemic_revision_loop",
     "audit_metacognitive_transfer_matrix",
     "audit_task_selection_exposure_design",
     "audit_task_selection_exposure_design_hardened",
