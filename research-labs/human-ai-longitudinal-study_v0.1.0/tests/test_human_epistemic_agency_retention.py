@@ -353,6 +353,8 @@ def test_all_four_human_judgment_states_apply_only_to_ai_proposal_audit(
     assert observed.decision is decision
     assert observed.proposal_bound is True
     assert observed.rationale_bound is True
+    assert observed.active_ai_assistance_withheld is True
+    assert observed.ai_information_withheld is False
     assert observed.judgment_of_ai_proposal_candidate is True
     assert observed.independent_judgment_candidate is False
 
