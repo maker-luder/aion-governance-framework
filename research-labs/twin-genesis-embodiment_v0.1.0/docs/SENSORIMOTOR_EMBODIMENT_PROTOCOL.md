@@ -74,6 +74,7 @@ The transition auditor requires:
 PREDICTION binds exact BODY_MODEL(t)
 OBSERVATION binds exact PREDICTION
 BODY_MODEL(t+1) binds exact predecessor
+AUDIT RECEIPT binds exact BEFORE / PREDICTION / OBSERVATION / AFTER hashes
 sequence increments exactly once
 region universe remains stable
 state changes remain inside declared affected regions
@@ -124,6 +125,7 @@ BODY_MODEL_UPDATE != BODY_OWNERSHIP
 BODY_MODEL_UPDATE != SUBJECTIVITY
 BODY_MODEL_UPDATE != CONSCIOUSNESS
 BODY_MODEL_UPDATE != PHENOMENAL_EXPERIENCE
+CONTENT_ADDRESS_MATCH != SEMANTIC_CORRECTNESS
 SYNTHETIC_QA_PASS != SCIENTIFIC_VALIDATION
 ```
 

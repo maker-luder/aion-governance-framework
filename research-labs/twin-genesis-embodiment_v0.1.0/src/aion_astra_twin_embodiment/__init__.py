@@ -13,6 +13,7 @@ from .sensorimotor import (
     SensorimotorTransitionAudit,
     audit_sensorimotor_transition,
     body_model_snapshot_hash,
+    sensorimotor_observation_hash,
     sensorimotor_prediction_hash,
 )
 from .validation import ValidationError, validate_candidate
@@ -34,6 +35,7 @@ __all__ = [
     "SensorimotorTransitionAudit",
     "audit_sensorimotor_transition",
     "body_model_snapshot_hash",
+    "sensorimotor_observation_hash",
     "sensorimotor_prediction_hash",
     "ValidationError",
     "validate_candidate",

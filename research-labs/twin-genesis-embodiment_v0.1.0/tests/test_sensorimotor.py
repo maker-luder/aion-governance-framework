@@ -15,6 +15,7 @@ from aion_astra_twin_embodiment.sensorimotor import (
     SensorimotorPrediction,
     audit_sensorimotor_transition,
     body_model_snapshot_hash,
+    sensorimotor_observation_hash,
     sensorimotor_prediction_hash,
 )
 from aion_astra_twin_embodiment.validation import ValidationError
@@ -107,6 +108,11 @@ def test_prediction_error_localizes_synthetic_perturbation() -> None:
         SensorimotorDisposition.LOCALIZE_PERTURBATION,
     )
 
+    assert audit.embodiment_id == "BODY-AION"
+    assert audit.before_snapshot_sha256 == body_model_snapshot_hash(before)
+    assert audit.prediction_sha256 == sensorimotor_prediction_hash(pred)
+    assert audit.observation_sha256 == sensorimotor_observation_hash(obs)
+    assert audit.after_snapshot_sha256 == body_model_snapshot_hash(after)
     assert audit.prediction_error_present is True
     assert audit.action_consequence_bound is True
     assert audit.body_model_updated is True

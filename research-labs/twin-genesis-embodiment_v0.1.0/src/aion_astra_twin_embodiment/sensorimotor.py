@@ -191,6 +191,11 @@ class SensorimotorObservation:
 
 @dataclass(frozen=True, slots=True)
 class SensorimotorTransitionAudit:
+    embodiment_id: str
+    before_snapshot_sha256: str
+    prediction_sha256: str
+    observation_sha256: str
+    after_snapshot_sha256: str
     disposition: SensorimotorDisposition
     prediction_error_present: bool
     action_consequence_bound: bool
@@ -219,6 +224,12 @@ def sensorimotor_prediction_hash(prediction: SensorimotorPrediction) -> str:
     if type(prediction) is not SensorimotorPrediction:
         raise ValidationError("prediction must be an exact SensorimotorPrediction")
     return deterministic_hash(asdict(prediction))
+
+
+def sensorimotor_observation_hash(observation: SensorimotorObservation) -> str:
+    if type(observation) is not SensorimotorObservation:
+        raise ValidationError("observation must be an exact SensorimotorObservation")
+    return deterministic_hash(asdict(observation))
 
 
 def audit_sensorimotor_transition(
@@ -326,6 +337,11 @@ def audit_sensorimotor_transition(
                 )
 
     return SensorimotorTransitionAudit(
+        embodiment_id=expected_embodiment_id,
+        before_snapshot_sha256=before_hash,
+        prediction_sha256=sensorimotor_prediction_hash(prediction),
+        observation_sha256=sensorimotor_observation_hash(observation),
+        after_snapshot_sha256=body_model_snapshot_hash(after),
         disposition=disposition,
         prediction_error_present=prediction_error,
         action_consequence_bound=True,
