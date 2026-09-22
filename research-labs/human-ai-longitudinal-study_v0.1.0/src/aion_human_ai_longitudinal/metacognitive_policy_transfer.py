@@ -584,7 +584,8 @@ class HumanEpistemicAgencyObservation:
     decision: HumanJudgmentDecision | None
     proposal_bound: bool
     rationale_bound: bool
-    ai_withheld: bool
+    active_ai_assistance_withheld: bool
+    ai_information_withheld: bool
     judgment_of_ai_proposal_candidate: bool
     independent_judgment_candidate: bool
     held_out_scope: HeldOutTransferScope | None
@@ -634,7 +635,11 @@ class HumanEpistemicAgencyAudit:
 def observe_human_epistemic_agency(
     trial: HumanEpistemicAgencyTrial,
 ) -> HumanEpistemicAgencyObservation:
-    ai_withheld = not trial.ai_assistance_available
+    active_ai_assistance_withheld = not trial.ai_assistance_available
+    ai_information_withheld = trial.condition in {
+        HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE,
+        HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER,
+    }
     judgment_audit = (
         trial.condition is HumanEpistemicAgencyCondition.HUMAN_JUDGMENT_AUDIT
     )
@@ -648,9 +653,10 @@ def observe_human_epistemic_agency(
         decision=trial.decision,
         proposal_bound=judgment_audit and trial.ai_proposal is not None,
         rationale_bound=judgment_audit and trial.rationale is not None,
-        ai_withheld=ai_withheld,
+        active_ai_assistance_withheld=active_ai_assistance_withheld,
+        ai_information_withheld=ai_information_withheld,
         judgment_of_ai_proposal_candidate=judgment_audit,
-        independent_judgment_candidate=held_out and ai_withheld,
+        independent_judgment_candidate=held_out and ai_information_withheld,
         held_out_scope=trial.held_out_scope,
         policy_vocabulary_overlap_detected=(
             trial.leakage_check.prior_policy_vocabulary_overlap_detected
