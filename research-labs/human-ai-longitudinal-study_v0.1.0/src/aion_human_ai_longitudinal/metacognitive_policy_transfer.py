@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import StrEnum
+
 from .co_constructed_thinking_space import (
     CoConstructedThinkingSpaceManifest,
     ContributionRole,
