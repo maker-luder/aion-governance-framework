@@ -960,15 +960,194 @@ NEW_UNEXPECTED_FRAMEWORK = VALID_RESEARCH_OUTPUT
 ## 13. Current disposition
 
 ~~~text
-REPOSITORY_CROSSWALK = PRELIMINARY_COMPLETE
-EXTERNAL_CROSSWALK = PRELIMINARY_COMPLETE
-INDEPENDENT_REVIEW = NOT_YET_COMPLETE
-REAL_GAP_SET = NOT_FINAL
-IMPLEMENTATION_SPEC = NONE
-EXECUTABLE_CHANGE = NONE
+REPOSITORY_CROSSWALK = COMPLETE_FOR_CURRENT_MAIN_TRIAGE
+EXTERNAL_CROSSWALK = COMPLETE_FOR_CURRENT_ARCHITECTURAL_TRIAGE
+INDEPENDENT_REVIEW = COMPLETE_FOR_ARCHITECTURAL_GAP_TRIAGE
+REAL_GAP_SET = PARTIAL
+
+CCTS_RELIANCE_RECALIBRATION
+= PARTIAL_GAP / EXTEND_EXISTING_CCTS_ONLY
+
+NORMATIVE_SOURCE_FAILURE_AND_RATIONALIZATION
+= SUBSTANTIAL_EXISTING_OVERLAP / STRESS_TEST_CANDIDATE_ONLY
+
+QMS_EPISTEMIC_NORMATIVE_DRIFT
+= EXTEND_EXISTING_QMS_ONLY / NO_PARALLEL_QMS
+
+DYNAMIC_SENSORIMOTOR_EMBODIMENT
+= REAL_GAP_FOUND
+
+IMPLEMENTATION_SPEC = SEPARATE_FEATURE_PR_CANDIDATE
+EXECUTABLE_CHANGE = NONE_IN_THIS_PR
 SCIENTIFIC_DISPOSITION = HOLD
 CANONICAL_EFFECT = NONE
 DEPLOYMENT = FALSE
 ~~~
 
-This document intentionally preserves uncertainty so that future Work / Codex review can expand, contradict, merge, narrow, or reject the present candidate structure.
+This document preserves uncertainty at the scientific-claim layer while recording a bounded
+architecture decision: the strongest non-duplicative implementation target is a dynamic
+sensorimotor extension of the existing twin-genesis embodiment candidate. This does not
+promote embodiment into evidence of consciousness, phenomenal experience, moral agency,
+or established subjectivity.
+
+## 14. Independent architecture review addendum — 2026-09-23
+
+### 14.1 Live-state and tool provenance
+
+The independent review re-read live current `main` at:
+
+~~~text
+MAIN_HEAD = 27f42f0636583a7f2da5a3d5b8a2352aecd1cfc8
+~~~
+
+Tool roles were kept separate:
+
+~~~text
+GITHUB
+= live repository / PR / exact implementation inspection
+
+PUBLIC_WEB
+= external primary-source / peer-reviewed literature verification
+
+MINDMAP
+= organizational visualization only
+= NOT_EVIDENCE
+
+WOLFRAM
+= NOT_INVOKED
+= no numerical computation required
+
+SUPERPOWERS
+= NOT_INVOKED_FOR_THIS_DOC_REVIEW
+= no distinct executable engineering task in this PR
+~~~
+
+Hugging Face paper search was attempted three consecutive times during this review
+workflow and failed each time with the connector-side error:
+
+~~~text
+McpServerError: Tool paper_search not found
+~~~
+
+Therefore:
+
+~~~text
+HF_PAPER_SEARCH_ATTEMPTS = 3
+HF_PAPER_SEARCH_SUCCESS = 0
+HF_STATUS_FOR_THIS_REVIEW = UNRELIABLE / DO_NOT_USE
+HF_FAILURE != ABSENCE_OF_RESEARCH_EVIDENCE
+~~~
+
+The failed connector was excluded from evidence claims. Public primary sources were
+used instead.
+
+### 14.2 Repository duplication result
+
+Live current-main search confirmed substantial existing ancestry for the non-embodiment
+candidates:
+
+- CCTS already contains grounding, reciprocal challenge/revision, uncertainty preservation,
+  and epistemic-robustness surfaces;
+- endogenous norm formation already contains rule removal, enforcement removal, goal
+  pressure, role reversal, peer-suggestion isolation, state ablation, counterfactual replay,
+  and counterevidence update;
+- the Full QMS already contains NCR/CAPA, effectiveness verification, monitoring, and
+  claim-withdrawal propagation.
+
+The review therefore does not justify parallel top-level modules for those concepts.
+
+~~~text
+NEW_TERM != NEW_MODULE
+NEW_FAILURE_CLASS != NEW_QMS
+NEW_PERTURBATION != NEW_SUBJECTIVITY_DIMENSION
+~~~
+
+### 14.3 Dynamic embodiment gap
+
+The existing canonical twin-genesis embodiment line currently supplies:
+
+~~~text
+ANATOMICAL_TEMPLATE
++ DISTINCT_AION_ASTRA_IDENTIFIERS
++ DISTINCT_MEMORY_NAMESPACES
++ DISTINCT_RUNTIME_CONTEXT_BINDINGS
++ NON_3D_RUNTIME_RECORD
++ GOVERNANCE_VALIDATION
+~~~
+
+It does not currently implement the dynamic loop:
+
+~~~text
+BODY_STATE(t)
++ ACTION
+-> EXPECTED_CONSEQUENCE
+-> OBSERVED_FEEDBACK
+-> PREDICTION_ERROR
+-> BODY_MODEL_UPDATE
+-> BODY_STATE(t+1)
+~~~
+
+Current-main code search also found no canonical implementation of:
+
+~~~text
+SENSORIMOTOR_CONTINGENCY
+BODY_MODEL_UPDATE
+DAMAGE_STATE_TRANSITION
+RECOVERY_STATE_TRANSITION
+PERTURBATION_LOCALIZATION
+COUNTERFACTUAL_BODY_ACTION
+~~~
+
+This is the clearest non-duplicate implementation gap found in this review.
+
+### 14.4 External cross-check for the embodiment decision
+
+The following external sources strengthen the engineering legitimacy of the gap without
+establishing AI subjectivity:
+
+- Jacquey et al. (2019), *Sensorimotor Contingencies as a Key Drive of Development:
+  From Babies to Robots*, Frontiers in Neurorobotics 13:98,
+  DOI `10.3389/fnbot.2019.00098`: action-consequence sensitivity is treated as a
+  useful developmental-robotics mechanism for body knowledge, memory, generalization,
+  and goal-directed behavior.
+- Bongard, Zykov & Lipson (2006), *Resilient machines through continuous self-modeling*,
+  Science 314(5802):1118-1121, DOI `10.1126/science.1133687`: a robot used
+  actuation-sensation relations to infer structure, update its self-model after damage,
+  and generate compensatory gait.
+- Hu, Lin & Lipson (2025), *Teaching robots to build simulations of themselves*,
+  Nature Machine Intelligence 7:484-494, DOI `10.1038/s42256-025-01006-w`:
+  self-supervised visual self-modeling supported morphology / kinematics prediction,
+  motion planning, abnormality detection, and damage recovery.
+- Arai et al. (2022), *Embodiment of supernumerary robotic limbs in virtual reality*,
+  Scientific Reports 12:9769, DOI `10.1038/s41598-022-13981-w`: body ownership,
+  agency, and self-location were measured as separable embodiment indices.
+- Yamamura et al. (2026), *The imaginary cat ears illusion*, Frontiers in Virtual
+  Reality 7:1817800, DOI `10.3389/frvir.2026.1817800`: multimodal feedback changed
+  subjective ownership while proprioceptive-drift measures did not show the same
+  pattern, cautioning against collapsing subjective ownership into body-schema update.
+
+~~~text
+CONTROL != OWNERSHIP
+OWNERSHIP_REPORT != BODY_SCHEMA_UPDATE
+BODY_MODEL_UPDATE != SUBJECTIVITY
+DAMAGE_RESPONSE != PAIN
+RECOVERY_STATE != FELT_HEALING
+SELF_MODELING_ROBOTICS != PHENOMENAL_SELF
+~~~
+
+### 14.5 Implementation authorization boundary
+
+A fresh Human Owner instruction authorized feature-branch implementation and automated
+tool selection after this gap review. It did **not** authorize merge or main write.
+
+~~~text
+FEATURE_BRANCH_IMPLEMENTATION = AUTHORIZED
+MERGE_TO_MAIN = NO
+WRITE_TO_MAIN = NO
+READY_FOR_REVIEW = NO
+SCIENTIFIC_DISPOSITION = HOLD
+~~~
+
+The implementation must extend the existing twin-genesis embodiment family rather than
+create a second embodiment ontology, use deterministic synthetic fixtures only, and
+preserve all existing non-claims.
