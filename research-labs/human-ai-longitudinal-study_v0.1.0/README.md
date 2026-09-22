@@ -44,6 +44,25 @@ and grounded by
 The grounding-admission extension is documented in
 [`../../docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](../../docs/research/CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md).
 
+The bounded CCTS adversarial epistemic-revision extension is implemented in
+`src/aion_human_ai_longitudinal/ccts_epistemic_revision.py`, covered by
+`tests/test_ccts_epistemic_revision.py`, and specified in
+[`../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP_2026_09_23.md`](../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP_2026_09_23.md).
+It requires an already admitted CCTS manifest, reciprocal Human<->AI challenge traces,
+verified content-addressed working-model artifacts, explicit revision dispositions,
+and rejected-branch preservation for substantive model changes. The operational
+challenge labels include counterexamples, alternative explanations, hidden-assumption
+attacks, bypass paths, grounding and research-necessity challenges, evidence-sufficiency
+checks, falsifiers and scope challenges. These labels are repository operational
+categories rather than an asserted external taxonomy.
+
+The executable fixtures are privacy-safe abstractions of two interaction patterns:
+bypass-oriented constraint refinement and grounding/anomaly-driven working-model
+revision. They do not retain raw conversation, third-party identity, criminal
+operational detail, or private material. Structural revision does not establish
+conceptual change, cognitive conflict, transformative learning, Human learning,
+revision correctness, or a causal effect.
+
 Status: `IMPLEMENTED_EXPERIMENTAL_HARNESS / SCIENTIFIC_HOLD`
 
 This package turns the controlled study designs in the 2026-09-11 longitudinal
@@ -167,6 +186,14 @@ GROUNDING_PRESENT_AT_ADMISSION != TEMPORAL_ORDER_PROVEN
 PROBLEM_REPRESENTATION_DIGEST_PRESENT != PROBLEM_REPRESENTATION_GROUNDED
 JOINT_PROBLEM_REPRESENTATION != SHARED_MIND
 RECIPROCAL_REVISION != EPISTEMIC_CO_AGENCY_ESTABLISHED
+CHALLENGE_PRESENT != CHALLENGE_SUCCESSFUL
+MODEL_CHANGE != MODEL_IMPROVEMENT
+MODEL_REVISION != MODEL_CORRECTNESS
+STRUCTURAL_REVISION_TRACE != CONCEPTUAL_CHANGE_ESTABLISHED
+STRUCTURAL_REVISION_TRACE != COGNITIVE_CONFLICT_ESTABLISHED
+STRUCTURAL_REVISION_TRACE != TRANSFORMATIVE_LEARNING_ESTABLISHED
+FEASIBILITY != GROUNDING
+GROUNDING != RESEARCH_NECESSITY
 VALID_DIGEST != REFERENTIAL_INTEGRITY
 DECLARED_PRIVACY_FLAG_REJECTION != CONTENT_INSPECTION
 HARNESS_RECORD != PR91_CLAIM_ADMISSION
