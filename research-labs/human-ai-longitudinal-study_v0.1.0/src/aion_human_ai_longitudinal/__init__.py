@@ -86,6 +86,14 @@ from .co_constructed_thinking_space import (
     ThinkingSpaceProfile,
     audit_co_constructed_thinking_space,
 )
+from .ccts_epistemic_revision import (
+    CCTSEpistemicChallengeTrace,
+    CCTSEpistemicRevisionAudit,
+    ContentAddressedText,
+    EpistemicChallengeType,
+    EpistemicRevisionDisposition,
+    audit_ccts_epistemic_revision_loop,
+)
 from .task_selection_exposure import (
     AssignmentStep,
     BoundArtifact,
@@ -122,7 +130,10 @@ __all__ = [
     "CalibrationRun",
     "ChoiceAlternative",
     "ChoiceOpportunity",
+    "CCTSEpistemicChallengeTrace",
+    "CCTSEpistemicRevisionAudit",
     "CoConstructedThinkingSpaceManifest",
+    "ContentAddressedText",
     "ConditionProfile",
     "ContextCondition",
     "ContrastAudit",
@@ -133,7 +144,9 @@ __all__ = [
     "DependencyNode",
     "EdgeType",
     "EpistemicContribution",
+    "EpistemicChallengeType",
     "EpistemicInstruction",
+    "EpistemicRevisionDisposition",
     "EvidenceReuseFirewall",
     "EvidenceSupportManifest",
     "ExecutionIdentityBinding",
@@ -190,6 +203,7 @@ __all__ = [
     "TrialRecord",
     "audit_accumulation_packets",
     "audit_calibration",
+    "audit_ccts_epistemic_revision_loop",
     "audit_co_constructed_thinking_space",
     "audit_human_epistemic_agency_matrix",
     "audit_metacognitive_transfer_matrix",
