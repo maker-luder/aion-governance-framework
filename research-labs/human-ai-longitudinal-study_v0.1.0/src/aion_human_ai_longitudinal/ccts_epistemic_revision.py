@@ -7,6 +7,7 @@ from hashlib import sha256
 from .co_constructed_thinking_space import (
     CoConstructedThinkingSpaceManifest,
     ContributionRole,
+    RevisionRelation,
     audit_co_constructed_thinking_space,
 )
 from .harness import AdmissionDisposition, StudyError
@@ -52,9 +53,14 @@ class ContentAddressedText:
 @dataclass(frozen=True, slots=True)
 class CCTSEpistemicChallengeTrace:
     trace_id: str
+    trajectory_id: str
+    step_index: int
     ccts_manifest: CoConstructedThinkingSpaceManifest
     challenger_role: ContributionRole
     target_role: ContributionRole
+    challenger_contribution_id: str
+    target_contribution_id: str
+    attack_contribution_id: str
     challenge_type: EpistemicChallengeType
     prior_model: ContentAddressedText
     challenge: ContentAddressedText
@@ -76,6 +82,18 @@ class CCTSEpistemicChallengeTrace:
     def __post_init__(self) -> None:
         if type(self.trace_id) is not str or not self.trace_id.strip():
             raise StudyError("trace_id must be non-empty text")
+        if type(self.trajectory_id) is not str or not self.trajectory_id.strip():
+            raise StudyError("trajectory_id must be non-empty text")
+        if type(self.step_index) is not int or self.step_index < 0:
+            raise StudyError("step_index must be a non-negative exact int")
+        for name in (
+            "challenger_contribution_id",
+            "target_contribution_id",
+            "attack_contribution_id",
+        ):
+            value = getattr(self, name)
+            if type(value) is not str or not value.strip():
+                raise StudyError(f"{name} must be non-empty text")
         if type(self.ccts_manifest) is not CoConstructedThinkingSpaceManifest:
             raise StudyError(
                 "ccts_manifest must be an exact CoConstructedThinkingSpaceManifest"
@@ -95,6 +113,36 @@ class CCTSEpistemicChallengeTrace:
             )
         if self.challenger_role is self.target_role:
             raise StudyError("challenger_role and target_role must be distinct")
+
+        role_by_id = {
+            item.contribution_id: item.role for item in self.ccts_manifest.contributions
+        }
+        payload_by_id = {
+            item.contribution_id: item.payload_sha256
+            for item in self.ccts_manifest.contributions
+        }
+        for contribution_id in (
+            self.challenger_contribution_id,
+            self.target_contribution_id,
+            self.attack_contribution_id,
+        ):
+            if contribution_id not in role_by_id:
+                raise StudyError(
+                    "challenge trace contribution ids must resolve in the CCTS manifest"
+                )
+        if role_by_id[self.challenger_contribution_id] is not self.challenger_role:
+            raise StudyError("challenger contribution role does not match challenger_role")
+        if role_by_id[self.target_contribution_id] is not self.target_role:
+            raise StudyError("target contribution role does not match target_role")
+        if not any(
+            edge.source_id == self.challenger_contribution_id
+            and edge.target_id == self.target_contribution_id
+            and edge.relation in {RevisionRelation.REVISES, RevisionRelation.CHALLENGES}
+            for edge in self.ccts_manifest.revision_edges
+        ):
+            raise StudyError(
+                "challenge trace must bind a substantive CCTS revision/challenge edge"
+            )
         if type(self.challenge_type) is not EpistemicChallengeType:
             raise StudyError("challenge_type must be an exact EpistemicChallengeType")
         if type(self.disposition) is not EpistemicRevisionDisposition:
@@ -120,6 +168,10 @@ class CCTSEpistemicChallengeTrace:
             value = getattr(self, name)
             if value is not None and type(value) is not ContentAddressedText:
                 raise StudyError(f"{name} must be ContentAddressedText or None")
+        if payload_by_id[self.attack_contribution_id] != self.attack_artifact.sha256_hex:
+            raise StudyError(
+                "attack artifact must resolve to the declared CCTS contribution payload"
+            )
         for name in (
             "synthetic",
             "model_invoked",
@@ -183,9 +235,14 @@ class CCTSEpistemicChallengeTrace:
 @dataclass(frozen=True, slots=True)
 class CCTSEpistemicRevisionAudit:
     trace_count: int
+    trajectory_id: str
     space_id: str
     reciprocal_human_ai_challenge: bool
     ccts_contract_bound: bool
+    contribution_edge_bound: bool
+    attack_provenance_bound: bool
+    trajectory_order_bound: bool
+    revision_lineage_bound: bool
     verified_content_addressing: bool
     rejected_branch_preserved: bool
     challenge_types_present: tuple[EpistemicChallengeType, ...]
@@ -222,6 +279,21 @@ def audit_ccts_epistemic_revision_loop(
     trace_ids = [item.trace_id for item in traces]
     if len(trace_ids) != len(set(trace_ids)):
         raise StudyError("trace_id values must be unique")
+
+    trajectory_ids = {item.trajectory_id for item in traces}
+    if len(trajectory_ids) != 1:
+        raise StudyError("all challenge traces must bind one trajectory_id")
+    step_indexes = [item.step_index for item in traces]
+    if len(step_indexes) != len(set(step_indexes)):
+        raise StudyError("step_index values must be unique")
+    ordered = tuple(sorted(traces, key=lambda item: item.step_index))
+    if [item.step_index for item in ordered] != list(range(len(ordered))):
+        raise StudyError("step_index values must form a contiguous trajectory from zero")
+    for earlier, later in zip(ordered, ordered[1:]):
+        if earlier.revised_model.sha256_hex != later.prior_model.sha256_hex:
+            raise StudyError(
+                "adjacent challenge traces must bind revised-model to next prior-model"
+            )
 
     space_ids = {item.ccts_manifest.space_id for item in traces}
     if len(space_ids) != 1:
@@ -264,9 +336,14 @@ def audit_ccts_epistemic_revision_loop(
 
     return CCTSEpistemicRevisionAudit(
         trace_count=len(traces),
-        space_id=traces[0].ccts_manifest.space_id,
+        trajectory_id=ordered[0].trajectory_id,
+        space_id=ordered[0].ccts_manifest.space_id,
         reciprocal_human_ai_challenge=True,
         ccts_contract_bound=True,
+        contribution_edge_bound=True,
+        attack_provenance_bound=True,
+        trajectory_order_bound=True,
+        revision_lineage_bound=True,
         verified_content_addressing=True,
         rejected_branch_preserved=rejected_preserved,
         challenge_types_present=challenge_types,
