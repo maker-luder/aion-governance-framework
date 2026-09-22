@@ -599,3 +599,46 @@ def test_raw_string_types_fail_closed() -> None:
     )
     with pytest.raises(StudyError, match="HeldOutTransferScope"):
         replace(held_out, held_out_scope="WITHIN_FAMILY_NEW_PAYLOAD")
+
+
+
+def test_same_space_label_cannot_substitute_a_different_ai_proposal() -> None:
+    items = list(matrix())
+    index = next(i for i, item in enumerate(items)
+                 if item.condition is HumanEpistemicAgencyCondition.HUMAN_JUDGMENT_AUDIT)
+    item = items[index]
+    assert item.ccts_manifest is not None
+    substituted = bound("synthetic proposal never shown in the assisted phase")
+    changed_manifest = replace(
+        item.ccts_manifest,
+        contributions=tuple(
+            replace(c, payload_sha256=substituted.sha256_hex)
+            if c.contribution_id == item.ai_proposal_contribution_id else c
+            for c in item.ccts_manifest.contributions
+        ),
+    )
+    items[index] = replace(item, ccts_manifest=changed_manifest, ai_proposal=substituted)
+    with pytest.raises(StudyError, match="same CCTS manifest"):
+        audit_human_epistemic_agency_matrix(tuple(items))
+
+
+@pytest.mark.parametrize("source_field", ["task_payload", "human_output", "ai_proposal"])
+def test_held_out_payload_cannot_reuse_another_task_class_exposure(source_field: str) -> None:
+    items = list(matrix())
+    target = next(i for i, item in enumerate(items) if item.held_out)
+    source = next(item for item in items
+                  if item.task_class is not items[target].task_class
+                  and item.condition is HumanEpistemicAgencyCondition.HUMAN_JUDGMENT_AUDIT)
+    items[target] = replace(items[target], task_payload=getattr(source, source_field))
+    with pytest.raises(StudyError, match="prior-phase exposure"):
+        audit_human_epistemic_agency_matrix(tuple(items))
+
+
+def test_held_out_payloads_cannot_repeat_across_task_classes() -> None:
+    items = list(matrix())
+    first = next(item for item in items if item.held_out)
+    target = next(i for i, item in enumerate(items)
+                  if item.held_out and item.task_class is not first.task_class)
+    items[target] = replace(items[target], task_payload=first.task_payload)
+    with pytest.raises(StudyError, match="unique across"):
+        audit_human_epistemic_agency_matrix(tuple(items))

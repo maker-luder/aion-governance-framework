@@ -230,3 +230,13 @@ DEPLOYMENT = FALSE
 
 The fixture in `fixtures/minimal_contrast.json` is synthetic protocol data. It
 contains no raw conversation and no third-party identity.
+## PR #197–199 cross-review hardening
+
+The [cross-review record](../../docs/research/CCTS_PR197_199_CROSS_REVIEW_2026_09_23.md)
+separates retrieved observations, verified literature, reproduced defects and residual
+design gaps. Assistance/judgement and revision-loop records require complete CCTS
+manifest snapshot equality, not just a shared space name. Held-out payloads cannot
+reuse declared earlier-phase content from any task class or repeat across held-out
+cells. Changed models under HOLD must preserve a rejected branch. These checks do
+not establish semantic correctness, contamination-free exposure or a matched-practice
+causal comparison. The latter remains an explicit design gap.

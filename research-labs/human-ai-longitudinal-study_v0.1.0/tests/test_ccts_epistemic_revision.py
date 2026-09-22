@@ -449,3 +449,27 @@ def test_raw_string_roles_types_and_dispositions_fail_closed() -> None:
         replace(item, challenge_type="BYPASS_PATH")
     with pytest.raises(StudyError, match="disposition"):
         replace(item, disposition="REVISE")
+
+
+
+@pytest.mark.parametrize("field", ["provenance_manifest_sha256", "authority_policy_sha256",
+                                   "claim_boundary_sha256", "rejected_branch_manifest_sha256"])
+def test_same_space_and_problem_cannot_hide_manifest_drift(field: str) -> None:
+    first, second = bypass_oriented_fixture()
+    changed = replace(second.ccts_manifest, **{field: digest("substituted binding")})
+    second = replace(second, ccts_manifest=changed)
+    with pytest.raises(StudyError, match="same CCTS manifest"):
+        audit_ccts_epistemic_revision_loop((first, second))
+
+
+def test_hold_cannot_mutate_model_without_preserving_rejected_branch() -> None:
+    item = bypass_oriented_fixture()[0]
+    with pytest.raises(StudyError, match="changed model requires"):
+        replace(item, disposition=EpistemicRevisionDisposition.HOLD, rejected_branch=None)
+
+
+def test_unchanged_hold_can_preserve_uncertainty_without_rejected_branch() -> None:
+    item = bypass_oriented_fixture()[0]
+    held = replace(item, disposition=EpistemicRevisionDisposition.HOLD,
+                   revised_model=item.prior_model, rejected_branch=None)
+    assert held.residual_uncertainty == item.residual_uncertainty

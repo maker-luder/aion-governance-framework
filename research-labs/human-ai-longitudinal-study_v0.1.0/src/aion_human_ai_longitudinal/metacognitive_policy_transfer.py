@@ -825,6 +825,32 @@ def audit_human_epistemic_agency_matrix(
             raise StudyError(
                 "judgment audit must bind the same CCTS space as the assisted condition"
             )
+        if ccts.ccts_manifest != judgment.ccts_manifest:
+            raise StudyError(
+                "judgment audit must bind the same CCTS manifest snapshot as the assisted condition"
+            )
+
+    # All task classes belong to one unit. An exposure in a different class is
+    # still an exposure for that unit, irrespective of a caller's leakage flags.
+    prior_exposure_hashes: set[str] = set()
+    for trial in trials:
+        if trial.held_out:
+            continue
+        prior_exposure_hashes.update(
+            (trial.task_payload.sha256_hex, trial.human_output.sha256_hex)
+        )
+        for artifact in (trial.ai_proposal, trial.rationale):
+            if artifact is not None:
+                prior_exposure_hashes.add(artifact.sha256_hex)
+        if trial.ccts_manifest is not None:
+            prior_exposure_hashes.update(
+                item.payload_sha256 for item in trial.ccts_manifest.contributions
+            )
+    held_out_hashes = [trial.task_payload.sha256_hex for trial in trials if trial.held_out]
+    if prior_exposure_hashes.intersection(held_out_hashes):
+        raise StudyError("held-out payload must not duplicate any prior-phase exposure")
+    if len(set(held_out_hashes)) != len(held_out_hashes):
+        raise StudyError("held-out payloads must be unique across all task classes and scopes")
 
     observations = tuple(
         observe_human_epistemic_agency(trial) for trial in trials

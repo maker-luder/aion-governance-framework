@@ -230,6 +230,11 @@ class CCTSEpistemicChallengeTrace:
             raise StudyError(
                 f"{self.challenge_type.value} requires its typed challenge artifact"
             )
+        if (
+            self.revised_model.sha256_hex != self.prior_model.sha256_hex
+            and self.rejected_branch is None
+        ):
+            raise StudyError("changed model requires rejected-branch preservation even under HOLD")
 
 
 @dataclass(frozen=True, slots=True)
@@ -305,6 +310,10 @@ def audit_ccts_epistemic_revision_loop(
         raise StudyError(
             "all challenge traces must bind one CCTS problem representation"
         )
+    # A shared label cannot establish that provenance, authority, contributions,
+    # and claim boundaries refer to the same admitted snapshot.
+    if any(item.ccts_manifest != ordered[0].ccts_manifest for item in traces):
+        raise StudyError("all challenge traces must bind the same CCTS manifest snapshot")
 
     directions = {
         (item.challenger_role, item.target_role)
