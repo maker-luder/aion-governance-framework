@@ -814,6 +814,10 @@ def audit_human_epistemic_agency_matrix(
             raise StudyError(
                 "cross-family held-out transfer requires a content-distinct task payload"
             )
+        if ccts.ccts_manifest is None or judgment.ccts_manifest is None:
+            raise StudyError(
+                "CCTS and judgment-audit matrix cells require CCTS manifests"
+            )
         if ccts.ccts_manifest.space_id != judgment.ccts_manifest.space_id:
             raise StudyError(
                 "judgment audit must bind the same CCTS space as the assisted condition"
