@@ -66,7 +66,7 @@ A 2023 *Journal of Cybersecurity* study describes adversarial thinking as consid
 
 Source:
 
-- Fulton et al. (2023), *security mindset: characteristics, development, and consequences*, *Journal of Cybersecurity* 9(1), tyad010. DOI: `10.1093/cybsec/tyad010`.
+- Schoenmakers, Greene, Stutterheim, Lin & Palmer (2023), *The security mindset: characteristics, development, and consequences*, *Journal of Cybersecurity* 9(1), tyad010. DOI: `10.1093/cybsec/tyad010`.
 
 Repository correspondence:
 
@@ -139,7 +139,7 @@ Transformative-learning literature uses the idea of a disorienting dilemma for e
 
 Source:
 
-- Hoggan-Kloubert & Hoggan (2020), *Transformative dimensions of lifelong learning: Mezirow, Rorty and COVID-19*, *International Review of Education* 66, 657–672.
+- Eschenbacher & Fleming (2020), *Transformative dimensions of lifelong learning: Mezirow, Rorty and COVID-19*, *International Review of Education* 66, 657–672. DOI: `10.1007/s11159-020-09859-6`.
 
 Boundary:
 
