@@ -4,9 +4,9 @@
   "repository": "maker-luder/aion-governance-framework",
   "baseline_main": "27f42f0636583a7f2da5a3d5b8a2352aecd1cfc8",
   "baseline_tree": "2d38ccebc8522c07b90fc4d7439441ef1b7003b3",
-  "refreshed_from_pr_head": "ab9e349a56528ea79c650785027c480c3fe424cb",
-  "refresh_date": "2026-09-20",
-  "refresh_disposition": "MINIMAL_DOC_REFRESH",
+  "refreshed_from_pr_head": "e5a63b980aaadb591e0d5b940529867eabefb84a",
+  "refresh_date": "2026-09-23",
+  "refresh_disposition": "CURRENT_MAIN_DEDUP_REFRESH",
   "policy": {
     "current_main_reauthoring_required": true,
     "direct_reopen_old_pr": false,
@@ -39,20 +39,6 @@
         "PREREGISTER_RESIDUAL_INTERVENTION_AND_HELD_OUT_TESTS"
       ],
       "claim_ceiling": "LATENT_REGULATORY_VARIABLE_CANDIDATE_NOT_ESTABLISHED"
-    },
-    {
-      "id": "Q4",
-      "source_prs": [
-        158,
-        161
-      ],
-      "action": "IMPLEMENT_SCHEMA_AND_GATE_ONLY",
-      "kind": "QUALITY_ENGINEERING",
-      "priority": "MEDIUM_HIGH",
-      "blocking_conditions": [
-        "NO_EMPIRICAL_RESULT_FABRICATION"
-      ],
-      "claim_ceiling": "EXECUTION_RECEIPT_STRUCTURAL_VALIDITY_ONLY"
     },
     {
       "id": "Q5",
@@ -123,6 +109,18 @@
       "status": "COMPLETED_IMPLEMENTED_ON_CURRENT_MAIN",
       "implementation": "MEMORY_LOCUS_DEPENDENCY_HARNESS",
       "claim_ceiling": "FUNCTIONAL_DEPENDENCY_NOT_ESTABLISHED"
+    },
+    {
+      "id": "Q4",
+      "source_prs": [
+        158,
+        161
+      ],
+      "implemented_by_pr": 161,
+      "merge_commit": "8686ae0fd2128c6a8e9ba6ae9922f1e0e015963b",
+      "status": "COMPLETED_IMPLEMENTED_ON_CURRENT_MAIN",
+      "implementation": "TEVV_AND_AI_SECURITY_RECEIPTS_IN_FULL_QMS",
+      "claim_ceiling": "EXECUTION_RECEIPT_STRUCTURAL_VALIDITY_ONLY"
     }
   ],
   "absorbed_or_reimplemented_prs": [
@@ -219,5 +217,22 @@
     "SUBJECTIVITY = NOT_ESTABLISHED",
     "CONSCIOUSNESS = NOT_ESTABLISHED",
     "PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED"
+  ],
+  "current_active_drafts": [
+    {
+      "pr": 200,
+      "role": "CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    },
+    {
+      "pr": 201,
+      "role": "EPISTEMIC_NORMATIVE_RUPTURE_CROSSWALK",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    },
+    {
+      "pr": 202,
+      "role": "SYNTHETIC_SENSORIMOTOR_EMBODIMENT_AUDIT",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    }
   ]
 }

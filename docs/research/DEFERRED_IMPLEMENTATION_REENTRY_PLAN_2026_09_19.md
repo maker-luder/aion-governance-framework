@@ -12,9 +12,9 @@ It is intentionally **not** a historical-branch revival plan.
 REPOSITORY = maker-luder/aion-governance-framework
 BASE_MAIN = 27f42f0636583a7f2da5a3d5b8a2352aecd1cfc8
 BASE_TREE = 2d38ccebc8522c07b90fc4d7439441ef1b7003b3
-REFRESHED_FROM_PR_HEAD = ab9e349a56528ea79c650785027c480c3fe424cb
-REFRESH_DATE = 2026-09-20
-REFRESH_DISPOSITION = MINIMAL_DOC_REFRESH
+REFRESHED_FROM_PR_HEAD = e5a63b980aaadb591e0d5b940529867eabefb84a
+REFRESH_DATE = 2026-09-23
+REFRESH_DISPOSITION = CURRENT_MAIN_DEDUP_REFRESH
 
 DIRECT_REOPEN_AND_MERGE_OLD_PR = NO
 HISTORICAL_HEAD_AS_CURRENT_AUTHORITY = NO
@@ -46,7 +46,7 @@ A historical PR number is provenance only. Implementation must be authored from 
 
 ## 3. Current disposition queue
 
-Q1 and Q2 are no longer active implementation work. They moved to the completed / absorbed section after the live current-main recheck below.
+Q1, Q2, and Q4 are no longer active implementation work. They moved to the completed / absorbed section after live current-main rechecks. Q3, Q5, Q6, and Q7 retain their prior HOLD / design-first / blocker dispositions unless separately re-reviewed.
 
 ### Q3 — PR #61: latent regulatory-variable discovery extension
 
@@ -236,6 +236,24 @@ Next admissible step:
 4. obtain separate execution authorization;
 5. only then build/run the confirmatory harness.
 
+## 3.1 Current active Drafts are not historical re-entry queue items
+
+The live 2026-09-23 review also found three current Draft PRs that must remain outside
+this historical/deferred re-entry queue:
+
+```text
+#200 = CCTS adversarial epistemic revision loop
+#201 = epistemic / normative rupture crosswalk
+#202 = synthetic sensorimotor embodiment audit
+
+CURRENT_ACTIVE_DRAFT != HISTORICAL_REENTRY_ITEM
+CURRENT_DRAFT_HEAD != CURRENT_MAIN
+CI_PASS != MERGE_AUTHORITY
+```
+
+These PRs have their own exact-head review and authority boundaries. They must not be
+silently converted into Q-items merely because this queue exists.
+
 ## 4. Completed / absorbed / reimplemented — do not revive old PR
 
 ### Q1 — completed on current main by PR #183
@@ -262,6 +280,24 @@ ACTIVE_IMPLEMENTATION_QUEUE = NO
 FUNCTIONAL_DEPENDENCY = NOT_ESTABLISHED
 IDENTITY_CONTINUITY = NOT_ESTABLISHED
 ```
+
+### Q4 — completed on current main by PRs #158 and #161
+
+PR #158 integrated the structural TEVV receipt into the Full QMS. PR #161 then
+integrated the content-addressed AI security receipt into `FullQualitySystemEngine`.
+Current-main search confirms both receipt families are consumed by the existing QMS
+rather than remaining standalone queue work.
+
+```text
+Q4_STATUS = COMPLETED / IMPLEMENTED_ON_CURRENT_MAIN
+SOURCE_PRS = #158 + #161
+FINAL_INTEGRATOR_PR = #161
+FINAL_MERGE_COMMIT = 8686ae0fd2128c6a8e9ba6ae9922f1e0e015963b
+CURRENT_IMPLEMENTATION = TEVV_AND_AI_SECURITY_RECEIPTS_IN_FULL_QMS
+ACTIVE_IMPLEMENTATION_QUEUE = NO
+EXECUTION_RECEIPT_STRUCTURAL_VALIDITY_ONLY
+```
+
 
 The following earlier items also remain absorbed or reimplemented:
 
