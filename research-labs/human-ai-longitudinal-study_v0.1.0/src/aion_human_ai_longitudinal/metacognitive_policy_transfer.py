@@ -2,7 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import StrEnum
+from hashlib import sha256
 
+from .co_constructed_thinking_space import (
+    CoConstructedThinkingSpaceManifest,
+    audit_co_constructed_thinking_space,
+)
 from .harness import AdmissionDisposition, StudyError
 
 
@@ -267,14 +272,18 @@ class HumanJudgmentDecision(StrEnum):
 @dataclass(frozen=True, slots=True)
 class HumanEpistemicAgencyTrial:
     trial_id: str
+    unit_id: str
     condition: HumanEpistemicAgencyCondition
+    phase_index: int
     task_class: MetacognitiveTaskClass
     decision: HumanJudgmentDecision
+    rationale_text: str
     rationale_sha256: str
     task_family_sha256: str
     task_payload_sha256: str
     condition_payload_sha256: str
     evaluator_payload_sha256: str
+    ccts_manifest: CoConstructedThinkingSpaceManifest | None
     held_out: bool
     ai_assistance_available: bool
     ccts_scaffold_available: bool
@@ -288,8 +297,14 @@ class HumanEpistemicAgencyTrial:
     def __post_init__(self) -> None:
         if type(self.trial_id) is not str or not self.trial_id.strip():
             raise StudyError("trial_id must be non-empty text")
+        if type(self.unit_id) is not str or not self.unit_id.strip():
+            raise StudyError("unit_id must be non-empty text")
+        if type(self.rationale_text) is not str or not self.rationale_text.strip():
+            raise StudyError("rationale_text must be non-empty text")
         if type(self.condition) is not HumanEpistemicAgencyCondition:
             raise StudyError("condition must be an exact HumanEpistemicAgencyCondition")
+        if type(self.phase_index) is not int:
+            raise StudyError("phase_index must be an exact int")
         if type(self.task_class) is not MetacognitiveTaskClass:
             raise StudyError("task_class must be an exact MetacognitiveTaskClass")
         if type(self.decision) is not HumanJudgmentDecision:
@@ -320,15 +335,22 @@ class HumanEpistemicAgencyTrial:
                 "human judgment audit cannot be forced by an explicit process prompt"
             )
         expected_flags = {
-            HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE: (False, False, False),
-            HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE: (False, True, True),
+            HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE: (0, False, False, False),
+            HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE: (1, False, True, True),
             HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER: (
+                2,
                 True,
                 False,
                 False,
             ),
         }
-        expected_held_out, expected_ai, expected_ccts = expected_flags[self.condition]
+        expected_phase, expected_held_out, expected_ai, expected_ccts = expected_flags[
+            self.condition
+        ]
+        if self.phase_index != expected_phase:
+            raise StudyError(
+                "phase_index does not match the declared epistemic-agency condition"
+            )
         if (
             self.held_out is not expected_held_out
             or self.ai_assistance_available is not expected_ai
@@ -337,6 +359,16 @@ class HumanEpistemicAgencyTrial:
             raise StudyError(
                 "condition flags do not match the declared epistemic-agency condition"
             )
+        if self.condition is HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE:
+            if type(self.ccts_manifest) is not CoConstructedThinkingSpaceManifest:
+                raise StudyError(
+                    "CCTS condition requires an exact CoConstructedThinkingSpaceManifest"
+                )
+            audit_co_constructed_thinking_space(self.ccts_manifest)
+            if self.ccts_manifest.problem_representation_sha256 != self.task_payload_sha256:
+                raise StudyError("CCTS manifest must bind the trial task payload")
+        elif self.ccts_manifest is not None:
+            raise StudyError("AI-withheld conditions cannot carry a CCTS manifest")
         for name in (
             "rationale_sha256",
             "task_family_sha256",
@@ -349,6 +381,8 @@ class HumanEpistemicAgencyTrial:
                 char not in "0123456789abcdef" for char in digest
             ):
                 raise StudyError(f"{name} must be a lowercase SHA-256 digest")
+        if sha256(self.rationale_text.encode("utf-8")).hexdigest() != self.rationale_sha256:
+            raise StudyError("rationale_sha256 must match rationale_text")
 
 
 @dataclass(frozen=True, slots=True)
@@ -365,6 +399,10 @@ class HumanEpistemicAgencyObservation:
 class HumanEpistemicAgencyAudit:
     observations: tuple[HumanEpistemicAgencyObservation, ...]
     complete_design: bool
+    same_unit_trajectory_bound: bool = True
+    trajectory_order_bound: bool = True
+    ccts_contract_bound: bool = True
+    verified_rationale_content_addressing: bool = True
     matched_baseline_ccts_tasks: bool = True
     held_out_payload_separation: bool = True
     condition_isolation: bool = True
@@ -425,6 +463,12 @@ def audit_human_epistemic_agency_matrix(
     if cells != expected_cells or len(trials) != len(cells):
         raise StudyError(
             "matrix requires exactly one synthetic trial per condition and task class"
+        )
+
+    unit_ids = {trial.unit_id for trial in trials}
+    if len(unit_ids) != 1:
+        raise StudyError(
+            "retention matrix requires one anonymous study unit across conditions"
         )
 
     evaluator_bindings = {trial.evaluator_payload_sha256 for trial in trials}
