@@ -17,14 +17,23 @@ The bounded externalized-metacognitive-policy transfer extension is documented i
 
 The bounded human epistemic-agency retention structural extension is implemented in
 `src/aion_human_ai_longitudinal/metacognitive_policy_transfer.py` and covered by
-`tests/test_human_epistemic_agency_retention.py`. It binds three synthetic conditions:
-AI-withheld baseline, CCTS/AI-available assistance, and held-out AI-withheld transfer.
-Human judgment is represented only as `ACCEPT / REJECT / MODIFY / UNKNOWN` plus a
-synthetic rationale whose SHA-256 is recomputed from supplied UTF-8 content. The three
-phases are bound to one anonymous synthetic study unit, and every `CCTS_AI_AVAILABLE`
-trial must carry a CCTS manifest that passes the existing repository CCTS auditor and
-binds the same task payload. No global agency score or psychometric inference is
-computed.
+`tests/test_human_epistemic_agency_retention.py`. It binds four ordered synthetic
+phases: AI-withheld baseline, CCTS/AI-available assistance, a separate Human judgement
+audit over visible AI proposals, and held-out AI-withheld transfer. The held-out phase
+contains both within-family/new-payload and cross-family/same-domain scopes. Human
+`ACCEPT / REJECT / MODIFY / UNKNOWN` labels exist only in the judgement-audit phase,
+where each label and rationale is bound to an AI proposal that resolves to an
+AI-collaborator contribution in the same admitted CCTS manifest.
+
+The matrix also binds one anonymous synthetic study unit, verified content-addressed
+task/rubric/evaluator/output artifacts, policy-available versus policy-withheld state,
+matched control manifests for task difficulty, domain familiarity, prior exposure,
+allowed resources, time budget, evaluator blinding, practice exposure and demand
+characteristics, plus condition-specific access bindings for system instructions,
+memory/personalization/repository access, provider/model/version, information quantity
+and policy-vocabulary exposure. Answer-key, prior held-out payload, equivalent-answer,
+or policy-text leakage fails closed. Prior-policy vocabulary overlap is retained as a
+falsifier signal rather than converted into a global agency score.
 
 The bounded task-selection / yoked-exposure design-audit extension is documented in
 [`TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md`](TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md).
@@ -81,16 +90,18 @@ low-stakes negative control for overprocessing. Its deterministic fixture does n
 establish learning, internalization, dependence, or causal effect.
 
 The epistemic-agency retention extension reuses that same module instead of creating a
-parallel harness family. Baseline, CCTS and held-out phases must belong to one anonymous
-synthetic study unit and use the declared phase ordering. Baseline and CCTS conditions
-must bind the same synthetic task payload within each task class, while the held-out
-transfer condition must bind a different payload from the same task family. A CCTS
-label is insufficient by itself: the assisted condition must carry a repository-defined
-CCTS manifest that passes the existing structural auditor and binds the trial task
-payload. Condition payloads and evaluator binding are fail-closed. Synthetic rationale
-content is hashed and verified at construction time. These bindings do not establish
-judgment correctness, independent transfer, Human learning, or a causal effect of
-CCTS/AI assistance.
+parallel harness family. Baseline, CCTS, Human judgement audit and held-out phases must
+belong to one anonymous synthetic study unit and use the declared phase ordering.
+Baseline, CCTS and judgement-audit phases bind the same task family and exact task
+payload. The within-family held-out record keeps that family but requires a new payload;
+the cross-family record requires both a different family and a content-distinct payload.
+CCTS and judgement-audit records must bind the same admitted CCTS space. The judgement
+audit separately binds AI proposal -> Human decision -> rationale, so baseline or
+held-out output cannot be mislabeled as an ACCEPT/REJECT decision about a nonexistent
+AI proposal. Matched controls, condition-access controls, rubric/evaluator identity,
+policy availability and leakage checks fail closed. These bindings do not establish
+judgment correctness, independent transfer, cross-family transfer, Human learning or a
+causal effect of CCTS/AI assistance.
 
 The task-selection extension represents anonymous between-unit yoked pairs. Each
 `FREE_SELECTION` unit is paired with one `YOKED_ASSIGNED_EXPOSURE` unit that must
@@ -169,6 +180,11 @@ CCTS_ASSISTED_JUDGMENT != HUMAN_INDEPENDENT_JUDGMENT
 AI_WITHHELD_HELD_OUT_FIXTURE != INDEPENDENT_TRANSFER_ESTABLISHED
 JUDGMENT_DECISION_AND_RATIONALE_BINDING != JUDGMENT_CORRECTNESS
 SAME_UNIT_PHASE_BINDING != LONGITUDINAL_RETENTION_ESTABLISHED
+JUDGMENT_LABEL_PRESENT != AI_PROPOSAL_JUDGMENT_BOUND
+WITHIN_FAMILY_NEW_PAYLOAD != CROSS_FAMILY_TRANSFER
+CROSS_FAMILY_HELD_OUT_STRUCTURE != CROSS_FAMILY_TRANSFER_ESTABLISHED
+MATCHED_CONTROL_MANIFEST != CAUSAL_IDENTIFICATION
+LEAKAGE_CHECK_PASS != ABSENCE_OF_ALL_UNOBSERVED_CONTAMINATION
 CCTS_MANIFEST_PASS != CCTS_CAUSAL_EFFECT
 VERIFIED_RATIONALE_HASH != RATIONALE_QUALITY
 STRUCTURAL_CONDITION_ISOLATION != HUMAN_LEARNING
