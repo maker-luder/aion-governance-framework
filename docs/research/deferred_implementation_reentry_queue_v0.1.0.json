@@ -220,6 +220,11 @@
   ],
   "current_active_drafts": [
     {
+      "pr": 196,
+      "role": "HUMAN_AI_TRAJECTORY_STOPPING_CONTROL_CANDIDATE",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    },
+    {
       "pr": 200,
       "role": "CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP",
       "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"

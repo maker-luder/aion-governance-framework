@@ -242,6 +242,7 @@ The live 2026-09-23 review also found three current Draft PRs that must remain o
 this historical/deferred re-entry queue:
 
 ```text
+#196 = Human-AI trajectory stopping-control candidate
 #200 = CCTS adversarial epistemic revision loop
 #201 = epistemic / normative rupture crosswalk
 #202 = synthetic sensorimotor embodiment audit
