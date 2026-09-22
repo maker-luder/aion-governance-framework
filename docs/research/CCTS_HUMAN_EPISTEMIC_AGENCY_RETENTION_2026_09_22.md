@@ -651,3 +651,24 @@ SCIENTIFIC_DISPOSITION
 ```
 
 This note records a future implementation target. It does not authorize implementation, empirical execution, PR readiness, merge or main transition.
+
+
+## Work cross-review handoff — 2026-09-23
+
+The Human subsequently requested implementation assistance and cross-review of
+PRs #197–199. The historical deferral above describes this note's original scope;
+bounded synthetic implementation is now carried by
+[Draft PR #199](https://github.com/maker-luder/aion-governance-framework/pull/199).
+This PR remains documentation-only and does not authorize merge.
+
+The successor uses four phases, including a separate Human judgement audit over
+an AI proposal, and both within-family and cross-family held-out scopes. Work's
+review adds complete CCTS snapshot equality and cross-task content-reuse rejection.
+These do not implement the content-matched non-CCTS practice comparator from
+section 10: a practice-exposure manifest is not a comparator arm. Delayed retention,
+semantic judgement correctness and causal identification remain unestablished.
+
+The cross-review record in #199 separates partial conversational retrieval,
+primary-source checks, reproduced defects and remaining design limits. Consult
+that PR's exact current head and workflow results; no earlier engineering PASS
+applies automatically to later revisions. Raw private dialogue is not admitted.
