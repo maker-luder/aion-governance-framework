@@ -545,13 +545,16 @@ class HumanEpistemicAgencyTrial:
                 raise StudyError(
                     "judgment audit requires ai_proposal_contribution_id"
                 )
+            manifest = self.ccts_manifest
+            if manifest is None:
+                raise StudyError("judgment audit requires a CCTS manifest")
             role_by_id = {
                 item.contribution_id: item.role
-                for item in self.ccts_manifest.contributions
+                for item in manifest.contributions
             }
             payload_by_id = {
                 item.contribution_id: item.payload_sha256
-                for item in self.ccts_manifest.contributions
+                for item in manifest.contributions
             }
             if self.ai_proposal_contribution_id not in role_by_id:
                 raise StudyError("AI proposal contribution must resolve in CCTS manifest")
