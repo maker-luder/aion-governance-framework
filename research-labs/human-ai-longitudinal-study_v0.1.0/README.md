@@ -49,8 +49,10 @@ The bounded CCTS adversarial epistemic-revision extension is implemented in
 `tests/test_ccts_epistemic_revision.py`, and specified in
 [`../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP_2026_09_23.md`](../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP_2026_09_23.md).
 It requires an already admitted CCTS manifest, reciprocal Human<->AI challenge traces,
-verified content-addressed working-model artifacts, explicit revision dispositions,
-and rejected-branch preservation for substantive model changes. The operational
+exact contribution/edge binding, attack-artifact provenance binding, one contiguous
+trajectory with revised-model -> next-prior-model lineage, verified content-addressed
+working-model artifacts, explicit revision dispositions, and rejected-branch
+preservation for substantive model changes. The operational
 challenge labels include counterexamples, alternative explanations, hidden-assumption
 attacks, bypass paths, grounding and research-necessity challenges, evidence-sufficiency
 checks, falsifiers and scope challenges. These labels are repository operational
@@ -187,6 +189,9 @@ PROBLEM_REPRESENTATION_DIGEST_PRESENT != PROBLEM_REPRESENTATION_GROUNDED
 JOINT_PROBLEM_REPRESENTATION != SHARED_MIND
 RECIPROCAL_REVISION != EPISTEMIC_CO_AGENCY_ESTABLISHED
 CHALLENGE_PRESENT != CHALLENGE_SUCCESSFUL
+RECIPROCAL_CHALLENGE_SET != REVISION_LOOP_LINEAGE
+CCTS_LABEL != CONTRIBUTION_EDGE_BINDING
+ATTACK_DIGEST_PRESENT != ATTACK_PROVENANCE_BOUND
 MODEL_CHANGE != MODEL_IMPROVEMENT
 MODEL_REVISION != MODEL_CORRECTNESS
 STRUCTURAL_REVISION_TRACE != CONCEPTUAL_CHANGE_ESTABLISHED
