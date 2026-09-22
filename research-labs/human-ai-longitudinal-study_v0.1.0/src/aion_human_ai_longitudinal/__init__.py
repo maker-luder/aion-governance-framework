@@ -57,6 +57,9 @@ from .habit_transfer import (
     observe_transfer,
 )
 from .metacognitive_policy_transfer import (
+    EpistemicAgencyControlManifest,
+    EpistemicAgencyLeakageCheck,
+    HeldOutTransferScope,
     HumanEpistemicAgencyAudit,
     HumanEpistemicAgencyCondition,
     HumanEpistemicAgencyObservation,
@@ -143,6 +146,8 @@ __all__ = [
     "DependencyGraph",
     "DependencyNode",
     "EdgeType",
+    "EpistemicAgencyControlManifest",
+    "EpistemicAgencyLeakageCheck",
     "EpistemicContribution",
     "EpistemicChallengeType",
     "EpistemicInstruction",
@@ -162,6 +167,7 @@ __all__ = [
     "HumanEpistemicAgencyTrial",
     "HumanJudgmentDecision",
     "HardenedTaskSelectionExposureAudit",
+    "HeldOutTransferScope",
     "HeldOutTransferTask",
     "LongitudinalStudyHarness",
     "MetacognitiveAction",
