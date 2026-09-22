@@ -102,9 +102,10 @@ part of this synthetic contract.
 The bounded CCTS adversarial epistemic challenge and conceptual-revision extension is
 implemented in `src/aion_human_ai_longitudinal/epistemic_revision.py` and documented in
 [`../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_PROTOCOL_2026_09_23.md`](../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_PROTOCOL_2026_09_23.md).
-It binds typed challenge traces to existing reciprocal CCTS `CHALLENGES` edges, verifies
-content addresses for prior/revised models and the claim/rejected-branch surfaces, and
-requires at least one model-changing disposition. The executable fixtures abstract a
+It binds typed challenge traces to existing reciprocal CCTS `CHALLENGES` edges,
+binds each target contribution to a distinct revised contribution through an existing
+`REVISES` edge, verifies the challenge/prior/revised contribution payload hashes plus
+the claim/rejected-branch surfaces, and requires at least one model-changing disposition. The executable fixtures abstract a
 constraint-bypass case and a synthetic non-innate-morphology grounding case; they contain
 no raw private transcript or Human identity.
 

@@ -217,9 +217,10 @@ Every trace must bind:
 
 - one existing CCTS `space_id`;
 - the same CCTS problem representation;
-- known source and target contributions;
-- an existing `CHALLENGES` edge in the CCTS manifest;
-- verified content addresses for prior model, challenge, revised model, surviving claims, rejected branches, unresolved alternatives and claim ceiling;
+- known source, target and revised contributions;
+- an existing source→target `CHALLENGES` edge in the CCTS manifest;
+- an existing target→revised `REVISES` edge whose revised contribution preserves the target role;
+- verified content addresses that bind challenge/prior/revised text to the corresponding CCTS contribution payloads, plus surviving claims, rejected branches, unresolved alternatives and claim ceiling;
 - the CCTS rejected-branch manifest;
 - the CCTS claim-boundary digest.
 

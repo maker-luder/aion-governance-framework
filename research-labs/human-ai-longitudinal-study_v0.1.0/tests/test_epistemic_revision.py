@@ -32,6 +32,25 @@ PROBLEM = "synthetic problem representation"
 CLAIM_CEILING = "structural revision trace only; no human-learning or subjectivity claim"
 REJECTED = "rejected branch register for the synthetic CCTS challenge profile"
 
+BYPASS_PRIOR = "generic resource availability is the primary bottleneck"
+BYPASS_CHALLENGE = (
+    "test whether substitution, decomposition, or trust-network paths bypass "
+    "the claimed bottleneck"
+)
+BYPASS_REVISED = "specialized expertise plus trust and verification remain residual constraints"
+
+GROUNDING_PRIOR = (
+    "experimental grounding requires a naturally isomorphic biological referent"
+)
+GROUNDING_CHALLENGE = (
+    "test whether engineered and sensorimotor controls can ground "
+    "non-innate morphology research"
+)
+GROUNDING_REVISED = (
+    "biological isomorphism is one grounding route; engineered, experimental, "
+    "and sensorimotor bindings may also support bounded study designs"
+)
+
 
 def manifest() -> CoConstructedThinkingSpaceManifest:
     return CoConstructedThinkingSpaceManifest(
@@ -40,33 +59,68 @@ def manifest() -> CoConstructedThinkingSpaceManifest:
         problem_representation_sha256=h(PROBLEM),
         grounding_checkpoint=GroundingCheckpoint(
             problem_representation_sha256=h(PROBLEM),
-            human_contribution_id="human",
-            ai_contribution_id="ai",
+            human_contribution_id="human-prior-grounding",
+            ai_contribution_id="ai-prior-bypass",
             disposition=GroundingDisposition.SUFFICIENT_FOR_CURRENT_PURPOSE,
             unresolved_mismatch=False,
         ),
         contributions=(
             EpistemicContribution(
-                contribution_id="human",
+                contribution_id="human-challenge-bypass",
                 role=ContributionRole.HUMAN_OWNER,
-                payload_sha256=h("human contribution"),
+                payload_sha256=h(BYPASS_CHALLENGE),
             ),
             EpistemicContribution(
-                contribution_id="ai",
+                contribution_id="ai-prior-bypass",
                 role=ContributionRole.AI_COLLABORATOR,
-                payload_sha256=h("ai contribution"),
+                payload_sha256=h(BYPASS_PRIOR),
+            ),
+            EpistemicContribution(
+                contribution_id="ai-revised-bypass",
+                role=ContributionRole.AI_COLLABORATOR,
+                payload_sha256=h(BYPASS_REVISED),
+            ),
+            EpistemicContribution(
+                contribution_id="ai-challenge-grounding",
+                role=ContributionRole.AI_COLLABORATOR,
+                payload_sha256=h(GROUNDING_CHALLENGE),
+            ),
+            EpistemicContribution(
+                contribution_id="human-prior-grounding",
+                role=ContributionRole.HUMAN_OWNER,
+                payload_sha256=h(GROUNDING_PRIOR),
+            ),
+            EpistemicContribution(
+                contribution_id="human-revised-grounding",
+                role=ContributionRole.HUMAN_OWNER,
+                payload_sha256=h(GROUNDING_REVISED),
             ),
         ),
         revision_edges=(
             RevisionEdge(
-                source_id="human",
-                target_id="ai",
+                source_id="human-challenge-bypass",
+                target_id="ai-prior-bypass",
                 relation=RevisionRelation.CHALLENGES,
             ),
             RevisionEdge(
-                source_id="ai",
-                target_id="human",
+                source_id="ai-prior-bypass",
+                target_id="ai-revised-bypass",
+                relation=RevisionRelation.REVISES,
+            ),
+            RevisionEdge(
+                source_id="ai-revised-bypass",
+                target_id="ai-challenge-grounding",
+                relation=RevisionRelation.CLARIFIES,
+            ),
+            RevisionEdge(
+                source_id="ai-challenge-grounding",
+                target_id="human-prior-grounding",
                 relation=RevisionRelation.CHALLENGES,
+            ),
+            RevisionEdge(
+                source_id="human-prior-grounding",
+                target_id="human-revised-grounding",
+                relation=RevisionRelation.REVISES,
             ),
         ),
         provenance_manifest_sha256=h("provenance manifest"),
@@ -75,12 +129,12 @@ def manifest() -> CoConstructedThinkingSpaceManifest:
         rejected_branch_manifest_sha256=h(REJECTED),
     )
 
-
 def trace(
     *,
     trace_id: str,
     source: str,
     target: str,
+    revised_contribution_id: str,
     challenge_types: frozenset[EpistemicChallengeType],
     disposition: RevisionDisposition,
     prior: str,
@@ -96,6 +150,7 @@ def trace(
         problem_representation_sha256=h(PROBLEM),
         source_contribution_id=source,
         target_contribution_id=target,
+        revised_contribution_id=revised_contribution_id,
         challenge_types=challenge_types,
         disposition=disposition,
         prior_model_text=prior,
@@ -119,8 +174,9 @@ def trace(
 def revision_loop() -> tuple[ConceptualRevisionTrace, ...]:
     bypass = trace(
         trace_id="constraint-bypass",
-        source="human",
-        target="ai",
+        source="human-challenge-bypass",
+        target="ai-prior-bypass",
+        revised_contribution_id="ai-revised-bypass",
         challenge_types=frozenset(
             {
                 EpistemicChallengeType.HIDDEN_ASSUMPTION,
@@ -129,14 +185,15 @@ def revision_loop() -> tuple[ConceptualRevisionTrace, ...]:
             }
         ),
         disposition=RevisionDisposition.NARROW,
-        prior="generic resource availability is the primary bottleneck",
-        challenge="test whether substitution, decomposition, or trust-network paths bypass the claimed bottleneck",
-        revised="specialized expertise plus trust and verification remain residual constraints",
+        prior=BYPASS_PRIOR,
+        challenge=BYPASS_CHALLENGE,
+        revised=BYPASS_REVISED,
     )
     grounding = trace(
         trace_id="synthetic-morphology-grounding",
-        source="ai",
-        target="human",
+        source="ai-challenge-grounding",
+        target="human-prior-grounding",
+        revised_contribution_id="human-revised-grounding",
         challenge_types=frozenset(
             {
                 EpistemicChallengeType.COUNTEREVIDENCE,
@@ -145,9 +202,9 @@ def revision_loop() -> tuple[ConceptualRevisionTrace, ...]:
             }
         ),
         disposition=RevisionDisposition.REVISE,
-        prior="experimental grounding requires a naturally isomorphic biological referent",
-        challenge="test whether engineered and sensorimotor controls can ground non-innate morphology research",
-        revised="biological isomorphism is one grounding route; engineered, experimental, and sensorimotor bindings may also support bounded study designs",
+        prior=GROUNDING_PRIOR,
+        challenge=GROUNDING_CHALLENGE,
+        revised=GROUNDING_REVISED,
         evidence=(
             h("synthetic evidence binding: supernumerary robotic limb study"),
             h("synthetic evidence binding: non-human virtual ear study"),
@@ -162,6 +219,8 @@ def test_revision_loop_binds_reciprocal_challenge_without_psychology_claim() -> 
     assert audit.trace_count == 2
     assert audit.reciprocal_challenge_bound is True
     assert audit.challenge_edges_bound is True
+    assert audit.revision_edges_bound is True
+    assert audit.graph_content_bound is True
     assert audit.adversarial_challenge_present is True
     assert audit.grounding_or_scope_challenge_present is True
     assert audit.conceptual_revision_trace_present is True
@@ -184,9 +243,39 @@ def test_revision_loop_binds_reciprocal_challenge_without_psychology_claim() -> 
 
 
 def test_trace_must_bind_existing_ccts_challenge_edge() -> None:
-    item = replace(revision_loop()[0], source_contribution_id="ai", target_contribution_id="human")
-    with pytest.raises(StudyError, match="reciprocal"):
-        audit_ccts_epistemic_revision_loop(manifest(), (item,))
+    items = list(revision_loop())
+    items[0] = replace(
+        items[0],
+        source_contribution_id="ai-revised-bypass",
+        target_contribution_id="ai-challenge-grounding",
+    )
+    with pytest.raises(StudyError, match="CHALLENGES revision edge"):
+        audit_ccts_epistemic_revision_loop(manifest(), tuple(items))
+
+
+def test_trace_must_bind_existing_target_to_revised_edge() -> None:
+    items = list(revision_loop())
+    items[0] = replace(
+        items[0],
+        revised_contribution_id="human-revised-grounding",
+    )
+    with pytest.raises(StudyError, match="target-to-revised CCTS REVISES edge"):
+        audit_ccts_epistemic_revision_loop(manifest(), tuple(items))
+
+
+def test_graph_content_binding_rejects_payload_alias() -> None:
+    current = manifest()
+    contributions = tuple(
+        replace(item, payload_sha256=h("wrong challenge"))
+        if item.contribution_id == "human-challenge-bypass"
+        else item
+        for item in current.contributions
+    )
+    with pytest.raises(StudyError, match="challenge content"):
+        audit_ccts_epistemic_revision_loop(
+            replace(current, contributions=contributions),
+            revision_loop(),
+        )
 
 
 def test_evidence_bound_challenge_requires_evidence_binding() -> None:
