@@ -246,7 +246,7 @@ def test_trace_must_bind_existing_ccts_challenge_edge() -> None:
     items = list(revision_loop())
     items[0] = replace(
         items[0],
-        source_contribution_id="ai-revised-bypass",
+        source_contribution_id="human-challenge-bypass",
         target_contribution_id="ai-challenge-grounding",
     )
     with pytest.raises(StudyError, match="CHALLENGES revision edge"):
