@@ -90,6 +90,7 @@ class ConceptualRevisionTrace:
     problem_representation_sha256: str
     source_contribution_id: str
     target_contribution_id: str
+    revised_contribution_id: str
     challenge_types: frozenset[EpistemicChallengeType]
     disposition: RevisionDisposition
     prior_model_text: str
@@ -119,12 +120,21 @@ class ConceptualRevisionTrace:
             "ccts_space_id",
             "source_contribution_id",
             "target_contribution_id",
+            "revised_contribution_id",
         ):
             value = getattr(self, name)
             if type(value) is not str or not value.strip():
                 raise StudyError(f"{name} must be non-empty text")
-        if self.source_contribution_id == self.target_contribution_id:
-            raise StudyError("epistemic challenge cannot target the source contribution")
+        if len(
+            {
+                self.source_contribution_id,
+                self.target_contribution_id,
+                self.revised_contribution_id,
+            }
+        ) != 3:
+            raise StudyError(
+                "source, target, and revised contribution ids must be distinct"
+            )
         _validate_digest(
             "problem_representation_sha256", self.problem_representation_sha256
         )
@@ -191,6 +201,8 @@ class EpistemicRevisionAudit:
     trace_count: int
     reciprocal_challenge_bound: bool
     challenge_edges_bound: bool
+    revision_edges_bound: bool
+    graph_content_bound: bool
     adversarial_challenge_present: bool
     grounding_or_scope_challenge_present: bool
     conceptual_revision_trace_present: bool
@@ -239,6 +251,11 @@ def audit_ccts_epistemic_revision_loop(
         for edge in manifest.revision_edges
         if edge.relation is RevisionRelation.CHALLENGES
     }
+    revision_edges = {
+        (edge.source_id, edge.target_id)
+        for edge in manifest.revision_edges
+        if edge.relation is RevisionRelation.REVISES
+    }
 
     directions: set[tuple[ContributionRole, ContributionRole]] = set()
     for trace in traces:
@@ -249,19 +266,53 @@ def audit_ccts_epistemic_revision_loop(
             != manifest.problem_representation_sha256
         ):
             raise StudyError("trace must bind the CCTS problem representation")
-        if (
-            trace.source_contribution_id not in contribution_by_id
-            or trace.target_contribution_id not in contribution_by_id
-        ):
+        referenced_ids = {
+            trace.source_contribution_id,
+            trace.target_contribution_id,
+            trace.revised_contribution_id,
+        }
+        if not referenced_ids.issubset(contribution_by_id):
             raise StudyError("trace must reference known CCTS contributions")
-        edge = (trace.source_contribution_id, trace.target_contribution_id)
-        if edge not in challenge_edges:
+
+        challenge_edge = (
+            trace.source_contribution_id,
+            trace.target_contribution_id,
+        )
+        if challenge_edge not in challenge_edges:
             raise StudyError(
                 "trace must bind an existing CCTS CHALLENGES revision edge"
             )
-        source_role = contribution_by_id[trace.source_contribution_id].role
-        target_role = contribution_by_id[trace.target_contribution_id].role
-        directions.add((source_role, target_role))
+
+        model_revision_edge = (
+            trace.target_contribution_id,
+            trace.revised_contribution_id,
+        )
+        if model_revision_edge not in revision_edges:
+            raise StudyError(
+                "trace must bind an existing target-to-revised CCTS REVISES edge"
+            )
+
+        source = contribution_by_id[trace.source_contribution_id]
+        target = contribution_by_id[trace.target_contribution_id]
+        revised = contribution_by_id[trace.revised_contribution_id]
+        if source.payload_sha256 != trace.challenge_sha256:
+            raise StudyError(
+                "challenge content must bind the source CCTS contribution payload"
+            )
+        if target.payload_sha256 != trace.prior_model_sha256:
+            raise StudyError(
+                "prior-model content must bind the target CCTS contribution payload"
+            )
+        if revised.payload_sha256 != trace.revised_model_sha256:
+            raise StudyError(
+                "revised-model content must bind the revised CCTS contribution payload"
+            )
+        if revised.role is not target.role:
+            raise StudyError(
+                "revised contribution must preserve the target contribution role"
+            )
+
+        directions.add((source.role, target.role))
         if trace.rejected_branches_sha256 != manifest.rejected_branch_manifest_sha256:
             raise StudyError(
                 "trace rejected-branch content must bind the CCTS rejected-branch manifest"
@@ -307,6 +358,8 @@ def audit_ccts_epistemic_revision_loop(
         trace_count=len(traces),
         reciprocal_challenge_bound=True,
         challenge_edges_bound=True,
+        revision_edges_bound=True,
+        graph_content_bound=True,
         adversarial_challenge_present=True,
         grounding_or_scope_challenge_present=True,
         conceptual_revision_trace_present=True,
