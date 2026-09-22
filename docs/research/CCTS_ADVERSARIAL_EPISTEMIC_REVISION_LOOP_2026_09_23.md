@@ -95,7 +95,11 @@ THREAT_MODELING_ANALOGUE != SECURITY_EFFECTIVENESS_ESTABLISHED
 
 ### 3.2 Conceptual change and cognitive conflict
 
-Conceptual-change research studies cases in which anomalous or contradictory evidence makes an existing explanatory model inadequate and prompts revision rather than simple accumulation of facts. Cognitive conflict is one method by which prior conceptions can be made explicit and reconsidered.
+Conceptual-change research studies cases in which anomalous or contradictory evidence makes an existing explanatory model inadequate and prompts revision rather than simple accumulation of facts. A classic formulation is Posner, Strike, Hewson & Gertzog (1982), which treats accommodation as a revision of an existing conception rather than simple fact accumulation. Cognitive conflict is retained here only as an adjacent learning-theory frame.
+
+Source:
+
+- Posner, G. J., Strike, K. A., Hewson, P. W. & Gertzog, W. A. (1982), *Accommodation of a scientific conception: Toward a theory of conceptual change*, *Science Education* 66(2), 211–227. DOI: https://doi.org/10.1002/sce.3730660207
 
 Repository correspondence:
 
@@ -146,7 +150,10 @@ These are repository operational labels. They are not asserted to form an extern
 Each trace binds:
 
 - one admitted CCTS manifest;
+- one trajectory id and non-negative step index;
 - challenger role and target role;
+- exact challenger and target contribution ids that must resolve to a substantive `REVISES` / `CHALLENGES` edge in that manifest;
+- an attack-artifact contribution id whose manifest payload must resolve to the verified attack-artifact content address;
 - a content-addressed prior working model;
 - a content-addressed challenge;
 - a content-addressed attack artifact;
@@ -191,8 +198,21 @@ HOLD
 
 A changed model is not automatically a better model.
 
+The loop auditor additionally requires one trajectory id, unique contiguous step indexes beginning at zero, and exact lineage continuity:
+
+```text
+STEP[n].REVISED_MODEL_SHA256
+=
+STEP[n+1].PRIOR_MODEL_SHA256
+```
+
+Therefore a set of unrelated reciprocal challenge records cannot be relabeled as one revision loop.
+
 ```text
 MODEL_CHANGE != MODEL_IMPROVEMENT
+RECIPROCAL_CHALLENGE_SET != REVISION_LOOP_LINEAGE
+CCTS_LABEL != CONTRIBUTION_EDGE_BINDING
+ATTACK_DIGEST_PRESENT != ATTACK_PROVENANCE_BOUND
 MODEL_REVISION != MODEL_CORRECTNESS
 CHALLENGE_PRESENT != CHALLENGE_SUCCESSFUL
 CHALLENGE_SUCCESSFUL != CONCEPTUAL_CHANGE_ESTABLISHED
