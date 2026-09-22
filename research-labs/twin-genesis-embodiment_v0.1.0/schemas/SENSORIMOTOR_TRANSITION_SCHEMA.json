@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/sensorimotor-transition.json",
+  "title": "Synthetic Sensorimotor Transition Candidate",
+  "type": "object",
+  "required": [
+    "embodiment_id",
+    "before_snapshot_sha256",
+    "prediction_sha256",
+    "observation_sha256",
+    "after_snapshot_sha256",
+    "disposition",
+    "canonical_effect"
+  ],
+  "properties": {
+    "embodiment_id": {"type": "string", "minLength": 1},
+    "before_snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "prediction_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "observation_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "after_snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "disposition": {
+      "enum": ["RETAIN", "HOLD", "LOCALIZE_PERTURBATION", "RECORD_RECOVERY"]
+    },
+    "live_sensor_input": {"const": false},
+    "live_execution": {"const": false},
+    "human_participant_observed": {"const": false},
+    "contains_private_material": {"const": false},
+    "body_sensation": {"const": "NOT_ESTABLISHED"},
+    "pain": {"const": "NOT_ESTABLISHED"},
+    "body_ownership_experience": {"const": "NOT_ESTABLISHED"},
+    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+    "canonical_effect": {"const": "NONE"}
+  },
+  "additionalProperties": false
+}

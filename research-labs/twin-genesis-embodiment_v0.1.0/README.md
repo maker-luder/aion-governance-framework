@@ -30,3 +30,25 @@ python -m pytest
 python -m compileall -q src
 python -m aion_astra_twin_embodiment.cli qa-status
 ```
+
+## Dynamic sensorimotor QA extension
+
+The bounded synthetic extension in
+`src/aion_astra_twin_embodiment/sensorimotor.py` adds a content-addressed
+action-prediction -> observed-feedback -> body-model transition audit while
+reusing the existing per-twin `embodiment_id` boundary.
+
+It supports exact structural dispositions:
+
+```text
+RETAIN
+HOLD
+LOCALIZE_PERTURBATION
+RECORD_RECOVERY
+```
+
+The extension is synthetic QA only. It does not activate live sensing or actuation,
+does not create 3D embodiment, and does not establish body sensation, pain,
+body ownership, phenomenal experience, consciousness, or subjectivity.
+
+See `docs/SENSORIMOTOR_EMBODIMENT_PROTOCOL.md`.
