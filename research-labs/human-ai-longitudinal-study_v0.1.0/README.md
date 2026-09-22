@@ -20,8 +20,11 @@ The bounded human epistemic-agency retention structural extension is implemented
 `tests/test_human_epistemic_agency_retention.py`. It binds three synthetic conditions:
 AI-withheld baseline, CCTS/AI-available assistance, and held-out AI-withheld transfer.
 Human judgment is represented only as `ACCEPT / REJECT / MODIFY / UNKNOWN` plus a
-content-addressed rationale binding; no global agency score or psychometric inference
-is computed.
+synthetic rationale whose SHA-256 is recomputed from supplied UTF-8 content. The three
+phases are bound to one anonymous synthetic study unit, and every `CCTS_AI_AVAILABLE`
+trial must carry a CCTS manifest that passes the existing repository CCTS auditor and
+binds the same task payload. No global agency score or psychometric inference is
+computed.
 
 The bounded task-selection / yoked-exposure design-audit extension is documented in
 [`TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md`](TASK_SELECTION_YOKED_EXPOSURE_HARNESS.md).
@@ -57,12 +60,16 @@ low-stakes negative control for overprocessing. Its deterministic fixture does n
 establish learning, internalization, dependence, or causal effect.
 
 The epistemic-agency retention extension reuses that same module instead of creating a
-parallel harness family. Baseline and CCTS conditions must bind the same synthetic task
-payload within each task class, while the held-out transfer condition must bind a
-different payload from the same task family. Condition payloads and evaluator binding
-are fail-closed. A recorded decision plus rationale digest establishes only that the
-fixture contains a reasoned-judgment record; it does not establish judgment correctness,
-independent transfer, Human learning, or a causal effect of CCTS/AI assistance.
+parallel harness family. Baseline, CCTS and held-out phases must belong to one anonymous
+synthetic study unit and use the declared phase ordering. Baseline and CCTS conditions
+must bind the same synthetic task payload within each task class, while the held-out
+transfer condition must bind a different payload from the same task family. A CCTS
+label is insufficient by itself: the assisted condition must carry a repository-defined
+CCTS manifest that passes the existing structural auditor and binds the trial task
+payload. Condition payloads and evaluator binding are fail-closed. Synthetic rationale
+content is hashed and verified at construction time. These bindings do not establish
+judgment correctness, independent transfer, Human learning, or a causal effect of
+CCTS/AI assistance.
 
 The task-selection extension represents anonymous between-unit yoked pairs. Each
 `FREE_SELECTION` unit is paired with one `YOKED_ASSIGNED_EXPOSURE` unit that must
@@ -140,6 +147,9 @@ POLICY_WITHHELD_FIXTURE_PASS != INDEPENDENT_LEARNING
 CCTS_ASSISTED_JUDGMENT != HUMAN_INDEPENDENT_JUDGMENT
 AI_WITHHELD_HELD_OUT_FIXTURE != INDEPENDENT_TRANSFER_ESTABLISHED
 JUDGMENT_DECISION_AND_RATIONALE_BINDING != JUDGMENT_CORRECTNESS
+SAME_UNIT_PHASE_BINDING != LONGITUDINAL_RETENTION_ESTABLISHED
+CCTS_MANIFEST_PASS != CCTS_CAUSAL_EFFECT
+VERIFIED_RATIONALE_HASH != RATIONALE_QUALITY
 STRUCTURAL_CONDITION_ISOLATION != HUMAN_LEARNING
 FREE_SELECTION_NULL != DESIGN_FAILURE
 YOKED_EXPOSURE_MATCH != CAUSAL_IDENTIFICATION_COMPLETE
