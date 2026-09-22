@@ -1,10 +1,21 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from hashlib import sha256
 
 import pytest
 
-from aion_human_ai_longitudinal import StudyError
+from aion_human_ai_longitudinal import (
+    CoConstructedThinkingSpaceManifest,
+    ContributionRole,
+    EpistemicContribution,
+    GroundingCheckpoint,
+    GroundingDisposition,
+    RevisionEdge,
+    RevisionRelation,
+    StudyError,
+    ThinkingSpaceProfile,
+)
 from aion_human_ai_longitudinal.metacognitive_policy_transfer import (
     HumanEpistemicAgencyCondition,
     HumanEpistemicAgencyTrial,
@@ -17,6 +28,49 @@ from aion_human_ai_longitudinal.metacognitive_policy_transfer import (
 
 def digest(char: str) -> str:
     return char * 64
+
+
+def ccts_manifest(problem_sha256: str) -> CoConstructedThinkingSpaceManifest:
+    return CoConstructedThinkingSpaceManifest(
+        space_id=f"synthetic-ccts:{problem_sha256[:8]}",
+        profile=ThinkingSpaceProfile.CORE_INTERACTION,
+        problem_representation_sha256=problem_sha256,
+        grounding_checkpoint=GroundingCheckpoint(
+            problem_representation_sha256=problem_sha256,
+            human_contribution_id="human",
+            ai_contribution_id="ai",
+            disposition=GroundingDisposition.SUFFICIENT_FOR_CURRENT_PURPOSE,
+            unresolved_mismatch=False,
+        ),
+        contributions=(
+            EpistemicContribution(
+                contribution_id="human",
+                role=ContributionRole.HUMAN_OWNER,
+                payload_sha256=digest("e"),
+            ),
+            EpistemicContribution(
+                contribution_id="ai",
+                role=ContributionRole.AI_COLLABORATOR,
+                payload_sha256=digest("f"),
+            ),
+        ),
+        revision_edges=(
+            RevisionEdge(
+                source_id="human",
+                target_id="ai",
+                relation=RevisionRelation.REVISES,
+            ),
+            RevisionEdge(
+                source_id="ai",
+                target_id="human",
+                relation=RevisionRelation.CHALLENGES,
+            ),
+        ),
+        provenance_manifest_sha256=digest("a"),
+        claim_boundary_sha256=digest("b"),
+        authority_policy_sha256=digest("c"),
+        rejected_branch_manifest_sha256=digest("d"),
+    )
 
 
 def trial(
@@ -40,27 +94,39 @@ def trial(
         HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER: "d",
     }[condition]
     flags = {
-        HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE: (False, False, False),
-        HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE: (False, True, True),
+        HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE: (0, False, False, False),
+        HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE: (1, False, True, True),
         HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER: (
+            2,
             True,
             False,
             False,
         ),
     }[condition]
+    rationale = (
+        f"synthetic rationale:{condition.value}:{task_class.value}:{decision.value}"
+    )
     return HumanEpistemicAgencyTrial(
         trial_id=f"{condition.value}:{task_class.value}",
+        unit_id="synthetic-unit-001",
         condition=condition,
+        phase_index=flags[0],
         task_class=task_class,
         decision=decision,
-        rationale_sha256=digest("a"),
+        rationale_text=rationale,
+        rationale_sha256=sha256(rationale.encode("utf-8")).hexdigest(),
         task_family_sha256=digest(hex_chars[task_index]),
         task_payload_sha256=payload,
         condition_payload_sha256=digest(condition_char),
-        evaluator_payload_sha256=digest("e"),
-        held_out=flags[0],
-        ai_assistance_available=flags[1],
-        ccts_scaffold_available=flags[2],
+        evaluator_payload_sha256=digest("9"),
+        ccts_manifest=(
+            ccts_manifest(payload)
+            if condition is HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE
+            else None
+        ),
+        held_out=flags[1],
+        ai_assistance_available=flags[2],
+        ccts_scaffold_available=flags[3],
     )
 
 
@@ -75,6 +141,10 @@ def matrix() -> tuple[HumanEpistemicAgencyTrial, ...]:
 def test_complete_matrix_is_structural_qa_only_without_global_agency_score() -> None:
     result = audit_human_epistemic_agency_matrix(matrix())
     assert result.complete_design is True
+    assert result.same_unit_trajectory_bound is True
+    assert result.trajectory_order_bound is True
+    assert result.ccts_contract_bound is True
+    assert result.verified_rationale_content_addressing is True
     assert result.matched_baseline_ccts_tasks is True
     assert result.held_out_payload_separation is True
     assert result.condition_isolation is True
@@ -145,6 +215,50 @@ def test_held_out_transfer_must_use_distinct_payload() -> None:
     items[index] = replace(items[index], task_payload_sha256=baseline)
     with pytest.raises(StudyError, match="distinct task payload"):
         audit_human_epistemic_agency_matrix(tuple(items))
+
+
+def test_retention_requires_one_anonymous_unit_across_conditions() -> None:
+    items = list(matrix())
+    items[-1] = replace(items[-1], unit_id="synthetic-unit-002")
+    with pytest.raises(StudyError, match="one anonymous study unit"):
+        audit_human_epistemic_agency_matrix(tuple(items))
+
+
+def test_phase_order_is_bound_to_condition() -> None:
+    with pytest.raises(StudyError, match="phase_index"):
+        replace(matrix()[0], phase_index=2)
+
+
+def test_ccts_condition_requires_admitted_manifest_bound_to_task() -> None:
+    ccts_item = next(
+        item
+        for item in matrix()
+        if item.condition is HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE
+    )
+    with pytest.raises(StudyError, match="requires an exact"):
+        replace(ccts_item, ccts_manifest=None)
+
+    wrong_manifest = ccts_manifest(digest("8"))
+    with pytest.raises(StudyError, match="bind the trial task payload"):
+        replace(ccts_item, ccts_manifest=wrong_manifest)
+
+    baseline_item = next(
+        item
+        for item in matrix()
+        if item.condition is HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE
+    )
+    with pytest.raises(StudyError, match="cannot carry a CCTS manifest"):
+        replace(
+            baseline_item,
+            ccts_manifest=ccts_manifest(baseline_item.task_payload_sha256),
+        )
+
+
+def test_rationale_digest_is_recomputed_from_synthetic_content() -> None:
+    with pytest.raises(StudyError, match="must match rationale_text"):
+        replace(matrix()[0], rationale_sha256=digest("7"))
+    with pytest.raises(StudyError, match="rationale_text must be non-empty"):
+        replace(matrix()[0], rationale_text="")
 
 
 def test_condition_and_evaluator_binding_drift_fail_closed() -> None:
