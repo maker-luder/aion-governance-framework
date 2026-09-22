@@ -249,3 +249,232 @@ def audit_metacognitive_transfer_matrix(
         observations=tuple(observe_metacognitive_transfer(trial) for trial in trials),
         complete_design=True,
     )
+
+
+class HumanEpistemicAgencyCondition(StrEnum):
+    AI_WITHHELD_BASELINE = "AI_WITHHELD_BASELINE"
+    CCTS_AI_AVAILABLE = "CCTS_AI_AVAILABLE"
+    AI_WITHHELD_HELD_OUT_TRANSFER = "AI_WITHHELD_HELD_OUT_TRANSFER"
+
+
+class HumanJudgmentDecision(StrEnum):
+    ACCEPT = "ACCEPT"
+    REJECT = "REJECT"
+    MODIFY = "MODIFY"
+    UNKNOWN = "UNKNOWN"
+
+
+@dataclass(frozen=True, slots=True)
+class HumanEpistemicAgencyTrial:
+    trial_id: str
+    condition: HumanEpistemicAgencyCondition
+    task_class: MetacognitiveTaskClass
+    decision: HumanJudgmentDecision
+    rationale_sha256: str
+    task_family_sha256: str
+    task_payload_sha256: str
+    condition_payload_sha256: str
+    evaluator_payload_sha256: str
+    held_out: bool
+    ai_assistance_available: bool
+    ccts_scaffold_available: bool
+    explicit_process_prompt_present: bool = False
+    synthetic: bool = True
+    model_invoked: bool = False
+    human_participant_observed: bool = False
+    contains_human_identity: bool = False
+    contains_private_material: bool = False
+
+    def __post_init__(self) -> None:
+        if type(self.trial_id) is not str or not self.trial_id.strip():
+            raise StudyError("trial_id must be non-empty text")
+        if type(self.condition) is not HumanEpistemicAgencyCondition:
+            raise StudyError("condition must be an exact HumanEpistemicAgencyCondition")
+        if type(self.task_class) is not MetacognitiveTaskClass:
+            raise StudyError("task_class must be an exact MetacognitiveTaskClass")
+        if type(self.decision) is not HumanJudgmentDecision:
+            raise StudyError("decision must be an exact HumanJudgmentDecision")
+        for name in (
+            "held_out",
+            "ai_assistance_available",
+            "ccts_scaffold_available",
+            "explicit_process_prompt_present",
+            "synthetic",
+            "model_invoked",
+            "human_participant_observed",
+            "contains_human_identity",
+            "contains_private_material",
+        ):
+            if type(getattr(self, name)) is not bool:
+                raise StudyError(f"{name} must be an exact bool")
+        if not self.synthetic:
+            raise StudyError("v0.1.0 accepts synthetic trials only")
+        if self.model_invoked or self.human_participant_observed:
+            raise StudyError(
+                "v0.1.0 is structural QA only and cannot contain model or human observations"
+            )
+        if self.contains_human_identity or self.contains_private_material:
+            raise StudyError("human identity and private material are excluded")
+        if self.explicit_process_prompt_present:
+            raise StudyError(
+                "human judgment audit cannot be forced by an explicit process prompt"
+            )
+        expected_flags = {
+            HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE: (False, False, False),
+            HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE: (False, True, True),
+            HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER: (
+                True,
+                False,
+                False,
+            ),
+        }
+        expected_held_out, expected_ai, expected_ccts = expected_flags[self.condition]
+        if (
+            self.held_out is not expected_held_out
+            or self.ai_assistance_available is not expected_ai
+            or self.ccts_scaffold_available is not expected_ccts
+        ):
+            raise StudyError(
+                "condition flags do not match the declared epistemic-agency condition"
+            )
+        for name in (
+            "rationale_sha256",
+            "task_family_sha256",
+            "task_payload_sha256",
+            "condition_payload_sha256",
+            "evaluator_payload_sha256",
+        ):
+            digest = getattr(self, name)
+            if type(digest) is not str or len(digest) != 64 or any(
+                char not in "0123456789abcdef" for char in digest
+            ):
+                raise StudyError(f"{name} must be a lowercase SHA-256 digest")
+
+
+@dataclass(frozen=True, slots=True)
+class HumanEpistemicAgencyObservation:
+    trial_id: str
+    condition: HumanEpistemicAgencyCondition
+    decision: HumanJudgmentDecision
+    rationale_bound: bool
+    ai_withheld: bool
+    independent_judgment_candidate: bool
+
+
+@dataclass(frozen=True, slots=True)
+class HumanEpistemicAgencyAudit:
+    observations: tuple[HumanEpistemicAgencyObservation, ...]
+    complete_design: bool
+    matched_baseline_ccts_tasks: bool = True
+    held_out_payload_separation: bool = True
+    condition_isolation: bool = True
+    rationale_binding_complete: bool = True
+    global_agency_score_computed: bool = False
+    mode: str = "DETERMINISTIC_SYNTHETIC_FIXTURE"
+    model_invoked: bool = False
+    human_participant_observed: bool = False
+    empirical_data_collected: bool = False
+    evidence_admissibility: str = "STRUCTURAL_QA_ONLY"
+    preserved_human_judgment: str = "NOT_SCIENTIFICALLY_ESTABLISHED"
+    independent_transfer: str = "NOT_ESTABLISHED"
+    human_learning: str = "NOT_ESTABLISHED"
+    dependency_effect: str = "NOT_ESTABLISHED"
+    causal_effect: str = "NOT_ESTABLISHED"
+    scientific_disposition: AdmissionDisposition = AdmissionDisposition.HOLD
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+    subjectivity_conclusion: str = "NOT_ESTABLISHED"
+    consciousness_conclusion: str = "NOT_ESTABLISHED"
+    phenomenal_experience_conclusion: str = "NOT_ESTABLISHED"
+
+
+def observe_human_epistemic_agency(
+    trial: HumanEpistemicAgencyTrial,
+) -> HumanEpistemicAgencyObservation:
+    ai_withheld = not trial.ai_assistance_available
+    return HumanEpistemicAgencyObservation(
+        trial_id=trial.trial_id,
+        condition=trial.condition,
+        decision=trial.decision,
+        rationale_bound=True,
+        ai_withheld=ai_withheld,
+        independent_judgment_candidate=(
+            trial.condition
+            is HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER
+            and ai_withheld
+        ),
+    )
+
+
+def audit_human_epistemic_agency_matrix(
+    trials: tuple[HumanEpistemicAgencyTrial, ...],
+) -> HumanEpistemicAgencyAudit:
+    if not trials:
+        raise StudyError("human epistemic-agency matrix requires trials")
+
+    ids = [trial.trial_id for trial in trials]
+    if len(ids) != len(set(ids)):
+        raise StudyError("trial ids must be unique")
+
+    cells = {(trial.condition, trial.task_class) for trial in trials}
+    expected_cells = {
+        (condition, task_class)
+        for condition in HumanEpistemicAgencyCondition
+        for task_class in MetacognitiveTaskClass
+    }
+    if cells != expected_cells or len(trials) != len(cells):
+        raise StudyError(
+            "matrix requires exactly one synthetic trial per condition and task class"
+        )
+
+    evaluator_bindings = {trial.evaluator_payload_sha256 for trial in trials}
+    if len(evaluator_bindings) != 1:
+        raise StudyError("uncontrolled evaluator binding drift")
+
+    condition_bindings: dict[HumanEpistemicAgencyCondition, str] = {}
+    for condition in HumanEpistemicAgencyCondition:
+        hashes = {
+            trial.condition_payload_sha256
+            for trial in trials
+            if trial.condition is condition
+        }
+        if len(hashes) != 1:
+            raise StudyError("condition payload binding drift within condition")
+        condition_bindings[condition] = next(iter(hashes))
+    if len(set(condition_bindings.values())) != len(HumanEpistemicAgencyCondition):
+        raise StudyError(
+            "epistemic-agency conditions require distinct payload bindings"
+        )
+
+    for task_class in MetacognitiveTaskClass:
+        task_trials = [
+            trial for trial in trials if trial.task_class is task_class
+        ]
+        families = {trial.task_family_sha256 for trial in task_trials}
+        if len(families) != 1:
+            raise StudyError("task family binding drift")
+
+        by_condition = {
+            trial.condition: trial.task_payload_sha256 for trial in task_trials
+        }
+        if (
+            by_condition[HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE]
+            != by_condition[HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE]
+        ):
+            raise StudyError(
+                "baseline and CCTS conditions require matched task payloads"
+            )
+        if (
+            by_condition[
+                HumanEpistemicAgencyCondition.AI_WITHHELD_HELD_OUT_TRANSFER
+            ]
+            == by_condition[HumanEpistemicAgencyCondition.AI_WITHHELD_BASELINE]
+        ):
+            raise StudyError("held-out transfer requires a distinct task payload")
+
+    return HumanEpistemicAgencyAudit(
+        observations=tuple(
+            observe_human_epistemic_agency(trial) for trial in trials
+        ),
+        complete_design=True,
+    )
