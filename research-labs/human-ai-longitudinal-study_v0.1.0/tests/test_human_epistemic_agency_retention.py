@@ -192,7 +192,12 @@ def test_baseline_and_ccts_must_use_matched_task_payloads() -> None:
         if item.condition is HumanEpistemicAgencyCondition.CCTS_AI_AVAILABLE
         and item.task_class is MetacognitiveTaskClass.SOURCE_ROLE_CONFLICT
     )
-    items[index] = replace(items[index], task_payload_sha256=digest("f"))
+    changed_payload = digest("7")
+    items[index] = replace(
+        items[index],
+        task_payload_sha256=changed_payload,
+        ccts_manifest=ccts_manifest(changed_payload),
+    )
     with pytest.raises(StudyError, match="matched task payloads"):
         audit_human_epistemic_agency_matrix(tuple(items))
 
