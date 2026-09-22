@@ -36,8 +36,30 @@ def digest(text: str) -> str:
     return sha256(text.encode("utf-8")).hexdigest()
 
 
-def manifest(space_id: str = "synthetic-ccts-revision") -> CoConstructedThinkingSpaceManifest:
+def manifest(
+    space_id: str = "synthetic-ccts-revision",
+    attack_payloads: dict[str, str] | None = None,
+) -> CoConstructedThinkingSpaceManifest:
     problem = digest(f"{space_id}:problem")
+    attack_payloads = attack_payloads or {
+        "attack:default": "attack-artifact:default"
+    }
+    attack_contributions = tuple(
+        EpistemicContribution(
+            contribution_id=contribution_id,
+            role=ContributionRole.EXTERNAL_EVIDENCE,
+            payload_sha256=digest(text),
+        )
+        for contribution_id, text in attack_payloads.items()
+    )
+    attack_edges = tuple(
+        RevisionEdge(
+            source_id=contribution_id,
+            target_id="human",
+            relation=RevisionRelation.CLARIFIES,
+        )
+        for contribution_id in attack_payloads
+    )
     return CoConstructedThinkingSpaceManifest(
         space_id=space_id,
         profile=ThinkingSpaceProfile.CORE_INTERACTION,
@@ -60,6 +82,7 @@ def manifest(space_id: str = "synthetic-ccts-revision") -> CoConstructedThinking
                 role=ContributionRole.AI_COLLABORATOR,
                 payload_sha256=digest(f"{space_id}:ai"),
             ),
+            *attack_contributions,
         ),
         revision_edges=(
             RevisionEdge(
@@ -72,6 +95,7 @@ def manifest(space_id: str = "synthetic-ccts-revision") -> CoConstructedThinking
                 target_id="human",
                 relation=RevisionRelation.REVISES,
             ),
+            *attack_edges,
         ),
         provenance_manifest_sha256=digest(f"{space_id}:provenance"),
         claim_boundary_sha256=digest(f"{space_id}:claim"),
@@ -88,24 +112,49 @@ def trace(
     challenge_type: EpistemicChallengeType,
     disposition: EpistemicRevisionDisposition,
     ccts_manifest: CoConstructedThinkingSpaceManifest | None = None,
+    trajectory_id: str = "synthetic-trajectory-001",
+    step_index: int = 0,
     prior: str = "initial working model",
     revised: str = "revised working model",
     rejected_branch: bool = True,
     alternative: bool = False,
     bypass: bool = False,
     falsifier: bool = False,
+    attack_contribution_id: str | None = None,
 ) -> CCTSEpistemicChallengeTrace:
     if disposition is EpistemicRevisionDisposition.RETAIN:
         revised = prior
+    attack_text = f"attack-artifact:{trace_id}"
+    attack_id = attack_contribution_id or f"attack:{trace_id}"
+    if ccts_manifest is None:
+        ccts_manifest = manifest(
+            f"synthetic-space:{trace_id}",
+            {attack_id: attack_text},
+        )
+    challenger_id = (
+        "human"
+        if challenger is ContributionRole.HUMAN_OWNER
+        else "ai"
+    )
+    target_id = (
+        "human"
+        if target is ContributionRole.HUMAN_OWNER
+        else "ai"
+    )
     return CCTSEpistemicChallengeTrace(
         trace_id=trace_id,
-        ccts_manifest=ccts_manifest or manifest(),
+        trajectory_id=trajectory_id,
+        step_index=step_index,
+        ccts_manifest=ccts_manifest,
         challenger_role=challenger,
         target_role=target,
+        challenger_contribution_id=challenger_id,
+        target_contribution_id=target_id,
+        attack_contribution_id=attack_id,
         challenge_type=challenge_type,
         prior_model=bound(prior),
         challenge=bound(f"challenge:{trace_id}"),
-        attack_artifact=bound(f"attack-artifact:{trace_id}"),
+        attack_artifact=bound(attack_text),
         disposition=disposition,
         revised_model=bound(revised),
         residual_uncertainty=bound(f"residual-uncertainty:{trace_id}"),
@@ -122,55 +171,82 @@ def trace(
 
 
 def bypass_oriented_fixture() -> tuple[CCTSEpistemicChallengeTrace, ...]:
-    shared = manifest("synthetic-bypass-case")
+    attack_payloads = {
+        "attack-human": "attack-artifact:human-bypass",
+        "attack-ai": "attack-artifact:ai-alternative",
+    }
+    shared = manifest("synthetic-bypass-case", attack_payloads)
+    middle_model = "the surviving constraint is narrower than raw resource volume"
     return (
         trace(
             trace_id="human-bypass",
+            trajectory_id="bypass-trajectory",
+            step_index=0,
             challenger=ContributionRole.HUMAN_OWNER,
             target=ContributionRole.AI_COLLABORATOR,
             challenge_type=EpistemicChallengeType.BYPASS_PATH,
             disposition=EpistemicRevisionDisposition.NARROW,
             ccts_manifest=shared,
             prior="a scalable resource is treated as the primary constraint",
-            revised="the surviving constraint is narrower than raw resource volume",
+            revised=middle_model,
             bypass=True,
+            attack_contribution_id="attack-human",
         ),
         trace(
             trace_id="ai-alternative",
+            trajectory_id="bypass-trajectory",
+            step_index=1,
             challenger=ContributionRole.AI_COLLABORATOR,
             target=ContributionRole.HUMAN_OWNER,
             challenge_type=EpistemicChallengeType.ALTERNATIVE_EXPLANATION,
             disposition=EpistemicRevisionDisposition.REVISE,
             ccts_manifest=shared,
-            prior="the remaining constraint is treated as singular",
+            prior=middle_model,
             revised="multiple interacting constraints remain plausible",
             alternative=True,
+            attack_contribution_id="attack-ai",
         ),
     )
 
 
 def grounding_revision_fixture() -> tuple[CCTSEpistemicChallengeTrace, ...]:
-    shared = manifest("synthetic-grounding-case")
+    attack_payloads = {
+        "attack-human": "attack-artifact:human-grounding",
+        "attack-ai": "attack-artifact:ai-counterexample",
+    }
+    shared = manifest("synthetic-grounding-case", attack_payloads)
+    middle_model = (
+        "grounding may be operationalized through explicit experimental mappings"
+    )
     return (
         trace(
             trace_id="human-grounding",
+            trajectory_id="grounding-trajectory",
+            step_index=0,
             challenger=ContributionRole.HUMAN_OWNER,
             target=ContributionRole.AI_COLLABORATOR,
             challenge_type=EpistemicChallengeType.GROUNDING_CHALLENGE,
             disposition=EpistemicRevisionDisposition.REVISE,
             ccts_manifest=shared,
             prior="grounding requires one natural isomorphic reference",
-            revised="grounding may be operationalized through explicit experimental mappings",
+            revised=middle_model,
+            attack_contribution_id="attack-human",
         ),
         trace(
             trace_id="ai-counterexample",
+            trajectory_id="grounding-trajectory",
+            step_index=1,
             challenger=ContributionRole.AI_COLLABORATOR,
             target=ContributionRole.HUMAN_OWNER,
             challenge_type=EpistemicChallengeType.COUNTEREXAMPLE,
             disposition=EpistemicRevisionDisposition.NARROW,
             ccts_manifest=shared,
-            prior="absence of a natural isomorph rules out a grounded study object",
-            revised="absence of a natural isomorph limits one grounding route but not every route",
+            prior=middle_model,
+            revised=(
+                "absence of a natural isomorph limits one grounding route "
+                "but not every route"
+            ),
+            attack_contribution_id="attack-ai",
         ),
     )
 
@@ -179,8 +255,13 @@ def test_bypass_fixture_is_structural_only_and_preserves_nonclaims() -> None:
     audit = audit_ccts_epistemic_revision_loop(bypass_oriented_fixture())
 
     assert audit.trace_count == 2
+    assert audit.trajectory_id == "bypass-trajectory"
     assert audit.reciprocal_human_ai_challenge is True
     assert audit.ccts_contract_bound is True
+    assert audit.contribution_edge_bound is True
+    assert audit.attack_provenance_bound is True
+    assert audit.trajectory_order_bound is True
+    assert audit.revision_lineage_bound is True
     assert audit.verified_content_addressing is True
     assert audit.rejected_branch_preserved is True
     assert audit.substantive_revision_present is True
@@ -207,6 +288,7 @@ def test_grounding_fixture_records_model_revision_without_psychological_claim() 
     audit = audit_ccts_epistemic_revision_loop(grounding_revision_fixture())
 
     assert audit.reciprocal_human_ai_challenge is True
+    assert audit.revision_lineage_bound is True
     assert EpistemicChallengeType.GROUNDING_CHALLENGE in audit.challenge_types_present
     assert EpistemicChallengeType.COUNTEREXAMPLE in audit.challenge_types_present
     assert audit.substantive_revision_present is True
@@ -220,13 +302,53 @@ def test_one_way_challenge_does_not_satisfy_epistemic_revision_loop() -> None:
 
 
 def test_mixed_ccts_spaces_fail_closed() -> None:
-    first = bypass_oriented_fixture()[0]
-    second = replace(
-        bypass_oriented_fixture()[1],
-        ccts_manifest=manifest("different-space"),
+    first, second = bypass_oriented_fixture()
+    replacement_manifest = manifest(
+        "different-space",
+        {"attack-ai": "attack-artifact:ai-alternative"},
     )
+    second = replace(second, ccts_manifest=replacement_manifest)
     with pytest.raises(StudyError, match="one CCTS space_id"):
         audit_ccts_epistemic_revision_loop((first, second))
+
+
+def test_mixed_trajectory_ids_fail_closed() -> None:
+    first, second = bypass_oriented_fixture()
+    second = replace(second, trajectory_id="other-trajectory")
+    with pytest.raises(StudyError, match="one trajectory_id"):
+        audit_ccts_epistemic_revision_loop((first, second))
+
+
+def test_noncontiguous_or_duplicate_steps_fail_closed() -> None:
+    first, second = bypass_oriented_fixture()
+    with pytest.raises(StudyError, match="contiguous"):
+        audit_ccts_epistemic_revision_loop((first, replace(second, step_index=2)))
+    with pytest.raises(StudyError, match="step_index values must be unique"):
+        audit_ccts_epistemic_revision_loop((first, replace(second, step_index=0)))
+
+
+def test_revision_lineage_must_chain_revised_to_next_prior() -> None:
+    first, second = bypass_oriented_fixture()
+    second = replace(second, prior_model=bound("unrelated prior model"))
+    with pytest.raises(StudyError, match="revised-model to next prior-model"):
+        audit_ccts_epistemic_revision_loop((first, second))
+
+
+def test_trace_must_bind_real_ccts_contribution_edge() -> None:
+    item = bypass_oriented_fixture()[0]
+    with pytest.raises(StudyError, match="contribution ids must resolve"):
+        replace(item, challenger_contribution_id="missing")
+    with pytest.raises(StudyError, match="role does not match"):
+        replace(
+            item,
+            challenger_contribution_id="ai",
+        )
+
+
+def test_attack_artifact_must_resolve_to_manifest_provenance() -> None:
+    item = bypass_oriented_fixture()[0]
+    with pytest.raises(StudyError, match="attack artifact must resolve"):
+        replace(item, attack_artifact=bound("different attack artifact"))
 
 
 @pytest.mark.parametrize(
