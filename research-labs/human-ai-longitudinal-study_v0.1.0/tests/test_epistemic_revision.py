@@ -353,7 +353,7 @@ def test_audit_receipt_fails_closed_on_forged_boundary_state() -> None:
     with pytest.raises(StudyError, match="structural audit flags"):
         replace(audit, reciprocal_challenge_bound=False)
     with pytest.raises(StudyError, match="scientific_disposition"):
-        replace(audit, scientific_disposition=AdmissionDisposition.ADMIT)
+        replace(audit, scientific_disposition="ADMIT")
     with pytest.raises(StudyError, match="canonical_effect"):
         replace(audit, canonical_effect="PROMOTE")
     with pytest.raises(StudyError, match="deployment"):
