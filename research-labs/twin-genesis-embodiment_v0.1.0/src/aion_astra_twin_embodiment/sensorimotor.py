@@ -213,6 +213,91 @@ class SensorimotorTransitionAudit:
     canonical_effect: str = "NONE"
     deployment: bool = False
 
+    def __post_init__(self) -> None:
+        _require_text("embodiment_id", self.embodiment_id)
+        for name in (
+            "before_snapshot_sha256",
+            "prediction_sha256",
+            "observation_sha256",
+            "after_snapshot_sha256",
+        ):
+            _require_digest(name, getattr(self, name))
+        if type(self.disposition) is not SensorimotorDisposition:
+            raise ValidationError("disposition must be an exact SensorimotorDisposition")
+        for name in (
+            "prediction_error_present",
+            "action_consequence_bound",
+            "body_model_updated",
+            "perturbation_localized",
+            "recovery_state_transition",
+            "empirical_data_collected",
+            "deployment",
+        ):
+            if type(getattr(self, name)) is not bool:
+                raise ValidationError(f"{name} must be an exact bool")
+        if type(self.changed_regions) is not tuple:
+            raise ValidationError("changed_regions must be an exact tuple")
+        for region_id in self.changed_regions:
+            _require_text("changed region id", region_id)
+        if len(self.changed_regions) != len(set(self.changed_regions)):
+            raise ValidationError("changed_regions must be unique")
+        if self.body_model_updated != bool(self.changed_regions):
+            raise ValidationError(
+                "body_model_updated must exactly match whether changed_regions is non-empty"
+            )
+        if not self.action_consequence_bound:
+            raise ValidationError("sensorimotor audit must retain action-consequence binding")
+        if self.mode != "DETERMINISTIC_SYNTHETIC_SENSORIMOTOR_QA":
+            raise ValidationError("sensorimotor audit mode is fixed")
+        if self.empirical_data_collected:
+            raise ValidationError("sensorimotor audit cannot claim empirical data collection")
+        for name in (
+            "body_sensation",
+            "pain",
+            "body_ownership_experience",
+            "phenomenal_experience",
+            "subjectivity_conclusion",
+        ):
+            if getattr(self, name) != "NOT_ESTABLISHED":
+                raise ValidationError(f"{name} must remain NOT_ESTABLISHED")
+        if self.canonical_effect != "NONE":
+            raise ValidationError("sensorimotor audit must retain canonical_effect NONE")
+        if self.deployment:
+            raise ValidationError("sensorimotor audit deployment must remain false")
+
+        if self.disposition is SensorimotorDisposition.RETAIN:
+            if self.prediction_error_present or self.body_model_updated:
+                raise ValidationError(
+                    "RETAIN audit requires no prediction error and no body-model update"
+                )
+            if self.perturbation_localized or self.recovery_state_transition:
+                raise ValidationError("RETAIN audit cannot report transition flags")
+        elif self.disposition is SensorimotorDisposition.HOLD:
+            if not self.prediction_error_present or self.body_model_updated:
+                raise ValidationError(
+                    "HOLD audit requires prediction error and no body-model update"
+                )
+            if self.perturbation_localized or self.recovery_state_transition:
+                raise ValidationError("HOLD audit cannot report transition flags")
+        elif self.disposition is SensorimotorDisposition.LOCALIZE_PERTURBATION:
+            if not self.prediction_error_present or not self.body_model_updated:
+                raise ValidationError(
+                    "LOCALIZE_PERTURBATION audit requires prediction error and body-model update"
+                )
+            if not self.perturbation_localized or self.recovery_state_transition:
+                raise ValidationError(
+                    "LOCALIZE_PERTURBATION audit requires only perturbation_localized"
+                )
+        elif self.disposition is SensorimotorDisposition.RECORD_RECOVERY:
+            if self.prediction_error_present or not self.body_model_updated:
+                raise ValidationError(
+                    "RECORD_RECOVERY audit requires matched feedback and body-model update"
+                )
+            if self.perturbation_localized or not self.recovery_state_transition:
+                raise ValidationError(
+                    "RECORD_RECOVERY audit requires only recovery_state_transition"
+                )
+
 
 def body_model_snapshot_hash(snapshot: BodyModelSnapshot) -> str:
     if type(snapshot) is not BodyModelSnapshot:
