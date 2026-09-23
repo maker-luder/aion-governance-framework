@@ -347,18 +347,91 @@ def test_challenge_type_and_disposition_reject_raw_strings() -> None:
     with pytest.raises(StudyError, match="exact RevisionDisposition"):
         replace(item, disposition="REVISE")
 
-def test_audit_receipt_fails_closed_on_forged_boundary_state() -> None:
-    audit = audit_ccts_epistemic_revision_loop(manifest(), revision_loop())
+def test_revision_loop_requires_reciprocal_human_ai_challenge_directions() -> None:
+    with pytest.raises(StudyError, match="reciprocal Human<->AI"):
+        audit_ccts_epistemic_revision_loop(manifest(), (revision_loop()[0],))
 
+
+def test_revision_loop_requires_adversarial_challenge_type() -> None:
+    items = tuple(
+        replace(
+            item,
+            challenge_types=frozenset({EpistemicChallengeType.SCOPE_CHALLENGE}),
+        )
+        for item in revision_loop()
+    )
+    with pytest.raises(StudyError, match="requires an adversarial challenge type"):
+        audit_ccts_epistemic_revision_loop(manifest(), items)
+
+
+def test_revision_loop_requires_grounding_or_scope_challenge_type() -> None:
+    items = tuple(
+        replace(
+            item,
+            challenge_types=frozenset({EpistemicChallengeType.HIDDEN_ASSUMPTION}),
+        )
+        for item in revision_loop()
+    )
+    with pytest.raises(StudyError, match="requires a grounding, evidence, necessity, or scope"):
+        audit_ccts_epistemic_revision_loop(manifest(), items)
+
+
+def test_revision_loop_requires_model_changing_disposition() -> None:
+    items = tuple(
+        replace(item, disposition=RevisionDisposition.HOLD)
+        for item in revision_loop()
+    )
+    with pytest.raises(StudyError, match="at least one model-changing disposition"):
+        audit_ccts_epistemic_revision_loop(manifest(), items)
+
+
+def test_revision_loop_rejects_duplicate_trace_ids() -> None:
+    items = list(revision_loop())
+    items[1] = replace(items[1], trace_id=items[0].trace_id)
+    with pytest.raises(StudyError, match="trace_id values must be unique"):
+        audit_ccts_epistemic_revision_loop(manifest(), tuple(items))
+
+
+def test_revision_loop_requires_revised_role_to_match_target_role() -> None:
+    current = manifest()
+    contributions = tuple(
+        replace(item, role=ContributionRole.HUMAN_OWNER)
+        if item.contribution_id == "ai-revised-bypass"
+        else item
+        for item in current.contributions
+    )
+    with pytest.raises(StudyError, match="preserve the target contribution role"):
+        audit_ccts_epistemic_revision_loop(
+            replace(current, contributions=contributions),
+            revision_loop(),
+        )
+
+
+def test_audit_receipt_rejects_false_structural_flag() -> None:
+    audit = audit_ccts_epistemic_revision_loop(manifest(), revision_loop())
     with pytest.raises(StudyError, match="structural audit flags"):
         replace(audit, reciprocal_challenge_bound=False)
+
+
+def test_audit_receipt_requires_exact_hold_disposition_type() -> None:
+    audit = audit_ccts_epistemic_revision_loop(manifest(), revision_loop())
     with pytest.raises(StudyError, match="scientific_disposition"):
-        replace(audit, scientific_disposition="ADMIT")
+        replace(audit, scientific_disposition="HOLD")
+
+
+def test_audit_receipt_rejects_canonical_effect_promotion() -> None:
+    audit = audit_ccts_epistemic_revision_loop(manifest(), revision_loop())
     with pytest.raises(StudyError, match="canonical_effect"):
         replace(audit, canonical_effect="PROMOTE")
+
+
+def test_audit_receipt_rejects_deployment() -> None:
+    audit = audit_ccts_epistemic_revision_loop(manifest(), revision_loop())
     with pytest.raises(StudyError, match="deployment"):
         replace(audit, deployment=True)
 
+
+def test_audit_receipt_requires_positive_trace_count() -> None:
     with pytest.raises(StudyError, match="trace_count"):
         EpistemicRevisionAudit(
             trace_count=0,
