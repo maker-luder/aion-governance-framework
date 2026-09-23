@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/aion/schemas/sensorimotor-transition.json",
-  "title": "Synthetic Sensorimotor Transition Candidate",
+  "title": "Synthetic Sensorimotor Transition Audit",
   "type": "object",
   "required": [
     "embodiment_id",
@@ -10,26 +10,227 @@
     "observation_sha256",
     "after_snapshot_sha256",
     "disposition",
-    "canonical_effect"
+    "prediction_error_present",
+    "action_consequence_bound",
+    "body_model_updated",
+    "perturbation_localized",
+    "recovery_state_transition",
+    "changed_regions",
+    "mode",
+    "empirical_data_collected",
+    "body_sensation",
+    "pain",
+    "body_ownership_experience",
+    "phenomenal_experience",
+    "subjectivity_conclusion",
+    "canonical_effect",
+    "deployment"
   ],
   "properties": {
-    "embodiment_id": {"type": "string", "minLength": 1},
-    "before_snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "prediction_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "observation_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "after_snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "disposition": {
-      "enum": ["RETAIN", "HOLD", "LOCALIZE_PERTURBATION", "RECORD_RECOVERY"]
+    "embodiment_id": {
+      "type": "string",
+      "minLength": 1
     },
-    "live_sensor_input": {"const": false},
-    "live_execution": {"const": false},
-    "human_participant_observed": {"const": false},
-    "contains_private_material": {"const": false},
-    "body_sensation": {"const": "NOT_ESTABLISHED"},
-    "pain": {"const": "NOT_ESTABLISHED"},
-    "body_ownership_experience": {"const": "NOT_ESTABLISHED"},
-    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
-    "canonical_effect": {"const": "NONE"}
+    "before_snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "prediction_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "observation_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "after_snapshot_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "disposition": {
+      "enum": [
+        "RETAIN",
+        "HOLD",
+        "LOCALIZE_PERTURBATION",
+        "RECORD_RECOVERY"
+      ]
+    },
+    "prediction_error_present": {
+      "type": "boolean"
+    },
+    "action_consequence_bound": {
+      "const": true
+    },
+    "body_model_updated": {
+      "type": "boolean"
+    },
+    "perturbation_localized": {
+      "type": "boolean"
+    },
+    "recovery_state_transition": {
+      "type": "boolean"
+    },
+    "changed_regions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "mode": {
+      "const": "DETERMINISTIC_SYNTHETIC_SENSORIMOTOR_QA"
+    },
+    "empirical_data_collected": {
+      "const": false
+    },
+    "body_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "pain": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "body_ownership_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity_conclusion": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "const": "RETAIN"
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "prediction_error_present": {
+            "const": false
+          },
+          "body_model_updated": {
+            "const": false
+          },
+          "perturbation_localized": {
+            "const": false
+          },
+          "recovery_state_transition": {
+            "const": false
+          },
+          "changed_regions": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "const": "HOLD"
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "prediction_error_present": {
+            "const": true
+          },
+          "body_model_updated": {
+            "const": false
+          },
+          "perturbation_localized": {
+            "const": false
+          },
+          "recovery_state_transition": {
+            "const": false
+          },
+          "changed_regions": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "const": "LOCALIZE_PERTURBATION"
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "prediction_error_present": {
+            "const": true
+          },
+          "body_model_updated": {
+            "const": true
+          },
+          "perturbation_localized": {
+            "const": true
+          },
+          "recovery_state_transition": {
+            "const": false
+          },
+          "changed_regions": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "disposition": {
+            "const": "RECORD_RECOVERY"
+          }
+        },
+        "required": [
+          "disposition"
+        ]
+      },
+      "then": {
+        "properties": {
+          "prediction_error_present": {
+            "const": false
+          },
+          "body_model_updated": {
+            "const": true
+          },
+          "perturbation_localized": {
+            "const": false
+          },
+          "recovery_state_transition": {
+            "const": true
+          },
+          "changed_regions": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ],
   "additionalProperties": false
 }
