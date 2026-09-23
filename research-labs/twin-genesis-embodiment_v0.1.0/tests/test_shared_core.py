@@ -70,6 +70,8 @@ def test_shared_core_rejects_unreviewed_role_specific_regions() -> None:
     payload = json.loads(json.dumps(asdict(core)))
     payload["body_regions"].append({"region_id": "TEACHER_MEASUREMENT_62"})
     assert list(Draft202012Validator(schema).iter_errors(payload))
+    payload["body_regions"] = payload["body_regions"][:-2]
+    assert list(Draft202012Validator(schema).iter_errors(payload))
 
 
 def test_shared_core_schema_exists() -> None:

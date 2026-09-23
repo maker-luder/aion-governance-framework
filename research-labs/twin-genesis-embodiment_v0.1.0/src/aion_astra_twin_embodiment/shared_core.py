@@ -122,8 +122,16 @@ def _validate_core_shape(core: SharedEmbodimentCore) -> None:
             raise ValueError("observability class must use exact enum")
     if set(ObservationDomain) != {
         item.domain for item in core.observation_interfaces
-    }:
+    } or len(core.observation_interfaces) != len(ObservationDomain):
         raise ValueError("required observation domain missing")
+    if {item.interface_id for item in core.observation_interfaces} != {
+        f"{domain.value}_REFERENCE" for domain in ObservationDomain
+    }:
+        raise ValueError("unreviewed observation interface")
+    if {motor.interface_id for motor in core.motor_interfaces} != {
+        f"{region}_TARGET" for region in region_ids
+    } or len(core.motor_interfaces) != len(region_ids):
+        raise ValueError("unreviewed or missing motor interface")
     for motor in core.motor_interfaces:
         if type(motor.target_region_ids) is not tuple or not motor.target_region_ids:
             raise ValueError("motor target requires nonempty tuple")
@@ -131,6 +139,8 @@ def _validate_core_shape(core: SharedEmbodimentCore) -> None:
             raise ValueError("motor target must reference a body region")
         if len(set(motor.target_region_ids)) != len(motor.target_region_ids):
             raise ValueError("duplicate motor target")
+        if motor.target_region_ids != (motor.interface_id.removesuffix("_TARGET"),):
+            raise ValueError("motor interface target binding mismatch")
     if any(system.reference_status != "REFERENCE_ONLY" or
            type(system.reference_status) is not str for system in core.physiology_systems):
         raise ValueError("physiology is reference only")

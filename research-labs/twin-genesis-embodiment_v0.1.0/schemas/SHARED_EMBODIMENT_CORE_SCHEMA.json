@@ -13,7 +13,7 @@
     "core_id": {"type": "string", "minLength": 1},
     "template_id": {"type": "string", "minLength": 1},
     "body_regions": {
-      "type": "array", "minItems": 12,
+      "type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true,
       "items": {
         "type": "object", "additionalProperties": false,
         "required": ["region_id"],
@@ -21,7 +21,7 @@
       }
     },
     "observation_interfaces": {
-      "type": "array", "minItems": 5,
+      "type": "array", "minItems": 5, "maxItems": 5, "uniqueItems": true,
       "items": {
         "type": "object", "additionalProperties": false,
         "required": ["interface_id", "domain", "observability_class"],
@@ -33,7 +33,7 @@
       }
     },
     "motor_interfaces": {
-      "type": "array", "minItems": 1,
+      "type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true,
       "items": {
         "type": "object", "additionalProperties": false,
         "required": ["interface_id", "target_region_ids"],
@@ -44,7 +44,7 @@
       }
     },
     "physiology_systems": {
-      "type": "array", "minItems": 13,
+      "type": "array", "minItems": 13, "maxItems": 13, "uniqueItems": true,
       "items": {
         "type": "object", "additionalProperties": false,
         "required": ["system_id", "reference_status"],
