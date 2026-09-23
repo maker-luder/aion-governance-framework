@@ -40,6 +40,19 @@ from .coverage_matrix import (
     validate_coverage_matrix,
     validate_coverage_matrix_bindings,
 )
+from .materialization_map import (
+    EmbodimentMaterializationMap,
+    MaterializationAdmissionStatus,
+    MaterializationArchitectureLayer,
+    MaterializationDecision,
+    MaterializationEntry,
+    MaterializationRoleScope,
+    load_materialization_map,
+    materialization_map_gate_counts,
+    materialization_map_hash,
+    validate_materialization_map,
+    validate_materialization_map_bindings,
+)
 
 __all__ = [
     "EmbodimentInstance",
@@ -67,4 +80,10 @@ __all__ = [
     "SourceHeadBinding", "coverage_matrix_gate_counts", "coverage_matrix_hash",
     "load_coverage_matrix", "validate_coverage_matrix",
     "validate_coverage_matrix_bindings",
+    "EmbodimentMaterializationMap", "MaterializationAdmissionStatus",
+    "MaterializationArchitectureLayer", "MaterializationDecision",
+    "MaterializationEntry", "MaterializationRoleScope",
+    "load_materialization_map", "materialization_map_gate_counts",
+    "materialization_map_hash", "validate_materialization_map",
+    "validate_materialization_map_bindings",
 ]

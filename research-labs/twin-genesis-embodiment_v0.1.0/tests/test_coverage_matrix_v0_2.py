@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import asdict, replace
+import importlib
 import json
 from pathlib import Path
+import subprocess
+import sys
 
 import pytest
 from jsonschema import Draft202012Validator
@@ -20,6 +23,17 @@ from aion_astra_twin_embodiment.coverage_matrix import (
     validate_coverage_matrix,
     validate_coverage_matrix_bindings,
 )
+from aion_astra_twin_embodiment.materialization_map import (
+    MaterializationAdmissionStatus,
+    MaterializationArchitectureLayer,
+    MaterializationDecision,
+    MaterializationRoleScope,
+    load_materialization_map,
+    materialization_map_gate_counts,
+    materialization_map_hash,
+    validate_materialization_map,
+    validate_materialization_map_bindings,
+)
 
 
 ROOT = Path(__file__).parents[1]
@@ -27,10 +41,303 @@ REPOSITORY_ROOT = ROOT.parents[1]
 MATRIX_PATH = ROOT / "data" / "EMBODIMENT_ARCHIVE_COVERAGE_MATRIX_v0.2.json"
 SCHEMA_PATH = ROOT / "schemas" / "EMBODIMENT_ARCHIVE_COVERAGE_MATRIX_SCHEMA.json"
 HASH_PATH = MATRIX_PATH.with_suffix(".sha256")
+MATERIALIZATION_MAP_PATH = (
+    ROOT / "data" / "EMBODIMENT_MATERIALIZATION_MAP_v0.1.json"
+)
+MATERIALIZATION_SCHEMA_PATH = (
+    ROOT / "schemas" / "EMBODIMENT_MATERIALIZATION_MAP_SCHEMA.json"
+)
+MATERIALIZATION_HASH_PATH = MATERIALIZATION_MAP_PATH.with_suffix(".sha256")
 
 
 def _matrix():
     return load_coverage_matrix(MATRIX_PATH)
+
+
+def _materialization_map():
+    return load_materialization_map(MATERIALIZATION_MAP_PATH)
+
+
+def test_phase_b_materialization_surface_reuses_phase_a_component() -> None:
+    module = importlib.import_module(
+        "aion_astra_twin_embodiment.materialization_map"
+    )
+    assert MATERIALIZATION_MAP_PATH.is_file()
+    assert MATERIALIZATION_SCHEMA_PATH.is_file()
+    for name in (
+        "MaterializationDecision",
+        "MaterializationAdmissionStatus",
+        "MaterializationArchitectureLayer",
+        "MaterializationRoleScope",
+        "EmbodimentMaterializationMap",
+        "load_materialization_map",
+        "materialization_map_hash",
+        "materialization_map_gate_counts",
+        "validate_materialization_map",
+        "validate_materialization_map_bindings",
+    ):
+        assert hasattr(module, name), name
+
+
+def test_phase_b_map_accounts_for_every_phase_a_unit_once() -> None:
+    matrix = _matrix()
+    materialization = _materialization_map()
+    report = validate_materialization_map(materialization, matrix)
+
+    assert materialization.map_id == "EMBODIMENT_MATERIALIZATION_MAP_v0.1"
+    assert materialization.phase_a_matrix_id == matrix.matrix_id
+    assert materialization.phase_a_matrix_sha256 == coverage_matrix_hash(matrix)
+    assert len(materialization.entries) == len(matrix.semantic_units) == 391
+    assert [entry.semantic_unit_id for entry in materialization.entries] == [
+        unit.semantic_unit_id for unit in matrix.semantic_units
+    ]
+    assert report["result"] == "PASS"
+    assert report["MISSING_MATERIALIZATION_DECISION_COUNT"] == 0
+    assert report["DUPLICATE_ACTIVE_OWNERSHIP_COUNT"] == 0
+
+
+def test_phase_b_counts_are_conservative_and_deduplicated() -> None:
+    materialization = _materialization_map()
+    counts = materialization_map_gate_counts(materialization)
+    assert counts == {
+        "SEMANTIC_UNIT_COUNT": 391,
+        "IMPLEMENT_EXISTING_TARGET_COUNT": 7,
+        "EXTEND_EXISTING_TARGET_COUNT": 0,
+        "KEEP_DEFERRED_COUNT": 347,
+        "SUPERSEDED_COUNT": 37,
+        "ARCHIVE_ONLY_COUNT": 0,
+        "NEEDS_NEW_TARGET_COUNT": 0,
+        "ACTIVE_VERIFIED_COUNT": 7,
+        "MISSING_MATERIALIZATION_DECISION_COUNT": 0,
+        "DUPLICATE_ACTIVE_OWNERSHIP_COUNT": 0,
+    }
+
+    duplicate_superseded = [
+        entry
+        for entry in materialization.entries
+        if entry.phase_a_disposition.value == "DEFERRED"
+        and entry.decision is MaterializationDecision.SUPERSEDED
+    ]
+    assert len(duplicate_superseded) == 22
+    assert all(entry.source_pr == 190 for entry in duplicate_superseded)
+    assert all(entry.canonical_owner_unit_id for entry in duplicate_superseded)
+
+
+def test_phase_b_role_scope_preserves_source_boundaries() -> None:
+    materialization = _materialization_map()
+    role_counts = {
+        role: sum(entry.role_scope is role for entry in materialization.entries)
+        for role in MaterializationRoleScope
+    }
+    assert role_counts == {
+        MaterializationRoleScope.SHARED: 109,
+        MaterializationRoleScope.AION_ASTRA: 14,
+        MaterializationRoleScope.CHATGPT_TEACHER: 253,
+        MaterializationRoleScope.EXTERNAL: 15,
+    }
+    assert not any(
+        entry.role_scope is not MaterializationRoleScope.SHARED
+        and entry.admission_status is MaterializationAdmissionStatus.ACTIVE_VERIFIED
+        for entry in materialization.entries
+    )
+
+
+def test_pr202_differential_review_remains_external_and_deferred() -> None:
+    entries = [entry for entry in _materialization_map().entries if entry.source_pr == 202]
+    assert len(entries) == 15
+    assert all(
+        entry.role_scope is MaterializationRoleScope.EXTERNAL
+        and entry.architecture_layer is MaterializationArchitectureLayer.SENSORIMOTOR
+        and entry.decision is MaterializationDecision.KEEP_DEFERRED
+        and entry.admission_status is MaterializationAdmissionStatus.KEPT_DEFERRED
+        and entry.target_ref.startswith("deferred:pr202-exact-provenance-only:")
+        for entry in entries
+    )
+    assert not any(entry.active_target_ref for entry in entries)
+
+
+def test_materialization_schema_hash_and_runtime_record_are_canonical() -> None:
+    materialization = _materialization_map()
+    expected = MATERIALIZATION_HASH_PATH.read_text(encoding="ascii").split()[0]
+    assert expected == materialization_map_hash(materialization)
+
+    schema = json.loads(MATERIALIZATION_SCHEMA_PATH.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    validator = Draft202012Validator(schema)
+    payload = json.loads(json.dumps(asdict(materialization)))
+    assert not list(validator.iter_errors(payload))
+    assert list(validator.iter_errors({**payload, "unreviewed": True}))
+    for required in (
+        "semantic_unit_id",
+        "source_pr",
+        "source_head",
+        "source_path",
+        "source_blob_sha",
+        "source_locator",
+        "phase_a_classification",
+        "phase_a_disposition",
+        "decision",
+        "admission_status",
+        "architecture_layer",
+        "role_scope",
+        "target_ref",
+        "active_target_ref",
+        "replacement_ref",
+        "canonical_owner_unit_id",
+        "reason",
+    ):
+        broken = json.loads(json.dumps(payload))
+        del broken["entries"][0][required]
+        assert list(validator.iter_errors(broken)), required
+
+
+def test_materialization_validation_fails_closed_on_source_and_order_drift() -> None:
+    matrix = _matrix()
+    materialization = _materialization_map()
+    entries = list(materialization.entries)
+    entries[0] = replace(entries[0], source_blob_sha="0" * 40)
+    with pytest.raises(ValueError, match="source binding drift"):
+        validate_materialization_map(replace(materialization, entries=tuple(entries)), matrix)
+
+    with pytest.raises(ValueError, match="canonical order"):
+        validate_materialization_map(
+            replace(materialization, entries=tuple(reversed(materialization.entries))),
+            matrix,
+        )
+
+    with pytest.raises(ValueError, match="exactly once"):
+        validate_materialization_map(
+            replace(materialization, entries=materialization.entries[:-1]), matrix
+        )
+
+
+def test_materialization_validation_blocks_silent_activation_and_role_leakage() -> None:
+    matrix = _matrix()
+    materialization = _materialization_map()
+
+    deferred_index = next(
+        index
+        for index, entry in enumerate(materialization.entries)
+        if entry.decision is MaterializationDecision.KEEP_DEFERRED
+    )
+    entries = list(materialization.entries)
+    entries[deferred_index] = replace(
+        entries[deferred_index],
+        decision=MaterializationDecision.IMPLEMENT_EXISTING_TARGET,
+        admission_status=MaterializationAdmissionStatus.ACTIVE_VERIFIED,
+        active_target_ref="README.md",
+        target_ref="README.md",
+    )
+    with pytest.raises(ValueError, match="deferred"):
+        validate_materialization_map(replace(materialization, entries=tuple(entries)), matrix)
+
+    role_index = next(
+        index
+        for index, entry in enumerate(materialization.entries)
+        if entry.role_scope is MaterializationRoleScope.CHATGPT_TEACHER
+    )
+    entries = list(materialization.entries)
+    entries[role_index] = replace(
+        entries[role_index], role_scope=MaterializationRoleScope.SHARED
+    )
+    with pytest.raises(ValueError, match="role-specific"):
+        validate_materialization_map(replace(materialization, entries=tuple(entries)), matrix)
+
+    pr202_index = next(
+        index for index, entry in enumerate(materialization.entries) if entry.source_pr == 202
+    )
+    entries = list(materialization.entries)
+    entries[pr202_index] = replace(
+        entries[pr202_index],
+        decision=MaterializationDecision.NEEDS_NEW_TARGET,
+        admission_status=MaterializationAdmissionStatus.NOT_ADMITTED,
+    )
+    with pytest.raises(ValueError, match="PR #202"):
+        validate_materialization_map(replace(materialization, entries=tuple(entries)), matrix)
+
+
+def test_materialization_validation_blocks_superseded_reentry_and_fake_owner() -> None:
+    matrix = _matrix()
+    materialization = _materialization_map()
+    superseded_index = next(
+        index
+        for index, entry in enumerate(materialization.entries)
+        if entry.phase_a_disposition is CoverageDisposition.SUPERSEDED
+    )
+    entries = list(materialization.entries)
+    entries[superseded_index] = replace(
+        entries[superseded_index],
+        decision=MaterializationDecision.IMPLEMENT_EXISTING_TARGET,
+        admission_status=MaterializationAdmissionStatus.ACTIVE_VERIFIED,
+        active_target_ref="README.md",
+        target_ref="README.md",
+    )
+    with pytest.raises(ValueError, match="superseded"):
+        validate_materialization_map(replace(materialization, entries=tuple(entries)), matrix)
+
+    duplicate_index = next(
+        index
+        for index, entry in enumerate(materialization.entries)
+        if entry.canonical_owner_unit_id is not None
+    )
+    entries = list(materialization.entries)
+    entries[duplicate_index] = replace(
+        entries[duplicate_index], canonical_owner_unit_id="PR999.missing.owner"
+    )
+    with pytest.raises(ValueError, match="canonical owner"):
+        validate_materialization_map(replace(materialization, entries=tuple(entries)), matrix)
+
+
+def test_materialization_repository_bindings_reuse_phase_a_verification() -> None:
+    matrix = _matrix()
+    materialization = _materialization_map()
+    report = validate_materialization_map_bindings(
+        materialization, matrix, REPOSITORY_ROOT
+    )
+    assert report["result"] == "PASS"
+    assert report["SOURCE_BINDINGS"] == "PASS"
+    assert report["ACTIVE_TARGET_BINDINGS"] == "PASS"
+    assert report["REPLACEMENT_BINDINGS"] == "PASS"
+
+    active_index = next(
+        index
+        for index, entry in enumerate(materialization.entries)
+        if entry.admission_status is MaterializationAdmissionStatus.ACTIVE_VERIFIED
+    )
+    entries = list(materialization.entries)
+    entries[active_index] = replace(
+        entries[active_index],
+        active_target_ref="does/not/exist.py#missing",
+        target_ref="does/not/exist.py#missing",
+    )
+    with pytest.raises(ValueError, match="active target"):
+        validate_materialization_map_bindings(
+            replace(materialization, entries=tuple(entries)), matrix, REPOSITORY_ROOT
+        )
+
+
+def test_existing_matrix_verifier_reports_phase_b_materialization_gates() -> None:
+    script = ROOT / "scripts" / "verify_coverage_matrix_v0_2.py"
+    completed = subprocess.run(
+        [sys.executable, str(script)],
+        cwd=REPOSITORY_ROOT,
+        text=True,
+        encoding="utf-8",
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        check=False,
+    )
+    assert completed.returncode == 0, completed.stderr
+    report = json.loads(completed.stdout)
+    assert report["MATERIALIZATION_MAP_SHA256"] == materialization_map_hash(
+        _materialization_map()
+    )
+    assert report["MATERIALIZATION_SEMANTIC_UNIT_COUNT"] == 391
+    assert report["IMPLEMENT_EXISTING_TARGET_COUNT"] == 7
+    assert report["KEEP_DEFERRED_COUNT"] == 347
+    assert report["PHASE_B_SUPERSEDED_COUNT"] == 37
+    assert report["DUPLICATE_ACTIVE_OWNERSHIP_COUNT"] == 0
+    assert report["PR202_ADMISSION_DECISION"] == "KEEP_DEFERRED"
 
 
 def test_v0_2_contract_artifacts_and_exact_archive_heads_exist() -> None:

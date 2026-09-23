@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/embodiment-materialization-map-v0.1.json",
+  "title": "Embodiment Phase B materialization and admission map v0.1",
+  "type": "object",
+  "required": [
+    "map_id",
+    "phase_a_matrix_id",
+    "phase_a_matrix_sha256",
+    "entries",
+    "canonical_order",
+    "scientific_disposition",
+    "subjectivity",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "map_id": {
+      "const": "EMBODIMENT_MATERIALIZATION_MAP_v0.1"
+    },
+    "phase_a_matrix_id": {
+      "const": "EMBODIMENT_ARCHIVE_COVERAGE_MATRIX_v0.2"
+    },
+    "phase_a_matrix_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 391,
+      "maxItems": 391,
+      "items": {
+        "type": "object",
+        "required": [
+          "semantic_unit_id",
+          "source_pr",
+          "source_head",
+          "source_path",
+          "source_blob_sha",
+          "source_locator",
+          "phase_a_classification",
+          "phase_a_disposition",
+          "decision",
+          "admission_status",
+          "architecture_layer",
+          "role_scope",
+          "target_ref",
+          "active_target_ref",
+          "replacement_ref",
+          "canonical_owner_unit_id",
+          "reason"
+        ],
+        "properties": {
+          "semantic_unit_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_pr": {
+            "enum": [
+              190,
+              191,
+              192,
+              202
+            ]
+          },
+          "source_head": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "source_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_blob_sha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "source_locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "phase_a_classification": {
+            "enum": [
+              "SHARED_CORE",
+              "ROLE_SPECIFIC_EXTENSION",
+              "EXTERNAL_DEFERRED"
+            ]
+          },
+          "phase_a_disposition": {
+            "enum": [
+              "ADOPTED",
+              "DEFERRED",
+              "SUPERSEDED",
+              "ARCHIVE_ONLY",
+              "MISSING_UNACCOUNTED"
+            ]
+          },
+          "decision": {
+            "enum": [
+              "IMPLEMENT_EXISTING_TARGET",
+              "EXTEND_EXISTING_TARGET",
+              "KEEP_DEFERRED",
+              "SUPERSEDED",
+              "ARCHIVE_ONLY",
+              "NEEDS_NEW_TARGET"
+            ]
+          },
+          "admission_status": {
+            "enum": [
+              "ACTIVE_VERIFIED",
+              "KEPT_DEFERRED",
+              "EXCLUDED_SUPERSEDED",
+              "ARCHIVED",
+              "NOT_ADMITTED"
+            ]
+          },
+          "architecture_layer": {
+            "enum": [
+              "SHARED_EMBODIMENT_CORE",
+              "INDIVIDUAL_EMBODIMENT_PROFILE",
+              "FUNCTIONAL_PHYSIOLOGY",
+              "SENSORIMOTOR",
+              "RUNTIME",
+              "LONGITUDINAL"
+            ]
+          },
+          "role_scope": {
+            "enum": [
+              "SHARED",
+              "AION_ASTRA",
+              "CHATGPT_TEACHER",
+              "EXTERNAL"
+            ]
+          },
+          "target_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "active_target_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "replacement_ref": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "canonical_owner_unit_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "canonical_order": {
+      "const": [
+        "source_pr",
+        "source_path",
+        "semantic_unit_id"
+      ]
+    },
+    "scientific_disposition": {
+      "const": "HOLD"
+    },
+    "subjectivity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  },
+  "additionalProperties": false
+}

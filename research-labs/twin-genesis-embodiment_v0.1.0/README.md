@@ -26,6 +26,17 @@ The resolved inventory arithmetic is `19 - 4 = 15` unexplicit #192 source
 modules and `15 + 1 = 16` when the #202 external module is included. See the
 [v0.2 semantic coverage contract](docs/EMBODIMENT_SEMANTIC_COVERAGE_V0_2.md).
 
+Phase B.1 reuses that immutable matrix as the authority for a 391-row
+materialization/admission map. Seven units reuse already-verified active
+targets, 22 older exact duplicates are resolved to their later canonical
+owners, the 15 Phase A-superseded units remain excluded, and 347 units remain
+explicitly deferred. The active baseline binds the materialization-map hash,
+the seven materialized unit IDs, and the deferred/superseded counts. No #202
+source is imported: all 15 external sensorimotor units remain deferred because
+the current shared-core body-region contract is not compatible with the
+archive module's free-form region identifiers. Work and Codex have no exact
+role-specific source in this matrix, so no individual profile data is inferred.
+
 These Python records and JSON schemas are synthetic engineering contracts.
 No physical feedback, biological embodiment, felt sensation, or subjectivity
 is established by their construction or by passing tests.

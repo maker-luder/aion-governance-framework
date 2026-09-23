@@ -16,6 +16,13 @@ from .coverage_matrix import (
     coverage_matrix_hash,
     validate_coverage_matrix,
 )
+from .materialization_map import (
+    EmbodimentMaterializationMap,
+    MaterializationAdmissionStatus,
+    materialization_map_gate_counts,
+    materialization_map_hash,
+    validate_materialization_map,
+)
 from .role_extensions import (
     RoleSpecificEmbodimentExtension,
     validate_role_specific_extension,
@@ -28,7 +35,11 @@ class ActiveEmbodimentBaseline:
     baseline_id: str
     convergence_ledger_sha256: str
     coverage_matrix_sha256: str
+    materialization_map_sha256: str
     shared_core_sha256: str
+    materialized_semantic_unit_ids: tuple[str, ...]
+    kept_deferred_count: int
+    superseded_count: int
     role_extension_ids: tuple[str, ...]
     role_extension_sha256s: tuple[str, ...]
     sensorimotor_layer_status: str = "DEFERRED_TO_PR_202"
@@ -79,11 +90,21 @@ def _validate_ledger_bindings(
 def _baseline_id(
     ledger_sha256: str,
     matrix_sha256: str,
+    materialization_sha256: str,
     core_sha256: str,
+    materialized_semantic_unit_ids: tuple[str, ...],
+    kept_deferred_count: int,
+    superseded_count: int,
     extension_bindings: tuple[tuple[str, str], ...],
 ) -> str:
     return "ACTIVE_EMBODIMENT_" + deterministic_hash({
-        "ledger": ledger_sha256, "matrix": matrix_sha256, "core": core_sha256,
+        "ledger": ledger_sha256,
+        "matrix": matrix_sha256,
+        "materialization": materialization_sha256,
+        "core": core_sha256,
+        "materialized_semantic_unit_ids": materialized_semantic_unit_ids,
+        "kept_deferred_count": kept_deferred_count,
+        "superseded_count": superseded_count,
         "extensions": extension_bindings,
     })
 
@@ -92,24 +113,48 @@ def build_active_embodiment_baseline(
     core: SharedEmbodimentCore,
     ledger: ConvergenceLedger,
     matrix: EmbodimentArchiveCoverageMatrix,
+    materialization: EmbodimentMaterializationMap,
     extensions: tuple[RoleSpecificEmbodimentExtension, ...] = (),
 ) -> ActiveEmbodimentBaseline:
     validate_convergence_ledger(ledger)
     validate_coverage_matrix(matrix)
+    validate_materialization_map(materialization, matrix)
     ledger_hash = convergence_ledger_hash(ledger)
     matrix_hash = coverage_matrix_hash(matrix)
+    materialization_hash = materialization_map_hash(materialization)
+    materialized_ids = tuple(
+        entry.semantic_unit_id
+        for entry in materialization.entries
+        if entry.admission_status is MaterializationAdmissionStatus.ACTIVE_VERIFIED
+    )
+    counts = materialization_map_gate_counts(materialization)
     core_hash = shared_embodiment_core_hash(core)
     bindings = _extension_bindings(extensions, core, matrix)
     _validate_ledger_bindings(ledger)
     baseline = ActiveEmbodimentBaseline(
-        baseline_id=_baseline_id(ledger_hash, matrix_hash, core_hash, bindings),
+        baseline_id=_baseline_id(
+            ledger_hash,
+            matrix_hash,
+            materialization_hash,
+            core_hash,
+            materialized_ids,
+            counts["KEEP_DEFERRED_COUNT"],
+            counts["SUPERSEDED_COUNT"],
+            bindings,
+        ),
         convergence_ledger_sha256=ledger_hash,
         coverage_matrix_sha256=matrix_hash,
+        materialization_map_sha256=materialization_hash,
         shared_core_sha256=core_hash,
+        materialized_semantic_unit_ids=materialized_ids,
+        kept_deferred_count=counts["KEEP_DEFERRED_COUNT"],
+        superseded_count=counts["SUPERSEDED_COUNT"],
         role_extension_ids=tuple(identifier for identifier, _ in bindings),
         role_extension_sha256s=tuple(digest for _, digest in bindings),
     )
-    validate_active_embodiment_baseline(baseline, core, ledger, matrix, extensions)
+    validate_active_embodiment_baseline(
+        baseline, core, ledger, matrix, materialization, extensions
+    )
     return baseline
 
 
@@ -118,14 +163,23 @@ def validate_active_embodiment_baseline(
     core: SharedEmbodimentCore,
     ledger: ConvergenceLedger,
     matrix: EmbodimentArchiveCoverageMatrix,
+    materialization: EmbodimentMaterializationMap,
     extensions: tuple[RoleSpecificEmbodimentExtension, ...] = (),
 ) -> dict[str, str]:
     if type(baseline) is not ActiveEmbodimentBaseline:
         raise ValueError("baseline must be a typed record")
     validate_convergence_ledger(ledger)
     validate_coverage_matrix(matrix)
+    validate_materialization_map(materialization, matrix)
     ledger_hash = convergence_ledger_hash(ledger)
     matrix_hash = coverage_matrix_hash(matrix)
+    materialization_hash = materialization_map_hash(materialization)
+    materialized_ids = tuple(
+        entry.semantic_unit_id
+        for entry in materialization.entries
+        if entry.admission_status is MaterializationAdmissionStatus.ACTIVE_VERIFIED
+    )
+    counts = materialization_map_gate_counts(materialization)
     core_hash = shared_embodiment_core_hash(core)
     bindings = _extension_bindings(extensions, core, matrix)
     _validate_ledger_bindings(ledger)
@@ -133,6 +187,23 @@ def validate_active_embodiment_baseline(
         raise ValueError("convergence ledger hash mismatch")
     if baseline.coverage_matrix_sha256 != matrix_hash:
         raise ValueError("coverage matrix hash mismatch")
+    if baseline.materialization_map_sha256 != materialization_hash:
+        raise ValueError("materialization map hash mismatch")
+    if (
+        type(baseline.materialized_semantic_unit_ids) is not tuple
+        or baseline.materialized_semantic_unit_ids != materialized_ids
+    ):
+        raise ValueError("materialized semantic unit binding mismatch")
+    if (
+        type(baseline.kept_deferred_count) is not int
+        or baseline.kept_deferred_count != counts["KEEP_DEFERRED_COUNT"]
+    ):
+        raise ValueError("kept deferred count mismatch")
+    if (
+        type(baseline.superseded_count) is not int
+        or baseline.superseded_count != counts["SUPERSEDED_COUNT"]
+    ):
+        raise ValueError("superseded count mismatch")
     if baseline.shared_core_sha256 != core_hash:
         raise ValueError("shared core hash mismatch")
     if type(baseline.role_extension_ids) is not tuple or baseline.role_extension_ids != tuple(identifier for identifier, _ in bindings):
@@ -140,7 +211,14 @@ def validate_active_embodiment_baseline(
     if type(baseline.role_extension_sha256s) is not tuple or baseline.role_extension_sha256s != tuple(digest for _, digest in bindings):
         raise ValueError("role extension content hash mismatch")
     if baseline.baseline_id != _baseline_id(
-        ledger_hash, matrix_hash, core_hash, bindings
+        ledger_hash,
+        matrix_hash,
+        materialization_hash,
+        core_hash,
+        materialized_ids,
+        counts["KEEP_DEFERRED_COUNT"],
+        counts["SUPERSEDED_COUNT"],
+        bindings,
     ):
         raise ValueError("baseline ID does not match content hashes")
     for field_name, required in (
@@ -163,4 +241,5 @@ def validate_active_embodiment_baseline(
             "shared_core_sha256": core_hash,
             "convergence_ledger_sha256": ledger_hash,
             "coverage_matrix_sha256": matrix_hash,
+            "materialization_map_sha256": materialization_hash,
             "canonical_effect": "NONE"}

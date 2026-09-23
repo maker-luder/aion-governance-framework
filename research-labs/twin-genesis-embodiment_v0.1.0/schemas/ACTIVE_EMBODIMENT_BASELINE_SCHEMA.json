@@ -4,35 +4,108 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "baseline_id", "convergence_ledger_sha256", "coverage_matrix_sha256",
+    "baseline_id",
+    "convergence_ledger_sha256",
+    "coverage_matrix_sha256",
+    "materialization_map_sha256",
+    "materialized_semantic_unit_ids",
+    "kept_deferred_count",
+    "superseded_count",
     "shared_core_sha256",
-    "role_extension_ids", "role_extension_sha256s", "sensorimotor_layer_status",
-    "empirical_control_layer_status", "body_sensation",
-    "body_ownership_experience", "subjectivity_conclusion",
-    "consciousness_conclusion", "phenomenal_experience_conclusion",
-    "scientific_disposition", "canonical_effect", "deployment"
+    "role_extension_ids",
+    "role_extension_sha256s",
+    "sensorimotor_layer_status",
+    "empirical_control_layer_status",
+    "body_sensation",
+    "body_ownership_experience",
+    "subjectivity_conclusion",
+    "consciousness_conclusion",
+    "phenomenal_experience_conclusion",
+    "scientific_disposition",
+    "canonical_effect",
+    "deployment"
   ],
   "properties": {
-    "baseline_id": {"type": "string", "pattern": "^ACTIVE_EMBODIMENT_[0-9a-f]{64}$"},
-    "convergence_ledger_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "coverage_matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
-    "shared_core_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "baseline_id": {
+      "type": "string",
+      "pattern": "^ACTIVE_EMBODIMENT_[0-9a-f]{64}$"
+    },
+    "convergence_ledger_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "coverage_matrix_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "materialization_map_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "materialized_semantic_unit_ids": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "kept_deferred_count": {
+      "const": 347
+    },
+    "superseded_count": {
+      "const": 37
+    },
+    "shared_core_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
     "role_extension_ids": {
-      "type": "array", "uniqueItems": true,
-      "items": {"type": "string", "minLength": 1}
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
     },
     "role_extension_sha256s": {
-      "type": "array", "items": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
     },
-    "sensorimotor_layer_status": {"const": "DEFERRED_TO_PR_202"},
-    "empirical_control_layer_status": {"const": "NOT_IMPLEMENTED"},
-    "body_sensation": {"const": "NOT_ESTABLISHED"},
-    "body_ownership_experience": {"const": "NOT_ESTABLISHED"},
-    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
-    "consciousness_conclusion": {"const": "NOT_ESTABLISHED"},
-    "phenomenal_experience_conclusion": {"const": "NOT_ESTABLISHED"},
-    "scientific_disposition": {"const": "HOLD"},
-    "canonical_effect": {"const": "NONE"},
-    "deployment": {"const": false}
+    "sensorimotor_layer_status": {
+      "const": "DEFERRED_TO_PR_202"
+    },
+    "empirical_control_layer_status": {
+      "const": "NOT_IMPLEMENTED"
+    },
+    "body_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "body_ownership_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity_conclusion": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness_conclusion": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience_conclusion": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "scientific_disposition": {
+      "const": "HOLD"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
   }
 }
