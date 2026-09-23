@@ -123,31 +123,6 @@ NEW_BIOLOGY_RESEARCH_AXIS = NO
 
 The source remains useful only for the repository's existing hypothesis-generation / empirical-confirmation boundary.
 
-### Q4 — PR #158 / #161: TEVV and security execution-receipt contracts
-
-Current `main` has structural TEVV and structural AI-security receipts integrated into Full QMS, but explicitly separates them from execution receipts.
-
-```text
-ACTION = IMPLEMENT_SCHEMA_AND_GATE_ONLY
-TYPE = QUALITY_ENGINEERING
-PRIORITY = MEDIUM_HIGH
-EMPIRICAL_RESULT_FABRICATION = FORBIDDEN
-```
-
-Permitted now:
-- execution-receipt schema / typed record;
-- exact target, method, environment, evaluator and run binding;
-- observed-result digest binding;
-- failure / aborted-run representation;
-- Full-QMS consumer validation;
-- negative tests for stale, mismatched or structurally incomplete receipts.
-
-Not permitted by this plan:
-- claiming that an adversarial or TEVV run occurred when it did not;
-- external attack execution;
-- provider/account/credential testing;
-- treating receipt validity as model quality or security effectiveness.
-
 ### Q5 — PR #180: throughput–assimilation matching hypothesis
 
 ```text
