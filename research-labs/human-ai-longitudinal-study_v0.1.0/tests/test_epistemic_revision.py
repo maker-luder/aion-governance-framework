@@ -18,6 +18,7 @@ from aion_human_ai_longitudinal.co_constructed_thinking_space import (
 from aion_human_ai_longitudinal.epistemic_revision import (
     ConceptualRevisionTrace,
     EpistemicChallengeType,
+    EpistemicRevisionAudit,
     RevisionDisposition,
     audit_ccts_epistemic_revision_loop,
 )
@@ -345,3 +346,30 @@ def test_challenge_type_and_disposition_reject_raw_strings() -> None:
         replace(item, challenge_types=frozenset({"BYPASS_ANALYSIS"}))
     with pytest.raises(StudyError, match="exact RevisionDisposition"):
         replace(item, disposition="REVISE")
+
+def test_audit_receipt_fails_closed_on_forged_boundary_state() -> None:
+    audit = audit_ccts_epistemic_revision_loop(manifest(), revision_loop())
+
+    with pytest.raises(StudyError, match="structural audit flags"):
+        replace(audit, reciprocal_challenge_bound=False)
+    with pytest.raises(StudyError, match="scientific_disposition"):
+        replace(audit, scientific_disposition=AdmissionDisposition.ADMIT)
+    with pytest.raises(StudyError, match="canonical_effect"):
+        replace(audit, canonical_effect="PROMOTE")
+    with pytest.raises(StudyError, match="deployment"):
+        replace(audit, deployment=True)
+
+    with pytest.raises(StudyError, match="trace_count"):
+        EpistemicRevisionAudit(
+            trace_count=0,
+            reciprocal_challenge_bound=True,
+            challenge_edges_bound=True,
+            revision_edges_bound=True,
+            graph_content_bound=True,
+            adversarial_challenge_present=True,
+            grounding_or_scope_challenge_present=True,
+            conceptual_revision_trace_present=True,
+            rejected_branch_content_bound=True,
+            claim_ceiling_content_bound=True,
+            unresolved_alternatives_explicit=True,
+        )
