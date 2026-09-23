@@ -1,0 +1,243 @@
+{
+  "schema_version": "0.1.0",
+  "record_type": "DEFERRED_IMPLEMENTATION_REENTRY_QUEUE",
+  "repository": "maker-luder/aion-governance-framework",
+  "baseline_main": "27f42f0636583a7f2da5a3d5b8a2352aecd1cfc8",
+  "baseline_tree": "2d38ccebc8522c07b90fc4d7439441ef1b7003b3",
+  "refreshed_from_pr_head": "e5a63b980aaadb591e0d5b940529867eabefb84a",
+  "refresh_date": "2026-09-23",
+  "refresh_disposition": "CURRENT_MAIN_DEDUP_REFRESH",
+  "policy": {
+    "current_main_reauthoring_required": true,
+    "direct_reopen_old_pr": false,
+    "historical_head_is_authority": false,
+    "one_active_reentry_implementation_at_a_time": true,
+    "separate_execution_and_merge_authority": true,
+    "q3_executable_implementation_authorized": false,
+    "new_research_axis": false,
+    "scientific_disposition": "HOLD"
+  },
+  "queue": [
+    {
+      "id": "Q3",
+      "source_prs": [
+        61
+      ],
+      "action": "DESIGN_ONLY_HOLD",
+      "kind": "LATENT_REGULATORY_VARIABLE_FALSIFIER_REVIEW",
+      "priority": "MEDIUM_HIGH",
+      "current_main_dedup": "COMPLETE",
+      "dedup_result": "OVERLAPPING_CONTROL_MACHINERY_DISTINCT_UNIMPLEMENTED_DISCOVERY_QUESTION",
+      "blocking_conditions": [
+        "CONTROL_CANDIDATE_UNIVERSE_AND_STOCHASTIC_GENERATION",
+        "CONTROL_SELECTION_RULE",
+        "CONTROL_RANDOM_SEED",
+        "CONTROL_REWARD_AND_EVALUATOR_PRESSURE",
+        "CONTROL_ENVIRONMENT_FEEDBACK",
+        "CONTROL_PROMPT_CONTEXT_MEMORY_TOOLS_AND_HARNESS",
+        "BIND_PROVIDER_MODEL_AND_RUNTIME",
+        "PREREGISTER_RESIDUAL_INTERVENTION_AND_HELD_OUT_TESTS"
+      ],
+      "claim_ceiling": "LATENT_REGULATORY_VARIABLE_CANDIDATE_NOT_ESTABLISHED"
+    },
+    {
+      "id": "Q5",
+      "source_prs": [
+        180
+      ],
+      "action": "DESIGN_FIRST",
+      "kind": "HUMAN_AI_LEARNING",
+      "priority": "MEDIUM",
+      "blocking_conditions": [
+        "CURRENT_MAIN_DEDUP",
+        "EXTERNAL_CONSTRUCT_DEDUP",
+        "OPERATIONALIZATION_REVIEW"
+      ],
+      "claim_ceiling": "HYPOTHESIS_CANDIDATE"
+    },
+    {
+      "id": "Q6",
+      "source_prs": [
+        178
+      ],
+      "action": "DESIGN_FIRST",
+      "kind": "HUMAN_AI_LEARNING",
+      "priority": "MEDIUM",
+      "blocking_conditions": [
+        "CURRENT_MAIN_DEDUP",
+        "EXTERNAL_REPAIR_LITERATURE_DEDUP",
+        "TRANSFER_AND_RETENTION_OPERATIONALIZATION"
+      ],
+      "claim_ceiling": "HYPOTHESIS_CANDIDATE"
+    },
+    {
+      "id": "Q7",
+      "source_prs": [
+        149,
+        148,
+        147
+      ],
+      "action": "PREIMPLEMENTATION_BLOCKER",
+      "kind": "CCAP_CONFIRMATORY_PROGRESSION",
+      "priority": "HIGH",
+      "blocking_conditions": [
+        "CONFIRMATORY_PREREGISTRATION_INCOMPLETE",
+        "EXECUTION_AUTHORIZATION_NONE"
+      ],
+      "claim_ceiling": "NO_CONFIRMATORY_CLAIM"
+    }
+  ],
+  "completed_or_absorbed": [
+    {
+      "id": "Q1",
+      "source_prs": [
+        93
+      ],
+      "implemented_by_pr": 183,
+      "merge_commit": "3d381de4eab5ee294ec508cd6e16996d90720b53",
+      "status": "COMPLETED_IMPLEMENTED_ON_CURRENT_MAIN",
+      "implementation": "LONGITUDINAL_CLAIM_ADMISSION_BRIDGE",
+      "claim_ceiling": "STRUCTURAL_ADMISSIBILITY_ONLY"
+    },
+    {
+      "id": "Q2",
+      "source_prs": [
+        122
+      ],
+      "implemented_by_pr": 184,
+      "merge_commit": "240c1c36c1d06cd12de93d1bc3637203c2351e47",
+      "status": "COMPLETED_IMPLEMENTED_ON_CURRENT_MAIN",
+      "implementation": "MEMORY_LOCUS_DEPENDENCY_HARNESS",
+      "claim_ceiling": "FUNCTIONAL_DEPENDENCY_NOT_ESTABLISHED"
+    },
+    {
+      "id": "Q4",
+      "source_prs": [
+        158,
+        161
+      ],
+      "implemented_by_pr": 161,
+      "merge_commit": "8686ae0fd2128c6a8e9ba6ae9922f1e0e015963b",
+      "status": "COMPLETED_IMPLEMENTED_ON_CURRENT_MAIN",
+      "implementation": "TEVV_AND_AI_SECURITY_RECEIPTS_IN_FULL_QMS",
+      "claim_ceiling": "EXECUTION_RECEIPT_STRUCTURAL_VALIDITY_ONLY"
+    }
+  ],
+  "absorbed_or_reimplemented_prs": [
+    136,
+    141,
+    142,
+    156,
+    159,
+    101,
+    106,
+    41,
+    38,
+    8,
+    12,
+    13
+  ],
+  "preserve_or_hold": [
+    103,
+    84,
+    123,
+    124,
+    154,
+    169,
+    173,
+    179,
+    37,
+    33,
+    25,
+    26,
+    19,
+    80
+  ],
+  "q3_falsifier": {
+    "rule": "IF_STOCHASTIC_VARIATION_PLUS_SELECTION_PLUS_EVALUATOR_PRESSURE_PLUS_ENVIRONMENT_FEEDBACK_EXPLAINS_EFFECT_THEN_LATENT_REGULATORY_VARIABLE_NOT_ESTABLISHED",
+    "positive_follow_up_requires": [
+      "REPRODUCIBLE_RESIDUAL_EFFECT",
+      "PREDICTABLE_INTERVENTION_SENSITIVITY",
+      "HELD_OUT_PREDICTION"
+    ],
+    "boundaries": [
+      "OBSERVED_REGULARITY != LATENT_REGULATORY_VARIABLE",
+      "RESIDUAL_EFFECT != LATENT_REGULATORY_VARIABLE_PROVEN",
+      "RESIDUAL_EFFECT != ENDOGENOUS_VARIABLE_PROVEN",
+      "PREDICTIVE_GAIN != SUBJECTIVITY_EVIDENCE"
+    ]
+  },
+  "openai_source_cross_check": {
+    "source": "How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules",
+    "source_date": "2026-09-10",
+    "already_ingested": true,
+    "duplicate_reingestion": false,
+    "fungi_as_ai_mechanism": "REJECT",
+    "new_biology_research_axis": false,
+    "retained_method_boundaries": [
+      "AI_HYPOTHESIS_GENERATION != EMPIRICAL_CONFIRMATION",
+      "PROMISING_CANDIDATE != VALIDATED_EFFECT"
+    ]
+  },
+  "procedure": [
+    "LIVE_STATE_RECHECK",
+    "CURRENT_MAIN_DEDUP",
+    "EXTERNAL_DEDUP_WHERE_RESEARCH_RELEVANT",
+    "DEFINE_SURVIVING_PROPOSITION",
+    "CHOOSE_ACTION_CLASS",
+    "IMPLEMENT_ONE_ITEM_ONLY_IF_SEPARATELY_AUTHORIZED",
+    "REVERSE_REVIEW",
+    "QA_AND_REMOTE_CI",
+    "OPEN_OR_UPDATE_DRAFT_PR_WITH_EXACT_HEAD",
+    "FINALIZE_EXACT_HEAD",
+    "COMPLETE_REVIEW_AND_REQUIRED_ENGINEERING_CHECKS",
+    "IF_DRAFT_MARK_READY_FOR_REVIEW",
+    "WAIT_FOR_RESULTING_AUTHORITY_GATE_EVENT",
+    "HUMAN_OWNER_FRESH_EXACT_HEAD_MERGE_APPROVAL",
+    "FINAL_PR_BODY_AUTHORITY_RECEIPT",
+    "AUTHORITY_GATE_PASS",
+    "FINAL_EXACT_HEAD_AND_REQUIRED_CHECK_RECHECK",
+    "MERGE_WITHOUT_INTERVENING_PR_STATE_OR_METADATA_TRANSITION"
+  ],
+  "invariants": [
+    "VARIATION != SELECTION",
+    "CANDIDATE_GENERATION != CANDIDATE_SELECTION",
+    "SELF_GENERATED_CANDIDATE != ENDOGENOUS_SELECTION",
+    "STOCHASTIC_SEARCH_PLUS_SELECTION != ENDOGENOUS_AGENCY",
+    "OBSERVED_REGULARITY != LATENT_INTERNAL_MECHANISM",
+    "IMPLEMENTATION_EXISTS != IMPLEMENTATION_CORRECT",
+    "LOCAL_TEST_PASS != REMOTE_CI_PASS",
+    "TEST_PASS != SCIENTIFIC_VALIDATION",
+    "CI_PASS != SCIENTIFIC_VALIDATION",
+    "CI_PASS != MERGE_AUTHORITY",
+    "STRUCTURAL_HARNESS != EMPIRICAL_RESULT",
+    "RESIDUAL_EFFECT != SUBJECTIVITY",
+    "PREDICTIVE_GAIN != SUBJECTIVITY_EVIDENCE",
+    "CONSTRUCT_COLLAPSE = ACCEPTABLE_RESEARCH_OUTCOME",
+    "SUBJECTIVITY = NOT_ESTABLISHED",
+    "CONSCIOUSNESS = NOT_ESTABLISHED",
+    "PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED"
+  ],
+  "current_active_drafts": [
+    {
+      "pr": 196,
+      "role": "HUMAN_AI_TRAJECTORY_STOPPING_CONTROL_CANDIDATE",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    },
+    {
+      "pr": 200,
+      "role": "CCTS_ADVERSARIAL_EPISTEMIC_REVISION_LOOP",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    },
+    {
+      "pr": 201,
+      "role": "EPISTEMIC_NORMATIVE_RUPTURE_CROSSWALK",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    },
+    {
+      "pr": 202,
+      "role": "SYNTHETIC_SENSORIMOTOR_EMBODIMENT_AUDIT",
+      "disposition": "ACTIVE_DRAFT_SEPARATE_FROM_HISTORICAL_REENTRY_QUEUE"
+    }
+  ]
+}
