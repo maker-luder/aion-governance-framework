@@ -192,6 +192,63 @@
               }
             }
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_pr": {
+                "const": 190
+              }
+            },
+            "required": [
+              "source_pr"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_head": {
+                "const": "066ed1afccebee869eb658c09691b7f096694332"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_pr": {
+                "const": 191
+              }
+            },
+            "required": [
+              "source_pr"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_head": {
+                "const": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "source_pr": {
+                "const": 192
+              }
+            },
+            "required": [
+              "source_pr"
+            ]
+          },
+          "then": {
+            "properties": {
+              "source_head": {
+                "const": "861e6a556a21afffd04b187714c0608fe73ea4fc"
+              }
+            }
+          }
         }
       ]
     }
