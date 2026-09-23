@@ -232,3 +232,39 @@ def test_convergence_schema_locks_shape_enums_heads_and_superseded_condition() -
     serialized = json.dumps(entry["allOf"], sort_keys=True)
     assert "SUPERSEDED" in serialized
     assert "replacement_ref_if_superseded" in serialized
+
+
+def _write_ledger_variant(tmp_path: Path, payload: dict[str, object]) -> Path:
+    path = tmp_path / "ledger.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+    return path
+
+
+def test_loader_rejects_missing_required_top_level_field(tmp_path: Path) -> None:
+    payload = json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
+    payload.pop("deployment")
+    with pytest.raises(ValueError, match="deployment|key drift|required"):
+        load_convergence_ledger(_write_ledger_variant(tmp_path, payload))
+
+
+def test_loader_rejects_unknown_top_level_field(tmp_path: Path) -> None:
+    payload = json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
+    payload["unexpected"] = "drift"
+    with pytest.raises(ValueError, match="unexpected|key drift|extra"):
+        load_convergence_ledger(_write_ledger_variant(tmp_path, payload))
+
+
+def test_loader_rejects_source_pr_type_coercion(tmp_path: Path) -> None:
+    payload = json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
+    payload["entries"][0]["source_pr"] = "190"
+    with pytest.raises(ValueError, match="source_pr|integer"):
+        load_convergence_ledger(_write_ledger_variant(tmp_path, payload))
+
+
+def test_schema_exactly_binds_each_archive_pr_to_its_head() -> None:
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    entry = schema["$defs"]["archiveDisposition"]
+    serialized = json.dumps(entry["allOf"], sort_keys=True)
+    for pr_number, head in EXPECTED_HEADS.items():
+        assert str(pr_number) in serialized
+        assert head in serialized
