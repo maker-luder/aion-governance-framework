@@ -102,6 +102,7 @@ Do not modify `models.py`, `runtime.py`, `validation.py`, or PR #202 in this con
   - `ArchiveDisposition`
   - `ConvergenceLedger`
   - `load_convergence_ledger(path: str | Path) -> ConvergenceLedger`
+  - `convergence_ledger_hash(ledger: ConvergenceLedger) -> str`
   - `validate_convergence_ledger(ledger: ConvergenceLedger) -> dict[str, str]`
 
 **Required initial semantic dispositions:**
@@ -133,6 +134,7 @@ The JSON ledger must encode the table above as exact rows, using `source_path_or
 
 ```python
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -141,6 +143,12 @@ from aion_astra_twin_embodiment.convergence import (
     ConvergenceClassification,
     load_convergence_ledger,
     validate_convergence_ledger,
+)
+
+LEDGER_PATH = (
+    Path(__file__).parents[1]
+    / "data"
+    / "EMBODIMENT_ARCHIVE_CONVERGENCE_LEDGER_v0.1.json"
 )
 
 def test_archive_ledger_uses_exact_frozen_source_heads() -> None:
@@ -163,14 +171,15 @@ def test_archive_ledger_rejects_source_head_drift() -> None:
 
 def test_superseded_entry_requires_replacement_reference() -> None:
     ledger = load_convergence_ledger(LEDGER_PATH)
-    entry = next(
-        item
-        for item in ledger.entries
+    index = next(
+        i
+        for i, item in enumerate(ledger.entries)
         if item.classification is ConvergenceClassification.SUPERSEDED
     )
-    bad = replace(entry, replacement_ref_if_superseded=None)
+    entries = list(ledger.entries)
+    entries[index] = replace(entries[index], replacement_ref_if_superseded=None)
     with pytest.raises(ValueError, match="replacement"):
-        replace(ledger, entries=(bad, *ledger.entries[1:]))
+        validate_convergence_ledger(replace(ledger, entries=tuple(entries)))
 ```
 
 The last test must validate through `validate_convergence_ledger`; construct the tuple so the replaced row is not duplicated.
@@ -458,6 +467,7 @@ git commit -m "feat: add shared static embodiment core"
 - Consumes:
   - `SharedEmbodimentCore`;
   - `shared_embodiment_core_hash`;
+  - `AdoptionStatus`;
   - Task 1 archive heads.
 - Produces:
   - `RoleId`
@@ -476,6 +486,7 @@ from dataclasses import replace
 import pytest
 
 from aion_astra_twin_embodiment.models import EmbodimentTemplate
+from aion_astra_twin_embodiment.convergence import AdoptionStatus
 from aion_astra_twin_embodiment.role_extensions import (
     RoleId,
     build_teacher_extension_manifest,
@@ -492,7 +503,10 @@ def test_teacher_extension_is_bound_to_shared_core_and_archive_head() -> None:
     assert "TEACHER_ANTHROPOMETRY_62_MEASURE" in {
         item.capability_id for item in ext.capabilities
     }
-    assert all(item.adoption_status == "DEFERRED" for item in ext.capabilities)
+    assert all(
+        item.adoption_status is AdoptionStatus.DEFERRED
+        for item in ext.capabilities
+    )
 
 def test_teacher_extension_rejects_wrong_core_hash() -> None:
     core = build_shared_embodiment_core(EmbodimentTemplate("adult-template", "v0.1"))
@@ -526,7 +540,7 @@ class RoleId(StrEnum):
 class ExtensionCapability:
     capability_id: str
     source_path_or_semantic_unit: str
-    adoption_status: str
+    adoption_status: AdoptionStatus
     active_target_ref: str | None = None
 
 @dataclass(frozen=True, slots=True)
@@ -603,8 +617,39 @@ git commit -m "feat: add role-specific embodiment extension manifests"
 
 ```python
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
+
+from aion_astra_twin_embodiment.active_baseline import (
+    build_active_embodiment_baseline,
+    validate_active_embodiment_baseline,
+)
+from aion_astra_twin_embodiment.convergence import load_convergence_ledger
+from aion_astra_twin_embodiment.models import EmbodimentTemplate
+from aion_astra_twin_embodiment.role_extensions import (
+    build_teacher_extension_manifest,
+)
+from aion_astra_twin_embodiment.shared_core import (
+    build_shared_embodiment_core,
+    shared_embodiment_core_hash,
+)
+
+LEDGER_PATH = (
+    Path(__file__).parents[1]
+    / "data"
+    / "EMBODIMENT_ARCHIVE_CONVERGENCE_LEDGER_v0.1.json"
+)
+
+def build_fixture(*, include_teacher: bool = True):
+    ledger = load_convergence_ledger(LEDGER_PATH)
+    core = build_shared_embodiment_core(
+        EmbodimentTemplate("adult-template", "v0.1")
+    )
+    teacher = build_teacher_extension_manifest(core)
+    extensions = (teacher,) if include_teacher else ()
+    baseline = build_active_embodiment_baseline(core, ledger, extensions)
+    return baseline, core, ledger, teacher
 
 def test_active_baseline_has_single_shared_core_and_deferred_sensorimotor() -> None:
     baseline, core, ledger, teacher = build_fixture()
@@ -615,7 +660,7 @@ def test_active_baseline_has_single_shared_core_and_deferred_sensorimotor() -> N
     assert baseline.subjectivity_conclusion == "NOT_ESTABLISHED"
 
 def test_active_baseline_can_exist_without_teacher_extension() -> None:
-    baseline, core, ledger, _teacher = build_fixture(extensions=())
+    baseline, core, ledger, _teacher = build_fixture(include_teacher=False)
     assert baseline.role_extension_ids == ()
     assert baseline.shared_core_sha256 == shared_embodiment_core_hash(core)
 
@@ -661,7 +706,7 @@ class ActiveEmbodimentBaseline:
     deployment: bool = False
 ```
 
-The builder must hash the validated ledger and core, validate each extension against the same core, sort extension IDs deterministically, and never import #202 code.
+The builder must call `validate_convergence_ledger`, bind `convergence_ledger_hash(ledger)`, bind `shared_embodiment_core_hash(core)`, validate each extension against the same core, sort extension IDs deterministically, and never import #202 code.
 
 - [ ] **Step 4: Create exact receipt schema**
 
@@ -792,15 +837,45 @@ git commit -m "docs: integrate embodiment convergence baseline"
 
 **Interfaces:** verifies the whole #203 candidate.
 
-- [ ] **Step 1: Run the complete repository test command used by Quality**
+- [ ] **Step 1: Run the repository Quality command set locally on the available interpreter**
 
-Use the repository-native Quality commands. At minimum, confirm the twin-genesis component suite on Python 3.11 and Python 3.12 and the repository component sweep.
+Run from repository root:
 
-Expected: no failed targets.
+```bash
+ruff check --config ruff.toml .
+python -m pytest -q tests
+python scripts/fetch_subjectivity_sources.py
+python scripts/fetch_quality_method_sources.py
+python scripts/validate_documentation_entry.py --root .
+python -m pytest -q tests/test_documentation_entry.py
+python -m pytest -q tests/test_source_state_binding.py
+python scripts/check_source_state_binding.py --root . --expected-head "$(git rev-parse HEAD)"
+python scripts/scan_public_tree.py
+python scripts/audit_openai_assistants_sunset.py .
+python scripts/verify_release.py --baseline current-head
+python -m compileall -q components examples research-labs scripts
+python scripts/run_component_tests.py
+python scripts/run_current_coverage.py
+```
 
-- [ ] **Step 2: Run mypy in both required Python lanes**
+Expected: every command exits 0; `run_component_tests.py` reports no failed targets and coverage reports no failed eligible target.
 
-Expected:
+Remote Quality remains authoritative for the Python 3.11 / 3.12 matrix.
+
+- [ ] **Step 2: Run repository mypy policy and require both remote Python lanes**
+
+Local exact-head command:
+
+```bash
+env -u GITHUB_SHA python scripts/run_repository_mypy.py \
+  --root . \
+  --policy .github/ci/mypy-policy.json \
+  --evidence-output /tmp/embodiment-convergence-mypy.json
+```
+
+Expected locally: exit code 0.
+
+Required remote evidence:
 
 ```text
 Mypy exact head / Python 3.11 = PASS
