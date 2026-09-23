@@ -1,7 +1,9 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import asdict, replace
 from hashlib import sha256
+import json
+from pathlib import Path
 
 import pytest
 
@@ -406,3 +408,56 @@ def test_canonical_effect_and_subjective_body_claims_remain_blocked() -> None:
             after,
             SensorimotorDisposition.HOLD,
         )
+
+def test_transition_audit_receipt_fails_closed_when_forged() -> None:
+    before = snapshot(snapshot_id="s0", sequence=0, left_arm=RegionCondition.BASELINE)
+    pred = prediction(before)
+    obs = observation(pred, "left-arm undershoots target")
+    after = snapshot(
+        snapshot_id="s1",
+        sequence=1,
+        left_arm=RegionCondition.PERTURBED,
+        predecessor=body_model_snapshot_hash(before),
+    )
+    audit = audit_sensorimotor_transition(
+        instance(),
+        before,
+        pred,
+        obs,
+        after,
+        SensorimotorDisposition.LOCALIZE_PERTURBATION,
+    )
+
+    with pytest.raises(ValidationError, match="requires only perturbation_localized"):
+        replace(audit, perturbation_localized=False)
+    with pytest.raises(ValidationError, match="canonical_effect NONE"):
+        replace(audit, canonical_effect="PROMOTE")
+
+
+def test_json_schema_matches_transition_audit_receipt_surface() -> None:
+    before = snapshot(snapshot_id="s0", sequence=0, left_arm=RegionCondition.BASELINE)
+    pred = prediction(before)
+    obs = observation(pred, pred.expected_feedback_text)
+    after = snapshot(
+        snapshot_id="s1",
+        sequence=1,
+        left_arm=RegionCondition.BASELINE,
+        predecessor=body_model_snapshot_hash(before),
+    )
+    audit = audit_sensorimotor_transition(
+        instance(),
+        before,
+        pred,
+        obs,
+        after,
+        SensorimotorDisposition.RETAIN,
+    )
+    schema_path = Path(__file__).parents[1] / "schemas" / "SENSORIMOTOR_TRANSITION_SCHEMA.json"
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    receipt_keys = set(asdict(audit))
+
+    assert set(schema["properties"]) == receipt_keys
+    assert set(schema["required"]) == receipt_keys
+    assert schema["properties"]["action_consequence_bound"]["const"] is True
+    assert schema["properties"]["canonical_effect"]["const"] == "NONE"
+    assert schema["properties"]["deployment"]["const"] is False
