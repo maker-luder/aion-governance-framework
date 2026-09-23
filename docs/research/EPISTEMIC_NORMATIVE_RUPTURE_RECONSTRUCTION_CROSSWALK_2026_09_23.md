@@ -1151,3 +1151,42 @@ SCIENTIFIC_DISPOSITION = HOLD
 The implementation must extend the existing twin-genesis embodiment family rather than
 create a second embodiment ontology, use deterministic synthetic fixtures only, and
 preserve all existing non-claims.
+
+## 15. Live-state follow-up: active sensorimotor implementation candidate
+
+The architecture finding above remains a statement about the canonical `main` branch. A
+separate implementation candidate now exists as active Draft PR #202:
+
+~~~text
+CURRENT_MAIN = 27f42f0636583a7f2da5a3d5b8a2352aecd1cfc8
+CURRENT_MAIN_DYNAMIC_SENSORIMOTOR_GAP = YES
+
+ACTIVE_DRAFT_IMPLEMENTATION_CANDIDATE = PR_202
+PR_202_HEAD = 7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108
+PR_202_STATE = OPEN / DRAFT
+PR_202_MERGED = NO
+
+ACTIVE_DRAFT_EXISTS != CURRENT_MAIN_GAP_CLOSED
+QUALITY_PASS != SCIENTIFIC_VALIDATION
+DRAFT_IMPLEMENTATION != CANONICAL_IMPLEMENTATION
+~~~
+
+PR #202 implements a deterministic synthetic sensorimotor audit candidate inside the
+existing twin-genesis embodiment family. Its current boundaries remain structural:
+
+~~~text
+BODY_MODEL_UPDATE != BODY_OWNERSHIP
+PREDICTION_ERROR != PAIN
+SYNTHETIC_SENSORIMOTOR_QA != SUBJECTIVITY
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+~~~
+
+Therefore this crosswalk should no longer be read as saying that no implementation
+candidate exists anywhere in the repository. The narrower current statement is:
+
+~~~text
+CURRENT_MAIN_GAP = YES
+ACTIVE_DRAFT_CANDIDATE = YES
+CANONICAL_GAP_CLOSURE = NOT_ESTABLISHED
+~~~
