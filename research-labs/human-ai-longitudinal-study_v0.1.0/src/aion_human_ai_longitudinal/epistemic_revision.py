@@ -226,6 +226,65 @@ class EpistemicRevisionAudit:
     canonical_effect: str = "NONE"
     deployment: bool = False
 
+    def __post_init__(self) -> None:
+        if type(self.trace_count) is not int or self.trace_count < 1:
+            raise StudyError("trace_count must be a positive exact integer")
+
+        structural_flags = (
+            "reciprocal_challenge_bound",
+            "challenge_edges_bound",
+            "revision_edges_bound",
+            "graph_content_bound",
+            "adversarial_challenge_present",
+            "grounding_or_scope_challenge_present",
+            "conceptual_revision_trace_present",
+            "rejected_branch_content_bound",
+            "claim_ceiling_content_bound",
+            "unresolved_alternatives_explicit",
+        )
+        for name in structural_flags:
+            value = getattr(self, name)
+            if type(value) is not bool:
+                raise StudyError(f"{name} must be an exact bool")
+            if not value:
+                raise StudyError("structural audit flags must remain true")
+
+        if self.mode != "DETERMINISTIC_SYNTHETIC_STRUCTURE":
+            raise StudyError("mode must remain DETERMINISTIC_SYNTHETIC_STRUCTURE")
+        if type(self.empirical_data_collected) is not bool:
+            raise StudyError("empirical_data_collected must be an exact bool")
+        if self.empirical_data_collected:
+            raise StudyError("empirical_data_collected must remain false")
+        if self.evidence_admissibility != "STRUCTURAL_QA_ONLY":
+            raise StudyError("evidence_admissibility must remain STRUCTURAL_QA_ONLY")
+
+        for name in (
+            "human_conceptual_change",
+            "cognitive_conflict",
+            "schema_accommodation",
+            "transformative_learning",
+            "threshold_concept",
+            "human_learning",
+            "ccts_causal_effect",
+            "subjectivity_conclusion",
+            "consciousness_conclusion",
+            "phenomenal_experience_conclusion",
+        ):
+            if getattr(self, name) != "NOT_ESTABLISHED":
+                raise StudyError(f"{name} must remain NOT_ESTABLISHED")
+
+        if (
+            type(self.scientific_disposition) is not AdmissionDisposition
+            or self.scientific_disposition is not AdmissionDisposition.HOLD
+        ):
+            raise StudyError("scientific_disposition must remain HOLD")
+        if self.canonical_effect != "NONE":
+            raise StudyError("canonical_effect must remain NONE")
+        if type(self.deployment) is not bool:
+            raise StudyError("deployment must be an exact bool")
+        if self.deployment:
+            raise StudyError("deployment must remain false")
+
 
 def audit_ccts_epistemic_revision_loop(
     manifest: CoConstructedThinkingSpaceManifest,
