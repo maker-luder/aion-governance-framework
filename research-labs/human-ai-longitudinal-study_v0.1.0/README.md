@@ -98,6 +98,30 @@ Human identity, shared mind, shared consciousness or structure-derived AI
 subjectivity. It does not inspect raw payload content, because raw payloads are not
 part of this synthetic contract.
 
+
+The bounded CCTS adversarial epistemic challenge and conceptual-revision extension is
+implemented in `src/aion_human_ai_longitudinal/epistemic_revision.py` and documented in
+[`../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_PROTOCOL_2026_09_23.md`](../../docs/research/CCTS_ADVERSARIAL_EPISTEMIC_REVISION_PROTOCOL_2026_09_23.md).
+It binds typed challenge traces to existing reciprocal CCTS `CHALLENGES` edges,
+binds each target contribution to a distinct revised contribution through an existing
+`REVISES` edge, verifies the challenge/prior/revised contribution payload hashes plus
+the claim/rejected-branch surfaces, and requires at least one model-changing disposition. The executable fixtures abstract a
+constraint-bypass case and a synthetic non-innate-morphology grounding case; they contain
+no raw private transcript or Human identity.
+
+The revision-loop extension does not promote structural model change into a Human
+psychology claim. In particular:
+
+```text
+CHALLENGE_EDGE_PRESENT != CHALLENGE_QUALITY_ESTABLISHED
+STRUCTURAL_MODEL_REVISION != HUMAN_CONCEPTUAL_CHANGE_ESTABLISHED
+STRUCTURAL_CONFLICT_TRACE != COGNITIVE_CONFLICT_MEASURED
+MODEL_REVISION != MODEL_IMPROVEMENT
+MODEL_CHANGE != HUMAN_LEARNING
+ADVERSARIAL_CHALLENGE != RED_TEAM_EXERCISE
+THREAT_MODEL_METHOD != ATTACK_AUTHORIZATION
+```
+
 The harness is a study-design surface, not a canonical evidence schema. PR #91 is
 now on `main` and provides the repository's provenance-to-claim quality gate. This
 harness remains separate: any conversion of its study records into that claim
