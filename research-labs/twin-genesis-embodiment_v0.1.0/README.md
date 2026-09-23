@@ -8,6 +8,20 @@ This candidate records a shared-genesis twin architecture for AION and Astra and
 
 It still creates no 3D rendering, body sensation, sexual function, intimate interaction, gender identity, subjectivity, or canonical state.
 
+## Archive convergence candidate (PR #203)
+
+The separate, noncanonical convergence layer classifies archived #190/#191/#192
+material with an exact-head ledger, a role-neutral static body reference, and a
+Teacher-only **deferred provenance manifest**. `ActiveEmbodimentBaseline` binds
+the ledger, shared core, and optional role extension by deterministic hashes.
+The Teacher extension can be omitted; the shared core does not import it.
+The sensorimotor layer from #202 remains deferred and is not imported here.
+See [convergence crosswalk](docs/EMBODIMENT_CONVERGENCE_CROSSWALK_2026_09_23.md).
+
+These Python records and JSON schemas are synthetic engineering contracts.
+No physical feedback, biological embodiment, felt sensation, or subjectivity
+is established by their construction or by passing tests.
+
 ## Core invariants
 
 - Shared genesis does not mean shared identity.

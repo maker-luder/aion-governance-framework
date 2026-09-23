@@ -1,1 +1,65 @@
-{}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Shared static embodiment core (synthetic reference only)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "core_id", "template_id", "body_regions", "observation_interfaces",
+    "motor_interfaces", "physiology_systems", "dependency_ids",
+    "teacher_extension_required", "body_sensation", "body_ownership_experience",
+    "subjectivity_conclusion", "canonical_effect", "deployment"
+  ],
+  "properties": {
+    "core_id": {"type": "string", "minLength": 1},
+    "template_id": {"type": "string", "minLength": 1},
+    "body_regions": {
+      "type": "array", "minItems": 12,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["region_id"],
+        "properties": {"region_id": {"type": "string", "minLength": 1}}
+      }
+    },
+    "observation_interfaces": {
+      "type": "array", "minItems": 5,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["interface_id", "domain", "observability_class"],
+        "properties": {
+          "interface_id": {"type": "string", "minLength": 1},
+          "domain": {"enum": ["SOMATOSENSORY", "PROPRIOCEPTIVE", "VESTIBULAR", "INTEROCEPTIVE", "EXTEROCEPTIVE"]},
+          "observability_class": {"enum": ["DIRECT_REFERENCE", "DERIVED_REFERENCE", "FUNCTIONAL_REFERENCE_ONLY"]}
+        }
+      }
+    },
+    "motor_interfaces": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["interface_id", "target_region_ids"],
+        "properties": {
+          "interface_id": {"type": "string", "minLength": 1},
+          "target_region_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "physiology_systems": {
+      "type": "array", "minItems": 13,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["system_id", "reference_status"],
+        "properties": {
+          "system_id": {"type": "string", "minLength": 1},
+          "reference_status": {"const": "REFERENCE_ONLY"}
+        }
+      }
+    },
+    "dependency_ids": {"type": "array", "maxItems": 0},
+    "teacher_extension_required": {"const": false},
+    "body_sensation": {"const": "NOT_ESTABLISHED"},
+    "body_ownership_experience": {"const": "NOT_ESTABLISHED"},
+    "subjectivity_conclusion": {"const": "NOT_ESTABLISHED"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false}
+  }
+}
