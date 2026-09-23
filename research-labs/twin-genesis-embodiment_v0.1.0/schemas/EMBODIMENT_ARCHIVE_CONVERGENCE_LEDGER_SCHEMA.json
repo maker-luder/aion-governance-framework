@@ -1,1 +1,199 @@
-{}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/maker-luder/aion-governance-framework/schemas/EMBODIMENT_ARCHIVE_CONVERGENCE_LEDGER_SCHEMA.json",
+  "title": "Embodiment Archive Convergence Ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ledger_id",
+    "entries",
+    "scientific_disposition",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "ledger_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/archiveDisposition"
+      }
+    },
+    "scientific_disposition": {
+      "const": "HOLD"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "archiveDisposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_pr",
+        "source_head",
+        "source_path_or_semantic_unit",
+        "classification",
+        "target_owner",
+        "adoption_status",
+        "reason",
+        "replacement_ref_if_superseded",
+        "claim_ceiling",
+        "review_status"
+      ],
+      "properties": {
+        "source_pr": {
+          "type": "integer",
+          "enum": [
+            190,
+            191,
+            192
+          ]
+        },
+        "source_head": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "source_path_or_semantic_unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "classification": {
+          "type": "string",
+          "enum": [
+            "SHARED_CORE",
+            "ROLE_SPECIFIC_EXTENSION",
+            "ARCHIVE_ONLY",
+            "SUPERSEDED"
+          ]
+        },
+        "target_owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adoption_status": {
+          "type": "string",
+          "enum": [
+            "ADOPTED",
+            "DEFERRED",
+            "HISTORICAL_ONLY",
+            "REPLACED"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replacement_ref_if_superseded": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "claim_ceiling": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "review_status": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "SUPERSEDED"
+              }
+            },
+            "required": [
+              "classification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "adoption_status": {
+                "const": "REPLACED"
+              },
+              "replacement_ref_if_superseded": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "ARCHIVE_ONLY"
+              }
+            },
+            "required": [
+              "classification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "adoption_status": {
+                "const": "HISTORICAL_ONLY"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "SHARED_CORE"
+              }
+            },
+            "required": [
+              "classification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "adoption_status": {
+                "const": "ADOPTED"
+              },
+              "target_owner": {
+                "pattern": "^shared_core:"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification": {
+                "const": "ROLE_SPECIFIC_EXTENSION"
+              }
+            },
+            "required": [
+              "classification"
+            ]
+          },
+          "then": {
+            "properties": {
+              "adoption_status": {
+                "const": "DEFERRED"
+              },
+              "target_owner": {
+                "pattern": "^role_extension:"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
