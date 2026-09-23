@@ -13,7 +13,7 @@ adoption status, not scientific correctness.
 | --- | --- | --- |
 | `shared_core.py` | Role-neutral body region taxonomy (#191); system identifiers without biological functions (#190); sensory/motor domains and observability classes (#192) | AION/Astra identity, Teacher measurements, subjective experience, real sensors/actuators |
 | `role_extensions.py` | Exact #192 head and deferred Teacher-only capability provenance | No Teacher runtime, no active measurement port, no extension required by the shared core |
-| `active_baseline.py` | Content hashes for validated ledger, shared core, and optional extension IDs | #202 sensorimotor integration and empirical/physical control |
+| `active_baseline.py` | Content hashes for validated ledger, shared core, and optional extension IDs paired with full extension content hashes | #202 sensorimotor integration and empirical/physical control |
 
 The body region `EXTERNAL_MALE_FORM_SURFACE` is included only when the
 input template explicitly chooses `ADULT_MALE_ANATOMY_CANDIDATE`; it is a
@@ -24,6 +24,11 @@ silently inferred from this reference.
 The shared core accepts no unreviewed dependencies. The Teacher manifest
 does not turn an archive feature into active implementation; its capability
 families remain `DEFERRED`. The baseline can be built with zero extensions.
+
+Each Teacher capability is reconciled against its reviewed #192 ledger unit;
+multiple fine-grained capabilities may map to one recorded archive unit. If the
+unit loses its deferred role-extension classification, baseline construction
+fails closed. The baseline ID binds extension content, not only its name.
 Schemas describe serialized records and reject unexpected fields; semantic
 uniqueness, source bindings, and hash equality are checked by Python validators.
 

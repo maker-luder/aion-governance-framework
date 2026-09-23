@@ -11,9 +11,16 @@ from aion_astra_twin_embodiment.active_baseline import (
     build_active_embodiment_baseline,
     validate_active_embodiment_baseline,
 )
-from aion_astra_twin_embodiment.convergence import load_convergence_ledger
+from aion_astra_twin_embodiment.convergence import (
+    AdoptionStatus,
+    ConvergenceClassification,
+    load_convergence_ledger,
+)
 from aion_astra_twin_embodiment.models import EmbodimentTemplate
-from aion_astra_twin_embodiment.role_extensions import build_teacher_extension_manifest
+from aion_astra_twin_embodiment.role_extensions import (
+    build_teacher_extension_manifest,
+    validate_role_specific_extension,
+)
 from aion_astra_twin_embodiment.shared_core import (
     build_shared_embodiment_core,
     shared_embodiment_core_hash,
@@ -41,6 +48,33 @@ def test_baseline_binds_one_core_and_deferred_sensorimotor_layer() -> None:
     assert baseline.scientific_disposition == "HOLD"
     assert baseline.subjectivity_conclusion == "NOT_ESTABLISHED"
     assert validate_active_embodiment_baseline(baseline, core, ledger, extensions)["result"] == "PASS"
+
+
+def test_baseline_binds_extension_content_not_only_its_id() -> None:
+    baseline, core, ledger, extensions = _fixture()
+    changed = replace(extensions[0], capabilities=tuple(reversed(extensions[0].capabilities)))
+    assert (validate_role_specific_extension(changed, core)["extension_hash"]
+            != validate_role_specific_extension(extensions[0], core)["extension_hash"])
+    changed_baseline = build_active_embodiment_baseline(core, ledger, (changed,))
+    assert changed_baseline.baseline_id != baseline.baseline_id
+    assert changed_baseline.role_extension_sha256s != baseline.role_extension_sha256s
+    assert build_active_embodiment_baseline(core, ledger, extensions) == baseline
+    with pytest.raises(ValueError):
+        validate_active_embodiment_baseline(baseline, core, ledger, (changed,))
+
+
+def test_baseline_reconciles_ledger_and_teacher_capability_provenance() -> None:
+    _, core, ledger, extensions = _fixture()
+    changed_entries = tuple(
+        replace(entry, classification=ConvergenceClassification.ARCHIVE_ONLY,
+                adoption_status=AdoptionStatus.HISTORICAL_ONLY,
+                target_owner="archive:teacher-anthropometry")
+        if entry.source_path_or_semantic_unit == "teacher_anthropometry.py :: 62-measure profile"
+        else entry for entry in ledger.entries
+    )
+    changed = replace(ledger, entries=changed_entries)
+    with pytest.raises(ValueError):
+        build_active_embodiment_baseline(core, changed, extensions)
 
 
 def test_baseline_independent_of_teacher_extension() -> None:

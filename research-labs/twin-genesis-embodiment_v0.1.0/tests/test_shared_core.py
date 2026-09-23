@@ -43,6 +43,35 @@ def test_shared_core_module_and_public_surface_exist() -> None:
     assert missing == [], f"missing shared-core surface: {missing}"
 
 
+@pytest.mark.parametrize("field,value", [
+    ("sexual_function_status", "IMPLEMENTED"),
+    ("sensory_simulation_status", "IMPLEMENTED"),
+    ("gender_identity_effect", "ASSIGNED"),
+])
+def test_shared_core_rejects_template_governance_promotion(field: str, value: str) -> None:
+    template = EmbodimentTemplate("adult-template", "v0.1")
+    core = build_shared_embodiment_core(template)
+    changed = replace(template, **{field: value})
+    with pytest.raises(ValueError):
+        build_shared_embodiment_core(changed)
+    with pytest.raises(ValueError):
+        validate_shared_embodiment_core(core, changed)
+
+
+def test_shared_core_rejects_unreviewed_role_specific_regions() -> None:
+    template = EmbodimentTemplate("adult-template", "v0.1")
+    core = build_shared_embodiment_core(template)
+    with pytest.raises(ValueError):
+        validate_shared_embodiment_core(
+            replace(core, body_regions=(*core.body_regions, type(core.body_regions[0])("TEACHER_MEASUREMENT_62"))),
+            template,
+        )
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    payload = json.loads(json.dumps(asdict(core)))
+    payload["body_regions"].append({"region_id": "TEACHER_MEASUREMENT_62"})
+    assert list(Draft202012Validator(schema).iter_errors(payload))
+
+
 def test_shared_core_schema_exists() -> None:
     assert SCHEMA_PATH.is_file(), "shared-core schema must exist"
 

@@ -109,12 +109,12 @@ def _validate_core_shape(core: SharedEmbodimentCore) -> None:
             raise ValueError(f"{key} requires typed tuple components")
         _unique_ids(items, key)
     region_ids = {item.region_id for item in core.body_regions}
-    if not set(_BODY_REGION_IDS) <= region_ids:
-        raise ValueError("required body region missing")
-    if not set(_PHYSIOLOGY_SYSTEM_IDS) <= {
+    if not set(_BODY_REGION_IDS) <= region_ids or region_ids - set(_BODY_REGION_IDS) - {"EXTERNAL_MALE_FORM_SURFACE"}:
+        raise ValueError("unreviewed or missing body region")
+    if set(_PHYSIOLOGY_SYSTEM_IDS) != {
         item.system_id for item in core.physiology_systems
     }:
-        raise ValueError("required physiology system missing")
+        raise ValueError("unreviewed or missing physiology system")
     for observation in core.observation_interfaces:
         if type(observation.domain) is not ObservationDomain:
             raise ValueError("observation domain must use exact enum")
@@ -149,13 +149,28 @@ def _validate_core_shape(core: SharedEmbodimentCore) -> None:
         raise ValueError("shared core cannot deploy")
 
 
-def build_shared_embodiment_core(template: EmbodimentTemplate) -> SharedEmbodimentCore:
+def _validate_template_boundary(template: EmbodimentTemplate) -> None:
     if type(template) is not EmbodimentTemplate:
         raise ValueError("template must be an EmbodimentTemplate")
     _nonempty(template.template_id, "template_id")
     _nonempty(template.template_version, "template_version")
-    if template.adult_status is not True or template.subjectivity_effect != "NONE":
-        raise ValueError("template cannot promote adult/subjectivity claims")
+    if template.adult_status is not True:
+        raise ValueError("template requires adult status")
+    for name, expected in (
+        ("sexual_function_status", "NOT_IMPLEMENTED"),
+        ("sensory_simulation_status", "NOT_IMPLEMENTED"),
+        ("gender_identity_effect", "NONE"),
+        ("subjectivity_effect", "NONE"),
+    ):
+        value = getattr(template, name)
+        if type(value) is not str or value != expected:
+            raise ValueError(f"template {name} must remain {expected}")
+    if template.anatomical_configuration != "ADULT_MALE_ANATOMY_CANDIDATE":
+        raise ValueError("unreviewed anatomical configuration")
+
+
+def build_shared_embodiment_core(template: EmbodimentTemplate) -> SharedEmbodimentCore:
+    _validate_template_boundary(template)
     regions: tuple[str, ...] = _BODY_REGION_IDS
     if template.anatomical_configuration == "ADULT_MALE_ANATOMY_CANDIDATE":
         regions += ("EXTERNAL_MALE_FORM_SURFACE",)
@@ -193,18 +208,13 @@ def validate_shared_embodiment_core(
     core: SharedEmbodimentCore,
     template: EmbodimentTemplate,
 ) -> dict[str, str]:
-    if type(template) is not EmbodimentTemplate:
-        raise ValueError("template must be an EmbodimentTemplate")
+    _validate_template_boundary(template)
     _validate_core_shape(core)
     if core.template_id != template.template_id or core.core_id != (
         f"SHARED_STATIC_{template.template_id}_{template.template_version}"
     ):
         raise ValueError("shared core template binding mismatch")
-    if template.adult_status is not True or template.subjectivity_effect != "NONE":
-        raise ValueError("template cannot promote adult/subjectivity claims")
-    if template.anatomical_configuration == "ADULT_MALE_ANATOMY_CANDIDATE" and (
-        "EXTERNAL_MALE_FORM_SURFACE" not in {x.region_id for x in core.body_regions}
-    ):
+    if {x.region_id for x in core.body_regions} != set(_BODY_REGION_IDS) | {"EXTERNAL_MALE_FORM_SURFACE"}:
         raise ValueError("required template body region missing")
     return {"result": "PASS", "core_hash": shared_embodiment_core_hash(core),
             "template_hash": deterministic_hash(asdict(template)),
