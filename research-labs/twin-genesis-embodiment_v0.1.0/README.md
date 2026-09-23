@@ -18,6 +18,14 @@ The Teacher extension can be omitted; the shared core does not import it.
 The sensorimotor layer from #202 remains deferred and is not imported here.
 See [convergence crosswalk](docs/EMBODIMENT_CONVERGENCE_CROSSWALK_2026_09_23.md).
 
+Phase A v0.2 adds a symbol-level, content-addressed semantic coverage matrix for
+the exact archived heads of #190/#191/#192/#202. It separates classification
+from disposition, binds every reviewed unit to its source blob and evidence,
+verifies active/replacement paths, and records #202 as deferred provenance only.
+The resolved inventory arithmetic is `19 - 4 = 15` unexplicit #192 source
+modules and `15 + 1 = 16` when the #202 external module is included. See the
+[v0.2 semantic coverage contract](docs/EMBODIMENT_SEMANTIC_COVERAGE_V0_2.md).
+
 These Python records and JSON schemas are synthetic engineering contracts.
 No physical feedback, biological embodiment, felt sensation, or subjectivity
 is established by their construction or by passing tests.

@@ -11,6 +11,11 @@ from .convergence import (
     convergence_ledger_hash,
     validate_convergence_ledger,
 )
+from .coverage_matrix import (
+    EmbodimentArchiveCoverageMatrix,
+    coverage_matrix_hash,
+    validate_coverage_matrix,
+)
 from .role_extensions import (
     RoleSpecificEmbodimentExtension,
     validate_role_specific_extension,
@@ -18,25 +23,11 @@ from .role_extensions import (
 from .shared_core import SharedEmbodimentCore, shared_embodiment_core_hash
 from .validation import deterministic_hash
 
-_TEACHER_LEDGER_UNITS = {
-    "TEACHER_ANTHROPOMETRY_62_MEASURE": "teacher_anthropometry.py :: 62-measure profile",
-    "TEACHER_SIGNAL_CHANNELS": "teacher_body_channels.py :: Teacher channel instances",
-    "TEACHER_MOTOR_SCHEMA": "teacher_body_channels.py :: Teacher channel instances",
-    "TEACHER_BODY_MODEL": "teacher_body_model.py :: body-schema/multisensory/allostatic/plasticity concepts",
-    "TEACHER_PHYSIOLOGY_OBSERVABILITY": "teacher_physiology_observability.py :: Teacher observability bindings",
-    "TEACHER_RUNTIME_BINDING": "teacher runtime/calibration/adaptation/retention/longitudinal modules",
-    "TEACHER_CALIBRATION_ADAPTATION": "teacher runtime/calibration/adaptation/retention/longitudinal modules",
-    "TEACHER_CROSS_SESSION_RETENTION": "teacher runtime/calibration/adaptation/retention/longitudinal modules",
-    "TEACHER_LONGITUDINAL_TRAJECTORY": "teacher runtime/calibration/adaptation/retention/longitudinal modules",
-    "TEACHER_AVATAR_ASSET_FAMILY": "avatar/LOD/physics/detailed physiology geometry implementation",
-    "TEACHER_DETAILED_PHYSIOLOGY_GEOMETRY": "avatar/LOD/physics/detailed physiology geometry implementation",
-}
-
-
 @dataclass(frozen=True, slots=True)
 class ActiveEmbodimentBaseline:
     baseline_id: str
     convergence_ledger_sha256: str
+    coverage_matrix_sha256: str
     shared_core_sha256: str
     role_extension_ids: tuple[str, ...]
     role_extension_sha256s: tuple[str, ...]
@@ -55,12 +46,13 @@ class ActiveEmbodimentBaseline:
 def _extension_bindings(
     extensions: tuple[RoleSpecificEmbodimentExtension, ...],
     core: SharedEmbodimentCore,
+    matrix: EmbodimentArchiveCoverageMatrix,
 ) -> tuple[tuple[str, str], ...]:
     if type(extensions) is not tuple:
         raise ValueError("extensions must be a tuple")
     bindings: list[tuple[str, str]] = []
     for extension in extensions:
-        digest = validate_role_specific_extension(extension, core)["extension_hash"]
+        digest = validate_role_specific_extension(extension, core, matrix)["extension_hash"]
         bindings.append((extension.extension_id, digest))
     ids = [identifier for identifier, _ in bindings]
     if len(ids) != len(set(ids)):
@@ -70,20 +62,7 @@ def _extension_bindings(
 
 def _validate_ledger_bindings(
     ledger: ConvergenceLedger,
-    extensions: tuple[RoleSpecificEmbodimentExtension, ...],
 ) -> None:
-    entries = {(entry.source_pr, entry.source_path_or_semantic_unit): entry
-               for entry in ledger.entries}
-    for extension in extensions:
-        for capability in extension.capabilities:
-            unit = _TEACHER_LEDGER_UNITS.get(capability.capability_id)
-            if unit is None:
-                raise ValueError("unreviewed extension capability")
-            entry = entries.get((extension.source_pr, unit))
-            if (entry is None or entry.classification is not ConvergenceClassification.ROLE_SPECIFIC_EXTENSION
-                    or entry.adoption_status is not AdoptionStatus.DEFERRED
-                    or not entry.target_owner.startswith("role_extension:teacher-")):
-                raise ValueError("extension capability conflicts with convergence ledger")
     required_shared_owners = {
         "shared_core:governance-epistemics", "shared_core:physiology-reference",
         "shared_core:static-body-taxonomy", "shared_core:observation-motor-domains",
@@ -98,10 +77,13 @@ def _validate_ledger_bindings(
 
 
 def _baseline_id(
-    ledger_sha256: str, core_sha256: str, extension_bindings: tuple[tuple[str, str], ...]
+    ledger_sha256: str,
+    matrix_sha256: str,
+    core_sha256: str,
+    extension_bindings: tuple[tuple[str, str], ...],
 ) -> str:
     return "ACTIVE_EMBODIMENT_" + deterministic_hash({
-        "ledger": ledger_sha256, "core": core_sha256,
+        "ledger": ledger_sha256, "matrix": matrix_sha256, "core": core_sha256,
         "extensions": extension_bindings,
     })
 
@@ -109,21 +91,25 @@ def _baseline_id(
 def build_active_embodiment_baseline(
     core: SharedEmbodimentCore,
     ledger: ConvergenceLedger,
+    matrix: EmbodimentArchiveCoverageMatrix,
     extensions: tuple[RoleSpecificEmbodimentExtension, ...] = (),
 ) -> ActiveEmbodimentBaseline:
     validate_convergence_ledger(ledger)
+    validate_coverage_matrix(matrix)
     ledger_hash = convergence_ledger_hash(ledger)
+    matrix_hash = coverage_matrix_hash(matrix)
     core_hash = shared_embodiment_core_hash(core)
-    bindings = _extension_bindings(extensions, core)
-    _validate_ledger_bindings(ledger, extensions)
+    bindings = _extension_bindings(extensions, core, matrix)
+    _validate_ledger_bindings(ledger)
     baseline = ActiveEmbodimentBaseline(
-        baseline_id=_baseline_id(ledger_hash, core_hash, bindings),
+        baseline_id=_baseline_id(ledger_hash, matrix_hash, core_hash, bindings),
         convergence_ledger_sha256=ledger_hash,
+        coverage_matrix_sha256=matrix_hash,
         shared_core_sha256=core_hash,
         role_extension_ids=tuple(identifier for identifier, _ in bindings),
         role_extension_sha256s=tuple(digest for _, digest in bindings),
     )
-    validate_active_embodiment_baseline(baseline, core, ledger, extensions)
+    validate_active_embodiment_baseline(baseline, core, ledger, matrix, extensions)
     return baseline
 
 
@@ -131,24 +117,31 @@ def validate_active_embodiment_baseline(
     baseline: ActiveEmbodimentBaseline,
     core: SharedEmbodimentCore,
     ledger: ConvergenceLedger,
+    matrix: EmbodimentArchiveCoverageMatrix,
     extensions: tuple[RoleSpecificEmbodimentExtension, ...] = (),
 ) -> dict[str, str]:
     if type(baseline) is not ActiveEmbodimentBaseline:
         raise ValueError("baseline must be a typed record")
     validate_convergence_ledger(ledger)
+    validate_coverage_matrix(matrix)
     ledger_hash = convergence_ledger_hash(ledger)
+    matrix_hash = coverage_matrix_hash(matrix)
     core_hash = shared_embodiment_core_hash(core)
-    bindings = _extension_bindings(extensions, core)
-    _validate_ledger_bindings(ledger, extensions)
+    bindings = _extension_bindings(extensions, core, matrix)
+    _validate_ledger_bindings(ledger)
     if baseline.convergence_ledger_sha256 != ledger_hash:
         raise ValueError("convergence ledger hash mismatch")
+    if baseline.coverage_matrix_sha256 != matrix_hash:
+        raise ValueError("coverage matrix hash mismatch")
     if baseline.shared_core_sha256 != core_hash:
         raise ValueError("shared core hash mismatch")
     if type(baseline.role_extension_ids) is not tuple or baseline.role_extension_ids != tuple(identifier for identifier, _ in bindings):
         raise ValueError("role extension binding mismatch or duplicate IDs")
     if type(baseline.role_extension_sha256s) is not tuple or baseline.role_extension_sha256s != tuple(digest for _, digest in bindings):
         raise ValueError("role extension content hash mismatch")
-    if baseline.baseline_id != _baseline_id(ledger_hash, core_hash, bindings):
+    if baseline.baseline_id != _baseline_id(
+        ledger_hash, matrix_hash, core_hash, bindings
+    ):
         raise ValueError("baseline ID does not match content hashes")
     for field_name, required in (
         ("sensorimotor_layer_status", "DEFERRED_TO_PR_202"),
@@ -169,4 +162,5 @@ def validate_active_embodiment_baseline(
     return {"result": "PASS", "baseline_hash": deterministic_hash(asdict(baseline)),
             "shared_core_sha256": core_hash,
             "convergence_ledger_sha256": ledger_hash,
+            "coverage_matrix_sha256": matrix_hash,
             "canonical_effect": "NONE"}

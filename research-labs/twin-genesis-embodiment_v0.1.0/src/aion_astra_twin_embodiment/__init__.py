@@ -23,6 +23,23 @@ from .active_baseline import (
     ActiveEmbodimentBaseline, build_active_embodiment_baseline,
     validate_active_embodiment_baseline,
 )
+from .coverage_matrix import (
+    ARCHIVE_HEADS_V0_2,
+    ArtifactKind,
+    CoverageClassification,
+    CoverageDisposition,
+    EmbodimentArchiveCoverageMatrix,
+    EmbodimentAxis,
+    InventorySummary,
+    SemanticUnitCoverage,
+    SourceArtifact,
+    SourceHeadBinding,
+    coverage_matrix_gate_counts,
+    coverage_matrix_hash,
+    load_coverage_matrix,
+    validate_coverage_matrix,
+    validate_coverage_matrix_bindings,
+)
 
 __all__ = [
     "EmbodimentInstance",
@@ -44,4 +61,10 @@ __all__ = [
     "RoleSpecificEmbodimentExtension", "build_teacher_extension_manifest",
     "validate_role_specific_extension", "ActiveEmbodimentBaseline",
     "build_active_embodiment_baseline", "validate_active_embodiment_baseline",
+    "ARCHIVE_HEADS_V0_2", "ArtifactKind", "CoverageClassification",
+    "CoverageDisposition", "EmbodimentArchiveCoverageMatrix", "EmbodimentAxis",
+    "InventorySummary", "SemanticUnitCoverage", "SourceArtifact",
+    "SourceHeadBinding", "coverage_matrix_gate_counts", "coverage_matrix_hash",
+    "load_coverage_matrix", "validate_coverage_matrix",
+    "validate_coverage_matrix_bindings",
 ]

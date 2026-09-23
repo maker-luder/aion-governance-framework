@@ -4,7 +4,8 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "extension_id", "role", "shared_core_sha256", "source_pr", "source_head",
+    "extension_id", "role", "shared_core_sha256", "coverage_matrix_sha256",
+    "source_pr", "source_head",
     "capabilities", "subjectivity_conclusion", "phenomenal_experience_conclusion",
     "canonical_effect", "deployment"
   ],
@@ -12,17 +13,24 @@
     "extension_id": {"const": "CHATGPT_TEACHER_ARCHIVE_192"},
     "role": {"const": "CHATGPT_TEACHER"},
     "shared_core_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "coverage_matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "source_pr": {"const": 192},
     "source_head": {"const": "861e6a556a21afffd04b187714c0608fe73ea4fc"},
     "capabilities": {
       "type": "array", "minItems": 1,
       "items": {
         "type": "object", "additionalProperties": false,
-        "required": ["capability_id", "source_path_or_semantic_unit", "adoption_status", "active_target_ref"],
+        "required": [
+          "capability_id", "semantic_unit_id", "source_path", "source_blob_sha",
+          "classification", "disposition", "active_target_ref"
+        ],
         "properties": {
           "capability_id": {"type": "string", "minLength": 1},
-          "source_path_or_semantic_unit": {"type": "string", "minLength": 1},
-          "adoption_status": {"const": "DEFERRED"},
+          "semantic_unit_id": {"type": "string", "minLength": 1},
+          "source_path": {"type": "string", "minLength": 1},
+          "source_blob_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "classification": {"const": "ROLE_SPECIFIC_EXTENSION"},
+          "disposition": {"const": "DEFERRED"},
           "active_target_ref": {"type": "null"}
         }
       }

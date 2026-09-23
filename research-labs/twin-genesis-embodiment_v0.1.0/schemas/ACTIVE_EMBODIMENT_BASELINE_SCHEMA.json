@@ -4,7 +4,8 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "baseline_id", "convergence_ledger_sha256", "shared_core_sha256",
+    "baseline_id", "convergence_ledger_sha256", "coverage_matrix_sha256",
+    "shared_core_sha256",
     "role_extension_ids", "role_extension_sha256s", "sensorimotor_layer_status",
     "empirical_control_layer_status", "body_sensation",
     "body_ownership_experience", "subjectivity_conclusion",
@@ -14,6 +15,7 @@
   "properties": {
     "baseline_id": {"type": "string", "pattern": "^ACTIVE_EMBODIMENT_[0-9a-f]{64}$"},
     "convergence_ledger_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "coverage_matrix_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "shared_core_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "role_extension_ids": {
       "type": "array", "uniqueItems": true,

@@ -1,0 +1,310 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/maker-luder/aion-governance-framework/schemas/EMBODIMENT_ARCHIVE_COVERAGE_MATRIX_SCHEMA.json",
+  "title": "Embodiment archive semantic coverage matrix v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "matrix_id",
+    "source_heads",
+    "source_inventory",
+    "semantic_units",
+    "inventory_summary",
+    "canonical_order",
+    "missing_unaccounted_count",
+    "duplicate_semantic_ownership",
+    "scientific_disposition",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "matrix_id": {
+      "const": "EMBODIMENT_ARCHIVE_COVERAGE_MATRIX_v0.2"
+    },
+    "source_heads": {
+      "const": [
+        {
+          "source_pr": 190,
+          "source_head": "066ed1afccebee869eb658c09691b7f096694332"
+        },
+        {
+          "source_pr": 191,
+          "source_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2"
+        },
+        {
+          "source_pr": 192,
+          "source_head": "861e6a556a21afffd04b187714c0608fe73ea4fc"
+        },
+        {
+          "source_pr": 202,
+          "source_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108"
+        }
+      ]
+    },
+    "source_inventory": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_id",
+          "source_pr",
+          "source_head",
+          "source_path",
+          "git_blob_sha",
+          "artifact_kind",
+          "semantic_coverage_required",
+          "v0_1_explicit_row"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_pr": {
+            "enum": [
+              190,
+              191,
+              192,
+              202
+            ]
+          },
+          "source_head": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^\\\\]+$"
+          },
+          "git_blob_sha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "artifact_kind": {
+            "enum": [
+              "SOURCE",
+              "SCHEMA",
+              "DATA",
+              "TEST",
+              "DOCUMENT"
+            ]
+          },
+          "semantic_coverage_required": {
+            "type": "boolean"
+          },
+          "v0_1_explicit_row": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "semantic_units": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "primary_source_artifact_id",
+          "source_pr",
+          "source_head",
+          "source_path",
+          "source_blob_sha",
+          "semantic_unit_id",
+          "source_locator",
+          "embodiment_axes",
+          "classification",
+          "disposition",
+          "target_ref",
+          "active_target_ref",
+          "reason",
+          "replacement_ref_if_superseded",
+          "supporting_artifacts",
+          "claim_ceiling",
+          "review_status"
+        ],
+        "properties": {
+          "primary_source_artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_pr": {
+            "enum": [
+              190,
+              191,
+              192,
+              202
+            ]
+          },
+          "source_head": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "source_path": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[^\\\\]+$"
+          },
+          "source_blob_sha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "semantic_unit_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "embodiment_axes": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "ANATOMY",
+                "ANTHROPOMETRY",
+                "PHYSIOLOGY",
+                "SIGNAL_CHANNELS",
+                "MOTOR_CONTROL",
+                "OBSERVABILITY",
+                "SENSORIMOTOR",
+                "BODY_MODEL",
+                "MULTISENSORY_INTEGRATION",
+                "HOMEOSTASIS_ALLOSTASIS",
+                "DRIVE_MOTIVATION",
+                "BODY_DYNAMICS",
+                "CALIBRATION_ADAPTATION",
+                "CROSS_SESSION_RETENTION",
+                "LONGITUDINAL_TRAJECTORY",
+                "RUNTIME_BINDING",
+                "AVATAR_3D_PHYSICS",
+                "ROLE_SPECIFIC_EXTENSIONS",
+                "RESEARCH_GOVERNANCE_BOUNDARIES"
+              ]
+            }
+          },
+          "classification": {
+            "enum": [
+              "SHARED_CORE",
+              "ROLE_SPECIFIC_EXTENSION",
+              "EXTERNAL_DEFERRED",
+              "ARCHIVE_RECORD"
+            ]
+          },
+          "disposition": {
+            "enum": [
+              "ADOPTED",
+              "DEFERRED",
+              "SUPERSEDED",
+              "ARCHIVE_ONLY"
+            ]
+          },
+          "target_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "active_target_ref": {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "replacement_ref_if_superseded": {
+            "oneOf": [
+              {
+                "type": "string",
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "supporting_artifacts": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "claim_ceiling": {
+            "const": "NOT_ESTABLISHED"
+          },
+          "review_status": {
+            "const": "REVIEWED_FOR_PHASE_A_V0_2"
+          }
+        }
+      }
+    },
+    "inventory_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pr192_implementation_modules",
+        "pr192_teacher_modules",
+        "pr192_v0_1_explicit_modules",
+        "pr192_v0_1_unexplicit_modules",
+        "pr202_external_implementation_modules",
+        "pr192_plus_pr202_unexplicit_modules"
+      ],
+      "properties": {
+        "pr192_implementation_modules": {
+          "const": 19
+        },
+        "pr192_teacher_modules": {
+          "const": 17
+        },
+        "pr192_v0_1_explicit_modules": {
+          "const": 4
+        },
+        "pr192_v0_1_unexplicit_modules": {
+          "const": 15
+        },
+        "pr202_external_implementation_modules": {
+          "const": 1
+        },
+        "pr192_plus_pr202_unexplicit_modules": {
+          "const": 16
+        }
+      }
+    },
+    "canonical_order": {
+      "const": [
+        "source_pr",
+        "source_path",
+        "semantic_unit_id"
+      ]
+    },
+    "missing_unaccounted_count": {
+      "const": 0
+    },
+    "duplicate_semantic_ownership": {
+      "const": 0
+    },
+    "scientific_disposition": {
+      "const": "HOLD"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  }
+}
