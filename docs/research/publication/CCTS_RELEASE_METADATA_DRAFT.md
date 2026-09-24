@@ -99,10 +99,10 @@ ORCID = OPTIONAL / PENDING
 AFFILIATION = OPTIONAL / PENDING
 PUBLIC_CONTACT_EMAIL = OPTIONAL / PENDING
 
-MANUSCRIPT_TEXT_LICENSE = PENDING / REQUIRED_FOR_ZENODO_RECORD
+MANUSCRIPT_TEXT_LICENSE = ALL RIGHTS RESERVED / CUSTOM RIGHTS STATEMENT
 
 ZENODO_DEFAULT_LICENSE = CC-BY-4.0
-ZENODO_LICENSE_DECISION = REQUIRES_HUMAN_CONFIRMATION
+ZENODO_LICENSE_DECISION = HUMAN_CONFIRMED_CUSTOM_RIGHTS
 
 PUBLICATION_DATE = NOT_SET
 CCTS_PUBLICATION_DOI = NOT_MINTED
@@ -110,7 +110,31 @@ CCTS_PUBLICATION_DOI = NOT_MINTED
 
 The GitHub username, repository ownership, account email and any private identity information must not be silently converted into scholarly author metadata.
 
-## 6. Citation strategy
+## 6. Human-confirmed manuscript rights statement
+
+The Human Owner explicitly confirmed the following rights statement for the CCTS scholarly manuscript:
+
+```text
+ALL RIGHTS RESERVED
+
+本作品不另行授權重製、改作、散布或商業利用。
+引用與節錄僅依適用法律所允許的範圍進行。
+
+No additional rights to reproduce, adapt, redistribute, or commercially exploit this work are granted.
+Citation and quotation are permitted only to the extent allowed by applicable law.
+```
+
+Interpretation boundary:
+
+```text
+CITATION_ALLOWED_BY_LAW != GENERAL_REUSE_LICENSE
+NO_ADDITIONAL_REUSE_RIGHTS_GRANTED = YES
+CREATIVE_COMMONS_LICENSE = NO
+```
+
+This statement is the manuscript/publication rights position and must not be confused with the repository software license (`Apache-2.0`).
+
+## 7. Citation strategy
 
 The root `CITATION.cff` describes the repository/software object.
 
@@ -131,7 +155,7 @@ ROOT_CITATION_CFF
 
 A root `preferred-citation` should be considered only after the CCTS publication has stable author metadata and preferably a DOI.
 
-## 7. Zenodo scholarly-record strategy
+## 8. Zenodo scholarly-record strategy
 
 Zenodo currently requires a license for a deposited record and defaults to Creative Commons Attribution 4.0 International (CC BY 4.0). The default is documented here but is **not** adopted automatically for CCTS.
 
@@ -161,7 +185,7 @@ CCTS_PUBLICATION_DOI
 
 A GitHub-triggered Zenodo software archive is a separate optional object.
 
-## 8. AI assistance disclosure metadata
+## 9. AI assistance disclosure metadata
 
 ```text
 AI_SYSTEM =
@@ -185,7 +209,7 @@ NOT_ASSUMED
 
 Final wording remains venue-dependent.
 
-## 9. Privacy / ethics metadata
+## 10. Privacy / ethics metadata
 
 ```text
 RAW_PRIVATE_TRANSCRIPTS_PUBLISHED = NO
@@ -196,7 +220,7 @@ SYNTHETIC_STRUCTURAL_FIXTURES = YES
 
 This metadata describes the planned first CCTS scholarly object only. Any later empirical Human-participant study requires a separate ethics and consent assessment.
 
-## 10. Release readiness implication
+## 11. Release readiness implication
 
 ```text
 METADATA_STRUCTURE = PREPARED
@@ -205,7 +229,7 @@ PUBLIC_AUTHOR_NAME
 = CONFIRMED_AS_poshi
 
 MANUSCRIPT_TEXT_LICENSE
-= BLOCKING_FOR_FINAL_ARCHIVE
+= CONFIRMED_CUSTOM_RIGHTS
 
 CCTS_PUBLICATION_DOI
 = POST_DRAFT / PREPUBLICATION-RESERVABLE / REGISTERED_ON_PUBLICATION
