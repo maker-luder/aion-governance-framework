@@ -107,7 +107,7 @@ The CCTS manuscript now contains:
 - ethics / privacy statement;
 - verified core reference list.
 
-The manuscript remains a draft until author metadata and final release metadata are confirmed.
+The manuscript remains a draft pending exact-head review and later publication authorization; Human-controlled author and rights metadata are now confirmed.
 
 ### RESOLVED C — live repository citation cleanup and metadata staging
 
@@ -223,7 +223,7 @@ Formal authorship follows the target venue's current policy.
 
 ```text
 [x] Human public author name explicitly confirmed as poshi
-[ ] optional ORCID / affiliation explicitly confirmed or intentionally omitted
+[x] ORCID / affiliation / public email omitted from first release because none were provided
 [x] manuscript text / scholarly-object rights confirmed as All Rights Reserved
 [x] manuscript structural review completed for Draft v0.2
 [x] core references re-verified
@@ -253,7 +253,7 @@ DOI_MINTED = NO
 PEER_REVIEW = NO
 
 CCTS_SCHOLARLY_RELEASE_READINESS
-= WAITING_FOR_HUMAN_CONTROLLED_METADATA
+= READY_FOR_EXACT_HEAD_REVERSE_REVIEW
 
 SCIENTIFIC_DISPOSITION = HOLD
 ```
