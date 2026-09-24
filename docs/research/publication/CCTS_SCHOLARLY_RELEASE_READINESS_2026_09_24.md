@@ -122,9 +122,9 @@ CCTS_PREFERRED_CITATION = NOT_YET_ADDED
 PLACEHOLDER_METADATA != RELEASE_METADATA
 ```
 
-### OPEN BLOCKER 1 — Human public author name
+### RESOLVED E — Human public author name
 
-The Human Owner must explicitly choose the public scholarly author name.
+The Human Owner explicitly confirmed the public scholarly author name as `poshi`.
 
 Do not infer or expose:
 - legal name;
@@ -134,7 +134,7 @@ Do not infer or expose:
 - ORCID.
 
 ```text
-PUBLIC_AUTHOR_NAME = PENDING_HUMAN_CONFIRMATION
+PUBLIC_AUTHOR_NAME = poshi / CONFIRMED
 ```
 
 ### OPEN BLOCKER 2 — manuscript text / scholarly-object license
@@ -212,7 +212,7 @@ Formal authorship follows the target venue's current policy.
 ## 6. Current release gate
 
 ```text
-[ ] Human public author name explicitly confirmed
+[x] Human public author name explicitly confirmed as poshi
 [ ] optional ORCID / affiliation explicitly confirmed or intentionally omitted
 [ ] manuscript text / scholarly-object license confirmed
 [x] manuscript structural review completed for Draft v0.2
