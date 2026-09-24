@@ -218,6 +218,13 @@ class RelationalContinuityAssertion:
         _validate_digest(
             "source_role_provenance_sha256", self.source_role_provenance_sha256
         )
+        if (
+            self.source_role_provenance_sha256
+            != self.ccts_manifest.provenance_manifest_sha256
+        ):
+            raise StudyError(
+                "source-role provenance must bind the admitted CCTS provenance manifest"
+            )
         for name in (
             "claims_ai_identity_continuity",
             "claims_ai_subjectivity",

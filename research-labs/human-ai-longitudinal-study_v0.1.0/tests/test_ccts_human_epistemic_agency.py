@@ -23,6 +23,7 @@ from aion_human_ai_longitudinal.ccts_human_epistemic_agency import (
     HumanJudgmentDisposition,
     ValidationHeadBinding,
     audit_ccts_human_epistemic_agency,
+    ccts_human_agency_condition_content_sha256,
     ccts_manifest_snapshot_sha256,
 )
 from aion_human_ai_longitudinal.metacognitive_policy_transfer import (
@@ -99,12 +100,13 @@ def trial(
     )
     if task_payload is None:
         task_payload = digest("f")
-    return CCTSHumanAgencyTrial(
+    item = CCTSHumanAgencyTrial(
         trial_id=f"trial:{condition.value}",
         unit_id="anonymous-synthetic-unit",
         condition=condition,
         phase_index=phase,
         task_class=MetacognitiveTaskClass.SOURCE_ROLE_CONFLICT,
+        task_domain_sha256=digest("d"),
         task_family_sha256=(
             digest("0")
             if held_out_scope is HeldOutTransferScope.CROSS_FAMILY_SAME_DOMAIN
@@ -117,7 +119,7 @@ def trial(
         controls=controls(),
         condition_manifest_sha256=digest(str(phase + 4)),
         source_role=ContributionRole.HUMAN_OWNER,
-        source_role_provenance_sha256=digest("c"),
+        source_role_provenance_sha256=digest("4"),
         policy_access=policy_access,
         judgment=HumanJudgmentDisposition.UNKNOWN,
         rationale_sha256=digest("d"),
@@ -134,6 +136,10 @@ def trial(
             else None
         ),
         held_out_scope=held_out_scope,
+    )
+    return replace(
+        item,
+        condition_manifest_sha256=ccts_human_agency_condition_content_sha256(item),
     )
 
 

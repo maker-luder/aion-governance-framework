@@ -144,7 +144,7 @@ def assertion(**overrides: object) -> RelationalContinuityAssertion:
         "evidence_bindings": (evidence(),),
         "proxy_signals": (),
         "matched_information_comparison": comparison(),
-        "source_role_provenance_sha256": digest("9"),
+        "source_role_provenance_sha256": digest("4"),
     }
     values.update(overrides)
     return RelationalContinuityAssertion(**values)
@@ -167,7 +167,7 @@ def test_longitudinal_profile_does_not_automatically_gain_relational_status() ->
             evidence_bindings=(),
             proxy_signals=(),
             matched_information_comparison=None,
-            source_role_provenance_sha256=digest("c"),
+            source_role_provenance_sha256=digest("4"),
         )
     )
     assert ccts_audit.research_profile_complete is True

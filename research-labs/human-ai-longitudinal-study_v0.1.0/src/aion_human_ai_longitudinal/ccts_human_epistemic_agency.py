@@ -117,6 +117,7 @@ class CCTSHumanAgencyTrial:
     condition: HumanAgencyCondition
     phase_index: int
     task_class: MetacognitiveTaskClass
+    task_domain_sha256: str
     task_family_sha256: str
     task_payload_sha256: str
     human_output_sha256: str
@@ -148,6 +149,7 @@ class CCTSHumanAgencyTrial:
         if type(self.task_class) is not MetacognitiveTaskClass:
             raise StudyError("task_class must be an exact MetacognitiveTaskClass")
         for name in (
+            "task_domain_sha256",
             "task_family_sha256",
             "task_payload_sha256",
             "human_output_sha256",
@@ -268,6 +270,46 @@ class CCTSHumanAgencyTrial:
             )
 
 
+def ccts_human_agency_condition_content_sha256(
+    trial: CCTSHumanAgencyTrial,
+) -> str:
+    if type(trial) is not CCTSHumanAgencyTrial:
+        raise StudyError(
+            "trial must be an exact CCTSHumanAgencyTrial"
+        )
+    active_ccts_snapshot = (
+        ccts_manifest_snapshot_sha256(trial.ccts_manifest)
+        if trial.ccts_manifest is not None
+        else trial.ccts_exposure_snapshot_sha256
+    )
+    canonical = json.dumps(
+        {
+            "condition": trial.condition.value,
+            "phase_index": trial.phase_index,
+            "task_class": trial.task_class.value,
+            "task_domain_sha256": trial.task_domain_sha256,
+            "task_family_sha256": trial.task_family_sha256,
+            "task_payload_sha256": trial.task_payload_sha256,
+            "evaluator_sha256": trial.evaluator_sha256,
+            "scoring_rubric_sha256": trial.scoring_rubric_sha256,
+            "controls": asdict(trial.controls),
+            "source_role": trial.source_role.value,
+            "source_role_provenance_sha256": trial.source_role_provenance_sha256,
+            "policy_access": trial.policy_access.value,
+            "active_ccts_snapshot_sha256": active_ccts_snapshot,
+            "held_out_scope": (
+                trial.held_out_scope.value
+                if trial.held_out_scope is not None
+                else None
+            ),
+        },
+        ensure_ascii=False,
+        separators=(",", ":"),
+        sort_keys=True,
+    )
+    return sha256(canonical.encode("utf-8")).hexdigest()
+
+
 @dataclass(frozen=True, slots=True)
 class CCTSHumanAgencyObservation:
     trial_id: str
@@ -287,7 +329,7 @@ class CCTSHumanAgencyAudit:
     source_role_provenance_preserved: bool
     matched_controls_bound: bool
     evaluator_and_rubric_bound: bool
-    exact_head_validation_bound: bool
+    declared_head_equality_bound: bool
     assisted_output_counts_as_independent_human_gain: bool = False
     matched_practice_comparator: bool = False
     semantic_answer_equivalence: str = "NOT_ESTABLISHED"
@@ -373,15 +415,41 @@ def audit_ccts_human_epistemic_agency(
         }
         if len(condition_manifests) != len(group):
             raise StudyError("condition manifests must be content-distinct")
+        for trial in group:
+            if (
+                trial.condition_manifest_sha256
+                != ccts_human_agency_condition_content_sha256(trial)
+            ):
+                raise StudyError(
+                    "condition manifest content digest does not match actual condition content"
+                )
 
         if assisted.ccts_manifest is None:
             raise StudyError("assisted condition requires a CCTS manifest")
         snapshot = ccts_manifest_snapshot_sha256(assisted.ccts_manifest)
+        admitted_provenance = assisted.ccts_manifest.provenance_manifest_sha256
+        if any(
+            trial.source_role_provenance_sha256 != admitted_provenance
+            for trial in group
+        ):
+            raise StudyError(
+                "source-role provenance must bind the admitted CCTS provenance manifest"
+            )
         if judgment.ccts_exposure_snapshot_sha256 != snapshot or (
             held_out.ccts_exposure_snapshot_sha256 != snapshot
         ):
             raise StudyError(
                 "post-CCTS trials must bind the same complete admitted CCTS manifest snapshot"
+            )
+
+        if not (
+            baseline.task_domain_sha256
+            == assisted.task_domain_sha256
+            == judgment.task_domain_sha256
+            == held_out.task_domain_sha256
+        ):
+            raise StudyError(
+                "all Human agency conditions and held-out transfer require the same task domain"
             )
 
         if not (
@@ -436,5 +504,5 @@ def audit_ccts_human_epistemic_agency(
         source_role_provenance_preserved=True,
         matched_controls_bound=True,
         evaluator_and_rubric_bound=True,
-        exact_head_validation_bound=True,
+        declared_head_equality_bound=True,
     )
