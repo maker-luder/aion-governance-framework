@@ -271,7 +271,7 @@ class RelationalContinuityReview:
     disposition: RelationalContinuityDisposition
     path_dependence_interpretation: RelationalContinuityDisposition
     evidence_loci: tuple[ContinuityEvidenceLocus, ...]
-    source_role_provenance_preserved: bool
+    source_role_provenance_binding_preserved: bool
     proxy_only_support_rejected: bool
     matched_information_adequate: bool
     unresolved_confounds: tuple[MatchedInformationConfound, ...]
@@ -354,7 +354,7 @@ def review_relational_continuity_claim(
         disposition=disposition,
         path_dependence_interpretation=path_disposition,
         evidence_loci=evidence_loci,
-        source_role_provenance_preserved=True,
+        source_role_provenance_binding_preserved=True,
         proxy_only_support_rejected=proxy_only_rejected,
         matched_information_adequate=matched_adequate,
         unresolved_confounds=confounds,

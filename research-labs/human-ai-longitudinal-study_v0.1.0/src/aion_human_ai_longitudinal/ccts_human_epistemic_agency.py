@@ -326,7 +326,7 @@ class CCTSHumanAgencyAudit:
     complete_design: bool
     complete_ccts_manifest_snapshot_bound: bool
     held_out_contamination_control: bool
-    source_role_provenance_preserved: bool
+    source_role_provenance_binding_preserved: bool
     matched_controls_bound: bool
     evaluator_and_rubric_bound: bool
     declared_head_equality_bound: bool
@@ -415,15 +415,6 @@ def audit_ccts_human_epistemic_agency(
         }
         if len(condition_manifests) != len(group):
             raise StudyError("condition manifests must be content-distinct")
-        for trial in group:
-            if (
-                trial.condition_manifest_sha256
-                != ccts_human_agency_condition_content_sha256(trial)
-            ):
-                raise StudyError(
-                    "condition manifest content digest does not match actual condition content"
-                )
-
         if assisted.ccts_manifest is None:
             raise StudyError("assisted condition requires a CCTS manifest")
         snapshot = ccts_manifest_snapshot_sha256(assisted.ccts_manifest)
@@ -496,12 +487,21 @@ def audit_ccts_human_epistemic_agency(
         if held_out.task_payload_sha256 in prior_exposure_hashes:
             raise StudyError("held-out payload duplicates prior exposure content")
 
+        for trial in group:
+            if (
+                trial.condition_manifest_sha256
+                != ccts_human_agency_condition_content_sha256(trial)
+            ):
+                raise StudyError(
+                    "condition manifest content digest does not match actual condition content"
+                )
+
     return CCTSHumanAgencyAudit(
         observations=tuple(_observe(trial) for trial in trials),
         complete_design=True,
         complete_ccts_manifest_snapshot_bound=True,
         held_out_contamination_control=True,
-        source_role_provenance_preserved=True,
+        source_role_provenance_binding_preserved=True,
         matched_controls_bound=True,
         evaluator_and_rubric_bound=True,
         declared_head_equality_bound=True,
