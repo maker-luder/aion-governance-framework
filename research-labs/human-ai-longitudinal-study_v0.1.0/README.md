@@ -92,6 +92,29 @@ referential integrity. Structural conformance cannot be promoted into evidence o
 shared mind, consciousness, AI subjectivity, distributed cognition as an empirical
 mechanism, or epistemic co-agency as a measured effect.
 
+The approved PR #205 Option-C design is implemented as two separate, additive
+surfaces. `ccts_relational_continuity.py` reviews a relational-continuity claim only
+when that claim is asserted. It keeps `NOT_ASSERTED`, `EVIDENCE_REQUIRED`,
+`SUPPORTED_CANDIDATE`, `WEAKENED`, and `UNRESOLVED` distinct; rejects style,
+memory/retrieval, role-label, and data-only proxies; and binds the existing
+matched-information confounds without adding relational continuity to core CCTS or
+the longitudinal required fields. A matched null is a valid weakening result, not a
+test failure.
+
+`ccts_human_epistemic_agency.py` adds the narrow residual audit identified by the
+historical #197/#199 review. It structurally separates an AI-withheld baseline,
+CCTS/AI-available interaction, same-task AI-withheld judgement, and content-distinct
+held-out AI-withheld judgement. Post-CCTS phases bind the deterministic SHA-256 of
+the complete admitted CCTS manifest rather than trusting a `space_id` or role label;
+held-out task content is checked against prior tasks, Human outputs, and admitted
+CCTS contributions. This synthetic audit does not establish independent Human gain,
+learning, retention, or causality. A matched non-CCTS practice comparator remains
+absent and visible.
+
+The historical #199 `ccts_epistemic_revision.py` candidate remains superseded. The
+canonical revision implementation stays in `epistemic_revision.py`; no duplicate
+revision module or parallel CCTS admission path is restored.
+
 Privacy and ontology booleans in the CCTS manifest are declaration-level fail-closed
 controls. The structural harness rejects a manifest that declares private material,
 Human identity, shared mind, shared consciousness or structure-derived AI
@@ -154,6 +177,12 @@ REALIZED_CHOICE_TRACE_PRESENT != CHOICE_OPPORTUNITY_OPERATIONALIZED
 CHOICE_OPPORTUNITY_SET_BOUND != HUMAN_AUTONOMY_ESTABLISHED
 SEPARATE_EXECUTION_IDENTITY != EXECUTION_CONTENT_MUST_DIFFER
 CROSS_FAMILY_HELD_OUT_TASK != DOMAIN_GENERALIZATION_ESTABLISHED
+CCTS_RELATIONAL_CONTINUITY_ASSERTION != CORE_CCTS_ADMISSION
+STYLE_OR_MEMORY_OR_ROLE_PROXY != RELATIONAL_CONTINUITY
+MATCHED_INFORMATION_DIFFERENCE != CAUSAL_IDENTIFICATION
+MATCHED_INFORMATION_NULL != TEST_FAILURE
+AI_ASSISTED_OUTPUT_GAIN != INDEPENDENT_HUMAN_GAIN
+STRUCTURAL_RETENTION_AUDIT_PASS != HUMAN_LEARNING
 CCTS_STRUCTURAL_CONFORMANCE != EMPIRICAL_MECHANISM
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 GROUNDING_CHECKPOINT_PRESENT != AI_UNDERSTANDING_PROVEN
