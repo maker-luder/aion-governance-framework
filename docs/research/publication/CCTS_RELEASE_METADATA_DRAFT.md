@@ -99,7 +99,10 @@ ORCID = OPTIONAL / PENDING
 AFFILIATION = OPTIONAL / PENDING
 PUBLIC_CONTACT_EMAIL = OPTIONAL / PENDING
 
-MANUSCRIPT_TEXT_LICENSE = PENDING
+MANUSCRIPT_TEXT_LICENSE = PENDING / REQUIRED_FOR_ZENODO_RECORD
+
+ZENODO_DEFAULT_LICENSE = CC-BY-4.0
+ZENODO_LICENSE_DECISION = REQUIRES_HUMAN_CONFIRMATION
 
 PUBLICATION_DATE = NOT_SET
 CCTS_PUBLICATION_DOI = NOT_MINTED
@@ -129,6 +132,19 @@ ROOT_CITATION_CFF
 A root `preferred-citation` should be considered only after the CCTS publication has stable author metadata and preferably a DOI.
 
 ## 7. Zenodo scholarly-record strategy
+
+Zenodo currently requires a license for a deposited record and defaults to Creative Commons Attribution 4.0 International (CC BY 4.0). The default is documented here but is **not** adopted automatically for CCTS.
+
+Official source:
+- https://help.zenodo.org/docs/deposit/describe-records/licenses/
+
+```text
+ZENODO_LICENSE_FIELD = REQUIRED
+ZENODO_DEFAULT = CC-BY-4.0
+DEFAULT_PRESENT != HUMAN_LICENSE_CONSENT
+```
+
+
 
 The CCTS manuscript should use an independent Zenodo publication record if Zenodo is chosen for the first archival publication.
 
