@@ -137,7 +137,7 @@ Do not infer or expose:
 PUBLIC_AUTHOR_NAME = poshi / CONFIRMED
 ```
 
-### OPEN BLOCKER 2 — manuscript text / scholarly-object license
+### RESOLVED F — manuscript text / scholarly-object rights
 
 The repository software is Apache-2.0.
 
@@ -145,8 +145,18 @@ That does not automatically determine the license for the manuscript / archival 
 
 ```text
 SOFTWARE_LICENSE = APACHE-2.0
-MANUSCRIPT_TEXT_LICENSE = PENDING_HUMAN_CONFIRMATION
+MANUSCRIPT_TEXT_LICENSE = ALL_RIGHTS_RESERVED / HUMAN_CONFIRMED
 ```
+
+The Human Owner confirmed:
+
+```text
+ALL RIGHTS RESERVED
+No additional rights to reproduce, adapt, redistribute, or commercially exploit the manuscript are granted.
+Citation and quotation are permitted only to the extent allowed by applicable law.
+```
+
+This is intentionally distinct from the repository software license (`Apache-2.0`).
 
 ### RESOLVED D — root CITATION.cff stale-release correction
 
@@ -214,7 +224,7 @@ Formal authorship follows the target venue's current policy.
 ```text
 [x] Human public author name explicitly confirmed as poshi
 [ ] optional ORCID / affiliation explicitly confirmed or intentionally omitted
-[ ] manuscript text / scholarly-object license confirmed
+[x] manuscript text / scholarly-object rights confirmed as All Rights Reserved
 [x] manuscript structural review completed for Draft v0.2
 [x] core references re-verified
 [x] claim ceilings preserved
