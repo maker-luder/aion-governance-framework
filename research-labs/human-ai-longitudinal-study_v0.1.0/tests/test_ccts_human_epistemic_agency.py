@@ -313,3 +313,35 @@ def test_residual_gaps_remain_explicit() -> None:
     assert audit.baseline_ability == "NOT_ESTABLISHED"
     assert audit.evidence_independence == "NOT_ESTABLISHED"
     assert audit.complete_conversation_retrieval == "NOT_ESTABLISHED"
+
+
+def test_cross_family_same_domain_requires_explicit_domain_binding() -> None:
+    items = list(trajectory())
+    items[3] = replace(
+        items[3],
+        held_out_scope=HeldOutTransferScope.CROSS_FAMILY_SAME_DOMAIN,
+        task_family_sha256=digest("0"),
+        task_domain_sha256=digest("e"),
+    )
+    with pytest.raises(StudyError, match="same task domain"):
+        audit_ccts_human_epistemic_agency(tuple(items), validation())
+
+
+def test_source_role_provenance_digest_must_bind_admitted_ccts_manifest() -> None:
+    items = list(trajectory())
+    items[0] = replace(items[0], source_role_provenance_sha256=digest("f"))
+    with pytest.raises(StudyError, match="provenance"):
+        audit_ccts_human_epistemic_agency(tuple(items), validation())
+
+
+def test_condition_manifest_digest_must_bind_actual_condition_content() -> None:
+    items = list(trajectory())
+    items[0] = replace(items[0], condition_manifest_sha256=digest("f"))
+    with pytest.raises(StudyError, match="condition manifest content"):
+        audit_ccts_human_epistemic_agency(tuple(items), validation())
+
+
+def test_validation_reports_declared_head_equality_not_external_git_verification() -> None:
+    audit = audit_ccts_human_epistemic_agency(trajectory(), validation())
+    assert audit.declared_head_equality_bound is True
+    assert not hasattr(audit, "exact_head_validation_bound")
