@@ -55,7 +55,7 @@ preferred-citation:
     Co-Constructed Thinking Space (CCTS):
     A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration
   authors:
-    - name: "<PUBLIC_AUTHOR_NAME_REQUIRES_HUMAN_CONFIRMATION>"
+    - name: "poshi"
   year: "<SET_WHEN_PUBLICATION_EXISTS>"
   doi: "<SET_AFTER_CCTS_PUBLICATION_DOI_EXISTS>"
 ```
@@ -87,12 +87,13 @@ The stale live-repository release binding has already been corrected on the prep
 
 Before any future CCTS `preferred-citation` update:
 
-1. confirm the Human public author name for CCTS;
-2. confirm manuscript license;
+1. preserve the confirmed public author name `poshi`;
+2. preserve the confirmed All Rights Reserved manuscript rights statement;
 3. freeze the CCTS manuscript publication metadata;
 4. obtain or reserve the CCTS publication DOI if desired;
-5. validate the final CFF syntax;
-6. obtain explicit Human Owner authorization for the preferred-citation transition.
+5. set the publication year/date when the publication exists;
+6. validate the final CFF syntax;
+7. obtain explicit Human Owner authorization for the preferred-citation transition.
 
 ```text
 ROOT_CITATION_CLEANUP_EXISTS = YES_ON_PREPARATION_BRANCH
