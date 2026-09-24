@@ -1,56 +1,91 @@
-# Proposed CCTS CITATION.cff content — NOT ROOT METADATA
+# Proposed repository CITATION.cff strategy for CCTS — staging only
 
-This is a human-readable staging template only. It is intentionally not named `CITATION.cff` at the repository root because required Human-controlled metadata remains unresolved.
+This file is a human-readable staging note. It is **not** the repository root `CITATION.cff`.
+
+## 1. Correct object model
+
+The repository root citation file describes the AION repository/software object.
+
+The CCTS scholarly manuscript is a separate publication object.
+
+CFF 1.2.0 provides `preferred-citation` specifically for the case where software/repository metadata remains at the root while a paper or other work is the preferred scholarly citation.
+
+```text
+ROOT_OBJECT = AION_REPOSITORY
+PREFERRED_SCHOLARLY_OBJECT = CCTS_PUBLICATION
+
+ROOT_OBJECT != PREFERRED_SCHOLARLY_OBJECT
+```
+
+## 2. Future root pattern — schematic, not release-valid
+
+The future root file should preserve actual repository metadata and may add a CCTS preferred citation after Human-controlled metadata is confirmed.
 
 ```yaml
 cff-version: 1.2.0
-message: "If you use the CCTS scholarly release, please cite the archived release identified by its DOI."
-title: "Co-Constructed Thinking Space (CCTS): A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration"
+message: >-
+  Please cite the AION repository/software using the repository metadata below.
+  For the CCTS scholarly framework, use the preferred-citation once published.
+
+title: "AION Governance Framework"
 type: software
-version: "0.1.0"
 
 authors:
-  - name: "<PUBLIC_AUTHOR_NAME_REQUIRES_HUMAN_CONFIRMATION>"
+  - name: "<REPOSITORY_AUTHOR_METADATA_REVIEW_REQUIRED>"
 
 repository-code: "https://github.com/maker-luder/aion-governance-framework"
+license: "Apache-2.0"
 
-abstract: >-
-  Co-Constructed Thinking Space (CCTS) is a repository-defined,
-  provenance-bounded interaction-and-artifact framework for studying
-  reciprocal Human–AI epistemic collaboration. It requires explicit problem
-  representation, substantive bidirectional revision or challenge,
-  source-role provenance, claim boundaries, authority separation and
-  rejected-branch preservation. CCTS is presented as a conceptual and
-  methodological construct, not as a validated psychological mechanism or
-  evidence of AI subjectivity.
+# Repository version/date/commit must reflect the exact repository release
+# being described and must not be copied from a stale historical release.
 
-keywords:
-  - Human-AI collaboration
-  - Human-AI interaction
-  - epistemic collaboration
-  - co-construction
-  - provenance
-  - reciprocal revision
-  - distributed cognition
-  - research integrity
-
-# date-released: "<SET_ONLY_WHEN_RELEASE_DATE_EXISTS>"
-# doi: "<BACKFILL_AFTER_DOI_IS_MINTED>"
-# license: "<FINAL_LICENSE_REQUIRES_RELEASE-SCOPE_DECISION>"
+preferred-citation:
+  type: article
+  title: >-
+    Co-Constructed Thinking Space (CCTS):
+    A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration
+  authors:
+    - name: "<PUBLIC_AUTHOR_NAME_REQUIRES_HUMAN_CONFIRMATION>"
+  year: "<SET_WHEN_PUBLICATION_EXISTS>"
+  doi: "<SET_AFTER_CCTS_PUBLICATION_DOI_EXISTS>"
 ```
 
-## Validation boundary
+## 3. Why this replaces the earlier staging plan
 
-The template above is **not release-valid yet** because it contains unresolved placeholders.
+Earlier staging considered replacing the root citation object with CCTS metadata. Reverse review rejected that approach because the repository contains a broader AION research framework.
 
 ```text
-TEMPLATE_EXISTS != ROOT_CITATION_UPDATED
-PLACEHOLDER_METADATA != RELEASE_METADATA
+OVERWRITE_AION_ROOT_IDENTITY_WITH_CCTS = REJECTED
+CFF_PREFERRED_CITATION_PATTERN = ACCEPTED_FOR_FUTURE_REVIEW
 ```
 
-Before copying any form of this template to root `CITATION.cff`:
-1. Human public author name must be explicitly confirmed.
-2. Release scope and license must be confirmed.
-3. Exact release commit must be frozen.
-4. The root historical citation transition must be reviewed.
-5. The Human Owner must explicitly authorize the root metadata change.
+## 4. Zenodo boundary
+
+Zenodo's GitHub integration consumes repository metadata for software archiving.
+
+The CCTS manuscript should instead be deposited as its own scholarly publication record if a publication DOI is desired.
+
+```text
+GITHUB_ZENODO_SOFTWARE_RECORD
+!=
+CCTS_ZENODO_PUBLICATION_RECORD
+```
+
+## 5. Validation boundary
+
+No root citation change is authorized by this staging note.
+
+Before any future root `CITATION.cff` update:
+
+1. review the current repository-level citation metadata independently;
+2. confirm the Human public author name for CCTS;
+3. confirm manuscript license;
+4. freeze the CCTS manuscript publication metadata;
+5. obtain or reserve the CCTS publication DOI if desired;
+6. validate the final CFF syntax;
+7. obtain explicit Human Owner authorization for the root metadata change.
+
+```text
+STAGING_NOTE_EXISTS != ROOT_CITATION_UPDATED
+PREFERRED_CITATION_PROPOSED != PUBLICATION_EXISTS
+```
