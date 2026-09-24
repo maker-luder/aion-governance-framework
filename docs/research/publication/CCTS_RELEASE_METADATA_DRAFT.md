@@ -1,6 +1,6 @@
 # CCTS first scholarly release — metadata draft
 
-Status: `DRAFT_METADATA / NOT_RELEASED / HUMAN_CONFIRMATION_REQUIRED`
+Status: `METADATA_PREPARED / NOT_RELEASED / EXACT_HEAD_REVIEW_REQUIRED`
 
 ## 1. Object separation
 
@@ -95,9 +95,9 @@ These fields are intentionally not inferred:
 
 ```text
 PUBLIC_AUTHOR_NAME = poshi
-ORCID = OPTIONAL / PENDING
-AFFILIATION = OPTIONAL / PENDING
-PUBLIC_CONTACT_EMAIL = OPTIONAL / PENDING
+ORCID = OMIT_FROM_FIRST_RELEASE / NOT_PROVIDED
+AFFILIATION = OMIT_FROM_FIRST_RELEASE / NOT_PROVIDED
+PUBLIC_CONTACT_EMAIL = OMIT_FROM_FIRST_RELEASE / NOT_PROVIDED
 
 MANUSCRIPT_TEXT_LICENSE = ALL RIGHTS RESERVED / CUSTOM RIGHTS STATEMENT
 
@@ -166,6 +166,10 @@ Official source:
 ZENODO_LICENSE_FIELD = REQUIRED
 ZENODO_DEFAULT = CC-BY-4.0
 DEFAULT_PRESENT != HUMAN_LICENSE_CONSENT
+
+ZENODO_LICENSE_SELECTION = CUSTOM
+ZENODO_CUSTOM_LICENSE_TITLE = All Rights Reserved — lawful citation and quotation only
+ZENODO_CUSTOM_LICENSE_DESCRIPTION = No additional rights to reproduce, adapt, redistribute, or commercially exploit this work are granted. Citation and quotation are permitted only to the extent allowed by applicable law.
 ```
 
 
