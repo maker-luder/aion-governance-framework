@@ -55,13 +55,15 @@ The preparation branch now contains:
 6. ethics / privacy boundaries;
 7. AI-assistance disclosure language;
 8. release metadata staging;
-9. a staged CFF template that is intentionally not installed at repository root;
-10. a GitHub → Zenodo → DOI release route.
+9. an updated root `CITATION.cff` that removes stale August release-bound metadata while preserving the AION repository/software identity;
+10. a staged future `preferred-citation` pattern for the CCTS publication;
+11. a GitHub → Zenodo → DOI release route.
 
 ```text
 MANUSCRIPT_STRUCTURE = PREPARED
 CORE_REFERENCE_SET = VERIFIED_FOR_FIRST_SCHOLARLY_DRAFT
 RELEASE_METADATA_STRUCTURE = PREPARED
+ROOT_CITATION_STALE_BINDING = REMOVED_ON_PREPARATION_BRANCH
 CITATION_STAGING = PREPARED
 ```
 
@@ -107,14 +109,16 @@ The CCTS manuscript now contains:
 
 The manuscript remains a draft until author metadata and final release metadata are confirmed.
 
-### RESOLVED C — metadata staging
+### RESOLVED C — live repository citation cleanup and metadata staging
 
-A release-metadata draft and CFF staging template now exist.
+The preparation branch updates the root `CITATION.cff` to describe the live AION repository/software object without falsely binding it to the historical August release version/date.
 
-The staging template is **not** release-valid while placeholders remain.
+The CCTS paper remains a separate scholarly object. A future CCTS `preferred-citation` is staged but is not added while author/DOI metadata remain unresolved.
 
 ```text
-TEMPLATE_EXISTS != ROOT_CITATION_UPDATED
+ROOT_CITATION_STALE_RELEASE_BINDING = REMOVED_ON_PREPARATION_BRANCH
+AION_REPOSITORY_IDENTITY = PRESERVED
+CCTS_PREFERRED_CITATION = NOT_YET_ADDED
 PLACEHOLDER_METADATA != RELEASE_METADATA
 ```
 
@@ -144,17 +148,13 @@ SOFTWARE_LICENSE = APACHE-2.0
 MANUSCRIPT_TEXT_LICENSE = PENDING_HUMAN_CONFIRMATION
 ```
 
-### OPEN BLOCKER 3 — root CITATION.cff transition
+### RESOLVED D — root CITATION.cff stale-release correction
 
-The current root `CITATION.cff` describes the historical August release.
+The preparation branch has removed the stale `v0.1.0-rc.1` / 2026-08-07 binding from the live root citation metadata.
 
-It has deliberately not been overwritten during preparation.
+The root object remains the broader AION repository/software object. The CCTS paper is **not** installed as the root identity.
 
-A root citation update should occur only after:
-- author metadata is confirmed;
-- release scope / license are confirmed;
-- exact release commit is known;
-- Human Owner explicitly authorizes the metadata transition.
+A later `preferred-citation` entry for CCTS remains blocked until the CCTS publication has stable Human-controlled metadata and, preferably, a DOI.
 
 ### OPEN BLOCKER 4 — exact release commit / exact-head CI
 
@@ -221,7 +221,8 @@ Formal authorship follows the target venue's current policy.
 [x] privacy / ethics statement drafted and reviewed for this conceptual release
 [x] release metadata structure prepared
 [x] CFF staging template prepared
-[ ] root CITATION.cff final transition reviewed
+[x] root CITATION.cff stale release binding removed on preparation branch
+[ ] future CCTS preferred-citation reviewed after stable publication metadata exists
 [ ] exact publication commit frozen
 [ ] exact-head CI checked after final metadata edit
 [ ] exact-head reverse review passed
