@@ -329,7 +329,21 @@ DIRECT_HUMAN_IDENTIFIER = EXCLUDED
 UNCONSENTED_HUMAN_DATA = EXCLUDED
 ```
 
-## 14. References
+## 14. Rights statement
+
+Copyright © poshi. All rights reserved.
+
+本作品不另行授權重製、改作、散布或商業利用。引用與節錄僅依適用法律所允許的範圍進行。
+
+No additional rights to reproduce, adapt, redistribute, or commercially exploit this work are granted. Citation and quotation are permitted only to the extent allowed by applicable law.
+
+```text
+MANUSCRIPT_RIGHTS = ALL_RIGHTS_RESERVED
+GENERAL_REUSE_LICENSE = NONE
+LAWFUL_CITATION_AND_QUOTATION = PRESERVED
+```
+
+## 15. References
 
 Barcaui, A. (2025). ChatGPT as a cognitive crutch: Evidence from a randomized controlled trial on knowledge retention. *Social Sciences & Humanities Open, 12*, 102287. https://doi.org/10.1016/j.ssaho.2025.102287
 
@@ -357,7 +371,7 @@ Wang, G., Wang, W., Yang, D., & Ren, J. (2026). Generative AI, cognitive offload
 
 Warner, S., Xiao, R., Wiltse Nicely, K. L., & Chandler, R. (2026). From Joint Cognitive Systems to Human–AI Joint Cognitive Systems: A theory critique and application to obstetric anesthesia risk assessment. *Nursing Science Quarterly, 39*(2), 117–125. https://doi.org/10.1177/08943184251414311
 
-## 15. Current release status
+## 16. Current release status
 
 ```text
 MANUSCRIPT = DRAFT_V0.2
