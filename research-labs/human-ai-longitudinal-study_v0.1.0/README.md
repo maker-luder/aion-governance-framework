@@ -104,10 +104,20 @@ test failure.
 `ccts_human_epistemic_agency.py` adds the narrow residual audit identified by the
 historical #197/#199 review. It structurally separates an AI-withheld baseline,
 CCTS/AI-available interaction, same-task AI-withheld judgement, and content-distinct
-held-out AI-withheld judgement. Post-CCTS phases bind the deterministic SHA-256 of
-the complete admitted CCTS manifest rather than trusting a `space_id` or role label;
-held-out task content is checked against prior tasks, Human outputs, and admitted
-CCTS contributions. This synthetic audit does not establish independent Human gain,
+held-out AI-withheld judgement. All four phases now carry an explicit
+`task_domain_sha256`; the cross-family path must change task family while preserving
+that same task-domain binding. Post-CCTS phases bind the deterministic SHA-256 of the
+complete admitted CCTS manifest rather than trusting a `space_id` or role label.
+Each declared condition-manifest digest is also recomputed from the actual structural
+condition content before a successful audit, and held-out task content is checked
+against prior tasks, Human outputs, and admitted CCTS contributions.
+
+Source-role provenance is intentionally reported as a preserved *binding* to the
+admitted CCTS `provenance_manifest_sha256`; this module does not independently
+retrieve and hash provenance-artifact contents. Likewise, its validation-head check
+proves equality of the declared implementation and validation Git SHAs only; external
+GitHub/CI evidence is required to establish that those declarations equal the actual
+candidate head. This synthetic audit does not establish independent Human gain,
 learning, retention, or causality. A matched non-CCTS practice comparator remains
 absent and visible.
 

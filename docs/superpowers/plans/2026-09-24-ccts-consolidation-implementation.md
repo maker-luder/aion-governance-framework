@@ -15,7 +15,7 @@
 
 1. Add synthetic fixtures for claim-not-asserted, evidence-required, supported-candidate, matched-null, and unresolved-confound paths.
 2. Add negative tests proving style, memory, same-role, and data-only proxy evidence cannot satisfy the relational claim.
-3. Add negative tests proving raw strings do not bypass exact enum checks, unknown contribution IDs fail closed, source-role provenance is preserved, and identity/subjectivity promotion is rejected.
+3. Add negative tests proving raw strings do not bypass exact enum checks, unknown contribution IDs fail closed, source-role provenance binding must match the admitted CCTS provenance digest, and identity/subjectivity promotion is rejected.
 4. Add compatibility tests proving existing core and longitudinal CCTS fixtures remain valid without any relational-continuity field.
 5. Run the new file and record the expected import/collection failure before implementation.
 
@@ -55,7 +55,7 @@
 
 1. Reuse `CoConstructedThinkingSpaceManifest`, `MetacognitiveTaskClass`, `PolicyAccessCondition`, `ContributionRole`, `AdmissionDisposition`, and `StudyError`.
 2. Bind the complete admitted CCTS manifest snapshot with deterministic canonical SHA-256 rather than trusting `space_id`, task labels, or role labels.
-3. Enforce phase/access flags, source-role provenance, matched evaluator/rubric/control bindings, distinct access manifests, and exact held-out content separation.
+3. Enforce phase/access flags, source-role provenance-digest binding, explicit same-domain transfer binding, matched evaluator/rubric/control bindings, condition-manifest digests recomputed from actual condition content, and exact held-out content separation.
 4. Produce structural observations only; retain explicit residuals for matched-practice comparator, semantic answer equivalence, actual exposure/access, delayed retention, baseline ability, causal identification, evidence independence, and incomplete conversation retrieval.
 5. Export the surface and run the focused tests to green.
 
@@ -77,5 +77,5 @@
 3. Run the full human-AI longitudinal component pytest suite.
 4. Run strict mypy, Ruff, repository-prescribed Quality checks that cover the changed surface, and `git diff --check`.
 5. Generate a binary-safe patch, a verification record containing exact commands/literal outputs/exit statuses, and a runnable rollback script; execute the patch and rollback checks in disposable copies/worktrees.
-6. Commit only CCTS-scoped files, push the single branch, create one Draft PR against `main`, attach it to this task, and verify Quality/CodeQL/other required workflows against the exact pushed head.
+6. Commit only CCTS-scoped files, push the single branch, create one Draft PR against `main`, attach it to this task, and verify Quality/CodeQL/other required workflows against the exact pushed head. The in-module validation binding proves declared-head equality only; actual Git-head identity remains an external GitHub/CI verification fact.
 7. Stop without merging and report all residual scientific and method gaps separately.
