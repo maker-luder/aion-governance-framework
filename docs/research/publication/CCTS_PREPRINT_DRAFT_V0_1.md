@@ -297,13 +297,15 @@ The framework, structural contracts, tests, falsification notes and provenance r
 The scholarly release must bind this manuscript to:
 
 1. one exact Git commit;
-2. one immutable GitHub Release artifact;
-3. release-specific citation metadata;
-4. a DOI-bearing archival record if Zenodo publication is authorized.
+2. release-specific scholarly metadata;
+3. one immutable archival manuscript record if Zenodo publication is authorized.
+
+A separate GitHub software Release is optional and must not be treated as a requirement for the CCTS manuscript publication object.
 
 ```text
 LIVE_REPOSITORY != IMMUTABLE_SCHOLARLY_OBJECT
 EXACT_COMMIT_BINDING = REQUIRED
+GITHUB_SOFTWARE_RELEASE = OPTIONAL_FOR_CCTS_MANUSCRIPT
 ```
 
 ## 12. AI assistance disclosure — draft
