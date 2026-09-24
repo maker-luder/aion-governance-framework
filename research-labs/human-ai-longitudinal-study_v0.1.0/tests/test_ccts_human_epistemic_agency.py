@@ -351,3 +351,9 @@ def test_validation_reports_declared_head_equality_not_external_git_verification
     audit = audit_ccts_human_epistemic_agency(trajectory(), validation())
     assert audit.declared_head_equality_bound is True
     assert not hasattr(audit, "exact_head_validation_bound")
+
+
+def test_audit_reports_provenance_binding_not_provenance_content_validation() -> None:
+    audit = audit_ccts_human_epistemic_agency(trajectory(), validation())
+    assert audit.source_role_provenance_binding_preserved is True
+    assert not hasattr(audit, "source_role_provenance_preserved")
