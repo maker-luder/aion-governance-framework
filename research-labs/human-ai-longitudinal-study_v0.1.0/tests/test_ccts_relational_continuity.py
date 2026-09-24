@@ -336,3 +336,9 @@ def test_source_role_provenance_digest_must_bind_admitted_ccts_manifest() -> Non
         review_relational_continuity_claim(
             assertion(source_role_provenance_sha256=digest("f"))
         )
+
+
+def test_review_reports_provenance_binding_not_provenance_content_validation() -> None:
+    review = review_relational_continuity_claim(assertion())
+    assert review.source_role_provenance_binding_preserved is True
+    assert not hasattr(review, "source_role_provenance_preserved")
