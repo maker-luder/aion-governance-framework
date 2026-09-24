@@ -329,3 +329,10 @@ def test_synthetic_privacy_boundary_is_enforced() -> None:
         value = False if field == "synthetic" else True
         with pytest.raises(StudyError):
             assertion(**{field: value})
+
+
+def test_source_role_provenance_digest_must_bind_admitted_ccts_manifest() -> None:
+    with pytest.raises(StudyError, match="provenance"):
+        review_relational_continuity_claim(
+            assertion(source_role_provenance_sha256=digest("f"))
+        )
