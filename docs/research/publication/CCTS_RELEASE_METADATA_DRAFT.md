@@ -2,7 +2,21 @@
 
 Status: `DRAFT_METADATA / NOT_RELEASED / HUMAN_CONFIRMATION_REQUIRED`
 
-## Fixed research metadata
+## 1. Object separation
+
+```text
+AION_REPOSITORY_OBJECT
+= repository / software-and-research-framework object
+
+CCTS_SCHOLARLY_OBJECT
+= manuscript / publication object
+
+AION_REPOSITORY_OBJECT != CCTS_SCHOLARLY_OBJECT
+```
+
+The CCTS scholarly manuscript may cite and bind the repository, but it must not overwrite the repository's identity.
+
+## 2. Fixed CCTS scholarly metadata
 
 ```text
 TITLE =
@@ -12,22 +26,25 @@ A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration
 SHORT_TITLE =
 Co-Constructed Thinking Space (CCTS)
 
-RELEASE_OBJECT =
+SCHOLARLY_OBJECT_TYPE =
 CONCEPTUAL_FRAMEWORK
 + RESEARCH_METHOD
 + EXECUTABLE_STRUCTURAL_CONTRACT
 
-CANDIDATE_VERSION =
+CCTS_MANUSCRIPT_VERSION =
 0.1.0
+
+PROPOSED_ARTIFACT_LABEL =
+ccts-scholarly-v0.1.0
 
 LANGUAGE =
 English manuscript with repository-linked bilingual research context
 
-REPOSITORY =
+RELATED_REPOSITORY =
 maker-luder/aion-governance-framework
 
-LICENSE_SOFTWARE =
-Apache-2.0 (existing repository software license)
+REPOSITORY_SOFTWARE_LICENSE =
+Apache-2.0
 
 SCIENTIFIC_DISPOSITION =
 HOLD
@@ -39,7 +56,9 @@ SCIENTIFIC_VALIDATION =
 NOT_ESTABLISHED
 ```
 
-## Proposed keywords
+The CCTS manuscript version is a separate namespace and is not an AION repository semantic-version replacement.
+
+## 3. Proposed keywords
 
 ```text
 Human–AI collaboration
@@ -56,19 +75,21 @@ research integrity
 reproducible research
 ```
 
-## Abstract metadata
+## 4. Abstract metadata
 
 Use the manuscript abstract from:
+
 `docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md`
 
 The abstract must preserve:
+
 ```text
 CCTS = REPOSITORY_DEFINED_CONSTRUCT
 CCTS != VALIDATED_THEORY
 CCTS != AI_SUBJECTIVITY_RESULT
 ```
 
-## Human-confirmation-required fields
+## 5. Human-confirmation-required fields
 
 These fields are intentionally not inferred:
 
@@ -77,31 +98,54 @@ PUBLIC_AUTHOR_NAME = PENDING
 ORCID = OPTIONAL / PENDING
 AFFILIATION = OPTIONAL / PENDING
 PUBLIC_CONTACT_EMAIL = OPTIONAL / PENDING
+
 MANUSCRIPT_TEXT_LICENSE = PENDING
-RELEASE_DATE = NOT_SET
-DOI = NOT_MINTED
+
+PUBLICATION_DATE = NOT_SET
+CCTS_PUBLICATION_DOI = NOT_MINTED
 ```
 
 The GitHub username, repository ownership, account email and any private identity information must not be silently converted into scholarly author metadata.
 
-## Citation strategy
+## 6. Citation strategy
 
-The root `CITATION.cff` currently describes a historical AION release and must remain untouched until the new CCTS scholarly metadata is complete.
+The root `CITATION.cff` describes the repository/software object.
 
-Planned release transition:
+Correct future pattern:
 
 ```text
-CURRENT_ROOT_CITATION
-= HISTORICAL_AION_RELEASE_METADATA
-
-FUTURE_ROOT_CITATION_AFTER_EXPLICIT_APPROVAL
-= CCTS_SCHOLARLY_RELEASE_METADATA
-+ explicit historical/version provenance
+ROOT_CITATION_CFF
+= AION_REPOSITORY_METADATA
++ OPTIONAL preferred-citation -> CCTS_PUBLICATION
 ```
 
-No root citation change is authorized by this draft.
+Incorrect pattern:
 
-## AI assistance disclosure metadata
+```text
+ROOT_CITATION_CFF
+= REPLACED_BY_CCTS_ONLY
+```
+
+A root `preferred-citation` should be considered only after the CCTS publication has stable author metadata and preferably a DOI.
+
+## 7. Zenodo scholarly-record strategy
+
+The CCTS manuscript should use an independent Zenodo publication record if Zenodo is chosen for the first archival publication.
+
+```text
+ZENODO_RESOURCE_TYPE
+= PUBLICATION / APPROPRIATE MANUSCRIPT SUBTYPE
+
+RELATED_IDENTIFIER
+= exact repository / exact commit / optional software archive
+
+CCTS_PUBLICATION_DOI
+= manuscript/publication DOI
+```
+
+A GitHub-triggered Zenodo software archive is a separate optional object.
+
+## 8. AI assistance disclosure metadata
 
 ```text
 AI_SYSTEM =
@@ -125,7 +169,7 @@ NOT_ASSUMED
 
 Final wording remains venue-dependent.
 
-## Privacy / ethics metadata
+## 9. Privacy / ethics metadata
 
 ```text
 RAW_PRIVATE_TRANSCRIPTS_PUBLISHED = NO
@@ -136,11 +180,20 @@ SYNTHETIC_STRUCTURAL_FIXTURES = YES
 
 This metadata describes the planned first CCTS scholarly object only. Any later empirical Human-participant study requires a separate ethics and consent assessment.
 
-## Release readiness implication
+## 10. Release readiness implication
 
 ```text
 METADATA_STRUCTURE = PREPARED
-PUBLIC_AUTHOR_NAME = BLOCKING
-MANUSCRIPT_TEXT_LICENSE = BLOCKING_FOR_FINAL_ARCHIVE
-DOI = POST_RELEASE
+
+PUBLIC_AUTHOR_NAME
+= BLOCKING
+
+MANUSCRIPT_TEXT_LICENSE
+= BLOCKING_FOR_FINAL_ARCHIVE
+
+CCTS_PUBLICATION_DOI
+= POST_DRAFT / PREPUBLICATION-RESERVABLE / REGISTERED_ON_PUBLICATION
+
+ROOT_PREFERRED_CITATION
+= OPTIONAL_AFTER_CCTS_PUBLICATION_METADATA_EXISTS
 ```
