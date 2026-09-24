@@ -113,7 +113,7 @@ The manuscript remains a draft pending exact-head review and later publication a
 
 The preparation branch updates the root `CITATION.cff` to describe the live AION repository/software object without falsely binding it to the historical August release version/date.
 
-The CCTS paper remains a separate scholarly object. A future CCTS `preferred-citation` is staged but is not added while author/DOI metadata remain unresolved.
+The CCTS paper remains a separate scholarly object. A future CCTS `preferred-citation` is staged but is not added while publication-year/DOI metadata remain unresolved.
 
 ```text
 ROOT_CITATION_STALE_RELEASE_BINDING = REMOVED_ON_PREPARATION_BRANCH
@@ -166,9 +166,9 @@ The root object remains the broader AION repository/software object. The CCTS pa
 
 A later `preferred-citation` entry for CCTS remains blocked until the CCTS publication has stable Human-controlled metadata and, preferably, a DOI.
 
-### OPEN BLOCKER 4 — exact release commit / exact-head CI
+### EXTERNAL MERGE GATE — exact candidate head / exact-head CI
 
-The scholarly object must bind one exact commit.
+The merge decision must be made against one exact candidate head. The eventual scholarly publication must separately bind its archival object to one exact repository commit.
 
 After the final metadata edits:
 1. freeze the candidate head;
@@ -176,7 +176,7 @@ After the final metadata edits:
 3. perform reverse review against `main`;
 4. only then consider main merge and later Release / DOI actions.
 
-### OPEN BLOCKER 5 — publication action
+### POST-MERGE / SEPARATE PUBLICATION ACTION — not a merge blocker
 
 No publication action has occurred.
 
@@ -232,8 +232,8 @@ Formal authorship follows the target venue's current policy.
 [x] release metadata structure prepared
 [x] CFF staging template prepared
 [x] root CITATION.cff stale release binding removed on preparation branch
-[ ] future CCTS preferred-citation reviewed after stable publication metadata exists
-[ ] exact publication commit frozen
+[ ] future CCTS preferred-citation reviewed after publication-year/DOI metadata exist (post-publication metadata step)
+[ ] exact candidate head externally frozen for merge review
 [ ] exact-head CI checked after final metadata edit
 [ ] exact-head reverse review passed
 [ ] Human Owner explicitly approves merge, if desired
