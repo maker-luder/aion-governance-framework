@@ -43,43 +43,84 @@ HUMAN_LEARNING_CAUSALLY_ESTABLISHED = NO
 SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
 ```
 
-## 2. Publication-ready foundations already present
+## 2. Publication foundations now prepared
 
-The current repository already contains:
+The preparation branch now contains:
 
-1. a provenance-explicit origin record for the Human Owner working concept;
-2. an operational CCTS definition;
-3. explicit structural inclusion criteria;
-4. reciprocal-revision requirements rather than simple Human-question / AI-answer traffic;
-5. source-role provenance, claim ceilings, authority separation and rejected-branch preservation;
-6. a literature crosswalk to adjacent constructs including Joint Problem Space, Distributed Cognition, Epistemic Co-agency, Human–AI Shared Regulation in Learning and Joint Cognitive Systems;
-7. executable structural contracts and fail-closed tests;
-8. explicit weakening / falsification conditions;
-9. explicit non-equivalence boundaries between structural conformance and psychological, cognitive, ontological or scientific conclusions;
-10. recent additive CCTS surfaces for relational-continuity claim review and Human epistemic-agency retention design auditing.
-
-These support publication of CCTS as a repository-defined conceptual and methodological framework.
-
-## 3. Blocking items before any formal scholarly release
-
-### BLOCKER A — stale repository citation metadata
-
-Current root `CITATION.cff` still describes the historical `v0.1.0-rc.1` release dated 2026-08-07.
-
-It must not be silently reused as metadata for a September CCTS scholarly release.
-
-Required action before release:
+1. a CCTS-specific manuscript Draft v0.2;
+2. an explicit construct-provenance section;
+3. a core literature crosswalk with in-text citations;
+4. a publication reference-verification record;
+5. falsification and weakening conditions;
+6. ethics / privacy boundaries;
+7. AI-assistance disclosure language;
+8. release metadata staging;
+9. a staged CFF template that is intentionally not installed at repository root;
+10. a GitHub → Zenodo → DOI release route.
 
 ```text
-NEW_RELEASE_METADATA
-!= HISTORICAL_BASELINE_METADATA
+MANUSCRIPT_STRUCTURE = PREPARED
+CORE_REFERENCE_SET = VERIFIED_FOR_FIRST_SCHOLARLY_DRAFT
+RELEASE_METADATA_STRUCTURE = PREPARED
+CITATION_STAGING = PREPARED
 ```
 
-### BLOCKER B — public authorship identity is unresolved
+## 3. Resolved versus unresolved release items
 
-The repository currently uses `AION Project Owner` in historical citation metadata.
+### RESOLVED A — core references
 
-For a scholarly release, the Human author's desired public name must be supplied explicitly by the Human Owner.
+Core adjacent and counterweight references were re-verified against publisher, institutional, author or archival records and recorded in:
+
+`CCTS_REFERENCE_VERIFICATION_2026_09_24.md`
+
+```text
+REFERENCE_PRESENT != REFERENCE_VERIFIED
+
+CORE_REFERENCE_SET
+= VERIFIED_FOR_FIRST_SCHOLARLY_DRAFT
+```
+
+This was a bounded publication pass, not a systematic review.
+
+```text
+SYSTEMATIC_REVIEW = NOT_PERFORMED
+GLOBAL_NOVELTY = NOT_ESTABLISHED
+```
+
+### RESOLVED B — manuscript content structure
+
+The CCTS manuscript now contains:
+- research problem;
+- construct provenance and scope;
+- operational definition;
+- related literature;
+- repository-specific contribution;
+- executable structural contract;
+- additive research surfaces;
+- falsification / weakening conditions;
+- scientific boundaries;
+- limitations;
+- reproducibility section;
+- AI assistance disclosure;
+- ethics / privacy statement;
+- verified core reference list.
+
+The manuscript remains a draft until author metadata and final release metadata are confirmed.
+
+### RESOLVED C — metadata staging
+
+A release-metadata draft and CFF staging template now exist.
+
+The staging template is **not** release-valid while placeholders remain.
+
+```text
+TEMPLATE_EXISTS != ROOT_CITATION_UPDATED
+PLACEHOLDER_METADATA != RELEASE_METADATA
+```
+
+### OPEN BLOCKER 1 — Human public author name
+
+The Human Owner must explicitly choose the public scholarly author name.
 
 Do not infer or expose:
 - legal name;
@@ -88,62 +129,71 @@ Do not infer or expose:
 - email;
 - ORCID.
 
-ORCID, if any, is optional unless a target venue requires it.
-
-### BLOCKER C — dedicated manuscript not frozen
-
-A CCTS-specific manuscript must be reviewed and frozen against one exact repository commit before release.
-
-### BLOCKER D — references need publication-pass verification
-
-Repository references are already present, but the scholarly release must re-check:
-- exact bibliographic item;
-- DOI / canonical URL;
-- publication year;
-- venue;
-- preprint versus peer-reviewed status;
-- whether the cited claim is actually supported by the cited source.
-
 ```text
-REFERENCE_PRESENT != REFERENCE_VERIFIED_FOR_PUBLICATION
+PUBLIC_AUTHOR_NAME = PENDING_HUMAN_CONFIRMATION
 ```
 
-### BLOCKER E — no CCTS-specific release/tag/DOI exists yet
+### OPEN BLOCKER 2 — manuscript text / scholarly-object license
 
-No new CCTS scholarly release or DOI has been created by this preparation branch.
+The repository software is Apache-2.0.
+
+That does not automatically determine the license for the manuscript / archival scholarly object.
 
 ```text
-PREPARATION_BRANCH != RELEASE
-RELEASE != DOI
-DOI != PEER_REVIEW
+SOFTWARE_LICENSE = APACHE-2.0
+MANUSCRIPT_TEXT_LICENSE = PENDING_HUMAN_CONFIRMATION
 ```
 
-### BLOCKER F — exact-head CI status is not established by the connector query used here
+### OPEN BLOCKER 3 — root CITATION.cff transition
 
-The available `fetch_commit_workflow_runs` query returned no PR-triggered runs for the base main commit. This result is query-limited and must not be promoted to a statement that CI did not run, passed, or failed.
+The current root `CITATION.cff` describes the historical August release.
 
-A release candidate must obtain exact-head CI evidence separately.
+It has deliberately not been overwritten during preparation.
+
+A root citation update should occur only after:
+- author metadata is confirmed;
+- release scope / license are confirmed;
+- exact release commit is known;
+- Human Owner explicitly authorizes the metadata transition.
+
+### OPEN BLOCKER 4 — exact release commit / exact-head CI
+
+The scholarly object must bind one exact commit.
+
+After the final metadata edits:
+1. freeze the candidate head;
+2. check Quality / CodeQL and all required checks against that exact head;
+3. perform reverse review against `main`;
+4. only then consider main merge and later Release / DOI actions.
+
+### OPEN BLOCKER 5 — publication action
+
+No publication action has occurred.
+
+```text
+GITHUB_RELEASE = NO
+ZENODO_PUBLICATION = NO
+DOI_MINTED = NO
+PEER_REVIEW = NO
+```
 
 ## 4. Ethics / privacy publication boundary
 
-The first scholarly release should remain conceptual, methodological and synthetic.
-
-Default exclusion:
+The first scholarly release remains conceptual, methodological and synthetic.
 
 ```text
 RAW_PRIVATE_TRANSCRIPT = EXCLUDED
-HUMAN_IDENTITY = EXCLUDED
+DIRECT_HUMAN_IDENTIFIER = EXCLUDED
 PRIVATE_ACCOUNT_DATA = EXCLUDED
 UNCONSENTED_HUMAN_DATA = EXCLUDED
+HUMAN_PARTICIPANT_DATASET = NOT_PUBLISHED
 ```
 
-The repository's current structural CCTS harnesses explicitly exclude private transcripts and Human identity from synthetic fixtures.
-
-If a later paper analyzes real Human interaction data, a separate ethics / consent / institutional-review analysis is required for that study design and target venue.
+Any later empirical Human-participant paper requires a separate ethics, consent and target-venue review.
 
 ## 5. AI contribution / authorship boundary
 
-ChatGPT participation may be disclosed as research assistance, including:
+ChatGPT participation is disclosed as research assistance, including:
 - problem decomposition;
 - literature-search assistance;
 - formalization;
@@ -152,36 +202,38 @@ ChatGPT participation may be disclosed as research assistance, including:
 - engineering / QA assistance;
 - manuscript drafting assistance.
 
-Formal authorship must follow the target venue's current policy and must not be inferred from research participation alone.
-
 ```text
 AI_RESEARCH_PARTICIPATION != ACADEMIC_AUTHORSHIP
 AI_ASSISTANCE_DISCLOSURE != AUTHORSHIP
 ```
 
-## 6. Release gate
+Formal authorship follows the target venue's current policy.
 
-A CCTS scholarly release may proceed only after all of the following are satisfied:
+## 6. Current release gate
 
 ```text
 [ ] Human public author name explicitly confirmed
 [ ] optional ORCID / affiliation explicitly confirmed or intentionally omitted
-[ ] manuscript reviewed
-[ ] references re-verified
-[ ] claim ceilings reviewed
-[ ] privacy / ethics statement reviewed
+[ ] manuscript text / scholarly-object license confirmed
+[x] manuscript structural review completed for Draft v0.2
+[x] core references re-verified
+[x] claim ceilings preserved
+[x] privacy / ethics statement drafted and reviewed for this conceptual release
+[x] release metadata structure prepared
+[x] CFF staging template prepared
+[ ] root CITATION.cff final transition reviewed
 [ ] exact publication commit frozen
-[ ] exact-head CI independently checked
-[ ] release metadata prepared
-[ ] CITATION metadata updated for the new release without destroying historical provenance
-[ ] Human Owner explicitly approves release action
+[ ] exact-head CI checked after final metadata edit
+[ ] exact-head reverse review passed
+[ ] Human Owner explicitly approves merge, if desired
+[ ] Human Owner separately authorizes GitHub Release / Zenodo publication
 ```
 
 ## 7. Current disposition
 
 ```text
 PUBLICATION_PREPARATION = AUTHORIZED
-PUBLICATION_BRANCH = CREATED
+PUBLICATION_BRANCH = ACTIVE
 MAIN_WRITE = NO
 MERGE_TO_MAIN = NO
 GITHUB_RELEASE = NO
@@ -189,6 +241,8 @@ ZENODO_PUBLICATION = NO
 DOI_MINTED = NO
 PEER_REVIEW = NO
 
-CCTS_SCHOLARLY_RELEASE_READINESS = PREPARATION_IN_PROGRESS
+CCTS_SCHOLARLY_RELEASE_READINESS
+= WAITING_FOR_HUMAN_CONTROLLED_METADATA
+
 SCIENTIFIC_DISPOSITION = HOLD
 ```
