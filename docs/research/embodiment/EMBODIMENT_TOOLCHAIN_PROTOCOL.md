@@ -248,6 +248,43 @@ CI_PASS != SCIENTIFIC_VALIDATION
 AUTOMATION != AUTHORITY
 ```
 
+## Stage 11 — fresh Human Owner exact-head authorization
+
+### Input
+- reviewed final exact head;
+- completed required CI/evidence;
+- current PR scope.
+
+### Output
+- explicit authorization for that exact head and action, or no authorization.
+
+### Authority
+
+Only the Human Owner supplies the external human-attestation decision required by repository governance.
+
+```text
+AUTOMATION != AUTHORITY
+OLDER_APPROVAL != FRESH_EXACT_HEAD_APPROVAL
+```
+
+A head change invalidates the prior exact-head authorization for the changed candidate.
+
+## Stage 12 — authority gate / merge / re-check main
+
+After a valid fresh exact-head authorization:
+
+1. bind the authorization receipt to the exact candidate;
+2. run the structural authority gate;
+3. merge only if required gates pass;
+4. verify the resulting merge commit / main head;
+5. re-check the intended files and post-merge repository state.
+
+```text
+MERGE_RESULT != VERIFIED_MAIN_STATE
+```
+
+Post-merge verification is a separate step.
+
 ## Tool routing table
 
 | Question | Primary route |
