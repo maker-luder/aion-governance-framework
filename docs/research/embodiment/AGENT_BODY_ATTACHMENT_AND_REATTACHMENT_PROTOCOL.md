@@ -63,6 +63,16 @@ Applies initially to:
 
 Cloud-origin attachment adds an ingress / attachment problem that native AION/Astra binding does not solve by itself.
 
+Current capability boundary:
+
+```text
+DIRECT_CLOUD_PROVIDER_BODY_ATTACHMENT = NOT_ESTABLISHED
+SUPPORTED_UPSTREAM_BODY_RUNTIME_INTERFACE = NOT_ASSUMED
+SIMULATED_CLOUD_ADAPTER != LIVE_PROVIDER_ATTACHMENT
+```
+
+A future work package must first verify whether the relevant provider/runtime exposes a supported integration surface. If it does not, experiments must use a clearly labeled simulated or proxy adapter. Passing such a harness tests the attachment architecture, not a live upstream model integration.
+
 The cloud adapter must explicitly bind:
 
 - source/provider reference;
