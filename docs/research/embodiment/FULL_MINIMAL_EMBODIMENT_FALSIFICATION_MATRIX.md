@@ -129,6 +129,25 @@ Different histories or hidden state contaminate matched conditions.
 
 The system appears to discover a body/regulatory concept only because the human-defined label or target was supplied.
 
+### H_DIRECT_BODY_STATE_LEAK
+
+The self/world-model layer appears calibrated only because canonical body state or future body parameters were copied directly into it rather than inferred/updated through admitted observations.
+
+Control:
+- preserve actual-body vs represented-self state separation;
+- log observation channels;
+- block direct state leakage;
+- include stale-model and update-block conditions.
+
+### H_SELF_MODEL_SYNC_ARTIFACT
+
+Body growth, aging, damage or recovery is mirrored automatically into the represented self-model, making apparent adaptation tautological.
+
+Control:
+- model body change and self-model update as separate transitions;
+- measure update latency and prediction error;
+- include body-change-with-update-block comparison.
+
 ### H_ENVIRONMENTAL_COUPLING_CONFUSION
 
 A result attributed to embodiment detail is actually caused by a changed environment, contact condition, stimulus distribution or resource constraint.
