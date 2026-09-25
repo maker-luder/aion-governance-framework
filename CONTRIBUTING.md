@@ -27,6 +27,8 @@ LOW_RISK_CONTRIBUTION != AUTOMATIC_MAIN_MERGE
 | D | Research semantics, schema, or evidence interpretation | Design/review evidence, schema/test evidence, explicit scientific-nonclaim review. |
 | E | Governance or authority controls | Adversarial review, validator tests, and Human Owner review; no self-authorization. |
 
+After identifying the change class, route external and plugin-assisted review through [`docs/governance/PR_TOOL_ROUTING_MATRIX.md`](docs/governance/PR_TOOL_ROUTING_MATRIX.md). The matrix uses explicit triggers and a minimum-sufficient-tool rule; tool availability alone is not a reason to invoke a tool.
+
 Do not place credentials, private conversations, personal data, or restricted research material in issues or PRs. See [`SECURITY.md`](SECURITY.md), [`docs/governance/MAIN_TRANSITION_AUTHORITY_GATE.md`](docs/governance/MAIN_TRANSITION_AUTHORITY_GATE.md), and [`BUILD_AND_VERIFY.md`](BUILD_AND_VERIFY.md).
 
 A passing CI result is not merge authority, scientific validation, certification, or deployment authorization.
