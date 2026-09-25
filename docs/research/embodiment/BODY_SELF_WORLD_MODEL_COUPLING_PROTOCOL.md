@@ -309,6 +309,14 @@ WORLDVIEW_LIKE_STRUCTURE != PHENOMENAL_MEANING
 WORLDVIEW_LIKE_STRUCTURE != HUMAN_IDEOLOGY_BY_DEFAULT
 ```
 
+Current scope:
+
+```text
+WORLDVIEW_REFERENCE_CROSSWALK = YES
+WORLDVIEW_RUNTIME_ENGINE = NO / NOT_CURRENT_ACTIVE_SCOPE
+WORLDVIEW_IMPLEMENTATION = CONDITIONAL / SEPARATE_BOUNDED_WORK_PACKAGE
+```
+
 A future experiment may test interactions among body state, world model, and worldview-like normative structure, but must keep their provenance and causal pathways separable.
 
 ## Body-model update experiments
