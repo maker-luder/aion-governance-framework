@@ -10,6 +10,7 @@ from scripts.supply_chain.sbom import (
     SYFT_ARCHIVE_SHA256,
     bind_sbom_to_subject,
     validate_spdx_sbom,
+    verify_syft_version,
 )
 from scripts.supply_chain.source_snapshot import SupplyChainError, build_snapshot
 
@@ -37,7 +38,19 @@ def _valid_spdx(path: Path) -> None:
                 "spdxVersion": "SPDX-2.3",
                 "SPDXID": "SPDXRef-DOCUMENT",
                 "dataLicense": "CC0-1.0",
-                "packages": [{"SPDXID": "SPDXRef-Package-aion", "name": "aion"}],
+                "name": "aion-test-sbom",
+                "documentNamespace": "https://example.invalid/spdx/aion-test-sbom",
+                "creationInfo": {
+                    "created": "2026-09-25T00:00:00Z",
+                    "creators": ["Tool: aion-test"],
+                },
+                "packages": [
+                    {
+                        "SPDXID": "SPDXRef-Package-aion",
+                        "name": "aion",
+                        "downloadLocation": "NOASSERTION",
+                    }
+                ],
                 "relationships": [
                     {
                         "spdxElementId": "SPDXRef-DOCUMENT",
@@ -79,9 +92,10 @@ def test_source_snapshot_rejects_dirty_or_drifted_repository(tmp_path: Path) -> 
 @pytest.mark.parametrize(
     "mutation,match",
     [
-        ({"spdxVersion": "SPDX-3.0.1"}, "SPDX-2.3"),
+        ({"spdxVersion": "SPDX-3.0.1"}, "schema validation|SPDX-2.3"),
         ({"packages": [], "files": []}, "must not be empty"),
         ({"relationships": []}, "DESCRIBES"),
+        ({"creationInfo": {}}, "schema validation"),
     ],
 )
 def test_spdx_validation_fails_closed(
@@ -110,6 +124,34 @@ def test_sbom_binding_preserves_claim_ceiling(tmp_path: Path) -> None:
     assert record["official_release_artifact"] is False
     assert record["slsa_level"] == "NOT_CLAIMED"
     assert record["canonical_effect"] == "NONE"
+
+
+def test_sbom_binding_rejects_subject_mutation(tmp_path: Path) -> None:
+    repo, head = _repo(tmp_path)
+    subject = build_snapshot(repo, head, tmp_path / "out")
+    Path(subject.artifact_path).write_bytes(b"mutated")
+    sbom = tmp_path / "sbom.json"
+    _valid_spdx(sbom)
+    with pytest.raises(SupplyChainError, match="SHA-256"):
+        bind_sbom_to_subject(subject, sbom)
+
+
+def test_syft_version_is_pinned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    binary = tmp_path / "syft"
+    binary.write_text("fixture", encoding="utf-8")
+
+    def good_run(*args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess([], 0, stdout="Application: syft\nVersion: 1.52.0\n")
+
+    monkeypatch.setattr("scripts.supply_chain.sbom.subprocess.run", good_run)
+    verify_syft_version(binary)
+
+    def bad_run(*args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
+        return subprocess.CompletedProcess([], 0, stdout="Application: syft\nVersion: 1.51.1\n")
+
+    monkeypatch.setattr("scripts.supply_chain.sbom.subprocess.run", bad_run)
+    with pytest.raises(SupplyChainError, match="1.52.0"):
+        verify_syft_version(binary)
 
 
 def test_pinned_syft_digest_is_exact_sha256() -> None:

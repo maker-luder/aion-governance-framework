@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import subprocess
 import tarfile
 import tempfile
@@ -18,6 +19,13 @@ SYFT_URL = (
     "syft_1.52.0_linux_amd64.tar.gz"
 )
 SYFT_ARCHIVE_SHA256 = "caeedb81fb0491615f1ebd1761e4145d41ee86dd2cc7bf80669f9f5ad9d6133d"
+SPDX_SCHEMA_PATH = (
+    Path(__file__).resolve().parents[2]
+    / "schemas"
+    / "vendor"
+    / "spdx-2.3"
+    / "spdx-schema.json"
+)
 
 
 def _sha256_bytes(data: bytes) -> str:
@@ -69,6 +77,53 @@ def extract_pinned_syft(archive_bytes: bytes, destination: Path) -> Path:
     return binary
 
 
+def verify_syft_version(syft_binary: Path) -> None:
+    if not syft_binary.is_file():
+        raise SupplyChainError("Syft executable does not exist")
+    try:
+        result = subprocess.run(
+            [str(syft_binary), "version"],
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+    except (OSError, subprocess.CalledProcessError) as exc:
+        raise SupplyChainError("Syft version check failed") from exc
+    if re.search(r"(?<![0-9])1\.52\.0(?![0-9])", result.stdout) is None:
+        raise SupplyChainError(f"Syft executable version must be {SYFT_VERSION}")
+
+
+def _load_official_spdx_schema() -> dict[str, Any]:
+    try:
+        schema = json.loads(SPDX_SCHEMA_PATH.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise SupplyChainError("pinned official SPDX 2.3 schema is unavailable") from exc
+    if not isinstance(schema, dict):
+        raise SupplyChainError("pinned official SPDX 2.3 schema must be a JSON object")
+    return schema
+
+
+def _validate_official_spdx_schema(data: dict[str, Any]) -> None:
+    try:
+        from jsonschema import Draft7Validator
+    except ImportError as exc:
+        raise SupplyChainError("jsonschema dependency is unavailable") from exc
+    schema = _load_official_spdx_schema()
+    try:
+        Draft7Validator.check_schema(schema)
+    except Exception as exc:
+        raise SupplyChainError("pinned official SPDX 2.3 schema is invalid") from exc
+    errors = sorted(
+        Draft7Validator(schema).iter_errors(data),
+        key=lambda item: tuple(str(part) for part in item.absolute_path),
+    )
+    if errors:
+        raise SupplyChainError(
+            f"SBOM failed official SPDX 2.3 schema validation: {errors[0].message}"
+        )
+
+
 def validate_spdx_sbom(sbom_path: Path) -> dict[str, Any]:
     try:
         data = json.loads(sbom_path.read_text(encoding="utf-8"))
@@ -76,6 +131,7 @@ def validate_spdx_sbom(sbom_path: Path) -> dict[str, Any]:
         raise SupplyChainError("SBOM must be readable SPDX JSON") from exc
     if not isinstance(data, dict):
         raise SupplyChainError("SBOM root must be a JSON object")
+    _validate_official_spdx_schema(data)
     if data.get("spdxVersion") != "SPDX-2.3":
         raise SupplyChainError("SBOM spdxVersion must be SPDX-2.3")
     if data.get("SPDXID") != "SPDXRef-DOCUMENT":
@@ -111,8 +167,7 @@ def generate_sbom(
 ) -> dict[str, Any]:
     if not snapshot_path.is_file():
         raise SupplyChainError("source snapshot does not exist")
-    if not syft_binary.is_file():
-        raise SupplyChainError("Syft executable does not exist")
+    verify_syft_version(syft_binary)
 
     with tempfile.TemporaryDirectory(prefix="aion-sbom-") as temp:
         root = Path(temp) / "snapshot"
@@ -153,10 +208,23 @@ def generate_sbom(
     return summary
 
 
+def _verify_subject_bytes(subject: ArtifactDefinition) -> Path:
+    path = Path(subject.artifact_path)
+    if not path.is_file():
+        raise SupplyChainError("subject artifact does not exist")
+    if path.name != subject.artifact_name:
+        raise SupplyChainError("subject artifact name does not match the definition")
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    if actual != subject.artifact_sha256:
+        raise SupplyChainError("subject artifact SHA-256 no longer matches the definition")
+    return path
+
+
 def bind_sbom_to_subject(
     subject: ArtifactDefinition,
     sbom_path: Path,
 ) -> dict[str, Any]:
+    _verify_subject_bytes(subject)
     summary = validate_spdx_sbom(sbom_path)
     return {
         "repository": subject.repository,
