@@ -8,9 +8,9 @@ import pytest
 
 from scripts.supply_chain.sbom import (
     SYFT_ARCHIVE_SHA256,
-    bind_sbom_to_subject,
     generate_sbom,
     validate_spdx_sbom,
+    validate_spdx_subject_identity,
     verify_syft_version,
 )
 from scripts.supply_chain.source_snapshot import SupplyChainError, build_snapshot
@@ -32,7 +32,12 @@ def _repo(tmp_path: Path) -> tuple[Path, str]:
     return repo, _git(repo, "rev-parse", "HEAD")
 
 
-def _valid_spdx(path: Path) -> None:
+def _valid_spdx(
+    path: Path,
+    *,
+    source_name: str = "aion",
+    source_version: str = "test",
+) -> None:
     path.write_text(
         json.dumps(
             {
@@ -48,7 +53,8 @@ def _valid_spdx(path: Path) -> None:
                 "packages": [
                     {
                         "SPDXID": "SPDXRef-Package-aion",
-                        "name": "aion",
+                        "name": source_name,
+                        "versionInfo": source_version,
                         "downloadLocation": "NOASSERTION",
                     }
                 ],
@@ -113,28 +119,90 @@ def test_spdx_validation_fails_closed(
         validate_spdx_sbom(path)
 
 
-def test_sbom_binding_preserves_claim_ceiling(tmp_path: Path) -> None:
+def test_spdx_subject_identity_rejects_wrong_source(tmp_path: Path) -> None:
     repo, head = _repo(tmp_path)
     subject = build_snapshot(repo, head, tmp_path / "out")
     sbom = tmp_path / "sbom.json"
-    _valid_spdx(sbom)
-    record = bind_sbom_to_subject(subject, sbom)
+    _valid_spdx(sbom, source_name="wrong-source.tar", source_version=head)
+
+    with pytest.raises(SupplyChainError, match="root source identity"):
+        validate_spdx_subject_identity(sbom, subject)
+
+
+def test_generate_sbom_binds_verified_subject_and_preserves_claim_ceiling(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    repo, head = _repo(tmp_path)
+    subject = build_snapshot(repo, head, tmp_path / "out")
+    sbom = tmp_path / "sbom.json"
+
+    def fake_fetch_pinned_syft(**kwargs: object) -> bytes:
+        return b"verified-pinned-syft"
+
+    def fake_extract_pinned_syft(archive_bytes: bytes, destination: Path) -> Path:
+        assert archive_bytes == b"verified-pinned-syft"
+        destination.mkdir(parents=True, exist_ok=True)
+        binary = destination / "syft"
+        binary.write_text("fixture", encoding="utf-8")
+        return binary
+
+    def fake_verify_syft_version(binary: Path) -> None:
+        assert binary.name == "syft"
+
+    def fake_run(
+        args: list[str],
+        **kwargs: object,
+    ) -> subprocess.CompletedProcess[str]:
+        env = kwargs["env"]
+        assert isinstance(env, dict)
+        assert env["SYFT_SOURCE_NAME"] == subject.artifact_name
+        assert env["SYFT_SOURCE_VERSION"] == subject.source_head
+        output = args[args.index("-o") + 1]
+        sbom_target = Path(output.split("=", 1)[1])
+        _valid_spdx(
+            sbom_target,
+            source_name=subject.artifact_name,
+            source_version=subject.source_head,
+        )
+        return subprocess.CompletedProcess(args, 0, stdout="", stderr="")
+
+    monkeypatch.setattr(
+        "scripts.supply_chain.sbom.fetch_pinned_syft",
+        fake_fetch_pinned_syft,
+    )
+    monkeypatch.setattr(
+        "scripts.supply_chain.sbom.extract_pinned_syft",
+        fake_extract_pinned_syft,
+    )
+    monkeypatch.setattr(
+        "scripts.supply_chain.sbom.verify_syft_version",
+        fake_verify_syft_version,
+    )
+    monkeypatch.setattr("scripts.supply_chain.sbom.subprocess.run", fake_run)
+
+    record = generate_sbom(subject, sbom)
+
     assert record["source_head"] == head
+    assert record["artifact_name"] == subject.artifact_name
     assert record["artifact_sha256"] == subject.artifact_sha256
-    assert record["spdx_version"] == "SPDX-2.3"
+    assert record["sbom_sha256"] == __import__("hashlib").sha256(sbom.read_bytes()).hexdigest()
+    assert record["binding_basis"] == "CONTROLLED_GENERATION_FROM_VERIFIED_SUBJECT_BYTES"
     assert record["official_release_artifact"] is False
     assert record["slsa_level"] == "NOT_CLAIMED"
     assert record["canonical_effect"] == "NONE"
 
 
-def test_sbom_binding_rejects_subject_mutation(tmp_path: Path) -> None:
+def test_generate_sbom_rejects_subject_mutation_before_download(tmp_path: Path) -> None:
     repo, head = _repo(tmp_path)
     subject = build_snapshot(repo, head, tmp_path / "out")
     Path(subject.artifact_path).write_bytes(b"mutated")
-    sbom = tmp_path / "sbom.json"
-    _valid_spdx(sbom)
+
+    def forbidden_opener(*args: object, **kwargs: object) -> object:
+        raise AssertionError("download must not start for a mutated subject")
+
     with pytest.raises(SupplyChainError, match="SHA-256"):
-        bind_sbom_to_subject(subject, sbom)
+        generate_sbom(subject, tmp_path / "sbom.json", opener=forbidden_opener)
 
 
 def test_syft_version_is_pinned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
@@ -164,8 +232,8 @@ def test_generate_sbom_rejects_unpinned_archive_before_execution(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    snapshot = tmp_path / "snapshot.tar"
-    snapshot.write_bytes(b"placeholder")
+    repo, head = _repo(tmp_path)
+    subject = build_snapshot(repo, head, tmp_path / "out")
     executed = False
 
     class BadResponse:
@@ -189,7 +257,7 @@ def test_generate_sbom_rejects_unpinned_archive_before_execution(
     monkeypatch.setattr("scripts.supply_chain.sbom.subprocess.run", forbidden_run)
 
     with pytest.raises(SupplyChainError, match="SHA-256 mismatch"):
-        generate_sbom(snapshot, tmp_path / "sbom.json", opener=opener)
+        generate_sbom(subject, tmp_path / "sbom.json", opener=opener)
 
     assert executed is False
 
