@@ -157,6 +157,18 @@ Control:
 - explicit environment version/configuration;
 - environment ablation only when environment is the registered variable.
 
+### H_ENVIRONMENT_RESET_OR_SEED_DRIFT
+
+Matched conditions are not actually matched because environment seed, reset policy, initial state, time step, termination logic or observation/action schema changed.
+
+Control:
+- bind environment version/configuration;
+- bind seed or nondeterminism declaration;
+- bind reset/initial-state policy;
+- bind time-step/clock policy;
+- bind observation/action schema versions;
+- repeat trials when replay is not deterministic.
+
 ### H_POPULATION_OVERGENERALIZATION
 
 A result derived from one or a few reference bodies is reported as though it represented the human population.
