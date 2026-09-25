@@ -170,18 +170,26 @@ Repository crosswalk:
 
 ```text
 CI / TEST / TYPECHECK / STATIC_ANALYSIS
--> SOFTWARE / IMPLEMENTATION VERIFICATION EVIDENCE
+-> GENERAL_SOFTWARE_QA_EVIDENCE
 
-MODEL_TO_REFERENCE_COMPARISON
--> VALIDATION EVIDENCE CANDIDATE
+KNOWN_SOLUTION_OR_NUMERICAL_ERROR_CHECK
+AGAINST_THE_MATHEMATICAL_MODEL
+-> VVUQ_VERIFICATION_EVIDENCE_CANDIDATE
+
+MODEL_TO_EMPIRICAL_REFERENCE_OR_MEASUREMENT_COMPARISON
+-> VALIDATION_EVIDENCE_CANDIDATE
 
 PARAMETER / NUMERICAL / MODEL-FORM VARIATION
--> UNCERTAINTY QUESTION
+-> UNCERTAINTY_QUESTION
 ```
+
+ASME describes verification in computational modeling as checking the computational model against its mathematical description; its verification guidance includes numerical-error / known-solution procedures. Ordinary CI, linting, type checking, static analysis or generic unit tests can support software quality but do not automatically satisfy that VVUQ meaning of verification.
 
 Critical local boundary:
 
 ```text
+GENERAL_CI != ASME_VVUQ_VERIFICATION
+SOFTWARE_TEST_PASS != NUMERICAL_VERIFICATION
 LOCAL_TEST_PASS != REMOTE_CI_PASS
 CI_PASS != SCIENTIFIC_VALIDATION
 IMPLEMENTATION_EXISTS != IMPLEMENTATION_CORRECT
@@ -283,8 +291,8 @@ ENGINEERING_RIGOR != EPISTEMIC_CERTAINTY
 |---|---|---|
 | exact commit SHA / branch / PR | RSE / version control / FAIR4RS | exact state identification |
 | source / hash / lineage record | W3C PROV / FAIR4RS | provenance and derivation evidence |
-| CI / Quality / CodeQL | RSE / verification | engineering verification evidence |
-| `CI_PASS != SCIENTIFIC_VALIDATION` | ASME VVUQ distinction | verification does not equal validation |
+| CI / Quality / CodeQL | RSE / software QA | engineering QA evidence; not ASME VVUQ verification by itself |
+| `CI_PASS != SCIENTIFIC_VALIDATION` | local boundary consistent with VVUQ separation | generic CI success does not establish model validation |
 | preregistration / expected outcome | Registered Reports | reduced outcome-dependent flexibility |
 | falsification matrix / counterexamples | scientific methodology | explicit weakening / rejection criteria |
 | same data + code rerun | NASEM reproducibility | computational reproducibility question |
