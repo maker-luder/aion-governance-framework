@@ -274,7 +274,7 @@ bounded conclusions only.
 ## WP-11 — Body ↔ self/world-model coupling
 
 Purpose:
-connect embodiment evidence to the repository's existing bounded `SELF_WORLD_MODEL` research surface without creating a duplicate self-model ontology.
+connect embodiment evidence to the repository's existing bounded `SELF_WORLD_MODEL` and worldview-like normative research surfaces without creating duplicate self-model, world-model or worldview ontologies.
 
 Dependencies:
 - WP-04 minimal body runtime;
@@ -282,6 +282,9 @@ Dependencies:
 - WP-05 when the experiment requires an agent-coupled action loop.
 
 Required:
+- actual body state, external world state, represented world model, and worldview-like normative structure remain separable;
+- external environment content is supplied through a bounded external simulator/dataset/benchmark adapter rather than a repository-built general world simulator;
+- exact environment source/version/configuration is provenance-bound;
 - actual body state and represented self/world state remain separate;
 - admitted sensor/observation path is explicit;
 - prediction error / update path is provenance-bound;
@@ -299,7 +302,8 @@ POPULATION_GENERALIZATION = NO
 ```
 
 Forbidden:
-- second conflicting self-model ontology;
+- second conflicting self-model/world-model/worldview ontology;
+- building a general-purpose world simulator inside this work package;
 - automatic copying of canonical body state into self-model;
 - treating adaptive self-model update as subjectivity/selfhood evidence.
 
