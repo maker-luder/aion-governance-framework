@@ -207,18 +207,74 @@ This permits research on:
 
 For the current active adult-male body baseline, developmental childhood simulation is not required. Development/maturation may remain a reference trajectory until a bounded experiment requires it.
 
-## World model versus worldview
+## External world, world model, and worldview
 
-`WORLD_MODEL` means a functional/predictive representation of environment state, dynamics, constraints or consequences.
+Three layers must remain separate.
 
-A human-like `worldview` — broad beliefs, values, ideology or interpretive stance — is a different construct and should not be silently merged into this protocol.
+### 1. EXTERNAL_WORLD_STATE
 
-Where value-laden or normative beliefs are studied, existing normative-state / provenance research remains the relevant repository surface.
+The actual or simulated environment supplied to the experiment.
+
+Examples:
+- physics environment;
+- contact/gravity field;
+- task environment;
+- resource distribution;
+- spatial scene;
+- external agents/objects;
+- externally provided simulator state.
+
+```text
+EXTERNAL_WORLD_STATE = W_t
+```
+
+The repository does not attempt to build a complete general-purpose world simulator.
+
+```text
+FULL_WORLD_SIMULATION = OUT_OF_SCOPE
+ENVIRONMENT_CONTENT = EXTERNAL_FIRST
+REPOSITORY_ROLE = INTERFACE + PROVENANCE + VALIDATION
+```
+
+External simulators, datasets or benchmarks may supply the world/environment. The repository should define adapters, exact source/version binding, observation/action contracts, and matched-condition controls.
+
+### 2. WORLD_MODEL
+
+A bounded functional/predictive representation of environment state, dynamics, constraints or consequences used by the agent/system.
+
+Examples:
+- predicted object/location state;
+- action consequence estimate;
+- environmental constraint estimate;
+- uncertainty about external dynamics.
+
+```text
+WORLD_MODEL != WORLD
+WORLD_MODEL != COMPLETE_ENVIRONMENT_SIMULATOR
+```
+
+### 3. WORLDVIEW
+
+A broader interpretive/normative structure involving beliefs, values, priorities, social interpretation, or meaning-like organization.
+
+This is not the same construct as a physical/dynamic world model.
+
+Where worldview-like structure is studied, the repository should reuse or crosswalk existing bounded surfaces such as:
+
+- `NORMATIVE_STATE`;
+- `NORMATIVE_PROVENANCE`;
+- `OTHER_MODEL`;
+- `VALUE_CONFLICT_STATE`;
+- relevant persistent preference / self-world representations.
 
 ```text
 WORLD_MODEL != WORLDVIEW
-WORLDVIEW_LIKE_NORMATIVE_STRUCTURE != PHYSICAL_WORLD_DYNAMICS_MODEL
+WORLDVIEW != EXTERNAL_WORLD_STATE
+WORLDVIEW_LIKE_STRUCTURE != PHENOMENAL_MEANING
+WORLDVIEW_LIKE_STRUCTURE != HUMAN_IDEOLOGY_BY_DEFAULT
 ```
+
+A future experiment may test interactions among body state, world model, and worldview-like normative structure, but must keep their provenance and causal pathways separable.
 
 ## Body-model update experiments
 
