@@ -131,24 +131,51 @@ Do not silently fetch "latest" during runtime.
 
 ## Compatibility gates
 
-### 1. License compatibility
+### 1. License / terms compatibility
 
 Distinguish:
 
 - repository software license;
 - third-party artifact license;
+- model/dataset-card metadata;
+- file-specific license or terms;
+- gated-access terms;
 - derivative artifact obligations;
 - attribution;
 - notice;
 - redistribution requirements;
 - access restrictions.
 
+A repository/model-card license label is an intake clue, not by itself a complete legal/rights verification.
+
+```text
+LICENSE_METADATA != COMPLETE_RIGHTS_REVIEW
+```
+
 ```text
 REPOSITORY_LICENSE
 != THIRD_PARTY_ASSET_LICENSE
 ```
 
-### 2. Technical compatibility
+### 2. Supply-chain / artifact security
+
+Before loading or executing third-party artifacts:
+
+- inventory executable scripts and custom code;
+- identify serialization formats;
+- prefer data-only / safer formats where practical;
+- avoid arbitrary deserialization of untrusted pickle-like objects;
+- do not enable remote/custom code execution by default;
+- verify source revision and hashes before use;
+- perform intake in an isolated preparation environment when executable content is present;
+- record scanner findings where available.
+
+```text
+DOWNLOADABLE != SAFE_TO_EXECUTE
+HASH_MATCH != TRUSTED_BEHAVIOR
+```
+
+### 3. Technical compatibility
 
 Check:
 
@@ -162,7 +189,7 @@ Check:
 - determinism;
 - platform assumptions.
 
-### 3. Semantic compatibility
+### 4. Semantic compatibility
 
 Explicitly distinguish:
 
@@ -177,7 +204,25 @@ BONE
 
 Do not merge fields solely because labels appear similar.
 
-### 4. Scientific provenance
+### 5. Scientific / human-data provenance
+
+For anatomy, medical imaging, donor-derived or human-subject-derived datasets, record where applicable:
+
+- source institution;
+- source population / subject count;
+- donor or subject provenance stated by the source;
+- consent / donation / terms information available from the source;
+- de-identification or privacy status where relevant;
+- age / sex / population assumptions;
+- known pathology or specimen-specific limitations;
+- current access terms.
+
+```text
+PUBLICLY_AVAILABLE != POPULATION_REPRESENTATIVE
+SINGLE_SUBJECT_REFERENCE != UNIVERSAL_HUMAN_MODEL
+```
+
+### 6. Transform provenance
 
 Every transformed artifact must be reversible at the evidence level:
 
@@ -268,6 +313,8 @@ Any of the following returns `HOLD`:
 - unresolved license;
 - mutable unpinned dependency;
 - transformation cannot be reproduced;
+- artifact security status is unresolved for executable/serialized content;
+- human-data provenance or access terms are unresolved where relevant;
 - representation semantics are ambiguous;
 - source limitation invalidates the intended claim;
 - required attribution cannot be preserved.
