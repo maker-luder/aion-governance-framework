@@ -328,6 +328,21 @@ Selected neighboring work:
   - Consensus record:
     https://consensus.app/papers/advancing-research-software-engineering-with-ai-a-farshidi-bennin/f4e90883a0d85f4aa8adf0031ba3f56f/
 
+- Suchikova et al. (2025), **GAIDeT (Generative AI Delegation Taxonomy): A taxonomy for humans to delegate tasks to generative artificial intelligence in scientific research and publishing**, *Accountability in Research*.
+  - classifies AI delegation across research stages;
+  - explicitly preserves Human oversight, accountability and research integrity;
+  - includes a GitHub-based declaration tool for transparent delegation records.
+  - Consensus record:
+    https://consensus.app/papers/gaidet-generative-ai-delegation-taxonomy-a-taxonomy-for-suchikova-tsybuliak/d61c95655149576e8523539a64433d52/
+
+- Strickland et al. (2026), **Talk Freely, Execute Strictly: Schema-Gated Agentic AI for Flexible and Reproducible Scientific Workflows**, arXiv preprint.
+  - proposes schema-gated orchestration as an execution boundary;
+  - separates conversational flexibility from deterministic / constrained execution;
+  - identifies Human-in-the-loop control and transparency as required boundary properties.
+  - Peer-review status in this crosswalk: `PREPRINT`.
+  - Consensus record:
+    https://consensus.app/papers/talk-freely-execute-strictly-schemagated-agentic-ai-for-strickland-vijeta/4eca28396c5a5686b9f550e1a46617c4/
+
 Bounded implication:
 
 ```text
@@ -335,6 +350,8 @@ AI_ASSISTED_RESEARCH_WORKFLOW_FRAMEWORKS_EXIST = YES
 AI_AGENT_PROVENANCE_FRAMEWORKS_EXIST = YES
 AI_ASSISTED_RSE_FRAMEWORKS_EXIST = YES
 HUMAN_OVERSIGHT_IN_AI_RESEARCH_WORKFLOWS_EXISTS_AS_A_RESEARCH_DIRECTION = YES
+AI_RESEARCH_DELEGATION_TAXONOMIES_EXIST = YES
+SCHEMA_GATED_AI_SCIENTIFIC_WORKFLOW_DESIGNS_EXIST = YES
 
 OUR_WORKFLOW_IS_THE_FIRST_INTEGRATED_AI_RESEARCH_WORKFLOW = NO
 OUR_WORKFLOW_IS_EQUIVALENT_TO_ANY_ONE_NEIGHBORING_FRAMEWORK = NO
