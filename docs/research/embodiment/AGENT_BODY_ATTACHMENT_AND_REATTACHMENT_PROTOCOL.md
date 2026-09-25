@@ -163,6 +163,8 @@ Reattachment must validate:
 - allowed state retention;
 - provider/model changes;
 - policy version;
+- sensor/action schema versions;
+- body fidelity profile;
 - migration or incompatibility conditions.
 
 ```text
@@ -204,7 +206,7 @@ INTENDED_ACTION
 
 ## Stable interface over variable fidelity
 
-The attachment interface should remain stable while body fidelity changes.
+The attachment interface should remain stable while body fidelity changes. Compatibility must be explicit rather than assumed.
 
 ```text
 RICH BODY
@@ -221,6 +223,8 @@ AGENT
 ```
 
 This permits full ↔ minimal comparison without changing the agent-side contract.
+
+If observation/action schemas do change, attachment must perform explicit version/capability negotiation or fail closed. Silent coercion between incompatible schemas is not allowed.
 
 ## Identity and state fields
 
@@ -242,7 +246,10 @@ memory_stream_id
 event_lineage_id
 
 sensor_profile
+sensor_schema_version
 action_profile
+action_schema_version
+body_fidelity_profile
 
 authority_reference
 provenance_reference
