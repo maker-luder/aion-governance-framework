@@ -39,14 +39,14 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
 2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建、transition continuity（轉換連續性）分析，以及在資訊內容匹配條件下的 memory-locus dependency discrimination（記憶資訊所在位置／依賴區辨）；但不把持續存在直接等同於身分延續。
 3. **受限制條件下的適應與區辨測試** —— CCAP Stage 1–3 已推進到 TEVV 執行前映射、Four-Domain × 六維結構壓力測試、系統邊界／區辨硬化，以及 synthetic D2 × D4 differential probe（合成差異探針）。目前只顯示**測試夾具層級的可分離性**；D2 支持、D4 支持與獨立驗證仍然**尚未建立**。
-4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS / grounding（共構思考場域／共同基礎）研究表面、Human–AI learning / HTECR 外部交叉比對與反證邊界、multi-provider evidence admission（多供應商證據准入），以及在 bounded L0 claim（有限範圍 L0 主張）准入前重新驗證 exact baseline / intervention 結構的 longitudinal claim-admission bridge（縱向主張准入橋接）。
+4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS = Co-Constructed Thinking Space（共構思考場域）已形式化為具來源追溯邊界的 Human–AI epistemic collaboration（人類–AI 認識論協作）框架，包含可執行結構契約與反證邊界。首份學術稿件已公開典藏於 [Zenodo](https://zenodo.org/records/22945883)，DOI = Digital Object Identifier（數位物件識別碼）為 [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)；公開典藏不等於同儕審查或科學驗證。
 
 ## 目前研究快照
 
 首頁只保留最高層級的目前圖像。若要看有日期的里程碑、精確 merged 現況與完整文件地圖，請進入 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) 與 [`docs/INDEX.md`](docs/INDEX.md)。
 
 - **連續性與記憶：** history replay、attention-structure 區辨、exact-structure longitudinal claim admission，以及 matched-information memory-locus dependency 測試。
-- **Human–AI learning / collaboration：** CCTS / grounding，加上具明確反證邊界的 Human–AI learning / HTECR 外部交叉比對。
+- **Human–AI learning / collaboration：** CCTS 已形式化並公開典藏；Human–AI learning / HTECR 仍是鄰接研究面向。
 - **證據准入：** bounded 12-axis provider-evidence admission 已擴展到多個 provider family，但 open independent replication 仍然稀少。
 - **Assurance / quality：** bounded AI risk / impact controls、TEVV、Full-QMS、adversarial-security receipts 與 NCR/CAPA controls 提高 traceability 與 fail-closed review；它們不會因此變成科學驗證。
 

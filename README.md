@@ -30,14 +30,14 @@ The current `main` is organized around four connected research lines:
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
 2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration, learning, and evidence admission** — CCTS / grounding research surfaces, a Human–AI learning / HTECR crosswalk with explicit falsification boundaries, multi-provider evidence admission, and a longitudinal claim-admission bridge that revalidates exact baseline/intervention structure before bounded L0 claim admission.
+4. **Human–AI collaboration, learning, and evidence admission** — CCTS is formalized with provenance bounds, an executable structural contract, and falsification conditions. Manuscript: [Zenodo](https://zenodo.org/records/22945883), DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883). Publication is not peer review or scientific validation.
 
 ## Current research snapshot
 
 The landing page keeps only the highest-level current picture. For dated milestones, exact merged standing, and the full documentation map, use [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/INDEX.md`](docs/INDEX.md).
 
 - **Continuity and memory:** history replay, attention-structure discrimination, exact-structure longitudinal claim admission, and matched-information memory-locus dependency testing.
-- **Human–AI learning and collaboration:** CCTS / grounding plus a Human–AI learning / HTECR crosswalk with explicit falsification boundaries.
+- **Human–AI learning and collaboration:** CCTS is formalized and archived; Human–AI learning / HTECR remains adjacent.
 - **Evidence admission:** bounded 12-axis provider-evidence admission now spans multiple provider families, while open independent replication remains sparse.
 - **Assurance and quality:** bounded AI risk / impact controls, TEVV, Full-QMS, adversarial-security receipts, and NCR/CAPA quality controls improve traceability and fail-closed review without creating scientific validation.
 
