@@ -44,7 +44,7 @@ Build a source-grounded reference map spanning:
 1. morphology / geometry;
 2. skeleton and joints;
 3. musculoskeletal biomechanics;
-4. sensorimotor organization;
+4. central, peripheral and autonomic nervous systems plus sensorimotor and sensory organization;
 5. organs and soft tissue;
 6. circulation, respiration, metabolism and fluid regulation;
 7. interoception, homeostasis, allostasis, endocrine and immune regulation;
@@ -52,6 +52,12 @@ Build a source-grounded reference map spanning:
 9. cells;
 10. proteins and molecular mechanisms;
 11. gene expression and regulatory mechanisms.
+
+Cross-cutting reference dimensions also include:
+
+- population and anatomical variability;
+- environmental coupling: gravity, contact, temperature and resource constraints;
+- temporal biology: development, adaptation, plasticity, repair, aging and accumulated damage.
 
 Reference completeness does not require immediate simulation completeness.
 
