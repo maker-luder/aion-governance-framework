@@ -35,7 +35,7 @@ MORAL_STATUS = NOT_ESTABLISHED
 
 ## 2. Research architecture
 
-The research proceeds through five parallel tracks.
+The research proceeds through six parallel tracks.
 
 ### Track A — Complete scientific reference with adult-male active baseline
 
@@ -310,6 +310,13 @@ WP-08  Work/Codex parity
 WP-09  richer scientific-reference expansion
 ↓
 WP-10  full ↔ minimal validation
+
+OPTIONAL / CONDITIONAL:
+WP-04 + existing SELF_WORLD_MODEL
+↓
+WP-11 body ↔ self/world-model coupling
+↓
+feeds WP-10 when self/world-model coupling is the registered comparison
 ```
 
 No later package is implied by completion of an earlier package.
