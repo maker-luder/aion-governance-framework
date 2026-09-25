@@ -9,6 +9,8 @@ Turn the master blueprint into bounded, independently assignable units for Teach
 
 A work package is not authorization to consume later work packages.
 
+`MERGE_TO_MAIN = NO` is the default/self-authorization boundary for a work package. It does not prevent a later fresh exact-head Human Owner merge authorization after the package is reviewed and verified.
+
 ## Mandatory work-package fields
 
 Every implementation package must define:
@@ -29,6 +31,7 @@ FALSIFICATION_CRITERIA
 ROLLBACK
 PROVENANCE
 MERGE_TO_MAIN = NO
+MERGE_REQUIRES_FRESH_EXACT_HEAD_HUMAN_OWNER_APPROVAL = TRUE
 ```
 
 ## WP-01 — Blueprint closure
