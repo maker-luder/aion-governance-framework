@@ -152,7 +152,7 @@ SIMULATED_ATTACHMENT != LIVE_PROVIDER_ATTACHMENT
 
 If a provider does not expose a supported interface for direct body-runtime attachment, the corresponding work package must use a clearly labeled simulation or proxy harness rather than claiming live provider integration.
 
-### Track F — body ↔ self/world-model coupling
+### Track F — body ↔ self/world-model/worldview coupling
 
 Embodiment state must be coupled to, but remain distinct from, the repository's existing `SELF_WORLD_MODEL` research surface.
 
@@ -165,6 +165,19 @@ BODY_CHANGE != SELF_MODEL_UPDATE
 Development, aging, adaptation, repair and long-term body change modify actual body parameters or capability envelopes. The self/world model may then update from observations and prediction error; lag, stale state and failed updating remain experimentally available conditions.
 
 This track reuses existing self/world-model structures rather than defining a duplicate ontology.
+
+The external environment is treated as a replaceable experimental substrate rather than a repository-owned world simulator.
+
+```text
+FULL_WORLD_SIMULATION = OUT_OF_SCOPE
+ENVIRONMENT_CONTENT = EXTERNAL_FIRST
+REPOSITORY_ENVIRONMENT_ROLE = ADAPTER + PROVENANCE + VALIDATION
+
+WORLD_MODEL != WORLDVIEW
+WORLDVIEW != EXTERNAL_WORLD_STATE
+```
+
+Worldview-like normative/interpretive structure, where studied, should crosswalk to existing normative-state, value-conflict, other-model and provenance research rather than creating a new monolithic worldview engine.
 
 ## 3. Architectural principle
 
