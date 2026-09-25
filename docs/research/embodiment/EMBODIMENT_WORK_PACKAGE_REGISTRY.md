@@ -271,47 +271,6 @@ Required:
 Output:
 bounded conclusions only.
 
-## Dependency overview
-
-```text
-WP-01
-├─ WP-02 → WP-03 → WP-04 → WP-05
-│                         ├─ WP-06
-│                         └─ WP-07 → WP-08
-└─ WP-09 ------------------------┐
-                                ↓
-                              WP-10
-
-WP-04 + existing SELF_WORLD_MODEL
-  └─ WP-11 Body ↔ self/world-model coupling
-     └─ WP-10 when coupling is part of the registered full/minimal experiment
-```
-
-## Worker dispatch rule
-
-A worker receives one explicit package **plus its reviewed pinned execution spec**. The registry summary alone is insufficient for implementation.
-
-Example:
-
-```text
-EXECUTE = WP-02
-DO_NOT_EXECUTE = WP-03..WP-10
-MAIN_WRITE = NO
-MERGE_TO_MAIN = NO
-```
-
-Cross-package discovery is allowed as read-only context. Cross-package implementation is not.
-
-## Completion semantics
-
-```text
-WP_N_PASS
-!= WP_N+1_AUTHORIZED
-```
-
-No package transition occurs automatically.
-
-
 ## WP-11 — Body ↔ self/world-model coupling
 
 Purpose:
@@ -347,3 +306,42 @@ Forbidden:
 Output:
 bounded evidence about self/world-model calibration or causal role under body/environment change.
 
+## Dependency overview
+
+```text
+WP-01
+├─ WP-02 → WP-03 → WP-04 → WP-05
+│                         ├─ WP-06
+│                         └─ WP-07 → WP-08
+└─ WP-09 ------------------------┐
+                                ↓
+                              WP-10
+
+WP-04 + existing SELF_WORLD_MODEL
+  └─ WP-11 Body ↔ self/world-model coupling
+     └─ WP-10 when coupling is part of the registered full/minimal experiment
+```
+
+## Worker dispatch rule
+
+A worker receives one explicit package **plus its reviewed pinned execution spec**. The registry summary alone is insufficient for implementation.
+
+Example:
+
+```text
+EXECUTE = WP-02
+DO_NOT_EXECUTE = WP-03..WP-11
+MAIN_WRITE = NO
+MERGE_TO_MAIN = NO
+```
+
+Cross-package discovery is allowed as read-only context. Cross-package implementation is not.
+
+## Completion semantics
+
+```text
+WP_N_PASS
+!= WP_N+1_AUTHORIZED
+```
+
+No package transition occurs automatically.
