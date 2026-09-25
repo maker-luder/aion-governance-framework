@@ -230,6 +230,21 @@ EXTERNAL_WORLD_STATE = W_t
 
 The repository does not attempt to build a complete general-purpose world simulator.
 
+For minimal body/control experiments, the external world should default to an exogenous input/disturbance boundary rather than being folded into the body's internal state.
+
+```text
+DEFAULT_MINIMAL_FORMALIZATION:
+BODY_INTERNAL_STATE = x
+AGENT_ACTION = u
+EXTERNAL_WORLD / DISTURBANCE = e
+OBSERVATION = y
+
+x_(t+1) = F(x_t, u_t, e_t)
+y_t     = H(x_t, e_t)
+```
+
+Promote environmental dynamics into a jointly modeled internal state only when the registered research question requires predicting or controlling those dynamics.
+
 ```text
 FULL_WORLD_SIMULATION = OUT_OF_SCOPE
 ENVIRONMENT_CONTENT = EXTERNAL_FIRST
@@ -237,6 +252,26 @@ REPOSITORY_ROLE = INTERFACE + PROVENANCE + VALIDATION
 ```
 
 External simulators, datasets or benchmarks may supply the world/environment. The repository should define adapters, exact source/version binding, observation/action contracts, and matched-condition controls.
+
+A reproducible environment adapter should bind, where applicable:
+
+```text
+environment_id
+environment_source
+environment_version
+environment_config_hash
+environment_seed
+reset_policy
+initial_state_ref
+time_step_or_clock_policy
+observation_schema_version
+action_schema_version
+termination_policy
+external_agent_population_ref
+provenance_refs
+```
+
+If the environment cannot be deterministically replayed, the protocol must record the source of nondeterminism and use matched/repeated trials.
 
 ### 2. WORLD_MODEL
 
