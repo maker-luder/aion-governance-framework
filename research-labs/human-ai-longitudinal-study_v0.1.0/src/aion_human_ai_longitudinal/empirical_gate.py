@@ -9,11 +9,6 @@ from .harness import AdmissionDisposition, StudyError
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
 
-class CorpusSplit(StrEnum):
-    PILOT = "PILOT"
-    CONFIRMATORY = "CONFIRMATORY"
-
-
 class ControlCondition(StrEnum):
     A_FAST_WEAK_COORDINATION = "A_FAST_WEAK_COORDINATION"
     B_SLOW_STRONG_COORDINATION = "B_SLOW_STRONG_COORDINATION"
@@ -32,6 +27,13 @@ class ConstructFalsifier(StrEnum):
     F8 = "F8"
     F9 = "F9"
     F10 = "F10"
+
+
+class InterCoderAgreementMethod(StrEnum):
+    KRIPPENDORFF_ALPHA = "KRIPPENDORFF_ALPHA"
+    COHEN_KAPPA = "COHEN_KAPPA"
+    FLEISS_KAPPA = "FLEISS_KAPPA"
+    INTRACLASS_CORRELATION = "INTRACLASS_CORRELATION"
 
 
 def _text(name: str, value: str) -> None:
@@ -66,8 +68,12 @@ class EmpiricalProtocol:
     controls: tuple[ControlCondition, ...]
     falsifiers: tuple[ConstructFalsifier, ...]
     minimum_independent_coders: int
-    reliability_statistic: str
-    reliability_acceptance_rule: str
+    agreement_method: InterCoderAgreementMethod
+    agreement_acceptance_rule: str
+    agreement_rule_sha256: str
+    preregistration_ref: str
+    preregistration_sha256: str
+    protocol_freeze_receipt_sha256: str
     consent_route: str
     ethics_route: str
     preregistered: bool
@@ -90,8 +96,10 @@ class EmpiricalProtocol:
             "corpus_manifest_sha256",
             "coding_manual_sha256",
             "analysis_plan_sha256",
+            "agreement_rule_sha256",
         ):
             _digest(name, getattr(self, name))
+
         _text("primary_contrast", self.primary_contrast)
         _unique_non_empty("pilot_unit_ids", self.pilot_unit_ids)
         _unique_non_empty("confirmatory_unit_ids", self.confirmatory_unit_ids)
@@ -117,8 +125,9 @@ class EmpiricalProtocol:
             or self.minimum_independent_coders < 2
         ):
             raise StudyError("at least two independent coders must be planned")
-        _text("reliability_statistic", self.reliability_statistic)
-        _text("reliability_acceptance_rule", self.reliability_acceptance_rule)
+        if type(self.agreement_method) is not InterCoderAgreementMethod:
+            raise StudyError("agreement_method must be an exact InterCoderAgreementMethod")
+        _text("agreement_acceptance_rule", self.agreement_acceptance_rule)
 
         for name in (
             "preregistered",
@@ -136,6 +145,24 @@ class EmpiricalProtocol:
         ):
             if type(getattr(self, name)) is not bool:
                 raise StudyError(f"{name} must be an exact bool")
+
+        if self.preregistered:
+            _text("preregistration_ref", self.preregistration_ref)
+            _digest("preregistration_sha256", self.preregistration_sha256)
+        elif self.preregistration_ref or self.preregistration_sha256:
+            raise StudyError(
+                "preregistration binding cannot be present when preregistered is false"
+            )
+
+        if self.protocol_frozen:
+            _digest(
+                "protocol_freeze_receipt_sha256",
+                self.protocol_freeze_receipt_sha256,
+            )
+        elif self.protocol_freeze_receipt_sha256:
+            raise StudyError(
+                "protocol freeze receipt cannot be present when protocol_frozen is false"
+            )
 
         if self.ccts_status_is_htecr_eligibility_gate:
             raise StudyError(
@@ -170,7 +197,9 @@ class EmpiricalGateAudit:
     complete_negative_controls: bool
     complete_falsifier_set: bool
     independent_coder_plan_present: bool
-    reliability_rule_predeclared: bool
+    agreement_rule_predeclared: bool
+    preregistration_binding_present: bool
+    protocol_freeze_binding_present: bool
     empirical_data_collected: bool = False
     ccts_empirical_validation: str = "NOT_ESTABLISHED"
     htecr_validation: str = "NOT_ESTABLISHED"
@@ -189,8 +218,21 @@ def audit_empirical_protocol(protocol: EmpiricalProtocol) -> EmpiricalGateAudit:
     if type(protocol) is not EmpiricalProtocol:
         raise StudyError("protocol must be an exact EmpiricalProtocol")
 
-    pilot_ready = protocol.protocol_frozen
-    confirmatory_ready = protocol.protocol_frozen and protocol.preregistered
+    freeze_binding = bool(
+        protocol.protocol_frozen and protocol.protocol_freeze_receipt_sha256
+    )
+    prereg_binding = bool(
+        protocol.preregistered
+        and protocol.preregistration_ref.strip()
+        and protocol.preregistration_sha256
+    )
+    agreement_bound = bool(
+        protocol.agreement_acceptance_rule.strip()
+        and protocol.agreement_rule_sha256
+    )
+
+    pilot_ready = freeze_binding and agreement_bound
+    confirmatory_ready = pilot_ready and prereg_binding
     if protocol.contains_real_participant_data:
         confirmatory_ready = confirmatory_ready and bool(
             protocol.consent_route.strip() and protocol.ethics_route.strip()
@@ -204,8 +246,7 @@ def audit_empirical_protocol(protocol: EmpiricalProtocol) -> EmpiricalGateAudit:
         complete_negative_controls=set(protocol.controls) == set(ControlCondition),
         complete_falsifier_set=set(protocol.falsifiers) == set(ConstructFalsifier),
         independent_coder_plan_present=protocol.minimum_independent_coders >= 2,
-        reliability_rule_predeclared=bool(
-            protocol.reliability_statistic.strip()
-            and protocol.reliability_acceptance_rule.strip()
-        ),
+        agreement_rule_predeclared=agreement_bound,
+        preregistration_binding_present=prereg_binding,
+        protocol_freeze_binding_present=freeze_binding,
     )

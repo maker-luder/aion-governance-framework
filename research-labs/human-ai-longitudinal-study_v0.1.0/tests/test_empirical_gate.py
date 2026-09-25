@@ -8,6 +8,7 @@ from aion_human_ai_longitudinal.empirical_gate import (
     ConstructFalsifier,
     ControlCondition,
     EmpiricalProtocol,
+    InterCoderAgreementMethod,
     audit_empirical_protocol,
 )
 from aion_human_ai_longitudinal.harness import AdmissionDisposition, StudyError
@@ -30,8 +31,12 @@ def protocol(**overrides: object) -> EmpiricalProtocol:
         "controls": tuple(ControlCondition),
         "falsifiers": tuple(ConstructFalsifier),
         "minimum_independent_coders": 2,
-        "reliability_statistic": "PROSPECTIVELY_SELECTED_FOR_SCALE",
-        "reliability_acceptance_rule": "FROZEN_BEFORE_CONFIRMATORY_CODING",
+        "agreement_method": InterCoderAgreementMethod.KRIPPENDORFF_ALPHA,
+        "agreement_acceptance_rule": "Use the prospectively frozen rule bound by this artifact digest.",
+        "agreement_rule_sha256": digest("5"),
+        "preregistration_ref": "synthetic/preregistration-v0.1.md",
+        "preregistration_sha256": digest("6"),
+        "protocol_freeze_receipt_sha256": digest("7"),
         "consent_route": "",
         "ethics_route": "",
         "preregistered": True,
@@ -49,7 +54,9 @@ def test_complete_synthetic_protocol_opens_method_gate_without_claim_promotion()
     assert audit.complete_negative_controls is True
     assert audit.complete_falsifier_set is True
     assert audit.independent_coder_plan_present is True
-    assert audit.reliability_rule_predeclared is True
+    assert audit.agreement_rule_predeclared is True
+    assert audit.preregistration_binding_present is True
+    assert audit.protocol_freeze_binding_present is True
     assert audit.empirical_data_collected is False
     assert audit.ccts_empirical_validation == "NOT_ESTABLISHED"
     assert audit.htecr_validation == "NOT_ESTABLISHED"
@@ -84,9 +91,28 @@ def test_two_independent_coders_are_a_design_minimum() -> None:
         protocol(minimum_independent_coders=1)
 
 
-def test_confirmatory_gate_requires_frozen_preregistration() -> None:
-    assert audit_empirical_protocol(protocol(preregistered=False)).confirmatory_gate_ready is False
-    assert audit_empirical_protocol(protocol(protocol_frozen=False)).confirmatory_gate_ready is False
+def test_agreement_method_is_not_a_free_text_placeholder() -> None:
+    with pytest.raises(StudyError, match="exact InterCoderAgreementMethod"):
+        protocol(agreement_method="PROSPECTIVELY_SELECTED")  # type: ignore[arg-type]
+
+
+def test_preregistration_and_freeze_require_bound_evidence() -> None:
+    with pytest.raises(StudyError, match="preregistration_ref"):
+        protocol(preregistration_ref="")
+    with pytest.raises(StudyError, match="protocol_freeze_receipt_sha256"):
+        protocol(protocol_freeze_receipt_sha256="")
+
+
+def test_confirmatory_gate_requires_preregistration_binding() -> None:
+    item = protocol(
+        preregistered=False,
+        preregistration_ref="",
+        preregistration_sha256="",
+    )
+    audit = audit_empirical_protocol(item)
+    assert audit.pilot_gate_ready is True
+    assert audit.confirmatory_gate_ready is False
+    assert audit.preregistration_binding_present is False
 
 
 def test_real_participant_material_requires_consent_and_ethics_routes() -> None:
