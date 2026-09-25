@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please cite the AION Governance Framework using these repository metadata. Tagged releases preserve their own release-specific citation metadata. A CCTS scholarly preferred citation will be added only after that publication has stable public metadata."
+message: "Please cite the AION Governance Framework using these repository metadata. For the CCTS scholarly framework, use the preferred citation below. Tagged releases preserve their own release-specific citation metadata."
 
 title: "AION Governance Framework"
 type: software
@@ -19,3 +19,12 @@ keywords:
   - "provenance"
   - "AI governance"
   - "reproducible research"
+
+preferred-citation:
+  type: article
+  title: "Co-Constructed Thinking Space (CCTS): A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration"
+  authors:
+    - name: "poshi"
+  year: 2026
+  doi: "10.5281/zenodo.22945883"
+  url: "https://zenodo.org/records/22945883"
