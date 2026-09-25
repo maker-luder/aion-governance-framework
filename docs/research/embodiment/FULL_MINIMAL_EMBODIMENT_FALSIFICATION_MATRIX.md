@@ -93,6 +93,30 @@ Control:
 
 Reattachment success is misinterpreted as identity continuity.
 
+### H_STOCHASTIC_VARIANCE
+
+An apparent body-state or attachment effect is within ordinary stochastic variation of the agent/runtime.
+
+Control for stochastic-agent experiments:
+- paired or matched conditions where possible;
+- fixed/recorded model and inference configuration;
+- fixed seeds where supported;
+- multiple runs when deterministic replay is unavailable;
+- pre-registered run count / stopping rule;
+- report effect size and uncertainty, not only direction;
+- separate deterministic harness validation from stochastic-agent evidence.
+
+```text
+ONE_RUN != CAUSAL_EVIDENCE
+MODEL_VARIANCE != BODY_EFFECT
+```
+
+### H_UNDERPOWERED_COMPARISON
+
+The experiment lacks enough repeated observations to distinguish the registered effect from noise.
+
+A null or unstable result must not be promoted into mechanistic interpretation.
+
 ### H_PROVIDER_OR_MODEL_DRIFT
 
 Cloud-agent behavior changes because provider/model/runtime changed rather than body state.
@@ -156,6 +180,7 @@ For a claimed causally relevant body variable X:
 | Transfer | at least one matched novel context preserves role |
 | Alternative baseline | simpler observable/redundant explanation is insufficient |
 | Provenance | code/data/config/model/seed lineage is bound |
+| Stochastic robustness | repeated/matched trials and uncertainty are reported when deterministic replay is unavailable |
 
 Failure at a required gate returns `HOLD`.
 
