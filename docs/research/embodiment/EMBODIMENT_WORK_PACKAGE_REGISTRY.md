@@ -244,8 +244,10 @@ This work package may be split into:
 - WP-09B biomechanics;
 - WP-09C dynamics;
 - WP-09D organ/soft tissue;
-- WP-09E regulatory physiology;
-- WP-09F tissue/cell/molecular reference.
+- WP-09E neural / sensory systems;
+- WP-09F regulatory physiology;
+- WP-09G tissue/cell/molecular reference;
+- WP-09H environmental coupling and temporal biology.
 
 ## WP-10 — Full ↔ minimal validation
 
@@ -253,7 +255,7 @@ Purpose:
 execute matched reduction, ablation, restoration, replay and transfer experiments.
 
 Dependencies:
-a minimal runtime plus at least one richer comparison layer.
+WP-04 plus at least one relevant WP-09 richer comparison layer. WP-05 is additionally required when the registered comparison concerns agent-coupled behavior rather than body-runtime behavior alone.
 
 Required:
 - pre-registered metrics;
