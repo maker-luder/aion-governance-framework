@@ -85,6 +85,15 @@ BODY_MODEL_WITHOUT_ENVIRONMENT
 
 The runtime may use simplified environments, but matched full ↔ minimal comparisons must hold environmental conditions fixed unless environment is the experimental variable.
 
+The repository does not own or implement a comprehensive world/environment model. External simulators, datasets or benchmarks should be preferred, with bounded adapters and provenance.
+
+```text
+FULL_WORLD_SIMULATION = OUT_OF_SCOPE
+EXTERNAL_ENVIRONMENT_REUSE = PREFERRED
+ENVIRONMENT_ADAPTER = IN_SCOPE
+ENVIRONMENT_PROVENANCE = REQUIRED
+```
+
 ## Cross-cutting temporal biology
 
 Temporal body change must be kept distinct from represented self/world-model update. See `BODY_SELF_WORLD_MODEL_COUPLING_PROTOCOL.md`.
