@@ -180,6 +180,8 @@ Directory: [`research/`](research/)
 
 Research-reference material supports interpretation and method development. Presence in this directory does not create current-state, canonical, or scientific authority.
 
+- [`research/FAIR4RS_EXACT_MATRIX_2026_09_25.md`](research/FAIR4RS_EXACT_MATRIX_2026_09_25.md) — repository-level FAIR4RS v1.0 evidence matrix with per-principle dispositions, software-PID and archival-metadata gaps, and historical release-metadata drift; alignment is not conformance.
+
 ## Historical records
 
 Directory: [`history/`](history/)
