@@ -64,12 +64,15 @@ Web → Hugging Face → GitHub → reverse review.
 
 Outputs should include:
 - exact repo/revision;
-- license;
+- license plus any file-specific/gated terms;
+- supply-chain / serialization security inventory;
 - relevant file inventory;
 - source hashes where available;
 - representation inventory;
 - proposed extraction surface;
 - limitations;
+- population / subject assumptions where relevant;
+- human-data provenance / access terms where relevant;
 - admission mode.
 
 Forbidden:
@@ -214,6 +217,10 @@ Dependencies:
 WP-01. Individual sub-intakes may proceed independently if they do not alter runtime.
 
 Each source should receive its own intake record and admission mode.
+
+For human-derived anatomy/medical sources, each intake must also record subject/population scope and available donor/subject provenance and access terms.
+
+For executable or serialized ML artifacts, each intake must record supply-chain/security handling before execution.
 
 This work package may be split into:
 - WP-09A anatomy;
