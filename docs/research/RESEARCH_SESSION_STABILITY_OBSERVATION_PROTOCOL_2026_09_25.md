@@ -623,6 +623,29 @@ CANONICAL_EFFECT = NONE
 SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
 ```
 
+
+### 16.1 Review-cycle limit
+
+Protocol review itself follows the repository review-cycle convergence rule defined in `EXTERNAL_METHODOLOGY_CROSSWALK_2026_09_25.md`.
+
+```text
+MAX_FULL_PIPELINE_ROUNDS_PER_REVIEW_CYCLE = 2
+
+ROUND_1
+-> TEACHER_REVIEW
+
+IF MATERIAL_DEFECT_FOUND
+-> ROUND_2_FINAL_PIPELINE_REVIEW
+-> TEACHER_FINAL_REVIEW
+
+IF MATERIAL_DEFECT_REMAINS
+-> HOLD / DEFER / RE_SCOPE
+```
+
+There is no automatic third complete pipeline round within the same review cycle.
+
+This review-governance limit does not modify `HIGH_PROTOCOL_CONFORMANCE` and is not part of the pilot's primary exposure variable.
+
 This protocol may be amended through review as measurement defects are discovered.
 
 A protocol correction is permitted.
