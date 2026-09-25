@@ -9,6 +9,7 @@ import pytest
 from scripts.supply_chain.sbom import (
     SYFT_ARCHIVE_SHA256,
     bind_sbom_to_subject,
+    generate_sbom,
     validate_spdx_sbom,
     verify_syft_version,
 )
@@ -157,6 +158,40 @@ def test_syft_version_is_pinned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path)
 def test_pinned_syft_digest_is_exact_sha256() -> None:
     assert len(SYFT_ARCHIVE_SHA256) == 64
     int(SYFT_ARCHIVE_SHA256, 16)
+
+
+def test_generate_sbom_rejects_unpinned_archive_before_execution(
+    monkeypatch: pytest.MonkeyPatch,
+    tmp_path: Path,
+) -> None:
+    snapshot = tmp_path / "snapshot.tar"
+    snapshot.write_bytes(b"placeholder")
+    executed = False
+
+    class BadResponse:
+        def __enter__(self) -> "BadResponse":
+            return self
+
+        def __exit__(self, *args: object) -> None:
+            return None
+
+        def read(self) -> bytes:
+            return b"not-the-pinned-syft-archive"
+
+    def opener(*args: object, **kwargs: object) -> BadResponse:
+        return BadResponse()
+
+    def forbidden_run(*args: object, **kwargs: object) -> subprocess.CompletedProcess[str]:
+        nonlocal executed
+        executed = True
+        raise AssertionError("Syft must not execute before archive digest verification")
+
+    monkeypatch.setattr("scripts.supply_chain.sbom.subprocess.run", forbidden_run)
+
+    with pytest.raises(SupplyChainError, match="SHA-256 mismatch"):
+        generate_sbom(snapshot, tmp_path / "sbom.json", opener=opener)
+
+    assert executed is False
 
 
 def test_secure_extraction_rejects_special_files(tmp_path: Path) -> None:
