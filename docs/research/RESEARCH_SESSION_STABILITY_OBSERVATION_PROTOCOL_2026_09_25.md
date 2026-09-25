@@ -141,6 +141,49 @@ exact_state_checkpointing = HIGH | PARTIAL | LOW | NOT_APPLICABLE | UNKNOWN
 
 Do not collapse these into a single quality score during the pilot unless a later analysis plan is preregistered.
 
+### 5.2 Primary exposure classification
+
+To avoid leaving the phrase "stronger adherence" undefined, the pilot preregisters one non-scored primary exposure classification.
+
+A session is:
+
+```text
+HIGH_PROTOCOL_CONFORMANCE = TRUE
+```
+
+only when all applicable conditions are satisfied:
+
+- `one_active_pr_per_review_lane = TRUE | NOT_APPLICABLE`;
+- `phase_separation = HIGH`;
+- `read_before_retry = TRUE | NOT_TRIGGERED`;
+- `verify_after_write = TRUE | NOT_TRIGGERED`;
+- `exact_state_checkpointing = HIGH | NOT_APPLICABLE`.
+
+A session is:
+
+```text
+HIGH_PROTOCOL_CONFORMANCE = FALSE
+```
+
+when at least one applicable condition is explicitly partial / low / false.
+
+If any condition needed for classification is `UNKNOWN`, then:
+
+```text
+HIGH_PROTOCOL_CONFORMANCE = UNKNOWN
+```
+
+The session remains in the dataset but is excluded from the primary high-vs-not-high descriptive comparison.
+
+This is a categorical protocol-conformance classification, not a subject-value score.
+
+```text
+CONFORMANCE_CLASSIFICATION != HUMAN_WORTH
+CONFORMANCE_CLASSIFICATION != SCIENTIFIC_VALIDITY
+```
+
+Component-level fields remain available for secondary descriptive inspection so that one failing component is not hidden by the aggregate classification.
+
 ## 6. Failure-event taxonomy
 
 ### 6.1 RESPONSE_STREAM_FAILURE
@@ -184,6 +227,46 @@ The target operational rule is:
 
 ```text
 DUPLICATE_RETRY = AVOID
+```
+
+### 6.6 Event-level audit record
+
+Any non-zero failure / freeze / unknown-result event must retain an event-level record before it is reduced into session counts.
+
+Minimum fields:
+
+```text
+event_id
+session_id
+event_type
+event_time
+observed_surface
+evidence_source
+evidence_ref_or_note
+classification_basis
+classification_confidence = HIGH | MEDIUM | LOW | UNKNOWN
+state_changing_action_in_flight = TRUE | FALSE | UNKNOWN
+remote_state_rechecked = TRUE | FALSE | NOT_APPLICABLE
+final_event_disposition
+```
+
+Candidate `evidence_source` values:
+
+```text
+HUMAN_OBSERVATION
+APP_ERROR_MESSAGE
+TOOL_LOG
+GITHUB_WORKFLOW_LOG
+MULTIPLE
+UNKNOWN
+```
+
+Session-level failure counts must be derivable from these event records.
+
+```text
+AGGREGATE_COUNT_WITHOUT_EVENT_TRACE = INSUFFICIENT_FOR_AUDIT
+HUMAN_REPORT != TOOL_LOG
+APP_ERROR_MESSAGE != PROOF_OF_REMOTE_OPERATION_FAILURE
 ```
 
 ## 7. Session fields
@@ -260,6 +343,20 @@ session_completed
 
 The pilot does not pre-commit to inferential significance testing.
 
+Primary descriptive comparison:
+
+```text
+P(RESPONSE_STREAM_FAILURE_PRESENT_PER_SESSION = TRUE
+  | HIGH_PROTOCOL_CONFORMANCE = TRUE)
+
+vs
+
+P(RESPONSE_STREAM_FAILURE_PRESENT_PER_SESSION = TRUE
+  | HIGH_PROTOCOL_CONFORMANCE = FALSE)
+```
+
+Report raw counts and observed proportions. If one exposure category has no or very few eligible sessions, report the comparison as `INSUFFICIENT_VARIATION` rather than manufacturing an inferential result.
+
 Reason:
 
 - sessions are not guaranteed independent;
@@ -271,7 +368,9 @@ Reason:
 
 ### H1 — workflow stability association candidate
 
-Sessions with stronger adherence to bounded working-set and exact-state recovery practices will show fewer observed response-stream failures, unknown-result events and duplicate retries.
+Sessions classified as `HIGH_PROTOCOL_CONFORMANCE = TRUE` will show a lower observed proportion of `RESPONSE_STREAM_FAILURE_PRESENT_PER_SESSION = TRUE` than sessions classified as `HIGH_PROTOCOL_CONFORMANCE = FALSE`.
+
+Secondary descriptive inspection may examine unknown-result events, duplicate retries and individual conformance components, but these do not replace the preregistered primary exposure / primary outcome pair.
 
 ### H0 / null-compatible outcome
 
@@ -389,11 +488,12 @@ After 20 eligible sessions:
 1. audit event classifications;
 2. separate response-stream failures from tool failures;
 3. summarize workflow conformance;
-4. compare failure presence across naturally varying conformance patterns;
-5. inspect major confounders;
-6. report counterexamples;
-7. preserve sessions that contradict the preferred hypothesis;
-8. decide whether a stronger prospective or quasi-experimental design is justified.
+4. report the number and proportion of sessions with the primary outcome separately for `HIGH_PROTOCOL_CONFORMANCE = TRUE` and `FALSE`;
+5. report `UNKNOWN` exposure sessions separately and do not silently assign them;
+6. inspect component-level conformance patterns and major confounders;
+7. report counterexamples;
+8. preserve sessions that contradict the preferred hypothesis;
+9. decide whether a stronger prospective or quasi-experimental design is justified.
 
 Do not retroactively redefine success to protect the hypothesis.
 
