@@ -11,9 +11,23 @@ A work package is not authorization to consume later work packages.
 
 `MERGE_TO_MAIN = NO` is the default/self-authorization boundary for a work package. It does not prevent a later fresh exact-head Human Owner merge authorization after the package is reviewed and verified.
 
-## Mandatory work-package fields
+## Registry versus execution spec
 
-Every implementation package must define:
+This registry defines stable package boundaries and dependencies.
+
+It is not, by itself, a worker execution order.
+
+```text
+REGISTRY_ENTRY
+!= PINNED_EXECUTION_SPEC
+!= IMPLEMENTATION_AUTHORIZATION
+```
+
+Before dispatch, the selected WP must be instantiated using `WORK_PACKAGE_EXECUTION_SPEC_CONTRACT.md` against the then-current exact main SHA and exact upstream dependencies.
+
+## Mandatory execution-spec fields
+
+Every dispatched implementation package must define:
 
 ```text
 WORK_PACKAGE_ID
@@ -265,7 +279,7 @@ WP-01
 
 ## Worker dispatch rule
 
-A worker receives one explicit package.
+A worker receives one explicit package **plus its reviewed pinned execution spec**. The registry summary alone is insufficient for implementation.
 
 Example:
 
