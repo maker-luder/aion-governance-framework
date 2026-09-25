@@ -105,6 +105,26 @@ Different histories or hidden state contaminate matched conditions.
 
 The system appears to discover a body/regulatory concept only because the human-defined label or target was supplied.
 
+### H_POPULATION_OVERGENERALIZATION
+
+A result derived from one or a few reference bodies is reported as though it represented the human population.
+
+Control:
+- bind the claim to the actual reference population;
+- test alternate body profiles when the claim depends on morphology/physiology;
+- keep single-subject anatomy separate from population generalization.
+
+### H_SOURCE_ARTIFACT_OR_SUPPLY_CHAIN
+
+Observed behavior is caused by upstream artifact corruption, unsafe/custom loading behavior, version drift or hidden executable preprocessing rather than the intended scientific representation.
+
+Control:
+- exact revision/hash;
+- isolated intake;
+- deterministic extraction;
+- safer/data-only formats where practical;
+- no unreviewed remote code execution.
+
 ### H_OVERFIT_REFERENCE
 
 The minimal model reproduces only one reference fixture and fails transfer.
