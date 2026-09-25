@@ -70,7 +70,12 @@ def _validate_archive_bytes(data: bytes, source_sha: str) -> None:
         raise SupplyChainError("source snapshot must not be empty")
     for member in members:
         path = PurePosixPath(member.name)
-        if path.is_absolute() or ".." in path.parts or not member.name.startswith(prefix):
+        root_entry = member.name.rstrip("/") == prefix.rstrip("/")
+        if (
+            path.is_absolute()
+            or ".." in path.parts
+            or (not root_entry and not member.name.startswith(prefix))
+        ):
             raise SupplyChainError("source snapshot contains an unsafe or unexpected member path")
         if member.issym() or member.islnk():
             link = PurePosixPath(member.linkname)
