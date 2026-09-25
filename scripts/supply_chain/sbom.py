@@ -42,7 +42,13 @@ def _safe_extract(archive: tarfile.TarFile, destination: Path) -> None:
             link = PurePosixPath(member.linkname)
             if link.is_absolute() or ".." in link.parts:
                 raise SupplyChainError("archive contains an unsafe link target")
-    archive.extractall(destination)
+    data_filter = getattr(tarfile, "data_filter", None)
+    if data_filter is None:
+        raise SupplyChainError("secure tar extraction filter is unavailable")
+    try:
+        archive.extractall(destination, filter=data_filter)
+    except (tarfile.TarError, OSError) as exc:
+        raise SupplyChainError("archive failed secure data-filter extraction") from exc
 
 
 def fetch_pinned_syft(

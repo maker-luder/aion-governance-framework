@@ -157,3 +157,21 @@ def test_syft_version_is_pinned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path)
 def test_pinned_syft_digest_is_exact_sha256() -> None:
     assert len(SYFT_ARCHIVE_SHA256) == 64
     int(SYFT_ARCHIVE_SHA256, 16)
+
+
+def test_secure_extraction_rejects_special_files(tmp_path: Path) -> None:
+    import io
+    import tarfile
+
+    from scripts.supply_chain.sbom import _safe_extract
+
+    archive_bytes = io.BytesIO()
+    with tarfile.open(fileobj=archive_bytes, mode="w") as archive:
+        fifo = tarfile.TarInfo("unsafe-fifo")
+        fifo.type = tarfile.FIFOTYPE
+        archive.addfile(fifo)
+    archive_bytes.seek(0)
+
+    with tarfile.open(fileobj=archive_bytes, mode="r:") as archive:
+        with pytest.raises(SupplyChainError, match="secure data-filter extraction"):
+            _safe_extract(archive, tmp_path / "extract")
