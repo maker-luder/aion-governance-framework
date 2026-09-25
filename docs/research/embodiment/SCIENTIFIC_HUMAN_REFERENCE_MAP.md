@@ -44,6 +44,13 @@ BIOPHYSICAL_COMPLETE
 
 These are not interchangeable.
 
+Reference completeness means cross-layer scientific coverage for the research question. It does not require enumerating every human cell, every protein molecule, every molecular species or every gene-expression event.
+
+```text
+REFERENCE_COMPLETE != EXHAUSTIVE_BIOLOGICAL_ENUMERATION
+REFERENCE_MAP != MOLECULE_BY_MOLECULE_DIGITAL_HUMAN
+```
+
 ## Representation cautions
 
 External models encode modeling conventions.
