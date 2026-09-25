@@ -1,6 +1,6 @@
 # CCTS first scholarly release — metadata draft
 
-Status: `PUBLICLY_ARCHIVED / DOI_MINTED / NOT_PEER_REVIEWED / SCIENTIFIC_HOLD`
+Status: `METADATA_PREPARED / NOT_RELEASED / EXACT_HEAD_REVIEW_REQUIRED`
 
 ## 1. Object separation
 
@@ -104,11 +104,8 @@ MANUSCRIPT_TEXT_LICENSE = ALL RIGHTS RESERVED / CUSTOM RIGHTS STATEMENT
 ZENODO_DEFAULT_LICENSE = CC-BY-4.0
 ZENODO_LICENSE_DECISION = HUMAN_CONFIRMED_CUSTOM_RIGHTS
 
-PUBLICATION_YEAR = 2026
-PUBLICATION_DATE = NOT_REVERIFIED_FROM_ZENODO_IN_THIS_SYNC
-ZENODO_RECORD = 22945883
-CCTS_PUBLICATION_DOI = 10.5281/zenodo.22945883
-PUBLICATION_STATE = PUBLICLY_ARCHIVED
+PUBLICATION_DATE = NOT_SET
+CCTS_PUBLICATION_DOI = NOT_MINTED
 ```
 
 The GitHub username, repository ownership, account email and any private identity information must not be silently converted into scholarly author metadata.
@@ -156,7 +153,7 @@ ROOT_CITATION_CFF
 = REPLACED_BY_CCTS_ONLY
 ```
 
-The CCTS publication now has stable public author metadata and a DOI. The root `CITATION.cff` may therefore include CCTS as a `preferred-citation` while preserving the broader AION repository/software identity.
+A root `preferred-citation` should be considered only after the CCTS publication has stable author metadata and preferably a DOI.
 
 ## 8. Zenodo scholarly-record strategy
 
@@ -177,7 +174,7 @@ ZENODO_CUSTOM_LICENSE_DESCRIPTION = No additional rights to reproduce, adapt, re
 
 
 
-The CCTS manuscript now uses an independent Zenodo publication record for its first archival publication.
+The CCTS manuscript should use an independent Zenodo publication record if Zenodo is chosen for the first archival publication.
 
 ```text
 ZENODO_RESOURCE_TYPE
@@ -186,11 +183,8 @@ ZENODO_RESOURCE_TYPE
 RELATED_IDENTIFIER
 = exact repository / exact commit / optional software archive
 
-ZENODO_RECORD
-= 22945883
-
 CCTS_PUBLICATION_DOI
-= 10.5281/zenodo.22945883
+= manuscript/publication DOI
 ```
 
 A GitHub-triggered Zenodo software archive is a separate optional object.
@@ -242,8 +236,8 @@ MANUSCRIPT_TEXT_LICENSE
 = CONFIRMED_CUSTOM_RIGHTS
 
 CCTS_PUBLICATION_DOI
-= 10.5281/zenodo.22945883
+= POST_DRAFT / PREPUBLICATION-RESERVABLE / REGISTERED_ON_PUBLICATION
 
 ROOT_PREFERRED_CITATION
-= ELIGIBLE_AND_SYNCHRONIZED_POST_PUBLICATION
+= OPTIONAL_AFTER_CCTS_PUBLICATION_METADATA_EXISTS
 ```
