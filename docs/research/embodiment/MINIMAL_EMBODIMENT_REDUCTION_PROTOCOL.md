@@ -25,6 +25,33 @@ d = damage / fatigue
 
 `d` is admitted only if it adds a reproducible distinction not already captured by `r`.
 
+## Environment boundary
+
+For the minimal body model, environmental conditions default to exogenous inputs/disturbances rather than additional body-state variables.
+
+```text
+BODY_INTERNAL_STATE = x
+AGENT_ACTION = u
+EXTERNAL_ENVIRONMENT = e
+OBSERVATION = y
+
+x_(t+1) = F(x_t, u_t, e_t)
+y_t     = H(x_t, e_t)
+```
+
+Environmental dynamics are promoted into a jointly modeled state only when the registered experiment specifically requires prediction/control of those dynamics.
+
+```text
+EXTERNAL_ENVIRONMENT != BODY_INTERNAL_STATE
+FULL_WORLD_SIMULATION = OUT_OF_SCOPE
+```
+
+A represented world/self state is an estimate/model and remains distinct from the actual body/environment.
+
+```text
+STATE_ESTIMATE != PLANT_TRUTH
+```
+
 ## Observation functions
 
 Initial functional projection:
