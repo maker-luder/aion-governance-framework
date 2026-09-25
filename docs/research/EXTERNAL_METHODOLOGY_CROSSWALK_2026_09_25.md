@@ -285,6 +285,65 @@ RSE_PRACTICE != SCIENTIFIC_VALIDATION
 ENGINEERING_RIGOR != EPISTEMIC_CERTAINTY
 ```
 
+
+### 3.8 AI-assisted research workflow and provenance frameworks
+
+A literature-layer review identified several neighboring frameworks and systems that more directly combine AI-assisted research, workflow orchestration, provenance, reproducibility, research software and human oversight.
+
+These sources narrow the local novelty claim. They show that integrated Human–AI research workflows already exist as an active research area.
+
+Selected neighboring work:
+
+- Shao et al. (2025), **SciSciGPT: advancing human–AI collaboration in the science of science**, *Nature Computational Science*.
+  - presents an open-source AI collaborator for scientific workflows;
+  - emphasizes research prototyping, analytical workflows and reproducibility;
+  - explicitly identifies transparency and balancing Human / AI contribution as open challenges.
+  - Consensus record:
+    https://consensus.app/papers/sciscigpt-advancing-human%E2%80%93ai-collaboration-in-the-shao-wang/bc63e2557cc353638ed6cb919e840090/
+
+- Souza et al. (2025), **PROV-AGENT: Unified Provenance for Tracking AI Agent Interactions in Agentic Workflows**, IEEE eScience.
+  - extends provenance modeling toward AI-agent interactions;
+  - links prompts, responses, decisions and workflow outcomes;
+  - explicitly targets transparency, traceability, reproducibility and reliability.
+  - Consensus record:
+    https://consensus.app/papers/provagent-unified-provenance-for-tracking-ai-agent-souza-gueroudji/5b969fd368015c8fbac1d8d80976a981/
+
+- Chan (2026), **SHAPR: Operationalising Human-AI Collaborative Research Through Structured Knowledge Generation**, arXiv preprint.
+  - proposes a Human-centred, AI-assisted research-software framework;
+  - integrates iterative research cycles, evidence, traceability, version control and structured knowledge accumulation.
+  - Peer-review status in this crosswalk: `PREPRINT`.
+  - Consensus record:
+    https://consensus.app/papers/shapr-operationalising-humanai-collaborative-research-chan/249284aad77a5b7280ad708d900cda61/
+
+- Binkytė et al. (2026), **Inspectable AI for Science: A Research Object Approach to Generative AI Governance**, IEEE Security and Privacy Workshops.
+  - treats AI interactions as inspectable research-process components;
+  - records model configuration, prompts, outputs and provenance metadata;
+  - emphasizes accountability and integrity-preserving provenance.
+  - Consensus record:
+    https://consensus.app/papers/inspectable-ai-for-science-a-research-object-approach-to-binkyt%C4%97-abuaddba/ecd690b3dab153fa9441b8aeddbc8138/
+
+- Farshidi et al. (2026), **Advancing research software engineering with AI: a research framework**, *Automated Software Engineering*.
+  - empirically analyzes 1,510 open-source research-software repositories;
+  - combines software-engineering maturity, FAIR4RS indicators, AI integration, automation, testing and releases.
+  - Consensus record:
+    https://consensus.app/papers/advancing-research-software-engineering-with-ai-a-farshidi-bennin/f4e90883a0d85f4aa8adf0031ba3f56f/
+
+Bounded implication:
+
+```text
+AI_ASSISTED_RESEARCH_WORKFLOW_FRAMEWORKS_EXIST = YES
+AI_AGENT_PROVENANCE_FRAMEWORKS_EXIST = YES
+AI_ASSISTED_RSE_FRAMEWORKS_EXIST = YES
+HUMAN_OVERSIGHT_IN_AI_RESEARCH_WORKFLOWS_EXISTS_AS_A_RESEARCH_DIRECTION = YES
+
+OUR_WORKFLOW_IS_THE_FIRST_INTEGRATED_AI_RESEARCH_WORKFLOW = NO
+OUR_WORKFLOW_IS_EQUIVALENT_TO_ANY_ONE_NEIGHBORING_FRAMEWORK = NO
+COMPLETE_ONE_TO_ONE_EXTERNAL_EQUIVALENT = NOT_ESTABLISHED
+LOCAL_NOVELTY = NOT_ESTABLISHED
+```
+
+These sources are treated as neighboring frameworks rather than retrospective proof of the repository method. They also show that the earlier crosswalk must not imply that AI-assisted workflow integration is absent from the literature.
+
 ## 4. Repository-method crosswalk
 
 | Repository practice | Closest external method family | Bounded interpretation |
@@ -360,6 +419,56 @@ EXACT_STATE_CHECKPOINTING = REQUIRED_FOR_CRITICAL_TRANSITIONS
 ```
 
 This workflow is a **local operational hypothesis**, not an externally validated causal intervention.
+
+
+### 6.1 Review-cycle convergence gate
+
+The repository review workflow uses a bounded convergence rule so that review tooling does not become an uncontrolled recursive loop.
+
+```text
+ROUND_1
+= BROAD_PIPELINE_REVIEW
+
+ROUND_1
+-> CORRECTIONS
+-> TEACHER_REVIEW
+
+IF TEACHER_REVIEW = PASS
+-> HUMAN_REVIEW_STAGE
+
+IF TEACHER_REVIEW = MATERIAL_DEFECT_FOUND
+-> ROUND_2_FINAL_PIPELINE_REVIEW
+-> CORRECTIONS
+-> TEACHER_FINAL_REVIEW
+```
+
+A single review cycle MUST NOT automatically invoke more than two complete pipeline rounds.
+
+```text
+MAX_FULL_PIPELINE_ROUNDS_PER_REVIEW_CYCLE = 2
+```
+
+If a material defect remains after the second pipeline round and Teacher final review:
+
+```text
+ROUND_3_AUTOMATIC_RETRY = PROHIBITED
+
+DISPOSITION
+= HOLD
+| DEFER
+| RE_SCOPE
+| REDESIGN_PROTOCOL
+```
+
+A later third pipeline run is permitted only as a **new review cycle** after the unresolved problem has been explicitly re-scoped or the protocol has materially changed. It must not be represented as a continuation of the exhausted two-round cycle.
+
+```text
+REVIEW_EXHAUSTION != APPROVAL
+TOOL_REPETITION != INDEPENDENT_EVIDENCE
+MORE_REVIEW_ROUNDS != AUTOMATICALLY_HIGHER_QUALITY
+```
+
+This is a local workflow-governance rule. It is not claimed as an externally standardized scientific method and is intentionally kept separate from the pilot's preregistered primary exposure classification.
 
 ## 7. Claim ceiling
 
