@@ -184,7 +184,7 @@ Superpowers — research design / scope
 ↓
 Web — external scientific discovery
 ↓
-Hugging Face — exact model/dataset inspection
+Exact-source inspection — Hugging Face / GitHub / official source
 ↓
 GitHub — live internal crosswalk
 ↓
@@ -284,6 +284,7 @@ No later package is implied by completion of an earlier package.
 ```text
 MAIN_WRITE = NO
 MERGE_TO_MAIN = NO
+MERGE_REQUIRES_FRESH_EXACT_HEAD_HUMAN_OWNER_APPROVAL = TRUE
 DEPLOYMENT = FALSE
 CANONICAL_EFFECT = NONE
 AUTOMATIC_WRITEBACK = NO
@@ -291,5 +292,7 @@ ACTION_AUTHORITY = NONE
 PROVENANCE = REQUIRED
 FALSIFICATION = REQUIRED
 ```
+
+`MERGE_TO_MAIN = NO` means this document does not self-authorize a merge. It does not prohibit a later fresh exact-head Human Owner authorization after review.
 
 The blueprint may evolve by versioned revision when evidence, implementation constraints or cross-model incompatibilities are discovered.
