@@ -169,14 +169,20 @@ def generate_sbom(
     snapshot_path: Path,
     sbom_path: Path,
     *,
-    syft_binary: Path,
+    opener: Callable[..., BinaryIO] = urlopen,
 ) -> dict[str, Any]:
     if not snapshot_path.is_file():
         raise SupplyChainError("source snapshot does not exist")
-    verify_syft_version(syft_binary)
 
     with tempfile.TemporaryDirectory(prefix="aion-sbom-") as temp:
-        root = Path(temp) / "snapshot"
+        temp_root = Path(temp)
+        syft_binary = extract_pinned_syft(
+            fetch_pinned_syft(opener=opener),
+            temp_root / "syft",
+        )
+        verify_syft_version(syft_binary)
+
+        root = temp_root / "snapshot"
         root.mkdir()
         try:
             with tarfile.open(snapshot_path, mode="r:") as archive:
