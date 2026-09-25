@@ -166,13 +166,12 @@ def validate_spdx_sbom(sbom_path: Path) -> dict[str, Any]:
 
 
 def generate_sbom(
-    snapshot_path: Path,
+    subject: ArtifactDefinition,
     sbom_path: Path,
     *,
     opener: Callable[..., BinaryIO] = urlopen,
 ) -> dict[str, Any]:
-    if not snapshot_path.is_file():
-        raise SupplyChainError("source snapshot does not exist")
+    snapshot_path = _verify_subject_bytes(subject)
 
     with tempfile.TemporaryDirectory(prefix="aion-sbom-") as temp:
         temp_root = Path(temp)
@@ -192,6 +191,8 @@ def generate_sbom(
 
         env = dict(os.environ)
         env["SYFT_CHECK_FOR_APP_UPDATE"] = "false"
+        env["SYFT_SOURCE_NAME"] = subject.artifact_name
+        env["SYFT_SOURCE_VERSION"] = subject.source_head
         try:
             subprocess.run(
                 [
@@ -210,11 +211,21 @@ def generate_sbom(
             raise SupplyChainError("Syft SBOM generation failed") from exc
 
     summary = validate_spdx_sbom(sbom_path)
+    validate_spdx_subject_identity(sbom_path, subject)
     summary.update(
         {
+            "repository": subject.repository,
+            "source_head": subject.source_head,
+            "artifact_name": subject.artifact_name,
+            "artifact_sha256": subject.artifact_sha256,
             "sbom_path": str(sbom_path.resolve()),
             "sbom_sha256": hashlib.sha256(sbom_path.read_bytes()).hexdigest(),
             "generator": f"syft@v{SYFT_VERSION}",
+            "binding_basis": "CONTROLLED_GENERATION_FROM_VERIFIED_SUBJECT_BYTES",
+            "official_release_artifact": False,
+            "canonical_effect": "NONE",
+            "deployment": False,
+            "slsa_level": "NOT_CLAIMED",
         }
     )
     return summary
@@ -232,22 +243,40 @@ def _verify_subject_bytes(subject: ArtifactDefinition) -> Path:
     return path
 
 
-def bind_sbom_to_subject(
-    subject: ArtifactDefinition,
+def validate_spdx_subject_identity(
     sbom_path: Path,
-) -> dict[str, Any]:
-    _verify_subject_bytes(subject)
-    summary = validate_spdx_sbom(sbom_path)
-    return {
-        "repository": subject.repository,
-        "source_head": subject.source_head,
-        "artifact_name": subject.artifact_name,
-        "artifact_sha256": subject.artifact_sha256,
-        "sbom_sha256": hashlib.sha256(sbom_path.read_bytes()).hexdigest(),
-        "spdx_version": summary["spdx_version"],
-        "generator": f"syft@v{SYFT_VERSION}",
-        "official_release_artifact": False,
-        "canonical_effect": "NONE",
-        "deployment": False,
-        "slsa_level": "NOT_CLAIMED",
+    subject: ArtifactDefinition,
+) -> None:
+    try:
+        data = json.loads(sbom_path.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise SupplyChainError("SBOM must be readable SPDX JSON") from exc
+    if not isinstance(data, dict):
+        raise SupplyChainError("SBOM root must be a JSON object")
+
+    relationships = data.get("relationships")
+    described_ids = {
+        item.get("relatedSpdxElement")
+        for item in relationships
+        if isinstance(relationships, list)
+        and isinstance(item, dict)
+        and item.get("spdxElementId") == "SPDXRef-DOCUMENT"
+        and item.get("relationshipType") == "DESCRIBES"
+        and isinstance(item.get("relatedSpdxElement"), str)
     }
+    packages = data.get("packages")
+    if not isinstance(packages, list):
+        raise SupplyChainError("SBOM packages must be a list for subject identity validation")
+
+    for package in packages:
+        if (
+            isinstance(package, dict)
+            and package.get("SPDXID") in described_ids
+            and package.get("name") == subject.artifact_name
+            and package.get("versionInfo") == subject.source_head
+        ):
+            return
+
+    raise SupplyChainError(
+        "SBOM described root source identity does not match the verified subject"
+    )
