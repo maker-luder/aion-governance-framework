@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 from pathlib import Path
@@ -186,7 +187,8 @@ def test_generate_sbom_binds_verified_subject_and_preserves_claim_ceiling(
     assert record["source_head"] == head
     assert record["artifact_name"] == subject.artifact_name
     assert record["artifact_sha256"] == subject.artifact_sha256
-    assert record["sbom_sha256"] == __import__("hashlib").sha256(sbom.read_bytes()).hexdigest()
+    expected_sbom_sha256 = hashlib.sha256(sbom.read_bytes()).hexdigest()
+    assert record["sbom_sha256"] == expected_sbom_sha256
     assert record["binding_basis"] == "CONTROLLED_GENERATION_FROM_VERIFIED_SUBJECT_BYTES"
     assert record["official_release_artifact"] is False
     assert record["slsa_level"] == "NOT_CLAIMED"
@@ -194,8 +196,8 @@ def test_generate_sbom_binds_verified_subject_and_preserves_claim_ceiling(
 
 
 def test_generate_sbom_rejects_subject_mutation_before_download(tmp_path: Path) -> None:
-    repo, head = _repo(tmp_path)
-    subject = build_snapshot(repo, head, tmp_path / "out")
+    repo, source_head = _repo(tmp_path)
+    subject = build_snapshot(repo, source_head, tmp_path / "out")
     Path(subject.artifact_path).write_bytes(b"mutated")
 
     def forbidden_opener(*args: object, **kwargs: object) -> object:
@@ -232,8 +234,8 @@ def test_generate_sbom_rejects_unpinned_archive_before_execution(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
 ) -> None:
-    repo, head = _repo(tmp_path)
-    subject = build_snapshot(repo, head, tmp_path / "out")
+    repo, source_head = _repo(tmp_path)
+    subject = build_snapshot(repo, source_head, tmp_path / "out")
     executed = False
 
     class BadResponse:
