@@ -3,6 +3,18 @@
 Status: `REFERENCE DESIGN / DRAFT`  
 Canonical effect: `NONE`
 
+## Active profile scope
+
+The current implementation/reference baseline is adult male, consistent with the repository's existing Adult Male Embodiment Specification.
+
+```text
+CURRENT_ACTIVE_BODY_PROFILE = ADULT_MALE
+MALE_BASELINE != UNIVERSAL_HUMAN_BODY
+FEMALE_BODY_PROFILE = FUTURE_EXTENSION / NOT_CURRENT_ACTIVE_SCOPE
+```
+
+Female anatomy and other profiles may be retained as broader scientific reference/future-extension material. They are not currently claimed as implemented or validated.
+
 ## Purpose
 
 This map prevents two opposite errors:
@@ -74,6 +86,12 @@ BODY_MODEL_WITHOUT_ENVIRONMENT
 The runtime may use simplified environments, but matched full ↔ minimal comparisons must hold environmental conditions fixed unless environment is the experimental variable.
 
 ## Cross-cutting temporal biology
+
+Temporal body change must be kept distinct from represented self/world-model update. See `BODY_SELF_WORLD_MODEL_COUPLING_PROTOCOL.md`.
+
+```text
+BODY_TRAJECTORY != SELF_MODEL_TRAJECTORY
+```
 
 Reference coverage should also record processes that alter the body across time:
 
