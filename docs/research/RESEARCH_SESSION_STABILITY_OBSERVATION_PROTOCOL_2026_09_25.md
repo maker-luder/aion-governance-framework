@@ -115,6 +115,63 @@ Excluded:
 
 Exclusion must be based on session characteristics, not whether the session was stable.
 
+### 4.1 Unit-of-analysis / session boundary
+
+Because the primary outcome is defined per session, session boundaries must be fixed without reference to whether a stream failure occurred.
+
+A study session begins when all of the following are recorded:
+
+```text
+session_id
+session_start_time
+primary_research_lane
+primary_pr_or_NOT_APPLICABLE
+starting_exact_head_or_NOT_APPLICABLE
+```
+
+A study session ends at the earliest applicable pre-defined boundary:
+
+- explicit research-session close / checkpoint;
+- transition to a materially different primary research lane;
+- handoff to a new conversation / thread after a recovery checkpoint;
+- termination of the work interval because the task is stopped or deferred.
+
+A response-stream failure by itself does **not** create a new session boundary. If work cannot resume after the failure, the existing session ends with:
+
+```text
+session_completed = PARTIAL
+```
+
+Do not split or merge sessions after reviewing the failure outcome merely to change the denominator.
+
+```text
+OUTCOME_DEPENDENT_SESSION_SPLITTING = PROHIBITED
+STREAM_FAILURE != AUTOMATIC_NEW_SESSION
+SESSION_BOUNDARY != POST_HOC_ANALYSIS_CHOICE
+```
+
+### 4.2 Prospective data-start gate
+
+PR #210 and earlier unstable sessions remain historical / pilot-context observations only.
+
+Prospective pilot sessions may enter the primary 20-session dataset only after the reviewed protocol version is merged into `main`.
+
+```text
+PILOT_PRIMARY_DATA_START
+= AFTER_PROTOCOL_MERGE_TO_MAIN
+
+PRE_MERGE_SESSION
+= HISTORICAL_OR_FEASIBILITY_CONTEXT_ONLY
+```
+
+If the protocol changes after primary data collection begins, the amendment must record:
+
+- prior protocol version / exact commit;
+- amendment date;
+- reason;
+- whether the change affects eligibility, exposure, outcome or analysis;
+- which sessions were collected under each version.
+
 ## 5. Workflow exposure
 
 The primary workflow pattern under observation is:
@@ -275,6 +332,8 @@ For each eligible session, record where observable:
 
 ```text
 session_id
+session_start_time
+session_end_time
 date
 timezone
 research_lane
@@ -513,7 +572,7 @@ CLIENT_ROOT_CAUSE = NOT_ESTABLISHED
 
 PR210_STABLE_SESSION = OBSERVED
 PRIOR_STREAM_FAILURES = REPORTED / PARTIALLY_OBSERVED
-PROSPECTIVE_TEST = ACTIVE_AFTER_PROTOCOL_ADOPTION
+PROSPECTIVE_TEST = ACTIVE_AFTER_PROTOCOL_MERGE_TO_MAIN
 ```
 
 ## 15. Relationship to external methodology
