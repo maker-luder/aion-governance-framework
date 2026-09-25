@@ -225,6 +225,7 @@ This blueprint is supported by:
 - `EMBODIMENT_TOOLCHAIN_PROTOCOL.md`
 - `FULL_MINIMAL_EMBODIMENT_FALSIFICATION_MATRIX.md`
 - `EMBODIMENT_WORK_PACKAGE_REGISTRY.md`
+- `WORK_PACKAGE_EXECUTION_SPEC_CONTRACT.md`
 
 ## 8. Implementation policy
 
@@ -235,6 +236,8 @@ BLUEPRINT_COMPLETENESS != IMPLEMENTATION_COMPLETENESS
 ```
 
 Future work must be executed as bounded work packages. A worker may implement one work package without silently consuming later packages.
+
+Registry entries are long-lived scope definitions. Before dispatch, the selected package must be instantiated as a pinned execution spec against then-current main and external-source state.
 
 Every package must define:
 
