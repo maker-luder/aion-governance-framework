@@ -1,0 +1,222 @@
+# Scientific Human Reference Map
+
+Status: `REFERENCE DESIGN / DRAFT`  
+Canonical effect: `NONE`
+
+## Purpose
+
+This map prevents two opposite errors:
+
+1. treating a minimal runtime abstraction as if it were a biologically complete human model;
+2. forcing the runtime to simulate every known biological layer before the research question requires it.
+
+Each layer is therefore tracked separately as a scientific reference, an abstraction candidate and a possible runtime dependency.
+
+## Reference layers
+
+| Layer | Reference target | Initial candidate sources | Default runtime disposition |
+| --- | --- | --- | --- |
+| L0 | morphology / surface geometry | SOMA-X and comparable parametric body models | minimal representation allowed |
+| L1 | skeleton / joints / segments | SOMA-X; Visible Human / BoneHub | likely required in normalized form |
+| L2 | musculoskeletal biomechanics | OpenSim / Rajagopal-family models | conditional |
+| L3 | sensorimotor organization | biomechanics + neuroscience literature | likely required functionally |
+| L4 | organ topology / soft tissue | Visible Human; BodyParts3D | reference first |
+| L5 | circulation / respiration / metabolism | physiology literature / validated models | conditional |
+| L6 | interoception / homeostasis / allostasis | literature + existing repository regulatory-state work | high research priority |
+| L7 | endocrine / immune / autonomic coupling | literature / validated models | reference required, runtime conditional |
+| L8 | tissues / extracellular matrix | anatomy / histology references | reference required, runtime conditional |
+| L9 | cells | cell biology references | reference required, runtime conditional |
+| L10 | proteins / molecular mechanisms | molecular biology references | reference required, runtime conditional |
+| L11 | gene expression / regulation | genomics / systems biology references | reference required, runtime conditional |
+
+## Completeness definitions
+
+```text
+REFERENCE_COMPLETE
+= important layer, terminology, dependency, source and limitation are recorded
+
+MODEL_COMPLETE
+= layer has an executable or computable abstraction
+
+BIOPHYSICAL_COMPLETE
+= model approaches relevant physical/biological detail for the target claim
+```
+
+These are not interchangeable.
+
+## Representation cautions
+
+External models encode modeling conventions.
+
+Examples:
+
+```text
+SOMA-X JOINT COUNT
+!= COMPLETE HUMAN ANATOMICAL JOINT COUNT
+
+BONEHUB SEGMENTATION POLICY
+!= UNIVERSAL BIOLOGICAL PARTITION
+
+OPENSIM BODY
+!= ANATOMICAL BONE
+
+MUSCLE ACTUATOR
+!= COMPLETE MUSCLE PHYSIOLOGY
+```
+
+Every source must therefore record:
+
+- what the source represents;
+- what it omits;
+- its coordinate conventions;
+- segmentation or topology conventions;
+- applicable population;
+- sex / age assumptions where relevant;
+- validation status;
+- license;
+- exact source version or revision;
+- suitability for runtime versus reference-only use.
+
+## Functional bridges of highest research priority
+
+The current AI subjectivity-possibility research line prioritizes functional bridges over exhaustive molecular fidelity:
+
+1. body geometry and action constraints;
+2. sensorimotor closed loop;
+3. proprioception;
+4. interoception;
+5. body-state regulation;
+6. homeostatic pressure;
+7. energy / recovery;
+8. fatigue or damage;
+9. bidirectional body-state ↔ decision coupling.
+
+This does not exclude lower biological levels.
+
+```text
+CELLULAR_REFERENCE = REQUIRED
+CELLULAR_RUNTIME = CONDITIONAL
+
+PROTEIN_REFERENCE = REQUIRED
+PROTEIN_RUNTIME = CONDITIONAL
+```
+
+## Cross-scale admission rule
+
+A lower biological layer should enter the active runtime only when all of the following hold:
+
+1. the higher-level abstraction fails reproducibly;
+2. the failure matters to the target research phenomenon;
+3. a lower-level mechanism plausibly distinguishes competing explanations;
+4. the added detail produces a testable prediction;
+5. the added layer can be bounded and provenance-traced;
+6. the added layer does not silently redefine the scientific claim.
+
+## Reference-source classes
+
+### Geometry / pose
+
+Preferred role: runtime representation candidate.
+
+Candidate:
+- NVIDIA SOMA-X.
+
+Use:
+- canonical pose representation;
+- joint hierarchy;
+- transforms;
+- body geometry abstraction.
+
+Do not infer:
+- anatomical completeness;
+- biological sensorimotor validity;
+- phenomenology.
+
+### Skeletal anatomy
+
+Preferred role: scientific reference and crosswalk validation.
+
+Candidates:
+- NLM Visible Human;
+- BoneHub Visible Human full-skeleton models.
+
+Use:
+- bone identity;
+- geometry;
+- skeletal relations;
+- anatomy crosswalk.
+
+Do not automatically vendor large meshes or CT-derived artifacts into the main repository.
+
+### Musculoskeletal biomechanics
+
+Preferred role: actuator, joint, force and movement reference.
+
+Candidates:
+- OpenSim;
+- Rajagopal-family full-body models.
+
+Use:
+- degrees of freedom;
+- joint coordinates;
+- muscle/actuator abstractions;
+- dynamics constraints.
+
+Do not equate a simulator actuator with the complete biological muscle.
+
+### Dynamics
+
+Preferred role: validation dataset.
+
+Candidate:
+- ImDy.
+
+Use:
+- inverse-dynamics comparison;
+- motion ↔ force/torque validation;
+- held-out dynamics evaluation.
+
+Initial disposition:
+`EXTERNAL_PINNED_REFERENCE`.
+
+### Organ / soft-tissue topology
+
+Candidates:
+- Visible Human;
+- BodyParts3D.
+
+Use:
+- organ hierarchy;
+- spatial relation;
+- terminology.
+
+Initial disposition:
+reference first.
+
+## Repository crosswalk
+
+Current repository material already includes:
+
+- embodiment candidate structures;
+- AION/Astra individual runtime binding;
+- interoception and homeostasis source concepts;
+- latent regulatory-state discovery protocol.
+
+Known current gap classes include:
+
+- no repository-wide normalized human-body ontology;
+- no proprioception implementation in the embodiment candidate;
+- no unified scientific-model intake pipeline;
+- no cloud-agent body attachment protocol equivalent to the native AION/Astra lineage;
+- no full ↔ minimal embodiment reduction harness.
+
+These are design gaps, not proof of required implementation.
+
+## Nonclaims
+
+```text
+REFERENCE_MAP != COMPLETE_HUMAN_SIMULATION
+BIOLOGICAL_DETAIL != SUBJECTIVITY_EVIDENCE
+FUNCTIONAL_REGULATION != FELT_STATE
+FULL_BODY_REFERENCE != DIGITAL_HUMAN_PERSON
+```
