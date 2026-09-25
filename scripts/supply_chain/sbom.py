@@ -255,11 +255,14 @@ def validate_spdx_subject_identity(
         raise SupplyChainError("SBOM root must be a JSON object")
 
     relationships = data.get("relationships")
+    if not isinstance(relationships, list):
+        raise SupplyChainError(
+            "SBOM relationships must be a list for subject identity validation"
+        )
     described_ids = {
         item.get("relatedSpdxElement")
         for item in relationships
-        if isinstance(relationships, list)
-        and isinstance(item, dict)
+        if isinstance(item, dict)
         and item.get("spdxElementId") == "SPDXRef-DOCUMENT"
         and item.get("relationshipType") == "DESCRIBES"
         and isinstance(item.get("relatedSpdxElement"), str)
