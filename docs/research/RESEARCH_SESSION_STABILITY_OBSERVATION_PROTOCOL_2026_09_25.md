@@ -346,6 +346,10 @@ task_complexity = LOW | MEDIUM | HIGH | UNKNOWN
 active_pr_count
 major_phase_switch_count
 
+session_elapsed_minutes = NUMBER | UNKNOWN
+interaction_turn_count = NUMBER | UNKNOWN
+assistant_response_count = NUMBER | UNKNOWN
+
 tool_call_count
 tool_type_count
 large_payload_event_count
@@ -376,7 +380,11 @@ external_service_instability
 
 Do not fabricate values that are not observable.
 
+The elapsed-time / turn / response fields are exposure-opportunity proxies. A longer session has more opportunity to contain at least one visible failure even if the underlying per-interaction failure tendency is unchanged.
+
 ```text
+LONGER_EXPOSURE -> MORE_FAILURE_OPPORTUNITY
+SESSION_FAILURE_PRESENCE != EXPOSURE_ADJUSTED_FAILURE_RATE
 UNOBSERVED != ZERO
 UNKNOWN != ABSENT
 ```
@@ -399,6 +407,16 @@ duplicate_retry_count
 recovery_success_count
 session_completed
 ```
+
+Exposure-opportunity context:
+
+```text
+session_elapsed_minutes
+interaction_turn_count
+assistant_response_count
+```
+
+The primary binary outcome is retained for pilot simplicity, but it must not be interpreted without checking exposure opportunity. Any later rate metric or normalization requires a separately preregistered analysis rule; the pilot must not invent a denominator after seeing the results.
 
 The pilot does not pre-commit to inferential significance testing.
 
@@ -519,6 +537,10 @@ Events initially labeled as response-stream failures are later shown to be genui
 
 After the pilot, workflow conformance shows no stable descriptive relationship with the defined outcomes.
 
+### F8 — exposure-opportunity explanation
+
+Apparent failure differences are substantially accounted for by session duration, interaction turns or response count rather than workflow conformance.
+
 ## 12. Recovery protocol
 
 For any interrupted state-changing operation:
@@ -547,12 +569,14 @@ After 20 eligible sessions:
 1. audit event classifications;
 2. separate response-stream failures from tool failures;
 3. summarize workflow conformance;
-4. report the number and proportion of sessions with the primary outcome separately for `HIGH_PROTOCOL_CONFORMANCE = TRUE` and `FALSE`;
-5. report `UNKNOWN` exposure sessions separately and do not silently assign them;
-6. inspect component-level conformance patterns and major confounders;
-7. report counterexamples;
-8. preserve sessions that contradict the preferred hypothesis;
-9. decide whether a stronger prospective or quasi-experimental design is justified.
+4. summarize exposure opportunity using elapsed time / turns / response count where observed;
+5. report the number and proportion of sessions with the primary outcome separately for `HIGH_PROTOCOL_CONFORMANCE = TRUE` and `FALSE`;
+6. check whether exposure opportunity is materially imbalanced between conformance categories;
+7. report `UNKNOWN` exposure sessions separately and do not silently assign them;
+8. inspect component-level conformance patterns and major confounders;
+9. report counterexamples;
+10. preserve sessions that contradict the preferred hypothesis;
+11. decide whether a stronger prospective or quasi-experimental design is justified.
 
 Do not retroactively redefine success to protect the hypothesis.
 
