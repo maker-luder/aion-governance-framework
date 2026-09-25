@@ -281,6 +281,10 @@ WP-01
 └─ WP-09 ------------------------┐
                                 ↓
                               WP-10
+
+WP-04 + existing SELF_WORLD_MODEL
+  └─ WP-11 Body ↔ self/world-model coupling
+     └─ WP-10 when coupling is part of the registered full/minimal experiment
 ```
 
 ## Worker dispatch rule
@@ -306,3 +310,40 @@ WP_N_PASS
 ```
 
 No package transition occurs automatically.
+
+
+## WP-11 — Body ↔ self/world-model coupling
+
+Purpose:
+connect embodiment evidence to the repository's existing bounded `SELF_WORLD_MODEL` research surface without creating a duplicate self-model ontology.
+
+Dependencies:
+- WP-04 minimal body runtime;
+- existing triadic-state / self-world-model research surface;
+- WP-05 when the experiment requires an agent-coupled action loop.
+
+Required:
+- actual body state and represented self/world state remain separate;
+- admitted sensor/observation path is explicit;
+- prediction error / update path is provenance-bound;
+- body-change-with-update and body-change-with-update-block conditions;
+- stale self-model condition;
+- direct body-state leakage control;
+- bounded developmental/aging trajectory only when registered.
+
+Current body-profile boundary:
+
+```text
+CURRENT_ACTIVE_BODY_PROFILE = ADULT_MALE
+FEMALE_BODY_PROFILE = FUTURE_EXTENSION / NOT_CURRENT_ACTIVE_SCOPE
+POPULATION_GENERALIZATION = NO
+```
+
+Forbidden:
+- second conflicting self-model ontology;
+- automatic copying of canonical body state into self-model;
+- treating adaptive self-model update as subjectivity/selfhood evidence.
+
+Output:
+bounded evidence about self/world-model calibration or causal role under body/environment change.
+
