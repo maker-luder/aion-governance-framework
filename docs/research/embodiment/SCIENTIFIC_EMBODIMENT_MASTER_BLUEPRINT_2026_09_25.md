@@ -58,6 +58,7 @@ Reference completeness does not require immediate simulation completeness.
 ```text
 REFERENCE_COMPLETE != RUNTIME_COMPLETE
 REFERENCE_REQUIRED != IMPLEMENTATION_REQUIRED
+REFERENCE_COMPLETE != EXHAUSTIVE_ENUMERATION_OF_EVERY_CELL_OR_PROTEIN
 ```
 
 ### Track B — Minimal functional embodiment
@@ -123,6 +124,16 @@ SAME_BODY_INSTANCE != SAME_RUNTIME_INSTANCE
 SAME_MODEL_FAMILY != CONTINUOUS_IDENTITY
 SAME_PROVIDER != SAME_AGENT_IDENTITY
 ```
+
+Provider/runtime capability remains a separate gate:
+
+```text
+DIRECT_CLOUD_PROVIDER_BODY_ATTACHMENT = NOT_ESTABLISHED
+UPSTREAM_RUNTIME_ACCESS = NOT_ASSUMED
+SIMULATED_ATTACHMENT != LIVE_PROVIDER_ATTACHMENT
+```
+
+If a provider does not expose a supported interface for direct body-runtime attachment, the corresponding work package must use a clearly labeled simulation or proxy harness rather than claiming live provider integration.
 
 ## 3. Architectural principle
 
