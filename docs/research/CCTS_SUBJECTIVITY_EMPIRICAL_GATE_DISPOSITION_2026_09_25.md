@@ -43,3 +43,27 @@ SCIENTIFIC_DISPOSITION = HOLD
 ```
 
 Next required Human action is approval of a specific frozen protocol and its data/ethics route, not approval of a scientific conclusion. No release, deployment, or canonical claim transition follows from this document.
+
+## Content-bound method gate implementation — 2026-09-25
+
+`audit_empirical_protocol(protocol, evidence=...)` now requires actual nonempty
+immutable bytes for the seven digest-named artifacts. Missing content keeps the
+relevant gate closed; changed content, a mismatched protocol, or a freeze receipt
+for another protocol raises `StudyError`. Digest syntax alone never opens a gate.
+The agreement artifact is exactly the declared acceptance rule encoded as UTF-8.
+The protocol artifact is canonical UTF-8 JSON of all dataclass fields except
+`protocol_sha256` and `protocol_freeze_receipt_sha256`, with sorted keys, compact
+separators, and `ensure_ascii=False`. The freeze receipt JSON contains exactly
+`protocol_id` and `protocol_sha256`, binding the current protocol without a hash
+cycle. Corpus, manual, analysis plan and preregistration bytes are hash-checked.
+
+This is content integrity, not authentication of a registry, timestamp, reviewer,
+consent or ethics approval. Readiness names indicate technical method preparation
+only. Human scientific approval, applicable ethics clearance and permission to
+run remain external gates; all scientific claims remain `NOT_ESTABLISHED` and
+scientific disposition remains `HOLD`. Synthetic fixtures are not participant data.
+
+This focused correction follows the renewed implementation request; it does not
+restart the earlier literature-review cycle or authorize a third automatic full
+pipeline. No literature search, model execution, experiment, permission expansion,
+release, deployment or merge is performed by this change.

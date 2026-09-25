@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import re
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from enum import StrEnum
 
 from .harness import AdmissionDisposition, StudyError
@@ -106,24 +108,17 @@ class EmpiricalProtocol:
         if set(self.pilot_unit_ids) & set(self.confirmatory_unit_ids):
             raise StudyError("pilot and confirmatory unit ids must be disjoint")
 
-        if type(self.controls) is not tuple or any(
-            type(item) is not ControlCondition for item in self.controls
-        ):
+        if type(self.controls) is not tuple or any(type(item) is not ControlCondition for item in self.controls):
             raise StudyError("controls must be exact ControlCondition values")
         if set(self.controls) != set(ControlCondition):
             raise StudyError("controls must include the complete A-D negative-control set")
 
-        if type(self.falsifiers) is not tuple or any(
-            type(item) is not ConstructFalsifier for item in self.falsifiers
-        ):
+        if type(self.falsifiers) is not tuple or any(type(item) is not ConstructFalsifier for item in self.falsifiers):
             raise StudyError("falsifiers must be exact ConstructFalsifier values")
         if set(self.falsifiers) != set(ConstructFalsifier):
             raise StudyError("falsifiers must include F1-F10")
 
-        if (
-            type(self.minimum_independent_coders) is not int
-            or self.minimum_independent_coders < 2
-        ):
+        if type(self.minimum_independent_coders) is not int or self.minimum_independent_coders < 2:
             raise StudyError("at least two independent coders must be planned")
         if type(self.agreement_method) is not InterCoderAgreementMethod:
             raise StudyError("agreement_method must be an exact InterCoderAgreementMethod")
@@ -150,9 +145,7 @@ class EmpiricalProtocol:
             _text("preregistration_ref", self.preregistration_ref)
             _digest("preregistration_sha256", self.preregistration_sha256)
         elif self.preregistration_ref or self.preregistration_sha256:
-            raise StudyError(
-                "preregistration binding cannot be present when preregistered is false"
-            )
+            raise StudyError("preregistration binding cannot be present when preregistered is false")
 
         if self.protocol_frozen:
             _digest(
@@ -160,14 +153,10 @@ class EmpiricalProtocol:
                 self.protocol_freeze_receipt_sha256,
             )
         elif self.protocol_freeze_receipt_sha256:
-            raise StudyError(
-                "protocol freeze receipt cannot be present when protocol_frozen is false"
-            )
+            raise StudyError("protocol freeze receipt cannot be present when protocol_frozen is false")
 
         if self.ccts_status_is_htecr_eligibility_gate:
-            raise StudyError(
-                "CCTS structural status cannot gate HTECR measurement eligibility"
-            )
+            raise StudyError("CCTS structural status cannot gate HTECR measurement eligibility")
 
         promoted = {
             "CCTS empirical validation": self.claims_ccts_empirical_validation,
@@ -214,22 +203,67 @@ class EmpiricalGateAudit:
     deployment: bool = False
 
 
-def audit_empirical_protocol(protocol: EmpiricalProtocol) -> EmpiricalGateAudit:
+def audit_empirical_protocol(
+    protocol: EmpiricalProtocol, *, evidence: dict[str, bytes] | None = None
+) -> EmpiricalGateAudit:
+    """Check supplied bytes; readiness is not authenticated Human approval.
+
+    Evidence keys name digest fields. Protocol JSON is canonical UTF-8 JSON
+    (sorted keys, compact separators, ensure_ascii=False), excluding its own
+    digest and the freeze receipt digest to avoid a circular hash dependency.
+    The freeze receipt must name this protocol ID and verified protocol digest.
+    """
     if type(protocol) is not EmpiricalProtocol:
         raise StudyError("protocol must be an exact EmpiricalProtocol")
 
-    freeze_binding = bool(
-        protocol.protocol_frozen and protocol.protocol_freeze_receipt_sha256
+    if evidence is None:
+        evidence = {}
+    if type(evidence) is not dict:
+        raise StudyError("evidence must be an exact dict of content bytes")
+    fields = (
+        "protocol_sha256",
+        "corpus_manifest_sha256",
+        "coding_manual_sha256",
+        "analysis_plan_sha256",
+        "agreement_rule_sha256",
+        "preregistration_sha256",
+        "protocol_freeze_receipt_sha256",
     )
-    prereg_binding = bool(
-        protocol.preregistered
-        and protocol.preregistration_ref.strip()
-        and protocol.preregistration_sha256
-    )
-    agreement_bound = bool(
-        protocol.agreement_acceptance_rule.strip()
-        and protocol.agreement_rule_sha256
-    )
+    if any(type(key) is not str or key not in fields for key in evidence):
+        raise StudyError("unknown evidence content field")
+    verified: set[str] = set()
+    for name, content in evidence.items():
+        if type(content) is not bytes or not content:
+            raise StudyError(f"{name} content must be non-empty bytes")
+        if hashlib.sha256(content).hexdigest() != getattr(protocol, name):
+            raise StudyError(f"{name} content digest mismatch")
+        verified.add(name)
+
+    if "protocol_sha256" in verified:
+        payload = asdict(protocol)
+        del payload["protocol_sha256"]
+        del payload["protocol_freeze_receipt_sha256"]
+        expected = json.dumps(payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+        if evidence["protocol_sha256"] != expected:
+            raise StudyError("protocol content does not match current protocol fields")
+    if "agreement_rule_sha256" in verified:
+        if evidence["agreement_rule_sha256"] != protocol.agreement_acceptance_rule.encode("utf-8"):
+            raise StudyError("agreement rule content does not match declared rule")
+    if "protocol_freeze_receipt_sha256" in verified:
+        try:
+            receipt = json.loads(evidence["protocol_freeze_receipt_sha256"])
+        except (ValueError, UnicodeError) as exc:
+            raise StudyError("freeze receipt content must be JSON") from exc
+        if type(receipt) is not dict or receipt != {
+            "protocol_id": protocol.protocol_id,
+            "protocol_sha256": protocol.protocol_sha256,
+        }:
+            raise StudyError("freeze receipt must bind the current protocol")
+
+    core_bound = set(fields[:4]).issubset(verified)
+    freeze_binding = protocol.protocol_frozen and core_bound and ("protocol_freeze_receipt_sha256" in verified)
+    prereg_binding = protocol.preregistered and core_bound and ("preregistration_sha256" in verified)
+    agreement_bound = core_bound and "agreement_rule_sha256" in verified
 
     pilot_ready = freeze_binding and agreement_bound
     confirmatory_ready = pilot_ready and prereg_binding
