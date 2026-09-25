@@ -20,6 +20,12 @@ LATEST_MILESTONE_MERGE_COMMIT = 240c1c36c1d06cd12de93d1bc3637203c2351e47
 LATEST_RESEARCH_SPECIFICATION_FREEZE = PR_150_CCAP_STAGE1_STAGE3
 
 RECENT_HUMAN_AI_LEARNING_MILESTONE = PR_153
+RECENT_CCTS_FORMALIZATION_SEQUENCE = PR_200 + PR_205 + PR_206 + PR_207
+CCTS_SCHOLARLY_PUBLICATION = PUBLICLY_ARCHIVED
+CCTS_ZENODO_RECORD = 22945883
+CCTS_DOI = 10.5281/zenodo.22945883
+CCTS_PEER_REVIEW = NOT_PERFORMED
+CCTS_SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
 RECENT_AI_ASSURANCE_CHAIN = PR_155 + PR_157 + PR_158 + PR_160 + PR_161 + PR_163 + PR_177
 RECENT_PROVIDER_ADMISSION_SEQUENCE = PR_151 + PR_170 + PR_172 + PR_174 + PR_175 + PR_176
 RECENT_LONGITUDINAL_ADMISSION_SEQUENCE = PR_183 + PR_184
@@ -46,7 +52,7 @@ The current `main` contains bounded, coordinated research and assurance surfaces
 
 1. **Evidence / causal attribution** — Four-Domain interpretation, six review dimensions, provenance, model/system/harness/context/tool/environment locus separation, and multi-provider 12-axis evidence admission.
 2. **Continuity / memory** — longitudinal Human–AI study surfaces, history replay, attention-structure discrimination, transition continuity, exact-structure claim admission, and matched-information memory-locus dependency testing.
-3. **Human–AI collaboration / learning** — repository-defined CCTS / grounding, interaction-history research, and the Human–AI learning / HTECR external crosswalk with explicit falsification boundaries.
+3. **Human–AI collaboration / learning** — CCTS = Co-Constructed Thinking Space（共構思考場域）is formalized as a provenance-bounded Human–AI epistemic-collaboration framework with an executable structural contract and explicit falsification / weakening conditions. Its first scholarly manuscript is publicly archived at Zenodo record `22945883`, DOI `10.5281/zenodo.22945883`. Human–AI learning / HTECR remains an adjacent research surface rather than evidence of subjectivity or validated learning effects.
 4. **Adaptation / discriminant testing** — Endogenous Goal Dynamics, CCAP Stage 1–3 specification, D1 × D4 source-partition controls, TEVV pre-execution mapping, Four-Domain × six-dimension stress, and synthetic D2 × D4 differential probes.
 5. **Assurance / governance** — bounded AI risk / impact controls, structural TEVV, exact measurement-semantic binding, Full-QMS, AI adversarial-security receipts, exact-head authority, QA/QC, and NCR/CAPA reconciliation.
 
@@ -54,6 +60,7 @@ These surfaces improve testability, falsifiability, provenance, isolation accoun
 
 ## Recent bounded milestone groups / 近期 bounded 節點群組
 
+- **CCTS formalization and scholarly publication:** PRs #200/#205/#206/#207 consolidate reciprocal revision, relational continuity, Human epistemic-agency controls and the first scholarly manuscript package. The manuscript is publicly archived at Zenodo record `22945883`, DOI `10.5281/zenodo.22945883`. Publication remains distinct from peer review, empirical validation, external replication and subjectivity evidence.
 - **Human–AI learning:** PR #153 crosswalks CCTS / HTECR against external learning and coordination literature while preserving falsifiers. See [the crosswalk](research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md).
 - **AI assurance:** PRs #155/#157/#158/#160/#161/#163 add bounded AI risk / impact controls, TEVV, Full-QMS integration, exact measurement-semantic binding, adversarial-security profiling and a content-addressed security receipt. See [AI risk controls](quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md) and [end-to-end QMS](../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md).
 - **Provider evidence:** merged 12-axis reviews now cover OpenAI, Gemini, Grok, Anthropic Claude, Meta Llama and Moonshot Kimi K3, plus a bounded OpenAI–Gemini method comparison. See the complete navigation in [INDEX.md](INDEX.md).
@@ -65,6 +72,9 @@ ADMISSION_PASS != CLAIM_TRUE
 RETRIEVABILITY != MEMORY_CONTINUITY
 STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
 HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
+PUBLICATION != PEER_REVIEW
+DOI != SCIENTIFIC_VALIDATION
+ARCHIVAL_PUBLICATION != EMPIRICAL_CONFIRMATION
 TEVV_PROFILE_PASS != SCIENTIFIC_VALIDATION
 SECURITY_PROFILE_PASS != SECURITY_EFFECTIVENESS_ESTABLISHED
 PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
@@ -101,6 +111,8 @@ METRIC_DELTA != CAUSAL_IDENTIFICATION
 SYSTEM_LEVEL_ADAPTATION != INDIVIDUAL_LEARNING_PROVEN
 MEMORY_RETENTION != SUBJECTIVE_REMEMBERING
 CCTS_STRUCTURAL_CONFORMANCE != SHARED_MIND
+CCTS_PUBLICATION != CCTS_EMPIRICAL_VALIDATION
+CCTS_PUBLICATION != AI_SUBJECTIVITY_EVIDENCE
 GROUNDING_CHECKPOINT_PRESENT != MUTUAL_UNDERSTANDING_PROVEN
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 OFFICIAL_PROVIDER_SOURCE != INDEPENDENT_VALIDATION
