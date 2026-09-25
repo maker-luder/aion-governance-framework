@@ -44,7 +44,7 @@ A future runtime may intentionally instantiate one bounded body profile. That en
 | L0 | morphology / surface geometry | SOMA-X and comparable parametric body models | minimal representation allowed |
 | L1 | skeleton / joints / segments | SOMA-X; Visible Human / BoneHub | likely required in normalized form |
 | L2 | musculoskeletal biomechanics | OpenSim / Rajagopal-family models | conditional |
-| L3 | sensorimotor organization | biomechanics + neuroscience literature | likely required functionally |
+| L3 | neural / sensorimotor / sensory organization | neuroscience, biomechanics and validated sensory-system references | likely required functionally |
 | L4 | organ topology / soft tissue | Visible Human; BodyParts3D | reference first |
 | L5 | circulation / respiration / metabolism | physiology literature / validated models | conditional |
 | L6 | interoception / homeostasis / allostasis | literature + existing repository regulatory-state work | high research priority |
@@ -53,6 +53,59 @@ A future runtime may intentionally instantiate one bounded body profile. That en
 | L9 | cells | cell biology references | reference required, runtime conditional |
 | L10 | proteins / molecular mechanisms | molecular biology references | reference required, runtime conditional |
 | L11 | gene expression / regulation | genomics / systems biology references | reference required, runtime conditional |
+
+## Cross-cutting environmental coupling
+
+Embodiment is not defined by an isolated body alone. Reference coverage must record the environment variables that materially constrain or stimulate the body, including where relevant:
+
+- gravity;
+- contact / support surfaces;
+- collision;
+- temperature;
+- external forces;
+- resource availability;
+- sensory stimulus structure.
+
+```text
+BODY_MODEL_WITHOUT_ENVIRONMENT
+!= COMPLETE_EMBODIMENT_REFERENCE
+```
+
+The runtime may use simplified environments, but matched full ↔ minimal comparisons must hold environmental conditions fixed unless environment is the experimental variable.
+
+## Cross-cutting temporal biology
+
+Reference coverage should also record processes that alter the body across time:
+
+- development / maturation;
+- adaptation and plasticity;
+- tissue repair;
+- recovery;
+- aging;
+- accumulated fatigue / damage.
+
+These processes are reference dimensions. They enter runtime only when required by a bounded research claim.
+
+## Neural and sensory reference coverage
+
+The neural/sensory layer should distinguish, where relevant:
+
+- central nervous system;
+- peripheral nervous system;
+- autonomic nervous system;
+- motor pathways;
+- proprioception;
+- vestibular sensing;
+- touch / mechanoreception;
+- nociception;
+- thermoreception;
+- vision;
+- audition;
+- olfaction;
+- gustation;
+- chemoreception and internal sensing.
+
+A computational sensor channel is not equivalent to biological sensation or phenomenal experience.
 
 ## Completeness definitions
 
