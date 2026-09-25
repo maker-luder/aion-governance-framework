@@ -37,7 +37,18 @@ MORAL_STATUS = NOT_ESTABLISHED
 
 The research proceeds through five parallel tracks.
 
-### Track A — Complete scientific human reference
+### Track A — Complete scientific reference with adult-male active baseline
+
+The current active embodiment baseline is the repository's existing adult-male body profile.
+
+```text
+CURRENT_ACTIVE_BODY_PROFILE = ADULT_MALE
+MALE_BASELINE != UNIVERSAL_HUMAN_BODY
+FEMALE_BODY_PROFILE = FUTURE_EXTENSION / NOT_CURRENT_ACTIVE_SCOPE
+POPULATION_GENERALIZATION = NO
+```
+
+The broader scientific reference map may record female and other biological/anatomical variation as future reference/extension material without treating those profiles as currently implemented or validated.
 
 Build a source-grounded reference map spanning:
 
@@ -141,6 +152,20 @@ SIMULATED_ATTACHMENT != LIVE_PROVIDER_ATTACHMENT
 
 If a provider does not expose a supported interface for direct body-runtime attachment, the corresponding work package must use a clearly labeled simulation or proxy harness rather than claiming live provider integration.
 
+### Track F — body ↔ self/world-model coupling
+
+Embodiment state must be coupled to, but remain distinct from, the repository's existing `SELF_WORLD_MODEL` research surface.
+
+```text
+ACTUAL_BODY_STATE != SELF_MODEL_OF_BODY
+WORLD_STATE != WORLD_MODEL
+BODY_CHANGE != SELF_MODEL_UPDATE
+```
+
+Development, aging, adaptation, repair and long-term body change modify actual body parameters or capability envelopes. The self/world model may then update from observations and prediction error; lag, stale state and failed updating remain experimentally available conditions.
+
+This track reuses existing self/world-model structures rather than defining a duplicate ontology.
+
 ## 3. Architectural principle
 
 A complete body that cannot be reliably attached to an agent is not yet a complete embodiment system.
@@ -232,6 +257,7 @@ This blueprint is supported by:
 - `FULL_MINIMAL_EMBODIMENT_FALSIFICATION_MATRIX.md`
 - `EMBODIMENT_WORK_PACKAGE_REGISTRY.md`
 - `WORK_PACKAGE_EXECUTION_SPEC_CONTRACT.md`
+- `BODY_SELF_WORLD_MODEL_COUPLING_PROTOCOL.md`
 
 ## 8. Implementation policy
 
