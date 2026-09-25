@@ -75,7 +75,7 @@ ChatGPT Teacher:
 - distinguished construct admission from hypothesis falsification;
 - recommended a construct-level adversarial review rather than immediate hypothesis formation.
 
-The independent AI disposition after that review was also:
+The ChatGPT Teacher disposition after that review was also:
 
 ```text
 CONSTRUCT_ADMISSION = FAIL
