@@ -9,8 +9,6 @@
 
 AION 是一個由人類治理、以來源追溯為優先的研究框架，用來研究**人工主體性的可能性**，但不會把看起來有說服力的 AI 行為直接當成主體性證明。
 
-AION 同時包含 **CCTS = Co-Constructed Thinking Space（共構思考場域）**：一套以來源追溯與主張邊界為基礎、用來研究 Human–AI reciprocal epistemic collaboration（人類–AI 雙向認識論協作）的框架。CCTS 目前已有操作定義、可執行的結構契約、明確的反證／削弱條件，以及公開典藏的學術稿件。
-
 用白話說，這個倉庫正在問：
 
 > 當 AI 系統出現類記憶連續性、策略改變、長時間持續工作、協作或自我相關行為時，其中多少其實可以由模型、提示、harness（研究／執行框架）、工具、記憶、環境或人類引導解釋？排除這些較簡單來源後，還需要什麼證據，才有資格提出更強的主體性相關主張？
@@ -41,42 +39,14 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
 2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建、transition continuity（轉換連續性）分析，以及在資訊內容匹配條件下的 memory-locus dependency discrimination（記憶資訊所在位置／依賴區辨）；但不把持續存在直接等同於身分延續。
 3. **受限制條件下的適應與區辨測試** —— CCAP Stage 1–3 已推進到 TEVV 執行前映射、Four-Domain × 六維結構壓力測試、系統邊界／區辨硬化，以及 synthetic D2 × D4 differential probe（合成差異探針）。目前只顯示**測試夾具層級的可分離性**；D2 支持、D4 支持與獨立驗證仍然**尚未建立**。
-4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS 已形式化為一套具有來源追溯邊界的 Human–AI epistemic collaboration（人類–AI 認識論協作）框架，包含操作定義、可執行結構契約、明確的反證／削弱條件，以及公開學術稿件。Human–AI learning / HTECR 外部交叉比對、multi-provider evidence admission（多供應商證據准入）與 longitudinal claim-admission bridge（縱向主張准入橋接）則維持為彼此區分的支援研究線。
-
-## CCTS 學術公開成果
-
-CCTS 已不再只是倉庫內部的研究面向，而是另外形成一個可公開引用與典藏的學術物件：
-
-- **題名：** *Co-Constructed Thinking Space (CCTS): A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration*
-- **Zenodo 紀錄：** [22945883](https://zenodo.org/records/22945883)
-- **DOI = Digital Object Identifier（數位物件識別碼）：** [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)
-- **倉庫內稿件：** [`docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md`](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md)
-
-這份公開成果把 CCTS 定位為 conceptual / methodological framework（概念／方法論框架）與可稽核研究方法。公開典藏不等於同儕審查，也不代表已完成經驗驗證、外部重現，更不構成共享意識或人工主體性的證據。
-
-```text
-CCTS_PUBLICATION = PUBLICLY_ARCHIVED
-CCTS 公開成果 = 已公開典藏
-
-PUBLICATION != PEER_REVIEW
-公開出版 != 同儕審查
-
-DOI != SCIENTIFIC_VALIDATION
-DOI != 科學驗證
-
-CCTS_STRUCTURAL_CONFORMANCE != CCTS_EMPIRICAL_VALIDATION
-符合 CCTS 結構條件 != CCTS 已被經驗驗證
-
-CCTS != AI_SUBJECTIVITY_EVIDENCE
-CCTS != AI 主體性證據
-```
+4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS = Co-Constructed Thinking Space（共構思考場域）已形式化為具來源追溯邊界的 Human–AI epistemic collaboration（人類–AI 認識論協作）框架，包含可執行結構契約與反證邊界。首份學術稿件已公開典藏於 [Zenodo](https://zenodo.org/records/22945883)，DOI = Digital Object Identifier（數位物件識別碼）為 [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)；公開典藏不等於同儕審查或科學驗證。
 
 ## 目前研究快照
 
 首頁只保留最高層級的目前圖像。若要看有日期的里程碑、精確 merged 現況與完整文件地圖，請進入 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) 與 [`docs/INDEX.md`](docs/INDEX.md)。
 
 - **連續性與記憶：** history replay、attention-structure 區辨、exact-structure longitudinal claim admission，以及 matched-information memory-locus dependency 測試。
-- **Human–AI learning / collaboration：** CCTS 已完成形式化、具備結構契約層級的可執行實作，並已有公開典藏的學術成果；Human–AI learning / HTECR 外部交叉比對仍是具有明確反證邊界的鄰接研究面向。
+- **Human–AI learning / collaboration：** CCTS 已形式化並公開典藏；Human–AI learning / HTECR 仍是鄰接研究面向。
 - **證據准入：** bounded 12-axis provider-evidence admission 已擴展到多個 provider family，但 open independent replication 仍然稀少。
 - **Assurance / quality：** bounded AI risk / impact controls、TEVV、Full-QMS、adversarial-security receipts 與 NCR/CAPA controls 提高 traceability 與 fail-closed review；它們不會因此變成科學驗證。
 
@@ -110,15 +80,6 @@ STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
 人機協作 != 共享心智
 
-PUBLICATION != PEER_REVIEW
-公開出版 != 同儕審查
-
-DOI != SCIENTIFIC_VALIDATION
-DOI != 科學驗證
-
-CCTS_STRUCTURAL_CONFORMANCE != CCTS_EMPIRICAL_VALIDATION
-符合 CCTS 結構條件 != CCTS 已被經驗驗證
-
 STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
 結構完整性 != 區辨效度
 
@@ -140,7 +101,6 @@ CI_PASS != SCIENTIFIC_VALIDATION
 - **我想先被帶著看懂：** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **我要確認正式語意現況：** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
 - **我要一頁看研究貢獻：** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
-- **我要看 CCTS 學術公開成果：** [Zenodo 紀錄 22945883](https://zenodo.org/records/22945883) / [DOI 10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)
 - **我要看主體性證據方法：** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 - **我要看架構／不宣稱事項：** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) 與 [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **我要查來源與治理：** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) 與 [`docs/governance/`](docs/governance/)
