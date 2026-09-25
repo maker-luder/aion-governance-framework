@@ -181,6 +181,11 @@ Required:
 - provider/model provenance;
 - stable observation/action contract.
 
+Capability gate:
+- reverify whether a supported upstream provider/runtime attachment interface actually exists;
+- if unavailable, implement only a clearly labeled simulated/proxy cloud adapter;
+- do not report simulated attachment as live provider integration.
+
 Forbidden:
 claims of identity continuity or body-ownership experience.
 
