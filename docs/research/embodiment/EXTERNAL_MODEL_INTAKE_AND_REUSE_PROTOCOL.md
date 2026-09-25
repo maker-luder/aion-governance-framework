@@ -151,6 +151,8 @@ A repository/model-card license label is an intake clue, not by itself a complet
 
 ```text
 LICENSE_METADATA != COMPLETE_RIGHTS_REVIEW
+CURRENT_LICENSE != HISTORICAL_VERSION_LICENSE
+LICENSE_TERMS_MUST_BIND_EXACT_ARTIFACT_VERSION = TRUE
 ```
 
 ```text
