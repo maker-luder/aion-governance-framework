@@ -262,7 +262,11 @@ Required:
 - matched external conditions;
 - alternative hypotheses;
 - restoration where feasible;
-- provenance-bound results.
+- provenance-bound results;
+- deterministic replay for deterministic harnesses;
+- paired/matched repeated trials for stochastic agents;
+- pre-registered run count or stopping rule where repeated trials are used;
+- uncertainty/effect-size reporting when deterministic replay is unavailable.
 
 Output:
 bounded conclusions only.
