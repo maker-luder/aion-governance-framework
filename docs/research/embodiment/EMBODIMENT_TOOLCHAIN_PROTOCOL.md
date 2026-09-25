@@ -14,7 +14,7 @@ Define a repeatable plugin/tool workflow so research discovery, external model i
 ↓
 1  Web — external discovery
 ↓
-2  Hugging Face — exact asset inspection
+2  Exact-source inspection — Hugging Face / official source / source repository
 ↓
 3  GitHub — internal live-state crosswalk
 ↓
@@ -73,27 +73,42 @@ SUPERPOWERS_OUTPUT != SCIENTIFIC_EVIDENCE
 ### Non-authority
 Web discovery does not establish internal repository state or scientific sufficiency.
 
-## Stage 2 — Hugging Face: exact asset inspection
+## Stage 2 — Exact-source inspection
+
+### Routing
+
+Use the source-native inspection surface.
+
+- Hugging Face asset → Hugging Face connector / exact repo inspection;
+- GitHub-hosted source code/model → GitHub exact repository inspection;
+- official scientific database/project → official source and terms/documentation;
+- DOI/paper-only source → publisher/archive plus primary paper.
+
+Do not force non-HF sources through Hugging Face.
 
 ### Input
-- exact HF model/dataset repository IDs found externally.
+- exact source identifiers found during discovery.
 
 ### Output
-- exact repository metadata;
-- model/dataset card;
-- license metadata;
-- gated state;
-- file / framework details where available;
-- linked paper / project metadata.
+- exact repository/database metadata;
+- model/dataset card or official technical documentation;
+- exact version/tag/DOI/commit where available;
+- license/terms metadata;
+- gated/restricted state;
+- file/framework details where available;
+- linked paper/project metadata;
+- security-relevant serialization or executable content notes where applicable.
 
 ### Rule
 
 ```text
 WEB = DISCOVERY
-HF = EXACT_REPOSITORY_INSPECTION
+HF = EXACT_HF_REPOSITORY_INSPECTION
+GITHUB = EXACT_GITHUB_REPOSITORY_INSPECTION
+OFFICIAL_SOURCE = EXACT_NON_HF_SOURCE_INSPECTION
 ```
 
-HF existence or popularity is not validation.
+Source existence or popularity is not validation.
 
 ## Stage 3 — GitHub: internal crosswalk
 
@@ -239,6 +254,8 @@ AUTOMATION != AUTHORITY
 | --- | --- |
 | What scientific model exists? | Web |
 | What exactly is inside this HF repo? | Hugging Face |
+| What exactly is inside this GitHub source repo? | GitHub |
+| What are the terms/metadata for a non-HF scientific database? | Official source via Web |
 | What does our repository already contain? | GitHub |
 | Is this state-space representation reducible? | Wolfram |
 | How do these dependencies connect? | MindMap |
