@@ -105,6 +105,15 @@ Different histories or hidden state contaminate matched conditions.
 
 The system appears to discover a body/regulatory concept only because the human-defined label or target was supplied.
 
+### H_ENVIRONMENTAL_COUPLING_CONFUSION
+
+A result attributed to embodiment detail is actually caused by a changed environment, contact condition, stimulus distribution or resource constraint.
+
+Control:
+- matched environment;
+- explicit environment version/configuration;
+- environment ablation only when environment is the registered variable.
+
 ### H_POPULATION_OVERGENERALIZATION
 
 A result derived from one or a few reference bodies is reported as though it represented the human population.
