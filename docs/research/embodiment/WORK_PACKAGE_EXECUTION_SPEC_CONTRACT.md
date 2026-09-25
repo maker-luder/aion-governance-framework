@@ -83,6 +83,16 @@ Every execution spec must contain all of the following.
 - source hashes where available;
 - required prior work-package receipts.
 
+If an external environment/simulator/benchmark participates in the experiment, also bind:
+- environment source and exact version;
+- configuration hash;
+- seed or nondeterminism declaration;
+- reset policy;
+- initial-state reference;
+- time-step/clock policy;
+- observation/action schema versions;
+- termination policy.
+
 ### Outputs
 
 - exact expected artifacts;
