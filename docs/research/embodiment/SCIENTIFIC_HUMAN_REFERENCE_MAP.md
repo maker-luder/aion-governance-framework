@@ -12,6 +12,31 @@ This map prevents two opposite errors:
 
 Each layer is therefore tracked separately as a scientific reference, an abstraction candidate and a possible runtime dependency.
 
+## Cross-cutting population and biological variability
+
+No single body, donor, mesh, simulator or parameter set is treated as the universal human reference.
+
+The map should track, where relevant:
+
+- subject count;
+- age;
+- sex/anatomical configuration;
+- body size / anthropometry;
+- population provenance;
+- specimen/donor-specific features;
+- pathology or health-state assumptions;
+- laterality / handedness where material;
+- model calibration population.
+
+```text
+ONE_REFERENCE_BODY != HUMAN_POPULATION
+ONE_MALE_MODEL != UNIVERSAL_MALE_BODY
+ONE_FEMALE_MODEL != UNIVERSAL_FEMALE_BODY
+REFERENCE_GEOMETRY != POPULATION_DISTRIBUTION
+```
+
+A future runtime may intentionally instantiate one bounded body profile. That engineering choice must remain distinct from claims about human population anatomy.
+
 ## Reference layers
 
 | Layer | Reference target | Initial candidate sources | Default runtime disposition |
@@ -77,8 +102,9 @@ Every source must therefore record:
 - what it omits;
 - its coordinate conventions;
 - segmentation or topology conventions;
-- applicable population;
+- applicable population and subject count;
 - sex / age assumptions where relevant;
+- donor/subject provenance and access terms where relevant;
 - validation status;
 - license;
 - exact source version or revision;
