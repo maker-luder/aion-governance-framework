@@ -144,6 +144,7 @@ Use for authority, source admission, writeback, transition, risk, memory, and do
 - [`governance/GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md`](governance/GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md)
 - [`governance/MAIN_TRANSITION_AUTHORITY_GATE.md`](governance/MAIN_TRANSITION_AUTHORITY_GATE.md)
 - [`governance/DOCUMENTATION_GOVERNANCE.md`](governance/DOCUMENTATION_GOVERNANCE.md)
+- [`governance/PR_TOOL_ROUTING_MATRIX.md`](governance/PR_TOOL_ROUTING_MATRIX.md) — routes A–E PR change classes to the minimum sufficient review/tool set using explicit activation triggers.
 
 Bounded norm-formation and related normative-state research material remains component/lab-local under [`../research-labs/`](../research-labs/) unless a dedicated governance control explicitly promotes a narrower rule.
 
