@@ -9,8 +9,6 @@
 
 AION is a human-governed, provenance-first research framework for studying the **possibility of artificial subjectivity** without treating convincing behavior as proof of subjectivity.
 
-It also hosts **Co-Constructed Thinking Space (CCTS)**, a provenance-bounded framework for studying reciprocal Human–AI epistemic collaboration. CCTS now has an operational definition, an executable structural contract, explicit falsification / weakening conditions, and a publicly archived scholarly manuscript.
-
 In plain language, the repository asks:
 
 > When an AI system shows memory-like continuity, strategy changes, long-horizon persistence, collaboration, or self-related behavior, how much can be explained by the model, prompts, harness, tools, memory, environment, or human guidance—and what evidence would still be needed before a stronger subjectivity-related claim is justified?
@@ -32,33 +30,14 @@ The current `main` is organized around four connected research lines:
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
 2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration, learning, and evidence admission** — CCTS is now formalized as a provenance-bounded Human–AI epistemic-collaboration framework with an operational definition, executable structural contract, explicit falsification / weakening conditions, and a public scholarly manuscript. Human–AI learning / HTECR crosswalks, multi-provider evidence admission, and the longitudinal claim-admission bridge remain separate supporting research lines.
-
-## CCTS scholarly publication
-
-CCTS has moved beyond a repository-only research surface into a separately archived scholarly object:
-
-- **Title:** *Co-Constructed Thinking Space (CCTS): A Provenance-Bounded Framework for Human–AI Reciprocal Epistemic Collaboration*
-- **Zenodo record:** [22945883](https://zenodo.org/records/22945883)
-- **DOI:** [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)
-- **Repository manuscript:** [`docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md`](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md)
-
-The publication presents CCTS as a conceptual / methodological framework and auditable research method. Public archival publication does not establish peer review, empirical validation, external replication, shared consciousness, or artificial subjectivity.
-
-```text
-CCTS_PUBLICATION = PUBLICLY_ARCHIVED
-PUBLICATION != PEER_REVIEW
-DOI != SCIENTIFIC_VALIDATION
-CCTS_STRUCTURAL_CONFORMANCE != CCTS_EMPIRICAL_VALIDATION
-CCTS != AI_SUBJECTIVITY_EVIDENCE
-```
+4. **Human–AI collaboration, learning, and evidence admission** — CCTS is formalized with provenance bounds, an executable structural contract, and falsification conditions. Manuscript: [Zenodo](https://zenodo.org/records/22945883), DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883). Publication is not peer review or scientific validation.
 
 ## Current research snapshot
 
 The landing page keeps only the highest-level current picture. For dated milestones, exact merged standing, and the full documentation map, use [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/INDEX.md`](docs/INDEX.md).
 
 - **Continuity and memory:** history replay, attention-structure discrimination, exact-structure longitudinal claim admission, and matched-information memory-locus dependency testing.
-- **Human–AI learning and collaboration:** CCTS is formalized, executable at the structural-contract level, and publicly archived as a scholarly publication; Human–AI learning / HTECR crosswalks remain adjacent research surfaces with explicit falsification boundaries.
+- **Human–AI learning and collaboration:** CCTS is formalized and archived; Human–AI learning / HTECR remains adjacent.
 - **Evidence admission:** bounded 12-axis provider-evidence admission now spans multiple provider families, while open independent replication remains sparse.
 - **Assurance and quality:** bounded AI risk / impact controls, TEVV, Full-QMS, adversarial-security receipts, and NCR/CAPA quality controls improve traceability and fail-closed review without creating scientific validation.
 
@@ -74,9 +53,6 @@ PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
 HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
-PUBLICATION != PEER_REVIEW
-DOI != SCIENTIFIC_VALIDATION
-CCTS_STRUCTURAL_CONFORMANCE != CCTS_EMPIRICAL_VALIDATION
 STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
 SYNTHETIC_SEPARABILITY != D2_OR_D4_SUPPORT
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
@@ -91,7 +67,6 @@ These boundaries do not pre-decide the research question. They prevent stronger 
 - **I want a guided introduction:** [`docs/START_HERE.md`](docs/START_HERE.md)
 - **I need the exact semantic standing:** [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md)
 - **I want the research contribution in one page:** [`docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md`](docs/RESEARCH_CONTRIBUTION_ONE_PAGER.md)
-- **I want the CCTS scholarly publication:** [Zenodo record 22945883](https://zenodo.org/records/22945883) / [DOI 10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)
 - **I want the evidence method:** [`docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md`](docs/SUBJECTIVITY_EVIDENCE_PROTOCOL.md)
 - **I need architecture / explicit non-claims:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) and [`docs/NON_CLAIMS.md`](docs/NON_CLAIMS.md)
 - **I need provenance / governance:** [`docs/PROVENANCE.md`](docs/PROVENANCE.md) and [`docs/governance/`](docs/governance/)
