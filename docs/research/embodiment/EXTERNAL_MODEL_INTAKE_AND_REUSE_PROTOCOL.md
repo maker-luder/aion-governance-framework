@@ -55,7 +55,8 @@ Every external source must record:
 - source type: model / dataset / software / paper / anatomy database;
 - exact version, tag, DOI or commit SHA;
 - retrieval date;
-- applicable license;
+- applicable license / terms bound to the exact version/revision;
+- historical license/terms changes where relevant;
 - gated / non-gated status;
 - relevant files;
 - relevant scientific representation;
@@ -156,6 +157,12 @@ LICENSE_METADATA != COMPLETE_RIGHTS_REVIEW
 REPOSITORY_LICENSE
 != THIRD_PARTY_ASSET_LICENSE
 ```
+
+Version-specific rights rule:
+
+The license/terms observed on a project's current landing page must not be retroactively assigned to older artifacts. Intake must bind rights metadata to the exact artifact version/revision whenever the source exposes versioned terms.
+
+If historical terms cannot be resolved for the selected artifact, return `HOLD`.
 
 ### 2. Supply-chain / artifact security
 
