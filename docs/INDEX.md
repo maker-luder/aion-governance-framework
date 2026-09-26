@@ -181,6 +181,7 @@ Directory: [`research/`](research/)
 Research-reference material supports interpretation and method development. Presence in this directory does not create current-state, canonical, or scientific authority.
 
 - [`research/FAIR4RS_EXACT_MATRIX_2026_09_25.md`](research/FAIR4RS_EXACT_MATRIX_2026_09_25.md) — repository-level FAIR4RS v1.0 evidence matrix with per-principle dispositions, software-PID and archival-metadata gaps, and historical release-metadata drift; alignment is not conformance.
+- [`research/AI_SUBJECTIVITY_EXTERNAL_CROSSWALK_2026_09_26.md`](research/AI_SUBJECTIVITY_EXTERNAL_CROSSWALK_2026_09_26.md) — bounded external literature crosswalk for AI subjectivity / consciousness indicators, theory plurality, embodiment, agency, metacognition and the repository's six standing evidence dimensions; no new construct, dimension or scientific promotion.
 
 ## Historical records
 
