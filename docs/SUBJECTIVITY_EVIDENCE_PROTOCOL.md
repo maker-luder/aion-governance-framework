@@ -81,6 +81,8 @@ The methodological basis includes:
 - Butlin et al., *Identifying indicators of consciousness in AI systems*, *Trends in Cognitive Sciences* 30(6), 2026, DOI `10.1016/j.tics.2025.10.011`;
 - Cogitate Consortium et al., *Adversarial testing of global neuronal workspace and integrated information theories of consciousness*, *Nature* 642, 133-142 (2025), DOI `10.1038/s41586-025-08888-1`.
 
+A broader bounded external crosswalk, including multi-indicator approaches, neuroscience-based embodiment challenges, and recent LLM agency / metacognition work, is preserved in [`research/AI_SUBJECTIVITY_EXTERNAL_CROSSWALK_2026_09_26.md`](research/AI_SUBJECTIVITY_EXTERNAL_CROSSWALK_2026_09_26.md). That crosswalk is a research reference only and does not add a standing evidence dimension, subjectivity score, consciousness classifier, or scientific conclusion.
+
 The 2025 adversarial result is treated as a warning against theory monoculture: preregistered evidence challenged important predictions of both IIT and GNWT. The repository therefore permits explicit competing theory predictions and counterevidence rather than converting any single theory mapping into confirmation.
 
 A `PREREGISTERED_ADVERSARIAL` theory test requires at least two substantive theory families, an explicit preregistration artifact reference, one or more explicit held-out evidence references, explicit falsifiers, and no post-hoc prediction rewriting. A boolean assertion that a test was preregistered or used held-out evidence is not sufficient evidence of either property. Passing or failing such a test changes only the standing of the tested prediction, not the subjectivity conclusion.
