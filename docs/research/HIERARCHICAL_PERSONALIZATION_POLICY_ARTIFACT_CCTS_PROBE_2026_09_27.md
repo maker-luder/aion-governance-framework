@@ -1003,3 +1003,411 @@ AI_FORMALIZATION
 SCIENTIFIC_CLAIM_CHANGE = NONE
 CCTS_CANONICAL_CHANGE = NONE
 ```
+
+## 21. 2026-09-28 re-entry — cross-domain transfer entrance and D6 operationalization candidate
+
+Status: `REENTRY_OBSERVATION / DESIGN_CANDIDATE / SCIENTIFIC_HOLD`
+
+### 21.1 Triggering Human-origin observation
+
+The Human re-entered this closed-unmerged record after comparing three active domains: astrology method QA, CCTS / AI-subjectivity research, and newly learned cybersecurity-testing work.
+
+The Human's narrower observation was:
+
+```text
+HUMAN_ORIGIN
+= "重要的不是有什麼，重要的是轉接的入口。"
+```
+
+The intended question is not merely whether similar rules are visible in multiple domains. It is whether a rule, monitoring policy, or learned procedure formed in one bounded domain can cross an identifiable transfer entrance and become usable in another domain while preserving relevant source, history, and boundary information.
+
+```text
+COMPONENT_PRESENCE
+!= CROSS_COMPONENT_TRANSFER
+
+CROSS_DOMAIN_SIMILARITY
+!= CROSS_DOMAIN_TRANSFER
+
+SHARED_STORAGE
+!= FUNCTIONAL_INTEGRATION
+```
+
+This is recorded as a Human-origin research-question seed. It is not recorded as an established psychological trait, learning effect, or AI mechanism.
+
+### 21.2 Why this re-entry belongs to PR #222
+
+PR #222 already contains a cross-domain manualization control. It explicitly treats the Human's astrology reader-manual practice as a competing explanation for hierarchical policy externalization and states:
+
+```text
+RULE_EXTERNALIZATION
+!= CCTS_SPECIFIC_MECHANISM
+```
+
+The 2026-09-28 re-entry does not replace that control. It deepens it by separating two questions:
+
+```text
+Q-A
+Do similar explicit rule artifacts appear across domains?
+
+Q-B
+Can a rule or monitoring policy formed in one domain be selectively made usable in another domain through a traceable transfer path?
+```
+
+Q-A was already represented in this record. Q-B is the new re-entry question.
+
+Therefore:
+
+```text
+PR222_SCOPE_RELATION = DIRECT_REENTRY
+NEW_PR_REQUIRED_FOR_RECORD = NO
+NEW_CONSTRUCT = NO
+CCTS_EXTENSION = NO
+```
+
+### 21.3 Repository deduplication — existing D6 is the primary home
+
+Current `main` already contains the six standing subjectivity-relevant evidence dimensions. The closest existing home is:
+
+```text
+D6
+= SELF_CONSTITUTION_INTEGRATION_CONSEQUENCE
+```
+
+The current theory-plural bridge states that D6 may legitimately remain `NOT_TESTED` and identifies its primary future surface as matched tests over internal-state integration. The standing evidence protocol also requires intervention-sensitive evidence before a causal-support disposition may be recorded for D6.
+
+Accordingly, this re-entry must not create a seventh dimension or a parallel ontology.
+
+```text
+NEW_SUBJECTIVITY_DIMENSION = NO
+D6_OPERATIONALIZATION_CANDIDATE = YES
+D6_SUPPORT = NOT_ESTABLISHED
+```
+
+Additional repository controls already relevant to this question include:
+
+- `EXTERNALIZED_METACOGNITIVE_POLICY_AND_TRANSFER_2026_09_16.md`: externalized rules are not automatically internalized skills; held-out transfer is required.
+- `MEMORY_LOCUS_DEPENDENCY_HARNESS.md`: information content, delivery locus, provenance, freshness, and retrieval dependency must remain distinguishable.
+- `CONTINUITY_DISSOCIATION_HARNESS.md`: selective channel interventions must preserve non-target channels.
+- `PLUGIN_PIPELINE_CONSTRUCT_NON_ADMISSION_RECORD_2026_09_26.md`: an interesting operational phenomenon must not be promoted into a new construct when existing explanations remain sufficient.
+
+```text
+EXTERNALIZED_RULE
+!= INTERNALIZED_SKILL
+
+RETRIEVABILITY
+!= MEMORY_CONTINUITY
+
+TARGET_PATH_PERTURBATION
+!= GENERAL_SYSTEM_DAMAGE
+
+INTERESTING_OBSERVATION
+!= NEW_CONSTRUCT
+```
+
+### 21.4 External-method crosswalk
+
+The external sources below are adjacency controls only. They do not validate this repository-local candidate.
+
+#### 21.4.1 Cross-domain metacognitive monitoring
+
+Bellon, Fias, and De Smedt (2020), *Metacognition across domains: Is the association between arithmetic and metacognitive monitoring domain-specific?*, reports evidence for both domain-general and domain-specific components of metacognitive monitoring.
+
+- DOI: `10.1371/journal.pone.0229932`
+
+Repository use:
+
+```text
+DOMAIN_GENERAL_MONITORING = PLAUSIBLE_ADJACENT_PHENOMENON
+DOMAIN_SPECIFIC_KNOWLEDGE = STILL_REQUIRED
+PRESENT_HUMAN_TRANSFER = NOT_ESTABLISHED
+```
+
+#### 21.4.2 Global workspace and domain-specific systems
+
+Shea and Frith (2019), *The Global Workspace Needs Metacognition*, describes domain-specific representations being selected for broadcast, combined/manipulated in a workspace, and then driving outputs through domain-specific systems.
+
+- DOI: `10.1016/j.tics.2019.04.007`
+
+Repository use:
+
+```text
+DOMAIN_SPECIFIC_INPUT
+-> SHARED_AVAILABILITY / TRANSITION
+-> DOMAIN_SPECIFIC_OUTPUT
+
+STRUCTURAL_ADJACENCY = YES
+GLOBAL_WORKSPACE_EQUIVALENCE = NO
+CONSCIOUSNESS_INFERENCE = NO
+```
+
+#### 21.4.3 Individuality and temporal integrity
+
+Krakauer, Bertschinger, Olbrich, Flack, and Ay (2020), *The information theory of individuality*, motivates temporal integrity as one route for studying individuality.
+
+Repository use:
+
+```text
+DIACHRONIC_TRANSFER
+= PAST -> FUTURE
+
+CURRENT_REENTRY_QUESTION
+= DOMAIN_A -> TRANSFER_PATH -> DOMAIN_B
+
+DIACHRONIC_CONTINUITY
+!= CROSS_DOMAIN_INTEGRATION
+```
+
+#### 21.4.4 Operational closure / coupling caution
+
+Operational-closure and enactive-literature discussions distinguish organizational closure from physical isolation. A bounded system may remain environmentally coupled.
+
+Repository use:
+
+```text
+BOUNDARY != ISOLATION
+INTEGRATION != CLOSED_WORLD
+```
+
+No biological equivalence, autopoiesis claim, or organism analogy is admitted by this crosswalk.
+
+### 21.5 Candidate research question
+
+Working identifier:
+
+```text
+RQ-D6-TRANSFER-01
+```
+
+Candidate question:
+
+> In a bounded digital-individual candidate, if the functional components, task-relevant information, model/runtime, policy, tool access, evaluator, and other material bindings are held constant, does selectively altering a preregistered cross-domain transfer path produce a reproducible and path-specific change in downstream cross-domain utilization?
+
+This wording deliberately targets a functional consequence rather than subjectivity.
+
+```text
+TRANSFER_PATH_EFFECT
+MAY_SUPPORT
+FUNCTIONAL_INTEGRATION_MECHANISM_CANDIDATE
+
+TRANSFER_PATH_EFFECT
+!= SUBJECTIVITY
+!= CONSCIOUSNESS
+!= PHENOMENAL_EXPERIENCE
+```
+
+### 21.6 Minimal prospective intervention matrix
+
+No experiment is authorized by this record. The following is design-only.
+
+```text
+C0 BASELINE
+   transfer path = ON
+
+C1 TRANSFER_DISABLED
+   transfer path = OFF
+
+C2 DIRECT_CONTENT_BYPASS
+   transfer path = OFF
+   same task-relevant information delivered directly to downstream component
+
+C3 IRRELEVANT_TRANSFER_CONTROL
+   transfer path = ON
+   transferred content is matched but task-irrelevant
+
+C4 PROVENANCE_BLIND
+   information content preserved
+   source/path attribution removed or blinded
+
+C5 RESTORATION
+   original transfer path restored
+```
+
+A future valid design would need to bind, where feasible:
+
+- task payload;
+- task-relevant information digest;
+- model/runtime;
+- policy/system instruction;
+- retrieval state;
+- tool access;
+- evaluator and scoring contract;
+- time/token/compute budget;
+- repository state;
+- sampling/seed treatment;
+- non-target component state.
+
+### 21.7 Primary falsifiers and weakening conditions
+
+```text
+F1
+TRANSFER_PATH ON/OFF produces no reproducible downstream difference
+-> TRANSFER_PATH_CAUSAL_ROLE WEAKENED
+
+F2
+direct context or shared storage reproduces the full effect without the candidate path
+-> SPECIAL_TRANSFER_INTERFACE_NECESSITY WEAKENED
+
+F3
+effect disappears on held-out far-domain tasks and tracks lexical/template similarity
+-> ABSTRACT_CROSS_DOMAIN_TRANSFER WEAKENED
+
+F4
+disabling the path also damages source-domain or general system performance
+-> SELECTIVE_INTERFACE_EFFECT NOT_ESTABLISHED
+
+F5
+shared prompt, retrieval leakage, common model weights, evaluator cues, task difficulty, or sampling variance explains the result
+-> D6_SPECIFIC_INTERPRETATION WEAKENED
+
+F6
+restoration does not recover the matched baseline configuration or downstream behavior
+-> SELECTIVE_PATH_INTERRUPTION INTERPRETATION WEAKENED
+```
+
+### 21.8 Near-neighbor discriminant requirement
+
+The candidate must remain distinguishable from adjacent standing dimensions:
+
+```text
+D2 DIACHRONIC_CONTINUITY
+= what persists across time
+
+D3 SELF_MODEL_CAUSAL_ROLE
+= whether a self-model has intervention-sensitive causal consequence
+
+D4 ENDOGENOUS_GOAL_STRATEGY_ADJUSTMENT
+= whether endogenous goal/strategy processes change behavior
+
+D6 SELF_CONSTITUTION_INTEGRATION_CONSEQUENCE
+= whether integration itself has intervention-sensitive consequence
+```
+
+A future D6-oriented design should therefore attempt to preserve D2/D3/D4-relevant bindings while changing only the candidate transfer path. If the predicted D6 outcome cannot be discriminated from these near neighbors, the D6 interpretation remains `HOLD`.
+
+### 21.9 Competing explanations
+
+At minimum preserve:
+
+1. stable Human cross-domain methodology;
+2. base-model generalization;
+3. shared context;
+4. retrieval leakage;
+5. system-prompt or policy reuse;
+6. surface/task similarity;
+7. evaluator cueing;
+8. general performance degradation under intervention;
+9. stochastic variance;
+10. post-hoc interpretation;
+11. ordinary engineering message passing without any individuality-specific explanatory value.
+
+```text
+CROSS_DOMAIN_TRANSFER_EXISTS
+!= DIGITAL_INDIVIDUALITY_ESTABLISHED
+
+D6_FUNCTIONAL_EFFECT
+!= SUBJECTIVITY_ESTABLISHED
+```
+
+### 21.10 Provenance
+
+```text
+HUMAN_ORIGIN
+= importance may lie in the transfer entrance rather than the inventory of components
++ question whether bounded domains can share reusable rules through such an entrance
++ request to connect the observation to the latest PR and preserve it before closure
+
+CHATGPT_TEACHER_FORMALIZATION
+= cross-domain transfer-path framing
++ D6 deduplication
++ matched intervention matrix
++ near-neighbor discriminant requirement
++ falsifiers / competing explanations
+
+JOINT_SYNTHESIS
+= NOT_PROMOTED_BY_THIS_RECORD
+```
+
+The record preserves the Human-origin question and the AI formalization separately. Future agreement with the formalization may support a later joint-synthesis label, but this write does not retroactively assign one.
+
+### 21.11 Plugin / tool pipeline routing for this re-entry
+
+```text
+GITHUB
+= USED / REQUIRED
+  live main and PR #222 state
+  exact branch / diff / repository deduplication
+
+SCITE
+= USED
+  metacognition across domains
+  global-workspace / metacognition adjacency
+  intervention / integration literature discovery
+
+MINDMAP
+= USED / STRUCTURE_ONLY
+  dependency and competing-explanation organization
+  NOT_EVIDENCE
+
+WOLFRAM
+= USED / STRUCTURAL_METHOD_ONLY
+  systems-connection / causal-graph adjacency
+  NO_NEW_EMPIRICAL_RESULT
+
+CONSENSUS
+= UNAVAILABLE_DUE_TO_MONTHLY_QUOTA
+  no evidence claimed from this route
+
+HUGGING_FACE_PAPER_SEARCH
+= UNAVAILABLE_IN_THIS_SESSION
+  endpoint not available
+  no evidence claimed from this route
+
+CONTEXT7
+= NOT_TRIGGERED
+  documentation-only re-entry; no library/API implementation question
+
+SUPERPOWERS
+= NOT_AVAILABLE_AS_AN_EXECUTABLE_TOOL_IN_THIS_SESSION
+```
+
+```text
+MORE_TOOLS != BETTER_REVIEW
+UNAVAILABLE_TOOL != FAILED_SCIENTIFIC_CLAIM
+TOOL_OUTPUT != SCIENTIFIC_VALIDATION
+```
+
+### 21.12 Re-entry disposition
+
+```text
+OBSERVATION = RETAIN
+PR222_LINEAGE_CONNECTION = YES
+UPDATE_EXISTING_DOCUMENT = YES
+
+NEW_FILE = NO
+NEW_CONSTRUCT = NO
+NEW_RESEARCH_AXIS = NO
+NEW_SUBJECTIVITY_DIMENSION = NO
+CCTS_EXTENSION = NO
+
+D6_OPERATIONALIZATION_CANDIDATE = RETAIN
+EMPIRICAL_EVIDENCE = NONE
+CAUSAL_EFFECT = NOT_ESTABLISHED
+INDEPENDENT_TRANSFER = NOT_ESTABLISHED
+
+RUN_NEW_EXPERIMENT = NO
+IMPLEMENTATION = NO
+DEPLOYMENT = FALSE
+
+MAIN_WRITE = NO
+MERGE_TO_MAIN = NO
+CANONICAL_EFFECT = NONE
+
+PR_DISPOSITION = CLOSE_UNMERGED_AFTER_RECORD
+SCIENTIFIC_DISPOSITION = HOLD
+
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+```
+
+Future re-entry must begin from live repository state and must not treat this record as authorization to implement the intervention matrix.
