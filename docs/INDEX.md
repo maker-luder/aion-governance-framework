@@ -33,6 +33,8 @@ For a 60-second public map, use [`RESEARCH_MAP.md`](RESEARCH_MAP.md). For guided
 
 ## Current research core
 
+- [`research/FRONTIER_AGENT_CONTAINMENT_DELTA_REVIEW_2026_09_28.md`](research/FRONTIER_AGENT_CONTAINMENT_DELTA_REVIEW_2026_09_28.md) — 2026-09-28 bounded evidence-delta review of frontier-agent containment incidents, monitoring/stop gaps, third-party data transmission, cross-provider sandbox evidence, AgentDojo/ASPI engineering analogues, and subjectivity non-inference boundaries.
+
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
 ### Recent bounded milestones — 2026-09-18 / 2026-09-19
