@@ -1357,10 +1357,10 @@ CONSENSUS
 = UNAVAILABLE_DUE_TO_MONTHLY_QUOTA
   no evidence claimed from this route
 
-HUGGING_FACE_PAPER_SEARCH
-= UNAVAILABLE_IN_THIS_SESSION
-  endpoint not available
-  no evidence claimed from this route
+HUGGING_FACE
+= USED VIA EXTERNAL_DISCOVERY -> EXACT_TARGET -> HF_PLUGIN_DEEP_READ
+  internal/paper search endpoint was not relied upon
+  exact model repositories were inspected directly
 
 CONTEXT7
 = NOT_TRIGGERED
@@ -1411,3 +1411,80 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 ```
 
 Future re-entry must begin from live repository state and must not treat this record as authorization to implement the intervention matrix.
+
+
+### 21.13 Hugging Face engineering counterexample cross-check — 2026-09-28
+
+This re-entry used the repository-defined Hugging Face routing rule:
+
+```text
+EXTERNAL_WEB_DISCOVERY
+-> EXACT_HF_TARGET
+-> HUGGING_FACE_PLUGIN_DEEP_READ
+```
+
+The following exact Hugging Face model repositories were inspected as engineering counterexamples / analogues:
+
+```text
+google/switch-base-32
+ARCHITECTURE = switch_transformers
+
+mistralai/Mixtral-8x22B-v0.1
+ARCHITECTURE = mixtral / MoE
+
+Qwen/Qwen3.5-35B-A3B
+ARCHITECTURE = qwen3_5_moe
+```
+
+The external Hugging Face documentation and model records show that selective routing across specialized experts can be implemented as ordinary model architecture. Qwen3.5 MoE, for example, uses a sparse expert architecture with routed experts plus a shared expert; Switch Transformers likewise routes token representations to selected experts.
+
+Repository consequence:
+
+```text
+SPECIALIZED_COMPONENTS
++ SELECTIVE_ROUTER
++ AGGREGATED_OUTPUT
+
+CAN_EXIST_AS
+ORDINARY_ENGINEERING_ARCHITECTURE
+```
+
+Therefore the D6 candidate must preserve a stronger competing explanation:
+
+```text
+ORDINARY_MODULAR_ROUTING
+= EXPLICIT_COMPETING_EXPLANATION
+
+ROUTER_EXISTS
+!= DIGITAL_INDIVIDUALITY
+
+SELECTIVE_EXPERT_ROUTING
+!= SELF_CONSTITUTION
+
+FUNCTIONAL_INTEGRATION
+!= SUBJECTIVITY
+
+ENGINEERING_ARCHITECTURE
+!= PHENOMENAL_EXPERIENCE
+```
+
+A future D6 design is weakened if the observed transfer effect is fully explained by ordinary routing, expert selection, shared-expert computation, context delivery, or other standard architecture without any individuality-specific explanatory necessity.
+
+The Hugging Face evidence is used here as:
+
+```text
+ENGINEERING_ADJACENCY
++ COMPETING_EXPLANATION
++ FALSIFICATION_PRESSURE
+
+NOT
+SUBJECTIVITY_SUPPORT
+```
+
+No model execution, fine-tuning, experiment, or Hugging Face dataset ingestion was performed.
+
+```text
+HF_PLUGIN = USED
+HF_INTERNAL_SEARCH = NOT_REQUIRED
+HF_SEARCH_FAILURE != HF_PLUGIN_UNAVAILABLE
+```
