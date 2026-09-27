@@ -4,6 +4,8 @@ This offline engineering candidate implements trajectory-level monitoring, task 
 
 The supplied OpenAI/Hugging Face incident summary is registered as `PROVIDED_SUMMARY_UNVERIFIED / BACKGROUND_ONLY` because the engineering handoff contains no auditable source URLs. Its factual claims are not promoted to canonical facts. The controls remain useful independent of the disputed event details.
 
+That original handoff classification remains preserved as provenance. A later source-verified evidence delta is recorded in [`../../docs/research/FRONTIER_AGENT_CONTAINMENT_DELTA_REVIEW_2026_09_28.md`](../../docs/research/FRONTIER_AGENT_CONTAINMENT_DELTA_REVIEW_2026_09_28.md); later verification does not retroactively change the source quality of the original supplied summary.
+
 ## Candidate status
 
 ```text
