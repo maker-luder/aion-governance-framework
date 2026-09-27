@@ -551,3 +551,455 @@ OBSERVATION
 -> TEST
 -> ONLY_THEN_REASSESS_CCTS_RELEVANCE
 ```
+
+## 15. Deferred repository-first agent handoff contract
+
+This section records the detailed handoff required before any future Work or Codex activity on this candidate.
+
+It is a durable **handoff specification**, not an authorization to execute it now.
+
+```text
+HANDOFF_RECORDED = YES
+WORK_EXECUTION_AUTHORIZED = NO
+CODEX_IMPLEMENTATION_AUTHORIZED = NO
+RUN_NEW_EXPERIMENT = NO
+MAIN_WRITE = NO
+MERGE = NO
+CANONICAL_EFFECT = NONE
+```
+
+The intended future sequence is:
+
+```text
+HUMAN_OWNER + CHATGPT_TEACHER
+-> LOCK QUESTION / CLAIM CEILING / AUTHORITY BOUNDARY
+
+CHATGPT_WORK
+-> READ-ONLY REPOSITORY AUDIT
+
+HUMAN_OWNER + CHATGPT_TEACHER
+-> REVIEW WORK AUDIT
+
+CODEX
+-> READ-ONLY IMPLEMENTATION GATE
+
+HUMAN_OWNER + CHATGPT_TEACHER
+-> REVIEW IMPLEMENTATION GATE
+
+FRESH HUMAN AUTHORIZATION
+-> ONLY THEN MAY A SEPARATE BOUNDED IMPLEMENTATION BEGIN
+
+IMPLEMENTATION RESULT
+-> HUMAN_OWNER + CHATGPT_TEACHER QA / CLAIM REVIEW
+-> GITHUB ACTIONS VALIDATION
+-> SEPARATE FRESH MAIN-TRANSITION AUTHORITY IF EVER REQUESTED
+```
+
+No stage inherits authority from a prior stage.
+
+```text
+READINESS != AUTHORIZATION
+AI_REVIEW != HUMAN_OWNER_APPROVAL
+CI_PASS != SCIENTIFIC_VALIDATION
+IMPLEMENTATION_EXISTS != IMPLEMENTATION_CORRECT
+```
+
+### 15.1 Exact repository read order
+
+Every future Work / Codex pass must re-read live state first. The following is a navigation order, not an authority hierarchy.
+
+```text
+0. LIVE GITHUB STATE
+   - current main exact SHA
+   - PR #222 exact HEAD and state
+   - base branch / base SHA
+   - changed files
+   - current CI / workflow status
+   - current main-transition authority state
+
+1. docs/START_HERE.md
+
+2. docs/CURRENT_STATE.md
+
+3. docs/governance/DOCUMENTATION_GOVERNANCE.md
+
+4. docs/NON_CLAIMS.md
+
+5. docs/PROVENANCE.md
+
+6. docs/governance/GOVERNANCE_MODEL.md
+
+7. docs/governance/MAIN_TRANSITION_AUTHORITY_GATE.md
+
+8. docs/research/
+   HUMAN_AI_RESEARCH_ROLE_SEPARATION_2026_09_13.md
+
+9. docs/research/
+   REPOSITORY_FIRST_AGENT_HANDOFF_PROTOCOL_2026_09_13.md
+
+10. this exact PR #222 research record
+
+11. docs/research/publication/
+    CCTS_PREPRINT_DRAFT_V0_1.md
+
+12. research-labs/
+    human-ai-longitudinal-study_v0.1.0/README.md
+
+13. docs/research/
+    CCTS_AE_AI_LITERATURE_CROSSWALK_2026_09_25.md
+
+14. docs/research/
+    HUMAN_AI_BIDIRECTIONAL_GROUNDING_HYPOTHESIS_2026_09_11.md
+    only for the ancestry explicitly relied on by this record
+
+15. additional sibling / historical records
+    only when a concrete dependency requires them
+```
+
+The dated repository-first handoff protocol contains an older PR #102 navigation marker. That marker must not override newer live repository state.
+
+```text
+LIVE_REPOSITORY_STATE = SOURCE_OF_TRUTH
+READ_ORDER != AUTHORITY_ORDER
+READ_WHAT_IS_NEEDED
+!= READ_NOTHING
+!= LOAD_EVERYTHING
+```
+
+PRs #180, #218, and #212 are not mandatory inputs to future #222 implementation work merely because they were inspected during a separate recovery review. They should be read only if a concrete dependency or contamination hypothesis makes them materially relevant.
+
+### 15.2 Fixed scope and prohibited mutations
+
+Until a later fresh Human authorization changes the scope, all future agent review of this record remains bounded by:
+
+```text
+CCTS_EXTENSION = NO
+NEW_CONSTRUCT = NO
+NEW_RESEARCH_AXIS = NO
+RUN_NEW_EXPERIMENT = NO
+
+CCTS_EMPIRICAL_VALIDATION = NOT_ESTABLISHED
+CCTS_LEARNING_EFFECT = NOT_ESTABLISHED
+CCTS_CAUSAL_EFFECT = NOT_ESTABLISHED
+
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+
+MAIN_WRITE = NO
+MERGE = NO
+```
+
+Without fresh explicit authority, an agent must not:
+
+- modify `main`;
+- merge, reopen, close, or mark a PR ready;
+- add or synthesize a merge-authority receipt;
+- modify the canonical CCTS definition;
+- promote the local L0-L4 schema into an external or canonical taxonomy;
+- create a new construct or research axis;
+- execute any prospective controlled contrast in this record;
+- publish raw private transcripts or private personalization text;
+- silently make an unmerged PR an implementation dependency;
+- treat a structural or engineering PASS as empirical, causal, learning, or subjectivity validation.
+
+## 16. ChatGPT Work read-only audit gate
+
+The first future executing agent should be ChatGPT Work in **read-only audit mode**.
+
+Work's task is not to implement the proposal. Its task is to decide whether the research record is sufficiently specified and repository-grounded to be handed to a later Codex implementation-gate review.
+
+### 16.1 Required Work audit questions
+
+Work should inspect:
+
+1. purpose;
+2. provenance;
+3. Human-origin observations;
+4. ChatGPT Teacher formalization;
+5. joint-synthesis boundary;
+6. repository ancestry;
+7. competing explanations;
+8. falsifiers / weakening conditions;
+9. claim ceiling;
+10. CCTS non-extension boundary;
+11. privacy boundary;
+12. implementation boundary;
+13. candidate operational observables;
+14. required controls;
+15. missing engineering contract;
+16. missing test contract;
+17. missing recovery / rollback contract;
+18. missing return-artifact requirements;
+19. ambiguous dependencies;
+20. stale repository assumptions.
+
+The Work audit must not infer scientific validity from documentation completeness.
+
+### 16.2 Required Work return artifacts
+
+Work should return, in its response only:
+
+```text
+1. LIVE_STATE_RECEIPT
+
+2. READ_SET_MANIFEST
+   - repository-relative path
+   - ref / commit used
+   - blob SHA if available
+   - reason the source was required
+
+3. HANDOFF_GAP_MATRIX
+   classification:
+   PRESENT
+   PARTIAL
+   MISSING
+   CONFLICT
+   NOT_APPLICABLE
+
+4. DEPENDENCY_REPORT
+   - main
+   - merged history
+   - open PR
+   - closed-unmerged PR
+   - external source
+   - future authorization
+
+5. HOLD_REPORT
+
+6. FINAL_READ_ONLY_CLASSIFICATION
+```
+
+Allowed final Work classifications:
+
+```text
+HANDOFF_READY_FOR_CODEX_GATE_REVIEW
+
+or
+
+HANDOFF_NOT_READY
+```
+
+Neither result authorizes implementation.
+
+## 17. Codex read-only implementation gate
+
+Codex should be invoked only after the Work audit has been reviewed by the Human Owner and ChatGPT Teacher.
+
+The Codex stage remains a **read-only implementation-gate review**.
+
+```text
+CODEX_GATE_REVIEW != IMPLEMENTATION
+CODEX_PLAN != AUTHORIZATION
+```
+
+### 17.1 Required Codex gate questions
+
+Without writing code, Codex should determine:
+
+1. whether executable implementation is needed at all;
+2. whether existing repository code, schema, harness, or test surfaces can be reused;
+3. the smallest implementation that operationalizes the already-recorded method without expanding the construct;
+4. the exact candidate files that would need creation or modification;
+5. the minimum tests required;
+6. required negative controls;
+7. fail-closed conditions;
+8. how output remains structural / operational evidence rather than scientific proof;
+9. provenance representation;
+10. rollback / recovery design;
+11. whether any unmerged PR would become a dependency;
+12. whether the proposal would alter the published CCTS definition or executable structural contract.
+
+If the answer to item 12 is yes:
+
+```text
+IMPLEMENTATION_GATE = HOLD
+```
+
+### 17.2 Implementation-readiness criteria
+
+Codex may classify:
+
+```text
+IMPLEMENTATION_READINESS =
+READY_FOR_SEPARATE_HUMAN_AUTHORIZATION
+```
+
+only when all of the following are true:
+
+- live state is freshly bound;
+- scope is bounded;
+- purpose is operational rather than claim promotion;
+- CCTS definition remains unchanged;
+- no new construct is required;
+- no experiment is executed by the engineering work;
+- exact target files can be named;
+- reuse / deduplication has been checked;
+- minimum tests can be named;
+- fail-closed behavior is specified;
+- provenance handling is specified;
+- no private raw transcript is required;
+- no unmerged dependency is silently required;
+- rollback / recovery is defined;
+- implementation output cannot automatically promote empirical or causal claims;
+- any implementation can remain on a non-main candidate branch;
+- fresh Human authorization is still explicitly required.
+
+Otherwise:
+
+```text
+IMPLEMENTATION_READINESS = HOLD
+```
+
+A third valid conclusion is:
+
+```text
+IMPLEMENTATION_NOT_NEEDED
+```
+
+### 17.3 Required Codex return artifacts
+
+Codex should return, in its response only:
+
+```text
+1. EXACT_STATE_RECEIPT
+2. READ_SET_MANIFEST
+3. REUSE_DEDUP_REPORT
+4. MINIMAL_IMPLEMENTATION_OPTION
+5. NO_IMPLEMENTATION_OPTION
+6. PROPOSED_FILE_CHANGESET
+7. PROPOSED_TEST_MATRIX
+8. FAIL_CLOSED_CONDITIONS
+9. ROLLBACK_PLAN
+10. UNMERGED_DEPENDENCY_REPORT
+11. SCIENTIFIC_CLAIM_BOUNDARY_CHECK
+12. IMPLEMENTATION_READINESS_CLASSIFICATION
+```
+
+Codex must not generate or apply a patch during this gate.
+
+## 18. Shared HOLD conditions
+
+Any future Work or Codex review must stop and report rather than repair when any of the following is true:
+
+- the expected #222 head or relevant repository state has changed and the change has not been reconciled;
+- current main has changed in a materially relevant way;
+- required repository records conflict;
+- provenance is ambiguous;
+- implementation would require changing canonical CCTS definitions;
+- a new scientific construct or research axis is required;
+- a new empirical experiment is required to answer the engineering-gate question;
+- private transcript publication would be required;
+- an unmerged PR becomes a necessary implementation dependency without explicit acknowledgement;
+- the implementation target cannot be bounded;
+- scientific claim promotion is required to justify implementation;
+- the requested review itself would require a prohibited mutation.
+
+```text
+UNKNOWN_RESULT
+-> READ LIVE STATE
+-> ESTABLISH EXACT STATE
+-> CONTINUE OR HOLD
+
+DO_NOT_RETRY_MUTATION_BLINDLY
+```
+
+## 19. Empirical-readiness separation
+
+Engineering readiness and empirical-study readiness remain separate.
+
+Even if a future Codex gate concludes:
+
+```text
+IMPLEMENTATION_READINESS =
+READY_FOR_SEPARATE_HUMAN_AUTHORIZATION
+```
+
+the standing empirical state remains:
+
+```text
+EMPIRICAL_READINESS = NOT_YET
+```
+
+until a separately authorized empirical protocol freezes, at minimum:
+
+- operational criteria;
+- interpretation rules;
+- controlled contrasts;
+- competing-explanation controls;
+- privacy / consent treatment where applicable;
+- model / system / tool / environment bindings;
+- measurement definitions;
+- outcome criteria;
+- falsification criteria.
+
+```text
+ENGINEERING_READINESS
+!= EMPIRICAL_READINESS
+
+STRUCTURAL_TEST_PASS
+!= EMPIRICAL_EFFECT
+
+EMPIRICAL_EFFECT
+!= CAUSAL_EFFECT
+```
+
+## 20. Deferred closure and future re-entry
+
+The Human Owner requested that this record preserve the full future handoff before execution is attempted.
+
+Current disposition after recording this handoff:
+
+```text
+RESEARCH_RECORD_COMPLETENESS = HIGH
+AGENT_HANDOFF_COMPLETENESS = RECORDED
+
+WORK_READ_ONLY_AUDIT = DEFERRED
+CODEX_IMPLEMENTATION_GATE = DEFERRED
+
+IMPLEMENTATION_READINESS = NOT_YET
+EMPIRICAL_READINESS = NOT_YET
+
+PR_DISPOSITION = CLOSE_UNMERGED
+SCIENTIFIC_DISPOSITION = HOLD
+
+CCTS_EXTENSION = NO
+NEW_CONSTRUCT = NO
+RUN_NEW_EXPERIMENT = NO
+
+MAIN_WRITE = NO
+MERGE = NO
+CANONICAL_EFFECT = NONE
+```
+
+Future re-entry must begin from live repository state rather than from this dated checkpoint.
+
+```text
+CLOSED_UNMERGED_RECORD
+-> FUTURE_LIVE_READ
+-> WORK_READ_ONLY_AUDIT
+-> HUMAN_TEACHER_REVIEW
+-> CODEX_READ_ONLY_IMPLEMENTATION_GATE
+-> HUMAN_TEACHER_REVIEW
+-> FRESH_AUTHORIZATION_IF_ANY
+```
+
+### 20.1 Provenance of this handoff addition
+
+```text
+HUMAN_ORIGIN
+= REQUEST_TO_PRESERVE_DETAILED_FUTURE_HANDOFF_AND_CLOSE_UNMERGED
+
+AI_FORMALIZATION
+= EXACT_READ_ORDER
++ WORK_READ_ONLY_AUDIT_GATE
++ CODEX_IMPLEMENTATION_GATE
++ RETURN_ARTIFACT_CONTRACT
++ HOLD_CONDITIONS
++ READINESS_SEPARATION
+
+SCIENTIFIC_CLAIM_CHANGE = NONE
+CCTS_CANONICAL_CHANGE = NONE
+```
