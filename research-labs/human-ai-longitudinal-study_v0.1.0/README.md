@@ -125,6 +125,37 @@ The historical #199 `ccts_epistemic_revision.py` candidate remains superseded. T
 canonical revision implementation stays in `epistemic_revision.py`; no duplicate
 revision module or parallel CCTS admission path is restored.
 
+`learning_contrast_design.py` is one additive **synthetic study-design** adapter
+for the compatible residuals of the closed-unmerged #222 Section 23 and #197/#199
+records. It declares four representation conditions (direct answer, repetition,
+re-representation, and re-representation plus Human judgement), plus one
+independently declared matched non-CCTS practice comparator. A target relation
+stated by AI cannot be relabelled as Human-origin discovery merely because a
+Human accepts it. The condition labels and origin-attribution fields describe
+synthetic design cases, not observed Human cognition.
+
+The adapter re-runs the existing hardened task-selection/yoked-exposure audit
+and the existing CCTS Human-agency audit instead of copying their admission,
+manifest-snapshot, provenance, or held-out logic. It then binds the five arms to
+the same content-addressed components, task, exposure content and intensity,
+prior-knowledge control, evaluator and rubric. A separate practice-context
+artifact identifies the non-CCTS comparator; its presence does **not** establish
+a CCTS-specific effect. A content-addressed falsifier statement binds the
+synthetic outcome labels to an explicit weakening condition. It requires
+distinct immediate and delayed assessment events, a positive declared delay,
+and the already audited held-out payload.
+Phase order is not used as elapsed time or measured retention. Null, negative,
+adverse and unknown *synthetic falsifier labels* are valid design records, not
+experimental results.
+
+The returned audit remains `SCIENTIFIC_DISPOSITION=HOLD`,
+`CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, with Human learning, retention,
+CCTS-specific effect, causality and subjectivity all `NOT_ESTABLISHED`. No
+private transcript, real participant data, psychometric score, live model run,
+new CCTS definition or empirical protocol is introduced. The earlier #178,
+#180/#221, #196, #201, L-1 runtime and D6 proposals remain separate held or
+document-only questions; this adapter does not silently implement them.
+
 Privacy and ontology booleans in the CCTS manifest are declaration-level fail-closed
 controls. The structural harness rejects a manifest that declares private material,
 Human identity, shared mind, shared consciousness or structure-derived AI
