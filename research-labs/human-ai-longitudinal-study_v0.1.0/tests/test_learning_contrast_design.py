@@ -276,7 +276,6 @@ def test_held_out_payload_cannot_equal_target_relation_payload() -> None:
 
 
 def test_required_artifact_must_be_content_addressed() -> None:
-    value = design()
     with pytest.raises(StudyError, match="sha256_digest"):
         exposure_fixture.BoundArtifact("bad", "contents", "0" * 64)
     with pytest.raises(StudyError, match="component payload"):
