@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from itertools import permutations
 
 import pytest
 
@@ -488,3 +489,81 @@ def test_unknown_null_negative_and_adverse_are_valid(outcome: FalsifierOutcome) 
     result = audited(replace(value, assessments=assessments))
     assert result.complete_design is True
     assert result.human_learning == "NOT_ESTABLISHED"
+
+
+def test_valid_design_is_independent_of_arm_container_order() -> None:
+    value = design()
+    for arms in permutations(value.arms):
+        assert audited(replace(value, arms=arms)).complete_design is True
+
+
+@pytest.mark.parametrize("comparator_position", range(5))
+def test_comparator_task_family_drift_is_rejected_at_every_position(comparator_position: int) -> None:
+    value = design()
+    comparator = replace(
+        value.arms[-1],
+        task_family=exposure_fixture.artifact("different-family", "unmatched task family"),
+    )
+    arms = list(value.arms[:-1])
+    arms.insert(comparator_position, comparator)
+    with pytest.raises(StudyError, match="task family"):
+        audited(replace(value, arms=tuple(arms)))
+
+
+@pytest.mark.parametrize("arm_index", range(5))
+def test_arm_cannot_redefine_the_canonical_component_order(arm_index: int) -> None:
+    value = design()
+    arm = value.arms[arm_index]
+    ids = tuple(reversed(arm.presentation.component_ids))
+    blocks = (
+        tuple((item,) for item in ids)
+        if arm.condition in {RepresentationCondition.DIRECT_ANSWER, RepresentationCondition.REPETITION}
+        else arm.presentation.presentation_blocks
+    )
+    presentation = replace(arm.presentation, component_ids=ids, presentation_blocks=blocks)
+    protocol = (
+        exposure_fixture.artifact("practice:reordered", render_practice_protocol(presentation, arm.execution_identity))
+        if arm.comparator_role is ComparatorRole.NON_CCTS_PRACTICE
+        else None
+    )
+    changed = replace(arm, presentation=presentation, practice_protocol=protocol)
+    arms = value.arms[:arm_index] + (changed,) + value.arms[arm_index + 1:]
+    with pytest.raises(StudyError, match="canonical component order"):
+        audited(replace(value, arms=arms))
+
+
+@pytest.mark.parametrize("changed_arm_index", [2, 3, 4])
+def test_judgment_and_ccts_comparisons_cannot_hide_layout_drift(changed_arm_index: int) -> None:
+    value = design()
+    arm = value.arms[changed_arm_index]
+    # Both layouts are legitimate reorganizations; only their mismatch is invalid.
+    presentation = replace(arm.presentation, presentation_blocks=(("component:a", "component:b"),))
+    protocol = (
+        exposure_fixture.artifact("practice:new-layout", render_practice_protocol(presentation, arm.execution_identity))
+        if arm.comparator_role is ComparatorRole.NON_CCTS_PRACTICE
+        else None
+    )
+    changed = replace(arm, presentation=presentation, practice_protocol=protocol)
+    arms = value.arms[:changed_arm_index] + (changed,) + value.arms[changed_arm_index + 1:]
+    with pytest.raises(StudyError, match="matched re-representation layout"):
+        audited(replace(value, arms=arms))
+
+
+def test_shared_alternative_reorganization_remains_valid() -> None:
+    value = design()
+    arms = []
+    for arm in value.arms:
+        if arm.presentation.component_transform is ComponentTransform.REORGANIZE_EXISTING:
+            presentation = replace(arm.presentation, presentation_blocks=(("component:a", "component:b"),))
+            protocol = (
+                exposure_fixture.artifact(
+                    "practice:shared-layout", render_practice_protocol(presentation, arm.execution_identity)
+                )
+                if arm.comparator_role is ComparatorRole.NON_CCTS_PRACTICE
+                else None
+            )
+            arm = replace(arm, presentation=presentation, practice_protocol=protocol)
+        arms.append(arm)
+    result = audited(replace(value, arms=tuple(arms)))
+    assert result.complete_design is True
+    assert result.ccts_effect == "NOT_ESTABLISHED"
