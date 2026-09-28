@@ -258,7 +258,7 @@ class LearningContrastArm:
         if actual_presentation != expected_presentation:
             raise StudyError("presentation plan does not match representation condition")
         identity_blocks = tuple((item,) for item in self.presentation.component_ids)
-        if self.component_transform in {
+        if self.presentation.component_transform in {
             ComponentTransform.ORIGINAL,
             ComponentTransform.VERBATIM_REPEAT,
         }:
