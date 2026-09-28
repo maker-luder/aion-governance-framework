@@ -30,16 +30,16 @@ The current `main` is organized around four connected research lines:
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
 2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration, learning, and evidence admission** — CCTS is formalized with provenance bounds, an executable structural contract, and falsification conditions. Its first scholarly manuscript is publicly archived at [Zenodo](https://zenodo.org/records/22945883), DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883). Current `main` also contains a synthetic matched learning-contrast design with a non-CCTS comparator and delayed-assessment structure; Human learning, retention, and any CCTS-specific effect remain **not established**.
+4. **Human–AI collaboration, learning, and evidence admission** — CCTS is formalized and publicly archived ([Zenodo](https://zenodo.org/records/22945883), DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)). `main` also contains a synthetic matched learning-contrast design; Human learning, retention, causality, and CCTS-specific effects remain **not established**.
 
 ## Current research snapshot
 
 The landing page keeps only the highest-level current picture. For dated milestones, exact merged standing, and the full documentation map, use [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/INDEX.md`](docs/INDEX.md).
 
 - **Continuity and memory:** history replay, attention-structure discrimination, exact-structure longitudinal claim admission, and matched-information memory-locus dependency testing.
-- **Human–AI learning and collaboration:** CCTS is formalized and archived; a synthetic matched learning-contrast contract is now present in `main`, while Human learning, retention, causality, and CCTS-specific effects remain not established.
+- **Human–AI learning and collaboration:** CCTS is archived; `main` includes a synthetic matched learning contrast; learning, retention, causality and CCTS-specific effects remain unestablished.
 - **Evidence admission:** bounded 12-axis provider-evidence admission now spans multiple provider families, while open independent replication remains sparse.
-- **Assurance and quality:** bounded AI risk / impact controls, TEVV, Full-QMS, adversarial-security receipts, FAIR4RS review, NCR/CAPA controls, and bounded supply-chain Phase-1 evidence improve traceability and fail-closed review without creating scientific validation, release authority, or a SLSA claim.
+- **Assurance and quality:** TEVV, Full-QMS, adversarial-security, FAIR4RS, NCR/CAPA and bounded supply-chain Phase 1 improve traceability without implying scientific validation, release authority or SLSA conformance.
 
 ## What this repository does not claim
 
@@ -51,8 +51,6 @@ STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
 ADMISSION_PASS != CLAIM_TRUE
 PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
 HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
-SYNTHETIC_LEARNING_CONTRAST != HUMAN_LEARNING_ESTABLISHED
-FAIR4RS_ALIGNMENT != SCIENTIFIC_VALIDATION
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 HUMAN_AI_COLLABORATION != SHARED_MIND
 STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
@@ -84,7 +82,7 @@ For exact-commit engineering status, use live GitHub / CI evidence rather than s
 
 Astra is a distinct engineering / research workbench used to materialize and test bounded candidates. It is not defined as AION's identity, memory stream, or substitute for subjectivity.
 
-**Current engineering status:** `main` contains bounded assurance controls and research harnesses for quality, security, evidence admission, continuity, memory-locus discrimination, CCAP differential testing, synthetic Human–AI learning contrasts, and bounded supply-chain Phase-1 evidence. They are engineering / fixture-scoped instruments—not evidence of scientific validation, Human learning, subjectivity, consciousness, phenomenal experience, identity continuity, demonstrated security effectiveness, or release readiness.
+**Current engineering status:** `main` contains bounded research / assurance instruments for quality, security, evidence admission, continuity, CCAP, Human–AI learning contrasts, and supply-chain Phase 1. They do not establish scientific validation, Human learning, subjectivity, security effectiveness or release readiness.
 
 ## Governance and license
 
