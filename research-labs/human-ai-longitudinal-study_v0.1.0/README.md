@@ -160,6 +160,19 @@ withheld conditions cannot carry that presentation binding.
 The comparator remains a synthetic design declaration and does not establish a
 CCTS-specific effect.
 
+The follow-up hardening checks every arm regardless of its position in the
+container. Each plan's `component_ids` must preserve the design's canonical
+component order; changes in presentation order belong in `presentation_blocks`.
+The two CCTS re-representation conditions and the non-CCTS practice comparator
+must share those blocks. Otherwise a nominal Human-judgment or CCTS-role contrast
+would also change the layout. Relation source role remains independent declared
+provenance, so layout matching does not establish matched prior knowledge of the
+relation or Human-origin discovery. All 120 arm-container permutations of the
+valid five-arm fixture remain admissible.
+
+See the [bounded strengthening review and implementation handoff](../../docs/research/CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md)
+for counterexamples, external-source limits, and remaining empirical-design gaps.
+
 Immediate and delayed assessment events remain explicit and require distinct IDs
 and a positive declared delay. The separately bound held-out task remains a
 contamination/control dependency; this adapter does not claim that held-out

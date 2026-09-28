@@ -476,6 +476,8 @@ def audit_learning_contrast_design(design: LearningContrastDesign) -> LearningCo
             len(arm.presentation.component_ids) != len(component_ids)
         ):
             raise StudyError("presentation must reference exactly the declared component-information set")
+        if arm.presentation.component_ids != component_ids:
+            raise StudyError("presentation must preserve the canonical component order; reorganize through blocks")
         if arm.provenance.sha256_digest != assisted.ccts_manifest.provenance_manifest_sha256:
             raise StudyError("source-role provenance binding drift")
         if arm.task_payload.sha256_digest != assisted.task_payload_sha256:
@@ -510,8 +512,19 @@ def audit_learning_contrast_design(design: LearningContrastDesign) -> LearningCo
         ("rubric", "rubric"),
     )
     for name, label in matched:
-        if any(getattr(arm, name) != getattr(base, name) for arm in arms[1:]):
+        if any(getattr(arm, name) != getattr(base, name) for arm in arms):
             raise StudyError(f"matched {label} drift")
+
+    # The judgment and CCTS-role comparisons must not also change the layout.
+    # Source role remains independent provenance, not a presentation treatment.
+    reorganized = tuple(
+        arm for arm in arms if arm.presentation.component_transform is ComponentTransform.REORGANIZE_EXISTING
+    )
+    if any(
+        arm.presentation.presentation_blocks != reorganized[0].presentation.presentation_blocks
+        for arm in reorganized[1:]
+    ):
+        raise StudyError("matched re-representation layout drift")
 
     units = {unit.unit_id: unit for unit in exposure.units}
     unit = units.get(base.execution_identity.unit_id)
