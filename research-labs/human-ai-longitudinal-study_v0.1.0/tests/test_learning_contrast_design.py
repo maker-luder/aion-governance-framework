@@ -87,33 +87,47 @@ def design() -> LearningContrastDesign:
         )
 
     component_ids = tuple(item.component_id for item in components)
+    identity_blocks = tuple((item,) for item in component_ids)
+    reorganized_blocks = (tuple(reversed(component_ids)),)
     presentation_by_condition = {
         RepresentationCondition.DIRECT_ANSWER: PresentationPlan(
             component_ids,
+            identity_blocks,
+            1,
             ComponentTransform.ORIGINAL,
             RelationVisibility.PRESENTED,
             RelationSourceRole.AI,
+            target_relation.sha256_digest,
             False,
         ),
         RepresentationCondition.REPETITION: PresentationPlan(
             component_ids,
+            identity_blocks,
+            2,
             ComponentTransform.VERBATIM_REPEAT,
             RelationVisibility.WITHHELD,
             RelationSourceRole.UNKNOWN,
+            None,
             False,
         ),
         RepresentationCondition.RE_REPRESENTATION: PresentationPlan(
             component_ids,
+            reorganized_blocks,
+            1,
             ComponentTransform.REORGANIZE_EXISTING,
             RelationVisibility.WITHHELD,
             RelationSourceRole.UNKNOWN,
+            None,
             False,
         ),
         RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT: PresentationPlan(
             component_ids,
+            reorganized_blocks,
+            1,
             ComponentTransform.REORGANIZE_EXISTING,
             RelationVisibility.WITHHELD,
             RelationSourceRole.UNKNOWN,
+            None,
             True,
         ),
     }
@@ -226,11 +240,21 @@ def test_representation_conditions_require_distinct_typed_presentation_semantics
     repeated = value.arms[1].presentation
     rerepresented = value.arms[2].presentation
     assert repeated.component_transform is ComponentTransform.VERBATIM_REPEAT
+    assert repeated.presentation_passes == 2
     assert rerepresented.component_transform is ComponentTransform.REORGANIZE_EXISTING
+    assert rerepresented.presentation_passes == 1
+    assert repeated.presentation_blocks != rerepresented.presentation_blocks
 
     bad = replace(rerepresented, component_transform=ComponentTransform.VERBATIM_REPEAT)
     with pytest.raises(StudyError, match="presentation plan"):
         replace(value.arms[2], presentation=bad)
+
+    label_only = replace(
+        rerepresented,
+        presentation_blocks=tuple((item,) for item in rerepresented.component_ids),
+    )
+    with pytest.raises(StudyError, match="materially change"):
+        replace(value.arms[2], presentation=label_only)
 
 
 def test_extra_or_missing_component_information_fails_closed() -> None:
@@ -240,6 +264,8 @@ def test_extra_or_missing_component_information_fails_closed() -> None:
         presentation=replace(
             value.arms[2].presentation,
             component_ids=value.arms[2].presentation.component_ids + ("component:new",),
+            presentation_blocks=value.arms[2].presentation.presentation_blocks
+            + (("component:new",),),
         ),
     )
     with pytest.raises(StudyError, match="declared component-information set"):
@@ -249,6 +275,7 @@ def test_extra_or_missing_component_information_fails_closed() -> None:
         presentation=replace(
             value.arms[1].presentation,
             component_ids=value.arms[1].presentation.component_ids[:-1],
+            presentation_blocks=value.arms[1].presentation.presentation_blocks[:-1],
         ),
     )
     with pytest.raises(StudyError, match="declared component-information set"):
@@ -259,6 +286,28 @@ def test_target_relation_payload_is_separate_from_component_information() -> Non
     value = design()
     with pytest.raises(StudyError, match="target relation payload"):
         replace(value, target_relation_payload=value.component_information[0].payload)
+
+
+def test_relation_visibility_binds_the_exact_target_relation_payload() -> None:
+    value = design()
+    direct = value.arms[0]
+    bad_direct = replace(
+        direct,
+        presentation=replace(direct.presentation, relation_payload_sha256="0" * 64),
+    )
+    with pytest.raises(StudyError, match="exact target relation payload"):
+        audited(replace(value, arms=(bad_direct,) + value.arms[1:]))
+
+    hidden = value.arms[1]
+    bad_hidden = replace(
+        hidden,
+        presentation=replace(
+            hidden.presentation,
+            relation_payload_sha256=value.target_relation_payload.sha256_digest,
+        ),
+    )
+    with pytest.raises(StudyError, match="withheld relation"):
+        audited(replace(value, arms=(value.arms[0], bad_hidden) + value.arms[2:]))
 
 
 def test_missing_or_mismatched_comparator_holds() -> None:

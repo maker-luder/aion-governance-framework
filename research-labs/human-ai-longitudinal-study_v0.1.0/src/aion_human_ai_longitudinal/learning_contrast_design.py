@@ -96,9 +96,12 @@ class ComponentInformation:
 @dataclass(frozen=True, slots=True)
 class PresentationPlan:
     component_ids: tuple[str, ...]
+    presentation_blocks: tuple[tuple[str, ...], ...]
+    presentation_passes: int
     component_transform: ComponentTransform
     relation_visibility: RelationVisibility
     relation_source_role: RelationSourceRole
+    relation_payload_sha256: str | None
     human_judgment_required: bool
 
     def __post_init__(self) -> None:
@@ -108,12 +111,30 @@ class PresentationPlan:
             raise StudyError("presentation component IDs must be non-empty text")
         if len(set(self.component_ids)) != len(self.component_ids):
             raise StudyError("presentation component IDs must be unique")
+        if type(self.presentation_blocks) is not tuple or not self.presentation_blocks:
+            raise StudyError("presentation_blocks must be an exact non-empty tuple")
+        if any(
+            type(block) is not tuple
+            or not block
+            or any(type(item) is not str or not item.strip() for item in block)
+            for block in self.presentation_blocks
+        ):
+            raise StudyError("presentation blocks must contain non-empty tuples of component IDs")
+        flattened = tuple(item for block in self.presentation_blocks for item in block)
+        if len(flattened) != len(self.component_ids) or set(flattened) != set(self.component_ids):
+            raise StudyError("presentation blocks must cover each component ID exactly once")
+        if len(set(flattened)) != len(flattened):
+            raise StudyError("presentation blocks cannot duplicate component IDs")
+        if type(self.presentation_passes) is not int or self.presentation_passes <= 0:
+            raise StudyError("presentation_passes must be a positive exact int")
         if type(self.component_transform) is not ComponentTransform:
             raise StudyError("component_transform must be an exact ComponentTransform")
         if type(self.relation_visibility) is not RelationVisibility:
             raise StudyError("relation_visibility must be an exact RelationVisibility")
         if type(self.relation_source_role) is not RelationSourceRole:
             raise StudyError("relation_source_role must be an exact RelationSourceRole")
+        if self.relation_payload_sha256 is not None:
+            _digest("relation_payload_sha256", self.relation_payload_sha256)
         if type(self.human_judgment_required) is not bool:
             raise StudyError("human_judgment_required must be an exact bool")
 
@@ -129,9 +150,12 @@ def render_practice_protocol(
     payload = {
         "component_ids": list(presentation.component_ids),
         "component_transform": presentation.component_transform.value,
+        "presentation_blocks": [list(block) for block in presentation.presentation_blocks],
+        "presentation_passes": presentation.presentation_passes,
         "execution_id": execution_identity.execution_id,
         "execution_record_artifact_id": execution_identity.execution_record_artifact_id,
         "human_judgment_required": presentation.human_judgment_required,
+        "relation_payload_sha256": presentation.relation_payload_sha256,
         "relation_source_role": presentation.relation_source_role.value,
         "relation_visibility": presentation.relation_visibility.value,
         "unit_id": execution_identity.unit_id,
@@ -203,31 +227,45 @@ class LearningContrastArm:
             RepresentationCondition.DIRECT_ANSWER: (
                 ComponentTransform.ORIGINAL,
                 RelationVisibility.PRESENTED,
+                1,
                 False,
             ),
             RepresentationCondition.REPETITION: (
                 ComponentTransform.VERBATIM_REPEAT,
                 RelationVisibility.WITHHELD,
+                2,
                 False,
             ),
             RepresentationCondition.RE_REPRESENTATION: (
                 ComponentTransform.REORGANIZE_EXISTING,
                 RelationVisibility.WITHHELD,
+                1,
                 False,
             ),
             RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT: (
                 ComponentTransform.REORGANIZE_EXISTING,
                 RelationVisibility.WITHHELD,
+                1,
                 True,
             ),
         }[self.condition]
         actual_presentation = (
             self.presentation.component_transform,
             self.presentation.relation_visibility,
+            self.presentation.presentation_passes,
             self.presentation.human_judgment_required,
         )
         if actual_presentation != expected_presentation:
             raise StudyError("presentation plan does not match representation condition")
+        identity_blocks = tuple((item,) for item in self.presentation.component_ids)
+        if self.component_transform in {
+            ComponentTransform.ORIGINAL,
+            ComponentTransform.VERBATIM_REPEAT,
+        }:
+            if self.presentation.presentation_blocks != identity_blocks:
+                raise StudyError("original/repetition presentation must preserve canonical component layout")
+        elif self.presentation.presentation_blocks == identity_blocks:
+            raise StudyError("re-representation must materially change the component layout")
         if self.condition is RepresentationCondition.DIRECT_ANSWER and (
             self.presentation.relation_source_role is not RelationSourceRole.AI
         ):
@@ -408,6 +446,14 @@ def audit_learning_contrast_design(design: LearningContrastDesign) -> LearningCo
         raise StudyError("matched non-CCTS practice comparator is required")
     if len(ccts_arms) != 4 or {arm.condition for arm in ccts_arms} != set(RepresentationCondition):
         raise StudyError("exactly four CCTS representation conditions are required")
+
+    for arm in arms:
+        relation_digest = arm.presentation.relation_payload_sha256
+        if arm.presentation.relation_visibility is RelationVisibility.PRESENTED:
+            if relation_digest != design.target_relation_payload.sha256_digest:
+                raise StudyError("presented relation must bind the exact target relation payload")
+        elif relation_digest is not None:
+            raise StudyError("withheld relation cannot bind a presented relation payload")
 
     comparator = comparators[0]
     practice_protocol = comparator.practice_protocol

@@ -135,7 +135,8 @@ The Stage-A correction removes unrestricted presentation prose as evidence of
 matched information. The design declares one canonical, content-addressed
 component-information set and each arm references exactly that closed component-ID
 set through a typed `PresentationPlan`. Presentation semantics are decomposed into
-a component transform, target-relation visibility, relation source role and a
+an explicit component layout, presentation-pass count, component transform,
+target-relation visibility, relation-payload binding, relation source role and a
 separate Human-judgment requirement. Visibility, provenance and Human judgement are
 independent axes: requiring Human judgement does not relabel an AI- or otherwise
 sourced relation as Human-origin. The current withheld-relation fixture uses
@@ -152,6 +153,10 @@ the distinct execution identity of the verified yoked matched-exposure pair. Its
 practice protocol is canonical text rendered only from the closed typed
 `PresentationPlan` plus that exact verified execution identity; arbitrary free
 text, additional component facts and execution rebinding therefore fail closed.
+Repetition requires two passes over the canonical component layout, while
+re-representation must materially change that layout without changing the
+component set. A presented relation must bind the exact target-relation digest;
+withheld conditions cannot carry that presentation binding.
 The comparator remains a synthetic design declaration and does not establish a
 CCTS-specific effect.
 
