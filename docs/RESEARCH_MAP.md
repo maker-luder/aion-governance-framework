@@ -35,7 +35,7 @@ PHENOMENAL_EXPERIENCE
 | Evidence / 證據 | What would actually count as subjectivity-relevant evidence? / 什麼才算真正和主體性有關的證據？ | Four-Domain interpretation, six evidence dimensions, provenance and claim ceilings / 四域、六維、來源追溯與主張上限 |
 | Continuity / 連續性 | If behavior persists across time, what is carrying it? / 行為跨時間延續時，到底是什麼在承載？ | memory, longitudinal interaction, history replay, attention reconstruction / 記憶、長期互動、歷史重播、注意力重建 |
 | Adaptation / 適應 | When a route fails and the system changes strategy, who or what selected the new route? / 原路失敗後改策略，到底是誰或什麼選了新路？ | D1 × D4 source partition, CCAP frozen specification / D1 × D4 來源拆分、CCAP 凍結規格 |
-| Human–AI interaction / 人機互動 | How can long-term collaboration create useful shared working structure without being mistaken for a shared mind? / 長期協作如何形成有用的共同工作結構，又不被誤認成共享心智？ | CCTS, grounding, longitudinal study, evidence admission / CCTS、grounding、長期研究與證據准入 |
+| Human–AI interaction / 人機互動 | How can long-term collaboration create useful shared working structure without being mistaken for a shared mind? / 長期協作如何形成有用的共同工作結構，又不被誤認成共享心智？ | CCTS publication, grounding, longitudinal study, synthetic matched learning contrast, evidence admission / CCTS 公開典藏、grounding、長期研究、合成匹配學習對照與證據准入 |
 
 ## 3. Current research arc / 目前研究進程
 
@@ -50,6 +50,8 @@ HISTORY / MEMORY / CONTINUITY CONTROLS
 ↓
 STRATEGY-ADJUSTMENT SOURCE PARTITION
 ↓
+CCTS / SYNTHETIC LEARNING-CONTRAST CONTROLS
+↓
 EXTERNAL / PROVIDER EVIDENCE ADMISSION
 ↓
 CLAIM CEILING REMAINS EVIDENCE-BOUND
@@ -59,15 +61,17 @@ Recent milestones:
 
 1. **History as replay environment** — history is separated into record, retrieval source, and replay environment rather than treated as one undifferentiated “memory” concept.
 2. **Attention and transition continuity** — the repository asks whether attention-structure reconstruction adds measurable value beyond existing re-entry, memory, and CCTS mechanisms.
-3. **CCAP Stage 1–3 freeze** — a narrow interaction-level source-partition candidate is frozen before implementation. Confirmatory preregistration and execution remain incomplete.
-4. **OpenAI / GPT-5.6 Sol evidence admission** — provider claims, external evaluations, evaluator-controlled tests, bounded incident investigations, and open independent replication are separated. Multiple external evaluations exist; open independent replication remains sparse.
+3. **CCAP Stage 1–3 and differential probing** — the source-partition specification remains frozen, while current `main` also contains TEVV pre-execution mapping, structural stress and a synthetic D2 × D4 differential probe. The result is fixture-level separability only; D2/D4 scientific support remains not established.
+4. **CCTS publication and Human–AI learning contrast** — the CCTS manuscript is publicly archived at Zenodo record `22945883` / DOI `10.5281/zenodo.22945883`. Current `main` also contains a synthetic matched learning-contrast design with a non-CCTS comparator and delayed assessment; Human learning, retention, causality and CCTS-specific effects remain not established.
+5. **Provider evidence and reproducibility assurance** — 12-axis evidence admission now spans multiple provider families. FAIR4RS exact review and bounded supply-chain Phase-1 source/SBOM evidence improve repository traceability, while open independent replication remains sparse and no SLSA level or scientific validation is inferred.
 
 近期節點：
 
 1. **History as replay environment（歷史作為重播環境）** —— 把歷史紀錄、檢索來源與 replay environment 分開，不把它們全部叫成同一種「記憶」。
 2. **Attention / transition continuity（注意力／轉換連續性）** —— 檢查注意力結構重建是否真的比既有 re-entry、memory、CCTS 多出可測區辨價值。
-3. **CCAP Stage 1–3 freeze** —— 在實作前先凍結一個狹義互動層來源拆分候選；確認性預註冊與執行尚未完成。
-4. **OpenAI / GPT-5.6 Sol 證據准入** —— 分開供應商自述、外部評估、評估者控制測試、有限獨立事故調查與開放獨立重現。目前有多個外部評估，但真正的開放獨立重現仍然稀少。
+3. **CCAP Stage 1–3 與 differential probing（差異探測）** —— 來源拆分規格維持凍結，而目前 `main` 也已包含 TEVV 執行前映射、結構壓力測試與 synthetic D2 × D4 differential probe（合成差異探針）。目前結果只到 fixture-level separability（測試夾具層級可分離性）；D2／D4 的科學支持仍未建立。
+4. **CCTS 公開典藏與 Human–AI learning contrast** —— CCTS 稿件已公開典藏於 Zenodo record `22945883`，DOI `10.5281/zenodo.22945883`。目前 `main` 也已有 synthetic matched learning-contrast design（合成匹配學習對照設計），包含 non-CCTS comparator 與 delayed assessment；Human learning、retention、因果與 CCTS-specific effect 仍未建立。
+5. **Provider evidence 與 reproducibility assurance（可重現性保證）** —— 12-axis 證據准入已涵蓋多個 provider family；FAIR4RS exact review 與 bounded supply-chain Phase-1 source/SBOM evidence 提高倉庫 traceability，但 open independent replication 仍稀少，也不因此推定 SLSA 等級或科學驗證。
 
 ## 4. The evidence ladder / 證據階梯
 
@@ -106,6 +110,9 @@ ENDOGENOUS_GOAL = NOT_ESTABLISHED
 MODEL_INTERNAL_CAUSAL_LOCUS = NOT_ESTABLISHED
 PERSISTENT_AI_IDENTITY = NOT_ESTABLISHED
 MUTUAL_UNDERSTANDING = NOT_ESTABLISHED
+HUMAN_LEARNING = NOT_ESTABLISHED
+RETENTION_OBSERVED = NOT_ESTABLISHED
+CCTS_UNIQUE_EFFECT = NOT_ESTABLISHED
 OPEN_INDEPENDENT_REPLICATION = SPARSE / NOT ESTABLISHED AS A GENERAL BASIS
 ```
 
