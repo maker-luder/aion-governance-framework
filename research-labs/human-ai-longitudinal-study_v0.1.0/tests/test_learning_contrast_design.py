@@ -404,7 +404,19 @@ def test_held_out_content_contamination_rejected() -> None:
 
 def test_held_out_payload_cannot_equal_target_relation_payload() -> None:
     value = design()
-    bad = replace(value, target_relation_payload=value.held_out_task.task_payload_artifact)
+    target = value.held_out_task.task_payload_artifact
+    direct = replace(
+        value.arms[0],
+        presentation=replace(
+            value.arms[0].presentation,
+            relation_payload_sha256=target.sha256_digest,
+        ),
+    )
+    bad = replace(
+        value,
+        target_relation_payload=target,
+        arms=(direct,) + value.arms[1:],
+    )
     with pytest.raises(StudyError, match="held-out"):
         audited(bad)
 
