@@ -1827,3 +1827,291 @@ SCIENTIFIC_DISPOSITION = HOLD
 ```
 
 Future re-entry must begin from live repository state. This section records a revised design hypothesis, not implementation authorization.
+
+
+## 23. 2026-09-28 re-entry — CCTS-relevant learning failure-mode candidate
+
+Status: `NATURALISTIC_REENTRY / LEARNING_FAILURE_MODE_CANDIDATE / SCIENTIFIC_HOLD`
+
+### 23.1 Triggering Human-origin observation
+
+After reviewing the updated `L-1 -> L4` hierarchy, the Human noticed that the important event was not simply that a new fact had been learned.
+
+The Human already had access to the relevant component concepts, including:
+
+```text
+VALUE / PURPOSE
+LEARNING
+HUMAN EPISTEMIC AGENCY
+CCTS-RELEVANT COLLABORATION
+```
+
+but did not initially represent the relation among them as an active problem structure.
+
+The Human's new observation was that the relation became noticeable only after the hierarchy and personalization structure were re-externalized and reviewed again.
+
+```text
+HUMAN_ORIGIN
+= QUESTION_WHY_KNOWN_COMPONENTS_DID_NOT_YIELD_RELATION_EARLIER
++ OBSERVATION_THAT_REVIEW_AND_REPRESENTATION_PRECEDED_RELATIONAL_INSIGHT
++ PROPOSAL_THAT_THIS_MAY_MATTER_FOR_CCTS_LEARNING
+```
+
+This record does not classify the Human as having a stable psychological blind spot.
+
+### 23.2 Local failure-mode formulation
+
+The narrow candidate is:
+
+```text
+KNOWN(A)
++ KNOWN(B)
++ RELATION(A,B)_NOT_ACTIVELY_REPRESENTED
+```
+
+Working description:
+
+```text
+KNOWN_COMPONENTS_WITHOUT_ACTIVE_RELATIONAL_REPRESENTATION
+```
+
+This is a repository-local working label only.
+
+```text
+NEW_SCIENTIFIC_CONSTRUCT = NO
+DIAGNOSIS = NO
+TRAIT_INFERENCE = NO
+```
+
+A temporary descriptive shorthand may be:
+
+```text
+RELATIONAL_ACCESS_GAP
+```
+
+but it must not be treated as an established construct unless independently justified.
+
+### 23.3 Naturalistic sequence observed in this re-entry
+
+The bounded sequence was:
+
+```text
+EXISTING_COMPONENT_KNOWLEDGE
+-> AI_RE-EXTERNALIZATION_OF_STRUCTURE
+-> HUMAN_RELATIONAL_INSIGHT
+-> HUMAN_CHALLENGE_TO_PRIOR_AI_JUDGMENT
+-> AI_EVIDENCE_REVIEW
+-> JOINT_ARTIFACT_REVISION
+```
+
+Importantly:
+
+```text
+AI_NEW_FACT_DELIVERY = NOT_REQUIRED_FOR_INITIAL_RELATIONAL_INSIGHT
+```
+
+The AI supplied a reorganized comparison surface. The Human supplied the key relation:
+
+```text
+VALUE / PURPOSE
+<-> LEARNING
+```
+
+and then challenged the prior AI recommendation.
+
+The subsequent AI role was review, counterevidence checking, and formalization.
+
+### 23.4 CCTS relevance candidate
+
+The candidate implication is that Human-AI learning may sometimes involve more than transferring missing facts.
+
+A distinct research question is whether collaboration can help surface relations among knowledge elements the Human already possesses.
+
+```text
+HUMAN_AI_LEARNING
+MAY_INCLUDE
+RELATIONAL_REPRESENTATION_SUPPORT
+```
+
+This is not equivalent to:
+
+```text
+AI_TAUGHT_NEW_FACT
+```
+
+and not equivalent to:
+
+```text
+CCTS_LEARNING_MECHANISM_ESTABLISHED
+```
+
+A CCTS-relevant interpretation would require reciprocal contribution:
+
+```text
+AI
+= RE-EXTERNALIZATION
++ STRUCTURAL_REPRESENTATION
++ COMPARISON_SURFACE
+
+HUMAN
+= RELATION_DETECTION
++ CHALLENGE
++ JUDGMENT
+
+AI_FOLLOWUP
+= VERIFICATION
++ FORMALIZATION
++ COUNTEREVIDENCE_REVIEW
+
+JOINT_OUTPUT
+= REVISED_ARTIFACT
+```
+
+### 23.5 Learning-design implication candidate
+
+A learner's failure to produce an answer should not automatically be interpreted as absence of all required component knowledge.
+
+```text
+FAILURE_TO_ANSWER
+!= KNOWLEDGE_ABSENCE
+```
+
+A bounded diagnostic sequence may therefore distinguish:
+
+```text
+A. component knowledge absent
+
+B. component knowledge present
+   but relation not actively represented
+```
+
+For condition B, a future teaching design could test whether re-externalizing and restructuring already-known elements helps the learner generate the relation independently.
+
+This is a design hypothesis only.
+
+### 23.6 Prospective controlled contrast
+
+A future study could hold component information approximately constant and compare:
+
+```text
+C0 = DIRECT_ANSWER
+     AI states the target relation
+
+C1 = REPETITION
+     AI repeats the same component facts
+
+C2 = RE_REPRESENTATION
+     AI reorganizes known components
+     without stating the target relation
+
+C3 = RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT
+     AI reorganizes known components
+     and asks the Human to infer the relation
+```
+
+Candidate outcomes:
+
+```text
+HUMAN_ORIGIN_RELATION_DISCOVERY
+INDEPENDENT_EXPLANATION
+DELAYED_RECALL
+HELD_OUT_TRANSFER
+ERROR_CORRECTION
+HUMAN_EPISTEMIC_AGENCY
+```
+
+### 23.7 Competing explanations
+
+At minimum preserve:
+
+1. time-on-task;
+2. repetition/familiarity;
+3. teacher leading or implicit cueing;
+4. novelty of presentation format;
+5. generic self-explanation effects;
+6. retrieval-cue effects;
+7. ordinary problem-representation restructuring;
+8. chance timing of insight;
+9. prior exposure not captured in the immediate sequence;
+10. post-hoc narrative reconstruction.
+
+Therefore:
+
+```text
+RELATIONAL_INSIGHT_AFTER_REVIEW
+!= CCTS_SPECIFIC_EFFECT
+```
+
+### 23.8 Falsifiers and weakening conditions
+
+The CCTS-relevant interpretation is weakened if:
+
+```text
+F1
+DIRECT_ANSWER, REPETITION, and RE_REPRESENTATION
+show no reproducible difference
+on independent explanation or held-out transfer
+
+F2
+the effect is fully explained by generic retrieval cues
+or ordinary self-explanation
+
+F3
+the Human relation is traceable to explicit AI prompting
+rather than Human-origin inference
+
+F4
+the effect does not generalize beyond one naturalistic case
+
+F5
+the re-representation increases compliance
+but reduces Human-origin reasoning or epistemic agency
+```
+
+### 23.9 Provenance
+
+```text
+HUMAN_ORIGIN
+= WHY_DID_I_NOT_NOTICE_THIS_EARLIER
++ VALUE_PURPOSE_TO_LEARNING_RELATION
++ PROPOSAL_OF_CCTS_LEARNING_RELEVANCE
++ PROPOSAL_TO_HELP_LEARNING_AND_FUTURE_PAPER_DESIGN
+
+CHATGPT_TEACHER_FORMALIZATION
+= KNOWN_COMPONENTS_WITHOUT_ACTIVE_RELATIONAL_REPRESENTATION
++ CCTS_RELEVANT_LEARNING_FAILURE_MODE_CANDIDATE
++ DIRECT_ANSWER_VS_REPRESENTATION_CONTRAST
++ COMPETING_EXPLANATIONS
++ FALSIFIERS
+
+JOINT_SYNTHESIS_CANDIDATE
+= RE_REPRESENTATION_MAY_BE_A_USEFUL_CCTS_RELEVANT_LEARNING_SURFACE
+  WHEN_COMPONENT_KNOWLEDGE_ALREADY_EXISTS
+```
+
+### 23.10 Scientific boundary and disposition
+
+```text
+ONE_NATURALISTIC_EVENT
+!= CCTS_LEARNING_MECHANISM_ESTABLISHED
+
+LEARNING_FAILURE_MODE_CANDIDATE = RETAIN
+RELATIONAL_ACCESS_GAP = LOCAL_WORKING_LABEL_ONLY
+
+CCTS_CANONICAL_CHANGE = NO
+CCTS_EXTENSION = NO
+NEW_CONSTRUCT = NO
+NEW_SUBJECTIVITY_DIMENSION = NO
+
+EMPIRICAL_EFFECT = NOT_ESTABLISHED
+CAUSAL_EFFECT = NOT_ESTABLISHED
+GENERALIZATION = NOT_ESTABLISHED
+
+MAIN_WRITE = NO
+MERGE_TO_MAIN = NO
+CANONICAL_EFFECT = NONE
+PR_DISPOSITION = REMAIN_CLOSED_UNMERGED
+SCIENTIFIC_DISPOSITION = HOLD
+```
+
+Future re-entry should begin by rereading live repository state and should treat this section as a hypothesis-generating record, not as proof of a CCTS learning mechanism.
