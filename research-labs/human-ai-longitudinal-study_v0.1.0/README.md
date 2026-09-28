@@ -129,24 +129,33 @@ revision module or parallel CCTS admission path is restored.
 for the compatible residuals of the closed-unmerged #222 Section 23 and #197/#199
 records. It declares four representation conditions (direct answer, repetition,
 re-representation, and re-representation plus Human judgement), plus one
-independently declared matched non-CCTS practice comparator. A target relation
-stated by AI cannot be relabelled as Human-origin discovery merely because a
-Human accepts it. The condition labels and origin-attribution fields describe
-synthetic design cases, not observed Human cognition.
+independently declared matched non-CCTS practice comparator.
 
-The adapter re-runs the existing hardened task-selection/yoked-exposure audit
-and the existing CCTS Human-agency audit instead of copying their admission,
-manifest-snapshot, provenance, or held-out logic. It then binds the five arms to
-the same content-addressed components, task, exposure content and intensity,
-prior-knowledge control, evaluator and rubric. A separate practice-context
-artifact identifies the non-CCTS comparator; its presence does **not** establish
-a CCTS-specific effect. A content-addressed falsifier statement binds the
-synthetic outcome labels to an explicit weakening condition. It requires
-distinct immediate and delayed assessment events, a positive declared delay,
-and the already audited held-out payload.
-Phase order is not used as elapsed time or measured retention. Null, negative,
-adverse and unknown *synthetic falsifier labels* are valid design records, not
-experimental results.
+The Stage-A correction removes unrestricted presentation prose as evidence of
+matched information. The design now declares one canonical, content-addressed
+component-information set and each arm may reference only those component IDs.
+The target relation is a separate content-addressed payload, while
+`RelationSourceRole` records only whether that relation is AI-stated,
+Human-stated, or unstated for the presentation condition. Source attribution is
+not an observation of Human discovery, cognition, learning, or internalization.
+
+The adapter re-runs the existing hardened task-selection/yoked-exposure audit and
+the existing CCTS Human-agency audit instead of copying their admission,
+manifest-snapshot, provenance, or held-out logic. The four CCTS presentation arms
+bind one verified execution identity. The non-CCTS comparator must bind the
+distinct execution identity of the verified yoked matched-exposure pair and a
+separate content-addressed practice protocol; a role label alone is insufficient.
+The comparator remains a synthetic design declaration and does not establish a
+CCTS-specific effect.
+
+Immediate and delayed assessment events remain explicit and require distinct IDs
+and a positive declared delay. The separately bound held-out task remains a
+contamination/control dependency; this adapter does not claim that held-out
+transfer was observed or that the current immediate/delayed events constitute a
+held-out-transfer outcome. The falsifier fixture is therefore limited to
+independent explanation and delayed-assessment structure. Null, negative, adverse
+and unknown *synthetic falsifier labels* are valid design records, not experimental
+results.
 
 The returned audit remains `SCIENTIFIC_DISPOSITION=HOLD`,
 `CANONICAL_EFFECT=NONE`, `DEPLOYMENT=FALSE`, with Human learning, retention,
