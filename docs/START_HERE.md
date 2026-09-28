@@ -49,30 +49,31 @@ HISTORY_AS_RECORD != HISTORY_AS_REPLAY_ENVIRONMENT
 
 ### C. Adaptation under constraint / 受限制條件下的適應
 
-The frozen CCAP Stage 1–3 chain asks whether, under a fixed externally supplied goal, a changed recovery route can be causally partitioned across human guidance, system instructions, harness/orchestration, context, tools, environment, and local strategy selection.
+The frozen CCAP Stage 1–3 chain asks whether, under a fixed externally supplied goal, a changed recovery route can be causally partitioned across human guidance, system instructions, harness/orchestration, context, tools, environment, and local strategy selection. Current `main` now also contains TEVV pre-execution mapping, structural stress and a synthetic D2 × D4 differential probe; these remain fixture-level discriminants rather than confirmatory scientific evidence.
 
-已凍結的 CCAP Stage 1–3 鏈處理一個狹義問題：在外部固定目標下，原路受阻後改走別條路時，能不能把人類引導、system instruction、harness/orchestration、context、工具、環境與 local strategy selection 的因果貢獻拆開？
+已凍結的 CCAP Stage 1–3 鏈處理一個狹義問題：在外部固定目標下，原路受阻後改走別條路時，能不能把人類引導、system instruction、harness/orchestration、context、工具、環境與 local strategy selection 的因果貢獻拆開？目前 `main` 也已包含 TEVV 執行前映射、結構壓力測試與 synthetic D2 × D4 differential probe；這些仍是 fixture-level discriminant（測試夾具層級區辨），不是確認性科學證據。
 
 ```text
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 STAGE3_SPECIFICATION_FREEZE = YES
-CONFIRMATORY_PREREGISTRATION_COMPLETE = NO
-EXECUTION_AUTHORIZATION = NONE
+SYNTHETIC_DIFFERENTIAL_PROBE = PRESENT
+D2_SUPPORT = NOT_ESTABLISHED
+D4_SUPPORT = NOT_ESTABLISHED
 ```
 
 Primary record: [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md)
 
 ### D. Human–AI collaboration and external evidence / 人機協作與外部證據
 
-CCTS / grounding surfaces study structured long-term collaboration without equating collaboration with a shared mind. Provider-evidence admission separately grades provider self-report and external evidence.
+CCTS / grounding surfaces study structured long-term collaboration without equating collaboration with a shared mind. The first CCTS scholarly manuscript is publicly archived at Zenodo record `22945883` / DOI `10.5281/zenodo.22945883`. Current `main` also contains a synthetic matched learning-contrast design with a non-CCTS comparator and delayed-assessment structure; these controls do not establish Human learning, retention, causality or a CCTS-specific effect.
 
-CCTS / grounding 研究長期協作結構，但不把協作等同於 shared mind（共享心智）；provider-evidence admission 則分開供應商自述與不同強度的外部證據。
+CCTS / grounding 研究長期協作結構，但不把協作等同於 shared mind（共享心智）。首份 CCTS 學術稿件已公開典藏於 Zenodo record `22945883`／DOI `10.5281/zenodo.22945883`。目前 `main` 也已包含 synthetic matched learning-contrast design（合成匹配學習對照設計）、non-CCTS comparator 與 delayed-assessment 結構；這些控制不代表 Human learning、retention、因果或 CCTS-specific effect 已建立。
 
-The first completed provider case is OpenAI / GPT-5.6 Sol as a historical reference condition. Multiple external evaluations were found, while open independent replication remains sparse.
+Provider-evidence admission separately grades provider self-report and external evidence and now spans multiple provider families. Open independent replication remains sparse.
 
-第一個完成的 provider 案例是 OpenAI / GPT-5.6 Sol 歷史參考條件；目前找到多個外部評估，但 open independent replication（開放獨立重現）仍然稀少。
+Provider-evidence admission 另行區分供應商自述與不同強度的外部證據，目前已涵蓋多個 provider family；open independent replication（開放獨立重現）仍然稀少。
 
-Primary review: [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md)
+Current routes: [CCTS publication metadata](research/publication/CCTS_RELEASE_METADATA_CURRENT.md), [Human–AI longitudinal study](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md), and [complete evidence navigation](INDEX.md).
 
 ## 3. Choose your path / 依目的選擇閱讀路徑
 
@@ -86,7 +87,7 @@ Primary review: [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18
 | inspect history replay / 查看歷史重播 | [`research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md`](research/HISTORY_AS_REPLAY_ENVIRONMENT_DREAM_RSI_INTAKE_2026_09_18.md) |
 | inspect attention discriminant work / 查看注意力區辨研究 | [`research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md`](research/ATTENTION_STRUCTURE_REPLAY_DISCRIMINANT_REBUILD_2026_09_18.md) |
 | inspect CCAP Stage 1–3 / 查看 CCAP Stage 1–3 | [`research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md`](research/CCAP_STAGE1_STAGE2_STAGE3_FREEZE_MANIFEST_2026_09_18.md) |
-| inspect provider-evidence admission / 查看供應商證據准入 | [`research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md`](research/OPENAI_12_AXIS_EVIDENCE_READMISSION_REVIEW_2026_09_18.md) |
+| inspect provider-evidence admission / 查看供應商證據准入 | [`INDEX.md`](INDEX.md) |
 | understand architecture / 理解架構 | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
 | understand explicit non-claims / 確認不能宣稱什麼 | [`NON_CLAIMS.md`](NON_CLAIMS.md) |
 | inspect authority / provenance / 理解治理與來源 | [`governance/`](governance/) and [`PROVENANCE.md`](PROVENANCE.md) |
