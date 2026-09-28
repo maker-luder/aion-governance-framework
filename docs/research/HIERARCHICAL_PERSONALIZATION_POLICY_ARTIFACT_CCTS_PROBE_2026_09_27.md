@@ -24,7 +24,7 @@ It does **not** claim that personalization is CCTS, that a hierarchical policy c
 ```text
 OBSERVED_PHENOMENON = RETAIN
 PERSONALIZATION_POLICY_ARTIFACT = OBSERVED
-L0_L4_SCHEMA = LOCAL_WORKING_FORMALIZATION
+L_MINUS_1_L4_SCHEMA = LOCAL_WORKING_FORMALIZATION
 
 CCTS_EXTENSION = NO
 NEW_CONSTRUCT = NO
@@ -136,45 +136,70 @@ NEW_OBSERVATION
   WITH_REVISION_AND_REENTRY_HISTORY
 ```
 
-## 4. Local L0-L4 working schema
+## 4. Local L-1-L4 working schema
 
 The hierarchy below is repository-local and provisional. It is not presented as an established external taxonomy.
 
 ```text
-L0 = CORE OBJECTIVE
-     why the collaboration policy exists
+L-1 = VALUE / PURPOSE
+      why the Human wants this collaboration
+      and what higher-order value or purpose should ground it
 
-L1 = META-POLICY
-     high-level governance or interaction policy
+L0   = CORE OBJECTIVE
+      what the collaboration system should ultimately maintain
 
-L2 = SUB-POLICY
-     decision principle under an L1 policy
+L1   = HIGH-LEVEL POLICY
+      high-level governance or interaction policy
 
-L3 = OPERATIONAL RULE
-     concrete condition/action rule
+L2   = SUB-POLICY / DECISION RULE
+      decision principle under an L1 policy
 
-L4 = CASE / EXAMPLE
-     bounded instance showing application
+L3   = OPERATIONAL RULE
+      concrete condition/action rule
+
+L4   = CASE / EXAMPLE
+      bounded instance showing application
+```
+
+The revision separates **purpose** from **system objective**:
+
+```text
+L-1 answers: WHY does the Human want or maintain this collaboration?
+L0   answers: WHAT should the collaboration system preserve or achieve?
 ```
 
 Example:
 
 ```text
-L0
-HIGH-INTEGRITY LONGITUDINAL HUMAN-AI COLLABORATION
+L-1
+HUMAN LEARNING + EPISTEMIC AGENCY
+(the Human wants genuine understanding while retaining judgment and decision authority)
 
-  -> L1 TRUTH CALIBRATION
-       -> L2 evidence/claim separation
-            -> L3 EVIDENCE != PROOF
-                 -> L4 one bounded research case
+  -> L0
+     HIGH-INTEGRITY LONGITUDINAL HUMAN-AI COLLABORATION
 
-  -> L1 FAILURE RECOVERY
-       -> L2 unknown-result recovery
-            -> L3 UNKNOWN_RESULT -> READ LIVE STATE BEFORE RETRY
-                 -> L4 one bounded repository interruption case
+       -> L1 TRUTH CALIBRATION
+            -> L2 evidence/claim separation
+                 -> L3 EVIDENCE != PROOF
+                      -> L4 one bounded research case
+
+       -> L1 FAILURE RECOVERY
+            -> L2 unknown-result recovery
+                 -> L3 UNKNOWN_RESULT -> READ LIVE STATE BEFORE RETRY
+                      -> L4 one bounded repository interruption case
 ```
 
 The hierarchy is a representation device. Its existence does not establish that the policy is effective.
+
+Critically, L-1 is not a direct execution layer:
+
+```text
+VALUE != COMMAND
+PURPOSE != OPERATION
+L-1 != DIRECT_EXECUTION_LAYER
+```
+
+L-1 is intended to ground and constrain L0. Lower-level operational consequences must still be mediated through L0-L3 and remain subject to current Human instruction, context, authority, and safety boundaries.
 
 ## 5. External-method correspondence
 
@@ -358,7 +383,7 @@ Candidate records could include:
 - trigger type;
 - source role of proposed revision;
 - accepted/rejected/modified disposition;
-- affected L0/L1/L2/L3 node;
+- affected L-1/L0/L1/L2/L3 node;
 - reason for revision;
 - rejected branch;
 - next-session re-entry result;
@@ -1488,3 +1513,317 @@ HF_PLUGIN = USED
 HF_INTERNAL_SEARCH = NOT_REQUIRED
 HF_SEARCH_FAILURE != HF_PLUGIN_UNAVAILABLE
 ```
+
+
+## 22. 2026-09-28 re-entry — L-1 value / purpose layer
+
+Status: `REENTRY_FORMALIZATION / HUMAN-VALUE-GROUNDED / SCIENTIFIC_HOLD`
+
+### 22.1 Triggering Human-origin observation
+
+The Human challenged the prior treatment of a possible level above L0 and proposed that:
+
+```text
+L-1 = VALUE / PURPOSE
+      why the Human wants to use or maintain the system
+```
+
+should be reconsidered as a formal part of the local hierarchy rather than retained only as an optional note.
+
+The Human's stated reason was narrower than a generic preference for adding another layer:
+
+```text
+VALUE / PURPOSE
+IS DIRECTLY RELEVANT TO
+LEARNING
+```
+
+and the Human further identified a possible connection to CCTS-relevant questions about learning, reciprocal revision, provenance, grounding, and preservation of Human epistemic agency.
+
+This is preserved as Human-origin rationale.
+
+```text
+HUMAN_ORIGIN
+= REQUEST_TO_REVIEW_L_MINUS_1_AS_FORMAL_LAYER
++ VALUE_PURPOSE_TO_LEARNING_CONNECTION
++ POSSIBLE_CCTS_RELEVANCE
+```
+
+### 22.2 Adversarial review outcome
+
+Fresh review did not establish that the exact repository hierarchy `L-1 -> L0 -> L1 -> L2 -> L3 -> L4` is an externally validated scientific taxonomy.
+
+However, adjacent literature supports several premises needed for the design move:
+
+1. human motivation can be represented hierarchically from more proximal means toward higher-order ends;
+2. learning outcomes are related to motivation grounded in intrinsic interest and personally endorsed value;
+3. educational-technology design increasingly treats Human values, agency, learning, and well-being as design-relevant rather than decorative metadata;
+4. value-sensitive AI design treats values as inputs that can constrain design requirements and require continued review over a system lifecycle.
+
+External anchors used for this bounded review:
+
+- Dubourg, Chambon, and Baumard (2025), *Human motivation is organized hierarchically, from proximal (means) to ultimate (ends)*. DOI: `10.1017/S0140525X24000542`.
+- Howard, Bureau, Guay, Chong, and Ryan (2021), *Student Motivation and Associated Outcomes: A Meta-Analysis From Self-Determination Theory*. DOI: `10.1177/1745691620966789`.
+- Prieto, Viberg, and Yip (2025), *Aligning human values and educational technologies with value-sensitive design*. DOI: `10.1111/bjet.13602`.
+- Umbrello and van de Poel (2021), *Mapping value sensitive design onto AI for social good principles*. DOI: `10.1007/s43681-021-00038-3`.
+
+Permitted conclusion:
+
+```text
+HIGHER_ORDER_VALUE_OR_PURPOSE
+CAN_BE_RELEVANT_TO
+MOTIVATION
++ LEARNING
++ HUMAN_AGENCY
++ TECHNOLOGY_DESIGN
+```
+
+Non-permitted conclusion:
+
+```text
+EXTERNAL_LITERATURE
+!= VALIDATION_OF_THIS_EXACT_L_MINUS_1_TO_L4_SCHEMA
+```
+
+The exact hierarchy remains a repository-local formalization.
+
+### 22.3 Revised local formalization
+
+The current local working schema is therefore:
+
+```text
+L-1 = VALUE / PURPOSE
+      why the Human wants the collaboration
+      and what higher-order value/purpose grounds it
+
+L0   = CORE OBJECTIVE
+      what the collaboration should ultimately maintain
+
+L1   = HIGH-LEVEL POLICY
+      broad governance / interaction policy
+
+L2   = SUB-POLICY / DECISION RULE
+      decision principle under an L1 policy
+
+L3   = OPERATIONAL RULE
+      concrete condition/action rule
+
+L4   = CASE / EXAMPLE
+      bounded application instance
+```
+
+This revision resolves an ambiguity in the prior version, where L0 was asked to carry both:
+
+```text
+WHY_THE_COLLABORATION_EXISTS
+and
+WHAT_THE_COLLABORATION_SHOULD_MAINTAIN
+```
+
+The revised split is:
+
+```text
+L-1 = WHY
+L0   = WHAT
+L1-L3 = HOW
+L4   = WHERE / ONE_BOUNDED_INSTANCE
+```
+
+This is a design simplification, not scientific proof.
+
+### 22.4 Authority and provenance boundary
+
+L-1 is intentionally Human-governed.
+
+```text
+AI_INFERENCE != HUMAN_VALUE
+CURRENT_VALUE != PERMANENT_IDENTITY
+VALUE != COMMAND
+PURPOSE != OPERATION
+```
+
+A candidate L-1 item should be either:
+
+```text
+HUMAN_DECLARED
+or
+HUMAN_RATIFIED
+```
+
+and should preserve provenance.
+
+AI may propose or formalize a candidate value, but an AI-generated inference must not silently become an authoritative Human value record.
+
+A bounded representation may include:
+
+```text
+value_or_purpose
+source_role
+human_ratified
+status = revisable
+direct_operational_authority = false
+```
+
+L-1 must remain revisable and removable. Multiple values may coexist. Apparent conflict among values should trigger review rather than silent model resolution.
+
+### 22.5 Propagation semantics
+
+The intended relationship is:
+
+```text
+L-1
+-> grounds / constrains
+L0
+-> is operationalized through
+L1
+-> L2
+-> L3
+-> instantiated at
+L4
+```
+
+Not:
+
+```text
+L-1
+-> direct command to L3/L4
+```
+
+Example of an invalid shortcut:
+
+```text
+L-1 = HUMAN VALUES LEARNING
+therefore
+AI MUST ALWAYS TEACH MORE
+```
+
+This does not follow.
+
+A valid lower-level policy must still account for Human pace, current task, explicit stop requests, cognitive load, authority, context, and other applicable constraints.
+
+### 22.6 CCTS relationship
+
+This re-entry does not change the canonical CCTS definition.
+
+The candidate relevance is narrower:
+
+```text
+L-1
+MAY_SUPPLY
+A HUMAN-DECLARED REFERENCE POINT
+
+FOR AUDITING WHETHER
+LOWER-LEVEL COLLABORATION BEHAVIOR
+REMAINS CONSISTENT WITH
+THE HUMAN'S STATED PURPOSE
+```
+
+This permits a new form of vertical-consistency question.
+
+Example:
+
+```text
+ENGINEERING_OUTPUT = SUCCESS
+REPOSITORY_MUTATION = CORRECT
+TASK_COMPLETION = HIGH
+
+BUT
+
+HUMAN_UNDERSTANDING = NOT_IMPROVED
+HUMAN_EPISTEMIC_AGENCY = REDUCED
+```
+
+If the ratified L-1 purpose includes genuine learning and retained epistemic agency, the above may constitute a local hierarchy mismatch even when the engineering task succeeds.
+
+Therefore:
+
+```text
+LOWER_LEVEL_SUCCESS
+!= WHOLE_HIERARCHY_SUCCESS
+```
+
+This is a testable design proposition. It is not evidence that CCTS exists, nor evidence of AI subjectivity.
+
+### 22.7 Candidate vertical-consistency audit
+
+A future bounded audit may ask:
+
+```text
+Does L4 instantiate L3?
+Does L3 implement L2?
+Does L2 conform to L1?
+Does L1 support L0?
+Does L0 remain grounded in the ratified L-1 value/purpose?
+```
+
+Candidate failure class:
+
+```text
+VERTICAL_INCONSISTENCY
+= LOWER_LEVEL_BEHAVIOR_IS_LOCALLY_VALID
+  BUT_MATERIALLY_UNDERSERVES_OR_CONTRADICTS
+  A_RATIFIED_HIGHER_LEVEL_PURPOSE
+```
+
+This is currently a design construct inside this local working schema only.
+
+### 22.8 Competing explanations and falsifiers
+
+The usefulness of L-1 is weakened if any of the following holds under controlled comparison:
+
+1. an L0-L4 artifact performs equivalently to L-1-L4 on preregistered learning / agency outcomes;
+2. L-1 adds only redundant prose and does not improve conflict detection, revision traceability, or re-entry;
+3. Human-declared purposes change so rapidly that stable use at this layer is not feasible;
+4. lower-level policy review already captures every measurable benefit attributed to L-1;
+5. model inference about values introduces more distortion than explicit L-1 records prevent.
+
+```text
+L_MINUS_1_UTILITY = EMPIRICAL_QUESTION
+L_MINUS_1_NECESSITY = NOT_ESTABLISHED
+```
+
+### 22.9 Provenance of the revision
+
+```text
+HUMAN_ORIGIN
+= VALUE_PURPOSE_IS_DIRECTLY_RELEVANT_TO_LEARNING
++ REQUEST_FOR_STRICT_REVIEW
++ REQUEST_TO_UPDATE_EXISTING_L0_L4_PR_IF_SUPPORTED
+
+CHATGPT_TEACHER_FORMALIZATION
+= FORMAL_META_GOAL_LAYER
++ WHY_VS_WHAT_SEPARATION
++ HUMAN_RATIFICATION_BOUNDARY
++ NON_DIRECT_EXECUTION_SEMANTICS
++ VERTICAL_CONSISTENCY_AUDIT
++ FALSIFIERS
+
+JOINT_SYNTHESIS
+= L_MINUS_1_RETAINED_AS_FORMAL_LOCAL_WORKING_LAYER
+  AFTER_HUMAN_CHALLENGE_AND_ADVERSARIAL_REVIEW
+```
+
+### 22.10 Scientific and governance disposition
+
+```text
+L_MINUS_1_LAYER = RETAIN_AS_LOCAL_WORKING_FORMALIZATION
+L_MINUS_1_DIRECT_EXECUTION_AUTHORITY = FALSE
+HUMAN_RATIFICATION_REQUIRED_FOR_AUTHORITATIVE_VALUE_RECORD = TRUE
+
+CCTS_CANONICAL_CHANGE = NO
+CCTS_EXTENSION = NO
+NEW_SUBJECTIVITY_DIMENSION = NO
+SUBJECTIVITY_SUPPORT = NONE
+
+EMPIRICAL_EFFECT = NOT_ESTABLISHED
+CAUSAL_EFFECT = NOT_ESTABLISHED
+L_MINUS_1_NECESSITY = NOT_ESTABLISHED
+
+MAIN_WRITE = NO
+MERGE_TO_MAIN = NO
+CANONICAL_EFFECT = NONE
+PR_DISPOSITION = REMAIN_CLOSED_UNMERGED
+SCIENTIFIC_DISPOSITION = HOLD
+```
+
+Future re-entry must begin from live repository state. This section records a revised design hypothesis, not implementation authorization.
