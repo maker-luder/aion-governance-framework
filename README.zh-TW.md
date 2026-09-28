@@ -39,16 +39,16 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
 2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建、transition continuity（轉換連續性）分析，以及在資訊內容匹配條件下的 memory-locus dependency discrimination（記憶資訊所在位置／依賴區辨）；但不把持續存在直接等同於身分延續。
 3. **受限制條件下的適應與區辨測試** —— CCAP Stage 1–3 已推進到 TEVV 執行前映射、Four-Domain × 六維結構壓力測試、系統邊界／區辨硬化，以及 synthetic D2 × D4 differential probe（合成差異探針）。目前只顯示**測試夾具層級的可分離性**；D2 支持、D4 支持與獨立驗證仍然**尚未建立**。
-4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS = Co-Constructed Thinking Space（共構思考場域）已形式化為具來源追溯邊界的 Human–AI epistemic collaboration（人類–AI 認識論協作）框架，包含可執行結構契約與反證邊界。首份學術稿件已公開典藏於 [Zenodo](https://zenodo.org/records/22945883)，DOI = Digital Object Identifier（數位物件識別碼）為 [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)。目前 `main` 也已有 synthetic matched learning contrast（合成匹配學習對照）設計，包含 non-CCTS comparator（非 CCTS 對照）與 delayed-assessment（延遲評估）結構；Human learning（人類學習）、retention（保留／延遲表現）與 CCTS-specific effect（CCTS 特有效果）仍然**尚未建立**。
+4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS 已形式化並公開典藏於 [Zenodo](https://zenodo.org/records/22945883)（DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)）。`main` 現也有 synthetic matched learning contrast（合成匹配學習對照）設計；Human learning、retention、causality 與 CCTS-specific effect 仍**尚未建立**。
 
 ## 目前研究快照
 
 首頁只保留最高層級的目前圖像。若要看有日期的里程碑、精確 merged 現況與完整文件地圖，請進入 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) 與 [`docs/INDEX.md`](docs/INDEX.md)。
 
 - **連續性與記憶：** history replay、attention-structure 區辨、exact-structure longitudinal claim admission，以及 matched-information memory-locus dependency 測試。
-- **Human–AI learning / collaboration：** CCTS 已形式化並公開典藏；`main` 現已包含 synthetic matched learning-contrast contract（合成匹配學習對照契約），但 Human learning、retention、causality（因果）與 CCTS-specific effect 仍然尚未建立。
+- **Human–AI learning / collaboration：** CCTS 已公開典藏；`main` 已有 synthetic matched learning contrast，但 Human learning、retention、causality 與 CCTS-specific effect 仍未建立。
 - **證據准入：** bounded 12-axis provider-evidence admission 已擴展到多個 provider family，但 open independent replication 仍然稀少。
-- **Assurance / quality：** bounded AI risk / impact controls、TEVV、Full-QMS、adversarial-security receipts、FAIR4RS review、NCR/CAPA controls 與 bounded supply-chain Phase-1 evidence 提高 traceability 與 fail-closed review；它們不會因此變成科學驗證、release authority（發布授權）或 SLSA 等級主張。
+- **Assurance / quality：** TEVV、Full-QMS、adversarial-security、FAIR4RS、NCR/CAPA 與 bounded supply-chain Phase 1 提高 traceability，但不代表科學驗證、release authority 或 SLSA conformance。
 
 ## 這個倉庫沒有宣稱什麼？
 
@@ -73,12 +73,6 @@ PROVIDER_ADMISSION != INDEPENDENT_VALIDATION
 
 HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
 人機學習交叉比對 != 主體性證據
-
-SYNTHETIC_LEARNING_CONTRAST != HUMAN_LEARNING_ESTABLISHED
-合成學習對照 != 人類學習已建立
-
-FAIR4RS_ALIGNMENT != SCIENTIFIC_VALIDATION
-FAIR4RS 對齊 != 科學驗證
 
 STRATEGY_ADJUSTMENT != ENDOGENOUS_GOAL
 策略調整 != 內生目標
@@ -122,7 +116,7 @@ CI_PASS != SCIENTIFIC_VALIDATION
 
 Astra 是與 AION 相互區分的工程／研究工作台，用來實作與測試有限範圍候選方案；它不是 AION 的身分、記憶流或主體性替代物。
 
-**目前工程狀態：** `main` 已包含用於 quality、security、evidence admission、continuity、memory-locus discrimination、CCAP differential testing、synthetic Human–AI learning contrast，以及 bounded supply-chain Phase-1 evidence 的 assurance controls 與 research harnesses。這些是工程／fixture-scoped 工具；**不代表**已建立科學驗證、人類學習、主體性、意識、現象經驗、身分連續性、已證明安全有效或已可發布。
+**目前工程狀態：** `main` 已包含 quality、security、evidence admission、continuity、CCAP、Human–AI learning contrast 與 supply-chain Phase 1 的 bounded research / assurance 工具；它們不代表科學驗證、人類學習、主體性、身分連續性、安全有效或 release readiness。
 
 ## 治理與授權
 
