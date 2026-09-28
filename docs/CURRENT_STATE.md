@@ -15,12 +15,15 @@ ACTIVE_RESEARCH_PROGRAM = NO
 POST_TERMINATION_BOUNDED_MAINTENANCE = PRESENT_IN_MAIN
 POST_TERMINATION_BOUNDED_RESEARCH_MATERIALIZATION = PRESENT_IN_MAIN
 
-LATEST_BOUNDED_RESEARCH_MILESTONE = PR_184_MEMORY_LOCUS_DEPENDENCY_HARNESS
-LATEST_MILESTONE_MERGE_COMMIT = 240c1c36c1d06cd12de93d1bc3637203c2351e47
+LATEST_BOUNDED_RESEARCH_MILESTONE = PR_224_CCTS_LEARNING_CONTRAST_STAGE_A
+LATEST_MILESTONE_MERGE_COMMIT = 1dbe934cc95674754286b20240c14936c2ed51cb
 LATEST_RESEARCH_SPECIFICATION_FREEZE = PR_150_CCAP_STAGE1_STAGE3
 
-RECENT_HUMAN_AI_LEARNING_MILESTONE = PR_153
+RECENT_HUMAN_AI_LEARNING_MILESTONE = PR_153 + PR_224
 RECENT_CCTS_FORMALIZATION_SEQUENCE = PR_200 + PR_205 + PR_206 + PR_207
+RECENT_CCTS_LEARNING_CONTRAST = PR_224
+RECENT_REPRODUCIBILITY_ASSURANCE_SEQUENCE = PR_214 + PR_215 + PR_216
+RECENT_METHOD_GOVERNANCE_SEQUENCE = PR_211 + PR_212 + PR_213 + PR_217 + PR_218
 CCTS_SCHOLARLY_PUBLICATION = PUBLICLY_ARCHIVED
 CCTS_ZENODO_RECORD = 22945883
 CCTS_DOI = 10.5281/zenodo.22945883
@@ -52,17 +55,18 @@ The current `main` contains bounded, coordinated research and assurance surfaces
 
 1. **Evidence / causal attribution** — Four-Domain interpretation, six review dimensions, provenance, model/system/harness/context/tool/environment locus separation, and multi-provider 12-axis evidence admission.
 2. **Continuity / memory** — longitudinal Human–AI study surfaces, history replay, attention-structure discrimination, transition continuity, exact-structure claim admission, and matched-information memory-locus dependency testing.
-3. **Human–AI collaboration / learning** — CCTS = Co-Constructed Thinking Space（共構思考場域）is formalized as a provenance-bounded Human–AI epistemic-collaboration framework with an executable structural contract and explicit falsification / weakening conditions. Its first scholarly manuscript is publicly archived at Zenodo record `22945883`, DOI `10.5281/zenodo.22945883`. Human–AI learning / HTECR remains an adjacent research surface rather than evidence of subjectivity or validated learning effects.
+3. **Human–AI collaboration / learning** — CCTS = Co-Constructed Thinking Space（共構思考場域）is formalized as a provenance-bounded Human–AI epistemic-collaboration framework with an executable structural contract and explicit falsification / weakening conditions. Its first scholarly manuscript is publicly archived at Zenodo record `22945883`, DOI `10.5281/zenodo.22945883`. Current `main` also contains the PR #224 synthetic matched learning-contrast design, including typed presentation conditions, an independently bound non-CCTS practice comparator, delayed-assessment structure and fail-closed contamination controls. Human learning, retention, CCTS-specific effects and causality remain not established.
 4. **Adaptation / discriminant testing** — Endogenous Goal Dynamics, CCAP Stage 1–3 specification, D1 × D4 source-partition controls, TEVV pre-execution mapping, Four-Domain × six-dimension stress, and synthetic D2 × D4 differential probes.
-5. **Assurance / governance** — bounded AI risk / impact controls, structural TEVV, exact measurement-semantic binding, Full-QMS, AI adversarial-security receipts, exact-head authority, QA/QC, and NCR/CAPA reconciliation.
+5. **Assurance / governance** — bounded AI risk / impact controls, structural TEVV, exact measurement-semantic binding, Full-QMS, AI adversarial-security receipts, FAIR4RS exact review, bounded supply-chain Phase-1 source/SBOM evidence, exact-head authority, QA/QC, and NCR/CAPA reconciliation. Supply-chain Phase 1 does not establish release readiness, signed provenance, artifact-attestation deployment, SPDX conformance or a SLSA level.
 
 These surfaces improve testability, falsifiability, provenance, isolation accounting and comparability. Their existence or test success does not create a scientific conclusion.
 
 ## Recent bounded milestone groups / 近期 bounded 節點群組
 
 - **CCTS formalization and scholarly publication:** PRs #200/#205/#206/#207 consolidate reciprocal revision, relational continuity, Human epistemic-agency controls and the first scholarly manuscript package. The manuscript is publicly archived at Zenodo record `22945883`, DOI `10.5281/zenodo.22945883`. See the [current publication metadata record](research/publication/CCTS_RELEASE_METADATA_CURRENT.md). Publication remains distinct from peer review, empirical validation, external replication and subjectivity evidence.
-- **Human–AI learning:** PR #153 crosswalks CCTS / HTECR against external learning and coordination literature while preserving falsifiers. See [the crosswalk](research/HUMAN_AI_LEARNING_CCTS_HTECR_EXTERNAL_CROSSWALK_AND_FALSIFICATION_2026_09_18.md).
-- **AI assurance:** PRs #155/#157/#158/#160/#161/#163 add bounded AI risk / impact controls, TEVV, Full-QMS integration, exact measurement-semantic binding, adversarial-security profiling and a content-addressed security receipt. See [AI risk controls](quality/ISO_AI_RISK_AND_IMPACT_MINIMUM_CONTROL_2026_09_18.md) and [end-to-end QMS](../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md).
+- **Human–AI learning:** PR #153 crosswalks CCTS / HTECR against external learning and coordination literature while preserving falsifiers; PR #224 adds one synthetic matched learning-contrast adapter for the compatible residuals of #222 §23 and #197/#199. It distinguishes presentation conditions, a non-CCTS comparator and delayed assessment without claiming observed Human learning or retention. See [the longitudinal study surface](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md).
+- **AI assurance / reproducibility:** PRs #155/#157/#158/#160/#161/#163 establish bounded AI risk / impact controls, TEVV, Full-QMS integration, exact measurement-semantic binding, adversarial-security profiling and a content-addressed security receipt. PRs #214/#215/#216 then reconcile Full-QMS standing, add a FAIR4RS exact matrix, and materialize bounded supply-chain Phase-1 source/SBOM evidence. These controls improve traceability and reproducibility; they do not establish scientific validation, release authority, signed attestation deployment or a SLSA level. See [end-to-end QMS](../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md) and [FAIR4RS matrix](research/FAIR4RS_EXACT_MATRIX_2026_09_25.md).
+- **Method / construct governance:** PRs #211/#212/#213/#217/#218 add external-method crosswalk and session-stability planning, a cross-layer gap audit, plugin/tool-routing governance, CCTS crosswalk clarification and explicit plugin-pipeline construct non-admission. Tool availability and pipeline success remain distinct from scientific construct admission.
 - **Provider evidence:** merged 12-axis reviews now cover OpenAI, Gemini, Grok, Anthropic Claude, Meta Llama and Moonshot Kimi K3, plus a bounded OpenAI–Gemini method comparison. See the complete navigation in [INDEX.md](INDEX.md).
 - **Quality reconciliation:** PR #177 reconciles current NCR/CAPA and exact-head mypy / incident-quality states. See [closure review](quality/NCR_CAPA_MYPY_EXACT_HEAD_CLOSURE_REVIEW_2026_09_19.md).
 - **Longitudinal admission / memory locus:** PR #183 adds the longitudinal claim-admission bridge; PR #184 adds the matched-information memory-locus dependency harness. See [claim bridge](../research-labs/coupled-cognition-quality-factory_v0.1.0/src/aion_coupled_quality/longitudinal_claim_bridge.py) and [memory-locus harness](../research-labs/subjectivity-pipeline_v0.1.0/docs/MEMORY_LOCUS_DEPENDENCY_HARNESS.md).
@@ -72,6 +76,9 @@ ADMISSION_PASS != CLAIM_TRUE
 RETRIEVABILITY != MEMORY_CONTINUITY
 STRUCTURAL_ADMISSIBILITY != FUNCTIONAL_DEPENDENCY
 HUMAN_AI_LEARNING_CROSSWALK != SUBJECTIVITY_EVIDENCE
+SYNTHETIC_LEARNING_CONTRAST != HUMAN_LEARNING_ESTABLISHED
+FAIR4RS_ALIGNMENT != SCIENTIFIC_VALIDATION
+SUPPLY_CHAIN_PHASE1_PASS != RELEASE_READINESS
 PUBLICATION != PEER_REVIEW
 DOI != SCIENTIFIC_VALIDATION
 ARCHIVAL_PUBLICATION != EMPIRICAL_CONFIRMATION
