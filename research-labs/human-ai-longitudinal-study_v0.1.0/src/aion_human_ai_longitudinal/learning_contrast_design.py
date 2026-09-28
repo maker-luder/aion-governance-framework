@@ -6,6 +6,8 @@ Human learning, retention, a CCTS-specific effect, or a causal mechanism.
 
 from __future__ import annotations
 
+import json
+
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -44,7 +46,18 @@ class ComparatorRole(StrEnum):
 class RelationSourceRole(StrEnum):
     HUMAN = "HUMAN"
     AI = "AI"
-    UNSTATED = "UNSTATED"
+    UNKNOWN = "UNKNOWN"
+
+
+class ComponentTransform(StrEnum):
+    ORIGINAL = "ORIGINAL"
+    VERBATIM_REPEAT = "VERBATIM_REPEAT"
+    REORGANIZE_EXISTING = "REORGANIZE_EXISTING"
+
+
+class RelationVisibility(StrEnum):
+    PRESENTED = "PRESENTED"
+    WITHHELD = "WITHHELD"
 
 
 class AssessmentTimepoint(StrEnum):
@@ -81,15 +94,65 @@ class ComponentInformation:
 
 
 @dataclass(frozen=True, slots=True)
+class PresentationPlan:
+    component_ids: tuple[str, ...]
+    component_transform: ComponentTransform
+    relation_visibility: RelationVisibility
+    relation_source_role: RelationSourceRole
+    human_judgment_required: bool
+
+    def __post_init__(self) -> None:
+        if type(self.component_ids) is not tuple or not self.component_ids:
+            raise StudyError("presentation component_ids must be an exact non-empty tuple")
+        if any(type(item) is not str or not item.strip() for item in self.component_ids):
+            raise StudyError("presentation component IDs must be non-empty text")
+        if len(set(self.component_ids)) != len(self.component_ids):
+            raise StudyError("presentation component IDs must be unique")
+        if type(self.component_transform) is not ComponentTransform:
+            raise StudyError("component_transform must be an exact ComponentTransform")
+        if type(self.relation_visibility) is not RelationVisibility:
+            raise StudyError("relation_visibility must be an exact RelationVisibility")
+        if type(self.relation_source_role) is not RelationSourceRole:
+            raise StudyError("relation_source_role must be an exact RelationSourceRole")
+        if type(self.human_judgment_required) is not bool:
+            raise StudyError("human_judgment_required must be an exact bool")
+        if self.relation_visibility is RelationVisibility.WITHHELD:
+            if self.relation_source_role is not RelationSourceRole.UNKNOWN:
+                raise StudyError("withheld relation must not assert a Human or AI source")
+        elif self.relation_source_role is RelationSourceRole.UNKNOWN:
+            raise StudyError("presented relation requires an explicit source role")
+
+
+def render_practice_protocol(
+    presentation: PresentationPlan,
+    execution_identity: ExecutionIdentityBinding,
+) -> str:
+    if type(presentation) is not PresentationPlan:
+        raise StudyError("practice presentation must be an exact PresentationPlan")
+    if type(execution_identity) is not ExecutionIdentityBinding:
+        raise StudyError("practice execution identity must be an exact ExecutionIdentityBinding")
+    payload = {
+        "component_ids": list(presentation.component_ids),
+        "component_transform": presentation.component_transform.value,
+        "execution_id": execution_identity.execution_id,
+        "execution_record_artifact_id": execution_identity.execution_record_artifact_id,
+        "human_judgment_required": presentation.human_judgment_required,
+        "relation_source_role": presentation.relation_source_role.value,
+        "relation_visibility": presentation.relation_visibility.value,
+        "unit_id": execution_identity.unit_id,
+    }
+    return json.dumps(payload, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+
+
+@dataclass(frozen=True, slots=True)
 class LearningContrastArm:
     arm_id: str
     condition: RepresentationCondition
     comparator_role: ComparatorRole
-    relation_source_role: RelationSourceRole
+    presentation: PresentationPlan
     task_domain: SelectionTaskDomain
     task_family: BoundArtifact
     task_payload: BoundArtifact
-    presented_component_ids: tuple[str, ...]
     exposure_content: BoundArtifact
     exposure_intensity: BoundArtifact
     prior_knowledge: BoundArtifact
@@ -110,16 +173,10 @@ class LearningContrastArm:
             raise StudyError("condition must be an exact RepresentationCondition")
         if type(self.comparator_role) is not ComparatorRole:
             raise StudyError("comparator_role must be an exact ComparatorRole")
-        if type(self.relation_source_role) is not RelationSourceRole:
-            raise StudyError("relation_source_role must be an exact RelationSourceRole")
+        if type(self.presentation) is not PresentationPlan:
+            raise StudyError("presentation must be an exact PresentationPlan")
         if type(self.task_domain) is not SelectionTaskDomain:
             raise StudyError("task_domain must be an exact SelectionTaskDomain")
-        if type(self.presented_component_ids) is not tuple or not self.presented_component_ids:
-            raise StudyError("presented_component_ids must be an exact non-empty tuple")
-        if any(type(item) is not str or not item.strip() for item in self.presented_component_ids):
-            raise StudyError("presented component IDs must be non-empty text")
-        if len(set(self.presented_component_ids)) != len(self.presented_component_ids):
-            raise StudyError("presented component IDs must be unique")
         if type(self.execution_identity) is not ExecutionIdentityBinding:
             raise StudyError("execution_identity must be an exact ExecutionIdentityBinding")
         for name in (
@@ -147,14 +204,40 @@ class LearningContrastArm:
         if self.contains_private_material:
             raise StudyError("private material is excluded from synthetic design")
 
-        expected_source = {
-            RepresentationCondition.DIRECT_ANSWER: RelationSourceRole.AI,
-            RepresentationCondition.REPETITION: RelationSourceRole.UNSTATED,
-            RepresentationCondition.RE_REPRESENTATION: RelationSourceRole.UNSTATED,
-            RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT: RelationSourceRole.HUMAN,
+        expected_presentation = {
+            RepresentationCondition.DIRECT_ANSWER: (
+                ComponentTransform.ORIGINAL,
+                RelationVisibility.PRESENTED,
+                RelationSourceRole.AI,
+                False,
+            ),
+            RepresentationCondition.REPETITION: (
+                ComponentTransform.VERBATIM_REPEAT,
+                RelationVisibility.WITHHELD,
+                RelationSourceRole.UNKNOWN,
+                False,
+            ),
+            RepresentationCondition.RE_REPRESENTATION: (
+                ComponentTransform.REORGANIZE_EXISTING,
+                RelationVisibility.WITHHELD,
+                RelationSourceRole.UNKNOWN,
+                False,
+            ),
+            RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT: (
+                ComponentTransform.REORGANIZE_EXISTING,
+                RelationVisibility.WITHHELD,
+                RelationSourceRole.UNKNOWN,
+                True,
+            ),
         }[self.condition]
-        if self.relation_source_role is not expected_source:
-            raise StudyError("relation source role does not match presentation condition")
+        actual_presentation = (
+            self.presentation.component_transform,
+            self.presentation.relation_visibility,
+            self.presentation.relation_source_role,
+            self.presentation.human_judgment_required,
+        )
+        if actual_presentation != expected_presentation:
+            raise StudyError("presentation plan does not match representation condition")
 
         if self.comparator_role is ComparatorRole.CCTS:
             if self.ccts_manifest_snapshot_sha256 is None:
@@ -338,13 +421,19 @@ def audit_learning_contrast_design(design: LearningContrastDesign) -> LearningCo
         raise StudyError("comparator requires an independent practice protocol")
     if practice_protocol.sha256_digest in component_digests | {design.target_relation_payload.sha256_digest}:
         raise StudyError("practice protocol cannot reuse component or target-relation payload content")
+    expected_practice_protocol = render_practice_protocol(
+        comparator.presentation,
+        comparator.execution_identity,
+    )
+    if practice_protocol.content_utf8 != expected_practice_protocol:
+        raise StudyError("practice protocol must canonically bind the comparator presentation and execution")
 
     for arm in ccts_arms:
         if arm.ccts_manifest_snapshot_sha256 != snapshot:
             raise StudyError("CCTS arm must bind admitted manifest snapshot")
     for arm in arms:
-        if set(arm.presented_component_ids) != component_id_set or (
-            len(arm.presented_component_ids) != len(component_ids)
+        if set(arm.presentation.component_ids) != component_id_set or (
+            len(arm.presentation.component_ids) != len(component_ids)
         ):
             raise StudyError("presentation must reference exactly the declared component-information set")
         if arm.provenance.sha256_digest != assisted.ccts_manifest.provenance_manifest_sha256:

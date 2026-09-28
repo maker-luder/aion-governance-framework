@@ -15,12 +15,16 @@ from aion_human_ai_longitudinal.learning_contrast_design import (
     AssessmentTimepoint,
     ComparatorRole,
     ComponentInformation,
+    ComponentTransform,
     FalsifierOutcome,
     LearningContrastArm,
     LearningContrastDesign,
+    PresentationPlan,
     RelationSourceRole,
+    RelationVisibility,
     RepresentationCondition,
     audit_learning_contrast_design,
+    render_practice_protocol,
 )
 
 import test_ccts_human_epistemic_agency as agency_fixture
@@ -39,7 +43,6 @@ def design() -> LearningContrastDesign:
     task = exposure_fixture.artifact("task", "synthetic relation task")
     rubric = exposure_fixture.artifact("rubric", "synthetic relation rubric")
     provenance = exposure_fixture.artifact("provenance", "synthetic source roles")
-    practice = exposure_fixture.artifact("practice", "matched non-CCTS practice protocol")
     components = (
         ComponentInformation("component:a", exposure_fixture.artifact("component:a", "known component A")),
         ComponentInformation("component:b", exposure_fixture.artifact("component:b", "known component B")),
@@ -84,6 +87,36 @@ def design() -> LearningContrastDesign:
         )
 
     component_ids = tuple(item.component_id for item in components)
+    presentation_by_condition = {
+        RepresentationCondition.DIRECT_ANSWER: PresentationPlan(
+            component_ids,
+            ComponentTransform.ORIGINAL,
+            RelationVisibility.PRESENTED,
+            RelationSourceRole.AI,
+            False,
+        ),
+        RepresentationCondition.REPETITION: PresentationPlan(
+            component_ids,
+            ComponentTransform.VERBATIM_REPEAT,
+            RelationVisibility.WITHHELD,
+            RelationSourceRole.UNKNOWN,
+            False,
+        ),
+        RepresentationCondition.RE_REPRESENTATION: PresentationPlan(
+            component_ids,
+            ComponentTransform.REORGANIZE_EXISTING,
+            RelationVisibility.WITHHELD,
+            RelationSourceRole.UNKNOWN,
+            False,
+        ),
+        RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT: PresentationPlan(
+            component_ids,
+            ComponentTransform.REORGANIZE_EXISTING,
+            RelationVisibility.WITHHELD,
+            RelationSourceRole.UNKNOWN,
+            True,
+        ),
+    }
     arms = []
     for condition in RepresentationCondition:
         arms.append(
@@ -91,17 +124,10 @@ def design() -> LearningContrastDesign:
                 arm_id=f"ccts:{condition.value}",
                 condition=condition,
                 comparator_role=ComparatorRole.CCTS,
-                relation_source_role=(
-                    RelationSourceRole.AI
-                    if condition is RepresentationCondition.DIRECT_ANSWER
-                    else RelationSourceRole.HUMAN
-                    if condition is RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT
-                    else RelationSourceRole.UNSTATED
-                ),
+                presentation=presentation_by_condition[condition],
                 task_domain=episode.task_domain,
                 task_family=episode.task_family_artifact,
                 task_payload=task,
-                presented_component_ids=component_ids,
                 exposure_content=episode.exposure_payload_artifact,
                 exposure_intensity=unit.exposure_unit_definition,
                 prior_knowledge=unit.prior_knowledge_control,
@@ -112,6 +138,14 @@ def design() -> LearningContrastDesign:
                 ccts_manifest_snapshot_sha256=snapshot,
             )
         )
+    comparator_identity = identities[paired_unit.unit_id]
+    comparator_presentation = presentation_by_condition[
+        RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT
+    ]
+    practice = exposure_fixture.artifact(
+        "practice",
+        render_practice_protocol(comparator_presentation, comparator_identity),
+    )
     arms.append(
         replace(
             arms[-1],
@@ -119,7 +153,7 @@ def design() -> LearningContrastDesign:
             comparator_role=ComparatorRole.NON_CCTS_PRACTICE,
             ccts_manifest_snapshot_sha256=None,
             practice_protocol=practice,
-            execution_identity=identities[paired_unit.unit_id],
+            execution_identity=comparator_identity,
         )
     )
     events = tuple(
@@ -167,27 +201,50 @@ def test_valid_synthetic_four_condition_design_and_separate_comparator() -> None
     assert result.scientific_disposition.value == "HOLD"
 
 
-def test_relation_source_role_is_typed_by_presentation_condition() -> None:
+def test_human_judgment_is_not_relabelled_as_human_relation_origin() -> None:
     value = design()
-    with pytest.raises(StudyError, match="relation source role"):
-        replace(value.arms[0], relation_source_role=RelationSourceRole.HUMAN)
-    with pytest.raises(StudyError, match="relation source role"):
-        replace(value.arms[1], relation_source_role=RelationSourceRole.AI)
-    with pytest.raises(StudyError, match="relation source role"):
-        replace(value.arms[3], relation_source_role=RelationSourceRole.AI)
+    direct = value.arms[0].presentation
+    judgment = value.arms[3].presentation
+    assert direct.relation_visibility is RelationVisibility.PRESENTED
+    assert direct.relation_source_role is RelationSourceRole.AI
+    assert direct.human_judgment_required is False
+    assert judgment.relation_visibility is RelationVisibility.WITHHELD
+    assert judgment.relation_source_role is RelationSourceRole.UNKNOWN
+    assert judgment.human_judgment_required is True
+
+    with pytest.raises(StudyError, match="withheld relation"):
+        replace(judgment, relation_source_role=RelationSourceRole.HUMAN)
+
+
+def test_representation_conditions_require_distinct_typed_presentation_semantics() -> None:
+    value = design()
+    repeated = value.arms[1].presentation
+    rerepresented = value.arms[2].presentation
+    assert repeated.component_transform is ComponentTransform.VERBATIM_REPEAT
+    assert rerepresented.component_transform is ComponentTransform.REORGANIZE_EXISTING
+
+    bad = replace(rerepresented, component_transform=ComponentTransform.VERBATIM_REPEAT)
+    with pytest.raises(StudyError, match="presentation plan"):
+        replace(value.arms[2], presentation=bad)
 
 
 def test_extra_or_missing_component_information_fails_closed() -> None:
     value = design()
     extra = replace(
         value.arms[2],
-        presented_component_ids=value.arms[2].presented_component_ids + ("component:new",),
+        presentation=replace(
+            value.arms[2].presentation,
+            component_ids=value.arms[2].presentation.component_ids + ("component:new",),
+        ),
     )
     with pytest.raises(StudyError, match="declared component-information set"):
         audited(replace(value, arms=value.arms[:2] + (extra,) + value.arms[3:]))
     missing = replace(
         value.arms[1],
-        presented_component_ids=value.arms[1].presented_component_ids[:-1],
+        presentation=replace(
+            value.arms[1].presentation,
+            component_ids=value.arms[1].presentation.component_ids[:-1],
+        ),
     )
     with pytest.raises(StudyError, match="declared component-information set"):
         audited(replace(value, arms=(value.arms[0], missing) + value.arms[2:]))
@@ -226,6 +283,27 @@ def test_comparator_requires_distinct_verified_execution_and_practice_protocol()
     )
     with pytest.raises(StudyError, match="practice protocol"):
         audited(replace(value, arms=value.arms[:-1] + (bad_protocol,)))
+
+    leaky_protocol = exposure_fixture.artifact(
+        "practice:leaky",
+        value.arms[-1].practice_protocol.content_utf8 + "\nNEW_COMPONENT_FACT=smuggled",
+    )
+    leaky = replace(value.arms[-1], practice_protocol=leaky_protocol)
+    with pytest.raises(StudyError, match="canonically bind"):
+        audited(replace(value, arms=value.arms[:-1] + (leaky,)))
+
+    rebound_identity = value.arms[0].execution_identity
+    rebound_protocol = exposure_fixture.artifact(
+        "practice:rebound",
+        render_practice_protocol(value.arms[-1].presentation, rebound_identity),
+    )
+    rebound = replace(
+        value.arms[-1],
+        execution_identity=rebound_identity,
+        practice_protocol=rebound_protocol,
+    )
+    with pytest.raises(StudyError, match="distinct verified execution identity"):
+        audited(replace(value, arms=value.arms[:-1] + (rebound,)))
 
 
 @pytest.mark.parametrize("field", ["prior_knowledge", "evaluator", "exposure_intensity", "task_domain"])
