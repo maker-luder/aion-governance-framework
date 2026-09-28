@@ -212,8 +212,13 @@ def test_human_judgment_is_not_relabelled_as_human_relation_origin() -> None:
     assert judgment.relation_source_role is RelationSourceRole.UNKNOWN
     assert judgment.human_judgment_required is True
 
-    with pytest.raises(StudyError, match="withheld relation"):
-        replace(judgment, relation_source_role=RelationSourceRole.HUMAN)
+    ai_origin_judgment = replace(judgment, relation_source_role=RelationSourceRole.AI)
+    variant_arm = replace(value.arms[3], presentation=ai_origin_judgment)
+    variant = replace(
+        value,
+        arms=value.arms[:3] + (variant_arm,) + value.arms[4:],
+    )
+    assert audited(variant).complete_design is True
 
 
 def test_representation_conditions_require_distinct_typed_presentation_semantics() -> None:
@@ -271,7 +276,7 @@ def test_comparator_requires_distinct_verified_execution_and_practice_protocol()
         value.arms[-1],
         execution_identity=value.arms[0].execution_identity,
     )
-    with pytest.raises(StudyError, match="distinct verified execution identity"):
+    with pytest.raises(StudyError, match="canonically bind"):
         audited(replace(value, arms=value.arms[:-1] + (reused_execution,)))
 
     with pytest.raises(StudyError, match="practice protocol"):
@@ -284,9 +289,11 @@ def test_comparator_requires_distinct_verified_execution_and_practice_protocol()
     with pytest.raises(StudyError, match="practice protocol"):
         audited(replace(value, arms=value.arms[:-1] + (bad_protocol,)))
 
+    practice_protocol = value.arms[-1].practice_protocol
+    assert practice_protocol is not None
     leaky_protocol = exposure_fixture.artifact(
         "practice:leaky",
-        value.arms[-1].practice_protocol.content_utf8 + "\nNEW_COMPONENT_FACT=smuggled",
+        practice_protocol.content_utf8 + "\nNEW_COMPONENT_FACT=smuggled",
     )
     leaky = replace(value.arms[-1], practice_protocol=leaky_protocol)
     with pytest.raises(StudyError, match="canonically bind"):

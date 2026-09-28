@@ -136,12 +136,13 @@ matched information. The design declares one canonical, content-addressed
 component-information set and each arm references exactly that closed component-ID
 set through a typed `PresentationPlan`. Presentation semantics are decomposed into
 a component transform, target-relation visibility, relation source role and a
-separate Human-judgment requirement. This prevents `Human judgement` from being
-silently reinterpreted as `Human-origin relation`: a withheld relation has
+separate Human-judgment requirement. Visibility, provenance and Human judgement are
+independent axes: requiring Human judgement does not relabel an AI- or otherwise
+sourced relation as Human-origin. The current withheld-relation fixture uses
 `RelationSourceRole.UNKNOWN`, while an AI-presented direct answer is explicitly
 AI-sourced. The target relation remains a separate content-addressed payload.
-Source attribution is not an observation of Human discovery, cognition, learning,
-or internalization.
+Source attribution is a declared provenance field, not an observation of Human
+discovery, cognition, learning, or internalization.
 
 The adapter re-runs the existing hardened task-selection/yoked-exposure audit and
 the existing CCTS Human-agency audit instead of copying their admission,

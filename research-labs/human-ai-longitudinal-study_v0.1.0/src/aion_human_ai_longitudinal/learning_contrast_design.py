@@ -116,11 +116,6 @@ class PresentationPlan:
             raise StudyError("relation_source_role must be an exact RelationSourceRole")
         if type(self.human_judgment_required) is not bool:
             raise StudyError("human_judgment_required must be an exact bool")
-        if self.relation_visibility is RelationVisibility.WITHHELD:
-            if self.relation_source_role is not RelationSourceRole.UNKNOWN:
-                raise StudyError("withheld relation must not assert a Human or AI source")
-        elif self.relation_source_role is RelationSourceRole.UNKNOWN:
-            raise StudyError("presented relation requires an explicit source role")
 
 
 def render_practice_protocol(
@@ -208,36 +203,35 @@ class LearningContrastArm:
             RepresentationCondition.DIRECT_ANSWER: (
                 ComponentTransform.ORIGINAL,
                 RelationVisibility.PRESENTED,
-                RelationSourceRole.AI,
                 False,
             ),
             RepresentationCondition.REPETITION: (
                 ComponentTransform.VERBATIM_REPEAT,
                 RelationVisibility.WITHHELD,
-                RelationSourceRole.UNKNOWN,
                 False,
             ),
             RepresentationCondition.RE_REPRESENTATION: (
                 ComponentTransform.REORGANIZE_EXISTING,
                 RelationVisibility.WITHHELD,
-                RelationSourceRole.UNKNOWN,
                 False,
             ),
             RepresentationCondition.RE_REPRESENTATION_PLUS_HUMAN_JUDGMENT: (
                 ComponentTransform.REORGANIZE_EXISTING,
                 RelationVisibility.WITHHELD,
-                RelationSourceRole.UNKNOWN,
                 True,
             ),
         }[self.condition]
         actual_presentation = (
             self.presentation.component_transform,
             self.presentation.relation_visibility,
-            self.presentation.relation_source_role,
             self.presentation.human_judgment_required,
         )
         if actual_presentation != expected_presentation:
             raise StudyError("presentation plan does not match representation condition")
+        if self.condition is RepresentationCondition.DIRECT_ANSWER and (
+            self.presentation.relation_source_role is not RelationSourceRole.AI
+        ):
+            raise StudyError("DIRECT_ANSWER requires an AI-sourced presented relation")
 
         if self.comparator_role is ComparatorRole.CCTS:
             if self.ccts_manifest_snapshot_sha256 is None:
