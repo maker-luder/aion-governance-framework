@@ -15,13 +15,13 @@ ACTIVE_RESEARCH_PROGRAM = NO
 POST_TERMINATION_BOUNDED_MAINTENANCE = PRESENT_IN_MAIN
 POST_TERMINATION_BOUNDED_RESEARCH_MATERIALIZATION = PRESENT_IN_MAIN
 
-LATEST_BOUNDED_RESEARCH_MILESTONE = PR_224_CCTS_LEARNING_CONTRAST_STAGE_A
-LATEST_MILESTONE_MERGE_COMMIT = 1dbe934cc95674754286b20240c14936c2ed51cb
+LATEST_BOUNDED_RESEARCH_MILESTONE = PR_226_CCTS_LEARNING_CONTRAST_HARDENING
+LATEST_MILESTONE_MERGE_COMMIT = e3f1d2b003a49246801dae41afdfc32c7158b263
 LATEST_RESEARCH_SPECIFICATION_FREEZE = PR_150_CCAP_STAGE1_STAGE3
 
-RECENT_HUMAN_AI_LEARNING_MILESTONE = PR_153 + PR_224
+RECENT_HUMAN_AI_LEARNING_MILESTONE = PR_153 + PR_224 + PR_226
 RECENT_CCTS_FORMALIZATION_SEQUENCE = PR_200 + PR_205 + PR_206 + PR_207
-RECENT_CCTS_LEARNING_CONTRAST = PR_224
+RECENT_CCTS_LEARNING_CONTRAST = PR_224 + PR_226
 RECENT_REPRODUCIBILITY_ASSURANCE_SEQUENCE = PR_214 + PR_215 + PR_216
 RECENT_METHOD_GOVERNANCE_SEQUENCE = PR_211 + PR_212 + PR_213 + PR_217 + PR_218
 CCTS_SCHOLARLY_PUBLICATION = PUBLICLY_ARCHIVED
@@ -64,7 +64,7 @@ These surfaces improve testability, falsifiability, provenance, isolation accoun
 ## Recent bounded milestone groups / 近期 bounded 節點群組
 
 - **CCTS formalization and scholarly publication:** PRs #200/#205/#206/#207 consolidate reciprocal revision, relational continuity, Human epistemic-agency controls and the first scholarly manuscript package. The manuscript is publicly archived at Zenodo record `22945883`, DOI `10.5281/zenodo.22945883`. See the [current publication metadata record](research/publication/CCTS_RELEASE_METADATA_CURRENT.md). Publication remains distinct from peer review, empirical validation, external replication and subjectivity evidence.
-- **Human–AI learning:** PR #153 provides the external crosswalk; PR #224 adds a synthetic matched learning contrast with a non-CCTS comparator and delayed assessment, without claiming observed learning or retention. See [the longitudinal study surface](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md).
+- **Human–AI learning:** PR #153 provides the external crosswalk; #224 adds the synthetic learning contrast; #226 hardens arm-order checks, canonical component order and matched re-representation layouts. These do not establish learning or retention. See [the study surface](../research-labs/human-ai-longitudinal-study_v0.1.0/README.md) and [the #226 review / deferred handoff](research/CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md#6-deferred-implementation-handoff--not-an-experiment-authorization). Independent assessment, testing exposure and realized execution still require protocol decisions; this handoff does not authorize an experiment.
 - **AI assurance / reproducibility:** earlier assurance PRs establish risk, TEVV, Full-QMS and adversarial-security controls; PRs #214/#215/#216 add current Full-QMS reconciliation, FAIR4RS review and bounded supply-chain Phase 1. These do not establish scientific validation, release authority or SLSA conformance. See [end-to-end QMS](../research-labs/coupled-cognition-quality-factory_v0.1.0/docs/END_TO_END_RESEARCH_QMS.md) and [FAIR4RS matrix](research/FAIR4RS_EXACT_MATRIX_2026_09_25.md).
 - **Method / construct governance:** PRs #211/#212/#213/#217/#218 add method crosswalk, gap audit, tool routing, CCTS clarification and plugin-pipeline non-admission; tool success remains distinct from construct admission.
 - **Provider evidence:** merged 12-axis reviews now cover OpenAI, Gemini, Grok, Anthropic Claude, Meta Llama and Moonshot Kimi K3, plus a bounded OpenAI–Gemini method comparison. See the complete navigation in [INDEX.md](INDEX.md).
