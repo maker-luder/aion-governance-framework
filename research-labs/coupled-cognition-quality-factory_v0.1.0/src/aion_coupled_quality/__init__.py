@@ -30,6 +30,7 @@ from .models import (
 )
 from .provenance import (
     ClaimLayer,
+    ContributionActor,
     ContributionOrigin,
     ContributionRecord,
     EpistemicProvenanceLedger,
@@ -50,6 +51,7 @@ __all__ = [
     "ClaimQualityError",
     "ClaimRevision",
     "ClaimStatus",
+    "ContributionActor",
     "ContributionOrigin",
     "ContributionRecord",
     "CounterDisposition",

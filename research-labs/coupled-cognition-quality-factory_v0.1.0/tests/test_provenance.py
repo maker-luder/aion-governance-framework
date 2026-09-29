@@ -2,6 +2,7 @@ import pytest
 
 from aion_coupled_quality.provenance import (
     ClaimLayer,
+    ContributionActor,
     ContributionOrigin,
     ContributionRecord,
     EpistemicProvenanceLedger,
@@ -75,6 +76,7 @@ def test_joint_synthesis_requires_traceable_human_and_ai_parents() -> None:
             record_id="ai",
             proposition="Separate model, system, relational and observer-attributed loci.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CHATGPT_TEACHER,
             layer=ClaimLayer.ANALYSIS,
             parent_ids=("human",),
         )
@@ -100,6 +102,7 @@ def test_joint_synthesis_rejects_one_sided_parentage() -> None:
             record_id="a1",
             proposition="assistant candidate one",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CHATGPT_TEACHER,
             layer=ClaimLayer.ANALYSIS,
         )
     )
@@ -108,6 +111,7 @@ def test_joint_synthesis_rejects_one_sided_parentage() -> None:
             record_id="a2",
             proposition="assistant candidate two",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CHATGPT_TEACHER,
             layer=ClaimLayer.ANALYSIS,
         )
     )
@@ -144,8 +148,56 @@ def test_duplicate_record_id_is_rejected() -> None:
         record_id="same",
         proposition="first",
         origin=ContributionOrigin.AI_FORMALIZATION,
+        actor=ContributionActor.CHATGPT_TEACHER,
         layer=ClaimLayer.ANALYSIS,
     )
     ledger.add(record)
     with pytest.raises(ProvenanceError):
         ledger.add(record)
+
+@pytest.mark.parametrize(
+    "actor",
+    (
+        ContributionActor.CHATGPT_TEACHER,
+        ContributionActor.CHATGPT_WORK,
+        ContributionActor.CODEX,
+    ),
+)
+def test_ai_formalization_preserves_specific_collaborator_actor(actor: ContributionActor) -> None:
+    ledger = EpistemicProvenanceLedger()
+    ledger.add(
+        ContributionRecord(
+            record_id=f"ai-{actor.value.lower()}",
+            proposition="Bounded AI formalization fixture.",
+            origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=actor,
+            layer=ClaimLayer.ANALYSIS,
+        )
+    )
+    record = ledger.records()[0]
+    audit = ledger.audit(record.record_id)
+    assert record.actor is actor
+    assert audit.actor is actor
+    assert f"CONTRIBUTOR_ACTOR:{actor.value}" in audit.reasons
+
+
+def test_ai_formalization_rejects_generic_or_unverified_actor() -> None:
+    with pytest.raises(ProvenanceError, match="specific AI collaborator actor"):
+        ContributionRecord(
+            record_id="ambiguous-ai",
+            proposition="Ambiguous AI contributor.",
+            origin=ContributionOrigin.AI_FORMALIZATION,
+            layer=ClaimLayer.ANALYSIS,
+        )
+
+
+def test_specific_ai_actor_cannot_be_attached_to_non_ai_origin() -> None:
+    with pytest.raises(ProvenanceError, match="requires AI_FORMALIZATION origin"):
+        ContributionRecord(
+            record_id="misclassified-ai",
+            proposition="Misclassified contributor.",
+            origin=ContributionOrigin.UNKNOWN,
+            actor=ContributionActor.CHATGPT_WORK,
+            layer=ClaimLayer.ANALYSIS,
+        )
+

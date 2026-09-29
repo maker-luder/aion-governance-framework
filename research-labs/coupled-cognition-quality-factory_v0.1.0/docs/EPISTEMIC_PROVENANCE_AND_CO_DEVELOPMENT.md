@@ -17,7 +17,9 @@ UNKNOWN_ORIGIN != HUMAN_ORIGIN
 PROVENANCE != CORRECTNESS
 ```
 
-The implementation in `aion_coupled_quality.provenance` records:
+The implementation in `aion_coupled_quality.provenance` records two separate axes.
+
+**Epistemic contribution origin:**
 
 - `HUMAN_ORIGIN`;
 - `AI_FORMALIZATION`;
@@ -25,7 +27,32 @@ The implementation in `aion_coupled_quality.provenance` records:
 - `EXTERNAL_SOURCE`;
 - `UNKNOWN`.
 
-It separately records claim layer and whether a statement about a person's state was self-reported, merely an observed signal, inferred, or unknown.
+**Operational contributor actor:** the specific collaborator/source label, including
+`HUMAN_OWNER`, `CHATGPT_TEACHER`, `CHATGPT_WORK`, `CODEX`, `MANUS`,
+`GITHUB_ACTIONS`, `AUTOMATED_TEST`, `EXTERNAL_SOURCE`, or
+`SOURCE_UNVERIFIED`.
+
+These axes are deliberately not collapsed. `AI_FORMALIZATION` says what
+epistemic role a contribution played; it does **not** say which AI collaborator
+supplied it. New `AI_FORMALIZATION` records therefore fail closed unless the
+specific known AI collaborator is recorded. In particular, ChatGPT Teacher,
+ChatGPT Work and Codex are distinct operational contributor labels even though
+all may contribute AI-assisted formalization in different tasks.
+
+```text
+CONTRIBUTION_ORIGIN != CONTRIBUTOR_ACTOR
+AI_FORMALIZATION != CHATGPT_TEACHER
+AI_FORMALIZATION != CHATGPT_WORK
+AI_FORMALIZATION != CODEX
+CHATGPT_TEACHER != CHATGPT_WORK
+CHATGPT_WORK != CODEX
+ACTOR_LABEL != VERIFIED_MODEL_IDENTITY
+```
+
+The actor label is an auditable workflow attribution, not a claim about
+subjective identity, model continuity, independence, or scientific authority.
+
+The ledger separately records claim layer and whether a statement about a person's state was self-reported, merely an observed signal, inferred, or unknown.
 
 A specific failure class is prohibited: input content must not silently become a claim about the contributor's internal state. For example, posting a surprising article does not by itself establish that the poster was surprised.
 

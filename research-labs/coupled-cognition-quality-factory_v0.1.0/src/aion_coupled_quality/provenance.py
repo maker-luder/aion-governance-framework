@@ -16,6 +16,30 @@ class ContributionOrigin(StrEnum):
     UNKNOWN = "UNKNOWN"
 
 
+class ContributionActor(StrEnum):
+    """Operational collaborator/source label, separate from epistemic origin."""
+
+    HUMAN_OWNER = "HUMAN_OWNER"
+    CHATGPT_TEACHER = "CHATGPT_TEACHER"
+    CHATGPT_WORK = "CHATGPT_WORK"
+    CODEX = "CODEX"
+    MANUS = "MANUS"
+    GITHUB_ACTIONS = "GITHUB_ACTIONS"
+    AUTOMATED_TEST = "AUTOMATED_TEST"
+    EXTERNAL_SOURCE = "EXTERNAL_SOURCE"
+    SOURCE_UNVERIFIED = "SOURCE_UNVERIFIED"
+
+
+_AI_FORMALIZATION_ACTORS = frozenset(
+    {
+        ContributionActor.CHATGPT_TEACHER,
+        ContributionActor.CHATGPT_WORK,
+        ContributionActor.CODEX,
+        ContributionActor.MANUS,
+    }
+)
+
+
 class ClaimLayer(StrEnum):
     DIRECT_STATEMENT = "DIRECT_STATEMENT"
     OBSERVATION = "OBSERVATION"
@@ -46,6 +70,7 @@ class ContributionRecord:
     proposition: str
     origin: ContributionOrigin
     layer: ClaimLayer
+    actor: ContributionActor = ContributionActor.SOURCE_UNVERIFIED
     source_refs: tuple[str, ...] = field(default_factory=tuple)
     parent_ids: tuple[str, ...] = field(default_factory=tuple)
     state_attribution: StateAttribution = StateAttribution.NOT_APPLICABLE
@@ -58,6 +83,14 @@ class ContributionRecord:
             raise ProvenanceError("proposition must be non-empty")
         if self.canonical_effect != "NONE":
             raise ProvenanceError("provenance records cannot create canonical effect")
+        if type(self.actor) is not ContributionActor:
+            raise ProvenanceError("actor must use an exact ContributionActor value")
+        if self.origin is ContributionOrigin.AI_FORMALIZATION and self.actor not in _AI_FORMALIZATION_ACTORS:
+            raise ProvenanceError(
+                "AI_FORMALIZATION requires a specific AI collaborator actor; generic or unverified AI attribution is not admissible"
+            )
+        if self.actor in _AI_FORMALIZATION_ACTORS and self.origin is not ContributionOrigin.AI_FORMALIZATION:
+            raise ProvenanceError("a specific AI collaborator actor requires AI_FORMALIZATION origin")
         if self.origin in {ContributionOrigin.HUMAN_ORIGIN, ContributionOrigin.EXTERNAL_SOURCE} and not self.source_refs:
             raise ProvenanceError(f"{self.origin.value} requires at least one source reference")
         if self.state_attribution is StateAttribution.SELF_REPORTED:
@@ -72,6 +105,7 @@ class ContributionRecord:
 @dataclass(frozen=True, slots=True)
 class ProvenanceAudit:
     record_id: str
+    actor: ContributionActor
     structurally_valid: bool
     human_origin_admissible: bool
     externally_sourced: bool
@@ -115,6 +149,10 @@ class EpistemicProvenanceLedger:
     def audit(self, record_id: str) -> ProvenanceAudit:
         record = self.get(record_id)
         reasons: list[str] = ["PROVENANCE_IS_NOT_TRUTH"]
+        if record.actor is not ContributionActor.SOURCE_UNVERIFIED:
+            reasons.append(f"CONTRIBUTOR_ACTOR:{record.actor.value}")
+        if record.origin is ContributionOrigin.AI_FORMALIZATION:
+            reasons.append("AI_FORMALIZATION_PRESERVES_SPECIFIC_ACTOR")
         human_origin_admissible = record.origin is ContributionOrigin.HUMAN_ORIGIN and bool(record.source_refs)
         externally_sourced = record.origin is ContributionOrigin.EXTERNAL_SOURCE and bool(record.source_refs)
         joint_synthesis_admissible = False
@@ -138,6 +176,7 @@ class EpistemicProvenanceLedger:
 
         return ProvenanceAudit(
             record_id=record.record_id,
+            actor=record.actor,
             structurally_valid=True,
             human_origin_admissible=human_origin_admissible,
             externally_sourced=externally_sourced,
