@@ -53,7 +53,8 @@ Review does not imply approval unless the project record explicitly grants that 
 Use explicit actor values where known:
 
 - `HUMAN_OWNER`
-- `CHATGPT`
+- `CHATGPT_TEACHER`
+- `CHATGPT_WORK`
 - `CODEX`
 - `AION_RUNTIME`
 - `ASTRA_RUNTIME`
@@ -61,7 +62,16 @@ Use explicit actor values where known:
 - `GITHUB_ACTIONS`
 - `SOURCE_UNVERIFIED`
 
-Do not substitute a generic `AI` actor when a specific collaborator is known.
+Do not substitute a generic `AI` or generic `CHATGPT` actor when a specific collaborator is known. For new records, `CHATGPT_TEACHER`, `CHATGPT_WORK`, and `CODEX` are distinct actor labels and must not be collapsed merely because they are AI-assisted collaborators.
+
+```text
+CONTRIBUTION_ORIGIN != ACTOR_ID
+AI_FORMALIZATION + CHATGPT_TEACHER
+!= AI_FORMALIZATION + CHATGPT_WORK
+!= AI_FORMALIZATION + CODEX
+```
+
+Legacy records that only say `CHATGPT` may remain historical when finer attribution cannot be reconstructed; they must not be silently upgraded. Use `SOURCE_UNVERIFIED` when the specific collaborator cannot be recovered.
 
 ## Attribution confidence
 

@@ -13,6 +13,7 @@ from aion_coupled_quality import (
     ClaimLevel,
     ClaimRevision,
     ClaimStatus,
+    ContributionActor,
     ContributionOrigin,
     ContributionRecord,
     CounterDisposition,
@@ -53,6 +54,7 @@ def _ledger(*, unknown_claim_origin: bool = False) -> EpistemicProvenanceLedger:
             record_id="resolution-provenance",
             proposition="A review receipt addresses the named challenge.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CHATGPT_TEACHER,
             layer=ClaimLayer.CORRECTION,
         )
     )
@@ -80,6 +82,7 @@ def _ledger(*, unknown_claim_origin: bool = False) -> EpistemicProvenanceLedger:
             record_id="challenge-provenance",
             proposition="A competing explanation remains possible.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CHATGPT_TEACHER,
             layer=ClaimLayer.HYPOTHESIS,
         )
     )

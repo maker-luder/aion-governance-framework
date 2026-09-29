@@ -9,6 +9,7 @@ from aion_coupled_quality import (
     ClaimAdmissionDisposition,
     ClaimLayer,
     ClaimLevel,
+    ContributionActor,
     ContributionOrigin,
     ContributionRecord,
     EpistemicProvenanceLedger,
@@ -199,6 +200,7 @@ def _ledger() -> EpistemicProvenanceLedger:
             record_id="claim-prov",
             proposition="Bounded longitudinal contrast claim.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CODEX,
             layer=ClaimLayer.OBSERVATION,
             source_refs=(
                 "fixture:base:regrounding",
@@ -223,6 +225,7 @@ def _ledger() -> EpistemicProvenanceLedger:
                 record_id=record_id,
                 proposition=proposition,
                 origin=ContributionOrigin.AI_FORMALIZATION,
+                actor=ContributionActor.CODEX,
                 layer=ClaimLayer.OBSERVATION,
                 source_refs=(source_ref,),
             )
@@ -399,6 +402,7 @@ def test_evidence_provenance_must_bind_exact_trial_evidence_ref() -> None:
             record_id="evidence-base-prov",
             proposition="Valid but unrelated provenance record.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CODEX,
             layer=ClaimLayer.OBSERVATION,
             source_refs=("fixture:unrelated-source",),
         )
@@ -423,6 +427,7 @@ def test_claim_provenance_must_bind_all_trial_evidence_refs() -> None:
             record_id="claim-prov",
             proposition="Bounded longitudinal contrast claim.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CODEX,
             layer=ClaimLayer.OBSERVATION,
             source_refs=("fixture:base:regrounding",),
         )
@@ -668,6 +673,7 @@ def test_missing_evidence_provenance_is_still_rejected_by_existing_gate() -> Non
             record_id="claim-prov",
             proposition="Bounded longitudinal contrast claim.",
             origin=ContributionOrigin.AI_FORMALIZATION,
+            actor=ContributionActor.CODEX,
             layer=ClaimLayer.OBSERVATION,
             source_refs=(
                 "fixture:base:regrounding",
