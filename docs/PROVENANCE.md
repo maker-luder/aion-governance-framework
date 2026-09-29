@@ -5,12 +5,20 @@
 ## Roles
 
 - **Human Owner:** research direction, project decisions, source provision, approval and public-scope authority.
-- **ChatGPT:** requirement decomposition, terminology, governance structuring, review, documentation and public reconstruction assistance.
-- **Codex:** engineering implementation, test execution and package construction in source candidate work where recorded.
+- **ChatGPT Teacher:** requirement decomposition, terminology, governance structuring, source/provenance review, independent review, QA and bounded documentation/governance assistance where recorded.
+- **ChatGPT Work:** long-running multi-step repository operations and implementation-oriented work where recorded; Work contribution must not be silently relabeled as ChatGPT Teacher contribution.
+- **Codex:** engineering implementation, test execution and package construction in source candidate work where recorded; Codex contribution must remain distinct from ChatGPT Teacher and ChatGPT Work contribution.
 - **Manus:** bounded engineering/convergence implementation and creator-side QA reporting where explicitly recorded; Manus completion does not create Human Owner or ChatGPT review authority.
 - **External sources/reviewers:** evidence or feedback sources only where explicitly attributed; mention does not imply institutional endorsement.
 
-Role summaries do not overwrite file-level or event-level provenance. When authorship or source is uncertain, retain `SOURCE_UNVERIFIED` rather than inferring ownership from style, repetition or later adoption.
+Role summaries do not overwrite file-level or event-level provenance. Epistemic contribution class (for example `AI_FORMALIZATION`) and specific operational contributor are separate fields: a contribution may be AI formalization while still requiring a distinct `CHATGPT_TEACHER`, `CHATGPT_WORK`, or `CODEX` attribution. When authorship or source is uncertain, retain `SOURCE_UNVERIFIED` rather than inferring ownership from style, repetition or later adoption.
+
+```text
+AI_FORMALIZATION != GENERIC_AI_AUTHORSHIP
+CHATGPT_TEACHER != CHATGPT_WORK
+CHATGPT_WORK != CODEX
+ROLE_LABEL != VERIFIED_MODEL_IDENTITY
+```
 
 ## Confirmed attribution examples
 
