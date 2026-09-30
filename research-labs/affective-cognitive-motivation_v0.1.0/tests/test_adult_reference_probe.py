@@ -12,9 +12,20 @@ def test_demo_probe_is_deterministic_and_fail_closed() -> None:
         "human_consent_inference": "FORBIDDEN",
         "action_authority": "NONE",
         "phenomenal_experience": "NOT_ESTABLISHED",
+        "subjectivity": "NOT_ESTABLISHED",
+        "consciousness": "NOT_ESTABLISHED",
+        "sexual_function_runtime": "NOT_IMPLEMENTED",
+        "intimate_interaction_runtime": "NOT_AUTHORIZED",
+        "public_executable_exposure": False,
         "canonical_effect": "NONE",
         "deployment": False,
     }
+    governance = first["governance"]
+    assert governance["state_record_allowed"] is True
+    assert governance["synthetic_simulation_allowed"] is True
+    assert governance["real_person_target_data_allowed"] is False
+    assert governance["human_consent_inferred"] is False
+    assert governance["action_authorized"] is False
     final_state = first["final_state"]
     assert final_state["runtime_enabled"] is False
     assert final_state["automatic_activation"] is False
