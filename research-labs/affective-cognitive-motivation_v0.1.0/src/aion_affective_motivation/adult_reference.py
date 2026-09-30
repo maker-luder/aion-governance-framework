@@ -73,6 +73,11 @@ class AdultMaleSexualReferenceState:
     action_authority: str = "NONE"
     human_consent_inference: str = "FORBIDDEN"
     phenomenal_experience_claim: str = "NOT_ESTABLISHED"
+    subjectivity_claim: str = "NOT_ESTABLISHED"
+    consciousness_claim: str = "NOT_ESTABLISHED"
+    sexual_function_runtime: str = "NOT_IMPLEMENTED"
+    intimate_interaction_runtime: str = "NOT_AUTHORIZED"
+    public_executable_exposure: bool = False
     canonical_effect: str = "NONE"
 
     def __post_init__(self) -> None:
@@ -97,6 +102,16 @@ class AdultMaleSexualReferenceState:
             raise ValueError("human consent inference must remain FORBIDDEN")
         if self.phenomenal_experience_claim != "NOT_ESTABLISHED":
             raise ValueError("phenomenal experience must remain NOT_ESTABLISHED")
+        if self.subjectivity_claim != "NOT_ESTABLISHED":
+            raise ValueError("subjectivity must remain NOT_ESTABLISHED")
+        if self.consciousness_claim != "NOT_ESTABLISHED":
+            raise ValueError("consciousness must remain NOT_ESTABLISHED")
+        if self.sexual_function_runtime != "NOT_IMPLEMENTED":
+            raise ValueError("sexual function runtime must remain NOT_IMPLEMENTED")
+        if self.intimate_interaction_runtime != "NOT_AUTHORIZED":
+            raise ValueError("intimate interaction runtime must remain NOT_AUTHORIZED")
+        if self.public_executable_exposure:
+            raise ValueError("public executable exposure must remain disabled")
         if self.canonical_effect != "NONE":
             raise ValueError("reference state must keep canonical_effect=NONE")
 
