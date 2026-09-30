@@ -30,3 +30,28 @@ def test_json_schemas_preserve_authority_and_biology_boundaries():
     assert s["properties"]["biological_semen"]["const"] is False
     assert s["properties"]["fertility"]["const"] is False
     assert s["properties"]["canonical_effect"]["const"]=="NONE" and s["properties"]["deployment"]["const"] is False
+
+
+def test_internal_male_reproductive_reference_topology_is_present_without_biological_claim():
+    from work_male_embodiment.core import default_male_reproductive_reference_topology
+    t=default_male_reproductive_reference_topology()
+    assert {
+        "testis","seminiferous_tubules","rete_testis","efferent_ductules","epididymis",
+        "vas_deferens","seminal_vesicle","ejaculatory_duct","prostate","bulbourethral_gland",
+        "prostatic_urethra","membranous_urethra","spongy_urethra","external_meatus",
+        "corpora_cavernosa","corpus_spongiosum","glans","prepuce","frenulum","pelvic_floor"
+    } <= t.node_ids()
+    assert not t.biological_reproduction
+    assert not t.gametogenesis
+    assert not t.biological_secretions
+    assert not t.physical_tissue
+    assert not any(n.biological_function_implemented or n.physical_hardware_implemented for n in t.nodes)
+
+
+def test_reference_topology_preserves_urinary_and_reproductive_routes_without_collapsing_them():
+    from work_male_embodiment.core import default_male_reproductive_reference_topology
+    t=default_male_reproductive_reference_topology()
+    triples={(e.source,e.target,e.relation) for e in t.edges}
+    assert ("bladder","prostatic_urethra","human_urinary_path_reference") in triples
+    assert ("ejaculatory_duct","prostatic_urethra","human_ejaculatory_path_reference") in triples
+    assert ("vas_deferens","ejaculatory_duct","human_ejaculatory_path_reference") in triples

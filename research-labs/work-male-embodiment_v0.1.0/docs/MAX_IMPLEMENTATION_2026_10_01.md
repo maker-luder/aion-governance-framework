@@ -74,3 +74,20 @@ MERGE_TO_MAIN = NO
 \`\`\`
 
 A later real GLB/glTF body can satisfy the asset contract only after geometry exists, is hashed, and all 67 selected fields are measured back against the artifact. This package cannot promote a missing asset by declaration.
+
+
+## Internal male reproductive topology extension
+
+The implementation also materializes a human-reference graph for ordinary male genitourinary/reproductive structures instead of leaving this domain as one opaque checklist row. The graph includes endocrine reference nodes; testes, seminiferous tubules, rete testis, efferent ductules, epididymis and vas deferens; seminal vesicles, ejaculatory ducts, prostate and bulbourethral glands; bladder and the prostatic/membranous/spongy urethral path; penis, glans, prepuce, frenulum, corpora cavernosa, corpus spongiosum, scrotum and pelvic-floor reference.
+
+The graph preserves distinct urinary and reproductive routes even where the human-reference urethra is shared. It is structural reference only:
+
+\`\`\`text
+REFERENCE_TOPOLOGY = IMPLEMENTED
+BIOLOGICAL_TISSUE = NO
+GAMETOGENESIS = NO
+BIOLOGICAL_SECRETIONS = NO
+FERTILITY = NO
+\`\`\`
+
+Source recheck: NCBI Bookshelf male genitourinary anatomy (NBK562291) and Endotext/NCBI testis and spermatogenesis overview (NBK279031). These sources describe human biology; they do not validate Work as biological.

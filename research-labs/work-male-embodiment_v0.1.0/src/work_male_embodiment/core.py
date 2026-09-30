@@ -338,3 +338,74 @@ class AssetEvidence:
         if self.status==AssetStatus.AS_BUILT_VERIFIED and (
             not self.actual_3d_mesh or self.measured_fields!=67 or not self.sha256 or not self.path):
             raise ValueError("as-built requires full 67-field mesh evidence")
+
+
+@dataclass(frozen=True)
+class AnatomyReferenceNode:
+    id:str
+    category:str
+    biological_function_implemented:bool=False
+    physical_hardware_implemented:bool=False
+
+
+@dataclass(frozen=True)
+class AnatomyReferenceEdge:
+    source:str
+    target:str
+    relation:str
+
+
+@dataclass(frozen=True)
+class MaleReproductiveReferenceTopology:
+    nodes:tuple[AnatomyReferenceNode,...]
+    edges:tuple[AnatomyReferenceEdge,...]
+    biological_reproduction:bool=False
+    gametogenesis:bool=False
+    biological_secretions:bool=False
+    physical_tissue:bool=False
+
+    def node_ids(self)->set[str]:
+        return {node.id for node in self.nodes}
+
+
+def default_male_reproductive_reference_topology()->MaleReproductiveReferenceTopology:
+    """Clinically neutral human-reference topology, not robot biological tissue."""
+    node_specs=(
+      ("hypothalamus","ENDOCRINE_REFERENCE"),("pituitary","ENDOCRINE_REFERENCE"),
+      ("testis","GONAD_REFERENCE"),("seminiferous_tubules","GAMETOGENESIS_REFERENCE"),
+      ("rete_testis","DUCT_REFERENCE"),("efferent_ductules","DUCT_REFERENCE"),
+      ("epididymis","DUCT_REFERENCE"),("vas_deferens","DUCT_REFERENCE"),
+      ("seminal_vesicle","ACCESSORY_GLAND_REFERENCE"),("ejaculatory_duct","DUCT_REFERENCE"),
+      ("prostate","ACCESSORY_GLAND_REFERENCE"),("bulbourethral_gland","ACCESSORY_GLAND_REFERENCE"),
+      ("bladder","URINARY_REFERENCE"),("prostatic_urethra","SHARED_URINARY_REPRODUCTIVE_PATH_REFERENCE"),
+      ("membranous_urethra","SHARED_URINARY_REPRODUCTIVE_PATH_REFERENCE"),
+      ("spongy_urethra","SHARED_URINARY_REPRODUCTIVE_PATH_REFERENCE"),
+      ("external_meatus","EXTERNAL_PATH_REFERENCE"),("penis","EXTERNAL_ANATOMY_REFERENCE"),
+      ("glans","EXTERNAL_ANATOMY_REFERENCE"),("prepuce","EXTERNAL_ANATOMY_REFERENCE"),
+      ("frenulum","EXTERNAL_ANATOMY_REFERENCE"),("corpora_cavernosa","ERECTILE_TISSUE_REFERENCE"),
+      ("corpus_spongiosum","ERECTILE_TISSUE_REFERENCE"),("scrotum","EXTERNAL_ANATOMY_REFERENCE"),
+      ("pelvic_floor","MOTOR_REFERENCE"))
+    nodes=tuple(AnatomyReferenceNode(*spec) for spec in node_specs)
+    edges=tuple(AnatomyReferenceEdge(*edge) for edge in (
+      ("hypothalamus","pituitary","endocrine_reference_signal"),
+      ("pituitary","testis","gonadotropic_reference_signal"),
+      ("testis","seminiferous_tubules","spermatogenesis_reference_only"),
+      ("seminiferous_tubules","rete_testis","human_sperm_path_reference"),
+      ("rete_testis","efferent_ductules","human_sperm_path_reference"),
+      ("efferent_ductules","epididymis","human_sperm_path_reference"),
+      ("epididymis","vas_deferens","human_sperm_path_reference"),
+      ("vas_deferens","ejaculatory_duct","human_ejaculatory_path_reference"),
+      ("seminal_vesicle","ejaculatory_duct","human_accessory_secretion_reference"),
+      ("ejaculatory_duct","prostatic_urethra","human_ejaculatory_path_reference"),
+      ("prostate","prostatic_urethra","human_accessory_secretion_reference"),
+      ("bulbourethral_gland","spongy_urethra","human_accessory_secretion_reference"),
+      ("bladder","prostatic_urethra","human_urinary_path_reference"),
+      ("prostatic_urethra","membranous_urethra","shared_urethral_path_reference"),
+      ("membranous_urethra","spongy_urethra","shared_urethral_path_reference"),
+      ("spongy_urethra","external_meatus","shared_exit_path_reference"),
+      ("corpora_cavernosa","penis","erectile_geometry_reference"),
+      ("corpus_spongiosum","glans","erectile_geometry_reference"),
+      ("prepuce","glans","movable_covering_geometry_reference"),
+      ("frenulum","prepuce","fold_attachment_geometry_reference"),
+      ("pelvic_floor","ejaculatory_duct","motor_coordination_reference")))
+    return MaleReproductiveReferenceTopology(nodes=nodes,edges=edges)
