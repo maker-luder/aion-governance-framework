@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/maker-luder/aion-governance-framework/schemas/adult_male_sexual_reference_v0.1.0.schema.json",
+  "$id": "https://github.com/maker-luder/aion-governance-framework/research-labs/affective-cognitive-motivation_v0.1.0/schemas/adult_male_sexual_reference_v0.1.0.schema.json",
   "title": "Adult Male Sexual Reference State v0.1.0",
   "description": "Disabled-by-default engineering representation. It does not establish felt desire, consent, permission, or action authority.",
   "type": "object",
@@ -61,7 +61,28 @@
           "type": "string",
           "minLength": 1
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "reference_level": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "reference_level"
+            ]
+          },
+          "then": {
+            "properties": {
+              "uncertainty": {
+                "const": 1
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "properties": {
