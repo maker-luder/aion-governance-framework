@@ -39,14 +39,14 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
 2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建、transition continuity（轉換連續性）分析，以及在資訊內容匹配條件下的 memory-locus dependency discrimination（記憶資訊所在位置／依賴區辨）；但不把持續存在直接等同於身分延續。
 3. **受限制條件下的適應與區辨測試** —— CCAP Stage 1–3 已推進到 TEVV 執行前映射、Four-Domain × 六維結構壓力測試、系統邊界／區辨硬化，以及 synthetic D2 × D4 differential probe（合成差異探針）。目前只顯示**測試夾具層級的可分離性**；D2 支持、D4 支持與獨立驗證仍然**尚未建立**。
-4. **Human–AI collaboration / learning（人機協作／學習）與證據准入** —— CCTS 已形式化並公開典藏於 [Zenodo](https://zenodo.org/records/22945883)（DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)）。`main` 現也有 synthetic matched learning contrast（合成匹配學習對照）設計；Human learning、retention、causality 與 CCTS-specific effect 仍**尚未建立**。
+4. **人機協作／學習** —— [CCTS](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) 的第一份學術物件[已有典藏紀錄](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md)（DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)）；[目前手稿草稿](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md)標為 `NOT_RELEASED`。[學習對照](docs/research/CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md)僅為合成設計；人類學習、保持、遷移、因果與 CCTS 特定效果仍**尚未建立**。
 
 ## 目前研究快照
 
-首頁只保留最高層級的目前圖像。若要看有日期的里程碑、精確 merged 現況與完整文件地圖，請進入 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) 與 [`docs/INDEX.md`](docs/INDEX.md)。
+有日期的現況與完整地圖請見 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) 和 [`docs/INDEX.md`](docs/INDEX.md)。
 
 - **連續性與記憶：** history replay、attention-structure 區辨、exact-structure longitudinal claim admission，以及 matched-information memory-locus dependency 測試。
-- **Human–AI learning / collaboration：** CCTS 已公開典藏；`main` 已有 synthetic matched learning contrast，但 Human learning、retention、causality 與 CCTS-specific effect 仍未建立。
+- **人機協作：** CCTS 沿用有界問題及依當前目的判定的 grounding；未採納新的獨立適用性構念或適用性閘門。學習相關區分僅作研究設計提醒，不得以 CCTS 狀態作為學習測量閘門。
 - **證據准入：** bounded 12-axis provider-evidence admission 已擴展到多個 provider family，但 open independent replication 仍然稀少。
 - **Assurance / quality：** TEVV、Full-QMS、adversarial-security、FAIR4RS、NCR/CAPA 與 bounded supply-chain Phase 1 提高 traceability，但不代表科學驗證、release authority 或 SLSA conformance。
 
@@ -91,9 +91,15 @@ HARNESS_PASS != HYPOTHESIS_CONFIRMED
 
 CI_PASS != SCIENTIFIC_VALIDATION
 持續整合通過 != 科學驗證
+
+PUBLICATION != SCIENTIFIC_VALIDATION
+公開典藏 != 科學驗證
+
+IMPLEMENTATION != SCIENTIFIC_ESTABLISHMENT
+已有實作 != 科學結論成立
 ```
 
-這些邊界不是先替研究問題決定答案，而是避免結論超過證據能支撐的範圍。
+典藏不代表同儕審查、科學驗證，也不代表目前草稿版本已發布。
 
 ## 依閱讀深度選入口
 

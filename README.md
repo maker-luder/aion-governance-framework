@@ -30,14 +30,12 @@ The current `main` is organized around four connected research lines:
 1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
 2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
 3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration, learning, and evidence admission** — CCTS is formalized and publicly archived ([Zenodo](https://zenodo.org/records/22945883), DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)). `main` also contains a synthetic matched learning-contrast design; Human learning, retention, causality, and CCTS-specific effects remain **not established**.
+4. **Human–AI collaboration and learning** — [CCTS](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) has a first scholarly object [archived](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md) (DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)); the [current manuscript draft](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md) is `NOT_RELEASED`. The [learning contrast](docs/research/CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md) is synthetic; Human learning, retention, transfer, causal and CCTS-specific effects are **not established**.
 
 ## Current research snapshot
 
-The landing page keeps only the highest-level current picture. For dated milestones, exact merged standing, and the full documentation map, use [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) and [`docs/INDEX.md`](docs/INDEX.md).
-
 - **Continuity and memory:** history replay, attention-structure discrimination, exact-structure longitudinal claim admission, and matched-information memory-locus dependency testing.
-- **Human–AI learning and collaboration:** CCTS is archived; `main` includes a synthetic matched learning contrast; learning, retention, causality and CCTS-specific effects remain unestablished.
+- **Human–AI collaboration:** CCTS uses bounded problems and purpose-relative grounding. No new applicability gate/construct; learning relevance is a design caution, not a CCTS-status gate for learning.
 - **Evidence admission:** bounded 12-axis provider-evidence admission now spans multiple provider families, while open independent replication remains sparse.
 - **Assurance and quality:** TEVV, Full-QMS, adversarial-security, FAIR4RS, NCR/CAPA and bounded supply-chain Phase 1 improve traceability without implying scientific validation, release authority or SLSA conformance.
 
@@ -57,9 +55,11 @@ STRUCTURAL_INTEGRITY != DISCRIMINANT_VALIDITY
 SYNTHETIC_SEPARABILITY != D2_OR_D4_SUPPORT
 HARNESS_PASS != HYPOTHESIS_CONFIRMED
 CI_PASS != SCIENTIFIC_VALIDATION
+PUBLICATION != SCIENTIFIC_VALIDATION
+IMPLEMENTATION != SCIENTIFIC_ESTABLISHMENT
 ```
 
-These boundaries do not pre-decide the research question. They prevent stronger conclusions from being claimed than the evidence supports.
+The archive establishes neither peer review nor scientific validation.
 
 ## Choose your reading depth
 
