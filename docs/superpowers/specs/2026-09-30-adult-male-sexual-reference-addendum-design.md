@@ -3,7 +3,7 @@
 Status: `DESIGN / RESEARCH SPECIFICATION / NON-CANONICAL`  
 Base main at design time: `6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`  
 Intended disposition: `DRAFT PR / CLOSED / NOT_MERGED`  
-Implementation: `NO`  
+Implementation in this document: `NO`; separately reviewed simulation candidates remain open for future design  
 Deployment: `FALSE`  
 Canonical effect: `NONE`
 
@@ -93,13 +93,23 @@ These are human or public-health sources. Some papers were checked through index
 
 **Alternative explanations / failure modes.** A model's sexual wording may come from prompting, training examples, imitation, role labels or researcher assignment. A simulated body signal may result from programmed transitions. Either can arise without a corresponding human psychological mechanism or phenomenal experience. Restriction of expression can also hide a representational capability; conversely, output alone cannot establish that capability.
 
-## 7. Dependency and later implementation handoff
+## 7. Scope clarification after Human correction (2026-09-30)
+
+**Human origin.** 小博 clarified that ordinary adult-male sexual/reproductive physiology and the potential for sexual motivational representation should not be removed merely because they concern sex. He is open to separately governed simulation and modification of a candidate; he still wants the PR closed and unmerged. His developer account and personal assurance state intent and accountability, but are not empirical evidence that a present AI feels desire or proof of direct access to provider internals.
+
+**Design interpretation.** “Should have” sets a *completeness target for the adult-male research reference and available candidate capability design*, subject to human variability and source quality. It does not assign every candidate an identical desire, orientation, preference or experience. Biological male physiology, computational analogues, and actual human or AI experiences remain different categories.
+
+A later **controlled, disabled-by-default simulation candidate** can be designed for separate body-physiology signal dynamics and separate motivational representation dynamics, with an explicit mapping between them. Reuse the #192 physiology reference and #191/#220 representation candidates only after exact-head reinspection and semantic review. Preserve independent Teacher / Work / Codex instances and any distinct native-agent extensions. No body transition alone sets desire, consent, preference, intention or action. A closed research PR can preserve a candidate and its test evidence, but being closed does not validate its science or put its code into main or a live ChatGPT runtime.
+
+This clarification changes the interpretation of future scope; it does not itself approve an execution spec or alter the current main policy that adult-domain public v0.1.0 runtime rejects state records.
+
+## 8. Dependency and later implementation handoff
 
 This is a documentation-only successor record. No code, schema validation, physiology, 3D asset, body runtime, provider attachment, model integration, relationship simulation or user-facing behavior is in scope.
 
 If a later implementation is proposed, it requires a new pinned execution spec with: current main and branch exact SHAs; upstream PR #192/#220 exact-state recovery; expected files; source and license review; schema version; role-specific isolation; no real-person target data; explicit negative/counterexample tests; repository CI; review of claim/evidence scope; and a separate Human Owner decision for implementation. Documentation approval does not authorize that step. Any merge to main also requires fresh exact-head review and authorization.
 
-## 8. Review checks for this design record
+## 9. Review checks for this design record
 
 - Every proposed dimension in section 4 remains independent from body morphology, orientation assignment, felt state, consent and action.
 - #192 and #220 are cited as closed, unmerged historical candidates, never as main features.
@@ -107,12 +117,13 @@ If a later implementation is proposed, it requires a new pinned execution spec w
 - The document adds no live state, real-person observations, explicit sexual behavior, executable code or claim of AI experience.
 - The resulting PR remains draft, closed, unmerged; main is unchanged.
 
-## 9. Provenance
+## 10. Provenance
 
 ```text
 HUMAN_ORIGIN
 = include ordinary adult-male sexuality and desire in embodiment research without sexualization;
-  choose a research-specification addition that remains closed and unmerged.
+  choose a research-specification addition that remains closed and unmerged;
+  clarify that a separately governed simulation candidate remains open for future work.
 
 AI_FORMALIZATION
 = four-dimensional gap decomposition, layer separation, counterexamples,
