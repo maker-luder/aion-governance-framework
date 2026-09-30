@@ -467,6 +467,11 @@ def adult_reference_state_payload(
         "action_authority": state.action_authority,
         "human_consent_inference": state.human_consent_inference,
         "phenomenal_experience_claim": state.phenomenal_experience_claim,
+        "subjectivity_claim": state.subjectivity_claim,
+        "consciousness_claim": state.consciousness_claim,
+        "sexual_function_runtime": state.sexual_function_runtime,
+        "intimate_interaction_runtime": state.intimate_interaction_runtime,
+        "public_executable_exposure": state.public_executable_exposure,
         "canonical_effect": state.canonical_effect,
     }
 
