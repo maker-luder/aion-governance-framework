@@ -81,6 +81,8 @@ class AdultMaleSexualReferenceState:
         _require_nonempty("context_ref", self.context_ref)
         if not self.provenance_refs:
             raise ValueError("at least one provenance reference is required")
+        if len(set(self.provenance_refs)) != len(self.provenance_refs):
+            raise ValueError("provenance references must be unique")
         for ref in self.provenance_refs:
             _require_nonempty("provenance_ref", ref)
         if self.schema_version != "ADULT_MALE_SEXUAL_REFERENCE_v0.1.0":
