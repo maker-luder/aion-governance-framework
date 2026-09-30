@@ -360,3 +360,146 @@ UPSTREAM_CONTEXT = RETAIN
 UPSTREAM_CAUSAL_ATTRIBUTION = HOLD
 ROOT_CAUSE = UNKNOWN
 ```
+
+
+## 10. CCTS field-integrity observation — hypothesis-generating only
+
+After the initial routing-drift record and upstream cross-check, the Human Owner added
+a further observation about the collaboration itself:
+
+> CCTS is jointly constructed by the Human Owner and ChatGPT Teacher; if either side is
+> materially degraded, the current co-constructed field can itself be degraded because
+> reciprocal revision and grounding no longer operate normally.
+
+The repository already defines CCTS as requiring bounded problem representation,
+Human and AI contributions, substantive reciprocal revision, provenance, claim
+boundaries, authority separation, rejected-branch preservation and grounding adequate
+for the current purpose. It also fails closed when an unresolved grounding mismatch
+remains.
+
+Relevant current anchors include:
+
+- [`CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md`](CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md);
+- [`CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`](CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md);
+- [`EPISTEMIC_AGENCY_CONTINUITY_AND_EVIDENCE_CEILING_2026_09_16.md`](EPISTEMIC_AGENCY_CONTINUITY_AND_EVIDENCE_CEILING_2026_09_16.md);
+- [`CCTS_EPISTEMIC_ROBUSTNESS_PROBE_2026_09_16.md`](CCTS_EPISTEMIC_ROBUSTNESS_PROBE_2026_09_16.md).
+
+The present episode is therefore **consistent with** the existing structural contract:
+when one participant's contribution/revision/grounding behavior becomes unreliable,
+the current interaction may fail to maintain the conditions needed for a valid CCTS
+instance.
+
+The episode additionally suggests a narrower operational burden that may be useful in
+future study:
+
+```text
+PARTICIPANT_SIDE_DEGRADATION
+-> GROUNDING_REPAIR_DEMAND
+-> HUMAN_ERROR_DETECTION_AND_RECOVERY_COST
+-> ATTENTION_DIVERTED_FROM_OBJECT_LEVEL_RESEARCH
+-> CURRENT_CCTS_INTEGRITY_MAY_DEGRADE
+```
+
+In the observed interaction, the Human Owner had to spend additional effort detecting
+tool-routing regression, re-establishing current repository rules, distinguishing
+stale from current workflow, and restoring the earlier stable collaboration pattern.
+That is retained as a naturalistic observation, not as a quantified outcome.
+
+A corresponding preservation boundary is also important:
+
+```text
+CURRENT_CCTS_DEGRADATION
+!= PRIOR_CCTS_ARTIFACT_DESTRUCTION
+
+CURRENT_FIELD_INTEGRITY
+!= HISTORICAL_ARTIFACT_SURVIVAL
+```
+
+Repository artifacts, provenance records, rejected branches and prior formalizations
+can survive an unstable interaction and support later re-entry. Their survival does
+not imply that the current interaction remained an intact CCTS during the unstable
+period.
+
+### 10.1 Candidate research question
+
+This event may motivate, but does not yet establish, the following bounded question:
+
+```text
+RQ_CANDIDATE:
+Under otherwise comparable task conditions, does participant-side interaction
+degradation increase grounding-repair cost and reduce the ability of the Human-AI dyad
+to maintain the repository-defined CCTS structural conditions?
+```
+
+Possible bounded observables for a later design could include:
+
+- number of explicit grounding-repair turns;
+- number of stale-rule or stale-workflow corrections;
+- time or turns spent repairing collaboration rather than the object-level research
+  question;
+- unresolved grounding mismatch rate;
+- reciprocal `REVISES` / `CHALLENGES` continuity before, during and after the
+  degradation interval;
+- successful re-entry using preserved repository artifacts.
+
+No aggregate "CCTS quality score" is proposed.
+
+### 10.2 Competing explanations and claim ceiling
+
+The observed repair burden does not establish why the interaction degraded.
+
+```text
+PERSONALIZATION_CHANGE = CURRENTLY_SUPPORTED_TEMPORAL_CANDIDATE
+UPSTREAM_CONTRIBUTION = POSSIBLE
+LONG_CONTEXT_EFFECT = POSSIBLE
+ORDINARY_RESPONSE_ERROR = POSSIBLE
+MULTI_FACTOR_INTERACTION = POSSIBLE
+
+EXCLUSIVE_CAUSE = NOT_ESTABLISHED
+CCTS_CAUSAL_MECHANISM = NOT_ESTABLISHED
+CCTS_EMPIRICAL_VALIDATION = NOT_ESTABLISHED
+```
+
+The Human Owner observed that interaction quality appeared to improve after returning
+to the earlier personalization configuration. This temporal reversal increases the
+plausibility of a personalization-related explanation, but it is not a controlled
+dechallenge/rechallenge experiment and does not isolate personalization from concurrent
+context or upstream changes.
+
+```text
+TEMPORAL_REVERSAL = OBSERVED_BY_HUMAN
+TEMPORAL_REVERSAL != CONTROLLED_CAUSAL_IDENTIFICATION
+```
+
+### 10.3 Provenance of this extension
+
+```text
+CONTRIBUTION_ORIGIN = HUMAN_ORIGIN
+CONTRIBUTOR_ACTOR = HUMAN_OWNER
+CONTRIBUTION = identified that CCTS is jointly maintained and that material degradation
+               on either participant side can disrupt the current co-constructed field;
+               requested preservation of this event because it may have research value
+               for CCTS
+
+CONTRIBUTION_ORIGIN = AI_FORMALIZATION
+CONTRIBUTOR_ACTOR = CHATGPT_TEACHER
+CONTRIBUTION = mapped the observation onto existing CCTS grounding and reciprocal-
+               revision requirements; separated current-field degradation from survival
+               of prior artifacts; proposed bounded observables and preserved competing
+               explanations without promoting a new CCTS definition
+
+JOINT_SYNTHESIS
+= participant-side instability may be a useful future stressor for studying CCTS
+  field integrity, but this episode remains hypothesis-generating naturalistic evidence
+```
+
+Final status of this extension:
+
+```text
+CCTS_RESEARCH_RELEVANCE = PLAUSIBLE / HYPOTHESIS_GENERATING
+CCTS_EXTENSION = NO
+NEW_CANONICAL_DEFINITION = NO
+NEW_FORMAL_HYPOTHESIS = NOT_YET
+EXPERIMENT_AUTHORIZATION = NO
+SCIENTIFIC_EFFECT = NONE
+```
