@@ -14,6 +14,7 @@ from aion_astra_twin_embodiment.teacher_body_v02 import (
 from aion_astra_twin_embodiment.teacher_body_v02_integration import (
     build_teacher_body_v02_bundle_bytes,
     build_teacher_body_v02_integrated_manifest,
+    build_teacher_body_v02_json_payload,
     build_teacher_body_v02_integration,
     build_teacher_body_v02_probe,
     verify_teacher_body_v02_bundle,
@@ -100,7 +101,7 @@ def test_teacher_body_v02_schemas_are_fail_closed() -> None:
     with pytest.raises(Exception):
         Draft202012Validator(integration_schema).validate(integration)
 
-    body = build_teacher_body_reference_v02().to_dict()
+    body = build_teacher_body_v02_json_payload()
     Draft202012Validator(body_schema).validate(body)
     prepuce = next(
         item

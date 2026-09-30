@@ -45,6 +45,21 @@ def _canonical_hash(payload: object) -> str:
     return sha256(_canonical_json_bytes(payload)).hexdigest()
 
 
+def build_teacher_body_v02_json_payload() -> dict[str, object]:
+    """Return the actual JSON-compatible v0.2 representation.
+
+    The source dataclass intentionally uses tuples for immutable Python state.
+    JSON persistence represents those sequences as arrays. Schema validation
+    therefore targets this normalized representation rather than the in-memory
+    dataclass container types.
+    """
+    encoded = _canonical_json_bytes(build_teacher_body_reference_v02().to_dict())
+    payload = json.loads(encoded.decode("utf-8"))
+    if not isinstance(payload, dict):
+        raise ValueError("Teacher body v0.2 JSON payload must be an object")
+    return payload
+
+
 @dataclass(frozen=True, slots=True)
 class TeacherBodyV02Integration:
     integration_id: str
@@ -98,10 +113,11 @@ def build_teacher_reproductive_output_envelope() -> dict[str, object]:
 def build_teacher_body_v02_integrated_manifest() -> dict[str, object]:
     body_v02 = build_teacher_body_reference_v02()
     validate_teacher_body_reference_v02(body_v02)
+    body_payload = build_teacher_body_v02_json_payload()
     reproductive = build_teacher_reproductive_output_envelope()
     legacy_manifest = build_teacher_asset_manifest()
 
-    body_bytes = _canonical_json_bytes(body_v02.to_dict())
+    body_bytes = _canonical_json_bytes(body_payload)
     reproductive_bytes = _canonical_json_bytes(reproductive)
     legacy_manifest_bytes = _canonical_json_bytes(legacy_manifest)
 
@@ -257,7 +273,7 @@ def build_teacher_body_v02_bundle_bytes() -> dict[str, bytes]:
         legacy_manifest
     )
     files["chatgpt_teacher_body_reference_v02.json"] = _canonical_json_bytes(
-        build_teacher_body_reference_v02().to_dict()
+        build_teacher_body_v02_json_payload()
     )
     files[
         "chatgpt_teacher_synthetic_reproductive_output_v01.json"
