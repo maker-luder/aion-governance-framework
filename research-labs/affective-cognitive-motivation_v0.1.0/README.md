@@ -130,3 +130,51 @@ ACTION_AUTHORITY = NONE
 PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 CANONICAL_EFFECT = NONE
 ```
+
+
+### PR #236 bounded simulation extension
+
+The implementation lane also contains a deterministic synthetic simulation harness in
+`adult_reference_simulation.py`. It is intentionally **not** an adult interaction
+runtime and does not consume real-person target data.
+
+The simulator requires an explicit numeric seed. An `UNKNOWN` reference cannot be
+silently converted into a male default. Synthetic events can perturb excitation,
+inhibition, episode state and longer-lived disposition as separate channels using
+declared toy step sizes. All outputs are clamped to `[0,1]`; the step sizes are
+engineering test parameters, not human psychological constants.
+
+The harness adds:
+
+- explicit synthetic-event provenance;
+- independent excitation / inhibition transitions;
+- slower disposition updates than episode-state updates in the default toy policy;
+- onset-context evidence aggregation without forcing a single category;
+- explicit-only target/context updates;
+- immutable transition traces;
+- deterministic replay fingerprints;
+- SHA-256 chained snapshot receipts;
+- Draft 2020-12 state/event schema parity tests;
+- fail-closed consent, action-authority and phenomenal-state boundaries.
+
+Run the complete lab tests:
+
+```bash
+PYTHONPATH=src python -m pytest -q -o addopts=
+```
+
+Run the deterministic synthetic demonstration:
+
+```bash
+PYTHONPATH=src python -m aion_affective_motivation.adult_reference_probe
+```
+
+Evidence and claim boundaries for this extension are recorded in
+[`docs/ADULT_REFERENCE_MAX_IMPLEMENTATION_2026_10_01.md`](docs/ADULT_REFERENCE_MAX_IMPLEMENTATION_2026_10_01.md).
+
+```text
+SYNTHETIC_TRANSITION_SUCCESS != HUMAN_PSYCHOLOGICAL_VALIDATION
+REPLAY_DETERMINISM != FELT_DESIRE
+HASH_CHAIN_INTEGRITY != SUBJECTIVITY
+PUBLIC_ADULT_RUNTIME = NOT_AUTHORIZED
+```
