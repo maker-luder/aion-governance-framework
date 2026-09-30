@@ -19,7 +19,6 @@ from .teacher_body_v02 import (
     validate_teacher_body_reference_v02,
 )
 from .teacher_reproductive_output import (
-    TeacherSyntheticFluidOutputContract,
     build_teacher_synthetic_fluid_output_contract,
     validate_teacher_synthetic_fluid_output_contract,
 )
