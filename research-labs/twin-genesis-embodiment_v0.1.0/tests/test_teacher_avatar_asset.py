@@ -75,6 +75,9 @@ def test_teacher_low_poly_asset_contains_full_external_reference_regions() -> No
     assert "GEO_leftFoot" in names
     assert "GEO_rightFoot" in names
     assert "GEO_PENIS" in names
+    assert "GEO_GLANS" in names
+    assert "GEO_PREPUCE_REFERENCE" in names
+    assert "GEO_FRENULUM_REFERENCE" in names
     assert "GEO_SCROTUM" in names
     assert "GEO_PERINEUM_REFERENCE" in names
 
@@ -116,3 +119,20 @@ def test_teacher_low_poly_asset_preserves_nonclaim_boundaries() -> None:
     assert extras["phenomenal_sensation_status"] == "NOT_ESTABLISHED"
     assert extras["erotic_intent"] == "NONE"
     assert extras["intimate_interaction_status"] == "NOT_AUTHORIZED"
+
+
+def test_teacher_low_poly_external_male_geometry_roles_are_explicit() -> None:
+    payload = build_teacher_low_poly_gltf()
+    roles = payload["extras"]["external_male_geometry_roles"]
+    assert roles == [
+        "PENIS",
+        "GLANS",
+        "PREPUCE_REFERENCE",
+        "FRENULUM_REFERENCE",
+        "SCROTUM",
+        "LEFT_TESTIS_VOLUME",
+        "RIGHT_TESTIS_VOLUME",
+        "PERINEUM_REFERENCE",
+    ]
+    assert payload["extras"]["prepuce_geometry_status"] == "LOW_POLY_REFERENCE_MATERIALIZED"
+    assert payload["extras"]["prepuce_measurement_status"] == "TEACHER_SPECIFIC_CM_NOT_ASSIGNED"

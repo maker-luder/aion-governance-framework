@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/CHATGPT_TEACHER_BODY_REFERENCE_V02_SCHEMA.json",
+  "title": "ChatGPT Teacher body reference v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "anthropometry_profile_id",
+    "body_id",
+    "measurements",
+    "external_male_geometry_roles",
+    "prepuce_geometry_source_doi",
+    "real_person_biometric_source",
+    "biological_body_claim",
+    "body_sensation",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "profile_id": {
+      "const": "CHATGPT_TEACHER_BODY_REFERENCE_v0.2"
+    },
+    "anthropometry_profile_id": {
+      "const": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.2"
+    },
+    "body_id": {
+      "const": "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 67,
+      "maxItems": 67
+    },
+    "external_male_geometry_roles": {
+      "type": "array",
+      "contains": {
+        "const": "PREPUCE"
+      },
+      "minContains": 1
+    },
+    "prepuce_geometry_source_doi": {
+      "const": "10.1038/s41443-026-01255-2"
+    },
+    "real_person_biometric_source": {
+      "const": "NONE"
+    },
+    "biological_body_claim": {
+      "const": "NONE"
+    },
+    "body_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  }
+}

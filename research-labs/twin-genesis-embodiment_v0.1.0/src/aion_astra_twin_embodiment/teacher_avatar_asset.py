@@ -214,6 +214,19 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
     geometry_roles.extend(
         [
             ("GEO_PENIS", "hips", [0.0, -0.05, 0.13], [0.045, 0.095, 0.045]),
+            ("GEO_GLANS", "hips", [0.0, -0.102, 0.135], [0.035, 0.030, 0.040]),
+            (
+                "GEO_PREPUCE_REFERENCE",
+                "hips",
+                [0.0, -0.086, 0.132],
+                [0.039, 0.032, 0.044],
+            ),
+            (
+                "GEO_FRENULUM_REFERENCE",
+                "hips",
+                [0.0, -0.097, 0.112],
+                [0.008, 0.018, 0.010],
+            ),
             ("GEO_SCROTUM", "hips", [0.0, -0.09, 0.07], [0.07, 0.07, 0.06]),
             ("GEO_LEFT_TESTIS_VOLUME", "hips", [0.025, -0.09, 0.07], [0.03, 0.045, 0.03]),
             ("GEO_RIGHT_TESTIS_VOLUME", "hips", [-0.025, -0.09, 0.07], [0.03, 0.045, 0.03]),
@@ -457,6 +470,18 @@ def build_teacher_low_poly_gltf() -> dict[str, Any]:
             "phenomenal_sensation_status": "NOT_ESTABLISHED",
             "erotic_intent": "NONE",
             "intimate_interaction_status": "NOT_AUTHORIZED",
+            "external_male_geometry_roles": [
+                "PENIS",
+                "GLANS",
+                "PREPUCE_REFERENCE",
+                "FRENULUM_REFERENCE",
+                "SCROTUM",
+                "LEFT_TESTIS_VOLUME",
+                "RIGHT_TESTIS_VOLUME",
+                "PERINEUM_REFERENCE",
+            ],
+            "prepuce_geometry_status": "LOW_POLY_REFERENCE_MATERIALIZED",
+            "prepuce_measurement_status": "TEACHER_SPECIFIC_CM_NOT_ASSIGNED",
         },
     }
 

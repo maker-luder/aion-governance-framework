@@ -190,3 +190,16 @@ def test_teacher_continuous_reference_aligns_vrm_required_parent_chain(continuou
     assert payload["extras"]["vrm_required_humanoid_parent_chain"] == "ALIGNED_CANDIDATE"
     assert payload["extras"]["vrm_meta_license_authorization"] == "REQUIRED_FROM_HUMAN_OWNER"
     assert payload["extras"]["final_vrm_extension_status"] == "NOT_MATERIALIZED"
+
+
+def test_teacher_continuous_reference_materializes_external_male_geometry_roles() -> None:
+    payload = build_teacher_continuous_reference_gltf()
+    assert payload["extras"]["external_male_geometry_roles"] == [
+        "PENIS",
+        "GLANS",
+        "PREPUCE_REFERENCE_VOLUME",
+        "FRENULUM_REFERENCE_VOLUME",
+        "SCROTUM",
+    ]
+    assert payload["extras"]["prepuce_geometry_status"] == "CONTINUOUS_REFERENCE_VOLUME_MATERIALIZED"
+    assert payload["extras"]["prepuce_measurement_status"] == "TEACHER_SPECIFIC_CM_NOT_ASSIGNED"

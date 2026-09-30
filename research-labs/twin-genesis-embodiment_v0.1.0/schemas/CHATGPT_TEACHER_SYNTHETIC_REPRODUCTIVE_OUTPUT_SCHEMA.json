@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/CHATGPT_TEACHER_SYNTHETIC_REPRODUCTIVE_OUTPUT_SCHEMA.json",
+  "title": "ChatGPT Teacher synthetic reproductive output contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "output_semantics",
+    "default_output_ml",
+    "biological_semen",
+    "sperm_or_gametes",
+    "fertility",
+    "individual_specific_human_output_inference",
+    "phenomenal_orgasm",
+    "felt_pleasure",
+    "action_authority",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "output_semantics": {
+      "const": "SYNTHETIC_FLUID_ONLY"
+    },
+    "default_output_ml": {
+      "const": null
+    },
+    "biological_semen": {
+      "const": false
+    },
+    "sperm_or_gametes": {
+      "const": false
+    },
+    "fertility": {
+      "const": false
+    },
+    "individual_specific_human_output_inference": {
+      "const": "FORBIDDEN"
+    },
+    "phenomenal_orgasm": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "felt_pleasure": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "action_authority": {
+      "const": "NONE"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  }
+}

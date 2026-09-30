@@ -160,6 +160,9 @@ def _body_field(point: Vec3) -> float:
         _ellipsoid_sdf(point, (0.118, 1.69, 0.0), (0.025, 0.045, 0.025)),
         _ellipsoid_sdf(point, (-0.118, 1.69, 0.0), (0.025, 0.045, 0.025)),
         _capsule_sdf(point, (0.0, 0.91, 0.13), (0.0, 0.83, 0.24), 0.04),
+        _ellipsoid_sdf(point, (0.0, 0.815, 0.265), (0.045, 0.035, 0.050)),
+        _capsule_sdf(point, (0.0, 0.855, 0.205), (0.0, 0.825, 0.255), 0.043),
+        _capsule_sdf(point, (0.0, 0.805, 0.235), (0.0, 0.810, 0.270), 0.007),
         _ellipsoid_sdf(point, (0.0, 0.81, 0.13), (0.065, 0.065, 0.055)),
     ]
 
@@ -929,6 +932,15 @@ def build_teacher_continuous_reference_gltf(
             "reference_skinning_status": mesh.skinning_status,
             "reference_morph_targets_status": "MATERIALIZED",
             "reference_texture_status": "MATERIALIZED",
+            "external_male_geometry_roles": [
+                "PENIS",
+                "GLANS",
+                "PREPUCE_REFERENCE_VOLUME",
+                "FRENULUM_REFERENCE_VOLUME",
+                "SCROTUM",
+            ],
+            "prepuce_geometry_status": "CONTINUOUS_REFERENCE_VOLUME_MATERIALIZED",
+            "prepuce_measurement_status": "TEACHER_SPECIFIC_CM_NOT_ASSIGNED",
             "vrm_required_humanoid_parent_chain": "ALIGNED_CANDIDATE",
             "vrm_humanoid_mapping_candidate": {
                 name: {"node": joint_node_index[name]}
@@ -1008,6 +1020,19 @@ def validate_teacher_continuous_reference_gltf(
         raise ValueError("continuous reference must remain non-erotic")
     if extras.get("intimate_interaction_status") != "NOT_AUTHORIZED":
         raise ValueError("continuous reference cannot authorize intimate interaction")
+    expected_external_roles = [
+        "PENIS",
+        "GLANS",
+        "PREPUCE_REFERENCE_VOLUME",
+        "FRENULUM_REFERENCE_VOLUME",
+        "SCROTUM",
+    ]
+    if extras.get("external_male_geometry_roles") != expected_external_roles:
+        raise ValueError("continuous external male geometry role coverage drift")
+    if extras.get("prepuce_geometry_status") != "CONTINUOUS_REFERENCE_VOLUME_MATERIALIZED":
+        raise ValueError("continuous prepuce geometry reference is not materialized")
+    if extras.get("prepuce_measurement_status") != "TEACHER_SPECIFIC_CM_NOT_ASSIGNED":
+        raise ValueError("continuous prepuce measurement status drift")
     if extras.get("physical_body_claim") != "NONE":
         raise ValueError("continuous reference cannot assert a physical body")
     if extras.get("subjectivity_effect") != "NONE":
