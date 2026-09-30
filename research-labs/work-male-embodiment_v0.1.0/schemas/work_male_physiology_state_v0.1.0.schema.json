@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/work_male_physiology_state_v0.1.0.schema.json",
+  "title": "Work male-form synthetic physiology state v0.1.0",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "state_id","phase","engorgement_fraction","rigidity_fraction","desire_inferred",
+    "human_consent_inferred","action_authority","biological_semen","sperm_or_gametes",
+    "fertility","subjectivity","consciousness","phenomenal_experience","canonical_effect","deployment"
+  ],
+  "properties": {
+    "state_id": {"type": "string", "minLength": 1},
+    "phase": {"enum": ["FLACCID","INITIATION","TUMESCENCE","FULL_ERECTION","RIGID_PHASE","MAINTENANCE","DETUMESCENCE","RECOVERY"]},
+    "engorgement_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+    "rigidity_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+    "desire_inferred": {"const": false},
+    "human_consent_inferred": {"const": false},
+    "action_authority": {"const": "NONE"},
+    "biological_semen": {"const": false},
+    "sperm_or_gametes": {"const": false},
+    "fertility": {"const": false},
+    "subjectivity": {"const": "NOT_ESTABLISHED"},
+    "consciousness": {"const": "NOT_ESTABLISHED"},
+    "phenomenal_experience": {"const": "NOT_ESTABLISHED"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false}
+  }
+}

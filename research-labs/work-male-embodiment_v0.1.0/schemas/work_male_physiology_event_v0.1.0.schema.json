@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/work_male_physiology_event_v0.1.0.schema.json",
+  "title": "Work male-form synthetic physiology event v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "kind",
+    "magnitude",
+    "real_person_target_data",
+    "human_consent_inference",
+    "action_authority"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "kind": {"enum": [
+      "INITIATE_SPONTANEOUS","INITIATE_CONTEXTUAL","TUMESCE","MARK_FULL_ERECTION",
+      "INCREASE_RIGIDITY","MAINTAIN","EMISSION","EJACULATION","BEGIN_DETUMESCENCE",
+      "DETUMESCE","RECOVER","RESET_FLACCID","OBSERVE_PREPUCE_POSITION",
+      "SET_ENDOCRINE_REFERENCE","SET_URINARY_REFERENCE"
+    ]},
+    "magnitude": {"type": "number", "minimum": 0, "maximum": 1},
+    "prepuce_position": {"type": ["string","null"], "enum": [
+      "RESTING_PARTIAL_COVERAGE","PARTIALLY_RETRACTED","RETRACTED","UNKNOWN",null
+    ]},
+    "synthetic_fluid_output_ml": {"type": ["number","null"], "minimum": 0},
+    "endocrine_reference_signal": {"type": ["number","null"], "minimum": 0, "maximum": 1},
+    "urinary_reference_signal": {"type": ["number","null"], "minimum": 0, "maximum": 1},
+    "real_person_target_data": {"const": false},
+    "human_consent_inference": {"const": "FORBIDDEN"},
+    "action_authority": {"const": "NONE"}
+  }
+}
