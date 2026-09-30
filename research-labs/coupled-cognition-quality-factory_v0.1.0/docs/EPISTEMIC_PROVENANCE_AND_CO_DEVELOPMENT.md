@@ -52,45 +52,94 @@ ACTOR_LABEL != VERIFIED_MODEL_IDENTITY
 The actor label is an auditable workflow attribution, not a claim about
 subjective identity, model continuity, independence, or scientific authority.
 
-### Interaction-surface binding
+### Interaction surface, actor claim, project annotation, and verified actor
 
-For new material AI handoffs, the implementation can separately bind the
-expected operational actor to the interaction surface before delegation, then
-verify the returned actor claim against that expectation.
+For new material AI handoffs, the implementation records the interaction surface
+separately from any actor label returned by the runtime or collaborator.
 
 Current machine-checkable surfaces are:
 
-- `CHATGPT_CHAT` for the repository-local `CHATGPT_TEACHER` role;
-- `CHATGPT_WORK` for `CHATGPT_WORK`;
-- `CODEX` for `CODEX`;
-- `MANUS` for `MANUS`;
-- `UNKNOWN` only when the specific surface cannot be reconstructed.
+- `CHATGPT_CHAT`;
+- `CHATGPT_WORK`;
+- `CODEX`;
+- `MANUS`;
+- `UNKNOWN`.
 
-The binding is intentionally about workflow provenance, not model identity.
+A surface is an observed workflow location. It is **not** itself proof of the
+execution actor.
+
 OpenAI's current product documentation distinguishes Chat, Work and Codex as
 separate experiences even where Work and Codex can share model families and
 usage structure:
 
 <https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex>
 
-Therefore:
+The repository therefore separates five fields:
 
 ```text
-SHARED_MODEL_FAMILY != SAME_ACTOR
-SHARED_USAGE_STRUCTURE != SAME_ACTOR
-TASK_TYPE != ACTOR
-CODE_TASK != CODEX_ACTOR
-LONG_HORIZON_TASK != CHATGPT_WORK_ACTOR
-
-PREBOUND_EXPECTED_ACTOR
-+ PREBOUND_EXPECTED_SURFACE
-!= RETURNED_SELF_LABEL_BY_DEFAULT
+INTERACTION_SURFACE
+!= RETURNED_ACTOR_CLAIM
+!= PROJECT_OPERATIONAL_LABEL
+!= VERIFIED_ACTOR
+!= VERIFIED_MODEL_IDENTITY
 ```
 
-A Work review that later labels itself `CODEX` is an attribution conflict, not
-a valid actor transition. The verifier fails closed on actor or surface
-mismatch. If evidence cannot reconstruct the actor, use `SOURCE_UNVERIFIED`
-and hold the exact attribution rather than guessing.
+A bounded post-#233 regression handoff returned `CODEX` as an actor self-label
+while the observed surface was ChatGPT Work. The correct representation is:
+
+```text
+INTERACTION_SURFACE = CHATGPT_WORK
+RETURNED_ACTOR_CLAIM = CODEX
+ACTOR_CLAIM_SOURCE = RUNTIME_SELF_REPORT
+PROJECT_OPERATIONAL_LABEL = WORK_SESSION_COLLABORATOR
+VERIFIED_ACTOR = SOURCE_UNVERIFIED
+```
+
+This does not establish that Work always uses Codex, that Codex actually executed
+the task, or that a returned self-label is model identity.
+
+The project may assign an operational label to make repeated collaboration
+records readable even when execution identity cannot be verified. That annotation
+is a governance label, not a discovery about the runtime:
+
+```text
+PROJECT_OPERATIONAL_LABEL = WORK_SESSION_COLLABORATOR
+ANNOTATED_BY = HUMAN_OWNER + CHATGPT_TEACHER
+ANNOTATION_BASIS = OBSERVED_WORK_SURFACE + EXPLICIT_TASK_HANDOFF
+
+PROJECT_ANNOTATION != ACTOR_VERIFICATION
+ANNOTATOR != CONTRIBUTOR
+OPERATIONAL_LABEL != MODEL_IDENTITY
+```
+
+If no independent actor evidence exists, the annotation does not change
+`VERIFIED_ACTOR = SOURCE_UNVERIFIED`.
+
+For pre-delegation records, bind only what the evidence supports:
+
+```text
+KNOWN_SURFACE + UNKNOWN_ACTOR
+=> EXPECTED_SURFACE = KNOWN_SURFACE
+=> EXPECTED_ACTOR = SOURCE_UNVERIFIED
+
+RUNTIME_SELF_REPORT
+!= INDEPENDENT_ACTOR_VERIFICATION
+
+PROJECT_OPERATIONAL_LABEL
+!= VERIFIED_EXECUTION_ACTOR
+
+VERIFIED_ACTOR
+=> VERIFICATION_REFS_REQUIRED
+
+TASK_TYPE != ACTOR
+SURFACE != ACTOR
+ACTOR_LABEL != VERIFIED_MODEL_IDENTITY
+```
+
+A surface mismatch remains fail-closed. A returned actor claim only creates an
+actor conflict when a specific actor expectation or independent actor evidence
+exists and the values disagree. Otherwise, preserve the claim and keep the
+verified actor as `SOURCE_UNVERIFIED`.
 
 The ledger separately records claim layer and whether a statement about a person's state was self-reported, merely an observed signal, inferred, or unknown.
 

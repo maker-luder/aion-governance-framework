@@ -41,12 +41,21 @@ _AI_FORMALIZATION_ACTORS = frozenset(
 
 
 class AIInteractionSurface(StrEnum):
-    """User-visible or workflow surface used for a specific AI contribution."""
+    """Observed user-facing or workflow surface for a bounded AI contribution."""
 
     CHATGPT_CHAT = "CHATGPT_CHAT"
     CHATGPT_WORK = "CHATGPT_WORK"
     CODEX = "CODEX"
     MANUS = "MANUS"
+    UNKNOWN = "UNKNOWN"
+
+
+class ActorClaimSource(StrEnum):
+    """Evidence class for a returned actor label."""
+
+    RUNTIME_SELF_REPORT = "RUNTIME_SELF_REPORT"
+    EXTERNAL_METADATA = "EXTERNAL_METADATA"
+    USER_OBSERVED_LABEL = "USER_OBSERVED_LABEL"
     UNKNOWN = "UNKNOWN"
 
 
@@ -58,35 +67,52 @@ class ContributionFunction(StrEnum):
     REVIEW = "REVIEW"
 
 
-_ACTOR_SURFACE = {
-    ContributionActor.CHATGPT_TEACHER: AIInteractionSurface.CHATGPT_CHAT,
-    ContributionActor.CHATGPT_WORK: AIInteractionSurface.CHATGPT_WORK,
-    ContributionActor.CODEX: AIInteractionSurface.CODEX,
-    ContributionActor.MANUS: AIInteractionSurface.MANUS,
-}
+class OperationalActorLabel(StrEnum):
+    """Project-assigned workflow label; never an execution-identity claim."""
+
+    CHAT_SESSION_COLLABORATOR = "CHAT_SESSION_COLLABORATOR"
+    WORK_SESSION_COLLABORATOR = "WORK_SESSION_COLLABORATOR"
+    CODEX_SESSION_COLLABORATOR = "CODEX_SESSION_COLLABORATOR"
+    MANUS_SESSION_COLLABORATOR = "MANUS_SESSION_COLLABORATOR"
+    UNCLASSIFIED_SESSION_COLLABORATOR = "UNCLASSIFIED_SESSION_COLLABORATOR"
 
 
-def _validate_ai_actor_surface(actor: ContributionActor, surface: AIInteractionSurface) -> None:
-    if actor is ContributionActor.SOURCE_UNVERIFIED:
-        if surface is not AIInteractionSurface.UNKNOWN:
-            raise ProvenanceError("SOURCE_UNVERIFIED requires UNKNOWN interaction surface")
-        return
-    if actor not in _AI_FORMALIZATION_ACTORS:
-        raise ProvenanceError("actor-surface binding requires a specific AI collaborator actor")
-    expected_surface = _ACTOR_SURFACE[actor]
-    if surface is not expected_surface:
-        raise ProvenanceError(
-            f"actor-surface mismatch: {actor.value} requires {expected_surface.value}, got {surface.value}"
-        )
+@dataclass(frozen=True, slots=True)
+class ProjectActorAnnotation:
+    """Project-governance annotation kept separate from actor verification."""
+
+    task_id: str
+    function: ContributionFunction
+    operational_label: OperationalActorLabel
+    annotated_by: tuple[ContributionActor, ...]
+    annotation_basis: tuple[str, ...]
+    source_refs: tuple[str, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -> None:
+        if not self.task_id.strip():
+            raise ProvenanceError("task_id must be non-empty")
+        if type(self.function) is not ContributionFunction:
+            raise ProvenanceError("function must use an exact ContributionFunction value")
+        if type(self.operational_label) is not OperationalActorLabel:
+            raise ProvenanceError("operational_label must use an exact OperationalActorLabel value")
+        if not self.annotated_by:
+            raise ProvenanceError("project actor annotation requires at least one annotator")
+        if any(type(actor) is not ContributionActor for actor in self.annotated_by):
+            raise ProvenanceError("annotated_by must use exact ContributionActor values")
+        if ContributionActor.SOURCE_UNVERIFIED in self.annotated_by:
+            raise ProvenanceError("project actor annotation requires identified annotators")
+        if not self.annotation_basis:
+            raise ProvenanceError("project actor annotation requires annotation_basis")
+        if not self.source_refs:
+            raise ProvenanceError("project actor annotation requires source references")
 
 
 @dataclass(frozen=True, slots=True)
 class ActorExpectation:
-    """Pre-delegation actor binding for a material AI task.
+    """Pre-delegation provenance expectation for a material AI task.
 
-    The expectation is recorded before the delegated step so the returning
-    collaborator cannot be relabeled from task type, writing style or product
-    family after the fact.
+    Surface and actor are independent axes. A surface may be known while the
+    execution actor remains SOURCE_UNVERIFIED.
     """
 
     task_id: str
@@ -106,51 +132,99 @@ class ActorExpectation:
             raise ProvenanceError("expected_surface must use an exact AIInteractionSurface value")
         if not self.source_refs:
             raise ProvenanceError("actor expectation requires at least one source reference")
-        if self.expected_actor is ContributionActor.SOURCE_UNVERIFIED:
-            raise ProvenanceError("actor expectation requires a specific AI collaborator actor")
-        _validate_ai_actor_surface(self.expected_actor, self.expected_surface)
+        if (
+            self.expected_actor is ContributionActor.SOURCE_UNVERIFIED
+            and self.expected_surface is AIInteractionSurface.UNKNOWN
+        ):
+            raise ProvenanceError("actor expectation must bind at least actor or interaction surface")
 
 
 @dataclass(frozen=True, slots=True)
 class ActorClaim:
-    """Post-step actor claim that can be checked against a pre-bound expectation."""
+    """Returned actor claim, kept separate from surface and verified actor."""
 
     task_id: str
     function: ContributionFunction
-    actor: ContributionActor
+    claimed_actor: ContributionActor
     surface: AIInteractionSurface
+    claim_source: ActorClaimSource
     source_refs: tuple[str, ...] = field(default_factory=tuple)
+    verified_actor: ContributionActor = ContributionActor.SOURCE_UNVERIFIED
+    verification_refs: tuple[str, ...] = field(default_factory=tuple)
 
     def __post_init__(self) -> None:
         if not self.task_id.strip():
             raise ProvenanceError("task_id must be non-empty")
         if type(self.function) is not ContributionFunction:
             raise ProvenanceError("function must use an exact ContributionFunction value")
-        if type(self.actor) is not ContributionActor:
-            raise ProvenanceError("actor must use an exact ContributionActor value")
+        if type(self.claimed_actor) is not ContributionActor:
+            raise ProvenanceError("claimed_actor must use an exact ContributionActor value")
         if type(self.surface) is not AIInteractionSurface:
             raise ProvenanceError("surface must use an exact AIInteractionSurface value")
+        if type(self.claim_source) is not ActorClaimSource:
+            raise ProvenanceError("claim_source must use an exact ActorClaimSource value")
+        if type(self.verified_actor) is not ContributionActor:
+            raise ProvenanceError("verified_actor must use an exact ContributionActor value")
         if not self.source_refs:
             raise ProvenanceError("actor claim requires at least one source reference")
-        _validate_ai_actor_surface(self.actor, self.surface)
+        if (
+            self.verified_actor is not ContributionActor.SOURCE_UNVERIFIED
+            and not self.verification_refs
+        ):
+            raise ProvenanceError(
+                "verified_actor requires independent verification_refs"
+            )
+        if (
+            self.verified_actor is ContributionActor.SOURCE_UNVERIFIED
+            and self.verification_refs
+        ):
+            raise ProvenanceError(
+                "verification_refs require a specific verified_actor"
+            )
 
 
 def verify_actor_claim(expectation: ActorExpectation, claim: ActorClaim) -> None:
-    """Fail closed when a returned actor claim drifts from the delegated surface."""
+    """Fail closed on evidence conflict without equating surface with actor."""
 
     if expectation.task_id != claim.task_id:
         raise ProvenanceError("actor provenance task_id mismatch")
     if expectation.function is not claim.function:
         raise ProvenanceError("actor provenance contribution-function mismatch")
-    if claim.actor is ContributionActor.SOURCE_UNVERIFIED:
-        raise ProvenanceError("actor provenance unresolved: SOURCE_UNVERIFIED cannot satisfy an exact expectation")
-    if expectation.expected_actor is not claim.actor:
-        raise ProvenanceError(
-            f"actor provenance drift: expected {expectation.expected_actor.value}, got {claim.actor.value}"
-        )
-    if expectation.expected_surface is not claim.surface:
+
+    if (
+        expectation.expected_surface is not AIInteractionSurface.UNKNOWN
+        and expectation.expected_surface is not claim.surface
+    ):
         raise ProvenanceError(
             f"actor surface drift: expected {expectation.expected_surface.value}, got {claim.surface.value}"
+        )
+
+    if expectation.expected_actor is not ContributionActor.SOURCE_UNVERIFIED:
+        if (
+            claim.claimed_actor is not ContributionActor.SOURCE_UNVERIFIED
+            and expectation.expected_actor is not claim.claimed_actor
+        ):
+            raise ProvenanceError(
+                "actor claim conflict: "
+                f"expected {expectation.expected_actor.value}, claimed {claim.claimed_actor.value}"
+            )
+        if (
+            claim.verified_actor is not ContributionActor.SOURCE_UNVERIFIED
+            and expectation.expected_actor is not claim.verified_actor
+        ):
+            raise ProvenanceError(
+                "verified actor conflict: "
+                f"expected {expectation.expected_actor.value}, verified {claim.verified_actor.value}"
+            )
+
+    if (
+        claim.verified_actor is not ContributionActor.SOURCE_UNVERIFIED
+        and claim.claimed_actor is not ContributionActor.SOURCE_UNVERIFIED
+        and claim.verified_actor is not claim.claimed_actor
+    ):
+        raise ProvenanceError(
+            "actor claim conflicts with independently verified actor: "
+            f"claimed {claim.claimed_actor.value}, verified {claim.verified_actor.value}"
         )
 
 

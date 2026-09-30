@@ -73,10 +73,11 @@ AI_FORMALIZATION + CHATGPT_TEACHER
 
 Legacy records that only say `CHATGPT` may remain historical when finer attribution cannot be reconstructed; they must not be silently upgraded. Use `SOURCE_UNVERIFIED` when the specific collaborator cannot be recovered.
 
-## Actor surface and pre-delegation binding
+## Actor, surface, and claim separation
 
-The repository distinguishes an operational actor label from the product or
-interaction surface through which the contribution was made.
+The repository treats the user-facing product or workflow surface, a returned
+actor self-label, a project-assigned operational label, an independently
+verified actor, and model identity as different provenance fields.
 
 OpenAI's current Help Center distinguishes **Chat**, **Work**, and **Codex** as
 separate experiences. It describes Work as an agent for longer multi-step work
@@ -87,56 +88,121 @@ with separate history. Source checked 2026-09-30:
 
 <https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex>
 
+That product-level distinction does not establish a one-to-one mapping from
+surface to execution actor.
+
 Repository interpretation:
 
 ```text
+INTERACTION_SURFACE
+!= RETURNED_ACTOR_CLAIM
+!= PROJECT_OPERATIONAL_LABEL
+!= VERIFIED_ACTOR
+!= VERIFIED_MODEL_IDENTITY
+
 UPSTREAM_PRODUCT_SURFACE != VERIFIED_MODEL_IDENTITY
-
-CHATGPT_TEACHER = REPOSITORY_LOCAL_ROLE_LABEL + CHATGPT_CHAT_SURFACE
-CHATGPT_WORK = CHATGPT_WORK_SURFACE
-CODEX = CODEX_SURFACE
-
 SHARED_MODEL_FAMILY != SAME_ACTOR
 SHARED_USAGE_POOL != SAME_ACTOR
 SAME_ACCOUNT != SAME_ACTOR
 TASK_DOMAIN != ACTOR
-REPOSITORY_TASK != CODEX_BY_DEFAULT
-LONG_MULTISTEP_TASK != CHATGPT_WORK_BY_DEFAULT
+
+CHATGPT_WORK_SURFACE
+!= CHATGPT_WORK_ACTOR_BY_DEFAULT
+
+CODEX_SURFACE
+!= CODEX_ACTOR_BY_DEFAULT
+
+RUNTIME_SELF_REPORT
+!= INDEPENDENT_ACTOR_VERIFICATION
+
+PROJECT_ANNOTATION
+!= ACTOR_VERIFICATION
+
+ANNOTATOR
+!= CONTRIBUTOR
+!= REVIEWER
+!= APPROVER
+
+VERIFIED_ACTOR
+=> VERIFICATION_REFS_REQUIRED
 ```
 
-Task semantics must never be used to infer the actor after the fact. A repository
-review performed in Work remains `CHATGPT_WORK` even if it modifies code. A
-document review performed in Codex remains `CODEX` even if the task is mostly
-prose.
-
-For material delegated AI work, bind the expected actor and surface **before**
-the delegated step whenever the surface is known:
+A bounded post-#233 regression handoff exposed the need for this separation: the
+observed surface was ChatGPT Work while the returned actor self-label was
+`CODEX`. That self-label is preserved as an actor claim; it does not by itself
+establish the verified execution actor.
 
 ```text
-EXPECTED_ACTOR
-EXPECTED_SURFACE
+OBSERVED_SURFACE = CHATGPT_WORK
+RETURNED_ACTOR_CLAIM = CODEX
+ACTOR_CLAIM_SOURCE = RUNTIME_SELF_REPORT
+VERIFIED_ACTOR = SOURCE_UNVERIFIED
+```
+
+For material delegated AI work, bind what is actually known **before** the
+delegated step:
+
+```text
+EXPECTED_SURFACE = KNOWN_SURFACE_OR_UNKNOWN
+EXPECTED_ACTOR = SPECIFIC_ONLY_IF_EVIDENCE_SUPPORTS_IT
 CONTRIBUTION_FUNCTION
 SOURCE_EVIDENCE
 ```
 
-The returned attribution must match that pre-bound record exactly. A collaborator
-self-label, output style, task domain, Git committer, or shared OpenAI product
-family must not override the pre-delegation binding.
+If the interaction surface is known but the execution actor is not independently
+established:
 
 ```text
-RETURNED_ACTOR != EXPECTED_ACTOR
+EXPECTED_SURFACE = <KNOWN_SURFACE>
+EXPECTED_ACTOR = SOURCE_UNVERIFIED
+```
+
+A returned self-label is recorded separately and must not silently replace the
+verified actor field.
+
+When the execution actor remains unknown, project governance may assign a bounded
+operational label for traceability. The label describes how the project will
+refer to that collaboration event; it does not identify the runtime, model, or
+execution actor.
+
+```text
+OBSERVED_SURFACE = CHATGPT_WORK
+RETURNED_ACTOR_CLAIM = CODEX
+PROJECT_OPERATIONAL_LABEL = WORK_SESSION_COLLABORATOR
+VERIFIED_ACTOR = SOURCE_UNVERIFIED
+VERIFIED_MODEL_IDENTITY = NOT_ESTABLISHED
+```
+
+The annotation must preserve who assigned it and why:
+
+```text
+ANNOTATED_BY = <IDENTIFIED_PROJECT_ACTOR(S)>
+ANNOTATION_BASIS = <OBSERVED_EVIDENCE_OR_HANDOFF>
+ANNOTATION_SOURCE_REFS = REQUIRED
+
+PROJECT_OPERATIONAL_LABEL
+!= VERIFIED_EXECUTION_ACTOR
+```
+
+```text
+RETURNED_SURFACE != EXPECTED_SURFACE
 => CONFLICT_REQUIRES_REVIEW
 => PROVENANCE_HOLD
 
-RETURNED_SURFACE != EXPECTED_SURFACE
+EXPECTED_ACTOR is specific
++ RETURNED_ACTOR_CLAIM conflicts
+=> ACTOR_CLAIM_CONFLICT
+=> PROVENANCE_HOLD
+
+VERIFIED_ACTOR conflicts with RETURNED_ACTOR_CLAIM
 => CONFLICT_REQUIRES_REVIEW
 => PROVENANCE_HOLD
 ```
 
-If the pre-delegation surface itself cannot be reconstructed, use
-`SOURCE_UNVERIFIED` rather than guessing. A conflict is repaired only from
-evidence; it is not silently normalized to whichever actor label best matches the
-task.
+Task type, writing style, Git committer, product family, or a self-reported actor
+label must not be used to infer model identity. Missing actor evidence remains
+`SOURCE_UNVERIFIED`; it is not normalized to whichever actor name best matches
+the surface or task.
 
 ## Attribution confidence
 
@@ -169,12 +235,29 @@ implementation:
     - docs/example.md
 
 review:
-  expected_actor: CHATGPT_WORK
+  expected_actor: SOURCE_UNVERIFIED
   expected_surface: CHATGPT_WORK
   contribution_function: REVIEW
+  returned_actor_claim: CODEX
+  actor_claim_source: RUNTIME_SELF_REPORT
+  project_annotation:
+    operational_actor_label: WORK_SESSION_COLLABORATOR
+    annotated_by:
+      - HUMAN_OWNER
+      - CHATGPT_TEACHER
+    annotation_basis:
+      - observed_work_surface
+      - explicit_task_handoff
+    source_refs:
+      - human_owner_project_label
+      - teacher_provenance_review
+  verified_actor: SOURCE_UNVERIFIED
+  verification_refs: []
   reviewed_by: SOURCE_UNVERIFIED
-  status: PENDING
-  source_evidence: work_review_handoff
+  status: PROVENANCE_HOLD
+  source_evidence:
+    - work_surface_handoff
+    - returned_runtime_self_label
 
 approval:
   approved_by: HUMAN_OWNER
