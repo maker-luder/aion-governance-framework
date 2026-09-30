@@ -6,6 +6,11 @@ from .adult_reference import (
     TargetScope,
     assert_role_isolation,
 )
+from .adult_reference_policy import (
+    AdultReferenceExecutionSurface,
+    AdultReferenceGovernanceDecision,
+    AdultReferenceGovernancePolicy,
+)
 from .adult_reference_simulation import (
     AdultReferenceSimulationEngine,
     AdultReferenceSimulationHarness,
@@ -57,6 +62,9 @@ from .models import ConflictKind, MotivationalSignal, MotivationalState, SignalD
 from .policy import GovernanceDecision, MotivationalGovernancePolicy, RuntimeMode
 
 __all__ = [
+    "AdultReferenceGovernancePolicy",
+    "AdultReferenceGovernanceDecision",
+    "AdultReferenceExecutionSurface",
     "verify_snapshot_receipts",
     "reference_estimate_payload",
     "build_snapshot_receipts",
