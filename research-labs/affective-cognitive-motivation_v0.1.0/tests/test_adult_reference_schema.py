@@ -131,3 +131,24 @@ def test_event_schema_rejects_authority_boundary_violation(
 
     with pytest.raises(ValidationError):
         Draft202012Validator(load_schema(EVENT_SCHEMA_PATH)).validate(payload)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("subjectivity_claim", "ESTABLISHED"),
+        ("consciousness_claim", "ESTABLISHED"),
+        ("sexual_function_runtime", "IMPLEMENTED"),
+        ("intimate_interaction_runtime", "AUTHORIZED"),
+        ("public_executable_exposure", True),
+    ],
+)
+def test_state_schema_rejects_hard_boundary_violation(
+    field: str,
+    value: object,
+) -> None:
+    payload = adult_reference_state_payload(valid_state())
+    payload[field] = value
+
+    with pytest.raises(ValidationError):
+        Draft202012Validator(load_schema(STATE_SCHEMA_PATH)).validate(payload)
