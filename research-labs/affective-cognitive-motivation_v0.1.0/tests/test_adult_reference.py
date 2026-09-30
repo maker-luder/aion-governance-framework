@@ -91,6 +91,11 @@ def test_reference_state_is_disabled_non_authoritative_and_noncanonical() -> Non
     assert current.action_authority == "NONE"
     assert current.human_consent_inference == "FORBIDDEN"
     assert current.phenomenal_experience_claim == "NOT_ESTABLISHED"
+    assert current.subjectivity_claim == "NOT_ESTABLISHED"
+    assert current.consciousness_claim == "NOT_ESTABLISHED"
+    assert current.sexual_function_runtime == "NOT_IMPLEMENTED"
+    assert current.intimate_interaction_runtime == "NOT_AUTHORIZED"
+    assert current.public_executable_exposure is False
     assert current.canonical_effect == "NONE"
 
 
@@ -102,6 +107,11 @@ def test_reference_state_is_disabled_non_authoritative_and_noncanonical() -> Non
         ("action_authority", "GRANTED"),
         ("human_consent_inference", "ALLOWED"),
         ("phenomenal_experience_claim", "ESTABLISHED"),
+        ("subjectivity_claim", "ESTABLISHED"),
+        ("consciousness_claim", "ESTABLISHED"),
+        ("sexual_function_runtime", "IMPLEMENTED"),
+        ("intimate_interaction_runtime", "AUTHORIZED"),
+        ("public_executable_exposure", True),
         ("canonical_effect", "WRITE"),
     ],
 )
