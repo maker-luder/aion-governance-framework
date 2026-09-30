@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/CHATGPT_TEACHER_ANTHROPOMETRY_V01_SCHEMA.json",
+  "title": "ChatGPT Teacher anthropometry v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id","body_id","measurements","real_person_biometric_source",
+    "person_reconstruction","canonical_effect","deployment"
+  ],
+  "properties": {
+    "profile_id": {"const": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.1"},
+    "body_id": {"const": "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"},
+    "measurements": {
+      "type": "array",
+      "minItems": 62,
+      "maxItems": 62,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["measurement_id","region","unit","nominal","minimum","maximum","approximate"],
+        "properties": {
+          "measurement_id": {"type": "string", "minLength": 1},
+          "region": {"type": "string", "minLength": 1},
+          "unit": {"enum": ["cm","kg"]},
+          "nominal": {"type": "number", "exclusiveMinimum": 0},
+          "minimum": {"type": "number", "exclusiveMinimum": 0},
+          "maximum": {"type": "number", "exclusiveMinimum": 0},
+          "approximate": {"type": "boolean"}
+        }
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "measurement_id": {"const": "total_height"},
+              "nominal": {"const": 183.0},
+              "unit": {"const": "cm"}
+            },
+            "required": ["measurement_id","nominal","unit"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "measurement_id": {"const": "body_mass"},
+              "nominal": {"const": 84.0},
+              "unit": {"const": "kg"}
+            },
+            "required": ["measurement_id","nominal","unit"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "real_person_biometric_source": {"const": "NONE"},
+    "person_reconstruction": {"const": "NO"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false}
+  }
+}
