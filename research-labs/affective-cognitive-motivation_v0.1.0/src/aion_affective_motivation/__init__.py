@@ -6,6 +6,24 @@ from .adult_reference import (
     TargetScope,
     assert_role_isolation,
 )
+from .adult_reference_simulation import (
+    AdultReferenceSimulationEngine,
+    AdultReferenceSimulationHarness,
+    AdultReferenceSimulationPolicy,
+    AdultReferenceSnapshotReceipt,
+    AdultReferenceSyntheticEvent,
+    AdultReferenceTrajectory,
+    AdultReferenceTransition,
+    DEFAULT_ADULT_REFERENCE_SIMULATION_POLICY,
+    ReferenceChannelTransition,
+    adult_reference_event_payload,
+    adult_reference_state_digest,
+    adult_reference_state_payload,
+    adult_reference_transition_payload,
+    build_snapshot_receipts,
+    reference_estimate_payload,
+    verify_snapshot_receipts,
+)
 from .coupling import (
     ChannelTransition,
     ChannelValue,
@@ -39,6 +57,22 @@ from .models import ConflictKind, MotivationalSignal, MotivationalState, SignalD
 from .policy import GovernanceDecision, MotivationalGovernancePolicy, RuntimeMode
 
 __all__ = [
+    "verify_snapshot_receipts",
+    "reference_estimate_payload",
+    "build_snapshot_receipts",
+    "adult_reference_transition_payload",
+    "adult_reference_state_payload",
+    "adult_reference_state_digest",
+    "adult_reference_event_payload",
+    "ReferenceChannelTransition",
+    "DEFAULT_ADULT_REFERENCE_SIMULATION_POLICY",
+    "AdultReferenceTransition",
+    "AdultReferenceTrajectory",
+    "AdultReferenceSyntheticEvent",
+    "AdultReferenceSnapshotReceipt",
+    "AdultReferenceSimulationPolicy",
+    "AdultReferenceSimulationHarness",
+    "AdultReferenceSimulationEngine",
     "AdultMaleSexualReferenceState",
     "DesireOnsetContext",
     "PhysiologyMotivationLink",
