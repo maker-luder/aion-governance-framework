@@ -35,7 +35,7 @@ The current `main` is organized around four connected research lines:
 ## Current research snapshot
 
 - **Continuity and memory:** history replay, attention-structure discrimination, exact-structure longitudinal claim admission, and matched-information memory-locus dependency testing.
-- **Human–AI collaboration:** CCTS uses bounded problems and purpose-relative grounding. No separate applicability construct or learning gate; learning relevance is a study-design caution.
+- **Human–AI collaboration:** CCTS uses bounded problems and purpose-relative grounding. No new applicability gate/construct; learning relevance is a design caution, not a CCTS-status gate for learning.
 - **Evidence admission:** bounded 12-axis provider-evidence admission now spans multiple provider families, while open independent replication remains sparse.
 - **Assurance and quality:** TEVV, Full-QMS, adversarial-security, FAIR4RS, NCR/CAPA and bounded supply-chain Phase 1 improve traceability without implying scientific validation, release authority or SLSA conformance.
 
