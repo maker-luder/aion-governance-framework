@@ -22,7 +22,12 @@
     "action_authority",
     "human_consent_inference",
     "phenomenal_experience_claim",
-    "canonical_effect"
+    "canonical_effect",
+    "subjectivity_claim",
+    "consciousness_claim",
+    "sexual_function_runtime",
+    "intimate_interaction_runtime",
+    "public_executable_exposure"
   ],
   "$defs": {
     "referenceEstimate": {
@@ -156,6 +161,21 @@
     },
     "canonical_effect": {
       "const": "NONE"
+    },
+    "subjectivity_claim": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness_claim": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "sexual_function_runtime": {
+      "const": "NOT_IMPLEMENTED"
+    },
+    "intimate_interaction_runtime": {
+      "const": "NOT_AUTHORIZED"
+    },
+    "public_executable_exposure": {
+      "const": false
     }
   }
 }
