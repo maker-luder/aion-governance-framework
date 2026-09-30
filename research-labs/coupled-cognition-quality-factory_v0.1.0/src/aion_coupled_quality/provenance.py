@@ -110,6 +110,7 @@ class ActorClaim:
     claim_source: ActorClaimSource
     source_refs: tuple[str, ...] = field(default_factory=tuple)
     verified_actor: ContributionActor = ContributionActor.SOURCE_UNVERIFIED
+    verification_refs: tuple[str, ...] = field(default_factory=tuple)
 
     def __post_init__(self) -> None:
         if not self.task_id.strip():
@@ -126,6 +127,20 @@ class ActorClaim:
             raise ProvenanceError("verified_actor must use an exact ContributionActor value")
         if not self.source_refs:
             raise ProvenanceError("actor claim requires at least one source reference")
+        if (
+            self.verified_actor is not ContributionActor.SOURCE_UNVERIFIED
+            and not self.verification_refs
+        ):
+            raise ProvenanceError(
+                "verified_actor requires independent verification_refs"
+            )
+        if (
+            self.verified_actor is ContributionActor.SOURCE_UNVERIFIED
+            and self.verification_refs
+        ):
+            raise ProvenanceError(
+                "verification_refs require a specific verified_actor"
+            )
 
 
 def verify_actor_claim(expectation: ActorExpectation, claim: ActorClaim) -> None:
