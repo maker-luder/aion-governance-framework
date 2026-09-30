@@ -449,7 +449,8 @@ No aggregate "CCTS quality score" is proposed.
 The observed repair burden does not establish why the interaction degraded.
 
 ```text
-PERSONALIZATION_CHANGE = CURRENTLY_SUPPORTED_TEMPORAL_CANDIDATE
+PERSONALIZATION_REVERSION = HUMAN_OBSERVED_TEMPORAL_REVERSAL
+PERSONALIZATION_CAUSAL_EFFECT = NOT_ESTABLISHED
 UPSTREAM_CONTRIBUTION = POSSIBLE
 LONG_CONTEXT_EFFECT = POSSIBLE
 ORDINARY_RESPONSE_ERROR = POSSIBLE
@@ -461,8 +462,8 @@ CCTS_EMPIRICAL_VALIDATION = NOT_ESTABLISHED
 ```
 
 The Human Owner observed that interaction quality appeared to improve after returning
-to the earlier personalization configuration. This temporal reversal increases the
-plausibility of a personalization-related explanation, but it is not a controlled
+to the earlier personalization configuration. This temporal ordering makes a personalization-related explanation worth testing, but
+it is not a controlled
 dechallenge/rechallenge experiment and does not isolate personalization from concurrent
 context or upstream changes.
 
@@ -503,3 +504,138 @@ NEW_FORMAL_HYPOTHESIS = NOT_YET
 EXPERIMENT_AUTHORIZATION = NO
 SCIENTIFIC_EFFECT = NONE
 ```
+
+## 11. Evidence reconciliation and reverse review — 2026-09-30
+
+This bounded Class D review reread the four CCTS anchors in section 10 at current
+`main` `ba764cb735ddbde813378491d582616f071ef32f`, plus the current
+bidirectional-grounding and tool-routing notes. The grounding admission contract
+requires sufficiency for the current purpose and fails closed on unresolved mismatch;
+its declared checkpoint is not an independent measure of mutual understanding.
+The formalization requires substantive reciprocal `REVISES`/`CHALLENGES` paths.
+Neither structural rule measures the 2026-09-30 episode.
+
+### 11.1 External-source ledger and applicability
+
+- **S1 — Shaikh et al. (2024), NAACL, peer-reviewed empirical generation
+  comparison**, [DOI 10.18653/v1/2024.naacl-long.348](https://doi.org/10.18653/v1/2024.naacl-long.348).
+  Simulated model turns in human dialogue datasets on teaching, persuasion and
+  emotional support; model generations contained fewer grounding acts than human
+  responses to the same contexts. This compares generated turns, not longitudinal
+  repository research, actual repair cost or this account's model configuration.
+- **S2 — Shaikh et al. (2025), ACL, peer-reviewed observational log analysis and
+  benchmark**, [DOI 10.18653/v1/2025.acl-long.1016](https://doi.org/10.18653/v1/2025.acl-long.1016).
+  WildChat, Bing Chat and human-wizard MultiWOZ interactions: users initiated
+  substantially more clarification/follow-up and repair in the human–LLM logs;
+  early grounding failures predicted later breakdown in those data. Logs,
+  annotated acts and a selected benchmark do not identify a causal mechanism.
+  The authors note unavailable Bing system prompts, WildChat-derived task
+  selection and imperfect automated annotation. S2 cites S1 and shares a lead
+  author: the two are related studies, not independent replication of CCTS.
+- **S3 — Hagemann et al. (2023), peer-reviewed perspective**,
+  [DOI 10.3389/frai.2023.1252897](https://doi.org/10.3389/frai.2023.1252897).
+  A conceptual account of coordination, shared task models and breakdown
+  detection in human–AI/multi-team work; no episode-specific experiment.
+- **S4 — Zhou et al. (2025), peer-reviewed conference-proceedings research**,
+  [DOI 10.1177/10711813251369372](https://doi.org/10.1177/10711813251369372).
+  Ten teams in a remotely piloted aircraft simulation with a human teammate
+  introducing incorrect information. Qualitative analysis distinguished timely
+  verification and structured communication in successful adaptation, but the
+  quantitative navigator-influence/performance hypothesis was **not supported**.
+  Small sample and one perturbation type; human–human team evidence only.
+- **S5 — Graesser et al. (2018), peer-reviewed integrative review**,
+  [DOI 10.1177/1529100618808244](https://doi.org/10.1177/1529100618808244).
+  The publisher abstract surveys theoretical and empirical collaborative
+  problem-solving research; this review checked the abstract-level scope, not a
+  direct CCTS result or a specific effect size.
+- **S6 — Krzywdzinski et al., published online 2025, 2026 issue, peer-reviewed
+  laboratory experiment**,
+  [DOI 10.1007/s00146-025-02761-5](https://doi.org/10.1007/s00146-025-02761-5).
+  Human teams managed simulated production breakdowns with a fixed-output,
+  partially autonomous AI recommendation aid; self-managed teams communicated
+  more effectively and performed better than hierarchical teams in that setting.
+  The paper explicitly limits transfer beyond simplified tasks. Its AI did not
+  serve as a conversational co-researcher, and its mediation analysis cannot be
+  transferred to CCTS.
+- **S7 — Poelitz et al. (2026), arXiv preprint only**,
+  [DOI 10.48550/arXiv.2602.21337](https://doi.org/10.48550/arXiv.2602.21337).
+  A puzzle benchmark and confirmatory study with 40 UK English-fluent
+  participants interacting with one GPT-4.1 configuration. The authors describe
+  common-ground repair and divergences from human–human patterns. A benchmark
+  study in a narrow task does not validate our taxonomy; no peer-reviewed
+  publication was established in this review.
+
+`EXTERNAL_SOURCE` describes the papers' own populations and tasks.
+`REPOSITORY_STATE` describes our local definitions and artifact records.
+`HUMAN_ORIGIN` describes the reported episode and temporal recovery;
+`AI_FORMALIZATION` maps it to the candidate chain; `JOINT_SYNTHESIS`
+is the bounded stressor question. `PROVENANCE != CORRECTNESS`.
+
+### 11.2 Claim–evidence matrix
+
+| Claim | Evidence source | Evidence type | Direct / adjacent | Disposition | Population | Task | Limitation | Claim ceiling |
+|---|---|---|---|---|---|---|---|---|
+| C1. Participant-side degradation can disrupt coordination | S4; S3 | Human-team simulation; human–AI perspective | Adjacent | Partial | Ten human teams; conceptual human–AI teams | Incorrect teammate information; team coordination | S4 main quantitative hypothesis unsupported; no degraded AI co-researcher | Plausible team-level stressor, not a measured CCTS effect |
+| C2. Grounding failure can predict or contribute to later breakdown | S2 | Human–LLM log analysis | Direct for prediction, not causation | Support for prediction; causal contribution unknown | WildChat/Bing users and MultiWOZ comparator | Multi-turn assistant dialogue | Selection, prompts and annotator limits; no randomized failure | Association within studied logs |
+| C3. Human–AI grounding burden can become asymmetric | S2; S1; S7 | Logs; generation comparison; preprint task | Direct for S2's acts; adjacent elsewhere | Support | Assistant users; human dialogue comparators; puzzle participants | Clarification, follow-up, repair | Act frequencies are not cognitive-cost measurements; S7 preprint | Asymmetry in observed initiation/repair, not universal burden |
+| C4. Repair burden can shift work onto the Human participant | S2; local Human report | Logs plus naturalistic self-report | Direct for who initiates repair; adjacent for effort/cost | Partial | Assistant users; this Human Owner | Dialogue repair; repository-rule recovery | No measured attention, time, or counterfactual in this episode | Candidate human repair cost, unquantified locally |
+| C5. Shared understanding/common ground matters in collaborative problem solving | S5; S3; S7 | Integrative review; perspective; preprint | Adjacent | Support for research relevance | Human teams; conceptual human–AI teams; puzzle dyads | Collaborative problem solving and coordination | No exact CCTS structural taxonomy test; S5 abstract checked | Adjacent construct support only |
+| C6. A degraded participant can force team-level adaptation | S4; S6 | Human-team simulation; AI-aided production lab | Adjacent | Partial | Ten human teams; production teams with AI aid | Teammate misinformation; automation failure | S4 quantitative null; S6 AI aid and team-organization manipulation differ | Possible adaptation, not inevitable or CCTS-specific |
+| C7. Current interaction degradation does not imply historical artifact destruction | Current branch record; repository git state | Logical/state distinction | Direct as repository-state distinction | Support for distinction | This repository | Preserved files and current conversation | Persistence alone does not prove semantic usability or current-field integrity | Artifacts can survive; this episode does not measure their durability |
+| C8. Repository artifacts may support re-entry after degradation | Current-main CCTS formalization and grounding hypothesis | Local structural design and candidate hypothesis | Adjacent to empirical claim | Partial | Repository-defined workflow | Artifact binding and future re-entry | No controlled re-entry comparison for this episode | Possible support, not measured recovery mechanism |
+| C9. This episode validates CCTS | No direct study | Single naturalistic observation | Neither | Reject / NOT_ESTABLISHED | One Human–AI interaction | Interaction-routing drift | No controls, independent scoring, exact construct test or causal identification | Hypothesis-generating only |
+
+The proposed sequence from participant-side change through mismatch, repair,
+attention diversion and reciprocal-revision degradation is **a candidate chain**.
+S2 supports some neighboring links in assistant dialogue; no source tests the
+whole chain or distinguishes this episode from generic tool reliability and
+coordination failure. In particular, the local report of diverted attention
+does not quantify lost object-level research, and no `REVISES`/`CHALLENGES`
+continuity was independently coded for this episode.
+
+### 11.3 Citation-context and competing-explanation check
+
+The S2 discussion invokes S1 for grounding gaps and adds log-level repair
+analysis; S7 invokes S1/grounding theory as background for a different puzzle
+benchmark. Those citations do not convert S1 into a replication of S2, or S7
+into peer-reviewed confirmation of CCTS. A bounded Scite incoming-citation
+graph for S1/S2 was truncated and had zero resolved incoming edges for S2;
+the available S1 snippets were primarily **mentioning** contexts. It supplies
+no reliable contrast/replication verdict and is not used to strengthen any row.
+
+The same observation could arise from ordinary team coordination failure,
+generic human–computer interaction failure, tool unreliability, stale
+repository rules, long-context competition, ordinary response error,
+upstream change or interacting factors. Neither the chronological improvement
+after personalization reversion nor nearby provider incidents isolates one
+factor. Provider status describes service events, not this dyad's hidden route;
+third-party incident monitors do not prove a model-routing or personalization
+defect.
+
+```text
+EXTERNAL_ADJACENT_SUPPORT = SUPPORTED_WITH_TASK_AND_POPULATION_LIMITS
+EXACT_CCTS_TAXONOMY_MATCH = NOT_ESTABLISHED
+CCTS_EMPIRICAL_VALIDATION = NOT_ESTABLISHED
+CCTS_CAUSAL_MECHANISM = NOT_ESTABLISHED
+PERSONALIZATION_CAUSAL_EFFECT = NOT_ESTABLISHED
+UPSTREAM_CAUSAL_EFFECT = NOT_ESTABLISHED
+ROOT_CAUSE = UNKNOWN
+CURRENT_FIELD_INTEGRITY != HISTORICAL_ARTIFACT_SURVIVAL
+```
+
+### 11.4 Conditions that would weaken the candidate account
+
+- A matched fresh interaction or generic coordination repair restores the
+  task at comparable cost without repository artifact re-entry.
+- Independent coding finds grounding and reciprocal-revision conditions
+  intact during the reported drift, or no increase in repair turns.
+- Apparent object-level diversion disappears under timestamped turn coding
+  or is equally explained by task difficulty and review rigor.
+- Repeating the personalization reversal with matched context, model and
+  upstream conditions does not reproduce the apparent quality difference.
+- Preserved artifacts cannot be retrieved or do not help reconstruct the
+  bounded problem, provenance and rejected branches.
+
+These are prospective discriminators, not experiments performed here.
+No new CCTS definition, measurement result or main-branch authority follows
+from this reconciliation.
