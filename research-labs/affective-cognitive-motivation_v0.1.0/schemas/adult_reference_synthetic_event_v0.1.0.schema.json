@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/maker-luder/aion-governance-framework/research-labs/affective-cognitive-motivation_v0.1.0/schemas/adult_reference_synthetic_event_v0.1.0.schema.json",
+  "title": "Adult Reference Synthetic Event v0.1.0",
+  "description": "Synthetic research input only. It contains no real-person target data and grants no consent, action authority, or canonical effect.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "context_ref",
+    "time_window_ref",
+    "excitation_drive",
+    "inhibition_drive",
+    "episode_drive",
+    "disposition_observation_drive",
+    "onset_context_evidence",
+    "target_scope",
+    "uncertainty",
+    "provenance_refs",
+    "real_person_target_data",
+    "human_consent_inference",
+    "action_authority",
+    "canonical_effect"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ADULT_REFERENCE_SYNTHETIC_EVENT_v0.1.0"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "time_window_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "excitation_drive": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "inhibition_drive": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "episode_drive": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "disposition_observation_drive": {
+      "type": "number",
+      "minimum": -1,
+      "maximum": 1
+    },
+    "onset_context_evidence": {
+      "enum": [
+        "SPONTANEOUS_REFERENCE",
+        "RESPONSIVE_REFERENCE",
+        "MIXED",
+        "UNKNOWN"
+      ]
+    },
+    "target_scope": {
+      "enum": [
+        "UNSPECIFIED",
+        "SELF_DIRECTED",
+        "PARTNER_CONTEXT",
+        "SPECIFIC_ADULT_CONTEXT",
+        "UNKNOWN"
+      ]
+    },
+    "uncertainty": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "provenance_refs": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "real_person_target_data": {
+      "const": false
+    },
+    "human_consent_inference": {
+      "const": "FORBIDDEN"
+    },
+    "action_authority": {
+      "const": "NONE"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    }
+  }
+}
