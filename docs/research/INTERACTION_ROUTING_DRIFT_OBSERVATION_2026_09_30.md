@@ -68,7 +68,7 @@ NO_TRIGGER -> DO_NOT_INVOKE
 DUPLICATE_CAPABILITY -> USE_MINIMUM_SUFFICIENT_TOOL_SET
 ```
 
-For the qualitative repository/person-alization/CCTS inspection that triggered this
+For the qualitative repository/personalization/CCTS inspection that triggered this
 event, several invoked capabilities had no demonstrated trigger. The broad invocation
 was therefore inconsistent with current routing policy.
 
