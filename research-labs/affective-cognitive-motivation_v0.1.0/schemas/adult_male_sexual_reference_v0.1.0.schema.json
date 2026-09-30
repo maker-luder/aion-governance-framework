@@ -136,7 +136,8 @@
       "items": {
         "type": "string",
         "minLength": 1
-      }
+      },
+      "uniqueItems": true
     },
     "runtime_enabled": {
       "const": false
