@@ -163,7 +163,7 @@ CONTRIBUTION = reread live repository routing controls, confirmed the tool-routi
                unverified causal explanations, and drafted this bounded record
 
 REPOSITORY_STATE = EVIDENCE_CONTEXT
-EXTERNAL_SOURCE = NONE_REQUIRED_FOR_THIS_RECORD
+EXTERNAL_SOURCE = OPENAI_OFFICIAL + THIRD_PARTY_MONITORING + THIRD_PARTY_PRESS
 SOURCE_UNVERIFIED = hidden model/router state and any causal account not independently observed
 ```
 
@@ -190,4 +190,173 @@ OBSERVATION_RETAINED = TRUE
 OPERATIONAL_DEVIATION_VERIFIED = TRUE
 ROOT_CAUSE = UNKNOWN
 SCIENTIFIC_EFFECT = NONE
+```
+
+
+## 9. Recent upstream context and independent third-party cross-check — 2026-09-23 to 2026-09-30
+
+This section was added after the Human Owner requested a bounded check of recent
+OpenAI upstream conditions using both provider records and third-party evidence.
+
+The purpose is contextual only:
+
+```text
+UPSTREAM_EVENT_PRESENT != CAUSE_OF_LOCAL_INTERACTION_DRIFT
+TEMPORAL_OVERLAP != CAUSATION
+THIRD_PARTY_CORROBORATION != ROOT_CAUSE_ANALYSIS
+```
+
+### 9.1 Provider-recorded events in the same window
+
+OpenAI's own status and release surfaces recorded the following events:
+
+- **2026-09-23:** elevated ChatGPT conversation error rates across Plus and Pro plans;
+- **2026-09-23:** mobile users temporarily could not see Work Mode or the model picker;
+- **2026-09-24:** elevated error rates on GPT-6 Astra Pro;
+- **2026-09-25:** a GPT-6 Sol / GPT-6 Luna image-encoding bug was fixed after degrading
+  image understanding in API and Codex visual tasks, including computer use;
+- **2026-09-25:** Codex had a full outage affecting Codex Web, Codex API, CLI and the
+  VS Code extension;
+- **2026-09-29:** GPT-6.1 Sol was introduced and a large DevDay product rollout
+  included new Codex cloud / review / security surfaces and other product changes;
+- **2026-09-29:** OpenAI reported elevated errors across ChatGPT, Codex and APIs,
+  including the Agents API, with failed requests, login/sign-up difficulty and
+  incomplete tasks reported as possible symptoms.
+
+Provider sources:
+
+- https://status.openai.com/incidents/thedr16r
+- https://status.openai.com/incidents/01M389CDQ97B11QPMSRAAYSE5S
+- https://status.openai.com/incidents/m44fs25y
+- https://status.openai.com/
+- https://openai.com/products/release-notes/
+- https://developers.openai.com/api/docs/changelog
+- https://deploymentsafety.openai.com/gpt-6-1-sol/respecting-auto-review
+- https://developers.openai.com/api/docs/models/gpt-6.1-sol
+- https://devday.openai.com/
+
+### 9.2 Independent monitoring corroboration
+
+Independent service-monitoring sites corroborate that multiple OpenAI incidents were
+visible during the same week.
+
+IsDown recorded:
+
+- the 2026-09-23 Work Mode / model-picker incident;
+- the 2026-09-23 Plus / Pro conversation-error incident;
+- the 2026-09-25 Codex outage, which its monitor reports detecting about two minutes
+  before the corresponding official status update;
+- the 2026-09-29 ChatGPT / Codex / API incident.
+
+Sources:
+
+- https://isdown.app/status/chatgpt
+- https://isdown.app/status/openai/incidents/659836-mobile-users-unable-to-see-work-mode-and-the-model-picker
+- https://isdown.app/status/openai/incidents/662418-elevated-errors-across-chatgpt-codex-and-the-api
+
+APIStatusCheck independently summarized five OpenAI incidents within seven days at
+the time of retrieval and showed the 2026-09-29 cross-product incident as a partial
+outage:
+
+- https://apistatuscheck.com/api/openai
+
+These services are independent monitors, but some of their incident detail is sourced
+from or reconciled against OpenAI's public status feed. They corroborate event
+visibility and timing; they do not independently establish root cause.
+
+### 9.3 Direct-probe evidence narrows the interpretation
+
+A separate third-party monitor, AI API Incident History / llmlatency.dev, probes AI
+provider inference endpoints directly from four regions every five minutes and does
+not rely on provider status pages to decide whether an API outage occurred.
+
+For the 72-hour window ending on 2026-09-29, its confirmed provider-outage list did
+**not** attribute a multi-region API outage to OpenAI, even though OpenAI's status
+page reported elevated errors across ChatGPT, Codex and APIs on 2026-09-29.
+
+Source:
+
+- https://llmlatency.dev/incidents
+
+This is useful negative evidence:
+
+```text
+OPENAI_STATUS_REPORTED_CROSS_PRODUCT_DEGRADATION = TRUE
+INDEPENDENT_FOUR_REGION_API_OUTAGE_CONFIRMATION = NOT_OBSERVED_IN_THIS_MONITOR
+```
+
+The two observations are not necessarily contradictory. The OpenAI incident included
+login, ChatGPT, Codex, task-completion and API symptoms, while the direct-probe monitor
+tests a bounded set of inference endpoints and applies a multi-region attribution
+threshold. A partial, endpoint-specific, authentication-related or product-surface
+incident could therefore be visible to users without satisfying that monitor's API
+outage criterion.
+
+Accordingly:
+
+```text
+"GLOBAL OPENAI API OUTAGE" = NOT_ESTABLISHED_BY_THIRD_PARTY_DIRECT_PROBES
+"BROAD OPENAI PRODUCT DEGRADATION WAS REPORTED" = SUPPORTED
+```
+
+### 9.4 Independent reporting on the rapid product/model transition
+
+Independent technology reporting also confirms that the same window contained a
+high-density product/model transition.
+
+VentureBeat independently reported the 2026-09-29 GPT-6.1 Sol launch, its pricing,
+and the Ultrafast tier, while explicitly noting that the benchmark comparisons being
+reported were OpenAI-run evaluations rather than independent production tests:
+
+- https://venturebeat.com/technology/openais-gpt-6-1-sol-offers-astra-like-performance-at-1-5th-price-a-new-ultrafast-tier-clocks-at-300-tokens-per-second
+
+TechCrunch independently reported the DevDay Codex changes, including reusable cloud
+environments, the refreshed CLI, code review and Codex Security Cloud:
+
+- https://techcrunch.com/2026/09/29/openai-gives-codex-reusable-cloud-environments-that-work-across-devices/
+
+The Verge independently summarized the broader DevDay rollout:
+
+- https://www.theverge.com/ai-artificial-intelligence/1001681/openai-devday-2026-biggest-news-announcements
+
+Reuters independently reported the DevDay launch of OpenAI's Dots agent and noted
+technical glitches during live demonstrations:
+
+- https://www.reuters.com/business/openai-takes-meta-with-always-on-dots-agent-enterprise-ai-push-2026-09-29/
+
+These reports independently establish that a major model/product rollout was occurring
+during the same period. They do **not** establish that rollout activity caused the
+Human Owner's reported interaction drift.
+
+### 9.5 Cross-source disposition
+
+The evidence supports a narrower statement than the initial suspicion:
+
+```text
+RECENT_UPSTREAM_CHANGE_DENSITY = HIGH
+RECENT_OPENAI_INCIDENT_DENSITY = ELEVATED / MULTIPLE_RECORDED_EVENTS
+THIRD_PARTY_EVENT_CORROBORATION = PRESENT
+THIRD_PARTY_DIRECT_API_CONFIRMATION_FOR_2026_09_29 = MIXED / NOT_CONFIRMED
+LOCAL_INTERACTION_DRIFT = OBSERVED
+CAUSAL_LINK_TO_UPSTREAM = NOT_ESTABLISHED
+```
+
+Therefore the recent upstream environment is retained as a plausible contextual
+variable for future comparison, not as the cause of this episode.
+
+Possible future discriminating evidence would include:
+
+- a provider root-cause analysis explicitly identifying routing, context, model-serving
+  or personalization changes that overlap the observed period;
+- reproducible before/after behavior under the same account, model, context and
+  personalization conditions;
+- independent telemetry showing the same failure mode rather than only general outage
+  or deployment activity.
+
+Until such evidence exists:
+
+```text
+UPSTREAM_CONTEXT = RETAIN
+UPSTREAM_CAUSAL_ATTRIBUTION = HOLD
+ROOT_CAUSE = UNKNOWN
 ```
