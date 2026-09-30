@@ -206,6 +206,7 @@ def test_specific_ai_actor_cannot_be_attached_to_non_ai_origin() -> None:
             layer=ClaimLayer.ANALYSIS,
         )
 
+
 def test_actor_expectation_accepts_exact_chatgpt_work_review_claim() -> None:
     expectation = ActorExpectation(
         task_id="pr-232-review",
