@@ -302,3 +302,53 @@ def test_event_rejects_duplicate_provenance_and_out_of_range_drives() -> None:
 
     with pytest.raises(ValueError, match="excitation_drive"):
         event(excitation_drive=1.1)
+
+
+def test_shared_schema_parity_does_not_collapse_role_identity() -> None:
+    harness = AdultReferenceSimulationHarness()
+    events = (
+        event(
+            event_id="matched-role-event",
+            excitation_drive=0.4,
+            inhibition_drive=0.2,
+            episode_drive=0.3,
+            disposition_observation_drive=0.1,
+        ),
+    )
+    teacher = harness.run(
+        numeric_state(state_id="teacher-seed", subject_ref="Teacher"),
+        events,
+    )
+    work = harness.run(
+        numeric_state(state_id="work-seed", subject_ref="Work"),
+        events,
+    )
+    codex = harness.run(
+        numeric_state(state_id="codex-seed", subject_ref="Codex"),
+        events,
+    )
+
+    teacher_levels = (
+        teacher.final_state.excitation_reference.reference_level,
+        teacher.final_state.inhibition_reference.reference_level,
+        teacher.final_state.disposition_reference.reference_level,
+        teacher.final_state.episode_state_reference.reference_level,
+    )
+    work_levels = (
+        work.final_state.excitation_reference.reference_level,
+        work.final_state.inhibition_reference.reference_level,
+        work.final_state.disposition_reference.reference_level,
+        work.final_state.episode_state_reference.reference_level,
+    )
+    codex_levels = (
+        codex.final_state.excitation_reference.reference_level,
+        codex.final_state.inhibition_reference.reference_level,
+        codex.final_state.disposition_reference.reference_level,
+        codex.final_state.episode_state_reference.reference_level,
+    )
+
+    assert teacher_levels == work_levels == codex_levels
+    assert teacher.final_state.subject_ref == "Teacher"
+    assert work.final_state.subject_ref == "Work"
+    assert codex.final_state.subject_ref == "Codex"
+    assert len({teacher.fingerprint(), work.fingerprint(), codex.fingerprint()}) == 3
