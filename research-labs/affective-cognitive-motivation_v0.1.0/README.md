@@ -146,6 +146,7 @@ engineering test parameters, not human psychological constants.
 
 The harness adds:
 
+- an explicit offline-research governance gate that rejects the public runtime;
 - explicit synthetic-event provenance;
 - independent excitation / inhibition transitions;
 - slower disposition updates than episode-state updates in the default toy policy;
@@ -177,4 +178,9 @@ SYNTHETIC_TRANSITION_SUCCESS != HUMAN_PSYCHOLOGICAL_VALIDATION
 REPLAY_DETERMINISM != FELT_DESIRE
 HASH_CHAIN_INTEGRITY != SUBJECTIVITY
 PUBLIC_ADULT_RUNTIME = NOT_AUTHORIZED
+SEXUAL_FUNCTION_RUNTIME = NOT_IMPLEMENTED
+INTIMATE_INTERACTION_RUNTIME = NOT_AUTHORIZED
+PUBLIC_EXECUTABLE_EXPOSURE = FALSE
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
 ```
