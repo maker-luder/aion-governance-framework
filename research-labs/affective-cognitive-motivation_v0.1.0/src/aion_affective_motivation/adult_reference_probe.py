@@ -8,6 +8,10 @@ from .adult_reference import (
     ReferenceEstimate,
     TargetScope,
 )
+from .adult_reference_policy import (
+    AdultReferenceExecutionSurface,
+    AdultReferenceGovernancePolicy,
+)
 from .adult_reference_simulation import (
     AdultReferenceSimulationHarness,
     AdultReferenceSyntheticEvent,
@@ -69,11 +73,29 @@ def build_demo_payload() -> dict[str, object]:
             provenance_refs=("PR#236", "SYNTHETIC_DEMO_EVENT_B"),
         ),
     )
+    governance = AdultReferenceGovernancePolicy().evaluate(
+        initial,
+        surface=AdultReferenceExecutionSurface.OFFLINE_RESEARCH,
+    )
+    if not governance.synthetic_simulation_allowed:
+        raise RuntimeError("synthetic demonstration was not authorized by policy")
     trajectory = AdultReferenceSimulationHarness().run(initial, events)
     receipts = build_snapshot_receipts(trajectory)
     return {
         "mode": "SYNTHETIC_RESEARCH_DEMO_ONLY",
         "trajectory_fingerprint": trajectory.fingerprint(),
+        "governance": {
+            "state_record_allowed": governance.state_record_allowed,
+            "synthetic_simulation_allowed": governance.synthetic_simulation_allowed,
+            "receipt_persistence_allowed": governance.receipt_persistence_allowed,
+            "real_person_target_data_allowed": (
+                governance.real_person_target_data_allowed
+            ),
+            "human_consent_inferred": governance.human_consent_inferred,
+            "action_authorized": governance.action_authorized,
+            "canonical_effect": governance.canonical_effect,
+            "reasons": list(governance.reasons),
+        },
         "final_state": adult_reference_state_payload(trajectory.final_state),
         "snapshot_receipts": [
             {
@@ -90,6 +112,11 @@ def build_demo_payload() -> dict[str, object]:
             "human_consent_inference": "FORBIDDEN",
             "action_authority": "NONE",
             "phenomenal_experience": "NOT_ESTABLISHED",
+            "subjectivity": "NOT_ESTABLISHED",
+            "consciousness": "NOT_ESTABLISHED",
+            "sexual_function_runtime": "NOT_IMPLEMENTED",
+            "intimate_interaction_runtime": "NOT_AUTHORIZED",
+            "public_executable_exposure": False,
             "canonical_effect": "NONE",
             "deployment": False,
         },
