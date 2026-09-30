@@ -8,6 +8,10 @@
     "event_id",
     "kind",
     "magnitude",
+    "prepuce_position",
+    "synthetic_fluid_output_ml",
+    "endocrine_reference_signal",
+    "urinary_reference_signal",
     "real_person_target_data",
     "human_consent_inference",
     "action_authority"
@@ -21,14 +25,34 @@
       "SET_ENDOCRINE_REFERENCE","SET_URINARY_REFERENCE"
     ]},
     "magnitude": {"type": "number", "minimum": 0, "maximum": 1},
-    "prepuce_position": {"type": ["string","null"], "enum": [
-      "RESTING_PARTIAL_COVERAGE","PARTIALLY_RETRACTED","RETRACTED","UNKNOWN",null
-    ]},
+    "prepuce_position": {
+      "type": ["string","null"],
+      "enum": ["RESTING_PARTIAL_COVERAGE","PARTIALLY_RETRACTED","RETRACTED","UNKNOWN",null]
+    },
     "synthetic_fluid_output_ml": {"type": ["number","null"], "minimum": 0},
     "endocrine_reference_signal": {"type": ["number","null"], "minimum": 0, "maximum": 1},
     "urinary_reference_signal": {"type": ["number","null"], "minimum": 0, "maximum": 1},
     "real_person_target_data": {"const": false},
     "human_consent_inference": {"const": "FORBIDDEN"},
     "action_authority": {"const": "NONE"}
-  }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"kind": {"const": "OBSERVE_PREPUCE_POSITION"}}},
+      "then": {"properties": {"prepuce_position": {"type": "string"}}},
+      "else": {"properties": {"prepuce_position": {"const": null}}}
+    },
+    {
+      "if": {"properties": {"kind": {"const": "EJACULATION"}}},
+      "else": {"properties": {"synthetic_fluid_output_ml": {"const": null}}}
+    },
+    {
+      "if": {"properties": {"kind": {"const": "SET_ENDOCRINE_REFERENCE"}}},
+      "else": {"properties": {"endocrine_reference_signal": {"const": null}}}
+    },
+    {
+      "if": {"properties": {"kind": {"const": "SET_URINARY_REFERENCE"}}},
+      "else": {"properties": {"urinary_reference_signal": {"const": null}}}
+    }
+  ]
 }
