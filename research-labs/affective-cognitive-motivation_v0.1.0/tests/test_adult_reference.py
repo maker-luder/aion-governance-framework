@@ -152,3 +152,8 @@ def test_unknown_reference_level_requires_maximum_uncertainty() -> None:
             context_ref="synthetic-context",
             time_window_ref="episode-1",
         )
+
+
+def test_state_rejects_duplicate_provenance() -> None:
+    with pytest.raises(ValueError, match="provenance references must be unique"):
+        state(provenance_refs=("PR#236", "PR#236"))
