@@ -52,7 +52,7 @@ ACTOR_LABEL != VERIFIED_MODEL_IDENTITY
 The actor label is an auditable workflow attribution, not a claim about
 subjective identity, model continuity, independence, or scientific authority.
 
-### Interaction surface, actor claim, and verified actor
+### Interaction surface, actor claim, project annotation, and verified actor
 
 For new material AI handoffs, the implementation records the interaction surface
 separately from any actor label returned by the runtime or collaborator.
@@ -74,11 +74,12 @@ usage structure:
 
 <https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex>
 
-The repository therefore separates four fields:
+The repository therefore separates five fields:
 
 ```text
 INTERACTION_SURFACE
 != RETURNED_ACTOR_CLAIM
+!= PROJECT_OPERATIONAL_LABEL
 != VERIFIED_ACTOR
 != VERIFIED_MODEL_IDENTITY
 ```
@@ -90,11 +91,29 @@ while the observed surface was ChatGPT Work. The correct representation is:
 INTERACTION_SURFACE = CHATGPT_WORK
 RETURNED_ACTOR_CLAIM = CODEX
 ACTOR_CLAIM_SOURCE = RUNTIME_SELF_REPORT
+PROJECT_OPERATIONAL_LABEL = WORK_SESSION_COLLABORATOR
 VERIFIED_ACTOR = SOURCE_UNVERIFIED
 ```
 
 This does not establish that Work always uses Codex, that Codex actually executed
 the task, or that a returned self-label is model identity.
+
+The project may assign an operational label to make repeated collaboration
+records readable even when execution identity cannot be verified. That annotation
+is a governance label, not a discovery about the runtime:
+
+```text
+PROJECT_OPERATIONAL_LABEL = WORK_SESSION_COLLABORATOR
+ANNOTATED_BY = HUMAN_OWNER + CHATGPT_TEACHER
+ANNOTATION_BASIS = OBSERVED_WORK_SURFACE + EXPLICIT_TASK_HANDOFF
+
+PROJECT_ANNOTATION != ACTOR_VERIFICATION
+ANNOTATOR != CONTRIBUTOR
+OPERATIONAL_LABEL != MODEL_IDENTITY
+```
+
+If no independent actor evidence exists, the annotation does not change
+`VERIFIED_ACTOR = SOURCE_UNVERIFIED`.
 
 For pre-delegation records, bind only what the evidence supports:
 
@@ -105,6 +124,9 @@ KNOWN_SURFACE + UNKNOWN_ACTOR
 
 RUNTIME_SELF_REPORT
 != INDEPENDENT_ACTOR_VERIFICATION
+
+PROJECT_OPERATIONAL_LABEL
+!= VERIFIED_EXECUTION_ACTOR
 
 VERIFIED_ACTOR
 => VERIFICATION_REFS_REQUIRED
