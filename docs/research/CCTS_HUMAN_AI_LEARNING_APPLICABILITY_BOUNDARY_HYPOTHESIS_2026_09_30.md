@@ -1,6 +1,6 @@
 # CCTS / Human–AI learning applicability boundary hypothesis — 2026-09-30
 
-Status: `HYPOTHESIS_GENERATING / DOCUMENTATION_ONLY / SCIENTIFIC_HOLD`
+Status: `ADVERSARIAL_REVIEWED / SCOPE_DISTINCTION_ONLY / DOCUMENTATION_ONLY / SCIENTIFIC_HOLD`
 
 Canonical effect: `NONE`
 
@@ -12,9 +12,9 @@ Deployment: `FALSE`
 
 ## 1. Purpose
 
-This note records a bounded research hypothesis about when the repository-defined
-Co-Constructed Thinking Space (CCTS) construct and Human–AI learning claims are
-applicable to an interaction.
+This note records an initiating boundary hypothesis and its adversarial review.
+The surviving distinction is a scope and study-design caution, not an
+independent CCTS or Human–AI learning construct.
 
 It does **not** modify the canonical CCTS admission contract. It does **not** add
 an empirical learning result. It does **not** claim that value disagreement,
@@ -36,8 +36,10 @@ interaction style may justify disengagement from a context without establishing
 that the other participants are wrong, that grounding failed, or that a CCTS
 attempt failed.
 
-The operational distinctions below are a ChatGPT Teacher formalization produced
-after comparison with the current repository definition and adjacent literature.
+The operational distinctions below originated as a ChatGPT Teacher
+formalization. Section 11 records an independent review of that formalization
+against repository controls and adjacent literature. Provenance does not
+establish correctness.
 
 ```text
 HUMAN_ORIGIN
@@ -48,8 +50,17 @@ CHATGPT_TEACHER_FORMALIZATION
 = GLOBAL_VALUE_MISMATCH
   != TASK_OR_PURPOSE_MISMATCH
   != GROUNDING_FAILURE
-+ CCTS_APPLICABILITY_BOUNDARY_HYPOTHESIS
-+ HUMAN_AI_LEARNING_APPLICABILITY_HYPOTHESIS
++ CCTS_APPLICABILITY_BOUNDARY_HYPOTHESIS (ORIGINAL CANDIDATE)
++ HUMAN_AI_LEARNING_APPLICABILITY_HYPOTHESIS (ORIGINAL CANDIDATE)
+
+CODEX_REVIEW
+= TEST_EXISTING_CONTROLS_AS_NULL_HYPOTHESIS
++ IDENTIFY_DUPLICATION_AND_COUNTEREXAMPLES
++ DOWNGRADE_TO_SCOPE_AND_STUDY_DESIGN_CAUTION
+
+REPOSITORY_STATE = CURRENT_MAIN_DEFINITIONS_AND_DESIGN_RECORDS_REVIEWED
+IMPLEMENTATION_EVIDENCE = DECLARATION_AND_PROTOCOL_CHECKS_ONLY
+EXTERNAL_SOURCE = ADJACENT_PRIMARY_LITERATURE (SECTION 9)
 
 EXTERNAL_EXACT_CCTS_VALIDATION = NOT_ESTABLISHED
 SCIENTIFIC_VALIDATION = NOT_ESTABLISHED
@@ -77,20 +88,23 @@ IDENTICAL_INTERNAL_REPRESENTATION != CCTS_REQUIREMENT
 MUTUAL_AGREEMENT != RECIPROCAL_REVISION
 ```
 
-The current repository does **not** yet explicitly define an independent
-`CCTS_APPLICABILITY` construct or a pre-admission rule stating when CCTS should
-not be evaluated at all.
+The current repository does **not** explicitly define an independent
+`CCTS_APPLICABILITY` construct. That absence is not evidence that one is
+needed: bounded problem representation already establishes the CCTS scope,
+while the grounding checkpoint is an admission control. The executable checks
+validate declared bindings and edges, not the semantic relevance of a task or
+the participants' private purposes.
 
 ## 4. Candidate distinctions
 
-Three states must remain separable.
+These are different questions, but they can co-occur; they are not a mutually
+exclusive diagnostic taxonomy. None can be inferred from a global value label.
 
 ### 4.1 Global value mismatch
 
 ```text
 GLOBAL_VALUE_MISMATCH
-= participants differ in broad preferences, priorities, worldview,
-  social style, or overall utility/value function
+= a reported broad preference, priority, worldview, or social-style difference
 ```
 
 This alone does not establish failure of collaboration, grounding, CCTS, or
@@ -109,16 +123,17 @@ TASK_OR_PURPOSE_MISMATCH
   problem, or interaction purpose is currently being pursued
 ```
 
-This may make CCTS evaluation inappropriate or may require repair before a CCTS
-claim is meaningful.
+An observable absence of a bounded shared problem means the existing CCTS
+profile has not been shown to apply. A disagreement within a stated problem
+may instead call for grounding repair. Neither inference requires a new gate.
 
 The hypothesis does not require identical motives. For example, a Human may
 seek to learn while an AI collaborator seeks to scaffold, challenge and review.
 Those motives differ while remaining task-compatible.
 
 ```text
-IDENTICAL_PURPOSE = NOT_REQUIRED
-TASK_RELEVANT_COMPATIBILITY = CANDIDATE_PRECONDITION
+IDENTICAL_PRIVATE_MOTIVE = NOT_REQUIRED
+BOUNDED_PROBLEM_AND_CONTRIBUTIONS = EXISTING_SCOPE_EVIDENCE
 ```
 
 ### 4.3 Grounding failure
@@ -130,17 +145,18 @@ GROUNDING_FAILURE
   and the mismatch remains unresolved
 ```
 
-This state is already partly represented by the current CCTS grounding
-checkpoint.
+This state is represented only to the extent that participants declare and
+record a grounding checkpoint; a passing structural check does not prove
+actual semantic alignment.
 
 ```text
 TASK_OR_PURPOSE_MISMATCH != GROUNDING_FAILURE
 GLOBAL_VALUE_MISMATCH != GROUNDING_FAILURE
 ```
 
-## 5. CCTS applicability boundary hypothesis
+## 5. CCTS scope distinction after adversarial review
 
-Candidate hypothesis:
+Original candidate, retained as provenance rather than adopted as a rule:
 
 ```text
 CCTS_APPLICABILITY_HYPOTHESIS
@@ -154,7 +170,7 @@ BOUNDED_TASK_RELEVANCE
 + SUFFICIENT_PROBLEM_ALIGNMENT
 + GROUNDING_ADEQUATE_FOR_CURRENT_PURPOSE
 
-= CANDIDATE_APPLICABILITY_PRECONDITIONS
+= PROPOSED_APPLICABILITY_PRECONDITIONS (NOT ADOPTED)
 ```
 
 Interpretation:
@@ -171,11 +187,23 @@ SOCIAL_RELATIONSHIP != EPISTEMIC_CO_CONSTRUCTION_TASK
 NO_SHARED_EPISTEMIC_TASK != FAILED_CCTS
 ```
 
-This is a candidate boundary rule only. It is not canonical.
+The existing bounded-problem requirement supplies the scope distinction, and
+the existing grounding checkpoint handles recorded mismatch for CCTS
+admission. `SUFFICIENT_PROBLEM_ALIGNMENT` duplicates those controls unless it
+has an independently observable definition, which this note does not provide.
+An interaction without a common epistemic task need not be labeled a *failed*
+CCTS attempt; equally, a missing CCTS manifest cannot prove that no joint
+epistemic task occurred. The safe disposition is `CCTS_CLAIM_NOT_ESTABLISHED`,
+with scope checked against artifacts, not a new applicability gate.
 
-## 6. Human–AI learning applicability hypothesis
+```text
+INDEPENDENT_CCTS_APPLICABILITY_CONSTRUCT = NOT_JUSTIFIED
+NEW_CCTS_ADMISSION_RULE = NO
+```
 
-A separate but related hypothesis applies to learning claims.
+## 6. Human–AI learning interpretation caution
+
+A separate inference concerns learning claims. The original candidate was:
 
 ```text
 HUMAN_AI_LEARNING_APPLICABILITY_HYPOTHESIS
@@ -185,7 +213,7 @@ BEFORE_INTERPRETING_INTERACTION_AS_LEARNING_EVIDENCE:
 BOUNDED_LEARNING_RELEVANT_TASK
 + EXPLICIT_OR_RECOVERABLE_LEARNING_TARGET
 + SUFFICIENT_GROUNDING_ABOUT_WHAT_IS_BEING_LEARNED
-= CANDIDATE_PRECONDITIONS
+= PROPOSED_PRECONDITIONS (NOT ADOPTED)
 ```
 
 The distinction matters because successful task completion is not equivalent to
@@ -197,21 +225,33 @@ JOINT_PERFORMANCE_GAIN != INDEPENDENT_HUMAN_GAIN
 AI_SUPPORT != HUMAN_LEARNING
 ```
 
-A Human may seek only task completion while a researcher incorrectly interprets
-the interaction as a learning episode. Low retention or transfer in that case
-would not, by itself, show that CCTS failed to support learning.
+A Human may seek only task completion while a researcher interprets the
+interaction as a learning episode. That mismatch is an ordinary protocol and
+task-framing issue. A participant may also learn incidentally without an
+explicit learning objective, so the proposed preconditions are not necessary
+conditions for learning. An artifact's success or a participant's stated goal
+alone cannot establish or exclude independent Human learning.
 
 ```text
 HUMAN_OBJECTIVE = TASK_COMPLETION
 RESEARCH_INTERPRETATION = LEARNING_EPISODE
 
 => POSSIBLE_OBJECTIVE_MISMATCH
-=> POSSIBLE_DESIGN_CONFOUND
+=> POSSIBLE_DESIGN_CONFOUND (TO RECORD AND CONTROL, NOT A NEW CONSTRUCT)
 ```
 
-This candidate boundary is additive to, not a substitute for, the repository's
-existing requirements concerning independent Human assessment, retention,
-transfer, testing exposure, prior knowledge and realized interaction traces.
+The existing study design already specifies independent Human assessment,
+retention, transfer, task matching, exposure, prior knowledge and realized
+interaction traces. The empirical gate prohibits using CCTS structural status
+as HTECR measurement eligibility. A target or framing should be
+documented when it changes an estimand or interpretation, but the repository
+has no evidence that an additional eligibility gate improves inference.
+
+```text
+INDEPENDENT_LEARNING_APPLICABILITY_CONSTRUCT = NOT_JUSTIFIED
+CCTS_STATUS_AS_HTECR_MEASUREMENT_GATE = PROHIBITED
+LEARNING_EFFECT = NOT_ESTABLISHED
+```
 
 ## 7. Synthetic boundary cases
 
@@ -227,7 +267,7 @@ BOUNDED_TASK_RELEVANCE = PRESENT
 GROUNDING = ADEQUATE_FOR_CURRENT_PURPOSE
 RECIPROCAL_REVISION = POSSIBLE
 
-CCTS_APPLICABILITY = PLAUSIBLE
+CCTS_CANDIDACY = PLAUSIBLE; ADMISSION STILL REQUIRES EXISTING CONTROLS
 ```
 
 ### Case B — ordinary social interaction
@@ -236,7 +276,7 @@ Participant H seeks analytical resolution. Participant P is engaged only in
 casual social exchange. No joint epistemic task has been established.
 
 ```text
-CCTS_APPLICABILITY = NOT_YET_ESTABLISHED
+CCTS_CLAIM = NOT_ESTABLISHED FROM THIS EXCHANGE
 CCTS_FAILURE = NOT_INFERRED
 ```
 
@@ -262,6 +302,27 @@ TASK_SUCCESS = POSSIBLE
 HUMAN_LEARNING = NOT_ESTABLISHED
 ```
 
+### Case E — task disagreement with successful grounding
+
+Human and AI accurately restate each other's distinct objectives and agree to
+compare them as the bounded problem. Their disagreement is explicit and
+grounded; it need not be a grounding failure or a CCTS exclusion. An initial
+`TASK_OR_PURPOSE_MISMATCH` label cannot decide admission.
+
+### Case F — aligned stated objective with a hidden mismatch
+
+Both participants label the task identically and file a sufficient checkpoint,
+but later turns reveal incompatible interpretations of the evidence. The
+declared checkpoint can pass structural checks while actual grounding remains
+in doubt. A proposed task-relevance gate would not detect this case.
+
+### Case G — incidental learning without a declared learning target
+
+A Human requests a finished artifact, then independently explains and applies
+the method in a held-out task. A missing explicit learning objective does not
+exclude a measurable outcome, while independent assessment still controls the
+strength of any learning claim.
+
 ## 8. Competing explanations and redundancy risk
 
 The strongest competing interpretation is that no new applicability construct
@@ -281,29 +342,34 @@ USEFUL_DISTINCTION != NEW_CONSTRUCT_REQUIRED
 NEW_LABEL != NEW_MECHANISM
 ```
 
-The next review should prefer the smallest change that preserves the distinction.
+The review finds H0 sufficient for the proposed CCTS cases. The learning
+contrast is a protocol interpretation caution, not a new construct. The
+synthetic cases do not establish incremental validity for either new label.
 
 ## 9. External adjacent literature
 
 The hypothesis is adjacent to, but not validated by, several established
 literatures:
 
-1. Clark & Brennan (1991), *Grounding in Communication* — grounding is
-   coordinated toward a criterion sufficient for the current purpose.
+1. Clark & Brennan (1991), *Grounding in Communication* — conceptual account
+   of purpose-relative grounding in human communication, not a CCTS test.
+   Primary text: <https://web.stanford.edu/~clark/1990s/Clark,%20H.H.%20_%20Brennan,%20S.E.%20_Grounding%20in%20communication_%201991.pdf>.
 2. Roschelle & Teasley (1995), *The Construction of Shared Knowledge in
    Collaborative Problem Solving*, DOI: `10.1007/978-3-642-85098-1_5` —
-   collaborative problem solving is analyzed through a Joint Problem Space.
+   human collaborative problem solving is analyzed through a Joint Problem
+   Space; transfer to Human–AI CCTS is adjacent only.
 3. Järvelä, Nguyen & Hadwin (2023), *Human and artificial intelligence
    collaboration for socially shared regulation in learning*, DOI:
-   `10.1111/bjet.13325` — Human–AI collaboration is situated within regulation
-   of learning rather than treated as equivalent to learning by default.
+   `10.1111/bjet.13325` — theoretical HASRL framing and empirical examples of
+   AI affordances, not evidence for this proposed eligibility rule.
 4. Samuel (2026), *Learning with machines: Toward a theory of epistemic
    co-agency*, DOI: `10.1016/j.caeai.2026.100573` — adjacent theory emphasizes
-   dialectical Human engagement and epistemic responsibility.
+   dialectical Human engagement and epistemic responsibility; theoretical,
+   not a test of an applicability gate.
 5. Shaikh, Mozannar, Bansal et al. (2025), *Navigating Rifts in Human-LLM
    Grounding: Study and Benchmark*, DOI: `10.18653/v1/2025.acl-long.1016` —
-   Human–LLM grounding failures are empirically studied as interaction
-   breakdown risks.
+   Human–LLM grounding failures are studied in three conversation datasets;
+   this supports a grounding concern, not a new CCTS construct.
 
 These sources do not define CCTS and do not establish the present applicability
 hypotheses.
@@ -336,40 +402,49 @@ or rejected if any of the following hold:
 
 Null, adverse and redundancy findings remain admissible.
 
-## 11. Proposed review questions
+## 11. Adversarial review disposition (2026-09-30)
 
-A later independent review should answer:
+Review against the current CCTS definition, grounding extension, learning
+contrast design, and their executable checks:
 
 ```text
-Q1
-Does current grounding admission already subsume this entire hypothesis?
+Q1/Q2: A bounded problem and substantive reciprocal revision already delimit
+the CCTS profile; purpose-relative grounding already controls admission.
+No incremental value of a distinct applicability gate is shown.
 
-Q2
-Is "applicability" a useful precondition,
-or only a documentation-level scope reminder?
+Q3: A task statement, contribution/revision trace, checkpoint, protocol arm,
+predeclared outcome and independent assessment are inspectable artifacts.
+Global values, private motives and an unexpressed learning target are not.
+Unknown purpose remains unknown rather than being inferred from output quality.
 
-Q3
-Can task relevance and learning relevance be operationalized
-using observable interaction artifacts rather than inferred motives?
+Q4: No observable false-positive reduction beyond existing controls is shown.
+Declared checkpoints can still be wrong about semantic alignment.
 
-Q4
-Would adding an applicability gate improve false-positive control,
-or merely duplicate existing admission checks?
-
-Q5
-Should CCTS applicability and Human–AI learning applicability remain
-separate hypotheses even if they share grounding requirements?
+Q5: CCTS scope and learning outcome interpretation concern different claims,
+but neither warrants an independent named construct. Preserve the latter as
+a study-design caution, without letting CCTS status gate learning measurement.
 ```
 
-Until those questions survive independent review:
+Review limitations: this is a repository and primary-source conceptual review,
+not a prospective adjudicator study. It cannot establish how often existing
+controls misclassify real interactions. Citation adjacency does not validate
+CCTS; the synthetic cases do not estimate effects.
 
 ```text
-CCTS_APPLICABILITY_BOUNDARY = HYPOTHESIS
-HUMAN_AI_LEARNING_APPLICABILITY = HYPOTHESIS
+CCTS_APPLICABILITY_BOUNDARY = REDUNDANT_WITH_EXISTING_SCOPE_AND_GROUNDING
+HUMAN_AI_LEARNING_APPLICABILITY = DOWNGRADED_TO_DESIGN_CAUTION
+NEW_CONSTRUCT = NO
+NEW_EMPIRICAL_GATE = NO
+CCTS_CANONICAL_CHANGE = NO
+SCIENTIFIC_DISPOSITION = HOLD
+```
+
+For the original proposal, the adjudication is:
+
+```text
 CANONICAL_RULE = NO
 IMPLEMENTATION = NO
 EMPIRICAL_EFFECT = NOT_ESTABLISHED
-SCIENTIFIC_DISPOSITION = HOLD
 ```
 
 ## 12. Repository relationship and authority boundary
@@ -380,6 +455,9 @@ Related current records include:
 - `CCTS_GROUNDING_ADMISSION_EXTENSION_2026_09_16.md`
 - `CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md`
 - `INTERACTION_ROUTING_DRIFT_OBSERVATION_2026_09_30.md`
+- `research-labs/human-ai-longitudinal-study_v0.1.0/src/aion_human_ai_longitudinal/co_constructed_thinking_space.py`
+- `research-labs/human-ai-longitudinal-study_v0.1.0/src/aion_human_ai_longitudinal/learning_contrast_design.py`
+- `research-labs/human-ai-longitudinal-study_v0.1.0/src/aion_human_ai_longitudinal/empirical_gate.py`
 
 This note does not supersede them.
 
