@@ -113,6 +113,9 @@ CODEX_SURFACE
 
 RUNTIME_SELF_REPORT
 != INDEPENDENT_ACTOR_VERIFICATION
+
+VERIFIED_ACTOR
+=> VERIFICATION_REFS_REQUIRED
 ```
 
 A bounded post-#233 regression handoff exposed the need for this separation: the
@@ -205,6 +208,7 @@ review:
   returned_actor_claim: CODEX
   actor_claim_source: RUNTIME_SELF_REPORT
   verified_actor: SOURCE_UNVERIFIED
+  verification_refs: []
   reviewed_by: SOURCE_UNVERIFIED
   status: PROVENANCE_HOLD
   source_evidence:
