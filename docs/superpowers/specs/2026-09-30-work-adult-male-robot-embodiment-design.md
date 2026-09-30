@@ -40,7 +40,7 @@ The body runtime would own body state. An agent can receive observations and pro
 | --- | --- | --- |
 | Adult male-form full body | Head, torso, pelvis, two arms/hands, two legs/feet, movable face and articulated joints; thickset sturdy silhouette | Concept render only; no actual 3D mesh or rig |
 | Height/mass | `165 cm`, `76 kg` equivalent | Human design assignment; no generated asset measurement |
-| Other anthropometry | Stable IDs, units, allowed ranges, provenance per field; unknown until independently specified | `UNKNOWN`; no extraction of 62 Teacher measurements or photo-based values |
+| Other anthropometry | [Work 62-field review table](../../research/embodiment/WORK_62_MEASUREMENT_REVIEW_2026_09_30.md) and [machine-readable profile](../../research/embodiment/WORK_SYNTHETIC_ANTHROPOMETRY_62_v0.1.json): 61 cm fields plus 76 kg mass; 2 prior human-fixed values and 60 AI-provisional synthetic assignments | Design values now reported individually; none measured on an actual asset. Teacher's IDs reused as a vocabulary, never Teacher's values or photo-derived dimensions |
 | Pelvic external form | Clinically neutral male-form module, serviceable shell, separate urinary and reproductive reference paths | Exterior concept housing only; internal/external geometry `NOT_IMPLEMENTED` |
 | Geometry interchange | GLB/glTF, skeleton/rig, collision and inertia candidates after tool and schema review | `NOT_IMPLEMENTED` |
 | Image provenance | Original generated concept; source photo not reproduced | Visual concept, not reusable biological data or geometry |
@@ -93,10 +93,13 @@ Each package needs expected files, precise source revision, security/privacy rev
 
 ## 9. Acceptance and nonclaims
 
-This design is reviewable when the fixed assignments, missing measurements, source image handling, five work packages, human-versus-robot distinctions and explicit nonclaims are present. It does **not** meet the acceptance criteria for a completed 3D asset, physiology runtime, physical robot or live attachment.
+This design now reports every one of its selected 62 external anthropometry fields with a unit and provenance. The 60 new values are AI-provisional, not Human Owner approved. These fields do not exhaust every body or internal-organ dimension. No mesh has been measured against them. This design is reviewable with the source image handling, five work packages, human-versus-robot distinctions and explicit nonclaims present. It does **not** meet the acceptance criteria for a completed 3D asset, physiology runtime, physical robot or live attachment.
 
 ```text
 ASSET_GENERATED = CONCEPT_IMAGE_ONLY
+EXTERNAL_DIMENSION_FIELDS = 62
+AI_PROVISIONAL_DIMENSIONS = 60
+AS_BUILT_DIMENSIONS_VERIFIED = 0
 ACTUAL_3D_MESH = NO
 PHYSIOLOGY_RUNTIME = NO
 BIOLOGICAL_REPRODUCTION = NO
@@ -113,7 +116,7 @@ CANONICAL_EFFECT = NONE
 ## 10. Provenance and authority
 
 `HUMAN_ORIGIN`: supplied the visual reference, requested Work's independent complete male robot candidate and normal reproductive/sexual coverage, assigned the prior 165 cm/76 kg values, and prefers closed/unmerged research PRs.  
-`AI_FORMALIZATION`: original concept prompt and this architecture, decomposition, test and nonclaim design.  
+`AI_FORMALIZATION`: original concept prompt, this architecture, decomposition, test and nonclaim design, plus the 60 provisional Work-specific dimensional assignments in the linked 62-field table.  
 `EXTERNAL_SOURCE`: human biological literature as reference only.  
 `REPOSITORY_STATE`: exact heads inspected on 2026-09-30; all are temporary and require live recheck.  
 `IMPLEMENTATION_EVIDENCE`: generated 2D concept only; all 3D/physiology/runtime claims remain unimplemented.
