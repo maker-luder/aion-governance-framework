@@ -302,7 +302,7 @@ class CoverageItem:
 
 
 def default_coverage_matrix()->tuple[CoverageItem,...]:
-    rows=(
+    rows:tuple[tuple[str,CoverageStatus,str],...]=(
       ("skeleton_and_joints",CoverageStatus.REFERENCE_ONLY,"67-field external profile; no verified rig"),
       ("muscles_and_actuation",CoverageStatus.NOT_IMPLEMENTED,"no actuator hardware/force model"),
       ("somatosensory",CoverageStatus.REFERENCE_ONLY,"channel represented; sensation not established"),
@@ -370,7 +370,7 @@ class MaleReproductiveReferenceTopology:
 
 def default_male_reproductive_reference_topology()->MaleReproductiveReferenceTopology:
     """Clinically neutral human-reference topology, not robot biological tissue."""
-    node_specs=(
+    node_specs:tuple[tuple[str,str],...]=(
       ("hypothalamus","ENDOCRINE_REFERENCE"),("pituitary","ENDOCRINE_REFERENCE"),
       ("testis","GONAD_REFERENCE"),("seminiferous_tubules","GAMETOGENESIS_REFERENCE"),
       ("rete_testis","DUCT_REFERENCE"),("efferent_ductules","DUCT_REFERENCE"),
@@ -386,7 +386,7 @@ def default_male_reproductive_reference_topology()->MaleReproductiveReferenceTop
       ("corpus_spongiosum","ERECTILE_TISSUE_REFERENCE"),("scrotum","EXTERNAL_ANATOMY_REFERENCE"),
       ("pelvic_floor","MOTOR_REFERENCE"))
     nodes=tuple(AnatomyReferenceNode(*spec) for spec in node_specs)
-    edges=tuple(AnatomyReferenceEdge(*edge) for edge in (
+    edge_specs:tuple[tuple[str,str,str],...]=(
       ("hypothalamus","pituitary","endocrine_reference_signal"),
       ("pituitary","testis","gonadotropic_reference_signal"),
       ("testis","seminiferous_tubules","spermatogenesis_reference_only"),
@@ -407,5 +407,6 @@ def default_male_reproductive_reference_topology()->MaleReproductiveReferenceTop
       ("corpus_spongiosum","glans","erectile_geometry_reference"),
       ("prepuce","glans","movable_covering_geometry_reference"),
       ("frenulum","prepuce","fold_attachment_geometry_reference"),
-      ("pelvic_floor","ejaculatory_duct","motor_coordination_reference")))
+      ("pelvic_floor","ejaculatory_duct","motor_coordination_reference"))
+    edges=tuple(AnatomyReferenceEdge(*edge) for edge in edge_specs)
     return MaleReproductiveReferenceTopology(nodes=nodes,edges=edges)

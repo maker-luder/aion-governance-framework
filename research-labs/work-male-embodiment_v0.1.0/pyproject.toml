@@ -20,3 +20,8 @@ where = ["src"]
 addopts = "-q"
 testpaths = ["tests"]
 pythonpath = ["src"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["work_male_embodiment"]

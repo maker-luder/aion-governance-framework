@@ -264,6 +264,12 @@
       "mypy_path": [
         "research-labs/ai-tevv-profile_v0.1.0/src"
       ]
+    },
+    {
+      "root": "research-labs/work-male-embodiment_v0.1.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
     }
   ]
 }
