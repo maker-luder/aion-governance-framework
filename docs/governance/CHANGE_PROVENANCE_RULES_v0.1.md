@@ -76,8 +76,8 @@ Legacy records that only say `CHATGPT` may remain historical when finer attribut
 ## Actor, surface, and claim separation
 
 The repository treats the user-facing product or workflow surface, a returned
-actor self-label, an independently verified actor, and model identity as
-different provenance fields.
+actor self-label, a project-assigned operational label, an independently
+verified actor, and model identity as different provenance fields.
 
 OpenAI's current Help Center distinguishes **Chat**, **Work**, and **Codex** as
 separate experiences. It describes Work as an agent for longer multi-step work
@@ -96,6 +96,7 @@ Repository interpretation:
 ```text
 INTERACTION_SURFACE
 != RETURNED_ACTOR_CLAIM
+!= PROJECT_OPERATIONAL_LABEL
 != VERIFIED_ACTOR
 != VERIFIED_MODEL_IDENTITY
 
@@ -113,6 +114,14 @@ CODEX_SURFACE
 
 RUNTIME_SELF_REPORT
 != INDEPENDENT_ACTOR_VERIFICATION
+
+PROJECT_ANNOTATION
+!= ACTOR_VERIFICATION
+
+ANNOTATOR
+!= CONTRIBUTOR
+!= REVIEWER
+!= APPROVER
 
 VERIFIED_ACTOR
 => VERIFICATION_REFS_REQUIRED
@@ -150,6 +159,30 @@ EXPECTED_ACTOR = SOURCE_UNVERIFIED
 
 A returned self-label is recorded separately and must not silently replace the
 verified actor field.
+
+When the execution actor remains unknown, project governance may assign a bounded
+operational label for traceability. The label describes how the project will
+refer to that collaboration event; it does not identify the runtime, model, or
+execution actor.
+
+```text
+OBSERVED_SURFACE = CHATGPT_WORK
+RETURNED_ACTOR_CLAIM = CODEX
+PROJECT_OPERATIONAL_LABEL = WORK_SESSION_COLLABORATOR
+VERIFIED_ACTOR = SOURCE_UNVERIFIED
+VERIFIED_MODEL_IDENTITY = NOT_ESTABLISHED
+```
+
+The annotation must preserve who assigned it and why:
+
+```text
+ANNOTATED_BY = <IDENTIFIED_PROJECT_ACTOR(S)>
+ANNOTATION_BASIS = <OBSERVED_EVIDENCE_OR_HANDOFF>
+ANNOTATION_SOURCE_REFS = REQUIRED
+
+PROJECT_OPERATIONAL_LABEL
+!= VERIFIED_EXECUTION_ACTOR
+```
 
 ```text
 RETURNED_SURFACE != EXPECTED_SURFACE
@@ -207,6 +240,17 @@ review:
   contribution_function: REVIEW
   returned_actor_claim: CODEX
   actor_claim_source: RUNTIME_SELF_REPORT
+  project_annotation:
+    operational_actor_label: WORK_SESSION_COLLABORATOR
+    annotated_by:
+      - HUMAN_OWNER
+      - CHATGPT_TEACHER
+    annotation_basis:
+      - observed_work_surface
+      - explicit_task_handoff
+    source_refs:
+      - human_owner_project_label
+      - teacher_provenance_review
   verified_actor: SOURCE_UNVERIFIED
   verification_refs: []
   reviewed_by: SOURCE_UNVERIFIED
