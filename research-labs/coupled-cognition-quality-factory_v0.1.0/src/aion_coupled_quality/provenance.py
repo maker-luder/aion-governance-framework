@@ -40,6 +40,120 @@ _AI_FORMALIZATION_ACTORS = frozenset(
 )
 
 
+class AIInteractionSurface(StrEnum):
+    """User-visible or workflow surface used for a specific AI contribution."""
+
+    CHATGPT_CHAT = "CHATGPT_CHAT"
+    CHATGPT_WORK = "CHATGPT_WORK"
+    CODEX = "CODEX"
+    MANUS = "MANUS"
+    UNKNOWN = "UNKNOWN"
+
+
+class ContributionFunction(StrEnum):
+    """Operational function of a bounded AI contribution."""
+
+    FORMALIZATION = "FORMALIZATION"
+    IMPLEMENTATION = "IMPLEMENTATION"
+    REVIEW = "REVIEW"
+
+
+_ACTOR_SURFACE = {
+    ContributionActor.CHATGPT_TEACHER: AIInteractionSurface.CHATGPT_CHAT,
+    ContributionActor.CHATGPT_WORK: AIInteractionSurface.CHATGPT_WORK,
+    ContributionActor.CODEX: AIInteractionSurface.CODEX,
+    ContributionActor.MANUS: AIInteractionSurface.MANUS,
+}
+
+
+def _validate_ai_actor_surface(actor: ContributionActor, surface: AIInteractionSurface) -> None:
+    if actor is ContributionActor.SOURCE_UNVERIFIED:
+        if surface is not AIInteractionSurface.UNKNOWN:
+            raise ProvenanceError("SOURCE_UNVERIFIED requires UNKNOWN interaction surface")
+        return
+    if actor not in _AI_FORMALIZATION_ACTORS:
+        raise ProvenanceError("actor-surface binding requires a specific AI collaborator actor")
+    expected_surface = _ACTOR_SURFACE[actor]
+    if surface is not expected_surface:
+        raise ProvenanceError(
+            f"actor-surface mismatch: {actor.value} requires {expected_surface.value}, got {surface.value}"
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class ActorExpectation:
+    """Pre-delegation actor binding for a material AI task.
+
+    The expectation is recorded before the delegated step so the returning
+    collaborator cannot be relabeled from task type, writing style or product
+    family after the fact.
+    """
+
+    task_id: str
+    function: ContributionFunction
+    expected_actor: ContributionActor
+    expected_surface: AIInteractionSurface
+    source_refs: tuple[str, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -> None:
+        if not self.task_id.strip():
+            raise ProvenanceError("task_id must be non-empty")
+        if type(self.function) is not ContributionFunction:
+            raise ProvenanceError("function must use an exact ContributionFunction value")
+        if type(self.expected_actor) is not ContributionActor:
+            raise ProvenanceError("expected_actor must use an exact ContributionActor value")
+        if type(self.expected_surface) is not AIInteractionSurface:
+            raise ProvenanceError("expected_surface must use an exact AIInteractionSurface value")
+        if not self.source_refs:
+            raise ProvenanceError("actor expectation requires at least one source reference")
+        if self.expected_actor is ContributionActor.SOURCE_UNVERIFIED:
+            raise ProvenanceError("actor expectation requires a specific AI collaborator actor")
+        _validate_ai_actor_surface(self.expected_actor, self.expected_surface)
+
+
+@dataclass(frozen=True, slots=True)
+class ActorClaim:
+    """Post-step actor claim that can be checked against a pre-bound expectation."""
+
+    task_id: str
+    function: ContributionFunction
+    actor: ContributionActor
+    surface: AIInteractionSurface
+    source_refs: tuple[str, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -> None:
+        if not self.task_id.strip():
+            raise ProvenanceError("task_id must be non-empty")
+        if type(self.function) is not ContributionFunction:
+            raise ProvenanceError("function must use an exact ContributionFunction value")
+        if type(self.actor) is not ContributionActor:
+            raise ProvenanceError("actor must use an exact ContributionActor value")
+        if type(self.surface) is not AIInteractionSurface:
+            raise ProvenanceError("surface must use an exact AIInteractionSurface value")
+        if not self.source_refs:
+            raise ProvenanceError("actor claim requires at least one source reference")
+        _validate_ai_actor_surface(self.actor, self.surface)
+
+
+def verify_actor_claim(expectation: ActorExpectation, claim: ActorClaim) -> None:
+    """Fail closed when a returned actor claim drifts from the delegated surface."""
+
+    if expectation.task_id != claim.task_id:
+        raise ProvenanceError("actor provenance task_id mismatch")
+    if expectation.function is not claim.function:
+        raise ProvenanceError("actor provenance contribution-function mismatch")
+    if claim.actor is ContributionActor.SOURCE_UNVERIFIED:
+        raise ProvenanceError("actor provenance unresolved: SOURCE_UNVERIFIED cannot satisfy an exact expectation")
+    if expectation.expected_actor is not claim.actor:
+        raise ProvenanceError(
+            f"actor provenance drift: expected {expectation.expected_actor.value}, got {claim.actor.value}"
+        )
+    if expectation.expected_surface is not claim.surface:
+        raise ProvenanceError(
+            f"actor surface drift: expected {expectation.expected_surface.value}, got {claim.surface.value}"
+        )
+
+
 class ClaimLayer(StrEnum):
     DIRECT_STATEMENT = "DIRECT_STATEMENT"
     OBSERVATION = "OBSERVATION"
