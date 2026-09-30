@@ -148,16 +148,18 @@ SEARCH_FAILURE != ABSENCE_OF_EVIDENCE
 
 The evidence and counterexamples support extending #238 with:
 
-1. explicit synthetic event records;
-2. independent bounded reference-channel transitions;
-3. refusal to simulate from an `UNKNOWN` seed;
-4. deterministic replay;
-5. immutable transition traces;
-6. trajectory fingerprints;
-7. SHA-256 snapshot receipt chains;
-8. Draft 2020-12 state/event schema parity tests;
-9. an executable synthetic demonstration probe;
-10. fail-closed consent, authority, canonical-effect, and phenomenal-state boundaries.
+1. an offline-research governance gate that rejects the public runtime;
+2. explicit synthetic event records;
+3. independent bounded reference-channel transitions;
+4. refusal to simulate from an `UNKNOWN` seed;
+5. deterministic replay;
+6. immutable transition traces;
+7. trajectory fingerprints;
+8. SHA-256 snapshot receipt chains;
+9. Draft 2020-12 state/event schema parity tests;
+10. an executable synthetic demonstration probe;
+11. fail-closed consent, authority, canonical-effect, runtime, consciousness,
+    subjectivity, and phenomenal-state boundaries.
 
 The evidence does **not** support:
 
