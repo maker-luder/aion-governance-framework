@@ -107,3 +107,26 @@ adds a minimal crossed WANTING/event probe with masked and yoked readout control
 policy binding, ablation and per-step interaction contrasts. It reuses the existing
 synthetic generator; it does not execute an LLM or establish spontaneous feeling.
 From this directory run `PYTHONPATH=src python -m aion_affective_motivation.readout_probe`.
+
+
+## Adult-male reference model candidate
+
+The PR #236 implementation candidate lives in `adult_reference.py`. It is a
+disabled-by-default representation layer for adult-male sexuality research
+references, not an adult interaction runtime.
+
+It keeps spontaneous/responsive onset, excitation/inhibition,
+disposition/episode state, and target/context scope separate. Unknown values are
+valid and expected. A trace-only physiology link cannot infer desire, consent,
+permission, intention, or action authority.
+
+```text
+SHARED_SCHEMA = ALLOWED
+SHARED_STATE = NO
+AUTOMATIC_ACTIVATION = NO
+ADULT_RUNTIME_AUTHORIZED = NO
+HUMAN_CONSENT_INFERENCE = FORBIDDEN
+ACTION_AUTHORITY = NONE
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+CANONICAL_EFFECT = NONE
+```
