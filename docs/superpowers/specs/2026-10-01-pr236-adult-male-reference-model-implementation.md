@@ -106,6 +106,7 @@ authority boundary.
 
 ### Additional implementation surfaces
 
+- `src/aion_affective_motivation/adult_reference_policy.py`
 - `src/aion_affective_motivation/adult_reference_simulation.py`
 - `src/aion_affective_motivation/adult_reference_probe.py`
 - `schemas/adult_reference_synthetic_event_v0.1.0.schema.json`
@@ -117,6 +118,8 @@ authority boundary.
 ### Added capabilities
 
 ```text
+OFFLINE_RESEARCH_GOVERNANCE_GATE = IMPLEMENTED_CANDIDATE
+PUBLIC_ADULT_REFERENCE_RUNTIME = REJECTED
 SYNTHETIC_EVENT_MODEL = IMPLEMENTED_CANDIDATE
 BOUNDED_CHANNEL_TRANSITIONS = IMPLEMENTED_CANDIDATE
 EXCITATION_INHIBITION_INDEPENDENCE = ENFORCED_BY_MODEL_AND_TESTS
