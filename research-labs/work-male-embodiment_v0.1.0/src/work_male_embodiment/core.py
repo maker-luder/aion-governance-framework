@@ -183,8 +183,9 @@ class PhysiologyState:
         if not self.state_id: raise ValueError("state_id required")
         for v in (self.engorgement_fraction,self.rigidity_fraction,self.inflow_analogue,self.outflow_analogue):
             if not 0<=v<=1: raise ValueError("state fraction outside [0,1]")
-        for v in (self.endocrine_reference_signal,self.urinary_reference_signal):
-            if v is not None and not 0<=v<=1: raise ValueError("reference signal outside [0,1]")
+        for reference_signal in (self.endocrine_reference_signal,self.urinary_reference_signal):
+            if reference_signal is not None and not 0<=reference_signal<=1:
+                raise ValueError("reference signal outside [0,1]")
         if any((self.desire_inferred,self.intention_inferred,self.human_consent_inferred)):
             raise ValueError("physiology cannot infer desire/intention/consent")
         if self.action_authority!="NONE" or self.prepuce_actuator: raise ValueError("unauthorized actuator/authority")
