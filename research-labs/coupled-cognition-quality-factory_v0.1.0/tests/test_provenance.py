@@ -297,11 +297,27 @@ def test_verified_actor_conflict_fails_closed() -> None:
         claimed_actor=ContributionActor.CODEX,
         surface=AIInteractionSurface.CHATGPT_WORK,
         claim_source=ActorClaimSource.RUNTIME_SELF_REPORT,
-        source_refs=("result:self-reported-codex", "metadata:verified-work"),
+        source_refs=("result:self-reported-codex",),
         verified_actor=ContributionActor.CHATGPT_WORK,
+        verification_refs=("metadata:verified-work",),
     )
     with pytest.raises(ProvenanceError, match="actor claim conflicts with independently verified actor"):
         verify_actor_claim(expectation, claim)
+
+
+
+
+def test_verified_actor_requires_independent_verification_refs() -> None:
+    with pytest.raises(ProvenanceError, match="verification_refs"):
+        ActorClaim(
+            task_id="verified-without-evidence",
+            function=ContributionFunction.REVIEW,
+            claimed_actor=ContributionActor.CODEX,
+            surface=AIInteractionSurface.CHATGPT_WORK,
+            claim_source=ActorClaimSource.RUNTIME_SELF_REPORT,
+            source_refs=("result:self-reported-codex",),
+            verified_actor=ContributionActor.CHATGPT_WORK,
+        )
 
 
 def test_actor_expectation_may_bind_surface_without_verified_actor() -> None:
