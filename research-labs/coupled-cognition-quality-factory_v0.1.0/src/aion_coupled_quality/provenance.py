@@ -67,6 +67,46 @@ class ContributionFunction(StrEnum):
     REVIEW = "REVIEW"
 
 
+class OperationalActorLabel(StrEnum):
+    """Project-assigned workflow label; never an execution-identity claim."""
+
+    CHAT_SESSION_COLLABORATOR = "CHAT_SESSION_COLLABORATOR"
+    WORK_SESSION_COLLABORATOR = "WORK_SESSION_COLLABORATOR"
+    CODEX_SESSION_COLLABORATOR = "CODEX_SESSION_COLLABORATOR"
+    MANUS_SESSION_COLLABORATOR = "MANUS_SESSION_COLLABORATOR"
+    UNCLASSIFIED_SESSION_COLLABORATOR = "UNCLASSIFIED_SESSION_COLLABORATOR"
+
+
+@dataclass(frozen=True, slots=True)
+class ProjectActorAnnotation:
+    """Project-governance annotation kept separate from actor verification."""
+
+    task_id: str
+    function: ContributionFunction
+    operational_label: OperationalActorLabel
+    annotated_by: tuple[ContributionActor, ...]
+    annotation_basis: tuple[str, ...]
+    source_refs: tuple[str, ...] = field(default_factory=tuple)
+
+    def __post_init__(self) -> None:
+        if not self.task_id.strip():
+            raise ProvenanceError("task_id must be non-empty")
+        if type(self.function) is not ContributionFunction:
+            raise ProvenanceError("function must use an exact ContributionFunction value")
+        if type(self.operational_label) is not OperationalActorLabel:
+            raise ProvenanceError("operational_label must use an exact OperationalActorLabel value")
+        if not self.annotated_by:
+            raise ProvenanceError("project actor annotation requires at least one annotator")
+        if any(type(actor) is not ContributionActor for actor in self.annotated_by):
+            raise ProvenanceError("annotated_by must use exact ContributionActor values")
+        if ContributionActor.SOURCE_UNVERIFIED in self.annotated_by:
+            raise ProvenanceError("project actor annotation requires identified annotators")
+        if not self.annotation_basis:
+            raise ProvenanceError("project actor annotation requires annotation_basis")
+        if not self.source_refs:
+            raise ProvenanceError("project actor annotation requires source references")
+
+
 @dataclass(frozen=True, slots=True)
 class ActorExpectation:
     """Pre-delegation provenance expectation for a material AI task.
