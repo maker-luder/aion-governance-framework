@@ -46,7 +46,7 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 有日期的現況與完整地圖請見 [`docs/CURRENT_STATE.md`](docs/CURRENT_STATE.md) 和 [`docs/INDEX.md`](docs/INDEX.md)。
 
 - **連續性與記憶：** history replay、attention-structure 區辨、exact-structure longitudinal claim admission，以及 matched-information memory-locus dependency 測試。
-- **人機協作：** CCTS 沿用有界問題及依當前目的判定的 grounding；無獨立適用性構念或學習閘門。學習相關性只是研究設計提醒。
+- **人機協作：** CCTS 沿用有界問題及依當前目的判定的 grounding；未採納新的獨立適用性構念或適用性閘門。學習相關區分僅作研究設計提醒，不得以 CCTS 狀態作為學習測量閘門。
 - **證據准入：** bounded 12-axis provider-evidence admission 已擴展到多個 provider family，但 open independent replication 仍然稀少。
 - **Assurance / quality：** TEVV、Full-QMS、adversarial-security、FAIR4RS、NCR/CAPA 與 bounded supply-chain Phase 1 提高 traceability，但不代表科學驗證、release authority 或 SLSA conformance。
 
