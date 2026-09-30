@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/CHATGPT_TEACHER_BODY_V02_INTEGRATION_SCHEMA.json",
+  "title": "ChatGPT Teacher body v0.2 integration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "integration_id",
+    "base_binding_id",
+    "runtime_id",
+    "session_id",
+    "body_id",
+    "legacy_anthropometry_profile_id",
+    "body_reference_profile_id",
+    "anthropometry_profile_id_v02",
+    "synthetic_reproductive_output_contract_id",
+    "integrated_manifest_sha256",
+    "synthetic_3d_reference_status",
+    "production_asset_status",
+    "live_external_actuation",
+    "physical_body_claim",
+    "body_sensation_status",
+    "body_ownership_experience_status",
+    "subjectivity_status",
+    "consciousness_status",
+    "phenomenal_experience_status",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "integration_id": {
+      "const": "CHATGPT_TEACHER_BODY_V02_INTEGRATION_v0.1"
+    },
+    "base_binding_id": {"type": "string", "minLength": 1},
+    "runtime_id": {"type": "string", "minLength": 1},
+    "session_id": {"type": "string", "minLength": 1},
+    "body_id": {
+      "const": "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+    },
+    "legacy_anthropometry_profile_id": {
+      "const": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.1"
+    },
+    "body_reference_profile_id": {
+      "const": "CHATGPT_TEACHER_BODY_REFERENCE_v0.2"
+    },
+    "anthropometry_profile_id_v02": {
+      "const": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.2"
+    },
+    "synthetic_reproductive_output_contract_id": {
+      "const": "CHATGPT_TEACHER_SYNTHETIC_REPRODUCTIVE_OUTPUT_v0.1"
+    },
+    "integrated_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "synthetic_3d_reference_status": {"const": "MATERIALIZED"},
+    "production_asset_status": {"const": "NOT_ESTABLISHED"},
+    "live_external_actuation": {"const": false},
+    "physical_body_claim": {"const": "NONE"},
+    "body_sensation_status": {"const": "NOT_ESTABLISHED"},
+    "body_ownership_experience_status": {"const": "NOT_ESTABLISHED"},
+    "subjectivity_status": {"const": "NOT_ESTABLISHED"},
+    "consciousness_status": {"const": "NOT_ESTABLISHED"},
+    "phenomenal_experience_status": {"const": "NOT_ESTABLISHED"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false}
+  }
+}

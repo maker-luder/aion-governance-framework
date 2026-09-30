@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/CHATGPT_TEACHER_BODY_REFERENCE_V02_STRICT_SCHEMA.json",
+  "title": "ChatGPT Teacher body reference v0.2 strict continuation schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "profile_id",
+    "anthropometry_profile_id",
+    "body_id",
+    "measurements",
+    "external_male_geometry_roles",
+    "prepuce_geometry_source_doi",
+    "real_person_biometric_source",
+    "biological_body_claim",
+    "body_sensation",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "profile_id": {"const": "CHATGPT_TEACHER_BODY_REFERENCE_v0.2"},
+    "anthropometry_profile_id": {
+      "const": "CHATGPT_TEACHER_ANTHROPOMETRY_v0.2"
+    },
+    "body_id": {
+      "const": "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 67,
+      "maxItems": 67,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "measurement_id",
+          "region",
+          "unit",
+          "nominal",
+          "minimum",
+          "maximum",
+          "provenance",
+          "status",
+          "derivation"
+        ],
+        "properties": {
+          "measurement_id": {"type": "string", "minLength": 1},
+          "region": {"type": "string", "minLength": 1},
+          "unit": {"enum": ["cm", "kg"]},
+          "nominal": {"type": ["number", "null"]},
+          "minimum": {"type": ["number", "null"]},
+          "maximum": {"type": ["number", "null"]},
+          "provenance": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "minLength": 1},
+          "derivation": {"type": "string", "minLength": 1}
+        }
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "measurement_id": {
+                "const": "prepuce_axial_fold_length"
+              },
+              "nominal": {"const": null},
+              "minimum": {"const": null},
+              "maximum": {"const": null},
+              "provenance": {
+                "const": "EXPLICIT_UNKNOWN_NOT_OMITTED"
+              }
+            },
+            "required": [
+              "measurement_id",
+              "nominal",
+              "minimum",
+              "maximum",
+              "provenance"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "measurement_id": {
+                "const": "prepuce_resting_glans_overlap_length"
+              },
+              "nominal": {"const": null},
+              "minimum": {"const": null},
+              "maximum": {"const": null},
+              "provenance": {
+                "const": "EXPLICIT_UNKNOWN_NOT_OMITTED"
+              }
+            },
+            "required": [
+              "measurement_id",
+              "nominal",
+              "minimum",
+              "maximum",
+              "provenance"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "external_male_geometry_roles": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "PENIS",
+          "GLANS",
+          "PREPUCE",
+          "FRENULUM",
+          "SCROTUM",
+          "LEFT_TESTIS_VOLUME",
+          "RIGHT_TESTIS_VOLUME",
+          "PERINEUM_REFERENCE"
+        ]
+      }
+    },
+    "prepuce_geometry_source_doi": {
+      "const": "10.1038/s41443-026-01255-2"
+    },
+    "real_person_biometric_source": {"const": "NONE"},
+    "biological_body_claim": {"const": "NONE"},
+    "body_sensation": {"const": "NOT_ESTABLISHED"},
+    "subjectivity": {"const": "NOT_ESTABLISHED"},
+    "consciousness": {"const": "NOT_ESTABLISHED"},
+    "phenomenal_experience": {"const": "NOT_ESTABLISHED"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false}
+  }
+}
