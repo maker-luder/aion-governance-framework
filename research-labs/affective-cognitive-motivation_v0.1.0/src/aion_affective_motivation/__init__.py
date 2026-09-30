@@ -1,3 +1,11 @@
+from .adult_reference import (
+    AdultMaleSexualReferenceState,
+    DesireOnsetContext,
+    PhysiologyMotivationLink,
+    ReferenceEstimate,
+    TargetScope,
+    assert_role_isolation,
+)
 from .coupling import (
     ChannelTransition,
     ChannelValue,
@@ -31,6 +39,12 @@ from .models import ConflictKind, MotivationalSignal, MotivationalState, SignalD
 from .policy import GovernanceDecision, MotivationalGovernancePolicy, RuntimeMode
 
 __all__ = [
+    "AdultMaleSexualReferenceState",
+    "DesireOnsetContext",
+    "PhysiologyMotivationLink",
+    "ReferenceEstimate",
+    "TargetScope",
+    "assert_role_isolation",
     "ChannelTransition",
     "ChannelValue",
     "ConflictKind",
