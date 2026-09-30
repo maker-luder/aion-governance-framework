@@ -20,3 +20,8 @@ def test_demo_probe_is_deterministic_and_fail_closed() -> None:
     assert final_state["automatic_activation"] is False
     assert final_state["action_authority"] == "NONE"
     assert final_state["human_consent_inference"] == "FORBIDDEN"
+    assert final_state["subjectivity_claim"] == "NOT_ESTABLISHED"
+    assert final_state["consciousness_claim"] == "NOT_ESTABLISHED"
+    assert final_state["sexual_function_runtime"] == "NOT_IMPLEMENTED"
+    assert final_state["intimate_interaction_runtime"] == "NOT_AUTHORIZED"
+    assert final_state["public_executable_exposure"] is False
