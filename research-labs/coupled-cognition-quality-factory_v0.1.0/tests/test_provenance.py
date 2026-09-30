@@ -11,6 +11,8 @@ from aion_coupled_quality.provenance import (
     ContributionOrigin,
     ContributionRecord,
     EpistemicProvenanceLedger,
+    OperationalActorLabel,
+    ProjectActorAnnotation,
     ProvenanceError,
     StateAttribution,
     verify_actor_claim,
@@ -349,5 +351,80 @@ def test_actor_binding_requires_source_evidence() -> None:
             function=ContributionFunction.IMPLEMENTATION,
             expected_actor=ContributionActor.SOURCE_UNVERIFIED,
             expected_surface=AIInteractionSurface.CHATGPT_WORK,
+        )
+
+def test_project_annotation_preserves_unknown_verified_actor() -> None:
+    claim = ActorClaim(
+        task_id="homepage-work-regression",
+        function=ContributionFunction.IMPLEMENTATION,
+        claimed_actor=ContributionActor.CODEX,
+        surface=AIInteractionSurface.CHATGPT_WORK,
+        claim_source=ActorClaimSource.RUNTIME_SELF_REPORT,
+        source_refs=("result:self-reported-codex",),
+    )
+    annotation = ProjectActorAnnotation(
+        task_id="homepage-work-regression",
+        function=ContributionFunction.IMPLEMENTATION,
+        operational_label=OperationalActorLabel.WORK_SESSION_COLLABORATOR,
+        annotated_by=(
+            ContributionActor.HUMAN_OWNER,
+            ContributionActor.CHATGPT_TEACHER,
+        ),
+        annotation_basis=(
+            "observed_work_surface",
+            "explicit_task_handoff",
+        ),
+        source_refs=(
+            "human-owner:project-label",
+            "teacher:provenance-review",
+        ),
+    )
+    assert annotation.operational_label is OperationalActorLabel.WORK_SESSION_COLLABORATOR
+    assert claim.claimed_actor is ContributionActor.CODEX
+    assert claim.verified_actor is ContributionActor.SOURCE_UNVERIFIED
+
+
+def test_project_annotation_is_not_actor_verification() -> None:
+    annotation = ProjectActorAnnotation(
+        task_id="surface-known-actor-unknown",
+        function=ContributionFunction.REVIEW,
+        operational_label=OperationalActorLabel.WORK_SESSION_COLLABORATOR,
+        annotated_by=(ContributionActor.HUMAN_OWNER,),
+        annotation_basis=("observed_work_surface",),
+        source_refs=("human-owner:annotation",),
+    )
+    assert annotation.operational_label.value == "WORK_SESSION_COLLABORATOR"
+
+
+def test_project_annotation_requires_identified_annotator() -> None:
+    with pytest.raises(ProvenanceError, match="identified annotators"):
+        ProjectActorAnnotation(
+            task_id="bad-annotation-actor",
+            function=ContributionFunction.REVIEW,
+            operational_label=OperationalActorLabel.WORK_SESSION_COLLABORATOR,
+            annotated_by=(ContributionActor.SOURCE_UNVERIFIED,),
+            annotation_basis=("observed_work_surface",),
+            source_refs=("synthetic:bad-annotator",),
+        )
+
+
+def test_project_annotation_requires_basis_and_source() -> None:
+    with pytest.raises(ProvenanceError, match="annotation_basis"):
+        ProjectActorAnnotation(
+            task_id="missing-basis",
+            function=ContributionFunction.REVIEW,
+            operational_label=OperationalActorLabel.UNCLASSIFIED_SESSION_COLLABORATOR,
+            annotated_by=(ContributionActor.HUMAN_OWNER,),
+            annotation_basis=(),
+            source_refs=("human-owner:annotation",),
+        )
+
+    with pytest.raises(ProvenanceError, match="source references"):
+        ProjectActorAnnotation(
+            task_id="missing-source",
+            function=ContributionFunction.REVIEW,
+            operational_label=OperationalActorLabel.UNCLASSIFIED_SESSION_COLLABORATOR,
+            annotated_by=(ContributionActor.HUMAN_OWNER,),
+            annotation_basis=("bounded_project_annotation",),
         )
 
