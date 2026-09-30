@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/work_synthetic_anthropometry_v0.2.schema.json",
+  "title": "Work synthetic anthropometry v0.2",
+  "type": "object",
+  "required": ["schema","status","subject","counts","measurements","anatomy_candidate","synthetic_engorgement_model","semen_volume_reference"],
+  "properties": {
+    "schema": {"const": "work.synthetic_anthropometry.v0.2"},
+    "status": {"type": "string"},
+    "subject": {"const": "Work adult male-form synthetic robot candidate"},
+    "source_vocabulary": {"type": "string"},
+    "basis": {"type": "string"},
+    "counts": {
+      "type": "object",
+      "required": ["fields","centimeter_fields","kilogram_fields","human_fixed","ai_provisional","as_built_verified"],
+      "properties": {
+        "fields": {"const": 67},
+        "centimeter_fields": {"const": 66},
+        "kilogram_fields": {"const": 1},
+        "human_fixed": {"const": 2},
+        "ai_provisional": {"const": 65},
+        "as_built_verified": {"const": 0}
+      }
+    },
+    "measurement_convention": {"type": "string"},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "measurements": {
+      "type": "array",
+      "minItems": 67,
+      "maxItems": 67,
+      "items": {
+        "type": "object",
+        "required": ["id","region","label_zh_TW","value","unit","provenance","verification"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "region": {"type": "string", "minLength": 1},
+          "label_zh_TW": {"type": "string", "minLength": 1},
+          "value": {"type": "number", "exclusiveMinimum": 0},
+          "unit": {"enum": ["cm", "kg"]},
+          "provenance": {"enum": ["HUMAN_FIXED", "AI_PROVISIONAL"]},
+          "verification": {"const": "DESIGN_VALUE_NOT_AS_BUILT"},
+          "vocabulary": {"type": "string"}
+        }
+      },
+      "allOf": [
+        {"contains": {"type":"object","properties":{"provenance":{"const":"HUMAN_FIXED"}},"required":["provenance"]},"minContains":2,"maxContains":2},
+        {"contains": {"type":"object","properties":{"provenance":{"const":"AI_PROVISIONAL"}},"required":["provenance"]},"minContains":65,"maxContains":65},
+        {"contains": {"type":"object","properties":{"id":{"const":"total_height"},"value":{"const":165},"unit":{"const":"cm"},"provenance":{"const":"HUMAN_FIXED"}},"required":["id","value","unit","provenance"]},"minContains":1,"maxContains":1},
+        {"contains": {"type":"object","properties":{"id":{"const":"body_mass"},"value":{"const":76},"unit":{"const":"kg"},"provenance":{"const":"HUMAN_FIXED"}},"required":["id","value","unit","provenance"]},"minContains":1,"maxContains":1}
+      ]
+    },
+    "anatomy_candidate": {
+      "type": "object",
+      "required": ["prepuce_present","resting_coverage","retraction","inner_outer_fold_and_frenulum","opening_clearance","real_person_circumcision_status"],
+      "properties": {
+        "prepuce_present": {"const": "DESIGN_CANDIDATE_TRUE"},
+        "resting_coverage": {"type": "string"},
+        "retraction": {"type": "string"},
+        "inner_outer_fold_and_frenulum": {"type": "string"},
+        "opening_clearance": {"type": "string"},
+        "real_person_circumcision_status": {"const": "NOT_INFERRED_FROM_IMAGE"}
+      }
+    },
+    "synthetic_engorgement_model": {"type": "object"},
+    "semen_volume_reference": {"type": "object"}
+  }
+}
