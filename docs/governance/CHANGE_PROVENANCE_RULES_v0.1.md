@@ -13,9 +13,9 @@
 
 The Human Owner proposed separating proposal origin, implementation origin, review, and approval so project history, AION/Astra state, and collaborator contributions remain distinguishable.
 
-`IMPLEMENTED_BY = CHATGPT`
+`IMPLEMENTED_BY = CHATGPT_TEACHER`
 
-ChatGPT translated that proposal into this candidate governance format.
+The repository-local ChatGPT Teacher role translated that proposal into this candidate governance format.
 
 `CODEX_CONTRIBUTION = NONE`
 
@@ -73,6 +73,71 @@ AI_FORMALIZATION + CHATGPT_TEACHER
 
 Legacy records that only say `CHATGPT` may remain historical when finer attribution cannot be reconstructed; they must not be silently upgraded. Use `SOURCE_UNVERIFIED` when the specific collaborator cannot be recovered.
 
+## Actor surface and pre-delegation binding
+
+The repository distinguishes an operational actor label from the product or
+interaction surface through which the contribution was made.
+
+OpenAI's current Help Center distinguishes **Chat**, **Work**, and **Codex** as
+separate experiences. It describes Work as an agent for longer multi-step work
+and finished deliverables, while Codex is dedicated to software-development and
+technical work. The same upstream documentation also states that Work and Codex
+can share model families and usage structure while Codex remains a separate view
+with separate history. Source checked 2026-09-30:
+
+<https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex>
+
+Repository interpretation:
+
+```text
+UPSTREAM_PRODUCT_SURFACE != VERIFIED_MODEL_IDENTITY
+
+CHATGPT_TEACHER = REPOSITORY_LOCAL_ROLE_LABEL + CHATGPT_CHAT_SURFACE
+CHATGPT_WORK = CHATGPT_WORK_SURFACE
+CODEX = CODEX_SURFACE
+
+SHARED_MODEL_FAMILY != SAME_ACTOR
+SHARED_USAGE_POOL != SAME_ACTOR
+SAME_ACCOUNT != SAME_ACTOR
+TASK_DOMAIN != ACTOR
+REPOSITORY_TASK != CODEX_BY_DEFAULT
+LONG_MULTISTEP_TASK != CHATGPT_WORK_BY_DEFAULT
+```
+
+Task semantics must never be used to infer the actor after the fact. A repository
+review performed in Work remains `CHATGPT_WORK` even if it modifies code. A
+document review performed in Codex remains `CODEX` even if the task is mostly
+prose.
+
+For material delegated AI work, bind the expected actor and surface **before**
+the delegated step whenever the surface is known:
+
+```text
+EXPECTED_ACTOR
+EXPECTED_SURFACE
+CONTRIBUTION_FUNCTION
+SOURCE_EVIDENCE
+```
+
+The returned attribution must match that pre-bound record exactly. A collaborator
+self-label, output style, task domain, Git committer, or shared OpenAI product
+family must not override the pre-delegation binding.
+
+```text
+RETURNED_ACTOR != EXPECTED_ACTOR
+=> CONFLICT_REQUIRES_REVIEW
+=> PROVENANCE_HOLD
+
+RETURNED_SURFACE != EXPECTED_SURFACE
+=> CONFLICT_REQUIRES_REVIEW
+=> PROVENANCE_HOLD
+```
+
+If the pre-delegation surface itself cannot be reconstructed, use
+`SOURCE_UNVERIFIED` rather than guessing. A conflict is repaired only from
+evidence; it is not silently normalized to whichever actor label best matches the
+task.
+
 ## Attribution confidence
 
 Where evidence is incomplete, use one of:
@@ -96,14 +161,20 @@ proposal:
   source_evidence: owner_current_instruction
 
 implementation:
-  implemented_by: CHATGPT
+  implemented_by: CHATGPT_TEACHER
+  interaction_surface: CHATGPT_CHAT
   confidence: CONFIRMED
+  source_evidence: teacher_chat_handoff
   artifact_scope:
     - docs/example.md
 
 review:
-  reviewed_by: HUMAN_OWNER
+  expected_actor: CHATGPT_WORK
+  expected_surface: CHATGPT_WORK
+  contribution_function: REVIEW
+  reviewed_by: SOURCE_UNVERIFIED
   status: PENDING
+  source_evidence: work_review_handoff
 
 approval:
   approved_by: HUMAN_OWNER

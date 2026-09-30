@@ -1,13 +1,18 @@
 import pytest
 
 from aion_coupled_quality.provenance import (
+    AIInteractionSurface,
+    ActorClaim,
+    ActorExpectation,
     ClaimLayer,
     ContributionActor,
+    ContributionFunction,
     ContributionOrigin,
     ContributionRecord,
     EpistemicProvenanceLedger,
     ProvenanceError,
     StateAttribution,
+    verify_actor_claim,
 )
 
 
@@ -199,5 +204,93 @@ def test_specific_ai_actor_cannot_be_attached_to_non_ai_origin() -> None:
             origin=ContributionOrigin.UNKNOWN,
             actor=ContributionActor.CHATGPT_WORK,
             layer=ClaimLayer.ANALYSIS,
+        )
+
+
+def test_actor_expectation_accepts_exact_chatgpt_work_review_claim() -> None:
+    expectation = ActorExpectation(
+        task_id="pr-232-review",
+        function=ContributionFunction.REVIEW,
+        expected_actor=ContributionActor.CHATGPT_WORK,
+        expected_surface=AIInteractionSurface.CHATGPT_WORK,
+        source_refs=("handoff:chatgpt-work",),
+    )
+    claim = ActorClaim(
+        task_id="pr-232-review",
+        function=ContributionFunction.REVIEW,
+        actor=ContributionActor.CHATGPT_WORK,
+        surface=AIInteractionSurface.CHATGPT_WORK,
+        source_refs=("result:chatgpt-work",),
+    )
+    verify_actor_claim(expectation, claim)
+
+
+def test_chatgpt_work_review_cannot_be_relabelled_as_codex() -> None:
+    expectation = ActorExpectation(
+        task_id="pr-232-review",
+        function=ContributionFunction.REVIEW,
+        expected_actor=ContributionActor.CHATGPT_WORK,
+        expected_surface=AIInteractionSurface.CHATGPT_WORK,
+        source_refs=("handoff:chatgpt-work",),
+    )
+    claim = ActorClaim(
+        task_id="pr-232-review",
+        function=ContributionFunction.REVIEW,
+        actor=ContributionActor.CODEX,
+        surface=AIInteractionSurface.CODEX,
+        source_refs=("result:self-labelled-codex",),
+    )
+    with pytest.raises(ProvenanceError, match="actor provenance drift"):
+        verify_actor_claim(expectation, claim)
+
+
+@pytest.mark.parametrize(
+    ("actor", "wrong_surface"),
+    (
+        (ContributionActor.CHATGPT_TEACHER, AIInteractionSurface.CHATGPT_WORK),
+        (ContributionActor.CHATGPT_WORK, AIInteractionSurface.CODEX),
+        (ContributionActor.CODEX, AIInteractionSurface.CHATGPT_WORK),
+    ),
+)
+def test_specific_actor_rejects_wrong_interaction_surface(
+    actor: ContributionActor,
+    wrong_surface: AIInteractionSurface,
+) -> None:
+    with pytest.raises(ProvenanceError, match="actor-surface mismatch"):
+        ActorClaim(
+            task_id="surface-mismatch",
+            function=ContributionFunction.REVIEW,
+            actor=actor,
+            surface=wrong_surface,
+            source_refs=("synthetic:surface-mismatch",),
+        )
+
+
+def test_source_unverified_cannot_satisfy_prebound_work_expectation() -> None:
+    expectation = ActorExpectation(
+        task_id="review-unknown-return",
+        function=ContributionFunction.REVIEW,
+        expected_actor=ContributionActor.CHATGPT_WORK,
+        expected_surface=AIInteractionSurface.CHATGPT_WORK,
+        source_refs=("handoff:chatgpt-work",),
+    )
+    claim = ActorClaim(
+        task_id="review-unknown-return",
+        function=ContributionFunction.REVIEW,
+        actor=ContributionActor.SOURCE_UNVERIFIED,
+        surface=AIInteractionSurface.UNKNOWN,
+        source_refs=("result:actor-not-reconstructable",),
+    )
+    with pytest.raises(ProvenanceError, match="SOURCE_UNVERIFIED"):
+        verify_actor_claim(expectation, claim)
+
+
+def test_actor_binding_requires_source_evidence() -> None:
+    with pytest.raises(ProvenanceError, match="source reference"):
+        ActorExpectation(
+            task_id="missing-evidence",
+            function=ContributionFunction.IMPLEMENTATION,
+            expected_actor=ContributionActor.CODEX,
+            expected_surface=AIInteractionSurface.CODEX,
         )
 

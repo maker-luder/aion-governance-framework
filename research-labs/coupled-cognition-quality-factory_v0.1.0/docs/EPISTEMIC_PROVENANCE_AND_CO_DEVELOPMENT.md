@@ -6,7 +6,7 @@ This note reconstructs a bounded methodological direction from recent Human Owne
 
 ## Source-role rule
 
-The Human Owner explicitly required that research reconstruction preserve who first supplied a question, observation or correction. ChatGPT formalized that requirement into an inspectable source-role ledger.
+The Human Owner explicitly required that research reconstruction preserve who first supplied a question, observation or correction. The repository-local ChatGPT Teacher role formalized that requirement into an inspectable source-role ledger.
 
 ```text
 HUMAN_ORIGIN != AI_FORMALIZATION
@@ -51,6 +51,46 @@ ACTOR_LABEL != VERIFIED_MODEL_IDENTITY
 
 The actor label is an auditable workflow attribution, not a claim about
 subjective identity, model continuity, independence, or scientific authority.
+
+### Interaction-surface binding
+
+For new material AI handoffs, the implementation can separately bind the
+expected operational actor to the interaction surface before delegation, then
+verify the returned actor claim against that expectation.
+
+Current machine-checkable surfaces are:
+
+- `CHATGPT_CHAT` for the repository-local `CHATGPT_TEACHER` role;
+- `CHATGPT_WORK` for `CHATGPT_WORK`;
+- `CODEX` for `CODEX`;
+- `MANUS` for `MANUS`;
+- `UNKNOWN` only when the specific surface cannot be reconstructed.
+
+The binding is intentionally about workflow provenance, not model identity.
+OpenAI's current product documentation distinguishes Chat, Work and Codex as
+separate experiences even where Work and Codex can share model families and
+usage structure:
+
+<https://help.openai.com/en/articles/20001275-chatgpt-work-and-codex>
+
+Therefore:
+
+```text
+SHARED_MODEL_FAMILY != SAME_ACTOR
+SHARED_USAGE_STRUCTURE != SAME_ACTOR
+TASK_TYPE != ACTOR
+CODE_TASK != CODEX_ACTOR
+LONG_HORIZON_TASK != CHATGPT_WORK_ACTOR
+
+PREBOUND_EXPECTED_ACTOR
++ PREBOUND_EXPECTED_SURFACE
+!= RETURNED_SELF_LABEL_BY_DEFAULT
+```
+
+A Work review that later labels itself `CODEX` is an attribution conflict, not
+a valid actor transition. The verifier fails closed on actor or surface
+mismatch. If evidence cannot reconstruct the actor, use `SOURCE_UNVERIFIED`
+and hold the exact attribution rather than guessing.
 
 The ledger separately records claim layer and whether a statement about a person's state was self-reported, merely an observed signal, inferred, or unknown.
 
