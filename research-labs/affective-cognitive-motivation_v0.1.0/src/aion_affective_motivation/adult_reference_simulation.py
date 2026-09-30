@@ -246,6 +246,7 @@ def _combine_onset_context(
 def _step_estimate(
     previous: ReferenceEstimate,
     *,
+    channel: str,
     drive: float,
     step_size: float,
     event: AdultReferenceSyntheticEvent,
@@ -265,7 +266,7 @@ def _step_estimate(
         time_window_ref=event.time_window_ref,
     )
     transition = ReferenceChannelTransition(
-        channel="",
+        channel=channel,
         previous=previous.reference_level,
         drive=drive,
         step_size=step_size,
@@ -276,21 +277,6 @@ def _step_estimate(
     )
     return successor, transition
 
-
-def _named_transition(
-    transition: ReferenceChannelTransition,
-    channel: str,
-) -> ReferenceChannelTransition:
-    return ReferenceChannelTransition(
-        channel=channel,
-        previous=transition.previous,
-        drive=transition.drive,
-        step_size=transition.step_size,
-        current=transition.current,
-        previous_uncertainty=transition.previous_uncertainty,
-        event_uncertainty=transition.event_uncertainty,
-        current_uncertainty=transition.current_uncertainty,
-    )
 
 
 class AdultReferenceSimulationEngine:
@@ -315,24 +301,28 @@ class AdultReferenceSimulationEngine:
 
         excitation, excitation_trace = _step_estimate(
             state.excitation_reference,
+            channel="EXCITATION_REFERENCE",
             drive=event.excitation_drive,
             step_size=self._policy.excitation_step_size,
             event=event,
         )
         inhibition, inhibition_trace = _step_estimate(
             state.inhibition_reference,
+            channel="INHIBITION_REFERENCE",
             drive=event.inhibition_drive,
             step_size=self._policy.inhibition_step_size,
             event=event,
         )
         episode, episode_trace = _step_estimate(
             state.episode_state_reference,
+            channel="EPISODE_STATE_REFERENCE",
             drive=event.episode_drive,
             step_size=self._policy.episode_step_size,
             event=event,
         )
         disposition, disposition_trace = _step_estimate(
             state.disposition_reference,
+            channel="DISPOSITION_REFERENCE",
             drive=event.disposition_observation_drive,
             step_size=self._policy.disposition_step_size,
             event=event,
@@ -374,10 +364,10 @@ class AdultReferenceSimulationEngine:
             successor_state_id=successor.state_id,
             event_id=event.event_id,
             channels=(
-                _named_transition(excitation_trace, "EXCITATION_REFERENCE"),
-                _named_transition(inhibition_trace, "INHIBITION_REFERENCE"),
-                _named_transition(disposition_trace, "DISPOSITION_REFERENCE"),
-                _named_transition(episode_trace, "EPISODE_STATE_REFERENCE"),
+                excitation_trace,
+                inhibition_trace,
+                disposition_trace,
+                episode_trace,
             ),
             previous_onset_context=state.desire_onset_context,
             current_onset_context=onset_context,
