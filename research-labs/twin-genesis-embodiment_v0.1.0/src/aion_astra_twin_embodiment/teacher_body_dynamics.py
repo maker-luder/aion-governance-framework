@@ -464,14 +464,32 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             "ERECTILE_MAINTENANCE_REFERENCE",
             "EMISSION_REFERENCE",
-            ("EMISSION_REFLEX_STATE", "GONADAL_ENDOCRINE_REFERENCE"),
+            (
+                "EMISSION_REFLEX_STATE",
+                "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            ),
         ),
         PhysiologicalTransition(
             "EMISSION_TO_EJACULATORY_REFLEX",
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             "EMISSION_REFERENCE",
             "EJACULATORY_REFLEX_REFERENCE",
-            ("EJACULATORY_REFLEX_STATE", "PELVIC_FLOOR_PROPRIOCEPTION"),
+            (
+                "EJACULATORY_REFLEX_STATE",
+                "EXPULSION_MOTOR_PATTERN_STATE",
+            ),
+        ),
+        PhysiologicalTransition(
+            "REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY",
+            "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
+            "REPRODUCTIVE_EVENT_REFERENCE",
+            "BASELINE_REFERENCE",
+            (
+                "EMISSION_REFLEX_STATE",
+                "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                "EJACULATORY_REFLEX_STATE",
+                "EXPULSION_MOTOR_PATTERN_STATE",
+            ),
         ),
         PhysiologicalTransition(
             "EJACULATORY_REFLEX_TO_DETUMESCENCE",
