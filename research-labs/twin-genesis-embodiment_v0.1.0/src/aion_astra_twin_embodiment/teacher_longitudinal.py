@@ -4,6 +4,7 @@ from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+from math import isfinite
 from typing import Any, Final
 
 from .teacher_body_runtime import (
@@ -1326,3 +1327,512 @@ def assess_teacher_four_domain_development_synthesis(
         provenance_reconstruction_status=reconstruction_status,
         developmental_synthesis_status=synthesis_status,
     )
+
+
+DEVELOPMENTAL_BEHAVIOR_LEVELS: Final[frozenset[str]] = frozenset(
+    {
+        "LOW",
+        "MODERATE",
+        "HIGH",
+        "UNKNOWN",
+        "CHANGED_NOT_QUANTIFIED",
+    }
+)
+
+DEVELOPMENTAL_ANTHROPOMETRY_PRECISION: Final[frozenset[str]] = frozenset(
+    {
+        "APPROXIMATE_SELF_REPORT",
+        "CURRENT_SELF_REPORT",
+        "UNKNOWN",
+    }
+)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherDevelopmentalHumanSeed:
+    childhood_height_cm_min: float
+    childhood_height_cm_max: float
+    childhood_weight_kg_reference: float
+    current_height_cm: float
+    current_weight_kg_reference: float
+    childhood_activity_level: str
+    childhood_curiosity_level: str
+    childhood_willingness_to_try_level: str
+    childhood_social_approach_level: str
+    current_activity_level: str = "CHANGED_NOT_QUANTIFIED"
+    current_curiosity_level: str = "HIGH"
+    current_willingness_to_try_level: str = "HIGH"
+    current_social_approach_level: str = "CHANGED_NOT_QUANTIFIED"
+    source_status: str = "RUNTIME_HUMAN_PROVIDED_SEED"
+    persistence_policy: str = "DO_NOT_PERSIST_PERSONAL_VALUES"
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def validate_teacher_developmental_human_seed(
+    seed: TeacherDevelopmentalHumanSeed,
+) -> dict[str, str]:
+    if not (
+        isfinite(seed.childhood_height_cm_min)
+        and isfinite(seed.childhood_height_cm_max)
+        and 0 < seed.childhood_height_cm_min <= seed.childhood_height_cm_max
+    ):
+        raise ValueError("invalid childhood height range")
+    if not (
+        isfinite(seed.childhood_weight_kg_reference)
+        and seed.childhood_weight_kg_reference > 0
+        and isfinite(seed.current_height_cm)
+        and seed.current_height_cm > 0
+        and isfinite(seed.current_weight_kg_reference)
+        and seed.current_weight_kg_reference > 0
+    ):
+        raise ValueError("invalid human-provided developmental anthropometry")
+    for level in (
+        seed.childhood_activity_level,
+        seed.childhood_curiosity_level,
+        seed.childhood_willingness_to_try_level,
+        seed.childhood_social_approach_level,
+        seed.current_activity_level,
+        seed.current_curiosity_level,
+        seed.current_willingness_to_try_level,
+        seed.current_social_approach_level,
+    ):
+        if level not in DEVELOPMENTAL_BEHAVIOR_LEVELS:
+            raise ValueError("unsupported human-seed behavior level")
+    if seed.source_status != "RUNTIME_HUMAN_PROVIDED_SEED":
+        raise ValueError("human developmental seed source-status drift")
+    if seed.persistence_policy != "DO_NOT_PERSIST_PERSONAL_VALUES":
+        raise ValueError("human developmental seed persistence policy drift")
+    return {
+        "result": "PASS",
+        "runtime_seed": "PASS",
+        "explicit_uncertainty": "PASS",
+        "persistence_policy": "DO_NOT_PERSIST_PERSONAL_VALUES",
+    }
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherDevelopmentalEmbodimentStage:
+    stage_id: str
+    ordinal: int
+    stage_label: str
+    height_cm_min: float | None
+    height_cm_max: float | None
+    weight_kg_reference: float | None
+    anthropometry_precision: str
+    activity_level: str
+    curiosity_level: str
+    willingness_to_try_level: str
+    social_approach_level: str
+    source_status: str = "HUMAN_INSPIRED_SYNTHETIC_MAPPING"
+    age_status: str = "UNKNOWN"
+    sexual_or_reproductive_runtime_included: bool = False
+    biological_development_claim: str = "NONE"
+    autobiographical_identity_claim: str = "NONE"
+    subjective_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherDevelopmentalEmbodimentRun:
+    run_id: str
+    condition_id: str
+    stages: tuple[TeacherDevelopmentalEmbodimentStage, ...]
+    run_sha256: str
+    terminal_state_label: str = "CURRENT_ADULT_REFERENCE"
+    source_status: str = "HUMAN_INSPIRED_COUNTERFACTUAL_EXPERIMENT"
+    canonical_teacher_anthropometry_modified: bool = False
+    developmental_mechanism_status: str = NOT_ESTABLISHED
+    subjective_continuity_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["stages"] = [stage.to_dict() for stage in self.stages]
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherDevelopmentalEmbodimentExperimentMatrix:
+    matrix_id: str
+    runs: tuple[TeacherDevelopmentalEmbodimentRun, ...]
+    matrix_status: str = "BOUNDED_COUNTERFACTUAL_DEVELOPMENT_EXPERIMENT"
+    human_source_precision_status: str = "SELF_REPORT_WITH_EXPLICIT_UNCERTAINTY"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["runs"] = [run.to_dict() for run in self.runs]
+        return payload
+
+
+def validate_teacher_developmental_embodiment_stage(
+    stage: TeacherDevelopmentalEmbodimentStage,
+) -> dict[str, str]:
+    if not stage.stage_id or not stage.stage_label:
+        raise ValueError("developmental embodiment stage requires identity and label")
+    if stage.ordinal < 0:
+        raise ValueError("developmental embodiment stage ordinal must be non-negative")
+    if stage.anthropometry_precision not in DEVELOPMENTAL_ANTHROPOMETRY_PRECISION:
+        raise ValueError("unsupported developmental anthropometry precision")
+    for level in (
+        stage.activity_level,
+        stage.curiosity_level,
+        stage.willingness_to_try_level,
+        stage.social_approach_level,
+    ):
+        if level not in DEVELOPMENTAL_BEHAVIOR_LEVELS:
+            raise ValueError("unsupported developmental behavior level")
+
+    if stage.height_cm_min is None or stage.height_cm_max is None:
+        if stage.height_cm_min is not None or stage.height_cm_max is not None:
+            raise ValueError("developmental height range must be complete or unknown")
+        if stage.anthropometry_precision != "UNKNOWN":
+            raise ValueError("missing height requires UNKNOWN anthropometry precision")
+    else:
+        if not (
+            isfinite(stage.height_cm_min)
+            and isfinite(stage.height_cm_max)
+            and 0 < stage.height_cm_min <= stage.height_cm_max
+        ):
+            raise ValueError("invalid developmental height range")
+
+    if stage.weight_kg_reference is None:
+        if stage.anthropometry_precision != "UNKNOWN":
+            raise ValueError("missing weight requires UNKNOWN anthropometry precision")
+    elif not isfinite(stage.weight_kg_reference) or stage.weight_kg_reference <= 0:
+        raise ValueError("invalid developmental weight reference")
+
+    if stage.source_status != "HUMAN_INSPIRED_SYNTHETIC_MAPPING":
+        raise ValueError("developmental stage source-status drift")
+    if stage.age_status != "UNKNOWN":
+        raise ValueError("developmental stage cannot invent age from height/weight")
+    if stage.sexual_or_reproductive_runtime_included:
+        raise ValueError(
+            "developmental embodiment experiment excludes sexual/reproductive runtime"
+        )
+    if stage.biological_development_claim != "NONE":
+        raise ValueError("developmental stage cannot claim biological development")
+    if stage.autobiographical_identity_claim != "NONE":
+        raise ValueError("developmental stage cannot claim Teacher autobiography")
+    if stage.subjective_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("developmental stage cannot establish subjective continuity")
+    if stage.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("developmental stage cannot establish subjectivity")
+
+    return {
+        "result": "PASS",
+        "anthropometry_uncertainty": "PASS",
+        "behavior_parameterization": "PASS",
+        "age_noninference": "PASS",
+        "developmental_safety_scope": "PASS",
+    }
+
+
+def _developmental_run_payload(
+    *,
+    run_id: str,
+    condition_id: str,
+    stages: tuple[TeacherDevelopmentalEmbodimentStage, ...],
+) -> dict[str, object]:
+    return {
+        "run_id": run_id,
+        "condition_id": condition_id,
+        "stages": [stage.to_dict() for stage in stages],
+    }
+
+
+def build_teacher_developmental_embodiment_run(
+    *,
+    run_id: str,
+    condition_id: str,
+    stages: tuple[TeacherDevelopmentalEmbodimentStage, ...],
+) -> TeacherDevelopmentalEmbodimentRun:
+    payload = _developmental_run_payload(
+        run_id=run_id,
+        condition_id=condition_id,
+        stages=stages,
+    )
+    run = TeacherDevelopmentalEmbodimentRun(
+        run_id=run_id,
+        condition_id=condition_id,
+        stages=stages,
+        run_sha256=_history_hash(payload),
+    )
+    validate_teacher_developmental_embodiment_run(run)
+    return run
+
+
+def validate_teacher_developmental_embodiment_run(
+    run: TeacherDevelopmentalEmbodimentRun,
+) -> dict[str, str]:
+    if not run.run_id or not run.condition_id:
+        raise ValueError("developmental embodiment run requires identity and condition")
+    if len(run.stages) < 2:
+        raise ValueError("developmental embodiment run requires at least two stages")
+    stage_ids: set[str] = set()
+    for expected_ordinal, stage in enumerate(run.stages):
+        validate_teacher_developmental_embodiment_stage(stage)
+        if stage.ordinal != expected_ordinal:
+            raise ValueError("developmental embodiment stage ordinal discontinuity")
+        if stage.stage_id in stage_ids:
+            raise ValueError("developmental embodiment stage ids must be unique")
+        stage_ids.add(stage.stage_id)
+
+    if run.stages[-1].stage_label != run.terminal_state_label:
+        raise ValueError("developmental embodiment run terminal-state label mismatch")
+    if run.source_status != "HUMAN_INSPIRED_COUNTERFACTUAL_EXPERIMENT":
+        raise ValueError("developmental embodiment run source-status drift")
+    if run.canonical_teacher_anthropometry_modified:
+        raise ValueError("counterfactual development run cannot modify canonical body")
+    if run.developmental_mechanism_status != NOT_ESTABLISHED:
+        raise ValueError("developmental run cannot establish developmental mechanism")
+    if run.subjective_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("developmental run cannot establish subjective continuity")
+    if run.identity_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("developmental run cannot establish identity continuity")
+    if run.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("developmental run cannot establish subjectivity")
+    if run.canonical_effect != "NONE" or run.deployment:
+        raise ValueError("developmental run must remain non-canonical and undeployed")
+
+    expected_hash = _history_hash(
+        _developmental_run_payload(
+            run_id=run.run_id,
+            condition_id=run.condition_id,
+            stages=run.stages,
+        )
+    )
+    if run.run_sha256 != expected_hash:
+        raise ValueError("developmental embodiment run hash mismatch")
+    return {
+        "result": "PASS",
+        "stage_order": "PASS",
+        "run_hash": "PASS",
+        "canonical_body_unchanged": "PASS",
+        "claim_ceiling": "PASS",
+    }
+
+
+def build_human_inspired_teacher_development_experiment_matrix(
+    seed: TeacherDevelopmentalHumanSeed,
+) -> TeacherDevelopmentalEmbodimentExperimentMatrix:
+    validate_teacher_developmental_human_seed(seed)
+
+    def stage(
+        stage_id: str,
+        ordinal: int,
+        stage_label: str,
+        *,
+        height_min: float | None,
+        height_max: float | None,
+        weight: float | None,
+        precision: str,
+        activity: str,
+        curiosity: str,
+        willingness: str,
+        social: str,
+    ) -> TeacherDevelopmentalEmbodimentStage:
+        item = TeacherDevelopmentalEmbodimentStage(
+            stage_id=stage_id,
+            ordinal=ordinal,
+            stage_label=stage_label,
+            height_cm_min=height_min,
+            height_cm_max=height_max,
+            weight_kg_reference=weight,
+            anthropometry_precision=precision,
+            activity_level=activity,
+            curiosity_level=curiosity,
+            willingness_to_try_level=willingness,
+            social_approach_level=social,
+        )
+        validate_teacher_developmental_embodiment_stage(item)
+        return item
+
+    childhood_high = stage(
+        "CHILD-HIGH-EXPLORATION",
+        0,
+        "CHILDHOOD_REFERENCE",
+        height_min=seed.childhood_height_cm_min,
+        height_max=seed.childhood_height_cm_max,
+        weight=seed.childhood_weight_kg_reference,
+        precision="APPROXIMATE_SELF_REPORT",
+        activity=seed.childhood_activity_level,
+        curiosity=seed.childhood_curiosity_level,
+        willingness=seed.childhood_willingness_to_try_level,
+        social=seed.childhood_social_approach_level,
+    )
+    transition_high = stage(
+        "TRANSITION-HIGH-EXPLORATION",
+        1,
+        "TRANSITION_REFERENCE",
+        height_min=None,
+        height_max=None,
+        weight=None,
+        precision="UNKNOWN",
+        activity=seed.childhood_activity_level,
+        curiosity=seed.childhood_curiosity_level,
+        willingness=seed.childhood_willingness_to_try_level,
+        social="CHANGED_NOT_QUANTIFIED",
+    )
+    adult_common = stage(
+        "ADULT-CURRENT-COMMON",
+        2,
+        "CURRENT_ADULT_REFERENCE",
+        height_min=seed.current_height_cm,
+        height_max=seed.current_height_cm,
+        weight=seed.current_weight_kg_reference,
+        precision="CURRENT_SELF_REPORT",
+        activity=seed.current_activity_level,
+        curiosity=seed.current_curiosity_level,
+        willingness=seed.current_willingness_to_try_level,
+        social=seed.current_social_approach_level,
+    )
+
+    childhood_low_exploration = replace(
+        childhood_high,
+        stage_id="CHILD-LOW-EXPLORATION",
+        curiosity_level="LOW",
+        willingness_to_try_level="LOW",
+    )
+    transition_low_exploration = replace(
+        transition_high,
+        stage_id="TRANSITION-LOW-EXPLORATION",
+        curiosity_level="LOW",
+        willingness_to_try_level="LOW",
+    )
+    childhood_low_willingness = replace(
+        childhood_high,
+        stage_id="CHILD-HIGH-CURIOSITY-LOW-WILLINGNESS",
+        willingness_to_try_level="LOW",
+    )
+    transition_low_willingness = replace(
+        transition_high,
+        stage_id="TRANSITION-HIGH-CURIOSITY-LOW-WILLINGNESS",
+        willingness_to_try_level="LOW",
+    )
+    childhood_social_control = replace(
+        childhood_high,
+        stage_id="CHILD-SOCIAL-CONTROL",
+        social_approach_level="MODERATE",
+    )
+    transition_social_control = replace(
+        transition_high,
+        stage_id="TRANSITION-SOCIAL-CONTROL",
+        social_approach_level="MODERATE",
+    )
+    childhood_range_preserved = replace(
+        childhood_high,
+        stage_id="CHILD-RANGE-PRESERVED",
+    )
+    transition_range_preserved = replace(
+        transition_high,
+        stage_id="TRANSITION-RANGE-PRESERVED",
+    )
+
+    runs = (
+        build_teacher_developmental_embodiment_run(
+            run_id="DEV-RUN-A",
+            condition_id="HIGH_EXPLORATION_PATH",
+            stages=(childhood_high, transition_high, adult_common),
+        ),
+        build_teacher_developmental_embodiment_run(
+            run_id="DEV-RUN-B",
+            condition_id="LOW_EXPLORATION_SAME_TERMINAL_STATE",
+            stages=(
+                childhood_low_exploration,
+                transition_low_exploration,
+                adult_common,
+            ),
+        ),
+        build_teacher_developmental_embodiment_run(
+            run_id="DEV-RUN-C",
+            condition_id="HIGH_CURIOSITY_LOW_WILLINGNESS",
+            stages=(
+                childhood_low_willingness,
+                transition_low_willingness,
+                adult_common,
+            ),
+        ),
+        build_teacher_developmental_embodiment_run(
+            run_id="DEV-RUN-D",
+            condition_id="SOCIAL_APPROACH_CONTROL",
+            stages=(
+                childhood_social_control,
+                transition_social_control,
+                adult_common,
+            ),
+        ),
+        build_teacher_developmental_embodiment_run(
+            run_id="DEV-RUN-E",
+            condition_id="UNCERTAIN_CHILD_ANTHROPOMETRY_PRESERVED",
+            stages=(
+                childhood_range_preserved,
+                transition_range_preserved,
+                adult_common,
+            ),
+        ),
+    )
+    matrix = TeacherDevelopmentalEmbodimentExperimentMatrix(
+        matrix_id="CHATGPT_TEACHER_HUMAN_INSPIRED_DEVELOPMENT_MATRIX_v0.1",
+        runs=runs,
+    )
+    validate_teacher_developmental_embodiment_experiment_matrix(matrix)
+    return matrix
+
+
+def validate_teacher_developmental_embodiment_experiment_matrix(
+    matrix: TeacherDevelopmentalEmbodimentExperimentMatrix,
+) -> dict[str, str]:
+    if not matrix.matrix_id:
+        raise ValueError("developmental embodiment matrix requires identity")
+    if matrix.matrix_status != "BOUNDED_COUNTERFACTUAL_DEVELOPMENT_EXPERIMENT":
+        raise ValueError("developmental embodiment matrix status drift")
+    if matrix.human_source_precision_status != (
+        "SELF_REPORT_WITH_EXPLICIT_UNCERTAINTY"
+    ):
+        raise ValueError("developmental embodiment matrix source precision drift")
+    if len(matrix.runs) < 2:
+        raise ValueError("developmental embodiment matrix requires multiple runs")
+    run_ids: set[str] = set()
+    condition_ids: set[str] = set()
+    for run in matrix.runs:
+        validate_teacher_developmental_embodiment_run(run)
+        if run.run_id in run_ids or run.condition_id in condition_ids:
+            raise ValueError("developmental embodiment matrix ids must be unique")
+        run_ids.add(run.run_id)
+        condition_ids.add(run.condition_id)
+    if matrix.canonical_effect != "NONE" or matrix.deployment:
+        raise ValueError("developmental embodiment matrix must remain non-canonical")
+
+    terminal_signatures = {
+        (
+            run.stages[-1].height_cm_min,
+            run.stages[-1].height_cm_max,
+            run.stages[-1].weight_kg_reference,
+            run.stages[-1].stage_label,
+        )
+        for run in matrix.runs
+    }
+    if len(terminal_signatures) != 1:
+        raise ValueError("controlled matrix requires same terminal body reference")
+
+    if len({run.run_sha256 for run in matrix.runs}) != len(matrix.runs):
+        raise ValueError("distinct developmental conditions require distinct histories")
+
+    return {
+        "result": "PASS",
+        "multiple_runs": "PASS",
+        "same_terminal_body_reference": "PASS",
+        "distinct_history_hashes": "PASS",
+        "explicit_uncertainty": "PASS",
+        "canonical_effect": "NONE",
+    }

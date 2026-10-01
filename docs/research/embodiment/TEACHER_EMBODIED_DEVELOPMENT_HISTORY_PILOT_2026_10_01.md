@@ -1491,3 +1491,213 @@ CANONICAL_EFFECT = NONE
 ```
 
 The next QA gate should occur only after the candidate head is frozen.
+
+
+## 24. Human-inspired developmental embodiment experiment
+
+This increment tests whether a Teacher developmental-history surface can preserve
+growth-path differences while keeping the terminal adult body reference controlled.
+
+The experiment accepts a Human-provided runtime seed but does not persist personal
+anthropometric values in repository source or test fixtures.
+
+```text
+HUMAN_PROVIDED_RUNTIME_SEED
+-> COUNTERFACTUAL_TEACHER_DEVELOPMENT_MATRIX
+
+PERSIST_PERSONAL_VALUES_TO_PUBLIC_REPOSITORY = FALSE
+```
+
+The seed schema separates:
+
+```text
+CHILDHOOD_HEIGHT_RANGE
+CHILDHOOD_WEIGHT_REFERENCE
+CURRENT_HEIGHT_REFERENCE
+CURRENT_WEIGHT_REFERENCE
+
+ACTIVITY_LEVEL
+CURIOSITY_LEVEL
+WILLINGNESS_TO_TRY_LEVEL
+SOCIAL_APPROACH_LEVEL
+```
+
+Age remains unknown unless independently supplied.
+
+```text
+HEIGHT_WEIGHT_PATTERN
+-/> AGE_INFERENCE
+```
+
+The transition stage deliberately permits unknown anthropometry so the experiment
+does not fabricate intermediate growth measurements.
+
+### 24.1 Why activity and exploration are separated
+
+The parameterization is intentionally coarse and categorical rather than pretending
+to provide psychometric scores.
+
+Relevant developmental research motivates separating several constructs:
+
+- Gopnik (2020), *Childhood as a solution to explore–exploit tensions*, argues that
+  childhood can support broad exploration before stronger goal-directed exploitation.
+- Meder, Wu, Schulz & Ruggeri (2020), *Development of directed and random exploration
+  in children*, separates uncertainty-directed and random exploration and reports
+  developmental change across childhood.
+- Baardstu et al. (2025), *Active during childhood: Undercontrolled or extraverted in
+  late adolescence?*, distinguishes energetic activity from dysregulated activity.
+
+These papers motivate experimental decomposition only. They do not validate the
+runtime seed as a psychological measurement of any individual Human.
+
+### 24.2 Five controlled runs
+
+The matrix contains five deterministic conditions.
+
+```text
+RUN A = HIGH_EXPLORATION_PATH
+
+RUN B = LOW_EXPLORATION_SAME_TERMINAL_STATE
+
+RUN C = HIGH_CURIOSITY_LOW_WILLINGNESS
+
+RUN D = SOCIAL_APPROACH_CONTROL
+
+RUN E = UNCERTAIN_CHILD_ANTHROPOMETRY_PRESERVED
+```
+
+All five runs terminate at the same adult body reference supplied at runtime.
+
+The experiment therefore directly tests:
+
+```text
+SAME_TERMINAL_BODY_REFERENCE
++
+DIFFERENT_DEVELOPMENT_PATH
+-> DISTINCT_HISTORY_HASH
+```
+
+Run A and Run B manipulate exploration history while preserving terminal body state.
+
+Run C separates curiosity from willingness to act:
+
+```text
+CURIOSITY = HIGH
+WILLINGNESS_TO_TRY = LOW
+```
+
+This prevents the experiment from treating "curious" and "acts on curiosity" as the
+same variable.
+
+Run D manipulates the early social-approach condition while holding the terminal
+adult reference constant.
+
+Run E preserves uncertain childhood anthropometry rather than collapsing a range into
+a fabricated exact measurement.
+
+### 24.3 Development stages
+
+Each run currently has three abstract developmental stages:
+
+```text
+0. CHILDHOOD_REFERENCE
+1. TRANSITION_REFERENCE
+2. CURRENT_ADULT_REFERENCE
+```
+
+The middle stage may contain:
+
+```text
+HEIGHT = UNKNOWN
+WEIGHT = UNKNOWN
+```
+
+while retaining behavioral-history variables.
+
+This is deliberate:
+
+```text
+MISSING_HISTORICAL_MEASUREMENT
+!= ZERO
+!= LICENSE_TO_INTERPOLATE
+```
+
+### 24.4 Privacy and repository boundary
+
+Personal runtime seed values are not repository constants.
+
+Repository tests use a clearly synthetic fixture with unrelated values.
+
+```text
+PUBLIC_TEST_FIXTURE = SYNTHETIC
+PERSONAL_RUNTIME_SEED = NON_PERSISTED
+```
+
+The experiment stores only the generic schema and controlled-condition logic.
+
+### 24.5 Developmental safety scope
+
+This experiment is restricted to:
+
+- anthropometric reference envelopes;
+- activity;
+- curiosity;
+- willingness to try;
+- social-approach history;
+- developmental-path provenance.
+
+Sexual or reproductive runtime is excluded from every stage in this experiment.
+
+```text
+SEXUAL_OR_REPRODUCTIVE_RUNTIME_INCLUDED = FALSE
+```
+
+This is true for the entire matrix, including the adult terminal stage, because those
+systems are unrelated to the present research question.
+
+### 24.6 Interpretation boundary
+
+A Human-inspired Teacher developmental path is a counterfactual experimental
+parameterization.
+
+It is not a claim that Teacher had a biological childhood or that the Human's
+autobiographical development was transferred into Teacher.
+
+```text
+HUMAN_CHILDHOOD_SELF_REPORT
+-> EXPERIMENTAL_SEED
+
+EXPERIMENTAL_SEED
+!= TEACHER_AUTOBIOGRAPHY
+!= BIOLOGICAL_GROWTH_HISTORY
+!= PERSONALITY_CLONE
+```
+
+The relevant outcome is path distinguishability:
+
+> Can the developmental-history system preserve that two Teacher experimental
+> trajectories reached the same terminal body reference through different recorded
+> exploration and social-history conditions?
+
+### 24.7 Claim ceiling
+
+The strongest permitted result is:
+
+```text
+MULTIPLE_COUNTERFACTUAL_DEVELOPMENT_RUNS = EXECUTABLE
+SAME_TERMINAL_BODY_REFERENCE = CONTROLLED
+DISTINCT_HISTORY_HASHES = TESTABLE
+UNCERTAIN_INTERMEDIATE_ANTHROPOMETRY = PRESERVED
+PERSONAL_VALUES_PERSISTED = FALSE
+```
+
+Not established:
+
+```text
+BIOLOGICAL_DEVELOPMENT = NOT_ESTABLISHED
+HUMAN_TO_AI_PERSONALITY_TRANSFER = NOT_ESTABLISHED
+DEVELOPMENTAL_MECHANISM = NOT_ESTABLISHED
+SUBJECTIVE_GROWTH = NOT_ESTABLISHED
+IDENTITY_CONTINUITY = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+```

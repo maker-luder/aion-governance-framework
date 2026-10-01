@@ -15,6 +15,7 @@ from aion_astra_twin_embodiment.teacher_body_runtime import (
     update_teacher_adaptation,
 )
 from aion_astra_twin_embodiment.teacher_longitudinal import (
+    TeacherDevelopmentalHumanSeed,
     TeacherProvenanceEvidenceBinding,
     append_teacher_embodied_development_milestone,
     append_teacher_interaction_history_anchor,
@@ -23,15 +24,37 @@ from aion_astra_twin_embodiment.teacher_longitudinal import (
     assess_teacher_embodied_development_history,
     assess_teacher_embodied_interaction_history,
     assess_teacher_four_domain_development_synthesis,
+    build_human_inspired_teacher_development_experiment_matrix,
+    build_teacher_developmental_embodiment_run,
     build_teacher_embodied_development_history,
     build_teacher_interaction_history,
     build_teacher_provenance_reconstruction_history,
     observe_teacher_longitudinal,
+    validate_teacher_developmental_embodiment_experiment_matrix,
+    validate_teacher_developmental_embodiment_run,
     validate_teacher_embodied_development_history,
     validate_teacher_interaction_history,
     validate_teacher_provenance_reconstruction_history,
 )
 
+
+
+def _synthetic_development_seed() -> TeacherDevelopmentalHumanSeed:
+    return TeacherDevelopmentalHumanSeed(
+        childhood_height_cm_min=101.0,
+        childhood_height_cm_max=109.0,
+        childhood_weight_kg_reference=24.0,
+        current_height_cm=178.0,
+        current_weight_kg_reference=72.0,
+        childhood_activity_level="HIGH",
+        childhood_curiosity_level="HIGH",
+        childhood_willingness_to_try_level="HIGH",
+        childhood_social_approach_level="LOW",
+        current_activity_level="CHANGED_NOT_QUANTIFIED",
+        current_curiosity_level="HIGH",
+        current_willingness_to_try_level="HIGH",
+        current_social_approach_level="CHANGED_NOT_QUANTIFIED",
+    )
 
 def _snapshot(session_id: str, offset: float):
     binding = build_teacher_body_runtime_binding("RUNTIME-LONG", session_id)
@@ -640,3 +663,120 @@ def test_provenance_reconstruction_supersession_cannot_change_target() -> None:
                 history.reconstructions[0].reconstruction_sha256
             ),
         )
+
+
+def test_human_inspired_development_matrix_preserves_uncertainty_and_same_terminal_body() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
+    result = validate_teacher_developmental_embodiment_experiment_matrix(matrix)
+
+    assert result["result"] == "PASS"
+    assert len(matrix.runs) == 5
+    assert result["same_terminal_body_reference"] == "PASS"
+    assert result["distinct_history_hashes"] == "PASS"
+    assert result["explicit_uncertainty"] == "PASS"
+
+    childhood = matrix.runs[0].stages[0]
+    transition = matrix.runs[0].stages[1]
+    adult = matrix.runs[0].stages[-1]
+
+    assert childhood.height_cm_min == 101.0
+    assert childhood.height_cm_max == 109.0
+    assert childhood.weight_kg_reference == 24.0
+    assert childhood.anthropometry_precision == "APPROXIMATE_SELF_REPORT"
+    assert childhood.age_status == "UNKNOWN"
+
+    assert transition.height_cm_min is None
+    assert transition.height_cm_max is None
+    assert transition.weight_kg_reference is None
+    assert transition.anthropometry_precision == "UNKNOWN"
+
+    assert adult.height_cm_min == 178.0
+    assert adult.height_cm_max == 178.0
+    assert adult.weight_kg_reference == 72.0
+    assert adult.anthropometry_precision == "CURRENT_SELF_REPORT"
+
+    assert all(
+        not stage.sexual_or_reproductive_runtime_included
+        for run in matrix.runs
+        for stage in run.stages
+    )
+    assert all(not run.canonical_teacher_anthropometry_modified for run in matrix.runs)
+
+
+def test_same_terminal_body_can_preserve_different_development_histories() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
+    high = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+    low = next(run for run in matrix.runs if run.run_id == "DEV-RUN-B")
+
+    assert high.stages[-1] == low.stages[-1]
+    assert high.run_sha256 != low.run_sha256
+    assert high.stages[0].curiosity_level == "HIGH"
+    assert low.stages[0].curiosity_level == "LOW"
+    assert high.stages[0].willingness_to_try_level == "HIGH"
+    assert low.stages[0].willingness_to_try_level == "LOW"
+
+
+def test_curiosity_and_willingness_to_try_are_independently_manipulable() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
+    high = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+    low_willingness = next(
+        run for run in matrix.runs if run.run_id == "DEV-RUN-C"
+    )
+
+    assert high.stages[0].curiosity_level == "HIGH"
+    assert low_willingness.stages[0].curiosity_level == "HIGH"
+    assert high.stages[0].willingness_to_try_level == "HIGH"
+    assert low_willingness.stages[0].willingness_to_try_level == "LOW"
+    assert high.run_sha256 != low_willingness.run_sha256
+
+
+def test_social_change_is_recorded_without_rewriting_childhood_social_style() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
+    observed = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+    control = next(run for run in matrix.runs if run.run_id == "DEV-RUN-D")
+
+    assert observed.stages[0].social_approach_level == "LOW"
+    assert observed.stages[1].social_approach_level == "CHANGED_NOT_QUANTIFIED"
+    assert observed.stages[-1].social_approach_level == "CHANGED_NOT_QUANTIFIED"
+
+    assert control.stages[0].social_approach_level == "MODERATE"
+    assert control.stages[1].social_approach_level == "MODERATE"
+    assert observed.run_sha256 != control.run_sha256
+
+
+def test_developmental_run_rejects_child_stage_with_excluded_runtime_enabled() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
+    baseline = matrix.runs[0]
+    unsafe_child = replace(
+        baseline.stages[0],
+        sexual_or_reproductive_runtime_included=True,
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="excludes sexual/reproductive runtime",
+    ):
+        build_teacher_developmental_embodiment_run(
+            run_id="DEV-RUN-INVALID",
+            condition_id="INVALID_CHILD_SCOPE",
+            stages=(unsafe_child,) + baseline.stages[1:],
+        )
+
+
+def test_developmental_run_hash_detects_path_change_with_same_terminal_state() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
+    baseline = matrix.runs[0]
+    changed_transition = replace(
+        baseline.stages[1],
+        stage_id="TRANSITION-ALTERED-PATH",
+        curiosity_level="MODERATE",
+    )
+    altered = build_teacher_developmental_embodiment_run(
+        run_id="DEV-RUN-ALTERED",
+        condition_id="ALTERED_PATH_SAME_TERMINAL",
+        stages=(baseline.stages[0], changed_transition, baseline.stages[-1]),
+    )
+
+    assert altered.stages[-1] == baseline.stages[-1]
+    assert altered.run_sha256 != baseline.run_sha256
+    assert validate_teacher_developmental_embodiment_run(altered)["result"] == "PASS"
