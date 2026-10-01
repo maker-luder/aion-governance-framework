@@ -295,6 +295,135 @@ def test_tick_local_recovery_gate_converges_from_asymmetric_event_state() -> Non
         assert _scalar(body, channel_id) <= 0.05
 
 
+def test_interrupted_event_recovery_reactivates_without_stale_event_replay() -> None:
+    coupling = _coupling_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-INTERRUPTED-EVENT-RECOVERY",
+        "SESSION-INTERRUPTED-EVENT-RECOVERY",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.80,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.80,
+        EJACULATORY_REFLEX_STATE=0.80,
+        EXPULSION_MOTOR_PATTERN_STATE=0.80,
+        DETUMESCENCE_STATE=0.00,
+    )
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+    controller = replace(
+        controller,
+        activation=0.85,
+        salience=0.90,
+        context_gate=True,
+        inhibition=0.10,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+    previous_phase = coupling.TeacherHighSaliencePhaseState(
+        phase="EJACULATORY_REFLEX",
+        previous_phase="EMISSION",
+        sequence=body.sequence,
+        source_body_state_sha256=body.body_state_sha256,
+        reproductive_event="EXPULSION_REFERENCE_REQUEST",
+    )
+    recovery = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="INTERRUPTED-EVENT-RECOVERY",
+        stimulus_class="RECOVERY_REFERENCE",
+        salience=0.0,
+        functional_motivation=0.0,
+        sexual_context_gate=False,
+        inhibition=0.0,
+    )
+    second_high = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="INTERRUPTING-HIGH-SALIENCE",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.90,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.10,
+    )
+    frames = []
+
+    def advance(stimulus, gate=None):
+        nonlocal body, controller, previous_phase
+        frame = state_loop.advance_teacher_embodied_tick(
+            binding,
+            previous_controller_state=controller,
+            previous_body_state=body,
+            stimulus=stimulus,
+            previous_phase_state=previous_phase,
+            reproductive_event_gate=gate,
+        )
+        frames.append(frame)
+        body = frame.body_state
+        previous_phase = frame.high_salience_phase_state
+        controller = replace(
+            frame.controller_state,
+            previous_body_schema_feedback_sha256=(
+                frame.body_schema_feedback_sha256
+            ),
+        )
+        return frame
+
+    for tick in range(4):
+        advance(
+            recovery,
+            (
+                TeacherReproductiveEventGate(event="RECOVERY_REFERENCE_REQUEST")
+                if tick == 0
+                else TeacherReproductiveEventGate()
+            ),
+        )
+
+    second_stimulus_frames = []
+    for _ in range(20):
+        frame = advance(second_high, TeacherReproductiveEventGate())
+        second_stimulus_frames.append(frame)
+        if frame.high_salience_phase_state.phase in {
+            "AROUSAL_INITIATION",
+            "GENITAL_VASCULAR_RESPONSE",
+            "ERECTILE_MAINTENANCE",
+        }:
+            break
+
+    assert second_stimulus_frames
+    assert all(
+        "MAINTENANCE_TO_EMISSION" not in frame.executed_transition.transition_ids
+        and "EMISSION_TO_EJACULATORY_REFLEX"
+        not in frame.executed_transition.transition_ids
+        for frame in second_stimulus_frames
+        if frame.executed_transition is not None
+    )
+    assert second_stimulus_frames[-1].high_salience_phase_state.phase in {
+        "AROUSAL_INITIATION",
+        "GENITAL_VASCULAR_RESPONSE",
+        "ERECTILE_MAINTENANCE",
+    }
+
+    for _ in range(80):
+        frame = advance(recovery, TeacherReproductiveEventGate())
+        if frame.high_salience_phase_state.phase == "BASELINE":
+            break
+
+    assert frames[-1].high_salience_phase_state.phase == "BASELINE"
+    for channel_id in (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    ):
+        assert _scalar(body, channel_id) <= 0.05
+
+    sequences = [frame.body_state.sequence for frame in frames]
+    assert sequences == list(range(1, len(frames) + 1))
+    assert all(frame.bound_body_state.body_id == binding.body_id for frame in frames)
+
+
 def test_event_gate_is_tick_local_in_phase_state() -> None:
     coupling = _coupling_module()
     binding = build_teacher_body_runtime_binding(
