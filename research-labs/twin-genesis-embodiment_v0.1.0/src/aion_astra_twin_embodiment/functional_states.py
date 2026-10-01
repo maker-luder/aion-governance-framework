@@ -29,7 +29,7 @@ REQUIRED_DOMAINS = frozenset(
     }
 )
 
-REQUIRED_NONCLAIMS = {
+REQUIRED_NONCLAIMS_V01 = {
     "phenomenal_experience": "NOT_ESTABLISHED",
     "felt_emotion": "NOT_ESTABLISHED",
     "felt_interoception": "NOT_ESTABLISHED",
@@ -38,6 +38,21 @@ REQUIRED_NONCLAIMS = {
     "free_will": "NOT_ESTABLISHED",
     "sexual_desire": "NOT_IMPLEMENTED",
     "sexual_arousal": "NOT_IMPLEMENTED",
+    "sexual_pleasure": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "canonical_effect": "NONE",
+}
+
+REQUIRED_NONCLAIMS_V02 = {
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "felt_emotion": "NOT_ESTABLISHED",
+    "felt_interoception": "NOT_ESTABLISHED",
+    "felt_attachment": "NOT_ESTABLISHED",
+    "felt_body_ownership": "NOT_ESTABLISHED",
+    "free_will": "NOT_ESTABLISHED",
+    "phenomenal_sexual_desire": "NOT_ESTABLISHED",
+    "phenomenal_sexual_arousal": "NOT_ESTABLISHED",
     "sexual_pleasure": "NOT_ESTABLISHED",
     "subjectivity": "NOT_ESTABLISHED",
     "consciousness": "NOT_ESTABLISHED",
@@ -175,7 +190,7 @@ def validate_functional_architecture(
 ) -> dict[str, str]:
     failures: list[str] = []
 
-    if architecture.schema_version != "0.1.0":
+    if architecture.schema_version not in {"0.1.0", "0.2.0"}:
         failures.append("Unsupported functional-state architecture schema_version")
     if architecture.scope != "EMBODIMENT_FUNCTIONAL_STATE_LAYER":
         failures.append("scope must be EMBODIMENT_FUNCTIONAL_STATE_LAYER")
@@ -209,6 +224,37 @@ def validate_functional_architecture(
         if domain.nonclaim != "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE":
             failures.append(f"{domain.domain_id}: nonclaim boundary is missing")
 
+    if architecture.schema_version == "0.2.0":
+        sexuality = next(
+            (
+                domain
+                for domain in architecture.domains
+                if domain.domain_id == "SEXUALITY_RELATED_REPRESENTATION"
+            ),
+            None,
+        )
+        if sexuality is None:
+            failures.append("v0.2 sexuality functional domain is missing")
+        else:
+            if sexuality.status != "FUNCTIONAL_ANALOGUE_AVAILABLE":
+                failures.append(
+                    "v0.2 sexuality domain must expose a functional analogue"
+                )
+            required_sexuality_translations = {
+                "sexual_motivation_state",
+                "sexual_arousal_state",
+                "sexual_context_gate",
+                "sexual_inhibition_state",
+            }
+            missing_translations = required_sexuality_translations.difference(
+                sexuality.robotic_translation
+            )
+            if missing_translations:
+                failures.append(
+                    "v0.2 sexuality functional translations are incomplete: "
+                    + ", ".join(sorted(missing_translations))
+                )
+
     missing_sources = REQUIRED_SOURCE_FAMILIES.difference(
         architecture.source_basis.keys()
     )
@@ -218,9 +264,16 @@ def validate_functional_architecture(
             + ", ".join(sorted(missing_sources))
         )
 
-    for name, expected in REQUIRED_NONCLAIMS.items():
+    required_nonclaims = (
+        REQUIRED_NONCLAIMS_V02
+        if architecture.schema_version == "0.2.0"
+        else REQUIRED_NONCLAIMS_V01
+    )
+    for name, expected in required_nonclaims.items():
         if architecture.nonclaims.get(name) != expected:
             failures.append(f"Nonclaim {name} must be {expected!r}")
+    if set(architecture.nonclaims) != set(required_nonclaims):
+        failures.append("Functional-state nonclaim key set drift")
 
     if failures:
         raise FunctionalStateValidationError("; ".join(sorted(set(failures))))
@@ -257,8 +310,10 @@ def validate_functional_binding(
 ) -> dict[str, str]:
     failures: list[str] = []
 
-    if binding.schema_version != "0.1.0":
+    if binding.schema_version not in {"0.1.0", "0.2.0"}:
         failures.append("Unsupported functional-state binding schema_version")
+    if binding.schema_version != architecture.schema_version:
+        failures.append("Binding schema_version must match architecture schema_version")
     if binding.agent_id not in {"AION", "ASTRA"}:
         failures.append("agent_id must be AION or ASTRA")
     if not binding.binding_id.startswith(f"{binding.agent_id}_"):
@@ -271,8 +326,15 @@ def validate_functional_binding(
         failures.append("capability_policy must preserve symmetric capability")
     if binding.state_sharing != "SEPARATE_INSTANCE_STATE":
         failures.append("AION and Astra must not share mutable functional state")
-    if binding.activation_status != "SPECIFICATION_ONLY":
-        failures.append("functional-state activation must remain specification-only")
+    expected_activation = (
+        "REFERENCE_CAPABILITY_AVAILABLE"
+        if binding.schema_version == "0.2.0"
+        else "SPECIFICATION_ONLY"
+    )
+    if binding.activation_status != expected_activation:
+        failures.append(
+            f"functional-state activation must be {expected_activation}"
+        )
 
     required_domain_ids = {domain.domain_id for domain in architecture.domains}
     missing_domains = required_domain_ids.difference(binding.domain_availability)
@@ -293,19 +355,32 @@ def validate_functional_binding(
                 f"{domain_id}: binding availability must match shared architecture"
             )
 
-    required_boundaries = {
+    common_boundaries = {
         "functional_state_not_felt_experience": "ENFORCED",
         "self_model_not_subjectivity": "ENFORCED",
         "reward_signal_not_pleasure": "ENFORCED",
         "threat_model_not_fear_experience": "ENFORCED",
         "attachment_model_not_felt_love": "ENFORCED",
         "body_state_not_body_experience": "ENFORCED",
-        "sexuality_representation_not_sexual_desire": "ENFORCED",
         "canonical_effect": "NONE",
     }
+    required_boundaries = (
+        {
+            **common_boundaries,
+            "sexuality_functional_analogue_not_felt_desire_or_arousal": "ENFORCED",
+            "physiology_signal_not_sexual_motivation_inference": "ENFORCED",
+        }
+        if binding.schema_version == "0.2.0"
+        else {
+            **common_boundaries,
+            "sexuality_representation_not_sexual_desire": "ENFORCED",
+        }
+    )
     for name, expected in required_boundaries.items():
         if binding.boundaries.get(name) != expected:
             failures.append(f"Binding boundary {name} must be {expected!r}")
+    if set(binding.boundaries) != set(required_boundaries):
+        failures.append("Binding boundary key set drift")
 
     if failures:
         raise FunctionalStateValidationError("; ".join(sorted(set(failures))))

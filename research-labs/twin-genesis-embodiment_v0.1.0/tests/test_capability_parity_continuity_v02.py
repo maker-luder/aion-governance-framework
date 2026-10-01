@@ -43,11 +43,25 @@ def _profile(agent_id: str):
 
 def test_restored_191_functional_state_architecture_has_symmetric_surface() -> None:
     architecture = load_functional_architecture(
-        DATA / "SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1.json"
+        DATA / "SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.2.json"
     )
-    aion = load_functional_binding(DATA / "AION_FUNCTIONAL_STATE_BINDING_v0.1.json")
-    astra = load_functional_binding(DATA / "ASTRA_FUNCTIONAL_STATE_BINDING_v0.1.json")
+    aion = load_functional_binding(DATA / "AION_FUNCTIONAL_STATE_BINDING_v0.2.json")
+    astra = load_functional_binding(DATA / "ASTRA_FUNCTIONAL_STATE_BINDING_v0.2.json")
     assert validate_functional_architecture(architecture)["result"] == "PASS"
+    sexuality = next(
+        domain
+        for domain in architecture.domains
+        if domain.domain_id == "SEXUALITY_RELATED_REPRESENTATION"
+    )
+    assert sexuality.status == "FUNCTIONAL_ANALOGUE_AVAILABLE"
+    assert "sexual_motivation_state" in sexuality.robotic_translation
+    assert "sexual_arousal_state" in sexuality.robotic_translation
+    assert architecture.nonclaims["phenomenal_sexual_desire"] == "NOT_ESTABLISHED"
+    assert architecture.nonclaims["phenomenal_sexual_arousal"] == "NOT_ESTABLISHED"
+    assert "sexual_desire" not in architecture.nonclaims
+    assert "sexual_arousal" not in architecture.nonclaims
+    assert aion.activation_status == "REFERENCE_CAPABILITY_AVAILABLE"
+    assert astra.activation_status == "REFERENCE_CAPABILITY_AVAILABLE"
     result = validate_binding_pair(aion, astra, architecture)
     assert result["result"] == "PASS"
     assert result["capability_policy"] == "SYMMETRIC_CAPABILITY_SURFACE"
@@ -151,3 +165,21 @@ def test_retention_schema_accepts_aion_and_rejects_body_swap() -> None:
     broken["body_id"] = "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
     with pytest.raises(Exception):
         validator.validate(broken)
+
+
+def test_functional_sexuality_capability_is_not_physiology_or_phenomenal_inference() -> None:
+    architecture = load_functional_architecture(
+        DATA / "SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.2.json"
+    )
+    aion = load_functional_binding(DATA / "AION_FUNCTIONAL_STATE_BINDING_v0.2.json")
+    validate_functional_architecture(architecture)
+    assert (
+        aion.boundaries["sexuality_functional_analogue_not_felt_desire_or_arousal"]
+        == "ENFORCED"
+    )
+    assert (
+        aion.boundaries["physiology_signal_not_sexual_motivation_inference"]
+        == "ENFORCED"
+    )
+    assert architecture.nonclaims["subjectivity"] == "NOT_ESTABLISHED"
+    assert architecture.nonclaims["consciousness"] == "NOT_ESTABLISHED"

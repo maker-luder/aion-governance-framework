@@ -148,13 +148,13 @@ def run_probe(
 
     root = aion_profile_path.parents[1]
     functional_architecture = load_functional_architecture(
-        root / "data/SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1.json"
+        root / "data/SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.2.json"
     )
     aion_functional = load_functional_binding(
-        root / "data/AION_FUNCTIONAL_STATE_BINDING_v0.1.json"
+        root / "data/AION_FUNCTIONAL_STATE_BINDING_v0.2.json"
     )
     astra_functional = load_functional_binding(
-        root / "data/ASTRA_FUNCTIONAL_STATE_BINDING_v0.1.json"
+        root / "data/ASTRA_FUNCTIONAL_STATE_BINDING_v0.2.json"
     )
     functional_architecture_result = validate_functional_architecture(
         functional_architecture
