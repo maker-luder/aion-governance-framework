@@ -741,19 +741,12 @@ def coordinate_teacher_high_salience_runtime(
         )
         mode = "MAINTENANCE"
     elif phase_state.phase == "EMISSION":
-        if phase_state.previous_phase not in {
-            "ERECTILE_MAINTENANCE",
-            "EMISSION",
-        }:
-            raise ValueError("emission phase requires maintenance predecessor")
         if gate.event not in {"NONE", "EMISSION_REFERENCE_REQUEST"}:
             raise ValueError("emission phase received unrelated event gate")
         runtime_rule_ids.append("EMISSION_AUTONOMIC_REPRODUCTIVE_REFERENCE")
         if gate.event == "NONE":
-            if phase_state.previous_phase != "EMISSION" or emission <= 0.05:
-                raise ValueError(
-                    "emission persistence requires active prior emission state"
-                )
+            if emission <= 0.05:
+                raise ValueError("emission persistence requires active emission state")
             mode = "MAINTENANCE"
         else:
             if vascular < 0.65:
@@ -769,21 +762,13 @@ def coordinate_teacher_high_salience_runtime(
             )
             mode = "ACTIVATION"
     elif phase_state.phase == "EJACULATORY_REFLEX":
-        if phase_state.previous_phase not in {
-            "EMISSION",
-            "EJACULATORY_REFLEX",
-        }:
-            raise ValueError("ejaculatory reflex phase requires emission predecessor")
         if gate.event not in {"NONE", "EXPULSION_REFERENCE_REQUEST"}:
             raise ValueError("ejaculatory reflex phase received unrelated event gate")
         runtime_rule_ids.append("EXPULSION_SOMATIC_REPRODUCTIVE_REFERENCE")
         if gate.event == "NONE":
-            if (
-                phase_state.previous_phase != "EJACULATORY_REFLEX"
-                or ejaculatory <= 0.05
-            ):
+            if ejaculatory <= 0.05:
                 raise ValueError(
-                    "ejaculatory reflex persistence requires active prior state"
+                    "ejaculatory reflex persistence requires active state"
                 )
             mode = "MAINTENANCE"
         else:
