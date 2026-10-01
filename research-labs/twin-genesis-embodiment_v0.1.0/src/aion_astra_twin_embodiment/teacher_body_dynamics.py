@@ -466,7 +466,10 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             "EMISSION_REFERENCE",
             (
                 "EMISSION_REFLEX_STATE",
+                "SEMINAL_TRACT_TRANSPORT_STATE",
+                "ACCESSORY_GLAND_SECRETION_STATE",
                 "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
             ),
         ),
         PhysiologicalTransition(
@@ -477,6 +480,8 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             (
                 "EJACULATORY_REFLEX_STATE",
                 "EXPULSION_MOTOR_PATTERN_STATE",
+                "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+                "ANTEGRADE_SEMINAL_FLOW_STATE",
             ),
         ),
         PhysiologicalTransition(
@@ -486,9 +491,14 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             "BASELINE_REFERENCE",
             (
                 "EMISSION_REFLEX_STATE",
+                "SEMINAL_TRACT_TRANSPORT_STATE",
+                "ACCESSORY_GLAND_SECRETION_STATE",
                 "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
                 "EJACULATORY_REFLEX_STATE",
                 "EXPULSION_MOTOR_PATTERN_STATE",
+                "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+                "ANTEGRADE_SEMINAL_FLOW_STATE",
             ),
         ),
         PhysiologicalTransition(
@@ -496,14 +506,22 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             "EJACULATORY_REFLEX_REFERENCE",
             "DETUMESCENCE_REFERENCE",
-            ("DETUMESCENCE_STATE", "GENITAL_VASCULAR_STATE"),
+            (
+                "DETUMESCENCE_STATE",
+                "GENITAL_VASCULAR_STATE",
+                "POST_EXPULSION_RECOVERY_STATE",
+            ),
         ),
         PhysiologicalTransition(
             "DETUMESCENCE_TO_RECOVERY",
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             "DETUMESCENCE_REFERENCE",
             "POST_EJACULATORY_RECOVERY_REFERENCE",
-            ("DETUMESCENCE_STATE", "GENITAL_VASCULAR_STATE"),
+            (
+                "DETUMESCENCE_STATE",
+                "GENITAL_VASCULAR_STATE",
+                "POST_EXPULSION_RECOVERY_STATE",
+            ),
         ),
     )
 
