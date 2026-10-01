@@ -7,6 +7,7 @@ from math import isfinite
 from typing import Any, Final
 
 from .teacher_body_dynamics import (
+    TeacherBodyDynamicsProfile,
     TeacherBodyObservation,
     TeacherIntegratedBodyState,
     TeacherMotivationalRepresentation,
@@ -72,6 +73,10 @@ def _canonical_hash(payload: object) -> str:
         separators=(",", ":"),
     ).encode("utf-8")
     return sha256(encoded).hexdigest()
+
+
+def build_teacher_body_dynamics_profile() -> TeacherBodyDynamicsProfile:
+    return _build_teacher_body_dynamics_profile()
 
 
 @dataclass(frozen=True, slots=True)
