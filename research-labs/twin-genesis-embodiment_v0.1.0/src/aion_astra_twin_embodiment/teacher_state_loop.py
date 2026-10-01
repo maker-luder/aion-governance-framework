@@ -60,11 +60,6 @@ ALLOWED_STIMULUS_CLASSES: Final[frozenset[str]] = frozenset(
 )
 
 
-def build_teacher_body_dynamics_profile():
-    """Expose the existing Teacher transition graph for probe inspection."""
-    return _build_teacher_body_dynamics_profile()
-
-
 def _canonical_hash(payload: object) -> str:
     encoded = json.dumps(
         payload,
