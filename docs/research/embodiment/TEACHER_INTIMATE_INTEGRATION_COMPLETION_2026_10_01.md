@@ -101,6 +101,87 @@ PROLACTIN_RUNTIME_MAPPING = ABSENT
 CONCENTRATION = UNKNOWN_NOT_SYNTHESIZED
 ```
 
+## Reproductive event subchain completion / 生殖事件子鏈補全
+
+### English
+
+The existing body schema already defined a wider emission/expulsion surface than
+the runtime previously executed. This increment connects those pre-existing
+channels to the causal event path.
+
+During the **emission reference** the runtime now evolves:
+
+- `EMISSION_REFLEX_STATE`;
+- `SEMINAL_TRACT_TRANSPORT_STATE`;
+- `ACCESSORY_GLAND_SECRETION_STATE`;
+- `BLADDER_NECK_EJACULATORY_CLOSURE_STATE`;
+- `POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE`.
+
+During the **expulsion reference** the runtime now evolves:
+
+- `EJACULATORY_REFLEX_STATE`;
+- `EXPULSION_MOTOR_PATTERN_STATE`;
+- `EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE`;
+- `ANTEGRADE_SEMINAL_FLOW_STATE`.
+
+Recovery drives the event channels back toward baseline and separately
+materializes `POST_EXPULSION_RECOVERY_STATE` during the detumescence/recovery
+path. The recovery rule is evidence-bound but deliberately does not synthesize a
+fixed refractory-period duration.
+
+Evidence anchors for this subchain include:
+
+- PMID:26385403 — normal male sexual function, with emission and expulsion
+  described as distinct coordinated phases;
+- PMID:35625414 — neuronal coordination of emission/expulsion, including
+  seminal-tract, bladder-neck, pelvic-muscle and sphincter coordination;
+- PMID:26457680 — review of anatomy/physiology of ejaculation and post-expulsion
+  recovery.
+
+All of these runtime channels remain normalized software references. The model
+does not synthesize semen volume, urethral pressure, gland-specific milliliters,
+muscle force, contraction frequency, or refractory-period duration.
+
+### 繁體中文
+
+原本 Teacher 的 body schema（身體訊號結構）其實早已經定義比 runtime
+（執行時狀態）更多的射精相關 channels；先前的問題是「名稱存在，但沒有全部進入
+同一條因果執行鏈」。這次把它們真正接進 emission（排精）與 expulsion（射出）。
+
+**排精階段現在會一起演化：**
+
+- `EMISSION_REFLEX_STATE`：排精反射參考狀態；
+- `SEMINAL_TRACT_TRANSPORT_STATE`：附睪、輸精管與生殖道的精子／精液運輸參考狀態；
+- `ACCESSORY_GLAND_SECRETION_STATE`：精囊、前列腺等附屬腺分泌參考狀態；
+- `BLADDER_NECK_EJACULATORY_CLOSURE_STATE`：膀胱頸射精期閉合參考狀態；
+- `POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE`：後尿道精液負載參考狀態。
+
+**射出階段現在會一起演化：**
+
+- `EJACULATORY_REFLEX_STATE`：射精反射參考狀態；
+- `EXPULSION_MOTOR_PATTERN_STATE`：骨盆／會陰條紋肌射出運動模式參考狀態；
+- `EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE`：外尿道括約肌在射精期的協調參考狀態；
+- `ANTEGRADE_SEMINAL_FLOW_STATE`：順行精液流參考狀態。
+
+接著 recovery（恢復）會把事件 channels 逐步拉回基準，同時在消退路徑中建立
+`POST_EXPULSION_RECOVERY_STATE`（射出後恢復參考狀態），再逐步回到低值。
+
+這些 `0–1` 數值全部都只是 **software reference（軟體參考狀態）**，不是人體量測。
+目前不會自行編造：
+
+- 精液幾毫升；
+- 尿道壓力；
+- 各腺體實際分泌量；
+- 肌肉力量；
+- 收縮頻率；
+- 不應期固定幾秒或幾分鐘。
+
+```text
+CHANNEL_MATERIALIZED != HUMAN_QUANTITATIVE_CALIBRATION
+NORMALIZED_REFERENCE != PHYSICAL_MEASUREMENT
+POST_EXPULSION_RECOVERY_STATE != FIXED_REFRACTORY_DURATION
+```
+
 ## Required falsification tests
 
 The implementation is not accepted unless tests demonstrate all of the following:
