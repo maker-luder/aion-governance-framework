@@ -1,0 +1,194 @@
+{
+  "schema_version": "0.1.0",
+  "generated_date": "2026-10-01",
+  "scope": "EMBODIMENT_CLOSED_PR_CONVERGENCE",
+  "repository": "maker-luder/aion-governance-framework",
+  "main_sha": "6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd",
+  "merge_to_main": "NO",
+  "deployment": false,
+  "canonical_effect": "NONE",
+  "status_vocabulary": [
+    "MERGED_CANONICAL_HISTORY",
+    "ABSORBED_BY_SUCCESSOR",
+    "SEMANTICALLY_SUPERSEDED",
+    "PRESERVED_INDEPENDENT_ARCHIVE",
+    "REQUIRES_SEMANTIC_RECONCILIATION",
+    "OUT_OF_SCOPE"
+  ],
+  "entries": [
+    {
+      "pr": 190,
+      "status": "SEMANTICALLY_SUPERSEDED",
+      "successor": 247,
+      "note": "All touched paths remain in #247; some later modified."
+    },
+    {
+      "pr": 191,
+      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "successor": 247,
+      "note": "13 touched paths absent by path in #247; semantic review required."
+    },
+    {
+      "pr": 192,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 254,
+      "note": "Ancestor through #241/#250/#253."
+    },
+    {
+      "pr": 193,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 243,
+      "note": "Direct ancestry."
+    },
+    {
+      "pr": 194,
+      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "successor": null,
+      "note": "Dedicated synthetic-role genital geometry lineage diverges."
+    },
+    {
+      "pr": 202,
+      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "successor": 210,
+      "note": "Sensorimotor protocol/schema/module/test absent by path from merged #210."
+    },
+    {
+      "pr": 203,
+      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "successor": 210,
+      "note": "Historical convergence ledger/module/test absent by path from merged #210."
+    },
+    {
+      "pr": 210,
+      "status": "MERGED_CANONICAL_HISTORY",
+      "successor": null,
+      "note": "Merged."
+    },
+    {
+      "pr": 211,
+      "status": "MERGED_CANONICAL_HISTORY",
+      "successor": null,
+      "note": "Merged."
+    },
+    {
+      "pr": 220,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": null,
+      "note": "Documentation/research record; not force-merged."
+    },
+    {
+      "pr": 236,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": 238,
+      "note": "Adult-reference design in affective-cognitive-motivation lineage."
+    },
+    {
+      "pr": 237,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 248,
+      "note": "Ancestor via #246."
+    },
+    {
+      "pr": 238,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": null,
+      "note": "Adult-reference implementation in separate affective-cognitive-motivation lineage."
+    },
+    {
+      "pr": 239,
+      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "successor": 254,
+      "note": "Most content carried forward; dedicated v0.2 integration/schema/CLI surfaces require semantic comparison."
+    },
+    {
+      "pr": 240,
+      "status": "SEMANTICALLY_SUPERSEDED",
+      "successor": 241,
+      "note": "Evidence receipt/bundle/nonclaim responsibilities re-materialized in teacher_integrity.py and later Teacher lineage."
+    },
+    {
+      "pr": 241,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 254,
+      "note": "Ancestor of latest Teacher successor lineage."
+    },
+    {
+      "pr": 242,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 249,
+      "note": "Direct ancestry."
+    },
+    {
+      "pr": 243,
+      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "successor": null,
+      "note": "Cross-role presentation layer absent by path from role-specific successors."
+    },
+    {
+      "pr": 244,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 247,
+      "note": "Ancestor via #245."
+    },
+    {
+      "pr": 245,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 247,
+      "note": "Direct ancestry."
+    },
+    {
+      "pr": 246,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 248,
+      "note": "Direct ancestry."
+    },
+    {
+      "pr": 247,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": null,
+      "note": "Latest closed/unmerged AION/Astra functional successor in this audited lineage."
+    },
+    {
+      "pr": 248,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": null,
+      "note": "Latest closed/unmerged Work functional successor in this audited lineage."
+    },
+    {
+      "pr": 249,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": null,
+      "note": "Latest closed/unmerged Codex functional successor in this audited lineage."
+    },
+    {
+      "pr": 250,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 254,
+      "note": "Ancestor through Teacher controller successor lineage."
+    },
+    {
+      "pr": 251,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 253,
+      "note": "Earlier controller implementation head; later exact-head continuation exists."
+    },
+    {
+      "pr": 252,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 253,
+      "note": "Ancestor of #253."
+    },
+    {
+      "pr": 253,
+      "status": "ABSORBED_BY_SUCCESSOR",
+      "successor": 254,
+      "note": "Direct ancestor."
+    },
+    {
+      "pr": 254,
+      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "successor": null,
+      "note": "Latest closed/unmerged Teacher multisystem successor in this audited lineage."
+    }
+  ]
+}
