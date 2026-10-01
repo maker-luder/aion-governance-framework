@@ -14,6 +14,7 @@
     "PRESERVED_INDEPENDENT_ARCHIVE",
     "LATEST_CLOSED_SUCCESSOR",
     "PRESERVED_DEFERRED_SOURCE",
+    "RESOLVED_BY_NEW_SUCCESSOR",
     "REQUIRES_SEMANTIC_RECONCILIATION",
     "DEFERRED_REENTRY_CANDIDATE",
     "OUT_OF_SCOPE"
@@ -57,9 +58,9 @@
     },
     {
       "pr": 194,
-      "status": "DEFERRED_REENTRY_CANDIDATE",
-      "successor": null,
-      "note": "Cross-role genital-geometry parameters/dynamics are not carried into later role-specific successors. Preserve as a bounded re-entry candidate; do not auto-merge.",
+      "status": "RESOLVED_BY_NEW_SUCCESSOR",
+      "successor": 257,
+      "note": "Resolved by #257: historical cross-role genital geometry artifacts preserved, syntax repaired, and bound to role/body presentation identifiers.",
       "pr_recorded_head": "2b87c11c7860787b2dc54c56b049c06471102c18",
       "live_branch_head": "2b87c11c7860787b2dc54c56b049c06471102c18",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -174,9 +175,9 @@
     },
     {
       "pr": 243,
-      "status": "DEFERRED_REENTRY_CANDIDATE",
-      "successor": null,
-      "note": "The synthetic young-adult 25-29 visual-presentation decision is not carried into later Teacher/Work/Codex successor branches. Preserve as a presentation re-entry candidate; it is not a physiology/runtime gap.",
+      "status": "RESOLVED_BY_NEW_SUCCESSOR",
+      "successor": 257,
+      "note": "Resolved by #257: young-adult visual presentation converged with cross-role synthetic geometry without modifying role functional runtimes.",
       "pr_recorded_head": "c6eb249de1af9493e5fe32c3df88c49cf13485c8",
       "live_branch_head": "c6eb249de1af9493e5fe32c3df88c49cf13485c8",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -278,6 +279,15 @@
       "note": "Latest closed/unmerged Teacher multisystem successor in this audited lineage.",
       "pr_recorded_head": "43d5d9760bc908c2367c717fdb70be0adbefc504",
       "live_branch_head": "43d5d9760bc908c2367c717fdb70be0adbefc504",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
+    },
+    {
+      "pr": 257,
+      "status": "LATEST_CLOSED_SUCCESSOR",
+      "successor": null,
+      "note": "Closed Draft/unmerged exact-head successor resolving #194 and #243.",
+      "pr_recorded_head": "a1eedd764e5139ece69e29ba2fb6cd452e679ba4",
+      "live_branch_head": "a1eedd764e5139ece69e29ba2fb6cd452e679ba4",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     }
   ],
