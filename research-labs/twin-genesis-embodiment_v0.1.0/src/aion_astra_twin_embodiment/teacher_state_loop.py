@@ -12,7 +12,7 @@ from .teacher_body_dynamics import (
     TeacherMotivationalRepresentation,
     TeacherWithinSessionTrajectory,
     append_teacher_body_state,
-    build_teacher_body_dynamics_profile,
+    build_teacher_body_dynamics_profile as _build_teacher_body_dynamics_profile,
     build_teacher_within_session_trajectory,
     integrate_teacher_body_state,
 )
@@ -57,6 +57,11 @@ ALLOWED_STIMULUS_CLASSES: Final[frozenset[str]] = frozenset(
         "RECOVERY_REFERENCE",
     }
 )
+
+
+def build_teacher_body_dynamics_profile():
+    """Expose the existing Teacher transition graph for probe inspection."""
+    return _build_teacher_body_dynamics_profile()
 
 
 def _canonical_hash(payload: object) -> str:
