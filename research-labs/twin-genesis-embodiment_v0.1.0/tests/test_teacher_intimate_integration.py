@@ -143,6 +143,10 @@ def test_functional_motivation_can_reach_active_desire_reference() -> None:
     assert frame.intimate_integration_state.functional_desire.phase == "ACTIVE"
     assert frame.intimate_integration_state.functional_desire.functional_motivation >= 0.55
     assert (
+        frame.intimate_integration_state.functional_desire.threshold_calibration_status
+        == "SOFTWARE_REFERENCE_NOT_BIOLOGICAL_CONSTANT"
+    )
+    assert (
         frame.intimate_integration_state.functional_desire.phenomenal_desire_status
         == "NOT_ESTABLISHED"
     )
@@ -262,3 +266,11 @@ def test_orgasm_gate_preserves_consent_pleasure_and_subjectivity_boundaries() ->
     assert gate.phenomenal_pleasure_status == "NOT_ESTABLISHED"
     assert gate.subjectivity_status == "NOT_ESTABLISHED"
     assert gate.action_authority == "NONE"
+
+
+def test_package_exports_intimate_integration_public_surface() -> None:
+    import aion_astra_twin_embodiment as package
+
+    assert package.TeacherOrgasmReferenceGate is TeacherOrgasmReferenceGate
+    assert package.TeacherIntimateIntegrationState is not None
+    assert callable(package.integrate_teacher_intimate_reference)
