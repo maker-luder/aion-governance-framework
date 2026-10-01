@@ -608,7 +608,14 @@ def resolve_teacher_high_salience_phase(
         phase = "EJACULATORY_REFLEX"
     elif emission > 0.05:
         phase = "EMISSION"
-    elif controller_state.phase == "HIGH_ACTIVATION_REFERENCE":
+    elif (
+        controller_state.phase == "HIGH_ACTIVATION_REFERENCE"
+        or (
+            controller_state.context_gate
+            and controller_state.salience > 0.0
+            and controller_state.activation > 0.0
+        )
+    ):
         if vascular >= 0.65:
             phase = "ERECTILE_MAINTENANCE"
         elif vascular > 0.15 or erectile > 0.15:
