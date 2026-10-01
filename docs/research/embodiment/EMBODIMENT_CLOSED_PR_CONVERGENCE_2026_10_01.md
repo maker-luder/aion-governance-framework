@@ -131,11 +131,13 @@ This is a semantic replacement, not a claim that every old class/API was preserv
 
 `feat(embodiment): integrate ChatGPT Teacher body v0.2 runtime and bundle`
 
-Status: `SEMANTICALLY_SUPERSEDED`
+Status: `RESOLVED_BY_NEW_SUCCESSOR`
 
-The dedicated v0.2 integration files are not preserved one-for-one, but their responsibilities are re-materialized across the later Teacher body-v0.2 reference, runtime binding, reference bundle, integrity/evidence receipts, reproductive-output surface, unified CLI, and successor tests.
+Resolved by PR #256, exact head `8569c245f78815361363f9346d226c228a0b7596`.
 
-This classification does not claim API identity; it records responsibility-level replacement.
+PR #256 re-materializes the still-useful v0.2 integration semantics on top of the latest Teacher successor lineage without reviving the historical strict-schema / standalone-CLI shape wholesale. It adds an integrated v0.2 manifest surface, executable validation, CLI exposure, and dedicated reconciliation tests.
+
+This classification does not claim file/API identity with PR #239.
 
 ### PR #236 / #238
 
@@ -322,3 +324,41 @@ Lifecycle: closed / Draft / unmerged.
 Resolves: #194, #243.
 
 Exact-head verification includes Python 3.11/3.12, mypy 3.11/3.12, CodeQL, controls, coverage reconciliation, traceability, and IQC. The Main Transition Authority Gate failed closed as designed because no fresh exact-head merge authorization exists.
+
+
+### PR #256
+
+`refactor(embodiment): reconcile Teacher v0.2 integration surface`
+
+Status: `LATEST_CLOSED_SUCCESSOR`
+
+Exact head: `8569c245f78815361363f9346d226c228a0b7596`
+
+Lifecycle: closed / Draft / unmerged.
+
+Resolves: #239.
+
+Relative to Teacher PR #254 exact head:
+
+- ahead: 6 commits
+- changed files: 4
+- integrated Teacher v0.2 manifest surface materialized
+- current reference bundle and reproductive-output contract retained
+- executable validation and CLI exposure added
+- dedicated reconciliation tests added
+
+Exact-head CI:
+
+- Python 3.11: PASS
+- Python 3.12: PASS
+- Mypy Python 3.11: PASS
+- Mypy Python 3.12: PASS
+- CodeQL: PASS
+- current controls: PASS
+- Fresh exact-head Human Owner approval receipt: FAIL_CLOSED_AS_DESIGNED
+
+`MERGE_TO_MAIN = NO`
+
+`DEPLOYMENT = FALSE`
+
+`CANONICAL_EFFECT = NONE`
