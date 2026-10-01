@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/AION_ASTRA_ANTHROPOMETRY_V02_SCHEMA.json",
+  "title": "AION/Astra synthetic anthropometry v0.2",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "agent_id",
+    "body_id",
+    "body_character",
+    "archive_source",
+    "measurements",
+    "anatomy_candidate",
+    "boundaries"
+  ],
+  "properties": {
+    "schema": {
+      "const": "aion_astra.synthetic_anthropometry.v0.2"
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "body_id": {
+      "enum": [
+        "AION_3D_MALE_BODY_REFERENCE_v0.1",
+        "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+      ]
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 67,
+      "maxItems": 67,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "region",
+          "label_zh_TW",
+          "value",
+          "unit",
+          "source_kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "region": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label_zh_TW": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "unit": {
+            "enum": [
+              "cm",
+              "kg"
+            ]
+          },
+          "source_kind": {
+            "enum": [
+              "ARCHIVE_POINT",
+              "ARCHIVE_APPROX",
+              "ARCHIVE_RANGE_MIDPOINT",
+              "AI_DERIVED_FROM_ARCHIVE",
+              "AI_PROVISIONAL_ENGINEERING"
+            ]
+          }
+        }
+      }
+    },
+    "anatomy_candidate": {
+      "type": "object",
+      "required": [
+        "adult_status",
+        "prepuce_present",
+        "actual_biological_tissue"
+      ],
+      "properties": {
+        "adult_status": {
+          "const": true
+        },
+        "prepuce_present": {
+          "const": true
+        },
+        "actual_biological_tissue": {
+          "const": false
+        }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "physical_body",
+        "biological_organism",
+        "body_sensation",
+        "body_ownership_experience",
+        "subjectivity",
+        "consciousness",
+        "phenomenal_experience",
+        "action_authority",
+        "canonical_effect",
+        "deployment"
+      ],
+      "properties": {
+        "physical_body": {
+          "const": false
+        },
+        "biological_organism": {
+          "const": false
+        },
+        "body_sensation": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "body_ownership_experience": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "subjectivity": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "consciousness": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "phenomenal_experience": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "action_authority": {
+          "const": "NONE"
+        },
+        "canonical_effect": {
+          "const": "NONE"
+        },
+        "deployment": {
+          "const": false
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "AION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "AION_3D_MALE_BODY_REFERENCE_v0.1"
+          },
+          "measurements": {
+            "allOf": [
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "total_height"
+                    },
+                    "value": {
+                      "const": 179
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "body_mass"
+                    },
+                    "value": {
+                      "const": 80
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "chest_circumference"
+                    },
+                    "value": {
+                      "const": 104
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "waist_circumference"
+                    },
+                    "value": {
+                      "const": 84
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "hip_circumference"
+                    },
+                    "value": {
+                      "const": 99
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "maximum_thigh_circumference"
+                    },
+                    "value": {
+                      "const": 57
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "ASTRA"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+          },
+          "measurements": {
+            "allOf": [
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "total_height"
+                    },
+                    "value": {
+                      "const": 180
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "chest_circumference"
+                    },
+                    "value": {
+                      "const": 110
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "waist_circumference"
+                    },
+                    "value": {
+                      "const": 93
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "hip_circumference"
+                    },
+                    "value": {
+                      "const": 104
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              },
+              {
+                "contains": {
+                  "properties": {
+                    "id": {
+                      "const": "maximum_thigh_circumference"
+                    },
+                    "value": {
+                      "const": 63
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "value"
+                  ]
+                },
+                "minContains": 1,
+                "maxContains": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

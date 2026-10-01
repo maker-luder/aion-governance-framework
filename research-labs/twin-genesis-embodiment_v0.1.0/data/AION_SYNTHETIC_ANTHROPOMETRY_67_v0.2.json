@@ -1,0 +1,582 @@
+{
+  "schema": "aion_astra.synthetic_anthropometry.v0.2",
+  "date": "2026-10-01",
+  "status": "IMPLEMENTED_SYNTHETIC_REFERENCE_CANDIDATE",
+  "agent_id": "AION",
+  "body_id": "AION_3D_MALE_BODY_REFERENCE_v0.1",
+  "body_character": "LEAN_SOLID_ATHLETIC_MOBILE",
+  "archive_source": {
+    "pr": 190,
+    "head": "066ed1afccebee869eb658c09691b7f096694332",
+    "provenance": "HUMAN_DIRECTED_CHATGPT_FORMALIZED_ARCHIVE"
+  },
+  "derivation_policy": "ARCHIVE_POINT/APPROX preserved; documented ranges use arithmetic midpoint; missing dimensions use explicit formula from archived dimensions; five new dynamic/prepuce fields are AI provisional engineering targets.",
+  "counts": {
+    "fields": 67,
+    "centimeter_fields": 66,
+    "kilogram_fields": 1,
+    "ARCHIVE_POINT": 5,
+    "ARCHIVE_APPROX": 20,
+    "AI_DERIVED_FROM_ARCHIVE": 10,
+    "ARCHIVE_RANGE_MIDPOINT": 27,
+    "AI_PROVISIONAL_ENGINEERING": 5,
+    "as_built_verified": 0
+  },
+  "measurements": [
+    {
+      "id": "total_height",
+      "region": "WHOLE_BODY",
+      "label_zh_TW": "總身高",
+      "value": 179,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_POINT"
+    },
+    {
+      "id": "body_mass",
+      "region": "WHOLE_BODY",
+      "label_zh_TW": "身體質量等值",
+      "value": 80,
+      "unit": "kg",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "head_height",
+      "region": "HEAD",
+      "label_zh_TW": "頭部高度",
+      "value": 23.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "head_width",
+      "region": "HEAD",
+      "label_zh_TW": "頭部寬度",
+      "value": 15.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "head_depth",
+      "region": "HEAD",
+      "label_zh_TW": "頭部前後深度",
+      "value": 19.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "head_circumference",
+      "region": "HEAD",
+      "label_zh_TW": "頭圍",
+      "value": 57,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "bizygomatic_facial_width",
+      "region": "FACE",
+      "label_zh_TW": "顴骨間臉寬",
+      "value": 14.26,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "interpupillary_distance",
+      "region": "FACE",
+      "label_zh_TW": "瞳孔間距",
+      "value": 6.28,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "ear_height",
+      "region": "FACE",
+      "label_zh_TW": "耳高",
+      "value": 6.11,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "nose_length",
+      "region": "FACE",
+      "label_zh_TW": "鼻長",
+      "value": 5.17,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "mouth_width",
+      "region": "FACE",
+      "label_zh_TW": "口寬",
+      "value": 5.19,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "visible_neck_length",
+      "region": "NECK",
+      "label_zh_TW": "可見頸長",
+      "value": 9,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "neck_circumference",
+      "region": "NECK",
+      "label_zh_TW": "頸圍",
+      "value": 39,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "biacromial_shoulder_breadth",
+      "region": "SHOULDER",
+      "label_zh_TW": "雙肩峰寬",
+      "value": 48,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "maximum_deltoid_width",
+      "region": "SHOULDER",
+      "label_zh_TW": "三角肌最大寬",
+      "value": 52.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "chest_circumference",
+      "region": "TORSO",
+      "label_zh_TW": "胸圍",
+      "value": 104,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_POINT"
+    },
+    {
+      "id": "chest_frontal_width",
+      "region": "TORSO",
+      "label_zh_TW": "胸部正面寬",
+      "value": 38.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "chest_depth",
+      "region": "TORSO",
+      "label_zh_TW": "胸部前後深度",
+      "value": 25,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "nipple_spacing",
+      "region": "TORSO",
+      "label_zh_TW": "乳頭間距",
+      "value": 22,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "areola_diameter",
+      "region": "TORSO",
+      "label_zh_TW": "乳暈直徑",
+      "value": 3.05,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "waist_circumference",
+      "region": "TORSO",
+      "label_zh_TW": "腰圍",
+      "value": 84,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_POINT"
+    },
+    {
+      "id": "waist_frontal_width",
+      "region": "TORSO",
+      "label_zh_TW": "腰部正面寬",
+      "value": 30.71,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "abdomen_depth",
+      "region": "TORSO",
+      "label_zh_TW": "腹部前後深度",
+      "value": 23,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "navel_height_from_floor",
+      "region": "TORSO",
+      "label_zh_TW": "肚臍離地高度",
+      "value": 107.4,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "hip_circumference",
+      "region": "PELVIS",
+      "label_zh_TW": "臀圍",
+      "value": 99,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_POINT"
+    },
+    {
+      "id": "external_hip_width",
+      "region": "PELVIS",
+      "label_zh_TW": "髖部外寬",
+      "value": 35.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "pelvis_gluteal_depth",
+      "region": "PELVIS",
+      "label_zh_TW": "骨盆與臀部前後深度",
+      "value": 25.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "hip_joint_center_height",
+      "region": "PELVIS",
+      "label_zh_TW": "髖關節中心離地高度",
+      "value": 91,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "perineal_height",
+      "region": "PELVIS",
+      "label_zh_TW": "會陰離地高度",
+      "value": 86.52,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "shoulder_to_elbow_length",
+      "region": "UPPER_LIMB",
+      "label_zh_TW": "肩至肘長",
+      "value": 32.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "elbow_to_wrist_length",
+      "region": "UPPER_LIMB",
+      "label_zh_TW": "肘至腕長",
+      "value": 26.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "shoulder_to_middle_finger_length",
+      "region": "UPPER_LIMB",
+      "label_zh_TW": "肩至中指端長",
+      "value": 76,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "relaxed_upper_arm_circumference",
+      "region": "UPPER_LIMB",
+      "label_zh_TW": "上臂放鬆圍度",
+      "value": 35,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "maximum_forearm_circumference",
+      "region": "UPPER_LIMB",
+      "label_zh_TW": "前臂最大圍度",
+      "value": 29,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "wrist_circumference",
+      "region": "UPPER_LIMB",
+      "label_zh_TW": "腕圍",
+      "value": 17.75,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "hand_length",
+      "region": "HAND",
+      "label_zh_TW": "手長",
+      "value": 19.25,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "palm_width",
+      "region": "HAND",
+      "label_zh_TW": "掌寬",
+      "value": 9,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "palm_depth",
+      "region": "HAND",
+      "label_zh_TW": "掌厚",
+      "value": 3,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "middle_finger_length",
+      "region": "HAND",
+      "label_zh_TW": "中指長",
+      "value": 8.75,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "hip_to_knee_length",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "髖至膝長",
+      "value": 44.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "maximum_thigh_circumference",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "大腿最大圍度",
+      "value": 57,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_POINT"
+    },
+    {
+      "id": "thigh_frontal_width",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "大腿正面寬",
+      "value": 18.1,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "thigh_depth",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "大腿前後深度",
+      "value": 18.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "knee_center_height",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "膝中心離地高度",
+      "value": 49.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "knee_circumference",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "膝圍",
+      "value": 38.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "knee_width",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "膝寬",
+      "value": 11,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "knee_to_ankle_length",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "膝至踝長",
+      "value": 41.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "maximum_calf_circumference",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "小腿最大圍度",
+      "value": 38,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "calf_depth",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "小腿前後深度",
+      "value": 12.99,
+      "unit": "cm",
+      "source_kind": "AI_DERIVED_FROM_ARCHIVE"
+    },
+    {
+      "id": "ankle_circumference",
+      "region": "LOWER_LIMB",
+      "label_zh_TW": "踝圍",
+      "value": 22,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "foot_length",
+      "region": "FOOT",
+      "label_zh_TW": "足長",
+      "value": 27,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "forefoot_width",
+      "region": "FOOT",
+      "label_zh_TW": "前足寬",
+      "value": 10,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "heel_width",
+      "region": "FOOT",
+      "label_zh_TW": "足跟寬",
+      "value": 6.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_APPROX"
+    },
+    {
+      "id": "resting_visible_penile_length",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "陰莖靜息可見長度",
+      "value": 9.25,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "midshaft_diameter",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "陰莖中段直徑",
+      "value": 3.2,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "midshaft_circumference",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "陰莖中段圍度",
+      "value": 10,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "glans_maximum_width",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "龜頭最大寬度",
+      "value": 3.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "scrotal_resting_height",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "陰囊靜息高度",
+      "value": 9.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "scrotal_maximum_width",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "陰囊最大寬度",
+      "value": 7,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "testicular_modeled_long_axis",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "睪丸模型長軸",
+      "value": 4.5,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "testicular_modeled_width",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "睪丸模型寬度",
+      "value": 2.75,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "external_perineal_length",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "外部會陰長度",
+      "value": 6,
+      "unit": "cm",
+      "source_kind": "ARCHIVE_RANGE_MIDPOINT"
+    },
+    {
+      "id": "prepuce_axial_fold_length",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "包皮皺襞軸向長度",
+      "value": 3.5,
+      "unit": "cm",
+      "source_kind": "AI_PROVISIONAL_ENGINEERING"
+    },
+    {
+      "id": "prepuce_resting_glans_overlap_length",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL",
+      "label_zh_TW": "靜息包皮覆蓋龜頭軸向長度",
+      "value": 2,
+      "unit": "cm",
+      "source_kind": "AI_PROVISIONAL_ENGINEERING"
+    },
+    {
+      "id": "full_erection_visible_penile_length",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL_DYNAMIC",
+      "label_zh_TW": "完全勃起外部可見長度",
+      "value": 13.5,
+      "unit": "cm",
+      "source_kind": "AI_PROVISIONAL_ENGINEERING"
+    },
+    {
+      "id": "full_erection_midshaft_diameter",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL_DYNAMIC",
+      "label_zh_TW": "完全勃起中段直徑",
+      "value": 3.9,
+      "unit": "cm",
+      "source_kind": "AI_PROVISIONAL_ENGINEERING"
+    },
+    {
+      "id": "full_erection_midshaft_circumference",
+      "region": "MALE_REPRODUCTIVE_EXTERNAL_DYNAMIC",
+      "label_zh_TW": "完全勃起中段圍度",
+      "value": 12.252,
+      "unit": "cm",
+      "source_kind": "AI_PROVISIONAL_ENGINEERING"
+    }
+  ],
+  "anatomy_candidate": {
+    "adult_status": true,
+    "prepuce_present": true,
+    "complete_external_male_anatomy_reference": true,
+    "actual_biological_tissue": false
+  },
+  "boundaries": {
+    "reference_mesh": false,
+    "physical_body": false,
+    "biological_organism": false,
+    "body_sensation": "NOT_ESTABLISHED",
+    "body_ownership_experience": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "action_authority": "NONE",
+    "canonical_effect": "NONE",
+    "deployment": false
+  }
+}
