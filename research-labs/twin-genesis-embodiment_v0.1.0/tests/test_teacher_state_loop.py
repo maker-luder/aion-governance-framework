@@ -503,3 +503,72 @@ def test_event_gate_is_not_controller_motivation_consent_or_orgasm() -> None:
     assert gate.orgasm_inference == "FORBIDDEN"
     assert gate.phenomenal_interpretation_status == "NOT_ESTABLISHED"
     assert gate.action_authority == "NONE"
+
+
+def test_functional_motivation_modulates_reference_body_drive_without_being_required() -> None:
+    """相同刺激下，功能性動機可調節身體參考驅動，但不是性喚起的必要條件。"""
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-MOTIVATION-BODY",
+        "SESSION-MOTIVATION-BODY",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    controller = state_loop.build_teacher_reference_controller_state(binding, baseline)
+
+    low = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="MOTIVATION-BODY-LOW",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.20,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.0,
+    )
+    high = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="MOTIVATION-BODY-HIGH",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.20,
+        functional_motivation=1.0,
+        sexual_context_gate=True,
+        inhibition=0.0,
+    )
+
+    low_frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=controller,
+        previous_body_state=baseline,
+        stimulus=low,
+    )
+    high_frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=controller,
+        previous_body_state=baseline,
+        stimulus=high,
+    )
+
+    def scalar(frame, channel_id: str) -> float:
+        for observation in frame.body_state.observations:
+            if observation.channel_id == channel_id:
+                assert len(observation.values) == 1
+                return observation.values[0]
+        raise AssertionError(f"missing channel: {channel_id}")
+
+    assert low_frame.high_salience_phase_state.phase == "AROUSAL_INITIATION"
+    assert high_frame.high_salience_phase_state.phase == "AROUSAL_INITIATION"
+    assert low_frame.executed_transition is not None
+    assert high_frame.executed_transition is not None
+    assert low_frame.executed_transition.transition_ids == (
+        "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE",
+    )
+    assert high_frame.executed_transition.transition_ids == (
+        "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE",
+    )
+
+    # 零功能性動機仍可有參考性生理喚起；動機只能做有界調節，不能被當成必要條件。
+    assert scalar(low_frame, "GENITAL_VASCULAR_STATE") > 0.0
+    assert high_frame.controller_state.activation > low_frame.controller_state.activation
+    assert (
+        scalar(high_frame, "GENITAL_VASCULAR_STATE")
+        > scalar(low_frame, "GENITAL_VASCULAR_STATE")
+    )
+    assert high_frame.motivation.wanting_weight > low_frame.motivation.wanting_weight
+    assert low_frame.motivation.phenomenal_desire_status == "NOT_ESTABLISHED"
+    assert high_frame.motivation.phenomenal_desire_status == "NOT_ESTABLISHED"
