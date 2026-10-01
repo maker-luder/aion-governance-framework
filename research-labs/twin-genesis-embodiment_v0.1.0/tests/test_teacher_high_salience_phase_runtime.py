@@ -437,3 +437,48 @@ def test_event_phase_entry_rejects_invalid_predecessor_jumps() -> None:
             reproductive_event_gate=expulsion_gate,
         )
 
+def test_tick_local_expulsion_gate_can_drop_after_entry_without_runtime_failure() -> None:
+    coupling = _coupling_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-TICK-LOCAL-EXPULSION-HOLD",
+        "SESSION-TICK-LOCAL-EXPULSION-HOLD",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.80,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.80,
+        EJACULATORY_REFLEX_STATE=0.20,
+        EXPULSION_MOTOR_PATTERN_STATE=0.20,
+    )
+    controller = _high_controller(binding, body)
+    previous = coupling.TeacherHighSaliencePhaseState(
+        phase="EJACULATORY_REFLEX",
+        previous_phase="EMISSION",
+        sequence=body.sequence,
+        source_body_state_sha256=body.body_state_sha256,
+        reproductive_event="EXPULSION_REFERENCE_REQUEST",
+    )
+
+    phase = coupling.resolve_teacher_high_salience_phase(
+        previous,
+        controller,
+        body,
+        reproductive_event_gate=TeacherReproductiveEventGate(),
+    )
+    intent = coupling.coordinate_teacher_high_salience_runtime(
+        phase,
+        controller,
+        body,
+        reproductive_event_gate=TeacherReproductiveEventGate(),
+    )
+
+    assert phase.phase == "EJACULATORY_REFLEX"
+    assert phase.previous_phase == "EJACULATORY_REFLEX"
+    assert phase.reproductive_event == "NONE"
+    assert intent.transition_ids == ()
+    assert intent.mode == "MAINTENANCE"
+    assert "EXPULSION_SOMATIC_REPRODUCTIVE_REFERENCE" in intent.runtime_rule_ids
+
