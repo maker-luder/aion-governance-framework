@@ -46,3 +46,12 @@ def test_visual_age_presentation_does_not_modify_role_geometry() -> None:
     assert teacher.role_label == "CHATGPT_TEACHER"
     assert codex.role_label == "CODEX"
     assert work.role_label == "CHATGPT_WORK"
+
+
+def test_cross_role_convergence_public_surface() -> None:
+    import aion_astra_twin_embodiment as package
+
+    assert callable(package.build_synthetic_role_profile_set)
+    assert callable(package.build_teacher_genital_profile)
+    assert callable(package.build_codex_genital_profile)
+    assert callable(package.build_work_genital_profile)
