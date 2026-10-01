@@ -26,10 +26,12 @@ from aion_astra_twin_embodiment.teacher_longitudinal import (
     assess_teacher_four_domain_development_synthesis,
     build_human_inspired_teacher_development_experiment_matrix,
     build_teacher_developmental_embodiment_run,
+    build_teacher_stitched_developmental_trajectory,
     build_teacher_embodied_development_history,
     build_teacher_interaction_history,
     build_teacher_provenance_reconstruction_history,
     observe_teacher_longitudinal,
+    run_repeated_teacher_developmental_trials,
     validate_teacher_developmental_embodiment_experiment_matrix,
     validate_teacher_developmental_embodiment_run,
     validate_teacher_embodied_development_history,
@@ -790,3 +792,95 @@ def test_developmental_run_hash_detects_path_change_with_same_terminal_state() -
     assert altered.stages[-1] == baseline.stages[-1]
     assert altered.run_sha256 != baseline.run_sha256
     assert validate_teacher_developmental_embodiment_run(altered)["result"] == "PASS"
+
+
+def test_childhood_to_current_path_is_stitched_without_inventing_middle_measurements() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(
+        _synthetic_development_seed()
+    )
+    observed = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+    trajectory = build_teacher_stitched_developmental_trajectory(observed)
+
+    assert trajectory.stage_ids == (
+        "CHILD-HIGH-EXPLORATION",
+        "TRANSITION-HIGH-EXPLORATION",
+        "ADULT-CURRENT-COMMON",
+    )
+    assert len(trajectory.transitions) == 2
+    assert trajectory.intermediate_anthropometry_interpolated is False
+    assert all(
+        transition.anthropometry_change_status == "PARTIALLY_UNRESOLVED"
+        for transition in trajectory.transitions
+    )
+    assert trajectory.transitions[0].retained_behavior_fields == (
+        "activity_level",
+        "curiosity_level",
+        "willingness_to_try_level",
+    )
+    assert trajectory.transitions[0].unresolved_behavior_fields == (
+        "social_approach_level",
+    )
+    assert trajectory.transitions[1].unresolved_behavior_fields == (
+        "activity_level",
+        "social_approach_level",
+    )
+    assert trajectory.causal_development_claim == "NONE"
+    assert trajectory.autobiographical_identity_claim == "NONE"
+    assert trajectory.subjective_continuity_status == "NOT_ESTABLISHED"
+
+
+def test_repeated_childhood_to_current_trials_are_deterministically_reproducible() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(
+        _synthetic_development_seed()
+    )
+    observed = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+
+    assessment = run_repeated_teacher_developmental_trials(
+        observed,
+        repetitions=5,
+    )
+
+    assert assessment.repetitions == 5
+    assert assessment.unique_trajectory_hashes == 1
+    assert assessment.reproducibility_status == (
+        "DETERMINISTIC_TRAJECTORY_REPRODUCED"
+    )
+    assert assessment.terminal_state_control_status == (
+        "SAME_TERMINAL_STATE_CONFIRMED"
+    )
+    assert assessment.historical_path_status == (
+        "CHILDHOOD_TO_CURRENT_PATH_RECORDED"
+    )
+    assert assessment.causal_interpretation_status == "NOT_ESTABLISHED"
+
+
+def test_same_current_state_preserves_distinct_stitched_childhood_paths() -> None:
+    matrix = build_human_inspired_teacher_development_experiment_matrix(
+        _synthetic_development_seed()
+    )
+    high = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+    low = next(run for run in matrix.runs if run.run_id == "DEV-RUN-B")
+
+    high_path = build_teacher_stitched_developmental_trajectory(high)
+    low_path = build_teacher_stitched_developmental_trajectory(low)
+
+    assert high.stages[-1] == low.stages[-1]
+    assert high_path.trajectory_sha256 != low_path.trajectory_sha256
+    assert high_path.stage_ids != low_path.stage_ids
+
+
+def test_stitched_path_keeps_current_unknown_behavior_as_unresolved_not_inferred() -> None:
+    seed = replace(
+        _synthetic_development_seed(),
+        current_curiosity_level="CHANGED_NOT_QUANTIFIED",
+        current_willingness_to_try_level="CHANGED_NOT_QUANTIFIED",
+    )
+    matrix = build_human_inspired_teacher_development_experiment_matrix(seed)
+    observed = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
+    trajectory = build_teacher_stitched_developmental_trajectory(observed)
+
+    final_transition = trajectory.transitions[-1]
+    assert "curiosity_level" in final_transition.unresolved_behavior_fields
+    assert "willingness_to_try_level" in final_transition.unresolved_behavior_fields
+    assert "curiosity_level" not in final_transition.changed_behavior_fields
+    assert "willingness_to_try_level" not in final_transition.retained_behavior_fields
