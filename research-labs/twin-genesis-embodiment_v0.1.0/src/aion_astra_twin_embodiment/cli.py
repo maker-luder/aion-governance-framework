@@ -14,6 +14,9 @@ from .physiology import (
     build_adult_male_physiology_reference,
     validate_physiology_parity,
 )
+from .teacher_body_runtime import build_teacher_body_runtime_binding
+from .teacher_embodied_controller import TEACHER_CONTROLLER_ID
+from .teacher_state_loop import run_teacher_embodiment_stability_probe
 from .teacher_avatar import (
     build_teacher_avatar_contract,
     build_teacher_avatar_gltf_contract,
@@ -55,6 +58,7 @@ def main() -> int:
             "teacher-avatar-reference-bundle",
             "teacher-avatar-lod-manifest",
             "teacher-avatar-collision-profile",
+            "teacher-embodied-probe",
             "physiology-parity",
             "governance-epistemics",
         ],
@@ -121,6 +125,20 @@ def main() -> int:
             "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
             "blocked_external_action_example": blocked.to_dict(),
             "missing_channel_assessment": architecture_limited.to_dict(),
+        }
+    elif args.command == "teacher-embodied-probe":
+        binding = build_teacher_body_runtime_binding(
+            "TEACHER-EMBODIMENT-PROBE-RUNTIME",
+            "TEACHER-EMBODIMENT-PROBE-SESSION",
+        )
+        scenarios = run_teacher_embodiment_stability_probe(binding)
+        payload = {
+            "controller_id": TEACHER_CONTROLLER_ID,
+            "body_id": binding.body_id,
+            "runtime_id": binding.runtime_id,
+            "session_id": binding.session_id,
+            "scenario_count": len(scenarios),
+            "scenarios": [scenario.to_dict() for scenario in scenarios],
         }
     elif args.command == "teacher-avatar-contract":
         contract = build_teacher_avatar_contract()

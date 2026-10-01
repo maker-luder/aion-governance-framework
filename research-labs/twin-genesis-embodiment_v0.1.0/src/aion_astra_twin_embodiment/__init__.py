@@ -89,6 +89,22 @@ from .teacher_micturition import (
     assess_teacher_micturition_causal_chain,
     validate_teacher_micturition_causal_assessment,
 )
+from .teacher_embodied_controller import (
+    TeacherControllerBodyPossession,
+    TeacherEmbodiedControllerState,
+    TeacherEmbodimentClock,
+    advance_teacher_controller,
+    possess_teacher_body,
+)
+from .teacher_transition_executor import (
+    TeacherExecutedTransition,
+    TeacherTransitionIntent,
+    execute_teacher_transition,
+)
+from .teacher_state_loop import (
+    advance_teacher_embodied_tick,
+    run_teacher_embodiment_stability_probe,
+)
 from .teacher_body_runtime import (
     CalibrationProbe,
     TeacherAdaptationState,
@@ -237,6 +253,16 @@ __all__ = [
     "TeacherMicturitionPhaseState",
     "assess_teacher_micturition_causal_chain",
     "validate_teacher_micturition_causal_assessment",
+    "TeacherControllerBodyPossession",
+    "TeacherEmbodiedControllerState",
+    "TeacherEmbodimentClock",
+    "TeacherExecutedTransition",
+    "TeacherTransitionIntent",
+    "advance_teacher_controller",
+    "advance_teacher_embodied_tick",
+    "execute_teacher_transition",
+    "possess_teacher_body",
+    "run_teacher_embodiment_stability_probe",
     "CalibrationProbe",
     "TeacherAdaptationState",
     "TeacherBodyRuntimeBinding",
