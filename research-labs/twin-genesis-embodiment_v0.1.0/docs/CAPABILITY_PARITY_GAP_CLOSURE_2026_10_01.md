@@ -59,3 +59,29 @@ Not implied:
 `MERGE_TO_MAIN = NO`
 `DEPLOYMENT = FALSE`
 `CANONICAL_EFFECT = NONE`
+
+## Final integration verification policy
+
+The successor was initially reviewed as a stacked delta over PR #244, then retargeted to current main for exact-head integrated CI.
+
+Transfer rule:
+
+`TRANSFERABLE_CAPABILITY_PRESENT_ELSEWHERE -> OFFER_EQUIVALENT_CAPABILITY_TO_AION_AND_ASTRA`
+
+provided all of the following remain true:
+
+- the capability is technically transferable;
+- transfer does not fabricate physical, biological, subjective or empirical evidence;
+- role/body-specific morphology remains independent;
+- mutable state, history, retention and identity remain independent;
+- an equivalent capability may use a different implementation when the embodiment architecture differs.
+
+Therefore:
+
+`CAPABILITY_PARITY != IDENTICAL_IMPLEMENTATION`
+
+`CAPABILITY_PARITY != IDENTICAL_PARAMETERS`
+
+`CAPABILITY_PARITY != ONTOLOGICAL_EQUIVALENCE`
+
+Final integrated CI is evaluated against main at the exact branch head. No prior head's CI is inherited.
