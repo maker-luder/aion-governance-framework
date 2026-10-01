@@ -309,3 +309,57 @@ def test_sensorimotor_prediction_rejects_unknown_body_channel() -> None:
                 TeacherBodyObservation("UNKNOWN_BODY_CHANNEL", (0.1,), 110),
             ),
         )
+
+
+
+def test_reproductive_transition_semantics_exclude_acute_gonadal_endocrine_drive() -> None:
+    profile = build_teacher_body_dynamics_profile()
+    by_id = {
+        item.transition_id: item
+        for item in profile.physiological_transitions
+    }
+
+    emission = by_id["MAINTENANCE_TO_EMISSION"]
+    assert emission.trigger_channels == (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+    )
+    assert "GONADAL_ENDOCRINE_REFERENCE" not in emission.trigger_channels
+
+
+def test_expulsion_transition_uses_event_specific_motor_channels() -> None:
+    profile = build_teacher_body_dynamics_profile()
+    by_id = {
+        item.transition_id: item
+        for item in profile.physiological_transitions
+    }
+
+    expulsion = by_id["EMISSION_TO_EJACULATORY_REFLEX"]
+    assert expulsion.trigger_channels == (
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    )
+    assert "PELVIC_FLOOR_PROPRIOCEPTION" not in expulsion.trigger_channels
+
+
+def test_reproductive_event_recovery_transition_covers_zero_baseline_event_channels() -> None:
+    profile = build_teacher_body_dynamics_profile()
+    by_id = {
+        item.transition_id: item
+        for item in profile.physiological_transitions
+    }
+
+    recovery = by_id["REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY"]
+    assert recovery.system == "REPRODUCTIVE_SEXUAL_PHYSIOLOGY"
+    assert recovery.trigger_channels == (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    )
+
+    known = {
+        channel.channel_id
+        for channel in build_teacher_body_signal_schema().channels
+    }
+    assert set(recovery.trigger_channels).issubset(known)
