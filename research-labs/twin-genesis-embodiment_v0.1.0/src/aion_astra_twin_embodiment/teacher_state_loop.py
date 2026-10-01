@@ -661,8 +661,6 @@ def run_teacher_reference_state_loop(
     )
 
 
-
-
 @dataclass(frozen=True, slots=True)
 class TeacherEmbodimentScenarioSegment:
     segment_id: str
@@ -803,15 +801,19 @@ def _scenario_segment(
 
 
 def build_teacher_reference_scenarios() -> tuple[TeacherEmbodimentScenario, ...]:
-    recovery = lambda segment_id, ticks: _scenario_segment(
-        segment_id,
-        ticks=ticks,
-        salience=0.0,
-        motivation=0.0,
-        context_gate=False,
-        inhibition=0.0,
-        stimulus_class="RECOVERY_REFERENCE",
-    )
+    def recovery(
+        segment_id: str,
+        ticks: int,
+    ) -> TeacherEmbodimentScenarioSegment:
+        return _scenario_segment(
+            segment_id,
+            ticks=ticks,
+            salience=0.0,
+            motivation=0.0,
+            context_gate=False,
+            inhibition=0.0,
+            stimulus_class="RECOVERY_REFERENCE",
+        )
     return (
         TeacherEmbodimentScenario(
             scenario_id="LOW_SALIENCE_CONTEXT_OFF",
