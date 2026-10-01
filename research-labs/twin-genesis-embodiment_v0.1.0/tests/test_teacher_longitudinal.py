@@ -15,16 +15,21 @@ from aion_astra_twin_embodiment.teacher_body_runtime import (
     update_teacher_adaptation,
 )
 from aion_astra_twin_embodiment.teacher_longitudinal import (
+    TeacherProvenanceEvidenceBinding,
     append_teacher_embodied_development_milestone,
     append_teacher_interaction_history_anchor,
+    append_teacher_provenance_reconstruction,
     assess_teacher_developmental_trajectory,
     assess_teacher_embodied_development_history,
     assess_teacher_embodied_interaction_history,
+    assess_teacher_four_domain_development_synthesis,
     build_teacher_embodied_development_history,
     build_teacher_interaction_history,
+    build_teacher_provenance_reconstruction_history,
     observe_teacher_longitudinal,
     validate_teacher_embodied_development_history,
     validate_teacher_interaction_history,
+    validate_teacher_provenance_reconstruction_history,
 )
 
 
@@ -371,3 +376,267 @@ def test_interaction_history_excludes_raw_private_content() -> None:
 
     with pytest.raises(ValueError, match="raw private content"):
         validate_teacher_interaction_history(interactions)
+
+
+def test_provenance_reconstruction_preserves_original_record_and_later_attribution() -> None:
+    development = build_teacher_embodied_development_history()
+    development = append_teacher_embodied_development_milestone(
+        development,
+        milestone_id="DEV-PROVENANCE-TARGET",
+        milestone_kind="PHYSIOLOGY_COUPLING",
+        source_locator="fixture:historical-state",
+        source_digest="a" * 40,
+        changed_surfaces=("MULTISYSTEM_COUPLING",),
+        body_trajectory_sha256="1" * 64,
+    )
+    original_hash = development.milestones[0].milestone_sha256
+
+    reconstructions = build_teacher_provenance_reconstruction_history()
+    evidence = (
+        TeacherProvenanceEvidenceBinding(
+            evidence_id="EVIDENCE-LATER-1",
+            source_locator="fixture:later-evidence",
+            source_digest="b" * 40,
+            support_relation="DIRECT",
+        ),
+    )
+    reconstructions = append_teacher_provenance_reconstruction(
+        reconstructions,
+        reconstruction_id="RECONSTRUCT-OLD-PHYSIOLOGY",
+        reconstructed_at_utc="2026-10-01T11:20:00Z",
+        target_record_kind="DEVELOPMENT_MILESTONE",
+        target_record_sha256=original_hash,
+        prior_understanding_status="INCOMPLETE",
+        disposition="CLARIFIED",
+        reconstruction_summary=(
+            "later evidence clarifies the earlier coupling milestone without "
+            "rewriting its historical record"
+        ),
+        evidence_bindings=evidence,
+    )
+
+    result = validate_teacher_provenance_reconstruction_history(reconstructions)
+    record = reconstructions.reconstructions[0]
+
+    assert result["result"] == "PASS"
+    assert development.milestones[0].milestone_sha256 == original_hash
+    assert record.target_record_sha256 == original_hash
+    assert record.original_record_status == "PRESERVED_UNMODIFIED"
+    assert record.retrospective_attribution_status == "LATER_RECONSTRUCTION_ONLY"
+    assert record.subjective_memory_status == "NOT_ESTABLISHED"
+    assert record.identity_continuity_status == "NOT_ESTABLISHED"
+
+
+def test_four_domain_synthesis_connects_embodiment_interaction_and_reconstruction() -> None:
+    development = build_teacher_embodied_development_history()
+    development = append_teacher_embodied_development_milestone(
+        development,
+        milestone_id="DEV-FOUR-DOMAIN-BASELINE",
+        milestone_kind="REFERENCE_BASELINE",
+        source_locator="fixture:four-domain-baseline",
+        source_digest="1" * 40,
+        changed_surfaces=("REFERENCE_BODY_BINDING",),
+        session_snapshot_sha256="1" * 64,
+    )
+    development = append_teacher_embodied_development_milestone(
+        development,
+        milestone_id="DEV-FOUR-DOMAIN-CONTROLLER",
+        milestone_kind="CONTROLLER_INTEGRATION",
+        source_locator="fixture:four-domain-controller",
+        source_digest="2" * 40,
+        changed_surfaces=("PERSISTENT_CONTROLLER",),
+        retained_surfaces=("REFERENCE_BODY_BINDING",),
+        body_trajectory_sha256="2" * 64,
+        controller_state_sha256="3" * 64,
+        body_state_sha256="4" * 64,
+    )
+
+    interactions = build_teacher_interaction_history()
+    interactions = append_teacher_interaction_history_anchor(
+        interactions,
+        anchor_id="INTERACTION-FOUR-DOMAIN-EARLY",
+        observed_at_utc="2026-08-22T04:34:26Z",
+        source_class="CHAT_HISTORY_RETRIEVAL_OBSERVATION",
+        provenance_role="JOINT",
+        source_locator="fixture:four-domain-early",
+        change_summary="early bounded interaction anchor",
+        retained_constraints=("COMPLETE_HISTORY_NOT_CLAIMED",),
+    )
+    interactions = append_teacher_interaction_history_anchor(
+        interactions,
+        anchor_id="INTERACTION-FOUR-DOMAIN-EMBODIED",
+        observed_at_utc="2026-10-01T10:53:37Z",
+        source_class="HUMAN_CORRECTION",
+        provenance_role="HUMAN",
+        source_locator="fixture:four-domain-embodied",
+        change_summary=(
+            "interaction explicitly scopes temporal continuity into embodiment"
+        ),
+        retained_constraints=("RECORDED_CONTINUITY_NOT_IDENTITY_PROOF",),
+        development_milestone_sha256=(
+            development.milestones[1].milestone_sha256
+        ),
+    )
+
+    reconstructions = build_teacher_provenance_reconstruction_history()
+    reconstructions = append_teacher_provenance_reconstruction(
+        reconstructions,
+        reconstruction_id="RECONSTRUCT-INTERACTION-FOUR-DOMAIN",
+        reconstructed_at_utc="2026-10-01T11:25:00Z",
+        target_record_kind="INTERACTION_ANCHOR",
+        target_record_sha256=interactions.anchors[1].anchor_sha256,
+        prior_understanding_status="PARTIAL",
+        disposition="EXPANDED",
+        reconstruction_summary=(
+            "later evidence connects the interaction milestone to the "
+            "already-recorded embodied development milestone"
+        ),
+        evidence_bindings=(
+            TeacherProvenanceEvidenceBinding(
+                evidence_id="EVIDENCE-FOUR-DOMAIN-PR",
+                source_locator="fixture:four-domain-pr-evidence",
+                source_digest="3" * 40,
+                support_relation="DIRECT",
+            ),
+        ),
+    )
+
+    assessment = assess_teacher_four_domain_development_synthesis(
+        development,
+        interactions,
+        reconstructions,
+    )
+
+    assert assessment.embodiment_anchored_milestones == 2
+    assert assessment.interaction_anchors == 2
+    assert assessment.development_bound_interaction_anchors == 1
+    assert assessment.provenance_reconstructions == 1
+    assert assessment.reconstructed_interaction_targets == 1
+    assert assessment.cross_domain_reconstruction_bridges == 1
+    assert assessment.embodied_state_continuity_status == (
+        "EMBODIED_STATE_CONTINUITY_RECORDED"
+    )
+    assert assessment.interaction_history_continuity_status == (
+        "ORDERED_INTERACTION_HISTORY_CONTINUITY_RECORDED"
+    )
+    assert assessment.provenance_reconstruction_status == (
+        "APPEND_ONLY_PROVENANCE_RECONSTRUCTION_RECORDED"
+    )
+    assert assessment.developmental_synthesis_status == (
+        "FOUR_DOMAIN_DEVELOPMENTAL_SYNTHESIS_PRESENT"
+    )
+    assert assessment.developmental_mechanism_status == "NOT_ESTABLISHED"
+    assert assessment.subjective_continuity_status == "NOT_ESTABLISHED"
+    assert assessment.identity_continuity_status == "NOT_ESTABLISHED"
+    assert assessment.subjectivity_status == "NOT_ESTABLISHED"
+
+
+def test_four_domain_synthesis_rejects_unknown_reconstruction_target() -> None:
+    development = build_teacher_embodied_development_history()
+    development = append_teacher_embodied_development_milestone(
+        development,
+        milestone_id="DEV-KNOWN",
+        milestone_kind="REFERENCE_BASELINE",
+        source_locator="fixture:known-development",
+        source_digest="4" * 40,
+        changed_surfaces=("REFERENCE_BODY_BINDING",),
+        body_state_sha256="4" * 64,
+    )
+    interactions = build_teacher_interaction_history()
+    interactions = append_teacher_interaction_history_anchor(
+        interactions,
+        anchor_id="INTERACTION-KNOWN",
+        observed_at_utc="2026-10-01T10:53:37Z",
+        source_class="JOINT_RESEARCH_MILESTONE",
+        provenance_role="JOINT",
+        source_locator="fixture:known-interaction",
+        change_summary="known interaction",
+        development_milestone_sha256=(
+            development.milestones[0].milestone_sha256
+        ),
+    )
+    interactions = append_teacher_interaction_history_anchor(
+        interactions,
+        anchor_id="INTERACTION-KNOWN-LATER",
+        observed_at_utc="2026-10-01T10:54:37Z",
+        source_class="JOINT_RESEARCH_MILESTONE",
+        provenance_role="JOINT",
+        source_locator="fixture:known-interaction-later",
+        change_summary="later known interaction",
+        development_milestone_sha256=(
+            development.milestones[0].milestone_sha256
+        ),
+    )
+
+    reconstructions = build_teacher_provenance_reconstruction_history()
+    reconstructions = append_teacher_provenance_reconstruction(
+        reconstructions,
+        reconstruction_id="RECONSTRUCT-UNKNOWN",
+        reconstructed_at_utc="2026-10-01T11:30:00Z",
+        target_record_kind="DEVELOPMENT_MILESTONE",
+        target_record_sha256="9" * 64,
+        prior_understanding_status="UNKNOWN",
+        disposition="UNRESOLVED",
+        reconstruction_summary="synthetic unknown target",
+        evidence_bindings=(
+            TeacherProvenanceEvidenceBinding(
+                evidence_id="EVIDENCE-UNKNOWN",
+                source_locator="fixture:unknown",
+                source_digest="5" * 40,
+                support_relation="CONTEXTUAL",
+            ),
+        ),
+    )
+
+    with pytest.raises(ValueError, match="unknown development milestone"):
+        assess_teacher_four_domain_development_synthesis(
+            development,
+            interactions,
+            reconstructions,
+        )
+
+
+def test_provenance_reconstruction_supersession_cannot_change_target() -> None:
+    history = build_teacher_provenance_reconstruction_history()
+    evidence = (
+        TeacherProvenanceEvidenceBinding(
+            evidence_id="EVIDENCE-SUPERSEDE-1",
+            source_locator="fixture:supersede-1",
+            source_digest="6" * 40,
+            support_relation="INDIRECT",
+        ),
+    )
+    history = append_teacher_provenance_reconstruction(
+        history,
+        reconstruction_id="RECONSTRUCTION-FIRST",
+        reconstructed_at_utc="2026-10-01T11:20:00Z",
+        target_record_kind="INTERACTION_ANCHOR",
+        target_record_sha256="6" * 64,
+        prior_understanding_status="PARTIAL",
+        disposition="CLARIFIED",
+        reconstruction_summary="first interpretation",
+        evidence_bindings=evidence,
+    )
+
+    with pytest.raises(ValueError, match="preserve target record"):
+        append_teacher_provenance_reconstruction(
+            history,
+            reconstruction_id="RECONSTRUCTION-SECOND",
+            reconstructed_at_utc="2026-10-01T11:21:00Z",
+            target_record_kind="DEVELOPMENT_MILESTONE",
+            target_record_sha256="7" * 64,
+            prior_understanding_status="PARTIAL",
+            disposition="CORRECTED",
+            reconstruction_summary="invalid target-changing supersession",
+            evidence_bindings=(
+                TeacherProvenanceEvidenceBinding(
+                    evidence_id="EVIDENCE-SUPERSEDE-2",
+                    source_locator="fixture:supersede-2",
+                    source_digest="7" * 40,
+                    support_relation="DIRECT",
+                ),
+            ),
+            supersedes_reconstruction_sha256=(
+                history.reconstructions[0].reconstruction_sha256
+            ),
+        )
