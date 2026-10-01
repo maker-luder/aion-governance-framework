@@ -94,6 +94,7 @@ class TeacherFunctionalDesireState:
     source_controller_sha256: str
     source_body_state_sha256: str
     interpretation: str = "FUNCTIONAL_MOTIVATION_REFERENCE_ONLY"
+    threshold_calibration_status: str = "SOFTWARE_REFERENCE_NOT_BIOLOGICAL_CONSTANT"
     phenomenal_desire_status: str = NOT_ESTABLISHED
     subjectivity_status: str = NOT_ESTABLISHED
 
@@ -113,6 +114,11 @@ class TeacherFunctionalDesireState:
             raise ValueError("functional desire requires body SHA-256")
         if self.interpretation != "FUNCTIONAL_MOTIVATION_REFERENCE_ONLY":
             raise ValueError("functional desire cannot be promoted to subjective desire")
+        if (
+            self.threshold_calibration_status
+            != "SOFTWARE_REFERENCE_NOT_BIOLOGICAL_CONSTANT"
+        ):
+            raise ValueError("functional desire threshold cannot claim biological calibration")
         if self.phenomenal_desire_status != NOT_ESTABLISHED:
             raise ValueError("functional desire cannot establish felt desire")
         if self.subjectivity_status != NOT_ESTABLISHED:
