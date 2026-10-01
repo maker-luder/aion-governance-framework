@@ -4,7 +4,7 @@ import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Mapping
+from typing import Any, Mapping, cast
 
 REQUIRED_DOMAINS = frozenset(
     {
@@ -157,7 +157,7 @@ def _deterministic_hash(value: Mapping[str, Any]) -> str:
 
 
 def _load_json(path: str | Path) -> dict[str, Any]:
-    return json.loads(Path(path).read_text(encoding="utf-8"))
+    return cast(dict[str, Any], json.loads(Path(path).read_text(encoding="utf-8")))
 
 
 def load_functional_architecture(
