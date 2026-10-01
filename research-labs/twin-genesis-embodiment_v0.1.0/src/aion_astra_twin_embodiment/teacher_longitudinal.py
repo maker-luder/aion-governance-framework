@@ -141,6 +141,144 @@ def assess_teacher_developmental_trajectory(
     )
 
 
+# #261 COMPLETE BILINGUAL SYMBOL MAP / #261 完整雙語符號對照
+#
+# Purpose / 目的：
+#   English: Keep canonical Python identifiers stable while giving Human reviewers a
+#   complete Traditional-Chinese map of every class/function introduced by PR #261.
+#   繁中：正式 Python 名稱保持不變，避免破壞 API／雜湊／測試；但 #261 新增的每一個
+#   class（類別）與 function（函式）都在這裡給出繁中用途，讓不會 Python 的審查者
+#   仍能知道每一段程式在做什麼。
+#
+# Core history helpers / 核心歷史工具
+#   _history_hash = 對歷史資料計算 SHA-256 雜湊，用來偵測內容是否被改動。
+#   _validate_history_digest = 檢查歷史雜湊格式是否合法。
+#   _validate_optional_sha256 = 檢查可選的 SHA-256；沒有值可以，但有值就必須合法。
+#   _parse_utc_timestamp = 解析 UTC（世界協調時間）時間戳，供時間順序檢查。
+#
+# Domain 1 — Embodied development history / 領域一：具身發展歷史
+#   TeacherEmbodiedDevelopmentMilestone
+#     = 單一具身發展里程碑；記錄某一時間點發生了什麼變化、保留了什麼結構、
+#       以及可選的 body/controller 狀態雜湊。
+#   TeacherEmbodiedDevelopmentHistory
+#     = 由多個里程碑串成的具身發展歷史；使用前一筆雜湊形成可稽核鏈。
+#   TeacherEmbodiedDevelopmentHistoryAssessment
+#     = 對具身發展歷史做摘要評估，例如是否有具身證據、變更與保留欄位。
+#   _milestone_payload
+#     = 整理里程碑要進雜湊的固定資料內容。
+#   validate_teacher_embodied_development_milestone
+#     = 驗證單一里程碑的來源、順序、雜湊與研究邊界。
+#   build_teacher_embodied_development_history
+#     = 從里程碑建立完整具身發展歷史。
+#   validate_teacher_embodied_development_history
+#     = 驗證整條歷史鏈是否依序、可追溯且沒有雜湊斷裂。
+#   append_teacher_embodied_development_milestone
+#     = 在既有歷史尾端追加新里程碑，不覆寫舊紀錄。
+#   assess_teacher_embodied_development_history
+#     = 產生「目前這條具身發展歷史實際包含哪些證據」的工程評估。
+#
+# Domain 2 — Interaction-history continuity / 領域二：互動歷史連續性
+#   TeacherInteractionHistoryAnchor
+#     = 一筆隱私安全的互動歷史錨點；保存時間、來源類型、摘要性來源資訊與可選的
+#       發展里程碑綁定，不保存私人逐字聊天內容。
+#   TeacherInteractionHistory
+#     = 依時間排序、以雜湊串接的互動歷史。
+#   TeacherEmbodiedInteractionHistoryAssessment
+#     = 評估互動歷史與具身里程碑實際建立了多少連結。
+#   _interaction_anchor_payload
+#     = 整理互動錨點的雜湊輸入資料。
+#   validate_teacher_interaction_history_anchor
+#     = 驗證單一互動錨點的時間、來源、隱私與發展綁定是否合法。
+#   build_teacher_interaction_history
+#     = 建立一條新的互動歷史。
+#   validate_teacher_interaction_history
+#     = 驗證時間沒有倒退、雜湊鏈沒有斷裂、綁定目標存在。
+#   append_teacher_interaction_history_anchor
+#     = 只在尾端新增互動錨點，不回頭改寫舊互動。
+#   assess_teacher_embodied_interaction_history
+#     = 計算有多少互動錨點真正連到具身發展里程碑。
+#
+# Domain 3 — Provenance reconstruction / 領域三：來源重建
+#   TeacherProvenanceEvidenceBinding
+#     = 一筆「後來用來重新理解舊紀錄」的證據綁定，標明來源位置、摘要與支持關係。
+#   TeacherProvenanceReconstruction
+#     = 後來形成的新解釋／修正紀錄；它只能新增，不得竄改原始舊紀錄。
+#   TeacherProvenanceReconstructionHistory
+#     = 依序保存所有來源重建紀錄及 supersession（後續取代前一解釋）關係。
+#   validate_teacher_provenance_evidence_binding
+#     = 驗證一筆證據綁定是否有有效來源與支持類型。
+#   _provenance_reconstruction_payload
+#     = 整理來源重建要進雜湊的固定資料。
+#   validate_teacher_provenance_reconstruction
+#     = 驗證重建目標存在、時間與證據正確、沒有假裝回寫到過去。
+#   build_teacher_provenance_reconstruction_history
+#     = 建立來源重建歷史。
+#   validate_teacher_provenance_reconstruction_history
+#     = 驗證整條來源重建歷史與 supersession 關係。
+#   append_teacher_provenance_reconstruction
+#     = 追加新重建；若宣稱取代舊重建，目標紀錄不得偷換。
+#
+# Domain 4 — Four-domain synthesis / 領域四：四域整合
+#   TeacherFourDomainDevelopmentSynthesis
+#     = 將「具身發展、互動歷史、來源重建」放在同一個可稽核評估中，檢查它們是否
+#       真的有 cross-domain bridge（跨域橋接），而不是只有三份彼此孤立的檔案。
+#   assess_teacher_four_domain_development_synthesis
+#     = 計算跨域橋接並判斷是完整四域整合，還是只能標成 partial（部分整合）。
+#
+# Human-inspired developmental embodiment / 人類啟發的發展具身實驗
+#   TeacherDevelopmentalHumanSeed
+#     = 執行期間的人類參照種子；童年與現在的身高／體重以及粗粒度行為資料。
+#   validate_teacher_developmental_human_seed
+#     = 驗證這些參照值與「個人資料不寫死進公開倉庫」政策。
+#   TeacherDevelopmentalEmbodimentStage
+#     = 一個發展階段：身高 cm、體重 kg、資料精確度，以及活動／好奇／願意嘗試／
+#       社交接近四個粗粒度行為欄位。
+#   TeacherDevelopmentalEmbodimentRun
+#     = 一條從早期參照走到現在成人參照的完整實驗路徑。
+#   TeacherDevelopmentalEmbodimentExperimentMatrix
+#     = 五組受控路徑的集合，用來比較不同過去但相同現在。
+#   validate_teacher_developmental_embodiment_stage
+#     = 驗證單一階段；未知資料必須保持 UNKNOWN，不可自行補值。
+#   _developmental_run_payload
+#     = 整理整條 run 要計算雜湊的資料。
+#   build_teacher_developmental_embodiment_run
+#     = 建立、雜湊並驗證一條發展路徑。
+#   validate_teacher_developmental_embodiment_run
+#     = 驗證順序、唯一性、最終狀態、雜湊及研究主張上限。
+#   build_human_inspired_teacher_development_experiment_matrix
+#     = 建立 A–E 五組控制條件，包括高／低探索、好奇與行動意願拆分、社交控制、
+#       以及童年身高範圍的合成中點控制。
+#   validate_teacher_developmental_embodiment_experiment_matrix
+#     = 確認五組路徑有相同最終成人身體參照，但保留不同歷史雜湊。
+#
+# Stitched trajectory / 拼接式童年到現在軌跡
+#   TeacherDevelopmentalStageTransition
+#     = 相鄰兩階段的差異表：哪些改變、哪些保留、哪些仍然不知道。
+#   TeacherStitchedDevelopmentalTrajectory
+#     = 把「童年參照 → 過渡 → 現在成人」拼成一條有雜湊的可稽核軌跡。
+#   TeacherRepeatedDevelopmentalTrialAssessment
+#     = 摘要重跑次數、唯一軌跡數、可重現性與最終狀態控制結果。
+#   _developmental_transition_payload
+#     = 整理單一階段轉換的雜湊內容。
+#   _compare_developmental_stage_pair
+#     = 比較前後兩階段；資料不足就標 unresolved（未解），不自行推論。
+#   build_teacher_stitched_developmental_trajectory
+#     = 按原始順序建立完整拼接軌跡。
+#   validate_teacher_stitched_developmental_trajectory
+#     = 驗證來源、順序、雜湊、不插值，以及不越界宣稱主觀童年／因果發展。
+#   run_repeated_teacher_developmental_trials
+#     = 相同條件重跑；目前實驗用五次檢查 deterministic reproducibility
+#       （決定論式可重現性），不是宣稱人生或心理歷程必然重演。
+#
+# Global evidence boundary / 全域證據邊界
+#   RECORDED_HISTORY != SUBJECTIVE_MEMORY
+#   記錄下來的歷史 != 主觀記憶
+#   DEVELOPMENTAL_TRAJECTORY != BIOLOGICAL_DEVELOPMENT
+#   發展軌跡資料 != 已證明生物學發展
+#   SAME_CURRENT_STATE + DIFFERENT_HISTORY can be represented, but this alone does not
+#   establish psychological causality or AI identity continuity.
+#   系統可表示「相同現在＋不同過去」，但僅此並不能證明心理因果或 AI 身分連續性。
+#
 def _history_hash(payload: object) -> str:
     encoded = json.dumps(
         payload,
