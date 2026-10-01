@@ -19,6 +19,9 @@ from .teacher_embodied_controller import (
 )
 
 
+from .teacher_high_salience_coupling import TeacherReproductiveEventGate
+
+
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
 REFERENCE_BODY_DELTA_LIMIT: Final[float] = 0.12
 REFERENCE_SMOOTH_GAIN: Final[float] = 2.0
@@ -149,6 +152,8 @@ def select_teacher_transition_intent(
     controller_state: TeacherEmbodiedControllerState,
     previous_body_state: TeacherIntegratedBodyState,
     profile: TeacherBodyDynamicsProfile | None = None,
+    *,
+    reproductive_event_gate: TeacherReproductiveEventGate | None = None,
 ) -> TeacherTransitionIntent:
     profile = profile or build_teacher_body_dynamics_profile()
     index = _profile_transition_index(profile)
@@ -160,6 +165,67 @@ def select_teacher_transition_intent(
         previous_body_state,
         "ERECTILE_REFLEX_STATE",
     )
+    event_gate = reproductive_event_gate or TeacherReproductiveEventGate()
+
+    if event_gate.event == "EMISSION_REFERENCE_REQUEST":
+        if (
+            controller_state.phase != "HIGH_ACTIVATION_REFERENCE"
+            or vascular < 0.65
+        ):
+            raise ValueError("emission event requires vascular readiness")
+        if "MAINTENANCE_TO_EMISSION" not in index:
+            raise ValueError("body dynamics profile lacks emission transition")
+        return TeacherTransitionIntent(
+            transition_ids=("MAINTENANCE_TO_EMISSION",),
+            mode="ACTIVATION",
+        )
+
+    if event_gate.event == "EXPULSION_REFERENCE_REQUEST":
+        emission = _scalar_channel(
+            previous_body_state,
+            "EMISSION_REFLEX_STATE",
+        )
+        if emission < 0.50:
+            raise ValueError("expulsion event requires emission readiness")
+        if "EMISSION_TO_EJACULATORY_REFLEX" not in index:
+            raise ValueError("body dynamics profile lacks expulsion transition")
+        return TeacherTransitionIntent(
+            transition_ids=("EMISSION_TO_EJACULATORY_REFLEX",),
+            mode="ACTIVATION",
+        )
+
+    if event_gate.event == "RECOVERY_REFERENCE_REQUEST":
+        recovery_ids: list[str] = []
+        if vascular > 0.15 or erectile > 0.15:
+            if "VASCULAR_RESPONSE_TO_BASELINE_RECOVERY" not in index:
+                raise ValueError(
+                    "body dynamics profile lacks direct vascular recovery transition"
+                )
+            recovery_ids.append("VASCULAR_RESPONSE_TO_BASELINE_RECOVERY")
+
+        event_channel_ids = (
+            "EMISSION_REFLEX_STATE",
+            "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            "EJACULATORY_REFLEX_STATE",
+            "EXPULSION_MOTOR_PATTERN_STATE",
+        )
+        event_active = any(
+            _scalar_channel(previous_body_state, channel_id) > 0.15
+            for channel_id in event_channel_ids
+        )
+        if event_active:
+            if "REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY" not in index:
+                raise ValueError(
+                    "body dynamics profile lacks reproductive event recovery transition"
+                )
+            recovery_ids.append("REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY")
+
+        if recovery_ids:
+            return TeacherTransitionIntent(
+                transition_ids=tuple(recovery_ids),
+                mode="RECOVERY",
+            )
+        return TeacherTransitionIntent(transition_ids=(), mode="BASELINE")
 
     if controller_state.phase == "HIGH_ACTIVATION_REFERENCE":
         if (
