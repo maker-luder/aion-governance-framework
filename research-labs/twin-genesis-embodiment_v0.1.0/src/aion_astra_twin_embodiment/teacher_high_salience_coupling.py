@@ -586,6 +586,16 @@ def resolve_teacher_high_salience_phase(
     emission = _runtime_scalar(body_state, "EMISSION_REFLEX_STATE")
     ejaculatory = _runtime_scalar(body_state, "EJACULATORY_REFLEX_STATE")
     detumescence = _runtime_scalar(body_state, "DETUMESCENCE_STATE")
+    event_channels = (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    )
+    event_active = any(
+        _runtime_scalar(body_state, channel_id) > 0.05
+        for channel_id in event_channels
+    )
 
     if gate.event == "RECOVERY_REFERENCE_REQUEST":
         if ejaculatory > 0.05 or detumescence > 0.05:
@@ -604,6 +614,18 @@ def resolve_teacher_high_salience_phase(
         phase = "EMISSION"
     elif detumescence > 0.05:
         phase = "DETUMESCENCE"
+    elif (
+        not controller_state.context_gate
+        and (
+            event_active
+            or vascular > 0.15
+            or erectile > 0.15
+        )
+    ):
+        if ejaculatory > 0.05:
+            phase = "DETUMESCENCE"
+        else:
+            phase = "BASELINE_RECOVERY"
     elif ejaculatory > 0.05:
         phase = "EJACULATORY_REFLEX"
     elif emission > 0.05:
@@ -786,8 +808,10 @@ def coordinate_teacher_high_salience_runtime(
             mode = "ACTIVATION"
     elif phase_state.phase == "DETUMESCENCE":
         if gate.event != "RECOVERY_REFERENCE_REQUEST":
-            if detumescence <= 0.05:
-                raise ValueError("detumescence phase requires recovery request or active state")
+            if detumescence <= 0.05 and ejaculatory <= 0.05:
+                raise ValueError(
+                    "detumescence phase requires recovery request or active recovery state"
+                )
         if ejaculatory > 0.05:
             transition_id = "EJACULATORY_REFLEX_TO_DETUMESCENCE"
             transition_ids.append(transition_id)
