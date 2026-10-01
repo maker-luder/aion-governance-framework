@@ -1877,6 +1877,8 @@ class TeacherDevelopmentalStageTransition:
 
 
 @dataclass(frozen=True, slots=True)
+# 中文審查：把「童年參照 → 過渡階段 → 現在成人參照」保存成一條可稽核的發展軌跡。
+# English: Preserve childhood -> transition -> current-adult references as one auditable trajectory.
 class TeacherStitchedDevelopmentalTrajectory:
     trajectory_id: str
     source_run_sha256: str
@@ -1939,6 +1941,8 @@ def _developmental_transition_payload(
     }
 
 
+# 中文審查：逐段比較兩個發展階段；只分成「改變／保留／未知」，不從缺失資料自行推算。
+# English: Compare adjacent stages as changed/retained/unresolved; never infer missing measurements.
 def _compare_developmental_stage_pair(
     prior: TeacherDevelopmentalEmbodimentStage,
     current: TeacherDevelopmentalEmbodimentStage,
@@ -2023,6 +2027,8 @@ def _compare_developmental_stage_pair(
     )
 
 
+# 中文審查：依原始階段順序拼接完整路徑，並以 SHA-256 綁定來源與每一段轉換。
+# English: Stitch the ordered path and bind its source and transitions with SHA-256 evidence.
 def build_teacher_stitched_developmental_trajectory(
     run: TeacherDevelopmentalEmbodimentRun,
 ) -> TeacherStitchedDevelopmentalTrajectory:
@@ -2052,6 +2058,8 @@ def build_teacher_stitched_developmental_trajectory(
     return trajectory
 
 
+# 中文審查：驗證來源、順序、雜湊與研究邊界；禁止捏造中間身高體重，也不把記錄宣稱成主觀成長。
+# English: Validate provenance, order, hashes, and claim boundaries; interpolation and subjective-growth claims are forbidden.
 def validate_teacher_stitched_developmental_trajectory(
     trajectory: TeacherStitchedDevelopmentalTrajectory,
     run: TeacherDevelopmentalEmbodimentRun,
@@ -2118,6 +2126,8 @@ def validate_teacher_stitched_developmental_trajectory(
     }
 
 
+# 中文審查：同一條件至少重跑兩次；目前實驗使用五次，以檢查軌跡是否可重現且終點是否一致。
+# English: Repeat the same condition to test deterministic reproducibility and terminal-state control; the current experiment uses five trials.
 def run_repeated_teacher_developmental_trials(
     run: TeacherDevelopmentalEmbodimentRun,
     *,
