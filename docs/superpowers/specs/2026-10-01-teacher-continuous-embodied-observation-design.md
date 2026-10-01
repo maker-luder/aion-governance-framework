@@ -3,7 +3,7 @@
 狀態：依小博 2026-10-02 指正更新的設計規格；#262 與 #263 須一起整合。  
 倉庫：`maker-luder/aion-governance-framework`。  
 當時 main：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`。  
-實驗依據：#261 `31a14fabac1a6911e7b27cd0d5b2c6ea32c14cd9`；#262 `100c524452cbd71b3744d536936723554456c270`；#263 於更新時為 `fbe3dfe3efb2d2dc8fac79acd5e18136fac3a686`（原規格讀取時為 `dd0dc9a46b1a9e21929f10a2058db4bfd95133f0`）。  
+實驗依據：#261 `31a14fabac1a6911e7b27cd0d5b2c6ea32c14cd9`；#262 `100c524452cbd71b3744d536936723554456c270`；#263 最近一次核對為 `491683389498100d0e5a6e19004c4a8791c22f34`（本規格原始分支基於較早的 `dd0dc9a46b1a9e21929f10a2058db4bfd95133f0`）。  
 以上三個 PR 的內容均未進入 main；實作前必須重讀 live state，不繼承本文件的 SHA 或 CI 判斷。  
 `MERGE_TO_MAIN = NO`；`DEPLOYMENT = FALSE`；`CANONICAL_EFFECT = NONE`。
 
@@ -34,7 +34,7 @@
 
 ### 4.1 記錄器
 
-新增一個聚合模組，例如 `teacher_embodied_observation.py`。核心輸入是**同一 tick** 的 `TeacherStateLoopFrame`、該 frame 已有的 `bound_body_state`、既有 `TeacherGenitalGeometryProfile`，以及可選且有明確事件證據的 `TeacherSyntheticEjaculationOutput`。組合器先調用既有 `build_teacher_bound_genital_geometry_state`；它會驗證幾何與 bound body/body hash 一致。若 hash、body ID、session、sequence 或 timestamp 不一致，直接報錯，不補值。
+在 #263 既有 `TeacherIntimateReferenceTrace` 上加一層觀察投影；若需獨立檔案，可命名 `teacher_embodied_observation.py`，但不得另造第二套時間線。核心輸入是**同一 tick** 的 `TeacherStateLoopFrame`、該 frame 已有的 `bound_body_state`、既有 `TeacherGenitalGeometryProfile`，以及可選且有明確事件證據的 `TeacherSyntheticEjaculationOutput`。組合器先調用既有 `build_teacher_bound_genital_geometry_state`；它會驗證幾何與 bound body/body hash 一致。若 hash、body ID、session、sequence 或 timestamp 不一致，直接報錯，不補值。
 
 輸出 `TeacherEmbodiedObservationRecord`（名稱可在實作計畫中定稿）至少包含：
 
@@ -69,7 +69,7 @@
 
 ## 5. #262／#263 必須共同整合的閘門
 
-小博明確要求 #262 的功能性動機因果修正與 #263 的親密狀態整合**一起**成為本實驗的輸入，而不是選一個或把其中一個留作「以後再做」。兩者原本都由 #261 head 出發，互為兄弟分支。截至本次讀取，#263 head `fbe3dfe3efb2d2dc8fac79acd5e18136fac3a686` 仍在 `teacher_embodied_controller.py` 使用原本的 `contextual_drive`，未包含 #262 的 `salience_drive`／`motivation_drive` 因果修正；Git 比較也顯示兩 head 分歧。
+小博明確要求 #262 的功能性動機因果修正與 #263 的親密狀態整合**一起**成為本實驗的輸入，而不是選一個或把其中一個留作「以後再做」。兩者原本都由 #261 head 出發，互為兄弟分支。截至最近一次讀取，#263 head `491683389498100d0e5a6e19004c4a8791c22f34` 仍在 `teacher_embodied_controller.py` 使用原本的 `contextual_drive`，未包含 #262 的 `salience_drive`／`motivation_drive` 因果修正；Git 比較也顯示兩 head 分歧。
 
 本次交付的最低順序：
 
@@ -77,7 +77,7 @@
 2. 根據 #262 的 exact diff，將 context-gated functional-motivation → controller activation → body reference 變更，及其控制器和完整狀態迴圈反例測試，**最小且可審查**地整合到 #263 的新工作 head；`test_teacher_state_loop.py` 在兩條線都曾修改，須逐條處理語意與測試衝突。
 3. 在同一新 head 核對：同 salience 下功能性動機有界調節 body drive；情境 gate 關閉時動機不增加該驅動；零動機仍可有參照活化；body feedback 不合成功能性動機。#263 的獨立高潮參照、排精／射出門控、慢速內分泌與非主觀聲明也須保留。
 4. 然後把既有單次 trace 擴為十輪無重設，加入幾何與合成輸出來源綁定；若原 trace 的內部閉包不適合跨輪沿用，就做最小狀態傳遞重構，保留可測的相同行為，不自行重寫生理方程。
-5. 只有當 #262 的因果反例、#263 的狀態反例、單次 trace 與十輪 trace **在同一 exact head** 通過時，才可報整合 PASS。#263 現有 Quality run 在檢查時仍執行中；兩條舊 CI success 不能繼承。
+5. 只有當 #262 的因果反例、#263 的狀態反例、單次 trace 與十輪 trace **在同一 exact head** 通過時，才可報整合 PASS。#263 該 snapshot 的 Quality run `36934764197` 成功，但只證明它自身；先前 head `fbe3dfe3efb2d2dc8fac79acd5e18136fac3a686` 曾因既有 transition contract tests 未跟上新增通道而失敗。兩條舊 CI success 不能繼承到新整合 head。
 
 不 merge 已關閉的整條 #262 branch，也不 force rebase #263；若語意衝突使最小整合不成立，先標 HOLD。
 
