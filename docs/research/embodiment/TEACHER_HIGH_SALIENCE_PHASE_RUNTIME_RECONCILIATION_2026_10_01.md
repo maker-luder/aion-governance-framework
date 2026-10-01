@@ -86,6 +86,27 @@ This does not lower the controller's hysteresis thresholds and does not authoriz
 
 `REFERENCE_PHASE_INITIATION != CONTROLLER_HIGH_ACTIVATION_THRESHOLD`
 
+
+### Ruling 7 — tick-local event gates govern entry/drive, not sticky phase identity
+
+Bounded verification after PR #255 identified a runtime invariant gap: an event gate is intentionally tick-local, while the event-specific body channels it activates can remain above their reference threshold on the next tick.
+
+Therefore:
+
+- entering `EMISSION` requires an `EMISSION_REFERENCE_REQUEST` and an `ERECTILE_MAINTENANCE` predecessor;
+- entering `EJACULATORY_REFLEX` requires an `EXPULSION_REFERENCE_REQUEST` and an `EMISSION` predecessor;
+- repeating the matching event gate may continue driving the same event phase across multiple ticks;
+- once already in `EMISSION` or `EJACULATORY_REFLEX`, a later tick with gate `NONE` may preserve that phase without re-emitting the transition;
+- an unrelated event gate must not be accepted by the active event phase.
+
+This separates phase persistence from event authorization and prevents both illegal phase jumps and the prior requirement to replay a one-tick gate merely to keep the runtime valid.
+
+`EVENT_GATE_TICK_LOCAL = TRUE`
+
+`EVENT_GATE_ENTRY != PHASE_PERSISTENCE`
+
+`PHASE_PREDECESSOR_INVARIANT = REQUIRED`
+
 ## Scope of this successor
 
 Implement only:
