@@ -96,8 +96,8 @@ def _controller(
         runtime_id="RUNTIME-EXECUTOR",
         session_id="SESSION-EXECUTOR",
         body_id="CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1",
-        sequence=body_state.sequence,
-        timestamp_ms=body_state.timestamp_ms,
+        sequence=body_state.sequence + 1,
+        timestamp_ms=body_state.timestamp_ms + 100,
         salience=activation,
         activation=activation,
         functional_motivation=motivation,
@@ -329,7 +329,7 @@ def test_executor_rejects_future_or_reused_clock_sequence() -> None:
         mode="ACTIVATION",
     )
 
-    with pytest.raises(ValueError, match="exactly one tick"):
+    with pytest.raises(ValueError, match="controller/clock"):
         module.execute_teacher_transition(
             body,
             controller,
@@ -339,7 +339,7 @@ def test_executor_rejects_future_or_reused_clock_sequence() -> None:
         )
 
     future_controller = replace(controller, sequence=4, timestamp_ms=400)
-    with pytest.raises(ValueError, match="controller/body sequence"):
+    with pytest.raises(ValueError, match="controller/clock"):
         module.execute_teacher_transition(
             body,
             future_controller,
@@ -353,3 +353,32 @@ def test_executor_rejects_future_or_reused_clock_sequence() -> None:
             intent,
             TeacherEmbodimentClock(sequence=3, timestamp_ms=300),
         )
+
+
+def test_executor_consumes_next_tick_controller_over_previous_body_state() -> None:
+    module = _executor_module()
+    body = _body_state(sequence=0, timestamp_ms=0)
+    controller = _controller(
+        body,
+        activation=0.80,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+    motivation = build_teacher_controller_motivation(controller, body)
+    intent = module.TeacherTransitionIntent(
+        transition_ids=("SEXUAL_BASELINE_TO_VASCULAR_RESPONSE",),
+        mode="ACTIVATION",
+    )
+
+    executed = module.execute_teacher_transition(
+        body,
+        controller,
+        motivation,
+        intent,
+        TeacherEmbodimentClock(sequence=1, timestamp_ms=100),
+    )
+
+    assert controller.sequence == 1
+    assert body.sequence == 0
+    assert executed.sequence == 1
+    assert executed.timestamp_ms == 100
+    assert executed.source_body_state_sha256 == body.body_state_sha256
