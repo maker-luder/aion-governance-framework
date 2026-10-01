@@ -32,6 +32,7 @@ from .teacher_embodied_controller import (
     advance_teacher_controller,
     build_teacher_body_schema_feedback,
     build_teacher_controller_motivation,
+    fingerprint_teacher_body_schema_feedback,
     possess_teacher_body,
 )
 from .teacher_transition_executor import (
@@ -363,16 +364,12 @@ def _selected_channel_values(
 
 
 def _feedback_sha256(
-    controller_state: TeacherEmbodiedControllerState,
     body_state: TeacherIntegratedBodyState,
     forecast: TeacherAllostaticForecast,
 ) -> str:
-    return _canonical_hash(
-        {
-            "controller_state_sha256": controller_state.fingerprint(),
-            "body_state_sha256": body_state.body_state_sha256,
-            "forecast": forecast.to_dict(),
-        }
+    return fingerprint_teacher_body_schema_feedback(
+        body_state,
+        forecast,
     )
 
 
@@ -415,7 +412,6 @@ def _build_baseline_frame(
         lead_time_ms=100,
     )
     feedback_sha256 = _feedback_sha256(
-        controller_state,
         body_state,
         feedback,
     )
@@ -461,6 +457,13 @@ def advance_teacher_embodied_tick(
         sequence=previous_body_state.sequence + 1,
         timestamp_ms=previous_body_state.timestamp_ms + 100,
     )
+    previous_feedback: TeacherAllostaticForecast | None = None
+    if previous_controller_state.previous_body_schema_feedback_sha256 is not None:
+        previous_feedback = build_teacher_body_schema_feedback(
+            previous_controller_state,
+            previous_body_state,
+            lead_time_ms=clock.dt_ms,
+        )
     controller_state = advance_teacher_controller(
         previous_controller_state,
         TeacherControllerInput(
@@ -472,6 +475,7 @@ def advance_teacher_embodied_tick(
         previous_body_state,
         clock,
         policy,
+        body_schema_feedback=previous_feedback,
     )
     motivation = build_teacher_controller_motivation(
         controller_state,
