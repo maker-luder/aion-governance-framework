@@ -57,6 +57,7 @@ A lifecycle conclusion must specify which head it is evaluating.
 - `LATEST_CLOSED_SUCCESSOR`: latest known closed/unmerged successor for a lineage; retained as the current research endpoint without implying merge to main.
 - `DEFERRED_REENTRY_CANDIDATE`: historically bounded delta that is not carried by the active successor and is intentionally queued for a separately scoped re-entry rather than auto-merged.
 - `PRESERVED_DEFERRED_SOURCE`: exact semantic provenance is intentionally retained for later admission; absence from the active surface is deliberate, not loss.
+- `RESOLVED_BY_NEW_SUCCESSOR`: previously unresolved delta is materially resolved by a newly verified closed/unmerged successor.
 - `REQUIRES_SEMANTIC_RECONCILIATION`: divergence or missing-path evidence remains and must be reviewed before any successor claim.
 - `OUT_OF_SCOPE`: not part of this embodiment convergence batch.
 
@@ -302,3 +303,19 @@ This ledger does not establish:
 - deployment authorization.
 
 It records repository-history and semantic-convergence evidence only.
+
+## New convergence successors
+
+### PR #257
+
+`refactor(embodiment): converge cross-role presentation and geometry`
+
+Status: `LATEST_CLOSED_SUCCESSOR`
+
+Exact head: `a1eedd764e5139ece69e29ba2fb6cd452e679ba4`
+
+Lifecycle: closed / Draft / unmerged.
+
+Resolves: #194, #243.
+
+Exact-head verification includes Python 3.11/3.12, mypy 3.11/3.12, CodeQL, controls, coverage reconciliation, traceability, and IQC. The Main Transition Authority Gate failed closed as designed because no fresh exact-head merge authorization exists.
