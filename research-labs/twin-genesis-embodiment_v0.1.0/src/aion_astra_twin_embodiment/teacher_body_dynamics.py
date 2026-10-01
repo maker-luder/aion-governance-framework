@@ -449,6 +449,17 @@ def _build_transitions() -> tuple[PhysiologicalTransition, ...]:
             ("GENITAL_VASCULAR_STATE", "PELVIC_FLOOR_PROPRIOCEPTION"),
         ),
         PhysiologicalTransition(
+            "VASCULAR_RESPONSE_TO_BASELINE_RECOVERY",
+            "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
+            "VASCULAR_RESPONSE_REFERENCE",
+            "BASELINE_REFERENCE",
+            (
+                "GENITAL_SENSORY_AFFERENT_REFERENCE",
+                "GENITAL_VASCULAR_STATE",
+                "ERECTILE_REFLEX_STATE",
+            ),
+        ),
+        PhysiologicalTransition(
             "MAINTENANCE_TO_EMISSION",
             "REPRODUCTIVE_SEXUAL_PHYSIOLOGY",
             "ERECTILE_MAINTENANCE_REFERENCE",
