@@ -208,9 +208,14 @@ def select_teacher_transition_intent(
 
         event_channel_ids = (
             "EMISSION_REFLEX_STATE",
+            "SEMINAL_TRACT_TRANSPORT_STATE",
+            "ACCESSORY_GLAND_SECRETION_STATE",
             "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
             "EJACULATORY_REFLEX_STATE",
             "EXPULSION_MOTOR_PATTERN_STATE",
+            "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+            "ANTEGRADE_SEMINAL_FLOW_STATE",
         )
         event_active = any(
             _scalar_channel(previous_body_state, channel_id) > 0.05
