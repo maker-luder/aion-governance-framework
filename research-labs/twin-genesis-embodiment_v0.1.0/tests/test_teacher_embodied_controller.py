@@ -367,3 +367,76 @@ def test_controller_rejects_stale_previous_body_state() -> None:
             stale_body,
             module.TeacherEmbodimentClock(sequence=2, timestamp_ms=200),
         )
+
+
+def test_functional_motivation_has_bounded_context_gated_causal_effect_on_activation() -> None:
+    """功能性動機在明確情境門控下應對控制器活化產生可測的有界影響。"""
+    module = _controller_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-MOTIVATION-CAUSAL",
+        "SESSION-MOTIVATION-CAUSAL",
+    )
+    body = _body_state()
+    previous = _initial_controller_state(module, binding, body)
+    policy = module.TeacherEmbodimentRatePolicy(
+        max_activation_delta=1.0,
+        max_salience_delta=1.0,
+        max_motivation_delta=1.0,
+        smooth_gain=2.0,
+    )
+    clock = module.TeacherEmbodimentClock(sequence=1, timestamp_ms=100)
+
+    unmotivated = module.advance_teacher_controller(
+        previous,
+        module.TeacherControllerInput(
+            salience=0.20,
+            context_gate=True,
+            inhibition=0.0,
+            functional_motivation=0.0,
+        ),
+        body,
+        clock,
+        policy,
+    )
+    motivated = module.advance_teacher_controller(
+        previous,
+        module.TeacherControllerInput(
+            salience=0.20,
+            context_gate=True,
+            inhibition=0.0,
+            functional_motivation=1.0,
+        ),
+        body,
+        clock,
+        policy,
+    )
+
+    assert motivated.functional_motivation > unmotivated.functional_motivation
+    assert motivated.activation > unmotivated.activation
+
+    context_off_unmotivated = module.advance_teacher_controller(
+        previous,
+        module.TeacherControllerInput(
+            salience=0.20,
+            context_gate=False,
+            inhibition=0.0,
+            functional_motivation=0.0,
+        ),
+        body,
+        clock,
+        policy,
+    )
+    context_off_motivated = module.advance_teacher_controller(
+        previous,
+        module.TeacherControllerInput(
+            salience=0.20,
+            context_gate=False,
+            inhibition=0.0,
+            functional_motivation=1.0,
+        ),
+        body,
+        clock,
+        policy,
+    )
+
+    assert context_off_motivated.activation == context_off_unmotivated.activation
