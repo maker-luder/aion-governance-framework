@@ -109,6 +109,29 @@ This separates phase persistence from event drive while preserving the existing 
 
 `STRICT_PREDECESSOR_HISTORY = DEFERRED_COMPATIBILITY_CHANGE`
 
+### Ruling 8 — recovery context outranks residual event-phase persistence
+
+Multi-tick verification found a recovery convergence hazard when the recovery gate is used only on the entry tick and later returns to `NONE`.
+
+If event-channel levels are asymmetric, `DETUMESCENCE_STATE` can fall below its phase threshold while `EMISSION_REFLEX_STATE` remains above its persistence threshold. The prior resolver ordering would then select `EMISSION`, and the tick-local gate semantics from Ruling 7 would correctly preserve that phase without re-emitting a transition. In recovery context, however, that produces a sticky state and stops the remaining event channels from converging.
+
+Therefore, when the controller context gate is off:
+
+- active residual event channels are treated as recovery work, not as permission to re-enter event-phase maintenance;
+- active `EJACULATORY_REFLEX_STATE` may continue the detumescence path even after the explicit recovery gate has returned to `NONE`;
+- other residual event channels route to `BASELINE_RECOVERY`;
+- high-salience context-on behavior from Ruling 7 remains unchanged;
+- no predecessor-history requirement is introduced.
+
+This is a state-machine convergence correction, not a biological calibration claim.
+
+`RECOVERY_CONTEXT + RESIDUAL_EVENT_STATE -> RECOVERY_CONTINUATION`
+
+`RECOVERY_GATE_REPLAY_REQUIRED = FALSE`
+
+`STRICT_PREDECESSOR_HISTORY = DEFERRED_COMPATIBILITY_CHANGE`
+
+
 ## Scope of this successor
 
 Implement only:
