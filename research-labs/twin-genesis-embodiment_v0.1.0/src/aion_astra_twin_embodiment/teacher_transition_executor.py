@@ -210,7 +210,7 @@ def select_teacher_transition_intent(
             "EXPULSION_MOTOR_PATTERN_STATE",
         )
         event_active = any(
-            _scalar_channel(previous_body_state, channel_id) > 0.15
+            _scalar_channel(previous_body_state, channel_id) > 0.05
             for channel_id in event_channel_ids
         )
         if event_active:
