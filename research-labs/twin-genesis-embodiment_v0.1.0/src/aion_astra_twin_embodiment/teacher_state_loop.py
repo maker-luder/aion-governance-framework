@@ -35,11 +35,17 @@ from .teacher_embodied_controller import (
     fingerprint_teacher_body_schema_feedback,
     possess_teacher_body,
 )
-from .teacher_high_salience_coupling import TeacherReproductiveEventGate
+from .teacher_high_salience_coupling import (
+    TeacherHighSaliencePhaseState,
+    TeacherHighSalienceRuntimeIntent,
+    TeacherReproductiveEventGate,
+    build_teacher_high_salience_baseline_phase,
+    coordinate_teacher_high_salience_runtime,
+    resolve_teacher_high_salience_phase,
+)
 from .teacher_transition_executor import (
     TeacherExecutedTransition,
-    execute_teacher_transition,
-    select_teacher_transition_intent,
+    execute_teacher_high_salience_transition,
 )
 
 
@@ -172,6 +178,8 @@ class TeacherStateLoopFrame:
     controller_state: TeacherEmbodiedControllerState
     motivation: TeacherMotivationalRepresentation
     executed_transition: TeacherExecutedTransition | None
+    high_salience_phase_state: TeacherHighSaliencePhaseState
+    high_salience_runtime_intent: TeacherHighSalienceRuntimeIntent
     body_state: TeacherIntegratedBodyState
     bound_body_state: TeacherBoundBodyState
     body_schema_feedback: TeacherAllostaticForecast
@@ -187,6 +195,23 @@ class TeacherStateLoopFrame:
             raise ValueError("Teacher frame controller/body sequence drift")
         if self.body_state.timestamp_ms != self.controller_state.timestamp_ms:
             raise ValueError("Teacher frame controller/body timestamp drift")
+        if self.high_salience_phase_state.sequence != self.controller_state.sequence:
+            raise ValueError("Teacher frame phase/controller sequence drift")
+        if self.high_salience_runtime_intent.phase != self.high_salience_phase_state.phase:
+            raise ValueError("Teacher frame phase/runtime-intent drift")
+        if (
+            self.high_salience_runtime_intent.source_controller_sha256
+            != self.controller_state.fingerprint()
+        ):
+            raise ValueError("Teacher frame runtime-intent/controller hash drift")
+        if self.executed_transition is None:
+            if self.high_salience_runtime_intent.transition_ids:
+                raise ValueError("Teacher baseline frame cannot carry transition intent")
+        elif (
+            self.executed_transition.transition_ids
+            != self.high_salience_runtime_intent.transition_ids
+        ):
+            raise ValueError("Teacher frame intent/execution transition drift")
 
 
 @dataclass(frozen=True, slots=True)
@@ -436,10 +461,18 @@ def _build_baseline_frame(
         body_state,
         feedback,
     )
+    phase_state = build_teacher_high_salience_baseline_phase(body_state)
+    runtime_intent = coordinate_teacher_high_salience_runtime(
+        phase_state,
+        controller_state,
+        body_state,
+    )
     return TeacherStateLoopFrame(
         controller_state=controller_state,
         motivation=motivation,
         executed_transition=None,
+        high_salience_phase_state=phase_state,
+        high_salience_runtime_intent=runtime_intent,
         body_state=body_state,
         bound_body_state=bound,
         body_schema_feedback=feedback,
@@ -460,6 +493,7 @@ def advance_teacher_embodied_tick(
     previous_controller_state: TeacherEmbodiedControllerState,
     previous_body_state: TeacherIntegratedBodyState,
     stimulus: TeacherStimulusEnvelope,
+    previous_phase_state: TeacherHighSaliencePhaseState | None = None,
     policy: TeacherEmbodimentRatePolicy | None = None,
     reproductive_event_gate: TeacherReproductiveEventGate | None = None,
 ) -> TeacherStateLoopFrame:
@@ -503,16 +537,28 @@ def advance_teacher_embodied_tick(
         controller_state,
         previous_body_state,
     )
-    intent = select_teacher_transition_intent(
+    prior_phase = (
+        previous_phase_state
+        if previous_phase_state is not None
+        else build_teacher_high_salience_baseline_phase(previous_body_state)
+    )
+    phase_state = resolve_teacher_high_salience_phase(
+        prior_phase,
         controller_state,
         previous_body_state,
         reproductive_event_gate=reproductive_event_gate,
     )
-    executed = execute_teacher_transition(
+    runtime_intent = coordinate_teacher_high_salience_runtime(
+        phase_state,
+        controller_state,
+        previous_body_state,
+        reproductive_event_gate=reproductive_event_gate,
+    )
+    executed = execute_teacher_high_salience_transition(
         previous_body_state,
         controller_state,
         motivation,
-        intent,
+        runtime_intent,
         clock,
     )
     body_state = integrate_teacher_body_state(
@@ -535,6 +581,8 @@ def advance_teacher_embodied_tick(
         controller_state=controller_state,
         motivation=motivation,
         executed_transition=executed,
+        high_salience_phase_state=phase_state,
+        high_salience_runtime_intent=runtime_intent,
         body_state=body_state,
         bound_body_state=bound,
         body_schema_feedback=feedback,
@@ -617,6 +665,7 @@ def run_teacher_reference_state_loop(
             previous_controller_state=controller,
             previous_body_state=previous_frame.body_state,
             stimulus=activation_stimulus,
+            previous_phase_state=previous_frame.high_salience_phase_state,
         )
         frames.append(frame)
         previous_frame = frame
@@ -645,6 +694,7 @@ def run_teacher_reference_state_loop(
             previous_controller_state=controller,
             previous_body_state=previous_frame.body_state,
             stimulus=recovery_stimulus,
+            previous_phase_state=previous_frame.high_salience_phase_state,
         )
         frames.append(frame)
         previous_frame = frame
@@ -1128,6 +1178,7 @@ def _run_teacher_reference_scenario(
                     previous_controller_state=controller,
                     previous_body_state=previous.body_state,
                     stimulus=stimulus,
+                    previous_phase_state=previous.high_salience_phase_state,
                 )
             )
 
@@ -1154,6 +1205,7 @@ def _run_teacher_reference_scenario(
                 previous_controller_state=controller,
                 previous_body_state=previous.body_state,
                 stimulus=recovery_stimulus,
+                previous_phase_state=previous.high_salience_phase_state,
             )
             frames.append(frame)
             if _probe_converged(frame):
