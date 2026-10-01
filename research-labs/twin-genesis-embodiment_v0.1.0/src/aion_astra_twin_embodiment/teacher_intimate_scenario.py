@@ -285,9 +285,16 @@ def run_teacher_intimate_reference_trace(
         )
         if (
             _body_scalar(frame, "EMISSION_REFLEX_STATE") >= 0.50
+            and _body_scalar(frame, "SEMINAL_TRACT_TRANSPORT_STATE") >= 0.50
+            and _body_scalar(frame, "ACCESSORY_GLAND_SECRETION_STATE") >= 0.50
             and _body_scalar(
                 frame,
                 "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            )
+            >= 0.50
+            and _body_scalar(
+                frame,
+                "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
             )
             >= 0.50
         ):
@@ -307,6 +314,12 @@ def run_teacher_intimate_reference_trace(
         if (
             _body_scalar(frame, "EJACULATORY_REFLEX_STATE") >= 0.50
             and _body_scalar(frame, "EXPULSION_MOTOR_PATTERN_STATE") >= 0.50
+            and _body_scalar(
+                frame,
+                "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+            )
+            >= 0.50
+            and _body_scalar(frame, "ANTEGRADE_SEMINAL_FLOW_STATE") >= 0.50
             and integrated.orgasm_reference.active
             and integrated.orgasm_reference.coincident_ejaculatory_reference
         ):
@@ -331,9 +344,14 @@ def run_teacher_intimate_reference_trace(
         )
         event_channels = (
             "EMISSION_REFLEX_STATE",
+            "SEMINAL_TRACT_TRANSPORT_STATE",
+            "ACCESSORY_GLAND_SECRETION_STATE",
             "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
             "EJACULATORY_REFLEX_STATE",
             "EXPULSION_MOTOR_PATTERN_STATE",
+            "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+            "ANTEGRADE_SEMINAL_FLOW_STATE",
         )
         if (
             all(_body_scalar(frame, channel_id) <= 0.10 for channel_id in event_channels)
@@ -341,6 +359,11 @@ def run_teacher_intimate_reference_trace(
             and _body_scalar(frame, "ERECTILE_REFLEX_STATE") <= 0.15
             and frame.controller_state.activation < 0.10
             and frame.controller_state.functional_motivation < 0.10
+            and _body_scalar(
+                frame,
+                "POST_EXPULSION_RECOVERY_STATE",
+            )
+            <= 0.10
             and not frame.intimate_integration_state.orgasm_reference.active
         ):
             recovered = True
