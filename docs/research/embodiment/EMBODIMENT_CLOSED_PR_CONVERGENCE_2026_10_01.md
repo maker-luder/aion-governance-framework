@@ -30,6 +30,24 @@ This document is a governance/audit artifact only.
 
 `CANONICAL_EFFECT = NONE`
 
+## Head semantics
+
+Closed PR metadata and the live branch can diverge after a PR is closed.
+
+Therefore this ledger distinguishes:
+
+- `PR_RECORDED_HEAD`: the head SHA stored on the closed PR object;
+- `LIVE_BRANCH_HEAD`: the current head of the PR branch when that branch still exists;
+- `HEAD_RELATION`: whether the branch advanced after the PR snapshot.
+
+Known cases in this audit:
+
+- PR #203: recorded `ab54d99a11b32b10cfcb76c385c023b0caa7f14d`; live branch `5c3877adcfc1f7d67e8700fdac26b13c5c202a43`; +6 post-close commits.
+- PR #236: recorded `d08c7197e4c3511b1942e80e99dcf78589c49d87`; live branch `d8d10961f777d782c13f5907d11c1d0a609a408c`; +2 post-close commits.
+- PR #251: recorded `db8167cbe600f41beea76c8c3e78c6bc9ec331f2`; live branch `26c8cb74a10f99696a36a8ac387ee78c66da1dee`; +6 post-close commits, and that live branch head equals PR #253's recorded head.
+
+A lifecycle conclusion must specify which head it is evaluating.
+
 ## Status vocabulary
 
 - `MERGED_CANONICAL_HISTORY`: PR is closed because it was merged; it is not an unresolved closed-PR artifact.
@@ -65,6 +83,8 @@ The PR is closed because it was merged.
 Status for #192, #241, #250, #251, #252, #253:
 
 `ABSORBED_BY_SUCCESSOR`
+
+For #251 specifically, the closed PR recorded head is `db8167cb...`, while its live branch later advanced to `26c8cb74...`, which equals PR #253's recorded final controller head.
 
 Latest verified successor in this historical unmerged lineage:
 
@@ -124,7 +144,7 @@ These form an adult-reference lineage in `research-labs/affective-cognitive-moti
 
 They are related to embodiment research but are not the Teacher body-runtime successor lineage. Do not force them into PR #254.
 
-PR #236 is the design record. PR #238 is the latest closed/unmerged implementation continuation found in this audit.
+PR #236 is the design record. Its branch advanced by 2 commits after the PR snapshot, only modifying that design specification. PR #238 is the latest closed/unmerged implementation continuation found in this audit.
 
 ## Work lineage
 
