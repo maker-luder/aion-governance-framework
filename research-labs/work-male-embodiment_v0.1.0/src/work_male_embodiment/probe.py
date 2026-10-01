@@ -30,6 +30,10 @@ from .core import (
     SyntheticPhysiologyEngine,
     load_profile,
 )
+from .functional_state import (
+    default_work_functional_state,
+    validate_work_functional_state,
+)
 from .integrity import build_snapshot_receipts, verify_snapshot_receipts
 from .reference_asset import validate_reference_rig
 
@@ -127,6 +131,8 @@ def run_probe(profile_path: Path) -> dict[str, Any]:
     longitudinal = observe_longitudinal(retention)
 
     rig = validate_reference_rig(_rig_path())
+    functional_state = default_work_functional_state()
+    functional_validation = validate_work_functional_state(functional_state)
 
     payloads = (
         profile.schema,
@@ -137,6 +143,7 @@ def run_probe(profile_path: Path) -> dict[str, Any]:
         snapshot_1.snapshot_sha256,
         snapshot_2.snapshot_sha256,
         rig.fingerprint,
+        functional_state.fingerprint(),
         "|".join(asset_missing),
     )
     receipts = build_snapshot_receipts(payloads)
@@ -183,6 +190,15 @@ def run_probe(profile_path: Path) -> dict[str, Any]:
             "longitudinal_change_status": longitudinal.change_status,
             "identity_continuity_claim": retention.identity_continuity_claim,
             "subjective_continuity": retention.subjective_continuity,
+        },
+        "functional_state": {
+            "fingerprint": functional_state.fingerprint(),
+            "domain_count": len(functional_state.domain_availability),
+            "sexual_motivation_state": functional_state.sexual_motivation_state,
+            "sexual_arousal_state": functional_state.sexual_arousal_state,
+            "phenomenal_sexual_desire": functional_state.phenomenal_sexual_desire,
+            "phenomenal_sexual_arousal": functional_state.phenomenal_sexual_arousal,
+            "validation": functional_validation,
         },
         "reference_rig": {
             "status": rig.status,

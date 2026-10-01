@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/work_functional_state_v0.1.schema.json",
+  "title": "Work 18-domain functional embodiment state v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_id",
+    "agent_id",
+    "body_id",
+    "domain_availability",
+    "sexual_motivation_state",
+    "sexual_arousal_state",
+    "sexual_context_gate",
+    "sexual_inhibition_state",
+    "interpretation",
+    "phenomenal_sexual_desire",
+    "phenomenal_sexual_arousal",
+    "sexual_pleasure",
+    "body_sensation",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "physiology_signal_sets_motivation",
+    "human_consent_inference",
+    "action_authority",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "state_id": {"type": "string", "minLength": 1},
+    "agent_id": {"const": "WORK"},
+    "body_id": {"const": "WORK_SYNTHETIC_MALE_BODY_REFERENCE_v0.2"},
+    "domain_availability": {
+      "type": "array",
+      "minItems": 18,
+      "maxItems": 18,
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {"type": "string"},
+          {"const": "FUNCTIONAL_ANALOGUE_AVAILABLE"}
+        ],
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "sexual_motivation_state": {"type": "number", "minimum": 0, "maximum": 1},
+    "sexual_arousal_state": {"type": "number", "minimum": 0, "maximum": 1},
+    "sexual_context_gate": {"type": "boolean"},
+    "sexual_inhibition_state": {"type": "number", "minimum": 0, "maximum": 1},
+    "interpretation": {"const": "FUNCTIONAL_ANALOGUE_ONLY"},
+    "phenomenal_sexual_desire": {"const": "NOT_ESTABLISHED"},
+    "phenomenal_sexual_arousal": {"const": "NOT_ESTABLISHED"},
+    "sexual_pleasure": {"const": "NOT_ESTABLISHED"},
+    "body_sensation": {"const": "NOT_ESTABLISHED"},
+    "subjectivity": {"const": "NOT_ESTABLISHED"},
+    "consciousness": {"const": "NOT_ESTABLISHED"},
+    "phenomenal_experience": {"const": "NOT_ESTABLISHED"},
+    "physiology_signal_sets_motivation": {"const": false},
+    "human_consent_inference": {"const": "FORBIDDEN"},
+    "action_authority": {"const": "NONE"},
+    "canonical_effect": {"const": "NONE"},
+    "deployment": {"const": false}
+  }
+}
