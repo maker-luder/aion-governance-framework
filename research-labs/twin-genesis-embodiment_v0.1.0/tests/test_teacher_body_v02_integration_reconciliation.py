@@ -69,3 +69,27 @@ def test_teacher_v02_bundle_retains_current_reference_bundle_without_replacing_i
     assert manifest["base_reference_bundle_file_count"] >= 1
     assert len(manifest["base_reference_bundle_sha256"]) == 64
     assert sha256(_canonical_bytes(manifest)).hexdigest() != "0" * 64
+
+
+def test_teacher_v02_public_api_and_cli_info(monkeypatch, capsys) -> None:
+    import sys
+
+    import aion_astra_twin_embodiment as package
+    from aion_astra_twin_embodiment import cli
+
+    assert callable(package.build_teacher_body_v02_bundle_bytes)
+    assert callable(package.build_teacher_body_v02_integrated_manifest)
+    assert callable(package.validate_teacher_body_v02_integrated_manifest)
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["aion-astra-twin-embodiment", "teacher-body-v02-bundle-info"],
+    )
+    assert cli.main() == 0
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["artifact_kind"] == "TEACHER_BODY_V02_INTEGRATED_REFERENCE_BUNDLE"
+    assert payload["measurement_count_v02"] == 67
+    assert payload["reproductive_output_semantics"] == "SYNTHETIC_FLUID_ONLY"
+    assert payload["canonical_effect"] == "NONE"
+    assert payload["deployment"] is False
