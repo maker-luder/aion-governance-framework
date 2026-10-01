@@ -40,6 +40,16 @@ def test_full_intimate_reference_trace_reaches_all_required_stages() -> None:
         and _channels(sample)["EXPULSION_MOTOR_PATTERN_STATE"] >= 0.50
         for sample in trace.samples
     )
+    assert any(
+        sample.high_salience_phase == "DETUMESCENCE"
+        and _channels(sample)["DETUMESCENCE_STATE"] > 0.0
+        for sample in trace.samples
+    )
+    assert any(
+        sample.high_salience_phase in {"DETUMESCENCE", "BASELINE_RECOVERY"}
+        and sample.reproductive_event == "RECOVERY_REFERENCE_REQUEST"
+        for sample in trace.samples
+    )
 
     final = trace.samples[-1]
     final_channels = _channels(final)
@@ -51,6 +61,8 @@ def test_full_intimate_reference_trace_reaches_all_required_stages() -> None:
     assert final_channels["EMISSION_REFLEX_STATE"] <= 0.10
     assert final_channels["EJACULATORY_REFLEX_STATE"] <= 0.10
     assert final_channels["EXPULSION_MOTOR_PATTERN_STATE"] <= 0.10
+    assert final_channels["DETUMESCENCE_STATE"] <= 0.10
+    assert final_channels["BLADDER_NECK_EJACULATORY_CLOSURE_STATE"] <= 0.10
 
 
 def test_trace_preserves_contiguous_time_and_hash_provenance() -> None:
@@ -116,3 +128,33 @@ def test_trace_remains_reference_only_without_physical_or_subjective_claims() ->
         sample.subjective_experience_status == "NOT_ESTABLISHED"
         for sample in trace.samples
     )
+
+
+def test_trace_exposes_integrated_systemic_reproductive_and_endocrine_observability() -> None:
+    trace = run_teacher_intimate_reference_trace(
+        runtime_id="RUNTIME-TRACE-COMPLETE-OBSERVABILITY",
+        session_id="SESSION-TRACE-COMPLETE-OBSERVABILITY",
+    )
+
+    required = {
+        "CARDIOVASCULAR_STATE",
+        "RESPIRATORY_STATE",
+        "AUTONOMIC_SYMPATHETIC_STATE",
+        "AUTONOMIC_PARASYMPATHETIC_STATE",
+        "GENITAL_SENSORY_AFFERENT_REFERENCE",
+        "GENITAL_VASCULAR_STATE",
+        "ERECTILE_REFLEX_STATE",
+        "PELVIC_FLOOR_PROPRIOCEPTION",
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+        "DETUMESCENCE_STATE",
+        "ENDOCRINE_REFERENCE_STATE",
+        "GONADAL_ENDOCRINE_REFERENCE",
+    }
+
+    for sample in trace.samples:
+        channels = _channels(sample)
+        assert required.issubset(channels)
+        assert all(0.0 <= channels[channel_id] <= 1.0 for channel_id in required)
