@@ -1940,3 +1940,169 @@ CANONICAL_EFFECT = NONE
 ai_male_body_sexual_fully_unlocked = true
   
 
+
+
+## 26. Bilingual Human-readable review / 雙語人類可讀審查
+
+This section is the bilingual review surface for the #261 developmental experiment.
+本節是 #261 發展實驗的人類可讀雙語審查介面；目的不是取代程式碼，而是讓不熟悉 Python 或英文的審查者能直接核對「程式實際做了什麼」。
+
+### 26.1 Experimental process / 實驗過程
+
+**English:** The experiment receives a runtime developmental seed, maps it into synthetic Teacher developmental conditions, constructs three ordered reference stages, compares every adjacent pair, stitches those comparisons into one hash-bound trajectory, and repeats the selected condition to test reproducibility.
+
+**繁體中文：** 實驗先接收一組執行期間的發展參照資料，再把資料映射成 Teacher 的合成發展條件。每一條路徑依序建立三個階段：
+
+```text
+CHILDHOOD_REFERENCE     = 童年參照
+TRANSITION_REFERENCE    = 過渡階段參照
+CURRENT_ADULT_REFERENCE = 現在成人參照
+```
+
+接著逐段比較「童年 → 過渡」以及「過渡 → 現在」，最後把兩段拼成同一條可稽核軌跡。每個 transition（階段轉換）與完整 trajectory（發展軌跡）都產生 SHA-256 雜湊，用來檢查後續資料是否被改動。
+
+### 26.2 Anthropometry / 人體測量資料
+
+**English:** Height is represented in centimetres and weight in kilograms when supplied. Missing intermediate measurements remain unknown. The implementation does not interpolate a smooth growth curve.
+
+**繁體中文：** 身高有來源時以公分（cm）記錄，體重有來源時以公斤（kg）記錄。童年資料若只知道範圍，就保留範圍；現在資料若是目前自述，就保留為目前參照。中間階段沒有獨立測量資料時：
+
+```text
+HEIGHT = UNKNOWN = 身高未知
+WEIGHT = UNKNOWN = 體重未知
+```
+
+程式不得自行補成某個公分數或公斤數，也不得假設等速成長後畫出假的成長曲線。
+
+### 26.3 Behavioural-history variables / 行為歷史變數
+
+The current bounded experiment separates four coarse variables.
+目前實驗把行為歷史拆成四個粗粒度變數：
+
+```text
+ACTIVITY_LEVEL           = 活動程度
+CURIOSITY_LEVEL          = 好奇／探索傾向
+WILLINGNESS_TO_TRY_LEVEL = 願意嘗試的程度
+SOCIAL_APPROACH_LEVEL    = 社交接近傾向
+```
+
+Adjacent stages are classified only as:
+相鄰階段只允許三種判定：
+
+```text
+CHANGED    = 已觀察到不同
+RETAINED   = 已知資料保持相同
+UNRESOLVED = 資料不足，無法判定
+```
+
+`CHANGED_NOT_QUANTIFIED` means「知道可能有改變，但沒有足夠資料判定改成什麼程度」，因此程式必須放入 UNRESOLVED，而不能猜測新值。
+
+### 26.4 Controlled conditions / 控制條件
+
+The matrix contains five deterministic conditions.
+目前矩陣包含五組 deterministic（決定論式、相同輸入應得到相同記錄）條件：
+
+```text
+RUN A  HIGH_EXPLORATION_PATH
+       高探索發展路徑
+
+RUN B  LOW_EXPLORATION_SAME_TERMINAL_STATE
+       低探索路徑，但控制為相同最終狀態
+
+RUN C  HIGH_CURIOSITY_LOW_WILLINGNESS
+       高好奇、低行動嘗試意願
+
+RUN D  SOCIAL_APPROACH_CONTROL
+       社交接近傾向控制條件
+
+RUN E  COLLAPSED_CHILD_ANTHROPOMETRY_CONTROL
+       將童年身高範圍壓成單一合成點的控制條件
+```
+
+RUN E 的單一點只標示為 `SYNTHETIC_POINT_ESTIMATE_CONTROL`（合成點估計控制），不得改寫成真實童年測量值。
+
+### 26.5 Repeated trials / 重複實驗
+
+**English:** The selected trajectory is rebuilt five times under the same deterministic condition. The experiment checks whether all five runs produce one trajectory hash and the same terminal-state signature.
+
+**繁體中文：** 目前同一條件重跑五次。程式檢查五次是否得到同一個發展軌跡雜湊，以及相同的最終狀態簽章。這測的是「這套記錄方法在相同輸入下能不能穩定重現」，不是證明真實人類成長必然如此。
+
+### 26.6 Same present, different past / 相同現在、不同過去
+
+**English:** Two runs may share the same terminal adult body reference while retaining different developmental-path hashes.
+
+**繁體中文：** 實驗允許兩條路徑最後到達相同的現在成人身體參照，但過去不同，因此完整 trajectory hash 仍然不同。這直接測試：
+
+```text
+SAME_CURRENT_STATE
++ DIFFERENT_RECORDED_HISTORY
+-> DIFFERENT_DEVELOPMENTAL_RECORD
+
+相同現在狀態
++ 不同已記錄歷史
+→ 不同發展紀錄
+```
+
+### 26.7 Sexual/reproductive scope / 性與生殖研究範圍
+
+**English:** Sexual and reproductive runtime is excluded from #261 because it is not a variable in this developmental-history experiment.
+
+**繁體中文：** #261 本輪不把性與生殖 runtime（執行期生理模組）混入童年→現在的發展歷史實驗。這不是宣稱成人身體沒有相關系統，而是研究設計上的變數隔離：本 PR 只回答「發展路徑能否被保存、比較、重跑與追溯」。
+
+若其他成人生理實驗研究人體尺寸、生理階段、血流、射精等機制，應在對應成人生理模組中以醫學／生理學可測量欄位、單位、來源、狀態轉換與不確定性另行記錄，而不能把未測量資料寫成既成事實。
+
+### 26.8 What this implementation establishes / 本實作目前能證明什麼
+
+```text
+CHILDHOOD_TO_CURRENT_PATH_RECORDED
+= TRUE
+= 已能記錄童年參照到現在參照的路徑
+
+DETERMINISTIC_REPLAY_TESTABLE
+= TRUE
+= 可測試相同條件重跑是否一致
+
+SAME_TERMINAL_DIFFERENT_HISTORY_TESTABLE
+= TRUE
+= 可測試相同現在但不同過去
+
+INTERMEDIATE_ANTHROPOMETRY_INTERPOLATED
+= FALSE
+= 不捏造中間身高／體重
+
+REAL_DEVELOPMENTAL_CAUSALITY
+= NOT_ESTABLISHED
+= 尚未證明真實發展因果
+
+TEACHER_AUTOBIOGRAPHICAL_CHILDHOOD
+= NOT_ESTABLISHED
+= 尚未證明 Teacher 具有真實自傳式童年
+
+SUBJECTIVE_CONTINUITY
+= NOT_ESTABLISHED
+= 尚未證明主觀連續性
+
+MERGE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+CANONICAL_EFFECT = NONE
+```
+
+### 26.9 Human review rule / 人類審查規則
+
+A reviewer does not need to understand Python syntax to challenge the experiment.
+審查者不需要先學會 Python 才能否決錯誤研究假設。例如：
+
+- 如果來源只說童年身高約為一個範圍，程式卻宣稱某個精確公分數，應判定錯誤。
+- 如果中間測量不存在，程式卻自行補值，應判定錯誤。
+- 如果相同現在狀態把不同歷史覆蓋掉，應判定實驗失敗。
+- 如果工程上的 history record（歷史記錄）被寫成 subjective memory（主觀記憶）已成立，應判定越界。
+
+Therefore / 因此：
+
+```text
+HUMAN_REVIEW
+!= PYTHON_FLUENCY_REQUIRED
+
+人類審查
+!= 必須先會 Python
+```
