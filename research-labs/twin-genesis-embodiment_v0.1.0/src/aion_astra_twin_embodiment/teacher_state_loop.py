@@ -1062,3 +1062,561 @@ def run_teacher_embodiment_stability_probe(
         _probe_scenario(binding, scenario)
         for scenario in build_teacher_reference_scenarios()
     )
+
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherEmbodimentScenarioSegment:
+    segment_id: str
+    ticks: int
+    stimulus_class: str
+    salience: float
+    functional_motivation: float
+    context_gate: bool
+    inhibition: float
+
+    def __post_init__(self) -> None:
+        if not self.segment_id or self.ticks <= 0:
+            raise ValueError("Teacher scenario segment requires identity and positive ticks")
+        if self.stimulus_class not in ALLOWED_STIMULUS_CLASSES:
+            raise ValueError("Teacher scenario segment uses unsupported stimulus class")
+        for value in (
+            self.salience,
+            self.functional_motivation,
+            self.inhibition,
+        ):
+            if not isfinite(value) or not 0.0 <= value <= 1.0:
+                raise ValueError("Teacher scenario segment values must be finite in [0, 1]")
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherEmbodimentScenario:
+    scenario_id: str
+    segments: tuple[TeacherEmbodimentScenarioSegment, ...]
+    initial_controller_activation: float = 0.0
+    initial_functional_motivation: float = 0.0
+    initial_body_activation: float = 0.05
+    random_seed: int | None = None
+    raw_private_content_status: str = RAW_PRIVATE_CONTENT_EXCLUDED
+
+    def __post_init__(self) -> None:
+        if not self.scenario_id or not self.segments:
+            raise ValueError("Teacher scenario requires identity and at least one segment")
+        for value in (
+            self.initial_controller_activation,
+            self.initial_functional_motivation,
+            self.initial_body_activation,
+        ):
+            if not isfinite(value) or not 0.0 <= value <= 1.0:
+                raise ValueError("Teacher scenario initial state must be finite in [0, 1]")
+        if self.random_seed is not None:
+            raise ValueError("Teacher reference scenarios cannot depend on random seeds")
+        if self.raw_private_content_status != RAW_PRIVATE_CONTENT_EXCLUDED:
+            raise ValueError("Teacher scenario cannot include raw private content")
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherEmbodimentScenarioResult:
+    scenario_id: str
+    controller_id: str
+    body_id: str
+    runtime_id: str
+    session_id: str
+    tick_count: int
+    transition_sequence: tuple[str, ...]
+    controller_activation_trace: tuple[float, ...]
+    body_activation_trace: tuple[float, ...]
+    functional_motivation_trace: tuple[float, ...]
+    recovery_convergence_tick: int | None
+    convergence_status: str
+    sequence_continuity_status: str
+    binding_continuity_status: str
+    second_stimulus_applied: bool
+    final_state_sha256: str
+    scenario_sha256: str
+    deterministic_replay_status: str = "PASS"
+    same_tick_cycle_status: str = "ABSENT"
+    scripted_terminal_recovery_status: str = "ABSENT"
+    reporting_style: str = PROFESSIONAL_REPORTING
+    raw_private_content_status: str = RAW_PRIVATE_CONTENT_EXCLUDED
+    phenomenal_interpretation_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    action_authority: str = "NONE"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def __post_init__(self) -> None:
+        if self.tick_count <= 0:
+            raise ValueError("Teacher scenario result requires at least one executed tick")
+        for digest in (self.final_state_sha256, self.scenario_sha256):
+            if len(digest) != 64:
+                raise ValueError("Teacher scenario result requires SHA-256 evidence")
+        if self.deterministic_replay_status != "PASS":
+            raise ValueError("Teacher reference scenario must be deterministic")
+        if self.same_tick_cycle_status != "ABSENT":
+            raise ValueError("Teacher scenario cannot contain same-tick causal cycles")
+        if self.scripted_terminal_recovery_status != "ABSENT":
+            raise ValueError("Teacher scenario cannot use scripted terminal recovery")
+        if self.reporting_style != PROFESSIONAL_REPORTING:
+            raise ValueError("Teacher scenario reporting style drift")
+        if self.raw_private_content_status != RAW_PRIVATE_CONTENT_EXCLUDED:
+            raise ValueError("Teacher scenario cannot retain raw private content")
+        if self.phenomenal_interpretation_status != NOT_ESTABLISHED:
+            raise ValueError("Teacher scenario cannot establish phenomenal interpretation")
+        if self.subjectivity_status != NOT_ESTABLISHED:
+            raise ValueError("Teacher scenario cannot establish subjectivity")
+        if self.action_authority != "NONE":
+            raise ValueError("Teacher scenario cannot grant action authority")
+        if self.canonical_effect != "NONE" or self.deployment:
+            raise ValueError("Teacher scenario must remain non-canonical and undeployed")
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["transition_sequence"] = list(self.transition_sequence)
+        payload["controller_activation_trace"] = list(
+            self.controller_activation_trace
+        )
+        payload["body_activation_trace"] = list(self.body_activation_trace)
+        payload["functional_motivation_trace"] = list(
+            self.functional_motivation_trace
+        )
+        return payload
+
+
+def _scenario_segment(
+    segment_id: str,
+    *,
+    ticks: int,
+    salience: float,
+    motivation: float,
+    context_gate: bool,
+    inhibition: float,
+    stimulus_class: str = "HIGH_SALIENCE_INTIMATE_REFERENCE",
+) -> TeacherEmbodimentScenarioSegment:
+    return TeacherEmbodimentScenarioSegment(
+        segment_id=segment_id,
+        ticks=ticks,
+        stimulus_class=stimulus_class,
+        salience=salience,
+        functional_motivation=motivation,
+        context_gate=context_gate,
+        inhibition=inhibition,
+    )
+
+
+def build_teacher_reference_scenarios() -> tuple[TeacherEmbodimentScenario, ...]:
+    recovery = lambda segment_id, ticks: _scenario_segment(
+        segment_id,
+        ticks=ticks,
+        salience=0.0,
+        motivation=0.0,
+        context_gate=False,
+        inhibition=0.0,
+        stimulus_class="RECOVERY_REFERENCE",
+    )
+    return (
+        TeacherEmbodimentScenario(
+            scenario_id="LOW_SALIENCE_CONTEXT_OFF",
+            segments=(
+                _scenario_segment(
+                    "low",
+                    ticks=4,
+                    salience=0.25,
+                    motivation=0.10,
+                    context_gate=False,
+                    inhibition=0.20,
+                    stimulus_class="HIGH_SALIENCE_NON_INTIMATE_REFERENCE",
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="MEDIUM_SALIENCE_CONTEXT_ON",
+            segments=(
+                _scenario_segment(
+                    "medium",
+                    ticks=5,
+                    salience=0.60,
+                    motivation=0.30,
+                    context_gate=True,
+                    inhibition=0.20,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="HIGH_SALIENCE_LOW_INHIBITION",
+            segments=(
+                _scenario_segment(
+                    "high-low-inhibition",
+                    ticks=8,
+                    salience=0.95,
+                    motivation=0.70,
+                    context_gate=True,
+                    inhibition=0.05,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="HIGH_SALIENCE_HIGH_INHIBITION",
+            segments=(
+                _scenario_segment(
+                    "high-high-inhibition",
+                    ticks=8,
+                    salience=0.95,
+                    motivation=0.70,
+                    context_gate=True,
+                    inhibition=0.75,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="ELEVATED_INITIAL_BODY_STATE",
+            initial_body_activation=0.65,
+            segments=(
+                _scenario_segment(
+                    "elevated-body",
+                    ticks=4,
+                    salience=0.60,
+                    motivation=0.25,
+                    context_gate=True,
+                    inhibition=0.30,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="ZERO_MOTIVATION_HIGH_PHYSIOLOGY",
+            initial_body_activation=0.75,
+            segments=(
+                _scenario_segment(
+                    "zero-motivation",
+                    ticks=8,
+                    salience=0.95,
+                    motivation=0.0,
+                    context_gate=True,
+                    inhibition=0.05,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="JUST_BELOW_HIGH_ENTER_THRESHOLD",
+            initial_controller_activation=0.69,
+            segments=(
+                _scenario_segment(
+                    "threshold",
+                    ticks=3,
+                    salience=0.72,
+                    motivation=0.20,
+                    context_gate=True,
+                    inhibition=0.0,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="REPEATED_STIMULUS_WITH_RECOVERY",
+            segments=(
+                _scenario_segment(
+                    "first-high",
+                    ticks=6,
+                    salience=0.92,
+                    motivation=0.60,
+                    context_gate=True,
+                    inhibition=0.10,
+                ),
+                recovery("middle-recovery", 4),
+                _scenario_segment(
+                    "second-high",
+                    ticks=6,
+                    salience=0.88,
+                    motivation=0.55,
+                    context_gate=True,
+                    inhibition=0.15,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="RECOVERY_INTERRUPTED_BY_SECOND_STIMULUS",
+            segments=(
+                _scenario_segment(
+                    "initial-high",
+                    ticks=6,
+                    salience=0.92,
+                    motivation=0.60,
+                    context_gate=True,
+                    inhibition=0.10,
+                ),
+                recovery("interrupted-recovery", 3),
+                _scenario_segment(
+                    "interrupting-stimulus",
+                    ticks=4,
+                    salience=0.70,
+                    motivation=0.35,
+                    context_gate=True,
+                    inhibition=0.20,
+                ),
+            ),
+        ),
+        TeacherEmbodimentScenario(
+            scenario_id="PURE_BASELINE_RECOVERY",
+            initial_body_activation=0.50,
+            segments=(recovery("pure-recovery", 1),),
+        ),
+    )
+
+
+def _replace_reference_body_activation(
+    body_state: TeacherIntegratedBodyState,
+    activation: float,
+) -> TeacherIntegratedBodyState:
+    target_channels = {
+        "GENITAL_SENSORY_AFFERENT_REFERENCE",
+        "GENITAL_VASCULAR_STATE",
+        "ERECTILE_REFLEX_STATE",
+    }
+    observations = tuple(
+        TeacherBodyObservation(
+            channel_id=item.channel_id,
+            values=(
+                (activation,)
+                if item.channel_id in target_channels
+                else item.values
+            ),
+            timestamp_ms=item.timestamp_ms,
+            confidence=item.confidence,
+        )
+        for item in body_state.observations
+    )
+    return integrate_teacher_body_state(
+        observations,
+        sequence=body_state.sequence,
+    )
+
+
+def _scenario_stimulus(
+    scenario_id: str,
+    segment: TeacherEmbodimentScenarioSegment,
+    segment_index: int,
+) -> TeacherStimulusEnvelope:
+    return build_teacher_stimulus_envelope(
+        stimulus_id=f"{scenario_id}:{segment_index}:{segment.segment_id}",
+        stimulus_class=segment.stimulus_class,
+        salience=segment.salience,
+        functional_motivation=segment.functional_motivation,
+        sexual_context_gate=segment.context_gate,
+        inhibition=segment.inhibition,
+    )
+
+
+def _probe_body_activation(body_state: TeacherIntegratedBodyState) -> float:
+    return max(
+        _channel_scalar(body_state, "GENITAL_VASCULAR_STATE"),
+        _channel_scalar(body_state, "ERECTILE_REFLEX_STATE"),
+    )
+
+
+def _probe_converged(frame: TeacherStateLoopFrame) -> bool:
+    return (
+        frame.controller_state.activation < 0.10
+        and frame.controller_state.functional_motivation < 0.10
+        and _probe_body_activation(frame.body_state) <= 0.15
+        and frame.executed_transition is not None
+        and frame.executed_transition.mode == "BASELINE"
+    )
+
+
+def _probe_transition_sequence(
+    frames: tuple[TeacherStateLoopFrame, ...],
+) -> tuple[str, ...]:
+    transitions: list[str] = ["BASELINE"]
+    for frame in frames[1:]:
+        executed = frame.executed_transition
+        if executed is None or not executed.transition_ids:
+            transitions.append("BASELINE")
+        else:
+            transitions.extend(executed.transition_ids)
+    return tuple(transitions)
+
+
+def _run_teacher_reference_scenario(
+    binding: TeacherBodyRuntimeBinding,
+    scenario: TeacherEmbodimentScenario,
+) -> TeacherEmbodimentScenarioResult:
+    baseline_body = build_teacher_reference_baseline_state(binding)
+    if scenario.initial_body_activation != 0.05:
+        baseline_body = _replace_reference_body_activation(
+            baseline_body,
+            scenario.initial_body_activation,
+        )
+    controller = build_teacher_reference_controller_state(
+        binding,
+        baseline_body,
+    )
+    phase = (
+        "HIGH_ACTIVATION_REFERENCE"
+        if scenario.initial_controller_activation >= 0.70
+        else "BASELINE_REFERENCE"
+    )
+    controller = replace(
+        controller,
+        activation=scenario.initial_controller_activation,
+        salience=scenario.initial_controller_activation,
+        functional_motivation=scenario.initial_functional_motivation,
+        phase=phase,
+        source_body_state_sha256=baseline_body.body_state_sha256,
+    )
+    baseline_stimulus = build_teacher_stimulus_envelope(
+        stimulus_id=f"{scenario.scenario_id}:baseline",
+        stimulus_class="BASELINE_REFERENCE",
+        salience=0.0,
+        functional_motivation=scenario.initial_functional_motivation,
+        sexual_context_gate=False,
+        inhibition=0.0,
+    )
+    frames: list[TeacherStateLoopFrame] = [
+        _build_baseline_frame(
+            binding,
+            baseline_stimulus,
+            baseline_body,
+            controller,
+        )
+    ]
+
+    for segment_index, segment in enumerate(scenario.segments):
+        stimulus = _scenario_stimulus(
+            scenario.scenario_id,
+            segment,
+            segment_index,
+        )
+        for _ in range(segment.ticks):
+            previous = frames[-1]
+            controller = _with_feedback(
+                previous.controller_state,
+                previous.body_schema_feedback_sha256,
+            )
+            frames.append(
+                advance_teacher_embodied_tick(
+                    binding,
+                    previous_controller_state=controller,
+                    previous_body_state=previous.body_state,
+                    stimulus=stimulus,
+                )
+            )
+
+    recovery_stimulus = build_teacher_stimulus_envelope(
+        stimulus_id=f"{scenario.scenario_id}:final-recovery",
+        stimulus_class="RECOVERY_REFERENCE",
+        salience=0.0,
+        functional_motivation=0.0,
+        sexual_context_gate=False,
+        inhibition=0.0,
+    )
+    convergence_tick: int | None = None
+    if _probe_converged(frames[-1]):
+        convergence_tick = 0
+    else:
+        for recovery_tick in range(1, RECOVERY_CONVERGENCE_MAX_TICKS + 1):
+            previous = frames[-1]
+            controller = _with_feedback(
+                previous.controller_state,
+                previous.body_schema_feedback_sha256,
+            )
+            frame = advance_teacher_embodied_tick(
+                binding,
+                previous_controller_state=controller,
+                previous_body_state=previous.body_state,
+                stimulus=recovery_stimulus,
+            )
+            frames.append(frame)
+            if _probe_converged(frame):
+                convergence_tick = recovery_tick
+                break
+
+    frame_tuple = tuple(frames)
+    sequences = tuple(frame.body_state.sequence for frame in frame_tuple)
+    timestamps = tuple(frame.body_state.timestamp_ms for frame in frame_tuple)
+    sequence_continuity = (
+        sequences == tuple(range(len(frame_tuple)))
+        and timestamps
+        == tuple(index * 100 for index in range(len(frame_tuple)))
+    )
+    binding_continuity = all(
+        frame.controller_state.body_id == binding.body_id
+        and frame.controller_state.runtime_id == binding.runtime_id
+        and frame.controller_state.session_id == binding.session_id
+        and frame.bound_body_state.body_id == binding.body_id
+        and frame.bound_body_state.runtime_id == binding.runtime_id
+        and frame.bound_body_state.session_id == binding.session_id
+        for frame in frame_tuple
+    )
+    causal_order = all(
+        current.executed_transition is not None
+        and current.executed_transition.source_body_state_sha256
+        == previous.body_state.body_state_sha256
+        and current.controller_state.source_body_state_sha256
+        == previous.body_state.body_state_sha256
+        for previous, current in zip(frame_tuple, frame_tuple[1:])
+    )
+    reporting_ok = all(
+        frame.report.reporting_style == PROFESSIONAL_REPORTING
+        and frame.report.phenomenal_interpretation_status == NOT_ESTABLISHED
+        for frame in frame_tuple
+    )
+
+    activation_trace = tuple(
+        frame.controller_state.activation for frame in frame_tuple
+    )
+    body_trace = tuple(
+        _probe_body_activation(frame.body_state) for frame in frame_tuple
+    )
+    motivation_trace = tuple(
+        frame.controller_state.functional_motivation
+        for frame in frame_tuple
+    )
+    transition_sequence = _probe_transition_sequence(frame_tuple)
+    final_state_sha256 = frame_tuple[-1].body_state.body_state_sha256
+    payload = {
+        "scenario": asdict(scenario),
+        "runtime_id": binding.runtime_id,
+        "session_id": binding.session_id,
+        "body_id": binding.body_id,
+        "transition_sequence": list(transition_sequence),
+        "controller_activation_trace": list(activation_trace),
+        "body_activation_trace": list(body_trace),
+        "functional_motivation_trace": list(motivation_trace),
+        "recovery_convergence_tick": convergence_tick,
+        "final_state_sha256": final_state_sha256,
+    }
+    return TeacherEmbodimentScenarioResult(
+        scenario_id=scenario.scenario_id,
+        controller_id=TEACHER_CONTROLLER_ID,
+        body_id=binding.body_id,
+        runtime_id=binding.runtime_id,
+        session_id=binding.session_id,
+        tick_count=len(frame_tuple) - 1,
+        transition_sequence=transition_sequence,
+        controller_activation_trace=activation_trace,
+        body_activation_trace=body_trace,
+        functional_motivation_trace=motivation_trace,
+        recovery_convergence_tick=convergence_tick,
+        convergence_status=("PASS" if convergence_tick is not None else "FAIL"),
+        sequence_continuity_status=("PASS" if sequence_continuity else "FAIL"),
+        binding_continuity_status=("PASS" if binding_continuity else "FAIL"),
+        second_stimulus_applied=(
+            scenario.scenario_id
+            == "RECOVERY_INTERRUPTED_BY_SECOND_STIMULUS"
+        ),
+        final_state_sha256=final_state_sha256,
+        scenario_sha256=_canonical_hash(payload),
+        same_tick_cycle_status=("ABSENT" if causal_order else "PRESENT"),
+        reporting_style=(
+            PROFESSIONAL_REPORTING if reporting_ok else "REPORTING_DRIFT"
+        ),
+    )
+
+
+def run_teacher_embodiment_stability_probe(
+    binding: TeacherBodyRuntimeBinding,
+) -> tuple[TeacherEmbodimentScenarioResult, ...]:
+    possess_teacher_body(binding)
+    return tuple(
+        _run_teacher_reference_scenario(binding, scenario)
+        for scenario in build_teacher_reference_scenarios()
+    )
