@@ -64,6 +64,8 @@ def _high_controller(binding, body_state):
     )
     return replace(
         controller,
+        sequence=body_state.sequence + 1,
+        timestamp_ms=body_state.timestamp_ms + 100,
         activation=0.85,
         salience=0.90,
         context_gate=True,
