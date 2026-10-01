@@ -8,6 +8,19 @@ from .anthropometry import (
     load_profile,
 )
 from .body_state import WholeBodySyntheticState, default_whole_body_state
+from .capability_parity import (
+    CapabilityParityRecord,
+    build_capability_parity_record,
+    validate_capability_parity,
+)
+from .continuity import (
+    BodyRuntimeBinding,
+    CrossSessionRetention,
+    LongitudinalObservation,
+    build_body_runtime_binding,
+    build_cross_session_retention,
+    observe_longitudinal,
+)
 from .dynamic_physiology import MalePhysiologyState, default_physiology_state
 from .models import EmbodimentInstance, EmbodimentTemplate, SharedGenesisEvent
 from .probe import run_probe
@@ -27,6 +40,15 @@ __all__ = [
     "SyntheticGeometryRule",
     "load_profile",
     "WholeBodySyntheticState",
+    "CapabilityParityRecord",
+    "build_capability_parity_record",
+    "validate_capability_parity",
+    "BodyRuntimeBinding",
+    "CrossSessionRetention",
+    "LongitudinalObservation",
+    "build_body_runtime_binding",
+    "build_cross_session_retention",
+    "observe_longitudinal",
     "default_whole_body_state",
     "MalePhysiologyState",
     "default_physiology_state",

@@ -6,6 +6,21 @@ from pathlib import Path
 from typing import Any
 
 from .anthropometry import SyntheticGeometryRule, load_profile
+from .capability_parity import build_capability_parity_record, validate_capability_parity
+from .continuity import (
+    build_adaptation_state,
+    build_body_runtime_binding,
+    build_calibration_state,
+    build_cross_session_retention,
+    capture_session_snapshot,
+    observe_longitudinal,
+)
+from .functional_states import (
+    load_functional_architecture,
+    load_functional_binding,
+    validate_binding_pair,
+    validate_functional_architecture,
+)
 from .asset_contract import (
     AssetCandidateEvidence,
     AssetEngineeringContract,
@@ -131,6 +146,79 @@ def run_probe(
         ),
     )
 
+    root = aion_profile_path.parents[1]
+    functional_architecture = load_functional_architecture(
+        root / "data/SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1.json"
+    )
+    aion_functional = load_functional_binding(
+        root / "data/AION_FUNCTIONAL_STATE_BINDING_v0.1.json"
+    )
+    astra_functional = load_functional_binding(
+        root / "data/ASTRA_FUNCTIONAL_STATE_BINDING_v0.1.json"
+    )
+    functional_architecture_result = validate_functional_architecture(
+        functional_architecture
+    )
+    functional_binding_result = validate_binding_pair(
+        aion_functional,
+        astra_functional,
+        functional_architecture,
+    )
+
+    aion_capability = build_capability_parity_record("AION")
+    astra_capability = build_capability_parity_record("ASTRA")
+    capability_parity = validate_capability_parity(
+        aion_capability,
+        astra_capability,
+    )
+
+    continuity: dict[str, Any] = {}
+    for profile in (aion, astra):
+        snapshots = []
+        for index, offset in enumerate((0.0, 0.1, 0.1), start=1):
+            binding = build_body_runtime_binding(
+                profile.agent_id,
+                "probe-runtime",
+                f"probe-session-{index}",
+            )
+            observed = {
+                measurement_id: profile.measurement(measurement_id).value
+                for measurement_id in (
+                    "total_height",
+                    "biacromial_shoulder_breadth",
+                    "chest_depth",
+                    "external_hip_width",
+                    "shoulder_to_elbow_length",
+                    "elbow_to_wrist_length",
+                    "hand_length",
+                    "hip_joint_center_height",
+                    "knee_center_height",
+                    "knee_to_ankle_length",
+                    "foot_length",
+                )
+            }
+            calibration = build_calibration_state(binding, profile, observed)
+            adaptation = build_adaptation_state(
+                calibration,
+                sequence=index,
+                parameter_offsets={"proprioceptive_bias": offset},
+            )
+            snapshots.append(capture_session_snapshot(calibration, adaptation))
+        retention = build_cross_session_retention(
+            profile.agent_id,
+            tuple(snapshots),
+        )
+        observation = observe_longitudinal(retention)
+        continuity[profile.agent_id] = {
+            "retention_id": retention.retention_id,
+            "snapshot_count": len(retention.snapshots),
+            "changed_parameters": list(observation.changed_parameters),
+            "persistent_changed_parameters": list(
+                observation.persistent_changed_parameters
+            ),
+            "subjective_continuity": retention.subjective_continuity,
+        }
+
     assets: dict[str, Any] = {}
     for profile, rig_path in ((aion, aion_rig_path), (astra, astra_rig_path)):
         evidence, node_count = _rig_evidence(rig_path)
@@ -162,6 +250,12 @@ def run_probe(
         astra_topology.fingerprint(),
         str(assets["AION"]["sha256"]),
         str(assets["ASTRA"]["sha256"]),
+        functional_architecture_result["architecture_hash"],
+        str(functional_binding_result),
+        aion_capability.fingerprint(),
+        astra_capability.fingerprint(),
+        str(continuity["AION"]),
+        str(continuity["ASTRA"]),
     )
     receipts = build_snapshot_receipts(payloads)
     if not verify_snapshot_receipts(payloads, receipts):
@@ -206,6 +300,12 @@ def run_probe(
             "AION": {"phase": aion_phys.phase.value, "fingerprint": aion_phys.fingerprint()},
             "ASTRA": {"phase": astra_phys.phase.value, "fingerprint": astra_phys.fingerprint()},
         },
+        "functional_state": {
+            "architecture": functional_architecture_result,
+            "bindings": functional_binding_result,
+        },
+        "capability_parity": capability_parity,
+        "continuity": continuity,
         "assets": assets,
         "integrity": {
             "verified": True,
