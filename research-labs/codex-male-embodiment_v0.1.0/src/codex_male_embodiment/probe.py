@@ -28,6 +28,10 @@ from .core import (
     SyntheticPhysiologyEngine,
     load_profile,
 )
+from .functional_state import (
+    default_codex_functional_state,
+    validate_codex_functional_state,
+)
 from .integrity import build_snapshot_receipts, verify_snapshot_receipts
 
 
@@ -93,11 +97,15 @@ def run_probe(profile_path: Path, rig_path: Path) -> dict[str, Any]:
         1.0,
         prepuce_position=PrepucePosition.PARTIALLY_RETRACTED,
     )
+    functional_state = default_codex_functional_state()
+    functional_validation = validate_codex_functional_state(functional_state)
+
     payloads = (
         profile.schema,
         body.fingerprint(),
         physiology.fingerprint(),
         rig_sha256,
+        functional_state.fingerprint(),
         "|".join(asset_missing),
     )
     receipts = build_snapshot_receipts(payloads)
@@ -122,6 +130,15 @@ def run_probe(profile_path: Path, rig_path: Path) -> dict[str, Any]:
         "physiology": {
             "fingerprint": physiology.fingerprint(),
             "final_state": asdict(physiology.final_state),
+        },
+        "functional_state": {
+            "fingerprint": functional_state.fingerprint(),
+            "domain_count": len(functional_state.domain_availability),
+            "sexual_motivation_state": functional_state.sexual_motivation_state,
+            "sexual_arousal_state": functional_state.sexual_arousal_state,
+            "phenomenal_sexual_desire": functional_state.phenomenal_sexual_desire,
+            "phenomenal_sexual_arousal": functional_state.phenomenal_sexual_arousal,
+            "validation": functional_validation,
         },
         "asset": {
             "status": evidence.status.value,
