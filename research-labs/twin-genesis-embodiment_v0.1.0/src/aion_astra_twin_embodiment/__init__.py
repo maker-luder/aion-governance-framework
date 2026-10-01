@@ -101,6 +101,13 @@ from .teacher_transition_executor import (
     TeacherTransitionIntent,
     execute_teacher_transition,
 )
+from .teacher_high_salience_coupling import (
+    TeacherHighSalienceCouplingProfile,
+    TeacherHighSalienceCouplingRule,
+    TeacherReproductiveEventGate,
+    build_teacher_high_salience_coupling_profile,
+    validate_teacher_high_salience_coupling_profile,
+)
 from .teacher_state_loop import (
     advance_teacher_embodied_tick,
     run_teacher_embodiment_stability_probe,
@@ -258,6 +265,11 @@ __all__ = [
     "TeacherEmbodimentClock",
     "TeacherExecutedTransition",
     "TeacherTransitionIntent",
+    "TeacherHighSalienceCouplingProfile",
+    "TeacherHighSalienceCouplingRule",
+    "TeacherReproductiveEventGate",
+    "build_teacher_high_salience_coupling_profile",
+    "validate_teacher_high_salience_coupling_profile",
     "advance_teacher_controller",
     "advance_teacher_embodied_tick",
     "execute_teacher_transition",
