@@ -1,0 +1,118 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "AION governance bounded Codex procedural rig reference"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "root",
+      "children": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ]
+    },
+    {
+      "name": "pelvis"
+    },
+    {
+      "name": "spine"
+    },
+    {
+      "name": "chest"
+    },
+    {
+      "name": "neck"
+    },
+    {
+      "name": "head"
+    },
+    {
+      "name": "left_upper_arm"
+    },
+    {
+      "name": "left_forearm"
+    },
+    {
+      "name": "left_hand"
+    },
+    {
+      "name": "right_upper_arm"
+    },
+    {
+      "name": "right_forearm"
+    },
+    {
+      "name": "right_hand"
+    },
+    {
+      "name": "left_thigh"
+    },
+    {
+      "name": "left_shin"
+    },
+    {
+      "name": "left_foot"
+    },
+    {
+      "name": "right_thigh"
+    },
+    {
+      "name": "right_shin"
+    },
+    {
+      "name": "right_foot"
+    },
+    {
+      "name": "penis"
+    },
+    {
+      "name": "glans"
+    },
+    {
+      "name": "prepuce"
+    },
+    {
+      "name": "frenulum"
+    },
+    {
+      "name": "scrotum"
+    }
+  ],
+  "extras": {
+    "body_id": "CODEX_SYNTHETIC_MALE_BODY_REFERENCE_v0.1",
+    "status": "PROCEDURAL_RIG_REFERENCE_NO_MESH",
+    "mesh_count": 0,
+    "physical_body": false,
+    "as_built_verified": false,
+    "canonical_effect": "NONE",
+    "deployment": false
+  }
+}
