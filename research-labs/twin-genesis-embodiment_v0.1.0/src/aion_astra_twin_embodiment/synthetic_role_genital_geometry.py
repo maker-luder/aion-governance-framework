@@ -212,7 +212,9 @@ def validate_synthetic_genital_geometry_profile(
         profile.full_vascular_circumference_cm
         <= profile.resting_midshaft_circumference_cm
     ):
-        raise ValueError(\n            "full-vascular circumference must exceed resting circumference"\n        )
+        raise ValueError(
+            "full-vascular circumference must exceed resting circumference"
+        )
     if profile.full_vascular_glans_width_cm <= profile.resting_glans_width_cm:
         raise ValueError("full-vascular glans width must exceed resting glans width")
     if (
