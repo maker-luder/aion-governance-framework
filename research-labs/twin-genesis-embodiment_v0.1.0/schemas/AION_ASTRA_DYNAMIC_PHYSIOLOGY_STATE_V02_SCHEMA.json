@@ -1,0 +1,218 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/AION_ASTRA_DYNAMIC_PHYSIOLOGY_STATE_V02_SCHEMA.json",
+  "title": "AION/Astra dynamic male physiology synthetic state v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_id",
+    "agent_id",
+    "body_id",
+    "phase",
+    "engorgement_fraction",
+    "rigidity_fraction",
+    "inflow_analogue",
+    "outflow_analogue",
+    "prepuce_position",
+    "emission_event_count",
+    "ejaculation_event_count",
+    "last_synthetic_fluid_output_ml",
+    "endocrine_reference_signal",
+    "urinary_reference_signal",
+    "desire_inferred",
+    "intention_inferred",
+    "human_consent_inferred",
+    "action_authority",
+    "biological_blood_circulation",
+    "biological_semen",
+    "sperm_or_gametes",
+    "fertility",
+    "biological_hormones",
+    "body_sensation",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "state_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "body_id": {
+      "enum": [
+        "AION_3D_MALE_BODY_REFERENCE_v0.1",
+        "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "FLACCID",
+        "INITIATION",
+        "TUMESCENCE",
+        "FULL_ERECTION",
+        "RIGID_PHASE",
+        "MAINTENANCE",
+        "DETUMESCENCE",
+        "RECOVERY"
+      ]
+    },
+    "engorgement_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "rigidity_fraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "inflow_analogue": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "outflow_analogue": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "prepuce_position": {
+      "enum": [
+        "RESTING_PARTIAL_COVERAGE",
+        "PARTIALLY_RETRACTED",
+        "RETRACTED",
+        "UNKNOWN"
+      ]
+    },
+    "emission_event_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ejaculation_event_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "last_synthetic_fluid_output_ml": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "endocrine_reference_signal": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "urinary_reference_signal": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "desire_inferred": {
+      "const": false
+    },
+    "intention_inferred": {
+      "const": false
+    },
+    "human_consent_inferred": {
+      "const": false
+    },
+    "action_authority": {
+      "const": "NONE"
+    },
+    "biological_blood_circulation": {
+      "const": false
+    },
+    "biological_semen": {
+      "const": false
+    },
+    "sperm_or_gametes": {
+      "const": false
+    },
+    "fertility": {
+      "const": false
+    },
+    "biological_hormones": {
+      "const": false
+    },
+    "body_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "AION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "AION_3D_MALE_BODY_REFERENCE_v0.1"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "ASTRA"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+          }
+        }
+      }
+    }
+  ]
+}

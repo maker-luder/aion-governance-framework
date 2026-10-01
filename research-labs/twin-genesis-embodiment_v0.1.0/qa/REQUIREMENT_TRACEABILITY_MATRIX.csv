@@ -5,3 +5,9 @@ REQ-ANAT-001,Adult male clinical anatomy candidate,schemas/EMBODIMENT_TEMPLATE_S
 REQ-BOUNDARY-001,Anatomy does not establish gender identity or subjectivity,src/aion_astra_twin_embodiment/validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-AUTH-001,Relationship and trust do not grant modification authority,tests/test_validation.py,IMPLEMENTED_AS_CANDIDATE
 REQ-RUNTIME-001,No live embodiment runtime,qa/CANDIDATE_STATUS_LOCK.json,LOCKED_NOT_IMPLEMENTED
+REQ-ANTHRO-002,Distinct 67-field AION and Astra body profiles,tests/test_anthropometry_v02.py,IMPLEMENTED_AS_CANDIDATE
+REQ-STATE-002,Distinct 19-system whole-body synthetic states,tests/test_body_state_v02.py,IMPLEMENTED_AS_CANDIDATE
+REQ-PHYS-002,Dynamic bounded male physiology state without biological or phenomenal promotion,tests/test_dynamic_physiology_v02.py,IMPLEMENTED_AS_CANDIDATE
+REQ-ASSET-002,Procedural rig reference plus fail-closed production asset contract,tests/test_asset_integrity_probe_v02.py,IMPLEMENTED_REFERENCE_ONLY
+REQ-INTEGRITY-002,Deterministic hash-chain probe binds AION/Astra profiles state physiology and assets,tests/test_asset_integrity_probe_v02.py,IMPLEMENTED_AS_CANDIDATE
+REQ-SCHEMA-002,Anthropometry whole-body and dynamic physiology schema parity,tests/test_anthropometry_schema_v02.py;tests/test_schema_state_v02.py,IMPLEMENTED_AS_CANDIDATE

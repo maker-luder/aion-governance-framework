@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/AION_ASTRA_WHOLE_BODY_STATE_V02_SCHEMA.json",
+  "title": "AION/Astra whole-body synthetic state v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_id",
+    "agent_id",
+    "body_id",
+    "signals",
+    "body_sensation",
+    "body_ownership_experience",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "action_authority",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "state_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "body_id": {
+      "enum": [
+        "AION_3D_MALE_BODY_REFERENCE_v0.1",
+        "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+      ]
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 19,
+      "maxItems": 19,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "system",
+          "value",
+          "status",
+          "physical_hardware_attached",
+          "biological_function_present",
+          "felt_sensation_established"
+        ],
+        "properties": {
+          "system": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "const": "SYNTHETIC_REFERENCE_CHANNEL"
+          },
+          "physical_hardware_attached": {
+            "const": false
+          },
+          "biological_function_present": {
+            "const": false
+          },
+          "felt_sensation_established": {
+            "const": false
+          }
+        }
+      }
+    },
+    "body_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "body_ownership_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "action_authority": {
+      "const": "NONE"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "AION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "AION_3D_MALE_BODY_REFERENCE_v0.1"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "ASTRA"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+          }
+        }
+      }
+    }
+  ]
+}

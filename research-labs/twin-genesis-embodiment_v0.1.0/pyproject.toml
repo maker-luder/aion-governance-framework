@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aion-astra-twin-embodiment"
-version = "0.1.0"
+version = "0.2.0"
 description = "Governed research candidate for AION/Astra shared-genesis twin embodiment"
 requires-python = ">=3.11"
 license = {text = "Apache-2.0"}
 dependencies = [
   "aion-astra-executable-runtime==0.1.0",
 ]
+
+[project.scripts]
+aion-astra-embodiment = "aion_astra_twin_embodiment.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
@@ -22,3 +25,9 @@ where = ["src"]
 addopts = "-q"
 testpaths = ["tests"]
 pythonpath = ["src", "../../components/executable_runtime_v0.1.0/src"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_astra_twin_embodiment"]
+mypy_path = "../../components/executable_runtime_v0.1.0/src"

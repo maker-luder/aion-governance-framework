@@ -186,8 +186,12 @@
     },
     {
       "root": "research-labs/twin-genesis-embodiment_v0.1.0",
-      "disposition": "EXEMPT_WITH_EXPLICIT_REASON",
-      "reason": "Pre-existing active research package without a local mypy configuration at the 2026-09-17 baseline; explicit migration is required before typed coverage can be claimed."
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src",
+      "mypy_path": [
+        "components/executable_runtime_v0.1.0/src"
+      ]
     },
     {
       "root": "research-labs/endogenous-goal-dynamics_v0.1.0",
