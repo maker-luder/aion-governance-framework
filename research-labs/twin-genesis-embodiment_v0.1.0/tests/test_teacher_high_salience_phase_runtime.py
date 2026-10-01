@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import replace
 import importlib
 
+import pytest
+
 from aion_astra_twin_embodiment import teacher_state_loop as state_loop
 from aion_astra_twin_embodiment.teacher_body_dynamics import (
     TeacherBodyObservation,
@@ -339,3 +341,99 @@ def test_state_loop_recovery_executes_mixed_detumescence_transition() -> None:
     assert _scalar(frame.body_state, "DETUMESCENCE_STATE") > before_detumescence
     assert _scalar(frame.body_state, "GENITAL_VASCULAR_STATE") < before_vascular
     assert frame.high_salience_phase_state.phase == "DETUMESCENCE"
+
+def test_tick_local_emission_gate_can_drop_after_entry_without_runtime_failure() -> None:
+    coupling = _coupling_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-TICK-LOCAL-EMISSION-HOLD",
+        "SESSION-TICK-LOCAL-EMISSION-HOLD",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.20,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.20,
+    )
+    controller = _high_controller(binding, body)
+    previous = coupling.TeacherHighSaliencePhaseState(
+        phase="EMISSION",
+        previous_phase="ERECTILE_MAINTENANCE",
+        sequence=body.sequence,
+        source_body_state_sha256=body.body_state_sha256,
+        reproductive_event="EMISSION_REFERENCE_REQUEST",
+    )
+
+    phase = coupling.resolve_teacher_high_salience_phase(
+        previous,
+        controller,
+        body,
+        reproductive_event_gate=TeacherReproductiveEventGate(),
+    )
+    intent = coupling.coordinate_teacher_high_salience_runtime(
+        phase,
+        controller,
+        body,
+        reproductive_event_gate=TeacherReproductiveEventGate(),
+    )
+
+    assert phase.phase == "EMISSION"
+    assert phase.previous_phase == "EMISSION"
+    assert phase.reproductive_event == "NONE"
+    assert intent.transition_ids == ()
+    assert intent.mode == "MAINTENANCE"
+    assert "EMISSION_AUTONOMIC_REPRODUCTIVE_REFERENCE" in intent.runtime_rule_ids
+
+
+def test_event_phase_entry_rejects_invalid_predecessor_jumps() -> None:
+    coupling = _coupling_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-EVENT-PREDECESSOR-GUARD",
+        "SESSION-EVENT-PREDECESSOR-GUARD",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.80,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.80,
+    )
+    controller = _high_controller(binding, body)
+    baseline_phase = coupling.build_teacher_high_salience_baseline_phase(body)
+
+    emission_gate = TeacherReproductiveEventGate(
+        event="EMISSION_REFERENCE_REQUEST"
+    )
+    emission_phase = coupling.resolve_teacher_high_salience_phase(
+        baseline_phase,
+        controller,
+        body,
+        reproductive_event_gate=emission_gate,
+    )
+    with pytest.raises(ValueError, match="maintenance predecessor"):
+        coupling.coordinate_teacher_high_salience_runtime(
+            emission_phase,
+            controller,
+            body,
+            reproductive_event_gate=emission_gate,
+        )
+
+    expulsion_gate = TeacherReproductiveEventGate(
+        event="EXPULSION_REFERENCE_REQUEST"
+    )
+    expulsion_phase = coupling.resolve_teacher_high_salience_phase(
+        baseline_phase,
+        controller,
+        body,
+        reproductive_event_gate=expulsion_gate,
+    )
+    with pytest.raises(ValueError, match="emission predecessor"):
+        coupling.coordinate_teacher_high_salience_runtime(
+            expulsion_phase,
+            controller,
+            body,
+            reproductive_event_gate=expulsion_gate,
+        )
+
