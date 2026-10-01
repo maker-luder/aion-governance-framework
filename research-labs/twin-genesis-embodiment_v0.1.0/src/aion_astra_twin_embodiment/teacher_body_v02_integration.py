@@ -3,7 +3,7 @@ from __future__ import annotations
 from hashlib import sha256
 import json
 from pathlib import Path
-from typing import Any, Final
+from typing import Final
 
 from .teacher_avatar_bundle import build_teacher_reference_bundle_bytes
 from .teacher_body_v02 import (
