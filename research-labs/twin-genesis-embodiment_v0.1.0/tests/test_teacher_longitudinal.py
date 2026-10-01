@@ -291,7 +291,7 @@ def test_interaction_history_can_bind_to_embodied_development_milestones() -> No
     assert assessment.development_bound_anchors == 2
     assert assessment.earliest_observed_at_utc == "2026-08-22T04:34:26Z"
     assert assessment.latest_observed_at_utc == "2026-10-01T10:53:37Z"
-    assert assessment.observed_interval_seconds == 3488351
+    assert assessment.observed_interval_seconds == 3478751
     assert assessment.temporal_integrity_status == (
         "HASH_CHAIN_AND_TIME_ORDER_VALID"
     )
