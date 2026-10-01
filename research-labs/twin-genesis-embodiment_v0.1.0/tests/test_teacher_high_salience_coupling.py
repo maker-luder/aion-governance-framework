@@ -96,6 +96,25 @@ def test_endocrine_rule_is_slow_observation_only_without_fake_runtime_channel() 
     assert profile.acute_gonadal_endocrine_auto_drive == "ABSENT"
 
 
+def test_post_expulsion_recovery_rule_is_evidence_bounded_without_duration_model() -> None:
+    module = _module()
+    profile = module.build_teacher_high_salience_coupling_profile()
+    recovery = {
+        rule.coupling_id: rule for rule in profile.rules
+    }["POST_EXPULSION_RECOVERY_REFERENCE"]
+
+    assert recovery.coupling_class == "EVENT_DRIVEN_REFERENCE"
+    assert recovery.runtime_channel_status == "PARTIAL_REFERENCE"
+    assert set(recovery.target_channels) == {
+        "DETUMESCENCE_STATE",
+        "GENITAL_VASCULAR_STATE",
+        "POST_EXPULSION_RECOVERY_STATE",
+    }
+    assert "REFRACTORY_DURATION_NOT_MODELED" in recovery.execution_status
+    assert "PMID:26385403" in recovery.evidence_ids
+    assert "PMID:26457680" in recovery.evidence_ids
+
+
 def test_profile_never_reuses_exercise_transition_for_high_salience_state() -> None:
     module = _module()
     profile = module.build_teacher_high_salience_coupling_profile()
