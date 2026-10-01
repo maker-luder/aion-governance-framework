@@ -70,6 +70,22 @@ That is insufficient for `EJACULATORY_REFLEX_TO_DETUMESCENCE`, because the refer
 
 The next increment therefore adds explicit per-channel effects while preserving the legacy executor for compatibility.
 
+### Ruling 6 — initiation phase precedes controller high-hysteresis
+
+The persistent controller uses hysteresis for `HIGH_ACTIVATION_REFERENCE`:
+
+- enter threshold = `0.70`;
+- exit threshold = `0.55`;
+- per-tick activation rate limit = `0.15`.
+
+The high-salience physiology phase resolver must not wait for the controller to cross `0.70` before it can represent `AROUSAL_INITIATION`. Otherwise the software phase named "initiation" would appear only after several controller ticks.
+
+Therefore a context-gated controller state with nonzero salience and activation may enter `AROUSAL_INITIATION` while the controller itself still remains `BASELINE_REFERENCE`.
+
+This does not lower the controller's hysteresis thresholds and does not authorize systemic cardiorespiratory or endocrine forcing.
+
+`REFERENCE_PHASE_INITIATION != CONTROLLER_HIGH_ACTIVATION_THRESHOLD`
+
 ## Scope of this successor
 
 Implement only:
