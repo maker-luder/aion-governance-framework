@@ -228,33 +228,38 @@ This is not sufficiently supported as an acute emission-state transition and ris
 
 Remove `GONADAL_ENDOCRINE_REFERENCE` from this transition.
 
-Replace the emission transition's body channels with evidence-aligned event channels already present in the Teacher schema:
+Replace the emission transition's directly executable channels with event-specific channels already present in the Teacher schema:
 
 - `EMISSION_REFLEX_STATE`;
-- `BLADDER_NECK_EJACULATORY_CLOSURE_STATE`;
-- `AUTONOMIC_SYMPATHETIC_STATE`.
+- `BLADDER_NECK_EJACULATORY_CLOSURE_STATE`.
+
+The coupling profile must separately record sympathetic/autonomic coordination as evidence-supported, but the generic executor must **not** numerically force `AUTONOMIC_SYMPATHETIC_STATE` until a phase-calibrated autonomic target policy exists.
 
 ### 8.3 Correct EMISSION_TO_EJACULATORY_REFLEX
 
 The expulsion/ejaculatory phase must emphasize somatic/pelvic motor coordination.
 
-Use:
+Use these directly executable event-specific channels:
 
 - `EJACULATORY_REFLEX_STATE`;
-- `PELVIC_FLOOR_PROPRIOCEPTION`;
 - `EXPULSION_MOTOR_PATTERN_STATE`.
+
+The coupling profile records pelvic-floor/pudendal coordination as evidence-supported, but `PELVIC_FLOOR_PROPRIOCEPTION` is not numerically forced by the generic executor in this successor because its baseline is non-zero and no calibrated phase target is established.
 
 Do not infer orgasm from this transition.
 
 ### 8.4 Recovery
 
-Post-expulsion recovery may include:
+Add a directly executable `REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY` transition for event-specific channels that have a zero reference baseline:
 
-- `POST_EXPULSION_RECOVERY_STATE`;
-- `DETUMESCENCE_STATE`;
-- `GENITAL_VASCULAR_STATE`.
+- `EMISSION_REFLEX_STATE`;
+- `BLADDER_NECK_EJACULATORY_CLOSURE_STATE`;
+- `EJACULATORY_REFLEX_STATE`;
+- `EXPULSION_MOTOR_PATTERN_STATE`.
 
-The active transition graph must preserve a route back to baseline.
+Genital vascular recovery continues through the existing `VASCULAR_RESPONSE_TO_BASELINE_RECOVERY` transition. Detumescence/post-expulsion channels may remain observable metadata until a directionally correct phase-target policy is separately materialized.
+
+The active transition graph must preserve a route back to baseline without forcing non-zero-baseline autonomic or proprioceptive channels to zero.
 
 ## 9. Explicit event gates
 
@@ -502,8 +507,8 @@ Minimum tests:
 6. prolactin is not mapped onto a generic pituitary channel;
 7. acute testosterone/gonadal endocrine automatic drive is absent;
 8. `MAINTENANCE_TO_EMISSION` no longer touches `GONADAL_ENDOCRINE_REFERENCE`;
-9. emission transition includes sympathetic + emission + bladder-neck closure reference;
-10. expulsion transition includes ejaculatory-reflex + pelvic-floor + expulsion motor pattern;
+9. emission executable transition includes emission + bladder-neck closure reference, while sympathetic coordination is present in coupling metadata;
+10. expulsion executable transition includes ejaculatory-reflex + expulsion motor pattern, while pelvic-floor/pudendal coordination is present in coupling metadata;
 11. high activation alone cannot select emission;
 12. emission requires the explicit event gate;
 13. expulsion requires the explicit event gate;
