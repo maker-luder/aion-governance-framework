@@ -55,6 +55,7 @@ A lifecycle conclusion must specify which head it is evaluating.
 - `SEMANTICALLY_SUPERSEDED`: later implementation replaces the earlier responsibility without preserving the same file/API identity.
 - `PRESERVED_INDEPENDENT_ARCHIVE`: intentionally separate historical research record; no forced merge is required.
 - `LATEST_CLOSED_SUCCESSOR`: latest known closed/unmerged successor for a lineage; retained as the current research endpoint without implying merge to main.
+- `DEFERRED_REENTRY_CANDIDATE`: historically bounded delta that is not carried by the active successor and is intentionally queued for a separately scoped re-entry rather than auto-merged.
 - `REQUIRES_SEMANTIC_RECONCILIATION`: divergence or missing-path evidence remains and must be reviewed before any successor claim.
 - `OUT_OF_SCOPE`: not part of this embodiment convergence batch.
 
@@ -217,21 +218,17 @@ PR #243 descends from #193.
 
 `feat: shift Teacher Codex Work to young-adult presentation`
 
-Status: `REQUIRES_SEMANTIC_RECONCILIATION`
+Status: `DEFERRED_REENTRY_CANDIDATE`
 
-Its four presentation-profile files are not present by path in the later Teacher #254, Work #248, or Codex #249 heads.
-
-Because this is a cross-role presentation layer, it must not be silently assigned to any one role successor.
+The 25–29 synthetic visual-presentation decision is not carried by later Teacher/Work/Codex successors. Preserve it as a cross-role presentation re-entry candidate. It is a visual/presentation delta, not evidence of a physiology or runtime capability gap.
 
 ### PR #194
 
 `research: extend synthetic role genital geometry dynamics`
 
-Status: `REQUIRES_SEMANTIC_RECONCILIATION`
+Status: `DEFERRED_REENTRY_CANDIDATE`
 
-The branch diverges from later role successors, and its four dedicated synthetic-role genital-geometry files are not present by path in PR #243.
-
-A semantic comparison is required before deciding whether later role-specific geometry supersedes it.
+The cross-role genital-geometry parameters and dynamics are not carried into the later Work/Codex/Teacher successor branches. Preserve this as a bounded re-entry candidate; do not silently infer that generic reproductive-sexual channels reproduce the same geometry semantics.
 
 ## Sensorimotor / archive-convergence lineage
 
@@ -289,7 +286,7 @@ Independent records / latest endpoints that should not be force-merged:
 3. Perform semantic review only for the unresolved reconciliation set.
 4. If a real capability/governance delta remains, create a narrowly scoped successor branch for that lineage.
 5. Do not create a single mega-merge branch across all embodiment history.
-6. After every unresolved item has a final status, update this ledger to eliminate `REQUIRES_SEMANTIC_RECONCILIATION`.
+6. `REQUIRES_SEMANTIC_RECONCILIATION = 0` for this audited set. Any future re-entry must open a narrowly scoped successor from the relevant source evidence.
 
 ## Nonclaims
 
