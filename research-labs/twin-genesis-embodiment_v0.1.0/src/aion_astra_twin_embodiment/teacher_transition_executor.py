@@ -19,7 +19,10 @@ from .teacher_embodied_controller import (
 )
 
 
-from .teacher_high_salience_coupling import TeacherReproductiveEventGate
+from .teacher_high_salience_coupling import (
+    TeacherHighSalienceRuntimeIntent,
+    TeacherReproductiveEventGate,
+)
 
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
@@ -333,6 +336,140 @@ def execute_teacher_transition(
     payload = {
         "transition_ids": list(intent.transition_ids),
         "mode": intent.mode,
+        "touched_channel_ids": list(touched),
+        "source_body_state_sha256": previous_body_state.body_state_sha256,
+        "source_controller_sha256": controller_state.fingerprint(),
+        "source_motivation_body_state_sha256": (
+            motivation.source_body_state_sha256
+        ),
+        "sequence": clock.sequence,
+        "timestamp_ms": clock.timestamp_ms,
+        "observations": [item.to_dict() for item in observations],
+    }
+    return TeacherExecutedTransition(
+        transition_ids=intent.transition_ids,
+        mode=intent.mode,
+        touched_channel_ids=touched,
+        source_body_state_sha256=previous_body_state.body_state_sha256,
+        source_controller_sha256=controller_state.fingerprint(),
+        source_motivation_body_state_sha256=(
+            motivation.source_body_state_sha256
+        ),
+        sequence=clock.sequence,
+        timestamp_ms=clock.timestamp_ms,
+        observations=observations,
+        transition_sha256=_canonical_hash(payload),
+    )
+
+
+
+def execute_teacher_high_salience_transition(
+    previous_body_state: TeacherIntegratedBodyState,
+    controller_state: TeacherEmbodiedControllerState,
+    motivation: TeacherMotivationalRepresentation,
+    intent: TeacherHighSalienceRuntimeIntent,
+    clock: TeacherEmbodimentClock,
+    profile: TeacherBodyDynamicsProfile | None = None,
+) -> TeacherExecutedTransition:
+    profile = profile or build_teacher_body_dynamics_profile()
+    if controller_state.sequence != clock.sequence:
+        raise ValueError("controller/clock sequence must match for execution")
+    if controller_state.timestamp_ms != clock.timestamp_ms:
+        raise ValueError("controller/clock timestamp must match for execution")
+    if controller_state.source_body_state_sha256 != previous_body_state.body_state_sha256:
+        raise ValueError("controller/body source hash drift")
+    if motivation.source_body_state_sha256 != previous_body_state.body_state_sha256:
+        raise ValueError("motivation/body source hash drift")
+    if motivation.wanting_weight != controller_state.functional_motivation:
+        raise ValueError("motivation/controller functional motivation drift")
+    if intent.source_body_state_sha256 != previous_body_state.body_state_sha256:
+        raise ValueError("high-salience intent/body source hash drift")
+    if intent.source_controller_sha256 != controller_state.fingerprint():
+        raise ValueError("high-salience intent/controller source hash drift")
+    if clock.sequence != previous_body_state.sequence + 1:
+        raise ValueError("transition clock must advance exactly one tick")
+    if clock.timestamp_ms != previous_body_state.timestamp_ms + clock.dt_ms:
+        raise ValueError("transition timestamp must advance exactly one tick")
+
+    index = _profile_transition_index(profile)
+    resolved = []
+    for transition_id in intent.transition_ids:
+        transition = index.get(transition_id)
+        if transition is None:
+            raise ValueError(
+                f"unknown physiological transition: {transition_id}"
+            )
+        if transition_id in {
+            "REST_TO_EXERTION",
+            "RESPIRATORY_BASELINE_TO_WORKLOAD",
+            "ENDOCRINE_BASELINE_TO_ADAPTIVE_RESPONSE",
+        }:
+            raise ValueError("high-salience runtime cannot execute unrelated transition")
+        resolved.append(transition)
+
+    touched = tuple(
+        sorted(
+            {
+                channel_id
+                for transition in resolved
+                for channel_id in transition.trigger_channels
+            }
+        )
+    )
+    effect_map = {
+        item.channel_id: item
+        for item in intent.channel_effects
+    }
+    if set(effect_map) != set(touched):
+        raise ValueError(
+            "high-salience channel effects must exactly cover transition channels"
+        )
+
+    by_id = {
+        observation.channel_id: observation
+        for observation in previous_body_state.observations
+    }
+    missing = sorted(set(touched) - by_id.keys())
+    if missing:
+        raise ValueError(
+            f"missing required transition channel: {missing}"
+        )
+
+    output: list[TeacherBodyObservation] = []
+    touched_set = set(touched)
+    for observation in previous_body_state.observations:
+        values = observation.values
+        if observation.channel_id in touched_set:
+            effect = effect_map[observation.channel_id]
+            target = (
+                effect.software_reference_drive
+                if effect.direction_class == "INCREASE_REFERENCE"
+                else 0.0
+            )
+            values = tuple(
+                _move_toward(value, target)
+                for value in observation.values
+            )
+        output.append(
+            TeacherBodyObservation(
+                channel_id=observation.channel_id,
+                values=values,
+                timestamp_ms=clock.timestamp_ms,
+                confidence=observation.confidence,
+            )
+        )
+
+    observations = tuple(output)
+    payload = {
+        "transition_ids": list(intent.transition_ids),
+        "mode": intent.mode,
+        "phase": intent.phase,
+        "channel_effects": [
+            item.to_dict() for item in intent.channel_effects
+        ],
+        "runtime_rule_ids": list(intent.runtime_rule_ids),
+        "nonemitting_rule_ids": list(intent.nonemitting_rule_ids),
+        "source_intent_sha256": intent.intent_sha256,
         "touched_channel_ids": list(touched),
         "source_body_state_sha256": previous_body_state.body_state_sha256,
         "source_controller_sha256": controller_state.fingerprint(),
