@@ -158,7 +158,21 @@ class ReproductiveTopologyReference:
             raise ValueError("canonical/deployment effect forbidden")
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        return {
+            "agent_id": self.agent_id,
+            "body_id": self.body_id,
+            "nodes": [asdict(node) for node in self.nodes],
+            "edges": [asdict(edge) for edge in self.edges],
+            "physical_tissue": self.physical_tissue,
+            "biological_organism": self.biological_organism,
+            "felt_sensation": self.felt_sensation,
+            "subjectivity": self.subjectivity,
+            "consciousness": self.consciousness,
+            "phenomenal_experience": self.phenomenal_experience,
+            "action_authority": self.action_authority,
+            "canonical_effect": self.canonical_effect,
+            "deployment": self.deployment,
+        }
 
     def fingerprint(self) -> str:
         payload = json.dumps(
