@@ -1343,6 +1343,7 @@ DEVELOPMENTAL_ANTHROPOMETRY_PRECISION: Final[frozenset[str]] = frozenset(
     {
         "APPROXIMATE_SELF_REPORT",
         "CURRENT_SELF_REPORT",
+        "SYNTHETIC_POINT_ESTIMATE_CONTROL",
         "UNKNOWN",
     }
 )
@@ -1360,8 +1361,8 @@ class TeacherDevelopmentalHumanSeed:
     childhood_willingness_to_try_level: str
     childhood_social_approach_level: str
     current_activity_level: str = "CHANGED_NOT_QUANTIFIED"
-    current_curiosity_level: str = "HIGH"
-    current_willingness_to_try_level: str = "HIGH"
+    current_curiosity_level: str = "CHANGED_NOT_QUANTIFIED"
+    current_willingness_to_try_level: str = "CHANGED_NOT_QUANTIFIED"
     current_social_approach_level: str = "CHANGED_NOT_QUANTIFIED"
     source_status: str = "RUNTIME_HUMAN_PROVIDED_SEED"
     persistence_policy: str = "DO_NOT_PERSIST_PERSONAL_VALUES"
@@ -1729,13 +1730,20 @@ def build_human_inspired_teacher_development_experiment_matrix(
         stage_id="TRANSITION-SOCIAL-CONTROL",
         social_approach_level="MODERATE",
     )
-    childhood_range_preserved = replace(
+    childhood_point_control = replace(
         childhood_high,
-        stage_id="CHILD-RANGE-PRESERVED",
+        stage_id="CHILD-POINT-ESTIMATE-CONTROL",
+        height_cm_min=(
+            seed.childhood_height_cm_min + seed.childhood_height_cm_max
+        ) / 2.0,
+        height_cm_max=(
+            seed.childhood_height_cm_min + seed.childhood_height_cm_max
+        ) / 2.0,
+        anthropometry_precision="SYNTHETIC_POINT_ESTIMATE_CONTROL",
     )
-    transition_range_preserved = replace(
+    transition_point_control = replace(
         transition_high,
-        stage_id="TRANSITION-RANGE-PRESERVED",
+        stage_id="TRANSITION-POINT-ESTIMATE-CONTROL",
     )
 
     runs = (
@@ -1773,10 +1781,10 @@ def build_human_inspired_teacher_development_experiment_matrix(
         ),
         build_teacher_developmental_embodiment_run(
             run_id="DEV-RUN-E",
-            condition_id="UNCERTAIN_CHILD_ANTHROPOMETRY_PRESERVED",
+            condition_id="COLLAPSED_CHILD_ANTHROPOMETRY_CONTROL",
             stages=(
-                childhood_range_preserved,
-                transition_range_preserved,
+                childhood_point_control,
+                transition_point_control,
                 adult_common,
             ),
         ),
