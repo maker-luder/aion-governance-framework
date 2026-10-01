@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/AION_ASTRA_CONTINUITY_V01_SCHEMA.json",
+  "title": "AION/Astra cross-session embodiment retention v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "retention_id",
+    "agent_id",
+    "body_id",
+    "snapshots",
+    "retention_status",
+    "identity_continuity_claim",
+    "subjective_continuity",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "retention_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "body_id": {
+      "enum": [
+        "AION_3D_MALE_BODY_REFERENCE_v0.1",
+        "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+      ]
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agent_id",
+          "body_id",
+          "session_id",
+          "binding_id",
+          "calibration_receipt",
+          "calibration_mean_absolute_error",
+          "adaptation_sequence",
+          "adaptation_parameters",
+          "snapshot_sha256"
+        ],
+        "properties": {
+          "agent_id": {
+            "enum": [
+              "AION",
+              "ASTRA"
+            ]
+          },
+          "body_id": {
+            "enum": [
+              "AION_3D_MALE_BODY_REFERENCE_v0.1",
+              "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+            ]
+          },
+          "session_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "binding_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "calibration_receipt": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "calibration_mean_absolute_error": {
+            "type": "number",
+            "minimum": 0
+          },
+          "adaptation_sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "adaptation_parameters": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "minItems": 2,
+              "maxItems": 2
+            }
+          },
+          "snapshot_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "retention_status": {
+      "const": "MATERIALIZED_DURABLE_REFERENCE"
+    },
+    "identity_continuity_claim": {
+      "const": "NONE"
+    },
+    "subjective_continuity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "AION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "AION_3D_MALE_BODY_REFERENCE_v0.1"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "ASTRA"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+          }
+        }
+      }
+    }
+  ]
+}
