@@ -35,6 +35,7 @@ from .teacher_embodied_controller import (
     fingerprint_teacher_body_schema_feedback,
     possess_teacher_body,
 )
+from .teacher_high_salience_coupling import TeacherReproductiveEventGate
 from .teacher_transition_executor import (
     TeacherExecutedTransition,
     execute_teacher_transition,
@@ -311,6 +312,22 @@ def build_teacher_reference_baseline_state(
             timestamp_ms,
         ),
         TeacherBodyObservation("DETUMESCENCE_STATE", (0.0,), timestamp_ms),
+        TeacherBodyObservation("EMISSION_REFLEX_STATE", (0.0,), timestamp_ms),
+        TeacherBodyObservation(
+            "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "EJACULATORY_REFLEX_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "EXPULSION_MOTOR_PATTERN_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
     )
     return integrate_teacher_body_state(observations, sequence=0)
 
@@ -355,6 +372,10 @@ def _selected_channel_values(
         "ERECTILE_REFLEX_STATE",
         "PELVIC_FLOOR_PROPRIOCEPTION",
         "DETUMESCENCE_STATE",
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
     }
     values: list[tuple[str, float]] = []
     for observation in body_state.observations:
@@ -440,6 +461,7 @@ def advance_teacher_embodied_tick(
     previous_body_state: TeacherIntegratedBodyState,
     stimulus: TeacherStimulusEnvelope,
     policy: TeacherEmbodimentRatePolicy | None = None,
+    reproductive_event_gate: TeacherReproductiveEventGate | None = None,
 ) -> TeacherStateLoopFrame:
     possess_teacher_body(binding)
     if previous_controller_state.runtime_id != binding.runtime_id:
@@ -484,6 +506,7 @@ def advance_teacher_embodied_tick(
     intent = select_teacher_transition_intent(
         controller_state,
         previous_body_state,
+        reproductive_event_gate=reproductive_event_gate,
     )
     executed = execute_teacher_transition(
         previous_body_state,
