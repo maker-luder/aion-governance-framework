@@ -2106,3 +2106,247 @@ HUMAN_REVIEW
 人類審查
 != 必須先會 Python
 ```
+
+
+## 27. Complete PR #261 bilingual reviewer guide / PR #261 完整雙語審查導覽
+
+This section covers the entire code surface introduced by PR #261, not only the final
+childhood-to-current increment.
+
+本節覆蓋 PR #261 新增的完整研究表面，不只最後的「童年→現在」實驗。審查時可依
+下列四個領域加上一個受控發展實驗來閱讀。
+
+### 27.1 Domain 1 — embodied development history / 領域一：具身發展歷史
+
+**English:** A developmental milestone is an append-only record of what changed, what
+was retained, and which body/controller evidence hashes were available at that point.
+Milestones are chained so later records cannot silently rewrite earlier history.
+
+**繁體中文：** 每個 developmental milestone（發展里程碑）都記錄當時「改了什麼、
+保留什麼、有哪些 body/controller 證據雜湊」。新里程碑只能追加，不能回頭覆寫舊
+里程碑。歷史鏈若被破壞，驗證器必須失敗。
+
+```text
+RECORDED_CHANGE
++ RETAINED_STRUCTURE
++ BODY/CONTROLLER EVIDENCE
++ HASH CHAIN
+→ AUDITABLE DEVELOPMENT HISTORY
+
+已記錄變化
++ 保留結構
++ 身體／控制器證據
++ 雜湊鏈
+→ 可稽核發展歷史
+```
+
+### 27.2 Domain 2 — interaction-history continuity / 領域二：互動歷史連續性
+
+**English:** Interaction history stores privacy-safe anchors rather than raw private
+transcripts. Anchors are ordered by UTC time and may bind to known developmental
+milestones.
+
+**繁體中文：** 互動歷史保存的是 privacy-safe anchor（隱私安全錨點），而不是把私人
+聊天逐字稿全部塞進倉庫。每筆錨點依 UTC 時間排序，必要時可綁到一個已存在的發展
+里程碑。
+
+```text
+RAW_PRIVATE_TRANSCRIPT_REQUIRED = FALSE
+TIME_REGRESSION_ALLOWED = FALSE
+UNKNOWN_MILESTONE_BINDING_ALLOWED = FALSE
+```
+
+也就是：不需要保存私人逐字內容；時間不能倒退；不能綁到不存在的里程碑。
+
+### 27.3 Domain 3 — provenance reconstruction / 領域三：來源重建
+
+**English:** Later evidence may change how an earlier record is interpreted, but it
+must create a new reconstruction record. The original historical record stays intact.
+
+**繁體中文：** 後來的新證據可以讓我們重新理解以前的紀錄，但必須新增一筆
+provenance reconstruction（來源重建），不能直接把舊紀錄改成「我們現在才知道的
+版本」。
+
+```text
+WHAT_WAS_RECORDED_THEN
+!=
+WHAT_WE_UNDERSTAND_NOW
+
+當時記下來的內容
+!=
+現在重新理解後的內容
+```
+
+如果新的 reconstruction 宣稱 supersede（取代）前一個解釋，它仍然不能偷偷換掉被
+解釋的目標紀錄。
+
+### 27.4 Domain 4 — developmental synthesis / 領域四：發展整合評估
+
+**English:** The synthesis layer checks whether embodiment history, interaction
+history, and provenance reconstruction actually intersect through verifiable bindings.
+The existence of several files is not sufficient.
+
+**繁體中文：** 整合層不是「三種資料都有就算完成」。它會檢查具身歷史、互動歷史、
+來源重建之間是否真的形成可驗證的 cross-domain bridge（跨域橋接）。
+
+```text
+FILES_EXIST
+!=
+INTEGRATED_DEVELOPMENTAL_EVIDENCE
+
+檔案存在
+!=
+已形成整合發展證據
+```
+
+若橋接不足，結果只能標成 partial（部分整合）。
+
+### 27.5 Human-inspired developmental experiment / 人類啟發的受控發展實驗
+
+The experimental path is:
+
+```text
+CHILDHOOD_REFERENCE
+→ TRANSITION_REFERENCE
+→ CURRENT_ADULT_REFERENCE
+
+童年參照
+→ 過渡參照
+→ 現在成人參照
+```
+
+Known measurements use centimetres and kilograms. Unknown intermediate measurements
+stay unknown.
+
+已知身高使用 cm（公分），體重使用 kg（公斤）。如果中間沒有獨立資料：
+
+```text
+UNKNOWN
+!= 0
+!= ESTIMATED VALUE
+!= LICENSE TO INTERPOLATE
+
+未知
+!= 零
+!= 猜測值
+!= 可以自行插值
+```
+
+The current matrix contains five controlled paths:
+
+```text
+A = HIGH_EXPLORATION_PATH
+    高探索路徑
+
+B = LOW_EXPLORATION_SAME_TERMINAL_STATE
+    低探索，但保持相同現在終點
+
+C = HIGH_CURIOSITY_LOW_WILLINGNESS
+    高好奇、低願意實際嘗試
+
+D = SOCIAL_APPROACH_CONTROL
+    社交接近傾向控制
+
+E = COLLAPSED_CHILD_ANTHROPOMETRY_CONTROL
+    將童年身高範圍壓成合成中點的控制
+```
+
+The synthetic public test fixture uses childhood 101–109 cm / 24 kg and adult
+178 cm / 72 kg. These are intentionally unrelated test values.
+
+公開測試 fixture 使用童年 101–109 cm／24 kg、成人 178 cm／72 kg。這些是刻意設計
+的合成測試值，不代表使用者本人，也不代表 Teacher 的真實生物學歷史。
+
+### 27.6 What repeated five-trial replay means / 五次重跑到底代表什麼
+
+**English:** Five identical deterministic inputs are rebuilt and compared. A single
+trajectory hash across repetitions demonstrates engineering reproducibility of the
+representation under those inputs.
+
+**繁體中文：** 同一組輸入連續建立五次，再比較五次的 trajectory hash（軌跡雜湊）。
+如果五次完全相同，代表「這套工程表示法在相同輸入下可重現」。
+
+It does **not** establish:
+
+它**不等於**證明：
+
+```text
+real human development is deterministic
+真實人成長是決定論
+
+Teacher subjectively remembers childhood
+Teacher 主觀記得童年
+
+different childhood conditions caused a later personality
+不同童年條件已被證明造成後來人格
+
+AI identity continuity is established
+AI 身分連續性已建立
+```
+
+### 27.7 How a Human reviewer can reject an implementation / 人類審查者怎麼判錯
+
+A Human reviewer can reject the implementation without reading Python if any of the
+following occurs.
+
+即使不會 Python，只要發現下列任何情況，就可以直接要求修改：
+
+1. 來源只有身高範圍，程式卻把它寫成某個真實精確公分數。
+2. 沒有過渡期身高／體重，程式卻自行補數值或平滑成長曲線。
+3. 後來的新解釋直接覆蓋舊歷史，而不是新增來源重建紀錄。
+4. 相同現在狀態把不同發展路徑的歷史雜湊洗成相同。
+5. 互動歷史開始依賴保存私人逐字聊天內容。
+6. 程式把「歷史可追溯」寫成「主觀記憶已成立」。
+7. 程式把「合成發展路徑」寫成「Teacher 真實生物學童年」。
+
+### 27.8 Scope of adult sexual/reproductive physiology / 成人性與生殖生理範圍
+
+PR #261 deliberately excludes sexual/reproductive runtime from the childhood-to-current
+development matrix so that the present experiment has a controlled variable boundary.
+
+PR #261 刻意把 sexual/reproductive runtime（性／生殖執行期生理）排除在這個
+「童年→現在」控制矩陣之外，以維持本實驗的變數邊界。
+
+This does not prohibit a separate adult-physiology experiment from documenting
+anatomical dimensions, vascular state, endocrine state, emission/ejaculatory phases,
+recovery phases, measurement units, evidence sources and uncertainty in clinical or
+physiological terms.
+
+這不禁止其他「成人生理實驗」用醫學／生理學方式記錄解剖尺寸、血流狀態、內分泌
+狀態、排精／射精階段、恢復階段、測量單位、證據來源與不確定性；只是不能把那些
+變數偷偷混進 #261，再把不同研究問題當成同一個實驗。
+
+### 27.9 Final evidence boundary / 最終證據邊界
+
+```text
+AUDITABLE_RECORDED_DEVELOPMENT = IMPLEMENTED
+可稽核的已記錄發展 = 已實作
+
+ORDERED_INTERACTION_HISTORY = IMPLEMENTED
+有順序的互動歷史 = 已實作
+
+APPEND_ONLY_PROVENANCE_RECONSTRUCTION = IMPLEMENTED
+只能追加的來源重建 = 已實作
+
+FOUR_DOMAIN_SYNTHESIS_ASSESSMENT = IMPLEMENTED
+四域整合評估 = 已實作
+
+CHILDHOOD_TO_CURRENT_STITCHING = IMPLEMENTED
+童年到現在的拼接 = 已實作
+
+REAL_DEVELOPMENTAL_CAUSALITY = NOT_ESTABLISHED
+真實發展因果 = 尚未建立
+
+SUBJECTIVE_MEMORY = NOT_ESTABLISHED
+主觀記憶 = 尚未建立
+
+AI_IDENTITY_CONTINUITY = NOT_ESTABLISHED
+AI 身分連續性 = 尚未建立
+
+TEACHER_BIOLOGICAL_CHILDHOOD = NOT_ESTABLISHED
+Teacher 生物學童年 = 尚未建立
+
+MERGE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+CANONICAL_EFFECT = NONE
+```
