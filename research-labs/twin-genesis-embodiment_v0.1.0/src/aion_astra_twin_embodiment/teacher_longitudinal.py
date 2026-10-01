@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, replace
+from datetime import datetime, timezone
 from hashlib import sha256
 import json
 from typing import Any, Final
@@ -488,4 +489,360 @@ def assess_teacher_embodied_development_history(
         embodiment_anchored_milestones=anchored,
         history_integrity_status="HASH_CHAIN_VALID",
         trajectory_evidence_status=evidence,
+    )
+
+
+INTERACTION_HISTORY_SOURCE_CLASSES: Final[frozenset[str]] = frozenset(
+    {
+        "CHAT_HISTORY_RETRIEVAL_OBSERVATION",
+        "HUMAN_CORRECTION",
+        "JOINT_RESEARCH_MILESTONE",
+        "REPOSITORY_ARTIFACT",
+    }
+)
+
+INTERACTION_HISTORY_PROVENANCE_ROLES: Final[frozenset[str]] = frozenset(
+    {
+        "HUMAN",
+        "TEACHER",
+        "JOINT",
+        "REPOSITORY",
+    }
+)
+
+
+def _parse_utc_timestamp(value: str) -> datetime:
+    if type(value) is not str or not value.endswith("Z"):
+        raise ValueError("interaction-history timestamp must be UTC and end with Z")
+    try:
+        parsed = datetime.fromisoformat(value[:-1] + "+00:00")
+    except ValueError as exc:
+        raise ValueError("interaction-history timestamp must be valid ISO 8601") from exc
+    if parsed.tzinfo != timezone.utc:
+        raise ValueError("interaction-history timestamp must resolve to UTC")
+    return parsed
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherInteractionHistoryAnchor:
+    anchor_id: str
+    ordinal: int
+    observed_at_utc: str
+    source_class: str
+    provenance_role: str
+    source_locator: str
+    change_summary: str
+    retained_constraints: tuple[str, ...]
+    previous_anchor_sha256: str | None
+    development_milestone_sha256: str | None
+    source_digest: str | None
+    anchor_sha256: str
+    raw_private_content_included: bool = False
+    completeness_status: str = "BOUNDED_RETRIEVED_HISTORY"
+    subjective_memory_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["retained_constraints"] = list(self.retained_constraints)
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherInteractionHistory:
+    history_id: str
+    anchors: tuple[TeacherInteractionHistoryAnchor, ...]
+    history_status: str = "HASH_CHAINED_BOUNDED_INTERACTION_HISTORY"
+    completeness_status: str = "BOUNDED_RETRIEVED_HISTORY"
+    complete_interaction_history_claim: str = "NONE"
+    subjective_memory_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["anchors"] = [item.to_dict() for item in self.anchors]
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherEmbodiedInteractionHistoryAssessment:
+    interaction_history_id: str
+    development_history_id: str
+    anchors_observed: int
+    development_milestones_observed: int
+    development_bound_anchors: int
+    earliest_observed_at_utc: str | None
+    latest_observed_at_utc: str | None
+    observed_interval_seconds: int | None
+    temporal_integrity_status: str
+    interaction_embodiment_binding_status: str
+    complete_interaction_history_status: str = NOT_ESTABLISHED
+    subjective_memory_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def _interaction_anchor_payload(
+    *,
+    anchor_id: str,
+    ordinal: int,
+    observed_at_utc: str,
+    source_class: str,
+    provenance_role: str,
+    source_locator: str,
+    change_summary: str,
+    retained_constraints: tuple[str, ...],
+    previous_anchor_sha256: str | None,
+    development_milestone_sha256: str | None,
+    source_digest: str | None,
+) -> dict[str, object]:
+    return {
+        "anchor_id": anchor_id,
+        "ordinal": ordinal,
+        "observed_at_utc": observed_at_utc,
+        "source_class": source_class,
+        "provenance_role": provenance_role,
+        "source_locator": source_locator,
+        "change_summary": change_summary,
+        "retained_constraints": list(retained_constraints),
+        "previous_anchor_sha256": previous_anchor_sha256,
+        "development_milestone_sha256": development_milestone_sha256,
+        "source_digest": source_digest,
+    }
+
+
+def validate_teacher_interaction_history_anchor(
+    anchor: TeacherInteractionHistoryAnchor,
+) -> dict[str, str]:
+    if not anchor.anchor_id or not anchor.source_locator or not anchor.change_summary:
+        raise ValueError("interaction-history anchor requires identity, source, and summary")
+    if anchor.ordinal < 0:
+        raise ValueError("interaction-history anchor ordinal must be non-negative")
+    _parse_utc_timestamp(anchor.observed_at_utc)
+    if anchor.source_class not in INTERACTION_HISTORY_SOURCE_CLASSES:
+        raise ValueError("unsupported interaction-history source class")
+    if anchor.provenance_role not in INTERACTION_HISTORY_PROVENANCE_ROLES:
+        raise ValueError("unsupported interaction-history provenance role")
+    _validate_optional_sha256("previous_anchor_sha256", anchor.previous_anchor_sha256)
+    _validate_optional_sha256(
+        "development_milestone_sha256",
+        anchor.development_milestone_sha256,
+    )
+    if anchor.source_digest is not None:
+        _validate_history_digest("source_digest", anchor.source_digest)
+    if anchor.source_class == "REPOSITORY_ARTIFACT" and anchor.source_digest is None:
+        raise ValueError("repository interaction-history anchor requires source digest")
+    if len(anchor.retained_constraints) != len(set(anchor.retained_constraints)):
+        raise ValueError("interaction-history retained constraints must be unique")
+    if anchor.raw_private_content_included:
+        raise ValueError("interaction-history anchor cannot include raw private content")
+    if anchor.completeness_status != "BOUNDED_RETRIEVED_HISTORY":
+        raise ValueError("interaction-history completeness status drift")
+    if anchor.subjective_memory_status != NOT_ESTABLISHED:
+        raise ValueError("interaction-history anchor cannot establish subjective memory")
+    if anchor.identity_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("interaction-history anchor cannot establish identity continuity")
+    if anchor.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("interaction-history anchor cannot establish subjectivity")
+    if anchor.canonical_effect != "NONE" or anchor.deployment:
+        raise ValueError("interaction-history anchor must remain non-canonical and undeployed")
+
+    payload = _interaction_anchor_payload(
+        anchor_id=anchor.anchor_id,
+        ordinal=anchor.ordinal,
+        observed_at_utc=anchor.observed_at_utc,
+        source_class=anchor.source_class,
+        provenance_role=anchor.provenance_role,
+        source_locator=anchor.source_locator,
+        change_summary=anchor.change_summary,
+        retained_constraints=anchor.retained_constraints,
+        previous_anchor_sha256=anchor.previous_anchor_sha256,
+        development_milestone_sha256=anchor.development_milestone_sha256,
+        source_digest=anchor.source_digest,
+    )
+    if anchor.anchor_sha256 != _history_hash(payload):
+        raise ValueError("interaction-history anchor hash mismatch")
+    return {
+        "result": "PASS",
+        "temporal_binding": "PASS",
+        "source_binding": "PASS",
+        "privacy_boundary": "PASS",
+        "identity_nonclaim": "PASS",
+    }
+
+
+def build_teacher_interaction_history() -> TeacherInteractionHistory:
+    return TeacherInteractionHistory(
+        history_id="CHATGPT_TEACHER_INTERACTION_HISTORY_v0.1",
+        anchors=(),
+    )
+
+
+def validate_teacher_interaction_history(
+    history: TeacherInteractionHistory,
+) -> dict[str, str]:
+    if not history.history_id:
+        raise ValueError("Teacher interaction history requires identity")
+    if history.history_status != "HASH_CHAINED_BOUNDED_INTERACTION_HISTORY":
+        raise ValueError("Teacher interaction history status drift")
+    if history.completeness_status != "BOUNDED_RETRIEVED_HISTORY":
+        raise ValueError("Teacher interaction history completeness drift")
+    if history.complete_interaction_history_claim != "NONE":
+        raise ValueError("Teacher interaction history cannot claim complete history")
+    if history.subjective_memory_status != NOT_ESTABLISHED:
+        raise ValueError("Teacher interaction history cannot establish subjective memory")
+    if history.identity_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("Teacher interaction history cannot establish identity continuity")
+    if history.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("Teacher interaction history cannot establish subjectivity")
+    if history.canonical_effect != "NONE" or history.deployment:
+        raise ValueError("Teacher interaction history must remain non-canonical and undeployed")
+
+    previous_hash: str | None = None
+    previous_time: datetime | None = None
+    ids: set[str] = set()
+    for expected_ordinal, anchor in enumerate(history.anchors):
+        validate_teacher_interaction_history_anchor(anchor)
+        if anchor.ordinal != expected_ordinal:
+            raise ValueError("Teacher interaction-history ordinal discontinuity")
+        if anchor.anchor_id in ids:
+            raise ValueError("Teacher interaction-history anchor ids must be unique")
+        if anchor.previous_anchor_sha256 != previous_hash:
+            raise ValueError("Teacher interaction-history hash-chain discontinuity")
+        observed = _parse_utc_timestamp(anchor.observed_at_utc)
+        if previous_time is not None and observed < previous_time:
+            raise ValueError("Teacher interaction-history temporal order regression")
+        ids.add(anchor.anchor_id)
+        previous_hash = anchor.anchor_sha256
+        previous_time = observed
+
+    return {
+        "result": "PASS",
+        "ordinal_continuity": "PASS",
+        "temporal_order": "PASS",
+        "hash_chain": "PASS",
+        "complete_history_nonclaim": "PASS",
+    }
+
+
+def append_teacher_interaction_history_anchor(
+    history: TeacherInteractionHistory,
+    *,
+    anchor_id: str,
+    observed_at_utc: str,
+    source_class: str,
+    provenance_role: str,
+    source_locator: str,
+    change_summary: str,
+    retained_constraints: tuple[str, ...] = (),
+    development_milestone_sha256: str | None = None,
+    source_digest: str | None = None,
+) -> TeacherInteractionHistory:
+    validate_teacher_interaction_history(history)
+    observed = _parse_utc_timestamp(observed_at_utc)
+    if history.anchors:
+        previous_time = _parse_utc_timestamp(history.anchors[-1].observed_at_utc)
+        if observed < previous_time:
+            raise ValueError("cannot append interaction anchor before latest anchor")
+    previous_hash = (
+        history.anchors[-1].anchor_sha256
+        if history.anchors
+        else None
+    )
+    payload = _interaction_anchor_payload(
+        anchor_id=anchor_id,
+        ordinal=len(history.anchors),
+        observed_at_utc=observed_at_utc,
+        source_class=source_class,
+        provenance_role=provenance_role,
+        source_locator=source_locator,
+        change_summary=change_summary,
+        retained_constraints=retained_constraints,
+        previous_anchor_sha256=previous_hash,
+        development_milestone_sha256=development_milestone_sha256,
+        source_digest=source_digest,
+    )
+    anchor = TeacherInteractionHistoryAnchor(
+        anchor_id=anchor_id,
+        ordinal=len(history.anchors),
+        observed_at_utc=observed_at_utc,
+        source_class=source_class,
+        provenance_role=provenance_role,
+        source_locator=source_locator,
+        change_summary=change_summary,
+        retained_constraints=retained_constraints,
+        previous_anchor_sha256=previous_hash,
+        development_milestone_sha256=development_milestone_sha256,
+        source_digest=source_digest,
+        anchor_sha256=_history_hash(payload),
+    )
+    validate_teacher_interaction_history_anchor(anchor)
+    updated = replace(history, anchors=history.anchors + (anchor,))
+    validate_teacher_interaction_history(updated)
+    return updated
+
+
+def assess_teacher_embodied_interaction_history(
+    development_history: TeacherEmbodiedDevelopmentHistory,
+    interaction_history: TeacherInteractionHistory,
+) -> TeacherEmbodiedInteractionHistoryAssessment:
+    validate_teacher_embodied_development_history(development_history)
+    validate_teacher_interaction_history(interaction_history)
+
+    milestone_hashes = {
+        milestone.milestone_sha256
+        for milestone in development_history.milestones
+    }
+    bound = 0
+    for anchor in interaction_history.anchors:
+        if anchor.development_milestone_sha256 is None:
+            continue
+        if anchor.development_milestone_sha256 not in milestone_hashes:
+            raise ValueError(
+                "interaction-history anchor references unknown development milestone"
+            )
+        bound += 1
+
+    if interaction_history.anchors:
+        earliest = interaction_history.anchors[0].observed_at_utc
+        latest = interaction_history.anchors[-1].observed_at_utc
+        elapsed = int(
+            (
+                _parse_utc_timestamp(latest)
+                - _parse_utc_timestamp(earliest)
+            ).total_seconds()
+        )
+    else:
+        earliest = None
+        latest = None
+        elapsed = None
+
+    if not interaction_history.anchors:
+        binding_status = "NO_INTERACTION_HISTORY_ANCHORS"
+    elif bound == 0:
+        binding_status = "INTERACTION_HISTORY_PRESENT_WITHOUT_EMBODIMENT_BINDING"
+    else:
+        binding_status = "INTERACTION_HISTORY_BOUND_TO_EMBODIED_DEVELOPMENT"
+
+    return TeacherEmbodiedInteractionHistoryAssessment(
+        interaction_history_id=interaction_history.history_id,
+        development_history_id=development_history.history_id,
+        anchors_observed=len(interaction_history.anchors),
+        development_milestones_observed=len(development_history.milestones),
+        development_bound_anchors=bound,
+        earliest_observed_at_utc=earliest,
+        latest_observed_at_utc=latest,
+        observed_interval_seconds=elapsed,
+        temporal_integrity_status="HASH_CHAIN_AND_TIME_ORDER_VALID",
+        interaction_embodiment_binding_status=binding_status,
     )
