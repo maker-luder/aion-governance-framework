@@ -370,12 +370,18 @@ def test_runtime_reproductive_event_path_requires_explicit_gates_and_recovers() 
         body,
     )
 
-    for channel_id in (
+    event_channels = (
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
-    ):
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
+    )
+    for channel_id in event_channels:
         assert _body_scalar_for_event_test(body, channel_id) == 0.0
 
     high = state_loop.build_teacher_stimulus_envelope(
@@ -436,6 +442,18 @@ def test_runtime_reproductive_event_path_requires_explicit_gates_and_recovers() 
         body,
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
     ) >= 0.50
+    assert _body_scalar_for_event_test(
+        body,
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+    ) >= 0.50
+    assert _body_scalar_for_event_test(
+        body,
+        "ACCESSORY_GLAND_SECRETION_STATE",
+    ) >= 0.50
+    assert _body_scalar_for_event_test(
+        body,
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
+    ) >= 0.50
 
     expulsion_gate = TeacherReproductiveEventGate(
         event="EXPULSION_REFERENCE_REQUEST"
@@ -451,6 +469,14 @@ def test_runtime_reproductive_event_path_requires_explicit_gates_and_recovers() 
 
     assert _body_scalar_for_event_test(body, "EJACULATORY_REFLEX_STATE") >= 0.50
     assert _body_scalar_for_event_test(body, "EXPULSION_MOTOR_PATTERN_STATE") >= 0.50
+    assert _body_scalar_for_event_test(
+        body,
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+    ) >= 0.50
+    assert _body_scalar_for_event_test(
+        body,
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
+    ) >= 0.50
 
     recovery = state_loop.build_teacher_stimulus_envelope(
         stimulus_id="TEACHER-EVENT-PATH-RECOVERY",
@@ -463,29 +489,38 @@ def test_runtime_reproductive_event_path_requires_explicit_gates_and_recovers() 
     recovery_gate = TeacherReproductiveEventGate(
         event="RECOVERY_REFERENCE_REQUEST"
     )
-    for _ in range(30):
+    post_expulsion_recovery_values = []
+    for _ in range(40):
         recovered = advance(recovery, recovery_gate)
         assert recovered.executed_transition is not None
-        if all(
-            _body_scalar_for_event_test(body, channel_id) <= 0.10
-            for channel_id in (
-                "EMISSION_REFLEX_STATE",
-                "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
-                "EJACULATORY_REFLEX_STATE",
-                "EXPULSION_MOTOR_PATTERN_STATE",
+        post_expulsion_recovery_values.append(
+            _body_scalar_for_event_test(
+                body,
+                "POST_EXPULSION_RECOVERY_STATE",
             )
+        )
+        if (
+            all(
+                _body_scalar_for_event_test(body, channel_id) <= 0.10
+                for channel_id in event_channels
+            )
+            and _body_scalar_for_event_test(
+                body,
+                "POST_EXPULSION_RECOVERY_STATE",
+            )
+            <= 0.10
         ):
             break
 
     assert all(
         _body_scalar_for_event_test(body, channel_id) <= 0.10
-        for channel_id in (
-            "EMISSION_REFLEX_STATE",
-            "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
-            "EJACULATORY_REFLEX_STATE",
-            "EXPULSION_MOTOR_PATTERN_STATE",
-        )
+        for channel_id in event_channels
     )
+    assert max(post_expulsion_recovery_values) > 0.05
+    assert _body_scalar_for_event_test(
+        body,
+        "POST_EXPULSION_RECOVERY_STATE",
+    ) <= 0.10
     assert all(frame.controller_state.functional_motivation == 0.0 for frame in frames)
     assert all(
         frame.report.phenomenal_interpretation_status == "NOT_ESTABLISHED"
