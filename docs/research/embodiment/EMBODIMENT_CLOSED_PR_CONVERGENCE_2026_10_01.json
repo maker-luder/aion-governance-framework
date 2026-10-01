@@ -21,175 +21,267 @@
       "pr": 190,
       "status": "SEMANTICALLY_SUPERSEDED",
       "successor": 247,
-      "note": "All touched paths remain in #247; some later modified."
+      "note": "All touched paths remain in #247; some later modified.",
+      "pr_recorded_head": "066ed1afccebee869eb658c09691b7f096694332",
+      "live_branch_head": "066ed1afccebee869eb658c09691b7f096694332",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 191,
       "status": "REQUIRES_SEMANTIC_RECONCILIATION",
       "successor": 247,
-      "note": "13 touched paths absent by path in #247; semantic review required."
+      "note": "13 touched paths absent by path in #247; semantic review required.",
+      "pr_recorded_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2",
+      "live_branch_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 192,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 254,
-      "note": "Ancestor through #241/#250/#253."
+      "note": "Ancestor through #241/#250/#253.",
+      "pr_recorded_head": "e4d2061b0ea6f9b422169ee342ad3e2f76e96323",
+      "live_branch_head": "e4d2061b0ea6f9b422169ee342ad3e2f76e96323",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 193,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 243,
-      "note": "Direct ancestry."
+      "note": "Direct ancestry.",
+      "pr_recorded_head": "92fbbbfc745bed7e7be5503e39085e9c148e92de",
+      "live_branch_head": "92fbbbfc745bed7e7be5503e39085e9c148e92de",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 194,
       "status": "REQUIRES_SEMANTIC_RECONCILIATION",
       "successor": null,
-      "note": "Dedicated synthetic-role genital geometry lineage diverges."
+      "note": "Dedicated synthetic-role genital geometry lineage diverges.",
+      "pr_recorded_head": "2b87c11c7860787b2dc54c56b049c06471102c18",
+      "live_branch_head": "2b87c11c7860787b2dc54c56b049c06471102c18",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 202,
       "status": "REQUIRES_SEMANTIC_RECONCILIATION",
       "successor": 210,
-      "note": "Sensorimotor protocol/schema/module/test absent by path from merged #210."
+      "note": "Sensorimotor protocol/schema/module/test absent by path from merged #210.",
+      "pr_recorded_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108",
+      "live_branch_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 203,
       "status": "REQUIRES_SEMANTIC_RECONCILIATION",
       "successor": 210,
-      "note": "Historical convergence ledger/module/test absent by path from merged #210."
+      "note": "Historical convergence ledger/module/test absent by path from merged #210.",
+      "pr_recorded_head": "ab54d99a11b32b10cfcb76c385c023b0caa7f14d",
+      "live_branch_head": "5c3877adcfc1f7d67e8700fdac26b13c5c202a43",
+      "head_relation": "LIVE_BRANCH_ADVANCED_AFTER_PR_SNAPSHOT"
     },
     {
       "pr": 210,
       "status": "MERGED_CANONICAL_HISTORY",
       "successor": null,
-      "note": "Merged."
+      "note": "Merged.",
+      "pr_recorded_head": "5cd9af9e03783485a1ed26628003fe329b6d6128",
+      "live_branch_head": "5cd9af9e03783485a1ed26628003fe329b6d6128",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 211,
       "status": "MERGED_CANONICAL_HISTORY",
       "successor": null,
-      "note": "Merged."
+      "note": "Merged.",
+      "pr_recorded_head": "558606b60a1903ca62ff0d0ed5f09ab239524246",
+      "live_branch_head": "558606b60a1903ca62ff0d0ed5f09ab239524246",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 220,
       "status": "PRESERVED_INDEPENDENT_ARCHIVE",
       "successor": null,
-      "note": "Documentation/research record; not force-merged."
+      "note": "Documentation/research record; not force-merged.",
+      "pr_recorded_head": "f43f742061b8f41d6cdc99339c5ebe85a81231de",
+      "live_branch_head": "f43f742061b8f41d6cdc99339c5ebe85a81231de",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 236,
       "status": "PRESERVED_INDEPENDENT_ARCHIVE",
       "successor": 238,
-      "note": "Adult-reference design in affective-cognitive-motivation lineage."
+      "note": "Adult-reference design in affective-cognitive-motivation lineage.",
+      "pr_recorded_head": "d08c7197e4c3511b1942e80e99dcf78589c49d87",
+      "live_branch_head": "d8d10961f777d782c13f5907d11c1d0a609a408c",
+      "head_relation": "LIVE_BRANCH_ADVANCED_AFTER_PR_SNAPSHOT"
     },
     {
       "pr": 237,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 248,
-      "note": "Ancestor via #246."
+      "note": "Ancestor via #246.",
+      "pr_recorded_head": "b3c641976dfea6bbfda9b5ddaa0e4952d06455eb",
+      "live_branch_head": "b3c641976dfea6bbfda9b5ddaa0e4952d06455eb",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 238,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "Adult-reference implementation in separate affective-cognitive-motivation lineage."
+      "note": "Adult-reference implementation in separate affective-cognitive-motivation lineage.",
+      "pr_recorded_head": "55eaa4260eef2df33338527d876f40855cba2a66",
+      "live_branch_head": "55eaa4260eef2df33338527d876f40855cba2a66",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 239,
       "status": "REQUIRES_SEMANTIC_RECONCILIATION",
       "successor": 254,
-      "note": "Most content carried forward; dedicated v0.2 integration/schema/CLI surfaces require semantic comparison."
+      "note": "Most content carried forward; dedicated v0.2 integration/schema/CLI surfaces require semantic comparison.",
+      "pr_recorded_head": "37fd06cbff3f629c2d703e8e6d0c0b4ec9b4c9ad",
+      "live_branch_head": "37fd06cbff3f629c2d703e8e6d0c0b4ec9b4c9ad",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 240,
       "status": "SEMANTICALLY_SUPERSEDED",
       "successor": 241,
-      "note": "Evidence receipt/bundle/nonclaim responsibilities re-materialized in teacher_integrity.py and later Teacher lineage."
+      "note": "Evidence receipt/bundle/nonclaim responsibilities re-materialized in teacher_integrity.py and later Teacher lineage.",
+      "pr_recorded_head": "82c46664664ff11f764fa67792ec92420bc79329",
+      "live_branch_head": "82c46664664ff11f764fa67792ec92420bc79329",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 241,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 254,
-      "note": "Ancestor of latest Teacher successor lineage."
+      "note": "Ancestor of latest Teacher successor lineage.",
+      "pr_recorded_head": "e927bbe43bdf511cf26d87fbdd8b2a3b82b2904e",
+      "live_branch_head": "e927bbe43bdf511cf26d87fbdd8b2a3b82b2904e",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 242,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 249,
-      "note": "Direct ancestry."
+      "note": "Direct ancestry.",
+      "pr_recorded_head": "e6c5b733d6c5221156c2712f17c2c9b14f99581c",
+      "live_branch_head": "e6c5b733d6c5221156c2712f17c2c9b14f99581c",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 243,
       "status": "REQUIRES_SEMANTIC_RECONCILIATION",
       "successor": null,
-      "note": "Cross-role presentation layer absent by path from role-specific successors."
+      "note": "Cross-role presentation layer absent by path from role-specific successors.",
+      "pr_recorded_head": "c6eb249de1af9493e5fe32c3df88c49cf13485c8",
+      "live_branch_head": "c6eb249de1af9493e5fe32c3df88c49cf13485c8",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 244,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 247,
-      "note": "Ancestor via #245."
+      "note": "Ancestor via #245.",
+      "pr_recorded_head": "e5ca6beb824c89a3431d9277a92f395bc8a68fee",
+      "live_branch_head": "e5ca6beb824c89a3431d9277a92f395bc8a68fee",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 245,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 247,
-      "note": "Direct ancestry."
+      "note": "Direct ancestry.",
+      "pr_recorded_head": "c6a59b40a211658abfcee5570393f6d45b3cdfaf",
+      "live_branch_head": "c6a59b40a211658abfcee5570393f6d45b3cdfaf",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 246,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 248,
-      "note": "Direct ancestry."
+      "note": "Direct ancestry.",
+      "pr_recorded_head": "8324c6e3d079b18b10655163b7cb4db849120360",
+      "live_branch_head": "8324c6e3d079b18b10655163b7cb4db849120360",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 247,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "Latest closed/unmerged AION/Astra functional successor in this audited lineage."
+      "note": "Latest closed/unmerged AION/Astra functional successor in this audited lineage.",
+      "pr_recorded_head": "c9e9f114546811ed1d313f1129107bef7b25f79e",
+      "live_branch_head": "c9e9f114546811ed1d313f1129107bef7b25f79e",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 248,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "Latest closed/unmerged Work functional successor in this audited lineage."
+      "note": "Latest closed/unmerged Work functional successor in this audited lineage.",
+      "pr_recorded_head": "d9046a5133e3e9d282db685f27f417d300b6dd78",
+      "live_branch_head": "d9046a5133e3e9d282db685f27f417d300b6dd78",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 249,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "Latest closed/unmerged Codex functional successor in this audited lineage."
+      "note": "Latest closed/unmerged Codex functional successor in this audited lineage.",
+      "pr_recorded_head": "377b27e8041d8e16172ddc60598d79215186325c",
+      "live_branch_head": "377b27e8041d8e16172ddc60598d79215186325c",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 250,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 254,
-      "note": "Ancestor through Teacher controller successor lineage."
+      "note": "Ancestor through Teacher controller successor lineage.",
+      "pr_recorded_head": "b51496bec9fe1dc181f293a9ddb9554dd77c432e",
+      "live_branch_head": "b51496bec9fe1dc181f293a9ddb9554dd77c432e",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 251,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 253,
-      "note": "Earlier controller implementation head; later exact-head continuation exists."
+      "note": "Earlier controller implementation head; later exact-head continuation exists.",
+      "pr_recorded_head": "db8167cbe600f41beea76c8c3e78c6bc9ec331f2",
+      "live_branch_head": "26c8cb74a10f99696a36a8ac387ee78c66da1dee",
+      "head_relation": "LIVE_BRANCH_ADVANCED_AFTER_PR_SNAPSHOT"
     },
     {
       "pr": 252,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 253,
-      "note": "Ancestor of #253."
+      "note": "Ancestor of #253.",
+      "pr_recorded_head": "847f157b8680b66110b20cf6ae592123bfe85c64",
+      "live_branch_head": "847f157b8680b66110b20cf6ae592123bfe85c64",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 253,
       "status": "ABSORBED_BY_SUCCESSOR",
       "successor": 254,
-      "note": "Direct ancestor."
+      "note": "Direct ancestor.",
+      "pr_recorded_head": "26c8cb74a10f99696a36a8ac387ee78c66da1dee",
+      "live_branch_head": "26c8cb74a10f99696a36a8ac387ee78c66da1dee",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 254,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "Latest closed/unmerged Teacher multisystem successor in this audited lineage."
+      "note": "Latest closed/unmerged Teacher multisystem successor in this audited lineage.",
+      "pr_recorded_head": "43d5d9760bc908c2367c717fdb70be0adbefc504",
+      "live_branch_head": "43d5d9760bc908c2367c717fdb70be0adbefc504",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     }
-  ]
+  ],
+  "head_semantics": {
+    "pr_recorded_head": "Head stored on the closed PR object.",
+    "live_branch_head": "Current head of the PR branch when that branch still exists.",
+    "head_relation": "Prevents a closed PR snapshot from being mistaken for the final branch state."
+  }
 }
