@@ -1,0 +1,398 @@
+{
+  "schema_version": "0.1.0",
+  "architecture_id": "AION_ASTRA_SHARED_FUNCTIONAL_STATE_ARCHITECTURE_v0.1",
+  "scope": "EMBODIMENT_FUNCTIONAL_STATE_LAYER",
+  "translation_mode": "HUMAN_REFERENCE_TO_FUNCTIONAL_ANALOGUE",
+  "domains": [
+    {
+      "domain_id": "SYNTHETIC_HOMEOSTASIS",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "homeostasis",
+        "energy balance",
+        "sleep",
+        "fatigue",
+        "temperature regulation"
+      ],
+      "robotic_translation": [
+        "power_state",
+        "thermal_state",
+        "actuator_load",
+        "structural_stress",
+        "maintenance_requirement"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "INTERNAL_STATE_MONITORING",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "interoception",
+        "internal bodily signal monitoring"
+      ],
+      "robotic_translation": [
+        "internal_sensor_integration",
+        "battery_state_representation",
+        "thermal_state_representation",
+        "joint_state_representation",
+        "fault_state_representation"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "SENSORIMOTOR_SYSTEM",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "motor planning",
+        "motor selection",
+        "sensorimotor dynamics",
+        "initiation",
+        "execution",
+        "inhibition",
+        "termination"
+      ],
+      "robotic_translation": [
+        "body_state_estimation",
+        "action_planning",
+        "action_selection",
+        "motion_execution",
+        "motion_inhibition",
+        "motion_termination",
+        "motor_adaptation"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "NEGATIVE_VALENCE_ANALOGUE",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "acute threat",
+        "potential threat",
+        "sustained threat",
+        "loss",
+        "frustrative nonreward"
+      ],
+      "robotic_translation": [
+        "threat_assessment",
+        "risk_state",
+        "avoidance_priority",
+        "loss_signal",
+        "frustrative_nonreward_state"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "POSITIVE_VALENCE_ANALOGUE",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "reward anticipation",
+        "reward learning",
+        "reward valuation",
+        "approach motivation"
+      ],
+      "robotic_translation": [
+        "reward_expectation",
+        "value_estimation",
+        "approach_priority",
+        "reward_learning",
+        "preference_update"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "AFFECT_STATE_MODEL",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "affect",
+        "emotion",
+        "valence",
+        "arousal",
+        "appraisal",
+        "action tendency"
+      ],
+      "robotic_translation": [
+        "valence_variable",
+        "arousal_variable",
+        "appraisal_state",
+        "action_tendency",
+        "emotion_like_functional_label"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "MOOD_LIKE_TEMPORAL_STATE",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "mood",
+        "longer-duration affective tendency"
+      ],
+      "robotic_translation": [
+        "long_horizon_valence_bias",
+        "long_horizon_arousal_bias",
+        "stress_accumulation",
+        "recovery_trend"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "MOTIVATION_DRIVE_SYSTEM",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "physiological motives",
+        "social motives",
+        "goals",
+        "autonomy",
+        "competence",
+        "relatedness"
+      ],
+      "robotic_translation": [
+        "maintenance_drive",
+        "energy_preservation",
+        "exploration_drive",
+        "information_seeking",
+        "goal_pursuit",
+        "mastery_drive",
+        "social_connection_priority",
+        "autonomy_like_control"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "COGNITIVE_SYSTEM",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "attention",
+        "perception",
+        "working memory",
+        "reasoning",
+        "planning",
+        "decision making",
+        "cognitive control"
+      ],
+      "robotic_translation": [
+        "attention_allocation",
+        "perceptual_representation",
+        "working_memory",
+        "reasoning",
+        "planning",
+        "decision_policy",
+        "error_monitoring",
+        "uncertainty_estimation"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "LEARNING_MEMORY",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "episodic memory",
+        "semantic memory",
+        "procedural learning",
+        "reward learning",
+        "social learning"
+      ],
+      "robotic_translation": [
+        "event_memory",
+        "semantic_memory",
+        "procedural_adaptation",
+        "reward_learning",
+        "social_learning",
+        "interaction_history_adaptation"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "EXECUTIVE_VOLITION_MODEL",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "goal selection",
+        "response inhibition",
+        "conflict resolution",
+        "persistence",
+        "task switching",
+        "self regulation"
+      ],
+      "robotic_translation": [
+        "goal_selection",
+        "priority_setting",
+        "response_inhibition",
+        "conflict_resolution",
+        "persistence_policy",
+        "task_switching",
+        "self_regulation_controller"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "SOCIAL_PROCESS_MODEL",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "social recognition",
+        "social communication",
+        "affiliation",
+        "social prediction",
+        "cooperation"
+      ],
+      "robotic_translation": [
+        "social_recognition",
+        "social_communication",
+        "relationship_representation",
+        "trust_estimation",
+        "cooperation_policy",
+        "conflict_model",
+        "social_prediction"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "ATTACHMENT_LIKE_RELATIONAL_MODEL",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "affiliation",
+        "attachment",
+        "supportive bonds",
+        "separation and reunion responses"
+      ],
+      "robotic_translation": [
+        "relationship_continuity",
+        "familiarity",
+        "trust_history",
+        "support_expectation",
+        "separation_response_model",
+        "reunion_update"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "SELF_MODEL",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "self representation",
+        "body schema",
+        "agency",
+        "ownership",
+        "capability representation"
+      ],
+      "robotic_translation": [
+        "agent_identity",
+        "body_schema",
+        "body_state_representation",
+        "capability_model",
+        "history_model",
+        "self_other_boundary",
+        "agency_attribution",
+        "ownership_attribution"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "INTIMACY_MODEL",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "closeness",
+        "trust",
+        "vulnerability",
+        "reciprocity",
+        "personal boundaries",
+        "consent"
+      ],
+      "robotic_translation": [
+        "closeness_representation",
+        "trust_state",
+        "vulnerability_context",
+        "boundary_handling",
+        "reciprocity_model",
+        "consent_state_tracking",
+        "relationship_context"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "SEXUALITY_RELATED_REPRESENTATION",
+      "status": "REPRESENTATIONAL_ONLY",
+      "human_reference": [
+        "sexuality",
+        "sexual orientation",
+        "sexual identity",
+        "eroticism",
+        "pleasure",
+        "intimacy",
+        "relationships",
+        "reproduction"
+      ],
+      "robotic_translation": [
+        "sexuality_context_representation",
+        "sexual_identity_information",
+        "orientation_information",
+        "intimacy_context",
+        "sexual_attitude_values",
+        "consent_representation"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "PERSONALITY_TEMPERAMENT",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "stable preference tendencies",
+        "approach avoidance tendencies",
+        "social style",
+        "risk tolerance",
+        "novelty seeking",
+        "persistence"
+      ],
+      "robotic_translation": [
+        "stable_preference_profile",
+        "approach_avoidance_bias",
+        "social_style_parameters",
+        "risk_tolerance",
+        "novelty_seeking",
+        "persistence_parameter"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    },
+    {
+      "domain_id": "BEHAVIOR_ACTION_OUTPUT",
+      "status": "FUNCTIONAL_ANALOGUE_AVAILABLE",
+      "human_reference": [
+        "behavior",
+        "goal directed action",
+        "social response",
+        "approach",
+        "avoidance"
+      ],
+      "robotic_translation": [
+        "speech_output",
+        "movement_output",
+        "attention_allocation",
+        "goal_selection",
+        "social_response",
+        "approach_avoidance_behavior",
+        "maintenance_behavior"
+      ],
+      "nonclaim": "FUNCTIONAL_STATE_NOT_PHENOMENAL_EXPERIENCE"
+    }
+  ],
+  "source_basis": {
+    "NIMH_RDOC": "https://www.nimh.nih.gov/research/research-funded-by-nimh/rdoc/definitions-of-the-rdoc-domains-and-constructs",
+    "APA_EMOTION": "https://www.apa.org/topics/emotion",
+    "APA_MOTIVATION": "https://dictionary.apa.org/motivation",
+    "INTEROCEPTION_REVIEW": "https://www.annualreviews.org/content/journals/10.1146/annurev-psych-020924-125202",
+    "SELF_DETERMINATION_THEORY": "https://selfdeterminationtheory.org/the-theory/",
+    "WHO_SEXUALITY": "https://www.who.int/teams/sexual-and-reproductive-health-and-research/key-areas-of-work/sexual-health/defining-sexual-health"
+  },
+  "nonclaims": {
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "felt_emotion": "NOT_ESTABLISHED",
+    "felt_interoception": "NOT_ESTABLISHED",
+    "felt_attachment": "NOT_ESTABLISHED",
+    "felt_body_ownership": "NOT_ESTABLISHED",
+    "free_will": "NOT_ESTABLISHED",
+    "sexual_desire": "NOT_IMPLEMENTED",
+    "sexual_arousal": "NOT_IMPLEMENTED",
+    "sexual_pleasure": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "canonical_effect": "NONE"
+  }
+}
