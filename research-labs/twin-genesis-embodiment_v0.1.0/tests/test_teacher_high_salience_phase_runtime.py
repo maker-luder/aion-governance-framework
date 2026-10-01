@@ -381,7 +381,7 @@ def test_interrupted_event_recovery_reactivates_without_stale_event_replay() -> 
         )
 
     second_stimulus_frames = []
-    for _ in range(20):
+    for _ in range(state_loop.RECOVERY_CONVERGENCE_MAX_TICKS):
         frame = advance(second_high, TeacherReproductiveEventGate())
         second_stimulus_frames.append(frame)
         if frame.high_salience_phase_state.phase in {
