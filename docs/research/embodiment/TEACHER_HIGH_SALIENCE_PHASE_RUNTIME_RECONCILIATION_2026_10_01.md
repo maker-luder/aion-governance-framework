@@ -87,25 +87,27 @@ This does not lower the controller's hysteresis thresholds and does not authoriz
 `REFERENCE_PHASE_INITIATION != CONTROLLER_HIGH_ACTIVATION_THRESHOLD`
 
 
-### Ruling 7 — tick-local event gates govern entry/drive, not sticky phase identity
+### Ruling 7 — tick-local event gates govern drive, not sticky phase identity
 
 Bounded verification after PR #255 identified a runtime invariant gap: an event gate is intentionally tick-local, while the event-specific body channels it activates can remain above their reference threshold on the next tick.
 
 Therefore:
 
-- entering `EMISSION` requires an `EMISSION_REFERENCE_REQUEST` and an `ERECTILE_MAINTENANCE` predecessor;
-- entering `EJACULATORY_REFLEX` requires an `EXPULSION_REFERENCE_REQUEST` and an `EMISSION` predecessor;
+- a matching event gate is required to drive `EMISSION` or `EJACULATORY_REFLEX` transitions;
 - repeating the matching event gate may continue driving the same event phase across multiple ticks;
-- once already in `EMISSION` or `EJACULATORY_REFLEX`, a later tick with gate `NONE` may preserve that phase without re-emitting the transition;
-- an unrelated event gate must not be accepted by the active event phase.
+- once an event-specific body channel is active, a later tick with gate `NONE` may preserve the corresponding reference phase without re-emitting the transition;
+- an unrelated event gate must not be accepted by the active event phase;
+- existing vascular/emission readiness checks remain the executable entry guards.
 
-This separates phase persistence from event authorization and prevents both illegal phase jumps and the prior requirement to replay a one-tick gate merely to keep the runtime valid.
+A stricter predecessor-phase graph is **not** imposed in this bounded correction because `previous_phase_state` is currently optional at the public state-loop API. Making predecessor history mandatory would be a separate compatibility change and requires its own design/review.
+
+This separates phase persistence from event drive while preserving the existing optional phase-history contract.
 
 `EVENT_GATE_TICK_LOCAL = TRUE`
 
-`EVENT_GATE_ENTRY != PHASE_PERSISTENCE`
+`EVENT_GATE_DRIVE != PHASE_PERSISTENCE`
 
-`PHASE_PREDECESSOR_INVARIANT = REQUIRED`
+`STRICT_PREDECESSOR_HISTORY = DEFERRED_COMPATIBILITY_CHANGE`
 
 ## Scope of this successor
 
