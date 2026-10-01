@@ -364,6 +364,10 @@ def integrate_teacher_intimate_reference(
                     systemic.parasympathetic_state,
                 ),
                 (
+                    "GENITAL_SENSORY_AFFERENT_REFERENCE",
+                    _scalar(body_state, "GENITAL_SENSORY_AFFERENT_REFERENCE"),
+                ),
+                (
                     "GENITAL_VASCULAR_STATE",
                     _scalar(body_state, "GENITAL_VASCULAR_STATE"),
                 ),
@@ -372,8 +376,19 @@ def integrate_teacher_intimate_reference(
                     _scalar(body_state, "ERECTILE_REFLEX_STATE"),
                 ),
                 (
+                    "PELVIC_FLOOR_PROPRIOCEPTION",
+                    _scalar(body_state, "PELVIC_FLOOR_PROPRIOCEPTION"),
+                ),
+                (
                     "EMISSION_REFLEX_STATE",
                     _scalar(body_state, "EMISSION_REFLEX_STATE"),
+                ),
+                (
+                    "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                    _scalar(
+                        body_state,
+                        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                    ),
                 ),
                 (
                     "EJACULATORY_REFLEX_STATE",
@@ -382,6 +397,18 @@ def integrate_teacher_intimate_reference(
                 (
                     "EXPULSION_MOTOR_PATTERN_STATE",
                     _scalar(body_state, "EXPULSION_MOTOR_PATTERN_STATE"),
+                ),
+                (
+                    "DETUMESCENCE_STATE",
+                    _scalar(body_state, "DETUMESCENCE_STATE"),
+                ),
+                (
+                    "ENDOCRINE_REFERENCE_STATE",
+                    endocrine.endocrine_reference_state,
+                ),
+                (
+                    "GONADAL_ENDOCRINE_REFERENCE",
+                    endocrine.gonadal_endocrine_reference,
                 ),
             )
         )
