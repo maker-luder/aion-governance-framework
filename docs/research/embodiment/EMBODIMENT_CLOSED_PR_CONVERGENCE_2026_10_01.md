@@ -56,6 +56,7 @@ A lifecycle conclusion must specify which head it is evaluating.
 - `PRESERVED_INDEPENDENT_ARCHIVE`: intentionally separate historical research record; no forced merge is required.
 - `LATEST_CLOSED_SUCCESSOR`: latest known closed/unmerged successor for a lineage; retained as the current research endpoint without implying merge to main.
 - `DEFERRED_REENTRY_CANDIDATE`: historically bounded delta that is not carried by the active successor and is intentionally queued for a separately scoped re-entry rather than auto-merged.
+- `PRESERVED_DEFERRED_SOURCE`: exact semantic provenance is intentionally retained for later admission; absence from the active surface is deliberate, not loss.
 - `REQUIRES_SEMANTIC_RECONCILIATION`: divergence or missing-path evidence remains and must be reviewed before any successor claim.
 - `OUT_OF_SCOPE`: not part of this embodiment convergence batch.
 
