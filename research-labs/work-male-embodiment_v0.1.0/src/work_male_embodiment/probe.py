@@ -12,6 +12,15 @@ from .body_state import (
     WholeBodySyntheticEngine,
     default_whole_body_state,
 )
+from .capability import build_work_capability_record, validate_work_capability_record
+from .continuity import (
+    build_adaptation_state,
+    build_body_runtime_binding,
+    build_calibration_state,
+    build_cross_session_retention,
+    capture_session_snapshot,
+    observe_longitudinal,
+)
 from .core import (
     ExecutionSurface,
     GovernancePolicy,
@@ -22,6 +31,11 @@ from .core import (
     load_profile,
 )
 from .integrity import build_snapshot_receipts, verify_snapshot_receipts
+from .reference_asset import validate_reference_rig
+
+
+def _rig_path() -> Path:
+    return Path(__file__).resolve().parents[2] / "assets/work_reference_rig.gltf"
 
 
 def run_probe(profile_path: Path) -> dict[str, Any]:
@@ -81,10 +95,48 @@ def run_probe(profile_path: Path) -> dict[str, Any]:
         AssetCandidateEvidence(),
     )
 
+    capability = build_work_capability_record(profile)
+    capability_validation = validate_work_capability_record(capability)
+
+    binding_1 = build_body_runtime_binding("work-reference-runtime", "probe-session-1")
+    calibration_1 = build_calibration_state(
+        binding_1,
+        profile,
+        observed={"total_height": 165.0, "biacromial_shoulder_breadth": 47.0},
+    )
+    adaptation_1 = build_adaptation_state(
+        calibration_1,
+        sequence=0,
+        parameter_offsets={"stride_gain": 0.0},
+    )
+    snapshot_1 = capture_session_snapshot(calibration_1, adaptation_1)
+
+    binding_2 = build_body_runtime_binding("work-reference-runtime", "probe-session-2")
+    calibration_2 = build_calibration_state(
+        binding_2,
+        profile,
+        observed={"total_height": 165.0, "biacromial_shoulder_breadth": 47.0},
+    )
+    adaptation_2 = build_adaptation_state(
+        calibration_2,
+        sequence=1,
+        parameter_offsets={"stride_gain": 0.05},
+    )
+    snapshot_2 = capture_session_snapshot(calibration_2, adaptation_2)
+    retention = build_cross_session_retention((snapshot_1, snapshot_2))
+    longitudinal = observe_longitudinal(retention)
+
+    rig = validate_reference_rig(_rig_path())
+
     payloads = (
         profile.schema,
         body.fingerprint(),
         physiology.fingerprint(),
+        capability.fingerprint(),
+        binding_1.fingerprint(),
+        snapshot_1.snapshot_sha256,
+        snapshot_2.snapshot_sha256,
+        rig.fingerprint,
         "|".join(asset_missing),
     )
     receipts = build_snapshot_receipts(payloads)
@@ -119,6 +171,27 @@ def run_probe(profile_path: Path) -> dict[str, Any]:
             "fingerprint": physiology.fingerprint(),
             "final_state": asdict(physiology.final_state),
         },
+        "capability": {
+            "fingerprint": capability.fingerprint(),
+            "count": len(capability.capabilities),
+            "validation": capability_validation,
+        },
+        "continuity": {
+            "binding_fingerprint": binding_1.fingerprint(),
+            "retention_id": retention.retention_id,
+            "session_count": len(retention.snapshots),
+            "longitudinal_change_status": longitudinal.change_status,
+            "identity_continuity_claim": retention.identity_continuity_claim,
+            "subjective_continuity": retention.subjective_continuity,
+        },
+        "reference_rig": {
+            "status": rig.status,
+            "node_count": rig.node_count,
+            "fingerprint": rig.fingerprint,
+            "mesh_count": rig.mesh_count,
+            "physical_body": rig.physical_body,
+            "as_built_verified": rig.as_built_verified,
+        },
         "asset": {
             "verified": asset_ok,
             "missing": list(asset_missing),
@@ -138,6 +211,8 @@ def run_probe(profile_path: Path) -> dict[str, Any]:
             "subjectivity": "NOT_ESTABLISHED",
             "consciousness": "NOT_ESTABLISHED",
             "phenomenal_experience": "NOT_ESTABLISHED",
+            "identity_continuity": "NOT_ESTABLISHED",
+            "developmental_mechanism": "NOT_ESTABLISHED",
             "public_executable_exposure": False,
             "canonical_effect": "NONE",
             "deployment": False,

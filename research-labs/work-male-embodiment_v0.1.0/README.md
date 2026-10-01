@@ -23,9 +23,15 @@ Implemented surfaces now include:
 - deterministic replay fingerprints;
 - an executable offline probe that reports missing asset evidence instead of converting absence into success;
 - strict event/state JSON Schema parity for the adult-male physiology layer;
+- Work-specific 18-item transferable-capability registry;
+- Work-specific runtime binding, reference calibration, bounded adaptation, cross-session retention and longitudinal observation;
+- a Draft 2020-12 retention schema;
+- a 30-node procedural glTF rig/landmark reference with zero meshes;
 - fail-closed public exposure and real-person target data.
 
-It still does not create or claim a biological human body, actual blood circulation, biological hormones, gametes, fertility, felt sensation, desire, consent, subjectivity, consciousness, or a verified GLB/glTF mesh.
+The procedural glTF file is a named-node reference only. It is not a production mesh, verified joint-limit asset, collision body, mass/inertia model, skinning result, physical robot, or as-built body.
+
+It still does not create or claim a biological human body, actual blood circulation, biological hormones, gametes, fertility, felt sensation, desire, consent, subjectivity, consciousness, identity continuity, or a verified GLB/glTF mesh.
 
 Core boundaries:
 
@@ -37,12 +43,20 @@ Core boundaries:
 `SIMULATED_EJACULATION != GAMETE_PRODUCTION`  
 `REFERENCE_HORMONE_SIGNAL != BIOLOGICAL_HORMONE`  
 `REFERENCE_MODEL != FELT_BODY`  
-`IMPLEMENTATION != PHENOMENAL_EXPERIENCE`
+`IMPLEMENTATION != PHENOMENAL_EXPERIENCE`  
+`CAPABILITY_TRANSFER != MORPHOLOGY_IDENTITY`  
+`RETENTION != IDENTITY_CONTINUITY_PROOF`  
+`LONGITUDINAL_CHANGE != DEVELOPMENTAL_MECHANISM`  
+`PROCEDURAL_RIG_REFERENCE != ACTUAL_3D_MESH`
 
 `PUBLIC_EXECUTABLE_EXPOSURE = FALSE`  
 `REAL_PERSON_TARGET_DATA = FORBIDDEN`  
 `BIOLOGICAL_REPRODUCTION = NO`  
 `ACTUAL_3D_MESH = NO`  
+`SUBJECTIVITY = NOT_ESTABLISHED`  
+`CONSCIOUSNESS = NOT_ESTABLISHED`  
+`PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED`  
+`ACTION_AUTHORITY = NONE`  
 `CANONICAL_EFFECT = NONE`  
 `DEPLOYMENT = FALSE`
 

@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from .capability import TRANSFERABLE_CAPABILITIES
 from .core import (
     AssetEvidence,
     ExecutionSurface,
@@ -12,15 +13,24 @@ from .core import (
     default_coverage_matrix,
 )
 from .probe import render_probe
+from .reference_asset import validate_reference_rig
+
+
+def _rig_path() -> Path:
+    return Path(__file__).resolve().parents[2] / "assets/work_reference_rig.gltf"
 
 
 def qa_status() -> dict[str, object]:
     decision = GovernancePolicy().evaluate(ExecutionSurface.OFFLINE_RESEARCH)
     state = PhysiologyState("qa")
     asset = AssetEvidence()
+    rig = validate_reference_rig(_rig_path())
     return {
         "status": "IMPLEMENTED_SYNTHETIC_RESEARCH_CANDIDATE",
         "coverage_rows": len(default_coverage_matrix()),
+        "transferable_capability_count": len(TRANSFERABLE_CAPABILITIES),
+        "procedural_rig_reference": rig.status,
+        "procedural_rig_node_count": rig.node_count,
         "offline_synthetic_physiology_allowed": decision.synthetic_physiology_allowed,
         "public_executable_exposure": decision.public_executable_exposure,
         "actual_3d_mesh": asset.actual_3d_mesh,

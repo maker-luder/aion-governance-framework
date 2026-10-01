@@ -1,0 +1,56 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "AION governance Work procedural embodiment reference"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [0]
+    }
+  ],
+  "nodes": [
+    {"name": "root", "children": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29]},
+    {"name": "pelvis"},
+    {"name": "spine"},
+    {"name": "chest"},
+    {"name": "neck"},
+    {"name": "head"},
+    {"name": "left_upper_arm"},
+    {"name": "left_forearm"},
+    {"name": "left_hand"},
+    {"name": "right_upper_arm"},
+    {"name": "right_forearm"},
+    {"name": "right_hand"},
+    {"name": "left_thigh"},
+    {"name": "left_shin"},
+    {"name": "left_foot"},
+    {"name": "right_thigh"},
+    {"name": "right_shin"},
+    {"name": "right_foot"},
+    {"name": "penis"},
+    {"name": "glans"},
+    {"name": "prepuce"},
+    {"name": "frenulum"},
+    {"name": "scrotum"},
+    {"name": "left_testis"},
+    {"name": "right_testis"},
+    {"name": "pubic_attachment"},
+    {"name": "left_inguinal_transition"},
+    {"name": "right_inguinal_transition"},
+    {"name": "perineum"},
+    {"name": "anal_region"}
+  ],
+  "extras": {
+    "agent_id": "WORK",
+    "body_id": "WORK_SYNTHETIC_MALE_BODY_REFERENCE_v0.2",
+    "status": "PROCEDURAL_RIG_REFERENCE_NO_MESH",
+    "mesh_count": 0,
+    "physical_body": false,
+    "as_built_verified": false,
+    "canonical_effect": "NONE",
+    "deployment": false,
+    "external_topology_landmarks": "COMPLETE_REFERENCE_SET_PRESENT",
+    "internal_reproductive_topology": "SOFTWARE_REFERENCE_SEPARATE_FROM_GLTF"
+  }
+}
