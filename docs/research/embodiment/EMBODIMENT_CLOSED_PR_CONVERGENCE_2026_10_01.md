@@ -220,17 +220,21 @@ PR #243 descends from #193.
 
 `feat: shift Teacher Codex Work to young-adult presentation`
 
-Status: `DEFERRED_REENTRY_CANDIDATE`
+Status: `RESOLVED_BY_NEW_SUCCESSOR`
 
-The 25–29 synthetic visual-presentation decision is not carried by later Teacher/Work/Codex successors. Preserve it as a cross-role presentation re-entry candidate. It is a visual/presentation delta, not evidence of a physiology or runtime capability gap.
+Successor: PR #257 at exact head `a1eedd764e5139ece69e29ba2fb6cd452e679ba4`.
+
+The 25–29 synthetic visual-presentation decision is converged with the preserved cross-role geometry reference in #257. It remains presentation-only metadata and does not modify Teacher/Work/Codex functional runtimes.
 
 ### PR #194
 
 `research: extend synthetic role genital geometry dynamics`
 
-Status: `DEFERRED_REENTRY_CANDIDATE`
+Status: `RESOLVED_BY_NEW_SUCCESSOR`
 
-The cross-role genital-geometry parameters and dynamics are not carried into the later Work/Codex/Teacher successor branches. Preserve this as a bounded re-entry candidate; do not silently infer that generic reproductive-sexual channels reproduce the same geometry semantics.
+Successor: PR #257 at exact head `a1eedd764e5139ece69e29ba2fb6cd452e679ba4`.
+
+PR #257 preserves the role-specific synthetic geometry data/doc/module/test semantics, repairs the historical literal-line-break syntax defect, and binds geometry to the Teacher/Codex/Work presentation body identifiers. Generic reproductive-sexual channels are not treated as substitutes for these geometry semantics.
 
 ## Sensorimotor / archive-convergence lineage
 
@@ -238,9 +242,9 @@ The cross-role genital-geometry parameters and dynamics are not carried into the
 
 `feat: add synthetic sensorimotor embodiment audit`
 
-Status: `PRESERVED_INDEPENDENT_ARCHIVE`
+Status: `PRESERVED_DEFERRED_SOURCE`
 
-The PR is a bounded deterministic synthetic QA experiment with `SCIENTIFIC_DISPOSITION = HOLD`. It is preserved as an independent research artifact rather than being forced into merged PR #210 or promoted into an active runtime claim.
+PR #203's live branch explicitly inventories PR #202 sensorimotor semantic units and marks them `KEEP_DEFERRED` / `DEFERRED_TO_PR_202`. The work remains a bounded deterministic synthetic QA source with `SCIENTIFIC_DISPOSITION = HOLD`; it is neither lost nor promoted into the active runtime.
 
 ### PR #203
 
@@ -266,10 +270,9 @@ Current evidence does not justify rewriting it as an implementation predecessor 
 
 ## Current unresolved reconciliation set
 
-The following closed/unmerged PRs still require a new semantic successor or explicit reconciliation:
+`REQUIRES_SEMANTIC_RECONCILIATION = 0` for the current ledger entries.
 
-- #194
-- #243
+PR #256 is a narrowly scoped post-ledger successor that re-materializes the still-useful integrated Teacher v0.2 bundle surface from #239. Its final exact-head verification is tracked separately and does not reopen #239.
 
 Independent records / latest endpoints that should not be force-merged:
 
