@@ -15,6 +15,11 @@ from .physiology import (
     validate_physiology_parity,
 )
 from .teacher_body_runtime import build_teacher_body_runtime_binding
+from .teacher_body_v02_integration import (
+    build_teacher_body_v02_bundle_bytes,
+    build_teacher_body_v02_integrated_manifest,
+    write_teacher_body_v02_bundle,
+)
 from .teacher_embodied_controller import TEACHER_CONTROLLER_ID
 from .teacher_state_loop import run_teacher_embodiment_stability_probe
 from .teacher_avatar import (
@@ -56,6 +61,8 @@ def main() -> int:
             "teacher-avatar-continuous-gltf-info",
             "teacher-avatar-continuous-glb-info",
             "teacher-avatar-reference-bundle",
+            "teacher-body-v02-bundle-info",
+            "teacher-body-v02-bundle",
             "teacher-avatar-lod-manifest",
             "teacher-avatar-collision-profile",
             "teacher-embodied-probe",
@@ -66,7 +73,7 @@ def main() -> int:
     parser.add_argument(
         "--output-dir",
         default=None,
-        help="Output directory for teacher-avatar-reference-bundle",
+        help="Output directory for teacher-avatar-reference-bundle or teacher-body-v02-bundle",
     )
     args = parser.parse_args()
 
@@ -195,6 +202,36 @@ def main() -> int:
         if not args.output_dir:
             parser.error("teacher-avatar-reference-bundle requires --output-dir")
         payload = asdict(write_teacher_reference_bundle(args.output_dir))
+    elif args.command == "teacher-body-v02-bundle-info":
+        files = build_teacher_body_v02_bundle_bytes()
+        manifest = build_teacher_body_v02_integrated_manifest()
+        payload = {
+            "artifact_kind": "TEACHER_BODY_V02_INTEGRATED_REFERENCE_BUNDLE",
+            "file_count": len(files),
+            "measurement_count_v02": manifest["measurement_count_v02"],
+            "reproductive_output_semantics": manifest[
+                "reproductive_output_semantics"
+            ],
+            "base_reference_bundle_sha256": manifest[
+                "base_reference_bundle_sha256"
+            ],
+            "canonical_effect": manifest["canonical_effect"],
+            "deployment": manifest["deployment"],
+        }
+    elif args.command == "teacher-body-v02-bundle":
+        if not args.output_dir:
+            parser.error("teacher-body-v02-bundle requires --output-dir")
+        hashes = write_teacher_body_v02_bundle(args.output_dir)
+        manifest = build_teacher_body_v02_integrated_manifest()
+        payload = {
+            "artifact_kind": "TEACHER_BODY_V02_INTEGRATED_REFERENCE_BUNDLE",
+            "output_dir": args.output_dir,
+            "file_count": len(hashes),
+            "file_sha256": [list(item) for item in hashes],
+            "measurement_count_v02": manifest["measurement_count_v02"],
+            "canonical_effect": manifest["canonical_effect"],
+            "deployment": manifest["deployment"],
+        }
     elif args.command == "teacher-avatar-lod-manifest":
         payload = build_teacher_lod_manifest()
     elif args.command == "teacher-avatar-collision-profile":
