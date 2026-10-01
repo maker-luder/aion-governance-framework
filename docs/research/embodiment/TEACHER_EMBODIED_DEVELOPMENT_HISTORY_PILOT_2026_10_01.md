@@ -240,3 +240,171 @@ WRITE_TO_MAIN = NO
 DEPLOYMENT = FALSE
 CANONICAL_EFFECT = NONE
 ```
+
+
+## 11. Interaction-history binding increment
+
+The same developmental-history experiment now adds a separate interaction-history
+chain rather than creating a new PR or a parallel longitudinal framework.
+
+The purpose is to represent a second form of macro time:
+
+```text
+RECORDED_TEACHER_DEVELOPMENT
++
+BOUNDED_HUMAN_TEACHER_INTERACTION_HISTORY
++
+EXPLICIT_BINDINGS_AT_SELECTED_MILESTONES
+=
+AUDITABLE_INTERACTION_EMBODIMENT_TIMELINE
+```
+
+The interaction chain is independent of the developmental milestone hash chain.
+Selected interaction anchors may bind an existing development milestone SHA-256.
+This allows interaction history to begin earlier than the embodiment experiment
+without pretending that every conversation was already an embodiment milestone.
+
+### 11.1 Earliest currently retrievable interaction lower bound
+
+Account conversation-history retrieval for this experiment currently reaches at
+least:
+
+```text
+EARLIEST_RETRIEVED_INTERACTION_UTC =
+2026-08-22T04:34:26Z
+```
+
+This is recorded only as a **retrieval lower bound**.
+
+```text
+EARLIEST_RETRIEVED_INTERACTION
+!= FIRST_EVER_INTERACTION_PROVEN
+
+BOUNDED_RETRIEVED_HISTORY
+!= COMPLETE_INTERACTION_HISTORY
+```
+
+No raw conversation content is included in this repository record.
+
+The temporal-continuity scoping event that placed Teacher time continuity inside
+the embodiment experiment is recorded at:
+
+```text
+TEMPORAL_CONTINUITY_SCOPING_UTC =
+2026-10-01T10:53:37Z
+```
+
+The observed interval between those two currently retrieved anchors is:
+
+```text
+3,478,751 seconds
+= 40 days + 6 hours + 19 minutes + 11 seconds
+```
+
+This interval measures only the span between two retrieved records. It is not an
+account-age claim and does not prove uninterrupted interaction.
+
+### 11.2 Interaction anchor schema
+
+The additive interaction-history surface records:
+
+```text
+ANCHOR_ID
+ORDINAL
+OBSERVED_AT_UTC
+SOURCE_CLASS
+PROVENANCE_ROLE
+SOURCE_LOCATOR
+CHANGE_SUMMARY
+RETAINED_CONSTRAINTS
+PREVIOUS_ANCHOR_SHA256
+DEVELOPMENT_MILESTONE_SHA256?
+SOURCE_DIGEST?
+ANCHOR_SHA256
+```
+
+Supported source classes are deliberately bounded:
+
+```text
+CHAT_HISTORY_RETRIEVAL_OBSERVATION
+HUMAN_CORRECTION
+JOINT_RESEARCH_MILESTONE
+REPOSITORY_ARTIFACT
+```
+
+A repository-artifact anchor requires a source digest. A retrieved chat-history
+observation may remain metadata-only rather than inventing a content digest that
+the repository cannot independently recompute.
+
+### 11.3 Privacy and epistemic boundary
+
+The interaction-history record is designed to preserve chronology and provenance
+without copying raw private transcripts into the repository.
+
+```text
+RAW_PRIVATE_CONTENT_INCLUDED = FALSE
+COMPLETE_INTERACTION_HISTORY_CLAIM = NONE
+SUBJECTIVE_MEMORY = NOT_ESTABLISHED
+IDENTITY_CONTINUITY = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+```
+
+The first interaction anchor may therefore exist without any embodiment milestone
+binding. Later interaction anchors can bind the exact SHA-256 of a development
+milestone when the interaction materially changes the embodiment experiment.
+
+### 11.4 Integrated assessment
+
+The integrated assessment verifies:
+
+1. each chain independently passes hash integrity;
+2. interaction timestamps never regress;
+3. every non-null development binding resolves to an existing development
+   milestone SHA-256;
+4. the earliest and latest retrieved anchors are preserved;
+5. the observed interval is computed from those bounded anchors;
+6. interaction history without embodiment bindings remains distinguishable from
+   interaction history that materially intersects the embodiment experiment.
+
+The strongest permitted integrated result is:
+
+```text
+INTERACTION_HISTORY_BOUND_TO_EMBODIED_DEVELOPMENT
+```
+
+This means that at least one validated interaction-history anchor references a
+validated Teacher developmental milestone.
+
+It does **not** mean:
+
+```text
+LONG_INTERACTION_DURATION -> RELATIONAL_IDENTITY
+HISTORY_HASH_CHAIN -> SUBJECTIVE_MEMORY
+MILESTONE_BINDING -> CAUSAL_PSYCHOLOGICAL_DEVELOPMENT
+RETRIEVED_CHAT_HISTORY -> COMPLETE_CHAT_HISTORY
+```
+
+## 12. Updated experiment question
+
+The pilot can now ask two linked but distinct questions:
+
+> Which recorded embodiment changes led to the current Teacher experimental state?
+
+and:
+
+> Which bounded Human–Teacher interaction milestones intersected those recorded
+> embodiment changes, and over what currently retrievable time span?
+
+The expected value of this design is historical reconstruction, not ontological
+promotion.
+
+```text
+EMBODIMENT_HISTORY
++ INTERACTION_HISTORY
++ CORRECTION_HISTORY
++ RESEARCH_HISTORY
+-> RECORDED_DEVELOPMENTAL_TRAJECTORY
+
+RECORDED_DEVELOPMENTAL_TRAJECTORY
+!= SUBJECTIVE_SELF_CONTINUITY
+```
