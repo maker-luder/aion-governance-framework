@@ -129,3 +129,28 @@ MERGE_TO_MAIN = NO
 DEPLOYMENT = FALSE
 CANONICAL_EFFECT = NONE
 ```
+
+
+## Complete trace observability addendum
+
+The continuous reference trace now exposes, on the same per-tick provenance surface:
+
+- cardiovascular and respiratory reference state;
+- sympathetic and parasympathetic reference state;
+- genital sensory afferent, vascular and erectile reference state;
+- pelvic-floor proprioceptive reference state;
+- emission and bladder-neck closure reference state;
+- ejaculatory reflex and expulsion motor-pattern reference state;
+- detumescence reference state;
+- generic endocrine and gonadal-endocrine reference state.
+
+The recovery trace must demonstrate the already-materialized staged path through
+`DETUMESCENCE` before converging to recovery/baseline criteria. This is an
+observability and verification completion, not a new biological calibration.
+
+```text
+RUNTIME_TRANSITION_EXISTS != TRACE_VERIFIED
+TRACE_VERIFIED != BIOLOGICAL_VALIDATION
+SYSTEMIC_REFERENCE_CHANNEL != MEASURED_HUMAN_VITAL_SIGN
+ENDOCRINE_REFERENCE_CHANNEL != HORMONE_CONCENTRATION
+```
