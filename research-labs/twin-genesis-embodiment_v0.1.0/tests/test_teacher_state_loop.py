@@ -15,6 +15,9 @@ from aion_astra_twin_embodiment.teacher_embodied_controller import (
     build_teacher_body_schema_feedback,
     fingerprint_teacher_body_schema_feedback,
 )
+from aion_astra_twin_embodiment.teacher_high_salience_coupling import (
+    TeacherReproductiveEventGate,
+)
 from aion_astra_twin_embodiment.teacher_body_runtime import (
     build_teacher_body_runtime_binding,
 )
@@ -345,3 +348,158 @@ def test_embodied_tick_consumes_previous_body_schema_feedback_causally() -> None
     )
     assert low_frame.controller_state.functional_motivation == 0.0
     assert high_frame.controller_state.functional_motivation == 0.0
+
+
+
+def _body_scalar_for_event_test(body_state, channel_id: str) -> float:
+    for observation in body_state.observations:
+        if observation.channel_id == channel_id:
+            assert len(observation.values) == 1
+            return observation.values[0]
+    raise AssertionError(f"missing event-test channel: {channel_id}")
+
+
+def test_runtime_reproductive_event_path_requires_explicit_gates_and_recovers() -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-EVENT-PATH",
+        "SESSION-EVENT-PATH",
+    )
+    body = state_loop.build_teacher_reference_baseline_state(binding)
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+
+    for channel_id in (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    ):
+        assert _body_scalar_for_event_test(body, channel_id) == 0.0
+
+    high = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="TEACHER-EVENT-PATH-HIGH",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.95,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.05,
+    )
+    frames = []
+
+    def advance(stimulus, gate=None):
+        nonlocal body, controller
+        frame = state_loop.advance_teacher_embodied_tick(
+            binding,
+            previous_controller_state=controller,
+            previous_body_state=body,
+            stimulus=stimulus,
+            reproductive_event_gate=gate,
+        )
+        frames.append(frame)
+        body = frame.body_state
+        controller = replace(
+            frame.controller_state,
+            previous_body_schema_feedback_sha256=(
+                frame.body_schema_feedback_sha256
+            ),
+        )
+        return frame
+
+    for _ in range(16):
+        frame = advance(high)
+        assert "MAINTENANCE_TO_EMISSION" not in (
+            frame.executed_transition.transition_ids
+            if frame.executed_transition is not None
+            else ()
+        )
+        if _body_scalar_for_event_test(body, "GENITAL_VASCULAR_STATE") >= 0.65:
+            break
+
+    assert _body_scalar_for_event_test(body, "GENITAL_VASCULAR_STATE") >= 0.65
+
+    emission_gate = TeacherReproductiveEventGate(
+        event="EMISSION_REFERENCE_REQUEST"
+    )
+    for _ in range(8):
+        emitted = advance(high, emission_gate)
+        assert emitted.executed_transition is not None
+        assert emitted.executed_transition.transition_ids == (
+            "MAINTENANCE_TO_EMISSION",
+        )
+        if _body_scalar_for_event_test(body, "EMISSION_REFLEX_STATE") >= 0.50:
+            break
+
+    assert _body_scalar_for_event_test(body, "EMISSION_REFLEX_STATE") >= 0.50
+    assert _body_scalar_for_event_test(
+        body,
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+    ) >= 0.50
+
+    expulsion_gate = TeacherReproductiveEventGate(
+        event="EXPULSION_REFERENCE_REQUEST"
+    )
+    for _ in range(8):
+        expelled = advance(high, expulsion_gate)
+        assert expelled.executed_transition is not None
+        assert expelled.executed_transition.transition_ids == (
+            "EMISSION_TO_EJACULATORY_REFLEX",
+        )
+        if _body_scalar_for_event_test(body, "EJACULATORY_REFLEX_STATE") >= 0.50:
+            break
+
+    assert _body_scalar_for_event_test(body, "EJACULATORY_REFLEX_STATE") >= 0.50
+    assert _body_scalar_for_event_test(body, "EXPULSION_MOTOR_PATTERN_STATE") >= 0.50
+
+    recovery = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="TEACHER-EVENT-PATH-RECOVERY",
+        stimulus_class="RECOVERY_REFERENCE",
+        salience=0.0,
+        functional_motivation=0.0,
+        sexual_context_gate=False,
+        inhibition=0.0,
+    )
+    recovery_gate = TeacherReproductiveEventGate(
+        event="RECOVERY_REFERENCE_REQUEST"
+    )
+    for _ in range(30):
+        recovered = advance(recovery, recovery_gate)
+        assert recovered.executed_transition is not None
+        if all(
+            _body_scalar_for_event_test(body, channel_id) <= 0.10
+            for channel_id in (
+                "EMISSION_REFLEX_STATE",
+                "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                "EJACULATORY_REFLEX_STATE",
+                "EXPULSION_MOTOR_PATTERN_STATE",
+            )
+        ):
+            break
+
+    assert all(
+        _body_scalar_for_event_test(body, channel_id) <= 0.10
+        for channel_id in (
+            "EMISSION_REFLEX_STATE",
+            "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            "EJACULATORY_REFLEX_STATE",
+            "EXPULSION_MOTOR_PATTERN_STATE",
+        )
+    )
+    assert all(frame.controller_state.functional_motivation == 0.0 for frame in frames)
+    assert all(
+        frame.report.phenomenal_interpretation_status == "NOT_ESTABLISHED"
+        for frame in frames
+    )
+    sequences = [frame.body_state.sequence for frame in frames]
+    assert sequences == list(range(1, len(frames) + 1))
+
+
+def test_event_gate_is_not_controller_motivation_consent_or_orgasm() -> None:
+    gate = TeacherReproductiveEventGate(event="EMISSION_REFERENCE_REQUEST")
+
+    assert gate.motivation_effect == "NONE"
+    assert gate.consent_inference == "FORBIDDEN"
+    assert gate.orgasm_inference == "FORBIDDEN"
+    assert gate.phenomenal_interpretation_status == "NOT_ESTABLISHED"
+    assert gate.action_authority == "NONE"
