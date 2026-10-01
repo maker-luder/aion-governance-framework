@@ -248,13 +248,12 @@ def execute_teacher_transition(
     output: list[TeacherBodyObservation] = []
     touched_set = set(touched)
     for observation in previous_body_state.observations:
-        if observation.channel_id not in touched_set:
-            output.append(observation)
-            continue
-        values = tuple(
-            _move_toward(value, target)
-            for value in observation.values
-        )
+        values = observation.values
+        if observation.channel_id in touched_set:
+            values = tuple(
+                _move_toward(value, target)
+                for value in observation.values
+            )
         output.append(
             TeacherBodyObservation(
                 channel_id=observation.channel_id,
