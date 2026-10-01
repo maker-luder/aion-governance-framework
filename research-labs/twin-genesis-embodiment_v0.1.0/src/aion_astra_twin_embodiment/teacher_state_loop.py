@@ -505,7 +505,6 @@ def advance_teacher_embodied_tick(
         lead_time_ms=clock.dt_ms,
     )
     feedback_sha256 = _feedback_sha256(
-        controller_state,
         body_state,
         feedback,
     )
