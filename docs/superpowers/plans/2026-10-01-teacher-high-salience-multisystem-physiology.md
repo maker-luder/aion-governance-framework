@@ -381,6 +381,7 @@ Add:
 - `test_phase_progresses_from_baseline_to_vascular_to_maintenance_without_event_inference()`
 - `test_interrupted_arousal_recovers_without_emission_or_orgasm()`
 - `test_orgasm_is_never_inferred_from_ejaculation_marker()`
+- `test_event_markers_are_tick_local_and_not_replayed()`
 
 Assert:
 
@@ -388,7 +389,8 @@ Assert:
 - genital vascular state can advance to vascular/maintenance;
 - recovery stimulus can return toward baseline without emission;
 - `EJACULATORY_REFERENCE_EVENT` alone cannot enter `POST_ORGASMIC_ENDOCRINE_RECOVERY`;
-- `ORGASM_REFERENCE_EVENT` is required for the post-orgasmic endocrine phase.
+- `ORGASM_REFERENCE_EVENT` is required for the post-orgasmic endocrine phase;
+- event markers supplied for tick `t` are provenance for tick `t` only and are not automatically replayed from the previous phase state at tick `t+1`.
 
 - [ ] **Step 2: Run phase tests and verify RED**
 
@@ -625,6 +627,8 @@ Replace the active state-loop selection sequence with:
 
 Do not delete the legacy `select_teacher_transition_intent(...)` public helper; keep it for compatibility/tests, but it must no longer be the authoritative selector in the multisystem state loop.
 
+Update `build_teacher_reference_baseline_state(...)` so the explicit baseline fixture includes `PROLACTIN_REFERENCE_STATE` with a documented software-reference baseline value. This is an explicit fixture value, not a human concentration or calibrated biological constant. Do not let the executor synthesize this missing channel as zero.
+
 - [ ] **Step 4: Run state-loop tests**
 
 Expected: PASS.
@@ -675,7 +679,7 @@ Verify:
 - Scenario 4 returns toward recovery without emission/ejaculation/orgasm phase.
 - Scenario 5 exercises emission → ejaculatory reflex → detumescence with mixed directions.
 - Scenario 6 cardiovascular recovery occurs before prolactin persistence ends.
-- Scenario 7 preserves monotonic sequence and exact body/runtime/session binding.
+- Scenario 7 preserves monotonic sequence and exact body/runtime/session binding and does not replay stale event markers from the first stimulus.
 - Scenario 8 fails because required autonomic signal is absent, never because it was zero-filled.
 - Scenario 9 emits no deterministic respiratory transition.
 - Scenario 10 rejects forged exertion selection.
@@ -817,7 +821,13 @@ Explicitly verify:
 - no phenomenal/consent/action-authority promotion;
 - no Work/Codex/AION/Astra normalization.
 
-- [ ] **Step 10: Create or update a Draft PR as final exact-head verification carrier**
+- [ ] **Step 10: Commit Task 6 export/CLI changes**
+
+Commit:
+
+`feat(embodiment): expose Teacher multisystem physiology probe`
+
+- [ ] **Step 11: Create or update a Draft PR as final exact-head verification carrier**
 
 PR body records:
 
@@ -835,7 +845,7 @@ PR body records:
 
 If a Draft PR was opened earlier only to carry RED/GREEN CI, reuse it rather than creating a second unnecessary carrier.
 
-- [ ] **Step 11: Wait for exact-head CI and inspect required jobs**
+- [ ] **Step 12: Wait for exact-head CI and inspect required jobs**
 
 Expected:
 
@@ -844,7 +854,7 @@ Expected:
 - exact-head Python/mypy/control/evidence/IQC jobs PASS;
 - Main Transition Authority Gate FAIL/CLOSED unless a fresh exact-head Human merge authorization exists.
 
-- [ ] **Step 12: Close Draft PR unmerged after verification**
+- [ ] **Step 13: Close Draft PR unmerged after verification**
 
 Final expected lifecycle:
 
@@ -853,7 +863,7 @@ Final expected lifecycle:
 - merged: false;
 - main SHA unchanged.
 
-- [ ] **Step 13: Report exact-head status without scientific overclaim**
+- [ ] **Step 14: Report exact-head status without scientific overclaim**
 
 Final report distinguishes:
 
@@ -863,10 +873,4 @@ Final report distinguishes:
 - human biological calibration: NOT_ESTABLISHED;
 - biological timing/fidelity: NOT_ESTABLISHED;
 - subjectivity/consciousness/phenomenal experience: NOT_ESTABLISHED.
-
-- [ ] **Step 14: Commit Task 6 before final verification if exports/CLI changed**
-
-Commit:
-
-`feat(embodiment): expose Teacher multisystem physiology probe`
 
