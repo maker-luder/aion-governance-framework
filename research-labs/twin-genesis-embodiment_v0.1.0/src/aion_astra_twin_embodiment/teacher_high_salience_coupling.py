@@ -27,6 +27,53 @@ CADENCE_CLASSES: Final[frozenset[str]] = frozenset(
 )
 
 
+REPRODUCTIVE_EVENT_GATES: Final[frozenset[str]] = frozenset(
+    {
+        "NONE",
+        "EMISSION_REFERENCE_REQUEST",
+        "EXPULSION_REFERENCE_REQUEST",
+        "RECOVERY_REFERENCE_REQUEST",
+    }
+)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherReproductiveEventGate:
+    event: str = "NONE"
+    gate_status: str = "RESEARCH_FIXTURE_ONLY"
+    motivation_effect: str = "NONE"
+    consent_inference: str = "FORBIDDEN"
+    orgasm_inference: str = "FORBIDDEN"
+    phenomenal_interpretation_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    action_authority: str = "NONE"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def __post_init__(self) -> None:
+        if self.event not in REPRODUCTIVE_EVENT_GATES:
+            raise ValueError("unsupported reproductive event gate")
+        if self.gate_status != "RESEARCH_FIXTURE_ONLY":
+            raise ValueError("reproductive event gate must remain a research fixture")
+        if self.motivation_effect != "NONE":
+            raise ValueError("reproductive event gate cannot create motivation")
+        if self.consent_inference != "FORBIDDEN":
+            raise ValueError("reproductive event gate cannot infer consent")
+        if self.orgasm_inference != "FORBIDDEN":
+            raise ValueError("reproductive event gate cannot infer orgasm")
+        if self.phenomenal_interpretation_status != NOT_ESTABLISHED:
+            raise ValueError("reproductive event gate cannot establish felt experience")
+        if self.subjectivity_status != NOT_ESTABLISHED:
+            raise ValueError("reproductive event gate cannot establish subjectivity")
+        if self.action_authority != "NONE":
+            raise ValueError("reproductive event gate cannot grant action authority")
+        if self.canonical_effect != "NONE" or self.deployment:
+            raise ValueError("reproductive event gate must remain non-canonical and undeployed")
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
 @dataclass(frozen=True, slots=True)
 class TeacherHighSalienceCouplingRule:
     coupling_id: str
