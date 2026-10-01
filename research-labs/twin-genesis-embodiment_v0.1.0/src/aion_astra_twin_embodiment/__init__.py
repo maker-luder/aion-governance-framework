@@ -113,6 +113,11 @@ from .teacher_intimate_integration import (
     TeacherOrgasmReferenceGate,
     integrate_teacher_intimate_reference,
 )
+from .teacher_intimate_scenario import (
+    TeacherIntimateReferenceTrace,
+    TeacherIntimateTraceSample,
+    run_teacher_intimate_reference_trace,
+)
 from .teacher_state_loop import (
     advance_teacher_embodied_tick,
     run_teacher_embodiment_stability_probe,
@@ -276,6 +281,9 @@ __all__ = [
     "TeacherIntimateIntegrationState",
     "TeacherOrgasmReferenceGate",
     "integrate_teacher_intimate_reference",
+    "TeacherIntimateReferenceTrace",
+    "TeacherIntimateTraceSample",
+    "run_teacher_intimate_reference_trace",
     "build_teacher_high_salience_coupling_profile",
     "validate_teacher_high_salience_coupling_profile",
     "advance_teacher_controller",
