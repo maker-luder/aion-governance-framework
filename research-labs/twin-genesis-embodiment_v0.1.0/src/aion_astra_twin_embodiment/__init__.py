@@ -156,6 +156,13 @@ from .teacher_avatar_bundle import (
     build_teacher_reference_bundle_bytes,
     write_teacher_reference_bundle,
 )
+from .teacher_body_v02_integration import (
+    TEACHER_BODY_V02_INTEGRATION_ID,
+    build_teacher_body_v02_bundle_bytes,
+    build_teacher_body_v02_integrated_manifest,
+    validate_teacher_body_v02_integrated_manifest,
+    write_teacher_body_v02_bundle,
+)
 from .teacher_avatar_continuous import (
     ContinuousReferenceMesh,
     build_teacher_continuous_reference_glb,
@@ -316,6 +323,11 @@ __all__ = [
     "TeacherReferenceBundleReceipt",
     "build_teacher_reference_bundle_bytes",
     "write_teacher_reference_bundle",
+    "TEACHER_BODY_V02_INTEGRATION_ID",
+    "build_teacher_body_v02_bundle_bytes",
+    "build_teacher_body_v02_integrated_manifest",
+    "validate_teacher_body_v02_integrated_manifest",
+    "write_teacher_body_v02_bundle",
     "validate_teacher_continuous_reference",
     "validate_teacher_continuous_reference_gltf",
     "validate_teacher_continuous_reference_glb",
