@@ -1,9 +1,17 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+from hashlib import sha256
+import json
+from math import isfinite
 from typing import Any, Final
 
 from .teacher_body_channels import build_teacher_body_signal_schema
+from .teacher_body_dynamics import (
+    TeacherIntegratedBodyState,
+    build_teacher_body_dynamics_profile,
+)
+from .teacher_embodied_controller import TeacherEmbodiedControllerState
 
 
 NOT_ESTABLISHED: Final[str] = "NOT_ESTABLISHED"
@@ -369,3 +377,491 @@ def validate_teacher_high_salience_coupling_profile(
         "execution_boundary": "PASS",
         "epistemic_boundary": "PASS",
     }
+
+
+RUNTIME_PHASES: Final[frozenset[str]] = frozenset(
+    {
+        "BASELINE",
+        "AROUSAL_INITIATION",
+        "GENITAL_VASCULAR_RESPONSE",
+        "ERECTILE_MAINTENANCE",
+        "EMISSION",
+        "EJACULATORY_REFLEX",
+        "DETUMESCENCE",
+        "BASELINE_RECOVERY",
+    }
+)
+
+RUNTIME_DIRECTION_CLASSES: Final[frozenset[str]] = frozenset(
+    {
+        "INCREASE_REFERENCE",
+        "DECREASE_REFERENCE",
+    }
+)
+
+RUNTIME_MODES: Final[frozenset[str]] = frozenset(
+    {
+        "ACTIVATION",
+        "MAINTENANCE",
+        "RECOVERY",
+        "BASELINE",
+    }
+)
+
+
+def _runtime_hash(payload: object) -> str:
+    encoded = json.dumps(
+        payload,
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return sha256(encoded).hexdigest()
+
+
+def _runtime_scalar(
+    body_state: TeacherIntegratedBodyState,
+    channel_id: str,
+) -> float:
+    for observation in body_state.observations:
+        if observation.channel_id == channel_id:
+            if len(observation.values) != 1:
+                raise ValueError(
+                    f"high-salience phase resolver requires scalar channel: {channel_id}"
+                )
+            return observation.values[0]
+    raise ValueError(f"high-salience phase resolver missing channel: {channel_id}")
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherHighSaliencePhaseState:
+    phase: str
+    previous_phase: str
+    sequence: int
+    source_body_state_sha256: str
+    reproductive_event: str = "NONE"
+    phenomenal_interpretation_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    action_authority: str = "NONE"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def __post_init__(self) -> None:
+        if self.phase not in RUNTIME_PHASES:
+            raise ValueError("unsupported Teacher high-salience runtime phase")
+        if self.previous_phase not in RUNTIME_PHASES:
+            raise ValueError("unsupported previous Teacher runtime phase")
+        if self.sequence < 0:
+            raise ValueError("Teacher high-salience phase sequence must be non-negative")
+        if len(self.source_body_state_sha256) != 64:
+            raise ValueError("Teacher high-salience phase requires body SHA-256")
+        if self.reproductive_event not in REPRODUCTIVE_EVENT_GATES:
+            raise ValueError("unsupported Teacher reproductive event")
+        if self.phenomenal_interpretation_status != NOT_ESTABLISHED:
+            raise ValueError("reference phase cannot establish phenomenal interpretation")
+        if self.subjectivity_status != NOT_ESTABLISHED:
+            raise ValueError("reference phase cannot establish subjectivity")
+        if self.action_authority != "NONE":
+            raise ValueError("reference phase cannot grant action authority")
+        if self.canonical_effect != "NONE" or self.deployment:
+            raise ValueError("reference phase must remain non-canonical and undeployed")
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherHighSalienceChannelEffect:
+    channel_id: str
+    direction_class: str
+    software_reference_drive: float
+    calibration_status: str = "SOFTWARE_REFERENCE_NOT_BIOLOGICAL_CONSTANT"
+
+    def __post_init__(self) -> None:
+        if not self.channel_id:
+            raise ValueError("Teacher channel effect requires channel id")
+        if self.direction_class not in RUNTIME_DIRECTION_CLASSES:
+            raise ValueError("unsupported Teacher high-salience direction class")
+        if (
+            not isfinite(self.software_reference_drive)
+            or not 0.0 <= self.software_reference_drive <= 1.0
+        ):
+            raise ValueError("software reference drive must be finite in [0, 1]")
+        if self.calibration_status != "SOFTWARE_REFERENCE_NOT_BIOLOGICAL_CONSTANT":
+            raise ValueError("runtime channel effect cannot claim biological calibration")
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherHighSalienceRuntimeIntent:
+    phase: str
+    mode: str
+    transition_ids: tuple[str, ...]
+    channel_effects: tuple[TeacherHighSalienceChannelEffect, ...]
+    runtime_rule_ids: tuple[str, ...]
+    nonemitting_rule_ids: tuple[str, ...]
+    source_body_state_sha256: str
+    source_controller_sha256: str
+    intent_sha256: str
+    phenomenal_interpretation_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    action_authority: str = "NONE"
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def __post_init__(self) -> None:
+        if self.phase not in RUNTIME_PHASES:
+            raise ValueError("runtime intent phase drift")
+        if self.mode not in RUNTIME_MODES:
+            raise ValueError("runtime intent mode drift")
+        if len(self.transition_ids) != len(set(self.transition_ids)):
+            raise ValueError("runtime transition ids must be unique")
+        effect_ids = [item.channel_id for item in self.channel_effects]
+        if len(effect_ids) != len(set(effect_ids)):
+            raise ValueError("runtime channel effects must be unique")
+        if len(self.source_body_state_sha256) != 64:
+            raise ValueError("runtime intent requires body SHA-256")
+        if len(self.source_controller_sha256) != 64:
+            raise ValueError("runtime intent requires controller SHA-256")
+        if len(self.intent_sha256) != 64:
+            raise ValueError("runtime intent requires SHA-256")
+        if "REST_TO_EXERTION" in self.transition_ids:
+            raise ValueError("high-salience runtime cannot reuse exercise transition")
+        if "RESPIRATORY_BASELINE_TO_WORKLOAD" in self.transition_ids:
+            raise ValueError("high-salience runtime cannot reuse respiratory workload")
+        if "ENDOCRINE_BASELINE_TO_ADAPTIVE_RESPONSE" in self.transition_ids:
+            raise ValueError("high-salience runtime cannot reuse generic endocrine adaptation")
+        if self.phenomenal_interpretation_status != NOT_ESTABLISHED:
+            raise ValueError("runtime intent cannot establish phenomenal interpretation")
+        if self.subjectivity_status != NOT_ESTABLISHED:
+            raise ValueError("runtime intent cannot establish subjectivity")
+        if self.action_authority != "NONE":
+            raise ValueError("runtime intent cannot grant action authority")
+        if self.canonical_effect != "NONE" or self.deployment:
+            raise ValueError("runtime intent must remain non-canonical and undeployed")
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["transition_ids"] = list(self.transition_ids)
+        payload["channel_effects"] = [item.to_dict() for item in self.channel_effects]
+        payload["runtime_rule_ids"] = list(self.runtime_rule_ids)
+        payload["nonemitting_rule_ids"] = list(self.nonemitting_rule_ids)
+        return payload
+
+
+def build_teacher_high_salience_baseline_phase(
+    body_state: TeacherIntegratedBodyState,
+) -> TeacherHighSaliencePhaseState:
+    return TeacherHighSaliencePhaseState(
+        phase="BASELINE",
+        previous_phase="BASELINE",
+        sequence=body_state.sequence,
+        source_body_state_sha256=body_state.body_state_sha256,
+        reproductive_event="NONE",
+    )
+
+
+def resolve_teacher_high_salience_phase(
+    previous: TeacherHighSaliencePhaseState,
+    controller_state: TeacherEmbodiedControllerState,
+    body_state: TeacherIntegratedBodyState,
+    *,
+    reproductive_event_gate: TeacherReproductiveEventGate | None = None,
+) -> TeacherHighSaliencePhaseState:
+    if controller_state.source_body_state_sha256 != body_state.body_state_sha256:
+        raise ValueError("phase resolver controller/body source hash drift")
+    if controller_state.sequence not in {
+        body_state.sequence,
+        body_state.sequence + 1,
+    }:
+        raise ValueError("phase resolver controller/body sequence drift")
+    if previous.sequence > controller_state.sequence:
+        raise ValueError("phase resolver previous phase is from the future")
+
+    gate = reproductive_event_gate or TeacherReproductiveEventGate()
+    vascular = _runtime_scalar(body_state, "GENITAL_VASCULAR_STATE")
+    erectile = _runtime_scalar(body_state, "ERECTILE_REFLEX_STATE")
+    emission = _runtime_scalar(body_state, "EMISSION_REFLEX_STATE")
+    ejaculatory = _runtime_scalar(body_state, "EJACULATORY_REFLEX_STATE")
+    detumescence = _runtime_scalar(body_state, "DETUMESCENCE_STATE")
+
+    if gate.event == "RECOVERY_REFERENCE_REQUEST":
+        if ejaculatory > 0.05 or detumescence > 0.05:
+            phase = "DETUMESCENCE"
+        elif (
+            vascular > 0.15
+            or erectile > 0.15
+            or emission > 0.05
+        ):
+            phase = "BASELINE_RECOVERY"
+        else:
+            phase = "BASELINE"
+    elif gate.event == "EXPULSION_REFERENCE_REQUEST":
+        phase = "EJACULATORY_REFLEX"
+    elif gate.event == "EMISSION_REFERENCE_REQUEST":
+        phase = "EMISSION"
+    elif detumescence > 0.05:
+        phase = "DETUMESCENCE"
+    elif ejaculatory > 0.05:
+        phase = "EJACULATORY_REFLEX"
+    elif emission > 0.05:
+        phase = "EMISSION"
+    elif controller_state.phase == "HIGH_ACTIVATION_REFERENCE":
+        if vascular >= 0.65:
+            phase = "ERECTILE_MAINTENANCE"
+        elif vascular > 0.15 or erectile > 0.15:
+            phase = "GENITAL_VASCULAR_RESPONSE"
+        else:
+            phase = "AROUSAL_INITIATION"
+    elif vascular > 0.15 or erectile > 0.15:
+        phase = "BASELINE_RECOVERY"
+    else:
+        phase = "BASELINE"
+
+    return TeacherHighSaliencePhaseState(
+        phase=phase,
+        previous_phase=previous.phase,
+        sequence=controller_state.sequence,
+        source_body_state_sha256=body_state.body_state_sha256,
+        reproductive_event=gate.event,
+    )
+
+
+def _runtime_transition_channels(
+    transition_id: str,
+) -> tuple[str, ...]:
+    profile = build_teacher_body_dynamics_profile()
+    for transition in profile.physiological_transitions:
+        if transition.transition_id == transition_id:
+            return transition.trigger_channels
+    raise ValueError(f"runtime coordinator references unknown transition: {transition_id}")
+
+
+def _effects_for_transition(
+    transition_id: str,
+    *,
+    default_direction: str,
+    default_drive: float,
+    overrides: dict[str, tuple[str, float]] | None = None,
+) -> tuple[TeacherHighSalienceChannelEffect, ...]:
+    override_map = overrides or {}
+    effects: list[TeacherHighSalienceChannelEffect] = []
+    for channel_id in _runtime_transition_channels(transition_id):
+        direction, drive = override_map.get(
+            channel_id,
+            (default_direction, default_drive),
+        )
+        effects.append(
+            TeacherHighSalienceChannelEffect(
+                channel_id=channel_id,
+                direction_class=direction,
+                software_reference_drive=drive,
+            )
+        )
+    return tuple(effects)
+
+
+def coordinate_teacher_high_salience_runtime(
+    phase_state: TeacherHighSaliencePhaseState,
+    controller_state: TeacherEmbodiedControllerState,
+    body_state: TeacherIntegratedBodyState,
+    *,
+    reproductive_event_gate: TeacherReproductiveEventGate | None = None,
+) -> TeacherHighSalienceRuntimeIntent:
+    if phase_state.source_body_state_sha256 != body_state.body_state_sha256:
+        raise ValueError("runtime coordinator phase/body source hash drift")
+    if controller_state.source_body_state_sha256 != body_state.body_state_sha256:
+        raise ValueError("runtime coordinator controller/body source hash drift")
+
+    gate = reproductive_event_gate or TeacherReproductiveEventGate()
+    transition_ids: list[str] = []
+    effects: list[TeacherHighSalienceChannelEffect] = []
+    runtime_rule_ids: list[str] = []
+    nonemitting_rule_ids: list[str] = []
+    mode = "BASELINE"
+
+    vascular = _runtime_scalar(body_state, "GENITAL_VASCULAR_STATE")
+    erectile = _runtime_scalar(body_state, "ERECTILE_REFLEX_STATE")
+    emission = _runtime_scalar(body_state, "EMISSION_REFLEX_STATE")
+    ejaculatory = _runtime_scalar(body_state, "EJACULATORY_REFLEX_STATE")
+    detumescence = _runtime_scalar(body_state, "DETUMESCENCE_STATE")
+    event_channels = (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    )
+    event_active = any(
+        _runtime_scalar(body_state, channel_id) > 0.05
+        for channel_id in event_channels
+    )
+
+    if phase_state.phase in {
+        "AROUSAL_INITIATION",
+        "GENITAL_VASCULAR_RESPONSE",
+        "ERECTILE_MAINTENANCE",
+    }:
+        runtime_rule_ids.append("HIGH_SALIENCE_AUTONOMIC_GENITAL_REFERENCE")
+        nonemitting_rule_ids.extend(
+            (
+                "HIGH_SALIENCE_CARDIOVASCULAR_ASSOCIATION",
+                "HIGH_SALIENCE_RESPIRATORY_ASSOCIATION",
+            )
+        )
+
+    if phase_state.phase in {"AROUSAL_INITIATION", "GENITAL_VASCULAR_RESPONSE"}:
+        transition_id = "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE"
+        transition_ids.append(transition_id)
+        effects.extend(
+            _effects_for_transition(
+                transition_id,
+                default_direction="INCREASE_REFERENCE",
+                default_drive=controller_state.activation,
+            )
+        )
+        mode = "ACTIVATION"
+    elif phase_state.phase == "ERECTILE_MAINTENANCE":
+        transition_id = "VASCULAR_RESPONSE_TO_MAINTENANCE"
+        transition_ids.append(transition_id)
+        effects.extend(
+            _effects_for_transition(
+                transition_id,
+                default_direction="INCREASE_REFERENCE",
+                default_drive=controller_state.activation,
+            )
+        )
+        mode = "MAINTENANCE"
+    elif phase_state.phase == "EMISSION":
+        if gate.event != "EMISSION_REFERENCE_REQUEST":
+            raise ValueError("emission phase requires tick-local emission request")
+        if vascular < 0.65:
+            raise ValueError("emission phase requires vascular readiness")
+        transition_id = "MAINTENANCE_TO_EMISSION"
+        transition_ids.append(transition_id)
+        effects.extend(
+            _effects_for_transition(
+                transition_id,
+                default_direction="INCREASE_REFERENCE",
+                default_drive=controller_state.activation,
+            )
+        )
+        runtime_rule_ids.append("EMISSION_AUTONOMIC_REPRODUCTIVE_REFERENCE")
+        mode = "ACTIVATION"
+    elif phase_state.phase == "EJACULATORY_REFLEX":
+        if gate.event != "EXPULSION_REFERENCE_REQUEST":
+            raise ValueError("ejaculatory reflex phase requires tick-local expulsion request")
+        if emission < 0.50:
+            raise ValueError("expulsion phase requires emission readiness")
+        transition_id = "EMISSION_TO_EJACULATORY_REFLEX"
+        transition_ids.append(transition_id)
+        effects.extend(
+            _effects_for_transition(
+                transition_id,
+                default_direction="INCREASE_REFERENCE",
+                default_drive=controller_state.activation,
+            )
+        )
+        runtime_rule_ids.append("EXPULSION_SOMATIC_REPRODUCTIVE_REFERENCE")
+        mode = "ACTIVATION"
+    elif phase_state.phase == "DETUMESCENCE":
+        if gate.event != "RECOVERY_REFERENCE_REQUEST":
+            if detumescence <= 0.05:
+                raise ValueError("detumescence phase requires recovery request or active state")
+        if ejaculatory > 0.05:
+            transition_id = "EJACULATORY_REFLEX_TO_DETUMESCENCE"
+            transition_ids.append(transition_id)
+            effects.extend(
+                _effects_for_transition(
+                    transition_id,
+                    default_direction="DECREASE_REFERENCE",
+                    default_drive=0.0,
+                    overrides={
+                        "DETUMESCENCE_STATE": ("INCREASE_REFERENCE", 1.0),
+                        "GENITAL_VASCULAR_STATE": ("DECREASE_REFERENCE", 0.0),
+                    },
+                )
+            )
+            if event_active:
+                recovery_id = "REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY"
+                transition_ids.append(recovery_id)
+                effects.extend(
+                    _effects_for_transition(
+                        recovery_id,
+                        default_direction="DECREASE_REFERENCE",
+                        default_drive=0.0,
+                    )
+                )
+        else:
+            transition_id = "DETUMESCENCE_TO_RECOVERY"
+            transition_ids.append(transition_id)
+            effects.extend(
+                _effects_for_transition(
+                    transition_id,
+                    default_direction="DECREASE_REFERENCE",
+                    default_drive=0.0,
+                )
+            )
+            if event_active:
+                recovery_id = "REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY"
+                transition_ids.append(recovery_id)
+                effects.extend(
+                    _effects_for_transition(
+                        recovery_id,
+                        default_direction="DECREASE_REFERENCE",
+                        default_drive=0.0,
+                    )
+                )
+        mode = "RECOVERY"
+    elif phase_state.phase == "BASELINE_RECOVERY":
+        if vascular > 0.15 or erectile > 0.15:
+            transition_id = "VASCULAR_RESPONSE_TO_BASELINE_RECOVERY"
+            transition_ids.append(transition_id)
+            effects.extend(
+                _effects_for_transition(
+                    transition_id,
+                    default_direction="DECREASE_REFERENCE",
+                    default_drive=0.0,
+                )
+            )
+        if event_active:
+            recovery_id = "REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY"
+            transition_ids.append(recovery_id)
+            effects.extend(
+                _effects_for_transition(
+                    recovery_id,
+                    default_direction="DECREASE_REFERENCE",
+                    default_drive=0.0,
+                )
+            )
+        mode = "RECOVERY" if transition_ids else "BASELINE"
+    elif phase_state.phase != "BASELINE":
+        raise ValueError("unsupported runtime phase")
+
+    effect_ids = [item.channel_id for item in effects]
+    if len(effect_ids) != len(set(effect_ids)):
+        raise ValueError("runtime coordinator produced overlapping channel effects")
+
+    payload = {
+        "phase": phase_state.phase,
+        "mode": mode,
+        "transition_ids": transition_ids,
+        "channel_effects": [item.to_dict() for item in effects],
+        "runtime_rule_ids": runtime_rule_ids,
+        "nonemitting_rule_ids": nonemitting_rule_ids,
+        "source_body_state_sha256": body_state.body_state_sha256,
+        "source_controller_sha256": controller_state.fingerprint(),
+        "event": gate.event,
+    }
+    return TeacherHighSalienceRuntimeIntent(
+        phase=phase_state.phase,
+        mode=mode,
+        transition_ids=tuple(transition_ids),
+        channel_effects=tuple(effects),
+        runtime_rule_ids=tuple(runtime_rule_ids),
+        nonemitting_rule_ids=tuple(nonemitting_rule_ids),
+        source_body_state_sha256=body_state.body_state_sha256,
+        source_controller_sha256=controller_state.fingerprint(),
+        intent_sha256=_runtime_hash(payload),
+    )
