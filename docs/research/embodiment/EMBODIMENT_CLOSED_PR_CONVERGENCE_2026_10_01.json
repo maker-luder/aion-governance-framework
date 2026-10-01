@@ -12,6 +12,7 @@
     "ABSORBED_BY_SUCCESSOR",
     "SEMANTICALLY_SUPERSEDED",
     "PRESERVED_INDEPENDENT_ARCHIVE",
+    "LATEST_CLOSED_SUCCESSOR",
     "REQUIRES_SEMANTIC_RECONCILIATION",
     "OUT_OF_SCOPE"
   ],
@@ -90,7 +91,7 @@
     },
     {
       "pr": 238,
-      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
       "note": "Adult-reference implementation in separate affective-cognitive-motivation lineage."
     },
@@ -144,19 +145,19 @@
     },
     {
       "pr": 247,
-      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
       "note": "Latest closed/unmerged AION/Astra functional successor in this audited lineage."
     },
     {
       "pr": 248,
-      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
       "note": "Latest closed/unmerged Work functional successor in this audited lineage."
     },
     {
       "pr": 249,
-      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
       "note": "Latest closed/unmerged Codex functional successor in this audited lineage."
     },
@@ -186,7 +187,7 @@
     },
     {
       "pr": 254,
-      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
+      "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
       "note": "Latest closed/unmerged Teacher multisystem successor in this audited lineage."
     }
