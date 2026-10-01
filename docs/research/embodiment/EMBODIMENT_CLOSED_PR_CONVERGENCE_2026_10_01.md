@@ -35,7 +35,8 @@ This document is a governance/audit artifact only.
 - `MERGED_CANONICAL_HISTORY`: PR is closed because it was merged; it is not an unresolved closed-PR artifact.
 - `ABSORBED_BY_SUCCESSOR`: later PR head contains the earlier PR head through ancestry, or all relevant touched paths/semantics are demonstrably carried forward.
 - `SEMANTICALLY_SUPERSEDED`: later implementation replaces the earlier responsibility without preserving the same file/API identity.
-- `PRESERVED_INDEPENDENT_ARCHIVE`: intentionally separate research record/lineage; no forced merge is required.
+- `PRESERVED_INDEPENDENT_ARCHIVE`: intentionally separate historical research record; no forced merge is required.
+- `LATEST_CLOSED_SUCCESSOR`: latest known closed/unmerged successor for a lineage; retained as the current research endpoint without implying merge to main.
 - `REQUIRES_SEMANTIC_RECONCILIATION`: divergence or missing-path evidence remains and must be reviewed before any successor claim.
 - `OUT_OF_SCOPE`: not part of this embodiment convergence batch.
 
@@ -120,13 +121,15 @@ Do not describe these as lost capabilities until their semantics are compared ag
 
 ### PR #236 / #238
 
-Status: `PRESERVED_INDEPENDENT_ARCHIVE`
+PR #236 status: `PRESERVED_INDEPENDENT_ARCHIVE`
 
-These form an adult-reference implementation lineage in `research-labs/affective-cognitive-motivation_v0.1.0`.
+PR #238 status: `LATEST_CLOSED_SUCCESSOR`
+
+These form an adult-reference lineage in `research-labs/affective-cognitive-motivation_v0.1.0`.
 
 They are related to embodiment research but are not the Teacher body-runtime successor lineage. Do not force them into PR #254.
 
-PR #236 is the design record. PR #238 is its implementation continuation.
+PR #236 is the design record. PR #238 is the latest closed/unmerged implementation continuation found in this audit.
 
 ## Work lineage
 
@@ -260,11 +263,15 @@ The following closed/unmerged PRs require semantic review before a final lifecyc
 - #239
 - #243
 
-Independent archives that should not be force-merged:
+Independent records / latest endpoints that should not be force-merged:
 
-- #220
-- #236
-- #238
+- #220 — preserved research record
+- #236 — preserved design record
+- #238 — latest closed successor of the affective adult-reference lineage
+- #247 — latest closed AION/Astra successor
+- #248 — latest closed Work successor
+- #249 — latest closed Codex successor
+- #254 — latest closed Teacher successor
 
 ## Next actions
 
