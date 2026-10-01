@@ -14,6 +14,7 @@
     "PRESERVED_INDEPENDENT_ARCHIVE",
     "LATEST_CLOSED_SUCCESSOR",
     "REQUIRES_SEMANTIC_RECONCILIATION",
+    "DEFERRED_REENTRY_CANDIDATE",
     "OUT_OF_SCOPE"
   ],
   "entries": [
@@ -30,7 +31,7 @@
       "pr": 191,
       "status": "SEMANTICALLY_SUPERSEDED",
       "successor": 247,
-      "note": "Legacy body-profile/pose package responsibilities are re-materialized in #247 through role-specific anthropometry, body state, dynamic physiology, reproductive topology, runtime binding, v0.2 schemas, and reference rigs.",
+      "note": "Core AION/Astra body-package responsibilities are represented later by anthropometry, body_state, dynamic_physiology, reproductive_topology, runtime_binding, schemas, tests, and reference rigs. Exact legacy file/API formats are not preserved.",
       "pr_recorded_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2",
       "live_branch_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -55,18 +56,18 @@
     },
     {
       "pr": 194,
-      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "status": "DEFERRED_REENTRY_CANDIDATE",
       "successor": null,
-      "note": "Dedicated synthetic-role genital geometry lineage diverges.",
+      "note": "Cross-role genital-geometry parameters/dynamics are not carried into later role-specific successors. Preserve as a bounded re-entry candidate; do not auto-merge.",
       "pr_recorded_head": "2b87c11c7860787b2dc54c56b049c06471102c18",
       "live_branch_head": "2b87c11c7860787b2dc54c56b049c06471102c18",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
       "pr": 202,
-      "status": "PRESERVED_INDEPENDENT_ARCHIVE",
-      "successor": null,
-      "note": "Bounded deterministic synthetic sensorimotor QA held as a separate research artifact; scientific disposition remained HOLD and no active-runtime promotion is implied.",
+      "status": "DEFERRED_REENTRY_CANDIDATE",
+      "successor": 203,
+      "note": "PR #203 live-branch coverage/materialization records bind #202 as exact deferred provenance; no import/materialization was authorized there.",
       "pr_recorded_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108",
       "live_branch_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -75,7 +76,7 @@
       "pr": 203,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "The branch advanced after PR closure to a standalone convergence implementation with active baseline, shared core, role extensions, materialization map, and coverage matrix.",
+      "note": "Live branch advanced after PR closure to 5c3877ad... with active-baseline/shared-core/role-extension/coverage/materialization surfaces. Treat the live branch as the latest endpoint of this convergence lineage.",
       "pr_recorded_head": "ab54d99a11b32b10cfcb76c385c023b0caa7f14d",
       "live_branch_head": "5c3877adcfc1f7d67e8700fdac26b13c5c202a43",
       "head_relation": "LIVE_BRANCH_ADVANCED_AFTER_PR_SNAPSHOT"
@@ -138,7 +139,7 @@
       "pr": 239,
       "status": "SEMANTICALLY_SUPERSEDED",
       "successor": 254,
-      "note": "Teacher v0.2 integration/bundle/probe responsibilities are re-materialized across later Teacher runtime binding, reference bundle, integrity/evidence receipts, body-v0.2 reference, reproductive output, and unified CLI surfaces.",
+      "note": "Teacher v0.2 body/runtime/bundle/evidence responsibilities are distributed across later body_v02, runtime, reference-bundle, integrity and CLI surfaces. Exact strict-schema/dedicated-v0.2-CLI artifact formats are not preserved.",
       "pr_recorded_head": "37fd06cbff3f629c2d703e8e6d0c0b4ec9b4c9ad",
       "live_branch_head": "37fd06cbff3f629c2d703e8e6d0c0b4ec9b4c9ad",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -172,9 +173,9 @@
     },
     {
       "pr": 243,
-      "status": "REQUIRES_SEMANTIC_RECONCILIATION",
+      "status": "DEFERRED_REENTRY_CANDIDATE",
       "successor": null,
-      "note": "Cross-role presentation layer absent by path from role-specific successors.",
+      "note": "The synthetic young-adult 25-29 visual-presentation decision is not carried into later Teacher/Work/Codex successor branches. Preserve as a presentation re-entry candidate; it is not a physiology/runtime gap.",
       "pr_recorded_head": "c6eb249de1af9493e5fe32c3df88c49cf13485c8",
       "live_branch_head": "c6eb249de1af9493e5fe32c3df88c49cf13485c8",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -283,5 +284,12 @@
     "pr_recorded_head": "Head stored on the closed PR object.",
     "live_branch_head": "Current head of the PR branch when that branch still exists.",
     "head_relation": "Prevents a closed PR snapshot from being mistaken for the final branch state."
-  }
+  },
+  "unresolved_reconciliation_prs": [],
+  "deferred_reentry_prs": [
+    194,
+    202,
+    243
+  ],
+  "convergence_result": "NO_UNKNOWN_RECONCILIATION_STATUS_REMAINS_IN_AUDITED_SET"
 }
