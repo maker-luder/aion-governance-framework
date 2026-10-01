@@ -29,6 +29,9 @@ def test_full_intimate_reference_trace_reaches_all_required_stages() -> None:
     assert any(
         sample.reproductive_event == "EMISSION_REFERENCE_REQUEST"
         and _channels(sample)["EMISSION_REFLEX_STATE"] >= 0.50
+        and _channels(sample)["SEMINAL_TRACT_TRANSPORT_STATE"] >= 0.50
+        and _channels(sample)["ACCESSORY_GLAND_SECRETION_STATE"] >= 0.50
+        and _channels(sample)["POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE"] >= 0.50
         for sample in trace.samples
     )
     assert any(
@@ -38,11 +41,20 @@ def test_full_intimate_reference_trace_reaches_all_required_stages() -> None:
         and sample.coincident_ejaculatory_reference
         and _channels(sample)["EJACULATORY_REFLEX_STATE"] >= 0.50
         and _channels(sample)["EXPULSION_MOTOR_PATTERN_STATE"] >= 0.50
+        and _channels(sample)[
+            "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE"
+        ] >= 0.50
+        and _channels(sample)["ANTEGRADE_SEMINAL_FLOW_STATE"] >= 0.50
         for sample in trace.samples
     )
     assert any(
         sample.high_salience_phase == "DETUMESCENCE"
         and _channels(sample)["DETUMESCENCE_STATE"] > 0.0
+        for sample in trace.samples
+    )
+    assert any(
+        sample.stimulus_class == "RECOVERY_REFERENCE"
+        and _channels(sample)["POST_EXPULSION_RECOVERY_STATE"] > 0.05
         for sample in trace.samples
     )
     assert any(
@@ -63,6 +75,14 @@ def test_full_intimate_reference_trace_reaches_all_required_stages() -> None:
     assert final_channels["EXPULSION_MOTOR_PATTERN_STATE"] <= 0.10
     assert final_channels["DETUMESCENCE_STATE"] <= 0.10
     assert final_channels["BLADDER_NECK_EJACULATORY_CLOSURE_STATE"] <= 0.10
+    assert final_channels["SEMINAL_TRACT_TRANSPORT_STATE"] <= 0.10
+    assert final_channels["ACCESSORY_GLAND_SECRETION_STATE"] <= 0.10
+    assert final_channels["POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE"] <= 0.10
+    assert final_channels[
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE"
+    ] <= 0.10
+    assert final_channels["ANTEGRADE_SEMINAL_FLOW_STATE"] <= 0.10
+    assert final_channels["POST_EXPULSION_RECOVERY_STATE"] <= 0.10
 
 
 def test_trace_preserves_contiguous_time_and_hash_provenance() -> None:
@@ -146,9 +166,15 @@ def test_trace_exposes_integrated_systemic_reproductive_and_endocrine_observabil
         "ERECTILE_REFLEX_STATE",
         "PELVIC_FLOOR_PROPRIOCEPTION",
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
+        "POST_EXPULSION_RECOVERY_STATE",
         "DETUMESCENCE_STATE",
         "ENDOCRINE_REFERENCE_STATE",
         "GONADAL_ENDOCRINE_REFERENCE",
