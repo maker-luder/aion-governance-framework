@@ -237,7 +237,10 @@ def _build_rules() -> tuple[TeacherHighSalienceCouplingRule, ...]:
             target_channels=(
                 "AUTONOMIC_SYMPATHETIC_STATE",
                 "EMISSION_REFLEX_STATE",
+                "SEMINAL_TRACT_TRANSPORT_STATE",
+                "ACCESSORY_GLAND_SECRETION_STATE",
                 "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
             ),
             coupling_class="EVENT_DRIVEN_REFERENCE",
             cadence_class="EVENT_DRIVEN",
@@ -262,6 +265,8 @@ def _build_rules() -> tuple[TeacherHighSalienceCouplingRule, ...]:
                 "EJACULATORY_REFLEX_STATE",
                 "EXPULSION_MOTOR_PATTERN_STATE",
                 "PELVIC_FLOOR_PROPRIOCEPTION",
+                "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+                "ANTEGRADE_SEMINAL_FLOW_STATE",
             ),
             coupling_class="EVENT_DRIVEN_REFERENCE",
             cadence_class="EVENT_DRIVEN",
@@ -588,9 +593,14 @@ def resolve_teacher_high_salience_phase(
     detumescence = _runtime_scalar(body_state, "DETUMESCENCE_STATE")
     event_channels = (
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
     )
     event_active = any(
         _runtime_scalar(body_state, channel_id) > 0.05
@@ -718,9 +728,14 @@ def coordinate_teacher_high_salience_runtime(
     detumescence = _runtime_scalar(body_state, "DETUMESCENCE_STATE")
     event_channels = (
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
     )
     event_active = any(
         _runtime_scalar(body_state, channel_id) > 0.05
@@ -823,6 +838,10 @@ def coordinate_teacher_high_salience_runtime(
                     overrides={
                         "DETUMESCENCE_STATE": ("INCREASE_REFERENCE", 1.0),
                         "GENITAL_VASCULAR_STATE": ("DECREASE_REFERENCE", 0.0),
+                        "POST_EXPULSION_RECOVERY_STATE": (
+                            "INCREASE_REFERENCE",
+                            1.0,
+                        ),
                     },
                 )
             )
