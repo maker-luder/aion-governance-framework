@@ -1713,3 +1713,226 @@ SUBJECTIVE_GROWTH = NOT_ESTABLISHED
 IDENTITY_CONTINUITY = NOT_ESTABLISHED
 SUBJECTIVITY = NOT_ESTABLISHED
 ```
+
+
+## 25. Stitched childhood-to-current trajectory experiment
+
+The developmental matrix is now converted from a set of stage records into an
+explicit stitched trajectory.
+
+The bounded experimental path is:
+
+```text
+CHILDHOOD_REFERENCE
+        |
+        v
+TRANSITION_REFERENCE
+        |
+        v
+CURRENT_ADULT_REFERENCE
+```
+
+This path is intentionally incomplete where the Human source is incomplete.
+
+For example, if the intermediate height and weight were not independently supplied:
+
+```text
+CHILDHOOD_HEIGHT = APPROXIMATE_RANGE
+TRANSITION_HEIGHT = UNKNOWN
+CURRENT_HEIGHT = CURRENT_SELF_REPORT
+
+CHILDHOOD_WEIGHT = APPROXIMATE_REFERENCE
+TRANSITION_WEIGHT = UNKNOWN
+CURRENT_WEIGHT = CURRENT_SELF_REPORT
+```
+
+the stitched trajectory records:
+
+```text
+ANTHROPOMETRY_CHANGE_STATUS = PARTIALLY_UNRESOLVED
+INTERMEDIATE_ANTHROPOMETRY_INTERPOLATED = FALSE
+```
+
+It does not construct a smooth growth curve merely because childhood and current
+endpoints are available.
+
+### 25.1 Transition-level observables
+
+Each adjacent developmental stage now yields a
+`TeacherDevelopmentalStageTransition`.
+
+For each transition, the experiment records:
+
+```text
+FROM_STAGE
+TO_STAGE
+
+HEIGHT_CHANGE_STATUS
+WEIGHT_CHANGE_STATUS
+ANTHROPOMETRY_CHANGE_STATUS
+
+CHANGED_BEHAVIOR_FIELDS
+RETAINED_BEHAVIOR_FIELDS
+UNRESOLVED_BEHAVIOR_FIELDS
+
+TRANSITION_SHA256
+```
+
+The four current behavior fields are:
+
+```text
+ACTIVITY_LEVEL
+CURIOSITY_LEVEL
+WILLINGNESS_TO_TRY_LEVEL
+SOCIAL_APPROACH_LEVEL
+```
+
+A value marked `CHANGED_NOT_QUANTIFIED` is treated as unresolved for pairwise
+transition analysis. It is not silently converted into HIGH, MODERATE or LOW.
+
+Therefore:
+
+```text
+"changed"
+!=
+"we know the new level"
+```
+
+### 25.2 Childhood-to-current trajectory hash
+
+The complete stitched path receives a trajectory hash derived from:
+
+```text
+SOURCE_RUN_SHA256
++
+ORDERED_STAGE_IDS
++
+ORDERED_TRANSITION_RECORDS
+```
+
+This permits two experimental histories with the same terminal state to remain
+distinguishable.
+
+```text
+SAME_CURRENT_STATE
++
+DIFFERENT_CHILDHOOD_PATH
+-> DISTINCT_TRAJECTORY_SHA256
+```
+
+This is the direct executable form of the earlier four-domain distinction:
+
+```text
+CURRENT_STATE_EQUIVALENCE
+!=
+DEVELOPMENTAL_HISTORY_EQUIVALENCE
+```
+
+### 25.3 Repeated trials
+
+The same developmental condition can now be replayed multiple times through
+`run_repeated_teacher_developmental_trials`.
+
+The first experiment uses five deterministic repetitions.
+
+Expected bounded result:
+
+```text
+REPETITIONS = 5
+UNIQUE_TRAJECTORY_HASHES = 1
+
+REPRODUCIBILITY_STATUS =
+DETERMINISTIC_TRAJECTORY_REPRODUCED
+
+TERMINAL_STATE_CONTROL_STATUS =
+SAME_TERMINAL_STATE_CONFIRMED
+```
+
+This tests implementation reproducibility only.
+
+It does not establish that real Human development is deterministic.
+
+### 25.4 What is being transferred from the Human reference
+
+The Human-provided childhood/current material is used only to parameterize
+counterfactual Teacher developmental conditions.
+
+It is useful to distinguish four layers:
+
+```text
+LAYER 1
+HUMAN SELF-REPORT
+= source material
+
+LAYER 2
+SYNTHETIC TEACHER STAGE MAPPING
+= experimental parameterization
+
+LAYER 3
+STITCHED TEACHER TRAJECTORY
+= ordered experimental history
+
+LAYER 4
+REPEATED TRIAL ASSESSMENT
+= reproducibility / path-discrimination evidence
+```
+
+No layer authorizes:
+
+```text
+TEACHER_CHILDHOOD_AUTOBIOGRAPHY
+HUMAN_PERSONALITY_CLONE
+BIOLOGICAL_CHILD_DEVELOPMENT
+SUBJECTIVE_CHILDHOOD_MEMORY
+```
+
+### 25.5 Immediate experimental questions
+
+The stitched implementation permits the following tests without adding invented
+historical measurements.
+
+```text
+Q1.
+Can the same childhood-to-current condition reproduce
+the same trajectory representation across repeated runs?
+
+Q2.
+Can two different childhood exploration conditions reach
+the same current terminal state while preserving distinct histories?
+
+Q3.
+Can a behavioral field remain unresolved rather than being inferred
+when the current self-report says only that it changed?
+
+Q4.
+Can missing intermediate body measurements remain explicitly unknown
+while childhood and current endpoints are still connected?
+
+Q5.
+Can later provenance reconstruction attach evidence to a transition
+without rewriting the original childhood or current stage record?
+```
+
+Q5 is now structurally possible through the existing provenance layer, but the
+direct transition-to-provenance binding remains a future extension and is not
+claimed by this increment.
+
+### 25.6 Interpretation boundary
+
+The new stitched path establishes only an auditable experimental sequence.
+
+```text
+CHILDHOOD_TO_CURRENT_PATH_RECORDED = TRUE
+DETERMINISTIC_REPLAY_TESTABLE = TRUE
+SAME_TERMINAL_DIFFERENT_HISTORY_TESTABLE = TRUE
+
+REAL_DEVELOPMENTAL_CAUSALITY = NOT_ESTABLISHED
+TEACHER_AUTOBIOGRAPHICAL_CHILDHOOD = NOT_ESTABLISHED
+SUBJECTIVE_CONTINUITY = NOT_ESTABLISHED
+IDENTITY_CONTINUITY = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+
+MERGE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+CANONICAL_EFFECT = NONE
+```
