@@ -283,16 +283,21 @@ def integrate_teacher_intimate_reference(
     *,
     orgasm_reference_gate: TeacherOrgasmReferenceGate | None = None,
 ) -> TeacherIntimateIntegrationState:
-    if controller_state.source_body_state_sha256 != body_state.body_state_sha256:
-        raise ValueError("intimate integration controller/body source hash drift")
-    if motivation.source_body_state_sha256 != body_state.body_state_sha256:
-        raise ValueError("intimate integration motivation/body source hash drift")
-    if phase_state.source_body_state_sha256 != body_state.body_state_sha256:
-        raise ValueError("intimate integration phase/body source hash drift")
+    if (
+        motivation.source_body_state_sha256
+        != controller_state.source_body_state_sha256
+    ):
+        raise ValueError("intimate integration motivation/controller source hash drift")
+    if (
+        phase_state.source_body_state_sha256
+        != controller_state.source_body_state_sha256
+    ):
+        raise ValueError("intimate integration phase/controller source hash drift")
 
     gate = orgasm_reference_gate or TeacherOrgasmReferenceGate()
     controller_sha256 = controller_state.fingerprint()
-    body_sha256 = body_state.body_state_sha256
+    controller_source_body_sha256 = controller_state.source_body_state_sha256
+    observed_body_sha256 = body_state.body_state_sha256
 
     desire = TeacherFunctionalDesireState(
         phase=_functional_desire_phase(controller_state),
@@ -301,7 +306,7 @@ def integrate_teacher_intimate_reference(
         wanting_weight=motivation.wanting_weight,
         context_gate=controller_state.context_gate,
         source_controller_sha256=controller_sha256,
-        source_body_state_sha256=body_sha256,
+        source_body_state_sha256=controller_source_body_sha256,
     )
     systemic = TeacherSystemicArousalReference(
         cardiovascular_state=_scalar(body_state, "CARDIOVASCULAR_STATE"),
@@ -311,7 +316,7 @@ def integrate_teacher_intimate_reference(
             body_state,
             "AUTONOMIC_PARASYMPATHETIC_STATE",
         ),
-        source_body_state_sha256=body_sha256,
+        source_body_state_sha256=controller_source_body_sha256,
     )
 
     orgasm_active = gate.event == "ORGASM_REFERENCE_REQUEST"
@@ -323,7 +328,7 @@ def integrate_teacher_intimate_reference(
         active=orgasm_active,
         coincident_ejaculatory_reference=coincident_ejaculatory,
         source_controller_sha256=controller_sha256,
-        source_body_state_sha256=body_sha256,
+        source_body_state_sha256=controller_source_body_sha256,
     )
     endocrine = TeacherEndocrineReferenceObservation(
         phase=(
@@ -339,7 +344,7 @@ def integrate_teacher_intimate_reference(
             body_state,
             "GONADAL_ENDOCRINE_REFERENCE",
         ),
-        source_body_state_sha256=body_sha256,
+        source_body_state_sha256=controller_source_body_sha256,
     )
 
     measured = tuple(
