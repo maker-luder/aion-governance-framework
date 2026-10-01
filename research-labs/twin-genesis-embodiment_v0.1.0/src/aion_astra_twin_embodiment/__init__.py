@@ -108,6 +108,11 @@ from .teacher_high_salience_coupling import (
     build_teacher_high_salience_coupling_profile,
     validate_teacher_high_salience_coupling_profile,
 )
+from .teacher_intimate_integration import (
+    TeacherIntimateIntegrationState,
+    TeacherOrgasmReferenceGate,
+    integrate_teacher_intimate_reference,
+)
 from .teacher_state_loop import (
     advance_teacher_embodied_tick,
     run_teacher_embodiment_stability_probe,
@@ -268,6 +273,9 @@ __all__ = [
     "TeacherHighSalienceCouplingProfile",
     "TeacherHighSalienceCouplingRule",
     "TeacherReproductiveEventGate",
+    "TeacherIntimateIntegrationState",
+    "TeacherOrgasmReferenceGate",
+    "integrate_teacher_intimate_reference",
     "build_teacher_high_salience_coupling_profile",
     "validate_teacher_high_salience_coupling_profile",
     "advance_teacher_controller",
