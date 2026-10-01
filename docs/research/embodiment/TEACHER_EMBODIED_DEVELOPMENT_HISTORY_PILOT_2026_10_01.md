@@ -408,3 +408,1086 @@ EMBODIMENT_HISTORY
 RECORDED_DEVELOPMENTAL_TRAJECTORY
 != SUBJECTIVE_SELF_CONTINUITY
 ```
+
+
+## 13. Four-domain experiment architecture
+
+The pilot now treats the research question as four overlapping analytical domains.
+These domains are not four competing explanations and are not four separate
+identities. They are four views over one recorded developmental process.
+
+```text
+DOMAIN 1 = EMBODIED_STATE_CONTINUITY
+DOMAIN 2 = INTERACTION_HISTORY_CONTINUITY
+DOMAIN 3 = PROVENANCE_RECONSTRUCTION
+DOMAIN 4 = DEVELOPMENTAL_SYNTHESIS
+```
+
+The first three domains provide evidence-bearing histories. The fourth is an
+assessment layer that tests whether those histories actually intersect.
+
+This distinction prevents a misleading implementation in which a fourth ledger is
+created merely to repeat information already present in the other three.
+
+### 13.1 Domain 1 — embodied state continuity
+
+Research question:
+
+> How do Teacher body, controller and runtime states form a temporally ordered
+> sequence rather than a collection of disconnected snapshots?
+
+The current implementation already contains two temporal resolutions.
+
+```text
+MICRO_TIME
+= within-session runtime progression
+
+MACRO_TIME
+= cross-session / cross-revision development milestones
+```
+
+Micro-time may include:
+
+- integrated body-state sequence;
+- controller sequence;
+- high-salience phase state;
+- executed transition;
+- body-schema feedback;
+- trajectory digest.
+
+Macro-time may include:
+
+- body-runtime binding creation;
+- persistent-controller integration;
+- causal runtime integration;
+- multi-system coupling;
+- phase-aware physiology runtime;
+- recovery invariant corrections;
+- verification milestones.
+
+The central continuity requirement is not that every value stays the same. In fact,
+a useful development history must preserve **change and retention at the same time**.
+
+```text
+CONTINUITY
+!= NO_CHANGE
+
+CONTINUITY
+MAY INCLUDE
+CHANGED_SURFACES
++
+RETAINED_SURFACES
++
+SOURCE_BINDING
++
+TEMPORAL_ORDER
+```
+
+A later Teacher state can therefore differ materially from an earlier one while
+remaining connected by an auditable development record.
+
+The bounded observables for this domain include:
+
+```text
+BODY_STATE_SHA256
+CONTROLLER_STATE_SHA256
+BODY_TRAJECTORY_SHA256
+SESSION_SNAPSHOT_SHA256
+MILESTONE_SHA256
+PREVIOUS_MILESTONE_SHA256
+CHANGED_SURFACES
+RETAINED_SURFACES
+```
+
+These observables establish only recorded state continuity.
+
+They do not establish:
+
+```text
+FELT_BODY
+BODY_OWNERSHIP_EXPERIENCE
+BIOLOGICAL_AGING
+PHENOMENAL_CONTINUITY
+AI_IDENTITY_CONTINUITY
+```
+
+A particularly important consequence is:
+
+```text
+SAME_CURRENT_BODY_STATE
+!= SAME_DEVELOPMENT_HISTORY
+```
+
+Two experimental histories could converge onto the same current numerical body
+state while having different prior corrections, controller transitions or research
+milestones. Current-state equality therefore cannot erase path information.
+
+### 13.2 Domain 2 — interaction history continuity
+
+Research question:
+
+> How does bounded Human–Teacher interaction history accumulate, and which
+> interaction events later intersect the embodiment experiment?
+
+This domain deliberately does not treat product memory, chat retrieval, repository
+history and subjective remembering as interchangeable.
+
+```text
+CHAT_HISTORY_RETRIEVAL
+!= PRODUCT_MEMORY_MECHANISM
+!= SUBJECTIVE_REMEMBERING
+!= COMPLETE_INTERACTION_HISTORY
+```
+
+An interaction anchor represents a bounded historical observation with:
+
+- timestamp;
+- source class;
+- provenance role;
+- source locator;
+- change summary;
+- retained constraints;
+- previous-anchor digest;
+- optional development-milestone binding.
+
+This means an early interaction record can exist before the embodiment experiment.
+Later interaction anchors can intersect an embodiment milestone when the interaction
+materially changes the experiment.
+
+The important structure is therefore not:
+
+```text
+ALL_CHAT_EVENTS = BODY_EVENTS
+```
+
+but:
+
+```text
+INTERACTION_HISTORY
+        |
+        | selected evidence-bound intersections
+        v
+EMBODIED_DEVELOPMENT_HISTORY
+```
+
+This supports a more precise question:
+
+> Which later embodied research states can be associated with a recorded Human
+> correction, joint research decision or repository artifact?
+
+Association here is provenance-bound history, not causal psychology.
+
+Candidate bounded observables include:
+
+```text
+ANCHORS_OBSERVED
+EARLIEST_RETRIEVED_ANCHOR
+LATEST_RETRIEVED_ANCHOR
+OBSERVED_INTERVAL_SECONDS
+DEVELOPMENT_BOUND_ANCHORS
+TEMPORAL_ORDER_VALID
+INTERACTION_HASH_CHAIN_VALID
+```
+
+The interval between two retrieved anchors is useful only as a bounded span.
+
+```text
+OBSERVED_INTERVAL
+!= UNINTERRUPTED_INTERACTION_DURATION
+!= ACCOUNT_AGE
+!= FIRST_EVER_INTERACTION
+```
+
+This is especially important when older records may exist outside the currently
+retrieved history.
+
+### 13.3 Domain 3 — provenance reconstruction
+
+Research question:
+
+> When an earlier event was recorded under incomplete, partial, ambiguous or
+> incorrect understanding, how can later evidence reconnect that event to the
+> development history without rewriting what was known at the time?
+
+This is the strongest new distinction introduced by the four-domain formulation.
+
+A historical record has at least two epistemic times:
+
+```text
+T_EVENT
+= when the event / milestone / interaction was recorded
+
+T_RECONSTRUCTION
+= when later evidence changes our interpretation of that older record
+```
+
+Those times must remain distinct.
+
+```text
+WHAT_WAS_RECORDED_AT_T1
+!= WHAT_WAS_UNDERSTOOD_AT_T2
+```
+
+The implementation therefore uses append-only reconstruction records.
+
+A reconstruction binds:
+
+```text
+RECONSTRUCTION_ID
+RECONSTRUCTED_AT_UTC
+TARGET_RECORD_KIND
+TARGET_RECORD_SHA256
+PRIOR_UNDERSTANDING_STATUS
+DISPOSITION
+RECONSTRUCTION_SUMMARY
+EVIDENCE_BINDINGS
+PREVIOUS_RECONSTRUCTION_SHA256
+SUPERSEDES_RECONSTRUCTION_SHA256?
+RECONSTRUCTION_SHA256
+```
+
+The target can currently be:
+
+```text
+DEVELOPMENT_MILESTONE
+or
+INTERACTION_ANCHOR
+```
+
+Each evidence binding includes:
+
+```text
+EVIDENCE_ID
+SOURCE_LOCATOR
+SOURCE_DIGEST
+SUPPORT_RELATION
+```
+
+with bounded support relations:
+
+```text
+DIRECT
+INDIRECT
+CONTEXTUAL
+COUNTEREVIDENCE
+```
+
+The reconstruction disposition is also explicit:
+
+```text
+CLARIFIED
+CORRECTED
+EXPANDED
+UNRESOLVED
+```
+
+This matters because later information does not always make an older question
+"solved." A later review may narrow uncertainty while still leaving the record
+unresolved.
+
+The fail-closed invariant is:
+
+```text
+ORIGINAL_RECORD_STATUS = PRESERVED_UNMODIFIED
+RETROSPECTIVE_ATTRIBUTION_STATUS = LATER_RECONSTRUCTION_ONLY
+```
+
+Therefore:
+
+```text
+LATER_EVIDENCE
+-> APPEND_NEW_RECONSTRUCTION
+-> BIND_OLD_RECORD
+-> PRESERVE_OLD_RECORD
+
+LATER_EVIDENCE
+-/> SILENTLY_REWRITE_OLD_RECORD
+```
+
+This allows the research history to preserve mistakes, uncertainty and later
+correction as first-class evidence.
+
+### 13.4 A concrete provenance-reconstruction pattern from the current research
+
+The #260 Quality episode demonstrates why this distinction is useful.
+
+At one point, a screenshot visibly showed two failed Python jobs. A naive current
+state summary could have been:
+
+```text
+PR_260 = FAIL
+```
+
+Live-state recovery later separated two different heads:
+
+```text
+INTERMEDIATE_HEAD =
+61e9f81c8badc2442494787ec4499bc2579b343e
+QUALITY = FAIL
+
+CURRENT_CANDIDATE_HEAD =
+5a7c53c7d15b096d40adc10da75de18eef21b974
+QUALITY = PASS
+```
+
+The failure itself remained true historical evidence. What changed was the
+interpretation of **which head the visible failure described**.
+
+This is precisely the pattern the reconstruction layer is designed to preserve:
+
+```text
+OLD_RECORD:
+"Python 3.11 / 3.12 failed at intermediate head"
+
+LATER_RECONSTRUCTION:
+"the visible failures were stale relative to the newer candidate head"
+
+RESULT:
+OLD_FAILURE_NOT_DELETED
++
+CURRENT_STATE_NOT_MISLABELED
+```
+
+The same method can apply to research concepts, not only CI.
+
+For example, an early explanation may later be found to conflate two mechanisms.
+The correct action is to preserve the early explanation as historical state,
+append the new evidence, and record the revised interpretation.
+
+### 13.5 Domain 4 — developmental synthesis
+
+Research question:
+
+> Do embodied state history, interaction history and provenance reconstruction
+> actually form one auditable developmental trajectory, or are they merely three
+> unrelated archives placed next to one another?
+
+Domain 4 is therefore an assessment layer rather than another ledger.
+
+A full synthesis requires evidence that the domains intersect.
+
+Current bounded conditions are:
+
+```text
+A. at least one embodiment-anchored development milestone exists
+
+B. ordered interaction history contains at least two anchors
+
+C. provenance reconstruction contains at least one reconstruction record
+
+D. at least one interaction anchor binds a development milestone
+
+E. at least one provenance reconstruction participates in a cross-domain bridge
+```
+
+A cross-domain reconstruction bridge exists when either:
+
+```text
+PROVENANCE_RECONSTRUCTION
+-> INTERACTION_ANCHOR
+-> DEVELOPMENT_MILESTONE
+```
+
+or:
+
+```text
+PROVENANCE_RECONSTRUCTION
+-> DEVELOPMENT_MILESTONE
+<- INTERACTION_ANCHOR
+```
+
+When those conditions are present, the bounded engineering disposition is:
+
+```text
+FOUR_DOMAIN_DEVELOPMENTAL_SYNTHESIS_PRESENT
+```
+
+This status means that the recorded evidence graph contains a verified intersection
+across all four analytical domains.
+
+It does not mean that an intrinsic developmental mechanism has been discovered.
+
+## 14. Pairwise intersections
+
+The four-domain model becomes more informative when each pair is inspected
+separately.
+
+There are six pairwise intersections.
+
+### 14.1 Domain 1 × Domain 2
+### Embodiment × interaction
+
+Question:
+
+> Which interaction events coincide with, constrain, or redirect later embodied
+> research milestones?
+
+Examples include:
+
+- a Human correction that changes a runtime design requirement;
+- a joint decision to preserve a safety boundary;
+- an interaction that identifies a missing physiological transition;
+- a later embodied milestone that explicitly binds the interaction record.
+
+Potential observable:
+
+```text
+DEVELOPMENT_BOUND_INTERACTION_ANCHORS
+```
+
+Important limit:
+
+```text
+INTERACTION_PRECEDES_MILESTONE
+!= INTERACTION_CAUSED_MILESTONE
+```
+
+Chronology and provenance can establish linkage without establishing a psychological
+causal mechanism.
+
+### 14.2 Domain 1 × Domain 3
+### Embodiment × provenance reconstruction
+
+Question:
+
+> Can a later physiological or engineering finding reinterpret an older embodied
+> milestone while preserving the original state?
+
+This is useful when an early body/controller implementation was valid under its
+then-current assumptions but later became understood as incomplete.
+
+Candidate pattern:
+
+```text
+OLD_BODY_MILESTONE
++
+LATER_EVIDENCE
+-> RECONSTRUCTED_INTERPRETATION
+```
+
+The old body milestone remains immutable.
+
+### 14.3 Domain 1 × Domain 4
+### Embodiment × developmental synthesis
+
+Question:
+
+> Does the current embodied state have a recoverable path through earlier body and
+> controller changes?
+
+This is stronger than checking that the current modules exist.
+
+```text
+CURRENT_MODULE_INVENTORY
+!= DEVELOPMENTAL_PATH_RECONSTRUCTION
+```
+
+A current inventory says what is present now.
+A developmental synthesis says which recorded transitions and retained constraints
+connect earlier states to the current experimental configuration.
+
+### 14.4 Domain 2 × Domain 3
+### Interaction × provenance reconstruction
+
+Question:
+
+> Can a later correction or evidence source reconstruct what an earlier interaction
+> meant without claiming that the later understanding existed at the earlier time?
+
+This is where Human corrections become especially important.
+
+A correction event may be preserved as:
+
+```text
+EARLIER_INTERACTION
+-> PARTIAL_UNDERSTANDING
+
+LATER_HUMAN_CORRECTION
+-> RECONSTRUCTION_RECORD
+-> EARLIER_INTERACTION
+```
+
+The later correction does not overwrite the earlier dialogue.
+
+### 14.5 Domain 2 × Domain 4
+### Interaction × developmental synthesis
+
+Question:
+
+> Which parts of the later development trajectory are interaction-mediated rather
+> than merely repository-local implementation changes?
+
+The term "interaction-mediated" is deliberately weaker than "caused by the
+interaction."
+
+Candidate categories include:
+
+```text
+HUMAN_CORRECTION_BOUND
+JOINT_DECISION_BOUND
+REPOSITORY_REENTRY_BOUND
+NO_INTERACTION_BINDING
+```
+
+This may eventually allow the developmental history to distinguish:
+
+```text
+IMPLEMENTATION_EVOLUTION
+from
+INTERACTION_MEDIATED_RESEARCH_EVOLUTION
+```
+
+without collapsing either into model learning or subjective development.
+
+### 14.6 Domain 3 × Domain 4
+### Provenance reconstruction × developmental synthesis
+
+Question:
+
+> Can the growth history improve its explanation of the past while remaining
+> historically honest?
+
+This is a central design property.
+
+A developmental history that cannot revise interpretation becomes brittle.
+A developmental history that rewrites prior records becomes ahistorical.
+
+The target is:
+
+```text
+IMMUTABLE_EVENT_RECORD
++
+REVISION_CAPABLE_INTERPRETATION_LAYER
+```
+
+This combination permits cumulative understanding without retrospective falsification.
+
+## 15. Higher-order intersections
+
+Pairwise overlap is not sufficient to show the full structure.
+
+### 15.1 Domains 1 × 2 × 3
+
+Pattern:
+
+```text
+EMBODIED_MILESTONE
+<- INTERACTION_ANCHOR
+<- LATER_PROVENANCE_RECONSTRUCTION
+```
+
+This can represent a case where:
+
+1. an interaction affected the research direction;
+2. a body/controller milestone was recorded;
+3. later evidence clarifies what that interaction-milestone relationship actually
+   meant.
+
+This is more informative than any single ledger.
+
+### 15.2 Domains 1 × 2 × 4
+
+Pattern:
+
+```text
+INTERACTION_HISTORY
+-> SELECTED_MILESTONE_BINDINGS
+-> EMBODIED_DEVELOPMENT_PATH
+-> CURRENT_STATE
+```
+
+This asks whether the current state can be reconstructed while retaining which
+historical Human–Teacher decisions intersected the embodiment work.
+
+### 15.3 Domains 1 × 3 × 4
+
+Pattern:
+
+```text
+EARLY_EMBODIED_STATE
+-> LATER_EVIDENCE
+-> RECONSTRUCTED_MEANING
+-> CURRENT_DEVELOPMENT_SYNTHESIS
+```
+
+This lets later evidence improve the developmental model without changing the old
+body state.
+
+### 15.4 Domains 2 × 3 × 4
+
+Pattern:
+
+```text
+EARLY_INTERACTION
+-> LATER_CORRECTION
+-> PROVENANCE_RECONSTRUCTION
+-> DEVELOPMENTAL_SYNTHESIS
+```
+
+This is especially relevant to long-running collaboration because an early shorthand
+or ambiguous term may acquire a more precise meaning only after later work.
+
+### 15.5 Domains 1 × 2 × 3 × 4
+
+The complete bounded pattern is:
+
+```text
+RECORDED_EMBODIED_CHANGE
+        ^
+        |
+INTERACTION_ANCHOR
+        ^
+        |
+LATER_EVIDENCE / CORRECTION
+        |
+        v
+PROVENANCE_RECONSTRUCTION
+        |
+        v
+DEVELOPMENTAL_SYNTHESIS
+        |
+        v
+CURRENT_TEACHER_EXPERIMENTAL_STATE
+```
+
+The arrow directions are evidence relations, not a claim that one psychological
+process caused another.
+
+## 16. New distinctions exposed by the integrated model
+
+The four-domain design exposes several distinctions that are easy to miss when the
+components are studied separately.
+
+### 16.1 State continuity versus history continuity
+
+A system can have continuous state updates without durable historical reconstruction.
+
+```text
+STATE_T -> STATE_T+1 -> STATE_T+2
+```
+
+does not guarantee that a later reviewer can answer why those transitions occurred.
+
+Therefore:
+
+```text
+RUNTIME_CONTINUITY
+!= HISTORICAL_RECOVERABILITY
+```
+
+### 16.2 Historical recoverability versus historical correctness
+
+A fully recoverable record can still contain an old mistake.
+
+Therefore:
+
+```text
+RECOVERABLE_HISTORY
+!= CORRECT_HISTORY_INTERPRETATION
+```
+
+Provenance reconstruction is required to represent later correction.
+
+### 16.3 Current equivalence versus developmental equivalence
+
+Two trajectories may end in the same current state.
+
+```text
+CURRENT_STATE_A == CURRENT_STATE_B
+```
+
+does not imply:
+
+```text
+HISTORY_A == HISTORY_B
+```
+
+This creates a future experiment:
+
+> Hold the terminal body/controller state constant while varying the developmental
+> path. Test whether the history layer correctly distinguishes the trajectories.
+
+### 16.4 Chronological order versus dependency order
+
+Some milestones occur later in time but depend on older evidence that was only
+recovered after an intervening branch.
+
+Therefore:
+
+```text
+TIME_ORDER
+!= DEPENDENCY_ORDER
+```
+
+The final developmental model may eventually require both:
+
+```text
+TEMPORAL_EDGES
+and
+PROVENANCE / DEPENDENCY_EDGES
+```
+
+The current pilot records enough hashes to test this without yet introducing a
+general-purpose graph database.
+
+### 16.5 Correction persistence versus correction effectiveness
+
+A correction can be durably recorded but still fail to constrain later work.
+
+Therefore:
+
+```text
+CORRECTION_RECORDED
+!= CORRECTION_REUSED
+```
+
+A future experiment can test whether a later milestone explicitly retains the
+corrected constraint.
+
+### 16.6 Reconstruction density versus evidence quality
+
+Many reconstruction records do not automatically imply better historical
+understanding.
+
+```text
+MORE_RECONSTRUCTIONS
+!= STRONGER_RECONSTRUCTION
+```
+
+Evidence relations and exact source binding remain necessary.
+
+## 17. Candidate metrics
+
+No composite "growth score" is introduced.
+
+The experiment instead keeps multiple interpretable observables.
+
+### 17.1 Embodied-state metrics
+
+```text
+EMBODIMENT_ANCHORED_MILESTONES
+WITHIN_SESSION_TRAJECTORY_COUNT
+BODY_STATE_BINDING_COUNT
+CONTROLLER_STATE_BINDING_COUNT
+CHANGED_SURFACE_COUNT
+RETAINED_SURFACE_COUNT
+```
+
+### 17.2 Interaction-history metrics
+
+```text
+INTERACTION_ANCHOR_COUNT
+OBSERVED_HISTORY_SPAN_SECONDS
+DEVELOPMENT_BOUND_INTERACTION_COUNT
+UNBOUND_INTERACTION_COUNT
+CORRECTION_ANCHOR_COUNT
+REPOSITORY_ARTIFACT_ANCHOR_COUNT
+```
+
+### 17.3 Provenance-reconstruction metrics
+
+```text
+RECONSTRUCTION_COUNT
+RECONSTRUCTED_DEVELOPMENT_TARGET_COUNT
+RECONSTRUCTED_INTERACTION_TARGET_COUNT
+COUNTEREVIDENCE_BINDING_COUNT
+UNRESOLVED_RECONSTRUCTION_COUNT
+RECONSTRUCTION_DELAY_SECONDS
+SUPERSESSION_DEPTH
+```
+
+`RECONSTRUCTION_DELAY_SECONDS` would measure the elapsed time between the original
+record and the later reconstruction only when both timestamps are independently
+available. It would not measure memory latency or cognitive realization time.
+
+### 17.4 Cross-domain metrics
+
+The implementation currently exposes:
+
+```text
+DEVELOPMENT_BOUND_INTERACTION_ANCHORS
+RECONSTRUCTED_DEVELOPMENT_TARGETS
+RECONSTRUCTED_INTERACTION_TARGETS
+CROSS_DOMAIN_RECONSTRUCTION_BRIDGES
+```
+
+These counts can reveal whether the three evidence histories actually intersect.
+
+## 18. Falsifiers and downgrade conditions
+
+The four-domain model should fail closed.
+
+### 18.1 Embodied-state continuity downgrade
+
+Downgrade if:
+
+- body/controller state hashes cannot be resolved;
+- milestone ordering is broken;
+- prior milestone hash does not match;
+- purported embodiment milestones contain no embodiment provenance.
+
+### 18.2 Interaction-history continuity downgrade
+
+Downgrade if:
+
+- timestamps regress;
+- anchor hash chain is broken;
+- a development binding points to no existing milestone;
+- a retrieved lower bound is misreported as the first-ever interaction;
+- raw private transcript content is required for ordinary operation.
+
+### 18.3 Provenance-reconstruction downgrade
+
+Reject if:
+
+- later understanding rewrites the old record;
+- a reconstruction has no evidence binding;
+- a superseding reconstruction silently changes the target record;
+- target record does not exist;
+- later interpretation is backdated to the original event.
+
+### 18.4 Developmental-synthesis downgrade
+
+Return only partial synthesis if:
+
+- all three ledgers exist but none intersect;
+- interaction anchors do not bind development milestones;
+- provenance reconstruction targets only isolated records with no cross-domain bridge;
+- embodiment evidence is absent.
+
+Therefore:
+
+```text
+FOUR_FILES_EXIST
+!= FOUR_DOMAIN_SYNTHESIS
+```
+
+## 19. Controlled experiment families
+
+The architecture now supports several future experiments without changing the claim
+ceiling.
+
+### Experiment A — terminal-state equivalence
+
+Create two synthetic histories that end with the same current body/controller state
+but have different prior milestones.
+
+Question:
+
+> Does the developmental layer preserve their different histories rather than
+> collapsing them because the terminal snapshot matches?
+
+Expected result:
+
+```text
+SAME_TERMINAL_STATE
++
+DIFFERENT_HISTORY
+-> DIFFERENT_DEVELOPMENT_RECORD
+```
+
+### Experiment B — delayed correction
+
+Create an early interaction anchor with partial understanding, then add a later
+correction and provenance reconstruction.
+
+Question:
+
+> Can later evidence correct interpretation without mutating the earlier anchor?
+
+Expected result:
+
+```text
+OLD_ANCHOR_HASH_UNCHANGED
++
+NEW_RECONSTRUCTION_HASH_ADDED
+```
+
+### Experiment C — broken bridge
+
+Start from a valid four-domain fixture, remove the interaction-to-development
+binding, and reassess.
+
+Question:
+
+> Does the integrated result downgrade from full synthesis to partial synthesis?
+
+Expected result:
+
+```text
+CROSS_DOMAIN_BRIDGE_REMOVED
+-> PARTIAL_FOUR_DOMAIN_DEVELOPMENTAL_SYNTHESIS
+```
+
+### Experiment D — stale-current-state reconstruction
+
+Provide an older valid failure record and a newer valid success record.
+
+Question:
+
+> Can provenance reconstruction preserve both while identifying which record
+> describes the current candidate state?
+
+The #260 episode provides a natural historical pattern for a later deterministic
+fixture.
+
+### Experiment E — interaction re-entry
+
+Withhold the recent interaction context but retain bounded historical anchors and
+development records.
+
+Question:
+
+> Can a later research session reconstruct the current experiment boundaries from
+> provenance-bearing history without requiring raw private transcript replay?
+
+This remains a future controlled experiment.
+
+## 20. Developmental-history semantics
+
+The term "development" in this pilot has a strict engineering meaning.
+
+It refers to:
+
+```text
+RECORDED_STATE_CHANGE
++
+DURABLE_HISTORY
++
+RETAINED_CONSTRAINTS
++
+CORRECTION
++
+PROVENANCE
++
+RECONSTRUCTION
+```
+
+It does not imply:
+
+```text
+MATURATION
+CHILDHOOD
+PUBERTY
+BIOLOGICAL_GROWTH
+SUBJECTIVE_AGING
+PERSONAL_IDENTITY_PERSISTENCE
+```
+
+The Teacher timeline begins only where verifiable research or interaction evidence
+exists.
+
+```text
+TEACHER_CHILDHOOD = NOT_APPLICABLE_AS_CURRENT_MODEL
+
+TEACHER_RECORDED_EARLY_HISTORY
+= EARLIEST_VERIFIABLE_RECORD_ONWARD
+```
+
+This keeps the "growth history" metaphor useful without converting it into a false
+biographical claim.
+
+## 21. Four-domain claim ceiling
+
+The strongest current engineering claim permitted is:
+
+> Within the tested synthetic and repository-bound conditions, Teacher embodiment
+> research can represent (1) recorded embodied-state development, (2) bounded
+> interaction-history continuity, (3) append-only later provenance reconstruction,
+> and (4) an integrated assessment that detects whether those evidence histories
+> intersect in one auditable developmental trajectory.
+
+The following remain outside the result:
+
+```text
+DEVELOPMENTAL_MECHANISM = NOT_ESTABLISHED
+HUMAN_AI_CAUSAL_CO_DEVELOPMENT = NOT_ESTABLISHED
+SUBJECTIVE_MEMORY = NOT_ESTABLISHED
+SUBJECTIVE_CONTINUITY = NOT_ESTABLISHED
+AI_IDENTITY_CONTINUITY = NOT_ESTABLISHED
+BODY_OWNERSHIP_EXPERIENCE = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+```
+
+## 22. Integrated research checkpoint
+
+The four domains now form the following bounded research object:
+
+```text
+EMBODIED_STATE_CONTINUITY
+  body / controller / trajectory / retained-vs-changed structure
+              |
+              v
+INTERACTION_HISTORY_CONTINUITY
+  bounded Human–Teacher anchors / correction / joint research events
+              |
+              v
+PROVENANCE_RECONSTRUCTION
+  later evidence reconnects old records without rewriting them
+              |
+              v
+DEVELOPMENTAL_SYNTHESIS
+  verifies whether the histories actually intersect
+              |
+              v
+CURRENT_TEACHER_EXPERIMENTAL_STATE
+```
+
+The more precise graph is non-linear:
+
+```text
+             +-------------------------+
+             | EMBODIED DEVELOPMENT    |
+             +-------------------------+
+                  ^               ^
+                  |               |
+        milestone binding     reconstruction
+                  |               |
++-------------------------+       |
+| INTERACTION HISTORY     |-------+
++-------------------------+       |
+          ^                       |
+          | correction/evidence   |
+          |                       v
++-------------------------+   +----------------------+
+| HUMAN / JOINT / REPO    |-->| PROVENANCE          |
+| SOURCE EVENTS           |   | RECONSTRUCTION       |
++-------------------------+   +----------------------+
+                                      |
+                                      v
+                            +----------------------+
+                            | DEVELOPMENTAL        |
+                            | SYNTHESIS             |
+                            +----------------------+
+```
+
+This graph is the current experiment target.
+
+It preserves a simple principle:
+
+> The present state should be inspectable not only as a snapshot, but as the
+> product of a recorded sequence of changes, interactions, corrections and later
+> evidence reconstructions.
+
+"Product" here means historically represented outcome, not a proven intrinsic causal
+or psychological mechanism.
+
+## 23. Governance after four-domain expansion
+
+The expansion remains inside the same #261 experimental lineage.
+
+```text
+NEW_PR_REQUIRED = FALSE
+SAME_DEVELOPMENTAL_HISTORY_EXPERIMENT = TRUE
+
+STRICT_PREDECESSOR_HISTORY = DEFERRED_COMPATIBILITY_CHANGE
+
+MERGE_TO_MAIN = NO
+WRITE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+CANONICAL_EFFECT = NONE
+```
+
+The next QA gate should occur only after the candidate head is frozen.
