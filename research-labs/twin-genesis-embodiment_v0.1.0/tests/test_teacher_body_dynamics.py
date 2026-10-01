@@ -91,6 +91,7 @@ def test_every_body_signal_has_runtime_semantics_and_homeostatic_binding() -> No
     assert "ENDOCRINE_BASELINE_TO_ADAPTIVE_RESPONSE" in transition_ids
     assert "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE" in transition_ids
     assert "DETUMESCENCE_TO_RECOVERY" in transition_ids
+    assert "VASCULAR_RESPONSE_TO_BASELINE_RECOVERY" in transition_ids
     homeostatic_ids = {
         item.variable_id for item in profile.homeostatic_variables
     }
