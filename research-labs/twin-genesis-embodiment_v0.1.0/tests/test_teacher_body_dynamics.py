@@ -322,7 +322,10 @@ def test_reproductive_transition_semantics_exclude_acute_gonadal_endocrine_drive
     emission = by_id["MAINTENANCE_TO_EMISSION"]
     assert emission.trigger_channels == (
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
     )
     assert "GONADAL_ENDOCRINE_REFERENCE" not in emission.trigger_channels
 
@@ -338,6 +341,8 @@ def test_expulsion_transition_uses_event_specific_motor_channels() -> None:
     assert expulsion.trigger_channels == (
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
     )
     assert "PELVIC_FLOOR_PROPRIOCEPTION" not in expulsion.trigger_channels
 
@@ -353,9 +358,14 @@ def test_reproductive_event_recovery_transition_covers_zero_baseline_event_chann
     assert recovery.system == "REPRODUCTIVE_SEXUAL_PHYSIOLOGY"
     assert recovery.trigger_channels == (
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
     )
 
     known = {
