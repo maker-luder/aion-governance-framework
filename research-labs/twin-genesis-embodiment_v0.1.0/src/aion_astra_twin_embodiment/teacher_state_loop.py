@@ -370,7 +370,22 @@ def build_teacher_reference_baseline_state(
         TeacherBodyObservation("DETUMESCENCE_STATE", (0.0,), timestamp_ms),
         TeacherBodyObservation("EMISSION_REFLEX_STATE", (0.0,), timestamp_ms),
         TeacherBodyObservation(
+            "SEMINAL_TRACT_TRANSPORT_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "ACCESSORY_GLAND_SECRETION_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
             "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
             (0.0,),
             timestamp_ms,
         ),
@@ -381,6 +396,21 @@ def build_teacher_reference_baseline_state(
         ),
         TeacherBodyObservation(
             "EXPULSION_MOTOR_PATTERN_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "ANTEGRADE_SEMINAL_FLOW_STATE",
+            (0.0,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "POST_EXPULSION_RECOVERY_STATE",
             (0.0,),
             timestamp_ms,
         ),
@@ -429,9 +459,15 @@ def _selected_channel_values(
         "PELVIC_FLOOR_PROPRIOCEPTION",
         "DETUMESCENCE_STATE",
         "EMISSION_REFLEX_STATE",
+        "SEMINAL_TRACT_TRANSPORT_STATE",
+        "ACCESSORY_GLAND_SECRETION_STATE",
         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
         "EJACULATORY_REFLEX_STATE",
         "EXPULSION_MOTOR_PATTERN_STATE",
+        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+        "ANTEGRADE_SEMINAL_FLOW_STATE",
+        "POST_EXPULSION_RECOVERY_STATE",
     }
     values: list[tuple[str, float]] = []
     for observation in body_state.observations:
