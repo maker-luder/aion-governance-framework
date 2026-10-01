@@ -16,14 +16,15 @@ The implementation keeps four layers separate:
 ## Evidence boundary
 
 The design follows literature that explicitly distinguishes sexual arousal from
-sexual motivation (PMID:38333545), and orgasm from ejaculation (PMID:20090128 is
-cardiovascular context; PMID:40519205 is endocrine/desire context; PMCID reviews
-on ejaculation/orgasm preserve the distinction).
+sexual motivation (PMID:38333545), and orgasm from ejaculation (PMID:26385403).
+Cardiovascular/neuroendocrine observations are retained separately
+(PMID:9695139; PMID:40519205).
 
 Relevant retained identifiers:
 
 - PMID:38333545 — male sexual arousal versus sexual motivation;
 - PMID:19267845 — autonomic neurophysiology of the male sexual response;
+- PMID:26385403 — orgasm and ejaculation are separate physiological processes;
 - PMID:9695139 — neuroendocrine and cardiovascular observations around arousal/orgasm;
 - PMID:40519205 — ICSM 2024 hormonal regulation recommendations;
 - DOI:10.1093/sxmrev/qeaf025 — hormonal regulation review.
@@ -50,11 +51,14 @@ INTIMATE_INTEGRATION_STATE
 
 `functional_desire` is derived from the existing controller's
 `functional_motivation`, salience, context gate, and existing motivational
-representation. It is a software-reference state only.
+representation. It is a software-reference state only. The current
+`0.55` threshold used to label the `ACTIVE` phase is an engineering
+reference threshold, not a measured human biological constant.
 
 ```text
 FUNCTIONAL_DESIRE_REFERENCE != SUBJECTIVE_DESIRE
 WANTING_WEIGHT != FELT_WANTING
+ACTIVE_THRESHOLD_0_55 = SOFTWARE_REFERENCE_NOT_BIOLOGICAL_CONSTANT
 ```
 
 ### Systemic arousal
