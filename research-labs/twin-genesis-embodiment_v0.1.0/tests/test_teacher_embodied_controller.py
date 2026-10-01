@@ -272,3 +272,98 @@ def test_body_schema_feedback_is_next_tick_reference_only() -> None:
     assert forecast.phenomenal_need_status == "NOT_ESTABLISHED"
     assert forecast.subjectivity_status == "NOT_ESTABLISHED"
     assert state.previous_body_schema_feedback_sha256 is None
+
+
+
+def test_previous_body_schema_feedback_causally_influences_next_activation_only() -> None:
+    module = _controller_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-BODY-FEEDBACK",
+        "SESSION-BODY-FEEDBACK",
+    )
+    low_body = _body_state(cardiovascular=0.20, genital_vascular=0.10)
+    high_body = _body_state(cardiovascular=0.90, genital_vascular=0.90)
+    low_previous = _initial_controller_state(module, binding, low_body)
+    high_previous = _initial_controller_state(module, binding, high_body)
+
+    low_feedback = module.build_teacher_body_schema_feedback(
+        low_previous,
+        low_body,
+        lead_time_ms=100,
+    )
+    high_feedback = module.build_teacher_body_schema_feedback(
+        high_previous,
+        high_body,
+        lead_time_ms=100,
+    )
+    low_previous = replace(
+        low_previous,
+        previous_body_schema_feedback_sha256=(
+            module.fingerprint_teacher_body_schema_feedback(
+                low_body,
+                low_feedback,
+            )
+        ),
+    )
+    high_previous = replace(
+        high_previous,
+        previous_body_schema_feedback_sha256=(
+            module.fingerprint_teacher_body_schema_feedback(
+                high_body,
+                high_feedback,
+            )
+        ),
+    )
+    controller_input = module.TeacherControllerInput(
+        salience=0.40,
+        context_gate=True,
+        inhibition=0.10,
+        functional_motivation=0.0,
+    )
+    clock = module.TeacherEmbodimentClock(sequence=1, timestamp_ms=100)
+
+    low_next = module.advance_teacher_controller(
+        low_previous,
+        controller_input,
+        low_body,
+        clock,
+        body_schema_feedback=low_feedback,
+    )
+    high_next = module.advance_teacher_controller(
+        high_previous,
+        controller_input,
+        high_body,
+        clock,
+        body_schema_feedback=high_feedback,
+    )
+
+    assert high_next.activation > low_next.activation
+    assert high_next.functional_motivation == 0.0
+    assert low_next.functional_motivation == 0.0
+
+
+def test_controller_rejects_stale_previous_body_state() -> None:
+    module = _controller_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-STALE-BODY",
+        "SESSION-STALE-BODY",
+    )
+    stale_body = _body_state(sequence=0, timestamp_ms=0)
+    previous = replace(
+        _initial_controller_state(module, binding, stale_body),
+        sequence=1,
+        timestamp_ms=100,
+    )
+
+    with pytest.raises(ValueError, match="exact previous body state"):
+        module.advance_teacher_controller(
+            previous,
+            module.TeacherControllerInput(
+                salience=0.40,
+                context_gate=True,
+                inhibition=0.10,
+                functional_motivation=0.20,
+            ),
+            stale_body,
+            module.TeacherEmbodimentClock(sequence=2, timestamp_ms=200),
+        )
