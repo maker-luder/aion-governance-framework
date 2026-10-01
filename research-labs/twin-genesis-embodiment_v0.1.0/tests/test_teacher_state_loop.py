@@ -7,7 +7,13 @@ import pytest
 
 from aion_astra_twin_embodiment import teacher_state_loop as state_loop
 from aion_astra_twin_embodiment.teacher_body_dynamics import (
+    TeacherBodyObservation,
     build_teacher_body_dynamics_profile,
+    integrate_teacher_body_state,
+)
+from aion_astra_twin_embodiment.teacher_embodied_controller import (
+    build_teacher_body_schema_feedback,
+    fingerprint_teacher_body_schema_feedback,
 )
 from aion_astra_twin_embodiment.teacher_body_runtime import (
     build_teacher_body_runtime_binding,
@@ -241,3 +247,101 @@ def test_reference_loop_remains_noncanonical_nonphysical_and_nonphenomenal() -> 
         frame.controller_state.phenomenal_experience_status == "NOT_ESTABLISHED"
         for frame in run.frames
     )
+
+
+
+def _with_feedback_channel_level(body_state, level: float):
+    observations = tuple(
+        TeacherBodyObservation(
+            channel_id=item.channel_id,
+            values=(
+                (level,)
+                if item.channel_id in {
+                    "RESPIRATORY_STATE",
+                    "OXYGENATION_STATE",
+                }
+                else ((1.0 - level,) if item.channel_id == "CO2_BALANCE_STATE" else item.values)
+            ),
+            timestamp_ms=item.timestamp_ms,
+            confidence=item.confidence,
+        )
+        for item in body_state.observations
+    )
+    return integrate_teacher_body_state(
+        observations,
+        sequence=body_state.sequence,
+    )
+
+
+def test_embodied_tick_consumes_previous_body_schema_feedback_causally() -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-CAUSAL-FEEDBACK",
+        "SESSION-CAUSAL-FEEDBACK",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    low_body = _with_feedback_channel_level(baseline, 0.20)
+    high_body = _with_feedback_channel_level(baseline, 0.90)
+
+    low_controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        low_body,
+    )
+    high_controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        high_body,
+    )
+    low_feedback = build_teacher_body_schema_feedback(
+        low_controller,
+        low_body,
+        lead_time_ms=100,
+    )
+    high_feedback = build_teacher_body_schema_feedback(
+        high_controller,
+        high_body,
+        lead_time_ms=100,
+    )
+    low_controller = replace(
+        low_controller,
+        previous_body_schema_feedback_sha256=(
+            fingerprint_teacher_body_schema_feedback(
+                low_body,
+                low_feedback,
+            )
+        ),
+    )
+    high_controller = replace(
+        high_controller,
+        previous_body_schema_feedback_sha256=(
+            fingerprint_teacher_body_schema_feedback(
+                high_body,
+                high_feedback,
+            )
+        ),
+    )
+    stimulus = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="TEACHER-CAUSAL-FEEDBACK-STIMULUS",
+        stimulus_class="HIGH_SALIENCE_NON_INTIMATE_REFERENCE",
+        salience=0.40,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.10,
+    )
+
+    low_frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=low_controller,
+        previous_body_state=low_body,
+        stimulus=stimulus,
+    )
+    high_frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=high_controller,
+        previous_body_state=high_body,
+        stimulus=stimulus,
+    )
+
+    assert high_frame.controller_state.activation > (
+        low_frame.controller_state.activation
+    )
+    assert low_frame.controller_state.functional_motivation == 0.0
+    assert high_frame.controller_state.functional_motivation == 0.0
