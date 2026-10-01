@@ -208,6 +208,93 @@ def test_recovery_after_expulsion_uses_mixed_detumescence_directions() -> None:
     )
 
 
+def test_tick_local_recovery_gate_converges_from_asymmetric_event_state() -> None:
+    coupling = _coupling_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-ASYMMETRIC-RECOVERY",
+        "SESSION-ASYMMETRIC-RECOVERY",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.80,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.80,
+        EJACULATORY_REFLEX_STATE=0.06,
+        EXPULSION_MOTOR_PATTERN_STATE=0.06,
+        DETUMESCENCE_STATE=0.00,
+    )
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+    controller = replace(
+        controller,
+        activation=0.85,
+        salience=0.90,
+        context_gate=True,
+        inhibition=0.10,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+    previous_phase = coupling.TeacherHighSaliencePhaseState(
+        phase="EJACULATORY_REFLEX",
+        previous_phase="EMISSION",
+        sequence=body.sequence,
+        source_body_state_sha256=body.body_state_sha256,
+        reproductive_event="EXPULSION_REFERENCE_REQUEST",
+    )
+    recovery = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="ASYMMETRIC-RECOVERY",
+        stimulus_class="RECOVERY_REFERENCE",
+        salience=0.0,
+        functional_motivation=0.0,
+        sexual_context_gate=False,
+        inhibition=0.0,
+    )
+    recovery_phases = []
+
+    for tick in range(60):
+        gate = (
+            TeacherReproductiveEventGate(event="RECOVERY_REFERENCE_REQUEST")
+            if tick == 0
+            else TeacherReproductiveEventGate()
+        )
+        frame = state_loop.advance_teacher_embodied_tick(
+            binding,
+            previous_controller_state=controller,
+            previous_body_state=body,
+            stimulus=recovery,
+            previous_phase_state=previous_phase,
+            reproductive_event_gate=gate,
+        )
+        recovery_phases.append(frame.high_salience_phase_state.phase)
+        body = frame.body_state
+        previous_phase = frame.high_salience_phase_state
+        controller = replace(
+            frame.controller_state,
+            previous_body_schema_feedback_sha256=(
+                frame.body_schema_feedback_sha256
+            ),
+        )
+        if frame.high_salience_phase_state.phase == "BASELINE":
+            break
+
+    assert "EMISSION" not in recovery_phases
+    assert "EJACULATORY_REFLEX" not in recovery_phases
+    assert recovery_phases[-1] == "BASELINE"
+    assert _scalar(body, "DETUMESCENCE_STATE") <= 0.05
+    assert _scalar(body, "GENITAL_VASCULAR_STATE") <= 0.15
+    assert _scalar(body, "ERECTILE_REFLEX_STATE") <= 0.15
+    for channel_id in (
+        "EMISSION_REFLEX_STATE",
+        "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+        "EJACULATORY_REFLEX_STATE",
+        "EXPULSION_MOTOR_PATTERN_STATE",
+    ):
+        assert _scalar(body, channel_id) <= 0.05
+
+
 def test_event_gate_is_tick_local_in_phase_state() -> None:
     coupling = _coupling_module()
     binding = build_teacher_body_runtime_binding(
