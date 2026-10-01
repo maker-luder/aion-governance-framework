@@ -1563,7 +1563,7 @@ RUN C = HIGH_CURIOSITY_LOW_WILLINGNESS
 
 RUN D = SOCIAL_APPROACH_CONTROL
 
-RUN E = UNCERTAIN_CHILD_ANTHROPOMETRY_PRESERVED
+RUN E = COLLAPSED_CHILD_ANTHROPOMETRY_CONTROL
 ```
 
 All five runs terminate at the same adult body reference supplied at runtime.
@@ -1592,8 +1592,20 @@ same variable.
 Run D manipulates the early social-approach condition while holding the terminal
 adult reference constant.
 
-Run E preserves uncertain childhood anthropometry rather than collapsing a range into
-a fabricated exact measurement.
+Run E is an explicit synthetic point-estimate control: it collapses the runtime
+childhood height range to its mathematical midpoint and labels that value
+`SYNTHETIC_POINT_ESTIMATE_CONTROL`. It is not treated as historical truth.
+
+The comparison therefore tests:
+
+```text
+RANGE_PRESERVED_HISTORY
+!=
+SYNTHETIC_POINT_ESTIMATE_CONTROL_HISTORY
+```
+
+The range-preserving path remains the evidentially preferred representation when the
+Human source itself supplied a range.
 
 ### 24.3 Development stages
 
