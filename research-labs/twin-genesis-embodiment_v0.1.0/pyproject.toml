@@ -30,4 +30,4 @@ pythonpath = ["src", "../../components/executable_runtime_v0.1.0/src"]
 python_version = "3.11"
 strict = true
 packages = ["aion_astra_twin_embodiment"]
-mypy_path = "../../components/executable_runtime_v0.1.0/src"
+mypy_path = "../../components/governance_kernel_v0.4.0/src:../../components/astra_workbench_v1.0.0/src:../language-core-g1_v0.2.1/src:../../components/memory_recall_governance_v0.1.0/src:../../components/executable_runtime_v0.1.0/src:../../components/individual_runtime_state_v0.1.0/src:../../components/aion_evidence_interop_v0.1.0/src:../../components/agent_execution_substrate_v0.1.0/src:../../components/aion_runtime_v0.1.0/src:../../components/astra_runtime_v0.1.0/src"
