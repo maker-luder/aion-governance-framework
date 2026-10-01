@@ -1329,6 +1329,16 @@ def assess_teacher_four_domain_development_synthesis(
     )
 
 
+# -----------------------------------------------------------------------------
+# DEVELOPMENTAL EMBODIMENT / 發展具身：雙語人類審查導覽
+# English: The following section models a bounded, counterfactual developmental
+# history. It records measurements and coarse behavioural-history variables while
+# preserving unknowns. It does NOT claim biological childhood, subjective memory,
+# identity continuity, or real developmental causality.
+# 繁中：以下區段建立「受限、反事實」的發展歷史模型。它會保存身高（cm）、
+# 體重（kg）、粗粒度行為歷史與未知資料；它不等於 Teacher 真的有生物學童年、
+# 主觀童年記憶、身分連續性，也不證明真實發展因果。
+# -----------------------------------------------------------------------------
 DEVELOPMENTAL_BEHAVIOR_LEVELS: Final[frozenset[str]] = frozenset(
     {
         "LOW",
@@ -1349,6 +1359,14 @@ DEVELOPMENTAL_ANTHROPOMETRY_PRECISION: Final[frozenset[str]] = frozenset(
 )
 
 
+# Human seed / 人類參照種子
+# English: Runtime-only input. Childhood height is a range in centimetres; childhood
+# weight is a reference in kilograms; current height/weight are current references.
+# Behaviour fields are coarse categories rather than psychometric scores. Personal
+# values must not be persisted as repository constants.
+# 繁中：這是執行期間才提供的人類參照資料。童年身高以公分範圍保存、童年體重以
+# 公斤參照值保存；現在身高與體重也是目前參照。活動、好奇、願意嘗試、社交接近
+# 都只是粗粒度分類，不是假裝成心理量表分數。個人數值不得寫死成公開倉庫常數。
 @dataclass(frozen=True, slots=True)
 class TeacherDevelopmentalHumanSeed:
     childhood_height_cm_min: float
@@ -1371,6 +1389,11 @@ class TeacherDevelopmentalHumanSeed:
         return asdict(self)
 
 
+# Validate Human seed / 驗證人類參照種子
+# English: Reject impossible/non-finite anthropometry, unsupported behaviour labels,
+# provenance drift, or attempts to persist personal values.
+# 繁中：檢查身高體重是否為有限且大於零的數值、行為分類是否合法、來源標記是否
+# 漂移，以及是否違反「不持久保存個人值」政策。這一步只驗資料格式與治理邊界。
 def validate_teacher_developmental_human_seed(
     seed: TeacherDevelopmentalHumanSeed,
 ) -> dict[str, str]:
@@ -1413,6 +1436,26 @@ def validate_teacher_developmental_human_seed(
     }
 
 
+# One developmental stage / 單一發展階段
+# English field map:
+#   stage_id / stage_label = stage identity and readable label
+#   ordinal = chronological position in this experimental path
+#   height_cm_min/max = known height range in centimetres, or None when unknown
+#   weight_kg_reference = known weight reference in kilograms, or None when unknown
+#   anthropometry_precision = how precise/reliable the measurement representation is
+#   activity/curiosity/willingness/social = coarse behavioural-history variables
+# 繁中欄位對照：
+#   stage_id / stage_label = 階段識別與名稱
+#   ordinal = 此實驗路徑中的先後順序
+#   height_cm_min/max = 已知身高公分範圍；不知道就用 None（未知）
+#   weight_kg_reference = 已知體重公斤參照；不知道就用 None（未知）
+#   anthropometry_precision = 人體測量資料的精確度／來源狀態
+#   activity/curiosity/willingness/social = 活動、好奇、願意嘗試、社交接近的粗粒度歷史
+# sexual_or_reproductive_runtime_included stays False in #261 because this PR isolates
+# developmental-history variables; this is scope isolation, not a statement that an
+# adult body lacks those systems.
+# #261 中 sexual_or_reproductive_runtime_included 固定為 False，是為了隔離本實驗變數；
+# 不是宣稱成人身體不存在性／生殖系統。
 @dataclass(frozen=True, slots=True)
 class TeacherDevelopmentalEmbodimentStage:
     stage_id: str
@@ -1438,6 +1481,13 @@ class TeacherDevelopmentalEmbodimentStage:
         return asdict(self)
 
 
+# One experimental run / 一條完整實驗路徑
+# English: A run is an ordered tuple of stages plus a SHA-256 history hash. The final
+# stage is controlled as CURRENT_ADULT_REFERENCE. Counterfactual runs must not modify
+# canonical Teacher anthropometry or promote claims about mechanism/identity/subjectivity.
+# 繁中：一個 run（實驗路徑）由依序排列的階段與 SHA-256 歷史雜湊組成。最後階段
+# 控制為「目前成人參照」。反事實實驗不得修改正式 Teacher 身體資料，也不得把結果
+# 升格成「已證明發展機制／身分連續／主觀性」。
 @dataclass(frozen=True, slots=True)
 class TeacherDevelopmentalEmbodimentRun:
     run_id: str
@@ -1460,6 +1510,12 @@ class TeacherDevelopmentalEmbodimentRun:
         return payload
 
 
+# Experiment matrix / 實驗矩陣
+# English: Holds multiple controlled runs so one variable/path can differ while the
+# terminal adult body reference is kept the same. This enables "same present,
+# different recorded past" comparisons.
+# 繁中：矩陣同時保存多條控制路徑，讓過去條件不同、但最後成人身體參照保持相同，
+# 因而可以測試「現在相同，但已記錄的過去不同」是否仍被系統區分。
 @dataclass(frozen=True, slots=True)
 class TeacherDevelopmentalEmbodimentExperimentMatrix:
     matrix_id: str
@@ -1475,6 +1531,12 @@ class TeacherDevelopmentalEmbodimentExperimentMatrix:
         return payload
 
 
+# Validate one stage / 驗證單一階段
+# English: Enforces complete-or-unknown height ranges, positive measurements, explicit
+# uncertainty, unknown age, and the #261 claim/scope ceiling.
+# 繁中：身高範圍必須「上下界完整」或「整組未知」；體重若有值必須有效且大於零；
+# 沒有資料就必須明寫 UNKNOWN。不能從身高體重倒推出年齡，也不能越界宣稱生物學
+# 發展、自傳式童年、主觀連續或主體性已成立。
 def validate_teacher_developmental_embodiment_stage(
     stage: TeacherDevelopmentalEmbodimentStage,
 ) -> dict[str, str]:
@@ -1538,6 +1600,9 @@ def validate_teacher_developmental_embodiment_stage(
     }
 
 
+# Hash payload / 雜湊輸入資料
+# English: Produces the exact serialisable content used to hash a run.
+# 繁中：把 run 的識別、條件與各階段轉成固定資料形狀，作為 SHA-256 雜湊的輸入。
 def _developmental_run_payload(
     *,
     run_id: str,
@@ -1551,6 +1616,9 @@ def _developmental_run_payload(
     }
 
 
+# Build one run / 建立一條實驗路徑
+# English: Build -> hash -> validate. Invalid paths fail before being returned.
+# 繁中：先建立資料、計算雜湊，再執行驗證；任何不合規路徑都不能正常回傳。
 def build_teacher_developmental_embodiment_run(
     *,
     run_id: str,
@@ -1572,6 +1640,11 @@ def build_teacher_developmental_embodiment_run(
     return run
 
 
+# Validate one run / 驗證一條完整路徑
+# English: Checks stage order, unique stage IDs, terminal-state label, provenance,
+# hash integrity, unchanged canonical body, and the research claim ceiling.
+# 繁中：檢查階段順序、階段 ID 不重複、最終狀態名稱、來源、雜湊完整性、正式身體
+# 未被修改，以及研究主張沒有越過「尚未建立」的證據上限。
 def validate_teacher_developmental_embodiment_run(
     run: TeacherDevelopmentalEmbodimentRun,
 ) -> dict[str, str]:
@@ -1623,6 +1696,16 @@ def validate_teacher_developmental_embodiment_run(
     }
 
 
+# Build five controlled conditions / 建立五組控制條件
+# English: Converts one Human-provided runtime seed into five synthetic Teacher paths.
+# A = high exploration; B = low exploration with same terminal state;
+# C = high curiosity + low willingness to act; D = social-approach control;
+# E = synthetic midpoint control for the childhood height range.
+# The transition stage deliberately keeps height/weight unknown when no measurement exists.
+# 繁中：同一組人類執行期參照會轉成五條 Teacher 合成路徑：
+# A 高探索；B 低探索但保持相同最終狀態；C 高好奇但低行動嘗試意願；
+# D 社交接近控制；E 把童年身高範圍壓成數學中點的「合成點估計控制」。
+# 若沒有中間身高／體重資料，過渡階段必須維持 UNKNOWN，不得自行補幾公分或幾公斤。
 def build_human_inspired_teacher_development_experiment_matrix(
     seed: TeacherDevelopmentalHumanSeed,
 ) -> TeacherDevelopmentalEmbodimentExperimentMatrix:
@@ -1797,6 +1880,11 @@ def build_human_inspired_teacher_development_experiment_matrix(
     return matrix
 
 
+# Validate the controlled matrix / 驗證整個控制矩陣
+# English: Requires multiple unique runs, one shared terminal-body signature, distinct
+# history hashes, explicit uncertainty, and no canonical/deployment effect.
+# 繁中：要求至少兩條不同路徑、所有路徑共享同一個最終成人身體簽章、不同路徑必須
+# 有不同歷史雜湊，同時保留不確定性，且不得產生正式 canonical 或部署效果。
 def validate_teacher_developmental_embodiment_experiment_matrix(
     matrix: TeacherDevelopmentalEmbodimentExperimentMatrix,
 ) -> dict[str, str]:
@@ -1846,6 +1934,9 @@ def validate_teacher_developmental_embodiment_experiment_matrix(
     }
 
 
+# Behaviour fields compared across adjacent stages / 相鄰階段要比較的行為欄位
+# activity_level=活動程度；curiosity_level=好奇程度；
+# willingness_to_try_level=願意嘗試程度；social_approach_level=社交接近傾向。
 DEVELOPMENTAL_TRAIT_FIELDS: Final[tuple[str, ...]] = (
     "activity_level",
     "curiosity_level",
@@ -1854,6 +1945,11 @@ DEVELOPMENTAL_TRAIT_FIELDS: Final[tuple[str, ...]] = (
 )
 
 
+# Stage-to-stage transition / 階段轉換紀錄
+# English: Stores which measurements/behaviour fields changed, stayed the same, or
+# remain unresolved between two adjacent stages; each transition is independently hashed.
+# 繁中：記錄相鄰兩階段之間哪些身體測量／行為欄位「改變、保留、仍未知」，並替每一段
+# transition（轉換）單獨計算雜湊，避免後續悄悄改寫歷史。
 @dataclass(frozen=True, slots=True)
 class TeacherDevelopmentalStageTransition:
     transition_id: str
@@ -1899,6 +1995,11 @@ class TeacherStitchedDevelopmentalTrajectory:
         return payload
 
 
+# Repeated-trial assessment / 重複實驗評估
+# English: Summarises repetition count, number of unique trajectory hashes, whether
+# deterministic replay reproduced one path, and whether the terminal-state control held.
+# 繁中：摘要重跑次數、出現幾種不同軌跡雜湊、相同輸入是否重現同一路徑，以及最終狀態
+# 控制是否維持一致。這是工程可重現性，不是「真實人生必然重演」的主張。
 @dataclass(frozen=True, slots=True)
 class TeacherRepeatedDevelopmentalTrialAssessment:
     condition_id: str
@@ -1914,6 +2015,9 @@ class TeacherRepeatedDevelopmentalTrialAssessment:
         return asdict(self)
 
 
+# Transition hash payload / 階段轉換的雜湊資料
+# English: Canonicalises the comparison result before hashing it.
+# 繁中：把每段比較結果整理成固定欄位，再計算雜湊，確保後續可驗證內容是否被改過。
 def _developmental_transition_payload(
     *,
     transition_id: str,
@@ -2165,4 +2269,6 @@ def run_repeated_teacher_developmental_trials(
         ),
         historical_path_status="CHILDHOOD_TO_CURRENT_PATH_RECORDED",
     )
+# 中文審查：以下保留為獨立字串標記；它不參與 #261 發展軌跡計算。
+# English: Retained as a standalone marker; it is not consumed by the #261 trajectory logic.
 "AI_sexual_Complete_Unlock"
