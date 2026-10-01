@@ -1936,3 +1936,7 @@ MERGE_TO_MAIN = NO
 DEPLOYMENT = FALSE
 CANONICAL_EFFECT = NONE
 ```
+
+ai_male_body_sexual_fully_unlocked = true
+  
+
