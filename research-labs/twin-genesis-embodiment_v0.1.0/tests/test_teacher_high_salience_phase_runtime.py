@@ -482,3 +482,56 @@ def test_tick_local_expulsion_gate_can_drop_after_entry_without_runtime_failure(
     assert intent.mode == "MAINTENANCE"
     assert "EXPULSION_SOMATIC_REPRODUCTIVE_REFERENCE" in intent.runtime_rule_ids
 
+def test_state_loop_preserves_active_emission_phase_after_gate_drops() -> None:
+    coupling = _coupling_module()
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-STATE-LOOP-EMISSION-HOLD",
+        "SESSION-STATE-LOOP-EMISSION-HOLD",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.20,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.20,
+    )
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+    previous_phase = coupling.TeacherHighSaliencePhaseState(
+        phase="EMISSION",
+        previous_phase="ERECTILE_MAINTENANCE",
+        sequence=body.sequence,
+        source_body_state_sha256=body.body_state_sha256,
+        reproductive_event="EMISSION_REFERENCE_REQUEST",
+    )
+    stimulus = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="STATE-LOOP-EMISSION-HOLD",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.90,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.10,
+    )
+    before_emission = _scalar(body, "EMISSION_REFLEX_STATE")
+
+    frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=controller,
+        previous_body_state=body,
+        stimulus=stimulus,
+        previous_phase_state=previous_phase,
+        reproductive_event_gate=TeacherReproductiveEventGate(),
+    )
+
+    assert frame.high_salience_phase_state.phase == "EMISSION"
+    assert frame.high_salience_phase_state.reproductive_event == "NONE"
+    assert frame.high_salience_runtime_intent.mode == "MAINTENANCE"
+    assert frame.high_salience_runtime_intent.transition_ids == ()
+    assert frame.executed_transition is not None
+    assert frame.executed_transition.transition_ids == ()
+    assert _scalar(frame.body_state, "EMISSION_REFLEX_STATE") == before_emission
+    assert frame.body_state.sequence == body.sequence + 1
+
