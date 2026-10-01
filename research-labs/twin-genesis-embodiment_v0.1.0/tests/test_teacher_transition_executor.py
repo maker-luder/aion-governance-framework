@@ -382,3 +382,27 @@ def test_executor_consumes_next_tick_controller_over_previous_body_state() -> No
     assert executed.sequence == 1
     assert executed.timestamp_ms == 100
     assert executed.source_body_state_sha256 == body.body_state_sha256
+
+
+
+def test_baseline_tick_retimestamps_carried_observations_to_current_clock() -> None:
+    module = _executor_module()
+    body = _body_state(sequence=0, timestamp_ms=0)
+    controller = _controller(
+        body,
+        activation=0.0,
+        phase="BASELINE_REFERENCE",
+    )
+    motivation = build_teacher_controller_motivation(controller, body)
+
+    executed = module.execute_teacher_transition(
+        body,
+        controller,
+        motivation,
+        module.TeacherTransitionIntent(transition_ids=(), mode="BASELINE"),
+        TeacherEmbodimentClock(sequence=1, timestamp_ms=100),
+    )
+
+    assert executed.transition_ids == ()
+    assert executed.touched_channel_ids == ()
+    assert all(item.timestamp_ms == 100 for item in executed.observations)
