@@ -43,6 +43,11 @@ from .teacher_high_salience_coupling import (
     coordinate_teacher_high_salience_runtime,
     resolve_teacher_high_salience_phase,
 )
+from .teacher_intimate_integration import (
+    TeacherIntimateIntegrationState,
+    TeacherOrgasmReferenceGate,
+    integrate_teacher_intimate_reference,
+)
 from .teacher_transition_executor import (
     TeacherExecutedTransition,
     execute_teacher_high_salience_transition,
@@ -180,6 +185,7 @@ class TeacherStateLoopFrame:
     executed_transition: TeacherExecutedTransition | None
     high_salience_phase_state: TeacherHighSaliencePhaseState
     high_salience_runtime_intent: TeacherHighSalienceRuntimeIntent
+    intimate_integration_state: TeacherIntimateIntegrationState
     body_state: TeacherIntegratedBodyState
     bound_body_state: TeacherBoundBodyState
     body_schema_feedback: TeacherAllostaticForecast
@@ -204,6 +210,31 @@ class TeacherStateLoopFrame:
             != self.controller_state.fingerprint()
         ):
             raise ValueError("Teacher frame runtime-intent/controller hash drift")
+        if (
+            self.intimate_integration_state.source_phase
+            != self.high_salience_phase_state.phase
+        ):
+            raise ValueError("Teacher frame intimate integration/phase drift")
+        if (
+            self.intimate_integration_state.functional_desire.source_controller_sha256
+            != self.controller_state.fingerprint()
+        ):
+            raise ValueError("Teacher frame intimate integration/controller hash drift")
+        if (
+            self.intimate_integration_state.systemic_arousal.source_body_state_sha256
+            != self.body_state.body_state_sha256
+        ):
+            raise ValueError("Teacher frame systemic observation/body hash drift")
+        if (
+            self.intimate_integration_state.endocrine_observation.source_body_state_sha256
+            != self.body_state.body_state_sha256
+        ):
+            raise ValueError("Teacher frame endocrine observation/body hash drift")
+        if (
+            self.intimate_integration_state.orgasm_reference.source_body_state_sha256
+            != self.body_state.body_state_sha256
+        ):
+            raise ValueError("Teacher frame orgasm reference/body hash drift")
         if self.executed_transition is None:
             if self.high_salience_runtime_intent.transition_ids:
                 raise ValueError("Teacher baseline frame cannot carry transition intent")
@@ -467,12 +498,19 @@ def _build_baseline_frame(
         controller_state,
         body_state,
     )
+    intimate_integration_state = integrate_teacher_intimate_reference(
+        controller_state,
+        motivation,
+        phase_state,
+        body_state,
+    )
     return TeacherStateLoopFrame(
         controller_state=controller_state,
         motivation=motivation,
         executed_transition=None,
         high_salience_phase_state=phase_state,
         high_salience_runtime_intent=runtime_intent,
+        intimate_integration_state=intimate_integration_state,
         body_state=body_state,
         bound_body_state=bound,
         body_schema_feedback=feedback,
@@ -496,6 +534,7 @@ def advance_teacher_embodied_tick(
     previous_phase_state: TeacherHighSaliencePhaseState | None = None,
     policy: TeacherEmbodimentRatePolicy | None = None,
     reproductive_event_gate: TeacherReproductiveEventGate | None = None,
+    orgasm_reference_gate: TeacherOrgasmReferenceGate | None = None,
 ) -> TeacherStateLoopFrame:
     possess_teacher_body(binding)
     if previous_controller_state.runtime_id != binding.runtime_id:
@@ -567,6 +606,13 @@ def advance_teacher_embodied_tick(
     )
     if body_state.timestamp_ms != clock.timestamp_ms:
         raise ValueError("Teacher transition observations did not advance tick timestamp")
+    intimate_integration_state = integrate_teacher_intimate_reference(
+        controller_state,
+        motivation,
+        phase_state,
+        body_state,
+        orgasm_reference_gate=orgasm_reference_gate,
+    )
     bound = bind_teacher_integrated_body_state(binding, body_state)
     feedback = build_teacher_body_schema_feedback(
         controller_state,
@@ -583,6 +629,7 @@ def advance_teacher_embodied_tick(
         executed_transition=executed,
         high_salience_phase_state=phase_state,
         high_salience_runtime_intent=runtime_intent,
+        intimate_integration_state=intimate_integration_state,
         body_state=body_state,
         bound_body_state=bound,
         body_schema_feedback=feedback,
@@ -729,6 +776,9 @@ def run_teacher_reference_state_loop(
                 else None
             )
             for frame in frames
+        ],
+        "intimate_integration_sha256": [
+            frame.intimate_integration_state.state_sha256 for frame in frames
         ],
         "frame_reports": [frame.report.to_dict() for frame in frames],
     }
