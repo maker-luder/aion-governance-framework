@@ -225,3 +225,79 @@ def test_cli_teacher_embodied_probe_emits_structured_boundary_safe_json(
         assert scenario["action_authority"] == "NONE"
 
     assert "raw_private_content_included" not in output
+
+
+
+def _probe_scalar(body_state, channel_id: str) -> float:
+    for observation in body_state.observations:
+        if observation.channel_id == channel_id:
+            assert len(observation.values) == 1
+            return observation.values[0]
+    raise AssertionError(f"missing probe channel: {channel_id}")
+
+
+def test_public_package_exports_high_salience_coupling_api() -> None:
+    from aion_astra_twin_embodiment import (
+        TeacherHighSalienceCouplingProfile,
+        TeacherHighSalienceCouplingRule,
+        TeacherReproductiveEventGate,
+        build_teacher_high_salience_coupling_profile,
+        validate_teacher_high_salience_coupling_profile,
+    )
+
+    profile = build_teacher_high_salience_coupling_profile()
+    assert isinstance(profile, TeacherHighSalienceCouplingProfile)
+    assert isinstance(profile.rules[0], TeacherHighSalienceCouplingRule)
+    assert isinstance(TeacherReproductiveEventGate(), TeacherReproductiveEventGate)
+    assert validate_teacher_high_salience_coupling_profile(profile)["result"] == "PASS"
+
+
+def test_high_salience_activation_does_not_force_cardiorespiratory_or_endocrine_channels() -> None:
+    from dataclasses import replace
+
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-NO-FORCED-MULTISYSTEM",
+        "SESSION-NO-FORCED-MULTISYSTEM",
+    )
+    body = state_loop.build_teacher_reference_baseline_state(binding)
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+    baseline_values = {
+        channel_id: _probe_scalar(body, channel_id)
+        for channel_id in (
+            "CARDIOVASCULAR_STATE",
+            "RESPIRATORY_STATE",
+            "ENDOCRINE_REFERENCE_STATE",
+            "ADRENAL_AXIS_STATE",
+            "GONADAL_ENDOCRINE_REFERENCE",
+        )
+    }
+    stimulus = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="NO-FORCED-MULTISYSTEM-HIGH",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.95,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.05,
+    )
+
+    for _ in range(10):
+        frame = state_loop.advance_teacher_embodied_tick(
+            binding,
+            previous_controller_state=controller,
+            previous_body_state=body,
+            stimulus=stimulus,
+        )
+        body = frame.body_state
+        controller = replace(
+            frame.controller_state,
+            previous_body_schema_feedback_sha256=(
+                frame.body_schema_feedback_sha256
+            ),
+        )
+
+    for channel_id, baseline_value in baseline_values.items():
+        assert _probe_scalar(body, channel_id) == baseline_value
+    assert controller.functional_motivation == 0.0
