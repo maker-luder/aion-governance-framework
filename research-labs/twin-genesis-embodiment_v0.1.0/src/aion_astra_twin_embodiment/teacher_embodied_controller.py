@@ -325,11 +325,20 @@ def advance_teacher_controller(
         max_delta=policy.max_motivation_delta,
         gain=policy.smooth_gain,
     )
-    contextual_drive = (
+    salience_drive = (
         controller_input.salience
         * (1.0 if controller_input.context_gate else 0.35)
         * (1.0 - controller_input.inhibition)
     )
+    # 功能性動機只在明確的性情境門控內提供額外的「參考活化」驅動。
+    # 使用 max 而不是相加，避免把可能相關的 salience / motivation 重複累加。
+    # 這不代表主觀慾望；零功能性動機仍允許由顯著性路徑產生參考性生理喚起。
+    motivation_drive = (
+        controller_input.functional_motivation
+        * (1.0 if controller_input.context_gate else 0.0)
+        * (1.0 - controller_input.inhibition)
+    )
+    contextual_drive = max(salience_drive, motivation_drive)
     contextual_drive = max(
         0.0,
         min(1.0, contextual_drive + feedback_bias),
