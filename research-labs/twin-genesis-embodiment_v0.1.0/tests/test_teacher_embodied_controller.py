@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+from dataclasses import replace
 
 import pytest
 
@@ -42,6 +43,21 @@ def _body_state(
             TeacherBodyObservation(
                 "CARDIOVASCULAR_STATE",
                 (cardiovascular,),
+                timestamp_ms,
+            ),
+            TeacherBodyObservation(
+                "RESPIRATORY_STATE",
+                (cardiovascular,),
+                timestamp_ms,
+            ),
+            TeacherBodyObservation(
+                "OXYGENATION_STATE",
+                (cardiovascular,),
+                timestamp_ms,
+            ),
+            TeacherBodyObservation(
+                "CO2_BALANCE_STATE",
+                (1.0 - cardiovascular,),
                 timestamp_ms,
             ),
             TeacherBodyObservation(
@@ -158,10 +174,10 @@ def test_strong_input_is_rate_limited_and_bounded_without_primary_hard_clip() ->
 
     assert 0.0 <= strong.activation <= 1.0
     assert 0.0 <= stronger.activation <= 1.0
-    assert strong.activation <= pytest.approx(0.20)
-    assert stronger.activation <= pytest.approx(0.20)
-    assert strong.salience <= pytest.approx(0.20)
-    assert strong.functional_motivation <= pytest.approx(0.20)
+    assert strong.activation <= 0.20 + 1e-12
+    assert stronger.activation <= 0.20 + 1e-12
+    assert strong.salience <= 0.20 + 1e-12
+    assert strong.functional_motivation <= 0.20 + 1e-12
     assert stronger.activation > strong.activation
     assert stronger.salience > strong.salience
     assert stronger.functional_motivation > strong.functional_motivation
@@ -173,7 +189,7 @@ def test_hysteresis_enters_at_point_70_and_exits_only_below_point_55() -> None:
     body = _body_state()
     base = _initial_controller_state(module, binding, body)
 
-    at_enter = module.replace_controller_reference_levels(
+    at_enter = replace(
         base,
         activation=0.70,
         phase="BASELINE_REFERENCE",
@@ -181,7 +197,7 @@ def test_hysteresis_enters_at_point_70_and_exits_only_below_point_55() -> None:
     entered = module.resolve_teacher_controller_phase(at_enter)
     assert entered == "HIGH_ACTIVATION_REFERENCE"
 
-    between = module.replace_controller_reference_levels(
+    between = replace(
         at_enter,
         activation=0.60,
         phase="HIGH_ACTIVATION_REFERENCE",
@@ -190,7 +206,7 @@ def test_hysteresis_enters_at_point_70_and_exits_only_below_point_55() -> None:
         "HIGH_ACTIVATION_REFERENCE"
     )
 
-    below_exit = module.replace_controller_reference_levels(
+    below_exit = replace(
         between,
         activation=0.54,
         phase="HIGH_ACTIVATION_REFERENCE",
