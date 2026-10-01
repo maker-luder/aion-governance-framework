@@ -251,6 +251,8 @@ def _build_rules() -> tuple[TeacherHighSalienceCouplingRule, ...]:
                 "DOI:10.1111/bcpt.12546",
                 "DOI:10.1016/j.eururo.2005.05.017",
                 "PMID:20048757",
+                "PMID:26385403",
+                "PMID:35625414",
             ),
             directionality_status=(
                 "SYMPATHETIC_COORDINATION_SUPPORTED_NUMERIC_TARGET_UNCALIBRATED"
@@ -277,9 +279,34 @@ def _build_rules() -> tuple[TeacherHighSalienceCouplingRule, ...]:
                 "DOI:10.1111/bcpt.12546",
                 "PMID:16913292",
                 "PMID:20048757",
+                "PMID:26385403",
+                "PMID:35625414",
             ),
             directionality_status=(
                 "PUDENDAL_SOMATIC_COORDINATION_SUPPORTED_NUMERIC_TARGET_UNCALIBRATED"
+            ),
+            runtime_channel_status="PARTIAL_REFERENCE",
+        ),
+        TeacherHighSalienceCouplingRule(
+            coupling_id="POST_EXPULSION_RECOVERY_REFERENCE",
+            source_phase="POST_EXPULSION_RECOVERY_REFERENCE",
+            target_system="REPRODUCTIVE_RECOVERY",
+            target_channels=(
+                "DETUMESCENCE_STATE",
+                "GENITAL_VASCULAR_STATE",
+                "POST_EXPULSION_RECOVERY_STATE",
+            ),
+            coupling_class="EVENT_DRIVEN_REFERENCE",
+            cadence_class="EVENT_DRIVEN",
+            execution_status=(
+                "RECOVERY_CHANNELS_EXECUTABLE_REFRACTORY_DURATION_NOT_MODELED"
+            ),
+            evidence_ids=(
+                "PMID:26385403",
+                "PMID:26457680",
+            ),
+            directionality_status=(
+                "POST_EXPULSION_RECOVERY_SUPPORTED_DURATION_UNCALIBRATED"
             ),
             runtime_channel_status="PARTIAL_REFERENCE",
         ),
@@ -822,6 +849,7 @@ def coordinate_teacher_high_salience_runtime(
             )
             mode = "ACTIVATION"
     elif phase_state.phase == "DETUMESCENCE":
+        runtime_rule_ids.append("POST_EXPULSION_RECOVERY_REFERENCE")
         if gate.event != "RECOVERY_REFERENCE_REQUEST":
             if detumescence <= 0.05 and ejaculatory <= 0.05:
                 raise ValueError(
@@ -877,6 +905,8 @@ def coordinate_teacher_high_salience_runtime(
                 )
         mode = "RECOVERY"
     elif phase_state.phase == "BASELINE_RECOVERY":
+        if _runtime_scalar(body_state, "POST_EXPULSION_RECOVERY_STATE") > 0.05:
+            runtime_rule_ids.append("POST_EXPULSION_RECOVERY_REFERENCE")
         if vascular > 0.15 or erectile > 0.15:
             transition_id = "VASCULAR_RESPONSE_TO_BASELINE_RECOVERY"
             transition_ids.append(transition_id)
