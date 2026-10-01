@@ -30,6 +30,10 @@ def _body_state(
     timestamp_ms: int = 0,
     genital_vascular: float = 0.10,
     erectile_reflex: float = 0.10,
+    emission_reflex: float = 0.0,
+    ejaculatory_reflex: float = 0.0,
+    bladder_neck_closure: float = 0.0,
+    expulsion_motor: float = 0.0,
     include_erectile_reflex: bool = True,
 ):
     observations = [
@@ -66,10 +70,24 @@ def _body_state(
             (0.20,),
             timestamp_ms,
         ),
-        TeacherBodyObservation("EMISSION_REFLEX_STATE", (0.0,), timestamp_ms),
+        TeacherBodyObservation(
+            "EMISSION_REFLEX_STATE",
+            (emission_reflex,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+            (bladder_neck_closure,),
+            timestamp_ms,
+        ),
         TeacherBodyObservation(
             "EJACULATORY_REFLEX_STATE",
-            (0.0,),
+            (ejaculatory_reflex,),
+            timestamp_ms,
+        ),
+        TeacherBodyObservation(
+            "EXPULSION_MOTOR_PATTERN_STATE",
+            (expulsion_motor,),
             timestamp_ms,
         ),
     ]
@@ -406,3 +424,150 @@ def test_baseline_tick_retimestamps_carried_observations_to_current_clock() -> N
     assert executed.transition_ids == ()
     assert executed.touched_channel_ids == ()
     assert all(item.timestamp_ms == 100 for item in executed.observations)
+
+
+
+def test_high_activation_without_event_gate_never_auto_selects_emission() -> None:
+    module = _executor_module()
+    body = _body_state(genital_vascular=0.90, erectile_reflex=0.85)
+    controller = _controller(
+        body,
+        activation=0.95,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+
+    intent = module.select_teacher_transition_intent(controller, body)
+
+    assert intent.transition_ids == ("VASCULAR_RESPONSE_TO_MAINTENANCE",)
+    assert "MAINTENANCE_TO_EMISSION" not in intent.transition_ids
+    assert "EMISSION_TO_EJACULATORY_REFLEX" not in intent.transition_ids
+
+
+def test_emission_event_gate_requires_readiness_and_selects_emission_transition() -> None:
+    module = _executor_module()
+    coupling = importlib.import_module(
+        "aion_astra_twin_embodiment.teacher_high_salience_coupling"
+    )
+    body = _body_state(genital_vascular=0.80, erectile_reflex=0.75)
+    controller = _controller(
+        body,
+        activation=0.90,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+    gate = coupling.TeacherReproductiveEventGate(
+        event="EMISSION_REFERENCE_REQUEST"
+    )
+
+    intent = module.select_teacher_transition_intent(
+        controller,
+        body,
+        reproductive_event_gate=gate,
+    )
+
+    assert intent.mode == "ACTIVATION"
+    assert intent.transition_ids == ("MAINTENANCE_TO_EMISSION",)
+    assert gate.motivation_effect == "NONE"
+    assert gate.consent_inference == "FORBIDDEN"
+    assert gate.orgasm_inference == "FORBIDDEN"
+    assert gate.action_authority == "NONE"
+
+
+def test_emission_gate_fails_closed_before_vascular_readiness() -> None:
+    module = _executor_module()
+    coupling = importlib.import_module(
+        "aion_astra_twin_embodiment.teacher_high_salience_coupling"
+    )
+    body = _body_state(genital_vascular=0.20, erectile_reflex=0.20)
+    controller = _controller(
+        body,
+        activation=0.90,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+
+    with pytest.raises(ValueError, match="emission event requires vascular readiness"):
+        module.select_teacher_transition_intent(
+            controller,
+            body,
+            reproductive_event_gate=coupling.TeacherReproductiveEventGate(
+                event="EMISSION_REFERENCE_REQUEST"
+            ),
+        )
+
+
+def test_expulsion_event_gate_requires_emission_state() -> None:
+    module = _executor_module()
+    coupling = importlib.import_module(
+        "aion_astra_twin_embodiment.teacher_high_salience_coupling"
+    )
+    body = _body_state(
+        genital_vascular=0.80,
+        erectile_reflex=0.75,
+        emission_reflex=0.70,
+        bladder_neck_closure=0.70,
+    )
+    controller = _controller(
+        body,
+        activation=0.90,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+
+    intent = module.select_teacher_transition_intent(
+        controller,
+        body,
+        reproductive_event_gate=coupling.TeacherReproductiveEventGate(
+            event="EXPULSION_REFERENCE_REQUEST"
+        ),
+    )
+
+    assert intent.mode == "ACTIVATION"
+    assert intent.transition_ids == ("EMISSION_TO_EJACULATORY_REFLEX",)
+
+
+def test_recovery_event_gate_can_recover_vascular_and_event_channels_together() -> None:
+    module = _executor_module()
+    coupling = importlib.import_module(
+        "aion_astra_twin_embodiment.teacher_high_salience_coupling"
+    )
+    body = _body_state(
+        genital_vascular=0.80,
+        erectile_reflex=0.75,
+        emission_reflex=0.65,
+        bladder_neck_closure=0.65,
+        ejaculatory_reflex=0.65,
+        expulsion_motor=0.65,
+    )
+    controller = _controller(
+        body,
+        activation=0.10,
+        phase="BASELINE_REFERENCE",
+    )
+
+    intent = module.select_teacher_transition_intent(
+        controller,
+        body,
+        reproductive_event_gate=coupling.TeacherReproductiveEventGate(
+            event="RECOVERY_REFERENCE_REQUEST"
+        ),
+    )
+
+    assert intent.mode == "RECOVERY"
+    assert intent.transition_ids == (
+        "VASCULAR_RESPONSE_TO_BASELINE_RECOVERY",
+        "REPRODUCTIVE_EVENT_TO_BASELINE_RECOVERY",
+    )
+
+
+def test_event_gate_rejects_unknown_event_and_never_grants_authority() -> None:
+    coupling = importlib.import_module(
+        "aion_astra_twin_embodiment.teacher_high_salience_coupling"
+    )
+
+    with pytest.raises(ValueError, match="unsupported reproductive event gate"):
+        coupling.TeacherReproductiveEventGate(event="ORGASM_REQUEST")
+
+    gate = coupling.TeacherReproductiveEventGate(event="NONE")
+    assert gate.motivation_effect == "NONE"
+    assert gate.consent_inference == "FORBIDDEN"
+    assert gate.orgasm_inference == "FORBIDDEN"
+    assert gate.action_authority == "NONE"
+    assert gate.phenomenal_interpretation_status == "NOT_ESTABLISHED"
