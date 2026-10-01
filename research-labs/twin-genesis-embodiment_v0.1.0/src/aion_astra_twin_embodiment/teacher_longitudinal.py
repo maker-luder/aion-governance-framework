@@ -1844,3 +1844,314 @@ def validate_teacher_developmental_embodiment_experiment_matrix(
         "explicit_uncertainty": "PASS",
         "canonical_effect": "NONE",
     }
+
+
+DEVELOPMENTAL_TRAIT_FIELDS: Final[tuple[str, ...]] = (
+    "activity_level",
+    "curiosity_level",
+    "willingness_to_try_level",
+    "social_approach_level",
+)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherDevelopmentalStageTransition:
+    transition_id: str
+    ordinal: int
+    from_stage_id: str
+    to_stage_id: str
+    anthropometry_change_status: str
+    height_change_status: str
+    weight_change_status: str
+    changed_behavior_fields: tuple[str, ...]
+    retained_behavior_fields: tuple[str, ...]
+    unresolved_behavior_fields: tuple[str, ...]
+    transition_sha256: str
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["changed_behavior_fields"] = list(self.changed_behavior_fields)
+        payload["retained_behavior_fields"] = list(self.retained_behavior_fields)
+        payload["unresolved_behavior_fields"] = list(self.unresolved_behavior_fields)
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherStitchedDevelopmentalTrajectory:
+    trajectory_id: str
+    source_run_sha256: str
+    stage_ids: tuple[str, ...]
+    transitions: tuple[TeacherDevelopmentalStageTransition, ...]
+    trajectory_sha256: str
+    childhood_to_current_path_status: str = "STITCHED_WITH_EXPLICIT_UNCERTAINTY"
+    intermediate_anthropometry_interpolated: bool = False
+    causal_development_claim: str = "NONE"
+    autobiographical_identity_claim: str = "NONE"
+    subjective_continuity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["stage_ids"] = list(self.stage_ids)
+        payload["transitions"] = [item.to_dict() for item in self.transitions]
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherRepeatedDevelopmentalTrialAssessment:
+    condition_id: str
+    repetitions: int
+    unique_trajectory_hashes: int
+    reproducibility_status: str
+    terminal_state_control_status: str
+    historical_path_status: str
+    causal_interpretation_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def _developmental_transition_payload(
+    *,
+    transition_id: str,
+    ordinal: int,
+    from_stage_id: str,
+    to_stage_id: str,
+    anthropometry_change_status: str,
+    height_change_status: str,
+    weight_change_status: str,
+    changed_behavior_fields: tuple[str, ...],
+    retained_behavior_fields: tuple[str, ...],
+    unresolved_behavior_fields: tuple[str, ...],
+) -> dict[str, object]:
+    return {
+        "transition_id": transition_id,
+        "ordinal": ordinal,
+        "from_stage_id": from_stage_id,
+        "to_stage_id": to_stage_id,
+        "anthropometry_change_status": anthropometry_change_status,
+        "height_change_status": height_change_status,
+        "weight_change_status": weight_change_status,
+        "changed_behavior_fields": list(changed_behavior_fields),
+        "retained_behavior_fields": list(retained_behavior_fields),
+        "unresolved_behavior_fields": list(unresolved_behavior_fields),
+    }
+
+
+def _compare_developmental_stage_pair(
+    prior: TeacherDevelopmentalEmbodimentStage,
+    current: TeacherDevelopmentalEmbodimentStage,
+    *,
+    ordinal: int,
+) -> TeacherDevelopmentalStageTransition:
+    changed: list[str] = []
+    retained: list[str] = []
+    unresolved: list[str] = []
+    for field in DEVELOPMENTAL_TRAIT_FIELDS:
+        before = getattr(prior, field)
+        after = getattr(current, field)
+        if "UNKNOWN" in (before, after) or "CHANGED_NOT_QUANTIFIED" in (
+            before,
+            after,
+        ):
+            unresolved.append(field)
+        elif before == after:
+            retained.append(field)
+        else:
+            changed.append(field)
+
+    if (
+        prior.height_cm_min is None
+        or prior.height_cm_max is None
+        or current.height_cm_min is None
+        or current.height_cm_max is None
+    ):
+        height_status = "UNRESOLVED_MISSING_MEASUREMENT"
+    elif (
+        prior.height_cm_min == current.height_cm_min
+        and prior.height_cm_max == current.height_cm_max
+    ):
+        height_status = "UNCHANGED_REFERENCE"
+    else:
+        height_status = "CHANGED_REFERENCE"
+
+    if prior.weight_kg_reference is None or current.weight_kg_reference is None:
+        weight_status = "UNRESOLVED_MISSING_MEASUREMENT"
+    elif prior.weight_kg_reference == current.weight_kg_reference:
+        weight_status = "UNCHANGED_REFERENCE"
+    else:
+        weight_status = "CHANGED_REFERENCE"
+
+    if (
+        height_status == "UNRESOLVED_MISSING_MEASUREMENT"
+        or weight_status == "UNRESOLVED_MISSING_MEASUREMENT"
+    ):
+        anthropometry_status = "PARTIALLY_UNRESOLVED"
+    elif height_status == "UNCHANGED_REFERENCE" and weight_status == (
+        "UNCHANGED_REFERENCE"
+    ):
+        anthropometry_status = "UNCHANGED_REFERENCE"
+    else:
+        anthropometry_status = "CHANGED_REFERENCE"
+
+    transition_id = f"{prior.stage_id}__TO__{current.stage_id}"
+    payload = _developmental_transition_payload(
+        transition_id=transition_id,
+        ordinal=ordinal,
+        from_stage_id=prior.stage_id,
+        to_stage_id=current.stage_id,
+        anthropometry_change_status=anthropometry_status,
+        height_change_status=height_status,
+        weight_change_status=weight_status,
+        changed_behavior_fields=tuple(changed),
+        retained_behavior_fields=tuple(retained),
+        unresolved_behavior_fields=tuple(unresolved),
+    )
+    return TeacherDevelopmentalStageTransition(
+        transition_id=transition_id,
+        ordinal=ordinal,
+        from_stage_id=prior.stage_id,
+        to_stage_id=current.stage_id,
+        anthropometry_change_status=anthropometry_status,
+        height_change_status=height_status,
+        weight_change_status=weight_status,
+        changed_behavior_fields=tuple(changed),
+        retained_behavior_fields=tuple(retained),
+        unresolved_behavior_fields=tuple(unresolved),
+        transition_sha256=_history_hash(payload),
+    )
+
+
+def build_teacher_stitched_developmental_trajectory(
+    run: TeacherDevelopmentalEmbodimentRun,
+) -> TeacherStitchedDevelopmentalTrajectory:
+    validate_teacher_developmental_embodiment_run(run)
+    transitions = tuple(
+        _compare_developmental_stage_pair(
+            run.stages[index],
+            run.stages[index + 1],
+            ordinal=index,
+        )
+        for index in range(len(run.stages) - 1)
+    )
+    stage_ids = tuple(stage.stage_id for stage in run.stages)
+    payload = {
+        "source_run_sha256": run.run_sha256,
+        "stage_ids": list(stage_ids),
+        "transitions": [item.to_dict() for item in transitions],
+    }
+    trajectory = TeacherStitchedDevelopmentalTrajectory(
+        trajectory_id=f"{run.run_id}::STITCHED",
+        source_run_sha256=run.run_sha256,
+        stage_ids=stage_ids,
+        transitions=transitions,
+        trajectory_sha256=_history_hash(payload),
+    )
+    validate_teacher_stitched_developmental_trajectory(trajectory, run)
+    return trajectory
+
+
+def validate_teacher_stitched_developmental_trajectory(
+    trajectory: TeacherStitchedDevelopmentalTrajectory,
+    run: TeacherDevelopmentalEmbodimentRun,
+) -> dict[str, str]:
+    validate_teacher_developmental_embodiment_run(run)
+    if trajectory.source_run_sha256 != run.run_sha256:
+        raise ValueError("stitched trajectory source-run mismatch")
+    expected_stage_ids = tuple(stage.stage_id for stage in run.stages)
+    if trajectory.stage_ids != expected_stage_ids:
+        raise ValueError("stitched trajectory stage path mismatch")
+    if len(trajectory.transitions) != len(run.stages) - 1:
+        raise ValueError("stitched trajectory transition count mismatch")
+    for ordinal, transition in enumerate(trajectory.transitions):
+        if transition.ordinal != ordinal:
+            raise ValueError("stitched transition ordinal discontinuity")
+        if transition.from_stage_id != run.stages[ordinal].stage_id:
+            raise ValueError("stitched transition source-stage mismatch")
+        if transition.to_stage_id != run.stages[ordinal + 1].stage_id:
+            raise ValueError("stitched transition target-stage mismatch")
+        payload = _developmental_transition_payload(
+            transition_id=transition.transition_id,
+            ordinal=transition.ordinal,
+            from_stage_id=transition.from_stage_id,
+            to_stage_id=transition.to_stage_id,
+            anthropometry_change_status=transition.anthropometry_change_status,
+            height_change_status=transition.height_change_status,
+            weight_change_status=transition.weight_change_status,
+            changed_behavior_fields=transition.changed_behavior_fields,
+            retained_behavior_fields=transition.retained_behavior_fields,
+            unresolved_behavior_fields=transition.unresolved_behavior_fields,
+        )
+        if transition.transition_sha256 != _history_hash(payload):
+            raise ValueError("stitched transition hash mismatch")
+    if trajectory.childhood_to_current_path_status != (
+        "STITCHED_WITH_EXPLICIT_UNCERTAINTY"
+    ):
+        raise ValueError("stitched trajectory uncertainty status drift")
+    if trajectory.intermediate_anthropometry_interpolated:
+        raise ValueError("stitched trajectory cannot invent intermediate anthropometry")
+    if trajectory.causal_development_claim != "NONE":
+        raise ValueError("stitched trajectory cannot establish developmental causality")
+    if trajectory.autobiographical_identity_claim != "NONE":
+        raise ValueError("stitched trajectory cannot establish Teacher autobiography")
+    if trajectory.subjective_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("stitched trajectory cannot establish subjective continuity")
+    if trajectory.canonical_effect != "NONE":
+        raise ValueError("stitched trajectory must remain non-canonical")
+
+    expected_hash = _history_hash(
+        {
+            "source_run_sha256": run.run_sha256,
+            "stage_ids": list(trajectory.stage_ids),
+            "transitions": [item.to_dict() for item in trajectory.transitions],
+        }
+    )
+    if trajectory.trajectory_sha256 != expected_hash:
+        raise ValueError("stitched trajectory hash mismatch")
+    return {
+        "result": "PASS",
+        "childhood_to_current_path": "PASS",
+        "intermediate_uncertainty_preserved": "PASS",
+        "transition_hashes": "PASS",
+        "causal_nonclaim": "PASS",
+    }
+
+
+def run_repeated_teacher_developmental_trials(
+    run: TeacherDevelopmentalEmbodimentRun,
+    *,
+    repetitions: int,
+) -> TeacherRepeatedDevelopmentalTrialAssessment:
+    if repetitions < 2:
+        raise ValueError("repeated developmental experiment requires at least two trials")
+    trajectories = tuple(
+        build_teacher_stitched_developmental_trajectory(run)
+        for _ in range(repetitions)
+    )
+    hashes = {item.trajectory_sha256 for item in trajectories}
+    terminal_signatures = {
+        (
+            run.stages[-1].height_cm_min,
+            run.stages[-1].height_cm_max,
+            run.stages[-1].weight_kg_reference,
+            run.stages[-1].stage_label,
+        )
+        for _ in trajectories
+    }
+    return TeacherRepeatedDevelopmentalTrialAssessment(
+        condition_id=run.condition_id,
+        repetitions=repetitions,
+        unique_trajectory_hashes=len(hashes),
+        reproducibility_status=(
+            "DETERMINISTIC_TRAJECTORY_REPRODUCED"
+            if len(hashes) == 1
+            else "TRAJECTORY_DIVERGENCE_OBSERVED"
+        ),
+        terminal_state_control_status=(
+            "SAME_TERMINAL_STATE_CONFIRMED"
+            if len(terminal_signatures) == 1
+            else "TERMINAL_STATE_DIVERGENCE"
+        ),
+        historical_path_status="CHILDHOOD_TO_CURRENT_PATH_RECORDED",
+    )
