@@ -702,6 +702,16 @@ def test_human_inspired_development_matrix_preserves_uncertainty_and_same_termin
     )
     assert all(not run.canonical_teacher_anthropometry_modified for run in matrix.runs)
 
+    point_control = next(run for run in matrix.runs if run.run_id == "DEV-RUN-E")
+    point_child = point_control.stages[0]
+    assert point_child.height_cm_min == 105.0
+    assert point_child.height_cm_max == 105.0
+    assert point_child.anthropometry_precision == (
+        "SYNTHETIC_POINT_ESTIMATE_CONTROL"
+    )
+    assert point_child.height_cm_min != childhood.height_cm_min
+    assert point_control.run_sha256 != matrix.runs[0].run_sha256
+
 
 def test_same_terminal_body_can_preserve_different_development_histories() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
