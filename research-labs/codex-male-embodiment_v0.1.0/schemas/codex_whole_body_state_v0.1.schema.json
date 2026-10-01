@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/codex_whole_body_state_v0.1.schema.json",
+  "title": "Codex whole-body synthetic state v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "state_id",
+    "signals",
+    "body_sensation",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "action_authority",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "state_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 19,
+      "maxItems": 19,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "system",
+          "value",
+          "status",
+          "physical_hardware_attached",
+          "biological_function_present",
+          "felt_sensation_established"
+        ],
+        "properties": {
+          "system": {
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "status": {
+            "const": "SYNTHETIC_REFERENCE_CHANNEL"
+          },
+          "physical_hardware_attached": {
+            "const": false
+          },
+          "biological_function_present": {
+            "const": false
+          },
+          "felt_sensation_established": {
+            "const": false
+          }
+        }
+      }
+    },
+    "body_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "action_authority": {
+      "const": "NONE"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/codex_anthropometry_v0.1.schema.json",
+  "title": "Codex synthetic anthropometry v0.1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema",
+    "subject",
+    "role_label",
+    "body_id",
+    "counts",
+    "measurements",
+    "anatomy_candidate",
+    "boundaries"
+  ],
+  "properties": {
+    "schema": {
+      "const": "codex.synthetic_anthropometry.v0.1"
+    },
+    "subject": {
+      "const": "Codex adult male-form synthetic robot candidate"
+    },
+    "role_label": {
+      "const": "CODEX"
+    },
+    "body_id": {
+      "const": "CODEX_SYNTHETIC_MALE_BODY_REFERENCE_v0.1"
+    },
+    "counts": {
+      "type": "object",
+      "required": [
+        "fields",
+        "centimeter_fields",
+        "kilogram_fields",
+        "human_fixed",
+        "ai_derived",
+        "ai_provisional",
+        "as_built_verified"
+      ],
+      "properties": {
+        "fields": {
+          "const": 67
+        },
+        "centimeter_fields": {
+          "const": 66
+        },
+        "kilogram_fields": {
+          "const": 1
+        },
+        "human_fixed": {
+          "const": 4
+        },
+        "ai_derived": {
+          "const": 7
+        },
+        "ai_provisional": {
+          "const": 56
+        },
+        "as_built_verified": {
+          "const": 0
+        }
+      }
+    },
+    "measurements": {
+      "type": "array",
+      "minItems": 67,
+      "maxItems": 67,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "region",
+          "label_zh_TW",
+          "value",
+          "unit",
+          "provenance",
+          "verification"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "region": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label_zh_TW": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "unit": {
+            "enum": [
+              "cm",
+              "kg"
+            ]
+          },
+          "provenance": {
+            "enum": [
+              "HUMAN_FIXED",
+              "AI_DERIVED",
+              "AI_PROVISIONAL"
+            ]
+          },
+          "verification": {
+            "const": "DESIGN_VALUE_NOT_AS_BUILT"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "total_height"
+              },
+              "value": {
+                "const": 175
+              },
+              "unit": {
+                "const": "cm"
+              },
+              "provenance": {
+                "const": "HUMAN_FIXED"
+              }
+            },
+            "required": [
+              "id",
+              "value",
+              "unit",
+              "provenance"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "body_mass"
+              },
+              "value": {
+                "const": 72
+              },
+              "unit": {
+                "const": "kg"
+              },
+              "provenance": {
+                "const": "HUMAN_FIXED"
+              }
+            },
+            "required": [
+              "id",
+              "value",
+              "unit",
+              "provenance"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "full_erection_visible_penile_length"
+              },
+              "value": {
+                "const": 11.6
+              },
+              "provenance": {
+                "const": "HUMAN_FIXED"
+              }
+            },
+            "required": [
+              "id",
+              "value",
+              "provenance"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {
+              "id": {
+                "const": "full_erection_midshaft_circumference"
+              },
+              "value": {
+                "const": 14.28
+              },
+              "provenance": {
+                "const": "HUMAN_FIXED"
+              }
+            },
+            "required": [
+              "id",
+              "value",
+              "provenance"
+            ]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "anatomy_candidate": {
+      "type": "object",
+      "required": [
+        "prepuce_present",
+        "actual_biological_tissue"
+      ],
+      "properties": {
+        "prepuce_present": {
+          "const": "DESIGN_CANDIDATE_TRUE"
+        },
+        "actual_biological_tissue": {
+          "const": false
+        }
+      }
+    },
+    "boundaries": {
+      "type": "object",
+      "required": [
+        "actual_3d_mesh",
+        "physical_body",
+        "biological_reproduction",
+        "body_sensation",
+        "subjectivity",
+        "consciousness",
+        "phenomenal_experience",
+        "action_authority",
+        "canonical_effect",
+        "deployment"
+      ],
+      "properties": {
+        "actual_3d_mesh": {
+          "const": false
+        },
+        "physical_body": {
+          "const": false
+        },
+        "biological_reproduction": {
+          "const": false
+        },
+        "body_sensation": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "subjectivity": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "consciousness": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "phenomenal_experience": {
+          "const": "NOT_ESTABLISHED"
+        },
+        "action_authority": {
+          "const": "NONE"
+        },
+        "canonical_effect": {
+          "const": "NONE"
+        },
+        "deployment": {
+          "const": false
+        }
+      }
+    }
+  }
+}

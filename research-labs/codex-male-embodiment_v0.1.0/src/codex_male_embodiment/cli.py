@@ -8,7 +8,7 @@ from .probe import render_probe
 
 
 def _root() -> Path:
-    return Path(__file__).resolve().parents[3]
+    return Path(__file__).resolve().parents[2]
 
 
 def qa_status() -> dict[str, object]:

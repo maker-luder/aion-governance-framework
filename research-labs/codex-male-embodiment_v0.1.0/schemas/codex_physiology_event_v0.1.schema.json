@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/codex_physiology_event_v0.1.schema.json",
+  "title": "Codex male physiology synthetic event v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "kind",
+    "magnitude",
+    "prepuce_position",
+    "synthetic_fluid_output_ml",
+    "endocrine_reference_signal",
+    "urinary_reference_signal",
+    "real_person_target_data",
+    "human_consent_inference",
+    "action_authority"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "INITIATE_SPONTANEOUS",
+        "INITIATE_CONTEXTUAL",
+        "TUMESCE",
+        "MARK_FULL_ERECTION",
+        "INCREASE_RIGIDITY",
+        "MAINTAIN",
+        "EMISSION",
+        "EJACULATION",
+        "BEGIN_DETUMESCENCE",
+        "DETUMESCE",
+        "RECOVER",
+        "RESET_FLACCID",
+        "OBSERVE_PREPUCE_POSITION",
+        "SET_ENDOCRINE_REFERENCE",
+        "SET_URINARY_REFERENCE"
+      ]
+    },
+    "magnitude": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "prepuce_position": {
+      "anyOf": [
+        {
+          "enum": [
+            "RESTING_PARTIAL_COVERAGE",
+            "PARTIALLY_RETRACTED",
+            "RETRACTED",
+            "UNKNOWN"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "synthetic_fluid_output_ml": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "endocrine_reference_signal": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "urinary_reference_signal": {
+      "anyOf": [
+        {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "real_person_target_data": {
+      "const": false
+    },
+    "human_consent_inference": {
+      "const": "FORBIDDEN"
+    },
+    "action_authority": {
+      "const": "NONE"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "OBSERVE_PREPUCE_POSITION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "prepuce_position": {
+            "enum": [
+              "RESTING_PARTIAL_COVERAGE",
+              "PARTIALLY_RETRACTED",
+              "RETRACTED",
+              "UNKNOWN"
+            ]
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "prepuce_position": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "EJACULATION"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "synthetic_fluid_output_ml": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "SET_ENDOCRINE_REFERENCE"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "endocrine_reference_signal": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "SET_URINARY_REFERENCE"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "urinary_reference_signal": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
+}
