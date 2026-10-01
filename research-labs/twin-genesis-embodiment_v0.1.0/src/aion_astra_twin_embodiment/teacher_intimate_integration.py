@@ -384,10 +384,25 @@ def integrate_teacher_intimate_reference(
                     _scalar(body_state, "EMISSION_REFLEX_STATE"),
                 ),
                 (
+                    "SEMINAL_TRACT_TRANSPORT_STATE",
+                    _scalar(body_state, "SEMINAL_TRACT_TRANSPORT_STATE"),
+                ),
+                (
+                    "ACCESSORY_GLAND_SECRETION_STATE",
+                    _scalar(body_state, "ACCESSORY_GLAND_SECRETION_STATE"),
+                ),
+                (
                     "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
                     _scalar(
                         body_state,
                         "BLADDER_NECK_EJACULATORY_CLOSURE_STATE",
+                    ),
+                ),
+                (
+                    "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
+                    _scalar(
+                        body_state,
+                        "POSTERIOR_URETHRAL_SEMINAL_LOAD_STATE",
                     ),
                 ),
                 (
@@ -397,6 +412,21 @@ def integrate_teacher_intimate_reference(
                 (
                     "EXPULSION_MOTOR_PATTERN_STATE",
                     _scalar(body_state, "EXPULSION_MOTOR_PATTERN_STATE"),
+                ),
+                (
+                    "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+                    _scalar(
+                        body_state,
+                        "EXTERNAL_URETHRAL_SPHINCTER_EJACULATORY_STATE",
+                    ),
+                ),
+                (
+                    "ANTEGRADE_SEMINAL_FLOW_STATE",
+                    _scalar(body_state, "ANTEGRADE_SEMINAL_FLOW_STATE"),
+                ),
+                (
+                    "POST_EXPULSION_RECOVERY_STATE",
+                    _scalar(body_state, "POST_EXPULSION_RECOVERY_STATE"),
                 ),
                 (
                     "DETUMESCENCE_STATE",
