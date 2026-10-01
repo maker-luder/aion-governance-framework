@@ -108,16 +108,11 @@ This is a semantic replacement, not a claim that every old class/API was preserv
 
 `feat(embodiment): integrate ChatGPT Teacher body v0.2 runtime and bundle`
 
-Status: `REQUIRES_SEMANTIC_RECONCILIATION`
+Status: `SEMANTICALLY_SUPERSEDED`
 
-Most of the PR's touched files are present in #254, but several dedicated v0.2 integration surfaces are absent by path, including:
+The dedicated v0.2 integration files are not preserved one-for-one, but their responsibilities are re-materialized across the later Teacher body-v0.2 reference, runtime binding, reference bundle, integrity/evidence receipts, reproductive-output surface, unified CLI, and successor tests.
 
-- strict/integrated-manifest schemas;
-- `teacher_body_v02_integration.py`;
-- `teacher_body_v02_cli.py`;
-- integration-specific test coverage.
-
-Do not describe these as lost capabilities until their semantics are compared against later runtime/bundle/integrity modules.
+This classification does not claim API identity; it records responsibility-level replacement.
 
 ### PR #236 / #238
 
@@ -182,11 +177,11 @@ This supports a semantic-successor interpretation even though the branch histori
 
 `feat: record AION/Astra complete humanoid robotic embodiment package`
 
-Status: `REQUIRES_SEMANTIC_RECONCILIATION`
+Status: `SEMANTICALLY_SUPERSEDED`
 
-Several historical body-profile, pose, schema, handoff, and terminology files are absent by path from #247.
+The old monolithic body-profile/pose package is not preserved file-for-file. Its responsibilities are re-materialized in #247 through AION/Astra anthropometry, whole-body state, dynamic physiology, reproductive topology, runtime binding, v0.2 schemas, reference rigs, and capability-parity surfaces.
 
-Do not infer capability loss or preservation solely from those missing paths.
+This is a semantic replacement, not an assertion that the old API remains available.
 
 ## Shared synthetic-role lineage
 
@@ -224,21 +219,19 @@ A semantic comparison is required before deciding whether later role-specific ge
 
 `feat: add synthetic sensorimotor embodiment audit`
 
-Status: `REQUIRES_SEMANTIC_RECONCILIATION`
+Status: `PRESERVED_INDEPENDENT_ARCHIVE`
 
-Relative to merged PR #210, four dedicated sensorimotor protocol/schema/module/test files are absent by path.
-
-This does not establish that the sensorimotor semantics are absent from current repository design.
+The PR is a bounded deterministic synthetic QA experiment with `SCIENTIFIC_DISPOSITION = HOLD`. It is preserved as an independent research artifact rather than being forced into merged PR #210 or promoted into an active runtime claim.
 
 ### PR #203
 
 `research: converge embodiment archives into active baseline`
 
-Status: `REQUIRES_SEMANTIC_RECONCILIATION`
+Status: `LATEST_CLOSED_SUCCESSOR`
 
-Its historical convergence ledger/schema/module/tests are not present by path in PR #210.
+The closed PR object records an earlier snapshot, but its branch continued after closure. The live branch now contains an expanded convergence implementation with an active baseline, shared core, role-specific extensions, archive coverage matrix, materialization map, schemas, and tests.
 
-Because PR #203 itself was a convergence attempt, its unique governance semantics should be reviewed before archiving it as superseded.
+Therefore this lineage is not treated as missing from #210; it is retained as its own latest closed/unmerged convergence endpoint.
 
 ## Adult sexual / intimacy research record
 
@@ -254,13 +247,9 @@ Current evidence does not justify rewriting it as an implementation predecessor 
 
 ## Current unresolved reconciliation set
 
-The following closed/unmerged PRs require semantic review before a final lifecycle label:
+The following closed/unmerged PRs still require a new semantic successor or explicit reconciliation:
 
-- #191
 - #194
-- #202
-- #203
-- #239
 - #243
 
 Independent records / latest endpoints that should not be force-merged:
