@@ -240,3 +240,102 @@ def test_event_gate_is_tick_local_in_phase_state() -> None:
         reproductive_event_gate=TeacherReproductiveEventGate(),
     )
     assert next_phase.reproductive_event == "NONE"
+
+
+
+def test_state_loop_frame_materializes_phase_and_runtime_intent() -> None:
+    import inspect
+
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-PHASE-FRAME",
+        "SESSION-PHASE-FRAME",
+    )
+    body = state_loop.build_teacher_reference_baseline_state(binding)
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+    stimulus = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="PHASE-FRAME-HIGH",
+        stimulus_class="HIGH_SALIENCE_INTIMATE_REFERENCE",
+        salience=0.90,
+        functional_motivation=0.0,
+        sexual_context_gate=True,
+        inhibition=0.10,
+    )
+    frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=controller,
+        previous_body_state=body,
+        stimulus=stimulus,
+    )
+
+    assert "previous_phase_state" in inspect.signature(
+        state_loop.advance_teacher_embodied_tick
+    ).parameters
+    assert hasattr(frame, "high_salience_phase_state")
+    assert hasattr(frame, "high_salience_runtime_intent")
+    assert frame.high_salience_phase_state.phase == "AROUSAL_INITIATION"
+    assert frame.high_salience_runtime_intent.phase == "AROUSAL_INITIATION"
+    assert frame.executed_transition is not None
+    assert frame.executed_transition.transition_ids == (
+        "SEXUAL_BASELINE_TO_VASCULAR_RESPONSE",
+    )
+
+
+def test_state_loop_recovery_executes_mixed_detumescence_transition() -> None:
+    binding = build_teacher_body_runtime_binding(
+        "RUNTIME-PHASE-DETUMESCENCE",
+        "SESSION-PHASE-DETUMESCENCE",
+    )
+    baseline = state_loop.build_teacher_reference_baseline_state(binding)
+    body = _replace_scalars(
+        baseline,
+        GENITAL_VASCULAR_STATE=0.80,
+        ERECTILE_REFLEX_STATE=0.70,
+        EMISSION_REFLEX_STATE=0.80,
+        BLADDER_NECK_EJACULATORY_CLOSURE_STATE=0.80,
+        EJACULATORY_REFLEX_STATE=0.80,
+        EXPULSION_MOTOR_PATTERN_STATE=0.80,
+        DETUMESCENCE_STATE=0.00,
+    )
+    controller = state_loop.build_teacher_reference_controller_state(
+        binding,
+        body,
+    )
+    controller = replace(
+        controller,
+        activation=0.85,
+        salience=0.90,
+        context_gate=True,
+        inhibition=0.10,
+        phase="HIGH_ACTIVATION_REFERENCE",
+    )
+    recovery = state_loop.build_teacher_stimulus_envelope(
+        stimulus_id="PHASE-DETUMESCENCE-RECOVERY",
+        stimulus_class="RECOVERY_REFERENCE",
+        salience=0.0,
+        functional_motivation=0.0,
+        sexual_context_gate=False,
+        inhibition=0.0,
+    )
+    before_detumescence = _scalar(body, "DETUMESCENCE_STATE")
+    before_vascular = _scalar(body, "GENITAL_VASCULAR_STATE")
+
+    frame = state_loop.advance_teacher_embodied_tick(
+        binding,
+        previous_controller_state=controller,
+        previous_body_state=body,
+        stimulus=recovery,
+        reproductive_event_gate=TeacherReproductiveEventGate(
+            event="RECOVERY_REFERENCE_REQUEST"
+        ),
+    )
+
+    assert frame.executed_transition is not None
+    assert "EJACULATORY_REFLEX_TO_DETUMESCENCE" in (
+        frame.executed_transition.transition_ids
+    )
+    assert _scalar(frame.body_state, "DETUMESCENCE_STATE") > before_detumescence
+    assert _scalar(frame.body_state, "GENITAL_VASCULAR_STATE") < before_vascular
+    assert frame.high_salience_phase_state.phase == "DETUMESCENCE"
