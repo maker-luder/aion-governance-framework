@@ -139,9 +139,9 @@
     },
     {
       "pr": 239,
-      "status": "SEMANTICALLY_SUPERSEDED",
-      "successor": 254,
-      "note": "Teacher v0.2 body/runtime/bundle/evidence responsibilities are distributed across later body_v02, runtime, reference-bundle, integrity and CLI surfaces. Exact strict-schema/dedicated-v0.2-CLI artifact formats are not preserved.",
+      "status": "RESOLVED_BY_NEW_SUCCESSOR",
+      "successor": 256,
+      "note": "Resolved by #256, which re-materializes the useful Teacher v0.2 integration semantics on the latest Teacher successor lineage without reviving obsolete strict-schema/standalone-CLI structure.",
       "pr_recorded_head": "37fd06cbff3f629c2d703e8e6d0c0b4ec9b4c9ad",
       "live_branch_head": "37fd06cbff3f629c2d703e8e6d0c0b4ec9b4c9ad",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -282,6 +282,15 @@
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
     },
     {
+      "pr": 256,
+      "status": "LATEST_CLOSED_SUCCESSOR",
+      "successor": null,
+      "note": "Closed Draft/unmerged exact-head successor resolving #239 Teacher v0.2 integration delta.",
+      "pr_recorded_head": "8569c245f78815361363f9346d226c228a0b7596",
+      "live_branch_head": "8569c245f78815361363f9346d226c228a0b7596",
+      "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
+    },
+    {
       "pr": 257,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
@@ -298,9 +307,7 @@
   },
   "unresolved_reconciliation_prs": [],
   "deferred_reentry_prs": [
-    194,
-    202,
-    243
+    202
   ],
   "convergence_result": "NO_UNKNOWN_RECONCILIATION_STATUS_REMAINS_IN_AUDITED_SET"
 }
