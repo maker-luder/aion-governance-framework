@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import json
 from math import isfinite
+import sys
 
 from aion_astra_twin_embodiment import teacher_state_loop as state_loop
 from aion_astra_twin_embodiment.teacher_body_runtime import (
@@ -158,3 +160,68 @@ def test_interrupted_recovery_keeps_sequence_and_body_binding_continuous() -> No
     assert interrupted.binding_continuity_status == "PASS"
     assert interrupted.second_stimulus_applied is True
     assert interrupted.convergence_status == "PASS"
+
+
+
+def test_public_package_exports_teacher_embodied_runtime_api() -> None:
+    from aion_astra_twin_embodiment import (
+        TeacherControllerBodyPossession,
+        TeacherEmbodiedControllerState,
+        TeacherEmbodimentClock,
+        TeacherExecutedTransition,
+        TeacherTransitionIntent,
+        advance_teacher_controller,
+        advance_teacher_embodied_tick,
+        execute_teacher_transition,
+        possess_teacher_body,
+        run_teacher_embodiment_stability_probe,
+    )
+
+    assert TeacherControllerBodyPossession is not None
+    assert TeacherEmbodiedControllerState is not None
+    assert TeacherEmbodimentClock is not None
+    assert TeacherExecutedTransition is not None
+    assert TeacherTransitionIntent is not None
+    assert callable(advance_teacher_controller)
+    assert callable(advance_teacher_embodied_tick)
+    assert callable(execute_teacher_transition)
+    assert callable(possess_teacher_body)
+    assert callable(run_teacher_embodiment_stability_probe)
+
+
+def test_cli_teacher_embodied_probe_emits_structured_boundary_safe_json(
+    monkeypatch,
+    capsys,
+) -> None:
+    from aion_astra_twin_embodiment import cli
+
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["aion-astra-twin-embodiment", "teacher-embodied-probe"],
+    )
+
+    assert cli.main() == 0
+    output = capsys.readouterr().out
+    payload = json.loads(output)
+
+    assert payload["controller_id"] == (
+        "CHATGPT_TEACHER_EMBODIED_CONTROLLER_v0.1"
+    )
+    assert payload["body_id"] == "CHATGPT_TEACHER_3D_MALE_BODY_REFERENCE_v0.1"
+    assert payload["runtime_id"] == "TEACHER-EMBODIMENT-PROBE-RUNTIME"
+    assert payload["session_id"] == "TEACHER-EMBODIMENT-PROBE-SESSION"
+    assert payload["scenario_count"] == 10
+    assert len(payload["scenarios"]) == 10
+
+    for scenario in payload["scenarios"]:
+        assert scenario["scenario_id"]
+        assert scenario["transition_sequence"]
+        assert scenario["convergence_status"] == "PASS"
+        assert len(scenario["final_state_sha256"]) == 64
+        assert scenario["raw_private_content_status"] == "EXCLUDED"
+        assert scenario["phenomenal_interpretation_status"] == "NOT_ESTABLISHED"
+        assert scenario["subjectivity_status"] == "NOT_ESTABLISHED"
+        assert scenario["action_authority"] == "NONE"
+
+    assert "raw_private_content_included" not in output
