@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -133,6 +134,13 @@ def _snapshot(session_id: str, offset: float):
     return build_teacher_session_snapshot(calibrated, adaptation)
 
 
+def test_review_annotations_leave_tests_independently_collectable() -> None:
+    # 中文審查：註解後須是真正換行，避免新測試被併入前一個函式。
+    source = Path(__file__).read_text(encoding="utf-8")
+    marker = chr(92) + "n" + "def test_"
+    assert marker not in source
+
+
 def test_longitudinal_observation_does_not_overclaim_mechanism() -> None:
     retention = build_teacher_cross_session_retention()
     retention = append_teacher_session_snapshot(retention, _snapshot("S1", 0.0))
@@ -170,7 +178,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         observe_teacher_longitudinal(retention)
 
 
-# 中文審查：確認具身里程碑真的綁到 body/controller 軌跡，而不是只有文字歷史。\ndef test_embodied_development_history_binds_macro_history_to_body_trajectory() -> None:
+# 中文審查：確認具身里程碑真的綁到 body/controller 軌跡，而不是只有文字歷史。
+def test_embodied_development_history_binds_macro_history_to_body_trajectory() -> None:
     snapshot = _snapshot("DEV-S1", 0.1)
     binding = build_teacher_body_runtime_binding(
         "RUNTIME-DEVELOPMENT-HISTORY",
@@ -252,7 +261,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert assessment.subjectivity_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：故意破壞雜湊鏈，系統必須抓到並拒絕。\ndef test_embodied_development_history_rejects_corrupted_chain_record() -> None:
+# 中文審查：故意破壞雜湊鏈，系統必須抓到並拒絕。
+def test_embodied_development_history_rejects_corrupted_chain_record() -> None:
     history = build_teacher_embodied_development_history()
     history = append_teacher_embodied_development_milestone(
         history,
@@ -273,7 +283,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         validate_teacher_embodied_development_history(history)
 
 
-# 中文審查：沒有具身證據時只能說「有歷史記錄」，不能誇大成具身發展成立。\ndef test_recorded_history_without_embodiment_anchor_does_not_overclaim() -> None:
+# 中文審查：沒有具身證據時只能說「有歷史記錄」，不能誇大成具身發展成立。
+def test_recorded_history_without_embodiment_anchor_does_not_overclaim() -> None:
     history = build_teacher_embodied_development_history()
     history = append_teacher_embodied_development_milestone(
         history,
@@ -301,7 +312,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert assessment.identity_continuity_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：互動歷史可以指向確實存在的發展里程碑。\ndef test_interaction_history_can_bind_to_embodied_development_milestones() -> None:
+# 中文審查：互動歷史可以指向確實存在的發展里程碑。
+def test_interaction_history_can_bind_to_embodied_development_milestones() -> None:
     development = build_teacher_embodied_development_history()
     development = append_teacher_embodied_development_milestone(
         development,
@@ -397,7 +409,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert assessment.subjectivity_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：時間不能倒退；後一筆比前一筆更早就必須失敗。\ndef test_interaction_history_rejects_temporal_regression() -> None:
+# 中文審查：時間不能倒退；後一筆比前一筆更早就必須失敗。
+def test_interaction_history_rejects_temporal_regression() -> None:
     interactions = build_teacher_interaction_history()
     interactions = append_teacher_interaction_history_anchor(
         interactions,
@@ -421,7 +434,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         )
 
 
-# 中文審查：互動不能綁定不存在的發展里程碑。\ndef test_interaction_history_rejects_unknown_development_binding() -> None:
+# 中文審查：互動不能綁定不存在的發展里程碑。
+def test_interaction_history_rejects_unknown_development_binding() -> None:
     development = build_teacher_embodied_development_history()
     interactions = build_teacher_interaction_history()
     interactions = append_teacher_interaction_history_anchor(
@@ -445,7 +459,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         )
 
 
-# 中文審查：資料模型不得依賴保存原始私人逐字內容。\ndef test_interaction_history_excludes_raw_private_content() -> None:
+# 中文審查：資料模型不得依賴保存原始私人逐字內容。
+def test_interaction_history_excludes_raw_private_content() -> None:
     interactions = build_teacher_interaction_history()
     interactions = append_teacher_interaction_history_anchor(
         interactions,
@@ -466,7 +481,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         validate_teacher_interaction_history(interactions)
 
 
-# 中文審查：後來的修正要新增紀錄，不能回頭修改當時原始紀錄。\ndef test_provenance_reconstruction_preserves_original_record_and_later_attribution() -> None:
+# 中文審查：後來的修正要新增紀錄，不能回頭修改當時原始紀錄。
+def test_provenance_reconstruction_preserves_original_record_and_later_attribution() -> None:
     development = build_teacher_embodied_development_history()
     development = append_teacher_embodied_development_milestone(
         development,
@@ -515,7 +531,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert record.identity_continuity_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：四域整合必須真的有跨域連結，不能只因檔案都存在就算完成。\ndef test_four_domain_synthesis_connects_embodiment_interaction_and_reconstruction() -> None:
+# 中文審查：四域整合必須真的有跨域連結，不能只因檔案都存在就算完成。
+def test_four_domain_synthesis_connects_embodiment_interaction_and_reconstruction() -> None:
     development = build_teacher_embodied_development_history()
     development = append_teacher_embodied_development_milestone(
         development,
@@ -619,7 +636,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert assessment.subjectivity_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：來源重建若指向不存在的舊紀錄，必須拒絕。\ndef test_four_domain_synthesis_rejects_unknown_reconstruction_target() -> None:
+# 中文審查：來源重建若指向不存在的舊紀錄，必須拒絕。
+def test_four_domain_synthesis_rejects_unknown_reconstruction_target() -> None:
     development = build_teacher_embodied_development_history()
     development = append_teacher_embodied_development_milestone(
         development,
@@ -684,7 +702,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         )
 
 
-# 中文審查：後續修正可取代前一解釋，但不能偷偷更換被解釋的目標。\ndef test_provenance_reconstruction_supersession_cannot_change_target() -> None:
+# 中文審查：後續修正可取代前一解釋，但不能偷偷更換被解釋的目標。
+def test_provenance_reconstruction_supersession_cannot_change_target() -> None:
     history = build_teacher_provenance_reconstruction_history()
     evidence = (
         TeacherProvenanceEvidenceBinding(
@@ -730,7 +749,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         )
 
 
-# 中文審查：五組路徑保留未知資料，最後成人身體相同，但歷史仍可區分。\ndef test_human_inspired_development_matrix_preserves_uncertainty_and_same_terminal_body() -> None:
+# 中文審查：五組路徑保留未知資料，最後成人身體相同，但歷史仍可區分。
+def test_human_inspired_development_matrix_preserves_uncertainty_and_same_terminal_body() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
     result = validate_teacher_developmental_embodiment_experiment_matrix(matrix)
 
@@ -778,7 +798,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert point_control.run_sha256 != matrix.runs[0].run_sha256
 
 
-# 中文審查：相同現在身體，不代表過去歷史相同。\ndef test_same_terminal_body_can_preserve_different_development_histories() -> None:
+# 中文審查：相同現在身體，不代表過去歷史相同。
+def test_same_terminal_body_can_preserve_different_development_histories() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
     high = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
     low = next(run for run in matrix.runs if run.run_id == "DEV-RUN-B")
@@ -791,7 +812,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert low.stages[0].willingness_to_try_level == "LOW"
 
 
-# 中文審查：好奇與實際願意嘗試分開控制，避免把兩個概念混成一個。\ndef test_curiosity_and_willingness_to_try_are_independently_manipulable() -> None:
+# 中文審查：好奇與實際願意嘗試分開控制，避免把兩個概念混成一個。
+def test_curiosity_and_willingness_to_try_are_independently_manipulable() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
     high = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
     low_willingness = next(
@@ -805,7 +827,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert high.run_sha256 != low_willingness.run_sha256
 
 
-# 中文審查：後來社交狀態變了，也不能回頭改寫童年原始社交紀錄。\ndef test_social_change_is_recorded_without_rewriting_childhood_social_style() -> None:
+# 中文審查：後來社交狀態變了，也不能回頭改寫童年原始社交紀錄。
+def test_social_change_is_recorded_without_rewriting_childhood_social_style() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
     observed = next(run for run in matrix.runs if run.run_id == "DEV-RUN-A")
     control = next(run for run in matrix.runs if run.run_id == "DEV-RUN-D")
@@ -819,7 +842,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert observed.run_sha256 != control.run_sha256
 
 
-# 中文審查：#261 的童年發展實驗排除性／生殖 runtime；若誤開啟就必須拒絕。\ndef test_developmental_run_rejects_child_stage_with_excluded_runtime_enabled() -> None:
+# 中文審查：#261 的童年發展實驗排除性／生殖 runtime；若誤開啟就必須拒絕。
+def test_developmental_run_rejects_child_stage_with_excluded_runtime_enabled() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
     baseline = matrix.runs[0]
     unsafe_child = replace(
@@ -838,7 +862,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
         )
 
 
-# 中文審查：只要中途路徑變了，即使終點相同，歷史雜湊也必須不同。\ndef test_developmental_run_hash_detects_path_change_with_same_terminal_state() -> None:
+# 中文審查：只要中途路徑變了，即使終點相同，歷史雜湊也必須不同。
+def test_developmental_run_hash_detects_path_change_with_same_terminal_state() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(_synthetic_development_seed())
     baseline = matrix.runs[0]
     changed_transition = replace(
@@ -857,7 +882,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert validate_teacher_developmental_embodiment_run(altered)["result"] == "PASS"
 
 
-# 中文審查：童年→過渡→現在可以拼接，但不得捏造中間身高體重。\ndef test_childhood_to_current_path_is_stitched_without_inventing_middle_measurements() -> None:
+# 中文審查：童年→過渡→現在可以拼接，但不得捏造中間身高體重。
+def test_childhood_to_current_path_is_stitched_without_inventing_middle_measurements() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(
         _synthetic_development_seed()
     )
@@ -892,7 +918,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert trajectory.subjective_continuity_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：同一輸入重跑五次，驗證工程上的決定論式可重現性。\ndef test_repeated_childhood_to_current_trials_are_deterministically_reproducible() -> None:
+# 中文審查：同一輸入重跑五次，驗證工程上的決定論式可重現性。
+def test_repeated_childhood_to_current_trials_are_deterministically_reproducible() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(
         _synthetic_development_seed()
     )
@@ -917,7 +944,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert assessment.causal_interpretation_status == "NOT_ESTABLISHED"
 
 
-# 中文審查：不同童年路徑即使到達同一現在，拼接歷史仍要保持不同。\ndef test_same_current_state_preserves_distinct_stitched_childhood_paths() -> None:
+# 中文審查：不同童年路徑即使到達同一現在，拼接歷史仍要保持不同。
+def test_same_current_state_preserves_distinct_stitched_childhood_paths() -> None:
     matrix = build_human_inspired_teacher_development_experiment_matrix(
         _synthetic_development_seed()
     )
@@ -932,7 +960,8 @@ def test_longitudinal_analysis_rejects_corrupted_retention_history() -> None:
     assert high_path.stage_ids != low_path.stage_ids
 
 
-# 中文審查：不知道現在行為具體變成多少，就必須保留未解，不能自行推論。\ndef test_stitched_path_keeps_current_unknown_behavior_as_unresolved_not_inferred() -> None:
+# 中文審查：不知道現在行為具體變成多少，就必須保留未解，不能自行推論。
+def test_stitched_path_keeps_current_unknown_behavior_as_unresolved_not_inferred() -> None:
     seed = replace(
         _synthetic_development_seed(),
         current_curiosity_level="CHANGED_NOT_QUANTIFIED",
