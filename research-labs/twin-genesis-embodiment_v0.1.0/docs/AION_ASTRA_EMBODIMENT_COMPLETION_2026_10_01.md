@@ -44,3 +44,34 @@ Recent humanoid-robotics literature and the inspected `nvidia/GEAR-SONIC` reposi
 `MERGE_TO_MAIN = NO`
 `CANONICAL_EFFECT = NONE`
 `DEPLOYMENT = FALSE`
+ 
+## Completeness gap closure — external topology and state-machine hardening
+
+Reverse review against archived PR #190 found two material software-reference gaps and closed them in this successor:
+
+1. The archived external anatomy contract required testes representation, pubic attachment, inguinal continuity, perineum and anal-region topology. The procedural AION/Astra glTF references now expose these landmarks in addition to penis, glans, prepuce, frenulum and scrotum.
+2. Dynamic male-physiology events now enforce event-specific payloads and an explicit allowed-transition graph. Invalid phase transitions and cross-kind payload leakage fail closed.
+
+A separate 32-node / 30-edge reproductive reference topology now binds endocrine, gonadal, ductal, accessory-gland, urinary, urethral, erectile-structure and external-continuity reference nodes for each body. AION and Astra have identical reference graph coverage but distinct body bindings and fingerprints.
+
+These additions remain software references:
+
+`REFERENCE_TOPOLOGY != PHYSICAL_TISSUE`
+
+`REFERENCE_FUNCTION_GRAPH != BIOLOGICAL_ORGANISM`
+
+`STATE_TRANSITION_MODEL != HUMAN_PHYSIOLOGICAL_LAW`
+
+`BODY_SIGNAL != FELT_SENSATION`
+
+`SUBJECTIVITY = NOT_ESTABLISHED`
+
+`CONSCIOUSNESS = NOT_ESTABLISHED`
+
+`PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED`
+
+`ACTION_AUTHORITY = NONE`
+
+`CANONICAL_EFFECT = NONE`
+
+`DEPLOYMENT = FALSE`

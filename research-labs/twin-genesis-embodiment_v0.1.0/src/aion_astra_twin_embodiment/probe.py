@@ -30,13 +30,30 @@ from .physiology import (
     build_adult_male_physiology_reference,
     validate_physiology_parity,
 )
+from .reproductive_topology import (
+    build_reproductive_topology_reference,
+    validate_reproductive_topology_parity,
+)
 
 
 def _rig_evidence(path: Path) -> tuple[AssetCandidateEvidence, int]:
     raw = path.read_bytes()
     payload: dict[str, Any] = json.loads(raw.decode("utf-8"))
     names = tuple(str(node["name"]) for node in payload["nodes"])
-    external = {"penis", "glans", "prepuce", "frenulum", "scrotum"}
+    external = {
+        "penis",
+        "glans",
+        "prepuce",
+        "frenulum",
+        "scrotum",
+        "left_testis",
+        "right_testis",
+        "pubic_attachment",
+        "left_inguinal_transition",
+        "right_inguinal_transition",
+        "perineum",
+        "anal_region",
+    }
     return (
         AssetCandidateEvidence(
             status=VerificationState.PROCEDURAL_RIG_REFERENCE,
@@ -71,6 +88,14 @@ def run_probe(
             build_adult_male_physiology_reference(astra.body_id),
         )
     )
+
+    aion_topology = build_reproductive_topology_reference("AION")
+    astra_topology = build_reproductive_topology_reference("ASTRA")
+    topology_parity = validate_reproductive_topology_parity(
+        (aion_topology, astra_topology)
+    )
+    if aion_topology.fingerprint() == astra_topology.fingerprint():
+        raise RuntimeError("AION/Astra reproductive topology identity collapse")
 
     body_engine = WholeBodySyntheticEngine()
     aion_body = body_engine.run(
@@ -133,6 +158,8 @@ def run_probe(
         aion_phys.fingerprint(),
         astra_phys.fingerprint(),
         str(physiology_parity),
+        aion_topology.fingerprint(),
+        astra_topology.fingerprint(),
         str(assets["AION"]["sha256"]),
         str(assets["ASTRA"]["sha256"]),
     )
@@ -158,6 +185,19 @@ def run_probe(
             },
         },
         "physiology_parity": physiology_parity,
+        "reproductive_topology": {
+            "parity": topology_parity,
+            "AION": {
+                "node_count": len(aion_topology.nodes),
+                "edge_count": len(aion_topology.edges),
+                "fingerprint": aion_topology.fingerprint(),
+            },
+            "ASTRA": {
+                "node_count": len(astra_topology.nodes),
+                "edge_count": len(astra_topology.edges),
+                "fingerprint": astra_topology.fingerprint(),
+            },
+        },
         "body_state": {
             "AION": {"system_count": len(aion_body.signals), "fingerprint": aion_body.fingerprint()},
             "ASTRA": {"system_count": len(astra_body.signals), "fingerprint": astra_body.fingerprint()},

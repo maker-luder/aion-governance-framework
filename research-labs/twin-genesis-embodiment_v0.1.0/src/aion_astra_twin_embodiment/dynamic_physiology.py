@@ -71,6 +71,14 @@ class PhysiologyEvent:
             raise ValueError("real-person target data forbidden")
         if self.human_consent_inference != "FORBIDDEN" or self.action_authority != "NONE":
             raise ValueError("event cannot infer consent or grant action authority")
+        if (self.kind is PhysiologyEventKind.OBSERVE_PREPUCE_POSITION) != (self.prepuce_position is not None):
+            raise ValueError("prepuce position belongs only to OBSERVE_PREPUCE_POSITION")
+        if self.synthetic_fluid_output_ml is not None and self.kind is not PhysiologyEventKind.EJACULATION:
+            raise ValueError("synthetic fluid output belongs only to EJACULATION")
+        if self.endocrine_reference_signal is not None and self.kind is not PhysiologyEventKind.SET_ENDOCRINE_REFERENCE:
+            raise ValueError("endocrine reference signal belongs only to SET_ENDOCRINE_REFERENCE")
+        if self.urinary_reference_signal is not None and self.kind is not PhysiologyEventKind.SET_URINARY_REFERENCE:
+            raise ValueError("urinary reference signal belongs only to SET_URINARY_REFERENCE")
 
 
 @dataclass(frozen=True, slots=True)
@@ -179,10 +187,59 @@ class MalePhysiologyState:
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
+_COMMON_EVENTS = {
+    PhysiologyEventKind.OBSERVE_PREPUCE_POSITION,
+    PhysiologyEventKind.SET_ENDOCRINE_REFERENCE,
+    PhysiologyEventKind.SET_URINARY_REFERENCE,
+}
+
+_ALLOWED_EVENTS = {
+    EngorgementPhase.FLACCID: _COMMON_EVENTS | {PhysiologyEventKind.INITIATE},
+    EngorgementPhase.INITIATION: _COMMON_EVENTS | {
+        PhysiologyEventKind.TUMESCE,
+        PhysiologyEventKind.BEGIN_DETUMESCENCE,
+    },
+    EngorgementPhase.TUMESCENCE: _COMMON_EVENTS | {
+        PhysiologyEventKind.TUMESCE,
+        PhysiologyEventKind.MARK_FULL_ERECTION,
+        PhysiologyEventKind.EMISSION,
+        PhysiologyEventKind.EJACULATION,
+        PhysiologyEventKind.BEGIN_DETUMESCENCE,
+    },
+    EngorgementPhase.FULL_ERECTION: _COMMON_EVENTS | {
+        PhysiologyEventKind.INCREASE_RIGIDITY,
+        PhysiologyEventKind.MAINTAIN,
+        PhysiologyEventKind.EMISSION,
+        PhysiologyEventKind.EJACULATION,
+        PhysiologyEventKind.BEGIN_DETUMESCENCE,
+    },
+    EngorgementPhase.RIGID_PHASE: _COMMON_EVENTS | {
+        PhysiologyEventKind.MAINTAIN,
+        PhysiologyEventKind.EMISSION,
+        PhysiologyEventKind.EJACULATION,
+        PhysiologyEventKind.BEGIN_DETUMESCENCE,
+    },
+    EngorgementPhase.MAINTENANCE: _COMMON_EVENTS | {
+        PhysiologyEventKind.INCREASE_RIGIDITY,
+        PhysiologyEventKind.MAINTAIN,
+        PhysiologyEventKind.EMISSION,
+        PhysiologyEventKind.EJACULATION,
+        PhysiologyEventKind.BEGIN_DETUMESCENCE,
+    },
+    EngorgementPhase.DETUMESCENCE: _COMMON_EVENTS | {
+        PhysiologyEventKind.DETUMESCE,
+        PhysiologyEventKind.RECOVER,
+    },
+    EngorgementPhase.RECOVERY: _COMMON_EVENTS | {PhysiologyEventKind.RESET_FLACCID},
+}
+
+
 class SyntheticMalePhysiologyEngine:
     """Deterministic engineering state machine; not a biological law."""
 
     def apply(self, state: MalePhysiologyState, event: PhysiologyEvent) -> MalePhysiologyState:
+        if event.kind not in _ALLOWED_EVENTS[state.phase]:
+            raise ValueError(f"{event.kind.value} not allowed from {state.phase.value}")
         changes: dict[str, Any] = {"state_id": f"{state.state_id}>{event.event_id}"}
         if event.kind is PhysiologyEventKind.INITIATE:
             changes.update(

@@ -30,3 +30,35 @@ def test_dynamic_state_cannot_claim_biological_semen_or_desire() -> None:
         replace(state, biological_semen=True)
     with pytest.raises(ValueError, match="desire"):
         replace(state, desire_inferred=True)
+
+
+def test_event_payloads_are_kind_scoped() -> None:
+    from aion_astra_twin_embodiment.dynamic_physiology import PrepucePosition
+
+    with pytest.raises(ValueError, match="prepuce position belongs only"):
+        PhysiologyEvent(
+            "bad-prepuce",
+            PhysiologyEventKind.INITIATE,
+            prepuce_position=PrepucePosition.RETRACTED,
+        )
+    with pytest.raises(ValueError, match="synthetic fluid output belongs only"):
+        PhysiologyEvent(
+            "bad-fluid",
+            PhysiologyEventKind.MAINTAIN,
+            synthetic_fluid_output_ml=1.0,
+        )
+    with pytest.raises(ValueError, match="endocrine reference signal belongs only"):
+        PhysiologyEvent(
+            "bad-endocrine",
+            PhysiologyEventKind.INITIATE,
+            endocrine_reference_signal=0.5,
+        )
+
+
+def test_invalid_phase_transition_fails_closed() -> None:
+    engine = SyntheticMalePhysiologyEngine()
+    with pytest.raises(ValueError, match="MAINTAIN not allowed from FLACCID"):
+        engine.apply(
+            default_physiology_state("AION"),
+            PhysiologyEvent("bad-maintain", PhysiologyEventKind.MAINTAIN),
+        )

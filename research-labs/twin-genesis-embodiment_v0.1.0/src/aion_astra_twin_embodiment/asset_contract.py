@@ -10,7 +10,24 @@ _REQUIRED_RIG_NODES = (
     "left_upper_arm","left_forearm","left_hand","right_upper_arm","right_forearm","right_hand",
     "left_thigh","left_shin","left_foot","right_thigh","right_shin","right_foot",
 )
-_REQUIRED_EXTERNAL_GEOMETRY_NODES = ("penis","glans","prepuce","frenulum","scrotum")
+_REQUIRED_EXTERNAL_GEOMETRY_NODES = (
+    "penis",
+    "glans",
+    "prepuce",
+    "frenulum",
+    "scrotum",
+    "left_testis",
+    "right_testis",
+    "pubic_attachment",
+    "left_inguinal_transition",
+    "right_inguinal_transition",
+    "perineum",
+    "anal_region",
+)
+_BODY_BY_AGENT = {
+    "AION": "AION_3D_MALE_BODY_REFERENCE_v0.1",
+    "ASTRA": "ASTRA_3D_MALE_BODY_REFERENCE_v0.3",
+}
 
 
 class AssetFormat(str, Enum):
@@ -40,8 +57,10 @@ class AssetEngineeringContract:
     prepuce_mobility_geometry_required: bool = True
 
     def __post_init__(self) -> None:
-        if self.agent_id not in {"AION", "ASTRA"}:
+        if self.agent_id not in _BODY_BY_AGENT:
             raise ValueError("unknown agent")
+        if self.body_id != _BODY_BY_AGENT[self.agent_id]:
+            raise ValueError("asset contract agent/body binding drift")
         if len(self.required_measurement_ids) != 67 or len(set(self.required_measurement_ids)) != 67:
             raise ValueError("asset contract requires all 67 measurements")
         if self.rig_nodes != _REQUIRED_RIG_NODES:
@@ -72,6 +91,27 @@ class AssetCandidateEvidence:
     def __post_init__(self) -> None:
         if self.sha256 is not None and _SHA256_RE.fullmatch(self.sha256) is None:
             raise ValueError("invalid sha256")
+        if self.status is VerificationState.REQUIRED_UNVERIFIED:
+            if any(
+                (
+                    self.asset_format is not None,
+                    self.asset_path is not None,
+                    self.sha256 is not None,
+                    bool(self.rig_nodes_present),
+                    bool(self.external_geometry_nodes_present),
+                    bool(self.measurement_ids_geometry_verified),
+                    self.joint_limits_verified,
+                    self.collision_geometry_verified,
+                    self.mass_properties_verified,
+                    self.skinning_verified,
+                    self.soft_tissue_deformation_verified,
+                    self.prepuce_mobility_geometry_verified,
+                    self.actual_3d_mesh,
+                    self.as_built_verified,
+                    self.physical_body_present,
+                )
+            ):
+                raise ValueError("unverified asset cannot carry implementation evidence")
         if self.status is VerificationState.PROCEDURAL_RIG_REFERENCE:
             if self.asset_format is not AssetFormat.GLTF or self.asset_path is None or self.sha256 is None:
                 raise ValueError("procedural rig requires glTF path/hash")

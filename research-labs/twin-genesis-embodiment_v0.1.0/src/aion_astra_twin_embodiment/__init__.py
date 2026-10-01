@@ -11,6 +11,11 @@ from .body_state import WholeBodySyntheticState, default_whole_body_state
 from .dynamic_physiology import MalePhysiologyState, default_physiology_state
 from .models import EmbodimentInstance, EmbodimentTemplate, SharedGenesisEvent
 from .probe import run_probe
+from .reproductive_topology import (
+    ReproductiveTopologyReference,
+    build_reproductive_topology_reference,
+    validate_reproductive_topology_parity,
+)
 from .runtime import TwinGenesisRuntime, TwinRuntimeState
 from .runtime_binding import TwinRuntimeContexts, build_runtime_contexts
 from .validation import ValidationError, validate_candidate
@@ -29,6 +34,9 @@ __all__ = [
     "EmbodimentTemplate",
     "SharedGenesisEvent",
     "run_probe",
+    "ReproductiveTopologyReference",
+    "build_reproductive_topology_reference",
+    "validate_reproductive_topology_parity",
     "TwinGenesisRuntime",
     "TwinRuntimeState",
     "TwinRuntimeContexts",

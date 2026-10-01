@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aion.local/schemas/AION_ASTRA_REPRODUCTIVE_TOPOLOGY_V02_SCHEMA.json",
+  "title": "AION/Astra reproductive synthetic reference topology v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "agent_id",
+    "body_id",
+    "nodes",
+    "edges",
+    "physical_tissue",
+    "biological_organism",
+    "felt_sensation",
+    "subjectivity",
+    "consciousness",
+    "phenomenal_experience",
+    "action_authority",
+    "canonical_effect",
+    "deployment"
+  ],
+  "properties": {
+    "agent_id": {
+      "enum": [
+        "AION",
+        "ASTRA"
+      ]
+    },
+    "body_id": {
+      "enum": [
+        "AION_3D_MALE_BODY_REFERENCE_v0.1",
+        "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+      ]
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 32,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "node_id",
+          "category",
+          "status"
+        ],
+        "properties": {
+          "node_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "SYNTHETIC_REFERENCE_ONLY"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "target",
+          "relation",
+          "status"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "SYNTHETIC_REFERENCE_ONLY"
+          }
+        }
+      }
+    },
+    "physical_tissue": {
+      "const": false
+    },
+    "biological_organism": {
+      "const": false
+    },
+    "felt_sensation": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "subjectivity": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "consciousness": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "phenomenal_experience": {
+      "const": "NOT_ESTABLISHED"
+    },
+    "action_authority": {
+      "const": "NONE"
+    },
+    "canonical_effect": {
+      "const": "NONE"
+    },
+    "deployment": {
+      "const": false
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "AION"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "AION_3D_MALE_BODY_REFERENCE_v0.1"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "agent_id": {
+            "const": "ASTRA"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "body_id": {
+            "const": "ASTRA_3D_MALE_BODY_REFERENCE_v0.3"
+          }
+        }
+      }
+    }
+  ]
+}

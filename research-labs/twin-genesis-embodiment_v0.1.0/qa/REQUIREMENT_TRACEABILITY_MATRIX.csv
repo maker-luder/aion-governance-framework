@@ -11,3 +11,6 @@ REQ-PHYS-002,Dynamic bounded male physiology state without biological or phenome
 REQ-ASSET-002,Procedural rig reference plus fail-closed production asset contract,tests/test_asset_integrity_probe_v02.py,IMPLEMENTED_REFERENCE_ONLY
 REQ-INTEGRITY-002,Deterministic hash-chain probe binds AION/Astra profiles state physiology and assets,tests/test_asset_integrity_probe_v02.py,IMPLEMENTED_AS_CANDIDATE
 REQ-SCHEMA-002,Anthropometry whole-body and dynamic physiology schema parity,tests/test_anthropometry_schema_v02.py;tests/test_schema_state_v02.py,IMPLEMENTED_AS_CANDIDATE
+REQ-TOPOLOGY-003,External male continuity landmarks from archived #190 are machine-verified in both procedural rigs,tests/test_asset_integrity_probe_v02.py,IMPLEMENTED_REFERENCE_ONLY
+REQ-TOPOLOGY-004,Distinct AION/Astra internal reproductive reference topology with identical functional graph coverage,tests/test_reproductive_topology_v02.py;tests/test_reproductive_topology_schema_v02.py,IMPLEMENTED_AS_CANDIDATE
+REQ-PHYS-003,Dynamic physiology event payloads and phase transitions fail closed,tests/test_dynamic_physiology_v02.py;tests/test_dynamic_physiology_event_schema_v02.py,IMPLEMENTED_AS_CANDIDATE

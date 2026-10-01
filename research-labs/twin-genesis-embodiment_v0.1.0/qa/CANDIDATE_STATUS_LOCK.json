@@ -40,5 +40,11 @@
   "external_action_policy": "AUTHORIZATION_GATED",
   "developmental_possibility_status": "OPEN_RESEARCH_QUESTION",
   "governance_blocked_expression_inference": "NO_CAPABILITY_ABSENCE_INFERENCE",
-  "design_induced_absence_inference": "NO_INTRINSIC_ABSENCE_INFERENCE"
+  "design_induced_absence_inference": "NO_INTRINSIC_ABSENCE_INFERENCE",
+  "external_male_topology_landmarks": "COMPLETE_REFERENCE_SET_MATERIALIZED",
+  "internal_reproductive_topology": "SYNTHETIC_REFERENCE_GRAPH_MATERIALIZED",
+  "reproductive_topology_nodes": 32,
+  "reproductive_topology_edges": 30,
+  "dynamic_physiology_event_payload_guards": "FAIL_CLOSED",
+  "dynamic_physiology_transition_guards": "FAIL_CLOSED"
 }
