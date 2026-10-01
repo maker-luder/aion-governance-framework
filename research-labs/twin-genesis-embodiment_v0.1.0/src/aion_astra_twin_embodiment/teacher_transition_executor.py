@@ -197,10 +197,10 @@ def execute_teacher_transition(
     profile: TeacherBodyDynamicsProfile | None = None,
 ) -> TeacherExecutedTransition:
     profile = profile or build_teacher_body_dynamics_profile()
-    if controller_state.sequence != previous_body_state.sequence:
-        raise ValueError("controller/body sequence must match before execution")
-    if controller_state.timestamp_ms != previous_body_state.timestamp_ms:
-        raise ValueError("controller/body timestamp must match before execution")
+    if controller_state.sequence != clock.sequence:
+        raise ValueError("controller/clock sequence must match for execution")
+    if controller_state.timestamp_ms != clock.timestamp_ms:
+        raise ValueError("controller/clock timestamp must match for execution")
     if controller_state.source_body_state_sha256 != previous_body_state.body_state_sha256:
         raise ValueError("controller/body source hash drift")
     if motivation.source_body_state_sha256 != previous_body_state.body_state_sha256:
