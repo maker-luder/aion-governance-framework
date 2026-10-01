@@ -66,6 +66,7 @@ class TeacherEmbodimentRatePolicy:
     max_activation_delta: float = 0.15
     max_salience_delta: float = 0.15
     max_motivation_delta: float = 0.15
+    body_feedback_gain: float = 0.20
     smooth_gain: float = 2.0
 
     def __post_init__(self) -> None:
@@ -76,6 +77,11 @@ class TeacherEmbodimentRatePolicy:
         ):
             if not isfinite(value) or not 0.0 < value <= 1.0:
                 raise ValueError(f"{name} must be finite in (0, 1]")
+        if (
+            not isfinite(self.body_feedback_gain)
+            or not 0.0 <= self.body_feedback_gain <= 1.0
+        ):
+            raise ValueError("body_feedback_gain must be finite in [0, 1]")
         if not isfinite(self.smooth_gain) or self.smooth_gain <= 0.0:
             raise ValueError("smooth_gain must be finite and positive")
 
@@ -248,6 +254,18 @@ def possess_teacher_body(
     )
 
 
+def fingerprint_teacher_body_schema_feedback(
+    source_body_state: TeacherIntegratedBodyState,
+    feedback: TeacherAllostaticForecast,
+) -> str:
+    return _canonical_hash(
+        {
+            "source_body_state_sha256": source_body_state.body_state_sha256,
+            "feedback": feedback.to_dict(),
+        }
+    )
+
+
 def resolve_teacher_controller_phase(
     state: TeacherEmbodiedControllerState,
 ) -> str:
@@ -266,6 +284,8 @@ def advance_teacher_controller(
     source_body_state: TeacherIntegratedBodyState,
     clock: TeacherEmbodimentClock,
     policy: TeacherEmbodimentRatePolicy | None = None,
+    *,
+    body_schema_feedback: TeacherAllostaticForecast | None = None,
 ) -> TeacherEmbodiedControllerState:
     policy = policy or TeacherEmbodimentRatePolicy()
     if previous.body_id != TEACHER_BODY_ID:
@@ -274,10 +294,24 @@ def advance_teacher_controller(
         raise ValueError("controller clock sequence must advance exactly one tick")
     if clock.timestamp_ms != previous.timestamp_ms + clock.dt_ms:
         raise ValueError("controller clock timestamp must advance exactly one tick")
-    if source_body_state.sequence > previous.sequence:
-        raise ValueError("controller cannot consume a future body state")
-    if source_body_state.timestamp_ms > previous.timestamp_ms:
-        raise ValueError("controller cannot consume future body observations")
+    if (
+        source_body_state.sequence != previous.sequence
+        or source_body_state.timestamp_ms != previous.timestamp_ms
+    ):
+        raise ValueError("controller requires exact previous body state")
+
+    feedback_bias = 0.0
+    if body_schema_feedback is not None:
+        feedback_sha256 = fingerprint_teacher_body_schema_feedback(
+            source_body_state,
+            body_schema_feedback,
+        )
+        if previous.previous_body_schema_feedback_sha256 != feedback_sha256:
+            raise ValueError("controller body-schema feedback binding drift")
+        feedback_bias = policy.body_feedback_gain * (
+            body_schema_feedback.current_state
+            - body_schema_feedback.target_state
+        )
 
     next_salience = _smooth_rate_limited_update(
         previous.salience,
@@ -295,6 +329,10 @@ def advance_teacher_controller(
         controller_input.salience
         * (1.0 if controller_input.context_gate else 0.35)
         * (1.0 - controller_input.inhibition)
+    )
+    contextual_drive = max(
+        0.0,
+        min(1.0, contextual_drive + feedback_bias),
     )
     next_activation = _smooth_rate_limited_update(
         previous.activation,
