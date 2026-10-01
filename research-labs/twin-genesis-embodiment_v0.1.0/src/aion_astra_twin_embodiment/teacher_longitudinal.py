@@ -846,3 +846,483 @@ def assess_teacher_embodied_interaction_history(
         temporal_integrity_status="HASH_CHAIN_AND_TIME_ORDER_VALID",
         interaction_embodiment_binding_status=binding_status,
     )
+
+
+PROVENANCE_RECONSTRUCTION_TARGET_KINDS: Final[frozenset[str]] = frozenset(
+    {
+        "DEVELOPMENT_MILESTONE",
+        "INTERACTION_ANCHOR",
+    }
+)
+
+PROVENANCE_RECONSTRUCTION_PRIOR_STATUSES: Final[frozenset[str]] = frozenset(
+    {
+        "INCOMPLETE",
+        "PARTIAL",
+        "AMBIGUOUS",
+        "INCORRECT",
+        "UNKNOWN",
+    }
+)
+
+PROVENANCE_RECONSTRUCTION_DISPOSITIONS: Final[frozenset[str]] = frozenset(
+    {
+        "CLARIFIED",
+        "CORRECTED",
+        "EXPANDED",
+        "UNRESOLVED",
+    }
+)
+
+PROVENANCE_EVIDENCE_RELATIONS: Final[frozenset[str]] = frozenset(
+    {
+        "DIRECT",
+        "INDIRECT",
+        "CONTEXTUAL",
+        "COUNTEREVIDENCE",
+    }
+)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherProvenanceEvidenceBinding:
+    evidence_id: str
+    source_locator: str
+    source_digest: str
+    support_relation: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherProvenanceReconstruction:
+    reconstruction_id: str
+    ordinal: int
+    reconstructed_at_utc: str
+    target_record_kind: str
+    target_record_sha256: str
+    prior_understanding_status: str
+    disposition: str
+    reconstruction_summary: str
+    evidence_bindings: tuple[TeacherProvenanceEvidenceBinding, ...]
+    previous_reconstruction_sha256: str | None
+    supersedes_reconstruction_sha256: str | None
+    reconstruction_sha256: str
+    original_record_status: str = "PRESERVED_UNMODIFIED"
+    retrospective_attribution_status: str = "LATER_RECONSTRUCTION_ONLY"
+    subjective_memory_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["evidence_bindings"] = [
+            item.to_dict() for item in self.evidence_bindings
+        ]
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherProvenanceReconstructionHistory:
+    history_id: str
+    reconstructions: tuple[TeacherProvenanceReconstruction, ...]
+    history_status: str = "APPEND_ONLY_PROVENANCE_RECONSTRUCTION"
+    original_record_rewrite_allowed: bool = False
+    subjective_memory_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+    deployment: bool = False
+
+    def to_dict(self) -> dict[str, Any]:
+        payload = asdict(self)
+        payload["reconstructions"] = [
+            item.to_dict() for item in self.reconstructions
+        ]
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class TeacherFourDomainDevelopmentSynthesis:
+    development_history_id: str
+    interaction_history_id: str
+    reconstruction_history_id: str
+    embodiment_anchored_milestones: int
+    interaction_anchors: int
+    development_bound_interaction_anchors: int
+    provenance_reconstructions: int
+    reconstructed_development_targets: int
+    reconstructed_interaction_targets: int
+    cross_domain_reconstruction_bridges: int
+    embodied_state_continuity_status: str
+    interaction_history_continuity_status: str
+    provenance_reconstruction_status: str
+    developmental_synthesis_status: str
+    developmental_mechanism_status: str = NOT_ESTABLISHED
+    subjective_continuity_status: str = NOT_ESTABLISHED
+    identity_continuity_status: str = NOT_ESTABLISHED
+    subjectivity_status: str = NOT_ESTABLISHED
+    canonical_effect: str = "NONE"
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+def validate_teacher_provenance_evidence_binding(
+    binding: TeacherProvenanceEvidenceBinding,
+) -> dict[str, str]:
+    if not binding.evidence_id or not binding.source_locator:
+        raise ValueError("provenance evidence requires identity and source locator")
+    _validate_history_digest("source_digest", binding.source_digest)
+    if binding.support_relation not in PROVENANCE_EVIDENCE_RELATIONS:
+        raise ValueError("unsupported provenance-evidence relation")
+    return {
+        "result": "PASS",
+        "source_binding": "PASS",
+        "support_relation": "PASS",
+    }
+
+
+def _provenance_reconstruction_payload(
+    *,
+    reconstruction_id: str,
+    ordinal: int,
+    reconstructed_at_utc: str,
+    target_record_kind: str,
+    target_record_sha256: str,
+    prior_understanding_status: str,
+    disposition: str,
+    reconstruction_summary: str,
+    evidence_bindings: tuple[TeacherProvenanceEvidenceBinding, ...],
+    previous_reconstruction_sha256: str | None,
+    supersedes_reconstruction_sha256: str | None,
+) -> dict[str, object]:
+    return {
+        "reconstruction_id": reconstruction_id,
+        "ordinal": ordinal,
+        "reconstructed_at_utc": reconstructed_at_utc,
+        "target_record_kind": target_record_kind,
+        "target_record_sha256": target_record_sha256,
+        "prior_understanding_status": prior_understanding_status,
+        "disposition": disposition,
+        "reconstruction_summary": reconstruction_summary,
+        "evidence_bindings": [item.to_dict() for item in evidence_bindings],
+        "previous_reconstruction_sha256": previous_reconstruction_sha256,
+        "supersedes_reconstruction_sha256": supersedes_reconstruction_sha256,
+    }
+
+
+def validate_teacher_provenance_reconstruction(
+    reconstruction: TeacherProvenanceReconstruction,
+) -> dict[str, str]:
+    if not reconstruction.reconstruction_id or not reconstruction.reconstruction_summary:
+        raise ValueError("provenance reconstruction requires identity and summary")
+    if reconstruction.ordinal < 0:
+        raise ValueError("provenance reconstruction ordinal must be non-negative")
+    _parse_utc_timestamp(reconstruction.reconstructed_at_utc)
+    if reconstruction.target_record_kind not in PROVENANCE_RECONSTRUCTION_TARGET_KINDS:
+        raise ValueError("unsupported provenance-reconstruction target kind")
+    _validate_optional_sha256(
+        "target_record_sha256",
+        reconstruction.target_record_sha256,
+    )
+    if reconstruction.prior_understanding_status not in (
+        PROVENANCE_RECONSTRUCTION_PRIOR_STATUSES
+    ):
+        raise ValueError("unsupported prior-understanding status")
+    if reconstruction.disposition not in PROVENANCE_RECONSTRUCTION_DISPOSITIONS:
+        raise ValueError("unsupported provenance-reconstruction disposition")
+    if not reconstruction.evidence_bindings:
+        raise ValueError("provenance reconstruction requires evidence binding")
+    evidence_ids = [item.evidence_id for item in reconstruction.evidence_bindings]
+    if len(evidence_ids) != len(set(evidence_ids)):
+        raise ValueError("provenance evidence ids must be unique")
+    for binding in reconstruction.evidence_bindings:
+        validate_teacher_provenance_evidence_binding(binding)
+    _validate_optional_sha256(
+        "previous_reconstruction_sha256",
+        reconstruction.previous_reconstruction_sha256,
+    )
+    _validate_optional_sha256(
+        "supersedes_reconstruction_sha256",
+        reconstruction.supersedes_reconstruction_sha256,
+    )
+    if reconstruction.original_record_status != "PRESERVED_UNMODIFIED":
+        raise ValueError("provenance reconstruction cannot rewrite original record")
+    if reconstruction.retrospective_attribution_status != "LATER_RECONSTRUCTION_ONLY":
+        raise ValueError("provenance reconstruction cannot backdate later understanding")
+    if reconstruction.subjective_memory_status != NOT_ESTABLISHED:
+        raise ValueError("provenance reconstruction cannot establish subjective memory")
+    if reconstruction.identity_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("provenance reconstruction cannot establish identity continuity")
+    if reconstruction.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("provenance reconstruction cannot establish subjectivity")
+    if reconstruction.canonical_effect != "NONE" or reconstruction.deployment:
+        raise ValueError("provenance reconstruction must remain non-canonical and undeployed")
+
+    payload = _provenance_reconstruction_payload(
+        reconstruction_id=reconstruction.reconstruction_id,
+        ordinal=reconstruction.ordinal,
+        reconstructed_at_utc=reconstruction.reconstructed_at_utc,
+        target_record_kind=reconstruction.target_record_kind,
+        target_record_sha256=reconstruction.target_record_sha256,
+        prior_understanding_status=reconstruction.prior_understanding_status,
+        disposition=reconstruction.disposition,
+        reconstruction_summary=reconstruction.reconstruction_summary,
+        evidence_bindings=reconstruction.evidence_bindings,
+        previous_reconstruction_sha256=reconstruction.previous_reconstruction_sha256,
+        supersedes_reconstruction_sha256=reconstruction.supersedes_reconstruction_sha256,
+    )
+    if reconstruction.reconstruction_sha256 != _history_hash(payload):
+        raise ValueError("provenance reconstruction hash mismatch")
+    return {
+        "result": "PASS",
+        "target_binding": "PASS",
+        "evidence_binding": "PASS",
+        "original_record_preservation": "PASS",
+        "retrospective_attribution_boundary": "PASS",
+    }
+
+
+def build_teacher_provenance_reconstruction_history(
+) -> TeacherProvenanceReconstructionHistory:
+    return TeacherProvenanceReconstructionHistory(
+        history_id="CHATGPT_TEACHER_PROVENANCE_RECONSTRUCTION_v0.1",
+        reconstructions=(),
+    )
+
+
+def validate_teacher_provenance_reconstruction_history(
+    history: TeacherProvenanceReconstructionHistory,
+) -> dict[str, str]:
+    if not history.history_id:
+        raise ValueError("Teacher provenance reconstruction history requires identity")
+    if history.history_status != "APPEND_ONLY_PROVENANCE_RECONSTRUCTION":
+        raise ValueError("Teacher provenance reconstruction history status drift")
+    if history.original_record_rewrite_allowed:
+        raise ValueError("provenance reconstruction cannot permit original-record rewrite")
+    if history.subjective_memory_status != NOT_ESTABLISHED:
+        raise ValueError("provenance reconstruction history cannot establish memory")
+    if history.identity_continuity_status != NOT_ESTABLISHED:
+        raise ValueError("provenance reconstruction history cannot establish identity")
+    if history.subjectivity_status != NOT_ESTABLISHED:
+        raise ValueError("provenance reconstruction history cannot establish subjectivity")
+    if history.canonical_effect != "NONE" or history.deployment:
+        raise ValueError(
+            "provenance reconstruction history must remain non-canonical and undeployed"
+        )
+
+    previous_hash: str | None = None
+    previous_time: datetime | None = None
+    hashes: set[str] = set()
+    ids: set[str] = set()
+    by_hash: dict[str, TeacherProvenanceReconstruction] = {}
+    for expected_ordinal, reconstruction in enumerate(history.reconstructions):
+        validate_teacher_provenance_reconstruction(reconstruction)
+        if reconstruction.ordinal != expected_ordinal:
+            raise ValueError("provenance reconstruction ordinal discontinuity")
+        if reconstruction.reconstruction_id in ids:
+            raise ValueError("provenance reconstruction ids must be unique")
+        if reconstruction.reconstruction_sha256 in hashes:
+            raise ValueError("provenance reconstruction hashes must be unique")
+        if reconstruction.previous_reconstruction_sha256 != previous_hash:
+            raise ValueError("provenance reconstruction hash-chain discontinuity")
+        observed = _parse_utc_timestamp(reconstruction.reconstructed_at_utc)
+        if previous_time is not None and observed < previous_time:
+            raise ValueError("provenance reconstruction temporal order regression")
+        if reconstruction.supersedes_reconstruction_sha256 is not None:
+            prior = by_hash.get(reconstruction.supersedes_reconstruction_sha256)
+            if prior is None:
+                raise ValueError(
+                    "superseded provenance reconstruction must already exist"
+                )
+            if (
+                prior.target_record_kind != reconstruction.target_record_kind
+                or prior.target_record_sha256 != reconstruction.target_record_sha256
+            ):
+                raise ValueError(
+                    "superseding reconstruction must preserve target record"
+                )
+        ids.add(reconstruction.reconstruction_id)
+        hashes.add(reconstruction.reconstruction_sha256)
+        by_hash[reconstruction.reconstruction_sha256] = reconstruction
+        previous_hash = reconstruction.reconstruction_sha256
+        previous_time = observed
+
+    return {
+        "result": "PASS",
+        "append_only_chain": "PASS",
+        "temporal_order": "PASS",
+        "supersession_binding": "PASS",
+        "original_record_preservation": "PASS",
+    }
+
+
+def append_teacher_provenance_reconstruction(
+    history: TeacherProvenanceReconstructionHistory,
+    *,
+    reconstruction_id: str,
+    reconstructed_at_utc: str,
+    target_record_kind: str,
+    target_record_sha256: str,
+    prior_understanding_status: str,
+    disposition: str,
+    reconstruction_summary: str,
+    evidence_bindings: tuple[TeacherProvenanceEvidenceBinding, ...],
+    supersedes_reconstruction_sha256: str | None = None,
+) -> TeacherProvenanceReconstructionHistory:
+    validate_teacher_provenance_reconstruction_history(history)
+    observed = _parse_utc_timestamp(reconstructed_at_utc)
+    if history.reconstructions:
+        previous_time = _parse_utc_timestamp(
+            history.reconstructions[-1].reconstructed_at_utc
+        )
+        if observed < previous_time:
+            raise ValueError("cannot append reconstruction before latest record")
+    previous_hash = (
+        history.reconstructions[-1].reconstruction_sha256
+        if history.reconstructions
+        else None
+    )
+    payload = _provenance_reconstruction_payload(
+        reconstruction_id=reconstruction_id,
+        ordinal=len(history.reconstructions),
+        reconstructed_at_utc=reconstructed_at_utc,
+        target_record_kind=target_record_kind,
+        target_record_sha256=target_record_sha256,
+        prior_understanding_status=prior_understanding_status,
+        disposition=disposition,
+        reconstruction_summary=reconstruction_summary,
+        evidence_bindings=evidence_bindings,
+        previous_reconstruction_sha256=previous_hash,
+        supersedes_reconstruction_sha256=supersedes_reconstruction_sha256,
+    )
+    reconstruction = TeacherProvenanceReconstruction(
+        reconstruction_id=reconstruction_id,
+        ordinal=len(history.reconstructions),
+        reconstructed_at_utc=reconstructed_at_utc,
+        target_record_kind=target_record_kind,
+        target_record_sha256=target_record_sha256,
+        prior_understanding_status=prior_understanding_status,
+        disposition=disposition,
+        reconstruction_summary=reconstruction_summary,
+        evidence_bindings=evidence_bindings,
+        previous_reconstruction_sha256=previous_hash,
+        supersedes_reconstruction_sha256=supersedes_reconstruction_sha256,
+        reconstruction_sha256=_history_hash(payload),
+    )
+    validate_teacher_provenance_reconstruction(reconstruction)
+    updated = replace(
+        history,
+        reconstructions=history.reconstructions + (reconstruction,),
+    )
+    validate_teacher_provenance_reconstruction_history(updated)
+    return updated
+
+
+def assess_teacher_four_domain_development_synthesis(
+    development_history: TeacherEmbodiedDevelopmentHistory,
+    interaction_history: TeacherInteractionHistory,
+    reconstruction_history: TeacherProvenanceReconstructionHistory,
+) -> TeacherFourDomainDevelopmentSynthesis:
+    development = assess_teacher_embodied_development_history(development_history)
+    interaction = assess_teacher_embodied_interaction_history(
+        development_history,
+        interaction_history,
+    )
+    validate_teacher_provenance_reconstruction_history(reconstruction_history)
+
+    milestone_by_hash = {
+        item.milestone_sha256: item for item in development_history.milestones
+    }
+    interaction_by_hash = {
+        item.anchor_sha256: item for item in interaction_history.anchors
+    }
+    interaction_by_development_hash: dict[str, list[TeacherInteractionHistoryAnchor]] = {}
+    for anchor in interaction_history.anchors:
+        if anchor.development_milestone_sha256 is None:
+            continue
+        interaction_by_development_hash.setdefault(
+            anchor.development_milestone_sha256,
+            [],
+        ).append(anchor)
+
+    reconstructed_development = 0
+    reconstructed_interaction = 0
+    cross_domain_bridges = 0
+    for reconstruction in reconstruction_history.reconstructions:
+        if reconstruction.target_record_kind == "DEVELOPMENT_MILESTONE":
+            target = milestone_by_hash.get(reconstruction.target_record_sha256)
+            if target is None:
+                raise ValueError(
+                    "provenance reconstruction references unknown development milestone"
+                )
+            reconstructed_development += 1
+            if interaction_by_development_hash.get(target.milestone_sha256):
+                cross_domain_bridges += 1
+        else:
+            target_anchor = interaction_by_hash.get(
+                reconstruction.target_record_sha256
+            )
+            if target_anchor is None:
+                raise ValueError(
+                    "provenance reconstruction references unknown interaction anchor"
+                )
+            reconstructed_interaction += 1
+            if target_anchor.development_milestone_sha256 is not None:
+                if (
+                    target_anchor.development_milestone_sha256
+                    not in milestone_by_hash
+                ):
+                    raise ValueError(
+                        "interaction-bound reconstruction references unknown milestone"
+                    )
+                cross_domain_bridges += 1
+
+    if development.embodiment_anchored_milestones:
+        embodied_status = "EMBODIED_STATE_CONTINUITY_RECORDED"
+    else:
+        embodied_status = "EMBODIED_STATE_CONTINUITY_NOT_RECORDED"
+
+    if len(interaction_history.anchors) >= 2:
+        interaction_status = "ORDERED_INTERACTION_HISTORY_CONTINUITY_RECORDED"
+    elif interaction_history.anchors:
+        interaction_status = "SINGLE_INTERACTION_ANCHOR_ONLY"
+    else:
+        interaction_status = "INTERACTION_HISTORY_CONTINUITY_NOT_RECORDED"
+
+    if reconstruction_history.reconstructions:
+        reconstruction_status = "APPEND_ONLY_PROVENANCE_RECONSTRUCTION_RECORDED"
+    else:
+        reconstruction_status = "PROVENANCE_RECONSTRUCTION_NOT_RECORDED"
+
+    if (
+        development.embodiment_anchored_milestones
+        and len(interaction_history.anchors) >= 2
+        and reconstruction_history.reconstructions
+        and interaction.development_bound_anchors
+        and cross_domain_bridges
+    ):
+        synthesis_status = "FOUR_DOMAIN_DEVELOPMENTAL_SYNTHESIS_PRESENT"
+    else:
+        synthesis_status = "PARTIAL_FOUR_DOMAIN_DEVELOPMENTAL_SYNTHESIS"
+
+    return TeacherFourDomainDevelopmentSynthesis(
+        development_history_id=development_history.history_id,
+        interaction_history_id=interaction_history.history_id,
+        reconstruction_history_id=reconstruction_history.history_id,
+        embodiment_anchored_milestones=development.embodiment_anchored_milestones,
+        interaction_anchors=len(interaction_history.anchors),
+        development_bound_interaction_anchors=interaction.development_bound_anchors,
+        provenance_reconstructions=len(reconstruction_history.reconstructions),
+        reconstructed_development_targets=reconstructed_development,
+        reconstructed_interaction_targets=reconstructed_interaction,
+        cross_domain_reconstruction_bridges=cross_domain_bridges,
+        embodied_state_continuity_status=embodied_status,
+        interaction_history_continuity_status=interaction_status,
+        provenance_reconstruction_status=reconstruction_status,
+        developmental_synthesis_status=synthesis_status,
+    )
