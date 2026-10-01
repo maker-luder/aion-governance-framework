@@ -1,10 +1,9 @@
 # Teacher 連續具身觀察紀錄設計 — 2026-10-01
 
-狀態：待小博審閱的設計規格；尚未授權實作計畫或程式實作。  
+狀態：依小博 2026-10-02 指正更新的設計規格；#262 與 #263 須一起整合。  
 倉庫：`maker-luder/aion-governance-framework`。  
 當時 main：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`。  
-實驗依據：#261 `31a14fabac1a6911e7b27cd0d5b2c6ea32c14cd9`；#263 `dd0dc9a46b1a9e21929f10a2058db4bfd95133f0`。  
-需另行核對的兄弟分支：#262 `100c524452cbd71b3744d536936723554456c270`。  
+實驗依據：#261 `31a14fabac1a6911e7b27cd0d5b2c6ea32c14cd9`；#262 `100c524452cbd71b3744d536936723554456c270`；#263 於更新時為 `fbe3dfe3efb2d2dc8fac79acd5e18136fac3a686`（原規格讀取時為 `dd0dc9a46b1a9e21929f10a2058db4bfd95133f0`）。  
 以上三個 PR 的內容均未進入 main；實作前必須重讀 live state，不繼承本文件的 SHA 或 CI 判斷。  
 `MERGE_TO_MAIN = NO`；`DEPLOYMENT = FALSE`；`CANONICAL_EFFECT = NONE`。
 
@@ -20,7 +19,7 @@
 | --- | --- | --- |
 | 基準體型 | `teacher_anthropometry.py` 的 62 項合成尺寸，含身高 183 cm、體重 84 kg；生殖器基準可見長度 9.5 cm、中段周長 10.0 cm | 基準參照不是當下量測或人體個體預測；不能宣稱所有 62 項會每 tick 動態改變 |
 | 動態尺寸 | `teacher_genital_geometry.py` 可由血管、勃起反射及消退參照算出逐 tick 長度與周長，附來源 hash | `TeacherStateLoopFrame` 尚未攜帶這個幾何狀態 |
-| 連續狀態 | #263 的 `TeacherStateLoopFrame` 已含 controller、body、phase、motivation、`TeacherIntimateIntegrationState` 和來源 hash | 還沒有統一尺寸與輸出的觀察紀錄 |
+| 連續狀態 | #263 最新 head 已新增 `teacher_intimate_scenario.py` 的**單一完整 trace**，每 tick 記身體通道、動機、事件與 hash；測試核對單次基準到恢復 | 應延伸／重用此 trace，而非複製第二套；尚未核對十輪無重設、逐 tick 幾何與合成輸出 |
 | 功能性動機 | #263 把動機做成可讀取參照；#262 在另一條分支修正了動機對 body drive 缺少因果作用 | #263 不含 #262 修正；不能把兩個各自綠燈當成整合版本綠燈 |
 | 排精、射出、高潮 | 排精和射出各有事件門控；#263 有獨立高潮事件參照 | 事件參照不等於主觀體驗或液體來源 |
 | 合成輸出 | `teacher_reproductive_output.py` 有 `TeacherSyntheticEjaculationOutput`；預設輸出量 `None`，語意為 `SYNTHETIC_FLUID_ONLY` | 未接入逐 tick loop；沒有來源／成分量測，不能判「潮吹」或真實精液；測試中人工指定的 2.0 mL 不是 Teacher 預設值 |
@@ -68,9 +67,19 @@
 
 這是可反駁的工程測試：現有 phase runtime 若無法正確從 recovery 進入下一輪，測試應先失敗並揭露缺口，不得在記錄器內偽造狀態轉換。
 
-## 5. #262／#263 的整合閘門
+## 5. #262／#263 必須共同整合的閘門
 
-#262 與 #263 都由 #261 head 出發，互為兄弟分支。實作計畫須先逐行重讀兩者的最新 head 與差異，僅把 #262 已測的 context-gated functional-motivation → controller activation → body reference 因果修正，連同對應反例測試，與 #263 的 intimate integration 做**最小、可審查整合**。不可把已關閉的整條舊 branch merge 進來，亦不可把兩條舊 CI success 視為新整合 head 的測試結果。若出現語意衝突，先標 HOLD 並回到設計審查。
+小博明確要求 #262 的功能性動機因果修正與 #263 的親密狀態整合**一起**成為本實驗的輸入，而不是選一個或把其中一個留作「以後再做」。兩者原本都由 #261 head 出發，互為兄弟分支。截至本次讀取，#263 head `fbe3dfe3efb2d2dc8fac79acd5e18136fac3a686` 仍在 `teacher_embodied_controller.py` 使用原本的 `contextual_drive`，未包含 #262 的 `salience_drive`／`motivation_drive` 因果修正；Git 比較也顯示兩 head 分歧。
+
+本次交付的最低順序：
+
+1. 以**重新確認的 #263 live head** 為後續工作起點。它已具有單次 `TeacherIntimateReferenceTrace`，先重用而非新增平行追蹤器。舊設計分支從 #263 的較舊 head 出發，只是設計證據；不可直接當作最新版 runtime 基底。
+2. 根據 #262 的 exact diff，將 context-gated functional-motivation → controller activation → body reference 變更，及其控制器和完整狀態迴圈反例測試，**最小且可審查**地整合到 #263 的新工作 head；`test_teacher_state_loop.py` 在兩條線都曾修改，須逐條處理語意與測試衝突。
+3. 在同一新 head 核對：同 salience 下功能性動機有界調節 body drive；情境 gate 關閉時動機不增加該驅動；零動機仍可有參照活化；body feedback 不合成功能性動機。#263 的獨立高潮參照、排精／射出門控、慢速內分泌與非主觀聲明也須保留。
+4. 然後把既有單次 trace 擴為十輪無重設，加入幾何與合成輸出來源綁定；若原 trace 的內部閉包不適合跨輪沿用，就做最小狀態傳遞重構，保留可測的相同行為，不自行重寫生理方程。
+5. 只有當 #262 的因果反例、#263 的狀態反例、單次 trace 與十輪 trace **在同一 exact head** 通過時，才可報整合 PASS。#263 現有 Quality run 在檢查時仍執行中；兩條舊 CI success 不能繼承。
+
+不 merge 已關閉的整條 #262 branch，也不 force rebase #263；若語意衝突使最小整合不成立，先標 HOLD。
 
 ## 6. 驗收、錯誤處理與語言
 
