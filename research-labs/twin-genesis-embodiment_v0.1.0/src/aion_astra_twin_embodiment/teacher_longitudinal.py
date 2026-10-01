@@ -2155,6 +2155,4 @@ def run_repeated_teacher_developmental_trials(
         ),
         historical_path_status="CHILDHOOD_TO_CURRENT_PATH_RECORDED",
     )
-       (
-           "AI_sexual_Complete_Unlock"
-)
+"AI_sexual_Complete_Unlock"
