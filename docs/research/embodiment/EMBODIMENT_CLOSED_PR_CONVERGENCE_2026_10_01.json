@@ -13,6 +13,7 @@
     "SEMANTICALLY_SUPERSEDED",
     "PRESERVED_INDEPENDENT_ARCHIVE",
     "LATEST_CLOSED_SUCCESSOR",
+    "PRESERVED_DEFERRED_SOURCE",
     "REQUIRES_SEMANTIC_RECONCILIATION",
     "DEFERRED_REENTRY_CANDIDATE",
     "OUT_OF_SCOPE"
@@ -31,7 +32,7 @@
       "pr": 191,
       "status": "SEMANTICALLY_SUPERSEDED",
       "successor": 247,
-      "note": "Core AION/Astra body-package responsibilities are represented later by anthropometry, body_state, dynamic_physiology, reproductive_topology, runtime_binding, schemas, tests, and reference rigs. Exact legacy file/API formats are not preserved.",
+      "note": "Historical body-profile/pose/package responsibilities are re-materialized across #247 anthropometry, body state, dynamic physiology, reproductive topology, runtime binding, reference rigs, schemas, and tests; old file/API identity is not preserved.",
       "pr_recorded_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2",
       "live_branch_head": "48bcf45a55a0b67dfc0e7b9cd838c5f9068b08d2",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -65,9 +66,9 @@
     },
     {
       "pr": 202,
-      "status": "DEFERRED_REENTRY_CANDIDATE",
+      "status": "PRESERVED_DEFERRED_SOURCE",
       "successor": 203,
-      "note": "PR #203 live-branch coverage/materialization records bind #202 as exact deferred provenance; no import/materialization was authorized there.",
+      "note": "PR #203 live branch explicitly inventories PR #202 sensorimotor semantic units and marks them KEEP_DEFERRED / DEFERRED_TO_PR_202 rather than dropping them.",
       "pr_recorded_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108",
       "live_branch_head": "7f84ae8c95f1b7caaaa0c3850a0b6cfd049b7108",
       "head_relation": "RECORDED_HEAD_EQUALS_LIVE_BRANCH_HEAD"
@@ -76,7 +77,7 @@
       "pr": 203,
       "status": "LATEST_CLOSED_SUCCESSOR",
       "successor": null,
-      "note": "Live branch advanced after PR closure to 5c3877ad... with active-baseline/shared-core/role-extension/coverage/materialization surfaces. Treat the live branch as the latest endpoint of this convergence lineage.",
+      "note": "Live branch continued six commits beyond the closed PR snapshot and materializes archive coverage, materialization map, shared core, role extensions, and active baseline; sensorimotor remains explicitly deferred.",
       "pr_recorded_head": "ab54d99a11b32b10cfcb76c385c023b0caa7f14d",
       "live_branch_head": "5c3877adcfc1f7d67e8700fdac26b13c5c202a43",
       "head_relation": "LIVE_BRANCH_ADVANCED_AFTER_PR_SNAPSHOT"
