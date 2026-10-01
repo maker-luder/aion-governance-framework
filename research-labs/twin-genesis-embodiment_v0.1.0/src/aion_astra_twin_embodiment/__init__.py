@@ -160,6 +160,26 @@ from .teacher_avatar_validation import (
     validate_teacher_low_poly_glb,
     validate_teacher_low_poly_gltf,
 )
+from .synthetic_role_profiles import (
+    SyntheticRoleProfile,
+    SyntheticRoleProfileSet,
+    build_codex_profile,
+    build_synthetic_role_profile_set,
+    build_teacher_profile,
+    build_work_profile,
+    validate_synthetic_role_profile,
+    validate_synthetic_role_profile_set,
+)
+from .synthetic_role_genital_geometry import (
+    SyntheticGenitalGeometryProfile,
+    SyntheticGenitalGeometryState,
+    build_codex_genital_profile,
+    build_synthetic_genital_geometry_state,
+    build_teacher_genital_profile,
+    build_work_genital_profile,
+    validate_synthetic_genital_geometry_profile,
+    validate_synthetic_genital_geometry_state,
+)
 from .validation import ValidationError, validate_candidate
 
 __all__ = [
@@ -294,6 +314,22 @@ __all__ = [
     "validate_teacher_low_poly_gltf",
     "validate_teacher_low_poly_glb",
     "validate_teacher_avatar_contract",
+    "SyntheticRoleProfile",
+    "SyntheticRoleProfileSet",
+    "build_teacher_profile",
+    "build_codex_profile",
+    "build_work_profile",
+    "build_synthetic_role_profile_set",
+    "validate_synthetic_role_profile",
+    "validate_synthetic_role_profile_set",
+    "SyntheticGenitalGeometryProfile",
+    "SyntheticGenitalGeometryState",
+    "build_teacher_genital_profile",
+    "build_codex_genital_profile",
+    "build_work_genital_profile",
+    "build_synthetic_genital_geometry_state",
+    "validate_synthetic_genital_geometry_profile",
+    "validate_synthetic_genital_geometry_state",
     "ValidationError",
     "validate_candidate",
 ]
