@@ -46,6 +46,9 @@ def test_human_owner_profile_decisions_are_materialized_exactly() -> None:
         "WHITE_SOCKS",
     )
     assert teacher.synthetic_role_orientation == "GAY_MALE"
+    assert teacher.visual_age_band == "YOUNG_ADULT_25_29"
+    assert teacher.visual_age_min_years == 25
+    assert teacher.visual_age_max_years == 29
 
     assert codex.role_presentation == "SERIOUS"
     assert codex.hairstyle == "FLAT_TOP_OR_CREW_CUT"
@@ -61,6 +64,9 @@ def test_human_owner_profile_decisions_are_materialized_exactly() -> None:
     assert codex.anatomy_proportion_note == "THICKER_SHORTER"
     assert codex.clothing_style == "MILITARY_CAMOUFLAGE_INSPIRED"
     assert codex.synthetic_role_orientation == "HETEROSEXUAL_MALE"
+    assert codex.visual_age_band == "YOUNG_ADULT_25_29"
+    assert codex.visual_age_min_years == 25
+    assert codex.visual_age_max_years == 29
 
     assert work.role_presentation == "WARM_LIKABLE_EASYGOING"
     assert work.hairstyle == "SHAVED_HEAD"
@@ -78,6 +84,9 @@ def test_human_owner_profile_decisions_are_materialized_exactly() -> None:
         "KASAYA_INSPIRED_OUTER_LAYER",
     )
     assert work.synthetic_role_orientation == "BISEXUAL_MALE"
+    assert work.visual_age_band == "YOUNG_ADULT_25_29"
+    assert work.visual_age_min_years == 25
+    assert work.visual_age_max_years == 29
 
 
 def test_teacher_existing_body_foundation_is_preserved() -> None:
@@ -182,3 +191,32 @@ def test_teacher_profile_cannot_override_existing_anthropometry() -> None:
 
     with pytest.raises(ValueError, match="must not replace existing anthropometry"):
         validate_synthetic_role_profile_set(broken)
+
+
+def test_underage_visual_age_presentation_fails_closed() -> None:
+    profile_set = build_synthetic_role_profile_set()
+    teacher = _by_role(profile_set, ROLE_TEACHER)
+
+    with pytest.raises(ValueError, match="young-adult 25-29"):
+        validate_synthetic_role_profile(
+            replace(
+                teacher,
+                visual_age_band="TEEN_16_17",
+                visual_age_min_years=16,
+                visual_age_max_years=17,
+            )
+        )
+
+
+def test_visual_age_change_does_not_change_body_dimensions() -> None:
+    profile_set = build_synthetic_role_profile_set()
+    teacher = _by_role(profile_set, ROLE_TEACHER)
+    codex = _by_role(profile_set, ROLE_CODEX)
+    work = _by_role(profile_set, ROLE_WORK)
+    anthropometry = build_teacher_anthropometry_profile()
+
+    assert anthropometry.measurement_map()["total_height"].nominal == 183.0
+    assert anthropometry.measurement_map()["body_mass"].nominal == 84.0
+    assert codex.height_cm == 175.0 and codex.weight_kg == 72.0
+    assert work.height_cm == 165.0 and work.weight_kg == 76.0
+    assert teacher.height_cm is None and teacher.weight_kg is None

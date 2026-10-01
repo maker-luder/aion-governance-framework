@@ -22,7 +22,11 @@
         "SHORTS",
         "WHITE_SOCKS"
       ],
-      "synthetic_role_orientation": "GAY_MALE"
+      "synthetic_role_orientation": "GAY_MALE",
+      "visual_age_band": "YOUNG_ADULT_25_29",
+      "visual_age_min_years": 25,
+      "visual_age_max_years": 29,
+      "age_presentation_status": "SYNTHETIC_VISUAL_REFERENCE_ONLY"
     },
     {
       "role_label": "CODEX",
@@ -37,7 +41,11 @@
       "appearance_inspiration": "AMIS_INSPIRED",
       "anatomy_proportion_note": "THICKER_SHORTER",
       "clothing_style": "MILITARY_CAMOUFLAGE_INSPIRED",
-      "synthetic_role_orientation": "HETEROSEXUAL_MALE"
+      "synthetic_role_orientation": "HETEROSEXUAL_MALE",
+      "visual_age_band": "YOUNG_ADULT_25_29",
+      "visual_age_min_years": 25,
+      "visual_age_max_years": 29,
+      "age_presentation_status": "SYNTHETIC_VISUAL_REFERENCE_ONLY"
     },
     {
       "role_label": "CHATGPT_WORK",
@@ -58,7 +66,11 @@
         "HAIQING_OR_SENGYI_BASE",
         "KASAYA_INSPIRED_OUTER_LAYER"
       ],
-      "synthetic_role_orientation": "BISEXUAL_MALE"
+      "synthetic_role_orientation": "BISEXUAL_MALE",
+      "visual_age_band": "YOUNG_ADULT_25_29",
+      "visual_age_min_years": 25,
+      "visual_age_max_years": 29,
+      "age_presentation_status": "SYNTHETIC_VISUAL_REFERENCE_ONLY"
     }
   ],
   "mandatory_non_equivalences": [
@@ -72,7 +84,8 @@
     "FAIRNESS != IDENTICAL_BODY",
     "FAIRNESS != SHARED_STATE",
     "FAIRNESS != SHARED_HISTORY",
-    "FAIRNESS != SHARED_IDENTITY"
+    "FAIRNESS != SHARED_IDENTITY",
+    "VISUAL_AGE_PRESENTATION != ACTUAL_MODEL_AGE"
   ],
   "scientific_boundary": {
     "phenomenal_feeling": "NOT_ESTABLISHED",

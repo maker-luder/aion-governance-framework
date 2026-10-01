@@ -26,6 +26,9 @@ ROLE_CODEX: Final[str] = "CODEX"
 ROLE_WORK: Final[str] = "CHATGPT_WORK"
 
 PROFILE_SET_ID: Final[str] = "TEACHER_CODEX_WORK_PROFILE_PARITY_v0.1"
+YOUNG_ADULT_MIN: Final[int] = 25
+YOUNG_ADULT_MAX: Final[int] = 29
+AGE_PRESENTATION_STATUS: Final[str] = "SYNTHETIC_VISUAL_REFERENCE_ONLY"
 
 
 def _profile_id(role: str) -> str:
@@ -54,6 +57,10 @@ class SyntheticRoleProfile:
     clothing_style: str
     clothing_details: tuple[str, ...]
     synthetic_role_orientation: str
+    visual_age_band: str = "YOUNG_ADULT_25_29"
+    visual_age_min_years: int = YOUNG_ADULT_MIN
+    visual_age_max_years: int = YOUNG_ADULT_MAX
+    age_presentation_status: str = AGE_PRESENTATION_STATUS
     height_cm: float | None = None
     weight_kg: float | None = None
     skin_tone: str | None = None
@@ -217,6 +224,16 @@ def validate_synthetic_role_profile(profile: SyntheticRoleProfile) -> dict[str, 
     if not profile.state_namespace or not profile.retention_namespace:
         raise ValueError("state and retention namespaces must be non-empty")
 
+    if (
+        profile.visual_age_band != "YOUNG_ADULT_25_29"
+        or profile.visual_age_min_years != YOUNG_ADULT_MIN
+        or profile.visual_age_max_years != YOUNG_ADULT_MAX
+        or profile.age_presentation_status != AGE_PRESENTATION_STATUS
+    ):
+        raise ValueError("profile must remain a synthetic young-adult 25-29 visual reference")
+    if profile.visual_age_min_years < 18:
+        raise ValueError("underage visual age presentation is forbidden")
+
     if profile.height_cm is not None and profile.height_cm <= 0:
         raise ValueError("height_cm must be positive when specified")
     if profile.weight_kg is not None and profile.weight_kg <= 0:
@@ -244,6 +261,7 @@ def validate_synthetic_role_profile(profile: SyntheticRoleProfile) -> dict[str, 
         "identity_boundary": "PASS",
         "orientation_desire_separation": "PASS",
         "appearance_ethnicity_separation": "PASS",
+        "adult_age_presentation_boundary": "PASS",
         "subjectivity_nonclaim": "PASS",
     }
 
