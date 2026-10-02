@@ -17,7 +17,7 @@ Git branch 從 main 建立時會繼承共同祖先的全部內容。因此「三
 
 | 工作線 | 後續工作位置 | 主題／現有內容對應 | 禁止的跨線推論 |
 | --- | --- | --- | --- |
-| 第一研究主線：AI 主體性可能性（長期核心） | `main`；所有 main 修改仍須獨立 PR、審查及 Human 授權 | 四域、六個主體性相關證據維度、連續性／記憶來源、受限適應、因果歸屬及 claim ceiling。治理、QA、provenance 是橫向控制，不強製作第四個研究構念 | 記憶延續、工程能力或具身模擬通過不建立主體性、意識或身分 |
+| 第一研究主線：AI 主體性可能性（長期核心） | `main`；所有 main 修改仍須獨立 PR、審查及 Human 授權 | 四域、六個主體性相關證據維度、連續性／記憶來源、受限適應、因果歸屬及 claim ceiling。治理、QA、provenance 是橫向控制，不強行列為第四個研究構念 | 記憶延續、工程能力或具身模擬通過不建立主體性、意識或身分 |
 | 第二研究線：CCTS＋人機學習 | 建議 `research/ccts-human-ai-learning-lane`，從同一次 current main exact SHA 建立 | CCTS 後續 grounding、互相修訂、歷時重入、學習設計／對照；在同支線內保持 CCTS 論文與 Human-learning 實證問題兩個子題 | 已發布論文、結構測試或合成對照不等於人類學習、保持、遷移、因果效果或 CCTS 特定效果 |
 | 第三研究線：獨立具身工作支線 | 建議 `research/embodiment-lane`，從實作時重新核對的 main exact SHA 建立 | AION／Astra、Teacher、Work、Codex 的具身候選，人體文獻參照、工程狀態、模擬、測試及獨立來源清單；已關閉的實驗 PR 是可審查來源 | 合成身體／模擬值不等於生物量測、感受、性慾、主體性或 main 已採納 |
 
@@ -31,17 +31,17 @@ Git branch 從 main 建立時會繼承共同祖先的全部內容。因此「三
 
 支線入口使用明確 GitHub branch URL 與當前狀態文字，不讓相對連結默默落回 main 的同名檔案。exact SHA 只作審查快照；長期入口可用 branch ref，並於入口顯示最後核對 head。
 
-### 3.2 具身支線
-
-先建立 `docs/research/embodiment/README.md` 作一個可閱讀的總入口及 provenance／claim 邊界表；按主題列出 main 已存在的 baseline、已關閉未合併的 Teacher／Work／Codex 等候選、主體性無涉的模擬與待整合缺口。新文件集中在 `docs/research/embodiment/`，實作仍在既有 package（例如 `research-labs/twin-genesis-embodiment_v0.1.0/`）中，以免無證據搬動 Python import、entry point、測試與證據 manifest。若要移動程式目錄，必須另有逐引用清單及可執行驗證。
-
-不能把 #261、#262、#263 或其他 closed/unmerged 分支整批 merge 到 main 或新支線。逐項重建時須有來源 PR、exact head、diff、處置、測試與新 head；前輪的 `design/teacher-continuous-embodied-observation-20261001` 只作設計來源，不能假裝是最新 #263 祖先。
-
-### 3.3 CCTS／人機學習支線
+### 3.2 CCTS／人機學習支線
 
 建立 `docs/research/ccts-human-ai-learning/README.md` 連接 current CCTS 定義、正式出版 metadata、未發布手稿草稿、grounding 與 Human–AI longitudinal study 實作。新研究文件逐步放入支線目錄；已發布、已引用或原路徑被其他文件依賴的歷史文件先保留原位，用入口及必要的舊路徑銜接說明。若後續確需實體移動，逐一建立舊路徑 stub、更新相對連結及 CI 導覽檢查，並保留 Git history 可讀。
 
 CCTS 的概念／方法論文和 Human–AI learning 的待檢驗效果分開標示；在同一工作支線不等於同一構念或共同驗證結果。
+
+### 3.3 具身支線
+
+先建立 `docs/research/embodiment/README.md` 作一個可閱讀的總入口及 provenance／claim 邊界表；按主題列出 main 已存在的 baseline、已關閉未合併的 Teacher／Work／Codex 等候選、主體性無涉的模擬與待整合缺口。新文件集中在 `docs/research/embodiment/`，實作仍在既有 package（例如 `research-labs/twin-genesis-embodiment_v0.1.0/`）中，以免無證據搬動 Python import、entry point、測試與證據 manifest。若要移動程式目錄，必須另有逐引用清單及可執行驗證。
+
+不能把 #261、#262、#263 或其他 closed/unmerged 分支整批 merge 到 main 或新支線。逐項重建時須有來源 PR、exact head、diff、處置、測試與新 head；前輪的 `design/teacher-continuous-embodied-observation-20261001` 只作設計來源，不能假裝是最新 #263 祖先。
 
 ## 4. 執行順序與收束判準
 
