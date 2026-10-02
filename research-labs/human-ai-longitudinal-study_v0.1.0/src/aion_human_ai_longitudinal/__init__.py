@@ -133,9 +133,11 @@ from .task_selection_exposure_hardened import (
     render_choice_opportunity_record,
 )
 from .ccts_validity_study_design import (
+    AssessmentSourceRole,
     CCTSValidityStudyAudit,
     CCTSValidityStudyDesign,
     DiscriminantPlan,
+    HybridNegative,
     NeighborConstruct,
     OutcomeCondition,
     OutcomeMeasure,
@@ -148,6 +150,7 @@ __all__ = [
     "AccumulationError",
     "AdmissionDisposition",
     "ArtifactCondition",
+    "AssessmentSourceRole",
     "AssignmentStep",
     "BoundArtifact",
     "CalibrationCondition",
@@ -194,6 +197,7 @@ __all__ = [
     "HumanAgencyCondition",
     "HumanAgencyControlManifest",
     "HumanJudgmentDisposition",
+    "HybridNegative",
     "LongitudinalStudyHarness",
     "MetacognitiveAction",
     "MetacognitiveTaskClass",

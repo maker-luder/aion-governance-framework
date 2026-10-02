@@ -11,6 +11,7 @@ import re
 from dataclasses import dataclass
 from enum import StrEnum
 
+from .ccts_human_epistemic_agency import HumanAgencyCondition
 from .harness import AdmissionDisposition, StudyError
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
@@ -31,6 +32,11 @@ class NeighborConstruct(StrEnum):
     EPISTEMIC_CO_AGENCY = "EPISTEMIC_CO_AGENCY"
 
 
+class HybridNegative(StrEnum):
+    PROVENANCE_AUTHORITY_WITHOUT_RECIPROCAL_REVISION = "PROVENANCE_AUTHORITY_WITHOUT_RECIPROCAL_REVISION"
+    RECIPROCAL_REVISION_WITHOUT_RECONSTRUCTABLE_PROVENANCE = "RECIPROCAL_REVISION_WITHOUT_RECONSTRUCTABLE_PROVENANCE"
+
+
 class OutcomeCondition(StrEnum):
     CCTS = "CCTS"
     MATCHED_NON_CCTS = "MATCHED_NON_CCTS"
@@ -46,6 +52,12 @@ class OutcomeMeasure(StrEnum):
     IMMEDIATE_TASK_PERFORMANCE = "IMMEDIATE_TASK_PERFORMANCE"
     DELAYED_RETENTION = "DELAYED_RETENTION"
     HELD_OUT_TRANSFER = "HELD_OUT_TRANSFER"
+
+
+class AssessmentSourceRole(StrEnum):
+    HUMAN_PARTICIPANT = "HUMAN_PARTICIPANT"
+    AI = "AI"
+    HUMAN_AI = "HUMAN_AI"
 
 
 def _ids(name: str, values: tuple[str, ...], minimum: int = 1) -> None:
@@ -66,6 +78,7 @@ def _digest(name: str, value: str | None) -> None:
 class DiscriminantPlan:
     candidate_unit_ids: tuple[str, ...]
     hard_negative_cases: tuple[tuple[NeighborConstruct, str], ...]
+    hybrid_negative_cases: tuple[tuple[HybridNegative, str], ...]
     coding_manual_sha256: str | None
     falsification_rule_sha256: str | None
     independent_coder_ids: tuple[str, ...]
@@ -81,7 +94,14 @@ class DiscriminantPlan:
                 raise StudyError("hard-negative cases require exact NeighborConstruct values")
             if type(case[1]) is not str or not case[1].strip():
                 raise StudyError("hard-negative cases require non-empty unit IDs")
-        negative_ids = [unit for _, unit in self.hard_negative_cases]
+        if type(self.hybrid_negative_cases) is not tuple:
+            raise StudyError("hybrid_negative_cases must be an exact tuple")
+        for hybrid_case in self.hybrid_negative_cases:
+            if type(hybrid_case) is not tuple or len(hybrid_case) != 2 or type(hybrid_case[0]) is not HybridNegative:
+                raise StudyError("hybrid-negative cases require exact HybridNegative values")
+            if type(hybrid_case[1]) is not str or not hybrid_case[1].strip():
+                raise StudyError("hybrid-negative cases require non-empty unit IDs")
+        negative_ids = [unit for _, unit in self.hard_negative_cases + self.hybrid_negative_cases]
         if len(set(negative_ids)) != len(negative_ids):
             raise StudyError("hard-negative case unit IDs must be unique")
         if set(self.candidate_unit_ids) & set(negative_ids):
@@ -106,6 +126,8 @@ class OutcomePlan:
     baseline_covariate_plan_sha256: str | None
     ai_quality_record_plan_sha256: str | None
     assessment_delay_minutes: int | None
+    primary_assessment_condition: HumanAgencyCondition
+    primary_response_source: AssessmentSourceRole
 
     def __post_init__(self) -> None:
         if type(self.condition_unit_ids) is not tuple or not self.condition_unit_ids:
@@ -121,6 +143,10 @@ class OutcomePlan:
             raise StudyError("conditions require a distinct unit ID")
         if type(self.primary_measure) is not OutcomeMeasure:
             raise StudyError("primary_measure must be an exact OutcomeMeasure, excluding structural status")
+        if type(self.primary_assessment_condition) is not HumanAgencyCondition:
+            raise StudyError("primary_assessment_condition must be an exact HumanAgencyCondition")
+        if type(self.primary_response_source) is not AssessmentSourceRole:
+            raise StudyError("primary_response_source must be an exact AssessmentSourceRole")
         for name in (
             "scoring_rule_sha256",
             "held_out_task_sha256",
@@ -156,6 +182,8 @@ class CCTSValidityStudyDesign:
             raise StudyError("study_id must be non-empty text")
         if type(self.discriminant) is not DiscriminantPlan or type(self.outcome) is not OutcomePlan:
             raise StudyError("study design requires exact DiscriminantPlan and OutcomePlan")
+        if set(self.discriminant.independent_coder_ids) & set(self.outcome.independent_rater_ids):
+            raise StudyError("discriminant coders and outcome raters must be disjoint")
         for name in (
             "claims_ccts_validation", "claims_human_learning", "claims_retention",
             "claims_transfer", "claims_ccts_specific_effect", "claims_causality",
@@ -186,6 +214,28 @@ class CCTSValidityStudyAudit:
     deployment: bool = False
     mode: str = "SYNTHETIC_STUDY_DESIGN_ONLY"
 
+    def __post_init__(self) -> None:
+        if type(self.study_id) is not str or not self.study_id.strip():
+            raise StudyError("study_id must be non-empty text")
+        if type(self.discriminant_plan_complete) is not bool or type(self.outcome_plan_complete) is not bool:
+            raise StudyError("coverage flags must be exact bools")
+        fixed = (
+            self.empirical_observations_present is False
+            and all(
+                getattr(self, name) == "NOT_ESTABLISHED"
+                for name in (
+                    "ccts_validation", "human_learning", "retention", "transfer",
+                    "ccts_specific_effect", "causality", "human_ai_synergy",
+                )
+            )
+            and self.scientific_disposition is AdmissionDisposition.HOLD
+            and self.canonical_effect == "NONE"
+            and self.deployment is False
+            and self.mode == "SYNTHETIC_STUDY_DESIGN_ONLY"
+        )
+        if not fixed:
+            raise StudyError("fixed scientific boundary cannot be promoted by audit construction")
+
 
 def audit_ccts_validity_study_design(design: CCTSValidityStudyDesign) -> CCTSValidityStudyAudit:
     """Report declared design-field coverage, never empirical validity or readiness."""
@@ -193,10 +243,19 @@ def audit_ccts_validity_study_design(design: CCTSValidityStudyDesign) -> CCTSVal
         raise StudyError("design must be an exact CCTSValidityStudyDesign")
     discriminant = design.discriminant
     outcome = design.outcome
+    independent_human_measure = outcome.primary_measure is not OutcomeMeasure.IMMEDIATE_TASK_PERFORMANCE
+    human_only_assessment = (
+        outcome.primary_response_source is AssessmentSourceRole.HUMAN_PARTICIPANT
+        and outcome.primary_assessment_condition in {
+            HumanAgencyCondition.AI_WITHHELD_JUDGMENT,
+            HumanAgencyCondition.AI_WITHHELD_HELD_OUT,
+        }
+    )
     return CCTSValidityStudyAudit(
         study_id=design.study_id,
         discriminant_plan_complete=(
             {neighbor for neighbor, _ in discriminant.hard_negative_cases} == set(NeighborConstruct)
+            and {kind for kind, _ in discriminant.hybrid_negative_cases} == set(HybridNegative)
             and discriminant.coding_manual_sha256 is not None
             and discriminant.falsification_rule_sha256 is not None
             and discriminant.coders_blind_to_candidate_label
@@ -210,6 +269,11 @@ def audit_ccts_validity_study_design(design: CCTSValidityStudyDesign) -> CCTSVal
             and outcome.baseline_covariate_plan_sha256 is not None
             and outcome.ai_quality_record_plan_sha256 is not None
             and outcome.raters_blind_to_ccts_status
+            and (not independent_human_measure or human_only_assessment)
+            and (
+                outcome.primary_measure is not OutcomeMeasure.HELD_OUT_TRANSFER
+                or outcome.primary_assessment_condition is HumanAgencyCondition.AI_WITHHELD_HELD_OUT
+            )
             and (
                 outcome.primary_measure is not OutcomeMeasure.DELAYED_RETENTION
                 or outcome.assessment_delay_minutes is not None

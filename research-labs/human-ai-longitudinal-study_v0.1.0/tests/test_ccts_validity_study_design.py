@@ -5,14 +5,17 @@ from dataclasses import replace
 import pytest
 
 from aion_human_ai_longitudinal.ccts_validity_study_design import (
+    AssessmentSourceRole,
     CCTSValidityStudyDesign,
     DiscriminantPlan,
+    HybridNegative,
     NeighborConstruct,
     OutcomeCondition,
     OutcomeMeasure,
     OutcomePlan,
     audit_ccts_validity_study_design,
 )
+from aion_human_ai_longitudinal.ccts_human_epistemic_agency import HumanAgencyCondition
 from aion_human_ai_longitudinal.harness import AdmissionDisposition, StudyError
 
 
@@ -26,6 +29,7 @@ def design() -> CCTSValidityStudyDesign:
         discriminant=DiscriminantPlan(
             candidate_unit_ids=("ccts-case",),
             hard_negative_cases=tuple((neighbor, f"{neighbor.value}-case") for neighbor in NeighborConstruct),
+            hybrid_negative_cases=tuple((kind, f"{kind.value}-case") for kind in HybridNegative),
             coding_manual_sha256=digest("a"),
             falsification_rule_sha256=digest("b"),
             independent_coder_ids=("coder-a", "coder-b"),
@@ -48,6 +52,8 @@ def design() -> CCTSValidityStudyDesign:
             baseline_covariate_plan_sha256=digest("f"),
             ai_quality_record_plan_sha256=digest("0"),
             assessment_delay_minutes=None,
+            primary_assessment_condition=HumanAgencyCondition.AI_WITHHELD_JUDGMENT,
+            primary_response_source=AssessmentSourceRole.HUMAN_PARTICIPANT,
         ),
     )
 
@@ -84,6 +90,16 @@ def test_neighbor_coverage_and_blinding_are_visible_without_reclassifying_negati
     assert audit.ccts_validation == "NOT_ESTABLISHED"
     unblinded = replace(item.discriminant, coders_blind_to_candidate_label=False)
     assert audit_ccts_validity_study_design(replace(item, discriminant=unblinded)).discriminant_plan_complete is False
+
+
+def test_both_hybrid_hard_negatives_are_required_for_discriminant_coverage() -> None:
+    item = design()
+    for omitted in HybridNegative:
+        remaining = tuple(case for case in item.discriminant.hybrid_negative_cases if case[0] is not omitted)
+        audit = audit_ccts_validity_study_design(replace(item, discriminant=replace(item.discriminant, hybrid_negative_cases=remaining)))
+        assert audit.discriminant_plan_complete is False
+    with pytest.raises(StudyError, match="disjoint"):
+        replace(item.discriminant, hybrid_negative_cases=((HybridNegative.PROVENANCE_AUTHORITY_WITHOUT_RECIPROCAL_REVISION, "ccts-case"),))
 
 
 def test_exact_neighbor_and_independent_coder_types_are_required() -> None:
@@ -130,6 +146,38 @@ def test_delayed_retention_requires_declared_positive_interval() -> None:
     assert audit_ccts_validity_study_design(
         replace(item, outcome=replace(delayed, assessment_delay_minutes=1440))
     ).outcome_plan_complete is True
+
+
+def test_independent_human_outcome_requires_ai_withheld_human_response() -> None:
+    item = design()
+    assisted = replace(item.outcome, primary_assessment_condition=HumanAgencyCondition.CCTS_AI_AVAILABLE)
+    assert audit_ccts_validity_study_design(replace(item, outcome=assisted)).outcome_plan_complete is False
+    ai_sourced = replace(item.outcome, primary_response_source=AssessmentSourceRole.AI)
+    assert audit_ccts_validity_study_design(replace(item, outcome=ai_sourced)).outcome_plan_complete is False
+    held_out = replace(item.outcome, primary_measure=OutcomeMeasure.HELD_OUT_TRANSFER)
+    assert audit_ccts_validity_study_design(replace(item, outcome=held_out)).outcome_plan_complete is False
+    actual_held_out = replace(held_out, primary_assessment_condition=HumanAgencyCondition.AI_WITHHELD_HELD_OUT)
+    assert audit_ccts_validity_study_design(replace(item, outcome=actual_held_out)).outcome_plan_complete is True
+
+
+def test_coders_and_outcome_raters_must_be_distinct_people() -> None:
+    item = design()
+    with pytest.raises(StudyError, match="disjoint"):
+        replace(item, outcome=replace(item.outcome, independent_rater_ids=("coder-a", "rater-b")))
+
+
+def test_direct_audit_construction_cannot_promote_scientific_or_authority_claims() -> None:
+    audit = audit_ccts_validity_study_design(design())
+    for override in (
+        {"ccts_validation": "ESTABLISHED"},
+        {"human_learning": "ESTABLISHED"},
+        {"empirical_observations_present": True},
+        {"canonical_effect": "APPROVED"},
+        {"deployment": True},
+        {"scientific_disposition": "ADMIT"},
+    ):
+        with pytest.raises(StudyError, match="fixed scientific boundary"):
+            replace(audit, **override)
 
 
 def test_raw_strings_and_claims_cannot_be_smuggled_through_the_design() -> None:

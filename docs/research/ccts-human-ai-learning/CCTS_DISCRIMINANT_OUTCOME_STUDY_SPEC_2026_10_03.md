@@ -1,6 +1,8 @@
 # CCTS 區辨與結果效度：研究規格候選（2026-10-03）
 
-狀態：`RESEARCH_SPEC_CANDIDATE / IMPLEMENTATION_NOT_JUSTIFIED / SCIENTIFIC_HOLD`。本文件只處理 Co-Constructed Thinking Space（CCTS，共構思考空間）、Human–AI Learning（人機學習）及 Human–AI Collaboration（人機協作）。它是**未經預註冊的研究設計候選**，不是新量表、實證資料、已凍結的工程規格或既有已典藏 CCTS 物件的修訂。`main` 建立時 SHA：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`；本工作線建立時 SHA：`2452aec3d7ce1afe6dae216dac0c3050944f5bce`。這些是來源快照，執行前必須重新核對 live state。
+狀態：`RESEARCH_SPEC_CANDIDATE / EMPIRICAL_IMPLEMENTATION_NOT_JUSTIFIED / SCIENTIFIC_HOLD`。本文件只處理 Co-Constructed Thinking Space（CCTS，共構思考空間）、Human–AI Learning（人機學習）及 Human–AI Collaboration（人機協作）。它是**未經預註冊的研究設計候選**，不是新量表、實證資料、已凍結的實證規格或既有已典藏 CCTS 物件的修訂。`main` 建立時 SHA：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`；本工作線建立時 SHA：`2452aec3d7ce1afe6dae216dac0c3050944f5bce`。這些是來源快照，執行前必須重新核對 live state。
+
+後續工程決策：Human Owner 指定先做可測試的最小工程接口；工作線因此加入**合成資料的設計欄位介面**，詳見套件的 `CCTS_VALIDITY_STUDY_DESIGN.md`。這僅完成下文工程交接第 (1) 項的部分欄位記錄，沒有凍結研究問題、驗證來源材料、執行盲碼、招募受試者或觀測 outcome。`EMPIRICAL_IMPLEMENTATION_NOT_JUSTIFIED` 仍適用於真實研究執行與任何科學主張；工程授權不等於研究問題解凍。
 
 ## 1. 來源與主張上限
 
@@ -59,7 +61,7 @@ Wolfram 的語意查詢對構念區辨沒有可用結果；Scite 此輪查詢回
 4. **最低證據**：同一問題的前後主張及反例、Human→AI 和 AI→Human 的可定位修訂、來源到主張的鏈、權限與最後決策、被拒分支的內容或指標；長期 profile 另需可重建的跨次 artifact 版本。摘要雜湊只能證明綁定，不能證明語意、品質或真實 actor 身分。
 5. **增量檢驗**：先以 CCD／SSRL／team cognition 等相鄰編碼預測分類或獨立 outcome，再加入 CCTS 候選剩餘項；報告盲碼一致性、近鄰誤判、增量預測及不確定區間。分析方案、樣本選取與判定界限須在看結果前凍結。沒有增量或可靠辨識時，`DOWNGRADE_TO_METHOD_PROFILE`，不得用事後重命名救回假說。
 
-現況：倉庫 `co_constructed_thinking_space.py`、`epistemic_revision.py` 的確能拒絕一向互動、澄清邊偽裝實質修訂、缺少 grounding 和摘要不一致；但資料是 typed synthetic declarations（帶型別的合成宣告）。**自然語料的語意編碼準則、獨立標註樣本與跨編碼者測量均未完成**，因此首要問題 A 尚不能凍結為程式接口。
+現況：倉庫 `co_constructed_thinking_space.py`、`epistemic_revision.py` 的確能拒絕一向互動、澄清邊偽裝實質修訂、缺少 grounding 和摘要不一致；但資料是 typed synthetic declarations（帶型別的合成宣告）。新增的設計欄位介面也沒有評分自然語料。**自然語料的語意編碼準則、獨立標註樣本與跨編碼者測量均未完成**，因此首要問題 A 尚不能凍結為實證分類或效度判定程序。
 
 ## 5. 首要問題 B：結果效度之最小研究設計候選
 
@@ -82,11 +84,11 @@ Wolfram 的語意查詢對構念區辨沒有可用結果；Scite 此輪查詢回
 | G 角色清晰／可靠性感知驅動 | 控制這兩者後差異消失則支持；匹配後仍有差異則削弱 | 相同角色說明與可靠度、分開測知覺；匹配後消失反駁 CCTS 特定解釋 | 來源角色結構有；**無**知覺測量 |
 | H 合作沒有 synergy，甚至下降 | 人機低於較佳單獨基線則支持；高於兩者且可信區間排除無差異才削弱 | 同一 outcome 的 Human alone、AI alone、Human+AI；勝過人類 alone 不足以稱 synergy | 獨立人類基線候選有；**無**一致的 AI-alone／真實人機分數 |
 
-## 7. 去重與最小工程交接（尚未啟動）
+## 7. 去重、合成設計接口與未啟動的實證交接
 
-**重用**：`research-labs/human-ai-longitudinal-study_v0.1.0/src/aion_human_ai_longitudinal/` 中 `co_constructed_thinking_space.py`（核心結構）、`epistemic_revision.py`（反證與拒絕鏈）、`ccts_human_epistemic_agency.py`（獨立判斷／held-out）、`learning_contrast_design.py`（五臂比較）、`task_selection_exposure.py`（暴露及任務控制）、`empirical_gate.py`（防止結構狀態循環當效果）。對應 `tests/test_*.py` 已有合成反例。**本輪新增**：只有此候選研究文件。**不新增** applicability gate、learning construct、revision／agency／contrast adapter、longitudinal harness 或第二套 synthetic fixture。
+**重用**：`research-labs/human-ai-longitudinal-study_v0.1.0/src/aion_human_ai_longitudinal/` 中 `co_constructed_thinking_space.py`（核心結構）、`epistemic_revision.py`（反證與拒絕鏈）、`ccts_human_epistemic_agency.py`（獨立判斷／held-out）、`learning_contrast_design.py`（五臂比較）、`task_selection_exposure.py`（暴露及任務控制）、`empirical_gate.py`（防止結構狀態循環當效果）。對應 `tests/test_*.py` 已有合成反例。**後續新增**：`ccts_validity_study_design.py`、合成反例測試和獨立接口說明，僅記錄欄位覆蓋。**不新增** applicability gate、learning construct、revision／agency／contrast adapter、longitudinal harness 或真實 outcome runner。
 
-將來若人類審閱並凍結兩個首要研究問題，最小工程順序為：(1) 在現有研究套件旁建立**研究設計資料介面**，保存盲碼來源、負例類別、預定 outcome 和評分者盲態；(2) 重用現有匹配比較器並將真實觀測與 synthetic fixture 強制分離；(3) 預定好樣本、編碼手冊、指標、缺失處理及失敗門檻後才考慮執行。新 module 是最後選擇，secondary/moderator 不變成核心 gate。
+後續如人類審閱並凍結兩個首要研究問題，才可擴充至：(1) 來源材料的內容與同意／倫理綁定、可執行的盲碼與獨立評分；(2) 重用現有匹配比較器並將真實觀測與 synthetic fixture 強制分離；(3) 預定好樣本、編碼手冊、指標、缺失處理及失敗門檻後才考慮執行。現有合成接口不是前述任一步驟的完成證據，secondary/moderator 不變成核心 gate。
 
 交接條件：先 live-verify `main`、`research/ccts-human-ai-learning-lane`、PR、diff 與 Actions；只在與 #264 無關的 CCTS 工作線或其隔離分支改動；列出具體檔案與接口、負例、targeted tests、整包測試、型別及品質檢查；任何新 head 重新驗證本地與遠端 CI。`SYNTHETIC_DISCRIMINATION != EMPIRICAL_DISCRIMINANT_VALIDITY`；`SYNTHETIC_OUTCOME_FIXTURE != HUMAN_OUTCOME_OBSERVED`。新 PR 應是 DRAFT，禁止 merge。授權界限：`MERGE_TO_MAIN = NO / PUBLISH = NO / DEPLOYMENT = FALSE / CANONICAL_EFFECT = NONE / HUMAN_GATE = REQUIRED`。
 
@@ -97,4 +99,4 @@ Wolfram 的語意查詢對構念區辨沒有可用結果；Scite 此輪查詢回
 - 主要 outcome、延遲、held-out 題、AI-withheld 條件、Human／AI alone 基線、評分規則及樣本排除條件事前凍結，保留零或負結果。
 - 已確認可以合規取得並隔離真實觀測，明定 actor/provenance 與隱私；合成資料只用於工程 QA。
 
-任何一項未定：`IMPLEMENTATION_NOT_JUSTIFIED`。這是目前判定；不能為了交付程式擅自補答案。
+任何一項未定：`EMPIRICAL_IMPLEMENTATION_NOT_JUSTIFIED`。這是目前對實證執行的判定；合成工程接口不會擅自補答案。
