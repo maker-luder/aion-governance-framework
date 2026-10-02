@@ -1,12 +1,12 @@
-# Branch disposition matrix — 2026-10-02 snapshot
+# 歷史分支處置矩陣 — 2026-10-02 快照
 
-Base main: `6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`. Read-only enumeration: **192 refs**, with exact head resolved for every row. Comparison to main at inventory time: **113 behind**, **63 diverged**, **14 ahead**, **2 identical**. The temporary hold branch was subsequently given its README, so its row is shown as ahead 1; this matrix commit will advance that same branch again. Re-read live refs for any action.
+盤點基底 `main`：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`。清單共 **192 條 ref（分支指標）**，每列均取得當時的完整 head SHA。相對 main 的原始比較：**113 條落後、63 條分歧、14 條超前、2 條相同**。其後臨時整理分支新增 README，因此表內該列更新為超前 1；本矩陣提交時又會使它前進。任何後續操作都必須重新讀 live ref。
 
-**No ref is deleted by this record.** `HOLD_UNKNOWN` means individual PR, unique content, dependency and claim review remains. `KEEP_ARCHIVE` for a branch behind main says the exact commit is an ancestor at the snapshot, **not** that external links or provenance permit deletion. `? ` in a route hint is name-based triage only, not a verified attribution. PR state is `UNKNOWN` unless specifically checked; no actor is inferred from branch names. The reported ahead/behind counts are commit counts, **not** a review of each unique file or its value. All unique commit refs stay intact.
+**本輪刪除數量 = 0。** `HOLD_UNKNOWN`：尚未逐一核對 PR、獨有內容、依賴與主張；`KEEP_ARCHIVE`：某分支在盤點時為 main 的祖先，**不等於**已確認外部引用或治理依賴可容許刪除。路由欄的問號只是根據名稱提出的題材提示，不能證明文件歸屬或 actor（貢獻角色）；未個別核對的 PR 均為 `UNKNOWN`。超前／落後是提交數量，不是對獨有檔案價值的審查。所有原始 ref 保留。
 
-`ACTIVE` rows are the four line refs including main; `DESIGN` is the approved spec/plan branch, not a fifth research construct. At the instant this Markdown file is committed, its own hold-ref row becomes a historical snapshot. The final report must give its new exact head.
+`ACTIVE` 是 main 與三條新工作線；`DESIGN` 是已通過的規格／計畫分支，不是第五個研究構念。本檔寫入後，其自身分支的表列 head 立即成為歷史快照，最後報告須提供最新 exact head。
 
-| Branch | Snapshot exact head | Relation to main | Ahead / behind | Possible route only | PR checked | Disposition |
+| 分支 Branch | 盤點時完整 SHA | 與 main 關係 | 超前／落後 | 僅供初篩的路由 | 已核對 PR | 處置 |
 | --- | --- | --- | ---: | --- | --- | --- |
 | `codex/adaptive-rigor-calibration-20260913` | [`ae3ae5b55560acc96edd4cdc8e143a11a5b5480e`](https://github.com/maker-luder/aion-governance-framework/commit/ae3ae5b55560acc96edd4cdc8e143a11a5b5480e) | behind | 0 / 852 | UNKNOWN | UNKNOWN | KEEP_ARCHIVE |
 | `codex/ccts-learning-contrast-20260928` | [`8dfcfa2ddaff9a8d80ddcebf93d8ccc44ae0a0de`](https://github.com/maker-luder/aion-governance-framework/commit/8dfcfa2ddaff9a8d80ddcebf93d8ccc44ae0a0de) | behind | 0 / 58 | CCTS_LEARNING? | UNKNOWN | KEEP_ARCHIVE |
@@ -201,11 +201,11 @@ Base main: `6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`. Read-only enumeration: **
 | `review/research-protocol-integrity-20260911` | [`1da1975378c1c6c5799164a0d30292991ee7c0f1`](https://github.com/maker-luder/aion-governance-framework/commit/1da1975378c1c6c5799164a0d30292991ee7c0f1) | behind | 0 / 1010 | UNKNOWN | UNKNOWN | KEEP_ARCHIVE |
 | `tmp/should-not-create` | [`08307eb85da79234fb49a34940a530acc58d56ca`](https://github.com/maker-luder/aion-governance-framework/commit/08307eb85da79234fb49a34940a530acc58d56ca) | behind | 0 / 702 | UNKNOWN | UNKNOWN | KEEP_ARCHIVE |
 
-## Re-entry and deletion gate
+## 重入與刪除閘門
 
-- Any `ahead` or `diverged` row with a unique commit requires a separate diff/PR/CI/claim review before materialization in a topic line. An index row does not transport content or establish current-main ancestry.
-- Every old ref remains available at its exact head. If a ref moves after this snapshot, the row is stale and must be reconstructed before any decision.
-- The candidate deletion list is **empty in this round**. Small name overlap, a closed PR, or a branch being behind main alone cannot authorize deletion.
-- No CCTS publication metadata is moved. Human learning and AI subjectivity remain not established; experimental embodiment does not constitute biological measurement or subjective experience.
+- 對任何超前或分歧且含獨有提交的分支，導入主題線前須另作 diff（差異）、PR、CI（持續整合）與主張邊界審查。索引列不搬運程式或建立 main 祖先關係。
+- 舊 ref 全部保留；任何 ref 在快照後移動，本列即失效，須重新判斷。
+- 本輪可刪候選清單為**空**。名稱相似、PR 已關閉或分支落後 main，單獨都不能授權刪除。
+- CCTS 出版 metadata 未搬動；人類學習與 AI 主體性未建立，具身實驗也不是生物量測或主觀經驗證據。
 
-Provenance: `REPOSITORY_STATE` is the live GitHub branch enumeration and compare response captured for this snapshot. `HUMAN_ORIGIN` is 小博's four-line temporary hold and no-deletion instruction. `AI_FORMALIZATION` is the matrix's conservative disposition logic. `PROVENANCE != CORRECTNESS`.
+來源：`REPOSITORY_STATE` 為本次 GitHub 即時分支列表與比較結果；`HUMAN_ORIGIN` 為小博指定第四條臨時整理線並保留原分支；`AI_FORMALIZATION` 為矩陣保守的處置規則。`PROVENANCE != CORRECTNESS`（有來源不等於內容正確）。
