@@ -132,6 +132,16 @@ from .task_selection_exposure_hardened import (
     audit_task_selection_exposure_design_hardened,
     render_choice_opportunity_record,
 )
+from .ccts_validity_study_design import (
+    CCTSValidityStudyAudit,
+    CCTSValidityStudyDesign,
+    DiscriminantPlan,
+    NeighborConstruct,
+    OutcomeCondition,
+    OutcomeMeasure,
+    OutcomePlan,
+    audit_ccts_validity_study_design,
+)
 
 __all__ = [
     "AccumulationConditionPacket",
@@ -147,6 +157,8 @@ __all__ = [
     "CCTSHumanAgencyAudit",
     "CCTSHumanAgencyObservation",
     "CCTSHumanAgencyTrial",
+    "CCTSValidityStudyAudit",
+    "CCTSValidityStudyDesign",
     "ChoiceAlternative",
     "ChoiceOpportunity",
     "CoConstructedThinkingSpaceManifest",
@@ -161,6 +173,7 @@ __all__ = [
     "DependencyEdge",
     "DependencyGraph",
     "DependencyNode",
+    "DiscriminantPlan",
     "EdgeType",
     "EpistemicChallengeType",
     "EpistemicContribution",
@@ -192,6 +205,10 @@ __all__ = [
     "MetricName",
     "MetricObservation",
     "NodeType",
+    "NeighborConstruct",
+    "OutcomeCondition",
+    "OutcomeMeasure",
+    "OutcomePlan",
     "PolicyAccessCondition",
     "PolicyExposureCondition",
     "PathDependenceOutcome",
@@ -233,6 +250,7 @@ __all__ = [
     "audit_co_constructed_thinking_space",
     "audit_ccts_epistemic_revision_loop",
     "audit_ccts_human_epistemic_agency",
+    "audit_ccts_validity_study_design",
     "audit_metacognitive_transfer_matrix",
     "audit_task_selection_exposure_design",
     "audit_task_selection_exposure_design_hardened",
