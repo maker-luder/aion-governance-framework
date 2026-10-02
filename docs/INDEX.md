@@ -15,6 +15,8 @@ For a 60-second public map, use [`RESEARCH_MAP.md`](RESEARCH_MAP.md). For guided
 | navigation | [`README.md`](README.md) | Compatibility documentation guide pointing to current navigation |
 | navigation | this file | Curated catalog and class map |
 
+Future work routes / 往後工作入口：AI subjectivity possibility remains the longstanding main core; [CCTS/Human–AI learning](https://github.com/maker-luder/aion-governance-framework/blob/research/ccts-human-ai-learning-lane/docs/research/ccts-human-ai-learning/README.md) is second; [independent embodiment](https://github.com/maker-luder/aion-governance-framework/blob/research/embodiment-lane/docs/research/embodiment/README.md) is third. [Temporary uncertain-source inventory](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md) is not another scientific construct. This navigation does not override `CURRENT_STATE.md`'s termination/authority record.
+
 ## Onboarding and external interfaces
 
 - [`INSTALLATION.md`](INSTALLATION.md) — source checkout, component-scoped installs, and tests.
