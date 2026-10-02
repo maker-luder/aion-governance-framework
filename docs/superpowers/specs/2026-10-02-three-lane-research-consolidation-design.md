@@ -1,6 +1,6 @@
 # 三條研究工作線與歷史分支收束設計 — 2026-10-02
 
-狀態：待小博審閱的架構規格；尚未開始搬檔、整合程式、清理分支。  
+狀態：小博於 2026-10-02 通過架構規格並要求執行；未知來源增加第四條臨時整理支線，分支刪除延至報告審閱後。  
 Repository：`maker-luder/aion-governance-framework`。  
 設計時 main exact SHA：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`。  
 設計時分支盤點：188 條（含 main；須在執行前重新盤點），open PR 查詢為空。  
@@ -21,7 +21,7 @@ Git branch 從 main 建立時會繼承共同祖先的全部內容。因此「三
 | 第二研究線：CCTS＋人機學習 | 建議 `research/ccts-human-ai-learning-lane`，從同一次 current main exact SHA 建立 | CCTS 後續 grounding、互相修訂、歷時重入、學習設計／對照；在同支線內保持 CCTS 論文與 Human-learning 實證問題兩個子題 | 已發布論文、結構測試或合成對照不等於人類學習、保持、遷移、因果效果或 CCTS 特定效果 |
 | 第三研究線：獨立具身工作支線 | 建議 `research/embodiment-lane`，從實作時重新核對的 main exact SHA 建立 | AION／Astra、Teacher、Work、Codex 的具身候選，人體文獻參照、工程狀態、模擬、測試及獨立來源清單；已關閉的實驗 PR 是可審查來源 | 合成身體／模擬值不等於生物量測、感受、性慾、主體性或 main 已採納 |
 
-這個第一、第二、第三排序表示往後的研究優先順序；不等於三個構念互相依附，也不撤銷 main 既存內容。CCTS 已發布紀錄及其 DOI metadata 維持在 main 的原路徑，該學術物件不轉為具身或主體性論文。main 可以有兩條支線的簡短入口及歷史連結；這種導航不改變每條支線的 scientific disposition。
+這個第一、第二、第三排序表示往後的研究優先順序；不等於三個構念互相依附，也不撤銷 main 既存內容。第四條 `research/legacy-uncertainty-hold` 是臨時的來源盤點與待分類工作支線，不是第四個研究構念，也不改變前三條的優先順序。CCTS 已發布紀錄及其 DOI metadata 維持在 main 的原路徑，該學術物件不轉為具身或主體性論文。main 可以有兩條支線的簡短入口及歷史連結；這種導航不改變每條支線的 scientific disposition。
 
 ## 3. 檔案路由與相容方案
 
@@ -46,11 +46,11 @@ CCTS 的概念／方法論文和 Human–AI learning 的待檢驗效果分開標
 ## 4. 執行順序與收束判準
 
 1. **鎖定即時狀態。** 重新讀取 main SHA、兩條預定 branch 名稱是否仍空白、全部 branches、open PR、recent merges、相關 source docs、程式及 CI；把 188 條分支盤點當成歷史快照，不作永久名單。
-2. **建立兩條工作支線。** 僅由同一個 newly verified main exact SHA 建立；既有 PR 保持原狀。每條支線先放入口、來源矩陣及明確 HOLD／UNKNOWN。
+2. **建立兩條主題支線和一條臨時整理支線。** 僅由同一個 newly verified main exact SHA 建立；既有 PR 保持原狀。CCTS／人機學習與具身各有入口；`research/legacy-uncertainty-hold` 保存未能判定歸屬的盤點和來源指標。既有獨特 commit 原 ref 保留，不能以一個新 branch 的文字索引冒稱承接了其 Git 歷史。
 3. **彙整檔案與概念。** 對每個現有檔案／PR 標記：歸屬線、是否 main 已存在、是否 published、canonical effect、內容是否 unique、是否需要複製／重建／保留連結。避免同一份研究文本三處複製；研究內容的實際重入另走各支線的審查。
 4. **更新 main 的導覽 PR。** 只描述已存在且可核對的三線入口，main 不直接寫入。保留舊 CCTS DOI 與出版路由。
 5. **驗證收束。** 英／繁中首頁語意一致，所有相對與跨 branch 連結能解析；每個原四組問題有可找到的歸屬；publication 與 scientific validation、implementation 與 scientific establishment、branch existence 與 canonical status 分開；兩條支線各有 exact head 和 CI 狀態。
-6. **最後才進行分支清理。** 在兩條支線及導覽 PR 的結果可檢視、來源差異已保存後，建立逐支可審查的 `BRANCH_DISPOSITION_MATRIX`，再處理下節條件。
+6. **建立清理報告，暫不刪除。** 在兩條支線、臨時整理支線及導覽 PR 的結果可檢視後，建立逐支可審查的 `BRANCH_DISPOSITION_MATRIX`。本輪所有舊分支仍保留；小博看報告並回覆之前，不執行分支刪除。
 
 此順序不承諾把具身實驗自動併入 main，也不承諾 main PR 自動 merge。
 
@@ -60,9 +60,9 @@ CCTS 的概念／方法論文和 Human–AI learning 的待檢驗效果分開標
 
 清理矩陣每列至少包括：branch、exact head、對應 PR 與 state、相對 main 的 ahead/behind 與 unique commit/file 摘要、目標工作線、保存去處及 exact target SHA、外部／內部連結、保留理由、CI 影響、可恢復 commit SHA、處置 `KEEP_ACTIVE / KEEP_ARCHIVE / SAFE_DELETE / HOLD_UNKNOWN`。無法核對 exact head 或 unique diff 的分支保持 `HOLD_UNKNOWN`。
 
-刪除只適用於 `SAFE_DELETE` 且**已先驗證**新入口與保存去處的 exact head；刪除時再讀 live ref，若它在矩陣審查後變動，停止並重新審。絕不刪 `main`、保護分支、發行 tag、尚有 open PR 的 branch、未審閱的獨特來源，或無法重建的歷史證據。清理操作逐支記錄結果；工具不支援或授權不足時回報 HOLD，不用 force push、reset 或冒險批次指令。
+本輪 `SAFE_DELETE` 只是候選，不構成刪除授權。所有舊 branch 維持原 ref，包括 `HOLD_UNKNOWN`；待小博審閱報告後再另輪決定。若日後刪除，須先驗證新入口與保存去處的 exact head，刪除時再讀 live ref，若它在矩陣審查後變動，停止並重新審。絕不刪 `main`、保護分支、發行 tag、尚有 open PR 的 branch、未審閱的獨特來源，或無法重建的歷史證據。清理操作逐支記錄結果；工具不支援或授權不足時回報 HOLD，不用 force push、reset 或冒險批次指令。
 
-小博已表明「收束完之後刪除雜支」的方向；**具體可刪名單及其證據仍須在收束後提供審閱**。泛稱「全部」不讓任何 branch 在未知狀態下被判為 `SAFE_DELETE`。若最後仍有 `KEEP_ARCHIVE` 或 `HOLD_UNKNOWN`，明列原因和待決問題，不能報作已清空所有雜支。
+小博最新指示是「不知道的整理到一個雜支裡，不刪，等我看報告回覆」；因此先提交具體分支清單及證據供審閱，這輪刪除數量固定為零。泛稱「全部」不讓任何 branch 在未知狀態下被判為 `SAFE_DELETE`。若最後仍有 `KEEP_ARCHIVE` 或 `HOLD_UNKNOWN`，明列原因和待決問題，不能報作已清空所有雜支。
 
 ## 6. 驗證與逆向審查
 
@@ -76,7 +76,7 @@ CCTS 的概念／方法論文和 Human–AI learning 的待檢驗效果分開標
 
 ## 7. 身分、權限與科學邊界
 
-`HUMAN_ORIGIN`：小博提出一主兩支、保留加銜接、完成後清理雜支，並澄清 AI 主體性可能性一直是核心，CCTS／人機學習第二，具身獨立工作支線第三。  
+`HUMAN_ORIGIN`：小博提出一主兩支、保留加銜接，澄清 AI 主體性可能性一直是核心，CCTS／人機學習第二、具身獨立工作支線第三；後續指定未知來源暫放第四條臨時整理支線，保留舊分支，待審閱報告才討論刪除。  
 `AI_FORMALIZATION`：本規格將意圖拆為 branch topology、路徑相容、來源矩陣、刪除閘門與驗收。  
 `REPOSITORY_STATE`：第 1 節 exact main、既有四組入口、188 branches 的查詢快照。  
 `PROVENANCE != CORRECTNESS`。Actor label、interaction surface 與 verified model identity 保持分開。
