@@ -4,12 +4,12 @@
 Repository：`maker-luder/aion-governance-framework`。  
 設計時 main exact SHA：`6a34d7780dd6d5bc717cd6c82ba39e7a6241c2fd`。  
 設計時分支盤點：188 條（含 main；須在執行前重新盤點），open PR 查詢為空。  
-來源：小博要求「主線只以 AI 主體性可能性為工作重心，具身與 CCTS／人機學習各一條支線」，並要求**保留既有 main 歷史、加上銜接**，待收束完成後清理雜支。  
+來源：小博確認 **AI 主體性可能性一直是核心，`main` 為往後的第一研究主線；CCTS／人機學習第二；具身為獨立的第三工作支線**。保留既有 main 歷史、加上銜接，待收束完成後清理雜支。這是研究重心與工作路由的明確排序，不把 CCTS 的既有出版紀錄或具身 baseline 從 main 歷史抹去。  
 `DESIGN != IMPLEMENTATION != VERIFICATION != AUTHORIZATION != MERGE`。
 
 ## 1. 實際倉庫邊界
 
-main 目前首頁及研究地圖把工作拆成四組：證據與因果歸屬、連續性與歷史、受限適應與區辨測試、人機協作與學習。main 同時已保存 CCTS 學術物件的公開典藏 metadata（Zenodo record `22945883`／DOI `10.5281/zenodo.22945883`）、人機長期研究程式，以及較早的 twin-genesis embodiment 候選。這些已存在的內容不得為了改成「一主兩支」而被描寫成從未在 main 出現。
+main 目前首頁及研究地圖把工作拆成四組：證據與因果歸屬、連續性與歷史、受限適應與區辨測試、人機協作與學習。前三組是長期核心主線的方法與問題面向；整理導覽不是宣稱 AI 主體性可能性今天才成為核心。main 同時已保存 CCTS 學術物件的公開典藏 metadata（Zenodo record `22945883`／DOI `10.5281/zenodo.22945883`）、人機長期研究程式，以及較早的 twin-genesis embodiment 候選。這些已存在的內容不得為了改成「一主兩支」而被描寫成從未在 main 出現。
 
 Git branch 從 main 建立時會繼承共同祖先的全部內容。因此「三條線」是**往後的研究導覽、檔案歸屬及工作／審查路由**，不是三條完全沒有共同檔案或歷史的平行倉庫。既有 Git 提交、PR、DOI 與公開連結保持可追溯。
 
@@ -17,17 +17,17 @@ Git branch 從 main 建立時會繼承共同祖先的全部內容。因此「三
 
 | 工作線 | 後續工作位置 | 主題／現有內容對應 | 禁止的跨線推論 |
 | --- | --- | --- | --- |
-| 主線：AI 主體性可能性 | `main`；所有 main 修改仍須獨立 PR、審查及 Human 授權 | 四域、六個主體性相關證據維度、連續性／記憶來源、受限適應、因果歸屬及 claim ceiling。治理、QA、provenance 是橫向控制，不強製作第四個研究構念 | 記憶延續、工程能力或具身模擬通過不建立主體性、意識或身分 |
-| 具身研究支線 | 建議 `research/embodiment-lane`，從實作時重新核對的 main exact SHA 建立 | AION／Astra、Teacher、Work、Codex 的具身候選，人體文獻參照、工程狀態、模擬、測試及獨立來源清單；已關閉的實驗 PR 是可審查來源 | 合成身體／模擬值不等於生物量測、感受、性慾、主體性或 main 已採納 |
-| CCTS＋人機學習支線 | 建議 `research/ccts-human-ai-learning-lane`，從同一次 current main exact SHA 建立 | CCTS 後續 grounding、互相修訂、歷時重入、學習設計／對照；在同支線內保持 CCTS 論文與 Human-learning 實證問題兩個子題 | 已發布論文、結構測試或合成對照不等於人類學習、保持、遷移、因果效果或 CCTS 特定效果 |
+| 第一研究主線：AI 主體性可能性（長期核心） | `main`；所有 main 修改仍須獨立 PR、審查及 Human 授權 | 四域、六個主體性相關證據維度、連續性／記憶來源、受限適應、因果歸屬及 claim ceiling。治理、QA、provenance 是橫向控制，不強製作第四個研究構念 | 記憶延續、工程能力或具身模擬通過不建立主體性、意識或身分 |
+| 第二研究線：CCTS＋人機學習 | 建議 `research/ccts-human-ai-learning-lane`，從同一次 current main exact SHA 建立 | CCTS 後續 grounding、互相修訂、歷時重入、學習設計／對照；在同支線內保持 CCTS 論文與 Human-learning 實證問題兩個子題 | 已發布論文、結構測試或合成對照不等於人類學習、保持、遷移、因果效果或 CCTS 特定效果 |
+| 第三研究線：獨立具身工作支線 | 建議 `research/embodiment-lane`，從實作時重新核對的 main exact SHA 建立 | AION／Astra、Teacher、Work、Codex 的具身候選，人體文獻參照、工程狀態、模擬、測試及獨立來源清單；已關閉的實驗 PR 是可審查來源 | 合成身體／模擬值不等於生物量測、感受、性慾、主體性或 main 已採納 |
 
-CCTS 已發布紀錄及其 DOI metadata 維持在 main 的原路徑，該學術物件不轉為具身或主體性論文。main 可以有兩條支線的簡短入口及歷史連結；這種導航不改變每條支線的 scientific disposition。
+這個第一、第二、第三排序表示往後的研究優先順序；不等於三個構念互相依附，也不撤銷 main 既存內容。CCTS 已發布紀錄及其 DOI metadata 維持在 main 的原路徑，該學術物件不轉為具身或主體性論文。main 可以有兩條支線的簡短入口及歷史連結；這種導航不改變每條支線的 scientific disposition。
 
 ## 3. 檔案路由與相容方案
 
 ### 3.1 主線入口
 
-以獨立 Draft PR 提出最小導航修改：`README.md`、`README.zh-TW.md`、`docs/RESEARCH_MAP.md`、`docs/START_HERE.md`、`docs/CURRENT_STATE.md`、`docs/INDEX.md` 中真正需要改的地方。英文與繁體中文首頁語意對稱。由四組研究問題整理為一條主線和兩條工作支線；原四組的證據／連續性／適應仍能從主體性主線查得，不刪除其研究結果。main 上的具身與 CCTS 既有路徑標為歷史或已發布來源，不冒稱被移出 main。
+以獨立 Draft PR 提出最小導航修改：`README.md`、`README.zh-TW.md`、`docs/RESEARCH_MAP.md`、`docs/START_HERE.md`、`docs/CURRENT_STATE.md`、`docs/INDEX.md` 中真正需要改的地方。英文與繁體中文首頁語意對稱。由現行四組研究問題整理為有順位的三條研究線：一直作為核心的 AI 主體性可能性為第一，CCTS／人機學習為第二，獨立具身工作為第三；原四組的證據／連續性／適應仍能從主體性主線查得，不刪除其研究結果。main 上的具身與 CCTS 既有路徑標為歷史或已發布來源，不冒稱被移出 main。
 
 支線入口使用明確 GitHub branch URL 與當前狀態文字，不讓相對連結默默落回 main 的同名檔案。exact SHA 只作審查快照；長期入口可用 branch ref，並於入口顯示最後核對 head。
 
@@ -76,7 +76,7 @@ CCTS 的概念／方法論文和 Human–AI learning 的待檢驗效果分開標
 
 ## 7. 身分、權限與科學邊界
 
-`HUMAN_ORIGIN`：小博提出一主兩支、保留加銜接、完成後清理雜支。  
+`HUMAN_ORIGIN`：小博提出一主兩支、保留加銜接、完成後清理雜支，並澄清 AI 主體性可能性一直是核心，CCTS／人機學習第二，具身獨立工作支線第三。  
 `AI_FORMALIZATION`：本規格將意圖拆為 branch topology、路徑相容、來源矩陣、刪除閘門與驗收。  
 `REPOSITORY_STATE`：第 1 節 exact main、既有四組入口、188 branches 的查詢快照。  
 `PROVENANCE != CORRECTNESS`。Actor label、interaction surface 與 verified model identity 保持分開。
