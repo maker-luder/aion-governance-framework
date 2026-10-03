@@ -23,9 +23,12 @@ def test_quality_runs_entire_root_suite_and_offline_research_verification():
     assert "python scripts/validate_branch_topology.py" in workflow
 
 
-def test_branch_topology_workflow_cleans_only_closed_pr_heads():
+def test_branch_topology_workflow_assesses_closed_pr_heads_without_write_permission():
     workflow = (ROOT / ".github/workflows/branch-topology-governance.yml").read_text()
     assert "github.event.action == 'closed'" in workflow
     assert "github.event.pull_request.head.repo.full_name == github.repository" in workflow
-    assert '--delete-closed-pr-head "${{ github.event.pull_request.head.ref }}"' in workflow
-    assert '--expected-head "${{ github.event.pull_request.head.sha }}"' in workflow
+    assert "--delete-closed-pr-head" not in workflow
+    assert "contents: write" not in workflow
+    assert '--assess-closed-pr "$RETIREMENT_PR"' in workflow
+    assert '--expected-head "$RETIREMENT_HEAD"' in workflow
+    assert "if: always()" in workflow

@@ -36,18 +36,18 @@ jobs:
           --policy .github/branch-topology-policy.json
           --repository "${{ github.repository }}"
 
-  cleanup-closed-pr-head:
-    name: Remove closed transient PR branch
+  assess-closed-pr-retirement:
+    name: Assess closed PR retirement (read-only HOLD)
     if: >-
       github.event_name == 'pull_request' &&
       github.event.action == 'closed' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       pull-requests: read
     steps:
-      - name: Checkout canonical cleanup guard
+      - name: Checkout canonical retirement guard
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.repository.default_branch }}
@@ -56,12 +56,26 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: "3.11"
-      - name: Delete only the unchanged non-durable head and revalidate
+      - name: Assess preservation without granting deletion authority
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          RETIREMENT_REPOSITORY: ${{ github.repository }}
+          RETIREMENT_PR: ${{ github.event.pull_request.number }}
+          RETIREMENT_BRANCH: ${{ github.event.pull_request.head.ref }}
+          RETIREMENT_HEAD: ${{ github.event.pull_request.head.sha }}
         run: >-
           python scripts/validate_branch_topology.py
           --policy .github/branch-topology-policy.json
-          --repository "${{ github.repository }}"
-          --delete-closed-pr-head "${{ github.event.pull_request.head.ref }}"
-          --expected-head "${{ github.event.pull_request.head.sha }}"
+          --repository "$RETIREMENT_REPOSITORY"
+          --assess-closed-pr "$RETIREMENT_PR"
+          --branch "$RETIREMENT_BRANCH"
+          --expected-head "$RETIREMENT_HEAD"
+      - name: Read back final topology without destructive repair
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          RETIREMENT_REPOSITORY: ${{ github.repository }}
+        run: >-
+          python scripts/validate_branch_topology.py
+          --policy .github/branch-topology-policy.json
+          --repository "$RETIREMENT_REPOSITORY"
