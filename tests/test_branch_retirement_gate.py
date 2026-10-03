@@ -224,6 +224,3 @@ def test_moved_live_branch_stops_assessment_before_archive_or_deletion(monkeypat
     assert "moved" in json.loads(capsys.readouterr().out)["error"]
     assert len(calls) == 2
     assert all(method == "GET" for method, _ in calls)
-
-
-
