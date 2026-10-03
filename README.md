@@ -25,12 +25,13 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 
 ## Where the research is now
 
-The current `main` is organized around four connected research lines:
+**AI subjectivity possibility has always been the central question.** Future work routes below; this does not restart work or establish a result:
 
-1. **Evidence and causal attribution** — Four-Domain interpretation, six subjectivity-relevant evidence dimensions, provenance controls, and explicit separation of model / system / harness / context / tool / environment loci.
-2. **Continuity and history** — memory, longitudinal interaction, history replay, attention-structure reconstruction, transition-continuity analysis, and matched-information memory-locus dependency discrimination without equating persistence with identity.
-3. **Adaptation under constraint and discriminant testing** — CCAP Stage 1–3 now extends through TEVV pre-execution mapping, Four-Domain × six-dimension structural stress, system-boundary/discriminant hardening, and a synthetic D2 × D4 differential probe. The probe shows **fixture-level separability only**; D2 support, D4 support, and independent validation remain **not established**.
-4. **Human–AI collaboration and learning** — [CCTS](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) has a first scholarly object [archived](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md) (DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)); the [current manuscript draft](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md) is `NOT_RELEASED`. The [learning contrast](docs/research/CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md) is synthetic; Human learning, retention, transfer, causal and CCTS-specific effects are **not established**.
+1. **Core / `main` — AI subjectivity possibility.** Four-Domain interpretation, six evidence dimensions, causal attribution, continuity and adaptation remain parts of the core. Subjectivity, consciousness and phenomenal experience are not established.
+2. **Second — [CCTS and Human–AI learning](https://github.com/maker-luder/aion-governance-framework/blob/research/ccts-human-ai-learning-lane/docs/research/ccts-human-ai-learning/README.md).** The [CCTS object](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md) is publicly archived (DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)); the [current manuscript draft](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md) is `NOT_RELEASED`. Learning, retention, transfer, causality and CCTS-specific effects are not established.
+3. **Third — [independent embodiment work](https://github.com/maker-luder/aion-governance-framework/blob/research/embodiment-lane/docs/research/embodiment/README.md).** Main retains a baseline; closed experiments remain unmerged. Simulation does not establish biology or subjective experience.
+
+[Temporary hold](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md) is an inventory, not a research construct; retired refs are tagged. See the [four-branch policy](docs/governance/BRANCH_TOPOLOGY_POLICY.md).
 
 ## Current research snapshot
 

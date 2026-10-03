@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "repository": "maker-luder/aion-governance-framework",
+  "steady_state_branch_count": 4,
+  "durable_branches": [
+    "main",
+    "research/ccts-human-ai-learning-lane",
+    "research/embodiment-lane",
+    "research/legacy-uncertainty-hold"
+  ],
+  "transient_branch_policy": {
+    "maximum_open_pr_branches": 1,
+    "require_open_pull_request": true,
+    "delete_after_pull_request_close": true,
+    "allowed_prefixes": [
+      "work/",
+      "docs/",
+      "fix/",
+      "feat/",
+      "governance/",
+      "quality/",
+      "review/"
+    ]
+  },
+  "archive_tag_prefix": "archive/branch-heads/"
+}
