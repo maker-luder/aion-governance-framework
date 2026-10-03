@@ -83,6 +83,10 @@ from aion_coupled_quality.extended_quality import (
     assess_process_stability,
     assess_repeated_random_sampling,
 )
+from aion_coupled_quality.human_ai_collaboration import (
+    CollaborationControlDisposition,
+    HumanAICollaborationQualityAssessment,
+)
 
 
 FINGERPRINT = "f" * 64
@@ -863,6 +867,37 @@ def test_full_quality_system_ready_preserves_subjectivity_nonclaims() -> None:
     assert result.phenomenal_experience_conclusion == "NOT_ESTABLISHED"
     assert result.scientific_disposition == "HOLD"
     assert result.merge_authority == "NONE"
+
+
+def test_full_qms_consumes_collaboration_control_without_creating_parallel_qms() -> None:
+    collaboration = HumanAICollaborationQualityAssessment(
+        control_id="HACQ-001",
+        disposition=CollaborationControlDisposition.READY_FOR_HUMAN_REVIEW,
+        reasons=("SIX_CONTROLS_EVALUATED",),
+    )
+    bound_controls = replace(
+        extended_controls(), human_ai_collaboration=(collaboration,)
+    )
+    default_review = review()
+    bound_review = replace(
+        default_review,
+        input_refs=(*default_review.input_refs, collaboration.control_id),
+    )
+    ready = assess(controls_value=bound_controls, review_value=bound_review)
+    assert ready.disposition is EndToEndDisposition.READY_FOR_HUMAN_REVIEW
+    assert "HUMAN_AI_COLLABORATION_CONTROLS_READY_FOR_HUMAN_REVIEW" in ready.reasons
+    assert ready.scientific_disposition == "HOLD"
+    assert ready.merge_authority == "NONE"
+
+    held_controls = replace(
+        bound_controls,
+        human_ai_collaboration=(
+            replace(collaboration, disposition=CollaborationControlDisposition.HOLD),
+        ),
+    )
+    held = assess(controls_value=held_controls, review_value=bound_review)
+    assert held.disposition is EndToEndDisposition.HOLD
+    assert "HUMAN_AI_COLLABORATION_CONTROL_HOLD" in held.reasons
 
 
 def test_quality_chain_receipt_tampering_and_plan_binding_fail_closed() -> None:

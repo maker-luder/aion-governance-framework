@@ -25,6 +25,10 @@ from .end_to_end import (
     QualityAuditRecord,
     ResearchQualityPlan,
 )
+from .human_ai_collaboration import (
+    CollaborationControlDisposition,
+    HumanAICollaborationQualityAssessment,
+)
 from .models import QualityError, Severity
 
 
@@ -567,6 +571,9 @@ class ExtendedQualityControls:
     sampling: tuple[SamplingAssessment, ...] = field(default_factory=tuple)
     process_stability: tuple[ProcessStabilityAssessment, ...] = field(default_factory=tuple)
     claim_withdrawal: tuple[ClaimWithdrawalPropagationRecord, ...] = field(default_factory=tuple)
+    human_ai_collaboration: tuple[HumanAICollaborationQualityAssessment, ...] = field(
+        default_factory=tuple
+    )
 
     def trace_refs(self) -> tuple[str, ...]:
         if not self.data_quality:
@@ -578,6 +585,15 @@ class ExtendedQualityControls:
         refs.extend(item.sampling_plan_id for item in self.sampling)
         refs.extend(item.series_id for item in self.process_stability)
         refs.extend(item.propagation_id for item in self.claim_withdrawal)
+        if any(
+            type(item) is not HumanAICollaborationQualityAssessment
+            for item in self.human_ai_collaboration
+        ):
+            raise QualityError(
+                "human_ai_collaboration must contain exact "
+                "HumanAICollaborationQualityAssessment values"
+            )
+        refs.extend(item.control_id for item in self.human_ai_collaboration)
         if len(refs) != len(set(refs)):
             raise QualityError("extended quality control identifiers must be unique")
         return tuple(refs)
@@ -768,6 +784,15 @@ class FullQualitySystemEngine:
         if not set(extended_refs) <= set(management_review.input_refs):
             reasons.append("MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE")
 
+        collaboration_hold = any(
+            item.disposition is CollaborationControlDisposition.HOLD
+            for item in controls.human_ai_collaboration
+        )
+        if collaboration_hold:
+            reasons.append("HUMAN_AI_COLLABORATION_CONTROL_HOLD")
+        elif controls.human_ai_collaboration:
+            reasons.append("HUMAN_AI_COLLABORATION_CONTROLS_READY_FOR_HUMAN_REVIEW")
+
         base = EndToEndQualitySystemEngine().assess(
             plan=plan,
             measurements=measurements,
@@ -862,6 +887,7 @@ class FullQualitySystemEngine:
                 "MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_AI_SECURITY_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
+                "HUMAN_AI_COLLABORATION_CONTROL_HOLD",
                 "DATA_QUALITY_HOLD",
                 "UPSTREAM_SUPPLIER_QUALITY_REVIEW_REQUIRED",
                 "SAMPLING_ESCALATED_TO_FULL_INSPECTION",
@@ -908,6 +934,7 @@ class FullQualitySystemEngine:
                     "SAMPLING_RESULTS_REMAIN_BOUNDED_CONFIDENCE_ONLY",
                     "PROCESS_MONITORING_IS_PROCESS_HEALTH_NOT_SUBJECTIVITY_EVIDENCE",
                     "CLAIM_INVALIDATION_PRESERVES_HISTORY",
+                    "HUMAN_AI_COLLABORATION_CONTROLS_PRESERVE_AUTHORITY_BOUNDARIES",
                     "FULL_QMS_PASS_IS_NOT_SUBJECTIVITY_EVIDENCE",
                 )
             )

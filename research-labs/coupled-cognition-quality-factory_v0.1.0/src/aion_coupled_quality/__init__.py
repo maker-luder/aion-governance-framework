@@ -237,3 +237,35 @@ __all__ += [
     "assess_longitudinal_claim_mapping",
     "build_longitudinal_claim_mapping",
 ]
+
+from .human_ai_collaboration import (
+    AuthorityEvidenceRecord,
+    AuthoritySource,
+    BilingualReviewRecord,
+    BranchRetirementRecord,
+    CollaborationControlDisposition,
+    HumanAICollaborationQualityAssessment,
+    HumanAICollaborationQualityControls,
+    HumanReviewCapacityRecord,
+    HumanReviewState,
+    RemediationRecord,
+    ResearchDisposition,
+    ResearchDispositionRecord,
+    assess_human_ai_collaboration_controls,
+)
+
+__all__ += [
+    "AuthorityEvidenceRecord",
+    "AuthoritySource",
+    "BilingualReviewRecord",
+    "BranchRetirementRecord",
+    "CollaborationControlDisposition",
+    "HumanAICollaborationQualityAssessment",
+    "HumanAICollaborationQualityControls",
+    "HumanReviewCapacityRecord",
+    "HumanReviewState",
+    "RemediationRecord",
+    "ResearchDisposition",
+    "ResearchDispositionRecord",
+    "assess_human_ai_collaboration_controls",
+]

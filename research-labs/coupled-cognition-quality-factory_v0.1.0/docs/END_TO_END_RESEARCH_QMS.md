@@ -444,6 +444,43 @@ Implemented in this Draft:
 - management-review trace consistency;
 - fail-closed regression tests.
 
+## Human–AI collaboration control seam
+
+The Full-QMS can now consume an optional, typed
+`HumanAICollaborationQualityAssessment`.  The producer evaluator separates six
+workflow control objectives without creating a second QMS, NCR/CAPA engine,
+claim ontology, provenance ontology, or permission system:
+
+1. delivered output versus recorded Human review/approval state;
+2. revised remediation scaffolding versus blind retry after a known defect;
+3. live Human authorization evidence versus prompt, recommendation, UI,
+   self-report, handoff text, stale SHA, or historical verification;
+4. Traditional Chinese Human-review evidence and semantic parity when both
+   language surfaces are normative;
+5. bounded research disposition versus unauthorized scope growth;
+6. branch provenance preservation/verification versus deletion authority.
+
+The assessment `control_id` participates in the existing management-review
+trace check.  A supplied collaboration assessment on `HOLD` holds the Full-QMS.
+A ready assessment remains only ready for Human review and keeps fixed ceilings:
+
+```text
+RECORDED_REVIEW_STATE != HUMAN_COMPREHENSION
+BOUNDED_RETRY != OLD_PASS_INHERITANCE
+RECOMMENDATION != AUTHORIZATION
+TRANSLATION_PRESENT != SEMANTIC_PARITY
+NEGATIVE_RESULT != SCOPE_GROWTH_AUTHORITY
+RETIREMENT_READINESS != BRANCH_DELETE_AUTHORITY
+
+SCIENTIFIC_DISPOSITION = HOLD
+MERGE_AUTHORITY = NONE
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+The Traditional Chinese deduplication and architecture decision is recorded in
+`docs/research/ccts-human-ai-learning/PR265_HUMAN_AI_COLLABORATION_QMS_DEDUP_DECISION_2026_10_03.md`.
+
 Still deliberately not implemented:
 
 - a second NCR/CAPA lifecycle;
