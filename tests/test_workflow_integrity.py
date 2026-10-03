@@ -20,3 +20,12 @@ def test_quality_runs_entire_root_suite_and_offline_research_verification():
     assert "run: python -m pytest -q tests\n" in workflow
     assert "run: python scripts/fetch_subjectivity_sources.py\n" in workflow
     assert 'python-version: ["3.11", "3.12"]' in workflow
+    assert "python scripts/validate_branch_topology.py" in workflow
+
+
+def test_branch_topology_workflow_cleans_only_closed_pr_heads():
+    workflow = (ROOT / ".github/workflows/branch-topology-governance.yml").read_text()
+    assert "github.event.action == 'closed'" in workflow
+    assert "github.event.pull_request.head.repo.full_name == github.repository" in workflow
+    assert '--delete-closed-pr-head "${{ github.event.pull_request.head.ref }}"' in workflow
+    assert '--expected-head "${{ github.event.pull_request.head.sha }}"' in workflow

@@ -40,7 +40,7 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 2. **第二：[CCTS／人機學習](https://github.com/maker-luder/aion-governance-framework/blob/research/ccts-human-ai-learning-lane/docs/research/ccts-human-ai-learning/README.md)。** [首份 CCTS 學術物件](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md)已有公開典藏（DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)）；[目前手稿草稿](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md)仍是 `NOT_RELEASED`。人類學習、保持、遷移、因果及 CCTS 特定效果尚未建立。
 3. **第三：[獨立具身工作支線](https://github.com/maker-luder/aion-governance-framework/blob/research/embodiment-lane/docs/research/embodiment/README.md)。** main 保留較早的 baseline（基礎候選）；已關閉、未合併的實驗仍須分開審查。合成實作不能建立生物量測、感受或主體性。
 
-[歷史來源歸屬待定的臨時整理線](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md)只保存待審來源指標，不是第四個研究構念；舊分支仍保留。
+[臨時整理線](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md)是清單，不是研究構念；退役 ref 已加 tag。[固定四支規則](docs/governance/BRANCH_TOPOLOGY_POLICY.md)。
 
 ## 目前研究快照
 

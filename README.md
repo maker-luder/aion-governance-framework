@@ -31,7 +31,7 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 2. **Second — [CCTS and Human–AI learning](https://github.com/maker-luder/aion-governance-framework/blob/research/ccts-human-ai-learning-lane/docs/research/ccts-human-ai-learning/README.md).** The [CCTS object](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md) is publicly archived (DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)); the [current manuscript draft](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md) is `NOT_RELEASED`. Learning, retention, transfer, causality and CCTS-specific effects are not established.
 3. **Third — [independent embodiment work](https://github.com/maker-luder/aion-governance-framework/blob/research/embodiment-lane/docs/research/embodiment/README.md).** Main retains a baseline; closed experiments remain unmerged. Simulation does not establish biology or subjective experience.
 
-[Temporary legacy uncertainty hold](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md) indexes sources whose disposition needs review. It is not a fourth research construct; old branch refs are retained.
+[Temporary hold](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md) is an inventory, not a research construct; retired refs are tagged. See the [four-branch policy](docs/governance/BRANCH_TOPOLOGY_POLICY.md).
 
 ## Current research snapshot
 
