@@ -433,9 +433,10 @@ https://aclanthology.org/2026.sigdial-1.48/
 
 > 如果既有 dialogue + metacognitive coding 已能區分我們稱作 deeper collaboration 的現象，CCTS 必須證明額外的 provenance／authority／rejected-branch／longitudinal binding 帶來增量可觀測價值，而不能只靠名稱差異。
 
-### 7.4 Gonzalez, Singh & Woolley (2026)
+### 7.4 Gonzalez et al. (2026)
 
 *Toward a science of human–AI teaming for decision making: A complementarity framework.*  
+Authors: Cleotilde Gonzalez, Kate Donahue, Daniel G. Goldstein, Hoda Heidari, Mohammad S. Jalali, Beau Schelble, Aarti Singh, Anita Williams Woolley.  
 PNAS Nexus 5(3), `pgag030`.  
 DOI: `10.1093/pnasnexus/pgag030`
 
