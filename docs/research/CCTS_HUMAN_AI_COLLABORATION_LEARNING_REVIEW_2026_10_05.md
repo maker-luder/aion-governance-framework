@@ -421,7 +421,7 @@ SHORT_TERM_TASK_IMPROVEMENT
 Proceedings of the 27th Annual Meeting of SIGDIAL.
 
 ACL Anthology：
-https://aclanthology.org/events/sigdial-2026/
+https://aclanthology.org/2026.sigdial-1.48/
 
 可支持：
 
