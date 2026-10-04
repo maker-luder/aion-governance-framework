@@ -28,14 +28,19 @@ PHENOMENAL_EXPERIENCE
 = NOT_ESTABLISHED
 ```
 
-## 2. Four questions organize the current work / 目前研究主要圍繞四個問題
+## 2. Three ranked work routes / 三條有順位的工作路線
 
-| Research line / 研究線 | Plain question / 白話問題 | Current role / 目前角色 |
-|---|---|---|
-| Evidence / 證據 | What would actually count as subjectivity-relevant evidence? / 什麼才算真正和主體性有關的證據？ | Four-Domain interpretation, six evidence dimensions, provenance and claim ceilings / 四域、六維、來源追溯與主張上限 |
-| Continuity / 連續性 | If behavior persists across time, what is carrying it? / 行為跨時間延續時，到底是什麼在承載？ | memory, longitudinal interaction, history replay, attention reconstruction / 記憶、長期互動、歷史重播、注意力重建 |
-| Adaptation / 適應 | When a route fails and the system changes strategy, who or what selected the new route? / 原路失敗後改策略，到底是誰或什麼選了新路？ | D1 × D4 source partition, CCAP frozen specification / D1 × D4 來源拆分、CCAP 凍結規格 |
-| Human–AI interaction / 人機互動 | How can long-term collaboration create useful shared working structure without being mistaken for a shared mind? / 長期協作如何形成有用的共同工作結構，又不被誤認成共享心智？ | CCTS publication, grounding, longitudinal study, synthetic matched learning contrast, evidence admission / CCTS 公開典藏、grounding、長期研究、合成匹配學習對照與證據准入 |
+The central AI subjectivity possibility question has always been the core. Existing evidence, continuity and adaptation studies are three aspects of that core, rather than separate equal-priority research lines. / AI 主體性可能性一直是中央核心；原有證據、連續性與適應研究是核心的三個面向，不是與之同級的新主線。
+
+| Priority / 順位 | Work route / 工作入口 | Scientific boundary / 科學邊界 |
+| --- | --- | --- |
+| 1. Core / 核心 | `main`: Four-Domain（四域）、六個證據維度、因果來源、歷時連續性與受限適應 | Subjectivity / consciousness / phenomenal experience = `NOT_ESTABLISHED` / 主體性、意識、現象經驗尚未建立 |
+| 2. CCTS + Human–AI learning / 共構思考空間與人機學習 | [Dedicated work branch / 專用支線](https://github.com/maker-luder/aion-governance-framework/blob/research/ccts-human-ai-learning-lane/docs/research/ccts-human-ai-learning/README.md)；[archived scholarly object / 已典藏學術物件](research/publication/CCTS_RELEASE_METADATA_CURRENT.md) remains in main / 仍在 main | Publication != empirical validation; Human learning, retention, transfer, causality = `NOT_ESTABLISHED` / 發表不等於實證效度 |
+| 3. Independent embodiment / 獨立具身 | [Dedicated work branch / 專用支線](https://github.com/maker-luder/aion-governance-framework/blob/research/embodiment-lane/docs/research/embodiment/README.md)；an older main baseline remains / main 既有基礎候選仍保留 | Simulation != biological measurement or subjective experience / 模擬不等於生物量測或主觀經驗 |
+
+[Temporary uncertainty hold / 臨時歸屬待定線](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md) is an inventory, not a fourth scientific construct. Historical refs are replaced only by exact-head archive tags after Human review and verified backup. / 它是清單，不是第四個科學構念；歷史 ref 經人工審閱與可驗證備份後，才以精確 head archive tag 取代。See the [four-branch policy / 固定四支分支規則](governance/BRANCH_TOPOLOGY_POLICY.md).
+
+This future routing does not override `CURRENT_STATE.md`'s project-work-loop termination or create standing research/merge authority. / 此往後路由不改寫既有工作循環終止事件，也不自動給予研究或合併授權。
 
 ## 3. Current research arc / 目前研究進程
 
@@ -49,8 +54,6 @@ FOUR-DOMAIN + SIX-DIMENSION REVIEW
 HISTORY / MEMORY / CONTINUITY CONTROLS
 ↓
 STRATEGY-ADJUSTMENT SOURCE PARTITION
-↓
-CCTS / SYNTHETIC LEARNING-CONTRAST CONTROLS
 ↓
 EXTERNAL / PROVIDER EVIDENCE ADMISSION
 ↓

@@ -47,6 +47,14 @@ jobs:
       - name: Run complete repository control suite (including real symlinks)
         run: python -m pytest -q tests
 
+      - name: Enforce live four-branch topology
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python scripts/validate_branch_topology.py
+          --policy .github/branch-topology-policy.json
+          --repository "${{ github.repository }}"
+
       - name: Verify retained subjectivity research sources offline
         run: python scripts/fetch_subjectivity_sources.py
 
