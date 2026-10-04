@@ -37,6 +37,18 @@ Future work routes / 往後工作入口：AI subjectivity possibility remains th
 
 - [`research/CLAIM_REVISION_2026_09_03.md`](research/CLAIM_REVISION_2026_09_03.md) — bounded cross-cycle claim revision candidate, existing-memory integration, synthetic contrast, primary sources and non-claims; not an assertion of merge or deployment.
 
+### Current bounded review candidate — 2026-10-05
+
+- [`research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_REVIEW_2026_10_05.md`](research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_REVIEW_2026_10_05.md) — live-state checkpoint and adversarial research review for CCTS, Human–AI Collaboration and Human–AI Learning; records the diverged durable work lane, exact-head verification boundary, external adjacent-literature delta, predefined downgrade/falsification routes and scientific HOLD.
+- [`research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_IMPLEMENTATION_HANDOFF_2026_10_05.md`](research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_IMPLEMENTATION_HANDOFF_2026_10_05.md) — repository-first reconciliation and implementation handoff with exact read order, failure-location scaffolding, reuse/dedup matrix, tests/CI contract, stop conditions, Human gate and final-report contract. The handoff does not itself authorize implementation, empirical execution or merge.
+
+```text
+REVIEW_RECORD != SCIENTIFIC_VALIDATION
+HANDOFF_EXISTS != IMPLEMENTATION_AUTHORIZED
+DIVERGED_LANE_CONTENT != MAIN
+OLD_HEAD_VERIFICATION != CURRENT_HEAD_VERIFICATION
+```
+
 ### Recent bounded milestones — 2026-09-18 / 2026-09-19
 
 This is a curated navigation snapshot, not a live PR ledger. Exact merged standing and exact-head engineering status belong to live GitHub / CI. These are navigation references, not proof of their hypotheses or effectiveness.
