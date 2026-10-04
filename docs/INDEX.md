@@ -41,6 +41,7 @@ Future work routes / 往後工作入口：AI subjectivity possibility remains th
 
 - [`research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_REVIEW_2026_10_05.md`](research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_REVIEW_2026_10_05.md) — live-state checkpoint and adversarial research review for CCTS, Human–AI Collaboration and Human–AI Learning; records the diverged durable work lane, exact-head verification boundary, external adjacent-literature delta, predefined downgrade/falsification routes and scientific HOLD.
 - [`research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_IMPLEMENTATION_HANDOFF_2026_10_05.md`](research/CCTS_HUMAN_AI_COLLABORATION_LEARNING_IMPLEMENTATION_HANDOFF_2026_10_05.md) — repository-first reconciliation and implementation handoff with exact read order, failure-location scaffolding, reuse/dedup matrix, tests/CI contract, stop conditions, Human gate and final-report contract. The handoff does not itself authorize implementation, empirical execution or merge.
+- [`research/CCTS_PR266_RECONCILIATION_DECISION_2026_10_05.md`](research/CCTS_PR266_RECONCILIATION_DECISION_2026_10_05.md) — PR #266 的繁體中文逐檔對帳、近鄰文獻範圍、未凍結的兩個研究問題與程式移植 HOLD 理由；這份審查產物不是合併或實證授權。
 
 ```text
 REVIEW_RECORD != SCIENTIFIC_VALIDATION
