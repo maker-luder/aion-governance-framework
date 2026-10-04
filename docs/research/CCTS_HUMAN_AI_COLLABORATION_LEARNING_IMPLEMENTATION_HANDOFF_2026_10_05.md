@@ -20,6 +20,8 @@ HUMAN_GATE = REQUIRED
 
 本手冊是給 ChatGPT Work／Codex 或其他 bounded executor 的可獨立重建 handoff。執行者不得要求讀取本次聊天才能理解任務；若 chat 與 repository live state 衝突，以 live repository 為準。
 
+後續執行收據：使用者於 2026-10-05 另行要求實作 PR #266；[逐檔對帳與實作判定](CCTS_PR266_RECONCILIATION_DECISION_2026_10_05.md)已把 Phase A 寫入本 PR，並標明尚未凍結的區辨／結果問題與候選 QMS consumer 的繞過點。此請求不改寫本手冊的科學、合併或刪除權限上限；程式移植須先通過該收據記錄的 Phase B 複審門檻。
+
 ---
 
 ## 0. 任務目的
