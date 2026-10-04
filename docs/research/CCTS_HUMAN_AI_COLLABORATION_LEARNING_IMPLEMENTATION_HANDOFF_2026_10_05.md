@@ -343,7 +343,7 @@ Liu, Zhengyuan; Yin, Stella; Kan, Min-Yen; Chen, Nancy.
 
 #### PNAS Nexus 2026
 
-Gonzalez, Cleotilde; Singh, Aarti; Woolley, Anita Williams.  
+Gonzalez, Cleotilde; Donahue, Kate; Goldstein, Daniel G.; Heidari, Hoda; Jalali, Mohammad S.; Schelble, Beau; Singh, Aarti; Woolley, Anita Williams.  
 *Toward a science of human–AI teaming for decision making: A complementarity framework.*  
 DOI `10.1093/pnasnexus/pgag030`.
 
