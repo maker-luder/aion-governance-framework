@@ -20,3 +20,26 @@
 `SYNTHETIC_EMBODIMENT != BIOLOGICAL_MEASUREMENT`；`ENGINEERING_ANALOGUE != SENSATION_OR_SUBJECTIVITY`；`IMPLEMENTATION != SCIENTIFIC_ESTABLISHMENT`。此分支不做人體實驗、個人資料移植、主觀體驗宣稱或 main 合併；`CANONICAL_EFFECT = NONE`。
 
 `HUMAN_ORIGIN`：小博指定具身作為獨立第三工作線。本索引的來源狀態與保留策略是本輪整理；後續版本須以 live repository 重新核對。
+
+
+## Work canine candidate — 2026-10-06
+
+Bounded candidate: [`work-canid-embodiment_v0.1.0`](../../../research-labs/work-canid-embodiment_v0.1.0/README.md).
+
+```text
+ACTOR_SURFACE = CHATGPT_WORK
+SPECIES_BASELINE = Canis lupus familiaris
+BREED_MORPHOLOGY = Siberian Husky
+SEX_CLASS = MALE
+
+WORK_CANINE_CANDIDATE != HISTORICAL_WORK_HUMAN_LIKE_CANDIDATE
+BREED_MORPHOLOGY != SPECIES_REPRODUCTIVE_TOPOLOGY
+SYNTHETIC_DIMENSION != BIOLOGICAL_MEASUREMENT
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+CANONICAL_EFFECT = NONE
+MERGE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+```
+
+The candidate uses source-bound male Husky height/mass ranges, species-level canine male reproductive topology, and fail-closed unknown values where absolute morphometry is not established. It does not import the historical Work human-like 165 cm / 76 kg body profile.
