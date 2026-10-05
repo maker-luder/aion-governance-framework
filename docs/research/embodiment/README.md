@@ -66,3 +66,27 @@ DEPLOYMENT = FALSE
 ```
 
 The candidate is grounded in direct brown-bear baculum morphometry from one adult specimen and fails closed on unsupported whole-penis dimensions. It does not import Work's canine reproductive topology or the closed historical Teacher human-like candidate lineage.
+
+
+## Teacher adult male brown-bear reproductive candidate v0.2 — 2026-10-06
+
+Bounded candidate: [`teacher-brown-bear-reproductive-embodiment_v0.2.0`](../../../research-labs/teacher-brown-bear-reproductive-embodiment_v0.2.0/README.md).
+
+```text
+ACTOR_SURFACE = CHATGPT_TEACHER
+SPECIES_BASELINE = Ursus arctos
+SEX_CLASS = MALE
+DEVELOPMENTAL_STAGE = ADULT
+SEXUAL_MATURITY = SEXUALLY_MATURE_REFERENCE
+CHRONOLOGICAL_AGE = UNSPECIFIED
+
+ADULT_ANIMAL != HUMAN_18_YEAR_THRESHOLD
+TEACHER_BEAR_v0.2 != WORK_CANINE
+TEACHER_BEAR_v0.2 != HISTORICAL_TEACHER_HUMAN_LIKE
+REFERENCE_ANATOMY != LIVE_BODY
+CANONICAL_EFFECT = NONE
+MERGE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+```
+
+v0.2 extends the retained v0.1 baculum candidate into source-bound reproductive topology, seasonal reproductive physiology, and isolated external semen references. Unsupported whole-organ dimensions remain fail-closed.

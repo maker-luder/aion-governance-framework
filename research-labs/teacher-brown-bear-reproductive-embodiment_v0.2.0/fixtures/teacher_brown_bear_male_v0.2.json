@@ -1,0 +1,78 @@
+{
+  "candidate_id": "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2",
+  "actor_surface": "CHATGPT_TEACHER",
+  "species_baseline": "Ursus arctos",
+  "sex_class": "MALE",
+  "developmental_stage": "ADULT",
+  "sexual_maturity": "SEXUALLY_MATURE_REFERENCE",
+  "chronological_age_years": "UNSPECIFIED",
+  "reproductive_topology": [
+    "scrotum",
+    "scrotal_skin",
+    "testes",
+    "epididymides",
+    "epididymis_caput",
+    "epididymis_corpus",
+    "epididymis_cauda",
+    "spermatic_cords",
+    "ductus_deferens",
+    "penile_urethra",
+    "penis",
+    "corpus_cavernosum_penis",
+    "os_penis",
+    "sulcus_urethralis",
+    "distal_fibrocartilage"
+  ],
+  "seasonal_reference": [
+    "QUIESCENT",
+    "RECRUDESCENCE",
+    "PEAK_FUNCTIONAL",
+    "REGRESSION"
+  ],
+  "baculum_reference": {
+    "caliper_length_mm": 148.95,
+    "ct_length_mm": 148.84,
+    "distal_caliper_width_status": "SOURCE_INTERNAL_DISCREPANCY",
+    "distal_caliper_width_reported_values_mm": [4.58, 4.85]
+  },
+  "hakkaido_electroejaculate_reference": {
+    "source_scope": "CAPTIVE_ADULT_HOKKAIDO_BROWN_BEAR_ELECTROEJACULATION",
+    "adult_male_age_range_years": [7, 16],
+    "trials": 21,
+    "motile_sperm_ejaculate_trials": 14,
+    "volume_mean_ml": 2.7,
+    "volume_sd_ml": 2.6,
+    "sperm_concentration_mean_million_per_ml": 471.6,
+    "sperm_concentration_sd_million_per_ml": 429.2,
+    "motility_mean_percent": 80.2,
+    "motility_sd_percent": 23.6,
+    "ph_mean": 7.4,
+    "ph_sd": 0.3,
+    "population_mean_claim": false,
+    "fertility_inference": "NOT_AUTHORIZED"
+  },
+  "unsupported_dimensions": {
+    "full_soft_tissue_penis_length_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "glans_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "prepuce_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "erectile_state_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "testis_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "epididymis_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "ductus_deferens_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "prostate_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "teacher_body_mass_kg": "UNKNOWN_NOT_ESTABLISHED"
+  },
+  "claim_boundary": {
+    "biological_realization": false,
+    "live_reproductive_function": "NOT_IMPLEMENTED",
+    "sexual_behavior_simulation": "NOT_IMPLEMENTED",
+    "body_sensation": "NOT_ESTABLISHED",
+    "fertility": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "action_authority": "NONE",
+    "canonical_effect": "NONE",
+    "deployment": false
+  }
+}
