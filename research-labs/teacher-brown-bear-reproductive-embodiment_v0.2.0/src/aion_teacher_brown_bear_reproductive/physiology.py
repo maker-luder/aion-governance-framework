@@ -54,7 +54,7 @@ _SEASONAL_REFERENCES: Final[
         spermatogenesis_state="ACTIVE_REFERENCE",
         testicular_state="SEASONALLY_ENLARGED_REFERENCE",
         testosterone_state="SEASONALLY_HIGH_REFERENCE",
-        sperm_in_epidymis="SUPPORTED_DURING_ACTIVE_PERIOD_REFERENCE",
+        sperm_in_epididymis="SUPPORTED_DURING_ACTIVE_PERIOD_REFERENCE",
     ),
     SeasonalReproductivePhase.REGRESSION: SeasonalReproductiveReference(
         phase=SeasonalReproductivePhase.REGRESSION,
