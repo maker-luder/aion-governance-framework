@@ -1,5 +1,7 @@
 # PR #266：CCTS／人機協作／人機學習逐檔對帳與實作判定
 
+> 後續狀態更新：Human + Teacher 已完成 Phase B，另行授權最小 QMS 信任邊界修正。當前工程處置見 [Phase C 實作收據](PR266_COLLABORATION_TRUST_BOUNDARY_2026_10_05.md)。以下矩陣與 HOLD 是 Phase A 歷史判定；效度／學習介面仍 HOLD。
+
 狀態：`PHASE_A_RECONCILIATION / PHASE_C_RUNTIME_HOLD / SCIENTIFIC_HOLD`。這是依 [PR #266 操作手冊](CCTS_HUMAN_AI_COLLABORATION_LEARNING_IMPLEMENTATION_HANDOFF_2026_10_05.md)完成的本輪對帳收據；不是實證預註冊、合併授權或已通過的研究結果。
 
 ## 1. 即時狀態與授權邊界

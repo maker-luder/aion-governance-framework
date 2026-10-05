@@ -686,3 +686,17 @@ DEPLOYMENT = FALSE
 ```
 
 A future empirical security-execution/result receipt remains a separate layer.
+
+
+## Human–AI collaboration raw-control boundary / 人機協作原始紀錄邊界
+
+`ExtendedQualityControls.human_ai_collaboration` optionally accepts a tuple of raw
+`HumanAICollaborationQualityControls`. Full-QMS validates and evaluates all six
+records on every assessment. Derived assessments, including caller-created READY,
+are rejected. Management review must bind both control id and content digest;
+the declared current Git SHA must appear as `git:{sha}` in plan configuration.
+
+六控制紀錄及 LIVE_HUMAN_AUTHORIZATION 標籤是呼叫端聲明，不是外部人類授權證明。
+READY 僅供審閱，merge／canonical／deployment 上限不變。原有 caller 可省略此 tuple，
+但省略不表示六控制已評估。完整欄位、限制與測試見
+[PR #266 信任邊界收據](../../../docs/research/PR266_COLLABORATION_TRUST_BOUNDARY_2026_10_05.md).

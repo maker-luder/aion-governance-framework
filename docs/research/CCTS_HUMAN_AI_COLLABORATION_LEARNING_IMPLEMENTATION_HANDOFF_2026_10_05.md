@@ -1,5 +1,7 @@
 # CCTS／Human–AI Collaboration／Human–AI Learning：Repository Reconciliation 與研究實作操作手冊（2026-10-05）
 
+> 2026-10-05 後續授權：Phase B 已完成；使用者另行授權 Phase C 僅修正 collaboration READY 信任邊界。詳見 [實作收據](PR266_COLLABORATION_TRUST_BOUNDARY_2026_10_05.md)。本手冊下方是原始交接條件；新的有界工程授權不包含實證、合併、發布、部署或分支刪除。
+
 狀態：
 
 ```text

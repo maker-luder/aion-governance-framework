@@ -25,6 +25,11 @@ from .end_to_end import (
     QualityAuditRecord,
     ResearchQualityPlan,
 )
+from .human_ai_collaboration import (
+    CollaborationControlDisposition,
+    HumanAICollaborationQualityControls,
+    assess_human_ai_collaboration_controls,
+)
 from .models import QualityError, Severity
 
 
@@ -568,16 +573,32 @@ class ExtendedQualityControls:
     process_stability: tuple[ProcessStabilityAssessment, ...] = field(default_factory=tuple)
     claim_withdrawal: tuple[ClaimWithdrawalPropagationRecord, ...] = field(default_factory=tuple)
 
+    human_ai_collaboration: tuple[HumanAICollaborationQualityControls, ...] = field(
+        default_factory=tuple
+    )
+
     def trace_refs(self) -> tuple[str, ...]:
         if not self.data_quality:
             raise QualityError("full QMS requires at least one data-quality record")
         if not self.supplier_quality:
             raise QualityError("full QMS requires at least one upstream supplier-quality record")
+        if type(self.human_ai_collaboration) is not tuple:
+            raise QualityError("human_ai_collaboration must be a tuple of raw controls")
+        for control in self.human_ai_collaboration:
+            if type(control) is not HumanAICollaborationQualityControls:
+                raise QualityError("human_ai_collaboration requires exact raw controls, not assessments")
+            control.__post_init__()
         refs = [item.data_id for item in self.data_quality]
         refs.extend(item.supplier_object_id for item in self.supplier_quality)
         refs.extend(item.sampling_plan_id for item in self.sampling)
         refs.extend(item.series_id for item in self.process_stability)
         refs.extend(item.propagation_id for item in self.claim_withdrawal)
+        # 同一識別碼但內容不同時，不能沿用舊管理審閱。
+        refs.extend(item.control_id for item in self.human_ai_collaboration)
+        refs.extend(
+            f"human-ai-collaboration:{item.control_id}:sha256:{item.content_sha256()}"
+            for item in self.human_ai_collaboration
+        )
         if len(refs) != len(set(refs)):
             raise QualityError("extended quality control identifiers must be unique")
         return tuple(refs)
@@ -768,6 +789,23 @@ class FullQualitySystemEngine:
         if not set(extended_refs) <= set(management_review.input_refs):
             reasons.append("MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE")
 
+        # Consumer owns evaluation; caller-provided READY/reason strings are never inputs.
+        # 消費端每次重新評估六項原始紀錄，不接受外部建構的 READY 報告。
+        collaboration_assessments = tuple(
+            assess_human_ai_collaboration_controls(item)
+            for item in controls.human_ai_collaboration
+        )
+        if any(
+            item.disposition is CollaborationControlDisposition.HOLD
+            for item in collaboration_assessments
+        ):
+            reasons.append("HUMAN_AI_COLLABORATION_CONTROL_HOLD")
+        if any(
+            f"git:{item.authority.current_state_sha}" not in plan.configuration_refs
+            for item in controls.human_ai_collaboration
+        ):
+            reasons.append("COLLABORATION_STATE_NOT_BOUND_TO_QUALITY_PLAN")
+
         base = EndToEndQualitySystemEngine().assess(
             plan=plan,
             measurements=measurements,
@@ -862,6 +900,8 @@ class FullQualitySystemEngine:
                 "MANAGEMENT_REVIEW_TEVV_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_AI_SECURITY_INPUTS_INCOMPLETE",
                 "MANAGEMENT_REVIEW_EXTENDED_CONTROL_INPUTS_INCOMPLETE",
+                "HUMAN_AI_COLLABORATION_CONTROL_HOLD",
+                "COLLABORATION_STATE_NOT_BOUND_TO_QUALITY_PLAN",
                 "DATA_QUALITY_HOLD",
                 "UPSTREAM_SUPPLIER_QUALITY_REVIEW_REQUIRED",
                 "SAMPLING_ESCALATED_TO_FULL_INSPECTION",
@@ -881,6 +921,8 @@ class FullQualitySystemEngine:
             disposition = EndToEndDisposition.CAPA_REQUIRED
         else:
             disposition = EndToEndDisposition.READY_FOR_HUMAN_REVIEW
+            if collaboration_assessments:
+                reasons.append("HUMAN_AI_COLLABORATION_CONTROLS_READY_FOR_HUMAN_REVIEW")
             reasons.extend(
                 (
                     "CONTENT_ADDRESSED_QUALITY_CHAIN_RECEIPT_BOUND",
