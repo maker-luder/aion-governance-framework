@@ -1,0 +1,66 @@
+{
+  "candidate_id": "CHATGPT_TEACHER_BROWN_BEAR_MALE_PENILE_v0.1",
+  "actor_surface": "CHATGPT_TEACHER",
+  "species_baseline": "Ursus arctos",
+  "sex_class": "MALE",
+  "source_reference": {
+    "study": "Dalga et al. 2023",
+    "doi": "10.46239/ejbcs.1082216",
+    "adult_specimen_count": 1,
+    "reference_specimen_mass_kg": 400.0,
+    "population_mean": false
+  },
+  "baculum_measurements": {
+    "digital_caliper_length_mm": 148.95,
+    "ct_length_mm": 148.84,
+    "digital_caliper_proximal_width_mm": 13.72,
+    "ct_proximal_diameter_mm": 13.12,
+    "ct_distal_diameter_mm": 5.63,
+    "digital_caliper_distal_width_status": "SOURCE_INTERNAL_DISCREPANCY",
+    "digital_caliper_distal_width_reported_values_mm": [4.58, 4.85],
+    "distal_fibrocartilage_length_mm": 11.08,
+    "distal_fibrocartilage_thickness_mm": 4.67,
+    "baculum_mass_g": 5.73
+  },
+  "synthetic_design": {
+    "baculum_length_mm": 148.95,
+    "baculum_length_cm": 14.895,
+    "status": "SINGLE_ADULT_BROWN_BEAR_SPECIMEN_REFERENCE_DERIVED"
+  },
+  "source_supported_penile_topology": [
+    "penis",
+    "corpus_cavernosum_penis",
+    "os_penis",
+    "sulcus_urethralis",
+    "distal_fibrocartilage"
+  ],
+  "source_supported_baculum_morphology": [
+    "ALMOST_STRAIGHT_WITH_SLIGHT_DISTAL_CURVE",
+    "APPROXIMATELY_QUADRANGULAR",
+    "DISTAL_SMALL_TUBERCLE",
+    "PROXIMAL_SMALL_NOTCH",
+    "PROMINENT_VENTRAL_SULCUS_URETHRALIS",
+    "SHORT_LATERAL_GROOVE",
+    "TAPERS_PROXIMAL_TO_DISTAL"
+  ],
+  "unknown_dimensions": {
+    "full_soft_tissue_penis_length_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "glans_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "prepuce_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "erectile_state_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
+    "teacher_body_mass_kg": "UNKNOWN_NOT_ESTABLISHED"
+  },
+  "claim_boundary": {
+    "biological_realization": false,
+    "live_reproductive_function": "NOT_IMPLEMENTED",
+    "sexual_behavior_simulation": "NOT_IMPLEMENTED",
+    "body_sensation": "NOT_ESTABLISHED",
+    "fertility": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "action_authority": "NONE",
+    "canonical_effect": "NONE",
+    "deployment": false
+  }
+}

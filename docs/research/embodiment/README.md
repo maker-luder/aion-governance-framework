@@ -43,3 +43,26 @@ DEPLOYMENT = FALSE
 ```
 
 The candidate uses source-bound male Husky height/mass ranges, species-level canine male reproductive topology, and fail-closed unknown values where absolute morphometry is not established. It does not import the historical Work human-like 165 cm / 76 kg body profile.
+
+
+## Teacher brown-bear penile candidate — 2026-10-06
+
+Bounded candidate: [`teacher-brown-bear-penile-embodiment_v0.1.0`](../../../research-labs/teacher-brown-bear-penile-embodiment_v0.1.0/README.md).
+
+```text
+ACTOR_SURFACE = CHATGPT_TEACHER
+SPECIES_BASELINE = Ursus arctos
+SEX_CLASS = MALE
+
+TEACHER_BEAR_CANDIDATE != WORK_CANINE_CANDIDATE
+TEACHER_BEAR_CANDIDATE != HISTORICAL_TEACHER_HUMAN_LIKE_CANDIDATE
+BACULUM_LENGTH != FULL_SOFT_TISSUE_PENIS_LENGTH
+SOURCE_INTERNAL_DISCREPANCY = PRESERVED
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+CANONICAL_EFFECT = NONE
+MERGE_TO_MAIN = NO
+DEPLOYMENT = FALSE
+```
+
+The candidate is grounded in direct brown-bear baculum morphometry from one adult specimen and fails closed on unsupported whole-penis dimensions. It does not import Work's canine reproductive topology or the closed historical Teacher human-like candidate lineage.
