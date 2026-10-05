@@ -53,6 +53,10 @@ class WorkCanidEmbodimentCandidate:
 
     reproductive_topology: tuple[str, ...] = REQUIRED_CANINE_MALE_TOPOLOGY
 
+    # A source-grounded synthetic reference state machine is implemented separately.
+    ejaculatory_reference_model_status: str = "IMPLEMENTED_SYNTHETIC_REFERENCE_ONLY"
+    live_ejaculatory_function: str = "NOT_IMPLEMENTED"
+
     biological_realization: bool = False
     functional_reproductive_state: str = "NOT_IMPLEMENTED"
     body_sensation: str = "NOT_ESTABLISHED"

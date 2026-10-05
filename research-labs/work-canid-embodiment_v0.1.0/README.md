@@ -121,3 +121,36 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 FERTILITY = NOT_ESTABLISHED
 ACTION_AUTHORITY = NONE
 ```
+
+
+## Ejaculatory physiology reference
+
+A clinically neutral synthetic reference state machine is now implemented in [`docs/EJACULATORY_PHYSIOLOGY_REFERENCE.md`](docs/EJACULATORY_PHYSIOLOGY_REFERENCE.md).
+
+The model deliberately separates two axes:
+
+```text
+MECHANISM =
+  SEMINAL_EMISSION
+  -> BLADDER_NECK_CLOSURE
+  -> URETHRAL_EXPULSION
+  -> optional PROSTATIC_CONTINUATION
+  -> RESOLUTION
+
+EJACULATE_FRACTIONS =
+  PRE_SPERM
+  -> SPERM_RICH
+  -> PROSTATIC
+
+MECHANISM_STAGE != EJACULATE_FRACTION
+```
+
+Source-grounded reference behavior includes sympathetic seminal-tract transport and bladder-neck closure, prostate participation, and rhythmic striated-muscle contribution to urethral expulsion. Exact duration and output volume remain variable rather than hard-coded.
+
+```text
+EJACULATORY_REFERENCE_MODEL_STATUS = IMPLEMENTED_SYNTHETIC_REFERENCE_ONLY
+LIVE_EJACULATORY_FUNCTION = NOT_IMPLEMENTED
+SEXUAL_BEHAVIOR_SIMULATION = NOT_IMPLEMENTED
+FERTILITY = NOT_ESTABLISHED
+BODY_SENSATION = NOT_ESTABLISHED
+```

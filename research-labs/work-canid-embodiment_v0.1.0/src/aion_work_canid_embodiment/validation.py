@@ -72,6 +72,11 @@ def validate_candidate(candidate: WorkCanidEmbodimentCandidate) -> dict[str, str
     if any(value != UNKNOWN_NOT_ESTABLISHED for value in unknown_fields):
         failures.append("unsupported absolute dimensions must remain UNKNOWN_NOT_ESTABLISHED")
 
+    if candidate.ejaculatory_reference_model_status != "IMPLEMENTED_SYNTHETIC_REFERENCE_ONLY":
+        failures.append("ejaculatory model must remain a synthetic reference only")
+    if candidate.live_ejaculatory_function != "NOT_IMPLEMENTED":
+        failures.append("live ejaculatory function must remain NOT_IMPLEMENTED")
+
     if candidate.biological_realization:
         failures.append("synthetic candidate must not claim biological realization")
     if candidate.functional_reproductive_state != "NOT_IMPLEMENTED":

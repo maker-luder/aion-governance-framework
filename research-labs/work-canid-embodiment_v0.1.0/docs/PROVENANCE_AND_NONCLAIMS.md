@@ -28,3 +28,17 @@ CANONICAL_EFFECT = NONE
 MERGE_TO_MAIN = NO
 DEPLOYMENT = FALSE
 ```
+
+
+## Ejaculatory physiology extension — 2026-10-06
+
+| Item | Provenance | Status |
+| --- | --- | --- |
+| request to add canine ejaculation physiology | HUMAN_ORIGIN | explicit current instruction |
+| three-process antegrade mechanism | EXTERNAL_SOURCE | veterinary/urologic literature |
+| three ejaculate fractions | EXTERNAL_SOURCE | veterinary reproduction literature |
+| mechanism/fraction separation | AI_FORMALIZATION | prevents category conflation |
+| `PROSTATIC_CONTINUATION` / `RESOLUTION` envelope states | AI_FORMALIZATION | engineering states around sourced biology |
+| exact phase durations and volumes | UNKNOWN / VARIABLE | deliberately not hard-coded |
+
+The implementation is a reference state machine only. It does not implement mating behavior, live ejaculation, sexual sensation or reproductive capacity.

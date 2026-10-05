@@ -8,6 +8,17 @@ from .models import (
     UNKNOWN_NOT_ESTABLISHED,
     WorkCanidEmbodimentCandidate,
 )
+from .physiology import (
+    EjaculateFraction,
+    EjaculatoryMechanismStage,
+    FractionReference,
+    MechanismReference,
+    PhysiologyReferenceError,
+    advance_fraction,
+    advance_mechanism,
+    fraction_reference,
+    mechanism_reference,
+)
 from .validation import ValidationError, deterministic_fingerprint, validate_candidate
 
 __all__ = [
@@ -16,8 +27,17 @@ __all__ = [
     "HUSKY_MALE_MASS_KG",
     "HUSKY_MALE_WITHERS_CM",
     "UNKNOWN_NOT_ESTABLISHED",
+    "EjaculateFraction",
+    "EjaculatoryMechanismStage",
+    "FractionReference",
+    "MechanismReference",
+    "PhysiologyReferenceError",
     "ValidationError",
     "WorkCanidEmbodimentCandidate",
+    "advance_fraction",
+    "advance_mechanism",
     "deterministic_fingerprint",
+    "fraction_reference",
+    "mechanism_reference",
     "validate_candidate",
 ]

@@ -16,6 +16,26 @@
     "os_penis_cm": 10.59,
     "os_penis_status": "SYNTHETIC_ASSIGNMENT_FROM_10_30_KG_CANINE_REFERENCE_MEAN"
   },
+  "ejaculatory_reference_model": {
+    "status": "IMPLEMENTED_SYNTHETIC_REFERENCE_ONLY",
+    "live_ejaculatory_function": "NOT_IMPLEMENTED",
+    "mechanism_axis": [
+      "BASELINE",
+      "SEMINAL_EMISSION",
+      "BLADDER_NECK_CLOSURE",
+      "URETHRAL_EXPULSION",
+      "PROSTATIC_CONTINUATION",
+      "RESOLUTION"
+    ],
+    "fraction_axis": [
+      "NONE",
+      "PRE_SPERM",
+      "SPERM_RICH",
+      "PROSTATIC"
+    ],
+    "timing": "VARIABLE_NOT_FIXED",
+    "volume": "VARIABLE_NOT_FIXED"
+  },
   "canine_reference": {
     "baculum_10_30kg_mean_cm": 10.59,
     "baculum_10_30kg_sd_cm": 2.67,
