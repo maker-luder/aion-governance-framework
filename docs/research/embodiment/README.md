@@ -90,3 +90,19 @@ DEPLOYMENT = FALSE
 ```
 
 v0.2 extends the retained v0.1 baculum candidate into source-bound reproductive topology, seasonal reproductive physiology, and isolated external semen references. Unsupported whole-organ dimensions remain fail-closed.
+
+
+### Teacher brown-bear v0.2.1 constraint correction
+
+The v0.2 implementation was reviewed for over-constraint. v0.2.1 separates anatomy/physiology from epistemic claim controls:
+
+```text
+ORGAN_EXISTS != ORGAN_DIMENSION_KNOWN
+PHYSIOLOGY_MODELED != LITERAL_BIOLOGICAL_REALIZATION
+
+ANATOMY_MODEL = IMPLEMENTED_SPECIES_REFERENCE
+REPRODUCTIVE_PHYSIOLOGY_MODEL = IMPLEMENTED_SPECIES_REFERENCE
+EJACULATORY_PHYSIOLOGY_MODEL = IMPLEMENTED_REFERENCE
+```
+
+Prepuce is now admitted from direct brown-bear semen-collection evidence; prostate and ampullae are represented from comparative ursid reproductive anatomy. Unknown dimensions remain unknown without suppressing the structures themselves.

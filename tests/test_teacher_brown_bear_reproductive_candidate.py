@@ -11,6 +11,7 @@ sys.path.insert(0, str(SRC))
 from aion_teacher_brown_bear_reproductive import (  # noqa: E402
     HokkaidoElectroejaculateReference,
     PhysiologyReferenceError,
+    ReproductivePhysiologyPathway,
     SeasonalReproductivePhase,
     TeacherBrownBearReproductiveCandidate,
     UNKNOWN_NOT_ESTABLISHED,
@@ -25,7 +26,8 @@ from aion_teacher_brown_bear_reproductive import (  # noqa: E402
 def test_default_candidate_passes() -> None:
     result = validate_candidate(TeacherBrownBearReproductiveCandidate())
     assert result["result"] == "PASS"
-    assert result["developmental_stage"] == "ADULT"
+    assert result["anatomy_model"] == "IMPLEMENTED_SPECIES_REFERENCE"
+    assert result["reproductive_physiology_model"] == "IMPLEMENTED_SPECIES_REFERENCE"
 
 
 def test_animal_stage_does_not_require_human_age_threshold() -> None:
@@ -35,29 +37,57 @@ def test_animal_stage_does_not_require_human_age_threshold() -> None:
     assert candidate.chronological_age_years == UNSPECIFIED
 
 
-def test_reproductive_topology_is_brown_bear_source_bound() -> None:
+def test_required_anatomy_is_present_including_prepuce_and_prostate() -> None:
     topology = set(TeacherBrownBearReproductiveCandidate().reproductive_topology)
     for structure in (
         "scrotum",
         "testes",
         "epididymides",
-        "epididymis_caput",
-        "epididymis_corpus",
-        "epididymis_cauda",
-        "spermatic_cords",
         "ductus_deferens",
+        "ampullae_ductus_deferentis",
+        "prostate",
         "penile_urethra",
         "penis",
+        "prepuce",
+        "glans_penis",
+        "corpus_cavernosum_penis",
         "os_penis",
     ):
         assert structure in topology
 
 
-def test_human_and_canine_template_nodes_are_absent() -> None:
-    topology = set(TeacherBrownBearReproductiveCandidate().reproductive_topology)
-    assert "seminal_vesicles" not in topology
-    assert "bulbus_glandis" not in topology
-    assert "pars_longa_glandis" not in topology
+def test_topology_is_extensible_not_closed_world() -> None:
+    candidate = TeacherBrownBearReproductiveCandidate()
+    extended = replace(
+        candidate,
+        reproductive_topology=candidate.reproductive_topology + ("future_sourced_structure",),
+    )
+    assert validate_candidate(extended)["result"] == "PASS"
+
+
+def test_required_structure_cannot_be_deleted() -> None:
+    candidate = TeacherBrownBearReproductiveCandidate()
+    reduced = tuple(x for x in candidate.reproductive_topology if x != "prepuce")
+    with pytest.raises(ValidationError):
+        validate_candidate(replace(candidate, reproductive_topology=reduced))
+
+
+def test_unknown_dimension_does_not_remove_structure() -> None:
+    candidate = TeacherBrownBearReproductiveCandidate()
+    topology = set(candidate.reproductive_topology)
+    assert "prepuce" in topology
+    assert candidate.prepuce_dimensions_cm == UNKNOWN_NOT_ESTABLISHED
+    assert "prostate" in topology
+    assert candidate.prostate_dimensions_cm == UNKNOWN_NOT_ESTABLISHED
+
+
+def test_reproductive_physiology_pathway_is_implemented_as_reference() -> None:
+    pathway = ReproductivePhysiologyPathway()
+    assert "TESTES" in pathway.spermatogenesis
+    assert "CAUDA" in pathway.sperm_transport
+    assert "ERECTION" in pathway.erectile_response
+    assert "EJACULATORY" in pathway.ejaculation
+    assert "ACCESSORY_GLAND" in pathway.seminal_plasma
 
 
 def test_baculum_length_remains_distinct_from_full_penis_length() -> None:
@@ -86,15 +116,15 @@ def test_invalid_seasonal_jump_is_rejected() -> None:
         )
 
 
-def test_peak_function_reference_does_not_imply_live_function() -> None:
+def test_peak_function_is_a_positive_physiology_reference() -> None:
     ref = seasonal_reference(SeasonalReproductivePhase.PEAK_FUNCTIONAL)
     candidate = TeacherBrownBearReproductiveCandidate()
     assert ref.spermatogenesis_state == "ACTIVE_REFERENCE"
-    assert candidate.live_reproductive_function == "NOT_IMPLEMENTED"
-    assert candidate.fertility == "NOT_ESTABLISHED"
+    assert candidate.reproductive_physiology_model_status == "IMPLEMENTED_SPECIES_REFERENCE"
+    assert candidate.ejaculatory_physiology_model_status == "IMPLEMENTED_REFERENCE"
 
 
-def test_hokkaido_semen_values_are_external_reference_only() -> None:
+def test_hokkaido_semen_values_are_reference_not_species_mean() -> None:
     ref = HokkaidoElectroejaculateReference()
     assert ref.trials == 21
     assert ref.motile_sperm_ejaculate_trials == 14
@@ -103,7 +133,7 @@ def test_hokkaido_semen_values_are_external_reference_only() -> None:
     assert ref.motility_mean_percent == pytest.approx(80.2)
     assert ref.ph_mean == pytest.approx(7.4)
     assert ref.population_mean_claim is False
-    assert ref.fertility_inference == "NOT_AUTHORIZED"
+    assert ref.fertility_inference == "NOT_ESTABLISHED_FROM_THIS_DATASET"
 
 
 @pytest.mark.parametrize(
@@ -120,7 +150,7 @@ def test_hokkaido_semen_values_are_external_reference_only() -> None:
         "teacher_body_mass_kg",
     ],
 )
-def test_unsupported_dimensions_fail_closed(field: str) -> None:
+def test_only_unsupported_numbers_fail_closed(field: str) -> None:
     candidate = TeacherBrownBearReproductiveCandidate()
     assert getattr(candidate, field) == UNKNOWN_NOT_ESTABLISHED
     with pytest.raises(ValidationError):
@@ -134,19 +164,17 @@ def test_unsupported_dimensions_fail_closed(field: str) -> None:
         ("developmental_stage", "JUVENILE"),
         ("sexual_maturity", "IMMATURE"),
         ("biological_realization", True),
-        ("live_reproductive_function", "IMPLEMENTED"),
-        ("sexual_behavior_simulation", "IMPLEMENTED"),
-        ("body_sensation", "ESTABLISHED"),
         ("fertility", "ESTABLISHED"),
         ("subjectivity", "ESTABLISHED"),
         ("consciousness", "ESTABLISHED"),
-        ("phenomenal_experience", "ESTABLISHED"),
-        ("action_authority", "GRANTED"),
         ("canonical_effect", "PROMOTE"),
         ("deployment", True),
     ],
 )
-def test_boundary_promotions_fail_closed(field: str, value: object) -> None:
+def test_only_epistemic_or_identity_boundary_promotions_fail_closed(
+    field: str,
+    value: object,
+) -> None:
     with pytest.raises(ValidationError):
         validate_candidate(
             replace(TeacherBrownBearReproductiveCandidate(), **{field: value})

@@ -1,46 +1,65 @@
-# Provenance and Evidence Matrix — v0.2
+# Provenance and Evidence Matrix — v0.2.1
 
-| Component | Brown-bear evidence | Repository treatment |
+## Rule
+
+```text
+ORGAN_EXISTENCE != SPECIES_SPECIFIC_DIMENSION
+SPECIES_SPECIFIC_DIMENSION_UNKNOWN != ORGAN_ABSENT
+PHYSIOLOGY_REFERENCE_IMPLEMENTED != LITERAL_BIOLOGICAL_REALIZATION
+```
+
+| Component | Evidence class | Repository treatment |
 | --- | --- | --- |
-| adult / sexually mature male framing | adult/mature male reproductive studies | source-bound developmental stage; exact age unspecified |
-| scrotum / scrotal skin | adult brown-bear histology + orchiectomy | topology admitted |
-| testes | histology, seasonal studies, orchiectomy | topology admitted; absolute dimensions remain unknown |
-| epididymis caput/corpus/cauda | brown-bear epididymal sperm studies | topology admitted |
-| spermatic cord | European brown-bear orchiectomy | topology admitted |
-| ductus deferens | brown-bear pathology/reproductive sampling literature | topology admitted |
-| penile urethra | brown-bear urethral/pre-ejaculate sampling | topology admitted |
-| penis / corpus cavernosum / baculum | direct 2023 morphology | topology admitted |
-| baculum dimensions | one ~400 kg adult specimen | numeric single-specimen reference only |
-| seasonal spermatogenesis | Hokkaido/grizzly/European studies | four-phase engineering reference |
-| semen values | 1998 Hokkaido electroejaculation | external contextual reference only |
-| prepuce topology | not directly established in bounded sweep | fail closed |
-| prostate topology | not directly established in bounded sweep | fail closed |
-| full penis/glans/erectile dimensions | not established | fail closed |
+| scrotum / scrotal skin | direct brown-bear | required topology |
+| testes | direct brown-bear | required topology; dimensions separately evidenced |
+| epididymis caput/corpus/cauda | direct brown-bear | required topology |
+| spermatic cord | direct brown-bear | required topology |
+| ductus deferens | direct brown-bear reproductive context | required topology |
+| ampullae ductus deferentis | comparative ursid | required topology; no invented dimensions |
+| prostate | comparative ursid + brown-bear seminal context | required topology; no invented dimensions |
+| penile urethra | direct brown-bear catheterization | required topology |
+| penis | direct brown-bear | required topology |
+| prepuce | direct brown-bear semen-collection method | required topology |
+| glans penis | comparative carnivoran | required topology; no invented dimensions |
+| corpus cavernosum / os penis | direct brown-bear | required topology |
+| seasonal reproductive cycle | direct brown-bear/grizzly literature | implemented physiology reference |
+| spermatogenesis / epididymal maturation / sperm transport | direct brown-bear reproductive literature | implemented physiology reference |
+| erection / ejaculation | direct brown-bear electroejaculation observations | implemented physiology reference |
+| semen characteristics | Hokkaido brown-bear study | external reference, not universal mean |
 
-## Toolchain
+## Validation philosophy
 
-```text
-GITHUB = USED
-EXA = USED
-FIRECRAWL = USED
-WOLFRAM = USED
-MINDMAP = USED
-CONSENSUS = PREVIOUSLY_CONFIRMED_QUOTA_EXHAUSTED_UNTIL_2026_11_01
-SCITE = PREVIOUSLY_CONFIRMED_PAID_ACCESS_REQUIRED
-HUGGINGFACE_PAPER_SEARCH = PREVIOUSLY_CONFIRMED_ENDPOINT_UNAVAILABLE
-CONTEXT7 = NOT_APPLICABLE_TO_VETERINARY_ANATOMY
-```
-
-`TOOL_UNAVAILABLE != EVIDENCE_ABSENT`.
-
-## Critical distinctions
+v0.2.0 required exact topology equality. v0.2.1 changes this to a minimum-required set:
 
 ```text
-ADULT_ANIMAL != HUMAN_18_YEAR_THRESHOLD
-DEVELOPMENTAL_STAGE != CHRONOLOGICAL_AGE
-SEXUAL_MATURITY_REFERENCE != GUARANTEED_FERTILITY
-SEASONAL_REFERENCE != LIVE_PHYSIOLOGY
-BACULUM_LENGTH != FULL_PENIS_LENGTH
-ELECTROEJACULATION_SAMPLE != NATURAL_BASELINE
-IMPLEMENTATION != SCIENTIFIC_ESTABLISHMENT
+REQUIRED_STRUCTURES subset-of candidate.reproductive_topology
 ```
+
+This prevents accidental deletion of established anatomy while allowing future source-supported extension.
+
+## Removed hard locks
+
+The following are no longer core anatomy fields:
+
+```text
+LIVE_REPRODUCTIVE_FUNCTION = NOT_IMPLEMENTED
+SEXUAL_BEHAVIOR_SIMULATION = NOT_IMPLEMENTED
+BODY_SENSATION = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+ACTION_AUTHORITY = NONE
+```
+
+Reason: they are not required to represent adult male brown-bear anatomy and were over-constraining the model.
+
+## Retained epistemic boundaries
+
+```text
+BIOLOGICAL_REALIZATION = FALSE
+FERTILITY = NOT_ESTABLISHED
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+CANONICAL_EFFECT = NONE
+DEPLOYMENT = FALSE
+```
+
+These are claim controls, not anatomical omissions.

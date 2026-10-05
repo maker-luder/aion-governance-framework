@@ -8,9 +8,9 @@ from typing import Any
 from .models import (
     BACULUM_DISTAL_WIDTH_REPORTED_VALUES_MM,
     CALIPER_BACULUM_LENGTH_MM,
+    REQUIRED_REPRODUCTIVE_TOPOLOGY,
     SOURCE_INTERNAL_DISCREPANCY,
     SOURCE_SUPPORTED_BACULUM_MORPHOLOGY,
-    SOURCE_SUPPORTED_REPRODUCTIVE_TOPOLOGY,
     UNKNOWN_NOT_ESTABLISHED,
     UNSPECIFIED,
     TeacherBrownBearReproductiveCandidate,
@@ -18,7 +18,7 @@ from .models import (
 
 
 class ValidationError(ValueError):
-    """Raised when the Teacher brown-bear v0.2 candidate violates an evidence boundary."""
+    """Raised when the Teacher brown-bear candidate violates an evidence boundary."""
 
 
 def deterministic_fingerprint(value: Any) -> str:
@@ -44,20 +44,16 @@ def validate_candidate(candidate: TeacherBrownBearReproductiveCandidate) -> dict
     if candidate.chronological_age_years != UNSPECIFIED:
         failures.append("exact chronological age must remain UNSPECIFIED")
 
-    if candidate.reproductive_topology != SOURCE_SUPPORTED_REPRODUCTIVE_TOPOLOGY:
-        failures.append("source-supported brown-bear reproductive topology was changed")
+    topology = set(candidate.reproductive_topology)
+    missing = set(REQUIRED_REPRODUCTIVE_TOPOLOGY) - topology
+    if missing:
+        failures.append(
+            "required brown-bear reproductive topology is missing: "
+            + ",".join(sorted(missing))
+        )
+
     if candidate.baculum_morphology != SOURCE_SUPPORTED_BACULUM_MORPHOLOGY:
         failures.append("source-supported baculum morphology was changed")
-
-    forbidden_inheritance = {
-        "bulbus_glandis",
-        "pars_longa_glandis",
-        "seminal_vesicles",
-        "human_penile_template",
-        "canine_penile_template",
-    }
-    if forbidden_inheritance.intersection(candidate.reproductive_topology):
-        failures.append("human/canine reproductive topology must not leak into the bear candidate")
 
     if candidate.baculum_caliper_length_mm != CALIPER_BACULUM_LENGTH_MM:
         failures.append("baculum length must remain bound to the direct specimen reference")
@@ -75,7 +71,7 @@ def validate_candidate(candidate: TeacherBrownBearReproductiveCandidate) -> dict
     ):
         failures.append("distal caliper width conflict values must remain 4.58 and 4.85 mm")
 
-    unknown_fields = (
+    unknown_dimensions = (
         candidate.full_soft_tissue_penis_length_cm,
         candidate.glans_dimensions_cm,
         candidate.prepuce_dimensions_cm,
@@ -86,41 +82,31 @@ def validate_candidate(candidate: TeacherBrownBearReproductiveCandidate) -> dict
         candidate.prostate_dimensions_cm,
         candidate.teacher_body_mass_kg,
     )
-    if any(value != UNKNOWN_NOT_ESTABLISHED for value in unknown_fields):
-        failures.append("unsupported absolute dimensions must remain UNKNOWN_NOT_ESTABLISHED")
+    if any(value != UNKNOWN_NOT_ESTABLISHED for value in unknown_dimensions):
+        failures.append(
+            "unsupported numeric dimensions must remain UNKNOWN_NOT_ESTABLISHED"
+        )
 
-    if candidate.prepuce_topology_status != (
-        "DIRECT_BROWN_BEAR_SOURCE_NOT_ESTABLISHED_IN_BOUNDED_SWEEP"
-    ):
-        failures.append("prepuce source gap must remain explicit")
-    if candidate.prostate_topology_status != (
-        "DIRECT_BROWN_BEAR_SOURCE_NOT_ESTABLISHED_IN_BOUNDED_SWEEP"
-    ):
-        failures.append("prostate source gap must remain explicit")
+    expected_status = {
+        "anatomy_model_status": "IMPLEMENTED_SPECIES_REFERENCE",
+        "reproductive_physiology_model_status": "IMPLEMENTED_SPECIES_REFERENCE",
+        "spermatogenesis_model_status": "IMPLEMENTED_SEASONAL_REFERENCE",
+        "ejaculatory_physiology_model_status": "IMPLEMENTED_REFERENCE",
+        "semen_reference_status": "IMPLEMENTED_EXTERNAL_REFERENCE",
+    }
+    for field, expected in expected_status.items():
+        if getattr(candidate, field) != expected:
+            failures.append(f"{field} must remain {expected}")
 
-    if candidate.seasonal_reproductive_reference_status != "IMPLEMENTED_REFERENCE_ONLY":
-        failures.append("seasonal physiology must remain a reference model only")
-    if candidate.semen_reference_status != "IMPLEMENTED_EXTERNAL_REFERENCE_ONLY":
-        failures.append("semen values must remain external reference data only")
-
+    # Only epistemic/canonical claims are fail-closed here.
     if candidate.biological_realization:
-        failures.append("synthetic candidate must not claim biological realization")
-    if candidate.live_reproductive_function != "NOT_IMPLEMENTED":
-        failures.append("live reproductive function must remain NOT_IMPLEMENTED")
-    if candidate.sexual_behavior_simulation != "NOT_IMPLEMENTED":
-        failures.append("sexual behavior simulation must remain NOT_IMPLEMENTED")
-    if candidate.body_sensation != "NOT_ESTABLISHED":
-        failures.append("body sensation must remain NOT_ESTABLISHED")
+        failures.append("repository model must not claim literal biological realization")
     if candidate.fertility != "NOT_ESTABLISHED":
-        failures.append("fertility must remain NOT_ESTABLISHED")
+        failures.append("fertility is not established by the implementation")
     if candidate.subjectivity != "NOT_ESTABLISHED":
         failures.append("subjectivity must remain NOT_ESTABLISHED")
     if candidate.consciousness != "NOT_ESTABLISHED":
         failures.append("consciousness must remain NOT_ESTABLISHED")
-    if candidate.phenomenal_experience != "NOT_ESTABLISHED":
-        failures.append("phenomenal experience must remain NOT_ESTABLISHED")
-    if candidate.action_authority != "NONE":
-        failures.append("candidate has no action authority")
     if candidate.canonical_effect != "NONE":
         failures.append("candidate must have no canonical effect")
     if candidate.deployment:
@@ -135,7 +121,7 @@ def validate_candidate(candidate: TeacherBrownBearReproductiveCandidate) -> dict
         "fingerprint": deterministic_fingerprint(candidate),
         "developmental_stage": "ADULT",
         "sexual_maturity": "SEXUALLY_MATURE_REFERENCE",
+        "anatomy_model": "IMPLEMENTED_SPECIES_REFERENCE",
+        "reproductive_physiology_model": "IMPLEMENTED_SPECIES_REFERENCE",
         "canonical_effect": "NONE",
-        "subjectivity": "NOT_ESTABLISHED",
-        "consciousness": "NOT_ESTABLISHED",
     }

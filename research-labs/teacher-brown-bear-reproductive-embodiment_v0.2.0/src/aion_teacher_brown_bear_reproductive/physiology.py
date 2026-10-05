@@ -54,7 +54,7 @@ _SEASONAL_REFERENCES: Final[
         spermatogenesis_state="ACTIVE_REFERENCE",
         testicular_state="SEASONALLY_ENLARGED_REFERENCE",
         testosterone_state="SEASONALLY_HIGH_REFERENCE",
-        sperm_in_epididymis="SUPPORTED_DURING_ACTIVE_PERIOD_REFERENCE",
+        sperm_in_epidymis="SUPPORTED_DURING_ACTIVE_PERIOD_REFERENCE",
     ),
     SeasonalReproductivePhase.REGRESSION: SeasonalReproductiveReference(
         phase=SeasonalReproductivePhase.REGRESSION,
@@ -64,6 +64,18 @@ _SEASONAL_REFERENCES: Final[
         sperm_in_epididymis="DECLINING_OR_ABSENT_DEPENDING_ON_TIME_AND_POPULATION",
     ),
 }
+
+
+@dataclass(frozen=True, slots=True)
+class ReproductivePhysiologyPathway:
+    spermatogenesis: str = "TESTES_TO_SPERMATOZOA_REFERENCE"
+    epididymal_maturation: str = "CAPUT_TO_CORPUS_TO_CAUDA_REFERENCE"
+    sperm_transport: str = "CAUDA_EPIDDYMIS_TO_DUCTUS_DEFERENS_REFERENCE"
+    urethral_delivery: str = "DUCTUS_DEFERENS_TO_PENILE_URETHRA_REFERENCE"
+    erectile_response: str = "PENILE_ERECTION_PHYSIOLOGY_REFERENCE"
+    ejaculation: str = "URETHRAL_EJACULATORY_OUTPUT_REFERENCE"
+    seminal_plasma: str = "ACCESSORY_GLAND_SECRETION_REFERENCE"
+    seasonal_modulation: str = "SEASONALLY_MODULATED_REFERENCE"
 
 
 @dataclass(frozen=True, slots=True)
@@ -81,7 +93,7 @@ class HokkaidoElectroejaculateReference:
     ph_mean: float = 7.4
     ph_sd: float = 0.3
     population_mean_claim: bool = False
-    fertility_inference: str = "NOT_AUTHORIZED"
+    fertility_inference: str = "NOT_ESTABLISHED_FROM_THIS_DATASET"
 
 
 class PhysiologyReferenceError(ValueError):

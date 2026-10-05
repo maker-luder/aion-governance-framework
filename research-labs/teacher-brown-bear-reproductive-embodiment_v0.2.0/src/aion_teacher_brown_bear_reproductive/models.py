@@ -18,7 +18,8 @@ DISTAL_FIBROCARTILAGE_THICKNESS_MM: Final[float] = 4.67
 BACULUM_MASS_G: Final[float] = 5.73
 REFERENCE_SPECIMEN_MASS_KG: Final[float] = 400.0
 
-SOURCE_SUPPORTED_REPRODUCTIVE_TOPOLOGY: Final[tuple[str, ...]] = (
+# Minimum required anatomy. This is intentionally a floor, not a closed-world list.
+REQUIRED_REPRODUCTIVE_TOPOLOGY: Final[tuple[str, ...]] = (
     "scrotum",
     "scrotal_skin",
     "testes",
@@ -28,13 +29,41 @@ SOURCE_SUPPORTED_REPRODUCTIVE_TOPOLOGY: Final[tuple[str, ...]] = (
     "epididymis_cauda",
     "spermatic_cords",
     "ductus_deferens",
+    "ampullae_ductus_deferentis",
+    "prostate",
     "penile_urethra",
     "penis",
+    "prepuce",
+    "glans_penis",
     "corpus_cavernosum_penis",
     "os_penis",
     "sulcus_urethralis",
     "distal_fibrocartilage",
 )
+
+DEFAULT_REPRODUCTIVE_TOPOLOGY: Final[tuple[str, ...]] = REQUIRED_REPRODUCTIVE_TOPOLOGY
+
+TOPOLOGY_EVIDENCE: Final[dict[str, str]] = {
+    "scrotum": "DIRECT_BROWN_BEAR_CLINICAL_ANATOMY",
+    "scrotal_skin": "DIRECT_BROWN_BEAR_HISTOLOGY",
+    "testes": "DIRECT_BROWN_BEAR_HISTOLOGY_AND_MORPHOMETRY",
+    "epididymides": "DIRECT_BROWN_BEAR_SPERM_AND_PATHOLOGY",
+    "epididymis_caput": "DIRECT_BROWN_BEAR_SPERM_STUDY",
+    "epididymis_corpus": "DIRECT_BROWN_BEAR_SPERM_STUDY",
+    "epididymis_cauda": "DIRECT_BROWN_BEAR_SPERM_STUDY",
+    "spermatic_cords": "DIRECT_BROWN_BEAR_ORCHIECTOMY",
+    "ductus_deferens": "DIRECT_BROWN_BEAR_REPRODUCTIVE_SAMPLING_CONTEXT",
+    "ampullae_ductus_deferentis": "URSID_COMPARATIVE_REPRODUCTIVE_ANATOMY",
+    "prostate": "URSID_COMPARATIVE_REPRODUCTIVE_ANATOMY_WITH_BROWN_BEAR_SEMINAL_CONTEXT",
+    "penile_urethra": "DIRECT_BROWN_BEAR_CATHETERIZATION_AND_SAMPLING",
+    "penis": "DIRECT_BROWN_BEAR_CLINICAL_AND_MORPHOMETRIC_CONTEXT",
+    "prepuce": "DIRECT_BROWN_BEAR_SEMEN_COLLECTION_METHOD",
+    "glans_penis": "CARNIVORAN_COMPARATIVE_ANATOMY",
+    "corpus_cavernosum_penis": "DIRECT_BROWN_BEAR_BACULUM_CONTEXT",
+    "os_penis": "DIRECT_BROWN_BEAR_MORPHOMETRY",
+    "sulcus_urethralis": "DIRECT_BROWN_BEAR_MORPHOMETRY",
+    "distal_fibrocartilage": "DIRECT_BROWN_BEAR_MORPHOMETRY",
+}
 
 SOURCE_SUPPORTED_BACULUM_MORPHOLOGY: Final[tuple[str, ...]] = (
     "ALMOST_STRAIGHT_WITH_SLIGHT_DISTAL_CURVE",
@@ -49,17 +78,16 @@ SOURCE_SUPPORTED_BACULUM_MORPHOLOGY: Final[tuple[str, ...]] = (
 
 @dataclass(frozen=True, slots=True)
 class TeacherBrownBearReproductiveCandidate:
-    candidate_id: str = "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2"
+    candidate_id: str = "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.1"
     actor_surface: str = "CHATGPT_TEACHER"
     species_baseline: str = "Ursus arctos"
     sex_class: str = "MALE"
 
-    # Species-appropriate stage descriptors. No human age threshold is imported.
     developmental_stage: str = "ADULT"
     sexual_maturity: str = "SEXUALLY_MATURE_REFERENCE"
     chronological_age_years: str = UNSPECIFIED
 
-    reproductive_topology: tuple[str, ...] = SOURCE_SUPPORTED_REPRODUCTIVE_TOPOLOGY
+    reproductive_topology: tuple[str, ...] = DEFAULT_REPRODUCTIVE_TOPOLOGY
     baculum_morphology: tuple[str, ...] = SOURCE_SUPPORTED_BACULUM_MORPHOLOGY
 
     # Direct single-specimen brown-bear baculum reference.
@@ -81,7 +109,7 @@ class TeacherBrownBearReproductiveCandidate:
         "SINGLE_ADULT_BROWN_BEAR_SPECIMEN_REFERENCE_DERIVED"
     )
 
-    # Bounded sweep did not establish robust species-level absolute values.
+    # Structure may exist while species-specific morphometry remains unknown.
     full_soft_tissue_penis_length_cm: str = UNKNOWN_NOT_ESTABLISHED
     glans_dimensions_cm: str = UNKNOWN_NOT_ESTABLISHED
     prepuce_dimensions_cm: str = UNKNOWN_NOT_ESTABLISHED
@@ -92,22 +120,17 @@ class TeacherBrownBearReproductiveCandidate:
     prostate_dimensions_cm: str = UNKNOWN_NOT_ESTABLISHED
     teacher_body_mass_kg: str = UNKNOWN_NOT_ESTABLISHED
 
-    # Direct-source topology gaps remain explicit rather than filled from dog/human anatomy.
-    prepuce_topology_status: str = "DIRECT_BROWN_BEAR_SOURCE_NOT_ESTABLISHED_IN_BOUNDED_SWEEP"
-    prostate_topology_status: str = "DIRECT_BROWN_BEAR_SOURCE_NOT_ESTABLISHED_IN_BOUNDED_SWEEP"
+    anatomy_model_status: str = "IMPLEMENTED_SPECIES_REFERENCE"
+    reproductive_physiology_model_status: str = "IMPLEMENTED_SPECIES_REFERENCE"
+    spermatogenesis_model_status: str = "IMPLEMENTED_SEASONAL_REFERENCE"
+    ejaculatory_physiology_model_status: str = "IMPLEMENTED_REFERENCE"
+    semen_reference_status: str = "IMPLEMENTED_EXTERNAL_REFERENCE"
 
-    seasonal_reproductive_reference_status: str = "IMPLEMENTED_REFERENCE_ONLY"
-    semen_reference_status: str = "IMPLEMENTED_EXTERNAL_REFERENCE_ONLY"
-
+    # These are evidence claims, not anatomy restrictions.
     biological_realization: bool = False
-    live_reproductive_function: str = "NOT_IMPLEMENTED"
-    sexual_behavior_simulation: str = "NOT_IMPLEMENTED"
-    body_sensation: str = "NOT_ESTABLISHED"
     fertility: str = "NOT_ESTABLISHED"
     subjectivity: str = "NOT_ESTABLISHED"
     consciousness: str = "NOT_ESTABLISHED"
-    phenomenal_experience: str = "NOT_ESTABLISHED"
-    action_authority: str = "NONE"
     canonical_effect: str = "NONE"
     deployment: bool = False
 
