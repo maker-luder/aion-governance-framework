@@ -10,7 +10,6 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 c2pa = ["c2pa-python==0.38.0"]
-forensics = ["Pillow==12.3.0"]
 
 [tool.mypy]
 strict = true
