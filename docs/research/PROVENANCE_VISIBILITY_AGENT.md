@@ -63,6 +63,61 @@ OPENAI_MEDIA_SYNTHID_LOCAL_DECODER = NOT_ESTABLISHED
 DO_NOT_SUBSTITUTE_AI_CLASSIFIER = TRUE
 ```
 
+## Unknown image signals: heuristic reveal
+
+The lack of a public vendor-specific decoder does not require the repository to stop at
+`LOCAL_VERIFIER_NOT_PUBLIC`. A separate **heuristic visualization** path may surface
+low-energy structure for human review, provided it does not promote that structure into
+a watermark verdict.
+
+The v0.1 implementation uses three independent local cues:
+
+1. an 8-neighbour luminance residual;
+2. an RGB least-significant-bit balance view;
+3. a horizontal/vertical residual autocorrelation scan over candidate periods
+   `4, 8, 16, 32, 64, 128`, followed by modulo-period folding when a cue crosses the
+   engineering threshold.
+
+A custom composite combines those views:
+
+```text
+AION_REVERSE_REVEAL_V0_1 =
+  0.50 * LOCAL_RESIDUAL
++ 0.20 * LSB_BALANCE
++ 0.30 * PERIODIC_FOLD
+```
+
+The weights and the current periodicity threshold are repository-origin engineering
+choices. They are not externally validated probabilities or watermark confidence
+scores.
+
+```text
+HEURISTIC_CUE != WATERMARK_DETECTION
+HEURISTIC_SCORE != PROBABILITY
+PATTERN_VISIBILITY != PAYLOAD_DECODING
+PATTERN_VISIBILITY != VENDOR_ATTRIBUTION
+PATTERN_VISIBILITY != AUTHORSHIP
+```
+
+This is the bounded meaning of “reverse reasoning” here: start from observable weak
+residual/bit-plane/periodic structure and infer a **candidate visualization target**,
+not the hidden key, payload, author or generator.
+
+Related external evidence:
+
+- Avcıbaş et al. (2005), *Image Steganalysis with Binary Similarity Measures*,
+  DOI `10.1155/ASP.2005.2749`: lower bit-plane statistics can carry embedding
+  artifacts.
+- Butora & Bas (2023/2024), *The Adobe Hidden Feature and its Impact on Sensor
+  Attribution*, arXiv `2401.01366`: residual cross-correlation exposed a periodic
+  128×128 processing pattern, while also demonstrating that such patterns can create
+  forensic false positives.
+
+The second source is particularly important for the claim boundary: a visible periodic
+pattern can come from image processing such as dithering rather than a provenance
+watermark. Therefore the heuristic path always returns
+`watermark_verdict = NOT_ESTABLISHED`.
+
 ## Architecture
 
 ```text
@@ -73,6 +128,8 @@ LOCAL FILE
   +--> textGrain -------------------------> KEY_REQUIRED
   |
   +--> SynthID image/audio ---------------> LOCAL_VERIFIER_NOT_PUBLIC
+  |
+  +--> unknown image signal --------------> heuristic reveal -> review-only layers
   |
   +--> future verified local detector ----> adapter -> visible report
 ```
