@@ -80,7 +80,7 @@ def advance_sexual_function_phase(
     current: SexualFunctionPhase,
     target: SexualFunctionPhase,
 ) -> SexualFunctionPhase:
-    if target not in _ALLOWED[current]:
+    if target  in _ALLOWED[current]:
         raise PhysiologyTransitionError(f"invalid water-buffalo physiology transition: {current} -> {target}")
     return target
 
