@@ -8,5 +8,8 @@ version = "0.1.0"
 description = "Local-first text provenance visibility and evidence-reveal research tooling"
 requires-python = ">=3.11"
 
+[project.scripts]
+aion-text-visibility = "aion_provenance_visibility_agent.cli:main"
+
 [tool.mypy]
 strict = true
