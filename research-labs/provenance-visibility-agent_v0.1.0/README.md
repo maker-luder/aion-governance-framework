@@ -35,60 +35,84 @@ Install:
 pip install -e "research-labs/provenance-visibility-agent_v0.1.0[c2pa]"
 ```
 
-## Heuristic reveal for unknown image signals
+## Human-visible reveal for hidden text signals
 
-Exact watermark decoders remain the preferred evidence when they are available. For an
-unknown image signal, this package now also offers a **local heuristic reveal** layer
-that tries to make weak structure visible without pretending to know the watermark key,
-payload or vendor.
+This repository is text-centered. The bounded enhancement in PR #281 therefore keeps
+the new reveal path **text-only** and removes the image/PGM/Pillow experiment that was
+initially drafted.
 
-The reveal path is deliberately inferential:
+The local reveal does not require a hosted API and does not pretend that an unknown
+vendor watermark can be decoded without its key/configuration. Instead it turns
+machine-visible text structure into multiple human-readable views:
 
-```text
-UNKNOWN_SIGNAL
-  -> LOCAL_LUMA_RESIDUAL
-  -> RGB_LSB_BALANCE
-  -> PERIODICITY_SCAN / FOLD
-  -> AION_REVERSE_REVEAL_V0_1 composite
-  -> HUMAN_REVIEW
-```
+~~~text
+RAW TEXT
+  -> Unicode format/control/variation-selector reveal
+  -> whitespace-visible view
+  -> original vs NFKC normalization contrast
+  -> token position index
+  -> modulo-position montage when a heuristic period appears
+  -> repeated-context view
+  -> competing hypotheses + counter-explanations
+~~~
 
-The custom composite is an engineering heuristic, not a validated detector:
+Project method:
 
-```text
-AION_REVERSE_REVEAL_V0_1 =
-  50% local residual
-  20% RGB least-significant-bit balance
-  30% periodic folded residual
+~~~text
+AION_TEXT_MONTAGE_REVEAL_V0_1
 
+DETERMINISTIC_REVEAL
++ CONTRASTIVE_REASONING
++ MONTAGE_JUXTAPOSITION_PROJECT_METAPHOR
++ ABDUCTIVE_REASONING
++ ANALOGICAL_REASONING_WHEN_REFERENCE_EXISTS
++ MULTI_VIEW_TRIANGULATION
+~~~
+
+Important provenance:
+
+- HUMAN_ORIGIN: use reverse reasoning, montage-like juxtaposition, and the user's
+  "依樣畫葫蘆" intuition to make machine-only text signals inspectable by humans.
+- AI_FORMALIZATION: "依樣畫葫蘆" is mapped to analogical/case-based pattern transfer;
+  "reverse reasoning" is bounded as abductive/retroductive hypothesis generation from
+  observed anomalies; "montage reasoning" is a **project-origin metaphor**, not a
+  standard formal logic term.
+- EXTERNAL_SOURCE: montage is historically an assemblage/juxtaposition technique;
+  analogical reasoning and abduction are established non-deductive reasoning families.
+
+The deterministic layer can reveal exact things that are already present in the text:
+Unicode format controls, variation selectors, non-standard whitespace, mixed
+Latin/Cyrillic/Greek tokens, and normalization differences. These are real text
+properties, but they are not automatically watermarks.
+
+The heuristic layer can reorganize token positions to make repeated or periodic
+structure easier for a human reviewer to see. Its score is an engineering cue only:
+
+~~~text
 HEURISTIC_CUE != WATERMARK_DETECTION
 HEURISTIC_SCORE != PROBABILITY
-VISIBLE_PATTERN != PROVENANCE_PROOF
-```
+EXACT_UNICODE_CUE != WATERMARK_PROOF
+MONTAGE_VISIBILITY != VENDOR_ATTRIBUTION
+WITHOUT_REQUIRED_KEY_OR_CONFIGURATION = UNKNOWN
+~~~
 
-The core transform works from decoded RGB pixels using the Python standard library.
-Common PNG/JPEG/etc. file decoding is an optional local convenience layer:
+For statistical LLM watermarks, exact detection can depend on the watermark's own
+token partition, secret key, tokenizer and configuration. Kirchenbauer et al. (ICML
+2023) demonstrate one such green-list/z-score family. The local montage layer may make
+surface structure inspectable, but it does not reconstruct a secret green list.
 
-```text
-pip install -e "research-labs/provenance-visibility-agent_v0.1.0[forensics]"
-```
+Sources used for the bounded method:
 
-The optional dependency is Pillow 12.3.0. Output reveal layers can be written as binary
-PGM images without another image-writing dependency.
-
-This approach is motivated by established image-forensics ideas rather than by a claim
-that one generic formula can decode arbitrary watermarks. Prior work shows that lower
-bit-plane statistics can expose embedding artifacts, while residual correlation and
-periodicity analysis can reveal repeated low-energy processing patterns. See:
-
-- Avcıbaş et al., *Image Steganalysis with Binary Similarity Measures*,
-  DOI `10.1155/ASP.2005.2749`.
-- Butora & Bas, *The Adobe Hidden Feature and its Impact on Sensor Attribution*,
-  arXiv `2401.01366`.
-
-False positives are expected. Compression, demosaicing, dithering, scaling, sharpening
-and other processing can create similar structures. The output therefore remains
-`watermark_verdict = NOT_ESTABLISHED`.
+- Unicode Technical Standard #39, Unicode Security Mechanisms:
+  https://www.unicode.org/reports/tr39/
+- Kirchenbauer et al., "A Watermark for Large Language Models", ICML 2023:
+  https://proceedings.mlr.press/v202/kirchenbauer23a.html
+- Stanford Encyclopedia of Philosophy, "Analogy and Analogical Reasoning":
+  https://plato.stanford.edu/entries/reasoning-analogy/
+- Stanford Encyclopedia of Philosophy, "Abduction":
+  https://plato.stanford.edu/entries/abduction/
+- Routledge Encyclopedia of Modernism, "Montage" (montage as assemblage and
+  juxtaposition; used here only as an adaptation source, not as formal logic).
 
 ## What we cannot honestly verify locally yet
 
@@ -149,4 +173,4 @@ NO CONVERSATIONAL_NICKNAME IN PUBLIC IDENTIFIERS
 
 Watermark removal, degradation and evasion remain out of scope.
 
-The heuristic reveal path also stops at visualization and review; it does not estimate a subtraction pattern or modify the source asset.
+The text reveal path stops at human-readable visualization and competing hypotheses; it does not alter the source text or provide watermark removal/evasion.
