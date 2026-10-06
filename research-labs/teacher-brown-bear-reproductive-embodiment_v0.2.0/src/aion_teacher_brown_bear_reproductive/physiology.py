@@ -66,15 +66,55 @@ _SEASONAL_REFERENCES: Final[
 }
 
 
+class AcuteReproductivePhysiologyPhase(StrEnum):
+    BASELINE = "BASELINE"
+    VASCULAR_ENGORGEMENT = "VASCULAR_ENGORGEMENT"
+    EMISSION = "EMISSION"
+    URETHRAL_EXPULSION = "URETHRAL_EXPULSION"
+    RESOLUTION = "RESOLUTION"
+
+
+ACUTE_REPRODUCTIVE_TRANSITIONS: Final[
+    dict[
+        AcuteReproductivePhysiologyPhase,
+        tuple[AcuteReproductivePhysiologyPhase, ...],
+    ]
+] = {
+    AcuteReproductivePhysiologyPhase.BASELINE: (
+        AcuteReproductivePhysiologyPhase.VASCULAR_ENGORGEMENT,
+    ),
+    AcuteReproductivePhysiologyPhase.VASCULAR_ENGORGEMENT: (
+        AcuteReproductivePhysiologyPhase.EMISSION,
+        AcuteReproductivePhysiologyPhase.RESOLUTION,
+    ),
+    AcuteReproductivePhysiologyPhase.EMISSION: (
+        AcuteReproductivePhysiologyPhase.URETHRAL_EXPULSION,
+    ),
+    AcuteReproductivePhysiologyPhase.URETHRAL_EXPULSION: (
+        AcuteReproductivePhysiologyPhase.RESOLUTION,
+    ),
+    AcuteReproductivePhysiologyPhase.RESOLUTION: (
+        AcuteReproductivePhysiologyPhase.BASELINE,
+    ),
+}
+
+
 @dataclass(frozen=True, slots=True)
 class ReproductivePhysiologyPathway:
-    spermatogenesis: str = "TESTES_TO_SPERMATOZOA_REFERENCE"
+    spermatogenesis: str = "SEMINIFEROUS_TUBULES_TO_SPERMATOZOA_REFERENCE"
+    rete_testis_transport: str = "RETE_TESTIS_TO_EFFERENT_DUCTULES_REFERENCE"
     epididymal_maturation: str = "CAPUT_TO_CORPUS_TO_CAUDA_REFERENCE"
-    sperm_transport: str = "CAUDA_EPIDDYMIS_TO_DUCTUS_DEFERENS_REFERENCE"
-    urethral_delivery: str = "DUCTUS_DEFERENS_TO_PENILE_URETHRA_REFERENCE"
-    erectile_response: str = "PENILE_ERECTION_PHYSIOLOGY_REFERENCE"
+    sperm_transport: str = "CAUDA_EPIDIDYMIS_TO_DUCTUS_DEFERENS_REFERENCE"
+    accessory_gland_contribution: str = "PROSTATIC_AND_AMPULLARY_SECRETION_REFERENCE"
+    urethral_delivery: str = "DUCTUS_DEFERENS_TO_PELVIC_AND_PENILE_URETHRA_REFERENCE"
+    vascular_support: str = "PENILE_VASCULAR_ENGORGEMENT_REFERENCE"
+    sensory_support: str = "GENITAL_SOMATOSENSORY_INNERVATION_REFERENCE"
+    autonomic_support: str = "AUTONOMIC_REPRODUCTIVE_CONTROL_REFERENCE"
+    erectile_response: str = "PENILE_ERECTILE_PHYSIOLOGY_REFERENCE"
+    emission: str = "SPERM_AND_ACCESSORY_SECRETIONS_TO_URETHRA_REFERENCE"
     ejaculation: str = "URETHRAL_EJACULATORY_OUTPUT_REFERENCE"
-    seminal_plasma: str = "ACCESSORY_GLAND_SECRETION_REFERENCE"
+    resolution: str = "VASCULAR_AND_AUTONOMIC_RETURN_TO_BASELINE_REFERENCE"
+    endocrine_support: str = "HYPOTHALAMIC_PITUITARY_GONADAL_REFERENCE"
     seasonal_modulation: str = "SEASONALLY_MODULATED_REFERENCE"
 
 
@@ -97,7 +137,7 @@ class HokkaidoElectroejaculateReference:
 
 
 class PhysiologyReferenceError(ValueError):
-    """Raised when a synthetic seasonal reference transition is invalid."""
+    """Raised when a synthetic physiology transition is invalid."""
 
 
 def seasonal_reference(
@@ -112,4 +152,15 @@ def advance_seasonal_phase(
 ) -> SeasonalReproductivePhase:
     if target not in SEASONAL_TRANSITIONS[current]:
         raise PhysiologyReferenceError(f"invalid seasonal transition: {current} -> {target}")
+    return target
+
+
+def advance_acute_reproductive_phase(
+    current: AcuteReproductivePhysiologyPhase,
+    target: AcuteReproductivePhysiologyPhase,
+) -> AcuteReproductivePhysiologyPhase:
+    if target not in ACUTE_REPRODUCTIVE_TRANSITIONS[current]:
+        raise PhysiologyReferenceError(
+            f"invalid acute reproductive transition: {current} -> {target}"
+        )
     return target
