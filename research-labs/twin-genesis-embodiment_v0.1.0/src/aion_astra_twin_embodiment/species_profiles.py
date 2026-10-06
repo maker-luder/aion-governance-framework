@@ -77,6 +77,7 @@ class AnthropomorphicSpeciesProfile:
         "doi:10.5216/cab.v13i4.14346",
         "doi:10.1111/joa.13636",
         "doi:10.1242/jeb.02703",
+        "doi:10.1262/jrd.2013-016",
         "doi:10.3390/ani13121893",
     )
 
@@ -183,7 +184,7 @@ def build_tiger_reproductive_reference_observations() -> tuple[ReproductiveRefer
             limitation="single-specimen case report; values are observations, not anthropomorphic design constants",
         ),
         ReproductiveReferenceObservation(
-            source_ref="Siberian tiger repeated electroejaculation study (17 trials / 6 breeding seasons)",
+            source_ref="doi:10.1262/jrd.2013-016",
             sample_scope="one captive male Siberian tiger",
             metrics=(
                 ("mean_sperm_per_ejaculate", "294.3 ± 250.2 x 10^6"),

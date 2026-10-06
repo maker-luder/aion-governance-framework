@@ -182,7 +182,8 @@ TwinRuntimeState 會讀出並記錄：
 1. Meireles WA, Bergqvist RR, Conrado ALV, Trotta MR, Ambrósio CE. Morphological evaluation of the male reproductive system of tiger (Panthera tigris). Ciência Animal Brasileira. 2012. DOI: 10.5216/cab.v13i4.14346.
 2. Dunn RH et al. Muscular anatomy of the forelimb of tiger (Panthera tigris). Journal of Anatomy. 2022. DOI: 10.1111/joa.13636.
 3. Day LM, Jayne BC. Interspecific scaling of the morphology and posture of the limbs during the locomotion of cats (Felidae). Journal of Experimental Biology. 2007. DOI: 10.1242/jeb.02703.
-4. Khonmee J et al. Effect of Electroejaculation Protocols on Semen Quality and Concentrations of Testosterone, Cortisol, Malondialdehyde, and Creatine Kinase in Captive Bengal Tigers. Animals. 2023. DOI: 10.3390/ani13121893.
+4. Fukui D et al. The Effects of Frequent Electroejaculation on the Semen Characteristics of a Captive Siberian Tiger (Panthera tigris altaica). Journal of Reproduction and Development. 2013. DOI: 10.1262/jrd.2013-016.
+5. Khonmee J et al. Effect of Electroejaculation Protocols on Semen Quality and Concentrations of Testosterone, Cortisol, Malondialdehyde, and Creatine Kinase in Captive Bengal Tigers. Animals. 2023. DOI: 10.3390/ani13121893.
 
 ## 10. Claim boundary
 
