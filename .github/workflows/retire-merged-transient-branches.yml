@@ -1,0 +1,144 @@
+name: Retire merged transient branches
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: read
+
+concurrency:
+  group: retire-merged-transient-branches
+  cancel-in-progress: false
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete exact merged transient branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          PUSH_SHA: ${{ github.sha }}
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import json
+          import os
+          from urllib.error import HTTPError
+          from urllib.parse import quote
+          from urllib.request import Request, urlopen
+
+          repo = os.environ["REPOSITORY"]
+          push_sha = os.environ["PUSH_SHA"]
+          token = os.environ["GH_TOKEN"]
+
+          durable = {
+              "main",
+              "research/ccts-human-ai-learning-lane",
+              "research/embodiment-lane",
+              "research/legacy-uncertainty-hold",
+          }
+          allowed_prefixes = (
+              "work/",
+              "docs/",
+              "fix/",
+              "feat/",
+              "governance/",
+              "quality/",
+              "review/",
+          )
+
+          def request_json(url: str, method: str = "GET"):
+              request = Request(
+                  url,
+                  method=method,
+                  headers={
+                      "Accept": "application/vnd.github+json",
+                      "Authorization": f"Bearer {token}",
+                      "User-Agent": "aion-merged-transient-retirement",
+                      "X-GitHub-Api-Version": "2022-11-28",
+                  },
+              )
+              try:
+                  with urlopen(request, timeout=30) as response:
+                      payload = response.read()
+                      return json.loads(payload) if payload else None
+              except HTTPError as error:
+                  detail = error.read().decode("utf-8", errors="replace")
+                  raise RuntimeError(
+                      f"GitHub API {method} failed ({error.code}): {detail}"
+                  ) from error
+
+          pulls = request_json(
+              f"https://api.github.com/repos/{repo}/commits/{push_sha}/pulls"
+          )
+          if not isinstance(pulls, list):
+              raise RuntimeError("commit-associated PR response is not a list")
+
+          candidates = []
+          for pull in pulls:
+              if not isinstance(pull, dict):
+                  continue
+              if not pull.get("merged_at"):
+                  continue
+              if pull.get("merge_commit_sha") != push_sha:
+                  continue
+              head = pull.get("head")
+              if not isinstance(head, dict):
+                  continue
+              head_repo = head.get("repo")
+              if not isinstance(head_repo, dict) or head_repo.get("full_name") != repo:
+                  continue
+              branch = head.get("ref")
+              head_sha = head.get("sha")
+              if not isinstance(branch, str) or not isinstance(head_sha, str):
+                  continue
+              if branch in durable:
+                  raise RuntimeError(f"refusing to delete durable branch: {branch}")
+              if not branch.startswith(allowed_prefixes):
+                  raise RuntimeError(f"refusing disallowed transient prefix: {branch}")
+              candidates.append((branch, head_sha))
+
+          if len(candidates) > 1:
+              raise RuntimeError(f"ambiguous merged transient candidates: {candidates}")
+          if not candidates:
+              print("No same-repository merged transient branch associated with this push.")
+              raise SystemExit(0)
+
+          branch, expected_head = candidates[0]
+          encoded = quote(branch, safe="")
+          live = request_json(
+              f"https://api.github.com/repos/{repo}/git/ref/heads/{encoded}"
+          )
+          try:
+              live_head = live["object"]["sha"]
+          except (KeyError, TypeError) as error:
+              raise RuntimeError("live branch ref response missing exact SHA") from error
+
+          if live_head != expected_head:
+              raise RuntimeError(
+                  "branch moved after merge; retirement stopped: "
+                  f"{branch} expected={expected_head} live={live_head}"
+              )
+
+          request_json(
+              f"https://api.github.com/repos/{repo}/git/refs/heads/{encoded}",
+              method="DELETE",
+          )
+          print(
+              json.dumps(
+                  {
+                      "status": "DELETED",
+                      "branch": branch,
+                      "exact_head": expected_head,
+                      "trigger_merge_commit": push_sha,
+                  },
+                  sort_keys=True,
+              )
+          )
+          PY
