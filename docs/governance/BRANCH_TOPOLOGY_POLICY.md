@@ -17,13 +17,13 @@
 
 四支穩定拓樸不能取消 code review，因此容許多個 transient branch（短期工作分支）並行。`maximum_open_pr_branches = null` 代表不設定同時 open PR branch 的數量硬上限；這不改變 durable branch 固定為四支的規則：
 
-- 必須是同倉庫 open PR 的 head；沒有 open PR 的額外 branch 立即違規。
+- active transient branch 應是同倉庫 open PR 的 head；若 PR 已關閉／合併而 branch 暫時殘留，合法前綴的 branch 可進入 `DEFERRED_CLEANUP`，不因短期殘留讓 CI 失敗。
 - 名稱只允許 `work/`、`docs/`、`fix/`、`feat/`、`governance/`、`quality/` 或 `review/` 前綴。
 - 多個 transient branch 可同時存在，只要每一支都是同倉庫 open PR 的 head 且符合允許前綴；數量本身不構成違規。
-- PR 關閉或合併時只啟動唯讀 retirement assessment。非 durable 加上 SHA 相同只證明分支未漂移，不是刪除許可。merged 與 closed-unmerged 分別分類，兩者皆保持 HOLD。
-- PR 分支是運輸／審查載體，不是第五條研究線；工作完成後穩定狀態必須回到四支。
+- PR 關閉或合併時只啟動唯讀 retirement assessment。`HOLD` 是保存／授權診斷，不再作為 GitHub workflow failure；非 durable 加上 SHA 相同只證明分支未漂移，不是刪除許可。merged 與 closed-unmerged 分別分類，兩者皆保持 HOLD。
+- PR 分支是運輸／審查載體，不是第五條研究線；理想穩定狀態仍是四支，但允許合法 transient branch 在清理批次前暫留於 `DEFERRED_CLEANUP`。
 
-需要並行工作時，可以各自使用合法 transient branch + open PR；這些 branch 仍是短期審查載體，不因此升格為 durable branch。PR 完成後可依 retirement／保存程序批次清理。
+需要並行工作時，可以各自使用合法 transient branch + open PR；這些 branch 仍是短期審查載體，不因此升格為 durable branch。PR 完成後可依 retirement／保存程序定期批次清理，不要求每次 merge 後立即刪除。
 
 ## 3. 可回復清理
 
@@ -44,18 +44,19 @@ Tag 保存 commit history 與原分支名稱的對應，但不賦予該歷史 ma
 ## 4. 自動化與失敗語意
 
 - `scripts/validate_branch_topology.py` 以 GitHub live API 檢查 fixed set、open-PR 關聯、允許前綴，以及 policy 可選的數量上限；目前 `maximum_open_pr_branches=null`，因此不設 hard cap。也支援固定輸入檔供離線測試。
-- `.github/workflows/branch-topology-governance.yml` 在 branch 刪除、PR 事件、每日排程與手動觸發時檢查。刻意不在 branch `create` 瞬間 fail，避免合法 branch 尚未來得及建立 PR 時產生短暫假紅燈；若 branch 最終沒有 open PR，仍會在排程／手動巡檢中被判違規。關閉同倉庫 PR 時只執行唯讀 assessment，token 僅 `contents: read`。不從 PR ref 直接插值組合 shell 指令。
+- `.github/workflows/branch-topology-governance.yml` 在 branch 刪除、PR 事件、每日排程與手動觸發時檢查。刻意不在 branch `create` 瞬間 fail，避免合法 branch 尚未來得及建立 PR 時產生短暫假紅燈；合法前綴但沒有 open PR 的 branch 會列入 `DEFERRED_CLEANUP`，供之後批次清理。關閉同倉庫 PR 時的唯讀 assessment 為 advisory HOLD，保留診斷但不把正常 HOLD 畫成紅色 workflow failure；token 僅 `contents: read`。不從 PR ref 直接插值組合 shell 指令。
 - `Quality` 亦執行 live topology check，使不合規拓樸不能被誤報為完整 Quality pass。
 - API、權限、資料格式或 exact-head 核對失敗時，retirement 為 `HOLD`（exit 10）；一般拓樸驗證為 `ERROR`／`FAIL`，不是默認通過。
 - 相容欄位 `delete_after_pull_request_close=true` 表示「嘗試 guarded retirement assessment」，不表示 PR 關閉即刪除。舊 `--delete-closed-pr-head` 參數回傳 HOLD，沒有網路寫入；HTTP helper 限制為 GET，舊 DELETE transport 已移除。
-- HOLD 可能保留第五支已關閉 PR branch，使 topology check 顯示 FAIL；保存與授權優先，禁止為了變綠而刪除。workflow 即使 assessment HOLD 仍執行最後的唯讀拓樸讀回。
+- HOLD 可能保留已關閉 PR branch；合法前綴者列入 `DEFERRED_CLEANUP` 而不使 topology check 失敗。保存與授權仍優先，禁止為了變綠而刪除。workflow 即使 assessment HOLD 仍執行最後的唯讀拓樸讀回。
 
 ```text
 FOUR_DURABLE_BRANCHES = REQUIRED
-UNASSOCIATED_EXTRA_BRANCH = FAIL
+UNASSOCIATED_ALLOWED_PREFIX_BRANCH = DEFERRED_CLEANUP
+UNASSOCIATED_DISALLOWED_PREFIX_BRANCH = FAIL
 MORE_THAN_ONE_TRANSIENT_BRANCH = ALLOWED_WHEN_EACH_IS_OPEN_PR_ASSOCIATED
 OPEN_PR_TRANSIENT_HARD_CAP = NONE
-CLOSED_PR_TRANSIENT_BRANCH = READ_ONLY_RETIREMENT_ASSESSMENT
+CLOSED_PR_TRANSIENT_BRANCH = READ_ONLY_ADVISORY_RETIREMENT_ASSESSMENT
 RETIREMENT_READINESS != BRANCH_DELETE_AUTHORITY
 DELETE_EXECUTION = DISABLED_PENDING_VERIFIED_AUTHORITY_ADAPTER
 ARCHIVE_TAG = RECOVERY_POINTER
