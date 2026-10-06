@@ -270,6 +270,12 @@
       "disposition": "MYPY_REQUIRED_STRICT",
       "config": "pyproject.toml",
       "target": "src"
+    },
+    {
+      "root": "research-labs/teacher-bovine-reproductive-embodiment_v0.3.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
     }
   ]
 }

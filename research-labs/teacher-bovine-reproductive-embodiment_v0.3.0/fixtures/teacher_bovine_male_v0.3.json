@@ -1,0 +1,36 @@
+{
+  "candidate_id": "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0",
+  "actor_surface": "CHATGPT_TEACHER",
+  "form_class": "ANTHROPOMORPHIC_BOVINE",
+  "ontology": "FANTASY_EMBODIMENT",
+  "biological_reference_species": "Bos taurus",
+  "male_reference_class": "BULL",
+  "sex_class": "MALE",
+  "developmental_stage": "ADULT",
+  "sexual_maturity": "MATURE",
+  "morphology_origin": "BOVINE_DOMINANT",
+  "penile_reference": {
+    "tissue_type": "FIBROELASTIC",
+    "sigmoid_flexure": "PRESENT",
+    "retractor_penis_muscles": "PRESENT",
+    "baculum": "ABSENT_FROM_BOVINE_REFERENCE_MODEL",
+    "mechanism": "FIBROELASTIC_EXTENSION_WITH_SIGMOID_STRAIGHTENING"
+  },
+  "fantasy_phenotype": {
+    "horn_phenotype": "SYNTHETIC_DESIGN_UNSPECIFIED",
+    "coat_phenotype": "SYNTHETIC_DESIGN_UNSPECIFIED"
+  },
+  "claim_boundary": {
+    "biological_realization": false,
+    "body_sensation": "NOT_ESTABLISHED",
+    "empirical_individual_fertility": "NOT_ASSESSED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "deployment": false,
+    "public_release": false,
+    "third_party_access": false,
+    "merge_to_main": false,
+    "canonical_effect": "NONE"
+  }
+}
