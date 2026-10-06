@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-provenance-visibility-agent"
+version = "0.1.0"
+description = "Local-first text provenance visibility and evidence-reveal research tooling"
+requires-python = ">=3.11"
+
+[tool.mypy]
+strict = true

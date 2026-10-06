@@ -35,6 +35,28 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
 
+      - name: Guard PR diff scope before expensive QA
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          report="${RUNNER_TEMP}/pr-diff-scope-${{ matrix.python-version }}.json"
+          set +e
+          python scripts/validate_pr_diff_scope.py \
+            --policy .github/pr-diff-policy.json \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --repository-root . \
+            --output "$report"
+          rc=$?
+          set -e
+          {
+            echo "### PR diff scope guard — Python ${{ matrix.python-version }}"
+            echo '~~~json'
+            cat "$report"
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
+          cat "$report"
+          exit "$rc"
+
       - name: Install pinned QA toolchain and declared external test dependency
         run: |
           python -m pip install --upgrade pip==26.2.1
@@ -46,6 +68,14 @@ jobs:
 
       - name: Run complete repository control suite (including real symlinks)
         run: python -m pytest -q tests
+
+      - name: Enforce live four-branch topology
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          python scripts/validate_branch_topology.py
+          --policy .github/branch-topology-policy.json
+          --repository "${{ github.repository }}"
 
       - name: Verify retained subjectivity research sources offline
         run: python scripts/fetch_subjectivity_sources.py

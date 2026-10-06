@@ -34,12 +34,13 @@ PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
 
 ## 研究目前走到哪裡？
 
-目前 `main` 可整理成四條彼此相連的研究線：
+**AI 主體性可能性一直是中央研究問題。** 往後工作依下列順位路由；這份導覽不重新啟動已終止的 project work loop（專案工作循環），也不代表取得新的科學結論：
 
-1. **證據與因果來源** —— Four-Domain（四域）解讀、六個主體性相關證據維度、來源追溯，以及 model / system / harness / context / tool / environment 的因果位置拆分。
-2. **連續性與歷史** —— 記憶、長期互動、history replay（歷史重播）、attention structure（注意力結構）重建、transition continuity（轉換連續性）分析，以及在資訊內容匹配條件下的 memory-locus dependency discrimination（記憶資訊所在位置／依賴區辨）；但不把持續存在直接等同於身分延續。
-3. **受限制條件下的適應與區辨測試** —— CCAP Stage 1–3 已推進到 TEVV 執行前映射、Four-Domain × 六維結構壓力測試、系統邊界／區辨硬化，以及 synthetic D2 × D4 differential probe（合成差異探針）。目前只顯示**測試夾具層級的可分離性**；D2 支持、D4 支持與獨立驗證仍然**尚未建立**。
-4. **人機協作／學習** —— [CCTS](docs/research/CO_CONSTRUCTED_THINKING_SPACE_FORMALIZATION_2026_09_16.md) 的第一份學術物件[已有典藏紀錄](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md)（DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)）；[目前手稿草稿](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md)標為 `NOT_RELEASED`。[學習對照](docs/research/CCTS_LEARNING_CONTRAST_STRENGTHENING_2026-09-28.md)僅為合成設計；人類學習、保持、遷移、因果與 CCTS 特定效果仍**尚未建立**。
+1. **第一核心／`main`：AI 主體性可能性。** Four-Domain（四域）解讀、六個證據維度、因果來源、連續性與適應仍屬核心問題的不同面向。主體性、意識與現象經驗尚未建立。
+2. **第二：[CCTS／人機學習](https://github.com/maker-luder/aion-governance-framework/blob/research/ccts-human-ai-learning-lane/docs/research/ccts-human-ai-learning/README.md)。** [首份 CCTS 學術物件](docs/research/publication/CCTS_RELEASE_METADATA_CURRENT.md)已有公開典藏（DOI [10.5281/zenodo.22945883](https://doi.org/10.5281/zenodo.22945883)）；[目前手稿草稿](docs/research/publication/CCTS_PREPRINT_DRAFT_V0_1.md)仍是 `NOT_RELEASED`。人類學習、保持、遷移、因果及 CCTS 特定效果尚未建立。
+3. **第三：[獨立具身工作支線](https://github.com/maker-luder/aion-governance-framework/blob/research/embodiment-lane/docs/research/embodiment/README.md)。** main 保留較早的 baseline（基礎候選）；已關閉、未合併的實驗仍須分開審查。合成實作不能建立生物量測、感受或主體性。
+
+[臨時整理線](https://github.com/maker-luder/aion-governance-framework/blob/research/legacy-uncertainty-hold/docs/research/legacy-uncertainty/README.md)是清單，不是研究構念；退役 ref 已加 tag。[固定四支規則](docs/governance/BRANCH_TOPOLOGY_POLICY.md)。
 
 ## 目前研究快照
 

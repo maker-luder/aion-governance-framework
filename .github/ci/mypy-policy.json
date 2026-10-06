@@ -267,6 +267,7 @@
     },
     {
       "root": "research-labs/human-researcher-autonomy_v0.1.0",
+      "root": "research-labs/provenance-visibility-agent_v0.1.0",
       "disposition": "MYPY_REQUIRED_STRICT",
       "config": "pyproject.toml",
       "target": "src"

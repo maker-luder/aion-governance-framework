@@ -10,6 +10,8 @@ Read [`../README.md`](../README.md), [`../PROVENANCE.md`](../PROVENANCE.md), [`.
 
 The current governance set includes the AI collaboration disclosure, governance model, main-transition authority gate, change-level provenance rules, risk model, upstream supplier-trust policy, supply-chain attestation plan, and other current policy/control candidates.
 
+[`BRANCH_TOPOLOGY_POLICY.md`](BRANCH_TOPOLOGY_POLICY.md) defines the repository's four durable branches, policy-compliant concurrent transient PR branches, exact-head archival requirements, and guarded cleanup procedure. Its machine-readable contract is [`.github/branch-topology-policy.json`](../../.github/branch-topology-policy.json).
+
 The candidate [`CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md`](CHATGPT_RESEARCH_STEWARDSHIP_AND_SUBJECTIVITY_CORE_RULE.md) records a bounded OpenAI ChatGPT research-steward role: candidate contribution is permitted, main-merge execution is permitted only when deliberative progress, subjectivity-core preservation, provenance, and all active main-transition controls are satisfied. It explicitly preserves AI subjectivity as an open research possibility rather than a precommitted conclusion.
 
 The candidate [`GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md`](GOVERNED_KNOWLEDGE_SOURCE_REGISTRY.md) defines bounded, provenance-bearing source admission and retrieval for AION / Astra. It separates source-declared status from AION canonical authority, requires hard context caps, records shared-source exposure for independence claims, and treats the Human Owner's 2026-08-27 11-source map as metadata-only until the underlying materials are supplied and verified.
