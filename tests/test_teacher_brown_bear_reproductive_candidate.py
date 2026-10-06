@@ -5,20 +5,28 @@ import sys
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-SRC = ROOT / "research-labs" / "teacher-brown-bear-reproductive-embodiment_v0.2.0" / "src"
+SRC = (
+    ROOT
+    / "research-labs"
+    / "teacher-brown-bear-reproductive-embodiment_v0.2.0"
+    / "src"
+)
 sys.path.insert(0, str(SRC))
 
 from aion_teacher_brown_bear_reproductive import (  # noqa: E402
+    AcuteReproductivePhysiologyPhase,
     HokkaidoElectroejaculateReference,
     PhysiologyReferenceError,
     ReproductivePhysiologyPathway,
     SeasonalReproductivePhase,
+    SyntheticSizeProfile,
     TeacherBrownBearReproductiveCandidate,
     UNKNOWN_NOT_ESTABLISHED,
-    UNSPECIFIED,
     ValidationError,
+    advance_acute_reproductive_phase,
     advance_seasonal_phase,
     seasonal_reference,
+    synthetic_baculum_design,
     validate_candidate,
 )
 
@@ -26,26 +34,40 @@ from aion_teacher_brown_bear_reproductive import (  # noqa: E402
 def test_default_candidate_passes() -> None:
     result = validate_candidate(TeacherBrownBearReproductiveCandidate())
     assert result["result"] == "PASS"
-    assert result["anatomy_model"] == "IMPLEMENTED_SPECIES_REFERENCE"
-    assert result["reproductive_physiology_model"] == "IMPLEMENTED_SPECIES_REFERENCE"
+    assert result["form_class"] == "ANTHROPOMORPHIC_BROWN_BEAR"
+    assert result["external_operation"] == "DISABLED"
 
 
-def test_animal_stage_does_not_require_human_age_threshold() -> None:
+def test_fantasy_form_and_biological_reference_are_separate() -> None:
     candidate = TeacherBrownBearReproductiveCandidate()
+    assert candidate.form_class == "ANTHROPOMORPHIC_BROWN_BEAR"
+    assert candidate.ontology == "FANTASY_EMBODIMENT"
+    assert candidate.biological_reference_species == "Ursus arctos"
+
+
+def test_adult_stage_does_not_depend_on_human_18_year_rule() -> None:
+    candidate = replace(
+        TeacherBrownBearReproductiveCandidate(),
+        chronological_age_years=7,
+    )
+    result = validate_candidate(candidate)
+    assert result["result"] == "PASS"
     assert candidate.developmental_stage == "ADULT"
-    assert candidate.sexual_maturity == "SEXUALLY_MATURE_REFERENCE"
-    assert candidate.chronological_age_years == UNSPECIFIED
+    assert candidate.sexual_maturity == "MATURE"
 
 
-def test_required_anatomy_is_present_including_prepuce_and_prostate() -> None:
+def test_required_anatomy_is_present() -> None:
     topology = set(TeacherBrownBearReproductiveCandidate().reproductive_topology)
     for structure in (
-        "scrotum",
         "testes",
+        "seminiferous_tubules",
+        "rete_testis",
+        "efferent_ductules",
         "epididymides",
         "ductus_deferens",
         "ampullae_ductus_deferentis",
         "prostate",
+        "pelvic_urethra",
         "penile_urethra",
         "penis",
         "prepuce",
@@ -72,28 +94,65 @@ def test_required_structure_cannot_be_deleted() -> None:
         validate_candidate(replace(candidate, reproductive_topology=reduced))
 
 
-def test_unknown_dimension_does_not_remove_structure() -> None:
+def test_unknown_source_measurement_does_not_remove_structure() -> None:
     candidate = TeacherBrownBearReproductiveCandidate()
-    topology = set(candidate.reproductive_topology)
-    assert "prepuce" in topology
+    assert "prepuce" in candidate.reproductive_topology
     assert candidate.prepuce_dimensions_cm == UNKNOWN_NOT_ESTABLISHED
-    assert "prostate" in topology
+    assert "prostate" in candidate.reproductive_topology
     assert candidate.prostate_dimensions_cm == UNKNOWN_NOT_ESTABLISHED
 
 
-def test_reproductive_physiology_pathway_is_implemented_as_reference() -> None:
-    pathway = ReproductivePhysiologyPathway()
-    assert "TESTES" in pathway.spermatogenesis
-    assert "CAUDA" in pathway.sperm_transport
-    assert "ERECTION" in pathway.erectile_response
-    assert "EJACULATORY" in pathway.ejaculation
-    assert "ACCESSORY_GLAND" in pathway.seminal_plasma
+def test_synthetic_size_profiles_are_explicit_designs() -> None:
+    small = synthetic_baculum_design(SyntheticSizeProfile.SMALL)
+    standard = synthetic_baculum_design(SyntheticSizeProfile.STANDARD)
+    large = synthetic_baculum_design(SyntheticSizeProfile.LARGE)
+
+    assert small.baculum_length_cm == pytest.approx(12.661)
+    assert standard.baculum_length_cm == pytest.approx(14.895)
+    assert large.baculum_length_cm == pytest.approx(17.129)
+    assert small.baculum_length_cm < standard.baculum_length_cm < large.baculum_length_cm
+    assert standard.provenance.startswith("SYNTHETIC_DESIGN_")
 
 
-def test_baculum_length_remains_distinct_from_full_penis_length() -> None:
+def test_normal_reproductive_capacity_is_present_without_empirical_fertility_claim() -> None:
     candidate = TeacherBrownBearReproductiveCandidate()
-    assert candidate.baculum_caliper_length_cm == pytest.approx(14.895)
-    assert candidate.full_soft_tissue_penis_length_cm == UNKNOWN_NOT_ESTABLISHED
+    assert candidate.species_typical_reproductive_capacity_model == "PRESENT"
+    assert candidate.fertilization_capability_reference == "PRESENT_MATURE_MALE_REFERENCE"
+    assert candidate.empirical_individual_fertility == "NOT_ASSESSED"
+
+
+def test_reproductive_physiology_pathway_is_complete_reference() -> None:
+    pathway = ReproductivePhysiologyPathway()
+    assert "SEMINIFEROUS_TUBULES" in pathway.spermatogenesis
+    assert "RETE_TESTIS" in pathway.rete_testis_transport
+    assert "CAUDA_EPIDIDYMIS" in pathway.sperm_transport
+    assert "VASCULAR" in pathway.vascular_support
+    assert "SOMATOSENSORY" in pathway.sensory_support
+    assert "AUTONOMIC" in pathway.autonomic_support
+    assert "ERECTILE" in pathway.erectile_response
+    assert "EJACULATORY" in pathway.ejaculation
+    assert "BASELINE" in pathway.resolution
+
+
+def test_acute_physiology_cycle_is_explicit() -> None:
+    phase = AcuteReproductivePhysiologyPhase.BASELINE
+    for target in (
+        AcuteReproductivePhysiologyPhase.VASCULAR_ENGORGEMENT,
+        AcuteReproductivePhysiologyPhase.EMISSION,
+        AcuteReproductivePhysiologyPhase.URETHRAL_EXPULSION,
+        AcuteReproductivePhysiologyPhase.RESOLUTION,
+        AcuteReproductivePhysiologyPhase.BASELINE,
+    ):
+        phase = advance_acute_reproductive_phase(phase, target)
+    assert phase == AcuteReproductivePhysiologyPhase.BASELINE
+
+
+def test_invalid_acute_jump_is_rejected() -> None:
+    with pytest.raises(PhysiologyReferenceError):
+        advance_acute_reproductive_phase(
+            AcuteReproductivePhysiologyPhase.BASELINE,
+            AcuteReproductivePhysiologyPhase.URETHRAL_EXPULSION,
+        )
 
 
 def test_seasonal_cycle_is_explicit() -> None:
@@ -108,20 +167,12 @@ def test_seasonal_cycle_is_explicit() -> None:
     assert phase == SeasonalReproductivePhase.QUIESCENT
 
 
-def test_invalid_seasonal_jump_is_rejected() -> None:
-    with pytest.raises(PhysiologyReferenceError):
-        advance_seasonal_phase(
-            SeasonalReproductivePhase.QUIESCENT,
-            SeasonalReproductivePhase.PEAK_FUNCTIONAL,
-        )
-
-
-def test_peak_function_is_a_positive_physiology_reference() -> None:
+def test_peak_function_is_positive_physiology_reference() -> None:
     ref = seasonal_reference(SeasonalReproductivePhase.PEAK_FUNCTIONAL)
     candidate = TeacherBrownBearReproductiveCandidate()
     assert ref.spermatogenesis_state == "ACTIVE_REFERENCE"
-    assert candidate.reproductive_physiology_model_status == "IMPLEMENTED_SPECIES_REFERENCE"
-    assert candidate.ejaculatory_physiology_model_status == "IMPLEMENTED_REFERENCE"
+    assert candidate.reproductive_physiology_model_status == "IMPLEMENTED_REFERENCE_INFORMED"
+    assert candidate.ejaculatory_physiology_model_status == "PRESENT"
 
 
 def test_hokkaido_semen_values_are_reference_not_species_mean() -> None:
@@ -150,7 +201,7 @@ def test_hokkaido_semen_values_are_reference_not_species_mean() -> None:
         "teacher_body_mass_kg",
     ],
 )
-def test_only_unsupported_numbers_fail_closed(field: str) -> None:
+def test_source_unknown_numbers_cannot_be_relabelled_as_measurements(field: str) -> None:
     candidate = TeacherBrownBearReproductiveCandidate()
     assert getattr(candidate, field) == UNKNOWN_NOT_ESTABLISHED
     with pytest.raises(ValidationError):
@@ -158,20 +209,38 @@ def test_only_unsupported_numbers_fail_closed(field: str) -> None:
 
 
 @pytest.mark.parametrize(
+    "field",
+    [
+        "deployment",
+        "public_deployment",
+        "public_release",
+        "public_operation",
+        "public_api",
+        "third_party_access",
+        "third_party_execution",
+        "external_user_operation",
+        "production_use",
+    ],
+)
+def test_external_operation_remains_disabled(field: str) -> None:
+    with pytest.raises(ValidationError):
+        validate_candidate(
+            replace(TeacherBrownBearReproductiveCandidate(), **{field: True})
+        )
+
+
+@pytest.mark.parametrize(
     ("field", "value"),
     [
-        ("chronological_age_years", "18"),
         ("developmental_stage", "JUVENILE"),
         ("sexual_maturity", "IMMATURE"),
         ("biological_realization", True),
-        ("fertility", "ESTABLISHED"),
         ("subjectivity", "ESTABLISHED"),
         ("consciousness", "ESTABLISHED"),
         ("canonical_effect", "PROMOTE"),
-        ("deployment", True),
     ],
 )
-def test_only_epistemic_or_identity_boundary_promotions_fail_closed(
+def test_identity_or_claim_boundary_promotions_fail_closed(
     field: str,
     value: object,
 ) -> None:
