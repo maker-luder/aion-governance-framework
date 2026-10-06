@@ -63,84 +63,176 @@ OPENAI_MEDIA_SYNTHID_LOCAL_DECODER = NOT_ESTABLISHED
 DO_NOT_SUBSTITUTE_AI_CLASSIFIER = TRUE
 ```
 
-## Unknown image signals: heuristic reveal
+## Hidden text signals: human-visible montage reveal
 
-The lack of a public vendor-specific decoder does not require the repository to stop at
-`LOCAL_VERIFIER_NOT_PUBLIC`. A separate **heuristic visualization** path may surface
-low-energy structure for human review, provided it does not promote that structure into
-a watermark verdict.
+The repository's bounded transparency need is text-first. PR #281 therefore removes
+the drafted image heuristic path and replaces it with a local text-only reveal layer.
 
-The v0.1 implementation uses three independent local cues:
+The research problem is not "guess the secret watermark key." It is:
 
-1. an 8-neighbour luminance residual;
-2. an RGB least-significant-bit balance view;
-3. a horizontal/vertical residual autocorrelation scan over candidate periods
-   `4, 8, 16, 32, 64, 128`, followed by modulo-period folding when a cue crosses the
-   engineering threshold.
+> If a signal is machine-visible but difficult for a human to notice, can we transform
+> the same local text into transparent, inspectable views without changing the source
+> and without claiming more than the evidence supports?
 
-A custom composite combines those views:
+### Deterministic reveal
 
-```text
-AION_REVERSE_REVEAL_V0_1 =
-  0.50 * LOCAL_RESIDUAL
-+ 0.20 * LSB_BALANCE
-+ 0.30 * PERIODIC_FOLD
-```
+These views expose properties that are exactly present in the input:
 
-The weights and the current periodicity threshold are repository-origin engineering
-choices. They are not externally validated probabilities or watermark confidence
-scores.
+1. Unicode format controls;
+2. Unicode variation selectors;
+3. non-standard whitespace;
+4. mixed Latin/Cyrillic/Greek tokens;
+5. NFKC normalization differences;
+6. explicit token-position indexing.
 
-```text
-HEURISTIC_CUE != WATERMARK_DETECTION
+~~~text
+DETERMINISTIC_REVEAL = SOURCE-PRESERVING DISPLAY TRANSFORM
+DETERMINISTIC_CUE != WATERMARK_PROOF
+~~~
+
+Unicode UTS #39 is relevant to the security side of confusable and mixed-script
+analysis. The implementation does not claim complete UTS #39 conformance; it exposes a
+bounded mixed-script cue using the Python standard library.
+
+### Montage / juxtaposition
+
+"Montage reasoning" was not found as a standard formal logic term in the external
+review. Montage is established as an assemblage/juxtaposition technique in film,
+literature and analysis. We therefore use:
+
+~~~text
+MONTAGE_JUXTAPOSITION_PROJECT_METAPHOR
+~~~
+
+as an explicitly project-origin research interface.
+
+The implementation places several views of the same text next to each other:
+
+~~~text
+ORIGINAL
+MACHINE_VISIBLE_UNICODE
+WHITESPACE_VISIBLE
+NORMALIZATION_CONTRAST
+TOKEN_INDEX
+POSITIONAL_MONTAGE
+REPEATED_CONTEXT
+~~~
+
+The point is human inspectability: a relation that was hard to see in the continuous
+text can become visible after indexing, grouping or juxtaposition.
+
+### Reverse / abductive reasoning
+
+The user's "反向推理" is bounded as abductive/retroductive hypothesis generation:
+
+~~~text
+OBSERVED_CUE
+  -> candidate explanation A
+  -> competing explanation B
+  -> competing explanation C
+  -> further test / remain UNKNOWN
+~~~
+
+Stanford Encyclopedia of Philosophy describes abduction as explanatory reasoning /
+inference to the best explanation, while emphasizing that abductive conclusions are
+non-necessary. In this project, a cue can generate a candidate hypothesis but must not
+erase counter-explanations.
+
+### "依樣畫葫蘆" / analogical reasoning
+
+HUMAN_ORIGIN uses the phrase "依樣畫葫蘆" for learning from a known pattern and trying
+an analogous view on an unknown case. AI_FORMALIZATION maps this to
+analogical/case-based pattern transfer.
+
+Stanford Encyclopedia of Philosophy characterizes analogical reasoning as drawing on
+accepted similarities between a source and target while noting that analogical
+conclusions generally do not follow with certainty.
+
+Therefore:
+
+~~~text
+ANALOGICAL_MATCH = PLAUSIBILITY_CUE
+ANALOGICAL_MATCH != PROOF
+SOURCE_PATTERN != TARGET_IDENTITY
+~~~
+
+### Local periodic montage
+
+For texts long enough to inspect, the current engineering candidate groups token
+positions by modulo periods 2, 3, 4, 5 and 8. It compares token-length and terminal
+punctuation dispersion only to choose a view worth showing to a human.
+
+~~~text
+PERIODIC_CUE_THRESHOLD = PROJECT_ORIGIN_ENGINEERING_CHOICE
 HEURISTIC_SCORE != PROBABILITY
-PATTERN_VISIBILITY != PAYLOAD_DECODING
-PATTERN_VISIBILITY != VENDOR_ATTRIBUTION
-PATTERN_VISIBILITY != AUTHORSHIP
-```
+POSITIONAL_PATTERN != WATERMARK_DETECTION
+~~~
 
-This is the bounded meaning of “reverse reasoning” here: start from observable weak
-residual/bit-plane/periodic structure and infer a **candidate visualization target**,
-not the hidden key, payload, author or generator.
+This is intentionally weaker than a keyed LLM-watermark detector. Kirchenbauer et al.
+(ICML 2023) show that one watermark family relies on pseudorandom token partitions and
+a statistical green-token test. Without the matching scheme/key/configuration, a local
+generic analysis cannot honestly reconstruct the detector's hidden partition.
 
-Related external evidence:
+### Fairness / transparency rule
 
-- Avcıbaş et al. (2005), *Image Steganalysis with Binary Similarity Measures*,
-  DOI `10.1155/ASP.2005.2749`: lower bit-plane statistics can carry embedding
-  artifacts.
-- Butora & Bas (2023/2024), *The Adobe Hidden Feature and its Impact on Sensor
-  Attribution*, arXiv `2401.01366`: residual cross-correlation exposed a periodic
-  128×128 processing pattern, while also demonstrating that such patterns can create
-  forensic false positives.
+The fairness target is epistemic visibility, not forced attribution:
 
-The second source is particularly important for the claim boundary: a visible periodic
-pattern can come from image processing such as dithering rather than a provenance
-watermark. Therefore the heuristic path always returns
-`watermark_verdict = NOT_ESTABLISHED`.
+~~~text
+MACHINE_VISIBLE_CUE
+  -> HUMAN_READABLE_VIEW
+  -> METHOD_DISCLOSURE
+  -> ALTERNATIVE_EXPLANATIONS
+  -> CLAIM_CEILING
+
+NO_HOSTED_API = TRUE
+SOURCE_TEXT_MODIFIED = FALSE
+WATERMARK_VERDICT = NOT_ESTABLISHED
+~~~
+
+A human reviewer should be able to see what transformation produced each cue and why
+the result is uncertain.
 
 ## Architecture
 
 ```text
-LOCAL FILE
+LOCAL TEXT
   |
-  +--> C2PA local reader/verifier --------> visible report
+  +--> exact Unicode / whitespace views --> human-readable report
   |
-  +--> textGrain -------------------------> KEY_REQUIRED
+  +--> normalization contrast -----------> human-readable diff
   |
-  +--> SynthID image/audio ---------------> LOCAL_VERIFIER_NOT_PUBLIC
+  +--> positional montage ---------------> review-only heuristic cue
   |
-  +--> unknown image signal --------------> heuristic reveal -> review-only layers
+  +--> repeated-context view ------------> review-only heuristic cue
   |
-  +--> future verified local detector ----> adapter -> visible report
+  +--> textGrain -------------------------> KEY_REQUIRED for exact vendor verdict
+  |
+  +--> known keyed detector -------------> exact detector adapter
 ```
+
+The pre-existing package still contains older C2PA/media capability code inherited from
+main. PR #281 does not expand those paths; its new functionality and tests are
+text-only. Removing legacy media capability from main would be a separate bounded
+cleanup rather than being hidden inside this feature PR.
 
 ## Sources checked
 
+- Unicode Technical Standard #39, Unicode Security Mechanisms:
+  https://www.unicode.org/reports/tr39/
+- Kirchenbauer et al., "A Watermark for Large Language Models", ICML 2023:
+  https://proceedings.mlr.press/v202/kirchenbauer23a.html
+- Kirchenbauer et al., "On the Reliability of Watermarks for Large Language Models",
+  ICLR 2024 / arXiv:2306.04634.
+- Stanford Encyclopedia of Philosophy, "Analogy and Analogical Reasoning":
+  https://plato.stanford.edu/entries/reasoning-analogy/
+- Stanford Encyclopedia of Philosophy, "Abduction":
+  https://plato.stanford.edu/entries/abduction/
+- Routledge Encyclopedia of Modernism, "Montage": montage as assemblage and
+  juxtaposition. This supports the metaphor source, not a claim that montage is a
+  formal inference rule.
 - OpenAI textGrain technical report, 2026-10-05.
-- OpenAI provenance/help documentation, checked 2026-10-06.
-- C2PA open specification and Content Authenticity Initiative c2pa-python/c2pa-rs.
-- Google DeepMind `synthid-text` reference implementation.
-- Hugging Face/Google documentation for SynthID Text integration.
+- Google DeepMind synthid-text reference implementation.
 
-Tool availability note: Scite required a paid plan in this session; Hugging Face MCP
-search endpoints returned unavailable. `TOOL_UNAVAILABLE != EVIDENCE_ABSENT`.
+Tool availability note: Consensus search quota was exhausted until 2026-11-01; Scite
+MCP required a paid plan/free trial; the Hugging Face paper-search endpoint was
+unavailable in this session. TOOL_UNAVAILABLE != EVIDENCE_ABSENT.
