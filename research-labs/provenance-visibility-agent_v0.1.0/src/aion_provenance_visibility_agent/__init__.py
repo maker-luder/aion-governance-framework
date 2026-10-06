@@ -1,14 +1,4 @@
-from .text_reveal import (
-    CueKind,
-    MontagePanel,
-    PeriodicCue,
-    TextCue,
-    TextRevealReport,
-    render_text_reveal_markdown,
-    reveal_hidden_text_signal,
-)
-
-"""Local-first provenance visibility agent research candidate."""
+"""Text-only local provenance visibility research candidate."""
 
 from .agent import (
     MediaKind,
@@ -18,7 +8,15 @@ from .agent import (
     SignalOutcome,
     SignalType,
     render_markdown,
-    report_from_c2pa_manifest_store,
+)
+from .text_reveal import (
+    CueKind,
+    MontagePanel,
+    PeriodicCue,
+    TextCue,
+    TextRevealReport,
+    render_text_reveal_markdown,
+    reveal_hidden_text_signal,
 )
 
 __all__ = [
@@ -35,6 +33,5 @@ __all__ = [
     "TextRevealReport",
     "render_markdown",
     "render_text_reveal_markdown",
-    "report_from_c2pa_manifest_store",
     "reveal_hidden_text_signal",
 ]
