@@ -18,7 +18,7 @@ DURABLE = {
 
 def policy() -> dict[str, object]:
     return {
-        "schema_version": "1.3.0",
+        "schema_version": "1.4.0",
         "repository": "maker-luder/aion-governance-framework",
         "steady_state_branch_count": 4,
         "durable_branches": sorted(DURABLE),
@@ -26,6 +26,7 @@ def policy() -> dict[str, object]:
             "maximum_open_pr_branches": None,
             "require_open_pull_request": True,
             "allow_deferred_cleanup_without_open_pr": True,
+            "enforce_allowed_prefixes": False,
             "delete_after_pull_request_close": True,
             "allowed_prefixes": ["work/", "docs/", "fix/", "feat/", "governance/", "quality/", "review/"],
         },
@@ -84,11 +85,27 @@ def test_disabling_deferred_cleanup_restores_unassociated_failure() -> None:
     assert result["unassociated_transient"] == ["work/unreviewed"]
 
 
-def test_unassociated_branch_with_disallowed_prefix_still_fails() -> None:
-    result = evaluate_topology(policy(), DURABLE | {"research/not-a-durable-lane"}, set())
+def test_nonpreferred_unassociated_branch_is_deferred_cleanup_advisory() -> None:
+    branch = "maker-luder-patch-1"
+    result = evaluate_topology(policy(), DURABLE | {branch}, set())
+
+    assert result["status"] == "PASS"
+    assert result["deferred_cleanup"] == [branch]
+    assert result["nonpreferred_transient"] == [branch]
+    assert result["disallowed_transient"] == []
+
+
+def test_enforced_prefix_mode_still_fails_nonpreferred_unassociated_branch() -> None:
+    strict = policy()
+    transient = strict["transient_branch_policy"]
+    assert isinstance(transient, dict)
+    transient["enforce_allowed_prefixes"] = True
+    branch = "maker-luder-patch-1"
+
+    result = evaluate_topology(strict, DURABLE | {branch}, set())
 
     assert result["status"] == "FAIL"
-    assert result["disallowed_transient"] == ["research/not-a-durable-lane"]
+    assert result["disallowed_transient"] == [branch]
 
 
 def test_one_open_pr_branch_is_bounded_transient_not_steady_state() -> None:
@@ -163,11 +180,27 @@ def test_moved_retained_closed_branch_fails_closed() -> None:
     assert result["retained_head_mismatch"] == [branch]
 
 
-def test_disallowed_transient_prefix_fails_even_with_open_pr() -> None:
-    result = evaluate_topology(policy(), DURABLE | {"research/new-lane"}, {"research/new-lane"})
+def test_nonpreferred_transient_prefix_is_advisory_with_open_pr() -> None:
+    branch = "maker-luder-patch-1"
+    result = evaluate_topology(policy(), DURABLE | {branch}, {branch})
+
+    assert result["status"] == "PASS"
+    assert result["permitted_transient"] == [branch]
+    assert result["nonpreferred_transient"] == [branch]
+    assert result["disallowed_transient"] == []
+
+
+def test_enforced_prefix_mode_still_fails_nonpreferred_open_pr_branch() -> None:
+    strict = policy()
+    transient = strict["transient_branch_policy"]
+    assert isinstance(transient, dict)
+    transient["enforce_allowed_prefixes"] = True
+    branch = "maker-luder-patch-1"
+
+    result = evaluate_topology(strict, DURABLE | {branch}, {branch})
 
     assert result["status"] == "FAIL"
-    assert result["disallowed_transient"] == ["research/new-lane"]
+    assert result["disallowed_transient"] == [branch]
 
 
 def test_policy_rejects_duplicate_or_mismatched_durable_contract(tmp_path) -> None:
