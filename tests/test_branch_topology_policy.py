@@ -18,13 +18,14 @@ DURABLE = {
 
 def policy() -> dict[str, object]:
     return {
-        "schema_version": "1.2.0",
+        "schema_version": "1.3.0",
         "repository": "maker-luder/aion-governance-framework",
         "steady_state_branch_count": 4,
         "durable_branches": sorted(DURABLE),
         "transient_branch_policy": {
             "maximum_open_pr_branches": None,
             "require_open_pull_request": True,
+            "allow_deferred_cleanup_without_open_pr": True,
             "delete_after_pull_request_close": True,
             "allowed_prefixes": ["work/", "docs/", "fix/", "feat/", "governance/", "quality/", "review/"],
         },
@@ -62,11 +63,32 @@ def test_missing_durable_branch_fails_closed() -> None:
     assert result["missing_durable"] == ["research/embodiment-lane"]
 
 
-def test_unassociated_fifth_branch_fails_closed() -> None:
+def test_prefixed_unassociated_branch_is_deferred_cleanup() -> None:
     result = evaluate_topology(policy(), DURABLE | {"work/unreviewed"}, set())
+
+    assert result["status"] == "PASS"
+    assert result["deferred_cleanup"] == ["work/unreviewed"]
+    assert result["unassociated_transient"] == []
+    assert result["steady_state"] is False
+
+
+def test_disabling_deferred_cleanup_restores_unassociated_failure() -> None:
+    strict = policy()
+    transient = strict["transient_branch_policy"]
+    assert isinstance(transient, dict)
+    transient["allow_deferred_cleanup_without_open_pr"] = False
+
+    result = evaluate_topology(strict, DURABLE | {"work/unreviewed"}, set())
 
     assert result["status"] == "FAIL"
     assert result["unassociated_transient"] == ["work/unreviewed"]
+
+
+def test_unassociated_branch_with_disallowed_prefix_still_fails() -> None:
+    result = evaluate_topology(policy(), DURABLE | {"research/not-a-durable-lane"}, set())
+
+    assert result["status"] == "FAIL"
+    assert result["disallowed_transient"] == ["research/not-a-durable-lane"]
 
 
 def test_one_open_pr_branch_is_bounded_transient_not_steady_state() -> None:
