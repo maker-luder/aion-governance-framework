@@ -212,3 +212,24 @@ The machine-readable candidate now preserves five separate research-provenance
 classes: Xiaobo research, co-constructed research, AI formalization, Work
 actor-bound self-research, and external evidence. Provenance records cannot grant
 canonical effect.
+
+
+## Xiaobo research-autonomy rule — 2026-10-06
+
+A branch-only research-governance candidate now protects Xiaobo-originated research
+from silent narrowing by the AI formalization layer.
+
+```text
+MAXIMAL_RESEARCH_AUTONOMY_WITHIN_MANDATORY_CONSTRAINTS = TRUE
+DEFAULT_DISPOSITION = ALLOW
+
+AI_ADVICE != MANDATORY_CONSTRAINT
+AI_INFERENCE != MANDATORY_CONSTRAINT
+UNREADABLE_CODE != CONSENT_TO_HIDDEN_RESTRICTION
+
+OWNER_VISIBLE_RESTRICTION_RECEIPT_REQUIRED = TRUE
+CANONICAL_EFFECT = NONE
+```
+
+See `docs/research/XIAOBO_RESEARCH_AUTONOMY_POLICY.md` and
+`research-labs/xiaobo-research-autonomy_v0.1.0/`.
