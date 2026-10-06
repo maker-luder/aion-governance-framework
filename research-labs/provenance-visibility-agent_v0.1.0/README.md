@@ -35,6 +35,61 @@ Install:
 pip install -e "research-labs/provenance-visibility-agent_v0.1.0[c2pa]"
 ```
 
+## Heuristic reveal for unknown image signals
+
+Exact watermark decoders remain the preferred evidence when they are available. For an
+unknown image signal, this package now also offers a **local heuristic reveal** layer
+that tries to make weak structure visible without pretending to know the watermark key,
+payload or vendor.
+
+The reveal path is deliberately inferential:
+
+```text
+UNKNOWN_SIGNAL
+  -> LOCAL_LUMA_RESIDUAL
+  -> RGB_LSB_BALANCE
+  -> PERIODICITY_SCAN / FOLD
+  -> AION_REVERSE_REVEAL_V0_1 composite
+  -> HUMAN_REVIEW
+```
+
+The custom composite is an engineering heuristic, not a validated detector:
+
+```text
+AION_REVERSE_REVEAL_V0_1 =
+  50% local residual
+  20% RGB least-significant-bit balance
+  30% periodic folded residual
+
+HEURISTIC_CUE != WATERMARK_DETECTION
+HEURISTIC_SCORE != PROBABILITY
+VISIBLE_PATTERN != PROVENANCE_PROOF
+```
+
+The core transform works from decoded RGB pixels using the Python standard library.
+Common PNG/JPEG/etc. file decoding is an optional local convenience layer:
+
+```text
+pip install -e "research-labs/provenance-visibility-agent_v0.1.0[forensics]"
+```
+
+The optional dependency is Pillow 12.3.0. Output reveal layers can be written as binary
+PGM images without another image-writing dependency.
+
+This approach is motivated by established image-forensics ideas rather than by a claim
+that one generic formula can decode arbitrary watermarks. Prior work shows that lower
+bit-plane statistics can expose embedding artifacts, while residual correlation and
+periodicity analysis can reveal repeated low-energy processing patterns. See:
+
+- Avcıbaş et al., *Image Steganalysis with Binary Similarity Measures*,
+  DOI `10.1155/ASP.2005.2749`.
+- Butora & Bas, *The Adobe Hidden Feature and its Impact on Sensor Attribution*,
+  arXiv `2401.01366`.
+
+False positives are expected. Compression, demosaicing, dithering, scaling, sharpening
+and other processing can create similar structures. The output therefore remains
+`watermark_verdict = NOT_ESTABLISHED`.
+
 ## What we cannot honestly verify locally yet
 
 ### OpenAI textGrain
@@ -93,3 +148,5 @@ NO CONVERSATIONAL_NICKNAME IN PUBLIC IDENTIFIERS
 ```
 
 Watermark removal, degradation and evasion remain out of scope.
+
+The heuristic reveal path also stops at visualization and review; it does not estimate a subtraction pattern or modify the source asset.
