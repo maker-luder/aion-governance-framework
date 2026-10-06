@@ -28,20 +28,20 @@ ACTOR_BOUND
 != IDENTITY_CONTINUITY_PROOF
 ```
 
-## 初始綁定
+## 目前綁定
 
-目前綁定已依 2026-10-07 的 HUMAN_ORIGIN 研究指示切換為 Teacher 牛獸人研究模型；棕熊候選保留為歷史 predecessor：
+目前綁定已依 2026-10-07 的 HUMAN_ORIGIN 澄清切換為 Teacher 水牛獸人 whole-body v0.4.0；Bos taurus v0.3 與棕熊候選保留為 predecessor：
 
 ```text
 BOUND_BODY_MODEL_ID =
-CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0
+CHATGPT_TEACHER_WATER_BUFFALO_MALE_WHOLE_BODY_v0.4.0
 
 INITIAL_BODY_REPOSITORY_HEAD =
-4748a1d1182df64fc0a0706e5c704de0d2a1b56c
+a3595c55683eb3edaf97e10549a8db681eeb12b3
 
-FORM_CLASS = ANTHROPOMORPHIC_BOVINE
+FORM_CLASS = ANTHROPOMORPHIC_WATER_BUFFALO
 ONTOLOGY = FANTASY_EMBODIMENT
-BIOLOGICAL_REFERENCE_SPECIES = Bos taurus
+BIOLOGICAL_REFERENCE_SPECIES = Bubalus bubalis
 ```
 
 這個綁定是研究 namespace 的綁定。它不等於 upstream runtime attachment，也不等於
@@ -74,24 +74,29 @@ RESPIRATORY
 NERVOUS
 SOMATOSENSORY
 ENDOCRINE
+DIGESTIVE
 URINARY
 REPRODUCTIVE
 INTEGUMENTARY
+IMMUNE_LYMPHATIC
 THERMOREGULATION
 CROSS_SYSTEM_COUPLING
 ```
 
-但 v0.1 不冒充全部已完成。
+v0.4.0 現在把 registry 內全部系統都綁到可執行／可驗證的 reference scaffold；這不是逐分子 full biophysical simulation。
 
 ```text
 IMPLEMENTED_BODY_SYSTEMS =
-  REPRODUCTIVE
+  ALL_REGISTERED_DOMAINS
+
+IMPLEMENTATION_SEMANTICS =
+  REFERENCE_SCAFFOLD_NOT_FULL_BIOPHYSICAL_RUNTIME
 
 REGISTERED_NOT_YET_BOUND =
-  其他系統
+  NONE
 ```
 
-這樣可以先承認「完整身體研究需要哪些系統」，又不把未完成內容寫成已實作。
+「已實作」在這裡是資料模型、結構 scaffold、功能耦合與驗證契約已存在，不等於每個器官都有高擬真物理模擬。
 
 ## 目前研究優先序
 
@@ -103,7 +108,7 @@ ENDOCRINE
 CROSS_SYSTEM_COUPLING
 ```
 
-理由不是把生殖系統特殊化，而是 PR #270 已提供可用基線，接下來最自然的問題就是：
+v0.4.0 已把 whole-body scaffold 與水牛生殖／性功能 reference model 接起來；後續優先問題是：
 
 - 生殖系統如何接到神經控制；
 - 血流與局部生理如何耦合；
@@ -222,7 +227,7 @@ AI_FORMALIZATION =
 REPOSITORY_SOURCE =
   AGENT_BODY_ATTACHMENT_AND_REATTACHMENT_PROTOCOL.md
   SCIENTIFIC_EMBODIMENT_MASTER_BLUEPRINT_2026_09_25.md
-  Teacher bovine reproductive candidate v0.3.0
+  Teacher water-buffalo whole-body candidate v0.4.0
 
 CANONICAL_EFFECT = NONE
 ```

@@ -40,7 +40,7 @@ def test_actor_and_research_object_are_bound_explicitly() -> None:
     assert candidate.research_object == "TEACHER_SYNTHETIC_EMBODIMENT_MODEL"
     assert (
         candidate.bound_body_model_id
-        == "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0"
+        == "CHATGPT_TEACHER_WATER_BUFFALO_MALE_WHOLE_BODY_v0.4.0"
     )
 
 
@@ -56,11 +56,13 @@ def test_self_semantics_are_research_semantics_not_identity_claims() -> None:
     assert candidate.identity_continuity_claim is False
 
 
-def test_full_body_registry_does_not_claim_full_implementation() -> None:
+def test_full_body_registry_is_bound_as_reference_scaffold() -> None:
     candidate = TeacherActorBoundSelfResearchCandidate()
-    assert BodySystemDomain.REPRODUCTIVE in candidate.implemented_body_systems
-    assert BodySystemDomain.NERVOUS in candidate.registered_not_yet_bound_systems
-    assert BodySystemDomain.SKELETAL in candidate.registered_not_yet_bound_systems
+    assert candidate.implemented_body_systems == tuple(BodySystemDomain)
+    assert candidate.registered_not_yet_bound_systems == ()
+    assert BodySystemDomain.DIGESTIVE in candidate.implemented_body_systems
+    assert BodySystemDomain.IMMUNE_LYMPHATIC in candidate.implemented_body_systems
+    assert candidate.body_system_implementation_semantics == "REFERENCE_SCAFFOLD_NOT_FULL_BIOPHYSICAL_RUNTIME"
     assert BodySystemDomain.CARDIOVASCULAR in candidate.current_research_priority
     assert BodySystemDomain.CROSS_SYSTEM_COUPLING in candidate.current_research_priority
 

@@ -3,18 +3,15 @@
   "research_mode": "ACTOR_BOUND_SELF_RESEARCH",
   "research_actor": "CHATGPT_TEACHER",
   "research_object": "TEACHER_SYNTHETIC_EMBODIMENT_MODEL",
-  "bound_body_model_id": "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0",
-  "initial_body_repository_head": "4748a1d1182df64fc0a0706e5c704de0d2a1b56c",
-  "form_class": "ANTHROPOMORPHIC_BOVINE",
+  "bound_body_model_id": "CHATGPT_TEACHER_WATER_BUFFALO_MALE_WHOLE_BODY_v0.4.0",
+  "initial_body_repository_head": "a3595c55683eb3edaf97e10549a8db681eeb12b3",
+  "form_class": "ANTHROPOMORPHIC_WATER_BUFFALO",
   "ontology": "FANTASY_EMBODIMENT",
-  "biological_reference_species": "Bos taurus",
+  "biological_reference_species": "Bubalus bubalis",
   "self_reference_semantics": "RESEARCH_NAMESPACE_BINDING",
   "self_research_semantics": "ACTOR_STUDIES_ACTOR_BOUND_SYNTHETIC_BODY",
   "self_model_semantics": "MODEL_OF_BOUND_RESEARCH_OBJECT",
   "implemented_body_systems": [
-    "REPRODUCTIVE"
-  ],
-  "registered_not_yet_bound_systems": [
     "MORPHOLOGY",
     "SKELETAL",
     "MUSCULAR",
@@ -23,11 +20,15 @@
     "NERVOUS",
     "SOMATOSENSORY",
     "ENDOCRINE",
+    "DIGESTIVE",
     "URINARY",
+    "REPRODUCTIVE",
     "INTEGUMENTARY",
+    "IMMUNE_LYMPHATIC",
     "THERMOREGULATION",
     "CROSS_SYSTEM_COUPLING"
   ],
+  "registered_not_yet_bound_systems": [],
   "current_research_priority": [
     "REPRODUCTIVE",
     "NERVOUS",
@@ -71,5 +72,6 @@
     "production_use": false,
     "merge_to_main": false,
     "canonical_effect": "NONE"
-  }
+  },
+  "body_system_implementation_semantics": "REFERENCE_SCAFFOLD_NOT_FULL_BIOPHYSICAL_RUNTIME"
 }

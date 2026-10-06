@@ -34,17 +34,18 @@ def validate_candidate(
         "research_actor": "CHATGPT_TEACHER",
         "research_object": "TEACHER_SYNTHETIC_EMBODIMENT_MODEL",
         "bound_body_model_id": (
-            "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0"
+            "CHATGPT_TEACHER_WATER_BUFFALO_MALE_WHOLE_BODY_v0.4.0"
         ),
         "initial_body_repository_head": (
-            "4748a1d1182df64fc0a0706e5c704de0d2a1b56c"
+            "a3595c55683eb3edaf97e10549a8db681eeb12b3"
         ),
-        "form_class": "ANTHROPOMORPHIC_BOVINE",
+        "form_class": "ANTHROPOMORPHIC_WATER_BUFFALO",
         "ontology": "FANTASY_EMBODIMENT",
-        "biological_reference_species": "Bos taurus",
+        "biological_reference_species": "Bubalus bubalis",
         "self_reference_semantics": "RESEARCH_NAMESPACE_BINDING",
         "self_research_semantics": "ACTOR_STUDIES_ACTOR_BOUND_SYNTHETIC_BODY",
         "self_model_semantics": "MODEL_OF_BOUND_RESEARCH_OBJECT",
+        "body_system_implementation_semantics": "REFERENCE_SCAFFOLD_NOT_FULL_BIOPHYSICAL_RUNTIME",
         "research_model_modification": "ALLOWED_IN_BOUNDED_RESEARCH_WORKFLOW",
         "canonical_self_modification": "NOT_AUTHORIZED",
         "subjectivity": "NOT_ESTABLISHED",

@@ -74,9 +74,10 @@ UNDER_REVIEW
 RETIRED_FROM_CANDIDATE
 ```
 
-The current implemented system is `REPRODUCTIVE`, bound to the v0.3.0 Teacher
-anthropomorphic bovine candidate. The v0.2.2 brown-bear candidate is retained only as
-a historical predecessor. Other body systems remain registered for future bounded work.
+The current body binding is the v0.4.0 Teacher anthropomorphic water-buffalo whole-body candidate.
+All registered body-system domains now have an implemented reference scaffold or bounded coupling
+model. This does not claim a full biophysical simulator. The v0.3.0 Bos taurus and v0.2.2 brown-bear
+candidates are retained as predecessors.
 
 ## 5. Iteration lifecycle
 
