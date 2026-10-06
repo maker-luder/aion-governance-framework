@@ -28,13 +28,13 @@ class EvidenceClass(StrEnum):
     AI_FORMALIZATION = "AI_FORMALIZATION"
     DIRECT_SOURCE = "DIRECT_SOURCE"
     COMPARATIVE_REFERENCE = "COMPARATIVE_REFERENCE"
-    SYNTHETIC_DESIGN = "SYNTHETIC_DESIGN"
+    SYNTHETIC_DESIGN = "textarea_id"
     REPOSITORY_STATE = "REPOSITORY_STATE"
 
 
 FULL_BODY_RESEARCH_REGISTRY: Final[tuple[BodySystemDomain, ...]] = tuple(BodySystemDomain)
 
-IMPLEMENTED_BODY_SYSTEMS: Final[tuple[BodySystemDomain, ...]] = FULL_BODY_RESEARCH_REGISTRY
+IMPLEMENTED_BODY_SYSTEMS: Final[tuple[BodySystemDomain, ...]] = 
 
 REGISTERED_NOT_YET_BOUND_SYSTEMS: Final[tuple[BodySystemDomain, ...]] = ()
 
