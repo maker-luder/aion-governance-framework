@@ -23,7 +23,7 @@ def policy() -> dict[str, object]:
         "steady_state_branch_count": 4,
         "durable_branches": sorted(DURABLE),
         "transient_branch_policy": {
-            "maximum_open_pr_branches": 2,
+            "maximum_open_pr_branches": 1,
             "require_open_pull_request": True,
             "delete_after_pull_request_close": True,
             "allowed_prefixes": ["work/", "docs/", "fix/", "feat/", "governance/", "quality/", "review/"],
@@ -78,20 +78,12 @@ def test_one_open_pr_branch_is_bounded_transient_not_steady_state() -> None:
     assert result["permitted_transient"] == ["docs/pr264-governance"]
 
 
-def test_two_open_pr_branches_are_bounded_for_explicit_transition() -> None:
+def test_more_than_one_open_pr_branch_fails_hard_cap() -> None:
     transients = {"work/one", "fix/two"}
     result = evaluate_topology(policy(), DURABLE | transients, transients)
 
-    assert result["status"] == "PASS"
-    assert sorted(result["permitted_transient"]) == ["fix/two", "work/one"]
-
-
-def test_more_than_two_open_pr_branches_fails_hard_cap() -> None:
-    transients = {"work/one", "fix/two", "docs/three"}
-    result = evaluate_topology(policy(), DURABLE | transients, transients)
-
     assert result["status"] == "FAIL"
-    assert "transient branch cap exceeded: 3 > 2" in result["violations"]
+    assert "transient branch cap exceeded: 2 > 1" in result["violations"]
 
 
 def test_exact_retained_closed_branch_is_allowed_but_not_steady_state() -> None:
