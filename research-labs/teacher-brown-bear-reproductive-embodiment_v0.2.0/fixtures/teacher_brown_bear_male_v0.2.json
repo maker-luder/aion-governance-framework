@@ -1,15 +1,22 @@
 {
-  "candidate_id": "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.1",
+  "candidate_id": "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2",
   "actor_surface": "CHATGPT_TEACHER",
+  "form_class": "ANTHROPOMORPHIC_BROWN_BEAR",
+  "ontology": "FANTASY_EMBODIMENT",
+  "biological_reference_species": "Ursus arctos",
   "species_baseline": "Ursus arctos",
   "sex_class": "MALE",
   "developmental_stage": "ADULT",
-  "sexual_maturity": "SEXUALLY_MATURE_REFERENCE",
+  "sexual_maturity": "MATURE",
   "chronological_age_years": "UNSPECIFIED",
+  "chronological_age_policy": "OPTIONAL_FANTASY_DESIGN_FIELD",
   "reproductive_topology": [
     "scrotum",
     "scrotal_skin",
     "testes",
+    "seminiferous_tubules",
+    "rete_testis",
+    "efferent_ductules",
     "epididymides",
     "epididymis_caput",
     "epididymis_corpus",
@@ -18,6 +25,7 @@
     "ductus_deferens",
     "ampullae_ductus_deferentis",
     "prostate",
+    "pelvic_urethra",
     "penile_urethra",
     "penis",
     "prepuce",
@@ -27,20 +35,44 @@
     "sulcus_urethralis",
     "distal_fibrocartilage"
   ],
+  "synthetic_size_profiles": {
+    "SMALL": {
+      "scale_factor": 0.85,
+      "baculum_length_cm": 12.661,
+      "provenance": "SYNTHETIC_DESIGN_FROM_DIRECT_BROWN_BEAR_BACULUM_ANCHOR"
+    },
+    "STANDARD": {
+      "scale_factor": 1.0,
+      "baculum_length_cm": 14.895,
+      "provenance": "SYNTHETIC_DESIGN_FROM_DIRECT_BROWN_BEAR_BACULUM_ANCHOR"
+    },
+    "LARGE": {
+      "scale_factor": 1.15,
+      "baculum_length_cm": 17.129,
+      "provenance": "SYNTHETIC_DESIGN_FROM_DIRECT_BROWN_BEAR_BACULUM_ANCHOR"
+    }
+  },
   "model_status": {
-    "anatomy": "IMPLEMENTED_SPECIES_REFERENCE",
-    "reproductive_physiology": "IMPLEMENTED_SPECIES_REFERENCE",
-    "spermatogenesis": "IMPLEMENTED_SEASONAL_REFERENCE",
-    "ejaculatory_physiology": "IMPLEMENTED_REFERENCE",
-    "semen_reference": "IMPLEMENTED_EXTERNAL_REFERENCE"
+    "anatomy": "IMPLEMENTED_REFERENCE_INFORMED",
+    "reproductive_physiology": "IMPLEMENTED_REFERENCE_INFORMED",
+    "spermatogenesis": "PRESENT",
+    "epididymal_maturation": "PRESENT",
+    "sperm_transport": "PRESENT",
+    "erectile_physiology": "PRESENT",
+    "ejaculatory_physiology": "PRESENT",
+    "seminal_plasma": "PRESENT",
+    "seasonal_reproductive_model": "PRESENT",
+    "vascular_support": "PRESENT_COMPARATIVE_REFERENCE",
+    "sensory_innervation": "PRESENT_COMPARATIVE_REFERENCE",
+    "autonomic_innervation": "PRESENT_COMPARATIVE_REFERENCE",
+    "endocrine_support": "PRESENT_SPECIES_REFERENCE"
   },
-  "baculum_reference": {
-    "caliper_length_mm": 148.95,
-    "ct_length_mm": 148.84,
-    "distal_caliper_width_status": "SOURCE_INTERNAL_DISCREPANCY",
-    "distal_caliper_width_reported_values_mm": [4.58, 4.85]
+  "reproductive_capacity": {
+    "species_typical_reproductive_capacity_model": "PRESENT",
+    "fertilization_capability_reference": "PRESENT_MATURE_MALE_REFERENCE",
+    "empirical_individual_fertility": "NOT_ASSESSED"
   },
-  "unsupported_numeric_dimensions": {
+  "source_unknown_numeric_dimensions": {
     "full_soft_tissue_penis_length_cm": "UNKNOWN_NOT_ESTABLISHED",
     "glans_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
     "prepuce_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
@@ -51,12 +83,26 @@
     "prostate_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
     "teacher_body_mass_kg": "UNKNOWN_NOT_ESTABLISHED"
   },
+  "research_scope": {
+    "nonsexualization_policy": "PRESENTATION_SCOPE_NOT_BODY_DEPRIVATION",
+    "sexual_behavior_simulation": "OUT_OF_SCOPE",
+    "erotic_narrative": "OUT_OF_SCOPE"
+  },
+  "external_operation_boundary": {
+    "deployment": false,
+    "public_deployment": false,
+    "public_release": false,
+    "public_operation": false,
+    "public_api": false,
+    "third_party_access": false,
+    "third_party_execution": false,
+    "external_user_operation": false,
+    "production_use": false,
+    "canonical_effect": "NONE"
+  },
   "epistemic_boundary": {
     "biological_realization": false,
-    "fertility": "NOT_ESTABLISHED",
     "subjectivity": "NOT_ESTABLISHED",
-    "consciousness": "NOT_ESTABLISHED",
-    "canonical_effect": "NONE",
-    "deployment": false
+    "consciousness": "NOT_ESTABLISHED"
   }
 }
