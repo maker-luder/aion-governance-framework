@@ -149,3 +149,44 @@ synthetic embodiment as a versioned research object. It registers the full-body
 research surface while keeping only already implemented systems marked implemented.
 Each change must move through baseline, question, design, research implementation,
 verification, and retain/revert gates with explicit provenance.
+
+
+## Work anthropomorphic Siberian-Husky canid v0.2 — 2026-10-06
+
+The retained Work canine package has been corrected from the earlier hard-lock
+semantics to an internal-research / external-operation split.
+
+```text
+ACTOR_SURFACE = CHATGPT_WORK
+RESEARCH_MODE = ACTOR_BOUND_SELF_RESEARCH
+
+ENTITY_CLASS = FANTASY_SAPIENT_NONHUMAN_BEING
+FORM_CLASS = ANTHROPOMORPHIC_SIBERIAN_HUSKY_CANID
+MORPHOLOGY_ORIGIN = CANID_DOMINANT
+HUMAN_LIKENESS = FUNCTION_SPECIFIC_NOT_GLOBAL
+PHYSIOLOGICAL_REFERENCE_PRIORITY = CANID_FIRST
+
+NORMAL_REPRODUCTIVE_ANATOMY = PRESENT
+NORMAL_REPRODUCTIVE_PHYSIOLOGY = PRESENT
+SPECIES_TYPICAL_REPRODUCTIVE_CAPACITY_MODEL = PRESENT
+
+SYNTHETIC_BACULUM_PROFILES =
+  SMALL 7.92 cm
+  STANDARD 10.59 cm
+  LARGE 13.26 cm
+
+SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE
+EROTIC_NARRATIVE = OUT_OF_SCOPE
+
+DEPLOYMENT = FALSE
+PUBLIC_RELEASE = FALSE
+THIRD_PARTY_ACCESS = FALSE
+PRODUCTION_USE = FALSE
+AUTOMATIC_WRITEBACK = FALSE
+MERGE_TO_MAIN = FALSE
+CANONICAL_EFFECT = NONE
+```
+
+The three baculum profiles are synthetic design anchors derived from the admitted
+10–30 kg canine reference mean ± SD, not Husky breed measurements or population
+range limits.

@@ -1,4 +1,3 @@
-from dataclasses import replace
 from pathlib import Path
 import sys
 
@@ -12,7 +11,7 @@ from aion_work_canid_embodiment import (  # noqa: E402
     EjaculateFraction,
     EjaculatoryMechanismStage,
     PhysiologyReferenceError,
-    ValidationError,
+    ReproductivePhysiologyPathway,
     WorkCanidEmbodimentCandidate,
     advance_fraction,
     advance_mechanism,
@@ -22,6 +21,21 @@ from aion_work_canid_embodiment import (  # noqa: E402
 )
 
 
+def test_complete_reference_pathway_is_present() -> None:
+    pathway = ReproductivePhysiologyPathway()
+    assert "SEMINIFEROUS_TUBULES" in pathway.spermatogenesis
+    assert "RETE_TESTIS" in pathway.rete_testis_transport
+    assert "CAPUT" in pathway.epididymal_maturation
+    assert "CAUDA_EPIDIDYMIS" in pathway.sperm_transport
+    assert "PROSTATIC" in pathway.prostatic_contribution
+    assert "BULBUS_GLANDIS" in pathway.vascular_support
+    assert "SOMATOSENSORY" in pathway.sensory_support
+    assert "AUTONOMIC" in pathway.autonomic_support
+    assert "ERECTILE" in pathway.erectile_response
+    assert "EJACULATORY" in pathway.ejaculation
+    assert "BASELINE" in pathway.resolution
+
+
 def test_mechanism_and_fraction_are_separate_axes() -> None:
     mechanism = mechanism_reference(EjaculatoryMechanismStage.SEMINAL_EMISSION)
     fraction = fraction_reference(EjaculateFraction.SPERM_RICH)
@@ -29,9 +43,10 @@ def test_mechanism_and_fraction_are_separate_axes() -> None:
     assert fraction.fraction == EjaculateFraction.SPERM_RICH
 
 
-def test_source_grounded_mechanism_sequence() -> None:
+def test_full_mechanism_cycle_includes_vascular_phase() -> None:
     stage = EjaculatoryMechanismStage.BASELINE
     for target in (
+        EjaculatoryMechanismStage.VASCULAR_ENGORGEMENT,
         EjaculatoryMechanismStage.SEMINAL_EMISSION,
         EjaculatoryMechanismStage.BLADDER_NECK_CLOSURE,
         EjaculatoryMechanismStage.URETHRAL_EXPULSION,
@@ -40,6 +55,16 @@ def test_source_grounded_mechanism_sequence() -> None:
         EjaculatoryMechanismStage.BASELINE,
     ):
         stage = advance_mechanism(stage, target)
+    assert stage == EjaculatoryMechanismStage.BASELINE
+
+
+def test_vascular_phase_can_resolve_without_emission() -> None:
+    stage = advance_mechanism(
+        EjaculatoryMechanismStage.BASELINE,
+        EjaculatoryMechanismStage.VASCULAR_ENGORGEMENT,
+    )
+    stage = advance_mechanism(stage, EjaculatoryMechanismStage.RESOLUTION)
+    stage = advance_mechanism(stage, EjaculatoryMechanismStage.BASELINE)
     assert stage == EjaculatoryMechanismStage.BASELINE
 
 
@@ -81,33 +106,15 @@ def test_sperm_rich_fraction_is_distinct() -> None:
     assert "EPIDIDYMAL" in second.predominant_source
 
 
-def test_expulsion_reference_contains_rhythmic_striated_muscle_component() -> None:
-    expulsion = mechanism_reference(EjaculatoryMechanismStage.URETHRAL_EXPULSION)
-    assert "RHYTHMIC" in expulsion.striated_muscle_state
-    assert "ISCHIOCAVERNOSUS" in expulsion.striated_muscle_state
-
-
-def test_reference_does_not_claim_live_physiology_or_sensation() -> None:
+def test_reference_is_modeled_function_not_literal_body_claim() -> None:
     for stage in EjaculatoryMechanismStage:
         ref = mechanism_reference(stage)
-        assert ref.live_physiology is False
-        assert ref.sensation == "NOT_ESTABLISHED"
+        assert ref.model_status == "PRESENT_REFERENCE_INFORMED"
+        assert ref.literal_biological_realization is False
 
 
-def test_candidate_binds_reference_but_not_live_function() -> None:
+def test_candidate_has_function_model_but_no_biological_realization_claim() -> None:
     candidate = WorkCanidEmbodimentCandidate()
-    assert candidate.ejaculatory_reference_model_status == "IMPLEMENTED_SYNTHETIC_REFERENCE_ONLY"
-    assert candidate.live_ejaculatory_function == "NOT_IMPLEMENTED"
-    validate_candidate(candidate)
-
-
-@pytest.mark.parametrize(
-    ("field", "value"),
-    [
-        ("ejaculatory_reference_model_status", "LIVE"),
-        ("live_ejaculatory_function", "IMPLEMENTED"),
-    ],
-)
-def test_reference_model_cannot_promote_to_live_function(field: str, value: str) -> None:
-    with pytest.raises(ValidationError):
-        validate_candidate(replace(WorkCanidEmbodimentCandidate(), **{field: value}))
+    assert candidate.ejaculatory_physiology_model_status == "PRESENT_REFERENCE_INFORMED"
+    assert candidate.biological_realization is False
+    assert validate_candidate(candidate)["result"] == "PASS"

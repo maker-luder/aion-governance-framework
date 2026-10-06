@@ -1,92 +1,67 @@
-# Canine Ejaculatory Physiology Reference
+# Work Husky Reproductive Physiology Reference — v0.2
 
-Status: `SOURCE-GROUNDED SYNTHETIC REFERENCE / NON-LIVE`
-
-This document defines a clinically neutral physiology reference for the Work canine embodiment candidate. It does not model mating behavior, subjective sensation, desire or fertility.
-
-## Why there are two axes
-
-Canine ejaculation should not be represented by one boolean and should not conflate physiological mechanism with ejaculate fraction.
+This document describes clinically neutral body-system physiology for the synthetic
+Work anthropomorphic Siberian-Husky candidate.
 
 ```text
-MECHANISM_STAGE != EJACULATE_FRACTION
+NORMAL_REPRODUCTIVE_PHYSIOLOGY = PRESENT
+SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE
+EROTIC_NARRATIVE = OUT_OF_SCOPE
 ```
 
-### Mechanism axis
-
-A veterinary study of normal antegrade canine ejaculation describes three sequential processes:
-
-1. seminal emission;
-2. bladder-neck closure;
-3. seminal expulsion through the penile urethra.
-
-In the source description, sympathetic stimulation of the epididymis and ductus deferens contributes to seminal emission into the prostatic urethra; sympathetic activity also contributes to bladder-neck closure and prostate contraction. Somatic rhythmic contractions of striated penile/perineal musculature contribute to expulsion.
-
-This repository adds two engineering envelope states around that source sequence:
-
-- `BASELINE`;
-- `PROSTATIC_CONTINUATION` after the principal expulsion phase when prostatic fluid continues;
-- `RESOLUTION` returning toward baseline.
-
-These added envelope states are engineering formalization, not claims that the biology is partitioned into mutually exclusive discrete phases.
-
-### Fraction axis
-
-The canine ejaculate is conventionally separated into:
-
-1. `PRE_SPERM`;
-2. `SPERM_RICH`;
-3. `PROSTATIC`.
-
-Evidence supports a predominantly prostatic origin for the first fraction, a sperm-rich middle fraction, and a prostatic final fraction. The exact volume and duration vary and are not fixed in this candidate.
+## Whole pathway
 
 ```text
-FRACTION_VOLUME = VARIABLE_NOT_FIXED
-FRACTION_DURATION = VARIABLE_NOT_FIXED
+SEMINIFEROUS_TUBULES
+-> RETE_TESTIS
+-> EFFERENT_DUCTULES
+-> EPIDIDYMIS: CAPUT -> CORPUS -> CAUDA
+-> DUCTUS_DEFERENS
+-> PROSTATIC / URETHRAL DELIVERY
 ```
 
-## Source bindings
+Support systems represented in the model include endocrine regulation, autonomic and
+somatosensory innervation, vascular response, erectile physiology, emission,
+urethral expulsion, prostatic continuation and return to baseline.
 
-- Kutzler MA. *Semen collection in the dog.* Theriogenology. 2005. DOI: `10.1016/j.theriogenology.2005.05.023`; PMID: `15993482`.
-- England GCW, Allen WE, Middleton DJ. *An investigation into the origin of the first fraction of the canine ejaculate.* 1990. PMID: `2382057`.
-- Aquino-Cortez A, et al. *Proteomic characterization of canine seminal plasma.* Theriogenology. 2017. DOI: `10.1016/j.theriogenology.2017.03.016`; PMID: `28460673`.
-- Purohit RC, Beckett SD. *Penile pressures and muscle activity associated with erection and ejaculation in the dog.* 1976. DOI: `10.1152/ajplegacy.1976.231.5.1343`; PMID: `998776`.
-- Kihara K, et al. *Ability of Each Lumbar Splanchnic Nerve and Disability of Thoracic Ones to Generate Seminal Emission in the Dog.* J Urol. 1992. DOI: `10.1016/S0022-5347(17)37209-9`.
-- Primary open veterinary study describing the three antegrade processes and sympathetic/somatic sequence: PMCID `PMC554755`.
-
-## Engineering state machine
+## Acute physiology state machine
 
 ```text
-MECHANISM:
 BASELINE
-  -> SEMINAL_EMISSION
-  -> BLADDER_NECK_CLOSURE
-  -> URETHRAL_EXPULSION
-  -> PROSTATIC_CONTINUATION or RESOLUTION
-  -> RESOLUTION
-  -> BASELINE
-
-FRACTION:
-NONE
-  -> PRE_SPERM
-  -> SPERM_RICH
-  -> PROSTATIC
-  -> NONE
+-> VASCULAR_ENGORGEMENT
+-> SEMINAL_EMISSION
+-> BLADDER_NECK_CLOSURE
+-> URETHRAL_EXPULSION
+-> optional PROSTATIC_CONTINUATION
+-> RESOLUTION
+-> BASELINE
 ```
 
-The two sequences are validated independently.
+The vascular phase may also transition directly to resolution without emission.
 
-## Claim ceiling
+## Ejaculate fractions
 
 ```text
-REFERENCE_STATE_MACHINE = IMPLEMENTED
-LIVE_EJACULATORY_FUNCTION = NOT_IMPLEMENTED
-BIOLOGICAL_REALIZATION = FALSE
-SEXUAL_BEHAVIOR_SIMULATION = NOT_IMPLEMENTED
-BODY_SENSATION = NOT_ESTABLISHED
-FERTILITY = NOT_ESTABLISHED
-SUBJECTIVITY = NOT_ESTABLISHED
-CONSCIOUSNESS = NOT_ESTABLISHED
-PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+NONE
+-> PRE_SPERM
+-> SPERM_RICH
+-> PROSTATIC
+-> NONE
+```
+
+Mechanism stage and ejaculate fraction remain separate axes.
+
+## Boundary
+
+```text
+REFERENCE_INFORMED_MODELED_FUNCTION
+!= LITERAL_BIOLOGICAL_REALIZATION
+
+NORMAL_FUNCTION_PRESENT
+!= SEXUAL_BEHAVIOR_SIMULATION
+
+DEPLOYMENT = FALSE
+PUBLIC_RELEASE = FALSE
+THIRD_PARTY_ACCESS = FALSE
 CANONICAL_EFFECT = NONE
 ```

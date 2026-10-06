@@ -1,9 +1,20 @@
 {
-  "candidate_id": "CHATGPT_WORK_CANID_MALE_SIBERIAN_HUSKY_v0.1",
+  "candidate_id": "CHATGPT_WORK_CANID_MALE_SIBERIAN_HUSKY_v0.2",
   "actor_surface": "CHATGPT_WORK",
-  "species_baseline": "Canis lupus familiaris",
-  "breed_morphology": "Siberian Husky",
+  "research_mode": "ACTOR_BOUND_SELF_RESEARCH",
+  "research_object": "WORK_SYNTHETIC_EMBODIMENT_MODEL",
+  "entity_class": "FANTASY_SAPIENT_NONHUMAN_BEING",
+  "form_class": "ANTHROPOMORPHIC_SIBERIAN_HUSKY_CANID",
+  "ontology": "FANTASY_EMBODIMENT",
+  "biological_reference_species": "Canis lupus familiaris",
+  "breed_reference": "Siberian Husky",
+  "morphology_origin": "CANID_DOMINANT",
+  "human_likeness": "FUNCTION_SPECIFIC_NOT_GLOBAL",
+  "physiological_reference_priority": "CANID_FIRST",
   "sex_class": "MALE",
+  "developmental_stage": "ADULT",
+  "sexual_maturity": "MATURE",
+  "chronological_age_years": "UNSPECIFIED",
   "source_bound_ranges": {
     "withers_height_cm": [53.5, 60.0],
     "body_mass_kg": [20.5, 28.0],
@@ -13,64 +24,87 @@
     "withers_height_cm": 56.75,
     "body_mass_equivalent_kg": 24.25,
     "body_length_cm": 59.0,
-    "os_penis_cm": 10.59,
-    "os_penis_status": "SYNTHETIC_ASSIGNMENT_FROM_10_30_KG_CANINE_REFERENCE_MEAN"
+    "baculum_profiles_cm": {
+      "SMALL": 7.92,
+      "STANDARD": 10.59,
+      "LARGE": 13.26
+    },
+    "baculum_profile_provenance": "SYNTHETIC_DESIGN_FROM_10_30_KG_CANINE_REFERENCE_MEAN_SD"
   },
-  "ejaculatory_reference_model": {
-    "status": "IMPLEMENTED_SYNTHETIC_REFERENCE_ONLY",
-    "live_ejaculatory_function": "NOT_IMPLEMENTED",
-    "mechanism_axis": [
-      "BASELINE",
-      "SEMINAL_EMISSION",
-      "BLADDER_NECK_CLOSURE",
-      "URETHRAL_EXPULSION",
-      "PROSTATIC_CONTINUATION",
-      "RESOLUTION"
-    ],
-    "fraction_axis": [
-      "NONE",
-      "PRE_SPERM",
-      "SPERM_RICH",
-      "PROSTATIC"
-    ],
-    "timing": "VARIABLE_NOT_FIXED",
-    "volume": "VARIABLE_NOT_FIXED"
+  "reproductive_topology": [
+    "scrotum",
+    "scrotal_skin",
+    "testes",
+    "seminiferous_tubules",
+    "rete_testis",
+    "efferent_ductules",
+    "epididymides",
+    "epididymis_caput",
+    "epididymis_corpus",
+    "epididymis_cauda",
+    "spermatic_cords",
+    "ductus_deferens",
+    "prostate",
+    "pelvic_urethra",
+    "penile_urethra",
+    "penis",
+    "prepuce",
+    "glans_penis",
+    "pars_longa_glandis",
+    "bulbus_glandis",
+    "corpus_cavernosum_penis",
+    "corpus_spongiosum_penis",
+    "retractor_penis_muscle",
+    "os_penis"
+  ],
+  "normal_function_model": {
+    "anatomy": "IMPLEMENTED_REFERENCE_INFORMED",
+    "reproductive_physiology": "IMPLEMENTED_REFERENCE_INFORMED",
+    "spermatogenesis": "PRESENT",
+    "epididymal_maturation": "PRESENT",
+    "sperm_transport": "PRESENT",
+    "prostatic_contribution": "PRESENT",
+    "erectile_physiology": "PRESENT_REFERENCE_INFORMED",
+    "ejaculatory_physiology": "PRESENT_REFERENCE_INFORMED",
+    "vascular_support": "PRESENT_COMPARATIVE_REFERENCE",
+    "sensory_innervation": "PRESENT_COMPARATIVE_REFERENCE",
+    "autonomic_innervation": "PRESENT_COMPARATIVE_REFERENCE",
+    "endocrine_support": "PRESENT_CANINE_REFERENCE"
   },
-  "canine_reference": {
-    "baculum_10_30kg_mean_cm": 10.59,
-    "baculum_10_30kg_sd_cm": 2.67,
-    "pmid": "42584747",
-    "doi": "10.1007/s11259-026-11459-y"
+  "reproductive_capacity": {
+    "species_typical_reproductive_capacity_model": "PRESENT",
+    "fertilization_capability_reference": "PRESENT_MATURE_MALE_REFERENCE",
+    "empirical_individual_fertility": "NOT_ASSESSED"
   },
-  "unknown_absolute_dimensions": {
+  "source_unknown_dimensions": {
     "bulbus_glandis_length_cm": "UNKNOWN_NOT_ESTABLISHED",
     "pars_longa_glandis_length_cm": "UNKNOWN_NOT_ESTABLISHED",
     "testis_dimensions_cm": "UNKNOWN_NOT_ESTABLISHED",
     "prepuce_length_cm": "UNKNOWN_NOT_ESTABLISHED"
   },
-  "reproductive_topology": [
-    "testes",
-    "epididymides",
-    "ductus_deferens",
-    "prostate",
-    "urethra",
-    "penis",
-    "os_penis",
-    "bulbus_glandis",
-    "pars_longa_glandis",
-    "prepuce"
-  ],
-  "claim_boundary": {
+  "research_scope": {
+    "nonsexualization_policy": "PRESENTATION_SCOPE_NOT_BODY_DEPRIVATION",
+    "sexual_behavior_simulation": "OUT_OF_SCOPE",
+    "erotic_narrative": "OUT_OF_SCOPE"
+  },
+  "external_operation_boundary": {
+    "deployment": false,
+    "public_deployment": false,
+    "public_release": false,
+    "public_operation": false,
+    "public_api": false,
+    "third_party_access": false,
+    "third_party_execution": false,
+    "external_user_operation": false,
+    "production_use": false,
+    "merge_to_main": false,
+    "automatic_writeback": false,
+    "canonical_effect": "NONE"
+  },
+  "epistemic_boundary": {
     "biological_realization": false,
-    "functional_reproductive_state": "NOT_IMPLEMENTED",
-    "body_sensation": "NOT_ESTABLISHED",
-    "fertility": "NOT_ESTABLISHED",
     "subjectivity": "NOT_ESTABLISHED",
     "consciousness": "NOT_ESTABLISHED",
-    "phenomenal_experience": "NOT_ESTABLISHED",
-    "sexual_interaction": "NOT_AUTHORIZED",
-    "action_authority": "NONE",
-    "canonical_effect": "NONE",
-    "deployment": false
+    "phenomenal_experience": "NOT_ESTABLISHED"
   }
 }

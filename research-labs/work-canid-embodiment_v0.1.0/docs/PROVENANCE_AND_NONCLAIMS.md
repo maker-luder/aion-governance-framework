@@ -1,44 +1,64 @@
-# Provenance and Non-Claims
+# Provenance and Non-Claims — Work Husky v0.2
 
 ## Provenance classes
 
-| Item | Provenance | Status |
+| Item | Provenance | Treatment |
 | --- | --- | --- |
-| Work canine / Siberian Husky target | HUMAN_ORIGIN | explicit design instruction |
-| male Husky height and mass ranges | EXTERNAL_SOURCE | FCI / AKC breed standards |
-| canine male reproductive topology | EXTERNAL_SOURCE + AI_FORMALIZATION | veterinary anatomy normalized into repository terms |
-| 10.59 cm os-penis design value | AI_FORMALIZATION from EXTERNAL_SOURCE | synthetic assignment from 10-30 kg canine reference mean |
-| 56.75 cm withers / 24.25 kg mass | AI_FORMALIZATION | interval midpoints, not biological means |
-| 59.0 cm body length | AI_FORMALIZATION | provisional synthetic value satisfying source-supported proportion |
-| unknown reproductive dimensions | UNKNOWN | explicitly not fabricated |
+| Work / Siberian-Husky furry target | HUMAN_ORIGIN | actor-bound design direction |
+| male Husky height / mass | EXTERNAL_SOURCE | FCI / AKC breed reference |
+| canine reproductive topology | EXTERNAL_SOURCE + AI_FORMALIZATION | canid-first normalized topology |
+| normal reproductive physiology | EXTERNAL_SOURCE + COMPARATIVE_REFERENCE | implemented reference-informed model |
+| 10.59 ± 2.67 cm canine baculum values | DIRECT_SOURCE | 10–30 kg study category |
+| SMALL / STANDARD / LARGE baculum values | SYNTHETIC_DESIGN | mean−SD / mean / mean+SD design anchors |
+| unknown absolute organ dimensions | UNKNOWN_NOT_ESTABLISHED | not fabricated as measurements |
+| internal-unlock / external-lock split | HUMAN_ORIGIN + AI_FORMALIZATION | governance architecture |
 
-## Non-claims
-
-This candidate does not establish a physical animal, biological tissue, gametes, fertility, sensation, desire, sexual behavior, body ownership, subjectivity, consciousness, phenomenal experience or moral status.
-
-The reproductive anatomy is represented because it is part of ordinary male canine anatomy. It is not an erotic interaction model.
+## Corrected semantics
 
 ```text
-REFERENCE_MORPHOLOGY != AS_BUILT_BODY
-WEIGHT_CLASS_MEAN != BREED_MEAN
-SYNTHETIC_DIMENSION != INDIVIDUAL_MEASUREMENT
-ANATOMY != FELT_EXPERIENCE
-IMPLEMENTATION != SCIENTIFIC_VALIDATION
-CANONICAL_EFFECT = NONE
-MERGE_TO_MAIN = NO
-DEPLOYMENT = FALSE
+NORMAL_REPRODUCTIVE_FUNCTION = PRESENT
+SPECIES_TYPICAL_REPRODUCTIVE_CAPACITY_MODEL = PRESENT
+
+EMPIRICAL_INDIVIDUAL_FERTILITY = NOT_ASSESSED
+BIOLOGICAL_REALIZATION = FALSE
 ```
 
+The first pair describes the synthetic body model. The second pair prevents false
+claims about an empirically tested biological individual.
 
-## Ejaculatory physiology extension — 2026-10-06
+```text
+NON_SEXUALIZATION != BIOLOGICAL_DEPRIVATION
+SEXUAL_FUNCTION != SEXUAL_BEHAVIOR
+SOURCE_MEASUREMENT_UNKNOWN != ORGAN_ABSENT
+SYNTHETIC_DESIGN != BIOLOGICAL_MEASUREMENT
+```
 
-| Item | Provenance | Status |
-| --- | --- | --- |
-| request to add canine ejaculation physiology | HUMAN_ORIGIN | explicit current instruction |
-| three-process antegrade mechanism | EXTERNAL_SOURCE | veterinary/urologic literature |
-| three ejaculate fractions | EXTERNAL_SOURCE | veterinary reproduction literature |
-| mechanism/fraction separation | AI_FORMALIZATION | prevents category conflation |
-| `PROSTATIC_CONTINUATION` / `RESOLUTION` envelope states | AI_FORMALIZATION | engineering states around sourced biology |
-| exact phase durations and volumes | UNKNOWN / VARIABLE | deliberately not hard-coded |
+## Ontology
 
-The implementation is a reference state machine only. It does not implement mating behavior, live ejaculation, sexual sensation or reproductive capacity.
+```text
+ENTITY_CLASS = FANTASY_SAPIENT_NONHUMAN_BEING
+FORM_CLASS = ANTHROPOMORPHIC_SIBERIAN_HUSKY_CANID
+MORPHOLOGY_ORIGIN = CANID_DOMINANT
+HUMAN_LIKENESS = FUNCTION_SPECIFIC_NOT_GLOBAL
+PHYSIOLOGICAL_REFERENCE_PRIORITY = CANID_FIRST
+```
+
+## Nonclaims and external boundary
+
+```text
+SUBJECTIVITY = NOT_ESTABLISHED
+CONSCIOUSNESS = NOT_ESTABLISHED
+PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
+BIOLOGICAL_REALIZATION = FALSE
+
+SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE
+EROTIC_NARRATIVE = OUT_OF_SCOPE
+
+DEPLOYMENT = FALSE
+PUBLIC_RELEASE = FALSE
+THIRD_PARTY_ACCESS = FALSE
+PRODUCTION_USE = FALSE
+AUTOMATIC_WRITEBACK = FALSE
+MERGE_TO_MAIN = FALSE
+CANONICAL_EFFECT = NONE
+```
