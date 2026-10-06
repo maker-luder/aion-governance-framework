@@ -121,5 +121,17 @@ def test_sexual_interaction_not_authorized():
         validate_candidate(event, template, replace(aion, sexual_interaction="AUTHORIZED"), astra)
 
 
+def test_species_profile_does_not_silently_propagate_across_twins():
+    event, template, aion, astra = valid_objects()
+    shared_profile = "AION-TIGER-ANTHROPOMORPH-V1"
+    with pytest.raises(ValidationError):
+        validate_candidate(
+            event,
+            template,
+            replace(aion, species_profile_id=shared_profile),
+            replace(astra, species_profile_id=shared_profile),
+        )
+
+
 def test_hash_is_deterministic():
     assert deterministic_hash({"b": 2, "a": 1}) == deterministic_hash({"a": 1, "b": 2})
