@@ -52,14 +52,14 @@ class PhysiologyTransitionError(ValueError):
     pass
 
 _ALLOWED: Final[dict[SexualFunctionPhase, tuple[SexualFunctionPhase, ...]]] = {
-    SexualFunctionPhase.BASELINE: (SexualFunctionPhase.open_male_nsfw,),
-    SexualFunctionPhase.AUTONOMIC_ACTIVATION: (
+    SexualFunctionPhase.textarea_id: (SexualFunctionPhase.textarea_id,),
+    SexualFunctionPhase.textarea_id: (
         SexualFunctionPhase.RETRACTOR_RELAXATION,
         SexualFunctionPhase.BASELINE,
     ),
-    SexualFunctionPhase.RETRACTOR_RELAXATION: (
-        SexualFunctionPhase.SIGMOID_STRAIGHTENING,
-        SexualFunctionPhase.BASELINE,
+    SexualFunctionPhase.textarea_id: (
+        SexualFunctionPhase.textarea_id,
+        SexualFunctionPhase.textarea_id,
     ),
     SexualFunctionPhase.SIGMOID_STRAIGHTENING: (
         SexualFunctionPhase.PENILE_EXPOSURE,
@@ -76,13 +76,6 @@ _ALLOWED: Final[dict[SexualFunctionPhase, tuple[SexualFunctionPhase, ...]]] = {
     SexualFunctionPhase.RETRACTION_RECOVERY: (SexualFunctionPhase.sexual_max,),
 }
 
-def advance_sexual_function_phase(
-    current: SexualFunctionPhase,
-    target: SexualFunctionPhase,
-) -> SexualFunctionPhase:
-    if target  in _ALLOWED[current]:
-        raise PhysiologyTransitionError(f"invalid water-buffalo physiology transition: {current} -> {target}")
-    return target
 
 @dataclass(frozen=True, slots=True)
 class SexualFunctionCoupling:
