@@ -1,74 +1,89 @@
-# Provenance Visibility Agent — research specification
+# Provenance Visibility Agent — local-first research specification
 
 Date: 2026-10-06  
 Status: `BRANCH-ONLY RESEARCH CANDIDATE`
 
 ## Research question
 
-Can a transparent repository convert provider-level hidden provenance signals into
-an explicit, human-readable disclosure without overstating what the signals prove?
+Can the repository make hidden provenance signals visible using reproducible local
+verification rather than uploading private files to a hosted provenance API?
 
-## Official-source boundary
+## Pipeline findings
 
-OpenAI currently documents:
+### C2PA
 
-- images: C2PA Content Credentials + SynthID;
-- audio: SynthID;
-- text: textGrain, with detector access currently limited to approved qualifying
-  research/academic organizations;
-- the public Content Provenance API currently checks supported image/audio files.
+The C2PA specification and Content Authenticity Initiative SDKs are open. The
+`contentauth/c2pa-python` library can read and validate embedded manifests locally.
+Its verification settings allow remote manifest fetching to be disabled.
 
-The implementation therefore does not invent a local textGrain detector.
-
-## Interpretation contract
+Disposition:
 
 ```text
-DETECTED
-= supported provenance signal was found
-
-NOT_DETECTED
-= supported provenance signal was not found by this check
-
-NOT_DETECTED
-!= HUMAN_CREATED
-!= NEVER_PROCESSED_BY_AI
-
-DETECTED
-!= AUTHORSHIP
-!= OWNERSHIP
-!= USER_IDENTITY
-!= PROMPT
+C2PA_LOCAL_VERIFICATION = IMPLEMENTABLE
 ```
 
-## Visible rendering
+### OpenAI textGrain
 
-The agent converts hidden evidence into a visible report containing:
+OpenAI's 2026-10-05 technical report specifies the generation and detection
+mathematics. It states that detection requires the generated text and secret key; the
+detector also needs matching tokenizer/block/column/context configuration. OpenAI
+currently limits detector access and says it plans to release textGrain as open source.
 
-- media type;
-- overall verification verdict;
-- signal type;
-- detected/not-detected/access-required state;
-- C2PA validation state when present;
-- issuer/model/generation time when supplied by the verifier;
-- mandatory interpretation caveats.
-
-## Research boundary
-
-The agent is deliberately one-directional:
+Disposition:
 
 ```text
-DETECT / DISCLOSE = IN_SCOPE
-REMOVE / DEGRADE / EVADE / REVERSE_ENGINEER = OUT_OF_SCOPE
+TEXTGRAIN_TECHNICAL_METHOD = PUBLIC
+DEPLOYED_SECRET_KEY = NOT_PUBLIC
+CURRENT_GENERIC_LOCAL_DETECTION = NOT_ESTABLISHED
 ```
 
-This keeps the project aligned with repository transparency goals while avoiding a
-tool that facilitates provenance removal.
+### Google DeepMind SynthID Text
 
-## Source references
+The reference implementation is open source. It provides weighted-mean and Bayesian
+detectors. Detection is configuration/key-specific; the Bayesian detector is trained
+per watermarking key.
 
-- OpenAI Help Center, "Provenance signals in OpenAI-generated content", current
-  version checked 2026-10-06.
-- OpenAI API documentation, "Content provenance", current version checked
-  2026-10-06.
-- OpenAI, "Advancing content provenance for a safer, more transparent AI
-  ecosystem", updated 2026-10-05 for text provenance.
+Disposition:
+
+```text
+SYNTHID_TEXT_REFERENCE_DETECTOR = OPEN_SOURCE
+SYNTHID_TEXT_DETECTOR != OPENAI_TEXTGRAIN_DETECTOR
+```
+
+### Image/audio SynthID
+
+OpenAI documents SynthID as an embedded signal in supported image/audio output, but
+our current public-source pass did not identify a general-purpose local decoder for
+the OpenAI-used signal.
+
+Disposition:
+
+```text
+OPENAI_MEDIA_SYNTHID_LOCAL_DECODER = NOT_ESTABLISHED
+DO_NOT_SUBSTITUTE_AI_CLASSIFIER = TRUE
+```
+
+## Architecture
+
+```text
+LOCAL FILE
+  |
+  +--> C2PA local reader/verifier --------> visible report
+  |
+  +--> textGrain -------------------------> KEY_REQUIRED
+  |
+  +--> SynthID image/audio ---------------> LOCAL_VERIFIER_NOT_PUBLIC
+  |
+  +--> future verified local detector ----> adapter -> visible report
+```
+
+## Sources checked
+
+- OpenAI textGrain technical report, 2026-10-05.
+- OpenAI provenance/help documentation, checked 2026-10-06.
+- C2PA open specification and Content Authenticity Initiative c2pa-python/c2pa-rs.
+- Google DeepMind `synthid-text` reference implementation.
+- Hugging Face/Google documentation for SynthID Text integration.
+
+Tool availability note: Scite required a paid plan in this session; Hugging Face MCP
+search endpoints returned unavailable. `TOOL_UNAVAILABLE != EVIDENCE_ABSENT`.

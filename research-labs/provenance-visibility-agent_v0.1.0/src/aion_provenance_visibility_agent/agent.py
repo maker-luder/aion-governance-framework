@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from collections.abc import Callable, Mapping, Sequence
+import importlib
+import json
+from collections.abc import Callable, Mapping
 from dataclasses import asdict, dataclass
 from enum import StrEnum
-import importlib
 from pathlib import Path
 from typing import Any
 
@@ -12,18 +13,22 @@ class MediaKind(StrEnum):
     IMAGE = "IMAGE"
     AUDIO = "AUDIO"
     TEXT = "TEXT"
+    OTHER = "OTHER"
 
 
 class SignalType(StrEnum):
     C2PA = "C2PA"
     SYNTHID = "SYNTHID"
     TEXTGRAIN = "TEXTGRAIN"
+    SYNTHID_TEXT = "SYNTHID_TEXT"
 
 
 class SignalOutcome(StrEnum):
     DETECTED = "DETECTED"
     NOT_DETECTED = "NOT_DETECTED"
-    ACCESS_REQUIRED = "ACCESS_REQUIRED"
+    KEY_REQUIRED = "KEY_REQUIRED"
+    LOCAL_VERIFIER_NOT_PUBLIC = "LOCAL_VERIFIER_NOT_PUBLIC"
+    DEPENDENCY_REQUIRED = "DEPENDENCY_REQUIRED"
     NOT_CHECKED = "NOT_CHECKED"
 
 
@@ -35,12 +40,8 @@ class SignalEvidence:
     issuer: str | None = None
     model: str | None = None
     generated_at: str | None = None
-    source: str = "OPENAI_CONTENT_PROVENANCE"
-
-    def __post_init__(self) -> None:
-        if self.signal_type is SignalType.C2PA and self.outcome is SignalOutcome.DETECTED:
-            if self.validation_state not in {"trusted", "valid"}:
-                raise ValueError("detected C2PA requires trusted or valid validation state")
+    source: str = "LOCAL_VERIFICATION"
+    detail: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -49,6 +50,8 @@ class ProvenanceVisibilityReport:
     signals: tuple[SignalEvidence, ...]
     verdict: str
     visible_label_zh_tw: str
+    local_only: bool = True
+    network_required: bool = False
     not_detected_is_not_human_proof: bool = True
     detected_is_not_authorship_proof: bool = True
     personal_identity_inference: str = "PROHIBITED"
@@ -60,192 +63,244 @@ class ProvenanceVisibilityReport:
         return asdict(self)
 
 
-def _signal_type(raw: str) -> SignalType:
-    normalized = raw.strip().lower()
-    if normalized == "c2pa":
-        return SignalType.C2PA
-    if normalized == "synthid":
-        return SignalType.SYNTHID
-    if normalized == "textgrain":
-        return SignalType.TEXTGRAIN
-    raise ValueError(f"unsupported provenance signal type: {raw}")
+def _nested_strings(value: Any) -> tuple[str, ...]:
+    found: list[str] = []
+    if isinstance(value, str):
+        found.append(value)
+    elif isinstance(value, Mapping):
+        for item in value.values():
+            found.extend(_nested_strings(item))
+    elif isinstance(value, list | tuple):
+        for item in value:
+            found.extend(_nested_strings(item))
+    return tuple(found)
 
 
-def _signal_outcome(raw: str) -> SignalOutcome:
-    normalized = raw.strip().lower()
-    if normalized == "detected":
-        return SignalOutcome.DETECTED
-    if normalized == "not_detected":
-        return SignalOutcome.NOT_DETECTED
-    raise ValueError(f"unsupported provenance signal outcome: {raw}")
+def _first_string(
+    mapping: Mapping[str, Any],
+    keys: tuple[str, ...],
+) -> str | None:
+    for key in keys:
+        value = mapping.get(key)
+        if isinstance(value, str) and value.strip():
+            return value
+    return None
 
 
-def normalize_openai_provenance_payload(
+def report_from_c2pa_manifest_store(
+    manifest_store: Mapping[str, Any],
+    *,
     media_kind: MediaKind,
-    payload: Mapping[str, Any],
-) -> tuple[SignalEvidence, ...]:
-    raw_results = payload.get("results", ())
-    if not isinstance(raw_results, Sequence) or isinstance(raw_results, (str, bytes)):
-        raise ValueError("provider payload results must be a sequence")
+) -> ProvenanceVisibilityReport:
+    active_label = manifest_store.get("active_manifest")
+    manifests = manifest_store.get("manifests")
 
-    signals: list[SignalEvidence] = []
-    for raw in raw_results:
-        if not isinstance(raw, Mapping):
-            raise ValueError("each provider result must be a mapping")
-        signal_type = _signal_type(str(raw.get("type", "")))
-        outcome = _signal_outcome(str(raw.get("outcome", "")))
-        signals.append(
-            SignalEvidence(
-                signal_type=signal_type,
-                outcome=outcome,
-                validation_state=(
-                    str(raw["validation_state"])
-                    if raw.get("validation_state") is not None
-                    else None
-                ),
-                issuer=str(raw["issuer"]) if raw.get("issuer") is not None else None,
-                model=str(raw["model"]) if raw.get("model") is not None else None,
-                generated_at=(
-                    str(raw["generated_at"])
-                    if raw.get("generated_at") is not None
-                    else None
-                ),
-            )
+    if not isinstance(active_label, str) or not active_label:
+        evidence = SignalEvidence(
+            signal_type=SignalType.C2PA,
+            outcome=SignalOutcome.NOT_DETECTED,
+            source="LOCAL_C2PA_READER",
+            detail="No active C2PA manifest was present in the local reader output.",
+        )
+        return ProvenanceVisibilityReport(
+            media_kind=media_kind,
+            signals=(evidence,),
+            verdict="NO_C2PA_MANIFEST_DETECTED",
+            visible_label_zh_tw=(
+                "本機未讀到 C2PA Content Credentials；"
+                "這不代表內容一定不是 AI 產生或處理。"
+            ),
         )
 
-    allowed = {
-        MediaKind.IMAGE: {SignalType.C2PA, SignalType.SYNTHID},
-        MediaKind.AUDIO: {SignalType.SYNTHID},
-        MediaKind.TEXT: {SignalType.TEXTGRAIN},
-    }[media_kind]
-    if any(item.signal_type not in allowed for item in signals):
-        raise ValueError("provider payload contains a signal not applicable to media kind")
-    return tuple(signals)
+    if not isinstance(manifests, Mapping):
+        raise ValueError("C2PA manifest store has active_manifest but no manifests mapping")
 
+    raw_manifest = manifests.get(active_label)
+    if not isinstance(raw_manifest, Mapping):
+        raise ValueError("active C2PA manifest is missing from manifests mapping")
 
-def _visible_label(
-    media_kind: MediaKind,
-    signals: tuple[SignalEvidence, ...],
-) -> tuple[str, str]:
-    detected = tuple(item for item in signals if item.outcome is SignalOutcome.DETECTED)
-    access_required = tuple(
-        item for item in signals if item.outcome is SignalOutcome.ACCESS_REQUIRED
+    strings = _nested_strings(raw_manifest)
+    lowered = tuple(item.lower() for item in strings)
+    invalid_markers = ("invalid", "mismatch", "untrusted", "failure", "error")
+    has_validation_problem = any(
+        marker in item for item in lowered for marker in invalid_markers
+    )
+    validation_state = (
+        "PRESENT_WITH_VALIDATION_WARNING"
+        if has_validation_problem
+        else "PRESENT_NO_WARNING_FOUND_IN_READER_REPORT"
     )
 
-    if detected:
-        names = "、".join(item.signal_type.value for item in detected)
-        return (
-            "SUPPORTED_PROVENANCE_SIGNAL_DETECTED",
-            f"已偵測到受支援的隱藏來源訊號：{names}。",
-        )
-    if access_required:
-        names = "、".join(item.signal_type.value for item in access_required)
-        return (
-            "VERIFICATION_ACCESS_REQUIRED",
-            f"此內容的來源訊號需要額外驗證權限：{names}；目前不能判定。",
-        )
-    if signals and all(
-        item.outcome is SignalOutcome.NOT_DETECTED for item in signals
-    ):
-        return (
-            "NO_SUPPORTED_SIGNAL_DETECTED",
-            "未偵測到受支援的來源訊號；這不代表內容一定是人類創作。",
-        )
-    return (
-        "VERIFICATION_NOT_ESTABLISHED",
-        f"{media_kind.value} 的來源訊號目前沒有足夠證據可判定。",
+    issuer = _first_string(
+        raw_manifest,
+        ("issuer", "claim_generator", "claim_generator_info"),
+    )
+    model = _first_string(
+        raw_manifest,
+        ("model", "generator_model", "model_name"),
+    )
+    generated_at = _first_string(
+        raw_manifest,
+        ("generated_at", "date", "timestamp", "time"),
+    )
+
+    evidence = SignalEvidence(
+        signal_type=SignalType.C2PA,
+        outcome=SignalOutcome.DETECTED,
+        validation_state=validation_state,
+        issuer=issuer,
+        model=model,
+        generated_at=generated_at,
+        source="LOCAL_C2PA_READER",
+        detail=f"active_manifest={active_label}",
+    )
+    label = "本機已讀到 C2PA Content Credentials。"
+    if has_validation_problem:
+        label += " 驗證報告同時出現警告／不信任／錯誤訊號，不能標成可信來源。"
+
+    return ProvenanceVisibilityReport(
+        media_kind=media_kind,
+        signals=(evidence,),
+        verdict="C2PA_MANIFEST_DETECTED",
+        visible_label_zh_tw=label,
     )
 
 
 class ProvenanceVisibilityAgent:
-    """Turn supported hidden provenance signals into explicit, human-visible reports."""
+    """Local-first provenance verifier and disclosure renderer."""
 
-    def from_openai_payload(
-        self,
-        media_kind: MediaKind,
-        payload: Mapping[str, Any],
-    ) -> ProvenanceVisibilityReport:
-        signals = normalize_openai_provenance_payload(media_kind, payload)
-        verdict, label = _visible_label(media_kind, signals)
-        return ProvenanceVisibilityReport(
-            media_kind=media_kind,
-            signals=signals,
-            verdict=verdict,
-            visible_label_zh_tw=label,
-        )
-
-    def text_without_detector(self) -> ProvenanceVisibilityReport:
-        signals = (
-            SignalEvidence(
-                signal_type=SignalType.TEXTGRAIN,
-                outcome=SignalOutcome.ACCESS_REQUIRED,
-                source="OPENAI_TEXT_DETECTOR_ACCESS_REQUIRED",
-            ),
-        )
-        verdict, label = _visible_label(MediaKind.TEXT, signals)
-        return ProvenanceVisibilityReport(
-            media_kind=MediaKind.TEXT,
-            signals=signals,
-            verdict=verdict,
-            visible_label_zh_tw=label,
-        )
-
-    def text_with_approved_detector(
-        self,
-        text: str,
-        detector: Callable[[str], bool],
-    ) -> ProvenanceVisibilityReport:
-        if not text.strip():
-            raise ValueError("text must not be empty")
-        detected = bool(detector(text))
-        signals = (
-            SignalEvidence(
-                signal_type=SignalType.TEXTGRAIN,
-                outcome=(
-                    SignalOutcome.DETECTED
-                    if detected
-                    else SignalOutcome.NOT_DETECTED
-                ),
-                source="APPROVED_TEXT_DETECTOR",
-            ),
-        )
-        verdict, label = _visible_label(MediaKind.TEXT, signals)
-        return ProvenanceVisibilityReport(
-            media_kind=MediaKind.TEXT,
-            signals=signals,
-            verdict=verdict,
-            visible_label_zh_tw=label,
-        )
-
-    def verify_file_with_openai(
+    def verify_c2pa_local(
         self,
         path: str | Path,
         media_kind: MediaKind,
+        *,
+        trust_anchors_pem: str | None = None,
     ) -> ProvenanceVisibilityReport:
-        if media_kind not in {MediaKind.IMAGE, MediaKind.AUDIO}:
-            raise ValueError("public Content Provenance API currently supports image/audio")
         file_path = Path(path)
         if not file_path.is_file():
             raise FileNotFoundError(file_path)
 
         try:
-            openai_module = importlib.import_module("openai")
-        except ImportError as exc:
-            raise RuntimeError(
-                "OpenAI SDK is required for live provenance verification"
-            ) from exc
+            c2pa = importlib.import_module("c2pa")
+        except ImportError:
+            evidence = SignalEvidence(
+                signal_type=SignalType.C2PA,
+                outcome=SignalOutcome.DEPENDENCY_REQUIRED,
+                source="LOCAL_C2PA_READER",
+                detail="Install the optional c2pa-python dependency.",
+            )
+            return ProvenanceVisibilityReport(
+                media_kind=media_kind,
+                signals=(evidence,),
+                verdict="LOCAL_C2PA_DEPENDENCY_REQUIRED",
+                visible_label_zh_tw=(
+                    "本機 C2PA 驗證元件尚未安裝；未上傳檔案，也未呼叫遠端 API。"
+                ),
+            )
 
-        client = openai_module.OpenAI()
-        with file_path.open("rb") as handle:
-            response = client.content_provenance_checks.create(file=handle)
+        settings: dict[str, Any] = {
+            "verify": {
+                "verify_after_reading": True,
+                "verify_trust": True,
+                "verify_timestamp_trust": True,
+                "remote_manifest_fetch": False,
+            }
+        }
+        if trust_anchors_pem:
+            settings["trust"] = {"user_anchors": trust_anchors_pem}
 
-        if hasattr(response, "model_dump"):
-            payload = response.model_dump(mode="json")
-        elif isinstance(response, Mapping):
-            payload = dict(response)
+        context = c2pa.Context.from_dict(settings)
+        with c2pa.Reader(str(file_path), context=context) as reader:
+            raw = reader.json()
+
+        parsed = json.loads(raw)
+        if not isinstance(parsed, Mapping):
+            raise ValueError("C2PA reader returned a non-object manifest store")
+
+        return report_from_c2pa_manifest_store(parsed, media_kind=media_kind)
+
+    def textgrain_without_secret_key(self) -> ProvenanceVisibilityReport:
+        evidence = SignalEvidence(
+            signal_type=SignalType.TEXTGRAIN,
+            outcome=SignalOutcome.KEY_REQUIRED,
+            source="OPENAI_TEXTGRAIN_TECHNICAL_REPORT",
+            detail=(
+                "The published detection procedure requires the secret key plus "
+                "matching tokenizer/configuration. The deployed OpenAI key is not public."
+            ),
+        )
+        return ProvenanceVisibilityReport(
+            media_kind=MediaKind.TEXT,
+            signals=(evidence,),
+            verdict="TEXTGRAIN_NOT_LOCALLY_VERIFIABLE_WITHOUT_KEY",
+            visible_label_zh_tw=(
+                "textGrain 的檢測程序需要秘密金鑰與相符設定；"
+                "目前沒有這些必要材料，因此不能本機判定。"
+            ),
+        )
+
+    def text_with_local_keyed_detector(
+        self,
+        text: str,
+        detector: Callable[[str], bool],
+        *,
+        signal_type: SignalType,
+    ) -> ProvenanceVisibilityReport:
+        if signal_type not in {SignalType.TEXTGRAIN, SignalType.SYNTHID_TEXT}:
+            raise ValueError("local keyed text detector must be a text watermark detector")
+        if not text.strip():
+            raise ValueError("text must not be empty")
+
+        detected = bool(detector(text))
+        evidence = SignalEvidence(
+            signal_type=signal_type,
+            outcome=(
+                SignalOutcome.DETECTED
+                if detected
+                else SignalOutcome.NOT_DETECTED
+            ),
+            source="LOCAL_KEYED_TEXT_DETECTOR",
+        )
+        if detected:
+            verdict = "SUPPORTED_LOCAL_TEXT_SIGNAL_DETECTED"
+            label = f"本機 keyed detector 偵測到 {signal_type.value} 訊號。"
         else:
-            raise RuntimeError("unsupported OpenAI SDK provenance response type")
-        return self.from_openai_payload(media_kind, payload)
+            verdict = "NO_SUPPORTED_LOCAL_TEXT_SIGNAL_DETECTED"
+            label = (
+                f"本機 keyed detector 未偵測到 {signal_type.value} 訊號；"
+                "這不代表文字一定由人類撰寫。"
+            )
+        return ProvenanceVisibilityReport(
+            media_kind=MediaKind.TEXT,
+            signals=(evidence,),
+            verdict=verdict,
+            visible_label_zh_tw=label,
+        )
+
+    def synthid_media_local_capability(
+        self,
+        media_kind: MediaKind,
+    ) -> ProvenanceVisibilityReport:
+        if media_kind not in {MediaKind.IMAGE, MediaKind.AUDIO}:
+            raise ValueError("media SynthID capability applies only to image/audio")
+        evidence = SignalEvidence(
+            signal_type=SignalType.SYNTHID,
+            outcome=SignalOutcome.LOCAL_VERIFIER_NOT_PUBLIC,
+            source="PUBLIC_TECHNOLOGY_AUDIT",
+            detail=(
+                "No public general-purpose local verifier was found for the "
+                "OpenAI-used image/audio SynthID signal."
+            ),
+        )
+        return ProvenanceVisibilityReport(
+            media_kind=media_kind,
+            signals=(evidence,),
+            verdict="SYNTHID_LOCAL_VERIFIER_NOT_PUBLIC",
+            visible_label_zh_tw=(
+                "目前沒有找到可獨立驗證 OpenAI 圖片／音訊 SynthID 的"
+                "公開泛用本機 detector；本 agent 不會用分類器冒充浮水印驗證。"
+            ),
+        )
 
 
 def render_markdown(report: ProvenanceVisibilityReport) -> str:
@@ -254,12 +309,12 @@ def render_markdown(report: ProvenanceVisibilityReport) -> str:
         "",
         f"- 媒體類型：{report.media_kind.value}",
         f"- 判定：{report.verdict}",
+        f"- 本機處理：{'是' if report.local_only else '否'}",
+        f"- 需要網路：{'是' if report.network_required else '否'}",
         f"- 明示標籤：{report.visible_label_zh_tw}",
         "",
         "## 訊號",
     ]
-    if not report.signals:
-        lines.append("- 無可用訊號。")
     for item in report.signals:
         detail = [item.signal_type.value, item.outcome.value]
         if item.validation_state:
@@ -270,16 +325,19 @@ def render_markdown(report: ProvenanceVisibilityReport) -> str:
             detail.append(f"model={item.model}")
         if item.generated_at:
             detail.append(f"generated_at={item.generated_at}")
+        if item.detail:
+            detail.append(f"detail={item.detail}")
         lines.append("- " + " | ".join(detail))
 
     lines.extend(
         [
             "",
-            "## 必要限制",
+            "## 解讀邊界",
             "- 未偵測到訊號，不等於證明內容由人類創作。",
             "- 偵測到訊號，不等於證明作者、所有權或人類參與比例。",
             "- 不推論使用者身分、帳號或 prompt。",
-            "- 本 agent 不提供浮水印移除、破壞或規避功能。",
+            "- 不用一般 AI classifier 冒充 watermark detector。",
+            "- 不提供浮水印移除、破壞或規避功能。",
         ]
     )
     return "\n".join(lines) + "\n"

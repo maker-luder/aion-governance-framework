@@ -1,4 +1,4 @@
-"""Provenance visibility agent research candidate."""
+"""Local-first provenance visibility agent research candidate."""
 
 from .agent import (
     MediaKind,
@@ -7,8 +7,8 @@ from .agent import (
     SignalEvidence,
     SignalOutcome,
     SignalType,
-    normalize_openai_provenance_payload,
     render_markdown,
+    report_from_c2pa_manifest_store,
 )
 
 __all__ = [
@@ -18,6 +18,6 @@ __all__ = [
     "SignalEvidence",
     "SignalOutcome",
     "SignalType",
-    "normalize_openai_provenance_payload",
     "render_markdown",
+    "report_from_c2pa_manifest_store",
 ]
