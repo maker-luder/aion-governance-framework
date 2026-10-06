@@ -1,65 +1,122 @@
-# Provenance and Evidence Matrix — v0.2.1
+# Provenance and Evidence Matrix — v0.2.2
 
-## Rule
+## Governing rule
 
 ```text
+NON_SEXUALIZATION != BIOLOGICAL_DEPRIVATION
 ORGAN_EXISTENCE != SPECIES_SPECIFIC_DIMENSION
-SPECIES_SPECIFIC_DIMENSION_UNKNOWN != ORGAN_ABSENT
-PHYSIOLOGY_REFERENCE_IMPLEMENTED != LITERAL_BIOLOGICAL_REALIZATION
+UNKNOWN_MEASUREMENT != ABSENT_STRUCTURE
+COMPARATIVE_EVIDENCE CAN SUPPORT SYNTHETIC_DESIGN
+SYNTHETIC_DESIGN MUST NOT BE MISLABELLED AS EMPIRICAL_DATA
 ```
 
 | Component | Evidence class | Repository treatment |
 | --- | --- | --- |
+| anthropomorphic form | Human research design | `ANTHROPOMORPHIC_BROWN_BEAR`; fantasy ontology |
+| biological reference | direct taxonomic selection | `Ursus arctos` reference baseline |
 | scrotum / scrotal skin | direct brown-bear | required topology |
-| testes | direct brown-bear | required topology; dimensions separately evidenced |
+| testes / seminiferous tubules | direct brown-bear histology | required topology |
+| rete testis / efferent ductules | comparative mammalian | required connective topology |
 | epididymis caput/corpus/cauda | direct brown-bear | required topology |
-| spermatic cord | direct brown-bear | required topology |
+| spermatic cord | direct brown-bear orchiectomy | required topology |
 | ductus deferens | direct brown-bear reproductive context | required topology |
-| ampullae ductus deferentis | comparative ursid | required topology; no invented dimensions |
-| prostate | comparative ursid + brown-bear seminal context | required topology; no invented dimensions |
-| penile urethra | direct brown-bear catheterization | required topology |
-| penis | direct brown-bear | required topology |
-| prepuce | direct brown-bear semen-collection method | required topology |
-| glans penis | comparative carnivoran | required topology; no invented dimensions |
+| ampullae ductus deferentis | comparative ursid | required topology |
+| prostate | comparative ursid + brown-bear seminal context | required topology |
+| pelvic urethra | comparative carnivoran | required connective topology |
+| penile urethra | direct brown-bear sampling | required topology |
+| penis / prepuce | direct brown-bear | required topology |
+| glans penis | comparative carnivoran | required topology |
 | corpus cavernosum / os penis | direct brown-bear | required topology |
-| seasonal reproductive cycle | direct brown-bear/grizzly literature | implemented physiology reference |
-| spermatogenesis / epididymal maturation / sperm transport | direct brown-bear reproductive literature | implemented physiology reference |
-| erection / ejaculation | direct brown-bear electroejaculation observations | implemented physiology reference |
-| semen characteristics | Hokkaido brown-bear study | external reference, not universal mean |
+| vascular support | comparative mammalian | present physiology support |
+| somatosensory innervation | comparative mammalian | present physiology support |
+| autonomic innervation | comparative mammalian | present physiology support |
+| endocrine support | brown-bear seasonal physiology + mammalian mechanism | present physiology support |
+| spermatogenesis | direct brown-bear | present |
+| epididymal maturation | direct brown-bear sperm-origin work | present |
+| sperm transport | brown-bear + comparative anatomy | present |
+| erectile physiology | brown-bear electroejaculation observations + comparative physiology | present |
+| emission / urethral expulsion | comparative mammalian physiology + brown-bear semen collection | present reference physiology |
+| resolution | comparative mammalian vascular/autonomic physiology | present reference physiology |
+| seasonal reproductive cycle | direct brown-bear/grizzly | present |
+| semen characteristics | Hokkaido brown-bear study | external reference; not universal mean |
+| small/standard/large baculum profiles | synthetic design from direct 14.895 cm anchor | design values, not population measurements |
 
-## Validation philosophy
-
-v0.2.0 required exact topology equality. v0.2.1 changes this to a minimum-required set:
+## Size-profile provenance
 
 ```text
-REQUIRED_STRUCTURES subset-of candidate.reproductive_topology
+DIRECT SOURCE ANCHOR
+14.895 cm
+
+SMALL = 12.661 cm = 0.85 x anchor
+STANDARD = 14.895 cm = 1.00 x anchor
+LARGE = 17.129 cm = 1.15 x anchor
+
+PROVENANCE =
+SYNTHETIC_DESIGN_FROM_DIRECT_BROWN_BEAR_BACULUM_ANCHOR
 ```
 
-This prevents accidental deletion of established anatomy while allowing future source-supported extension.
+The ±15% scale is a fantasy design choice. It is not represented as a biological
+confidence interval, population range or species distribution.
 
-## Removed hard locks
-
-The following are no longer core anatomy fields:
+## Reproductive capacity semantics
 
 ```text
-LIVE_REPRODUCTIVE_FUNCTION = NOT_IMPLEMENTED
-SEXUAL_BEHAVIOR_SIMULATION = NOT_IMPLEMENTED
-BODY_SENSATION = NOT_ESTABLISHED
-PHENOMENAL_EXPERIENCE = NOT_ESTABLISHED
-ACTION_AUTHORITY = NONE
+SPECIES_TYPICAL_REPRODUCTIVE_CAPACITY_MODEL = PRESENT
+FERTILIZATION_CAPABILITY_REFERENCE = PRESENT_MATURE_MALE_REFERENCE
+EMPIRICAL_INDIVIDUAL_FERTILITY = NOT_ASSESSED
 ```
 
-Reason: they are not required to represent adult male brown-bear anatomy and were over-constraining the model.
+The model therefore does not use an empirical-fertility uncertainty marker as a
+reason to remove normal reproductive function.
 
-## Retained epistemic boundaries
+## Source-measurement separation
+
+Unknown empirical dimensions remain `UNKNOWN_NOT_ESTABLISHED`. This means only
+that a direct source value has not been bound to the field.
 
 ```text
-BIOLOGICAL_REALIZATION = FALSE
-FERTILITY = NOT_ESTABLISHED
-SUBJECTIVITY = NOT_ESTABLISHED
-CONSCIOUSNESS = NOT_ESTABLISHED
-CANONICAL_EFFECT = NONE
+UNKNOWN_SOURCE_MEASUREMENT
+!= DESIGN_FORBIDDEN
+!= STRUCTURE_ABSENT
+```
+
+Synthetic dimensions may be added when their design rule and provenance are explicit.
+
+## Closed research boundary
+
+```text
+RESEARCH_ARTIFACT_RETENTION = TRUE
+
 DEPLOYMENT = FALSE
+PUBLIC_DEPLOYMENT = FALSE
+PUBLIC_RELEASE = FALSE
+PUBLIC_OPERATION = FALSE
+PUBLIC_API = FALSE
+THIRD_PARTY_ACCESS = FALSE
+THIRD_PARTY_EXECUTION = FALSE
+EXTERNAL_USER_OPERATION = FALSE
+PRODUCTION_USE = FALSE
+
+SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE
+EROTIC_NARRATIVE = OUT_OF_SCOPE
+
+CANONICAL_EFFECT = NONE
+MERGE_TO_MAIN = NO
 ```
 
-These are claim controls, not anatomical omissions.
+These are distribution and presentation controls, not anatomy or physiology controls.
+
+## Toolchain / evidence-access notes
+
+```text
+GITHUB = USED
+EXA = USED
+FIRECRAWL = USED
+WOLFRAM = PREVIOUSLY_CHECKED_NO_USEFUL_ANATOMY_RESULT
+MINDMAP = USED
+CONSENSUS = QUOTA_EXHAUSTED_UNTIL_2026_11_01
+SCITE = PAID_ACCESS_REQUIRED
+CONTEXT7 = NOT_APPLICABLE_TO_VETERINARY_ANATOMY
+```
+
+`TOOL_UNAVAILABLE != EVIDENCE_ABSENT`.
