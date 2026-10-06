@@ -232,4 +232,4 @@ CANONICAL_EFFECT = NONE
 ```
 
 See `docs/research/HUMAN_RESEARCHER_AUTONOMY_POLICY.md` and
-`research-labs/human_researcher-research-autonomy_v0.1.0/`.
+`research-labs/human-researcher-autonomy_v0.1.0/`.
