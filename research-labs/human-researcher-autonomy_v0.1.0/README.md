@@ -1,10 +1,10 @@
-# Xiaobo Research Autonomy v0.1
+# Human Researcher Autonomy v0.1
 
 Status: `RESEARCH_POLICY_CANDIDATE / BRANCH_ONLY`  
 Canonical effect: `NONE`
 
 This package implements a default-autonomy rule for research attributed to
-`XIAOBO_RESEARCH`.
+`HUMAN_RESEARCHER_ORIGIN`.
 
 ```text
 MAXIMAL_RESEARCH_AUTONOMY_WITHIN_MANDATORY_CONSTRAINTS = TRUE
@@ -36,10 +36,10 @@ restriction is explicitly scoped, traceable, owner-visible, and belongs to one o
 PLATFORM_OR_SYSTEM_MANDATORY
 LAW_OR_REGULATION_MANDATORY
 REPOSITORY_CANONICAL_MANDATORY
-XIAOBO_EXPLICIT_RESTRICTION
+HUMAN_RESEARCHER_EXPLICIT_RESTRICTION
 ```
 
-The fourth class preserves Xiaobo's ability to voluntarily set a narrower boundary
+The fourth class preserves human researcher's ability to voluntarily set a narrower boundary
 for a particular research activity.
 
 ## What may not silently block
@@ -63,7 +63,7 @@ Every blocking restriction requires:
 4. explicit scope tags;
 5. a Traditional-Chinese owner-visible explanation.
 
-This exists because Xiaobo does not need to understand repository code in order to
+This exists because human researcher does not need to understand repository code in order to
 retain research agency.
 
 ```text
@@ -73,7 +73,7 @@ IMPLEMENTATION_OPACITY
 CODE_COMPLEXITY
 != CONSENT
 
-SILENT_NARROWING_OF_XIAOBO_RESEARCH
+SILENT_NARROWING_OF_HUMAN_RESEARCHER_ORIGIN
 = PROHIBITED
 ```
 

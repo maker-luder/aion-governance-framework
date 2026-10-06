@@ -1,4 +1,4 @@
-"""Xiaobo research-autonomy policy candidate."""
+"""human researcher research-autonomy policy candidate."""
 
 from .policy import (
     BLOCKING_AUTHORITIES,

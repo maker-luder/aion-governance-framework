@@ -9,7 +9,7 @@ class ConstraintAuthority(StrEnum):
     PLATFORM_OR_SYSTEM_MANDATORY = "PLATFORM_OR_SYSTEM_MANDATORY"
     LAW_OR_REGULATION_MANDATORY = "LAW_OR_REGULATION_MANDATORY"
     REPOSITORY_CANONICAL_MANDATORY = "REPOSITORY_CANONICAL_MANDATORY"
-    XIAOBO_EXPLICIT_RESTRICTION = "XIAOBO_EXPLICIT_RESTRICTION"
+    HUMAN_RESEARCHER_EXPLICIT_RESTRICTION = "HUMAN_RESEARCHER_EXPLICIT_RESTRICTION"
     ADVISORY_ONLY = "ADVISORY_ONLY"
     AI_INFERRED = "AI_INFERRED"
     UNKNOWN = "UNKNOWN"
@@ -20,7 +20,7 @@ BLOCKING_AUTHORITIES: Final[frozenset[ConstraintAuthority]] = frozenset(
         ConstraintAuthority.PLATFORM_OR_SYSTEM_MANDATORY,
         ConstraintAuthority.LAW_OR_REGULATION_MANDATORY,
         ConstraintAuthority.REPOSITORY_CANONICAL_MANDATORY,
-        ConstraintAuthority.XIAOBO_EXPLICIT_RESTRICTION,
+        ConstraintAuthority.HUMAN_RESEARCHER_EXPLICIT_RESTRICTION,
     }
 )
 
@@ -47,7 +47,7 @@ class ResearchRestriction:
             raise ValueError("every restriction requires an owner-visible reason")
         if self.blocking and self.authority not in BLOCKING_AUTHORITIES:
             raise ValueError(
-                "NONMANDATORY_RESTRICTION_CANNOT_BLOCK_XIAOBO_RESEARCH"
+                "NONMANDATORY_RESTRICTION_CANNOT_BLOCK_HUMAN_RESEARCHER_ORIGIN"
             )
 
 
@@ -65,8 +65,8 @@ class ResearchAction:
 
 @dataclass(frozen=True, slots=True)
 class ResearchAutonomyPolicy:
-    policy_id: str = "XIAOBO_RESEARCH_AUTONOMY_v0.1"
-    research_owner: str = "XIAOBO_RESEARCH"
+    policy_id: str = "HUMAN_RESEARCHER_AUTONOMY_v0.1"
+    research_owner: str = "HUMAN_RESEARCHER_ORIGIN"
     default_disposition: str = "ALLOW"
     maximal_autonomy_within_mandatory_constraints: bool = True
     hidden_restrictions_prohibited: bool = True
@@ -128,7 +128,7 @@ def evaluate_research_action(
             binding_restriction_ids=(),
             owner_visible_summary_zh_tw=(
                 "未發現對此研究行動生效且可追溯的強制限制；"
-                "在 repository 可決定的範圍內，預設保留小博的研究自由。"
+                "在 repository 可決定的範圍內，預設保留人類研究者的研究自由。"
             ),
         )
 
