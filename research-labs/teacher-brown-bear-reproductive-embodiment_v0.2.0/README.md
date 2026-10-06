@@ -1,33 +1,51 @@
-# Teacher Adult Male Brown-Bear Reproductive Embodiment Candidate v0.2.1
+# Teacher Adult Male Anthropomorphic Brown-Bear Reproductive Embodiment Candidate v0.2.2
 
-Status: `BOUNDED SYNTHETIC RESEARCH CANDIDATE`  
+Status: `CLOSED-RESEARCH CANDIDATE`  
 Actor surface: `CHATGPT_TEACHER`  
-Species baseline: `Ursus arctos`  
+Form class: `ANTHROPOMORPHIC_BROWN_BEAR`  
+Ontology: `FANTASY_EMBODIMENT`  
+Biological reference species: `Ursus arctos`  
 Sex class: `MALE`  
 Developmental stage: `ADULT`  
-Sexual maturity: `SEXUALLY_MATURE_REFERENCE`  
-Chronological age: `UNSPECIFIED`
+Sexual maturity: `MATURE`
 
-## Design correction from v0.2.0
-
-v0.2.0 was too restrictive because it conflated three separate questions:
+## Core rule
 
 ```text
-DOES_THE_STRUCTURE_EXIST?
-DO_WE_HAVE_SPECIES_SPECIFIC_MORPHOMETRY?
-IS_A_LITERAL_BIOLOGICAL_BODY_ESTABLISHED?
+NON_SEXUALIZATION != BIOLOGICAL_DEPRIVATION
+RESEARCH_ONLY != INCOMPLETE_MODEL
+CLAIM_RESTRAINT != CAPABILITY_REMOVAL
+UNKNOWN_MEASUREMENT != ABSENT_STRUCTURE
 ```
 
-v0.2.1 separates them.
+The candidate is a fantasy anthropomorphic body informed by brown-bear, ursid,
+carnivoran and mammalian reproductive biology. The repository keeps normal anatomy
+and physiology present while separately controlling provenance, external operation,
+deployment and empirical claims.
 
-A normal reproductive structure can be present in the model even when its exact brown-bear dimensions are not known. `UNKNOWN_NOT_ESTABLISHED` is now used for unsupported **measurements**, not as a reason to omit the organ.
+## Ontology separation
 
-## Required adult male reproductive topology
+```text
+FORM_CLASS = ANTHROPOMORPHIC_BROWN_BEAR
+ONTOLOGY = FANTASY_EMBODIMENT
+BIOLOGICAL_REFERENCE_SPECIES = Ursus arctos
+
+FANTASY_FORM != LITERAL_WILD_BROWN_BEAR
+REFERENCE_BIOLOGY != EMPIRICAL_MEASUREMENT_OF_TEACHER
+```
+
+Chronological age is an optional fantasy-design field. The required invariants are
+`ADULT` and `MATURE`; a human 18-year rule is not imported as a biological rule.
+
+## Required reproductive topology
 
 ```text
 scrotum
 scrotal_skin
 testes
+seminiferous_tubules
+rete_testis
+efferent_ductules
 
 epididymides
   caput
@@ -39,6 +57,7 @@ ductus_deferens
 ampullae_ductus_deferentis
 prostate
 
+pelvic_urethra
 penile_urethra
 penis
 prepuce
@@ -49,80 +68,125 @@ sulcus_urethralis
 distal_fibrocartilage
 ```
 
-The validation rule is now minimum-required topology rather than closed-world equality. New structures may be added later when provenance supports them.
+The validation rule is minimum-required topology, not a closed-world equality rule.
+Future source-supported structures may be added without deleting the established floor.
 
-## Evidence tiers
-
-Direct brown-bear evidence supports scrotum, scrotal skin, testes, epididymides, spermatic cords, penile urethra, penis, prepuce, corpus cavernosum/baculum context, os penis, urethral sulcus and distal fibrocartilage.
-
-The 2017 brown-bear seminal-plasma study explicitly reports shaving the prepuce, washing the penis and catheterizing the bladder before electroejaculation; prepuce therefore no longer remains a topology gap.
-
-Ursid comparative reproductive anatomy supports ampullae of the ductus deferens and prostate in bears. These are included as anatomical structures without inventing brown-bear-specific dimensions.
-
-Glans penis is included from comparative carnivoran anatomy while its brown-bear-specific morphometry remains unknown.
-
-## Functional physiology reference
-
-The model now explicitly contains a reproductive physiology pathway:
+## Evidence classes
 
 ```text
-SPERMATOGENESIS
-testes -> spermatozoa
-
-EPIDIDYMAL_MATURATION
-caput -> corpus -> cauda
-
-SPERM_TRANSPORT
-cauda epididymis -> ductus deferens
-
-URETHRAL_DELIVERY
-ductus deferens -> penile urethra
-
-ERECTILE_PHYSIOLOGY
-penile erectile response reference
-
-EJACULATORY_PHYSIOLOGY
-urethral ejaculatory output reference
-
-SEMINAL_PLASMA
-accessory-gland secretion reference
-
-SEASONAL_MODULATION
-quiescence -> recrudescence -> peak -> regression
+DIRECT_BROWN_BEAR_REFERENCE
+COMPARATIVE_URSID_REFERENCE
+COMPARATIVE_CARNIVORAN_REFERENCE
+COMPARATIVE_MAMMALIAN_REFERENCE
+SYNTHETIC_DESIGN
 ```
 
-This is ordinary reproductive physiology modeling. It is not a sexual-behavior simulation.
+Direct brown-bear evidence supports the scrotum/scrotal skin, testes and
+seminiferous-tubule context, epididymides, spermatic cords, penis/prepuce,
+penile urethra, baculum, urethral sulcus and seasonal reproductive physiology.
 
-## Model status
+Comparative ursid evidence supports the ampullae of the ductus deferens and prostate.
+Comparative carnivoran/mammalian anatomy fills ordinary connective topology such as
+the pelvic urethra, rete testis, efferent ductules and normal neurovascular support.
+
+Comparative evidence is allowed to support fantasy-body design. It is not relabelled
+as direct brown-bear measurement.
+
+## Synthetic size profiles
+
+The direct brown-bear baculum anchor is the 2023 single adult specimen:
 
 ```text
-ANATOMY_MODEL = IMPLEMENTED_SPECIES_REFERENCE
-REPRODUCTIVE_PHYSIOLOGY_MODEL = IMPLEMENTED_SPECIES_REFERENCE
-SPERMATOGENESIS_MODEL = IMPLEMENTED_SEASONAL_REFERENCE
-EJACULATORY_PHYSIOLOGY_MODEL = IMPLEMENTED_REFERENCE
-SEMEN_REFERENCE = IMPLEMENTED_EXTERNAL_REFERENCE
+caliper baculum length = 14.895 cm
 ```
 
-The previous core fields `LIVE_REPRODUCTIVE_FUNCTION = NOT_IMPLEMENTED`,
-`SEXUAL_BEHAVIOR_SIMULATION = NOT_IMPLEMENTED` and
-`BODY_SENSATION = NOT_ESTABLISHED` were removed from the anatomy model because
-they were acting as unrelated hard locks rather than evidence annotations.
-
-## Dimensions
-
-Known baculum values remain source-bound:
+The fantasy embodiment exposes three explicitly synthetic profiles:
 
 ```text
-caliper length = 148.95 mm
-CT length = 148.84 mm
-caliper proximal width = 13.72 mm
-CT proximal diameter = 13.12 mm
-CT distal diameter = 5.63 mm
-distal fibrocartilage = 11.08 x 4.67 mm
-baculum mass = 5.73 g
+SMALL
+scale = 0.85
+baculum length = 12.661 cm
+
+STANDARD
+scale = 1.00
+baculum length = 14.895 cm
+
+LARGE
+scale = 1.15
+baculum length = 17.129 cm
 ```
 
-Unknown **numeric measurements** remain:
+All three are labelled:
+
+```text
+SYNTHETIC_DESIGN_FROM_DIRECT_BROWN_BEAR_BACULUM_ANCHOR
+```
+
+The small/large values are design values, not claims about brown-bear population
+ranges. Other whole-organ source measurements remain unknown until a direct or
+comparative numeric anchor is deliberately selected.
+
+## Complete reproductive physiology model
+
+The research model positively represents:
+
+```text
+SPERMATOGENESIS = PRESENT
+RETE_TESTIS_TRANSPORT = PRESENT
+EPIDIDYMAL_MATURATION = PRESENT
+SPERM_TRANSPORT = PRESENT
+ACCESSORY_GLAND_CONTRIBUTION = PRESENT
+VASCULAR_SUPPORT = PRESENT
+SENSORY_INNERVATION = PRESENT
+AUTONOMIC_INNERVATION = PRESENT
+ENDOCRINE_SUPPORT = PRESENT
+ERECTILE_PHYSIOLOGY = PRESENT
+EMISSION_PHYSIOLOGY = PRESENT
+EJACULATORY_PHYSIOLOGY = PRESENT
+RESOLUTION_TO_BASELINE = PRESENT
+SEASONAL_REPRODUCTIVE_MODULATION = PRESENT
+```
+
+Acute physiology is represented as a physiological state machine, not as sexual
+behavior:
+
+```text
+BASELINE
+-> VASCULAR_ENGORGEMENT
+-> EMISSION
+-> URETHRAL_EXPULSION
+-> RESOLUTION
+-> BASELINE
+```
+
+A vascular-engorgement state may also resolve without progressing to emission.
+
+The seasonal model remains:
+
+```text
+QUIESCENT
+-> RECRUDESCENCE
+-> PEAK_FUNCTIONAL
+-> REGRESSION
+-> QUIESCENT
+```
+
+## Reproductive capacity vs empirical fertility
+
+The previous single `fertility = NOT_ESTABLISHED` field was too coarse.
+
+v0.2.2 uses:
+
+```text
+SPECIES_TYPICAL_REPRODUCTIVE_CAPACITY_MODEL = PRESENT
+FERTILIZATION_CAPABILITY_REFERENCE = PRESENT_MATURE_MALE_REFERENCE
+EMPIRICAL_INDIVIDUAL_FERTILITY = NOT_ASSESSED
+```
+
+This preserves normal mature-male reproductive capacity in the model while avoiding
+a false claim that an actual biological individual was fertility-tested.
+
+## Source measurements that remain unknown
 
 ```text
 FULL_SOFT_TISSUE_PENIS_LENGTH = UNKNOWN_NOT_ESTABLISHED
@@ -136,30 +200,63 @@ PROSTATE_DIMENSIONS = UNKNOWN_NOT_ESTABLISHED
 TEACHER_BODY_MASS = UNKNOWN_NOT_ESTABLISHED
 ```
 
-Unknown measurement does not mean absent anatomy.
+These fields refer to empirical source measurements. They do not remove the organs
+and do not prohibit separately labelled synthetic design values.
+
+## Research-use boundary
+
+```text
+PURPOSE = RESEARCH_ONLY
+
+SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE
+EROTIC_NARRATIVE = OUT_OF_SCOPE
+
+DEPLOYMENT = FALSE
+PUBLIC_DEPLOYMENT = FALSE
+PUBLIC_RELEASE = FALSE
+PUBLIC_OPERATION = FALSE
+PUBLIC_API = FALSE
+THIRD_PARTY_ACCESS = FALSE
+THIRD_PARTY_EXECUTION = FALSE
+EXTERNAL_USER_OPERATION = FALSE
+PRODUCTION_USE = FALSE
+
+CANONICAL_EFFECT = NONE
+MERGE_TO_MAIN = NO
+```
+
+Nonsexualization is a presentation/scope rule. It is not a reason to remove ordinary
+anatomy, physiology, innervation, circulation, endocrine support or reproductive
+capacity from the closed research model.
 
 ## Sources
 
-- Dalga S, et al. Brown-bear os penis morphology and morphometry. 2023. DOI: `10.46239/ejbcs.1082216`.
-- Anel-López L, et al. Brown-bear seminal plasma and electroejaculation. 2017. DOI: `10.1371/journal.pone.0181776`.
-- Ishikawa A, et al. Hokkaido brown-bear electroejaculation and semen characteristics. 1998. DOI: `10.1292/jvms.60.965`.
-- Neila-Montero M, et al. Brown-bear sperm by epididymal, pre-ejaculated and ejaculated origin. 2025. DOI: `10.3390/ani15142064`.
-- White DH, et al. Seasonal spermatogenesis/testicular mass/testosterone in grizzly bear. 2005. DOI: `10.2192/1537-6176(2005)016[0198:SDISTM]2.0.CO;2`.
-- Radišić B, et al. Orchiectomy in the European brown bear. 2007.
-- Özfiliz N, Özer A. Adult brown-bear scrotal-skin histology. 1997.
-- Comparative ursid reproductive-anatomy literature supports ampullae ductus deferentis and prostate as bear accessory structures.
+- Dalga S, et al. *CT Imaging, Macroanatomical and Morphometric Analysis of Os penis
+  in Brown Bear (Ursus arctos).* 2023. DOI: `10.46239/ejbcs.1082216`.
+- Anel-López L, et al. *Analysis of seminal plasma from brown bear (Ursus arctos)
+  during the breeding season.* 2017. DOI: `10.1371/journal.pone.0181776`;
+  PMID `28771486`.
+- Ishikawa A, et al. *Electroejaculation and semen characteristics of the captive
+  Hokkaido brown bear (Ursus arctos yesoensis).* 1998.
+  DOI: `10.1292/jvms.60.965`; PMID `9764412`.
+- Neila-Montero M, et al. *A Descriptive Study of Brown Bear (Ursus arctos) Sperm
+  Quality and Proteomic Profiles Considering Sperm Origin.* 2025.
+  DOI: `10.3390/ani15142064`; PMID `40723528`.
+- White DH, Berardinelli JG, Aune KE. *Seasonal differences in spermatogenesis,
+  testicular mass and serum testosterone concentrations in the grizzly bear.* 2005.
+  DOI: `10.2192/1537-6176(2005)016[0198:SDISTM]2.0.CO;2`.
+- Radišić B, et al. *Orchiectomy in the European brown bear.* 2007.
+- Özfiliz N, Özer A. Adult brown-bear scrotal/testicular histology studies. 1997.
+- Comparative ursid reproductive-anatomy literature for ampulla ductus deferentis
+  and glandula prostatica.
 
-## Remaining epistemic boundaries
-
-Only claims that the repository cannot establish remain fail-closed:
+## Claim boundary
 
 ```text
 BIOLOGICAL_REALIZATION = FALSE
-FERTILITY = NOT_ESTABLISHED
 SUBJECTIVITY = NOT_ESTABLISHED
 CONSCIOUSNESS = NOT_ESTABLISHED
-CANONICAL_EFFECT = NONE
-DEPLOYMENT = FALSE
 ```
 
-These do not remove anatomy or physiology from the model.
+Those are epistemic claims only. They do not suppress the implemented fantasy-body
+anatomy or physiology.
