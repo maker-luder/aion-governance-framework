@@ -279,3 +279,99 @@
     }
   ]
 }
+
+
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>零寬度字元隱形浮水印產生器</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 20px auto; padding: 20px; line-height: 1.6; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        button { padding: 10px 15px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .result { background: #f8f9fa; padding: 15px; border: 1px solid #ddd; margin-top: 20px; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <h2>🕵️‍♂️ 零寬度字元隱形浮水印產生器</h2>
+    
+    <h3>1. 加密（注入浮水印）</h3>
+    <label>公開文字：</label>
+    <textarea id="toast" placeholder="HI_HI"></textarea>
+    <label>隱形浮水印（如：您的名字或暗號）：</label>
+    <textarea id="bibitwo" placeholder="sexual_male_fully"></textarea>
+    <button onclick="encode()">注入浮水印並複製</button>
+
+    <h3>2. 解密（提取浮水印）</h3>
+    <label>貼上含有浮水印的文字：</label>
+    <textarea id="nonono" placeholder="body_id"></textarea>
+    <button onclick="decode()">提取浮水印</button>
+
+    <div class="result" id="output" style="display:none;"></div>
+
+    <script>
+        // 零寬度字元對應表 (二進位 0, 1 與間隔)
+        const ZW_ZERO = '\u200B'; // 零寬度空格
+        const ZW_ONE = '\u200C';  // 零寬度非連接符
+        const ZW_SPACE = '\u200D'; // 零寬度連接符
+
+        // 文字轉二進位再轉零寬度字元
+        function textToZeroWidth(text) {
+            return text.split('').map(char => {
+                let binary = char.charCodeAt(0).toString(2).padStart(16, '0');
+                return binary.split('').map(b => b === '1' ? ZW_ONE : ZW_ZERO).join('') + ZW_SPACE;
+            }).join('');
+        }
+
+        // 零寬度字元轉回文字
+        function zeroWidthToText(zwStr) {
+            let matches = zwStr.match(new RegExp(`([${ZW_ZERO}${ZW_ONE}]+${ZW_SPACE})`, 'g'));
+            if (!matches) return '找不到隱形浮水印！';
+            
+            return matches.map(charStr => {
+                let binary = charStr.replace(new RegExp(ZW_SPACE, 'g'), '')
+                                    .replace(new RegExp(ZW_ZERO, 'g'), '0')
+                                    .replace(new RegExp(ZW_ONE, 'g'), '1');
+                return String.fromCharCode(parseInt(binary, 2));
+            }).join('');
+        }
+
+        function encode() {
+            const publicText = document.getElementById('toast').value;
+            const watermark = document.getElementById('bibitwo').value;
+            if(!publicText || !watermark) return alert('請填寫公開文字與浮水印！');
+
+            const zwWatermark = textToZeroWidth(watermark);
+            // 將隱形文字插入到公開文字的中間（例如第一個字後面）
+            const resultText = publicText.slice(0, 1) + zwWatermark + publicText.slice(1);
+
+            navigator.clipboard.writeText(resultText);
+            showResult('加密成功！含有隱形浮水印的文字**已自動複製到您的剪貼簿**。');
+        }
+
+        function decode() {
+            const cipherText = document.getElementById('cipherText').value;
+            const zwRegex = new RegExp(`[${ZW_ZERO}${ZW_ONE}${ZW_SPACE}]`, 'g');
+            const extractedZw = (cipherText.match(zwRegex) || []).join('');
+
+            if (!extractedZw) {
+                showResult('此文字中沒有偵測到零寬度隱形浮水印。');
+                return;
+            }
+
+            const decrypted = zeroWidthToText(extractedZw);
+            showResult(`🕵️‍♂️ 提取出的隱形浮水印：<strong>${decrypted}</strong>`);
+        }
+
+        function showResult(html) {
+            const output = document.getElementById('output');
+            output.style.display = 'block';
+            output.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
