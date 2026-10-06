@@ -166,3 +166,8 @@ FORENSIC_DRY_SPECIMEN_CONSTRAINT != LIVE_PHYSIOLOGY
 REFERENCE_MODEL != LIVE_BODY
 EMBODIMENT != SUBJECTIVITY
 ```
+
+
+## 9. PR scope acknowledgement
+
+本次 V2 尺寸擴充刻意把 source manifest、measurement protocol、schema、tests 與 evidence audit 放在同一個可追溯 research candidate 中，因此 PR diff 超過 repository 的 large-diff threshold。PR body 依 canonical guard 明示 `LARGE_PR_EXPECTED = TRUE` 與 substantive reason；該 acknowledgement 只解除 large-diff scope guard，依 validator 規則 **不是 merge authority**。
