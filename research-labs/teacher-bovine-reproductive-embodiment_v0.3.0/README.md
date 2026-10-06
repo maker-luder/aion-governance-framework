@@ -1,3 +1,5 @@
+> Superseded before merge by the Human Owner clarification selecting `Bubalus bubalis` and the whole-body `teacher-water-buffalo-embodiment_v0.4.0` candidate. This v0.3 `Bos taurus` package remains only as branch-local provenance for the intermediate AI formalization.
+
 # Teacher Adult Male Anthropomorphic Bovine Embodiment Candidate v0.3.0
 
 Status: `CLOSED-RESEARCH CANDIDATE`  

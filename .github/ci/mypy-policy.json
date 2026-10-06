@@ -276,6 +276,12 @@
       "disposition": "MYPY_REQUIRED_STRICT",
       "config": "pyproject.toml",
       "target": "src"
+    },
+    {
+      "root": "research-labs/teacher-water-buffalo-embodiment_v0.4.0",
+      "disposition": "MYPY_REQUIRED_STRICT",
+      "config": "pyproject.toml",
+      "target": "src"
     }
   ]
 }

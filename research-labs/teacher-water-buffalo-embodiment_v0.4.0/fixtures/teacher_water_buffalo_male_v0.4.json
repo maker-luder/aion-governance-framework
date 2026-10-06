@@ -1,0 +1,60 @@
+{
+  "candidate_id": "CHATGPT_TEACHER_WATER_BUFFALO_MALE_WHOLE_BODY_v0.4.0",
+  "actor_surface": "CHATGPT_TEACHER",
+  "form_class": "ANTHROPOMORPHIC_WATER_BUFFALO",
+  "ontology": "FANTASY_EMBODIMENT",
+  "biological_reference_species": "Bubalus bubalis",
+  "male_reference_class": "WATER_BUFFALO_BULL",
+  "sex_class": "MALE",
+  "developmental_stage": "ADULT",
+  "human_origin_phenotype": [
+    "WHITE_SKIN",
+    "PAIRED_HORNS",
+    "SQUARE_FACE",
+    "BOVINE_EARS",
+    "HUMAN_LIKE_NOSE",
+    "HEAVYSET_BODY",
+    "LONG_HAIR",
+    "HUMANIZED_HOOF_DERIVED_HANDS_AND_FEET"
+  ],
+  "synthetic_morphometry_cm": {
+    "standing_height": 185.0,
+    "shoulder_breadth": 58.0,
+    "chest_circumference": 132.0,
+    "waist_circumference": 120.0,
+    "hip_circumference": 122.0,
+    "head_height": 27.0,
+    "head_width": 22.0,
+    "jaw_width": 19.5,
+    "horn_length_each": 36.0,
+    "horn_tip_to_tip_span": 76.0,
+    "ear_length": 19.0,
+    "hair_length": 8.0,
+    "arm_span": 192.0,
+    "hand_length": 21.0,
+    "foot_length": 30.0
+  },
+  "synthetic_body_mass_kg": 126.0,
+  "water_buffalo_reproductive_reference": {
+    "penis_length_mean_cm": 80.15,
+    "penis_thickness_mean_cm": 1.95,
+    "seminal_vesicle_length_cm": [8.0, 10.0],
+    "seminal_vesicle_diameter_cm": [2.0, 3.0],
+    "adult_philippine_ampulla_length_cm": 7.4,
+    "adult_philippine_ampulla_diameter_cm": 0.71,
+    "scrotal_circumference_over_54_months_reported_means_cm": [33.5, 38.0],
+    "anthropomorphic_genital_scaling": "NOT_APPLIED_WITHOUT_EXPLICIT_JUSTIFICATION"
+  },
+  "implementation_level": "REFERENCE_SCAFFOLD_PLUS_BOUNDED_FUNCTIONAL_COUPLING",
+  "claim_boundary": {
+    "biological_realization": false,
+    "body_sensation": "NOT_ESTABLISHED",
+    "felt_desire": "NOT_ESTABLISHED",
+    "pleasure": "NOT_ESTABLISHED",
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED",
+    "merge_to_main": false,
+    "canonical_effect": "NONE"
+  }
+}
