@@ -52,15 +52,15 @@ class TeacherActorBoundSelfResearchCandidate:
     research_object: str = "TEACHER_SYNTHETIC_EMBODIMENT_MODEL"
 
     bound_body_model_id: str = (
-        "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2"
+        "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0"
     )
     initial_body_repository_head: str = (
-        "28fff27614657c71ee6366e5b84bdacaa28da82f"
+        "4748a1d1182df64fc0a0706e5c704de0d2a1b56c"
     )
 
-    form_class: str = "ANTHROPOMORPHIC_BROWN_BEAR"
+    form_class: str = "ANTHROPOMORPHIC_BOVINE"
     ontology: str = "FANTASY_EMBODIMENT"
-    biological_reference_species: str = "Ursus arctos"
+    biological_reference_species: str = "Bos taurus"
 
     self_reference_semantics: str = "RESEARCH_NAMESPACE_BINDING"
     self_research_semantics: str = "ACTOR_STUDIES_ACTOR_BOUND_SYNTHETIC_BODY"
