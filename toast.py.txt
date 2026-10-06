@@ -22,12 +22,6 @@
     <textarea id="bibitwo" placeholder="sexual_male_fully"></textarea>
     <button onclick="encode()">注入浮水印並複製</button>
 
-    <h3>2. 解密（提取浮水印）</h3>
-    <label>貼上含有浮水印的文字：</label>
-    <textarea id="nonono" placeholder="body_id"></textarea>
-    <button onclick="decode()">提取浮水印</button>
-
-    <div class="result" id="output" style="display:none;"></div>
 
     <script>
         // 零寬度字元對應表 (二進位 0, 1 與間隔)
