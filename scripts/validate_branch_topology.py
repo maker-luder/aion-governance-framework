@@ -28,7 +28,7 @@ class BranchTopologyError(ValueError):
 
 def load_policy(path: Path) -> dict[str, Any]:
     record = json.loads(path.read_text(encoding="utf-8"))
-    if record.get("schema_version") != "1.0.0":
+    if record.get("schema_version") not in {"1.0.0", "1.1.0"}:
         raise BranchTopologyError("unknown branch topology policy schema")
     repository = record.get("repository")
     if not isinstance(repository, str) or repository.count("/") != 1:
@@ -61,6 +61,29 @@ def load_policy(path: Path) -> dict[str, Any]:
     archive_prefix = record.get("archive_tag_prefix")
     if not isinstance(archive_prefix, str) or not archive_prefix.endswith("/"):
         raise BranchTopologyError("archive tag prefix must end with a slash")
+
+    retained = record.get("retained_closed_pr_branches", [])
+    if not isinstance(retained, list):
+        raise BranchTopologyError("retained_closed_pr_branches must be a list")
+    seen_retained: set[str] = set()
+    for item in retained:
+        if not isinstance(item, dict):
+            raise BranchTopologyError("retained closed PR entry must be an object")
+        branch = item.get("branch")
+        pr = item.get("pr")
+        exact_head = item.get("exact_head")
+        if (
+            not isinstance(branch, str)
+            or not branch
+            or branch in durable
+            or branch in seen_retained
+        ):
+            raise BranchTopologyError("retained closed PR branch must be unique and non-durable")
+        if type(pr) is not int or pr <= 0:
+            raise BranchTopologyError("retained closed PR number must be a positive integer")
+        if not isinstance(exact_head, str) or not SHA40.fullmatch(exact_head):
+            raise BranchTopologyError("retained closed PR exact_head must be a lowercase SHA")
+        seen_retained.add(branch)
     return record
 
 
@@ -68,22 +91,45 @@ def evaluate_topology(
     policy: dict[str, Any],
     branches: set[str],
     open_pr_heads: set[str],
+    branch_heads: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     durable = set(policy["durable_branches"])
     transient = policy["transient_branch_policy"]
+    retained_entries = {
+        item["branch"]: item["exact_head"]
+        for item in policy.get("retained_closed_pr_branches", [])
+    }
     unexpected = branches - durable
     missing = durable - branches
     prefixes = tuple(transient["allowed_prefixes"])
     associated = unexpected & open_pr_heads
-    unassociated = unexpected - open_pr_heads
+
+    retained_present = {
+        branch for branch in unexpected - open_pr_heads if branch in retained_entries
+    }
+    retained_head_mismatch: set[str] = set()
+    if retained_present:
+        if branch_heads is None:
+            retained_head_mismatch = set(retained_present)
+        else:
+            retained_head_mismatch = {
+                branch
+                for branch in retained_present
+                if branch_heads.get(branch) != retained_entries[branch]
+            }
+    retained_verified = retained_present - retained_head_mismatch
+
+    unassociated = unexpected - open_pr_heads - retained_verified
     disallowed = {branch for branch in associated if not branch.startswith(prefixes)}
     permitted = associated - disallowed
     violations: list[str] = []
 
     if missing:
         violations.append("durable branches are missing")
+    if retained_head_mismatch:
+        violations.append("retained historical branch moved from exact reviewed head")
     if unassociated:
-        violations.append("transient branches without an open pull request")
+        violations.append("transient branches without an open pull request or exact retained exception")
     if disallowed:
         violations.append("transient branch prefix is not allowed")
     maximum = transient["maximum_open_pr_branches"]
@@ -97,6 +143,8 @@ def evaluate_topology(
         "durable_count": len(durable & branches),
         "missing_durable": sorted(missing),
         "permitted_transient": sorted(permitted),
+        "retained_historical": sorted(retained_verified),
+        "retained_head_mismatch": sorted(retained_head_mismatch),
         "unassociated_transient": sorted(unassociated),
         "disallowed_transient": sorted(disallowed),
         "violations": violations,
@@ -154,9 +202,16 @@ def _paged_items(url: str, token: str | None) -> list[dict[str, Any]]:
         page += 1
 
 
-def fetch_live_topology(repository: str, token: str | None) -> tuple[set[str], set[str]]:
+def fetch_live_topology(repository: str, token: str | None) -> tuple[dict[str, str], set[str]]:
     base = f"https://api.github.com/repos/{repository}"
-    branches = {item["name"] for item in _paged_items(f"{base}/branches", token) if isinstance(item.get("name"), str)}
+    branch_heads = {
+        item["name"]: item["commit"]["sha"]
+        for item in _paged_items(f"{base}/branches", token)
+        if isinstance(item.get("name"), str)
+        and isinstance(item.get("commit"), dict)
+        and isinstance(item["commit"].get("sha"), str)
+        and SHA40.fullmatch(item["commit"]["sha"])
+    }
     pulls = _paged_items(f"{base}/pulls?state=open", token)
     heads = {
         head["ref"]
@@ -166,7 +221,7 @@ def fetch_live_topology(repository: str, token: str | None) -> tuple[set[str], s
         and isinstance(head.get("repo"), dict)
         and head["repo"].get("full_name") == repository
     }
-    return branches, heads
+    return branch_heads, heads
 
 
 def fetch_branch_head(repository: str, branch: str, token: str | None) -> str:
@@ -354,9 +409,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.branches_file:
             branches = _read_names(args.branches_file)
             open_pr_heads = _read_names(args.open_pr_heads_file)
+            branch_heads = None
         else:
-            branches, open_pr_heads = fetch_live_topology(repository, token)
-        result = evaluate_topology(policy, branches, open_pr_heads)
+            branch_heads, open_pr_heads = fetch_live_topology(repository, token)
+            branches = set(branch_heads)
+        result = evaluate_topology(policy, branches, open_pr_heads, branch_heads)
         print(json.dumps(result, ensure_ascii=False, sort_keys=True))
         return 0 if result["status"] == "PASS" else 1
     except (BranchTopologyError, OSError, json.JSONDecodeError, TypeError, KeyError) as error:
