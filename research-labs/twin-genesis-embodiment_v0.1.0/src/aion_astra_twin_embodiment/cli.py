@@ -4,6 +4,7 @@ import argparse
 import json
 from dataclasses import asdict
 
+from .body_dimensions import build_aion_tiger_full_dimension_preset, validate_aion_tiger_dimension_preset
 from .models import EmbodimentTemplate
 from .species_profiles import (
     build_aion_tiger_profile,
@@ -14,7 +15,7 @@ from .species_profiles import (
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="AION/Astra twin embodiment candidate CLI")
-    parser.add_argument("command", choices=["qa-status", "non-claims", "aion-tiger-profile"])
+    parser.add_argument("command", choices=["qa-status", "non-claims", "aion-tiger-profile", "aion-tiger-dimensions"])
     args = parser.parse_args()
 
     if args.command == "qa-status":
@@ -26,6 +27,12 @@ def main() -> int:
             "intimate_interaction": "NOT_AUTHORIZED",
             "canonical_effect": "NONE",
             "subjectivity_conclusion": "NOT_ESTABLISHED",
+        }
+    elif args.command == "aion-tiger-dimensions":
+        preset = build_aion_tiger_full_dimension_preset()
+        payload = {
+            "preset": asdict(preset),
+            "validation": validate_aion_tiger_dimension_preset(preset),
         }
     elif args.command == "aion-tiger-profile":
         profile = build_aion_tiger_profile()

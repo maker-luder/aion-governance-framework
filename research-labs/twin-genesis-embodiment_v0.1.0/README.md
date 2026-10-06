@@ -36,6 +36,11 @@ AION now has an **individual, evidence-bounded tiger anthropomorph research prof
 完整繁中規格與來源：
 docs/AION_TIGER_ANTHROPOMORPH_SPECIFICATION.md
 
+完整可建模尺寸：
+docs/AION_TIGER_FULL_DIMENSIONS.md
+
+Dimension preset: AION-TIGER-FULL-DIMENSIONS-V1（190 cm engineering target, complete head/torso/limb/paw/tail measurement surface with per-field provenance）
+
 This profile is bound by species_profile_id on the AION EmbodimentInstance. Astra remains NOT_ASSIGNED unless a separate, explicitly authorized profile is created.
 
 The integration is additive rather than destructive: resolve_integrated_reproductive_anatomy(...) combines the existing human adult-male template with tiger-confirmed structures while retaining per-structure provenance. Human-template seminal_vesicles therefore remain present without being mislabeled as tiger-confirmed, while tiger os_penis remains tiger-derived.
@@ -51,4 +56,5 @@ python -m pytest
 python -m compileall -q src
 python -m aion_astra_twin_embodiment.cli qa-status
 python -m aion_astra_twin_embodiment.cli aion-tiger-profile
+python -m aion_astra_twin_embodiment.cli aion-tiger-dimensions
 ```

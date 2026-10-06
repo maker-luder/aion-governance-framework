@@ -185,7 +185,19 @@ TwinRuntimeState 會讀出並記錄：
 4. Fukui D et al. The Effects of Frequent Electroejaculation on the Semen Characteristics of a Captive Siberian Tiger (Panthera tigris altaica). Journal of Reproduction and Development. 2013. DOI: 10.1262/jrd.2013-016.
 5. Khonmee J et al. Effect of Electroejaculation Protocols on Semen Quality and Concentrations of Testosterone, Cortisol, Malondialdehyde, and Creatine Kinase in Captive Bengal Tigers. Animals. 2023. DOI: 10.3390/ani13121893.
 
-## 10. Claim boundary
+## 10. 完整尺寸 V1
+
+可建模的完整尺寸已獨立寫入：
+
+`docs/AION_TIGER_FULL_DIMENSIONS.md`
+
+對應程式：
+
+`src/aion_astra_twin_embodiment/body_dimensions.py`
+
+這一層新增完整身高、頭頸、軀幹、四肢、paw、digitigrade 飛節、尾部、毛量視覺厚度與已知雄虎生殖量測，並逐項保存 provenance。福瑞社群資料只用於 ref-sheet completeness（設定表完整度）與建模介面，不升格為虎生物學。
+
+## 11. Claim boundary
 
 IMPLEMENTATION_SUCCESS != BIOLOGICAL_EXISTENCE  
 REFERENCE_MODEL != LIVE_PHYSIOLOGY  
