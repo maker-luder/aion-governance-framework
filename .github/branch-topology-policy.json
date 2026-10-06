@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.2.0",
+  "schema_version": "1.4.0",
   "repository": "maker-luder/aion-governance-framework",
   "steady_state_branch_count": 4,
   "durable_branches": [
@@ -11,6 +11,8 @@
   "transient_branch_policy": {
     "maximum_open_pr_branches": null,
     "require_open_pull_request": true,
+    "allow_deferred_cleanup_without_open_pr": true,
+    "enforce_allowed_prefixes": false,
     "delete_after_pull_request_close": true,
     "allowed_prefixes": [
       "work/",

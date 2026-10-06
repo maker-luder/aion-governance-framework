@@ -36,7 +36,7 @@ jobs:
           --repository "${{ github.repository }}"
 
   assess-closed-pr-retirement:
-    name: Assess closed PR retirement (read-only HOLD)
+    name: Assess closed PR retirement (advisory HOLD)
     if: >-
       github.event_name == 'pull_request' &&
       github.event.action == 'closed' &&
@@ -56,6 +56,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Assess preservation without granting deletion authority
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ github.token }}
           RETIREMENT_REPOSITORY: ${{ github.repository }}
