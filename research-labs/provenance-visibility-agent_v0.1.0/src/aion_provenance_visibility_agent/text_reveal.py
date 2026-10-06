@@ -376,6 +376,7 @@ def reveal_hidden_text_signal(text: str) -> TextRevealReport:
             "MONTAGE_JUXTAPOSITION_PROJECT_METAPHOR",
             "ABDUCTIVE_REASONING",
             "ANALOGICAL_REASONING_WHEN_REFERENCE_EXISTS",
+            "DEFEASIBLE_REASONING_WITH_COUNTER_EXPLANATIONS",
             "MULTI_VIEW_TRIANGULATION",
         ),
         visible_label_zh_tw=label,
