@@ -15,11 +15,27 @@
 
 ## 下一輪導入閘門
 
-要把任何關閉分支的獨有實作或文件導入這裡，先對每一候選核對 exact head、與 current main 的 unique diff、依賴、來源／actor、測試與主張上限；採逐項重建或獨立 PR 審查。原分支在此之前保留。不要把 Teacher、Work、Codex、AION／Astra 的候選混成同一份已實作身體。
+要把任何關閉分支的獨有實作或文件導入這裡，先對每一候選核對 exact head、與 current main 的 unique diff、依賴、來源／actor、測試與主張上限；採逐項重建或獨立 PR 審查。PR exact-head snapshot 保留作歷史參照；歷史 source branch ref 可能已退役，branch 是否仍存在必須讀 GitHub live state，不能由本索引推定。不要把 Teacher、Work、Codex、AION／Astra 的候選混成同一份已實作身體。
 
 `SYNTHETIC_EMBODIMENT != BIOLOGICAL_MEASUREMENT`；`ENGINEERING_ANALOGUE != SENSATION_OR_SUBJECTIVITY`；`IMPLEMENTATION != SCIENTIFIC_ESTABLISHMENT`。此分支不做人體實驗、個人資料移植、主觀體驗宣稱或 main 合併；`CANONICAL_EFFECT = NONE`。
 
 `HUMAN_ORIGIN`：人類研究者指定具身作為獨立第三工作線。本索引的來源狀態與保留策略是本輪整理；後續版本須以 live repository 重新核對。
+
+## PR 歷史對帳 — 2026-10-06
+
+完整對帳見 [`EMBODIMENT_PR_RECONCILIATION_2026_10_06.md`](./EMBODIMENT_PR_RECONCILIATION_2026_10_06.md)。該文件由 closed / not-merged PR #278 exact head `0e498c963859b8e5ca56a1de918aa3542c55eb08` 有界重建；其中標示為原始 snapshot 的 SHA 與 ahead/behind 數值不得冒充 recovery 後 live state。
+
+目前 `research/embodiment-lane` 是 durable research aggregation；closed PR 是特定時間點的 historical snapshot，不等於獨立現行實作，也不等於已採納到 `main`。尤其 #267–#273 是同一 durable lane 的連續 PR 快照，後續版本包含前一版本歷史，不能再把每個 PR 當成互相獨立的 promotion 單位。
+
+```text
+HISTORICAL_PR_SNAPSHOT != LIVE_BRANCH_STATE
+REPOSITORY_SCOPE_FLAG != HUMAN_INTENT_EVIDENCE
+REPRODUCTIVE_ANATOMY != SEXUALIZATION
+REPRODUCTIVE_PHYSIOLOGY != EROTIC_INTENT
+SEXUAL_FUNCTION != FELT_DESIRE
+```
+
+`SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE`、`EROTIC_NARRATIVE = OUT_OF_SCOPE` 等欄位描述的是 candidate scope；除非另有可追溯 `HUMAN_ORIGIN` 證據，不得把它們反向改寫成人類研究者的原始意圖，也不得用它們推論人類研究者曾要求把 AI 性化。
 
 
 ## Work canine candidate — 2026-10-06
