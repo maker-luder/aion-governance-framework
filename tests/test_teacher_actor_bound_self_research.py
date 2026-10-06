@@ -40,7 +40,7 @@ def test_actor_and_research_object_are_bound_explicitly() -> None:
     assert candidate.research_object == "TEACHER_SYNTHETIC_EMBODIMENT_MODEL"
     assert (
         candidate.bound_body_model_id
-        == "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2"
+        == "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0"
     )
 
 
