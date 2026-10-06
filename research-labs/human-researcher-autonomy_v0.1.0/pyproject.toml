@@ -7,3 +7,8 @@ name = "aion-human-researcher-autonomy"
 version = "0.1.0"
 description = "Bounded candidate policy for human researcher research autonomy"
 requires-python = ">=3.11"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["aion_human_researcher_autonomy"]
