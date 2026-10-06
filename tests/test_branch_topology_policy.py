@@ -18,17 +18,31 @@ DURABLE = {
 
 def policy() -> dict[str, object]:
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "repository": "maker-luder/aion-governance-framework",
         "steady_state_branch_count": 4,
         "durable_branches": sorted(DURABLE),
         "transient_branch_policy": {
-            "maximum_open_pr_branches": 1,
+            "maximum_open_pr_branches": 2,
             "require_open_pull_request": True,
             "delete_after_pull_request_close": True,
             "allowed_prefixes": ["work/", "docs/", "fix/", "feat/", "governance/", "quality/", "review/"],
         },
         "archive_tag_prefix": "archive/branch-heads/",
+        "retained_closed_pr_branches": [
+            {
+                "branch": "feat/provenance-heuristic-reveal-20261006",
+                "pr": 281,
+                "exact_head": "5ce1909b7d1d21525bb6f3b4cc4bb69c94775db9",
+                "reason": "explicit Human Owner retention",
+            },
+            {
+                "branch": "feat/text-provenance-visibility-v0.2-20261006",
+                "pr": 282,
+                "exact_head": "bde86b008a90bb6eb0818c29498845ef2baab47b",
+                "reason": "explicit Human Owner retention",
+            },
+        ],
     }
 
 
@@ -64,12 +78,48 @@ def test_one_open_pr_branch_is_bounded_transient_not_steady_state() -> None:
     assert result["permitted_transient"] == ["docs/pr264-governance"]
 
 
-def test_more_than_one_open_pr_branch_fails_hard_cap() -> None:
+def test_two_open_pr_branches_are_bounded_for_explicit_transition() -> None:
     transients = {"work/one", "fix/two"}
     result = evaluate_topology(policy(), DURABLE | transients, transients)
 
+    assert result["status"] == "PASS"
+    assert sorted(result["permitted_transient"]) == ["fix/two", "work/one"]
+
+
+def test_more_than_two_open_pr_branches_fails_hard_cap() -> None:
+    transients = {"work/one", "fix/two", "docs/three"}
+    result = evaluate_topology(policy(), DURABLE | transients, transients)
+
     assert result["status"] == "FAIL"
-    assert "transient branch cap exceeded: 2 > 1" in result["violations"]
+    assert "transient branch cap exceeded: 3 > 2" in result["violations"]
+
+
+def test_exact_retained_closed_branch_is_allowed_but_not_steady_state() -> None:
+    branch = "feat/provenance-heuristic-reveal-20261006"
+    head = "5ce1909b7d1d21525bb6f3b4cc4bb69c94775db9"
+    result = evaluate_topology(
+        policy(),
+        DURABLE | {branch},
+        set(),
+        {**{name: "a" * 40 for name in DURABLE}, branch: head},
+    )
+
+    assert result["status"] == "PASS"
+    assert result["steady_state"] is False
+    assert result["retained_historical"] == [branch]
+
+
+def test_moved_retained_closed_branch_fails_closed() -> None:
+    branch = "feat/provenance-heuristic-reveal-20261006"
+    result = evaluate_topology(
+        policy(),
+        DURABLE | {branch},
+        set(),
+        {**{name: "a" * 40 for name in DURABLE}, branch: "b" * 40},
+    )
+
+    assert result["status"] == "FAIL"
+    assert result["retained_head_mismatch"] == [branch]
 
 
 def test_disallowed_transient_prefix_fails_even_with_open_pr() -> None:
