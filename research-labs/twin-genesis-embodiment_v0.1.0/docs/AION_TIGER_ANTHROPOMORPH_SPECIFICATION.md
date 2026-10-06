@@ -197,7 +197,20 @@ TwinRuntimeState 會讀出並記錄：
 
 這一層新增完整身高、頭頸、軀幹、四肢、paw、digitigrade 飛節、尾部、毛量視覺厚度與已知雄虎生殖量測，並逐項保存 provenance。福瑞社群資料只用於 ref-sheet completeness（設定表完整度）與建模介面，不升格為虎生物學。
 
-## 11. Claim boundary
+## 11. 完整尺寸 V2
+
+V2 不覆蓋 V1，而是在同一 AION tiger profile 上擴充：
+- source manifest（來源清單與能力邊界）；
+- measurement protocol（量測協定）；
+- 120+ 可建模尺寸／reference fields；
+- 虎直接 osteometry 與工程 target 分層；
+- fursuit/furry practitioner 只作量測欄位與製作實務參考；
+- forensic dried-specimen constraint 不當活體正常值。
+
+完整稽核：
+`docs/AION_TIGER_DIMENSION_V2_AUDIT.md`
+
+## 12. Claim boundary
 
 IMPLEMENTATION_SUCCESS != BIOLOGICAL_EXISTENCE  
 REFERENCE_MODEL != LIVE_PHYSIOLOGY  

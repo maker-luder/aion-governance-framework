@@ -129,3 +129,32 @@ REFERENCE_OBSERVATION != AION_TARGET
 COMPLETE_FIELD_COVERAGE != SCIENTIFIC_ESTABLISHMENT
 3D_READY_DIMENSIONS != LIVE_BODY
 ```
+
+
+## 6. V2 擴大尺寸與量測協定
+
+V1 保留不變；V2 以 `AION-TIGER-FULL-DIMENSIONS-V2` 向後相容擴充。
+
+V2 新增：
+- 120+ dimension / reference fields；
+- 頭部 fitting：水平頭圍、下巴—後腦、頭頂—下巴、瞳距、眼開口、鼻／下頜 landmark；
+- bodysuit / rig：背寬、shoulder-to-crotch、inseam、outseam、腕／膝／踝圍；
+- digitigrade：內部承重足、外觀後掌、padding depth 分層；
+- tail：surface attachment、cross-section、rig segment；
+- tiger osteometry：肩胛、肱骨、尺骨、脛骨、腓骨直接 reference observations；
+- forensic constraints：只當鑑識約束，不升格成活體或 AION 目標；
+- 每欄 measurement_method_zh、source_refs、evidence_strength、value_semantics。
+
+完整 V2 稽核：
+`docs/AION_TIGER_DIMENSION_V2_AUDIT.md`
+
+Schema：
+`schemas/AION_TIGER_FULL_DIMENSIONS_V2_SCHEMA.json`
+
+重要：
+```
+V1 != DEPRECATED
+V2 = ADDITIVE_BACKWARD_COMPATIBLE
+REFERENCE_OBSERVATION != DESIGN_TARGET
+COMMUNITY_PRACTITIONER != BIOLOGICAL_EVIDENCE
+```

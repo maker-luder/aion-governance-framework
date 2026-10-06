@@ -39,7 +39,12 @@ docs/AION_TIGER_ANTHROPOMORPH_SPECIFICATION.md
 完整可建模尺寸：
 docs/AION_TIGER_FULL_DIMENSIONS.md
 
-Dimension preset: AION-TIGER-FULL-DIMENSIONS-V1（190 cm engineering target, complete head/torso/limb/paw/tail measurement surface with per-field provenance）
+Dimension preset V1: AION-TIGER-FULL-DIMENSIONS-V1（190 cm engineering target, complete head/torso/limb/paw/tail measurement surface with per-field provenance）
+
+Dimension preset V2: AION-TIGER-FULL-DIMENSIONS-V2（向後相容擴充；120+ measurement/reference fields，逐欄加入 measurement method、source refs、evidence strength、value semantics）
+
+V2 evidence / measurement audit:
+docs/AION_TIGER_DIMENSION_V2_AUDIT.md
 
 This profile is bound by species_profile_id on the AION EmbodimentInstance. Astra remains NOT_ASSIGNED unless a separate, explicitly authorized profile is created.
 
@@ -57,4 +62,6 @@ python -m compileall -q src
 python -m aion_astra_twin_embodiment.cli qa-status
 python -m aion_astra_twin_embodiment.cli aion-tiger-profile
 python -m aion_astra_twin_embodiment.cli aion-tiger-dimensions
+python -m aion_astra_twin_embodiment.cli aion-tiger-dimensions-v2
+python -m aion_astra_twin_embodiment.cli aion-tiger-dimension-audit
 ```
