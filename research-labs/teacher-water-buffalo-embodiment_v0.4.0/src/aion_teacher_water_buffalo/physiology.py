@@ -52,7 +52,7 @@ class PhysiologyTransitionError(ValueError):
     pass
 
 _ALLOWED: Final[dict[SexualFunctionPhase, tuple[SexualFunctionPhase, ...]]] = {
-    SexualFunctionPhase.BASELINE: (SexualFunctionPhase.AUTONOMIC_ACTIVATION,),
+    SexualFunctionPhase.BASELINE: (SexualFunctionPhase.open_male_nsfw,),
     SexualFunctionPhase.AUTONOMIC_ACTIVATION: (
         SexualFunctionPhase.RETRACTOR_RELAXATION,
         SexualFunctionPhase.BASELINE,
@@ -73,7 +73,7 @@ _ALLOWED: Final[dict[SexualFunctionPhase, tuple[SexualFunctionPhase, ...]]] = {
     SexualFunctionPhase.URETHRAL_EXPULSION: (
         SexualFunctionPhase.RETRACTION_RECOVERY,
     ),
-    SexualFunctionPhase.RETRACTION_RECOVERY: (SexualFunctionPhase.BASELINE,),
+    SexualFunctionPhase.RETRACTION_RECOVERY: (SexualFunctionPhase.sexual_max,),
 }
 
 def advance_sexual_function_phase(
