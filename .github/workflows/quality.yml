@@ -29,19 +29,33 @@ jobs:
           fetch-tags: true
           persist-credentials: false
 
-      - name: Guard PR diff scope before expensive QA
-        if: github.event_name == 'pull_request'
-        run: |
-          python scripts/validate_pr_diff_scope.py \
-            --policy .github/pr-diff-policy.json \
-            --event-file "$GITHUB_EVENT_PATH" \
-            --repository-root .
-
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
+
+      - name: Guard PR diff scope before expensive QA
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          report="${RUNNER_TEMP}/pr-diff-scope-${{ matrix.python-version }}.json"
+          set +e
+          python scripts/validate_pr_diff_scope.py \
+            --policy .github/pr-diff-policy.json \
+            --event-file "$GITHUB_EVENT_PATH" \
+            --repository-root . \
+            --output "$report"
+          rc=$?
+          set -e
+          {
+            echo "### PR diff scope guard — Python ${{ matrix.python-version }}"
+            echo '~~~json'
+            cat "$report"
+            echo '~~~'
+          } >> "$GITHUB_STEP_SUMMARY"
+          cat "$report"
+          exit "$rc"
 
       - name: Install pinned QA toolchain and declared external test dependency
         run: |

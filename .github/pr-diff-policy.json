@@ -1,13 +1,13 @@
 {
-  "schema_version": "1.0.0",
-  "main_branch": "main",
+  "schema_version": "1.1.0",
+  "repository": "maker-luder/aion-governance-framework",
   "durable_branches": [
     "main",
     "research/ccts-human-ai-learning-lane",
     "research/embodiment-lane",
     "research/legacy-uncertainty-hold"
   ],
-  "allowed_main_pr_head_prefixes": [
+  "allowed_transient_head_prefixes": [
     "work/",
     "docs/",
     "fix/",
@@ -16,10 +16,10 @@
     "quality/",
     "review/"
   ],
+  "require_same_repository_head": true,
   "large_diff_total_line_threshold": 2000,
   "large_diff_file_threshold": 30,
-  "amplification_min_total_lines": 1200,
-  "amplification_ratio_threshold": 4.0,
   "large_pr_ack_marker": "LARGE_PR_EXPECTED = TRUE",
-  "large_pr_reason_prefix": "LARGE_PR_REASON ="
+  "large_pr_reason_prefix": "LARGE_PR_REASON =",
+  "large_pr_reason_min_chars": 24
 }
