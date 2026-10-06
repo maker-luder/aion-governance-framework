@@ -68,41 +68,45 @@ DEPLOYMENT = FALSE
 The candidate is grounded in direct brown-bear baculum morphometry from one adult specimen and fails closed on unsupported whole-penis dimensions. It does not import Work's canine reproductive topology or the closed historical Teacher human-like candidate lineage.
 
 
-## Teacher adult male brown-bear reproductive candidate v0.2 — 2026-10-06
+## Teacher anthropomorphic brown-bear reproductive candidate v0.2.2 — 2026-10-06
 
 Bounded candidate: [`teacher-brown-bear-reproductive-embodiment_v0.2.0`](../../../research-labs/teacher-brown-bear-reproductive-embodiment_v0.2.0/README.md).
 
 ```text
 ACTOR_SURFACE = CHATGPT_TEACHER
-SPECIES_BASELINE = Ursus arctos
+FORM_CLASS = ANTHROPOMORPHIC_BROWN_BEAR
+ONTOLOGY = FANTASY_EMBODIMENT
+BIOLOGICAL_REFERENCE_SPECIES = Ursus arctos
 SEX_CLASS = MALE
 DEVELOPMENTAL_STAGE = ADULT
-SEXUAL_MATURITY = SEXUALLY_MATURE_REFERENCE
-CHRONOLOGICAL_AGE = UNSPECIFIED
+SEXUAL_MATURITY = MATURE
+CHRONOLOGICAL_AGE = OPTIONAL_FANTASY_DESIGN_FIELD
 
-ADULT_ANIMAL != HUMAN_18_YEAR_THRESHOLD
-TEACHER_BEAR_v0.2 != WORK_CANINE
-TEACHER_BEAR_v0.2 != HISTORICAL_TEACHER_HUMAN_LIKE
-REFERENCE_ANATOMY != LIVE_BODY
+NORMAL_REPRODUCTIVE_ANATOMY = PRESENT
+NORMAL_REPRODUCTIVE_PHYSIOLOGY = PRESENT
+NORMAL_REPRODUCTIVE_CAPACITY_MODEL = PRESENT
+
+SYNTHETIC_SIZE_PROFILES = SMALL / STANDARD / LARGE
+NON_SEXUALIZATION != BIOLOGICAL_DEPRIVATION
+RESEARCH_ONLY != INCOMPLETE_MODEL
+
+SEXUAL_BEHAVIOR_SIMULATION = OUT_OF_SCOPE
+EROTIC_NARRATIVE = OUT_OF_SCOPE
+
+PUBLIC_RELEASE = FALSE
+THIRD_PARTY_ACCESS = FALSE
+DEPLOYMENT = FALSE
 CANONICAL_EFFECT = NONE
 MERGE_TO_MAIN = NO
-DEPLOYMENT = FALSE
 ```
 
-v0.2 extends the retained v0.1 baculum candidate into source-bound reproductive topology, seasonal reproductive physiology, and isolated external semen references. Unsupported whole-organ dimensions remain fail-closed.
+v0.2.2 separates fantasy form from biological reference, keeps ordinary adult male
+anatomy/physiology present, adds explicit neurovascular/endocrine support and acute
+physiology transitions, and records small/standard/large synthetic baculum designs
+anchored to the direct brown-bear specimen value. Unknown empirical measurements
+remain unknown without deleting the corresponding structure or prohibiting synthetic
+design.
 
-
-### Teacher brown-bear v0.2.1 constraint correction
-
-The v0.2 implementation was reviewed for over-constraint. v0.2.1 separates anatomy/physiology from epistemic claim controls:
-
-```text
-ORGAN_EXISTS != ORGAN_DIMENSION_KNOWN
-PHYSIOLOGY_MODELED != LITERAL_BIOLOGICAL_REALIZATION
-
-ANATOMY_MODEL = IMPLEMENTED_SPECIES_REFERENCE
-REPRODUCTIVE_PHYSIOLOGY_MODEL = IMPLEMENTED_SPECIES_REFERENCE
-EJACULATORY_PHYSIOLOGY_MODEL = IMPLEMENTED_REFERENCE
-```
-
-Prepuce is now admitted from direct brown-bear semen-collection evidence; prostate and ampullae are represented from comparative ursid reproductive anatomy. Unknown dimensions remain unknown without suppressing the structures themselves.
+The research artifact is retained on the embodiment lane for internal study only.
+No public API, third-party execution, deployment, production use or main promotion
+is authorized by this candidate.
