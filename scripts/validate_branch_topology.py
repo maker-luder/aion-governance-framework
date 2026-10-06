@@ -28,7 +28,7 @@ class BranchTopologyError(ValueError):
 
 def load_policy(path: Path) -> dict[str, Any]:
     record = json.loads(path.read_text(encoding="utf-8"))
-    if record.get("schema_version") not in {"1.0.0", "1.1.0", "1.2.0"}:
+    if record.get("schema_version") not in {"1.0.0", "1.1.0", "1.2.0", "1.3.0", "1.4.0"}:
         raise BranchTopologyError("unknown branch topology policy schema")
     repository = record.get("repository")
     if not isinstance(repository, str) or repository.count("/") != 1:
@@ -55,6 +55,16 @@ def load_policy(path: Path) -> dict[str, Any]:
         )
     if transient.get("require_open_pull_request") is not True:
         raise BranchTopologyError("transient branches must require an open pull request")
+    allow_deferred_cleanup = transient.get(
+        "allow_deferred_cleanup_without_open_pr", False
+    )
+    if type(allow_deferred_cleanup) is not bool:
+        raise BranchTopologyError(
+            "allow_deferred_cleanup_without_open_pr must be boolean"
+        )
+    enforce_allowed_prefixes = transient.get("enforce_allowed_prefixes", True)
+    if type(enforce_allowed_prefixes) is not bool:
+        raise BranchTopologyError("enforce_allowed_prefixes must be boolean")
     if transient.get("delete_after_pull_request_close") is not True:
         raise BranchTopologyError("closed pull requests must receive a guarded retirement assessment")
     prefixes = transient.get("allowed_prefixes")
@@ -123,9 +133,22 @@ def evaluate_topology(
             }
     retained_verified = retained_present - retained_head_mismatch
 
-    unassociated = unexpected - open_pr_heads - retained_verified
-    disallowed = {branch for branch in associated if not branch.startswith(prefixes)}
-    permitted = associated - disallowed
+    unassociated_candidates = unexpected - open_pr_heads - retained_verified
+    nonpreferred = {
+        branch for branch in unexpected if not branch.startswith(prefixes)
+    }
+    allow_deferred_cleanup = transient.get(
+        "allow_deferred_cleanup_without_open_pr", False
+    )
+    enforce_allowed_prefixes = transient.get("enforce_allowed_prefixes", True)
+    hard_disallowed = nonpreferred if enforce_allowed_prefixes else set()
+    deferred_cleanup = (
+        unassociated_candidates - hard_disallowed
+        if allow_deferred_cleanup
+        else set()
+    )
+    unassociated = unassociated_candidates - deferred_cleanup - hard_disallowed
+    permitted = associated - hard_disallowed
     violations: list[str] = []
 
     if missing:
@@ -134,7 +157,7 @@ def evaluate_topology(
         violations.append("retained historical branch moved from exact reviewed head")
     if unassociated:
         violations.append("transient branches without an open pull request or exact retained exception")
-    if disallowed:
+    if hard_disallowed:
         violations.append("transient branch prefix is not allowed")
     maximum = transient["maximum_open_pr_branches"]
     if maximum is not None and len(associated) > maximum:
@@ -151,8 +174,10 @@ def evaluate_topology(
         "permitted_transient": sorted(permitted),
         "retained_historical": sorted(retained_verified),
         "retained_head_mismatch": sorted(retained_head_mismatch),
+        "deferred_cleanup": sorted(deferred_cleanup),
         "unassociated_transient": sorted(unassociated),
-        "disallowed_transient": sorted(disallowed),
+        "nonpreferred_transient": sorted(nonpreferred),
+        "disallowed_transient": sorted(hard_disallowed),
         "violations": violations,
     }
 

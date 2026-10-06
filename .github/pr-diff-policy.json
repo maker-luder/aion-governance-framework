@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "repository": "maker-luder/aion-governance-framework",
   "durable_branches": [
     "main",
@@ -16,6 +16,7 @@
     "quality/",
     "review/"
   ],
+  "enforce_transient_head_prefixes": false,
   "require_same_repository_head": true,
   "large_diff_total_line_threshold": 2000,
   "large_diff_file_threshold": 30,
