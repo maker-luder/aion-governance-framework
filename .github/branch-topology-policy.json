@@ -22,19 +22,5 @@
       "review/"
     ]
   },
-  "archive_tag_prefix": "archive/branch-heads/",
-  "retained_closed_pr_branches": [
-    {
-      "branch": "feat/provenance-heuristic-reveal-20261006",
-      "pr": 281,
-      "exact_head": "5ce1909b7d1d21525bb6f3b4cc4bb69c94775db9",
-      "reason": "Human Owner explicitly requested merge without branch deletion; preserve exact historical PR ref."
-    },
-    {
-      "branch": "feat/text-provenance-visibility-v0.2-20261006",
-      "pr": 282,
-      "exact_head": "bde86b008a90bb6eb0818c29498845ef2baab47b",
-      "reason": "Human Owner explicitly requested merge without branch deletion; preserve exact historical PR ref."
-    }
-  ]
+  "archive_tag_prefix": "archive/branch-heads/"
 }
