@@ -34,14 +34,14 @@ def validate_candidate(
         "research_actor": "CHATGPT_TEACHER",
         "research_object": "TEACHER_SYNTHETIC_EMBODIMENT_MODEL",
         "bound_body_model_id": (
-            "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2"
+            "CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0"
         ),
         "initial_body_repository_head": (
-            "28fff27614657c71ee6366e5b84bdacaa28da82f"
+            "4748a1d1182df64fc0a0706e5c704de0d2a1b56c"
         ),
-        "form_class": "ANTHROPOMORPHIC_BROWN_BEAR",
+        "form_class": "ANTHROPOMORPHIC_BOVINE",
         "ontology": "FANTASY_EMBODIMENT",
-        "biological_reference_species": "Ursus arctos",
+        "biological_reference_species": "Bos taurus",
         "self_reference_semantics": "RESEARCH_NAMESPACE_BINDING",
         "self_research_semantics": "ACTOR_STUDIES_ACTOR_BOUND_SYNTHETIC_BODY",
         "self_model_semantics": "MODEL_OF_BOUND_RESEARCH_OBJECT",
