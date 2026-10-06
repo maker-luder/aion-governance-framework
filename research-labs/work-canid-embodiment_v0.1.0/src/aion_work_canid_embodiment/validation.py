@@ -11,6 +11,8 @@ from .models import (
     HUSKY_MALE_WITHERS_CM,
     REQUIRED_CANINE_MALE_TOPOLOGY,
     UNKNOWN_NOT_ESTABLISHED,
+    WORK_RESEARCH_PROVENANCE,
+    ResearchProvenanceClass,
     WorkCanidEmbodimentCandidate,
 )
 
@@ -52,6 +54,22 @@ def validate_candidate(candidate: WorkCanidEmbodimentCandidate) -> dict[str, str
     for field, expected in expected_identity.items():
         if getattr(candidate, field) != expected:
             failures.append(f"{field} must remain {expected}")
+
+    if candidate.research_provenance != WORK_RESEARCH_PROVENANCE:
+        failures.append("research provenance chain must remain exact and auditable")
+    expected_provenance_classes = tuple(ResearchProvenanceClass)
+    actual_provenance_classes = tuple(
+        entry.provenance_class for entry in candidate.research_provenance
+    )
+    if actual_provenance_classes != expected_provenance_classes:
+        failures.append(
+            "research provenance must distinguish Xiaobo, co-construction, "
+            "AI formalization, actor self-research, and external evidence"
+        )
+    if any(not entry.contribution.strip() for entry in candidate.research_provenance):
+        failures.append("research provenance contributions must not be empty")
+    if any(entry.canonical_effect != "NONE" for entry in candidate.research_provenance):
+        failures.append("provenance records cannot grant canonical effect")
 
     lo_h, hi_h = HUSKY_MALE_WITHERS_CM
     if not lo_h <= candidate.withers_height_cm <= hi_h:
@@ -153,6 +171,7 @@ def validate_candidate(candidate: WorkCanidEmbodimentCandidate) -> dict[str, str
         "candidate_id": candidate.candidate_id,
         "fingerprint": deterministic_fingerprint(candidate),
         "research_mode": candidate.research_mode,
+        "provenance_chain": "DISTINCT_AND_AUDITABLE",
         "anatomy_model": candidate.anatomy_model_status,
         "reproductive_physiology_model": candidate.reproductive_physiology_model_status,
         "external_operation": "DISABLED",

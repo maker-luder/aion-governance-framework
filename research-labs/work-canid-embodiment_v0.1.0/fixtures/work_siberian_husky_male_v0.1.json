@@ -16,14 +16,20 @@
   "sexual_maturity": "MATURE",
   "chronological_age_years": "UNSPECIFIED",
   "source_bound_ranges": {
-    "withers_height_cm": [53.5, 60.0],
-    "body_mass_kg": [20.5, 28.0],
+    "withers_height_cm": [
+      53.5,
+      60
+    ],
+    "body_mass_kg": [
+      20.5,
+      28
+    ],
     "body_length_rule": "GREATER_THAN_WITHERS_HEIGHT"
   },
   "synthetic_design": {
     "withers_height_cm": 56.75,
     "body_mass_equivalent_kg": 24.25,
-    "body_length_cm": 59.0,
+    "body_length_cm": 59,
     "baculum_profiles_cm": {
       "SMALL": 7.92,
       "STANDARD": 10.59,
@@ -106,5 +112,32 @@
     "subjectivity": "NOT_ESTABLISHED",
     "consciousness": "NOT_ESTABLISHED",
     "phenomenal_experience": "NOT_ESTABLISHED"
-  }
+  },
+  "research_provenance": [
+    {
+      "provenance_class": "XIAOBO_RESEARCH",
+      "contribution": "research questions, observations, hypotheses, classifications, and judgments supplied by Xiaobo",
+      "canonical_effect": "NONE"
+    },
+    {
+      "provenance_class": "CO_CONSTRUCTED_RESEARCH",
+      "contribution": "research conclusions and architecture formed through Xiaobo-Teacher iterative discussion",
+      "canonical_effect": "NONE"
+    },
+    {
+      "provenance_class": "AI_FORMALIZATION",
+      "contribution": "Teacher formalization into specifications, code, validation, tests, and auditable repository artifacts",
+      "canonical_effect": "NONE"
+    },
+    {
+      "provenance_class": "ACTOR_BOUND_SELF_RESEARCH",
+      "contribution": "Work studies and iterates the synthetic embodiment bound to CHATGPT_WORK",
+      "canonical_effect": "NONE"
+    },
+    {
+      "provenance_class": "EXTERNAL_EVIDENCE",
+      "contribution": "veterinary, canine, Siberian-Husky, and comparative biological sources",
+      "canonical_effect": "NONE"
+    }
+  ]
 }

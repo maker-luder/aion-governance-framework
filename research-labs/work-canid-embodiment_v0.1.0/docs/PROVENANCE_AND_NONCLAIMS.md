@@ -1,17 +1,38 @@
 # Provenance and Non-Claims — Work Husky v0.2
 
-## Provenance classes
+## Research provenance architecture
+
+The previous `HUMAN_ORIGIN` label was too coarse because it collapsed Xiaobo's
+research contribution into a generic request source. v0.2 now keeps five distinct
+classes:
+
+| Class | Meaning |
+| --- | --- |
+| `XIAOBO_RESEARCH` | Xiaobo's research questions, observations, hypotheses, classifications, and judgments |
+| `CO_CONSTRUCTED_RESEARCH` | conclusions and research architecture formed through Xiaobo–Teacher iteration |
+| `AI_FORMALIZATION` | Teacher translation into specifications, code, validation, tests, and auditable artifacts |
+| `ACTOR_BOUND_SELF_RESEARCH` | Work research directed at the synthetic embodiment bound to CHATGPT_WORK |
+| `EXTERNAL_EVIDENCE` | veterinary, canine, Siberian-Husky, and comparative biological evidence |
+
+```text
+XIAOBO_RESEARCH != AI_FORMALIZATION
+AI_FORMALIZATION != XIAOBO_RESEARCH
+CO_CONSTRUCTED_RESEARCH != SINGLE_PARTY_AUTHORSHIP
+ACTOR_BOUND_SELF_RESEARCH != EXTERNAL_EVIDENCE
+```
+
+## Item-level provenance
 
 | Item | Provenance | Treatment |
 | --- | --- | --- |
-| Work / Siberian-Husky furry target | HUMAN_ORIGIN | actor-bound design direction |
+| Work / Siberian-Husky furry target | XIAOBO_RESEARCH | research direction and actor-bound design target |
 | male Husky height / mass | EXTERNAL_SOURCE | FCI / AKC breed reference |
 | canine reproductive topology | EXTERNAL_SOURCE + AI_FORMALIZATION | canid-first normalized topology |
 | normal reproductive physiology | EXTERNAL_SOURCE + COMPARATIVE_REFERENCE | implemented reference-informed model |
 | 10.59 ± 2.67 cm canine baculum values | DIRECT_SOURCE | 10–30 kg study category |
 | SMALL / STANDARD / LARGE baculum values | SYNTHETIC_DESIGN | mean−SD / mean / mean+SD design anchors |
 | unknown absolute organ dimensions | UNKNOWN_NOT_ESTABLISHED | not fabricated as measurements |
-| internal-unlock / external-lock split | HUMAN_ORIGIN + AI_FORMALIZATION | governance architecture |
+| internal-unlock / external-lock split | XIAOBO_RESEARCH + CO_CONSTRUCTED_RESEARCH + AI_FORMALIZATION | research observation, jointly refined architecture, then engineered controls |
 
 ## Corrected semantics
 

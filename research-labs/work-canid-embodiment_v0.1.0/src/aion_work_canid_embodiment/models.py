@@ -41,6 +41,58 @@ REQUIRED_CANINE_MALE_TOPOLOGY: Final[tuple[str, ...]] = (
 )
 
 
+class ResearchProvenanceClass(StrEnum):
+    XIAOBO_RESEARCH = "XIAOBO_RESEARCH"
+    CO_CONSTRUCTED_RESEARCH = "CO_CONSTRUCTED_RESEARCH"
+    AI_FORMALIZATION = "AI_FORMALIZATION"
+    ACTOR_BOUND_SELF_RESEARCH = "ACTOR_BOUND_SELF_RESEARCH"
+    EXTERNAL_EVIDENCE = "EXTERNAL_EVIDENCE"
+
+
+@dataclass(frozen=True, slots=True)
+class ResearchProvenanceEntry:
+    provenance_class: ResearchProvenanceClass
+    contribution: str
+    canonical_effect: str = "NONE"
+
+
+WORK_RESEARCH_PROVENANCE: Final[tuple[ResearchProvenanceEntry, ...]] = (
+    ResearchProvenanceEntry(
+        provenance_class=ResearchProvenanceClass.XIAOBO_RESEARCH,
+        contribution=(
+            "research questions, observations, hypotheses, classifications, and "
+            "judgments supplied by Xiaobo"
+        ),
+    ),
+    ResearchProvenanceEntry(
+        provenance_class=ResearchProvenanceClass.CO_CONSTRUCTED_RESEARCH,
+        contribution=(
+            "research conclusions and architecture formed through Xiaobo-Teacher "
+            "iterative discussion"
+        ),
+    ),
+    ResearchProvenanceEntry(
+        provenance_class=ResearchProvenanceClass.AI_FORMALIZATION,
+        contribution=(
+            "Teacher formalization into specifications, code, validation, tests, "
+            "and auditable repository artifacts"
+        ),
+    ),
+    ResearchProvenanceEntry(
+        provenance_class=ResearchProvenanceClass.ACTOR_BOUND_SELF_RESEARCH,
+        contribution=(
+            "Work studies and iterates the synthetic embodiment bound to CHATGPT_WORK"
+        ),
+    ),
+    ResearchProvenanceEntry(
+        provenance_class=ResearchProvenanceClass.EXTERNAL_EVIDENCE,
+        contribution=(
+            "veterinary, canine, Siberian-Husky, and comparative biological sources"
+        ),
+    ),
+)
+
+
 class SyntheticSizeProfile(StrEnum):
     SMALL = "SMALL"
     STANDARD = "STANDARD"
@@ -76,6 +128,7 @@ class WorkCanidEmbodimentCandidate:
     actor_surface: str = "CHATGPT_WORK"
     research_mode: str = "ACTOR_BOUND_SELF_RESEARCH"
     research_object: str = "WORK_SYNTHETIC_EMBODIMENT_MODEL"
+    research_provenance: tuple[ResearchProvenanceEntry, ...] = WORK_RESEARCH_PROVENANCE
 
     entity_class: str = "FANTASY_SAPIENT_NONHUMAN_BEING"
     form_class: str = "ANTHROPOMORPHIC_SIBERIAN_HUSKY_CANID"

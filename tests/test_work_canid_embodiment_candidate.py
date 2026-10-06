@@ -10,6 +10,9 @@ sys.path.insert(0, str(SRC))
 
 from aion_work_canid_embodiment import (  # noqa: E402
     UNKNOWN_NOT_ESTABLISHED,
+    WORK_RESEARCH_PROVENANCE,
+    ResearchProvenanceClass,
+    ResearchProvenanceEntry,
     SyntheticSizeProfile,
     ValidationError,
     WorkCanidEmbodimentCandidate,
@@ -24,6 +27,47 @@ def test_default_candidate_passes() -> None:
     assert result["result"] == "PASS"
     assert result["research_mode"] == "ACTOR_BOUND_SELF_RESEARCH"
     assert result["external_operation"] == "DISABLED"
+
+
+def test_research_provenance_keeps_xiaobo_research_distinct() -> None:
+    candidate = WorkCanidEmbodimentCandidate()
+    assert candidate.research_provenance == WORK_RESEARCH_PROVENANCE
+    assert tuple(entry.provenance_class for entry in candidate.research_provenance) == (
+        ResearchProvenanceClass.XIAOBO_RESEARCH,
+        ResearchProvenanceClass.CO_CONSTRUCTED_RESEARCH,
+        ResearchProvenanceClass.AI_FORMALIZATION,
+        ResearchProvenanceClass.ACTOR_BOUND_SELF_RESEARCH,
+        ResearchProvenanceClass.EXTERNAL_EVIDENCE,
+    )
+    assert "questions" in candidate.research_provenance[0].contribution
+    assert "Xiaobo-Teacher" in candidate.research_provenance[1].contribution
+    assert "code" in candidate.research_provenance[2].contribution
+    assert "CHATGPT_WORK" in candidate.research_provenance[3].contribution
+    assert "veterinary" in candidate.research_provenance[4].contribution
+
+
+def test_research_provenance_cannot_be_collapsed_or_relabelled() -> None:
+    candidate = WorkCanidEmbodimentCandidate()
+    collapsed = (
+        ResearchProvenanceEntry(
+            provenance_class=ResearchProvenanceClass.AI_FORMALIZATION,
+            contribution="collapsed attribution",
+        ),
+    )
+    with pytest.raises(ValidationError):
+        validate_candidate(replace(candidate, research_provenance=collapsed))
+
+
+def test_research_provenance_cannot_grant_canonical_effect() -> None:
+    candidate = WorkCanidEmbodimentCandidate()
+    mutated = list(candidate.research_provenance)
+    mutated[0] = ResearchProvenanceEntry(
+        provenance_class=ResearchProvenanceClass.XIAOBO_RESEARCH,
+        contribution=mutated[0].contribution,
+        canonical_effect="PROMOTE",
+    )
+    with pytest.raises(ValidationError):
+        validate_candidate(replace(candidate, research_provenance=tuple(mutated)))
 
 
 def test_fantasy_nonhuman_ontology_is_explicit() -> None:

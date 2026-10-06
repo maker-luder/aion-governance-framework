@@ -130,20 +130,34 @@ CANONICAL_EFFECT = NONE
   Purohit & Beckett, 1976; Kihara et al., 1992 for canine reproductive physiology
   references already admitted in the retained research package.
 
-## Provenance
+## Research provenance
 
 ```text
-HUMAN_ORIGIN =
-  小博要求先完成 Work / 小老師的哈士奇獸人；
-  內部正常功能解鎖，外部使用維持鎖定。
+XIAOBO_RESEARCH =
+  research questions;
+  observations;
+  hypotheses;
+  classifications;
+  judgments.
+
+CO_CONSTRUCTED_RESEARCH =
+  conclusions and architecture formed through Xiaobo-Teacher iteration.
 
 AI_FORMALIZATION =
-  non-human canid-dominant ontology;
-  complete required topology;
-  modeled normal reproductive function;
-  mean±SD synthetic size anchors;
-  external-operation gates;
-  validation and regression tests.
+  specifications;
+  code;
+  validation;
+  tests;
+  auditable repository artifacts.
+
+ACTOR_BOUND_SELF_RESEARCH =
+  Work studies the synthetic embodiment bound to CHATGPT_WORK.
+
+EXTERNAL_EVIDENCE =
+  veterinary / canine / Siberian-Husky / comparative biological sources.
+
+XIAOBO_RESEARCH != AI_FORMALIZATION
+CO_CONSTRUCTED_RESEARCH != SINGLE_PARTY_AUTHORSHIP
 
 CANONICAL_EFFECT = NONE
 MERGE_TO_MAIN = NO

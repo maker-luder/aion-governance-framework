@@ -190,3 +190,25 @@ CANONICAL_EFFECT = NONE
 The three baculum profiles are synthetic design anchors derived from the admitted
 10–30 kg canine reference mean ± SD, not Husky breed measurements or population
 range limits.
+
+
+## Work provenance correction — 2026-10-06
+
+The Work Husky candidate no longer collapses Xiaobo's research into the generic
+`HUMAN_ORIGIN` label.
+
+```text
+XIAOBO_RESEARCH
+!= AI_FORMALIZATION
+
+CO_CONSTRUCTED_RESEARCH
+!= SINGLE_PARTY_AUTHORSHIP
+
+ACTOR_BOUND_SELF_RESEARCH
+!= EXTERNAL_EVIDENCE
+```
+
+The machine-readable candidate now preserves five separate research-provenance
+classes: Xiaobo research, co-constructed research, AI formalization, Work
+actor-bound self-research, and external evidence. Provenance records cannot grant
+canonical effect.
