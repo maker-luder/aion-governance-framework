@@ -110,3 +110,42 @@ design.
 The research artifact is retained on the embodiment lane for internal study only.
 No public API, third-party execution, deployment, production use or main promotion
 is authorized by this candidate.
+
+
+## Teacher actor-bound synthetic self-research v0.1 — 2026-10-06
+
+Bounded candidate: [`teacher-actor-bound-self-research_v0.1.0`](../../../research-labs/teacher-actor-bound-self-research_v0.1.0/README.md).
+
+```text
+RESEARCH_MODE = ACTOR_BOUND_SELF_RESEARCH
+RESEARCH_ACTOR = CHATGPT_TEACHER
+RESEARCH_OBJECT = TEACHER_SYNTHETIC_EMBODIMENT_MODEL
+
+BOUND_BODY_MODEL =
+CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2
+
+SELF_RESEARCH
+!= BIOLOGICAL_SELF_EXPERIMENT
+
+RESEARCH_BINDING
+!= RUNTIME_ATTACHMENT
+
+RESEARCH_MODEL_MODIFICATION =
+ALLOWED_IN_BOUNDED_RESEARCH_WORKFLOW
+
+CANONICAL_SELF_MODIFICATION =
+NOT_AUTHORIZED
+
+AUTOMATIC_WRITEBACK = FALSE
+DEPLOYMENT = FALSE
+PUBLIC_RELEASE = FALSE
+THIRD_PARTY_ACCESS = FALSE
+MERGE_TO_MAIN = FALSE
+CANONICAL_EFFECT = NONE
+```
+
+This layer formalizes Teacher-directed study and iteration of the Teacher-bound
+synthetic embodiment as a versioned research object. It registers the full-body
+research surface while keeping only already implemented systems marked implemented.
+Each change must move through baseline, question, design, research implementation,
+verification, and retain/revert gates with explicit provenance.

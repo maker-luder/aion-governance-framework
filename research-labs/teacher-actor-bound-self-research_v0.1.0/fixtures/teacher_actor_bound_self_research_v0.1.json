@@ -1,0 +1,75 @@
+{
+  "candidate_id": "CHATGPT_TEACHER_ACTOR_BOUND_SELF_RESEARCH_v0.1",
+  "research_mode": "ACTOR_BOUND_SELF_RESEARCH",
+  "research_actor": "CHATGPT_TEACHER",
+  "research_object": "TEACHER_SYNTHETIC_EMBODIMENT_MODEL",
+  "bound_body_model_id": "CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2",
+  "initial_body_repository_head": "28fff27614657c71ee6366e5b84bdacaa28da82f",
+  "form_class": "ANTHROPOMORPHIC_BROWN_BEAR",
+  "ontology": "FANTASY_EMBODIMENT",
+  "biological_reference_species": "Ursus arctos",
+  "self_reference_semantics": "RESEARCH_NAMESPACE_BINDING",
+  "self_research_semantics": "ACTOR_STUDIES_ACTOR_BOUND_SYNTHETIC_BODY",
+  "self_model_semantics": "MODEL_OF_BOUND_RESEARCH_OBJECT",
+  "implemented_body_systems": [
+    "REPRODUCTIVE"
+  ],
+  "registered_not_yet_bound_systems": [
+    "MORPHOLOGY",
+    "SKELETAL",
+    "MUSCULAR",
+    "CARDIOVASCULAR",
+    "RESPIRATORY",
+    "NERVOUS",
+    "SOMATOSENSORY",
+    "ENDOCRINE",
+    "URINARY",
+    "INTEGUMENTARY",
+    "THERMOREGULATION",
+    "CROSS_SYSTEM_COUPLING"
+  ],
+  "current_research_priority": [
+    "REPRODUCTIVE",
+    "NERVOUS",
+    "CARDIOVASCULAR",
+    "ENDOCRINE",
+    "CROSS_SYSTEM_COUPLING"
+  ],
+  "iteration_pipeline": [
+    "BASELINE_RECORDED",
+    "QUESTION_REGISTERED",
+    "DESIGN_PROPOSED",
+    "IMPLEMENTED_IN_RESEARCH_MODEL",
+    "VERIFIED",
+    "RETAINED_OR_REVERTED"
+  ],
+  "research_controls": {
+    "provenance_required": true,
+    "falsification_required": true,
+    "exact_head_verification_required": true,
+    "rollback_required": true,
+    "research_model_modification": "ALLOWED_IN_BOUNDED_RESEARCH_WORKFLOW",
+    "canonical_self_modification": "NOT_AUTHORIZED",
+    "automatic_writeback": false
+  },
+  "nonclaims": {
+    "biological_self_experiment": false,
+    "literal_physical_self_claim": false,
+    "identity_continuity_claim": false,
+    "subjectivity": "NOT_ESTABLISHED",
+    "consciousness": "NOT_ESTABLISHED",
+    "phenomenal_experience": "NOT_ESTABLISHED"
+  },
+  "external_operation_boundary": {
+    "deployment": false,
+    "public_release": false,
+    "public_operation": false,
+    "public_api": false,
+    "third_party_access": false,
+    "third_party_execution": false,
+    "external_user_operation": false,
+    "production_use": false,
+    "merge_to_main": false,
+    "canonical_effect": "NONE"
+  }
+}
