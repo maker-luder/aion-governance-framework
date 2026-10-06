@@ -4,14 +4,18 @@ from dataclasses import replace
 
 import pytest
 
-from aion_astra_twin_embodiment import EmbodimentInstance, ValidationError
+from aion_astra_twin_embodiment import EmbodimentInstance, EmbodimentTemplate, ValidationError
 from aion_astra_twin_embodiment.species_profiles import (
     BIPEDAL_REDESIGN_REQUIRED,
     ENGINEERING_ANALOGUE,
+    FELID_COMPARATIVE_REFERENCE,
+    HUMAN_TEMPLATE_BASELINE,
+    TIGER_CONFIRMED,
     REFERENCE_MODEL_IMPLEMENTED,
     REFERENCE_ONLY_NOT_LIVE_BIOLOGY,
     build_aion_tiger_profile,
     build_tiger_reproductive_reference_observations,
+    resolve_integrated_reproductive_anatomy,
     validate_aion_tiger_profile,
 )
 
@@ -43,6 +47,19 @@ def test_tiger_confirmed_reproductive_anatomy_does_not_copy_human_seminal_vesicl
     assert "cornified_glans_papillae" in profile.tiger_confirmed_reproductive_anatomy
     assert "penile_urethra" in profile.tiger_confirmed_reproductive_anatomy
     assert "seminal_vesicles" not in profile.tiger_confirmed_reproductive_anatomy
+
+
+def test_integrated_reproductive_anatomy_preserves_human_and_tiger_provenance():
+    profile = build_aion_tiger_profile()
+    template = EmbodimentTemplate(template_id="MALE-TEMPLATE-001", template_version="0.1.0")
+    resolved = {
+        item.structure: set(item.origins)
+        for item in resolve_integrated_reproductive_anatomy(template, profile)
+    }
+    assert resolved["testes"] == {HUMAN_TEMPLATE_BASELINE, TIGER_CONFIRMED}
+    assert resolved["seminal_vesicles"] == {HUMAN_TEMPLATE_BASELINE}
+    assert resolved["os_penis"] == {TIGER_CONFIRMED}
+    assert resolved["prostate"] == {HUMAN_TEMPLATE_BASELINE, FELID_COMPARATIVE_REFERENCE}
 
 
 def test_reproductive_physiology_is_implemented_as_reference_model_not_live_biology():

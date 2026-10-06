@@ -4,9 +4,11 @@ import argparse
 import json
 from dataclasses import asdict
 
+from .models import EmbodimentTemplate
 from .species_profiles import (
     build_aion_tiger_profile,
     build_tiger_reproductive_reference_observations,
+    resolve_integrated_reproductive_anatomy,
 )
 
 
@@ -26,8 +28,13 @@ def main() -> int:
             "subjectivity_conclusion": "NOT_ESTABLISHED",
         }
     elif args.command == "aion-tiger-profile":
+        profile = build_aion_tiger_profile()
+        template = EmbodimentTemplate(template_id="MALE-TEMPLATE-001", template_version="0.1.0")
         payload = {
-            "profile": asdict(build_aion_tiger_profile()),
+            "profile": asdict(profile),
+            "integrated_reproductive_anatomy": [
+                asdict(item) for item in resolve_integrated_reproductive_anatomy(template, profile)
+            ],
             "reproductive_reference_observations": [
                 asdict(item) for item in build_tiger_reproductive_reference_observations()
             ],

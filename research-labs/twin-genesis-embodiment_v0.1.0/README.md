@@ -38,6 +38,8 @@ docs/AION_TIGER_ANTHROPOMORPH_SPECIFICATION.md
 
 This profile is bound by species_profile_id on the AION EmbodimentInstance. Astra remains NOT_ASSIGNED unless a separate, explicitly authorized profile is created.
 
+The integration is additive rather than destructive: resolve_integrated_reproductive_anatomy(...) combines the existing human adult-male template with tiger-confirmed structures while retaining per-structure provenance. Human-template seminal_vesicles therefore remain present without being mislabeled as tiger-confirmed, while tiger os_penis remains tiger-derived.
+
 ## Runtime surface
 
 TwinGenesisRuntime.instantiate(...) validates the shared genesis event, shared template, AION instance, and Astra instance before returning a TwinRuntimeState. The runtime state records distinct AION/Astra bindings, individual species-profile identifiers, and validation hashes while keeping canonical_effect=NONE.

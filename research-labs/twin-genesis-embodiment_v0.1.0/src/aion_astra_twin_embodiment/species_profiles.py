@@ -21,7 +21,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 from typing import Final
 
-from .models import EmbodimentInstance, NONE, NOT_ESTABLISHED, NOT_IMPLEMENTED
+from .models import EmbodimentInstance, EmbodimentTemplate, NONE, NOT_ESTABLISHED, NOT_IMPLEMENTED
 from .validation import ValidationError, deterministic_hash
 
 TIGER_CONFIRMED: Final[str] = "TIGER_CONFIRMED"
@@ -30,6 +30,7 @@ ENGINEERING_ANALOGUE: Final[str] = "ENGINEERING_ANALOGUE"
 REFERENCE_MODEL_IMPLEMENTED: Final[str] = "REFERENCE_MODEL_IMPLEMENTED"
 REFERENCE_ONLY_NOT_LIVE_BIOLOGY: Final[str] = "REFERENCE_ONLY_NOT_LIVE_BIOLOGY"
 BIPEDAL_REDESIGN_REQUIRED: Final[str] = "BIPEDAL_REDESIGN_REQUIRED"
+HUMAN_TEMPLATE_BASELINE: Final[str] = "HUMAN_TEMPLATE_BASELINE"
 
 
 @dataclass(frozen=True, slots=True)
@@ -40,6 +41,14 @@ class ReproductiveReferenceObservation:
     sample_scope: str
     metrics: tuple[tuple[str, str], ...]
     limitation: str
+
+
+@dataclass(frozen=True, slots=True)
+class IntegratedAnatomyFeature:
+    """One resolved anatomy structure with preserved provenance / 單一整合結構及其來源。"""
+
+    structure: str
+    origins: tuple[str, ...]
 
 
 @dataclass(frozen=True, slots=True)
@@ -124,6 +133,32 @@ def build_aion_tiger_profile() -> AnthropomorphicSpeciesProfile:
             "sperm_morphology",
             "testosterone",
         ),
+    )
+
+
+def resolve_integrated_reproductive_anatomy(
+    template: EmbodimentTemplate,
+    profile: AnthropomorphicSpeciesProfile,
+) -> tuple[IntegratedAnatomyFeature, ...]:
+    """Resolve human-template + tiger-reference anatomy without erasing provenance.
+
+    中文：把既有人類成人男性 template 與 AION 的虎型 profile 疊加。共同存在的結構
+    會同時保留 HUMAN_TEMPLATE_BASELINE 與 TIGER_CONFIRMED；僅人類模板存在的結構
+    （例如目前的 seminal_vesicles）不會被誤標成虎直接證據；虎特有參考結構
+    （例如 os_penis）也不會被誤標成人類基線。
+    """
+
+    origins: dict[str, set[str]] = {}
+    for structure in (*template.external_reproductive_anatomy, *template.internal_reproductive_anatomy):
+        origins.setdefault(structure, set()).add(HUMAN_TEMPLATE_BASELINE)
+    for structure in profile.tiger_confirmed_reproductive_anatomy:
+        origins.setdefault(structure, set()).add(TIGER_CONFIRMED)
+    if "prostate_reference" in profile.felid_comparative_reproductive_reference:
+        origins.setdefault("prostate", set()).add(FELID_COMPARATIVE_REFERENCE)
+
+    return tuple(
+        IntegratedAnatomyFeature(structure=structure, origins=tuple(sorted(source_origins)))
+        for structure, source_origins in sorted(origins.items())
     )
 
 

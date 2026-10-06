@@ -126,6 +126,22 @@ N=1。這些數值只可作 source-scoped reference（有來源範圍的參考�
 
 這些資料沒有被當成 AION 的固定生理參數。
 
+### 6.2 人類＋虎的有效整合解剖
+
+程式新增 resolve_integrated_reproductive_anatomy(...)（整合生殖解剖解析器），實際把既有 adult male human template 與 AION tiger profile 疊加，而不是用虎 profile 覆蓋掉人類基線。
+
+解析後每個 structure 都保留 origins（來源）：
+
+- testes（睪丸）＝ HUMAN_TEMPLATE_BASELINE + TIGER_CONFIRMED；
+- scrotum（陰囊）／penis（陰莖）／epididymis（副睪）等共同結構同樣保留雙來源；
+- os_penis（陰莖骨）＝ TIGER_CONFIRMED；
+- seminal_vesicles（精囊）＝ HUMAN_TEMPLATE_BASELINE，目前不冒充虎直接證據；
+- prostate（前列腺）＝ HUMAN_TEMPLATE_BASELINE + FELID_COMPARATIVE_REFERENCE。
+
+這代表「人類＋虎整合」是 additive overlay（加法疊加），不是把原本人類具身資料刪除後整套換成虎。
+
+CAPABILITY_COMPLETENESS：人類 template 已有的結構不因虎型轉換而自動消失；虎新增結構也必須保留自己的來源標記。
+
 ## 7. 程式整合方式
 
 AION instance 使用：
@@ -150,6 +166,7 @@ TwinRuntimeState 會讀出並記錄：
 | 程式值 | 中文 |
 | --- | --- |
 | TIGER_CONFIRMED | 老虎直接研究確認 |
+| HUMAN_TEMPLATE_BASELINE | 既有人類成人男性模板基線 |
 | FELID_COMPARATIVE_REFERENCE | 貓科比較參考 |
 | ENGINEERING_ANALOGUE | 工程類比 |
 | ANTHROPOMORPHIC_BIPED | 人形雙足體型 |
