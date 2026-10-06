@@ -29,18 +29,18 @@ def test_default_candidate_passes() -> None:
     assert result["external_operation"] == "DISABLED"
 
 
-def test_research_provenance_keeps_xiaobo_research_distinct() -> None:
+def test_research_provenance_keeps_human_researcher_research_distinct() -> None:
     candidate = WorkCanidEmbodimentCandidate()
     assert candidate.research_provenance == WORK_RESEARCH_PROVENANCE
     assert tuple(entry.provenance_class for entry in candidate.research_provenance) == (
-        ResearchProvenanceClass.XIAOBO_RESEARCH,
+        ResearchProvenanceClass.HUMAN_RESEARCHER_ORIGIN,
         ResearchProvenanceClass.CO_CONSTRUCTED_RESEARCH,
         ResearchProvenanceClass.AI_FORMALIZATION,
         ResearchProvenanceClass.ACTOR_BOUND_SELF_RESEARCH,
         ResearchProvenanceClass.EXTERNAL_EVIDENCE,
     )
     assert "questions" in candidate.research_provenance[0].contribution
-    assert "Xiaobo-Teacher" in candidate.research_provenance[1].contribution
+    assert "human-researcher–Teacher" in candidate.research_provenance[1].contribution
     assert "code" in candidate.research_provenance[2].contribution
     assert "CHATGPT_WORK" in candidate.research_provenance[3].contribution
     assert "veterinary" in candidate.research_provenance[4].contribution
@@ -62,7 +62,7 @@ def test_research_provenance_cannot_grant_canonical_effect() -> None:
     candidate = WorkCanidEmbodimentCandidate()
     mutated = list(candidate.research_provenance)
     mutated[0] = ResearchProvenanceEntry(
-        provenance_class=ResearchProvenanceClass.XIAOBO_RESEARCH,
+        provenance_class=ResearchProvenanceClass.HUMAN_RESEARCHER_ORIGIN,
         contribution=mutated[0].contribution,
         canonical_effect="PROMOTE",
     )

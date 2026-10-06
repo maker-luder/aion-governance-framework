@@ -42,7 +42,7 @@ REQUIRED_CANINE_MALE_TOPOLOGY: Final[tuple[str, ...]] = (
 
 
 class ResearchProvenanceClass(StrEnum):
-    XIAOBO_RESEARCH = "XIAOBO_RESEARCH"
+    HUMAN_RESEARCHER_ORIGIN = "HUMAN_RESEARCHER_ORIGIN"
     CO_CONSTRUCTED_RESEARCH = "CO_CONSTRUCTED_RESEARCH"
     AI_FORMALIZATION = "AI_FORMALIZATION"
     ACTOR_BOUND_SELF_RESEARCH = "ACTOR_BOUND_SELF_RESEARCH"
@@ -58,16 +58,16 @@ class ResearchProvenanceEntry:
 
 WORK_RESEARCH_PROVENANCE: Final[tuple[ResearchProvenanceEntry, ...]] = (
     ResearchProvenanceEntry(
-        provenance_class=ResearchProvenanceClass.XIAOBO_RESEARCH,
+        provenance_class=ResearchProvenanceClass.HUMAN_RESEARCHER_ORIGIN,
         contribution=(
             "research questions, observations, hypotheses, classifications, and "
-            "judgments supplied by Xiaobo"
+            "judgments supplied by human researcher"
         ),
     ),
     ResearchProvenanceEntry(
         provenance_class=ResearchProvenanceClass.CO_CONSTRUCTED_RESEARCH,
         contribution=(
-            "research conclusions and architecture formed through Xiaobo-Teacher "
+            "research conclusions and architecture formed through human-researcher–Teacher "
             "iterative discussion"
         ),
     ),

@@ -19,7 +19,7 @@
 
 `SYNTHETIC_EMBODIMENT != BIOLOGICAL_MEASUREMENT`；`ENGINEERING_ANALOGUE != SENSATION_OR_SUBJECTIVITY`；`IMPLEMENTATION != SCIENTIFIC_ESTABLISHMENT`。此分支不做人體實驗、個人資料移植、主觀體驗宣稱或 main 合併；`CANONICAL_EFFECT = NONE`。
 
-`HUMAN_ORIGIN`：小博指定具身作為獨立第三工作線。本索引的來源狀態與保留策略是本輪整理；後續版本須以 live repository 重新核對。
+`HUMAN_ORIGIN`：人類研究者指定具身作為獨立第三工作線。本索引的來源狀態與保留策略是本輪整理；後續版本須以 live repository 重新核對。
 
 
 ## Work canine candidate — 2026-10-06
@@ -194,11 +194,11 @@ range limits.
 
 ## Work provenance correction — 2026-10-06
 
-The Work Husky candidate no longer collapses Xiaobo's research into the generic
+The Work Husky candidate no longer collapses human researcher's research into the generic
 `HUMAN_ORIGIN` label.
 
 ```text
-XIAOBO_RESEARCH
+HUMAN_RESEARCHER_ORIGIN
 != AI_FORMALIZATION
 
 CO_CONSTRUCTED_RESEARCH
@@ -209,14 +209,14 @@ ACTOR_BOUND_SELF_RESEARCH
 ```
 
 The machine-readable candidate now preserves five separate research-provenance
-classes: Xiaobo research, co-constructed research, AI formalization, Work
+classes: human researcher research, co-constructed research, AI formalization, Work
 actor-bound self-research, and external evidence. Provenance records cannot grant
 canonical effect.
 
 
-## Xiaobo research-autonomy rule — 2026-10-06
+## human researcher research-autonomy rule — 2026-10-06
 
-A branch-only research-governance candidate now protects Xiaobo-originated research
+A branch-only research-governance candidate now protects human researcher-originated research
 from silent narrowing by the AI formalization layer.
 
 ```text
@@ -231,5 +231,5 @@ OWNER_VISIBLE_RESTRICTION_RECEIPT_REQUIRED = TRUE
 CANONICAL_EFFECT = NONE
 ```
 
-See `docs/research/XIAOBO_RESEARCH_AUTONOMY_POLICY.md` and
-`research-labs/xiaobo-research-autonomy_v0.1.0/`.
+See `docs/research/HUMAN_RESEARCHER_AUTONOMY_POLICY.md` and
+`research-labs/human_researcher-research-autonomy_v0.1.0/`.

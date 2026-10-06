@@ -133,7 +133,7 @@ CANONICAL_EFFECT = NONE
 ## Research provenance
 
 ```text
-XIAOBO_RESEARCH =
+HUMAN_RESEARCHER_ORIGIN =
   research questions;
   observations;
   hypotheses;
@@ -141,7 +141,7 @@ XIAOBO_RESEARCH =
   judgments.
 
 CO_CONSTRUCTED_RESEARCH =
-  conclusions and architecture formed through Xiaobo-Teacher iteration.
+  conclusions and architecture formed through human-researcher–Teacher iteration.
 
 AI_FORMALIZATION =
   specifications;
@@ -156,7 +156,7 @@ ACTOR_BOUND_SELF_RESEARCH =
 EXTERNAL_EVIDENCE =
   veterinary / canine / Siberian-Husky / comparative biological sources.
 
-XIAOBO_RESEARCH != AI_FORMALIZATION
+HUMAN_RESEARCHER_ORIGIN != AI_FORMALIZATION
 CO_CONSTRUCTED_RESEARCH != SINGLE_PARTY_AUTHORSHIP
 
 CANONICAL_EFFECT = NONE

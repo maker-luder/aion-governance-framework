@@ -63,7 +63,7 @@ def validate_candidate(candidate: WorkCanidEmbodimentCandidate) -> dict[str, str
     )
     if actual_provenance_classes != expected_provenance_classes:
         failures.append(
-            "research provenance must distinguish Xiaobo, co-construction, "
+            "research provenance must distinguish human researcher, co-construction, "
             "AI formalization, actor self-research, and external evidence"
         )
     if any(not entry.contribution.strip() for entry in candidate.research_provenance):

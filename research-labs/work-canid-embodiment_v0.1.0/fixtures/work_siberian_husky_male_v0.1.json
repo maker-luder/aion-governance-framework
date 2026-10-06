@@ -115,13 +115,13 @@
   },
   "research_provenance": [
     {
-      "provenance_class": "XIAOBO_RESEARCH",
-      "contribution": "research questions, observations, hypotheses, classifications, and judgments supplied by Xiaobo",
+      "provenance_class": "HUMAN_RESEARCHER_ORIGIN",
+      "contribution": "research questions, observations, hypotheses, classifications, and judgments supplied by human researcher",
       "canonical_effect": "NONE"
     },
     {
       "provenance_class": "CO_CONSTRUCTED_RESEARCH",
-      "contribution": "research conclusions and architecture formed through Xiaobo-Teacher iterative discussion",
+      "contribution": "research conclusions and architecture formed through human-researcher–Teacher iterative discussion",
       "canonical_effect": "NONE"
     },
     {
