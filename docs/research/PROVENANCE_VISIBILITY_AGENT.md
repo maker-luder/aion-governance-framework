@@ -20,15 +20,15 @@ SOURCE_TEXT_MODIFIED = FALSE
 
 ## Recovery provenance
 
-v0.2 is a fresh bounded implementation from current `main`. It reuses the useful
-text-only ideas from closed / not-merged PR #281 but does not reopen or retroactively
-merge #281.
+v0.2 is a fresh bounded implementation from current `main` after PR #281 was
+merged. It preserves the v0.1 human-visible text reveal and extends it with raw-byte,
+evidence-ledger, counterfactual, and evidence-family controls.
 
 ~~~text
 SOURCE_HISTORY = PR_281
-PR_281_STATE = CLOSED_NOT_MERGED
-REUSE_TYPE = BOUNDED_REIMPLEMENTATION
-IMPLEMENTATION_REUSE != PR_MERGE
+PR_281_STATE = MERGED
+REUSE_TYPE = FORWARD_ITERATION_ON_MERGED_BASE
+PR_281_MERGE != V0_2_VALIDATION
 ~~~
 
 ## Human origin / formalization
