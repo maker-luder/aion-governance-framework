@@ -6,6 +6,7 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
+from .repository_scan import RepositoryScanReport, ScanPolicy, scan_text_repository
 from .text_reveal import (
     TextRevealReport,
     reveal_hidden_text_bytes,
@@ -75,6 +76,16 @@ class ProvenanceVisibilityAgent:
         if not file_path.is_file():
             raise FileNotFoundError(file_path)
         return reveal_hidden_text_bytes(file_path.read_bytes())
+
+    def scan_text_repository_local(
+        self,
+        root: str | Path,
+        *,
+        policy: ScanPolicy | None = None,
+    ) -> RepositoryScanReport:
+        """Scan a local repository tree without modifying source files or using network services."""
+
+        return scan_text_repository(root, policy=policy)
 
     def textgrain_without_secret_key(self) -> ProvenanceVisibilityReport:
         evidence = SignalEvidence(
