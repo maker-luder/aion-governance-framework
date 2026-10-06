@@ -18,7 +18,7 @@ DURABLE = {
 
 def policy() -> dict[str, object]:
     return {
-        "schema_version": "1.1.0",
+        "schema_version": "1.2.0",
         "repository": "maker-luder/aion-governance-framework",
         "steady_state_branch_count": 4,
         "durable_branches": sorted(DURABLE),
