@@ -1,7 +1,6 @@
 name: Branch Topology Governance
 
 on:
-  create:
   delete:
   pull_request:
     types: [opened, reopened, synchronize, closed]
@@ -28,7 +27,7 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
         with:
           python-version: "3.11"
-      - name: Enforce durable and transient branch limits
+      - name: Enforce durable and transient branch policy
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: >-

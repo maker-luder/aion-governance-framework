@@ -1,4 +1,4 @@
-"""Enforce the repository's four durable branches and one bounded PR branch.
+"""Enforce the repository's four durable branches and governed transient PR branches.
 
 Topology validation and closed-PR retirement assessment are read-only.
 Retirement readiness never grants destructive authority. Until an independently
@@ -28,7 +28,7 @@ class BranchTopologyError(ValueError):
 
 def load_policy(path: Path) -> dict[str, Any]:
     record = json.loads(path.read_text(encoding="utf-8"))
-    if record.get("schema_version") not in {"1.0.0", "1.1.0"}:
+    if record.get("schema_version") not in {"1.0.0", "1.1.0", "1.2.0"}:
         raise BranchTopologyError("unknown branch topology policy schema")
     repository = record.get("repository")
     if not isinstance(repository, str) or repository.count("/") != 1:
@@ -46,9 +46,13 @@ def load_policy(path: Path) -> dict[str, Any]:
     transient = record.get("transient_branch_policy")
     if not isinstance(transient, dict):
         raise BranchTopologyError("missing transient branch policy")
-    maximum = transient.get("maximum_open_pr_branches")
-    if type(maximum) is not int or maximum < 0:
-        raise BranchTopologyError("transient branch cap must be a non-negative integer")
+    if "maximum_open_pr_branches" not in transient:
+        raise BranchTopologyError("transient branch policy must declare maximum_open_pr_branches")
+    maximum = transient["maximum_open_pr_branches"]
+    if maximum is not None and (type(maximum) is not int or maximum < 0):
+        raise BranchTopologyError(
+            "transient branch cap must be null or a non-negative integer"
+        )
     if transient.get("require_open_pull_request") is not True:
         raise BranchTopologyError("transient branches must require an open pull request")
     if transient.get("delete_after_pull_request_close") is not True:
@@ -133,7 +137,7 @@ def evaluate_topology(
     if disallowed:
         violations.append("transient branch prefix is not allowed")
     maximum = transient["maximum_open_pr_branches"]
-    if len(associated) > maximum:
+    if maximum is not None and len(associated) > maximum:
         violations.append(f"transient branch cap exceeded: {len(associated)} > {maximum}")
 
     return {
@@ -141,6 +145,8 @@ def evaluate_topology(
         "steady_state": branches == durable,
         "branch_count": len(branches),
         "durable_count": len(durable & branches),
+        "open_pr_branch_count": len(associated),
+        "maximum_open_pr_branches": maximum,
         "missing_durable": sorted(missing),
         "permitted_transient": sorted(permitted),
         "retained_historical": sorted(retained_verified),
