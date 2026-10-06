@@ -129,36 +129,9 @@ is authorized by this candidate.
 
 
 
-## Superseded Teacher anthropomorphic bovine reproductive candidate v0.3.0 — 2026-10-07
+## Superseded intermediate Bos taurus formalization — 2026-10-07
 
-Intermediate predecessor: [`teacher-bovine-reproductive-embodiment_v0.3.0`](../../../research-labs/teacher-bovine-reproductive-embodiment_v0.3.0/README.md).
-
-```text
-HUMAN_ORIGIN = 「老師你的獸人部分改成牛好了」
-
-ACTOR_SURFACE = CHATGPT_TEACHER
-FORM_CLASS = ANTHROPOMORPHIC_BOVINE
-BIOLOGICAL_REFERENCE_SPECIES = Bos taurus
-MALE_REFERENCE_CLASS = BULL
-SEX_CLASS = MALE
-DEVELOPMENTAL_STAGE = ADULT
-
-BOVINE_PENILE_TYPE = FIBROELASTIC
-SIGMOID_FLEXURE = PRESENT
-RETRACTOR_PENIS_MUSCLES = PRESENT
-BROWN_BEAR_BACULUM_INHERITANCE = PROHIBITED
-
-HISTORICAL_BROWN_BEAR_CANDIDATE = RETAINED_AS_PREDECESSOR
-SUPERSEDED_BY = CHATGPT_TEACHER_WATER_BUFFALO_MALE_WHOLE_BODY_v0.4.0
-
-SUBJECTIVITY = NOT_ESTABLISHED
-CONSCIOUSNESS = NOT_ESTABLISHED
-MERGE_TO_MAIN = NO
-CANONICAL_EFFECT = NONE
-```
-
-The mapping from the Human Origin term `牛` to `BULL / adult male bovine` is an AI formalization chosen to preserve the pre-existing Teacher `MALE + ADULT` body baseline. It does not rewrite the historical brown-bear research; it changes the current Teacher-bound fantasy form and biological reference.
-
+The earlier v0.3 `Bos taurus` implementation was an intermediate AI formalization before the Human Owner clarified `Bubalus bubalis`. Its exact history remains in PR #283 commits, but it is intentionally omitted from the final candidate tree to avoid presenting two current Teacher species packages.
 
 ## Teacher anthropomorphic water-buffalo whole-body candidate v0.4.0 — 2026-10-07
 
