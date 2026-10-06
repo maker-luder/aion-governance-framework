@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/aion-tiger-full-dimensions-v2.json",
+  "title": "AION Tiger Full Dimension Preset V2",
+  "description": "AION 虎型獸人 V2 可建模尺寸；新增量測方法、來源索引、證據強度與數值語意。",
+  "type": "object",
+  "required": ["preset_id", "agent_id", "species_profile_id", "design_posture", "locomotor_form", "measurements"],
+  "properties": {
+    "preset_id": {"const": "AION-TIGER-FULL-DIMENSIONS-V2"},
+    "agent_id": {"const": "AION"},
+    "species_profile_id": {"const": "AION-TIGER-ANTHROPOMORPH-V1"},
+    "design_posture": {"const": "NEUTRAL_UPRIGHT_A_POSE"},
+    "locomotor_form": {"const": "BIPEDAL_DIGITIGRADE"},
+    "canonical_effect": {"const": "NONE"},
+    "biological_hybrid_claim": {"const": "NOT_ESTABLISHED"},
+    "measurements": {
+      "type": "array",
+      "minItems": 120,
+      "items": {
+        "type": "object",
+        "required": ["key", "label_zh", "category", "value", "unit", "measurement_role", "provenance", "basis", "measurement_method_zh", "source_refs", "evidence_strength", "value_semantics", "status"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "label_zh": {"type": "string", "minLength": 1},
+          "category": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "null"], "exclusiveMinimum": 0},
+          "unit": {"enum": ["cm", "mm", "kg", "g"]},
+          "measurement_role": {"enum": ["DESIGN_TARGET", "REFERENCE_OBSERVATION", "REFERENCE_CONSTRAINT"]},
+          "provenance": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["TIGER_CONFIRMED", "HUMAN_ANTHROPOMETRY_REFERENCE", "COMMUNITY_DESIGN_REFERENCE", "ENGINEERING_DESIGN_CHOICE"]}},
+          "basis": {"type": "string", "minLength": 1},
+          "measurement_method_zh": {"type": "string", "minLength": 1},
+          "source_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "evidence_strength": {"enum": ["DIRECT_SINGLE_SPECIMEN", "DIRECT_MULTI_SPECIMEN", "INSTITUTIONAL_SPECIES_RANGE", "HUMAN_ANTHROPOMETRY", "COMMUNITY_PRACTITIONER", "ENGINEERING_SYNTHESIS", "FORENSIC_CONSTRAINT", "GAP_NOT_ESTABLISHED"]},
+          "value_semantics": {"enum": ["TARGET_VALUE", "OBSERVED_VALUE", "APPROX_UPPER_BOUND", "EXCLUSION_IF_GREATER_THAN", "UNDEFINED"]},
+          "status": {"enum": ["DEFINED", "UNKNOWN_SOURCE_NOT_ESTABLISHED"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
