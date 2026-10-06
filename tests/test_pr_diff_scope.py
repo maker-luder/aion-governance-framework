@@ -2,7 +2,7 @@ from scripts.validate_pr_diff_scope import DiffStats, evaluate_pr_scope
 
 
 POLICY = {
-    "schema_version": "1.1.0",
+    "schema_version": "1.2.0",
     "repository": "maker-luder/aion-governance-framework",
     "durable_branches": [
         "main",
@@ -19,6 +19,7 @@ POLICY = {
         "quality/",
         "review/",
     ],
+    "enforce_transient_head_prefixes": False,
     "require_same_repository_head": True,
     "large_diff_total_line_threshold": 2000,
     "large_diff_file_threshold": 30,
@@ -82,6 +83,35 @@ def test_durable_research_lane_cannot_be_used_as_head() -> None:
     )
     assert result["status"] == "FAIL"
     assert any("durable branch" in item for item in result["violations"])
+
+
+def test_github_default_patch_branch_name_is_advisory_not_failure() -> None:
+    result = evaluate(head="maker-luder-patch-1", diff=stats(50))
+
+    assert result["status"] == "PASS"
+    assert result["head_prefix_preferred"] is False
+    assert result["head_prefix_enforced"] is False
+    assert any("nonpreferred" in item for item in result["advisories"])
+
+
+def test_strict_prefix_mode_can_still_fail_nonpreferred_head() -> None:
+    strict = dict(POLICY)
+    strict["enforce_transient_head_prefixes"] = True
+    result = evaluate_pr_scope(
+        strict,
+        base_ref="main",
+        head_ref="maker-luder-patch-1",
+        same_repository_head=True,
+        base_is_ancestor=True,
+        body="",
+        stats=stats(50),
+        base_sha="a" * 40,
+        head_sha="b" * 40,
+        merge_base_sha="a" * 40,
+    )
+
+    assert result["status"] == "FAIL"
+    assert any("approved transient branch prefix" in item for item in result["violations"])
 
 
 def test_wrong_parent_fails_even_when_diff_is_small() -> None:
