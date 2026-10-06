@@ -74,9 +74,9 @@ UNDER_REVIEW
 RETIRED_FROM_CANDIDATE
 ```
 
-The initial implemented system is `REPRODUCTIVE`, inherited from the v0.2.2
-Teacher anthropomorphic brown-bear candidate. Other body systems are registered for
-future bounded work.
+The current implemented system is `REPRODUCTIVE`, bound to the v0.3.0 Teacher
+anthropomorphic bovine candidate. The v0.2.2 brown-bear candidate is retained only as
+a historical predecessor. Other body systems remain registered for future bounded work.
 
 ## 5. Iteration lifecycle
 
