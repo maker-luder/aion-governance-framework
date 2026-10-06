@@ -192,6 +192,23 @@ WATERMARK_VERDICT = NOT_ESTABLISHED
 A human reviewer should be able to see what transformation produced each cue and why
 the result is uncertain.
 
+### Defeasible reasoning and triangulation
+
+Heuristic conclusions are defeasible: later information can rebut the candidate
+conclusion or undercut the assumed connection between cue and watermark. The report
+therefore keeps counter-explanations visible rather than collapsing them into one
+story.
+
+Multiple views are used as a qualitative triangulation aid only when their failure
+modes differ. Agreement among views can justify further inspection, but it does not
+convert an unkeyed heuristic into a keyed watermark detector.
+
+~~~text
+DEFEASIBLE_REASONING = IMPLEMENTED_AS_COUNTER_EXPLANATIONS
+MULTI_VIEW_TRIANGULATION = REVIEW_AID
+MULTI_VIEW_AGREEMENT != PROOF
+~~~
+
 ## Architecture
 
 ```text
