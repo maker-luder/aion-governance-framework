@@ -61,7 +61,7 @@ DEPLOYMENT = FALSE
 The candidate uses source-bound male Husky height/mass ranges, species-level canine male reproductive topology, and fail-closed unknown values where absolute morphometry is not established. It does not import the historical Work human-like 165 cm / 76 kg body profile.
 
 
-## Teacher brown-bear penile candidate — 2026-10-06
+## Historical Teacher brown-bear penile candidate — 2026-10-06
 
 Bounded candidate: [`teacher-brown-bear-penile-embodiment_v0.1.0`](../../../research-labs/teacher-brown-bear-penile-embodiment_v0.1.0/README.md).
 
@@ -84,7 +84,7 @@ DEPLOYMENT = FALSE
 The candidate is grounded in direct brown-bear baculum morphometry from one adult specimen and fails closed on unsupported whole-penis dimensions. It does not import Work's canine reproductive topology or the closed historical Teacher human-like candidate lineage.
 
 
-## Teacher anthropomorphic brown-bear reproductive candidate v0.2.2 — 2026-10-06
+## Historical Teacher anthropomorphic brown-bear reproductive candidate v0.2.2 — 2026-10-06
 
 Bounded candidate: [`teacher-brown-bear-reproductive-embodiment_v0.2.0`](../../../research-labs/teacher-brown-bear-reproductive-embodiment_v0.2.0/README.md).
 
@@ -170,7 +170,7 @@ RESEARCH_ACTOR = CHATGPT_TEACHER
 RESEARCH_OBJECT = TEACHER_SYNTHETIC_EMBODIMENT_MODEL
 
 BOUND_BODY_MODEL =
-CHATGPT_TEACHER_BROWN_BEAR_MALE_REPRODUCTIVE_v0.2.2
+CHATGPT_TEACHER_BOVINE_MALE_REPRODUCTIVE_v0.3.0
 
 SELF_RESEARCH
 != BIOLOGICAL_SELF_EXPERIMENT
