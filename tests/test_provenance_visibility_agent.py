@@ -12,11 +12,10 @@ from aion_provenance_visibility_agent import (  # noqa: E402
     ProvenanceVisibilityAgent,
     SignalOutcome,
     SignalType,
-    render_heuristic_reveal_markdown,
     render_markdown,
-    reveal_hidden_signal_from_rgb,
-    write_reveal_layers_pgm,
+    render_text_reveal_markdown,
     report_from_c2pa_manifest_store,
+    reveal_hidden_text_signal,
 )
 
 
@@ -108,9 +107,7 @@ def test_invalid_text_detector_signal_type_is_rejected() -> None:
 
 
 def test_synthid_media_without_public_local_verifier_is_explicit() -> None:
-    report = ProvenanceVisibilityAgent().synthid_media_local_capability(
-        MediaKind.AUDIO
-    )
+    report = ProvenanceVisibilityAgent().synthid_media_local_capability(MediaKind.AUDIO)
     assert report.verdict == "SYNTHID_LOCAL_VERIFIER_NOT_PUBLIC"
     assert report.signals[0].outcome is SignalOutcome.LOCAL_VERIFIER_NOT_PUBLIC
     assert report.network_required is False
@@ -125,78 +122,79 @@ def test_markdown_discloses_local_processing_and_limits() -> None:
     assert "不提供浮水印移除" in rendered
 
 
-def _synthetic_periodic_pixels(
-    width: int,
-    height: int,
-    period: int,
-) -> list[tuple[int, int, int]]:
-    pixels: list[tuple[int, int, int]] = []
-    for y in range(height):
-        for x in range(width):
-            same_half = ((x % period) < period // 2) == ((y % period) < period // 2)
-            value = 130 if same_half else 126
-            pixels.append((value, value, value))
-    return pixels
+def test_text_reveal_makes_zero_width_control_human_visible() -> None:
+    report = reveal_hidden_text_signal("alpha\u200bbeta")
 
-
-def test_heuristic_reveal_surfaces_periodic_candidate_without_detector_claim() -> None:
-    report = reveal_hidden_signal_from_rgb(
-        32,
-        32,
-        _synthetic_periodic_pixels(32, 32, 8),
-    )
-
-    assert report.method == "AION_REVERSE_REVEAL_V0_1"
-    assert report.candidate_period == 8
-    assert report.periodicity_cue > 0.8
+    assert report.method == "AION_TEXT_MONTAGE_REVEAL_V0_1"
     assert report.watermark_verdict == "NOT_ESTABLISHED"
+    assert any(cue.cue_type == "UNICODE_FORMAT_CONTROL" for cue in report.cues)
+
+    panel = next(
+        item for item in report.panels if item.name == "machine_visible_unicode"
+    )
+    assert "U+200B ZERO WIDTH SPACE" in panel.content
+
+
+def test_text_reveal_surfaces_mixed_script_without_calling_it_watermark() -> None:
+    report = reveal_hidden_text_signal("pаypal example")
+
+    assert any(
+        cue.cue_type == "MIXED_LATIN_CYRILLIC_GREEK_TOKEN"
+        for cue in report.cues
+    )
+    assert "HOMOGLYPH_OR_MIXED_SCRIPT_CHANNEL" in report.hypotheses
+    assert report.watermark_verdict == "NOT_ESTABLISHED"
+
+
+def test_text_reveal_surfaces_normalization_contrast() -> None:
+    report = reveal_hidden_text_signal("ＡION provenance")
+
+    assert "COMPATIBILITY_ENCODING_CHANNEL" in report.hypotheses
+    panel = next(
+        item for item in report.panels if item.name == "normalization_contrast"
+    )
+    assert "NFKC" in panel.content
+
+
+def test_text_reveal_montage_finds_synthetic_period_two_candidate() -> None:
+    tokens = []
+    for _ in range(12):
+        tokens.extend(["a", "veryverylong,"])
+    report = reveal_hidden_text_signal(" ".join(tokens))
+
+    assert report.candidate_period == 2
+    assert "POSITIONAL_PATTERN_CANDIDATE" in report.hypotheses
+    montage = next(
+        item for item in report.panels if item.name == "positional_montage"
+    )
+    assert "period=2" in montage.content
     assert report.heuristic_score_is_probability is False
-    assert [layer.name for layer in report.layers] == [
-        "local_residual",
-        "lsb_balance",
-        "periodic_fold",
-        "aion_reverse_reveal_composite",
-    ]
 
 
-def test_heuristic_reveal_flat_image_stays_unknown() -> None:
-    pixels = [(128, 128, 128)] * (16 * 16)
-    report = reveal_hidden_signal_from_rgb(16, 16, pixels)
+def test_text_reveal_plain_short_text_remains_unknown() -> None:
+    report = reveal_hidden_text_signal("ordinary transparent repository text")
 
     assert report.candidate_period is None
-    assert report.periodicity_cue == 0.0
     assert report.watermark_verdict == "NOT_ESTABLISHED"
-    assert "不等於證明沒有" in report.visible_label_zh_tw
+    assert report.network_required is False
+    assert report.api_required is False
 
 
-def test_heuristic_reveal_rejects_invalid_pixel_count() -> None:
-    with pytest.raises(ValueError, match="pixel count"):
-        reveal_hidden_signal_from_rgb(4, 4, [(0, 0, 0)])
-
-
-def test_heuristic_reveal_layers_can_be_written_without_image_dependency(
-    tmp_path: Path,
-) -> None:
-    report = reveal_hidden_signal_from_rgb(
-        16,
-        16,
-        _synthetic_periodic_pixels(16, 16, 4),
+def test_agent_exposes_local_text_reveal() -> None:
+    report = ProvenanceVisibilityAgent().reveal_hidden_text_signal_local(
+        "visible\u200binvisible"
     )
-    written = write_reveal_layers_pgm(report, tmp_path)
-
-    assert len(written) == 4
-    assert all(path.read_bytes().startswith(b"P5\n16 16\n255\n") for path in written)
+    assert any(cue.cue_type == "UNICODE_FORMAT_CONTROL" for cue in report.cues)
+    assert report.local_only is True
 
 
-def test_heuristic_reveal_markdown_discloses_inference_limits() -> None:
-    report = reveal_hidden_signal_from_rgb(
-        16,
-        16,
-        _synthetic_periodic_pixels(16, 16, 4),
-    )
-    rendered = render_heuristic_reveal_markdown(report)
+def test_text_reveal_markdown_discloses_project_origin_and_limits() -> None:
+    report = reveal_hidden_text_signal("alpha\u200bbeta")
+    rendered = render_text_reveal_markdown(report)
 
+    assert "MONTAGE_JUXTAPOSITION" in rendered
+    assert "自創研究介面" in rendered
     assert "HEURISTIC_CUE != WATERMARK_DETECTION" in rendered
-    assert "HEURISTIC_SCORE != PROBABILITY" in rendered
-    assert "浮水印判定：NOT_ESTABLISHED" in rendered
+    assert "WITHOUT_REQUIRED_KEY_OR_CONFIGURATION = UNKNOWN" in rendered
+    assert "不連接 hosted provenance API" in rendered
     assert "不提供浮水印移除" in rendered
