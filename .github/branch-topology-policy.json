@@ -9,7 +9,7 @@
     "research/legacy-uncertainty-hold"
   ],
   "transient_branch_policy": {
-    "maximum_open_pr_branches": 1,
+    "maximum_open_pr_branches": 2,
     "require_open_pull_request": true,
     "delete_after_pull_request_close": true,
     "allowed_prefixes": [
