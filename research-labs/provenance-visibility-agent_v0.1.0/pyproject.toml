@@ -10,3 +10,5 @@ requires-python = ">=3.11"
 
 [project.optional-dependencies]
 openai = ["openai>=2.0.0"]
+[tool.mypy]
+strict = true

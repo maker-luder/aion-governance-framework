@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import asdict, dataclass
 from enum import StrEnum
+import importlib
 from pathlib import Path
 from typing import Any
 
@@ -228,13 +229,13 @@ class ProvenanceVisibilityAgent:
             raise FileNotFoundError(file_path)
 
         try:
-            from openai import OpenAI
+            openai_module = importlib.import_module("openai")
         except ImportError as exc:
             raise RuntimeError(
                 "OpenAI SDK is required for live provenance verification"
             ) from exc
 
-        client = OpenAI()
+        client = openai_module.OpenAI()
         with file_path.open("rb") as handle:
             response = client.content_provenance_checks.create(file=handle)
 
