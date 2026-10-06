@@ -39,7 +39,7 @@ def _require_nonempty_string(value: Any, name: str) -> str:
 
 def load_policy(path: Path) -> dict[str, Any]:
     policy = json.loads(path.read_text(encoding="utf-8"))
-    if policy.get("schema_version") != "1.1.0":
+    if policy.get("schema_version") not in {"1.1.0", "1.2.0"}:
         raise PRDiffScopeError("unsupported PR diff policy schema")
 
     repository = _require_nonempty_string(policy.get("repository"), "repository")
@@ -66,6 +66,10 @@ def load_policy(path: Path) -> dict[str, Any]:
         raise PRDiffScopeError(
             "allowed_transient_head_prefixes must be unique path prefixes"
         )
+
+    enforce_prefixes = policy.get("enforce_transient_head_prefixes", True)
+    if type(enforce_prefixes) is not bool:
+        raise PRDiffScopeError("enforce_transient_head_prefixes must be boolean")
 
     if policy.get("require_same_repository_head") is not True:
         raise PRDiffScopeError("same-repository PR heads must be required")
@@ -123,7 +127,9 @@ def evaluate_pr_scope(
         }
 
     violations: list[str] = []
+    advisories: list[str] = []
     prefixes = tuple(policy["allowed_transient_head_prefixes"])
+    enforce_prefixes = policy.get("enforce_transient_head_prefixes", True)
 
     if not same_repository_head:
         violations.append(
@@ -133,10 +139,16 @@ def evaluate_pr_scope(
         violations.append(
             "durable branch must not be used directly as the head of another durable-branch PR"
         )
-    if not head_ref.startswith(prefixes):
-        violations.append(
-            "governed PR head must use an approved transient branch prefix"
-        )
+    head_prefix_preferred = head_ref.startswith(prefixes)
+    if not head_prefix_preferred:
+        if enforce_prefixes:
+            violations.append(
+                "governed PR head must use an approved transient branch prefix"
+            )
+        else:
+            advisories.append(
+                "governed PR head uses a nonpreferred transient branch prefix"
+            )
     if not base_is_ancestor:
         violations.append(
             "selected durable base must be an ancestor of the PR head; create or update a clean branch from the intended base"
@@ -156,10 +168,13 @@ def evaluate_pr_scope(
     return {
         "status": "PASS" if not violations else "FAIL",
         "violations": violations,
+        "advisories": advisories,
         "base_ref": base_ref,
         "head_ref": head_ref,
         "same_repository_head": same_repository_head,
         "base_is_ancestor": base_is_ancestor,
+        "head_prefix_preferred": head_prefix_preferred,
+        "head_prefix_enforced": enforce_prefixes,
         "base_sha": base_sha,
         "head_sha": head_sha,
         "merge_base_sha": merge_base_sha,
