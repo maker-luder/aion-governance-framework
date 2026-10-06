@@ -3,9 +3,14 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import asdict, dataclass
 from enum import StrEnum
+from pathlib import Path
 from typing import Any
 
-from .text_reveal import TextRevealReport, reveal_hidden_text_signal
+from .text_reveal import (
+    TextRevealReport,
+    reveal_hidden_text_bytes,
+    reveal_hidden_text_signal,
+)
 
 
 class MediaKind(StrEnum):
@@ -54,9 +59,22 @@ class ProvenanceVisibilityAgent:
     """Text-only local provenance visibility and human-readable reveal surface."""
 
     def reveal_hidden_text_signal_local(self, text: str) -> TextRevealReport:
-        """Make machine-visible text structure human-readable without an API."""
+        """Reveal machine-visible text structure from an in-memory string."""
 
         return reveal_hidden_text_signal(text)
+
+    def reveal_hidden_text_bytes_local(self, data: bytes) -> TextRevealReport:
+        """Reveal text structure while preserving byte-level source evidence."""
+
+        return reveal_hidden_text_bytes(data)
+
+    def reveal_hidden_text_file_local(self, path: str | Path) -> TextRevealReport:
+        """Read a local text file as bytes and preserve source evidence before decoding."""
+
+        file_path = Path(path)
+        if not file_path.is_file():
+            raise FileNotFoundError(file_path)
+        return reveal_hidden_text_bytes(file_path.read_bytes())
 
     def textgrain_without_secret_key(self) -> ProvenanceVisibilityReport:
         evidence = SignalEvidence(
@@ -65,8 +83,8 @@ class ProvenanceVisibilityAgent:
             source="OPENAI_TEXTGRAIN_TECHNICAL_REPORT",
             detail=(
                 "The published detection procedure requires the secret key plus "
-                "matching tokenizer/configuration. The deployed key is unavailable "
-                "to this local verifier."
+                "matching tokenizer/configuration. Those required materials are "
+                "not available to this generic local verifier."
             ),
         )
         return ProvenanceVisibilityReport(
@@ -75,7 +93,7 @@ class ProvenanceVisibilityAgent:
             verdict="TEXTGRAIN_NOT_LOCALLY_VERIFIABLE_WITHOUT_KEY",
             visible_label_zh_tw=(
                 "textGrain 的精確檢測需要秘密金鑰與相符 tokenizer／設定；"
-                "目前沒有必要材料，因此本機只能顯現可觀察文字結構，不能冒充正式 detector。"
+                "目前缺少必要材料，所以只能顯現可觀察文字證據，不能冒充正式 detector。"
             ),
         )
 
@@ -108,6 +126,7 @@ class ProvenanceVisibilityAgent:
                 f"本機 keyed detector 未偵測到 {signal_type.value} 訊號；"
                 "這不代表文字一定由人類撰寫。"
             )
+
         return ProvenanceVisibilityReport(
             media_kind=MediaKind.TEXT,
             signals=(evidence,),
