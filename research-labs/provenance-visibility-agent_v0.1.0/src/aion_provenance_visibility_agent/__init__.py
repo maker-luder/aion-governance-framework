@@ -9,6 +9,16 @@ from .agent import (
     SignalType,
     render_markdown,
 )
+from .repository_scan import (
+    FamilyAggregate,
+    RepositoryFileResult,
+    RepositoryScanReport,
+    ScanPolicy,
+    ScanStatus,
+    render_repository_scan_json,
+    render_repository_scan_markdown,
+    scan_text_repository,
+)
 from .text_reveal import (
     CueKind,
     EvidenceFamily,
@@ -24,6 +34,11 @@ from .text_reveal import (
 )
 
 __all__ = [
+    "FamilyAggregate",
+    "RepositoryFileResult",
+    "RepositoryScanReport",
+    "ScanPolicy",
+    "ScanStatus",
     "CueKind",
     "EvidenceFamily",
     "EvidenceRecord",
@@ -39,7 +54,10 @@ __all__ = [
     "TextCue",
     "TextRevealReport",
     "render_markdown",
+    "render_repository_scan_json",
+    "render_repository_scan_markdown",
     "render_text_reveal_markdown",
     "reveal_hidden_text_bytes",
     "reveal_hidden_text_signal",
+    "scan_text_repository",
 ]
