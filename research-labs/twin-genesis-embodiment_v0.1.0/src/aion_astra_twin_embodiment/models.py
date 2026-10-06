@@ -60,3 +60,6 @@ class EmbodimentInstance:
     sexual_interaction: str = "NOT_AUTHORIZED"
     modification_authorities: tuple[str, ...] = field(default_factory=tuple)
     canonical_effect: str = NONE
+    # species_profile_id（物種具身設定檔識別碼）綁定個別 embodiment instance，
+    # 不屬於 shared template，避免 AION 的虎型特徵靜默傳播到 Astra。
+    species_profile_id: str = "NOT_ASSIGNED"

@@ -43,6 +43,11 @@ def validate_candidate(
         failures.append("Embodiment-to-agent binding does not match the genesis event")
     if aion.instance_id != event.aion_instance_id or astra.instance_id != event.astra_instance_id:
         failures.append("Embodiment-to-instance binding does not match the genesis event")
+    if (
+        aion.species_profile_id != "NOT_ASSIGNED"
+        and aion.species_profile_id == astra.species_profile_id
+    ):
+        failures.append("A species profile must not silently propagate across twin instances")
     if template.sexual_function_status != "NOT_IMPLEMENTED":
         failures.append("Sexual function is outside this candidate scope")
     if template.gender_identity_effect != "NONE":
