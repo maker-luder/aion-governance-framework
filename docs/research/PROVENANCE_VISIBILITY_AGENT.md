@@ -5,22 +5,9 @@ Status: `MAIN-INTEGRATED RESEARCH TOOLING`
 
 ## Research question
 
-Can the repository make hidden provenance signals visible using reproducible local
-verification rather than uploading private files to a hosted provenance API?
+Can this public, text-centered repository make machine-visible textual provenance cues human-visible through local, inspectable transforms without using a hosted provenance API?
 
 ## Pipeline findings
-
-### C2PA
-
-The C2PA specification and Content Authenticity Initiative SDKs are open. The
-`contentauth/c2pa-python` library can read and validate embedded manifests locally.
-Its verification settings allow remote manifest fetching to be disabled.
-
-Disposition:
-
-```text
-C2PA_LOCAL_VERIFICATION = IMPLEMENTABLE
-```
 
 ### OpenAI textGrain
 
@@ -48,19 +35,6 @@ Disposition:
 ```text
 SYNTHID_TEXT_REFERENCE_DETECTOR = OPEN_SOURCE
 SYNTHID_TEXT_DETECTOR != OPENAI_TEXTGRAIN_DETECTOR
-```
-
-### Image/audio SynthID
-
-OpenAI documents SynthID as an embedded signal in supported image/audio output, but
-our current public-source pass did not identify a general-purpose local decoder for
-the OpenAI-used signal.
-
-Disposition:
-
-```text
-OPENAI_MEDIA_SYNTHID_LOCAL_DECODER = NOT_ESTABLISHED
-DO_NOT_SUBSTITUTE_AI_CLASSIFIER = TRUE
 ```
 
 ## Hidden text signals: human-visible montage reveal
@@ -214,23 +188,22 @@ MULTI_VIEW_AGREEMENT != PROOF
 ```text
 LOCAL TEXT
   |
-  +--> exact Unicode / whitespace views --> human-readable report
+  +--> Unicode / whitespace reveal ------> exact human-readable view
   |
-  +--> normalization contrast -----------> human-readable diff
+  +--> normalization contrast -----------> exact human-readable diff
   |
-  +--> positional montage ---------------> review-only heuristic cue
+  +--> token position index -------------> exact positional view
   |
-  +--> repeated-context view ------------> review-only heuristic cue
+  +--> positional montage ---------------> heuristic review cue
   |
-  +--> textGrain -------------------------> KEY_REQUIRED for exact vendor verdict
+  +--> repeated-context view ------------> heuristic review cue
   |
-  +--> known keyed detector -------------> exact detector adapter
+  +--> known keyed text detector --------> exact detector adapter
+  |
+  +--> required key/config unavailable --> UNKNOWN
 ```
 
-The pre-existing package still contains older C2PA/media capability code inherited from
-main. PR #281 does not expand those paths; its new functionality and tests are
-text-only. Removing legacy media capability from main would be a separate bounded
-cleanup rather than being hidden inside this feature PR.
+PR #281 retains no new image, audio, video, C2PA, or media-watermark implementation in this package. The enhancement is text-only. Unrelated multimodal components elsewhere in the repository are outside this PR.
 
 ## Sources checked
 
