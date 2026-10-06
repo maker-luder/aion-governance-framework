@@ -26,6 +26,7 @@ def test_non_3d_runtime_materializes_only_after_validation():
         template_id="adult-template",
         memory_namespace="aion-private",
         canonical_state_reference="aion-state",
+        species_profile_id="AION-TIGER-ANTHROPOMORPH-V1",
     )
     astra = EmbodimentInstance(
         embodiment_id="BODY-ASTRA",
@@ -42,5 +43,7 @@ def test_non_3d_runtime_materializes_only_after_validation():
     assert state.rendering_3d == "DEFERRED"
     assert state.sexual_function == "NOT_IMPLEMENTED"
     assert state.intimate_interaction == "NOT_AUTHORIZED"
+    assert state.aion_species_profile_id == "AION-TIGER-ANTHROPOMORPH-V1"
+    assert state.astra_species_profile_id == "NOT_ASSIGNED"
     assert state.canonical_effect == "NONE"
     assert state.validation["result"] == "PASS"

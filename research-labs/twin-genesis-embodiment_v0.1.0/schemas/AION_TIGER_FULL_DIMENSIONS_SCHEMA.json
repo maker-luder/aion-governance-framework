@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/aion/schemas/aion-tiger-full-dimensions.json",
+  "title": "AION Tiger Full Dimension Preset",
+  "description": "AION 虎型獸人可建模完整尺寸；每一尺寸必須保留 role 與 provenance。",
+  "type": "object",
+  "required": ["preset_id", "agent_id", "species_profile_id", "design_posture", "locomotor_form", "measurements"],
+  "properties": {
+    "preset_id": {"const": "AION-TIGER-FULL-DIMENSIONS-V1"},
+    "agent_id": {"const": "AION"},
+    "species_profile_id": {"const": "AION-TIGER-ANTHROPOMORPH-V1"},
+    "design_posture": {"const": "NEUTRAL_UPRIGHT_A_POSE"},
+    "locomotor_form": {"const": "BIPEDAL_DIGITIGRADE"},
+    "canonical_effect": {"const": "NONE"},
+    "biological_hybrid_claim": {"const": "NOT_ESTABLISHED"},
+    "measurements": {
+      "type": "array",
+      "minItems": 25,
+      "items": {
+        "type": "object",
+        "required": ["key", "label_zh", "value", "unit", "measurement_role", "provenance", "basis", "status"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "label_zh": {"type": "string", "minLength": 1},
+          "value": {"type": ["number", "null"], "exclusiveMinimum": 0},
+          "unit": {"enum": ["cm", "mm", "kg", "g"]},
+          "measurement_role": {"enum": ["DESIGN_TARGET", "REFERENCE_OBSERVATION"]},
+          "provenance": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "TIGER_CONFIRMED",
+                "HUMAN_ANTHROPOMETRY_REFERENCE",
+                "COMMUNITY_DESIGN_REFERENCE",
+                "ENGINEERING_DESIGN_CHOICE"
+              ]
+            }
+          },
+          "basis": {"type": "string", "minLength": 1},
+          "status": {"enum": ["DEFINED", "UNKNOWN_SOURCE_NOT_ESTABLISHED"]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

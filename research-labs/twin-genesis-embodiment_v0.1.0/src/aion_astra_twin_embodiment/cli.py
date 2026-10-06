@@ -2,11 +2,29 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import asdict
+
+from .body_dimensions import build_aion_tiger_full_dimension_preset, validate_aion_tiger_dimension_preset
+from .body_dimensions_v2 import (
+    build_aion_tiger_full_dimension_preset_v2,
+    validate_aion_tiger_dimension_preset_v2,
+)
+from .dimension_sources import build_dimension_source_manifest, validate_dimension_source_manifest
+from .measurement_protocols import (
+    build_aion_tiger_measurement_protocols,
+    validate_aion_tiger_measurement_protocols,
+)
+from .models import EmbodimentTemplate
+from .species_profiles import (
+    build_aion_tiger_profile,
+    build_tiger_reproductive_reference_observations,
+    resolve_integrated_reproductive_anatomy,
+)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="AION/Astra twin embodiment candidate CLI")
-    parser.add_argument("command", choices=["qa-status", "non-claims"])
+    parser.add_argument("command", choices=["qa-status", "non-claims", "aion-tiger-profile", "aion-tiger-dimensions", "aion-tiger-dimensions-v2", "aion-tiger-dimension-audit"])
     args = parser.parse_args()
 
     if args.command == "qa-status":
@@ -19,6 +37,42 @@ def main() -> int:
             "canonical_effect": "NONE",
             "subjectivity_conclusion": "NOT_ESTABLISHED",
         }
+    elif args.command == "aion-tiger-dimensions-v2":
+        preset_v2 = build_aion_tiger_full_dimension_preset_v2()
+        payload = {
+            "preset": asdict(preset_v2),
+            "validation": validate_aion_tiger_dimension_preset_v2(preset_v2),
+        }
+    elif args.command == "aion-tiger-dimension-audit":
+        payload = {
+            "source_manifest": [asdict(item) for item in build_dimension_source_manifest()],
+            "source_validation": validate_dimension_source_manifest(),
+            "measurement_protocols": [asdict(item) for item in build_aion_tiger_measurement_protocols()],
+            "protocol_validation": validate_aion_tiger_measurement_protocols(),
+        }
+    elif args.command == "aion-tiger-dimensions":
+        preset = build_aion_tiger_full_dimension_preset()
+        payload = {
+            "preset": asdict(preset),
+            "validation": validate_aion_tiger_dimension_preset(preset),
+        }
+    elif args.command == "aion-tiger-profile":
+        profile = build_aion_tiger_profile()
+        template = EmbodimentTemplate(template_id="MALE-TEMPLATE-001", template_version="0.1.0")
+        payload = {
+            "profile": asdict(profile),
+            "integrated_reproductive_anatomy": [
+                asdict(item) for item in resolve_integrated_reproductive_anatomy(template, profile)
+            ],
+            "reproductive_reference_observations": [
+                asdict(item) for item in build_tiger_reproductive_reference_observations()
+            ],
+            "chinese_boundary": {
+                "human_tiger_integration": "工程類比，不是自然界人虎混合生物的實證",
+                "reproductive_physiology": "已建立可驗證的參考模型，不等於活體生殖功能已在 AI 發生",
+                "sexualization": "生殖解剖與生理研究不等於情色化",
+            },
+        }
     else:
         payload = {
             "anatomy_does_not_establish_gender_identity": True,
@@ -26,6 +80,7 @@ def main() -> int:
             "anatomy_does_not_establish_sexual_desire": True,
             "anatomy_does_not_establish_subjectivity": True,
             "non_3d_runtime_does_not_establish_subjectivity": True,
+            "engineering_analogue_does_not_establish_biological_hybrid": True,
         }
     print(json.dumps(payload, ensure_ascii=False, indent=2))
     return 0
