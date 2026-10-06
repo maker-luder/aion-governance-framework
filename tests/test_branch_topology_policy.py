@@ -23,7 +23,7 @@ def policy() -> dict[str, object]:
         "steady_state_branch_count": 4,
         "durable_branches": sorted(DURABLE),
         "transient_branch_policy": {
-            "maximum_open_pr_branches": 1,
+            "maximum_open_pr_branches": None,
             "require_open_pull_request": True,
             "delete_after_pull_request_close": True,
             "allowed_prefixes": ["work/", "docs/", "fix/", "feat/", "governance/", "quality/", "review/"],
@@ -78,12 +78,39 @@ def test_one_open_pr_branch_is_bounded_transient_not_steady_state() -> None:
     assert result["permitted_transient"] == ["docs/pr264-governance"]
 
 
-def test_more_than_one_open_pr_branch_fails_hard_cap() -> None:
-    transients = {"work/one", "fix/two"}
+def test_multiple_open_pr_branches_are_allowed_without_hard_cap() -> None:
+    transients = {"work/one", "fix/two", "review/three"}
     result = evaluate_topology(policy(), DURABLE | transients, transients)
+
+    assert result["status"] == "PASS"
+    assert result["open_pr_branch_count"] == 3
+    assert result["maximum_open_pr_branches"] is None
+    assert result["permitted_transient"] == sorted(transients)
+    assert result["violations"] == []
+
+
+def test_configured_finite_open_pr_branch_cap_still_fails_closed() -> None:
+    bounded = policy()
+    transient = bounded["transient_branch_policy"]
+    assert isinstance(transient, dict)
+    transient["maximum_open_pr_branches"] = 1
+    transients = {"work/one", "fix/two"}
+
+    result = evaluate_topology(bounded, DURABLE | transients, transients)
 
     assert result["status"] == "FAIL"
     assert "transient branch cap exceeded: 2 > 1" in result["violations"]
+
+
+def test_policy_loader_accepts_explicit_unbounded_open_pr_branch_limit(tmp_path) -> None:
+    path = tmp_path / "policy.json"
+    path.write_text(__import__("json").dumps(policy()), encoding="utf-8")
+
+    loaded = load_policy(path)
+
+    transient = loaded["transient_branch_policy"]
+    assert isinstance(transient, dict)
+    assert transient["maximum_open_pr_branches"] is None
 
 
 def test_exact_retained_closed_branch_is_allowed_but_not_steady_state() -> None:
