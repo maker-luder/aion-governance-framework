@@ -8,6 +8,8 @@ from enum import StrEnum
 from pathlib import Path
 from typing import Any
 
+from .heuristic_reveal import HeuristicRevealReport, reveal_hidden_image_file
+
 
 class MediaKind(StrEnum):
     IMAGE = "IMAGE"
@@ -218,6 +220,16 @@ class ProvenanceVisibilityAgent:
             raise ValueError("C2PA reader returned a non-object manifest store")
 
         return report_from_c2pa_manifest_store(parsed, media_kind=media_kind)
+
+    def reveal_hidden_image_signal_local(
+        self,
+        path: str | Path,
+        *,
+        output_dir: str | Path | None = None,
+    ) -> HeuristicRevealReport:
+        """Surface local image residual/bit-plane/periodic cues without a detector claim."""
+
+        return reveal_hidden_image_file(path, output_dir=output_dir)
 
     def textgrain_without_secret_key(self) -> ProvenanceVisibilityReport:
         evidence = SignalEvidence(
