@@ -218,3 +218,15 @@ source hash and a fixed byte cap, and grants no writeback or action authority.
 Reviewed 2026-09-14 (UTC+08). Source explanations are paraphrases, not retained upstream snapshots. Ordinary variation selectors U+FE00..U+FE0F remain outside this detector profile, even when misused in unsupported sequences. Join controls used for legitimate shaping/emoji may still fail the conservative `Cf` policy. These are explicit coverage/false-positive limits, not automatically authorized exceptions. Binary media, statistical marks, metadata channels, filenames, generated exclusions and symlink targets remain outside this bounded Unicode-content check.
 
 Reviewers should replay `tests/test_imperceptible_watermark_policy.py`, verify both retained hashes against the parent tree, and inspect changes to the retention mapping as policy changes. See the [combined follow-up review](research/PR114_115_BOUNDED_REVIEW_2026_09_14.md).
+
+## Text visibility v0.3 candidate — 2026-10-07
+
+The source-preserving visibility upgrade extends the existing agent. Its Unicode
+property inventory, normalization contrasts and two-source byte comparison are
+observations, not watermark or authorship proof. The human-origin visibility goal,
+project-origin montage, external Unicode properties and implementation evidence
+remain separately attributed. See [the v0.3 specification](research/PROVENANCE_VISIBILITY_AGENT.md).
+
+中文：精確字元存在不等於浮水印；合法 Unicode 不自動等於惡意。來源摘要綁定不等於
+數位簽章、身份或作者認證。此升級不改變上方既有 admission policy（收錄政策），
+也不為浮水印產生、移除或規避提供新授權。

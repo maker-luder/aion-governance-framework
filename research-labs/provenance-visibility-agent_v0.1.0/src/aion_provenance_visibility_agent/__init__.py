@@ -19,11 +19,19 @@ from .text_reveal import (
     TextCue,
     TextRevealReport,
     render_text_reveal_markdown,
+    render_text_reveal_json,
+    verify_text_reveal_source,
     reveal_hidden_text_bytes,
     reveal_hidden_text_signal,
 )
 
+from .text_compare import TextComparisonReport, compare_hidden_text_bytes
+
 __all__ = [
+    "TextComparisonReport",
+    "compare_hidden_text_bytes",
+    "render_text_reveal_json",
+    "verify_text_reveal_source",
     "CueKind",
     "EvidenceFamily",
     "EvidenceRecord",

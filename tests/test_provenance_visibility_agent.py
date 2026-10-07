@@ -64,7 +64,7 @@ def test_raw_utf8_bom_and_byte_offset_are_preserved() -> None:
     data = codecs.BOM_UTF8 + "a\u200bb".encode("utf-8")
     report = reveal_hidden_text_bytes(data)
 
-    assert report.method == "AION_TEXT_VISIBILITY_V0_2"
+    assert report.method == "AION_TEXT_VISIBILITY_V0_3"
     assert report.raw_profile.bom == "UTF-8"
     assert report.raw_profile.byte_count == len(data)
 
