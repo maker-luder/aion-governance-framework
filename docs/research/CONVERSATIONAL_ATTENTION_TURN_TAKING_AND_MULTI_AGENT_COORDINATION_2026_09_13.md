@@ -25,12 +25,12 @@ This note does not treat a personal social event as scientific proof. It uses th
 
 ### HUMAN_OWNER_ORIGINAL
 
-The Human Owner observed that:
+A de-identified multi-party conversation provided a structural trigger for this research question:
 
-- while discussing a dense programming / AI topic in a group chat, other participants reported that they could not easily enter the conversation or change the topic;
-- no explicit prohibition prevented others from speaking;
-- the Human Owner did not intend to monopolize the group and considered topic switching permissible;
-- the resulting question was whether a high-attention / high-information topic can create a practical conversational bottleneck even without explicit coercion;
+- a dense technical topic appeared to make turn entry and topic switching more difficult for other participants;
+- no explicit prohibition on participation was part of the retained observation;
+- private social context, participant identities, relationship details, and individual intent are intentionally omitted;
+- the resulting question was whether a high-attention / high-information topic can create a practical conversational bottleneck without explicit coercion;
 - the Human Owner independently connected this to multi-agent systems and asked whether a leader / orchestrator may sometimes be needed to integrate competing conversational trajectories;
 - the Human Owner further asked whether this mechanism is more relevant to quality management and coordination than to AI subjectivity.
 
