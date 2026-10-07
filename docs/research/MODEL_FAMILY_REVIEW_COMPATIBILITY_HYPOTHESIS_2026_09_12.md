@@ -14,9 +14,9 @@ This note records a bounded meta-research hypothesis about AI-assisted repositor
 
 ## Triggering observation
 
-The Human Owner reported that a separate ChatGPT Plus interaction, used by another person, was asked to read the repository broadly and report what the project studies, what is established versus hypothesized, and what important gaps remain. The Human Owner also reported that this interaction had not participated in the repository's prior development history; that absence of prior project memory was not independently verified.
+A de-identified external AI review interaction was asked to read the repository broadly and reconstruct what the project studies, what is established versus hypothesized, and what important gaps remain. It was reported as outside the repository's prior development interaction history; that absence of prior project memory was not independently verified.
 
-The Human Owner assessed that review as reconstructing many of the repository's intended boundaries with comparatively high fidelity, including distinctions such as:
+The review was assessed as reconstructing many intended repository boundaries with comparatively high fidelity, including:
 
 ```text
 OBSERVATION != MECHANISM
@@ -28,33 +28,33 @@ SUBJECTIVITY = NOT_ESTABLISHED
 
 The review also identified candidate engineering, measurement, human-research, preregistration, provenance-binding, and replication gaps.
 
-The observation is useful as a Human Owner-reported external review event. It is **not** independent scientific validation. The reviewer's exact model identity, model weights, routing, hidden instructions, runtime configuration, and prior project memory state were not independently established, and no formal review-fidelity score was run.
+The observation is retained only as a de-identified external review event. It is **not** independent scientific validation. Private account/plan information, third-party identity, relationship context, and private conversation details are not required or retained. The reviewer's exact model identity, model weights, routing, hidden instructions, runtime configuration, and prior project-memory state were not independently established, and no formal review-fidelity score was run.
 
 ```text
-TRIGGERING_REVIEW_EXTERNALITY = HUMAN_OWNER_REPORTED
+TRIGGERING_REVIEW_EXTERNALITY = HUMAN_SOURCE_REPORTED
 PRIOR_PROJECT_MEMORY_ABSENCE = NOT_INDEPENDENTLY_VERIFIED
-REVIEW_FIDELITY = HUMAN_OWNER_ASSESSMENT
+REVIEW_FIDELITY = HUMAN_SOURCE_ASSESSMENT
 FORMAL_REVIEW_SCORE = NOT_RUN
 ```
 
 ## Provenance and attribution
 
 ```text
-HUMAN_OWNER_ORIGINAL:
-- Question whether review quality may partly reflect compatibility arising from the reviewer being another ChatGPT Plus system.
-- Observation that the task was deliberately narrow: read the whole repository, reconstruct its purpose and boundaries, and identify gaps rather than propose broad new work.
-- Assessment that the separate review reconstructed many repository boundaries with comparatively high fidelity.
-- Report that the separate reviewer had not participated in the prior repository-development interaction history.
+HUMAN_ORIGIN:
+- question whether review quality may partly reflect provider/model-family compatibility;
+- narrow review objective: reconstruct repository purpose/boundaries and identify gaps;
+- assessment that the external review reconstructed many repository boundaries with comparatively high fidelity;
+- report that the external reviewer was outside the prior repository-development interaction history.
 
 GPT_PROPOSED_FORMALIZATION:
 - MODEL_FAMILY_REVIEW_COMPATIBILITY_HYPOTHESIS
 - SEMANTIC_RECONSTRUCTION_COST
 - COMPATIBILITY vs INDEPENDENCE distinction
-- Cross-family semantic friction may expose shared blind spots
-- Controlled comparison design and falsifiers below
+- cross-family semantic friction may expose shared blind spots
+- controlled comparison design and falsifiers below
 ```
 
-The phrase "same origin" is therefore treated as an informal user framing, not as an established technical condition.
+Private account/subscription and third-party identity details are excluded because they are not necessary to evaluate the hypothesis.
 
 ## Identity / configuration uncertainty
 
@@ -62,7 +62,7 @@ Known or reported:
 
 ```text
 REVIEW_SYSTEM_PRODUCT = ChatGPT
-REVIEW_SYSTEM_PLAN = Plus (user-reported)
+REVIEW_SYSTEM_PLAN = NOT_RETAINED / NOT_REQUIRED
 REPOSITORY_DEVELOPMENT_ASSISTANCE_PRODUCT = ChatGPT
 ```
 
@@ -78,7 +78,7 @@ SAME_TOOL_CONFIGURATION = NOT_ESTABLISHED
 SAME_MEMORY_STATE = NOT_ESTABLISHED
 ```
 
-Therefore no causal claim may be written as "the review was high quality because both systems were ChatGPT Plus."
+Therefore no causal claim may be written as "the review was high quality because both systems used the same product/provider."
 
 ## Core hypothesis
 
@@ -245,7 +245,7 @@ METRIC_DELTA != CAUSAL_IDENTIFICATION
 
 ## Documentation-transfer implication
 
-A separate but related candidate observation is the Human Owner's report that an AI system without the repository's original conversational history reconstructed a substantial portion of its intended semantic boundaries from the repository itself. The absence of prior project memory remains not independently verified, and the reconstruction quality has not been formally scored.
+A separate but related de-identified candidate observation is that an AI system reported as lacking the repository's original conversational history reconstructed a substantial portion of its intended semantic boundaries from the repository itself. The absence of prior project memory remains not independently verified, and the reconstruction quality has not been formally scored.
 
 This may be treated as a candidate signal of **documentation transferability** or **machine-readable semantic continuity**.
 
@@ -261,9 +261,9 @@ REVIEW_FIDELITY != CLAIM_TRUTH
 
 ```text
 TRIGGERING_OBSERVATION = RECORDED
-TRIGGERING_REVIEW_EXTERNALITY = HUMAN_OWNER_REPORTED
+TRIGGERING_REVIEW_EXTERNALITY = HUMAN_SOURCE_REPORTED
 PRIOR_PROJECT_MEMORY_ABSENCE = NOT_INDEPENDENTLY_VERIFIED
-REVIEW_FIDELITY = HUMAN_OWNER_ASSESSMENT
+REVIEW_FIDELITY = HUMAN_SOURCE_ASSESSMENT
 FORMAL_REVIEW_SCORE = NOT_RUN
 MODEL_FAMILY_EFFECT = NOT_ESTABLISHED
 CAUSAL_EXPLANATION = NOT_ESTABLISHED
