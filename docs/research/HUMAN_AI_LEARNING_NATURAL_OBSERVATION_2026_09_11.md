@@ -2,7 +2,7 @@
 
 Status: `NATURALISTIC_OBSERVATION / HYPOTHESIS_GENERATING / CANONICAL_EFFECT=NONE`
 
-This note extracts a bounded research observation from a Human Owner–ChatGPT discussion on 2026-09-11. It does not publish private chat transcripts or third-party personal details. It records a reported natural interaction, subsequent self-correction, and candidate research questions about human learning with generative AI.
+This note preserves a bounded, de-identified research observation derived from a Human–AI discussion. It does not publish private chat transcripts, private relationship details, subscription/account details, or third-party identities. Only the structural learning pattern needed for the research question is retained.
 
 ```text
 RESEARCH_DIRECTION = HUMAN_OWNER_ORIGINAL
@@ -17,11 +17,9 @@ CANONICAL_EFFECT = NONE
 
 ## 1. Natural observation
 
-The Human Owner reported helping a peer choose a computer for image-editing and possible local generative-AI assistance. During the discussion, the peer repeatedly asked for clarification of terms such as local execution, cloud computing, API, token, agent, compute and natural-language interaction.
+A de-identified naturalistic interaction involved one participant explaining a cluster of AI-system concepts to another participant. Repeated clarification requests indicated a possible common-ground mismatch: concepts that were compressed for one participant remained separate and unfamiliar for the other.
 
-The Human Owner had previously expected that a frequent ChatGPT user, including a paid-plan user who routinely asks questions and generates images, would likely possess at least a basic mental model of these concepts. The reported interaction violated that expectation.
-
-A later conversation with another peer provided a small follow-up observation: after discussing the first interaction with ChatGPT, the Human Owner changed explanation strategy, answered closer to the listener's current question level, and stopped expanding every technical dependency at once. This is a reported transfer event, not evidence of a stable learning trait or causal effect.
+A later de-identified interaction provided a small follow-up observation: the explanation strategy shifted toward the listener's demonstrated question level and stopped expanding every technical dependency at once. Concrete consumer activity, account/subscription status, relationship context, and other identifying details are intentionally omitted. This remains a reported transfer candidate, not evidence of a stable learning trait or causal effect.
 
 ```text
 FREQUENT_AI_USE != AI_SYSTEM_UNDERSTANDING
@@ -59,7 +57,7 @@ USER_INTELLIGENCE_INFERENCE = PROHIBITED_FROM_THIS_EVENT
 
 ## 3. Candidate learning cycle
 
-The Human Owner described a recurring learning practice in which knowledge is retained provisionally while it remains useful under repeated checking, and is revised when new evidence conflicts with the current model. The 2026-09-11 event is consistent with the following working cycle:
+The de-identified source record described a recurring learning practice in which knowledge is retained provisionally while it remains useful under repeated checking, and is revised when new evidence conflicts with the current model. The structural observation is consistent with the following working cycle:
 
 ```text
 REAL_WORLD_PROBLEM
@@ -111,7 +109,7 @@ KNOWLEDGE_ASSIMILATION_INTO_DEFAULT_REASONING = GPT_PROPOSED_WORKING_DESCRIPTION
 
 ## 5. Important correction: usable knowledge is broader than immediate action
 
-The Human Owner proposed an epistemic preference: information that cannot be used risks remaining "only text." That preference can be retained as a source-attributed statement, but it should not become a universal definition of knowledge.
+The source record proposed an epistemic preference: information that cannot be used risks remaining "only text." That preference is retained only as a de-identified, source-attributed research statement and must not become a universal definition of knowledge.
 
 For this research note, `USE` is broader than immediate task execution:
 
@@ -151,7 +149,7 @@ LOCAL_ERROR != GLOBAL_SCHEMA_FAILURE
 This observation extends, but does not replace, two existing repository directions:
 
 1. `research-labs/coupled-cognition-quality-factory_v0.1.0/docs/EPISTEMIC_PROVENANCE_AND_CO_DEVELOPMENT.md` already treats sustained human–AI inquiry as a separate research object and requires provenance, contradiction surfacing, falsifiers, retained human epistemic agency and held-out transfer before stronger claims.
-2. `docs/research/CLAIM_REVISION_2026_09_03.md` already records the Human Owner's stated practice of noticing discrepancies, checking evidence and revising the affected inference rather than discarding an entire field.
+2. `docs/research/CLAIM_REVISION_2026_09_03.md` already records a source-attributed practice of noticing discrepancies, checking evidence and revising the affected inference rather than discarding an entire field.
 
 The 2026-09-11 interaction adds a naturalistic candidate example of expectation violation, audience/common-ground mismatch, subsequent transfer and rapid normalization of a revised strategy.
 
