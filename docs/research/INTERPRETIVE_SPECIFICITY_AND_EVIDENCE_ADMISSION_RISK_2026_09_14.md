@@ -18,13 +18,13 @@ DEPLOYMENT = FALSE
 
 ## 1. Purpose
 
-This note records a research-quality risk identified during a Human Owner–ChatGPT Teacher discussion on 2026-09-14.
+This note records a research-quality risk identified through a de-identified Human–AI discussion.
 
-The immediate trigger was a low-stakes generalized personality-style test. The Human Owner reported that the result felt recognizably fitting while also feeling vague. Cross-reading that reaction against the Forer/Barnum effect led to a broader methodological question relevant to this repository:
+The public trigger is retained only at the structural level: a low-stakes generalized personality-description example can feel recognizably fitting while also remaining vague. Individual reaction details and any personal profile information are intentionally omitted. Cross-reading this generic pattern against the Forer/Barnum effect led to a broader methodological question relevant to this repository:
 
 > When an observation is semantically compatible with a target hypothesis, under what conditions do researchers overestimate its evidential value because the observation feels specifically diagnostic even though multiple competing explanations remain available?
 
-This note does **not** treat the personality test as evidence about the Human Owner's personality, and it does not infer any psychological diagnosis.
+This note does **not** use any individual's personality response as evidence and does not infer any psychological diagnosis.
 
 The repository relevance is methodological rather than biographical:
 
@@ -48,7 +48,7 @@ The central concern is evidence admission and claim control, especially in resea
 
 | Content | Provenance class | Status |
 |---|---|---|
-| A generalized personality-style result felt partly fitting but also unusually vague | `HUMAN_OWNER_ORIGINAL` | Naturalistic introspective observation / trigger only |
+| A de-identified generalized personality-style example can produce perceived fit while remaining vague | `DEIDENTIFIED_HUMAN_ORIGIN_TRIGGER` | Structural trigger only; individual reaction details withheld |
 | Concern that this kind of fit could create a research-quality illusion when evaluating AI subjectivity or other hypotheses | `HUMAN_OWNER_ORIGINAL` | Research-quality question seed |
 | Proposal to examine the risk as an evidence-admission problem rather than treating it as only a personality-test issue | `CHATGPT_TEACHER_FORMALIZATION` | Methodological formalization |
 | `INTERPRETIVE_SPECIFICITY_FAILURE` | `CHATGPT_TEACHER_WORKING_TERM` | Repository-local working term; not claimed as established literature terminology |
