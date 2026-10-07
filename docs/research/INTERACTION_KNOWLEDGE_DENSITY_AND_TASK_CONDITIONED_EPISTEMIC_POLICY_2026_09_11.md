@@ -30,17 +30,15 @@ THIRD_PARTY_IDENTITY = NOT_RECORDED
 
 No later formalization is retroactively attributed to the Human Owner. No claim in this note establishes a cognitive mechanism, persistent model change, agency, identity or subjectivity.
 
-## 2. Naturalistic observation that generated the hypothesis
+## 2. De-identified observation that generated the hypothesis
 
-The Human Owner reported comparing two long-term Human–AI interaction patterns.
+A de-identified comparison contrasted two long-term Human–AI interaction contexts. The public record retains only structural differences relevant to the hypothesis.
 
-In the third-party dyad, everyday collaboration was described as being concentrated mainly in image creation, text handling and creative production. The interaction reportedly included recurring shorthand and practical collaboration conventions. The Human Owner did not inspect the third party's private personalization or Memory surfaces and treated those as private.
+One external interaction showed domain-specific shorthand and variable completion behavior. Under an explicit evidence-bounded instruction—preserve unknown states, avoid silent gap filling, and distinguish repository engineering results from scientific claims—the same external interaction produced a more evidence-bounded response.
 
-In an earlier open-ended exchange, the Human Owner observed unsupported completion behavior from that AI interaction. In a later research-oriented exchange, the Human Owner supplied an explicit instruction to treat the repository as research material, avoid filling gaps, preserve `NOT_ESTABLISHED` boundaries and state when information could not be confirmed. Under that framing, the same third-party AI interaction produced a substantially more evidence-bounded response: it separated repository-level engineering results from scientific claims, preserved `observation != mechanism`, retained `NOT_ESTABLISHED` states, and explicitly identified several things it could not verify rather than inventing them.
+The comparison interaction associated with this repository emphasizes bidirectional correction, provenance separation, explicit unknown states, evidence-bounded claims, and correction of both human and AI reasoning errors.
 
-The Human Owner's own longitudinal Human–AI research interaction is described as repeatedly emphasizing bidirectional correction, provenance separation, explicit unknown states, evidence-bounded claims and correction of both human and AI reasoning errors.
-
-These observations are anecdotal and non-randomized. They do not identify why the behaviors differed.
+Private usage patterns, relationship context, account/subscription information, personalization or Memory contents, and third-party identity are intentionally omitted. These observations remain anecdotal and non-randomized and do not identify why the behaviors differed.
 
 ```text
 SAME_PROVIDER_FAMILY != SAME_INTERACTION_STATE
