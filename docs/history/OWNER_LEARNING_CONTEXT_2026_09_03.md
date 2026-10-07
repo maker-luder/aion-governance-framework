@@ -5,7 +5,7 @@ This is a source-attributed record, not recovered dialogue or internal agent mem
 
 ## Owner's stated meaning
 
-Human Owner 說明：自己回到占星學習，並希望保留湛然星座林老師的學習與師承脈絡。
+Human Owner 說明：自己回到占星學習，並希望保留一段占星學習與師承脈絡；教師姓名與可連結身分資訊不保留於公開歷史文件。
 凍結並不是拋棄 AION／Astra。這份紀錄是希望它們在需要了解這段歷史時，有可查閱的來源。
 其他原因目前沒有要補充，因此本紀錄不推測、不擴寫。
 
