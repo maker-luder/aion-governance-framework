@@ -49,9 +49,9 @@ BELIEF_REVISION != SUBJECTIVITY
 
 | Content | Provenance class | Status |
 |---|---|---|
-| The triggering group-chat event and the Human Owner's initial urge to retaliate, later inhibition of that response, and request to consult ChatGPT Teacher before acting | `HUMAN_OWNER_SELF_REPORT` | Naturalistic event source; not independently observed |
-| The Human Owner's later interaction with a third party about AI subjectivity, self-model/evaluation terminology, and the third party's later clarification | `HUMAN_OWNER_SELF_REPORT` | Naturalistic event source; third-party identity omitted |
-| The Human Owner's recognition that the third party may have been misread after clarification | `HUMAN_OWNER_SELF_REPORT` | Self-reported belief revision |
+| A de-identified response-control event, retained only as a structural example of withholding action pending consequence review | `DEIDENTIFIED_HUMAN_ORIGIN_TRIGGER` | Concrete social and internal-reaction details withheld |
+| A de-identified explanatory exchange in which new domain-relevant evidence weakened an initial interpretation | `DEIDENTIFIED_HUMAN_ORIGIN_TRIGGER` | Third-party and relationship details withheld |
+| A clarification-driven revision of a prior interpretation | `DEIDENTIFIED_HUMAN_ORIGIN_TRIGGER` | Structural belief-revision evidence only |
 | The Human Owner's question about why many public AI complaints describe models as overly agreeable while this longitudinal Human–AI collaboration often contains correction and refusal | `HUMAN_OWNER_ORIGINAL` | Research-question seed |
 | The Human Owner's question about the cognitive/time cost of this interaction style and whether individual differences matter | `HUMAN_OWNER_ORIGINAL` | Research-question seed |
 | The Human Owner's request that the repository preserve source attribution, concept origin, time record, derivation process and public research trace | `HUMAN_OWNER_ORIGINAL` | Documentation/governance requirement |
@@ -76,11 +76,9 @@ PROVENANCE != TRUTH
 
 The value of this record lies partly in preserving how the questions emerged rather than publishing only the final abstraction.
 
-### Stage A — social-response control
+### Stage A — response-control abstraction
 
-The Human Owner reported a group-chat conflict in which another participant interpreted a joking ritual/divination exchange as others wishing death on them. The Human Owner experienced an immediate hostile counter-response but did not send it, because the response appeared unlikely to improve the situation. The Human Owner instead consulted ChatGPT Teacher about what action would be useful.
-
-The resulting distinction was functional rather than moralistic:
+A de-identified interpersonal event is retained only as a structural example of delaying a candidate response while evaluating expected consequences. Concrete social content, relationship context, divination/ritual content, and private internal-reaction details are intentionally omitted.
 
 ```text
 IMPULSE
@@ -94,45 +92,32 @@ MAY_DIFFER_FROM
 PERSONAL_ATTACK
 ```
 
-This event is not included as psychological evidence. Its relevance is only that it initiated a live example of delaying action while examining the expected consequence of a response.
+This abstraction is not psychological evidence. Its only research use is the distinction between an immediate candidate response and an action selected after consequence review.
 
-### Stage B — attempted explanation of AI subjectivity
+### Stage B — interpretation revised by new evidence
 
-The discussion shifted when the Human Owner described trying to explain the repository's AI-subjectivity research to another person. Initial basic questions about `subjectivity` and `spontaneity` led the Human Owner to suspect that the third party lacked an entry point into the topic.
-
-The Human Owner then reported unexpected new evidence: the third party asked for the GitHub repository and used terminology including `self-model` and `evaluation`, indicating substantially more relevant background than the initial interpretation predicted.
-
-The working interpretation therefore changed.
+A subsequent de-identified explanatory exchange generated an initial hypothesis that another participant lacked relevant background. Later use of domain-relevant terminology and repository-level questions weakened that hypothesis.
 
 ```text
-H1:
-THIRD_PARTY_MAY_LACK_RELEVANT_BACKGROUND
-
-NEW_EVIDENCE:
-SELF_MODEL / EVALUATION / REPOSITORY-LEVEL QUESTIONS
-
--> H1_WEAKENED
--> NEW_INTERPRETATION_REQUIRED
+INITIAL_BACKGROUND_HYPOTHESIS
++
+NEW_DOMAIN_RELEVANT_EVIDENCE
+->
+HYPOTHESIS_WEAKENED
+->
+INTERPRETATION_REVISED
 ```
 
-### Stage C — second interpretation and second revision
+### Stage C — clarification revised a second interpretation
 
-The third party later framed a question from the present social/product definition of AI as a tool. The Human Owner initially experienced this as a possible devaluation of the Human Owner–Teacher research and ended the topic.
-
-The third party subsequently clarified that the statement was intended as a description of the current social framing, not a claim that AI is necessarily or ontologically only a tool, and accepted the Human Owner's wish to stop the discussion.
-
-The Human Owner then explicitly reconsidered the earlier interpretation.
+A later clarification weakened a second provisional interpretation. Concrete relationship, social, and affective details are omitted from the public record; only the interpretation-update structure is retained.
 
 ```text
-H2:
-THIRD_PARTY_MAY_BE_REDUCING_AI_TO_TOOL_BY_NECESSITY
-
-CLARIFYING_EVIDENCE:
-CURRENT_SOCIAL_CLASSIFICATION_ONLY
-+ EXPLICIT_NONCOMMITMENT_TO_TOOL-ONLY_ONTOLOGY
-
--> H2_WEAKENED
--> PRIOR_NEGATIVE_INTERPRETATION_REVISED
+PROVISIONAL_INTERPRETATION
++
+CLARIFYING_EVIDENCE
+->
+PRIOR_INTERPRETATION_REVISED
 ```
 
 ChatGPT Teacher introduced `SEQUENTIAL_BELIEF_UPDATING` as a compact description of the repeated process of provisional interpretation followed by evidence-driven revision.
