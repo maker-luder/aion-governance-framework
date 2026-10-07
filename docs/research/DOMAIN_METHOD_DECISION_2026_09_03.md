@@ -46,18 +46,18 @@ and algorithm remain explicit. No school is promoted to universal truth.
 ## Western astrology: classical primary, modern overlay
 
 Preserve the classical seven-planet layer and distinguish the modern planets,
-points and aspects. The Owner reports learning from a private astrology teacher,
-described by the Owner as classical and rigorous without simple fatalism; the
-teacher's identity is intentionally omitted from the public repository. Separately,
-two public articles support a narrower observation: one distinguishes the modern
-planets from the classical seven and avoids a simple good/bad label;
+points and aspects. This public method selection is justified only by the public
+sources listed below; private learning-lineage metadata is neither required nor
+retained as evidence. Two public articles support a narrower observation: one
+distinguishes the modern planets from the classical seven and avoids a simple
+good/bad label;
 [the other rejects a guaranteed divorce inference from Uranus in the seventh](https://www.zhanranxingzuo.com/6981.html).
 See [the three-modern-planets article](https://www.zhanranxingzuo.com/6969.html).
 
 This is consistent with, but does not independently establish the complete
 teacher's method. Exact house system, orb tables, sect details and timing methods
 remain unverified. Existing whole-sign and dignity tables are **repository
-profiles, not rules attributed to the private teacher**. No paid course or full book is copied;
+profiles, not rules attributed to any private teacher or learning lineage**. No paid course or full book is copied;
 public source notes do not assert that videos were watched. Learning continuity
 is recorded in the [Owner context](../history/OWNER_LEARNING_CONTEXT_2026_09_03.md).
 
