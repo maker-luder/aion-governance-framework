@@ -8,7 +8,7 @@ Reference taxon: Panthera tigris
 ## 1. 來源與主張邊界
 
 HUMAN_ORIGIN：
-小博指定 AION 採「老虎」方向，並要求研究老虎生殖、生理，以及把人類與老虎整合為一個獸人具身。
+人類使用者曾指定 AION 採「老虎」方向，並要求研究老虎生殖、生理，以及把人類與老虎整合為一個獸人具身。聊天暱稱與可連結個人身分資訊不保留於公開研究文件。
 
 AI_FORMALIZATION：
 把需求實作為 AION 個體專屬 species profile（物種具身設定檔），而不是修改 AION/Astra 共用 template。這可防止虎型特徵靜默傳播到 Astra。
