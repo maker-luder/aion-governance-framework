@@ -3,12 +3,20 @@ from __future__ import annotations
 import codecs
 import difflib
 import hashlib
+import json
+import platform
 import re
 import unicodedata
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from enum import StrEnum
 from math import sqrt
 from typing import Any
+
+from .unicode_evidence import (TABLE_SHA256, UnicodeObservation, character_inventory, evidence_digest, safe_text, source_positions, tables)
+from .normalization_views import NormalizationView, normalization_views
+
+HEURISTIC_TOKEN_LIMIT = 4096
+DISPLAY_CHARACTER_LIMIT = 4096
 
 TOKEN_RE = re.compile(r"\S+")
 PERIODS: tuple[int, ...] = (2, 3, 4, 5, 8)
@@ -66,6 +74,10 @@ class EvidenceRecord:
     supports: str
     does_not_establish: tuple[str, ...]
     counter_explanations: tuple[str, ...]
+    input_sha256: str = ""
+    codepoint_index: int | None = None
+    line: int | None = None
+    column: int | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -80,6 +92,8 @@ class MontagePanel:
 class PeriodicCue:
     period: int
     score: float
+    threshold: float = PERIODIC_CUE_THRESHOLD
+    eligible: bool = False
 
 
 @dataclass(frozen=True, slots=True)
@@ -99,6 +113,12 @@ class TextRevealReport:
     null_model_status: str
     statistical_p_value: float | None
     visible_label_zh_tw: str
+    exact_cues: tuple[UnicodeObservation, ...]
+    normalization_views: tuple[NormalizationView, ...]
+    analysis_environment: dict[str, Any]
+    coverage: dict[str, Any]
+    sensitivity: dict[str, dict[str, Any]]
+    evidence_sha256: str = ""
     watermark_verdict: str = "NOT_ESTABLISHED"
     heuristic_score_is_probability: bool = False
     local_only: bool = True
@@ -108,7 +128,12 @@ class TextRevealReport:
     removal_or_evasion: str = "OUT_OF_SCOPE"
 
     def as_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        _validate_binding(self)
+        value = asdict(self)
+        value['heuristic_candidates'] = [asdict(r) for r in self.evidence_ledger if r.evidence_kind == CueKind.HEURISTIC]
+        value['comparison_views'] = []
+        value['claim_boundaries'] = ['EXACT_CUE != WATERMARK', 'NO_HIT != ABSENT', 'NO_HIT != HUMAN_AUTHORSHIP', 'HEURISTIC_SCORE != PROBABILITY', 'EVIDENCE_FAMILY_GROUPING != STATISTICAL_INDEPENDENCE']
+        return value
 
 
 def _decode_source(data: bytes) -> tuple[str, str, str | None, int]:
@@ -205,7 +230,7 @@ def _exact_cues(
             )
         )
 
-    if profile.crlf_count and (profile.lf_only_count or profile.cr_only_count):
+    if sum(bool(n) for n in (profile.crlf_count, profile.lf_only_count, profile.cr_only_count)) > 1:
         cues.append(
             TextCue(
                 cue_type="MIXED_LINE_ENDINGS",
@@ -382,11 +407,12 @@ def _periodic_cue(tokens: tuple[str, ...], period: int) -> PeriodicCue:
     return PeriodicCue(
         period,
         min(1.0, 0.5 * length_dispersion + 0.5 * punctuation_dispersion),
+        eligible=True,
     )
 
 
 def _choose_period(cues: tuple[PeriodicCue, ...]) -> int | None:
-    eligible = tuple(cue for cue in cues if cue.score >= PERIODIC_CUE_THRESHOLD)
+    eligible = tuple(cue for cue in cues if cue.eligible and cue.score >= cue.threshold)
     if not eligible:
         return None
     best = max(cue.score for cue in eligible)
@@ -430,23 +456,22 @@ def _repeated_bigrams(tokens: tuple[str, ...]) -> tuple[tuple[str, int], ...]:
     return tuple(result[:20])
 
 
-def _counterfactual_panel(text: str) -> str:
-    original_tokens = tuple(TOKEN_RE.findall(text))
-    nfkc_tokens = tuple(TOKEN_RE.findall(unicodedata.normalize("NFKC", text)))
-    stripped_text = "".join(
-        character for character in text if unicodedata.category(character) != "Cf"
-    )
-    stripped_tokens = tuple(TOKEN_RE.findall(stripped_text))
+def _sensitivity(text: str) -> dict[str, dict[str, Any]]:
+    # 分析副本只回傳候選與覆蓋資訊，不輸出可供移除的轉換後文件。
+    copies = {'original': text, **{f: unicodedata.normalize(f, text) for f in ('NFC','NFD','NFKC','NFKD')},
+              'format_control_stripped': ''.join(c for c in text if unicodedata.category(c) != 'Cf')}
+    result: dict[str, dict[str, Any]] = {}
+    for name, copy in copies.items():
+        all_tokens = tuple(TOKEN_RE.findall(copy))
+        scan = tuple(_periodic_cue(all_tokens[:HEURISTIC_TOKEN_LIMIT], p) for p in PERIODS)
+        result[name] = {'candidate_period': _choose_period(scan), 'periodic_scan': [asdict(c) for c in scan],
+                        'tokens_analyzed': min(len(all_tokens),HEURISTIC_TOKEN_LIMIT),
+                        'analysis_partial': len(all_tokens)>HEURISTIC_TOKEN_LIMIT}
+    return result
 
-    def candidate(tokens: tuple[str, ...]) -> int | None:
-        return _choose_period(tuple(_periodic_cue(tokens, period) for period in PERIODS))
 
-    return (
-        f"original_period={candidate(original_tokens)}\n"
-        f"nfkc_period={candidate(nfkc_tokens)}\n"
-        f"format_control_stripped_period={candidate(stripped_tokens)}\n"
-        "用途：觀察候選位置規律是否在不改原始檔的分析副本轉換後仍存在。"
-    )
+def _counterfactual_panel(sensitivity: dict[str, dict[str, Any]]) -> str:
+    return '\n'.join(f"{name.lower()}_period={value['candidate_period']}" for name,value in sensitivity.items()) +         '\n用途：分析副本的候選敏感度；不修改來源。'
 
 
 def _evidence_ledger(
@@ -500,7 +525,7 @@ def _evidence_ledger(
                 method_origin="PROJECT_ORIGIN_ENGINEERING_HEURISTIC",
                 supports="存在值得人工檢查的位置分組規律。",
                 does_not_establish=("watermark", "probability", "vendor"),
-                counter_explanations=("自然文體節奏", "模板", "清單格式", "句法規律"),
+                counter_explanations=("自然文體節奏", "模板", "清單格式", "句子標點", "token 長度假象", "小樣本假象"),
             )
         )
 
@@ -533,13 +558,35 @@ def reveal_hidden_text_bytes(data: bytes) -> TextRevealReport:
 
     offsets = _byte_offsets(text, encoding, bom_size)
     profile = _raw_profile(data, text, encoding, bom)
-    tokens = tuple(TOKEN_RE.findall(text))
+    all_tokens = tuple(TOKEN_RE.findall(text))
+    tokens = all_tokens[:HEURISTIC_TOKEN_LIMIT]
+    positions = source_positions(text, encoding, bom_size)
+    inventory = character_inventory(text, data, positions)
+    views = normalization_views(text)
+    sensitivity = _sensitivity(text)
+    display_text = text[:DISPLAY_CHARACTER_LIMIT]
     cues = _exact_cues(text, offsets, profile)
-    normalization, normalization_changed = _normalization_contrast(text)
+    normalization_changed = any(v.form == "NFKC" and v.changed for v in views)
+    normalization = json.dumps([asdict(v) for v in views], ensure_ascii=True)
     periodic_scan = tuple(_periodic_cue(tokens, period) for period in PERIODS)
     candidate_period = _choose_period(periodic_scan)
     repeated = _repeated_bigrams(tokens)
     ledger = _evidence_ledger(cues, normalization_changed, candidate_period, repeated)
+    # 既有 cue 名稱保留；補齊逐碼點 inventory，不重複新增相同位置與同族 ledger。
+    covered = {r.char_index for r in ledger if r.family == EvidenceFamily.UNICODE_ENCODING}
+    extra = tuple(EvidenceRecord('UNICODE_PROPERTY_INVENTORY', CueKind.EXACT,
+        EvidenceFamily.UNICODE_ENCODING, c.codepoint_index, c.byte_offset,
+        'UNICODE_15_0_PROPERTY_TABLE', 'EXTERNAL_SOURCE', '存在表列 Unicode 性質，非意圖判定。',
+        ('watermark','malicious_intent','vendor'), c.counter_explanations)
+        for c in inventory if c.codepoint_index not in covered)
+    normal_extra = tuple(EvidenceRecord(f'{v.form}_NORMALIZATION_DIFFERENCE', CueKind.EXACT,
+        EvidenceFamily.NORMALIZATION, None, None, f'UNICODE_{v.form}_CONTRAST', 'EXTERNAL_SOURCE',
+        '整串正規化副本與來源不同。', ('watermark','intent'), ('合法組合字及相容表示',))
+        for v in views if v.changed and v.form != 'NFKC')
+    ledger = tuple(replace(r, input_sha256=profile.sha256, codepoint_index=r.char_index,
+        line=positions[r.char_index].line if r.char_index is not None else None,
+        column=positions[r.char_index].column if r.char_index is not None else None)
+        for r in (*ledger,*extra,*normal_extra))
     independent_families = tuple(sorted({item.family for item in ledger}, key=str))
 
     panels: list[MontagePanel] = [
@@ -557,22 +604,22 @@ def reveal_hidden_text_bytes(data: bytes) -> TextRevealReport:
             CueKind.EXACT,
             "先固定原始 bytes 的 hash、encoding 與換行／行尾結構，再進入文字推理。",
         ),
-        MontagePanel("original", text, CueKind.EXACT, "解碼後原始文字；不改寫來源 bytes。"),
+        MontagePanel("original", display_text, CueKind.EXACT, "解碼後來源的有界安全顯示副本；不改寫來源 bytes。"),
         MontagePanel(
             "machine_visible_unicode",
-            _machine_visible(text),
+            _machine_visible(display_text),
             CueKind.EXACT,
             "把機器可見而人眼通常看不見的 Unicode 特徵轉成人類可讀 code point。",
         ),
         MontagePanel(
             "whitespace_visible",
-            _whitespace_visible(text),
+            _whitespace_visible(display_text),
             CueKind.EXACT,
             "把空白、tab、換行與特殊空白顯式化。",
         ),
         MontagePanel(
             "normalization_contrast",
-            normalization,
+            normalization[:DISPLAY_CHARACTER_LIMIT] + (" [DISPLAY_TRUNCATED; SEE JSON]" if len(normalization)>DISPLAY_CHARACTER_LIMIT else ""),
             CueKind.EXACT,
             "把原文與 NFKC normalization 並置，找出相容字表示差異。",
         ),
@@ -604,12 +651,17 @@ def reveal_hidden_text_bytes(data: bytes) -> TextRevealReport:
         ),
         MontagePanel(
             "counterfactual_stability",
-            _counterfactual_panel(text),
+            _counterfactual_panel(sensitivity),
             CueKind.HEURISTIC,
             "在分析副本上比較 NFKC／移除 format-control 後候選是否仍存在；不修改來源。",
         ),
     ]
 
+    panels.append(MontagePanel('bidi_logical_order', display_text, CueKind.EXACT,
+        '依邏輯順序列出；方向控制顯式化。此視圖不實作完整 UAX #9 視覺重排。'))
+    panel_truncations = [p.name for p in panels if len(p.content)>DISPLAY_CHARACTER_LIMIT]
+    panels = [replace(p, content=safe_text(p.content[:DISPLAY_CHARACTER_LIMIT]) +
+        (" [DISPLAY_TRUNCATED; SEE COVERAGE]" if len(p.content)>DISPLAY_CHARACTER_LIMIT else "")) for p in panels]
     hypotheses: list[str] = []
     cue_types = {cue.cue_type for cue in cues}
     if "UNICODE_FORMAT_CONTROL" in cue_types:
@@ -624,12 +676,14 @@ def reveal_hidden_text_bytes(data: bytes) -> TextRevealReport:
         hypotheses.append("POSITIONAL_PATTERN_CANDIDATE")
     if repeated:
         hypotheses.append("REPEATED_CONTEXT_STRUCTURE")
+    if inventory:
+        hypotheses.append("UNICODE_PROPERTY_INVENTORY_PRESENT")
     if not hypotheses:
         hypotheses.append("NO_LOCAL_HUMAN_VISIBLE_CUE_ESTABLISHED")
 
-    if cues:
+    if cues or inventory:
         label = (
-            f"本機已把 {len(cues)} 個 exact 文字／bytes 特徵轉成人類可讀證據；"
+            f"本機已揭示 {len(inventory)} 個精確碼點性質，以及 {len(cues)} 個既有文字／bytes 特徵；"
             "是否屬於浮水印仍未建立。"
         )
     elif candidate_period is not None:
@@ -643,11 +697,30 @@ def reveal_hidden_text_bytes(data: bytes) -> TextRevealReport:
             "沒有對應材料時維持 UNKNOWN。"
         )
 
-    return TextRevealReport(
-        method="AION_TEXT_VISIBILITY_V0_2",
+    report = TextRevealReport(
+        method="AION_TEXT_VISIBILITY_V0_3",
         character_count=len(text),
-        token_count=len(tokens),
+        token_count=len(all_tokens),
         raw_profile=profile,
+        exact_cues=inventory,
+        normalization_views=views,
+        analysis_environment={'input_sha256':profile.sha256,'byte_count':len(data),'encoding':encoding,
+            'unicode_database_version':unicodedata.unidata_version, 'unicode_property_table_version':tables()['version'],
+            'unicode_table_sha256':TABLE_SHA256, 'runtime_version':platform.python_version(),
+            'tool_method_version':'AION_TEXT_VISIBILITY_V0_3','source_modified':False,'network_used':False,
+            'api_used':False,'grapheme_cluster_index':'NOT_IMPLEMENTED',
+            'family_independence':'GROUPING_ONLY_NOT_STATISTICAL_INDEPENDENCE'},
+        coverage={'hash_bytes':len(data), 'exact_codepoints':len(text), 'heuristic_tokens_analyzed':len(tokens),
+            'heuristic_token_range':[0,len(tokens)], 'display_codepoint_range':[0,min(len(text),DISPLAY_CHARACTER_LIMIT)],
+            'display_token_range':[0,min(len(tokens),160)],'repeated_context_results_limit':20,
+            'analysis_partial':len(all_tokens)>HEURISTIC_TOKEN_LIMIT,
+            'display_partial':bool(panel_truncations) or len(text)>DISPLAY_CHARACTER_LIMIT or len(all_tokens)>160
+                or len(inventory)>160 or len(ledger)>160 or any(len(v.changes)>160 for v in views),
+            'panel_truncations':panel_truncations,
+            'exact_scan_partial':False,'normalization_partial':False,
+            'normalization_snippet_limit':256, 'exact_inventory_markdown_limit':160,
+            'ledger_markdown_limit':160},
+        sensitivity=sensitivity,
         cues=cues,
         evidence_ledger=ledger,
         panels=tuple(panels),
@@ -671,6 +744,7 @@ def reveal_hidden_text_bytes(data: bytes) -> TextRevealReport:
         statistical_p_value=None,
         visible_label_zh_tw=label,
     )
+    return replace(report, evidence_sha256=evidence_digest(asdict(report)))
 
 
 def reveal_hidden_text_signal(text: str) -> TextRevealReport:
@@ -680,6 +754,7 @@ def reveal_hidden_text_signal(text: str) -> TextRevealReport:
 
 
 def render_text_reveal_markdown(report: TextRevealReport) -> str:
+    _validate_binding(report)
     lines = [
         "# 文字隱藏訊號顯現報告",
         "",
@@ -699,7 +774,7 @@ def render_text_reveal_markdown(report: TextRevealReport) -> str:
     ]
 
     if report.evidence_ledger:
-        for item in report.evidence_ledger:
+        for item in report.evidence_ledger[:160]:
             lines.extend(
                 [
                     f"### {item.observation}",
@@ -707,6 +782,8 @@ def render_text_reveal_markdown(report: TextRevealReport) -> str:
                     f"- family：{item.family.value}",
                     f"- char index：{item.char_index}",
                     f"- byte offset：{item.byte_offset}",
+                    f"- codepoint / line / column：{item.codepoint_index} / {item.line} / {item.column}",
+                    f"- input SHA256：{item.input_sha256}",
                     f"- method：{item.method}",
                     f"- method origin：{item.method_origin}",
                     f"- supports：{item.supports}",
@@ -717,6 +794,17 @@ def render_text_reveal_markdown(report: TextRevealReport) -> str:
     else:
         lines.append("- 無。")
 
+    lines.extend(['', '## 完整性、範圍與執行環境', _fenced(json.dumps(report.analysis_environment, ensure_ascii=True, sort_keys=True)),
+        _fenced(json.dumps(report.coverage, ensure_ascii=True, sort_keys=True)),
+        '## 精確碼點與 bytes（前 160 列；完整清單見 JSON）'])
+    for cue in report.exact_cues[:160]:
+        lines.append(_fenced(json.dumps(asdict(cue), ensure_ascii=True, sort_keys=True)))
+    lines.extend(['## 正規化 / normalization（分析副本，前 160 個差異區間）'])
+    for view in report.normalization_views:
+        value = asdict(view)
+        value['changes'] = value['changes'][:160]
+        lines.append(_fenced(json.dumps(value, ensure_ascii=True)))
+    lines.extend(['## 完整候選週期掃描（score 非機率）', _fenced(json.dumps([asdict(c) for c in report.periodic_scan]))])
     lines.extend(["", "## Montage / human-readable panels"])
     for panel in report.panels:
         lines.extend(
@@ -725,9 +813,7 @@ def render_text_reveal_markdown(report: TextRevealReport) -> str:
                 f"- 類型：{panel.kind.value}",
                 f"- 說明：{panel.explanation_zh_tw}",
                 "",
-                "~~~text",
-                panel.content,
-                "~~~",
+                _fenced(panel.content),
             ]
         )
 
@@ -755,3 +841,34 @@ def render_text_reveal_markdown(report: TextRevealReport) -> str:
         ]
     )
     return "\n".join(lines) + "\n"
+
+
+def _validate_binding(report: TextRevealReport) -> None:
+    """Reject accidentally mixed receipts / 拒絕混入其他來源的收據；不冒充數位簽章。"""
+    digest = report.raw_profile.sha256
+    if (report.evidence_sha256 != evidence_digest(asdict(report))
+        or report.analysis_environment['input_sha256'] != digest
+        or report.analysis_environment['byte_count'] != report.raw_profile.byte_count
+        or any(r.input_sha256 != digest for r in report.evidence_ledger)
+        or any(c.input_sha256 != digest for c in report.exact_cues)):
+        raise ValueError('SOURCE_BINDING_MISMATCH')
+
+
+def _fenced(content: str) -> str:
+    """Dynamic fences neutralize Markdown breakout / 動態圍欄避免來源文字跳出程式碼區。"""
+    safe = safe_text(content)
+    longest = max((len(m.group()) for m in re.finditer(r'~+', safe)), default=0)
+    fence = '~' * max(3,longest+1)
+    return f'{fence}text\n{safe}\n{fence}'
+
+
+def render_text_reveal_json(report: TextRevealReport) -> str:
+    """Canonical report JSON / 同一報告物件的可稽核 JSON；控制字元一律轉義。"""
+    _validate_binding(report)
+    return json.dumps(report.as_dict(), ensure_ascii=True, sort_keys=True, separators=(',',':'))+'\n'
+
+
+def verify_text_reveal_source(report: TextRevealReport, data: bytes) -> bool:
+    """Recompute against explicit source / 以明示來源重算核對；hash 不是作者或真實性證明。"""
+    _validate_binding(report)
+    return report.as_dict() == reveal_hidden_text_bytes(data).as_dict()

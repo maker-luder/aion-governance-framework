@@ -10,3 +10,6 @@ requires-python = ">=3.11"
 
 [tool.mypy]
 strict = true
+
+[tool.setuptools.package-data]
+aion_provenance_visibility_agent = ["unicode_tables.json", "UNICODE_LICENSE.txt"]
