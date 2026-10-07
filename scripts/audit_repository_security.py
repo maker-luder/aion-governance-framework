@@ -19,6 +19,7 @@ REQUIRED_SECURITY_DOCS = (
     "PUBLIC_RELEASE_SECURITY_SCAN.md",
     "qa/SECRET_SCAN_REPORT.md",
     "docs/security/READ_ONLY_REPOSITORY_SECURITY_AUDIT.md",
+    "docs/security/PUBLIC_PRIVACY_MINIMIZATION.md",
 )
 BOUNDARY_MARKERS = (
     "READ_ONLY",
@@ -30,6 +31,22 @@ SECRET_PATTERNS = (
     ("PRIVATE_KEY_MATERIAL", re.compile(rb"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----")),
     ("GITHUB_TOKEN", re.compile(rb"\bgh[pousr]_[A-Za-z0-9]{20,}\b")),
     ("AWS_ACCESS_KEY", re.compile(rb"\bAKIA[0-9A-Z]{16}\b")),
+)
+EMAIL_PATTERN = re.compile(rb"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
+HUMAN_ORIGIN_SECTION = re.compile(r"(?m)^HUMAN_ORIGIN[：:]\s*\n([^\n]+)")
+GENERIC_HUMAN_ORIGIN_PREFIXES = (
+    "HUMAN_USER",
+    "HUMAN_OWNER",
+    "Human user",
+    "Human Owner",
+    "human user",
+    "human owner",
+    "人類使用者",
+    "使用者",
+)
+EXTERNAL_SOURCE_PATH_MARKERS = (
+    "/sources/",
+    "sources/",
 )
 DOWNLOAD_PATTERN = re.compile(
     r"(?i)(?:curl|wget|invoke-webrequest|download|pip\s+install|npm\s+install).{0,160}https?://"
@@ -109,6 +126,25 @@ def _line_number(data: bytes, offset: int) -> int:
     return data.count(b"\n", 0, offset) + 1
 
 
+def _text_line_number(text: str, offset: int) -> int:
+    return text.count("\n", 0, offset) + 1
+
+
+def _privacy_preserving_git_email(email: str) -> bool:
+    normalized = email.strip().lower()
+    return (
+        not normalized
+        or normalized == "noreply@github.com"
+        or normalized.endswith("@users.noreply.github.com")
+        or normalized.endswith(".invalid")
+    )
+
+
+def _is_external_source_path(relative: str) -> bool:
+    normalized = "/" + relative.replace("\\", "/").lstrip("/")
+    return any(marker in normalized for marker in EXTERNAL_SOURCE_PATH_MARKERS)
+
+
 def _relative_link_exists(entries: dict[str, TreeEntry], source_relative: str, target: str) -> bool:
     clean = target.split("#", 1)[0].split("?", 1)[0].strip().replace("\\", "/")
     if not clean or clean.startswith("#") or URI_SCHEME.match(clean):
@@ -159,6 +195,18 @@ def audit_repository(root: Path) -> dict[str, object]:
     tree_sha = _git(root, "rev-parse", "HEAD^{tree}")
     entries = _head_tree_entries(root)
     findings: list[Finding] = []
+
+    head_author_email = _git(root, "show", "-s", "--format=%ae", "HEAD")
+    if not _privacy_preserving_git_email(head_author_email):
+        findings.append(
+            Finding(
+                "HEAD_AUTHOR_EMAIL_PRIVACY",
+                "MEDIUM",
+                "<git-metadata>",
+                "HEAD author email is not a privacy-preserving noreply address; value intentionally omitted",
+            )
+        )
+
     external_download_refs: list[str] = []
     blob_cache: dict[str, bytes] = {}
 
@@ -182,6 +230,33 @@ def audit_repository(root: Path) -> dict[str, object]:
         if b"\x00" in data or len(data) > 2_000_000:
             continue
         text = data.decode("utf-8", errors="replace")
+
+        if not _is_external_source_path(relative):
+            for match in EMAIL_PATTERN.finditer(data):
+                candidate = match.group(0).decode("utf-8", errors="replace")
+                if _privacy_preserving_git_email(candidate):
+                    continue
+                findings.append(
+                    Finding(
+                        "PUBLIC_CONTACT_IDENTIFIER",
+                        "MEDIUM",
+                        relative,
+                        f"line={_line_number(data, match.start())}; email-like value omitted",
+                    )
+                )
+
+        for match in HUMAN_ORIGIN_SECTION.finditer(text):
+            actor_line = match.group(1).strip()
+            if not actor_line.startswith(GENERIC_HUMAN_ORIGIN_PREFIXES):
+                findings.append(
+                    Finding(
+                        "NON_GENERIC_HUMAN_ORIGIN_LABEL",
+                        "MEDIUM",
+                        relative,
+                        f"line={_text_line_number(text, match.start(1))}; use a generic public actor label",
+                    )
+                )
+
         if DOWNLOAD_PATTERN.search(text):
             external_download_refs.append(relative)
 
@@ -246,6 +321,9 @@ def audit_repository(root: Path) -> dict[str, object]:
             "security_doc_relative_links": True,
             "external_download_instruction_inventory": True,
             "exact_head_object_scan": True,
+            "head_author_email_privacy": True,
+            "public_contact_identifier_review": True,
+            "generic_human_origin_actor_labels": True,
         },
         "external_download_reference_paths": sorted(set(external_download_refs)),
         "findings": [asdict(item) for item in ordered],
