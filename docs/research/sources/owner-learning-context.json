@@ -3,7 +3,7 @@
   "record_type": "GOVERNED_KNOWLEDGE_SOURCE",
   "source_id": "owner-learning-context-2026-09-03",
   "source_title": "Owner learning context, 2026-09-03",
-  "source_version": "1",
+  "source_version": "2",
   "domain": "OTHER_DECLARED",
   "source_class": "OTHER_REFERENCE",
   "source_declared_status": "OWNER_REPORTED_HISTORY_NOT_INTERNAL_AGENT_MEMORY",
@@ -13,7 +13,7 @@
     "kind": "REPOSITORY_FILE",
     "locator": "docs/history/OWNER_LEARNING_CONTEXT_2026_09_03.md"
   },
-  "content_hash": "sha256:02d853d0991339d87366abbe1dcae47cc9da01494c23e64eded79c5ea4327065",
+  "content_hash": "sha256:b3d134d4c8b6c785cbb47d2b4e5d524144d102c51dc3a1fc7678ab3561946401",
   "verification_policy": "SOURCE_GROUNDED",
   "freshness_policy": "VERSION_BOUND",
   "allowed_agents": [
