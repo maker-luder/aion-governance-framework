@@ -82,6 +82,37 @@ def test_unexpected_binary_and_high_confidence_secret_are_reported(tmp_path: Pat
     assert receipt["high_or_critical_count"] == 2
 
 
+def test_non_noreply_head_author_email_is_reported_without_disclosing_value(tmp_path: Path) -> None:
+    root = repository(tmp_path)
+    synthetic_email = "privacy-fixture" + "@" + "example.com"
+    git(root, "config", "user.email", synthetic_email)
+    (root / "touch.txt").write_text("privacy metadata fixture\n", encoding="utf-8")
+    git(root, "add", ".")
+    git(root, "commit", "-qm", "privacy metadata fixture")
+
+    findings = audit_repository(root)["findings"]
+    matches = [item for item in findings if item["check"] == "HEAD_AUTHOR_EMAIL_PRIVACY"]
+    assert len(matches) == 1
+    assert synthetic_email not in matches[0]["detail"]
+
+
+def test_public_contact_and_named_human_origin_require_review(tmp_path: Path) -> None:
+    root = repository(tmp_path)
+    synthetic_email = "privacy-fixture" + "@" + "example.com"
+    (root / "privacy-note.md").write_text(
+        "HUMAN_ORIGIN：\nPrivateAlias指定某研究方向。\ncontact=" + synthetic_email + "\n",
+        encoding="utf-8",
+    )
+    git(root, "add", ".")
+    git(root, "commit", "-qm", "privacy content fixture")
+
+    findings = audit_repository(root)["findings"]
+    checks = {item["check"] for item in findings}
+    assert "PUBLIC_CONTACT_IDENTIFIER" in checks
+    assert "NON_GENERIC_HUMAN_ORIGIN_LABEL" in checks
+    assert all(synthetic_email not in item["detail"] for item in findings)
+
+
 def test_missing_security_doc_and_workflow_permission_are_reported(tmp_path: Path) -> None:
     root = repository(tmp_path)
     (root / REQUIRED_SECURITY_DOCS[0]).unlink()
