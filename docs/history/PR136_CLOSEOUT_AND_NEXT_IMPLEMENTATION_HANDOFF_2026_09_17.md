@@ -187,9 +187,9 @@ The final review additionally requires resolving §3.5 hash semantics and §3.6 
 
 ## 5. Temporal provenance and causal-identification extension
 
-The Human Owner then contributed an additional direction from prior real-world governance experience: when handling group complaints, reconstructing a time-ordered event context helped participants avoid judging beyond the available evidence.
+A de-identified prior governance example contributed an additional methodological direction: reconstructing a time-ordered event context can help reduce judgments that exceed the available evidence.
 
-That observation is recorded here only as a Human Owner-origin method intuition. The proposed formalization below is a ChatGPT Teacher working formulation and is not yet an accepted scientific construct.
+The public record intentionally omits role, workplace/community context, participant identities, and relationship details. The observation is retained only as a Human-origin method intuition. The proposed formalization below is a ChatGPT Teacher working formulation and is not yet an accepted scientific construct.
 
 Working label:
 
